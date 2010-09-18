@@ -91,7 +91,7 @@ class Currency
      * @param  string|array       $options OPTIONAL Options array or currency short name
      *                                              when string is given
      * @param  string|Zend\Locale\Locale $locale  OPTIONAL locale name
-     * @throws Zend\Currency\Exception   When currency is invalid
+     * @throws Zend\Currency\Exception\InvalidArgumentException   When currency is invalid
      */
     public function __construct($options = null, $locale = null)
     {
@@ -119,7 +119,7 @@ class Currency
         }
 
         if (($this->_options['currency'] === null) and ($this->_options['name'] === null)) {
-            throw new Currency\Exception("Currency '$options' not found");
+            throw new Exception\InvalidArgumentException(("Currency '$options' not found"));
         }
 
         // Get the format
@@ -135,7 +135,7 @@ class Currency
      *
      * @param  integer|float $value   OPTIONAL Currency value
      * @param  array         $options OPTIONAL options to set temporary
-     * @throws Zend\Currency\Exception When the value is not a number
+     * @throws Zend\Currency\Exception\InvalidArgumentException When the value is not a number
      * @return string
      */
     public function toCurrency($value = null, array $options = array())
@@ -157,7 +157,7 @@ class Currency
 
         // Validate the passed number
         if (!(isset($value)) or (is_numeric($value) === false)) {
-            throw new Currency\Exception("Value '$value' has to be numeric");
+            throw new Exception\InvalidArgumentException("Value '$value' has to be numeric");
         }
 
         if (isset($options['currency'])) {
@@ -292,7 +292,7 @@ class Currency
      *
      * @param  string                    $currency (Optional) Currency name
      * @param  string|Zend\Locale\Locale $locale   (Optional) Locale to display informations
-     * @throws Zend\Currency\Exception   When locale contains no region
+     * @throws Zend\Currency\Exception\RuntimeException   When locale contains no region
      * @return string The extracted locale representation as string
      */
     private function _checkParams($currency = null, $locale = null)
@@ -309,7 +309,7 @@ class Currency
         if ((Locale\Locale::isLocale($locale, true, false)) and (strlen($locale) > 4)) {
             $country = substr($locale, (strpos($locale, '_') + 1));
         } else {
-            throw new Currency\Exception("No region found within the locale '" . (string) $locale . "'");
+            throw new Exception\RuntimeException("No region found within the locale '" . (string) $locale . "'");
         }
 
         // Get the available currencies for this country
@@ -419,7 +419,7 @@ class Currency
      * Returns a list of regions where this currency is or was known
      *
      * @param  string $currency OPTIONAL Currency's short name
-     * @throws Zend\Currency\Exception When no currency was defined
+     * @throws Zend\Currency\Exception\InvalidArgumentException When no currency was defined
      * @return array List of regions
      */
     public function getRegionList($currency = null)
@@ -429,7 +429,7 @@ class Currency
         }
 
         if (empty($currency) === true) {
-            throw new Currency\Exception('No currency defined');
+            throw new Exception\InvalidArgumentException('No currency defined');
         }
 
         $data = Data::getContent('', 'regiontocurrency', $currency);
@@ -534,7 +534,7 @@ class Currency
      * 'xx_YY' will be set to 'root' because 'xx' does not exist
      *
      * @param  string|Zend\Locale\Locale $locale (Optional) Locale for parsing input
-     * @throws Zend\Currency\Exception When the given locale does not exist
+     * @throws Zend\Currency\Exception\RuntimeException When the given locale does not exist
      * @return Zend\Currency Provides fluent interface
      */
     public function setLocale($locale = null)
@@ -544,10 +544,10 @@ class Currency
             if (strlen($locale) > 4) {
                 $this->_options['locale'] = $locale;
             } else {
-                throw new Currency\Exception("No region found within the locale '" . (string) $locale . "'");
+                throw new Exception\RuntimeException("No region found within the locale '" . (string) $locale . "'");
             }
         } catch (Locale\Exception $e) {
-            throw new Currency\Exception($e->getMessage());
+            throw new RuntimeException($e->getMessage(),$e->getCode(), $e);
         }
 
         // Get currency details
@@ -753,7 +753,7 @@ class Currency
         if ($currency !== $this->getShortName()) {
             $service = $this->getService();
             if (!($service instanceof CurrencyService)) {
-                throw new Currency\Exception('No exchange service applied');
+                throw new InvalidArgumentException('No exchange service applied');
             }
 
             $rate = $service->getRate($currency, $this->getShortName());
@@ -783,13 +783,13 @@ class Currency
     {
         if (is_string($service)) {
             if (!class_exists($service)) {
-                throw new Currency\Exception('A currency service by class name "' . $service . '" does not exist');
+                throw new RuntimeException('A currency service by class name "' . $service . '" does not exist');
             }
             $service = new $service;
         }
 
         if (!($service instanceof CurrencyService)) {
-            throw new Currency\Exception('A currency service must implement Zend\Currency\CurrencyService');
+            throw new RuntimeException('A currency service must implement Zend\Currency\CurrencyService');
         }
 
         $this->_options['service'] = $service;
@@ -800,12 +800,12 @@ class Currency
      * Internal method for checking the options array
      *
      * @param  array $options Options to check
-     * @throws Zend\Currency\Exception On unknown position
-     * @throws Zend\Currency\Exception On unknown locale
-     * @throws Zend\Currency\Exception On unknown display
-     * @throws Zend\Currency\Exception On precision not between -1 and 30
-     * @throws Zend\Currency\Exception On problem with script conversion
-     * @throws Zend\Currency\Exception On unknown options
+     * @throws Zend\Currency\Exception\InvalidArgumentException On unknown position
+     * @throws Zend\Currency\Exception\InvalidArgumentException On unknown locale
+     * @throws Zend\Currency\Exception\InvalidArgumentException On unknown display
+     * @throws Zend\Currency\Exception\InvalidArgumentException On precision not between -1 and 30
+     * @throws Zend\Currency\Exception\InvalidArgumentException On problem with script conversion
+     * @throws Zend\Currency\Exception\InvalidArgumentException On unknown options
      * @return array
      */
     protected function _checkOptions(array $options = array())
@@ -825,7 +825,7 @@ class Currency
             switch($name) {
                 case 'position':
                     if (($value !== self::STANDARD) and ($value !== self::RIGHT) and ($value !== self::LEFT)) {
-                        throw new Currency\Exception("Unknown position '" . $value . "'");
+                        throw new Exception\InvalidArgumentException("Unknown position '" . $value . "'");
                     }
 
                     break;
@@ -833,7 +833,7 @@ class Currency
                 case 'format':
                     if ((empty($value) === false) and (Locale\Locale::isLocale($value, null, false) === false)) {
                         if (!is_string($value) || (strpos($value, '0') === false)) {
-                            throw new Currency\Exception('\''
+                            throw new Exception\InvalidArgumentException('\''
                                               . ((gettype($value) === 'object') ? get_class($value) : $value)
                                               . '\' is no format token');
                         }
@@ -843,7 +843,7 @@ class Currency
                 case 'display':
                     if (is_numeric($value) and ($value !== self::NO_SYMBOL) and ($value !== self::USE_SYMBOL) and
                         ($value !== self::USE_SHORTNAME) and ($value !== self::USE_NAME)) {
-                        throw new Currency\Exception("Unknown display '$value'");
+                        throw new Exception\InvalidArgumentException("Unknown display '$value'");
                     }
                     break;
 
@@ -853,7 +853,7 @@ class Currency
                     }
 
                     if (($value < -1) or ($value > 30)) {
-                        throw new Currency\Exception("'$value' precision has to be between -1 and 30.");
+                        throw new Exception\InvalidArgumentException("'$value' precision has to be between -1 and 30.");
                     }
                     break;
 
@@ -861,7 +861,7 @@ class Currency
                     try {
                         Locale\Format::convertNumerals(0, $options['script']);
                     } catch (Locale\Exception $e) {
-                        throw new Currency\Exception($e->getMessage());
+                        throw new Exception\InvalidArgumentException($e->getMessage());
                     }
                     break;
 
