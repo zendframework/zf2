@@ -26,7 +26,7 @@
 namespace Zend\Log\Filter;
 
 /**
- * @uses       \Zend\Log\Exception\InvalidArgumentException
+ * @uses       \Zend\Log\Filter\Exception\InvalidArgumentException
  * @uses       \Zend\Log\Filter\AbstractFilter
  * @category   Zend
  * @package    Zend_Log
@@ -46,12 +46,12 @@ class Message extends AbstractFilter
      * Filter out any log messages not matching $regexp.
      *
      * @param  string  $regexp     Regular expression to test the log message
-     * @throws \Zend\Log\Exception\InvalidArgumentException
+     * @throws \Zend\Log\Filter\Exception\InvalidArgumentException
      */
     public function __construct($regexp)
     {
         if (@preg_match($regexp, '') === false) {
-            throw new \Zend\Log\Exception\InvalidArgumentException("Invalid regular expression '$regexp'");
+            throw new Exception\InvalidArgumentException("Invalid regular expression '$regexp'");
         }
         $this->_regexp = $regexp;
     }
