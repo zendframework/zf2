@@ -27,7 +27,7 @@ namespace Zend\Log\Formatter;
 use \Zend\Log\Formatter;
 
 /**
- * @uses       \Zend\Log\Exception\InvalidArgumentException
+ * @uses       \Zend\Log\Formatter\Exception\InvalidArgumentException
  * @uses       \Zend\Log\Formatter\FormatterInterface
  * @category   Zend
  * @package    Zend_Log
@@ -58,7 +58,7 @@ class Simple implements Formatter
         }
 
         if (! is_string($format)) {
-            throw new \Zend\Log\Exception\InvalidArgumentException('Format must be a string');
+            throw new Exception\InvalidArgumentException('Format must be a string');
         }
 
         $this->_format = $format;
