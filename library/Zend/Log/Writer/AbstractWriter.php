@@ -29,7 +29,7 @@ use \Zend\Log\Factory,
     \Zend\Log\Writer;
 
 /**
- * @uses       \Zend\Log\Exception\InvalidArgumentException
+ * @uses       \Zend\Log\Writer\Exception\InvalidArgumentException
  * @uses       \Zend\Log\Factory
  * @uses       \Zend\Log\Filter\Priority
  * @category   Zend
@@ -56,7 +56,7 @@ abstract class AbstractWriter implements Writer, Factory
      * Add a filter specific to this writer.
      *
      * @param  \Zend\Log\Filter  $filter
-     * @throws \Zend\Log\Exception\InvalidArgumentException
+     * @throws \Zend\Log\Writer\Exception\InvalidArgumentException
      * @return void
      */
     public function addFilter($filter)
@@ -66,7 +66,7 @@ abstract class AbstractWriter implements Writer, Factory
         }
 
         if (!$filter instanceof \Zend\Log\Filter) {
-            throw new \Zend\Log\Exception\InvalidArgumentException('Invalid filter provided');
+            throw new Exception\InvalidArgumentException('Invalid filter provided');
         }
 
         $this->_filters[] = $filter;
@@ -124,7 +124,7 @@ abstract class AbstractWriter implements Writer, Factory
      *
      * @param  array|\Zend\Config\Config $config \Zend\Config\Config or Array
      * @return array
-     * @throws \Zend\Log\Exception\InvalidArgumentException
+     * @throws \Zend\Log\Writer\Exception\InvalidArgumentException
      */
     static protected function _parseConfig($config)
     {
@@ -133,7 +133,7 @@ abstract class AbstractWriter implements Writer, Factory
         }
 
         if (!is_array($config)) {
-            throw new \Zend\Log\Exception\InvalidArgumentException(
+            throw new Exception\InvalidArgumentException(
 				'Configuration must be an array or instance of Zend\Config\Config'
 			);
         }
