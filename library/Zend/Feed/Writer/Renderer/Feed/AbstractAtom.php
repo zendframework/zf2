@@ -26,6 +26,7 @@ namespace Zend\Feed\Writer\Renderer\Feed;
 use Zend\Feed\Writer\Renderer;
 use Zend\Date;
 use Zend\Feed\Writer;
+use Zend\Feed\Writer\Exception;
 
 /**
 * @uses \Zend\Date\Date
@@ -80,7 +81,7 @@ class AbstractAtom extends Renderer\AbstractRenderer
         if(!$this->getDataContainer()->getTitle()) {
             $message = 'Atom 1.0 feed elements MUST contain exactly one'
             . ' atom:title element but a title has not been set';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -127,7 +128,7 @@ class AbstractAtom extends Renderer\AbstractRenderer
         if(!$this->getDataContainer()->getDateModified()) {
             $message = 'Atom 1.0 feed elements MUST contain exactly one'
             . ' atom:updated element but a modification date has not been set';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -205,7 +206,7 @@ class AbstractAtom extends Renderer\AbstractRenderer
             . 'element with a rel attribute value of "self".  This is the '
             . 'preferred URI for retrieving Atom Feed Documents representing '
             . 'this Atom feed but a feed link has not been set';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -279,7 +280,7 @@ class AbstractAtom extends Renderer\AbstractRenderer
             . 'atom:id element, or as an alternative, we can use the same '
             . 'value as atom:link however neither a suitable link nor an '
             . 'id have been set';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {

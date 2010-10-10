@@ -24,6 +24,7 @@
 */
 namespace Zend\Feed\Writer\Extension\ITunes;
 use Zend\Feed\Writer\Extension;
+use Zend\Feed\Writer\Exception;
 use Zend\Feed\Writer;
 
 
@@ -83,11 +84,11 @@ class Entry
     public function setItunesBlock($value)
     {
         if (!ctype_alpha($value) && strlen($value) > 0) {
-            throw new Writer\Exception('invalid parameter: "block" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "block" may only'
             . ' contain alphabetic characters');
         }
         if (iconv_strlen($value, $this->getEncoding()) > 255) {
-            throw new Writer\Exception('invalid parameter: "block" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "block" may only'
             . ' contain a maximum of 255 characters');
         }
         $this->_data['block'] = $value;
@@ -116,7 +117,7 @@ class Entry
     public function addItunesAuthor($value)
     {
         if (iconv_strlen($value, $this->getEncoding()) > 255) {
-            throw new Writer\Exception('invalid parameter: any "author" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: any "author" may only'
             . ' contain a maximum of 255 characters each');
         }
         if (!isset($this->_data['authors'])) {
@@ -139,7 +140,7 @@ class Entry
             && !preg_match("/^\d+:[0-5]{1}[0-9]{1}$/", $value)
             && !preg_match("/^\d+:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$/", $value)
         ) {
-            throw new Writer\Exception('invalid parameter: "duration" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "duration" may only'
             . ' be of a specified [[HH:]MM:]SS format');
         }
         $this->_data['duration'] = $value;
@@ -155,7 +156,7 @@ class Entry
     public function setItunesExplicit($value)
     {
         if (!in_array($value, array('yes','no','clean'))) {
-            throw new Writer\Exception('invalid parameter: "explicit" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "explicit" may only'
             . ' be one of "yes", "no" or "clean"');
         }
         $this->_data['explicit'] = $value;
@@ -171,12 +172,12 @@ class Entry
     public function setItunesKeywords(array $value)
     {
         if (count($value) > 12) {
-            throw new Writer\Exception('invalid parameter: "keywords" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "keywords" may only'
             . ' contain a maximum of 12 terms');
         }
         $concat = implode(',', $value);
         if (iconv_strlen($concat, $this->getEncoding()) > 255) {
-            throw new Writer\Exception('invalid parameter: "keywords" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "keywords" may only'
             . ' have a concatenated length of 255 chars where terms are delimited'
             . ' by a comma');
         }
@@ -193,7 +194,7 @@ class Entry
     public function setItunesSubtitle($value)
     {
         if (iconv_strlen($value, $this->getEncoding()) > 255) {
-            throw new Writer\Exception('invalid parameter: "subtitle" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "subtitle" may only'
             . ' contain a maximum of 255 characters');
         }
         $this->_data['subtitle'] = $value;
@@ -209,7 +210,7 @@ class Entry
     public function setItunesSummary($value)
     {
         if (iconv_strlen($value, $this->getEncoding()) > 4000) {
-            throw new Writer\Exception('invalid parameter: "summary" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "summary" may only'
             . ' contain a maximum of 4000 characters');
         }
         $this->_data['summary'] = $value;
@@ -229,7 +230,7 @@ class Entry
         if (!method_exists($this, 'setItunes' . ucfirst($point))
             && !method_exists($this, 'addItunes' . ucfirst($point))
         ) {
-            throw new Writer\Exception\InvalidMethodException(
+            throw new Exception\BadMethodCallException(
                 'invalid method: ' . $method
             );
         }

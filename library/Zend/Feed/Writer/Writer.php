@@ -24,6 +24,7 @@
 */
 namespace Zend\Feed\Writer;
 use Zend\Loader;
+use Zend\Feed\Writer\Exception;
 
 /**
 * @uses \Zend\Feed\Exception
@@ -202,7 +203,7 @@ class Writer
             && !self::getPluginLoader()->isLoaded($feedRendererName)
             && !self::getPluginLoader()->isLoaded($entryRendererName)
         ) {
-            throw new Exception('Could not load extension: ' . $name
+            throw new Exception\RuntimeException('Could not load extension: ' . $name
                 . 'using Plugin Loader. Check prefix paths are configured and extension exists.');
         }
     }

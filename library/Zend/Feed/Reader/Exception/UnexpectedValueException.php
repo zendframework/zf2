@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Feed_Writer
+ * @package    Zend_Feed
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
@@ -22,17 +22,16 @@
 /**
  * @namespace
  */
-namespace Zend\Feed\Writer\Exception;
+namespace Zend\Feed\Reader\Exception;
 
 /**
  * @category   Zend
- * @package    Zend_Feed_Writer
+ * @package    Zend_Feed
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class RuntimeException 
-    extends \RuntimeException 
-    implements \Zend\Feed\Writer\Exception
+class UnexpectedValueException
+    extends \UnexpectedValueException
+    implements \Zend\Feed\Reader\Exception
 {
-
 }

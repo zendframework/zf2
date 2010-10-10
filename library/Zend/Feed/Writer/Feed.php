@@ -25,12 +25,12 @@
 namespace Zend\Feed\Writer;
 use Zend\Feed\Writer\Renderer;
 use Zend\Date;
+use Zend\Feed\Writer\Exception;
 
 /**
 * @uses Countable
 * @uses Iterator
 * @uses \Zend\Date\Date
-* @uses \Zend\Feed\Exception
 * @uses \Zend\Feed\Writer\Writer
 * @uses \Zend\Feed\Writer\Deleted
 * @uses \Zend\Feed\Writer\Entry
@@ -127,7 +127,7 @@ class Feed extends AbstractFeed implements \Iterator, \Countable
         if (isset($this->_entries[$index])) {
             unset($this->_entries[$index]);
         }
-        throw new Exception('Undefined index: ' . $index . '. Entry does not exist.');
+        throw new Exception\OutOfBoundsException('Undefined index: ' . $index . '. Entry does not exist.');
     }
 
     /**
@@ -141,7 +141,7 @@ class Feed extends AbstractFeed implements \Iterator, \Countable
         if (isset($this->_entries[$index])) {
             return $this->_entries[$index];
         }
-        throw new Exception('Undefined index: ' . $index . '. Entry does not exist.');
+        throw new Exception\OutOfBoundsException('Undefined index: ' . $index . '. Entry does not exist.');
     }
 
     /**

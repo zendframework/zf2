@@ -24,9 +24,10 @@
 */
 namespace Zend\Feed\Writer\Renderer;
 use Zend\Feed\Writer;
+use Zend\Feed\Writer\Exception;
 
 /**
-* @uses \Zend\Feed\Exception
+* @uses \Zend\Feed\Writer\Exception
 * @uses \Zend\Feed\Writer\Writer
 * @uses \Zend\Version
 * @category Zend
@@ -166,7 +167,7 @@ class AbstractRenderer
     public function ignoreExceptions($bool = true)
     {
         if (!is_bool($bool)) {
-            throw new Writer\Exception('Invalid parameter: $bool. Should be TRUE or FALSE (defaults to TRUE if null)');
+            throw new Exception\InvalidArgumentException('Invalid parameter: $bool. Should be TRUE or FALSE (defaults to TRUE if null)');
         }
         $this->_ignoreExceptions = $bool;
         return $this;

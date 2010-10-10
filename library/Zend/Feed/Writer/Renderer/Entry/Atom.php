@@ -25,6 +25,7 @@
 namespace Zend\Feed\Writer\Renderer\Entry;
 use Zend\Feed\Writer\Renderer;
 use Zend\Feed\Writer;
+use Zend\Feed\Writer\Exception;
 use Zend\Date;
 use Zend\URI;
 use Zend\Validator;
@@ -104,7 +105,7 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\Renderer
         if(!$this->getDataContainer()->getTitle()) {
             $message = 'Atom 1.0 entry elements MUST contain exactly one'
             . ' atom:title element but a title has not been set';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -152,7 +153,7 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\Renderer
         if(!$this->getDataContainer()->getDateModified()) {
             $message = 'Atom 1.0 entry elements MUST contain exactly one'
             . ' atom:updated element but a modification date has not been set';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -280,7 +281,7 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\Renderer
             . 'atom:id element, or as an alternative, we can use the same '
             . 'value as atom:link however neither a suitable link nor an '
             . 'id have been set';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -297,7 +298,7 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\Renderer
         !preg_match("#^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{1,31}:([a-zA-Z0-9\(\)\+\,\.\:\=\@\;\$\_\!\*\-]|%[0-9a-fA-F]{2})*#",
             $this->getDataContainer()->getId()
         ) && !$this->_validateTagUri($this->getDataContainer()->getId())) {
-            throw new Exception('Atom 1.0 IDs must be a valid URI/IRI');
+            throw new Exception\InvalidArgumentException('Atom 1.0 IDs must be a valid URI/IRI');
         }
         $id = $dom->createElement('id');
         $root->appendChild($id);
@@ -352,7 +353,7 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\Renderer
             . 'atom:content element, or as an alternative, at least one link '
             . 'with a rel attribute of "alternate" to indicate an alternate '
             . 'method to consume the content.';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {

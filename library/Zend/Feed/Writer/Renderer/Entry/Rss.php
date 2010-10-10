@@ -24,6 +24,7 @@
 */
 namespace Zend\Feed\Writer\Renderer\Entry;
 use Zend\Feed\Writer\Renderer;
+use Zend\Feed\Writer\Exception;
 use Zend\Feed\Writer;
 use Zend\Date;
 use Zend\URI;
@@ -99,7 +100,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             $message = 'RSS 2.0 entry elements SHOULD contain exactly one'
             . ' title element but a title has not been set. In addition, there'
             . ' is no description as required in the absence of a title.';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -128,7 +129,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             . ' description element but a description has not been set. In'
             . ' addition, there is no title element as required in the absence'
             . ' of a description.';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -224,7 +225,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             return;
         }
         if (!isset($data['type'])) {
-            $exception = new Writer\Exception('Enclosure "type" is not set');
+            $exception = new Exception\RuntimeException('Enclosure "type" is not set');
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -233,7 +234,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             }
         }
         if (!isset($data['length'])) {
-            $exception = new Writer\Exception('Enclosure "length" is not set');
+            $exception = new Exception\RuntimeException('Enclosure "length" is not set');
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -242,7 +243,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             }
         }
         if (isset($data['length']) && (int) $data['length'] <= 0) {
-            $exception = new Writer\Exception('Enclosure "length" must be an integer'
+            $exception = new Exception\RuntimeException('Enclosure "length" must be an integer'
             . ' indicating the content\'s length in bytes');
             if (!$this->_ignoreExceptions) {
                 throw $exception;

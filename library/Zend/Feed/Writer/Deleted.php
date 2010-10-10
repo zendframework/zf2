@@ -25,10 +25,10 @@
 namespace Zend\Feed\Writer;
 use Zend\Date;
 use Zend\Uri;
+use Zend\Feed\Writer\Exception;
 
 /**
 * @uses \Zend\Date\Date
-* @uses \Zend\Feed\Exception
 * @uses \Zend\Uri\Uri
 * @category Zend
 * @package Zend_Feed_Writer
@@ -61,7 +61,7 @@ class Deleted
     public function setEncoding($encoding)
     {
         if (empty($encoding) || !is_string($encoding)) {
-            throw new Exception('Invalid parameter: parameter must be a non-empty string');
+            throw new Exception\InvalidArgumentException('Invalid parameter: parameter must be a non-empty string');
         }
         $this->_data['encoding'] = $encoding;
     }
@@ -116,7 +116,7 @@ class Deleted
     public function setReference($reference)
     {
         if (empty($reference) || !is_string($reference)) {
-            throw new Exception('Invalid parameter: reference must be a non-empty string');
+            throw new Exception\InvalidArgumentException('Invalid parameter: reference must be a non-empty string');
         }
         $this->_data['reference'] = $reference;
     }
@@ -139,7 +139,7 @@ class Deleted
         } elseif ($date instanceof Date\Date) {
             $zdate = $date;
         } else {
-            throw new Exception('Invalid Date\Date object or UNIX Timestamp'
+            throw new Exception\InvalidArgumentException('Invalid Date\Date object or UNIX Timestamp'
             . ' passed as parameter');
         }
         $this->_data['when'] = $zdate;
@@ -160,13 +160,13 @@ class Deleted
             || empty($by['name']) 
             || !is_string($by['name'])
         ) {
-            throw new Exception('Invalid parameter: author array must include a'
+            throw new Exception\InvalidArgumentException('Invalid parameter: author array must include a'
             . ' "name" key with a non-empty string value');
         }
         $author['name'] = $by['name'];
         if (isset($by['email'])) {
             if (empty($by['email']) || !is_string($by['email'])) {
-                throw new Exception('Invalid parameter: "email" array'
+                throw new Exception\InvalidArgumentException('Invalid parameter: "email" array'
                 . ' value must be a non-empty string');
             }
             $author['email'] = $by['email'];
@@ -176,7 +176,7 @@ class Deleted
                 || !is_string($by['uri']) 
                 || !Uri\Url::validate($by['uri'])
             ) {
-                throw new Exception('Invalid parameter: "uri" array value must'
+                throw new Exception\InvalidArgumentException('Invalid parameter: "uri" array value must'
                  . ' be a non-empty string and valid URI/IRI');
             }
             $author['uri'] = $by['uri'];

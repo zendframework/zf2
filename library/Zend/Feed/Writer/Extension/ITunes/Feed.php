@@ -24,6 +24,7 @@
 */
 namespace Zend\Feed\Writer\Extension\ITunes;
 use Zend\Feed\Writer;
+use Zend\Feed\Writer\Exception;
 use Zend\Uri;
 
 /**
@@ -83,11 +84,11 @@ class Feed
     public function setItunesBlock($value)
     {
         if (!ctype_alpha($value) && strlen($value) > 0) {
-            throw new Writer\Exception('invalid parameter: "block" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "block" may only'
             . ' contain alphabetic characters');
         }
         if (iconv_strlen($value, $this->getEncoding()) > 255) {
-            throw new Writer\Exception('invalid parameter: "block" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "block" may only'
             . ' contain a maximum of 255 characters');
         }
         $this->_data['block'] = $value;
@@ -117,7 +118,7 @@ class Feed
     public function addItunesAuthor($value)
     {
         if (iconv_strlen($value, $this->getEncoding()) > 255) {
-            throw new Writer\Exception('invalid parameter: any "author" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: any "author" may only'
             . ' contain a maximum of 255 characters each');
         }
         if (!isset($this->_data['authors'])) {
@@ -141,19 +142,19 @@ class Feed
         foreach ($values as $key=>$value) {
             if (!is_array($value)) {
                 if (iconv_strlen($value, $this->getEncoding()) > 255) {
-                    throw new Writer\Exception('invalid parameter: any "category" may only'
+                    throw new Exception\InvalidArgumentException('invalid parameter: any "category" may only'
                     . ' contain a maximum of 255 characters each');
                 }
                 $this->_data['categories'][] = $value;
             } else {
                 if (iconv_strlen($key, $this->getEncoding()) > 255) {
-                    throw new Writer\Exception('invalid parameter: any "category" may only'
+                    throw new Exception\InvalidArgumentException('invalid parameter: any "category" may only'
                     . ' contain a maximum of 255 characters each');
                 }
                 $this->_data['categories'][$key] = array();
                 foreach ($value as $val) {
                     if (iconv_strlen($val, $this->getEncoding()) > 255) {
-                        throw new Writer\Exception('invalid parameter: any "category" may only'
+                        throw new Exception\InvalidArgumentException('invalid parameter: any "category" may only'
                         . ' contain a maximum of 255 characters each');
                     }
                     $this->_data['categories'][$key][] = $val;
@@ -172,11 +173,11 @@ class Feed
     public function setItunesImage($value)
     {
         if (!Uri\Url::validate($value)) {
-            throw new Writer\Exception('invalid parameter: "image" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "image" may only'
             . ' be a valid URI/IRI');
         }
         if (!in_array(substr($value, -3), array('jpg','png'))) {
-            throw new Writer\Exception('invalid parameter: "image" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "image" may only'
             . ' use file extension "jpg" or "png" which must be the last three'
             . ' characters of the URI (i.e. no query string or fragment)');
         }
@@ -197,7 +198,7 @@ class Feed
             && !preg_match("/^\d+:[0-5]{1}[0-9]{1}$/", $value)
             && !preg_match("/^\d+:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$/", $value)
         ) {
-            throw new Writer\Exception('invalid parameter: "duration" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "duration" may only'
             . ' be of a specified [[HH:]MM:]SS format');
         }
         $this->_data['duration'] = $value;
@@ -213,7 +214,7 @@ class Feed
     public function setItunesExplicit($value)
     {
         if (!in_array($value, array('yes','no','clean'))) {
-            throw new Writer\Exception('invalid parameter: "explicit" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "explicit" may only'
             . ' be one of "yes", "no" or "clean"');
         }
         $this->_data['explicit'] = $value;
@@ -229,12 +230,12 @@ class Feed
     public function setItunesKeywords(array $value)
     {
         if (count($value) > 12) {
-            throw new Writer\Exception('invalid parameter: "keywords" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "keywords" may only'
             . ' contain a maximum of 12 terms');
         }
         $concat = implode(',', $value);
         if (iconv_strlen($concat, $this->getEncoding()) > 255) {
-            throw new Writer\Exception('invalid parameter: "keywords" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "keywords" may only'
             . ' have a concatenated length of 255 chars where terms are delimited'
             . ' by a comma');
         }
@@ -251,7 +252,7 @@ class Feed
     public function setItunesNewFeedUrl($value)
     {
         if (!Uri\Url::validate($value)) {
-            throw new Writer\Exception('invalid parameter: "newFeedUrl" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "newFeedUrl" may only'
             . ' be a valid URI/IRI');
         }
         $this->_data['newFeedUrl'] = $value;
@@ -281,13 +282,13 @@ class Feed
     public function addItunesOwner(array $value)
     {
         if (!isset($value['name']) || !isset($value['email'])) {
-            throw new Writer\Exception('invalid parameter: any "owner" must'
+            throw new Exception\InvalidArgumentException('invalid parameter: any "owner" must'
             . ' be an array containing keys "name" and "email"');
         }
         if (iconv_strlen($value['name'], $this->getEncoding()) > 255
             || iconv_strlen($value['email'], $this->getEncoding()) > 255
         ) {
-            throw new Writer\Exception('invalid parameter: any "owner" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: any "owner" may only'
             . ' contain a maximum of 255 characters each for "name" and "email"');
         }
         if (!isset($this->_data['owners'])) {
@@ -306,7 +307,7 @@ class Feed
     public function setItunesSubtitle($value)
     {
         if (iconv_strlen($value, $this->getEncoding()) > 255) {
-            throw new Writer\Exception('invalid parameter: "subtitle" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "subtitle" may only'
             . ' contain a maximum of 255 characters');
         }
         $this->_data['subtitle'] = $value;
@@ -322,7 +323,7 @@ class Feed
     public function setItunesSummary($value)
     {
         if (iconv_strlen($value, $this->getEncoding()) > 4000) {
-            throw new Writer\Exception('invalid parameter: "summary" may only'
+            throw new Exception\InvalidArgumentException('invalid parameter: "summary" may only'
             . ' contain a maximum of 4000 characters');
         }
         $this->_data['summary'] = $value;
@@ -342,7 +343,7 @@ class Feed
         if (!method_exists($this, 'setItunes' . ucfirst($point))
             && !method_exists($this, 'addItunes' . ucfirst($point))
         ) {
-            throw new Writer\Exception\InvalidMethodException(
+            throw new Exception\BadMethodCallException(
                 'invalid method: ' . $method
             );
         }

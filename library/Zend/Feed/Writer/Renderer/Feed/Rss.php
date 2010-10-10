@@ -27,6 +27,7 @@ use Zend\Feed\Writer\Renderer;
 use Zend\Feed\Writer;
 use Zend\Uri;
 use Zend\Date;
+use Zend\Feed\Writer\Exception;
 
 /**
 * @uses \DOMDocument
@@ -149,7 +150,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         if(!$this->getDataContainer()->getTitle()) {
             $message = 'RSS 2.0 feed elements MUST contain exactly one'
             . ' title element but a title has not been set';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -176,7 +177,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         if(!$this->getDataContainer()->getDescription()) {
             $message = 'RSS 2.0 feed elements MUST contain exactly one'
             . ' description element but one has not been set';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -252,7 +253,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         if(!$value) {
             $message = 'RSS 2.0 feed elements MUST contain exactly one'
             . ' link element but one has not been set';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -329,7 +330,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         if (!isset($image['title']) || empty($image['title'])
         || !is_string($image['title'])) {
             $message = 'RSS 2.0 feed images must include a title';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -341,7 +342,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         || !Uri\Url::validate($image['link'])) {
             $message = 'Invalid parameter: parameter \'link\''
             . ' must be a non-empty string and valid URI/IRI';
-            $exception = new Writer\Exception($message);
+            $exception = new Exception\RuntimeException($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
             } else {
@@ -367,7 +368,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             if (!ctype_digit((string) $image['height']) || $image['height'] > 400) {
                 $message = 'Invalid parameter: parameter \'height\''
                 . ' must be an integer not exceeding 400';
-                $exception = new Writer\Exception($message);
+                $exception = new Exception\RuntimeException($message);
                 if (!$this->_ignoreExceptions) {
                     throw $exception;
                 } else {
@@ -384,7 +385,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             if (!ctype_digit((string) $image['width']) || $image['width'] > 144) {
                 $message = 'Invalid parameter: parameter \'width\''
                 . ' must be an integer not exceeding 144';
-                $exception = new Writer\Exception($message);
+                $exception = new Exception\RuntimeException($message);
                 if (!$this->_ignoreExceptions) {
                     throw $exception;
                 } else {
@@ -401,7 +402,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             if (empty($image['description']) || !is_string($image['description'])) {
                 $message = 'Invalid parameter: parameter \'description\''
                 . ' must be a non-empty string';
-                $exception = new Writer\Exception($message);
+                $exception = new Exception\RuntimeException($message);
                 if (!$this->_ignoreExceptions) {
                     throw $exception;
                 } else {
