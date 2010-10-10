@@ -23,16 +23,16 @@
 * @namespace
 */
 namespace Zend\Feed\Reader;
-use Zend\HTTP;
+use Zend\Http;
 use Zend\Loader;
 
 /**
 * @uses \Zend\Feed\Feed
-* @uses \Zend\Feed\Exception
+* @uses \Zend\Feed\Reader\Exception
 * @uses \Zend\Feed\Reader\FeedSet
 * @uses \Zend\Feed\Reader\Feed\Atom\Atom
-* @uses \Zend\Feed\Reader\Feed\RSS
-* @uses \Zend\HTTP\Client
+* @uses \Zend\Feed\Reader\Feed\Rss
+* @uses \Zend\Http\Client
 * @uses \Zend\Loader\PluginLoader
 * @category Zend
 * @package Zend_Feed_Reader
@@ -241,7 +241,7 @@ class Reader
             }
             $response = $client->request('GET');
             if ($response->getStatus() !== 200 && $response->getStatus() !== 304) {
-                throw new Exception('Feed failed to load, got response code ' . $response->getStatus());
+                throw new Exception\RuntimeException('Feed failed to load, got response code ' . $response->getStatus());
             }
             if ($response->getStatus() == 304) {
                 $responseXml = $data;
@@ -263,7 +263,7 @@ class Reader
             }
             $response = $client->request('GET');
             if ($response->getStatus() !== 200) {
-                throw new Exception('Feed failed to load, got response code ' . $response->getStatus());
+                throw new Exception\RuntimeException('Feed failed to load, got response code ' . $response->getStatus());
             }
             $responseXml = $response->getBody();
             $cache->save($responseXml, $cacheId);
@@ -271,7 +271,7 @@ class Reader
         } else {
             $response = $client->request('GET');
             if ($response->getStatus() !== 200) {
-                throw new Exception('Feed failed to load, got response code ' . $response->getStatus());
+                throw new Exception\RuntimeException('Feed failed to load, got response code ' . $response->getStatus());
             }
             $reader = self::importString($response->getBody());
             $reader->setOriginalSourceUri($uri);
@@ -300,7 +300,7 @@ class Reader
             } else {
                 $errormsg = "DOMDocument cannot parse XML: Please check the XML document's validity";
             }
-            throw new Exception($errormsg);
+            throw new Exception\RuntimeException($errormsg);
         }
 
         $type = self::detectType($dom);
@@ -314,8 +314,9 @@ class Reader
         } elseif (substr($type, 0, 4) == 'atom') {
             $reader = new Feed\Atom($dom, $type);
         } else {
-            throw new Exception('The URI used does not point to a '
-            . 'valid Atom, RSS or RDF feed that Zend_Feed_Reader can parse.');
+            throw new Exception\RuntimeException(
+                'The type of feed could not be identified as a recognised Atom/RSS version'
+            );
         }
         return $reader;
     }
@@ -333,7 +334,7 @@ class Reader
         $feed = @file_get_contents($filename);
         @ini_restore('track_errors');
         if ($feed === false) {
-            throw new Exception("File could not be loaded: $php_errormsg");
+            throw new Exception\RuntimeException("File could not be loaded: $php_errormsg");
         }
         return self::importString($feed);
     }
@@ -344,7 +345,7 @@ class Reader
         $client->setUri($uri);
         $response = $client->request();
         if ($response->getStatus() !== 200) {
-            throw new Exception("Failed to access $uri, got response code " . $response->getStatus());
+            throw new Exception\RuntimeException("Failed to access $uri, got response code " . $response->getStatus());
         }
         $responseHtml = $response->getBody();
         $libxml_errflag = libxml_use_internal_errors(true);
@@ -359,7 +360,7 @@ class Reader
             } else {
                 $errormsg = "DOMDocument cannot parse HTML: Please check the XML document's validity";
             }
-            throw new Exception($errormsg);
+            throw new Exception\RuntimeException($errormsg);
         }
         $feedSet = new FeedSet;
         $links = $dom->getElementsByTagName('link');
@@ -392,10 +393,10 @@ class Reader
                         $php_errormsg = '(error message not available)';
                     }
                 }
-                throw new Exception("DOMDocument cannot parse XML: $php_errormsg");
+                throw new Exception\RuntimeException("DOMDocument cannot parse XML: $php_errormsg");
             }
         } else {
-            throw new Exception('Invalid object/scalar provided: must'
+            throw new Exception\InvalidArgumentException('Invalid object/scalar provided: must'
             . ' be of type Zend\Feed\Reader\Feed, DomDocument or string');
         }
         $xpath = new \DOMXPath($dom);
@@ -573,7 +574,7 @@ class Reader
         if (!self::getPluginLoader()->isLoaded($feedName)
             && !self::getPluginLoader()->isLoaded($entryName)
         ) {
-            throw new \Zend\Feed\Exception('Could not load extension: ' . $name
+            throw new Exception\RuntimeException('Could not load extension: ' . $name
                 . 'using Plugin Loader. Check prefix paths are configured and extension exists.');
         }
     }

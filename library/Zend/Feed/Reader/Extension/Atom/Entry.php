@@ -157,6 +157,9 @@ class Entry extends Extension\AbstractEntry
     
     /**
      * Parse out XHTML to remove the namespacing
+     *
+     * This is NOT sanitising the HTML; just cleaning it up to remove the
+     * XML declaration and the parent div tags that encapsulated it in Atom.
      */
     protected function _collectXhtml($xhtml, $prefix)
     {

@@ -218,7 +218,7 @@ abstract class AbstractEntry
                 return call_user_func_array(array($extension, $method), $args);
             }
         }
-        throw new \Zend\Feed\Exception('Method: ' . $method
+        throw new Exception\BadMethodCallException('Method: ' . $method
             . 'does not exist and could not be located on a registered Extension');
     }
 

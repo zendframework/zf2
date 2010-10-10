@@ -272,7 +272,7 @@ abstract class AbstractFeed implements Reader\Feed
                 return call_user_func_array(array($extension, $method), $args);
             }
         }
-        throw new Exception('Method: ' . $method
+        throw new Reader\Exception\BadMethodCallException('Method: ' . $method
         . 'does not exist and could not be located on a registered Extension');
     }
 

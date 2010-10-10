@@ -59,7 +59,7 @@ class Feed extends \Zend\Feed\Reader\Extension\AbstractFeed
             case 'yearly':
                 return $period;
             default:
-                throw new Reader\Exception("Feed specified invalid update period: '$period'."
+                throw new Reader\Exception\RuntimeException("Feed specified invalid update period: '$period'."
                     .  " Must be one of hourly, daily, weekly or yearly"
                 );
         }
