@@ -23,6 +23,7 @@
  * @namespace
  */
 namespace Zend\Feed\PubSubHubbub;
+use Zend\Feed\PubSubHubbub\Exception;
 use Zend\Uri;
 
 /**
@@ -120,7 +121,7 @@ class Publisher
     public function addHubUrl($url)
     {
         if (empty($url) || !is_string($url) || !\Zend\Uri\Url::validate($url)) {
-            throw new Exception('Invalid parameter "url"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 .' of "' . $url . '" must be a non-empty string and a valid'
                 .'URL');
         }
@@ -178,7 +179,7 @@ class Publisher
     public function addUpdatedTopicUrl($url)
     {
         if (empty($url) || !is_string($url) || !\Zend\Uri\Url::validate($url)) {
-            throw new Exception('Invalid parameter "url"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 .' of "' . $url . '" must be a non-empty string and a valid'
                 .'URL');
         }
@@ -237,7 +238,7 @@ class Publisher
     public function notifyHub($url)
     {
         if (empty($url) || !is_string($url) || !Uri\Url::validate($url)) {
-            throw new Exception('Invalid parameter "url"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 .' of "' . $url . '" must be a non-empty string and a valid'
                 .'URL');
         }
@@ -245,7 +246,7 @@ class Publisher
         $client->setUri($url);
         $response = $client->request();
         if ($response->getStatus() !== 204) {
-            throw new Exception('Notification to Hub Server '
+            throw new Exception\RuntimeException('Notification to Hub Server '
                 . 'at "' . $url . '" appears to have failed with a status code of "'
                 . $response->getStatus() . '" and message "'
                 . $response->getMessage() . '"');
@@ -298,7 +299,7 @@ class Publisher
             return $this;
         }
         if (empty($name) || !is_string($name)) {
-            throw new Exception('Invalid parameter "name"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "name"'
                 .' of "' . $name . '" must be a non-empty string');
         }
         if ($value === null) {
@@ -306,7 +307,7 @@ class Publisher
             return $this;
         }
         if (empty($value) || (!is_string($value) && $value !== null)) {
-            throw new Exception('Invalid parameter "value"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "value"'
                 .' of "' . $value . '" must be a non-empty string');
         }
         $this->_parameters[$name] = $value;
@@ -336,7 +337,7 @@ class Publisher
     public function removeParameter($name)
     {
         if (empty($name) || !is_string($name)) {
-            throw new Exception('Invalid parameter "name"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "name"'
                 .' of "' . $name . '" must be a non-empty string');
         }
         if (array_key_exists($name, $this->_parameters)) {
@@ -397,7 +398,7 @@ class Publisher
         $params[] = 'hub.mode=publish';
         $topics   = $this->getUpdatedTopicUrls();
         if (empty($topics)) {
-            throw new Exception('No updated topic URLs'
+            throw new Exception\RuntimeException('No updated topic URLs'
                 . ' have been set');
         }
         foreach ($topics as $topicUrl) {

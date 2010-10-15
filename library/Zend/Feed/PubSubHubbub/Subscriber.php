@@ -23,7 +23,7 @@
  * @namespace
  */
 namespace Zend\Feed\PubSubHubbub;
-
+use Zend\Feed\PubSubHubbub\Exception;
 use Zend\Uri;
 use Zend\Date;
 
@@ -170,7 +170,7 @@ class Subscriber
         if ($config instanceof \Zend\Config\Config) {
             $config = $config->toArray();
         } elseif (!is_array($config)) {
-            throw new Exception('Array or Zend\Config object'
+            throw new Exception\InvalidArgumentException('Array or Zend\Config object'
                 . ' expected, got ' . gettype($config));
         }
         if (array_key_exists('hubUrls', $config)) {
@@ -215,7 +215,7 @@ class Subscriber
     public function setTopicUrl($url)
     {
         if (empty($url) || !is_string($url) || !\Zend\Uri\Url::validate($url)) {
-            throw new Exception('Invalid parameter "url"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 .' of "' . $url . '" must be a non-empty string and a valid'
                 .' URL');
         }
@@ -232,7 +232,7 @@ class Subscriber
     public function getTopicUrl()
     {
         if (empty($this->_topicUrl)) {
-            throw new Exception('A valid Topic (RSS or Atom'
+            throw new Exception\InvalidArgumentException('A valid Topic (RSS or Atom'
                 . ' feed) URL MUST be set before attempting any operation');
         }
         return $this->_topicUrl;
@@ -248,7 +248,7 @@ class Subscriber
     {
         $seconds = intval($seconds);
         if ($seconds <= 0) {
-            throw new Exception('Expected lease seconds'
+            throw new Exception\InvalidArgumentException('Expected lease seconds'
                 . ' must be an integer greater than zero');
         }
         $this->_leaseSeconds = $seconds;
@@ -275,7 +275,7 @@ class Subscriber
     public function setCallbackUrl($url)
     {
         if (empty($url) || !is_string($url) || !\Zend\Uri\Url::validate($url)) {
-            throw new Exception('Invalid parameter "url"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 . ' of "' . $url . '" must be a non-empty string and a valid'
                 . ' URL');
         }
@@ -292,7 +292,7 @@ class Subscriber
     public function getCallbackUrl()
     {
         if (empty($this->_callbackUrl)) {
-            throw new Exception('A valid Callback URL MUST be'
+            throw new Exception\InvalidArgumentException('A valid Callback URL MUST be'
                 . ' set before attempting any operation');
         }
         return $this->_callbackUrl;
@@ -314,7 +314,7 @@ class Subscriber
         if ($mode !== PubSubHubbub::VERIFICATION_MODE_SYNC
             && $mode !== PubSubHubbub::VERIFICATION_MODE_ASYNC
         ) {
-            throw new Exception('Invalid preferred'
+            throw new Exception\InvalidArgumentException('Invalid preferred'
                 . ' mode specified: "' . $mode . '" but should be one of'
                 . ' Zend\Feed\Pubsubhubbub::VERIFICATION_MODE_SYNC or'
                 . ' Zend\Feed\Pubsubhubbub::VERIFICATION_MODE_ASYNC');
@@ -342,7 +342,7 @@ class Subscriber
     public function addHubUrl($url)
     {
         if (empty($url) || !is_string($url) || !\Zend\Uri\Url::validate($url)) {
-            throw new Exception('Invalid parameter "url"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 . ' of "' . $url . '" must be a non-empty string and a valid'
                 . ' URL');
         }
@@ -401,7 +401,7 @@ class Subscriber
     public function addAuthentication($url, array $authentication)
     {
         if (empty($url) || !is_string($url) || !URI\Zend\Uri\Uri::check($url)) {
-            throw new Exception('Invalid parameter "url"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 . ' of "' . $url . '" must be a non-empty string and a valid'
                 . ' URL');
         }
@@ -459,7 +459,7 @@ class Subscriber
             return $this;
         }
         if (empty($name) || !is_string($name)) {
-            throw new Exception('Invalid parameter "name"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "name"'
                 . ' of "' . $name . '" must be a non-empty string');
         }
         if ($value === null) {
@@ -467,7 +467,7 @@ class Subscriber
             return $this;
         }
         if (empty($value) || (!is_string($value) && $value !== null)) {
-            throw new Exception('Invalid parameter "value"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "value"'
                 . ' of "' . $value . '" must be a non-empty string');
         }
         $this->_parameters[$name] = $value;
@@ -498,7 +498,7 @@ class Subscriber
     public function removeParameter($name)
     {
         if (empty($name) || !is_string($name)) {
-            throw new Exception('Invalid parameter "name"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "name"'
                 . ' of "' . $name . '" must be a non-empty string');
         }
         if (array_key_exists($name, $this->_parameters)) {
@@ -540,7 +540,7 @@ class Subscriber
     public function getStorage()
     {
         if ($this->_storage === null) {
-            throw new Exception('No storage vehicle '
+            throw new Exception\RuntimeException('No storage vehicle '
                 . 'has been set.');
         }
         return $this->_storage;
@@ -618,7 +618,7 @@ class Subscriber
         $client = $this->_getHttpClient();
         $hubs   = $this->getHubUrls();
         if (empty($hubs)) {
-            throw new Exception('No Hub Server URLs'
+            throw new Exception\RuntimeException('No Hub Server URLs'
                 . ' have been set so no subscriptions can be attempted');
         }
         $this->_errors = array();

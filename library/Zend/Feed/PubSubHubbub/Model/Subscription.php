@@ -25,6 +25,7 @@
  */
 namespace Zend\Feed\PubSubHubbub\Model;
 use Zend\Feed\PubSubHubbub;
+use Zend\Feed\PubSubHubbub\Exception;
 use Zend\Date;
 
 /**
@@ -50,7 +51,7 @@ class Subscription extends AbstractModel implements SubscriptionPersistence
     public function setSubscription(array $data)
     {
         if (!isset($data['id'])) {
-            throw new PubSubHubbub\Exception(
+            throw new Exception\InvalidArgumentException(
                 'ID must be set before attempting a save'
             );
         }
@@ -84,7 +85,7 @@ class Subscription extends AbstractModel implements SubscriptionPersistence
     public function getSubscription($key)
     {
         if (empty($key) || !is_string($key)) {
-            throw new PubSubHubbub\Exception('Invalid parameter "key"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "key"'
                 .' of "' . $key . '" must be a non-empty string');
         }
         $result = $this->_db->find($key);
@@ -103,7 +104,7 @@ class Subscription extends AbstractModel implements SubscriptionPersistence
     public function hasSubscription($key)
     {
         if (empty($key) || !is_string($key)) {
-            throw new PubSubHubbub\Exception('Invalid parameter "key"'
+            throw new Exception\InvalidArgumentException('Invalid parameter "key"'
                 .' of "' . $key . '" must be a non-empty string');
         }
         $result = $this->_db->find($key);

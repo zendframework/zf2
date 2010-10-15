@@ -23,6 +23,7 @@
  * @namespace
  */
 namespace Zend\Feed\PubSubHubbub;
+use Zend\Feed\PubSubHubbub\Exception;
 
 /**
  * @uses       \Zend\Feed\PubSubHubbub\PubSubHubbub
@@ -164,7 +165,7 @@ class HttpResponse
     {
         $ok = headers_sent($file, $line);
         if ($ok && $throw) {
-            throw new Exception('Cannot send headers; headers already sent in ' . $file . ', line ' . $line);
+            throw new Exception\RuntimeException('Cannot send headers; headers already sent in ' . $file . ', line ' . $line);
         }
         return !$ok;
     }
@@ -178,7 +179,7 @@ class HttpResponse
     public function setHttpResponseCode($code)
     {
         if (!is_int($code) || (100 > $code) || (599 < $code)) {
-            throw new Exception('Invalid HTTP response'
+            throw new Exception\InvalidArgumentException('Invalid HTTP response'
             . ' code:' . $code);
         }
         $this->_httpResponseCode = $code;

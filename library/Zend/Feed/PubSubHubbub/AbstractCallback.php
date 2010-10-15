@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Feed_Pubsubhubbub
+ * @package    Zend_Feed_PubSubHubbub
  * @subpackage Callback
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -24,13 +24,14 @@
  * @namespace
  */
 namespace Zend\Feed\PubSubHubbub;
+use Zend\Feed\PubSubHubbub\Exception;
 
 /**
  * @uses       \Zend\Feed\PubSubHubbub\Callback
  * @uses       \Zend\Feed\PubSubHubbub\Exception
  * @uses       \Zend\Feed\PubSubHubbub\HttpResponse
  * @category   Zend
- * @package    Zend_Feed_Pubsubhubbub
+ * @package    Zend_Feed_PubSubHubbub
  * @subpackage Callback
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -87,7 +88,7 @@ abstract class AbstractCallback implements Callback
         if ($config instanceof \Zend\Config\Config) {
             $config = $config->toArray();
         } elseif (!is_array($config)) {
-            throw new Exception('Array or Zend_Config object'
+            throw new Exception/InvalidArgumentException('Array or Zend_Config object'
             . 'expected, got ' . gettype($config));
         }
         if (array_key_exists('storage', $config)) {
@@ -133,7 +134,7 @@ abstract class AbstractCallback implements Callback
     public function getStorage()
     {
         if ($this->_storage === null) {
-            throw new Exception('No storage object has been'
+            throw new Exception\RuntimeException('No storage object has been'
                 . ' set that subclasses Zend\Feed\Pubsubhubbub\Model\SubscriptionPersistence');
         }
         return $this->_storage;
@@ -153,7 +154,7 @@ abstract class AbstractCallback implements Callback
             || (!$httpResponse instanceof HttpResponse
                 && !$httpResponse instanceof \Zend\Controller\Response\Http)
         ) {
-            throw new Exception('HTTP Response object must'
+            throw new Exception\InvalidArgumentException('HTTP Response object must'
                 . ' implement one of Zend\Feed\Pubsubhubbub\HttpResponse or'
                 . ' Zend\Controller\Response\Http');
         }
@@ -188,7 +189,7 @@ abstract class AbstractCallback implements Callback
     {
         $count = intval($count);
         if ($count <= 0) {
-            throw new Exception('Subscriber count must be'
+            throw new Exception\InvalidArgumentException('Subscriber count must be'
                 . ' greater than zero');
         }
         $this->_subscriberCount = $count;

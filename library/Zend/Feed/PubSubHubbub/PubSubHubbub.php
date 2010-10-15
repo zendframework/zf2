@@ -23,6 +23,7 @@
  * @namespace
  */
 namespace Zend\Feed\PubSubHubbub;
+use Zend\Feed\PubSubHubbub\Exception;
 use Zend\Feed\Reader;
 use Zend\Http;
 
@@ -76,7 +77,7 @@ class PubSubHubbub
         } elseif (is_object($source) && $source instanceof Reader\Feed\AbstractFeed) {
             $feed = $source;
         } else {
-            throw new Exception('The source parameter was'
+            throw new Exception\InvalidArgumentException('The source parameter was'
             . ' invalid, i.e. not a URL string or an instance of type'
             . ' Zend\Feed\Reader\FeedAbstract or Zend\Feed\Abstract');
         }
