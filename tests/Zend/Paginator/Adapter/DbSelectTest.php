@@ -27,6 +27,7 @@ use Zend\Db\Adapter\Pdo;
 use Zend\Paginator\Adapter;
 use Zend\Db;
 use Zend\Db\Select;
+use Zend\Paginator\Exception;
 
 require_once __DIR__ . '/../_files/TestTable.php';
 
@@ -124,7 +125,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $this->_adapter->setRowCount($this->_db->select()->from('test'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertType('Zend\Paginator\Exception', $e);
             $this->assertContains('Row count column not found', $e->getMessage());
         }
@@ -135,7 +136,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
             $query = $this->_db->select($expr)->from('test');
 
             $this->_adapter->setRowCount($query);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertType('Zend\Paginator\Exception', $e);
             $this->assertEquals('Row count column not found', $e->getMessage());
         }
@@ -162,7 +163,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $this->_adapter->setRowCount('invalid');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertType('Zend\Paginator\Exception', $e);
             $this->assertEquals('Invalid row count', $e->getMessage());
         }
@@ -329,7 +330,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
         try {
             $adapter = new Adapter\DbSelect($query);
             $adapter->count();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->fail($e->getMessage());
         }
     }

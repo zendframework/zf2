@@ -29,6 +29,7 @@ use Zend\View\Helper;
 use Zend\View;
 use Zend\Config;
 use Zend\Paginator\Adapter;
+use Zend\Paginator\Exception;
 
 
 /**
@@ -117,7 +118,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         }
         unset($file, $dir); // required on windows to remove file handle
         if (!rmdir($path)) {
-            throw new \Exception('Unable to remove temporary directory ' . $path
+            throw new Exception('Unable to remove temporary directory ' . $path
                                 . '; perhaps it has a nested structure?');
         }
     }
@@ -183,7 +184,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $paginator = Paginator\Paginator::factory(new \stdClass());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertType('Zend\Paginator\Exception', $e);
             $this->assertContains('stdClass', $e->getMessage());
         }
@@ -193,7 +194,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $paginator = Paginator\Paginator::factory('invalid argument');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertType('Zend\Paginator\Exception', $e);
             $this->assertContains('string', $e->getMessage());
         }
@@ -562,7 +563,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
         try {
             $paginator->getItem(1);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertType('Zend\Paginator\Exception', $e);
             $this->assertContains('Page 1 does not exist', $e->getMessage());
         }
@@ -572,7 +573,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $this->_paginator->getItem(10, 11);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertType('Zend\Paginator\Exception', $e);
             $this->assertContains('Page 11 does not contain item number 10', $e->getMessage());
         }
@@ -681,7 +682,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $this->_paginator->render(new View\View());
-        } catch (\Exception $e) {
+        } catch (View\Exception $e) {
             $this->assertType('Zend\View\Exception', $e);
             $this->assertEquals('No view partial provided and no default set', $e->getMessage());
         }
