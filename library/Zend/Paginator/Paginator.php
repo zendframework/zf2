@@ -282,7 +282,7 @@ class Paginator implements \Countable, \IteratorAggregate
                     $adapter = 'Null';
                 } else {
                     $type = (is_object($data)) ? get_class($data) : gettype($data);
-                    throw new Exception('No adapter for type ' . $type);
+                    throw new Exception\RuntimeException('No adapter for type ' . $type);
                 }
             }
 
@@ -434,7 +434,7 @@ class Paginator implements \Countable, \IteratorAggregate
         } else if ($adapter instanceof AdapterAggregate) {
             $this->_adapter = $adapter->getPaginatorAdapter();
         } else {
-            throw new Exception(
+            throw new Exception\InvalidArgumentException(
                 'Zend_Paginator only accepts instances of the type ' .
                 'Zend_Paginator_Adapter_Interface or Zend_Paginator_AdapterAggregate.'
             );
@@ -660,7 +660,7 @@ class Paginator implements \Countable, \IteratorAggregate
         $itemCount = $this->getItemCount($page);
 
         if ($itemCount == 0) {
-            throw new Exception('Page ' . $pageNumber . ' does not exist');
+            throw new Exception\RuntimeException('Page ' . $pageNumber . ' does not exist');
         }
 
         if ($itemNumber < 0) {
@@ -670,7 +670,7 @@ class Paginator implements \Countable, \IteratorAggregate
         $itemNumber = $this->normalizeItemNumber($itemNumber);
 
         if ($itemNumber > $itemCount) {
-            throw new Exception('Page ' . $pageNumber . ' does not'
+            throw new Exception\RuntimeException('Page ' . $pageNumber . ' does not'
                                              . ' contain item number ' . $itemNumber);
         }
 
