@@ -219,7 +219,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
     public function testPassingArrayBootstrapWithoutPathOptionShouldRaiseException()
     {
-        $this->setExpectedException('Zend\\Application\\Exception');
+        $this->setExpectedException('Zend\Application\Exception\InvalidArgumentException');
         $this->application->setOptions(array(
             'bootstrap' => array(
                 'class' => 'ZfAppBootstrap',
@@ -230,7 +230,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
     public function testPassingInvalidBootstrapOptionShouldRaiseException()
     {
-        $this->setExpectedException('Zend\\Application\\Exception');
+        $this->setExpectedException('Zend\Application\Exception\InvalidArgumentException');
         $this->application->setOptions(array(
             'bootstrap' => new \stdClass(),
         ));
@@ -239,7 +239,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
     public function testPassingInvalidOptionsArgumentToConstructorShouldRaiseException()
     {
-        $this->setExpectedException('Zend\\Application\\Exception');
+        $this->setExpectedException('Zend\Application\Exception\InvalidArgumentException');
         $application = new Application\Application('testing', new \stdClass());
     }
 
@@ -286,7 +286,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
     public function testPassingInvalidStringOptionToConstructorShouldRaiseException()
     {
-        $this->setExpectedException('Zend\\Application\\Exception');
+        $this->setExpectedException('Zend\Application\Exception\InvalidArgumentException');
         $application = new Application\Application('testing', __DIR__ . '/TestAsset/appconfig');
     }
 
@@ -312,7 +312,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
     public function testApplicationShouldRaiseExceptionIfBootstrapFileDoesNotContainBootstrapClass()
     {
-        $this->setExpectedException('Zend\\Application\\Exception');
+        $this->setExpectedException('Zend\Application\Exception\InvalidArgumentException');
         $this->application->setOptions(array(
             'bootstrap' => array(
                 'path'  => __DIR__ . '/TestAsset/ZfAppNoBootstrap.php',
@@ -324,7 +324,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
     public function testApplicationShouldRaiseExceptionWhenBootstrapClassNotOfCorrectType()
     {
-        $this->setExpectedException('Zend\\Application\\Exception');
+        $this->setExpectedException('Zend\Application\Exception\InvalidArgumentException');
         $this->application->setOptions(array(
             'bootstrap' => array(
                 'path'  => __DIR__ . '/TestAsset/ZfAppBadBootstrap.php',
