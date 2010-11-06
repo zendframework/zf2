@@ -65,7 +65,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
      * @param string  $rowKey          Row key
      */
     public function __construct($partitionKey = '', $rowKey = '') 
-    {	        
+    {            
         $this->_partitionKey = $partitionKey;
         $this->_rowKey       = $rowKey;
     }
@@ -173,15 +173,15 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
                 $property = $accessor->EntityAccessor;
                 $returnValue[] = (object)array(
                     'Name'  => $accessor->AzurePropertyName,
-                	'Type'  => $accessor->AzurePropertyType,
-                	'Value' => $this->$property,
+                    'Type'  => $accessor->AzurePropertyType,
+                    'Value' => $this->$property,
                 );
             } else if ($accessor->EntityType == 'ReflectionMethod' && substr(strtolower($accessor->EntityAccessor), 0, 3) == 'get') {
                 $method = $accessor->EntityAccessor;
                 $returnValue[] = (object)array(
                     'Name'  => $accessor->AzurePropertyName,
-                	'Type'  => $accessor->AzurePropertyType,
-                	'Value' => $this->$method(),
+                    'Type'  => $accessor->AzurePropertyType,
+                    'Value' => $this->$method(),
                 );
             }
         }
@@ -209,18 +209,18 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
                 // Cast to correct type
                 if ($accessor->AzurePropertyType != '') {
                     switch (strtolower($accessor->AzurePropertyType)) {
-        	            case 'edm.int32':
-        	            case 'edm.int64':
-        	                $values[$accessor->AzurePropertyName] = intval($values[$accessor->AzurePropertyName]); break;
-        	            case 'edm.boolean':
-        	                if ($values[$accessor->AzurePropertyName] == 'true' || $values[$accessor->AzurePropertyName] == '1')
-        	                    $values[$accessor->AzurePropertyName] = true;
-        	                else
-        	                    $values[$accessor->AzurePropertyName] = false;
-        	                break;
-        	            case 'edm.double':
-        	                $values[$accessor->AzurePropertyName] = floatval($values[$accessor->AzurePropertyName]); break;
-        	        }
+                        case 'edm.int32':
+                        case 'edm.int64':
+                            $values[$accessor->AzurePropertyName] = intval($values[$accessor->AzurePropertyName]); break;
+                        case 'edm.boolean':
+                            if ($values[$accessor->AzurePropertyName] == 'true' || $values[$accessor->AzurePropertyName] == '1')
+                                $values[$accessor->AzurePropertyName] = true;
+                            else
+                                $values[$accessor->AzurePropertyName] = false;
+                            break;
+                        case 'edm.double':
+                            $values[$accessor->AzurePropertyName] = floatval($values[$accessor->AzurePropertyName]); break;
+                    }
                 }
                 
                 // Assign value
@@ -312,7 +312,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
             'EntityAccessor'    => $member->getName(),
             'EntityType'        => get_class($member),
             'AzurePropertyName' => $azureProperties[0],
-        	'AzurePropertyType' => isset($azureProperties[1]) ? $azureProperties[1] : ''
+            'AzurePropertyType' => isset($azureProperties[1]) ? $azureProperties[1] : ''
         );
     }
 }

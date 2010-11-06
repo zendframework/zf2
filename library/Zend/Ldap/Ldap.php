@@ -903,11 +903,11 @@ class Ldap
         return $this->_createCollection($iterator, $collectionClass);
     }
 
-	/**
+    /**
      * Extension point for collection creation
      *
-     * @param  \Zend\Ldap\Collection\DefaultIterator	$iterator
-     * @param  string|null								$collectionClass
+     * @param  \Zend\Ldap\Collection\DefaultIterator    $iterator
+     * @param  string|null                                $collectionClass
      * @return \Zend\Ldap\Collection
      * @throws \Zend\Ldap\Exception
      */

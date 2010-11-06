@@ -92,7 +92,7 @@ class Proxy extends Socket
         
         /* Url might require stream context even if proxy connection doesn't */
         if ($secure) {
-        	$this->config['sslusecontext'] = true;
+            $this->config['sslusecontext'] = true;
         }
 
         // Connect (a non-secure connection) to the proxy server

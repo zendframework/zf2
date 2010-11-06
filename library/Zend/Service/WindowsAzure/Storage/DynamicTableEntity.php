@@ -89,8 +89,8 @@ class Zend_Service_WindowsAzure_Storage_DynamicTableEntity extends Zend_Service_
                 // Set dynamic property
                 $this->_dynamicProperties[strtolower($name)] = (object)array(
                         'Name'  => $name,
-                    	'Type'  => $type,
-                    	'Value' => $value,
+                        'Type'  => $type,
+                        'Value' => $value,
                     );
             }
     

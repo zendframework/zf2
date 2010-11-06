@@ -25,7 +25,7 @@
 namespace Zend\Search\Lucene\Index;
 
 use Zend\Search\Lucene,
-	Zend\Search\Lucene\Exception\InvalidFileFormatException;
+    Zend\Search\Lucene\Exception\InvalidFileFormatException;
 
 /**
  * Dictionary loader

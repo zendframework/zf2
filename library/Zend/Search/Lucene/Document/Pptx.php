@@ -25,15 +25,15 @@
 namespace Zend\Search\Lucene\Document;
 
 use Zend\Search\Lucene,
-	Zend\Search\Lucene\Exception\ExtensionNotLoadedException,
-	Zend\Search\Lucene\Exception\RuntimeException;
+    Zend\Search\Lucene\Exception\ExtensionNotLoadedException,
+    Zend\Search\Lucene\Exception\RuntimeException;
 
 /**
  * Pptx document.
  *
  * @uses       \Zend\Search\Lucene\Document\AbstractOpenXML
  * @uses       \Zend\Search\Lucene\Exception\ExtensionNotLoadedException
- * @uses	   \Zend\Search\Lucene\Exception\RuntimeException
+ * @uses       \Zend\Search\Lucene\Exception\RuntimeException
  * @uses       \Zend\Search\Lucene\Document\Field
  * @uses       ZipArchive
  * @category   Zend

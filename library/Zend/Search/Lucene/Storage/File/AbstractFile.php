@@ -189,7 +189,7 @@ abstract class AbstractFile implements File
                 return $wordLow;
             } else {
                 throw new Lucene\Exception\RuntimeException(
-                	'Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.'
+                    'Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.'
                 );
             }
 
@@ -220,7 +220,7 @@ abstract class AbstractFile implements File
     {
         if ($value < (int)0x80000000) {
             throw new Lucene\Exception\RuntimeException(
-            	'Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.'
+                'Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.'
             );
         }
 

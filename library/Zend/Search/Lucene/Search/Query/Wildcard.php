@@ -25,12 +25,12 @@
 namespace Zend\Search\Lucene\Search\Query;
 
 use Zend\Search\Lucene\Index,
-	Zend\Search\Lucene,
-	Zend\Search\Lucene\Analysis\Analyzer,
-	Zend\Search\Lucene\Search\Highlighter,
-	Zend\Search\Lucene\Exception\UnsupportedMethodCallException,
-	Zend\Search\Lucene\Exception\RuntimeException,
-	Zend\Search\Lucene\Exception\OutOfBoundsException;
+    Zend\Search\Lucene,
+    Zend\Search\Lucene\Analysis\Analyzer,
+    Zend\Search\Lucene\Search\Highlighter,
+    Zend\Search\Lucene\Exception\UnsupportedMethodCallException,
+    Zend\Search\Lucene\Exception\RuntimeException,
+    Zend\Search\Lucene\Exception\OutOfBoundsException;
 
 /**
  * @uses       \Zend\Search\Lucene\Index
@@ -157,7 +157,7 @@ class Wildcard extends AbstractQuery
 
         if ($prefixLength < self::$_minPrefixLength) {
             throw new RuntimeException(
-            	'At least ' . self::$_minPrefixLength . ' non-wildcard characters are required at the beginning of pattern.'
+                'At least ' . self::$_minPrefixLength . ' non-wildcard characters are required at the beginning of pattern.'
             );
         }
 
@@ -298,7 +298,7 @@ class Wildcard extends AbstractQuery
     public function matchedDocs()
     {
         throw new UnsupportedMethodCallException(
-        	'Wildcard query should not be directly used for search. Use $query->rewrite($index)'
+            'Wildcard query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 
@@ -313,7 +313,7 @@ class Wildcard extends AbstractQuery
     public function score($docId, Lucene\SearchIndex $reader)
     {
         throw new UnsupportedMethodCallException(
-        	'Wildcard query should not be directly used for search. Use $query->rewrite($index)'
+            'Wildcard query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 

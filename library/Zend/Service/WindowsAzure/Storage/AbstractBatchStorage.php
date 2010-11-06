@@ -34,7 +34,7 @@
  */
 abstract class Zend_Service_WindowsAzure_Storage_AbstractBatchStorage
     extends Zend_Service_WindowsAzure_Storage
-{	
+{    
     /**
      * Current batch
      * 
@@ -86,83 +86,83 @@ abstract class Zend_Service_WindowsAzure_Storage_AbstractBatchStorage
     {
         return new Zend_Service_WindowsAzure_Storage_Batch($this, $this->getBaseUrl());
     }
-	
-	/**
-	 * Perform batch using Zend_Http_Client channel, combining all batch operations into one request
-	 *
-	 * @param array $operations Operations in batch
-	 * @param boolean $forTableStorage Is the request for table storage?
-	 * @param boolean $isSingleSelect Is the request a single select statement?
-	 * @param string $resourceType Resource type
-	 * @param string $requiredPermission Required permission
-	 * @return Zend_Http_Response
-	 */
-	public function performBatch($operations = array(), $forTableStorage = false, $isSingleSelect = false, $resourceType = Zend_Service_WindowsAzure_Storage::RESOURCE_UNKNOWN, $requiredPermission = Zend_Service_WindowsAzure_Credentials_AbstractCredentials::PERMISSION_READ)
-	{
-	    // Generate boundaries
-	    $batchBoundary = 'batch_' . md5(time() . microtime());
-	    $changesetBoundary = 'changeset_' . md5(time() . microtime());
-	    
-	    // Set headers
-	    $headers = array();
-	    
-		// Add version header
-		$headers['x-ms-version'] = $this->_apiVersion;
-		
-		// Add content-type header
-		$headers['Content-Type'] = 'multipart/mixed; boundary=' . $batchBoundary;
+    
+    /**
+     * Perform batch using Zend_Http_Client channel, combining all batch operations into one request
+     *
+     * @param array $operations Operations in batch
+     * @param boolean $forTableStorage Is the request for table storage?
+     * @param boolean $isSingleSelect Is the request a single select statement?
+     * @param string $resourceType Resource type
+     * @param string $requiredPermission Required permission
+     * @return Zend_Http_Response
+     */
+    public function performBatch($operations = array(), $forTableStorage = false, $isSingleSelect = false, $resourceType = Zend_Service_WindowsAzure_Storage::RESOURCE_UNKNOWN, $requiredPermission = Zend_Service_WindowsAzure_Credentials_AbstractCredentials::PERMISSION_READ)
+    {
+        // Generate boundaries
+        $batchBoundary = 'batch_' . md5(time() . microtime());
+        $changesetBoundary = 'changeset_' . md5(time() . microtime());
+        
+        // Set headers
+        $headers = array();
+        
+        // Add version header
+        $headers['x-ms-version'] = $this->_apiVersion;
+        
+        // Add content-type header
+        $headers['Content-Type'] = 'multipart/mixed; boundary=' . $batchBoundary;
 
-		// Set path and query string
-		$path           = '/$batch';
-		$queryString    = '';
-		
-		// Set verb
-		$httpVerb = Zend_Http_Client::POST;
-		
-		// Generate raw data
-    	$rawData = '';
-    		
-		// Single select?
-		if ($isSingleSelect) {
-		    $operation = $operations[0];
-		    $rawData .= '--' . $batchBoundary . "\n";
+        // Set path and query string
+        $path           = '/$batch';
+        $queryString    = '';
+        
+        // Set verb
+        $httpVerb = Zend_Http_Client::POST;
+        
+        // Generate raw data
+        $rawData = '';
+            
+        // Single select?
+        if ($isSingleSelect) {
+            $operation = $operations[0];
+            $rawData .= '--' . $batchBoundary . "\n";
             $rawData .= 'Content-Type: application/http' . "\n";
             $rawData .= 'Content-Transfer-Encoding: binary' . "\n\n";
             $rawData .= $operation; 
             $rawData .= '--' . $batchBoundary . '--';
-		} else {
-    		$rawData .= '--' . $batchBoundary . "\n";
-    		$rawData .= 'Content-Type: multipart/mixed; boundary=' . $changesetBoundary . "\n\n";
-    		
-        		// Add operations
-        		foreach ($operations as $operation)
-        		{
+        } else {
+            $rawData .= '--' . $batchBoundary . "\n";
+            $rawData .= 'Content-Type: multipart/mixed; boundary=' . $changesetBoundary . "\n\n";
+            
+                // Add operations
+                foreach ($operations as $operation)
+                {
                     $rawData .= '--' . $changesetBoundary . "\n";
-                	$rawData .= 'Content-Type: application/http' . "\n";
-                	$rawData .= 'Content-Transfer-Encoding: binary' . "\n\n";
-                	$rawData .= $operation;
-        		}
-        		$rawData .= '--' . $changesetBoundary . '--' . "\n";
-    		    		    
-    		$rawData .= '--' . $batchBoundary . '--';
-		}
+                    $rawData .= 'Content-Type: application/http' . "\n";
+                    $rawData .= 'Content-Transfer-Encoding: binary' . "\n\n";
+                    $rawData .= $operation;
+                }
+                $rawData .= '--' . $changesetBoundary . '--' . "\n";
+                            
+            $rawData .= '--' . $batchBoundary . '--';
+        }
 
-		// Generate URL and sign request
-		$requestUrl     = $this->_credentials->signRequestUrl($this->getBaseUrl() . $path . $queryString, $resourceType, $requiredPermission);
-		$requestHeaders = $this->_credentials->signRequestHeaders($httpVerb, $path, $queryString, $headers, $forTableStorage, $resourceType, $requiredPermission);
+        // Generate URL and sign request
+        $requestUrl     = $this->_credentials->signRequestUrl($this->getBaseUrl() . $path . $queryString, $resourceType, $requiredPermission);
+        $requestHeaders = $this->_credentials->signRequestHeaders($httpVerb, $path, $queryString, $headers, $forTableStorage, $resourceType, $requiredPermission);
 
-		// Prepare request
-		$this->_httpClientChannel->resetParameters(true);
-		$this->_httpClientChannel->setUri($requestUrl);
-		$this->_httpClientChannel->setHeaders($requestHeaders);
-		$this->_httpClientChannel->setRawData($rawData);
-		
-		// Execute request
-		$response = $this->_retryPolicy->execute(
-		    array($this->_httpClientChannel, 'request'),
-		    array($httpVerb)
-		);
+        // Prepare request
+        $this->_httpClientChannel->resetParameters(true);
+        $this->_httpClientChannel->setUri($requestUrl);
+        $this->_httpClientChannel->setHeaders($requestHeaders);
+        $this->_httpClientChannel->setRawData($rawData);
+        
+        // Execute request
+        $response = $this->_retryPolicy->execute(
+            array($this->_httpClientChannel, 'request'),
+            array($httpVerb)
+        );
 
-		return $response;
-	}
+        return $response;
+    }
 }

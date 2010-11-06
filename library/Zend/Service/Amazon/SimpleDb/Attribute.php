@@ -58,7 +58,7 @@ class Attribute
         }
     }
 
-	/**
+    /**
      * Return the item name to which the attribute belongs
      *
      * @return string
@@ -68,7 +68,7 @@ class Attribute
         return $this->_itemName;
     }
 
-	/**
+    /**
      * Retrieve attribute values
      *
      * @return array
@@ -78,7 +78,7 @@ class Attribute
         return $this->_values;
     }
 
-	/**
+    /**
      * Retrieve the attribute name
      *
      * @return string

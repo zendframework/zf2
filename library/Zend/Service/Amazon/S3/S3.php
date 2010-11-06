@@ -538,11 +538,11 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
     /**
      * Make a request to Amazon S3
      *
-     * @param  string $method	Request method
-     * @param  string $path		Path to requested object
-     * @param  array  $params	Request parameters
-     * @param  array  $headers	HTTP headers
-     * @param  string|resource $data		Request data
+     * @param  string $method    Request method
+     * @param  string $path        Path to requested object
+     * @param  array  $params    Request parameters
+     * @param  array  $headers    HTTP headers
+     * @param  string|resource $data        Request data
      * @return Zend_Http_Response
      */
     public function _makeRequest($method, $path='', $params=null, $headers=array(), $data=null)

@@ -134,7 +134,7 @@ abstract class Word extends AbstractAdapter
      *
      * @return string
      */
-	public function getSessionClass()
+    public function getSessionClass()
     {
         return $this->_sessionClass;
     }
@@ -220,17 +220,17 @@ abstract class Word extends AbstractAdapter
         return $this->_timeout;
     }
 
-	/**
-	 * Sets if session should be preserved on generate()
-	 * 
-	 * @param $keepSession Should session be kept on generate()?
-	 * @return \Zend\Captcha\Word
-	 */
-	public function setKeepSession($keepSession) 
-	{
-		$this->_keepSession = $keepSession;
-		return $this;
-	}
+    /**
+     * Sets if session should be preserved on generate()
+     * 
+     * @param $keepSession Should session be kept on generate()?
+     * @return \Zend\Captcha\Word
+     */
+    public function setKeepSession($keepSession) 
+    {
+        $this->_keepSession = $keepSession;
+        return $this;
+    }
 
     /**
      * Numbers should be included in the pattern?
@@ -242,9 +242,9 @@ abstract class Word extends AbstractAdapter
         return $this->_useNumbers;
     }
 
-	/**
-	 * Set if numbers should be included in the pattern
-	 * 
+    /**
+     * Set if numbers should be included in the pattern
+     * 
      * @param $_useNumbers numbers should be included in the pattern?
      * @return Zend_Captcha_Word
      */
@@ -253,8 +253,8 @@ abstract class Word extends AbstractAdapter
         $this->_useNumbers = $_useNumbers;
         return $this;
     }
-	
-	/**
+    
+    /**
      * Get session object
      *
      * @return \Zend\Session\Container

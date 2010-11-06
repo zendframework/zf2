@@ -25,8 +25,8 @@ namespace Zend\Test\PHPUnit;
 
 use Zend\Application,
     Zend\Controller\Front as FrontController,
-	Zend\Controller\Request,
-	Zend\Test\PHPUnit\Exception\InvalidArgumentException;
+    Zend\Controller\Request,
+    Zend\Test\PHPUnit\Exception\InvalidArgumentException;
 
 /**
  * Functional testing scaffold for MVC applications

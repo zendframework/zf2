@@ -416,8 +416,8 @@ class Sqlsrv extends AbstractAdapter
         $stmt   = $this->query($sql);
         $result = $stmt->fetchAll(Db\Db::FETCH_NUM);
 
-		// ZF-7698
-		$stmt->closeCursor();
+        // ZF-7698
+        $stmt->closeCursor();
         
         if (count($result) == 0) {
             return array();

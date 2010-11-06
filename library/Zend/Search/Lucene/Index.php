@@ -24,10 +24,10 @@
 namespace Zend\Search\Lucene;
 
 use Zend\Search\Lucene\Search\Similarity,
-	Zend\Search\Lucene\Storage\Directory,
-	Zend\Search\Lucene\Exception\InvalidArgumentException,
-	Zend\Search\Lucene\Exception\RuntimeException,
-	Zend\Search\Lucene\Exception\InvalidFileFormatException;
+    Zend\Search\Lucene\Storage\Directory,
+    Zend\Search\Lucene\Exception\InvalidArgumentException,
+    Zend\Search\Lucene\Exception\RuntimeException,
+    Zend\Search\Lucene\Exception\InvalidFileFormatException;
 
 /**
  * @uses       \Zend\Search\Lucene\Document
@@ -346,7 +346,7 @@ class Index implements SearchIndex
                 }
 
                 throw new RuntimeException(
-                	'Separate norm files are not supported. Optimize index to use it with Zend\Search\Lucene.'
+                    'Separate norm files are not supported. Optimize index to use it with Zend\Search\Lucene.'
                 );
             }
 
@@ -536,7 +536,7 @@ class Index implements SearchIndex
      *
      * @param integer $id
      * @return boolean
-     * @throws \Zend\Search\Lucene\Exception\OutOfRangeException	is thrown if $id is out of the range
+     * @throws \Zend\Search\Lucene\Exception\OutOfRangeException    is thrown if $id is out of the range
      */
     public function isDeleted($id)
     {

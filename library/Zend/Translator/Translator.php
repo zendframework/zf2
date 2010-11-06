@@ -24,7 +24,7 @@
 namespace Zend\Translator;
 
 use Zend\Translator\Exception\InvalidArgumentException,
-	Zend\Translator\Exception\BadMethodCallException;
+    Zend\Translator\Exception\BadMethodCallException;
 
 /**
  * @uses       \Zend\Loader

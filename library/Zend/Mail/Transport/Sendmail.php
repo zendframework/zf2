@@ -108,11 +108,11 @@ class Sendmail extends AbstractTransport
                 $this->header);
             restore_error_handler();
         } else {
-        	if(!is_string($this->parameters)) {
-	            /**
-	             * Exception is thrown here because
-	             * $parameters is a public property
-	             */
+            if(!is_string($this->parameters)) {
+                /**
+                 * Exception is thrown here because
+                 * $parameters is a public property
+                 */
                 throw new Exception\RuntimeException(
                     'Parameters were set but are not a string'
                 );

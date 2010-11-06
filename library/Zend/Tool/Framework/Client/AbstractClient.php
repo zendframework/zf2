@@ -185,7 +185,7 @@ abstract class AbstractClient implements RegistryEnabled
      */
     public function getRegistry()
     {
-    	return $this->_registry;
+        return $this->_registry;
     }
 
     /**

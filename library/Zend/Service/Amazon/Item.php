@@ -125,7 +125,7 @@ class Item
      *
      * @param  null|DOMElement $dom
      * @return void
-     * @throws	\Zend\Service\Amazon\Exception
+     * @throws    \Zend\Service\Amazon\Exception
      * 
      * @group ZF-9547
      */

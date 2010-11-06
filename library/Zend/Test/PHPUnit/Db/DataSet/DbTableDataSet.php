@@ -85,7 +85,7 @@ class DbTableDataSet extends \PHPUnit_Extensions_Database_DataSet_AbstractDataSe
     {
         if (!isset($this->tables[$tableName])) {
             throw new \Zend\Test\PHPUnit\Db\Exception\InvalidArgumentException(
-            	"$tableName is not a table in the current database."
+                "$tableName is not a table in the current database."
             );
         }
 

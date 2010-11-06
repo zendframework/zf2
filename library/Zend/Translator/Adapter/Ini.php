@@ -24,7 +24,7 @@
 namespace Zend\Translator\Adapter;
 
 use Zend\Translator\Adapter as TranslationAdapter,
-	Zend\Translator\Adapter\Exception\InvalidArgumentException;
+    Zend\Translator\Adapter\Exception\InvalidArgumentException;
 
 /**
  * @uses       \Zend\Locale\Locale

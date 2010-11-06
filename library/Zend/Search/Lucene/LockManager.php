@@ -24,7 +24,7 @@
 namespace Zend\Search\Lucene;
 
 use Zend\Search\Lucene\Storage\Directory,
-	Zend\Search\Lucene\Exception\RuntimeException;
+    Zend\Search\Lucene\Exception\RuntimeException;
 
 /**
  * This is an utility class which provides index locks processing functionality

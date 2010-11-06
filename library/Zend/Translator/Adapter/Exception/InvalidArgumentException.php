@@ -2,6 +2,6 @@
 namespace Zend\Translator\Adapter\Exception;
 
 class InvalidArgumentException
-	extends \InvalidArgumentException
-	implements \Zend\Translator\Adapter\Exception
+    extends \InvalidArgumentException
+    implements \Zend\Translator\Adapter\Exception
 {}

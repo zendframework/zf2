@@ -30,7 +30,7 @@
  * @property string $MessageId         Message ID
  * @property string $InsertionTime     Insertion time
  * @property string $ExpirationTime    Expiration time
- * @property string $PopReceipt  	   Receipt verification for deleting the message from queue.
+ * @property string $PopReceipt         Receipt verification for deleting the message from queue.
  * @property string $TimeNextVisible   Next time the message is visible in the queue
  * @property string $MessageText       Message text
  */
@@ -49,7 +49,7 @@ class Zend_Service_WindowsAzure_Storage_QueueMessage
      * @param string $messageId         Message ID
      * @param string $insertionTime     Insertion time
      * @param string $expirationTime    Expiration time
-     * @param string $popReceipt  	    Receipt verification for deleting the message from queue.
+     * @param string $popReceipt          Receipt verification for deleting the message from queue.
      * @param string $timeNextVisible   Next time the message is visible in the queue
      * @param string $messageText       Message text
      */

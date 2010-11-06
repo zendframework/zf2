@@ -102,7 +102,7 @@ class Format
                         $options['number_format'] = Data::getContent($locale, 'decimalnumber');
                     } else if ((gettype($value) !== 'string') and ($value !== NULL)) {
                         throw new Exception\InvalidArgumentException(
-                        	"Unknown number format type '" . gettype($value) . "'. "
+                            "Unknown number format type '" . gettype($value) . "'. "
                             . "Format '$value' must be a valid number format string."
                         );
                     }
@@ -117,7 +117,7 @@ class Format
                         $options['date_format'] = self::getDateFormat($locale);
                     } else if ((gettype($value) !== 'string') and ($value !== NULL)) {
                         throw new Exception\InvalidArgumentException(
-                        	"Unknown dateformat type '" . gettype($value) . "'. "
+                            "Unknown dateformat type '" . gettype($value) . "'. "
                             . "Format '$value' must be a valid ISO or PHP date format string."
                         );
                     } else {
@@ -131,7 +131,7 @@ class Format
                 case 'format_type' :
                     if (($value != 'php') && ($value != 'iso')) {
                         throw new Exception\InvalidArgumentException(
-                        	"Unknown date format type '$value'. Only 'iso' and 'php'"
+                            "Unknown date format type '$value'. Only 'iso' and 'php'"
                            . " are supported."
                         );
                     }
@@ -140,7 +140,7 @@ class Format
                 case 'fix_date' :
                     if (($value !== true) && ($value !== false)) {
                         throw new Exception\InvalidArgumentException(
-                        	"Enabling correction of dates must be either true or false"
+                            "Enabling correction of dates must be either true or false"
                             . "(fix_date='$value')."
                         );
                     }
@@ -167,14 +167,14 @@ class Format
 
                     if (($value < -1) || ($value > 30)) {
                         throw new Exception\InvalidArgumentException(
-                        	"'$value' precision is not a whole number less than 30."
-                       	);
+                            "'$value' precision is not a whole number less than 30."
+                           );
                     }
                     break;
 
                 default:
                     throw new Exception\InvalidArgumentException(
-                    	"Unknown option: '$name' = '$value'"
+                        "Unknown option: '$name' = '$value'"
                     );
                     break;
 
@@ -206,7 +206,7 @@ class Format
         $source = Data::getContent('en', 'numberingsystem', $from);
         if (empty($source)) {
             throw new Exception\InvalidArgumentException(
-            	"Unknown script '$from'. Use 'Latn' for digits 0,1,2,3,4,5,6,7,8,9."
+                "Unknown script '$from'. Use 'Latn' for digits 0,1,2,3,4,5,6,7,8,9."
             );
         }
 
@@ -215,7 +215,7 @@ class Format
             $target = Data::getContent('en', 'numberingsystem', $to);
             if (empty($target)) {
                 throw new Exception\InvalidArgumentException(
-                	"Unknown script '$to'. Use 'Latn' for digits 0,1,2,3,4,5,6,7,8,9."
+                    "Unknown script '$to'. Use 'Latn' for digits 0,1,2,3,4,5,6,7,8,9."
                 );
             }
         } else {
@@ -255,7 +255,7 @@ class Format
 
         if (!self::isNumber($input, $options)) {
             throw new Exception\InvalidArgumentException(
-            	'No localized value in ' . $input . ' found, or the given number does not match the localized format'
+                'No localized value in ' . $input . ' found, or the given number does not match the localized format'
             );
         }
 
@@ -350,7 +350,7 @@ class Format
         if (iconv_strpos($format, '0') === false) {
             iconv_set_encoding('internal_encoding', $oenc);
             throw new Exception\InvalidArgumentException(
-            	'Wrong format... missing 0'
+                'Wrong format... missing 0'
             );
         }
 

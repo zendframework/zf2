@@ -25,10 +25,10 @@
 namespace Zend\Search\Lucene\Search\Query;
 
 use Zend\Search\Lucene,
-	Zend\Search\Lucene\Index,
-	Zend\Search\Lucene\Search\Weight,
-	Zend\Search\Lucene\Search\Highlighter,
-	Zend\Search\Lucence\Exception\InvalidArgumentException;
+    Zend\Search\Lucene\Index,
+    Zend\Search\Lucene\Search\Weight,
+    Zend\Search\Lucene\Search\Highlighter,
+    Zend\Search\Lucence\Exception\InvalidArgumentException;
 
 /**
  * @uses       \Zend\Search\Lucene\Index

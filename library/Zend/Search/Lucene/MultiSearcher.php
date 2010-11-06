@@ -24,18 +24,18 @@
 namespace Zend\Search\Lucene;
 
 use Zend\Search\Lucene\Storage\Directory,
-	Zend\Search\Lucene\Exception\InvalidArgumentException,
-	Zend\Search\Lucene\Exception\UnsupportedMethodCallException,
-	Zend\Search\Lucene\Exception\OutOfRangeException,
-	Zend\Search\Lucene\Exception\RuntimeException;
+    Zend\Search\Lucene\Exception\InvalidArgumentException,
+    Zend\Search\Lucene\Exception\UnsupportedMethodCallException,
+    Zend\Search\Lucene\Exception\OutOfRangeException,
+    Zend\Search\Lucene\Exception\RuntimeException;
 
 /**
  * Multisearcher allows to search through several independent indexes.
  *
  * @uses       \Zend\Search\Lucene\Index
  * @uses       \Zend\Search\Lucene\Exception\InvalidArgumentException
- * @uses	   \Zend\Search\Lucene\Exception\UnsupportedMethodCallException
- * @uses	   \Zend\Search\Lucene\Exception\OutOfRangeException
+ * @uses       \Zend\Search\Lucene\Exception\UnsupportedMethodCallException
+ * @uses       \Zend\Search\Lucene\Exception\OutOfRangeException
  * @uses       \Zend\Search\Lucene\Exception\RuntimeException
  * @uses       \Zend\Search\Lucene\SearchIndex
  * @uses       \Zend\Search\Lucene\TermStreamsPriorityQueue
@@ -193,7 +193,7 @@ class MultiSearcher implements SearchIndex
      *
      * @param integer $id
      * @return boolean
-     * @throws \Zend\Search\Lucene\Exception\OutOfRangeException	is thrown if $id is out of the range
+     * @throws \Zend\Search\Lucene\Exception\OutOfRangeException    is thrown if $id is out of the range
      */
     public function isDeleted($id)
     {
@@ -421,7 +421,7 @@ class MultiSearcher implements SearchIndex
      *
      * @param integer|\Zend\Search\Lucene\Search\QueryHit $id
      * @return \Zend\Search\Lucene\Document
-     * @throws \Zend\Search\Lucene\Exception\OutOfRangeException	is thrown if $id is out of the range
+     * @throws \Zend\Search\Lucene\Exception\OutOfRangeException    is thrown if $id is out of the range
      */
     public function getDocument($id)
     {

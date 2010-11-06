@@ -25,11 +25,11 @@
 namespace Zend\Search\Lucene\Search\Query;
 
 use Zend\Search\Lucene\Index,
-	Zend\Search\Lucene,
-	Zend\Search\Lucene\Search\Weight,
-	Zend\Search\Lucene\Search\Highlighter,
-	Zend\Search\Lucene\Exception\InvalidArgumentException;
-	
+    Zend\Search\Lucene,
+    Zend\Search\Lucene\Search\Weight,
+    Zend\Search\Lucene\Search\Highlighter,
+    Zend\Search\Lucene\Exception\InvalidArgumentException;
+    
 /**
  * A Query that matches documents containing a particular sequence of terms.
  *

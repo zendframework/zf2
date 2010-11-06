@@ -25,16 +25,16 @@
 namespace Zend\Search\Lucene\Document;
 
 use Zend\Search\Lucene,
-	Zend\Search\Lucene\Exception\ExtensionNotLoadedException,
-	Zend\Search\Lucene\Exception\RuntimeException,
-	Zend\Search\Lucene\Document\Exception\InvalidArgumentException;
+    Zend\Search\Lucene\Exception\ExtensionNotLoadedException,
+    Zend\Search\Lucene\Exception\RuntimeException,
+    Zend\Search\Lucene\Document\Exception\InvalidArgumentException;
 
 /**
  * Docx document.
  *
  * @uses       \Zend\Search\Lucene\Exception\ExtensionNotLoadedException
- * @uses	   \Zend\Search\Lucene\Exception\RuntimeException
- * @uses	   \Zend\Search\Lucene\Document\Exception\InvalidArgumentException
+ * @uses       \Zend\Search\Lucene\Exception\RuntimeException
+ * @uses       \Zend\Search\Lucene\Document\Exception\InvalidArgumentException
  * @uses       \Zend\Search\Lucene\Document\AbstractOpenXML
  * @uses       \Zend\Search\Lucene\Document\Field
  * @uses       ZipArchive
@@ -64,7 +64,7 @@ class Docx extends AbstractOpenXML {
     {
         if (!class_exists('ZipArchive', false)) {
             throw new ExtensionNotLoadedException(
-            	'MS Office documents processing functionality requires Zip extension to be loaded'
+                'MS Office documents processing functionality requires Zip extension to be loaded'
             );
         }
 

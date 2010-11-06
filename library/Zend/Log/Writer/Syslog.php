@@ -192,7 +192,7 @@ class Syslog extends AbstractWriter
 
         if (!in_array($facility, $this->_validFacilities)) {
             throw new Log\Exception\InvalidArgumentException(
-            	'Invalid log facility provided; please see http://php.net/openlog for a list of valid facility values'
+                'Invalid log facility provided; please see http://php.net/openlog for a list of valid facility values'
             );
         }
 

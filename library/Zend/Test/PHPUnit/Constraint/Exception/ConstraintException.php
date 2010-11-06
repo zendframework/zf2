@@ -36,7 +36,7 @@ namespace Zend\Test\PHPUnit\Constraint\Exception;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ConstraintException 
-	extends \PHPUnit_Framework_ExpectationFailedException
-	implements \Zend\Test\PHPUnit\Constraint\Exception
+    extends \PHPUnit_Framework_ExpectationFailedException
+    implements \Zend\Test\PHPUnit\Constraint\Exception
 {
 }

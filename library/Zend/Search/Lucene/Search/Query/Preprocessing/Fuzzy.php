@@ -25,12 +25,12 @@
 namespace Zend\Search\Lucene\Search\Query\Preprocessing;
 
 use Zend\Search\Lucene,
-	Zend\Search\Lucene\Search\Query,
-	Zend\Search\Lucene\Index,
-	Zend\Search\Lucene\Search,
-	Zend\Search\Lucene\Analysis\Analyzer,
-	Zend\Search\Lucene\Search\Highlighter,
-	Zend\Search\Lucence\Search\Exception\QueryParserException;
+    Zend\Search\Lucene\Search\Query,
+    Zend\Search\Lucene\Index,
+    Zend\Search\Lucene\Search,
+    Zend\Search\Lucene\Analysis\Analyzer,
+    Zend\Search\Lucene\Search\Highlighter,
+    Zend\Search\Lucence\Search\Exception\QueryParserException;
 
 /**
  * It's an internal abstract class intended to finalize ase a query processing after query parsing.

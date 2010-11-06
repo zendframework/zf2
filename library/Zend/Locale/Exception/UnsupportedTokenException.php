@@ -2,6 +2,6 @@
 namespace Zend\Locale\Exception;
 
 class UnsupportedTokenException
-	extends \RuntimeException
-	implements \Zend\Locale\Exception
+    extends \RuntimeException
+    implements \Zend\Locale\Exception
 {}

@@ -126,10 +126,10 @@ class Mail extends AbstractResource
      */
     protected function _setupTransport(array $options)
     {
-    	if(!isset($options['type'])) {
-    		$options['type'] = 'sendmail';
-    	}
-    	
+        if(!isset($options['type'])) {
+            $options['type'] = 'sendmail';
+        }
+        
         $transportName = $options['type'];
         if(!Loader\Autoloader::autoload($transportName)) {
             $transportName = ucfirst(strtolower($transportName));

@@ -121,11 +121,11 @@ class ControllerFile extends \Zend\Tool\Project\Context\Filesystem\File
                         new Php\PhpMethod(array(
                             'name' => 'init',
                             'body' => '/* Initialize action controller here */',
-                        	))
-                    	)
-                	))
-            	)
-        	));
+                            ))
+                        )
+                    ))
+                )
+            ));
 
 
         if ($className == 'ErrorController') {

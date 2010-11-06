@@ -123,17 +123,17 @@ class Socket implements HttpAdapter, Stream
         }
     }
 
-	/**
- 	 * Retrieve the array of all configuration options
- 	 *
- 	 * @return array
- 	 */
- 	public function getConfig()
- 	{
- 	    return $this->config;
- 	}
+    /**
+      * Retrieve the array of all configuration options
+      *
+      * @return array
+      */
+     public function getConfig()
+     {
+         return $this->config;
+     }
 
- 	/**
+     /**
      * Set the stream context for the TCP connection to the server
      *
      * Can accept either a pre-existing stream context resource, or an array

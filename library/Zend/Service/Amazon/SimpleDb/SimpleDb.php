@@ -77,7 +77,7 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
         $this->setEndpoint("https://" . $this->_sdbEndpoint);
     }
 
-	/**
+    /**
      * Set SimpleDB endpoint to use
      *
      * @param string|Zend\Uri\Http $endpoint
@@ -85,14 +85,14 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
      */
     public function setEndpoint($endpoint)
     {
-    	if(!($endpoint instanceof \Zend\Uri\Url)) {
-    		$endpoint = new \Zend\Uri\Url($endpoint);
-    	}
-    	if(!$endpoint->isValid()) {
-    		throw new Exception\InvalidArgumentException("Invalid endpoint supplied");
-    	}
-    	$this->_endpoint = $endpoint;
-    	return $this;
+        if(!($endpoint instanceof \Zend\Uri\Url)) {
+            $endpoint = new \Zend\Uri\Url($endpoint);
+        }
+        if(!$endpoint->isValid()) {
+            throw new Exception\InvalidArgumentException("Invalid endpoint supplied");
+        }
+        $this->_endpoint = $endpoint;
+        return $this;
     }
 
     /**
@@ -102,7 +102,7 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
      */
     public function getEndpoint() 
     {
-    	return $this->_endpoint;
+        return $this->_endpoint;
     }
 
     /**
@@ -115,15 +115,15 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
         $domainName, $itemName, $attributeName = null
     ) {
         $params               = array();
-	    $params['Action']     = 'GetAttributes';
-	    $params['DomainName'] = $domainName;
-	    $params['ItemName']   = $itemName;
+        $params['Action']     = 'GetAttributes';
+        $params['DomainName'] = $domainName;
+        $params['ItemName']   = $itemName;
 
-	    if (isset($attributeName)) {
-	        $params['AttributeName'] = $attributeName;
-	    }
+        if (isset($attributeName)) {
+            $params['AttributeName'] = $attributeName;
+        }
 
-	    $response = $this->_sendRequest($params);
+        $response = $this->_sendRequest($params);
         $document = $response->getSimpleXMLDocument();
 
         $attributeNodes = $document->GetAttributesResult->Attribute;
@@ -164,26 +164,26 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
         $domainName, $itemName, $attributes, $replace = array()
     ) {
         $params               = array();
-	    $params['Action']     = 'PutAttributes';
-	    $params['DomainName'] = $domainName;
-	    $params['ItemName']   = $itemName;
+        $params['Action']     = 'PutAttributes';
+        $params['DomainName'] = $domainName;
+        $params['ItemName']   = $itemName;
 
-	    $index = 0;
-	    foreach ($attributes as $attribute) {
-	        $attributeName = $attribute->getName();
+        $index = 0;
+        foreach ($attributes as $attribute) {
+            $attributeName = $attribute->getName();
             foreach ($attribute->getValues() as $value) {
-	            $params['Attribute.' . $index . '.Name']  = $attributeName;
+                $params['Attribute.' . $index . '.Name']  = $attributeName;
                 $params['Attribute.' . $index . '.Value'] = $value;
 
-	            // Check if it should be replaced
+                // Check if it should be replaced
                 if(array_key_exists($attributeName, $replace) && $replace[$attributeName]) {
                     $params['Attribute.' . $index . '.Replace'] = 'true';
                 }
                 $index++;
             }
-	    }
+        }
 
-	    // Exception should get thrown if there's an error
+        // Exception should get thrown if there's an error
         $response = $this->_sendRequest($params);
     }
 
@@ -238,18 +238,18 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
     public function deleteAttributes($domainName, $itemName, array $attributes = array()) 
     {
         $params               = array();
-	    $params['Action']     = 'DeleteAttributes';
-	    $params['DomainName'] = $domainName;
-	    $params['ItemName']   = $itemName;
+        $params['Action']     = 'DeleteAttributes';
+        $params['DomainName'] = $domainName;
+        $params['ItemName']   = $itemName;
 
-	    $attributeIndex = 0;
-	    foreach ($attributes as $attribute) {
-	        foreach ($attribute->getValues() as $value) {
-	            $params['Attribute.' . $attributeIndex . '.Name'] = $attribute->getName();
-	            $params['Attribute.' . $attributeIndex . '.Value'] = $value;
+        $attributeIndex = 0;
+        foreach ($attributes as $attribute) {
+            foreach ($attribute->getValues() as $value) {
+                $params['Attribute.' . $attributeIndex . '.Name'] = $attribute->getName();
+                $params['Attribute.' . $attributeIndex . '.Value'] = $value;
                 $attributeIndex++;
-	        }
-	    }
+            }
+        }
 
         $response = $this->_sendRequest($params);
 
@@ -266,12 +266,12 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
     public function listDomains($maxNumberOfDomains = 100, $nextToken = null) 
     {
         $params                       = array();
-	    $params['Action']             = 'ListDomains';
-	    $params['MaxNumberOfDomains'] = $maxNumberOfDomains;
+        $params['Action']             = 'ListDomains';
+        $params['MaxNumberOfDomains'] = $maxNumberOfDomains;
 
-	    if (null !== $nextToken) {
-	        $params['NextToken'] = $nextToken;
-	    }
+        if (null !== $nextToken) {
+            $params['NextToken'] = $nextToken;
+        }
         $response = $this->_sendRequest($params);
 
         $domainNodes = $response->getSimpleXMLDocument()->ListDomainsResult->DomainName;
@@ -297,8 +297,8 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
     public function domainMetadata($domainName) 
     {
         $params               = array();
-	    $params['Action']     = 'DomainMetadata';
-	    $params['DomainName'] = $domainName;
+        $params['Action']     = 'DomainMetadata';
+        $params['DomainName'] = $domainName;
         $response             = $this->_sendRequest($params);
 
         $document = $response->getSimpleXMLDocument();
@@ -316,14 +316,14 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
     /**
      * Create a new domain
      *
-     * @param $domainName	string	Valid domain name of the domain to create
-     * @return 				boolean True if successful, false if not
+     * @param $domainName    string    Valid domain name of the domain to create
+     * @return                 boolean True if successful, false if not
      */
-	public function createDomain($domainName) 
-	{
+    public function createDomain($domainName) 
+    {
         $params               = array();
-	    $params['Action']     = 'CreateDomain';
-	    $params['DomainName'] = $domainName;
+        $params['Action']     = 'CreateDomain';
+        $params['DomainName'] = $domainName;
         $response             = $this->_sendRequest($params);
         return $response->getHttpResponse()->isSuccessful();
     }
@@ -331,14 +331,14 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
     /**
      * Delete a domain
      *
-     * @param 	$domainName string  Valid domain name of the domain to delete
-     * @return 				boolean True if successful, false if not
+     * @param     $domainName string  Valid domain name of the domain to delete
+     * @return                 boolean True if successful, false if not
      */
-	public function deleteDomain($domainName) 
-	{
-	    $params               = array();
-	    $params['Action']     = 'DeleteDomain';
-	    $params['DomainName'] = $domainName;
+    public function deleteDomain($domainName) 
+    {
+        $params               = array();
+        $params['Action']     = 'DeleteDomain';
+        $params['DomainName'] = $domainName;
         $response             = $this->_sendRequest($params);
         return $response->getHttpResponse()->isSuccessful();
     }
@@ -350,15 +350,15 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
      * @param  null|string $nextToken
      * @return Zend\Service\Amazon\SimpleDb\Page
      */
-	public function select($selectExpression, $nextToken = null) 
-	{
+    public function select($selectExpression, $nextToken = null) 
+    {
         $params                     = array();
-	    $params['Action']           = 'Select';
-	    $params['SelectExpression'] = $selectExpression;
+        $params['Action']           = 'Select';
+        $params['SelectExpression'] = $selectExpression;
 
-	    if (null !== $nextToken) {
-	        $params['NextToken'] = $nextToken;
-	    }
+        if (null !== $nextToken) {
+            $params['NextToken'] = $nextToken;
+        }
 
         $response = $this->_sendRequest($params);
         $xml      = $response->getSimpleXMLDocument();
@@ -383,33 +383,33 @@ class SimpleDb extends \Zend\Service\Amazon\AbstractAmazon
         return new Page($attributes, $nextToken);
     }
     
-	/**
-	 * Quote SDB value
-	 * 
-	 * Wraps it in ''
-	 * 
-	 * @param string $value
-	 * @return string
-	 */
+    /**
+     * Quote SDB value
+     * 
+     * Wraps it in ''
+     * 
+     * @param string $value
+     * @return string
+     */
     public function quote($value)
     {
-    	// wrap in single quotes and convert each ' inside to ''
-    	return "'" . str_replace("'", "''", $value) . "'";
+        // wrap in single quotes and convert each ' inside to ''
+        return "'" . str_replace("'", "''", $value) . "'";
     }
     
-	/**
-	 * Quote SDB column or table name
-	 * 
-	 * Wraps it in ``
-	 * @param string $name
-	 * @return string
-	 */
+    /**
+     * Quote SDB column or table name
+     * 
+     * Wraps it in ``
+     * @param string $name
+     * @return string
+     */
     public function quoteName($name)
     {
-    	if (preg_match('/^[a-z_$][a-z0-9_$-]*$/i', $name) == false) {
-    		throw new Exception\InvalidArgumentException("Invalid name: can contain only alphanumeric characters, \$ and _");
-    	}
-    	return "`$name`";
+        if (preg_match('/^[a-z_$][a-z0-9_$-]*$/i', $name) == false) {
+            throw new Exception\InvalidArgumentException("Invalid name: can contain only alphanumeric characters, \$ and _");
+        }
+        return "`$name`";
     }
     
    /**

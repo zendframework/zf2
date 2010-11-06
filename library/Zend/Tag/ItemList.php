@@ -27,7 +27,7 @@ namespace Zend\Tag;
 use Zend\Amf\Parser\Exception;
 
 use Zend\Tag\Exception\InvalidArgumentException,
-	Zend\Tag\Exception\OutOfBoundsException;
+    Zend\Tag\Exception\OutOfBoundsException;
 
 /**
  * @uses       ArrayAccess

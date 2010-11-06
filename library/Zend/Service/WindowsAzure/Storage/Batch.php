@@ -31,7 +31,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_WindowsAzure_Storage_Batch
-{	
+{    
     /**
      * Storage client the batch is defined on
      * 
@@ -79,15 +79,15 @@ class Zend_Service_WindowsAzure_Storage_Batch
         $this->_beginBatch();
     }
     
-	/**
-	 * Get base URL for creating requests
-	 *
-	 * @return string
-	 */
-	public function getBaseUrl()
-	{
-		return $this->_baseUrl;
-	}
+    /**
+     * Get base URL for creating requests
+     *
+     * @return string
+     */
+    public function getBaseUrl()
+    {
+        return $this->_baseUrl;
+    }
     
     /**
      * Starts a new batch operation set
@@ -110,78 +110,78 @@ class Zend_Service_WindowsAzure_Storage_Batch
         unset($this);
     }
 
-	/**
-	 * Enlist operation in current batch
-	 *
-	 * @param string $path Path
-	 * @param string $queryString Query string
-	 * @param string $httpVerb HTTP verb the request will use
-	 * @param array $headers x-ms headers to add
-	 * @param boolean $forTableStorage Is the request for table storage?
-	 * @param mixed $rawData Optional RAW HTTP data to be sent over the wire
-	 * @throws Zend_Service_WindowsAzure_Exception
-	 */
-	public function enlistOperation($path = '/', $queryString = '', $httpVerb = Zend_Http_Client::GET, $headers = array(), $forTableStorage = false, $rawData = null)
-	{
-	    // Set _forTableStorage
-	    if ($forTableStorage) {
-	        $this->_forTableStorage = true;
-	    }
-	    
-	    // Set _isSingleSelect
-	    if ($httpVerb == Zend_Http_Client::GET) {
-	        if (count($this->_operations) > 0) {
-	            throw new Zend_Service_WindowsAzure_Exception("Select operations can only be performed in an empty batch transaction.");
-	        }
-	        $this->_isSingleSelect = true;
-	    }
-	    
-	    // Clean path
-		if (strpos($path, '/') !== 0) {
-			$path = '/' . $path;
-		}
-			
-		// Clean headers
-		if ($headers === null) {
-		    $headers = array();
-		}
-		    
-		// URL encoding
-		$path           = Zend_Service_WindowsAzure_Storage::urlencode($path);
-		$queryString    = Zend_Service_WindowsAzure_Storage::urlencode($queryString);
+    /**
+     * Enlist operation in current batch
+     *
+     * @param string $path Path
+     * @param string $queryString Query string
+     * @param string $httpVerb HTTP verb the request will use
+     * @param array $headers x-ms headers to add
+     * @param boolean $forTableStorage Is the request for table storage?
+     * @param mixed $rawData Optional RAW HTTP data to be sent over the wire
+     * @throws Zend_Service_WindowsAzure_Exception
+     */
+    public function enlistOperation($path = '/', $queryString = '', $httpVerb = Zend_Http_Client::GET, $headers = array(), $forTableStorage = false, $rawData = null)
+    {
+        // Set _forTableStorage
+        if ($forTableStorage) {
+            $this->_forTableStorage = true;
+        }
+        
+        // Set _isSingleSelect
+        if ($httpVerb == Zend_Http_Client::GET) {
+            if (count($this->_operations) > 0) {
+                throw new Zend_Service_WindowsAzure_Exception("Select operations can only be performed in an empty batch transaction.");
+            }
+            $this->_isSingleSelect = true;
+        }
+        
+        // Clean path
+        if (strpos($path, '/') !== 0) {
+            $path = '/' . $path;
+        }
+            
+        // Clean headers
+        if ($headers === null) {
+            $headers = array();
+        }
+            
+        // URL encoding
+        $path           = Zend_Service_WindowsAzure_Storage::urlencode($path);
+        $queryString    = Zend_Service_WindowsAzure_Storage::urlencode($queryString);
 
-		// Generate URL
-		$requestUrl     = $this->getBaseUrl() . $path . $queryString;
-		
-		// Generate $rawData
-		if ($rawData === null) {
-		    $rawData = '';
-		}
-		    
-		// Add headers
-		if ($httpVerb != Zend_Http_Client::GET) {
-    		$headers['Content-ID'] = count($this->_operations) + 1;
-    		if ($httpVerb != Zend_Http_Client::DELETE) {
-    		    $headers['Content-Type'] = 'application/atom+xml;type=entry';
-    		}
-    		$headers['Content-Length'] = strlen($rawData);
-		}
-		    
-		// Generate $operation
-		$operation = '';
-		$operation .= $httpVerb . ' ' . $requestUrl . ' HTTP/1.1' . "\n";
-		foreach ($headers as $key => $value)
-		{
-		    $operation .= $key . ': ' . $value . "\n";
-		}
-		$operation .= "\n";
-		
-		// Add data
-		$operation .= $rawData;
+        // Generate URL
+        $requestUrl     = $this->getBaseUrl() . $path . $queryString;
+        
+        // Generate $rawData
+        if ($rawData === null) {
+            $rawData = '';
+        }
+            
+        // Add headers
+        if ($httpVerb != Zend_Http_Client::GET) {
+            $headers['Content-ID'] = count($this->_operations) + 1;
+            if ($httpVerb != Zend_Http_Client::DELETE) {
+                $headers['Content-Type'] = 'application/atom+xml;type=entry';
+            }
+            $headers['Content-Length'] = strlen($rawData);
+        }
+            
+        // Generate $operation
+        $operation = '';
+        $operation .= $httpVerb . ' ' . $requestUrl . ' HTTP/1.1' . "\n";
+        foreach ($headers as $key => $value)
+        {
+            $operation .= $key . ': ' . $value . "\n";
+        }
+        $operation .= "\n";
+        
+        // Add data
+        $operation .= $rawData;
 
-		// Store operation
-		$this->_operations[] = $operation;	        
-	}
+        // Store operation
+        $this->_operations[] = $operation;            
+    }
     
     /**
      * Commit current batch
