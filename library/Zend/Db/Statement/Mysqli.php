@@ -23,6 +23,7 @@
  * @namespace
  */
 namespace Zend\Db\Statement;
+use Zend\Db;
 
 /**
  * Extends for Mysqli
