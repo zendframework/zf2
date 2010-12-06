@@ -82,16 +82,6 @@ abstract class AbstractSignature implements OAuthSignature
     }
 
     /**
-     * Sign a request
-     * 
-     * @param  array $params 
-     * @param  null|string $method 
-     * @param  null|string $url 
-     * @return string
-     */
-    public abstract function sign(array $params, $method = null, $url = null);
-
-    /**
      * Normalize the base signature URL
      * 
      * @param  string $url 
