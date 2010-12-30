@@ -1,2 +1,5 @@
 nbproject
-
+.project
+.buildpath
+.settings
+tests/Zend/Service/GitHub/_files/
