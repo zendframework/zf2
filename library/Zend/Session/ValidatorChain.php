@@ -62,13 +62,13 @@ class ValidatorChain extends Signals
 
     /**
      * Attach a handler to the session validator chain
-     * 
-     * @param  string $topic 
-     * @param  string|object|Closure $context 
-     * @param  null|string $handler 
+     *
+     * @param  string $topic
+     * @param  null|string|object|Closure $context
+     * @param  null|string $handler
      * @return Zend\Stdlib\SignalHandler
      */
-    public function connect($topic, $context, $handler = null)
+    public function connect($topic, $context = null, $handler = null)
     {
         if ($context instanceof Validator) {
             $data = $context->getData();
