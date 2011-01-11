@@ -23,8 +23,6 @@
  */
 namespace Zend\SignalSlot;
 
-use Zend\Stdlib\SignalHandler;
-
 /**
  * Interface for messengers
  *
@@ -37,8 +35,8 @@ interface SignalSlot
 {
     public function emit($signal, $argv = null);
     public function emitUntil($callback, $signal, $argv = null);
-    public function connect($signal, $context, $handler = null);
-    public function detach(SignalHandler $handle);
+    public function connect($signalOrAggregate, $context = null, $handler = null);
+    public function detach($handle);
     public function getSignals();
     public function getHandlers($signal);
     public function clearHandlers($signal);
