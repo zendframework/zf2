@@ -1,0 +1,246 @@
+<?php
+/**
+ * Zend Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
+ *
+ * @category   Zend
+ * @package    Zend_Filter
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
+
+/**
+ * @namespace
+ */
+namespace Zend\Filter\Compress;
+use Zend\Filter\Exception;
+
+/**
+ * Compression adapter for Rar
+ *
+ * @uses       \Zend\Filter\Compress\AbstractCompressionAlgorithm
+ * @uses       \Zend\Filter\Exception
+ * @category   Zend
+ * @package    Zend_Filter
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
+class Rar extends AbstractCompressionAlgorithm
+{
+    /**
+     * Compression Options
+     * array(
+     *     'callback' => Callback for compression
+     *     'archive'  => Archive to use
+     *     'password' => Password to use
+     *     'target'   => Target to write the files to
+     * )
+     *
+     * @var array
+     */
+    protected $_options = array(
+        'callback' => null,
+        'archive'  => null,
+        'password' => null,
+        'target'   => '.',
+    );
+
+    /**
+     * Class constructor
+     *
+     * @param array $options (Optional) Options to set
+     */
+    public function __construct($options = null)
+    {
+        if (!extension_loaded('rar')) {
+            throw new Exception\ExtensionNotLoadedException('This filter needs the rar extension');
+        }
+        parent::__construct($options);
+    }
+
+    /**
+     * Returns the set callback for compression
+     *
+     * @return string
+     */
+    public function getCallback()
+    {
+        return $this->_options['callback'];
+    }
+
+    /**
+     * Sets the callback to use
+     *
+     * @param string $callback
+     * @return \Zend\Filter\Compress\Rar
+     */
+    public function setCallback($callback)
+    {
+        if (!is_callable($callback)) {
+            throw new Exception\InvalidArgumentException('Callback can not be accessed');
+        }
+
+        $this->_options['callback'] = $callback;
+        return $this;
+    }
+
+    /**
+     * Returns the set archive
+     *
+     * @return string
+     */
+    public function getArchive()
+    {
+        return $this->_options['archive'];
+    }
+
+    /**
+     * Sets the archive to use for de-/compression
+     *
+     * @param string $archive Archive to use
+     * @return \Zend\Filter\Compress\Rar
+     */
+    public function setArchive($archive)
+    {
+        $archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $archive);
+        $this->_options['archive'] = (string) $archive;
+
+        return $this;
+    }
+
+    /**
+     * Returns the set password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->_options['password'];
+    }
+
+    /**
+     * Sets the password to use
+     *
+     * @param string $password
+     * @return \Zend\Filter\Compress\Rar
+     */
+    public function setPassword($password)
+    {
+        $this->_options['password'] = (string) $password;
+        return $this;
+    }
+
+    /**
+     * Returns the set targetpath
+     *
+     * @return string
+     */
+    public function getTarget()
+    {
+        return $this->_options['target'];
+    }
+
+    /**
+     * Sets the targetpath to use
+     *
+     * @param string $target
+     * @return \Zend\Filter\Compress\Rar
+     */
+    public function setTarget($target)
+    {
+        if (!file_exists(dirname($target))) {
+            throw new Exception\InvalidArgumentException("The directory '$target' does not exist");
+        }
+
+        $target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $target);
+        $this->_options['target'] = (string) $target;
+        return $this;
+    }
+
+    /**
+     * Compresses the given content
+     *
+     * @param  string|array $content
+     * @return string
+     */
+    public function compress($content)
+    {
+        $callback = $this->getCallback();
+        if ($callback === null) {
+            throw new Exception\RuntimeException('No compression callback available');
+        }
+
+        $options = $this->getOptions();
+        unset($options['callback']);
+
+        $result = call_user_func($callback, $options, $content);
+        if ($result !== true) {
+            throw new Exception\RuntimeException('Error compressing the RAR Archive');
+        }
+
+        return $this->getArchive();
+    }
+
+    /**
+     * Decompresses the given content
+     *
+     * @param  string $content
+     * @return boolean
+     */
+    public function decompress($content)
+    {
+        $archive = $this->getArchive();
+        if (file_exists($content)) {
+            $archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, realpath($content));
+        } elseif (empty($archive) || !file_exists($archive)) {
+            throw new Exception\RuntimeException('RAR Archive not found');
+        }
+
+        $password = $this->getPassword();
+        if ($password !== null) {
+            $archive = rar_open($archive, $password);
+        } else {
+            $archive = rar_open($archive);
+        }
+
+        if (!$archive) {
+            throw new Exception\RuntimeException("Error opening the RAR Archive");
+        }
+
+        $target = $this->getTarget();
+        if (!is_dir($target)) {
+            $target = dirname($target);
+        }
+
+        $filelist = rar_list($archive);
+        if (!$filelist) {
+            throw new Exception\RuntimeException("Error reading the RAR Archive");
+        }
+
+        foreach($filelist as $file) {
+            $file->extract($target);
+        }
+
+        rar_close($archive);
+        return true;
+    }
+
+    /**
+     * Returns the adapter name
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return 'Rar';
+    }
+}

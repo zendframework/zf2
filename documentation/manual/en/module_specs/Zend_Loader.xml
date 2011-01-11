@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reviewed: no -->
+<sect1 id="zend.loader.load">
+    <title>Loading Files and Classes Dynamically</title>
+
+    <para>
+        The <classname>Zend_Loader</classname> class includes methods to help you load files
+        dynamically.
+    </para>
+
+    <sect2 id="zend.loader.load.file">
+        <title>Loading Files</title>
+
+        <para>
+            The static method <methodname>Zend_Loader::loadFile()</methodname> loads a
+            <acronym>PHP</acronym> file. The file loaded may contain any <acronym>PHP</acronym>
+            code. The method is a wrapper for the <acronym>PHP</acronym> function
+            <ulink url="http://php.net/include"><methodname>include()</methodname></ulink>.
+            This method returns boolean <constant>FALSE</constant> on failure, for example
+            if the specified file does not exist.
+        </para>
+
+        <example id="zend.loader.load.file.example">
+            <title>Example of the loadFile() Method</title>
+
+            <programlisting language="php"><![CDATA[
+Zend_Loader::loadFile($filename, $dirs=null, $once=false);
+]]></programlisting>
+    </example>
+
+        <para>
+            The <varname>$filename</varname> argument specifies the filename to load,
+            which must not contain any path information.
+            A security check is performed on <varname>$filename</varname>.
+            The <varname>$filename</varname> may only contain alphanumeric characters,
+            dashes ("-"), underscores ("_"), or periods (".").
+            No such restriction is placed on the <varname>$dirs</varname> argument.
+        </para>
+
+        <para>
+            The <varname>$dirs</varname> argument specifies which directories to search for the
+            file in. If the value is <constant>NULL</constant>, only the <code>include_path</code>
+            is searched; if the value is a string or an array, the directory or directories
+            specified will be searched, followed by the <code>include_path</code>.
+        </para>
+
+        <para>
+            The <varname>$once</varname> argument is a boolean. If <constant>TRUE</constant>,
+            <methodname>Zend_Loader::loadFile()</methodname> uses the <acronym>PHP</acronym>
+            function <ulink
+                url="http://php.net/include"><methodname>include_once()</methodname></ulink>
+            for loading the file, otherwise the <acronym>PHP</acronym> function
+            <ulink url="http://php.net/include_once"><methodname>include()</methodname></ulink>
+            is used.
+        </para>
+    </sect2>
+
+    <sect2 id="zend.loader.load.isreadable">
+        <title>Testing if a File is Readable</title>
+
+        <para>
+            The static method <methodname>Zend_Loader::isReadable($pathname)</methodname>
+            returns <constant>TRUE</constant> if a file at the specified pathname exists
+            and is readable, <constant>FALSE</constant> otherwise.
+        </para>
+
+        <example id="zend.loader.load.isreadable.example">
+            <title>Example of isReadable() method</title>
+
+            <programlisting language="php"><![CDATA[
+if (Zend_Loader::isReadable($filename)) {
+    // do something with $filename
+}
+]]></programlisting>
+        </example>
+
+        <para>
+            The <varname>$filename</varname> argument specifies the filename to
+            check. This may contain path information.
+            This method is a wrapper for the <acronym>PHP</acronym> function
+            <ulink url="http://php.net/is_readable"><methodname>is_readable()</methodname></ulink>.
+            The <acronym>PHP</acronym> function does not search the <code>include_path</code>,
+            while <methodname>Zend_Loader::isReadable()</methodname> does.
+        </para>
+    </sect2>
+</sect1>
+<!--
+vim:se ts=4 sw=4 et:
+-->

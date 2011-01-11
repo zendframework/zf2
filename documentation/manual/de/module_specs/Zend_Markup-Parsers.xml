@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EN-Revision: 20827 -->
+<!-- Reviewed: no -->
+<sect1 id="zend.markup.parsers">
+    <title>Zend_Markup Parser</title>
+
+    <para>
+        <classname>Zend_Markup</classname> wird aktuell mit zwei Parsern ausgeliefert, einen BBCode
+        Parser und einen Textile Parser.
+    </para>
+
+    <sect2 id="zend.markup.parsers.theory">
+        <title>Theorie des Parsens</title>
+
+        <para>
+            Die Parser von <classname>Zend_Markup</classname> sind Klasse die Text mit Markup in
+            einen Token Baum konvertieren. Auch wenn wir hier den BBCode Parser als Beispiel
+            verwenden ist die Idee des Token Baums die gleiche bei allen Parsern. Wir beginnen mit
+            diesem Teil von BBCode als Beispiel:
+        </para>
+
+        <programlisting><![CDATA[
+[b]foo[i]bar[/i][/b]baz
+]]></programlisting>
+
+        <para>
+            Der BBCode Parser nimmt diesen Wert, teilt Ihn auf und erzeugt den folgenden Baum:
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para>[b]</para>
+
+                <itemizedlist>
+                    <listitem>
+                        <para>foo</para>
+                    </listitem>
+
+                    <listitem>
+                        <para>[i]</para>
+
+                        <itemizedlist>
+                            <listitem>
+                                <para>bar</para>
+                            </listitem>
+                        </itemizedlist>
+                    </listitem>
+                </itemizedlist>
+            </listitem>
+
+            <listitem>
+                <para>baz</para>
+            </listitem>
+        </itemizedlist>
+
+        <para>
+            Wie man sieht sind die schließenden Tags weg. Sie werden nicht als Inhalt der
+            Baumstruktur angezeigt. Das ist deswegen der Fall, da schließende Tags kein Teil des
+            aktuellen Inhalts sind. Das bedeutet aber nicht das die schließenden Tags einfach
+            verloren sind. Sie sind in der Tag Information für das Tag selbst gespeichert. Es ist
+            auch zu beachten das dies nur eine vereinfachte Darstelliung des Baumes selbst ist. Der
+            aktuelle Baum enthält viel mehr Information, wie die Attribute der Tags und deren Namen.
+        </para>
+    </sect2>
+
+    <sect2 id="zend.markup.parsers.bbcode">
+        <title>Der BBCode Parser</title>
+
+        <para>
+            Der BBCode Parser ist ein <classname>Zend_Markup</classname> Parser der BBCode in einen
+            Token Baum konvertiert. Die Syntax alle BBCode Tags ist:
+        </para>
+
+        <programlisting language="text"><![CDATA[
+[name(=(value|"value"))( attribute=(value|"value"))*]
+]]></programlisting>
+
+        <para>
+            Einige Beispiel von gültigen BBCode Tags sind:
+        </para>
+
+        <programlisting><![CDATA[
+[b]
+[list=1]
+[code file=Zend/Markup.php]
+[url="http://framework.zend.com/" title="Zend Framework!"]
+]]></programlisting>
+
+        <para>
+            Standardmäßig werden alle Tags durch Verwendung des Formats '[/tagname]' geschlossen.
+        </para>
+    </sect2>
+
+    <sect2 id="zend.markup.parsers.textile">
+        <title>Der Textile Parser</title>
+
+        <para>
+            Der Textile Parser ist ein <classname>Zend_Markup</classname> Parser der Textile in
+            einen Token Baum konvertiert. Weil Textile keine Tag Struktur hat ist nachfolgend eine
+            Liste von Beispiel Tags:
+        </para>
+
+        <table id="zend.markup.parsers.textile.tags">
+            <title>Liste der grundsätzlichen Textile Tags</title>
+
+            <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                <thead>
+                    <row>
+                        <entry>Beispiel Eingabe</entry>
+                        <entry>Beispiel Ausgabe</entry>
+                    </row>
+                </thead>
+
+                <tbody>
+                    <row>
+                        <entry>*foo*</entry>
+                        <entry><![CDATA[<strong>foo</strong>]]></entry>
+                    </row>
+
+                    <row>
+                        <entry>_foo_</entry>
+                        <entry><![CDATA[<em>foo</em>]]></entry>
+                    </row>
+
+                    <row>
+                        <entry>??foo??</entry>
+                        <entry><![CDATA[<cite>foo</cite>]]></entry>
+                    </row>
+
+                    <row>
+                        <entry>-foo-</entry>
+                        <entry><![CDATA[<del>foo</del>]]></entry>
+                    </row>
+
+                    <row>
+                        <entry>+foo+</entry>
+                        <entry><![CDATA[<ins>foo</ins>]]></entry>
+                    </row>
+
+                    <row>
+                        <entry>^foo^</entry>
+                        <entry><![CDATA[<sup>foo</sup>]]></entry>
+                    </row>
+
+                    <row>
+                        <entry>~foo~</entry>
+                        <entry><![CDATA[<sub>foo</sub>]]></entry>
+                    </row>
+
+                    <row>
+                        <entry>%foo%</entry>
+                        <entry><![CDATA[<span>foo</span>]]></entry>
+                    </row>
+
+                    <row>
+                        <entry>PHP(PHP Hypertext Preprocessor)</entry>
+
+                        <entry>
+                            <![CDATA[<acronym title="PHP Hypertext Preprocessor">PHP</acronym>]]>
+                        </entry>
+                    </row>
+
+                    <row>
+                        <entry>"Zend Framework":http://framework.zend.com/</entry>
+
+                        <entry>
+                            <![CDATA[<a href="http://framework.zend.com/">Zend Framework</a>]]>
+                        </entry>
+                    </row>
+
+                    <row>
+                        <entry>h1. foobar</entry>
+                        <entry><![CDATA[<h1>foobar</h1>]]></entry>
+                    </row>
+
+                    <row>
+                        <entry>h6. foobar</entry>
+                        <entry><![CDATA[<h6>foobar</h6>]]></entry>
+                    </row>
+
+                    <row>
+                        <entry>!http://framework.zend.com/images/logo.gif!</entry>
+
+                        <entry>
+                            <![CDATA[<img src="http://framework.zend.com/images/logo.gif" />]]>
+                        </entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
+        <para>
+            Auch der Textile Parser wrappt alle Tags in Paragraphen; ein Paragraph endet mit zwei
+            Leerzeilen, und wenn es mehr Tags gibt, wird ein neuer Paragraph hinzugefügt.
+        </para>
+
+        <sect3 id="zend.markup.parsers.textile.lists">
+            <title>Listen</title>
+
+            <para>
+                Der Textile Parser unterstützt auch zwei Typen von Listen. Den nummerischen Typ
+                der das "#" Zeichen verwendet und Bullet-Listen welche das "*" Zeichen verwenden.
+                Anbei ein Beispiel für beide Listen:
+            </para>
+
+            <programlisting><![CDATA[
+# Element 1
+# Element 2
+
+* Element 1
+* Element 2
+]]></programlisting>
+
+            <para>
+                Das obige erzeugt zwei Listen: Die erste nummeriert; und die zweite mit Punkten.
+                In den Listen Elementen können normale Tags wie dick (*), und hochgestellt (_)
+                verwendet werden. Tags die auf einer neuen Zeile beginnen müssen (wie 'h1' usw.)
+                können nicht innerhalb von Listen verwendet werden.
+            </para>
+        </sect3>
+    </sect2>
+</sect1>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reviewed: no -->
+<sect1 id="zend.mail.html-mails">
+    <title>Сообщение в формате HTML</title>
+    <para>
+        Для отправки сообщения электронной почты в формате HTML устанавливайте
+        тело сообщения через метод <methodname>setBodyHTML()</methodname> вместо
+        использования <methodname>setBodyText()</methodname>. Тип содержимого
+        <acronym>MIME</acronym> будет автоматически установлен в
+        <code>text/html</code>. Если вы используете как текстовый, так и
+        HTML-формат, то будет автоматически сгенерировано MIME-сообщение типа
+        <code>multipart/alternative</code>:
+    </para>
+    <example id="zend.mail.html-mails.example-1">
+        <title>Отправка сообщения в формате HTML</title>
+        <programlisting language="php"><![CDATA[
+$mail = new Zend_Mail();
+$mail->setBodyText('My Nice Test Text');
+$mail->setBodyHtml('My Nice <b>Test</b> Text');
+$mail->setFrom('somebody@example.com', 'Some Sender');
+$mail->addTo('somebody_else@example.com', 'Some Recipient');
+$mail->setSubject('TestSubject');
+$mail->send();
+]]></programlisting>
+    </example>
+</sect1>
+<!--
+vim:se ts=4 sw=4 et:
+-->

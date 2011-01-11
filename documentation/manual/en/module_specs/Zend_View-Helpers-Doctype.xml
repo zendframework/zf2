@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reviewed: no -->
+<sect3 id="zend.view.helpers.initial.doctype">
+    <title>Doctype Helper</title>
+
+    <para>
+        Valid <acronym>HTML</acronym> and <acronym>XHTML</acronym> documents should include a
+        <constant>DOCTYPE</constant> declaration. Besides being difficult to remember, these can
+        also affect how certain elements in your document should be rendered (for instance,
+        CDATA escaping in <emphasis>&lt;script&gt;</emphasis> and
+        <emphasis>&lt;style&gt;</emphasis> elements.
+    </para>
+
+    <para>
+        The <classname>Doctype</classname> helper allows you to specify one of the
+        following types:
+    </para>
+
+    <itemizedlist>
+        <listitem><para><constant>XHTML11</constant></para></listitem>
+        <listitem><para><constant>XHTML1_STRICT</constant></para></listitem>
+        <listitem><para><constant>XHTML1_TRANSITIONAL</constant></para></listitem>
+        <listitem><para><constant>XHTML1_FRAMESET</constant></para></listitem>
+        <listitem><para><constant>XHTML_BASIC1</constant></para></listitem>
+        <listitem><para><constant>HTML4_STRICT</constant></para></listitem>
+        <listitem><para><constant>HTML4_LOOSE</constant></para></listitem>
+        <listitem><para><constant>HTML4_FRAMESET</constant></para></listitem>
+        <listitem><para><constant>HTML5</constant></para></listitem>
+    </itemizedlist>
+
+    <para>
+        You can also specify a custom doctype as long as it is well-formed.
+    </para>
+
+    <para>
+        The <classname>Doctype</classname> helper is a concrete implementation of the
+        <link linkend="zend.view.helpers.initial.placeholder">Placeholder helper</link>.
+    </para>
+
+    <example id="zend.view.helpers.initial.doctype.basicusage">
+        <title>Doctype Helper Basic Usage</title>
+
+        <para>
+            You may specify the doctype at any time. However, helpers that
+            depend on the doctype for their output will recognize it only after
+            you have set it, so the easiest approach is to specify it in your
+            bootstrap:
+        </para>
+
+        <programlisting language="php"><![CDATA[
+$doctypeHelper = new Zend_View_Helper_Doctype();
+$doctypeHelper->doctype('XHTML1_STRICT');
+]]></programlisting>
+
+        <para>
+            And then print it out on top of your layout script:
+        </para>
+
+        <programlisting language="php"><![CDATA[
+<?php echo $this->doctype() ?>
+]]></programlisting>
+    </example>
+
+    <example id="zend.view.helpers.initial.doctype.retrieving">
+        <title>Retrieving the Doctype</title>
+
+        <para>
+            If you need to know the doctype, you can do so by calling
+            <methodname>getDoctype()</methodname> on the object, which is returned by
+            invoking the helper.
+        </para>
+
+        <programlisting language="php"><![CDATA[
+$doctype = $view->doctype()->getDoctype();
+]]></programlisting>
+
+        <para>
+            Typically, you'll simply want to know if the doctype is <acronym>XHTML</acronym> or
+            not; for this, the <methodname>isXhtml()</methodname> method will suffice:
+        </para>
+
+        <programlisting language="php"><![CDATA[
+if ($view->doctype()->isXhtml()) {
+    // do something differently
+}
+]]></programlisting>
+
+        <para>
+            You can also check if the doctype represents an <acronym>HTML5</acronym> document
+        </para>
+
+        <programlisting language="php"><![CDATA[
+if ($view->doctype()->isHtml5()) {
+    // do something differently
+}
+]]></programlisting>
+    </example>
+</sect3>
+<!--
+vim:se ts=4 sw=4 et:
+-->

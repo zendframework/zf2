@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reviewed: no -->
+<sect1 id="zend.version.reading">
+
+    <title>Получение версии Zend Framework</title>
+
+    <para>
+        <classname>Zend_Version</classname> имеет константу
+        <code>Zend_Version::VERSION</code>, которая содержит строку
+        с номером версии текущей инсталляции Zend Framework.
+        Например, <classname>Zend_Version::VERSION</classname> может содержать
+        "1.7.4".
+    </para>
+
+    <para>
+        Статический метод <code>Zend_Version::compareVersion($version)</code>
+        основан на PHP-функции <ulink url="http://php.net/version_compare"><code>version_compare()</code></ulink>.
+        Метод возвращает -1, если указанная версия
+        более поздняя, чем версия установленного Zend Framework; 0, если они
+        одинаковые, и +1, если указанная версия более ранняя, чем версия
+        установленного Zend Framework.
+    </para>
+
+    <example id="zend.version.reading.example">
+        <title>Пример использования метода compareVersion()</title>
+        <programlisting language="php"><![CDATA[
+// возвращает -1, 0 или 1
+$cmp = Zend_Version::compareVersion('2.0.0');
+]]></programlisting>
+    </example>
+
+</sect1>
+<!--
+vim:se ts=4 sw=4 et:
+-->

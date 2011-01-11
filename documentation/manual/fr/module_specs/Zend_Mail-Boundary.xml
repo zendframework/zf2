@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EN-Revision: 20819 -->
+<!-- Reviewed: no -->
+<sect1 id="zend.mail.boundary">
+    <title>Contrôler les limites MIME</title>
+
+    <para>
+        Dans un message en plusieurs parties, une limite <acronym>MIME</acronym> est normalement générée
+        aléatoirement pour séparer les différentes parties du message. Cependant dans le cas où vous
+        souhaiteriez spécifier vous-même la limite <acronym>MIME</acronym> utilisée, vous pouvez appeler la méthode
+        <methodname>setMimeBoundary()</methodname>, comme le montre l'exemple suivant :
+    </para>
+
+    <example id="zend.mail.boundary.example-1">
+        <title>Changer la limite MIME</title>
+
+        <programlisting language="php"><![CDATA[
+$mail = new Zend_Mail();
+$mail->setMimeBoundary('=_' . md5(microtime(1) . $someId++));
+// construction du message...
+]]></programlisting>
+    </example>
+</sect1>

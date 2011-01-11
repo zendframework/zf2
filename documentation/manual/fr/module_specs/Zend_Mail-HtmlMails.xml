@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EN-Revision: 21825 -->
+<!-- Reviewed: no -->
+<sect1 id="zend.mail.html-mails">
+    <title>Émail HTML</title>
+
+    <para>
+        Pour envoyer un émail au format HTML, définissez le corps du message en utilisant la
+        méthode <methodname>setBodyHTML()</methodname> à la place de <methodname>setBodyText()</methodname>. Le type de
+        contenu <acronym>MIME</acronym> sera automatiquement définit à <code>text/html</code>. Si vous utilisez les
+        formats textes et HTML, un message <acronym>MIME</acronym> de type multipart/alternative sera automatiquement
+        généré :
+    </para>
+
+    <example id="zend.mail.html-mails.example-1">
+        <title>Envoyer des émail HTML</title>
+
+        <programlisting language="php"><![CDATA[
+$mail = new Zend_Mail();
+$mail->setBodyText('Mon texte de test');
+$mail->setBodyHtml('Mon texte de test');
+$mail->setFrom('somebody@exemple.com', 'Un expéditeur');
+$mail->addTo('somebody_else@exemple.com', 'Un destinataire');
+$mail->setSubject('Sujet de test');
+$mail->send();
+]]></programlisting>
+    </example>
+</sect1>
