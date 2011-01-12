@@ -44,9 +44,9 @@ class DbTableFile extends AbstractClassFile
 {
 
     protected $_dbTableName = null;
-    
+
     protected $_actualTableName = null;
-    
+
     /**
      * getName()
      *
@@ -68,7 +68,7 @@ class DbTableFile extends AbstractClassFile
         $this->_filesystemName = ucfirst($this->_dbTableName) . '.php';
         parent::init();
     }
-    
+
     public function getPersistentAttributes()
     {
         return array('dbTableName' => $this->_dbTableName);
@@ -77,13 +77,16 @@ class DbTableFile extends AbstractClassFile
     public function getContents()
     {
         $className = $this->getFullClassName($this->_dbTableName, 'Model\DbTable');
-        
-        $codeGenFile = new Php\PhpFile(array(
+
+        $options = array(
             'fileName' => $this->getPath(),
+            'uses' => array(
+                array('Zend\\Db\\Table\\AbstractTable', 'AbstractTable'),
+                ),
             'classes' => array(
                 new Php\PhpClass(array(
                     'name' => $className,
-                    'extendedClass' => '\Zend\Db\Table\AbstractTable',
+                    'extendedClass' => 'AbstractTable',
                     'properties' => array(
                         new Php\PhpProperty(array(
                             'name' => '_name',
@@ -91,11 +94,17 @@ class DbTableFile extends AbstractClassFile
                             'defaultValue' => $this->_actualTableName
                             ))
                         ),
-                
+
                     ))
                 )
-            ));
+            );
+
+        if ($this->_moduleName) {
+            $options['namespace'] = $this->_moduleName;
+        }
+        $codeGenFile = new Php\PhpFile($options);
+
         return $codeGenFile->generate();
     }
-    
+
 }
