@@ -23,6 +23,7 @@
  * @namespace
  */
 namespace Zend\Tool\Project\Context\Zf;
+use Zend\CodeGenerator\Php;
 
 /**
  * This class is the front most class for utilizing Zend_Tool_Project
@@ -45,12 +46,12 @@ class ModelFile extends AbstractClassFile
      * @var string
      */
     protected $_modelName = 'Base';
-    
+
     /**
      * @var string
      */
     protected $_filesystemName = 'modelName';
-    
+
     /**
      * init()
      *
@@ -73,7 +74,7 @@ class ModelFile extends AbstractClassFile
             'modelName' => $this->getModelName()
             );
     }
-    
+
     /**
      * getName()
      *
@@ -88,22 +89,26 @@ class ModelFile extends AbstractClassFile
     {
         return $this->_modelName;
     }
-    
+
     public function getContents()
     {
-        
+
         $className = $this->getFullClassName($this->_modelName, 'Model');
-        
-        $codeGenFile = new \Zend\CodeGenerator\Php\PhpFile(array(
+
+        $options = array(
             'fileName' => $this->getPath(),
             'classes' => array(
                 new \Zend\CodeGenerator\Php\PhpClass(array(
                     'name' => $className,
                     ))
                 )
-            ));
+            );
+
+        if ($this->_moduleName) {
+            $options['namespace'] = $this->_moduleName;
+        }
+        $codeGenFile = new Php\PhpFile($options);
+
         return $codeGenFile->generate();
     }
-    
-    
 }
