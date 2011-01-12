@@ -70,12 +70,12 @@ class PhpFile extends AbstractPhp
      * @var string
      */
     protected $_namespace = null;
-    
+
     /**
      * @var array
      */
     protected $_uses = array();
-    
+
     /**
      * @var array
      */
@@ -88,9 +88,9 @@ class PhpFile extends AbstractPhp
 
     /**
      * registerFileCodeGnereator()
-     * 
+     *
      * A file code generator registry
-     * 
+     *
      * @param PhpFile $fileCodeGenerator
      * @param string $fileName
      */
@@ -184,17 +184,17 @@ class PhpFile extends AbstractPhp
             $body = implode("\n", $bodyReturn);
             unset($bodyLines, $bodyReturn, $classStartLine, $classEndLine);
         }
-        
+
         $namespace = $reflectionFile->getNamespace();
         if ($namespace != '') {
             $file->setNamespace($reflectionFile->getNamespace());
         }
-        
+
         $uses = $reflectionFile->getUses();
         if ($uses) {
             $file->setUses($uses);
         }
-        
+
 
         if (($reflectionFile->getDocComment() != '')) {
             $docblock = $reflectionFile->getDocblock();
@@ -289,17 +289,17 @@ class PhpFile extends AbstractPhp
 
     /**
      * getNamespace()
-     * 
+     *
      * @return string
      */
     public function getNamespace()
     {
         return $this->_namespace;
     }
-    
+
     /**
      * setNamespace()
-     * 
+     *
      * @param $namespace
      * @return Zend\CodeGenerator\Php\PhpFile
      */
@@ -308,14 +308,14 @@ class PhpFile extends AbstractPhp
         $this->_namespace = $namespace;
         return $this;
     }
-    
+
     /**
      * getUses()
-     * 
+     *
      * Returns an array with the first element the use statement, second is the as part.
-     * If $withResolvedAs is set to true, there will be a third element that is the 
+     * If $withResolvedAs is set to true, there will be a third element that is the
      * "resolved" as statement, as the second part is not required in use statements
-     * 
+     *
      * @param $withResolvedAs
      * @return array
      */
@@ -337,10 +337,10 @@ class PhpFile extends AbstractPhp
         }
         return $uses;
     }
-    
+
     /**
      * setUses()
-     * 
+     *
      * @param $uses
      * @return Zend\CodeGenerator\Php\PhpFile
      */
@@ -351,10 +351,10 @@ class PhpFile extends AbstractPhp
         }
         return $this;
     }
-    
+
     /**
      * setUse()
-     * 
+     *
      * @param $use
      * @param $as
      * @return Zend\CodeGenerator\Php\PhpFile
@@ -364,7 +364,7 @@ class PhpFile extends AbstractPhp
         $this->_uses[] = array($use, $as);
         return $this;
     }
-    
+
     /**
      * getClass()
      *
@@ -495,7 +495,7 @@ class PhpFile extends AbstractPhp
         if (preg_match('#(?:\s*)<\?php#', $this->getBody()) == false) {
             $output = '<?php' . self::LINE_FEED;
         }
-        
+
         if ($namespace = $this->getNamespace()) {
             // @todo
         }
@@ -521,12 +521,34 @@ class PhpFile extends AbstractPhp
         // newline
         $output .= self::LINE_FEED;
 
+        // process namespace
+        $namespace = $this->getNamespace();
+        if (!empty($namespace)) {
+            $output .= 'namespace ' . $namespace . ';' . self::LINE_FEED;
+
+            $output .= self::LINE_FEED;
+        }
+
         // process required files
         // @todo marker replacement for required files
         $requiredFiles = $this->getRequiredFiles();
         if (!empty($requiredFiles)) {
             foreach ($requiredFiles as $requiredFile) {
                 $output .= 'require_once \'' . $requiredFile . '\';' . self::LINE_FEED;
+            }
+
+            $output .= self::LINE_FEED;
+        }
+
+        // process 'use' class & namespace aliases
+        $uses = $this->getUses(false);
+        if (!empty($uses)) {
+            foreach ($uses as $use) {
+                if (empty($use[1])) {
+                    $output .= 'use ' . $use[0] . ';' . self::LINE_FEED;
+                } else {
+                    $output .= 'use ' . $use[0] . ' as ' . $use[1] . ';' . self::LINE_FEED;
+                }
             }
 
             $output .= self::LINE_FEED;
