@@ -51,7 +51,7 @@ class ControllerFile extends \Zend\Tool\Project\Context\Filesystem\File
      * @var string
      */
     protected $_moduleName = null;
-    
+
     /**
      * @var string
      */
@@ -108,34 +108,38 @@ class ControllerFile extends \Zend\Tool\Project\Context\Filesystem\File
      */
     public function getContents()
     {
-        $className = ($this->_moduleName) ? ucfirst($this->_moduleName) . '\\' : '';
-        $className .= ucfirst($this->_controllerName) . 'Controller';
-        
-        $codeGenFile = new Php\PhpFile(array(
-            'fileName' => $this->getPath(),
-            'classes' => array(
-                new Php\PhpClass(array(
-                    'name' => $className,
-                    'extendedClass' => '\Zend\Controller\Action',
-                    'methods' => array(
-                        new Php\PhpMethod(array(
-                            'name' => 'init',
-                            'body' => '/* Initialize action controller here */',
-                        	))
-                    	)
-                	))
-            	)
-        	));
+        $className = ucfirst($this->_controllerName) . 'Controller';
 
-
-        if ($className == 'ErrorController') {
-
-            $codeGenFile = new Php\PhpFile(array(
+        if ($className != 'ErrorController') {
+            $options = array(
                 'fileName' => $this->getPath(),
+                'uses' => array(
+                    array('Zend\\Controller\\Action', 'Action')
+                    ),
                 'classes' => array(
                     new Php\PhpClass(array(
                         'name' => $className,
-                        'extendedClass' => 'Zend\Controller\Action',
+                        'extendedClass' => 'Action',
+                        'methods' => array(
+                            new Php\PhpMethod(array(
+                                'name' => 'init',
+                                'body' => '/* Initialize action controller here */',
+                                ))
+                            )
+                        ))
+                    )
+                );
+        } else {
+            $options = array(
+                'fileName' => $this->getPath(),
+                'uses' => array(
+                    array('Zend\\Controller\\Action', 'Action'),
+                    array('Zend\Controller\Plugin\ErrorHandler', 'ErrorHandler')
+                    ),
+                'classes' => array(
+                    new Php\PhpClass(array(
+                        'name' => $className,
+                        'extendedClass' => 'Action',
                         'methods' => array(
                             new Php\PhpMethod(array(
                                 'name' => 'errorAction',
@@ -143,9 +147,9 @@ class ControllerFile extends \Zend\Tool\Project\Context\Filesystem\File
 $errors = $this->_getParam('error_handler');
 
 switch ($errors->type) {
-    case \Zend\Controller\Plugin\ErrorHandler::EXCEPTION_NO_ROUTE:
-    case \Zend\Controller\Plugin\ErrorHandler::EXCEPTION_NO_CONTROLLER:
-    case \Zend\Controller\Plugin\ErrorHandler::EXCEPTION_NO_ACTION:
+    case ErrorHandler::EXCEPTION_NO_ROUTE:
+    case ErrorHandler::EXCEPTION_NO_CONTROLLER:
+    case ErrorHandler::EXCEPTION_NO_ACTION:
 
         // 404 error -- controller or action not found
         $this->getResponse()->setHttpResponseCode(404);
@@ -185,9 +189,12 @@ EOS
                             )
                         ))
                     )
-                ));
-
+                );
         }
+        if ($this->_moduleName) {
+            $options['namespace'] = $this->_moduleName;
+        }
+        $codeGenFile = new Php\PhpFile($options);
 
         // store the generator into the registry so that the addAction command can use the same object later
         Php\PhpFile::registerFileCodeGenerator($codeGenFile); // REQUIRES filename to be set
