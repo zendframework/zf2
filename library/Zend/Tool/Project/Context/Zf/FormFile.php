@@ -23,6 +23,7 @@
  * @namespace
  */
 namespace Zend\Tool\Project\Context\Zf;
+use Zend\CodeGenerator\Php;
 
 /**
  * This class is the front most class for utilizing Zend_Tool_Project
@@ -46,12 +47,12 @@ class FormFile extends AbstractClassFile
      * @var string
      */
     protected $_formName = 'Base';
-    
+
     /**
      * @var string
      */
     protected $_filesystemName = 'formName';
-    
+
     /**
      * init()
      *
@@ -74,7 +75,7 @@ class FormFile extends AbstractClassFile
             'formName' => $this->getFormName()
             );
     }
-    
+
     /**
      * getName()
      *
@@ -89,28 +90,37 @@ class FormFile extends AbstractClassFile
     {
         return $this->_formName;
     }
-    
+
     public function getContents()
     {
-        
+
         $className = $this->getFullClassName($this->_formName, 'Form');
-        
-        $codeGenFile = new \Zend\CodeGenerator\Php\PhpFile(array(
+
+        $options = array(
             'fileName' => $this->getPath(),
+            'uses' => array(
+                array('Zend\\Form\\Form', 'Form'),
+                ),
             'classes' => array(
                 new \Zend\CodeGenerator\Php\PhpClass(array(
                     'name' => $className,
-                    'extendedClass' => '\Zend\Form\Form',
+                    'extendedClass' => 'Form',
                     'methods' => array(
                         new \Zend\CodeGenerator\Php\PhpMethod(array(
                             'name' => 'init',
                             'body' => '/* Form Elements & Other Definitions Here ... */',
                             ))
                         )
-                
+
                     ))
                 )
-            ));
+            );
+
+        if ($this->_moduleName) {
+            $options['namespace'] = $this->_moduleName;
+        }
+        $codeGenFile = new Php\PhpFile($options);
+
         return $codeGenFile->generate();
     }
 }
