@@ -20,9 +20,9 @@
  */
 
 namespace ZendTest\SignalSlot;
-use Zend\SignalSlot\Signals,
+use Zend\SignalSlot\SignalSlot,
     Zend\SignalSlot\ResponseCollection,
-    Zend\Stdlib\SignalHandler;
+    Zend\Stdlib\CallbackHandler;
 
 /**
  * @category   Zend
@@ -32,26 +32,26 @@ use Zend\SignalSlot\Signals,
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class SignalsTest extends \PHPUnit_Framework_TestCase
+class SignalSlotTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         if (isset($this->message)) {
             unset($this->message);
         }
-        $this->signals = new Signals;
+        $this->signals = new SignalSlot;
     }
 
-    public function testConnectShouldReturnSignalHandler()
+    public function testConnectShouldReturnCallbackHandler()
     {
-        $handle = $this->signals->connect('test', $this, __METHOD__);
-        $this->assertTrue($handle instanceof SignalHandler);
+        $handle = $this->signals->connect('test', array($this, __METHOD__));
+        $this->assertTrue($handle instanceof CallbackHandler);
     }
 
-    public function testConnectShouldAddHandlerToSignal()
+    public function testConnectShouldAddSlotToSignal()
     {
-        $handle = $this->signals->connect('test', $this, __METHOD__);
-        $handles = $this->signals->getHandlers('test');
+        $handle = $this->signals->connect('test', array($this, __METHOD__));
+        $handles = $this->signals->getSlots('test');
         $this->assertEquals(1, count($handles));
         $this->assertContains($handle, $handles);
     }
@@ -60,55 +60,59 @@ class SignalsTest extends \PHPUnit_Framework_TestCase
     {
         $signals = $this->signals->getSignals();
         $this->assertTrue(empty($signals), var_export($signals, 1));
-        $handle  = $this->signals->connect('test', $this, __METHOD__);
+        $handle  = $this->signals->connect('test', array($this, __METHOD__));
         $signals = $this->signals->getSignals();
         $this->assertFalse(empty($signals));
         $this->assertContains('test', $signals);
     }
 
-    public function testDetachShouldRemoveHandlerFromSignal()
+    public function testDetachShouldRemoveSlotFromSignal()
     {
-        $handle = $this->signals->connect('test', $this, __METHOD__);
-        $handles = $this->signals->getHandlers('test');
+        $handle = $this->signals->connect('test', array($this, __METHOD__));
+        $handles = $this->signals->getSlots('test');
         $this->assertContains($handle, $handles);
         $this->signals->detach($handle);
-        $handles = $this->signals->getHandlers('test');
+        $handles = $this->signals->getSlots('test');
         $this->assertNotContains($handle, $handles);
     }
 
     public function testDetachShouldReturnFalseIfSignalDoesNotExist()
     {
-        $handle = $this->signals->connect('test', $this, __METHOD__);
-        $this->signals->clearHandlers('test');
+        $handle = $this->signals->connect('test', array($this, __METHOD__));
+        $this->signals->clearSlots('test');
         $this->assertFalse($this->signals->detach($handle));
     }
 
-    public function testDetachShouldReturnFalseIfHandlerDoesNotExist()
+    public function testDetachShouldReturnFalseIfSlotDoesNotExist()
     {
-        $handle1 = $this->signals->connect('test', $this, __METHOD__);
-        $this->signals->clearHandlers('test');
-        $handle2 = $this->signals->connect('test', $this, 'handleTestSignal');
+        $handle1 = $this->signals->connect('test', array($this, __METHOD__));
+        $this->signals->clearSlots('test');
+        $handle2 = $this->signals->connect('test', array($this, 'handleTestSignal'));
         $this->assertFalse($this->signals->detach($handle1));
     }
 
-    public function testRetrievingConnectedHandlersShouldReturnEmptyArrayWhenSignalDoesNotExist()
+    public function testRetrievingConnectedSlotsShouldReturnEmptyArrayWhenSignalDoesNotExist()
     {
-        $handles = $this->signals->getHandlers('test');
-        $this->assertTrue(empty($handles));
+        $handles = $this->signals->getSlots('test');
+        $this->assertEquals(0, count($handles));
     }
 
-    public function testEmitShouldEmitConnectedHandlers()
+    public function testEmitShouldEmitConnectedSlots()
     {
-        $handle = $this->signals->connect('test', $this, 'handleTestSignal');
-        $this->signals->emit('test', 'test message');
+        $handle = $this->signals->connect('test', array($this, 'handleTestSignal'));
+        $this->signals->emit('test', $this, array('message' => 'test message'));
         $this->assertEquals('test message', $this->message);
     }
 
-    public function testEmitShouldReturnAllHandlerReturnValues()
+    public function testEmitShouldReturnAllSlotReturnValues()
     {
-        $this->signals->connect('string.transform', 'trim');
-        $this->signals->connect('string.transform', 'str_rot13');
-        $responses = $this->signals->emit('string.transform', ' foo ');
+        $this->signals->connect('string.transform', function ($context, array $params) {
+            return trim(array_shift($params));
+        });
+        $this->signals->connect('string.transform', function ($context, array $params) {
+            return str_rot13(array_shift($params));
+        });
+        $responses = $this->signals->emit('string.transform', $this, array('string' => ' foo '));
         $this->assertTrue($responses instanceof ResponseCollection);
         $this->assertEquals(2, $responses->count());
         $this->assertEquals('foo', $responses->first());
@@ -117,12 +121,21 @@ class SignalsTest extends \PHPUnit_Framework_TestCase
 
     public function testEmitUntilShouldReturnAsSoonAsCallbackReturnsTrue()
     {
-        $this->signals->connect('foo.bar', 'strpos');
-        $this->signals->connect('foo.bar', 'strstr');
+        $this->signals->connect('foo.bar', function ($context, array $params) {
+            $string = isset($params['string']) ? $params['string'] : '';
+            $search = isset($params['search']) ? $params['search'] : '?';
+            return strpos($string, $search);
+        });
+        $this->signals->connect('foo.bar', function ($context, array $params) {
+            $string = isset($params['string']) ? $params['string'] : '';
+            $search = isset($params['search']) ? $params['search'] : '?';
+            return strstr($string, $search);
+        });
         $responses = $this->signals->emitUntil(
-            array($this, 'evaluateStringCallback'), 
             'foo.bar',
-            'foo', 'f'
+            $this,
+            array('string' => 'foo', 'search' => 'f'),
+            array($this, 'evaluateStringCallback')
         );
         $this->assertTrue($responses instanceof ResponseCollection);
         $this->assertSame(0, $responses->last());
@@ -130,16 +143,21 @@ class SignalsTest extends \PHPUnit_Framework_TestCase
 
     public function testEmitResponseCollectionContains()
     {
-        $this->signals->connect('string.transform', 'trim');
-        $this->signals->connect('string.transform', 'str_rot13');
-        $responses = $this->signals->emit('string.transform', ' foo ');
+        $this->signals->connect('string.transform', function ($context, array $params) {
+            return trim(array_shift($params));
+        });
+        $this->signals->connect('string.transform', function ($context, array $params) {
+            return str_rot13(array_shift($params));
+        });
+        $responses = $this->signals->emit('string.transform', $this, array('string' => ' foo '));
         $this->assertTrue($responses->contains('foo'));
         $this->assertTrue($responses->contains(\str_rot13(' foo ')));
         $this->assertFalse($responses->contains(' foo '));
     }
 
-    public function handleTestSignal($message)
+    public function handleTestSignal($context, array $params)
     {
+        $message = $params['message'] ?: '__NOT_FOUND__';
         $this->message = $message;
     }
 
@@ -150,13 +168,13 @@ class SignalsTest extends \PHPUnit_Framework_TestCase
 
     public function testEmitUntilShouldMarkResponseCollectionStoppedWhenConditionMet()
     {
-        $this->signals->connect('foo.bar', function () { return 'bogus'; });
-        $this->signals->connect('foo.bar', function () { return 'nada'; });
-        $this->signals->connect('foo.bar', function () { return 'found'; });
-        $this->signals->connect('foo.bar', function () { return 'zero'; });
-        $responses = $this->signals->emitUntil(function ($result) {
+        $this->signals->connect('foo.bar', function () { return 'bogus'; }, 4);
+        $this->signals->connect('foo.bar', function () { return 'nada'; }, 3);
+        $this->signals->connect('foo.bar', function () { return 'found'; }, 2);
+        $this->signals->connect('foo.bar', function () { return 'zero'; }, 1);
+        $responses = $this->signals->emitUntil('foo.bar', $this, array(), function ($result) {
             return ($result === 'found');
-        }, 'foo.bar');
+        });
         $this->assertTrue($responses instanceof ResponseCollection);
         $this->assertTrue($responses->stopped());
         $result = $responses->last();
@@ -164,15 +182,15 @@ class SignalsTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($responses->contains('zero'));
     }
 
-    public function testEmitUntilShouldMarkResponseCollectionStoppedWhenConditionMetByLastHandler()
+    public function testEmitUntilShouldMarkResponseCollectionStoppedWhenConditionMetByLastSlot()
     {
         $this->signals->connect('foo.bar', function () { return 'bogus'; });
         $this->signals->connect('foo.bar', function () { return 'nada'; });
         $this->signals->connect('foo.bar', function () { return 'zero'; });
         $this->signals->connect('foo.bar', function () { return 'found'; });
-        $responses = $this->signals->emitUntil(function ($result) {
+        $responses = $this->signals->emitUntil('foo.bar', $this, array(), function ($result) {
             return ($result === 'found');
-        }, 'foo.bar');
+        });
         $this->assertTrue($responses instanceof ResponseCollection);
         $this->assertTrue($responses->stopped());
         $this->assertEquals('found', $responses->last());
@@ -180,13 +198,13 @@ class SignalsTest extends \PHPUnit_Framework_TestCase
 
     public function testResponseCollectionIsNotStoppedWhenNoCallbackMatchedByEmitUntil()
     {
-        $this->signals->connect('foo.bar', function () { return 'bogus'; });
-        $this->signals->connect('foo.bar', function () { return 'nada'; });
-        $this->signals->connect('foo.bar', function () { return 'found'; });
-        $this->signals->connect('foo.bar', function () { return 'zero'; });
-        $responses = $this->signals->emitUntil(function ($result) {
+        $this->signals->connect('foo.bar', function () { return 'bogus'; }, 4);
+        $this->signals->connect('foo.bar', function () { return 'nada'; }, 3);
+        $this->signals->connect('foo.bar', function () { return 'found'; }, 2);
+        $this->signals->connect('foo.bar', function () { return 'zero'; }, 1);
+        $responses = $this->signals->emitUntil('foo.bar', $this, array(), function ($result) {
             return ($result === 'never found');
-        }, 'foo.bar');
+        });
         $this->assertTrue($responses instanceof ResponseCollection);
         $this->assertFalse($responses->stopped());
         $this->assertEquals('zero', $responses->last());
@@ -240,16 +258,16 @@ class SignalsTest extends \PHPUnit_Framework_TestCase
             $this->assertContains($signal, $signals);
         }
 
-        $handlers = $this->signals->getHandlers('foo.bar');
+        $handlers = $this->signals->getSlots('foo.bar');
         $this->assertEquals(2, count($handlers));
         $this->assertContains($handlerFooBar1, $handlers);
         $this->assertContains($handlerFooBar2, $handlers);
 
-        $handlers = $this->signals->getHandlers('foo.baz');
+        $handlers = $this->signals->getSlots('foo.baz');
         $this->assertEquals(1, count($handlers));
         $this->assertContains($handlerFooBaz1, $handlers);
 
-        $handlers = $this->signals->getHandlers('other');
+        $handlers = $this->signals->getSlots('other');
         $this->assertEquals(1, count($handlers));
         $this->assertContains($handlerOther, $handlers);
     }

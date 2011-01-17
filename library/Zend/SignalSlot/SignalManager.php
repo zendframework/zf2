@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Stdlib
+ * @package    Zend_SignalSlot
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -21,20 +21,23 @@
 /**
  * @namespace
  */
-namespace Zend\Stdlib;
+namespace Zend\SignalSlot;
 
 /**
- * Invalid callback exception
+ * Interface for messengers
  *
- * @uses       Exception
- * @uses       Zend\Stdlib\Exception
  * @category   Zend
- * @package    Zend_Stdlib
+ * @package    Zend_SignalSlot
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class InvalidCallbackException
-    extends \Exception
-    implements Exception
+interface SignalManager
 {
+    public function emit($signal, $context, array $argv = array());
+    public function emitUntil($signal, $context, array $argv, $callback);
+    public function connect($signalOrAggregate, $callback = null, $priority = 1);
+    public function detach($handle);
+    public function getSignals();
+    public function getSlots($signal);
+    public function clearSlots($signal);
 }
