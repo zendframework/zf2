@@ -23,7 +23,7 @@ namespace ZendTest\View;
 
 use Zend\View\PhpRenderer,
     Zend\View\TemplatePathStack,
-    Zend\Stdlib\FilterChain;
+    Zend\Filter\FilterChain;
 
 /**
  * @category   Zend
@@ -140,7 +140,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesFilterChainByDefault()
     {
-        $this->assertType('Zend\Stdlib\FilterChain', $this->renderer->getFilterChain());
+        $this->assertType('Zend\Filter\FilterChain', $this->renderer->getFilterChain());
     }
 
     public function testMaySetExplicitFilterChainInstance()
