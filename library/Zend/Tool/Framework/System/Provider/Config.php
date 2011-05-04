@@ -70,7 +70,7 @@ class Config extends Framework\Provider\AbstractProvider
 
         $homeDirectory = $this->_detectHomeDirectory();
 
-        $writer = new end\Config\Writer\Ini();
+        $writer = new \Zend\Config\Writer\Ini();
         $writer->setRenderWithoutSections();
         $filename = $homeDirectory."/.zf.ini";
 
@@ -79,7 +79,7 @@ class Config extends Framework\Provider\AbstractProvider
                 'includepath' => get_include_path(),
             ),
         );
-        $writer->write($filename, new end\Config\Config($config));
+        $writer->write($filename, new \Zend\Config\Config($config));
 
         $resp = $this->_registry->getResponse();
         $resp->appendContent("Successfully written Zend Tool config.");
