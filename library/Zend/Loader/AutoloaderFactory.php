@@ -92,13 +92,15 @@ class AutoloaderFactory
                     throw new Exception\InvalidArgumentException(sprintf('Autoloader class "%s" not loaded', $class));
                 }
             }
+
             $loader = new $class($opts);
             if (!$loader instanceof SplAutoloader) {
                 require_once 'Exception/DomainException.php';
                 throw new Exception\DomainException(sprintf('Autoloader class "%s" does not implement Zend\Loader\SplAutoloader', $class));
             }
             $loader->register();
-            self::$loaders[] = new $loader;
+
+            self::$loaders[] = $loader;
         }
     }
 
