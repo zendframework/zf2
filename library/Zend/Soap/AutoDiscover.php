@@ -32,7 +32,7 @@ use Zend\Uri,
  *
  * @uses       \Zend\Server\AbstractServer
  * @uses       \Zend\Server\Server
- * @uses       \Zend\Server\Reflection
+ * @uses       \Zend\Server\Reflection\Reflection
  * @uses       \Zend\Soap\AutoDiscover\Exception
  * @uses       \Zend\Soap\Wsdl
  * @uses       \Zend\Uri\Uri
@@ -48,7 +48,7 @@ class AutoDiscover implements \Zend\Server\Server
     protected $_wsdl = null;
 
     /**
-     * @var \Zend\Server\Reflection
+     * @var \Zend\Server\Reflection\Reflection
      */
     protected $_reflection = null;
 
@@ -99,7 +99,7 @@ class AutoDiscover implements \Zend\Server\Server
      */
     public function __construct($strategy = true, $uri=null, $wsdlClass=null)
     {
-        $this->_reflection = new \Zend\Server\Reflection();
+        $this->_reflection = new \Zend\Server\Reflection\Reflection();
         $this->setComplexTypeStrategy($strategy);
 
         if($uri !== null) {
