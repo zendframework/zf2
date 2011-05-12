@@ -72,7 +72,7 @@ class Application
      * Initialize application. Potentially initializes include_paths, PHP
      * settings, and bootstrap class.
      *
-     * @param  string                   $environment
+     * @param  string $environment
      * @param  string|array|\Zend\Config\Config $options String path to configuration file, or array/\Zend\Config\Config of configuration options
      * @throws \Zend\Application\Exception When invalid options are provided
      * @return void

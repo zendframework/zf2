@@ -137,7 +137,7 @@ class Bootstrap extends AbstractBootstrap
         ) {
             $r    = new \ReflectionClass($this);
             $path = $r->getFileName();
-            $autoloader = new ModuleAutoloader(array(
+            $autoloader = new Module\Autoloader(array(
                 'namespace' => $namespace,
                 'basePath'  => dirname($path),
             ));
