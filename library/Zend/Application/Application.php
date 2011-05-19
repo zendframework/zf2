@@ -423,6 +423,9 @@ class Application
     {
         $environment = $this->getEnvironment();
         $suffix      = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        $suffix      = ($suffix === 'dist')
+                     ? pathinfo(basename($file, ".$suffix"), PATHINFO_EXTENSION)
+                     : $suffix;
 
         switch ($suffix) {
             case 'ini':
