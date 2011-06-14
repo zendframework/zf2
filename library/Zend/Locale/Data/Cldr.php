@@ -1075,6 +1075,10 @@ class Cldr extends AbstractLocale
                 $temp = self::_getFile('main/' . $locale, '/ldml/dates/calendars/calendar[@type=\'' . $value[0] . '\']/fields/field/relative[@type=\'' . $value[1] . '\']', '', $value[1]);
                 break;
 
+            case 'defaultnumberingsystem':
+                $temp = self::_getFile('main/' . $locale, '/ldml/numbers/defaultNumberingSystem', '', 'default');
+                break;
+
             case 'decimalnumber':
                 $temp = self::_getFile('main/' . $locale, '/ldml/numbers/decimalFormats/decimalFormatLength/decimalFormat/pattern', '', 'default');
                 break;

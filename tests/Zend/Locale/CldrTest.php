@@ -736,6 +736,16 @@ class CldrTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * test for reading defaultNumberingSystem from locale data
+     * @group ZF-10728
+     */
+    public function testDefaultNumberingSystem()
+    {
+        $value = Cldr::getContent('de_AT', 'defaultnumberingsystem');
+        $this->assertEquals('latn', $value);
+    }    
+    
+    /**
      * test for reading decimalnumber from locale
      * expected array
      */
