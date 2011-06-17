@@ -75,7 +75,6 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
      */
     protected function loadDataFromMysqliStatement()
     {
-        // static $derefFunc = null;
         $data = null;
         // build the default reference based bind strutcure, if it does not already exist
         if ($this->statementBindValues['keys'] === null) {
@@ -90,10 +89,6 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
                 $refs[$i] = &$f;
             }
             call_user_func_array(array($this->resource, 'bind_result'), $this->statementBindValues['values']);
-            
-            // this is where 
-            // call_user_func_array(array($this->resource, 'bind_result'), $refs);
-            // $derefFunc = function($value) /* use (&$data) */ { return $value; };
         }
         
         if (($r = $this->resource->fetch()) === null) {
@@ -102,17 +97,7 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
             throw new \RuntimeException($this->resource->error);
         }
         
-        // $data = array_combine($this->statementBindValues['keys'], $refs);
-        // array_map($derefFunc, $data);
-        // OR: array_walk($data, $derefFunc);
-        
-        // I'd like to avoid this:
-        foreach ($this->statementBindValues['values'] as $k => $v) {
-            $data[$this->statementBindValues['keys'][$k]] = $v;
-        }
-
-        
-        $this->currentData = $data;
+        $this->currentData = array_combine($this->statementBindValues['keys'], $this->statementBindValues['values']);
         $this->currentComplete = true;
         $this->nextComplete = true;
         $this->pointerPosition++;
