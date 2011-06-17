@@ -79,7 +79,7 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
         $type = '';
         $args = array();
 
-        foreach ($clonedPContainer as $position => $value) {
+        foreach ($clonedPContainer as $position => &$value) {
             switch ($pContainer->offsetGetErrata($position)) {
                 case ParameterContainer::TYPE_DOUBLE:
                     $type .= 'd';
@@ -94,7 +94,7 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
                     $type .= 's';
                     break;
             }
-            array_push($args, &$value);
+            array_push($args, $value);
         }
         array_unshift($args, $type);
         
