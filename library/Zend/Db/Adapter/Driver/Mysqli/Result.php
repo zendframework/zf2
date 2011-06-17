@@ -64,9 +64,19 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
         }
     }
     
+    /**
+     * Mysqli's binding and returning of statement values
+     * 
+     * Mysqli requires you to bind variables to the extension in order to 
+     * get data out.  These values have to be references:
+     * @see http://php.net/manual/en/mysqli-stmt.bind-result.php
+     * 
+     * @throws \RuntimeException
+     */
     protected function loadDataFromMysqliStatement()
     {
-        static $derefFunc = null;
+        // static $derefFunc = null;
+        $data = null;
         // build the default reference based bind strutcure, if it does not already exist
         if ($this->statementBindValues['keys'] === null) {
             $this->statementBindValues['keys'] = array();
@@ -79,9 +89,11 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
             foreach ($this->statementBindValues['values'] as $i => &$f) {
                 $refs[$i] = &$f;
             }
-            //call_user_func_array(array($this->resource, 'bind_result'), $this->statementBindValues['values']);
-            call_user_func_array(array($this->resource, 'bind_result'), $refs);
-            $derefFunc = function($value, $key) use (&$data) { $data[$key] = $value; };
+            call_user_func_array(array($this->resource, 'bind_result'), $this->statementBindValues['values']);
+            
+            // this is where 
+            // call_user_func_array(array($this->resource, 'bind_result'), $refs);
+            // $derefFunc = function($value) /* use (&$data) */ { return $value; };
         }
         
         if (($r = $this->resource->fetch()) === null) {
@@ -90,9 +102,15 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
             throw new \RuntimeException($this->resource->error);
         }
         
-        $data = array_combine($this->statementBindValues['keys'], &$this->statementBindValues['values']);
+        // $data = array_combine($this->statementBindValues['keys'], $refs);
+        // array_map($derefFunc, $data);
+        // OR: array_walk($data, $derefFunc);
         
-        array_walk(&$data, $derefFunc);
+        // I'd like to avoid this:
+        foreach ($this->statementBindValues['values'] as $k => $v) {
+            $data[$this->statementBindValues['keys'][$k]] = $v;
+        }
+
         
         $this->currentData = $data;
         $this->currentComplete = true;
