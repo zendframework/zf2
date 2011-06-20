@@ -1,6 +1,9 @@
 <?php
 
-namespace Zend\Db\Adapter;
+namespace Zend\Db\Adapter\Driver;
+
+use Zend\Db\Adapter,
+    Zend\Db\Adapter\Driver;
 
 abstract class AbstractDriver implements Driver
 {
@@ -39,7 +42,7 @@ abstract class AbstractDriver implements Driver
         }
     }
     
-    public function setAdapter(\Zend\Db\Adapter $adapter)
+    public function setAdapter(Adapter $adapter)
     {
         $this->adapter = $adapter;
     }
@@ -114,7 +117,7 @@ abstract class AbstractDriver implements Driver
     
     public function getPrepareTypeSupport()
     {
-        return array(\Zend\Db\Adapter::PREPARE_TYPE_POSITIONAL);
+        return array(Adapter::PREPARE_TYPE_POSITIONAL);
     }
     
     public function formatNamedParameter($name)

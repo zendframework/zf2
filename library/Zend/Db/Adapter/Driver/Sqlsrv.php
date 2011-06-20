@@ -2,7 +2,7 @@
 
 namespace Zend\Db\Adapter\Driver;
 
-class Sqlsrv implements \Zend\Db\Adapter\Driver
+class Sqlsrv extends AbstractDriver
 {
     protected $connectionClass = 'Zend\Db\Adapter\Driver\Sqlsrv\Connection';
     protected $statementClass = 'Zend\Db\Adapter\Driver\Sqlsrv\Statement';
