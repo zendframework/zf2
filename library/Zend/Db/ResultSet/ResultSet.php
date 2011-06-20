@@ -2,27 +2,28 @@
 
 namespace Zend\Db\ResultSet;
 
-use Zend\Db\ResultSet\DataSource;
+use Iterator,
+    IteratorAggregate;
 
-class ResultSet implements \Iterator, ResultSetInterface 
+class ResultSet implements Iterator, ResultCollection
 {
     const TYPE_OBJECT = 'object';
     const TYPE_ARRAY  = 'array';
     
-    protected $rowClass = '\Zend\Db\ResultSet\RowObject';
-    protected $returnType = self::TYPE_OBJECT;
+    protected $rowClass   = '\Zend\Db\ResultSet\Row';
+    protected $returnType = static::TYPE_OBJECT;
     
     /**
-     * @var \Zend\Db\ResultSet\DataSource\DataSourceInterface
+     * @var \Zend\Db\ResultSet\DataSource
      */
     protected $dataSource = null;
     
     
-    public function __construct(DataSource\DataSourceInterface $dataSource)
+    public function __construct(DataSource $dataSource)
     {
-        if ($dataSource instanceof \Iterator) {
+        if ($dataSource instanceof Iterator) {
             $this->dataSource = $dataSource;
-        } elseif ($dataSource instanceof \IteratorAggregate) {
+        } elseif ($dataSource instanceof IteratorAggregate) {
             $this->dataSource->getIterator();
         } else {
             throw new \Exception('DataSource provided implements proper interface but does not implement \Iterator nor \IteratorAggregate');
@@ -36,10 +37,6 @@ class ResultSet implements \Iterator, ResultSetInterface
         return $this->dataSource->next();
     }
     
-    public function rewind()
-    {
-        return $this->dataSource->rewind();
-    }
     
     public function key()
     {
