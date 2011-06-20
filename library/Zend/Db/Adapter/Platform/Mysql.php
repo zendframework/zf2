@@ -2,7 +2,7 @@
 
 namespace Zend\Db\Adapter\Platform;
 
-class Mysql implements \Zend\Db\Adapter\Platform\Platform
+class Mysql implements \Zend\Db\Adapter\Platform
 {
     public function getName()
     {
