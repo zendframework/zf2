@@ -4,8 +4,6 @@ namespace Zend\Db\Adapter;
 
 interface DriverConnection
 {
-    /* public function __construct(AbstractDriver $driver, array $connectionParameters); */
-    
     public function setDriver(Driver $driver);
     public function setConnectionParams(array $connectionParams);
     

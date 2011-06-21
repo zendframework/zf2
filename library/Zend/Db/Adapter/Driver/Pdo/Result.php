@@ -5,14 +5,30 @@ namespace Zend\Db\Adapter\Driver\Pdo;
 use Zend\Db\Adapter\Driver,
     Zend\Db\Adapter\DriverResult,
     Iterator,
+    PDO as PHPDataObject,
     PDOStatement;
 
+/**
+ * Resultset for PDO
+ *
+ * @todo Use PDO's native interface for fetching into named objects?
+ */
 class Result implements Iterator, DriverResult
 {
     const MODE_STATEMENT = 'statement';
     const MODE_RESULT    = 'result';
     
+    /**
+     * What type of result are we iterating over? Uses the MODE_* constants
+     * @var string
+     */
     protected $mode = null;
+
+    /**
+     * Fetch style; defaults to PDO::FETCH_BOTH
+     * @var int
+     */
+    protected $fetchStyle = PHPDataObject::FETCH_BOTH;
     
     /**
      * @var Zend\Db\Adapter\Driver\AbstractDriver
@@ -23,7 +39,19 @@ class Result implements Iterator, DriverResult
      * @var mixed
      */
     protected $resource = null;
-    
+
+    /**
+     * Track current item in recordset
+     * @var mixed
+     */
+    protected $currentData;
+
+    /**
+     * Current position of scrollable statement
+     * @var int
+     */
+    protected $position = -1;
+
     public function __construct(Driver $driver, $resource, array $options = array())
     {
         $this->driver   = $driver;
@@ -47,45 +75,58 @@ class Result implements Iterator, DriverResult
      */
     public function current()
     {
-        if ($this->currentComplete) {
+        if ($this->mode == self::MODE_STATEMENT) {
+            // Handle first iteration, if necessary
+            if (-1 === $this->position && $this->count()) {
+                $this->currentData = $this->resource->fetch($this->fetchStyle, PHPDataObject::FETCH_ORI_FIRST);
+                $this->position    = 0;
+            }
             return $this->currentData;
         }
-        
-        if ($this->mode == self::MODE_STATEMENT) {
-            return $this->resource->fetch();
-        }
-
+        // MODE_RESULT
         return current($this->resource);
     }
     
     public function next()
     {
-        if ($this->mode == self::MODE_RESULT) {
-            return next($this->resource);
+        if ($this->mode == self::MODE_STATEMENT) {
+            $this->currentData  = $this->resource->fetch($this->fetchStyle, PHPDataObject::FETCH_ORI_NEXT);
+            $this->position++;
+            return $this->currentData;
         }
+        // MODE_RESULT
+        return next($this->resource);
     }
     
     public function key()
     {
-        if ($this->mode == self::MODE_RESULT) {
-            return key($this->resource);
+        if ($this->mode == self::MODE_STATEMENT) {
+            return $this->position;
         }
+        // MODE_RESULT
+        return key($this->resource);
     }
     
     public function rewind()
     {
-        if ($this->mode == self::MODE_RESULT) {
-            return reset($this->resource);
+        if ($this->mode == self::MODE_STATEMENT) {
+            $this->currentData = $this->resource->fetch($this->fetchStyle, PHPDataObject::FETCH_ORI_FIRST);
+            $this->position    = 0;
+            return $this->currentData;
         }
+        // MODE_RESULT
+        return reset($this->resource);
     }
     
     public function valid()
     {
-        if ($this->mode == self::MODE_RESULT) {
-            $key = key($this->resource);
-            $valid = ($key !== NULL && $key !== FALSE);
-            return $valid;
+        if ($this->mode == self::MODE_STATEMENT) {
+            return ($this->position < $this->count());
         }
+        // MODE_RESULT
+        $key   = key($this->resource);
+        $valid = ($key !== NULL && $key !== FALSE);
+        return $valid;
     }
     
     public function count()
@@ -93,6 +134,7 @@ class Result implements Iterator, DriverResult
         if ($this->mode == self::MODE_STATEMENT) {
             return $this->resource->rowCount();
         }
+        // MODE_RESULT
         return count($this->resource);
     }
     

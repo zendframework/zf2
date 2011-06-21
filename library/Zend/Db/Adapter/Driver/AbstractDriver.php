@@ -3,7 +3,8 @@
 namespace Zend\Db\Adapter\Driver;
 
 use Zend\Db\Adapter,
-    Zend\Db\Adapter\Driver;
+    Zend\Db\Adapter\Driver,
+    Zend\Db\Adapter\DriverConnection;
 
 abstract class AbstractDriver implements Driver
 {

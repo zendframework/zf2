@@ -164,13 +164,18 @@ class Connection implements Adapter\DriverConnection
         return $returnValue;
     }
     
+    /**
+     * @todo PDO_SQLite does not support scrollable cursors; make this configurable based on dsn?
+     */
     public function prepare($sql)
     {
         if (!$this->isConnected()) {
             $this->connect();
         }
         
-        $stmtResource = $this->resource->prepare($sql);
+        $stmtResource = $this->resource->prepare($sql, array(
+            PHPDataObject::ATTR_CURSOR => PHPDataObject::CURSOR_SCROLL,
+        ));
         
         if (!$stmtResource instanceof PDOStatement) {
             throw new \RuntimeException('Statement not produced');
