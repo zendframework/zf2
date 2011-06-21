@@ -112,9 +112,8 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
             return false;
         }
         
-        $this->nextImpliedByFetch = true;
         $this->pointerPosition++;
-        $this->data = $data;
+        $this->currentData = $data;
         $this->currentComplete = true;
         $this->nextComplete = true;
         $this->pointerPosition++;

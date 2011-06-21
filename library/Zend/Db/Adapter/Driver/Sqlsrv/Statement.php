@@ -19,19 +19,25 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
      */
     protected $resource = null;
     
-    public function __construct(\Zend\Db\Adapter\Driver $driver, $resource, $sql)
+    public function setDriver(\Zend\Db\Adapter\Driver $driver)
     {
         $this->driver = $driver;
+        return $this;
+    }
+    
+    public function setResource($resource)
+    {
         $this->resource = $resource;
-        $this->sql = $sql;
-        
-        if (!$this->resource instanceof \Sqlsrv_stmt) {
-            throw new \InvalidArgumentException('Invalid resource type.');
-        }
-        
+        return $this;
+    }
+    
+    public function setSql($sql)
+    {
         if (strpos(ltrim($sql), 'SELECT') === 0) {
             $this->isQuery = true;
         }
+        $this->sql = $sql;
+        return $this;
     }
     
     public function isQuery()
@@ -62,12 +68,14 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
             $this->bindParametersFromContainer($parameters);
         }
             
-        if ($this->resource->execute() === false) {
+        if (sqlsrv_execute($this->resource) === false) {
             throw new \Zend\Db\Adapter\Exception\InvalidQueryException($this->resource->error);
         }
 
         $resultClass = $this->driver->getResultClass();
-        $result = new $resultClass($this->driver, $this->resource);
+        $result = new $resultClass();
+        $result->setDriver($this->driver);
+        $result->setResource($this->resource);
         
         return $result;
     }
