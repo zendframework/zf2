@@ -62,16 +62,15 @@ class Statement implements DriverStatement
     public function execute($parameters = null)
     {
         if ($parameters != null) {
-            
             if (is_array($parameters)) {
-                die('todo');
+                throw new \Exception('Array parameters are not yet supported');
             }
             if (!$parameters instanceof ParameterContainer) {
                 throw new \InvalidArgumentException('ParameterContainer expected');
             }
             $this->bindParametersFromContainer($parameters);
         }
-            
+
         if ($this->resource->execute() === false) {
             throw new Exception\InvalidQueryException($this->resource->error);
         }
