@@ -24,19 +24,28 @@ class Statement implements DriverStatement
      */
     protected $resource = null;
     
-    public function __construct(Driver $driver, $resource, $sql)
+    public function setDriver(Driver $driver)
     {
-        $this->driver   = $driver;
-        $this->resource = $resource;
-        $this->sql      = $sql;
-        
-        if (!$this->resource instanceof PDOStatement) {
+        $this->driver = $driver;
+        return $this;
+    }
+
+    public function setResource($resource)
+    {
+        if (!$resource instanceof PDOStatement) {
             throw new \InvalidArgumentException('Invalid statement type');
         }
-        
+        $this->resource = $resource;
+        return $this;
+    }
+
+    public function setSql($sql)
+    {
+        $this->sql = $sql;
         if (strpos(ltrim($sql), 'SELECT') === 0) {
             $this->isQuery = true;
         }
+        return $this;
     }
     
     public function isQuery()
@@ -76,7 +85,9 @@ class Statement implements DriverStatement
         }
 
         $resultClass = $this->driver->getResultClass();
-        $result      = new $resultClass($this->driver, $this->resource);
+        $result      = new $resultClass();
+        $result->setDriver($this->driver)
+               ->setResource($this->resource);
         
         return $result;
     }
