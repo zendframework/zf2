@@ -2,16 +2,22 @@
 
 namespace Zend\Db\Adapter\Driver\Sqlsrv;
 
-use Zend\Db\Adapter\DriverStatement\ParameterContainer;
+use Zend\Db\Adapter\DriverStatement;
 
 class Statement implements \Zend\Db\Adapter\DriverStatement
 {
+
     /**
      * @var Zend\Db\Adapter\AbstractDriver
      */
     protected $driver = null;
     protected $sql = false;
     protected $isQuery = null;
+    protected $parameterReferences = array();
+    
+    /**
+     * @var Zend\Db\Adapter\DriverStatement\ParameterContainer
+     */
     protected $parameterContainer = null;
     
     /**
@@ -25,6 +31,15 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
         return $this;
     }
     
+    /**
+     * 
+     * One of two resource types will be provided here:
+     * a) "SQL Server Connection" when a prepared statement needs to still be produced
+     * b) "SQL Server Statement" when a prepared statement has been already produced 
+     * (there will need to already be a bound param set if it applies to this query)
+     * 
+     * @param resource
+     */
     public function setResource($resource)
     {
         $this->resource = $resource;
@@ -38,6 +53,11 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
         }
         $this->sql = $sql;
         return $this;
+    }
+    
+    public function setParameterContainer(DriverStatement\ParameterContainer $parameterContainer)
+    {
+        $this->parameterContainer = $parameterContainer;
     }
     
     public function isQuery()
@@ -57,19 +77,28 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
     
     public function execute($parameters = null)
     {
-        if ($parameters != null) {
-            
-            if (is_array($parameters)) {
-                die('todo');
+        if ($parameters !== null) {
+            if ($parameters instanceof DriverStatement\ParameterContainer) {
+                $this->setParameterContainer($parameters);
+            } else {
+                $pContainerFactory = new DriverStatement\ContainerFactory();
+                $this->setParameterContainer($pContainerFactory->createContainer($parameters));
+                unset($pContainerFactory);
             }
-            if (!$parameters instanceof ParameterContainer) {
-                throw new \InvalidArgumentException('ParameterContainer expected');
-            }
-            $this->bindParametersFromContainer($parameters);
+        }
+
+        if ($this->parameterContainer) {
+            $this->bindParametersFromContainer();
+        }
+        
+        // delayed prepare, this is the case since we allow parameters to be supplied at execution time
+        if (get_resource_type($this->resource) == 'SQL Server Connection') {
+            $this->resource = sqlsrv_prepare($this->resource, $this->sql, $this->parameterReferences);
         }
             
         if (sqlsrv_execute($this->resource) === false) {
-            throw new \Zend\Db\Adapter\Exception\InvalidQueryException($this->resource->error);
+            $ee = new ErrorException(sqlsrv_errors());
+            throw new \Zend\Db\Adapter\Exception\InvalidQueryException('Invalid query', null, $ee);
         }
 
         $resultClass = $this->driver->getResultClass();
@@ -80,32 +109,19 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
         return $result;
     }
     
-    protected function bindParametersFromContainer(ParameterContainer $pContainer)
+    protected function bindParametersFromContainer()
     {
-        $clonedPContainer = clone $pContainer;
-        
-        $type = '';
-        $args = array();
-
-        foreach ($clonedPContainer as $position => &$value) {
-            switch ($pContainer->offsetGetErrata($position)) {
-                case ParameterContainer::TYPE_DOUBLE:
-                    $type .= 'd';
-                    break;
-                case ParameterContainer::TYPE_NULL:
-                    $value = null; // as per @see http://www.php.net/manual/en/Sqlsrv-stmt.bind-param.php#96148
-                case ParameterContainer::TYPE_INTEGER:
-                    $type .= 'i';
-                    break;
-                case ParameterContainer::TYPE_STRING:
-                default:
-                    $type .= 's';
-                    break;
-            }
-            array_push($args, $value);
+        if (!$this->parameterReferences) {
+            $refArray = array(null, SQLSRV_PARAM_IN, null, null);
+            $this->parameterReferences = array_pad(array(), $this->parameterContainer->count(), $refArray);
         }
-        array_unshift($args, $type);
         
-        call_user_func_array(array($this->resource, 'bind_param'), $args);
+        foreach ($this->parameterReferences as $index => &$positionInfo) {
+            $positionInfo[0] = $this->parameterContainer->offsetGet($index);
+            if ($this->parameterContainer->offsetHasErrata($index)) {
+                $positionInfo[3] = $this->parameterContainer->offsetGetErrata($index);
+            }
+        }
     }
+    
 }

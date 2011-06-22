@@ -9,6 +9,7 @@ interface DriverStatement
     public function setDriver(Driver $driver);
     public function setResource($resource);
     public function setSql($sql);
+    public function setParameterContainer(DriverStatement\ParameterContainer $parameterContainer);
     
     public function getResource();
     public function getSQL();

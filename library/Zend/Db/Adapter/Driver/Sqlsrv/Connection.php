@@ -179,17 +179,22 @@ class Connection implements Adapter\DriverConnection
             $this->connect();
         }
         
+        /*
         $stmtResource = sqlsrv_prepare($this->resource, $sql);
-
+        var_dump(get_resource_type($this->resource));
+        var_dump(get_resource_type($stmtResource));
+        
         if (!is_resource($stmtResource)) {
             $prevErrorException = new ErrorException(sqlsrv_errors());
             throw new \RuntimeException('Statement not produced', null, $prevErrorException);
         }
+        */
+        
         
         $statementClass = $this->driver->getStatementClass();
         $statement = new $statementClass();
         $statement->setDriver($this->driver);
-        $statement->setResource($stmtResource);
+        $statement->setResource($this->resource);
         $statement->setSql($sql);
         return $statement;
     }

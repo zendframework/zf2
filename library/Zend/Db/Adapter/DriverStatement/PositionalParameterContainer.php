@@ -69,11 +69,6 @@ class PositionalParameterContainer extends \SplFixedArray implements ParameterCo
         }
     }
     
-    public function count()
-    {
-        return count($this->values);
-    }
-    
     public function getIterator()
     {
         return new \ArrayIterator($this->values);
