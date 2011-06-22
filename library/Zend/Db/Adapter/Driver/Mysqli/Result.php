@@ -2,6 +2,7 @@
 
 namespace Zend\Db\Adapter\Driver\Mysqli;
 
+use Zend\Db\Adapter;
 
 class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
 {
@@ -31,17 +32,21 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
     protected $statementBindValues = array('keys' => null, 'values' => array());
     
     
-    
-    public function __construct(\Zend\Db\Adapter\Driver $driver, $resource, array $options = array())
+    public function setDriver(Adapter\Driver $driver)
     {
-        $this->driver = $driver; 
-        $this->resource = $resource;
-        
-        if (!$this->resource instanceof \mysqli_result && !$this->resource instanceof \mysqli_stmt) {
+        $this->driver = $driver;
+        return $this;
+    }
+    
+    public function setResource($resource)
+    {
+         if (!$resource instanceof \mysqli_result && !$resource instanceof \mysqli_stmt) {
             throw new \InvalidArgumentException('Invalid resource provided.');
         }
         
+        $this->resource = $resource;
         $this->mode = ($this->resource instanceof \mysqli_stmt) ? self::MODE_STATEMENT : self::MODE_RESULT;
+        return $this;
     }
     
     public function getResource()
