@@ -2,7 +2,7 @@
 
 namespace Zend\Db\Adapter\Driver;
 
-class Mysqli extends \Zend\Db\Adapter\AbstractDriver
+class Mysqli extends AbstractDriver
 {
     protected $connectionClass = 'Zend\Db\Adapter\Driver\Mysqli\Connection';
     protected $statementClass = 'Zend\Db\Adapter\Driver\Mysqli\Statement';
