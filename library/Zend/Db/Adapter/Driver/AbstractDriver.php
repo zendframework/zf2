@@ -61,13 +61,13 @@ abstract class AbstractDriver implements Driver
     
     public function setConnectionParams($connectionParams)
     {
-        $this->_connectionParams = $connectionParams;
+        $this->connectionParams = $connectionParams;
         return $this;
     }
     
     public function getConnectionParams()
     {
-        return $this->_connectionParams;
+        return $this->connectionParams;
     }
     
     
@@ -149,7 +149,10 @@ abstract class AbstractDriver implements Driver
     {
         if ($this->connection == null) {
             $connectionClass = $this->getConnectionClass();
-            $this->setConnection(new $connectionClass($this, $this->getConnectionParams()));
+            $connection = new $connectionClass;
+            $connection->setDriver($this);
+            $connection->setConnectionParams($this->getConnectionParams());
+            $this->setConnection($connection);
         }
         return $this->connection;
     }

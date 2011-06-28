@@ -18,12 +18,18 @@ class Connection implements Adapter\DriverConnection
      */
     protected $resource = null;
 
-    protected $inTransaction = false;
+    protected $inTransaction = false;    
     
-    public function __construct(Adapter\AbstractDriver $driver, array $connectionParameters)
+    public function setDriver(Adapter\Driver $driver)
     {
         $this->driver = $driver;
+        return $this;
+    }
+    
+    public function setConnectionParams(array $connectionParameters)
+    {
         $this->connectionParams = $connectionParameters;
+        return $this;
     }
     
     public function getConnectionParams()
@@ -162,7 +168,10 @@ class Connection implements Adapter\DriverConnection
         }
         
         $statementClass = $this->driver->getStatementClass();
-        $statement = new $statementClass($this->driver, $stmtResource, $sql);
+        $statement = new $statementClass();
+        $statement->setDriver($this->driver);
+        $statement->setResource($stmtResource);
+        $statement->setSql($sql);
         return $statement;
     }
 

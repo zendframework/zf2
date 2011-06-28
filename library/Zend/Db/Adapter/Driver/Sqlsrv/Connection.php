@@ -7,7 +7,7 @@ use Zend\Db\Adapter;
 class Connection implements Adapter\DriverConnection
 {
     /**
-     * @var \Zend\Db\Adapter\Driver\AbstractDriver
+     * @var Zend\Db\Adapter\Driver\AbstractDriver
      */
     protected $driver = null;
     
@@ -20,10 +20,24 @@ class Connection implements Adapter\DriverConnection
 
     protected $inTransaction = false;
     
+    /*
     public function __construct(Adapter\AbstractDriver $driver, array $connectionParameters)
     {
         $this->driver = $driver;
         $this->connectionParams = $connectionParameters;
+    }
+    */
+    
+    public function setDriver(Adapter\Driver $driver)
+    {
+        $this->driver = $driver;
+        return $this;
+    }
+    
+    public function setConnectionParams(array $connectionParameters)
+    {
+        $this->connectionParams = $connectionParameters;
+        return $this;
     }
     
     public function getConnectionParams()
@@ -60,50 +74,54 @@ class Connection implements Adapter\DriverConnection
         if ($this->resource) {
             return;
         }
-
-        $host = $username = $password = $dbname = $port = $socket = null;
-        foreach (array('host', 'username', 'password', 'dbname', 'port', 'socket') as $c) {
-            if (isset($this->connectionParams[$c])) {
-                switch ($c) {
-                    case 'port': 
-                        $this->connectionParams[$c] = (int) $this->connectionParams[$c];
-                    default:
-                        $$c = $this->connectionParams[$c];
-                }
+        
+        $serverName = '.';
+        $params = array();
+        foreach ($this->connectionParams as $cpName => $cpValue) {
+            switch (strtolower($cpName)) {
+                case 'hostname':
+                case 'servername':
+                    $serverName = $cpValue;
+                    break;
+                // @todo check other sqlsrv param values
+                default:
+                    $params[$cpName] = $cpValue;
             }
         }
         
-        $this->resource = new \Sqlsrv($host, $username, $password, $dbname, $port, $socket);
-
-        if ($this->resource->connect_error) {
-            throw new \Exception('Connect Error (' . $this->resource->connect_errno . ') ' . $this->resource->connect_error);
-        }
-
-        if (!empty($this->connectionParams['charset'])) {
-            $this->resource->set_charset($this->resource, $this->connectionParams['charset']);
+        $this->resource = sqlsrv_connect($serverName, $params);
+        
+        if (!$this->resource) {
+            $prevErrorException = new ErrorException(sqlsrv_errors());
+            throw new \Exception('Connect Error', null, $prevErrorException);
         }
 
     }
     
     public function isConnected()
     {
-        return ($this->resource instanceof \Sqlsrv);
+        return (is_resource($this->resource));
     }
     
     public function disconnect()
     {
-        $this->resource->close();
+        sqlsrv_close($this->resource);
         unset($this->resource);
     }
     
     public function beginTransaction()
     {
+        // http://msdn.microsoft.com/en-us/library/cc296151.aspx
+        /*
         $this->resource->autocommit(false);
         $this->inTransaction = true;
+        */
     }
     
     public function commit()
     {
+        // http://msdn.microsoft.com/en-us/library/cc296194.aspx
+        /*
         if (!$this->resource) {
             $this->connect();
         }
@@ -111,10 +129,13 @@ class Connection implements Adapter\DriverConnection
         $this->resource->commit();
         
         $this->inTransaction = false;
+        */
     }
     
     public function rollback()
     {
+        // http://msdn.microsoft.com/en-us/library/cc296176.aspx
+        /*
         if (!$this->resource) {
             throw new \Exception('Must be connected before you can rollback.');
         }
@@ -125,6 +146,7 @@ class Connection implements Adapter\DriverConnection
         
         $this->resource->rollback();
         return $this;
+        */
     }
     
     
@@ -136,14 +158,16 @@ class Connection implements Adapter\DriverConnection
         
         $resultClass = $this->driver->getResultClass();
         
-        $returnValue = $this->resource->query($sql);
+        $returnValue = sqlsrv_query($this->resource, $sql);
         
         // if the returnValue is something other than a Sqlsrv_result, bypass wrapping it
-        if ($returnValue instanceof \Sqlsrv_result) {
+        if (is_resource($returnValue)) {
             $result = new $resultClass($this->driver, array(), $returnValue);
+            $result->setDriver($this->driver);
+            // @todo how do we get results into this thing?
             return $result;
         } elseif ($returnValue === false) {
-            throw new \Zend\Db\Adapter\Exception\InvalidQueryException($this->resource->error);
+            throw new \Zend\Db\Adapter\Exception\InvalidQueryException(sqlsrv_error());
         }
         
         return $returnValue;
@@ -155,14 +179,23 @@ class Connection implements Adapter\DriverConnection
             $this->connect();
         }
         
-        $stmtResource = $this->resource->prepare($sql);
+        /*
+        $stmtResource = sqlsrv_prepare($this->resource, $sql);
+        var_dump(get_resource_type($this->resource));
+        var_dump(get_resource_type($stmtResource));
         
-        if (!$stmtResource instanceof \Sqlsrv_stmt) {
-            throw new \RuntimeException('Statement not produced');
+        if (!is_resource($stmtResource)) {
+            $prevErrorException = new ErrorException(sqlsrv_errors());
+            throw new \RuntimeException('Statement not produced', null, $prevErrorException);
         }
+        */
+        
         
         $statementClass = $this->driver->getStatementClass();
-        $statement = new $statementClass($this->driver, $stmtResource, $sql);
+        $statement = new $statementClass();
+        $statement->setDriver($this->driver);
+        $statement->setResource($this->resource);
+        $statement->setSql($sql);
         return $statement;
     }
 

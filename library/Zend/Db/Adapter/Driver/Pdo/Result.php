@@ -41,6 +41,11 @@ class Result implements Iterator, DriverResult
     protected $resource = null;
 
     /**
+     * @var array Result options
+     */
+    protected $options;
+
+    /**
      * Track current item in recordset
      * @var mixed
      */
@@ -52,16 +57,26 @@ class Result implements Iterator, DriverResult
      */
     protected $position = -1;
 
-    public function __construct(Driver $driver, $resource, array $options = array())
+    public function setDriver(Driver $driver)
     {
-        $this->driver   = $driver;
-        $this->resource = $resource;
-        
+        $this->driver = $driver;
+        return $this;
+    }
+
+    public function setResource($resource)
+    {
         if (!$resource instanceof PDOStatement && !is_array($resource)) {
             throw new \InvalidArgumentException('Invalid resource provided.');
         }
-        
+        $this->resource = $resource;
         $this->mode = ($this->resource instanceof PDOStatement) ? self::MODE_STATEMENT : self::MODE_RESULT;
+        return $this;
+    }
+
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+        return $this;
     }
     
     public function getResource()

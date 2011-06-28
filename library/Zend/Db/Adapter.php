@@ -184,7 +184,7 @@ class Adapter
     /**
      * query() is a convienince function
      * 
-     * @return Zend\Db\ResultSet\ResultSet
+     * @return Zend\Db\Adapter\DriverStatement
      */
     public function query($sql, $prepareOrExecute = self::QUERY_MODE_PREPARE)
     {

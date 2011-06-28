@@ -3,7 +3,7 @@
 namespace Zend\Db\Adapter\Driver\Pdo;
 
 use Zend\Db\Adapter,
-    Zend\Db\Adapter\Driver\AbstractDriver,
+    Zend\Db\Adapter\Driver,
     Zend\Db\Adapter\Exception\InvalidQueryException,
     PDO as PHPDataObject,
     PDOException,
@@ -26,10 +26,15 @@ class Connection implements Adapter\DriverConnection
 
     protected $inTransaction = false;
     
-    public function __construct(AbstractDriver $driver, array $connectionParameters)
+    public function setDriver(Driver $driver)
     {
         $this->driver = $driver;
-        $this->connectionParams = $connectionParameters;
+        return $this;
+    }
+
+    public function setConnectionParams(array $connectionParams)
+    {
+        $this->connectionParams = $connectionParams;
     }
     
     public function getConnectionParams()
@@ -182,7 +187,10 @@ class Connection implements Adapter\DriverConnection
         }
         
         $statementClass = $this->driver->getStatementClass();
-        $statement = new $statementClass($this->driver, $stmtResource, $sql);
+        $statement = new $statementClass();
+        $statement->setDriver($this->driver)
+                  ->setResource($stmtResource)
+                  ->setSql($sql);
         return $statement;
     }
 
