@@ -51,7 +51,7 @@ class ReflectionDocblockTag implements \Reflector
             ),
         array(
             'tag',
-            '#^@(?<name>\w+)(?:\s(?<description>(?:.*)+))?#'
+            '#^@(?<name>\[w:]+)(?:\s(?<description>(?:.*)+))?#'
             )
         );
     
