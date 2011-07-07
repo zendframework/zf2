@@ -126,7 +126,7 @@ class PhpClass extends AbstractPhp
 
         $properties = array();
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
-            if ($reflectionProperty->getDeclaringClass()->getName() == $class->getName()) {
+            if ($reflectionProperty->getDeclaringClass()->getName() == $class->getNamespaceName()."\\".$class->getName()) {
                 $properties[] = PhpProperty::fromReflection($reflectionProperty);
             }
         }
@@ -134,7 +134,7 @@ class PhpClass extends AbstractPhp
 
         $methods = array();
         foreach ($reflectionClass->getMethods() as $reflectionMethod) {
-            if ($reflectionMethod->getDeclaringClass()->getName() == $class->getName()) {
+            if ($reflectionMethod->getDeclaringClass()->getName() == $class->getNamespaceName()."\\".$class->getName()) {
                 $methods[] = PhpMethod::fromReflection($reflectionMethod);
             }
         }
