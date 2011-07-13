@@ -285,10 +285,10 @@ abstract class AbstractDb extends AbstractValidator
          */
         $select = new DBSelect($this->_adapter);
         $select->from($this->_table, array($this->_field), $this->_schema);
-        if ($db->supportsParameters(&apos;named&apos;)) {
-            $select->where($db->quoteIdentifier($this->_field, true).&apos; = :value&apos;); // named
+        if ($db->supportsParameters('named')) {
+            $select->where($db->quoteIdentifier($this->_field, true).' = :value'); // named
         } else {
-            $select->where($db->quoteIdentifier($this->_field, true).&apos; = ?&apos;); // positional
+            $select->where($db->quoteIdentifier($this->_field, true).' = ?'); // positional
         }
         if ($this->_exclude !== null) {
             if (is_array($this->_exclude)) {
@@ -304,7 +304,7 @@ abstract class AbstractDb extends AbstractValidator
          */
         $result = $this->_adapter->fetchRow(
             $select,
-            array(&apos;value&apos; => $value), // this should work whether db supports positional or named params
+            array('value' => $value), // this should work whether db supports positional or named params
             Db::FETCH_ASSOC
         );
 
