@@ -167,6 +167,21 @@ define('TESTS_ZEND_DB_ADAPTER_SQLSRV_PASSWORD', null);
 define('TESTS_ZEND_DB_ADAPTER_SQLSRV_DATABASE', 'test');
 
 /**
+ * Zend_Db_ActiveRecord
+ *
+ * Make sure that the database you specify here ("test") exists and can be
+ * accessed with the supplied username and password.
+ */
+define('TESTS_ZEND_DB_ACTIVERECORD_ENABLED',  false);
+define('TESTS_ZEND_DB_ACTIVERECORD_ADAPTER',  'mysqli');
+define('TESTS_ZEND_DB_ACTIVERECORD_ADAPTER_HOSTNAME', '127.0.0.1');
+define('TESTS_ZEND_DB_ACTIVERECORD_ADAPTER_USERNAME', null);
+define('TESTS_ZEND_DB_ACTIVERECORD_ADAPTER_PASSWORD', null);
+define('TESTS_ZEND_DB_ACTIVERECORD_ADAPTER_DATABASE', 'test');
+define('TESTS_ZEND_DB_ACTIVERECORD_ADAPTER_PORT', 3306);
+
+
+/**
  * Zend_Feed_Reader tests
  *
  * If the ONLINE_ENABLED property is false, only tests that can be executed
