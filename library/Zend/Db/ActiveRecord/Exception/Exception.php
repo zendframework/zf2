@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace ZendX\Db\ActiveRecord;
+namespace Zend\Db\ActiveRecord\Exception;
 /**
  * @uses       \Zend\Db\Exception
  * @category   ZendX
