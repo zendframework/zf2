@@ -58,6 +58,49 @@ abstract class AbstractActiveRecord
 	protected static $_collectionClass = '\\Zend\\Db\\ActiveRecord\\Collection';
 
 	/**
+	 * Associations: one-to-many. This parameter defines which children objects are associated
+	 * with this class. It holds an associative array. Its key is the property which will be
+	 * used to access children. Value is an array with children class name and property name
+	 * in children table, which is used to fetch them.
+	 * For example:
+	 *		$_hasMany = array(
+	 *			'children' => array('User',  'parentId'),
+	 *			'pets'     => array('Animal, 'ownerId'),
+	 *		);
+	 *
+	 * This will allow you to access the following properties:
+	 *		$object->children	: a Collection of User objects with parentId equal to $object->id
+	 *		$object->pets		: a Collection of Animal objects with ownerId equal to $object->id
+	 *
+	 * @var array
+	 */
+	protected static $_hasMany = array();
+
+	/**
+	 * Associations: one-to-one
+	 * @var array
+	 */
+	protected static $_hasOne = array();
+
+	/**
+	 * Associations: one-to-many (reverse). This parameter defines parent objects for current
+	 * class. It takes the form of an associative array, with key being the property name and
+	 * value is an array with parent object class and property name.
+	 * For example:
+	 * 		$_belongsTo = array(
+	 * 			'family' => array('Family', 'familyId'),
+	 * 			'team' =>   array('Team', 'teamId'),
+	 * 		);
+	 *
+	 * This will allow you to access the following properties:
+	 * 		$object->family		: object of class Family with id matching familyId
+	 *		$object->team		: object of class Team with id matching teamId
+	 *
+	 * @var array
+	 */
+	protected static $_belongsTo = array();
+
+	/**
 	 * @var Zend\Cache\Frontend\Core
 	 */
 	protected $_cache;
@@ -153,6 +196,19 @@ abstract class AbstractActiveRecord
 	 */
 	protected $_loaded = false;
 
+	/**
+	 * Instance repository of children Collections (as per $_hasMany)
+	 *
+	 * @var array
+	 */
+	protected $_children = array();
+
+	/**
+	 * Instance repository of parent objects (as per $_belongsTo)
+	 *
+	 * @var array
+	 */
+	protected $_parents = array();
 
 
 	/**
@@ -670,7 +726,6 @@ abstract class AbstractActiveRecord
 			throw new Exception\BadMethodCallException('Cannot call '.get_called_class().'::find() with first param of type '.gettype($params));
 	}
 
-
 	/**
 	 * @static
 	 * @param array $params			Query params in one of the following formats:
@@ -973,12 +1028,20 @@ abstract class AbstractActiveRecord
 							
 							case 'empty':
 							case 'isempty':
-								$select->where($prefix.$db->quoteIdentifier($col).' IS NULL OR '.$prefix.$db->quoteIdentifier($col).' = ""');
+								$select->where(
+									$prefix.$db->quoteIdentifier($col).' IS NULL OR '.
+									$prefix.$db->quoteIdentifier($col).' = "" OR '.
+									$prefix.$db->quoteIdentifier($col).' = 0'
+								);
 								break;
 								
 							case 'notempty':
 							case 'isnotempty':
-								$select->where($prefix.$db->quoteIdentifier($col).' IS NULL OR '.$prefix.$db->quoteIdentifier($col).' = ""');
+								$select->where(
+									$prefix.$db->quoteIdentifier($col).' IS NOT NULL AND '.
+									$prefix.$db->quoteIdentifier($col).' != "" AND'.
+									$prefix.$db->quoteIdentifier($col).' != 0'
+								);
 								break;
 
 							case 'null':
@@ -1173,8 +1236,6 @@ abstract class AbstractActiveRecord
 			$select->limit($options['limit']);
 		}
 	}
-
-
 
 	public static function findOne($params = array(), $options = array()){
 		$options['limit'] = 1;
@@ -1419,17 +1480,110 @@ abstract class AbstractActiveRecord
 		return $result;
 	}
 
+	/**
+	 * Returns children for the supplied association.
+	 *
+	 * @static
+	 * @param string	$type			Association (as found in $_hasMany)
+	 * @return \Zend\Db\ActiveRecord\Collection
+	 */
+	protected function _findChildren($type){
+		if(isset($this->_children[$type])){
+			return $this->_children[$type];
+		}
+
+		// determine what is the children object class
+		$childClass = static::$_hasMany[$type][0];
+
+		// determine the column used to associate children with parent
+		if(isset(static::$_hasMany[$type][1])){
+			$col  = static::$_hasMany[$type][1];
+		}else{
+			$col = static::_determineAssociationColumn(get_called_class(),$childClass);
+		}
+
+		// find associated children using childClass::findAll()
+		return $this->_children[$type] = call_user_func(
+			array($childClass,'findAll'),
+			array(
+				$col => $this->_id
+			)
+		);
+	}
+
+	/**
+	 * Returns parent object for the association
+	 *
+	 * @param string	$type		Type of association (as found in $_belongsTo)
+	 * @return \Zend\Db\ActiveRecord\AbstractActiveRecord|null
+	 */
+	protected function _findParent($type){
+		if(isset($this->_parents[$type])){
+			return $this->_parents[$type];
+		}
+
+		// determine the class of the parent object
+		$parentClass = static::$_belongsTo[$type][0];
+
+		// determine the column used to associate us with the parent
+		if(isset(static::$_belongsTo[$type][1])){
+			$prop = static::$_belongsTo[$type][1];
+		}else{
+			$prop = static::_determineAssociationColumn($parentClass, get_called_class());
+		}
+
+		// load self if necessary
+		if($this->_id && !$this->_loaded){
+			$this->_loadFromDb();
+		}
+
+		// retrieve parent id
+		$id = $this->_data[$prop];
+
+		return $this->_parents[$type] = call_user_func(array($parentClass,'findById'),$id);
+	}
+
+	/**
+	 * Try to generate column name that is used to associate child class with parent class.
+	 * By default it takes $parentClass and adds "Id" suffix. i.e.
+	 *     parentClass: User
+	 *      childClass: Account
+	 *          column: userId
+	 *
+	 * @static
+	 * @param $parentClass
+	 * @param $childClass
+	 * @return string
+	 */
+	protected static function _determineAssociationColumn($parentClass, $childClass){
+		$parentClass = substr($parentClass,strripos($parentClass,'\\')+1);		// strip namespace
+		$parentClass = strtolower($parentClass); // make lowercase
+		return $parentClass.'Id';
+	}
 
 
 	public function __get($prop){
 		// return object id (performance)
-		if($prop == 'id' || $prop == static::$_pk)
+		if($prop == 'id' || $prop == static::$_pk){
 			return $this->_id;
+		}
 
 		// call custom method
-		elseif(method_exists($this,'get'.$prop))
+		elseif(method_exists($this,'get'.$prop)){
 			return call_user_func(array($this, 'get' . $prop));
+		}
 
+		// return parent object
+		elseif(isset(static::$_belongsTo[$prop])){
+			return $this->_findParent($prop);
+		}
+
+		// return children
+		elseif(isset(static::$_hasMany[$prop])){
+			return $this->_findChildren($prop);
+		}
+
+		// return a property
 		if($this->_id){
 			// we have object id, load data from db
 			if(!$this->_loaded)
@@ -1490,6 +1644,17 @@ abstract class AbstractActiveRecord
 		}
 	}
 
+	public function __call($func,$args){
+		if(substr($func,0,3) == 'get'){
+			return $this->__get(
+				strtolower(substr($func,3,1)).
+				substr($func,4)
+			);
+		}else{
+			throw Exception\BadMethodCallException('Unknown method '.$func.' in class "'.get_called_class().'"');
+		}
+	}
+
 	public static function __callStatic($name,$args){
 		if(substr($name,0,6) == 'findBy'){
 			$what = substr($name,6);
@@ -1499,7 +1664,6 @@ abstract class AbstractActiveRecord
 			return static::findOne(array($what => $args));
 		}
 	}
-
 
 }
 

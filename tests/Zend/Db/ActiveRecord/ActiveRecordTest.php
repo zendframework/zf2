@@ -658,8 +658,6 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($limit,$x);
 	}
 
-	
-
 	/**
 	 * @depends testFindAll
 	 * @return void
@@ -724,6 +722,66 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 			$this->assertEquals($recordData['id'],$record->id);
 		}
 
+	}
+
+	/**
+	 * @depends testFindByExactMatch
+	 * @return void
+	 */
+	public function testHasManyAndBelongsTo(){
+		$this->_createTableForHasMany();
+
+		// create parent object
+		$parent = TestAsset\HasMany::factory(array(
+			'name' => uniqid()
+		));
+		$parent->save();
+		$this->assertNotEmpty($parent->id);
+
+		// create children records directly in database
+		$count = 20;
+		for($x = 0;$x<$count;$x++){
+			$this->_db->insert('belongstohasmany',array(
+				'name' => uniqid('',true),
+				'parentId' => $parent->id
+			));
+		}
+
+		// fetch all children by fetching a property
+		$children = $parent->children;
+		$this->assertInstanceOf('\\Zend\\Db\\ActiveRecord\\Collection',$children);
+		$this->assertEquals($count,$children->count());
+
+		// fetch all children with a method call
+		$children = $parent->getChildren();
+		$this->assertInstanceOf('\\Zend\\Db\\ActiveRecord\\Collection',$children);
+		$this->assertEquals($count,$children->count());
+
+		// check if each children relates to its parent
+		foreach($children as $child){
+			$this->assertSame($parent,$child->parent);
+			$this->assertSame($parent,$child->getParent());
+		}
+	}
+
+	/**
+	 * @depends testHasManyAndBelongsTo
+	 * @return void
+	 */
+	public function testHasManyPersistency(){
+		$this->_createTableForHasMany();
+
+		// create parent object
+		$parent = TestAsset\HasMany::factory(array(
+			'name' => uniqid()
+		));
+		$parent->save();
+
+		// check if ->children returns the same collection every time
+		$this->assertNotEmpty($parent->id);
+		$this->assertSame($parent->children, $parent->children);
+		$this->assertSame($parent->children, $parent->getChildren());
+		$this->assertEquals(0,$parent->children->count());
 	}
 
 	public function testSimpleSharding(){
@@ -812,8 +870,28 @@ class ActiveRecordTest extends \PHPUnit_Framework_TestCase
 		);
 	}
 
+	protected function _createTableForHasMany(){
+		$this->_createTempTable(
+			'hasmany',
+			array(
+				'id' => 'INTEGER NOT NULL AUTO_INCREMENT',
+				'name' => 'VARCHAR(200)',
+			),
+			'id'
+		);
+
+		$this->_createTempTable(
+			'belongstohasmany',
+			array(
+				'id' => 'INTEGER NOT NULL AUTO_INCREMENT',
+				'name' => 'VARCHAR(200)',
+				'parentId' => 'INTEGER NULL'
+			),
+			'id'
+		);
 
 
+	}
 	/**
 	 * Create temporary db table for testing.
 	 * @throws \PHPUnit_Framework_Exception
