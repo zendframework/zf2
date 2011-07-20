@@ -36,7 +36,7 @@ use Zend\Tool\Framework\Provider\AbstractProvider as FrameworkAbstractProvider,
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class AbstractProvider 
+abstract class AbstractProvider
     extends FrameworkAbstractProvider
     implements Initializable
 {
@@ -117,7 +117,7 @@ abstract class AbstractProvider
                 return false;
             }
         }
-        
+
         $profile = new ProjectProfile();
         $profile->setAttribute('projectDirectory', $foundPath);
         $profile->loadFromFile();
@@ -156,9 +156,10 @@ abstract class AbstractProvider
             }
 
             array_pop($parentDirectoriesArray);
+
         }
 
-        return $profile;
+        return false;
     }
 
     /**
@@ -226,16 +227,16 @@ abstract class AbstractProvider
         if (!file_exists($pathToProfileFile)) {
             return false;
         }
-        
+
         $contents = file_get_contents($pathToProfileFile);
         if (strstr($contents, '<projectProvidersDirectory') === false) {
             return false;
         }
-        
+
         if (strstr($contents, '<projectProvidersDirectory enabled="false"')) {
             return false;
         }
-        
+
         return true;
     }
 

@@ -110,8 +110,9 @@ class Repository implements RegistryEnabled, \IteratorAggregate, \Countable
                 // if provider is a string, try and load it as an object
                 if (is_string($provider)) {
                     $provider = new $provider();
+                    $provider->initialize();
                 }
-                
+
                 if (!$provider instanceof \Zend\Tool\Framework\Provider) {
                     throw new Exception\InvalidArgumentException(
                         'A provider provided by the ' . get_class($manifest)
@@ -190,7 +191,7 @@ class Repository implements RegistryEnabled, \IteratorAggregate, \Countable
                     if (is_array($metadata)) {
                         $metadata = new Metadata\Dynamic($metadata);
                     }
-                    
+
                     if (!$metadata instanceof Metadata) {
                         throw new Exception\RuntimeException(
                             'A Zend\\Tool\\Framework\\Metadata\\Interface object was not found in manifest ' . get_class($manifest)
