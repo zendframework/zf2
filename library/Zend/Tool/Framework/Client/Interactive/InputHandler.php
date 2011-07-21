@@ -43,7 +43,7 @@ class InputHandler
 
     protected $_inputRequest = null;
 
-    public function setClient(InteractveInput $client)
+    public function setClient(InteractiveInput $client)
     {
         $this->_client = $client;
         return $this;
