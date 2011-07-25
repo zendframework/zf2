@@ -63,7 +63,7 @@ class PhpProperty extends PhpMember\AbstractMember
         $property->setDefaultValue($allDefaultProperties[$reflectionProperty->getName()]);
 
         if ($reflectionProperty->getDocComment() != '') {
-            $property->setDocblock(Php\PhpDocblock::fromReflection($reflectionProperty->getDocComment()));
+            $property->setDocblock(PhpDocblock::fromReflection($reflectionProperty->getDocComment()));
         }
 
         if ($reflectionProperty->isStatic()) {
