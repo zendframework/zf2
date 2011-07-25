@@ -315,6 +315,25 @@ class RewriteTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testAddConfigWithShortType()	// ZF2-40
+    {
+        $file = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'routes-ZF2-40.ini';
+        $config = new Config\Ini($file, 'testing');
+
+        $this->_router->addConfig($config, 'routes');
+
+        $this->assertType('Zend\Controller\Router\Route\StaticRoute', $this->_router->getRoute('news'));
+        $this->assertType('Zend\Controller\Router\Route\Route', $this->_router->getRoute('archive'));
+        $this->assertType('Zend\Rest\Route', $this->_router->getRoute('rest'));
+
+        try {
+            $this->_router->addConfig($config, 'database');
+        } catch (\Exception $e) {
+            $this->assertType('Zend\Controller\Router\Exception', $e);
+            return true;
+        }
+    }
+
     public function testAddConfigWithoutSection()
     {
         $file = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'routes.ini';

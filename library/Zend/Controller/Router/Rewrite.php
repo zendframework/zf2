@@ -212,6 +212,12 @@ class Rewrite extends AbstractRouter
     protected function _getRouteFromConfig(Config\Config $info)
     {
         $class = (isset($info->type)) ? $info->type : 'Zend\Controller\Router\Route\Route';
+
+        // prepend default namespace if none supplied (ZF2-40)
+        if(!strstr($class,'\\')){
+            $class = __NAMESPACE__ . '\\Route\\' . $class;
+        }
+
         if (!class_exists($class, true)) {
             throw new \InvalidArgumentException('Class name ' . $class . ' does not exist.');
         }
