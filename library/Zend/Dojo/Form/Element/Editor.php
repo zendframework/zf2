@@ -24,7 +24,7 @@
  */
 namespace Zend\Dojo\Form\Element;
 
-use Zend\Form\ElementException;
+use Zend\Form\Exception\InvalidArgumentException;
 
 /**
  * Editor dijit
@@ -396,7 +396,7 @@ class Editor extends Dijit
     public function setHeight($height)
     {
         if (!preg_match('/^\d+(em|px|%)?$/i', $height)) {
-            throw new ElementException('Invalid height provided; must be integer or CSS measurement');
+            throw new InvalidArgumentException('Invalid height provided; must be integer or CSS measurement');
         }
         if (!preg_match('/(em|px|%)$/', $height)) {
             $height .= 'px';
@@ -450,7 +450,7 @@ class Editor extends Dijit
     public function setMinHeight($minHeight)
     {
         if (!preg_match('/^\d+(em)?$/i', $minHeight)) {
-            throw new ElementException('Invalid minHeight provided; must be integer or CSS measurement');
+            throw new InvalidArgumentException('Invalid minHeight provided; must be integer or CSS measurement');
         }
         if ('em' != substr($minHeight, -2)) {
             $minHeight .= 'em';
