@@ -38,6 +38,24 @@ class CompilerTest extends TestCase
         $this->assertContains('setB', $definition->getInjectionMethods('ZendTest\Di\TestAsset\CompilerClasses\C'));
         $this->assertTrue($definition->hasInjectionMethod('ZendTest\Di\TestAsset\CompilerClasses\C', 'setB'));
         
-        $this->assertEquals(array('b' => 'ZendTest\Di\TestAsset\CompilerClasses\B'), $definition->getInjectionMethodParameters('ZendTest\Di\TestAsset\CompilerClasses\C', 'setB'));
+        $params = array(
+            'b' => array(
+                'ZendTest\Di\TestAsset\CompilerClasses\B',
+                false, // ZF2-46 
+                true,
+            ),
+        );
+        $this->assertEquals($params, $definition->getInjectionMethodParameters('ZendTest\Di\TestAsset\CompilerClasses\C', 'setB'));
+
+        // I'm not sure there's a use-case for a setter with an optional 
+        // parameter, but we should test that it reflects it accurately.
+        $params = array(
+            'a' => array(
+                'ZendTest\Di\TestAsset\CompilerClasses\A',
+                true,
+                true,
+            ),
+        );
+        $this->assertEquals($params, $definition->getInjectionMethodParameters('ZendTest\Di\TestAsset\CompilerClasses\C', 'setA'));
     }
 }
