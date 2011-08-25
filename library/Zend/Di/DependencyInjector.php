@@ -277,7 +277,7 @@ class DependencyInjector implements DependencyInjection
             case 2:
                 return new $class($callParameters[0], $callParameters[1]);
             case 3:
-                return new $class($callParameters[0], $callParameters[1], $callParameters[3]);
+                return new $class($callParameters[0], $callParameters[1], $callParameters[2]);
             default:
                 $r = new \ReflectionClass($class);
                 return $r->newInstanceArgs($callParameters);
