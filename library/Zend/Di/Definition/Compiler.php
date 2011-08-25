@@ -257,8 +257,8 @@ class Compiler
                 $params[$paramName][] = null;
             }
             
-            if ($introspectionType == IntrospectionRuleset::TYPE_SETTER && $rules['paramCanBeOptional']) {
-                $params[$paramName][] = true;
+            if ($introspectionType == IntrospectionRuleset::TYPE_SETTER && !$rules['paramCanBeOptional']) {
+                $params[$paramName][] = false;
             } else {
                 $params[$paramName][] = $p->isOptional(); 
             }
