@@ -136,9 +136,6 @@ iterator_apply($l, function() use ($l, $map, $strip, $libraryPath){
     $namespace = empty($file->namespace) ? '' : $file->namespace . '\\';
     $filename  = str_replace($strip, '', $file->getPath() . '/' . $file->getFilename());
 
-    // Add in relative path to library
-    $filename  = $libraryPath . $filename;
-
     // Replace directory separators with constant
     $filename  = str_replace(array('/', '\\'), "' . DIRECTORY_SEPARATOR . '", $filename);
 
