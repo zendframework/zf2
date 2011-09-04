@@ -23,6 +23,8 @@
  */
 namespace Zend\Filter;
 
+use \Zend\Filter\Exception as Exception;
+
 /**
  * @uses       Zend\Filter\AbstractFilter
  * @category   Zend
@@ -197,11 +199,20 @@ class HtmlEntities extends AbstractFilter
      */
     public function filter($value)
     {
-        return htmlentities(
-            (string) $value, 
-            $this->getQuoteStyle(), 
-            $this->getEncoding(), 
-            $this->getDoubleQuote()
-        );
+        $filtered = htmlentities((string) $value, $this->getQuoteStyle(), $this->getEncoding(), $this->getDoubleQuote());
+        if (strlen((string) $value) && !strlen($filtered)) {
+            if (!function_exists('iconv')) {
+                throw new Exception('Encoding mismatch has resulted in htmlentities errors');
+            }
+
+            $enc      = $this->getEncoding();
+            $value    = iconv('', $enc . '//IGNORE', (string) $value);
+            $filtered = htmlentities($value, $this->getQuoteStyle(), $enc, $this->getDoubleQuote());
+            if (!strlen($filtered)) {
+                throw new Exception('Encoding mismatch has resulted in htmlentities errors');
+            }
+        }
+
+        return $filtered;
     }
 }
