@@ -88,10 +88,29 @@ class HttpGatewayCache extends AbstractPlugin
             
             // Check for esi includes, excluding those that its parent is another esi tag
             foreach ($xml->xpath('//esi:include') as $esiInclude) {
-                
+                // Check if this esi include isn't inside another esi
+                if (!current($esiInclude->xpath('parent::node()[name()]'))->asXML() != 'esi:include') {
+                    $attributes = $esiInclude->attributes();
+                    
+                    if (!empty($attributes['alt'])) {
+                        $response = $this->_processInclude($attributes['src'], $attributes['alt']);
+                    } else {
+                        $response = $this->_processInclude($attributes['src']);
+                    }
+                    
+                    // Check the response for any errors. If error and "onerror" attribute set
+                    // to "continue" remove the esi tag
+                    if (400 >= $response->getHTTPResponseCode()
+                        && (!empty($attributes['onerror']) && 'continue' == $attributes['onerror'])
+                    ) {
+                        str_replace($esiInclude->asXML(), '', $content);
+                    } elseif (400 < $response->getHTTPResponseCode()) {
+                        str_replace($esiInclude->asXML(), $response->getBody(), $content);
+                    }
+                }
             }
             
-            $content = str_replace($match[0], $response->getBody(), $content);
+            
 
             $this->getResponse()->setBody($content);
         }
@@ -121,6 +140,11 @@ class HttpGatewayCache extends AbstractPlugin
         return $response;
     }
     
+    /**
+     * Performs an internal HTTP request.
+     * 
+     * @param string $uri 
+     */
     protected function _performInternalEsiRequest($uri)
     {
         $frontController = Front::getInstance();
@@ -128,9 +152,10 @@ class HttpGatewayCache extends AbstractPlugin
         
         // Try to reach the the URI specified at src param
         $request = new Request\Http(parse_url($src, PHP_URL_PATH));
-        $request->addHeader('Surrogate-Capability', 'ZendHttpCacheGateway/1.0');
+        $request->addHeader('Surrogate-Capability', 'zfcache="ZendHttpCacheGateway/1.0 ESI/1.0"');
         $response = $frontController->dispatch($request);
-        
         $frontController->returnResponse(false);
+        
+        return $response;
     }
 }
