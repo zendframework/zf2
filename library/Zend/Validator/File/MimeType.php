@@ -22,7 +22,10 @@
  * @namespace
  */
 namespace Zend\Validator\File;
-use Zend\Validator,
+
+use Zend\Config\Config,
+    Zend\Loader,
+    Zend\Validator,
     Zend\Validator\Exception;
 
 /**
@@ -124,7 +127,7 @@ class MimeType extends Validator\AbstractValidator
      */
     public function __construct($mimetype)
     {
-        if ($mimetype instanceof \Zend\Config\Config) {
+        if ($mimetype instanceof Config) {
             $mimetype = $mimetype->toArray();
         } elseif (is_string($mimetype)) {
             $mimetype = explode(',', $mimetype);
@@ -188,7 +191,9 @@ class MimeType extends Validator\AbstractValidator
      */
     public function setMagicFile($file)
     {
-        if (empty($file)) {
+        if ($file === false) {
+            $this->_magicfile = false;
+        } else if (empty($file)) {
             $this->_magicfile = null;
         } else if (!(class_exists('finfo', false))) {
             $this->_magicfile = null;
@@ -240,7 +245,7 @@ class MimeType extends Validator\AbstractValidator
      */
     public function getMimeType($asArray = false)
     {
-        $asArray   = (bool) $asArray;
+        $asArray  = (bool) $asArray;
         $mimetype = (string) $this->_mimetype;
         if ($asArray) {
             $mimetype = explode(',', $mimetype);
@@ -323,7 +328,7 @@ class MimeType extends Validator\AbstractValidator
         }
 
         // Is file readable ?
-        if (!\Zend\Loader::isReadable($value)) {
+        if (!Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_READABLE);
         }
 
@@ -383,7 +388,16 @@ class MimeType extends Validator\AbstractValidator
      */
     protected function _throw($file, $errorType)
     {
-        $this->_value = $file['name'];
+        if ($file !== null) {
+            if (is_array($file)) {
+                if(array_key_exists('name', $file)) {
+                    $this->_value = basename($file['name']);
+                }
+            } else if (is_string($file)) {
+                $this->_value = basename($file);
+            }
+        }
+
         $this->_error($errorType);
         return false;
     }
