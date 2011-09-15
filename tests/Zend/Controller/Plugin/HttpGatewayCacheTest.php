@@ -161,7 +161,7 @@ class HttpGatewayCacheTest extends \PHPUnit_Framework_TestCase
         
         $cacheStub->expects($this->once())
                   ->method('save')
-                  ->with($this->equalTo("processed esi content\n"), $this->equalTo(md5('/esi')), $this->equalTo(array()), 30);
+                  ->with($this->equalTo("processed esi content\n"), $this->equalTo(md5('/esi')), $this->equalTo(array()), $this->equalTo(30));
         
         $request = new Controller\Request\Http('http://example.com/esi');
         $response = new Controller\Response\Cli();
