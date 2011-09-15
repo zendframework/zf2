@@ -1,9 +1,9 @@
 <?php
-namespace ZendTest\Stdlib\Configuration;
+namespace ZendTest\Stdlib\Options;
 
-use Zend\Stdlib\Configuration\AbstractConfiguration;
+use Zend\Stdlib\Options\AbstractOptions;
 
-class ComponentAConfig extends AbstractConfiguration
+class ComponentAConfig extends AbstractOptions
 {
 	/**
 	 * @var integer|null

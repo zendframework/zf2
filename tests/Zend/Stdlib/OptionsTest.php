@@ -21,11 +21,11 @@
 
 namespace ZendTest\Stdlib;
 
-use Zend\Stdlib\Configuration,
-	Zend\Stdlib\Configuration\AbstractConfiguration,
+use Zend\Stdlib\Options,
+	Zend\Stdlib\Options\AbstractOptions,
 	Zend\Stdlib\Configurable,
-	ZendTest\Stdlib\Configuration\ComponentA,
-	ZendTest\Stdlib\Configuration\ComponentAConfig
+	ZendTest\Stdlib\Options\ComponentA,
+	ZendTest\Stdlib\Options\ComponentAConfig
 
 ;
 
@@ -37,7 +37,7 @@ use Zend\Stdlib\Configuration,
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class OptionsTest extends \PHPUnit_Framework_TestCase
 {
 	public function setUp()
 	{
@@ -45,7 +45,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
 	public function testSimpleConfigDefaults(){
 		$config = new ComponentAConfig();
-		$this->assertTrue($config instanceof Configuration);
+		$this->assertTrue($config instanceof Options);
 		$this->assertSame(null, $config->parameterA);
 		$this->assertSame('defaultValue', $config->parameterB);
 		$this->assertSame(15, $config->parameterC);
@@ -53,7 +53,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
 	public function testSimpleConfigDefaultsViaAccessors(){
 		$config = new ComponentAConfig();
-		$this->assertTrue($config instanceof Configuration);
+		$this->assertTrue($config instanceof Options);
 		$this->assertSame(null, $config->getParameterA());
 		$this->assertSame('defaultValue', $config->getParameterB());
 		$this->assertSame(15, $config->getParameterC());
@@ -61,7 +61,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
 	public function testSimpleConfigSetters(){
 		$config = new ComponentAConfig();
-		$this->assertTrue($config instanceof Configuration);
+		$this->assertTrue($config instanceof Options);
 
 		$value = mt_rand(1,PHP_INT_MAX);
 		$config->setParameterA($value);
@@ -131,7 +131,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException     \Zend\Stdlib\Configuration\InvalidPropertyException
+	 * @expectedException     \Zend\Stdlib\Options\InvalidPropertyException
 	 * @return void
 	 */
 	public function testUnknownPropertyAccessThrowsException(){
@@ -140,7 +140,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException     \Zend\Stdlib\Configuration\InvalidPropertyException
+	 * @expectedException     \Zend\Stdlib\Options\InvalidPropertyException
 	 * @return void
 	 */
 	public function testUnknownPropertySetterThrowsException(){
@@ -149,7 +149,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException     \Zend\Stdlib\Configuration\InvalidPropertyException
+	 * @expectedException     \Zend\Stdlib\Options\InvalidPropertyException
 	 * @return void
 	 */
 	public function testUnknownPropertyInConstructorThrowsException(){
@@ -160,7 +160,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException     \Zend\Stdlib\Configuration\InvalidPropertyException
+	 * @expectedException     \Zend\Stdlib\Options\InvalidPropertyException
 	 * @return void
 	 */
 	public function testUnknownPropertyInFromArrayThrowsException(){
@@ -213,8 +213,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 		// recreate config object from serialized string
 		$config = unserialize($serialized);
 
-		$this->assertInstanceOf('ZendTest\Stdlib\Configuration\ComponentAConfig',$config);
-		$this->assertTrue($config instanceof Configuration);
+		$this->assertInstanceOf('ZendTest\Stdlib\Options\ComponentAConfig',$config);
+		$this->assertTrue($config instanceof Options);
 
 		// check values via public properties
 		$this->assertSame(null, $config->parameterA);

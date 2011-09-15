@@ -1,8 +1,8 @@
 <?php
-namespace ZendTest\Stdlib\Configuration;
+namespace ZendTest\Stdlib\Options;
 
 use Zend\Stdlib\Configurable,
-	Zend\Stdlib\Configuration;
+	Zend\Stdlib\Options;
 
 class ComponentA implements Configurable
 {
@@ -26,10 +26,10 @@ class ComponentA implements Configurable
     }
 
     /**
-	 * @param \Zend\Stdlib\Configuration $config
+	 * @param \Options\Stdlib\Options $config
 	 * @return void
 	 */
-    public function setConfig(Configuration $config){
+    public function setConfig(Options $config){
     	$this->_config = $config;
     }
 

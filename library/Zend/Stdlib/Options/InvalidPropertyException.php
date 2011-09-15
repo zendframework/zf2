@@ -21,7 +21,7 @@
 /**
  * @namespace
  */
-namespace Zend\Stdlib\Configuration;
+namespace Zend\Stdlib\Options;
 
 use Zend\Stdlib\Exception,
     DomainException;

@@ -21,11 +21,11 @@
 /**
  * @namespace
  */
-namespace Zend\Stdlib\Configuration;
+namespace Zend\Stdlib\Options;
 
 use \Traversable,
-	Zend\Stdlib\Configuration,
-	Zend\Stdlib\Configuration\InvalidPropertyException,
+	Zend\Stdlib\Options,
+	Zend\Stdlib\Options\InvalidPropertyException,
 	Zend\Stdlib\Exception\InvalidArgumentException;
 
 /**
@@ -47,7 +47,7 @@ use \Traversable,
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class AbstractConfiguration implements Configuration
+abstract class AbstractOptions implements Options
 {
 	/**
 	 * A cache of all public properties in a class
@@ -88,37 +88,24 @@ abstract class AbstractConfiguration implements Configuration
 	 */
 	public function fromArray($config = array(), $ignoreUnknown = false)
 	{
-		if(is_array($config)){
-			// Handle standard PHP arrays
-			$ignoreBefore = $this->_ignoreUnknownProperties;
-			$this->_ignoreUnknownProperties = $ignoreUnknown;
-
-			foreach($config as $key=>$val){
-				$this->$key = $val;
-			}
-
-			$this->_ignoreUnknownProperties = $ignoreBefore;	// restore flag
-		}
-
-		elseif(is_object($config)){
-			// Handle Traversable objects
-			if($config instanceof Traversable){
-				$ignoreBefore = $this->_ignoreUnknownProperties;
-				$this->_ignoreUnknownProperties = $ignoreUnknown;
-
-				foreach($config as $key=>$val){
-					$this->$key = $val;
-				}
-
-				$this->_ignoreUnknownProperties = $ignoreBefore;	// restore flag
-			}else{
-				throw new InvalidArgumentException('Cannot use object of class '.get_class($config).' as config');
-			}
-		}
-
-		else{
+		if(
+			!is_array($config) &&
+			(
+				!is_object($config) ||
+				!($config instanceof Traversable)
+			)
+		){
 			throw new InvalidArgumentException('Cannot use "'.gettype($config).'" for Configuration');
 		}
+
+		$ignoreBefore = $this->_ignoreUnknownProperties;
+		$this->_ignoreUnknownProperties = $ignoreUnknown;
+
+		foreach($config as $key=>$val){
+			$this->$key = $val;
+		}
+
+		$this->_ignoreUnknownProperties = $ignoreBefore;	// restore flag
 	}
 
 	/**
@@ -178,7 +165,7 @@ abstract class AbstractConfiguration implements Configuration
 	 * Repopulates Configuration with parameters from a serialized string.
 	 *
 	 * @param sting $data		String with serialized array holding all config parameters.
-	 * @return Configuration
+	 * @return Options
 	 */
 	public function unserialize($data)
 	{

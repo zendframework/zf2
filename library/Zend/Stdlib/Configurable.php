@@ -35,14 +35,14 @@ interface Configurable
 {
     /**
 	 * @abstract
-	 * @return Configuration
+	 * @return Options
 	 */
     public function getConfig();
 
     /**
 	 * @abstract
-	 * @param Configuration $config
+	 * @param Options $config
 	 * @return void
 	 */
-    public function setConfig(Configuration $config);
+    public function setConfig(Options $config);
 }

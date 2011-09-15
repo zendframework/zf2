@@ -35,7 +35,7 @@ use Serializable,
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Configuration extends Serializable
+interface Options extends Serializable
 {
     /**
 	 * Constructs an instance of Configuration from an array of values.
@@ -44,7 +44,7 @@ interface Configuration extends Serializable
 	 * @param array|Traversable		$config			Array with config values.
 	 * @param bool 					$ignoreUnknown	Silently ignore unrecognized array keys
 	 */
-	 public function __construct($config = array(), $ignoreUnknown = false);
+	 public function __construct($config = array(), $ignoreUnknown = true);
 
 	/**
 	 * This method handles processing arrays and Traversable objects. For each key in the array it will
@@ -55,7 +55,7 @@ interface Configuration extends Serializable
 	 * @param array|Traversable		$config			Array with config values.
 	 * @param bool 					$ignoreUnknown	Silently ignore unrecognized array keys
 	 */
-	 public function fromArray($config = array(), $ignoreUnknown = false);
+	 public function fromArray($config = array(), $ignoreUnknown = true);
 
     /**
 	 * Returns an array with all Configuration values
