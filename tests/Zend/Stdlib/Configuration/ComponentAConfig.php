@@ -1,20 +1,23 @@
 <?php
 namespace ZendTest\Stdlib\Configuration;
 
-use Zend\Stdlib\AbstractConfiguration;
+use Zend\Stdlib\Configuration\AbstractConfiguration;
 
 class ComponentAConfig extends AbstractConfiguration
 {
-	protected $_config;
+	/**
+	 * @var integer|null
+	 */
+	public $parameterA;
 
-	public function __construct(ComponentAConfiguration )
+	/**
+	 * @var string
+	 */
+	public $parameterB = 'defaultValue';
 
-    public function getConfig(){
-    	return $this->_config;
-    }
-
-    public function setConfig(){
-    	return $this->_config;
-    }
+	/**
+	 * @var integer|null
+	 */
+	public $parameterC = 15;
 
 }
