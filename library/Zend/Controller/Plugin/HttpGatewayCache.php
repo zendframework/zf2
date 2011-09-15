@@ -175,7 +175,7 @@ class HttpGatewayCache extends AbstractPlugin
         
         // Try to reach the the URI specified at src param
         $request = new Request\Http($uri);
-        $request->addHeader('Surrogate-Capability', 'zfcache="ZendHttpCacheGateway/1.0 ESI/1.0"');
+        $request->addHeader('Surrogate-Capability', 'zfcache="ZendHttpGatewayCache/1.0 ESI/1.0"');
         $response = new Response\Http();
         $frontController->setResponse($response);
         $frontController->dispatch($request);
