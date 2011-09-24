@@ -113,7 +113,7 @@ class RequestToken extends HTTPClient
         $client->setHeaders(array('Authorization' => $headerValue));
         $rawdata = $this->_httpUtility->toEncodedQueryString($params, true);
         if (!empty($rawdata)) {
-            $client->getRequest()->setRawBody($rawdata);
+            $client->getRequest()->setContent($rawdata);
         }
         $client->setMethod($this->_preferredRequestMethod);
         return $client;
@@ -131,7 +131,7 @@ class RequestToken extends HTTPClient
         $client = OAuth\OAuth::getHttpClient();
         $client->setUri($this->_consumer->getRequestTokenUrl());
         $client->setMethod($this->_preferredRequestMethod);
-        $client->getRequest()->setRawBody(
+        $client->getRequest()->setContent(
             $this->_httpUtility->toEncodedQueryString($params)
         );
         $client->setHeaders(array(
