@@ -245,9 +245,6 @@ class Rsa
     public function setHashAlgorithm($name)
     {
         switch (strtolower($name)) {
-            case 'md2':
-                $this->_hashAlgorithm = OPENSSL_ALGO_MD2;
-                break;
             case 'md4':
                 $this->_hashAlgorithm = OPENSSL_ALGO_MD4;
                 break;

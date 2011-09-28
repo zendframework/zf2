@@ -126,22 +126,40 @@ CERT;
         $this->assertEquals($this->_testCertificateString, $rsa->getCertificateString());
     }
 
-    public function testConstructorSetsHashOption()
+    public function testConstructorSetsMD4HashOption()
     {
-        $rsa = new RSA(array('hashAlgorithm'=>'md2'));
-        $this->assertEquals(OPENSSL_ALGO_MD2, $rsa->getHashAlgorithm());
+        $rsa = new RSA(array('hashAlgorithm'=>'md4'));
+        $this->assertEquals(OPENSSL_ALGO_MD4, $rsa->getHashAlgorithm());
+    }
+
+    public function testConstructorSetsMD5HashOption()
+    {
+        $rsa = new RSA(array('hashAlgorithm'=>'md5'));
+        $this->assertEquals(OPENSSL_ALGO_MD5, $rsa->getHashAlgorithm());
+    }
+
+    public function testConstructorSetsSha1HashOption()
+    {
+        $rsa = new RSA(array('hashAlgorithm'=>'sha1'));
+        $this->assertEquals(OPENSSL_ALGO_SHA1, $rsa->getHashAlgorithm());
+    }
+
+    public function testConstructorSetsDss1HashOption()
+    {
+        $rsa = new RSA(array('hashAlgorithm'=>'dss1'));
+        $this->assertEquals(OPENSSL_ALGO_DSS1, $rsa->getHashAlgorithm());
     }
 
     public function testSetPemStringParsesPemForPrivateKey()
     {
         $rsa = new RSA(array('pemString'=>$this->_testPemString));
-        $this->assertType('Zend\\Crypt\\RSA\\PrivateKey', $rsa->getPrivateKey());
+        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PrivateKey', $rsa->getPrivateKey());
     }
 
     public function testSetPemStringParsesPemForPublicKey()
     {
         $rsa = new RSA(array('pemString'=>$this->_testPemString));
-        $this->assertType('Zend\\Crypt\\RSA\\PublicKey', $rsa->getPublicKey());
+        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PublicKey', $rsa->getPublicKey());
     }
 
     public function testSetCertificateStringParsesCertificateForNullPrivateKey()
@@ -153,7 +171,7 @@ CERT;
     public function testSetCertificateStringParsesCertificateForPublicKey()
     {
         $rsa = new RSA(array('certificateString'=>$this->_testCertificateString));
-        $this->assertType('Zend\\Crypt\\RSA\\PublicKey', $rsa->getPublicKey());
+        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PublicKey', $rsa->getPublicKey());
     }
 
     public function testSignGeneratesExpectedBinarySignature()
@@ -264,21 +282,21 @@ CERT;
     {
         $rsa = new RSA;
         $keys = $rsa->generateKeys(array('private_key_bits'=>512));
-        $this->assertType('ArrayObject', $keys);
+        $this->assertInstanceOf('ArrayObject', $keys);
     }
 
     public function testKeyGenerationCreatesPrivateKeyInArrayObject()
     {
         $rsa = new RSA;
         $keys = $rsa->generateKeys(array('private_key_bits'=>512));
-        $this->assertType('Zend\\Crypt\\RSA\\PrivateKey', $keys->privateKey);
+        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PrivateKey', $keys->privateKey);
     }
 
     public function testKeyGenerationCreatesPublicKeyInArrayObject()
     {
         $rsa = new RSA;
         $keys = $rsa->generateKeys(array('privateKeyBits'=>512));
-        $this->assertType('Zend\\Crypt\\RSA\\PublicKey', $keys->publicKey);
+        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PublicKey', $keys->publicKey);
     }
 
     public function testKeyGenerationCreatesPassphrasedPrivateKey()
