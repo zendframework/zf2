@@ -22,11 +22,12 @@
 /**
  * @namespace
  */
-namespace Zend\Router\Http;
+namespace Zend\Mvc\Router\Http;
 
 use Traversable,
     Zend\Config\Config,
     Zend\Http\Request,
+    Zend\Mvc\Router\Route,
     Zend\Mvc\Router\Exception;
 
 /**
