@@ -214,7 +214,8 @@ class Application implements AppContext
             return ($r instanceof Response);
         });
         if ($result->stopped()) {
-            return $result->last();
+            $response = new SendableResponse($result->last());
+            return $response;
         }
 
         $result = $events->trigger('dispatch', $event, function ($r) {
@@ -320,7 +321,7 @@ class Application implements AppContext
         $request  = $e->getRequest();
         $response = $this->getResponse();
 
-        if ($controller instanceof EventAware) {
+        if ($controller instanceof InjectApplicationEvent) {
             $controller->setEvent($e);
         }
 
