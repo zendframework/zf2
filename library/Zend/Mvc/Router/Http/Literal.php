@@ -27,7 +27,8 @@ namespace Zend\Mvc\Router\Http;
 use Traversable,
     Zend\Config\Config,
     Zend\Stdlib\RequestDescription as Request,
-    Zend\Mvc\Router\Exception;
+    Zend\Mvc\Router\Exception,
+    Zend\Mvc\Router\Route;
 
 /**
  * Literal route.
@@ -101,8 +102,8 @@ class Literal implements Route
         $uri  = $request->uri();
         $path = $uri->getPath();
         
-        if ($pathOffset !== null) {
-            if (strpos($path, $this->route) === $pathOffset) {
+        if ($pathOffset !== null && $pathOffset >= 0 && $pathOffset <= strlen($path)) {
+            if (strpos($path, $this->route, $pathOffset) === $pathOffset) {
                 return new RouteMatch($this->defaults, $this, strlen($this->route));
             }
         } else {
