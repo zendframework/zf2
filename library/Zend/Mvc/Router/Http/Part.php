@@ -26,9 +26,9 @@ namespace Zend\Mvc\Router\Http;
 
 use Traversable,
     Zend\Config\Config,
+    Zend\Mvc\Router\Route,
     Zend\Stdlib\RequestDescription as Request,
-    Zend\Mvc\Router\Exception,
-    Zend\Mvc\Router\Route;
+    Zend\Mvc\Router\Exception;
 
 /**
  * Route part.
@@ -129,16 +129,16 @@ class Part extends TreeRouteStack implements Route
             $nextOffset = $pathOffset + $match->getLength();
             
             $uri  = $request->uri();
-            $path = $uri->getPath();
+            $pathLength = strlen($uri->getPath());
             
-            if ($this->mayTerminate && $nextOffset === strlen($path)) {
+            if ($this->mayTerminate && $nextOffset === $pathLength) {
                 return $match;
             }
             
-            foreach ($this->children as $name => $route) {
-                $subMatch = $route->match($match, $nextOffset);
+            foreach ($this->routes as $name => $route) {
+                $subMatch = $route->match($request, $nextOffset);
 
-                if ($subMatch !== null) {
+                if ($subMatch !== null && ($nextOffset + $subMatch->getLength())== $pathLength) {
                     return $match->merge($subMatch);
                 }
             }
