@@ -43,14 +43,14 @@ class Segment implements Route
 {
     /**
      * Parts of the route.
-     * 
+     *
      * @var array
      */
     protected $parts;
-    
+
     /**
      * Regex used for matching the route.
-     * 
+     *
      * @var string
      */
     protected $string;
@@ -84,19 +84,19 @@ class Segment implements Route
         if (!isset($options['route']) || !is_string($options['route'])) {
             throw new Exception\InvalidArgumentException('Route not defined nor not a string');
         }
-        
+
         if (!isset($options['defaults']) || !is_array($options['defaults'])) {
             throw new Exception\InvalidArgumentException('Defaults not defined nor not an array');
         }
 
-        $this->defaults = $options['defaults'];        
+        $this->defaults = $options['defaults'];
         $this->parts    = $this->parseRouteDefinition($options['route']);
         $this->regex    = $this->buildRegex($this->parts);
     }
-    
+
     /**
      * Parse a route definition.
-     * 
+     *
      * @param  string $def
      * @return array
      */
@@ -107,49 +107,49 @@ class Segment implements Route
         $parts      = array();
         $levelParts = array(&$parts);
         $level      = 0;
-        
+
         while ($currentPos < $length) {
             preg_match('(\G(?<literal>[^:{\[\]]*)(?<token>[:{\[\]]|$))', $def, $matches, 0, $currentPos);
-            
+
             $currentPos += strlen($matches[0]);
-            
+
             if (!empty($matches['literal'])) {
                 $levelParts[$level][] = array('literal', $matches['literal']);
             }
-            
-            if ($matches['token'] === ':') {                
+
+            if ($matches['token'] === ':') {
                 if ($def[$currentPos] === '{') {
                     if (!preg_match('(\G\{(?<name>[^}]+)\}:?)', $def, $matches, 0, $currentPos)) {
                         throw new Exception\RuntimeException('Translated parameter missing closing bracket');
                     }
-                    
+
                     $levelParts[$level][] = array('translated-parameter', $matches['name']);
                 } else {
                     if (!preg_match('(\G(?<name>[^:/\[\]]+):?)', $def, $matches, 0, $currentPos)) {
                         throw new Exception\RuntimeException('Found empty parameter name');
                     }
-                    
-                    $levelParts[$level][] = array('parameter', $matches['name']);                                    
+
+                    $levelParts[$level][] = array('parameter', $matches['name']);
                 }
-                
+
                 $currentPos += strlen($matches[0]);
             } elseif ($matches['token'] === '{') {
                 if (!preg_match('(\G(?<literal>[^}]+)\})', $def, $matches, 0, $currentPos)) {
                     throw new Exception\RuntimeException('Translated literal missing closing bracket');
                 }
-                
+
                 $currentPos += strlen($matches[0]);
-                
-                $levelParts[$level][] = array('translated-literal', $matches['literal']); 
+
+                $levelParts[$level][] = array('translated-literal', $matches['literal']);
             } elseif ($matches['token'] === '[') {
                 $levelParts[$level][] = array('optional', array());
                 $levelParts[$level + 1] = &$levelParts[$level][count($levelParts[$level]) - 1][1];
-                
+
                 $level++;
             } elseif ($matches['token'] === ']') {
                 unset($levelParts[$level]);
                 $level--;
-                
+
                 if ($level < 0) {
                     throw new Exception\RuntimeException('Found closing bracket without matching opening bracket');
                 }
@@ -157,76 +157,76 @@ class Segment implements Route
                 break;
             }
         }
-        
+
         if ($level > 0) {
             throw new Exception\RuntimeException('Found unbalanced brackets');
         }
-        
+
         return $parts;
     }
-    
+
     /**
      * Build the matching regex from parsed parts.
-     * 
+     *
      * @param  array $parts
      * @return string
      */
     protected function buildRegex(array $parts)
     {
         $regex = '';
-        
+
         foreach ($parts as $part) {
             switch ($part[0]) {
                 case 'literal':
                 case 'translated-literal':
                     $regex .= preg_quote($part[1]);
                     break;
-                
+
                 case 'parameter':
                 case 'translated-parameter':
-                    $regex .= '(?<' . $part[1] . '>.+?)';
+                    $regex .= '(?<' . $part[1] . '>[^/]+)';
                     break;
-                
+
                 case 'optional':
                     $regex .= '(?:' . $this->buildRegex($part[1]) . ')?';
                     break;
             }
         }
-        
+
         return $regex;
     }
-    
+
     /**
      * Build a path.
-     * 
+     *
      * @return string
      */
     protected function buildPath(array $parts, array $params)
     {
         $path = '';
-        
+
         foreach ($parts as $part) {
             switch ($part[0]) {
                 case 'literal':
                 case 'translated-literal':
                     $path .= $part[1];
                     break;
-                
+
                 case 'parameter':
                 case 'translated-parameter':
                     if (!isset($params[$part[1]])) {
                         return null;
                     }
-                    
+
                     $path .= $params[$part[1]];
                     break;
-                
+
                 case 'optional':
                     $path .= $this->buildPath($part[1], $params);
                     break;
             }
         }
-        
+
         return $path;
     }
 
@@ -245,19 +245,19 @@ class Segment implements Route
 
         $uri  = $request->uri();
         $path = $uri->getPath();
-        
+
         if ($pathOffset !== null) {
             $result = preg_match('#\G' . $this->regex . '#i', $path, $matches, null, $pathOffset);
         } else {
             $result = preg_match('#^' . $this->regex . '$#i', $path, $matches);
         }
-       
+
         if (!$result) {
             return null;
         }
-        
+
         $matchedLength = strlen($matches[0]);
-        
+
         foreach ($matches as $key => $value) {
             if (is_numeric($key) || is_int($key)) {
                 unset($matches[$key]);
@@ -279,11 +279,11 @@ class Segment implements Route
     public function assemble(array $params = null, array $options = null)
     {
         $path = $this->buildPath($this->parts, array_merge($this->defaults, $params));
-        
+
         if ($path === null) {
             throw new Exception\InvalidArgumentException('Parameters missing');
         }
-        
+
         return $path;
     }
 }
