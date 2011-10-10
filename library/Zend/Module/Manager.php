@@ -4,6 +4,8 @@ namespace Zend\Module;
 
 use Traversable,
     Zend\Config\Config,
+    Zend\Config\Writer\ArrayWriter,
+    Zend\Module\Installable,
     Zend\EventManager\EventCollection,
     Zend\EventManager\EventManager;
 
@@ -35,6 +37,31 @@ class Manager
     protected $skipConfig = false;
 
     /**
+     * An array containing all of the provided data for modules
+     * @var array
+     */
+    protected $provided = array();
+
+    /**
+     * An array containing all of the dependencies for modules
+     * @var array
+     */
+    protected $dependencies = array();
+
+    /**
+     * regex for getting version operators
+     * @var string
+     */
+    protected $operators = '/(<|lt|<=|le|>|gt|>=|ge|==|=|eq|!=|<>|ne)?(\d.*)/';
+
+    /**
+     * The manifest of installed modules
+     * 
+     * @var array
+     */
+    protected $manifest = array();
+
+    /**
      * __construct 
      * 
      * @param array|Traversable $modules 
@@ -52,7 +79,14 @@ class Manager
             $this->skipConfig = true;
             $this->setMergedConfig($this->getCachedConfig());
         }
+        $install = $this->getOptions()->getEnableSelfInstallation();
+        
+        if ($install) $this->loadInstallationManifest();
+        
         $this->loadModules($modules);
+        
+        if ($install) $this->saveInstallationManifest();
+        
         $this->updateCache();
         $this->events()->trigger('init.post', $this);
     }
@@ -76,6 +110,11 @@ class Manager
                 . 'implement the \\Traversable interface'
             );
         }
+        
+        if ($this->getOptions()->getEnableDependencyCheck()) {
+            $this->resolveDependencies();
+        }
+        
         return $this;
     }
 
@@ -90,75 +129,256 @@ class Manager
         if (!isset($this->loadedModules[$moduleName])) {
             $class = $moduleName . '\Module';
             $module = new $class;
+
+            $this->addProvision($module);
+            $this->addDependency($module);
+            $this->installModule($module);
             $this->runModuleInit($module);
             $this->mergeModuleConfig($module);
             $this->loadedModules[$moduleName] = $module;
         }
         return $this->loadedModules[$moduleName];
     }
+    
+    /**
+     * Check if module requires self installation
+     * 
+     * If installation required then set up installation
+     * manifest to allow version tracking
+     * 
+     * Method will create/update manifest file in data directory
+     * 
+     * Installation method does not concern itself with what or how 
+     * it is to be installed just that it requires installation
+     * 
+     * @param Module $module
+     */
+    public function installModule($module)
+    {
+        if ($module instanceof Installable) {
+            // check "manifest"
+            foreach ($module->getProvides() as $moduleName => $data) { 
+                if (!isset($this->manifest->{$moduleName})) { // if doesnt exist in manifest
+                    if ($module->install()) {
+                        $this->manifest->{$moduleName} = $data;
+                        $this->manifest->{'_dirty'} = true;
+                    } else { // if $result is false then throw Exception
+                        throw new \RuntimeException("Self installation for {$moduleName} failed");
+                    }
+                } elseif (isset($this->manifest->{$moduleName}) && // does exists in manifest
+                          version_compare($this->manifest->{$moduleName}->version,$data['version']) < 0 // and manifest version is less than current version
+                  ){
+                    if ($module->upgrade($this->manifest->{$moduleName}->version)) {
+                        $this->manifest->{$moduleName} = $data;
+                        $this->manifest->{'_dirty'} = true;
+                    } else { // if $result is false then throw Exception
+                        throw new \RuntimeException("Self upgrade for {$moduleName} failed");
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * get manifest of currently installed modules
+     * 
+     * @return Config
+     */
+    public function loadInstallationManifest()
+    {
+        $path = $this->getOptions()->getManifestDir() . '/manifest.php';
+        if (file_exists($path)) {
+            $this->manifest = new Config(include $path, true);
+        } else {
+            $this->manifest = new Config(array(), true);
+        }
+        return $this;
+    }
+    
+    public function saveInstallationManifest()
+    {
+        if ($this->manifest->get('_dirty', false)) {
+            unset($this->manifest->{'_dirty'});
+            $path = $this->getOptions()->getManifestDir() . '/manifest.php';
+            $writer = new ArrayWriter();
+            $writer->write($path, $this->manifest);
+        }
+        return $this;
+    }
 
     /**
-     * Loop through loaded modules and verify that all dependencies are met 
-     *
-     * @TODO: 
-     *  - This could probably be much more efficient (do not check satisfied 
-     *  deps again, etc)
-     *  - Do more isset() checking on the dep arrays
+     * add details of module provisions
      * 
-     * @return array An array of unsatisfied, optional dependencies
+     * test for an uses getProvides method from module class
+     * 
+     * getProvides need to return as a minimum
+     * 
+     * <code>
+     * return array(
+     *		__NAMESPACE__ => array(
+     *	 		'version' => $this->version,
+     *		),
+     *	);
+     * </code>
+     * 
+     * @param Module $module
+     * @return Manager
      */
-    public function resolveDependencies()
+    public function addProvision($module)
     {
-        foreach ($this->getLoadedModules() as $moduleName => $module) {
-            if (!is_callable(array($module, 'getDependencies'))) {
-                continue;
-            }
-            $unsatisfiedDeps = array();
-            foreach ($module->getDependencies() as $dep => $depInfo) {
-                preg_match('/(<|lt|<=|le|>|gt|>=|ge|==|=|eq|!=|<>|ne)?(\d.*)/',$depInfo['version'], $matches, PREG_OFFSET_CAPTURE);
-                if ($dep === 'php') {
-                    if (!version_compare(PHP_VERSION, $matches[2][0], $matches[1][0] ?: '>=')) {
-                        if ($depInfo['required'] == true) {
-                            throw new \RuntimeException("Required dependency unsatisfied: {$dep} {$depInfo['version']}");
+         // check for and load provides
+        if (method_exists($module, 'getProvides')) {
+            $provision = $module->getProvides();
+               foreach ($provision AS $name => $info) {
+                if (isset($this->provided[$name])) {
+                    throw new \RuntimeException("Double provision has occured for: {$name} {$info['version']}");
+                }
+                $this->provided[$name] = $info;	
+        	}
+        }
+    	return $this;
+    }
+
+    /**
+     * add dependencies from module
+     * 
+     * test for and use getDependencies from Module class
+     * 
+     * get dependencies must return 
+     * 
+     * <code>
+     * return array(
+     *      'php' => array(
+     *          'version' => '5.3.0',
+     *          'required' => true,
+     *      ),
+     *      'ext/pdo_mysql' => true
+     * );
+     * </code>
+     * 
+     * version and required data are optional
+     * 
+     * @param Module $module
+     * @param Manager
+     */
+    public function addDependency($module)
+    {
+        // check for an load dependencies required
+        if (method_exists($module, 'getDependencies')) {
+            // iterate over dependencies to evaluate min required version
+            foreach ($module->getDependencies() AS $dep => $depInfo) {
+                if (!isset($this->dependencies[$dep])) { // if the dep isnt present just add it
+                    $this->dependencies[$dep] = $depInfo; 	
+                } else { // dep already present
+                    if (is_array($depInfo)) { // if is array need to check versions
+                        if (isset($this->dependencies[$dep]['version']) && isset($depInfo)) {
+                            if (version_compare($this->dependencies[$dep]['version'], $depInfo['version']) >= 0) {
+                                $depInfo['version'] = $this->dependencies[$dep]['version'];// set to highest version
+                            }
+                        }
+                        if (!is_array($this->dependencies[$dep])) { 
+                            $this->dependencies[$dep] = $depInfo;
                         } else {
-                            $unsatifiedDeps[$moduleName][$dep] = $depInfo;
-                        }
-                    }
-                } elseif (substr($dep, 0, 4) === 'ext/') {
-                    $extName = substr($dep, 4);
-                    if (!version_compare(phpversion($extName), $matches[2][0], $matches[1][0] ?: '>=')) {
-                        if ($depInfo['required'] == true) {
-                            throw new \RuntimeException("Required dependency unsatisfied: {$dep} {$depInfo['version']}");
-                        } else {
-                            $unsatifiedDeps[$moduleName][$dep] = $depInfo;
-                        }
-                    }
-                } else {
-                    $satisfied = false;
-                    foreach ($this->getLoadedModules() as $depModuleName => $depModule) {
-                        if (!is_callable(array($depModule, 'getProvides'))) {
-                            continue;
-                        }
-                        $provides = $depModule->getProvides();
-                        if ($provides['name'] !== $dep) {
-                            continue;
-                        }
-                        if (version_compare($provides['version'], $matches[2][0], $matches[1][0] ?: '>=')) {
-                            $satisfied = true;
-                            break;
-                        }
-                    }
-                    if (!$satisfied) {
-                        if ($depInfo['required'] == true) {
-                            throw new \RuntimeException("Required dependency unsatisfied: {$dep} {$depInfo['version']}");
-                        } else {
-                            $unsatifiedDeps[$moduleName][$dep] = $depInfo;
+                            $this->dependencies[$dep] = array_merge($this->dependencies[$dep], $depInfo);
                         }
                     }
                 }
             }
         }
-        return $unsatisfiedDeps;
+        return $this;
+    }
+
+    /**
+     * return the currently loaded dependencies
+     * 
+     * @return array
+     */
+    public function getDependencies()
+    {
+        return $this->dependencies;
+    }
+
+    /**
+     * return the currently loaded provisions
+     * 
+     * @retrun array
+     */
+    public function getProvisions()
+    {
+        return $this->provided;
+    }
+    
+    /**
+     * Takes arrays created for provides and depends on module load 
+     * and iterates over to check for satisfied dependencies  
+     * 
+     * updates dependency array with key 'satisfied' for each dependency
+     * 
+     * This allows quick retrieval of provisions and dependencies 
+     * 
+     * @todo: add library detection withoiy having to load files
+     * @todo: review code for performance 
+     * 
+     * @return Manager
+     */
+    public function resolveDependencies()
+    {
+        foreach ($this->getDependencies() as $dep => $depInfo) {
+            if (isset($depInfo['version'])) {
+                preg_match($this->operators,$depInfo['version'], $matches, PREG_OFFSET_CAPTURE);
+                $version = $matches[2][0];
+                $operator = $matches[1][0] ?: '>=';
+            } else {
+                $version = 0;
+                $operator = '>=';
+            }
+
+            if ($dep === 'php') { // is php version requirement
+                $this->dependencies[$dep]['satisfied'] = true;
+                if (!version_compare(PHP_VERSION, $version, $operator)) {
+                    if (isset($depInfo['required']) && $depInfo['required'] == true) {
+                        throw new \RuntimeException("Required dependency unsatisfied: {$dep} {$depInfo['version']}");
+                    } else {
+                        $this->dependencies[$dep]['satisfied'] = false;
+                    }
+                }
+            } elseif (substr($dep, 0, 4) === 'ext/') { // is php extension requirement
+                $extName = substr($dep, 4);
+                $this->dependencies[$dep]['satisfied'] = true;
+                if (!version_compare(phpversion($extName), $version, $operator ?: '>=')) {
+                    if (isset($depInfo['required']) && $depInfo['required'] == true) {
+                        throw new \RuntimeException("Required dependency unsatisfied: {$dep} {$depInfo['version']}");
+                    } else {
+                        $this->dependencies[$dep]['satisfied'] = false;
+                    }
+                }
+            } elseif (substr($dep, 0, 4) === 'lib/') { // is library requirement
+                // @todo: add library detection
+
+            } else { // is module requirement
+                if (is_scalar($this->dependencies[$dep])) {
+                    $this->dependencies[$dep] = array();
+                }
+                if (!isset($depInfo['satisfied'])) {
+                    $this->dependencies[$dep]['satisfied'] = false;
+                    if (isset($this->provided[$dep])) { // if provided set satisfaction
+                        if (isset($depInfo['version'])){ // if dep have version requirement
+                            if (version_compare($this->provided[$dep]['version'], $version, $operator) >= 0) {
+                                $this->dependencies[$dep]['satisfied'] = true;
+                            }
+                        } else {
+                            $this->dependencies[$dep]['satisfied'] = true;
+                        }
+	                 }
+                }
+                if (!$this->dependencies[$dep]['satisfied']) {
+                    if (isset($depInfo['required']) && $depInfo['required'] == true ) {
+                        throw new \RuntimeException("Required dependency unsatisfied: {$dep} " . (isset($depInfo['version']) ?: ''));
+                    }
+                }
+            }
+        }
+        return $this;
     }
 
     /**
