@@ -79,8 +79,7 @@ class Manager
             $this->skipConfig = true;
             $this->setMergedConfig($this->getCachedConfig());
         }
-        
-        $install = $options->getEnableSelfInstallation();
+        $install = $this->getOptions()->getEnableSelfInstallation();
         
         if ($install) $this->loadInstallationManifest();
         

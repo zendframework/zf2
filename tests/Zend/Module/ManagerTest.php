@@ -118,6 +118,8 @@ class ManagerTest extends TestCase
     	 $options = new ManagerOptions(array(
             'enable_config_cache' => true,
             'cache_dir' => $this->tmpdir,
+    	    'enable_self_installation' => true,
+    	    'enable_dependency_check' => true,
         ));
         // build the cache
         $moduleManager = new Manager(array('BarModule', 'DoubleModule'), $options);
@@ -130,6 +132,8 @@ class ManagerTest extends TestCase
     	 $options = new ManagerOptions(array(
             'enable_config_cache' => true,
             'cache_dir' => $this->tmpdir,
+    	    'enable_self_installation' => true,
+    	    'enable_dependency_check' => true,
         ));
         // build the cache
         $moduleManager = new Manager(array('BarModule'), $options);
@@ -143,6 +147,8 @@ class ManagerTest extends TestCase
     	 $options = new ManagerOptions(array(
             'enable_config_cache' => true,
             'cache_dir' => $this->tmpdir,
+    	    'enable_self_installation' => true,
+    	    'enable_dependency_check' => true,
         ));
         // build the cache
         $moduleManager = new Manager(array('BarModule'), $options);
@@ -157,6 +163,8 @@ class ManagerTest extends TestCase
     	$options = new ManagerOptions(array(
             'enable_config_cache' => true,
             'cache_dir' => $this->tmpdir,
+    	    'enable_self_installation' => true,
+    	    'enable_dependency_check' => true,
         ));
         // build the cache
         $moduleManager = new Manager(array('ImpossibleModule', 'BarModule'), $options);
@@ -169,6 +177,8 @@ class ManagerTest extends TestCase
     	$options = new ManagerOptions(array(
             'enable_config_cache' => true,
             'cache_dir' => $this->tmpdir,
+    	    'enable_self_installation' => true,
+    	    'enable_dependency_check' => true,
         ));
         // build the cache
         $moduleManager = new Manager(array('ImpossibleModule', 'BooModule'), $options);
@@ -182,6 +192,8 @@ class ManagerTest extends TestCase
     	$options = new ManagerOptions(array(
             'enable_config_cache' => true,
             'cache_dir' => $this->tmpdir,
+    	    'enable_self_installation' => true,
+    	    'enable_dependency_check' => true,
         ));
         // build the cache
         $moduleManager = new Manager(array('ImpossibleModule', 'BooModule'), $options);
@@ -196,6 +208,8 @@ class ManagerTest extends TestCase
     	$options = new ManagerOptions(array(
             'enable_config_cache' => true,
             'cache_dir' => $this->tmpdir,
+    	    'enable_self_installation' => true,
+    	    'enable_dependency_check' => true,
         ));
         // build the cache
         $moduleManager = new Manager(array('BooModule', 'BorModule'), $options);
@@ -208,6 +222,8 @@ class ManagerTest extends TestCase
     	$options = new ManagerOptions(array(
             'enable_config_cache' => true,
             'cache_dir' => $this->tmpdir,
+    	    'enable_self_installation' => true,
+    	    'enable_dependency_check' => true,
         ));
         // build the cache
         $moduleManager = new Manager(array('BafModule'), $options);
@@ -219,6 +235,8 @@ class ManagerTest extends TestCase
     	$options = new ManagerOptions(array(
             'enable_config_cache' => true,
             'cache_dir' => $this->tmpdir,
+    	    'enable_self_installation' => true,
+    	    'enable_dependency_check' => true,
         ));
         // build the cache
         $moduleManager = new Manager(array('BamModule'), $options);
