@@ -236,27 +236,3 @@ class RackspaceOnlineTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(self::$infrastructure->destroyInstance(self::$instanceId));
     }
 }
-
-
-/**
- * @category   Zend
- * @package    Zend\Cloud\Infrastructure\Adapter\Rackspace
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend\Cloud\Infrastructure
- * @group      Zend\Cloud\Infrastructure\Adapter\Rackspace
- */
-class Skip extends \PHPUnit_Framework_TestCase
-{
-    public function setUp()
-    {
-        $this->markTestSkipped('Zend\Cloud\Infrastructure\Adapter\Rackspace online tests not enabled in '
-                             . 'TestConfiguration.php');
-    }
-
-    public function testNothing()
-    {
-    }
-}
-
