@@ -95,6 +95,11 @@ class Http extends AbstractRequest
      * @var array
      */
     protected $_aliases = array();
+    
+    /**
+     * An array of custom request headers
+     */
+    protected $_customHeaders = array();
 
     /**
      * Constructor
@@ -971,6 +976,11 @@ class Http extends AbstractRequest
         if (empty($header)) {
             throw new Exception('An HTTP header name is required');
         }
+        
+        $headerName = strtoupper(str_replace('-', '_', $header));
+        if (!empty($this->_customHeaders[$headerName])) {
+            return $this->_customHeaders[$headerName];
+        }
 
         // Try to get it from the $_SERVER array first
         $temp = 'HTTP_' . strtoupper(str_replace('-', '_', $header));
@@ -1050,5 +1060,16 @@ class Http extends AbstractRequest
         }
 
         return $ip;
+    }
+    
+    /**
+     * Add a custom request header
+     * 
+     * @param string $name
+     * @param string $value 
+     */
+    public function addHeader($name, $value)
+    {
+        $this->_customHeaders[$name] = (string) $value;
     }
 }
