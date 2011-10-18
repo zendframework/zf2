@@ -37,7 +37,7 @@ class ManagerOptions
      * 
      * @var array
      */
-    protected $autoInstallWhiteList = array();
+    protected $autoInstallWhitelist = array();
 
     /**
      * Check if the config cache is enabled

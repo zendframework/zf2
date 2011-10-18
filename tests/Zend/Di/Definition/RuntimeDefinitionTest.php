@@ -11,4 +11,10 @@ class RuntimeDefinitionTest extends TestCase
     {
         $this->markTestIncomplete();
     }
+    
+    public function testGetInstantiatorForFullQualifiedNamespace(){
+        $RuntimeDefinition = new RuntimeDefinition();
+        $instantiator = $RuntimeDefinition->getInstantiator('\ZendTest\Di\TestAsset\BasicClass');
+        $this->assertEquals($instantiator, '__construct');
+    }
 }
