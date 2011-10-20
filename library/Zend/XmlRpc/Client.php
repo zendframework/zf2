@@ -246,16 +246,19 @@ class Client
         }
 
         $xml = $this->_lastRequest->__toString();
-        $http->setRawData($xml);
-        $httpResponse = $http->request(Http\Client::POST);
+       // $http->setRawData($xml);
+        $http->setRawBody($xml);
+        //$httpResponse = $http->request(Http\Client::POST);
+        $http->setMethod(Http\Request::METHOD_POST);
+        $httpResponse = $http->send();
 
-        if (! $httpResponse->isSuccessful()) {
+        if (! $httpResponse->isOk()) {
             /**
              * Exception thrown when an HTTP error occurs
              */
             throw new Client\Exception\HttpException(
-                $httpResponse->getMessage(),
-                $httpResponse->getStatus()
+                $httpResponse->getBody(),
+                $httpResponse->getStatusCode()
             );
         }
 

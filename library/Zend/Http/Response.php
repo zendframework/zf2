@@ -396,7 +396,7 @@ class Response extends Message implements ResponseDescription
      */
     public function isOk()
     {
-        return (200 === $this->getStatusCode());
+        return (200 === $this->getStatusCode()/1);
     }
 
     /**
