@@ -256,10 +256,10 @@ class Client
             /**
              * Exception thrown when an HTTP error occurs
              */
-            //throw new Client\Exception\HttpException(
-            //    $httpResponse->getBody(),
-            //    $httpResponse->getStatusCode()
-            //);
+            throw new Client\Exception\HttpException(
+                $httpResponse->getBody(),
+                $httpResponse->getStatusCode()
+            );
         }
 
         if ($response === null) {
