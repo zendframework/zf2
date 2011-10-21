@@ -205,7 +205,7 @@ class Application implements AppContext
     public function run()
     {
         $events = $this->events();
-        $event  = new MvcEvent();
+        $event  = new MvcEvent();     
         $event->setTarget($this);
         $event->setRequest($this->getRequest())
               ->setRouter($this->getRouter());
@@ -278,14 +278,14 @@ class Application implements AppContext
                 'Cannot dispatch without a locator'
             );
         }
-
+        
         $events     = $this->events();
         $routeMatch = $e->getRouteMatch();
 
         $controllerName = $routeMatch->getParam('controller', 'not-found');
 
         try {
-            $controller = $locator->get($controllerName);
+            $controller = $locator->get($controllerName, array('event' => $e, 'locator' => $locator));
         } catch (ClassNotFoundException $exception) {
             $error = clone $e;
             $error->setError(static::ERROR_CONTROLLER_NOT_FOUND)
@@ -314,16 +314,10 @@ class Application implements AppContext
             goto complete;
         }
 
-        if ($controller instanceof LocatorAware) {
-            $controller->setLocator($locator);
-        }
 
         $request  = $e->getRequest();
         $response = $this->getResponse();
 
-        if ($controller instanceof InjectApplicationEvent) {
-            $controller->setEvent($e);
-        }
 
         try {
             $return   = $controller->dispatch($request, $response);

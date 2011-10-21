@@ -14,14 +14,14 @@ use ArrayObject,
     Zend\Stdlib\IsAssocArray,
     Zend\Stdlib\RequestDescription as Request,
     Zend\Stdlib\ResponseDescription as Response,
-    Zend\Mvc\InjectApplicationEvent,
+    Zend\Mvc\EventAware,
     Zend\Mvc\LocatorAware,
     Zend\Mvc\MvcEvent;
 
 /**
  * Basic action controller
  */
-abstract class ActionController implements Dispatchable, InjectApplicationEvent, LocatorAware, Pluggable
+abstract class ActionController implements Dispatchable, EventAware, LocatorAware, Pluggable
 {
     protected $broker;
     protected $event;

@@ -107,7 +107,7 @@ class RuntimeDefinition implements Definition
     public function getClassSupertypes($class)
     {
         $class = ltrim($class, '\\');
-        if (!array_key_exists($class, $this->classes[$class])) {
+        if (!array_key_exists($class, $this->classes)) {
             $this->processClass($class);
         }
         return $this->classes[$class]['supertypes'];
@@ -294,17 +294,19 @@ class RuntimeDefinition implements Definition
                 preg_match($interfaceInjectorPattern, $rIface->getName(), $matches);
                 if ($matches) {
                     foreach ($rIface->getMethods() as $rMethod) {
-                        if ($rMethod->getName() === '__construct') { // ctor not allowed in ifaces
-                            continue;
+                        preg_match($methodInjectorPattern, $rMethod->getName(), $matches);
+                        if ($matches) {
+                            $def['methods'][$rMethod->getName()] = true;
+                            $this->processParams($def, $rClass, $rMethod);
                         }
-                        $def['methods'][$rMethod->getName()] = true;
-                        $this->processParams($def, $rClass, $rMethod);
                     }
                     continue 2;
                 }
             }
         }
 
+        
+        $def['supertypes'] = class_parents($class, true) + class_implements($class, true);
 
         //var_dump($this->classes);
     }

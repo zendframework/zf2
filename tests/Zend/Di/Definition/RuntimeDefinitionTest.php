@@ -17,4 +17,13 @@ class RuntimeDefinitionTest extends TestCase
         $instantiator = $RuntimeDefinition->getInstantiator('\ZendTest\Di\TestAsset\BasicClass');
         $this->assertEquals($instantiator, '__construct');
     }
+    
+    public function testSupertypes(){
+        $RuntimeDefinition = new RuntimeDefinition();
+        $supertypes = $RuntimeDefinition->getClassSupertypes('ZendTest\Di\TestAsset\PreferredImplClasses\EofB');
+        $this->assertEquals($supertypes, array(
+            'ZendTest\Di\TestAsset\PreferredImplClasses\BofA' => 'ZendTest\Di\TestAsset\PreferredImplClasses\BofA',
+            'ZendTest\Di\TestAsset\PreferredImplClasses\A' => 'ZendTest\Di\TestAsset\PreferredImplClasses\A'
+            ));
+    }
 }
