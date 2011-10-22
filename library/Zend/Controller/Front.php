@@ -443,7 +443,7 @@ class Front
     public function setRequest($request)
     {
         if (is_string($request)) {
-            if (!class_exists($request)) {
+            if (!class_exists($request, false)) {
                 \Zend\Loader::loadClass($request);
             }
             $request = new $request();
@@ -483,7 +483,7 @@ class Front
     public function setRouter($router)
     {
         if (is_string($router)) {
-            if (!class_exists($router)) {
+            if (!class_exists($router, false)) {
                 \Zend\Loader::loadClass($router);
             }
             $router = new $router();
@@ -610,7 +610,7 @@ class Front
     public function setResponse($response)
     {
         if (is_string($response)) {
-            if (!class_exists($response)) {
+            if (!class_exists($response, false)) {
                 \Zend\Loader::loadClass($response);
             }
             $response = new $response();
@@ -771,8 +771,8 @@ class Front
 
     /**
      * Set helper broker to inject in action controllers
-     * 
-     * @param  string|Broker $broker 
+     *
+     * @param  string|Broker $broker
      * @return Front
      */
     public function setHelperBroker($broker)
@@ -798,7 +798,7 @@ class Front
 
     /**
      * Retrieve action helper broker
-     * 
+     *
      * @return Broker
      */
     public function getHelperBroker()

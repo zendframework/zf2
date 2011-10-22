@@ -62,7 +62,7 @@ class Tar extends AbstractCompressionAlgorithm
      */
     public function __construct($options = null)
     {
-        if (!class_exists('Archive_Tar')) {
+        if (!class_exists('Archive_Tar', false)) {
             throw new Exception\ExtensionNotLoadedException(
                 'This filter needs PEARs Archive_Tar.'.
                 'Ensure loading Archive_Tar (registering autoload or require_once)');

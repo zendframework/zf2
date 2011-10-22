@@ -83,7 +83,7 @@ class Zend_Service_Nirvanix
         $options['namespace'] = ucfirst($namespace);
         $options = array_merge($this->_options, $options);
 
-        if (!class_exists($class)) {
+        if (!class_exists($class, false)) {
             Zend_Loader::loadClass($class);
         }
         return new $class($options);

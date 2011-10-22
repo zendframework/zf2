@@ -1826,7 +1826,7 @@ class Form implements \Iterator, \Countable, \Zend\Validator\Validator
             $class = $this->getDefaultDisplayGroupClass();
         }
 
-        if (!class_exists($class)) {
+        if (!class_exists($class, false)) {
             Loader::loadClass($class);
         }
         $this->_displayGroups[$name] = new $class(

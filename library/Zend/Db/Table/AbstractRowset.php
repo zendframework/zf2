@@ -117,7 +117,7 @@ abstract class AbstractRowset implements \SeekableIterator, \Countable, \ArrayAc
         if (isset($config['rowClass'])) {
             $this->_rowClass   = $config['rowClass'];
         }
-        if (!class_exists($this->_rowClass)) {
+        if (!class_exists($this->_rowClass, false)) {
             \Zend\Loader::loadClass($this->_rowClass);
         }
         if (isset($config['data'])) {

@@ -93,7 +93,7 @@ class Repository implements \Countable
 
     public function addContextClass($contextClass)
     {
-        if (!class_exists($contextClass)) {
+        if (!class_exists($contextClass, false)) {
             \Zend\Loader::loadClass($contextClass);
         }
         $reflectionContextClass = new \ReflectionClass($contextClass);

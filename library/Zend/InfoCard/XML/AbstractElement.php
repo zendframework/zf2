@@ -81,7 +81,7 @@ abstract class AbstractElement extends \SimpleXMLElement implements Element
      */
     static public function convertToObject(\DOMElement $e, $classname)
     {
-        if (!class_exists($classname)) {
+        if (!class_exists($classname, false)) {
             \Zend\Loader::loadClass($classname);
         }
 

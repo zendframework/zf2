@@ -90,7 +90,7 @@ class Encrypt extends AbstractFilter
             $adapter = 'Zend\\Filter\\Encrypt\\' . ucfirst($adapter);
         }
 
-        if (!class_exists($adapter)) {
+        if (!class_exists($adapter, false)) {
             \Zend\Loader::loadClass($adapter);
         }
 
