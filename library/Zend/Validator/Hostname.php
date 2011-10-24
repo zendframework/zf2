@@ -210,7 +210,7 @@ class Hostname extends AbstractValidator
             5 => '/^[\x{002d}0-9a-zабвгдежзийклмнопрстуфхцчшщъыьэюя]{1,63}$/iu',
             6 => '/^[\x{002d}0-9a-zἀ-ἇἐ-ἕἠ-ἧἰ-ἷὀ-ὅὐ-ὗὠ-ὧὰ-ὼώᾀ-ᾇᾐ-ᾗᾠ-ᾧᾰ-ᾴᾶᾷῂῃῄῆῇῐ-ῒΐῖῗῠ-ῧῲῳῴῶῷ]{1,63}$/iu'),
         'FI'  => array(1 => '/^[\x{002d}0-9a-zäåö]{1,63}$/iu'),
-        'GR'  => array(1 => '/^[\x{002d}0-9a-zΆΈΉΊΌΎ-ΡΣ-ώἀ-ἕἘ-Ἕἠ-ὅὈ-Ὅὐ-ὗὙὛὝὟ-ώᾀ-ᾴᾶ-ᾼῂῃῄῆ-ῌῐ-ΐῖ-Ίῠ-Ῥῲῳῴῶ-ῼ]{1,63}$/iu'),
+        'GR'  => array(1 => '/^[\x{002d}0-9a-zΆΈΉΊΌΎ-ΡΣ-ώἀ-ἕἘ-Ἕἠ-ὅὈ-Ὅὐ-ὗὙὛὝὟ-ώᾀ-ᾴᾶ-ᾼῂῃῄῆ-ῌῐ-ΐῖ-Ίῠ-Ῥῲῳῴῶ-ῼ]{1,63}$/iu'),
         'HK'  => 'Hostname/Cn.php',
         'HU'  => array(1 => '/^[\x{002d}0-9a-záéíóöúüőű]{1,63}$/iu'),
         'INFO'=> array(1 => '/^[\x{002d}0-9a-zäåæéöøü]{1,63}$/iu',
@@ -554,8 +554,11 @@ class Hostname extends AbstractValidator
         if ((count($domainParts) > 1) && (strlen($value) >= 4) && (strlen($value) <= 254)) {
             $status = false;
 
-            $origenc = iconv_get_encoding('internal_encoding');
-            iconv_set_encoding('internal_encoding', 'UTF-8');
+            if (extension_loaded('iconv')) {
+                $origenc = iconv_get_encoding('internal_encoding');
+                iconv_set_encoding('internal_encoding', 'UTF-8');
+            }
+
             do {
                 // First check TLD
                 $matches = array();
@@ -599,6 +602,9 @@ class Hostname extends AbstractValidator
                         if (strpos($domainPart, 'xn--') === 0) {
                             $domainPart = $this->decodePunycode(substr($domainPart, 4));
                             if ($domainPart === false) {
+                                if (extension_loaded('iconv')) {
+                                    iconv_set_encoding('internal_encoding', $origenc);
+                                }
                                 return false;
                             }
                         }
@@ -623,7 +629,8 @@ class Hostname extends AbstractValidator
                                     $length = $this->_idnLength[strtoupper($this->_tld)];
                                 }
 
-                                if (iconv_strlen($domainPart, 'UTF-8') > $length) {
+                                $strlength = (extension_loaded('iconv')) ? iconv_strlen($domainPart, 'UTF-8') : strlen($domainPart);
+                                if ($strlength > $length) {
                                     $this->_error(self::INVALID_HOSTNAME);
                                 } else {
                                     $checked = true;
@@ -649,7 +656,10 @@ class Hostname extends AbstractValidator
                 }
             } while (false);
 
-            iconv_set_encoding('internal_encoding', $origenc);
+            if (extension_loaded('iconv')) {
+                iconv_set_encoding('internal_encoding', $origenc);
+            }
+
             // If the input passes as an Internet domain name, and domain names are allowed, then the hostname
             // passes validation
             if ($status && ($this->_options['allow'] & self::ALLOW_DNS)) {
