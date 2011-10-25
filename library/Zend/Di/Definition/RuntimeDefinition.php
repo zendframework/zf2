@@ -91,6 +91,7 @@ class RuntimeDefinition implements Definition
     public function hasClass($class)
     {
         if ($this->explicitLookups === true) {
+            $class = ltrim($class, '\\');
             return (array_key_exists($class, $this->classes));
         }
         
@@ -105,7 +106,8 @@ class RuntimeDefinition implements Definition
      */
     public function getClassSupertypes($class)
     {
-        if (!array_key_exists($class, $this->classes[$class])) {
+        $class = ltrim($class, '\\');
+        if (!array_key_exists($class, $this->classes)) {
             $this->processClass($class);
         }
         return $this->classes[$class]['supertypes'];
@@ -119,6 +121,7 @@ class RuntimeDefinition implements Definition
      */
     public function getInstantiator($class)
     {
+        $class = ltrim($class, '\\');
         if (!array_key_exists($class, $this->classes)) {
             $this->processClass($class);
         }
@@ -133,6 +136,7 @@ class RuntimeDefinition implements Definition
      */
     public function hasMethods($class)
     {
+        $class = ltrim($class, '\\');
         if (!array_key_exists($class, $this->classes)) {
             $this->processClass($class);
         }
@@ -148,6 +152,7 @@ class RuntimeDefinition implements Definition
      */
     public function hasMethod($class, $method)
     {
+        $class = ltrim($class, '\\');
         if (!array_key_exists($class, $this->classes)) {
             $this->processClass($class);
         }
@@ -162,6 +167,7 @@ class RuntimeDefinition implements Definition
      */
     public function getMethods($class)
     {
+        $class = ltrim($class, '\\');
         if (!array_key_exists($class, $this->classes)) {
             $this->processClass($class);
         }
@@ -170,6 +176,7 @@ class RuntimeDefinition implements Definition
 
     public function hasMethodParameters($class, $method)
     {
+        $class = ltrim($class, '\\');
         if (!isset($this->classes[$class])) {
             return false;
         }
@@ -190,6 +197,7 @@ class RuntimeDefinition implements Definition
      */
     public function getMethodParameters($class, $method)
     {
+        $class = ltrim($class, '\\');
         if (!is_array($this->classes[$class])) {
             $this->processClass($class);
         }
@@ -286,17 +294,19 @@ class RuntimeDefinition implements Definition
                 preg_match($interfaceInjectorPattern, $rIface->getName(), $matches);
                 if ($matches) {
                     foreach ($rIface->getMethods() as $rMethod) {
-                        if ($rMethod->getName() === '__construct') { // ctor not allowed in ifaces
-                            continue;
+                        preg_match($methodInjectorPattern, $rMethod->getName(), $matches);
+                        if ($matches) {
+                            $def['methods'][$rMethod->getName()] = true;
+                            $this->processParams($def, $rClass, $rMethod);
                         }
-                        $def['methods'][$rMethod->getName()] = true;
-                        $this->processParams($def, $rClass, $rMethod);
                     }
                     continue 2;
                 }
             }
         }
 
+        
+        $def['supertypes'] = class_parents($class, true) + class_implements($class, true);
 
         //var_dump($this->classes);
     }

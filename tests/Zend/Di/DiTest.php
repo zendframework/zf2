@@ -299,7 +299,7 @@ class DiTest extends TestCase
         $d = $di->get('ZendTest\Di\TestAsset\PreferredImplClasses\D');
         $this->assertSame($a, $d->a);
     }
-
+    
     /*
     public function testNewInstanceWillRunArbitraryMethodsAccordingToConfiguration()
     {
