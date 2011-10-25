@@ -24,7 +24,9 @@
  */
 namespace Zend\Mvc\Router\Http;
 
-use Zend\Stdlib\RequestDescription as Request,
+use Traversable,
+    Zend\Stdlib\IteratorToArray,
+    Zend\Stdlib\RequestDescription as Request,
     Zend\Mvc\Router\Exception,
     Zend\Mvc\Router\Route;
 
@@ -81,11 +83,20 @@ class Regex implements Route
      * factory(): defined by Route interface.
      *
      * @see    Route::factory()
-     * @param  mixed $options
+     * @param  array|Traversable $options
      * @return void
      */
-    public static function factory(array $options = array())
+    public static function factory($options = array())
     {
+        if (!is_array($options) && !$options instanceof Traversable) {
+            throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
+        }
+
+        // Convert options to array if Traversable object not implementing ArrayAccess
+        if ($options instanceof Traversable && !$options instanceof ArrayAccess) {
+            $options = IteratorToArray::convert($options);
+        }
+
         if (!isset($options['regex'])) {
             throw new Exception\InvalidArgumentException('Missing "regex" in options array');
         }
@@ -127,11 +138,13 @@ class Regex implements Route
             return null;
         }
         
-        $matchedLength = strlen($match[0]);
+        $matchedLength = strlen($matches[0]);
 
         foreach ($matches as $key => $value) {
             if (is_numeric($key) || is_int($key)) {
-                unset($match[$key]);
+                unset($matches[$key]);
+            } else {
+                $matches[$key] = urldecode($matches[$key]);
             }
         }
 
@@ -154,7 +167,7 @@ class Regex implements Route
         foreach ($params as $key => $value) {
             $spec = '%' . $key . '%';
             
-            if (strstr($url, $spec) !== false) {
+            if (strpos($url, $spec) !== false) {
                 $url = str_replace($spec, urlencode($value), $url);
             }
         }

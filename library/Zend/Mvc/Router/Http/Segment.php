@@ -24,7 +24,9 @@
  */
 namespace Zend\Mvc\Router\Http;
 
-use Zend\Stdlib\RequestDescription as Request,
+use Traversable,
+    Zend\Stdlib\IteratorToArray,
+    Zend\Stdlib\RequestDescription as Request,
     Zend\Mvc\Router\Exception,
     Zend\Mvc\Router\Route as BaseRoute;
 
@@ -79,11 +81,20 @@ class Segment implements BaseRoute
      * factory(): defined by Route interface.
      *
      * @see    Route::factory()
-     * @param  mixed $options
+     * @param  array|Traversable $options
      * @return void
      */
-    public static function factory(array $options = array())
+    public static function factory($options = array())
     {
+        if (!is_array($options) && !$options instanceof Traversable) {
+            throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
+        }
+
+        // Convert options to array if Traversable object not implementing ArrayAccess
+        if ($options instanceof Traversable && !$options instanceof ArrayAccess) {
+            $options = IteratorToArray::convert($options);
+        }
+
         if (!isset($options['route'])) {
             throw new Exception\InvalidArgumentException('Missing "route" in options array');
         }
@@ -226,21 +237,27 @@ class Segment implements BaseRoute
         foreach ($parts as $part) {
             switch ($part[0]) {
                 case 'literal':
-                case 'translated-literal':
                     $path .= $part[1];
                     break;
                 
                 case 'parameter':
-                case 'translated-parameter':
                     if (!isset($params[$part[1]])) {
                         return null;
                     }
                     
-                    $path .= $params[$part[1]];
+                    $path .= urlencode($params[$part[1]]);
                     break;
                 
                 case 'optional':
                     $path .= $this->buildPath($part[1], $params);
+                    break;
+                
+                case 'translated-literal':
+                    throw new Exception\RuntimeException('Translated literals are not implemented yet');
+                    break;
+                
+                case 'translated-parameter':
+                    throw new Exception\RuntimeException('Translated parameters are not implemented yet');
                     break;
             }
         }
@@ -279,6 +296,8 @@ class Segment implements BaseRoute
         foreach ($matches as $key => $value) {
             if (is_numeric($key) || is_int($key)) {
                 unset($matches[$key]);
+            } else {
+                $matches[$key] = urldecode($matches[$key]);
             }
         }
 
