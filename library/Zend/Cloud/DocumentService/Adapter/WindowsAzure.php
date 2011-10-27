@@ -484,7 +484,7 @@ class WindowsAzure
     public function select($fields = null)
     {
         $queryClass = $this->getQueryClass();
-        if (!class_exists($queryClass)) {
+        if (!class_exists($queryClass, false)) {
             require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($queryClass);
         }

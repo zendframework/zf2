@@ -160,7 +160,7 @@ class Registry
      */
     public function setContainerClass($name)
     {
-        if (!class_exists($name)) {
+        if (!class_exists($name, false)) {
             \Zend\Loader::loadClass($name);
         }
 

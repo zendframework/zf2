@@ -101,7 +101,7 @@ class TransformChain
     public function applyTransforms($strXmlDocument)
     {
         foreach($this->_transformList as $transform) {
-            if (!class_exists($transform['class'])) {
+            if (!class_exists($transform['class'], false)) {
                 \Zend\Loader::loadClass($transform['class']);
             }
 

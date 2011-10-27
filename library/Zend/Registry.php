@@ -113,7 +113,7 @@ class Registry extends \ArrayObject
         /**
          * @see Zend\\Loader
          */
-        if (!class_exists($registryClassName)) {
+        if (!class_exists($registryClassName, false)) {
             Loader::loadClass($registryClassName);
         }
 

@@ -278,7 +278,7 @@ class Layout
         $pluginClass = $this->getPluginClass();
         $front = Controller\Front::getInstance();
         if (!$front->hasPlugin($pluginClass)) {
-            if (!class_exists($pluginClass)) {
+            if (!class_exists($pluginClass, false)) {
                 \Zend\Loader::loadClass($pluginClass);
             }
             $front->registerPlugin(

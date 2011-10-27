@@ -348,7 +348,7 @@ class Mysqli extends AbstractAdapter
             $this->_stmt->close();
         }
         $stmtClass = $this->_defaultStmtClass;
-        if (!class_exists($stmtClass)) {
+        if (!class_exists($stmtClass, false)) {
             \Zend\Loader::loadClass($stmtClass);
         }
         $stmt = new $stmtClass($this, $sql);

@@ -1253,7 +1253,7 @@ abstract class AbstractTable
         // issue ZF-5775 (empty where clause should return empty rowset)
         if ($whereClause == null) {
             $rowsetClass = $this->getRowsetClass();
-//            if (!class_exists($rowsetClass)) {
+//            if (!class_exists($rowsetClass, false)) {
 //                end\Loader::loadClass($rowsetClass);
 //            }
             return new $rowsetClass(array('table' => $this, 'rowClass' => $this->getRowClass(), 'stored' => true));

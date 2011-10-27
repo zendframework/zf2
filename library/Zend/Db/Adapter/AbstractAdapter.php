@@ -362,7 +362,7 @@ abstract class AbstractAdapter
         }
 
         if ($profilerInstance === null) {
-//            if (!class_exists($profilerClass)) {
+//            if (!class_exists($profilerClass, false)) {
 //                \Zend\Loader::loadClass($profilerClass);
 //            }
             $profilerInstance = new $profilerClass();

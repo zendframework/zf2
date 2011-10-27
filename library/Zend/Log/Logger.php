@@ -260,7 +260,7 @@ class Logger implements Factory
 
         $params    = isset($config[ $type .'Params' ]) ? $config[ $type .'Params' ] : array();
         $className = $this->getClassName($config, $type, $namespace);
-        if (!class_exists($className)) {
+        if (!class_exists($className, false)) {
             \Zend\Loader::loadClass($className);
         }
 
