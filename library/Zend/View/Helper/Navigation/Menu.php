@@ -447,7 +447,7 @@ class Menu extends AbstractHelper
             }
 
             // render li tag and page
-            $liClass = $isActive ? ' class="active"' : '';
+            $liClass = $isActive ? (' class="active ' . ((null !== $foundPage && $depth == $foundDepth-1) ? 'child' : 'parent').'"') : '';
             $html .= $myIndent . '    <li' . $liClass . '>' . self::EOL
                    . $myIndent . '        ' . $this->htmlify($page) . self::EOL;
 
@@ -605,8 +605,8 @@ class Menu extends AbstractHelper
         if (is_array($partial)) {
             if (count($partial) != 2) {
                 $e = new View\Exception(
-                    'Unable to render menu: A view partial supplied as ' 
-                    .  'an array must contain two values: partial view ' 
+                    'Unable to render menu: A view partial supplied as '
+                    .  'an array must contain two values: partial view '
                     .  'script and module where script can be found'
                 );
                 $e->setView($this->view);
