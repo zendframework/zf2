@@ -25,6 +25,7 @@
 namespace Zend\View\Helper;
 
 use Zend\View,
+    Zend\View\Exception,
     Zend\Controller\Front as FrontController;
 
 /**
@@ -68,15 +69,16 @@ class Action extends AbstractHelper
      * Grab local copies of various MVC objects
      *
      * @return void
+     * @throws Exception\RuntimeException
      */
     public function __construct()
     {
         $front   = $this->front = \Zend\Controller\Front::getInstance();
         $modules = $front->getControllerDirectory();
         if (empty($modules)) {
-            $e = new View\Exception('Action helper depends on valid front controller instance');
-            $e->setView($this->view);
-            throw $e;
+            throw new Exception\RuntimeException(
+                'Action helper depends on valid front controller instance'
+            );
         }
 
         $request  = $front->getRequest();
@@ -84,9 +86,9 @@ class Action extends AbstractHelper
         $broker   = $front->getHelperBroker();
 
         if (empty($request) || empty($response)) {
-            $e = new View\Exception('Action view helper requires both a registered request and response object in the front controller instance');
-            $e->setView($this->view);
-            throw $e;
+            throw new Exception\RuntimeException(
+                'Action view helper requires both a registered request and response object in the front controller instance'
+            );
         }
 
         $this->request       = clone $request;

@@ -14,7 +14,6 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @subpackage Helper
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -22,18 +21,19 @@
 /**
  * @namespace
  */
-namespace Zend\View\Helper\Placeholder\Container;
+namespace Zend\View\Exception;
+
+use Zend\View\Exception as ViewException;
 
 /**
- * Exception for Zend_View_Helper_Placeholder_Container class.
+ * Invalid helper exception
  *
- * @uses       \Zend\View\Exception
+ * @uses       \Exception
  * @category   Zend
  * @package    Zend_View
- * @subpackage Helper
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Exception extends \Zend\View\Exception
+class InvalidHelperException extends \Exception implements ViewException
 {
 }

@@ -29,7 +29,8 @@ use DOMDocument,
     Zend\Navigation\AbstractPage,
     Zend\Navigation\Container,
     Zend\Uri,
-    Zend\View;
+    Zend\View,
+    Zend\View\Exception;
 
 /**
  * Helper for printing sitemaps
@@ -215,11 +216,9 @@ class Sitemap extends AbstractHelper
      *
      * E.g. http://www.example.com
      *
-     * @param  string $serverUrl                    server URL to set (only
-     *                                              scheme and host)
-     * @throws Uri\Exception                   if invalid server URL
-     * @return Sitemap  fluent interface, returns
-     *                                              self
+     * @param  string $serverUrl server URL to set (only scheme and host)
+     * @return Sitemap fluent interface, returns self
+     * @throws Exception\InvalidArgumentException if invalid server URL
      */
     public function setServerUrl($serverUrl)
     {
@@ -231,11 +230,10 @@ class Sitemap extends AbstractHelper
         if ($uri->isValid()) {
             $this->_serverUrl = $uri->toString();
         } else {
-            $e = new Uri\Exception\InvalidUriException(sprintf(
-                    'Invalid server URL: "%s"',
-                    $serverUrl));
-            $e->setView($this->view);
-            throw $e;
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Invalid server URL: "%s"',
+                $serverUrl
+            ));
         }
 
         return $this;
@@ -319,7 +317,7 @@ class Sitemap extends AbstractHelper
      *                                               helper
      * @return DOMDocument                           DOM representation of the
      *                                               container
-     * @throws \Zend\View\Exception                   if schema validation is on
+     * @throws Exception\RuntimeException            if schema validation is on
      *                                               and the sitemap is invalid
      *                                               according to the sitemap
      *                                               schema, or if sitemap
@@ -379,13 +377,13 @@ class Sitemap extends AbstractHelper
             $urlNode = $dom->createElementNS(self::SITEMAP_NS, 'url');
             $urlSet->appendChild($urlNode);
 
-            if ($this->getUseSitemapValidators() &&
-                !$locValidator->isValid($url)) {
-                $e = new View\Exception(sprintf(
+            if ($this->getUseSitemapValidators()
+                && !$locValidator->isValid($url)
+            ) {
+                throw new Exception\RuntimeException(sprintf(
                         'Encountered an invalid URL for Sitemap XML: "%s"',
-                        $url));
-                $e->setView($this->view);
-                throw $e;
+                        $url
+                ));
             }
 
             // put url in 'loc' element
@@ -438,11 +436,10 @@ class Sitemap extends AbstractHelper
         // validate using schema if specified
         if ($this->getUseSchemaValidation()) {
             if (!@$dom->schemaValidate(self::SITEMAP_XSD)) {
-                $e = new View\Exception(sprintf(
+                throw new Exception\RuntimeException(sprintf(
                         'Sitemap is invalid according to XML Schema at "%s"',
-                        self::SITEMAP_XSD));
-                $e->setView($this->view);
-                throw $e;
+                        self::SITEMAP_XSD
+                ));
             }
         }
 
