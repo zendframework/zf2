@@ -43,6 +43,8 @@ use Traversable,
  */
 class Part extends TreeRouteStack
 {
+    const ROUTE_NAME_SEPARATOR = '-';
+
     /**
      * Route to match.
      * 
@@ -140,7 +142,7 @@ class Part extends TreeRouteStack
                 $this->addRoutes($this->childRoutes);
                 $this->childRoutes = null;
             }
-            
+
             $nextOffset = $pathOffset + $match->getLength();
             
             $uri        = $request->uri();
@@ -149,9 +151,10 @@ class Part extends TreeRouteStack
             if ($this->mayTerminate && $nextOffset === $pathLength) {
                 return $match;
             }
-            
+
             foreach ($this->routes as $name => $route) {
                 if (($subMatch = $route->match($request, $nextOffset)) instanceof RouteMatch) {
+                    $this->currentRouteName .= $name . self::ROUTE_NAME_SEPARATOR . ($route instanceof Part ? $route->getCurrentRouteName() : '');
                     if ($match->getLength() + $subMatch->getLength() + $pathOffset === $pathLength) {
                         return $match->merge($subMatch);
                     }
@@ -190,5 +193,15 @@ class Part extends TreeRouteStack
         $uri .= parent::assemble($params, $options);
         
         return $uri;
+    }
+
+    /**
+     * Return current route name.
+     *
+     * @retrun string
+     */
+    public function getCurrentRouteName()
+    {
+        return trim($this->currentRouteName, self::ROUTE_NAME_SEPARATOR);
     }
 }

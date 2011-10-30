@@ -144,6 +144,7 @@ class TreeRouteStack extends SimpleRouteStack
 
             foreach ($this->routes as $route) {
                 if (($match = $route->match($request, $baseUrlLength)) instanceof RouteMatch && $match->getLength() === $pathLength) {
+                    $this->currentRouteName = $this->routes->key();
                     return $match;
                 }
             }

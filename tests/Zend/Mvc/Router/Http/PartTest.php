@@ -18,6 +18,7 @@ class PartTest extends TestCase
                 'match'  => array(
                     'controller' => 'ItsHomePage',
                 ),
+                'currentRouteName' => null
             )),
             array(array(
                 'uri'    => 'http://test.net/blog',
@@ -25,6 +26,7 @@ class PartTest extends TestCase
                 'match'  => array(
                     'controller' => 'ItsBlog',
                 ),
+                'currentRouteName' => 'blog'
             )),
             array(array(
                 'uri'    => 'http://test.net/forum',
@@ -32,26 +34,31 @@ class PartTest extends TestCase
                 'match'  => array(
                     'controller' => 'ItsForum',
                 ),
+                'currentRouteName' => 'forum'
             )),
             array(array(
                 'uri'    => 'http://test.net/blog/rss',
                 'offset' => 0,
-                'match'  => null
+                'match'  => null,
+                'currentRouteName' => null
             )),
             array(array(
                 'uri'    => 'http://test.net/notfound',
                 'offset' => 0,
                 'match'  => null,
+                'currentRouteName' => null
             )),
             array(array(
                 'uri'    => 'http://test.net/blog/',
                 'offset' => 0,
                 'match'  => null,
+                'currentRouteName' => null
             )),
             array(array(
                 'uri'    => 'http://test.net/forum/notfound',
                 'offset' => 0,
                 'match'  => null,
+                'currentRouteName' => 'forum'
             )),
             array(array(
                 'uri'    => 'http://test.net/blog/rss/sub',
@@ -60,6 +67,7 @@ class PartTest extends TestCase
                     'controller' => 'ItsRssBlog',
                     'action'     => 'ItsSubRss',
                 ),
+                'currentRouteName' => 'blog-rss-sub'
             )),
         );
     }
@@ -144,6 +152,9 @@ class PartTest extends TestCase
         
         $request->setUri($params['uri']);
         $match = $route->match($request, $params['offset']);
+        $currnetRouteName = $route->getCurrentRouteName();
+
+        $this->assertEquals($params['currentRouteName'], $currnetRouteName);
 
         if ($params['match'] === null) {
             $this->assertNull($match);
