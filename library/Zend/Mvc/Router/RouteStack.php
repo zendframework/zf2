@@ -55,5 +55,12 @@ interface RouteStack extends Route
      * @return RouteStack
      */
     public function removeRoute($name);
+
+    /**
+     * Return current route name.
+     *
+     * @retrun string
+     */
+    public function getCurrentRouteName();
 }
 

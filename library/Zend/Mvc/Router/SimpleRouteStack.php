@@ -53,6 +53,13 @@ class SimpleRouteStack implements RouteStack
     protected $routeBroker;
 
     /**
+     * Currnet mached route name.
+     *
+     * @var string
+     */
+    protected $currentRouteName;
+
+    /**
      * Create a new simple route stack.
      * 
      * @return void
@@ -227,6 +234,7 @@ class SimpleRouteStack implements RouteStack
     {
         foreach ($this->routes as $route) {
             if (($match = $route->match($request)) instanceof RouteMatch) {
+                $this->currentRouteName = $this->routes->key();
                 return $match;
             }
         }
@@ -257,5 +265,15 @@ class SimpleRouteStack implements RouteStack
         unset($options['name']);
 
         return $route->assemble($params, $options);
+    }
+
+    /**
+     * Return current route name.
+     *
+     * @retrun string
+     */
+    public function getCurrentRouteName()
+    {
+        return $this->currentRouteName;
     }
 }
