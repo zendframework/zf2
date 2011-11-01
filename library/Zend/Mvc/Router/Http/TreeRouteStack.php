@@ -133,7 +133,7 @@ class TreeRouteStack extends SimpleRouteStack
         }
 
         $uri           = $request->uri();
-        $baseUrlLength = strlen($this->baseUrl) ?: null;
+        $baseUrlLength = strlen($this->baseUrl);
 
         if ($this->requestUri === null) {
             $this->setRequestUri($uri);
