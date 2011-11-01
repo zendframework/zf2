@@ -2,8 +2,6 @@
 
 namespace Zend\Module;
 
-use Zend\Service\Amazon\Authentication\V1;
-
 use Traversable,
     Zend\Config\Config,
     Zend\Config\Writer\ArrayWriter,
@@ -63,6 +61,20 @@ class Manager
     protected $manifest = array();
 
     /**
+     * modules 
+     * 
+     * @var array|Traversable
+     */
+    protected $modules = array();
+
+    /**
+     * True if modules have already been loaded
+     *
+     * @var boolean
+     */
+    protected $modulesLoaded = false;
+
+    /**
      * __construct 
      * 
      * @param array|Traversable $modules 
@@ -81,36 +93,39 @@ class Manager
             $this->skipConfig = true;
             $this->setMergedConfig($this->getCachedConfig());
         }
-        $this->loadModules($modules);
-        $this->updateCache();
-        $this->events()->trigger('init.post', $this);
+        $this->setModules($modules);
     }
 
     /**
      * loadModules 
      * 
-     * @param array|Traversable $modules 
      * @return Manager
      */
-    public function loadModules($modules)
+    public function loadModules()
     {
-        if (is_array($modules) || $modules instanceof Traversable) {
-            foreach ($modules as $moduleName) {
-                $this->loadModule($moduleName);
-            }
-        } else {
-            throw new \InvalidArgumentException(
-                'Parameter to ' . __CLASS__ . '\'s '
-                . __METHOD__ . ' method must be an array or '
-                . 'implement the \\Traversable interface'
-            );
+        if ($this->modulesLoaded === true) {
+            return $this;
         }
-        
+        foreach ($this->getModules() as $moduleName) {
+            $this->loadModule($moduleName);
+        }
         if ($this->getOptions()->getEnableDependencyCheck()) {
             $this->resolveDependencies();
         }
-        
+        $this->updateCache();
+        $this->events()->trigger('init.post', $this);
+        $this->modulesLoaded = true;
         return $this;
+    }
+
+    /**
+     * Returns boolean representing if modules have been loaded yet 
+     * 
+     * @return Manager
+     */
+    public function modulesLoaded()
+    {
+        return $this->modulesLoaded;
     }
 
     /**
@@ -443,10 +458,14 @@ class Manager
     /**
      * Get loadedModules.
      *
+     * @param bool $loadModules 
      * @return array
      */
-    public function getLoadedModules()
+    public function getLoadedModules($loadModules = false)
     {
+        if ($loadModules === true) {
+            $this->loadModules();
+        }
         return $this->loadedModules;
     }
 
@@ -473,7 +492,7 @@ class Manager
      * @param Config $config 
      * @return Manager
      */
-    public function setMergedConfig(Config $config)
+    protected function setMergedConfig(Config $config)
     {
         $this->mergedConfig = $config;
         return $this;
@@ -485,7 +504,7 @@ class Manager
      * @param mixed $module 
      * @return Manager
      */
-    public function mergeModuleConfig($module)
+    protected function mergeModuleConfig($module)
     {
         if ((false === $this->skipConfig)
             && (is_callable(array($module, 'getConfig')))
@@ -532,6 +551,35 @@ class Manager
     {
         $content = "<?php\nreturn " . var_export($config->toArray(), 1) . ';';
         file_put_contents($this->getOptions()->getCacheFilePath(), $content);
+        return $this;
+    }
+ 
+    /**
+     * Get modules.
+     *
+     * @return modules
+     */
+    public function getModules()
+    {
+        return $this->modules;
+    }
+ 
+    /**
+     * Set modules.
+     *
+     * @param $modules the value to be set
+     */
+    public function setModules($modules)
+    {
+        if (is_array($modules) || $modules instanceof Traversable) {
+            $this->modules = $modules;
+        } else {
+            throw new \InvalidArgumentException(
+                'Parameter to ' . __CLASS__ . '\'s '
+                . __METHOD__ . ' method must be an array or '
+                . 'implement the \\Traversable interface'
+            );
+        }
         return $this;
     }
 }
