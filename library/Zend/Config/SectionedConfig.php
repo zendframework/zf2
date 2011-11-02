@@ -124,6 +124,6 @@ class SectionedConfig extends Config
         }
         
         // Remember that this section extends another section
-        $this->_extends[$extendingSection] = $extendedSection;
+        $this->eextends[$extendingSection] = $extendedSection;
     }
 }

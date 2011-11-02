@@ -23,7 +23,6 @@ namespace ZendTest\Config\Reader;
 
 use \Zend\Config\Reader\Xml;
 
-
 /**
  * @category   Zend
  * @package    Zend_Config
