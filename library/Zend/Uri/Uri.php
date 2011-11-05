@@ -45,6 +45,12 @@ class Uri
     const CHAR_RESERVED   = ':\/\?#\[\]@!\$&\'\(\)\*\+,;=';
 
     /**
+     * Regular expression matching pattern defined in RFC-3986, Appendix B
+     */
+    const URI_PATTERN = '^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?';
+    const URI_PATTERN_DELIMITED = '|^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?|';
+
+    /**
      * Host part types
      */
     const HOST_IPV4      = 1;
@@ -232,53 +238,36 @@ class Uri
     }
 
     /**
-     * Parse a URI string
+     * Parse a URI string into the fragments of this uri
      *
      * @param  string $uri
-     * @return Uri
      */
     protected function parse($uri)
     {
-        // Capture scheme
-        if (($scheme = self::parseScheme($uri)) !== null) {
-            $this->setScheme($scheme);
-            $uri = substr($uri, strlen($scheme) + 1);
+        if (!preg_match(self::URI_PATTERN_DELIMITED, $uri, $match)) {
+            // non-matching strings set no uri parts
+            return;
         }
 
-        // Capture authority part
-        if (preg_match('|^//([^/\?#]*)|', $uri, $match)) {
-            $uri = substr($uri, strlen($match[0]));
-            $this->parseAuthority($match[1]);
+        if (!empty($match[2])) {
+            $this->setScheme($match[2]);
         }
 
-        if (!$uri) {
-            return $this;
+        if (!empty($match[3])) {
+            // expression 3 determines the authority exists
+            // expression 4 is the actual authority value
+            $this->parseAuthority($match[4]);
         }
-
-        // Capture the path
-        if (preg_match('|^[^\?#]*|', $uri, $match)) {
-            $this->setPath($match[0]);
-            $uri = substr($uri, strlen($match[0]));
+        
+        if (!empty($match[5])) {
+            $this->setPath($match[5]);
         }
-        if (!$uri) {
-            return $this;
+        if (!empty($match[7])) {
+            $this->setQuery($match[7]);
         }
-
-        // Capture the query
-        if (preg_match('|^\?([^#]*)|', $uri, $match)) {
-            $this->setQuery($match[1]);
-            $uri = substr($uri, strlen($match[0]));
+        if (!empty($match[9])) {
+            $this->setFragment($match[9]);
         }
-        if (!$uri) {
-            return $this;
-        }
-
-        // All that's left is the fragment
-        if ($uri && substr($uri, 0, 1) == '#') {
-            $this->setFragment(substr($uri, 1));
-        }
-
-        return $this;
     }
 
     /**
