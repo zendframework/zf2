@@ -75,35 +75,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test the parseScheme static method to extract the scheme part
-     *
-     * @param string $uriString
-     * @param array  $parts
-     * @dataProvider uriWithPartsProvider
-     */
-    public function testParseScheme($uriString, $parts)
-    {
-        $scheme = Uri::parseScheme($uriString);
-        if (! isset($parts['scheme'])) {
-            $parts['scheme'] = null;
-        }
-
-        $this->assertEquals($parts['scheme'], $scheme);
-    }
-
-    /**
-     * Test that parseScheme throws an exception in case of invalid input
-
-     * @param  mixed $input
-     * @dataProvider notStringInputProvider
-     */
-    public function testParseSchemeInvalidInput($input)
-    {
-        $this->setExpectedException('Zend\Uri\Exception\InvalidArgumentException');
-        $scheme = Uri::parseScheme($input);
-    }
-
-    /**
      * Test that __toString() (magic) returns an empty string if URI is invalid
      *
      * @dataProvider invalidUriObjectProvider

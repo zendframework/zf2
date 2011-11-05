@@ -1008,36 +1008,6 @@ class Uri
     }
 
     /**
-     * Extract only the scheme part out of a URI string.
-     *
-     * This is used by the parse() method, but is useful as a standalone public
-     * method if one wants to test a URI string for it's scheme before doing
-     * anything with it.
-     *
-     * Will return the scmeme if found, or NULL if no scheme found (URI may
-     * still be valid, but not full)
-     *
-     * @param  string $uriString
-     * @return string|null
-     * @throws InvalidArgumentException
-     */
-    public static function parseScheme($uriString)
-    {
-        if (! is_string($uriString)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Expecting a string, got %s',
-                (is_object($uriString) ? get_class($uriString) : gettype($uriString))
-            ));
-        }
-
-        if (preg_match('/^([A-Za-z][A-Za-z0-9\.\+\-]*):/', $uriString, $match)) {
-            return $match[1];
-        }
-
-        return null;
-    }
-
-    /**
      * Remove any extra dot segments (/../, /./) from a path
      *
      * Algorithm is adapted from RFC-3986 section 5.2.4
