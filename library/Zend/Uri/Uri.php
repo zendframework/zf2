@@ -208,17 +208,16 @@ class Uri
      */
     protected function parseAuthority($authority)
     {
-        // Split authority into userInfo and host
-        if (strpos($authority, '@') !== false) {
-            // The userInfo can also contain '@' symbols; split $authority
-            // into segments, and set it to the last segment.
-            $segments  = explode('@', $authority);
-            $authority = array_pop($segments);
-            $userInfo  = implode('@', $segments);
-            unset($segments);
+        // capture userInfo
+        // The userInfo can also contain '@' symbols; use rightmost
+        $atPos = strrpos($authority, '@');
+        if ($atPos !== false) {
+            $userInfo = substr($authority, 0, $atPos);
             $this->setUserInfo($userInfo);
+            $authority = substr($authority, $atPos + 1);
         }
 
+        // capture port
         $colonPos = strrpos($authority, ':');
         if ($colonPos !== false) {
             $port = substr($authority, $colonPos + 1);
@@ -228,6 +227,7 @@ class Uri
             $authority = substr($authority, 0, $colonPos);
         }
 
+        // only the host remains.
         $this->setHost($authority);
     }
 
