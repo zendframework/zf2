@@ -379,6 +379,22 @@ class UriTest extends \PHPUnit_Framework_TestCase
      * @param        string $uriString
      * @dataProvider validUriStringProvider
      */
+    public function testSetFromUri($uriString)
+    {
+        // start with all parts set
+        $uri = new Uri('https://joe:secret@example.com:8443/foo/bar?query#foo');
+
+        $uri->setFromUri(new Uri($uriString));
+        
+        $this->assertEquals($uriString, $uri->toString());
+    }
+
+    /**
+     * Test that setting the uri from a string returns the same URI
+     *
+     * @param        string $uriString
+     * @dataProvider validUriStringProvider
+     */
     public function testSetFromString($uriString)
     {
         // start with all parts set

@@ -144,15 +144,9 @@ class Uri
     {
         if (is_string($uri)) {
             $this->parse($uri);
-        } elseif ($uri instanceof Uri) {
+        } elseif ($uri instanceof self) {
             // Copy constructor
-            $this->setScheme($uri->getScheme());
-            $this->setUserInfo($uri->getUserInfo());
-            $this->setHost($uri->getHost());
-            $this->setPort($uri->getPort());
-            $this->setPath($uri->getPath());
-            $this->setQuery($uri->getQuery());
-            $this->setFragment($uri->getFragment());
+            $this->setFromUri($uri);
         } elseif ($uri !== null) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Expecting a string or a URI object, received "%s"',
@@ -733,6 +727,24 @@ class Uri
     public function setFragment($fragment)
     {
         $this->fragment = $fragment;
+        return $this;
+    }
+
+    /**
+     * Sets this Uri to match the Uri passed
+     *
+     * @param  \Zend\Uri\Uri $uri
+     * @return Uri
+     */
+    public function setFromUri(Uri $uri)
+    {
+        $this->setScheme($uri->getScheme());
+        $this->setUserInfo($uri->getUserInfo());
+        $this->setHost($uri->getHost());
+        $this->setPort($uri->getPort());
+        $this->setPath($uri->getPath());
+        $this->setQuery($uri->getQuery());
+        $this->setFragment($uri->getFragment());
         return $this;
     }
 
