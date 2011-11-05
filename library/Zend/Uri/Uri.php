@@ -202,6 +202,36 @@ class Uri
     }
 
     /**
+     * Parse a authority string into the fragments of this uri
+     *
+     * @param  string $authority
+     */
+    protected function parseAuthority($authority)
+    {
+        // Split authority into userInfo and host
+        if (strpos($authority, '@') !== false) {
+            // The userInfo can also contain '@' symbols; split $authority
+            // into segments, and set it to the last segment.
+            $segments  = explode('@', $authority);
+            $authority = array_pop($segments);
+            $userInfo  = implode('@', $segments);
+            unset($segments);
+            $this->setUserInfo($userInfo);
+        }
+
+        $colonPos = strrpos($authority, ':');
+        if ($colonPos !== false) {
+            $port = substr($authority, $colonPos + 1);
+            if ($port) {
+                $this->setPort((int) $port);
+            }
+            $authority = substr($authority, 0, $colonPos);
+        }
+
+        $this->setHost($authority);
+    }
+
+    /**
      * Parse a URI string
      *
      * @param  string $uri
@@ -217,30 +247,8 @@ class Uri
 
         // Capture authority part
         if (preg_match('|^//([^/\?#]*)|', $uri, $match)) {
-            $authority = $match[1];
-            $uri       = substr($uri, strlen($match[0]));
-
-            // Split authority into userInfo and host
-            if (strpos($authority, '@') !== false) {
-                // The userInfo can also contain '@' symbols; split $authority
-                // into segments, and set it to the last segment.
-                $segments  = explode('@', $authority);
-                $authority = array_pop($segments);
-                $userInfo  = implode('@', $segments);
-                unset($segments);
-                $this->setUserInfo($userInfo);
-            }
-
-            $colonPos = strrpos($authority, ':');
-            if ($colonPos !== false) {
-                $port = substr($authority, $colonPos + 1);
-                if ($port) {
-                    $this->setPort((int) $port);
-                }
-                $authority = substr($authority, 0, $colonPos);
-            }
-
-            $this->setHost($authority);
+            $uri = substr($uri, strlen($match[0]));
+            $this->parseAuthority($match[1]);
         }
 
         if (!$uri) {
