@@ -213,7 +213,7 @@ class Uri
      * @param  string $uri
      * @return Uri
      */
-    public function parse($uri)
+    protected function parse($uri)
     {
         // Capture scheme
         if (($scheme = self::parseScheme($uri)) !== null) {
@@ -733,6 +733,44 @@ class Uri
     public function setFragment($fragment)
     {
         $this->fragment = $fragment;
+        return $this;
+    }
+
+    /**
+     * Sets this Uri to match Uri string representation
+     *
+     * @param  string $uri
+     * @return Uri
+     * @throws Exception\InvalidArgumentException
+     */
+    public function setFromString($uri)
+    {
+        if (!is_string($uri)) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Expecting a string, received "%s"',
+                (is_object($uri) ? get_class($uri) : gettype($uri))
+            ));
+        }
+
+        $this->clear();
+        $this->parse($uri);
+        return $this;
+    }
+
+    /**
+     * Clear all the parts of this Uri
+     *
+     * @return Uri
+     */
+    public function clear()
+    {
+        $this->setScheme(null);
+        $this->setUserInfo(null);
+        $this->setHost(null);
+        $this->setPort(null);
+        $this->setPath(null);
+        $this->setQuery(null);
+        $this->setFragment(null);
         return $this;
     }
 
