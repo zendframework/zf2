@@ -249,13 +249,15 @@ class Uri
             return;
         }
 
+        // See RFC-3986, Appendix B for a guide to the resulting subexpressions
+
         if (!empty($match[2])) {
             $this->setScheme($match[2]);
         }
 
         if (!empty($match[3])) {
-            // expression 3 determines the authority exists
-            // expression 4 is the actual authority value
+            // subexpression 3 determines the authority exists
+            // subexpression 4 is the actual authority value
             $this->parseAuthority($match[4]);
         }
         
