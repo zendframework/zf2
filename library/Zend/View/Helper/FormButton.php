@@ -68,7 +68,7 @@ class FormButton extends FormElement
         }
 
         // Ensure type is sane
-        $type = 'button';
+        $type = 'submit';
         if (isset($attribs['type'])) {
             $attribs['type'] = strtolower($attribs['type']);
             if (in_array($attribs['type'], array('submit', 'reset', 'button'))) {
