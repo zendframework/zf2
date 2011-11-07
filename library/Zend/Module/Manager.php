@@ -119,7 +119,7 @@ class Manager
             $class = $moduleName . '\Module';
             
             if (!class_exists($class)) {
-                throw new \RuntimeException(sprintf(
+                throw new Exception\RuntimeException(sprintf(
                     'Module (%s) could not be initialized because Module.php could not be found.',
                     $moduleName
                 ));
