@@ -301,17 +301,17 @@ class Uri
         }
 
         if ($this->path) {
-            $uri .= self::encodePath($this->path);
+            $uri .= $this->path;
         } elseif ($this->host && ($this->query || $this->fragment)) {
             $uri .= '/';
         }
 
         if ($this->query) {
-            $uri .= "?" . self::encodeQueryFragment($this->query);
+            $uri .= "?" . $this->query;
         }
 
         if ($this->fragment) {
-            $uri .= "#" . self::encodeQueryFragment($this->fragment);
+            $uri .= "#" . $this->fragment;
         }
 
         return $uri;
@@ -691,6 +691,9 @@ class Uri
      */
     public function setPath($path)
     {
+        if ($path !== null) {
+            $path = static::encodePath($path);
+        }
         $this->path = $path;
         return $this;
     }
@@ -712,7 +715,9 @@ class Uri
             // more standard %20.
             $query = str_replace('+', '%20', http_build_query($query));
         }
-
+        if ($query !== null) {
+            $query = static::encodeQueryFragment($query);
+        }
         $this->query = $query;
         return $this;
     }
@@ -725,6 +730,9 @@ class Uri
      */
     public function setFragment($fragment)
     {
+        if ($fragment !== null) {
+            $fragment = static::encodeQueryFragment($fragment);
+        }
         $this->fragment = $fragment;
         return $this;
     }
