@@ -75,35 +75,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test the parseScheme static method to extract the scheme part
-     *
-     * @param string $uriString
-     * @param array  $parts
-     * @dataProvider uriWithPartsProvider
-     */
-    public function testParseScheme($uriString, $parts)
-    {
-        $scheme = Uri::parseScheme($uriString);
-        if (! isset($parts['scheme'])) {
-            $parts['scheme'] = null;
-        }
-
-        $this->assertEquals($parts['scheme'], $scheme);
-    }
-
-    /**
-     * Test that parseScheme throws an exception in case of invalid input
-
-     * @param  mixed $input
-     * @dataProvider notStringInputProvider
-     */
-    public function testParseSchemeInvalidInput($input)
-    {
-        $this->setExpectedException('Zend\Uri\Exception\InvalidArgumentException');
-        $scheme = Uri::parseScheme($input);
-    }
-
-    /**
      * Test that __toString() (magic) returns an empty string if URI is invalid
      *
      * @dataProvider invalidUriObjectProvider
@@ -371,6 +342,55 @@ class UriTest extends \PHPUnit_Framework_TestCase
         $uri->setQuery($data);
 
         $this->assertEquals('?' . $expqs, $uri->toString());
+    }
+
+    /**
+     * Test that setting the uri from a string returns the same URI
+     *
+     * @param        string $uriString
+     * @dataProvider validUriStringProvider
+     */
+    public function testSetFromUri($uriString)
+    {
+        // start with all parts set
+        $uri = new Uri('https://joe:secret@example.com:8443/foo/bar?query#foo');
+
+        $uri->setFromUri(new Uri($uriString));
+        
+        $this->assertEquals($uriString, $uri->toString());
+    }
+
+    /**
+     * Test that setting the uri from a string returns the same URI
+     *
+     * @param        string $uriString
+     * @dataProvider validUriStringProvider
+     */
+    public function testSetFromString($uriString)
+    {
+        // start with all parts set
+        $uri = new Uri('https://joe:secret@example.com:8443/foo/bar?query#foo');
+
+        $uri->setFromString($uriString);
+        
+        $this->assertEquals($uriString, $uri->toString());
+    }
+
+    /**
+     * Test that clear clears all parts of the Uri
+     */
+    public function testClear()
+    {
+        $uri = new Uri('https://joe:secret@example.com:8443/foo/bar?query#foo');
+        $uri->clear();
+
+        $this->assertNull($uri->getScheme());
+        $this->assertNull($uri->getUserInfo());
+        $this->assertNull($uri->getHost());
+        $this->assertNull($uri->getPort());
+        $this->assertNull($uri->getPath());
+        $this->assertNull($uri->getQuery());
+        $this->assertNull($uri->getFragment());
     }
 
     /**
@@ -814,6 +834,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
             array('a:b'),
             array('http://www.zend.com'),
             array('https://example.com:10082/foo/bar?query'),
+            array('https://example.com/foo%20bar'),
             array('../relative/path'),
             array('?queryOnly'),
             array('#fragmentOnly'),
@@ -1095,6 +1116,8 @@ class UriTest extends \PHPUnit_Framework_TestCase
             array('setPath',      array('/baz/baz')),
             array('setQuery',     array('foo=bar')),
             array('setFragment',  array('part2')),
+            array('setFromString',array('')),
+            array('clear',        array()),
             array('makeRelative', array('http://foo.bar/')),
             array('resolve',      array('http://foo.bar/')),
             array('normalize',    array())

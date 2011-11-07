@@ -47,11 +47,6 @@ class Http extends Uri
     );
 
     /**
-     * @see Uri::$validHostTypes
-     */
-    protected $validHostTypes = self::HOST_DNSORIPV4;
-
-    /**
      * User name as provided in authority of URI
      * @var null|string
      */
@@ -62,20 +57,6 @@ class Http extends Uri
      * @var null|string
      */
     protected $password;
-
-    /**
-     * Check if the URI is a valid HTTP URI
-     *
-     * This applys additional HTTP specific validation rules beyond the ones
-     * required by the generic URI syntax
-     *
-     * @return boolean
-     * @see    Uri::isValid()
-     */
-    public function isValid()
-    {
-        return parent::isValid();
-    }
 
     /**
      * Get the username part (before the ':') of the userInfo URI part
@@ -129,21 +110,6 @@ class Http extends Uri
     {
         $this->password = $password;
         return $this;
-    }
-
-    /**
-     * Validate the host part of an HTTP URI
-     *
-     * This overrides the common URI validation method with a DNS or IPv4 only
-     * default. Users may still enforce allowing other host types.
-     *
-     * @param  string  $host
-     * @param  integer $allowed
-     * @return boolean
-     */
-    public static function validateHost($host, $allowed = self::HOST_DNSORIPV4)
-    {
-        return parent::validateHost($host, $allowed);
     }
 
     /**
