@@ -834,6 +834,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
             array('a:b'),
             array('http://www.zend.com'),
             array('https://example.com:10082/foo/bar?query'),
+            array('https://example.com/foo%20bar'),
             array('../relative/path'),
             array('?queryOnly'),
             array('#fragmentOnly'),
