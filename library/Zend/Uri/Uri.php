@@ -51,18 +51,6 @@ class Uri
     const URI_PATTERN_DELIMITED = '|^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?|';
 
     /**
-     * Host part types
-     */
-    const HOST_IPV4      = 1;
-    const HOST_IPV6      = 2;
-    const HOST_IPVF      = 4;
-    const HOST_IPVANY    = 7;
-    const HOST_DNSNAME   = 8;
-    const HOST_DNSORIPV4 = 9;
-    const HOST_REGNAME   = 16;
-    const HOST_ALL       = 31;
-
-    /**
      * URI scheme
      *
      * @var string
@@ -110,13 +98,6 @@ class Uri
      * @var string
      */
     protected $fragment;
-
-    /**
-     * Which host part types are valid for this URI?
-     *
-     * @var integer
-     */
-    protected $validHostTypes = self::HOST_ALL;
 
     /**
      * Array of valid schemes.
@@ -613,7 +594,7 @@ class Uri
      */
     public function setScheme($scheme)
     {
-        if (($scheme !== null) && (!self::validateScheme($scheme))) {
+        if (($scheme !== null) && (!static::validateScheme($scheme))) {
             throw new Exception\InvalidUriPartException(sprintf(
                 'Scheme "%s" is not valid or is not accepted by %s',
                 $scheme,
@@ -658,7 +639,7 @@ class Uri
     {
         if (($host !== '')
             && ($host !== null)
-            && !self::validateHost($host, $this->validHostTypes)
+            && !static::validateHost($host)
         ) {
             throw new Exception\InvalidUriPartException(sprintf(
                 'Host "%s" is not valid or is not accepted by %s',
@@ -847,10 +828,6 @@ class Uri
     /**
      * Validate the host part
      *
-     * Users may control which host types to allow by passing a second parameter
-     * with a bitmask of HOST_* constants which are allowed. If not specified,
-     * all address types will be allowed.
-     *
      * Note that the generic URI syntax allows different host representations,
      * including IPv4 addresses, IPv6 addresses and future IP address formats
      * enclosed in square brackets, and registered names which may be DNS names
@@ -861,27 +838,19 @@ class Uri
      * @param  integer $allowed bitmask of allowed host types
      * @return boolean
      */
-    public static function validateHost($host, $allowed = self::HOST_ALL)
+    public static function validateHost($host)
     {
-        if ($allowed & self::HOST_REGNAME) {
-            if (static::isValidRegName($host)) {
-                return true;
-            }
+        if (strncmp($host, '[', 1) == 0) {
+            return static::isValidIpLiteral($host);
         }
 
-        if ($allowed & self::HOST_DNSNAME) {
-            if (static::isValidDnsHostname($host)) {
-                return true;
-            }
+        // from RFC 3986: If host matches the rule for IPv4address, then it 
+        // should be considered an IPv4 address literal and not a reg-name.    
+        if (static::isValidIpV4Address($host)) {
+            return true;
         }
-
-        if ($allowed & self::HOST_IPVANY) {
-            if (static::isValidIpAddress($host, $allowed)) {
-                return true;
-            }
-        }
-
-        return false;
+        
+        return static::isValidRegName($host);
     }
 
     /**
@@ -1095,54 +1064,47 @@ class Uri
     }
 
     /**
-     * Check if a host name is a valid IP address, depending on allowed IP address types
+     * Validates an IPv4 address
      *
-     * @param  string  $host
-     * @param  integer $allowed allowed address types
-     * @return boolean
+     * @param string $value
      */
-    protected static function isValidIpAddress($host, $allowed)
+    protected static function isValidIpV4Address($ip)
     {
-        $validatorParams = array(
-            'allowipv4' => (bool) ($allowed & self::HOST_IPV4),
-            'allowipv6' => (bool) ($allowed & self::HOST_IPV6),
-        );
-
-        if ($allowed & (self::HOST_IPV6 | self::HOST_IPVF)) {
-            if (preg_match('/^\[(.+)\]$/', $host, $match)) {
-                $host = $match[1];
-                $validatorParams['allowipv4'] = false;
-            }
+        $ip2long = ip2long($ip);
+        if($ip2long === false) {
+            return false;
         }
 
-        if ($allowed & (self::HOST_IPV4 | self::HOST_IPV6)) {
-            $validator = new Validator\Ip($validatorParams);
-            if ($validator->isValid($host)) {
-                return true;
-            }
-        }
-
-        if ($allowed & self::HOST_IPVF) {
-            $regex = '/^v\.[[:xdigit:]]+[' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . ':]+$/';
-            return (bool) preg_match($regex, $host);
-        }
-
-        return false;
+        return $ip == long2ip($ip2long);
     }
 
     /**
-     * Check if an address is a valid DNS hostname
+     * Check if a host name is a valid IP Literal
      *
-     * @param  string $host
+     * @param  string  $host
      * @return boolean
      */
-    protected static function isValidDnsHostname($host)
+    protected static function isValidIpLiteral($ip)
     {
-        $validator = new Validator\Hostname(array(
-            'allow' => Validator\Hostname::ALLOW_DNS | Validator\Hostname::ALLOW_LOCAL,
-        ));
+        // IPvFuture is allowed syntactically
+        $regex = '/^v\.[[:xdigit:]]+[' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . ':]+$/';
+        if (preg_match($regex, $ip)) {
+            return true;
+        }
 
-        return $validator->isValid($host);
+        if (!preg_match('/^\[(.+)\]$/', $ip, $match)) {
+            return false;
+        }
+        $ip = $match[1];
+
+        $validatorParams = array(
+            'allowipv4' => false,
+            'allowipv6' => true,
+        );
+
+        $validator = new Validator\Ip($validatorParams);
+
+        return $validator->isValid($ip);
     }
 
     /**
