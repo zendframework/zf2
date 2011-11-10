@@ -24,7 +24,8 @@
  */
 namespace Zend\View\Helper;
 
-use Zend\View\Exception;
+use Zend\View\Exception,
+    Zend\View\Variables;
 
 /**
  * Helper for rendering a template fragment in its own variable scope.
@@ -116,7 +117,7 @@ class Partial extends AbstractHelper
     public function cloneView()
     {
         $view = clone $this->view;
-        $view->vars()->clear();
+        $view->setVars(new Variables());
         return $view;
     }
 
