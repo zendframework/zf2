@@ -53,11 +53,11 @@ class Proxy extends Socket
         'sslcert'       => null,
         'sslpassphrase' => null,
         'sslusecontext' => false,
-        'proxy_host'    => '',
-        'proxy_port'    => 8080,
-        'proxy_user'    => '',
-        'proxy_pass'    => '',
-        'proxy_auth'    => Client::AUTH_BASIC,
+        'proxyhost'    => '',
+        'proxyport'    => 8080,
+        'proxyuser'    => '',
+        'proxypass'    => '',
+        'proxyauth'    => Client::AUTH_BASIC,
         'persistent'    => false
     );
 
@@ -81,7 +81,7 @@ class Proxy extends Socket
     public function connect($host, $port = 80, $secure = false)
     {
         // If no proxy is set, fall back to Socket adapter
-        if (! $this->config['proxy_host']) {
+        if (! $this->config['proxyhost']) {
             return parent::connect($host, $port, $secure);
         }
         
@@ -92,8 +92,8 @@ class Proxy extends Socket
 
         // Connect (a non-secure connection) to the proxy server
         return parent::connect(
-            $this->config['proxy_host'],
-            $this->config['proxy_port'],
+            $this->config['proxyhost'],
+            $this->config['proxyport'],
             false
         );
     }
@@ -111,24 +111,24 @@ class Proxy extends Socket
     public function write($method, $uri, $http_ver = '1.1', $headers = array(), $body = '')
     {
         // If no proxy is set, fall back to default Socket adapter
-        if (! $this->config['proxy_host']) return parent::write($method, $uri, $http_ver, $headers, $body);
+        if (! $this->config['proxyhost']) return parent::write($method, $uri, $http_ver, $headers, $body);
 
         // Make sure we're properly connected
         if (! $this->socket) {
             throw new AdapterException\RuntimeException("Trying to write but we are not connected");
         }
 
-        $host = $this->config['proxy_host'];
-        $port = $this->config['proxy_port'];
+        $host = $this->config['proxyhost'];
+        $port = $this->config['proxyport'];
 
         if ($this->connected_to[0] != "tcp://$host" || $this->connected_to[1] != $port) {
             throw new AdapterException\RuntimeException("Trying to write but we are connected to the wrong proxy server");
         }
 
         // Add Proxy-Authorization header
-        if ($this->config['proxy_user'] && ! isset($headers['proxy-authorization'])) {
+        if ($this->config['proxyuser'] && ! isset($headers['proxy-authorization'])) {
             $headers['proxy-authorization'] = Client::encodeAuthHeader(
-                $this->config['proxy_user'], $this->config['proxy_pass'], $this->config['proxy_auth']
+                $this->config['proxyuser'], $this->config['proxypass'], $this->config['proxyauth']
             );
         }
 
@@ -190,7 +190,7 @@ class Proxy extends Socket
     protected function connectHandshake($host, $port = 443, $http_ver = '1.1', array &$headers = array())
     {
         $request = "CONNECT $host:$port HTTP/$http_ver\r\n" .
-                   "Host: " . $this->config['proxy_host'] . "\r\n";
+                   "Host: " . $this->config['proxyhost'] . "\r\n";
 
         // Add the user-agent header
         if (isset($this->config['useragent'])) {
