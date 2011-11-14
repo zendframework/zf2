@@ -181,7 +181,7 @@ class Client implements Dispatchable
 
         /** Config Key Normalization */
         foreach ($config as $k => $v) {
-            $this->config[str_replace(array('-', '_', ' ', '.'), '', strtolower($k))] = $v; // replace w/ normalized
+            $this->config[strtolower($k)] = $v; 
         }
 
         // Pass configuration options to the adapter if it exists

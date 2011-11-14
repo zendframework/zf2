@@ -331,16 +331,16 @@ class Socket implements HttpAdapter, Stream
             $this->method == \Zend\Http\Request::METHOD_HEAD) {
 
             // Close the connection if requested to do so by the server
-            if (isset($headers['connection']) && $headers['connection'] == 'close') {
+            if (isset($headers['Connection']) && $headers['Connection'] == 'close') {
                 $this->close();
             }
             return $response;
         }
 
         // If we got a 'transfer-encoding: chunked' header
-        if (isset($headers['transfer-encoding'])) {
+        if (isset($headers['Transfer-Encoding'])) {
             
-            if (strtolower($headers['transfer-encoding']) == 'chunked') {
+            if (strtolower($headers['Transfer-Encoding']) == 'chunked') {
 
                 do {
                     $line  = @fgets($this->socket);
@@ -391,7 +391,7 @@ class Socket implements HttpAdapter, Stream
             } else {
                 $this->close();
                 throw new AdapterException\RuntimeException('Cannot handle "' .
-                    $headers['transfer-encoding'] . '" transfer encoding');
+                    $headers['Transfer-Encoding'] . '" transfer encoding');
             }
             
             // We automatically decode chunked-messages when writing to a stream
@@ -400,14 +400,14 @@ class Socket implements HttpAdapter, Stream
                 $response = str_ireplace("Transfer-Encoding: chunked\r\n", '', $response);
             }
         // Else, if we got the content-length header, read this number of bytes
-        } elseif (isset($headers['content-length'])) {
+        } elseif (isset($headers['Content-Length'])) {
 
             // If we got more than one Content-Length header (see ZF-9404) use
             // the last value sent
-            if (is_array($headers['content-length'])) {
-                $contentLength = $headers['content-length'][count($headers['content-length']) - 1]; 
+            if (is_array($headers['Content-Length'])) {
+                $contentLength = $headers['Content-Length'][count($headers['Content-Length']) - 1]; 
             } else {
-                $contentLength = $headers['content-length'];
+                $contentLength = $headers['Content-Length'];
             }
             
             $current_pos = ftell($this->socket);
@@ -461,7 +461,7 @@ class Socket implements HttpAdapter, Stream
         }
 
         // Close the connection if requested to do so by the server
-        if (isset($headers['connection']) && $headers['connection'] == 'close') {
+        if (isset($headers['Connection']) && $headers['Connection'] == 'close') {
             $this->close();
         }
 
