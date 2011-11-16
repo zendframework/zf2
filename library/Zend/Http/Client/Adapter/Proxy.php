@@ -87,7 +87,7 @@ class Proxy extends Socket
         
         /* Url might require stream context even if proxy connection doesn't */
         if ($secure) {
-        	$this->config['sslusecontext'] = true;
+            $this->config['sslusecontext'] = true;
         }
 
         // Connect (a non-secure connection) to the proxy server
@@ -126,8 +126,8 @@ class Proxy extends Socket
         }
 
         // Add Proxy-Authorization header
-        if ($this->config['proxy_user'] && ! isset($headers['proxy-authorization'])) {
-            $headers['proxy-authorization'] = Client::encodeAuthHeader(
+        if ($this->config['proxy_user'] && ! isset($headers['Proxy-Authorization'])) {
+            $headers['Proxy-Authorization'] = Client::encodeAuthHeader(
                 $this->config['proxy_user'], $this->config['proxy_pass'], $this->config['proxy_auth']
             );
         }
@@ -199,9 +199,9 @@ class Proxy extends Socket
 
         // If the proxy-authorization header is set, send it to proxy but remove
         // it from headers sent to target host
-        if (isset($headers['proxy-authorization'])) {
-            $request .= "Proxy-authorization: " . $headers['proxy-authorization'] . "\r\n";
-            unset($headers['proxy-authorization']);
+        if (isset($headers['Proxy-Authorization'])) {
+            $request .= "Proxy-authorization: " . $headers['Proxy-Authorization'] . "\r\n";
+            unset($headers['Proxy-Authorization']);
         }
 
         $request .= "\r\n";
