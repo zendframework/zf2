@@ -223,6 +223,8 @@ class Application implements AppContext
         $request = $e->getRequest();
         $router  = $e->getRouter();
 
+        $this->events->trigger('route.pre', $e);
+
         $routeMatch = $router->match($request);
 
         if (!$routeMatch instanceof Router\RouteMatch) {
@@ -239,6 +241,9 @@ class Application implements AppContext
         }
 
         $e->setRouteMatch($routeMatch);
+
+        $this->events->trigger('route.post', $e);
+        
         return $routeMatch;
     }
 
