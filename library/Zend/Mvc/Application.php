@@ -334,7 +334,9 @@ class Application implements AppContext
      * @param \Exception $exception
      * @param $controller
      */
-    protected function dispatchError(MvcEvent $errorEvent, $errorType, $controllerName, \Exception $exception = null, $controller = null)
+    protected function dispatchError(MvcEvent $errorEvent, $errorType,
+                                     $controllerName, \Exception $exception = null,
+                                     $controller = null)
     {
         $errorEvent->setError($errorType)
                    ->setController($controllerName)
