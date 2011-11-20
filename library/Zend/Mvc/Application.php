@@ -20,8 +20,8 @@ use ArrayObject,
 /**
  * Main application class for invoking applications
  *
- * Expects the user will provide a Service Locator or Dependency Injector, as 
- * well as a configured router. Once done, calling run() will invoke the 
+ * Expects the user will provide a Service Locator or Dependency Injector, as
+ * well as a configured router. Once done, calling run() will invoke the
  * application, first routing, then dispatching the discovered controller. A
  * response will then be returned, which may then be sent to the caller.
  */
@@ -39,8 +39,8 @@ class Application implements AppContext
 
     /**
      * Set the event manager instance used by this context
-     * 
-     * @param  EventCollection $events 
+     *
+     * @param  EventCollection $events
      * @return AppContext
      */
     public function setEventManager(EventCollection $events)
@@ -52,7 +52,7 @@ class Application implements AppContext
     /**
      * Set a service locator/DI object
      *
-     * @param  Locator $locator 
+     * @param  Locator $locator
      * @return AppContext
      */
     public function setLocator(Locator $locator)
@@ -76,7 +76,7 @@ class Application implements AppContext
     /**
      * Set the response object
      *
-     * @param  Response $response 
+     * @param  Response $response
      * @return AppContext
      */
     public function setResponse(Response $response)
@@ -89,8 +89,8 @@ class Application implements AppContext
      * Set the router used to decompose the request
      *
      * A router should return a metadata object containing a controller key.
-     * 
-     * @param  Router\RouteStack $router 
+     *
+     * @param  Router\RouteStack $router
      * @return AppContext
      */
     public function setRouter(Router\RouteStack $router)
@@ -101,7 +101,7 @@ class Application implements AppContext
 
     /**
      * Get the locator object
-     * 
+     *
      * @return null|Locator
      */
     public function getLocator()
@@ -111,7 +111,7 @@ class Application implements AppContext
 
     /**
      * Get the request object
-     * 
+     *
      * @return Request
      */
     public function getRequest()
@@ -124,7 +124,7 @@ class Application implements AppContext
 
     /**
      * Get the response object
-     * 
+     *
      * @return Response
      */
     public function getResponse()
@@ -137,7 +137,7 @@ class Application implements AppContext
 
     /**
      * Get the router object
-     * 
+     *
      * @return Router
      */
     public function getRouter()
@@ -152,7 +152,7 @@ class Application implements AppContext
      * Retrieve the event manager
      *
      * Lazy-loads an EventManager instance if none registered.
-     * 
+     *
      * @return EventCollection
      */
     public function events()
@@ -161,21 +161,22 @@ class Application implements AppContext
             $this->setEventManager(new EventManager(array(__CLASS__, get_class($this))));
             $this->attachDefaultListeners();
         }
+
         return $this->events;
     }
 
     /**
      * Run the application
-     * 
+     *
      * @triggers route(MvcEvent)
      *           Routes the request, and sets the RouteMatch object in the event.
      * @triggers dispatch(MvcEvent)
-     *           Dispatches a request, using the discovered RouteMatch and 
+     *           Dispatches a request, using the discovered RouteMatch and
      *           provided request.
      * @triggers dispatch.error(MvcEvent)
-     *           On errors (controller not found, action not supported, etc.), 
-     *           populates the event with information about the error type, 
-     *           discovered controller, and controller class (if known). 
+     *           On errors (controller not found, action not supported, etc.),
+     *           populates the event with information about the error type,
+     *           discovered controller, and controller class (if known).
      *           Typically, a handler should return a populated Response object
      *           that can be returned immediately.
      * @return SendableResponse
@@ -208,14 +209,13 @@ class Application implements AppContext
 
         $events->trigger('finish', $event);
 
-        $response = $response;
         return $response;
     }
 
     /**
      * Route the request
-     * 
-     * @param  MvcEvent $e 
+     *
+     * @param  MvcEvent $e
      * @return Router\RouteMatch
      */
     public function route(MvcEvent $e)
@@ -243,9 +243,9 @@ class Application implements AppContext
     }
 
     /**
-     * Dispatch the matched route
-     * 
-     * @param  MvcEvent $e 
+     * Dispatch the MvcEvent based on the matched route
+     *
+     * @param  MvcEvent $e
      * @return mixed
      */
     public function dispatch(MvcEvent $e)
@@ -261,67 +261,19 @@ class Application implements AppContext
         $routeMatch = $e->getRouteMatch();
 
         $controllerName = $routeMatch->getParam('controller', 'not-found');
+        $dispatchController = true;
 
         try {
             $controller = $locator->get($controllerName);
         } catch (ClassNotFoundException $exception) {
-            $error = clone $e;
-            $error->setError(static::ERROR_CONTROLLER_NOT_FOUND)
-                  ->setController($controllerName)
-                  ->setParam('exception', $exception);
-
-            $results = $events->trigger('dispatch.error', $error);
-            if (count($results)) {
-                $return  = $results->last();
-            } else {
-                $return = $error->getParams();
-            }
-            goto complete;
+            $return = $this->dispatchError($e, static::ERROR_CONTROLLER_NOT_FOUND,
+                                           $controllerName, $exception);
+            $dispatchController = false;
         }
 
-        if (!$controller instanceof Dispatchable) {
-            $error = clone $e;
-            $error->setError(static::ERROR_CONTROLLER_INVALID)
-                  ->setController($controllerName)
-                  ->setControllerClass(get_class($controller))
-                  ->setParam('exception', $exception);
-            $results = $events->trigger('dispatch.error', $error);
-            if (count($results)) {
-                $return  = $results->last();
-            } else {
-                $return = $error->getParams();
-            }
-            goto complete;
+        if ($dispatchController) {
+            $return = $this->dispatchController($e, $controller, $controllerName);
         }
-
-        if ($controller instanceof LocatorAware) {
-            $controller->setLocator($locator);
-        }
-
-        $request  = $e->getRequest();
-        $response = $this->getResponse();
-
-        if ($controller instanceof InjectApplicationEvent) {
-            $controller->setEvent($e);
-        }
-
-        try {
-            $return   = $controller->dispatch($request, $response);
-        } catch (\Exception $ex) {
-            $error = clone $e;
-            $error->setError(static::ERROR_EXCEPTION)
-                  ->setController($controllerName)
-                  ->setControllerClass(get_class($controller))
-                  ->setParam('exception', $ex);
-            $results = $events->trigger('dispatch.error', $error);
-            if (count($results)) {
-                $return  = $results->last();
-            } else {
-                $return = $error->getParams();
-            }
-        }
-
-        complete:
 
         if (!is_object($return)) {
             if (IsAssocArray::test($return)) {
@@ -331,11 +283,70 @@ class Application implements AppContext
         $e->setResult($return);
         return $return;
     }
+	/**
+     * @param e
+     * @param events
+     * @param controller
+     * @param error
+     * @param results
+     * @param ex
+     */
+    protected function dispatchController(MvcEvent $e, $controller, $controllerName)
+    {
+        $locator = $this->getLocator();
+        $request  = $e->getRequest();
+        $response = $this->getResponse();
+
+        if (!$controller instanceof Dispatchable) {
+            return $this->dispatchError(clone $e,
+                                        static::ERROR_CONTROLLER_INVALID,
+                                        $controllerName,
+                                        null,
+                                        $controller);
+        }
+
+        if ($controller instanceof LocatorAware) {
+            $controller->setLocator($locator);
+        }
+
+        if ($controller instanceof InjectApplicationEvent) {
+            $controller->setEvent($e);
+        }
+
+        try {
+            return $controller->dispatch($request, $response);
+        } catch (\Exception $exception) {
+            return $this->dispatchError(clone $e,
+                                        static::ERROR_EXCEPTION,
+                                        $controllerName,
+                                        $exception,
+                                        $controller);
+        }
+    }
+
+    protected function dispatchError(MvcEvent $errorEvent, $errorType, $controllerName, \Exception $exception = null, $controller = null)
+    {
+        $errorEvent->setError($errorType)
+                   ->setController($controllerName)
+                   ->setParam('exception', $exception);
+
+        if (is_object($controller)) {
+            $errorEvent->setControllerClass(get_class($controller));
+        }
+
+        $results = $this->events()->trigger('dispatch.error', $errorEvent);
+        if (count($results)) {
+            return $results->last();
+        } else {
+            return $errorEvent->getParams();
+        }
+    }
+
 
     /**
      * Attach default listeners for route and dispatch events
-     * 
-     * @param  EventCollection $events 
+     *
+     * @param  EventCollection $events
      * @return void
      */
     protected function attachDefaultListeners()
