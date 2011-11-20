@@ -266,8 +266,10 @@ class Application implements AppContext
         try {
             $controller = $locator->get($controllerName);
         } catch (ClassNotFoundException $exception) {
-            $return = $this->dispatchError($e, static::ERROR_CONTROLLER_NOT_FOUND,
-                                           $controllerName, $exception);
+            $return = $this->dispatchError($e,
+                                           static::ERROR_CONTROLLER_NOT_FOUND,
+                                           $controllerName,
+                                           $exception);
             $dispatchController = false;
         }
 
@@ -283,13 +285,13 @@ class Application implements AppContext
         $e->setResult($return);
         return $return;
     }
-	/**
-     * @param e
-     * @param events
+
+    /**
+     * Dispatch a controller
+     *
+     * @param MvcEvent $e
      * @param controller
-     * @param error
-     * @param results
-     * @param ex
+     * @param controllerName
      */
     protected function dispatchController(MvcEvent $e, $controller, $controllerName)
     {
@@ -324,6 +326,14 @@ class Application implements AppContext
         }
     }
 
+    /**
+     *
+     * @param MvcEvent $errorEvent
+     * @param $errorType
+     * @param $controllerName
+     * @param \Exception $exception
+     * @param $controller
+     */
     protected function dispatchError(MvcEvent $errorEvent, $errorType, $controllerName, \Exception $exception = null, $controller = null)
     {
         $errorEvent->setError($errorType)
