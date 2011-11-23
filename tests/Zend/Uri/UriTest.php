@@ -365,7 +365,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldSupportHostPort()
     {
-        $uri = new Uri('http://example.com/bar');
+        $uri = new Uri();
         $uri->setHost('example.com:8080');
         
         $this->assertEquals(8080, $uri->getPort());
