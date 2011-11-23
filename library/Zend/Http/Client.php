@@ -425,6 +425,7 @@ class Client implements Dispatchable
     public function setParameterPost(array $post)
     {
         $this->getRequest()->post()->fromArray($post);
+        $this->setMethod(Request::METHOD_POST);
         return $this;
     }
 
@@ -437,6 +438,7 @@ class Client implements Dispatchable
     public function setParameterGet(array $query)
     {
         $this->getRequest()->query()->fromArray($query);
+        $this->setMethod(Request::METHOD_GET);
         return $this;
     }
 
