@@ -162,7 +162,7 @@ class SimpleRouteStack implements RouteStack
             $route = $this->routeFromArray($route);
         }
         
-        if ($priority !== null && isset($route->priority)) {
+        if ($priority === null && isset($route->priority)) {
             $priority = $route->priority;
         }
 
