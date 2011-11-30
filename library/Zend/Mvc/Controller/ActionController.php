@@ -272,6 +272,24 @@ abstract class ActionController implements Dispatchable, InjectApplicationEvent,
     {
         return $this->getBroker()->load($name, $options);
     }
+    
+    /**
+     * PreDispatch() method, executed before execute()
+     * 
+     * @param  MvcEvent $e
+     * @return void
+     */
+    public function preDispatch(MvcEvent $e)
+    {}
+    
+    /**
+     * PostDispatch() method, executed after execute()
+     * 
+     * @param  MvcEvent $e
+     * @return void
+     */
+    public function postDispatch(MvcEvent $e)
+    {}
 
     /**
      * Method overloading: return plugins
@@ -297,9 +315,11 @@ abstract class ActionController implements Dispatchable, InjectApplicationEvent,
     protected function attachDefaultListeners()
     {
         $events = $this->events();
+        $events->attach('dispatch', array($this, 'preDispatch'), '100');
         $events->attach('dispatch', array($this, 'execute'));
+        $events->attach('dispatch', array($this, 'postDispatch'), '-100');
     }
-
+    
     /**
      * Transform an action name into a method name
      * 
