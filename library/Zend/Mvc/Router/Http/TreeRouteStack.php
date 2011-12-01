@@ -91,6 +91,10 @@ class TreeRouteStack extends SimpleRouteStack
             $route = $this->routeFromArray($route);
         }
 
+        if ( $priority === null AND isset($route->priority)) {
+            $priority = $route->priority;
+        }
+
         $this->routes->insert($name, $route, $priority);
 
         return $this;
