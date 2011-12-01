@@ -48,7 +48,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
     /**
      * Common HTTP client
      *
-     * @var Zend_Http_Client
+     * @var Zend\Http\Client
      */
     protected $_client = null;
 
@@ -499,6 +499,34 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         $client = new HTTPClient($url, $config);
         $client->setMethod('GET');
         $result = $client->send();
+    }
+    
+    /**
+     * Test setParameterPost and setParameterGet would automatically switch the send method to POST|GET
+     *
+     * @group ZF2-57
+     */
+    public function testAutomaticallySwitchTheSendMethod()
+    {
+        $post = array('foo'=>'Post Value');
+        $get  = array('bar'=>'Get Value');
+        
+        //defult method
+        $this->assertEquals($this->_client->getMethod(), Request::METHOD_GET);
+        
+        
+        // post method
+        $this->_client->setParameterPost($post);
+        
+        $this->assertEquals($this->_client->getMethod(), Request::METHOD_POST);
+        $this->assertEquals($this->_client->getRequest()->post()->toArray(), $post);
+        
+        
+        // get method
+        $this->_client->setParameterGet($get);
+        
+        $this->assertEquals($this->_client->getMethod(), Request::METHOD_GET);
+        $this->assertEquals($this->_client->getRequest()->query()->toArray(), $get);
     }
 
     /**
