@@ -673,7 +673,12 @@ class Uri
                 get_class($this)
             ), Exception\InvalidUriPartException::INVALID_HOSTNAME);
         }
-
+        
+        if(null !== ($port = parse_url($host,PHP_URL_PORT))){
+            $this->setPort($port);
+            $host = parse_url($host,PHP_URL_HOST);
+        }
+        
         $this->host = $host;
         return $this;
     }

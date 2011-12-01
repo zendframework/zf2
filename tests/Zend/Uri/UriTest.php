@@ -357,7 +357,21 @@ class UriTest extends \PHPUnit_Framework_TestCase
         $uri->setHost(null);
         $this->assertNull($uri->getHost());
     }
-
+    
+    /**
+     * Test that we can set the host part with port
+     * 
+     * @group ZF2-97
+     */
+    public function testShouldSupportHostPort()
+    {
+        $uri = new Uri();
+        $uri->setHost('example.com:8080');
+        
+        $this->assertEquals(8080, $uri->getPort());
+        $this->assertEquals('example.com', $uri->getHost());
+    }
+    
     /**
      * Test that we can use an array to set the query parameters
      *
