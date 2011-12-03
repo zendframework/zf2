@@ -25,20 +25,20 @@
 namespace Zend\Search\Lucene\Search\Query;
 
 use Zend\Search\Lucene\Index,
-	Zend\Search\Lucene,
-	Zend\Search\Lucene\Search\Highlighter,
-	Zend\Search\Lucene\Exception\InvalidArgumentException,
-	Zend\Search\Lucene\Exception\OutOfBoundsException,
-	Zend\Search\Lucene\Exception\UnsupportedMethodCallException,
-	Zend\Search\Lucene\Exception\RuntimeException;
+    Zend\Search\Lucene,
+    Zend\Search\Lucene\Search\Highlighter,
+    Zend\Search\Lucene\Exception\InvalidArgumentException,
+    Zend\Search\Lucene\Exception\OutOfBoundsException,
+    Zend\Search\Lucene\Exception\UnsupportedMethodCallException,
+    Zend\Search\Lucene\Exception\RuntimeException;
 
 /**
  * @uses       \Zend\Search\Lucene\Index
  * @uses       \Zend\Search\Lucene\Analysis\Analyzer\Analyzer
  * @uses       \Zend\Search\Lucene\Exception\InvalidArgumentException
- * @uses	   \Zend\Search\Lucene\Exception\OutOfBoundsException
- * @uses   	   \Zend\Search\Lucene\Exception\UnsupportedMethodCallException
- * @uses   	   \Zend\Search\Lucene\Exception\RuntimeException
+ * @uses       \Zend\Search\Lucene\Exception\OutOfBoundsException
+ * @uses       \Zend\Search\Lucene\Exception\UnsupportedMethodCallException
+ * @uses       \Zend\Search\Lucene\Exception\RuntimeException
  * @uses       \Zend\Search\Lucene\Index\Term
  * @uses       \Zend\Search\Lucene\Search\Query\AbstractQuery
  * @uses       \Zend\Search\Lucene\Search\Query\Boolean
@@ -372,7 +372,7 @@ class Fuzzy extends AbstractQuery
     public function createWeight(Lucene\SearchIndex $reader)
     {
         throw new UnsupportedMethodCallException(
-        	'Fuzzy query should not be directly used for search. Use $query->rewrite($index)'
+            'Fuzzy query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 
@@ -388,7 +388,7 @@ class Fuzzy extends AbstractQuery
     public function execute(Lucene\SearchIndex $reader, $docsFilter = null)
     {
         throw new UnsupportedMethodCallException(
-        	'Fuzzy query should not be directly used for search. Use $query->rewrite($index)'
+            'Fuzzy query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 
@@ -403,7 +403,7 @@ class Fuzzy extends AbstractQuery
     public function matchedDocs()
     {
         throw new UnsupportedMethodCallException(
-        	'Fuzzy query should not be directly used for search. Use $query->rewrite($index)'
+            'Fuzzy query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 
@@ -418,7 +418,7 @@ class Fuzzy extends AbstractQuery
     public function score($docId, Lucene\SearchIndex $reader)
     {
         throw new UnsupportedMethodCallException(
-        	'Fuzzy query should not be directly used for search. Use $query->rewrite($index)'
+            'Fuzzy query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 

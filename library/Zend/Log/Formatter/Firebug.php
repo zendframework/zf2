@@ -36,10 +36,10 @@ use \Zend\Log\Formatter;
 class Firebug extends AbstractFormatter
 {
     /**
-	 * Factory for Zend_Log_Formatter_Firebug classe
-	 *
+     * Factory for Zend_Log_Formatter_Firebug classe
+     *
      * @param array|\Zend\Config\Config $options useless
-	 * @return \Zend\Log\Formatter\Firebug
+     * @return \Zend\Log\Formatter\Firebug
      */
     public static function factory($options = array())
     {

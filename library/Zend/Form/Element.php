@@ -2105,7 +2105,7 @@ class Element implements Validator
         $name     = $this->getPluginLoader(self::VALIDATE)->load($validator['validator']);
         
         if (false === $name) {
-        	throw new ElementException\RunTimeException(sprintf('Failed to locate validator "%s" - did you register the prefix path?', $origName));
+            throw new ElementException\RunTimeException(sprintf('Failed to locate validator "%s" - did you register the prefix path?', $origName));
         }
 
         if (array_key_exists($name, $this->_validators)) {

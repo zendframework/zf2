@@ -66,10 +66,10 @@ class Simple extends AbstractFormatter
     }
 
     /**
-	 * Factory for Zend_Log_Formatter_Simple classe
-	 *
-	 * @param array|Config $options
-	 * @return \Zend\Log\Formatter\Simple
+     * Factory for Zend_Log_Formatter_Simple classe
+     *
+     * @param array|Config $options
+     * @return \Zend\Log\Formatter\Simple
      */
     public static function factory($options = array())
     {

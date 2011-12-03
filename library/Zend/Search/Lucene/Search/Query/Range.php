@@ -25,12 +25,12 @@
 namespace Zend\Search\Lucene\Search\Query;
 
 use Zend\Search\Lucene,
-	Zend\Search\Lucene\Index,
-	Zend\Search\Lucene\Search\Highlighter,
-	Zend\Search\Lucene\Exception\UnsupportedMethodCallException,
-	Zend\Search\Lucene\Exception\InvalidArgumentException,
-	Zend\Search\Lucene\Exception\RuntimeException,
-	Zend\Search\Lucene\Exception\OutOfBoundsException;
+    Zend\Search\Lucene\Index,
+    Zend\Search\Lucene\Search\Highlighter,
+    Zend\Search\Lucene\Exception\UnsupportedMethodCallException,
+    Zend\Search\Lucene\Exception\InvalidArgumentException,
+    Zend\Search\Lucene\Exception\RuntimeException,
+    Zend\Search\Lucene\Exception\OutOfBoundsException;
 
 /**
  * @uses       \Zend\Search\Lucene\Index
@@ -253,7 +253,7 @@ class Range extends AbstractQuery
     public function optimize(Lucene\SearchIndex $index)
     {
         throw new UnsupportedMethodCallException(
-        	'Range query should not be directly used for search. Use $query->rewrite($index)'
+            'Range query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 
@@ -282,7 +282,7 @@ class Range extends AbstractQuery
     public function createWeight(Lucene\SearchIndex $reader)
     {
         throw new UnsupportedMethodCallException(
-        	'Range query should not be directly used for search. Use $query->rewrite($index)'
+            'Range query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 
@@ -298,7 +298,7 @@ class Range extends AbstractQuery
     public function execute(Lucene\SearchIndex $reader, $docsFilter = null)
     {
         throw new UnsupportedMethodCallException(
-        	'Range query should not be directly used for search. Use $query->rewrite($index)'
+            'Range query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 
@@ -313,7 +313,7 @@ class Range extends AbstractQuery
     public function matchedDocs()
     {
         throw new UnsupportedMethodCallException(
-        	'Range query should not be directly used for search. Use $query->rewrite($index)'
+            'Range query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 
@@ -328,7 +328,7 @@ class Range extends AbstractQuery
     public function score($docId, Lucene\SearchIndex $reader)
     {
         throw new UnsupportedMethodCallException(
-        	'Range query should not be directly used for search. Use $query->rewrite($index)'
+            'Range query should not be directly used for search. Use $query->rewrite($index)'
         );
     }
 

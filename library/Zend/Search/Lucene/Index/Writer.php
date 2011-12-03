@@ -25,15 +25,15 @@
 namespace Zend\Search\Lucene\Index;
 
 use Zend\Search\Lucene\Storage\Directory,
-	Zend\Search\Lucene\Document,
-	Zend\Search\Lucene,
-	Zend\Search\Lucene\Exception\RuntimeException,
-	Zend\Search\Lucene\Exception\InvalidFileFormatException;
+    Zend\Search\Lucene\Document,
+    Zend\Search\Lucene,
+    Zend\Search\Lucene\Exception\RuntimeException,
+    Zend\Search\Lucene\Exception\InvalidFileFormatException;
 
 /**
  * @uses       \Zend\Search\Lucene\Index
  * @uses       \Zend\Search\Lucene\Exception\RuntimeException
- * @uses	   \Zend\Search\Lucene\Exception\InvalidFileFormatException
+ * @uses       \Zend\Search\Lucene\Exception\InvalidFileFormatException
  * @uses       \Zend\Search\Lucene\LockManager
  * @uses       \Zend\Search\Lucene\Index\SegmentInfo
  * @uses       \Zend\Search\Lucene\Index\SegmentMerger

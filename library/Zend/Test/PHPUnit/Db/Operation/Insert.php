@@ -32,7 +32,7 @@ namespace Zend\Test\PHPUnit\Db\Operation;
  * @uses       PHPUnit_Extensions_Database_Operation_Exception
  * @uses       PHPUnit_Extensions_Database_Operation_IDatabaseOperation
  * @uses       \Zend\Test\PHPUnit\Db\Connection
- * @uses	   \Zend\Test\PHPUnit\Db\Exception\InvalidArgumentException
+ * @uses       \Zend\Test\PHPUnit\Db\Exception\InvalidArgumentException
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
@@ -49,7 +49,7 @@ class Insert implements \PHPUnit_Extensions_Database_Operation_IDatabaseOperatio
     {
         if(!($connection instanceof \Zend\Test\PHPUnit\Db\Connection)) {
             throw new \Zend\Test\PHPUnit\Db\Exception\InvalidArgumentException(
-            	"Not a valid Zend_Test_PHPUnit_Db_Connection instance, ".get_class($connection)." given!"
+                "Not a valid Zend_Test_PHPUnit_Db_Connection instance, ".get_class($connection)." given!"
             );
         }
 

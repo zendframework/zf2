@@ -454,7 +454,7 @@ class ClassScanner implements Scanner
                                 'lineStart'  => $tokenLine,
                                 'lineEnd'    => null,
                                 'name'       => null,
-                                'value'	     => null,
+                                'value'      => null,
                             );
 
                             SCANNER_CLASS_BODY_CONST_TOP:

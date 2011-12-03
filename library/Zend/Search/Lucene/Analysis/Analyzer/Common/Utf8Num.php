@@ -25,8 +25,8 @@
 namespace Zend\Search\Lucene\Analysis\Analyzer\Common;
 
 use Zend\Search\Lucene\Analysis,
-	Zend\Search\Lucene,
-	Zend\Search\Lucene\Exception\RuntimeException;
+    Zend\Search\Lucene,
+    Zend\Search\Lucene\Exception\RuntimeException;
 
 /**
  * @uses       \Zend\Search\Lucene\Analysis\Token
