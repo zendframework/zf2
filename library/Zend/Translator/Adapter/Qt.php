@@ -31,7 +31,7 @@ use Zend\Translator\Adapter\AbstractAdapter,
  * @uses       \Zend\Locale\Locale
  * @uses       \Zend\Translator\Adapter\AbstractAdapter
  * @uses       \Zend\Translator\Exception\InvalidFileTypeException
- * @uses	   \Zend\Translator\Exception\InvalidArgumentException
+ * @uses       \Zend\Translator\Exception\InvalidArgumentException
  * @category   Zend
  * @package    Zend_Translator
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)

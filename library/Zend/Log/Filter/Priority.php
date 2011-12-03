@@ -85,7 +85,7 @@ class Priority extends AbstractFilter
         }
 
         if (!is_numeric($config['priority'])) {
-        	throw new \Zend\Log\Exception\InvalidArgumentException('Priority must be an integer.');
+            throw new \Zend\Log\Exception\InvalidArgumentException('Priority must be an integer.');
         }
 
         return new self(

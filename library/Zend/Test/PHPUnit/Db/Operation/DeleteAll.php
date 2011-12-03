@@ -49,7 +49,7 @@ class DeleteAll implements \PHPUnit_Extensions_Database_Operation_IDatabaseOpera
     {
         if(!($connection instanceof \Zend\Test\PHPUnit\Db\Connection)) {
             throw new \Zend\Test\PHPUnit\Db\Exception\InvalidArgumentException(
-            	"Not a valid Zend_Test_PHPUnit_Db_Connection instance, ".get_class($connection)." given!"
+                "Not a valid Zend_Test_PHPUnit_Db_Connection instance, ".get_class($connection)." given!"
             );
         }
 

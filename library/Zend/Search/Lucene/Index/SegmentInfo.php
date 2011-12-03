@@ -25,15 +25,15 @@
 namespace Zend\Search\Lucene\Index;
 
 use Zend\Search\Lucene,
-	Zend\Search\Lucene\Search\Similarity,
-	Zend\Search\Lucene\Storage\Directory,
-	Zend\Search\Lucene\Exception\RuntimeException,
-	Zend\Search\Lucene\Exception\InvalidFileFormatException,
-	Zend\Search\Lucene\Exception\InvalidArgumentException;
+    Zend\Search\Lucene\Search\Similarity,
+    Zend\Search\Lucene\Storage\Directory,
+    Zend\Search\Lucene\Exception\RuntimeException,
+    Zend\Search\Lucene\Exception\InvalidFileFormatException,
+    Zend\Search\Lucene\Exception\InvalidArgumentException;
 
 /**
  * @uses       \Zend\Search\Lucene\Exception\RuntimeException
- * @uses	   \Zend\Search\Lucene\Exception\InvalidArgumentException
+ * @uses       \Zend\Search\Lucene\Exception\InvalidArgumentException
  * @uses       \Zend\Search\Lucene\Exception\InvalidFileFormatException
  * @uses       \Zend\Search\Lucene\Index\DictionaryLoader
  * @uses       \Zend\Search\Lucene\Index\FieldInfo
@@ -958,7 +958,7 @@ class SegmentInfo implements TermsStream
         if ($docsFilter !== null) {
             if (!$docsFilter instanceof DocsFilter) {
                 throw new InvalidArgumentException(
-                	'Documents filter must be an instance of Zend\Search\Lucene\Index\DocsFilter or null.'
+                    'Documents filter must be an instance of Zend\Search\Lucene\Index\DocsFilter or null.'
                 );
             }
 
@@ -1082,7 +1082,7 @@ class SegmentInfo implements TermsStream
         if ($docsFilter !== null) {
             if (!$docsFilter instanceof DocsFilter) {
                 throw new InvalidArgumentException(
-                	'Documents filter must be an instance of Zend\Search\Lucene\Index\DocsFilter or null.'
+                    'Documents filter must be an instance of Zend\Search\Lucene\Index\DocsFilter or null.'
                 );
             }
 
@@ -1208,7 +1208,7 @@ class SegmentInfo implements TermsStream
         if ($docsFilter !== null) {
             if (!$docsFilter instanceof DocsFilter) {
                 throw new InvalidArgumentException(
-                	'Documents filter must be an instance of Zend_Search_Lucene_Index_DocsFilter or null.'
+                    'Documents filter must be an instance of Zend_Search_Lucene_Index_DocsFilter or null.'
                 );
             }
 
@@ -1574,7 +1574,7 @@ class SegmentInfo implements TermsStream
                 return;
             } else {
                 throw new RuntimeException(
-                	'Delete file processing workflow is corrupted for the segment \'' . $this->_name . '\'.'
+                    'Delete file processing workflow is corrupted for the segment \'' . $this->_name . '\'.'
                 );
             }
         }

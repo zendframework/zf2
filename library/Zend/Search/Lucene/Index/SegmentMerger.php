@@ -25,8 +25,8 @@
 namespace Zend\Search\Lucene\Index;
 
 use Zend\Search\Lucene,
-	Zend\Search\Lucene\Document,
-	Zend\Search\Lucene\Exception\RuntimeException;
+    Zend\Search\Lucene\Document,
+    Zend\Search\Lucene\Exception\RuntimeException;
 
 /**
  * @uses       \Zend\Search\Lucene\Exception\RuntimeException

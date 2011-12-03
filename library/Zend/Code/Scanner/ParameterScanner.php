@@ -112,7 +112,7 @@ class ParameterScanner
 
         $this->isScanned = true;
     }
-	/**
+    /**
      * @return the $declaringScannerClass
      */
     public function getDeclaringScannerClass()
@@ -120,7 +120,7 @@ class ParameterScanner
         return $this->declaringScannerClass;
     }
 
-	/**
+    /**
      * @return the $declaringClass
      */
     public function getDeclaringClass()
@@ -128,7 +128,7 @@ class ParameterScanner
         return $this->declaringClass;
     }
 
-	/**
+    /**
      * @return the $declaringScannerFunction
      */
     public function getDeclaringScannerFunction()
@@ -136,7 +136,7 @@ class ParameterScanner
         return $this->declaringScannerFunction;
     }
 
-	/**
+    /**
      * @return the $declaringFunction
      */
     public function getDeclaringFunction()
@@ -144,7 +144,7 @@ class ParameterScanner
         return $this->declaringFunction;
     }
 
-	/**
+    /**
      * @return the $defaultValue
      */
     public function getDefaultValue()
@@ -153,7 +153,7 @@ class ParameterScanner
         return $this->defaultValue;
     }
 
-	/**
+    /**
      * @return the $class
      */
     public function getClass()
@@ -162,7 +162,7 @@ class ParameterScanner
         return $this->class;
     }
 
-	/**
+    /**
      * @return the $name
      */
     public function getName()
@@ -171,7 +171,7 @@ class ParameterScanner
         return $this->name;
     }
 
-	/**
+    /**
      * @return the $position
      */
     public function getPosition()
@@ -180,7 +180,7 @@ class ParameterScanner
         return $this->position;
     }
 
-	/**
+    /**
      * @return the $isArray
      */
     public function isArray()
@@ -189,7 +189,7 @@ class ParameterScanner
         return $this->isArray;
     }
 
-	/**
+    /**
      * @return the $isDefaultValueAvailable
      */
     public function isDefaultValueAvailable()
@@ -198,7 +198,7 @@ class ParameterScanner
         return $this->isDefaultValueAvailable;
     }
 
-	/**
+    /**
      * @return the $isOptional
      */
     public function isOptional()
@@ -207,7 +207,7 @@ class ParameterScanner
         return $this->isOptional;
     }
 
-	/**
+    /**
      * @return the $isPassedByReference
      */
     public function isPassedByReference()

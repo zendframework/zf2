@@ -370,11 +370,11 @@ class Sqlsrv extends AbstractStatement
         if (sqlsrv_next_result($this->_stmt) === false) {
             throw new SqlsrvException(sqlsrv_errors());
         }
-		
-		// reset column keys
-		$this->_keys = null;
 
-		return true;
+        // reset column keys
+        $this->_keys = null;
+
+        return true;
     }
 
     /**
@@ -404,8 +404,8 @@ class Sqlsrv extends AbstractStatement
 
         return $num_rows;
     }
-	
-	/**
+
+    /**
      * Returns an array containing all of the result set rows.
      *
      * @param int $style OPTIONAL Fetch mode.
