@@ -23,8 +23,7 @@
  */
 namespace Zend\Http;
 
-use Zend\Config\Config,
-    Zend\Uri\Http,
+use Zend\Uri\Http,
     Zend\Http\Header\Cookie,
     Zend\Http\Header\SetCookie,
     Zend\Stdlib\Parameters,
@@ -166,16 +165,13 @@ class Client implements Dispatchable
     /**
      * Set configuration parameters for this HTTP client
      *
-     * @param  Config|array $config
+     * @param  array $config
      * @return Client
      * @throws Client\Exception
      */
     public function setConfig($config = array())
     {
-        if ($config instanceof Config) {
-            $config = $config->toArray();
-
-        } elseif (!is_array($config)) {
+        if (!is_array($config)) {
             throw new Exception\InvalidArgumentException('Config parameter is not valid');
         }
 
