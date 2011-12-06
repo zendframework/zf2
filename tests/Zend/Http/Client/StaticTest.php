@@ -253,7 +253,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
             )
         ));
 
-        $this->_client->setConfig($config);
+        $this->_client->setConfig($config->toArray());
 
         $hasConfig = $this->_client->config;
         $this->assertEquals($config->timeout, $hasConfig['timeout']);
