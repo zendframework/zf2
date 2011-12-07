@@ -197,7 +197,7 @@ class ClassMapAutoloader implements SplAutoloader
     }
 
     /**
-     * Resolve the real_path() to a file within a phar.
+     * Resolve the realpath() to a file within a phar.
      *
      * @see https://bugs.php.net/bug.php?id=52769 
      * @param string $path 
@@ -222,5 +222,7 @@ class ClassMapAutoloader implements SplAutoloader
         if (file_exists($realPath = 'phar:///' . implode('/', $parts))) {
             return $realPath;
         }
+
+        return false;
     }
 }
