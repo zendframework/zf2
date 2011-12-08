@@ -91,9 +91,16 @@ class ClassScanner implements Scanner
         $this->nameInformation   = $nameInformation;
     }
 
-    public function getAnnotations()
+    /**
+     * @return AnnotationCollection
+     */
+    public function getAnnotations(AnnotationManager $annotationManager)
     {
-        return array();
+        if (($docComment = $this->getDocComment()) == '') {
+            return false;
+        }
+
+        return new AnnotationScanner($annotationManager, $docComment, $this->nameInformation);
     }
 
     public function getDocComment()
