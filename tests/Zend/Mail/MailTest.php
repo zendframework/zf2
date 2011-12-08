@@ -861,6 +861,20 @@ class MailTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Foo Bar <foo@example.com>', $headers['Reply-To'][0]);
     }
 
+    public function testGetDefaultTransport() 
+    {
+    	$transport = Mail\Mail::getDefaultTransport();
+    	$this->assertTrue($transport instanceof Mail\AbstractTransport);
+    	
+    	Mail\Mail::clearDefaultTransport();
+    	$transport = Mail\Mail::getDefaultTransport();
+    	$this->assertTrue($transport instanceof Mail\AbstractTransport);
+
+    	Mail\Mail::setDefaultTransport(new SendmailTransportMock);
+    	$transport = Mail\Mail::getDefaultTransport();
+    	$this->assertTrue($transport instanceof SendmailTransportMock);
+    }
+    
     public function testMethodSendUsesDefaults()
     {
         Mail\Mail::setDefaultFrom('john@example.com', 'John Doe');
