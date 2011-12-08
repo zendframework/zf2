@@ -192,7 +192,7 @@ class Mail extends Mime\Message
     public static function getDefaultTransport()
     {
         if (! self::$_defaultTransport instanceof AbstractTransport) {
-            $transport = new Transport\Sendmail();
+            self::$_defaultTransport = new Transport\Sendmail();
         }
 
         return self::$_defaultTransport;
