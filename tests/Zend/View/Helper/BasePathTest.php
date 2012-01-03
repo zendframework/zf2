@@ -43,7 +43,7 @@ class BasePathTest extends TestCase
         $helper = new BasePath();
         $helper->setBasePath('/foo');
         
-        $this->assertEquals('/foo', $helper());
+        $this->assertEquals('/foo/', $helper());
     }
     
     public function testBasePathWithFile()
