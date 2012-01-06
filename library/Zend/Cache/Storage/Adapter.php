@@ -116,6 +116,19 @@ interface Adapter
     public function getItem($key, array $options = array());
 
     /**
+     * Get an item and call callback if it has been fetched.
+     *
+     * Callback-Syntax: callback(mixed $item, Exception $error) : void
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function getItemAsync($key, $callback, array $options = array());
+
+    /**
      * Get multiple items.
      *
      * @param  array $keys
@@ -124,6 +137,19 @@ interface Adapter
      * @throws \Zend\Cache\Exception
      */
     public function getItems(array $keys, array $options = array());
+
+    /**
+     * Get multiple items and call callback for each fetched item.
+     *
+     * Callback-Syntax: callback(mixed $item, Exception $error) : void
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function getItemsAsync(array $keys, $callback, array $options = array());
 
     /**
      * Test if an item exists.
@@ -233,7 +259,7 @@ interface Adapter
     /**
      * Set item only if token matches
      *
-     * It uses the token from received from getItem() to check if the item has 
+     * It uses the token from received from getItem() to check if the item has
      * changed before overwriting it.
      *
      * @param  mixed       $token
@@ -329,19 +355,7 @@ interface Adapter
      */
     public function decrementItems(array $keyValuePairs, array $options = array());
 
-    /* non-blocking */
-
-    /**
-     * Request multiple items.
-     *
-     * @param  array $keys
-     * @param  array $options
-     * @return boolean
-     * @throws \Zend\Cache\Exception
-     * @see    fetch()
-     * @see    fetchAll()
-     */
-    public function getDelayed(array $keys, array $options = array());
+    /* find */
 
     /**
      * Find items.

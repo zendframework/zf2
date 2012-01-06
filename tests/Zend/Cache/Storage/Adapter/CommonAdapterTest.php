@@ -245,12 +245,93 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_storage->getItem('key'));
     }
 
+    public function testGetItemAsync()
+    {
+        $asyncRead = $this->_storage->getCapabilities()->getAsyncRead();
+
+        $this->assertTrue($this->_storage->setItem('key', 'value'));
+
+        $fetchedItem = null;
+        $this->assertTrue($this->_storage->getItemAsync(
+            'key',
+            function($item, $error) use (&$fetchedItem) {
+                if (!$error) {
+                    $fetchedItem = $item;
+                }
+            }
+        ));
+
+        if ($asyncRead) {
+            // wait for callback to be finished
+            sleep(1);
+        }
+
+        $this->assertInternalType('array', $fetchedItem);
+        $this->assertEquals('key',   $fetchedItem['key']);
+        $this->assertEquals('value', $fetchedItem['value']);
+    }
+
+    public function testGetItemAsyncWithIgnoreMissingItems()
+    {
+        $asyncRead = $this->_storage->getCapabilities()->getAsyncRead();
+        $this->_options->setIgnoreMissingItems(true);
+
+        $fetchedError = null;
+        $this->assertTrue($this->_storage->getItemAsync(
+            'unknown',
+            function($item, $error) use (&$fetchedError) {
+                $fetchedError = $error;
+            }
+        ));
+
+        if ($asyncRead) {
+            // wait for callback
+            sleep(1);
+        }
+
+        // No ItemNotFoundException should be fetched
+        $this->assertTrue(!$fetchedError);
+    }
+
     public function testGetItemsReturnsEmptyArrayIfNonReadable()
     {
         $this->_options->setReadable(false);
 
         $this->assertTrue($this->_storage->setItem('key', 'value'));
         $this->assertEquals(array(), $this->_storage->getItems(array('key')));
+    }
+
+    public function testGetItemsAsync()
+    {
+        $asyncRead = $this->_storage->getCapabilities()->getAsyncRead();
+
+        $items = array(
+            'key1' => 'value1',
+            'key2' => 'value2',
+            'key3' => 'value3'
+        );
+
+        $this->assertTrue($this->_storage->setItems($items));
+
+        $fetchedItems = array();
+        $this->assertTrue($this->_storage->getItemsAsync(
+            array_keys($items) + array('unknown'),
+            function($item, $error) use (&$fetchedItems) {
+                if (!$error) {
+                    $fetchedItems[] = $item;
+                }
+            }
+        ));
+
+        if ($asyncRead) {
+            // wait for callback
+            sleep(1);
+        }
+
+        $this->assertEquals(count($items), count($fetchedItems));
+        foreach ($fetchedItems as $fetchedItem) {
+            $this->assertEquals($items[ $fetchedItem['key'] ], $fetchedItem['value']);
+        }
     }
 
     public function testGetMetadata()
@@ -719,168 +800,6 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->_storage->checkAndSetItem($token, 'key', 'newValue'));
         $this->assertFalse($this->_storage->checkAndSetItem($token, 'key', 'failedValue'));
         $this->assertEquals('newValue', $this->_storage->getItem('key'));
-    }
-
-    public function testGetDelayedAndFetch()
-    {
-        $items = array(
-            'key1' => 'value1',
-            'key2' => 'value2',
-            'key3' => 'value3'
-        );
-
-        $this->assertTrue($this->_storage->setItems($items));
-
-        $this->assertTrue($this->_storage->getDelayed(array_keys($items)));
-        $fetchedKeys = array();
-        while ( $item = $this->_storage->fetch() ) {
-            $this->assertArrayHasKey('key', $item);
-            $this->assertArrayHasKey('value', $item);
-
-            $this->assertArrayHasKey($item['key'], $items);
-            $this->assertEquals($items[$item['key']], $item['value']);
-            $fetchedKeys[] = $item['key'];
-        }
-        sort($fetchedKeys);
-        $this->assertEquals(array_keys($items), $fetchedKeys);
-    }
-
-    public function testGetDelayedAndFetchAll()
-    {
-        $items = array(
-            'key1' => 'value1',
-            'key2' => 'value2',
-            'key3' => 'value3'
-        );
-
-        $this->assertTrue($this->_storage->setItems($items));
-
-        $this->assertTrue($this->_storage->getDelayed(array_keys($items)));
-
-        $fetchedItems = $this->_storage->fetchAll();
-        $this->assertEquals(count($items), count($fetchedItems));
-        foreach ($fetchedItems as $item) {
-            $this->assertArrayHasKey('key', $item);
-            $this->assertArrayHasKey('value', $item);
-            $this->assertEquals($items[$item['key']], $item['value']);
-        }
-    }
-
-    public function testGetDelayedAndFetchAllWithSelectValue()
-    {
-        $items = array(
-            'key1' => 'value1',
-            'key2' => 'value2',
-            'key3' => 'value3'
-        );
-
-        $this->assertTrue($this->_storage->setItems($items));
-
-        $this->assertTrue($this->_storage->getDelayed(array_keys($items), array(
-            'select' => 'value'
-        )));
-
-        $fetchedItems = $this->_storage->fetchAll();
-        $this->assertEquals(count($items), count($fetchedItems));
-        foreach ($fetchedItems as $item) {
-            $this->assertArrayNotHasKey('key', $item);
-            $this->assertArrayHasKey('value', $item);
-            $this->assertContains($item['value'], $items);
-        }
-    }
-
-    public function testGetDelayedAndFetchAllWithSelectInfo()
-    {
-        $items = array(
-            'key1' => 'value1',
-            'key2' => 'value2',
-            'key3' => 'value3'
-        );
-
-        $this->assertTrue($this->_storage->setItems($items));
-
-        $capabilities = $this->_storage->getCapabilities();
-        $this->assertTrue($this->_storage->getDelayed(array_keys($items), array(
-            'select' => $capabilities->getSupportedMetadata()
-        )));
-
-        $fetchedItems = $this->_storage->fetchAll();
-
-        $this->assertEquals(count($items), count($fetchedItems));
-        foreach ($fetchedItems as $item) {
-            if (is_array($capabilities->getSupportedMetadata())) {
-                foreach ($capabilities->getSupportedMetadata() as $selectProperty) {
-                    $this->assertArrayHasKey($selectProperty, $item);
-                }
-            }
-        }
-    }
-
-    public function testGetDelayedWithCallback()
-    {
-        $items = array(
-            'key1' => 'value1',
-            'key2' => 'value2',
-            'key3' => 'value3'
-        );
-
-        $this->assertTrue($this->_storage->setItems($items));
-
-        $fetchedItems = array();
-        $this->assertTrue($this->_storage->getDelayed(array_keys($items), array(
-            'callback' => function($item) use (&$fetchedItems) {
-                $fetchedItems[] = $item;
-            },
-        )));
-
-        // wait for callback
-        sleep(1);
-
-        $this->assertEquals(count($items), count($fetchedItems));
-        foreach ($fetchedItems as $item) {
-            $this->assertArrayHasKey('key', $item);
-            $this->assertArrayHasKey('value', $item);
-            $this->assertEquals($items[$item['key']], $item['value']);
-        }
-    }
-
-    public function testGetDelayedWithCallbackAndSelectInfo()
-    {
-        $items = array(
-            'key1' => 'value1',
-            'key2' => 'value2',
-            'key3' => 'value3'
-        );
-
-        $this->assertTrue($this->_storage->setItems($items));
-
-        $fetchedItems = array();
-        $capabilities = $this->_storage->getCapabilities();
-        $this->assertTrue($this->_storage->getDelayed(array_keys($items), array(
-            'callback' => function($item) use (&$fetchedItems) {
-                $fetchedItems[] = $item;
-            },
-            'select' => $capabilities->getSupportedMetadata()
-        )));
-
-        // wait for callback
-        sleep(1);
-
-        $this->assertEquals(count($items), count($fetchedItems));
-        foreach ($fetchedItems as $item) {
-            foreach ($capabilities->getSupportedMetadata() as $selectProperty) {
-                $this->assertArrayHasKey($selectProperty, $item);
-            }
-        }
-    }
-
-    public function testGetDelayedThrowExceptionOnActiveStatement()
-    {
-        $this->assertTrue($this->_storage->setItem('key', 'value'));
-        $this->assertTrue($this->_storage->getDelayed(array('key')));
-
-        $this->setExpectedException('Zend\Cache\Exception');
-        $this->_storage->getDelayed(array('key'));
     }
 
     public function testIncrementItem()

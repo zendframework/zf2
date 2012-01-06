@@ -363,6 +363,64 @@ abstract class AbstractAdapter implements Adapter
     /* reading */
 
     /**
+     * Get an item and call callback if it has been fetched.
+     *
+     * Callback-Syntax: callback(mixed $item, Exception $error) : void
+     *
+     * NOTE: This version of getItemAsync is a workaround and isn't asynchron.
+     *       Please override this method if the adapter supports async.
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return bool
+     * @throws Exception\InvalidArgumentException|Exception\RuntimeException
+     */
+    public function getItemAsync($key, $callback, array $options = array())
+    {
+        if (!$this->getOptions()->getReadable()) {
+            return false;
+        } elseif (!is_callable($callback, false)) {
+            throw new Exception\InvalidArgumentException('Invalid callback');
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        // Don't ignore ItemNotFoundException to skip callback
+        $ignoreMissingItems = $options['ignore_missing_items'];
+        $options['ignore_missing_items'] = false;
+
+        $item  = false;
+        $error = null;
+        $skipCallback = false;
+
+        try {
+            $item = array(
+                'key'   => $key,
+                'value' => $this->getItem($key, $options),
+            );
+            if (array_key_exists('token', $options)) {
+                $item['token'] = $options['token'];
+            }
+        } catch (Exception\ItemNotFoundException $e) {
+            if ($ignoreMissingItems) {
+                $skipCallback = true;
+            } else {
+                $error = $e;
+            }
+        } catch (Exception $e) {
+            $error = $e;
+        }
+
+        if (!$skipCallback) {
+            call_user_func($callback, $item, $error);
+        }
+
+        return true;
+    }
+
+    /**
      * Get items
      *
      * @param  array $keys
@@ -386,6 +444,31 @@ abstract class AbstractAdapter implements Adapter
             } catch (Exception\ItemNotFoundException $e) {
                 // ignore missing items
             }
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Get multiple items and call callback for each fetched item.
+     *
+     * Callback-Syntax: callback(mixed $item, Exception $error) : void
+     *
+     * NOTE: This version of getItemAsync is a workaround and isn't asynchron.
+     *       Please override this method if the adapter supports async.
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return bool
+     * @throws Exception\InvalidArgumentException|Exception\RuntimeException
+     */
+    public function getItemsAsync(array $keys, $callback, array $options = array())
+    {
+        $ret = true;
+
+        foreach ($keys as $key) {
+            $ret = $this->getItemAsync($key, $callback, $options) && $ret;
         }
 
         return $ret;
@@ -743,64 +826,7 @@ abstract class AbstractAdapter implements Adapter
         return $ret;
     }
 
-    /* non-blocking */
-
-    /**
-     * Get delayed
-     *
-     * Options:
-     *  - ttl <float> optional
-     *    - The time-to-live (Default: ttl of object)
-     *  - namespace <string> optional
-     *    - The namespace to use (Default: namespace of object)
-     *  - select <array> optional
-     *    - An array of the information the returned item contains
-     *      (Default: array('key', 'value'))
-     *  - callback <callback> optional
-     *    - An result callback will be invoked for each item in the result set.
-     *    - The first argument will be the item array.
-     *    - The callback does not have to return anything.
-     *
-     * @param  array $keys
-     * @param  array $options
-     * @return bool
-     * @throws Exception\InvalidArgumentException|Exception\RuntimeException
-     */
-    public function getDelayed(array $keys, array $options = array())
-    {
-        if ($this->stmtActive) {
-            throw new Exception\RuntimeException('Statement already in use');
-        }
-
-        if (!$this->getOptions()->getReadable()) {
-            return false;
-        } elseif (!$keys) {
-            // empty statement
-            return true;
-        }
-
-        $this->normalizeOptions($options);
-        if (!isset($options['select'])) {
-            $options['select'] = array('key', 'value');
-        }
-
-        $this->stmtOptions = array_merge($this->getOptions()->toArray(), $options);
-        $this->stmtKeys    = $keys;
-        $this->stmtActive  = true;
-
-        if (isset($options['callback'])) {
-            $callback = $options['callback'];
-            if (!is_callable($callback, false)) {
-                throw new Exception\InvalidArgumentException('Invalid callback');
-            }
-
-            while ( ($item = $this->fetch()) !== false) {
-                call_user_func($callback, $item);
-            }
-        }
-
-        return true;
-    }
+    /* find */
 
     /**
      * Find
