@@ -205,6 +205,18 @@ interface Adapter
     public function setItem($key, $value, array $options = array());
 
     /**
+     * Store an item asynchronously.
+     *
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function setItemAsync($key, $value, $callback, array $options = array());
+
+    /**
      * Store multiple items.
      *
      * @param  array $keyValuePairs
@@ -213,6 +225,17 @@ interface Adapter
      * @throws \Zend\Cache\Exception
      */
     public function setItems(array $keyValuePairs, array $options = array());
+
+    /**
+     * Store multiple items asynchronously.
+     *
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function setItemsAsync(array $keyValuePairs, $callback, array $options = array());
 
     /**
      * Add an item.

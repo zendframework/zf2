@@ -550,6 +550,33 @@ abstract class AbstractAdapter implements Adapter
     /* writing */
 
     /**
+     * Store an item and call callback on finish.
+     *
+     * NOTE: This version of setItemAsync is a workaround and isn't asynchron.
+     *       Please override this method if the adapter supports async.
+     *
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function setItemAsync($key, $value, $callback, array $options = array())
+    {
+        try {
+            $result = $this->setItem($key, $value, $options);
+            $error  = null;
+        } catch (Exception $e) {
+            $result = false;
+            $error  = $e;
+        }
+
+        call_user_func($callback, $result, $error);
+        return true;
+    }
+
+    /**
      * Set items
      *
      * @param  array $keyValuePairs
@@ -567,6 +594,24 @@ abstract class AbstractAdapter implements Adapter
             $ret = $this->setItem($key, $value, $options) && $ret;
         }
 
+        return $ret;
+    }
+
+    /**
+     * Store multiple items and call callback for each item on finish.
+     *
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function setItemsAsync(array $keyValuePairs, $callback, array $options = array())
+    {
+        $ret = true;
+        foreach ($keyValuePairs as $key => $value) {
+            $ret = $this->setItemAsync($key, $value, $callback, $options);
+        }
         return $ret;
     }
 
