@@ -70,9 +70,10 @@ class Serializer extends AbstractPlugin
         // read
         $handles[] = $events->attach('getItem.post',  array($this, 'onReadItemPost'));
         $handles[] = $events->attach('getItems.post', array($this, 'onReadItemsPost'));
+        $handles[] = $events->attach('getItemAsync.callback',  array($this, 'onReadItemCallback'));
 
         // fetch / fetchAll
-        $handles[] = $events->attach('fetch.post', array($this, 'onFetchPost'));
+        $handles[] = $events->attach('fetch.post', array($this,    'onFetchPost'));
         $handles[] = $events->attach('fetchAll.post', array($this, 'onFetchAllPost'));
 
         // write
@@ -155,6 +156,21 @@ class Serializer extends AbstractPlugin
             $value = $serializer->unserialize($value);
         }
         $event->setResult($result);
+    }
+
+    /**
+     * On read item callback
+     *
+     * @param  Event $event
+     * @return void
+     */
+    public function onReadItemCallback(Event $event)
+    {
+        $params = $event->getParams();
+        if (isset($params['item']['value'])) {
+            $serializer = $this->getOptions()->getSerializer();
+            $params['item']['value'] = $serializer->unserialize($params['item']['value']);
+        }
     }
 
     /**
