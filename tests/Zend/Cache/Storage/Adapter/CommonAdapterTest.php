@@ -772,6 +772,50 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_storage->removeItem('missing');
     }
 
+    public function testRemoveMissingItemAsyncCallsWithItemNotFoundException()
+    {
+        $this->_options->setIgnoreMissingItems(false);
+
+        $cbResult = null;
+        $cbError  = null;
+        $cb = function ($result, $error) use (&$cbResult, &$cbError) {
+            $cbResult = $result;
+            $cbError  = $error;
+        };
+
+        $this->assertTrue($this->_storage->removeItemAsync('unknown', $cb));
+
+        if ($this->_storage->getCapabilities()->getAsyncWrite()) {
+            // wait to finish
+            sleep(1);
+        }
+
+        $this->assertFalse($cbResult);
+        $this->assertInstanceOf('Zend\Cache\Exception\ItemNotFoundException', $cbError);
+    }
+
+    public function testRemoveMissingItemAsyncWithoutItemNotFoundException()
+    {
+        $this->_options->setIgnoreMissingItems(true);
+
+        $cbResult = null;
+        $cbError  = null;
+        $cb = function ($result, $error) use (&$cbResult, &$cbError) {
+            $cbResult = $result;
+            $cbError  = $error;
+        };
+
+        $this->assertTrue($this->_storage->removeItemAsync('unknown', $cb));
+
+        if ($this->_storage->getCapabilities()->getAsyncWrite()) {
+            // wait to finish
+            sleep(1);
+        }
+
+        $this->assertTrue($cbResult);
+        $this->assertNull($cbError);
+    }
+
     public function testRemoveMissingItemsReturnsTrueIfIgnoreMissingItemsEnabled()
     {
         $this->_options->setIgnoreMissingItems(true);

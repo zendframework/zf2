@@ -327,6 +327,17 @@ interface Adapter
     public function removeItem($key, array $options = array());
 
     /**
+     * Remove an item asynchron.
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function removeItemAsync($key, $callback, array $options = array());
+
+    /**
      * Remove multiple items.
      *
      * @param  array $keys
@@ -335,6 +346,17 @@ interface Adapter
      * @throws \Zend\Cache\Exception
      */
     public function removeItems(array $keys, array $options = array());
+
+    /**
+     * Remove multiple items asynchron.
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function removeItemsAsync(array $keys, $callback, array $options = array());
 
     /**
      * Increment an item.

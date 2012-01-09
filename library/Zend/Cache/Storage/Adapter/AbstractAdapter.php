@@ -465,8 +465,11 @@ abstract class AbstractAdapter implements Adapter
      */
     public function getItemsAsync(array $keys, $callback, array $options = array())
     {
-        $ret = true;
+        if (!$this->getOptions()->getReadable()) {
+            return false;
+        }
 
+        $ret = true;
         foreach ($keys as $key) {
             $ret = $this->getItemAsync($key, $callback, $options) && $ret;
         }
@@ -564,6 +567,12 @@ abstract class AbstractAdapter implements Adapter
      */
     public function setItemAsync($key, $value, $callback, array $options = array())
     {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        } elseif (!is_callable($callback, false)) {
+            throw new Exception\InvalidArgumentException('Invalid callback');
+        }
+
         try {
             $result = $this->setItem($key, $value, $options);
             $error  = null;
@@ -608,6 +617,10 @@ abstract class AbstractAdapter implements Adapter
      */
     public function setItemsAsync(array $keyValuePairs, $callback, array $options = array())
     {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
         $ret = true;
         foreach ($keyValuePairs as $key => $value) {
             $ret = $this->setItemAsync($key, $value, $callback, $options);
@@ -767,7 +780,36 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
-     * Remove items
+     * Remove an item asynchron.
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function removeItemAsync($key, $callback, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        } elseif (!is_callable($callback, false)) {
+            throw new Exception\InvalidArgumentException('Invalid callback');
+        }
+
+        try {
+            $result = $this->removeItem($key, $options);
+            $error  = null;
+        } catch (Exception $e) {
+            $result = false;
+            $error  = $e;
+        }
+
+        call_user_func($callback, $result, $error);
+        return true;
+    }
+
+    /**
+     * Remove multiple items.
      *
      * @param  array $keys
      * @param  array $options
@@ -782,6 +824,29 @@ abstract class AbstractAdapter implements Adapter
         $ret = true;
         foreach ($keys as $key) {
             $ret = $this->removeItem($key, $options) && $ret;
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Remove multiple items asynchron.
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function removeItemsAsync(array $keys, $callback, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $ret = true;
+        foreach ($keys as $key) {
+            $ret = $this->removeItemAsync($key, $callback, $options) && $ret;
         }
 
         return $ret;
