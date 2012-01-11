@@ -67,38 +67,46 @@ class Partial extends AbstractHelper
             return $this;
         }
 
-        $view = $this->cloneView();
         if (isset($this->partialCounter)) {
-            $view->partialCounter = $this->partialCounter;
+            $this->view->partialCounter = $this->partialCounter;
         }
 
         if (!empty($model)) {
             if (is_array($model)) {
-                $view->vars()->assign($model);
+                $vars = $model;
             } elseif (is_object($model)) {
                 if (null !== ($objectKey = $this->getObjectKey())) {
-                    $view->vars()->offsetSet($objectKey, $model);
+                    $vars = array($objectKey => $model);
                 } elseif (method_exists($model, 'toArray')) {
-                    $view->vars()->assign($model->toArray());
+                    $vars = $model->toArray();
                 } else {
-                    $view->vars()->assign(get_object_vars($model));
+                    $vars = get_object_vars($model);
                 }
             }
         }
 
-        return $view->render($name);
-    }
+        $container = $this->view->vars();
+        if (isset($vars)) {
+            /**
+             * @todo Store the raw values as well, because the ArrayObject knows
+             * the mix of escaped and non-escaped variables
+             * 
+             * $container->getRawValues()
+             */
+            $oldVars = $container->getArrayCopy();
+            
+            $container->clear();
+            $container->assign($vars);
+        }
 
-    /**
-     * Clone the current View
-     *
-     * @return \Zend\View\Renderer
-     */
-    public function cloneView()
-    {
-        $view = clone $this->view;
-        $view->setVars(array());
-        return $view;
+        $result = $this->view->render($name);
+
+        if (isset($oldVars)) {
+            $container->clear();
+            $container->assign($oldVars);
+        }
+
+        return $result;
     }
 
     /**
