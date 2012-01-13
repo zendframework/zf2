@@ -263,7 +263,7 @@ class Application implements AppContext
         $controllerName = $routeMatch->getParam('controller', 'not-found');
 
         try {
-            $controller = $locator->get($controllerName);
+            $controller = $locator->get('controller-' . $controllerName);
         } catch (ClassNotFoundException $exception) {
             $error = clone $e;
             $error->setError(static::ERROR_CONTROLLER_NOT_FOUND)
