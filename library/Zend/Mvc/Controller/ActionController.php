@@ -238,7 +238,12 @@ abstract class ActionController implements Dispatchable, InjectApplicationEvent,
     public function getBroker()
     {
         if (!$this->broker) {
-            $this->setBroker(new PluginBroker());
+            $im = $this->getLocator()->instanceManager();
+            $im->setParameters('Zend\Mvc\Controller\PluginBroker', array(
+                'loader' => 'Zend\Mvc\Controller\PluginLoader'
+            ));
+            $broker = $this->getLocator()->get('Zend\Mvc\Controller\PluginBroker');
+            $this->setBroker($broker);
         }
         return $this->broker;
     }
