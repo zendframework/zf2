@@ -141,11 +141,10 @@ class ApplicationTest extends TestCase
         $router->addRoute('path', $route);
 
         $locator = new TestAsset\Locator();
-        $locator->add('path', function() {
+        $locator->add('controller-path', function() {
             return new TestAsset\PathController;
         });
         $app->setLocator($locator);
-
 
         return $app;
     }
@@ -170,7 +169,7 @@ class ApplicationTest extends TestCase
         $router->addRoute('sample', $route);
 
         $locator = new TestAsset\Locator();
-        $locator->add('sample', function() {
+        $locator->add('controller-sample', function() {
             return new Controller\TestAsset\SampleController;
         });
         $app->setLocator($locator);
@@ -198,7 +197,7 @@ class ApplicationTest extends TestCase
         $router->addRoute('bad', $route);
 
         $locator = new TestAsset\Locator();
-        $locator->add('bad', function() {
+        $locator->add('controller-bad', function() {
             return new Controller\TestAsset\BadController;
         });
         $app->setLocator($locator);
@@ -406,7 +405,7 @@ class ApplicationTest extends TestCase
         $router->addRoute('locator-aware', $route);
 
         $locator = new TestAsset\Locator();
-        $locator->add('locator-aware', function() {
+        $locator->add('controller-locator-aware', function() {
             return new TestAsset\LocatorAwareController;
         });
         $app->setLocator($locator);
@@ -488,7 +487,7 @@ class ApplicationTest extends TestCase
     public function testInabilityToRetrieveControllerShouldTriggerDispatchError()
     {
         $app      = $this->setupBadController();
-        $app->getLocator()->remove('bad');
+        $app->getLocator()->remove('controller-bad');
         $response = $app->getResponse();
         $events   = $app->events();
         $events->attach('dispatch.error', function ($e) use ($response) {
@@ -509,7 +508,7 @@ class ApplicationTest extends TestCase
     public function testInvalidControllerTypeShouldTriggerDispatchError()
     {
         $app      = $this->setupBadController();
-        $app->getLocator()->add('bad', function() {
+        $app->getLocator()->add('controller-bad', function() {
             return new stdClass;
         });
         $response = $app->getResponse();
