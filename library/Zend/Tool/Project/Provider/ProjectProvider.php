@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ use Zend\Tool\Project\Profile\Profile as ProjectProfile;
  * @uses       \Zend\Tool\Project\Provider\Exception
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ProjectProvider extends AbstractProvider
@@ -70,9 +70,9 @@ class ProjectProvider extends AbstractProvider
     }
 
     /**
-     * Create stub for Zend_Tool Project Provider
+     * Create stub for Zend\Tool Project Provider
      *
-     * @var string       $name            class name for new Zend_Tool Project Provider
+     * @var string       $name            class name for new Zend\Tool Project Provider
      * @var array|string $actions         list of provider methods
      * @throws \Zend\Tool\Project\Provider\Exception
      */

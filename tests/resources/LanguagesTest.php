@@ -15,16 +15,18 @@
  * @category   Zend
  * @package    Zend_Exception
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
+
+use Zend\Locale\Locale;
 
 /**
  * @category   Zend
  * @package    Zend_resources
  * @subpackage UnitTests
  * @group      resources
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class resources_LanguagesTest extends PHPUnit_Framework_TestCase
@@ -76,7 +78,7 @@ class resources_LanguagesTest extends PHPUnit_Framework_TestCase
     public function testIsLocale()
     {
         foreach ($this->_languages as $lang) {
-            if (!Zend\Locale\Locale::isLocale($lang, true)) {
+            if (!Locale::isLocale($lang, true)) {
                 $this->fail("Language directory '{$lang}' not a valid locale");
             }
         }

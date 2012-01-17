@@ -15,13 +15,14 @@
  * @category   Zend
  * @package    Zend_OpenId
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 namespace ZendTest\OpenId;
 
-use Zend\OpenId\OpenId;
+use Zend\Http\Response,
+    Zend\OpenId\OpenId;
 
 /**
  * Zend_OpenId
@@ -36,10 +37,10 @@ OpenId::$exitOnRedirect = false;
  * @category   Zend
  * @package    Zend_OpenId
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ResponseHelper extends \Zend\Controller\Response\AbstractResponse
+class ResponseHelper extends Response
 {
     private $_canSendHeaders;
 

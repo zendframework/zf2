@@ -13,9 +13,9 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Translate
+ * @package    Zend_Translator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,23 +23,20 @@
  * @namespace
  */
 namespace ZendTest\Translator\Adapter;
-use Zend\Translator\Adapter;
-use Zend\Translator;
-use Zend\Locale;
-use Zend\Cache;
-use Zend\Cache\Frontend;
 
-/**
- * Zend_Translate_Adapter_Array
- */
+use Zend\Cache\StorageFactory as CacheFactory,
+    Zend\Cache\Storage\Adapter as CacheAdapter,
+    Zend\Locale,
+    Zend\Translator,
+    Zend\Translator\Adapter;
 
 /**
  * @category   Zend
- * @package    Zend_Translate
+ * @package    Zend_Translator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Translate
+ * @group      Zend_Translator
  */
 class ArrayTest extends \PHPUnit_Framework_TestCase
 {
@@ -52,6 +49,10 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $this->_cacheDir = sys_get_temp_dir() . '/zend_translator_array';
+        $this->_removeRecursive($this->_cacheDir);
+        mkdir($this->_cacheDir);
+
         if (Adapter\ArrayAdapter::hasCache()) {
             Adapter\ArrayAdapter::clearCache();
             Adapter\ArrayAdapter::removeCache();
@@ -64,6 +65,28 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
             Adapter\ArrayAdapter::clearCache();
             Adapter\ArrayAdapter::removeCache();
         }
+        $this->_removeRecursive($this->_cacheDir);
+    }
+
+    protected function _removeRecursive($dir)
+    {
+        if (file_exists($dir)) {
+            $dirIt = new \DirectoryIterator($dir);
+            foreach ($dirIt as $entry) {
+                $fname = $entry->getFilename();
+                if ($fname == '.' || $fname == '..') {
+                    continue;
+                }
+
+                if ($entry->isFile()) {
+                    unlink($entry->getPathname());
+                } else {
+                    $this->_removeRecursive($entry->getPathname());
+                }
+            }
+
+            rmdir($dir);
+        }
     }
 
     public function testCreate()
@@ -72,25 +95,23 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
         $adapter = new Adapter\ArrayAdapter(array());
         restore_error_handler();
         $this->assertTrue($adapter instanceof Adapter\ArrayAdapter);
+    }
 
-        try {
-            $adapter = new Adapter\ArrayAdapter('hastofail', 'en');
-            $this->fail('Exception expected');
-        } catch (Translator\Adapter\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Error including array or file', $e->getMessage());
-        }
+    public function testCreate2()
+    {
+        $this->setExpectedException('Zend\Translator\Exception\InvalidArgumentException');
+        $adapter = new Adapter\ArrayAdapter('hastofail', 'en');
+    }
 
-        try {
-            $adapter = new Adapter\ArrayAdapter(__DIR__ . '/_files/failed.php', 'en');
-            $this->fail('Exception expected');
-        } catch (Translator\Adapter\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Error including array or file', $e->getMessage());
-        }
+    public function testCreate3()
+    {
+        $this->setExpectedException('Zend\Translator\Exception\InvalidArgumentException');
+        $adapter = new Adapter\ArrayAdapter(__DIR__ . '/_files/failed.php', 'en');
     }
 
     public function testToString()
     {
-        $adapter = new Adapter\ArrayAdapter(array('msg1' => 'Message 1 (en)', 'msg2' => 'Message 2 (en)', 'msg3' => 'Message 3 (en)'));
+        $adapter = new Adapter\ArrayAdapter(array('msg1' => 'Message 1 (en)', 'msg2' => 'Message 2 (en)', 'msg3' => 'Message 3 (en)'), 'de');
         $this->assertEquals('ArrayAdapter', $adapter->toString());
     }
 
@@ -127,13 +148,13 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Message 1', $adapter->translate('Message 1', 'xx'));
         $this->assertEquals('Message 1 (en)', $adapter->translate('Message 1', 'en_US'));
 
-        try {
-            $adapter->addTranslation(__DIR__ . '/_files/translation_en.php', 'xx');
-            $this->fail("exception expected");
-        } catch (Translator\Exception\InvalidArgumentException $e) {
-            $this->assertContains('does not exist', $e->getMessage());
-        }
+        $this->setExpectedException('Zend\Translator\Exception\InvalidArgumentException');
+        $adapter->addTranslation(__DIR__ . '/_files/translation_en.php', 'xx');
+    }
 
+    public function testLoadTranslationData2()
+    {
+        $adapter = new Adapter\ArrayAdapter(__DIR__ . '/_files/translation_en.php', 'en');
         $adapter->addTranslation(__DIR__ . '/_files/translation_en2.php', 'de', array('clear' => true));
         $this->assertEquals('Nachricht 1', $adapter->translate('Message 1'));
         $this->assertEquals('Nachricht 8', $adapter->translate('Message 8'));
@@ -185,14 +206,18 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
         $locale = new Locale\Locale('en');
         $adapter->setLocale($locale);
         $this->assertEquals('en', $adapter->getLocale());
+    }
 
-        try {
-            $adapter->setLocale('nolocale');
-            $this->fail("exception expected");
-        } catch (Translator\Exception $e) {
-            $this->assertContains('does not exist', $e->getMessage());
-        }
+    public function testLocale2()
+    {
+        $adapter = new Adapter\ArrayAdapter(__DIR__ . '/_files/translation_en.php', 'en');
+        $this->setExpectedException('Zend\Translator\Exception');
+        $adapter->setLocale('nolocale');
+    }
 
+    public function testLocale3()
+    {
+        $adapter = new Adapter\ArrayAdapter(__DIR__ . '/_files/translation_en.php', 'en');
         set_error_handler(array($this, 'errorHandlerIgnore'));
         $adapter->setLocale('de');
         restore_error_handler();
@@ -273,9 +298,23 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
 
     public function testCaching()
     {
-        $cache = Cache\Cache::factory('Core', 'File',
-            array('lifetime' => 120, 'automatic_serialization' => true),
-            array('cache_dir' => __DIR__ . '/_files/'));
+        $cache = CacheFactory::factory(array(
+            'adapter' => array(
+                'name' => 'Filesystem',
+                'options' => array(
+                    'ttl'       => 120,
+                    'cache_dir' => $this->_cacheDir,
+                )
+            ),
+            'plugins' => array(
+                array(
+                    'name' => 'serializer',
+                    'options' => array(
+                        'serializer' => 'php_serialize',
+                    ),
+                ),
+            ),
+        ));
 
         $this->assertFalse(Adapter\ArrayAdapter::hasCache());
         Adapter\ArrayAdapter::setCache($cache);
@@ -283,29 +322,45 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
 
         $adapter = new Adapter\ArrayAdapter(__DIR__ . '/_files/translation_en.php', 'en');
         $cache   = Adapter\ArrayAdapter::getCache();
-        $this->assertTrue($cache instanceof Frontend\Core);
+        $this->assertTrue($cache instanceof CacheAdapter);
         unset ($adapter);
 
+        Adapter\ArrayAdapter::setCache($cache);
+        $this->assertTrue(Adapter\ArrayAdapter::hasCache());
         $adapter = new Adapter\ArrayAdapter(__DIR__ . '/_files/translation_en.php', 'en');
         $cache   = Adapter\ArrayAdapter::getCache();
-        $this->assertTrue($cache instanceof Frontend\Core);
+        $this->assertTrue($cache instanceof CacheAdapter);
 
         Adapter\ArrayAdapter::removeCache();
         $this->assertFalse(Adapter\ArrayAdapter::hasCache());
 
-        $cache->save('testdata', 'testid');
+        $cache->setItem('testid', 'testdata');
         Adapter\ArrayAdapter::setCache($cache);
         $adapter = new Adapter\ArrayAdapter(__DIR__ . '/_files/translation_en.php', 'en');
         Adapter\ArrayAdapter::removeCache();
-        $temp = $cache->load('testid');
+        $temp = $cache->getItem('testid');
         $this->assertEquals('testdata', $temp);
     }
 
     public function testLoadingFilesIntoCacheAfterwards()
     {
-        $cache = Cache\Cache::factory('Core', 'File',
-            array('lifetime' => 120, 'automatic_serialization' => true),
-            array('cache_dir' => __DIR__ . '/_files/'));
+        $cache = CacheFactory::factory(array(
+            'adapter' => array(
+                'name' => 'Filesystem',
+                'options' => array(
+                    'ttl'       => 120,
+                    'cache_dir' => $this->_cacheDir,
+                )
+            ),
+            'plugins' => array(
+                array(
+                    'name' => 'serializer',
+                    'options' => array(
+                        'serializer' => 'php_serialize',
+                    ),
+                ),
+            ),
+        ));
 
         $this->assertFalse(Adapter\ArrayAdapter::hasCache());
         Adapter\ArrayAdapter::setCache($cache);
@@ -313,7 +368,7 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
 
         $adapter = new Adapter\ArrayAdapter(__DIR__ . '/_files/translation_en.php', 'en');
         $cache   = Adapter\ArrayAdapter::getCache();
-        $this->assertTrue($cache instanceof Frontend\Core);
+        $this->assertTrue($cache instanceof CacheAdapter);
 
         $adapter->addTranslation(__DIR__ . '/_files/translation_en.php', 'ru', array('reload' => true));
         $test = $adapter->getMessages('all');

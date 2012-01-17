@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- EN-Revision: 22743 -->
-<!-- Reviewed: 22743 -->
-<sect1 id="zend.validate.introduction">
-    <title>Einführung</title>
+<?xml version="1.0" encoding="utf-8"?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.introduction"><info><title>Einführung</title></info>
+
 
     <para>
         Die Komponente <classname>Zend_Validate</classname> bietet ein Reihe von häufig benötigten
@@ -11,8 +9,8 @@
         angewendet werden können.
     </para>
 
-    <sect2 id="zend.validate.introduction.definition">
-        <title>Was ist eine Prüfung?</title>
+    <section xml:id="zend.validate.introduction.definition"><info><title>Was ist eine Prüfung?</title></info>
+
 
         <para>
             Eine Prüfung untersucht ihre Eingabe hinsichtlich einiger Anforderungen und produziert
@@ -30,10 +28,10 @@
             Anforderungen nicht entspricht, wäre es nützlich zu wissen, welche der Anforderungen der
             Benutzername nicht entsprochen hat.
         </para>
-    </sect2>
+    </section>
 
-    <sect2 id="zend.validate.introduction.using">
-        <title>Standardnutzung von Prüfungen</title>
+    <section xml:id="zend.validate.introduction.using"><info><title>Standardnutzung von Prüfungen</title></info>
+
 
         <para>
             Prüfungen auf diesem Weg definiert zu haben, bietet die Grundlage für
@@ -88,10 +86,10 @@ if ($validator->isValid($email)) {
     }
 }
 ]]></programlisting>
-    </sect2>
+    </section>
 
-    <sect2 id="zend.validate.introduction.messages">
-        <title>Nachrichten anpassen</title>
+    <section xml:id="zend.validate.introduction.messages"><info><title>Nachrichten anpassen</title></info>
+
 
         <para>
             Prüfklassen bieten eine Methode <methodname>setMessage()</methodname>, mit der das
@@ -175,10 +173,10 @@ if (!validator->isValid('word')) {
         . "\n";
 }
 ]]></programlisting>
-    </sect2>
+    </section>
 
-    <sect2 id="zend.validate.introduction.static">
-        <title>Verwenden der statischen is() Methode</title>
+    <section xml:id="zend.validate.introduction.static"><info><title>Verwenden der statischen is() Methode</title></info>
+
 
         <para>
             Wenn es unpassend ist, eine gegebenen Prüfklasse zu laden und eine Instanz
@@ -230,8 +228,8 @@ if (Zend_Validate::is($value, 'Between', array('min' => 1, 'max' => 12))) {
             bearbeiten. Siehe <link linkend="zend.filter.input">Zend_Filter_Input</link>.
         </para>
 
-        <sect3 id="zend.validate.introduction.static.namespaces">
-            <title>Namespaces</title>
+        <section xml:id="zend.validate.introduction.static.namespaces"><info><title>Namespaces</title></info>
+
 
             <para>
                 Wenn man mit selbst definierten Prüfungen arbeitet, dann kann man an
@@ -306,22 +304,22 @@ if (Zend_Validate::is($value,
                     </para>
                 </listitem>
             </itemizedlist>
-        </sect3>
-    </sect2>
+        </section>
+    </section>
 
-    <sect2 id="zend.validate.introduction.translation">
-        <title>Meldungen übersetzen</title>
+    <section xml:id="zend.validate.introduction.translation"><info><title>Meldungen übersetzen</title></info>
+
 
         <para>
             Prüfungsklassen bieten eine Methode <methodname>setTranslator()</methodname>, mit der man
-            eine Instanz von <classname>Zend_Translate</classname> definieren kann, die Nachrichten
+            eine Instanz von <classname>Zend_Translator</classname> definieren kann, die Nachrichten
             im Falle eines Prüfungsfehlers übersetzt. Die <methodname>getTranslator()</methodname>
             Methode gibt die gesetzte Übersetzungsinstanz zurück.
         </para>
 
         <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_StringLength(array('min' => 8, 'max' => 12));
-$translate = new Zend_Translate(
+$translate = new Zend_Translator(
     array(
         'adapter' => 'array',
         'content' => array(
@@ -336,13 +334,13 @@ $validator->setTranslator($translate);
 
         <para>
             Mit der statischen Methode <methodname>setDefaultTranslator()</methodname> kann eine
-            Instanz von <classname>Zend_Translate</classname> gesetzt werden und mit
+            Instanz von <classname>Zend_Translator</classname> gesetzt werden und mit
             <methodname>getDefaultTranslator()</methodname> empfangen. Das verhindert, dass man den
             Übersetzer manuell für alle Prüfungsklassen setzen muss und vereinfacht den Code.
         </para>
 
         <programlisting language="php"><![CDATA[
-$translate = new Zend_Translate(
+$translate = new Zend_Translator(
     array(
         'adapter' => 'array',
         'content' => array(
@@ -365,7 +363,7 @@ Zend_Validate::setDefaultTranslator($translate);
             Manchmal ist es notwendig, den Übersetzer in einer Prüfklasse auszuschalten. Um das zu
             tun, kann die Methode <methodname>setDisableTranslator()</methodname> verwendet werden,
             welche einen booleschen Wert akzeptiert und
-            <methodname>translatorIsDisabled()</methodname>, um den gesetzten Wert zu erhalten.
+            <methodname>isTranslatorDisabled()</methodname>, um den gesetzten Wert zu erhalten.
         </para>
 
         <programlisting language="php"><![CDATA[
@@ -381,5 +379,5 @@ if (!$validator->isTranslatorDisabled()) {
             Kopf behalten, dass der Übersetzer auch mit den Meldungen arbeitet, die man selbst gesetzt
             hat.
         </para>
-    </sect2>
-</sect1>
+    </section>
+</section>

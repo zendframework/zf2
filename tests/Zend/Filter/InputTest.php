@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Filter
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ use Zend\Filter\InputFilter,
  * @category   Zend
  * @package    Zend_Filter
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Filter
  */
@@ -1752,7 +1752,7 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
             'locale'  => 'en_US',
             'content' => array('missingMessage' => 'Still missing'),
         ));
-        \Zend\Registry::set('Zend_Translate', $translator);
+        \Zend\Registry::set('Zend_Translator', $translator);
 
         $validators = array(
             'rule1'   => array('presence' => 'required',
@@ -1771,6 +1771,246 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $missing);
         $this->assertEquals(array('rule1'), array_keys($missing));
         $this->assertEquals(array("Still missing"), $missing['rule1']);
+    }
+
+    /**
+     * @group ZF-11142
+     * @group ZF-8446
+     * @group ZF-9289
+     */
+    public function testTwoValidatorsInChainShowCorrectError()
+    {
+        $validators = array(
+            'field1'  => array(
+                    'NotEmpty', 'Float',
+                    'presence'  => 'required',
+                    'messages'  => array(
+                        'Field1 is empty',
+                        array(Validator\Float::NOT_FLOAT => "Field1 must be a number.")
+                    )
+                ),
+            'field2'    => array(
+                    'presence' => 'required'
+                )
+        );
+
+        $data = array('field1' => 0.0, 'field2' => '');
+        $input = new InputFilter(null, $validators, $data);
+        $this->assertFalse($input->isValid());
+        $messages = $input->getMessages();
+        $this->assertSame($messages['field2']["isEmpty"], "You must give a non-empty value for field 'field2'");
+        $this->assertSame('Field1 is empty', $messages['field1'][Validator\NotEmpty::IS_EMPTY], 'custom message not shown');
+    }
+
+    /**
+     * @group ZF-8446
+     * The issue reports about nested error messages. This is to assure these do not occur.
+     *
+     * Example:
+     * Expected Result
+     *      array(2) {
+     *        ["field1"] => array(1) {
+     *          ["isEmpty"] => string(20) "'field1' is required"
+     *        }
+     *        ["field2"] => array(1) {
+     *          ["isEmpty"] => string(36) "Value is required and can't be empty"
+     *        }
+     *      }
+     *  Actual Result
+     *      array(2) {
+     *        ["field1"] => array(1) {
+     *          ["isEmpty"] => array(1) {
+     *            ["isEmpty"] => string(20) "'field1' is required"
+     *          }
+     *        }
+     *        ["field2"] => array(1) {
+     *          ["isEmpty"] => array(1) {
+     *            ["isEmpty"] => string(20) "'field1' is required"
+     *          }
+     * }
+     *      }
+     */
+    public function testNoNestedMessageArrays()
+    {
+        $data = array(
+            'field1' => '',
+            'field2' => ''
+        );
+
+        $validators = array(
+            'field1' => array(
+                new Validator\NotEmpty(),
+                InputFilter::MESSAGES => array(
+                    array(
+                        Validator\NotEmpty::IS_EMPTY => '\'field1\' is required'
+                    )
+                )
+            ),
+
+            'field2' => array(
+                new Validator\NotEmpty()
+            )
+        );
+
+        $input = new InputFilter( null, $validators, $data );
+
+        $this->assertFalse($input->isValid());
+        $messages = $input->getMessages();
+        $this->assertFalse(is_array($messages['field1']['isEmpty']), 'oh oh, we  may have got nested messages');
+        $this->assertTrue(isset($messages['field1']['isEmpty']), 'oh no, we not even got the normally expected messages');
+    }
+
+    /**
+     * If setAllowEmpty(true) is called, all fields are optional, but fields with
+     * a NotEmpty validator attached to them, should contain a non empty value.
+     *
+     * @group ZF-9289
+     */
+    function testAllowEmptyTrueRespectsNotEmptyValidators()
+    {
+        $data = array(
+            'field1' => 'foo',
+            'field2' => ''
+        );
+
+        $validators = array(
+            'field1' => array(
+                new Validator\NotEmpty(),
+                InputFilter::MESSAGES => array(
+                    array(
+                        Validator\NotEmpty::IS_EMPTY => '\'field1\' is required'
+                    )
+                )
+            ),
+
+            'field2' => array(
+                new Validator\NotEmpty()
+            )
+        );
+
+        $options = array(InputFilter::ALLOW_EMPTY => true);
+        $input = new InputFilter( null, $validators, $data, $options );
+        $this->assertFalse($input->isValid(), 'Ouch, the NotEmpty validators are ignored!');
+
+        $validators = array(
+            'field1' => array(
+                'Digits',
+                array('NotEmpty', 'integer'),
+                InputFilter::MESSAGES => array(
+                    1 =>
+                    array(
+                        Validator\NotEmpty::IS_EMPTY => '\'field1\' is required'
+                    )
+                )
+            )
+        );
+
+        $data = array(
+            'field1' => 0,
+            'field2' => ''
+        );
+        $options = array(InputFilter::ALLOW_EMPTY => true);
+        $input = new InputFilter( null, $validators, $data, $options );
+        $this->assertFalse($input->isValid(), 'Ouch, if the NotEmpty validator is not the first rule, the NotEmpty validators are ignored !');
+
+        // and now with a string 'NotEmpty' instead of an instance:
+
+        $validators = array(
+            'field1' => array(
+                'NotEmpty',
+                InputFilter::MESSAGES => array(
+                    0 =>
+                    array(
+                        Validator\NotEmpty::IS_EMPTY => '\'field1\' is required'
+                    )
+                )
+            )
+        );
+
+        $data = array(
+            'field1' => '',
+            'field2' => ''
+        );
+
+        $options = array(InputFilter::ALLOW_EMPTY => true);
+        $input = new InputFilter( null, $validators, $data, $options );
+        $this->assertFalse($input->isValid(), 'If the NotEmpty validator is a string, the NotEmpty validator is ignored !');
+
+        // and now with an array
+
+        $validators = array(
+            'field1' => array(
+                array('NotEmpty', 'integer'),
+                InputFilter::MESSAGES => array(
+                    0 =>
+                    array(
+                        Validator\NotEmpty::IS_EMPTY => '\'field1\' is required'
+                    )
+                )
+            )
+        );
+
+        $data = array(
+            'field1' => 0,
+            'field2' => ''
+        );
+
+        $options = array(InputFilter::ALLOW_EMPTY => true);
+        $input = new InputFilter( null, $validators, $data, $options );
+        $this->assertFalse($input->isValid(), 'If the NotEmpty validator is an array, the NotEmpty validator is ignored !');
+    }
+
+    /**
+     * @group ZF-11267
+     * If we pass in a validator instance that has a preset custom message, this
+     * message should be used.
+     */
+    function testIfCustomMessagesOnValidatorInstancesCanBeUsed()
+    {
+        // test with a Digits validator
+        $data = array('field1' => 'invalid data');
+        $customMessage = 'Hey, that\'s not a Digit!!!';
+        $validator = new Validator\Digits();
+        $validator->setMessage($customMessage, 'notDigits');
+        $this->assertFalse($validator->isValid('foo'), 'standalone validator thinks \'foo\' is a valid digit');
+        $messages = $validator->getMessages();
+        $this->assertSame($messages['notDigits'], $customMessage, 'stanalone validator does not have custom message');
+        $validators = array('field1' => $validator);
+        $input = new InputFilter(null, $validators, $data);
+        $this->assertFalse($input->isValid(), 'invalid input is valid');
+        $messages = $input->getMessages();
+        $this->assertSame($messages['field1']['notDigits'], $customMessage, 'The custom message is not used');
+
+        // test with a NotEmpty validator
+        $data = array('field1' => '');
+        $customMessage = 'You should really supply a value...';
+        $validator = new Validator\NotEmpty();
+        $validator->setMessage($customMessage, 'isEmpty');
+        $this->assertFalse($validator->isValid(''), 'standalone validator thinks \'\' is not empty');
+        $messages = $validator->getMessages();
+        $this->assertSame($messages['isEmpty'], $customMessage, 'stanalone NotEmpty validator does not have custom message');
+        $validators = array('field1' => $validator);
+        $input = new InputFilter(null, $validators, $data);
+        $this->assertFalse($input->isValid(), 'invalid input is valid');
+        $messages = $input->getMessages();
+        $this->assertSame($messages['field1']['isEmpty'], $customMessage, 'For the NotEmpty validator the custom message is not used');
+    }
+    
+    /**
+     * This test doesn't include any assertions as it's purpose is to 
+     * ensure that passing an empty array value into a $validators rule 
+     * doesn't cause a notice to be emitted
+     *  
+     * @group ZF-11819
+     */
+    public function testValidatorRuleCanHaveEmptyArrayAsMetacommandValue()
+    {
+        $validators = array(
+            'perms' => array('Int', 'default' => array()),
+        );
+
+        $validate = new InputFilter(NULL, $validators);
+        $validate->isValid();
     }
 }
 

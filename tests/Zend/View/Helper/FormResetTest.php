@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace ZendTest\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -68,7 +68,7 @@ class FormResetTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldRenderResetInput()
     {
-        $html = $this->helper->direct(array(
+        $html = $this->helper->__invoke(array(
             'name'    => 'foo',
             'value'   => 'Reset',
         ));
@@ -76,11 +76,11 @@ class FormResetTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see ZF-2845
+     * @group ZF-2845
      */
     public function testShouldAllowDisabling()
     {
-        $html = $this->helper->direct(array(
+        $html = $this->helper->__invoke(array(
             'name'    => 'foo',
             'value'   => 'Reset',
             'attribs' => array('disable' => true)
@@ -90,14 +90,14 @@ class FormResetTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldRenderAsHtmlByDefault()
     {
-        $test = $this->helper->direct('foo', 'bar');
+        $test = $this->helper->__invoke('foo', 'bar');
         $this->assertNotContains(' />', $test);
     }
 
     public function testShouldAllowRenderingAsXHtml()
     {
-        $this->view->broker('doctype')->direct('XHTML1_STRICT');
-        $test = $this->helper->direct('foo', 'bar');
+        $this->view->plugin('doctype')->__invoke('XHTML1_STRICT');
+        $test = $this->helper->__invoke('foo', 'bar');
         $this->assertContains(' />', $test);
     }
 }

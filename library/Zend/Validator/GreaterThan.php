@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,24 +23,29 @@
  */
 namespace Zend\Validator;
 
+use Zend\Config\Config;
+
 /**
  * @uses       \Zend\Validator\AbstractValidator
  * @uses       \Zend\Validator\Exception
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class GreaterThan extends AbstractValidator
 {
-
-    const NOT_GREATER = 'notGreaterThan';
+    const NOT_GREATER           = 'notGreaterThan';
+    const NOT_GREATER_INCLUSIVE = 'notGreaterThanInclusive';
 
     /**
+     * Validation failure message template definitions
+     *
      * @var array
      */
     protected $_messageTemplates = array(
         self::NOT_GREATER => "'%value%' is not greater than '%min%'",
+        self::NOT_GREATER_INCLUSIVE => "'%value' is not greater or equal than '%min%'"
     );
 
     /**
@@ -58,26 +63,48 @@ class GreaterThan extends AbstractValidator
     protected $_min;
 
     /**
+     * Whether to do inclusive comparisons, allowing equivalence to max
+     *
+     * If false, then strict comparisons are done, and the value may equal
+     * the min option
+     *
+     * @var boolean
+     */
+    protected $_inclusive;
+
+    /**
      * Sets validator options
      *
-     * @param  mixed|\Zend\Config\Config $min
+     * @param  mixed|array|Config $options
      * @return void
      */
-    public function __construct($min)
+    public function __construct($options = null)
     {
-        if ($min instanceof \Zend\Config\Config) {
-            $min = $min->toArray();
-        }
+        if ($options instanceof Config) {
+            $options = $options->toArray();
+        } else if (!is_array($options)) {
+            $options = func_get_args();
+            $temp['min'] = array_shift($options);
 
-        if (is_array($min)) {
-            if (array_key_exists('min', $min)) {
-                $min = $min['min'];
-            } else {
-                throw new Exception\InvalidArgumentException("Missing option 'min'");
+            if (!empty($options)) {
+                $temp['inclusive'] = array_shift($options);
             }
+
+            $options = $temp;
         }
 
-        $this->setMin($min);
+        if (!array_key_exists('min', $options)) {
+            throw new Exception\InvalidArgumentException("Missing option 'min'");
+        }
+
+        if (!array_key_exists('inclusive', $options)) {
+            $options['inclusive'] = false;
+        }
+
+        $this->setMin($options['min'])
+             ->setInclusive($options['inclusive']);
+             
+        parent::__construct();
     }
 
     /**
@@ -103,6 +130,28 @@ class GreaterThan extends AbstractValidator
     }
 
     /**
+     * Returns the inclusive option
+     *
+     * @return boolean
+     */
+    public function getInclusive()
+    {
+        return $this->_inclusive;
+    }
+
+    /**
+     * Sets the inclusive option
+     *
+     * @param  boolean $inclusive
+     * @return \Zend\Validator\GreaterThan Provides a fluent interface
+     */
+    public function setInclusive($inclusive)
+    {
+        $this->_inclusive = $inclusive;
+        return $this;
+    }
+
+    /**
      * Returns true if and only if $value is greater than min option
      *
      * @param  mixed $value
@@ -110,12 +159,20 @@ class GreaterThan extends AbstractValidator
      */
     public function isValid($value)
     {
-        $this->_setValue($value);
+        $this->setValue($value);
 
-        if ($this->_min >= $value) {
-            $this->_error(self::NOT_GREATER);
-            return false;
+        if ($this->_inclusive) {
+            if ($this->_min > $value) {
+                $this->error(self::NOT_GREATER_INCLUSIVE);
+                return false;
+            }
+        } else {
+            if ($this->_min >= $value) {
+                $this->error(self::NOT_GREATER);
+                return false;
+            }
         }
+
         return true;
     }
 

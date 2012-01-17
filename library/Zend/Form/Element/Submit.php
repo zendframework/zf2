@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ namespace Zend\Form\Element;
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Submit extends Xhtml
@@ -54,7 +54,7 @@ class Submit extends Xhtml
         if (is_string($spec) && ((null !== $options) && is_string($options))) {
             $options = array('label' => $options);
         }
-        
+
         if (!isset($options['ignore'])) {
             $options['ignore'] = true;
         }
@@ -110,7 +110,7 @@ class Submit extends Xhtml
      *
      * Uses only 'Submit' and 'DtDdWrapper' decorators by default.
      *
-     * @return void
+     * @return \Zend\Form\Element\Submit
      */
     public function loadDefaultDecorators()
     {

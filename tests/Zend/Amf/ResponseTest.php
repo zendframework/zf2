@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,6 +23,7 @@
  * @namespace
  */
 namespace ZendTest\Amf;
+
 use Zend\Amf\Parser,
     Zend\Amf\Value\Messaging,
     Zend\Amf\Value,
@@ -35,7 +36,7 @@ use Zend\Amf\Parser,
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Amf
  */
@@ -51,12 +52,19 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     protected $_response;
 
     /**
+     * Stores the original set timezone
+     * @var string
+     */
+    private $_originaltimezone;
+
+    /**
      * Setup environment
      */
     public function setUp()
     {
+        $this->_originaltimezone = date_default_timezone_get();
         date_default_timezone_set('America/Chicago');
-        Locale::setDefault('en_US');
+        Locale::setFallback('en_US');
         Parser\TypeLoader::resetMap();
         $this->_response = new \Zend\Amf\Response\StreamResponse();
     }
@@ -67,6 +75,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         unset($this->_response);
+        date_default_timezone_set($this->_originaltimezone);
     }
 
     /**

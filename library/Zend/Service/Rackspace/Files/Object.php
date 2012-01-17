@@ -15,67 +15,66 @@
  * @category   Zend
  * @package    Zend\Service\Rackspace
  * @subpackage Files
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 namespace Zend\Service\Rackspace\Files;
 
-use Zend\Service\Rackspace\Files as RackspaceFiles,
-        Zend\Service\Rackspace\Exception\InvalidArgumentException;;
+use Zend\Service\Rackspace\Files as RackspaceFiles;
 
 class Object
 {
+    /**
+     * The service that has created the object
+     *
+     * @var Zend\Service\Rackspace\Files
+     */
+    protected $service;
     /**
      * Name of the object
      *
      * @var string
      */
-    protected $_name;
+    protected $name;
     /**
      * MD5 value of the object's content
      *
      * @var string
      */
-    protected $_hash;
+    protected $hash;
     /**
      * Size in bytes of the object's content
      *
      * @var integer
      */
-    protected $_size;
+    protected $size;
     /**
      * Content type of the object's content
      *
-     * @var <type>
+     * @var string
      */
-    protected $_contentType;
+    protected $contentType;
     /**
      * Date of the last modified of the object
      *
      * @var string
      */
-    protected $_lastModified;
+    protected $lastModified;
     /**
      * Object content
      *
      * @var string
      */
-    protected $_file;
+    protected $content;
     /**
      * Name of the container where the object is stored
      *
      * @var string
      */
-    protected $_container;
+    protected $container;
     /**
-     * If it's true means we called the getMetadata API
-     *
-     * @var boolean
-     */
-    private $_getMetadata = false;
-    /**
-     * __construct()
+     * Constructor
      * 
      * You must pass the RackspaceFiles object of the caller and an associative
      * array with the keys "name", "container", "hash", "bytes", "content_type",
@@ -86,7 +85,7 @@ class Object
      * bytes= size in bytes of the object's content
      * content_type= content type of the object's content
      * last_modified= date of the last modified of the object
-     * file= content of the object
+     * content= content of the object
      * 
      * @param RackspaceFiles $service
      * @param array $data 
@@ -94,118 +93,119 @@ class Object
     public function __construct(RackspaceFiles $service,$data)
     {
         if (!($service instanceof RackspaceFiles) || !is_array($data)) {
-             throw new InvalidArgumentException("You must pass a RackspaceFiles and an array");
+             throw new Exception\InvalidArgumentException("You must pass a RackspaceFiles and an array");
         }
         if (!array_key_exists('name', $data)) {
-             throw new InvalidArgumentException("You must pass the name of the object in the array (name)");
+             throw new Exception\InvalidArgumentException("You must pass the name of the object in the array (name)");
         }
         if (!array_key_exists('container', $data)) {
-             throw new InvalidArgumentException("You must pass the container of the object in the array (container)");
+             throw new Exception\InvalidArgumentException("You must pass the container of the object in the array (container)");
         }
         if (!array_key_exists('hash', $data)) {
-             throw new InvalidArgumentException("You must pass the hash of the object in the array (hash)");
+             throw new Exception\InvalidArgumentException("You must pass the hash of the object in the array (hash)");
         }
         if (!array_key_exists('bytes', $data)) {
-             throw new InvalidArgumentException("You must pass the byte size of the object in the array (bytes)");
+             throw new Exception\InvalidArgumentException("You must pass the byte size of the object in the array (bytes)");
         }
         if (!array_key_exists('content_type', $data)) {
-             throw new InvalidArgumentException("You must pass the content type of the object in the array (content_type)");
+             throw new Exception\InvalidArgumentException("You must pass the content type of the object in the array (content_type)");
         }
         if (!array_key_exists('last_modified', $data)) {
-             throw new InvalidArgumentException("You must pass the last modified data of the object in the array (last_modified)");
+             throw new Exception\InvalidArgumentException("You must pass the last modified data of the object in the array (last_modified)");
         }
-        $this->_name= $data['name'];
-        $this->_container= $data['container'];
-        $this->_hash= $data['hash'];
-        $this->_size= $data['bytes'];
-        $this->_contentType= $data['content_type'];
-        $this->_lastModified= $data['last_modified'];
-        if (!empty($data['file'])) {
-            $this->_file= $data['file'];
+        $this->name= $data['name'];
+        $this->container= $data['container'];
+        $this->hash= $data['hash'];
+        $this->size= $data['bytes'];
+        $this->contentType= $data['content_type'];
+        $this->lastModified= $data['last_modified'];
+        if (!empty($data['content'])) {
+            $this->content= $data['content'];
         }
-        $this->_service= $service;
+        $this->service= $service;
     }
     /**
      * Get name
      *
      * @return string
      */
-    public function getName() {
-        return $this->_name;
+    public function getName() 
+    {
+        return $this->name;
     }
     /**
      * Get the name of the container
      *
      * @return string
      */
-    public function getContainer() {
-        return $this->_container;
+    public function getContainer() 
+    {
+        return $this->container;
     }
     /**
      * Get the MD5 of the object's content
      *
-     * @return string
+     * @return string|boolean
      */
-    public function getHash() {
-        return $this->_hash;
+    public function getHash() 
+    {
+        return $this->hash;
     }
     /**
-     * Get the size of the object's content
+     * Get the size (in bytes) of the object's content
      *
-     * @return integer
+     * @return integer|boolean
      */
-    public function getSize() {
-        return $this->_size;
+    public function getSize() 
+    {
+        return $this->size;
     }
     /**
      * Get the content type of the object's content
      *
      * @return string
      */
-    public function getContentType() {
-        return $this->_contentType;
+    public function getContentType() 
+    {
+        return $this->contentType;
     }
     /**
      * Get the data of the last modified of the object
      *
      * @return string
      */
-    public function getLastModified() {
-        return $this->_lastModified;
+    public function getLastModified() 
+    {
+        return $this->lastModified;
     }
     /**
      * Get the content of the object
      *
      * @return string
      */
-    public function getFile() {
-        return $this->_file;
+    public function getContent() 
+    {
+        return $this->content;
     }
     /**
      * Get the metadata of the object
      * If you don't pass the $key it returns the entire array of metadata value
      *
      * @param string $key
-     * @return string|array
+     * @return string|array|boolean
      */
-    public function getMetadata($key=null) {
-        if (empty($this->_metadata) && (!$this->_getMetadata)) {
-            $result= $this->_service->getMetadataObject($this->_container,$this->_name);
-            if (!empty($result)) {
-                $this->_hash= $data['hash'];
-                $this->_size= $data['bytes'];
-                $this->_contentType= $data['content_type'];
-                $this->_lastModified= $data['last_modified'];
-                if (!empty($result['metadata'])) {
-                    $this->_metadata= $result['metadata'];
-                }
+    public function getMetadata($key=null) 
+    {
+        $result= $this->service->getMetadataObject($this->container,$this->name);
+        if (!empty($result)) {
+            if (empty($key)) {
+                return $result['metadata'];
             }
-            $this->_getMetadata= true;
+            if (isset($result['metadata'][$key])) {
+                return $result['metadata'][$key];
+            }
         }
-        if (!empty($this->_metadata[$key])) {
-            return $this->_metadata[$key];
-        }
-        return $this->_metadata;
+        return false;
     }
     /**
      * Set the metadata value
@@ -214,8 +214,9 @@ class Object
      * @param array $metadata
      * @return boolean
      */
-    public function setMetadata($metadata) {
-        return $this->_service->setMetadataObject($this->_container,$this->_name,$metadata);
+    public function setMetadata($metadata) 
+    {
+        return $this->service->setMetadataObject($this->container,$this->name,$metadata);
     }
     /**
      * Copy the object to another container
@@ -228,19 +229,21 @@ class Object
      * @param string $content_type
      * @return boolean
      */
-    public function copyTo($container_dest,$name_dest,$metadata=array(),$content_type=null) {
-        return $this->_service->copyObject($this->_container,$this->_name,$container_dest,$name_dest,$metadata,$content_type);
+    public function copyTo($container_dest,$name_dest,$metadata=array(),$content_type=null) 
+    {
+        return $this->service->copyObject($this->container,$this->name,$container_dest,$name_dest,$metadata,$content_type);
     }
     /**
      * Get the CDN URL of the object
      *
      * @return string
      */
-    public function getCdnUrl() {
-        $result= $this->_service->getInfoCdn($this->_container);
+    public function getCdnUrl() 
+    {
+        $result= $this->service->getInfoCdnContainer($this->container);
         if ($result!==false) {
             if ($result['cdn_enabled']) {
-                return $result['cdn_uri'].'/'.$this->_name;
+                return $result['cdn_uri'].'/'.$this->name;
             }
         }
         return false;
@@ -250,11 +253,12 @@ class Object
      *
      * @return string
      */
-    public function getCdnUrlSsl() {
-        $result= $this->_service->getInfoCdn($this->_container);
+    public function getCdnUrlSsl() 
+    {
+        $result= $this->service->getInfoCdnContainer($this->container);
         if ($result!==false) {
             if ($result['cdn_enabled']) {
-                return $result['cdn_uri_ssl'].'/'.$this->_name;
+                return $result['cdn_uri_ssl'].'/'.$this->name;
             }
         }
         return false;

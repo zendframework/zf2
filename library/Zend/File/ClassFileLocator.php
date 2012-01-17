@@ -34,7 +34,7 @@ class ClassFileLocator extends FilterIterator
                 throw new Exception\InvalidArgumentException('Expected a valid directory name');
             }
 
-            $dirOrIterator = new RecursiveDirectoryIterator($dirOrIterator);
+            $dirOrIterator = new RecursiveDirectoryIterator($dirOrIterator, RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
         }
         if (!$dirOrIterator instanceof DirectoryIterator) {
             throw new Exception\InvalidArgumentException('Expected a DirectoryIterator');
@@ -97,6 +97,9 @@ class ClassFileLocator extends FilterIterator
                     $done      = false;
                     do {
                         ++$i;
+                        if (!array_key_exists($i, $tokens)) {
+                            break;
+                        }
                         $token = $tokens[$i];
                         if (is_string($token)) {
                             if (';' === $token) {

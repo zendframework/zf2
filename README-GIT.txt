@@ -44,12 +44,10 @@ github or other public site, or setup/use your own repository.
 
       % git config user.email <your email address>
 
-  * Add a remote to the canonical ZF repository (or GitHub mirror), so
-    you can keep your fork up-to-date:
+  * Add a remote to the canonical ZF repository, so you can keep your fork
+    up-to-date:
 
-      % git remote add zf2 git://github.com/zendframework/zf2.git
-      - OR -
-      % git remote add zf2 git://git.zendframework.com/zf.git
+      % git remote add zf2 https://github.com/zendframework/zf2.git
       - AND -
       % git fetch zf2
 
@@ -77,7 +75,7 @@ github or other public site, or setup/use your own repository.
 
   * Add a remote for the ZF repository and fetch it
 
-      % git remote add zf2 git://git.zendframework.com/zf.git
+      % git remote add zf2 https://github.com/zendframework/zf2.git
       % git fetch zf2
 
   * Create a new branch for the ZF repository (named "zf/master" here)
@@ -186,7 +184,7 @@ FEEDS AND EMAILS
 ================
 RSS feeds may be found at:
 
-    http://git.zendframework.com/feeds/<branch>.xml
+    https://github.com/zendframework/zf2/commits/<branch>.atom
 
 where <branch> is a branch in the repository.
 
@@ -211,16 +209,3 @@ git's "git-send-email" functionality, or by sending a request to a
 committer indicating the URL of your repository, the branch that should
 be pulled, and/or the specific revision(s) to pull.
 
-If you are a contributor, and accept changes from a non-CLA'd developer,
-you need to do the following:
-
- * Verify that the developer is granting you permission to commit the
-   code to Zend Framework. If possible, get this permission in writing.
-
- * If you do not get verification, do not incorporate the code in your
-   own branches.
-
- * Once you have merged the code into your branches, you need to commit
-   it using the "-s" or "--signoff" switch to "git commit". The ZF
-   pre-receive hook rejects any commits from non-CLA'd authors unless
-   there is a sign-off message in the commit.

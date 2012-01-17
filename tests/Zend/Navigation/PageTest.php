@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Navigation
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,7 +36,7 @@ use Zend\Navigation\AbstractPage,
  * @category   Zend
  * @package    Zend_Navigation
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Navigation
  */
@@ -86,6 +86,11 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $page->get('Action'));
     }
 
+    /**
+     * This functionality was removed in ZF2 to comply with new URL helper; do we need it?
+     *
+     * @group disable
+     */
     public function testSetShouldNormalizePropertyName()
     {
         $page = AbstractPage::factory(array(
@@ -97,6 +102,11 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($page->getResetParams());
     }
 
+    /**
+     * This functionality was removed in ZF2 to comply with new URL helper; do we need it?
+     *
+     * @group disable
+     */
     public function testGetShouldNormalizePropertyName()
     {
         $page = AbstractPage::factory(array(
@@ -164,6 +174,35 @@ class PageTest extends \PHPUnit_Framework_TestCase
                         'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertContains('Invalid argument: $label', $e->getMessage());
+            }
+        }
+    }
+
+    /**
+     * @group ZF-8922
+     */
+    public function testSetAndGetFragmentIdentifier()
+    {
+        $page = AbstractPage::factory(array(
+            'uri'                => '#',
+            'fragment' => 'foo',
+        ));
+        
+        $this->assertEquals('foo', $page->getFragment());
+        
+        $page->setFragment('bar');
+        $this->assertEquals('bar', $page->getFragment());
+        
+        $invalids = array(42, (object) null);
+        foreach ($invalids as $invalid) {
+            try {
+                $page->setFragment($invalid);
+                $this->fail('An invalid value was set, but a ' .
+                            'Zend_Navigation_Exception was not thrown');
+            } catch (Navigation\Exception\InvalidArgumentException $e) {
+                $this->assertContains(
+                    'Invalid argument: $fragment', $e->getMessage()
+                );
             }
         }
     }
@@ -690,6 +729,14 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $page->setVisible(0);
         $this->assertFalse($page->isVisible());
 
+        /**
+         * ZF-10146
+         * 
+         * @link http://framework.zend.com/issues/browse/ZF-10146
+         */
+        $page->setVisible('False');
+        $this->assertFalse($page->isVisible());
+
         $page->setVisible(array());
         $this->assertFalse($page->isVisible());
     }
@@ -766,7 +813,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action' => 'baz',
             'controller' => 'bat',
             'module' => 'test',
-            'reset_params' => false,
             'id' => 'foo-test'
         );
 
@@ -777,7 +823,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action'      => 'baz',
             'controller'  => 'bat',
             'module'      => 'test',
-            'resetParams' => false,
             'id'          => 'foo-test'
         );
 
@@ -786,7 +831,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action'      => $page->getAction(),
             'controller'  => $page->getController(),
             'module'      => $page->getModule(),
-            'resetParams' => $page->getResetParams(),
             'id'          => $page->getId()
         );
 
@@ -806,7 +850,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action' => 'baz',
             'controller' => 'bat',
             'module' => 'test',
-            'reset_params' => false,
             'id' => 'foo-test'
         );
 
@@ -817,7 +860,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action'      => 'baz',
             'controller'  => 'bat',
             'module'      => 'test',
-            'resetParams' => false,
             'id'          => 'foo-test'
         );
 
@@ -826,7 +868,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action'      => $page->getAction(),
             'controller'  => $page->getController(),
             'module'      => $page->getModule(),
-            'resetParams' => $page->getResetParams(),
             'id'          => $page->getId()
         );
 
@@ -1099,7 +1140,8 @@ class PageTest extends \PHPUnit_Framework_TestCase
     {
         $options = array(
             'label'    => 'foo',
-            'uri'      => '#',
+            'uri'      => 'http://www.example.com/foo.html',
+            'fragment' => 'bar',
             'id'       => 'my-id',
             'class'    => 'my-class',
             'title'    => 'my-title',
@@ -1119,11 +1161,11 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'pages'    => array(
                 array(
                     'label' => 'foo.bar',
-                    'uri'   => '#'
+                    'uri'   => 'http://www.example.com/foo.html'
                 ),
                 array(
                     'label' => 'foo.baz',
-                    'uri'   => '#'
+                    'uri'   => 'http://www.example.com/foo.html'
                 )
             )
         );
@@ -1145,6 +1187,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
 
         // tweak options to what we expect sub page 1 to be
         $options['label'] = 'foo.bar';
+        $options['fragment'] = null;
         $options['order'] = null;
         $options['id'] = null;
         $options['class'] = null;

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_OAuth
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\OAuth\Http,
  * @package    Zend_OAuth
  * @subpackage UnitTests
  * @group      Zend_OAuth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class RequestTokenTest extends \PHPUnit_Framework_TestCase
@@ -53,7 +53,7 @@ class RequestTokenTest extends \PHPUnit_Framework_TestCase
     public function testConstructorSetsConsumerInstance()
     {
         $request = new Http\RequestToken($this->stubConsumer, null, $this->stubHttpUtility);
-        $this->assertType('ZendTest\\OAuth\\Http\\Consumer32874', $request->getConsumer());
+        $this->assertInstanceOf('ZendTest\\OAuth\\Http\\Consumer32874', $request->getConsumer());
     }
 
     public function testConstructorSetsCustomServiceParameters()
@@ -221,5 +221,8 @@ class HTTPUtility32874 extends Http\Utility
 
 class HTTPClient32874 extends \Zend\Http\Client
 {
-    public function getRawData(){return $this->raw_post_data;}
+    public function getRawData()
+    {
+        return $this->getRequest()->getContent();
+    }
 }

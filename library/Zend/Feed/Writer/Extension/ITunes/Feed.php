@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
  
@@ -22,17 +22,14 @@
 * @namespace
 */
 namespace Zend\Feed\Writer\Extension\ITunes;
-use Zend\Feed\Writer;
-use Zend\Uri;
+
+use Zend\Feed\Writer,
+    Zend\Uri;
 
 /**
-* @uses \Zend\Feed\Exception
-* @uses \Zend\Feed\Writer\Writer
-* @uses \Zend\Feed\Writer\Exception\InvalidMethodException
-* @uses \Zend\Uri\Uri
 * @category Zend
 * @package Zend_Feed_Writer
-* @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+* @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
 * @license http://framework.zend.com/license/new-bsd New BSD License
 */
 class Feed
@@ -170,7 +167,7 @@ class Feed
      */
     public function setItunesImage($value)
     {
-        if (!Uri\Url::validate($value)) {
+        if (!Uri\UriFactory::factory($value)->isValid()) {
             throw new Writer\Exception('invalid parameter: "image" may only'
             . ' be a valid URI/IRI');
         }
@@ -249,7 +246,7 @@ class Feed
      */
     public function setItunesNewFeedUrl($value)
     {
-        if (!Uri\Url::validate($value)) {
+        if (!Uri\UriFactory::factory($value)->isValid()) {
             throw new Writer\Exception('invalid parameter: "newFeedUrl" may only'
             . ' be a valid URI/IRI');
         }

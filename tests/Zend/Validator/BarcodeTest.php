@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,8 @@
  * @namespace
  */
 namespace ZendTest\Validator;
-use Zend\Validator\Barcode;
+use Zend\Validator\Barcode,
+    ReflectionClass;
 
 /**
  * \Zend\Validator\Barcode
@@ -32,23 +33,12 @@ use Zend\Validator\Barcode;
  * @package    Zend_Validator
  * @subpackage UnitTests
  * @uses       Zend_Validator_Barcode
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
 class BarcodeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Test if EAN-13 contains only numeric characters
-     *
-     * @group ZF-3297
-     */
-    public function testEan13ContainsOnlyNumeric()
-    {
-        $barcode = new Barcode('ean13');
-        $this->assertFalse($barcode->isValid('3RH1131-1BB40'));
-    }
-
     public function testNoneExisting()
     {
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'not found');
@@ -84,64 +74,64 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
         $barcode = new Barcode('MyBarcode1');
         $this->assertFalse($barcode->isValid('0000000'));
         $this->assertTrue(array_key_exists('barcodeFailed', $barcode->getMessages()));
-        $this->assertFalse($barcode->getAdapter()->checksum('0000000'));
+        $this->assertFalse($barcode->getAdapter()->hasValidChecksum('0000000'));
     }
 
     public function testInvalidCharAdapter()
     {
         require_once __DIR__ . "/_files/MyBarcode1.php";
         $barcode = new Barcode('MyBarcode1');
-        $this->assertFalse($barcode->getAdapter()->checkChars(123));
+        $this->assertFalse($barcode->getAdapter()->hasValidCharacters(123));
     }
 
     public function testAscii128CharacterAdapter()
     {
         require_once __DIR__ . "/_files/MyBarcode2.php";
         $barcode = new Barcode('MyBarcode2');
-        $this->assertTrue($barcode->getAdapter()->checkChars('1234QW!"'));
+        $this->assertTrue($barcode->getAdapter()->hasValidCharacters('1234QW!"'));
     }
 
     public function testInvalidLengthAdapter()
     {
         require_once __DIR__ . "/_files/MyBarcode2.php";
         $barcode = new Barcode('MyBarcode2');
-        $this->assertFalse($barcode->getAdapter()->checkLength(123));
+        $this->assertFalse($barcode->getAdapter()->hasValidLength(123));
     }
 
     public function testArrayLengthAdapter()
     {
         require_once __DIR__ . "/_files/MyBarcode2.php";
         $barcode = new Barcode('MyBarcode2');
-        $this->assertTrue($barcode->getAdapter()->checkLength('1'));
-        $this->assertFalse($barcode->getAdapter()->checkLength('12'));
-        $this->assertTrue($barcode->getAdapter()->checkLength('123'));
-        $this->assertFalse($barcode->getAdapter()->checkLength('1234'));
+        $this->assertTrue($barcode->getAdapter()->hasValidLength('1'));
+        $this->assertFalse($barcode->getAdapter()->hasValidLength('12'));
+        $this->assertTrue($barcode->getAdapter()->hasValidLength('123'));
+        $this->assertFalse($barcode->getAdapter()->hasValidLength('1234'));
     }
 
     public function testArrayLengthAdapter2()
     {
         require_once __DIR__ . "/_files/MyBarcode3.php";
         $barcode = new Barcode('MyBarcode3');
-        $this->assertTrue($barcode->getAdapter()->checkLength('1'));
-        $this->assertTrue($barcode->getAdapter()->checkLength('12'));
-        $this->assertTrue($barcode->getAdapter()->checkLength('123'));
-        $this->assertTrue($barcode->getAdapter()->checkLength('1234'));
+        $this->assertTrue($barcode->getAdapter()->hasValidLength('1'));
+        $this->assertTrue($barcode->getAdapter()->hasValidLength('12'));
+        $this->assertTrue($barcode->getAdapter()->hasValidLength('123'));
+        $this->assertTrue($barcode->getAdapter()->hasValidLength('1234'));
     }
 
     public function testOddLengthAdapter()
     {
         require_once __DIR__ . "/_files/MyBarcode4.php";
         $barcode = new Barcode('MyBarcode4');
-        $this->assertTrue($barcode->getAdapter()->checkLength('1'));
-        $this->assertFalse($barcode->getAdapter()->checkLength('12'));
-        $this->assertTrue($barcode->getAdapter()->checkLength('123'));
-        $this->assertFalse($barcode->getAdapter()->checkLength('1234'));
+        $this->assertTrue($barcode->getAdapter()->hasValidLength('1'));
+        $this->assertFalse($barcode->getAdapter()->hasValidLength('12'));
+        $this->assertTrue($barcode->getAdapter()->hasValidLength('123'));
+        $this->assertFalse($barcode->getAdapter()->hasValidLength('1234'));
     }
 
     public function testInvalidAdapter()
     {
         $barcode = new Barcode('Ean13');
-        
+
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'does not implement');
         require_once __DIR__ . "/_files/MyBarcode5.php";
         $barcode->setAdapter('MyBarcode5');
@@ -149,20 +139,20 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
 
     public function testArrayConstructAdapter()
     {
-        $barcode = new Barcode(array('adapter' => 'Ean13', 'options' => 'unknown', 'checksum' => false));
+        $barcode = new Barcode(array('adapter' => 'Ean13', 'options' => 'unknown', 'useChecksum' => false));
         $this->assertTrue($barcode->getAdapter() instanceof Barcode\Ean13);
-        $this->assertFalse($barcode->getChecksum());
+        $this->assertFalse($barcode->useChecksum());
     }
 
-    public function testInvalidArrayConstructAdapter()
+    public function testDefaultdArrayConstructWithMissingAdapter()
     {
-        $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'Missing option');
         $barcode = new Barcode(array('options' => 'unknown', 'checksum' => false));
+        $this->assertTrue($barcode->isValid('0075678164125'));
     }
 
     public function testConfigConstructAdapter()
     {
-        $array = array('adapter' => 'Ean13', 'options' => 'unknown', 'checksum' => false);
+        $array = array('adapter' => 'Ean13', 'options' => 'unknown', 'useChecksum' => false);
         $config = new \Zend\Config\Config($array);
 
         $barcode = new Barcode($config);
@@ -176,7 +166,7 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($barcode->isValid('123'));
         $this->assertFalse($barcode->isValid('123a'));
 
-        $barcode->setChecksum(true);
+        $barcode->useChecksum(true);
         $this->assertTrue($barcode->isValid('0123456789101214'));
         $this->assertFalse($barcode->isValid('0123456789101213'));
     }
@@ -187,7 +177,7 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($barcode->isValid('0123456789101213'));
         $this->assertFalse($barcode->isValid('123'));
 
-        $barcode->setChecksum(true);
+        $barcode->useChecksum(true);
         $this->assertTrue($barcode->isValid('0123456789101214'));
         $this->assertFalse($barcode->isValid('0123456789101213'));
     }
@@ -199,7 +189,7 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($barcode->isValid('00075678164124'));
         $this->assertFalse($barcode->isValid('Test93Test93Test'));
 
-        $barcode->setChecksum(true);
+        $barcode->useChecksum(true);
         $this->assertTrue($barcode->isValid('159AZH'));
         $this->assertFalse($barcode->isValid('159AZG'));
     }
@@ -212,7 +202,7 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($barcode->isValid('Test93Test93Test'));
 
 // @TODO: CODE39 EXTENDED CHECKSUM VALIDATION MISSING
-//        $barcode->setChecksum(true);
+//        $barcode->useChecksum(true);
 //        $this->assertTrue($barcode->isValid('159AZH'));
 //        $this->assertFalse($barcode->isValid('159AZG'));
     }
@@ -223,7 +213,7 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($barcode->isValid('TEST93+'));
         $this->assertFalse($barcode->isValid('Test93+'));
 
-        $barcode->setChecksum(true);
+        $barcode->useChecksum(true);
         $this->assertTrue($barcode->isValid('CODE 93E0'));
         $this->assertFalse($barcode->isValid('CODE 93E1'));
     }
@@ -235,7 +225,7 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($barcode->isValid('Test93+'));
 
 // @TODO: CODE93 EXTENDED CHECKSUM VALIDATION MISSING
-//        $barcode->setChecksum(true);
+//        $barcode->useChecksum(true);
 //        $this->assertTrue($barcode->isValid('CODE 93E0'));
 //        $this->assertFalse($barcode->isValid('CODE 93E1'));
     }
@@ -428,5 +418,92 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
         $message = $barcode->getMessages();
         $this->assertTrue(array_key_exists('barcodeInvalidLength', $message));
         $this->assertContains("length of 7/8 characters", $message['barcodeInvalidLength']);
+    }
+
+    /**
+     * @group ZF-8673
+     */
+    public function testCODABAR()
+    {
+        $barcode = new Barcode('codabar');
+        $this->assertTrue($barcode->isValid('123456789'));
+        $this->assertTrue($barcode->isValid('A123A'));
+        $this->assertTrue($barcode->isValid('A123C'));
+        $this->assertFalse($barcode->isValid('A123E'));
+        $this->assertFalse($barcode->isValid('A1A23C'));
+        $this->assertTrue($barcode->isValid('T123*'));
+        $this->assertFalse($barcode->isValid('*123A'));
+    }
+
+    /**
+     * @group ZF-11532
+     */
+    public function testIssnWithMod0()
+    {
+        $barcode = new Barcode('issn');
+        $this->assertTrue($barcode->isValid('18710360'));
+    }
+
+    /**
+     * @group ZF-8674
+     */
+    public function testCODE128()
+    {
+        $barcode = new Barcode('code128');
+        $this->assertTrue($barcode->isValid('ˆCODE128:Š'));
+        $this->assertTrue($barcode->isValid('‡01231[Š'));
+
+        $barcode->useChecksum(false);
+        $this->assertTrue($barcode->isValid('012345'));
+        $this->assertTrue($barcode->isValid('ABCDEF'));
+        $this->assertFalse($barcode->isValid('01234Ê'));
+
+    }
+
+    /**
+     * Test if EAN-13 contains only numeric characters
+     *
+     * @group ZF-3297
+     */
+    public function testEan13ContainsOnlyNumeric()
+    {
+        $barcode = new Barcode('ean13');
+        $this->assertFalse($barcode->isValid('3RH1131-1BB40'));
+    }
+    
+    public function testEqualsMessageTemplates()
+    {
+        $validator = new Barcode('code25');
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageTemplates')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageTemplates');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageTemplates')
+        );
+    }
+    
+    public function testEqualsMessageVariables()
+    {
+        $validator = new Barcode('code25');
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageVariables')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageVariables');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageVariables')
+        );
     }
 }

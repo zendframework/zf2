@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,6 +23,8 @@
  * @namespace
  */
 namespace Zend\View\Helper\Placeholder;
+
+use Zend\View\Exception;
 
 /**
  * Registry for placeholder containers
@@ -35,7 +37,7 @@ namespace Zend\View\Helper\Placeholder;
  * @uses       \Zend\View\Helper\Placeholder\Registry\Exception
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Registry
@@ -59,9 +61,9 @@ class Registry
     protected $_items = array();
 
     /**
-     * Retrieve or create registry instnace
+     * Retrieve or create registry instance
      *
-     * @return void
+     * @return mixed
      */
     public static function getRegistry()
     {
@@ -157,6 +159,7 @@ class Registry
      *
      * @param  string $name
      * @return \Zend\View\Helper\Placeholder\Registry
+     * @throws Exception\InvalidArgumentException
      */
     public function setContainerClass($name)
     {
@@ -164,10 +167,9 @@ class Registry
             \Zend\Loader::loadClass($name);
         }
 
-        
+
         if (!in_array('Zend\View\Helper\Placeholder\Container\AbstractContainer', class_parents($name))) {
-            $e = new Container\Exception('Invalid Container class specified');
-            throw $e;
+            throw new Exception\InvalidArgumentException('Invalid Container class specified');
         }
 
         $this->_containerClass = $name;

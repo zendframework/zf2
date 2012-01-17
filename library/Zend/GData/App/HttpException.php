@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ namespace Zend\GData\App;
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class HttpException extends Exception
@@ -44,7 +44,7 @@ class HttpException extends Exception
     protected $_response = null;
 
     /**
-     * Create a new Zend_Gdata_App_HttpException
+     * Create a new \Zend\Gdata\App\HttpException
      *
      * @param  string $message Optionally set a message
      * @param \Zend\Http\Client\Exception Optionally pass in a \Zend\Http\Client\Exception

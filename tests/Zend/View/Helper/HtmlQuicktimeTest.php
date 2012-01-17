@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,11 +24,14 @@
  */
 namespace ZendTest\View\Helper;
 
+use Zend\View\PhpRenderer as View,
+    Zend\View\Helper\HtmlQuicktime;
+
 /**
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -48,8 +51,8 @@ class HtmlQuicktimeTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->view = new \Zend\View\View();
-        $this->helper = new \Zend\View\Helper\HtmlQuicktime();
+        $this->view   = new View();
+        $this->helper = new HtmlQuicktime();
         $this->helper->setView($this->view);
     }
 
@@ -60,7 +63,7 @@ class HtmlQuicktimeTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeHtmlQuicktime()
     {
-        $htmlQuicktime = $this->helper->direct('/path/to/quicktime.mov');
+        $htmlQuicktime = $this->helper->__invoke('/path/to/quicktime.mov');
 
         $objectStartElement = '<object data="/path/to/quicktime.mov"'
                             . ' type="video/quicktime"'

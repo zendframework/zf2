@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,6 +23,9 @@
  * @namespace
  */
 namespace ZendTest\View\Helper;
+
+use Zend\View\Helper\Url as UrlHelper,
+    Zend\Mvc\Router\SimpleRouteStack as Router;
 
 /**
  * Zend_View_Helper_UrlTest
@@ -32,40 +35,53 @@ namespace ZendTest\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
 class UrlTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @access protected
      */
     protected function setUp()
     {
-        $this->front = \Zend\Controller\Front::getInstance();
-        $this->front->getRouter()->addDefaultRoutes();
+        $router = new Router();
+        $router->addRoute('home', array(
+            'type' => 'Zend\Mvc\Router\Http\Literal',
+            'options' => array(
+                'route' => '/',
+            )
+        ));
+        $router->addRoute('default', array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/:controller[/:action]',
+                )
+        ));
 
-        // $this->view = new Zend_View();
-        $this->helper = new \Zend\View\Helper\Url();
-        // $this->helper->setView($this->view);
+        $this->url = new UrlHelper;
+        $this->url->setRouter($router);
     }
 
-    public function testDefaultEmpty()
+    public function testHelperHasHardDependencyWithRouter()
     {
-        $url = $this->helper->direct();
+        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'No RouteStack instance provided');
+        $url = new UrlHelper;
+        $url('home');
+    }
+
+    public function testHomeRoute()
+    {
+        $url = $this->url->__invoke('home');
         $this->assertEquals('/', $url);
     }
 
-    public function testDefault()
+    public function testModuleRoute()
     {
-        $url = $this->helper->direct(array('controller' => 'ctrl', 'action' => 'act'));
+        $url = $this->url->__invoke('default', array('controller' => 'ctrl', 'action' => 'act'));
         $this->assertEquals('/ctrl/act', $url);
     }
-
 }

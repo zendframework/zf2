@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace ZendTest\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -63,7 +63,7 @@ class FormImageTest extends \PHPUnit_Framework_TestCase
 
     public function testFormImageRendersFormImageXhtml()
     {
-        $button = $this->helper->direct('foo', 'bar');
+        $button = $this->helper->__invoke('foo', 'bar');
         $this->assertRegexp('/<input[^>]*?src="bar"/', $button);
         $this->assertRegexp('/<input[^>]*?name="foo"/', $button);
         $this->assertRegexp('/<input[^>]*?type="image"/', $button);
@@ -71,7 +71,7 @@ class FormImageTest extends \PHPUnit_Framework_TestCase
 
     public function testDisablingFormImageRendersImageInputWithDisableAttribute()
     {
-        $button = $this->helper->direct('foo', 'bar', array('disable' => true));
+        $button = $this->helper->__invoke('foo', 'bar', array('disable' => true));
         $this->assertRegexp('/<input[^>]*?disabled="disabled"/', $button);
         $this->assertRegexp('/<input[^>]*?src="bar"/', $button);
         $this->assertRegexp('/<input[^>]*?name="foo"/', $button);

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ use Zend;
  * @uses       \Zend\Validator\AbstractValidator
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Int extends AbstractValidator
@@ -77,6 +77,8 @@ class Int extends AbstractValidator
         if ($locale !== null) {
             $this->setLocale($locale);
         }
+        
+        parent::__construct();
     }
 
     /**
@@ -107,7 +109,7 @@ class Int extends AbstractValidator
     public function isValid($value)
     {
         if (!is_string($value) && !is_int($value) && !is_float($value)) {
-            $this->_error(self::INVALID);
+            $this->error(self::INVALID);
             return false;
         }
 
@@ -115,25 +117,25 @@ class Int extends AbstractValidator
             return true;
         }
 
-        $this->_setValue($value);
+        $this->setValue($value);
         if ($this->_locale === null) {
             $locale        = localeconv();
             $valueFiltered = str_replace($locale['decimal_point'], '.', $value);
             $valueFiltered = str_replace($locale['thousands_sep'], '', $valueFiltered);
 
             if (strval(intval($valueFiltered)) != $valueFiltered) {
-                $this->_error(self::NOT_INT);
+                $this->error(self::NOT_INT);
                 return false;
             }
 
         } else {
             try {
                 if (!\Zend\Locale\Format::isInteger($value, array('locale' => $this->_locale))) {
-                    $this->_error(self::NOT_INT);
+                    $this->error(self::NOT_INT);
                     return false;
                 }
             } catch (\Zend\Locale\Exception $e) {
-                $this->_error(self::NOT_INT);
+                $this->error(self::NOT_INT);
                 return false;
             }
         }

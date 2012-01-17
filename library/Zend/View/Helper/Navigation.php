@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,8 @@ use Zend\Loader\ShortNameLocator,
     Zend\Loader\PluginClassLoader,
     Zend\Navigation\Container,
     Zend\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper,
-    Zend\View\Helper\Navigation\Helper as NavigationHelper;
+    Zend\View\Helper\Navigation\Helper as NavigationHelper,
+    Zend\View\Exception;
 
 /**
  * Proxy helper for retrieving navigational helpers and forwarding calls
@@ -38,7 +39,7 @@ use Zend\Loader\ShortNameLocator,
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Navigation extends AbstractNavigationHelper
@@ -98,7 +99,7 @@ class Navigation extends AbstractNavigationHelper
      * @return \Zend\View\Helper\Navigation           fluent interface, returns
      *                                               self
      */
-    public function direct(Container $container = null)
+    public function __invoke(Container $container = null)
     {
         if (null !== $container) {
             $this->setContainer($container);
@@ -136,7 +137,7 @@ class Navigation extends AbstractNavigationHelper
     {
         // check if call should proxy to another helper
         if ($helper = $this->findHelper($method, false)) {
-            return call_user_func_array(array($helper, 'direct'), $arguments);
+            return call_user_func_array($helper, $arguments);
         }
 
         // default behaviour: proxy call to container
@@ -184,10 +185,9 @@ class Navigation extends AbstractNavigationHelper
      *                                             wrong. Default is true.
      * @return \Zend\View\Helper\Navigation\Helper  helper instance
      * @throws \Zend\Loader\PluginLoader\Exception  if $strict is true and
-     *                                             helper cannot be found
-     * @throws \Zend\View\Exception                 if $strict is true and
-     *                                             helper does not implement
-     *                                             the specified interface
+     *         helper cannot be found
+     * @throws Exception\InvalidArgumentException if $strict is true and
+     *         helper does not implement the specified interface
      */
     public function findHelper($proxy, $strict = true)
     {
@@ -211,12 +211,11 @@ class Navigation extends AbstractNavigationHelper
 
         if (!$helper instanceof AbstractNavigationHelper) {
             if ($strict) {
-                $e = new \Zend\View\Exception(sprintf(
+                throw new Exception\InvalidArgumentException(sprintf(
                         'Proxy helper "%s" is not an instance of ' .
                         'Zend\View\Helper\Navigation\Helper',
-                        get_class($helper)));
-                $e->setView($this->view);
-                throw $e;
+                        get_class($helper)
+                ));
             }
 
             return null;

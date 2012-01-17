@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,19 +22,14 @@
  * @namespace
  */
 namespace Zend\Feed\PubSubHubbub;
-use Zend\Feed\Reader;
-use Zend\Http;
+
+use Zend\Feed\Reader,
+    Zend\Http;
 
 /**
- * @uses       \Zend\Http\Client
- * @uses       \Zend\Feed\AbstractFeed
- * @uses       \Zend\Feed\PubSubHubbub\Exception
- * @uses       \Zend\Feed\Reader\Reader
- * @uses       \Zend\Uri\Uri
- * @uses       \Zend\Version
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class PubSubHubbub

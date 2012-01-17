@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,8 +25,9 @@
 namespace Zend\Form\Decorator;
 
 use Zend\File\Transfer\Adapter,
+    Zend\Loader\Pluggable,
     Zend\Form\Element,
-    Zend\View\ViewEngine as View;
+    Zend\View\Renderer;
 
 /**
  * Zend_Form_Decorator_File
@@ -39,7 +40,7 @@ use Zend\File\Transfer\Adapter,
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class File extends AbstractDecorator implements FileDecorator
@@ -92,7 +93,7 @@ class File extends AbstractDecorator implements FileDecorator
         }
 
         $view = $element->getView();
-        if (!$view instanceof View) {
+        if (!$view instanceof Renderer || !$view instanceof Pluggable) {
             return $content;
         }
 

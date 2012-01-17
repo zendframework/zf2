@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ use ArrayObject;
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Container extends ArrayObject
@@ -71,8 +71,8 @@ class Container extends ArrayObject
      */
     public function __construct($name = 'Default', $manager = null)
     {
-        if (!preg_match('/^[a-z][a-z0-9_]+$/i', $name)) {
-            throw new Exception\InvalidArgumentException('Name passed to container is invalid; must consist of alphanumerics and underscores only');
+        if (!preg_match('/^[a-z][a-z0-9_\\\]+$/i', $name)) {
+            throw new Exception\InvalidArgumentException('Name passed to container is invalid; must consist of alphanumerics, backslashes and underscores only');
         }
         $this->_name = $name;
         $this->_setManager($manager);

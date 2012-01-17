@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ use Zend\Json\Json;
  * @uses       \Zend\Json\Json
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ComboBox extends Dijit
@@ -66,7 +66,7 @@ class ComboBox extends Dijit
      * @param  array|null $options Select options
      * @return string
      */
-    public function direct($id = null, $value = null, array $params = array(), array $attribs = array(), array $options = null)
+    public function __invoke($id = null, $value = null, array $params = array(), array $attribs = array(), array $options = null)
     {
         $html = '';
         if (!array_key_exists('id', $attribs)) {
@@ -103,7 +103,11 @@ class ComboBox extends Dijit
             $html .= $this->_createFormElement($id, $value, $params, $attribs);
             return $html;
         }
-
+        
+        // required for correct type casting in declerative mode 
+        if (isset($params['autocomplete'])) {
+            $params['autocomplete'] = ($params['autocomplete']) ? 'true' : 'false';
+        }
         // do as normal select
         $attribs = $this->_prepareDijit($attribs, $params, 'element');
         return $this->view->formSelect($id, $value, $attribs, $options);

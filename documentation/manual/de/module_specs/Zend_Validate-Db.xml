@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- EN-Revision: 22767 -->
-<!-- Reviewed: no -->
-<sect2 id="zend.validate.Db">
-    <title>Db_RecordExists und Db_NoRecordExists</title>
+<?xml version="1.0" encoding="utf-8"?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.Db"><info><title>Db_RecordExists und Db_NoRecordExists</title></info>
+
 
     <para>
         <classname>Zend_Validate_Db_RecordExists</classname> und
@@ -11,8 +9,8 @@
         existiert.
     </para>
 
-    <sect3 id="zend.validate.set.db.options">
-        <title>Unterstützte Optionen für Zend_Validate_Db_*</title>
+    <section xml:id="zend.validate.set.db.options"><info><title>Unterstützte Optionen für Zend_Validate_Db_*</title></info>
+
 
         <para>
             Die folgenden Optionen werden für
@@ -56,10 +54,10 @@
                 </para>
             </listitem>
         </itemizedlist>
-    </sect3>
+    </section>
 
-    <sect3 id="zend.validate.db.basic-usage">
-        <title>Grundsätzliche Verwendung</title>
+    <section xml:id="zend.validate.db.basic-usage"><info><title>Grundsätzliche Verwendung</title></info>
+
 
         <para>
             Ein Beispiel der rundsätzlichen Verwendung der Validatoren:
@@ -116,10 +114,10 @@ if ($validator->isValid($username)) {
             <varname>$username</varname> in der spezifizierten Spalte enthält, dann wird eine
             Fehlermeldung angezeigt.
         </para>
-    </sect3>
+    </section>
 
-    <sect3 id="zend.validate.db.excluding-records">
-        <title>Ausnehmen von Einträgen</title>
+    <section xml:id="zend.validate.db.excluding-records"><info><title>Ausnehmen von Einträgen</title></info>
+
 
         <para>
             <classname>Zend_Validate_Db_RecordExists</classname> und
@@ -173,12 +171,12 @@ if ($validator->isValid($username)) {
         </para>
 
         <programlisting language="php"><![CDATA[
-$post_id   = $post->getId();
-$clause    = $db->quoteInto('post_id = ?', $category_id);
+$email     = 'user@example.com';
+$clause    = $db->quoteInto('email = ?', $email);
 $validator = new Zend_Validate_Db_RecordExists(
     array(
-        'table'   => 'posts_categories',
-        'field'   => 'post_id',
+        'table'   => 'users',
+        'field'   => 'username',
         'exclude' => $clause
 );
 
@@ -194,13 +192,14 @@ if ($validator->isValid($username)) {
 ]]></programlisting>
 
         <para>
-            Das obige Beispiel prüft die Tabelle 'posts_categories' und stellt sicher das ein
-            Eintrag der 'post_id' einen Wert hat der <varname>$category_id</varname> entspricht.
+            Das obige Beispiel prüft die Tabelle 'users' und stellt sicher das nur ein
+            Eintrag mit beidem, sowohl dem Benutzernamen <varname>$username</varname> als
+            auch der Email <varname>$email</varname> gültig ist.
         </para>
-    </sect3>
+    </section>
 
-    <sect3 id="zend.validate.db.database-adapters">
-        <title>Datenbank Adapter</title>
+    <section xml:id="zend.validate.db.database-adapters"><info><title>Datenbank Adapter</title></info>
+
 
         <para>
             Man kann auch einen Adapter spezifizieren wenn man die Prüfung
@@ -217,10 +216,10 @@ $validator = new Zend_Validate_Db_RecordExists(
     )
 );
 ]]></programlisting>
-    </sect3>
+    </section>
 
-    <sect3 id="zend.validate.db.database-schemas">
-        <title>Datenbank Schemas</title>
+    <section xml:id="zend.validate.db.database-schemas"><info><title>Datenbank Schemas</title></info>
+
 
         <para>
             Man kann für die eigene Datenbank bei Adaptern wie PostgreSQL und DB/2 ein Schema
@@ -237,5 +236,5 @@ $validator = new Zend_Validate_Db_RecordExists(
     )
 );
 ]]></programlisting>
-    </sect3>
-</sect2>
+    </section>
+</section>

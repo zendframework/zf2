@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,6 +23,8 @@
  * @namespace
  */
 namespace Zend\View\Helper;
+
+use Zend\View\Exception;
 
 /**
  * Helper for setting and retrieving the doctype
@@ -33,7 +35,7 @@ namespace Zend\View\Helper;
  * @uses       \Zend\View\Helper\AbstractHelper
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Doctype extends AbstractHelper
@@ -109,8 +111,9 @@ class Doctype extends AbstractHelper
      *
      * @param  string $doctype
      * @return \Zend\View\Helper\Doctype
+     * @throws Exception\DomainException
      */
-    public function direct($doctype = null)
+    public function __invoke($doctype = null)
     {
         if (null !== $doctype) {
             switch ($doctype) {
@@ -128,9 +131,7 @@ class Doctype extends AbstractHelper
                     break;
                 default:
                     if (substr($doctype, 0, 9) != '<!DOCTYPE') {
-                        $e = new \Zend\View\Exception('The specified doctype is malformed');
-                        $e->setView($this->view);
-                        throw $e;
+                        throw new Exception\DomainException('The specified doctype is malformed');
                     }
                     if (stristr($doctype, 'xhtml')) {
                         $type = self::CUSTOM_XHTML;
@@ -194,7 +195,7 @@ class Doctype extends AbstractHelper
 	 * @return booleean
 	 */
 	public function isHtml5() {
-		return (stristr($this->direct(), '<!DOCTYPE html>') ? true : false);
+		return (stristr($this->__invoke(), '<!DOCTYPE html>') ? true : false);
 	}
 
     /**

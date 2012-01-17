@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -43,7 +43,7 @@ use Zend\Form\Element;
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ViewHelper extends AbstractDecorator
@@ -242,12 +242,13 @@ class ViewHelper extends AbstractDecorator
         $id            = $element->getId();
         $attribs['id'] = $id;
 
-        $helperObject  = $view->broker($helper);
+        $helperObject  = $view->plugin($helper);
         if (method_exists($helperObject, 'setTranslator')) {
             $helperObject->setTranslator($element->getTranslator());
         }
 
-        $elementContent = $view->broker($helper)->direct($name, $value, $attribs, $element->options);
+        $helper         = $view->plugin($helper);
+        $elementContent = $helper($name, $value, $attribs, $element->options);
         switch ($this->getPlacement()) {
             case self::APPEND:
                 return $content . $separator . $elementContent;

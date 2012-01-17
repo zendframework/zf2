@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ use Zend\Log\Writer\Firebug as FirebugWriter,
  * @category   Zend
  * @package    Zend_Log
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Log
  */
@@ -44,8 +44,15 @@ class FirebugTest extends \PHPUnit_Framework_TestCase
     protected $_writer = null;
     protected $_logger = null;
 
+    /**
+     * Stores the original set timezone
+     * @var string
+     */
+    private $_originaltimezone;
+
     public function setUp()
     {
+        $this->_originaltimezone = date_default_timezone_get();
         date_default_timezone_set('America/Los_Angeles');
 
         // Reset front controller to reset registered plugins and
@@ -74,6 +81,7 @@ class FirebugTest extends \PHPUnit_Framework_TestCase
     {
         Channel\HttpHeaders::destroyInstance();
         FirePhp::destroyInstance();
+        date_default_timezone_set($this->_originaltimezone);
     }
 
     /**
@@ -206,9 +214,9 @@ class FirebugTest extends \PHPUnit_Framework_TestCase
         $table = array(
             'Summary line for the table',
             array(
-		        array('Column 1', 'Column 2'),
-		        array('Row 1 c 1',' Row 1 c 2'),
-		        array('Row 2 c 1',' Row 2 c 2')
+                array('Column 1', 'Column 2'),
+                array('Row 1 c 1',' Row 1 c 2'),
+                array('Row 2 c 1',' Row 2 c 2')
             )
         );
 

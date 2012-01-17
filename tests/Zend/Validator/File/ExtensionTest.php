@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator_File
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ use Zend\Validator\File;
  * @category   Zend
  * @package    Zend_Validator_File
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -170,5 +170,16 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
 
         $validator->addExtension('');
         $this->assertEquals(array('mo', 'gif', 'jpg', 'to', 'zip', 'ti'), $validator->getExtension());
+    }
+
+    /**
+     * @group ZF-11258
+     */
+    public function testZF11258()
+    {
+        $validator = new File\Extension('gif');
+        $this->assertFalse($validator->isValid(__DIR__ . '/_files/nofile.mo'));
+        $this->assertTrue(array_key_exists('fileExtensionNotFound', $validator->getMessages()));
+        $this->assertContains("'nofile.mo'", current($validator->getMessages()));
     }
 }

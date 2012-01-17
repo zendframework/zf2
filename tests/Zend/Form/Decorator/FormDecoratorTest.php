@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,8 +24,8 @@ namespace ZendTest\Form\Decorator;
 use Zend\Form\Decorator\FormDecorator,
     Zend\Form\DisplayGroup,
     Zend\Form\Form,
-    Zend\Loader\PluginLoader,
-    Zend\View\View;
+    Zend\Loader\PrefixPathLoader,
+    Zend\View\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Decorator_Form
@@ -33,7 +33,7 @@ use Zend\Form\Decorator\FormDecorator,
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Form
  */
@@ -71,7 +71,7 @@ class FormDecoratorTest extends \PHPUnit_Framework_TestCase
             'enctype' => 'ascii',
             'charset' => 'us-ascii'
         );
-        $loader = new PluginLoader(array('Zend\Form\Decorator' => 'Zend/Form/Decorator/'));
+        $loader = new PrefixPathLoader(array('Zend\Form\Decorator' => 'Zend/Form/Decorator/'));
         $displayGroup = new DisplayGroup('foo', $loader, array('attribs' => $attribs));
         $this->decorator->setElement($displayGroup);
         $options = $this->decorator->getOptions();
@@ -82,7 +82,7 @@ class FormDecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see ZF-3643
+     * @group ZF-3643
      */
     public function testShouldPreferFormIdAttributeOverFormName()
     {

@@ -14,7 +14,7 @@
  *
  * @category  Zend
  * @package   Zend_File_Transfer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -43,7 +43,7 @@ use Zend\File\Transfer,
  * @todo      Rewrite
  * @category  Zend
  * @package   Zend_File_Transfer
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class AbstractAdapter
@@ -375,7 +375,7 @@ abstract class AbstractAdapter
      * @param  boolean      $breakChainOnFailure If the validation chain should stop an failure
      * @param  string|array $options             Options to set for the validator
      * @param  string|array $files               Files to limit this validator to
-     * @return Zend_File_Transfer_Adapter
+     * @return \Zend\File\Transfer\Adapter\AbstractAdapter
      */
     public function addValidator($validator, $breakChainOnFailure = false, $options = null, $files = null)
     {
@@ -1093,7 +1093,7 @@ abstract class AbstractAdapter
     {
         if (null === $translator) {
             $this->_translator = null;
-        } elseif ($translator instanceof \Zend\Translator\Adapter\Adapter) {
+        } elseif ($translator instanceof \Zend\Translator\Adapter\AbstractAdapter) {
             $this->_translator = $translator;
         } elseif ($translator instanceof \Zend\Translator\Translator) {
             $this->_translator = $translator->getAdapter();

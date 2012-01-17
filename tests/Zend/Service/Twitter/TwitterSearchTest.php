@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Twitter_Search
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,7 @@
  * @category   Zend
  * @package    Zend_Service_Twitter
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Twitter
@@ -81,14 +81,14 @@ class Zend_Service_Twitter_TwitterSearchTest extends PHPUnit_Framework_TestCase
     public function testSearchTrendsReturnsArray()
     {
         $response = $this->twitter->trends();
-        $this->assertType('array', $response);
+        $this->assertInternalType('array', $response);
     }
 
     public function testJsonSearchContainsWordReturnsArray()
     {
         $this->twitter->setResponseType('json');
         $response = $this->twitter->search('zend');
-        $this->assertType('array', $response);
+        $this->assertInternalType('array', $response);
 
     }
 
@@ -105,7 +105,7 @@ class Zend_Service_Twitter_TwitterSearchTest extends PHPUnit_Framework_TestCase
     {
         $this->twitter->setResponseType('json');
         $response = $this->twitter->search('zend', array('lang' => 'de'));
-        $this->assertType('array', $response);
+        $this->assertInternalType('array', $response);
         $this->assertTrue((isset($response['results'][0]) && $response['results'][0]['iso_language_code'] == "de"));
     }
 
@@ -124,7 +124,7 @@ class Zend_Service_Twitter_TwitterSearchTest extends PHPUnit_Framework_TestCase
     {
         $this->twitter->setResponseType('json');
         $response = $this->twitter->search('zend', array('rpp' => '30'));
-        $this->assertType('array', $response);
+        $this->assertInternalType('array', $response);
         $this->assertTrue((count($response['results']) == 30));
     }
 

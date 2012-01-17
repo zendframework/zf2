@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Session
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id:$
  */
@@ -31,7 +31,7 @@ use Zend\Session\SessionManager,
  * @package    Zend_Session
  * @subpackage UnitTests
  * @group      Zend_Session
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class SessionManagerTest extends \PHPUnit_Framework_TestCase
@@ -395,7 +395,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
         $storage = $this->manager->getStorage();
         $storage['foo'] = 'bar';
         $this->manager->destroy();
-        $this->manager->start();
+        $this->assertTrue(isset($storage['foo']));
         $this->assertEquals('bar', $storage['foo']);
     }
 
@@ -622,10 +622,16 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
     public function testStartingSessionThatFailsAValidatorShouldRaiseException()
     {
         $chain = $this->manager->getValidatorChain();
-        $chain->connect('session.validate', function() {
-             return false;
-        });
-        $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'xxx');
+        $chain->attach('session.validate', array($this, 'validateSession'));
+        $this->setExpectedException('Zend\Session\Exception\RuntimeException', 'failed');
         $this->manager->start();
+    }
+
+    /**
+     * @see testStartingSessionThatFailsAValidatorShouldRaiseException()
+     */
+    public static function validateSession()
+    {
+        return false;
     }
 }

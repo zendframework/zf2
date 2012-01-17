@@ -13,8 +13,9 @@ if (!strstr($incPath, $libPath)) {
 }
 
 // Setup autoloading
-$loader = new Zend\Loader\StandardAutoloader();
 require_once 'Zend/Loader/StandardAutoloader.php';
+
+$loader = new Zend\Loader\StandardAutoloader();
 $loader->register();
 
 $rules = array(
@@ -121,15 +122,12 @@ $l = new \Zend\File\ClassFileLocator($path);
 // classname => filename, where the filename is relative to the library path
 $map    = new \stdClass;
 $strip .= DIRECTORY_SEPARATOR;
-iterator_apply($l, function() use ($l, $map, $strip){
-    $file      = $l->current();
+foreach ($l as $file) {
     $namespace = empty($file->namespace) ? '' : $file->namespace . '\\';
-    $filename  = str_replace($strip, '', $file->getRealpath());
+    $filename  = str_replace($strip, '', $file->getRealPath());
 
     $map->{$namespace . $file->classname} = $filename;
-
-    return true;
-});
+}
 
 // Create a file with the class/file map.
 // Stupid syntax highlighters make separating < from PHP declaration necessary

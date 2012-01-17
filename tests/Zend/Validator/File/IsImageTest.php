@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator_File
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ use Zend\Validator\File;
  * @category   Zend
  * @package    Zend_Validator_File
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -169,11 +169,22 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
         $validator = new File\IsImage(array(
             'image/gif',
             'image/jpg',
-            'magicfile'   => __DIR__ . '/_files/magic.mime',
-            'headerCheck' => true));
+            'magicFile'   => __DIR__ . '/_files/magic.mime',
+            'enableHeaderCheck' => true));
 
         $this->assertEquals(__DIR__ . '/_files/magic.mime', $validator->getMagicFile());
         $this->assertTrue($validator->getHeaderCheck());
         $this->assertEquals('image/gif,image/jpg', $validator->getMimeType());
+    }
+
+    /**
+     * @group ZF-11258
+     */
+    public function testZF11258()
+    {
+        $validator = new File\IsImage();
+        $this->assertFalse($validator->isValid(__DIR__ . '/_files/nofile.mo'));
+        $this->assertTrue(array_key_exists('fileIsImageNotReadable', $validator->getMessages()));
+        $this->assertContains("'nofile.mo'", current($validator->getMessages()));
     }
 }

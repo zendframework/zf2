@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ use Zend\XmlRpc\Client as XMLRPCClient;
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ServerProxy
@@ -94,7 +94,7 @@ class ServerProxy
      */
     public function __call($method, $args)
     {
-        $method = ltrim("$this->_namespace.$method", '.');
+        $method = ltrim("{$this->_namespace}.{$method}", '.');
         return $this->_client->call($method, $args);
     }
 }

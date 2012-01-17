@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -39,7 +39,7 @@ use Zend\Tool\Project\Profile,
  * @uses       \Zend\Tool\Project\Profile\Resource\SearchConstraints
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Container implements \RecursiveIterator, \Countable
@@ -181,7 +181,7 @@ class Container implements \RecursiveIterator, \Countable
                 throw new Exception\InvalidArgumentException('Context by name ' . $context . ' was not found in the context registry.');
             }
         } elseif (!$context instanceof \Zend\Tool\Project\Context) {
-            throw new Exception\InvalidArgumentException('Context must be of type string or Zend_Tool_Project_Context_Interface.');
+            throw new Exception\InvalidArgumentException('Context must be of type string or Zend\\Tool\\Project\\Context\\Interface.');
         }
 
         $newResource = new Resource($context);

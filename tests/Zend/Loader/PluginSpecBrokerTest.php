@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ use Zend\Loader\PluginSpecBroker,
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Loader
  */
@@ -139,7 +139,7 @@ class PluginSpecBrokerTest extends \PHPUnit_Framework_TestCase
         $this->broker->getClassLoader()->registerPlugin('sample', 'ZendTest\Loader\TestAsset\SamplePlugin');
         $this->broker->registerSpec('sample', array(array('foo' => 'bar')));
         $plugin = $this->broker->load('sample');
-        $this->assertType('ZendTest\Loader\TestAsset\SamplePlugin', $plugin);
+        $this->assertInstanceOf('ZendTest\Loader\TestAsset\SamplePlugin', $plugin);
         $this->assertEquals(array('foo' => 'bar'), $plugin->options);
     }
 
@@ -199,20 +199,20 @@ class PluginSpecBrokerTest extends \PHPUnit_Framework_TestCase
         ));
 
         $loader = $broker->getClassLoader();
-        $this->assertType('Zend\Loader\PrefixPathLoader', $loader);
+        $this->assertInstanceOf('Zend\Loader\PrefixPathLoader', $loader);
         $this->assertEquals('ZendTest\UnusualNamespace\ClassMappedClass', $loader->load('ClassMappedClass'));
 
         $this->assertTrue($broker->isLoaded('test'));
         $this->assertSame($validator, $broker->getValidator());
 
         $plugin = $broker->load('ClassMappedClass');
-        $this->assertType('ZendTest\UnusualNamespace\ClassMappedClass', $plugin);
+        $this->assertInstanceOf('ZendTest\UnusualNamespace\ClassMappedClass', $plugin);
         $this->assertEquals(array('foo' => 'bar'), $plugin->options);
 
         $broker = new PluginSpecBroker(array(
             'class_loader' => 'ZendTest\Loader\TestAsset\CustomClassLoader',
         ));
         $loader = $broker->getClassLoader();
-        $this->assertType('ZendTest\Loader\TestAsset\CustomClassLoader', $loader);
+        $this->assertInstanceOf('ZendTest\Loader\TestAsset\CustomClassLoader', $loader);
     }
 }

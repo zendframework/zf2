@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Paginator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ use Zend\Paginator\Exception;
  * @category   Zend
  * @package    Zend_Paginator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Paginator
  */
@@ -62,7 +62,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
     public function testGetsItemsAtOffsetZero()
     {
         $actual = $this->_adapter->getItems(0, 10);
-        $this->assertType('LimitIterator', $actual);
+        $this->assertInstanceOf('LimitIterator', $actual);
 
         $i = 1;
         foreach ($actual as $item) {
@@ -74,7 +74,7 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
     public function testGetsItemsAtOffsetTen()
     {
         $actual = $this->_adapter->getItems(10, 10);
-        $this->assertType('LimitIterator', $actual);
+        $this->assertInstanceOf('LimitIterator', $actual);
 
         $i = 11;
         foreach ($actual as $item) {

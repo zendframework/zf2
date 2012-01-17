@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,19 +24,17 @@
  * @namespace
  */
 namespace Zend\GData;
+
 use Zend\Http\Client\Adapter;
 
 /**
  * Extends the proxy HTTP adapter to handle streams instead of discrete body
  * strings.
  *
- * @uses       \Zend\Http\Client
- * @uses       \Zend\Http\Client\Adapter\Exception
- * @uses       \Zend\Http\Client\Adapter\Proxy
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class HttpAdapterStreamingProxy extends Adapter\Proxy
@@ -52,7 +50,7 @@ class HttpAdapterStreamingProxy extends Adapter\Proxy
      * Send request to the proxy server with streaming support
      *
      * @param string        $method
-     * @param \Zend\Uri\Http $uri
+     * @param \Zend\Uri\Uri $uri
      * @param string        $http_ver
      * @param array         $headers
      * @param string        $body
@@ -97,7 +95,7 @@ class HttpAdapterStreamingProxy extends Adapter\Proxy
         $this->method = $method;
 
         // Build request headers
-        $request = "{$method} {$uri->__toString()} HTTP/{$http_ver}\r\n";
+        $request = "{$method} {$uri->toString()} HTTP/{$http_ver}\r\n";
 
         // Add all headers to the request string
         foreach ($headers as $k => $v) {

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -37,7 +37,7 @@ use Zend\Search\Lucene\Document;
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Search_Lucene
  */
@@ -120,13 +120,17 @@ class FieldTest extends \PHPUnit_Framework_TestCase
 
     public function testEncoding()
     {
-        $field = Document\Field::Text('field', 'Words with umlauts: ���...', 'ISO-8859-1');
+        // forcing filter to UTF-8
+        $utf8text = iconv('UTF-8', 'UTF-8', 'Words with umlauts: åãü...');
+
+        $iso8859_1 = iconv('UTF-8', 'ISO-8859-1', $utf8text);
+        $field = Document\Field::Text('field', $iso8859_1, 'ISO-8859-1');
 
         $this->assertEquals($field->encoding, 'ISO-8859-1');
 
         $this->assertEquals($field->name, 'field');
-        $this->assertEquals($field->value, 'Words with umlauts: ���...');
-        $this->assertEquals($field->getUtf8Value(), 'Words with umlauts: åãü...');
+        $this->assertEquals($field->value, $iso8859_1);
+        $this->assertEquals($field->getUtf8Value(), $utf8text);
     }
 }
 

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,13 +23,14 @@
  * @namespace
  */
 namespace ZendTest\Validator;
-use Zend\Validator;
+use Zend\Validator,
+    ReflectionClass;
 
 /**
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -57,15 +58,15 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     public function testSettingDefaultOptionsAfterwards()
     {
         $valid = new Validator\Callback(array($this, 'objectCallback'));
-        $valid->setOptions('options');
-        $this->assertEquals(array('options'), $valid->getOptions());
+        $valid->setCallbackOptions('options');
+        $this->assertEquals(array('options'), $valid->getCallbackOptions());
         $this->assertTrue($valid->isValid('test'));
     }
 
     public function testSettingDefaultOptions()
     {
-        $valid = new Validator\Callback(array('callback' => array($this, 'objectCallback'), 'options' => 'options'));
-        $this->assertEquals(array('options'), $valid->getOptions());
+        $valid = new Validator\Callback(array('callback' => array($this, 'objectCallback'), 'callbackOptions' => 'options'));
+        $this->assertEquals(array('options'), $valid->getCallbackOptions());
         $this->assertTrue($valid->isValid('test'));
     }
 
@@ -78,16 +79,52 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     public function testInvalidCallback()
     {
         $valid = new Validator\Callback(array($this, 'objectCallback'));
-        
+
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'Invalid callback given');
         $valid->setCallback('invalidcallback');
     }
 
     public function testAddingValueOptions()
     {
-        $valid = new Validator\Callback(array('callback' => array($this, 'optionsCallback'), 'options' => 'options'));
-        $this->assertEquals(array('options'), $valid->getOptions());
+        $valid = new Validator\Callback(array('callback' => array($this, 'optionsCallback'), 'callbackOptions' => 'options'));
+        $this->assertEquals(array('options'), $valid->getCallbackOptions());
         $this->assertTrue($valid->isValid('test', 'something'));
+    }
+
+    public function testEqualsMessageTemplates()
+    {
+        $validator = new Validator\Callback(array($this, 'objectCallback'));
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageTemplates')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageTemplates');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageTemplates')
+        );
+    }
+    
+    public function testEqualsMessageVariables()
+    {
+        $validator = new Validator\Callback(array($this, 'objectCallback'));
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageVariables')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageVariables');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageVariables')
+        );
     }
 
     public function objectCallback($value)

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Delicious
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -41,7 +41,7 @@ use \Zend\Rest\Client as RestClient,
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Delicious
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Delicious
@@ -275,7 +275,7 @@ class Delicious
             $parms['url'] = $url;
         }
         if ($dt) {
-            $parms['dt'] = $dt->get('Y-m-d\TH:i:s\Z');
+            $parms['dt'] = $dt->toString('Y-m-d\TH:i:s\Z', 'php');
         }
 
         $response = $this->makeRequest(self::PATH_POSTS_GET, $parms);

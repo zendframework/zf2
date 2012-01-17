@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@ namespace ZendTest\Dojo\View\Helper;
 use Zend\Dojo\View\Helper\AccordionContainer as AccordionContainerHelper,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_View_Helper_AccordionContainer.
@@ -32,7 +32,7 @@ use Zend\Dojo\View\Helper\AccordionContainer as AccordionContainerHelper,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_View
@@ -57,7 +57,7 @@ class AccordionContainerTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
@@ -69,9 +69,9 @@ class AccordionContainerTest extends \PHPUnit_Framework_TestCase
             $id      = 'pane' . $i;
             $title   = 'Pane ' . $i;
             $content = 'This is the content of pane ' . $i;
-            $html   .= $this->view->accordionPane($id, $content, array('title' => $title));
+            $html   .= $this->view->plugin('accordionPane')->__invoke($id, $content, array('title' => $title));
         }
-        return $this->helper->direct('container', $html, array(), array('style' => 'height: 200px; width: 100px;'));
+        return $this->helper->__invoke('container', $html, array(), array('style' => 'height: 200px; width: 100px;'));
     }
 
     public function testShouldAllowDeclarativeDijitCreation()
@@ -85,19 +85,19 @@ class AccordionContainerTest extends \PHPUnit_Framework_TestCase
         DojoHelper::setUseProgrammatic();
         $html = $this->getContainer();
         $this->assertNotRegexp('/<div[^>]*(dojoType="dijit.layout.AccordionContainer")/', $html);
-        $this->assertNotNull($this->view->dojo()->getDijit('container'));
+        $this->assertNotNull($this->view->plugin('dojo')->getDijit('container'));
     }
 
     public function testShouldAllowCapturingNestedContent()
     {
         $this->helper->captureStart('foo', array(), array('style' => 'height: 200px; width: 100px;'));
-        $this->view->accordionPane()->captureStart('bar', array('title' => 'Captured Pane'));
+        $this->view->plugin('accordionPane')->captureStart('bar', array('title' => 'Captured Pane'));
         echo "Captured content started\n";
-        $this->view->accordionPane()->captureStart('baz', array('title' => 'Nested Pane'));
+        $this->view->plugin('accordionPane')->captureStart('baz', array('title' => 'Nested Pane'));
         echo 'Nested Content';
-        echo $this->view->accordionPane()->captureEnd('baz');
+        echo $this->view->plugin('accordionPane')->captureEnd('baz');
         echo "Captured content ended\n";
-        echo $this->view->accordionPane()->captureEnd('bar');
+        echo $this->view->plugin('accordionPane')->captureEnd('bar');
         $html = $this->helper->captureEnd('foo');
         $this->assertRegexp('/<div[^>]*(id="bar")/', $html);
         $this->assertRegexp('/<div[^>]*(id="baz")/', $html);
@@ -112,10 +112,10 @@ class AccordionContainerTest extends \PHPUnit_Framework_TestCase
     public function testCapturingShouldRaiseErrorWhenDuplicateIdDiscovered()
     {
         $this->helper->captureStart('foo', array(), array('style' => 'height: 200px; width: 100px;'));
-        $this->view->accordionPane()->captureStart('bar', array('title' => 'Captured Pane'));
+        $this->view->plugin('accordionPane')->captureStart('bar', array('title' => 'Captured Pane'));
         
         $this->setExpectedException('Zend\Dojo\View\Exception\RuntimeException', 'Lock already exists for id ');
-        $this->view->accordionPane()->captureStart('bar', array('title' => 'Captured Pane'));
+        $this->view->plugin('accordionPane')->captureStart('bar', array('title' => 'Captured Pane'));
     }
 
     public function testCapturingShouldRaiseErrorWhenNonexistentIdPassedToEnd()

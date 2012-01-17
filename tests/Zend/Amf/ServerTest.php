@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -39,7 +39,7 @@ require_once __DIR__ . '/TestAsset/Server/ServiceB.php';
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Amf
  */
@@ -1027,7 +1027,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testAcceptsStringArgumentToSetBroker()
     {
         $this->_server->setBroker('Zend\View\HelperBroker');
-        $this->assertType('Zend\View\HelperBroker', $this->_server->getBroker());
+        $this->assertInstanceOf('Zend\View\HelperBroker', $this->_server->getBroker());
     }
 
     public function testAcceptsBrokerObjectToSetBroker()

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,17 +25,17 @@
 namespace Zend\Tool\Project\Context\Zf;
 
 /**
- * This class is the front most class for utilizing Zend_Tool_Project
+ * This class is the front most class for utilizing Zend\Tool\Project
  *
  * A profile is a hierarchical set of resources that keep track of
  * items within a specific project.
  *
- * @uses       \Zend\CodeGenerator\Php\PhpClass
- * @uses       \Zend\CodeGenerator\Php\PhpFile
+ * @uses       \Zend\Code\Generator\ClassGenerator
+ * @uses       \Zend\Code\Generator\FileGenerator
  * @uses       \Zend\Tool\Project\Context\Zf\AbstractClassFile
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ModelFile extends AbstractClassFile
@@ -94,14 +94,10 @@ class ModelFile extends AbstractClassFile
         
         $className = $this->getFullClassName($this->_modelName, 'Model');
         
-        $codeGenFile = new \Zend\CodeGenerator\Php\PhpFile(array(
-            'fileName' => $this->getPath(),
-            'classes' => array(
-                new \Zend\CodeGenerator\Php\PhpClass(array(
-                    'name' => $className,
-                    ))
-                )
-            ));
+        $codeGenFile = new \Zend\Code\Generator\FileGenerator();
+        $codeGenFile->setFilename($this->getPath());
+        $codeGenFile->setClass(new \Zend\Code\Generator\ClassGenerator($className));
+        
         return $codeGenFile->generate();
     }
     

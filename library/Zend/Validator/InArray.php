@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace Zend\Validator;
  * @uses       \Zend\Validator\Exception
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class InArray extends AbstractValidator
@@ -71,7 +71,7 @@ class InArray extends AbstractValidator
      * @param  array|\Zend\Config\Config $haystack
      * @return void
      */
-    public function __construct($options)
+    public function __construct($options = null)
     {
         if ($options instanceof \Zend\Config\Config) {
             $options = $options->toArray();
@@ -103,6 +103,8 @@ class InArray extends AbstractValidator
         if (array_key_exists('recursive', $options)) {
             $this->setRecursive($options['recursive']);
         }
+        
+        parent::__construct();
     }
 
     /**
@@ -180,7 +182,7 @@ class InArray extends AbstractValidator
      */
     public function isValid($value)
     {
-        $this->_setValue($value);
+        $this->setValue($value);
         if ($this->getRecursive()) {
             $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($this->_haystack));
             foreach($iterator as $element) {
@@ -198,7 +200,7 @@ class InArray extends AbstractValidator
             }
         }
 
-        $this->_error(self::NOT_IN_ARRAY);
+        $this->error(self::NOT_IN_ARRAY);
         return false;
     }
 }

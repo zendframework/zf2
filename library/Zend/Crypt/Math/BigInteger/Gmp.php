@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Math
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,13 +27,13 @@ namespace Zend\Crypt\Math\BigInteger;
 /**
  * Support for arbitrary precision mathematics in PHP.
  *
- * Zend_Crypt_Math_BigInteger_Bcmath is a wrapper across the PHP BCMath
+ * \Zend\Crypt\Math\BigInteger\Gmp is a wrapper across the PHP BCMath
  * extension.
  *
  * @uses       Zend\Crypt\Math\BigInteger\BigIntegerCapable
  * @category   Zend
  * @package    Zend_Crypt
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Gmp implements BigIntegerCapable

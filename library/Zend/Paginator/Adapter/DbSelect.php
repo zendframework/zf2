@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,7 +36,7 @@ use Zend\Db\Select,
  * @uses       Zend\Paginator\Adapter\Exception
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class DbSelect implements Adapter
@@ -189,8 +189,10 @@ class DbSelect implements Adapter
          */
         if (!empty($unionParts)) {
             $expression = new Db\Expr($countPart . $countColumn);
-
-            $rowCount = $db->select()->from($rowCount, $expression);
+            $rowCount = $db
+                            ->select()
+                            ->bind($rowCount->getBind())
+                            ->from($rowCount, $expression);
         } else {
             $columnParts = $rowCount->getPart(Select::COLUMNS);
             $groupParts  = $rowCount->getPart(Select::GROUP);

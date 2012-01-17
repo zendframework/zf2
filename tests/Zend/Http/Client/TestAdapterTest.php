@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Http_Client
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace ZendTest\Http\Client;
  * @category   Zend
  * @package    Zend_Http_Client
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Http
  * @group      Zend_Http_Client
@@ -40,7 +40,7 @@ class TestAdapterTest extends \PHPUnit_Framework_TestCase
     /**
      * Test adapter
      *
-     * @var Zend_Http_Client_Adapter_Test
+     * @var \Zend\Http\Client\Adapter\Test
      */
     protected $adapter;
 
@@ -195,8 +195,7 @@ class TestAdapterTest extends \PHPUnit_Framework_TestCase
                 $this->adapter->setResponseIndex($i);
                 $this->fail();
             } catch (\Exception $e) {
-                $class = 'Zend\Http\Client\Adapter\Exception';
-                $this->assertType($class, $e);
+                $this->assertInstanceOf('Zend\\Http\\Client\\Adapter\\Exception', $e);
                 $this->assertRegexp('/out of range/i', $e->getMessage());
             }
         }

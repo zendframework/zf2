@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,9 @@
  * @namespace
  */
 namespace Zend\View\Helper\Placeholder\Container;
-use Zend\View\Helper\Placeholder\Registry;
+
+use Zend\View\Helper\Placeholder\Registry,
+    Zend\View\Exception;
 
 /**
  * Base class for targetted placeholder helpers
@@ -36,11 +38,11 @@ use Zend\View\Helper\Placeholder\Registry;
  * @uses       \Zend\View\Helper\Placeholder\Registry
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Standalone 
-    extends \Zend\View\Helper\AbstractHelper 
+abstract class Standalone
+    extends \Zend\View\Helper\AbstractHelper
     implements \IteratorAggregate, \Countable, \ArrayAccess
 {
     /**
@@ -130,7 +132,7 @@ abstract class Standalone
     protected function _escape($string)
     {
         $enc = 'UTF-8';
-        if ($this->view instanceof \Zend\View\ViewEngine
+        if ($this->view instanceof \Zend\View\Renderer
             && method_exists($this->view, 'getEncoding')
         ) {
             $enc = $this->view->getEncoding();
@@ -224,6 +226,7 @@ abstract class Standalone
      * @param  string $method
      * @param  array $args
      * @return mixed
+     * @throws Exception\BadMethodCallException
      */
     public function __call($method, $args)
     {
@@ -237,9 +240,7 @@ abstract class Standalone
             return $return;
         }
 
-        $e = new \Zend\View\Exception('Method "' . $method . '" does not exist');
-        $e->setView($this->view);
-        throw $e;
+        throw new Exception\BadMethodCallException('Method "' . $method . '" does not exist');
     }
 
     /**

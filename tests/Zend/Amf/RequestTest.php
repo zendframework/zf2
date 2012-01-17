@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ use Zend\Amf\Parser,
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Amf
  */
@@ -48,12 +48,19 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     protected $_request;
 
     /**
+     * Stores the original set timezone
+     * @var string
+     */
+    private $_originaltimezone;
+
+    /**
      * Setup environment
      */
     public function setUp()
     {
+        $this->_originaltimezone = date_default_timezone_get();
         date_default_timezone_set("America/Chicago");
-        \Zend\Locale\Locale::setDefault('en');
+        \Zend\Locale\Locale::setFallback('en');
         Parser\TypeLoader::resetMap();
         $this->_request = new \Zend\Amf\Request\StreamRequest();
     }
@@ -64,6 +71,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         unset($this->_request);
+        date_default_timezone_set($this->_originaltimezone);
     }
 
     /**

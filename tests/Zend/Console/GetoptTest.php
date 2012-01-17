@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Console
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ use Zend\Console\Getopt,
  * @category   Zend
  * @package    Zend_Console
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Console
  */
@@ -96,11 +96,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetoptDumpJson()
     {
-        $this->markTestIncomplete('INCOMPLETE due to waiting for Zend_Json migration to namespaces');
         $opts = new Getopt('abp:', array('-a', '-p', 'p_arg'));
         $this->assertEquals($opts->toJson(),
             '{"options":[{"option":{"flag":"a","parameter":true}},{"option":{"flag":"p","parameter":"p_arg"}}]}');
-
     }
 
     public function testGetoptDumpXml()

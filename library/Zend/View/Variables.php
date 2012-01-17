@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ use ArrayObject;
  * @todo       Move strict variables into variables object
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Variables extends ArrayObject
@@ -73,10 +73,16 @@ class Variables extends ArrayObject
     public function __construct(array $variables = array(), array $options = array()) 
     {
         parent::__construct(
-            $variables, 
+            array(), 
             ArrayObject::STD_PROP_LIST|ArrayObject::ARRAY_AS_PROPS, 
             'ArrayIterator'
         );
+        
+        // Load each variable into the object using offsetSet() so that they
+        // are escaped correctly.
+        foreach ($variables as $key => $value) {
+            $this->$key = $value;
+        }
         $this->setOptions($options);
     }
 
@@ -157,11 +163,12 @@ class Variables extends ArrayObject
      * 
      * @param  callback $spec 
      * @return Variables
+     * @throws Exception\InvalidArgumentException
      */
     public function setEscapeCallback($spec)
     {
         if (!is_callable($spec)) {
-            throw new Exception('Escape callback must be callable');
+            throw new Exception\InvalidArgumentException('Escape callback must be callable');
         }
         $this->escapeCallback = $spec;
     }
@@ -205,6 +212,7 @@ class Variables extends ArrayObject
      * 
      * @param  array|object $spec 
      * @return Variables
+     * @throws Exception\InvalidArgumentException
      */
     public function assign($spec)
     {
@@ -216,7 +224,7 @@ class Variables extends ArrayObject
             }
         }
         if (!is_array($spec)) {
-            throw new Exception(sprintf(
+            throw new Exception\InvalidArgumentException(sprintf(
                 'assign() expects either an array or an object as an argument; received "%s"',
                 gettype($spec)
             ));

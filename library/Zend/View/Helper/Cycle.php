@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace Zend\View\Helper;
  * @uses       Iterator
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Cycle extends AbstractHelper implements \Iterator
@@ -70,7 +70,7 @@ class Cycle extends AbstractHelper implements \Iterator
      * @param string $name
      * @return \Zend\View\Helper\Cycle
      */
-    public function direct(array $data = array(), $name = self::DEFAULT_NAME)
+    public function __invoke(array $data = array(), $name = self::DEFAULT_NAME)
     {
         if(!empty($data))
            $this->_data[$name] = $data;

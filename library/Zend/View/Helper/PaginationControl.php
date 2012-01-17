@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,14 +22,16 @@
  * @namespace
  */
 namespace Zend\View\Helper;
-use Zend\Paginator;
-use Zend\View;
+
+use Zend\Paginator,
+    Zend\View,
+    Zend\View\Exception;
 
 /**
  * @uses       \Zend\View\Exception
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class PaginationControl extends AbstractHelper
@@ -71,25 +73,22 @@ class PaginationControl extends AbstractHelper
      * @param  string $partial (Optional) View partial
      * @param  array|string $params (Optional) params to pass to the partial
      * @return string
-     * @throws \Zend\View\Exception
+     * @throws Exception\RuntimeException if no paginator or no view partial provided
+     * @throws Exception\InvalidArgumentException if partial is invalid array
      */
-    public function direct(Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
+    public function __invoke(Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
     {
         if ($paginator === null) {
             if (isset($this->view->paginator) and $this->view->paginator !== null and $this->view->paginator instanceof Paginator\Paginator) {
                 $paginator = $this->view->paginator;
             } else {
-                $e = new View\Exception('No paginator instance provided or incorrect type');
-                $e->setView($this->view);
-                throw $e;
+                throw new Exception\RuntimeException('No paginator instance provided or incorrect type');
             }
         }
 
         if ($partial === null) {
             if (self::$_defaultViewPartial === null) {
-                $e = new View\Exception('No view partial provided and no default set');
-                $e->setView($this->view);
-                throw $e;
+                throw new Exception\RuntimeException('No view partial provided and no default set');
             }
 
             $partial = self::$_defaultViewPartial;
@@ -103,18 +102,20 @@ class PaginationControl extends AbstractHelper
 
         if (is_array($partial)) {
             if (count($partial) != 2) {
-                $e = new View\Exception('A view partial supplied as an array must contain two values: the filename and its module');
-                $e->setView($this->view);
-                throw $e;
+                throw new Exception\InvalidArgumentException(
+                    'A view partial supplied as an array must contain two values: the filename and its module'
+                );
             }
 
             if ($partial[1] !== null) {
-                return $this->view->broker('partial')->direct($partial[0], $partial[1], $pages);
+                $partialHelper = $this->view->plugin('partial');
+                return $partialHelper($partial[0], $pages);
             }
 
             $partial = $partial[0];
         }
 
-        return $this->view->broker('partial')->direct($partial, $pages);
+        $partialHelper = $this->view->plugin('partial');
+        return $partialHelper($partial, $pages);
     }
 }

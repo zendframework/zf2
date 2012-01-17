@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ use Zend\Tool\Framework\Loader,
  * @uses       \Zend\Tool\Framework\RegistryEnabled
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class AbstractLoader implements Loader, RegistryEnabled
@@ -108,14 +108,14 @@ abstract class AbstractLoader implements Loader, RegistryEnabled
 
             // reflect class to see if its something we want to load
             $reflectionClass = new \ReflectionClass($loadedClass);
-            if ($reflectionClass->implementsInterface('Zend_Tool_Framework_Manifest_Interface')
+            if ($reflectionClass->implementsInterface('Zend\\Tool\\Framework\\Manifest\\Interface')
                 && !$reflectionClass->isAbstract())
             {
                 $manifestRepository->addManifest($reflectionClass->newInstance());
                 $this->_loadedClasses[] = $loadedClass;
             }
 
-            if ($reflectionClass->implementsInterface('Zend_Tool_Framework_Provider_Interface')
+            if ($reflectionClass->implementsInterface('Zend\\Tool\\Framework\\Provider\\Interface')
                 && !$reflectionClass->isAbstract()
                 && !$providerRepository->hasProvider($reflectionClass->getName(), false))
             {

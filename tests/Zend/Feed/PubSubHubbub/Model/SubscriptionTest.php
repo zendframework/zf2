@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ use Zend\Feed\PubSubHubbub\Model\Subscription;
  * @subpackage UnitTests
  * @group      Zend_Feed
  * @group      Zend_Feed_Pubsubhubbub_Model
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class SubscriptionTest extends \PHPUnit_Framework_TestCase
@@ -48,7 +48,7 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($subscription->hasSubscription($id));
         $dataSubscription = $subscription->getSubscription($id);
-        $this->assertType('array', $dataSubscription);
+        $this->assertInternalType('array', $dataSubscription);
         $keys = array('id', 'topic_url', 'hub_url',
                       'created_time', 'lease_seconds',
                       'verify_token', 'secret',

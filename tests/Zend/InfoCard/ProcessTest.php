@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ use Zend\InfoCard\Adapter;
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_InfoCard
  */
@@ -224,6 +224,14 @@ class ProcessTest extends \PHPUnit_Framework_TestCase
     {
         $trans = new \Zend\InfoCard\XML\Security\Transform\TransformChain();
         $this->assertTrue(is_array($trans->getTransformList()));
+    }
+
+    public function testTransformsClassLoad()
+    {
+        $trans = new \ZendTest\InfoCard\TestAsset\UserTransformChain();
+        $trans->addTransform('http://www.w3.org/2000/09/xmldsig#enveloped-signature');
+        $this->setExpectedException('Zend\InfoCard\XML\Security\Exception\InvalidArgumentException', 'Transform Class not exist');
+        $trans->applyTransforms('');
     }
 
     public function testTransformsThrowsExceptionOnInvalidInput()

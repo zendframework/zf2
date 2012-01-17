@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -40,7 +40,7 @@ use Zend\Service\Amazon,
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class AbstractEc2 extends Amazon\AbstractAmazon
@@ -159,10 +159,10 @@ abstract class AbstractEc2 extends Amazon\AbstractAmazon
             ));
 
             $request->setUri($url);
-            $request->setMethod(\Zend\Http\Client::POST);
+            $request->setMethod('POST');
             $request->setParameterPost($params);
 
-            $httpResponse = $request->request();
+            $httpResponse = $request->send();
 
 
         } catch (\Zend\Http\Client\Exception $zhce) {
@@ -199,7 +199,7 @@ abstract class AbstractEc2 extends Amazon\AbstractAmazon
         $parameters['AWSAccessKeyId']   = $this->_getAccessKey();
         $parameters['SignatureVersion'] = $this->_ec2SignatureVersion;
         $parameters['Timestamp']        = gmdate('Y-m-d\TH:i:s\Z');
-        $parameters['Version']          = $this->_ec2ApiVersion;
+        $parameters['Version']          = $this->_ec2ApiVersion;   
         $parameters['SignatureMethod']  = $this->_ec2SignatureMethod;
         $parameters['Signature']        = $this->signParameters($parameters);
 
@@ -266,7 +266,8 @@ abstract class AbstractEc2 extends Amazon\AbstractAmazon
             $node    = $list->item(0);
             $code    = $xpath->evaluate('string(Code/text())', $node);
             $message = $xpath->evaluate('string(Message/text())', $node);
-            throw new Exception\RuntimeException($message, 0, $code);
+            //throw new Exception\RuntimeException($message, 0, $code);
+            throw new Exception\RuntimeException($code.' '.$message);
         }
 
     }

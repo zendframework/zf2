@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,7 +36,7 @@ namespace Zend\GData\App;
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class FeedSourceParent extends FeedEntryParent
@@ -172,7 +172,7 @@ abstract class FeedSourceParent extends FeedEntryParent
     }
 
     /**
-     * @return Zend_Gdata_AppExtension_Generator
+     * @return \Zend\Gdata\AppExtension\Generator
      */
     public function getGenerator()
     {
@@ -190,7 +190,7 @@ abstract class FeedSourceParent extends FeedEntryParent
     }
 
     /**
-     * @return Zend_Gdata_AppExtension_Icon
+     * @return \Zend\Gdata\AppExtension\Icon
      */
     public function getIcon()
     {
@@ -208,7 +208,7 @@ abstract class FeedSourceParent extends FeedEntryParent
     }
 
     /**
-     * @return Zend_Gdata_AppExtension_logo
+     * @return \Zend\Gdata\AppExtension\logo
      */
     public function getlogo()
     {
@@ -216,7 +216,7 @@ abstract class FeedSourceParent extends FeedEntryParent
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_logo $value
+     * @param \Zend\Gdata\AppExtension\logo $value
      * @return \Zend\GData\App\FeedSourceParent Provides a fluent interface
      */
     public function setlogo($value)
@@ -226,7 +226,7 @@ abstract class FeedSourceParent extends FeedEntryParent
     }
 
     /**
-     * @return Zend_Gdata_AppExtension_Subtitle
+     * @return \Zend\Gdata\AppExtension\Subtitle
      */
     public function getSubtitle()
     {

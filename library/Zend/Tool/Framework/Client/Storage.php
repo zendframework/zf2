@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,11 +25,10 @@
 namespace Zend\Tool\Framework\Client;
 
 /**
- * @uses       \Zend\Loader
  * @uses       \Zend\Tool\Framework\Client\Storage\Adapter
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Storage
@@ -49,11 +48,6 @@ class Storage
 
     public function setAdapter($adapter)
     {
-        if (is_string($adapter)) {
-            $storageAdapterClass = 'Zend\Tool\Framework\Client\Storage\\' . ucfirst($adapter);
-            \Zend\Loader::loadClass($storageAdapterClass);
-            $adapter = new $storageAdapterClass();
-        }
         $this->_adapter = $adapter;
     }
 

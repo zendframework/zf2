@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ use Zend\XmlRpc\Response,
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_XmlRpc
  */
@@ -107,7 +107,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertNull($this->_response->getFault());
         $this->_response->loadXml('foo');
-        $this->assertType('Zend\\XmlRpc\\Fault', $this->_response->getFault());
+        $this->assertInstanceOf('Zend\\XmlRpc\\Fault', $this->_response->getFault());
     }
 
     /**
@@ -227,28 +227,34 @@ EOD;
         $this->assertEquals('ISO-8859-1', Value::getGenerator()->getEncoding());
     }
 
-    public function testLoadXmlThrowsExceptionWithMissingNodes()
+    public function testLoadXmlCreatesFaultWithMissingNodes()
     {
         $sxl = new \SimpleXMLElement('<?xml version="1.0"?><methodResponse><params><param>foo</param></params></methodResponse>');
         
-        $this->setExpectedException('Zend\XmlRpc\Exception\ValueException', 'Missing XML-RPC value in XML');
-        $this->_response->loadXml($sxl->asXML());
+        $this->assertFalse($this->_response->loadXml($sxl->asXML()));
+        $this->assertTrue($this->_response->isFault());
+        $fault = $this->_response->getFault();
+        $this->assertEquals(653, $fault->getCode());
     }
     
-    public function testLoadXmlThrowsExceptionWithMissingNodes2()
+    public function testLoadXmlCreatesFaultWithMissingNodes2()
     {
         $sxl = new \SimpleXMLElement('<?xml version="1.0"?><methodResponse><params>foo</params></methodResponse>');
         
-        $this->setExpectedException('Zend\XmlRpc\Exception\ValueException', 'Missing XML-RPC value in XML');
-        $this->_response->loadXml($sxl->asXML());
+        $this->assertFalse($this->_response->loadXml($sxl->asXML()));
+        $this->assertTrue($this->_response->isFault());
+        $fault = $this->_response->getFault();
+        $this->assertEquals(653, $fault->getCode());
     }
     
     public function testLoadXmlThrowsExceptionWithMissingNodes3()
     {
         $sxl = new \SimpleXMLElement('<?xml version="1.0"?><methodResponse><bar>foo</bar></methodResponse>');
         
-        $this->setExpectedException('Zend\XmlRpc\Exception\ValueException', 'Missing XML-RPC value in XML');
-        $this->_response->loadXml($sxl->asXML());
+        $this->assertFalse($this->_response->loadXml($sxl->asXML()));
+        $this->assertTrue($this->_response->isFault());
+        $fault = $this->_response->getFault();
+        $this->assertEquals(652, $fault->getCode());
     }
 
 

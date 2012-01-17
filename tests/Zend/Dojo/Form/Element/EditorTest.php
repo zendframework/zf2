@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@ namespace ZendTest\Dojo\Form\Element;
 use Zend\Dojo\Form\Element\Editor as EditorElement,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_Form_Element_Editor.
@@ -32,7 +32,7 @@ use Zend\Dojo\Form\Element\Editor as EditorElement,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_Form
@@ -57,7 +57,7 @@ class EditorTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
@@ -228,5 +228,53 @@ class EditorTest extends \PHPUnit_Framework_TestCase
         $this->element->setUpdateInterval(300);
         $this->assertEquals($this->element->getDijitParam('updateInterval'), $this->element->getUpdateInterval());
         $this->assertEquals(300, $this->element->getUpdateInterval());
+    }
+
+    public function testCanAddMultipleSeparatorsToEditor()
+    {
+        $this->element->setPlugins(array('undo', '|', 'bold', '|', 'italic'));
+        
+        $plugins = $this->element->getPlugins();
+        $this->assertEquals(5, count($plugins));
+    }
+    
+    public function testMinHeightCanBeSetToPixels()
+    {
+        $this->element->setMinHeight('250px');
+        $this->assertEquals($this->element->getDijitParam('minHeight'), $this->element->getMinHeight());
+        $this->assertEquals('250px', $this->element->getMinHeight());
+    }
+    
+    public function testMinHeightCanBeSetToPercentage()
+    {
+        $this->element->setMinHeight('50%');
+        $this->assertEquals($this->element->getDijitParam('minHeight'), $this->element->getMinHeight());
+        $this->assertEquals('50%', $this->element->getMinHeight());
+    }
+    
+    public function testMinHeightDefaultMeasurementIsEm()
+    {
+        $this->element->setMinHeight('10');
+        $this->assertEquals($this->element->getDijitParam('minHeight'), $this->element->getMinHeight());
+        $this->assertEquals('10em', $this->element->getMinHeight());
+    }
+    
+    public function testShouldNotHaveExtraPluginsByDefault()
+    {
+        $extraPlugins = $this->element->getExtraPlugins();
+        $this->assertTrue(empty($extraPlugins));
+    }
+
+    public function testExtraPluginAccessorsShouldProxyToDijitParams()
+    {
+        $this->element->setExtraPlugins(array('undo', 'bold', 'italic'));
+        $this->assertTrue($this->element->hasDijitParam('extraPlugins'));
+        $this->assertTrue($this->element->hasExtraPlugin('bold'));
+        $this->assertEquals($this->element->getDijitParam('extraPlugins'), $this->element->getExtraPlugins());
+
+        $this->element->removeExtraPlugin('bold');
+        $this->assertFalse($this->element->hasExtraPlugin('bold'), var_export($this->element->getExtraPlugins(), 1));
+        $extraPlugins = $this->element->getDijitParam('extraPlugins');
+        $this->assertNotContains('bold', $extraPlugins, var_export($extraPlugins, 1));
     }
 }

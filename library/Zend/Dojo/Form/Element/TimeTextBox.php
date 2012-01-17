@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,14 +24,16 @@
  */
 namespace Zend\Dojo\Form\Element;
 
+use Zend\Form\Element\Exception;
+
 /**
  * TimeTextBox dijit
  *
  * @uses       \Zend\Dojo\Form\Element\DateTextBox
- * @uses       \Zend\Form\ElementException
+ * @uses       \Zend\Form\Element\Exception
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class TimeTextBox extends DateTextBox
@@ -47,12 +49,12 @@ class TimeTextBox extends DateTextBox
      *
      * @param  string $format
      * @return true
-     * @throws \Zend\Form\ElementException
+     * @throws \Zend\Form\Element\Exception
      */
     protected function _validateIso8601($format)
     {
         if (!preg_match('/^T\d{2}:\d{2}:\d{2}$/', $format)) {
-            throw new \Zend\Form\ElementException(sprintf('Invalid format "%s" provided; must match T:00:00:00 format', $format));
+            throw new Exception\InvalidArgumentException(sprintf('Invalid format "%s" provided; must match T:00:00:00 format', $format));
         }
         return true;
     }

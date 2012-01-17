@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Amf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,6 +24,10 @@
 namespace Zend\Amf\Adobe;
 
 use Zend\Amf\Exception,
+    Zend\Code\Reflection\ClassReflection,
+    Zend\Code\Reflection\PropertyReflection,
+    Zend\Server\Reflection,
+    Zend\Server\Reflection\ReflectionClass as ServerReflectionClass,
     SplFileInfo;
 
 /**
@@ -35,7 +39,7 @@ use Zend\Amf\Exception,
  * @uses       Zend\Server\Reflection
  * @package    Zend_Amf
  * @subpackage Adobe
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Introspector
@@ -105,7 +109,7 @@ class Introspector
         $this->_types = $this->_xml->createElement('types');
         $this->_ops   = $this->_xml->createElement('operations');
 
-        $r = \Zend\Server\Reflection\Reflection::reflectClass($serviceClass);
+        $r = Reflection::reflectClass($serviceClass);
         $this->_addService($r, $this->_ops);
 
         $serv->appendChild($this->_types);
@@ -141,7 +145,7 @@ class Introspector
             return;
         }
 
-        $rc = new \Zend\Reflection\ReflectionClass($typename);
+        $rc = new ClassReflection($typename);
         foreach ($rc->getProperties() as $prop) {
             if (!$prop->isPublic()) {
                 continue;
@@ -164,7 +168,7 @@ class Introspector
      * @param  DOMElement $target target XML element
      * @return void
      */
-    protected function _addService(\Zend\Server\Reflection\ReflectionClass $refclass, \DOMElement $target)
+    protected function _addService(ServerReflectionClass $refclass, \DOMElement $target)
     {
         foreach ($refclass->getMethods() as $method) {
             if (!$method->isPublic()
@@ -208,12 +212,12 @@ class Introspector
     /**
      * Extract type of the property from DocBlock
      *
-     * @param  \Zend\Reflection\ReflectionProperty $prop reflection property object
+     * @param  \Zend\Code\Reflection\PropertyReflection $prop reflection property object
      * @return string Property type
      */
-    protected function _getPropertyType(\Zend\Reflection\ReflectionProperty $prop)
+    protected function _getPropertyType(PropertyReflection $prop)
     {
-        $docBlock = $prop->getDocComment();
+        $docBlock = $prop->getDocBlock();
 
         if (!$docBlock) {
             return 'Unknown';
@@ -224,7 +228,7 @@ class Introspector
         }
 
         $tag = $docBlock->getTag('var');
-        return trim($tag->getDescription());
+        return trim($tag->getContent());
     }
 
     /**

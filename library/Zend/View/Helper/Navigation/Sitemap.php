@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,29 +24,23 @@
  */
 namespace Zend\View\Helper\Navigation;
 
-use Zend\Navigation\AbstractPage,
+use DOMDocument,
+    RecursiveIteratorIterator,
+    Zend\Navigation\AbstractPage,
     Zend\Navigation\Container,
-    Zend\View;
+    Zend\Uri,
+    Zend\View,
+    Zend\View\Exception;
 
 /**
  * Helper for printing sitemaps
  *
  * @link http://www.sitemaps.org/protocol.php
  *
- * @uses       DOMDocument
- * @uses       RecursiveIteratorIterator
- * @uses       \Zend\Uri\Url
- * @uses       \Zend\Uri\Exception
- * @uses       \Zend\Validator\Sitemap\Changefreq
- * @uses       \Zend\Validator\Sitemap\Lastmod
- * @uses       \Zend\Validator\Sitemap\Loc
- * @uses       \Zend\Validator\Sitemap\Priority
- * @uses       \Zend\View\Exception
- * @uses       \Zend\View\Helper\Navigation\AbstractHelper
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Sitemap extends AbstractHelper
@@ -109,7 +103,7 @@ class Sitemap extends AbstractHelper
      * @return \Zend\View\Helper\Navigation\Sitemap   fluent interface, returns
      *                                               self
      */
-    public function direct(Container $container = null)
+    public function __invoke(Container $container = null)
     {
         if (null !== $container) {
             $this->setContainer($container);
@@ -222,27 +216,24 @@ class Sitemap extends AbstractHelper
      *
      * E.g. http://www.example.com
      *
-     * @param  string $serverUrl                    server URL to set (only
-     *                                              scheme and host)
-     * @throws \Zend\Uri\Exception                   if invalid server URL
-     * @return \Zend\View\Helper\Navigation\Sitemap  fluent interface, returns
-     *                                              self
+     * @param  string $serverUrl server URL to set (only scheme and host)
+     * @return Sitemap fluent interface, returns self
+     * @throws Exception\InvalidArgumentException if invalid server URL
      */
     public function setServerUrl($serverUrl)
     {
-        $uri = new \Zend\Uri\Url($serverUrl);
+        $uri = Uri\UriFactory::factory($serverUrl);
         $uri->setFragment('');
         $uri->setPath('');
         $uri->setQuery('');
 
         if ($uri->isValid()) {
-            $this->_serverUrl = $uri->generate();
+            $this->_serverUrl = $uri->toString();
         } else {
-            $e = new \Zend\Uri\Exception(sprintf(
-                    'Invalid server URL: "%s"',
-                    $serverUrl));
-            $e->setView($this->view);
-            throw $e;
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Invalid server URL: "%s"',
+                $serverUrl
+            ));
         }
 
         return $this;
@@ -256,7 +247,8 @@ class Sitemap extends AbstractHelper
     public function getServerUrl()
     {
         if (!isset($this->_serverUrl)) {
-            $this->_serverUrl = $this->view->serverUrl();
+            $serverUrlHelper  = $this->getView()->plugin('serverUrl');
+            $this->_serverUrl = $serverUrlHelper();
         }
 
         return $this->_serverUrl;
@@ -273,7 +265,7 @@ class Sitemap extends AbstractHelper
     protected function _xmlEscape($string)
     {
         $enc = 'UTF-8';
-        if ($this->view instanceof View\ViewEngine
+        if ($this->view instanceof View\Renderer
             && method_exists($this->view, 'getEncoding')
         ) {
             $enc = $this->view->getEncoding();
@@ -305,11 +297,12 @@ class Sitemap extends AbstractHelper
             $url = (string) $href;
         } else {
             // href is relative to current document; use url helpers
-            $curDoc = $this->getView()->broker('url')->direct();
-            $curDoc = ('/' == $curDoc) ? '' : trim($curDoc, '/');
-            $url = rtrim($this->getServerUrl(), '/') . '/'
-                 . $curDoc
-                 . (empty($curDoc) ? '' : '/') . $href;
+            $basePathHelper = $this->getView()->plugin('basepath');
+            $curDoc         = $basePathHelper();
+            $curDoc         = ('/' == $curDoc) ? '' : trim($curDoc, '/');
+            $url            = rtrim($this->getServerUrl(), '/') . '/'
+                            . $curDoc
+                            . (empty($curDoc) ? '' : '/') . $href;
         }
 
         return $this->_xmlEscape($url);
@@ -324,7 +317,7 @@ class Sitemap extends AbstractHelper
      *                                               helper
      * @return DOMDocument                           DOM representation of the
      *                                               container
-     * @throws \Zend\View\Exception                   if schema validation is on
+     * @throws Exception\RuntimeException            if schema validation is on
      *                                               and the sitemap is invalid
      *                                               according to the sitemap
      *                                               schema, or if sitemap
@@ -347,7 +340,7 @@ class Sitemap extends AbstractHelper
         }
 
         // create document
-        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = $this->getFormatOutput();
 
         // ...and urlset (root) element
@@ -355,8 +348,8 @@ class Sitemap extends AbstractHelper
         $dom->appendChild($urlSet);
 
         // create iterator
-        $iterator = new \RecursiveIteratorIterator($container,
-            \RecursiveIteratorIterator::SELF_FIRST);
+        $iterator = new RecursiveIteratorIterator($container,
+            RecursiveIteratorIterator::SELF_FIRST);
 
         $maxDepth = $this->getMaxDepth();
         if (is_int($maxDepth)) {
@@ -375,7 +368,7 @@ class Sitemap extends AbstractHelper
             }
 
             // get absolute url from page
-            if (!$url = $this->getView()->broker('url')->direct($page->toArray())) {
+            if (!$url = $this->url($page)) {
                 // skip page if it has no url (rare case)
                 continue;
             }
@@ -384,13 +377,13 @@ class Sitemap extends AbstractHelper
             $urlNode = $dom->createElementNS(self::SITEMAP_NS, 'url');
             $urlSet->appendChild($urlNode);
 
-            if ($this->getUseSitemapValidators() &&
-                !$locValidator->isValid($url)) {
-                $e = new View\Exception(sprintf(
+            if ($this->getUseSitemapValidators()
+                && !$locValidator->isValid($url)
+            ) {
+                throw new Exception\RuntimeException(sprintf(
                         'Encountered an invalid URL for Sitemap XML: "%s"',
-                        $url));
-                $e->setView($this->view);
-                throw $e;
+                        $url
+                ));
             }
 
             // put url in 'loc' element
@@ -443,11 +436,10 @@ class Sitemap extends AbstractHelper
         // validate using schema if specified
         if ($this->getUseSchemaValidation()) {
             if (!@$dom->schemaValidate(self::SITEMAP_XSD)) {
-                $e = new View\Exception(sprintf(
+                throw new Exception\RuntimeException(sprintf(
                         'Sitemap is invalid according to XML Schema at "%s"',
-                        self::SITEMAP_XSD));
-                $e->setView($this->view);
-                throw $e;
+                        self::SITEMAP_XSD
+                ));
             }
         }
 

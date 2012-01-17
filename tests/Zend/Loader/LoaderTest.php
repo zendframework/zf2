@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use \stdClass,
  * @package    Loader
  * @subpackage UnitTests
  * @group      Zend_Loader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class LoaderTest extends \PHPUnit_Framework_TestCase
@@ -120,7 +120,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(Loader::isReadable(__FILE__ . '.foobaar'));
 
         // test that a file in include_path gets loaded, see ZF-2985
-        $this->assertTrue(Loader::isReadable('Zend/Controller/Front.php'), get_include_path());
+        $this->assertTrue(Loader::isReadable('Zend/Version.php'), get_include_path());
     }
 
     /**

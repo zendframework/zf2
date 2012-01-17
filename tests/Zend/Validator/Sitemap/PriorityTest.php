@@ -13,9 +13,9 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Translate
+ * @package    Zend_Translator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace ZendTest\Validator\Sitemap;
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -89,7 +89,7 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
         foreach ($values as $value) {
             $this->assertSame(false, $this->_validator->isValid($value));
             $messages = $this->_validator->getMessages();
-            $this->assertContains('is no valid', current($messages));
+            $this->assertContains('is not a valid', current($messages));
         }
     }
 

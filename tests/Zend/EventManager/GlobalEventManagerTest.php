@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_EventManager
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ use Zend\EventManager\GlobalEventManager,
  * @package    Zend_EventManager
  * @subpackage UnitTests
  * @group      Zend_EventManager
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class GlobalEventManagerTest extends \PHPUnit_Framework_TestCase
@@ -57,13 +57,13 @@ class GlobalEventManagerTest extends \PHPUnit_Framework_TestCase
     public function testProxiesAllStaticOperationsToEventCollectionInstance()
     {
         $test    = new \stdClass();
-        $handler = GlobalEventManager::attach('foo.bar', function ($e) use ($test) {
+        $listener = GlobalEventManager::attach('foo.bar', function ($e) use ($test) {
             $test->event  = $e->getName();
             $test->target = $e->getTarget();
             $test->params = $e->getParams();
             return $test->params;
         });
-        $this->assertInstanceOf('Zend\Stdlib\CallbackHandler', $handler);
+        $this->assertInstanceOf('Zend\Stdlib\CallbackHandler', $listener);
 
         GlobalEventManager::trigger('foo.bar', $this, array('foo' => 'bar'));
         $this->assertSame($this, $test->target);
@@ -80,22 +80,22 @@ class GlobalEventManagerTest extends \PHPUnit_Framework_TestCase
         $events = GlobalEventManager::getEvents();
         $this->assertEquals(array('foo.bar'), $events);
 
-        $handlers = GlobalEventManager::getHandlers('foo.bar');
-        $this->assertEquals(1, count($handlers));
-        $this->assertTrue($handlers->contains($handler));
+        $listeners = GlobalEventManager::getListeners('foo.bar');
+        $this->assertEquals(1, count($listeners));
+        $this->assertTrue($listeners->contains($listener));
 
-        GlobalEventManager::detach($handler);
+        GlobalEventManager::detach($listener);
         $events = GlobalEventManager::getEvents();
         $this->assertEquals(array(), $events);
 
-        $handler = GlobalEventManager::attach('foo.bar', function ($e) use ($test) {
+        $listener = GlobalEventManager::attach('foo.bar', function ($e) use ($test) {
             $test->event  = $e->getEvent();
             $test->target = $e->getTarget();
             $test->params = $e->getParams();
         });
         $events = GlobalEventManager::getEvents();
         $this->assertEquals(array('foo.bar'), $events);
-        GlobalEventManager::clearHandlers('foo.bar');
+        GlobalEventManager::clearListeners('foo.bar');
         $events = GlobalEventManager::getEvents();
         $this->assertEquals(array(), $events);
     }

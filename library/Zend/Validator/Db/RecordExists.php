@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ namespace Zend\Validator\Db;
  * @uses       \Zend\Validator\Db\AbstractDb
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class RecordExists extends AbstractDb
@@ -37,12 +37,12 @@ class RecordExists extends AbstractDb
     public function isValid($value)
     {
         $valid = true;
-        $this->_setValue($value);
+        $this->setValue($value);
 
         $result = $this->_query($value);
         if (!$result) {
             $valid = false;
-            $this->_error(self::ERROR_NO_RECORD_FOUND);
+            $this->error(self::ERROR_NO_RECORD_FOUND);
         }
 
         return $valid;

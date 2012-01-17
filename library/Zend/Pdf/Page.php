@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_PDF
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,12 +32,9 @@ namespace Zend\Pdf;
  * @uses       \Zend\Pdf\Exception
  * @uses       \Zend\Pdf\Resource\Font
  * @package    Zend_PDF
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-use Zend\Pdf\Resource\Font;
-
-use Zend\Acl;
 
 use Zend\Pdf\Exception;
 
@@ -554,7 +551,7 @@ class Page
         }
 
         if ($this->_attached) {
-            throw new Exception\LogicException('Page is attached to other documen. Use clone $page to get it context free.');
+            throw new Exception\LogicException('Page is attached to other document. Use clone $page to get it context free.');
         } else {
             $objFactory->attach($this->_objFactory);
         }
@@ -925,14 +922,14 @@ class Page
 
 
     /**
-     * Intersect current clipping area with a circle.
+     * Intersect current clipping area with a circle
      *
-     * @param float $x
-     * @param float $y
-     * @param float $radius
-     * @param float $startAngle
-     * @param float $endAngle
-     * @return \Zend\Pdf\Page
+     * @param float $x           X-coordinate for the middle of the circle
+     * @param float $y           Y-coordinate for the middle of the circle
+     * @param float $radius      Radius of the circle
+     * @param float $startAngle  Starting angle of the circle in radians
+     * @param float $endAngle    Ending angle of the circle in radians
+     * @return \Zend\Pdf\Page    Fluid interface
      */
     public function clipCircle($x, $y, $radius, $startAngle = null, $endAngle = null)
     {
@@ -944,7 +941,7 @@ class Page
     }
 
     /**
-     * Intersect current clipping area with a polygon.
+     * Intersect current clipping area with a ellipse
      *
      * Method signatures:
      * drawEllipse($x1, $y1, $x2, $y2);
@@ -952,13 +949,13 @@ class Page
      *
      * @todo process special cases with $x2-$x1 == 0 or $y2-$y1 == 0
      *
-     * @param float $x1
-     * @param float $y1
-     * @param float $x2
-     * @param float $y2
-     * @param float $startAngle
-     * @param float $endAngle
-     * @return \Zend\Pdf\Page
+     * @param float $x1          X-coordinate of left upper corner of the ellipse
+     * @param float $y1          Y-coordinate of left upper corner of the ellipse
+     * @param float $x2          X-coordinate of right lower corner of the ellipse
+     * @param float $y2          Y-coordinate of right lower corner of the ellipse
+     * @param float $startAngle  Starting angle of the ellipse in radians
+     * @param float $endAngle    Ending angle of the ellipse in radians
+     * @return \Zend\Pdf\Page    Fluid interface
      */
     public function clipEllipse($x1, $y1, $x2, $y2, $startAngle = null, $endAngle = null)
     {
@@ -1727,12 +1724,12 @@ class Page
     }
 
     /**
-     * Rotate the page.
+     * Rotate the page
      *
-     * @param float $x  - the X co-ordinate of rotation point
-     * @param float $y  - the Y co-ordinate of rotation point
-     * @param float $angle - rotation angle
-     * @return \Zend\Pdf\Page
+     * @param float $x        X coordinate of the rotation point
+     * @param float $y        Y coordinate of the rotation point
+     * @param float $angle    Angle of rotation in radians
+     * @return \Zend\Pdf\Page Fluid Interface
      */
     public function rotate($x, $y, $angle)
     {

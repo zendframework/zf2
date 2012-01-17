@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,22 +23,24 @@
  * @namespace
  */
 namespace Zend\Tool\Project\Context\Zf;
-use Zend\CodeGenerator\Php;
+use Zend\Code\Generator\FileGenerator,
+    Zend\Code\Generator\ClassGenerator,
+    Zend\Code\Generator\MethodGenerator;
 
 /**
- * This class is the front most class for utilizing Zend_Tool_Project
+ * This class is the front most class for utilizing Zend\Tool\Project
  *
  * A profile is a hierarchical set of resources that keep track of
  * items within a specific project.
  *
- * @uses       \Zend\CodeGenerator\Php\PhpClass
- * @uses       \Zend\CodeGenerator\Php\PhpFile
- * @uses       \Zend\CodeGenerator\Php\PhpMethod
+ * @uses       \Zend\Code\Generator\ClassGenerator
+ * @uses       \Zend\Code\Generator\FileGenerator
+ * @uses       \Zend\Code\Generator\MethodGenerator
  * @uses       \Zend\Filter\Word\DashToCamelCase
  * @uses       \Zend\Tool\Project\Context\Filesystem\File
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class TestLibraryFile extends \Zend\Tool\Project\Context\Filesystem\File
@@ -84,28 +86,18 @@ class TestLibraryFile extends \Zend\Tool\Project\Context\Filesystem\File
 
         $className = $filter->filter($this->_forClassName) . 'Test';
 
-        $codeGenFile = new Php\PhpFile(array(
-            'requiredFiles' => array(
+        $codeGenFile = new FileGenerator();
+        $codeGenFile->setRequiredFiles(array(
                 'PHPUnit/Framework/TestCase.php'
-                ),
-            'classes' => array(
-                new Php\PhpClass(array(
-                    'name' => $className,
-                    'extendedClass' => 'PHPUnit_Framework_TestCase',
-                    'methods' => array(
-                        new Php\PhpMethod(array(
-                            'name' => 'setUp',
-                            'body' => '        /* Setup Routine */'
-                            )),
-                        new Php\PhpMethod(array(
-                            'name' => 'tearDown',
-                            'body' => '        /* Tear Down Routine */'
-                            ))
-                        )
-                    ))
+                ));
+        $codeGenFile->setClasses(array(
+                new ClassGenerator($className, null, null, 'PHPUnit_Framework_TestCase', array(), array(), array(
+                        new MethodGenerator('setUp', array(), MethodGenerator::FLAG_PUBLIC, '        /* Setup Routine */'),
+                        new MethodGenerator('tearDown', array(), MethodGenerator::FLAG_PUBLIC, '        /* Tear Down Routine */'),
+                    )
                 )
             ));
-
+        
         return $codeGenFile->generate();
     }
 

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_JSON_Server
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ use Zend\Json\Server,
  * @category   Zend
  * @package    Zend_JSON_Server
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_JSON
  * @group      Zend_JSON_Server
@@ -118,7 +118,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(is_array($test));
         $this->assertTrue(array_key_exists('result', $test));
-        $this->assertTrue(array_key_exists('error', $test));
+        $this->assertFalse(array_key_exists('error', $test), "'error' may not coexist with 'result'");
         $this->assertTrue(array_key_exists('id', $test));
         $this->assertTrue(array_key_exists('jsonrpc', $test));
 
@@ -139,7 +139,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $test = Json\Json::decode($json, Json\Json::TYPE_ARRAY);
 
         $this->assertTrue(is_array($test));
-        $this->assertTrue(array_key_exists('result', $test));
+        $this->assertFalse(array_key_exists('result', $test), "'result' may not coexist with 'error'");
+        $this->assertTrue(array_key_exists('error', $test));
         $this->assertTrue(array_key_exists('id', $test));
         $this->assertFalse(array_key_exists('jsonrpc', $test));
 
@@ -157,7 +158,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(is_array($test));
         $this->assertTrue(array_key_exists('result', $test));
-        $this->assertTrue(array_key_exists('error', $test));
+        $this->assertFalse(array_key_exists('error', $test), "'error' may not coexist with 'result'");
         $this->assertTrue(array_key_exists('id', $test));
         $this->assertFalse(array_key_exists('jsonrpc', $test));
 

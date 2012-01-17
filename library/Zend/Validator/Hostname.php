@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -37,7 +37,7 @@ namespace Zend\Validator;
  * @uses       \Zend\Validator\Ip
  * @category   Zend
  * @package    Zend_Validator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Hostname extends AbstractValidator
@@ -75,33 +75,14 @@ class Hostname extends AbstractValidator
      * @var array
      */
     protected $_messageVariables = array(
-        'tld' => '_tld'
+        'tld' => '_tld',
     );
 
-    /**
-     * Allows Internet domain names (e.g., example.com)
-     */
-    const ALLOW_DNS   = 1;
-
-    /**
-     * Allows IP addresses
-     */
-    const ALLOW_IP    = 2;
-
-    /**
-     * Allows local network names (e.g., localhost, www.localdomain)
-     */
-    const ALLOW_LOCAL = 4;
-
-    /**
-     * Allows all types of hostnames
-     */
-    const ALLOW_ALL   = 7;
-
-    /**
-     * Allows all types of hostnames
-     */
-    const ALLOW_URI = 8;
+    const ALLOW_DNS   = 1;  // Allows Internet domain names (e.g., example.com)
+    const ALLOW_IP    = 2;  // Allows IP addresses
+    const ALLOW_LOCAL = 4;  // Allows local network names (e.g., localhost, www.localdomain)
+    const ALLOW_URI   = 8;  // Allows URI hostnames
+    const ALLOW_ALL   = 15;  // Allows all types of hostnames
 
     /**
      * Array of valid top-level-domains
@@ -129,13 +110,8 @@ class Hostname extends AbstractValidator
         'sm', 'sn', 'so', 'sr', 'st', 'su', 'sv', 'sy', 'sz', 'tc', 'td', 'tel', 'tf', 'tg', 'th',
         'tj', 'tk', 'tl', 'tm', 'tn', 'to', 'tp', 'tr', 'travel', 'tt', 'tv', 'tw', 'tz', 'ua',
         'ug', 'uk', 'um', 'us', 'uy', 'uz', 'va', 'vc', 've', 'vg', 'vi', 'vn', 'vu', 'wf', 'ws',
-        'ye', 'yt', 'yu', 'za', 'zm', 'zw'
+        'xxx', 'ye', 'yt', 'yu', 'za', 'zm', 'zw'
     );
-
-    /**
-     * @var string
-     */
-    protected $_tld;
 
     /**
      * Array for valid Idns
@@ -208,7 +184,7 @@ class Hostname extends AbstractValidator
             3 => '/^[\x{002d}0-9a-zșț]{1,63}$/iu',
             4 => '/^[\x{002d}0-9a-zΐάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώ]{1,63}$/iu',
             5 => '/^[\x{002d}0-9a-zабвгдежзийклмнопрстуфхцчшщъыьэюя]{1,63}$/iu',
-            6 => '/^[\x{002d}0-9a-zἀ-ἇἐ-ἕἠ-ἧἰ-ἷὀ-ὅὐ-ὗὠ-ὧὰ-ώᾀ-ᾇᾐ-ᾗᾠ-ᾧᾰ-ᾴᾶᾷῂῃῄῆῇῐ-ΐῖῗῠ-ῧῲῳῴῶῷ]{1,63}$/iu'),
+            6 => '/^[\x{002d}0-9a-zἀ-ἇἐ-ἕἠ-ἧἰ-ἷὀ-ὅὐ-ὗὠ-ὧὰ-ὼώᾀ-ᾇᾐ-ᾗᾠ-ᾧᾰ-ᾴᾶᾷῂῃῄῆῇῐ-ῒΐῖῗῠ-ῧῲῳῴῶῷ]{1,63}$/iu'),
         'FI'  => array(1 => '/^[\x{002d}0-9a-zäåö]{1,63}$/iu'),
         'GR'  => array(1 => '/^[\x{002d}0-9a-zΆΈΉΊΌΎ-ΡΣ-ώἀ-ἕἘ-Ἕἠ-ὅὈ-Ὅὐ-ὗὙὛὝὟ-ώᾀ-ᾴᾶ-ᾼῂῃῄῆ-ῌῐ-ΐῖ-Ίῠ-Ῥῲῳῴῶ-ῼ]{1,63}$/iu'),
         'HK'  => 'Hostname/Cn.php',
@@ -279,6 +255,10 @@ class Hostname extends AbstractValidator
         'SA'  => array(1 => '/^[\x{002d}.0-9\x{0621}-\x{063A}\x{0641}-\x{064A}\x{0660}-\x{0669}]{1,63}$/iu'),
         'SE'  => array(1 => '/^[\x{002d}0-9a-zäåéöü]{1,63}$/iu'),
         'SH'  => array(1 => '/^[\x{002d}0-9a-zà-öø-ÿăąāćĉčċďđĕěėęēğĝġģĥħĭĩįīıĵķĺľļłńňņŋŏőōœĸŕřŗśŝšşťţŧŭůűũųūŵŷźžż]{1,63}$/iu'),
+        'SI'  => array(
+            1 => '/^[\x{002d}0-9a-zà-öø-ÿ]{1,63}$/iu',
+            2 => '/^[\x{002d}0-9a-zāăąćĉċčďđēĕėęěĝğġģĥħĩīĭįıĵķĺļľŀłńņňŉŋōŏőœŕŗřśŝšťŧũūŭůűųŵŷźżž]{1,63}$/iu',
+            3 => '/^[\x{002d}0-9a-zșț]{1,63}$/iu'),
         'SJ'  => array(1 => '/^[\x{002d}0-9a-zàáä-éêñ-ôöøüčđńŋšŧž]{1,63}$/iu'),
         'TH'  => array(1 => '/^[\x{002d}0-9a-z\x{0E01}-\x{0E3A}\x{0E40}-\x{0E4D}\x{0E50}-\x{0E59}]{1,63}$/iu'),
         'TM'  => array(1 => '/^[\x{002d}0-9a-zà-öø-ÿāăąćĉċčďđēėęěĝġģĥħīįĵķĺļľŀłńņňŋőœŕŗřśŝşšţťŧūŭůűųŵŷźżž]{1,63}$/iu'),
@@ -326,11 +306,18 @@ class Hostname extends AbstractValidator
         '台灣' => array(1 => 20),
     );
 
-    protected $_options = array(
-        'allow' => self::ALLOW_DNS,
-        'idn'   => true,
-        'tld'   => true,
-        'ip'    => null
+    protected $_tld;
+
+    /**
+     * Options for the hostname validator
+     *
+     * @var array
+     */
+    protected $options = array(
+        'allow'       => self::ALLOW_DNS, // Allow these hostnames
+        'useIdnCheck' => true,  // Check IDN domains
+        'useTldCheck' => true,  // Check TLD elements
+        'ipValidator' => null,  // IP validator to use
     );
 
     /**
@@ -345,65 +332,29 @@ class Hostname extends AbstractValidator
      */
     public function __construct($options = array())
     {
-        if ($options instanceof \Zend\Config\Config) {
-            $options = $options->toArray();
-        } else if (!is_array($options)) {
+        if (!is_array($options)) {
             $options = func_get_args();
             $temp['allow'] = array_shift($options);
             if (!empty($options)) {
-                $temp['idn'] = array_shift($options);
+                $temp['useIdnCheck'] = array_shift($options);
             }
 
             if (!empty($options)) {
-                $temp['tld'] = array_shift($options);
+                $temp['useTldCheck'] = array_shift($options);
             }
 
             if (!empty($options)) {
-                $temp['ip'] = array_shift($options);
+                $temp['ipValidator'] = array_shift($options);
             }
 
             $options = $temp;
         }
 
-        $options += $this->_options;
-        $this->setOptions($options);
-    }
-
-    /**
-     * Returns all set options
-     *
-     * @return array
-     */
-    public function getOptions()
-    {
-        return $this->_options;
-    }
-
-    /**
-     * Sets the options for this validator
-     *
-     * @param array $options
-     * @return \Zend\Validator\Hostname
-     */
-    public function setOptions($options)
-    {
-        if (array_key_exists('allow', $options)) {
-            $this->setAllow($options['allow']);
+        if (!array_key_exists('ipValidator', $options)) {
+            $options['ipValidator'] = null;
         }
 
-        if (array_key_exists('idn', $options)) {
-            $this->setValidateIdn($options['idn']);
-        }
-
-        if (array_key_exists('tld', $options)) {
-            $this->setValidateTld($options['tld']);
-        }
-
-        if (array_key_exists('ip', $options)) {
-            $this->setIpValidator($options['ip']);
-        }
-
-        return $this;
+        parent::__construct($options);
     }
 
     /**
@@ -413,7 +364,7 @@ class Hostname extends AbstractValidator
      */
     public function getIpValidator()
     {
-        return $this->_options['ip'];
+        return $this->options['ipValidator'];
     }
 
     /**
@@ -426,7 +377,7 @@ class Hostname extends AbstractValidator
             $ipValidator = new Ip();
         }
 
-        $this->_options['ip'] = $ipValidator;
+        $this->options['ipValidator'] = $ipValidator;
         return $this;
     }
 
@@ -437,7 +388,7 @@ class Hostname extends AbstractValidator
      */
     public function getAllow()
     {
-        return $this->_options['allow'];
+        return $this->options['allow'];
     }
 
     /**
@@ -448,7 +399,7 @@ class Hostname extends AbstractValidator
      */
     public function setAllow($allow)
     {
-        $this->_options['allow'] = $allow;
+        $this->options['allow'] = $allow;
         return $this;
     }
 
@@ -457,9 +408,9 @@ class Hostname extends AbstractValidator
      *
      * @return boolean
      */
-    public function getValidateIdn()
+    public function getIdnCheck()
     {
-        return $this->_options['idn'];
+        return $this->options['useIdnCheck'];
     }
 
     /**
@@ -467,11 +418,11 @@ class Hostname extends AbstractValidator
      *
      * This only applies when DNS hostnames are validated
      *
-     * @param boolean $allowed Set allowed to true to validate IDNs, and false to not validate them
+     * @param boolean $useIdnCheck Set to true to validate IDN domains
      */
-    public function setValidateIdn ($allowed)
+    public function useIdnCheck ($useIdnCheck)
     {
-        $this->_options['idn'] = (bool) $allowed;
+        $this->options['useIdnCheck'] = (bool) $useIdnCheck;
         return $this;
     }
 
@@ -480,9 +431,9 @@ class Hostname extends AbstractValidator
      *
      * @return boolean
      */
-    public function getValidateTld()
+    public function getTldCheck()
     {
-        return $this->_options['tld'];
+        return $this->options['useTldCheck'];
     }
 
     /**
@@ -490,11 +441,11 @@ class Hostname extends AbstractValidator
      *
      * This only applies when DNS hostnames are validated
      *
-     * @param boolean $allowed Set allowed to true to validate TLDs, and false to not validate them
+     * @param boolean $useTldCheck Set to true to validate TLD elements
      */
-    public function setValidateTld ($allowed)
+    public function useTldCheck ($useTldCheck)
     {
-        $this->_options['tld'] = (bool) $allowed;
+        $this->options['useTldCheck'] = (bool) $useTldCheck;
         return $this;
     }
 
@@ -510,24 +461,43 @@ class Hostname extends AbstractValidator
     public function isValid($value)
     {
         if (!is_string($value)) {
-            $this->_error(self::INVALID);
+            $this->error(self::INVALID);
             return false;
         }
 
-        $this->_setValue($value);
+        $this->setValue($value);
         // Check input against IP address schema
-        if (preg_match('/^[0-9.a-e:.]*$/i', $value) &&
-            $this->_options['ip']->setTranslator($this->getTranslator())->isValid($value)) {
-            if (!($this->_options['allow'] & self::ALLOW_IP)) {
-                $this->_error(self::IP_ADDRESS_NOT_ALLOWED);
+        if (preg_match('/^[0-9a-f:.]*$/i', $value) &&
+            $this->getIpValidator()->setTranslator($this->getTranslator())->isValid($value)) {
+            if (!($this->getAllow() & self::ALLOW_IP)) {
+                $this->error(self::IP_ADDRESS_NOT_ALLOWED);
                 return false;
             } else {
                 return true;
             }
         }
 
-        // Check input against DNS hostname schema
+        // Local hostnames are allowed to be partitial (ending '.')
+        if ($this->getAllow() & self::ALLOW_LOCAL) {
+            if (substr($value, -1) === '.') {
+                $value = substr($value, 0, -1);
+                if (substr($value, -1) === '.') {
+                    // Empty hostnames (ending '..') are not allowed
+                    $this->error(self::INVALID_LOCAL_NAME);
+                    return false;
+                }
+            }
+        }
+
         $domainParts = explode('.', $value);
+
+        // Prevent partitial IP V4 adresses (ending '.')
+        if ((count($domainParts) == 4) && preg_match('/^[0-9.a-e:.]*$/i', $value) &&
+            $this->getIpValidator()->setTranslator($this->getTranslator())->isValid($value)) {
+            $this->error(self::INVALID_LOCAL_NAME);
+        }
+
+        // Check input against DNS hostname schema
         if ((count($domainParts) > 1) && (strlen($value) >= 4) && (strlen($value) <= 254)) {
             $status = false;
 
@@ -547,9 +517,9 @@ class Hostname extends AbstractValidator
 
                     // Match TLD against known list
                     $this->_tld = strtolower($matches[1]);
-                    if ($this->_options['tld']) {
+                    if ($this->getTldCheck()) {
                         if (!in_array($this->_tld, $this->_validTlds)) {
-                            $this->_error(self::UNKNOWN_TLD);
+                            $this->error(self::UNKNOWN_TLD);
                             $status = false;
                             break;
                         }
@@ -561,7 +531,7 @@ class Hostname extends AbstractValidator
                      * @see \Zend\Validator\Hostname\Interface
                      */
                     $regexChars = array(0 => '/^[a-z0-9\x2d]{1,63}$/i');
-                    if ($this->_options['idn'] &&  isset($this->_validIdns[strtoupper($this->_tld)])) {
+                    if ($this->getIdnCheck() &&  isset($this->_validIdns[strtoupper($this->_tld)])) {
                         if (is_string($this->_validIdns[strtoupper($this->_tld)])) {
                             $regexChars += include($this->_validIdns[strtoupper($this->_tld)]);
                         } else {
@@ -584,7 +554,7 @@ class Hostname extends AbstractValidator
                         if ((strpos($domainPart, '-') === 0)
                             || ((strlen($domainPart) > 2) && (strpos($domainPart, '-', 2) == 2) && (strpos($domainPart, '-', 3) == 3))
                             || (strpos($domainPart, '-') === (strlen($domainPart) - 1))) {
-                                $this->_error(self::INVALID_DASH);
+                            $this->error(self::INVALID_DASH);
                             $status = false;
                             break 2;
                         }
@@ -601,7 +571,7 @@ class Hostname extends AbstractValidator
                                 }
 
                                 if (iconv_strlen($domainPart, 'UTF-8') > $length) {
-                                    $this->_error(self::INVALID_HOSTNAME);
+                                    $this->error(self::INVALID_HOSTNAME);
                                 } else {
                                     $checked = true;
                                     break;
@@ -616,12 +586,12 @@ class Hostname extends AbstractValidator
 
                     // If one of the labels doesn't match, the hostname is invalid
                     if ($check !== count($domainParts)) {
-                        $this->_error(self::INVALID_HOSTNAME_SCHEMA);
+                        $this->error(self::INVALID_HOSTNAME_SCHEMA);
                         $status = false;
                     }
                 } else {
                     // Hostname not long enough
-                    $this->_error(self::UNDECIPHERABLE_TLD);
+                    $this->error(self::UNDECIPHERABLE_TLD);
                     $status = false;
                 }
             } while (false);
@@ -629,41 +599,41 @@ class Hostname extends AbstractValidator
             iconv_set_encoding('internal_encoding', $origenc);
             // If the input passes as an Internet domain name, and domain names are allowed, then the hostname
             // passes validation
-            if ($status && ($this->_options['allow'] & self::ALLOW_DNS)) {
+            if ($status && ($this->getAllow() & self::ALLOW_DNS)) {
                 return true;
             }
-        } else if ($this->_options['allow'] & self::ALLOW_DNS) {
-            $this->_error(self::INVALID_HOSTNAME);
+        } else if ($this->getAllow() & self::ALLOW_DNS) {
+            $this->error(self::INVALID_HOSTNAME);
         }
 
         // Check for URI Syntax (RFC3986)
-        if ($this->_options['allow'] & self::ALLOW_URI) {
+        if ($this->getAllow() & self::ALLOW_URI) {
             if (preg_match("/^([a-zA-Z0-9-._~!$&\'()*+,;=]|%[[:xdigit:]]{2}){1,254}$/i", $value)) {
                 return true;
             } else {
-                $this->_error(self::INVALID_URI);
+                $this->error(self::INVALID_URI);
             }
         }
 
         // Check input against local network name schema; last chance to pass validation
-        $regexLocal = '/^(([a-zA-Z0-9\x2d]{1,63}\x2e)*[a-zA-Z0-9\x2d]{1,63}){1,254}$/';
+        $regexLocal = '/^(([a-zA-Z0-9\x2d]{1,63}\x2e)*[a-zA-Z0-9\x2d]{1,63}[\x2e]{0,1}){1,254}$/';
         $status = @preg_match($regexLocal, $value);
 
         // If the input passes as a local network name, and local network names are allowed, then the
         // hostname passes validation
-        $allowLocal = $this->_options['allow'] & self::ALLOW_LOCAL;
+        $allowLocal = $this->getAllow() & self::ALLOW_LOCAL;
         if ($status && $allowLocal) {
             return true;
         }
 
         // If the input does not pass as a local network name, add a message
         if (!$status) {
-            $this->_error(self::INVALID_LOCAL_NAME);
+            $this->error(self::INVALID_LOCAL_NAME);
         }
 
         // If local network names are not allowed, add a message
         if ($status && !$allowLocal) {
-            $this->_error(self::LOCAL_NAME_NOT_ALLOWED);
+            $this->error(self::LOCAL_NAME_NOT_ALLOWED);
         }
 
         return false;
@@ -681,7 +651,7 @@ class Hostname extends AbstractValidator
         $found = preg_match('/([^a-z0-9\x2d]{1,10})$/i', $encoded);
         if (empty($encoded) || ($found > 0)) {
             // no punycode encoded string, return as is
-            $this->_error(self::CANNOT_DECODE_PUNYCODE);
+            $this->error(self::CANNOT_DECODE_PUNYCODE);
             return false;
         }
 
@@ -692,7 +662,7 @@ class Hostname extends AbstractValidator
                 $decoded[] = ord($encoded[$x]);
             }
         } else {
-            $this->_error(self::CANNOT_DECODE_PUNYCODE);
+            $this->error(self::CANNOT_DECODE_PUNYCODE);
             return false;
         }
 
@@ -758,7 +728,7 @@ class Hostname extends AbstractValidator
                 $decoded[$key] .= chr(128 + (($value >> 6) & 63));
                 $decoded[$key] .= chr(128 + ($value & 63));
             } else {
-                $this->_error(self::CANNOT_DECODE_PUNYCODE);
+                $this->error(self::CANNOT_DECODE_PUNYCODE);
                 return false;
             }
         }

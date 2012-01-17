@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_JSON_Server
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ use Zend\Json\Server,
  * @category   Zend
  * @package    Zend_JSON_Server
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_JSON
  * @group      Zend_JSON_Server
@@ -352,6 +352,24 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals( 1, $result[0] );
         $this->assertEquals( 2, $result[1] );
         $this->assertEquals( 3, $result[2] );
+    }
+
+    public function testHandleValidWithoutRequiredParamShouldReturnError()
+    {
+        $this->server->setClass('ZendTest\Json\Foo')
+                     ->setAutoEmitResponse( false );
+        $request = $this->server->getRequest();
+        $request->setMethod('bar')
+                ->setParams( array(
+                    'three' => 3,
+                    'two'   => 2,
+                 ) )
+                ->setId( 'foo' );
+        $response = $this->server->handle();
+
+        $this->assertTrue($response instanceof Response);
+        $this->assertTrue($response->isError());
+        $this->assertEquals(Server\Error::ERROR_INVALID_PARAMS, $response->getError()->getCode());
     }
 
     public function testHandleRequestWithErrorsShouldReturnErrorResponse()

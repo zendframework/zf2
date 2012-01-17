@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,12 +31,11 @@ namespace Zend\View\Helper;
  * @uses       \Zend\View\Helper\AbstractHelper
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class RenderToPlaceholder extends AbstractHelper
 {
-
     /**
      * Renders a template and stores the rendered output as a placeholder
      * variable for later use.
@@ -45,14 +44,11 @@ class RenderToPlaceholder extends AbstractHelper
      * @param $placeholder The placeholder variable name in which to store the rendered output
      * @return void
      */
-    public function direct($script = null, $placeholder = null)
+    public function __invoke($script, $placeholder)
     {
-        if ($script == null || $placeholder == null) {
-            throw new \InvalidArgumentException('Action: missing argument. $script and $placeholder are required in renderToPlaceholder($script, $placeholder)');
-        }
-        
-        $this->view->placeholder($placeholder)->captureStart();
+        $placeholderHelper = $this->view->plugin('placeholder');
+        $placeholderHelper($placeholder)->captureStart();
         echo $this->view->render($script);
-        $this->view->placeholder($placeholder)->captureEnd();
+        $placeholderHelper($placeholder)->captureEnd();
     }
 }

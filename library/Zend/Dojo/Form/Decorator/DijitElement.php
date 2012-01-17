@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@
 namespace Zend\Dojo\Form\Decorator;
 
 use Zend\Form\Decorator\ViewHelper as ViewHelperDecorator,
-    Zend\Form\Decorator\Exception as DecoratorException;
+    Zend\Form\Decorator\Exception\RunTimeException as DecoratorException;
 
 /**
  * Zend_Dojo_Form_Decorator_DijitElement
@@ -43,7 +43,7 @@ use Zend\Form\Decorator\ViewHelper as ViewHelperDecorator,
  * @uses       \Zend\Form\Decorator\ViewHelper
  * @package    Zend_Dojo
  * @subpackage Form_Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class DijitElement extends ViewHelperDecorator
@@ -172,12 +172,12 @@ class DijitElement extends ViewHelperDecorator
         $dijitParams['required'] = $element->isRequired();
 
         $id = $element->getId();
-        if ($view->dojo()->hasDijit($id)) {
+        if ($view->plugin('dojo')->hasDijit($id)) {
             trigger_error(sprintf('Duplicate dijit ID detected for id "%s; temporarily generating uniqid"', $id), E_USER_NOTICE);
             $base = $id;
             do {
                 $id = $base . '-' . uniqid();
-            } while ($view->dojo()->hasDijit($id));
+            } while ($view->plugin('dojo')->hasDijit($id));
         }
         $attribs['id'] = $id;
 
@@ -185,7 +185,8 @@ class DijitElement extends ViewHelperDecorator
                $options = $attribs['options'];
         }
 
-        $elementContent = $view->$helper($name, $value, $dijitParams, $attribs, $options);
+        $helper = $view->plugin($helper);
+        $elementContent = $helper($name, $value, $dijitParams, $attribs, $options);
         switch ($this->getPlacement()) {
             case self::APPEND:
                 return $content . $separator . $elementContent;

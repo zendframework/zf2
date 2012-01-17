@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Reviewed: no -->
-<sect1 id="zend.validate.introduction">
+<?xml version="1.0" encoding="utf-8"?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.introduction"><info><title>Введение</title></info>
 
-    <title>Введение</title>
+
 
     <para>
         Компонента <classname>Zend_Validate</classname> предоставляет набор наиболее часто
@@ -12,10 +11,10 @@
         заданном пользователем.
     </para>
 
-    <sect2 id="zend.validate.introduction.definition">
-    
-        <title>Что такое валидатор?</title>
-    
+    <section xml:id="zend.validate.introduction.definition"><info><title>Что такое валидатор?</title></info>
+
+
+
         <para>
             Валидатор проверяет входные данные на предмет соответствия
             требованиям и возвращает результат булевого типа. Если входные
@@ -23,7 +22,7 @@
             предоставить информацию о том, какому требованию (требованиям)
             не соответствуют входные данные.
         </para>
-    
+
         <para>
             Например, веб-приложение может требовать, чтобы имя пользователя
             было длиной от 6 до 12 символов и содержало только
@@ -34,12 +33,12 @@
             то будет также полезно знать, каким именно требованиям не
             соответствует имя пользователя.
         </para>
-    
-    </sect2>
 
-    <sect2 id="zend.validate.introduction.using">
+    </section>
 
-        <title>Базовое использование валидаторов</title>
+    <section xml:id="zend.validate.introduction.using"><info><title>Базовое использование валидаторов</title></info>
+
+
 
         <para>
             Такое определение валидации дает основу для
@@ -49,7 +48,7 @@
             значения, возвращая <constant>TRUE</constant> тогда и только тогда, когда
             значение прошло проверку по критериям валидации.
         </para>
-        
+
         <para>
             Если <code>isValid()</code> возвращает <constant>FALSE</constant>, то
             <code>getMessages()</code> возвращает массив
@@ -78,7 +77,7 @@
 
         <para>
             Следующий пример демонстрирует проверку адреса e-mail:
-    
+
             <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_EmailAddress();
 
@@ -91,14 +90,14 @@ if ($validator->isValid($email)) {
     }
 }
 ]]></programlisting>
-    
+
         </para>
 
-    </sect2>
+    </section>
 
-    <sect2 id="zend.validate.introduction.messages">
+    <section xml:id="zend.validate.introduction.messages"><info><title>Установка собственных сообщений от ошибках</title></info>
 
-        <title>Установка собственных сообщений от ошибках</title>
+
 
         <para>
             Классы валидации предоставляют метод <code>setMessage()</code>,
@@ -195,11 +194,11 @@ if (!validator->isValid('слово')) {
 ]]></programlisting>
         </para>
 
-    </sect2>
+    </section>
 
-    <sect2 id="zend.validate.introduction.static">
+    <section xml:id="zend.validate.introduction.static"><info><title>Использование статического метода is()</title></info>
 
-        <title>Использование статического метода is()</title>
+
 
         <para>
             Если неудобно каждый раз загружать требуемый класс валидации и
@@ -252,20 +251,20 @@ if (Zend_Validate::is($value, 'Between', array(1, 12))) {
             Кроме того, класс <classname>Zend_Filter_Input</classname>
             позволяет инстанцировать и запускать более одного класса фильтра и
             валидации для обработки набора входных данных. Читайте
-            <xref linkend="zend.filter.input" />.
+            <xref linkend="zend.filter.input"/>.
         </para>
 
-    </sect2>
+    </section>
 
 
-    <sect2 id="zend.validate.introduction.translation">
+    <section xml:id="zend.validate.introduction.translation"><info><title>Перевод сообщений</title></info>
 
-        <title>Перевод сообщений</title>
+
 
         <para>
             Классы валидации предоставляют метод <code>setTranslator()</code>,
             с помощью которого вы можете устанавливать экземпляр класса
-            <classname>Zend_Translate</classname>, который будет переводить
+            <classname>Zend_Translator</classname>, который будет переводить
             сообщения в случае ошибки валидации.
             Метод <code>getTranslator()</code> возвращает установленный
             экземпляр переводчика.
@@ -273,7 +272,7 @@ if (Zend_Validate::is($value, 'Between', array(1, 12))) {
 
         <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_StringLength(8, 12);
-$translate = new Zend_Translate(
+$translate = new Zend_Translator(
     'array',
     array(Zend_Validate_StringLength::TOO_SHORT => 'Translated \'%value%\''),
     'en'
@@ -285,7 +284,7 @@ $validator->setTranslator($translate);
         <para>
             С помощью статического метода <code>setDefaultTranslator()</code>
             вы можете установить экземпляр
-            <classname>Zend_Translate</classname>, который будет использоваться
+            <classname>Zend_Translator</classname>, который будет использоваться
             во всех классах валидации, и извлекать его с помощью
             <code>getDefaultTranslator()</code>.
             Это избавляет от установки вручную переводчика для всех классов
@@ -293,7 +292,7 @@ $validator->setTranslator($translate);
         </para>
 
         <programlisting language="php"><![CDATA[
-$translate = new Zend_Translate(
+$translate = new Zend_Translator(
     'array',
     array(Zend_Validate_StringLength::TOO_SHORT => 'Translated \'%value%\''),
     'en'
@@ -313,7 +312,7 @@ Zend_Validate::setDefaultTranslator($translate);
             Иногда бывает необходимым отключить переводчика в валидаторе.
             Для этого используйте метод <code>setDisableTranslator()</code>,
             который принимает булево значение. Для получения установленного
-            значения используйте <code>translatorIsDisabled()</code>.
+            значения используйте <code>isTranslatorDisabled</code>.
         </para>
 
         <programlisting language="php"><![CDATA[
@@ -330,8 +329,5 @@ if (!$validator->isTranslatorDisabled()) {
             вы установили самостоятельно.
         </para>
 
-    </sect2>
-</sect1>
-<!--
-vim:se ts=4 sw=4 et:
--->
+    </section>
+</section>

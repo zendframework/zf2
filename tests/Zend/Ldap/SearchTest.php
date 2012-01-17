@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_LDAP
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ use Zend\Ldap\Collection;
  * @category   Zend
  * @package    Zend_LDAP
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_LDAP
  */
@@ -454,7 +454,7 @@ class SearchTest extends OnlineTestCase
             TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, Ldap\Ldap::SEARCH_SCOPE_SUB);
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $items->getInnerIterator()->key());
         $current = $items->getInnerIterator()->current();
-        $this->assertType('array', $current);
+        $this->assertInternalType('array', $current);
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $current['dn']);
     }
 
@@ -468,7 +468,7 @@ class SearchTest extends OnlineTestCase
         $this->assertEquals(0, $items->key());
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $items->dn());
         $current = $items->current();
-        $this->assertType('array', $current);
+        $this->assertInternalType('array', $current);
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $current['dn']);
     }
 
@@ -505,7 +505,7 @@ class SearchTest extends OnlineTestCase
         $this->assertEquals(9, $items->count());
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $items->getInnerIterator()->key());
         $current = $items->current();
-        $this->assertType('array', $current);
+        $this->assertInternalType('array', $current);
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $current['dn']);
 
         $i=0;

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Math
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -43,7 +43,7 @@ namespace Zend\Crypt\Math;
  * @uses       Zend\Crypt\Math\BigInteger\BigIntegerCapable
  * @category   Zend
  * @package    Zend_Crypt
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class BigInteger implements BigInteger\BigIntegerCapable
@@ -228,7 +228,7 @@ class BigInteger implements BigInteger\BigIntegerCapable
         }
         if($extension == 'gmp' && extension_loaded('gmp')) {
             $this->_math = new BigInteger\Gmp();
-        } elseif ($extension == 'bcmath') {
+        } elseif ($extension == 'bcmath' && extension_loaded('bcmath')) {
             $this->_math = new BigInteger\Bcmath();
         } else {
             throw new BigInteger\Exception($extension . ' big integer precision math support not detected');

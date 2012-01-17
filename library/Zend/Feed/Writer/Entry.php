@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,14 +27,9 @@ use Zend\Uri;
 use Zend\Date;
 
 /**
-* @uses \Zend\Date\Date
-* @uses \Zend\Feed\Exception
-* @uses \Zend\Feed\Writer\Writer
-* @uses \Zend\Feed\Writer\Source
-* @uses \Zend\Uri\Uri
 * @category Zend
 * @package Zend_Feed_Writer
-* @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+* @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
 * @license http://framework.zend.com/license/new-bsd New BSD License
 */
 class Entry
@@ -46,14 +41,14 @@ class Entry
      * @var array
      */
     protected $_data = array();
-    
+
     /**
      * Registered extensions
      *
      * @var array
      */
     protected $_extensions = array();
-    
+
     /**
      * Holds the value "atom" or "rss" depending on the feed type set when
      * when last exported.
@@ -61,7 +56,7 @@ class Entry
      * @var string
      */
     protected $_type = null;
-    
+
     /**
      * Constructor: Primarily triggers the registration of core extensions and
      * loads those appropriate to this data container.
@@ -84,8 +79,8 @@ class Entry
     {
         $author = array();
         if (is_array($name)) {
-            if (!array_key_exists('name', $name) 
-                || empty($name['name']) 
+            if (!array_key_exists('name', $name)
+                || empty($name['name'])
                 || !is_string($name['name'])
             ) {
                 throw new Exception('Invalid parameter: author array must include a "name" key with a non-empty string value');
@@ -98,10 +93,7 @@ class Entry
                 $author['email'] = $name['email'];
             }
             if (isset($name['uri'])) {
-                if (empty($name['uri']) 
-                    || !is_string($name['uri']) 
-                    || !Uri\Url::validate($name['uri'])
-                ) {
+                if (empty($name['uri']) || !is_string($name['uri']) || !Uri\UriFactory::factory($name['uri'])->isValid()) {
                     throw new Exception('Invalid parameter: "uri" array value must be a non-empty string and valid URI/IRI');
                 }
                 $author['uri'] = $name['uri'];
@@ -122,8 +114,8 @@ class Entry
                 $author['email'] = $email;
             }
             if (isset($uri)) {
-                if (empty($uri) || !is_string($uri) || !Uri\Url::validate($uri)) {
-                    throw new Exception('Invalid parameter: "uri" value must be a non-empty string and valid URI/IRI');
+                if (empty($uri) || !is_string($uri) || !Uri\UriFactory::factory($uri)->isValid()) {
+                    throw new Exception('Invalid parameter: "uri" array value must be a non-empty string and valid URI/IRI');
                 }
                 $author['uri'] = $uri;
             }
@@ -142,7 +134,7 @@ class Entry
             $this->addAuthor($author);
         }
     }
-    
+
     /**
      * Set the feed character encoding
      *
@@ -268,7 +260,7 @@ class Entry
      */
     public function setLink($link)
     {
-        if (empty($link) || !is_string($link) || !Uri\Url::validate($link)) {
+        if (empty($link) || !is_string($link) || !Uri\UriFactory::factory($link)->isValid()) {
             throw new Exception('Invalid parameter: parameter must be a non-empty string and valid URI/IRI');
         }
         $this->_data['link'] = $link;
@@ -294,7 +286,7 @@ class Entry
      */
     public function setCommentLink($link)
     {
-        if (empty($link) || !is_string($link) || !Uri\Url::validate($link)) {
+        if (empty($link) || !is_string($link) || !Uri\UriFactory::factory($link)->isValid()) {
             throw new Exception('Invalid parameter: "link" must be a non-empty string and valid URI/IRI');
         }
         $this->_data['commentLink'] = $link;
@@ -307,7 +299,7 @@ class Entry
      */
     public function setCommentFeedLink(array $link)
     {
-        if (!isset($link['uri']) || !is_string($link['uri']) || !Uri\Url::validate($link['uri'])) {
+        if (!isset($link['uri']) || !is_string($link['uri']) || !Uri\UriFactory::factory($link['uri'])->isValid()) {
             throw new Exception('Invalid parameter: "link" must be a non-empty string and valid URI/IRI');
         }
         if (!isset($link['type']) || !in_array($link['type'], array('atom', 'rss', 'rdf'))) {
@@ -319,7 +311,7 @@ class Entry
         }
         $this->_data['commentFeedLinks'][] = $link;
     }
-    
+
     /**
      * Set a links to an XML feed for any comments associated with this entry.
      * Each link is an array with keys "uri" and "type", where type is one of:
@@ -437,7 +429,7 @@ class Entry
         }
         return $this->_data['id'];
     }
-    
+
     /**
      * Get a link to the HTML source
      *
@@ -517,12 +509,12 @@ class Entry
         }
         return $this->_data['commentFeedLinks'];
     }
-    
+
     /**
      * Add a entry category
      *
      * @param string $category
-     */ 
+     */
     public function addCategory(array $category)
     {
         if (!isset($category['term'])) {
@@ -531,9 +523,9 @@ class Entry
             . ' readable category name');
         }
         if (isset($category['scheme'])) {
-            if (empty($category['scheme']) 
+            if (empty($category['scheme'])
                 || !is_string($category['scheme'])
-                || !Uri\Url::validate($category['scheme'])
+                || !Uri\UriFactory::factory($category['scheme'])->isValid()
             ) {
                 throw new Exception('The Atom scheme or RSS domain of'
                 . ' a category must be a valid URI');
@@ -544,7 +536,7 @@ class Entry
         }
         $this->_data['categories'][] = $category;
     }
-    
+
     /**
      * Set an array of entry categories
      *
@@ -556,7 +548,7 @@ class Entry
             $this->addCategory($category);
         }
     }
-    
+
     /**
      * Get the entry categories
      *
@@ -569,26 +561,26 @@ class Entry
         }
         return $this->_data['categories'];
     }
-    
+
     /**
      * Adds an enclosure to the entry. The array parameter may contain the
      * keys 'uri', 'type' and 'length'. Only 'uri' is required for Atom, though the
      * others must also be provided or RSS rendering (where they are required)
      * will throw an Exception.
      *
-     * @param array $enclosures
+     * @param array $enclosure
      */
     public function setEnclosure(array $enclosure)
     {
         if (!isset($enclosure['uri'])) {
             throw new Exception('Enclosure "uri" is not set');
         }
-        if (!Uri\Url::validate($enclosure['uri'])) {
+        if (!Uri\UriFactory::factory($enclosure['uri'])->isValid()) {
             throw new Exception('Enclosure "uri" is not a valid URI/IRI');
         }
         $this->_data['enclosure'] = $enclosure;
     }
-    
+
     /**
      * Retrieve an array of all enclosures to be added to entry.
      *
@@ -601,7 +593,7 @@ class Entry
         }
         return $this->_data['enclosure'];
     }
-    
+
     /**
      * Unset a specific data point
      *
@@ -613,7 +605,7 @@ class Entry
             unset($this->_data[$name]);
         }
     }
-    
+
     /**
      * Get registered extensions
      *
@@ -637,7 +629,7 @@ class Entry
         }
         return null;
     }
-    
+
     /**
      * Set the current feed type being exported to "rss" or "atom". This allows
      * other objects to gracefully choose whether to execute or not, depending
@@ -649,7 +641,7 @@ class Entry
     {
         $this->_type = $type;
     }
-    
+
     /**
      * Retrieve the current or last feed type exported.
      *
@@ -679,7 +671,7 @@ class Entry
         throw new Exception('Method: ' . $method
             . ' does not exist and could not be located on a registered Extension');
     }
-    
+
     /**
      * Creates a new Zend_Feed_Writer_Source data container for use. This is NOT
      * added to the current feed automatically, but is necessary to create a
@@ -707,7 +699,7 @@ class Entry
     {
         $this->_data['source'] = $source;
     }
-    
+
     /**
      * @return Zend_Feed_Writer_Source
      */

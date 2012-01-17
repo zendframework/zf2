@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ use Zend\InfoCard\XML;
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Factory
@@ -77,7 +77,7 @@ class Factory
                     case 'http://www.w3.org/2000/09/xmldsig#':
                         return simplexml_load_string($strXmlData, 'Zend\InfoCard\XML\KeyInfo\XMLDSig');
                     default:
-                        throw new XML\Exception\RuntimeExcpetion("Unknown KeyInfo Namespace provided");
+                        throw new XML\Exception\RuntimeException("Unknown KeyInfo Namespace provided");
                     // We are ignoring these lines, as XDebug reports each as a "non executed" line
                     // which breaks my coverage %
                     // @codeCoverageIgnoreStart

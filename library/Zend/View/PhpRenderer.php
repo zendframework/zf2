@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,6 +24,7 @@
 namespace Zend\View;
 
 use Zend\Filter\FilterChain,
+    Zend\Loader\Pluggable,
     ArrayAccess;
 
 /**
@@ -32,10 +33,10 @@ use Zend\Filter\FilterChain,
  * @todo       Allow specifying string names for broker, filter chain, variables
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class PhpRenderer implements Renderer
+class PhpRenderer implements Renderer, Pluggable
 {
     /**
      * Template resolver
@@ -69,9 +70,9 @@ class PhpRenderer implements Renderer
     private $vars;
 
     /**
-     * @var ArrayAccess|array Temporary variable cache; used when variables passed to render()
+     * @var array Temporary variable stack; used when variables passed to render()
      */
-    private $varsCache;
+    private $varsCache = array();
 
     /**
      * Constructor.
@@ -118,17 +119,18 @@ class PhpRenderer implements Renderer
      * @param  string|TemplateResolver $resolver 
      * @param  mixed $options 
      * @return PhpRenderer
+     * @throws Exception\InvalidArgumentException
      */
     public function setResolver($resolver, $options = null)
     {
         if (is_string($resolver)) {
             if (!class_exists($resolver)) {
-                throw new Exception('Class passed as resolver could not be found');
+                throw new Exception\InvalidArgumentException('Class passed as resolver could not be found');
             }
             $resolver = new $resolver($options);
         }
         if (!$resolver instanceof TemplateResolver) {
-            throw new Exception(sprintf(
+            throw new Exception\InvalidArgumentException(sprintf(
                 'Expected resolver to implement TemplateResolver; received "%s"',
                 (is_object($resolver) ? get_class($resolver) : gettype($resolver))
             ));
@@ -163,15 +165,35 @@ class PhpRenderer implements Renderer
      * 
      * @param  array|ArrayAccess $variables 
      * @return PhpRenderer
+     * @throws Exception\InvalidArgumentException
      */
     public function setVars($variables)
     {
         if (!is_array($variables) && !$variables instanceof ArrayAccess) {
-            throw new Exception(sprintf(
+            throw new Exception\InvalidArgumentException(sprintf(
                 'Expected array or ArrayAccess object; received "%s"',
                 (is_object($variables) ? get_class($variables) : gettype($variables))
             ));
         }
+        
+        // Enforce a Variables container
+        if (!$variables instanceof Variables) {
+            $variablesAsArray = array();
+            foreach ($variables as $key => $value) {
+                $variablesAsArray[$key] = $value;
+            }
+            $variables = new Variables($variablesAsArray);
+        }
+
+        $broker = $this->getBroker();
+        $loader = $broker->getClassLoader();
+        if ($loader->isLoaded('escape')) {
+            $escaper = $broker->load('escape');
+            if (is_callable($escaper)) {
+                $variables->setEscapeCallback($escaper);
+            }
+        }
+        
         $this->vars = $variables;
         return $this;
     }
@@ -195,16 +217,106 @@ class PhpRenderer implements Renderer
     }
 
     /**
-     * Set helper broker instance
+     * Get a single variable
+     * 
+     * @param  mixed $key 
+     * @return mixed
+     */
+    public function get($key)
+    {
+        if (null === $this->vars) {
+            $this->setVars(new Variables());
+        }
+
+        return $this->vars[$key];
+    }
+
+    /**
+     * Get a single raw (unescaped) value
+     * 
+     * @param  mixed $key 
+     * @return mixed
+     */
+    public function raw($key)
+    {
+        if (null === $this->vars) {
+            $this->setVars(new Variables());
+        }
+
+        if (!$this->vars instanceof Variables) {
+            if (isset($this->vars[$key])) {
+                return $this->vars[$key];
+            }
+            return null;
+        }
+
+        return $this->vars->getRawValue($key);
+    }
+
+    /**
+     * Overloading: proxy to Variables container
+     * 
+     * @param  string $name 
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        $vars = $this->vars();
+        return $vars[$name];
+    }
+
+    /**
+     * Overloading: proxy to Variables container
+     * 
+     * @param  string $name 
+     * @param  mixed $value 
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        $vars = $this->vars();
+        $vars[$name] = $value;
+    }
+
+    /**
+     * Overloading: proxy to Variables container
+     * 
+     * @param  string $name 
+     * @return bool
+     */
+    public function __isset($name)
+    {
+        $vars = $this->vars();
+        return isset($vars[$name]);
+    }
+
+    /**
+     * Overloading: proxy to Variables container
+     * 
+     * @param  string $name 
+     * @return void
+     */
+    public function __unset($name)
+    {
+        $vars = $this->vars();
+        if (!isset($vars[$name])) {
+            return;
+        }
+        unset($vars[$name]);
+    }
+
+    /**
+     * Set plugin broker instance
      * 
      * @param  string|HelperBroker $broker 
      * @return Zend\View\Abstract
+     * @throws Exception\InvalidArgumentException
      */
     public function setBroker($broker)
     {
         if (is_string($broker)) {
             if (!class_exists($broker)) {
-                throw new Exception(sprintf(
+                throw new Exception\InvalidArgumentException(sprintf(
                     'Invalid helper broker class provided (%s)',
                     $broker
                 ));
@@ -212,7 +324,7 @@ class PhpRenderer implements Renderer
             $broker = new $broker();
         }
         if (!$broker instanceof HelperBroker) {
-            throw new Exception(sprintf(
+            throw new Exception\InvalidArgumentException(sprintf(
                 'Helper broker must extend Zend\View\HelperBroker; got type "%s" instead',
                 (is_object($broker) ? get_class($broker) : gettype($broker))
             ));
@@ -222,21 +334,50 @@ class PhpRenderer implements Renderer
     }
 
     /**
-     * Get helper broker instance
+     * Get plugin broker instance
      * 
-     * @param  null|string $helper Helper name to return
-     * @param  null|array $options Options to pass to helper constructor (if not already instantiated)
-     * @return HelperBroker|Helper
+     * @return HelperBroker
      */
-    public function broker($helper = null, array $options = null)
+    public function getBroker()
     {
         if (null === $this->helperBroker) {
             $this->setBroker(new HelperBroker());
         }
-        if (null === $helper) {
-            return $this->helperBroker;
+        return $this->helperBroker;
+    }
+    
+    /**
+     * Get plugin instance
+     * 
+     * @param  string     $plugin  Name of plugin to return
+     * @param  null|array $options Options to pass to plugin constructor (if not already instantiated)
+     * @return Helper
+     */
+    public function plugin($name, array $options = null)
+    {
+        return $this->getBroker()->load($name, $options);
+    }
+
+    /**
+     * Overloading: proxy to helpers
+     *
+     * Proxies to the attached plugin broker to retrieve, return, and potentially
+     * execute helpers.
+     *
+     * * If the helper does not define __invoke, it will be returned
+     * * If the helper does define __invoke, it will be called as a functor
+     * 
+     * @param  string $method 
+     * @param  array $argv 
+     * @return mixed
+     */
+    public function __call($method, $argv)
+    {
+        $helper = $this->plugin($method);
+        if (is_callable($helper)) {
+            return call_user_func_array($helper, $argv);
         }
-        return $this->helperBroker->load($helper, $options);
+        return $helper;
     }
 
     /**
@@ -276,22 +417,39 @@ class PhpRenderer implements Renderer
         $this->file = $this->resolver($name);
         unset($name); // remove $name from local scope
 
+        $this->varsCache[] = $this->vars();
+
         if (null !== $vars) {
-            $this->varsCache = $this->vars();
             $this->setVars($vars);
         }
+        unset($vars);
 
-        unset($vars); // remove $vars from local scope
+        // extract all assigned vars (pre-escaped), but not 'this'.
+        // assigns to a double-underscored variable, to prevent naming collisions
+        $__vars = $this->vars()->getArrayCopy();
+        if (array_key_exists('this', $__vars)) {
+            unset($__vars['this']);
+        }
+        extract($__vars);
+        unset($__vars); // remove $__vars from local scope
 
         ob_start();
         include $this->file;
         $content = ob_get_clean();
 
-        if (null !== $this->varsCache) {
-            $this->setVars($this->varsCache);
-            $this->varsCache = null;
-        }
+        $this->setVars(array_pop($this->varsCache));
 
         return $this->getFilterChain()->filter($content); // filter output
     }
+
+    /**
+     * Make sure View variables are cloned when the view is cloned.
+     *
+     * @return PhpRenderer
+     */
+    public function __clone()
+    {
+        $this->vars = clone $this->vars();
+    }
+
 }

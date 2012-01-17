@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,11 +23,12 @@
  * @namespace
  */
 namespace Zend\View\Helper\Navigation;
+
 use Zend\Navigation,
     Zend\Navigation\AbstractPage,
-    Zend,
     Zend\Acl,
-    Zend\View;
+    Zend\View,
+    Zend\View\Exception;
 
 /**
  * Base class for navigational helpers
@@ -41,7 +42,7 @@ use Zend\Navigation,
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class AbstractHelper
@@ -284,8 +285,8 @@ abstract class AbstractHelper
      * @param  mixed $translator                           [optional] translator.
      *                                                     Expects an object of
      *                                                     type
-     *                                                     {@link Zend_Translate_Adapter}
-     *                                                     or {@link Zend_Translate},
+     *                                                     {@link Zend_Translator_Adapter}
+     *                                                     or {@link Zend_Translator},
      *                                                     or null. Default is
      *                                                     null, which sets no
      *                                                     translator.
@@ -295,7 +296,7 @@ abstract class AbstractHelper
     public function setTranslator($translator = null)
     {
         if (null == $translator ||
-            $translator instanceof \Zend\Translator\Adapter) {
+            $translator instanceof \Zend\Translator\Adapter\AbstractAdapter) {
             $this->_translator = $translator;
         } elseif ($translator instanceof \Zend\Translator\Translator) {
             $this->_translator = $translator->getAdapter();
@@ -314,8 +315,8 @@ abstract class AbstractHelper
     public function getTranslator()
     {
         if (null === $this->_translator) {
-            if (\Zend\Registry::isRegistered('Zend_Translate')) {
-                $this->setTranslator(\Zend\Registry::get('Zend_Translate'));
+            if (\Zend\Registry::isRegistered('Zend_Translator')) {
+                $this->setTranslator(\Zend\Registry::get('Zend_Translator'));
             }
         }
 
@@ -367,23 +368,22 @@ abstract class AbstractHelper
      *                                                     or null. Default is
      *                                                     null, which will set
      *                                                     no role.
-     * @throws \Zend\View\Exception                         if $role is invalid
      * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface,
      *                                                     returns self
+     * @throws Exception\InvalidArgumentException if $role is invalid
      */
     public function setRole($role = null)
     {
         if (null === $role || is_string($role) ||
-            $role instanceof Acl\Role) {
+            $role instanceof Acl\Role
+        ) {
             $this->_role = $role;
         } else {
-            $e = new View\Exception(sprintf(
+            throw new Exception\InvalidArgumentException(sprintf(
                 '$role must be a string, null, or an instance of ' 
                 .  'Zend_Acl_Role_Interface; %s given',
                 gettype($role)
             ));
-            $e->setView($this->view);
-            throw $e;
         }
 
         return $this;
@@ -837,17 +837,18 @@ abstract class AbstractHelper
      *                                   {@link Zend_Acl_Role_Interface}.
      *                                   Default is null, which sets no default
      *                                   role.
-     * @throws \Zend\View\Exception       if role is invalid
      * @return void
+     * @throws Exception\InvalidArgumentException if role is invalid
      */
     public static function setDefaultRole($role = null)
     {
         if (null === $role ||
             is_string($role) ||
-            $role instanceof Acl\Role) {
+            $role instanceof Acl\Role
+        ) {
             self::$_defaultRole = $role;
         } else {
-            throw new View\Exception(
+            throw new Exception\InvalidArgumentException(
                 '$role must be null|string|Zend_Acl_Role_Interface'
             );
         }

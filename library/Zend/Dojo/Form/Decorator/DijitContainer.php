@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,7 @@
  */
 namespace Zend\Dojo\Form\Decorator;
 
-use Zend\Form\Decorator\Exception as DecoratorException;
+use Zend\Form\Decorator\Exception\RunTimeException as DecoratorException;
 
 /**
  * Zend_Dojo_Form_Decorator_DijitContainer
@@ -40,7 +40,7 @@ use Zend\Form\Decorator\Exception as DecoratorException;
  * @uses       \Zend\Form\Decorator\Exception
  * @package    Zend_Dojo
  * @subpackage Form_Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class DijitContainer extends \Zend\Form\Decorator\AbstractDecorator
@@ -190,14 +190,15 @@ abstract class DijitContainer extends \Zend\Form\Decorator\AbstractDecorator
         $helper      = $this->getHelper();
         $id          = $element->getId() . '-' . $helper;
 
-        if ($view->dojo()->hasDijit($id)) {
+        if ($view->plugin('dojo')->hasDijit($id)) {
             trigger_error(sprintf('Duplicate dijit ID detected for id "%s; temporarily generating uniqid"', $id), E_USER_WARNING);
             $base = $id;
             do {
                 $id = $base . '-' . uniqid();
-            } while ($view->dojo()->hasDijit($id));
+            } while ($view->plugin('dojo')->hasDijit($id));
         }
 
-        return $view->$helper($id, $content, $dijitParams, $attribs);
+        $helper = $view->plugin($helper);
+        return $helper($id, $content, $dijitParams, $attribs);
     }
 }

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Stdlib
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,6 +22,10 @@
  * @namespace
  */
 namespace Zend\Stdlib;
+
+use Closure,
+    ReflectionClass,
+    WeakRef;
 
 /**
  * CallbackHandler
@@ -32,7 +36,7 @@ namespace Zend\Stdlib;
  *
  * @category   Zend
  * @package    Zend_Stdlib
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class CallbackHandler
@@ -43,71 +47,113 @@ class CallbackHandler
     protected $callback;
 
     /**
-     * @var string Event to which this handle is subscribed
-     */
-    protected $event;
-
-    /**
-     * Until callback has been validated, mark as invalid
-     * @var bool
-     */
-    protected $isValidCallback = false;
-
-    /**
-     * Callback options, if any
+     * Callback metadata, if any
      * @var array
      */
-    protected $options;
+    protected $metadata;
 
     /**
      * Constructor
      * 
      * @param  string $event Event to which slot is subscribed
-     * @param  string|array|object $callback PHP callback (first element may be )
+     * @param  string|array|object $callback PHP callback 
      * @param  array $options Options used by the callback handler (e.g., priority)
      * @return void
      */
-    public function __construct($event, $callback, array $options = array())
+    public function __construct($callback, array $metadata = array())
     {
-        $this->event    = $event;
-        $this->callback = $callback;
-        $this->options  = $options;
+        $this->metadata  = $metadata;
+        $this->registerCallback($callback);
     }
 
     /**
-     * Get event to which handler is subscribed
+     * Registers the callback provided in the constructor
+     *
+     * If you have pecl/weakref {@see http://pecl.php.net/weakref} installed, 
+     * this method provides additional behavior.
+     *
+     * If a callback is a functor, or an array callback composing an object 
+     * instance, this method will pass the object to a WeakRef instance prior
+     * to registering the callback.
      * 
-     * @return string
+     * @param  callback $callback 
+     * @return void
      */
-    public function getEvent()
+    protected function registerCallback($callback)
     {
-        return $this->event;
+        if (!is_callable($callback)) {
+            throw new Exception\InvalidCallbackException('Invalid callback provided; not callable');
+        }
+
+        // If pecl/weakref is not installed, simply store the callback and return
+        if (!class_exists('WeakRef')) {
+            $this->callback = $callback;
+            return;
+        }
+
+        // If WeakRef exists, we want to use it.
+
+        // If we have a non-closure object, pass it to WeakRef, and then
+        // register it.
+        if (is_object($callback) && !$callback instanceof Closure) {
+            $this->callback = new WeakRef($callback);
+            return;
+        }
+
+        // If we have a string or closure, register as-is
+        if (!is_array($callback)) {
+            $this->callback = $callback;
+            return;
+        }
+
+        list($target, $method) = $callback;
+
+        // If we have an array callback, and the first argument is not an 
+        // object, register as-is
+        if (!is_object($target)) {
+            $this->callback = $callback;
+            return;
+        }
+
+        // We have an array callback with an object as the first argument;
+        // pass it to WeakRef, and then register the new callback
+        $target = new WeakRef($target);
+        $this->callback = array($target, $method);
     }
 
     /**
      * Retrieve registered callback
      * 
      * @return Callback
-     * @throws Exception\InvalidCallbackException
      */
     public function getCallback()
     {
-        if ($this->isValidCallback) {
-            return $this->callback;
-        }
-
         $callback = $this->callback;
+
+        // String callbacks -- simply return
         if (is_string($callback)) {
-            return $this->validateStringCallback($callback);
-        }
-        if (is_array($callback)) {
-            return $this->validateArrayCallback($callback);
-        }
-        if (is_callable($callback)) {
-            $this->isValidCallback = true;
             return $callback;
         }
-        throw new Exception\InvalidCallbackException('Invalid callback provided; not callable');
+
+        // WeakRef callbacks -- pull it out of the object and return it
+        if ($callback instanceof WeakRef) {
+            return $callback->get();
+        }
+
+        // Non-WeakRef object callback -- return it
+        if (is_object($callback)) {
+            return $callback;
+        }
+
+        // Array callback with WeakRef object -- retrieve the object first, and 
+        // then return
+        list($target, $method) = $callback;
+        if ($target instanceof WeakRef) {
+            return array($target->get(), $method);
+        }
+
+        // Otherwise, return it
+        return $callback;
     }
 
     /**
@@ -119,126 +165,73 @@ class CallbackHandler
     public function call(array $args = array())
     {
         $callback = $this->getCallback();
-        return call_user_func_array($callback, $args);
+
+        $isPhp54 = version_compare(PHP_VERSION, '5.4.0rc1', '>=');
+
+        // Minor performance tweak; use call_user_func() until > 3 arguments 
+        // reached
+        switch (count($args)) {
+            case 0:
+                if ($isPhp54) {
+                    return $callback();
+                }
+                return call_user_func($callback);
+            case 1:
+                if ($isPhp54) {
+                    return $callback(array_shift($args));
+                }
+                return call_user_func($callback, array_shift($args));
+            case 2:
+                $arg1 = array_shift($args);
+                $arg2 = array_shift($args);
+                if ($isPhp54) {
+                    return $callback($arg1, $arg2);
+                }
+                return call_user_func($callback, $arg1, $arg2);
+            case 3:
+                $arg1 = array_shift($args);
+                $arg2 = array_shift($args);
+                $arg3 = array_shift($args);
+                if ($isPhp54) {
+                    return $callback($arg1, $arg2, $arg3);
+                }
+                return call_user_func($callback, $arg1, $arg2, $arg3);
+            default:
+                return call_user_func_array($callback, $args);
+        }
     }
 
     /**
-     * Get all callback options
+     * Invoke as functor
+     * 
+     * @return mixed
+     */
+    public function __invoke()
+    {
+        return $this->call(func_get_args());
+    }
+
+    /**
+     * Get all callback metadata
      * 
      * @return array
      */
-    public function getOptions()
+    public function getMetadata()
     {
-        return $this->options;
+        return $this->metadata;
     }
 
     /**
-     * Retrieve a single option
+     * Retrieve a single metadatum
      * 
      * @param  string $name 
      * @return mixed
      */
-    public function getOption($name)
+    public function getMetadatum($name)
     {
-        if (array_key_exists($name, $this->options)) {
-            return $this->options[$name];
+        if (array_key_exists($name, $this->metadata)) {
+            return $this->metadata[$name];
         }
         return null;
-    }
-
-    /**
-     * Validate a string callback
-     *
-     * Check first if the string provided is callable. If not see if it is a 
-     * valid class name; if so, determine if the object is invokable.
-     * 
-     * @param  string $callback 
-     * @return Callback
-     * @throws Exception\InvalidCallbackException
-     */
-    protected function validateStringCallback($callback)
-    {
-        if (is_callable($callback)) {
-            $this->isValidCallback = true;
-            return $callback;
-        }
-
-        if (!class_exists($callback)) {
-            throw new Exception\InvalidCallbackException('Provided callback is not a function or a class');
-        }
-
-        // check __invoke before instantiating
-        if (!method_exists($callback, '__invoke')) {
-            throw new Exception\InvalidCallbackException('Class provided as a callback does not implement __invoke');
-        }
-        $object = new $callback();
-
-        $this->callback        = $object;
-        $this->isValidCallback = true;
-        return $object;
-    }
-
-    /**
-     * Validate an array callback
-     * 
-     * @param  array $callback 
-     * @return callback
-     * @throws Exception\InvalidCallbackException
-     */
-    protected function validateArrayCallback(array $callback)
-    {
-        $context = $callback[0];
-        $method  = $callback[1];
-
-        if (is_string($context)) {
-            // Dealing with a class/method callback, and class provided is a string classname
-            
-            if (!class_exists($context)) {
-                throw new Exception\InvalidCallbackException('Class provided in callback does not exist');
-            }
-
-            // We need to determine if we need to instantiate the class first
-            $r = new \ReflectionClass($context);
-            if (!$r->hasMethod($method)) {
-                // Explicit method does not exist
-                if (!$r->hasMethod('__callStatic') && !$r->hasMethod('__call')) {
-                    throw new Exception\InvalidCallbackException('Class provided in callback does not define the method requested');
-                }
-
-                if ($r->hasMethod('__callStatic')) {
-                    // We have a __callStatic defined, so the original callback is valid
-                    $this->isValidCallback = true;
-                    return $callback;
-                }
-
-                // We have __call defined, so we need to instantiate the class 
-                // first, and redefine the callback
-                $object                 = new $context();
-                $this->callback        = array($object, $method);
-                $this->isValidCallback = true;
-                return $this->callback;
-            }
-
-            // Explicit method exists
-            $rMethod = $r->getMethod($method);
-            if ($rMethod->isStatic()) {
-                // Method is static, so original callback is fine
-                $this->isValidCallback = true;
-                return $callback;
-            }
-
-            // Method is an instance method; instantiate object and redefine callback
-            $object                 = new $context();
-            $this->callback        = array($object, $method);
-            $this->isValidCallback = true;
-            return $this->callback;
-        } elseif (is_callable($callback)) {
-            // The 
-            $this->isValidCallback = true;
-            return $callback;
-        }
-
-
-        throw new Exception\InvalidCallbackException('Method provided in callback does not exist in object');
     }
 }

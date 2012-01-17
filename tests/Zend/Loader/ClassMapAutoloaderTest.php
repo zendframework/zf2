@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -29,7 +29,7 @@ use Zend\Loader\ClassMapAutoloader,
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Loader
  */
@@ -92,8 +92,24 @@ class ClassMapAutoloaderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($map, $test);
     }
 
+    public function testAllowsRegisteringArrayAutoloadMapViaConstructor()
+    {
+        $map = array(
+            'Zend\Loader\Exception' => __DIR__ . '/../../../library/Zend/Loader/Exception.php',
+        );
+        $loader = new ClassMapAutoloader(array($map));
+        $test = $loader->getAutoloadMap();
+        $this->assertSame($map, $test);
+    }
+
     public function testRegisteringValidMapFilePopulatesAutoloader()
     {
+        $this->loader->registerAutoloadMap(__DIR__ . '/_files/goodmap.php');
+        $map = $this->loader->getAutoloadMap();
+        $this->assertTrue(is_array($map));
+        $this->assertEquals(2, count($map));
+        // Just to make sure nothing changes after loading the same map again 
+        // (loadMapFromFile should just return)
         $this->loader->registerAutoloadMap(__DIR__ . '/_files/goodmap.php');
         $map = $this->loader->getAutoloadMap();
         $this->assertTrue(is_array($map));
@@ -165,4 +181,19 @@ class ClassMapAutoloaderTest extends \PHPUnit_Framework_TestCase
         $test = array_pop($loaders);
         $this->assertEquals(array($this->loader, 'autoload'), $test);
     }
+
+    public function testCanLoadClassMapFromPhar()
+    {
+        $map = 'phar://' . __DIR__ . '/_files/classmap.phar/test/.//../autoload_classmap.php';
+        $this->loader->registerAutoloadMap($map);
+        $this->loader->autoload('some\loadedclass');
+        $this->assertTrue(class_exists('some\loadedclass', false));
+
+        // will not register duplicate, even with a different relative path
+        $map = 'phar://' . __DIR__ . '/_files/classmap.phar/test/./foo/../../autoload_classmap.php';
+        $this->loader->registerAutoloadMap($map);
+        $test = $this->loader->getAutoloadMap();
+        $this->assertEquals(1, count($test));
+    }
+
 }

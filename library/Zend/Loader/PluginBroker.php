@@ -14,22 +14,24 @@
  *
  * @category   Zend
  * @package    Zend_Loader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
 
 namespace Zend\Loader;
 
+use Zend\Di\Locator;
+
 /**
  * Plugin broker base implementation
  *
  * @category   Zend
  * @package    Zend_Loader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class PluginBroker implements Broker
+class PluginBroker implements Broker, LocatorAware
 {
     /**
      * @var string Default class loader to utilize with this broker
@@ -40,6 +42,11 @@ class PluginBroker implements Broker
      * @var ShortNameLocator Plugin class loader used by this instance
      */
     protected $classLoader;
+    
+    /**
+     * @var boolean Whether plugins should be registered on load
+     */
+    protected $registerPluginsOnLoad = true;
 
     /**
      * @var array Cache of loaded plugin instances
@@ -50,6 +57,11 @@ class PluginBroker implements Broker
      * @var Callback Routine to use when validating plugins
      */
     protected $validator;
+
+    /**
+     * @var Zend\Di\Locator
+     */
+    protected $locator;
 
     /**
      * Constructor
@@ -139,6 +151,9 @@ class PluginBroker implements Broker
                     // been registered
                     $plugins = $value;
                     break;
+                case 'register_plugins_on_load':
+                    $this->setRegisterPluginsOnLoad($value);
+                    break;
                 case 'validator':
                     $this->setValidator($value);
                     break;
@@ -182,16 +197,31 @@ class PluginBroker implements Broker
             }
         }
 
-        if (empty($options)) {
-            $instance = new $class();
-        } elseif ($this->isAssocArray($options)) {
-            $instance = new $class($options);
+        if ($this->getLocator()) {
+            if (empty($options)) {
+                $instance = $this->getLocator()->get($class);
+            } elseif ($this->isAssocArray($options)) {
+                // This might be inconsistent with what $options should be?
+                $instance = $this->getLocator()->get($class, $options);
+            } else {
+                // @TODO: Clean this up, somehow?
+                $instance = $this->getLocator()->get($class);
+            }
         } else {
-            $r = new \ReflectionClass($class);
-            $instance = $r->newInstanceArgs($options);
+            if (empty($options)) {
+                $instance = new $class();
+            } elseif ($this->isAssocArray($options)) {
+                $instance = new $class($options);
+            } else {
+                $r = new \ReflectionClass($class);
+                $instance = $r->newInstanceArgs($options);
+            }
         }
 
-        $this->register($pluginName, $instance);
+        if ($this->getRegisterPluginsOnLoad()) {
+            $this->register($pluginName, $instance);
+        }
+        
         return $instance;
     }
 
@@ -280,6 +310,28 @@ class PluginBroker implements Broker
         }
         return $this->classLoader;
     }
+    
+    /**
+     * Set if plugins should be registered on load.
+     * 
+     * @param  boolean $flag
+     * @return PluginBroker
+     */
+    public function setRegisterPluginsOnLoad($flag)
+    {
+        $this->registerPluginsOnLoad = (bool) $flag;
+        return $this;
+    }
+
+    /**
+     * Retrieve if plugins are registered on load.
+     * 
+     * @return boolean
+     */
+    public function getRegisterPluginsOnLoad()
+    {
+        return $this->registerPluginsOnLoad;
+    }
 
     /**
      * Set plugin validator callback
@@ -338,5 +390,26 @@ class PluginBroker implements Broker
             return false;
         }
         return true;
+    }
+ 
+    /**
+     * Get locator. 
+     * 
+     * @return Zend\Di\Locator
+     */
+    public function getLocator()
+    {
+        return $this->locator;
+    }
+
+    /**
+     * Set locator.
+     *
+     * @param Zend\Di\Locator $locator
+     */
+    public function setLocator(Locator $locator)
+    {
+        $this->locator = $locator;
+        return $this;
     }
 }

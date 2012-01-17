@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\Tool\Framework\Manifest;
  * @uses       \Zend\Tool\Framework\Manifest
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface MetadataManifestable extends Manifest
@@ -41,7 +41,7 @@ interface MetadataManifestable extends Manifest
      * Should either return a single metadata object or an array
      * of metadata objects
      *
-     * @return array|Zend_Tool_Framework_Manifest_Metadata
+     * @return array|Zend\Tool\Framework\Manifest\Metadata
      */
     public function getMetadata();
 

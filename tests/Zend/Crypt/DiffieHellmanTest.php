@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\Crypt\DiffieHellman;
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Crypt
  */
@@ -38,8 +38,14 @@ class DiffieHellmanTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!extension_loaded('bcmath')) {
-            $this->markTestSkipped('Zend_Crypt_DiffieHellmanTest skipped due to missing ext/bcmath');
+        try {
+            $math = new \Zend\Crypt\Math\BigInteger();
+        } catch (\Zend\Crypt\Math\BigInteger\Exception $e) {
+            if (strpos($e->getMessage(), 'big integer precision math support not detected') !== false) {
+                $this->markTestSkipped($e->getMessage());
+            } else {
+                throw $e;
+            }
         }
     }
 

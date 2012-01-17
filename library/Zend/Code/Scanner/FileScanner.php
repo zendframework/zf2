@@ -3,22 +3,17 @@
 namespace Zend\Code\Scanner;
 
 use Zend\Code\Scanner,
-    Zend\Code\Exception;
+    Zend\Code\Exception,
+    Zend\Code\Annotation\AnnotationManager;
 
 class FileScanner extends TokenArrayScanner implements Scanner
 {
-    protected $isScanned = false;
-    
-    protected $file      = null;
-    
-    public function __construct($file = null, $options = null)
-    {
-        if ($file) {
-            $this->setFile($file);
-        }
-    }
-    
-    public function setFile($file)
+    /**
+     * @var string
+     */
+    protected $file = null;
+
+    public function __construct($file, AnnotationManager $annotationManager = null)
     {
         $this->file = $file;
         if (!file_exists($file)) {
@@ -26,32 +21,12 @@ class FileScanner extends TokenArrayScanner implements Scanner
                 'File "%s" not found', $file
             ));
         }
-        $this->reset();
+        parent::__construct(token_get_all(file_get_contents($file)), $annotationManager);
     }
-    
+
     public function getFile()
     {
         return $this->file;
     }
-    
-    protected function scan()
-    {
-        if (!$this->file) {
-            throw new Exception\RuntimeException('File was not provided');
-        }
-        $this->setTokens(token_get_all(file_get_contents($this->file)));
-        parent::scan();
-    }
-    
-    public static function export()
-    {
-        // @todo
-    }
-    
-    public function __toString()
-    {
-        // @todo
-    }
-    
-    
+
 }

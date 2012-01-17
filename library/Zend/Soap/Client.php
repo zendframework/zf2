@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Soap
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ namespace Zend\Soap;
  * @category   Zend
  * @package    Zend_Soap
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Client
@@ -313,7 +313,7 @@ class Client
              * ugly hack as I don't know if checking for '=== null'
              * breaks some other option
              */
-            if ($key == 'user_agent') {
+            if (in_array($key, array('user_agent', 'cache_wsdl', 'compression'))) {
                 if ($value === null) {
                     unset($options[$key]);
                 }
@@ -752,13 +752,16 @@ class Client
     /**
      * Set compression options
      *
-     * @param  int $compressionOptions
+     * @param  int|null $compressionOptions
      * @return \Zend\Soap\Client\Client
      */
     public function setCompressionOptions($compressionOptions)
     {
-        $this->_compression = $compressionOptions;
-
+        if ($compressionOptions === null) {
+            $this->_compression = null;
+        } else {
+            $this->_compression = (int)$compressionOptions;
+        }
         $this->_soapClient = null;
 
         return $this;
@@ -836,17 +839,23 @@ class Client
     /**
      * Set the SOAP WSDL Caching Options
      *
-     * @param string|int|boolean $caching
+     * @param string|int|boolean|null $caching
      * @return \Zend\Soap\Client\Client
      */
-    public function setWSDLCache($options)
+    public function setWSDLCache($caching)
     {
-        $this->_cache_wsdl = $options;
+        if ($caching === null) {
+            $this->_cache_wsdl = null;
+        } else {
+            $this->_cache_wsdl = (int)$caching;
+        }
         return $this;
     }
 
     /**
      * Get current SOAP WSDL Caching option
+     *
+     * @return int
      */
     public function getWSDLCache()
     {

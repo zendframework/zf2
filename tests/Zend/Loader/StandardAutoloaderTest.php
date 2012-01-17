@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -29,7 +29,7 @@ use Zend\Loader\StandardAutoloader,
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Loader
  */
@@ -166,6 +166,13 @@ class StandardAutoloaderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($loader->autoload('Some\Fake\Classname'));
     }
 
+    public function testReturnsFalseForInvalidClassNames()
+    {
+        $loader = new StandardAutoloader();
+        $loader->setFallbackAutoloader(true);
+        $this->assertFalse($loader->autoload('Some\Invalid\Classname\\'));
+    }
+
     public function testRegisterRegistersCallbackWithSplAutoload()
     {
         $loader = new StandardAutoloader();
@@ -174,5 +181,13 @@ class StandardAutoloaderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(count($this->loaders) < count($loaders));
         $test = array_pop($loaders);
         $this->assertEquals(array($loader, 'autoload'), $test);
+    }
+
+    public function testAutoloadsNamespacedClassesWithUnderscores()
+    {
+        $loader = new StandardAutoloader();
+        $loader->registerNamespace('ZendTest\UnusualNamespace', __DIR__ . '/TestAsset');
+        $loader->autoload('ZendTest\UnusualNamespace\Name_Space\Namespaced_Class');
+        $this->assertTrue(class_exists('ZendTest\UnusualNamespace\Name_Space\Namespaced_Class', false));
     }
 }

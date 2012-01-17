@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,6 +23,10 @@
  * @namespace
  */
 namespace Zend\Tool\Framework\Loader;
+
+use RecursiveDirectoryIterator,
+    RecursiveFilterIterator,
+    RecursiveIteratorIterator;
 
 /**
  * @uses       RecursiveDirectoryIterator
@@ -32,7 +36,7 @@ namespace Zend\Tool\Framework\Loader;
  * @uses       \Zend\Tool\Framework\Loader\IncludePathLoader\RecursiveFilterIterator
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class IncludePathLoader extends AbstractLoader
@@ -75,7 +79,7 @@ class IncludePathLoader extends AbstractLoader
             }
 
             // create recursive directory iterator
-            $rdi = new \RecursiveDirectoryIterator($path);
+            $rdi = new RecursiveDirectoryIterator($path);
 
             // pass in the RecursiveDirectoryIterator & the patterns
             $filter = new RecursiveFilterIterator(
@@ -85,7 +89,7 @@ class IncludePathLoader extends AbstractLoader
                 );
 
             // build the rii with the filter
-            $iterator = new \RecursiveIteratorIterator($filter);
+            $iterator = new RecursiveIteratorIterator($filter);
 
             // iterate over the accepted items
             foreach ($iterator as $item) {

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Technorati
@@ -69,11 +69,11 @@ class Zend_Service_Technorati_BlogInfoResultTest extends Zend_Service_Technorati
         $this->assertEquals(Zend_Uri::factory('http://www.simonecarletti.com/blog'), $object->getUrl());
 
         // check inboundblogs
-        $this->assertType('integer', $object->getInboundBlogs());
+        $this->assertInternalType('integer', $object->getInboundBlogs());
         $this->assertEquals(86, $object->getInboundBlogs());
 
         // check inboundlinks
-        $this->assertType('integer', $object->getInboundLinks());
+        $this->assertInternalType('integer', $object->getInboundLinks());
         $this->assertEquals(114, $object->getInboundLinks());
     }
 

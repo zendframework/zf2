@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Navigation
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,10 +24,14 @@
  */
 namespace ZendTest\Navigation\Page;
 
-use Zend\Controller\Front as FrontController,
-    Zend\Controller\Request,
+use PHPUnit_Framework_TestCase as TestCase,
+    Zend\View\Helper\Url as UrlHelper,
+    Zend\Mvc\Router\RouteMatch,
+    Zend\Mvc\Router\Http\Regex as RegexRoute,
+    Zend\Mvc\Router\Http\TreeRouteStack,
     Zend\Navigation\Page,
-    Zend\Navigation;
+    Zend\Navigation,
+    ZendTest\Navigation\TestAsset;
 
 /**
  * Tests the class Zend_Navigation_Page_Mvc
@@ -35,11 +39,11 @@ use Zend\Controller\Front as FrontController,
  * @category   Zend
  * @package    Zend_Navigation
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Navigation
  */
-class MvcTest extends \PHPUnit_Framework_TestCase
+class MvcTest extends TestCase
 {
     protected $_front;
     protected $_oldRequest;
@@ -47,33 +51,38 @@ class MvcTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->_front = \Zend\Controller\Front::getInstance();
-        $this->_oldRequest = $this->_front->getRequest();
-        $this->_oldRouter = $this->_front->getRouter();
+        $this->route  = new RegexRoute(
+            '((?<controller>[^/]+)(/(?<action>[^/]+))?)',
+            '/%controller%/%action%',
+            array(
+                'controller' => 'index',
+                'action'     => 'index',
+            )
+        );
+        $this->router = new TreeRouteStack();
+        $this->router->addRoute('default', $this->route);
 
-        $this->_front->resetInstance();
-        $this->_front->setRequest(new Request\Http());
-        $this->_front->getRouter()->addDefaultRoutes();
+        $this->routeMatch = new RouteMatch(array());
+        $this->routeMatch->setMatchedRouteName('default');
+
+        $this->urlHelper = new UrlHelper();
+        $this->urlHelper->setRouter($this->router);
+        $this->urlHelper->setRouteMatch($this->routeMatch);
     }
 
     protected function tearDown()
     {
-        if (null !== $this->_oldRequest) {
-            $this->_front->setRequest($this->_oldRequest);
-        } else {
-            $this->_front->setRequest(new Request\Http());
-        }
-        $this->_front->setRouter($this->_oldRouter);
     }
 
     public function testHrefGeneratedByUrlHelperRequiresNoRoute()
     {
         $page = new Page\Mvc(array(
-            'label' => 'foo',
-            'action' => 'index',
+            'label'      => 'foo',
+            'action'     => 'index',
             'controller' => 'index'
         ));
-
+        $page->setRouteMatch($this->routeMatch);
+        $page->setUrlHelper($this->urlHelper);
         $page->setAction('view');
         $page->setController('news');
 
@@ -92,117 +101,184 @@ class MvcTest extends \PHPUnit_Framework_TestCase
             )
         ));
 
-        $this->_front->getRouter()->addRoute(
-            'myroute',
-            new \Zend\Controller\Router\Route\Route(
-                'lolcat/:action/:page',
-                array(
-                    'module'     => 'default',
-                    'controller' => 'foobar',
-                    'action'     => 'bazbat',
-                    'page'       => 1
-                )
+        $route  = new RegexRoute(
+            '(lolcat/(?<action>[^/]+)/(?<page>\d+))',
+            '/lolcat/%action%/%page%',
+            array(
+                'controller' => 'foobar',
+                'action'     => 'bazbat',
+                'page'       => 1
             )
         );
+        $router = new TreeRouteStack();
+        $router->addRoute('myroute', $route);
+
+        $routeMatch = new RouteMatch(array(
+            'controller' => 'foobar',
+            'action'     => 'bazbat',
+            'page'       => 1,
+        ));
+
+        $urlHelper = new UrlHelper();
+        $urlHelper->setRouter($router);
+        $urlHelper->setRouteMatch($routeMatch);
+
+        $page->setUrlHelper($urlHelper);
+        $page->setRouteMatch($routeMatch);
 
         $this->assertEquals('/lolcat/myaction/1337', $page->getHref());
+    }
+
+    /**
+     * @group ZF-8922
+     */
+    public function testGetHrefWithFragmentIdentifier()
+    {
+        $page = new Page\Mvc(array(
+            'label'              => 'foo',
+            'fragment' => 'qux',
+            'controller'         => 'mycontroller',
+            'action'             => 'myaction',
+            'route'              => 'myroute',
+            'params'             => array(
+                'page' => 1337
+            )
+        ));
+
+        $route = new RegexRoute(
+            '(lolcat/(?<action>[^/]+)/(?<page>\d+))',
+            '/lolcat/%action%/%page%',
+            array(
+                'module'     => 'default',
+                'controller' => 'foobar',
+                'action'     => 'bazbat',
+                'page'       => 1,
+            )
+        );
+        $this->router->addRoute('myroute', $route);
+        $this->routeMatch->setMatchedRouteName('myroute');
+
+        $page->setRouteMatch($this->routeMatch);
+        $page->setUrlHelper($this->urlHelper);
+ 
+        $this->assertEquals('/lolcat/myaction/1337#qux', $page->getHref());
     }
 
     public function testIsActiveReturnsTrueOnIdenticalModuleControllerAction()
     {
         $page = new Page\Mvc(array(
-            'label' => 'foo',
-            'action' => 'index',
+            'label'      => 'foo',
+            'action'     => 'index',
             'controller' => 'index'
         ));
 
-        $this->_front->getRequest()->setParams(array(
-            'module' => 'default',
+        $routeMatch = new RouteMatch(array(
+            'module'     => 'application',
             'controller' => 'index',
-            'action' => 'index'
+            'action'     => 'index',
         ));
+        $routeMatch->setMatchedRouteName('default');
+        $this->urlHelper->setRouteMatch($routeMatch);
 
-        $this->assertEquals(true, $page->isActive());
+        $page->setRouteMatch($routeMatch);
+
+        $this->assertTrue($page->isActive());
     }
 
     public function testIsActiveReturnsFalseOnDifferentModuleControllerAction()
     {
         $page = new Page\Mvc(array(
-            'label' => 'foo',
-            'action' => 'bar',
+            'label'      => 'foo',
+            'action'     => 'bar',
             'controller' => 'index'
         ));
 
-        $this->_front->getRequest()->setParams(array(
-            'module' => 'default',
+        $routeMatch = new RouteMatch(array(
+            'module'     => 'default',
             'controller' => 'index',
-            'action' => 'index'
+            'action'     => 'index',
         ));
+        $routeMatch->setMatchedRouteName('default');
+        $this->urlHelper->setRouteMatch($routeMatch);
 
-        $this->assertEquals(false, $page->isActive());
+        $page->setRouteMatch($routeMatch);
+
+        $this->assertFalse($page->isActive());
     }
 
     public function testIsActiveReturnsTrueOnIdenticalIncludingPageParams()
     {
         $page = new Page\Mvc(array(
-            'label' => 'foo',
-            'action' => 'view',
+            'label'      => 'foo',
+            'action'     => 'view',
             'controller' => 'post',
-            'module' => 'blog',
-            'params' => array(
-                'id' => '1337'
+            'module'     => 'blog',
+            'params'     => array(
+                'id'     => '1337'
             )
         ));
 
-        $this->_front->getRequest()->setParams(array(
-            'module' => 'blog',
+        $routeMatch = new RouteMatch(array(
+            'module'     => 'blog',
             'controller' => 'post',
-            'action' => 'view',
-            'id' => '1337'
+            'action'     => 'view',
+            'id'         => '1337'
         ));
+        $routeMatch->setMatchedRouteName('default');
+        $this->urlHelper->setRouteMatch($routeMatch);
 
-        $this->assertEquals(true, $page->isActive());
+        $page->setRouteMatch($routeMatch);
+
+        $this->assertTrue($page->isActive());
     }
 
     public function testIsActiveReturnsTrueWhenRequestHasMoreParams()
     {
         $page = new Page\Mvc(array(
-            'label' => 'foo',
-            'action' => 'view',
+            'label'      => 'foo',
+            'action'     => 'view',
             'controller' => 'post',
-            'module' => 'blog'
+            'module'     => 'blog'
         ));
 
-        $this->_front->getRequest()->setParams(array(
-            'module' => 'blog',
+        $routeMatch = new RouteMatch(array(
+            'module'     => 'blog',
             'controller' => 'post',
-            'action' => 'view',
-            'id' => '1337'
+            'action'     => 'view',
+            'id'         => '1337'
         ));
+        $routeMatch->setMatchedRouteName('default');
+        $this->urlHelper->setRouteMatch($routeMatch);
 
-        $this->assertEquals(true, $page->isActive());
+        $page->setRouteMatch($routeMatch);
+
+        $this->assertTrue($page->isActive());
     }
 
     public function testIsActiveReturnsFalseWhenRequestHasLessParams()
     {
         $page = new Page\Mvc(array(
-            'label' => 'foo',
-            'action' => 'view',
+            'label'      => 'foo',
+            'action'     => 'view',
             'controller' => 'post',
-            'module' => 'blog',
-            'params' => array(
-                'id' => '1337'
+            'module'     => 'blog',
+            'params'     => array(
+                'id'     => '1337'
             )
         ));
 
-        $this->_front->getRequest()->setParams(array(
-            'module' => 'blog',
+        $routeMatch = new RouteMatch(array(
+            'module'     => 'blog',
             'controller' => 'post',
-            'action' => 'view',
-            'id' => null
+            'action'     => 'view',
+            'id'         => null
         ));
+        $routeMatch->setMatchedRouteName('default');
+        $this->urlHelper->setRouteMatch($routeMatch);
 
-        $this->assertEquals(false, $page->isActive());
+        $page->setRouteMatch($routeMatch);
+
+        $this->assertFalse($page->isActive());
     }
 
     public function testActionAndControllerAccessors()
@@ -239,16 +315,16 @@ class MvcTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testModuleAndRouteAccessors()
+    public function testRouteAccessor()
     {
         $page = new Page\Mvc(array(
-            'label' => 'foo',
-            'action' => 'index',
+            'label'      => 'foo',
+            'action'     => 'index',
             'controller' => 'index'
         ));
 
-        $props = array('Module', 'Route');
-        $valids = array('index', 'help', 'home', 'default', '1', ' ', null);
+        $props    = array('Route');
+        $valids   = array('index', 'help', 'home', 'default', '1', ' ', null);
         $invalids = array(42, (object) null);
 
         foreach ($props as $prop) {
@@ -263,34 +339,13 @@ class MvcTest extends \PHPUnit_Framework_TestCase
             foreach ($invalids as $invalid) {
                 try {
                     $page->$setter($invalid);
-                    $msg = "'$invalid' is invalid for $setter(), but no ";
+                    $msg  = "'$invalid' is invalid for $setter(), but no ";
                     $msg .= 'Zend\Navigation\Exception\InvalidArgumentException was thrown';
                     $this->fail($msg);
                 } catch (Navigation\Exception\InvalidArgumentException $e) {
 
                 }
             }
-        }
-    }
-
-    public function testSetAndGetResetParams()
-    {
-        $page = new Page\Mvc(array(
-            'label' => 'foo',
-            'action' => 'index',
-            'controller' => 'index'
-        ));
-
-        $valids = array(true, 1, '1', 3.14, 'true', 'yes');
-        foreach ($valids as $valid) {
-            $page->setResetParams($valid);
-            $this->assertEquals(true, $page->getResetParams());
-        }
-
-        $invalids = array(false, 0, '0', 0.0, array());
-        foreach ($invalids as $invalid) {
-            $page->setResetParams($invalid);
-            $this->assertEquals(false, $page->getResetParams());
         }
     }
 
@@ -320,31 +375,29 @@ class MvcTest extends \PHPUnit_Framework_TestCase
     public function testToArrayMethod()
     {
         $options = array(
-            'label' => 'foo',
-            'action' => 'index',
+            'label'      => 'foo',
+            'action'     => 'index',
             'controller' => 'index',
-            'module' => 'test',
-            'id' => 'my-id',
-            'class' => 'my-class',
-            'title' => 'my-title',
-            'target' => 'my-target',
-            'order' => 100,
-            'active' => true,
-            'visible' => false,
-
-            'foo' => 'bar',
-            'meaning' => 42
+            'fragment'   => 'bar',
+            'id'         => 'my-id',
+            'class'      => 'my-class',
+            'title'      => 'my-title',
+            'target'     => 'my-target',
+            'order'      => 100,
+            'active'     => true,
+            'visible'    => false,
+            'foo'        => 'bar',
+            'meaning'    => 42
         );
 
         $page = new Page\Mvc($options);
 
         $toArray = $page->toArray();
 
-        $options['reset_params'] = true;
-        $options['route'] = null;
-        $options['params'] = array();
-        $options['rel'] = array();
-        $options['rev'] = array();
+        $options['route']        = null;
+        $options['params']       = array();
+        $options['rel']          = array();
+        $options['rev']          = array();
 
         $this->assertEquals(array(),
             array_diff_assoc($options, $page->toArray()));
@@ -352,17 +405,13 @@ class MvcTest extends \PHPUnit_Framework_TestCase
 
     public function testSpecifyingAnotherUrlHelperToGenerateHrefs()
     {
-        $newHelper = new \ZendTest\Navigation\TestAsset\UrlHelper();
-        Page\Mvc::setUrlHelper($newHelper);
+        $newHelper = new TestAsset\UrlHelper();
 
         $page = new Page\Mvc();
+        $page->setUrlHelper($newHelper);
 
-        $expected = \ZendTest\Navigation\TestAsset\UrlHelper::RETURN_URL;
-        $actual = $page->getHref();
-
-        $front = FrontController::getInstance();
-        $old = $front->getHelperBroker()->load('URL');
-        Page\Mvc::setUrlHelper($old);
+        $expected = TestAsset\UrlHelper::RETURN_URL;
+        $actual   = $page->getHref();
 
         $this->assertEquals($expected, $actual);
     }

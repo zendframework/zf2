@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Translator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,16 +23,14 @@
  */
 namespace Zend\Translator;
 
-use Zend\Translator\Exception\InvalidArgumentException,
-    Zend\Translator\Exception\BadMethodCallException;
+use Traversable,
+    Zend\Cache\Storage\Adapter as CacheAdapter,
+    Zend\Stdlib\IteratorToArray;
 
 /**
- * @uses       \Zend\Loader
- * @uses       \Zend\Translator\Exception\InvalidArgumentException
- * @uses       \Zend\Translator\Exception\BadMethodCallException
  * @category   Zend
  * @package    Zend_Translator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Translator
@@ -57,21 +55,21 @@ class Translator
     /**
      * Adapter
      *
-     * @var \Zend\Translator\Adapter
+     * @var Adapter\AbstractAdapter
      */
     private $_adapter;
 
     /**
      * Generates the standard translation object
      *
-     * @param  array|\Zend\Config $options Options to use
-     * @throws \Zend\Translate\Exception\InvalidArgumentException
+     * @param  array|Traversable $options Options to use
+     * @throws Exception\InvalidArgumentException
      */
     public function __construct($options = array())
     {
-        if ($options instanceof \Zend\Config\Config) {
-            $options = $options->toArray();
-        } else if (func_num_args() > 1) {
+        if ($options instanceof Traversable) {
+            $options = IteratorToArray::convert($options);
+        } elseif (func_num_args() > 1) {
             $args               = func_get_args();
             $options            = array();
             $options['adapter'] = array_shift($args);
@@ -97,13 +95,13 @@ class Translator
     /**
      * Sets a new adapter
      *
-     * @param  array|\Zend\Config $options Options to use
-     * @throws \Zend\Translate\Exception\InvalidArgumentException
+     * @param  array|Traversable $options Options to use
+     * @throws Exception\InvalidArgumentException
      */
     public function setAdapter($options = array())
     {
-        if ($options instanceof \Zend\Config\Config) {
-            $options = $options->toArray();
+        if ($options instanceof Traversable) {
+            $options = IteratorToArray::convert($options);
         } elseif (func_num_args() > 1) {
             $args               = func_get_args();
             $options            = array();
@@ -120,38 +118,36 @@ class Translator
                 $opt     = array_shift($args);
                 $options = array_merge($opt, $options);
             }
-        } else if (!is_array($options)) {
+        } elseif (!is_array($options)) {
             $options = array('adapter' => $options);
         }
 
         if (empty($options['adapter'])) {
-            throw new InvalidArgumentException("No adapter given");
+            throw new Exception\InvalidArgumentException("No adapter given");
         }
 
-        if (\Zend\Loader::isReadable('Zend/Translator/Adapter/' . ucfirst($options['adapter']). '.php')) {
+        if (class_exists('Zend\Translator\Adapter\\' . ucfirst($options['adapter']))) {
             $options['adapter'] = 'Zend\Translator\Adapter\\' . ucfirst($options['adapter']);
-        }
-
-        if (!class_exists($options['adapter'])) {
-            throw new InvalidArgumentException("Adapter " . $options['adapter'] . " does not exist and cannot be loaded");
+        } elseif (!class_exists($options['adapter'])) {
+            throw new Exception\InvalidArgumentException("Adapter " . $options['adapter'] . " does not exist and cannot be loaded");
         }
 
         if (array_key_exists('cache', $options)) {
-            Adapter::setCache($options['cache']);
+            Adapter\AbstractAdapter::setCache($options['cache']);
         }
 
         $adapter = $options['adapter'];
         unset($options['adapter']);
         $this->_adapter = new $adapter($options);
-        if (!$this->_adapter instanceof Adapter) {
-            throw new InvalidArgumentException("Adapter " . $adapter . " does not extend Zend\Translate\Adapter");
+        if (!$this->_adapter instanceof Adapter\AbstractAdapter) {
+            throw new Exception\InvalidArgumentException("Adapter " . $adapter . " does not extend Zend\Translator\Adapter\AbstractAdapter");
         }
     }
 
     /**
      * Returns the adapters name and it's options
      *
-     * @return \Zend\Translator\Adapter
+     * @return Adapter\AbstractAdapter
      */
     public function getAdapter()
     {
@@ -161,22 +157,22 @@ class Translator
     /**
      * Returns the set cache
      *
-     * @return \Zend\Cache\Frontend\Core The set cache
+     * @return CacheAdapter The set cache
      */
     public static function getCache()
     {
-        return Adapter::getCache();
+        return Adapter\AbstractAdapter::getCache();
     }
 
     /**
-     * Sets a cache for all instances of Zend_Translate
+     * Sets a cache for all instances of Zend_Translator
      *
-     * @param  \Zend\Cache\Frontend $cache Cache to store to
+     * @param  CacheAdapter $cache Cache to store to
      * @return void
      */
-    public static function setCache(\Zend\Cache\Frontend $cache)
+    public static function setCache(CacheAdapter $cache)
     {
-        Adapter::setCache($cache);
+        Adapter\AbstractAdapter::setCache($cache);
     }
 
     /**
@@ -186,7 +182,7 @@ class Translator
      */
     public static function hasCache()
     {
-        return Adapter::hasCache();
+        return Adapter\AbstractAdapter::hasCache();
     }
 
     /**
@@ -196,7 +192,7 @@ class Translator
      */
     public static function removeCache()
     {
-        Adapter::removeCache();
+        Adapter\AbstractAdapter::removeCache();
     }
 
     /**
@@ -207,18 +203,19 @@ class Translator
      */
     public static function clearCache($tag = null)
     {
-        Adapter::clearCache($tag);
+        Adapter\AbstractAdapter::clearCache($tag);
     }
 
     /**
      * Calls all methods from the adapter
-     * @throws \Zend\Translator\Exception\BadMethodCallException
+     * @throws Exception\BadMethodCallException
      */
     public function __call($method, array $options)
     {
-        if (method_exists($this->_adapter, $method)) {
-            return call_user_func_array(array($this->_adapter, $method), $options);
+        if (!method_exists($this->_adapter, $method)) {
+            throw new Exception\BadMethodCallException("Unknown method '" . $method . "' called!");
         }
-        throw new BadMethodCallException("Unknown method '" . $method . "' called!");
+
+        return call_user_func_array(array($this->_adapter, $method), $options);
     }
 }

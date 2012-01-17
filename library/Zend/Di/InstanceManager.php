@@ -2,36 +2,58 @@
 
 namespace Zend\Di;
 
-class InstanceManager implements InstanceCollection
+class InstanceManager /* implements InstanceCollection */
 {
-    /**
-     * Preferred Instances for classes and aliases
-     * @var unknown_type
-     */
-    protected $preferredInstances = array();
-    
-    /**
-     * Properties array
-     * @var array
-     */
-    protected $properties = array();
-    
     /**
      * Array of shared instances
      * @var array
      */
     protected $sharedInstances = array();
-    
+
+    /**
+     * Array of shared instances with params
+     * @var array
+     */
     protected $sharedInstancesWithParams = array('hashShort' => array(), 'hashLong' => array());
     
     /**
      * Array of class aliases
-     * @var array
+     * @var array key: alias, value: class
      */
     protected $aliases = array();
     
     /**
+     * The template to use for housing configuration information
+     * @var array 
+     */
+    protected $configurationTemplate = array(
+        /** 
+         * alias|class => alias|class
+         * interface|abstract => alias|class|object
+         * name => value
+         */
+        'parameters' => array(),
+        /**
+         * injection type => array of ordered method params
+         */
+        'injections' => array(),
+        );
+
+    /**
+     * An array of instance configuration data
+     * @var array
+     */
+    protected $configurations = array();
+    
+    /**
+     * An array of globally preferred implementations for interfaces/abstracts
+     * @var array
+     */
+    protected $typePreferences = array();
+    
+    /**
      * Does this instance manager have this shared instance
+     * @return bool
      */
     public function hasSharedInstance($classOrAlias)
     {
@@ -57,7 +79,15 @@ class InstanceManager implements InstanceCollection
 
         $this->sharedInstances[$classOrAlias] = $instance;
     }
-    
+
+    /**
+     * hasSharedInstanceWithParameters()
+     *
+     * @param string $classOrAlias
+     * @param array $params
+     * @param bool $returnFashHashLookupKey
+     * @return bool|string
+     */
     public function hasSharedInstanceWithParameters($classOrAlias, array $params, $returnFashHashLookupKey = false)
     {
         ksort($params);
@@ -70,14 +100,23 @@ class InstanceManager implements InstanceCollection
         }
         return false;
     }
-    
+
+    /**
+     * addSharedInstanceWithParameters()
+     *
+     * @param object $instance
+     * @param string $classOrAlias
+     * @param array $params
+     * @return void
+     */
     public function addSharedInstanceWithParameters($instance, $classOrAlias, array $params)
     {
         ksort($params);
         $hashKey = $this->createHashForKeys($classOrAlias, array_keys($params));
         $hashValue = $this->createHashForValues($classOrAlias, $params);
         
-        if (!isset($this->sharedInstancesWithParams[$hashKey]) || !is_array($this->sharedInstancesWithParams[$hashKey])) {
+        if (!isset($this->sharedInstancesWithParams[$hashKey]) 
+            || !is_array($this->sharedInstancesWithParams[$hashKey])) {
             $this->sharedInstancesWithParams[$hashKey] = array();
         }
 
@@ -105,7 +144,7 @@ class InstanceManager implements InstanceCollection
     
     public function hasAlias($alias)
     {
-        return array_key_exists($alias, $this->aliases);
+        return (isset($this->aliases[$alias]));
     }
     
     public function getAliases()
@@ -115,176 +154,189 @@ class InstanceManager implements InstanceCollection
     
     /**
      * getClassFromAlias()
+     *
+     * @param string
+     * @return bool
      */
     public function getClassFromAlias($alias)
     {
-        if (isset($this->aliases[$alias])) {
-            return $this->aliases[$alias];
-        }
-        return false;
-    }
-    
-    /**
-     * (non-PHPdoc)
-     * @see Zend\Di.InstanceCollection::addAlias()
-     */
-    public function addAlias($alias, $class, array $properties = array(), array $preferredInstances = array())
-    {
-        if (!preg_match('#^[a-zA-Z0-9-_]+$#', $alias)) {
-            throw new Exception\InvalidArgumentException('Aliases must be alphanumeric and can contain dashes and underscores only.');
-        }
-        $this->aliases[$alias] = $class;
-        if ($properties) {
-            $this->setProperties($alias, $properties);
-        }
-        if ($preferredInstances) {
-            $this->setPreferredInstances($alias, $preferredInstances);
-        }
-    }
-    
-    public function hasPreferredInstances($classOrAlias)
-    {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        return (isset($this->preferredInstances[$key]) && $this->preferredInstances[$key]);
-    }
-    
-    public function setPreferredInstances($classOrAlias, array $preferredInstances)
-    {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        foreach ($preferredInstances as $preferredInstance) {
-            $this->addPreferredInstance($key, $preferredInstance);
-        }
-        return $this;
-    }
-
-    public function getPreferredInstances($classOrAlias)
-    {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        if (isset($this->preferredInstances[$key])) {
-            return $this->preferredInstances[$key];
-        }
-        return array();
-    }
-    
-    public function unsetPreferredInstances($classOrAlias)
-    {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        if (isset($this->preferredInstances[$key])) {
-            unset($this->preferredInstances[$key]);
-        }
-        return false;
-    }
-    
-    public function addPreferredInstance($classOrAlias, $preferredInstance)
-    {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        if (!isset($this->preferredInstances[$key])) {
-            $this->preferredInstances[$key] = array();
-        }
-        $this->preferredInstances[$key][] = $preferredInstance;
-        return $this;
-    }
-
-    public function removePreferredInstance($classOrAlias, $preferredInstance)
-    {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        if (!isset($this->preferredInstances[$key]) || !in_array($preferredInstance, $this->preferredInstances[$key])) {
+        if (!isset($this->aliases[$alias])) {
             return false;
         }
-        unset($this->preferredInstances[$key][array_search($key, $this->preferredInstances)]);
-        return $this;
+        $r = 0;
+        while (isset($this->aliases[$alias])) {
+            $alias = $this->aliases[$alias];
+            $r++;
+            if ($r > 100) {
+                throw new Exception\RuntimeException(
+                    sprintf('Possible infinite recursion in DI alias! Max recursion of 100 levels reached at alias "%s".', $alias)
+                );
+            }
+        }
+        return $alias;
+    }
+    
+    protected function getBaseAlias($alias)
+    {
+        if (!$this->hasAlias($alias)) {
+            return false;
+        }
+        $lastAlias = false;
+        $r = 0;
+        while (isset($this->aliases[$alias])) {
+            $lastAlias = $alias;
+            $alias = $this->aliases[$alias];
+            $r++;
+            if ($r > 100) {
+                throw new Exception\RuntimeException(
+                    sprintf('Possible infinite recursion in DI alias! Max recursion of 100 levels reached at alias "%s".', $alias)
+                ); 
+            }
+        }
+        return $lastAlias;
+    }
+    
+    /**
+     * addAlias()
+     *
+     * @throws Exception\InvalidArgumentException
+     * @param $alias
+     * @param $class
+     * @param array $parameters
+     * @return void
+     */
+    public function addAlias($alias, $class, array $parameters = array())
+    {
+        if (!preg_match('#^[a-zA-Z0-9-_]+$#', $alias)) {
+            throw new Exception\InvalidArgumentException(
+                'Aliases must be alphanumeric and can contain dashes and underscores only.'
+            );
+        }
+        $this->aliases[$alias] = $class;
+        if ($parameters) {
+            $this->setParameters($alias, $parameters);
+        }
+    }
+    
+    public function hasConfiguration($aliasOrClass)
+    {
+        $key = ($this->hasAlias($aliasOrClass)) ? 'alias:' . $this->getBaseAlias($aliasOrClass) : $aliasOrClass;
+        if (!isset($this->configurations[$key])) {
+            return false;
+        }
+        if ($this->configurations[$key] === $this->configurationTemplate) {
+            return false;
+        }
+        return true;
+    }
+    
+    public function setConfiguration($aliasOrClass, array $configuration, $append = false)
+    {
+        $key = ($this->hasAlias($aliasOrClass)) ? 'alias:' . $this->getBaseAlias($aliasOrClass) : $aliasOrClass;
+        if (!isset($this->configurations[$key]) || !$append) {
+            $this->configurations[$key] = $this->configurationTemplate;
+        }
+        // Ignore anything but 'parameters' and 'injections'
+        $configuration = array(
+            'parameters' => isset($configuration['parameters']) ? $configuration['parameters'] : array(),
+            'injections' => isset($configuration['injections']) ? $configuration['injections'] : array(),
+        );
+        $this->configurations[$key] = array_replace_recursive($this->configurations[$key], $configuration);
+    }
+
+    public function getClasses()
+    {
+        $classes = array();
+        foreach ($this->configurations as $name => $data) {
+            if (strpos($name, 'alias') === 0) continue;
+            $classes[] = $name;
+        }
+        return $classes;
+    }
+
+    public function getConfiguration($aliasOrClass)
+    {
+        $key = ($this->hasAlias($aliasOrClass)) ? 'alias:' . $this->getBaseAlias($aliasOrClass) : $aliasOrClass;
+        if (isset($this->configurations[$key])) {
+            return $this->configurations[$key];            
+        } else {
+            return $this->configurationTemplate;
+        }
+    }
+    
+    /**
+     * setParameters() is a convenience method for:
+     *    setConfiguration($type, array('parameters' => array(...)), true);
+     *     
+     * @param string $type Alias or Class
+     * @param array $parameters Multi-dim array of parameters and their values
+     */
+    public function setParameters($aliasOrClass, array $parameters)
+    {
+        return $this->setConfiguration($aliasOrClass, array('parameters' => $parameters), true);
+    }
+    
+    /**
+     * setInjections() is a convenience method for:
+     *    setConfiguration($type, array('injections' => array(...)), true);
+     *     
+     * @param string $type Alias or Class
+     * @param array $methods Multi-dim array of methods and their parameters
+     */
+    public function setInjections($aliasOrClass, array $injections)
+    {
+        return $this->setConfiguration($aliasOrClass, array('injections' => $injections), true);
     }
     
 
-    
-    /**
-     * (non-PHPdoc)
-     * @see Zend\Di.InstanceCollection::hasProperties()
-     */
-    public function hasProperties($classOrAlias)
+    public function hasTypePreferences($interfaceOrAbstract)
     {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        return isset($this->properties[$key]);
+        $key = ($this->hasAlias($interfaceOrAbstract)) ? 'alias:' . $interfaceOrAbstract : $interfaceOrAbstract;
+        return (isset($this->typePreferences[$key]) && $this->typePreferences[$key]);
     }
-    
-    /**
-     * (non-PHPdoc)
-     * @see Zend\Di.InstanceCollection::getProperties()
-     */
-    public function getProperties($classOrAlias)
+
+    public function setTypePreference($interfaceOrAbstract, array $preferredImplementations)
     {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        if (isset($this->properties[$key])) {
-            return $this->properties[$key];
+        $key = ($this->hasAlias($interfaceOrAbstract)) ? 'alias:' . $interfaceOrAbstract : $interfaceOrAbstract;
+        foreach ($preferredImplementations as $preferredImplementation) {
+            $this->addTypePreference($key, $preferredImplementation);
+        }
+        return $this;
+    }
+
+    public function getTypePreferences($interfaceOrAbstract)
+    {
+        $key = ($this->hasAlias($interfaceOrAbstract)) ? 'alias:' . $interfaceOrAbstract : $interfaceOrAbstract;
+        if (isset($this->typePreferences[$key])) {
+            return $this->typePreferences[$key];
         }
         return array();
     }
     
-    public function setProperties($classOrAlias, array $properties, $merge = false)
+    public function unsetTypePreferences($interfaceOrAbstract)
     {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        if (isset($this->properties[$key]) && $merge == false) {
-            $this->properties[$key] = array();
+        $key = ($this->hasAlias($interfaceOrAbstract)) ? 'alias:' . $interfaceOrAbstract : $interfaceOrAbstract;
+        unset($this->typePreferences[$key]);
+    }
+
+    public function addTypePreference($interfaceOrAbstract, $preferredImplementation)
+    {
+        $key = ($this->hasAlias($interfaceOrAbstract)) ? 'alias:' . $interfaceOrAbstract : $interfaceOrAbstract;
+        if (!isset($this->typePreferences[$key])) {
+            $this->typePreferences[$key] = array();
         }
-        foreach ($properties as $propertyName => $propertyValue) {
-            $this->setProperty($key, $propertyName, $propertyValue);
-        }
+        $this->typePreferences[$key][] = $preferredImplementation;
         return $this;
     }
-    
-    /**
-     * (non-PHPdoc)
-     * @see Zend\Di.InstanceCollection::getProperty()
-     */
-    public function hasProperty($classOrAlias, $name)
+
+    public function removeTypePreference($interfaceOrAbstract, $preferredType)
     {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        if (isset($this->properties[$key]) && isset($this->properties[$key][$name])) {
-            return true;
+        $key = ($this->hasAlias($interfaceOrAbstract)) ? 'alias:' . $interfaceOrAbstract : $interfaceOrAbstract;
+        if (!isset($this->typePreferences[$key]) || !in_array($preferredType, $this->typePreferences[$key])) {
+            return false;
         }
-        return false;
-    }
-    
-    /**
-     * (non-PHPdoc)
-     * @see Zend\Di.InstanceCollection::getProperty()
-     */
-    public function getProperty($classOrAlias, $name)
-    {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        if (isset($this->properties[$key][$name])) {
-            return $this->properties[$key][$name];
-        }
-        return null;
-    }
-    
-    /**
-     * setProperty()
-     */
-    public function setProperty($classOrAlias, $name, $value)
-    {
-        if (is_object($value)) { 
-            throw new Exception\InvalidArgumentException('Property value must be a scalar or array');
-        }
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        if (!isset($this->properties[$key])) {
-            $this->properties[$key] = array();
-        }
-        $this->properties[$key][$name] = $value;
+        unset($this->typePreferences[$key][array_search($key, $this->typePreferences)]);
         return $this;
-    }
-    
-    /**
-     * unsetProperty()
-     */
-    public function unsetProperty($classOrAlias, $name)
-    {
-        $key = ($this->hasAlias($classOrAlias)) ? 'alias:' . $classOrAlias : $classOrAlias;
-        if (isset($this->properties[$key])) {
-            unset($this->properties[$key][$name]);
-            return true;
-        }
-        return false;
     }
 
     
@@ -318,5 +370,4 @@ class InstanceManager implements InstanceCollection
         }
         return $hashValue;
     }
-    
 }

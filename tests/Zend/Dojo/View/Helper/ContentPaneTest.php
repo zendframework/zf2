@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@ namespace ZendTest\Dojo\View\Helper;
 use Zend\Dojo\View\Helper\ContentPane as ContentPaneHelper,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_View_Helper_ContentPane.
@@ -32,7 +32,7 @@ use Zend\Dojo\View\Helper\ContentPane as ContentPaneHelper,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_View
@@ -57,14 +57,14 @@ class ContentPaneTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
 
     public function getContainer()
     {
-        return $this->view->contentPane('pane1', 'This is the pane content', array('title' => 'Pane 1'));
+        return $this->view->plugin('contentPane')->__invoke('pane1', 'This is the pane content', array('title' => 'Pane 1'));
     }
 
     public function testShouldAllowDeclarativeDijitCreation()
@@ -78,7 +78,7 @@ class ContentPaneTest extends \PHPUnit_Framework_TestCase
         DojoHelper::setUseProgrammatic();
         $html = $this->getContainer();
         $this->assertNotRegexp('/<div[^>]*(dojoType="dijit.layout.ContentPane")/', $html);
-        $this->assertNotNull($this->view->dojo()->getDijit('pane1'));
+        $this->assertNotNull($this->view->plugin('dojo')->getDijit('pane1'));
     }
 
     /**
@@ -86,11 +86,11 @@ class ContentPaneTest extends \PHPUnit_Framework_TestCase
      */
     public function testContentPaneMarkupShouldNotContainNameAttribute()
     {
-        $html = $this->view->contentPane('pane1', 'This is the pane content', array('id' => 'pane', 'title' => 'Pane 1'));
+        $html = $this->view->plugin('contentPane')->__invoke('pane1', 'This is the pane content', array('id' => 'pane', 'title' => 'Pane 1'));
         $this->assertNotContains('name="/', $html, $html);
 
         DojoHelper::setUseProgrammatic();
-        $html = $this->view->contentPane('pane1', 'This is the pane content', array('id' => 'pane', 'title' => 'Pane 1'));
+        $html = $this->view->plugin('contentPane')->__invoke('pane1', 'This is the pane content', array('id' => 'pane', 'title' => 'Pane 1'));
         $this->assertNotContains('name="/', $html, $html);
     }
 
@@ -99,8 +99,8 @@ class ContentPaneTest extends \PHPUnit_Framework_TestCase
      */
     public function testCaptureStartShouldReturnVoid()
     {
-        $test = $this->view->contentPane()->captureStart('pane1');
-        $this->view->contentPane()->captureEnd('pane1');
+        $test = $this->view->plugin('contentPane')->captureStart('pane1');
+        $this->view->plugin('contentPane')->captureEnd('pane1');
         $this->assertNull($test);
     }
 }

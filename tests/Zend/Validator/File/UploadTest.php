@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator_File
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\Validator\File;
  * @category   Zend
  * @package    Zend_Validator_File
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -231,5 +231,37 @@ class UploadTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($_FILES, $validator->getFiles());
         $validator->setFiles($files);
         $this->assertEquals($files, $validator->getFiles());
+    }
+
+    /**
+     * @group ZF-10738
+     */
+    public function testGetFilesReturnsEmptyArrayWhenFilesSuperglobalIsNull()
+    {
+        $_FILES = NULL;
+        $validator = new File\Upload();
+        $validator->setFiles();
+        $this->assertEquals(array(), $validator->getFiles());
+    }
+
+    /**
+     * @group ZF-10738
+     */
+    public function testGetFilesReturnsEmptyArrayAfterSetFilesIsCalledWithNull()
+    {
+        $validator = new File\Upload();
+        $validator->setFiles(NULL);
+        $this->assertEquals(array(), $validator->getFiles());
+    }
+
+    /**
+     * @group ZF-11258
+     */
+    public function testZF11258()
+    {
+        $validator = new File\Upload();
+        $this->assertFalse($validator->isValid(__DIR__ . '/_files/nofile.mo'));
+        $this->assertTrue(array_key_exists('fileUploadErrorFileNotFound', $validator->getMessages()));
+        $this->assertContains("nofile.mo'", current($validator->getMessages()));
     }
 }

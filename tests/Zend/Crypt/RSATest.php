@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ use Zend\Crypt\Rsa as RSA,
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Crypt
  */
@@ -41,8 +41,28 @@ class RSATest extends \PHPUnit_Framework_TestCase
 
     protected $_testPemPath = null;
 
-    public function setup()
+    public function setUp()
     {
+        $openSslConf = false;
+        if (isset($_ENV['OPENSSL_CONF'])) {
+            $openSslConf = $_ENV['OPENSSL_CONF'];
+        } elseif (isset($_ENV['SSLEAY_CONF'])) {
+            $openSslConf = $_ENV['SSLEAY_CONF'];
+        } elseif (constant('TESTS_ZEND_CRYPT_OPENSSL_CONF')) {
+            $openSslConf = constant('TESTS_ZEND_CRYPT_OPENSSL_CONF');
+        }
+        $this->openSslConf = $openSslConf;
+
+        try {
+            $math = new \Zend\Crypt\Rsa();
+        } catch (\Zend\Crypt\Rsa\Exception $e) {
+            if (strpos($e->getMessage(), 'requires openssl extention') !== false) {
+                $this->markTestSkipped($e->getMessage());
+            } else {
+                throw $e;
+            }
+        }
+
         $this->_testPemString = <<<RSAKEY
 -----BEGIN RSA PRIVATE KEY-----
 MIIBOgIBAAJBANDiE2+Xi/WnO+s120NiiJhNyIButVu6zxqlVzz0wy2j4kQVUC4Z
@@ -128,20 +148,20 @@ CERT;
 
     public function testConstructorSetsHashOption()
     {
-        $rsa = new RSA(array('hashAlgorithm'=>'md2'));
-        $this->assertEquals(OPENSSL_ALGO_MD2, $rsa->getHashAlgorithm());
+        $rsa = new RSA(array('hashAlgorithm'=>'md5'));
+        $this->assertEquals(OPENSSL_ALGO_MD5, $rsa->getHashAlgorithm());
     }
 
     public function testSetPemStringParsesPemForPrivateKey()
     {
         $rsa = new RSA(array('pemString'=>$this->_testPemString));
-        $this->assertType('Zend\\Crypt\\RSA\\PrivateKey', $rsa->getPrivateKey());
+        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PrivateKey', $rsa->getPrivateKey());
     }
 
     public function testSetPemStringParsesPemForPublicKey()
     {
         $rsa = new RSA(array('pemString'=>$this->_testPemString));
-        $this->assertType('Zend\\Crypt\\RSA\\PublicKey', $rsa->getPublicKey());
+        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PublicKey', $rsa->getPublicKey());
     }
 
     public function testSetCertificateStringParsesCertificateForNullPrivateKey()
@@ -153,7 +173,7 @@ CERT;
     public function testSetCertificateStringParsesCertificateForPublicKey()
     {
         $rsa = new RSA(array('certificateString'=>$this->_testCertificateString));
-        $this->assertType('Zend\\Crypt\\RSA\\PublicKey', $rsa->getPublicKey());
+        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PublicKey', $rsa->getPublicKey());
     }
 
     public function testSignGeneratesExpectedBinarySignature()
@@ -262,37 +282,59 @@ CERT;
 
     public function testKeyGenerationCreatesArrayObjectResult()
     {
-        $rsa = new RSA;
-        $keys = $rsa->generateKeys(array('private_key_bits'=>512));
-        $this->assertType('ArrayObject', $keys);
+        if (!$this->openSslConf) {
+            $this->markTestSkipped('No openssl.cnf found or defined; cannot generate keys');
+        }
+        $rsa  = new RSA;
+        $keys = $rsa->generateKeys(array(
+            'config'           => $this->openSslConf,
+            'private_key_bits' => 512,
+        ));
+        $this->assertInstanceOf('ArrayObject', $keys);
     }
 
     public function testKeyGenerationCreatesPrivateKeyInArrayObject()
     {
+        if (!$this->openSslConf) {
+            $this->markTestSkipped('No openssl.cnf found or defined; cannot generate keys');
+        }
         $rsa = new RSA;
-        $keys = $rsa->generateKeys(array('private_key_bits'=>512));
-        $this->assertType('Zend\\Crypt\\RSA\\PrivateKey', $keys->privateKey);
+        $keys = $rsa->generateKeys(array(
+            'config'           => $this->openSslConf,
+            'private_key_bits' => 512,
+        ));
+        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PrivateKey', $keys->privateKey);
     }
 
     public function testKeyGenerationCreatesPublicKeyInArrayObject()
     {
+        if (!$this->openSslConf) {
+            $this->markTestSkipped('No openssl.cnf found or defined; cannot generate keys');
+        }
         $rsa = new RSA;
-        $keys = $rsa->generateKeys(array('privateKeyBits'=>512));
-        $this->assertType('Zend\\Crypt\\RSA\\PublicKey', $keys->publicKey);
+        $keys = $rsa->generateKeys(array(
+            'config'         => $this->openSslConf,
+            'privateKeyBits' => 512,
+        ));
+        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PublicKey', $keys->publicKey);
     }
 
     public function testKeyGenerationCreatesPassphrasedPrivateKey()
     {
+        if (!$this->openSslConf) {
+            $this->markTestSkipped('No openssl.cnf found or defined; cannot generate keys');
+        }
         $rsa = new RSA;
         $config = array(
+            'config'         => $this->openSslConf,
             'privateKeyBits' => 512,
-            'passPhrase' => '0987654321'
+            'passPhrase'     => '0987654321'
         );
         $keys = $rsa->generateKeys($config);
         try {
             $rsa = new RSA(array(
-                'passPhrase'=>'1234567890',
-                'pemString'=>$keys->privateKey->toString()
+                'passPhrase' => '1234567890',
+                'pemString'  => $keys->privateKey->toString()
             ));
             $this->fail('Expected exception not thrown');
         } catch (Crypt\Exception $e) {
@@ -301,16 +343,20 @@ CERT;
 
     public function testConstructorLoadsPassphrasedKeys()
     {
+        if (!$this->openSslConf) {
+            $this->markTestSkipped('No openssl.cnf found or defined; cannot generate keys');
+        }
         $rsa = new RSA;
         $config = array(
+            'config'         => $this->openSslConf,
             'privateKeyBits' => 512,
-            'passPhrase' => '0987654321'
+            'passPhrase'     => '0987654321'
         );
         $keys = $rsa->generateKeys($config);
         try {
             $rsa = new RSA(array(
-                'passPhrase'=>'0987654321',
-                'pemString'=>$keys->privateKey->toString()
+                'passPhrase' => '0987654321',
+                'pemString'  => $keys->privateKey->toString()
             ));
         } catch (Crypt\Exception $e) {
             $this->fail('Passphrase loading failed of a private key');

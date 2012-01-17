@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,13 +23,14 @@
  * @namespace
  */
 namespace ZendTest\Validator;
-use Zend\Validator;
+use Zend\Validator,
+    ReflectionClass;
 
 /**
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -92,7 +93,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_validator->isValid('abc'));
         $messages = $this->_validator->getMessages();
         $this->assertEquals('Your value is too short', current($messages));
-        $errors = $this->_validator->getErrors();
+        $errors = array_keys($this->_validator->getMessages());
         $this->assertEquals(Validator\StringLength::TOO_SHORT, current($errors));
     }
 
@@ -165,7 +166,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testSetMessageExceptionInvalidKey()
     {
         $keyInvalid = 'invalidKey';
-        
+
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'No message template exists for key');
         $this->_validator->setMessage(
             'Your value is too long',
@@ -246,24 +247,6 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Ensures that the getError() function returns an array of
-     * message key values corresponding to the messages.
-     *
-     * @return void
-     */
-    public function testGetErrors()
-    {
-        $inputInvalid = 'abcdefghij';
-        $this->assertFalse($this->_validator->isValid($inputInvalid));
-
-        $messages = $this->_validator->getMessages();
-        $this->assertEquals("'$inputInvalid' is more than 8 characters long", current($messages));
-
-        $errors = $this->_validator->getErrors();
-        $this->assertEquals(Validator\StringLength::TOO_LONG, current($errors));
-    }
-
-    /**
      * Ensures that getMessageVariables() returns an array of
      * strings and that these strings that can be used as variables
      * in a message.
@@ -272,7 +255,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     {
         $vars = $this->_validator->getMessageVariables();
 
-        $this->assertType('array', $vars);
+        $this->assertInternalType('array', $vars);
         $this->assertEquals(array('min', 'max'), $vars);
         $message = 'variables: %notvar% ';
         foreach ($vars as $var) {
@@ -283,6 +266,42 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_validator->isValid('abc'));
         $messages = $this->_validator->getMessages();
         $this->assertEquals('variables: %notvar% 4 8 ', current($messages));
+    }
+    
+    public function testEqualsMessageTemplates()
+    {
+        $validator = $this->_validator;
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageTemplates')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageTemplates');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageTemplates')
+        );
+    }
+    
+    public function testEqualsMessageVariables()
+    {
+        $validator = $this->_validator;
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageVariables')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageVariables');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageVariables')
+        );
     }
 
 }

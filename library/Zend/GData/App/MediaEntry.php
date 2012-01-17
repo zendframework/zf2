@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ namespace Zend\GData\App;
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class MediaEntry extends Entry
@@ -102,7 +102,7 @@ class MediaEntry extends Entry
             $this->_mediaSource = $value;
         } else {
             throw new InvalidArgumentException(
-                    'You must specify the media data as a class that conforms to Zend_Gdata_App_MediaSource.');
+                    'You must specify the media data as a class that conforms to \Zend\Gdata\App\MediaSource.');
         }
         return $this;
     }

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@ namespace ZendTest\Dojo\Form\Element;
 use Zend\Dojo\Form\Element\NumberSpinner as NumberSpinnerElement,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_Form_Element_NumberSpinner.
@@ -32,7 +32,7 @@ use Zend\Dojo\Form\Element\NumberSpinner as NumberSpinnerElement,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_Form
@@ -57,7 +57,7 @@ class NumberSpinnerTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
@@ -165,4 +165,23 @@ class NumberSpinnerTest extends \PHPUnit_Framework_TestCase
         $this->assertRegexp('/\'min\':\s*5/', $html, $html);
         $this->assertRegexp('/\'max\':\s*10/', $html, $html);
     }
+    
+    public function testSmallAndLargeDeltaCanBeSetAsDecimalValues()
+    {
+        $this->element->setSmallDelta(20.5);
+        $this->assertEquals(20.5, $this->element->getSmallDelta());
+        
+        $this->element->setLargeDelta(50.5);
+        $this->assertEquals(50.5, $this->element->getLargeDelta());
+    }
+    
+    public function testMinAndMaxValuesCanBeSetAsDecimalValues()
+    {
+        $this->element->setMin(20.5);
+        $this->assertEquals(20.5, $this->element->getMin());
+        
+        $this->element->setMax(50.5);
+        $this->assertEquals(50.5, $this->element->getMax());
+    }
+
 }

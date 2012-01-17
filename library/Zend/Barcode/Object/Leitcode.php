@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,10 +27,9 @@ namespace Zend\Barcode\Object;
 /**
  * Class for generate Identcode barcode
  *
- * @uses       \Zend\Barcode\Object\Identcode
  * @category   Zend
  * @package    Zend_Barcode
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Leitcode extends Identcode
@@ -40,10 +39,10 @@ class Leitcode extends Identcode
      * Default options for Leitcode barcode
      * @return void
      */
-    protected function _getDefaultOptions()
+    protected function getDefaultOptions()
     {
-        $this->_barcodeLength = 14;
-        $this->_mandatoryChecksum = true;
+        $this->barcodeLength = 14;
+        $this->mandatoryChecksum = true;
     }
 
     /**

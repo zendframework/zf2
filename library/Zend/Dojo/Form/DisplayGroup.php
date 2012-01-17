@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,7 +25,7 @@
 namespace Zend\Dojo\Form;
 
 use Zend\Loader\PrefixPathMapper as PluginLoader,
-    Zend\View\ViewEngine as View;
+    Zend\View\Renderer as View;
 
 /**
  * Dijit-enabled DisplayGroup
@@ -33,7 +33,7 @@ use Zend\Loader\PrefixPathMapper as PluginLoader,
  * @uses       \Zend\Form\DisplayGroup
  * @package    Zend_Dojo
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class DisplayGroup extends \Zend\Form\DisplayGroup
@@ -57,14 +57,15 @@ class DisplayGroup extends \Zend\Form\DisplayGroup
      *
      * Ensures that the view object has the dojo view helper path set.
      *
-     * @param  \Zend\View\ViewEngine $view
+     * @param  \Zend\View\Renderer $view
      * @return \Zend\Dojo\Form\Element\Dijit
      */
     public function setView(View $view = null)
     {
         if (null !== $view) {
-            if (false === $view->getPluginLoader('helper')->getPaths('Zend\Dojo\View\Helper')) {
-                $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend\Dojo\View\Helper');
+            if(false === $view->getBroker()->isLoaded('dojo')) {
+                $loader = new \Zend\Dojo\View\HelperLoader();
+                $view->getBroker()->getClassLoader()->registerPlugins($loader);
             }
         }
         return parent::setView($view);

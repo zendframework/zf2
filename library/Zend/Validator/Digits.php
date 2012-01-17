@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ namespace Zend\Validator;
  * @uses       \Zend\Validator\AbstractValidator
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Digits extends AbstractValidator
@@ -64,14 +64,14 @@ class Digits extends AbstractValidator
     public function isValid($value)
     {
         if (!is_string($value) && !is_int($value) && !is_float($value)) {
-            $this->_error(self::INVALID);
+            $this->error(self::INVALID);
             return false;
         }
 
-        $this->_setValue((string) $value);
+        $this->setValue((string) $value);
 
-        if ('' === $this->_value) {
-            $this->_error(self::STRING_EMPTY);
+        if ('' === $this->getValue()) {
+            $this->error(self::STRING_EMPTY);
             return false;
         }
 
@@ -79,8 +79,8 @@ class Digits extends AbstractValidator
             self::$_filter = new \Zend\Filter\Digits();
         }
 
-        if ($this->_value !== self::$_filter->filter($this->_value)) {
-            $this->_error(self::NOT_DIGITS);
+        if ($this->getValue() !== self::$_filter->filter($this->getValue())) {
+            $this->error(self::NOT_DIGITS);
             return false;
         }
 

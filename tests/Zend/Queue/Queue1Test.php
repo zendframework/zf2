@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,15 +36,22 @@ namespace ZendTest\Queue;
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Queue
  */
 class Queue1Test extends QueueBaseTest
 {
+    /**
+     * Stores the original set timezone
+     * @var string
+     */
+    private $_originaltimezone;
+
     protected function setUp()
     {
-        date_default_timezone_set('GMT');
+        $this->_originaltimezone = date_default_timezone_get();
+    	date_default_timezone_set('GMT');
 
         // Test Zend_Config
         $this->config = array(
@@ -52,5 +59,13 @@ class Queue1Test extends QueueBaseTest
         );
 
         $this->queue = new \Zend\Queue\Queue('ArrayAdapter', $this->config);
+    }
+
+    /**
+     * Teardown environment
+     */
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_originaltimezone);
     }
 }

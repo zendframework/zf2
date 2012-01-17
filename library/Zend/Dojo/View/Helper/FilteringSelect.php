@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace Zend\Dojo\View\Helper;
  * @uses       \Zend\Dojo\View\Helper\ComboBox
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class FilteringSelect extends ComboBox
@@ -57,8 +57,8 @@ class FilteringSelect extends ComboBox
      * @param  array|null $options Select options
      * @return string
      */
-    public function direct($id = null, $value = null, array $params = array(), array $attribs = array(), array $options = null)
+    public function __invoke($id = null, $value = null, array $params = array(), array $attribs = array(), array $options = null)
     {
-        return parent::direct($id, $value, $params, $attribs, $options);
+        return parent::__invoke($id, $value, $params, $attribs, $options);
     }
 }

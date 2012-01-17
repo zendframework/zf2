@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml_Security
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace Zend\InfoCard\XML;
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml_Security
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Security
@@ -154,7 +154,7 @@ class Security
 
         $transformed_xml_binhash = pack("H*", sha1($transformed_xml));
 
-        if($transformed_xml_binhash != $dValue) {
+        if (!static::_secureStringCompare($transformed_xml_binhash, $dValue)) {
             throw new Security\Exception\RuntimeException("Locally Transformed XML does not match XML Document. Cannot Verify Signature");
         }
 
@@ -275,5 +275,27 @@ class Security
         }
 
         throw new Security\Exception\RuntimeException("Invalid code path");
+    }
+
+    /**
+     * Securely compare two strings for equality while avoided C level memcmp()
+     * optimisations capable of leaking timing information useful to an attacker
+     * attempting to iteratively guess the unknown string (e.g. password) being
+     * compared against.
+     *
+     * @param string $a
+     * @param string $b
+     * @return bool
+     */
+    static protected function _secureStringCompare($a, $b)
+    {
+        if (strlen($a) !== strlen($b)) {
+            return false;
+        }
+        $result = 0;
+        for ($i = 0; $i < strlen($a); $i++) {
+            $result |= ord($a[$i]) ^ ord($b[$i]);
+        }
+        return $result == 0;
     }
 }

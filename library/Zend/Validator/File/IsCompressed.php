@@ -14,14 +14,14 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
 namespace Zend\Validator\File;
+
+use Traversable,
+    Zend\Stdlib\IteratorToArray;
 
 /**
  * Validator which checks if the file already exists in the directory
@@ -29,7 +29,7 @@ namespace Zend\Validator\File;
  * @uses      \Zend\Validator\File\MimeType
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class IsCompressed extends MimeType
@@ -56,15 +56,10 @@ class IsCompressed extends MimeType
      * @param  string|array|\Zend\Config\Config $compression
      * @return void
      */
-    public function __construct($mimetype = array())
+    public function __construct($options = array())
     {
-        if ($mimetype instanceof \Zend\Config\Config) {
-            $mimetype = $mimetype->toArray();
-        }
-
-        $temp    = array();
         // http://de.wikipedia.org/wiki/Liste_von_Dateiendungen
-            $default = array(
+        $default = array(
             'application/arj',
             'application/gnutar',
             'application/lha',
@@ -98,26 +93,15 @@ class IsCompressed extends MimeType
             'multipart/x-gzip',
         );
 
-        if (is_array($mimetype)) {
-            $temp = $mimetype;
-            if (array_key_exists('magicfile', $temp)) {
-                unset($temp['magicfile']);
-            }
-
-            if (array_key_exists('headerCheck', $temp)) {
-                unset($temp['headerCheck']);
-            }
-
-            if (empty($temp)) {
-                $mimetype += $default;
-            }
+        if ($options instanceof Traversable) {
+            $options = IteratorToArray::convert($options);
         }
 
-        if (empty($mimetype)) {
-            $mimetype = $default;
+        if (empty($options)) {
+            $options = array('mimeType' => $default);
         }
 
-        parent::__construct($mimetype);
+        parent::__construct($options);
     }
 
     /**
@@ -128,9 +112,20 @@ class IsCompressed extends MimeType
      * @param  string $errorType
      * @return false
      */
-    protected function _throw($file, $errorType)
+    protected function createError($file, $errorType)
     {
-        $this->_value = $file['name'];
+        if ($file !== null) {
+            if (is_array($file)) {
+                if(array_key_exists('name', $file)) {
+                    $file = $file['name'];
+                }
+            } 
+
+            if (is_string($file)) {
+                $this->value = basename($file);
+            }
+        }
+
         switch($errorType) {
             case MimeType::FALSE_TYPE :
                 $errorType = self::FALSE_TYPE;
@@ -143,7 +138,7 @@ class IsCompressed extends MimeType
                 break;
         }
 
-        $this->_error($errorType);
+        $this->error($errorType);
         return false;
     }
 }

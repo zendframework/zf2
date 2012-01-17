@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace Zend\Dojo\Form\Element;
  * @uses       \Zend\Dojo\Form\Element\ValidationTextBox
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class NumberSpinner extends ValidationTextBox
@@ -93,7 +93,7 @@ class NumberSpinner extends ValidationTextBox
      */
     public function setLargeDelta($delta)
     {
-        $this->setDijitParam('largeDelta', (int) $delta);
+        $this->setDijitParam('largeDelta', (float) $delta);
         return $this;
     }
 
@@ -115,7 +115,7 @@ class NumberSpinner extends ValidationTextBox
      */
     public function setSmallDelta($delta)
     {
-        $this->setDijitParam('smallDelta', (int) $delta);
+        $this->setDijitParam('smallDelta', (float) $delta);
         return $this;
     }
 
@@ -188,7 +188,7 @@ class NumberSpinner extends ValidationTextBox
         if ($this->hasDijitParam('constraints')) {
             $constraints = $this->getDijitParam('constraints');
         }
-        $constraints['min'] = (int) $value;
+        $constraints['min'] = (float) $value;
         $this->setDijitParam('constraints', $constraints);
         return $this;
     }
@@ -222,7 +222,7 @@ class NumberSpinner extends ValidationTextBox
         if ($this->hasDijitParam('constraints')) {
             $constraints = $this->getDijitParam('constraints');
         }
-        $constraints['max'] = (int) $value;
+        $constraints['max'] = (float) $value;
         $this->setDijitParam('constraints', $constraints);
         return $this;
     }

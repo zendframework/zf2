@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Loader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -33,7 +33,7 @@ use ArrayIterator,
  *
  * @category   Zend
  * @package    Zend_Loader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class PluginClassLoader implements PluginClassLocator
@@ -142,12 +142,9 @@ class PluginClassLoader implements PluginClassLocator
             $map = $map->getIterator();
         }
 
-        // iterator_apply is faster than foreach
-        $loader = $this;
-        iterator_apply($map, function() use ($loader, $map) {
-            $loader->registerPlugin($map->key(), $map->current());
-            return true;
-        });
+        foreach ($map as $name => $class) {
+            $this->registerPlugin($name, $class);
+        }
 
         return $this;
     }

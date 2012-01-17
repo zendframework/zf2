@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,32 +27,20 @@ namespace Zend\Validator\Barcode;
  * @uses       \Zend\Validator\Barcode\AbstractAdapter
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Code39ext extends AbstractAdapter
 {
     /**
-     * Allowed barcode lengths
-     * @var integer
-     */
-    protected $_length = -1;
-
-    /**
-     * Allowed barcode characters
-     * @var string
-     */
-    protected $_characters = 128;
-
-    /**
-     * Constructor
-     *
-     * Sets check flag to false.
+     * Constructor for this barcode adapter
      *
      * @return void
      */
     public function __construct()
     {
-        $this->setCheck(false);
+        $this->setLength(-1);
+        $this->setCharacters(128);
+        $this->useChecksum(false);
     }
 }

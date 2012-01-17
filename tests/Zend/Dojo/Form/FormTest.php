@@ -15,14 +15,14 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 namespace ZendTest\Dojo\Form;
 
 use Zend\Dojo\Form\Form as DojoForm,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_Form and Zend_Dojo_Form_DisplayGroup
@@ -30,7 +30,7 @@ use Zend\Dojo\Form\Form as DojoForm,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_Form
@@ -48,31 +48,31 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->form = new DojoForm();
         $this->form->addElement('TextBox', 'foo')
                    ->addDisplayGroup(array('foo'), 'dg')
-                   ->setView(new View());
+                   ->setView(new View\PhpRenderer());
     }
 
     public function testDojoFormDecoratorPathShouldBeRegisteredByDefault()
     {
         $paths = $this->form->getPluginLoader('decorator')->getPaths('Zend\Dojo\Form\Decorator');
-        $this->assertTrue(is_array($paths));
+        $this->assertInstanceOf('Zend\Stdlib\SplStack', $paths);
     }
 
     public function testDojoFormElementPathShouldBeRegisteredByDefault()
     {
         $paths = $this->form->getPluginLoader('element')->getPaths('Zend\Dojo\Form\Element');
-        $this->assertTrue(is_array($paths));
+        $this->assertInstanceOf('Zend\Stdlib\SplStack', $paths);
     }
 
     public function testDojoFormElementDecoratorPathShouldBeRegisteredByDefault()
     {
         $paths = $this->form->foo->getPluginLoader('decorator')->getPaths('Zend\Dojo\Form\Decorator');
-        $this->assertTrue(is_array($paths));
+        $this->assertInstanceOf('Zend\Stdlib\SplStack', $paths);
     }
 
     public function testDojoFormDisplayGroupDecoratorPathShouldBeRegisteredByDefault()
     {
         $paths = $this->form->dg->getPluginLoader()->getPaths('Zend\Dojo\Form\Decorator');
-        $this->assertTrue(is_array($paths));
+        $this->assertInstanceOf('Zend\Stdlib\SplStack', $paths);
     }
 
     public function testDefaultDisplayGroupClassShouldBeDojoDisplayGroupByDefault()
@@ -85,21 +85,17 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($this->form->getDecorator('DijitForm'));
     }
 
-    public function testShouldRegisterDojoViewHelperPath()
+    public function testShouldRegisterDojoViewHelper()
     {
-        $view   = $this->form->getView();
-        $loader = $view->getPluginLoader('helper');
-        $paths  = $loader->getPaths('Zend\Dojo\View\Helper');
-        $this->assertTrue(is_array($paths));
+        $view = $this->form->getView();
+        $this->assertInstanceOf('Zend\Dojo\View\Helper\Dojo', $view->plugin('dojo'));
     }
 
-    public function testDisplayGroupShouldRegisterDojoViewHelperPath()
+    public function testDisplayGroupShouldRegisterDojoViewHelper()
     {
-        $this->form->dg->setView(new View());
+        $this->form->dg->setView(new View\PhpRenderer());
         $view   = $this->form->dg->getView();
-        $loader = $view->getPluginLoader('helper');
-        $paths  = $loader->getPaths('Zend\Dojo\View\Helper');
-        $this->assertTrue(is_array($paths));
+        $this->assertInstanceOf('Zend\Dojo\View\Helper\Dojo', $view->plugin('dojo'));
     }
 
     /**

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator_File
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ use Zend\Validator;
  * @category   Zend
  * @package    Zend_Validator_File
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -147,19 +147,24 @@ class MimeTypeTest extends \PHPUnit_Framework_TestCase
     public function testSetAndGetMagicFile()
     {
         $validator = new File\MimeType('image/gif');
-        if (!empty($_ENV['MAGIC'])) {
+        $magic     = getenv('magic');
+        if (!empty($magic)) {
             $mimetype  = $validator->getMagicFile();
-            $this->assertEquals($_ENV['MAGIC'], $mimetype);
+            $this->assertEquals($magic, $mimetype);
         }
 
-        $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'can not be');
+        $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'could not be');
         $validator->setMagicFile('/unknown/magic/file');
     }
 
     public function testSetMagicFileWithinConstructor()
     {
-        $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'The given magicfile is not accepted by finfo');
-        $validator = new File\MimeType(array('image/gif', 'magicfile' => __FILE__));
+        if (!extension_loaded('fileinfo')) {
+            $this->markTestSkipped('This PHP Version has no finfo installed');
+        }
+
+        $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'could not be used by ext/finfo');
+        $validator = new File\MimeType(array('image/gif', 'magicFile' => __FILE__));
     }
 
     public function testOptionsAtConstructor()
@@ -167,7 +172,7 @@ class MimeTypeTest extends \PHPUnit_Framework_TestCase
         $validator = new File\MimeType(array(
             'image/gif',
             'image/jpg',
-            'headerCheck' => true));
+            'enableHeaderCheck' => true));
 
         $this->assertTrue($validator->getHeaderCheck());
         $this->assertEquals('image/gif,image/jpg', $validator->getMimeType());
@@ -212,5 +217,54 @@ class MimeTypeTest extends \PHPUnit_Framework_TestCase
                 . "\nMessages: " . var_export($validator->getMessages(), 1)
             );
         }
+    }
+
+    /**
+     * @group ZF-11258
+     */
+    public function testZF11258()
+    {
+        $validator = new File\MimeType(array(
+            'image/gif',
+            'image/jpg',
+            'headerCheck' => true));
+        $this->assertFalse($validator->isValid(__DIR__ . '/_files/nofile.mo'));
+        $this->assertTrue(array_key_exists('fileMimeTypeNotReadable', $validator->getMessages()));
+        $this->assertContains("'nofile.mo'", current($validator->getMessages()));
+    }
+
+    public function testDisableMagicFile()
+    {
+        $validator = new File\MimeType('image/gif');
+        $magic     = getenv('magic');
+        if (!empty($magic)) {
+            $mimetype  = $validator->getMagicFile();
+            $this->assertEquals($magic, $mimetype);
+        }
+
+        $validator->disableMagicFile(true);
+        $this->assertTrue($validator->isMagicFileDisabled());
+
+        if (!empty($magic)) {
+            $mimetype  = $validator->getMagicFile();
+            $this->assertEquals($magic, $mimetype);
+        }
+    }
+
+    /**
+     * @group ZF-10461
+     */
+    public function testDisablingMagicFileByConstructor()
+    {
+        $files = array(
+            'name'     => 'picture.jpg',
+            'size'     => 200,
+            'tmp_name' => dirname(__FILE__) . '/_files/picture.jpg',
+            'error'    => 0,
+            'magicFile' => false,
+        );
+
+        $validator = new File\MimeType($files);
+        $this->assertFalse($validator->getMagicFile());
     }
 }

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ namespace Zend\Validator;
  * @uses       \Zend\Validator\Exception
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Ip extends AbstractValidator
@@ -76,6 +76,8 @@ class Ip extends AbstractValidator
 
         $options += $this->_options;
         $this->setOptions($options);
+        
+        parent::__construct();
     }
 
     /**
@@ -91,11 +93,15 @@ class Ip extends AbstractValidator
     /**
      * Sets the options for this validator
      *
-     * @param array $options
+     * @param array|Traversable $options
      * @return \Zend\Validator\Ip
      */
-    public function setOptions($options)
+    public function setOptions($options = array())
     {
+        if (!is_array($options) && !$options instanceof Traversable) {
+            throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable');
+        }
+
         if (array_key_exists('allowipv6', $options)) {
             $this->_options['allowipv6'] = (boolean) $options['allowipv6'];
         }
@@ -108,7 +114,7 @@ class Ip extends AbstractValidator
             throw new Exception\InvalidArgumentException('Nothing to validate. Check your options');
         }
 
-        return $this;
+        return parent::setOptions($options);
     }
 
     /**
@@ -120,15 +126,15 @@ class Ip extends AbstractValidator
     public function isValid($value)
     {
         if (!is_string($value)) {
-            $this->_error(self::INVALID);
+            $this->error(self::INVALID);
             return false;
         }
 
-        $this->_setValue($value);
+        $this->setValue($value);
         if (($this->_options['allowipv4'] && !$this->_options['allowipv6'] && !$this->_validateIPv4($value)) ||
             (!$this->_options['allowipv4'] && $this->_options['allowipv6'] && !$this->_validateIPv6($value)) ||
             ($this->_options['allowipv4'] && $this->_options['allowipv6'] && !$this->_validateIPv4($value) && !$this->_validateIPv6($value))) {
-            $this->_error(self::NOT_IP_ADDRESS);
+            $this->error(self::NOT_IP_ADDRESS);
             return false;
         }
 
@@ -141,6 +147,20 @@ class Ip extends AbstractValidator
      * @param string $value
      */
     protected function _validateIPv4($value) {
+        if (preg_match('/^([01]{8}.){3}[01]{8}$/i', $value)) {
+            // binary format  00000000.00000000.00000000.00000000
+            $value = bindec(substr($value, 0, 8)) . "." . bindec(substr($value, 9, 8)) . "."
+                   . bindec(substr($value, 18, 8)) . "." . bindec(substr($value, 27, 8));
+        } else if (preg_match('/^([0-9]{3}.){3}[0-9]{3}$/i', $value)) {
+            // octet format 777.777.777.777
+            $value = (int) substr($value, 0, 3) . "." . (int) substr($value, 4, 3) . "."
+                   . (int) substr($value, 8, 3) . "." . (int) substr($value, 12, 3);
+        } else if (preg_match('/^([0-9a-f]{2}.){3}[0-9a-f]{2}$/i', $value)) {
+            // hex format ff.ff.ff.ff
+            $value = hexdec(substr($value, 0, 2)) . "." . hexdec(substr($value, 3, 2)) . "."
+                   . hexdec(substr($value, 6, 2)) . "." . hexdec(substr($value, 9, 2));
+        }
+
         $ip2long = ip2long($value);
         if($ip2long === false) {
             return false;

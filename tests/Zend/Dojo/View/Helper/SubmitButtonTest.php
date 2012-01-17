@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@ namespace ZendTest\Dojo\View\Helper;
 use Zend\Dojo\View\Helper\SubmitButton as SubmitButtonHelper,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_View_Helper_SubmitButton.
@@ -32,7 +32,7 @@ use Zend\Dojo\View\Helper\SubmitButton as SubmitButtonHelper,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_View
@@ -57,14 +57,14 @@ class SubmitButtonTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
 
     public function getElement()
     {
-        return $this->helper->direct(
+        return $this->helper->__invoke(
             'elementId',
             'foo',
             array(),
@@ -85,7 +85,7 @@ class SubmitButtonTest extends \PHPUnit_Framework_TestCase
         DojoHelper::setUseProgrammatic();
         $html = $this->getElement();
         $this->assertNotRegexp('/<input[^>]*(dojoType="dijit.form.Button")/', $html);
-        $this->assertNotNull($this->view->dojo()->getDijit('elementId'));
+        $this->assertNotNull($this->view->plugin('dojo')->getDijit('elementId'));
     }
 
     /**
@@ -93,7 +93,7 @@ class SubmitButtonTest extends \PHPUnit_Framework_TestCase
      */
     public function testHelperShouldRenderContentKeyAsLabelWhenPassed()
     {
-        $html = $this->helper->direct('foo', '', array('content' => 'Label'));
+        $html = $this->helper->__invoke('foo', '', array('content' => 'Label'));
         $this->assertRegexp('/<input[^>]*(value="Label")/', $html, $html);
     }
 }

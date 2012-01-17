@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -44,7 +44,7 @@ namespace Zend\Form\Decorator;
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Label extends AbstractDecorator
@@ -309,7 +309,7 @@ class Label extends AbstractDecorator
 
         if (!empty($label)) {
             $options['class'] = $class;
-            $label = $view->broker('formLabel')->direct($element->getFullyQualifiedName(), trim($label), $options);
+            $label = $view->formLabel($element->getFullyQualifiedName(), trim($label), $options);
         } else {
             $label = '&#160;';
         }

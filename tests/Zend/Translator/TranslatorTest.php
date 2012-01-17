@@ -13,9 +13,9 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Translate
+ * @package    Zend_Translator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,32 +23,96 @@
  * @namespace
  */
 namespace ZendTest\Translator;
-use Zend\Translator;
-use Zend\Locale;
-use Zend\Translator\Adapter;
-use Zend\Cache;
-use Zend\Cache\Frontend;
-use Zend\Log\Writer;
-use Zend\Log;
+
+use Zend\Cache\StorageFactory as CacheFactory,
+    Zend\Cache\Storage\Adapter as CacheAdapter,
+    Zend\Locale,
+    Zend\Log,
+    Zend\Log\Writer,
+    Zend\Translator,
+    Zend\Translator\Adapter;
 
 /**
  * @category   Zend
- * @package    Zend_Translate
+ * @package    Zend_Translator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Translate
+ * @group      Zend_Translator
  */
 class TranslatorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        $this->_cacheDir = sys_get_temp_dir() . '/zend_translator';
+        $this->_removeRecursive($this->_cacheDir);
+        mkdir($this->_cacheDir);
+
+        putenv("HTTP_ACCEPT_LANGUAGE=,ja,de-AT-DE;q=1,en_US;q=0.5");
         if (Translator\Translator::hasCache()) {
+            Translator\Translator::clearCache();
             Translator\Translator::removeCache();
         }
 
         if (Adapter\ArrayAdapter::hasCache()) {
+            Adapter\ArrayAdapter::clearCache();
             Adapter\ArrayAdapter::removeCache();
+        }
+
+        $cache = CacheFactory::factory(array(
+            'adapter' => array(
+                'name' => 'Filesystem',
+                'options' => array(
+                    'ttl'       => 120,
+                    'cache_dir' => $this->_cacheDir,
+                )
+            ),
+            'plugins' => array(
+                array(
+                    'name' => 'serializer',
+                    'options' => array(
+                        'serializer' => 'php_serialize',
+                    ),
+                ),
+            ),
+        ));
+
+        Translator\Translator::setCache($cache);
+    }
+
+    public function tearDown()
+    {
+        if (Translator\Translator::hasCache()) {
+            Translator\Translator::clearCache();
+            Translator\Translator::removeCache();
+        }
+
+        if (Adapter\ArrayAdapter::hasCache()) {
+            Adapter\ArrayAdapter::clearCache();
+            Adapter\ArrayAdapter::removeCache();
+        }
+
+        $this->_removeRecursive($this->_cacheDir);
+    }
+
+    protected function _removeRecursive($dir)
+    {
+        if (file_exists($dir)) {
+            $dirIt = new \DirectoryIterator($dir);
+            foreach ($dirIt as $entry) {
+                $fname = $entry->getFilename();
+                if ($fname == '.' || $fname == '..') {
+                    continue;
+                }
+
+                if ($entry->isFile()) {
+                    unlink($entry->getPathname());
+                } else {
+                    $this->_removeRecursive($entry->getPathname());
+                }
+            }
+
+            rmdir($dir);
         }
     }
 
@@ -103,13 +167,13 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
         $lang = new Translator\Translator(Translator\Translator::AN_GETTEXT , __DIR__ . '/Adapter/_files/translation_en.mo', 'en');
         $lang->setAdapter(Translator\Translator::AN_ARRAY, array('de' => 'de'));
         $this->assertTrue($lang->getAdapter() instanceof Adapter\ArrayAdapter);
+    }
 
-        try {
-            $lang->xxxFunction();
-            $this->fail("exception expected");
-        } catch (Translator\Exception\BadMethodCallException $e) {
-            // success
-        }
+    public function testSetAdapter2()
+    {
+        $lang = new Translator\Translator(Translator\Translator::AN_GETTEXT , __DIR__ . '/Adapter/_files/translation_en.mo', 'en');
+        $this->setExpectedException('Zend\Translator\Exception\BadMethodCallException');
+        $lang->xxxFunction();
     }
 
     public function testAddTranslation()
@@ -225,20 +289,35 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
 
     public function testTestingCacheHandling()
     {
-        $cache = Cache\Cache::factory('Core', 'File',
-            array('lifetime' => 120, 'automatic_serialization' => true),
-            array('cache_dir' => __DIR__ . '/../_files/'));
+        $cache = CacheFactory::factory(array(
+            'adapter' => array(
+                'name' => 'Filesystem',
+                'options' => array(
+                    'ttl'       => 120,
+                    'cache_dir' => $this->_cacheDir,
+                )
+            ),
+            'plugins' => array(
+                array(
+                    'name' => 'serializer',
+                    'options' => array(
+                        'serializer' => 'php_serialize',
+                    ),
+                ),
+            ),
+        ));
+
         Translator\Translator::setCache($cache);
 
         $cache = Translator\Translator::getCache();
-        $this->assertTrue($cache instanceof Frontend\Core);
+        $this->assertTrue($cache instanceof CacheAdapter);
         $this->assertTrue(Translator\Translator::hasCache());
 
         $lang = new Translator\Translator(Translator\Translator::AN_ARRAY, array('msg1' => 'Message 1 (en)'), 'en');
         $adapter = $lang->getAdapter();
         $this->assertTrue($adapter instanceof Adapter\ArrayAdapter);
         $adaptercache = $adapter->getCache();
-        $this->assertTrue($adaptercache instanceof Frontend\Core);
+        $this->assertTrue($adaptercache instanceof CacheAdapter);
 
         Translator\Translator::clearCache();
         $this->assertTrue(Translator\Translator::hasCache());
@@ -248,12 +327,8 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
 
     public function testExceptionWhenNoAdapterClassWasSet()
     {
-        try {
-            $lang = new Translator\Translator('Zend\Locale', __DIR__ . '/../_files/test2', null, array('scan' => Translator\Translator::LOCALE_FILENAME));
-            $this->fail('Exception due to false adapter class expected');
-        } catch (Translator\Exception\InvalidArgumentException $e) {
-            $this->assertContains('does not exist and cannot be loaded', $e->getMessage());
-        }
+        $this->setExpectedException('Zend\Translator\Exception\InvalidArgumentException');
+        $lang = new Translator\Translator('Zend\Locale', __DIR__ . '/../_files/test2', null, array('scan' => Translator\Translator::LOCALE_FILENAME));
     }
 
     public function testZF3679()
@@ -343,13 +418,8 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
     public function testSettingNoLogAsLog()
     {
         $lang = new Translator\Translator(Translator\Translator::AN_CSV, __DIR__ . '/Adapter/_files', 'en', array('delimiter' => ','));
-
-        try {
-            $lang->setOptions(array('log' => 'nolog'));
-            $this->fail();
-        } catch (Translator\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Instance of Zend_Log expected', $e->getMessage());
-        }
+        $this->setExpectedException('Zend\Translator\Exception\InvalidArgumentException');
+        $lang->setOptions(array('log' => 'nolog'));
     }
 
     public function testSettingUnknownLocaleWritingToSelfDefinedLog()
@@ -373,9 +443,24 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetOptionsFromCache()
     {
-        $cache = Cache\Cache::factory('Core', 'File',
-            array('lifetime' => 120, 'automatic_serialization' => true),
-            array('cache_dir' => __DIR__ . '/../_files/'));
+        $cache = CacheFactory::factory(array(
+            'adapter' => array(
+                'name' => 'Filesystem',
+                'options' => array(
+                    'ttl'       => 120,
+                    'cache_dir' => $this->_cacheDir,
+                )
+            ),
+            'plugins' => array(
+                array(
+                    'name' => 'serializer',
+                    'options' => array(
+                        'serializer' => 'php_serialize',
+                    ),
+                ),
+            ),
+        ));
+
         Translator\Translator::setCache($cache);
 
         $lang = new Translator\Translator(Translator\Translator::AN_CSV, __DIR__ . '/Adapter/_files', 'en', array('delimiter' => ','));
@@ -503,7 +588,7 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests getting plurals from lowered locale
+     * Tests getting plurals from unknown locale
      */
     public function testGettingPluralsFromUnknownLocale()
     {
@@ -629,7 +714,36 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests getting plurals from lowered locale
+     * This test must be done BEFORE own rules are set to prevent unintentional behaviour
+     *
+     * @group ZF-11173
+     */
+    public function testRoutingPlurals()
+    {
+        $lang = new Translator\Translator(
+            Translator\Translator::AN_ARRAY,
+            array('singular' =>
+                array('plural_0 (en)',
+                    'plural_1 (en)',
+                    'plural_2 (en)',
+                    'plural_3 (en)'),
+                'plural' => ''),
+            'en',
+            array(
+                'route' => array('fr' => 'en'),
+            )
+        );
+
+        $lang->addTranslation(array('msg1' => 'Message 1 (fr)'), 'fr');
+        $this->assertEquals('plural_0 (en)', $lang->plural('singular', 'plural', 1));
+        $this->assertEquals('plural_1 (en)', $lang->plural('singular', 'plural', 2));
+        $lang->setLocale('fr');
+        $this->assertEquals('plural_0 (en)', $lang->plural('singular', 'plural', 1));
+        $this->assertEquals('plural_1 (en)', $lang->plural('singular', 'plural', 2));
+    }
+
+    /**
+     * Tests getting plurals from own rule
      */
     public function testGettingPluralsUsingOwnRule()
     {
@@ -651,7 +765,6 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('plural_1 (en)', $lang->translate(array('singular', 'plural', 0)));
         $this->assertEquals('plural_1 (en)', $lang->plural('singular', 'plural', 0));
     }
-
 
     /**
      * @group ZF-9489
@@ -706,10 +819,10 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
         $translate2 = new Translator\Translator(
             Translator\Translator::AN_ARRAY,
             __DIR__ . '/Adapter/_files/testarray/',
-            'auto',
+            'en_US',
             array(
                 'scan' => Translator\Translator::LOCALE_FILENAME,
-                'ignore' => array('.', 'regex_1' => '/de_DE/', 'regex' => '/ja/')
+                'ignore' => array('.', 'regex_1' => '/de_DE/', 'regex' => '/ja/'),
             )
         );
 
@@ -732,6 +845,7 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
                 'scan'    => Translator\Translator::LOCALE_FILENAME,
                 'ignore'  => array('.', 'ignoreme', 'LC_OTHER'),
                 'route'   => array('ja' => 'en_US'),
+                'routeHttp' => false,
             )
         );
 
@@ -740,6 +854,7 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
                 'adapter' => Translator\Translator::AN_CSV,
                 'content' => __DIR__ . '/Adapter/_files/translation_en.csv',
                 'locale'  => 'en_US',
+                'routeHttp' => false,
             )
         );
 
@@ -824,9 +939,24 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetCacheThroughOptions()
     {
-        $cache = Cache\Cache::factory('Core', 'File',
-            array('lifetime' => 120, 'automatic_serialization' => true),
-            array('cache_dir' => __DIR__ . '/../_files/'));
+        $cache = CacheFactory::factory(array(
+            'adapter' => array(
+                'name' => 'Filesystem',
+                'options' => array(
+                    'ttl'       => 120,
+                    'cache_dir' => $this->_cacheDir,
+                )
+            ),
+            'plugins' => array(
+                array(
+                    'name' => 'serializer',
+                    'options' => array(
+                        'serializer' => 'php_serialize',
+                    ),
+                ),
+            ),
+        ));
+
 
         $translate = new Translator\Translator(array(
             'adapter' => Translator\Translator::AN_ARRAY,
@@ -836,7 +966,7 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
         ));
 
         $return = Translator\Translator::getCache();
-        $this->assertTrue($return instanceof Cache\Frontend);
+        $this->assertTrue($return instanceof CacheAdapter);
         $this->assertTrue(Translator\Translator::hasCache());
     }
 
@@ -846,14 +976,12 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
     public function testSettingLogPriorityForLog()
     {
         $stream = fopen('php://memory', 'w+');
-        require_once 'Zend/Log/Writer/Stream.php';
-        $writer = new Zend_Log_Writer_Stream($stream);
-        require_once 'Zend/Log.php';
-        $log    = new Zend_Log($writer);
+        $writer = new Writer\Stream($stream);
+        $log    = new Log\Logger($writer);
 
-        $lang = new Zend_Translate(array(
-            'adapter'     => Zend_Translate::AN_CSV,
-            'content'     => dirname(__FILE__) . '/Translate/Adapter/_files',
+        $lang = new Translator\Translator(array(
+            'adapter'     => Translator\Translator::AN_CSV,
+            'content'     => __DIR__ . '/../_files',
             'locale'      => 'en',
             'delimiter'   => ',',
             'logPriority' => 3,
@@ -870,6 +998,58 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
 
         rewind($stream);
         $this->assertContains('ALERT (1)', stream_get_contents($stream));
+    }
+
+    /**
+     * @ZF-10941
+     */
+    public function testIgnoreBasePath()
+    {
+        $lang = new Translator\Translator(
+             Translator\Translator::AN_ARRAY,
+             __DIR__ . '/Adapter/_files/.iamhidden/testarray',
+             'en_GB',
+             array('scan' => Translator\Translator::LOCALE_DIRECTORY)
+        );
+
+        $this->assertEquals('Message 1 (ja)', $lang->_('Message 1', 'ja'        ));
+        $this->assertEquals('Message 1 (en)', $lang->_('Message 1'              ));
+        $this->assertEquals(array('de_AT' => 'de_AT', 'en_GB' => 'en_GB', 'ja' => 'ja'), $lang->getList());
+    }
+
+    /**
+     * @group ZF-10911
+     */
+    public function testRoutingOnHttpHeader()
+    {
+        $translate = new Translator\Translator(
+            array(
+                'adapter'   => Translator\Translator::AN_ARRAY,
+                'content'   => __DIR__ . '/Adapter/_files/testarray/',
+                'locale'    => 'auto',
+                'scan'      => Translator\Translator::LOCALE_FILENAME,
+                'ignore'    => array('.', 'ignoreme', 'LC_OTHER'),
+                // needed because browser settings can not be simulated in phpunit
+                'route'     => array('ja' => 'de_AT', 'de_AT' => 'de_DE', 'de_DE' => 'en_US'),
+                'routeHttp' => true,
+            )
+        );
+
+        $translate2 = new Translator\Translator(
+            array(
+                'adapter' => Translator\Translator::AN_CSV,
+                'content' => __DIR__ . '/Adapter/_files/translation_en.csv',
+                'locale'  => 'en_US',
+            )
+        );
+
+        $translate->addTranslation($translate2);
+
+        $langs = $translate->getList();
+        $this->assertFalse(array_key_exists('de_AT', $langs));
+        $this->assertTrue(array_key_exists('ja', $langs));
+        $this->assertTrue(array_key_exists('en_US', $langs));
+        $this->assertEquals('Message 5 (en)', $translate->translate('Message 5', 'ja'));
     }
 
     /**

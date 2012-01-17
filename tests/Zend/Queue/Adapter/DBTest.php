@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -37,15 +37,30 @@ use Zend\Db\Select;
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Queue
  */
 class DBTest extends AdapterTest
 {
+    /**
+     * Stores the original set timezone
+     * @var string
+     */
+    private $_originaltimezone;
+
     protected function setUp()
     {
+        $this->_originaltimezone = date_default_timezone_get();
         date_default_timezone_set('GMT');
+    }
+
+    /**
+     * Teardown environment
+     */
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_originaltimezone);
     }
 
     /**

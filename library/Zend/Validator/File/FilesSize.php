@@ -14,7 +14,7 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,6 +22,8 @@
  * @namespace
  */
 namespace Zend\Validator\File;
+
+use Zend\Loader;
 
 /**
  * Validator for the size of all files which will be validated in sum
@@ -31,7 +33,7 @@ namespace Zend\Validator\File;
  * @uses      \Zend\Validator\Exception
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FilesSize extends Size
@@ -68,7 +70,7 @@ class FilesSize extends Size
      * @param  integer|array|\Zend\Config\Config $options Options for this validator
      * @return void
      */
-    public function __construct($options)
+    public function __construct($options = null)
     {
         $this->_files = array();
         $this->_setSize(0);
@@ -86,7 +88,7 @@ class FilesSize extends Size
             array_shift($argv);
             $options['max'] = array_shift($argv);
             if (!empty($argv)) {
-                $options['bytestring'] = array_shift($argv);
+                $options['useByteString'] = array_shift($argv);
             }
         }
 
@@ -112,7 +114,7 @@ class FilesSize extends Size
         $size = $this->_getSize();
         foreach ($value as $files) {
             // Is file readable ?
-            if (!\Zend\Loader::isReadable($files)) {
+            if (!Loader::isReadable($files)) {
                 $this->_throw($file, self::NOT_READABLE);
                 continue;
             }
@@ -128,12 +130,12 @@ class FilesSize extends Size
             $size += @filesize($files);
             $this->_size = $size;
             if (($max !== null) && ($max < $size)) {
-                if ($this->useByteString()) {
-                    $this->_max  = $this->_toByteString($max);
-                    $this->_size = $this->_toByteString($size);
+                if ($this->getByteString()) {
+                    $this->options['max'] = $this->_toByteString($max);
+                    $this->_size          = $this->_toByteString($size);
                     $this->_throw($file, self::TOO_BIG);
-                    $this->_max  = $max;
-                    $this->_size = $size;
+                    $this->options['max'] = $max;
+                    $this->_size          = $size;
                 } else {
                     $this->_throw($file, self::TOO_BIG);
                 }
@@ -142,18 +144,18 @@ class FilesSize extends Size
 
         // Check that aggregate files are >= minimum size
         if (($min !== null) && ($size < $min)) {
-            if ($this->useByteString()) {
-                $this->_min  = $this->_toByteString($min);
-                $this->_size = $this->_toByteString($size);
+            if ($this->getByteString()) {
+                $this->options['min'] = $this->_toByteString($min);
+                $this->_size          = $this->_toByteString($size);
                 $this->_throw($file, self::TOO_SMALL);
-                $this->_min  = $min;
-                $this->_size = $size;
+                $this->options['min'] = $min;
+                $this->_size          = $size;
             } else {
                 $this->_throw($file, self::TOO_SMALL);
             }
         }
 
-        if (count($this->_messages) > 0) {
+        if (count($this->getMessages()) > 0) {
             return false;
         }
 

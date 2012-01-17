@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ use Zend\InfoCard\XML\AbstractElement,
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class XMLEnc extends AbstractEncryptedData
@@ -55,7 +55,7 @@ class XMLEnc extends AbstractEncryptedData
         if(!($cipherdata instanceof AbstractElement)) {
             throw new XML\Exception\RuntimeException("Unable to find the enc:CipherData block");
         }
-
+        $cipherdata->registerXPathNamespace('enc', 'http://www.w3.org/2001/04/xmlenc#');;
         list(,$ciphervalue) = $cipherdata->xpath("//enc:CipherValue");
 
         if(!($ciphervalue instanceof AbstractElement)) {

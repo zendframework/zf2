@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\InfoCard\XML\Assertion;
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_InfoCard
  */
@@ -37,12 +37,27 @@ class AssertionTest extends \PHPUnit_Framework_TestCase
 {
     protected $_xmlDocument;
 
+    /**
+     * Stores the original set timezone
+     * @var string
+     */
+    private $_originaltimezone;
+
     public function setUp()
     {
+        $this->_originaltimezone = date_default_timezone_get();
         $this->tokenDocument = __DIR__ . '/_files/signedToken.xml';
         $this->sslPubKey     = __DIR__ . '/_files/ssl_pub.cert';
         $this->sslPrvKey     = __DIR__ . '/_files/ssl_private.cert';
         $this->loadXmlDocument();
+    }
+
+    /**
+     * Teardown environment
+     */
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_originaltimezone);
     }
 
     public function loadXmlDocument()
@@ -72,7 +87,7 @@ class AssertionTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\InfoCard\XML\Exception\InvalidArgumentException', 'Invalid Data provided to create instance');
         Assertion\Factory::getInstance(10);
     }
-    
+
     public function testAssertionThrowsExceptionOnBadInput2()
     {
         $doc = file_get_contents(__DIR__ . '/_files/signedToken_bad_type.xml');

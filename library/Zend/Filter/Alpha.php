@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,14 +22,18 @@
  * @namespace
  */
 namespace Zend\Filter;
-use Zend\Locale\Locale;
+
+use Traversable,
+    Zend\Locale\Locale as ZendLocale,
+    Zend\Registry,
+    Zend\Stdlib\IteratorToArray;
 
 /**
  * @uses       Zend\Filter\AbstractFilter
  * @uses       Zend\Locale\Locale
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Alpha extends AbstractFilter
@@ -38,30 +42,22 @@ class Alpha extends AbstractFilter
      * Whether to allow white space characters; off by default
      *
      * @var boolean
-     * @deprecated
      */
-    public $allowWhiteSpace;
+    protected $allowWhiteSpace;
 
     /**
      * Is PCRE is compiled with UTF-8 and Unicode support
      *
      * @var mixed
      **/
-    protected static $_unicodeEnabled;
+    protected static $unicodeEnabled;
 
     /**
-     * Locale in browser.
+     * Locale to use
      *
      * @var \Zend\Locale\Locale object
      */
-    protected $_locale;
-
-    /**
-     * The Alphabet means english alphabet.
-     *
-     * @var boolean
-     */
-    protected static $_meansEnglishAlphabet;
+    protected $locale;
 
     /**
      * Sets default option values for this instance
@@ -69,30 +65,37 @@ class Alpha extends AbstractFilter
      * @param  boolean $allowWhiteSpace
      * @return void
      */
-    public function __construct($allowWhiteSpace = false)
+    public function __construct($options = false)
     {
-        if ($allowWhiteSpace instanceof \Zend\Config\Config) {
-            $allowWhiteSpace = $allowWhiteSpace->toArray();
-        } else if (is_array($allowWhiteSpace)) {
-            if (array_key_exists('allowwhitespace', $allowWhiteSpace)) {
-                $allowWhiteSpace = $allowWhiteSpace['allowwhitespace'];
-            } else {
-                $allowWhiteSpace = false;
+        if ($options instanceof Traversable) {
+            $options = IteratorToArray::convert($options);
+        } elseif (!is_array($options)) {
+            $options = func_get_args();
+            $temp    = array();
+            if (!empty($options)) {
+                $temp['allowWhiteSpace'] = array_shift($options);
             }
+
+            if (!empty($options)) {
+                $temp['locale'] = array_shift($options);
+            }
+
+            $options = $temp;
         }
 
-        $this->allowWhiteSpace = (boolean) $allowWhiteSpace;
-        if (null === self::$_unicodeEnabled) {
-            self::$_unicodeEnabled = (@preg_match('/\pL/u', 'a')) ? true : false;
+        if (array_key_exists('unicodeEnabled', $options)) {
+            $this->setUnicodeEnabled($options['unicodeEnabled']);
         }
 
-        if (null === self::$_meansEnglishAlphabet) {
-            $this->_locale = new Locale('auto');
-            self::$_meansEnglishAlphabet = in_array($this->_locale->getLanguage(),
-                                                    array('ja', 'ko', 'zh')
-                                                    );
+        if (array_key_exists('allowWhiteSpace', $options)) {
+            $this->setAllowWhiteSpace($options['allowWhiteSpace']);
         }
 
+        if (!array_key_exists('locale', $options)) {
+            $options['locale'] = null;
+        }
+
+        $this->setLocale($options['locale']);
     }
 
     /**
@@ -118,6 +121,66 @@ class Alpha extends AbstractFilter
     }
 
     /**
+     * Toggle unicode matching capabilities
+     * 
+     * @param  bool $flag 
+     * @return Alpha
+     */
+    public function setUnicodeEnabled($flag)
+    {
+        $flag = (bool) $flag;
+        if (!$flag) {
+            static::$unicodeEnabled = $flag;
+            return;
+        }
+
+        if (!static::isUnicodeCapable()) {
+            throw new Exception\RuntimeException(sprintf(
+                '%s cannot be unicode enabled; installed PCRE is not capable',
+                __CLASS__
+            ));
+        }
+
+        static::$unicodeEnabled = $flag;
+        return $this;
+    }
+
+    /**
+     * Is this instance unicode enabled?
+     * 
+     * @return bool
+     */
+    public function isUnicodeEnabled()
+    {
+        if (null === static::$unicodeEnabled) {
+            static::$unicodeEnabled = static::isUnicodeCapable();
+        }
+        return static::$unicodeEnabled;
+    }
+
+    /**
+     * Returns the locale option
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Sets the locale option
+     *
+     * @param boolean $locale
+     * @return \Zend\Filter\Alnum Provides a fluent interface
+     */
+    public function setLocale($locale = null)
+    {
+        $this->locale = ZendLocale::findLocale($locale);
+        return $this;
+    }
+
+    /**
      * Defined by Zend_Filter_Interface
      *
      * Returns the string $value, removing all but alphabetic characters
@@ -128,17 +191,32 @@ class Alpha extends AbstractFilter
     public function filter($value)
     {
         $whiteSpace = $this->allowWhiteSpace ? '\s' : '';
-        if (!self::$_unicodeEnabled) {
+
+        $locale = (string) $this->locale;
+        if (!$this->isUnicodeEnabled()) {
             // POSIX named classes are not supported, use alternative a-zA-Z match
             $pattern = '/[^a-zA-Z' . $whiteSpace . ']/';
-        } else if (self::$_meansEnglishAlphabet) {
-            //The Alphabet means english alphabet.
+        } elseif (($locale == 'ja')
+                  || ($locale == 'ko')
+                  || ($locale == 'zh')
+        ) {
+            // Use english alphabet
             $pattern = '/[^a-zA-Z'  . $whiteSpace . ']/u';
         } else {
-            //The Alphabet means each language's alphabet.
+            // Use native language alphabet
             $pattern = '/[^\p{L}' . $whiteSpace . ']/u';
         }
 
         return preg_replace($pattern, '', (string) $value);
+    }
+
+    /**
+     * Are we unicode capable?
+     * 
+     * @return bool
+     */
+    protected static function isUnicodeCapable()
+    {
+        return (@preg_match('/\pL/u', 'a') ? true : false);
     }
 }

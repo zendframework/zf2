@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ namespace Zend\XmlRpc;
  * @uses       \Zend\XmlRpc\Value\Exception
  * @category   Zend
  * @package    Zend_XmlRpc
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Response
@@ -207,7 +207,7 @@ class Response
             }
             $valueXml = $xml->params->param->value->asXML();
             $value = Value::getXmlRpcValue($valueXml, Value::XML_STRING);
-        } catch (Value\Exception $e) {
+        } catch (Exception\ValueException $e) {
             $this->_fault = new Fault(653);
             $this->_fault->setEncoding($this->getEncoding());
             return false;

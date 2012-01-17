@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -28,7 +28,7 @@ use Zend\Loader\PluginClassLoader;
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class HelperLoader extends PluginClassLoader
@@ -38,14 +38,16 @@ class HelperLoader extends PluginClassLoader
      */
     protected $plugins = array(
         'action'              => 'Zend\View\Helper\Action',
-        'baseurl'             => 'Zend\View\Helper\BaseUrl',
+        'basepath'            => 'Zend\View\Helper\BasePath',
         'currency'            => 'Zend\View\Helper\Currency',
         'cycle'               => 'Zend\View\Helper\Cycle',
         'declarevars'         => 'Zend\View\Helper\DeclareVars',
         'doctype'             => 'Zend\View\Helper\Doctype',
+        'escape'              => 'Zend\View\Helper\Escape',
         'fieldset'            => 'Zend\View\Helper\Fieldset',
         'formbutton'          => 'Zend\View\Helper\FormButton',
         'formcheckbox'        => 'Zend\View\Helper\FormCheckbox',
+        'formcsrf'            => 'Zend\View\Helper\FormCsrf',
         'formerrors'          => 'Zend\View\Helper\FormErrors',
         'formfile'            => 'Zend\View\Helper\FormFile',
         'formhidden'          => 'Zend\View\Helper\FormHidden',
@@ -61,6 +63,7 @@ class HelperLoader extends PluginClassLoader
         'formtextarea'        => 'Zend\View\Helper\FormTextarea',
         'formtext'            => 'Zend\View\Helper\FormText',
         'form'                => 'Zend\View\Helper\Form',
+        'gravatar'            => 'Zend\View\Helper\Gravatar',
         'headlink'            => 'Zend\View\Helper\HeadLink',
         'headmeta'            => 'Zend\View\Helper\HeadMeta',
         'headscript'          => 'Zend\View\Helper\HeadScript',
@@ -81,7 +84,7 @@ class HelperLoader extends PluginClassLoader
         'placeholder'         => 'Zend\View\Helper\Placeholder',
         'rendertoplaceholder' => 'Zend\View\Helper\RenderToPlaceholder',
         'serverurl'           => 'Zend\View\Helper\ServerUrl',
-        'translate'           => 'Zend\View\Helper\Translate',
+        'translator'          => 'Zend\View\Helper\Translator',
         'url'                 => 'Zend\View\Helper\Url',
     );
 }

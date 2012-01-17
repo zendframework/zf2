@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,7 +25,7 @@ use Zend\Dojo\Form\Element\ComboBox as ComboBoxElement,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Form\SubForm,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_Form_Element_ComboBox.
@@ -33,7 +33,7 @@ use Zend\Dojo\Form\Element\ComboBox as ComboBoxElement,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_Form
@@ -58,7 +58,7 @@ class ComboBoxTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
@@ -151,7 +151,7 @@ class ComboBoxTest extends \PHPUnit_Framework_TestCase
         $subform = new SubForm(array('name' => 'bar'));
         $subform->addElement($this->element);
         $html = $this->element->render();
-        $dojo = $this->view->dojo()->__toString();
+        $dojo = $this->view->plugin('dojo')->__toString();
         $this->assertContains('"store":"foo"', $dojo, $dojo);
     }
 }

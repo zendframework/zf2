@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Parse_Amf3
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -40,7 +40,7 @@ use Zend\Amf\Parser\AbstractDeserializer,
  * @uses       Zend\Date\Date
  * @package    Zend_Amf
  * @subpackage Parse_Amf3
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Deserializer extends AbstractDeserializer
@@ -383,8 +383,11 @@ class Deserializer extends AbstractDeserializer
             }
 
             // Add properties back to the return object.
+            if (!is_array($properties)) {
+                $properties = array();
+            }
             foreach ($properties as $key => $value) {
-                if($key) {
+                if ($key) {
                     $returnObject->$key = $value;
                 }
             }

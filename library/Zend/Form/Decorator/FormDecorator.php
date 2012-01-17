@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -43,7 +43,7 @@ use Zend\Form as ZendForm;
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FormDecorator extends AbstractDecorator
@@ -134,6 +134,7 @@ class FormDecorator extends AbstractDecorator
         $attribs       = $this->getOptions();
         $name          = $form->getFullyQualifiedName();
         $attribs['id'] = $form->getId();
-        return $view->broker($helper)->direct($name, $attribs, $content);
+        $helper        = $view->plugin($helper);
+        return $helper($name, $attribs, $content);
     }
 }

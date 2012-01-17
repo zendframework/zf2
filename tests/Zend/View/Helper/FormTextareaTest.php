@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ namespace ZendTest\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -61,7 +61,7 @@ class FormTextareaTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanDisableElement()
     {
-        $html = $this->helper->direct(array(
+        $html = $this->helper->__invoke(array(
             'name'    => 'foo',
             'value'   => 'bar',
             'attribs' => array('disable' => true)
@@ -75,7 +75,7 @@ class FormTextareaTest extends \PHPUnit_Framework_TestCase
      */
     public function testDisablingElementDoesNotRenderHiddenElements()
     {
-        $html = $this->helper->direct(array(
+        $html = $this->helper->__invoke(array(
             'name'    => 'foo',
             'value'   => 'bar',
             'attribs' => array('disable' => true)

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,8 +23,11 @@
  * @namespace
  */
 namespace ZendTest\Validator;
-use Zend\Validator;
-use Zend\Date;
+
+use Zend\Validator,
+    Zend\Date,
+    Zend\Registry,
+    ReflectionClass;
 
 /**
  * Test helper
@@ -38,7 +41,7 @@ use Zend\Date;
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -65,7 +68,9 @@ class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->_validator = new Validator\Date();
+        Registry::_unsetInstance();
+        $this->_errorOccurred = false;
+        $this->_validator     = new Validator\Date();
     }
 
     /**
@@ -98,7 +103,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
     /**
      * Ensures that characters trailing an otherwise valid date cause the input to be invalid
      *
-     * @see    http://framework.zend.com/issues/browse/ZF-1804
+     * @group  ZF-1804
      * @return void
      */
     public function testCharactersTrailingInvalid()
@@ -112,7 +117,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
     /**
      * Ensures that characters leading an otherwise valid date cause the input to be invalid
      *
-     * @see    http://framework.zend.com/issues/browse/ZF-1804
+     * @group  ZF-1804
      * @return void
      */
     public function testCharactersLeadingInvalid()
@@ -136,7 +141,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
     /**
      * Ensures that the validator can handle different manual dateformats
      *
-     * @see    http://framework.zend.com/issues/browse/ZF-2003
+     * @group  ZF-2003
      * @return void
      */
     public function testUseManualFormat()
@@ -148,21 +153,13 @@ class DateTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_validator->setFormat('dd/MM/yyyy')->isValid('2008/10/22'));
         $this->assertTrue($this->_validator->setFormat('dd/MM/yy')->isValid('22/10/08'));
         $this->assertFalse($this->_validator->setFormat('dd/MM/yy')->isValid('22/10'));
-        set_error_handler(array($this, 'errorHandlerIgnore'));
-        $result = $this->_validator->setFormat('s')->isValid(0);
-        restore_error_handler();
-        if (!$this->_errorOccurred) {
-            $this->assertTrue($result);
-        } else {
-            $this->markTestSkipped('Affected by bug described in ZF-2789');
-        }
-        $this->_errorOccurred = false;
+        $this->assertFalse($this->_validator->setFormat('s')->isValid(0));
     }
 
     /**
      * Ensures that the validator can handle different dateformats from locale
      *
-     * @see    http://framework.zend.com/issues/browse/ZF-2003
+     * @group  ZF-2003
      * @return void
      */
     public function testUseLocaleFormat()
@@ -200,7 +197,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
     /**
      * Ensures that the validator can handle different dateformats from locale
      *
-     * @see    http://framework.zend.com/issues/browse/ZF-2003
+     * @group  ZF-2003
      * @return void
      */
     public function testLocaleContructor()
@@ -231,6 +228,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group  fml
      * ZF-7630
      */
     public function testDateObjectVerification()
@@ -258,10 +256,46 @@ class DateTest extends \PHPUnit_Framework_TestCase
      * @param  integer $errline
      * @param  array   $errcontext
      * @return void
-     * @see    http://framework.zend.com/issues/browse/ZF-2789
+     * @group  ZF-2789
      */
     public function errorHandlerIgnore($errno, $errstr, $errfile, $errline, array $errcontext)
     {
         $this->_errorOccurred = true;
+    }
+    
+    public function testEqualsMessageTemplates()
+    {
+        $validator = $this->_validator;
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageTemplates')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageTemplates');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageTemplates')
+        );
+    }
+    
+    public function testEqualsMessageVariables()
+    {
+        $validator = $this->_validator;
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageVariables')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageVariables');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageVariables')
+        );
     }
 }

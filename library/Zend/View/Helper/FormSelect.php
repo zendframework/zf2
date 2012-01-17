@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ namespace Zend\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FormSelect extends FormElement
@@ -59,12 +59,8 @@ class FormSelect extends FormElement
      *
      * @return string The select tag and options XHTML.
      */
-    public function direct($name = null, $value = null, $attribs = null, $options = null, $listsep = "<br />\n")
+    public function __invoke($name, $value = null, $attribs = null, $options = null, $listsep = "<br />\n")
     {
-        if ($name == null) {
-            throw new \InvalidArgumentException('FormSelect: missing argument. $name is required in formSelect($name, $value = null, $attribs = null, $options = null, $listsep = "<br />\n")');
-        }
-        
         $info = $this->_getInfo($name, $value, $attribs, $options, $listsep);
         extract($info); // name, id, value, attribs, options, listsep, disable
 

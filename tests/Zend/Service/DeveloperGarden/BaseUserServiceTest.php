@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_DeveloperGarden
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@
  * @subpackage UnitTests
  * @group      Zend_Service
  * @group      Zend_Service_DeveloperGarden
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_DeveloperGarden_BaseUserServiceTest extends PHPUnit_Framework_TestCase
@@ -191,21 +191,21 @@ class Zend_Service_DeveloperGarden_BaseUserServiceTest extends PHPUnit_Framework
     {
         $result = $this->service->getAccountBalance();
         $this->assertEquals('0000', $result->getErrorCode());
-        $this->assertType('array', $result->Account);
+        $this->assertInternalType('array', $result->Account);
     }
 
     public function testAccountBalanceLoop()
     {
         $result = $this->service->getAccountBalance();
         $this->assertEquals('0000', $result->getErrorCode());
-        $this->assertType('array', $result->Account);
+        $this->assertInternalType('array', $result->Account);
         foreach ($result->Account as $k => $v) {
             $this->assertType(
                 'Zend_Service_DeveloperGarden_BaseUserService_AccountBalance',
                 $v
             );
-            $this->assertType('string', $v->getAccount());
-            $this->assertType('integer', $v->getCredits());
+            $this->assertInternalType('string', $v->getAccount());
+            $this->assertInternalType('integer', $v->getCredits());
         }
     }
 }

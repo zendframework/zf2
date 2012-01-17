@@ -14,7 +14,7 @@
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace Zend\Config;
  * @uses      \Zend\Config\Exception
  * @category  Zend
  * @package   Zend_Config
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Xml extends Config
@@ -84,17 +84,34 @@ class Xml extends Config
             }
         }
 
-        set_error_handler(array($this, '_loadFileErrorHandler')); // Warnings and errors are suppressed
+        // load XML and throw exception of each failure using previous exception
+        $oldUseInternalErrors = libxml_use_internal_errors(true);
+        if ($oldUseInternalErrors) {
+            libxml_clear_errors();
+        }
         if (strstr($xml, '<' . '?xml')) { // string concat to fix syntax highlighting
             $config = simplexml_load_string($xml);
         } else {
             $config = simplexml_load_file($xml);
         }
+        $xmlErrors = libxml_get_errors();
+        if (!$oldUseInternalErrors) {
+            libxml_use_internal_errors(false);
+        }
+        if ( ($xmlErrorCnt = count($xmlErrors)) ) {
+            libxml_clear_errors();
 
-        restore_error_handler();
-        // Check if there was a error while loading file
-        if ($this->_loadFileErrorStr !== null) {
-            throw new Exception\InvalidArgumentException($this->_loadFileErrorStr);
+            // create and throw exception stack
+            $e = null;
+            foreach ($xmlErrors as $xmlError) {
+                $msg  = trim($xmlError->message);
+                $line = $xmlError->line;
+                $col  = $xmlError->column;
+                $e = new Exception\RuntimeException(
+                    $msg . ' @ line/column ' . $line . '/' . $col, 0, $e
+                );
+            }
+            throw $e;
         }
 
         if ($section === null) {
@@ -274,5 +291,34 @@ class Xml extends Config
         }
 
         return $config;
+    }
+
+    /**
+     * Merge two arrays recursively, overwriting keys of the same name
+     * in $firstArray with the value in $secondArray.
+     *
+     * @param  mixed $firstArray  First array
+     * @param  mixed $secondArray Second array to merge into first array
+     * @return array
+     */
+    protected function _arrayMergeRecursive($firstArray, $secondArray)
+    {
+        if (is_array($firstArray) && is_array($secondArray)) {
+            foreach ($secondArray as $key => $value) {
+                if (isset($firstArray[$key])) {
+                    $firstArray[$key] = $this->_arrayMergeRecursive($firstArray[$key], $value);
+                } else {
+                    if($key === 0) {
+                        $firstArray= array(0=>$this->_arrayMergeRecursive($firstArray, $value));
+                    } else {
+                        $firstArray[$key] = $value;
+                    }
+                }
+            }
+        } else {
+            $firstArray = $secondArray;
+        }
+
+        return $firstArray;
     }
 }

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,13 +25,13 @@ use Zend\Log\Logger,
     Zend\Log\Writer\Mail as MailWriter,
     Zend\Log\Formatter\Simple as SimpleFormatter,
     Zend\Mail\Transport\Exception\RuntimeException as TransportException,
-    Zend\View\Exception as ViewException;
+    Zend\View\Exception\RuntimeException as ViewException;
 
 /**
  * @category   Zend
  * @package    Zend_Log
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Log
  */

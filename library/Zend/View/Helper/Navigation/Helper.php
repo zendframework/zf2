@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ use Zend\Navigation;
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Helper
@@ -61,8 +61,8 @@ interface Helper
      *
      * @param  mixed $translator                   [optional] translator.
      *                                             Expects an object of type
-     *                                             {@link Zend_Translate_Adapter}
-     *                                             or {@link Zend_Translate},
+     *                                             {@link Zend_Translator_Adapter}
+     *                                             or {@link Zend_Translator},
      *                                             or null. Default is null.
      * @return \Zend\View\Helper\Navigation\Helper  fluent interface, returns
      *                                             self

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,14 +23,14 @@
  * @namespace
  */
 namespace ZendTest\Tool\Framework\Provider;
-use Zend\Tool\Framework\Provider;
-use Zend\Tool\Framework\Action;
+use Zend\Tool\Framework\Provider,
+    Zend\Tool\Framework\Action;
 
 /**
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
  * @group Zend_Tool
@@ -92,7 +92,7 @@ class SignatureTest extends \PHPUnit_Framework_TestCase
         $signature = new Provider\Signature(new \ZendTest\Tool\Framework\Provider\TestAsset\ProviderOne());
         $signature->setRegistry($this->_registry);
         $signature->process();
-        $this->assertTrue($signature->getProviderReflection() instanceof \Zend\Reflection\ReflectionClass);
+        $this->assertTrue($signature->getProviderReflection() instanceof \Zend\Code\Reflection\ClassReflection);
     }
 
     public function testGetSpecialtiesReturnsParsedSpecialties()

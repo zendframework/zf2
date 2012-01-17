@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ namespace Zend\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FormButton extends FormElement
@@ -51,11 +51,10 @@ class FormButton extends FormElement
      *
      * @return string The element XHTML.
      */
-    public function direct($name = null, $value = null, $attribs = null)
+    public function __invoke($name = null, $value = null, $attribs = null)
     {
         $info = $this->_getInfo($name, $value, $attribs);
-
-        $id = $disable = $escape = null;
+        $id   = $disable = $escape = null;
 
         extract($info); // name, id, value, attribs, options, listsep, disable
 

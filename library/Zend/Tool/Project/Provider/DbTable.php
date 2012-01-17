@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ use Zend\Tool\Project\Profile\Profile as ProjectProfile;
  * @uses       \Zend\Tool\Project\Provider\Exception
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class DbTable 
@@ -160,7 +160,7 @@ class DbTable
         
         $bootstrapResource = $this->_loadedProfile->search('BootstrapFile');
         
-        /* @var $zendApp Zend_Application */
+        /* @var $zendApp Zend\Application */
         $zendApp = $bootstrapResource->getApplicationInstance();
         
         try {
@@ -170,7 +170,7 @@ class DbTable
             return;
         }
         
-        /* @var $db Zend_Db_Adapter_Abstract */
+        /* @var $db Zend\Db\Adapter\Abstract */
         $db = $zendApp->getBootstrap()->getResource('db');
         
         $tableResources = array();

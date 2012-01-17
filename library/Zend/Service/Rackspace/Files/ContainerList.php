@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend\Service\Rackspace\
  * @subpackage Files
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,10 +25,7 @@
 namespace Zend\Service\Rackspace\Files;
 
 use Zend\Service\Rackspace\Files\Container,
-        Zend\Service\Rackspace\Files as RackspaceFiles,
-        Zend\Service\Rackspace\Exception,
-        Zend\Service\Rackspace\Exception\InvalidArgumentException,
-        Zend\Service\Rackspace\Exception\OutOfBoundsException;
+        Zend\Service\Rackspace\Files as RackspaceFiles;
 
 /**
  * List of servers retrived from the GoGrid web service
@@ -41,7 +38,7 @@ use Zend\Service\Rackspace\Files\Container,
  * @category   Zend
  * @package    Zend\Service\Rackspace
  * @subpackage Files
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ContainerList implements \Countable, \Iterator, \ArrayAccess
@@ -49,17 +46,17 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
     /**
      * @var array Array of Zend\Service\GoGrid\Object
      */
-    protected $_objects = array();
+    protected $objects = array();
     /**
      * @var int Iterator key
      */
-    protected $_iteratorKey = 0;
+    protected $iteratorKey = 0;
     /**
      * @var RackspaceFiles
      */
-    protected $_service;
+    protected $service;
     /**
-     * __construct()
+     * Constructor
      *
      * @param  array $list
      * @return boolean
@@ -67,9 +64,9 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
     public function __construct(RackspaceFiles $service,$list = array())
     {
         if (!($service instanceof RackspaceFiles) || !is_array($list)) {
-            throw new InvalidArgumentException("You must pass a RackspaceFiles object and an array");
+            throw new Exception\InvalidArgumentException("You must pass a RackspaceFiles object and an array");
         }
-        $this->_service= $service;
+        $this->service= $service;
         $this->_constructFromArray($list);
     }
     /**
@@ -81,7 +78,7 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
     private function _constructFromArray(array $list)
     {
         foreach ($list as $container) {
-            $this->_addObject(new Container($this->_service,$container));
+            $this->_addObject(new Container($this->service,$container));
         }
     }
     /**
@@ -92,7 +89,7 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
      */
     protected function _addObject (Container $obj)
     {
-        $this->_objects[] = $obj;
+        $this->objects[] = $obj;
         return $this;
     }
     /**
@@ -104,7 +101,7 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
      */
     public function count()
     {
-        return count($this->_objects);
+        return count($this->objects);
     }
     /**
      * Return the current element
@@ -115,7 +112,7 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
      */
     public function current()
     {
-        return $this->_objects[$this->_iteratorKey];
+        return $this->objects[$this->iteratorKey];
     }
     /**
      * Return the key of the current element
@@ -126,7 +123,7 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
      */
     public function key()
     {
-        return $this->_iteratorKey;
+        return $this->iteratorKey;
     }
     /**
      * Move forward to next element
@@ -137,7 +134,7 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
      */
     public function next()
     {
-        $this->_iteratorKey += 1;
+        $this->iteratorKey += 1;
     }
     /**
      * Rewind the Iterator to the first element
@@ -148,7 +145,7 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
      */
     public function rewind()
     {
-        $this->_iteratorKey = 0;
+        $this->iteratorKey = 0;
     }
     /**
      * Check if there is a current element after calls to rewind() or next()
@@ -160,7 +157,7 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
     public function valid()
     {
         $numItems = $this->count();
-        if ($numItems > 0 && $this->_iteratorKey < $numItems) {
+        if ($numItems > 0 && $this->iteratorKey < $numItems) {
             return true;
         } else {
             return false;
@@ -190,9 +187,9 @@ class ContainerList implements \Countable, \Iterator, \ArrayAccess
     public function offsetGet($offset)
     {
         if ($this->offsetExists($offset)) {
-            return $this->_objects[$offset];
+            return $this->objects[$offset];
         } else {
-            throw new OutOfBoundsException('Illegal index');
+            throw new  Exception\OutOfBoundsException('Illegal index');
         }
     }
 

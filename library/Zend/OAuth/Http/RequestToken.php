@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_OAuth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,6 +22,7 @@
  * @namespace
  */
 namespace Zend\OAuth\Http;
+
 use Zend\OAuth\Http as HTTPClient,
     Zend\OAuth,
     Zend\Http;
@@ -33,7 +34,7 @@ use Zend\OAuth\Http as HTTPClient,
  * @uses       Zend\OAuth\Token\Request
  * @category   Zend
  * @package    Zend_OAuth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class RequestToken extends HTTPClient
@@ -41,7 +42,7 @@ class RequestToken extends HTTPClient
     /**
      * Singleton instance if required of the HTTP client
      *
-     * @var Zend\Http\Client
+     * @var Http\Client
      */
     protected $_httpClient = null;
 
@@ -101,7 +102,7 @@ class RequestToken extends HTTPClient
      * specified by OAuth, for use in requesting a Request Token.
      *
      * @param array $params
-     * @return Zend\Http\Client
+     * @return Http\Client
      */
     public function getRequestSchemeHeaderClient(array $params)
     {
@@ -110,10 +111,13 @@ class RequestToken extends HTTPClient
         );
         $client = OAuth\OAuth::getHttpClient();
         $client->setUri($this->_consumer->getRequestTokenUrl());
-        $client->setHeaders('Authorization', $headerValue);
+
+        $request = $client->getRequest();
+        $request->headers()
+                ->addHeaderLine('Authorization', $headerValue);
         $rawdata = $this->_httpUtility->toEncodedQueryString($params, true);
         if (!empty($rawdata)) {
-            $client->setRawData($rawdata);
+            $request->setContent($rawdata);
         }
         $client->setMethod($this->_preferredRequestMethod);
         return $client;
@@ -124,44 +128,19 @@ class RequestToken extends HTTPClient
      * Scheme specified by OAuth, for use in requesting a Request Token.
      *
      * @param  array $params
-     * @return Zend\Http\Client
+     * @return Http\Client
      */
     public function getRequestSchemePostBodyClient(array $params)
     {
         $client = OAuth\OAuth::getHttpClient();
         $client->setUri($this->_consumer->getRequestTokenUrl());
         $client->setMethod($this->_preferredRequestMethod);
-        $client->setRawData(
+        $request = $client->getRequest();
+        $request->setContent(
             $this->_httpUtility->toEncodedQueryString($params)
         );
-        $client->setHeaders(
-            Http\Client::CONTENT_TYPE,
-            Http\Client::ENC_URLENCODED
-        );
+        $request->headers()
+                ->addHeaderLine('Content-Type', Http\Client::ENC_URLENCODED);
         return $client;
-    }
-
-    /**
-     * Attempt a request based on the current configured OAuth Request Scheme and
-     * return the resulting HTTP Response.
-     *
-     * @param  array $params
-     * @return Zend\Http\Response
-     */
-    protected function _attemptRequest(array $params)
-    {
-        switch ($this->_preferredRequestScheme) {
-            case OAuth\OAuth::REQUEST_SCHEME_HEADER:
-                $httpClient = $this->getRequestSchemeHeaderClient($params);
-                break;
-            case OAuth\OAuth::REQUEST_SCHEME_POSTBODY:
-                $httpClient = $this->getRequestSchemePostBodyClient($params);
-                break;
-            case OAuth\OAuth::REQUEST_SCHEME_QUERYSTRING:
-                $httpClient = $this->getRequestSchemeQueryStringClient($params,
-                    $this->_consumer->getRequestTokenUrl());
-                break;
-        }
-        return $httpClient->request();
     }
 }

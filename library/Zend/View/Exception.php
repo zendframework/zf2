@@ -13,8 +13,8 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Date
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @package    Zend_View
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,26 +24,10 @@
 namespace Zend\View;
 
 /**
- * Exception for Zend_View class.
- *
- * @uses       \Exception
  * @category   Zend
- * @package    Zend_Date
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @package    Zend_View
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Exception extends \Exception
-{
-    protected $view = null;
-
-    public function setView(Renderer $view = null)
-    {
-        $this->view = $view;
-        return $this;
-    }
-
-    public function getView()
-    {
-        return $this->view;
-    }
-}
+interface Exception
+{}

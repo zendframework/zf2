@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ namespace Zend\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FormCheckbox extends FormElement
@@ -57,12 +57,8 @@ class FormCheckbox extends FormElement
      * @param array $attribs Attributes for the element tag.
      * @return string The element XHTML.
      */
-    public function direct($name = null, $value = null, $attribs = null, array $checkedOptions = null)
+    public function __invoke($name, $value = null, $attribs = null, array $checkedOptions = null)
     {
-        if ($name == null) {
-            throw new \InvalidArgumentException('Action: missing argument. $name is required in formCheckbox($name, $value = null, $attribs = null, array $checkedOptions = null)');
-        }
-        
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, id, value, attribs, options, listsep, disable
 
@@ -85,7 +81,7 @@ class FormCheckbox extends FormElement
 
         // XHTML or HTML end tag?
         $endTag = ' />';
-        if (($this->view instanceof \Zend\View\PhpRenderer) && !$this->view->broker('doctype')->isXhtml()) {
+        if ($this->view instanceof \Zend\Loader\Pluggable && !$this->view->plugin('doctype')->isXhtml()) {
             $endTag= '>';
         }
 

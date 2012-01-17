@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_OAuth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,6 +22,8 @@
  * @namespace
  */
 namespace Zend\OAuth;
+
+use Zend\Http\Request;
 
 /**
  * @uses       Zend\Http\Client
@@ -31,7 +33,7 @@ namespace Zend\OAuth;
  * @uses       Zend\OAuth\Http\Utility
  * @category   Zend
  * @package    Zend_OAuth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Client extends \Zend\Http\Client
@@ -143,8 +145,8 @@ class Client extends \Zend\Http\Client
     protected function _prepareBody()
     {
         if($this->_streamingRequest) {
-            $this->setHeaders(self::CONTENT_LENGTH,
-                $this->raw_post_data->getTotalSize());
+            $this->setHeaders(array('Content-Length' => 
+                $this->raw_post_data->getTotalSize()));
             return $this->raw_post_data;
         }
         else {
@@ -188,39 +190,36 @@ class Client extends \Zend\Http\Client
      * @param  string $method
      * @return Zend\Http\Client
      */
-    public function setMethod($method = self::GET)
+    public function setMethod($method = Request::METHOD_GET)
     {
-        if ($method == self::GET) {
-            $this->setRequestMethod(self::GET);
-        } elseif($method == self::POST) {
-            $this->setRequestMethod(self::POST);
-        } elseif($method == self::PUT) {
-            $this->setRequestMethod(self::PUT);
-        }  elseif($method == self::DELETE) {
-            $this->setRequestMethod(self::DELETE);
-        }   elseif($method == self::HEAD) {
-            $this->setRequestMethod(self::HEAD);
+        if ($method == Request::METHOD_GET) {
+            $this->setRequestMethod(Request::METHOD_GET);
+        } elseif($method == Request::METHOD_POST) {
+            $this->setRequestMethod(Request::METHOD_POST);
+        } elseif($method == Request::METHOD_PUT) {
+            $this->setRequestMethod(Request::METHOD_PUT);
+        }  elseif($method == Request::METHOD_DELETE) {
+            $this->setRequestMethod(Request::METHOD_DELETE);
+        }   elseif($method == Request::METHOD_HEAD) {
+            $this->setRequestMethod(Request::METHOD_HEAD);
         }
         return parent::setMethod($method);
     }
 
     /**
-     * Same as Zend_HTTP_Client::request() except just before the request is
+     * Same as Zend\HTTP\Client::send() except just before the request is
      * executed, we automatically append any necessary OAuth parameters and
      * sign the request using the relevant signature method.
      *
-     * @param  string $method
+     * @param  null|Zend\Http\Request $method
      * @return Zend\Http\Response
      */
-    public function request($method = null)
+    public function send(Request $request = null)
     {
-        if (!is_null($method)) {
-            $this->setMethod($method);
-        }
         $this->prepareOAuth();
-        return parent::request();
+        return parent::send($request);
     }
-
+    
     /**
      * Performs OAuth preparation on the request before sending.
      *
@@ -238,13 +237,13 @@ class Client extends \Zend\Http\Client
         $query = null;
         if ($requestScheme == OAuth::REQUEST_SCHEME_HEADER) {
             $oauthHeaderValue = $this->getToken()->toHeader(
-                $this->getUri(true),
+                $this->getRequest()->getUri(),
                 $this->_config,
                 $this->_getSignableParametersAsQueryString()
             );
-            $this->setHeaders('Authorization', $oauthHeaderValue);
+            $this->setHeaders(array('Authorization' => $oauthHeaderValue));
         } elseif ($requestScheme == OAuth::REQUEST_SCHEME_POSTBODY) {
-            if ($requestMethod == self::GET) {
+            if ($requestMethod == Request::METHOD_GET) {
                 throw new Exception(
                     'The client is configured to'
                     . ' pass OAuth parameters through a POST body but request method'
@@ -252,7 +251,7 @@ class Client extends \Zend\Http\Client
                 );
             }
             $raw = $this->getToken()->toQueryString(
-                $this->getUri(true),
+                $this->getRequest()->getUri(),
                 $this->_config,
                 $this->_getSignableParametersAsQueryString()
             );
@@ -272,11 +271,11 @@ class Client extends \Zend\Http\Client
             if (!empty($this->paramsPost)) {
                 $params = array_merge($params, $this->paramsPost);
                 $query  = $this->getToken()->toQueryString(
-                    $this->getUri(true), $this->_config, $params
+                    $this->getRequest()->getUri(), $this->_config, $params
                 );
             }
             $query = $this->getToken()->toQueryString(
-                $this->getUri(true), $this->_config, $params
+                $this->getRequest()->getUri(), $this->_config, $params
             );
             $this->getUri()->setQuery($query);
             $this->paramsGet = array();
@@ -298,13 +297,13 @@ class Client extends \Zend\Http\Client
             if (!empty($this->paramsGet)) {
                 $params = array_merge($params, $this->paramsGet);
                 $query  = $this->getToken()->toQueryString(
-                    $this->getUri(true), $this->_config, $params
+                    $this->getRequest()->getUri(), $this->_config, $params
                 );
             }
             if (!empty($this->paramsPost)) {
                 $params = array_merge($params, $this->paramsPost);
                 $query  = $this->getToken()->toQueryString(
-                    $this->getUri(true), $this->_config, $params
+                    $this->getRequest()->getUri(), $this->_config, $params
                 );
             }
             return $params;

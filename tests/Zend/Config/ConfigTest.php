@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Config
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,7 +27,7 @@ use \Zend\Config\Config;
  * @category   Zend
  * @package    Zend_Config
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Config
  */
@@ -316,6 +316,25 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(456, $stdConfig->{2});
 
     }
+    
+    public function testArrayAccess()
+    {
+        $config = new Config($this->_all, true);
+
+        $this->assertEquals('thisname', $config['name']);
+        $config['name'] = 'anothername';
+        $this->assertEquals('anothername', $config['name']);
+        $this->assertEquals('multi', $config['one']['two']['three']);
+
+        $this->assertTrue(isset($config['hostname']));
+        $this->assertTrue(isset($config['db']['name']));
+
+        unset($config['hostname']);
+        unset($config['db']['name']);
+
+        $this->assertFalse(isset($config['hostname']));
+        $this->assertFalse(isset($config['db']['name']));
+    }
 
     /**
      * Ensures that toArray() supports objects of types other than Zend_Config
@@ -333,9 +352,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             );
         $config = new Config($configData);
         $this->assertEquals($config->toArray(), $configData);
-        $this->assertType('stdClass', $config->a);
-        $this->assertType('stdClass', $config->b->c);
-        $this->assertType('stdClass', $config->b->d);
+        $this->assertInstanceOf('stdClass', $config->a);
+        $this->assertInstanceOf('stdClass', $config->b->c);
+        $this->assertInstanceOf('stdClass', $config->b->d);
     }
 
     /**

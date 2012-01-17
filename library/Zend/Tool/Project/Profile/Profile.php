@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,7 +25,7 @@
 namespace Zend\Tool\Project\Profile;
 
 /**
- * This class is the front most class for utilizing Zend_Tool_Project
+ * This class is the front most class for utilizing Zend\Tool\Project
  *
  * A profile is a hierarchical set of resources that keep track of
  * items within a specific project.
@@ -37,7 +37,7 @@ namespace Zend\Tool\Project\Profile;
  * @uses       \Zend\Tool\Project\Profile\Resource\Container
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Profile extends Resource\Container
@@ -158,7 +158,7 @@ class Profile extends Resource\Container
         } else {
             $projectProfileFilePath = rtrim($this->_attributes['projectDirectory'], '/\\') . '/.zfproject.xml';
             if (!file_exists($projectProfileFilePath)) {
-                throw new Exception\RuntimeException('"projectDirectory" was supplied but no profile file file was not found at location ' . $projectProfileFilePath);
+                throw new Exception\RuntimeException('"projectDirectory" was supplied but no profile file was not found at location ' . $projectProfileFilePath);
             }
             $this->_attributes['projectProfileFile'] = $projectProfileFilePath;
         }

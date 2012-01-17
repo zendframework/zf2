@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@ namespace ZendTest\Dojo\View\Helper;
 use Zend\Dojo\View\Helper\ComboBox as ComboBoxHelper,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_View_Helper_ComboBox.
@@ -32,7 +32,7 @@ use Zend\Dojo\View\Helper\ComboBox as ComboBoxHelper,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_View
@@ -57,14 +57,14 @@ class ComboBoxTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
 
     public function getElementAsSelect()
     {
-        return $this->helper->direct(
+        return $this->helper->__invoke(
             'elementId',
             'someCombo',
             array(),
@@ -82,7 +82,7 @@ class ComboBoxTest extends \PHPUnit_Framework_TestCase
 
     public function getElementAsRemoter()
     {
-        return $this->helper->direct(
+        return $this->helper->__invoke(
             'elementId',
             'someCombo',
             array(
@@ -110,7 +110,7 @@ class ComboBoxTest extends \PHPUnit_Framework_TestCase
         DojoHelper::setUseProgrammatic();
         $html = $this->getElementAsSelect();
         $this->assertNotRegexp('/<select[^>]*(dojoType="dijit.form.ComboBox")/', $html);
-        $this->assertNotNull($this->view->dojo()->getDijit('elementId'));
+        $this->assertNotNull($this->view->plugin('dojo')->getDijit('elementId'));
     }
 
     public function testShouldAllowDeclarativeDijitCreationAsRemoter()
@@ -128,12 +128,12 @@ class ComboBoxTest extends \PHPUnit_Framework_TestCase
         $html = $this->getElementAsRemoter();
         $this->assertNotRegexp('/<input[^>]*(dojoType="dijit.form.ComboBox")/', $html);
         $this->assertRegexp('/<input[^>]*(type="text")/', $html);
-        $this->assertNotNull($this->view->dojo()->getDijit('elementId'));
+        $this->assertNotNull($this->view->plugin('dojo')->getDijit('elementId'));
 
         $found = false;
-        $this->assertContains('var stateStore;', $this->view->dojo()->getJavascript());
+        $this->assertContains('var stateStore;', $this->view->plugin('dojo')->getJavascript());
 
-        $scripts = $this->view->dojo()->_getZendLoadActions();
+        $scripts = $this->view->plugin('dojo')->_getZendLoadActions();
         foreach ($scripts as $js) {
             if (strstr($js, 'stateStore = new ')) {
                 $found = true;
@@ -145,7 +145,7 @@ class ComboBoxTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldAllowAlternateNotationToSpecifyRemoter()
     {
-        $html = $this->helper->direct(
+        $html = $this->helper->__invoke(
             'elementId',
             'someCombo',
             array(
@@ -174,10 +174,10 @@ class ComboBoxTest extends \PHPUnit_Framework_TestCase
         DojoHelper::setUseProgrammatic(true);
         $html = $this->getElementAsRemoter();
 
-        $js   = $this->view->dojo()->getJavascript();
+        $js   = $this->view->plugin('dojo')->getJavascript();
         $this->assertContains('var stateStore;', $js);
 
-        $onLoad = $this->view->dojo()->_getZendLoadActions();
+        $onLoad = $this->view->plugin('dojo')->_getZendLoadActions();
         $storeDeclarationFound = false;
         foreach ($onLoad as $statement) {
             if (strstr($statement, 'stateStore = new ')) {

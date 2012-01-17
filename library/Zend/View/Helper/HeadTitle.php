@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,8 @@
  * @namespace
  */
 namespace Zend\View\Helper;
-use Zend;
+
+use Zend\View\Exception;
 
 /**
  * Helper for setting and retrieving title element for HTML head
@@ -34,7 +35,7 @@ use Zend;
  * @uses       \Zend\View\Helper\Placeholder\Container\Standalone
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class HeadTitle extends Placeholder\Container\Standalone
@@ -73,7 +74,7 @@ class HeadTitle extends Placeholder\Container\Standalone
      * @param  string $separator
      * @return \Zend\View\Helper\HeadTitle
      */
-    public function direct($title = null, $setType = null)
+    public function __invoke($title = null, $setType = null)
     {
         if ($setType === null && is_null($this->getDefaultAttachOrder())) {
             $setType = Placeholder\Container\AbstractContainer::APPEND;
@@ -98,6 +99,8 @@ class HeadTitle extends Placeholder\Container\Standalone
      * Set a default order to add titles
      *
      * @param string $setType
+     * @return void
+     * @throws Exception\DomainException
      */
     public function setDefaultAttachOrder($setType)
     {
@@ -106,7 +109,9 @@ class HeadTitle extends Placeholder\Container\Standalone
             Placeholder\Container\AbstractContainer::SET,
             Placeholder\Container\AbstractContainer::PREPEND
         ))) {
-            throw new Zend\View\Exception("You must use a valid attach order: 'PREPEND', 'APPEND' or 'SET'");
+            throw new Exception\DomainException(
+                "You must use a valid attach order: 'PREPEND', 'APPEND' or 'SET'"
+            );
         }
         $this->_defaultAttachOrder = $setType;
     }
@@ -124,19 +129,20 @@ class HeadTitle extends Placeholder\Container\Standalone
     /**
      * Sets a translation Adapter for translation
      *
-     * @param  Zend_Translate|\Zend\Translator\Adapter\Adapter $translate
+     * @param  Zend_Translator|\Zend\Translator\Adapter\Adapter $translate
      * @return \Zend\View\Helper\HeadTitle
+     * @throws Exception\InvalidArgumentException
      */
     public function setTranslator($translate)
     {
-        if ($translate instanceof \Zend\Translator\Adapter) {
+        if ($translate instanceof \Zend\Translator\Adapter\AbstractAdapter) {
             $this->_translator = $translate;
         } elseif ($translate instanceof \Zend\Translator\Translator) {
             $this->_translator = $translate->getAdapter();
         } else {
-            $e = new \Zend\View\Exception("You must set an instance of Zend_Translate or Zend_Translate_Adapter");
-            $e->setView($this->view);
-            throw $e;
+            throw new Exception\InvalidArgumentException(
+                "You must set an instance of Zend_Translator or Zend_Translator_Adapter"
+            );
         }
         return $this;
     }
@@ -145,15 +151,15 @@ class HeadTitle extends Placeholder\Container\Standalone
      * Retrieve translation object
      *
      * If none is currently registered, attempts to pull it from the registry
-     * using the key 'Zend_Translate'.
+     * using the key 'Zend_Translator'.
      *
-     * @return Zend_Translate_Adapter|null
+     * @return Zend_Translator_Adapter|null
      */
     public function getTranslator()
     {
         if (null === $this->_translator) {
-            if (\Zend\Registry::isRegistered('Zend_Translate')) {
-                $this->setTranslator(\Zend\Registry::get('Zend_Translate'));
+            if (\Zend\Registry::isRegistered('Zend_Translator')) {
+                $this->setTranslator(\Zend\Registry::get('Zend_Translator'));
             }
         }
         return $this->_translator;

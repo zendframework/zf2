@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,15 +35,10 @@ use Zend\Http\Client,
  * default Socket adapter, this adapter does not require any special extensions
  * installed.
  *
- * @uses       \Zend\Http\Client\Client
- * @uses       \Zend\Http\Client\Adapter\Exception
- * @uses       \Zend\Http\Client\Adapter\Socket
- * @uses       \Zend\Http\Response
- * @uses       \Zend\Uri\Url
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Proxy extends Socket
@@ -107,7 +102,7 @@ class Proxy extends Socket
      * Send request to the proxy server
      *
      * @param string        $method
-     * @param \Zend\Uri\Url $uri
+     * @param \Zend\Uri\Uri $uri
      * @param string        $http_ver
      * @param array         $headers
      * @param string        $body

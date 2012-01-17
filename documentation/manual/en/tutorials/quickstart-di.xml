@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-                  "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<article>
-<section id="learning.di.very-brief-introduction-to-di">
-  <title>Very brief introduction to Di.</title>
+<?xml version="1.0" encoding="utf-8"?>
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
+<section xml:id="learning.di.very-brief-introduction-to-di"><info><title>Very brief introduction to Di.</title></info>
+  
   <para>
     <emphasis>Dependency Injection</emphasis> is a concept that has been
     talked about in numerous places over the web. For the purposes of
@@ -18,22 +16,22 @@ $b = new B(new A));
     <emphasis>injected</emphasis> into B. If you are not familar with
     the concept of dependency injection, here are a couple of great
     reads: Matthew Weier O'Phinney's
-    <ulink url="http://weierophinney.net/matthew/archives/260-Dependency-Injection-An-analogy.html">Analogy</ulink>,
+    <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://weierophinney.net/matthew/archives/260-Dependency-Injection-An-analogy.html">Analogy</link>,
     Ralph Schindler's
-    <ulink url="http://ralphschindler.com/2011/05/18/learning-about-dependency-injection-and-php">Learning
-    DI</ulink>, or Fabien Potencier's
-    <ulink url="http://fabien.potencier.org/article/11/what-is-dependency-injection">Series
-    on DI</ulink>.
+    <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://ralphschindler.com/2011/05/18/learning-about-dependency-injection-and-php">Learning
+    DI</link>, or Fabien Potencier's
+    <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://fabien.potencier.org/article/11/what-is-dependency-injection">Series
+    on DI</link>.
   </para>
 </section>
-<section id="learning.di.very-brief-introduction-to-di-container">
-  <title>Very brief introduction to Di Container.</title>
+<section xml:id="learning.di.very-brief-introduction-to-di-container"><info><title>Very brief introduction to Di Container.</title></info>
+  
   <programlisting language="php"><![CDATA[
 TBD.
 ]]></programlisting>
 </section>
-<section id="learning.di.simplest-usage-case-2-classes-one-consumes-the-other">
-  <title>Simplest usage case (2 classes, one consumes the other)</title>
+<section xml:id="learning.di.simplest-usage-case-2-classes-one-consumes-the-other"><info><title>Simplest usage case (2 classes, one consumes the other)</title></info>
+  
   <para>
     In the simplest use case, a developer might have one class
     (<literal>A</literal>) that is consumed by another class
@@ -206,8 +204,8 @@ namespace My {
     based injection.
   </para>
 </section>
-<section id="learning.di.simplest-usage-case-without-type-hints">
-  <title>Simplest Usage Case Without Type-hints</title>
+<section xml:id="learning.di.simplest-usage-case-without-type-hints"><info><title>Simplest Usage Case Without Type-hints</title></info>
+  
   <para>
     If your code does not have type-hints or you are using 3rd party
     code that does not have type-hints but does practice dependency
@@ -301,8 +299,8 @@ $c = $di->get('My\C', $parameters);
     objects you might require.
   </para>
 </section>
-<section id="learning.di.simplest-usage-case-with-compiled-definition">
-  <title>Simplest usage case with Compiled Definition</title>
+<section xml:id="learning.di.simplest-usage-case-with-compiled-definition"><info><title>Simplest usage case with Compiled Definition</title></info>
+  
   <para>
     Without going into the gritty details, as you might expect, PHP at
     its core is not DI friendly. Out-of-the-box, the
@@ -403,7 +401,7 @@ $c = $di->get('My\C');
     following:
   </para>
   <programlisting language="php"><![CDATA[
-if (!file_exists(__DIR__ . '/di-definition.php') &amp;&amp; $isProduction) {
+if (!file_exists(__DIR__ . '/di-definition.php') && $isProduction) {
     $compiler = new Zend\Di\Definition\Compiler();
     $compiler->addCodeScannerDirectory(
         new Zend\Code\Scanner\ScannerDirectory('path/to/library/My/')
@@ -411,7 +409,7 @@ if (!file_exists(__DIR__ . '/di-definition.php') &amp;&amp; $isProduction) {
     $definition = $compiler->compile();
     file_put_contents(
         __DIR__ . '/di-definition.php', 
-        '&lt;?php return ' . var_export($definition->toArray(), true) . ';'
+        '<?php return ' . var_export($definition->toArray(), true) . ';'
     );
 } else {
     $definition = new Zend\Di\Definition\ArrayDefinition(
@@ -431,8 +429,8 @@ if (!file_exists(__DIR__ . '/di-definition.php') &amp;&amp; $isProduction) {
     of your application's dispatched actions.
   </para>
 </section>
-<section id="learning.di.creating-a-precompiled-definition-for-others-to-use">
-  <title>Creating a precompiled definition for others to use</title>
+<section xml:id="learning.di.creating-a-precompiled-definition-for-others-to-use"><info><title>Creating a precompiled definition for others to use</title></info>
+  
   <para>
     If you are a 3rd party code developer, it makes sense to produce a
     <literal>Definition</literal> file that describes your code so that
@@ -463,8 +461,8 @@ $class->setMethod(array(
 file_put_contents(__DIR__ . '/My/DiDefinition.php', $codeGenerator->generate());
 ]]></programlisting>
 </section>
-<section id="learning.di.using-multiple-definitions-from-multiple-sources">
-  <title>Using Multiple Definitions From Multiple Sources</title>
+<section xml:id="learning.di.using-multiple-definitions-from-multiple-sources"><info><title>Using Multiple Definitions From Multiple Sources</title></info>
+  
   <para>
     In all actuality, you will be using code from multiple places, some
     Zend Framework code, some other 3rd party code, and of course, your
@@ -518,8 +516,8 @@ $propertiesFromConfig = array(
 $im->setProperties($propertiesFromConfig);
 ]]></programlisting>
 </section>
-<section id="learning.di.generating-service-locators">
-    <title>Generating Service Locators</title>
+<section xml:id="learning.di.generating-service-locators"><info><title>Generating Service Locators</title></info>
+    
 
     <para>
         In production, you want things to be as fast as possible. The Dependency

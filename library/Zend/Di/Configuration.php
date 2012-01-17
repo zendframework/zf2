@@ -22,111 +22,127 @@ class Configuration
                 $data = iterator_to_array($data, true);
             }
         } elseif (!is_array($data)) {
-            throw new Exception\InvalidArgumentException('Configuration data must be of type Zend\Config\Config or an array');
+            throw new Exception\InvalidArgumentException(
+                'Configuration data must be of type Zend\Config\Config or an array'
+            );
         }
         $this->data = $data;
     }
     
-    public function configure(DependencyInjector $di)
+    public function configure(Di $di)
     {
         if (isset($this->data['definition'])) {
             $this->configureDefinition($di, $this->data['definition']);
         }
-        
-        if (isset($this->data['definitions'])) {
-            $this->configureDefinitions($di, $this->data['definitions']);
-        }
-        
-        /*
-        if (isset($this->data['compiler'])) {
-            $this->configureCompiler($di, $this->data['compiler']);
-        }
-        */
-        
+
         if (isset($this->data['instance'])) {
             $this->configureInstance($di, $this->data['instance']);
         }
         
     }
-    
-    public function configureDefinitions(DependencyInjector $di, $definitionsData)
+
+    public function configureDefinition(Di $di, $definition)
     {
-        if ($di->hasDefinition()) {
-            if (!$di->getDefinition() instanceof Definition\AggregateDefinition) {
-                throw new Exception\InvalidArgumentException('In order to configure multiple definitions, the primary definition must not be set, or must be of type AggregateDefintion');
+        foreach ($definition as $definitionType => $definitionData) {
+            switch ($definitionType) {
+                case 'compiler':
+                    // @todo
+                    break;
+                case 'runtime':
+                    // @todo
+                    break;
+                case 'class':
+                    foreach ($definitionData as $className => $classData) {
+                        $classDefinitions = $di->definitions()->getDefinitionsByType('Zend\Di\Definition\ClassDefinition');
+                        foreach ($classDefinitions as $classDefinition) {
+                            if (!$classDefinition->hasClass($className)) {
+                                unset($classDefinition);
+                            }
+                        }
+                        if (!isset($classDefinition)) {
+                            $classDefinition = new Definition\ClassDefinition($className);
+                            $di->definitions()->addDefinition($classDefinition, false);
+                        }
+                        foreach ($classData as $classDefKey => $classDefData) {
+                            switch ($classDefKey) {
+                                case 'instantiator':
+                                    $classDefinition->setInstantiator($classDefData);
+                                    break;
+                                case 'supertypes':
+                                    $classDefinition->setSupertypes($classDefData);
+                                    break;
+                                case 'methods':
+                                case 'method':
+                                    foreach ($classDefData as $methodName => $methodInfo) {
+                                        if (isset($methodInfo['required'])) {
+                                            $classDefinition->addMethod($methodName, $methodInfo['required']);
+                                            unset($methodInfo['required']);
+                                        }
+                                        foreach ($methodInfo as $paramName => $paramInfo) {
+                                            $classDefinition->addMethodParameter($methodName, $paramName, $paramInfo);
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    $methodName = $classDefKey;
+                                    $methodInfo = $classDefData;
+                                    if (isset($classDefData['required'])) {
+                                        $classDefinition->addMethod($methodName, $methodInfo['required']);
+                                        unset($methodInfo['required']);
+                                    }
+                                    foreach ($methodInfo as $paramName => $paramInfo) {
+                                        $classDefinition->addMethodParameter($methodName, $paramName, $paramInfo);
+                                    }
+                            }
+                        }
+                    }
             }
-        } else {
-            $di->setDefinition($di->createDefinition('Zend\Di\Definition\AggregateDefinition'));
+
         }
 
-        foreach ($definitionsData as $definitionData) {
-            $this->configureDefinition($di, $definitionData);
-        }
     }
     
-    public function configureDefinition(DependencyInjector $di, $definitionData)
+    public function configureInstance(Di $di, $instanceData)
     {
-        if ($di->hasDefinition()) {
-            $aggregateDef = $di->getDefinition();
-            if (!$aggregateDef instanceof Definition\AggregateDefinition) {
-                throw new Exception\InvalidArgumentException('In order to configure multiple definitions, the primary definition must not be set, or must be of type AggregateDefintion');
-            }
-        } /* else {
-            $aggregateDef = $di->createDefinition('Zend\Di\Definition\AggregateDefinition');
-            $di->setDefinition($aggregateDef);
-        } */
-        
-        if (isset($definitionData['class'])) {
-            $definition = $di->createDefinition($definitionData['class']);
-            unset($definitionData['class']);
-            if ($definition instanceof Definition\BuilderDefinition) {
-                $definition->createClassesFromArray($definitionData);
-            } else {
-                // @todo other types
-            }
-        }
-        
-        if (isset($aggregateDef)) {
-            $aggregateDef->addDefinition($definition);
-        } else {
-            $di->setDefinition($definition);
-        }
-    }
-    
-    public function configureInstance(DependencyInjector $di, $instanceData)
-    {
-        $im = $di->getInstanceManager();
+        $im = $di->instanceManager();
         
         foreach ($instanceData as $target => $data) {
             switch (strtolower($target)) {
                 case 'aliases':
                 case 'alias':
-                    foreach ($data as $aliasName => $className) {
-                        $im->addAlias($aliasName, $className);
-                    }
-                    break;
-                case 'properties':
-                case 'property':
-                    foreach ($data as $classOrAlias => $properties) {
-                        foreach ($properties as $propName => $propValue) {
-                            $im->setProperty($classOrAlias, $propName, $propValue);
-                        }
+                    foreach ($data as $n => $v) {
+                        $im->addAlias($n, $v);
                     }
                     break;
                 case 'preferences':
-                case 'preferredinstances':
-                case 'preferredinstance':
-                    foreach ($data as $classOrAlias => $preferredValueOrValues) {
-                        if (is_array($preferredValueOrValues)) {
-                            foreach ($preferredValueOrValues as $preferredValue) {
-                                $im->addPreferredInstance($classOrAlias, $preferredValue);
+                case 'preference':
+                    foreach ($data as $n => $v) {
+                        if (is_array($v)) {
+                            foreach ($v as $v2) {
+                                $im->addTypePreference($n, $v2);
                             }
                         } else {
-                            $im->addPreferredInstance($classOrAlias, $preferredValueOrValues);
+                            $im->addTypePreference($n, $v);
+                        }
+                    }
+                    break;
+                default:
+                    foreach ($data as $n => $v) {
+                        switch ($n) {
+                            case 'parameters':
+                            case 'parameter':
+                                $im->setParameters($target, $v);
+                                break;
+                            case 'injections':
+                            case 'injection':
+                                $im->setInjections($target, $v);
+                                break;
                         }
                     }
             }
         }
+
     }
+
     
 }

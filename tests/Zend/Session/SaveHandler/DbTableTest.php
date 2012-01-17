@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Session
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,7 +36,7 @@ use Zend\Session\SaveHandler\DbTable,
  * @category   Zend
  * @package    Zend_Session
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Session
  * @group      Zend_Db_Table
@@ -87,7 +87,7 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Zend\Session\SaveHandler\DbTable tests are not enabled due to missing PDO_Sqlite extension');
         }
         
-        $this->markTestSkipped('Skipped until Zend\Db is refactored, this tests assumptions are generally bad, more assertions are needed');
+        // $this->markTestSkipped('Skipped until Zend\Db is refactored, this tests assumptions are generally bad, more assertions are needed');
 
         $this->manager = $manager = new TestManager();
         $this->_saveHandlerTableConfig['manager'] = $this->manager;
@@ -109,8 +109,8 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
     public function testConfigPrimaryAssignmentFullConfig()
     {
         $sh = new DbTable($this->_saveHandlerTableConfig);
-        $this->assertType('Zend\Db\Table\AbstractTable', $sh);
-        $this->assertType('Zend\Session\Manager', $sh->getManager());
+        $this->assertInstanceOf('Zend\Db\Table\AbstractTable', $sh);
+        $this->assertInstanceOf('Zend\Session\Manager', $sh->getManager());
     }
 
     public function testConstructorThrowsExceptionGivenConfigAsNull()
@@ -137,8 +137,8 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
         $this->manager->getConfig()->setSavePath(__DIR__);
             
         $this->setExpectedException(
-            'Zend\Session\SaveHandler\Exception\InvalidArgumentException',
-            'xxx'
+            'Zend\Session\SaveHandler\Exception',
+            'path'
             );
         $this->_usedSaveHandlers[] = $saveHandler = new DbTable($config);
     }
@@ -217,9 +217,8 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
         array_pop($config[DbTable::PRIMARY_ASSIGNMENT]);
             
         $this->setExpectedException(
-            'Zend\Session\SaveHandler\Exception\RuntimeException',
-            'Configuration must define \'dataColumn\' which names the session table data column'
-            );
+            'Zend\Session\SaveHandler\Exception\RuntimeException'
+        );
         $this->_usedSaveHandlers[] = $saveHandler = new DbTable($config);
     }
 

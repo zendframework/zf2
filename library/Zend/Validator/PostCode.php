@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,35 +33,36 @@ use Zend\Locale;
  * @uses       \Zend\Validator\Exception
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class PostCode extends AbstractValidator
 {
-    const INVALID  = 'postcodeInvalid';
-    const NO_MATCH = 'postcodeNoMatch';
+    const INVALID        = 'postcodeInvalid';
+    const NO_MATCH       = 'postcodeNoMatch';
+    const SERVICE        = 'postcodeService';
+    const SERVICEFAILURE = 'postcodeServiceFailure';
 
     /**
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID  => "Invalid type given. String or integer expected",
-        self::NO_MATCH => "'%value%' does not appear to be a postal code",
+        self::INVALID        => "Invalid type given. String or integer expected",
+        self::NO_MATCH       => "'%value%' does not appear to be a postal code",
+        self::SERVICE        => "'%value%' does not appear to be a postal code",
+        self::SERVICEFAILURE => "An exception has been raised while validating '%value%'",
     );
 
     /**
-     * Locale to use
+     * Options for this validator
      *
-     * @var string
+     * @var array
      */
-    protected $_locale;
-
-    /**
-     * Manual postal code format
-     *
-     * @var unknown_type
-     */
-    protected $_format;
+    protected $options = array(
+        'service'=> null, // Service callback for additional validation
+        'format' => null, // Manual postal code format
+        'locale' => null, // Locale to use
+    );
 
     /**
      * Constructor for the integer validator
@@ -74,28 +75,16 @@ class PostCode extends AbstractValidator
      */
     public function __construct($options = null)
     {
-        if ($options instanceof \Zend\Config\Config) {
-            $options = $options->toArray();
-        }
-
         if (empty($options)) {
             if (\Zend\Registry::isRegistered('Zend_Locale')) {
                 $this->setLocale(\Zend\Registry::get('Zend_Locale'));
-            }
-        } elseif (is_array($options)) {
-            // Received
-            if (array_key_exists('locale', $options)) {
-                $this->setLocale($options['locale']);
-            }
-
-            if (array_key_exists('format', $options)) {
-                $this->setFormat($options['format']);
             }
         } elseif ($options instanceof Locale\Locale || is_string($options)) {
             // Received Locale object or string locale
             $this->setLocale($options);
         }
 
+        parent::__construct($options);
         $format = $this->getFormat();
         if (empty($format)) {
             throw new Exception\InvalidArgumentException("A postcode-format string has to be given for validation");
@@ -109,7 +98,7 @@ class PostCode extends AbstractValidator
      */
     public function getLocale()
     {
-        return $this->_locale;
+        return $this->options['locale'];
     }
 
     /**
@@ -122,9 +111,9 @@ class PostCode extends AbstractValidator
      */
     public function setLocale($locale = null)
     {
-        $this->_locale = Locale\Locale::findLocale($locale);
-        $locale        = new Locale\Locale($this->_locale);
-        $region        = $locale->getRegion();
+        $this->options['locale'] = Locale\Locale::findLocale($locale);
+        $locale                  = new Locale\Locale($this->getLocale());
+        $region                  = $locale->getRegion();
         if (empty($region)) {
             throw new Exception\InvalidArgumentException("Unable to detect a region for the locale '$locale'");
         }
@@ -132,7 +121,7 @@ class PostCode extends AbstractValidator
         $format = Locale\Locale::getTranslation(
             $locale->getRegion(),
             'postaltoterritory',
-            $this->_locale
+            $this->getLocale()
         );
 
         if (empty($format)) {
@@ -150,7 +139,7 @@ class PostCode extends AbstractValidator
      */
     public function getFormat()
     {
-        return $this->_format;
+        return $this->options['format'];
     }
 
     /**
@@ -174,7 +163,32 @@ class PostCode extends AbstractValidator
             $format .= '$/';
         }
 
-        $this->_format = $format;
+        $this->options['format'] = $format;
+        return $this;
+    }
+    
+    /**
+     * Returns the actual set service
+     *
+     * @return callback
+     */
+    public function getService()
+    {
+        return $this->options['service'];
+    }
+
+    /**
+     * Sets a new callback for service validation
+     *
+     * @param string|array $service
+     */
+    public function setService($service)
+    {
+        if (!is_callable($service)) {
+            throw new Exception\InvalidArgumentException('Invalid callback given');
+        }
+
+        $this->options['service'] = $service;
         return $this;
     }
 
@@ -186,15 +200,33 @@ class PostCode extends AbstractValidator
      */
     public function isValid($value)
     {
-        $this->_setValue($value);
+        $this->setValue($value);
         if (!is_string($value) && !is_int($value)) {
-            $this->_error(self::INVALID);
+            $this->error(self::INVALID);
             return false;
         }
 
+        $service = $this->getService();
+        if (!empty($service)) {
+            try {
+                $callback = new Callback($service);
+                $callback->setOptions(array(
+                    'format' => $this->options['format'],
+                    'locale' => $this->options['locale'],
+                ));
+                if (!$callback->isValid($value)) {
+                    $this->error(self::SERVICE, $value);
+                    return false;
+                }
+            } catch (\Exception $e) {
+                $this->error(self::SERVICEFAILURE, $value);
+                return false;
+            }
+        }
+        
         $format = $this->getFormat();
         if (!preg_match($format, $value)) {
-            $this->_error(self::NO_MATCH);
+            $this->error(self::NO_MATCH);
             return false;
         }
 

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,15 +24,18 @@
  */
 namespace Zend\View\Helper;
 
+use Traversable,
+    Zend\View\Exception;
+
 /**
  * Helper for rendering a template fragment in its own variable scope; iterates
  * over data provided and renders for each iteration.
  *
  * @uses       \Zend\View\Helper\Partial\Partial
- * @uses       \Zend\View\Helper\Partial\Exception
+ * @uses       \Zend\View\Exception\InvalidArgumentException
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class PartialLoop extends Partial
@@ -51,48 +54,38 @@ class PartialLoop extends Partial
      * If no arguments are provided, returns object instance.
      *
      * @param  string $name Name of view script
-     * @param  string|array $module If $model is empty, and $module is an array,
-     *                              these are the variables to populate in the
-     *                              view. Otherwise, the module in which the
-     *                              partial resides
      * @param  array $model Variables to populate in the view
      * @return string
+     * @throws Exception\InvalidArgumentException
      */
-    public function direct($name = null, $module = null, $model = null)
+    public function __invoke($name = null, $model = null)
     {
         if (0 == func_num_args()) {
             return $this;
         }
 
-        if ((null === $model) && (null !== $module)) {
-            $model  = $module;
-            $module = null;
-        }
-
         if (!is_array($model)
-            && (!$model instanceof \Traversable)
+            && (!$model instanceof Traversable)
             && (is_object($model) && !method_exists($model, 'toArray'))
         ) {
-            $e = new Partial\Exception('PartialLoop helper requires iterable data');
-            $e->setView($this->view);
-            throw $e;
+            throw new Exception\InvalidArgumentException('PartialLoop helper requires iterable data');
         }
 
         if (is_object($model)
-            && (!$model instanceof \Traversable)
+            && (!$model instanceof Traversable)
             && method_exists($model, 'toArray')
         ) {
             $model = $model->toArray();
         }
 
         $content = '';
-        // reset the counter if it's call again
+        // reset the counter if it's called again
         $this->partialCounter = 0;
         foreach ($model as $item) {
             // increment the counter variable
             $this->partialCounter++;
 
-            $content .= parent::direct($name, $module, $item);
+            $content .= parent::__invoke($name, $item);
         }
 
         return $content;

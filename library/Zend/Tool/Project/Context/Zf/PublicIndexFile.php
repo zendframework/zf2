@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,16 +25,16 @@
 namespace Zend\Tool\Project\Context\Zf;
 
 /**
- * This class is the front most class for utilizing Zend_Tool_Project
+ * This class is the front most class for utilizing Zend\Tool\Project
  *
  * A profile is a hierarchical set of resources that keep track of
  * items within a specific project.
  *
- * @uses       \Zend\CodeGenerator\Php\PhpFile
+ * @uses       \Zend\Code\Generator\FileGenerator
  * @uses       \Zend\Tool\Project\Context\Filesystem\File
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class PublicIndexFile extends \Zend\Tool\Project\Context\Filesystem\File
@@ -62,8 +62,8 @@ class PublicIndexFile extends \Zend\Tool\Project\Context\Filesystem\File
      */
     public function getContents()
     {
-        $codeGenerator = new \Zend\CodeGenerator\Php\PhpFile(array(
-            'body' => <<<'EOS'
+        $codeGenerator = new \Zend\Code\Generator\FileGenerator();
+        $codeGenerator->setBody( <<<'EOS'
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(__DIR__ . '/../application'));
@@ -90,7 +90,7 @@ $application->bootstrap()
             ->run();
 
 EOS
-            ));
+            );
         return $codeGenerator->generate();
     }
 

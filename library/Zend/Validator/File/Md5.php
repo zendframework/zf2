@@ -14,7 +14,7 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,6 +22,8 @@
  * @namespace
  */
 namespace Zend\Validator\File;
+
+use Zend\Loader;
 
 /**
  * Validator for the md5 hash of given files
@@ -31,7 +33,7 @@ namespace Zend\Validator\File;
  * @uses      \Zend\Validator\File\Hash
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Md5 extends Hash
@@ -53,32 +55,14 @@ class Md5 extends Hash
     );
 
     /**
-     * Hash of the file
+     * Options for this validator
      *
      * @var string
      */
-    protected $_hash;
-
-    /**
-     * Sets validator options
-     *
-     * $hash is the hash we accept for the file $file
-     *
-     * @param  string|array $options
-     * @return void
-     */
-    public function __construct($options)
-    {
-        if ($options instanceof \Zend\Config\Config) {
-            $options = $options->toArray();
-        } elseif (is_scalar($options)) {
-            $options = array('hash1' => $options);
-        } elseif (!is_array($options)) {
-            throw new \Zend\Validator\Exception\InvalidArgumentException('Invalid options to validator provided');
-        }
-
-        $this->setMd5($options);
-    }
+    protected $options = array(
+        'algorithm' => 'md5',
+        'hash'      => null,
+    );
 
     /**
      * Returns all set md5 hashes
@@ -94,47 +78,11 @@ class Md5 extends Hash
      * Sets the md5 hash for one or multiple files
      *
      * @param  string|array $options
-     * @param  string       $algorithm (Deprecated) Algorithm to use, fixed to md5
-     * @return \Zend\Validator\File\Hash Provides a fluent interface
-     */
-    public function setHash($options)
-    {
-        if (!is_array($options)) {
-            $options = (array) $options;
-        }
-
-        $options['algorithm'] = 'md5';
-        parent::setHash($options);
-        return $this;
-    }
-
-    /**
-     * Sets the md5 hash for one or multiple files
-     *
-     * @param  string|array $options
      * @return \Zend\Validator\File\Hash Provides a fluent interface
      */
     public function setMd5($options)
     {
         $this->setHash($options);
-        return $this;
-    }
-
-    /**
-     * Adds the md5 hash for one or multiple files
-     *
-     * @param  string|array $options
-     * @param  string       $algorithm (Deprecated) Algorithm to use, fixed to md5
-     * @return \Zend\Validator\File\Hash Provides a fluent interface
-     */
-    public function addHash($options)
-    {
-        if (!is_array($options)) {
-            $options = (array) $options;
-        }
-
-        $options['algorithm'] = 'md5';
-        parent::addHash($options);
         return $this;
     }
 
@@ -159,12 +107,16 @@ class Md5 extends Hash
      */
     public function isValid($value, $file = null)
     {
+        if ($file === null) {
+            $file = array('name' => basename($value));
+        }
+
         // Is file readable ?
-        if (!\Zend\Loader::isReadable($value)) {
+        if (!Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_FOUND);
         }
 
-        $hashes = array_unique(array_keys($this->_hash));
+        $hashes = array_unique(array_keys($this->getHash()));
         $filehash = hash_file('md5', $value);
         if ($filehash === false) {
             return $this->_throw($file, self::NOT_DETECTED);

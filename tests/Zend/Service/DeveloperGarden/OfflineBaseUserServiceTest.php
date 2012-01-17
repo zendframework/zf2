@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_DeveloperGarden
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@
  * @subpackage UnitTests
  * @group      Zend_Service
  * @group      Zend_Service_DeveloperGarden
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_DeveloperGarden_OfflineBaseUserServiceTest extends PHPUnit_Framework_TestCase
@@ -65,7 +65,7 @@ class Zend_Service_DeveloperGarden_OfflineBaseUserServiceTest extends PHPUnit_Fr
     public function testGetModuleIds()
     {
         $ids = $this->service->getModuleIds();
-        $this->assertType('array', $ids);
+        $this->assertInternalType('array', $ids);
         $this->assertNotNull($ids);
         $this->assertGreaterThan(0, count($ids));
     }
@@ -120,7 +120,7 @@ class Zend_Service_DeveloperGarden_OfflineBaseUserServiceTest extends PHPUnit_Fr
     public function testModuleIds()
     {
         $moduleIds = $this->service->getModuleIds();
-        $this->assertType('array', $moduleIds);
+        $this->assertInternalType('array', $moduleIds);
         $this->assertEquals(10, count($moduleIds));
     }
 

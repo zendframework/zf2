@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\Tool\Framework\Metadata;
  * @uses       \Zend\Version
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class HelpSystem
@@ -353,7 +353,7 @@ class HelpSystem
         Metadata\Tool $actionMetadata,
         Metadata\Tool $specialtyMetadata,
         Metadata\Tool $parameterLongMetadata)//,
-        //Zend_Tool_Framework_Metadata_Tool $parameterShortMetadata)
+        //Zend\Tool\Framework\Metadata\Tool $parameterShortMetadata)
     {
         $this->_response->appendContent(
             '    zf ' . $actionMetadata->getValue() . ' ' . $providerMetadata->getValue(),

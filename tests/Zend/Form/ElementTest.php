@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,7 +27,6 @@ use Zend\Form\Element,
     Zend\Form\Element\Exception as ElementException,
     Zend\Form\Form,
     Zend\Config\Config,
-    Zend\Controller\Front as FrontController,
     Zend\Json\Json,
     Zend\Loader\PrefixPathLoader,
     Zend\Loader\PrefixPathMapper,
@@ -41,7 +40,7 @@ use Zend\Form\Element,
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Form
  */
@@ -49,10 +48,6 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $front = FrontController::getInstance();
-        $front->resetInstance();
-        $this->broker = $front->getHelperBroker();
-
         Registry::_unsetInstance();
         Form::setDefaultTranslator(null);
 
@@ -465,7 +460,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $loader = $this->element->getPluginLoader('validator');
         $this->assertTrue($loader instanceof PrefixPathMapper);
         $paths = $loader->getPaths('Zend\Validator');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertTrue(0 < count($paths));
         $this->assertContains('Validator', $paths[0]);
     }
@@ -475,7 +470,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $loader = $this->element->getPluginLoader('filter');
         $this->assertTrue($loader instanceof PrefixPathMapper);
         $paths = $loader->getPaths('Zend\Filter');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertTrue(0 < count($paths));
         $this->assertContains('Filter', $paths[0]);
     }
@@ -485,7 +480,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $loader = $this->element->getPluginLoader('decorator');
         $this->assertTrue($loader instanceof PrefixPathMapper);
         $paths = $loader->getPaths('Zend\Form\Decorator');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertTrue(0 < count($paths));
         $this->assertContains('Decorator', $paths[0]);
     }
@@ -538,7 +533,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $loader = $this->element->getPluginLoader('validator');
         $this->element->addPrefixPath('Zend\Form', 'Zend/Form/', 'validator');
         $paths = $loader->getPaths('Zend\Form');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertContains('Form', $paths[0]);
     }
 
@@ -557,7 +552,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $loader = $this->element->getPluginLoader('validator');
         $this->element->addPrefixPath('Zend\Form', 'Zend/Form/', 'validator');
         $paths = $loader->getPaths('Zend\Form');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertContains('Form', $paths[0]);
     }
 
@@ -576,7 +571,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $loader = $this->element->getPluginLoader('decorator');
         $this->element->addPrefixPath('Zend\Foo', 'Zend/Foo/', 'decorator');
         $paths = $loader->getPaths('Zend\Foo');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertContains('Foo', $paths[0]);
     }
 
@@ -601,15 +596,15 @@ class ElementTest extends \PHPUnit_Framework_TestCase
                       ->addPrefixPath('Zend', 'Zend/');
 
         $paths = $filterLoader->getPaths('Zend\Filter');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertContains('Filter', $paths[0]);
 
         $paths = $validatorLoader->getPaths('Zend\Validator');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertContains('Validator', $paths[0]);
 
         $paths = $decoratorLoader->getPaths('Zend\Decorator');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertContains('Decorator', $paths[0]);
     }
 
@@ -657,7 +652,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         }
         $validator = $this->element->getValidator('Alnum');
         $this->assertTrue($validator instanceof \Zend\Validator\Alnum);
-        $this->assertTrue($validator->allowWhiteSpace);
+        $this->assertTrue($validator->getAllowWhiteSpace());
     }
 
     public function testCanRetrieveSingleValidatorRegisteredAsValidatorObjectUsingShortName()
@@ -1151,7 +1146,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         }
         $filter = $this->element->getFilter('Alnum');
         $this->assertTrue($filter instanceof \Zend\Filter\Alnum);
-        $this->assertTrue($filter->allowWhiteSpace);
+        $this->assertTrue($filter->getAllowWhiteSpace());
     }
 
     public function testShouldUseFilterConstructorOptionsAsPassedToAddFilter()
@@ -1202,24 +1197,17 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetViewReturnsNullWithNoViewRenderer()
+    public function testGetViewLazyLoadsPhpRendererByDefault()
     {
-        $this->assertNull($this->element->getView());
-    }
-
-    public function testGetViewReturnsViewRendererViewInstanceIfViewRendererActive()
-    {
-        $viewRenderer = $this->broker->load('viewRenderer');
-        $viewRenderer->initView();
-        $view = $viewRenderer->view;
-        $test = $this->element->getView();
-        $this->assertSame($view, $test);
+        $view = $this->element->getView();
+        $this->assertInstanceOf('Zend\View\PhpRenderer', $view);
     }
 
     public function testCanSetView()
     {
         $view = new PhpRenderer();
-        $this->assertNull($this->element->getView());
+        $test = $this->element->getView();
+        $this->assertNotSame($view, $test);
         $this->element->setView($view);
         $received = $this->element->getView();
         $this->assertSame($view, $received);
@@ -1759,7 +1747,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         foreach (array('validator', 'filter', 'decorator') as $type) {
             $loader = $this->element->getPluginLoader($type);
             $paths = $loader->getPaths('Zend\Foo\\' . ucfirst($type));
-            $this->assertType('SplStack', $paths);
+            $this->assertInstanceOf('SplStack', $paths);
             $this->assertNotEquals(0, count($paths));
             $this->assertContains('Foo', $paths[0]);
         }
@@ -1775,7 +1763,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 
         $loader = $this->element->getPluginLoader('filter');
         $paths = $loader->getPaths('Zend\Foo');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertNotEquals(0, count($paths));
         $this->assertContains('Foo', $paths[0]);
     }
@@ -1790,7 +1778,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 
         $loader = $this->element->getPluginLoader('decorator');
         $paths = $loader->getPaths('Zend\Foo');
-        $this->assertType('SplStack', $paths);
+        $this->assertInstanceOf('SplStack', $paths);
         $this->assertNotEquals(0, count($paths));
         $this->assertContains('Foo', $paths[0]);
     }
@@ -1937,7 +1925,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     {
         $registryTranslations = array('alphaInvalid' => 'Registry message');
         $registryTranslate = new Translator('ArrayAdapter', $registryTranslations);
-        Registry::set('Zend_Translate', $registryTranslate);
+        Registry::set('Zend_Translator', $registryTranslate);
         
         $validatorTranslations = array('alphaInvalid' => 'Validator message');
         $validatorTranslate = new Translator('ArrayAdapter', $validatorTranslations);
@@ -1960,7 +1948,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     {
         $registryTranslations = array('alphaInvalid' => 'Registry message');
         $registryTranslate = new Translator('ArrayAdapter', $registryTranslations);
-        Registry::set('Zend_Translate', $registryTranslate);
+        Registry::set('Zend_Translator', $registryTranslate);
         
         $validatorTranslations = array('alphaInvalid' => 'Validator message');
         $validatorTranslate = new Translator('ArrayAdapter', $validatorTranslations);

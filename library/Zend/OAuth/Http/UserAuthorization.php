@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_OAuth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,15 +23,13 @@
  */
 namespace Zend\OAuth\Http;
 
-use Zend\OAuth\Http as HTTPClient;
+use Zend\OAuth\Http as HTTPClient,
+    Zend\Uri;
 
 /**
- * @uses       \Zend\OAuth\Client
- * @uses       \Zend\OAuth\Http
- * @uses       \Zend\Uri\Url
  * @category   Zend
  * @package    Zend_OAuth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class UserAuthorization extends HTTPClient
@@ -45,13 +43,13 @@ class UserAuthorization extends HTTPClient
     public function getUrl()
     {
         $params = $this->assembleParams();
-        $uri    = new \Zend\Uri\Url($this->_consumer->getUserAuthorizationUrl());
+        $uri    = Uri\UriFactory::factory($this->_consumer->getUserAuthorizationUrl());
 
         $uri->setQuery(
             $this->_httpUtility->toEncodedQueryString($params)
         );
 
-        return $uri->generate();
+        return $uri->toString();
     }
 
     /**

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,7 +36,7 @@ use Zend\XmlRpc\Server,
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_XmlRpc
  */
@@ -96,7 +96,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddFunction()
     {
-        
+
         $this->_server->addFunction('ZendTest\\XmlRpc\\testFunction', 'zsr');
 
         $methods = $this->_server->listMethods();
@@ -104,15 +104,15 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
         $methods = $this->_server->listMethods();
         $this->assertTrue(in_array('zsr.ZendTest\\XmlRpc\\testFunction', $methods));
-        $this->assertTrue(in_array('zsr.ZendTest\\XmlRpc\\testFunction2', $methods));
+        $this->assertFalse(in_array('zsr.ZendTest\\XmlRpc\\testFunction2', $methods), var_export($methods, 1));
     }
-    
+
     public function testAddFunctionThrowsExceptionOnInvalidInput()
     {
         $this->setExpectedException('Zend\XmlRpc\Server\Exception\InvalidArgumentException', 'Unable to attach function; invalid');
         $this->_server->addFunction('nosuchfunction');
     }
-    
+
     public function testAddFunctionThrowsExceptionOnInvalidArrayInput()
     {
         //$this->setExpectedException('XXX', 'xxx');
@@ -124,7 +124,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             'zsr'
         );
     }
-    
+
     /**
      * get/loadFunctions() test
      */
@@ -163,7 +163,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $request = new Request();
         $request->setMethod('test.test4');
         $response = $this->_server->handle($request);
-        $this->assertNotType('Zend\\XmlRpc\\Fault', $response);
+        $this->assertNotInstanceOf('Zend\\XmlRpc\\Fault', $response);
         $this->assertSame(
             array('test1' => 'argv-argument',
                 'test2' => null,
@@ -181,7 +181,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $request->setMethod('test.test4');
         $request->setParams(array('foo'));
         $response = $this->_server->handle($request);
-        $this->assertNotType('Zend\\XmlRpc\\Fault', $response);
+        $this->assertNotInstanceOf('Zend\\XmlRpc\\Fault', $response);
         $this->assertSame(array('test1' => 'a1', 'test2' => 'a2', 'arg' => array('foo')), $response->getReturnValue());
     }
 
@@ -241,7 +241,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $request = new Request();
         $request->setMethod('invalid');
         $response = $this->_server->handle($request);
-        $this->assertType('Zend\\XmlRpc\\Fault', $response);
+        $this->assertInstanceOf('Zend\\XmlRpc\\Fault', $response);
         $this->assertSame('Method "invalid" does not exist', $response->getMessage());
         $this->assertSame(620, $response->getCode());
     }
@@ -446,7 +446,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\XmlRpc\Server\Exception\InvalidArgumentException', 'Unable to load server definition; must be an array or Zend_Server_Definition, received stdClass');
         $this->_server->loadFunctions($o);
     }
-    
+
     public function testLoadFunctionsThrowsExceptionsWithBadData2()
     {
         $this->setExpectedException('Zend\XmlRpc\Server\Exception\InvalidArgumentException', 'Unable to load server definition; must be an array or Zend_Server_Definition, received string');
@@ -457,11 +457,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $o = new \stdClass();
         $o = array($o);
-        
+
         $this->setExpectedException('Zend\Server\Exception\InvalidArgumentException', 'Invalid method provided');
         $this->_server->loadFunctions($o);
     }
-    
+
     public function testLoadFunctionsReadsMethodsFromServerDefinitionObjects()
     {
         $mockedMethod = $this->getMock('Zend\\Server\\Method\\Definition', array(), array(), '', false,
@@ -494,7 +494,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\XmlRpc\Server\Exception\InvalidArgumentException', 'Invalid request object');
         $this->_server->setRequest('ZendTest\\XmlRpc\\TestRequest2');
     }
-    
+
     public function testSetRequestThrowsExceptionOnBadObject()
     {
         $this->setExpectedException('Zend\XmlRpc\Server\Exception\InvalidArgumentException', 'Invalid request object');
@@ -585,7 +585,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see ZF-2872
+     * @group ZF-2872
      */
     public function testCanMarshalBase64Requests()
     {

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\Search\Lucene,
 	Zend\Search\Lucene\Search\Query,
 	Zend\Search\Lucene\Analysis\Analyzer,
 	Zend\Search\Lucene\Search\Highlighter,
-	Zend\Search\Lucence\Search\Exception\QueryParserException;
+	Zend\Search\Lucene\Search\Exception\QueryParserException;
 
 /**
  * It's an internal abstract class intended to finalize ase a query processing after query parsing.
@@ -50,7 +50,7 @@ use Zend\Search\Lucene,
  * @package    Zend_Search_Lucene
  * @subpackage Search
  * @internal
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Term extends AbstractPreprocessing
@@ -95,7 +95,7 @@ class Term extends AbstractPreprocessing
      * Re-write query into primitive queries in the context of specified index
      *
      * @param \Zend\Search\Lucene\SearchIndex $index
-     * @throws \Zend\Search\Lucence\Search\Exception\QueryParserException
+     * @throws \Zend\Search\Lucene\Search\Exception\QueryParserException
      * @return \Zend\Search\Lucene\Search\Query\AbstractQuery
      */
     public function rewrite(Lucene\SearchIndex $index)

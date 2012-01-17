@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ namespace Zend\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FormErrors extends FormElement
@@ -56,12 +56,8 @@ class FormErrors extends FormElement
      * @param  array $options
      * @return string
      */
-    public function direct($errors = null, array $options = null)
+    public function __invoke($errors, array $options = null)
     {
-        if ($errors === null) { // can be empty array()
-            throw new \InvalidArgumentException('FormErrors: missing argument. $errors is required in form($errors, array $options = null)');
-        }
-        
         $escape = true;
         if (isset($options['escape'])) {
             $escape = (bool) $options['escape'];

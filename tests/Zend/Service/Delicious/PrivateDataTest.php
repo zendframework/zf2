@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Delicious
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ use \Zend\Service\Delicious,
  * @category   Zend_Service
  * @package    Zend_Service_Delicious
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Delicious
@@ -92,7 +92,7 @@ class PrivateDataTest extends \PHPUnit_Framework_TestCase
     {
         // get tags
         $tags = $this->_delicious->getTags();
-        $this->assertType('array', $tags);
+        $this->assertInternalType('array', $tags);
         $tags = array_keys($tags);
 
         if (count($tags) < 1) {
@@ -123,7 +123,7 @@ class PrivateDataTest extends \PHPUnit_Framework_TestCase
 
         // check if bundle was added
         $bundles = $this->_delicious->getBundles();
-        $this->assertType('array', $bundles);
+        $this->assertInternalType('array', $bundles);
         $this->assertArrayHasKey($newBundleName, $bundles);
         $this->assertEquals($tags, $bundles[$newBundleName]);
 
@@ -183,8 +183,8 @@ class PrivateDataTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::$TEST_POST_TAGS, $savedPost->getTags());
         $this->assertEquals(self::$TEST_POST_SHARED, $savedPost->getShared());
         $this->assertType('\Zend\Date\Date', $savedPost->getDate());
-        $this->assertType('string', $savedPost->getHash());
-        $this->assertType('int', $savedPost->getOthers());
+        $this->assertInternalType('string', $savedPost->getHash());
+        $this->assertInternalType('integer', $savedPost->getOthers());
 
         // delete post
         $savedPost->delete();
@@ -249,6 +249,6 @@ class PrivateDataTest extends \PHPUnit_Framework_TestCase
      */
     public function testDates()
     {
-        $this->assertType('array', $this->_delicious->getDates());
+        $this->assertInternalType('array', $this->_delicious->getDates());
     }
 }

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ use Zend\Dojo\View\Helper\SimpleTextarea as SimpleTextareaHelper,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_View
@@ -64,7 +64,7 @@ class SimpleTextareaTest extends \PHPUnit_Framework_TestCase
 
     public function getElement()
     {
-        return $this->helper->direct(
+        return $this->helper->__invoke(
             'elementId',
             'some content',
             array(),
@@ -83,12 +83,18 @@ class SimpleTextareaTest extends \PHPUnit_Framework_TestCase
         DojoHelper::setUseProgrammatic();
         $html = $this->getElement();
         $this->assertNotRegexp('/<textarea[^>]*(dojoType="dijit.form.SimpleTextarea")/', $html);
-        $this->assertNotNull($this->view->broker('dojo')->getDijit('elementId'));
+        $this->assertNotNull($this->view->plugin('dojo')->getDijit('elementId'));
     }
 
     public function testPassingIdAsAttributeShouldOverrideUsingNameAsId()
     {
-        $html = $this->helper->direct('foo[bar]', '', array(), array('id' => 'foo-bar'));
+        $html = $this->helper->__invoke('foo[bar]', '', array(), array('id' => 'foo-bar'));
         $this->assertContains('id="foo-bar"', $html);
+    }
+    
+    public function testGeneratedMarkupShouldNotIncludeTypeAttribute()
+    {
+        $html = $this->getElement();
+        $this->assertNotRegexp('/type="text/', $html, $html);
     }
 }

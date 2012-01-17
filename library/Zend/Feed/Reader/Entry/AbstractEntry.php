@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
  
@@ -23,13 +23,14 @@
 */
 namespace Zend\Feed\Reader\Entry;
 use Zend\Feed\Reader;
+use Zend\Feed\Reader\Exception;
 
 /**
 * @uses \Zend\Feed\Reader\Exception
 * @uses \Zend\Feed\Reader\Reader
 * @category Zend
 * @package Zend_Feed_Reader
-* @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+* @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
 * @license http://framework.zend.com/license/new-bsd New BSD License
 */
 abstract class AbstractEntry
@@ -219,7 +220,7 @@ abstract class AbstractEntry
             }
         }
         throw new Exception('Method: ' . $method
-            . 'does not exist and could not be located on a registered Extension');
+            . ' does not exist and could not be located on a registered Extension');
     }
 
     /**

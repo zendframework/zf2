@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ use Zend\View\Variables,
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  */
@@ -128,6 +128,14 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
         $this->vars->assign($config);
         $this->assertEquals('bar', $this->vars['foo']);
         $this->assertEquals('baz', $this->vars['bar']);
+    }
+
+    public function testValuesAssignedViaConstructorAreEscapedByDefault()
+    {
+        $string = '<tag id="foo">\'some string\'</tag>';
+        $vars = new Variables(array('foo'=>$string));
+        $expected = htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
+        $this->assertEquals($expected, $vars['foo']);
     }
 
     public function testValuesAreEscapedByDefault()

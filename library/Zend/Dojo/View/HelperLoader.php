@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Dojo
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,7 +27,7 @@ use Zend\Loader\PluginClassLoader;
  *
  * @category   Zend
  * @package    Zend_Dojo
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class HelperLoader extends PluginClassLoader
@@ -45,12 +45,13 @@ class HelperLoader extends PluginClassLoader
         'contentpane'        => 'Zend\Dojo\View\Helper\ContentPane',
         'currencytextbox'    => 'Zend\Dojo\View\Helper\CurrencyTextBox',
         'customdijit'        => 'Zend\Dojo\View\Helper\CustomDijit',
+        'datetextbox'        => 'Zend\Dojo\View\Helper\DateTextBox',
         'dijitcontainer'     => 'Zend\Dojo\View\Helper\DijitContainer',
         'dijit'              => 'Zend\Dojo\View\Helper\Dijit',
         'dojo'               => 'Zend\Dojo\View\Helper\Dojo',
         'editor'             => 'Zend\Dojo\View\Helper\Editor',
         'filteringselect'    => 'Zend\Dojo\View\Helper\FilteringSelect',
-        'form'               => 'Zend\Dojo\View\Helper\Form',
+        'dojoform'           => 'Zend\Dojo\View\Helper\DojoForm',
         'horizontalslider'   => 'Zend\Dojo\View\Helper\HorizontalSlider',
         'numberspinner'      => 'Zend\Dojo\View\Helper\NumberSpinner',
         'numbertextbox'      => 'Zend\Dojo\View\Helper\NumberTextBox',

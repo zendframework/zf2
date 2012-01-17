@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,14 +23,15 @@
  * @namespace
  */
 namespace ZendTest\Validator;
-use Zend\Validator;
-use Zend\Validator\Hostname;
+use Zend\Validator,
+    Zend\Validator\Hostname,
+    ReflectionClass;
 
 /**
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -137,7 +138,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('quoted-string', current($messages));
 
         $this->assertContains('Some User', next($messages));
-        $this->assertContains('no valid local part', current($messages));
+        $this->assertContains('not a valid local part', current($messages));
     }
 
     /**
@@ -151,7 +152,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
 
         $messages = $this->_validator->getMessages();
 
-        $this->assertType('array', $messages);
+        $this->assertInternalType('array', $messages);
         $this->assertEquals(0, count($messages));
     }
 
@@ -165,7 +166,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_validator->isValid('username@ example . com'));
         $messages = $this->_validator->getMessages();
         $this->assertThat(count($messages), $this->greaterThanOrEqual(1));
-        $this->assertContains('no valid hostname', current($messages));
+        $this->assertContains('not a valid hostname', current($messages));
     }
 
     /**
@@ -200,7 +201,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_validator->isValid('User Name <username@example.com>'));
         $messages = $this->_validator->getMessages();
         $this->assertThat(count($messages), $this->greaterThanOrEqual(3));
-        $this->assertContains('no valid hostname', current($messages));
+        $this->assertContains('not a valid hostname', current($messages));
         $this->assertContains('cannot match TLD', next($messages));
         $this->assertContains('does not appear to be a valid local network name', next($messages));
     }
@@ -292,14 +293,14 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         if (!defined('TESTS_ZEND_VALIDATE_ONLINE_ENABLED')
             || !constant('TESTS_ZEND_VALIDATE_ONLINE_ENABLED')
         ) {
-            $this->markTestSkipped('Testing MX records only works when a valid internet connection is available');
+            $this->markTestSkipped('Testing MX records has been disabled');
             return;
         }
 
         $validator = new Validator\EmailAddress(Hostname::ALLOW_DNS, true);
 
         // Are MX checks supported by this system?
-        if (!$validator->validateMxSupported()) {
+        if (!$validator->isMxSupported()) {
             $this->markTestSkipped('Testing MX records is not supported with this configuration');
             return;
         }
@@ -317,7 +318,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         // Try a check via setting the option via a method
         unset($validator);
         $validator = new Validator\EmailAddress();
-        $validator->setValidateMx(true);
+        $validator->useMxCheck(true);
         foreach ($valuesExpected as $element) {
             foreach ($element[1] as $input) {
                 $this->assertEquals($element[0], $validator->isValid($input), implode("\n", $validator->getMessages()));
@@ -335,7 +336,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         $validator = new Validator\EmailAddress();
 
         // Check no IDN matching
-        $validator->getHostnameValidator()->setValidateIdn(false);
+        $validator->getHostnameValidator()->useIdnCheck(false);
         $valuesExpected = array(
             array(false, array('name@b�rger.de', 'name@h�llo.de', 'name@h�llo.se'))
             );
@@ -346,7 +347,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         }
 
         // Check no TLD matching
-        $validator->getHostnameValidator()->setValidateTld(false);
+        $validator->getHostnameValidator()->useTldCheck(false);
         $valuesExpected = array(
             array(true, array('name@domain.xx', 'name@domain.zz', 'name@domain.madeup'))
             );
@@ -368,7 +369,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see ZF-2861
+     * @group ZF-2861
      */
     public function testHostnameValidatorMessagesShouldBeTranslated()
     {
@@ -400,7 +401,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see ZF-4888
+     * @group ZF-4888
      */
     public function testEmailsExceedingLength()
     {
@@ -414,7 +415,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see ZF-4352
+     * @group ZF-4352
      */
     public function testNonStringValidation()
     {
@@ -422,7 +423,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see ZF-7490
+     * @group ZF-7490
      */
     public function testSettingHostnameMessagesThroughEmailValidator()
     {
@@ -462,14 +463,14 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         $options   = $validator->getOptions();
 
         $this->assertEquals(Hostname::ALLOW_DNS, $options['allow']);
-        $this->assertFalse($options['mx']);
+        $this->assertFalse($options['useMxCheck']);
 
         try {
             $validator = new Validator\EmailAddress(Hostname::ALLOW_ALL, true, new Hostname(Hostname::ALLOW_ALL));
             $options   = $validator->getOptions();
 
             $this->assertEquals(Hostname::ALLOW_ALL, $options['allow']);
-            $this->assertTrue($options['mx']);
+            $this->assertTrue($options['useMxCheck']);
             set_error_handler($handler);
         } catch (\Zend\Validator\Exception\InvalidArgumentException $e) {
             $this->markTestSkipped('MX not available on this system');
@@ -486,7 +487,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('TestMessage', $messages[Validator\EmailAddress::INVALID]);
 
         $oldHostname = $this->_validator->getHostnameValidator();
-        $this->_validator->setOptions(array('hostname' => new Hostname(Hostname::ALLOW_ALL)));
+        $this->_validator->setOptions(array('hostnameValidator' => new Hostname(Hostname::ALLOW_ALL)));
         $hostname = $this->_validator->getHostnameValidator();
         $this->assertNotEquals($oldHostname, $hostname);
     }
@@ -504,23 +505,11 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Testing validateMxSupported
-     */
-    public function testValidateMxSupported()
-    {
-        if (function_exists('getmxrr')) {
-            $this->assertTrue($this->_validator->validateMxSupported());
-        } else {
-            $this->assertFalse($this->_validator->validateMxSupported());
-        }
-    }
-
-    /**
      * Testing getValidateMx
      */
     public function testGetValidateMx()
     {
-        $this->assertFalse($this->_validator->getValidateMx());
+        $this->assertFalse($this->_validator->getMxCheck());
     }
 
     /**
@@ -557,6 +546,147 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
     {
         if (strstr($errstr, 'deprecated')) {
             $this->multipleOptionsDetected = true;
+        }
+    }
+
+    /**
+     * @group ZF-11222
+     * @group ZF-11451
+     */
+    public function testEmailAddressesWithTrailingDotInHostPartAreRejected()
+    {
+        $this->assertFalse($this->_validator->isValid('example@gmail.com.'));
+        $this->assertFalse($this->_validator->isValid('test@test.co.'));
+        $this->assertFalse($this->_validator->isValid('test@test.co.za.'));
+    }
+
+    /**
+     * @group ZF-11239
+     */
+    public function testNotSetHostnameValidator()
+    {
+        $hostname = $this->_validator->getHostnameValidator();
+        $this->assertTrue($hostname instanceof Validator\Hostname);
+    }
+
+    /**
+     * Test getMXRecord
+     */
+    public function testGetMXRecord()
+    {
+        if (!defined('TESTS_ZEND_VALIDATE_ONLINE_ENABLED')
+            || !constant('TESTS_ZEND_VALIDATE_ONLINE_ENABLED')
+        ) {
+            $this->markTestSkipped('Testing MX records has been disabled');
+            return;
+        }
+
+        $validator = new Validator\EmailAddress(array('useMxCheck' => true, 'allow' => Hostname::ALLOW_ALL));
+
+        if (!$validator->isMxSupported()) {
+            $this->markTestSkipped('Testing MX records is not supported with this configuration');
+            return;
+        }
+
+        $this->assertTrue($validator->isValid('john.doe@gmail.com'));
+        $result = $validator->getMXRecord();
+        $this->assertTrue(!empty($result));
+    }
+    
+    public function testEqualsMessageTemplates()
+    {
+        $validator = $this->_validator;
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageTemplates')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageTemplates');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageTemplates')
+        );
+    }
+    
+    public function testEqualsMessageVariables()
+    {
+        $validator = $this->_validator;
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageVariables')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageVariables');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageVariables')
+        );
+    }
+
+    /**
+     * @group ZF2-130
+     */
+    public function testUseMxCheckBasicValid()
+    {
+        $validator = new Validator\EmailAddress(array(
+            'useMxCheck'        => true,
+            'useDeepMxCheck'    => true
+        ));
+
+        $emailAddresses = array(
+            'bob@gmail.com',
+            'bob.jones@bbc.co.uk',
+            'bob.jones.smythe@bbc.co.uk',
+            'BoB@aol.com',
+            'bobjones@nist.gov',
+            "B.O'Callaghan@usmc.mil",
+            'bob+jones@nic.us',
+            'bob+jones@dailymail.co.uk',
+            'bob@teaparty.uk.com',
+            'bob@thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com'
+        );
+
+        foreach ($emailAddresses as $input) {
+            $this->assertTrue($validator->isValid($input), "$input failed to pass validation:\n"
+                            . implode("\n", $validator->getMessages()));
+        }
+    }
+
+    /**
+     * @group ZF2-130
+     */
+    public function testUseMxRecordsBasicInvalid() { 
+        $validator = new Validator\EmailAddress(array(
+            'useMxCheck'        => true,
+            'useDeepMxCheck'    => true
+        ));
+
+        $emailAddresses = array(
+            '',
+            'bob
+
+            @domain.com',
+            'bob jones@domain.com',
+            '.bobJones@studio24.com',
+            'bobJones.@studio24.com',
+            'bob.Jones.@studio24.com',
+            '"bob%jones@domain.com',
+            'bob@verylongdomainsupercalifragilisticexpialidociousaspoonfulofsugar.com',
+            'bob+domain.com',
+            'bob.domain.com',
+            'bob @domain.com',
+            'bob@ domain.com',
+            'bob @ domain.com',
+            'Abc..123@example.com'
+            );
+        foreach ($emailAddresses as $input) {
+            $this->assertFalse($validator->isValid($input), implode("\n", $this->_validator->getMessages()) . $input);
         }
     }
 }

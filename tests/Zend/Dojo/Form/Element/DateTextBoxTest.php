@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@ namespace ZendTest\Dojo\Form\Element;
 use Zend\Dojo\Form\Element\DateTextBox as DateTextBoxElement,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_Form_Element_DateTextBox.
@@ -32,7 +32,7 @@ use Zend\Dojo\Form\Element\DateTextBox as DateTextBoxElement,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_Form
@@ -57,7 +57,7 @@ class DateTextBoxTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
@@ -124,7 +124,7 @@ class DateTextBoxTest extends \PHPUnit_Framework_TestCase
 
     public function testFormatLengthMutatorShouldThrowExceptionWithInvalidFormatLength()
     {
-        $this->setExpectedException('Zend\Form\ElementException');
+        $this->setExpectedException('Zend\Form\Element\Exception\InvalidArgumentException');
         $this->element->setFormatLength('foobar');
     }
 
@@ -141,7 +141,7 @@ class DateTextBoxTest extends \PHPUnit_Framework_TestCase
 
     public function testSelectorMutatorShouldThrowExceptionWithInvalidSelector()
     {
-        $this->setExpectedException('Zend\Form\ElementException');
+        $this->setExpectedException('Zend\Form\Element\Exception\InvalidArgumentException');
         $this->element->setSelector('foobar');
     }
 
@@ -158,5 +158,17 @@ class DateTextBoxTest extends \PHPUnit_Framework_TestCase
     {
         $html = $this->element->render();
         $this->assertContains('dojoType="dijit.form.DateTextBox"', $html);
+    }
+
+    /**
+     * @group ZF-7813
+     */
+    public function testCanSetValue()
+    {
+        $this->element->setValue('2011-05-10');
+        $html = $this->element->render();
+        
+        $this->assertSame('2011-05-10', $this->element->getValue());
+        $this->assertContains('value="2011-05-10"', $html);
     }
 }

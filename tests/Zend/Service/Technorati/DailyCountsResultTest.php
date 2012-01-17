@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Technorati
@@ -62,7 +62,7 @@ class Zend_Service_Technorati_DailyCountsResultTest extends Zend_Service_Technor
         // check properties
         $this->assertType('Zend_Date', $object->getDate());
         $this->assertEquals(new Zend_Date(strtotime('2007-11-13')), $object->getDate());
-        $this->assertType('integer', $object->getCount());
+        $this->assertInternalType('integer', $object->getCount());
         $this->assertEquals(54414, $object->getCount());
     }
 

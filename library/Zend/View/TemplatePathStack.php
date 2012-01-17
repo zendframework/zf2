@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ use SplFileInfo,
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class TemplatePathStack implements TemplateResolver
@@ -57,13 +57,13 @@ class TemplatePathStack implements TemplateResolver
 
     /**
      * Constructor
-     * 
-     * @param  null|array|Traversable $options 
+     *
+     * @param  null|array|Traversable $options
      * @return void
      */
     public function __construct($options = null)
     {
-        $this->useViewStream = (bool) ini_get('short_open_tag') ? false : true;
+        $this->useViewStream = (bool) ini_get('short_open_tag');
         if ($this->useViewStream) {
             if (!in_array('zend.view', stream_get_wrappers())) {
                 stream_wrapper_register('zend.view', 'Zend\View\Stream');
@@ -78,14 +78,15 @@ class TemplatePathStack implements TemplateResolver
 
     /**
      * Configure object
-     * 
-     * @param  array|Traversable $options 
+     *
+     * @param  array|Traversable $options
      * @return void
+     * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
     {
         if (!is_array($options) && !$options instanceof \Traversable) {
-            throw new Exception(sprintf(
+            throw new Exception\InvalidArgumentException(sprintf(
                 'Expected array or Traversable object; received "%s"',
                 (is_object($options) ? get_class($options) : gettype($options))
             ));
@@ -110,8 +111,8 @@ class TemplatePathStack implements TemplateResolver
 
     /**
      * Add many paths to the stack at once
-     * 
-     * @param  array $paths 
+     *
+     * @param  array $paths
      * @return TemplatePathStack
      */
     public function addPaths(array $paths)
@@ -124,21 +125,31 @@ class TemplatePathStack implements TemplateResolver
 
     /**
      * Rest the path stack to the paths provided
-     * 
-     * @param  array $paths 
+     *
+     * @param  SplStack|array $paths
      * @return TemplatePathStack
+     * @throws Exception\InvalidArgumentException
      */
-    public function setPaths(array $paths)
+    public function setPaths($paths)
     {
-        $this->clearPaths();
-        $this->addPaths($paths);
+        if ($paths instanceof SplStack) {
+            $this->paths = $paths;
+        } elseif (is_array($paths)) {
+            $this->clearPaths();
+            $this->addPaths($paths);
+        } else {
+            throw new Exception\InvalidArgumentException(
+                "Invalid argument provided for \$paths, expecting either an array or SplStack object"
+            );
+        }
+
         return $this;
     }
 
     /**
      * Normalize a path for insertion in the stack
-     * 
-     * @param  string $path 
+     *
+     * @param  string $path
      * @return string
      */
     public static function normalizePath($path)
@@ -151,14 +162,15 @@ class TemplatePathStack implements TemplateResolver
 
     /**
      * Add a single path to the stack
-     * 
-     * @param  string $path 
+     *
+     * @param  string $path
      * @return TemplatePathStack
+     * @throws Exception\InvalidArgumentException
      */
     public function addPath($path)
     {
         if (!is_string($path)) {
-            throw new Exception(sprintf(
+            throw new Exception\InvalidArgumentException(sprintf(
                 'Invalid path provided; must be a string, received %s',
                 gettype($path)
             ));
@@ -169,7 +181,7 @@ class TemplatePathStack implements TemplateResolver
 
     /**
      * Clear all paths
-     * 
+     *
      * @return void
      */
     public function clearPaths()
@@ -179,7 +191,7 @@ class TemplatePathStack implements TemplateResolver
 
     /**
      * Returns stack of paths
-     * 
+     *
      * @return SplStack
      */
     public function getPaths()
@@ -236,20 +248,23 @@ class TemplatePathStack implements TemplateResolver
 
     /**
      * Retrieve the filesystem path to a view script
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return string
+     * @throws Exception\RuntimeException
      */
     public function getScriptPath($name)
     {
         if ($this->isLfiProtectionOn() && preg_match('#\.\.[\\\/]#', $name)) {
-            $e = new Exception('Requested scripts may not include parent directory traversal ("../", "..\\" notation)');
-            throw $e;
+            throw new Exception\DomainException(
+                'Requested scripts may not include parent directory traversal ("../", "..\\" notation)'
+            );
         }
 
         if (!count($this->paths)) {
-            $e = new Exception('No view script directory set; unable to determine location for view script');
-            throw $e;
+            throw new Exception\RuntimeException(
+                'No view script directory set; unable to determine location for view script'
+            );
         }
 
         $paths   = PATH_SEPARATOR;
@@ -257,7 +272,13 @@ class TemplatePathStack implements TemplateResolver
             $file = new SplFileInfo($path . $name);
             if ($file->isReadable()) {
                 // Found! Return it.
-                $filePath = $file->getRealPath();
+                if (($filePath = $file->getRealPath()) === false && substr($path, 0, 7) === 'phar://') {
+                    // Do not try to expand phar paths (realpath + phars == fail)
+                    $filePath = $path . $name;
+                    if (!file_exists($filePath)) {
+                        break;
+                    }
+                } 
                 if ($this->useStreamWrapper()) {
                     // If using a stream wrapper, prepend the spec to the path
                     $filePath = 'zend.view://' . $filePath;
@@ -267,10 +288,9 @@ class TemplatePathStack implements TemplateResolver
             $paths .= $path . PATH_SEPARATOR;
         }
 
-        $e = new Exception(sprintf(
+        throw new Exception\RuntimeException(sprintf(
             'Script "%s" not found in path (%s)',
             $name, trim($paths, PATH_SEPARATOR)
         ));
-        throw $e;
     }
 }

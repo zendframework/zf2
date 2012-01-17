@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ use Zend\Dojo\Data as DojoData,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  */
@@ -364,7 +364,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
     {
         $this->testAddItemsShouldAcceptTraversableObject();
         $json = $this->dojoData->toJson();
-        $this->assertSame($this->dojoData->toArray(), Json::decode($json));
+        $this->assertSame($this->dojoData->toArray(), Json::decode($json, Json::TYPE_ARRAY));
     }
 
     public function testShouldSerializeToStringAsJson()

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Technorati
@@ -66,7 +66,7 @@ class Zend_Service_Technorati_GetInfoResultTest extends Zend_Service_Technorati_
 
         // check weblogs
         $weblogs = $object->getWeblogs();
-        $this->assertType('array', $weblogs);
+        $this->assertInternalType('array', $weblogs);
         $this->assertEquals(2, count($weblogs));
         $this->assertType('Zend_Service_Technorati_Weblog', $weblogs[0]);
     }

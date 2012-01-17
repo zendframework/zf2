@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_OAuth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,19 +22,15 @@
  * @namespace
  */
 namespace Zend\OAuth\Token;
+
 use Zend\OAuth\Config,
     Zend\OAuth,
     Zend\Uri;
 
 /**
- * @uses       \Zend\OAuth\Client
- * @uses       \Zend\OAuth\Exception
- * @uses       \Zend\OAuth\Http\Http
- * @uses       \Zend\OAuth\Token\AbstractToken
- * @uses       \Zend\Uri\Url
  * @category   Zend
  * @package    Zend_OAuth
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Access extends AbstractToken
@@ -51,7 +47,7 @@ class Access extends AbstractToken
     public function toHeader(
         $url, Config $config, array $customParams = null, $realm = null
     ) {
-        $uri = new Uri\Url($url);
+        $uri = Uri\UriFactory::factory($url);
         if (!$uri->isValid()
             || !in_array($uri->getScheme(), array('http', 'https'))
         ) {
@@ -73,7 +69,7 @@ class Access extends AbstractToken
      */
     public function toQueryString($url, Config $config, array $params = null)
     {
-        $uri = new Uri\Url($url);
+        $uri = Uri\UriFactory::factory($url);
         if (!$uri->isValid()
             || !in_array($uri->getScheme(), array('http', 'https'))
         ) {

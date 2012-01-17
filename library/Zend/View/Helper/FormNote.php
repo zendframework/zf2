@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ namespace Zend\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FormNote extends FormElement
@@ -50,12 +50,8 @@ class FormNote extends FormElement
      *
      * @return string The element XHTML.
      */
-    public function direct($name = null, $value = null)
+    public function __invoke($name, $value = null)
     {
-        if ($name == null) {
-            throw new \InvalidArgumentException('FormNote: missing argument. $name is required in formNote($name, $value = null)');
-        }
-        
         $info = $this->_getInfo($name, $value);
         extract($info); // name, value, attribs, options, listsep, disable
         return $value;

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Rest
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,18 +24,14 @@
  */
 namespace Zend\Rest\Client;
 
-use Zend\Uri;
+use Zend\Http\Client as HttpClient,
+    Zend\Uri;
 
 /**
- * @uses       Zend\Rest\Client\Exception\UnexpectedValueException
- * @uses       Zend\Rest\Client\Result
- * @uses       Zend\Service\AbstractService
- * @uses       Zend\Uri\Uri
- * @uses       Zend\Uri\Url
  * @category   Zend
  * @package    Zend_Rest
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class RestClient extends \Zend\Service\AbstractService
@@ -44,18 +40,23 @@ class RestClient extends \Zend\Service\AbstractService
      * Data for the query
      * @var array
      */
-    protected $_data = array();
+    protected $data = array();
 
-     /**
-     * Zend_Uri of this web service
-     * @var \Zend\Uri\Http
+    /**
+     * URI of this web service
+     * @var Uri\Uri
      */
-    protected $_uri = null;
+    protected $uri = null;
+
+    /**
+     * @var HttpClient
+     */
+    protected $httpClient;
 
     /**
      * Constructor
      *
-     * @param string|\Zend\Uri\Http $uri URI for the web service
+     * @param string|Uri\Uri $uri URI for the web service
      * @return void
      */
     public function __construct($uri = null)
@@ -66,17 +67,44 @@ class RestClient extends \Zend\Service\AbstractService
     }
 
     /**
+     * Set HTTP client instance to use with this service instance
+     * 
+     * @param  HttpClient $client 
+     * @return RestClient
+     */
+    public function setHttpClient(HttpClient $client)
+    {
+        $this->httpClient = $client;
+        return $this;
+    }
+
+    /**
+     * Get the HTTP client instance registered with this service instance
+     *
+     * If none set, will check for a default instance.
+     * 
+     * @return HttpClient
+     */
+    public function getHttpClient()
+    {
+        if (null === $this->httpClient) {
+            $this->setHttpClient(new HttpClient());
+        }
+        return $this->httpClient;
+    }
+
+    /**
      * Set the URI to use in the request
      *
-     * @param string|Zend\Uri\Uri $uri URI for the web service
-     * @return Zend\Rest\Client\RestClient
+     * @param  string|Uri\Uri $uri URI for the web service
+     * @return RestClient
      */
     public function setUri($uri)
     {
-        if ($uri instanceof URI\Uri) {
-            $this->_uri = $uri;
+        if ($uri instanceof Uri\Uri) {
+            $this->uri = $uri;
         } else {
-            $this->_uri = new Uri\Url($uri);
+            $this->uri = Uri\UriFactory::factory($uri);
         }
 
         return $this;
@@ -85,41 +113,43 @@ class RestClient extends \Zend\Service\AbstractService
     /**
      * Retrieve the current request URI object
      *
-     * @return Zend\Uri\Uri
+     * @return Uri\Uri
      */
     public function getUri()
     {
-        return $this->_uri;
+        return $this->uri;
     }
 
     /**
      * Call a remote REST web service URI and return the Zend_Http_Response object
      *
      * @param  string $path            The path to append to the URI
-     * @throws Zend\Rest\Client\Exception\UnexpectedValueException
+     * @throws Exception\UnexpectedValueException
      * @return void
      */
-    final private function _prepareRest($path)
+    protected function prepareRest($path)
     {
         // Get the URI object and configure it
-        if (!$this->_uri instanceof URI\Uri) {
+        if (!$this->uri instanceof Uri\Uri) {
             throw new Exception\UnexpectedValueException('URI object must be set before performing call');
         }
 
-        $uri = $this->_uri->generate();
+        $uri = $this->uri->toString();
 
         if ($path[0] != '/' && $uri[strlen($uri)-1] != '/') {
             $path = '/' . $path;
         }
 
-        $this->_uri->setPath($path);
+        $this->uri->setPath($path);
 
         /**
          * Get the HTTP client and configure it for the endpoint URI.  Do this 
          * each time as the Zend\Http\Client instance may be shared with other 
          * Zend\Service\AbstractService subclasses.
          */
-        $this->getHttpClient()->resetParameters()->setUri($this->_uri);
+        $client = $this->getHttpClient();
+        $client->resetParameters();
+        $client->setUri($this->uri);
     }
 
     /**
@@ -130,12 +160,14 @@ class RestClient extends \Zend\Service\AbstractService
      * @throws Zend\Http\Client\Exception
      * @return Zend\Http\Response
      */
-    final public function restGet($path, array $query = null)
+    public function restGet($path, array $query = null)
     {
-        $this->_prepareRest($path);
+        $this->prepareRest($path);
         $client = $this->getHttpClient();
-        $client->setParameterGet($query);
-        return $client->request('GET');
+        if (is_array($query)) {
+            $client->setParameterGet($query);
+        }
+        return $client->setMethod('GET')->send();
     }
 
     /**
@@ -149,15 +181,18 @@ class RestClient extends \Zend\Service\AbstractService
      * @param mixed $data
      * @return \Zend\Http\Response
      */
-    protected function _performPost($method, $data = null)
+    protected function performPost($method, $data = null)
     {
         $client = $this->getHttpClient();
+        $client->setMethod($method);
+
+        $request = $client->getRequest();
         if (is_string($data)) {
-            $client->setRawData($data);
+            $request->setContent($data);
         } elseif (is_array($data) || is_object($data)) {
-            $client->setParameterPost((array) $data);
+            $request->post()->fromArray((array) $data);
         }
-        return $client->request($method);
+        return $client->send($request);
     }
 
     /**
@@ -168,10 +203,10 @@ class RestClient extends \Zend\Service\AbstractService
      * @throws \Zend\Http\Client\Exception
      * @return \Zend\Http\Response
      */
-    final public function restPost($path, $data = null)
+    public function restPost($path, $data = null)
     {
-        $this->_prepareRest($path);
-        return $this->_performPost('POST', $data);
+        $this->prepareRest($path);
+        return $this->performPost('POST', $data);
     }
 
     /**
@@ -182,10 +217,10 @@ class RestClient extends \Zend\Service\AbstractService
      * @throws \Zend\Http\Client\Exception
      * @return \Zend\Http\Response
      */
-    final public function restPut($path, $data = null)
+    public function restPut($path, $data = null)
     {
-        $this->_prepareRest($path);
-        return $this->_performPost('PUT', $data);
+        $this->prepareRest($path);
+        return $this->performPost('PUT', $data);
     }
 
     /**
@@ -195,10 +230,10 @@ class RestClient extends \Zend\Service\AbstractService
      * @throws \Zend\Http\Client\Exception
      * @return \Zend\Http\Response
      */
-    final public function restDelete($path)
+    public function restDelete($path)
     {
-        $this->_prepareRest($path);
-        return $this->getHttpClient()->request('DELETE');
+        $this->prepareRest($path);
+        return $this->getHttpClient()->setMethod('DELETE')->send();
     }
 
     /**
@@ -228,28 +263,28 @@ class RestClient extends \Zend\Service\AbstractService
 
         if (in_array(strtolower($method), $methods)) {
             if (!isset($args[0])) {
-                $args[0] = $this->_uri->getPath();
+                $args[0] = $this->uri->getPath();
             }
-            $this->_data['rest'] = 1;
-            $data = array_slice($args, 1) + $this->_data;
-            $response = $this->{'rest' . $method}($args[0], $data);
-            $this->_data = array();//Initializes for next Rest method.
+            $this->data['rest'] = 1;
+            $data               = array_slice($args, 1) + $this->data;
+            $response           = $this->{'rest' . $method}($args[0], $data);
+            $this->data         = array(); //Initializes for next Rest method.
             return new Result($response->getBody());
         } else {
             // More than one arg means it's definitely a Zend_Rest_Server
             if (count($args) == 1) {
                 // Uses first called function name as method name
-                if (!isset($this->_data['method'])) {
-                    $this->_data['method'] = $method;
-                    $this->_data['arg1']  = $args[0];
+                if (!isset($this->data['method'])) {
+                    $this->data['method'] = $method;
+                    $this->data['arg1']   = $args[0];
                 }
-                $this->_data[$method]  = $args[0];
+                $this->data[$method]  = $args[0];
             } else {
-                $this->_data['method'] = $method;
+                $this->data['method'] = $method;
                 if (count($args) > 0) {
                     foreach ($args as $key => $arg) {
                         $key = 'arg' . $key;
-                        $this->_data[$key] = $arg;
+                        $this->data[$key] = $arg;
                     }
                 }
             }

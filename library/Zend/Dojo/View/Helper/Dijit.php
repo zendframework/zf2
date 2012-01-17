@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,7 +36,7 @@ use Zend\Json\Json,
  * @uses       \Zend\View\Helper\HtmlElement
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Dijit extends HtmlElement
@@ -81,13 +81,13 @@ abstract class Dijit extends HtmlElement
      *
      * Set view and enable dojo
      *
-     * @param  \Zend\View\ViewEngine $view
+     * @param  \Zend\View\Renderer $view
      * @return \Zend\Dojo\View\Helper\Dijit
      */
     public function setView(View $view)
     {
         parent::setView($view);
-        $this->dojo = $this->view->broker('dojo');
+        $this->dojo = $this->view->plugin('dojo');
         $this->dojo->enable();
         return $this;
     }

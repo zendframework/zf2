@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,12 +24,14 @@
  */
 namespace Zend\View\Helper;
 
+use Zend\View\Exception\InvalidArgumentException;
+
 /**
  * @uses       \Zend\View\Helper\HtmlElement
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class HtmlObject extends HtmlElement
@@ -43,13 +45,14 @@ class HtmlObject extends HtmlElement
      * @param array  $params Params for in the object tag
      * @param string $content Alternative content for object
      * @return string
+     * @throws InvalidArgumentException
      */
-    public function direct($data = null, $type = null, array $attribs = array(), array $params = array(), $content = null)
+    public function __invoke($data = null, $type = null, array $attribs = array(), array $params = array(), $content = null)
     {
         if ($data == null || $type == null) {
-            throw new \InvalidArgumentException('HTMLObject: missing argument. $data and $type are required in htmlObject($data, $type, array $attribs = array(), array $params = array(), $content = null)');
+            throw new InvalidArgumentException('HTMLObject: missing argument. $data and $type are required in htmlObject($data, $type, array $attribs = array(), array $params = array(), $content = null)');
         }
-        
+
         // Merge data and type
         $attribs = array_merge(array('data' => $data,
                                      'type' => $type), $attribs);

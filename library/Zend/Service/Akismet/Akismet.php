@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Akismet
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,15 +29,10 @@ use Zend\Http,
 /**
  * Akismet REST service implementation
  *
- * @uses       Zend_Http_Client
- * @uses       Zend\Service\AbstractService
- * @uses       Zend\Service\Exception
- * @uses       Zend_Uri
- * @uses       Zend_Version
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Akismet
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Akismet extends \Zend\Service\AbstractService
@@ -105,7 +100,7 @@ class Akismet extends \Zend\Service\AbstractService
      */
     public function setBlogUrl($blogUrl)
     {
-        if (!Uri\Url::validate($blogUrl)) {
+        if (!Uri\UriFactory::factory($blogUrl)->isValid()) {
             throw new Exception\InvalidArgumentException('Invalid url provided for blog');
         }
 
@@ -238,8 +233,8 @@ class Akismet extends \Zend\Service\AbstractService
         ));
         $client->setParameterPost($params);
 
-        $client->setMethod(Http\Client::POST);
-        return $client->request();
+        $client->setMethod(Http\Request::METHOD_POST);
+        return $client->send();
     }
 
     /**

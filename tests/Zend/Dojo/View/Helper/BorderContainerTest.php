@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@ namespace ZendTest\Dojo\View\Helper;
 use Zend\Dojo\View\Helper\BorderContainer as BorderContainerHelper,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_View_Helper_BorderContainer.
@@ -32,7 +32,7 @@ use Zend\Dojo\View\Helper\BorderContainer as BorderContainerHelper,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_View
@@ -57,7 +57,7 @@ class BorderContainerTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
@@ -68,9 +68,9 @@ class BorderContainerTest extends \PHPUnit_Framework_TestCase
         foreach (array('top', 'bottom', 'center', 'left', 'right') as $pane) {
             $id      = $pane . 'Pane';
             $content = 'This is the content of pane ' . $pane;
-            $html   .= $this->view->contentPane($id, $content, array('region' => $pane));
+            $html   .= $this->view->plugin('contentPane')->__invoke($id, $content, array('region' => $pane));
         }
-        return $this->helper->direct('container', $html, array('design' => 'headline'));
+        return $this->helper->__invoke('container', $html, array('design' => 'headline'));
     }
 
     public function testShouldAllowDeclarativeDijitCreation()
@@ -84,7 +84,7 @@ class BorderContainerTest extends \PHPUnit_Framework_TestCase
         DojoHelper::setUseProgrammatic();
         $html = $this->getContainer();
         $this->assertNotRegexp('/<div[^>]*(dojoType="dijit.layout.BorderContainer")/', $html);
-        $this->assertNotNull($this->view->dojo()->getDijit('container'));
+        $this->assertNotNull($this->view->plugin('dojo')->getDijit('container'));
     }
 
     /**
@@ -95,7 +95,7 @@ class BorderContainerTest extends \PHPUnit_Framework_TestCase
         $this->getContainer();
         $this->getContainer();
         $style  = 'html, body { height: 100%; width: 100%; margin: 0; padding: 0; }';
-        $styles = $this->helper->view->headStyle()->toString();
+        $styles = $this->helper->getView()->plugin('headStyle')->toString();
         $this->assertEquals(1, substr_count($styles, $style), $styles);
     }
 }

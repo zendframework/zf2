@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,25 +23,28 @@
  * @namespace
  */
 namespace Zend\Tool\Project\Context\Content\Engine;
-use Zend\Tool\Project\Context;
+
+use Zend\Code\Generator\AbstractGenerator,
+    Zend\Code\Generator\FileGenerator,
+    Zend\Tool\Framework\Client\Storage,
+    Zend\Tool\Project\Context,
+    Zend\Tool\Project\Exception;
 
 /**
- * This class is the front most class for utilizing Zend_Tool_Project
+ * This class is the front most class for utilizing Zend\Tool\Project
  *
  * A profile is a hierarchical set of resources that keep track of
  * items within a specific project.
  *
- * @uses       \Zend\CodeGenerator\Php\PhpFile
- * @uses       \Zend\Tool\Project\Exception
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class CodeGenerator
 {
     /**
-     * @var \Zend\Tool\Framework\Client\Storage
+     * @var Storage
      */
     protected $_storage = null;
 
@@ -53,10 +56,10 @@ class CodeGenerator
     /**
      * __construct()
      *
-     * @param \Zend\Tool\Framework\Client\Storage $storage
+     * @param Storage $storage
      * @param string $contentPrefix
      */
-    public function __construct(\Zend\Tool\Framework\Client\Storage $storage, $contentPrefix)
+    public function __construct(Storage $storage, $contentPrefix)
     {
         $this->_storage       = $storage;
         $this->_contentPrefix = $contentPrefix;
@@ -89,13 +92,13 @@ class CodeGenerator
         if (method_exists($context, 'getCodeGenerator')) {
             $codeGenerator = $context->getCodeGenerator();
         } else {
-            $codeGenerator = new \Zend\CodeGenerator\Php\PhpFile();
+            $codeGenerator = new FileGenerator();
         }
 
         $codeGenerator = include $streamUri;
 
-        if (!$codeGenerator instanceof \Zend\CodeGenerator\AbstractCodeGenerator) {
-            throw new \Zend\Tool\Project\Exception('Custom file at ' . $streamUri . ' did not return the $codeGenerator object.');
+        if (!$codeGenerator instanceof AbstractGenerator) {
+            throw new Exception\RuntimeException('Custom file at ' . $streamUri . ' did not return the $codeGenerator object.');
         }
 
         return $codeGenerator->generate();

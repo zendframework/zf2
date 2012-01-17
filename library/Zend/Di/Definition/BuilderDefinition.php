@@ -2,12 +2,11 @@
 
 namespace Zend\Di\Definition;
 
-use Zend\Di\Definition,
-    Zend\Di\Exception;
+use Zend\Di\Exception;
 
 class BuilderDefinition implements Definition
 {
-    
+    protected $defaultClassBuilder = 'Zend\Di\Definition\Builder\PhpClass';
     protected $classes = array();
 
     public function createClassesFromArray(array $builderData)
@@ -25,8 +24,8 @@ class BuilderDefinition implements Definition
                     case 'instantiator':
                         $class->setInstantiator($typeData);
                         break;
-                    case 'injectionmethods':
-                    case 'injectionmethod':
+                    case 'methods':
+                    case 'method':
                         foreach ($typeData as $injectionMethodName => $injectionMethodData) {
                             $injectionMethod = new Builder\InjectionMethod();
                             $injectionMethod->setName($injectionMethodName);
@@ -48,6 +47,51 @@ class BuilderDefinition implements Definition
     {
         $this->classes[] = $phpClass;
         return $this;
+    }
+
+    /**
+     * Create a class builder object using default class builder class
+     *
+     * This method is a factory that can be used in place of addClass().
+     * 
+     * @param  null|string $name Optional name of class to assign
+     * @return Builder\PhpClass
+     */
+    public function createClass($name = null)
+    {
+        $builderClass = $this->defaultClassBuilder;
+        $class = new $builderClass();
+        if (null !== $name) {
+            $class->setName($name);
+        }
+
+        $this->addClass($class);
+        return $class;
+    }
+
+    /**
+     * Set the class to use with {@link createClass()}
+     * 
+     * @param  string $class 
+     * @return BuilderDefinition
+     */
+    public function setClassBuilder($class)
+    {
+        $this->defaultClassBuilder = $class;
+        return $this;
+    }
+
+    /**
+     * Get the class used for {@link createClass()}
+     *
+     * This is primarily to allow developers to temporarily override 
+     * the builder strategy.
+     * 
+     * @return string
+     */
+    public function getClassBuilder()
+    {
+        return $this->defaultClassBuilder;
     }
     
     public function getClasses()
@@ -97,7 +141,7 @@ class BuilderDefinition implements Definition
         return $class->getInstantiator();
     }
     
-    public function hasInjectionMethods($class)
+    public function hasMethods($class)
     {
         /* @var $class Zend\Di\Definition\Builder\PhpClass */
         $class = $this->getClass($class);
@@ -107,7 +151,7 @@ class BuilderDefinition implements Definition
         return (count($class->getInjectionMethods()) > 0);
     }
     
-    public function getInjectionMethods($class)
+    public function getMethods($class)
     {
         $class = $this->getClass($class);
         if ($class === false) {
@@ -121,7 +165,7 @@ class BuilderDefinition implements Definition
         return $methodNames;
     }
     
-    public function hasInjectionMethod($class, $method)
+    public function hasMethod($class, $method)
     {
         $class = $this->getClass($class);
         if ($class === false) {
@@ -135,8 +179,31 @@ class BuilderDefinition implements Definition
         }
         return false;
     }
+
+    /**
+     * @param $class
+     * @param $method
+     * @return bool
+     */
+    public function hasMethodParameters($class, $method)
+    {
+        $class = $this->getClass($class);
+        if ($class === false) {
+            return false;
+        }
+        $methods = $class->getInjectionMethods();
+        foreach ($methods as $methodObj) {
+            if ($methodObj->getName() === $method) {
+                $method = $methodObj;
+            }
+        }
+        if (!$method instanceof Builder\InjectionMethod) {
+            return false;
+        }
+        return (count($method->getParameters()) > 0);
+    }
     
-    public function getInjectionMethodParameters($class, $method)
+    public function getMethodParameters($class, $method)
     {
         $class = $this->getClass($class);
         if ($class === false) {
@@ -151,6 +218,12 @@ class BuilderDefinition implements Definition
         if (!$method instanceof Builder\InjectionMethod) {
             throw new Exception\RuntimeException('Cannot find method object for method ' . $method . ' in this builder definition.');
         }
-        return $method->getParameters();
+        $methodParameters = array();
+        foreach ($method->getParameters() as $name => $info) {
+            $methodParameters[$class->getName() . '::' . $method->getName() . ':' . $name] = $info;
+        }
+        return $methodParameters;
     }
+
+
 }

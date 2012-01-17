@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validate
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,11 +29,18 @@ use Zend\Db\Adapter\AbstractAdapter;
  * @category   Zend
  * @package    Zend_Validate
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class MockHasResult extends AbstractAdapter
 {
+    protected $_supportsParametersValues = array('named' => true, 'positional' => true);
+
+    public function setSupportsParametersValues(array $supportsParametersValues)
+    {
+        $this->_supportsParametersValues = $supportsParametersValues;
+    }
+
     /**
      * Returns an array to emulate a result
      *
@@ -110,7 +117,10 @@ class MockHasResult extends AbstractAdapter
     }
     public function supportsParameters($type)
     {
-        return null;
+        if (array_key_exists($type, $this->_supportsParametersValues)) {
+            return $this->_supportsParametersValues[$type];
+        }
+        return false;
     }
     public function getServerVersion()
     {

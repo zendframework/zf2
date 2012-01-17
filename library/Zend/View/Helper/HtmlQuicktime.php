@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,10 +29,10 @@ namespace Zend\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class HtmlQuicktime extends HtmlObject
+class HtmlQuicktime extends HtmlElement
 {
     /**
      * Default file type for a movie applet
@@ -69,18 +69,15 @@ class HtmlQuicktime extends HtmlObject
      * @param string $content Alternative content
      * @return string
      */
-    public function direct($data = null, array $attribs = array(), array $params = array(), $content = null)
+    public function __invoke($data, array $attribs = array(), array $params = array(), $content = null)
     {
-        if ($data == null) {
-            throw new \InvalidArgumentException('HTMLQuicktime: missing argument. $data is required in htmlQuicktime($data, array $attribs = array(), array $params = array(), $content = null)');
-        }
-        
         // Attrs
         $attribs = array_merge($this->_attribs, $attribs);
 
         // Params
         $params = array_merge(array('src' => $data), $params);
 
-        return parent::direct($data, self::TYPE, $attribs, $params, $content);
+        $htmlObject = $this->getView()->plugin('htmlObject');
+        return $htmlObject($data, self::TYPE, $attribs, $params, $content);
     }
 }

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,7 +26,7 @@ use Zend\Dojo\View\Helper\HorizontalSlider as HorizontalSliderHelper,
     Zend\Dojo\Form\Form as DojoForm,
     Zend\Dojo\Form\SubForm as DojoSubForm,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_View_Helper_HorizontalSlider.
@@ -34,7 +34,7 @@ use Zend\Dojo\View\Helper\HorizontalSlider as HorizontalSliderHelper,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_View
@@ -59,14 +59,14 @@ class HorizontalSliderTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
 
     public function getElement()
     {
-        return $this->helper->direct(
+        return $this->helper->__invoke(
             'elementId',
             '',
             array(
@@ -152,7 +152,7 @@ class HorizontalSliderTest extends \PHPUnit_Framework_TestCase
         DojoHelper::setUseProgrammatic();
         $html = $this->getElement();
         $this->assertNotRegexp('/<div[^>]*(dojoType="dijit.form.HorizontalSlider")/', $html);
-        $this->assertNotNull($this->view->dojo()->getDijit('elementId-slider'));
+        $this->assertNotNull($this->view->plugin('dojo')->getDijit('elementId-slider'));
     }
 
     public function testShouldCreateOnChangeAttributeByDefault()
@@ -195,7 +195,7 @@ class HorizontalSliderTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldAllowPassingLabelParametersViaDecorationParameters()
     {
-        $html = $this->helper->direct(
+        $html = $this->helper->__invoke(
             'elementId',
             '',
             array(

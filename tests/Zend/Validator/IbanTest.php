@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,18 +23,26 @@
  * @namespace
  */
 namespace ZendTest\Validator;
-use Zend\Validator;
+
+use ReflectionClass,
+    Zend\Registry,
+    Zend\Validator;
 
 /**
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
 class IbanTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        Registry::_unsetInstance();
+    }
+
     /**
      * Ensures that the validator follows expected behavior
      *
@@ -58,13 +66,13 @@ class IbanTest extends \PHPUnit_Framework_TestCase
     public function testSettingAndGettingLocale()
     {
         $validator = new Validator\Iban();
-        
+
         $validator->setLocale('de_DE');
         $this->assertEquals('de_DE', $validator->getLocale());
-        
+
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'IBAN validation');
         $validator->setLocale('de_QA');
-        
+
     }
 
     public function testInstanceWithLocale()
@@ -77,5 +85,50 @@ class IbanTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new Validator\Iban('en_US');
         $this->assertFalse($validator->isValid('AT611904300234573201'));
+    }
+
+    /**
+     * @group ZF-10556
+     */
+    public function testIbanDetectionWithoutLocale()
+    {
+        $validator = new Validator\Iban(false);
+        $this->assertTrue($validator->isValid('AT611904300234573201'));
+    }
+    
+    public function testEqualsMessageTemplates()
+    {
+        $validator = new Validator\Iban();
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageTemplates')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageTemplates');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageTemplates')
+        );
+    }
+    
+    public function testEqualsMessageVariables()
+    {
+        $validator = new Validator\Iban();
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageVariables')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageVariables');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageVariables')
+        );
     }
 }

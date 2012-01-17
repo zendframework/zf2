@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ use Zend\EventManager\EventManager;
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ValidatorChain extends EventManager
@@ -55,16 +55,16 @@ class ValidatorChain extends EventManager
         $validators = $storage->getMetadata('_VALID');
         if ($validators) {
             foreach ($validators as $validator => $data) {
-                $this->connect('session.validate', new $validator($data), 'isValid');
+                $this->attach('session.validate', new $validator($data), 'isValid');
             }
         }
     }
 
     /**
-     * Attach a handler to the session validator chain
+     * Attach a listener to the session validator chain
      * 
      * @param  string $event
-     * @param  callback $context 
+     * @param  callback $callback
      * @param  int $priority 
      * @return Zend\Stdlib\CallbackHandler
      */
@@ -86,8 +86,8 @@ class ValidatorChain extends EventManager
             $this->getStorage()->setMetadata('_VALID', array($name => $data));
         }
 
-        $handle = parent::connect($event, $callback, $priority);
-        return $handle;
+        $listener = parent::attach($event, $callback, $priority);
+        return $listener;
     }
 
     /**

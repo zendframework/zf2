@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Technorati
@@ -60,9 +60,9 @@ class Zend_Service_Technorati_TagResultTest extends Zend_Service_Technorati_Test
         $object = new Zend_Service_Technorati_TagResult($this->domElements->item(1));
 
         // check properties
-        $this->assertType('string', $object->getTitle());
+        $this->assertInternalType('string', $object->getTitle());
         $this->assertContains('Permalink for : VerveEarth', $object->getTitle());
-        $this->assertType('string', $object->getExcerpt());
+        $this->assertInternalType('string', $object->getExcerpt());
         $this->assertContains('VerveEarth: Locate Your Blog!', $object->getExcerpt());
         $this->assertType('Zend_Uri_Http', $object->getPermalink());
         $this->assertEquals(Zend_Uri::factory('http://scienceroll.com/2007/11/14/verveearth-locate-your-blog/'), $object->getPermalink());

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend\Service\Rackspace
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ use Zend\Service\Rackspace\Files as RackspaceFiles,
  * @category   Zend
  * @package    Zend\Service\Rackspace\Files
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend\Service
  * @group      Zend\Service\Rackspace
@@ -68,7 +68,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->_files = new RackspaceFiles(TESTS_ZEND_SERVICE_RACKSPACE_ONLINE_USER,TESTS_ZEND_SERVICE_RACKSPACE_ONLINE_KEY);
+        $this->_files = new RackspaceFiles('foo','bar');
         $this->_filesPath   = __DIR__ . '/_files';
         $this->_httpClientAdapterTest = new HttpTest();
     }
@@ -93,7 +93,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
             'Zend\Service\Rackspace\Exception\InvalidArgumentException',
             'The user cannot be empty'
         );
-        $file= new RackspaceFiles(null,TESTS_ZEND_SERVICE_RACKSPACE_ONLINE_KEY);
+        $file= new RackspaceFiles(null,'bar');
     }
     /**
      * Ensures that __construct() throws an exception when given an empty secret attribute
@@ -106,7 +106,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
             'Zend\Service\Rackspace\Exception\InvalidArgumentException',
             'The key cannot be empty'
         );
-        $file= new RackspaceFiles(TESTS_ZEND_SERVICE_RACKSPACE_ONLINE_USER,null);
+        $file= new RackspaceFiles('foo',null);
     }
     /**
      * Test the default authentication URL
@@ -167,8 +167,8 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->_files->authenticate(),'Authentication failed');
         $this->assertTrue($this->_files->isSuccessful(),'Authentication call failed');
         $this->assertEquals($this->_files->getToken(),'0f0223cd-f157-4d04-bb2d-ccda1a5643af','The token is not valid');
-        $this->assertEquals($this->_files->getStorageUrl(),'https://storage101.ord1.clouddrive.com/v1/MossoCloudFS_2abf18d2-f3f8-45fd-940e-a7b38a195023','The storage URL is not valid');
-        $this->assertEquals($this->_files->getCdnUrl(),'https://cdn2.clouddrive.com/v1/MossoCloudFS_2abf18d2-f3f8-45fd-940e-a7b38a195023','The CDN URL is not valid');
+        $this->assertEquals($this->_files->getStorageUrl(),'https://storage101.ord1.clouddrive.com/v1/test','The storage URL is not valid');
+        $this->assertEquals($this->_files->getCdnUrl(),'https://cdn2.clouddrive.com/v1/test','The CDN URL is not valid');
     }
     /**
      * Test the authentication error (401 Unauthorized - Bad username or password)
@@ -184,7 +184,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($this->_files->authenticate());
         $this->assertFalse($this->_files->isSuccessful());
-        $this->assertEquals($this->_files->getErrorStatus(),'401');
+        $this->assertEquals($this->_files->getErrorCode(),'401');
         $this->assertEquals($this->_files->getErrorMsg(),'Bad username or password');
 
     }

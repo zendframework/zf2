@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Yahoo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,7 @@
  * @category   Zend
  * @package    Zend_Service_Yahoo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Yahoo
@@ -336,7 +336,7 @@ class Zend_Service_Yahoo_OnlineTest extends PHPUnit_Framework_TestCase
     /**
      * Ensures that webSearch() works as expected when searching for 'php'
      *
-     *  @see ZF-2358
+     * @group ZF-2358
      */
     public function testWebSearchForSite()
     {
@@ -359,7 +359,7 @@ class Zend_Service_Yahoo_OnlineTest extends PHPUnit_Framework_TestCase
  * @category   Zend
  * @package    Zend_Service_Yahoo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Yahoo

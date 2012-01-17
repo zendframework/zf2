@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ namespace Zend\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FormMultiCheckbox extends FormRadio
@@ -66,11 +66,8 @@ class FormMultiCheckbox extends FormRadio
      *
      * @return string The radio buttons XHTML.
      */
-    public function direct($name = null, $value = null, $attribs = null, $options = null, $listsep = "<br />\n")
+    public function __invoke($name, $value = null, $attribs = null, $options = null, $listsep = "<br />\n")
     {
-        if ($name == null) {
-            throw new \InvalidArgumentException('FormMultiCheckbox: missing argument. $name is required in formMultiCheckbox($name, $value = null, $attribs = null, $options = null, $listsep = "<br />\n")');
-        }
-        return parent::direct($name, $value, $attribs, $options, $listsep);
+        return parent::__invoke($name, $value, $attribs, $options, $listsep);
     }
 }

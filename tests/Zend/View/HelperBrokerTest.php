@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ use Zend\View\HelperBroker,
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  */
@@ -41,7 +41,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesHelperLoaderAsDefaultClassLoader()
     {
-        $this->assertType('Zend\View\HelperLoader', $this->broker->getClassLoader());
+        $this->assertInstanceOf('Zend\View\HelperLoader', $this->broker->getClassLoader());
     }
 
     public function testViewIsNullByDefault()
@@ -72,14 +72,14 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisteringInvalidHelperRaisesException()
     {
-        $this->setExpectedException('Zend\View\InvalidHelperException');
+        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
         $this->broker->register('test', $this);
     }
 
     public function testLoadingInvalidHelperRaisesException()
     {
         $this->broker->getClassLoader()->registerPlugin('test', get_class($this));
-        $this->setExpectedException('Zend\View\InvalidHelperException');
+        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
         $this->broker->register('test', $this);
     }
 }

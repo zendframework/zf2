@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,7 +26,7 @@ use Zend\Form\Decorator,
     Zend\Form\Element,
     Zend\Form\Form,
     Zend\Config\Config,
-    Zend\Loader\PluginLoader;
+    Zend\Loader\PrefixPathLoader;
 
 /**
  * Test class for Zend_Form_Decorator_Abstract
@@ -36,7 +36,7 @@ use Zend\Form\Decorator,
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Form
  */
@@ -93,7 +93,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testSetElementAllowsDisplayGroups()
     {
-        $loader = new PluginLoader(array('Zend\Form\Decorator' => 'Zend/Form/Decorator'));
+        $loader = new PrefixPathLoader(array('Zend\Form\Decorator' => 'Zend/Form/Decorator'));
         $group  = new DisplayGroup('foo', $loader);
         $this->decorator->setElement($group);
         $this->assertSame($group, $this->decorator->getElement());

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,7 +25,7 @@ use Zend\Dojo\Form\Decorator\DijitElement as DijitElementDecorator,
     Zend\Dojo\Form\Element\TextBox as TextBoxElement,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_Form_Decorator_DijitElement.
@@ -33,7 +33,7 @@ use Zend\Dojo\Form\Decorator\DijitElement as DijitElementDecorator,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_Form
@@ -61,7 +61,7 @@ class DijitElementTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
@@ -116,12 +116,12 @@ class DijitElementTest extends \PHPUnit_Framework_TestCase
     public function testRenderingShouldEnableDojo()
     {
         $html = $this->decorator->render('');
-        $this->assertTrue($this->view->dojo()->isEnabled());
+        $this->assertTrue($this->view->plugin('dojo')->isEnabled());
     }
 
     public function testRenderingShouldTriggerErrorWhenDuplicateDijitDetected()
     {
-        $this->view->dojo()->addDijit('foo', array('dojoType' => 'dijit.form.TextBox'));
+        $this->view->plugin('dojo')->addDijit('foo', array('dojoType' => 'dijit.form.TextBox'));
 
         $handler = set_error_handler(array($this, 'handleError'));
         $html = $this->decorator->render('');

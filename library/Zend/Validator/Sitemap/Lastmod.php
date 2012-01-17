@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validate
  * @subpackage Sitemap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ namespace Zend\Validator\Sitemap;
  * @category   Zend
  * @package    Zend_Validate
  * @subpackage Sitemap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Lastmod extends \Zend\Validator\AbstractValidator
@@ -57,7 +57,7 @@ class Lastmod extends \Zend\Validator\AbstractValidator
      * @var array
      */
     protected $_messageTemplates = array(
-        self::NOT_VALID => "'%value%' is no valid sitemap lastmod",
+        self::NOT_VALID => "'%value%' is not a valid sitemap lastmod",
         self::INVALID   => "Invalid type given. String expected",
     );
 
@@ -72,14 +72,14 @@ class Lastmod extends \Zend\Validator\AbstractValidator
     public function isValid($value)
     {
         if (!is_string($value)) {
-            $this->_error(self::INVALID);
+            $this->error(self::INVALID);
             return false;
         }
 
-        $this->_setValue($value);
+        $this->setValue($value);
         $result = @preg_match(self::LASTMOD_REGEX, $value);
         if ($result != 1) {
-            $this->_error(self::NOT_VALID);
+            $this->error(self::NOT_VALID);
             return false;
         }
 

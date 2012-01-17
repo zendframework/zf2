@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Technorati
@@ -60,9 +60,9 @@ class Zend_Service_Technorati_TagsResultTest extends Zend_Service_Technorati_Tes
         $object = new Zend_Service_Technorati_TagsResult($this->domElements->item(2));
 
         // check properties
-        $this->assertType('string', $object->getTag());
+        $this->assertInternalType('string', $object->getTag());
         $this->assertEquals('Weblog', $object->getTag());
-        $this->assertType('integer', $object->getPosts());
+        $this->assertInternalType('integer', $object->getPosts());
         $this->assertEquals(8336350, $object->getPosts());
     }
 

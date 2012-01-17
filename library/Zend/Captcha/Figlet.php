@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ namespace Zend\Captcha;
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Figlet extends Word
@@ -72,11 +72,11 @@ class Figlet extends Word
     /**
      * Display the captcha
      *
-     * @param Zend_View_Interface $view
+     * @param \Zend\View\Renderer $view
      * @param mixed $element
      * @return string
      */
-    public function render(\Zend\View\ViewEngine $view = null, $element = null)
+    public function render(\Zend\View\Renderer $view = null, $element = null)
     {
         return '<pre>'
              . $this->_figlet->render($this->getWord())

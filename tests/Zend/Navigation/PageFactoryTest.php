@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Navigation
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ use Zend\Navigation\AbstractPage,
  * @category   Zend
  * @package    Zend_Navigation
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Navigation
  */
@@ -73,7 +73,7 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             'uri' => '#'
         ));
 
-        $this->assertType('Zend\Navigation\Page\Uri', $page);
+        $this->assertInstanceOf('Zend\\Navigation\\Page\\Uri', $page);
     }
 
     public function testMvcShouldHaveDetectionPrecedence()
@@ -85,7 +85,7 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             'uri' => '#'
         ));
 
-        $this->assertType('Zend\Navigation\Page\Mvc', $page);
+        $this->assertInstanceOf('Zend\\Navigation\\Page\\Mvc', $page);
     }
 
     public function testSupportsMvcShorthand()
@@ -97,7 +97,7 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             'controller' => 'index'
         ));
 
-        $this->assertType('Zend\Navigation\Page\Mvc', $mvcPage);
+        $this->assertInstanceOf('Zend\\Navigation\\Page\\Mvc', $mvcPage);
     }
 
     public function testSupportsUriShorthand()
@@ -108,7 +108,7 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             'uri' => 'http://www.example.com/'
         ));
 
-        $this->assertType('Zend\Navigation\Page\Uri', $uriPage);
+        $this->assertInstanceOf('Zend\\Navigation\\Page\\Uri', $uriPage);
     }
 
     public function testSupportsCustomPageTypes()
@@ -118,7 +118,7 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             'label' => 'My Custom Page'
         ));
 
-        return $this->assertType('ZendTest\Navigation\TestAsset\Page', $page);
+        return $this->assertInstanceOf('ZendTest\\Navigation\\TestAsset\\Page', $page);
     }
 
     public function testShouldFailForInvalidType()

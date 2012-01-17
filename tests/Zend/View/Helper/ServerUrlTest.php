@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ use Zend\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -67,7 +67,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_HOST'] = 'example.com';
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com', $url->direct());
+        $this->assertEquals('http://example.com', $url->__invoke());
     }
 
     public function testConstructorWithOnlyHostIncludingPort()
@@ -75,7 +75,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_HOST'] = 'example.com:8000';
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com:8000', $url->direct());
+        $this->assertEquals('http://example.com:8000', $url->__invoke());
     }
 
     public function testConstructorWithHostAndHttpsOn()
@@ -84,7 +84,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTPS'] = 'on';
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('https://example.com', $url->direct());
+        $this->assertEquals('https://example.com', $url->__invoke());
     }
 
     public function testConstructorWithHostAndHttpsTrue()
@@ -93,7 +93,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTPS'] = true;
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('https://example.com', $url->direct());
+        $this->assertEquals('https://example.com', $url->__invoke());
     }
 
     public function testConstructorWithHostIncludingPortAndHttpsTrue()
@@ -102,7 +102,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTPS'] = true;
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('https://example.com:8181', $url->direct());
+        $this->assertEquals('https://example.com:8181', $url->__invoke());
     }
 
     public function testConstructorWithHttpHostAndServerNameAndPortSet()
@@ -112,7 +112,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['SERVER_PORT'] = 8080;
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com', $url->direct());
+        $this->assertEquals('http://example.com', $url->__invoke());
     }
 
     public function testConstructorWithNoHttpHostButServerNameAndPortSet()
@@ -122,7 +122,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['SERVER_PORT'] = 8080;
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.org:8080', $url->direct());
+        $this->assertEquals('http://example.org:8080', $url->__invoke());
     }
 
     public function testServerUrlWithTrueParam()
@@ -132,7 +132,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['REQUEST_URI'] = '/foo.html';
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com/foo.html', $url->direct(true));
+        $this->assertEquals('http://example.com/foo.html', $url->__invoke(true));
     }
 
     public function testServerUrlWithInteger()
@@ -142,7 +142,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['REQUEST_URI'] = '/foo.html';
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com', $url->direct(1337));
+        $this->assertEquals('http://example.com', $url->__invoke(1337));
     }
 
     public function testServerUrlWithObject()
@@ -152,6 +152,6 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['REQUEST_URI'] = '/foo.html';
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com', $url->direct(new \stdClass()));
+        $this->assertEquals('http://example.com', $url->__invoke(new \stdClass()));
     }
 }

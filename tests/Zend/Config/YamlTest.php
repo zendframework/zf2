@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Config
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: IniTest.php 18950 2009-11-12 15:37:56Z alexander $
  */
@@ -29,7 +29,7 @@ use Zend\Config\Yaml as YamlConfig,
  * @category   Zend
  * @package    Zend_Config
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Config
  */
@@ -46,6 +46,11 @@ class YamlTest extends \PHPUnit_Framework_TestCase
         $this->_badIndentationConfig      = __DIR__ . '/_files/badindentation.yaml';
         $this->_booleansConfig            = __DIR__ . '/_files/booleans.yaml';
         $this->_constantsConfig           = __DIR__ . '/_files/constants.yaml';
+        $this->_yamlInlineCommentsConfig  = dirname(__FILE__) . '/_files/inlinecomments.yaml';
+        $this->_yamlIndentedCommentsConfig  = dirname(__FILE__) . '/_files/indentedcomments.yaml';
+        $this->_yamlListConstantsConfig     = dirname(__FILE__) . '/_files/listconstants.yaml';
+        $this->_listBooleansConfig          = dirname(__FILE__) . '/_files/listbooleans.yaml';
+        
     }
 
     public function testLoadSingleSection()
@@ -112,7 +117,10 @@ class YamlTest extends \PHPUnit_Framework_TestCase
         $config = new YamlConfig($this->_iniFileConfig, 'extendserror');
     }
 
-    public function testZF413_MultiSections()
+    /**
+     * @group ZF-413
+     */
+    public function testMultiSections()
     {
         $config = new YamlConfig($this->_iniFileAllSectionsConfig, array('staging','other_staging'));
 
@@ -121,14 +129,20 @@ class YamlTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testZF413_AllSections()
+    /**
+     * @group ZF-413
+     */
+    public function testAllSections()
     {
         $config = new YamlConfig($this->_iniFileAllSectionsConfig, null);
         $this->assertEquals('otherStaging', $config->other_staging->only_in);
         $this->assertEquals('staging', $config->staging->hostname);
     }
 
-    public function testZF414()
+    /**
+     * @group ZF-414
+     */
+    public function testGetSectionNameAndAreAllSectionsLoaded()
     {
         $config = new YamlConfig($this->_iniFileAllSectionsConfig, null);
         $this->assertEquals(null, $config->getSectionName());
@@ -143,7 +157,10 @@ class YamlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(false, $config->areAllSectionsLoaded());
     }
 
-    public function testZF415()
+    /**
+     * @group ZF-415
+     */
+    public function testErrorCircularInheritance()
     {
         $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'circular inheritance');
         $config = new YamlConfig($this->_iniFileCircularConfig, null);
@@ -173,7 +190,10 @@ class YamlTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testZF3196_InvalidIniFile()
+    /**
+     * @group ZF-3196
+     */
+    public function testInvalidIniFile()
     {
         try {
             $config = new YamlConfig($this->_iniFileInvalid);
@@ -184,7 +204,10 @@ class YamlTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testZF2285_MultipleKeysOfTheSameName()
+    /**
+     * @group ZF-2285
+     */
+    public function testMultipleKeysOfTheSameName()
     {
         $config = new YamlConfig($this->_iniFileSameNameKeysConfig, null);
         $this->assertEquals('2a', $config->one->two->{0});
@@ -193,7 +216,10 @@ class YamlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('5', $config->three->four->{0}->five);
     }
 
-    public function testZF2437_ArraysWithMultipleChildren()
+    /**
+     * @group ZF-2437
+     */
+    public function testArraysWithMultipleChildren()
     {
         $config = new YamlConfig($this->_iniFileSameNameKeysConfig, null);
         $this->assertEquals('1', $config->six->seven->{0}->eight);
@@ -223,10 +249,23 @@ class YamlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array($this, 'yamlDecoder'), $config->getYamlDecoder());
     }
 
-    public function testConstructorRaisesExceptionWhenUnableToLoadFile()
+    public function testFileNotFound()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'file_get_contents');
-        $config = new YamlConfig('__foo__');
+        try {
+            $file = '__foo__';
+            $config = new YamlConfig($file);
+            $this->fail('Missing expected exception');
+        } catch (Exception\RuntimeException $e) {
+            // read exception stack
+            do {
+                $stack[] = $e;
+            } while ( ($e = $e->getPrevious()) );
+
+            // test two thrown exceptions
+            $this->assertEquals(2, count($stack));
+            $this->assertContains($file, $stack[0]->getMessage());
+            $this->assertContains('file_get_contents', $stack[1]->getMessage());
+        }
     }
 
     public function testBadIndentationRaisesException()
@@ -303,4 +342,79 @@ class YamlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('ZEND_CONFIG_YAML_ENV', $config->env);
         $this->assertEquals('ZEND_CONFIG_YAML_ENV_PATH/test/this', $config->path);
     }
+
+    /**
+     * @group ZF-11329
+     */
+    public function testAllowsInlineCommentsInValuesUsingHash()
+    {
+        $config = new YamlConfig($this->_yamlInlineCommentsConfig, null);
+        $this->assertSame(
+            'APPLICATION_PATH/controllers',
+            $config->resources->frontController->controllerDirectory
+        );
+    }
+    
+    /**
+     * @group ZF-11384
+     */
+    public function testAllowsIndentedCommentsUsingHash()
+    {
+        $config = new YamlConfig($this->_yamlIndentedCommentsConfig, null);
+        $this->assertSame(
+            'APPLICATION_PATH/controllers',
+            $config->resources->frontController->controllerDirectory
+        );
+    }
+    
+    /**
+     * @group ZF-11702
+     */
+    public function testAllowsConstantsInLists()
+    {
+        if (!defined('ZEND_CONFIG_YAML_TEST_PATH')) {
+            define('ZEND_CONFIG_YAML_TEST_PATH', 'testing');
+        }        
+        $config = new YamlConfig($this->_yamlListConstantsConfig, 'production');
+
+        $this->assertEquals(ZEND_CONFIG_YAML_TEST_PATH, $config->paths->{0});
+        $this->assertEquals(ZEND_CONFIG_YAML_TEST_PATH . '/library/test', $config->paths->{1});
+    }
+    
+    /**
+     * @group ZF-11702
+     */
+    public function testAllowsBooleansInLists()
+    {
+        $config = new YamlConfig($this->_listBooleansConfig, 'production');
+
+        $this->assertTrue($config->usingLowerCasedYes->{0});
+        $this->assertTrue($config->usingTitleCasedYes->{0});
+        $this->assertTrue($config->usingCapitalYes->{0});
+        $this->assertTrue($config->usingLowerY->{0});
+        $this->assertTrue($config->usingUpperY->{0});
+
+        $this->assertFalse($config->usingLowerCasedNo->{0});
+        $this->assertFalse($config->usingTitleCasedNo->{0});
+        $this->assertFalse($config->usingCapitalNo->{0});
+        $this->assertFalse($config->usingLowerN->{0});
+        $this->assertFalse($config->usingUpperN->{0});
+
+        $this->assertTrue($config->usingLowerCasedTrue->{0});
+        $this->assertTrue($config->usingTitleCasedTrue->{0});
+        $this->assertTrue($config->usingCapitalTrue->{0});
+
+        $this->assertFalse($config->usingLowerCasedFalse->{0});
+        $this->assertFalse($config->usingTitleCasedFalse->{0});
+        $this->assertFalse($config->usingCapitalFalse->{0});
+
+        $this->assertTrue($config->usingLowerCasedOn->{0});
+        $this->assertTrue($config->usingTitleCasedOn->{0});
+        $this->assertTrue($config->usingCapitalOn->{0});
+
+        $this->assertFalse($config->usingLowerCasedOff->{0});
+        $this->assertFalse($config->usingTitleCasedOff->{0});
+        $this->assertFalse($config->usingCapitalOff->{0});
+    }
+        
 }

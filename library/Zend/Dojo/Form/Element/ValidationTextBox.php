@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace Zend\Dojo\Form\Element;
  * @uses       \Zend\Dojo\Form\Element\TextBox
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ValidationTextBox extends TextBox
@@ -133,6 +133,8 @@ class ValidationTextBox extends TextBox
      */
     public function setConstraints(array $constraints)
     {
+        $tmp = $this->getConstraints();
+        $constraints = array_merge($tmp, $constraints);
         array_walk_recursive($constraints, array($this, '_castBoolToString'));
         $this->setDijitParam('constraints', $constraints);
         return $this;

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Amf
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -53,7 +53,7 @@ use Zend\Amf\Exception,
  * @uses       Zend\Session\Container
  * @package    Zend_Amf
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Server implements \Zend\Server\Server
@@ -791,7 +791,7 @@ class Server implements \Zend\Server\Server
 
         $this->_classAllowed[is_object($class) ? get_class($class) : $class] = true;
 
-        $this->_methods[] = Reflection\Reflection::reflectClass($class, $argv, $namespace);
+        $this->_methods[] = Reflection::reflectClass($class, $argv, $namespace);
         $this->_buildDispatchTable();
 
         return $this;
@@ -825,7 +825,7 @@ class Server implements \Zend\Server\Server
             if (!is_string($func) || !function_exists($func)) {
                 throw new Exception\InvalidArgumentException('Unable to attach function');
             }
-            $this->_methods[] = Reflection\Reflection::reflectFunction($func, $argv, $namespace);
+            $this->_methods[] = Reflection::reflectFunction($func, $argv, $namespace);
         }
 
         $this->_buildDispatchTable();

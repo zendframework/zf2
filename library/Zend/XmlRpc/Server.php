@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -75,7 +75,7 @@ use Zend\Server\AbstractServer,
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Server extends AbstractServer
@@ -210,7 +210,7 @@ class Server extends AbstractServer
             if (!is_string($func) || !function_exists($func)) {
                 throw new Server\Exception\InvalidArgumentException('Unable to attach function; invalid', 611);
             }
-            $reflection = Reflection\Reflection::reflectFunction($func, $argv, $namespace);
+            $reflection = Reflection::reflectFunction($func, $argv, $namespace);
             $this->_buildSignature($reflection);
         }
     }
@@ -244,7 +244,7 @@ class Server extends AbstractServer
             $argv = array_slice($argv, 2);
         }
 
-        $dispatchable = Reflection\Reflection::reflectClass($class, $argv, $namespace);
+        $dispatchable = Reflection::reflectClass($class, $argv, $namespace);
         foreach ($dispatchable->getMethods() as $reflection) {
             $this->_buildSignature($reflection, $class);
         }

@@ -14,7 +14,7 @@
  *
  * @category  Zend
  * @package   Zend_File_Transfer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ use Zend\File\Transfer,
  * @uses      \Zend\ProgressBar\ProgressBar
  * @category  Zend
  * @package   Zend_File_Transfer
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Http extends AbstractAdapter
@@ -139,7 +139,8 @@ class Http extends AbstractAdapter
                 'name'  => $files,
                 'error' => 1));
             $validator = $this->_validators['Zend\Validator\File\Upload'];
-            $validator->setFiles($temp)
+            $validator->setTranslator($this->getTranslator())
+                      ->setFiles($temp)
                       ->isValid($files, null);
             $this->_messages += $validator->getMessages();
             return false;

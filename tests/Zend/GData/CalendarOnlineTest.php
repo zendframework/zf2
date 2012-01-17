@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_GData_Calendar
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\GData\Calendar;
  * @category   Zend
  * @package    Zend_GData_Calendar
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_GData
  * @group      Zend_GData_Calendar
@@ -65,7 +65,7 @@ class CalendarOnlineTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see ZF-1701
+     * @group ZF-1701
      */
     /*
     public function testCalendarOnlineFeed()

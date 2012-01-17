@@ -14,14 +14,14 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
 namespace Zend\Validator;
+
+use Traversable,
+    Zend\Stdlib\IteratorToArray;
 
 /**
  * @uses       \Zend\Validator\AbstractValidator
@@ -29,7 +29,7 @@ namespace Zend\Validator;
  * @uses       \Zend\Validator\Exception
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class CreditCard extends AbstractValidator
@@ -76,11 +76,30 @@ class CreditCard extends AbstractValidator
     );
 
     /**
+     * List of CCV names
+     *
+     * @var array
+     */
+    protected $cardName = array(
+        0  => self::AMERICAN_EXPRESS,
+        1  => self::DINERS_CLUB,
+        2  => self::DINERS_CLUB_US,
+        3  => self::DISCOVER,
+        4  => self::JCB,
+        5  => self::LASER,
+        6  => self::MAESTRO,
+        7  => self::MASTERCARD,
+        8  => self::SOLO,
+        9  => self::UNIONPAY,
+        10 => self::VISA,
+    );
+
+    /**
      * List of allowed CCV lengths
      *
      * @var array
      */
-    protected $_cardLength = array(
+    protected $cardLength = array(
         self::AMERICAN_EXPRESS => array(15),
         self::DINERS_CLUB      => array(14),
         self::DINERS_CLUB_US   => array(16),
@@ -99,7 +118,7 @@ class CreditCard extends AbstractValidator
      *
      * @var array
      */
-    protected $_cardType = array(
+    protected $cardType = array(
         self::AMERICAN_EXPRESS => array('34', '37'),
         self::DINERS_CLUB      => array('300', '301', '302', '303', '304', '305', '36'),
         self::DINERS_CLUB_US   => array('54', '55'),
@@ -122,28 +141,24 @@ class CreditCard extends AbstractValidator
     );
 
     /**
-     * CCIs which are accepted by validation
+     * Options for this validator
      *
      * @var array
      */
-    protected $_type = array();
-
-    /**
-     * Service callback for additional validation
-     *
-     * @var callback
-     */
-    protected $_service;
+    protected $options = array(
+        'service' => null,     // Service callback for additional validation
+        'type'    => array(),  // CCIs which are accepted by validation
+    );
 
     /**
      * Constructor
      *
-     * @param string|array $type OPTIONAL Type of CCI to allow
+     * @param string|array|Traversable $type OPTIONAL Type of CCI to allow
      */
     public function __construct($options = array())
     {
-        if ($options instanceof \Zend\Config\Config) {
-            $options = $options->toArray();
+        if ($options instanceof Traversable) {
+            $options = IteratorToArray::convert($options);
         } else if (!is_array($options)) {
             $options = func_get_args();
             $temp['type'] = array_shift($options);
@@ -159,9 +174,14 @@ class CreditCard extends AbstractValidator
         }
 
         $this->setType($options['type']);
+        unset($options['type']);
+
         if (array_key_exists('service', $options)) {
             $this->setService($options['service']);
+            unset($options['service']);
         }
+
+        parent::__construct($options);
     }
 
     /**
@@ -171,26 +191,26 @@ class CreditCard extends AbstractValidator
      */
     public function getType()
     {
-        return $this->_type;
+        return $this->options['type'];
     }
 
     /**
      * Sets CCIs which are accepted by validation
      *
-     * @param string|array $type Type to allow for validation
-     * @return \Zend\Validator\CreditCard Provides a fluid interface
+     * @param  string|array $type Type to allow for validation
+     * @return CreditCard Provides a fluid interface
      */
     public function setType($type)
     {
-        $this->_type = array();
+        $this->options['type'] = array();
         return $this->addType($type);
     }
 
     /**
      * Adds a CCI to be accepted by validation
      *
-     * @param string|array $type Type to allow for validation
-     * @return \Zend\Validator\CreditCard Provides a fluid interface
+     * @param  string|array $type Type to allow for validation
+     * @return CreditCard Provides a fluid interface
      */
     public function addType($type)
     {
@@ -199,12 +219,12 @@ class CreditCard extends AbstractValidator
         }
 
         foreach($type as $typ) {
-            if (defined('self::' . strtoupper($typ)) && !in_array($typ, $this->_type)) {
-                $this->_type[] = $typ;
+            if (defined('self::' . strtoupper($typ)) && !in_array($typ, $this->options['type'])) {
+                $this->options['type'][] = $typ;
             }
 
             if (($typ == self::ALL)) {
-                $this->_type = array_keys($this->_cardLength);
+                $this->options['type'] = array_keys($this->cardLength);
             }
         }
 
@@ -218,13 +238,15 @@ class CreditCard extends AbstractValidator
      */
     public function getService()
     {
-        return $this->_service;
+        return $this->options['service'];
     }
 
     /**
      * Sets a new callback for service validation
      *
-     * @param unknown_type $service
+     * @param  callable $service
+     * @return CreditCard
+     * @throws Exception\InvalidArgumentException on invalid service callback
      */
     public function setService($service)
     {
@@ -232,7 +254,7 @@ class CreditCard extends AbstractValidator
             throw new Exception\InvalidArgumentException('Invalid callback given');
         }
 
-        $this->_service = $service;
+        $this->options['service'] = $service;
         return $this;
     }
 
@@ -244,15 +266,15 @@ class CreditCard extends AbstractValidator
      */
     public function isValid($value)
     {
-        $this->_setValue($value);
+        $this->setValue($value);
 
         if (!is_string($value)) {
-            $this->_error(self::INVALID, $value);
+            $this->error(self::INVALID, $value);
             return false;
         }
 
         if (!ctype_digit($value)) {
-            $this->_error(self::CONTENT, $value);
+            $this->error(self::CONTENT, $value);
             return false;
         }
 
@@ -261,10 +283,10 @@ class CreditCard extends AbstractValidator
         $foundp = false;
         $foundl = false;
         foreach ($types as $type) {
-            foreach ($this->_cardType[$type] as $prefix) {
+            foreach ($this->cardType[$type] as $prefix) {
                 if (substr($value, 0, strlen($prefix)) == $prefix) {
                     $foundp = true;
-                    if (in_array($length, $this->_cardLength[$type])) {
+                    if (in_array($length, $this->cardLength[$type])) {
                         $foundl = true;
                         break 2;
                     }
@@ -273,12 +295,12 @@ class CreditCard extends AbstractValidator
         }
 
         if ($foundp == false){
-            $this->_error(self::PREFIX, $value);
+            $this->error(self::PREFIX, $value);
             return false;
         }
 
         if ($foundl == false) {
-            $this->_error(self::LENGTH, $value);
+            $this->error(self::LENGTH, $value);
             return false;
         }
 
@@ -292,20 +314,21 @@ class CreditCard extends AbstractValidator
         }
 
         if ((10 - $sum % 10) % 10 != $value[$length - 1]) {
-            $this->_error(self::CHECKSUM, $value);
+            $this->error(self::CHECKSUM, $value);
             return false;
         }
 
-        if (!empty($this->_service)) {
+        $service = $this->getService();
+        if (!empty($service)) {
             try {
-                $callback = new Callback($this->_service);
-                $callback->setOptions($this->_type);
+                $callback = new Callback($service);
+                $callback->setOptions($this->getType());
                 if (!$callback->isValid($value)) {
-                    $this->_error(self::SERVICE, $value);
+                    $this->error(self::SERVICE, $value);
                     return false;
                 }
             } catch (\Exception $e) {
-                $this->_error(self::SERVICEFAILURE, $value);
+                $this->error(self::SERVICEFAILURE, $value);
                 return false;
             }
         }

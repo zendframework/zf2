@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Http_Client
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,7 +36,7 @@ use Zend\Http\Client;
  * @category   Zend
  * @package    Zend_Http_Client
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Http
  * @group      Zend_Http_Client
@@ -50,6 +50,8 @@ class ProxyAdapterTest extends SocketTest
      */
     protected function setUp()
     {
+        $this->markTestIncomplete('Proxy adapter incomplete at the moment');
+
         if (defined('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY') &&
               TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY) {
 
@@ -108,7 +110,7 @@ class ProxyAdapterTest extends SocketTest
             $this->markTestSkipped("Server does not allow the TRACE method");
         }
 
-        $this->assertEquals($this->client->getLastRequest(), $res->getBody(), 'Response body should be exactly like the last request');
+        $this->assertEquals($this->client->getLastRawRequest(), $res->getBody(), 'Response body should be exactly like the last request');
     }
 
     public function testGetLastRequest()

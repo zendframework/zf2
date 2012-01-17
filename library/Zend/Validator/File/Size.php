@@ -14,7 +14,7 @@
  *
  * @category  Zend
  * @package   Zend_Validator
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,7 +22,9 @@
  * @namespace
  */
 namespace Zend\Validator\File;
-use Zend\Validator,
+
+use Zend\Loader,
+    Zend\Validator,
     Zend\Validator\Exception;
 
 /**
@@ -33,7 +35,7 @@ use Zend\Validator,
  * @uses      \Zend\Validator\Exception
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Size extends Validator\AbstractValidator
@@ -58,25 +60,10 @@ class Size extends Validator\AbstractValidator
      * @var array Error message template variables
      */
     protected $_messageVariables = array(
-        'min'  => '_min',
-        'max'  => '_max',
+        'min'  => array('options' => 'min'),
+        'max'  => array('options' => 'max'),
         'size' => '_size',
     );
-
-    /**
-     * Minimum filesize
-     * @var integer
-     */
-    protected $_min;
-
-    /**
-     * Maximum filesize
-     *
-     * If null, there is no maximum filesize
-     *
-     * @var integer|null
-     */
-    protected $_max;
 
     /**
      * Detected size
@@ -86,11 +73,15 @@ class Size extends Validator\AbstractValidator
     protected $_size;
 
     /**
-     * Use bytestring ?
+     * Options for this validator
      *
-     * @var boolean
+     * @var array
      */
-    protected $_useByteString = true;
+    protected $options = array(
+        'min'           => null, // Minimum file size, if null there is no minimum
+        'max'           => null, // Maximum file size, if null there is no maxmimum
+        'useByteString' => true, // Use byte string?
+    );
 
     /**
      * Sets validator options
@@ -99,18 +90,14 @@ class Size extends Validator\AbstractValidator
      * As Array is accepts the following keys:
      * 'min': Minimum filesize
      * 'max': Maximum filesize
-     * 'bytestring': Use bytestring or real size for messages
+     * 'useByteString': Use bytestring or real size for messages
      *
      * @param  integer|array $options Options for the adapter
      */
-    public function __construct($options)
+    public function __construct($options = null)
     {
-        if ($options instanceof \Zend\Config\Config) {
-            $options = $options->toArray();
-        } elseif (is_string($options) || is_numeric($options)) {
+        if (is_string($options) || is_numeric($options)) {
             $options = array('max' => $options);
-        } elseif (!is_array($options)) {
-            throw new Exception\InvalidArgumentException('Invalid options to validator provided');
         }
 
         if (1 < func_num_args()) {
@@ -118,32 +105,22 @@ class Size extends Validator\AbstractValidator
             array_shift($argv);
             $options['max'] = array_shift($argv);
             if (!empty($argv)) {
-                $options['bytestring'] = array_shift($argv);
+                $options['useByteString'] = array_shift($argv);
             }
         }
 
-        if (isset($options['bytestring'])) {
-            $this->setUseByteString($options['bytestring']);
-        }
-
-        if (isset($options['min'])) {
-            $this->setMin($options['min']);
-        }
-
-        if (isset($options['max'])) {
-            $this->setMax($options['max']);
-        }
+        parent::__construct($options);
     }
 
     /**
-     * Returns the minimum filesize
+     * Should messages return bytes as integer or as string in SI notation
      *
-     * @param  boolean $byteString Use bytestring ?
+     * @param  boolean $useByteString Use bytestring ?
      * @return integer
      */
-    public function setUseByteString($byteString = true)
+    public function useByteString($byteString = true)
     {
-        $this->_useByteString = (bool) $byteString;
+        $this->options['useByteString'] = (bool) $byteString;
         return $this;
     }
 
@@ -152,9 +129,9 @@ class Size extends Validator\AbstractValidator
      *
      * @return boolean
      */
-    public function useByteString()
+    public function getByteString()
     {
-        return $this->_useByteString;
+        return $this->options['useByteString'];
     }
 
     /**
@@ -165,8 +142,8 @@ class Size extends Validator\AbstractValidator
      */
     public function getMin($raw = false)
     {
-        $min = $this->_min;
-        if (!$raw && $this->useByteString()) {
+        $min = $this->options['min'];
+        if (!$raw && $this->getByteString()) {
             $min = $this->_toByteString($min);
         }
 
@@ -197,7 +174,7 @@ class Size extends Validator\AbstractValidator
                                             . " $max");
         }
 
-        $this->_min = $min;
+        $this->options['min'] = $min;
         return $this;
     }
 
@@ -209,8 +186,8 @@ class Size extends Validator\AbstractValidator
      */
     public function getMax($raw = false)
     {
-        $max = $this->_max;
-        if (!$raw && $this->useByteString()) {
+        $max = $this->options['max'];
+        if (!$raw && $this->getByteString()) {
             $max = $this->_toByteString($max);
         }
 
@@ -241,7 +218,7 @@ class Size extends Validator\AbstractValidator
                                             . "$max < $min");
         }
 
-        $this->_max = $max;
+        $this->options['max'] = $max;
         return $this;
     }
 
@@ -277,8 +254,12 @@ class Size extends Validator\AbstractValidator
      */
     public function isValid($value, $file = null)
     {
+        if ($file === null) {
+            $file = array('name' => basename($value));
+        }
+
         // Is file readable ?
-        if (!\Zend\Loader::isReadable($value)) {
+        if (!Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_FOUND);
         }
 
@@ -290,12 +271,12 @@ class Size extends Validator\AbstractValidator
         $min = $this->getMin(true);
         $max = $this->getMax(true);
         if (($min !== null) && ($size < $min)) {
-            if ($this->useByteString()) {
-                $this->_min  = $this->_toByteString($min);
-                $this->_size = $this->_toByteString($size);
+            if ($this->getByteString()) {
+                $this->options['min'] = $this->_toByteString($min);
+                $this->_size          = $this->_toByteString($size);
                 $this->_throw($file, self::TOO_SMALL);
-                $this->_min  = $min;
-                $this->_size = $size;
+                $this->options['min'] = $min;
+                $this->_size          = $size;
             } else {
                 $this->_throw($file, self::TOO_SMALL);
             }
@@ -303,18 +284,18 @@ class Size extends Validator\AbstractValidator
 
         // Check to see if it's larger than max size
         if (($max !== null) && ($max < $size)) {
-            if ($this->useByteString()) {
-                $this->_max  = $this->_toByteString($max);
-                $this->_size = $this->_toByteString($size);
+            if ($this->getByteString()) {
+                $this->options['max'] = $this->_toByteString($max);
+                $this->_size          = $this->_toByteString($size);
                 $this->_throw($file, self::TOO_BIG);
-                $this->_max  = $max;
-                $this->_size = $size;
+                $this->options['max'] = $max;
+                $this->_size          = $size;
             } else {
                 $this->_throw($file, self::TOO_BIG);
             }
         }
 
-        if (count($this->_messages) > 0) {
+        if (count($this->getMessages()) > 0) {
             return false;
         }
 
@@ -398,10 +379,16 @@ class Size extends Validator\AbstractValidator
     protected function _throw($file, $errorType)
     {
         if ($file !== null) {
-            $this->_value = $file['name'];
+            if (is_array($file)) {
+                if(array_key_exists('name', $file)) {
+                    $this->value = $file['name'];
+                }
+            } else if (is_string($file)) {
+                $this->value = $file;
+            }
         }
 
-        $this->_error($errorType);
+        $this->error($errorType);
         return false;
     }
 }

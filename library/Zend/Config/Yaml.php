@@ -14,7 +14,7 @@
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,7 +25,7 @@ namespace Zend\Config;
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Yaml extends Config
@@ -158,15 +158,19 @@ class Yaml extends Config
             }
         }
 
-        // Suppress warnings and errors while loading file
-        set_error_handler(array($this, '_loadFileErrorHandler'));
-        $yaml = file_get_contents($yaml);
-        restore_error_handler();
-
-        // Check if there was a error while loading file
-        if ($this->_loadFileErrorStr !== null) {
-            throw new Exception\RuntimeException($this->_loadFileErrorStr);
+        // read yaml file
+        $this->_setErrorHandler();
+        $content = file_get_contents($yaml, true);
+        $errorMessages = $this->_restoreErrorHandler();
+        if ($content === false) {
+            $e = null;
+            foreach ($errorMessages as $errMsg) {
+                $e = new Exception\RuntimeException($errMsg, 0, $e);
+            }
+            $e = new Exception\RuntimeException("Can't read file '{$yaml}'", 0, $e);
+            throw $e;
         }
+        $yaml = $content;
 
         // Override static value for ignore_constants if provided in $options
         self::setIgnoreConstants($ignoreConstants);
@@ -274,6 +278,7 @@ class Yaml extends Config
         $inIndent = false;
         while (list($n, $line) = each($lines)) {
             $lineno = $n + 1;
+            $line = rtrim(preg_replace("/#.*$/", "", $line));
             if (strlen($line) == 0) {
                 continue;
             }
@@ -304,7 +309,7 @@ class Yaml extends Config
                 // key: value
                 if (strlen($m[2])) {
                     // simple key: value
-                    $value = $m[2];
+                    $value = rtrim(preg_replace("/#.*$/", "", $m[2]));
                     // Check for booleans and constants
                     if (preg_match('/^(t(rue)?|on|y(es)?)$/i', $value)) {
                         $value = true;
@@ -326,7 +331,15 @@ class Yaml extends Config
                 // item in the list:
                 // - FOO
                 if (strlen($line) > 2) {
-                    $config[] = substr($line, 2);
+                    $value = substr($line, 2);
+                    if (preg_match('/^(t(rue)?|on|y(es)?)$/i', $value)) {
+                        $value = true;
+                    } elseif (preg_match('/^(f(alse)?|off|n(o)?)$/i', $value)) {
+                        $value = false;
+                    } elseif (!self::$_ignoreConstants) {
+                         $value = self::_replaceConstants($value);
+                    }
+                    $config[] = $value;
                 } else {
                     $config[] = self::_decodeYaml($currentIndent + 1, $lines);
                 }

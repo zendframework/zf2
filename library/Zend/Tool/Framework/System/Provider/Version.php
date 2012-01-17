@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ use Zend\Tool\Framework\Provider,
  * @uses       \Zend\Version
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Version implements Provider, RegistryEnabled
@@ -62,7 +62,7 @@ class Version implements Provider, RegistryEnabled
      * Show Action
      *
      * @param string $mode The mode switch can be one of: major, minor, or mini (default)
-     * @param bool $nameincluded
+     * @param bool $nameIncluded
      */
     public function show($mode = self::MODE_MINI, $nameIncluded = true)
     {

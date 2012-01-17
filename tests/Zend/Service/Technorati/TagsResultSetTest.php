@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Service_Technorati
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Technorati
@@ -61,9 +61,9 @@ class Zend_Service_Technorati_TagsResultSetTest extends Zend_Service_Technorati_
         $object = new Zend_Service_Technorati_TagsResultSet($this->dom);
 
         // check counts
-        $this->assertType('integer', $object->totalResults());
+        $this->assertInternalType('integer', $object->totalResults());
         $this->assertEquals(3, $object->totalResults());
-        $this->assertType('integer', $object->totalResultsAvailable());
+        $this->assertInternalType('integer', $object->totalResultsAvailable());
         $this->assertEquals(3, $object->totalResultsAvailable());
     }
 

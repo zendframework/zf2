@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,10 +27,10 @@ namespace Zend\Config;
  * @uses       \Zend\Config\Exception
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Config implements \Countable, \Iterator
+class Config implements \Countable, \Iterator, \ArrayAccess
 {
     /**
      * Whether in-memory modifications to configuration data are allowed
@@ -86,13 +86,11 @@ class Config implements \Countable, \Iterator
     protected $_extends = array();
 
     /**
-     * Load file error string.
+     * Internal error messages
      *
-     * Is null if there was no error while file loading
-     *
-     * @var string
+     * @var null|array
      */
-    protected $_loadFileErrorStr = null;
+    protected $_errorMessages = array();
 
     /**
      * Zend_Config provides a property based interface to
@@ -307,6 +305,55 @@ class Config implements \Countable, \Iterator
     }
 
     /**
+     * offsetExists(): defined by ArrayAccess interface.
+     * 
+     * @see    ArrayAccess::offsetExists()
+     * @param  mixed $offset
+     * @return boolean
+     */
+    public function offsetExists($offset)
+    {
+        return $this->__isset($offset);
+    }
+    
+    /**
+     * offsetGet(): defined by ArrayAccess interface.
+     * 
+     * @see    ArrayAccess::offsetGet()
+     * @param  mixed $offset
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->__get($offset);
+    }
+    
+    /**
+     * offsetSet(): defined by ArrayAccess interface.
+     * 
+     * @see    ArrayAccess::offsetSet()
+     * @param  mixed $offset
+     * @param  mixed $value
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->__set($offset, $value);
+    }
+    
+    /**
+     * offsetUnset(): defined by ArrayAccess interface.
+     * 
+     * @see    ArrayAccess::offsetUnset()
+     * @param  mixed $offset
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        $this->__unset($offset);
+    }
+    
+    /**
      * Returns the section name(s) loaded.
      *
      * @return mixed
@@ -328,7 +375,6 @@ class Config implements \Countable, \Iterator
     {
         return $this->_loadedSection === null;
     }
-
 
     /**
      * Merge another Zend_Config with this one. The items
@@ -435,23 +481,6 @@ class Config implements \Countable, \Iterator
     }
 
     /**
-     * Handle any errors from simplexml_load_file or parse_ini_file
-     *
-     * @param integer $errno
-     * @param string $errstr
-     * @param string $errfile
-     * @param integer $errline
-     */
-    protected function _loadFileErrorHandler($errno, $errstr, $errfile, $errline)
-    {
-        if ($this->_loadFileErrorStr === null) {
-            $this->_loadFileErrorStr = $errstr;
-        } else {
-            $this->_loadFileErrorStr .= (PHP_EOL . $errstr);
-        }
-    }
-
-    /**
      * Merge two arrays recursively, overwriting keys of the same name
      * in $firstArray with the value in $secondArray.
      *
@@ -462,21 +491,46 @@ class Config implements \Countable, \Iterator
     protected function _arrayMergeRecursive($firstArray, $secondArray)
     {
         if (is_array($firstArray) && is_array($secondArray)) {
-            foreach ($secondArray as $key => $value) {
-                if (isset($firstArray[$key])) {
-                    $firstArray[$key] = $this->_arrayMergeRecursive($firstArray[$key], $value);
-                } else {
-                    if($key === 0) {
-                        $firstArray= array(0=>$this->_arrayMergeRecursive($firstArray, $value));
-                    } else {
-                        $firstArray[$key] = $value;
-                    }
-                }
-            }
-        } else {
-            $firstArray = $secondArray;
+            return array_replace_recursive($firstArray, $secondArray);
         }
-
-        return $firstArray;
+        return $secondArray;
     }
+
+    /**
+     * Set internal error handler
+     *
+     * @return void
+     */
+    protected function _setErrorHandler()
+    {
+        set_error_handler(array($this, '_handleError'));
+    }
+
+    /**
+     * Restore internal error handler
+     *
+     * @return array Handled error messages
+     */
+    protected function _restoreErrorHandler()
+    {
+        restore_error_handler();
+        $errorMessages = $this->_errorMessages;
+        $this->_errorMessages = array();
+        return $errorMessages;
+    }
+
+    /**
+     * Handle internal errors
+     *
+     * @param integer $errno
+     * @param string $errstr
+     * @param string $errfile
+     * @param integer $errline
+     * @return void
+     */
+    protected function _handleError($errno, $errstr, $errfile, $errline)
+    {
+        $this->_errorMessages[] = trim($errstr);
+    }
+
 }

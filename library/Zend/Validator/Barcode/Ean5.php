@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,23 +27,11 @@ namespace Zend\Validator\Barcode;
  * @uses       \Zend\Validator\Barcode\AbstractAdapter
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Ean5 extends AbstractAdapter
 {
-    /**
-     * Allowed barcode lengths
-     * @var integer
-     */
-    protected $_length = 5;
-
-    /**
-     * Allowed barcode characters
-     * @var string
-     */
-    protected $_characters = '0123456789';
-
     /**
      * Constructor
      *
@@ -53,6 +41,8 @@ class Ean5 extends AbstractAdapter
      */
     public function __construct()
     {
-        $this->setCheck(false);
+        $this->setLength(5);
+        $this->setCharacters('0123456789');
+        $this->useChecksum(false);
     }
 }

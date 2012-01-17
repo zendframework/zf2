@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,11 +23,14 @@
  */
 namespace Zend\Validator;
 
+use Traversable,
+    Zend\Stdlib\IteratorToArray;
+
 /**
  * @uses       \Zend\Validator\AbstractValidator
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Identical extends AbstractValidator
@@ -52,16 +55,16 @@ class Identical extends AbstractValidator
      * @var array
      */
     protected $_messageVariables = array(
-        'token' => '_tokenString'
+        'token' => 'tokenString'
     );
 
     /**
      * Original token against which to validate
      * @var string
      */
-    protected $_tokenString;
-    protected $_token;
-    protected $_strict = true;
+    protected $tokenString;
+    protected $token;
+    protected $strict = true;
 
     /**
      * Sets validator options
@@ -71,8 +74,8 @@ class Identical extends AbstractValidator
      */
     public function __construct($token = null)
     {
-        if ($token instanceof \Zend\Config\Config) {
-            $token = $token->toArray();
+        if ($token instanceof Traversable) {
+            $token = IteratorToArray::convert($token);
         }
 
         if (is_array($token) && array_key_exists('token', $token)) {
@@ -84,6 +87,8 @@ class Identical extends AbstractValidator
         } elseif (null !== $token) {
             $this->setToken($token);
         }
+        
+        parent::__construct(is_array($token) ? $token : null);
     }
 
     /**
@@ -93,7 +98,7 @@ class Identical extends AbstractValidator
      */
     public function getToken()
     {
-        return $this->_token;
+        return $this->token;
     }
 
     /**
@@ -104,8 +109,8 @@ class Identical extends AbstractValidator
      */
     public function setToken($token)
     {
-        $this->_tokenString = (string) $token;
-        $this->_token       = $token;
+        $this->tokenString = (string) $token;
+        $this->token       = $token;
         return $this;
     }
 
@@ -116,7 +121,7 @@ class Identical extends AbstractValidator
      */
     public function getStrict()
     {
-        return $this->_strict;
+        return $this->strict;
     }
 
     /**
@@ -126,7 +131,7 @@ class Identical extends AbstractValidator
      */
     public function setStrict($strict)
     {
-        $this->_strict = (boolean) $strict;
+        $this->strict = (boolean) $strict;
         return $this;
     }
 
@@ -140,7 +145,7 @@ class Identical extends AbstractValidator
      */
     public function isValid($value, $context = null)
     {
-        $this->_setValue((string) $value);
+        $this->setValue((string) $value);
 
         if (($context !== null) && isset($context) && array_key_exists($this->getToken(), $context)) {
             $token = $context[$this->getToken()];
@@ -149,13 +154,13 @@ class Identical extends AbstractValidator
         }
 
         if ($token === null) {
-            $this->_error(self::MISSING_TOKEN);
+            $this->error(self::MISSING_TOKEN);
             return false;
         }
 
         $strict = $this->getStrict();
         if (($strict && ($value !== $token)) || (!$strict && ($value != $token))) {
-            $this->_error(self::NOT_SAME);
+            $this->error(self::NOT_SAME);
             return false;
         }
 

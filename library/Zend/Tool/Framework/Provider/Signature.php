@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,16 +27,16 @@ use Zend\Tool\Framework\Provider,
     Zend\Tool\Framework\RegistryEnabled;
 
 /**
- * The purpose of Zend_Tool_Framework_Provider_Signature is to derive
+ * The purpose of Zend\Tool\Framework\Provider\Signature is to derive
  * callable signatures from the provided provider.
  *
- * @uses       \Zend\Reflection\ReflectionClass
+ * @uses       \Zend\Code\Reflection\ClassReflection
  * @uses       \Zend\Tool\Framework\Action\Base
  * @uses       \Zend\Tool\Framework\Provider\Exception
  * @uses       \Zend\Tool\Framework\RegistryEnabled
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Signature implements RegistryEnabled
@@ -73,7 +73,7 @@ class Signature implements RegistryEnabled
     protected $_actions = array();
 
     /**
-     * @var \Zend\Reflection\ReflectionClass
+     * @var \Zend\Code\Reflection\ClassReflection
      */
     protected $_providerReflection = null;
 
@@ -90,7 +90,7 @@ class Signature implements RegistryEnabled
     public function __construct(Provider $provider)
     {
         $this->_provider = $provider;
-        $this->_providerReflection = new \Zend\Reflection\ReflectionClass($provider);
+        $this->_providerReflection = new \Zend\Code\Reflection\ClassReflection($provider);
     }
 
     /**
@@ -117,7 +117,7 @@ class Signature implements RegistryEnabled
     /**
      * getName() of the provider
      *
-     * @return unknown
+     * @return string
      */
     public function getName()
     {
@@ -137,7 +137,7 @@ class Signature implements RegistryEnabled
     /**
      * getProviderReflection()
      *
-     * @return \Zend\Reflection\ReflectionClass
+     * @return \Zend\Code\Reflection\ClassReflection
      */
     public function getProviderReflection()
     {
@@ -234,6 +234,10 @@ class Signature implements RegistryEnabled
 
         if ($this->_name == null) {
             $className = get_class($this->_provider);
+            $name = $className;
+            if (strpos($name, '_')) {
+                $name = substr($name, strrpos($name, '_')+1);
+            }
             $name = substr($className, strrpos($className, '\\')+1);
             $name = preg_replace('#(Provider|Manifest)$#', '', $name);
             $this->_name = $name;
@@ -301,10 +305,10 @@ class Signature implements RegistryEnabled
             }
 
             /**
-             * check to see if the method was a required method by a Zend_Tool_* interface
+             * check to see if the method was a required method by a Zend\Tool\* interface
              */
             foreach ($method->getDeclaringClass()->getInterfaces() as $methodDeclaringClassInterface) {
-                if (strpos($methodDeclaringClassInterface->getName(), 'Zend_Tool_') === 0
+                if (strpos($methodDeclaringClassInterface->getName(), 'Zend\\Tool\\') === 0
                     && $methodDeclaringClassInterface->hasMethod($methodName)) {
                     continue 2;
                 }

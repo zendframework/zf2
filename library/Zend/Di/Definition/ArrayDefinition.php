@@ -2,8 +2,6 @@
 
 namespace Zend\Di\Definition;
 
-use Zend\Di\Definition;
-
 class ArrayDefinition implements Definition
 {
     
@@ -11,6 +9,10 @@ class ArrayDefinition implements Definition
     
     public function __construct(Array $dataArray)
     {
+        foreach ($dataArray as $class => $value) {
+            // force lower names
+            $dataArray[$class] = array_change_key_case($dataArray[$class], CASE_LOWER);
+        }
         $this->dataArray = $dataArray;
     }
     
@@ -30,11 +32,11 @@ class ArrayDefinition implements Definition
             return array();
         }
         
-        if (!isset($this->dataArray[$class]['superTypes'])) {
+        if (!isset($this->dataArray[$class]['supertypes'])) {
             return array();
         }
         
-        return $this->dataArray[$class]['superTypes'];
+        return $this->dataArray[$class]['supertypes'];
     }
     
     public function getInstantiator($class)
@@ -50,69 +52,75 @@ class ArrayDefinition implements Definition
         return $this->dataArray[$class]['instantiator'];
     }
     
-    public function hasInjectionMethods($class)
+    public function hasMethods($class)
     {
         if (!isset($this->dataArray[$class])) {
             return array();
         }
         
-        if (!isset($this->dataArray[$class]['injectionMethods'])) {
+        if (!isset($this->dataArray[$class]['methods'])) {
             return array();
         }
         
-        return (count($this->dataArray[$class]['injectionMethods']) > 0);
+        return (count($this->dataArray[$class]['methods']) > 0);
     }
     
-    public function hasInjectionMethod($class, $method)
+    public function hasMethod($class, $method)
     {
         if (!isset($this->dataArray[$class])) {
-            return array();
+            return false;
         }
         
-        if (!isset($this->dataArray[$class]['injectionMethods'])) {
-            return array();
+        if (!isset($this->dataArray[$class]['methods'])) {
+            return false;
         }
         
-        if (!isset($this->dataArray[$class]['injectionMethods'][$method])) {
-            return array();
-        }
-        
-        return array_key_exists($method, $this->dataArray[$class]['injectionMethods']);
+        return array_key_exists($method, $this->dataArray[$class]['methods']);
     }
     
-    public function getInjectionMethods($class)
+    public function getMethods($class)
     {
         if (!isset($this->dataArray[$class])) {
             return array();
         }
         
-        if (!isset($this->dataArray[$class]['injectionMethods'])) {
+        if (!isset($this->dataArray[$class]['methods'])) {
             return array();
         }
         
-        return array_keys($this->dataArray[$class]['injectionMethods']);
+        return $this->dataArray[$class]['methods'];
     }
-    
-    public function getInjectionMethodParameters($class, $method)
+
+    /**
+     * @param $class
+     * @param $method
+     * @return bool
+     */
+    public function hasMethodParameters($class, $method)
+    {
+        return isset($this->dataArray[$class]['parameters'][$method]);
+    }
+
+    public function getMethodParameters($class, $method)
     {
         if (!isset($this->dataArray[$class])) {
             return array();
         }
         
-        if (!isset($this->dataArray[$class]['injectionMethods'])) {
+        if (!isset($this->dataArray[$class]['parameters'])) {
             return array();
         }
         
-        if (!isset($this->dataArray[$class]['injectionMethods'][$method])) {
+        if (!isset($this->dataArray[$class]['parameters'][$method])) {
             return array();
         }
         
-        return $this->dataArray[$class]['injectionMethods'][$method];
+        return $this->dataArray[$class]['parameters'][$method];
     }
     
     public function toArray()
     {
         return $this->dataArray;
     }
-    
+
 }

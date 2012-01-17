@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,18 +24,17 @@
  * @namespace
  */
 namespace Zend\GData;
+
 use Zend\Http\Client\Adapter;
 
 /**
  * Extends the default HTTP adapter to handle streams instead of discrete body
  * strings.
  *
- * @uses       \Zend\Http\Client\Adapter\Exception
- * @uses       \Zend\Http\Client\Adapter\Socket
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class HttpAdapterStreamingSocket extends Adapter\Socket
@@ -52,7 +51,7 @@ class HttpAdapterStreamingSocket extends Adapter\Socket
      * Send request to the remote server with streaming support.
      *
      * @param string        $method
-     * @param \Zend\Uri\Http $uri
+     * @param \Zend\Uri\Uri $uri
      * @param string        $http_ver
      * @param array         $headers
      * @param string        $body

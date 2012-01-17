@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ use Zend\Loader\PluginBroker;
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class HelperBroker extends PluginBroker
@@ -90,12 +90,12 @@ class HelperBroker extends PluginBroker
      * 
      * @param  mixed $plugin 
      * @return true
-     * @throws InvalidHelperException
+     * @throws Exception\InvalidHelperException
      */
     protected function validatePlugin($plugin)
     {
         if (!$plugin instanceof Helper) {
-            throw new InvalidHelperException('View helpers must implement Zend\View\Helper');
+            throw new Exception\InvalidHelperException('View helpers must implement Zend\View\Helper');
         }
         return true;
     }

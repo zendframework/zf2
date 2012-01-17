@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Filter
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\Filter\Word\SeparatorToCamelCase as SeparatorToCamelCaseFilter;
  * @category   Zend
  * @package    Zend_Filter
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Filter
  */
@@ -53,5 +53,39 @@ class SeparatorToCamelCaseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotEquals($string, $filtered);
         $this->assertEquals('CamelCasedWords', $filtered);
+    }
+
+    /**
+     * @group ZF-10517
+     */
+    public function testFilterSeparatesUniCodeCamelCasedWordsWithProvidedSeparator()
+    {
+        if (!extension_loaded('mbstring')) {
+            $this->markTestSkipped('Extension mbstring not available');
+        }
+
+        $string   = 'camel:-:cased:-:Words';
+        $filter   = new SeparatorToCamelCaseFilter(':-:');
+        $filtered = $filter($string);
+
+        $this->assertNotEquals($string, $filtered);
+        $this->assertEquals('CamelCasedWords', $filtered);
+    }
+
+    /**
+     * @group ZF-10517
+     */
+    public function testFilterSeparatesUniCodeCamelCasedUserWordsWithProvidedSeparator()
+    {
+        if (!extension_loaded('mbstring')) {
+            $this->markTestSkipped('Extension mbstring not available');
+        }
+
+        $string   = 'test šuma';
+        $filter   = new SeparatorToCamelCaseFilter(' ');
+        $filtered = $filter($string);
+
+        $this->assertNotEquals($string, $filtered);
+        $this->assertEquals('TestŠuma', $filtered);
     }
 }

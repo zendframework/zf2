@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,8 +23,11 @@
  * @namespace
  */
 namespace Zend\Log\Filter;
+
 use Zend\Log\Factory,
-    Zend\Log\Filter;
+    Zend\Log\Filter,
+    Zend\Log\Exception,
+    Zend\Config\Config;
 
 /**
  * @uses       \Zend\Log\Exception\InvalidArgumentException
@@ -33,7 +36,7 @@ use Zend\Log\Factory,
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class AbstractFilter implements Filter, Factory
@@ -41,18 +44,18 @@ abstract class AbstractFilter implements Filter, Factory
     /**
      * Validate and optionally convert the config to array
      *
-     * @param  array|\Zend\Config\Config $config \Zend\Config\Config or Array
+     * @param  array|Config $config Config or Array
      * @return array
-     * @throws \Zend\Log\Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     static protected function _parseConfig($config)
     {
-        if ($config instanceof \Zend\Config\Config) {
+        if ($config instanceof Config) {
             $config = $config->toArray();
         }
 
         if (!is_array($config)) {
-            throw new \Zend\Log\Exception\InvalidArgumentException('Configuration must be an array or instance of Zend\Config\Config');
+            throw new Exception\InvalidArgumentException('Configuration must be an array or instance of Zend\Config\Config');
         }
 
         return $config;

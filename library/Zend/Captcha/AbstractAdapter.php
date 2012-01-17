@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,7 +36,7 @@ use Zend\Config\Config;
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class AbstractAdapter extends \Zend\Validator\AbstractValidator implements Adapter
@@ -132,11 +132,15 @@ abstract class AbstractAdapter extends \Zend\Validator\AbstractValidator impleme
     /**
      * Set object state from options array
      *
-     * @param  array $options
+     * @param  array|Traversable $options
      * @return Zend_Form_Element
      */
-    public function setOptions($options = null)
+    public function setOptions($options = array())
     {
+        if (!is_array($options) && !$options instanceof Traversable) {
+            throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable');
+        }
+
         foreach ($options as $key => $value) {
             $this->setOption($key, $value);
         }

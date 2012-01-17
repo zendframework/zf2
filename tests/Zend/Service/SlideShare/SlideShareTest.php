@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_SlideShare
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,7 +27,8 @@ namespace ZendTest\Service\SlideShare;
 
 use Zend\Service\SlideShare,
     Zend\Service\SlideShare\SlideShare as SlideShareService,
-    Zend\Cache\Cache as Cache;
+    Zend\Cache\StorageFactory as CacheFactory,
+    Zend\Cache\Storage\Adapter as CacheAdapter;
 
 /**
  * @see \Zend\Service\SlideShare
@@ -38,7 +39,7 @@ use Zend\Service\SlideShare,
  * @category   Zend
  * @package    Zend_Service_SlideShare
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_SlideShare
@@ -55,7 +56,7 @@ class SlideShareTest extends \PHPUnit_Framework_TestCase
     /**
      * Enter description here...
      *
-     * @return \Zend\Service\SlideShare
+     * @return \Zend\Service\SlideShare\SlideShare
      */
     protected function _getSSObject()
     {
@@ -65,15 +66,30 @@ class SlideShareTest extends \PHPUnit_Framework_TestCase
                                                  TESTS_ZEND_SERVICE_SLIDESHARE_PASSWORD,
                                                  TESTS_ZEND_SERVICE_SLIDESHARE_SLIDESHOWID);
 
-        $cache = Cache::factory('Core', 'File', array('lifetime' => 0, 'automatic_serialization' => true),
-                                                     array('cache_dir' => __DIR__."/_files"));
+        mkdir($this->_cacheDir);
+        $cache = CacheFactory::factory(array(
+            'adapter' => array(
+                'name' => 'Filesystem',
+                'options' => array(
+                    'ttl'       => 0,
+                    'cache_dir' => $this->_cacheDir,
+                )
+            ),
+            'plugins' => array(
+                array(
+                    'name' => 'serializer',
+                    'options' => array(
+                        'serializer' => 'php_serialize',
+                    ),
+                ),
+            ),
+        ));
         $ss->setCacheObject($cache);
         return $ss;
     }
 
     public function setUp()
     {
-
         if(!defined("TESTS_ZEND_SERVICE_SLIDESHARE_APIKEY") ||
            !defined("TESTS_ZEND_SERVICE_SLIDESHARE_SHAREDSECRET") ||
            !defined("TESTS_ZEND_SERVICE_SLIDESHARE_USERNAME") ||
@@ -85,11 +101,40 @@ class SlideShareTest extends \PHPUnit_Framework_TestCase
 
                $this->markTestSkipped("You must configure an account for slideshare to run these tests");
         }
+
+        $this->_cacheDir = sys_get_temp_dir() . '/zend_service_slideshare';
+        $this->_removeRecursive($this->_cacheDir);
+    }
+
+    public function tearDown()
+    {
+        $this->_removeRecursive($this->_cacheDir);
+
+    }
+
+    protected function _removeRecursive($dir)
+    {
+        if (file_exists($dir)) {
+            $dirIt = new \DirectoryIterator($dir);
+            foreach ($dirIt as $entry) {
+                $fname = $entry->getFilename();
+                if ($fname == '.' || $fname == '..') {
+                    continue;
+                }
+
+                if ($entry->isFile()) {
+                    unlink($entry->getPathname());
+                } else {
+                    $this->_removeRecursive($entry->getPathname());
+                }
+            }
+
+            rmdir($dir);
+        }
     }
 
     public function testGetSlideShow()
     {
-
         if(!defined("TESTS_ZEND_SERVICE_SLIDESHARE_SLIDESHOWID") ||
            (TESTS_ZEND_SERVICE_SLIDESHARE_SLIDESHOWID <= 0)) {
                $this->markTestSkipped("You must provide a Slideshow ID to retrieve to perform this test");
@@ -108,7 +153,6 @@ class SlideShareTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSlideShowByTag()
     {
-
         $ss = $this->_getSSObject();
 
         try {
@@ -125,7 +169,6 @@ class SlideShareTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSlideShowByTags()
     {
-
         $ss = $this->_getSSObject();
 
         try {
@@ -144,7 +187,6 @@ class SlideShareTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSlideShowByUsername()
     {
-
         $ss = $this->_getSSObject();
 
         try {
@@ -162,7 +204,7 @@ class SlideShareTest extends \PHPUnit_Framework_TestCase
 
     public function testUploadSlideShowInvalidFileException()
     {
-        $this->setExpectedException('\Zend\Service\SlideShare\Exception\InvalidArgumentException', 
+        $this->setExpectedException('\Zend\Service\SlideShare\Exception\InvalidArgumentException',
                     'Specified Slideshow for upload not found or unreadable');
 
         $ss = $this->_getSSObject();
@@ -194,7 +236,7 @@ class SlideShareTest extends \PHPUnit_Framework_TestCase
             $result = $ss->uploadSlideShow($show, false);
         } catch(Exception $e) {
 
-            if($e->getCode() == Zend_Service_SlideShare::SERVICE_ERROR_NOT_SOURCEOBJ) {
+            if($e->getCode() == SlideShareService::SERVICE_ERROR_NOT_SOURCEOBJ) {
                 // We ignore this exception, the web service sometimes throws this
                 // error code because it seems to be buggy. Unfortunately it seems
                 // to be sparatic so we can't code around it and have to call this
@@ -252,7 +294,7 @@ class SlideShareTest extends \PHPUnit_Framework_TestCase
 	public function testSlideShareObjectHandlesUnicodeCharactersWell()
 	{
         $slideShow = new SlideShare\SlideShow();
-		
+
 		$slideShow->setTitle('Unicode test: ஸ்றீனிவாஸ ராமானுஜன் ஐயங்கார்');
 
 		if (!extension_loaded('mbstring')) {

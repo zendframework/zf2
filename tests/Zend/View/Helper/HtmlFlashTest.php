@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,11 +24,14 @@
  */
 namespace ZendTest\View\Helper;
 
+use Zend\View\PhpRenderer as View,
+    Zend\View\Helper\HtmlFlash;
+
 /**
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -48,8 +51,8 @@ class HtmlFlashTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->view = new \Zend\View\View();
-        $this->helper = new \Zend\View\Helper\HtmlFlash();
+        $this->view   = new View();
+        $this->helper = new HtmlFlash();
         $this->helper->setView($this->view);
     }
 
@@ -60,7 +63,7 @@ class HtmlFlashTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeHtmlFlash()
     {
-        $htmlFlash = $this->helper->direct('/path/to/flash.swf');
+        $htmlFlash = $this->helper->__invoke('/path/to/flash.swf');
 
         $objectStartElement = '<object data="/path/to/flash.swf" type="application/x-shockwave-flash">';
 

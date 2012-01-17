@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Loader
  * @subpackage Exception
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -223,7 +223,7 @@ class StandardAutoloader implements SplAutoloader
         if (false !== strpos($class, self::NS_SEPARATOR)) {
             if ($this->loadClass($class, self::LOAD_NS)) {
                 return $class;
-            } elseif ($this->isFallbackAutoloader()) {
+            } elseif ($isFallback) {
                 return $this->loadClass($class, self::ACT_AS_FALLBACK);
             }
             return false;
@@ -231,12 +231,14 @@ class StandardAutoloader implements SplAutoloader
         if (false !== strpos($class, self::PREFIX_SEPARATOR)) {
             if ($this->loadClass($class, self::LOAD_PREFIX)) {
                 return $class;
-            } elseif ($this->isFallbackAutoloader()) {
+            } elseif ($isFallback) {
                 return $this->loadClass($class, self::ACT_AS_FALLBACK);
             }
             return false;
         }
-                return $this->loadClass($class, self::ACT_AS_FALLBACK);
+        if ($isFallback) {
+            return $this->loadClass($class, self::ACT_AS_FALLBACK);
+        }
         return false;
     }
 
@@ -259,13 +261,18 @@ class StandardAutoloader implements SplAutoloader
      */
     protected function transformClassNameToFilename($class, $directory)
     {
+        // $class may contain a namespace portion, in  which case we need
+        // to preserve any underscores in that portion.
+        $matches = array();
+        preg_match('/(?P<namespace>.+\\\)?(?P<class>[^\\\]+$)/', $class, $matches);
+
+        $class     = (isset($matches['class'])) ? $matches['class'] : '';
+        $namespace = (isset($matches['namespace'])) ? $matches['namespace'] : '';
+
         return $directory
-            . str_replace(
-                array(self::NS_SEPARATOR, self::PREFIX_SEPARATOR),
-                DIRECTORY_SEPARATOR,
-                $class
-            )
-            . '.php';
+             . str_replace(self::NS_SEPARATOR, '/', $namespace)
+             . str_replace(self::PREFIX_SEPARATOR, '/', $class)
+             . '.php';
     }
 
     /**

@@ -14,7 +14,7 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,6 +23,8 @@
  */
 namespace Zend\Validator\File;
 
+use Zend\Loader;
+
 /**
  * Validator for counting all words in a file
  *
@@ -30,18 +32,17 @@ namespace Zend\Validator\File;
  * @uses      \Zend\Validator\File\Count
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class WordCount extends Count
 {
-    /**#@+
+    /**
      * @const string Error constants
      */
     const TOO_MUCH  = 'fileWordCountTooMuch';
     const TOO_LESS  = 'fileWordCountTooLess';
     const NOT_FOUND = 'fileWordCountNotFound';
-    /**#@-*/
 
     /**
      * @var array Error message templates
@@ -62,38 +63,25 @@ class WordCount extends Count
      */
     public function isValid($value, $file = null)
     {
+        if ($file === null) {
+            $file = array('name' => basename($value));
+        }
+
         // Is file readable ?
-        if (!\Zend\Loader::isReadable($value)) {
+        if (!Loader::isReadable($value)) {
             return $this->_throw($file, self::NOT_FOUND);
         }
 
         $content = file_get_contents($value);
         $this->_count = str_word_count($content);
-        if (($this->_max !== null) && ($this->_count > $this->_max)) {
+        if (($this->getMax() !== null) && ($this->_count > $this->getMax())) {
             return $this->_throw($file, self::TOO_MUCH);
         }
 
-        if (($this->_min !== null) && ($this->_count < $this->_min)) {
+        if (($this->getMin() !== null) && ($this->_count < $this->getMin())) {
             return $this->_throw($file, self::TOO_LESS);
         }
 
         return true;
-    }
-
-    /**
-     * Throws an error of the given type
-     *
-     * @param  string $file
-     * @param  string $errorType
-     * @return false
-     */
-    protected function _throw($file, $errorType)
-    {
-        if ($file !== null) {
-            $this->_value = $file['name'];
-        }
-
-        $this->_error($errorType);
-        return false;
     }
 }

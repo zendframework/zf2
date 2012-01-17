@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,8 @@
  * @namespace
  */
 namespace ZendTest\Validator;
-use Zend\Validator;
+use Zend\Validator,
+    ReflectionClass;
 
 /**
  * Test helper
@@ -38,7 +39,7 @@ use Zend\Validator;
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -61,8 +62,13 @@ class GreaterThanTest extends \PHPUnit_Framework_TestCase
             array(0, true, array(0.01, 1, 100)),
             array(0, false, array(0, 0.00, -0.01, -1, -100)),
             array('a', true, array('b', 'c', 'd')),
-            array('z', false, array('x', 'y', 'z'))
-            );
+            array('z', false, array('x', 'y', 'z')),
+            array(array('min' => 0, 'inclusive' => true), true, array(0, 0.00, 0.01, 1, 100)),
+            array(array('min' => 0, 'inclusive' => true), false, array(-0.01, -1, -100)),
+            array(array('min' => 0, 'inclusive' => false), true, array(0.01, 1, 100)),
+            array(array('min' => 0, 'inclusive' => false), false, array(0, 0.00, -0.01, -1, -100))
+        );
+
         foreach ($valuesExpected as $element) {
             $validator = new Validator\GreaterThan($element[0]);
             foreach ($element[2] as $input) {
@@ -91,5 +97,52 @@ class GreaterThanTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new Validator\GreaterThan(10);
         $this->assertEquals(10, $validator->getMin());
+    }
+
+    /**
+     * Ensures that getInclusive() returns expected default value
+     *
+     * @return void
+     */
+    public function testGetInclusive()
+    {
+        $validator = new Validator\GreaterThan(10);
+        $this->assertEquals(false, $validator->getInclusive());
+    }
+    
+    public function testEqualsMessageTemplates()
+    {
+        $validator = new Validator\GreaterThan(1);
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageTemplates')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageTemplates');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageTemplates')
+        );
+    }
+    
+    public function testEqualsMessageVariables()
+    {
+        $validator = new Validator\GreaterThan(1);
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageVariables')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageVariables');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageVariables')
+        );
     }
 }

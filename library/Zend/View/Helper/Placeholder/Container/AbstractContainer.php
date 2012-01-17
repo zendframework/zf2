@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,6 +24,8 @@
  */
 namespace Zend\View\Helper\Placeholder\Container;
 
+use Zend\View\Exception;
+
 /**
  * Abstract class representing container for placeholder values
  *
@@ -31,7 +33,7 @@ namespace Zend\View\Helper\Placeholder\Container;
  * @uses       \Zend\View\Helper\Placeholder\Container\Exception
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class AbstractContainer extends \ArrayObject
@@ -260,14 +262,14 @@ abstract class AbstractContainer extends \ArrayObject
      *
      * @param  int $type How to capture content into placeholder; append, prepend, or set
      * @return void
-     * @throws Zend\View\Helper\Placeholer\Container\Exception if nested captures detected
+     * @throws Exception\RuntimeException if nested captures detected
      */
     public function captureStart($type = AbstractContainer::APPEND, $key = null)
     {
         if ($this->_captureLock) {
-            $e = new Exception('Cannot nest placeholder captures for the same placeholder');
-            $e->setView($this->view);
-            throw $e;
+            throw new Exception\RuntimeException(
+                'Cannot nest placeholder captures for the same placeholder'
+            );
         }
 
         $this->_captureLock = true;

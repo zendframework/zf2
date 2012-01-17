@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,8 @@
  * @namespace
  */
 namespace ZendTest\Validator;
-use Zend\Validator;
+use Zend\Validator,
+    ReflectionClass;
 
 /**
  * Test helper
@@ -38,7 +39,7 @@ use Zend\Validator;
  * @category   Zend
  * @package    Zend_Validator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Validator
  */
@@ -109,20 +110,6 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @return void
-     * @deprecated Since 1.5.0
-     */
-    public function testEmptyStringValueResultsInProperValidationFailureErrors()
-    {
-        $this->assertFalse($this->_validator->isValid(''));
-        $errors = $this->_validator->getErrors();
-        $arrayExpected = array(
-            Validator\Digits::STRING_EMPTY
-            );
-        $this->assertThat($errors, $this->identicalTo($arrayExpected));
-    }
-
-    /**
-     * @return void
      */
     public function testInvalidValueResultsInProperValidationFailureMessages()
     {
@@ -135,24 +122,46 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return void
-     * @deprecated Since 1.5.0
-     */
-    public function testInvalidValueResultsInProperValidationFailureErrors()
-    {
-        $this->assertFalse($this->_validator->isValid('#'));
-        $errors = $this->_validator->getErrors();
-        $arrayExpected = array(
-            Validator\Digits::NOT_DIGITS
-            );
-        $this->assertThat($errors, $this->identicalTo($arrayExpected));
-    }
-
-    /**
      * @ZF-4352
      */
     public function testNonStringValidation()
     {
         $this->assertFalse($this->_validator->isValid(array(1 => 1)));
+    }
+    
+    public function testEqualsMessageTemplates()
+    {
+        $validator = $this->_validator;
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageTemplates')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageTemplates');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageTemplates')
+        );
+    }
+    
+    public function testEqualsMessageVariables()
+    {
+        $validator = $this->_validator;
+        $reflection = new ReflectionClass($validator);
+        
+        if(!$reflection->hasProperty('_messageVariables')) {
+            return;
+        }
+        
+        $property = $reflection->getProperty('_messageVariables');
+        $property->setAccessible(true);
+
+        $this->assertEquals(
+            $property->getValue($validator),
+            $validator->getOption('messageVariables')
+        );
     }
 }

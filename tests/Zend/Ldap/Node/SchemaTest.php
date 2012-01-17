@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_LDAP
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ use Zend\Ldap\Node\RootDse;
  * @category   Zend
  * @package    Zend_LDAP
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_LDAP
  * @group      Zend_LDAP_Node
@@ -66,8 +66,8 @@ class SchemaTest extends \ZendTest\Ldap\OnlineTestCase
 
     public function testGetters()
     {
-        $this->assertType('array', $this->_schema->getAttributeTypes());
-        $this->assertType('array', $this->_schema->getObjectClasses());
+        $this->assertInternalType('array', $this->_schema->getAttributeTypes());
+        $this->assertInternalType('array', $this->_schema->getObjectClasses());
 
         switch ($this->_getLDAP()->getRootDse()->getServerType()) {
             case RootDse::SERVER_TYPE_ACTIVEDIRECTORY:
@@ -75,9 +75,9 @@ class SchemaTest extends \ZendTest\Ldap\OnlineTestCase
             case RootDse::SERVER_TYPE_EDIRECTORY:
                 break;
             case RootDse::SERVER_TYPE_OPENLDAP:
-                $this->assertType('array', $this->_schema->getLDAPSyntaxes());
-                $this->assertType('array', $this->_schema->getMatchingRules());
-                $this->assertType('array', $this->_schema->getMatchingRuleUse());
+                $this->assertInternalType('array', $this->_schema->getLDAPSyntaxes());
+                $this->assertInternalType('array', $this->_schema->getMatchingRules());
+                $this->assertInternalType('array', $this->_schema->getMatchingRuleUse());
                 break;
         }
     }

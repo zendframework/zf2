@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ namespace Zend\Dojo\View\Helper;
  * @uses       \Zend\Dojo\View\Helper\Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class NumberSpinner extends Dijit
@@ -62,7 +62,7 @@ class NumberSpinner extends Dijit
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function direct($id = null, $value = null, array $params = array(), array $attribs = array())
+    public function __invoke($id = null, $value = null, array $params = array(), array $attribs = array())
     {
         // Get constraints and serialize to JSON if necessary
         if (array_key_exists('constraints', $params)) {

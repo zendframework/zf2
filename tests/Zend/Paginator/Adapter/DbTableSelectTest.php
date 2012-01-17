@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Paginator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\Paginator\Adapter;
  * @category   Zend
  * @package    Zend_Paginator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Paginator
  */
@@ -44,7 +44,7 @@ class DbTableSelectTest extends \ZendTest\Paginator\Adapter\DbSelectTest
         $adapter = new Adapter\DbTableSelect($query);
         $items   = $adapter->getItems(0, 10);
 
-        $this->assertType('Zend\Db\Table\Rowset', $items);
+        $this->assertInstanceOf('Zend\\Db\\Table\\Rowset', $items);
     }
 
     public function testToJsonWithRowset()

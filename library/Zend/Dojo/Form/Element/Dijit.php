@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@
  */
 namespace Zend\Dojo\Form\Element;
 
-use Zend\View\ViewEngine as View;
+use Zend\View\Renderer as View;
 
 /**
  * Base element for dijit elements
@@ -33,7 +33,7 @@ use Zend\View\ViewEngine as View;
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Dijit extends \Zend\Form\Element
@@ -178,14 +178,15 @@ abstract class Dijit extends \Zend\Form\Element
      *
      * Ensures that the view object has the dojo view helper path set.
      *
-     * @param  \Zend\View\ViewEngine $view
+     * @param  \Zend\View\Renderer $view
      * @return \Zend\Dojo\Form\Element\Dijit
      */
     public function setView(View $view = null)
     {
         if (null !== $view) {
-            if (false === $view->getPluginLoader('helper')->getPaths('Zend\Dojo\View\Helper')) {
-                $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend\Dojo\View\Helper');
+            if(false === $view->getBroker()->isLoaded('dojo')) {
+                $loader = new \Zend\Dojo\View\HelperLoader();
+                $view->getBroker()->getClassLoader()->registerPlugins($loader);
             }
         }
         return parent::setView($view);

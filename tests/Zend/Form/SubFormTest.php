@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,13 +23,13 @@ namespace ZendTest\Form;
 
 use Zend\Form\Form,
     Zend\Form\SubForm,
-    Zend\View\View;
+    Zend\View\PhpRenderer as View;
 
 /**
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Form
  */
@@ -80,7 +80,7 @@ class SubFormTest extends \PHPUnit_Framework_TestCase
     // Bugfixes
 
     /**
-     * @see ZF-2883
+     * @group ZF-2883
      */
     public function testDisplayGroupsShouldInheritSubFormNamespace()
     {
@@ -97,7 +97,7 @@ class SubFormTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see ZF-3272
+     * @group ZF-3272
      */
     public function testRenderedSubFormDtShouldContainNoBreakSpace()
     {

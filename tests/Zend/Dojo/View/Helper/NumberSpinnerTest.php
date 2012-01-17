@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,7 +25,7 @@ use Zend\Dojo\View\Helper\NumberSpinner as NumberSpinnerHelper,
     Zend\Dojo\View\Helper\Dojo as DojoHelper,
     Zend\Json\Json,
     Zend\Registry,
-    Zend\View\View;
+    Zend\View;
 
 /**
  * Test class for Zend_Dojo_View_Helper_NumberSpinner.
@@ -33,7 +33,7 @@ use Zend\Dojo\View\Helper\NumberSpinner as NumberSpinnerHelper,
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Dojo
  * @group      Zend_Dojo_View
@@ -58,14 +58,14 @@ class NumberSpinnerTest extends \PHPUnit_Framework_TestCase
 
     public function getView()
     {
-        $view = new View();
+        $view = new View\PhpRenderer();
         \Zend\Dojo\Dojo::enableView($view);
         return $view;
     }
 
     public function getElement()
     {
-        return $this->helper->direct(
+        return $this->helper->__invoke(
             'elementId',
             '5',
             array(
@@ -90,7 +90,7 @@ class NumberSpinnerTest extends \PHPUnit_Framework_TestCase
         DojoHelper::setUseProgrammatic();
         $html = $this->getElement();
         $this->assertNotRegexp('/<input[^>]*(dojoType="dijit.form.NumberSpinner")/', $html);
-        $this->assertNotNull($this->view->dojo()->getDijit('elementId'));
+        $this->assertNotNull($this->view->plugin('dojo')->getDijit('elementId'));
     }
 
     public function testShouldCreateTextInput()
@@ -106,7 +106,7 @@ class NumberSpinnerTest extends \PHPUnit_Framework_TestCase
             $this->fail('Did not serialize constraints');
         }
         $constraints = str_replace("'", '"', $m[1]);
-        $constraints = Json::decode($constraints);
+        $constraints = Json::decode($constraints, JSON::TYPE_ARRAY);
         $this->assertTrue(is_array($constraints), var_export($m[1], 1));
         $this->assertTrue(array_key_exists('min', $constraints));
         $this->assertTrue(array_key_exists('max', $constraints));
@@ -115,7 +115,7 @@ class NumberSpinnerTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidConstraintsShouldBeStrippedPriorToRendering()
     {
-        $html = $this->helper->direct(
+        $html = $this->helper->__invoke(
             'foo',
             5,
             array (

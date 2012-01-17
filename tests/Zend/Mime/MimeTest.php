@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Mime
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,12 +31,34 @@ use Zend\Mail;
  * @category   Zend
  * @package    Zend_Mime
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Mime
  */
 class MimeTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Stores the original set timezone
+     * @var string
+     */
+    private $_originaltimezone;
+
+    /**
+     * Setup environment
+     */
+    public function setUp()
+    {
+        $this->_originaltimezone = date_default_timezone_get();
+    }
+
+    /**
+     * Teardown environment
+     */
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_originaltimezone);
+    }
+
     public function testBoundary()
     {
         // check boundary for uniqueness

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,6 +23,8 @@
  * @namespace
  */
 namespace Zend\View\Helper;
+
+use Zend\View\Exception;
 
 /**
  * Base helper for form elements.  Extend this, don't use it on its own.
@@ -32,7 +34,7 @@ namespace Zend\View\Helper;
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class FormElement extends HtmlElement
@@ -57,21 +59,21 @@ abstract class FormElement extends HtmlElement
      *
      * @param  $translator|null \Zend\Translator\Translator
      * @return \Zend\View\Helper\FormElement
+     * @throws Exception\InvalidArgumentException
      */
     public function setTranslator($translator = null)
     {
         if (null === $translator) {
             $this->_translator = null;
-        } elseif ($translator instanceof \Zend\Translator\Adapter) {
+        } elseif ($translator instanceof \Zend\Translator\Adapter\AbstractAdapter) {
             $this->_translator = $translator;
         } elseif ($translator instanceof \Zend\Translator\Translator) {
             $this->_translator = $translator->getAdapter();
         } else {
-            $e = new \Zend\View\Exception('Invalid translator specified');
-            $e->setView($this->view);
-            throw $e;
+            throw new Exception\InvalidArgumentException('Invalid translator specified');
         }
-         return $this;
+
+        return $this;
     }
 
     /**
@@ -115,7 +117,7 @@ abstract class FormElement extends HtmlElement
                 }
             }
 
-            // If all helper options are passed as an array, attribs may have 
+            // If all helper options are passed as an array, attribs may have
             // been as well
             if (null === $attribs) {
                 $attribs = $info['attribs'];

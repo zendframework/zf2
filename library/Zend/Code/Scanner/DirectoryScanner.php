@@ -4,14 +4,15 @@ namespace Zend\Code\Scanner;
 
 use Zend\Code\Scanner,
     Zend\Code\Exception,
-    RecursiveDirectoryIterator;
+    RecursiveDirectoryIterator,
+    RecursiveIteratorIterator;
 
 class DirectoryScanner implements Scanner
 {
     protected $isScanned            = false;
     protected $directories          = array();
-    protected $fileScannerFileClass = 'Zend\Code\Scanner\FileScanner';
-    protected $scannerFiles         = array();
+    protected $fileScanners         = array();
+    protected $classToFileScanner   = null;
     
     public function __construct($directory = null)
     {
@@ -26,22 +27,33 @@ class DirectoryScanner implements Scanner
         }
     }
     
-    /*
-    public function setFileScannerClass($fileScannerClass)
-    {
-        $this->fileScannerClass = $fileScannerClass;
-    }
-    */
-    
     public function addDirectory($directory)
     {
-        $realDir = realpath($directory);
-        if (!$realDir) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Directory "%s" does not exist', $realDir
-            ));
+        if ($directory instanceof DirectoryScanner) {
+            $this->directories[] = $directory;
+        } elseif (is_string($directory)) {
+            $realDir = realpath($directory);
+            if (!$realDir || !is_dir($realDir)) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                    'Directory "%s" does not exist', $realDir
+                ));
+            }
+            $this->directories[] = $realDir;
+        } else {
+            throw new Exception\InvalidArgumentException(
+                'The argument provided was neither a DirectoryScanner or directory path'
+            );
         }
-        $this->directories[] = $realDir;
+    }
+    
+    public function addDirectoryScanner(DirectoryScanner $directoryScanner)
+    {
+        $this->addDirectory($directoryScanner);
+    }
+    
+    public function addFileScanner(FileScanner $fileScanner)
+    {
+        $this->fileScanners[] = $fileScanner;
     }
     
     protected function scan()
@@ -50,98 +62,123 @@ class DirectoryScanner implements Scanner
             return;
         }
         
-        
-        
         // iterate directories creating file scanners
         foreach ($this->directories as $directory) {
-            foreach (new RecursiveDirectoryIterator($directory) as $item) {
-                if ($item->isFile() && preg_match('#\.php$#', $item->getRealPath())) {
-                    $this->scannerFiles[] = new FileScanner($item->getRealPath());
+            if ($directory instanceof DirectoryScanner) {
+                $directory->scan();
+                if ($directory->fileScanners) {
+                    $this->fileScanners = array_merge($this->fileScanners, $directory->fileScanners);
+                }
+            } else {
+                $rdi = new RecursiveDirectoryIterator($directory);
+                foreach (new RecursiveIteratorIterator($rdi) as $item) {
+                    if ($item->isFile() && preg_match('#\.php$#', $item->getRealPath())) {
+                        $this->fileScanners[] = new FileScanner($item->getRealPath());
+                    }
                 }
             }
         }
+        
+        $this->isScanned = true;
     }
     
     public function getNamespaces()
-    {}
-    
-    public function getClasses($returnScannerClass = false)
     {
-        $this->scan();
-        
-        $classes = array();
-        foreach ($this->scannerFiles as $scannerFile) {
-            /* @var $scannerFile Zend\Code\Scanner\FileScanner */
-            $classes = array_merge($classes, $scannerFile->getClasses($returnScannerClass));
-        }
-        
-        return $classes;
     }
-    
 
-    /**
-     * 
-     * Enter description here ...
-     * @param string|int $classNameOrInfoIndex
-     * @param string $returnScannerClass
-     * @return Zend\Code\Scanner\ClassScanner
-     */
-    /*
-    public function getClass($classNameOrInfoIndex, $returnScannerClass = 'Zend\Code\Scanner\ClassScanner')
+    public function getFiles($returnFileScanners = false)
+    {
+        $this->scan();
+
+        $return = array();
+        foreach ($this->fileScanners as $fileScanner) {
+            $return[] = ($returnFileScanners) ? $fileScanner : $fileScanner->getFile();
+        }
+
+        return $return;
+    }
+
+    public function getClassNames()
+    {
+        $this->scan();
+
+        if ($this->classToFileScanner === null) {
+            $this->createClassToFileScannerCache();
+        }
+
+        return array_keys($this->classToFileScanner);
+    }
+
+    public function getClasses($returnDerivedScannerClass = false)
     {
         $this->scan();
         
-        // process the class requested
-        static $baseScannerClass = 'Zend\Code\Scanner\ClassScanner';
-        if ($returnScannerClass !== $baseScannerClass) {
-            if (!is_string($returnScannerClass)) {
-                $returnScannerClass = $baseScannerClass;
+        if ($this->classToFileScanner === null) {
+            $this->createClassToFileScannerCache();
+        }
+
+        $returnClasses = array();
+        foreach ($this->classToFileScanner as $className => $fsIndex) {
+            $classScanner = $this->fileScanners[$fsIndex]->getClass($className);
+            if ($returnDerivedScannerClass) {
+                $classScanner = new DerivedClassScanner($classScanner, $this);
             }
-            $returnScannerClass = ltrim($returnScannerClass, '\\');
-            if ($returnScannerClass !== $baseScannerClass && !is_subclass_of($returnScannerClass, $baseScannerClass)) {
-                throw new \RuntimeException('Class must be or extend ' . $baseScannerClass);
-            }
+            $returnClasses[] = $classScanner;
         }
         
-        if (is_int($classNameOrInfoIndex)) {
-            $info = $this->infos[$classNameOrInfoIndex];
-            if ($info['type'] != 'class') {
-                throw new \InvalidArgumentException('Index of info offset is not about a class');
-            }
-        } elseif (is_string($classNameOrInfoIndex)) {
-            $classFound = false;
-            foreach ($this->infos as $infoIndex => $info) {
-                if ($info['type'] === 'class' && $info['name'] === $classNameOrInfoIndex) {
-                    $classFound = true;
-                    break;
-                }
-            }
-            if (!$classFound) {
-                return false;
-            }
-        }
-        
-        $uses = array();
-        for ($u = 0; $u < count($this->infos); $u++) {
-            if ($this->infos[$u]['type'] == 'use') {
-                foreach ($this->infos[$u]['statements'] as $useStatement) {
-                    $useKey = ($useStatement['as']) ?: $useStatement['asComputed'];
-                    $uses[$useKey] = $useStatement['use'];
-                }
-            }
-        }
-        
-        return new $returnScannerClass(
-            array_slice($this->tokens, $info['tokenStart'], ($info['tokenEnd'] - $info['tokenStart'] + 1)), // zero indexed array
-            $info['namespace'],
-            $uses
-            );
+        return $returnClasses;
     }
-    */
     
-    
+    public function hasClass($class)
+    {
+        $this->scan();
+        
+        if ($this->classToFileScanner === null) {
+            $this->createClassToFileScannerCache();
+        }
+        
+        return (isset($this->classToFileScanner[$class]));
+    }
+
+    public function getClass($class, $returnDerivedScannerClass = false)
+    {
+        $this->scan();
+        
+        if ($this->classToFileScanner === null) {
+            $this->createClassToFileScannerCache();
+        }
+        
+        if (!isset($this->classToFileScanner[$class])) {
+            throw new Exception\InvalidArgumentException('Class not found.');
+        }
+
+        /** @var FileScanner $fs */
+        $fs = $this->fileScanners[$this->classToFileScanner[$class]];
+        $returnClass = $fs->getClass($class);
+        
+        if (($returnClass instanceof ClassScanner) && $returnDerivedScannerClass) {
+            return new DerivedClassScanner($returnClass, $this);
+        }
+
+        return $returnClass;
+    }
+
+    protected function createClassToFileScannerCache()
+    {
+        if ($this->classToFileScanner !== null) {
+            return;
+        }
+        
+        $this->classToFileScanner = array();
+        /** @var FileScanner $fileScanner */
+        foreach ($this->fileScanners as $fsIndex => $fileScanner) {
+            $fsClasses = $fileScanner->getClassNames();
+            foreach ($fsClasses as $fsClassName) {
+                $this->classToFileScanner[$fsClassName] = $fsIndex;
+            }
+        }
+    }
     
     public static function export() {}
     public function __toString() {} 
-    
 }

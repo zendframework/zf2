@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Paginator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,24 +24,26 @@
  */
 namespace ZendTest\Paginator;
 
-use Zend\Paginator,
-    Zend\Controller\Front as FrontController,
-    Zend\View\Helper,
-    Zend\View,
+use PHPUnit_Framework_TestCase as TestCase,
+    Zend\Cache\StorageFactory as CacheFactory,
+    Zend\Cache\Storage\Adapter as CacheAdapter,
     Zend\Config,
+    Zend\Paginator,
     Zend\Paginator\Adapter,
-    Zend\Paginator\Exception;
+    Zend\Paginator\Exception,
+    Zend\View,
+    Zend\View\Helper;
 
 
 /**
  * @category   Zend
  * @package    Zend_Paginator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Paginator
  */
-class PaginatorTest extends \PHPUnit_Framework_TestCase
+class PaginatorTest extends TestCase
 {
     /**
      * Paginator instance
@@ -76,15 +78,25 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->_paginator = Paginator\Paginator::factory($this->_testCollection);
 
         $this->_config = new Config\Xml(__DIR__ . '/_files/config.xml');
-        // get a fresh new copy of ViewRenderer in each tests
-        $this->front = FrontController::getInstance();
-        $this->front->resetInstance();
-        $this->broker = $this->front->getHelperBroker();
 
-        $fO = array('lifetime' => 3600, 'automatic_serialization' => true);
-        $bO = array('cache_dir'=> $this->_getTmpDir());
-
-        $this->_cache = \Zend\Cache\Cache::factory('Core', 'File', $fO, $bO);
+        $this->_cache = CacheFactory::factory(array(
+            'adapter' => array(
+                'name' => 'filesystem',
+                'options' => array(
+                    'ttl'       => 3600,
+                    'cache_dir' => $this->_getTmpDir(),
+                ),
+            ),
+            'plugins' => array(
+                array(
+                    'name' => 'serializer',
+                    'options' => array(
+                        'serializer' => 'php_serialize',
+                    ),
+                ),
+            ),
+        ));
+        $this->_cache->clear(CacheAdapter::MATCH_ALL);
 
         Paginator\Paginator::setCache($this->_cache);
 
@@ -93,6 +105,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
+        $this->_cache->clear(CacheAdapter::MATCH_ALL);
         $this->_dbConn = null;
         $this->_testCollection = null;
         $this->_paginator = null;
@@ -101,10 +114,6 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     protected function _getTmpDir()
     {
         $tmpDir = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR . 'zend_paginator';
-        if (file_exists($tmpDir)) {
-            $this->_rmDirRecursive($tmpDir);
-        }
-        mkdir($tmpDir);
         $this->cacheDir = $tmpDir;
         return $tmpDir;
     }
@@ -140,21 +149,21 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
         Paginator\Paginator::setScrollingStyleBroker(new Paginator\ScrollingStyleBroker());
 
-        $this->_cache->clean();
+        $this->_cache->clear(CacheAdapter::MATCH_ALL);
         $this->_paginator->setCacheEnabled(true);
     }
 
     public function testFactoryReturnsArrayAdapter()
     {
         $paginator = Paginator\Paginator::factory($this->_testCollection);
-        $this->assertType('Zend\Paginator\Adapter\ArrayAdapter', $paginator->getAdapter());
+        $this->assertInstanceOf('Zend\\Paginator\\Adapter\\ArrayAdapter', $paginator->getAdapter());
     }
 
     public function testFactoryReturnsDbSelectAdapter()
     {
         $paginator = Paginator\Paginator::factory($this->_query);
 
-        $this->assertType('Zend\Paginator\Adapter\DbSelect', $paginator->getAdapter());
+        $this->assertInstanceOf('Zend\\Paginator\\Adapter\\DbSelect', $paginator->getAdapter());
     }
 
     /**
@@ -166,30 +175,30 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
         $paginator = Paginator\Paginator::factory($table->select());
 
-        $this->assertType('Zend\Paginator\Adapter\DbSelect', $paginator->getAdapter());
+        $this->assertInstanceOf('Zend\\Paginator\\Adapter\\DbSelect', $paginator->getAdapter());
     }
 
     public function testFactoryReturnsIteratorAdapter()
     {
         $paginator = Paginator\Paginator::factory(new \ArrayIterator($this->_testCollection));
-        $this->assertType('Zend\Paginator\Adapter\Iterator', $paginator->getAdapter());
+        $this->assertInstanceOf('Zend\\Paginator\\Adapter\\Iterator', $paginator->getAdapter());
     }
 
     public function testFactoryReturnsNullAdapter()
     {
         $paginator = Paginator\Paginator::factory(101);
-        $this->assertType('Zend\Paginator\Adapter\Null', $paginator->getAdapter());
+        $this->assertInstanceOf('Zend\\Paginator\\Adapter\\Null', $paginator->getAdapter());
     }
 
     public function testFactoryThrowsInvalidClassExceptionAdapter()
     {
-        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException', 'No adapter for type stdClass');
+        $this->setExpectedException('Zend\\Paginator\\Exception\\InvalidArgumentException', 'No adapter for type stdClass');
         $paginator = Paginator\Paginator::factory(new \stdClass());
     }
 
     public function testFactoryThrowsInvalidTypeExceptionAdapter()
     {
-        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException', 'No adapter for type string');
+        $this->setExpectedException('Zend\\Paginator\\Exception\\InvalidArgumentException', 'No adapter for type string');
         $paginator = Paginator\Paginator::factory('invalid argument');
     }
 
@@ -219,10 +228,10 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Scrolling', Paginator\Paginator::getDefaultScrollingStyle());
 
         $broker = Paginator\Paginator::getScrollingStyleBroker();
-        $this->assertType('ZendTest\Paginator\TestAsset\ScrollingStyleBroker', $broker);
+        $this->assertInstanceOf('ZendTest\\Paginator\\TestAsset\\ScrollingStyleBroker', $broker);
 
         $broker = Paginator\Paginator::getAdapterBroker();
-        $this->assertType('ZendTest\Paginator\TestAsset\AdapterBroker', $broker);
+        $this->assertInstanceOf('ZendTest\\Paginator\\TestAsset\\AdapterBroker', $broker);
 
         $paginator = Paginator\Paginator::factory(range(1, 101));
         $this->assertEquals(3, $paginator->getItemCountPerPage());
@@ -369,7 +378,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     public function testGetsCurrentItems()
     {
         $items = $this->_paginator->getCurrentItems();
-        $this->assertType('ArrayIterator', $items);
+        $this->assertInstanceOf('ArrayIterator', $items);
 
         $count = 0;
 
@@ -383,7 +392,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     public function testGetsIterator()
     {
         $items = $this->_paginator->getIterator();
-        $this->assertType('ArrayIterator', $items);
+        $this->assertInstanceOf('ArrayIterator', $items);
 
         $count = 0;
 
@@ -515,28 +524,20 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(101, $this->_paginator->getItemCount($limitIterator));
     }
 
-    public function testGetsViewFromViewRenderer()
-    {
-        $viewRenderer = $this->broker->load('viewRenderer');
-        $viewRenderer->setView(new View\PhpRenderer());
-
-        $this->assertType('Zend\View\Renderer', $this->_paginator->getView());
-    }
-
     public function testGeneratesViewIfNonexistent()
     {
-        $this->assertType('Zend\View\Renderer', $this->_paginator->getView());
+        $this->assertInstanceOf('Zend\\View\\Renderer', $this->_paginator->getView());
     }
 
     public function testGetsAndSetsView()
     {
         $this->_paginator->setView(new View\PhpRenderer());
-        $this->assertType('Zend\View\Renderer', $this->_paginator->getView());
+        $this->assertInstanceOf('Zend\\View\\Renderer', $this->_paginator->getView());
     }
 
     public function testRenders()
     {
-        $this->setExpectedException('Zend\View\Exception', 'view partial');
+        $this->setExpectedException('Zend\\View\\Exception', 'view partial');
         $this->_paginator->render(new View\PhpRenderer());
     }
 
@@ -598,7 +599,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     public function testAcceptsTraversableInstanceFromAdapter()
     {
         $paginator = new Paginator\Paginator(new \ZendTest\Paginator\TestAsset\TestAdapter());
-        $this->assertType('ArrayObject', $paginator->getCurrentItems());
+        $this->assertInstanceOf('ArrayObject', $paginator->getCurrentItems());
     }
 
     public function testCachedItem()
@@ -668,15 +669,16 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $pageItems = $this->_paginator->setItemCountPerPage(8)->setCurrentPageNumber(3)->getCurrentItems();
 
         $pageItems = $this->_paginator->getPageItemCache();
-        $expected = array(3 => new \ArrayIterator(range(17, 24)));
-        $this->assertEquals($expected, $pageItems);
+        $expected = /*array(3 => */ new \ArrayIterator(range(17, 24)) /*) */;
+        $this->assertEquals($expected, $pageItems[3]);
 
         // get back to already cached data
         $this->_paginator->setItemCountPerPage(5);
         $pageItems = $this->_paginator->getPageItemCache();
         $expected =array(1 => new \ArrayIterator(range(1, 5)),
                          2 => new \ArrayIterator(range(6, 10)));
-        $this->assertEquals($expected, $pageItems);
+        $this->assertEquals($expected[1], $pageItems[1]);
+        $this->assertEquals($expected[2], $pageItems[2]);
     }
 
     public function testToJson()
@@ -759,7 +761,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $p = Paginator\Paginator::factory(new TestArrayAggregate());
 
         $this->assertEquals(1, count($p));
-        $this->assertType('Zend\Paginator\Adapter\ArrayAdapter', $p->getAdapter());
+        $this->assertInstanceOf('Zend\\Paginator\\Adapter\\ArrayAdapter', $p->getAdapter());
         $this->assertEquals(4, count($p->getAdapter()));
     }
 
@@ -771,7 +773,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $p = new Paginator\Paginator(new TestArrayAggregate());
 
         $this->assertEquals(1, count($p));
-        $this->assertType('Zend\Paginator\Adapter\ArrayAdapter', $p->getAdapter());
+        $this->assertInstanceOf('Zend\\Paginator\\Adapter\\ArrayAdapter', $p->getAdapter());
         $this->assertEquals(4, count($p->getAdapter()));
     }
 
@@ -803,7 +805,6 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(isset($items[2]));
         $this->assertTrue(isset($items[1]));
         $this->assertFalse(isset($items[3]));
-        $this->assertEquals(0, $items->key());
     }
 }
 

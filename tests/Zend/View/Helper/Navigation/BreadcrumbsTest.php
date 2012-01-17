@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,19 +24,22 @@
  */
 namespace ZendTest\View\Helper\Navigation;
 
+use Zend\Registry,
+    Zend\Navigation\Navigation,
+    Zend\View\Exception;
+
 /**
  * Tests Zend_View_Helper_Navigation_Breadcrumbs
  *
  * @category   Zend_Tests
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class BreadcrumbsTest
-    extends TestAbstract
+class BreadcrumbsTest extends AbstractTest
 {
     /**
      * Class name for view helper to test
@@ -54,14 +57,14 @@ class BreadcrumbsTest
 
     public function testHelperEntryPointWithoutAnyParams()
     {
-        $returned = $this->_helper->direct();
+        $returned = $this->_helper->__invoke();
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav1, $returned->getContainer());
     }
 
     public function testHelperEntryPointWithContainerParam()
     {
-        $returned = $this->_helper->direct($this->_nav2);
+        $returned = $this->_helper->__invoke($this->_nav2);
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav2, $returned->getContainer());
     }
@@ -78,16 +81,16 @@ class BreadcrumbsTest
     public function testAutoloadContainerFromRegistry()
     {
         $oldReg = null;
-        if (\Zend\Registry::isRegistered(self::REGISTRY_KEY)) {
-            $oldReg = \Zend\Registry::get(self::REGISTRY_KEY);
+        if (Registry::isRegistered(self::REGISTRY_KEY)) {
+            $oldReg = Registry::get(self::REGISTRY_KEY);
         }
-        \Zend\Registry::set(self::REGISTRY_KEY, $this->_nav1);
+        Registry::set(self::REGISTRY_KEY, $this->_nav1);
 
         $this->_helper->setContainer();
         $expected = $this->_getExpected('bc/default.html');
         $actual = $this->_helper->render();
 
-        \Zend\Registry::set(self::REGISTRY_KEY, $oldReg);
+        Registry::set(self::REGISTRY_KEY, $oldReg);
 
         $this->assertEquals($expected, $actual);
     }
@@ -185,17 +188,17 @@ class BreadcrumbsTest
 
     public function testTranslationFromTranslatorInRegistry()
     {
-        $oldReg = \Zend\Registry::isRegistered('Zend_Translate')
-                ? \Zend\Registry::get('Zend_Translate')
+        $oldReg = Registry::isRegistered('Zend_Translator')
+                ? Registry::get('Zend_Translator')
                 : null;
 
         $translator = $this->_getTranslator();
-        \Zend\Registry::set('Zend_Translate', $translator);
+        Registry::set('Zend_Translator', $translator);
 
         $expected = $this->_getExpected('bc/translated.html');
         $actual = $this->_helper->render();
 
-        \Zend\Registry::set('Zend_Translate', $oldReg);
+        Registry::set('Zend_Translator', $oldReg);
 
         $this->assertEquals($expected, $actual);
     }
@@ -233,14 +236,14 @@ class BreadcrumbsTest
         try {
             $this->_helper->render();
             $this->fail(
-                '$partial was invalid, but no Zend_View_Exception was thrown');
-        } catch (\Zend\View\Exception $e) {
+                '$partial was invalid, but no Zend\View\Exception was thrown');
+        } catch (Exception $e) {
         }
     }
 
     public function testLastBreadcrumbShouldBeEscaped()
     {
-        $container = new \Zend\Navigation\Navigation(array(
+        $container = new Navigation(array(
             array(
                 'label'  => 'Live & Learn',
                 'uri'    => '#',

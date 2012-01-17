@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_OpenId
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,6 +22,8 @@
  * @namespace
  */
 namespace Zend\OpenId;
+
+use Zend\Http\Response;
 
 /**
  * Static class that contains common utility functions for
@@ -31,12 +33,9 @@ namespace Zend\OpenId;
  * Consumer and Provider. They include functions for Diffie-Hellman keys
  * generation and exchange, URL normalization, HTTP redirection and some others.
  *
- * @uses       Zend\Controller\Response\AbstractResponse
- * @uses       Zend\Controller\Response\Http
- * @uses       Zend\OpenId\Exception
  * @category   Zend
  * @package    Zend_OpenId
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class OpenId
@@ -417,16 +416,16 @@ class OpenId
      *
      * @param string $url URL to redirect to
      * @param array $params additional variable/value pairs to send
-     * @param Zend\Controller\Response\AbstractResponse $response
+     * @param Response $response
      * @param string $method redirection method ('GET' or 'POST')
      */
     static public function redirect($url, $params = null,
-        \Zend\Controller\Response\AbstractResponse $response = null, $method = 'GET')
+        Response $response = null, $method = 'GET')
     {
         $url = self::absoluteUrl($url);
         $body = "";
         if (null === $response) {
-            $response = new \Zend\Controller\Response\Http();
+            $response = new Response();
         }
 
         if ($method == 'POST') {
@@ -447,15 +446,25 @@ class OpenId
             }
         }
         if (!empty($body)) {
-            $response->setBody($body);
-        } else if (!$response->canSendHeaders()) {
-            $response->setBody("<script language=\"JavaScript\"" .
+            $response->setContent($body);
+        } elseif (headers_sent()) {
+            $response->setContent("<script language=\"JavaScript\"" .
                  " type=\"text/javascript\">window.location='$url';" .
                  "</script>");
-        } else {
-            $response->setRedirect($url);
         }
-        $response->sendResponse();
+
+        $response->setStatusCode(302);
+        $response->headers()->addHeaderLine('Location', $url);
+
+        if (!headers_sent()) {
+            header($response->renderResponseLine());
+            foreach ($response->headers() as $header) {
+                header($header->toString());
+            }
+        }
+
+        echo $response->getBody();
+
         if (self::$exitOnRedirect) {
             exit();
         }

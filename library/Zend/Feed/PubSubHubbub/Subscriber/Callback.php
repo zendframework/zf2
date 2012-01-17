@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,16 +22,14 @@
  * @namespace
  */
 namespace Zend\Feed\PubSubHubbub\Subscriber;
-use Zend\Feed\PubSubHubbub;
+
+use Zend\Feed\PubSubHubbub,
+    Zend\Uri;
 
 /**
- * @uses       \Zend\Feed\PubSubHubbub\PubSubHubbub
- * @uses       \Zend\Feed\PubSubHubbub\AbstractCallback
- * @uses       \Zend\Feed\Reader\Reader
- * @uses       \Zend\Uri\Uri
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Callback extends PubSubHubbub\AbstractCallback
@@ -167,7 +165,7 @@ class Callback extends PubSubHubbub\AbstractCallback
         ) {
             return false;
         }
-        if (!\Zend\Uri\Url::validate($httpGetData['hub_topic'])) {
+        if (!Uri\UriFactory::factory($httpGetData['hub_topic'])->isValid()) {
             return false;
         }
 

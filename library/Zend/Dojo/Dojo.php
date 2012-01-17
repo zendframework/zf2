@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Dojo
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ use Zend\View\Renderer,
  * Enable Dojo components
  *
  * @package    Zend_Dojo
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Dojo
@@ -89,7 +89,31 @@ class Dojo
         if (!$view instanceof PhpRenderer) {
             return;
         }
-        $view->broker()->getClassLoader()->registerPlugins(new View\HelperLoader());
+
+        $view->getBroker()
+             ->getClassLoader()
+             ->registerPlugins(new View\HelperLoader());
+    }
+    
+    /**
+     * Dojo-disable a dojo enabled view
+     * 
+     * @param  \Zend\View\Renderer $view
+     * @return void
+     */
+    public static function disableView(Renderer $view)
+    {
+        if (!$view instanceof PhpRenderer) {
+            return;
+        }
+        
+        $broker  = $view->getBroker();
+        $loader  = $broker->getClassLoader();
+        $plugins = $broker->getPlugins();
+        foreach ($plugins as $plugin => $void) {
+            $broker->unregister($plugin);
+            $loader->unregisterPlugin($plugin);
+        }
     }
 }
 
