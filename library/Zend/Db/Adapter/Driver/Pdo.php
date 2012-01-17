@@ -11,11 +11,14 @@ class Pdo extends AbstractDriver
     
     public function getDatabasePlatformName($nameFormat = self::NAME_FORMAT_CAMELCASE)
     {
-        if ($nameFormat == self::NAME_FORMAT_CAMELCASE) {
-            return 'Pdo';
-        } else {
-            return 'PDO';
-        }
+        var_dump($this->getConnection());
+
+
+//        if ($nameFormat == self::NAME_FORMAT_CAMELCASE) {
+//            return 'Pdo';
+//        } else {
+//            return 'PDO';
+//        }
     }
     
     public function checkEnvironment()

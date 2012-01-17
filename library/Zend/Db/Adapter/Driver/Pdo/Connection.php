@@ -163,7 +163,8 @@ class Connection implements Adapter\DriverConnection
             $result = new $resultClass($this->driver, array(), $returnValue);
             return $result;
         } elseif ($returnValue === false) {
-            throw new InvalidQueryException($this->resource->error);
+            $errorInfo = $this->resource->errorInfo();
+            throw new InvalidQueryException($errorInfo[2]);
         }
         
         return $returnValue;
