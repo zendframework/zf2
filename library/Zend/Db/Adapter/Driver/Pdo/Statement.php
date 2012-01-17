@@ -20,7 +20,7 @@ class Statement implements DriverStatement
     protected $parameterContainer = null;
     
     /**
-     * @var PDOStatement
+     * @var \PDOStatement
      */
     protected $resource = null;
     
@@ -47,7 +47,12 @@ class Statement implements DriverStatement
         }
         return $this;
     }
-    
+
+    public function setParameterContainer(ParameterContainer $parameterContainer)
+    {
+        $this->parameterContainer = $parameterContainer;
+    }
+
     public function isQuery()
     {
         return $this->isQuery;
@@ -72,7 +77,8 @@ class Statement implements DriverStatement
     {
         if ($parameters != null) {
             if (is_array($parameters)) {
-                throw new \Exception('Array parameters are not yet supported');
+                $containerFactor = new \Zend\Db\Adapter\DriverStatement\ContainerFactory();
+                $parameters = $containerFactor->createContainer($parameters);
             }
             if (!$parameters instanceof ParameterContainer) {
                 throw new \InvalidArgumentException('ParameterContainer expected');
@@ -94,8 +100,10 @@ class Statement implements DriverStatement
     
     protected function bindParametersFromContainer(ParameterContainer $container)
     {
-        foreach ($container as $position => &$value) {
-            $type = PHPDataObject::PARAM_STRING;
+        $data = $container->toArray();
+        var_dump($container, $data);
+        foreach ($data as $position => &$value) { // why was this by reference?
+            $type = PHPDataObject::PARAM_STR;
             switch ($container->offsetGetErrata($position)) {
                 case ParameterContainer::TYPE_INTEGER:
                     $type = PHPDataObject::PARAM_INT;
@@ -110,7 +118,8 @@ class Statement implements DriverStatement
                     $type = PHPDataObject::PARAM_BOOL;
                     break;
             }
-            $this->resource->bindParam($position, $value, $type);
+            var_dump($position, $value, $type);
+            $this->resource->bindParam(($position + 1), $value, $type);
         }
     }
 }

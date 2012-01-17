@@ -73,5 +73,14 @@ class PositionalParameterContainer extends \SplFixedArray implements ParameterCo
     {
         return new \ArrayIterator($this->values);
     }
-    
+
+    public function toArray()
+    {
+        $data = array();
+        foreach ($this as $key => $value) {
+            $data[$key] = $value;
+        }
+        return $data;
+    }
+
 }

@@ -69,7 +69,7 @@ class Connection implements Adapter\DriverConnection
     public function connect()
     {
         if ($this->resource) {
-            return;
+            return $this;
         }
 
         $dsn = $username = $password = null;
@@ -99,6 +99,8 @@ class Connection implements Adapter\DriverConnection
         } catch (PDOException $e) {
             throw new \Exception('Connect Error: ' . $e->getMessage(), $e->getCode(), $e);
         }
+
+        return $this;
     }
     
     public function isConnected()
@@ -180,7 +182,7 @@ class Connection implements Adapter\DriverConnection
         }
         
         $stmtResource = $this->resource->prepare($sql, array(
-            PHPDataObject::ATTR_CURSOR => PHPDataObject::CURSOR_SCROLL,
+            //PHPDataObject::ATTR_CURSOR => PHPDataObject::CURSOR_SCROLL,
         ));
         
         if (!$stmtResource instanceof PDOStatement) {

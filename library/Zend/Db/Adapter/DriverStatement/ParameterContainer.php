@@ -20,4 +20,6 @@ interface ParameterContainer extends \ArrayAccess, \Countable, \Traversable
     public function offsetHasErrata($offset);
     public function offsetUnsetErrata($offset);
     public function getErrataIterator();
+
+    public function toArray();
 }
