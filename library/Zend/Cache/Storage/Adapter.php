@@ -118,7 +118,8 @@ interface Adapter
     /**
      * Get an item and call callback if it has been fetched.
      *
-     * Callback-Syntax: callback(mixed $item, Exception $error) : void
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -126,7 +127,7 @@ interface Adapter
      * @return boolean
      * @throws \Zend\Cache\Exception
      */
-    public function getItemAsync($key, $callback, array $options = array());
+    public function getItemAsync($key, $callback = null, array $options = array());
 
     /**
      * Get multiple items.
@@ -141,7 +142,8 @@ interface Adapter
     /**
      * Get multiple items and call callback for each fetched item.
      *
-     * Callback-Syntax: callback(mixed $item, Exception $error) : void
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -149,17 +151,31 @@ interface Adapter
      * @return boolean
      * @throws \Zend\Cache\Exception
      */
-    public function getItemsAsync(array $keys, $callback, array $options = array());
+    public function getItemsAsync(array $keys, $callback = null, array $options = array());
 
     /**
      * Test if an item exists.
      *
      * @param  string $key
-     * @param  array $options
+     * @param  array  $options
      * @return boolean
      * @throws \Zend\Cache\Exception
      */
     public function hasItem($key, array $options = array());
+
+    /**
+     * Test if an item exists and call callback.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function hasItemAsync($key, $callback = null, array $options = array());
 
     /**
      * Test multiple items.
@@ -172,6 +188,20 @@ interface Adapter
     public function hasItems(array $keys, array $options = array());
 
     /**
+     * Test multiple items and call callback for each item.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return array Array of existing keys
+     * @throws \Zend\Cache\Exception
+     */
+    public function hasItemsAsync(array $keys, $callback = null, array $options = array());
+
+    /**
      * Get metadata of an item.
      *
      * @param  string $key
@@ -182,7 +212,21 @@ interface Adapter
     public function getMetadata($key, array $options = array());
 
     /**
-     * Get multiple metadata
+     * Get metadata of an item and call callback.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return array|boolean Metadata or false on failure
+     * @throws \Zend\Cache\Exception
+     */
+    public function getMetadataAsync($key, $callback = null, array $options = array());
+
+    /**
+     * Get multiple metadata.
      *
      * @param  array $keys
      * @param  array $options
@@ -190,6 +234,20 @@ interface Adapter
      * @throws \Zend\Cache\Exception
      */
     public function getMetadatas(array $keys, array $options = array());
+
+    /**
+     * Get multiple metadata and call callback for each item.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function getMetadatasAsync(array $keys, $callback = null, array $options = array());
 
     /* writing */
 
@@ -205,7 +263,10 @@ interface Adapter
     public function setItem($key, $value, array $options = array());
 
     /**
-     * Store an item asynchronously.
+     * Store an item and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
      *
      * @param  string   $key
      * @param  mixed    $value
@@ -214,7 +275,7 @@ interface Adapter
      * @return boolean
      * @throws \Zend\Cache\Exception
      */
-    public function setItemAsync($key, $value, $callback, array $options = array());
+    public function setItemAsync($key, $value, $callback = null, array $options = array());
 
     /**
      * Store multiple items.
@@ -227,7 +288,10 @@ interface Adapter
     public function setItems(array $keyValuePairs, array $options = array());
 
     /**
-     * Store multiple items asynchronously.
+     * Store multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -235,7 +299,7 @@ interface Adapter
      * @return boolean
      * @throws \Zend\Cache\Exception
      */
-    public function setItemsAsync(array $keyValuePairs, $callback, array $options = array());
+    public function setItemsAsync(array $keyValuePairs, $callback = null, array $options = array());
 
     /**
      * Add an item.
@@ -249,6 +313,21 @@ interface Adapter
     public function addItem($key, $value, array $options = array());
 
     /**
+     * Add an item and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function addItemAsync($key, $value, $callback = null, array $options = array());
+
+    /**
      * Add multiple items.
      *
      * @param  array $keyValuePairs
@@ -257,6 +336,20 @@ interface Adapter
      * @throws \Zend\Cache\Exception
      */
     public function addItems(array $keyValuePairs, array $options = array());
+
+    /**
+     * Add multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function addItemsAsync(array $keyValuePairs, $callback = null, array $options = array());
 
     /**
      * Replace an item.
@@ -270,6 +363,21 @@ interface Adapter
     public function replaceItem($key, $value, array $options = array());
 
     /**
+     * Replace an item and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function replaceItemAsync($key, $value, $callback = null, array $options = array());
+
+    /**
      * Replace multiple items.
      *
      * @param  array $keyValuePairs
@@ -278,6 +386,20 @@ interface Adapter
      * @throws \Zend\Cache\Exception
      */
     public function replaceItems(array $keyValuePairs, array $options = array());
+
+    /**
+     * Replace multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function replaceItemsAsync(array $keyValuePairs, $callback = null, array $options = array());
 
     /**
      * Set item only if token matches
@@ -307,6 +429,20 @@ interface Adapter
     public function touchItem($key, array $options = array());
 
     /**
+     * Reset lifetime of an item and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function touchItemAsync($key, $callback = null, array $options = array());
+
+    /**
      * Reset lifetime of multiple items.
      *
      * @param  array $keys
@@ -315,6 +451,20 @@ interface Adapter
      * @throws \Zend\Cache\Exception
      */
     public function touchItems(array $keys, array $options = array());
+
+    /**
+     * Reset lifetime of multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function touchItemsAsync(array $keys, $callback = null, array $options = array());
 
     /**
      * Remove an item.
@@ -327,7 +477,10 @@ interface Adapter
     public function removeItem($key, array $options = array());
 
     /**
-     * Remove an item asynchron.
+     * Remove an item and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -335,7 +488,7 @@ interface Adapter
      * @return boolean
      * @throws \Zend\Cache\Exception
      */
-    public function removeItemAsync($key, $callback, array $options = array());
+    public function removeItemAsync($key, $callback = null, array $options = array());
 
     /**
      * Remove multiple items.
@@ -348,7 +501,10 @@ interface Adapter
     public function removeItems(array $keys, array $options = array());
 
     /**
-     * Remove multiple items asynchron.
+     * Remove multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -356,7 +512,7 @@ interface Adapter
      * @return boolean
      * @throws \Zend\Cache\Exception
      */
-    public function removeItemsAsync(array $keys, $callback, array $options = array());
+    public function removeItemsAsync(array $keys, $callback = null, array $options = array());
 
     /**
      * Increment an item.
@@ -370,6 +526,21 @@ interface Adapter
     public function incrementItem($key, $value, array $options = array());
 
     /**
+     * Increment an item and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  string   $key
+     * @param  int      $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return int|boolean The new value of false on failure
+     * @throws \Zend\Cache\Exception
+     */
+    public function incrementItemAsync($key, $value, $callback = null, array $options = array());
+
+    /**
      * Increment multiple items.
      *
      * @param  array $keyValuePairs
@@ -378,6 +549,20 @@ interface Adapter
      * @throws \Zend\Cache\Exception
      */
     public function incrementItems(array $keyValuePairs, array $options = array());
+
+    /**
+     * Increment multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function incrementItemsAsync(array $keyValuePairs, $callback = null, array $options = array());
 
     /**
      * Decrement an item.
@@ -391,6 +576,21 @@ interface Adapter
     public function decrementItem($key, $value, array $options = array());
 
     /**
+     * Decrement an item and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  string   $key
+     * @param  int      $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return int|boolean The new value or false or failure
+     * @throws \Zend\Cache\Exception
+     */
+    public function decrementItemAsync($key, $value, $callback = null, array $options = array());
+
+    /**
      * Decrement multiple items.
      *
      * @param  array $keyValuePairs
@@ -399,6 +599,20 @@ interface Adapter
      * @throws \Zend\Cache\Exception
      */
     public function decrementItems(array $keyValuePairs, array $options = array());
+
+    /**
+     * Decrement multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(string $key, mixed $result, Exception $error = null)
+     *
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function decrementItemsAsync(array $keyValuePairs, $callback = null, array $options = array());
 
     /* find */
 

@@ -250,13 +250,14 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->_storage->setItem('key', 'value'));
 
-        $fetchedItem = null;
-        $this->assertTrue($this->_storage->getItemAsync(
-            'key',
-            function($item, $error) use (&$fetchedItem) {
-                if (!$error) {
-                    $fetchedItem = $item;
-                }
+        $fetchedKey    = null;
+        $fetchedResult = null;
+        $fetchedError  = null;
+        $this->assertTrue($this->_storage->getItemAsync('key',
+            function($key, $result, $error) use (&$fetchedKey, &$fetchedResult, &$fetchedError) {
+                $fetchedKey    = $key;
+                $fetchedResult = $result;
+                $fetchedError  = $error;
             }
         ));
 
@@ -265,9 +266,9 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             sleep(1);
         }
 
-        $this->assertInternalType('array', $fetchedItem);
-        $this->assertEquals('key',   $fetchedItem['key']);
-        $this->assertEquals('value', $fetchedItem['value']);
+        $this->assertEquals('key',   $fetchedKey);
+        $this->assertEquals('value', $fetchedResult);
+        $this->assertNull($fetchedError);
     }
 
     public function testGetItemAsyncWithIgnoreMissingItems()
@@ -276,9 +277,8 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_options->setIgnoreMissingItems(true);
 
         $fetchedError = null;
-        $this->assertTrue($this->_storage->getItemAsync(
-            'unknown',
-            function($item, $error) use (&$fetchedError) {
+        $this->assertTrue($this->_storage->getItemAsync('unknown',
+            function($key, $result, $error) use (&$fetchedError) {
                 $fetchedError = $error;
             }
         ));
@@ -313,11 +313,13 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->_storage->setItems($items));
 
         $fetchedItems = array();
-        $this->assertTrue($this->_storage->getItemsAsync(
-            array_keys($items) + array('unknown'),
-            function($item, $error) use (&$fetchedItems) {
+        $this->assertTrue($this->_storage->getItemsAsync(array_keys($items) + array('unknown'),
+            function($key, $result, $error) use (&$fetchedItems) {
                 if (!$error) {
-                    $fetchedItems[] = $item;
+                    $fetchedItems[] = array(
+                        'key'    => $key,
+                        'result' => $result,
+                    );
                 }
             }
         ));
@@ -329,7 +331,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(count($items), count($fetchedItems));
         foreach ($fetchedItems as $fetchedItem) {
-            $this->assertEquals($items[ $fetchedItem['key'] ], $fetchedItem['value']);
+            $this->assertEquals($items[ $fetchedItem['key'] ], $fetchedItem['result']);
         }
     }
 
@@ -775,9 +777,11 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->_options->setIgnoreMissingItems(false);
 
+        $cbKey    = null;
         $cbResult = null;
         $cbError  = null;
-        $cb = function ($result, $error) use (&$cbResult, &$cbError) {
+        $cb = function ($key, $result, $error) use (&$cbKey, &$cbResult, &$cbError) {
+            $cbKey    = $key;
             $cbResult = $result;
             $cbError  = $error;
         };
@@ -789,6 +793,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             sleep(1);
         }
 
+        $this->assertEquals('unknown', $cbKey);
         $this->assertFalse($cbResult);
         $this->assertInstanceOf('Zend\Cache\Exception\ItemNotFoundException', $cbError);
     }
@@ -797,9 +802,11 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->_options->setIgnoreMissingItems(true);
 
+        $cbKey    = null;
         $cbResult = null;
         $cbError  = null;
-        $cb = function ($result, $error) use (&$cbResult, &$cbError) {
+        $cb = function ($key, $result, $error) use (&$cbKey, &$cbResult, &$cbError) {
+            $cbKey    = $key;
             $cbResult = $result;
             $cbError  = $error;
         };
@@ -811,6 +818,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             sleep(1);
         }
 
+        $this->assertEquals('unknown', $cbKey);
         $this->assertTrue($cbResult);
         $this->assertNull($cbError);
     }

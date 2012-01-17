@@ -223,12 +223,12 @@ class Memcached extends AbstractAdapter
      * @triggers getItemAsync.exception(ExceptionEvent)
      * @triggers getItemAsync.callback(Event) On fetching each item
      */
-    public function getItemAsync($key, $callback, array $options = array())
+    public function getItemAsync($key, $callback = null, array $options = array())
     {
         $baseOptions = $this->getOptions();
         if (!$baseOptions->getReadable()) {
             return false;
-        } elseif (!is_callable($callback, false)) {
+        } elseif ($callback && !is_callable($callback, false)) {
             throw new Exception\InvalidArgumentException('Invalid callback');
         }
 
@@ -251,24 +251,23 @@ class Memcached extends AbstractAdapter
             // redirect callback
             $that = $this;
             $cb = function (MemcachedResource $memc, array &$item) use ($that, &$callback, &$options) {
-                // rename cas -> token
-                if (isset($item['cas'])) {
-                    $item['token'] = $item['cas'];
-                    unset($item['cas']);
+                if ($callback) {
+                    $key    = & $item['key'];
+                    $result = & $item['value'];
+                    $error  = null;
+
+                    $cbEvent = new Event('getItemAsync.callback', $that, new ArrayObject(array(
+                        'key'    => & $key,
+                        'result' => & $result,
+                        'error'  => & $error,
+                    )));
+                    $that->events()->trigger($cbEvent);
+
+                    call_user_func($callback, $key, $result, $error);
                 }
-                $error = null;
-
-                $cbEvent = new Event('getItemAsync.callback', $that, new ArrayObject(array(
-                    'item'  => & $item,
-                    'error' => & $error,
-                )));
-                $that->events()->trigger($cbEvent);
-
-                call_user_func($callback, $item, $error);
             };
 
-            $withCas = array_key_exists('token', $options);
-            if (!$this->memcached->getDelayed(array($key), $withCas, $cb)) {
+            if (!$this->memcached->getDelayed(array($key), null, $cb)) {
                 throw $this->getExceptionByResultCode($this->memcached->getResultCode());
             }
 
@@ -349,14 +348,14 @@ class Memcached extends AbstractAdapter
      * @triggers getItemsAsync.exception(ExceptionEvent)
      * @triggers getItemAsync.callback(Event) On fetching each item
      */
-    public function getItemsAsync(array $keys, $callback, array $options = array())
+    public function getItemsAsync(array $keys, $callback = null, array $options = array())
     {
         $baseOptions = $this->getOptions();
         if (!$baseOptions->getReadable()) {
             return false;
         } elseif (!$keys) {
             return true;
-        } elseif (!is_callable($callback, false)) {
+        } elseif ($callback && !is_callable($callback, false)) {
             throw new Exception\InvalidArgumentException('Invalid callback');
         }
 
@@ -378,20 +377,20 @@ class Memcached extends AbstractAdapter
             // redirect callback
             $that = $this;
             $cb = function (MemcachedResource $memc, array &$item) use ($that, &$callback, &$options) {
-                // rename cas -> token
-                if (isset($item['cas'])) {
-                    $item['token'] = $item['cas'];
-                    unset($item['cas']);
+                if ($callback) {
+                    $key    = & $item['key'];
+                    $result = & $item['value'];
+                    $error  = null;
+
+                    $cbEvent = new Event('getItemAsync.callback', $that, new ArrayObject(array(
+                        'key'    => & $key,
+                        'result' => & $result,
+                        'error'  => & $error,
+                    )));
+                    $that->events()->trigger($cbEvent);
+
+                    call_user_func($callback, $key, $result, $error);
                 }
-                $error = null;
-
-                $cbEvent = new Event('getItemAsync.callback', $that, new ArrayObject(array(
-                    'item'  => & $item,
-                    'error' => & $error,
-                )));
-                $that->events()->trigger($cbEvent);
-
-                call_user_func($callback, $item, $error);
             };
 
             $withCas = array_key_exists('token', $options);
