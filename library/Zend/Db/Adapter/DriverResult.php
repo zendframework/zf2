@@ -9,5 +9,5 @@ interface DriverResult extends DataSource
     public function setDriver(Driver $driver);
     public function setResource($resource);
     public function getResource();
-    public function setOptions(array $options);
+    // public function setOptions(array $options);
 }

@@ -2,7 +2,7 @@
 
 namespace Zend\Db\Adapter\DriverStatement;
 
-class MappedParameterContainer extends NamedParameterContainer implements \IteratorAggregate
+class MappedParameterContainer extends NamedParameterContainer
 {
     
     protected $map = null;
@@ -25,11 +25,6 @@ class MappedParameterContainer extends NamedParameterContainer implements \Itera
             $this->map[$n] = $v;
             $index++;
         }
-    }
-    
-    public function getIterator()
-    {
-        /* return a mapped positional iterator */
     }
     
     public function getErrataIterator()

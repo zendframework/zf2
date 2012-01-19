@@ -20,11 +20,29 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
      * @var mysqli_result|mysqli_stmt
      */
     protected $resource = null;
-    
-    protected $pointerPosition = 0;
+
+    /**
+     * Cursor position
+     * @var int
+     */
+    protected $position = 0;
+
+    /**
+     * Number of known rows
+     * @var int
+     */
     protected $numberOfRows = -1;
-    
+
+    /**
+     * Is the current() operation already complete for this pointer position?
+     * @var bool
+     */
     protected $currentComplete = false;
+
+    /**
+     *
+     * @var bool
+     */
     protected $nextComplete = false;
     
     protected $currentData = false;
@@ -105,7 +123,7 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
         $this->currentData = array_combine($this->statementBindValues['keys'], $this->statementBindValues['values']);
         $this->currentComplete = true;
         $this->nextComplete = true;
-        $this->pointerPosition++;
+        $this->position++;
         return true;
     }
     
@@ -117,11 +135,11 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
             return false;
         }
         
-        $this->pointerPosition++;
+        $this->position++;
         $this->currentData = $data;
         $this->currentComplete = true;
         $this->nextComplete = true;
-        $this->pointerPosition++;
+        $this->position++;
         return true;
     }
     
@@ -130,7 +148,7 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
         $this->currentComplete = false;
         
         if ($this->nextComplete == false) {
-            $this->pointerPosition++;
+            $this->position++;
         }
         
         $this->nextComplete = false;
@@ -138,13 +156,13 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
     
     public function key()
     {
-        return $this->pointerPosition;
+        return $this->position;
     }
     
     public function rewind()
     {
         $this->currentComplete = false;
-        $this->pointerPosition = 0;
+        $this->position = 0;
         if ($this->resource instanceof \mysqli_stmt) {
             //$this->resource->reset();
         } else {

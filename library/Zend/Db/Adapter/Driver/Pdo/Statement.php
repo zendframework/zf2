@@ -6,7 +6,7 @@ use Zend\Db\Adapter\DriverStatement\ParameterContainer,
     Zend\Db\Adapter\DriverStatement,
     Zend\Db\Adapter\Driver,
     Zend\Db\Adapter\Exception,
-    PDO as PHPDataObject,
+    PDO,
     PDOStatement;
 
 class Statement implements DriverStatement
@@ -101,24 +101,26 @@ class Statement implements DriverStatement
     protected function bindParametersFromContainer(ParameterContainer $container)
     {
         $data = $container->toArray();
-        var_dump($container, $data);
-        foreach ($data as $position => &$value) { // why was this by reference?
-            $type = PHPDataObject::PARAM_STR;
-            switch ($container->offsetGetErrata($position)) {
-                case ParameterContainer::TYPE_INTEGER:
-                    $type = PHPDataObject::PARAM_INT;
-                    break;
-                case ParameterContainer::TYPE_NULL:
-                    $type = PHPDataObject::PARAM_NULL;
-                    break;
-                case ParameterContainer::TYPE_LOB:
-                    $type = PHPDataObject::PARAM_LOB;
-                    break;
-                case (is_bool($value)):
-                    $type = PHPDataObject::PARAM_BOOL;
-                    break;
+        foreach ($data as $position => &$value) {
+            $type = PDO::PARAM_STR;
+            if ($container->offsetHasErrata($position)) {
+                switch ($container->offsetGetErrata($position)) {
+                    case ParameterContainer::TYPE_INTEGER:
+                        $type = PDO::PARAM_INT;
+                        break;
+                    case ParameterContainer::TYPE_NULL:
+                        $type = PDO::PARAM_NULL;
+                        break;
+                    case ParameterContainer::TYPE_LOB:
+                        $type = PDO::PARAM_LOB;
+                        break;
+                    case (is_bool($value)):
+                        $type = PDO::PARAM_BOOL;
+                        break;
+                }
             }
-            var_dump($position, $value, $type);
+
+            // value is reference
             $this->resource->bindParam(($position + 1), $value, $type);
         }
     }

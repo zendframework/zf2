@@ -15,7 +15,7 @@ class ContainerFactory
         }
         
         if (is_string(key($parameters))) {
-            return new MappedParameterContainer(keys($parameters), $parameters);
+            return new MappedParameterContainer(array_keys($parameters), $parameters);
         }
 
         throw new \InvalidArgumentException('Unknown state for factory.');

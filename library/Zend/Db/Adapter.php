@@ -12,27 +12,23 @@ class Adapter
     
     const DEFAULT_DRIVER_NAMESPACE = 'Zend\Db\Adapter\Driver';
     const DEFAULT_PLATFORM_NAMESPACE = 'Zend\Db\Adapter\Platform';
-    
-    /**
-     * @var string
-     */
-    protected $name = null;
-    
+
     /**
      * @var \Zend\Db\Adapter\Driver
      */
     protected $driver = null;
-    
+
+    /**
+     * @var Zend\Db\Adapter\Platform
+     */
+    protected $platform = null;
+
     protected $queryMode = self::QUERY_MODE_PREPARE;
     
     protected $preferredPrepareType = null;
     
     protected $queryReturnClass = 'Zend\Db\ResultSet\ResultSet';
-    
-    /**
-     * @var Zend\Db\Adapter\Platform
-     */
-    protected $platform = null;
+
     
     public function __construct($options = array())
     {
@@ -54,28 +50,7 @@ class Adapter
             }
         }
     }
-    
-    /**
-     * setName()
-     * 
-     * @param $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-    
-    /**
-     * getName()
-     * 
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-    
+
     /**
      * setDriver()
      * 
