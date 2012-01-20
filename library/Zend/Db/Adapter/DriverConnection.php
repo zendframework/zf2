@@ -5,7 +5,8 @@ namespace Zend\Db\Adapter;
 interface DriverConnection
 {
     public function setDriver(Driver $driver);
-    public function setConnectionParams(array $connectionParams);
+
+    // public function setConnectionParams(array $connectionParams); // this really belongs in a separate interface
     
     public function getConnectionParams();
     public function getDefaultCatalog();

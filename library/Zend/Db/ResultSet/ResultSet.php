@@ -11,7 +11,7 @@ class ResultSet implements Iterator, ResultCollection
     const TYPE_ARRAY  = 'array';
     
     protected $rowClass   = '\Zend\Db\ResultSet\Row';
-    protected $returnType = static::TYPE_OBJECT;
+    protected $returnType = self::TYPE_OBJECT;
     
     /**
      * @var \Zend\Db\ResultSet\DataSource
@@ -19,7 +19,14 @@ class ResultSet implements Iterator, ResultCollection
     protected $dataSource = null;
     
     
-    public function __construct(DataSource $dataSource)
+    public function __construct(DataSource $dataSource = null)
+    {
+        if ($dataSource) {
+            $this->setDataSource($dataSource);
+        }
+    }
+
+    public function setDataSource(DataSource $dataSource)
     {
         if ($dataSource instanceof Iterator) {
             $this->dataSource = $dataSource;
@@ -29,7 +36,7 @@ class ResultSet implements Iterator, ResultCollection
             throw new \Exception('DataSource provided implements proper interface but does not implement \Iterator nor \IteratorAggregate');
         }
     }
-    
+
     public function getFieldCount() {}
     
     public function next()
@@ -52,7 +59,12 @@ class ResultSet implements Iterator, ResultCollection
     {
         return $this->dataSource->valid();
     }
-    
+
+    public function rewind()
+    {
+        return $this->dataSource->rewind();
+    }
+
     public function count()
     {
         return $this->dataSource->count();

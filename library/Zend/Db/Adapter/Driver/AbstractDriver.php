@@ -4,35 +4,32 @@ namespace Zend\Db\Adapter\Driver;
 
 use Zend\Db\Adapter,
     Zend\Db\Adapter\Driver,
-    Zend\Db\Adapter\DriverConnection;
+    Zend\Db\Adapter\DriverConnection,
+    Zend\Db\Adapter\DriverStatement,
+    Zend\Db\Adapter\DriverResult;
 
 abstract class AbstractDriver implements Driver
 {
     protected $adapter = null;
-    protected $connectionClass = null;
-    protected $statementClass = null;
-    protected $resultClass = null;
-    protected $connectionParams = array();
-    protected $statementParams = array();
-    protected $resultParams = array();
-    
     protected $connection = null;
+    protected $statementPrototype = null;
+    protected $resultPrototype = null;
 
-    public function __construct($options = array())
-    {
-        if ($options) {
-            $this->setOptions($options);
-        }
-        
-        if ($this->getConnectionClass() == null 
-            || $this->getStatementClass() == null
-            || $this->getResultClass() == null
-            ) {
-            throw new \Exception('This extension wrapper does not have a connection, statement, or result class set.');
-        }
-        
-        $this->checkEnvironment();
-    }
+//    public function __construct(DriverConnection $connection, DriverStatement $statementPrototype = null, )
+//    {
+//        if ($options) {
+//            $this->setOptions($options);
+//        }
+//
+//        if ($this->getConnectionClass() == null
+//            || $this->getStatementClass() == null
+//            || $this->getResultClass() == null
+//            ) {
+//            throw new \Exception('This extension wrapper does not have a connection, statement, or result class set.');
+//        }
+//
+//        $this->checkEnvironment();
+//    }
     
     public function setOptions(array $options)
     {
@@ -48,7 +45,7 @@ abstract class AbstractDriver implements Driver
         $this->adapter = $adapter;
     }
     
-    public function setConnectionClass($connectionClass)
+    public function setConnection($connectionClass)
     {
         $this->connectionClass = $connectionClass;
         return $this;

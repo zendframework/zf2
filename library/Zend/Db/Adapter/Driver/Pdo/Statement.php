@@ -12,7 +12,7 @@ use Zend\Db\Adapter\DriverStatement\ParameterContainer,
 class Statement implements DriverStatement
 {
     /**
-     * @var Zend\Db\Adapter\AbstractDriver
+     * @var \Zend\Db\Adapter\Driver
      */
     protected $driver             = null;
     protected $sql                = false;
@@ -90,8 +90,7 @@ class Statement implements DriverStatement
             throw new Exception\InvalidQueryException($this->resource->error);
         }
 
-        $resultClass = $this->driver->getResultClass();
-        $result      = new $resultClass();
+        $result = clone $this->driver->getResultPrototype();
         $result->setDriver($this->driver)
                ->setResource($this->resource);
         

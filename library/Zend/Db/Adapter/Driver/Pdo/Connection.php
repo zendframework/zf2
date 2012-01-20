@@ -13,7 +13,7 @@ use Zend\Db\Adapter,
 class Connection implements Adapter\DriverConnection
 {
     /**
-     * @var AbstractDriver
+     * @var \Zend\Db\Adapter\Driver
      */
     protected $driver = null;
     
@@ -25,7 +25,14 @@ class Connection implements Adapter\DriverConnection
     protected $resource = null;
 
     protected $inTransaction = false;
-    
+
+    public function __construct(array $connectionParameters = array())
+    {
+        if ($connectionParameters) {
+            $this->setConnectionParams($connectionParameters);
+        }
+    }
+
     public function setDriver(Driver $driver)
     {
         $this->driver = $driver;
@@ -156,13 +163,14 @@ class Connection implements Adapter\DriverConnection
             $this->connect();
         }
         
-        $resultClass = $this->driver->getResultClass();
+        $result = clone $this->driver->getResultPrototype();
         
         $returnValue = $this->resource->query($sql);
         
         // if the returnValue is boolean false, bypass wrapping it
         if (false !== $returnValue) {
-            $result = new $resultClass($this->driver, array(), $returnValue);
+            $result->setResource($returnValue);
+            //$result = new $resultClass($this->driver, array(), $returnValue);
             return $result;
         } elseif ($returnValue === false) {
             $errorInfo = $this->resource->errorInfo();
@@ -189,8 +197,7 @@ class Connection implements Adapter\DriverConnection
             throw new \RuntimeException('Statement not produced');
         }
         
-        $statementClass = $this->driver->getStatementClass();
-        $statement = new $statementClass();
+        $statement = clone $this->driver->getStatementPrototype();
         $statement->setDriver($this->driver)
                   ->setResource($stmtResource)
                   ->setSql($sql);

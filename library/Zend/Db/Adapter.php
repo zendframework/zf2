@@ -1,17 +1,29 @@
 <?php
+/**
+ * File DocBlock
+ */
 
 namespace Zend\Db;
 
+/**
+ * Class DocBlock
+ */
 class Adapter
 {
+    /**
+     * Query Mode Constants
+     */
     const QUERY_MODE_EXECUTE = 'execute';
     const QUERY_MODE_PREPARE = 'prepare';
 
+    /**
+     * Prepare Type Constants
+     */
     const PREPARE_TYPE_POSITIONAL = 'positional';
     const PREPARE_TYPE_NAMED = 'named';
     
-    const DEFAULT_DRIVER_NAMESPACE = 'Zend\Db\Adapter\Driver';
-    const DEFAULT_PLATFORM_NAMESPACE = 'Zend\Db\Adapter\Platform';
+    const BUILTIN_DRIVERS_NAMESPACE = 'Zend\Db\Adapter\Driver';
+    const BUILTIN_PLATFORMS_NAMESPACE = 'Zend\Db\Adapter\Platform';
 
     /**
      * @var \Zend\Db\Adapter\Driver
@@ -23,69 +35,72 @@ class Adapter
      */
     protected $platform = null;
 
-    protected $queryMode = self::QUERY_MODE_PREPARE;
-    
-    protected $preferredPrepareType = null;
-    
-    protected $queryReturnClass = 'Zend\Db\ResultSet\ResultSet';
+    protected $queryResultPrototype = null;
 
-    
-    public function __construct($options = array())
-    {
-        if ($options) {
-            $this->setOptions($options);
-        }
-    }
-    
+    protected $queryMode = self::QUERY_MODE_PREPARE;
+
+
     /**
-     * setOptions()
-     * 
-     * @param array $options
+     * @param $driver
+     * @param null $platform
+     * @param null|ResultSet\ResultSet $resultPrototype
      */
-    public function setOptions(array $options)
+    public function __construct($driver, Adapter\Platform $platform = null, ResultSet\ResultSet $queryResultPrototype = null)
     {
-        foreach ($options as $optionName => $optionValue) {
-            if (method_exists($this, 'set' . $optionName)) {
-                $this->{'set' . $optionName}($optionValue);
-            }
+        if (is_array($driver)) {
+            $driver = $this->createDriverFromParameters($driver);
         }
+
+        if (!$driver instanceof Adapter\Driver) {
+            throw new \InvalidArgumentException('Invalid driver');
+        }
+
+        $this->setDriver($driver);
+
+        if ($platform == null) {
+            $platform = $this->createPlatformFromDriver($driver);
+        }
+
+        $this->setPlatform($platform);
+
+        $this->queryResultPrototype = ($queryResultPrototype) ?: new ResultSet\ResultSet();
     }
 
     /**
      * setDriver()
      * 
-     * @param array|\Zend\Db\Adapter\Driver\AbstractDriver $driver
+     * @param Adapter\Driver $driver
+     * @return Adapter
      */
-    public function setDriver($driver)
+    public function setDriver(Adapter\Driver $driver)
     {
-        if (is_array($driver)) {
-            $driverOptions = $driver;
-            if (isset($driverOptions['type']) && is_string($driverOptions['type'])) {
-                $className = $driverOptions['type'];
-                if ($driver['type']{0} != '\\') {
-                    $className = self::DEFAULT_DRIVER_NAMESPACE . '\\' . $driverOptions['type'];
-                }
-                unset($driverOptions['type']);
+        $this->driver = $driver;
+        return $this;
+    }
+
+    public function createDriverFromParameters(array $parameters)
+    {
+        $driverParameters = $parameters;
+        if (isset($driverParameters['type']) && is_string($driverParameters['type'])) {
+            $className = $driverParameters['type'];
+            if (strpos($className, '\\') === false) {
+                $className = self::BUILTIN_DRIVERS_NAMESPACE . '\\' . $driverParameters['type'];
             }
-            $driver = $className;
+            unset($driverParameters['type']);
         }
-            
+        $driver = $className;
+
         if (is_string($driver) && class_exists($driver, true)) {
-            $driver = new $driver;
+            $driver = new $driver($driverParameters);
         } else {
             throw new \InvalidArgumentException('Class by name ' . $driver . ' not found', null, null);
         }
-        
+
         if (!$driver instanceof Adapter\Driver) {
             throw new \InvalidArgumentException('$driver provided is neither a driver class name or object of type DriverInterface', null, null);
         }
-        
-        if (isset($driverOptions)) {
-            $driver->setOptions($driverOptions);
-        }
-        
-        $this->driver = $driver;
-        return $this;
+
+        return $driver;
     }
     
     /**
@@ -131,19 +146,16 @@ class Adapter
         $this->platform = $platform;
         return $this;
     }
-    
+
     /**
      * @var \Zend\Db\Adapter\Platform
      */
     public function getPlatform()
     {
-        if (!isset($this->platform)) {
-            $this->lazyInitializePlatform();
-        }
         return $this->platform;
     }
     
-    protected function lazyInitializePlatform()
+    public function createPlatformFromDriver(Adapter\Driver $driver)
     {
         // consult driver for platform implementation
         $platform = $this->getDriver()->getDatabasePlatformName(Adapter\Driver::NAME_FORMAT_CAMELCASE);
@@ -153,7 +165,7 @@ class Adapter
         if ($platform{0} != '\\') {
             $platform = self::DEFAULT_PLATFORM_NAMESPACE . '\\' . $platform;
         }
-        $this->setPlatform(new $platform);
+        return new $platform;
     }
     
     /**
