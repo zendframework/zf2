@@ -24,6 +24,7 @@
  */
 namespace Zend\Mail\Storage;
 
+use Zend\Mail\Storage;
 use Zend\Mail\Protocol;
 
 /**
