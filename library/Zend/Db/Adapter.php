@@ -35,15 +35,15 @@ class Adapter
      */
     protected $platform = null;
 
-    protected $queryResultPrototype = null;
+    protected $queryResultSetPrototype = null;
 
     protected $queryMode = self::QUERY_MODE_PREPARE;
 
 
     /**
-     * @param $driver
-     * @param null $platform
-     * @param null|ResultSet\ResultSet $resultPrototype
+     * @param Adapter\Driver|array $driver
+     * @param Adapter\Platform $platform
+     * @param ResultSet\ResultSet $queryResultPrototype
      */
     public function __construct($driver, Adapter\Platform $platform = null, ResultSet\ResultSet $queryResultPrototype = null)
     {
@@ -63,7 +63,7 @@ class Adapter
 
         $this->setPlatform($platform);
 
-        $this->queryResultPrototype = ($queryResultPrototype) ?: new ResultSet\ResultSet();
+        $this->queryResultSetPrototype = ($queryResultPrototype) ?: new ResultSet\ResultSet();
     }
 
     /**
@@ -80,18 +80,19 @@ class Adapter
 
     public function createDriverFromParameters(array $parameters)
     {
-        $driverParameters = $parameters;
-        if (isset($driverParameters['type']) && is_string($driverParameters['type'])) {
-            $className = $driverParameters['type'];
-            if (strpos($className, '\\') === false) {
-                $className = self::BUILTIN_DRIVERS_NAMESPACE . '\\' . $driverParameters['type'];
-            }
-            unset($driverParameters['type']);
+        if (!isset($parameters['type']) || !is_string($parameters['type'])) {
+            throw new \InvalidArgumentException('createDriverFromParameters() expects a "type" key to be present inside the parameters');
         }
+
+        $className = $parameters['type'];
+        if (strpos($className, '\\') === false) {
+            $className = self::BUILTIN_DRIVERS_NAMESPACE . '\\' . $parameters['type'];
+        }
+        unset($parameters['type']);
         $driver = $className;
 
         if (is_string($driver) && class_exists($driver, true)) {
-            $driver = new $driver($driverParameters);
+            $driver = new $driver($parameters);
         } else {
             throw new \InvalidArgumentException('Class by name ' . $driver . ' not found', null, null);
         }
@@ -127,28 +128,14 @@ class Adapter
         return $this;
     }
 
-    public function setPlatform($platform)
+    public function setPlatform(Adapter\Platform $platform)
     {
-        if (is_string($platform)) {
-            if ($platform{0} != '\\') {
-                $platform = self::DEFAULT_PLATFORM_NAMESPACE . '\\' . $platform;
-            }
-            if (!class_exists($platform, true)) {
-                throw new \InvalidArgumentException('Class by name ' . $platform . ' not found', null, null);
-            }
-            $platform = new $platform;
-        }
-        
-        if (!$platform instanceof Adapter\Platform) {
-            throw new \InvalidArgumentException('Platform must be of type Zend\Db\Adapter\Platform');
-        }
-        
         $this->platform = $platform;
         return $this;
     }
 
     /**
-     * @var \Zend\Db\Adapter\Platform
+     * @return Adapter\Platform
      */
     public function getPlatform()
     {
@@ -158,25 +145,41 @@ class Adapter
     public function createPlatformFromDriver(Adapter\Driver $driver)
     {
         // consult driver for platform implementation
-        $platform = $this->getDriver()->getDatabasePlatformName(Adapter\Driver::NAME_FORMAT_CAMELCASE);
+        $platform = $driver->getDatabasePlatformName(Adapter\Driver::NAME_FORMAT_CAMELCASE);
         if ($platform == '') {
             $platform = 'Sql92';
         }
         if ($platform{0} != '\\') {
-            $platform = self::DEFAULT_PLATFORM_NAMESPACE . '\\' . $platform;
+            $platform = self::BUILTIN_PLATFORMS_NAMESPACE . '\\' . $platform;
         }
         return new $platform;
     }
-    
+
     /**
-     * query() is a convienince function
-     * 
-     * @return Zend\Db\Adapter\DriverStatement
+     * query() is a convenience function
+     *
+     * @param string $sql
+     * @param string $prepareOrExecute
+     * @return Zend\Db\Adapter\DriverStatement|
      */
     public function query($sql, $prepareOrExecute = self::QUERY_MODE_PREPARE)
     {
         $c = $this->getDriver()->getConnection();
-        return (($prepareOrExecute == self::QUERY_MODE_EXECUTE) ? $c->execute($sql) : $c->prepare($sql));
+
+        if ($prepareOrExecute == self::QUERY_MODE_PREPARE) {
+            return $c->prepare($sql);
+        }
+
+        $resultSetProducing = (stripos(trim($sql), 'SELECT') === 0); // will this sql produce a rowset?
+        $result = $c->execute($sql);
+
+        if ($resultSetProducing) {
+            $resultSet = clone $this->queryResultSetPrototype;
+            $resultSet->setDataSource($result);
+            return $resultSet;
+        }
+
+        return $result;
     }
 
 }

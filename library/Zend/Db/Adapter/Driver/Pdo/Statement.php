@@ -99,8 +99,8 @@ class Statement implements DriverStatement
     
     protected function bindParametersFromContainer(ParameterContainer $container)
     {
-        $data = $container->toArray();
-        foreach ($data as $position => &$value) {
+        $parameters = $container->toArray();
+        foreach ($parameters as $position => &$value) {
             $type = PDO::PARAM_STR;
             if ($container->offsetHasErrata($position)) {
                 switch ($container->offsetGetErrata($position)) {

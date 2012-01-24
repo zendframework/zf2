@@ -8,7 +8,7 @@ use Zend\Db\Adapter,
 class Statement implements \Zend\Db\Adapter\DriverStatement
 {
     /**
-     * @var Zend\Db\Adapter\AbstractDriver
+     * @var \Zend\Db\Adapter\Driver\Mysqli
      */
     protected $driver = null;
     protected $sql = false;
@@ -71,7 +71,8 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
         if ($parameters != null) {
             
             if (is_array($parameters)) {
-                die('todo');
+                $containerFactor = new \Zend\Db\Adapter\DriverStatement\ContainerFactory();
+                $parameters = $containerFactor->createContainer($parameters);
             }
             if (!$parameters instanceof ParameterContainer) {
                 throw new \InvalidArgumentException('ParameterContainer expected');
@@ -83,8 +84,7 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
             throw new \Zend\Db\Adapter\Exception\InvalidQueryException($this->resource->error);
         }
 
-        $resultClass = $this->driver->getResultClass();
-        $result = new $resultClass();
+        $result = clone $this->driver->getResultPrototype();
         $result->setDriver($this->driver);
         $result->setResource($this->resource);
         
@@ -93,12 +93,11 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
     
     protected function bindParametersFromContainer(ParameterContainer $pContainer)
     {
-        $clonedPContainer = clone $pContainer;
-        
+        $parameters = $pContainer->toArray();
         $type = '';
         $args = array();
 
-        foreach ($clonedPContainer as $position => &$value) {
+        foreach ($parameters as $position => &$value) {
             switch ($pContainer->offsetGetErrata($position)) {
                 case ParameterContainer::TYPE_DOUBLE:
                     $type .= 'd';
@@ -113,10 +112,10 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
                     $type .= 's';
                     break;
             }
-            array_push($args, $value);
+            $args[] = &$value;
         }
         array_unshift($args, $type);
-        
+
         call_user_func_array(array($this->resource, 'bind_param'), $args);
     }
 }

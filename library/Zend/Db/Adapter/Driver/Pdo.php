@@ -21,9 +21,9 @@ class Pdo implements \Zend\Db\Adapter\Driver
     protected $resultPrototype = null;
 
     /**
-     * @param d$connection
+     * @param array|Pdo\Connection $connection
      * @param null|Pdo\Statement $statementPrototype
-     * @param Pdo\Result $resultPrototype
+     * @param null|Pdo\Result $resultPrototype
      */
     public function __construct($connection, Pdo\Statement $statementPrototype = null, Pdo\Result $resultPrototype = null)
     {
@@ -73,7 +73,7 @@ class Pdo implements \Zend\Db\Adapter\Driver
     }
 
     /**
-     * @return Zend\Db\Adapter\DriverConnection
+     * @return DriverConnection
      */
     public function getConnection()
     {

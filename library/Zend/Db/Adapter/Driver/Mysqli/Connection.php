@@ -7,7 +7,7 @@ use Zend\Db\Adapter;
 class Connection implements Adapter\DriverConnection
 {
     /**
-     * @var \Zend\Db\Adapter\Driver\AbstractDriver
+     * @var \Zend\Db\Adapter\Driver
      */
     protected $driver = null;
     
@@ -19,7 +19,14 @@ class Connection implements Adapter\DriverConnection
     protected $resource = null;
 
     protected $inTransaction = false;    
-    
+
+    public function __construct(array $connectionParameters = array())
+    {
+        if ($connectionParameters) {
+            $this->setConnectionParams($connectionParameters);
+        }
+    }
+
     public function setDriver(Adapter\Driver $driver)
     {
         $this->driver = $driver;
@@ -31,7 +38,7 @@ class Connection implements Adapter\DriverConnection
         $this->connectionParams = $connectionParameters;
         return $this;
     }
-    
+
     public function getConnectionParams()
     {
         return $this->connectionParams;
@@ -67,26 +74,34 @@ class Connection implements Adapter\DriverConnection
             return;
         }
 
-        $host = $username = $password = $dbname = $port = $socket = null;
-        foreach (array('host', 'username', 'password', 'dbname', 'port', 'socket') as $c) {
-            if (isset($this->connectionParams[$c])) {
-                switch ($c) {
-                    case 'port': 
-                        $this->connectionParams[$c] = (int) $this->connectionParams[$c];
-                    default:
-                        $$c = $this->connectionParams[$c];
+        // localize
+        $p = $this->connectionParams;
+
+        // given a list of key names, test for existence in $p
+        $findParameterValue = function(array $names) use ($p) {
+            foreach ($names as $name) {
+                if (isset($p[$name])) {
+                    return $p[$name];
                 }
             }
-        }
-        
-        $this->resource = new \Mysqli($host, $username, $password, $dbname, $port, $socket);
+            return null;
+        };
+
+        $hostname = $findParameterValue(array('hostname', 'host'));
+        $username = $findParameterValue(array('username', 'user'));
+        $password = $findParameterValue(array('password', 'passwd', 'pw'));
+        $database = $findParameterValue(array('database', 'dbname', 'db', 'schema'));
+        $port     = (isset($p['port'])) ? (int) $p['port'] : null;
+        $socket   = (isset($p['socket'])) ? $p['socket'] : null;
+
+        $this->resource = new \Mysqli($hostname, $username, $password, $database, $port, $socket);
 
         if ($this->resource->connect_error) {
             throw new \Exception('Connect Error (' . $this->resource->connect_errno . ') ' . $this->resource->connect_error);
         }
 
-        if (!empty($this->connectionParams['charset'])) {
-            $this->resource->set_charset($this->resource, $this->connectionParams['charset']);
+        if (!empty($p['charset'])) {
+            $this->resource->set_charset($this->resource, $p['charset']);
         }
 
     }
@@ -125,7 +140,7 @@ class Connection implements Adapter\DriverConnection
             throw new \Exception('Must be connected before you can rollback.');
         }
         
-        if (!$this->_inCommit) {
+        if (!$this->inTransaction) {
             throw new \Exception('Must call commit() before you can rollback.');
         }
         
@@ -139,15 +154,14 @@ class Connection implements Adapter\DriverConnection
         if (!$this->isConnected()) {
             $this->connect();
         }
-        
-        $resultClass = $this->driver->getResultClass();
-        
+
         $returnValue = $this->resource->query($sql);
         
         // if the returnValue is something other than a mysqli_result, bypass wrapping it
         if ($returnValue instanceof \mysqli_result) {
-            $result = new $resultClass($this->driver, array(), $returnValue);
-            return $result;
+            $resultPrototype = clone $this->driver->getResultPrototype();
+            $resultPrototype->setResource($returnValue);
+            return $resultPrototype;
         } elseif ($returnValue === false) {
             throw new \Zend\Db\Adapter\Exception\InvalidQueryException($this->resource->error);
         }
@@ -167,9 +181,7 @@ class Connection implements Adapter\DriverConnection
             throw new \RuntimeException('Statement not produced');
         }
         
-        $statementClass = $this->driver->getStatementClass();
-        $statement = new $statementClass();
-        $statement->setDriver($this->driver);
+        $statement = clone $this->driver->getStatementPrototype();
         $statement->setResource($stmtResource);
         $statement->setSql($sql);
         return $statement;

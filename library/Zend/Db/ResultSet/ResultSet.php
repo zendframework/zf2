@@ -10,20 +10,20 @@ class ResultSet implements Iterator, ResultCollection
     const TYPE_OBJECT = 'object';
     const TYPE_ARRAY  = 'array';
     
-    protected $rowClass   = '\Zend\Db\ResultSet\Row';
+    protected $rowObjectPrototype = null;
     protected $returnType = self::TYPE_OBJECT;
     
     /**
      * @var \Zend\Db\ResultSet\DataSource
      */
     protected $dataSource = null;
-    
-    
-    public function __construct(DataSource $dataSource = null)
+
+    public function __construct(DataSource $dataSource = null, RowObject $rowObjectPrototype = null)
     {
         if ($dataSource) {
             $this->setDataSource($dataSource);
         }
+        $this->rowObjectPrototype = ($rowObjectPrototype) ?: new Row;
     }
 
     public function setDataSource(DataSource $dataSource)

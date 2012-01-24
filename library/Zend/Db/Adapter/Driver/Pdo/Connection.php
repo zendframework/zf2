@@ -163,14 +163,12 @@ class Connection implements Adapter\DriverConnection
             $this->connect();
         }
         
-        $result = clone $this->driver->getResultPrototype();
-        
         $returnValue = $this->resource->query($sql);
         
         // if the returnValue is boolean false, bypass wrapping it
         if (false !== $returnValue) {
+            $result = clone $this->driver->getResultPrototype();
             $result->setResource($returnValue);
-            //$result = new $resultClass($this->driver, array(), $returnValue);
             return $result;
         } elseif ($returnValue === false) {
             $errorInfo = $this->resource->errorInfo();
@@ -198,9 +196,9 @@ class Connection implements Adapter\DriverConnection
         }
         
         $statement = clone $this->driver->getStatementPrototype();
-        $statement->setDriver($this->driver)
-                  ->setResource($stmtResource)
-                  ->setSql($sql);
+        $statement->setDriver($this->driver);
+        $statement->setResource($stmtResource);
+        $statement->setSql($sql);
         return $statement;
     }
 

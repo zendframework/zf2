@@ -4,39 +4,49 @@ namespace Zend\Db\ResultSet;
 
 class Row implements RowObject
 {
+    /*
     const KEY_POSITION = 'position';
     const KEY_NAME     = 'name';
+    */
     
-    protected $_data = null;
+    protected $data = null;
     
-    public function __construct(array $data)
+    public function __construct(array $data = array())
     {
-        $this->_data = $data;
+        if ($data) {
+            $this->setData($data);
+        }
+    }
+
+    public function setData(array $data)
+    {
+        $this->data = $data;
     }
     
     public function offsetExists($offset)
     {
-        
+        return isset($this->data[$offset]);
     }
     
     public function offsetGet($offset)
     {
-        
+        return $this->data[$offset];
     }
     
     public function offsetSet($offset, $value)
     {
-        
+        $this->data[$offset] = $value;
+        return $this;
     }
     
     public function offsetUnset($offset)
     {
-        
+        unset($this->data[$offset]);
     }
     
     public function count()
     {
-        return count($this->_data);
+        return count($this->data);
     }
-}
 
+}
