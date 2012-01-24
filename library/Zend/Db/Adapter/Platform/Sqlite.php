@@ -11,7 +11,7 @@ class Sqlite implements \Zend\Db\Adapter\Platform
     
     public function getQuoteIdentifierSymbol()
     {
-        return '`';
+        return '"';
     }
     
     public function quoteIdentifier($identifier)

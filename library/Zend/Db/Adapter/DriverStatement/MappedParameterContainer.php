@@ -7,7 +7,7 @@ class MappedParameterContainer extends NamedParameterContainer
     
     protected $map = null;
     
-    public function __construct($map = null, Array $array = array(), $arrayMode = self::ARRAY_IS_NAMES_AND_VALUES)
+    public function __construct($map = null, array $array = array(), $arrayMode = self::ARRAY_IS_NAMES_AND_VALUES)
     {
         if ($map) {
             $this->setMap($map);

@@ -7,6 +7,9 @@ namespace Zend\Db;
 
 /**
  * Class DocBlock
+ *
+ * @property Adapter\Driver $driver
+ * @property Adapter\Platform $platform
  */
 class Adapter
 {
@@ -21,22 +24,31 @@ class Adapter
      */
     const PREPARE_TYPE_POSITIONAL = 'positional';
     const PREPARE_TYPE_NAMED = 'named';
-    
+
+    /**
+     * Built-in namespaces
+     */
     const BUILTIN_DRIVERS_NAMESPACE = 'Zend\Db\Adapter\Driver';
     const BUILTIN_PLATFORMS_NAMESPACE = 'Zend\Db\Adapter\Platform';
 
     /**
-     * @var \Zend\Db\Adapter\Driver
+     * @var Adapter\Driver
      */
     protected $driver = null;
 
     /**
-     * @var Zend\Db\Adapter\Platform
+     * @var Adapter\Platform
      */
     protected $platform = null;
 
+    /**
+     * @var \Zend\Db\ResultSet\ResultSet
+     */
     protected $queryResultSetPrototype = null;
 
+    /**
+     * @var string
+     */
     protected $queryMode = self::QUERY_MODE_PREPARE;
 
 
@@ -78,6 +90,11 @@ class Adapter
         return $this;
     }
 
+    /**
+     * @param array $parameters
+     * @return Adapter\Driver
+     * @throws \InvalidArgumentException
+     */
     public function createDriverFromParameters(array $parameters)
     {
         if (!isset($parameters['type']) || !is_string($parameters['type'])) {
@@ -108,7 +125,7 @@ class Adapter
      * getDriver()
      * 
      * @throws Exception
-     * @return \Zend\Db\Adapter\Driver
+     * @return Adapter\Driver
      */
     public function getDriver()
     {
@@ -117,7 +134,12 @@ class Adapter
         }
         return $this->driver;
     }
-    
+
+    /**
+     * @param string $queryMode
+     * @return Adapter
+     * @throws \InvalidArgumentException
+     */
     public function setQueryMode($queryMode)
     {
         if (!in_array($queryMode, array(self::QUERY_MODE_EXECUTE, self::QUERY_MODE_PREPARE))) {
@@ -128,6 +150,10 @@ class Adapter
         return $this;
     }
 
+    /**
+     * @param Adapter\Platform $platform
+     * @return Adapter
+     */
     public function setPlatform(Adapter\Platform $platform)
     {
         $this->platform = $platform;
@@ -141,7 +167,11 @@ class Adapter
     {
         return $this->platform;
     }
-    
+
+    /**
+     * @param Adapter\Driver $driver
+     * @return Adapter\Platform
+     */
     public function createPlatformFromDriver(Adapter\Driver $driver)
     {
         // consult driver for platform implementation
@@ -180,6 +210,18 @@ class Adapter
         }
 
         return $result;
+    }
+
+    /**
+     * @param $name
+     */
+    public function __get($name)
+    {
+        switch (strtolower($name)) {
+            case 'driver': return $this->driver;
+            case 'platform': return $this->platform;
+        }
+        throw new \Exception('Invalid magic property on adapter');
     }
 
 }

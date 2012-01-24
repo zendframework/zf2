@@ -104,15 +104,15 @@ class Mysqli implements \Zend\Db\Adapter\Driver
      */
     public function getPrepareTypeSupport()
     {
-        // TODO: Implement getPrepareTypeSupport() method.
+        return array('positional');
     }
 
     /**
      * @param $name
      * @return string
      */
-    public function formatNamedParameter($name)
+    public function formatParameterName($name)
     {
-        // TODO: Implement formatNamedParameter() method.
+        return '?';
     }
 }

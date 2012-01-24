@@ -42,6 +42,6 @@ interface Driver
      * @param $name
      * @return string
      */
-    public function formatNamedParameter($name);
+    public function formatParameterName($name);
 
 }

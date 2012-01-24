@@ -62,7 +62,9 @@ class Pdo implements \Zend\Db\Adapter\Driver
     public function getDatabasePlatformName($nameFormat = self::NAME_FORMAT_CAMELCASE)
     {
         // have to pull this from the dsn
-        var_dump($this->getConnection());
+        $connectionParameters = $this->getConnection()->getConnectionParams();
+        list($type, $options) = preg_split('/:/', $connectionParameters['dsn'], 2);
+        return ucwords($type);
     }
     
     public function checkEnvironment()
@@ -101,16 +103,20 @@ class Pdo implements \Zend\Db\Adapter\Driver
      */
     public function getPrepareTypeSupport()
     {
-        // TODO: Implement getPrepareTypeSupport() method.
+        return array('named', 'positional');
     }
 
     /**
      * @param $name
      * @return string
      */
-    public function formatNamedParameter($name)
+    public function formatParameterName($name, $type = null)
     {
-        // TODO: Implement formatNamedParameter() method.
+        if ($type == null && !is_numeric($name) || $type == 'named') {
+            return ':' . $name;
+        } else {
+            return '?';
+        }
     }
 
 }

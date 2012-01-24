@@ -119,8 +119,8 @@ class Statement implements DriverStatement
                 }
             }
 
-            // value is reference
-            $this->resource->bindParam(($position + 1), $value, $type);
+            // position is named or positional, value is reference
+            $this->resource->bindParam((is_int($position) ? ($position + 1) : $position), $value, $type);
         }
     }
 }
