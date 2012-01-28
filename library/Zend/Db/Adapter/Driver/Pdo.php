@@ -2,6 +2,7 @@
 
 namespace Zend\Db\Adapter\Driver;
 
+use PDOStatement;
 
 class Pdo implements \Zend\Db\Adapter\Driver
 {
@@ -75,7 +76,7 @@ class Pdo implements \Zend\Db\Adapter\Driver
     }
 
     /**
-     * @return DriverConnection
+     * @return Pdo\Connection
      */
     public function getConnection()
     {
@@ -83,19 +84,25 @@ class Pdo implements \Zend\Db\Adapter\Driver
     }
 
     /**
-     * @return Zend\Db\Adapter\DriverStatement
+     * @param string $sql
+     * @return Pdo\Statement
      */
-    public function getStatementPrototype()
+    public function createStatement($sql)
     {
-        return $this->statementPrototype;
+        $statement = clone $this->statementPrototype;
+        $statement->initialize($this->connection->getResource(), $sql);
+        return $statement;
     }
 
     /**
-     * @return Zend\Db\Adapter\DriverResult
+     * @param resource $resource
+     * @return Pdo\Result
      */
-    public function getResultPrototype()
+    public function createResult($resource)
     {
-        return $this->resultPrototype;
+        $result = clone $this->resultPrototype;
+        $result->initialize($resource);
+        return $result;
     }
 
     /**
@@ -107,7 +114,8 @@ class Pdo implements \Zend\Db\Adapter\Driver
     }
 
     /**
-     * @param $name
+     * @param string $name
+     * @param string|null $type
      * @return string
      */
     public function formatParameterName($name, $type = null)

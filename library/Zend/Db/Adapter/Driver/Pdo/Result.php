@@ -60,11 +60,8 @@ class Result implements Iterator, DriverResult
         return $this;
     }
 
-    public function setResource($resource)
+    public function initialize(PDOStatement $resource)
     {
-        if (!$resource instanceof PDOStatement) {
-            throw new \InvalidArgumentException('Invalid resource provided.');
-        }
         $this->resource = $resource;
         return $this;
     }
@@ -122,5 +119,14 @@ class Result implements Iterator, DriverResult
     {
         return $this->resource->rowCount();
     }
-    
+
+    public function isQueryResult()
+    {
+        // TODO: Implement isQueryResult() method.
+    }
+
+    public function getAffectedRows()
+    {
+        // TODO: Implement getAffectedRows() method.
+    }
 }

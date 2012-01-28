@@ -7,10 +7,13 @@ use Zend\Db\Adapter;
 class Connection implements Adapter\DriverConnection
 {
     /**
-     * @var Zend\Db\Adapter\Driver\AbstractDriver
+     * @var \Zend\Db\Adapter\Driver
      */
     protected $driver = null;
-    
+
+    /**
+     * @var array
+     */
     protected $connectionParams = array();
     
     /**
@@ -18,15 +21,17 @@ class Connection implements Adapter\DriverConnection
      */
     protected $resource = null;
 
+    /**
+     * @var bool
+     */
     protected $inTransaction = false;
     
-    /*
-    public function __construct(Adapter\AbstractDriver $driver, array $connectionParameters)
+    public function __construct(array $connectionParameters = array())
     {
-        $this->driver = $driver;
-        $this->connectionParams = $connectionParameters;
+        if ($connectionParameters) {
+            $this->setConnectionParams($connectionParameters);
+        }
     }
-    */
     
     public function setDriver(Adapter\Driver $driver)
     {
@@ -88,9 +93,9 @@ class Connection implements Adapter\DriverConnection
                     $params[$cpName] = $cpValue;
             }
         }
-        
+
         $this->resource = sqlsrv_connect($serverName, $params);
-        
+
         if (!$this->resource) {
             $prevErrorException = new ErrorException(sqlsrv_errors());
             throw new \Exception('Connect Error', null, $prevErrorException);
@@ -155,22 +160,20 @@ class Connection implements Adapter\DriverConnection
         if (!$this->isConnected()) {
             $this->connect();
         }
-        
-        $resultClass = $this->driver->getResultClass();
-        
+
         $returnValue = sqlsrv_query($this->resource, $sql);
         
         // if the returnValue is something other than a Sqlsrv_result, bypass wrapping it
-        if (is_resource($returnValue)) {
-            $result = new $resultClass($this->driver, array(), $returnValue);
-            $result->setDriver($this->driver);
-            // @todo how do we get results into this thing?
-            return $result;
-        } elseif ($returnValue === false) {
-            throw new \Zend\Db\Adapter\Exception\InvalidQueryException(sqlsrv_error());
+        if ($returnValue === false) {
+            $errors = sqlsrv_errors();
+            // ignore general warnings
+            if ($errors[0]['SQLSTATE'] != '01000') {
+                throw new \RuntimeException($errors[0]['message']);
+            }
         }
-        
-        return $returnValue;
+
+        $result = $this->driver->createResult($returnValue);
+        return $result;
     }
     
     public function prepare($sql)
@@ -178,24 +181,8 @@ class Connection implements Adapter\DriverConnection
         if (!$this->isConnected()) {
             $this->connect();
         }
-        
-        /*
-        $stmtResource = sqlsrv_prepare($this->resource, $sql);
-        var_dump(get_resource_type($this->resource));
-        var_dump(get_resource_type($stmtResource));
-        
-        if (!is_resource($stmtResource)) {
-            $prevErrorException = new ErrorException(sqlsrv_errors());
-            throw new \RuntimeException('Statement not produced', null, $prevErrorException);
-        }
-        */
-        
-        
-        $statementClass = $this->driver->getStatementClass();
-        $statement = new $statementClass();
-        $statement->setDriver($this->driver);
-        $statement->setResource($this->resource);
-        $statement->setSql($sql);
+
+        $statement = $this->driver->createStatement($sql);
         return $statement;
     }
 

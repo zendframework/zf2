@@ -7,7 +7,7 @@ use Zend\Db\Adapter;
 class Connection implements Adapter\DriverConnection
 {
     /**
-     * @var \Zend\Db\Adapter\Driver
+     * @var \Zend\Db\Adapter\Driver\Mysqli
      */
     protected $driver = null;
     
@@ -155,18 +155,15 @@ class Connection implements Adapter\DriverConnection
             $this->connect();
         }
 
-        $returnValue = $this->resource->query($sql);
-        
+        $resultResource = $this->resource->query($sql);
+
         // if the returnValue is something other than a mysqli_result, bypass wrapping it
-        if ($returnValue instanceof \mysqli_result) {
-            $resultPrototype = clone $this->driver->getResultPrototype();
-            $resultPrototype->setResource($returnValue);
-            return $resultPrototype;
-        } elseif ($returnValue === false) {
+        if ($resultResource === false) {
             throw new \Zend\Db\Adapter\Exception\InvalidQueryException($this->resource->error);
         }
-        
-        return $returnValue;
+
+        $resultPrototype = $this->driver->createResult(($resultResource === true) ? $this->resource : $resultResource);
+        return $resultPrototype;
     }
     
     public function prepare($sql)
@@ -175,15 +172,7 @@ class Connection implements Adapter\DriverConnection
             $this->connect();
         }
         
-        $stmtResource = $this->resource->prepare($sql);
-        
-        if (!$stmtResource instanceof \mysqli_stmt) {
-            throw new \RuntimeException('Statement not produced');
-        }
-        
-        $statement = clone $this->driver->getStatementPrototype();
-        $statement->setResource($stmtResource);
-        $statement->setSql($sql);
+        $statement = $this->driver->createStatement($sql);
         return $statement;
     }
 

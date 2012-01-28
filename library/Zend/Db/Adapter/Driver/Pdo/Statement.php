@@ -30,28 +30,21 @@ class Statement implements DriverStatement
         return $this;
     }
 
-    public function setResource($resource)
-    {
-        if (!$resource instanceof PDOStatement) {
-            throw new \InvalidArgumentException('Invalid statement type');
-        }
-        $this->resource = $resource;
-        return $this;
-    }
-
-    public function setSql($sql)
+    public function initialize(PDO $connectionResource, $sql)
     {
         $this->sql = $sql;
         if (strpos(ltrim($sql), 'SELECT') === 0) {
             $this->isQuery = true;
         }
+
+        $this->resource = $connectionResource->prepare($sql);
         return $this;
     }
 
-    public function setParameterContainer(ParameterContainer $parameterContainer)
-    {
-        $this->parameterContainer = $parameterContainer;
-    }
+//    public function setParameterContainer(ParameterContainer $parameterContainer)
+//    {
+//        $this->parameterContainer = $parameterContainer;
+//    }
 
     public function isQuery()
     {
@@ -90,10 +83,7 @@ class Statement implements DriverStatement
             throw new Exception\InvalidQueryException($this->resource->error);
         }
 
-        $result = clone $this->driver->getResultPrototype();
-        $result->setDriver($this->driver)
-               ->setResource($this->resource);
-        
+        $result = $this->driver->createResult($this->resource);
         return $result;
     }
     

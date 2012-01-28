@@ -2,15 +2,19 @@
 
 namespace Zend\Db\Adapter\Driver\Mysqli;
 
-use Zend\Db\Adapter;
+use Zend\Db\Adapter,
+    Zend\Db\Adapter\DriverResult,
+    Iterator;
 
-class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
+class Result implements Iterator, DriverResult
 {
     const MODE_STATEMENT = 'statement';
     const MODE_RESULT = 'result';
     
     protected $mode = null;
-    
+
+    protected $isQueryResult = true;
+
     /**
      * @var Zend\Db\Adapter\Driver\AbstractDriver
      */
@@ -56,12 +60,14 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
         return $this;
     }
     
-    public function setResource($resource)
+    public function initialize($resource)
     {
-         if (!$resource instanceof \mysqli_result && !$resource instanceof \mysqli_stmt) {
+        if (!$resource instanceof \mysqli && !$resource instanceof \mysqli_result && !$resource instanceof \mysqli_stmt) {
             throw new \InvalidArgumentException('Invalid resource provided.');
         }
-        
+
+        $this->isQueryResult = (!$resource instanceof \mysqli);
+
         $this->resource = $resource;
         $this->mode = ($this->resource instanceof \mysqli_stmt) ? self::MODE_STATEMENT : self::MODE_RESULT;
         return $this;
@@ -71,7 +77,26 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
     {
         return $this->resource;
     }
-    
+
+    public function setIsQueryResult($isQueryResult)
+    {
+        $this->isQueryResult = $isQueryResult;
+    }
+
+    public function isQueryResult()
+    {
+        return $this->isQueryResult;
+    }
+
+    public function getAffectedRows()
+    {
+        if ($this->resource instanceof \mysqli || $this->resource instanceof \mysqli_stmt) {
+            return $this->resource->affected_rows;
+        } else {
+            return $this->resource->num_rows;
+        }
+    }
+
     public function current()
     {
         if ($this->currentComplete) {

@@ -3,9 +3,10 @@
 namespace Zend\Db\Adapter\Driver\Mysqli;
 
 use Zend\Db\Adapter,
+    Zend\Db\Adapter\DriverStatement,
     Zend\Db\Adapter\DriverStatement\ParameterContainer;
 
-class Statement implements \Zend\Db\Adapter\DriverStatement
+class Statement implements DriverStatement
 {
     /**
      * @var \Zend\Db\Adapter\Driver\Mysqli
@@ -26,13 +27,13 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
         return $this;
     }
     
-    public function setResource($resource)
+    public function initialize(\mysqli $mysqli, $sql)
     {
-        if (!$resource instanceof \mysqli_stmt) {
-            throw new \InvalidArgumentException('Invalid resource type.');
+        $this->sql = $sql;
+        $this->resource = $mysqli->prepare($sql);
+        if (!$this->resource instanceof \mysqli_stmt) {
+            throw new \RuntimeException('Statement couldn\'t be produced');
         }
-        
-        $this->resource = $resource;
         return $this;
     }
     
@@ -80,14 +81,11 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
             $this->bindParametersFromContainer($parameters);
         }
             
-        if ($this->resource->execute() === false) {
-            throw new \Zend\Db\Adapter\Exception\InvalidQueryException($this->resource->error);
+        if ($x = $this->resource->execute() === false) {
+            throw new \RuntimeException($this->resource->error);
         }
 
-        $result = clone $this->driver->getResultPrototype();
-        $result->setDriver($this->driver);
-        $result->setResource($this->resource);
-        
+        $result = $this->driver->createResult($this->resource);
         return $result;
     }
     

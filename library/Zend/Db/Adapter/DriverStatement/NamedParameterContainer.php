@@ -26,10 +26,11 @@ class NamedParameterContainer implements Iterator, ParameterContainer
         }
     }
     
-    public function setNames(Array $names)
+    public function setNames(array $names)
     {
         foreach ($names as $name) {
             $this->values[$name] = null;
+            $this->errata[$name] = null;
         }
     }
     
@@ -40,7 +41,7 @@ class NamedParameterContainer implements Iterator, ParameterContainer
     
     public function offsetGet($name)
     {
-        return $this->values[$name];
+        return (isset($this->values[$name])) ? $this->values[$name] : null;
     }
     
     public function offsetExists($name)
@@ -75,15 +76,15 @@ class NamedParameterContainer implements Iterator, ParameterContainer
     public function offsetGetErrata($name)
     {
         if (!$this->offsetExists($name)) {
-            throw new \InvalidArgumentException('Invalid name for this errata');
+            throw new \InvalidArgumentException('Invalid name for this errata: ' . $name);
         }
-        return (isset($this->errata[$name])) ?: null;
+        return (isset($this->errata[$name])) ? $this->errata[$name] : null;
     }
 
     public function offsetHasErrata($name)
     {
         if (!$this->offsetExists($name)) {
-            throw new \InvalidArgumentException('Invalid name for this errata');
+            throw new \InvalidArgumentException('Invalid name for this errata: ' . $name);
         }
         return (isset($this->errata[$name]) && $this->errata[$name] !== null);
     }
@@ -91,7 +92,7 @@ class NamedParameterContainer implements Iterator, ParameterContainer
     public function offsetUnsetErrata($name)
     {
         if (!$this->offsetExists($name)) {
-            throw new \InvalidArgumentException('Invalid name for this errata');
+            throw new \InvalidArgumentException('Invalid name for this errata: ' . $name);
         }
         unset($this->errata[$name]);
     }
@@ -139,7 +140,7 @@ class NamedParameterContainer implements Iterator, ParameterContainer
      */
     public function current()
     {
-        current($this->values);
+        return current($this->values);
     }
 
     /**
@@ -150,7 +151,7 @@ class NamedParameterContainer implements Iterator, ParameterContainer
      */
     public function next()
     {
-        next($this->values);
+        return next($this->values);
     }
 
     /**
@@ -162,7 +163,7 @@ class NamedParameterContainer implements Iterator, ParameterContainer
      */
     public function key()
     {
-        key($this->values);
+        return key($this->values);
     }
 
     /**
@@ -185,6 +186,6 @@ class NamedParameterContainer implements Iterator, ParameterContainer
      */
     public function rewind()
     {
-        rewind($this->values);
+        reset($this->values);
     }
 }

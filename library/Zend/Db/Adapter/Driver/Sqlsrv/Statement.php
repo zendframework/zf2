@@ -4,15 +4,27 @@ namespace Zend\Db\Adapter\Driver\Sqlsrv;
 
 use Zend\Db\Adapter\DriverStatement;
 
-class Statement implements \Zend\Db\Adapter\DriverStatement
+class Statement implements DriverStatement
 {
 
     /**
-     * @var Zend\Db\Adapter\AbstractDriver
+     * @var \Zend\Db\Adapter\Driver
      */
     protected $driver = null;
-    protected $sql = false;
+
+    /**
+     * @var string
+     */
+    protected $sql = null;
+
+    /**
+     * @var bool
+     */
     protected $isQuery = null;
+
+    /**
+     * @var array
+     */
     protected $parameterReferences = array();
     
     /**
@@ -24,7 +36,7 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
      * @var \Sqlsrv_stmt
      */
     protected $resource = null;
-    
+
     public function setDriver(\Zend\Db\Adapter\Driver $driver)
     {
         $this->driver = $driver;
@@ -40,21 +52,23 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
      * 
      * @param resource
      */
-    public function setResource($resource)
+    public function initialize($resource, $sql)
     {
-        $this->resource = $resource;
-        return $this;
-    }
-    
-    public function setSql($sql)
-    {
+        $pRef = &$this->parameterReferences;
+        for ($position = 0; $position < substr_count($sql, '?'); $position++) {
+            $pRef[$position] = array('', SQLSRV_PARAM_IN, null, null);
+        }
+
+        $statementResource = sqlsrv_prepare($resource, $sql, $pRef);
+
+        $this->resource = $statementResource;
+        $this->sql = $sql;
         if (strpos(ltrim($sql), 'SELECT') === 0) {
             $this->isQuery = true;
         }
-        $this->sql = $sql;
         return $this;
     }
-    
+
     public function setParameterContainer(DriverStatement\ParameterContainer $parameterContainer)
     {
         $this->parameterContainer = $parameterContainer;
@@ -90,38 +104,37 @@ class Statement implements \Zend\Db\Adapter\DriverStatement
         if ($this->parameterContainer) {
             $this->bindParametersFromContainer();
         }
-        
-        // delayed prepare, this is the case since we allow parameters to be supplied at execution time
-        if (get_resource_type($this->resource) == 'SQL Server Connection') {
-            $this->resource = sqlsrv_prepare($this->resource, $this->sql, $this->parameterReferences);
-        }
-            
-        if (sqlsrv_execute($this->resource) === false) {
-            $ee = new ErrorException(sqlsrv_errors());
-            throw new \Zend\Db\Adapter\Exception\InvalidQueryException('Invalid query', null, $ee);
+
+        $resultValue = sqlsrv_execute($this->resource);
+
+        if ($resultValue === false) {
+            $errors = sqlsrv_errors();
+            // ignore general warnings
+            if ($errors[0]['SQLSTATE'] != '01000') {
+                throw new \RuntimeException($errors[0]['message']);
+            }
         }
 
-        $resultClass = $this->driver->getResultClass();
-        $result = new $resultClass();
-        $result->setDriver($this->driver);
-        $result->setResource($this->resource);
-        
+        $result = $this->driver->createResult($this->resource);
         return $result;
     }
     
     protected function bindParametersFromContainer()
     {
-        if (!$this->parameterReferences) {
-            $refArray = array(null, SQLSRV_PARAM_IN, null, null);
-            $this->parameterReferences = array_pad(array(), $this->parameterContainer->count(), $refArray);
+        $values = $this->parameterContainer->toArray();
+        $position = 0;
+        foreach ($values as $value) {
+            $this->parameterReferences[$position++][0] = $value;
         }
-        
-        foreach ($this->parameterReferences as $index => &$positionInfo) {
-            $positionInfo[0] = $this->parameterContainer->offsetGet($index);
-            if ($this->parameterContainer->offsetHasErrata($index)) {
-                $positionInfo[3] = $this->parameterContainer->offsetGetErrata($index);
-            }
-        }
+
+        // @todo bind errata
+        //foreach ($this->parameterContainer as $name => &$value) {
+        //    $p[$position][0] = $value;
+        //    $position++;
+        //    if ($this->parameterContainer->offsetHasErrata($name)) {
+        //        $p[$position][3] = $this->parameterContainer->offsetGetErrata($name);
+        //    }
+        //}
     }
     
 }

@@ -5,7 +5,7 @@ namespace Zend\Db\Adapter\Driver\Pdo;
 use Zend\Db\Adapter,
     Zend\Db\Adapter\Driver,
     Zend\Db\Adapter\Exception\InvalidQueryException,
-    PDO as PHPDataObject,
+    PDO,
     PDOException,
     PDOStatement;
 
@@ -13,19 +13,28 @@ use Zend\Db\Adapter,
 class Connection implements Adapter\DriverConnection
 {
     /**
-     * @var \Zend\Db\Adapter\Driver
+     * @var \Zend\Db\Adapter\Driver\Pdo
      */
     protected $driver = null;
-    
+
+    /**
+     * @var array
+     */
     protected $connectionParams = array();
     
     /**
-     * @var PHPDataObject
+     * @var PDO
      */
     protected $resource = null;
 
+    /**
+     * @var bool
+     */
     protected $inTransaction = false;
 
+    /**
+     * @param array $connectionParameters
+     */
     public function __construct(array $connectionParameters = array())
     {
         if ($connectionParameters) {
@@ -33,27 +42,43 @@ class Connection implements Adapter\DriverConnection
         }
     }
 
+    /**
+     * @param Driver $driver
+     * @return Connection
+     */
     public function setDriver(Driver $driver)
     {
         $this->driver = $driver;
         return $this;
     }
 
+    /**
+     * @param array $connectionParams
+     */
     public function setConnectionParams(array $connectionParams)
     {
         $this->connectionParams = $connectionParams;
     }
-    
+
+    /**
+     * @return array
+     */
     public function getConnectionParams()
     {
         return $this->connectionParams;
     }
-    
+
+    /**
+     * @return null
+     */
     public function getDefaultCatalog()
     {
         return null;
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getDefaultSchema()
     {
         if (!$this->isConnected()) {
@@ -66,13 +91,17 @@ class Connection implements Adapter\DriverConnection
     }
     
     /**
-     * @return PHPDataObject
+     * @return PDO
      */
     public function getResource()
     {
         return $this->resource;
     }
-    
+
+    /**
+     * @return Connection
+     * @throws \Exception
+     */
     public function connect()
     {
         if ($this->resource) {
@@ -102,26 +131,36 @@ class Connection implements Adapter\DriverConnection
         }
 
         try {
-            $this->resource = new PHPDataObject($dsn, $username, $password, $options);
+            $this->resource = new PDO($dsn, $username, $password, $options);
         } catch (PDOException $e) {
             throw new \Exception('Connect Error: ' . $e->getMessage(), $e->getCode(), $e);
         }
 
         return $this;
     }
-    
+
+    /**
+     * @return bool
+     */
     public function isConnected()
     {
-        return ($this->resource instanceof PHPDataObject);
+        return ($this->resource instanceof PDO);
     }
-    
+
+    /**
+     * @return Connection
+     */
     public function disconnect()
     {
         if ($this->isConnected()) {
             unset($this->resource);
         }
+        return $this;
     }
-    
+
+    /**
+     * @return Connection
+     */
     public function beginTransaction()
     {
         if (!$this->isConnected()) {
@@ -129,8 +168,12 @@ class Connection implements Adapter\DriverConnection
         }
         $this->resource->beginTransaction();
         $this->inTransaction = true;
+        return $this;
     }
-    
+
+    /**
+     * @return Connection
+     */
     public function commit()
     {
         if (!$this->isConnected()) {
@@ -138,10 +181,14 @@ class Connection implements Adapter\DriverConnection
         }
         
         $this->resource->commit();
-        
         $this->inTransaction = false;
+        return $this;
     }
-    
+
+    /**
+     * @return Connection
+     * @throws \Exception
+     */
     public function rollback()
     {
         if (!$this->isConnected()) {
@@ -156,26 +203,27 @@ class Connection implements Adapter\DriverConnection
         return $this;
     }
     
-    
+    /**
+     * @param $sql
+     * @return Result
+     * @throws \Zend\Db\Adapter\Exception\InvalidQueryException
+     */
     public function execute($sql)
     {
         if (!$this->isConnected()) {
             $this->connect();
         }
         
-        $returnValue = $this->resource->query($sql);
+        $resultResource = $this->resource->query($sql);
         
-        // if the returnValue is boolean false, bypass wrapping it
-        if (false !== $returnValue) {
-            $result = clone $this->driver->getResultPrototype();
-            $result->setResource($returnValue);
-            return $result;
-        } elseif ($returnValue === false) {
+        if ($resultResource === false) {
             $errorInfo = $this->resource->errorInfo();
             throw new InvalidQueryException($errorInfo[2]);
         }
-        
-        return $returnValue;
+
+        $result = $this->driver->createResult($resultResource);
+        return $result;
+
     }
     
     /**
@@ -186,20 +234,23 @@ class Connection implements Adapter\DriverConnection
         if (!$this->isConnected()) {
             $this->connect();
         }
-        
-        $stmtResource = $this->resource->prepare($sql, array(
-            //PHPDataObject::ATTR_CURSOR => PHPDataObject::CURSOR_SCROLL,
-        ));
-        
-        if (!$stmtResource instanceof PDOStatement) {
-            throw new \RuntimeException('Statement not produced');
-        }
-        
-        $statement = clone $this->driver->getStatementPrototype();
-        $statement->setDriver($this->driver);
-        $statement->setResource($stmtResource);
-        $statement->setSql($sql);
+
+        $statement = $this->driver->createStatement($sql);
         return $statement;
+
+//        $stmtResource = $this->resource->prepare($sql, array(
+//            //PHPDataObject::ATTR_CURSOR => PHPDataObject::CURSOR_SCROLL,
+//        ));
+//
+//        if (!$stmtResource instanceof PDOStatement) {
+//            throw new \RuntimeException('Statement not produced');
+//        }
+//
+//        $statement = clone $this->driver->getStatementPrototype();
+//        $statement->setDriver($this->driver);
+//        $statement->setResource($stmtResource);
+//        $statement->setSql($sql);
+//        return $statement;
     }
 
 }

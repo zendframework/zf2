@@ -2,12 +2,9 @@
 
 namespace Zend\Db\Adapter;
 
-use Zend\Db\ResultSet\DataSource;
-
-interface DriverResult extends DataSource
+interface DriverResult extends \Countable, \Traversable
 {
-    public function setDriver(Driver $driver);
-    public function setResource($resource);
+    public function isQueryResult();
+    public function getAffectedRows();
     public function getResource();
-    // public function setOptions(array $options);
 }

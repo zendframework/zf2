@@ -2,8 +2,10 @@
 
 namespace Zend\Db\Adapter\Driver\Sqlsrv;
 
+use Zend\Db\Adapter\DriverResult,
+    Iterator;
 
-class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
+class Result implements Iterator, DriverResult
 {
     /**
      * @var Zend\Db\Adapter\Driver\AbstractDriver
@@ -18,18 +20,16 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
     protected $currentData = false;
     
     protected $currentComplete = false;
-    protected $nextComplete = false;
-    
-    protected $pointerPosition = 0;
-    protected $numberOfRows = -1;
-    
+
+    protected $position = -1;
+
     public function setDriver(\Zend\Db\Adapter\Driver $driver)
     {
         $this->driver = $driver;
         return $this;
     }
     
-    public function setResource($resource)
+    public function initialize($resource)
     {
         $this->resource = $resource;
         return $this;
@@ -46,47 +46,57 @@ class Result implements \Iterator, \Zend\Db\Adapter\DriverResult
             return $this->currentData;
         }
         
-        $this->load(SQLSRV_SCROLL_NEXT);
+        $this->load();
         return $this->currentData;
     }
     
     public function next()
     {
-        $this->load(SQLSRV_SCROLL_NEXT);
+        $this->load();
         return true;
     }
     
     protected function load($row = SQLSRV_SCROLL_NEXT)
     {
-        $this->currentData = sqlsrv_fetch_array($this->resource, $row);
+        $this->currentData = sqlsrv_fetch_array($this->resource, SQLSRV_FETCH_ASSOC, $row);
         $this->currentComplete = true;
-        $this->pointerPosition++;
+        $this->position++;
     }
     
     public function key()
     {
-        return $this->pointerPosition;
+        return $this->position;
     }
     
     public function rewind()
     {
-        $this->pointerPosition = 0;
+        $this->position = 0;
         $this->load(SQLSRV_SCROLL_FIRST);
         return true;
     }
     
     public function valid()
     {
-        if ($this->currentComplete) {
-            return $this->currentData;
+        if ($this->currentComplete && $this->currentData !== false) {
+            return true;
         }
-        
-        return $this->load(SQLSRV_SCROLL_NEXT);
+
+        $this->load();
+        return ($this->currentData !== false);
     }
     
     public function count()
     {
         return sqlsrv_num_rows($this->resource);
     }
-    
+
+    public function isQueryResult()
+    {
+        // TODO: Implement isQueryResult() method.
+    }
+
+    public function getAffectedRows()
+    {
+        // TODO: Implement getAffectedRows() method.
+    }
 }

@@ -67,6 +67,7 @@ class Adapter
             throw new \InvalidArgumentException('Invalid driver');
         }
 
+        $driver->checkEnvironment();
         $this->setDriver($driver);
 
         if ($platform == null) {

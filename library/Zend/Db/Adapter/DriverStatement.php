@@ -4,25 +4,25 @@ namespace Zend\Db\Adapter;
 
 interface DriverStatement
 {
-    /**
-     * @param Driver $driver
-     */
-    public function setDriver(Driver $driver);
+//    /**
+//     * @param string $sql
+//     */
+//    public function initialize($sql);
 
-    /**
-     * @param resource $resource
-     */
-    public function setResource($resource);
+//    /**
+//     * @param Driver $driver
+//     */
+//    public function setDriver(Driver $driver);
 
-    /**
-     * @param string $sql
-     */
-    public function setSql($sql);
+//    /**
+//     * @param resource $resource
+//     */
+//    public function setResource($resource);
 
-    /**
-     * @param DriverStatement\ParameterContainer $parameterContainer
-     */
-    public function setParameterContainer(DriverStatement\ParameterContainer $parameterContainer);
+//    /**
+//     * @param DriverStatement\ParameterContainer $parameterContainer
+//     */
+//    public function setParameterContainer(DriverStatement\ParameterContainer $parameterContainer);
 
     /**
      * @return resource

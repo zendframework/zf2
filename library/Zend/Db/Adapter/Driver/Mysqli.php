@@ -84,19 +84,24 @@ class Mysqli implements \Zend\Db\Adapter\Driver
     }
 
     /**
+     * @param string $sql
      * @return Mysqli\Statement
      */
-    public function getStatementPrototype()
+    public function createStatement($sql)
     {
-        return $this->statementPrototype;
+        $statement = clone $this->statementPrototype;
+        $statement->initialize($this->connection->getResource(), $sql);
+        return $statement;
     }
 
     /**
      * @return Mysqli\Result
      */
-    public function getResultPrototype()
+    public function createResult($resource)
     {
-        return $this->resultPrototype;
+        $result = clone $this->resultPrototype;
+        $result->initialize($resource);
+        return $result;
     }
 
     /**

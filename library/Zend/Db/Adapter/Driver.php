@@ -26,12 +26,12 @@ interface Driver
     /**
      * @return DriverStatement
      */
-    public function getStatementPrototype();
+    public function createStatement($sqlOrResource);
 
     /**
      * @return DriverResult
      */
-    public function getResultPrototype();
+    public function createResult($resource);
 
     /**
      * @return array
