@@ -95,12 +95,20 @@ class Mvc extends AbstractPage
     protected $routeMatch;
 
     /**
-     * Action helper for assembling URLs
+     * View helper for assembling URLs
      *
      * @see getHref()
      * @var UrlHelper
      */
     protected $urlHelper = null;
+    
+    /**
+     * Default urlHelper to be used if urlHelper is not given.
+     * 
+     * @see getHref()
+     * @var UrlHelper
+     */
+    protected static $defaultUrlHelper = null;
 
     // Accessors:
 
@@ -156,7 +164,7 @@ class Mvc extends AbstractPage
     /**
      * Returns href for this page
      *
-     * This method uses {@link Zend_Controller_Action_Helper_Url} to assemble
+     * This method uses {@link Zend\View\Helper\Url} to assemble
      * the href based on the page's properties.
      *
      * @return string  page href
@@ -167,10 +175,14 @@ class Mvc extends AbstractPage
             return $this->hrefCache;
         }
 
-        if (null === $this->urlHelper) {
-            throw new Exception\DomainException(__METHOD__ . ' cannot execute as no Zend\View\Helper\Url instance is composed');
+        $helper = $this->urlHelper ? $this->urlHelper : self::$defaultUrlHelper;
+        if (!$helper instanceof UrlHelper) {
+            throw new Exception\DomainException(sprintf(
+                '%s cannot execute because no urlHelper was set',
+                __METHOD__
+            ));
         }
-
+        
         $params = $this->getParams();
 
         if (($param = $this->getController()) != null) {
@@ -181,8 +193,7 @@ class Mvc extends AbstractPage
             $params['action'] = $param;
         }
         
-        $helper = $this->urlHelper;
-        $url    = $helper(
+        $url = $helper(
             $this->getRoute(),
             $params
         );
@@ -375,17 +386,40 @@ class Mvc extends AbstractPage
     }
 
     /**
-     * Sets action helper for assembling URLs
+     * Sets view helper for assembling URLs
      *
      * @see getHref()
      *
-     * @param  UrlHelper $uh  URL plugin
+     * @param  UrlHelper $helper  URL helper
      * @return Mvc
      */
     public function setUrlHelper(UrlHelper $helper)
     {
         $this->urlHelper = $helper;
         return $this;
+    }
+
+    /**
+     * Sets the default view helper for assembling URLs.
+     * 
+     * @see getHref()
+     * 
+     * @param  null|UrlHelper $helper  URL helper
+     * @return void
+     */
+    public static function setDefaultUrlHelper($helper)
+    {
+        self::$defaultUrlHelper = $helper;
+    }
+    
+    /**
+     * Gets the default view helper for assembling URLs.
+     * 
+     * @return UrlHelper
+     */
+    public static function getDefaultUrlHelper()
+    {
+        return self::$defaultUrlHelper;
     }
 
     // Public methods:
