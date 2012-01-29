@@ -1118,6 +1118,9 @@ class Client implements Dispatchable
 
         $body = '';
         
+        // Declare here to stop warnings later
+        $totalFiles = 0;
+        
         if (!$this->getRequest()->headers()->has('Content-Type')) {
             $totalFiles = count($this->getRequest()->file()->toArray());
             // If we have files to upload, force encType to multipart/form-data
