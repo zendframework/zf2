@@ -467,7 +467,7 @@ class Client implements Dispatchable
     /**
      * Add a cookie
      * 
-     * @param ArrayIterator|SetCookie|string $cookie
+     * @param array|ArrayIterator|SetCookie|string $cookie
      * @param string  $value
      * @param string  $domain
      * @param string  $expire
@@ -478,7 +478,7 @@ class Client implements Dispatchable
      */
     public function addCookie($cookie, $value = null, $domain = null, $expire = null, $path = null, $secure = false, $httponly = true)
     {
-        if ($cookie instanceof \ArrayIterator) {
+        if (is_array($cookie) || $cookie instanceof \ArrayIterator) {
             foreach ($cookie as $setCookie) {
                 if ($setCookie instanceof SetCookie) {
                     $this->cookies[$this->getCookieId($setCookie)] = $setCookie;
