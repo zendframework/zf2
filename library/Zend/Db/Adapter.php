@@ -190,19 +190,32 @@ class Adapter
      * query() is a convenience function
      *
      * @param string $sql
-     * @param string $prepareOrExecute
+     * @param string|array $parametersOrPrepareExecuteFlag
      * @return Zend\Db\Adapter\DriverStatement|
      */
-    public function query($sql, $prepareOrExecute = self::QUERY_MODE_PREPARE)
+    public function query($sql, $parametersOrPrepareExecuteFlag = self::QUERY_MODE_PREPARE)
     {
-        $c = $this->getDriver()->getConnection();
+        if (is_string($parametersOrPrepareExecuteFlag) && in_array($parametersOrPrepareExecuteFlag, array(self::QUERY_MODE_PREPARE, self::QUERY_MODE_EXECUTE))) {
+            $mode = $parametersOrPrepareExecuteFlag;
+        } elseif (is_array($parametersOrPrepareExecuteFlag)) {
+            $mode = self::QUERY_MODE_PREPARE;
+            $parameters = $parametersOrPrepareExecuteFlag;
+        } else {
+            throw new \Exception('Parameter 2 to this method must be a flag or an array');
+        }
 
-        if ($prepareOrExecute == self::QUERY_MODE_PREPARE) {
-            return $c->prepare($sql);
+        $c = $this->driver->getConnection();
+
+        if ($mode == self::QUERY_MODE_PREPARE) {
+            $statement = $c->prepare($sql);
+            return $statement;
+            // @todo determine if we fulfill the request
+            // $result = $statement->execute($parameters);
+        } else {
+            $result = $c->execute($sql);
         }
 
         $resultSetProducing = (stripos(trim($sql), 'SELECT') === 0); // will this sql produce a rowset?
-        $result = $c->execute($sql);
 
         if ($resultSetProducing) {
             $resultSet = clone $this->queryResultSetPrototype;

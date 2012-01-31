@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.adapter">
+    <info>
+        <title>Zend\Db\Adapter</title>
+    </info>
+
+
+    <para>
+        Zend\Db\Adapter is an abstraction layer for both
+        interacting with a particular PHP extension as
+        well as interacting with a particular vendor
+        database. The two primary advantages of using
+        this DBAL (database abstraction layer) are that
+        you get database extension and platform portability
+        and, more importantly, a complete and consistent
+        API that allows for building higher-order API's
+        such as TableGateway, RowGateway, ActiveRecord,
+        or your own DB backed modeling solution.
+    </para>
+
+    <section xml:id="zend.db.adapter.driver-and-platform">
+        <info>
+            <title>Zend\Db\Adapter\Driver &amp; Zend\Db\Adapter\Platform</title>
+        </info>
+
+        <para>
+            Zend\Db\Adapter is composed of two primary components.
+            Zend\Db\Adapter\Driver abstracts PHP database extension
+            interactions, like ext/mysqli, pdo, oci8, sqlsrv, and
+            so on. It also provides and API to be
+            able to determine the parameterization style preferred
+            by the driver being used.  It is further composed of
+            3 primary objects:
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Zend\Db\Adapter\Driver\Connection for connection abstraction
+                </para>
+            </listitem>
+
+            <listitem>
+                <para>
+                    Zend\Db\Adapter\Driver\Statement for prepared statement abstraction
+                </para>
+            </listitem>
+
+            <listitem>
+                <para>
+                    Zend\Db\Adapter\Driver\Result for query and statement result abstraction
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>
+            For Zend\Db\Adapter\Driver, there will be a
+            specific object per each extension
+            we support and/or is available to PHP.
+        </para>
+
+        <para>
+            Zend\Db\Adapter\Platform objects serve as an abstraction
+            around platform specific concerns;
+            i.e. things that vary from platform to platform
+            like quoting of values and quoting of identifiers.
+            There will be a platform object for each specific
+            vendor database.  For example
+            Zend\Db\Adapter\Platform\Mysql will be used for
+            both the mysqli driver as well as the
+            pdo_mysql flavored driver.
+        </para>
+
+        <para>
+            List of Built-in Drivers:
+        </para>
+        
+        <itemizedlist>
+            <listitem><para>ext/mysqli</para></listitem>
+            <listitem><para>ext/pdo_sqlite</para></listitem>
+            <listitem><para>ext/sqlsrv</para></listitem>
+        </itemizedlist>
+
+        <para>
+            List of Built-in Platforms
+        </para>
+
+        <itemizedlist>
+            <listitem><para>Mysql</para></listitem>
+            <listitem><para>Sqlite</para></listitem>
+            <listitem><para>Sqlsrv</para></listitem>
+        </itemizedlist>
+
+        <para>
+            Usage: Creating an Adapter, the Easy Way
+        </para>
+
+        <para>
+            Creating an adapter using the built-in drivers and platforms is as easy as
+            providing an array of parameters to Zend\Db\Adapter:
+        </para>
+
+        <example xml:id="zend.db.adapter.usage.connection-parameters">
+            <info>
+                <title>Using an Adapter Constructor</title>
+            </info>
+
+            <programlisting language="php"><![CDATA[
+$parameters = array(
+    'type' => 'Mysqli',
+    'username' => 'developer',
+    'password' => 'developer',
+    'database' => 'example_db'
+);
+$adapter = new Zend\Db\Adapter($parameters);
+]]></programlisting>
+
+        </example>
+
+        <para>
+            In the most general sense, the following keys will be respected by all the
+            built-in drivers and platforms:
+        </para>
+
+        <example xml:id="zend.db.adapter.usage.xxx">
+            <info>
+                <title></title>
+            </info>
+
+            <programlisting language="php"><![CDATA[
+type - The driver type: Mysqli, Pdo, Sqlsrv
+username - The identity to use to make the connection
+password - The credential to use for the connection
+database - The entity to use
+hostname - The host location to connect to
+port - The port to connect on
+]]></programlisting>
+        </example>
+
+        <para>
+            Usage: Creating an Adapter, Explicitly
+        </para>
+
+
+        <para>
+            While utilizing this kind of injection is not necessarily easy to write and
+            use, this does demonstrate the composition of an adapter, and what the possible
+            points of injecting alternate implementations might be.
+        </para>
+
+        <para>
+            1. Semi-explicit: partial injection of dependencies
+        </para>
+
+
+        <example xml:id="zend.db.adapter.usage.connecting-semi-explicit">
+            <info>
+                <title>Semi-explicit: partial injection of dependencies</title>
+            </info>
+
+            <programlisting language="php"><![CDATA[
+$adapter = new Zend\Db\Adapter(
+    new Zend\Db\Adapter\Driver\Mysqli($mysqliParameters), // driver
+    new Zend\Db\Adapter\Platform\Mysql(), // platform
+    new Zend\Db\ResultSet\ResultSet() // resultset prototype (this will be cloned when needed)
+);
+]]></programlisting>
+
+        2. Completely-explicit injection of dependencies
+
+        <example xml:id="zend.db.adapter.usage.xxx">
+            <info>
+                <title></title>
+            </info>
+
+            <programlisting language="php"><![CDATA[
+$adapter = new Zend\Db\Adapter(
+    new Zend\Db\Adapter\Driver\Mysqli(
+        new Zend\Db\Adapter\Driver\Mysqli\Connection($params), // connection
+        new Zend\Db\Adapter\Driver\Mysqli\Statement(), // statement prototype (this will be cloned when needed)
+        new Zend\Db\Adapter\Driver\Mysqli\Result() // result prototype (this will be cloned when needed)
+    ),
+    new Zend\Db\Adapter\Platform\Mysql(), // platform
+    new Zend\Db\ResultSet\ResultSet() // resultset prototype to use with query()
+);
+]]></programlisting>
+        </example>
+
+        <para>
+            Usage: All Connection Parameters
+        </para>
+
+
+        <example xml:id="zend.db.adapter.usage.xxx">
+            <info>
+                <title></title>
+            </info>
+
+            <programlisting language="php"><![CDATA[
+Mysqli:
+    hostname    host
+    username    user
+    password    passwd, pw
+    database    dbname, db, schema
+    port
+    socket
+    charset
+
+Pdo
+    username
+    password
+]]></programlisting>
+        </example>
+
+        <para>
+            Usage: The $adapter->query() convenience API
+        </para>
+
+        <para>
+            1. Example #1: Non-portable SQL, non-portable parameterization, no quoting
+        </para>
+
+        <example xml:id="zend.db.adapter.usage.xxx">
+            <info>
+                <title></title>
+            </info>
+
+            <programlisting language="php"><![CDATA[
+$adapter->query('SELECT * FROM artist WHERE id = ?', array(2));
+]]></programlisting>
+        </example>
+
+        <para>
+            The above demonstrates sending an SQL query to the adapter, with positional
+            parameterization, with the first value being 2.  This example may work fine
+            for Mysqli extension on MySQL, but the type of parameterization, the type
+            and style of quoting and syntax are not portable.  To make them portable, see
+            the next example.
+        </para>
+
+        <para>
+            2. Example #2: Portable quoting with portable parameterization
+        </para>
+
+
+            <example xml:id="zend.db.adapter.usage.xxx">
+                <info>
+                    <title></title>
+                </info>
+
+                <programlisting language="php"><![CDATA[
+$sql = 'SELECT * FROM '
+    . $adapter->platform->quoteIdentifier('artist')
+    . ' WHERE id = ' . $adapter->driver->formatParameterName('id');
+
+$result = $adapter->query($sql, array('id' => 2));
+]]></programlisting>
+            </example>
+
+        <para>
+            This demonstrates how to create simple SQL statements that can be, with respect to
+            parameterization and quoting, as portable as possible.  For more complex query
+            abstraction, see Zend\Db\Sql.
+        </para>
+
+        <para>
+            The parameterization supported by the extension will be returned by the driver.
+            If two forms of parameterization are possible, name based parameterization will get
+            priority over positional based parameterization.
+        </para>
+
+    </section>
+
+</section>

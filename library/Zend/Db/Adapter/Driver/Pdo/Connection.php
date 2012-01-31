@@ -108,6 +108,8 @@ class Connection implements Adapter\DriverConnection
             return $this;
         }
 
+        // @todo method createKnownDsn
+
         $dsn = $username = $password = null;
         $options = array();
         foreach ($this->connectionParams as $key => $value) {

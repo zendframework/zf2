@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.introduction">
+    <info>
+        <title>Zend\Db Introduction</title>
+    </info>
+
+    <para>
+        <classname>Zend\Db</classname> is a set of <acronym>API</acronym>'s that
+        simplify and abstract the process of storing
+        data in and retrieving data from <acronym>SQL</acronym>
+        databases, or <acronym>RDBMS</acronym>.  Each top level component
+        in the <classname>Zend\Db</classname> namespace attempts to
+        abstract into an easy to use <acronym>API</acronym> a
+        particular problem when dealing with a
+        database abstraction layer.  In the most general
+        sense, these are the levels of abstraction
+        <classname>Zend\Db</classname> provides out-of-the-box:
+    </para>
+
+    <itemizedlist>
+        <listitem>
+            <para>
+                Zend\Db\Adapter abstracts API interaction with a database
+            </para>
+        </listitem>
+
+        <listitem>
+            <para>
+                Zend\Db\Sql abstracts *query* building
+            </para>
+        </listitem>
+
+        <listitem>
+            <para>
+                Zend\Db\Result abstracts row/result interations
+            </para>
+        </listitem>
+
+        <listitem>
+            <para>
+                Zend\Db\TableGateway abstracts tables as PHP objects
+            </para>
+        </listitem>
+
+        <listitem>
+            <para>
+                Zend\Db\RowGateway abstracts rows as PHP objects
+            </para>
+        </listitem>
+
+    </itemizedlist>
+</section>
