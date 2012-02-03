@@ -28,4 +28,9 @@ class SqlServer implements \Zend\Db\Adapter\Platform
     {
         return '\'' . str_replace($value, '\'', '\'\'') . '\'';
     }
+
+    public function getIdentifierSeparator()
+    {
+        return '.';
+    }
 }

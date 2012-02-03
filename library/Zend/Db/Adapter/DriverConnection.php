@@ -21,7 +21,7 @@ interface DriverConnection
     public function execute($sql); // return result set
     
     /**
-     * @return Zend\Db\Adapter\DriverStatement
+     * @return \Zend\Db\Adapter\DriverStatement
      */
     public function prepare($sql); // must return StatementInterface object
 }

@@ -26,7 +26,7 @@ class ResultSet implements Iterator, ResultCollection
         $this->rowObjectPrototype = ($rowObjectPrototype) ?: new Row;
     }
 
-    public function setDataSource(DataSource $dataSource)
+    public function setDataSource($dataSource)
     {
         if ($dataSource instanceof Iterator) {
             $this->dataSource = $dataSource;

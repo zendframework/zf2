@@ -11,4 +11,6 @@ interface Platform
     
     public function getQuoteValueSymbol();
     public function quoteValue($value);
+
+    public function getIdentifierSeparator();
 }

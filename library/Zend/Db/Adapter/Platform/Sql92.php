@@ -30,4 +30,9 @@ class Sql92 implements \Zend\Db\Adapter\Platform
         $qvs = $this->getQuoteValueSymbol();
         return $qvs . str_replace($qvs, '\\' . $qvs, $value) . $qvs;
     }
+
+    public function getIdentifierSeparator()
+    {
+        return '.';
+    }
 }

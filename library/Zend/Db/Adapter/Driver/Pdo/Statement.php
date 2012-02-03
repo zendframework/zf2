@@ -38,6 +38,10 @@ class Statement implements DriverStatement
         }
 
         $this->resource = $connectionResource->prepare($sql);
+        if ($this->resource == false) {
+            $error = $connectionResource->errorInfo();
+            throw new \Exception($error[2]);
+        }
         return $this;
     }
 

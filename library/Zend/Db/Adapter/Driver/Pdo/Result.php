@@ -127,6 +127,6 @@ class Result implements Iterator, DriverResult
 
     public function getAffectedRows()
     {
-        // TODO: Implement getAffectedRows() method.
+        return $this->resource->rowCount();
     }
 }
