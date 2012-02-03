@@ -93,7 +93,6 @@ class TableGateway implements TableGatewayInterface
         }
 
         $whereSql = $where;
-
         if (is_array($where)) {
             $whereSql = $parameters = array();
             foreach ($where as $whereName => $whereValue) {
@@ -103,7 +102,6 @@ class TableGateway implements TableGatewayInterface
             }
             $whereSql = implode(' AND ', $whereSql);
         }
-
         $sql .= $platform->quoteIdentifier($this->tableName)
             . ' WHERE ' . $whereSql;
 
@@ -131,7 +129,6 @@ class TableGateway implements TableGatewayInterface
         $sql .= $platform->quoteIdentifier($this->tableName);
 
         $setSql = $set;
-
         if (is_array($set)) {
             $setSqlColumns = $setSqlValues = $parameters = array();
             foreach ($set as $setName => $setValue) {
@@ -142,7 +139,6 @@ class TableGateway implements TableGatewayInterface
             }
             $setSql = '(' . implode(', ', $setSqlColumns) . ') VALUES (' . implode(', ', $setSqlValues) . ')';
         }
-
         $sql .= ' ' . $setSql;
 
         $statement = $driver->getConnection()->prepare($sql);
@@ -159,21 +155,41 @@ class TableGateway implements TableGatewayInterface
         $driver   = $adapter->getDriver();
         $platform = $adapter->getPlatform();
 
-        $sql = 'INSERT INTO ';
+        $sql = 'UPDATE ';
         if ($this->databaseSchema != '') {
             $sql .= $platform->quoteIdentifier($this->databaseSchema)
                 . $platform->getIdentifierSeparator();
         }
+        $sql .= $platform->quoteIdentifier($this->tableName);
 
-        if (is_array($set)) {
-            list($setSql, $setParameters) = $this->convertInputToSqlAndParameters($set, ', ');
+        $parameters = array();
+
+        $setSql = $set;
+        if (is_array($where)) {
+            $setSql = array();
+            foreach ($set as $setName => $setValue) {
+                $setParamName = $driver->formatParameterName($setName);
+                $setSql[] = $platform->quoteIdentifier($setName) . ' = ' . $setParamName;
+                $parameters[$setParamName] = $setValue;
+            }
+            $setSql = implode(', ', $setSql);
         }
+        $sql .= ' SET ' . $setSql;
 
-        $sql .= $platform->quoteIdentifier($this->tableName)
-            . ' SET ' . $setSql;
+        $whereSql = $where;
+        if (is_array($where)) {
+            $whereSql = array();
+            foreach ($where as $whereName => $whereValue) {
+                $whereParamName = $driver->formatParameterName($whereName);
+                $whereSql[] = $platform->quoteIdentifier($whereName) . ' = ' . $whereParamName;
+                $parameters[$whereParamName] = $whereValue;
+            }
+            $whereSql = implode(' AND ', $whereSql);
+        }
+        $sql .= ' WHERE ' . $whereSql;
 
         $statement = $driver->getConnection()->prepare($sql);
-        $result = $statement->execute($setParameters);
+        $result = $statement->execute($parameters);
 
         // return affected rows
         return $result->getAffectedRows();
@@ -186,21 +202,27 @@ class TableGateway implements TableGatewayInterface
         $driver   = $adapter->getDriver();
         $platform = $adapter->getPlatform();
 
-        $sql = 'INSERT INTO ';
+        $sql = 'DELETE FROM ';
         if ($this->databaseSchema != '') {
             $sql .= $platform->quoteIdentifier($this->databaseSchema)
                 . $platform->getIdentifierSeparator();
         }
 
-        if (is_array($set)) {
-            list($setSql, $setParameters) = $this->convertInputToSqlAndParameters($set, ', ');
+        $whereSql = $where;
+        if (is_array($where)) {
+            $whereSql = $parameters = array();
+            foreach ($where as $whereName => $whereValue) {
+                $whereParamName = $driver->formatParameterName($whereName);
+                $whereSql[] = $platform->quoteIdentifier($whereName) . ' = ' . $whereParamName;
+                $whereParameters[$whereParamName] = $whereValue;
+            }
+            $whereSql = implode(' AND ', $whereSql);
         }
-
         $sql .= $platform->quoteIdentifier($this->tableName)
-            . ' SET ' . $setSql;
+            . ' WHERE ' . $whereSql;
 
         $statement = $driver->getConnection()->prepare($sql);
-        $result = $statement->execute($setParameters);
+        $result = $statement->execute($whereParameters);
 
         // return affected rows
         return $result->getAffectedRows();
