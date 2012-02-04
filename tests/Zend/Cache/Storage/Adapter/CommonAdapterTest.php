@@ -250,14 +250,12 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->_storage->setItem('key', 'value'));
 
-        $fetchedKey    = null;
-        $fetchedResult = null;
-        $fetchedError  = null;
+        $cbResult = null;
+        $cbInfo   = null;
         $this->assertTrue($this->_storage->getItemAsync('key',
-            function($key, $result, $error) use (&$fetchedKey, &$fetchedResult, &$fetchedError) {
-                $fetchedKey    = $key;
-                $fetchedResult = $result;
-                $fetchedError  = $error;
+            function($result, $info) use (&$cbResult, &$cbInfo) {
+                $cbResult = $result;
+                $cbInfo   = $info;
             }
         ));
 
@@ -266,9 +264,10 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             sleep(1);
         }
 
-        $this->assertEquals('key',   $fetchedKey);
-        $this->assertEquals('value', $fetchedResult);
-        $this->assertNull($fetchedError);
+        $this->assertInstanceOf('ArrayObject', $cbInfo);
+        $this->assertEquals('value', $cbResult);
+        $this->assertEquals('key', $cbInfo['key']);
+        $this->assertFalse(isset($cbInfo['exception']));
     }
 
     public function testGetItemAsyncWithIgnoreMissingItems()
@@ -276,10 +275,10 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $asyncRead = $this->_storage->getCapabilities()->getAsyncRead();
         $this->_options->setIgnoreMissingItems(true);
 
-        $fetchedError = null;
+        $cbInfo = null;
         $this->assertTrue($this->_storage->getItemAsync('unknown',
-            function($key, $result, $error) use (&$fetchedError) {
-                $fetchedError = $error;
+            function($result, $info) use (&$cbInfo) {
+                $cbInfo = $info;
             }
         ));
 
@@ -289,7 +288,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         }
 
         // No ItemNotFoundException should be fetched
-        $this->assertTrue(!$fetchedError);
+        $this->assertFalse(isset($cbInfo['exception']));
     }
 
     public function testGetItemsReturnsEmptyArrayIfNonReadable()
@@ -314,13 +313,11 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
         $fetchedItems = array();
         $this->assertTrue($this->_storage->getItemsAsync(array_keys($items) + array('unknown'),
-            function($key, $result, $error) use (&$fetchedItems) {
-                if (!$error) {
-                    $fetchedItems[] = array(
-                        'key'    => $key,
-                        'result' => $result,
-                    );
-                }
+            function($result, $info) use (&$fetchedItems) {
+                $fetchedItems[] = array(
+                    'result' => $result,
+                    'info'   => $info,
+                );
             }
         ));
 
@@ -331,7 +328,8 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(count($items), count($fetchedItems));
         foreach ($fetchedItems as $fetchedItem) {
-            $this->assertEquals($items[ $fetchedItem['key'] ], $fetchedItem['result']);
+            $this->assertInstanceOf('ArrayObject', $fetchedItem['info']);
+            $this->assertEquals($items[ $fetchedItem['info']['key'] ], $fetchedItem['result']);
         }
     }
 
@@ -777,13 +775,11 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->_options->setIgnoreMissingItems(false);
 
-        $cbKey    = null;
         $cbResult = null;
-        $cbError  = null;
-        $cb = function ($key, $result, $error) use (&$cbKey, &$cbResult, &$cbError) {
-            $cbKey    = $key;
+        $cbInfo   = null;
+        $cb = function ($result, $info) use (&$cbResult, &$cbInfo) {
             $cbResult = $result;
-            $cbError  = $error;
+            $cbInfo   = $info;
         };
 
         $this->assertTrue($this->_storage->removeItemAsync('unknown', $cb));
@@ -793,22 +789,21 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             sleep(1);
         }
 
-        $this->assertEquals('unknown', $cbKey);
+        $this->assertInstanceOf('ArrayObject', $cbInfo);
         $this->assertFalse($cbResult);
-        $this->assertInstanceOf('Zend\Cache\Exception\ItemNotFoundException', $cbError);
+        $this->assertEquals('unknown', $cbInfo['key']);
+        $this->assertInstanceOf('Zend\Cache\Exception\ItemNotFoundException', $cbInfo['exception']);
     }
 
     public function testRemoveMissingItemAsyncWithoutItemNotFoundException()
     {
         $this->_options->setIgnoreMissingItems(true);
 
-        $cbKey    = null;
         $cbResult = null;
-        $cbError  = null;
-        $cb = function ($key, $result, $error) use (&$cbKey, &$cbResult, &$cbError) {
-            $cbKey    = $key;
+        $cbInfo   = null;
+        $cb = function ($result, $info) use (&$cbResult, &$cbInfo) {
             $cbResult = $result;
-            $cbError  = $error;
+            $cbInfo   = $info;
         };
 
         $this->assertTrue($this->_storage->removeItemAsync('unknown', $cb));
@@ -818,9 +813,10 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             sleep(1);
         }
 
-        $this->assertEquals('unknown', $cbKey);
+        $this->assertInstanceOf('ArrayObject', $cbInfo);
         $this->assertTrue($cbResult);
-        $this->assertNull($cbError);
+        $this->assertEquals('unknown', $cbInfo['key']);
+        $this->assertFalse(isset($cbInfo['exception']));
     }
 
     public function testRemoveMissingItemsReturnsTrueIfIgnoreMissingItemsEnabled()

@@ -28,6 +28,7 @@ use ArrayObject,
     Traversable,
     Zend\Cache\Exception,
     Zend\Cache\Storage\Event,
+    Zend\Cache\Storage\CallbackEvent,
     Zend\Cache\Storage\Capabilities;
 
 /**
@@ -203,7 +204,8 @@ class Memcached extends AbstractAdapter
     /**
      * Get an item and call callback if it has been fetched.
      *
-     * Callback-Syntax: callback(mixed $item, Exception $error) : void
+     * Callback-Definition:
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * Options:
      *  - namespace <string> optional
@@ -249,25 +251,24 @@ class Memcached extends AbstractAdapter
             $this->memcached->setOption(MemcachedResource::OPT_PREFIX_KEY, $options['namespace']);
 
             // redirect callback
+            $withCas = array_key_exists('token', $options);
             $that = $this;
-            $cb = function (MemcachedResource $memc, array &$item) use ($that, &$callback, &$options) {
+            $cb   = function (MemcachedResource $memc, array &$item) use ($that, &$callback, $args) {
+                $result = $item['value'];
+                $info   = new ArrayObject(array('key' => $item['key']));
+                if (isset($item['cas'])) {
+                    $info['token'] = $item['cas'];
+                }
+
+                $event = new CallbackEvent('getItemAsync.callback', $that, $args, $result, $info);
+                $that->events()->trigger($event);
+
                 if ($callback) {
-                    $key    = & $item['key'];
-                    $result = & $item['value'];
-                    $error  = null;
-
-                    $cbEvent = new Event('getItemAsync.callback', $that, new ArrayObject(array(
-                        'key'    => & $key,
-                        'result' => & $result,
-                        'error'  => & $error,
-                    )));
-                    $that->events()->trigger($cbEvent);
-
-                    call_user_func($callback, $key, $result, $error);
+                    call_user_func($callback, $event->getResult(), $event->getInfo());
                 }
             };
 
-            if (!$this->memcached->getDelayed(array($key), null, $cb)) {
+            if (!$this->memcached->getDelayed(array($key), $withCas, $cb)) {
                 throw $this->getExceptionByResultCode($this->memcached->getResultCode());
             }
 
@@ -328,7 +329,8 @@ class Memcached extends AbstractAdapter
     /**
      * Get multiple items and call callback for each fetched item.
      *
-     * Callback-Syntax: callback(mixed $item, Exception $error) : void
+     * Callback-Definition:
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * Options:
      *  - namespace <string> optional
@@ -375,25 +377,23 @@ class Memcached extends AbstractAdapter
             $this->memcached->setOption(MemcachedResource::OPT_PREFIX_KEY, $options['namespace']);
 
             // redirect callback
-            $that = $this;
-            $cb = function (MemcachedResource $memc, array &$item) use ($that, &$callback, &$options) {
+            $withCas = array_key_exists('token', $options);
+            $that    = $this;
+            $cb      = function (MemcachedResource $memc, array &$item) use ($that, &$callback, $args) {
+                $result = $item['value'];
+                $info   = new ArrayObject(array('key' => $item['key']));
+                if (isset($item['cas'])) {
+                    $info['token'] = $item['cas'];
+                }
+
+                $event = new CallbackEvent('getItemAsync.callback', $that, $args, $result, $info);
+                $that->events()->trigger($event);
+
                 if ($callback) {
-                    $key    = & $item['key'];
-                    $result = & $item['value'];
-                    $error  = null;
-
-                    $cbEvent = new Event('getItemAsync.callback', $that, new ArrayObject(array(
-                        'key'    => & $key,
-                        'result' => & $result,
-                        'error'  => & $error,
-                    )));
-                    $that->events()->trigger($cbEvent);
-
-                    call_user_func($callback, $key, $result, $error);
+                    call_user_func($callback, $event->getResult(), $event->getInfo());
                 }
             };
 
-            $withCas = array_key_exists('token', $options);
             if (!$this->memcached->getDelayed($keys, $withCas, $cb)) {
                 throw $this->getExceptionByResultCode($this->memcached->getResultCode());
             }

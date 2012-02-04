@@ -30,8 +30,8 @@ use ArrayObject,
     Zend\Cache\Storage\Capabilities,
     Zend\Cache\Storage\Event,
     Zend\Cache\Storage\ExceptionEvent,
-    Zend\Cache\Storage\Plugin,
     Zend\Cache\Storage\PostEvent,
+    Zend\Cache\Storage\Plugin,
     Zend\EventManager\EventCollection,
     Zend\EventManager\EventManager;
 
@@ -366,7 +366,7 @@ abstract class AbstractAdapter implements Adapter
      * Get an item and call callback if it has been fetched.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  string   $key
      * @param  callback $callback
@@ -387,7 +387,7 @@ abstract class AbstractAdapter implements Adapter
         $ignoreMissingItems = $options['ignore_missing_items'];
         $options['ignore_missing_items'] = false;
 
-        $this->emulateAsync('getItem', array($key, &$options), $key, $callback, $ignoreMissingItems);
+        $this->emulateAsync('getItem', array($key, &$options), $callback, new ArrayObject(array('key' => $key)), $ignoreMissingItems);
         return true;
     }
 
@@ -424,7 +424,7 @@ abstract class AbstractAdapter implements Adapter
      * Get multiple items and call callback for each fetched item.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -473,7 +473,7 @@ abstract class AbstractAdapter implements Adapter
      * Test if an item exists and call callback.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  string   $key
      * @param  callback $callback
@@ -490,7 +490,7 @@ abstract class AbstractAdapter implements Adapter
         $this->normalizeKey($key);
         $this->normalizeOptions($options);
 
-        $this->emulateAsync('hasItem', array($key, &$options), $key, $callback);
+        $this->emulateAsync('hasItem', array($key, &$options), $callback, new ArrayObject(array('key' => $key)));
         return true;
     }
 
@@ -521,7 +521,7 @@ abstract class AbstractAdapter implements Adapter
      * Test multiple items and call callback for each item.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -568,7 +568,7 @@ abstract class AbstractAdapter implements Adapter
         $ignoreMissingItems = $options['ignore_missing_items'];
         $options['ignore_missing_items'] = false;
 
-        $this->emulateAsync('getMetadata', array($key, &$options), $key, $callback, $ignoreMissingItems);
+        $this->emulateAsync('getMetadata', array($key, &$options), $callback, new ArrayObject(array('key' => $key)), $ignoreMissingItems);
         return true;
     }
 
@@ -604,7 +604,7 @@ abstract class AbstractAdapter implements Adapter
      * Get multiple metadata and call callback for each item.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -632,7 +632,7 @@ abstract class AbstractAdapter implements Adapter
      * Store an item asynchronously.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  string   $key
      * @param  mixed    $value
@@ -650,7 +650,7 @@ abstract class AbstractAdapter implements Adapter
         $this->normalizeKey($key);
         $this->normalizeOptions($options);
 
-        $this->emulateAsync('setItem', array($key, &$value, &$options), $key, $callback);
+        $this->emulateAsync('setItem', array($key, &$value, &$options), $callback, new ArrayObject(array('key' => $key)));
         return true;
     }
 
@@ -679,7 +679,7 @@ abstract class AbstractAdapter implements Adapter
      * Store multiple items and call callback for each item on finish.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -721,7 +721,7 @@ abstract class AbstractAdapter implements Adapter
      * Add an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  string   $key
      * @param  mixed    $value
@@ -739,7 +739,7 @@ abstract class AbstractAdapter implements Adapter
         $this->normalizeKey($key);
         $this->normalizeOptions($options);
 
-        $this->emulateAsync('addItem', array($key, &$value, &$options), $key, $callback);
+        $this->emulateAsync('addItem', array($key, &$value, &$options), $callback, new ArrayObject(array('key' => $key)));
         return true;
     }
 
@@ -768,7 +768,7 @@ abstract class AbstractAdapter implements Adapter
      * Add multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -811,7 +811,7 @@ abstract class AbstractAdapter implements Adapter
      * Replace an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  string   $key
      * @param  mixed    $value
@@ -829,7 +829,7 @@ abstract class AbstractAdapter implements Adapter
         $this->normalizeKey($key);
         $this->normalizeOptions($options);
 
-        $this->emulateAsync('replaceItem', array($key, &$value, &$options), $key, $callback);
+        $this->emulateAsync('replaceItem', array($key, &$value, &$options), $callback, new ArrayObject(array('key' => $key)));
         return true;
     }
 
@@ -858,7 +858,7 @@ abstract class AbstractAdapter implements Adapter
      * Replace multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -937,7 +937,7 @@ abstract class AbstractAdapter implements Adapter
      * Reset lifetime of an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  string   $key
      * @param  callback $callback
@@ -954,7 +954,7 @@ abstract class AbstractAdapter implements Adapter
         $this->normalizeKey($key);
         $this->normalizeOptions($options);
 
-        $this->emulateAsync('touchItem', array($key, &$options), $key, $callback);
+        $this->emulateAsync('touchItem', array($key, &$options), $callback, new ArrayObject(array('key' => $key)));
         return true;
     }
 
@@ -983,7 +983,7 @@ abstract class AbstractAdapter implements Adapter
      * Reset lifetime of multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -1008,7 +1008,7 @@ abstract class AbstractAdapter implements Adapter
      * Remove an item asynchron.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  string   $key
      * @param  callback $callback
@@ -1025,7 +1025,7 @@ abstract class AbstractAdapter implements Adapter
         $this->normalizeKey($key);
         $this->normalizeOptions($options);
 
-        $this->emulateAsync('removeItem', array($key, &$options), $key, $callback);
+        $this->emulateAsync('removeItem', array($key, &$options), $callback, new ArrayObject(array('key' => $key)));
         return true;
     }
 
@@ -1054,7 +1054,7 @@ abstract class AbstractAdapter implements Adapter
      * Remove multiple items asynchron.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -1101,7 +1101,7 @@ abstract class AbstractAdapter implements Adapter
      * Increment an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  string   $key
      * @param  int      $value
@@ -1119,7 +1119,7 @@ abstract class AbstractAdapter implements Adapter
         $this->normalizeKey($key);
         $this->normalizeOptions($options);
 
-        $this->emulateAsync('incrementItem', array($key, &$value, &$options), $key, $callback);
+        $this->emulateAsync('incrementItem', array($key, &$value, &$options), $callback, new ArrayObject(array('key' => $key)));
         return true;
     }
 
@@ -1148,7 +1148,7 @@ abstract class AbstractAdapter implements Adapter
      * Increment multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -1194,7 +1194,7 @@ abstract class AbstractAdapter implements Adapter
      * Decrement an item and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  string   $key
      * @param  int      $value
@@ -1212,7 +1212,7 @@ abstract class AbstractAdapter implements Adapter
         $this->normalizeKey($key);
         $this->normalizeOptions($options);
 
-        $this->emulateAsync('decrementItem', array($key, &$value, &$options), $key, $callback);
+        $this->emulateAsync('decrementItem', array($key, &$value, &$options), $callback, new ArrayObject(array('key' => $key)));
         return true;
     }
 
@@ -1241,7 +1241,7 @@ abstract class AbstractAdapter implements Adapter
      * Decrement multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, Exception $error = null, array $info = array())
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -1274,6 +1274,48 @@ abstract class AbstractAdapter implements Adapter
     public function find($mode = self::MATCH_ACTIVE, array $options = array())
     {
         throw new Exception\UnsupportedMethodCallException('find isn\'t supported by this adapter');
+    }
+
+    public function findAsync($callback = null, $mode = self::MATCH_ACTIVE, array $options = array())
+    {
+        $this->normalizeOptions($options);
+        $this->normalizeMatchingMode($mode, self::MATCH_ACTIV, $options);
+
+        // select the key to get it for info argument
+        $keySelected = in_array('key', $options['select']);
+        if (!$keySelected) {
+            $options['selected'][] = 'key';
+        }
+
+        $this->find($mode, $options);
+
+        do {
+            $result = false;
+            $info   = new ArrayObject();
+
+            try {
+                $result = $this->fetch();
+
+                // add key info
+                if (isset($result['key'])) {
+                    $info['key'] = $result['key'];
+                }
+
+                // remove key from result if not selected
+                if (!$keySelected) {
+                    unset($result['key']);
+                }
+
+            } catch (Exception $e) {
+                $info['exception'] = $e;
+            }
+
+            if ($callback) {
+                call_user_func($callback, $result, $info);
+            }
+        } while ($result !== false);
+
+        return true;
     }
 
     /**
@@ -1587,35 +1629,34 @@ abstract class AbstractAdapter implements Adapter
      *
      * @param  string        $method   Method to emulate asyncronus behavior
      * @param  array         $args     Arguments of the asyncronus method
-     * @param  string        $key      The item key used as first argument of the callback
      * @param  null|callback $callback The callback to call
+     * @param  array         $info     An info array added as 3. argument of callback
      * @param  boolean       $ignoreMissingItems If TRUE the callback will not be called on an ItemNotFoundException
      * @return void
      * @throws Exception\InvalidArgumentException
      */
-    protected function emulateAsync($method, array $args, $key, $callback, $ignoreMissingItems = false)
+    protected function emulateAsync($method, array $args, $callback, ArrayObject $info, $ignoreMissingItems = false)
     {
         if ($callback && !is_callable($callback, false)) {
             throw new Exception\InvalidArgumentException('Invalid callback');
         }
 
         $result = false;
-        $error  = null;
 
         try {
             $result = call_user_func_array(array($this, $method), $args);
         } catch (Exception\ItemNotFoundException $e) {
             if ($ignoreMissingItems) {
-                $callback = null;
+                return;
             } else {
-                $error = $e;
+                $info['exception'] = $e;
             }
         } catch (Exception $e) {
-            $error = $e;
+            $info['exception'] = $e;
         }
 
         if ($callback) {
-            call_user_func($callback, $key, $result, $error);
+            call_user_func($callback, $result, $info);
         }
     }
 
