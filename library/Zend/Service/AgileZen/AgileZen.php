@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend\Service
+ * @package    Zend_Service
  * @subpackage AgileZen
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -21,11 +21,12 @@
 
 namespace Zend\Service\AgileZen;
 
-use Zend\Http\Client as HttpClient;
+use DOMDocument,
+    Zend\Http\Client as HttpClient;
 
 /**
  * @category   Zend
- * @package    Zend\Service
+ * @package    Zend_Service
  * @subpackage AgileZen
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -50,18 +51,21 @@ class AgileZen
     const ERR_ROLEID_KEY = 'You didn\'t specify the role key in data';
     const ERR_FILE_KEY   = 'You didn\'t specify the filename key in data';
     const ERR_TEXT_KEY   = 'You didn\'t specify the text key in data';
+
     /**
      * API KEY
      * 
      * @var string
      */    
     protected $apiKey;
+
     /**
      * Http Client
      * 
-     * @var Zend\Http\Client 
+     * @var HttpClient 
      */
     protected $httpClient;
+
     /**
      * Constructore
      * 
@@ -74,6 +78,7 @@ class AgileZen
         }
         $this->setApiKey($apiKey);
     }
+
     /**
      * Set Api Key
      * 
@@ -85,6 +90,7 @@ class AgileZen
             $this->apiKey = $apiKey;
         }
     }
+
     /**
      * Get Api Key
      * 
@@ -94,10 +100,11 @@ class AgileZen
     {
         return $this->apiKey;
     }
+
     /**
      * Get the HttpClient instance
      *
-     * @return Zend\Http\Client
+     * @return HttpClient
      */
     public function getHttpClient()
     {
@@ -106,21 +113,22 @@ class AgileZen
         }
         return $this->httpClient;
     }
+
     /**
      * HTTP call
      *
-     * @param string $url
-     * @param string $method
-     * @param array  $data
-     * @param string $body
-     * @return Zend\Http\Response
+     * @param  string $url
+     * @param  string $method
+     * @param  array  $data
+     * @param  string $body
+     * @return \Zend\Http\Response
      */
     protected function httpCall($url, $method, $body=null)
     {
         $client = $this->getHttpClient();
         $client->resetParameters();
         
-        $headers= array();
+        $headers = array();
         $headers[self::HEADER_KEY]= $this->getApiKey();
         
         if (!empty($body)) {
@@ -147,6 +155,7 @@ class AgileZen
         }
         return $result;
     }
+
     /**
      * Return true is the last call was successful
      * 
@@ -156,6 +165,7 @@ class AgileZen
     {
         return (empty($this->errorMsg));
     }
+
     /**
      * Get the error msg of the last HTTP call
      *
@@ -165,6 +175,7 @@ class AgileZen
     {
         return $this->errorMsg;
     }
+
     /**
      * Get the error code of the last HTTP call
      * 
@@ -174,6 +185,7 @@ class AgileZen
     {
         return $this->errorCode;
     }
+
     /**
      * Authenticate
      * 
@@ -184,6 +196,7 @@ class AgileZen
         $result = $this->httpCall('/projects','GET');
         return ($result!==false);
     }
+
     /**
      * Get the list of the projects
      * 
@@ -202,6 +215,7 @@ class AgileZen
         } 
         return false;    
     }
+
     /**
      * Get project
      * 
@@ -224,6 +238,7 @@ class AgileZen
         } 
         return false;       
     }
+
     /**
      * Modifies a single project’s metadata.
      * 
@@ -249,6 +264,7 @@ class AgileZen
         } 
         return false;    
     }
+
     /**
      * Get the members of a project
      * 
@@ -272,6 +288,7 @@ class AgileZen
         } 
         return false;
     }
+
     /**
      * Add a member to a project
      * 
@@ -290,6 +307,7 @@ class AgileZen
         $result = $this->httpCall("/projects/$projectId/members/", 'POST', $member);
         return ($result!==false);
     }
+
     /**
      * Remove a member of a project
      * 
@@ -308,6 +326,7 @@ class AgileZen
         $result = $this->httpCall("/projects/$projectId/members/$member", 'DELETE');
         return ($result!==false);
     }
+
     /**
      * Get the phases of a project
      * 
@@ -330,6 +349,7 @@ class AgileZen
         } 
         return false;
     }
+
     /**
      * Get the phases of a project
      * 
@@ -352,6 +372,7 @@ class AgileZen
         } 
         return false;
     }
+
     /**
      * Get stories in a phase
      * 
@@ -379,6 +400,7 @@ class AgileZen
         } 
         return false;
     }
+
     /**
      * Get the metrics of a project
      * 
@@ -401,6 +423,7 @@ class AgileZen
         return false;
             
     }
+
     /**
      * Get a story of a project
      * 
@@ -429,6 +452,7 @@ class AgileZen
         }
         return false;
     }
+
     /**
      * Get a phase of a project
      * 
@@ -456,6 +480,7 @@ class AgileZen
         }
         return false;
     }
+
     /**
      * Get project roles
      * 
@@ -478,6 +503,7 @@ class AgileZen
         } 
         return false;       
     }
+
     /**
      * Get a phase of a project
      * 
@@ -506,6 +532,7 @@ class AgileZen
         }
         return false;
     }
+
     /**
      * Get invites of the project
      *  
@@ -529,6 +556,7 @@ class AgileZen
         } 
         return false;    
     }
+
     /**
      * Get an invite of a project
      * 
@@ -556,6 +584,7 @@ class AgileZen
         }
         return false;    
     }
+
     /**
      * Get the tasks of a story
      * 
@@ -583,6 +612,7 @@ class AgileZen
         }
         return false;
     }
+
     /**
      * Get the task of a story
      * 
@@ -615,6 +645,7 @@ class AgileZen
         }
         return false;
     }
+
     /**
      * Add a task to a story
      * 
@@ -648,6 +679,7 @@ class AgileZen
         }
         return false;   
     }
+
     /**
      * Update a task of a story
      * 
@@ -685,6 +717,7 @@ class AgileZen
         }
         return false;
     }
+
     /**
      * Remove a task from a story
      * 
@@ -707,6 +740,7 @@ class AgileZen
         $result = $this->httpCall("/projects/$projectId/stories/$storyId/tasks/$taskId",'DELETE');
         return ($result!==false);
     }
+
     /**
      * Add a story to a project
      * 
@@ -739,6 +773,7 @@ class AgileZen
         return false;
             
     }
+
     /**
      * Update a story
      * 
@@ -773,6 +808,7 @@ class AgileZen
         return false;
             
     }
+
     /**
      * Remove a story
      * 
@@ -791,6 +827,7 @@ class AgileZen
         $result = $this->httpCall("/projects/$projectId/stories/$storyId", 'DELETE');
         return ($result!==false);
     }
+
     /**
      * Add a role
      * 
@@ -820,6 +857,7 @@ class AgileZen
         }
         return false;   
     }
+
     /**
      * Update a role
      * 
@@ -853,6 +891,7 @@ class AgileZen
         }
         return false; 
     }
+
     /**
      * Remove a role
      * 
@@ -871,6 +910,7 @@ class AgileZen
         $result = $this->httpCall("/projects/$projectId/roles/$roleId", 'DELETE');
         return ($result!==false);
     }
+
     /**
      * Add a phase
      * 
@@ -903,6 +943,7 @@ class AgileZen
         }
         return false;    
     }
+
     /**
      * Update a phase
      * 
@@ -936,6 +977,7 @@ class AgileZen
         }
         return false;   
     }
+
     /**
      * Remove a phase
      * 
@@ -954,6 +996,7 @@ class AgileZen
         $result = $this->httpCall("/projects/$projectId/phases/$phaseId", 'DELETE');
         return ($result!==false);
     }
+
     /**
      * Create a new invite
      * 
@@ -987,6 +1030,7 @@ class AgileZen
         return false;
             
     }
+
     /**
      * Remove an invite
      * 
@@ -1005,6 +1049,7 @@ class AgileZen
         $result = $this->httpCall("/projects/$projectId/invites/$inviteId", 'DELETE');
         return ($result!==false);
     }
+
     /**
      * Get a tag
      * 
@@ -1033,6 +1078,7 @@ class AgileZen
         }
         return false; 
     }
+
     /**
      * Get the tags of a project
      * 
@@ -1055,6 +1101,7 @@ class AgileZen
         } 
         return false;    
     }
+
     /**
      * Add a tag
      * 
@@ -1084,6 +1131,7 @@ class AgileZen
         }
         return false;
     }
+
     /**
      * Update a tag
      * 
@@ -1113,6 +1161,7 @@ class AgileZen
         }
         return false;        
     }
+
     /**
      * Remove a tag
      * 
@@ -1131,6 +1180,7 @@ class AgileZen
         $result = $this->httpCall("/projects/$projectId/tags/$tagId", 'DELETE');
         return ($result!==false);
     }
+
     /**
      * Get an attachment
      * 
@@ -1163,6 +1213,7 @@ class AgileZen
         }
         return false;       
     }
+
     /**
      * Get the attachments of a story
      * 
@@ -1190,6 +1241,7 @@ class AgileZen
         } 
         return false;    
     }
+
     /**
      * Add one or more files (attachments)
      * 
@@ -1222,6 +1274,7 @@ class AgileZen
         } 
         return false;   
     }
+
     /**
      * Update the filename of an attachment
      * 
@@ -1259,6 +1312,7 @@ class AgileZen
         }
         return false;    
     }
+
     /**
      * Remove an attachment
      * 
@@ -1281,6 +1335,7 @@ class AgileZen
         $result = $this->httpCall("/projects/$projectId/stories/$storyId/attachments/$attachId", 'DELETE');
         return ($result!==false);
     }
+
     /**
      * Get a comment
      * 
@@ -1313,6 +1368,7 @@ class AgileZen
         }
         return false; 
     }
+
     /**
      * Get the comments of a story
      * 
@@ -1340,6 +1396,7 @@ class AgileZen
         } 
         return false;   
     }
+
     /**
      * Add a comment
      * 
@@ -1373,6 +1430,7 @@ class AgileZen
         } 
         return false;    
     }
+
     /**
      * Update a comment
      * 
@@ -1410,6 +1468,7 @@ class AgileZen
         }
         return false;  
     }
+
     /**
      * Remove a comment
      * 
@@ -1432,6 +1491,7 @@ class AgileZen
         $result = $this->httpCall("/projects/$projectId/stories/$storyId/comments/$commentId", 'DELETE');
         return ($result!==false);
     }
+
     /**
      * Get information about Me
      * 
@@ -1449,6 +1509,7 @@ class AgileZen
         }
         return false;   
     }
+
     /**
      * Update information about Me
      * 
@@ -1470,6 +1531,7 @@ class AgileZen
         }
         return false;
     }
+
     /**
      * Get my stories
      * 
@@ -1488,15 +1550,16 @@ class AgileZen
         } 
         return false;    
     }
+
     /**
      * Get the error message from the HTML body of the response
      * 
-     * @param  Zend\Http\Response $response 
+     * @param  \Zend\Http\Response $response 
      * @return string
      */
     protected function getErrorFromResponse($response) 
     {
-        $dom = new \DOMDocument;
+        $dom = new DOMDocument;
         $dom->loadHTML($response->getBody());
         $title = $dom->getElementsByTagName('title')->item(0);
         if (!empty($title)) {
