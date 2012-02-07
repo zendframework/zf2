@@ -21,7 +21,8 @@
 namespace Zend\Service\AgileZen\Resources;
 
 use Zend\Service\AgileZen\AgileZen,
-    Zend\Service\AgileZen\Entity;
+    Zend\Service\AgileZen\Entity,
+    Zend\Service\AgileZen\Container;
 
 /**
  * @category   Zend
@@ -38,6 +39,12 @@ class Story extends Entity
      * @var string 
      */
     protected $text;
+    /**
+     * Details
+     * 
+     * @var string 
+     */
+    protected $details;
     /**
      * Size
      * 
@@ -93,6 +100,12 @@ class Story extends Entity
      */
     protected $owner;
     /**
+     * Tags
+     * 
+     * @var Zend\Service\AgileZen\Container
+     */
+    protected $tags;
+    /**
      * AgileZen service
      * 
      * @var Zend\Service\AgileZen\AgileZen 
@@ -114,6 +127,9 @@ class Story extends Entity
         }
         
         $this->text = $data['text'];
+        if (isset($data['details'])) {
+            $this->details = $data['details'];
+        }
         $this->size = $data['size'];
         $this->color = $data['color'];
         if (isset($data['priority'])) {
@@ -130,7 +146,10 @@ class Story extends Entity
         }    
         if (isset($data['owner']) && !empty($data['owner'])) {
             $this->owner = new User($service, $data['owner']);
-        }    
+        }
+        if (isset($data['tags']) && is_array($data['tags'])) {
+            $this->tags = new Container($service, $data['tags'], 'tag', $this->projectId);
+        }
         $this->service= $service;
         
         parent::__construct($data['id']);
@@ -143,6 +162,15 @@ class Story extends Entity
     public function getText()
     {
         return $this->text;
+    }
+    /**
+     * Get details
+     * 
+     * @return string 
+     */
+    public function getDetails()
+    {
+        return $this->details;
     }
     /**
      * Get size
@@ -332,5 +360,14 @@ class Story extends Entity
     public function getProjectId()
     {
         return $this->projectId;
+    }
+    /**
+     * Get tags
+     * 
+     * @return Zend\Service\AgileZen\Container
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

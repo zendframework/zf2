@@ -93,6 +93,7 @@ class Invite extends Entity
         $this->email = $data['email'];
         $this->token = $data['token'];
         $this->sender = new User($service, $data['sender']);
+        $data['role']['projectId'] = $data['projectId'];
         $this->role = new Role($service, $data['role']); 
         $this->projectId = $data['projectId'];
         $this->service= $service;
