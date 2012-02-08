@@ -250,11 +250,12 @@ class Story extends Entity
     /**
      * Get the phase
      * 
+     * @param  array $params
      * @return Phase
      */
-    public function getPhase()
+    public function getPhase($params=array())
     {
-        return $this->service->getPhase($this->projectId, $this->phaseId);
+        return $this->service->getPhase($this->projectId, $this->phaseId, $params);
     }
 
     /**
@@ -280,11 +281,12 @@ class Story extends Entity
     /**
      * Get the tasks
      * 
+     * @param  array $params
      * @return \Zend\Service\AgileZen\Container 
      */
-    public function getTasks()
+    public function getTasks($params=array())
     {
-        return $this->service->getTasks($this->projectId, $this->id);
+        return $this->service->getTasks($this->projectId, $this->id, $params);
     }
 
     /**
