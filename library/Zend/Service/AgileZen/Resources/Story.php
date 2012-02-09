@@ -22,7 +22,8 @@
 namespace Zend\Service\AgileZen\Resources;
 
 use Zend\Service\AgileZen\AgileZen,
-    Zend\Service\AgileZen\Entity;
+    Zend\Service\AgileZen\Entity,
+    Zend\Service\AgileZen\Container;
 
 /**
  * @category   Zend
@@ -40,6 +41,12 @@ class Story extends Entity
      */
     protected $text;
 
+    /**
+     * Details
+     * 
+     * @var string 
+     */
+    protected $details;
     /**
      * Size
      * 
@@ -104,6 +111,12 @@ class Story extends Entity
     protected $owner;
 
     /**
+     * Tags
+     * 
+     * @var Zend\Service\AgileZen\Container
+     */
+    protected $tags;
+    /**
      * AgileZen service
      * 
      * @var AgileZen 
@@ -120,8 +133,11 @@ class Story extends Entity
     {
         if (!array_key_exists('id', $data)) {
              throw new Exception\InvalidArgumentException("You must pass the id of the user");
+        }     
+        if (isset($data['details'])) {
+            $this->details = $data['details'];
         }
-        
+
         $this->text  = $data['text'];
         $this->size  = $data['size'];
         $this->color = $data['color'];
@@ -129,7 +145,6 @@ class Story extends Entity
         if (isset($data['priority'])) {
             $this->priority = $data['priority'];
         }
-
         if (isset($data['deadline'])) {
             $this->deadline = $data['deadline'];
         }    
@@ -144,9 +159,11 @@ class Story extends Entity
 
         if (isset($data['owner']) && !empty($data['owner'])) {
             $this->owner = new User($service, $data['owner']);
-        }    
-
-        $this->service = $service;
+        }
+        if (isset($data['tags']) && is_array($data['tags'])) {
+            $this->tags = new Container($service, $data['tags'], 'tag', $this->projectId);
+        }
+        $this->service= $service;
         
         parent::__construct($data['id']);
     }
@@ -161,6 +178,15 @@ class Story extends Entity
         return $this->text;
     }
 
+    /**
+     * Get details
+     * 
+     * @return string 
+     */
+    public function getDetails()
+    {
+        return $this->details;
+    }
     /**
      * Get size
      * 
@@ -224,11 +250,12 @@ class Story extends Entity
     /**
      * Get the phase
      * 
+     * @param  array $params
      * @return Phase
      */
-    public function getPhase()
+    public function getPhase($params=array())
     {
-        return $this->service->getPhase($this->projectId, $this->phaseId);
+        return $this->service->getPhase($this->projectId, $this->phaseId, $params);
     }
 
     /**
@@ -254,11 +281,12 @@ class Story extends Entity
     /**
      * Get the tasks
      * 
+     * @param  array $params
      * @return \Zend\Service\AgileZen\Container 
      */
-    public function getTasks()
+    public function getTasks($params=array())
     {
-        return $this->service->getTasks($this->projectId, $this->id);
+        return $this->service->getTasks($this->projectId, $this->id, $params);
     }
 
     /**
@@ -368,5 +396,14 @@ class Story extends Entity
     public function getProjectId()
     {
         return $this->projectId;
+    }
+    /**
+     * Get tags
+     * 
+     * @return Zend\Service\AgileZen\Container
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

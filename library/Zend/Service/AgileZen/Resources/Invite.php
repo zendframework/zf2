@@ -94,13 +94,14 @@ class Invite extends Entity
              throw new Exception\InvalidArgumentException("You must pass the id of the invite");
         }
 
-        $this->createTime = $data['createTime'];
-        $this->email      = $data['email'];
-        $this->token      = $data['token'];
-        $this->sender     = new User($service, $data['sender']);
-        $this->role       = new Role($service, $data['role']);
-        $this->projectId  = $data['projectId'];
-        $this->service    = $service;
+        $this->createTime          = $data['createTime'];
+        $this->email               = $data['email'];
+        $this->token               = $data['token'];
+        $this->sender              = new User($service, $data['sender']);
+        $data['role']['projectId'] = $data['projectId'];
+        $this->role                = new Role($service, $data['role']);
+        $this->projectId           = $data['projectId'];
+        $this->service             = $service;
         
         parent::__construct($data['id']);
     }
