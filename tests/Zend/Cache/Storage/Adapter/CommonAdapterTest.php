@@ -1224,7 +1224,6 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_storage->hasItem('key'));
     }
 
-    /*
     public function testHasItemsWithNonReadable()
     {
         $this->assertTrue($this->_storage->setItem('key', 'value'));
@@ -1278,5 +1277,5 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('someitem', $actualItems);
         $this->assertEquals('somevalue', $actualItems['someitem']);
     }
-     */
+
 }
