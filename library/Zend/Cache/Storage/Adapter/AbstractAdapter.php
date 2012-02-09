@@ -141,18 +141,6 @@ abstract class AbstractAdapter implements Adapter
      */
     public function setOptions($options)
     {
-        if (!is_array($options)
-            && !$options instanceof Traversable
-            && !$options instanceof AdapterOptions
-        ) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects an array, a Traversable object, or an AdapterOptions instance; '
-                . 'received "%s"',
-                __METHOD__,
-                (is_object($options) ? get_class($options) : gettype($options))
-            ));
-        }
-
         if (!$options instanceof AdapterOptions) {
             $options = new AdapterOptions($options);
         }
@@ -1139,7 +1127,7 @@ abstract class AbstractAdapter implements Adapter
 
         $ret = true;
         foreach ($keyValuePairs as $key => $value) {
-            $ret = $this->incrementItems($key, $value, $options) && $ret;
+            $ret = $this->incrementItem($key, $value, $options) && $ret;
         }
         return $ret;
     }
@@ -1232,7 +1220,7 @@ abstract class AbstractAdapter implements Adapter
 
         $ret = true;
         foreach ($keyValuePairs as $key => $value) {
-            $ret = $this->decrementMulti($key, $value, $options) && $ret;
+            $ret = $this->decrementItem($key, $value, $options) && $ret;
         }
         return $ret;
     }
