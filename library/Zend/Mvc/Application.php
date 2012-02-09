@@ -276,7 +276,7 @@ class Application implements AppContext
             } else {
                 $return = $error->getParams();
             }
-            goto complete;
+            return $this->completeDispatch($e, $return);
         }
 
         if (!$controller instanceof Dispatchable) {
@@ -291,7 +291,7 @@ class Application implements AppContext
             } else {
                 $return = $error->getParams();
             }
-            goto complete;
+            return $this->completeDispatch($e, $return);
         }
 
         if ($controller instanceof LocatorAware) {
@@ -321,12 +321,20 @@ class Application implements AppContext
             }
         }
 
-        complete:
+        return $this->completeDispatch($e, $return);
+    }
 
-        if (!is_object($return)) {
-            if (IsAssocArray::test($return)) {
-                $return = new ArrayObject($return, ArrayObject::ARRAY_AS_PROPS);
-            }
+    /**
+     * Assigns the result of dispatch to the event, cleans up $return
+     *
+     * @param MvcEvent $e
+     * @param mixed $return
+     * @return ArrayObject
+     */
+    private function completeDispatch(MvcEvent $e, $return)
+    {
+        if (!is_object($return) && IsAssocArray::test($return)) {
+            $return = new ArrayObject($return, ArrayObject::ARRAY_AS_PROPS);
         }
         $e->setResult($return);
         return $return;
