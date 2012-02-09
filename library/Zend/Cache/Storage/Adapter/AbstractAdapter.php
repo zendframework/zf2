@@ -1412,6 +1412,34 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
+     * Clear items off all namespaces and call callback on finish.
+     *
+     * @param  callback $callback
+     * @param  int      $mode Matching mode (Value of Adapter::MATCH_*)
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     * @see    clear()
+     * @see    clearByNamespace()
+     * @see    clearAsyncByNamespace()
+     */
+    public function clearAsync($callback = null, $mode = self::MATCH_EXPIRED, array $options = array())
+    {
+        try {
+            $result = $this->clear($mode, $options);
+            $info   = new ArrayObject();
+        } catch (Exception $e) {
+            $info->exception = $e;
+        }
+
+        if ($callback) {
+            call_user_func($callback, $result, $mode);
+        }
+
+        return true;
+    }
+
+    /**
      * Clear by namespace
      *
      * @param  int $mode
@@ -1426,6 +1454,34 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
+     * Clear items by namespace and call callback on finish.
+     *
+     * @param  callback $callback
+     * @param  int      $mode Matching mode (Value of Adapter::MATCH_*)
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     * @see    clearByNamespace()
+     * @see    clear()
+     * @see    clearAsync()
+     */
+    public function clearAsyncByNamespace($callback = null, $mode = self::MATCH_EXPIRED, array $options = array())
+    {
+        try {
+            $info   = new ArrayObject();
+            $result = $this->clearByNamespace($mode, $options);
+        } catch (Exception $e) {
+            $info->exception = $e;
+        }
+
+        if ($callback) {
+            call_user_func($callback, $result, $mode);
+        }
+
+        return true;
+    }
+
+    /**
      * Optimize
      *
      * @param  array $options
@@ -1433,6 +1489,30 @@ abstract class AbstractAdapter implements Adapter
      */
     public function optimize(array $options = array())
     {
+        return true;
+    }
+
+    /**
+     * Optimize adapter storage and call callback on finish.
+     *
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function optimizeAsync($callback, array $options = array())
+    {
+        try {
+            $info   = new ArrayObject();
+            $result = $this->optimize($options);
+        } catch (Exception $e) {
+            $info->exception = $e;
+        }
+
+        if ($callback) {
+            call_user_func($callback, $result, $info);
+        }
+
         return true;
     }
 

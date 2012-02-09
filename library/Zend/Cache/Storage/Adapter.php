@@ -724,6 +724,16 @@ interface Adapter
      */
     public function optimize(array $options = array());
 
+    /**
+     * Optimize adapter storage and call callback on finish.
+     *
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function optimizeAsync($callback, array $options = array());
+
     /* status */
 
     /**
