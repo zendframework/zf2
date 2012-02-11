@@ -23,8 +23,6 @@
  */
 namespace Zend\OAuth;
 
-use Zend\OAuth;
-
 /**
  * @category   Zend
  * @package    Zend_OAuth
