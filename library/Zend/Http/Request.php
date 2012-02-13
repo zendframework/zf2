@@ -494,7 +494,7 @@ class Request extends Message implements RequestDescription
     }
 
     /**
-     * Is this a PATH method request?
+     * Is this a PATCH method request?
      *
      * @return bool
      */
