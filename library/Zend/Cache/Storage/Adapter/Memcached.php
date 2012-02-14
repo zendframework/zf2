@@ -193,7 +193,7 @@ class Memcached extends AbstractAdapter
      * Get an item and call callback if it has been fetched.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * Options:
      *  - namespace <string> optional
@@ -318,7 +318,7 @@ class Memcached extends AbstractAdapter
      * Get multiple items and call callback for each fetched item.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * Options:
      *  - namespace <string> optional

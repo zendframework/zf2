@@ -354,7 +354,7 @@ abstract class AbstractAdapter implements Adapter
      * Get an item and call callback if it has been fetched.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -412,7 +412,7 @@ abstract class AbstractAdapter implements Adapter
      * Get multiple items and call callback for each fetched item.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -461,7 +461,7 @@ abstract class AbstractAdapter implements Adapter
      * Test if an item exists and call callback.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -509,7 +509,7 @@ abstract class AbstractAdapter implements Adapter
      * Test multiple items and call callback for each item.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -535,7 +535,7 @@ abstract class AbstractAdapter implements Adapter
      * Get metadata of an item and call callback.
      *
      * Callback-Definition:
-     * void callback(string $key, mixed $result, Exception $error = null)
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -592,7 +592,7 @@ abstract class AbstractAdapter implements Adapter
      * Get multiple metadata and call callback for each item.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -620,7 +620,7 @@ abstract class AbstractAdapter implements Adapter
      * Store an item asynchronously.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  mixed    $value
@@ -667,7 +667,7 @@ abstract class AbstractAdapter implements Adapter
      * Store multiple items and call callback for each item on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -709,7 +709,7 @@ abstract class AbstractAdapter implements Adapter
      * Add an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  mixed    $value
@@ -756,7 +756,7 @@ abstract class AbstractAdapter implements Adapter
      * Add multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -799,7 +799,7 @@ abstract class AbstractAdapter implements Adapter
      * Replace an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  mixed    $value
@@ -846,7 +846,7 @@ abstract class AbstractAdapter implements Adapter
      * Replace multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -925,7 +925,7 @@ abstract class AbstractAdapter implements Adapter
      * Reset lifetime of an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -971,7 +971,7 @@ abstract class AbstractAdapter implements Adapter
      * Reset lifetime of multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -996,7 +996,7 @@ abstract class AbstractAdapter implements Adapter
      * Remove an item asynchron.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -1042,7 +1042,7 @@ abstract class AbstractAdapter implements Adapter
      * Remove multiple items asynchron.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -1089,7 +1089,7 @@ abstract class AbstractAdapter implements Adapter
      * Increment an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  int      $value
@@ -1136,7 +1136,7 @@ abstract class AbstractAdapter implements Adapter
      * Increment multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -1182,7 +1182,7 @@ abstract class AbstractAdapter implements Adapter
      * Decrement an item and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  int      $value
@@ -1229,7 +1229,7 @@ abstract class AbstractAdapter implements Adapter
      * Decrement multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -1264,6 +1264,18 @@ abstract class AbstractAdapter implements Adapter
         throw new Exception\UnsupportedMethodCallException('find isn\'t supported by this adapter');
     }
 
+    /**
+     * Find items and call callback for each item found.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  callback $callback
+     * @param  int      $mode      Matching mode (Value of Adapter::MATCH_*)
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
     public function findAsync($callback = null, $mode = self::MATCH_ACTIVE, array $options = array())
     {
         $this->normalizeOptions($options);
@@ -1402,6 +1414,9 @@ abstract class AbstractAdapter implements Adapter
     /**
      * Clear items off all namespaces and call callback on finish.
      *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
      * @param  callback $callback
      * @param  int      $mode Matching mode (Value of Adapter::MATCH_*)
      * @param  array    $options
@@ -1444,6 +1459,9 @@ abstract class AbstractAdapter implements Adapter
     /**
      * Clear items by namespace and call callback on finish.
      *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
      * @param  callback $callback
      * @param  int      $mode Matching mode (Value of Adapter::MATCH_*)
      * @param  array    $options
@@ -1482,6 +1500,9 @@ abstract class AbstractAdapter implements Adapter
 
     /**
      * Optimize adapter storage and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  callback $callback
      * @param  array    $options
@@ -1698,7 +1719,7 @@ abstract class AbstractAdapter implements Adapter
      * @param  string        $method   Method to emulate asyncronus behavior
      * @param  array         $args     Arguments of the asyncronus method
      * @param  null|callback $callback The callback to call
-     * @param  array         $info     An info array added as 3. argument of callback
+     * @param  ArrayObject   $info     An info object added as 2. argument of callback
      * @param  boolean       $ignoreMissingItems If TRUE the callback will not be called on an ItemNotFoundException
      * @return void
      * @throws Exception\InvalidArgumentException

@@ -119,7 +119,7 @@ interface Adapter
      * Get an item and call callback if it has been fetched.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -143,7 +143,7 @@ interface Adapter
      * Get multiple items and call callback for each fetched item.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -167,7 +167,7 @@ interface Adapter
      * Test if an item exists and call callback.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -191,7 +191,7 @@ interface Adapter
      * Test multiple items and call callback for each item.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -215,7 +215,7 @@ interface Adapter
      * Get metadata of an item and call callback.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -239,7 +239,7 @@ interface Adapter
      * Get multiple metadata and call callback for each item.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -266,7 +266,7 @@ interface Adapter
      * Store an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  mixed    $value
@@ -291,7 +291,7 @@ interface Adapter
      * Store multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -316,7 +316,7 @@ interface Adapter
      * Add an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  mixed    $value
@@ -341,7 +341,7 @@ interface Adapter
      * Add multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -366,7 +366,7 @@ interface Adapter
      * Replace an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  mixed    $value
@@ -391,7 +391,7 @@ interface Adapter
      * Replace multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -432,7 +432,7 @@ interface Adapter
      * Reset lifetime of an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -456,7 +456,7 @@ interface Adapter
      * Reset lifetime of multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -480,7 +480,7 @@ interface Adapter
      * Remove an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  callback $callback
@@ -504,7 +504,7 @@ interface Adapter
      * Remove multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keys
      * @param  callback $callback
@@ -529,7 +529,7 @@ interface Adapter
      * Increment an item and call callback on finish.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  int      $value
@@ -554,7 +554,7 @@ interface Adapter
      * Increment multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -579,7 +579,7 @@ interface Adapter
      * Decrement an item and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  string   $key
      * @param  int      $value
@@ -604,7 +604,7 @@ interface Adapter
      * Decrement multiple items and call callback for each item finished.
      *
      * Callback-Definition:
-     * void callback(mixed $result, Exception $error = null, array $info = array())
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  array    $keyValuePairs
      * @param  callback $callback
@@ -630,6 +630,9 @@ interface Adapter
 
     /**
      * Find items and call callback for each item found.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  callback $callback
      * @param  int      $mode      Matching mode (Value of Adapter::MATCH_*)
@@ -676,6 +679,9 @@ interface Adapter
     /**
      * Clear items off all namespaces and call callback on finish.
      *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
      * @param  callback $callback
      * @param  int      $mode Matching mode (Value of Adapter::MATCH_*)
      * @param  array    $options
@@ -704,6 +710,9 @@ interface Adapter
     /**
      * Clear items by namespace and call callback on finish.
      *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
      * @param  callback $callback
      * @param  int      $mode Matching mode (Value of Adapter::MATCH_*)
      * @param  array    $options
@@ -726,6 +735,9 @@ interface Adapter
 
     /**
      * Optimize adapter storage and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
      *
      * @param  callback $callback
      * @param  array    $options
