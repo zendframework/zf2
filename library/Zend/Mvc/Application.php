@@ -258,6 +258,11 @@ class Application implements AppContext
 
         $events     = $this->events();
         $routeMatch = $e->getRouteMatch();
+        if (!$routeMatch) {
+            throw new Exception\MissingRouteMatchException(
+                'Cannot dispatch without a RouteMatch'
+            );
+        }
 
         $controllerName = $routeMatch->getParam('controller', 'not-found');
 
