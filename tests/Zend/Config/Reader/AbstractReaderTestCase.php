@@ -19,11 +19,11 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Config\Writer;
+namespace ZendTest\Config\Reader;
 
-use \Zend\Config\Writer\Xml as XmlWriter,
-    \Zend\Config\Config,
-    \Zend\Config\Reader\Xml as XmlReader;
+use \PHPUnit_Framework_TestCase as TestCase,
+    \Zend\Config\Reader\Reader,
+    \ReflectionClass;
 
 /**
  * @category   Zend
@@ -33,35 +33,36 @@ use \Zend\Config\Writer\Xml as XmlWriter,
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Config
  */
-class XmlTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractReaderTestCase extends TestCase
 {
-    protected $_tempName;
-
-    public function setUp()
-    {
-        $this->writer = new XmlWriter();
-        $this->reader = new XmlReader();
-    }
-
     /**
-     * @group ZF-8234
+     * @var Reader
      */
-    public function testRender()
+    protected $reader;
+    
+    /**
+     * Get test asset name for current test case.
+     * 
+     * @return string
+     */
+    abstract protected function getTestAssetPath($name);
+       
+    public function testMissingFile()
     {
-        $config = new Config(array('test' => 'foo', 'bar' => array(0 => 'baz', 1 => 'foo')));
-
-        $configString = $this->writer->toString($config);
-
-        $expected = <<<ECS
-<?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
-    <test>foo</test>
-    <bar>baz</bar>
-    <bar>foo</bar>
-</zend-config>
-
-ECS;
-
-        $this->assertEquals($expected, $configString);
+        $filename = $this->getTestAssetPath('no-file');
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException', "The file $filename doesn't exists.");
+        $config = $this->reader->fromFile($filename); 
+    }
+    
+    public function testFromFile()
+    {
+        $config = $this->reader->fromFile($this->getTestAssetPath('include-base'));
+        $this->assertEquals('foo', $config['base']['foo']);
+    }
+    
+    public function testFromEmptyString()
+    {
+        $config = $this->reader->fromString('');
+        $this->assertTrue(!$config);
     }
 }

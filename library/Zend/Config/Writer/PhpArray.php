@@ -14,54 +14,32 @@
  *
  * @category   Zend
  * @package    Zend_Config
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Config\Writer;
-
-use \Zend\Config\Writer\Xml as XmlWriter,
-    \Zend\Config\Config,
-    \Zend\Config\Reader\Xml as XmlReader;
+namespace Zend\Config\Writer;
 
 /**
  * @category   Zend
  * @package    Zend_Config
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Config
  */
-class XmlTest extends \PHPUnit_Framework_TestCase
+class PhpArray extends AbstractWriter
 {
-    protected $_tempName;
-
-    public function setUp()
-    {
-        $this->writer = new XmlWriter();
-        $this->reader = new XmlReader();
-    }
-
     /**
-     * @group ZF-8234
+     * processConfig(): defined by AbstractWriter.
+     *
+     * @param  array $config
+     * @return string
      */
-    public function testRender()
+    public function processConfig(array $config)
     {
-        $config = new Config(array('test' => 'foo', 'bar' => array(0 => 'baz', 1 => 'foo')));
 
-        $configString = $this->writer->toString($config);
+        $arrayString = "<?php\n"
+                     . "return " . var_export($config, true) . ";\n";
 
-        $expected = <<<ECS
-<?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
-    <test>foo</test>
-    <bar>baz</bar>
-    <bar>foo</bar>
-</zend-config>
-
-ECS;
-
-        $this->assertEquals($expected, $configString);
+        return $arrayString;
     }
 }
