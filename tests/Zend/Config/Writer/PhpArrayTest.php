@@ -21,9 +21,9 @@
 
 namespace ZendTest\Config\Writer;
 
-use \Zend\Config\Writer\Xml as XmlWriter,
+use \Zend\Config\Writer\PhpArray,
     \Zend\Config\Config,
-    \Zend\Config\Reader\Xml as XmlReader;
+    ZendTest\Config\Writer\files\PhpReader;
 
 /**
  * @category   Zend
@@ -33,14 +33,14 @@ use \Zend\Config\Writer\Xml as XmlWriter,
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Config
  */
-class XmlTest extends \PHPUnit_Framework_TestCase
+class PhpArrayTest extends AbstractWriterTestCase
 {
     protected $_tempName;
 
     public function setUp()
     {
-        $this->writer = new XmlWriter();
-        $this->reader = new XmlReader();
+        $this->writer = new PhpArray();
+        $this->reader = new PhpReader();
     }
 
     /**
@@ -49,19 +49,20 @@ class XmlTest extends \PHPUnit_Framework_TestCase
     public function testRender()
     {
         $config = new Config(array('test' => 'foo', 'bar' => array(0 => 'baz', 1 => 'foo')));
-
+        
         $configString = $this->writer->toString($config);
 
-        $expected = <<<ECS
-<?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
-    <test>foo</test>
-    <bar>baz</bar>
-    <bar>foo</bar>
-</zend-config>
-
-ECS;
-
+        // build string line by line as we are trailing-whitespace sensitive.
+        $expected = "<?php\n";
+        $expected .= "return array (\n";
+        $expected .= "  'test' => 'foo',\n";
+        $expected .= "  'bar' => \n";
+        $expected .= "  array (\n";
+        $expected .= "    0 => 'baz',\n";
+        $expected .= "    1 => 'foo',\n";
+        $expected .= "  ),\n";
+        $expected .= ");\n";
+        
         $this->assertEquals($expected, $configString);
     }
 }

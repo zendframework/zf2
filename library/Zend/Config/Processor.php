@@ -14,54 +14,36 @@
  *
  * @category   Zend
  * @package    Zend_Config
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Config\Writer;
-
-use \Zend\Config\Writer\Xml as XmlWriter,
-    \Zend\Config\Config,
-    \Zend\Config\Reader\Xml as XmlReader;
+/**
+ * @namespace
+ */
+namespace Zend\Config;
 
 /**
  * @category   Zend
  * @package    Zend_Config
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Config
  */
-class XmlTest extends \PHPUnit_Framework_TestCase
+interface Processor
 {
-    protected $_tempName;
-
-    public function setUp()
-    {
-        $this->writer = new XmlWriter();
-        $this->reader = new XmlReader();
-    }
+    /**
+     * Process the whole Config structure and recursively parse all its values.
+     *
+     * @param Config $value
+     * @return \Zend\Config\Config
+     */
+    public function process(Config $value);
 
     /**
-     * @group ZF-8234
+     * Process a single value
+     *
+     * @param $value
+     * @return mixed
      */
-    public function testRender()
-    {
-        $config = new Config(array('test' => 'foo', 'bar' => array(0 => 'baz', 1 => 'foo')));
-
-        $configString = $this->writer->toString($config);
-
-        $expected = <<<ECS
-<?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
-    <test>foo</test>
-    <bar>baz</bar>
-    <bar>foo</bar>
-</zend-config>
-
-ECS;
-
-        $this->assertEquals($expected, $configString);
-    }
+    public function processValue($value);
 }
