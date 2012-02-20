@@ -19,40 +19,39 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Config\Writer;
+namespace ZendTest\Config\Reader;
 
-use \Zend\Config\Writer\Xml as XmlWriter,
-    \Zend\Config\Config,
-    \Zend\Config\Reader\Xml as XmlReader;
+use \Zend\Config\Reader\Xml;
 
 /**
  * @category   Zend
  * @package    Zend_Config
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Config
  */
-class XmlTest extends \PHPUnit_Framework_TestCase
+class XmlTest extends AbstractReaderTestCase
 {
-    protected $_tempName;
-
     public function setUp()
     {
-        $this->writer = new XmlWriter();
-        $this->reader = new XmlReader();
+        $this->reader = new Xml();
     }
-
+    
     /**
-     * @group ZF-8234
+     * getTestAssetPath(): defined by AbstractReaderTestCase.
+     * 
+     * @see    AbstractReaderTestCase::getTestAssetPath()
+     * @return string
      */
-    public function testRender()
+    protected function getTestAssetPath($name)
     {
-        $config = new Config(array('test' => 'foo', 'bar' => array(0 => 'baz', 1 => 'foo')));
-
-        $configString = $this->writer->toString($config);
-
-        $expected = <<<ECS
+        return __DIR__ . '/TestAssets/Xml/' . $name . '.xml';
+    }
+    
+    public function testFromString()
+    {
+        $xml = <<<ECS
 <?xml version="1.0" encoding="UTF-8"?>
 <zend-config>
     <test>foo</test>
@@ -61,7 +60,10 @@ class XmlTest extends \PHPUnit_Framework_TestCase
 </zend-config>
 
 ECS;
-
-        $this->assertEquals($expected, $configString);
+        
+        $config = $this->reader->fromString($xml);
+        $this->assertEquals($config['test'], 'foo');
+        $this->assertEquals($config['bar'][0], 'baz');
+        $this->assertEquals($config['bar'][1], 'foo');
     }
 }

@@ -123,14 +123,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testNoModifications()
     {
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'is read only');
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'Config is read only');
         $config = new Config($this->_all);
         $config->hostname = 'test';
     }
 
     public function testNoNestedModifications()
     {
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'is read only');
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'Config is read only');
         $config = new Config($this->_all);
         $config->db->host = 'test';
     }
@@ -192,7 +192,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testErrorWriteToReadOnly()
     {
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'read only');
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'Config is read only');
         $config = new Config($this->_all);
         $config->test = '32';
     }
@@ -370,7 +370,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config->b = 'b';
 
         $config->setReadOnly();
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'is read only');
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'Config is read only');
         $config->c = 'c';
     }
 
@@ -511,9 +511,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config = new Config($this->_all, true);
 
         $config->setReadOnly();
-        $this->assertTrue($config->readOnly());
-        $this->assertTrue($config->one->readOnly(), 'First level children are writable');
-        $this->assertTrue($config->one->two->readOnly(), 'Second level children are writable');
+        $this->assertTrue($config->isReadOnly());
+        $this->assertTrue($config->one->isReadOnly(), 'First level children are writable');
+        $this->assertTrue($config->one->two->isReadOnly(), 'Second level children are writable');
     }
 
     public function testZF6995_toArrayDoesNotDisturbInternalIterator()
