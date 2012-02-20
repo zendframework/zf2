@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -22,6 +22,7 @@ namespace Zend\Config\Writer;
 
 use Zend\Config\Writer,
     Zend\Config\Exception,
+    Zend\Config\Config,
     Zend\Stdlib\IteratorToArray;
 
 /**
@@ -43,6 +44,15 @@ abstract class AbstractWriter implements Writer
      */
     public function toFile($filename, $config, $exclusiveLock = true)
     {
+        if (empty($filename)) {
+            throw new Exception\InvalidArgumentException('No filename was set');
+        }
+        if (empty($config)) {
+             throw new Exception\InvalidArgumentException('No config was set');
+        }
+        if (is_dir($filename)) {
+            throw new Exception\RuntimeException(sprintf('"%s" is a directory and not a file', $filename));
+        }
         if (!is_writable($filename)) {
             throw new Exception\RuntimeException(sprintf('File "%s" is not writable', $filename));
         }
@@ -65,7 +75,9 @@ abstract class AbstractWriter implements Writer
      */
     public function toString($config)
     {
-        if ($config instanceof Traversable) {
+        if ($config instanceof Config) {
+            $config = $config->toArray();
+        } elseif ($config instanceof Traversable) {
             $config = IteratorToArray::convert($config);
         } elseif (!is_array($config)) {
             throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable config');

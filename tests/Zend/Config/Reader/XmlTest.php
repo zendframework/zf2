@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Config
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -49,10 +49,21 @@ class XmlTest extends AbstractReaderTestCase
         return __DIR__ . '/TestAssets/Xml/' . $name . '.xml';
     }
     
-    public function testNonExistentConstant()
+    public function testFromString()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'Constant with name "ZEND_CONFIG_TEST_NON_EXISTENT_CONSTANT" was not defined');
-        $config = $this->reader->readFile($this->getTestAssetPath('non-existent-constant'));
-        var_dump($config);
+        $xml = <<<ECS
+<?xml version="1.0" encoding="UTF-8"?>
+<zend-config>
+    <test>foo</test>
+    <bar>baz</bar>
+    <bar>foo</bar>
+</zend-config>
+
+ECS;
+        
+        $config = $this->reader->fromString($xml);
+        $this->assertEquals($config['test'], 'foo');
+        $this->assertEquals($config['bar'][0], 'baz');
+        $this->assertEquals($config['bar'][1], 'foo');
     }
 }
