@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ use Zend\Authentication\Adapter,
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Auth
  * @group      Zend_Db_Table
@@ -426,8 +426,8 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
         $result2 = $this->_adapter->authenticate();
         $this->assertFalse(in_array('More than one record matches the supplied identity.',
             $result->getMessages()));
-        $this->assertTrue($result->isValid());
-        $this->assertEquals('my_username', $result->getIdentity());
+        $this->assertTrue($result2->isValid());
+        $this->assertEquals('my_username', $result2->getIdentity());
     }
 
 

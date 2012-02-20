@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -37,7 +37,7 @@ use Zend\Navigation\Container,
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Breadcrumbs extends AbstractHelper
@@ -303,11 +303,11 @@ class Breadcrumbs extends AbstractHelper
             }
 
             $partialHelper = $this->view->plugin('partial');
-            return $partialHelper($partial[0], $partial[1], $model);
+            return $partialHelper($partial[0], /*$partial[1], */$model);
         }
 
         $partialHelper = $this->view->plugin('partial');
-        return $partialHelper($partial, null, $model);
+        return $partialHelper($partial, $model);
     }
 
     // Zend\View\Helper\Navigation\Helper:

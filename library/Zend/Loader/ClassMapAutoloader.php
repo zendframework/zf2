@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Loader
  * @subpackage Exception
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ require_once __DIR__ . '/SplAutoloader.php';
  * 
  * @catebory   Zend
  * @package    Zend_Loader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    New BSD {@link http://framework.zend.com/license/new-bsd}
  */
 class ClassMapAutoloader implements SplAutoloader
@@ -161,7 +161,7 @@ class ClassMapAutoloader implements SplAutoloader
      */
     public function register()
     {
-        spl_autoload_register(array($this, 'autoload'));
+        spl_autoload_register(array($this, 'autoload'), true, true);
     }
 
     /**
@@ -182,15 +182,45 @@ class ClassMapAutoloader implements SplAutoloader
             throw new Exception\InvalidArgumentException('Map file provided does not exist');
         }
 
-        $location = realpath($location);
+        if (!$path = static::realPharPath($location)) {
+            $path = realpath($location);
+        }
 
-        if (in_array($location, $this->mapsLoaded)) {
+        if (in_array($path, $this->mapsLoaded)) {
             // Already loaded this map
             return $this;
         }
 
-        $map = include $location;
+        $map = include $path;
 
         return $map;
+    }
+
+    /**
+     * Resolve the real_path() to a file within a phar.
+     *
+     * @see https://bugs.php.net/bug.php?id=52769 
+     * @param string $path 
+     * @return string
+     */
+    public static function realPharPath($path)
+    {
+        if (strpos($path, 'phar:///') !== 0) {
+            return;
+        }
+        
+        $parts = explode('/', str_replace(array('/','\\'), '/', substr($path, 8)));
+        $parts = array_values(array_filter($parts, function($p) { return ($p !== '' && $p !== '.'); }));
+
+        array_walk($parts, function ($value, $key) use(&$parts) {
+            if ($value === '..') {
+                unset($parts[$key], $parts[$key-1]);
+                $parts = array_values($parts);
+            }
+        });
+
+        if (file_exists($realPath = 'phar:///' . implode('/', $parts))) {
+            return $realPath;
+        }
     }
 }

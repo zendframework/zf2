@@ -15,37 +15,36 @@
  * @category   Zend
  * @package    Zend_Service_Nirvanix
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @see Zend_Service_Nirvanix_FunctionalTestCase
- */
+namespace ZendTest\Service\Nirvanix;
 
 /**
+ * @see        FunctionalTestCase
  * @category   Zend
  * @package    Zend_Service_Nirvanix
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Nirvanix
  */
-class Zend_Service_Nirvanix_NirvanixTest extends Zend_Service_Nirvanix_FunctionalTestCase
+class NirvanixTest extends FunctionalTestCase
 {
     // getService()
 
     public function testFactoryReturnsBaseWhenNoSubclassAvailable()
     {
         $base = $this->nirvanix->getService('Foo');
-        $this->assertType('Zend_Service_Nirvanix_Namespace_Base', $base);
+        $this->assertInstanceOf('Zend\Service\Nirvanix\Context\Base', $base);
     }
 
     public function testFactoryReturnsImfsSubclassForImfsNamespace()
     {
         $imfs = $this->nirvanix->getService('IMFS');
-        $this->assertType('Zend_Service_Nirvanix_Namespace_Imfs', $imfs);
+        $this->assertInstanceOf('Zend\Service\Nirvanix\Context\Imfs', $imfs);
     }
 
     public function testFactoryPassesHttpClientInstanceWithOptions()

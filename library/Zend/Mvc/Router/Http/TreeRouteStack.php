@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Mvc_Router
  * @subpackage Http
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,6 +25,8 @@
 namespace Zend\Mvc\Router\Http;
 
 use Zend\Mvc\Router\Exception,
+    Traversable,
+    Zend\Stdlib\IteratorToArray,
     Zend\Mvc\Router\SimpleRouteStack,
     Zend\Mvc\Router\Route as BaseRoute,
     Zend\Mvc\Router\Http\Route,
@@ -36,7 +38,7 @@ use Zend\Mvc\Router\Exception,
  *
  * @package    Zend_Mvc_Router
  * @subpackage Http
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class TreeRouteStack extends SimpleRouteStack
@@ -46,7 +48,7 @@ class TreeRouteStack extends SimpleRouteStack
      *
      * @var string
      */
-    protected $baseUrl = '';
+    protected $baseUrl;
 
     /**
      * Request URI.
@@ -89,9 +91,7 @@ class TreeRouteStack extends SimpleRouteStack
             $route = $this->routeFromArray($route);
         }
 
-        $this->routes->insert($name, $route, $priority);
-
-        return $this;
+        return parent::addRoute($name, $route, $priority);
     }
 
     /**
@@ -103,6 +103,12 @@ class TreeRouteStack extends SimpleRouteStack
      */
     protected function routeFromArray($specs)
     {
+        if ($specs instanceof Traversable) {
+            $specs = IteratorToArray::convert($specs);
+        } elseif (!is_array($specs)) {
+            throw new Exception\InvalidArgumentException('Route definition must be an array or Traversable object');
+        }
+
         $route = parent::routeFromArray($specs);
 
         if (!$route instanceof Route) {
@@ -117,7 +123,10 @@ class TreeRouteStack extends SimpleRouteStack
                 'route_broker'  => $this->routeBroker,
             );
 
+            $priority = (isset($route->priority) ? $route->priority : null);
+            
             $route = $this->routeBroker->load('part', $options);
+            $route->priority = $priority;
         }
 
         return $route;
@@ -136,6 +145,10 @@ class TreeRouteStack extends SimpleRouteStack
             return null;
         }
 
+        if ($this->baseUrl === null && method_exists($request, 'getBaseUrl')) {
+            $this->setBaseUrl($request->getBaseUrl());
+        }
+
         $uri           = $request->uri();
         $baseUrlLength = strlen($this->baseUrl) ?: null;
 
@@ -146,10 +159,16 @@ class TreeRouteStack extends SimpleRouteStack
         if ($baseUrlLength !== null) {
             $pathLength = strlen($uri->getPath()) - $baseUrlLength;
 
-            foreach ($this->routes as $route) {
+            foreach ($this->routes as $name => $route) {
                 if (($match = $route->match($request, $baseUrlLength)) instanceof RouteMatch && $match->getLength() === $pathLength) {
                     $match->setMatchedRouteName($name);
-                    
+
+                    foreach ($this->defaultParams as $name => $value) {
+                        if ($match->getParam($name) === null) {
+                            $match->setParam($name, $value);
+                        }
+                    }
+
                     return $match;
                 }
             }
@@ -187,29 +206,29 @@ class TreeRouteStack extends SimpleRouteStack
             unset($options['name']);
         }
 
-        if (!isset($options['uri'])) {
-            $uri = new HttpUri();
+        if (!isset($options['only_return_path']) || !$options['only_return_path']) {
+            if (!isset($options['uri'])) {
+                $uri = new HttpUri();
 
-            if (isset($options['absolute']) && $options['absolute']) {
-                if ($this->requestUri === null) {
-                    throw new Exception\RuntimeException('Request URI has not been set');
+                if (isset($options['force_canonical']) && $options['force_canonical']) {
+                    if ($this->requestUri === null) {
+                        throw new Exception\RuntimeException('Request URI has not been set');
+                    }
+
+                    $uri->setScheme($this->requestUri->getScheme())
+                        ->setHost($this->requestUri->getHost())
+                        ->setPort($this->requestUri->getPort());
                 }
 
-                $uri->setScheme($this->requestUri->getScheme())
-                    ->setHost($this->requestUri->getHost())
-                    ->setPort($this->requestUri->getPort());
+                $options['uri'] = $uri;
+            } else {
+                $uri = $options['uri'];
             }
 
-            $options['uri'] = $uri;
-        }
+            $path = $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
 
-        $path = $this->baseUrl . $route->assemble($params, $options);
-
-        if (isset($uri)) {
-            if (isset($options['absolute']) && $options['absolute']) {
-                return $uri->setPath($path)->toString();
-            } elseif ($uri->getHost() !== null) {
-                if ($uri->scheme !== null) {
+            if ((isset($options['force_canonical']) && $options['force_canonical']) || $uri->getHost() !== null) {
+                if ($uri->getScheme() === null) {
                     if ($this->requestUri === null) {
                         throw new Exception\RuntimeException('Request URI has not been set');
                     }
@@ -221,7 +240,7 @@ class TreeRouteStack extends SimpleRouteStack
             }
         }
 
-        return $path;
+        return $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
     }
 
     /**

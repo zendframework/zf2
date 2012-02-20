@@ -15,13 +15,15 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 namespace ZendTest\Db\Table\Table;
-use Zend\Db\Table;
-use Zend\Cache;
+
+use Zend\Cache\StorageFactory as CacheFactory,
+    Zend\Cache\Storage\Adapter as CacheAdapter,
+    Zend\Db\Table;
 
 /**
  * @category   Zend
@@ -29,7 +31,7 @@ use Zend\Cache;
  * @subpackage UnitTests
  * @group      Zend_Db
  * @group      Zend_Db_Table
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class AbstractTest extends \ZendTest\Db\Table\TestSetup
@@ -1546,26 +1548,26 @@ abstract class AbstractTest extends \ZendTest\Db\Table\TestSetup
      */
     protected function _getCache()
     {
-        /**
-         * @see Zend_Cache
-         */
+        $cache = CacheFactory::factory(array(
+            'adapter' => array(
+                'name' => 'filesystem',
+                'options' => array(
+                    'namespace' => 'Zend_Db_Table_TestCommon',
+                ),
+            ),
+            'plugins' => array(
+                array(
+                    'name' => 'serializer',
+                    'options' => array(
+                        'serializer' => 'php_serialize',
+                    ),
+                ),
+            ),
+        ));
 
-        $folder = __DIR__ . DIRECTORY_SEPARATOR . '../_files' . DIRECTORY_SEPARATOR . 'cachefiles';
+        $cache->clear(CacheAdapter::MATCH_ALL);
 
-        $frontendOptions = array(
-            'automatic_serialization' => true
-        );
-
-        $backendOptions  = array(
-            'cache_dir'                 => $folder,
-            'file_name_prefix'          => 'Zend_Db_Table_TestCommon'
-        );
-
-        $cacheFrontend = Cache\Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
-
-        $cacheFrontend->clean(Cache\Cache::CLEANING_MODE_ALL);
-
-        return $cacheFrontend;
+        return $cache;
     }
 
     /**
@@ -1579,27 +1581,33 @@ abstract class AbstractTest extends \ZendTest\Db\Table\TestSetup
          * @see Zend_Cache
          */
 
-        $folder = __DIR__ . DIRECTORY_SEPARATOR . '../_files' . DIRECTORY_SEPARATOR . 'nofiles';
+        $folder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'nofiles';
         if (!file_exists($folder)) {
             mkdir($folder, 0777);
         }
 
-        $frontendOptions = array(
-            'automatic_serialization' => true
-        );
+        $cache = CacheFactory::factory(array(
+            'adapter' => array(
+                'name' => 'filesystem',
+                'options' => array(
+                    'namespace' => 'Zend_Db_Table_TestCommon',
+                    'cache_dir' => $folder,
+                ),
+            ),
+            'plugins' => array(
+                array(
+                    'name' => 'serializer',
+                    'options' => array(
+                        'serializer' => 'php_serialize',
+                    ),
+                ),
+            ),
+        ));
 
-        $backendOptions  = array(
-            'cache_dir'                 => $folder,
-            'file_name_prefix'          => 'Zend_Db_Table_TestCommon'
-        );
-
-        $cacheFrontend = Cache\Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
-
-        $cacheFrontend->clean(Cache\Cache::CLEANING_MODE_ALL);
-
+        $cache->clear(CacheAdapter::MATCH_ALL);
         rmdir($folder);
 
-        return $cacheFrontend;
+        return $cache;
     }
 
     /**
@@ -1621,6 +1629,49 @@ abstract class AbstractTest extends \ZendTest\Db\Table\TestSetup
         $this->assertEquals(1, count($rowset));
         $this->_util->dropTable('thisisaveryverylongtablename');
     }
+    
+    
+     /**
+     * @group ZF2-66
+     */
+    public function testgetReferenceWihoutSlashAtTheBeginning()
+    {
+        $refReporter = array(
+            'columns'           => array('reported_by'),
+            'refTableClass'     => '\ZendTest\Db\Table\TestAsset\TableAccounts',
+            'refColumns'        => array('account_id')
+        );
+        $refEngineer = array(
+            'columns'           => array('assigned_to'),
+            'refTableClass'     => '\ZendTest\Db\Table\TestAsset\TableAccounts',
+            'refColumns'        => array('account_id')
+        );
+        $refMap = array(
+            'Reporter' => $refReporter,
+            'Engineer' => $refEngineer
+        );
+        $table = $this->_getTable('\ZendTest\Db\Table\TestAsset\TableBugs',array('referenceMap' => $refMap));
+        
+        $this->assertEquals($refReporter, $table->getReference('ZendTest\Db\Table\TestAsset\TableAccounts'));
+        $this->assertEquals($refReporter, $table->getReference('ZendTest\Db\Table\TestAsset\TableAccounts', 'Reporter'));
+        $this->assertEquals($refEngineer, $table->getReference('ZendTest\Db\Table\TestAsset\TableAccounts', 'Engineer'));
+        
+        $this->assertEquals(
+                $table->getReference('\ZendTest\Db\Table\TestAsset\TableAccounts'), 
+                $table->getReference('ZendTest\Db\Table\TestAsset\TableAccounts')
+        );
+        
+        $this->assertEquals(
+                $table->getReference('\ZendTest\Db\Table\TestAsset\TableAccounts', 'Reporter'),
+                $table->getReference('ZendTest\Db\Table\TestAsset\TableAccounts', 'Reporter')
+        );
+        
+        $this->assertEquals(
+                $table->getReference('\ZendTest\Db\Table\TestAsset\TableAccounts', 'Engineer'),
+                $table->getReference('ZendTest\Db\Table\TestAsset\TableAccounts', 'Engineer')
+        );
+    }
+    
 
     protected function _getRowForTableAndIdentityWithVeryLongName()
     {

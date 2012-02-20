@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,10 +24,8 @@
  */
 namespace ZendTest\View\Helper;
 
-use Zend\Controller\Front as FrontController,
-    Zend\View\Helper,
-    Zend\Layout;
-
+use Zend\View\Helper,
+    Zend\Layout\Layout;
 
 /**
  * Test class for Zend_View_Helper_Layout
@@ -35,7 +33,7 @@ use Zend\Controller\Front as FrontController,
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -51,62 +49,30 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $front = FrontController::getInstance();
-        $front->resetInstance();
-        $broker = $front->getHelperBroker();
-        if ($broker->hasPlugin('Layout')) {
-            $broker->unregister('Layout');
-        }
-        if ($broker->hasPlugin('viewRenderer')) {
-            $broker->unregister('viewRenderer');
-        }
-
-        \Zend\Layout\Layout::resetMvcInstance();
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
     }
 
     public function testGetLayoutCreatesLayoutObjectWhenNoPluginRegistered()
     {
         $helper = new Helper\Layout();
         $layout = $helper->getLayout();
-        $this->assertTrue($layout instanceof Layout\Layout);
-    }
-
-    public function testGetLayoutPullsLayoutObjectFromRegisteredPlugin()
-    {
-        $layout = Layout\Layout::startMvc();
-        $helper = new Helper\Layout();
-        $this->assertSame($layout, $helper->getLayout());
+        $this->assertTrue($layout instanceof Layout);
     }
 
     public function testSetLayoutReplacesExistingLayoutObject()
     {
-        $layout = Layout\Layout::startMvc();
+        $layout = new Layout;
         $helper = new Helper\Layout();
+        $this->assertNotSame($layout, $helper->getLayout());
+
+        $helper->setLayout($layout);
         $this->assertSame($layout, $helper->getLayout());
-
-        $newLayout = new Layout\Layout();
-        $this->assertNotSame($layout, $newLayout);
-
-        $helper->setLayout($newLayout);
-        $this->assertSame($newLayout, $helper->getLayout());
     }
 
     public function testHelperMethodFetchesLayoutObject()
     {
-        $layout = Layout\Layout::startMvc();
         $helper = new Helper\Layout();
 
         $received = $helper->__invoke();
-        $this->assertSame($layout, $received);
+        $this->assertTrue($received instanceof Layout);
     }
 }

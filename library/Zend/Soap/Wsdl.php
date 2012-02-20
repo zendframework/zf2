@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Soap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,14 +24,15 @@
 namespace Zend\Soap;
 
 use DOMDocument,
-    Zend\Uri\Uri;
+    Zend\Uri\Uri,
+    Zend\Soap\Wsdl\ComplexTypeStrategy;
 
 /**
  * \Zend\Soap\Wsdl
  *
  * @category   Zend
  * @package    Zend_Soap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Wsdl
@@ -68,20 +69,27 @@ class Wsdl
      */
     protected $_strategy = null;
 
+    /**
+     * Map of PHP Class names to WSDL QNames.
+     *
+     * @var array
+     */
+    protected $_classMap = array();
 
     /**
      * Constructor
      *
      * @param string  $name Name of the Web Service being Described
      * @param string|Uri $uri URI where the WSDL will be available
-     * @param boolean|string|\Zend\Soap\Wsdl\Strategy $strategy
+     * @param \Zend\Soap\Wsdl\ComplexTypeStrategy $strategy
      */
-    public function __construct($name, $uri, $strategy = true)
+    public function __construct($name, $uri, ComplexTypeStrategy $strategy = null, array $classMap = array())
     {
         if ($uri instanceof Uri) {
             $uri = $uri->toString();
         }
         $this->_uri = $uri;
+        $this->_classMap = $classMap;
 
         /**
          * @todo change DomDocument object creation from cparsing to constructing using API
@@ -102,7 +110,25 @@ class Wsdl
             $this->_wsdl = $this->_dom->documentElement;
         }
 
-        $this->setComplexTypeStrategy($strategy);
+        $this->setComplexTypeStrategy($strategy ?: new Wsdl\ComplexTypeStrategy\DefaultComplexType);
+    }
+
+    /**
+     * Get the class map of php to wsdl qname types.
+     *
+     * @return array
+     */
+    public function getClassMap()
+    {
+        return $this->_classMap;
+    }
+
+    /**
+     * Set the class map of php to wsdl qname types.
+     */
+    public function setClassMap($classMap)
+    {
+        $this->_classMap = $classMap;
     }
 
     /**
@@ -133,29 +159,11 @@ class Wsdl
     /**
      * Set a strategy for complex type detection and handling
      *
-     * @todo Boolean is for backwards compability with extractComplexType object var. Remove it in later versions.
-     * @param boolean|string|\Zend\Soap\Wsdl\Strategy $strategy
+     * @param \Zend\Soap\Wsdl\ComplexTypeStrategy $strategy
      * @return \Zend\Soap\Wsdl
      */
-    public function setComplexTypeStrategy($strategy)
+    public function setComplexTypeStrategy(ComplexTypeStrategy $strategy)
     {
-        if($strategy === true) {
-            $strategy = new Wsdl\Strategy\DefaultComplexType();
-        } else if($strategy === false) {
-            $strategy = new Wsdl\Strategy\AnyType();
-        } else if(is_string($strategy)) {
-            if(class_exists($strategy)) {
-                $strategy = new $strategy();
-            } else {
-                throw new Exception\InvalidArgumentException(
-                    sprintf("Strategy with name '%s does not exist.", $strategy
-                ));
-            }
-        }
-
-        if(!($strategy instanceof Wsdl\Strategy)) {
-            throw new Exception\InvalidArgumentException('Set a strategy that is not of type \'Zend\Soap\Wsdl\Strategy\'');
-        }
         $this->_strategy = $strategy;
         return $this;
     }
@@ -163,7 +171,7 @@ class Wsdl
     /**
      * Get the current complex type strategy
      *
-     * @return \Zend\Soap\Wsdl\Strategy
+     * @return \Zend\Soap\Wsdl\ComplexTypeStrategy
      */
     public function getComplexTypeStrategy()
     {
@@ -532,28 +540,24 @@ class Wsdl
             case 'string':
             case 'str':
                 return 'xsd:string';
-                break;
+            case 'long':
+                return 'xsd:long';
             case 'int':
             case 'integer':
                 return 'xsd:int';
-                break;
             case 'float':
-            case 'double':
                 return 'xsd:float';
-                break;
+            case 'double':
+                return 'xsd:double';
             case 'boolean':
             case 'bool':
                 return 'xsd:boolean';
-                break;
             case 'array':
                 return 'soap-enc:Array';
-                break;
             case 'object':
                 return 'xsd:struct';
-                break;
             case 'mixed':
                 return 'xsd:anyType';
-                break;
             case 'void':
                 return '';
             default:
@@ -585,10 +589,18 @@ class Wsdl
      * @param string $type
      * @return string QName
      */
-    public static function translateType($type)
+    public function translateType($type)
     {
+        if (isset($this->_classMap[$type])) {
+            return $this->_classMap[$type];
+        }
+
         if ($type[0] == '\\') {
             $type = substr($type, 1);
+        }
+
+        if ($pos = strrpos($type, '\\')) {
+            $type = substr($type, $pos+1);
         }
 
         return str_replace('\\', '.', $type);

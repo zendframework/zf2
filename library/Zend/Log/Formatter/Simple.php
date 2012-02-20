@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,9 @@
  * @namespace
  */
 namespace Zend\Log\Formatter;
-use \Zend\Log\Formatter;
+
+use Zend\Log\Formatter,
+    Zend\Config\Config;
 
 /**
  * @uses       \Zend\Log\Exception\InvalidArgumentException
@@ -31,7 +33,7 @@ use \Zend\Log\Formatter;
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Simple extends AbstractFormatter
@@ -66,14 +68,14 @@ class Simple extends AbstractFormatter
     /**
 	 * Factory for Zend_Log_Formatter_Simple classe
 	 *
-	 * @param array|\Zend\Config\Config $options
+	 * @param array|Config $options
 	 * @return \Zend\Log\Formatter\Simple
      */
     public static function factory($options = array())
     {
         $format = null;
         if (null !== $options) {
-            if ($options instanceof Zend\Config\Config) {
+            if ($options instanceof Config) {
                 $options = $options->toArray();
             }
 

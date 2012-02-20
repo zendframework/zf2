@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -29,7 +29,7 @@ use ReflectionClass,
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Loader
  */
@@ -99,7 +99,7 @@ class AutoloaderFactoryTest extends \PHPUnit_Framework_TestCase
             ),
         ));
         $this->assertEquals(1, count(AutoloaderFactory::getRegisteredAutoloaders()));
-        $this->assertTrue(class_exists('TestNamespace\FallbackCase'));
+        $this->assertTrue(class_exists('TestNamespace\NoDuplicateAutoloadersCase'));
         $this->assertTrue(class_exists('ZendTest\Loader\TestAsset\TestPlugins\Foo'));
     }
 
@@ -140,6 +140,14 @@ class AutoloaderFactoryTest extends \PHPUnit_Framework_TestCase
         ));
         $autoloader = AutoloaderFactory::getRegisteredAutoloader('Zend\Loader\StandardAutoloader');
         $this->assertInstanceOf('Zend\Loader\StandardAutoloader', $autoloader);
+    }
+
+    public function testDefaultAutoloader()
+    {
+        AutoloaderFactory::factory();
+        $autoloader = AutoloaderFactory::getRegisteredAutoloader('Zend\Loader\StandardAutoloader');
+        $this->assertInstanceOf('Zend\Loader\StandardAutoloader', $autoloader);
+        $this->assertEquals(1, count(AutoloaderFactory::getRegisteredAutoloaders()));
     }
 
     public function testGetInvalidAutoloaderThrowsException()

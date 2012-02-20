@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -40,7 +40,7 @@ use DOMDocument,
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Sitemap extends AbstractHelper
@@ -297,12 +297,12 @@ class Sitemap extends AbstractHelper
             $url = (string) $href;
         } else {
             // href is relative to current document; use url helpers
-            $baseUrlHelper = $this->getView()->plugin('baseurl');
-            $curDoc    = $baseUrlHelper();
-            $curDoc    = ('/' == $curDoc) ? '' : trim($curDoc, '/');
-            $url       = rtrim($this->getServerUrl(), '/') . '/'
-                       . $curDoc
-                       . (empty($curDoc) ? '' : '/') . $href;
+            $basePathHelper = $this->getView()->plugin('basepath');
+            $curDoc         = $basePathHelper();
+            $curDoc         = ('/' == $curDoc) ? '' : trim($curDoc, '/');
+            $url            = rtrim($this->getServerUrl(), '/') . '/'
+                            . $curDoc
+                            . (empty($curDoc) ? '' : '/') . $href;
         }
 
         return $this->_xmlEscape($url);

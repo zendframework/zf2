@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Reflection
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ use Zend\Code\Reflection;
  * @category   Zend
  * @package    Zend_Reflection
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Reflection
  * @group      Zend_Reflection_Docblock
@@ -74,7 +74,7 @@ class ReflectionDocblockTagTest extends \PHPUnit_Framework_TestCase
 
         $tag = $classReflection->getMethod('doSomething')->getDocblock()->getTag('descriptionTag');
 
-        $expectedString = "Docblock Tag [ * @descriptionTag ]".PHP_EOL;
+        $expectedString = "DocBlock Tag [ * @descriptionTag ]".PHP_EOL;
 
         $this->assertEquals($expectedString, (string)$tag);
     }
@@ -158,7 +158,7 @@ class ReflectionDocblockTagTest extends \PHPUnit_Framework_TestCase
         $paramTag = $classReflection->getMethod('doSomething')->getDocblock()->getTag('return');
 
         $trimOpt = Reflection\ReflectionDocblockTag::TRIM_WHITESPACE;
-        $this->assertEquals('Zend\Code\Reflection\Docblock', $paramTag->getType($trimOpt));
+        $this->assertEquals('Zend\Code\Reflection\DocBlock', $paramTag->getType($trimOpt));
     }
     
     

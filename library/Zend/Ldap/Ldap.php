@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,11 +30,11 @@ namespace Zend\Ldap;
  * @uses       \Zend\Ldap\Exception
  * @uses       \Zend\Ldap\Filter\AbstractFilter
  * @uses       \Zend\Ldap\Node
- * @uses       \Zend\Ldap\Node\RootDSE
+ * @uses       \Zend\Ldap\Node\RootDse
  * @uses       \Zend\Ldap\Node\Schema
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Ldap
@@ -79,7 +79,7 @@ class Ldap
     protected $_boundUser = false;
 
     /**
-     * Caches the RootDSE
+     * Caches the RootDse
      *
      * @var \Zend\Ldap\Node
      */
@@ -1416,15 +1416,15 @@ class Ldap
     }
 
     /**
-     * Returns the RootDSE
+     * Returns the RootDse
      *
-     * @return \Zend\Ldap\Node\RootDSE
+     * @return \Zend\Ldap\Node\RootDse
      * @throws \Zend\Ldap\Exception
      */
     public function getRootDse()
     {
         if ($this->_rootDse === null) {
-            $this->_rootDse = Node\RootDSE::create($this);
+            $this->_rootDse = Node\RootDse::create($this);
         }
         return $this->_rootDse;
     }

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ use ReflectionParameter,
  * @uses       \Zend\Code\Reflection\Exception
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ParameterReflection extends ReflectionParameter implements Reflection
@@ -97,7 +97,7 @@ class ParameterReflection extends ReflectionParameter implements Reflection
      */
     public function getType()
     {
-        if ($docblock = $this->getDeclaringFunction()->getDocblock()) {
+        if ($docblock = $this->getDeclaringFunction()->getDocBlock()) {
             $params = $docblock->getTags('param');
 
             if (isset($params[$this->getPosition()])) {

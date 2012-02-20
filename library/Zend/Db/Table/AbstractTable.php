@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,22 +23,18 @@
  * @namespace
  */
 namespace Zend\Db\Table;
-use Zend\Db\Adapter;
+
+use Zend\Cache\Storage\Adapter as CacheAdapter,
+    Zend\Db\Adapter,
+    Zend\Registry;
 
 /**
  * Class for SQL table interface.
  *
- * @uses       \Zend\Db\Db
- * @uses       \Zend\Db\Adapter\AbstractAdapter
- * @uses       \Zend\Db\Select
- * @uses       \Zend\Db\Table\Exception
- * @uses       \Zend\Db\Table\Select
- * @uses       \Zend\Loader
- * @uses       \Zend\Registry
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class AbstractTable
@@ -101,7 +97,7 @@ abstract class AbstractTable
     /**
      * Default cache for information provided by the adapter's describeTable() method.
      *
-     * @var \Zend\Cache\Frontend\Core
+     * @var CacheAdapter
      */
     protected static $_defaultMetadataCache = null;
 
@@ -173,7 +169,7 @@ abstract class AbstractTable
     /**
      * Cache for information provided by the adapter's describeTable() method.
      *
-     * @var \Zend\Cache\Frontend\Core
+     * @var CacheAdapter
      */
     protected $_metadataCache = null;
 
@@ -457,6 +453,7 @@ abstract class AbstractTable
     public function getReference($tableClassname, $ruleKey = null)
     {
         $thisClass = get_class($this);
+        $tableClassname = '\\' . ltrim($tableClassname, '\\');
         if ($thisClass === 'Zend\Db\Table\Table') {
             $thisClass = $this->_definitionConfigName;
         }
@@ -621,7 +618,7 @@ abstract class AbstractTable
     /**
      * Gets the default metadata cache for information returned by Zend_Db_Adapter_Abstract::describeTable().
      *
-     * @return \Zend\Cache\Frontend\Core or null
+     * @return CacheAdapter|null
      */
     public static function getDefaultMetadataCache()
     {
@@ -636,7 +633,7 @@ abstract class AbstractTable
      * results in unnecessary API complexity. To configure the metadata cache, use the metadataCache configuration
      * option for the class constructor upon instantiation.
      *
-     * @param  mixed $metadataCache Either a Cache object, or a string naming a Registry key
+     * @param  string|CacheAdapter $metadataCache Either a Cache object, or a string naming a Registry key
      * @return \Zend\Db\Table\AbstractTable Provides a fluent interface
      */
     protected function _setMetadataCache($metadataCache)
@@ -648,7 +645,7 @@ abstract class AbstractTable
     /**
      * Gets the metadata cache for information returned by Zend_Db_Adapter_Abstract::describeTable().
      *
-     * @return \Zend\Cache\Frontend\Core or null
+     * @return null|CacheAdapter
      */
     public function getMetadataCache()
     {
@@ -680,9 +677,9 @@ abstract class AbstractTable
     }
 
     /**
-     * @param mixed $metadataCache Either a Cache object, or a string naming a Registry key
-     * @return \Zend\Cache\Frontend\Core
-     * @throws \Zend\Db\Table\Exception
+     * @param  string|CacheAdapter $metadataCache Either a Cache object, or a string naming a Registry key
+     * @return CacheAdapter
+     * @throws Exception
      */
     protected static function _setupMetadataCache($metadataCache)
     {
@@ -690,10 +687,10 @@ abstract class AbstractTable
             return null;
         }
         if (is_string($metadataCache)) {
-            $metadataCache = \Zend\Registry::get($metadataCache);
+            $metadataCache = Registry::get($metadataCache);
         }
-        if (!$metadataCache instanceof \Zend\Cache\Frontend\Core) {
-            throw new Exception('Argument must be of type Zend_Cache_Core, or a Registry key where a Zend_Cache_Core object is stored');
+        if (!$metadataCache instanceof CacheAdapter) {
+            throw new Exception('Argument must be of type Zend\Cache\Storage\Adapter, or a Registry key where a cache adapter object is stored');
         }
         return $metadataCache;
     }
@@ -791,27 +788,17 @@ abstract class AbstractTable
 
         // If $this has a metadata cache
         if (null !== $this->_metadataCache) {
-            // Define the cache identifier where the metadata are saved
-
-            //get db configuration
-            $dbConfig = $this->_db->getConfig();
-
-            // Define the cache identifier where the metadata are saved
-            $cacheId = md5( // port:host/dbname:schema.table (based on availabilty)
-                (isset($dbConfig['options']['port']) ? ':'.$dbConfig['options']['port'] : null)
-                . (isset($dbConfig['options']['host']) ? ':'.$dbConfig['options']['host'] : null)
-                . '/'.$dbConfig['dbname'].':'.$this->_schema.'.'.$this->_name
-                );
+            $cacheId = $this->_cacheId();
         }
 
         // If $this has no metadata cache or metadata cache misses
-        if (null === $this->_metadataCache || !($metadata = $this->_metadataCache->load($cacheId))) {
+        if (null === $this->_metadataCache || !($metadata = $this->_metadataCache->getItem($cacheId))) {
             // Metadata are not loaded from cache
             $isMetadataFromCache = false;
             // Fetch metadata from the adapter's describeTable() method
             $metadata = $this->_db->describeTable($this->_name, $this->_schema);
             // If $this has a metadata cache, then cache the metadata
-            if (null !== $this->_metadataCache && !$this->_metadataCache->save($metadata, $cacheId)) {
+            if (null !== $this->_metadataCache && !$this->_metadataCache->setItem($cacheId, $metadata)) {
                 trigger_error('Failed saving metadata to metadataCache', E_USER_NOTICE);
             }
         }
@@ -822,6 +809,25 @@ abstract class AbstractTable
         // Return whether the metadata were loaded from cache
         return $isMetadataFromCache;
     }
+
+	/**
+	 * Define the cache identifier where the metadata are saved
+	 * 
+	 * @return string
+	 */
+	protected function _cacheId()
+	{
+		//get db configuration
+		$dbConfig = $this->_db->getConfig();
+
+		$cacheId = md5( // port:host/dbname:schema.table (based on availabilty)
+			(isset($dbConfig['options']['port']) ? ':'.$dbConfig['options']['port'] : null)
+			. (isset($dbConfig['options']['host']) ? ':'.$dbConfig['options']['host'] : null)
+			. '/'.$dbConfig['dbname'].':'.$this->_schema.'.'.$this->_name
+		);
+
+		return $cacheId;
+	}
 
     /**
      * Retrieve table columns

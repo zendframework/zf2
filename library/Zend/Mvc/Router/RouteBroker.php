@@ -14,14 +14,14 @@
  *
  * @category   Zend
  * @package    Zend_Mvc_Router
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 namespace Zend\Mvc\Router;
 
 use Zend\Loader\Broker,
-    Zend\Loader\PluginClassLoader,
+    Zend\Loader\PluginClassLocator,
     Zend\Loader\ShortNameLocator,
     Zend\Mvc\Router\Exception;
 
@@ -30,7 +30,7 @@ use Zend\Loader\Broker,
  *
  * @category   Zend
  * @package    Zend_Mvc_Router
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class RouteBroker implements Broker
@@ -45,7 +45,7 @@ class RouteBroker implements Broker
     /**
      * Plugin class loader used by this instance.
      * 
-     * @var ShortNameLocator 
+     * @var PluginClassLocator 
      */
     protected $classLoader;
 
@@ -224,8 +224,8 @@ class RouteBroker implements Broker
      */
     public function setClassLoader(ShortNameLocator $loader)
     {
-        if (!$loader instanceof PluginClassLoader) {
-            throw new Exception\InvalidArgumentException('Expected instance of PluginClassLoader');
+        if (!$loader instanceof PluginClassLocator) {
+            throw new Exception\InvalidArgumentException('Expected instance of PluginClassLocator');
         }
         
         $this->classLoader = $loader;

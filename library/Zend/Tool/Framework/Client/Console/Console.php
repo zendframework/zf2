@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -45,7 +45,7 @@ namespace Zend\Tool\Framework\Client\Console;
  * @uses       \Zend\Tool\Framework\Loader\BasicLoader
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Console
@@ -124,8 +124,8 @@ class Console
     
     public function setClassesToLoad($classesToLoad)
     {
-    	$this->_classesToLoad = $classesToLoad;
-    	return $this;
+        $this->_classesToLoad = $classesToLoad;
+        return $this;
     }
 
     /**
@@ -155,11 +155,11 @@ class Console
             );
             
         if ($this->_classesToLoad) {
-        	if (is_string($this->_classesToLoad)) {
-        		$classesToLoad[] = $this->_classesToLoad;
-        	} elseif (is_array($this->_classesToLoad)) {
-        		$classesToLoad = array_merge($classesToLoad, $this->_classesToLoad);
-        	}
+            if (is_string($this->_classesToLoad)) {
+                $classesToLoad[] = $this->_classesToLoad;
+            } elseif (is_array($this->_classesToLoad)) {
+                $classesToLoad = array_merge($classesToLoad, $this->_classesToLoad);
+            }
         }
         
         // add classes to the basic loader from the config file basicloader.classes.1 ..

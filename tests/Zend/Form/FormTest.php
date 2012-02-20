@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,14 +34,13 @@ use Zend\Form\Form,
     Zend\Json\Json,
     Zend\Translator\Translator,
     Zend\Validator\Validator,
-    Zend\View,
-    Zend\Controller\Front as FrontController;
+    Zend\View;
 
 /**
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Form
  */
@@ -62,10 +61,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $front = FrontController::getInstance();
-        $front->resetInstance();
-        $this->broker = $front->getHelperBroker();
-
         $this->clearRegistry();
         Form::setDefaultTranslator(null);
 
@@ -2833,24 +2828,17 @@ class FormTest extends \PHPUnit_Framework_TestCase
         return $view;
     }
 
-    public function testGetViewRetrievesFromViewRendererByDefault()
+    public function testGetViewLazyLoadsPhpRendererByDefault()
     {
-        $viewRenderer = $this->broker->load('viewRenderer');
-        $viewRenderer->initView();
-        $view = $viewRenderer->view;
         $test = $this->form->getView();
-        $this->assertSame($view, $test);
-    }
-
-    public function testGetViewReturnsNullWhenNoViewRegisteredWithViewRenderer()
-    {
-        $this->assertNull($this->form->getView());
+        $this->assertInstanceOf('Zend\View\PhpRenderer', $test);
     }
 
     public function testCanSetView()
     {
         $view = new View\PhpRenderer();
-        $this->assertNull($this->form->getView());
+        $test = $this->form->getView();
+        $this->assertNotSame($view, $test);
         $this->form->setView($view);
         $received = $this->form->getView();
         $this->assertSame($view, $received);

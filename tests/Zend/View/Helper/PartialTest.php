@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,25 +24,25 @@
  */
 namespace ZendTest\View\Helper;
 
-use Zend\Controller,
+use PHPUnit_Framework_TestCase as TestCase,
+    Zend\View\Helper\Partial,
     Zend\View\PhpRenderer as View;
 
-
 /**
- * Test class for Zend_View_Helper_Partial.
+ * Test class for Partial view helper.
  *
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class PartialTest extends \PHPUnit_Framework_TestCase
+class PartialTest extends TestCase
 {
     /**
-     * @var Zend_View_Helper_Partial
+     * @var Partial
      */
     public $helper;
 
@@ -60,8 +60,7 @@ class PartialTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new \Zend\View\Helper\Partial();
-        Controller\Front::getInstance()->resetInstance();
+        $this->helper   = new Partial();
     }
 
     /**
@@ -99,38 +98,6 @@ class PartialTest extends \PHPUnit_Framework_TestCase
         $return = $this->helper->__invoke('partialThree.phtml', array('message' => 'This message should be read'));
         $this->assertNotContains('This should never be read', $return);
         $this->assertContains('This message should be read', $return, $return);
-    }
-
-    /**
-     * @return void
-     */
-    public function testPartialRendersScriptInDifferentModuleWhenRequested()
-    {
-        Controller\Front::getInstance()->addModuleDirectory($this->basePath);
-        $view = new View(array(
-            'scriptPath' => $this->basePath . '/application/views/scripts'
-        ));
-        $this->helper->setView($view);
-        $return = $this->helper->__invoke('partialTwo.phtml', 'foo');
-        $this->assertContains('This is the second partial', $return, $return);
-    }
-
-    /**
-     * @return void
-     */
-    public function testPartialThrowsExceptionWithInvalidModule()
-    {
-        Controller\Front::getInstance()->addModuleDirectory($this->basePath);
-        $view = new View(array(
-            'scriptPath' => $this->basePath . '/application/views/scripts'
-        ));
-        $this->helper->setView($view);
-
-        try {
-            $return = $this->helper->__invoke('partialTwo.phtml', 'barbazbat');
-            $this->fail('Partial should throw exception if module does not exist');
-        } catch (\Exception $e) {
-        }
     }
 
     /**

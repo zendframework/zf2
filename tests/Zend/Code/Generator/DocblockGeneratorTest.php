@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_CodeGenerator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ use Zend\Code\Generator\DocblockGenerator;
  * @category   Zend
  * @package    Zend_CodeGenerator
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
  * @group Zend_CodeGenerator
@@ -59,10 +59,10 @@ class DocblockGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testTagGettersAndSetters()
     {
-        $this->markTestSkipped('Must refactor Docblock like Reflecion tag first.');
+        $this->markTestSkipped('Must refactor DocBlock like Reflecion tag first.');
 //        $this->_docblock->setTag(array('name' => 'blah'));
-//        $this->_docblock->setTag(new \Zend\Code\Generator\Docblock\Tag\Param(array('datatype' => 'string')));
-//        $this->_docblock->setTag(new \Zend\Code\Generator\Docblock\Tag\Return(array('datatype' => 'int')));
+//        $this->_docblock->setTag(new \Zend\Code\Generator\DocBlock\Tag\Param(array('datatype' => 'string')));
+//        $this->_docblock->setTag(new \Zend\Code\Generator\DocBlock\Tag\Return(array('datatype' => 'int')));
 //        $this->assertEquals(3, count($this->_docblock->getTags()));
 //
 //        $target = <<<EOS

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -39,7 +39,7 @@ use Zend\Authentication\Adapter as AuthenticationAdapter,
  * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class DbTable implements AuthenticationAdapter
@@ -371,18 +371,14 @@ class DbTable implements AuthenticationAdapter
             return $authResult;
         }
 
-        if (true === $this->getAmbiguityIdentity()) {
-            $validIdentities = array ();
-            $zendAuthCredentialMatchColumn = $this->_zendDb->foldCase('zend_auth_credential_match');
-            foreach ($resultIdentities as $identity) {
-                if (1 === (int) $identity[$zendAuthCredentialMatchColumn]) {
-                    $validIdentities[] = $identity;
-                }
+        // At this point, ambiguity is allready done. Loop, check and break on success.
+        foreach ($resultIdentities as $identity) {
+            $authResult = $this->_authenticateValidateResult($identity);
+            if ($authResult->isValid()) {
+                break;
             }
-            $resultIdentities = $validIdentities;
         }
-        
-        $authResult = $this->_authenticateValidateResult(array_shift($resultIdentities));
+
         return $authResult;
     }
 

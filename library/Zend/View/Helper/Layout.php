@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,6 +24,8 @@
  */
 namespace Zend\View\Helper;
 
+use Zend\Layout\Layout as BaseLayout;
+
 /**
  * View helper for retrieving layout object
  *
@@ -31,27 +33,23 @@ namespace Zend\View\Helper;
  * @uses       \Zend\View\Helper\AbstractHelper
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Layout extends AbstractHelper
 {
-    /** @var \Zend\Layout\Layout */
+    /** @var BaseLayout */
     protected $_layout;
 
     /**
      * Get layout object
      *
-     * @return \Zend\Layout\Layout
+     * @return BaseLayout
      */
     public function getLayout()
     {
         if (null === $this->_layout) {
-            $this->_layout = \Zend\Layout\Layout::getMvcInstance();
-            if (null === $this->_layout) {
-                // Implicitly creates layout object
-                $this->_layout = new \Zend\Layout\Layout();
-            }
+            $this->_layout = new BaseLayout();
         }
 
         return $this->_layout;
@@ -60,10 +58,10 @@ class Layout extends AbstractHelper
     /**
      * Set layout object
      *
-     * @param  \Zend\Layout\Layout $layout
-     * @return \Zend\Layout\Controller\Action\Helper\Layout
+     * @param  BaseLayout $layout
+     * @return Layout
      */
-    public function setLayout(\Zend\Layout\Layout $layout)
+    public function setLayout(BaseLayout $layout)
     {
         $this->_layout = $layout;
         return $this;
@@ -72,9 +70,7 @@ class Layout extends AbstractHelper
     /**
      * Return layout object
      *
-     * Usage: $this->layout()->setLayout('alternate');
-     *
-     * @return \Zend\Layout\Layout
+     * @return BaseLayout
      */
     public function __invoke()
     {

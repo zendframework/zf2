@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_CodeGenerator
  * @subpackage PHP
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,10 +25,10 @@
 namespace Zend\Code\Generator\Docblock\Tag;
 
 /**
- * @uses       \Zend\Code\Generator\Docblock\Tag
+ * @uses       \Zend\Code\Generator\DocBlock\Tag
  * @category   Zend
  * @package    Zend_CodeGenerator
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class LicenseTag extends \Zend\Code\Generator\Docblock\Tag
@@ -43,7 +43,7 @@ class LicenseTag extends \Zend\Code\Generator\Docblock\Tag
      * fromReflection()
      *
      * @param \Zend\Code\Reflection\ReflectionDocblockTag $reflectionTagReturn
-     * @return \Zend\Code\Generator\Docblock\Tag\LicenseTag
+     * @return \Zend\Code\Generator\DocBlock\Tag\LicenseTag
      */
     public static function fromReflection(\Zend\Code\Reflection\ReflectionDocblockTag $reflectionTagLicense)
     {
@@ -60,7 +60,7 @@ class LicenseTag extends \Zend\Code\Generator\Docblock\Tag
      * setUrl()
      *
      * @param string $url
-     * @return \Zend\Code\Generator\Docblock\Tag\LicenseTag
+     * @return \Zend\Code\Generator\DocBlock\Tag\LicenseTag
      */
     public function setUrl($url)
     {

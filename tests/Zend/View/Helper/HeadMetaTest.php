@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ use Zend\Registry,
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -440,6 +440,17 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
 			'<meta charset="utf-8"/>',
 			$view->plugin('headMeta')->toString());
 	}
+
+    /**
+     * @group ZF-11835
+     */
+    public function testConditional() 
+    {
+        $html = $this->helper->appendHttpEquiv('foo', 'bar', array('conditional' => 'lt IE 7'))->toString();
+        
+        $this->assertRegExp("|^<!--\[if lt IE 7\]>|", $html);
+        $this->assertRegExp("|<!\[endif\]-->$|", $html);
+    }
 
 }
 

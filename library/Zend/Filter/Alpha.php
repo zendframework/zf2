@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,16 +23,17 @@
  */
 namespace Zend\Filter;
 
-use Zend\Config\Config,
+use Traversable,
     Zend\Locale\Locale as ZendLocale,
-    Zend\Registry;
+    Zend\Registry,
+    Zend\Stdlib\IteratorToArray;
 
 /**
  * @uses       Zend\Filter\AbstractFilter
  * @uses       Zend\Locale\Locale
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Alpha extends AbstractFilter
@@ -66,13 +67,13 @@ class Alpha extends AbstractFilter
      */
     public function __construct($options = false)
     {
-        if ($options instanceof Config) {
-            $options = $options->toArray();
+        if ($options instanceof Traversable) {
+            $options = IteratorToArray::convert($options);
         } elseif (!is_array($options)) {
             $options = func_get_args();
             $temp    = array();
             if (!empty($options)) {
-                $temp['allowwhitespace'] = array_shift($options);
+                $temp['allowWhiteSpace'] = array_shift($options);
             }
 
             if (!empty($options)) {
@@ -82,12 +83,12 @@ class Alpha extends AbstractFilter
             $options = $temp;
         }
 
-        if (null === self::$unicodeEnabled) {
-            self::$unicodeEnabled = (@preg_match('/\pL/u', 'a')) ? true : false;
+        if (array_key_exists('unicodeEnabled', $options)) {
+            $this->setUnicodeEnabled($options['unicodeEnabled']);
         }
 
-        if (array_key_exists('allowwhitespace', $options)) {
-            $this->setAllowWhiteSpace($options['allowwhitespace']);
+        if (array_key_exists('allowWhiteSpace', $options)) {
+            $this->setAllowWhiteSpace($options['allowWhiteSpace']);
         }
 
         if (!array_key_exists('locale', $options)) {
@@ -117,6 +118,44 @@ class Alpha extends AbstractFilter
     {
         $this->allowWhiteSpace = (boolean) $allowWhiteSpace;
         return $this;
+    }
+
+    /**
+     * Toggle unicode matching capabilities
+     * 
+     * @param  bool $flag 
+     * @return Alpha
+     */
+    public function setUnicodeEnabled($flag)
+    {
+        $flag = (bool) $flag;
+        if (!$flag) {
+            static::$unicodeEnabled = $flag;
+            return;
+        }
+
+        if (!static::isUnicodeCapable()) {
+            throw new Exception\RuntimeException(sprintf(
+                '%s cannot be unicode enabled; installed PCRE is not capable',
+                __CLASS__
+            ));
+        }
+
+        static::$unicodeEnabled = $flag;
+        return $this;
+    }
+
+    /**
+     * Is this instance unicode enabled?
+     * 
+     * @return bool
+     */
+    public function isUnicodeEnabled()
+    {
+        if (null === static::$unicodeEnabled) {
+            static::$unicodeEnabled = static::isUnicodeCapable();
+        }
+        return static::$unicodeEnabled;
     }
 
     /**
@@ -153,20 +192,31 @@ class Alpha extends AbstractFilter
     {
         $whiteSpace = $this->allowWhiteSpace ? '\s' : '';
 
-        if (!self::$unicodeEnabled) {
+        $locale = (string) $this->locale;
+        if (!$this->isUnicodeEnabled()) {
             // POSIX named classes are not supported, use alternative a-zA-Z match
             $pattern = '/[^a-zA-Z' . $whiteSpace . ']/';
-        } elseif (((string) $this->locale == 'ja') 
-                  || ((string) $this->locale == 'ko') 
-                  || ((string) $this->locale == 'zh')
+        } elseif (($locale == 'ja')
+                  || ($locale == 'ko')
+                  || ($locale == 'zh')
         ) {
-            // The Alphabet means english alphabet.
+            // Use english alphabet
             $pattern = '/[^a-zA-Z'  . $whiteSpace . ']/u';
         } else {
-            // The Alphabet means each language's alphabet.
+            // Use native language alphabet
             $pattern = '/[^\p{L}' . $whiteSpace . ']/u';
         }
 
         return preg_replace($pattern, '', (string) $value);
+    }
+
+    /**
+     * Are we unicode capable?
+     * 
+     * @return bool
+     */
+    protected static function isUnicodeCapable()
+    {
+        return (@preg_match('/\pL/u', 'a') ? true : false);
     }
 }

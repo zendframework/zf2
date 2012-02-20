@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -66,15 +66,21 @@ if (defined('TESTS_GENERATE_REPORT')
 ) {
     $codeCoverageFilter = PHP_CodeCoverage_Filter::getInstance();
         
+    $lastArg = end($_SERVER['argv']);
+    if (is_dir($zfCoreTests . '/' . $lastArg)) {
+        $codeCoverageFilter->addDirectoryToWhitelist($zfCoreLibrary . '/' . $lastArg);
+    } else if (is_file($zfCoreTests . '/' . $lastArg)) {
+        $codeCoverageFilter->addDirectoryToWhitelist(dirname($zfCoreLibrary . '/' . $lastArg));
+    } else {
+        $codeCoverageFilter->addDirectoryToWhitelist($zfCoreLibrary);
+    }
+
     /*
      * Omit from code coverage reports the contents of the tests directory
      */
-    foreach (array('.php', '.phtml', '.csv', '.inc') as $suffix) {
-        $codeCoverageFilter->addDirectoryToBlacklist($zfCoreTests, $suffix);
-    }
-
-    $codeCoverageFilter->addDirectoryToBlacklist(PEAR_INSTALL_DIR);
-    $codeCoverageFilter->addDirectoryToBlacklist(PHP_LIBDIR);
+    $codeCoverageFilter->addDirectoryToBlacklist($zfCoreTests, '');
+    $codeCoverageFilter->addDirectoryToBlacklist(PEAR_INSTALL_DIR, '');
+    $codeCoverageFilter->addDirectoryToBlacklist(PHP_LIBDIR, '');
 
     unset($codeCoverageFilter);
 }
