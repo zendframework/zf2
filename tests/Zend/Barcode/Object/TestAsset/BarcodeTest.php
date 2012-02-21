@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Barcode
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,13 +26,13 @@ namespace ZendTest\Barcode\Object\TestAsset;
  * @package    Zend_Barcode
  * @subpackage UnitTests
  * @group      Zend_Barcode
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class BarcodeTest extends \Zend\Barcode\Object\AbstractObject
 {
 
-    protected function _calculateBarcodeWidth()
+    protected function calculateBarcodeWidth()
     {
         return 1;
     }
@@ -40,26 +40,26 @@ class BarcodeTest extends \Zend\Barcode\Object\AbstractObject
     public function validateText($value)
     {}
 
-    protected function _prepareBarcode()
+    protected function prepareBarcode()
     {
         return array();
     }
 
-    protected function _checkParams()
+    protected function checkSpecificParams()
     {}
 
-    public function addInstruction(array $instruction)
+    public function addTestInstruction(array $instruction)
     {
-        $this->_addInstruction($instruction);
+        $this->addInstruction($instruction);
     }
 
-    public function addPolygon(array $points, $color = null, $filled = true)
+    public function addTestPolygon(array $points, $color = null, $filled = true)
     {
-        $this->_addPolygon($points, $color, $filled);
+        $this->addPolygon($points, $color, $filled);
     }
 
-    public function addText($text, $size, $position, $font, $color, $alignment = 'center', $orientation = 0)
+    public function addTestText($text, $size, $position, $font, $color, $alignment = 'center', $orientation = 0)
     {
-        $this->_addText($text, $size, $position, $font, $color, $alignment, $orientation);
+        $this->addText($text, $size, $position, $font, $color, $alignment, $orientation);
     }
 }

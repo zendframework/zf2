@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ use ReflectionFunction,
  * @uses       \Zend\Code\Reflection\ReflectionParameter
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FunctionReflection extends ReflectionFunction implements Reflection
@@ -110,7 +110,7 @@ class FunctionReflection extends ReflectionFunction implements Reflection
     /**
      * Get return type tag
      *
-     * @return \Zend\Code\Reflection\Docblock\Tag\Return
+     * @return \Zend\Code\Reflection\DocBlock\Tag\Return
      */
     public function getReturn()
     {

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,7 +27,7 @@ use Zend\Loader\PluginSpecBroker;
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FilterBroker extends PluginSpecBroker
@@ -47,7 +47,7 @@ class FilterBroker extends PluginSpecBroker
     protected function validatePlugin($plugin)
     {
         if (!$plugin instanceof Filter) {
-            throw new Exception('Filters must implement Zend\Filter\Filter');
+            throw new Exception\RuntimeException('Filters must implement Zend\Filter\Filter');
         }
         return true;
     }

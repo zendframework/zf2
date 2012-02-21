@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Navigation
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -36,7 +36,7 @@ use Zend\Navigation\AbstractPage,
  * @category   Zend
  * @package    Zend_Navigation
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Navigation
  */
@@ -86,6 +86,11 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $page->get('Action'));
     }
 
+    /**
+     * This functionality was removed in ZF2 to comply with new URL helper; do we need it?
+     *
+     * @group disable
+     */
     public function testSetShouldNormalizePropertyName()
     {
         $page = AbstractPage::factory(array(
@@ -97,6 +102,11 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($page->getResetParams());
     }
 
+    /**
+     * This functionality was removed in ZF2 to comply with new URL helper; do we need it?
+     *
+     * @group disable
+     */
     public function testGetShouldNormalizePropertyName()
     {
         $page = AbstractPage::factory(array(
@@ -803,7 +813,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action' => 'baz',
             'controller' => 'bat',
             'module' => 'test',
-            'reset_params' => false,
             'id' => 'foo-test'
         );
 
@@ -814,7 +823,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action'      => 'baz',
             'controller'  => 'bat',
             'module'      => 'test',
-            'resetParams' => false,
             'id'          => 'foo-test'
         );
 
@@ -823,7 +831,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action'      => $page->getAction(),
             'controller'  => $page->getController(),
             'module'      => $page->getModule(),
-            'resetParams' => $page->getResetParams(),
             'id'          => $page->getId()
         );
 
@@ -843,7 +850,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action' => 'baz',
             'controller' => 'bat',
             'module' => 'test',
-            'reset_params' => false,
             'id' => 'foo-test'
         );
 
@@ -854,7 +860,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action'      => 'baz',
             'controller'  => 'bat',
             'module'      => 'test',
-            'resetParams' => false,
             'id'          => 'foo-test'
         );
 
@@ -863,7 +868,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'action'      => $page->getAction(),
             'controller'  => $page->getController(),
             'module'      => $page->getModule(),
-            'resetParams' => $page->getResetParams(),
             'id'          => $page->getId()
         );
 

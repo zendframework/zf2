@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ use Zend\View\PhpRenderer as View,
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Captcha
  */
@@ -310,6 +310,21 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $this->testCaptchaIsRendered();
         $input = array("id" => $this->captcha->getId(), "input" => $this->captcha->getWord());
         $this->assertTrue($this->element->isValid($input));
+    }
+
+    /**
+     * @group ZF-11483
+     */
+    public function testImageTagRenderedProperlyBasedUponDoctype()
+    {
+        $this->testCaptchaIsRendered();        
+        $view = new View();
+        
+        $view->plugin('doctype')->setDoctype('XHTML1_STRICT');      
+        $this->assertRegExp('#/>$#', $this->captcha->render($view));
+        
+        $view->plugin('doctype')->setDoctype('HTML4_STRICT');        
+        $this->assertRegExp('#[^/]>$#', $this->captcha->render($view));
     }
 
     public function testNoFontProvidedWillThrowException()

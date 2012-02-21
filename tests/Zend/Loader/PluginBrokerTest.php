@@ -15,20 +15,21 @@
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 namespace ZendTest\Loader;
 
-use Zend\Loader\PluginBroker,
+use stdClass,
+    Zend\Loader\PluginBroker,
     Zend\Loader\PluginClassLoader;
 
 /**
  * @category   Zend
  * @package    Loader
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Loader
  */
@@ -273,5 +274,19 @@ class PluginBrokerTest extends \PHPUnit_Framework_TestCase
         ));
         $loader = $broker->getClassLoader();
         $this->assertInstanceOf('ZendTest\Loader\TestAsset\CustomClassLoader', $loader);
+    }
+
+    public function testWillPullFromLocatorIfAttached()
+    {
+        $locator = new TestAsset\ServiceLocator();
+        $plugin  = new stdClass;
+        $locator->set('ZendTest\Loader\TestAsset\Foo', $plugin);
+
+        $loader = $this->broker->getClassLoader();
+        $loader->registerPlugin('foo', 'ZendTest\Loader\TestAsset\Foo');
+        $this->broker->setLocator($locator);
+
+        $test = $this->broker->load('foo');
+        $this->assertSame($plugin, $test);
     }
 }

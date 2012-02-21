@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ namespace Zend\Captcha;
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Adapter extends \Zend\Validator\Validator
@@ -48,7 +48,7 @@ interface Adapter extends \Zend\Validator\Validator
     /**
      * Display the captcha
      *
-     * @param  Zend_View_Interface $view
+     * @param  \Zend\View\Renderer $view
      * @param  mixed $element
      * @return string
      */
@@ -72,7 +72,7 @@ interface Adapter extends \Zend\Validator\Validator
     /**
      * Get optional private decorator for this captcha type
      *
-     * @return \Zend_Form_Decorator_Interface|string
+     * @return \Zend\Form\Decorator|string
      */
     public function getDecorator();
 }

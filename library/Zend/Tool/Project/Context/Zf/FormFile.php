@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@
  */
 namespace Zend\Tool\Project\Context\Zf;
 use Zend\Code\Generator\MethodGenerator,
-	Zend\Code\Generator\ClassGenerator;
+    Zend\Code\Generator\ClassGenerator;
 
 /**
  * This class is the front most class for utilizing Zend\Tool\Project
@@ -38,7 +38,7 @@ use Zend\Code\Generator\MethodGenerator,
  * @uses       \Zend\Tool\Project\Context\Zf\AbstractClassFile
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class FormFile extends AbstractClassFile

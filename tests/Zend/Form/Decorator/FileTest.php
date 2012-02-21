@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ use Zend\Form\Decorator\File as FileDecorator,
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Form
  */
@@ -50,6 +50,11 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->decorator = new FileDecorator();
     }
 
+    /**
+     * This test is obsolete, as a view is always lazy-loaded
+     *
+     * @group disable
+     */
     public function testRenderReturnsInitialContentIfNoViewPresentInElement()
     {
         $element = new FileElement('foo');
@@ -124,6 +129,10 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(AbstractDecorator::APPEND, $this->decorator->getPlacement());
     }
 
+    /**
+     * Test is obsolete as view is now lazy-loaded
+     * @group disable
+     */
     public function testRenderReturnsOriginalContentWhenNoViewPresentInElement()
     {
         $element = new Element('foo');

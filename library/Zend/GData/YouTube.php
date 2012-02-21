@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage YouTube
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -47,7 +47,7 @@ use Zend\Http;
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage YouTube
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class YouTube extends Media
@@ -200,11 +200,11 @@ class YouTube extends Media
         }
 
         if ($clientId != null) {
-            $client->setHeaders('X-GData-Client', $clientId);
+            $client->getRequest()->headers()->addHeaderLine('X-GData-Client', $clientId);
         }
 
         if ($developerKey != null) {
-            $client->setHeaders('X-GData-Key', 'key='. $developerKey);
+            $client->getRequest()->headers()->addHeaderLine('X-GData-Key', 'key='. $developerKey);
         }
 
         return parent::setHttpClient($client, $applicationId);

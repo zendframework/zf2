@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ use Zend\View\PhpRenderer as View,
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -166,7 +166,7 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
              * make sure it gets to Zend_View_Helper_Partial and it's recognized
              * as a module. */
             $this->assertInstanceOf('Zend\View\Exception\RuntimeException', $e);
-            $this->assertEquals('Cannot render partial; module does not exist', $e->getMessage());
+            $this->assertContains('Script "partial.phtml" not found in path', $e->getMessage());
         }
     }
 

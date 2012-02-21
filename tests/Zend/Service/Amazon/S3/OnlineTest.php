@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Amazon_S3
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ use Zend\Service\Amazon\S3,
  * @category   Zend
  * @package    Zend_Service_Amazon_S3
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_Amazon
@@ -539,6 +539,20 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
         $this->_amazon->removeObject("testgetobjectparams1/zftest1", "testdata");
         $this->_amazon->removeObject("testgetobjectparams1/zftest2", "testdata");
         $this->_amazon->removeBucket("testgetobjectparams1");
+    }
+    
+    public function testCommonPrefixes()
+    {
+        $this->_amazon->createBucket($this->_bucket);
+        $this->_amazon->putObject($this->_bucket.'/test-folder/test1','test');
+        $this->_amazon->putObject($this->_bucket.'/test-folder/test2-folder/','');
+        $params= array(
+                    'prefix' => 'test-folder/',
+                    'delimiter' => '/'
+                 );
+        $response= $this->_amazon->getObjectsAndPrefixesByBucket($this->_bucket,$params);
+        $this->assertEquals($response['objects'][0],'test-folder/test1');
+        $this->assertEquals($response['prefixes'][0],'test-folder/test2-folder/');
     }
 
     public function tearDown()

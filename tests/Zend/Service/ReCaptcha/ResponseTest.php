@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_ReCaptcha
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ use Zend\Service\ReCaptcha,
  * @category   Zend
  * @package    Zend_Service_ReCaptcha
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Service
  * @group      Zend_Service_ReCaptcha
@@ -70,11 +70,15 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(false, $this->_response->isValid());
     }
 
-    public function testSetFromHttpResponse() {
-        $status = 'false';
-        $errorCode = 'foobar';
+    public function testSetFromHttpResponse() 
+    {
+        $status       = 'false';
+        $errorCode    = 'foobar';
         $responseBody = $status . "\n" . $errorCode;
-        $httpResponse = new Response(200, array('Content-Type' => 'text/html'), $responseBody);
+        $httpResponse = new Response();
+        $httpResponse->setStatusCode(200);
+        $httpResponse->headers()->addHeaderLine('Content-Type', 'text/html');
+        $httpResponse->setContent($responseBody);
 
         $this->_response->setFromHttpResponse($httpResponse);
 
@@ -93,10 +97,13 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testConstructorWithHttpResponse() {
-        $status = 'false';
-        $errorCode = 'foobar';
+        $status       = 'false';
+        $errorCode    = 'foobar';
         $responseBody = $status . "\n" . $errorCode;
-        $httpResponse = new Response(200, array('Content-Type' => 'text/html'), $responseBody);
+        $httpResponse = new Response();
+        $httpResponse->setStatusCode(200);
+        $httpResponse->headers()->addHeaderLine('Content-Type', 'text/html');
+        $httpResponse->setContent($responseBody);
 
         $response = new ReCaptcha\Response(null, null, $httpResponse);
 

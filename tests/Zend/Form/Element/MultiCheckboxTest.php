@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ use Zend\Form\Element\MultiCheckbox as MultiCheckboxElement,
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Form
  */
@@ -249,5 +249,44 @@ class MultiCheckboxTest extends \PHPUnit_Framework_TestCase
                       ->addErrorMessage('%value% is invalid');
         $this->element->isValid(array('foo', 'bogus'));
         $html = $this->element->render($this->getView());
+    }
+ 
+    /**
+     * @group ZF-11402
+    */
+    public function testValidateShouldNotAcceptEmptyArray()
+    {
+        $this->element->addMultiOptions(array(
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+        ));
+        $this->element->setRegisterInArrayValidator(true);
+
+        $this->assertTrue($this->element->isValid(array('foo')));
+        $this->assertTrue($this->element->isValid(array('foo','baz')));
+
+        $this->element->setAllowEmpty(true);
+        $this->assertTrue($this->element->isValid(array()));
+ 
+        // Empty value + AllowEmpty=true = no error messages
+        $messages = $this->element->getMessages();
+        $this->assertEquals(0, count($messages), 'Received unexpected error message(s)');
+
+        $this->element->setAllowEmpty(false);
+        $this->assertFalse($this->element->isValid(array()));
+
+        // Empty value + AllowEmpty=false = notInArray error message
+        $messages = $this->element->getMessages();
+        $this->assertTrue(is_array($messages), 'Expected error message');
+        $this->assertArrayHasKey('notInArray', $messages, 'Expected \'notInArray\' error message');
+
+        $this->element->setRequired(true)->setAllowEmpty(false);
+        $this->assertFalse($this->element->isValid(array()));
+
+        // Empty value + Required=true + AllowEmpty=false = isEmpty error message
+        $messages = $this->element->getMessages();
+        $this->assertTrue(is_array($messages), 'Expected error message');
+        $this->assertArrayHasKey('isEmpty', $messages, 'Expected \'isEmpty\' error message');
     }
 }

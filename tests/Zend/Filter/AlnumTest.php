@@ -15,21 +15,21 @@
  * @category   Zend
  * @package    Zend_Filter
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 namespace ZendTest\Filter;
 
 use Zend\Filter\Alnum as AlnumFilter,
-    Zend\Locale\Locale,
+    Zend\Locale\Locale as ZendLocale,
     Zend\Registry;
 
 /**
  * @category   Zend
  * @package    Zend_Filter
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Filter
  */
@@ -75,7 +75,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
             self::$_unicodeEnabled = (@preg_match('/\pL/u', 'a')) ? true : false;
         }
         if (null === self::$_meansEnglishAlphabet) {
-            $this->_locale = new Locale('auto');
+            $this->_locale = new ZendLocale('auto');
             self::$_meansEnglishAlphabet = in_array($this->_locale->getLanguage(),
                                                     array('ja')
                                                     );
@@ -189,7 +189,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegistryLocale()
     {
-        $locale = new Locale('ja');
+        $locale = new ZendLocale('ja');
         \Zend\Registry::set('Zend_Locale', $locale);
 
         if (!self::$_unicodeEnabled) {

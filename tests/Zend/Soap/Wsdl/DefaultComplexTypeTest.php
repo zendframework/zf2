@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Soap
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,11 +24,14 @@
  */
 namespace ZendTest\Soap\Wsdl;
 
+use Zend\Soap\Wsdl\ComplexTypeStrategy\DefaultComplexType;
+use Zend\Soap\Wsdl;
+
 /**
  * @category   Zend
  * @package    Zend_Soap
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Soap
  * @group      Zend_Soap_Wsdl
@@ -47,8 +50,8 @@ class DefaultComplexTypeTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->strategy = new \Zend\Soap\Wsdl\Strategy\DefaultComplexType();
-        $this->wsdl = new \Zend\Soap\Wsdl("TestService", "http://framework.zend.com/soap/unittests");
+        $this->strategy = new DefaultComplexType();
+        $this->wsdl = new Wsdl("TestService", "http://framework.zend.com/soap/unittests");
         $this->wsdl->setComplexTypeStrategy($this->strategy);
         $this->strategy->setContext($this->wsdl);
     }

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,7 +31,7 @@ namespace Zend\Filter;
  * @uses       Zend\Loader
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Compress extends AbstractFilter
@@ -99,10 +99,14 @@ class Compress extends AbstractFilter
         $adapter = $this->_adapter;
         $options = $this->getAdapterOptions();
         if (!class_exists($adapter)) {
-            if (\Zend\Loader::isReadable('Zend/Filter/Compress/' . ucfirst($adapter) . '.php')) {
-                $adapter = 'Zend\\Filter\\Compress\\' . ucfirst($adapter);
+            $adapter = 'Zend\\Filter\\Compress\\' . ucfirst($adapter);
+            if (!class_exists($adapter)) {
+                throw new Exception\RuntimeException(sprintf(
+                    '%s unable to load adapter; class "%s" not found',
+                    __METHOD__,
+                    $this->_adapter
+                ));
             }
-            \Zend\Loader::loadClass($adapter);
         }
 
         $this->_adapter = new $adapter($options);

@@ -20,13 +20,6 @@ read/subscribe to the following resources:
  * ZF Contributor's IRC channel:
    #zftalk.dev on Freenode.net
 
-In order to contribute, you MUST first sign and send in a Contributor's
-License Agreement; you may obtain a copy from
-http://framework.zend.com/cla (individuals) or
-http://framework.zend.com/ccla (corporate); please read the
-contributor's guide, linked above, for more information on the CLA and
-how to deliver it.
-
 If you are working on new features, or refactoring an existing
 component, please create a proposal. You can do this in on the proposals
 page, http://framework.zend.com/wiki/display/ZFPROP/Home. 
@@ -39,7 +32,7 @@ issues we've encountered in refactoring.
 
 To run tests:
 
- * Make sure you have a recent version of PHPUnit installed; 3.4.0
+ * Make sure you have a recent version of PHPUnit installed; 3.5.0
    minimally.
 
  * Enter the tests/ subdirectory.
