@@ -183,7 +183,7 @@ class Config implements Countable, Iterator, ArrayAccess
     }
 
     /**
-     * Support isset() overloading on PHP 5.1.
+     * isset() overloading
      *
      * @param  string $name
      * @return boolean
@@ -194,7 +194,7 @@ class Config implements Countable, Iterator, ArrayAccess
     }
 
     /**
-     * Support unset() overloading on PHP 5.1.
+     * unset() overloading
      *
      * @param  string $name
      * @return void
