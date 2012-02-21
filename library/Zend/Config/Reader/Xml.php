@@ -15,13 +15,14 @@
  * @category   Zend
  * @package    Zend_Config
  * @subpackage Reader
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 namespace Zend\Config\Reader;
 
 use XMLReader,
+    Zend\Config\Reader,    
     Zend\Config\Exception;
 
 /**
@@ -33,7 +34,7 @@ use XMLReader,
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Xml extends AbstractReader
+class Xml implements Reader
 {
     /**
      * XML Reader instance.
@@ -66,8 +67,11 @@ class Xml extends AbstractReader
      * @param  string $filename
      * @return array
      */
-    protected function fromFile($filename)
+    public function fromFile($filename)
     {
+        if (!file_exists($filename)) {
+            throw new Exception\RuntimeException("The file $filename doesn't exists.");
+        }
         $this->reader = new XMLReader();
         $this->reader->open($filename, null, LIBXML_XINCLUDE);
 
@@ -81,10 +85,13 @@ class Xml extends AbstractReader
      *
      * @see    Reader::fromString()
      * @param  string $string
-     * @return array
+     * @return array|boolean
      */
-    protected function fromString($string)
+    public function fromString($string)
     {
+        if (empty($string)) {
+            return false;
+        }
         $this->reader = new XMLReader();
         $this->reader->xml($string, null, LIBXML_XINCLUDE);
 

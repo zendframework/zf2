@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -54,7 +54,7 @@ class Translator implements Processor
      * translate language strings in config.
      *
      * @param \Zend\Translator\Translator $translator
-     * @param \Zend\Locale\Locale|string|null                            $locale
+     * @param \Zend\Locale\Locale|string|null $locale
      * @return \Zend\Config\Processor\Translator
      */
     public function __construct(ZendTranslator $translator, $locale = null)

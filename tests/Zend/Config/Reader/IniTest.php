@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Config
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -49,10 +49,34 @@ class IniTest extends AbstractReaderTestCase
         return __DIR__ . '/TestAssets/Ini/' . $name . '.ini';
     }
     
-    public function testNonExistentConstant()
+    public function testFromString()
     {
-        $config = $this->reader->readFile($this->getTestAssetPath('non-existent-constant'));
+        $ini = <<<ECS
+test= "foo"
+bar[]= "baz"
+bar[]= "foo"
+
+ECS;
         
-        $this->assertEquals('foo-ZEND_CONFIG_TEST_NON_EXISTENT_CONSTANT', $config->base->foo);
+        $config = $this->reader->fromString($ini);
+        $this->assertEquals($config['test'], 'foo');
+        $this->assertEquals($config['bar'][0], 'baz');
+        $this->assertEquals($config['bar'][1], 'foo');
+    }
+    
+    public function testFromStringWithSection()
+    {
+        $ini = <<<ECS
+[all]
+test= "foo"
+bar[]= "baz"
+bar[]= "foo"
+
+ECS;
+        
+        $config = $this->reader->fromString($ini);
+        $this->assertEquals($config['all']['test'], 'foo');
+        $this->assertEquals($config['all']['bar'][0], 'baz');
+        $this->assertEquals($config['all']['bar'][1], 'foo');
     }
 }
