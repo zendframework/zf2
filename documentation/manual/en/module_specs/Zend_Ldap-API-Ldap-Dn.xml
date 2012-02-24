@@ -273,7 +273,8 @@ array("cn" => "name2"),
 array("dc" => "example"),
 array("dc" => "org")
 )
-]]></programlisting>
+]]>
+</programlisting>
 
                         <para>
                             for a DN of <code>cn=name1+uid=user,cn=name2,dc=example,dc=org</code>.
@@ -331,7 +332,8 @@ array("cn" => "name2"),
 array("dc" => "example"),
 array("dc" => "org")
 )
-]]></programlisting>
+]]>
+</programlisting>
                     </entry>
                 </row>
 

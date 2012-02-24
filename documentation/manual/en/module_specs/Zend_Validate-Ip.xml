@@ -45,7 +45,8 @@ if ($validator->isValid($ip)) {
 } else {
     // ip is invalid; print the reasons
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Invalid IP addresses</title></info>
             
@@ -94,7 +95,8 @@ if ($validator->isValid($ip)) {
 } else {
     // ip is no ipv4 address
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Default behaviour</title></info>
             

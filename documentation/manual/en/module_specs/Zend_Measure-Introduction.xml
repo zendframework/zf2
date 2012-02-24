@@ -27,7 +27,8 @@ $unit = new Zend_Measure_Length(100, Zend_Measure_Length::METER, $locale);
 
 // Convert meters to yards
 echo $unit->convertTo(Zend_Measure_Length::YARD);
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>
@@ -56,6 +57,7 @@ echo Zend_Measure_Length::KILOMETER; // outputs 'Length::KILOMETER'
 $unit = new Zend_Measure_Length(100,'METER');
 echo $unit;
 // outputs '100 m'
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

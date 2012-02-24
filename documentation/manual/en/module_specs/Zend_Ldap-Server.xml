@@ -40,7 +40,8 @@ $options = array(/* ... */);
 $ldap = new Zend_Ldap($options);
 $rootdse = $ldap->getRootDse();
 $serverType = $rootdse->getServerType();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -55,7 +56,8 @@ $options = array(/* ... */);
 $ldap = new Zend_Ldap($options);
 $schema = $ldap->getSchema();
 $classes = $schema->getObjectClasses();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <section xml:id="zend.ldap.server.schema.openldap"><info><title>OpenLDAP</title></info>

@@ -29,7 +29,8 @@ class Util
         return '<span class="label">' . $element->getLabel() . "</span>";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This callback would be specified as <methodname>array('Util',
@@ -114,7 +115,8 @@ class Util
     <legend>User Information</legend>
     ...
 </fieldset></dd>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This decorator replaces the content provided to it by wrapping
@@ -217,7 +219,8 @@ class Util
         </li>
     </ul></li>
 </ul>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can pass in a variety of options to configure the generated
@@ -410,7 +413,8 @@ $form->setDecorators(array(
     'PrepareElements',
     array('ViewScript', array('viewScript' => 'form.phtml')),
 ));
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.form.standardDecorators.viewHelper"><info><title>Zend_Form_Decorator_ViewHelper</title></info>
@@ -504,7 +508,8 @@ $element->setDecorators(array(array('ViewScript', array(
 $element->viewScript = '_element.phtml';
 $element->setDecorators(array(array('ViewScript',
                                     array('class' => 'form element'))));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You could then have a view script something like this:
@@ -522,7 +527,8 @@ $element->setDecorators(array(array('ViewScript',
     <?php echo $this->formErrors($this->element->getMessages()) ?>
     <div class="hint"><?php echo $this->element->getDescription() ?></div>
 </div>
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Replacing content with a view script</title></info>
             
@@ -546,7 +552,8 @@ $element->getDecorator('ViewScript')->setOption('placement', false);
 
 // Within a view script used by a decorator:
 $this->decorator->setOption('placement', false);
-]]></programlisting>
+]]>
+</programlisting>
         </note>
 
         <para>

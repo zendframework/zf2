@@ -19,7 +19,8 @@
 
         <programlisting><![CDATA[
 [b]foo[i]bar[/i][/b]baz
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Then the BBCode parser will take that value, tear it apart and create the following
@@ -72,7 +73,8 @@
 
         <programlisting language="text"><![CDATA[
 [name(=(value|"value"))( attribute=(value|"value"))*]
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Some examples of valid BBCode tags are:
@@ -83,7 +85,8 @@
 [list=1]
 [code file=Zend/Markup.php]
 [url="http://framework.zend.com/" title="Zend Framework!"]
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             By default, all tags are closed by using the format '[/tagname]'.
@@ -207,7 +210,8 @@
 
 * Item 1
 * Item 2
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The above will generate two lists: the first, numbered; and the second, bulleted.

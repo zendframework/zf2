@@ -16,7 +16,8 @@ if ($validator->isValid('123ABC')) {
 } else {
     // false
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <note><info><title>Invalid characters</title></info>
         

@@ -40,7 +40,8 @@ $config = array(
         ),
     ),
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             An equivalent INI-style configuration might look like the following:
@@ -51,7 +52,8 @@ Zend\Loader\ClassMapAutoloader.application = APPLICATION_PATH "/.classmap.php"
 Zend\Loader\ClassMapAutoloader.zf          = APPLICATION_PATH "/../library/Zend/.classmap.php"
 Zend\Loader\StandardAutoloader.namespaces.Phly\Mustache = APPLICATION_PATH "/../library/Phly/Mustache"
 Zend\Loader\StandardAutoloader.namespaces.Doctrine       = APPLICATION_PATH "/../library/Doctrine"
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Once you have your configuration in a PHP array, you simply pass it to the
@@ -64,7 +66,8 @@ Zend\Loader\StandardAutoloader.namespaces.Doctrine       = APPLICATION_PATH "/..
 // current script, or via an absolute path.
 require_once 'Zend/Loader/AutoloaderFactory.php';
 Zend\Loader\AutoloaderFactory::factory($config);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <classname>AutoloaderFactory</classname> will instantiate each autoloader with the

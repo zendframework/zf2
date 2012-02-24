@@ -42,7 +42,8 @@ interface Zend_Tool_Framework_Registry_Interface
     public function setResponse(Zend_Tool_Framework_Client_Response $response);
     public function getResponse();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The various objects the registry manages will be discussed in their
@@ -63,7 +64,8 @@ interface Zend_Tool_Framework_Registry_EnabledInterface
         Zend_Tool_Framework_Registry_Interface $registry
     );
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.tool.framework.architecture.providers"><info><title>Providers</title></info>
@@ -89,7 +91,8 @@ interface Zend_Tool_Framework_Registry_EnabledInterface
         <programlisting language="php"><![CDATA[
 interface Zend_Tool_Framework_Provider_Interface
 {}
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Or, if you wish, you can implement the base (or abstract) Provider
@@ -107,7 +110,8 @@ abstract class Zend_Tool_Framework_Provider_Abstract
         Zend_Tool_Framework_Registry_Interface $registry
     );
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.tool.framework.architecture.loaders"><info><title>Loaders</title></info>
@@ -137,7 +141,8 @@ abstract class Zend_Tool_Framework_Loader_Abstract
         /** ... */
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <methodname>_getFiles()</methodname> method should return an array of files
@@ -169,7 +174,8 @@ class Zend_Tool_Framework_Loader_IncludePathLoader
         /** ... */
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As you can see, the IncludePath loader will search all include_paths
@@ -199,7 +205,8 @@ interface Zend_Tool_Framework_Manifest_Interface
 {
     public function getMetadata();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Metadata objects are loaded (by a loader defined below) into the
@@ -234,7 +241,8 @@ class Zend_Tool_Framework_Metadata_Basic
     public function getReference();
     /** ... */
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             There are other built in metadata classes as well for describing
@@ -272,7 +280,8 @@ class Zend_Tool_Framework_Manifest_ProviderMetadata
     public function getSpecialtyName();
     /** ... */
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             'Type' in these classes is used to describe the type of metadata the
@@ -336,7 +345,8 @@ class Zend_Tool_Framework_Manifest_Repository
         return array_shift($metadatas);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Looking at the search methods above, the signatures allow for
@@ -393,7 +403,8 @@ abstract class Zend_Tool_Framework_Client_Abstract
      */
     abstract protected function _postDispatch();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As you can see, there 1 method is required to fulfill the needs of a

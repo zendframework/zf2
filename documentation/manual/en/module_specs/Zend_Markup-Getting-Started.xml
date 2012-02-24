@@ -30,7 +30,8 @@ $bbcode = Zend_Markup::factory('Bbcode');
 
 echo $bbcode->render('[b]bold text[/b] and [i]cursive text[/i]');
 // Outputs: '<strong>bold text</strong> and <em>cursive text</em>'
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.markup.getting-started.complicated-example"><info><title>A more complicated example of Zend_Markup</title></info>
@@ -59,7 +60,8 @@ Should output something like:
 <li>Foobar</li>
 </ul>
 */
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.markup.getting-started.incorrect-input"><info><title>Processing incorrect input</title></info>
@@ -80,6 +82,7 @@ echo $bbcode->render('some [i]wrong [b]sample [/i] text');
 // Note that the '[b]' tag is never closed, and is also incorrectly
 // nested; regardless, Zend_Markup renders it correctly as:
 // some <em>wrong <strong>sample </strong></em><strong> text</strong>
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

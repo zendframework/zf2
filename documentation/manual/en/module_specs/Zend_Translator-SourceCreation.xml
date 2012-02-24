@@ -47,7 +47,8 @@ $translate = new Zend_Translator(
     )
 );
 $translate->addTranslation(array('content' => $german, 'locale' => 'de'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Since release 1.5 it is also supported to have arrays included within an external file.
@@ -70,7 +71,8 @@ $translate = new Zend_Translator(
         'locale'  => 'de'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -108,7 +110,8 @@ $translate->addTranslation(
         'locale' => 'de'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As you can see the adapters are used exactly the same way,
@@ -158,7 +161,8 @@ $translate = new Zend_Translator(
     )
 );
 print_r($translate->getAdapterInfo());
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.translator.sourcecreation.tmx"><info><title>Creating TMX source files</title></info>
@@ -193,7 +197,8 @@ print_r($translate->getAdapterInfo());
        </tu>
    </body>
 </tmx>
-]]></programlisting>
+]]>
+</programlisting>
 
             <programlisting language="php"><![CDATA[
 $translate = new Zend_Translator(
@@ -203,7 +208,8 @@ $translate = new Zend_Translator(
         'locale'  => 'en'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -257,7 +263,8 @@ $translate = new Zend_Translator(
 ﻿#Example csv file
 message1;Nachricht1
 message2;Nachricht2
-]]></programlisting>
+]]>
+</programlisting>
 
             <programlisting language="php"><![CDATA[
 $translate = new Zend_Translator(
@@ -273,7 +280,8 @@ $translate->addTranslation(
         'locale' => 'fr'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -307,7 +315,8 @@ $translate->addTranslation(
 "message,1",Nachricht1
 message2,"Nachricht,2"
 "message3,",Nachricht3
-]]></programlisting>
+]]>
+</programlisting>
 
             <programlisting language="php"><![CDATA[
 $translate = new Zend_Translator(
@@ -325,7 +334,8 @@ $translate->addTranslation(
         'locale' => 'fr'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note>
@@ -353,7 +363,8 @@ $translate->addTranslation(
 Message_1="Nachricht 1 (de)"
 Message_2="Nachricht 2 (de)"
 Message_3="Nachricht :3 (de)"
-]]></programlisting>
+]]>
+</programlisting>
 
             <programlisting language="php"><![CDATA[
 $translate = new Zend_Translator(
@@ -369,7 +380,8 @@ $translate->addTranslation(
         'locale' => 'it'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>

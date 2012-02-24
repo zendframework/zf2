@@ -30,7 +30,8 @@ try {
 } catch (Zend_Serializer_Exception $e) {
     echo $e;
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>
@@ -68,7 +69,8 @@ try {
 } catch (Zend_Serializer_Exception $e) {
     echo $e;
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Options passed to the <methodname>factory()</methodname> are valid for the instantiated
@@ -100,6 +102,7 @@ try {
 } catch (Zend_Serializer_Exception $e) {
     echo $e;
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

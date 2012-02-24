@@ -26,7 +26,8 @@
 $filter = new Zend_Filter_Dir();
 
 print $filter->filter('/etc/passwd');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This returns "<filename>/etc</filename>".
@@ -36,7 +37,8 @@ print $filter->filter('/etc/passwd');
 $filter = new Zend_Filter_Dir();
 
 print $filter->filter('C:/Temp/x');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This returns "<filename>C:/Temp</filename>".

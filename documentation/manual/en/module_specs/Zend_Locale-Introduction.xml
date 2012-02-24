@@ -161,7 +161,8 @@
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_DE'); // German language _ Germany
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -216,7 +217,8 @@ $locale2 = new Zend_Locale(Zend_Locale::ENVIRONMENT);
 
 // perfer framework app default settings
 $locale3 = new Zend_Locale(Zend_Locale::FRAMEWORK);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -335,7 +337,8 @@ $locale3 = new Zend_Locale(Zend_Locale::FRAMEWORK);
 
 // with automatic detection
 $date = new Zend_Date('auto');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -369,7 +372,8 @@ try {
 
 // within your model/controller
 $date = new Zend_Date($locale);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -395,7 +399,8 @@ Zend_Locale::setFallback('de');
 
 // within your model/controller
 $date = new Zend_Date();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -420,7 +425,8 @@ $date = new Zend_Date();
 
             <programlisting language="php"><![CDATA[
 $date = new Zend_Date('2006',Zend_Date::YEAR);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -438,7 +444,8 @@ $date = new Zend_Date('2006', Zend_Date::YEAR, $usLocale);
 $temp = new Zend_Measure_Temperature('100,10',
                                      Zend_Measure::TEMPERATURE,
                                      $usLocale);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -455,7 +462,8 @@ $date = new Zend_Date('2006', Zend_Date::YEAR, $locale);
 $temp = new Zend_Measure_Temperature('100,10',
                                      Zend_Measure::TEMPERATURE,
                                      $locale);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -483,7 +491,8 @@ Zend_Registry::set('Zend_Locale', $locale);
 $date = new Zend_Date();
 // print $date->getLocale();
 echo $date->getDate();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -515,7 +524,8 @@ echo $date->getDate();
 Zend_Locale_Format::setOptions(array('locale' => 'en_US',
                                      'fix_date' => true,
                                      'format_type' => 'php'));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -541,7 +551,8 @@ $date = Zend_Locale_Format::getDate('2007-04-20',
 // global setting of the standard locale
 Zend_Locale_Format::setOptions(array('locale' => Zend_Locale_Format::STANDARD,
                                      'date_format' => 'dd.MMMM.YYYY'));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 

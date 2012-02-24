@@ -37,7 +37,8 @@
 $filter = new Zend_Filter_Alpha();
 
 print $filter->filter('This is (my) content: 123');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example returns 'Thisismycontent'. Notice that the whitespace characters and
@@ -67,7 +68,8 @@ print $filter->filter('This is (my) content: 123');
 $filter = new Zend_Filter_Alpha(array('allowwhitespace' => true));
 
 print $filter->filter('This is (my) content: 123');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example returns 'This is my content '. Notice that the parenthesis, colon, and

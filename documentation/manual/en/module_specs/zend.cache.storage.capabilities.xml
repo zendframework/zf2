@@ -546,8 +546,8 @@ if ($capabilities->getIterable()) {
 } else {
     echo 'Iterating cached items not supported.';
 }
-
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.cache.storage.capabilities.examples.event.change">
@@ -573,7 +573,8 @@ $cache->getOptions()->setNoATime(true);
  * Will output:
  * "Capabilities changed"
  */
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

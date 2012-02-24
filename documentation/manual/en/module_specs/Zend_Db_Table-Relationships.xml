@@ -88,7 +88,8 @@ class BugsProducts extends Zend_Db_Table_Abstract
     );
 
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you use <classname>Zend_Db_Table</classname> to emulate cascading
@@ -211,7 +212,8 @@ class BugsProducts extends Zend_Db_Table_Abstract
 
         <programlisting language="php"><![CDATA[
 $row->findDependentRowset($table, [$rule]);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This method returns a <classname>Zend_Db_Table_Rowset_Abstract</classname> object,
@@ -239,7 +241,8 @@ $accountsRowset = $accountsTable->find(1234);
 $user1234 = $accountsRowset->current();
 
 $bugsReportedByUser = $user1234->findDependentRowset('Bugs');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -271,7 +274,8 @@ $accountsRowset = $accountsTable->find(1234);
 $user1234 = $accountsRowset->current();
 
 $bugsAssignedToUser = $user1234->findDependentRowset('Bugs', 'Engineer');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -299,7 +303,8 @@ $select = $accountsTable->select()->order('name ASC')
 $bugsAssignedToUser = $user1234->findDependentRowset('Bugs',
                                                      'Engineer',
                                                      $select);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -359,7 +364,8 @@ $bugsReportedBy = $user1234->findBugs();
 
 // Specify the reference rule
 $bugsAssignedTo = $user1234->findBugsByEngineer();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -373,7 +379,8 @@ $bugsAssignedTo = $user1234->findBugsByEngineer();
 
         <programlisting language="php"><![CDATA[
 $row->findParentRow($table, [$rule]);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             There always should be exactly one row in the parent table referenced by a dependent
@@ -401,7 +408,8 @@ $bugsRowset = $bugsTable->fetchAll(array('bug_status = ?' => 'NEW'));
 $bug1 = $bugsRowset->current();
 
 $reporter = $bug1->findParentRow('Accounts');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -432,7 +440,8 @@ $bugsRowset = $bugsTable->fetchAll(array('bug_status = ?', 'NEW'));
 $bug1 = $bugsRowset->current();
 
 $engineer = $bug1->findParentRow('Accounts', 'Engineer');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -490,7 +499,8 @@ $reporter = $bug1->findParentAccounts();
 
 // Specify the reference rule
 $engineer = $bug1->findParentAccountsByEngineer();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -512,7 +522,8 @@ $row->findManyToManyRowset($table,
                                    [Zend_Db_Table_Select $select]
                                ]
                            ]);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This method returns a <classname>Zend_Db_Table_Rowset_Abstract</classname> containing
@@ -550,7 +561,8 @@ $bug1234 = $bugsRowset->current();
 
 $productsRowset = $bug1234->findManyToManyRowset('Products',
                                                  'BugsProducts');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -602,7 +614,8 @@ $bug1234 = $bugsRowset->current();
 $productsRowset = $bug1234->findManyToManyRowset('Products',
                                                  'BugsProducts',
                                                  'Bug');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -670,7 +683,8 @@ $products = $bug1234->findProductsViaBugsProducts();
 
 // Specify the reference rule
 $products = $bug1234->findProductsViaBugsProductsByBug();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -730,7 +744,8 @@ $product1234 = $productsRowset->current();
 $product1234->delete();
 // Automatically cascades to Bugs table
 // and deletes dependent rows.
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -788,7 +803,8 @@ class BugsProducts extends Zend_Db_Table_Abstract
         ...
     );
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <section xml:id="zend.db.table.relationships.cascading.notes"><info><title>Notes Regarding Cascading Operations</title></info>

@@ -77,7 +77,8 @@ class MyValid_Float extends Zend_Validate_Abstract
         return true;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The class defines a template for its single validation failure message, which includes
@@ -161,7 +162,8 @@ class MyValid_NumericBetween extends Zend_Validate_Abstract
         return true;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The public properties <varname>$minimum</varname> and <varname>$maximum</varname> have
@@ -247,7 +249,8 @@ class MyValid_PasswordStrength extends Zend_Validate_Abstract
         return $isValid;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Note that the four criteria tests in <methodname>isValid()</methodname> do not

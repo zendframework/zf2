@@ -32,7 +32,8 @@ $service = Zend_Gdata_Docs::AUTH_SERVICE_NAME;
 $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
 $docs = new Zend_Gdata_Docs($client);
 $feed = $docs->getDocumentListFeed();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
         The resulting <classname>Zend_Gdata_Docs_DocumentListFeed</classname> object
@@ -101,7 +102,8 @@ function uploadDocument($docs, $html, $originalFileName,
   echo $newDocumentEntry->title."\n";
   if ($html) {echo "</a>\n";}
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.gdata.docs.queries"><info><title>Searching the documents feed</title></info>
@@ -130,7 +132,8 @@ function uploadDocument($docs, $html, $originalFileName,
             <programlisting language="php"><![CDATA[
 $feed = $docs->getDocumentListFeed(
     'http://docs.google.com/feeds/documents/private/full/-/document');
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.docs.listspreadsheets"><info><title>Get a List of Spreadsheets</title></info>
@@ -143,7 +146,8 @@ $feed = $docs->getDocumentListFeed(
             <programlisting language="php"><![CDATA[
 $feed = $docs->getDocumentListFeed(
     'http://docs.google.com/feeds/documents/private/full/-/spreadsheet');
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.docs.textquery"><info><title>Performing a text query</title></info>
@@ -161,7 +165,8 @@ $feed = $docs->getDocumentListFeed(
 $docsQuery = new Zend_Gdata_Docs_Query();
 $docsQuery->setQuery($query);
 $feed = $client->getDocumentListFeed($docsQuery);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 </section>

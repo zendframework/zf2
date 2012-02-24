@@ -34,7 +34,8 @@ Zend_Search_Lucene_Analysis_Analyzer::setDefault(
     new Zend_Search_Lucene_Analysis_Analyzer_Common_Text());
 ...
 $index->addDocument($doc);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <classname>Zend_Search_Lucene_Analysis_Analyzer_Common</classname> class is designed
@@ -127,7 +128,8 @@ class My_Analyzer extends Zend_Search_Lucene_Analysis_Analyzer_Common
 
 Zend_Search_Lucene_Analysis_Analyzer::setDefault(
     new My_Analyzer());
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </para>
     </section>
@@ -196,7 +198,8 @@ $analyzer =
 $analyzer->addFilter($stopWordsFilter);
 
 Zend_Search_Lucene_Analysis_Analyzer::setDefault($analyzer);
-]]></programlisting>
+]]>
+</programlisting>
 
         <programlisting language="php"><![CDATA[
 $shortWordsFilter = new Zend_Search_Lucene_Analysis_TokenFilter_ShortWords();
@@ -206,7 +209,8 @@ $analyzer =
 $analyzer->addFilter($shortWordsFilter);
 
 Zend_Search_Lucene_Analysis_Analyzer::setDefault($analyzer);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <classname>Zend_Search_Lucene_Analysis_TokenFilter_StopWords</classname> constructor
@@ -222,7 +226,8 @@ $analyzer =
 $analyzer->addFilter($stopWordsFilter);
 
 Zend_Search_Lucene_Analysis_Analyzer::setDefault($analyzer);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This file should be a common text file with one word in each line. The '#' character
@@ -341,7 +346,8 @@ class MySimilarity extends Zend_Search_Lucene_Search_Similarity {
 
 $mySimilarity = new MySimilarity();
 Zend_Search_Lucene_Search_Similarity::setDefault($mySimilarity);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.search.lucene.extending.storage"><info><title>Storage Containers</title></info>
@@ -454,7 +460,8 @@ abstract function touchFile($filename);
 abstract function getFileObject($filename);
 
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <methodname>getFileObject($filename)</methodname> method of a
@@ -509,6 +516,7 @@ class MyFile extends Zend_Search_Lucene_Storage_File {
         ...
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

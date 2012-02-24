@@ -43,10 +43,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase
         $this->reader = new XmlReader();
     }
 
-    /**
-     * @group ZF-8234
-     */
-    public function testRender()
+    public function testToString()
     {
         $config = new Config(array('test' => 'foo', 'bar' => array(0 => 'baz', 1 => 'foo')));
 
@@ -62,6 +59,42 @@ class XmlTest extends \PHPUnit_Framework_TestCase
 
 ECS;
 
+        $this->assertEquals($expected, $configString);
+    }
+    
+    public function testSectionsToString()
+    {
+        $config = new Config(array(), true);
+        $config->production = array();
+
+        $config->production->webhost = 'www.example.com';
+        $config->production->database = array();
+        $config->production->database->params = array();
+        $config->production->database->params->host = 'localhost';
+        $config->production->database->params->username = 'production';
+        $config->production->database->params->password = 'secret';
+        $config->production->database->params->dbname = 'dbproduction';
+        
+        $configString = $this->writer->toString($config);
+        
+        $expected = <<<ECS
+<?xml version="1.0" encoding="UTF-8"?>
+<zend-config>
+    <production>
+        <webhost>www.example.com</webhost>
+        <database>
+            <params>
+                <host>localhost</host>
+                <username>production</username>
+                <password>secret</password>
+                <dbname>dbproduction</dbname>
+            </params>
+        </database>
+    </production>
+</zend-config>
+
+ECS;
+        
         $this->assertEquals($expected, $configString);
     }
 }

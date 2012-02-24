@@ -10,7 +10,8 @@
 
     <programlisting language="php"><![CDATA[
 $feedArray = Zend_Feed::findFeeds('http://www.example.com/news.html');
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Here the <methodname>findFeeds()</methodname> method returns an array of

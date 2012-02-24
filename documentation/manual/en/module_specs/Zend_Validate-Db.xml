@@ -80,7 +80,8 @@ if ($validator->isValid($emailaddress)) {
         echo "$message\n";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above will test that a given email address is in the database
@@ -106,7 +107,8 @@ if ($validator->isValid($username)) {
         echo "$message\n";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above will test that a given username is not in the database
@@ -156,7 +158,8 @@ if ($validator->isValid($username)) {
         echo "$message\n";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example will check the table to ensure no records other
@@ -190,7 +193,8 @@ if ($validator->isValid($username)) {
         echo "$message\n";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example will check the 'users' table
@@ -217,7 +221,8 @@ $validator = new Zend_Validate_Db_RecordExists(
         'adapter' => $dbAdapter
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.db.database-schemas"><info><title>Database Schemas</title></info>
@@ -238,6 +243,7 @@ $validator = new Zend_Validate_Db_RecordExists(
         'field'  => 'id'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

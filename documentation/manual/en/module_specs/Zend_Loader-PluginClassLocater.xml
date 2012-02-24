@@ -30,7 +30,8 @@ interface PluginClassLocater
     public function unregisterPlugin($shortName);
     public function getRegisteredPlugins();
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.loader.plugin-class-locater.options"><info><title>Configuration Options</title></info>

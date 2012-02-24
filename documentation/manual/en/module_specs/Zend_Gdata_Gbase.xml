@@ -129,7 +129,8 @@ $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
 
 // Create an instance of the Base service
 $service = new Zend_Gdata_Gbase($client);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 A Base service using AuthSub can be created in a similar, though slightly more
@@ -223,7 +224,8 @@ session_start();
 // Create an instance of the Base service, redirecting the user
 // to the AuthSub server if necessary.
 $service = new Zend_Gdata_Gbase(getAuthSubHttpClient());
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Finally, an unauthenticated server can be created for use with snippets feeds:
@@ -232,7 +234,8 @@ $service = new Zend_Gdata_Gbase(getAuthSubHttpClient());
             <programlisting language="php"><![CDATA[
 // Create an instance of the Base service using an unauthenticated HTTP client
 $service = new Zend_Gdata_Gbase();
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 
@@ -278,7 +281,8 @@ $query->setOrderBy('modification_time');
 $query->setSortOrder('descending');
 $query->setMaxResults('5');
 $feed = $service->getGbaseItemFeed($query);
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     A full list of these parameters is available at the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://code.google.com/apis/base/items-feed.html#QueParameters">Query
@@ -303,7 +307,8 @@ $query->setOrderBy('modification_time');
 $query->setSortOrder('descending');
 $query->setMaxResults('5');
 $feed = $service->getGbaseSnippetFeed($query);
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     A full list of these parameters is available at the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://code.google.com/apis/base/snippets-feed.html#Parameters">Query
@@ -334,7 +339,8 @@ foreach ($feed->entries as $entry) {
     echo "Attribute " . $attr->name . " : " . $attr->text . "<br>";
   }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Or, you can look for specific attribute name and iterate through the results that
@@ -349,7 +355,8 @@ foreach ($feed->entries as $entry) {
     echo "Main ingredient: " . $attr->text . "<br>";
   }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 
@@ -407,7 +414,8 @@ $newEntry->addGbaseAttribute("payment_accepted", "Google Checkout", "text");
 
 $dryRun = true;
 $createdEntry = $service->insertGbaseItem($newEntry, $dryRun);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.gbase.crud.modify"><info><title>Modify an Item</title></info>
@@ -459,7 +467,8 @@ $entry->save($dryRun);
 // Or, save the changes by calling updateGbaseItem() on the service object
 // $dryRun = true;
 // $service->updateGbaseItem($entry, $dryRun);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 After making the changes, either invoke <methodname>save($dryRun)</methodname>
@@ -479,7 +488,8 @@ $entry->save($dryRun);
             <programlisting language="php"><![CDATA[
 $dryRun = false;
 $service->deleteGbaseItem($entry, $dryRun);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Alternatively, you can invoke <methodname>delete()</methodname> on the
@@ -489,7 +499,8 @@ $service->deleteGbaseItem($entry, $dryRun);
             <programlisting language="php"><![CDATA[
 $dryRun = false;
 $entry->delete($dryRun);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 </section>

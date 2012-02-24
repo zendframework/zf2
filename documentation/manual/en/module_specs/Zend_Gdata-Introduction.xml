@@ -274,7 +274,8 @@ $cell->setColumn('3');
 $entry->cell = $cell;
 
 // ... $entry can then be used to send an update to a Google Spreadsheet
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Each service class in the inheritance tree is responsible for
@@ -346,7 +347,8 @@ $client = new Zend_Http_Client();
 $client->setConfig( ...options... );
 
 $gdata = new Zend_Gdata($client);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Beginning with Zend Framework 1.7, support has been added for
@@ -365,7 +367,8 @@ $client->setConfig( ...options... );
 $gdata = new Zend_Gdata($client);
 $gdata->setMajorProtocolVersion(2);
 $gdata->setMinorProtocolVersion(null);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Also see the sections on authentication for methods to
@@ -483,7 +486,8 @@ $gdata->setMinorProtocolVersion(null);
 $query = new Zend_Gdata_Query();
 $query->setMaxResults(10);
 echo $query->getMaxResults();   // returns 10
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <classname>Zend_Gdata</classname> class also implements "magic" getter and
@@ -495,7 +499,8 @@ echo $query->getMaxResults();   // returns 10
 $query = new Zend_Gdata_Query();
 $query->maxResults = 10;
 echo $query->maxResults;        // returns 10
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can clear all parameters with the <methodname>resetParameters()</methodname>
@@ -510,7 +515,8 @@ $query->maxResults = 10;
 
 $query->resetParameters();      // clears all parameters
 // ...get a different feed...
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.gdata.introduction.getfeed"><info><title>Fetching a Feed</title></info>
@@ -530,7 +536,8 @@ $query = new Zend_Gdata_Query(
         'http://www.blogger.com/feeds/blogID/posts/default');
 $query->setMaxResults(10);
 $feed = $gdata->getFeed($query);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             See later sections for special functions in each
@@ -561,7 +568,8 @@ function getNextPage($feed) {
         return null;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you would prefer not to work with pages in your application,
@@ -576,7 +584,8 @@ $gdata = new Zend_Gdata();
 $query = new Zend_Gdata_Query(
         'http://www.blogger.com/feeds/blogID/posts/default');
 $feed = $gdata->retrieveAllEntriesForFeed($gdata->getFeed($query));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Keep in mind when calling this function that it may take a long
@@ -608,7 +617,8 @@ foreach ($feed as $entry) {
     // using the defined accessors
     echo 'Content: ' . $entry->getContent()->getText();
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.gdata.introduction.updateentry"><info><title>Updating Entries</title></info>
@@ -635,7 +645,8 @@ foreach ($feed as $entry) {
     $newEntry = $entry->save();
     echo 'New Title: ' . $newEntry->title->text;
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.gdata.introduction.post"><info><title>Posting Entries to Google Servers</title></info>
@@ -677,7 +688,8 @@ $entryResult = $gdata->insertEntry($entry,
         'http://www.blogger.com/feeds/blogID/posts/default');
 
 echo 'The <id> of the resulting entry is: ' . $entryResult->id->text;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To post entries, you must be using an authenticated
@@ -714,7 +726,8 @@ foreach ($feed as $feedEntry) {
     // $gdata->delete()
     // $gdata->delete($feedEntry->getEditLink()->href);
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To delete entries, you must be using an authenticated

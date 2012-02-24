@@ -16,7 +16,8 @@
         <programlisting language="php"><![CDATA[
 $tr = new Zend_Mail_Transport_Smtp('mail.example.com');
 Zend_Mail::setDefaultTransport($tr);
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>

@@ -17,7 +17,8 @@ try {
 } catch (Zend_Exception $e) {
     // do something
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.exception.catchcomponent.example"><info><title>Catch exceptions thrown by a specific component of Zend Framework</title></info>
@@ -29,6 +30,7 @@ try {
 } catch (Zend_Db_Exception $e) {
     // do something
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

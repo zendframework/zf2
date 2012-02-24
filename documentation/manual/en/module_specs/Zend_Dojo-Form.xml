@@ -87,7 +87,8 @@ class My_Form_Custom extends Zend_Form
         }
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>

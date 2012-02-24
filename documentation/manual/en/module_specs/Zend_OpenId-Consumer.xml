@@ -59,7 +59,8 @@
 <input type="text" name="openid_identifier">
 <input type="submit" name="openid_action" value="login">
 </fieldset></form></body></html>
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -80,7 +81,8 @@ $consumer = new Zend_OpenId_Consumer();
 if (!$consumer->login($_POST['openid_identifier'], 'example-1_3.php')) {
     die("OpenID login failed.");
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -128,7 +130,8 @@ if ($consumer->verify($_GET, $id)) {
 } else {
     echo "INVALID " . htmlspecialchars($id);
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -190,7 +193,8 @@ if (isset($_POST['openid_action']) &&
 </fieldset>
 </form>
 </body></html>
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -237,7 +241,8 @@ if (!$consumer->login($_POST['openid_identifier'],
                       'http://*.php.net/')) {
     die("OpenID login failed.");
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -269,7 +274,8 @@ $consumer = new Zend_OpenId_Consumer();
 if (!$consumer->check($_POST['openid_identifier'], 'example-4_3.php')) {
     die("OpenID login failed.");
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -511,7 +517,8 @@ $db = Zend_Db::factory('Pdo_Sqlite',
     array('dbname'=>'/tmp/openid_consumer.db'));
 $storage = new DbStorage($db);
 $consumer = new Zend_OpenId_Consumer($storage);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -630,7 +637,8 @@ if (!$consumer->login($_POST['openid_identifier'],
                       $sreg)) {
     die("OpenID login failed.");
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -675,7 +683,8 @@ if ($consumer->verify($_GET, $id, $sreg)) {
 } else {
     echo "INVALID " . htmlspecialchars($id);
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -790,7 +799,8 @@ if ((isset($_POST['openid_action']) &&
 <input type="submit" name="openid_action" value="login">
 <input type="submit" name="openid_action" value="logout">
 </fieldset></form></body></html>
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>

@@ -27,7 +27,8 @@ $opts->addRules(
     'verbose|v' => 'Print verbose output'
   )
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -63,7 +64,8 @@ $opts->setHelp(
         'p' => 'pear option, with optional string parameter'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -106,7 +108,8 @@ $opts->setAliases(
         'p' => 'pear'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -152,7 +155,8 @@ $opts->addArguments(array('-a', '-p', 'p_parameter', 'non_option_arg'));
 
 // Substitute a new array for the existing arguments
 $opts->setArguments(array('-a', '-p', 'p_parameter', 'non_option_arg'));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -242,7 +246,8 @@ $opts->setArguments(array('-a', '-p', 'p_parameter', 'non_option_arg'));
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
 $opts->setOption('ignoreCase', true);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -265,7 +270,8 @@ $opts->setOptions(
         'dashDash'   => false
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

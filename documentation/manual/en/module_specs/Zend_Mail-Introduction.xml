@@ -29,7 +29,8 @@ $mail->setFrom('somebody@example.com', 'Some Sender');
 $mail->addTo('somebody_else@example.com', 'Some Recipient');
 $mail->setSubject('TestSubject');
 $mail->send();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Minimum definitions</title></info>
@@ -69,7 +70,8 @@ $mail->setBodyText('This is the text of the mail.')
     ->addTo('somebody_else@example.com', 'Some Recipient')
     ->setSubject('TestSubject')
     ->send();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.mail.introduction.sendmail"><info><title>Configuring the default sendmail transport</title></info>
@@ -105,7 +107,8 @@ $mail->setFrom('somebody@example.com', 'Some Sender');
 $mail->addTo('somebody_else@example.com', 'Some Recipient');
 $mail->setSubject('TestSubject');
 $mail->send();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Safe mode restrictions</title></info>

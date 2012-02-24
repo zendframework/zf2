@@ -113,7 +113,8 @@ class Calculator
         return $x / $y;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Note that each method has a docblock with entries indicating each
@@ -135,7 +136,8 @@ $server->setClass('Calculator');
 
 // Handle the request:
 $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             However, this will not address the issue of returning an SMD so that
@@ -163,7 +165,8 @@ if ('GET' == $_SERVER['REQUEST_METHOD']) {
 }
 
 $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If utilizing the JSON-RPC server with Dojo toolkit, you will also
@@ -189,7 +192,8 @@ if ('GET' == $_SERVER['REQUEST_METHOD']) {
 }
 
 $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <section xml:id="zend.json.server.details"><info><title>Advanced Details</title></info>

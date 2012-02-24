@@ -17,7 +17,8 @@
 
         <programlisting language="php"><![CDATA[
 $form = new Zend_Form;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             For advanced use cases, you may want to create a
@@ -35,7 +36,8 @@ $form = new Zend_Form;
         <programlisting language="php"><![CDATA[
 $form->setAction('/resource/process')
      ->setMethod('post');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above code sets the form action to the partial <acronym>URL</acronym>
@@ -52,7 +54,8 @@ $form->setAction('/resource/process')
 
         <programlisting language="php"><![CDATA[
 $form->setAttrib('id', 'login');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.form.quickstart.elements"><info><title>Add elements to the form</title></info>
@@ -99,7 +102,8 @@ $form->addElement(new Zend_Form_Element_Text('username'));
 
 // Passing a form element type to the form object:
 $form->addElement('text', 'username');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             By default, these do not have any validators or filters. This means
@@ -125,7 +129,8 @@ $username->addValidator(new Zend_Validate_Alnum());
 
 // Passing a validator name:
 $username->addValidator('alnum');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When using this second option, you can pass constructor arguments in an array as the
@@ -135,7 +140,8 @@ $username->addValidator('alnum');
         <programlisting language="php"><![CDATA[
 // Pass a pattern
 $username->addValidator('regex', false, array('/^[a-z]/i'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             (The second parameter is used to indicate whether or not failure of
@@ -152,7 +158,8 @@ $username->addValidator('regex', false, array('/^[a-z]/i'));
         <programlisting language="php"><![CDATA[
 // Make this element required:
 $username->setRequired(true);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When an element is required, a 'NotEmpty' validator is added to the
@@ -168,7 +175,8 @@ $username->setRequired(true);
 
         <programlisting language="php"><![CDATA[
 $username->addFilter('StringtoLower');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The final element setup might look like this:
@@ -186,7 +194,8 @@ $username->addValidators(array('alnum',
     ))
     ->setRequired(true)
     ->addFilters(array('StringToLower'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Simple as this is, repeating it this for every element in a form
@@ -206,7 +215,8 @@ $form->addElement('text', 'username', array(
     'required' => true,
     'filters'  => array('StringToLower'),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -234,7 +244,8 @@ echo $form->render($view);
 
 // Assuming a view object has been previously set via setView():
 echo $form;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             By default, <classname>Zend_Form</classname> and
@@ -245,8 +256,9 @@ echo $form;
         </para>
 
         <programlisting language="php"><![CDATA[
-<?php echo $this->form ?>
-]]></programlisting>
+<?php echo $this->form 
+]]>
+</programlisting>
 
         <para>
             Under the hood, <classname>Zend_Form</classname> uses "decorators" to perform
@@ -265,7 +277,8 @@ $element->addDecorators(array(
     array('HtmlTag', array('tag' => 'dd')),
     array('Label', array('tag' => 'dt')),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             (Where &lt;HELPERNAME&gt; is the name of a view helper to use, and varies
@@ -285,7 +298,8 @@ $element->addDecorators(array(
         <li>'123-abc' does not match against pattern '/^[a-z]/i'</li>
     </ul>
 </dd>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             (Albeit not with the same formatting.)
@@ -313,7 +327,8 @@ $element->addDecorators(array(
 
         <programlisting language="php"><![CDATA[
 $element->setOrder(10);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Or, when creating an element, by passing it as an option:
@@ -321,7 +336,8 @@ $element->setOrder(10);
 
         <programlisting language="php"><![CDATA[
 $form->addElement('text', 'username', array('order' => 10));
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.form.quickstart.validate"><info><title>Check if a form is valid</title></info>
@@ -347,7 +363,8 @@ if ($form->isValid($_POST)) {
 } else {
     // failure!
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             With <acronym>AJAX</acronym> requests, you can sometimes get away with validating
@@ -363,7 +380,8 @@ if ($form->isValidPartial($_POST)) {
 } else {
     // one or more elements tested failed validations
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             An additional method, <methodname>processAjax()</methodname>, can be used
@@ -379,7 +397,8 @@ if ($form->isValidPartial($_POST)) {
 
         <programlisting language="php"><![CDATA[
 $values = $form->getValues();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you need the unfiltered values at any point, use:
@@ -387,7 +406,8 @@ $values = $form->getValues();
 
         <programlisting language="php"><![CDATA[
 $unfiltered = $form->getUnfilteredValues();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you on the other hand need all the valid and filtered values of a partially valid
@@ -396,7 +416,8 @@ $unfiltered = $form->getUnfilteredValues();
 
         <programlisting language="php"><![CDATA[
 $values = $form->getValidValues($_POST);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.form.quickstart.errorstatus"><info><title>Get error status</title></info>
@@ -416,7 +437,8 @@ if (!$form->isValid($_POST)) {
     $this->view->form = $form;
     return $this->render('form');
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you want to inspect the errors, you have two methods.
@@ -480,7 +502,8 @@ $form->addElement($username)
      ->addElement($password)
      // use addElement() as a factory to create 'Login' button:
      ->addElement('submit', 'login', array('label' => 'Login'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Next, we'll create a controller for handling this:
@@ -518,7 +541,8 @@ class UserController extends Zend_Controller_Action
         // now try and authenticate....
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             And a view script for displaying the form:
@@ -526,8 +550,9 @@ class UserController extends Zend_Controller_Action
 
         <programlisting language="php"><![CDATA[
 <h2>Please login:</h2>
-<?php echo $this->form ?>
-]]></programlisting>
+<?php echo $this->form 
+]]>
+</programlisting>
 
         <para>
             As you'll note from the controller code, there's more work to do:
@@ -576,7 +601,8 @@ user.login.elements.password.options.required = true
 
 ; submit element
 user.login.elements.submit.type = "submit"
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You would then pass this to the form constructor:
@@ -585,7 +611,8 @@ user.login.elements.submit.type = "submit"
         <programlisting language="php"><![CDATA[
 $config = new Zend_Config_Ini($configFile, 'development');
 $form   = new Zend_Form($config->user->login);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             and the entire form will be defined.

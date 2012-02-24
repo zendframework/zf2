@@ -14,7 +14,8 @@ $phpNative = Zend_Json::decode($encodedValue);
 
 // Encode it to return to the client:
 $json = Zend_Json::encode($phpNative);
-]]></programlisting>
+]]>
+</programlisting>
 
     <section xml:id="zend.json.basics.prettyprint"><info><title>Pretty-printing JSON</title></info>
         
@@ -33,7 +34,8 @@ $json = Zend_Json::encode($phpNative);
 if($debug) {
     echo Zend_Json::prettyPrint($json, array("indent" => " "));
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Second optional argument of <methodname>Zend_Json::prettyPrint()</methodname> is an

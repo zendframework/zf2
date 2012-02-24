@@ -36,7 +36,8 @@ echo $unit;
 $unit = new Zend_Measure_Length($measurement, Zend_Measure_Length::STANDARD);
 echo $unit;
 // outputs '1234.7 m' (meters)
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -64,7 +65,8 @@ $mystring = "10010100111010111010100001011011101010001";
 $unit = new Zend_Measure_Number($mystring, Zend_Measure_Number::BINARY);
 
 echo $unit;
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -98,7 +100,8 @@ $unit = new Zend_Measure_Length($mystring,
                                 Zend_Measure_Length::STANDARD,
                                 'en_US');
 echo $unit; // outputs "1234.50 m"
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -116,6 +119,7 @@ Zend_Registry::set('Zend_Locale', $locale);
 
 // somewhere in your application
 $length = new Zend_Measure_Length(Zend_Measure_Length::METER();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

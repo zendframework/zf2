@@ -84,7 +84,8 @@ save_path = /home/myaccount/zend_sessions/myapp
 use_only_cookies = on
 ; When persisting session id cookies, request a TTL of 10 days
 remember_me_seconds = 864000
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Next, load the configuration file and pass its array representation to
@@ -95,7 +96,8 @@ remember_me_seconds = 864000
 $config = new Zend_Config_Ini('myapp.ini', 'development');
 
 Zend_Session::setOptions($config->toArray());
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -403,7 +405,8 @@ if (!isset($defaultNamespace->initialized)) {
     Zend_Session::regenerateId();
     $defaultNamespace->initialized = true;
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>

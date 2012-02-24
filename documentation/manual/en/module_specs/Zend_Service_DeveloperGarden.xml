@@ -170,7 +170,8 @@ $config = array(
     'environment' => Zend_Service_DeveloperGarden_SendSms::ENV_PRODUCTION,
 );
 $service = new Zend_Service_DeveloperGarden_SendSms($config);
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>
@@ -194,7 +195,8 @@ $service = new Zend_Service_DeveloperGarden_SendSms($config);
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_BaseUserService($config);
 print_r($service->getAccountBalance());
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <section xml:id="zend.service.developergarden.baseuserservice.getquotainformation"><info><title>Get quota information</title></info>
@@ -217,7 +219,8 @@ echo 'Sms Quota:<br />';
 echo 'Max Quota: ', $result->getMaxQuota(), '<br />';
 echo 'Max User Quota: ', $result->getMaxUserQuota(), '<br />';
 echo 'Quota Level: ', $result->getQuotaLevel(), '<br />';
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -284,7 +287,8 @@ $result = $service->changeSmsQuotaPool(
 if (!$result->hasError()) {
     echo 'updated Quota Pool';
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -360,7 +364,8 @@ $service->setEnvironment(
 );
 $ip = new Zend_Service_DeveloperGarden_IpLocation_IpAddress('127.0.0.1');
 print_r($service->locateIp($ip));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -385,7 +390,8 @@ $search  = new Zend_Service_DeveloperGarden_LocalSearch_SearchParameters();
 $search->setWhat('pizza')
        ->setWhere('jena');
 print_r($service->localSearch($search));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -467,7 +473,9 @@ $sms = $service->createSms(
     'your test message',
     'yourname'
 );
-print_r($service->send($sms));]]></programlisting>
+print_r($service->send($sms));
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -500,7 +508,8 @@ print_r($service->send($sms));]]></programlisting>
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_SmsValidation($config);
 print_r($service->sendValidationKeyword('+49-172-123456'));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.service.developergarden.smsvalidation.validate.example"><info><title>Validate a number with a keyword</title></info>
@@ -509,7 +518,8 @@ print_r($service->sendValidationKeyword('+49-172-123456'));
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_SmsValidation($config);
 print_r($service->validate('TheKeyWord', '+49-172-123456'));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -568,7 +578,8 @@ $expiration  = 30;  // seconds
 $maxDuration = 300; // 5 mins
 $newCall = $service->newCall($aNumber, $bNumber, $expiration, $maxDuration);
 echo $newCall->getSessionId();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -597,7 +608,8 @@ $service->callStatus($sessionId, true); // extend the call
 sleep(10); // sleep 10s and then tearDown
 
 $service->tearDownCall($sessionId);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -819,7 +831,8 @@ $client->newParticipant($conference->getConferenceId(), $part1);
 // add a second, third ... participant
 
 $client->commitConference($conference->getConferenceId());
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -842,7 +855,8 @@ $client->commitConference($conference->getConferenceId());
 Zend_Service_DeveloperGarden_SecurityTokenServer_Cache::setWsdlCache(
     [PHP CONSTANT]
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -887,7 +901,8 @@ Zend_Service_DeveloperGarden_SecurityTokenServer_Cache::setWsdlCache(
             <programlisting language="php"><![CDATA[
 $cache = Zend_Cache::factory('Core', ...);
 Zend_Service_DeveloperGarden_SecurityTokenServer_Cache::setCache($cache);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

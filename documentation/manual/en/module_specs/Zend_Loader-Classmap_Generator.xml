@@ -29,7 +29,8 @@
 
         <programlisting language="sh"><![CDATA[
 php classmap_generator.php Some/Directory/
-]]></programlisting>
+]]>
+</programlisting>
 
     </section>
 

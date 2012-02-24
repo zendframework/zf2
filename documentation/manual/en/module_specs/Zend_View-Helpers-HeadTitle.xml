@@ -49,7 +49,8 @@ $this->headTitle('Zend Framework');
 
 // setting a separator string for segments:
 $this->headTitle()->setSeparator(' / ');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When you're finally ready to render the title in your layout
@@ -58,7 +59,8 @@ $this->headTitle()->setSeparator(' / ');
 
         <programlisting language="php"><![CDATA[
 <!-- renders <action> / <controller> / Zend Framework -->
-<?php echo $this->headTitle() ?>
-]]></programlisting>
+<?php echo $this->headTitle() 
+]]>
+</programlisting>
     </example>
 </section>

@@ -42,7 +42,8 @@
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -122,7 +123,8 @@ $opts = new Zend_Console_Getopt(
     'pear|p-s'   => 'pear option, with optional string parameter'
   )
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>

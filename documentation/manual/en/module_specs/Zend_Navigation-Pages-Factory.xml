@@ -49,7 +49,8 @@ $page = Zend_Navigation_Page::factory(array(
     'type'   => 'mvc',
     'label'  => 'My MVC page'
 ));
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.navigation.pages.factory.example.uri"><info><title>Creating a URI page using the page factory</title></info>
@@ -76,7 +77,8 @@ $page = Zend_Navigation_Page::factory(array(
     'type'   => 'uri',
     'label'  => 'My URI page'
 ));
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.navigation.pages.factory.example.custom"><info><title>Creating a custom page type using the page factory</title></info>
@@ -103,6 +105,7 @@ $page = Zend_Navigation_Page::factory(array(
     'label'   => 'My custom page',
     'foo_bar' => 'foo bar'
 ));
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

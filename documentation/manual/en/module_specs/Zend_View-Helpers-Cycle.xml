@@ -26,8 +26,9 @@
 // Moving in backwards order and assign function
 $this->cycle()->assign(array("#F0F0F0","#FFFFFF"));
 $this->cycle()->prev();
-?>
-]]></programlisting>
+
+]]>
+</programlisting>
 
         <para>
             The output
@@ -40,7 +41,8 @@ $this->cycle()->prev();
 <tr style="background-color:'#FFFFFF'">
    <td>Second</td>
 </tr>
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.view.helpers.initial.cycle.advanceusage"><info><title>Working with two or more cycles</title></info>
@@ -61,6 +63,7 @@ $this->cycle()->prev();
   <td><?php echo $this->cycle(array(1,2,3),'number')->next()?></td>
   <td><?php echo $this->escape($book['author'])?></td>
 </tr>
-<?php endforeach;?>
-]]></programlisting>
+<?php endforeach;
+]]>
+</programlisting>
 </section>

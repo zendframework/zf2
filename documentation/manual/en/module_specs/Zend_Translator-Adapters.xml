@@ -378,7 +378,8 @@ try {
     // File not found, no adapter class...
     // General failure
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.translator.adapter.caching"><info><title>Speedup all Adapters</title></info>
@@ -417,7 +418,8 @@ $translate = new Zend_Translator(
 
 // to clear the cache somewhere later in your code
 Zend_Translator::clearCache();
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -457,6 +459,7 @@ $translate = new Zend_Translator(
 
 // somewhere later in your code
 Zend_Translator::clearCache('MyTag');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

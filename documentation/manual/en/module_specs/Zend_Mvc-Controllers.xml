@@ -23,7 +23,8 @@ class Foo implements Dispatchable
         // ... do something, and preferably return a Response ...
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
   <para>
     While this pattern is simple enough, chances are you don't want to
@@ -72,7 +73,8 @@ if (!$id) {
     $this->getEvent()->setResult('Invalid identifier; cannot complete request');
     return;
 }
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         The <classname>InjectApplicationEvent</classname> interface defines
@@ -84,7 +86,8 @@ use Zend\EventManager\EventDescription as Event;
 
 public function setEvent(Event $event);
 public function getEvent($event);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.mvc.controllers.interfaces.locator-aware">
@@ -116,7 +119,8 @@ use Zend\Di\Locator;
 
 public function setLocator(Locator $locator);
 public function getLocator($locator);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.mvc.controllers.interfaces.pluggable">
@@ -193,7 +197,8 @@ public function plugin($plugin, array $options = null)
 {
     return $this->getBroker()->load($plugin, $options);
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
   </section>
 
@@ -273,7 +278,8 @@ class BarController extends ActionController
         return array('title' => __METHOD__);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <section xml:id="zend.mvc.controllers.action-controller.interfaces-and-collaborators">
       <info><title>Interfaces and Collaborators</title></info>

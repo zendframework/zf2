@@ -421,7 +421,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.barcode.checksum"><info><title>Optional checksum</title></info>
@@ -445,7 +446,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Reduced security by disabling checksum validation</title></info>
 
@@ -560,6 +562,7 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

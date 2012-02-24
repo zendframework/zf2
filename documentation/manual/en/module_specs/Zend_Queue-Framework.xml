@@ -30,7 +30,8 @@ $options = array(
 // Create a database queue.
 // Zend_Queue will prepend Zend_Queue_Adapter_ to 'Db' for the class name.
 $queue = new Zend_Queue('Db', $options);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The <classname>Zend_Queue</classname> constructor will create a
@@ -57,7 +58,8 @@ $messages = $queue->receive(5);
 foreach ($messages as $i => $message) {
     echo "$i) Message => ", $message->body, "\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Any exceptions thrown are of class

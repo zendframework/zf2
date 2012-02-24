@@ -55,7 +55,8 @@ namespace MyMovieApp
         }
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         With the above code, you find yourself writing the following to
@@ -72,7 +73,8 @@ $movieLister = new MyMovieApp\MovieLister($movieFinder);
 foreach ($movieLister as $movie) {
     // iterate and display $movie
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         If you are doing this above wiring in each controller or view that
@@ -101,7 +103,8 @@ foreach ($movieLister as $movie) {
     foreach ($movieLister as $movie) {
         // iterate and display $movie
     }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         In the above example, we are obtaining a default instance of
@@ -122,7 +125,8 @@ foreach ($movieLister as $movie) {
             $this->configure($config);
         }
     }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         This means that when $di->get() is called, it will be consulting the
@@ -151,7 +155,8 @@ foreach ($movieLister as $movie) {
     foreach ($movieLister as $movie) {
         // iterate and display $movie
     }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         It is important to note that when using call time parameters, these parameter

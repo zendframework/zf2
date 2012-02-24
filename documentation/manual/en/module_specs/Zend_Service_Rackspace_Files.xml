@@ -28,7 +28,8 @@ $user = 'username';
 $key  = 'secret key';
 
 $rackspace = new Zend\Service\Rackspace\Files($user,$key);
-]]></programlisting>
+]]>
+</programlisting>
         
         <para>
             A container is a storage compartment for your data and provides a way for you to organize
@@ -74,7 +75,8 @@ $rackspace = new Zend\Service\Rackspace\Files($user,$key);
             To create a new container you can use the <emphasis>createContainer</emphasis> method.
         </para>
         
-        <programlisting language="php"><![CDATA[  
+        <programlisting language="php"><![CDATA[
+  
 $container= $rackspace->createContainer('test');
 
 if (!$rackspace->isSuccessful()) {
@@ -82,7 +84,8 @@ if (!$rackspace->isSuccessful()) {
 } 
 
 printf("Name: %s",$container->getName());
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This example create a container with name <emphasis>test</emphasis>. The result of <emphasis>createContainer</emphasis>
@@ -108,7 +111,8 @@ if ($rackspace->isSuccessful()) {
 } else {
     printf("ERROR: %s",$rackspace->getErrorMsg());
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This example store a file image <emphasis>example.jpg</emphasis> in the container <emphasis>test</emphasis>
@@ -119,7 +123,8 @@ if ($rackspace->isSuccessful()) {
             To delete an object (file) you can use the <emphasis>deleteObject</emphasis> method.
         </para>
         
-        <programlisting language="php"><![CDATA[           
+        <programlisting language="php"><![CDATA[
+           
 $rackspace->deleteObject('test','example.jpg');
 
 if ($rackspace->isSuccessful()) {
@@ -127,7 +132,8 @@ if ($rackspace->isSuccessful()) {
 } else {
     printf("ERROR: %s",$rackspace->getErrorMsg());
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This example delete the object <emphasis>example.jpg</emphasis> in the container <emphasis>test</emphasis>.
@@ -137,7 +143,8 @@ if ($rackspace->isSuccessful()) {
             To publish a container as <acronym>CDN</acronym> (Content Delivery Network) you can use the <emphasis>enableCdnContainer</emphasis> method.
         </para>
         
-        <programlisting language="php"><![CDATA[     
+        <programlisting language="php"><![CDATA[
+     
 $cdnInfo= $rackspace->enableCdnContainer('test');
 
 if ($rackspace->isSuccessful()) {
@@ -145,7 +152,8 @@ if ($rackspace->isSuccessful()) {
 } else {
     printf("ERROR: %s",$rackspace->getErrorMsg());
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This example publish the container <emphasis>test</emphasis> as <acronym>CDN</acronym>.
@@ -786,7 +794,8 @@ if ($rackspace->authenticate()) {
 } else {
     printf("ERROR: %s",$rackspace->getErrorMsg());
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
         
         <example xml:id="zend.service.rackspace.files.examples.get-object">
@@ -808,7 +817,8 @@ if (!$rackspace->isSuccessful()) {
 
 header('Content-type: image/gif');
 echo $object->getFile();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
         
         <example xml:id="zend.service.rackspace.files.examples.create-container">
@@ -831,8 +841,9 @@ $container= $rackspace->createContainer('test',$metadata);
 
 if ($rackspace->isSuccessful()) {
     echo 'Container created successfully';
-}    
-]]></programlisting>
+}
+]]>
+</programlisting>
         </example>
         
         <example xml:id="zend.service.rackspace.files.examples.get-metadata-container">
@@ -854,7 +865,8 @@ if (!$rackspace->isSuccessful()) {
 
 $metadata= $container->getMetadata();
 print_r($metadata);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
         
         <example xml:id="zend.service.rackspace.files.examples.store-object-container">
@@ -881,8 +893,9 @@ $metadata = array (
 
 if ($container->addObject('test.jpg', $file, $metadata)) {
     echo 'Object stored successfully';
-} 
-]]></programlisting>
+}
+]]>
+</programlisting>
         </example>
         
         <example xml:id="zend.service.rackspace.files.examples.check-cdn-enabled">
@@ -912,7 +925,8 @@ printf(
     $container->getCdnUri(), 
     $container->getCdnUriSsl()
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

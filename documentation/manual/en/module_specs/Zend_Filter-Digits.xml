@@ -25,7 +25,8 @@
 $filter = new Zend_Filter_Digits();
 
 print $filter->filter('October 2009');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This returns "2009".
@@ -35,7 +36,8 @@ print $filter->filter('October 2009');
 $filter = new Zend_Filter_Digits();
 
 print $filter->filter('HTML 5 for Dummies');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This returns "5".

@@ -15,7 +15,8 @@
         <programlisting xml:lang="php"><![CDATA[
 $filename = str_replace(array('_', '\\'), DIRECTORY_SEPARATOR, $classname) 
           . '.php';
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Previous incarnations of PSR-0-compliant autoloaders in Zend Framework have relied upon
@@ -130,7 +131,8 @@ $loader->setFallbackAutoloader(true);
 
 // Register with spl_autoload:
 $loader->register();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.loader.standard-autoloader.quick-start.example-constructor-configuration"><info><title>Configuration at Instantiation</title></info>
@@ -176,7 +178,8 @@ $loader = new Zend\Loader\StandardAutoloader(array(
 
 // Register with spl_autoload:
 $loader->register();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 

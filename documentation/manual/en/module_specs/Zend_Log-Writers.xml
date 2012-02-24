@@ -26,7 +26,8 @@ $writer = new Zend_Log_Writer_Stream('php://output');
 $logger = new Zend_Log($writer);
 
 $logger->info('Informational message');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To write data to a file, use one of the
@@ -39,7 +40,8 @@ $writer = new Zend_Log_Writer_Stream('/path/to/logfile');
 $logger = new Zend_Log($writer);
 
 $logger->info('Informational message');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             By default, the stream opens in the append mode ("a").
@@ -62,7 +64,8 @@ $writer = new Zend_Log_Writer_Stream($stream);
 $logger = new Zend_Log($writer);
 
 $logger->info('Informational message');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You cannot specify the mode for existing stream resources. Doing so
@@ -94,7 +97,8 @@ $writer = new Zend_Log_Writer_Db($db, 'log_table_name', $columnMapping);
 $logger = new Zend_Log($writer);
 
 $logger->info('Informational message');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The example above writes a single row of log data to the database table named
@@ -122,7 +126,8 @@ $logger = new Zend_Log($writer);
 
 // goes nowhere
 $logger->info('Informational message');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.log.writers.mock"><info><title>Testing with the Mock</title></info>
@@ -148,7 +153,8 @@ var_dump($mock->events[0]);
 //    [priority] => 6
 //    [priorityName] => INFO
 // )
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To clear the events logged by the mock, simply set
@@ -175,6 +181,7 @@ $logger->addWriter($writer2);
 
 // goes to both writers
 $logger->info('Informational message');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

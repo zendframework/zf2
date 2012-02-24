@@ -148,7 +148,8 @@ $filter1 = new Zend_Filter_Encrypt(array('adapter' => 'mcrypt'));
 
 // Use the OpenSSL adapter
 $filter2 = new Zend_Filter_Encrypt(array('adapter' => 'openssl'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To set another adapter you can also use <methodname>setAdapter()</methodname>, and the
@@ -159,7 +160,8 @@ $filter2 = new Zend_Filter_Encrypt(array('adapter' => 'openssl'));
 // Use the Mcrypt adapter
 $filter = new Zend_Filter_Encrypt();
 $filter->setAdapter('openssl');
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -226,7 +228,8 @@ $encrypted = $filter->filter('text_to_be_encoded');
 print $encrypted;
 
 // For decryption look at the Decrypt filter
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.filter.set.encrypt.mcryptdecrypt"><info><title>Decryption with Mcrypt</title></info>
@@ -257,7 +260,8 @@ $filter->setVector('myvector');
 
 $decrypted = $filter->filter('encoded_text_normally_unreadable');
 print $decrypted;
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -299,7 +303,8 @@ $filter->setPublicKey(array(
    '/public/key/path/first.pem',
    '/public/key/path/second.pem'
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -328,7 +333,8 @@ $filter->setPublicKey(array(
    '/public/key/path/second.pem'
 ));
 $filter->setPassphrase('mypassphrase');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             At last, when you use OpenSSL you need to give the receiver the encrypted content, the
@@ -364,7 +370,8 @@ $envelope  = $filter->getEnvelopeKey();
 print $encrypted;
 
 // For decryption look at the Decrypt filter
-]]></programlisting>
+]]>
+</programlisting>
 
         <section xml:id="zend.filter.set.encrypt.openssl.simplified"><info><title>Simplified usage with Openssl</title></info>
             
@@ -392,7 +399,8 @@ $encrypted = $filter->filter('text_to_be_encoded');
 print $encrypted;
 
 // For decryption look at the Decrypt filter
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Now the returned value contains the encrypted value and the envelope. You don't
@@ -435,7 +443,8 @@ $filter2 = new Zend_Filter_Encrypt(array(
    'package'     => true,
    'compression' => array('adapter' => 'zip', 'target' => '\usr\tmp\tmp.zip')
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
             <note><info><title>Decryption with same settings</title></info>
                 
@@ -469,7 +478,8 @@ $filter->setEnvelopeKey(array(
    '/key/from/encoder/first.pem',
    '/key/from/encoder/second.pem'
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -496,7 +506,8 @@ $filter->setEnvelopeKey(array(
    '/key/from/encoder/second.pem'
 ));
 $filter->setPassphrase('mypassphrase');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             At last, decode the content. Our complete example for decrypting the previously
@@ -519,6 +530,7 @@ $filter->setPassphrase('mypassphrase');
 
 $decrypted = $filter->filter('encoded_text_normally_unreadable');
 print $decrypted;
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

@@ -24,7 +24,8 @@ CREATE TABLE `session` (
   `data` text,
   PRIMARY KEY (`id`)
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <programlisting language="php"><![CDATA[
 //get your database connection ready
@@ -54,7 +55,8 @@ Zend_Session::setSaveHandler(new Zend_Session_SaveHandler_DbTable($config));
 Zend_Session::start();
 
 //now you can use Zend_Session like any other time
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>
@@ -75,7 +77,8 @@ CREATE TABLE `session` (
     `session_data` text,
     PRIMARY KEY (`Session_ID`, `save_path`, `name`)
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <programlisting language="php"><![CDATA[
 //setup your DB connection like before
@@ -107,6 +110,7 @@ Zend_Session::setSaveHandler(new Zend_Session_SaveHandler_DbTable($config));
 Zend_Session::start();
 
 //use Zend_Session as normal
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

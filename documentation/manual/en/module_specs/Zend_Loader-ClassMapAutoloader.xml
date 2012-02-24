@@ -38,7 +38,8 @@
 
         <programlisting language="sh"><![CDATA[
 php classmap_generator.php Some/Directory/
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This will create a file named <filename>Some/Directory/.classmap.php</filename>, which
@@ -62,7 +63,8 @@ $loader->registerAutoloadMap('Some/Directory/.classmap.php');
 
 // Register with spl_autoload:
 $loader->register();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             At this point, you may now use any classes referenced in your class map.
@@ -102,7 +104,8 @@ $config = array(
         'Test\Bootstrap'        => __DIR__ . '/tests/Bootstrap.php',
     ),
 );
-]]></programlisting>
+]]>
+</programlisting>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -315,7 +318,8 @@ APPLICATION_PATH . '/../library/.classmap.php', // file-based class map
         'Test\Bootstrap'        => APPLICATION_PATH . '/../tests/Bootstrap.php',
     ),
 );
-]]></programlisting>
+]]>
+</programlisting>
             
             <para>
                 An eqivalent INI style configuration might look like this:
@@ -325,7 +329,8 @@ APPLICATION_PATH . '/../library/.classmap.php', // file-based class map
 classmap.library = APPLICATION_PATH "/../library/.classmap.php"
 classmap.resources.Application\Bootstrap = APPLICATION_PATH "/Bootstrap.php"
 classmap.resources.Test\Bootstrap = APPLICATION_PATH "/../tests/Bootstrap.php"
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Once you have your configuration, you can pass it either to the constructor of the
@@ -347,7 +352,8 @@ $loader->setOptions($config);
 // To registerAutoloadMaps():
 $loader = new Zend\Loader\ClassMapAutoloader();
 $loader->registerAutoloadMaps($config);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

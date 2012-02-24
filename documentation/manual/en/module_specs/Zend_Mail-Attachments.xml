@@ -22,7 +22,8 @@ $mail->createAttachment($myImage,
                         'image/gif',
                         Zend_Mime::DISPOSITION_INLINE,
                         Zend_Mime::ENCODING_BASE64);
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>
@@ -42,7 +43,8 @@ $at->encoding    = Zend_Mime::ENCODING_BASE64;
 $at->filename    = 'test.gif';
 
 $mail->send();
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         An alternative is to create an instance of <classname>Zend_Mime_Part</classname> and add it
@@ -61,5 +63,6 @@ $at->filename    = 'test.gif';
 $mail->addAttachment($at);
 
 $mail->send();
-]]></programlisting>
+]]>
+</programlisting>
 </section>

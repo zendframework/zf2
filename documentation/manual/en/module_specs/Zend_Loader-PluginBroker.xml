@@ -68,7 +68,8 @@ use Zend\View\HelperBroker;
 $broker    = new HelperBroker();
 $urlHelper = $broker->load('url', array('router' => $router));
 echo $urlHelper->simple('sign', 'guestbook');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can seed the broker as well, using the <methodname>register()</methodname> method.
@@ -78,7 +79,8 @@ echo $urlHelper->simple('sign', 'guestbook');
 
         <programlisting language="php"><![CDATA[
 $broker->register('url', $urlHelper);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.loader.plugin-broker.options"><info><title>Configuration Options</title></info>
@@ -373,7 +375,8 @@ $broker->register('url', $urlHelper);
 $broker->setValidator(function($plugin) {
     return ($plugin instanceof \Traversable);
 });
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     Passing a null value will clear the validator; otherwise, the method expects any
@@ -436,7 +439,8 @@ $broker->setClassLoader(new HelperLoader)
                && ($plugin instanceof \ArrayAccess)
            );
        });
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Any plugins loaded that do not satisfy that criteria will no raise an exception in
@@ -492,7 +496,8 @@ class HelperBroker extends PluginBroker
         );
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 You may now use this class as a plugin broker anywhere in your code, typehint on it,

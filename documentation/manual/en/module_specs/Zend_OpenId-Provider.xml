@@ -46,7 +46,8 @@ if (!$server->hasUser(TEST_ID)) {
 </head><body>
 <?php echo TEST_ID;?>
 </body></html>
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -81,7 +82,8 @@ if (is_string($ret)) {
     header('HTTP/1.0 403 Forbidden');
     echo 'Forbidden';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note>
@@ -173,7 +175,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
 </form>
 </body>
 </html>
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -233,7 +236,8 @@ is your identity URL.
 </form>
 </body>
 </html>
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -292,7 +296,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' &&
         echo 'Forbidden';
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -345,7 +350,8 @@ if (!$server->hasUser(TEST_ID)) {
 <?php echo TEST_ID;?>
 </body>
 </html>
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -399,7 +405,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' &&
         echo 'Forbidden';
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 

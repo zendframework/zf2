@@ -372,7 +372,8 @@
 
         <programlisting language="php"><![CDATA[
 $cache = Zend_Cache::factory('Core', 'Zend Platform');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             There are no options for this backend.
@@ -401,7 +402,8 @@ $cache = Zend_Cache::factory('Core', 'Zend Platform');
 
         <programlisting language="php"><![CDATA[
 $cache = Zend_Cache::factory('Core', 'Two Levels');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Available options are :
@@ -552,7 +554,8 @@ $cache = Zend_Cache::factory('Core', 'Two Levels');
         <programlisting language="php"><![CDATA[
 $cache = Zend_Cache::factory('Core', 'Zend_Cache_Backend_ZendServer_Disk',
                              $frontendOptions, $backendOptions, false, true);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             There is no option for this backend.
@@ -631,7 +634,8 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 
 RewriteRule ^.*$ index.php [NC,L]
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above assumes static files are cached to the directory

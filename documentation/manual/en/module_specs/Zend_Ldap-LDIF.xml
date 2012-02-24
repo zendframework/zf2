@@ -61,7 +61,8 @@ sn;lang-en: Ogasawara
 cn;lang-en: Rodney Ogasawara
 title;lang-en: Sales, Director
 */
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.ldap.ldif.decode"><info><title>Deserialize a LDIF string into a LDAP entry</title></info>
@@ -121,6 +122,7 @@ $data = array(
     'title;lang-en'              => array('Sales, Director'),
 );
 */
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

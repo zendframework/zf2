@@ -32,7 +32,8 @@ interface PrefixPathMapper
     public function addPrefixPath($prefix, $path);
     public function removePrefixPath($prefix, $path);
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.loader.prefix-path-mapper.options"><info><title>Configuration Options</title></info>

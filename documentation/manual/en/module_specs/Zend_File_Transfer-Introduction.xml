@@ -58,7 +58,8 @@
     <br />
     <input type="submit" value="Upload File" />
 </form>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
            For convenience, you can use <link linkend="zend.form.standardElements.file">Zend_Form_Element_File</link> instead of
@@ -80,7 +81,8 @@ if (!$adapter->receive()) {
     $messages = $adapter->getMessages();
     echo implode("\n", $messages);
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This code listing demonstrates the simplest usage of
@@ -200,7 +202,8 @@ foreach ($files as $file => $info) {
 }
 
 $upload->receive();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -274,7 +277,8 @@ $names = $upload->getFileName();
 
 // Returns the file names from the 'foo' form element
 $names = $upload->getFileName('foo');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note>
@@ -305,7 +309,8 @@ $size = $upload->getFileSize();
 // Switches of the SI notation to return plain numbers
 $upload->setOption(array('useByteString' => false));
 $size = $upload->getFileSize();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Client given filesize</title></info>
@@ -337,7 +342,8 @@ $hash = $upload->getHash('md5');
 
 // Returns the hash for the 'foo' form element
 $names = $upload->getHash('crc32', 'foo');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Return value</title></info>
@@ -365,7 +371,8 @@ $mime = $upload->getMimeType();
 
 // Returns the mimetype for the 'foo' form element
 $names = $upload->getMimeType('foo');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Client given mimetype</title></info>
@@ -460,7 +467,8 @@ $upload = null;
 while (!$upload['done']) {
     $upload = Zend_File_Transfer_Adapter_Http:getProgress($upload);
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -571,7 +579,8 @@ while (!$upload['done']) {
     print "\nActual progress:".$upload['message'];
     // do whatever you need
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <note><info><title>Knowing the file to get the progress from</title></info>

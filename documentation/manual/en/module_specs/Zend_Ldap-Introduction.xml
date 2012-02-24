@@ -62,7 +62,8 @@ $ldap = new Zend_Ldap($options);
 $acctname = $ldap->getCanonicalAccountName('abaker',
                                            Zend_Ldap::ACCTNAME_FORM_DN);
 echo "$acctname\n";
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you are using Microsoft AD a simple example is:
@@ -82,7 +83,8 @@ $ldap = new Zend_Ldap($options);
 $acctname = $ldap->getCanonicalAccountName('bcarter',
                                            Zend_Ldap::ACCTNAME_FORM_DN);
 echo "$acctname\n";
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Note that we use the <methodname>getCanonicalAccountName()</methodname> method
@@ -127,7 +129,8 @@ $ldap->bind('abaker', 'moonbike55');
 $acctname = $ldap->getCanonicalAccountName('abaker',
                                            Zend_Ldap::ACCTNAME_FORM_DN);
 echo "$acctname\n";
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The <methodname>bind()</methodname> call in this example sees that
@@ -280,7 +283,8 @@ foreach ($multiOptions as $name => $options) {
         }
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 If the bind fails for any reason, the next set of server options is tried.

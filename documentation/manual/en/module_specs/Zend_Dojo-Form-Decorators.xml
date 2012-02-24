@@ -54,7 +54,8 @@ $element->setDecorators(array(
     'Label',
     'ContentPane',
 ));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -131,7 +132,8 @@ $subForm->setDecorators(array(
     array('HtmlTag', array('tag' => 'dl')),
     'ContentPane',
 ));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

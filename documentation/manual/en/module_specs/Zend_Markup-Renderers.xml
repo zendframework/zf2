@@ -39,7 +39,8 @@ $bbcode->addMarkup(
 
 // now, this will output: 'my -bar-markup-baz-'
 echo $bbcode->render('my [foo]markup[/foo]');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Please note that creating your own markups only makes sense when your parser also
@@ -80,7 +81,8 @@ class My_Markup_Renderer_Html_Upper
     }
 
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Now you can add the 'upper' markup, with as callback, an instance
@@ -109,7 +111,8 @@ $bbcode->addMarkup(
 
 // now, this will output: 'my !up!MARKUP!up!'
 echo $bbcode->render('my [upper]markup[/upper]');
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 

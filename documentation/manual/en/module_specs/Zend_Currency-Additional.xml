@@ -94,7 +94,8 @@ var_dump($currency->getName());
 
 var_dump($currency->getName('EUR'));
 // returns 'Euro'
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As you can see, several methods allow to use additional parameters to override the
@@ -129,7 +130,8 @@ $cache = Zend_Cache::factory('Core',
                              array('cache_dir'
                                        => dirname(__FILE__) . '/_files/'));
 Zend_Currency::setCache($cache);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

@@ -36,7 +36,8 @@ $filter = new Zend_Filter_StringToUpper();
 
 print $filter->filter('Sample');
 // returns "SAMPLE"
-]]></programlisting>
+]]>
+</programlisting>
 
     </section>
 
@@ -54,6 +55,7 @@ $filter = new Zend_Filter_StringToUpper(array('encoding' => 'UTF-8'));
 
 // or do this afterwards
 $filter->setEncoding('ISO-8859-1');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

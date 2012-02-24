@@ -59,7 +59,8 @@ public function __construct(IntrospectionStrategy $introspectionStrategy = null,
         $this->setExplicitClasses($explicitClasses);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The IntrospectionStrategy object is an object that determines the rules, or
@@ -100,7 +101,8 @@ public function __construct(AnnotationManager $annotationManager = null)
 {
     $this->annotationManager = ($annotationManager) ?: $this->createDefaultAnnotationManager();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This goes to say that an AnnotationManager is not required, but if you wish to create
@@ -157,7 +159,8 @@ foreach ($components as $component) {
         '<?php return ' . var_export($diCompiler->toArrayDefinition()->toArray(), true) . ';'
     );
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This will create a couple of files that will return an array of the definition
@@ -176,7 +179,8 @@ protected function setupDi(Application $app)
     $di->instanceManager()->addTypePreference('Zend\Di\Locator', $di);
     $app->setLocator($di);
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above code would more than likely go inside your application's or module's bootstrap

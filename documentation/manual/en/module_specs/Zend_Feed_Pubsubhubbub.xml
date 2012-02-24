@@ -155,7 +155,8 @@ if (!$publisher->isSuccess()) {
 }
 
 // reschedule notifications for the failed Hubs in $failedHubs
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you prefer having more concrete control over the Publisher, the methods
@@ -273,7 +274,8 @@ $subscriber->addHubUrl('http://hubbub.example.com');
 $subscriber->setTopicUrl('http://www.example.net/rss.xml');
 $subscriber->setCallbackUrl('http://www.mydomain.com/hubbub/callback');
 $subscriber->subscribeAll();
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 In order to store subscriptions and offer access to this data for general use,
@@ -313,7 +315,8 @@ CREATE TABLE IF NOT EXISTS `subscription` (
   `subscription_state` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Behind the scenes, the Subscriber above will send a request to the Hub endpoint
@@ -544,7 +547,8 @@ if ($callback->hasFeedUpdate()) {
      *  Process the feed update asynchronously to avoid a Hub timeout.
      */
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <note>
                 <para>
@@ -651,7 +655,8 @@ class CallbackController extends Zend_Controller_Action
     }
 
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Actually adding the route which would map the path-appended key
@@ -666,7 +671,8 @@ resources.router.routes.callback.route = "callback/:subkey"
 resources.router.routes.callback.defaults.module = "default"
 resources.router.routes.callback.defaults.controller = "callback"
 resources.router.routes.callback.defaults.action = "index"
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 </section>

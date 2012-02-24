@@ -98,7 +98,8 @@ try {
 }
 
 $cal = new Zend_Gdata_Calendar($client);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.gdata.clientlogin.terminating"><info><title>Terminating a ClientLogin authenticated Http Client</title></info>

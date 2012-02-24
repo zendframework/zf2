@@ -50,7 +50,8 @@ $storageClient = new Zend_Service_WindowsAzure_Storage_Table(
 $result = $storageClient->createTable('testtable');
 
 echo 'New table name is: ' . $result->Name;
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -73,7 +74,8 @@ $result = $storageClient->listTables();
 foreach ($result as $table) {
     echo 'Table name is: ' . $table->Name . "\r\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>
@@ -137,7 +139,8 @@ class SampleEntity extends Zend_Service_WindowsAzure_Storage_TableEntity
     */
     public $Visible = false;
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -220,7 +223,8 @@ class SampleEntity extends Zend_Service_WindowsAzure_Storage_TableEntity
      */
     public $Visible = false;
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -240,7 +244,8 @@ class SampleEntity extends Zend_Service_WindowsAzure_Storage_TableEntity
  * @azure <property name in Windows Azure> <optional property type>
  */
 public $<property name in PHP>;
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -256,7 +261,8 @@ public $<property name in PHP>;
  * @azure Age Edm.Int64
  */
 public $Age;
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -389,7 +395,8 @@ $target = new Zend_Service_WindowsAzure_Storage_DynamicTableEntity(
 );
 $target->Name = 'Name'; // Will add property "Name" of type "Edm.String"
 $target->Age  = 25;     // Will add property "Age" of type "Edm.Int32"
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -410,7 +417,8 @@ $target->Age  = 25;     // Will add property "Age" of type "Edm.Int32"
 
 // Change type of property "Age" to "Edm.Int32":
 $target->setAzurePropertyType('Age', 'Edm.Int64');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -449,7 +457,8 @@ $result = $storageClient->insertEntity('testtable', $entity);
 // Check the timestamp and etag of the newly inserted entity
 echo 'Timestamp: ' . $result->getTimestamp() . "\n";
 echo 'Etag: ' . $result->getEtag() . "\n";
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </section>
 
@@ -471,7 +480,8 @@ $storageClient = new Zend_Service_WindowsAzure_Storage_Table(
 $entity= $storageClient->retrieveEntityById(
     'testtable', 'partition1', 'row1', 'SampleEntity'
 );
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </section>
 
@@ -496,7 +506,8 @@ $entity = $storageClient->retrieveEntityById(
 
 $entity->Name = 'New name';
 $result = $storageClient->updateEntity('testtable', $entity);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -521,7 +532,8 @@ $entity->Name = 'New name';
 
 // last parameter instructs the Etag check:
 $result = $storageClient->updateEntity('testtable', $entity, true);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </section>
 
@@ -544,7 +556,8 @@ $entity = $storageClient->retrieveEntityById(
     'testtable', 'partition1', 'row1', 'SampleEntity'
 );
 $result = $storageClient->deleteEntity('testtable', $entity);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </section>
         </section>
@@ -594,7 +607,8 @@ $entities = $storageClient->storageClient->retrieveEntities(
 foreach ($entities as $entity) {
     echo 'Name: ' . $entity->Name . "\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -621,7 +635,8 @@ $entities = $storageClient->storageClient->retrieveEntities(
 foreach ($entities as $entity) {
     echo 'Name: ' . $entity->Name . "\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -660,7 +675,8 @@ foreach ($entities as $entity) {
 
 // Commit
 $batch->commit();
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>
@@ -696,7 +712,8 @@ $sessionHandler = new Zend_Service_WindowsAzure_SessionHandler(
     $storageClient , 'sessionstable'
 );
 $sessionHandler->register();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -732,7 +749,8 @@ if (!isset($_SESSION['firstVisit'])) {
 }
 
 // ...
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <warning>

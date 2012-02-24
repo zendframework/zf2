@@ -30,7 +30,8 @@
 
       <programlisting language="php"><![CDATA[
 prompt> git clone --recursive git://github.com/zendframework/ZendSkeletonApplication.git my-application
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.mvc.quick-start.install.manual-installation">
@@ -159,7 +160,8 @@ prompt> git clone --recursive git://github.com/zendframework/ZendSkeletonApplica
 <?php
 // autoload_classmap.php
 return array();
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       We'll also edit our <filename>config/module.config.php</filename>
@@ -182,7 +184,8 @@ return array(
         ),
     ),
 );
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       Fill in "module-name" with a lowercased, dash-separated
@@ -221,7 +224,8 @@ class Module implements AutoloaderProvider
         return include __DIR__ . '/config/module.config.php';
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       At this point, you now have your module configured properly. Let's
@@ -324,7 +328,8 @@ class HelloController extends ActionController
         return array('message' => $message);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       So, what are we doing here?
@@ -406,7 +411,8 @@ class HelloController extends ActionController
 <h1>Greetings!</h1>
 
 <p>You said "$foo".</p>
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       That's it. Save the file.
@@ -465,7 +471,8 @@ return array(
     ),
     // ... di configuration ...
 );
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       As before, <varname>&lt;module-name&gt;</varname> should be the
@@ -518,7 +525,8 @@ return array(
         ),
     ),
 );
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       The part to pay attention to above is the "alias" key and
@@ -586,7 +594,8 @@ return array(
         ),
     ),
 );
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       Replace <varname>&lt;module namespace&gt;</varname> with the
@@ -608,7 +617,8 @@ return array(
 Module:     Application
 Controller: Index
 Action:     index
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       Now alter the location in your URL to append the path
@@ -620,7 +630,8 @@ Action:     index
 <h1>Greetings!</h1>
 
 <p>You said "foo".</p>
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       Now alter the location to append "?message=bar" and load
@@ -631,7 +642,8 @@ Action:     index
 <h1>Greetings!</h1>
 
 <p>You said "bar".</p>
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       Congratulations! You've created your first ZF2 MVC module!

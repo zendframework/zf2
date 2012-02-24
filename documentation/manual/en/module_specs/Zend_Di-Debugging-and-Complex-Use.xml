@@ -21,7 +21,8 @@
 
         <programlisting language="php"><![CDATA[
     Zend\Di\Display\Console::export($di);
-    ]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you are using a RuntimeDefinition where upon you expect a
@@ -32,7 +33,8 @@
 
         <programlisting language="php"><![CDATA[
         Zend\Di\Display\Console::export($di, array('A\ClassIWantTo\GetTheDefinitionFor'));
-    ]]></programlisting>
+]]>
+</programlisting>
 
     </section>
 
@@ -63,7 +65,8 @@ namespace {
     $di = new Zend\Di\Di;
     $baz = $di->get('Foo\Bar\Baz');
 }
-]]></programlisting>
+]]>
+</programlisting>
 
 
         </section>
@@ -97,7 +100,8 @@ namespace {
     )));
     $baz = $di->get('Foo\Bar\Baz');
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         </section>
 
@@ -147,7 +151,8 @@ namespace {
     )));
     $page = $di->get('Application\Page');
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         </section>
 

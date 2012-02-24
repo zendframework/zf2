@@ -48,7 +48,8 @@ if ($validator->isValid($isbn)) {
 } else {
     // isbn is not valid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This will validate any <acronym>ISBN-10</acronym> and <acronym>ISBN-13</acronym> without
@@ -76,7 +77,8 @@ if ($validator->isValid($isbn)) {
 } else {
     // this is an invalid ISBN-13 value
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above will validate only <acronym>ISBN-13</acronym> values.
@@ -121,7 +123,8 @@ if ($validator->isValid($isbn)) {
 } else {
     // this is an invalid ISBN with separator
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Values without separator</title></info>
             

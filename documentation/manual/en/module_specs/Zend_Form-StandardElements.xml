@@ -64,7 +64,8 @@
 
         <programlisting language="php"><![CDATA[
 $element->addPrefixPath('My_Captcha', 'My/Captcha/', 'captcha');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Captcha's may then be registered using the <methodname>setCaptcha()</methodname>
@@ -78,7 +79,8 @@ $element->setCaptcha(new Zend_Captcha_Figlet());
 
 // Using shortnames:
 $element->setCaptcha('Dumb');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you wish to load your element via configuration, specify either
@@ -107,7 +109,8 @@ $element = new Zend_Form_Element_Captcha('foo', array(
         'timeout' => 300,
     ),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The decorator used is determined by querying the captcha adapter. By
@@ -195,7 +198,8 @@ $element->addValidator('Size', false, 102400);
 // only JPEG, PNG, and GIFs
 $element->addValidator('Extension', false, 'jpg,png,gif');
 $form->addElement($element, 'foo');
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 You also need to ensure that the correct encoding type is provided to
@@ -205,7 +209,8 @@ $form->addElement($element, 'foo');
 
             <programlisting language="php"><![CDATA[
 $form->setAttrib('enctype', 'multipart/form-data');
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 After the form is validated successfully, you must receive the file
@@ -224,7 +229,8 @@ if (!$form->foo->receive()) {
 }
 
 $location = $form->foo->getFileName();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Default Upload Location</title></info>
@@ -255,7 +261,8 @@ $location = $form->foo->getFileName();
 
         <programlisting language="php"><![CDATA[
 $form->getValues();
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -285,7 +292,8 @@ $element = new Zend_Form_Element_File('foo');
 $element->setLabel('Upload an image:')
         ->setDestination('/var/www/upload')
         ->setValueDisabled(true);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Now the file will not be received when you call
@@ -302,7 +310,8 @@ if ($form->isValid($form->getPost())) {
         print "Upload error";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -348,7 +357,8 @@ $form->addElement($element, 'foo');
 if ($form->foo->isUploaded()) {
     // foo file given... do something
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -379,7 +389,8 @@ $element->addValidator('Extension', false, 'jpg,png,gif');
 // defines 3 identical file elements
 $element->setMultiFile(3);
 $form->addElement($element, 'foo');
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 You now have 3 identical file upload elements
@@ -425,7 +436,8 @@ $element->setLabel('Upload an image:')
         ->addValidator('Size', false, 102400) // limit to 100K
         ->setMaxFileSize(102400); // limits the filesize on the client side
 $form->addElement($element, 'foo');
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>MaxFileSize with Multiple File Elements</title></info>
 
@@ -471,7 +483,8 @@ $form->addElement($element, 'foo');
 
         <programlisting language="php"><![CDATA[
 $form->addElement('hash', 'no_csrf_foo', array('salt' => 'unique'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can set the salt later using the <methodname>setSalt($salt)</methodname>
@@ -591,7 +604,8 @@ $element = new Zend_Form_Element_MultiCheckbox('foo', array(
 ));
 
 $element->setValue(array('bar', 'bat'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Note that even when setting a single value, you must pass an array.

@@ -47,7 +47,8 @@ $yt = new Zend_Gdata_YouTube($httpClient,
                              $applicationId,
                              $clientId,
                              $developerKey);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -95,7 +96,8 @@ foreach ($videoFeed as $videoEntry) {
     echo $videoEntry->getVideoDescription();
     echo "\n\n\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -125,7 +127,8 @@ $query->category = 'Comedy/dog';
 
 echo $query->queryUrl . "\n";
 $videoFeed = $yt->getVideoFeed($query);
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -151,7 +154,8 @@ $videoFeed = $yt->getVideoFeed($query);
                 <programlisting language="php"><![CDATA[
 $yt = new Zend_Gdata_YouTube();
 $videoFeed = $yt->getTopRatedVideoFeed();
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -171,7 +175,8 @@ $yt = new Zend_Gdata_YouTube();
 $query = $yt->newVideoQuery();
 $query->setTime('today');
 $videoFeed = $yt->getTopRatedVideoFeed($query);
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -186,7 +191,8 @@ $videoFeed = $yt->getTopRatedVideoFeed($query);
 $yt = new Zend_Gdata_YouTube();
 $url = 'http://gdata.youtube.com/feeds/standardfeeds/top_rated?time=today'
 $videoFeed = $yt->getVideoFeed($url);
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -205,7 +211,8 @@ $videoFeed = $yt->getVideoFeed($url);
                 <programlisting language="php"><![CDATA[
 $yt = new Zend_Gdata_YouTube();
 $videoFeed = $yt->getUserUploads('liz');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -224,7 +231,8 @@ $videoFeed = $yt->getUserUploads('liz');
                 <programlisting language="php"><![CDATA[
 $yt = new Zend_Gdata_YouTube();
 $videoFeed = $yt->getUserFavorites('liz');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -243,7 +251,8 @@ $videoFeed = $yt->getUserFavorites('liz');
                 <programlisting language="php"><![CDATA[
 $yt = new Zend_Gdata_YouTube();
 $videoFeed = $yt->getVideoResponseFeed('abc123813abc');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>
@@ -268,7 +277,8 @@ foreach ($commentFeed as $commentEntry) {
     echo $commentEntry->title->text . "\n";
     echo $commentEntry->content->text . "\n\n\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -285,7 +295,8 @@ $videoEntry = $yt->getVideoEntry('abc123813abc');
 // we don't know the video ID in this example, but we do have the URL
 $commentFeed = $yt->getVideoCommentFeed(null,
                                         $videoEntry->comments->href);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -318,7 +329,8 @@ foreach ($playlistListFeed as $playlistEntry) {
     echo $playlistEntry->description->text . "\n";
     echo $playlistEntry->getPlaylistVideoFeedUrl() . "\n\n\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -337,7 +349,8 @@ foreach ($playlistListFeed as $playlistEntry) {
                 <programlisting language="php"><![CDATA[
 $feedUrl = $playlistEntry->getPlaylistVideoFeedUrl();
 $playlistVideoFeed = $yt->getPlaylistVideoFeed($feedUrl);
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>
@@ -365,7 +378,8 @@ $subscriptionFeed = $yt->getSubscriptionFeed('liz');
 foreach ($subscriptionFeed as $subscriptionEntry) {
     echo $subscriptionEntry->title->text . "\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -387,7 +401,8 @@ $userProfile = $yt->getUserProfile('liz');
 echo "username: " . $userProfile->username->text . "\n";
 echo "age: " . $userProfile->age->text . "\n";
 echo "hometown: " . $userProfile->hometown->text . "\n";
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -530,7 +545,8 @@ try {
 } catch (Zend_Gdata_App_Exception $e) {
     echo $e->getMessage();
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -570,7 +586,8 @@ $tokenHandlerUrl = 'http://gdata.youtube.com/action/GetUploadToken';
 $tokenArray = $yt->getFormUploadToken($myVideoEntry, $tokenHandlerUrl);
 $tokenValue = $tokenArray['token'];
 $postUrl = $tokenArray['url'];
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -598,7 +615,8 @@ $form = '<form action="'. $postUrl .'?nexturl='. $nextUrl .
         '<input name="token" type="hidden" value="'. $tokenValue .'"/>'.
         '<input value="Upload Video File" type="submit" />'.
         '</form>';
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -639,7 +657,8 @@ if ($control instanceof Zend_Gdata_App_Extension_Control) {
         }
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 

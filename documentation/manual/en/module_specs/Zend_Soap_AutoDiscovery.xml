@@ -109,7 +109,8 @@ $wsdl = $autodiscover->generate();
 echo $wsdl->toXml();
 $wsdl->dump("/path/to/file.wsdl");
 $dom = $wsdl->toDomDocument();
-]]></programlisting>
+]]>
+</programlisting>
 
         <note xml:id="zend.soap.autodiscovery.introduction.noserver"><info><title>Zend\Soap\Autodiscover is not a Soap Server</title></info>
 
@@ -131,7 +132,8 @@ if(isset($_GET['wsdl'])) {
     $soap->setClass('HelloWorldService');
     $soap->handle();
 }
-]]></programlisting>
+]]>
+</programlisting>
         </note>
     </section>
 
@@ -149,7 +151,8 @@ $autodiscover->setClass('My_SoapServer_Class')
              ->setUri('http://localhost/server.php')
              ->setServiceName('MySoapService');
 $wsdl = $autodiscover->generate();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The following rules are used while WSDL generation:
@@ -236,7 +239,8 @@ $autodiscover->addFunction('function2');
 $autodiscover->addFunction('function3');
 ...
 $wsdl = $autodiscover->generate();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>The same rules apply to generation as described in the class audodiscover seection above.</para>
     </section>
@@ -348,6 +352,7 @@ $autodiscover->setBindingStyle(
 ...
 $autodiscover->addFunction('myfunc1');
 $wsdl = $autodiscover->generate();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

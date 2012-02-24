@@ -124,7 +124,8 @@ class Searcher {
 }
 
 Searcher::initIndex();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             All the same, the destructor for static properties is correctly invoked at this point in
@@ -177,6 +178,7 @@ Searcher::initIndex();
 ...
 Searcher::commit();
 ...
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

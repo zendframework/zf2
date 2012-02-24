@@ -24,7 +24,8 @@
         <programlisting language="php"><![CDATA[
 // returns -1, 0 or 1
 $cmp = Zend_Version::compareVersion('2.0.0');
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>
@@ -39,6 +40,7 @@ $cmp = Zend_Version::compareVersion('2.0.0');
         <programlisting language="php"><![CDATA[
 // returns 1.11.0 (or a later version)
 echo Zend_Version::getLatest();
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

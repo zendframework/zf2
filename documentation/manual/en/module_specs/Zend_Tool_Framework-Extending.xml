@@ -150,7 +150,8 @@
 
             <programlisting language="php"><![CDATA[
 project.profile = some/path/to/some-directory
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The only reserved <acronym>INI</acronym> prefix is the value "php". The "php" prefix
@@ -164,7 +165,8 @@ project.profile = some/path/to/some-directory
             <programlisting language="php"><![CDATA[
 php.include_path = "/path/to/includes1:/path/to/includes2"
 php.error_reporting = 1
-]]></programlisting>
+]]>
+</programlisting>
 
             <important>
                 <para>

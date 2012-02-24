@@ -22,7 +22,8 @@
 
             <programlisting language="php"><![CDATA[
 Zend_Session::start();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -51,7 +52,8 @@ Zend_Session::start();
 
                 <programlisting language="httpd.conf"><![CDATA[
 php_value session.auto_start 0
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -162,7 +164,8 @@ $userProfileNamespace->lock();
 if ($userProfileNamespace->isLocked()) {
     $userProfileNamespace->unLock();
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -195,7 +198,8 @@ $s->setExpirationSeconds(60);
 // The "expireAll" namespace will be marked "expired" on
 // the first request received after 60 seconds have elapsed,
 // or in 5 hops, whichever happens first.
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -235,7 +239,8 @@ $testSpace = new Zend_Session_Namespace('testSpace');
 $testSpace->setExpirationSeconds(300, 'accept_answer');
 $testSpace->accept_answer = true;
 //...
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Below, the controller that processes the answers to test questions determines
@@ -254,7 +259,8 @@ else {
     // not within time
 }
 // ...
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -299,7 +305,8 @@ try {
     echo 'Cannot instantiate this namespace since ' .
          '$authSpaceAccessor2 was created\n';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -341,7 +348,8 @@ $sessionNamespace->array = array();
 // may not work as expected before PHP 5.2.1
 $sessionNamespace->array['testKey'] = 1;
 echo $sessionNamespace->array['testKey'];
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.session.advanced_usage.arrays.example.building_prior"><info><title>Building Arrays Prior to Session Storage</title></info>
@@ -355,7 +363,8 @@ echo $sessionNamespace->array['testKey'];
             <programlisting language="php"><![CDATA[
 $sessionNamespace = new Zend_Session_Namespace('Foo');
 $sessionNamespace->array = array('a', 'b', 'c');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -389,7 +398,8 @@ $tmp['fruit'] = 'peach';
 $sessionNamespace->array = $tmp;
 
 echo $sessionNamespace->array['fruit']; // prints "peach"
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.session.advanced_usage.arrays.example.workaround.reference"><info><title>Workaround: store array containing reference</title></info>
@@ -406,7 +416,8 @@ $a = array(1, 2, 3);
 $myNamespace->someArray = array( &$a );
 $a['foo'] = 'bar';
 echo $myNamespace->someArray['foo']; // prints "bar"
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -503,7 +514,8 @@ $result = $this->sortResult($result);
 session_start(); // resume artificially suspended session
 $this->assertTrue($result === ';p === plum',
     "iteration over named Zend_Session namespace failed (result=$result)");
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

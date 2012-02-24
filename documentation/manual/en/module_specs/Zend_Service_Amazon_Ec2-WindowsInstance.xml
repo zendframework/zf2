@@ -143,7 +143,8 @@
 $ec2_instance = new Zend_Service_Amazon_Ec2_Instance_Windows('aws_key',
                                                      'aws_secret_key');
 $return = $ec2_instance->bundle('instanceId', 's3Bucket', 's3Prefix');
-]]></programlisting>
+]]>
+</programlisting>
 
         </example>
 
@@ -164,7 +165,8 @@ $return = $ec2_instance->bundle('instanceId', 's3Bucket', 's3Prefix');
 $ec2_instance = new Zend_Service_Amazon_Ec2_Instance_Windows('aws_key',
                                                      'aws_secret_key');
 $return = $ec2_instance->describeBundle('bundleId');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.service.amazon.ec2.windows.instance.operations.cancel"><info><title>Cancels an Amazon EC2 bundling operation</title></info>
@@ -184,7 +186,8 @@ $return = $ec2_instance->describeBundle('bundleId');
 $ec2_instance = new Zend_Service_Amazon_Ec2_Instance_Windows('aws_key',
                                                      'aws_secret_key');
 $return = $ec2_instance->cancelBundle('bundleId');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

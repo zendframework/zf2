@@ -26,8 +26,9 @@
 <?php
     echo $this->placeholder('foo');
     // outputs "Some text for later"
-?>
-]]></programlisting>
+
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.view.helpers.initial.placeholder.aggregation"><info><title>Using Placeholders to Aggregate Content</title></info>
@@ -85,8 +86,9 @@
 
         <programlisting language="php"><![CDATA[
 <!-- first view script -->
-<?php $this->placeholder('foo')->exchangeArray($this->data) ?>
-]]></programlisting>
+<?php $this->placeholder('foo')->exchangeArray($this->data) 
+]]>
+</programlisting>
 
         <programlisting language="php"><![CDATA[
 <!-- later view script -->
@@ -100,8 +102,9 @@ $this->placeholder('foo')->setPrefix("<ul>\n    <li>")
 <?php
     echo $this->placeholder('foo');
     // outputs as unordered list with pretty indentation
-?>
-]]></programlisting>
+
+]]>
+</programlisting>
 
         <para>
             Because the <classname>Placeholder</classname> container objects extend
@@ -118,8 +121,9 @@ $this->placeholder('foo')->setPrefix("<ul>\n    <li>")
 <?php
 $foo = $this->placeholder('foo');
 echo $foo['bar'];
-?>
-]]></programlisting>
+
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.view.helpers.initial.placeholder.capture"><info><title>Using Placeholders to Capture Content</title></info>
@@ -184,8 +188,9 @@ foreach ($this->data as $datum): ?>
 <?php endforeach; ?>
 <?php $this->placeholder('foo')->captureEnd() ?>
 
-<?php echo $this->placeholder('foo') ?>
-]]></programlisting>
+<?php echo $this->placeholder('foo') 
+]]>
+</programlisting>
 
         <programlisting language="php"><![CDATA[
 <!-- Capture to key -->
@@ -198,8 +203,9 @@ foreach ($this->data as $datum): ?>
  <?php endforeach; ?>
 <?php $this->placeholder('foo')->captureEnd() ?>
 
-<?php echo $this->placeholder('foo')->data ?>
-]]></programlisting>
+<?php echo $this->placeholder('foo')->data 
+]]>
+</programlisting>
     </example>
 
     <section xml:id="zend.view.helpers.initial.placeholder.implementations"><info><title>Concrete Placeholder Implementations</title></info>

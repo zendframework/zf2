@@ -28,7 +28,8 @@
             <programlisting language="php"><![CDATA[
 $ec2_img = new Zend_Service_Amazon_Ec2_Image('aws_key','aws_secret_key');
 $ip = $ec2_img->register('imageLocation');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.service.amazon.ec2.images.deregister"><info><title>Deregister an AMI with EC2</title></info>
@@ -47,7 +48,8 @@ $ip = $ec2_img->register('imageLocation');
             <programlisting language="php"><![CDATA[
 $ec2_img = new Zend_Service_Amazon_Ec2_Image('aws_key','aws_secret_key');
 $ip = $ec2_img->deregister('imageId');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.service.amazon.ec2.images.describe"><info><title>Describe an AMI</title></info>
@@ -154,7 +156,8 @@ $ip = $ec2_img->deregister('imageId');
             <programlisting language="php"><![CDATA[
 $ec2_img = new Zend_Service_Amazon_Ec2_Image('aws_key','aws_secret_key');
 $ip = $ec2_img->describe();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -237,7 +240,8 @@ $return = $ec2_img->modifyAttribute('imageId',
                                     null,
                                     null,
                                     'productCode');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.service.amazon.ec2.images.attribute.reset"><info><title>Reset an AMI Attribute</title></info>
@@ -251,7 +255,8 @@ $return = $ec2_img->modifyAttribute('imageId',
             <programlisting language="php"><![CDATA[
 $ec2_img = new Zend_Service_Amazon_Ec2_Image('aws_key','aws_secret_key');
 $return = $ec2_img->resetAttribute('imageId', 'launchPermission');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.service.amazon.ec2.images.attribute.describe"><info><title>Describe AMI Attribute</title></info>
@@ -271,7 +276,8 @@ $return = $ec2_img->resetAttribute('imageId', 'launchPermission');
             <programlisting language="php"><![CDATA[
 $ec2_img = new Zend_Service_Amazon_Ec2_Image('aws_key','aws_secret_key');
 $return = $ec2_img->describeAttribute('imageId', 'launchPermission');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

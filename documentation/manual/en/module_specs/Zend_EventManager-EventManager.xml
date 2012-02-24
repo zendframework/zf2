@@ -63,7 +63,8 @@ class Foo
         return $this->events;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above allows users to access the <classname>EventManager</classname> instance, or
@@ -90,7 +91,8 @@ class Foo
         $this->events()->trigger(__FUNCTION__, $this, $params);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In turn, triggering events is only interesting if something is listening for the event.
@@ -121,7 +123,8 @@ $foo->events()->attach('bar', function ($e) use ($log) {
 // Results in log message:
 $foo->bar('baz', 'bat');
 // reading: bar called on Foo, using params {"baz" : "baz", "bat" : "bat"}"
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Note that the second argument to <methodname>attach()</methodname> is any valid callback;
@@ -170,7 +173,8 @@ $foo = new Foo();
 $foo->bar('baz', 'bat');
 // results in log message: 
 // bar called on Foo, using params {"baz" : "baz", "bat" : "bat"}"
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <classname>EventManager</classname> also provides the ability to detach listeners,
@@ -573,7 +577,8 @@ $v->events()->attach('inject', function($e) {
 $v->inject(array(
     'date' => '2011-08-10 15:30:29',
 ));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.event-manager.event-manager.examples.short-circuiting">
@@ -593,7 +598,8 @@ $listener = function($e) {
     $e->stopPropagation(true);
     return $response;
 };
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Alternately, we could do the check from the method triggering the event.
@@ -612,7 +618,8 @@ class Foo implements Dispatchable
         });
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Typically, you may want to return a value that stopped execution, or use it some
@@ -644,7 +651,8 @@ class Foo implements Dispatchable
         // continue...
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.event-manager.event-manager.examples.priority">
@@ -693,7 +701,8 @@ class SomeValueObject
         $this->events()->trigger('get.post', $this, $params);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Now, let's create a <interfacename>ListenerAggregate</interfacename> that can handle
@@ -739,7 +748,8 @@ class CacheListener implements ListenerAggregate
         $this->cache->save($content, $id);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 We can then attach the aggregate to an instance.
@@ -749,7 +759,8 @@ class CacheListener implements ListenerAggregate
 $value         = new SomeValueObject();
 $cacheListener = new CacheListener($cache);
 $value->events()->attachAggregate($cacheListener);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Now, as we call <methodname>get()</methodname>, if we have a cached entry, it will

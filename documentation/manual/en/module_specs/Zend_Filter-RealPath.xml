@@ -48,7 +48,8 @@ $path   = '/www/var/path/../../mypath';
 $filtered = $filter->filter($path);
 
 // returns '/www/mypath'
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.filter.set.realpath.exists"><info><title>Non existing paths</title></info>
@@ -68,6 +69,7 @@ $filtered = $filter->filter($path);
 
 // returns '/www/non/existing/path'
 // even when file_exists or realpath would return false
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

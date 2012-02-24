@@ -118,7 +118,8 @@ $this->headLink()->appendStylesheet('/styles/basic.css')
                                      array('id' => 'my_stylesheet'));
 ?>
 <?php // rendering the links: ?>
-<?php echo $this->headLink() ?>
-]]></programlisting>
+<?php echo $this->headLink() 
+]]>
+</programlisting>
     </example>
 </section>

@@ -30,7 +30,8 @@
             <programlisting language="php"><![CDATA[
 $bugs   = new Bugs();
 $rowset = $bugs->fetchAll("bug_status = 'NEW'");
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -63,7 +64,8 @@ if ($rowCount > 0) {
 } else {
     echo 'no rows matched the query';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.db.table.rowset.rows.current.example"><info><title>Reading a Single Row from a Rowset</title></info>
@@ -79,7 +81,8 @@ if ($rowCount > 0) {
 $bugs   = new Bugs();
 $rowset = $bugs->fetchAll("bug_id = 1");
 $row    = $rowset->current();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -118,7 +121,8 @@ foreach ($rowset as $row) {
     // write the change to the database
     $row->save();
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.db.table.rowset.rows.seek.example"><info><title>Seeking to a known position into a Rowset</title></info>
@@ -149,7 +153,8 @@ $row9 = $rowset->current();
 // and use it
 $row9->assigned_to = 'mmouse';
 $row9->save();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -175,7 +180,8 @@ $row9 = $rowset->getRow(8);
 // and use it:
 $row9->assigned_to = 'mmouse';
 $row9->save();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             After you have access to an individual Row object, you can manipulate the Row using
@@ -211,7 +217,8 @@ foreach ($rowsetArray as $rowArray) {
     ++$rowCount;
     echo "\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -247,7 +254,8 @@ $rowset = $bugs->fetchAll();
 $serializedRowset = serialize($rowset);
 
 // Now you can write $serializedRowset to a file, etc.
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.db.table.rowset.serialize.example.unserialize"><info><title>Unserializing a Serialized Rowset</title></info>
@@ -272,7 +280,8 @@ $rowsetDisconnected = unserialize($serializedRowset);
 // Now you can use object methods and properties, but read-only
 $row = $rowsetDisconnected->current();
 echo $row->bug_description;
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Why do Rowsets unserialize in a disconnected state?</title></info>
@@ -315,7 +324,8 @@ $row = $rowset->current();
 // Now you can make changes to the row and save them
 $row->bug_status = 'FIXED';
 $row->save();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -355,7 +365,8 @@ class Products extends Zend_Db_Table_Abstract
 // Or specify a custom Rowset to be used in one
 // instance of a Table class.
 $bugs = new Bugs(array('rowsetClass' => 'MyRowset'));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -394,7 +405,8 @@ class Bugs extends Zend_Db_Table_Abstract
     protected $_name = 'bugs';
     protected $_rowsetClass = 'MyBugsRowset';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

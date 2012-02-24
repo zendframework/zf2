@@ -68,7 +68,8 @@ if ($validator->isValid($hostname)) {
         echo "$message\n";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This will match the hostname <varname>$hostname</varname> and on failure populate
@@ -122,7 +123,8 @@ if ($validator->isValid($hostname)) {
         echo "$message\n";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As well as using <constant>ALLOW_ALL</constant> to accept all common hostnames types
@@ -134,7 +136,8 @@ if ($validator->isValid($hostname)) {
         <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_Hostname(Zend_Validate_Hostname::ALLOW_DNS |
                                         Zend_Validate_Hostname::ALLOW_IP);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.hostname.idn"><info><title>Validating International Domains Names</title></info>
@@ -177,7 +180,8 @@ $validator =
             'idn'   => false
         )
     );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Alternatively you can either pass <constant>TRUE</constant> or
@@ -220,7 +224,8 @@ $validator =
             'tld'   => false
         )
     );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Alternatively you can either pass <constant>TRUE</constant> or

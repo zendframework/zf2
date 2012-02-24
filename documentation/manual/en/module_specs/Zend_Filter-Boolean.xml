@@ -54,7 +54,8 @@ $filter = new Zend_Filter_Boolean();
 $value  = '';
 $result = $filter->filter($value);
 // returns false
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This means that without providing any configuration,
@@ -189,7 +190,8 @@ $filter = new Zend_Filter_Boolean(array(
         'zero',
     ),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can also give an instance of <classname>Zend_Config</classname> to set the desired
@@ -227,7 +229,8 @@ $filter->setLocale('en');
 
 // returns true
 $filter->filter('yes');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.filter.set.boolean.casting"><info><title>Disable casting</title></info>
@@ -335,6 +338,7 @@ echo $filter->filter(1);
 
 // returns the value
 echo $filter->filter(2);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

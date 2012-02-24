@@ -20,7 +20,8 @@ $tr2 = new Zend_Mail_Transport_Smtp('other_server@example.com');
 $mail->send($tr1);
 $mail->send($tr2);
 $mail->send();  // use default again
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <note><info><title>Additional transports</title></info>

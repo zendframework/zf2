@@ -134,7 +134,8 @@ $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
 
 // Create an instance of the service
 $service = new Zend_Gdata_Photos($client);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 A service instance using AuthSub can be created in a similar, though slightly more
@@ -227,7 +228,8 @@ function getAuthSubHttpClient()
  * to the AuthSub server if necessary.
  */
 $service = new Zend_Gdata_Photos(getAuthSubHttpClient());
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Finally, an unauthenticated server can be created for use with public feeds:
@@ -236,7 +238,8 @@ $service = new Zend_Gdata_Photos(getAuthSubHttpClient());
             <programlisting language="php"><![CDATA[
 // Create an instance of the service using an unauthenticated HTTP client
 $service = new Zend_Gdata_Photos();
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 
@@ -282,7 +285,8 @@ $service = new Zend_Gdata_Photos($client);
 
 $query = new Zend_Gdata_Photos_UserQuery();
 $query->setUser("sample.user");
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             for each query, a number of parameters limiting the search can be requested, or
@@ -407,7 +411,8 @@ try {
 } catch (Zend_Gdata_App_Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>Or, the feed can be accessed by constructing a query, first:</para>
 
@@ -424,7 +429,8 @@ try {
 } catch (Zend_Gdata_App_Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Constructing a query also provides the ability to request a user entry object:
@@ -444,7 +450,8 @@ try {
 } catch (Zend_Gdata_App_Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.album_retrieval"><info><title>Retrieving An Album</title></info>
@@ -473,7 +480,8 @@ try {
 } catch (Zend_Gdata_App_Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Alternatively, the query object can be given an album name with
@@ -500,7 +508,8 @@ try {
 } catch (Zend_Gdata_App_Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.photo_retrieval"><info><title>Retrieving A Photo</title></info>
@@ -531,7 +540,8 @@ try {
 } catch (Zend_Gdata_App_Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Constructing a query also provides the ability to request a photo entry object:
@@ -553,7 +563,8 @@ try {
 } catch (Zend_Gdata_App_Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.comment_retrieval"><info><title>Retrieving A Comment</title></info>
@@ -592,7 +603,8 @@ try {
 } catch (Zend_Gdata_App_Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.tag_retrieval"><info><title>Retrieving A Tag</title></info>
@@ -631,7 +643,8 @@ try {
 } catch (Zend_Gdata_App_Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 
@@ -654,7 +667,8 @@ $entry = new Zend_Gdata_Photos_AlbumEntry();
 $entry->setTitle($service->newTitle("test album"));
 
 $service->insertAlbumEntry($entry);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.photo_creation"><info><title>Creating A Photo</title></info>
@@ -683,7 +697,8 @@ $albumQuery->setAlbumId("1");
 $albumEntry = $service->getAlbumEntry($albumQuery);
 
 $service->insertPhotoEntry($entry, $albumEntry);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.comment_creation"><info><title>Creating A Comment</title></info>
@@ -709,7 +724,8 @@ $photoQuery->setType('entry');
 $photoEntry = $service->getPhotoEntry($photoQuery);
 
 $service->insertCommentEntry($entry, $photoEntry);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.tag_creation"><info><title>Creating A Tag</title></info>
@@ -734,7 +750,8 @@ $photoQuery->setType('entry');
 $photoEntry = $service->getPhotoEntry($photoQuery);
 
 $service->insertTagEntry($entry, $photoEntry);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 
@@ -761,7 +778,8 @@ $albumQuery->setType('entry');
 $entry = $service->getAlbumEntry($albumQuery);
 
 $service->deleteAlbumEntry($entry, true);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.photo_deletion"><info><title>Deleting A Photo</title></info>
@@ -783,7 +801,8 @@ $photoQuery->setType('entry');
 $entry = $service->getPhotoEntry($photoQuery);
 
 $service->deletePhotoEntry($entry, true);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.comment_deletion"><info><title>Deleting A Comment</title></info>
@@ -807,7 +826,8 @@ $path = $photoQuery->getQueryUrl() . '/commentid/' . "1000";
 $entry = $service->getCommentEntry($path);
 
 $service->deleteCommentEntry($entry, true);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.tag_deletion"><info><title>Deleting A Tag</title></info>
@@ -838,7 +858,8 @@ foreach ($photoFeed as $entry) {
 }
 
 $service->deleteTagEntry($tagEntry, true);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.gdata.photos.optimistic_concurrenty"><info><title>Optimistic Concurrency (Notes On Deletion)</title></info>
@@ -871,7 +892,8 @@ try {
         throw $e;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 </section>

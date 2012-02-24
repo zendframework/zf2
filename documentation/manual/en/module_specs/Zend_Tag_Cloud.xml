@@ -98,7 +98,8 @@ $cloud = new Zend_Tag_Cloud(array(
 
 // Render the cloud
 echo $cloud;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This will output the tag cloud with the three tags, spread with

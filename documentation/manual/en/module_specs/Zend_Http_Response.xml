@@ -86,7 +86,8 @@ $response->setRawBody(<<<EOS
 </body>
 </html>
 EOS);
-     ]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.http.response.options">
@@ -469,7 +470,8 @@ HeaderField2: header-field-value2
 </body>
 </html>
 EOS);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.http.response.examples.construct-response">
@@ -490,7 +492,8 @@ $response->setRawBody(<<<EOS
 </body>
 </html>
 EOS);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
     </section>

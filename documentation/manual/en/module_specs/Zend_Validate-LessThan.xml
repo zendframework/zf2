@@ -53,7 +53,8 @@ $valid  = new Zend_Validate_LessThan(array('max' => 10));
 $value  = 12;
 $return = $valid->isValid($value);
 // returns false
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example returns <constant>TRUE</constant> for all values which are lower than 10.
@@ -78,7 +79,8 @@ $valid  = new Zend_Validate_LessThan(
 $value  = 10;
 $result = $valid->isValid($value);
 // returns true
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The example is almost equal to our first example but we included the border value. Now

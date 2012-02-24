@@ -78,7 +78,7 @@ class Xml extends AbstractWriter
                 if (is_numeric($key)) {
                     $branchType = 'numeric';
                 } else {
-                    $writer->addElement($branchName);
+                    $writer->startElement($branchName);
                     $branchType = 'string';
                 }
             } else if ($branchType !== (is_numeric($key) ? 'numeric' : 'string')) {
@@ -87,13 +87,13 @@ class Xml extends AbstractWriter
 
             if ($branchType === 'numeric') {
                 if (is_array($value)) {
-                    $this->addBranch($value, $data, $writer);
+                    $this->addBranch($value, $value, $writer);
                 } else {
                     $writer->writeElement($branchName, (string) $value);
                 }
             } else {
                 if (is_array($value)) {
-                    $this->addBranch($key, $data, $writer);
+                    $this->addBranch($key, $value, $writer);
                 } else {
                     $writer->writeElement($key, (string) $value);
                 }

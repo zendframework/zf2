@@ -155,7 +155,8 @@ $cookie = Zend_Http_Cookie::fromString('foo=bar; domain=.example.com; ' .
 // If the cookie's domain is not set, you have to manually specify it
 $cookie = Zend_Http_Cookie::fromString('foo=bar; secure;',
                                        'http://www.example.com/path');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <note>
@@ -193,7 +194,8 @@ echo (string) $cookie;
 
 // In PHP 5.2 and higher, this also works:
 echo $cookie;
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </para>
     </section>
@@ -304,7 +306,8 @@ echo ($cookie->isExpired(strtotime('2005-01-01') ? 'Yes' : 'No');
 
 echo ($cookie->isSessionCookie() ? 'Yes' : 'No');
 // Will echo 'No'
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </para>
     </section>
@@ -397,7 +400,8 @@ $cookie->match('http://subdomain.example.com/');
 $cookie->match('http://www.example.com/', true, time() + (3 * 3600));
 // Will return false, because we added a time offset of +3 hours to
 // current time
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </para>
     </section>

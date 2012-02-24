@@ -45,7 +45,8 @@ $filter = new Zend_Filter_Callback('strrev');
 
 print $filter->filter('Hello!');
 // returns "!olleH"
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As you can see it's really simple to use a callback to define a own filter. It is also
@@ -63,7 +64,8 @@ class MyClass
 // The filter definition
 $filter = new Zend_Filter_Callback(array('MyClass', 'Reverse'));
 print $filter->filter('Hello!');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To get the actual set callback use <methodname>getCallback()</methodname> and to set
@@ -97,7 +99,8 @@ $filter = new Zend_Filter_Callback(
     )
 );
 $filter->filter(array('value' => 'Hello'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When you would call the above method definition manually it would look like this:
@@ -105,6 +108,7 @@ $filter->filter(array('value' => 'Hello'));
 
         <programlisting language="php"><![CDATA[
 $value = MyMethod('Hello', 'param1', 'param2');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

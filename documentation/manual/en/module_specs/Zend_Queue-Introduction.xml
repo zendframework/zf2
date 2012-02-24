@@ -37,7 +37,8 @@
         <programming>Perl</programming>
     </skills>
 </resume>
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The recipient or consumer of the queue would pick up the message and

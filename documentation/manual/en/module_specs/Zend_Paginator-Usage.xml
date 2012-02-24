@@ -95,7 +95,8 @@
 
         <programlisting language="php"><![CDATA[
 $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($array));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             For convenience, you may take advantage of the static
@@ -105,7 +106,8 @@ $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($array));
 
         <programlisting language="php"><![CDATA[
 $paginator = Zend_Paginator::factory($array);
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -123,7 +125,8 @@ $paginator = Zend_Paginator::factory($array);
 
         <programlisting language="php"><![CDATA[
 $paginator->setCurrentPageNumber($page);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The simplest way to keep track of this value is through a <acronym>URL</acronym>.
@@ -144,7 +147,8 @@ routes.example.defaults.action = view
 routes.example.defaults.page = 1
 routes.example.reqs.articleName = \w+
 routes.example.reqs.page = \d+
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             With the above route (and using Zend Framework <acronym>MVC</acronym> components),
@@ -153,7 +157,8 @@ routes.example.reqs.page = \d+
 
         <programlisting language="php"><![CDATA[
 $paginator->setCurrentPageNumber($this->_getParam('page'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             There are other options available; see
@@ -169,7 +174,8 @@ $paginator->setCurrentPageNumber($this->_getParam('page'));
 
         <programlisting language="php"><![CDATA[
 $this->view->paginator = $paginator;
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.paginator.usage.dbselect"><info><title>The DbSelect and DbTableSelect adapter</title></info>
@@ -220,7 +226,8 @@ $adapter->setRowCount(
 );
 
 $paginator = new Zend_Paginator($adapter);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This approach will probably not give you a huge performance gain on
@@ -262,7 +269,8 @@ $paginator = new Zend_Paginator($adapter);
                                     'my_pagination_control.phtml'); ?>
 </body>
 </html>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Notice the view helper call near the end. PaginationControl
@@ -372,7 +380,8 @@ Zend_View_Helper_PaginationControl::setDefaultViewPartial(
     'my_pagination_control.phtml'
 );
 $paginator->setView($view);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When all of these values are set, you can render the pagination
@@ -380,8 +389,9 @@ $paginator->setView($view);
         </para>
 
         <programlisting language="php"><![CDATA[
-<?php echo $this->paginator; ?>
-]]></programlisting>
+<?php echo $this->paginator; 
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -392,7 +402,8 @@ $paginator->setView($view);
 
             <programlisting language="php"><![CDATA[
 $smarty->assign('pages', $paginator->getPages());
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 You could then access paginator values from a template like so:
@@ -400,7 +411,8 @@ $smarty->assign('pages', $paginator->getPages());
 
             <programlisting language="php"><![CDATA[
 {$pages->pageCount}
-]]></programlisting>
+]]>
+</programlisting>
         </note>
 
         <section xml:id="zend.paginator.usage.rendering.example-controls"><info><title>Example pagination controls</title></info>
@@ -451,8 +463,9 @@ See http://developer.yahoo.com/ypatterns/pattern.php?pattern=searchpagination
   <span class="disabled">Next ></span>
 <?php endif; ?>
 </div>
-<?php endif; ?>
-]]></programlisting>
+<?php endif; 
+]]>
+</programlisting>
 
             <para>
                 Item pagination:
@@ -505,8 +518,9 @@ of <?php echo $this->totalItemCount; ?>
 <?php endif; ?>
 
 </div>
-<?php endif; ?>
-]]></programlisting>
+<?php endif; 
+]]>
+</programlisting>
 
             <para>
                 Dropdown pagination:
@@ -533,7 +547,8 @@ $('paginationControl').observe('change', function() {
     window.location = this.options[this.selectedIndex].value;
 })
 </script>
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.paginator.usage.rendering.properties"><info><title>Listing of properties</title></info>

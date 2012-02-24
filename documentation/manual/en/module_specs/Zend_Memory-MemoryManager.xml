@@ -28,7 +28,8 @@ $backendOptions = array(
 );
 
 $memoryManager = Zend_Memory::factory('File', $backendOptions);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             <classname>Zend_Memory</classname> uses <link linkend="zend.cache.backends"><classname>Zend_Cache backends</classname></link> as
@@ -42,7 +43,8 @@ $memoryManager = Zend_Memory::factory('File', $backendOptions);
 
         <programlisting language="php"><![CDATA[
 $memoryManager = Zend_Memory::factory('None');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you use 'None' as the backend name, then the memory
@@ -74,7 +76,8 @@ $memoryManager = Zend_Memory::factory('None');
 
             <programlisting language="php"><![CDATA[
 $memObject = $memoryManager->create($data);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The <varname>$data</varname> argument is optional and used to
@@ -93,7 +96,8 @@ $memObject = $memoryManager->create($data);
 
             <programlisting language="php"><![CDATA[
 $memObject = $memoryManager->createLocked($data);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The <varname>$data</varname> argument is optional and used to
@@ -134,7 +138,8 @@ function foo()
     // but $memObject3 object is still referenced by $memList
     // and is not destroyed
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This applies to both movable and locked objects.
@@ -168,7 +173,8 @@ function foo()
             <programlisting language="php"><![CDATA[
 $oldLimit = $memoryManager->getMemoryLimit();  // Get memory limit in bytes
 $memoryManager->setMemoryLimit($newLimit);     // Set memory limit in bytes
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 A negative value for memory limit means 'no limit'.
@@ -200,7 +206,8 @@ $memoryManager->setMemoryLimit($newLimit);     // Set memory limit in bytes
             <programlisting language="php"><![CDATA[
 $oldMinSize = $memoryManager->getMinSize();  // Get MinSize in bytes
 $memoryManager->setMinSize($newSize);        // Set MinSize limit in bytes
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The default minimum size value is 16KB (16384 bytes).

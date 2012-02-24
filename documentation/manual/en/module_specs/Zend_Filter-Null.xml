@@ -40,7 +40,8 @@ $filter = new Zend_Filter_Null();
 $value  = '';
 $result = $filter->filter($value);
 // returns null instead of the empty string
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This means that without providing any configuration,
@@ -144,7 +145,8 @@ $filter = new Zend_Filter_Null(array(
     'boolean',
     'integer',
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can also give an instance of <classname>Zend_Config</classname> to set the wished

@@ -18,7 +18,8 @@ $filterChain->addFilter(new Zend_Filter_Alpha())
 
 // Filter the username
 $username = $filterChain->filter($_POST['username']);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Filters are run in the order they were added to <classname>Zend_Filter</classname>. In the
@@ -53,6 +54,7 @@ $filterChain->prependFilter(new Zend_Filter_Alpha());
 
 // Filter the username
 $username = $filterChain->filter($_POST['username']);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

@@ -153,7 +153,8 @@ $feed->addEntry($entry);
  * You can substitute "atom" with "rss" to generate an RSS 2.0 feed.
  */
 $out = $feed->export('atom');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The output rendered should be as follows:
@@ -179,11 +180,15 @@ $out = $feed->export('atom');
     </author>
     <link rel="hub" href="http://pubsubhubbub.appspot.com/"/>
     <entry>
-        <title type="html"><![CDATA[All Your Base Are Belong To
-            Us]]]]><![CDATA[></title>
+        <title type="html"><![CDATA[
+All Your Base Are Belong To
+            Us]]]]><![CDATA[
+></title>
         <summary type="html">
-            <![CDATA[Exposing the difficultly of porting games to
-                English.]]]]><![CDATA[>
+            <![CDATA[
+Exposing the difficultly of porting games to
+                English.]]]]><![CDATA[
+>
         </summary>
         <published>2009-12-14T20:28:18+00:00</published>
         <updated>2009-12-14T20:28:18+00:00</updated>
@@ -196,12 +201,15 @@ $out = $feed->export('atom');
             <uri>http://www.example.com</uri>
         </author>
         <content type="html">
-            <![CDATA[I am not writing the article.
-                     The example is long enough as is ;).]]]]><![CDATA[>
+            <![CDATA[
+I am not writing the article.
+                     The example is long enough as is ;).]]]]><![CDATA[
+>
         </content>
     </entry>
 </feed>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This is a perfectly valid Atom 1.0 example. It should be noted that omitting an

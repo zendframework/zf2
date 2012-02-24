@@ -65,7 +65,8 @@ $definition = new Zend_Db_Table_Definition(array(
             )
         )
     ));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -108,7 +109,8 @@ foreach ($authors as $author) {
         echo '        Genre: ' . implode(', ', $genreOutputArray) . PHP_EOL;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -189,7 +191,8 @@ foreach ($authors as $author) {
         echo '        Genre: ' . implode(', ', $genreOutputArray) . PHP_EOL;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

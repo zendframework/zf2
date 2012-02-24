@@ -49,7 +49,8 @@
             <programlisting language="text"><![CDATA[
 pear discover-channel pear.zfcampus.org
 pear install zfcampus/zf
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 That is it. After the initial install, you should be able to continue on by
@@ -99,7 +100,8 @@ pear install zfcampus/zf
 
             <programlisting language="text"><![CDATA[
 zf show version
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.tool.usage.cli.general-purpose-commands.built-in-help"><info><title>Built-in Help</title></info>
@@ -115,7 +117,8 @@ zf show version
 
             <programlisting language="text"><![CDATA[
 zf --help
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This will give you an overview of the various capabilities of the system.
@@ -128,7 +131,8 @@ zf --help
 
             <programlisting language="text"><![CDATA[
 zf ? controller
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The above means "show me all 'actions' for the provider 'controller'"; while the
@@ -137,7 +141,8 @@ zf ? controller
 
             <programlisting language="text"><![CDATA[
 zf show ?
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 means "show me all providers that support the 'show' action". This works for
@@ -147,7 +152,8 @@ zf show ?
             <programlisting language="text"><![CDATA[
 zf show version.? (show any specialties)
 zf show version ? (show any options)
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.tool.usage.cli.general-purpose-commands.manifest"><info><title>Manifest</title></info>
@@ -160,7 +166,8 @@ zf show version ? (show any options)
 
             <programlisting language="text"><![CDATA[
 zf show manifest
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <!--
@@ -187,7 +194,8 @@ zf show manifest
 
             <programlisting language="text"><![CDATA[
 zf create project MyProjectName
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This will create a project in a directory called ./MyProjectName. From this point
@@ -210,7 +218,8 @@ zf create project MyProjectName
 
             <programlisting language="text"><![CDATA[
 zf create module Blog
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This will create a module named Blog at application/modules/Blog, and all of the
@@ -229,7 +238,8 @@ zf create module Blog
 
             <programlisting language="text"><![CDATA[
 zf create controller Auth
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This will create a controller named Auth, specifically it will create a file at
@@ -241,7 +251,8 @@ zf create controller Auth
 zf create controller Post 1 Blog
 zf create controller Post -m Blog
 zf create controller Post --module=Blog
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Note: In the first command, 1 is the value for the "includeIndexAction" flag.
@@ -259,7 +270,8 @@ zf create controller Post --module=Blog
 zf create action login Auth
 zf create action login -c Auth
 zf create action login --controller-name=Auth
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.tool.usage.cli.project-specific-commands.view"><info><title>View</title></info>
@@ -273,7 +285,8 @@ zf create action login --controller-name=Auth
             <programlisting language="text"><![CDATA[
 zf create view Auth my-script-name
 zf create view -c Auth -a my-script-name
-            ]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This will create a view script in the controller folder of Auth.
@@ -290,7 +303,8 @@ zf create view -c Auth -a my-script-name
 
             <programlisting language="text"><![CDATA[
 zf create model User
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 If you wish to create a model within a specific module:
@@ -298,7 +312,8 @@ zf create model User
 
             <programlisting language="text"><![CDATA[
 zf create model Post -m Blog
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The above will create a 'Post' model inside of the 'Blog' module.
@@ -315,7 +330,8 @@ zf create model Post -m Blog
 
             <programlisting language="text"><![CDATA[
 zf create form Auth
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 If you wish to create a model within a specific module:
@@ -323,7 +339,8 @@ zf create form Auth
 
             <programlisting language="text"><![CDATA[
 zf create form Comment -m Blog
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The above will create a 'Comment' form inside of the 'Blog' module.
@@ -364,7 +381,8 @@ zf create form Comment -m Blog
 
             <programlisting language="text"><![CDATA[
 zf configure dbadapter "adapter=Pdo_Mysql&username=test&password=test&dbname=test"
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This assumes you wish to store this information inside of the
@@ -376,7 +394,8 @@ zf configure dbadapter "adapter=Pdo_Mysql&username=test&password=test&dbname=tes
             <programlisting language="text"><![CDATA[
 zf configure dbadapter "adapter=Pdo_Sqlite&dbname=../data/test.db" development
 zf configure dbadapter "adapter=Pdo_Sqlite&dbname=../data/test.db" -s development
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.tool.usage.cli.project-specific-commands.db-table"><info><title>DbTable</title></info>
@@ -397,7 +416,8 @@ zf create dbtable User -a user
 // also accepts a force option to overwrite existing files
 zf create dbtable User user -f
 zf create dbtable User user --force-override
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The DbTable provider is also capable of creating the proper files by
@@ -406,7 +426,8 @@ zf create dbtable User user --force-override
 
             <programlisting language="text"><![CDATA[
 zf create dbtable.from-database
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 When executing the above, it might make sense to use the pretend / "-p"
@@ -416,7 +437,8 @@ zf create dbtable.from-database
 
             <programlisting language="text"><![CDATA[
 zf -p create dbtable.from-database
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.tool.usage.cli.project-specific-commands.layout"><info><title>Layout</title></info>
@@ -430,7 +452,8 @@ zf -p create dbtable.from-database
 
             <programlisting language="text"><![CDATA[
 zf enable layout
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 
@@ -448,7 +471,8 @@ zf enable layout
 
             <programlisting language="text"><![CDATA[
 zf --setup storage-directory
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.tool.usage.cli.environment-customization.configuration-file"><info><title>The Configuration File</title></info>
@@ -463,7 +487,8 @@ zf --setup storage-directory
 
             <programlisting language="text"><![CDATA[
 zf --setup config-file
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.tool.usage.cli.environment-customization.environment-locations"><info><title>Environment Locations</title></info>

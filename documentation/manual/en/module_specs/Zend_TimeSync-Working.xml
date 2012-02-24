@@ -28,7 +28,8 @@
 $server = new Zend_TimeSync('0.pool.ntp.org');
 
 print $server->getDate()->getIso();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             So what is happening in the background of <classname>Zend_TimeSync</classname>? First
@@ -71,7 +72,8 @@ $server = new Zend_TimeSync(array('0.pool.ntp.org',
 $server->addServer('3.pool.ntp.org');
 
 print $server->getDate()->getIso();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             There is no limit to the number of time servers you can add. When a time server can not
@@ -93,7 +95,8 @@ $server = new Zend_TimeSync(array('generic'  => '0.pool.ntp.org',
 $server->addServer('3.pool.ntp.org', 'additional');
 
 print $server->getDate()->getIso();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Naming the time servers allows you to request a specific time server as we will see
@@ -125,7 +128,8 @@ $server = new Zend_TimeSync(array('generic'  => 'ntp:\\0.pool.ntp.org',
 $server->addServer('sntp:\\internal.myserver.com', 'additional');
 
 print $server->getDate()->getIso();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             <classname>Zend_TimeSync</classname> can handle mixed time servers. So you are not
@@ -155,7 +159,8 @@ $server = new Zend_TimeSync(array('generic'  => 'ntp:\\0.pool.ntp.org:200',
 $server->addServer('sntp:\\internal.myserver.com:399', 'additional');
 
 print $server->getDate()->getIso();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.timesync.working.options"><info><title>Time Servers Options</title></info>
@@ -193,7 +198,8 @@ $server->addServer('sntp:\\internal.myserver.com', 'additional');
 print $server->getDate()->getIso();
 print_r(Zend_TimeSync::getOptions();
 print "Timeout = " . Zend_TimeSync::getOptions('timeout');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As you can see, the options for <classname>Zend_TimeSync</classname> are static. Each
@@ -222,7 +228,8 @@ $server->addServer('sntp:\\internal.myserver.com', 'additional');
 
 $actual = $server->getServer();
 $server = $server->setServer('additional');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.timesync.working.informations"><info><title>Information from Time Servers</title></info>
@@ -238,7 +245,8 @@ $server = new Zend_TimeSync(array('generic'  => 'ntp:\\0.pool.ntp.org',
                                   'fallback' => 'ntp:\\1.pool.ntp.org'));
 
 print_r ($server->getInfo());
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The returned information differs with the protocol used and can also differ with the
@@ -275,6 +283,7 @@ try {
         echo '<br />';
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

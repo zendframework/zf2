@@ -86,7 +86,8 @@
 /usr/local/bin
 /usr/local/ZendServer/bin/
 /Applications/ZendServer/bin/
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To find out the location of your <acronym>PHP</acronym> binary, you can execute 'which
@@ -150,7 +151,8 @@ ln -s /usr/local/share/ZendFramework/bin/zf.sh /usr/local/bin/zf
 
 # OR (for example)
 ln -s /home/username/lib/ZendFramework/bin/zf.sh /home/username/bin/zf
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This will create a link which you should be able to access globally
@@ -172,7 +174,8 @@ ln -s /home/username/lib/ZendFramework/bin/zf.sh /home/username/bin/zf
 C:\PHP
 C:\Program Files\ZendServer\bin\
 C:\WAMP\PHP\bin
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You should be able to run <filename>php.exe</filename> on the command line.

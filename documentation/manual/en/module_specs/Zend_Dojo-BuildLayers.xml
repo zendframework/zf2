@@ -30,7 +30,8 @@ dojo.require("dijit.layout.ContentPane");
 dojo.require("dijit.form.Form");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This script is generally referred to as a "layer" script.
@@ -49,7 +50,8 @@ dojo.require("dijit.form.TextBox");
         dojo.registerModulePath("custom", "../custom/");
         dojo.require("custom.main");
     </script>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you use <classname>Zend_Dojo</classname> to do this, you'd do the
@@ -59,7 +61,8 @@ dojo.require("dijit.form.TextBox");
         <programlisting language="php"><![CDATA[
 $view->dojo()->registerModulePath('custom', '../custom/')
              ->requireModule('custom.main');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             But since <classname>Zend_Dojo</classname> aggregates your various
@@ -107,7 +110,8 @@ if (!dir_exists(dirname($filename))) {
     mkdir(dirname($filename));
 }
 file_put_contents($filename, $layerContents);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When should you do the above? For it to work correctly, you need to
@@ -155,7 +159,8 @@ class App_Plugin_DojoLayer extends Zend_Controller_Plugin_Abstract
         file_put_contents($this->layerScript, $layerContents);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Do not generate the layer on every page</title></info>
             
@@ -189,7 +194,8 @@ class App_Plugin_DojoLayer extends Zend_Controller_Plugin_Abstract
 
                 <programlisting language="php"><![CDATA[
 $build->setView($view);
-]]></programlisting>
+]]>
+</programlisting>
             </section>
 
             <section xml:id="zend.dojo.build-layers.usage.options.layername"><info><title>Setting the layer name</title></info>
@@ -203,7 +209,8 @@ $build->setView($view);
 
                 <programlisting language="php"><![CDATA[
 $build->setLayerName("custom.main");
-]]></programlisting>
+]]>
+</programlisting>
             </section>
 
             <section xml:id="zend.dojo.build-layers.usage.options.onload"><info><title>Including onLoad events in the generated layer</title></info>
@@ -232,7 +239,8 @@ $build = new Zend_Dojo_BuildLayer(array(
     'layerName'     => 'custom.main',
     'consumeOnLoad' => true,
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     Alternately, you can use the
@@ -242,7 +250,8 @@ $build = new Zend_Dojo_BuildLayer(array(
 
                 <programlisting language="php"><![CDATA[
 $build->setConsumeOnLoad(true);
-]]></programlisting>
+]]>
+</programlisting>
             </section>
 
             <section xml:id="zend.dojo.build-layers.usage.options.javascript"><info><title>Including captured JavaScript in the generated layer</title></info>
@@ -270,7 +279,8 @@ $build = new Zend_Dojo_BuildLayer(array(
     'layerName'         => 'custom.main',
     'consumeJavascript' => true,
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     Alternately, you can use the
@@ -280,7 +290,8 @@ $build = new Zend_Dojo_BuildLayer(array(
 
                 <programlisting language="php"><![CDATA[
 $build->setConsumeJavascript(true);
-]]></programlisting>
+]]>
+</programlisting>
             </section>
         </section>
     </section>
@@ -310,7 +321,8 @@ $build = new Zend_Dojo_BuildLayer(array(
 $profile   = $build->generateBuildProfile();
 $filename  = APPLICATION_PATH . '/../misc/scripts/custom.profile.js';
 file_put_contents($filename, $profile);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Just like generating layers, you may want to automate this via a
@@ -347,7 +359,8 @@ class App_Plugin_DojoLayer extends Zend_Controller_Plugin_Abstract
     }
 
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As noted, with module layers, you should only create the file once.
@@ -395,7 +408,8 @@ class App_Plugin_DojoLayer extends Zend_Controller_Plugin_Abstract
     loader:        "default",
     cssOptimize:   "comments"
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 You can pass in whatever key and value pairs you want; the Dojo
@@ -422,7 +436,8 @@ $build->setProfileOptions(array(
     'loader'   => 'shrinksafe',
     'optimize' => 'shrinksafe',
 ));
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 </section>

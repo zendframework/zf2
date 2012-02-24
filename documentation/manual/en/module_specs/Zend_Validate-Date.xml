@@ -44,7 +44,8 @@ $validator = new Zend_Validate_Date();
 
 $validator->isValid('2000-10-10');   // returns true
 $validator->isValid('10.10.2000'); // returns false
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The default date format for <classname>Zend_Validate_Date</classname> is 'yyyy-MM-dd'.
@@ -65,7 +66,8 @@ $validator = new Zend_Validate_Date(array('locale' => 'de'));
 
 $validator->isValid('10.Feb.2010'); // returns true
 $validator->isValid('10.May.2010'); // returns false
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <property>locale</property> option sets the default date format. In the above
@@ -87,7 +89,8 @@ $validator = new Zend_Validate_Date(array('format' => 'yyyy'));
 
 $validator->isValid('2010'); // returns true
 $validator->isValid('May');  // returns false
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Of course you can combine <property>format</property> and <property>locale</property>.
@@ -99,6 +102,7 @@ $validator = new Zend_Validate_Date(array('format' => 'yyyy MMMM', 'locale' => '
 
 $validator->isValid('2010 Dezember'); // returns true
 $validator->isValid('2010 June');     // returns false
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

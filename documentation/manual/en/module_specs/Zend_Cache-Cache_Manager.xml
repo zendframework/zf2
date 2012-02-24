@@ -49,7 +49,8 @@ $manager->setCacheTemplate('database', $dbCache);
  * Anywhere else where the Cache Manager is available...
  */
 $databaseCache = $manager->getCache('database');
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The Cache Manager also allows simple setting of pre-instantiated caches
@@ -78,7 +79,8 @@ $manager->setCache('database', $dbCache);
  * Anywhere else where the Cache Manager is available...
  */
 $databaseCache = $manager->getCache('database');
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         If for any reason, you are unsure where the Cache Manager contains a
@@ -116,7 +118,8 @@ if ($manager->hasCache('database')) {
 } else {
     // create a cache from scratch if none available from Manager
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         In some scenarios, you may have defined a number of general use caches
@@ -173,7 +176,8 @@ $fineTuning = array(
 );
 $manager->setTemplateOptions('database', $fineTuning);
 $databaseCache = $manager->getCache('database');
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         To assist in making the Cache Manager more useful, it is accompanied by

@@ -88,6 +88,7 @@ Reader reader = new BufferedReader(new InputStreamReader(is));
 doc.add(Field.Text("contents", reader));
 
 indexWriter.addDocument(doc);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

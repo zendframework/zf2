@@ -28,7 +28,8 @@ foreach ($feed as $entry) {
     echo 'Title: ' . $entry->title() . "\n";
     echo 'Summary: ' . $entry->summary() . "\n\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>

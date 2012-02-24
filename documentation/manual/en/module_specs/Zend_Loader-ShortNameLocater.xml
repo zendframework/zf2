@@ -52,7 +52,8 @@ interface ShortNameLocater
     public function getClassName($name);
     public function load($name);
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.loader.short-name-locater.options"><info><title>Configuration Options</title></info>
