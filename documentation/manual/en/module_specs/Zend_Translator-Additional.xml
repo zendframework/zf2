@@ -49,7 +49,8 @@ $translate->addTranslation(
         'clear'   => true
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -396,7 +397,8 @@ echo $translate->_("my_text");
 if ($translate->isAvailable("fr")) {
     // language exists
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <section xml:id="zend.translator.additional.languages.automatic"><info><title>Automatical handling of languages</title></info>
@@ -470,7 +472,8 @@ $translate = new Zend_Translator(
 
 $translate->addTranslation(array('content' => 'my_ru.mo', 'locale' => 'ru'));
 $translate->setLocale('it_IT');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -511,7 +514,8 @@ if (!$translate->isAvailable($locale->getLanguage())) {
 }
 
 $translate->getLocale();
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.translator.additional.languages.territory"><info><title>Using a country as language</title></info>
@@ -539,7 +543,8 @@ $translate = new Zend_Translator(
         'locale'  => 'US'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
             <note><info><title>Always uppercase countries</title></info>
 
@@ -596,7 +601,8 @@ $translate = new Zend_Translator(
 $translate = new Zend_Translator(
     array('adapter' => 'tmx', 'content' => '/language')
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -656,7 +662,8 @@ $translate = new Zend_Translator(
         'scan' => Zend_Translator::LOCALE_DIRECTORY
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <note>
@@ -709,7 +716,8 @@ $translate = new Zend_Translator(
         'scan' => Zend_Translator::LOCALE_FILENAME
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <section xml:id="zend.translator.additional.detection.filename.complete"><info><title>Complete filename</title></info>
@@ -725,7 +733,8 @@ $translate = new Zend_Translator(
 /languages/en.mo
 /languages/de.mo
 /languages/es.mo
-]]></programlisting>
+]]>
+</programlisting>
             </section>
 
             <section xml:id="zend.translator.additional.detection.filename.extension"><info><title>Extension of the file</title></info>
@@ -742,7 +751,8 @@ $translate = new Zend_Translator(
 /languages/view.en
 /languages/view.de
 /languages/view.es
-]]></programlisting>
+]]>
+</programlisting>
             </section>
 
             <section xml:id="zend.translator.additional.detection.filename.token"><info><title>Filename tokens</title></info>
@@ -760,7 +770,8 @@ $translate = new Zend_Translator(
 /languages/view_en.mo -> detects english
 /languages/view_de.mo -> detects german
 /languages/view_it.mo -> detects italian
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     The first found string delimited by a token which can be interpreted as a
@@ -772,7 +783,8 @@ $translate = new Zend_Translator(
 /languages/view_en_de.mo -> detects english
 /languages/view_en_es.mo -> detects english and overwrites the first file
 /languages/view_it_it.mo -> detects italian
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     All three tokens are used to detect the locale. When the filename contains
@@ -785,7 +797,8 @@ $translate = new Zend_Translator(
 /languages/view_en-it.mo -> detects english because '_' will be used before '-'
 /languages/view-en_it.mo -> detects italian because '_' will be used before '-'
 /languages/view_en.it.mo -> detects italian because '.' will be used before '_'
-]]></programlisting>
+]]>
+</programlisting>
             </section>
         </section>
 
@@ -824,7 +837,8 @@ $translate = new Zend_Translator(
         'ignore'  => 'test'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     The above example will ignore all files and directories beginning with
@@ -866,7 +880,8 @@ $translate = new Zend_Translator(
         'ignore'  => array('.', 'test', 'old')
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     In the above case all 3 syntax will be ignored. But still they have to
@@ -903,7 +918,8 @@ $translate = new Zend_Translator(
         'ignore'  => array('regex' => '/test/u', 'regex_2' => '/deleted$/u')
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     In the above case we defined 2 regular expressions. The files and directories
@@ -938,7 +954,8 @@ $translate = new Zend_Translator(
         'route'   => array('fr' => 'en', 'de' => 'fr')
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above returns a english translation for all messages which can not be translated to
@@ -1000,7 +1017,8 @@ $translate_second = new Zend_Translator(
 );
 
 $translate->addTranslation(array('content' => $translate_second));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Now the first instance holds all translations from the second instance and you can use
@@ -1030,7 +1048,8 @@ $translate->addTranslation(
         'locale'  => 'en'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This allows you still to scan through the directories and still add only those languages
@@ -1087,7 +1106,8 @@ if (!($translate->isTranslated('message1', true, 'de'))) {
 if ($translate->isTranslated('message1', false, 'de')) {
     print "'message1' can be translated in 'de_AT' as it falls back to 'de'";
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -1131,7 +1151,8 @@ $translate->setOptions(
 );
 
 $translate->translate('unknown string');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -1188,7 +1209,8 @@ $translate->setOptions(
 );
 
 $translate->translate('unknown string');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -1219,7 +1241,8 @@ $translate = new Zend_Translator(
 );
 
 $translate->translate('unknown string');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -1283,7 +1306,8 @@ print_r($messageIds);
 // returns all the complete translation data
 $source = $translate->getMessages();
 print_r($source);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

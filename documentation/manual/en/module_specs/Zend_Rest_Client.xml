@@ -23,7 +23,8 @@
 $client = new Zend_Rest_Client('http://framework.zend.com/rest');
 
 echo $client->sayHello('Davey', 'Day')->get(); // "Hello Davey, Good Day"
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Differences in calling</title></info>
@@ -41,7 +42,8 @@ echo $client->sayHello('Davey', 'Day')->get(); // "Hello Davey, Good Day"
             <programlisting language="php"><![CDATA[
 $client->sayHello('Davey', 'Day');
 echo $client->get();
-]]></programlisting>
+]]>
+</programlisting>
         </note>
     </section>
 
@@ -70,7 +72,8 @@ $result = $client->sayHello('Davey', 'Day')->get();
 if ($result->isSuccess()) {
     echo $result; // "Hello Davey, Good Day"
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -102,7 +105,8 @@ $technorati->key($key);
 $technorati->url('http://pixelated-dreams.com');
 $result = $technorati->get();
 echo $result->firstname() .' '. $result->lastname();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.rest.client.return.example-3"><info><title>Example Technorati Response</title></info>
@@ -141,7 +145,8 @@ echo $result->firstname() .' '. $result->lastname();
         </result>
     </document>
 </tapi>
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -189,7 +194,8 @@ $client->get();
 // or
 
 $client->arg('value1')->arg2('value2')->get();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>

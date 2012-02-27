@@ -35,7 +35,8 @@
             <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
 $row = $bugs->fetchRow($bugs->select()->where('bug_id = ?', 1));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -50,7 +51,8 @@ $row = $bugs->fetchRow($bugs->select()->where('bug_id = ?', 1));
 $bugs = new Bugs();
 $rowset = $bugs->fetchAll($bugs->select()->where('bug_status = ?', 1));
 $row = $rowset->current();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <section xml:id="zend.db.table.row.read.get"><info><title>Reading column values from a row</title></info>
@@ -70,7 +72,8 @@ $row = $bugs->fetchRow($bugs->select()->where('bug_id = ?', 1));
 
 // Echo the value of the bug_description column
 echo $row->bug_description;
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <note>
@@ -112,7 +115,8 @@ foreach ($rowArray as $column => $value) {
     echo "Column: $column\n";
     echo "Value:  $value\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -162,7 +166,8 @@ $row->bug_status = 'FIXED';
 
 // UPDATE the row in the database with new values
 $row->save();
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -189,7 +194,8 @@ $newRow->bug_status = 'NEW';
 
 // INSERT the new row to the database
 $newRow->save();
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -211,7 +217,8 @@ $newRow = $bugs->createRow($data);
 
 // INSERT the new row to the database
 $newRow->save();
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <note>
@@ -254,7 +261,8 @@ $newRow->setFromArray($data);
 
 // INSERT the new row to the database
 $newRow->save();
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -275,7 +283,8 @@ $row = $bugs->fetchRow('bug_id = 1');
 
 // DELETE this row
 $row->delete();
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -314,7 +323,8 @@ $row = $bugs->fetchRow('bug_id = 1');
 $serializedRow = serialize($row);
 
 // Now you can write $serializedRow to a file, etc.
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -342,7 +352,8 @@ $rowClone = unserialize($serializedRow);
 
 // Now you can use object properties, but read-only
 echo $rowClone->bug_description;
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <note><info><title>Why do Rows unserialize in a disconnected state?</title></info>
@@ -387,7 +398,8 @@ $rowClone->setTable($bugs);
 // Now you can make changes to the row and save them
 $rowClone->bug_status = 'FIXED';
 $rowClone->save();
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>
@@ -425,7 +437,8 @@ class Products extends Zend_Db_Table_Abstract
 // Or specify a custom Row to be used in one
 // instance of a Table class.
 $bugs = new Bugs(array('rowClass' => 'MyRow'));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <section xml:id="zend.db.table.row.extending.overriding"><info><title>Row initialization</title></info>
@@ -452,7 +465,8 @@ class MyApplicationRow extends Zend_Db_Table_Row_Abstract
         $this->_role = new MyRoleClass();
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -516,7 +530,8 @@ if ($loggingEnabled) {
 } else {
     $bugs = new Bugs();
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <example xml:id="zend.db.table.row.extending.overriding-example2"><info><title>Example of a Row class that logs insert data for multiple tables</title></info>
@@ -557,7 +572,8 @@ class Products extends Zend_Db_Table_Abstract
     protected $_name = 'products';
     protected $_rowClass = 'MyLoggingRow';
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -616,7 +632,8 @@ $row = $bugs->fetchNew();
 // transformation function to change it into the
 // native representation.
 $row->bugDescription = 'New description';
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>

@@ -77,7 +77,8 @@ $validator = new Zend_Validate_StringLength(array('max' => 6));
 
 $validator->isValid("Test"); // returns true
 $validator->isValid("Testing"); // returns false
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can set the maximum allowed length also afterwards by using the
@@ -91,7 +92,8 @@ $validator->setMax(6);
 
 $validator->isValid("Test"); // returns true
 $validator->isValid("Testing"); // returns false
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.stringlength.minimum"><info><title>Limiting the minimal required length of a string</title></info>
@@ -107,7 +109,8 @@ $validator = new Zend_Validate_StringLength(array('min' => 5));
 
 $validator->isValid("Test"); // returns false
 $validator->isValid("Testing"); // returns true
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can set the minimal requested length also afterwards by using the
@@ -121,7 +124,8 @@ $validator->setMin(5);
 
 $validator->isValid("Test"); // returns false
 $validator->isValid("Testing"); // returns true
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.stringlength.both"><info><title>Limiting a string on both sides</title></info>
@@ -141,7 +145,8 @@ $validator = new Zend_Validate_StringLength(array('min' => 3, 'max' => 30));
 $validator->isValid("."); // returns false
 $validator->isValid("Test"); // returns true
 $validator->isValid("Testing"); // returns true
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Setting a lower maximum border than the minimum border</title></info>
             
@@ -183,7 +188,8 @@ $validator2 = new Zend_Validate_StringLength(
     array('min' => 6, 'encoding' => 'UTF-8')
 );
 $validator2->isValid("Ärger"); // returns true
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             So when your installation and your application are using different encodings, then you

@@ -61,7 +61,8 @@ $cache->addPlugin($plugin);
 $cache  = new Zend\Cache\Storage\Adapter\Filesystem();
 $plugin = new Zend\Cache\Storage\Plugin\Serializer();
 $cache->addPlugin($plugin);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.cache.storage.plugin.options">

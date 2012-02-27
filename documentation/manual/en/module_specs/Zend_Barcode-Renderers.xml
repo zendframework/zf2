@@ -53,7 +53,8 @@ $renderer->setConfig($config);
 // Case 4
 $renderer = new Zend_Barcode_Renderer_Pdf();
 $renderer->setTopOffset(10);
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <section xml:id="zend.barcode.renderers.common.options"><info><title>Common Options</title></info>

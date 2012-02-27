@@ -44,8 +44,9 @@ $infrastructure = FactoryInfrastructure::getAdapter(array(
     Ec2Adapter::AWS_ACCESS_KEY => $key, 
     Ec2Adapter::AWS_SECRET_KEY => $secret,
     Ec2Adapter::AWS_REGION     => $region,
-)); 
-]]></programlisting>
+));
+]]>
+</programlisting>
 
         <para>
             To create a new instance for AMAZON EC2 adapter you have to use the following parameters:
@@ -61,7 +62,8 @@ $instance = $infrastructure->createInstance('name of the instance', $param);
 
 printf("Name of the instance: %s\n", $instance->getName());
 printf("ID of the instance  : %s\n", $instance->getId());
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The monitor an instance of AMAZON EC2 you can use the starting time and ending time optional parameters.
@@ -79,7 +81,8 @@ $options= array (
 $cpuUsage= $infrastructure->monitorInstance('id-instance', Instance::MONITOR_CPU, $options);
 
 print_r($cpuUsage);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <emphasis>instanceType</emphasis> parameter is optional. This parameter specify the
@@ -105,8 +108,9 @@ $infrastructure = FactoryInfrastructure::getAdapter(array(
     FactoryInfrastructure::INFRASTRUCTURE_ADAPTER_KEY => 'Zend\Cloud\Infrastructure\Adapter\Rackspace', 
     RackspaceAdapter::RACKSPACE_USER => $user, 
     RackspaceAdapter::RACKSPACE_KEY  => $key,
-)); 
-]]></programlisting>
+));
+]]>
+</programlisting>
 
         <para>
             To create a new instance for Rackspace Cloud Servers adapter you have to use the
@@ -129,7 +133,8 @@ $instance = $infrastructure->createInstance('name of the instance', $param);
 
 printf("Name of the instance: %s\n", $instance->getName());
 printf("ID of the instance  : %s\n", $instance->getId());
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <emphasis>metadata</emphasis> array and the <emphasis>file</emphasis> array are
@@ -156,7 +161,8 @@ $diskUsage = $infrastructure->monitorInstance('id-instance', Instance::MONITOR_D
 print_r($cpuUsage);
 print_r($ramUsage);
 print_r($diskUsage);
-]]></programlisting>
+]]>
+</programlisting>
         
         <para>
             The <emphasis>$options</emphasis> contains the username and the password to be used for

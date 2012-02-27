@@ -44,7 +44,8 @@ $valid = new Zend_Validate_Identical('origin');
 if ($valid->isValid($value) {
     return true;
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The validation will only then return <constant>TRUE</constant> when both values are
@@ -74,7 +75,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Type comparison</title></info>
             
@@ -104,7 +106,8 @@ $form->addElement('password', 'elementTwo', array(
         array('identical', false, array('token' => 'elementOne'))
     )
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             By using the elements name from the first element as <property>token</property> for the
@@ -131,7 +134,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The difference to the previous example is that the validation returns in this case
@@ -167,7 +171,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example validates the integer 123. The reason for this special case is, that
@@ -187,6 +192,7 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

@@ -124,8 +124,9 @@ $infrastructure = FactoryInfrastructure::getAdapter(array(
     Ec2Adapter::AWS_ACCESS_KEY => $key, 
     Ec2Adapter::AWS_SECRET_KEY => $secret,
     Ec2Adapter::AWS_REGION     => $region,
-)); 
-]]></programlisting>
+));
+]]>
+</programlisting>
         
         <para>
             <classname>Zend\Cloud\Infrastructure</classname> has only a couple of methods that are vendor specific.
@@ -143,7 +144,8 @@ $instance= $infrastructure->createInstance('name of the instance', $param);
 
 printf ("Name of the instance: %s\n", $instance->getName());
 printf ("ID of the instance  : %s\n", $instance->getId());
-]]></programlisting>
+]]>
+</programlisting>
             
         <para>
             The interface of the <methodname>createInstance</methodname> is always the same, only
@@ -554,7 +556,8 @@ $cmd    = 'date';
 $output = $infrastructure->deployInstance('instance-id', $param, $cmd);
 
 echo $output;
-]]></programlisting>
+]]>
+</programlisting>
         </example>
         
         <example xml:id="zend.cloud.infrastructure.examples.get-datetime">
@@ -572,7 +575,8 @@ $cmd    = 'date';
 $output = $infrastructure->deployInstance('instance-id', $param, $cmd);
 
 echo $output;
-]]></programlisting>
+]]>
+</programlisting>
         </example>
         
         <example xml:id="zend.cloud.infrastructure.examples.reboot">
@@ -593,7 +597,8 @@ if ($rackspace->waitStatusInstance('instance-id', Instance::STATUS_RUNNING, 60))
 } else {
     echo 'The instance is not ready yet';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

@@ -65,7 +65,8 @@ $results = $amazon->itemSearch(array('SearchIndex' => 'Books',
 foreach ($results as $result) {
     echo $result->Title . '<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.service.amazon.introduction.example.query_api"><info><title>Search Amazon Using the Query API</title></info>
@@ -86,7 +87,8 @@ $results = $query->search();
 foreach ($results as $result) {
     echo $result->Title . '<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -105,7 +107,8 @@ foreach ($results as $result) {
             <programlisting language="php"><![CDATA[
 // Connect to Amazon in Japan
 $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'JP', 'AMAZON_SECRET_KEY');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Country codes</title></info>
@@ -132,7 +135,8 @@ $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'JP', 'AMAZON_SECRET_KEY');
             <programlisting language="php"><![CDATA[
 $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'US', 'AMAZON_SECRET_KEY');
 $item = $amazon->itemLookup('B0000A432X');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -170,7 +174,8 @@ $results = $amazon->itemSearch(array('SearchIndex' => 'Books',
 foreach ($results as $result) {
     echo $result->Title . '<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.service.amazon.itemsearch.example.responsegroup"><info><title>Using the ResponseGroup Option</title></info>
@@ -192,7 +197,8 @@ $results = $amazon->itemSearch(array(
 foreach ($results as $result) {
     echo $result->Title . '<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -245,7 +251,8 @@ $results = $query->search();
 foreach ($results as $result) {
     echo $result->Title . '<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     This sets the option <code>Category</code> to "Books" and <code>Keywords</code>

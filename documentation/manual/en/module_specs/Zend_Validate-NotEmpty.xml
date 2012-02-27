@@ -40,7 +40,8 @@ $valid = new Zend_Validate_NotEmpty();
 $value  = '';
 $result = $valid->isValid($value);
 // returns false
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Default behaviour differs from PHP</title></info>
             
@@ -195,7 +196,8 @@ $validator = new Zend_Validate_NotEmpty(array(
     'integer',
     'zero',
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can also provide an instance of <classname>Zend_Config</classname> to set the

@@ -119,7 +119,8 @@
         <programlisting language="php"><![CDATA[
 $figlet = new Zend_Text_Figlet();
 echo $figlet->render('Zend');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Assuming you are using a monospace font, this would look as follows:
@@ -132,6 +133,7 @@ echo $figlet->render('Zend');
   / //__   | ||___   | .  || | |__/ ||
  /_____||  |_____||  |_|\_|| |_____//
  `-----`'  `-----`   `-` -`'  -----`
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

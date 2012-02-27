@@ -25,7 +25,8 @@ try {
     echo "Message: " . $e->getMessage() . "\n";
     // Other code to recover from the error
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>

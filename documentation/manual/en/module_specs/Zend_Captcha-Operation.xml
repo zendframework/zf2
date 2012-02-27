@@ -27,7 +27,8 @@ interface Zend_Captcha_Adapter extends Zend_Validate_Interface
 
     public function getErrors();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The name setter and getter are used to specify and retrieve the
@@ -68,5 +69,6 @@ echo "</form>";
 if ($captcha->isValid($_POST['foo'], $_POST)) {
     // Validated!
 }
-]]></programlisting>
+]]>
+</programlisting>
 </section>

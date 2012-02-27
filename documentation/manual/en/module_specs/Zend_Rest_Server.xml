@@ -20,7 +20,8 @@
 $server = new Zend_Rest_Server();
 $server->setClass('My_Service_Class');
 $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.rest.server.usage.example-2"><info><title>Basic Zend_Rest_Server Usage - Functions</title></info>
@@ -42,7 +43,8 @@ function sayHello($who, $when)
 $server = new Zend_Rest_Server();
 $server->addFunction('sayHello');
 $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -110,7 +112,8 @@ function sayHello($who, $when)
 $server = new Zend_Rest_Server();
 $server->addFunction('sayHello');
 $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -150,7 +153,8 @@ $server = new Zend_Rest_Server();
 $server->addFunction('sayHello');
 
 $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>

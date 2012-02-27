@@ -108,7 +108,8 @@
 
         <programlisting language="php"><![CDATA[
 $filter = new Zend_Filter_Compress('Bz2');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To use a different adapter, you simply specify it to the constructor.
@@ -128,7 +129,8 @@ $filter = new Zend_Filter_Compress(array(
         'blocksize' => 8,
     ),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Default compression Adapter</title></info>
             
@@ -146,7 +148,8 @@ $filter = new Zend_Filter_Compress(array(
 
         <programlisting language="php"><![CDATA[
 $filter = new Zend_Filter_Decompress('Bz2');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To get the compressed string, we have to give the original string. The filtered value is
@@ -157,7 +160,8 @@ $filter = new Zend_Filter_Decompress('Bz2');
 $filter     = new Zend_Filter_Compress('Bz2');
 $compressed = $filter->filter('Uncompressed string');
 // Returns the compressed string
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Decompression works the same way.
@@ -167,7 +171,8 @@ $compressed = $filter->filter('Uncompressed string');
 $filter     = new Zend_Filter_Decompress('Bz2');
 $compressed = $filter->filter('Compressed string');
 // Returns the uncompressed string
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Note on string compression</title></info>
             
@@ -198,7 +203,8 @@ $filter     = new Zend_Filter_Compress(array(
 ));
 $compressed = $filter->filter('Uncompressed string');
 // Returns true on success and creates the archive file
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In the above example the uncompressed string is compressed, and is then written into
@@ -227,7 +233,8 @@ $filter     = new Zend_Filter_Compress(array(
 ));
 $compressed = $filter->filter('C:\temp\compressme.txt');
 // Returns true on success and creates the archive file
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You may also specify a directory instead of a filename. In this case the whole directory
@@ -243,7 +250,8 @@ $filter     = new Zend_Filter_Compress(array(
 ));
 $compressed = $filter->filter('C:\temp\somedir');
 // Returns true on success and creates the archive file
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Do not compress large or base directories</title></info>
             
@@ -270,7 +278,8 @@ $compressed = $filter->filter('C:\temp\somedir');
 $filter     = new Zend_Filter_Decompress('Bz2');
 $compressed = $filter->filter('filename.bz2');
 // Returns true on success and decompresses the archive file
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Some adapters support decompressing the archive into another subdirectory. In this
@@ -287,7 +296,8 @@ $filter     = new Zend_Filter_Decompress(array(
 $compressed = $filter->filter('filename.zip');
 // Returns true on success and decompresses the archive file
 // into the given target directory
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Directories to extract to must exist</title></info>
             

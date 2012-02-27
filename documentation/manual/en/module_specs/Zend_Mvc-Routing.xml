@@ -40,7 +40,8 @@ interface Route
     public function match(Request $request);
     public function assemble(array $params = array(), array $options = array());
 }
-]]></programlisting>
+]]>
+</programlisting>
 
   <para>
     A <classname>Route</classname> accepts a <classname>Request</classname>,
@@ -59,7 +60,8 @@ class RouteMatch
     public function getParam($name, $default = null);
     public function getRoute();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
   <para>
     Typically, when a <classname>Route</classname> matches, it will define
@@ -74,7 +76,8 @@ if (!$id) {
     throw new Exception('Required identifier is missing!');
 }
 $entity = $resource->get($id);
-]]></programlisting>
+]]>
+</programlisting>
 
   <para>
     Usually you will have multiple routes you wish to test against. In
@@ -91,7 +94,8 @@ interface RouteStack extends Route
     public function addRoutes(array $routes);
     public function removeRoute($name);
 }
-]]></programlisting>
+]]>
+</programlisting>
 
   <para>
     Typically, routes should be queried in a LIFO order, and hence the
@@ -130,7 +134,8 @@ $router->addRoutes(array(
         ),
     ),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
   <section xml:id="zend.mvc.routing.router-types">
     <info><title>Router Types</title></info>
@@ -277,7 +282,8 @@ $route = Hostname::factory(array(
         'subdomain' => 'fw\d{2}'
     ),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         In the above example, only a "subdomain" key will be
@@ -297,7 +303,8 @@ $route = Hostname::factory(array(
         'type' => 'json',
     ),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         When matched, the above will return two keys in the
@@ -323,7 +330,8 @@ $route = Literal::factory(array(
         'controller' => 'foo-index',
     ),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         The above route would match a path "/foo", and return the
@@ -403,7 +411,8 @@ $route = Part::factory(array(
         ),
     ),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         The above would match the following:
@@ -483,7 +492,8 @@ $route = Regex::factory(array(
     ),
     'spec' => '/blog/%id%.%format%',
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         The above would match
@@ -513,7 +523,8 @@ $route = Scheme::factory(array(
         'https' => true,
     ),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         The above route would match the "https" scheme, and
@@ -571,7 +582,8 @@ $route = Segment::factory(array(
         'action'     => 'index',
     ),
 ));
-]]></programlisting>
+]]>
+</programlisting>
     </section>
   </section>
 </section>

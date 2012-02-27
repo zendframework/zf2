@@ -40,7 +40,8 @@ $storageClient = new Zend_Service_WindowsAzure_Storage_Blob();
 $result = $storageClient->createContainer('testcontainer');
 
 echo 'Container name is: ' . $result->Name;
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -58,7 +59,8 @@ echo 'Container name is: ' . $result->Name;
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Blob();
 $storageClient->deleteContainer('testcontainer');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -82,7 +84,8 @@ $result = $storageClient->putBlob(
 );
 
 echo 'Blob name is: ' . $result->Name;
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -108,7 +111,8 @@ $result = $storageClient->copyBlob(
 );
 
 echo 'Copied blob name is: ' . $result->Name;
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -131,7 +135,8 @@ $storageClient = new Zend_Service_WindowsAzure_Storage_Blob();
 $storageClient->getBlob(
     'testcontainer', 'example.txt', '/home/maarten/example.txt'
 );
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -161,7 +166,8 @@ $storageClient->setContainerAcl(
     'testcontainer',
     Zend_Service_WindowsAzure_Storage_Blob::ACL_PUBLIC
 );
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>
@@ -203,7 +209,8 @@ $fileHandle = fopen('azure://mycontainer/myfile.txt', 'r');
 // ...
 
 fclose($fileHandle);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -225,7 +232,8 @@ $storageClient->registerStreamWrapper();
 
 // regiters blob:// on this storage client
 $storageClient->registerStreamWrapper('blob://');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -288,7 +296,8 @@ $sharedAccessUrl = $storageClient->generateSharedAccessUrl(
     $storageClient ->isoDate(time() - 500),
     $storageClient ->isoDate(time() + 3000)
 );
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -310,7 +319,8 @@ $sharedAccessUrl = $storageClient->generateSharedAccessUrl(
     $storageClient ->isoDate(time() - 500),
     $storageClient ->isoDate(time() + 3000)
 );
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -350,7 +360,8 @@ $storageClient->getCredentials()->setPermissionSet(array(
 $storageClient->putBlob(
     'phpazuretestshared1', 'NewBlob.txt', 'C:\Files\dataforazure.txt'
 );
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>

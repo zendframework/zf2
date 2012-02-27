@@ -41,7 +41,8 @@ $client = new Zend_XmlRpc_Client('http://framework.zend.com/xmlrpc');
 echo $client->call('test.sayHello');
 
 // hello
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -71,7 +72,8 @@ $arg2 = 'foo';
 $result = $client->call('test.sayHello', array($arg1, $arg2));
 
 // $result is a native PHP type
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -217,7 +219,8 @@ $result = $client->call('test.sayHello', array($arg1, $arg2));
                 <programlisting language="php"><![CDATA[
 $client->setSkipSystemLookup(true);
 $result = $client->call('foo.bar', array(array()));
-]]></programlisting>
+]]>
+</programlisting>
             </note>
         </section>
 
@@ -449,7 +452,8 @@ $client = new Zend_XmlRpc_Client('http://framework.zend.com/xmlrpc');
 $service = $client->getProxy();           // Proxy the default namespace
 
 $hello = $service->test->sayHello(1, 2);  // test.Hello(1, 2) returns "hello"
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -469,7 +473,8 @@ $client = new Zend_XmlRpc_Client('http://framework.zend.com/xmlrpc');
 $test  = $client->getProxy('test');     // Proxy the "test" namespace
 
 $hello = $test->sayHello(1, 2);         // test.Hello(1,2) returns "hello"
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -516,7 +521,8 @@ try {
     // $e->getMessage() returns "Not Found"
 
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -562,7 +568,8 @@ try {
     // $e->getMessage() returns "Unknown method"
 
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -631,7 +638,8 @@ $client->doRequest($request);
 
 // $client->getLastRequest() returns instanceof Zend_XmlRpc_Request
 // $client->getLastResponse() returns instanceof Zend_XmlRpc_Response
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>

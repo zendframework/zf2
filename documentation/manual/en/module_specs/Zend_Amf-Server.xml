@@ -23,7 +23,8 @@ $server = new Zend_Amf_Server();
 $server->setClass('Foo');
 $response = $server->handle();
 echo $response;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Alternately, you may choose to attach a simple function as a
@@ -35,7 +36,8 @@ $server = new Zend_Amf_Server();
 $server->addFunction('myUberCoolFunction');
 $response = $server->handle();
 echo $response;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You could also mix and match multiple classes and functions. When
@@ -52,7 +54,8 @@ $server->addFunction('myUberCoolFunction', 'my')
        ->setClass('Bar', 'bar');
 $response = $server->handle();
 echo $response;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <classname>Zend_Amf_Server</classname> also allows services to be dynamically
@@ -66,7 +69,8 @@ echo $response;
         <programlisting language="php"><![CDATA[
 $server->addDirectory(dirname(__FILE__) .'/../services/');
 $server->addDirectory(dirname(__FILE__) .'/../package/');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When calling remote services your source name can have underscore ("_") and dot (".")
@@ -108,7 +112,8 @@ function helloWorld($name, $greeting = 'Hello')
 {
     return $greeting . ', ' . $name;
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <programlisting language="php"><![CDATA[
 // Attached class
@@ -125,7 +130,8 @@ class World
         return $greeting . ', ' . $name;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Other annotations may be used, but will be ignored.
@@ -209,7 +215,8 @@ class World
         </channel-definition>
     </channels>
 </services-config>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             There are two key points in the example. First, but last in the
@@ -222,7 +229,8 @@ class World
     <endpoint uri="http://example.com/server.php"
         class="flex.messaging.endpoints.AMFEndpoint"/>
 </channel-definition>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Notice that we've given this channel an identifier, "zend-endpoint".
@@ -240,7 +248,8 @@ class World
     fault="faultHandler(event)"
     showBusyCursor="true"
     destination="zend">
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Here, we've defined a new remote object identified by "myservice"
@@ -252,7 +261,8 @@ class World
 
         <programlisting language="ActionScript"><![CDATA[
 myservice.hello("Wade");
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When namespacing, you would use
@@ -261,7 +271,8 @@ myservice.hello("Wade");
 
         <programlisting language="ActionScript"><![CDATA[
 myservice.world.hello("Wade");
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             For more information on Flex RemoteObject invocation, <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://livedocs.adobe.com/flex/3/html/help.html?content=data_access_4.html">
@@ -292,7 +303,8 @@ myservice.world.hello("Wade");
 
         <programlisting language="php"><![CDATA[
 $server->setProduction(false);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To re-enable it, pass a <constant>TRUE</constant> boolean value instead:
@@ -300,7 +312,8 @@ $server->setProduction(false);
 
         <programlisting language="php"><![CDATA[
 $server->setProduction(true);
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Disable production mode sparingly!</title></info>
             
@@ -346,7 +359,8 @@ $server->setProduction(true);
 $response = $server->handle();
 $response->addAmfHeader(new Zend_Amf_Value_MessageHeader('foo', true, 'bar'))
 echo $response;
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -376,7 +390,8 @@ echo $response;
                 <programlisting language="php"><![CDATA[
 // Map the ActionScript class 'ContactVO' to the PHP class 'Contact':
 $server->setClassMap('ContactVO', 'Contact');
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -391,7 +406,8 @@ class Contact
 {
     public $_explicitType = 'ContactVO';
 }
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -409,7 +425,8 @@ class Contact
         return 'ContactVO';
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
         </itemizedlist>
 
@@ -440,7 +457,8 @@ package
         }
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The class is syntactically equivalent to the <acronym>PHP</acronym> of the same name.
@@ -460,7 +478,8 @@ private var myContact:ContactVO;
 private function getContactHandler(event:ResultEvent):void {
     myContact = ContactVO(event.result);
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The following result event from the service call is cast instantly onto the Flex
@@ -497,7 +516,8 @@ Zend_Amf_Parse_TypeLoader::addResourceDirectory(
     "My",
     "application/library/resources/My"
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             For detailed discussion of loading plugins, please see
@@ -528,7 +548,8 @@ class Zend_Amf_Parse_Resource_MysqlResult
         return $result;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Trying to return unknown resource type (i.e., one for which no handler plugin exists)
@@ -599,7 +620,8 @@ package {
     }
   }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             We first need to import two ActionScript libraries that perform the bulk of the work.
@@ -611,7 +633,8 @@ package {
         <programlisting language="as"><![CDATA[
 import flash.net.NetConnection;
 import flash.net.Responder;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In the class we need three variables to represent the NetConnection, Responder, and
@@ -623,7 +646,8 @@ import flash.net.Responder;
 private var gateway:String = "http://example.com/server.php";
 private var connection:NetConnection;
 private var responder:Responder;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In the Main constructor we create a responder and a new connection to the
@@ -636,7 +660,8 @@ private var responder:Responder;
 responder = new Responder(onResult, onFault);
 connection = new NetConnection;
 connection.connect(gateway);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In the onComplete function which is run as soon as the construct has completed we send
@@ -646,7 +671,8 @@ connection.connect(gateway);
 
         <programlisting language="as"><![CDATA[
 connection.call("World.hello", responder, params);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When we created the responder variable we defined an onResult and onFault function to
@@ -660,7 +686,8 @@ private function onResult(result:Object):void {
     // Display the returned data
     trace(String(result));
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The onFault function, is called if there was an invalid response from the server. This
@@ -673,7 +700,8 @@ private function onResult(result:Object):void {
 private function onFault(fault:Object):void {
     trace(String(fault.description));
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Adding in the ActionScript to make the remoting connection is now complete. Running the
@@ -726,7 +754,8 @@ private function onFault(fault:Object):void {
 
         <programlisting language="php"><![CDATA[
 $server->setAuth(new My_Amf_Auth());
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Access control is performed by using <classname>Zend_Acl</classname> object set by
@@ -737,7 +766,8 @@ $server->setAuth(new My_Amf_Auth());
 $acl = new Zend_Acl();
 createPermissions($acl); // create permission structure
 $server->setAcl($acl);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If the <acronym>ACL</acronym> object is set, and the class being called defines
@@ -763,6 +793,7 @@ if($this->_acl->isAllowed($role, $class, $function)) {
     require_once 'Zend/Amf/Server/Exception.php';
     throw new Zend_Amf_Server_Exception("Access not allowed");
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

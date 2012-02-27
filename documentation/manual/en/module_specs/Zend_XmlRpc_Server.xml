@@ -24,7 +24,8 @@
 $server = new Zend_XmlRpc_Server();
 $server->setClass('My_Service_Class');
 echo $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.xmlrpc.server.structure"><info><title>Server Structure</title></info>
@@ -159,7 +160,8 @@ echo $server->handle();
 function myFunc($val1, $val2, $val3)
 {
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             PhpDocumentor does no validation of the types specified for params
@@ -189,7 +191,8 @@ function myFunc($val1, $val2, $val3)
 function myFunc($val1, $val2, $val3)
 {
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -235,7 +238,8 @@ $server->setClass('My_Service_Class', 'myservice');
 
 // Function 'somefunc' will be accessible as funcs.somefunc
 $server->addFunction('somefunc', 'funcs');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.xmlrpc.server.request"><info><title>Custom Request Objects</title></info>
@@ -297,7 +301,8 @@ $server->addFunction('somefunc', 'funcs');
 
         <programlisting language="php"><![CDATA[
 Zend_XmlRpc_Server_Fault::attachFaultException('My_Project_Exception');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             If you utilize an exception class that your other project exceptions
@@ -355,7 +360,8 @@ if (!Zend_XmlRpc_Server_Cache::get($cacheFile, $server)) {
 }
 
 echo $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example attempts to retrieve a server definition from
@@ -398,7 +404,8 @@ function md5Value($value)
 $server = new Zend_XmlRpc_Server();
 $server->addFunction('md5Value');
 echo $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.attach-class"><info><title>Attaching a class</title></info>
@@ -415,7 +422,8 @@ require_once 'Services/Comb.php';
 $server = new Zend_XmlRpc_Server();
 $server->setClass('Services_Comb');
 echo $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.attach-class-with-arguments"><info><title>Attaching a class with arguments</title></info>
@@ -450,7 +458,8 @@ $server->setClass('Services_PricingService',
                   'pricing',
                   new ProductRepository(),
                   new PurchaseRepository());
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The arguments passed at <methodname>setClass()</methodname> at server construction
@@ -506,7 +515,8 @@ $server->setClass('Services_PricingService2',
                   'pricing',
                   new ProductRepository(),
                   new PurchaseRepository());
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.attach-instance"><info><title>Attaching a class instance</title></info>
@@ -538,7 +548,8 @@ $server->setClass('Services_Comb', 'comb');   // methods called as comb.*
 $server->setClass('Services_Brush', 'brush'); // methods called as brush.*
 $server->setClass('Services_Pick', 'pick');   // methods called as pick.*
 echo $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.exceptions-faults"><info><title>Specifying exceptions to use as valid fault responses</title></info>
@@ -563,7 +574,8 @@ $server->setClass('Services_Comb', 'comb');   // methods called as comb.*
 $server->setClass('Services_Brush', 'brush'); // methods called as brush.*
 $server->setClass('Services_Pick', 'pick');   // methods called as pick.*
 echo $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.custom-request-object"><info><title>Utilizing custom request and response objects</title></info>
@@ -603,7 +615,8 @@ $server->setClass('Services_Pick', 'pick');   // methods called as pick.*
 $request = new Services_Request();
 
 echo $server->handle($request);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.custom-response-object"><info><title>Specifying a custom response class</title></info>
@@ -637,7 +650,8 @@ $request = new Services_Request();
 $server->setResponseClass('Services_Response');
 
 echo $server->handle($request);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -677,7 +691,8 @@ $request = new Services_Request();
 $server->setResponseClass('Services_Response');
 
 echo $server->handle($request);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note>
@@ -713,7 +728,8 @@ Zend_XmlRpc_Value::setGenerator(new Zend_XmlRpc_Generator_XmlWriter());
 
 $server = new Zend_XmlRpc_Server();
 ...
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Benchmark your application</title></info>

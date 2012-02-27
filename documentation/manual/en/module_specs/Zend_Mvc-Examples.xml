@@ -27,7 +27,8 @@ $response = $this->getResponse();
 // Using direct property access
 $request  = $this->request;
 $response = $this->response;
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         Additionally, if your controller implements
@@ -41,7 +42,8 @@ $response = $this->response;
 $event    = $this->getEvent();
 $request  = $event->getRequest();
 $response = $event->getResponse();
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         The above can be useful when composing event listeners into your
@@ -69,7 +71,8 @@ $response = $event->getResponse();
       <programlisting language="php"><![CDATA[
 $event   = $this->getEvent();
 $matches = $event->getRouteMatch();
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         Once you have the <classname>RouteMatch</classname> object, you can
@@ -160,7 +163,8 @@ class Module
         $application->events()->attachAggregate($listeners);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         The above demonstrates several things. First, it shows registering a

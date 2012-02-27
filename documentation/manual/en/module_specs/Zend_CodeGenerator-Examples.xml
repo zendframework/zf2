@@ -29,7 +29,8 @@ $docblock = new Zend_CodeGenerator_Php_Docblock(array(
 $foo->setName('Foo')
     ->setDocblock($docblock);
 echo $foo->generate();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above code will result in the following:
@@ -49,7 +50,8 @@ class Foo
 {
 
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.codegenerator.examples.class-properties"><info><title>Generating PHP classes with class properties</title></info>
@@ -96,7 +98,8 @@ $foo->setName('Foo')
         ),
     ));
 echo $foo->generate();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above results in the following class definition:
@@ -122,7 +125,8 @@ class Foo
     const bat = 'foobarbazbat';
 
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.codegenerator.examples.class-methods"><info><title>Generating PHP classes with class methods</title></info>
@@ -207,7 +211,8 @@ $foo->setName('Foo')
     ));
 
 echo $foo->generate();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above generates the following output:
@@ -254,7 +259,8 @@ class Foo
     }
 
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.codegenerator.examples.file"><info><title>Generating PHP files</title></info>
@@ -288,7 +294,8 @@ $file = new Zend_CodeGenerator_Php_File(array(
     )),
     'body'     => 'define(\'APPLICATION_ENV\', \'testing\');',
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Calling <methodname>generate()</methodname> will generate the code -- but not
@@ -299,7 +306,8 @@ $file = new Zend_CodeGenerator_Php_File(array(
         <programlisting language="php"><![CDATA[
 $code = $file->generate();
 file_put_contents('Foo.php', $code);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above will generate the following file:
@@ -355,7 +363,8 @@ class Foo
 }
 
 define('APPLICATION_ENV', 'testing');
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.codegenerator.examples.reflection-file"><info><title>Seeding PHP file code generation via reflection</title></info>
@@ -373,7 +382,8 @@ $generator = Zend_CodeGenerator_Php_File::fromReflectedFileName($path);
 $body = $generator->getBody();
 $body .= "\n\$foo->bar();";
 file_put_contents($path, $generator->generate());
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.codegenerator.examples.reflection-class"><info><title>Seeding PHP class generation via reflection</title></info>
@@ -410,6 +420,7 @@ $generator->setMethod(array(
     )),
 ));
 $code = $generator->generate();
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

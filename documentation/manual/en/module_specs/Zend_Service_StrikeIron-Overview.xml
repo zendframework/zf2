@@ -180,7 +180,8 @@ $strikeIron = new Zend_Service_StrikeIron(array('username' => 'your-username',
                                                 'password' => 'your-password'));
 
 $taxBasic = $strikeIron->getService(array('class' => 'SalesUseTaxBasic'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <methodname>getService()</methodname> method will return a client for any
@@ -221,7 +222,8 @@ $rateInfo = $taxBasic->getTaxRateCanada(array('province' => 'ontario'));
 echo $rateInfo->province;
 echo $rateInfo->abbreviation;
 echo $rateInfo->GST;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In the example above, the <methodname>getService()</methodname> method is used
@@ -289,7 +291,8 @@ Zend_Service_StrikeIron_Decorator Object
             [HST] => Y
         )
 )
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In the output above, we see that the decorator (<varname>$rateInfo</varname>) wraps an
@@ -354,7 +357,8 @@ try {
   // problems or subscription errors
 
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The exceptions thrown will always be
@@ -408,7 +412,8 @@ $taxBasic = $strikeIron->getService(array('class => 'SalesUseTaxBasic'));
 // Check remaining hits for the Sales & Use Tax Basic service
 $subscription = $taxBasic->getSubscriptionInfo();
 echo $subscription->remainingHits;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <methodname>getSubscriptionInfo()</methodname> method will return an object

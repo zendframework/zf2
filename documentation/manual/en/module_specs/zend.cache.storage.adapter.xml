@@ -92,8 +92,8 @@ $plugin = new Zend\Cache\Storage\Plugin\ExceptionHandler(array(
     'throw_exceptions' => false,
 ));
 $cache->addPlugin($plugin);
-
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.cache.storage.adapter.options">

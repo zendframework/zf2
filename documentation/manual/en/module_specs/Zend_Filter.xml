@@ -64,7 +64,8 @@ $htmlEntities = new Zend_Filter_HtmlEntities();
 
 echo $htmlEntities->filter('&'); // &
 echo $htmlEntities->filter('"'); // "
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Filter-StaticFilter.xml"/>
@@ -88,7 +89,8 @@ $filtered = $filter->filter($original);
 // Use it's opposite
 $filter2  = new Zend_Filter_Word_CamelCaseToUnderscore();
 $filtered = $filter2->filter($filtered)
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above code example could lead to the impression that you will get the original

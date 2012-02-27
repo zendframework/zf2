@@ -52,7 +52,8 @@ interface Broker
     public function setClassLoader(ShortNameLocater $loader);
     public function getClassLoader();
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.loader.broker.options"><info><title>Configuration Options</title></info>

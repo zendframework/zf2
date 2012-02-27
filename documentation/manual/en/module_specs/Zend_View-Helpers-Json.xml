@@ -15,7 +15,8 @@
 
     <programlisting language="text"><![CDATA[
 Content-Type: application/json
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Most <acronym>AJAX</acronym> libraries look for this header when parsing responses to
@@ -27,8 +28,9 @@ Content-Type: application/json
     </para>
 
     <programlisting language="php"><![CDATA[
-<?php echo $this->json($this->data) ?>
-]]></programlisting>
+<?php echo $this->json($this->data) 
+]]>
+</programlisting>
 
     <note><info><title>Keeping layouts and enabling encoding using Zend_Json_Expr</title></info>
         
@@ -53,7 +55,8 @@ echo $this->json($this->data, true);
 
 // Or boolean true as "keepLayouts" key:
 echo $this->json($this->data, array('keepLayouts' => true));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             <classname>Zend_Json::encode</classname> allows the encoding of native
@@ -67,7 +70,8 @@ echo $this->json($this->data, array('keepLayouts' => true));
 <?php echo $this->json($this->data, array(
     'enableJsonExprFinder' => true,
     'keepLayouts'          => true,
-)) ?>
-]]></programlisting>
+)) 
+]]>
+</programlisting>
     </note>
 </section>

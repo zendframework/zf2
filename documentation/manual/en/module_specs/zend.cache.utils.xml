@@ -174,7 +174,8 @@ var_dump(Utils::getSystemMemoryCapacity());
  *   float(417021952)
  * }
  */
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

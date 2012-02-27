@@ -26,7 +26,8 @@
         <programlisting language="php"><![CDATA[
 $format = '%timestamp% %priorityName% (%priority%): %message%' . PHP_EOL;
 $formatter = new Zend_Log_Formatter_Simple($format);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             A formatter is set on an individual Writer object using the Writer's
@@ -44,7 +45,8 @@ $logger->addWriter($writer);
 $logger->info('there');
 
 // outputs "hello there"
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The constructor of <classname>Zend_Log_Formatter_Simple</classname> accepts a single
@@ -74,7 +76,8 @@ $logger = new Zend_Log();
 $logger->addWriter($writer);
 
 $logger->info('informational message');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The code above outputs the following <acronym>XML</acronym> (space added for clarity):
@@ -87,7 +90,8 @@ $logger->info('informational message');
   <priority>6</priority>
   <priorityName>INFO</priorityName>
 </logEntry>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             It's possible to customize the root element as well as specify a mapping
@@ -109,7 +113,8 @@ $logger = new Zend_Log();
 $logger->addWriter($writer);
 
 $logger->info('informational message');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The code above changes the root element from its default of
@@ -123,6 +128,7 @@ $logger->info('informational message');
   <msg>informational message</msg>
   <level>INFO</level>
 </log>
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

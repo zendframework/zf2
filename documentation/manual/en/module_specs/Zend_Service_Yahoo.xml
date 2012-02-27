@@ -36,7 +36,8 @@ $results = $yahoo->webSearch('PHP');
 foreach ($results as $result) {
     echo $result->Title .'<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -60,7 +61,8 @@ $results = $yahoo->imageSearch('PHP');
 foreach ($results as $result) {
     echo $result->Title .'<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -83,7 +85,8 @@ $results = $yahoo->videoSearch('PHP');
 foreach ($results as $result) {
     echo $result->Title .'<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -105,7 +108,8 @@ $results = $yahoo->localSearch('Apple Computers', array('zip' => '95014'));
 foreach ($results as $result) {
     echo $result->Title .'<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -127,7 +131,8 @@ $results = $yahoo->newsSearch('PHP');
 foreach ($results as $result) {
     echo $result->Title .'<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -150,7 +155,8 @@ $results = $yahoo->inlinkDataSearch('http://framework.zend.com/');
 foreach ($results as $result) {
     echo $result->Title .'<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -173,7 +179,8 @@ $results = $yahoo->pageDataSearch('http://framework.zend.com/');
 foreach ($results as $result) {
     echo $result->Title .'<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 

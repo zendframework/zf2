@@ -74,7 +74,8 @@ $moduleManager = new Manager(array(
 // Attach the default listener aggregate and load the modules
 $moduleManager->events()->attachAggregate($defaultListeners);
 $moduleManager->loadModules();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note>
@@ -152,7 +153,8 @@ $moduleManager = new Manager(array(
 // Attach the default listener aggregate and load the modules
 $moduleManager->events()->attachAggregate($defaultListeners);
 $moduleManager->loadModules();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>

@@ -71,7 +71,8 @@ $callbackCache->setOptions(new PatternOptions(array(
     'storage'      => 'apc',
     'cache_output' => true,
 )));
-]]></programlisting>
+]]>
+</programlisting>
 
     </section>
 
@@ -841,7 +842,8 @@ $result = $callbackCache->call('doResourceIntensiveStuff', array(
     'argument2',
     'argumentN',
 ));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.cache.pattern.examples.object">
@@ -859,7 +861,8 @@ $objectProxy = PatternFactory::factory('object', array(
 // Calls and caches $object->doResourceIntensiveStuff with three arguments
 // and returns result
 $result = $objectProxy->doResourceIntensiveStuff('argument1', 'argument2', 'argumentN');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.cache.pattern.examples.class">
@@ -876,7 +879,8 @@ $classProxy = PatternFactory::factory('class', array(
 // Calls and caches MyClass::doResourceIntensiveStuff with three arguments
 // and returns result
 $result = $classProxy->doResourceIntensiveStuff('argument1', 'argument2', 'argumentN');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.cache.pattern.examples.output">
@@ -901,7 +905,8 @@ if ($outputCache->start('MyUniqueKey') === false) {
 }
 
 echo 'This output is never cached.';
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.cache.pattern.examples.capture">
@@ -918,7 +923,8 @@ echo 'This output is never cached.';
             
             <programlisting language="plain"><![CDATA[
 ErrorDocument 404 /index.php
-]]></programlisting>
+]]>
+</programlisting>
             
             <para>Within your index.php you can add the following content:</para>
             
@@ -934,8 +940,8 @@ $capture = PatternFactory::factory('capture', array(
 $capture->start();
 
 // do stuff to dynamically generate output
-
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

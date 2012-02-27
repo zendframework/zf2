@@ -56,7 +56,8 @@ $logger = new Zend_Log();
 $writer = new Zend_Log_Writer_Stream('php://output');
 
 $logger->addWriter($writer);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             It is important to note that the Log must
@@ -72,7 +73,8 @@ $logger->addWriter($writer);
         <programlisting language="php"><![CDATA[
 $writer = new Zend_Log_Writer_Stream('php://output');
 $logger = new Zend_Log($writer);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The Log is now ready to use.
@@ -89,7 +91,8 @@ $logger = new Zend_Log($writer);
 
         <programlisting language="php"><![CDATA[
 $logger->log('Informational message', Zend_Log::INFO);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The first parameter of the <methodname>log()</methodname> method is a string
@@ -109,7 +112,8 @@ $logger->info('Informational message');
 
 $logger->log('Emergency message', Zend_Log::EMERG);
 $logger->emerg('Emergency message');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.log.overview.destroying-a-logger"><info><title>Destroying a Log</title></info>
@@ -124,7 +128,8 @@ $logger->emerg('Emergency message');
 
         <programlisting language="php"><![CDATA[
 $logger = null;
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Explicitly destroying the log in this way is optional and is performed
@@ -148,7 +153,8 @@ WARN    = 4;  // Warning: warning conditions
 NOTICE  = 5;  // Notice: normal but significant condition
 INFO    = 6;  // Informational: informational messages
 DEBUG   = 7;  // Debug: debug messages
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             These priorities are always available, and a convenience method of the same name
@@ -184,7 +190,8 @@ DEBUG   = 7;  // Debug: debug messages
 
         <programlisting language="php"><![CDATA[
 $logger->addPriority('FOO', 8);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The snippet above creates a new priority, <constant>FOO</constant>, whose
@@ -194,7 +201,8 @@ $logger->addPriority('FOO', 8);
         <programlisting language="php"><![CDATA[
 $logger->log('Foo message', 8);
 $logger->foo('Foo Message');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             New priorities cannot overwrite existing ones.
@@ -226,7 +234,8 @@ $logger->foo('Foo Message');
 
         <programlisting language="php"><![CDATA[
 $logger->setEventItem('pid', getmypid());
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The example above sets a new item named <property>pid</property> and populates

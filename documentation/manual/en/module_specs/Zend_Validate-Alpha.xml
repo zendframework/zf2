@@ -40,7 +40,8 @@ if ($validator->isValid('Abcd')) {
 } else {
     // false
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.alpha.whitespace"><info><title>Using whitespaces</title></info>
@@ -66,7 +67,8 @@ if ($validator->isValid('Abcd and efg')) {
 } else {
     // false
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.alpha.languages"><info><title>Using different languages</title></info>

@@ -138,7 +138,8 @@ $twitter = new Zend_Service_Twitter(array(
 
 // verify user's credentials with Twitter
 $response = $twitter->account->verifyCredentials();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note>
@@ -179,7 +180,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->account->verifyCredentials();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
 
@@ -198,7 +200,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->account->endSession();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
 
@@ -218,7 +221,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->account->rateLimitStatus();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
         </itemizedlist>
@@ -244,7 +248,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->status->publicTimeline();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
 
@@ -263,7 +268,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->status->friendsTimeline();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -302,7 +308,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->status->userTimeline();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -355,7 +362,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->status->show(1234);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
 
@@ -375,7 +383,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->status->update('My Great Tweet');
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -408,7 +417,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->status->replies();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -453,7 +463,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->status->destroy(12345);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
         </itemizedlist>
@@ -478,7 +489,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->user->friends();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -524,7 +536,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->user->followers();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -564,7 +577,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->user->show('myfriend');
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
         </itemizedlist>
@@ -589,7 +603,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->directMessage->messages();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -635,7 +650,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->directMessage->sent();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -681,7 +697,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->directMessage->new('myfriend', 'mymessage');
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
 
@@ -701,7 +718,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->directMessage->destroy(123548);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
         </itemizedlist>
@@ -726,7 +744,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->friendship->create('mynewfriend');
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
 
@@ -745,7 +764,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->friendship->destroy('myoldfriend');
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
 
@@ -764,7 +784,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->friendship->exists('myfriend');
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
         </itemizedlist>
@@ -790,7 +811,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->favorite->favorites();
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -829,7 +851,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->favorite->create(12351);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
 
@@ -848,7 +871,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->favorite->destroy(12351);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
         </itemizedlist>
@@ -879,7 +903,8 @@ $response = $twitter->block->exists('blockeduser');
 
 // returns the blocked user's info if the user is blocked
 $response2 = $twitter->block->exists('blockeduser', true);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>
@@ -915,7 +940,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->block->create('usertoblock);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
 
@@ -935,7 +961,8 @@ $twitter = new Zend_Service_Twitter(array(
     'accessToken' => $token
 ));
 $response   = $twitter->block->destroy('blockeduser');
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
             </listitem>
 
@@ -959,7 +986,8 @@ $response = $twitter->block->blocking();
 
 // return an array of numeric user IDs from the second page
 $response2 = $twitter->block->blocking(2, true);
-]]></programlisting>
+]]>
+</programlisting>
                 </example>
 
                 <para>

@@ -54,7 +54,8 @@ $db->setProfiler($profiler)
 
 // All DB queries in your model, view and controller
 // files will now be profiled and sent to Firebug
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.db.profiler.profilers.firebug.example.without_front_controller"><info><title>DB Profiling without Zend_Controller_Front</title></info>
@@ -81,6 +82,7 @@ ob_start();
 // Flush profiling data to browser
 $channel->flush();
 $response->sendHeaders();
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

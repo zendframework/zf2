@@ -35,7 +35,8 @@
     <programlisting language="php"><![CDATA[
 $writer = new Zend_Log_Writer_ZendMonitor();
 $log    = new Zend_Log($writer);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Then, simply log messages as usual:
@@ -43,7 +44,8 @@ $log    = new Zend_Log($writer);
 
     <programlisting language="php"><![CDATA[
 $log->info('This is a message');
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         If you want to specify additional information to log with the event, pass that information
@@ -52,7 +54,8 @@ $log->info('This is a message');
 
     <programlisting language="php"><![CDATA[
 $log->info('Exception occurred', $e);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The second parameter may be a scalar, object, or array; if you need to pass multiple pieces
@@ -64,7 +67,8 @@ $log->info('Exception occurred', array(
     'request'   => $request,
     'exception' => $e,
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Within Zend Server, your event is logged as a "custom event". From the "Monitor" tab, select

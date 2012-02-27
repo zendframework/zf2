@@ -388,6 +388,7 @@ $unit = new Zend_Measure_Number($great,Zend_Measure_Number::ROMAN, $locale);
 
 // convert to the decimal system
 echo $unit->convertTo(Zend_Measure_Number::DECIMAL);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

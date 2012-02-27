@@ -16,7 +16,8 @@ print "Here is line one\n";
 print "Today is the " . date("d.m.Y") . "\n";
 print "\n";
 print "Here is line two\n";
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>
@@ -58,7 +59,8 @@ print "\n";
 
 $translate->setLocale('fr');
 print $translate->_("Here is line two") . "\n";
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>
@@ -78,7 +80,8 @@ $translate = new Zend_Translator
         'locale'  => 'de'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         In this example we chose the
@@ -99,7 +102,8 @@ $translate = new Zend_Translator
 print $translate->_("Example") . "\n";
 print "=======\n";
 print $translate->_("Here is line one") . "\n";
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Some strings do not needed to be translated.
@@ -114,7 +118,8 @@ print $translate->_("Here is line one") . "\n";
 
     <programlisting language="php"><![CDATA[
 printf($translate->_("Today is the %1\$s") . "\n", date("d.m.Y"));
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Instead of <methodname>print()</methodname>, use the <methodname>printf()</methodname>
@@ -135,7 +140,8 @@ printf($translate->_("Today is the %1\$s") . "\n", date("d.m.Y"));
 print $translate->_(1) . "\n";
 print "=======\n";
 print $translate->_(2) . "\n";
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         But doing this has several disadvantages:
@@ -191,7 +197,8 @@ print $translate->_(2) . "\n";
 /languages/lang.en
 /languages/lang.de
 /library/
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     Positive: all source files for every languages are stored
@@ -214,7 +221,8 @@ print $translate->_(2) . "\n";
 /languages/de/first.de
 /languages/de/second.de
 /library
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     Positive: Every language is stored in their own directories.
@@ -236,7 +244,8 @@ print $translate->_(2) . "\n";
 /application/languages/second.en
 /application/languages/second.de
 /library/
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     Positive: all source files for every language are stored
@@ -266,7 +275,8 @@ print $translate->_(2) . "\n";
 /languages/en/LC_MESSAGES/first.mo
 /languages/en/LC_MESSAGES/second.mo
 /library/
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     Positive: existing gettext sources can be used without changing
@@ -295,7 +305,8 @@ print $translate->_(2) . "\n";
 /application/controllers/MyController.de
 /application/controllers/MyController.en
 /library/
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     Positive: translation files are localted near their source.

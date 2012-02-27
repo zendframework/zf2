@@ -29,7 +29,8 @@ $results = $flickr->tagSearch("php");
 foreach ($results as $result) {
     echo $result->title . '<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Optional parameter</title></info>
@@ -91,7 +92,8 @@ $results = $flickr->userSearch($userEmail);
 foreach ($results as $result) {
     echo $result->title . '<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -114,7 +116,8 @@ $flickr = new Zend_Service_Flickr('MY_API_KEY');
     foreach ($results as $result) {
         echo $result->title . '<br />';
     }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Optional parameter</title></info>
@@ -151,7 +154,8 @@ $image = $flickr->getImageDetails($imageId);
 
 echo "Image ID $imageId is $image->width x $image->height pixels.<br />\n";
 echo "<a href=\"$image->clickUri\">Click for Image</a>\n";
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 

@@ -239,7 +239,8 @@ $server->setClass('MyClass');
 $server->setObject(new MyClass());
 ...
 $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Important!</title></info>
             
@@ -284,7 +285,8 @@ $server->addFunction('function1');
 $server->addFunction('function2');
 ...
 $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.soap.server.request_response"><info><title>Request and response objects handling</title></info>
@@ -324,7 +326,8 @@ $server->handle($request);
 // Set request using setRequest() method
 $server->setRequest();
 $server->handle();
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Request object may be represented using any of the following:
@@ -375,7 +378,8 @@ $server = new Zend_Soap_Server(...);
 ...
 $server->handle();
 $request = $server->getLastRequest();
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.soap.server.request_response.response"><info><title>Response pre-processing</title></info>
@@ -408,7 +412,8 @@ $server->setReturnResponse(true);
 ...
 $response = $server->handle();
 ...
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Last response may be also retrieved by <methodname>getLastResponse()</methodname>
@@ -422,7 +427,8 @@ $server = new Zend_Soap_Server(...);
 $server->handle();
 $response = $server->getLastResponse();
 ...
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 

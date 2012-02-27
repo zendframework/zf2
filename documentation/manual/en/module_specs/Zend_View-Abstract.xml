@@ -35,7 +35,8 @@ protected function _run()
 {
     include func_get_arg(0);
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         As such, the view scripts have access to the current object

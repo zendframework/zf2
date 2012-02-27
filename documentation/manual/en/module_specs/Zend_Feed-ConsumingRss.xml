@@ -9,7 +9,8 @@
 
     <programlisting language="php"><![CDATA[
 $channel = new Zend_Feed_Rss('http://rss.example.com/channelName');
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         If any errors occur fetching the feed, a <classname>Zend_Feed_Exception</classname> will be
@@ -23,7 +24,8 @@ $channel = new Zend_Feed_Rss('http://rss.example.com/channelName');
 
     <programlisting language="php"><![CDATA[
 echo $channel->title();
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Note the function syntax. <classname>Zend_Feed</classname> uses a convention of treating
@@ -40,7 +42,8 @@ echo $channel->title();
 
     <programlisting language="php"><![CDATA[
 echo $channel->category['domain'];
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Since <acronym>XML</acronym> attributes cannot have children, method syntax is not necessary
@@ -58,7 +61,8 @@ echo $channel->category['domain'];
 foreach ($channel as $item) {
     echo $item->title() . "\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         If you are not familiar with <acronym>RSS</acronym>, here are the standard elements you can
@@ -169,7 +173,8 @@ foreach ($channel as $item) {
 if ($item->propname()) {
     // ... proceed.
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         If you use <command>$item-&gt;propname</command> instead, you will always get an empty object

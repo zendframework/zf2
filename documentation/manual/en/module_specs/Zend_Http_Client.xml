@@ -52,7 +52,8 @@ $client->setConfig(array(
 // You can also use a Zend\Config\Ini object to set the client's configuration
 $config = new Zend\Config\Ini('httpclient.ini', 'secure');
 $client->setConfig($config);
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -834,7 +835,8 @@ application/octet-stream.</para>
 use Zend\Config\Client;
 $client = new Client('http://example.org');
 $response = $client->send();
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The request() method takes one optional parameter - the request method.
@@ -877,7 +879,8 @@ $response = $client->request('POST');
 // Yet another way of preforming a POST request
 $client->setMethod(Client::POST);
 $response = $client->request();
-]]></programlisting>
+]]>
+</programlisting>
 
         </example>
 
@@ -914,7 +917,8 @@ $client->setParameterGet(array(
     'middle_name' => 'Bending'
     'made_in'     => 'Mexico',
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         </example>
 
@@ -944,7 +948,8 @@ $client->setParameterPost(array(
     'country'   => 'ar',
     'selection' => array(45, 32, 80)
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Note that when sending POST requests, you can set both <constant>GET</constant> and
@@ -977,7 +982,8 @@ $response = $client->dispatch($request);
 if ($response->isSuccess()) {
     //  the POST was successfull
 }
-]]></programlisting>
+]]>
+</programlisting>
 
 
         </example>

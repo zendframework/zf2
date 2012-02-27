@@ -54,7 +54,8 @@ echo $file;
 
 // or write it to a file:
 file_put_contents('World.php', $file->generate());
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Both of the above samples will render the same result:
@@ -72,7 +73,8 @@ class World
     }
 
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Another common use case is to update existing code -- for instance,
@@ -106,7 +108,8 @@ echo $file;
 
 // Or, better yet, write it back to the original file:
 file_put_contents('World.php', $file->generate());
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The resulting class file will now look like this:
@@ -129,6 +132,7 @@ class World
     }
 
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

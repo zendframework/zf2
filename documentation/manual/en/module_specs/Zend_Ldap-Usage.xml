@@ -40,7 +40,8 @@ array(
     ...
 )
 */
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <example xml:id="zend.ldap.usage.basic.retrieve.exists"><info><title>Check for the existence of a given DN</title></info>
@@ -51,7 +52,8 @@ $options = array(/* ... */);
 $ldap = new Zend_Ldap($options);
 $ldap->bind();
 $isThere = $ldap->exists('cn=Hugo Müller,ou=People,dc=my,dc=local');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <example xml:id="zend.ldap.usage.basic.retrieve.counting-children"><info><title>Count children of a given DN</title></info>
@@ -63,7 +65,8 @@ $ldap = new Zend_Ldap($options);
 $ldap->bind();
 $childrenCount = $ldap->countChildren(
                             'cn=Hugo Müller,ou=People,dc=my,dc=local');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <example xml:id="zend.ldap.usage.basic.retrieve.search"><info><title>Searching the LDAP tree</title></info>
@@ -79,7 +82,8 @@ $result = $ldap->search('(objectclass=*)',
 foreach ($result as $item) {
     echo $item["dn"] . ': ' . $item['cn'][0] . PHP_EOL;
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -98,7 +102,8 @@ Zend_Ldap_Attribute::setAttribute($entry, 'cn', 'Hans Meier');
 Zend_Ldap_Attribute::setAttribute($entry, 'sn', 'Meier');
 Zend_Ldap_Attribute::setAttribute($entry, 'objectClass', 'inetOrgPerson');
 $ldap->add('cn=Hans Meier,ou=People,dc=my,dc=local', $entry);
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -113,7 +118,8 @@ $options = array(/* ... */);
 $ldap = new Zend_Ldap($options);
 $ldap->bind();
 $ldap->delete('cn=Hans Meier,ou=People,dc=my,dc=local');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -133,7 +139,8 @@ Zend_Ldap_Attribute::setPassword($hm,
                                  'newPa$$w0rd',
                                  Zend_Ldap_Attribute::PASSWORD_HASH_SHA1);
 $ldap->update('cn=Hugo Müller,ou=People,dc=my,dc=local', $hm);
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>
@@ -154,7 +161,8 @@ $ldap->bind();
 $ldap->copy('cn=Hugo Müller,ou=People,dc=my,dc=local',
             'cn=Hans Meier,ou=People,dc=my,dc=local',
             true);
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <example xml:id="zend.ldap.usage.extended.copy-and-move.move-to-subtree"><info><title>
@@ -169,7 +177,8 @@ $ldap->bind();
 $ldap->moveToSubtree('cn=Hugo Müller,ou=People,dc=my,dc=local',
                      'ou=Dismissed,dc=my,dc=local',
                      true);
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>

@@ -12,7 +12,8 @@
 
         <programlisting language="php"><![CDATA[
 $memObject = $memoryManager->create($data);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             "Movable" means that such objects may be swapped and unloaded from
@@ -30,7 +31,8 @@ $memObject = $memoryManager->create($data);
 
         <programlisting language="php"><![CDATA[
 $memObject = $memoryManager->createLocked($data);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             "Locked" means that such objects are never swapped and unloaded
@@ -80,7 +82,8 @@ $memObject->value[$index] = '_';
 echo ord($memObject->value[$index1]);
 
 $memObject->value = substr($memObject->value, $start, $length);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             An alternative way to access memory object data is to use the <link linkend="zend.memory.memory-objects.api.getRef"><methodname>getRef()</methodname></link>
@@ -102,7 +105,8 @@ $memObject->value = substr($memObject->value, $start, $length);
 
             <programlisting language="php"><![CDATA[
 public function &getRef();
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The <methodname>getRef()</methodname> method returns reference to the object value.
@@ -138,7 +142,8 @@ for ($count = 0; $count < strlen($value); $count++) {
     $char = $value[$count];
     ...
 }
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.memory.memory-objects.api.touch"><info><title>touch() method</title></info>
@@ -146,7 +151,8 @@ for ($count = 0; $count < strlen($value); $count++) {
 
             <programlisting language="php"><![CDATA[
 public function touch();
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The <methodname>touch()</methodname> method should be used in common with
@@ -168,7 +174,8 @@ for ($count = 0; $count < strlen($value); $count++) {
 }
 
 $memObject->touch();
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.memory.memory-objects.api.lock"><info><title>lock() method</title></info>
@@ -176,7 +183,8 @@ $memObject->touch();
 
             <programlisting language="php"><![CDATA[
 public function lock();
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The <methodname>lock()</methodname> methods locks object in memory.
@@ -211,7 +219,8 @@ for ($count = 0; $count < strlen($value2); $count++) {
 $memObject1->touch();
 $memObject1->unlock();
 $memObject2->unlock();
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.memory.memory-objects.api.unlock"><info><title>unlock() method</title></info>
@@ -219,7 +228,8 @@ $memObject2->unlock();
 
             <programlisting language="php"><![CDATA[
 public function unlock();
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 <methodname>unlock()</methodname> method unlocks object when it's no longer
@@ -232,7 +242,8 @@ public function unlock();
 
             <programlisting language="php"><![CDATA[
 public function isLocked();
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The <methodname>isLocked()</methodname> method can be used to check if

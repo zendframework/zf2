@@ -47,7 +47,8 @@ $storageClient = new Zend_Service_WindowsAzure_Storage_Queue();
 $result = $storageClient->createQueue('testqueue');
 
 echo 'Queue name is: ' . $result->Name;
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -64,7 +65,8 @@ echo 'Queue name is: ' . $result->Name;
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Queue();
 $storageClient->deleteQueue('testqueue');
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -84,7 +86,8 @@ $storageClient = new Zend_Service_WindowsAzure_Storage_Queue();
 
 // 3600 = time-to-live of the message, if omitted defaults to 7 days
 $storageClient->putMessage('testqueue', 'This is a test message', 3600);
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -108,7 +111,8 @@ $messages = $storageClient->getMessages('testqueue', 10);
 foreach ($messages as $message) {
     echo $message->MessageText . "\r\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>
@@ -133,7 +137,8 @@ foreach ($messages as $message) {
     // Mark the message as processed
     $storageClient->deleteMessage('testqueue', $message);
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
 
@@ -157,7 +162,8 @@ $messages = $storageClient->peekMessages('testqueue', 10);
 foreach ($messages as $message) {
     echo $message->MessageText . "\r\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <para>

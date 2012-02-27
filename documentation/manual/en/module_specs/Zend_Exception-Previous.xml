@@ -37,6 +37,7 @@ try {
     // displays all exceptions starting by the first thrown
     // exception if available.
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

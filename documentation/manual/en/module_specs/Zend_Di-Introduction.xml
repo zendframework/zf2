@@ -17,7 +17,8 @@
 
         <programlisting language="php"><![CDATA[
 $b = new MovieLister(new MovieFinder));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Above, MovieFinder is a dependency of MovieLister, and MovieFinder was injected into MovieLister. If you

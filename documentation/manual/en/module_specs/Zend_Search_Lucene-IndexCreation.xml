@@ -31,7 +31,8 @@ $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $docContent));
 
 // Add document to the index
 $index->addDocument($doc);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Newly added documents are immediately searchable in the index.
@@ -59,7 +60,8 @@ $doc->addField(Zend_Search_Lucene_Field::UnStored('contents',
 
 // Add document to the index.
 $index->addDocument($doc);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.document-updating"><info><title>Updating Documents</title></info>
@@ -81,7 +83,8 @@ $hits = $index->find('path:' . $removePath);
 foreach ($hits as $hit) {
     $index->delete($hit->id);
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.counting"><info><title>Retrieving Index Size</title></info>
@@ -107,7 +110,8 @@ foreach ($hits as $hit) {
         <programlisting language="php"><![CDATA[
 $indexSize = $index->count();
 $documents = $index->numDocs();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             <methodname>Zend_Search_Lucene::isDeleted($id)</methodname> method may be used to check
@@ -120,7 +124,8 @@ for ($count = 0; $count < $index->maxDoc(); $count++) {
         echo "Document #$id is deleted.\n";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Index optimization removes deleted documents and squeezes documents' IDs in to a smaller
@@ -169,7 +174,8 @@ $index = Zend_Search_Lucene::open('/data/my-index');
 
 // Optimize index.
 $index->optimize();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Automatic index optimization is performed to keep indexes in a consistent state.
@@ -297,7 +303,8 @@ $currentPermissions =
 
 // Give read-writing permissions only for current user and group
 Zend_Search_Lucene_Storage_Directory_Filesystem::setDefaultFilePermissions(0660);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.limitations"><info><title>Limitations</title></info>

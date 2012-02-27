@@ -604,7 +604,8 @@ $pdf->resolveDestination(Zend_Pdf_Destination_Named::create('Page2'));
 
 // Returns null, page 3 is not included into document yet
 $pdf->resolveDestination(Zend_Pdf_Destination_Named::create('Page3'));
-]]></programlisting>
+]]>
+</programlisting>
             </example>
         </section>
     </section>
@@ -863,7 +864,8 @@ foreach ($iterator as $chainedAction) {
 
 // Prints 'Actions in a tree: 4'
 printf("Actions in a tree: %d\n", $actionsCount++);
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.pdf.pages.interactive-features.actions.open-action"><info><title>Document Open Action</title></info>
@@ -924,7 +926,8 @@ $pdf->outlines[0]->childOutlines[5]->childOutlines[] =
     Zend_Pdf_Outline::create('Chapter 2', 'chapter_2');
 
 $pdf->save($path, true);
-]]></programlisting>
+]]>
+</programlisting>
         </para>
 
         <para>
@@ -1089,7 +1092,8 @@ foreach ($pdf->outlines as $documentRootOutlineEntry) {
 }
 
 $pdf->save($path, true);
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>

@@ -24,7 +24,8 @@
 
             <programlisting language="php"><![CDATA[
 Zend_Loader::loadFile($filename, $dirs=null, $once=false);
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
         <para>
@@ -69,7 +70,8 @@ Zend_Loader::loadFile($filename, $dirs=null, $once=false);
 if (Zend_Loader::isReadable($filename)) {
     // do something with $filename
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>

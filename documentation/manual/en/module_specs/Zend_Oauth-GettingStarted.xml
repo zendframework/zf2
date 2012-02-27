@@ -25,7 +25,8 @@ $config = array(
     'consumerSecret' => 'tFB0fyWLSMf74lkEu9FTyoHXcazOWpbrAjTCCK48A'
 );
 $consumer = new Zend_Oauth_Consumer($config);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The callbackUrl is the URI we want Twitter to request from our server
@@ -96,7 +97,8 @@ $consumer = new Zend_Oauth_Consumer($config);
 
 // fetch a request token
 $token = $consumer->getRequestToken();
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The new request token (an instance of <classname>Zend_Oauth_Token_Request
@@ -123,7 +125,8 @@ $_SESSION['TWITTER_REQUEST_TOKEN'] = serialize($token);
 
 // redirect the user
 $consumer->redirect();
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The user will now be redirected to Twitter. They will be asked to authorize
@@ -172,7 +175,8 @@ if (!empty($_GET) && isset($_SESSION['TWITTER_REQUEST_TOKEN'])) {
     // Mistaken request? Some malfeasant trying something?
     exit('Invalid callback request. Oops. Sorry.');
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Success! We have an authorized access token - so it's time to actually
@@ -209,7 +213,8 @@ if (isset($data->text)) {
     $result = 'true';
 }
 echo $result;
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         As a note on the customised client, this can be passed to most

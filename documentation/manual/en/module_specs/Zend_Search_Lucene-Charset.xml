@@ -84,7 +84,8 @@
         <programlisting language="php"><![CDATA[
 Zend_Search_Lucene_Analysis_Analyzer::setDefault(
     new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8());
-]]></programlisting>
+]]>
+</programlisting>
 
         <warning><info><title/></info>
             
@@ -118,7 +119,8 @@ if (@preg_match('/\pL/u', 'a') == 1) {
 } else {
     echo "PCRE unicode support is turned off.\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Case insensitive versions of UTF-8 compatible analyzers also need <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.php.net/manual/en/ref.mbstring.php">mbstring</link> extension to
@@ -153,7 +155,8 @@ $doc->addField(Zend_Search_Lucene_Field::UnStored('title',
 
 // Title field for retrieving (unindexed, stored)
 $doc->addField(Zend_Search_Lucene_Field::UnIndexed('_title', $title));
-]]></programlisting>
+]]>
+</programlisting>
 
             <programlisting language="php"><![CDATA[
 // Searching
@@ -167,6 +170,7 @@ Zend_Search_Lucene_Analysis_Analyzer::setDefault(
 ...
 
 $hits = $index->find(strtolower($query));
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

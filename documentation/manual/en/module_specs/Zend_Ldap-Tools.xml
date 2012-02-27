@@ -24,7 +24,8 @@ $f7  = Zend_Ldap_Filter::less('name', 'value');           // (name<value)
 $f8  = Zend_Ldap_Filter::lessOrEqual('name', 'value');    // (name<=value)
 $f9  = Zend_Ldap_Filter::approx('name', 'value');         // (name~=value)
 $f10 = Zend_Ldap_Filter::any('name');                     // (name=*)
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example><info><title>Create more complex LDAP filters</title></info>
@@ -42,7 +43,8 @@ $f5 = Zend_Ldap_Filter::andFilter($f2, $f3, $f4);
 
 // (|(name=value)(name=value*)(name=*value))
 $f6 = Zend_Ldap_Filter::orFilter($f2, $f3, $f4);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 

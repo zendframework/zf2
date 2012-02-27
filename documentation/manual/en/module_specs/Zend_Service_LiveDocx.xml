@@ -366,7 +366,8 @@ $phpLiveDocx->createDocument();
 $document = $phpLiveDocx->retrieveDocument('pdf');
 
 file_put_contents('document.pdf', $document);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The resulting document is written to disk in the file
@@ -426,14 +427,16 @@ file_put_contents('document.pdf', $document);
             <programlisting language="text"><![CDATA[
 blockStart_ + unique name
 blockEnd_ + unique name
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>For example:</para>
 
             <programlisting language="text"><![CDATA[
 blockStart_block1
 blockEnd_block1
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The content of a block is repeated, until all data assigned in the block fields has
@@ -496,7 +499,8 @@ $phpLiveDocx->assign('connection', $billConnections);
 $phpLiveDocx->createDocument();
 $document = $phpLiveDocx->retrieveDocument('pdf');
 file_put_contents('document.pdf', $document);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The data, which is specified in the array <varname>$billConnections</varname> is
@@ -592,7 +596,8 @@ foreach ($bitmaps as $pageNumber => $bitmapData) {
     $filename = sprintf('documentPage%d.png', $pageNumber);
     file_put_contents($filename, $bitmapData);
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This produces two files (<filename>documentPage1.png</filename> and
@@ -647,7 +652,8 @@ $phpLiveDocx->setUsername('myUsername')
 $phpLiveDocx->setLocalTemplate('./template.docx');
 
 // assign data and create document
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 In the case that a template is stored remotely, it is uploaded once to the server
@@ -668,7 +674,8 @@ $phpLiveDocx->setUsername('myUsername')
             ->setPassword('myPassword');
 
 $phpLiveDocx->uploadTemplate('template.docx');
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The following code illustrates how to reference the remotely stored template on all
@@ -684,7 +691,8 @@ $phpLiveDocx->setUsername('myUsername')
 $phpLiveDocx->setRemoteTemplate('template.docx');
 
 // assign data and create document
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.service.livedocx.mailmerge.information"><info><title>Getting Information</title></info>
@@ -717,7 +725,8 @@ $fieldNames = $phpLiveDocx->getFieldNames();
 foreach ($fieldNames as $fieldName) {
     printf('- %s%s', $fieldName, PHP_EOL);
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <example xml:id="zend.service.livedocx.mailmerge.information.getblockfieldname"><info><title>Get Array of Block Field Names in Template</title></info>
@@ -747,7 +756,8 @@ foreach ($blockNames as $blockName) {
         printf('- %s::%s%s', $blockName, $blockFieldName, PHP_EOL);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <example xml:id="zend.service.livedocx.mailmerge.information.getfontnames"><info><title>Get Array of Fonts Installed on Server</title></info>
@@ -769,7 +779,8 @@ $phpLiveDocx->setUsername('myUsername')
             ->setPassword('myPassword');
 
 Zend_Debug::dump($phpLiveDocx->getFontNames());
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     <emphasis>NOTE:</emphasis> As the return value of this method changes very
@@ -796,7 +807,8 @@ $phpLiveDocx->setUsername('myUsername')
             ->setPassword('myPassword');
 
 Zend_Debug::dump($phpLiveDocx->getTemplateFormats());
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     <emphasis>NOTE:</emphasis> As the return value of this method changes very
@@ -823,7 +835,8 @@ $phpLiveDocx->setUsername('myUsername')
             ->setPassword('myPassword');
 
 Zend_Debug::dump($phpLiveDocx->getDocumentFormats());
-]]></programlisting>
+]]>
+</programlisting>
             </example>
 
             <example xml:id="zend.service.livedocx.mailmerge.information.getimageformats"><info><title>Get Array of Supported Image File Formats</title></info>
@@ -843,7 +856,8 @@ $phpLiveDocx->setUsername('myUsername')
             ->setPassword('myPassword');
 
 Zend_Debug::dump($phpLiveDocx->getImageFormats());
-]]></programlisting>
+]]>
+</programlisting>
 
                 <para>
                     <emphasis>NOTE:</emphasis> As the return value of this method changes very

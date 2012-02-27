@@ -263,6 +263,7 @@ if (isset($argv[2])) {
 } else {
     $pdf->save($argv[1], true /* update */);
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

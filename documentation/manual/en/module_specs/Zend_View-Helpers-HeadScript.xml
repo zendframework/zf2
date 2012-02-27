@@ -96,7 +96,8 @@ $this->headScript()->appendFile(
     'text/javascript',
     array('conditional' => 'lt IE 7')
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </note>
 
@@ -159,7 +160,8 @@ $this->headScript()->appendFile(
 
         <programlisting language="php"><![CDATA[
 $this->headScript()->setAllowArbitraryAttributes(true);
-]]></programlisting>
+]]>
+</programlisting>
     </note>
 
     <example xml:id="zend.view.helpers.initial.headscript.basicusage"><info><title>HeadScript Helper Basic Usage</title></info>
@@ -174,7 +176,8 @@ $this->headScript()->setAllowArbitraryAttributes(true);
 // adding scripts
 $this->headScript()->appendFile('/js/prototype.js')
                    ->appendScript($onloadScript);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Order is often important with client-side scripting; you may need to
@@ -194,7 +197,8 @@ $this->headScript()->appendFile('/js/scriptaculous.js');
 
 // but always have base prototype script load first:
 $this->headScript()->prependFile('/js/prototype.js');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When you're finally ready to output all scripts in your layout
@@ -202,8 +206,9 @@ $this->headScript()->prependFile('/js/prototype.js');
         </para>
 
         <programlisting language="php"><![CDATA[
-<?php echo $this->headScript() ?>
-]]></programlisting>
+<?php echo $this->headScript() 
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.view.helpers.initial.headscript.capture"><info><title>Capturing Scripts Using the HeadScript Helper</title></info>
@@ -221,8 +226,9 @@ $this->headScript()->prependFile('/js/prototype.js');
 <?php $this->headScript()->captureStart() ?>
 var action = '<?php echo $this->baseUrl ?>';
 $('foo_form').action = action;
-<?php $this->headScript()->captureEnd() ?>
-]]></programlisting>
+<?php $this->headScript()->captureEnd() 
+]]>
+</programlisting>
 
         <para>
             The following assumptions are made:

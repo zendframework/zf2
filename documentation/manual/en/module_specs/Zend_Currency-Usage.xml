@@ -25,7 +25,8 @@ $currency = new Zend_Currency();
 
 // See the default settings which are depending on the client
 // var_dump($currency);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The created object would now contain the currency "US Dollar" as this is the actual
@@ -69,7 +70,8 @@ $currency = new Zend_Currency('en_US');
 
 // See the actual settings which are fixed to 'en_US'
 // var_dump($currency);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As within our first example the used currency will be "US Dollar". But now we are no
@@ -90,7 +92,8 @@ Zend_Registry::set('Zend_Locale', $locale);
 
 // somewhere in your application
 $currency = new Zend_Currency();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.currency.usage.territory"><info><title>Currency creation based on a country</title></info>
@@ -106,7 +109,8 @@ $currency = new Zend_Currency('US');
 
 // See the actual settings which are fixed to 'en_US'
 // var_dump($currency);
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Uppercase territories</title></info>
             

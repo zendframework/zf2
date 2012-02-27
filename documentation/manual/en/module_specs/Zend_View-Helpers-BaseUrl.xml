@@ -30,7 +30,8 @@
  */
 <link rel="stylesheet" type="text/css"
      href="<?php echo $this->baseUrl('css/base.css'); ?>" />
-]]></programlisting>
+]]>
+</programlisting>
 
     <note>
         <para>

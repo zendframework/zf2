@@ -28,7 +28,8 @@ $validator = new Zend_Validate_Digits();
 $validator->isValid("1234567890"); // returns true
 $validator->isValid(1234);         // returns true
 $validator->isValid('1a234');      // returns false
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Validating numbers</title></info>
             

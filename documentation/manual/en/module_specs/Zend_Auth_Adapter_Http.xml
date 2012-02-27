@@ -218,7 +218,8 @@
 
             <programlisting language="txt"><![CDATA[
 <username>:<realm>:<credentials>\n
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Each line consists of three fields - username, realm, and credentials - each
@@ -236,7 +237,8 @@
             <programlisting language="php"><![CDATA[
 $path     = 'files/passwd.txt';
 $resolver = new Zend_Auth_Adapter_Http_Resolver_File($path);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 or
@@ -246,7 +248,8 @@ $resolver = new Zend_Auth_Adapter_Http_Resolver_File($path);
 $path     = 'files/passwd.txt';
 $resolver = new Zend_Auth_Adapter_Http_Resolver_File();
 $resolver->setFile($path);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 If the given path is empty or not readable, an exception is thrown.
@@ -268,7 +271,8 @@ $config = array(
     'digest_domains' => '/members_only /my_account',
     'nonce_timeout'  => 3600,
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This array will cause the adapter to accept either Basic or Digest authentication, and
@@ -284,7 +288,8 @@ $config = array(
 
         <programlisting language="php"><![CDATA[
 $adapter = new Zend_Auth_Adapter_Http($config);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Since we're supporting both Basic and Digest authentication, we need two different
@@ -300,7 +305,8 @@ $digestResolver->setFile('files/digestPasswd.txt');
 
 $adapter->setBasicResolver($basicResolver);
 $adapter->setDigestResolver($digestResolver);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Finally, we perform the authentication. The adapter needs a reference to both the
@@ -318,6 +324,7 @@ $result = $adapter->authenticate();
 if (!$result->isValid()) {
     // Bad userame/password, or canceled password prompt
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

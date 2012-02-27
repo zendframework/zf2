@@ -26,7 +26,8 @@
 $filter = new Zend_Filter_BaseName();
 
 print $filter->filter('/vol/tmp/filename');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This will return 'filename'.
@@ -36,7 +37,8 @@ print $filter->filter('/vol/tmp/filename');
 $filter = new Zend_Filter_BaseName();
 
 print $filter->filter('/vol/tmp/filename.txt');
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This will return '<filename>filename.txt</filename>'.

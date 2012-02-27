@@ -25,7 +25,8 @@ if ($validator->isValid($email)) {
         echo "$message\n";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This will match the email address <varname>$email</varname> and on failure populate
@@ -95,7 +96,8 @@ if ($validator->isValid($email)) {
         <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_EmailAddress();
 $validator->setOptions(array('domain' => false));
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.email_address.complexlocal"><info><title>Complex local parts</title></info>
@@ -129,7 +131,8 @@ $validator->setOptions(array('domain' => false));
         <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_EmailAddress();
 $validator->setOptions(array('domain' => FALSE));
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.email_address.hostnametype"><info><title>Validating different types of hostnames</title></info>
@@ -161,7 +164,8 @@ if ($validator->isValid($email)) {
         echo "$message\n";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.email_address.checkacceptance"><info><title>Checking if the hostname actually accepts email</title></info>
@@ -187,7 +191,8 @@ $validator = new Zend_Validate_EmailAddress(
         'mx'    => true
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>MX Check under Windows</title></info>
 
@@ -229,7 +234,8 @@ $validator = new Zend_Validate_EmailAddress(
         'deep'  => true
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Sometimes it can be useful to get the server's MX informations which have been used to do
@@ -271,7 +277,8 @@ $validator = new Zend_Validate_EmailAddress(
 
         <programlisting language="php"><![CDATA[
 $validator->getHostnameValidator()->setValidateIdn(false);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             More information on the usage of <methodname>setValidateIdn()</methodname> appears in
@@ -295,7 +302,8 @@ $validator->getHostnameValidator()->setValidateIdn(false);
 
         <programlisting language="php"><![CDATA[
 $validator->getHostnameValidator()->setValidateTld(false);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             More information on the usage of <methodname>setValidateTld()</methodname> appears in
@@ -325,7 +333,8 @@ $validator->setMessages(
         Zend_Validate_Hostname::UNKNOWN_TLD => 'I don't know the TLD you gave'
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Before Zend Framework 1.10 you had to attach the messages to your own

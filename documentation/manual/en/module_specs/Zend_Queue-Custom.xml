@@ -47,7 +47,8 @@ $options = array(
 
 $adapter = new Custom_DbForUpdate($options);
 $queue = new Zend_Queue($adapter, $options);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can also change the adapter on the fly as well.
@@ -58,7 +59,8 @@ $adapter = new MyCustom_Adapter($options);
 $queue   = new Zend_Queue($options);
 $queue->setAdapter($adapter);
 echo "Adapter: ", get_class($queue->getAdapter()), "\n";
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>or</para>
 
@@ -76,7 +78,8 @@ $options = array(
     )
 );
 $queue = new Zend_Queue('DbForUpdate', $config); // loads Custom_DbForUpdate
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.queue.custom.message"><info><title>Creating your own message class</title></info>
@@ -92,7 +95,8 @@ class Zend_Queue_Message
 {
     protected $_data = array();
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You can extend the existing messaging class. See the example code in

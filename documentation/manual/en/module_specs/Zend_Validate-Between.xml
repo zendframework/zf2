@@ -61,7 +61,8 @@ $valid  = new Zend_Validate_Between(array('min' => 0, 'max' => 10));
 $value  = 10;
 $result = $valid->isValid($value);
 // returns true
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In the above example the result is <constant>TRUE</constant> due to the reason that per
@@ -90,7 +91,8 @@ $valid  = new Zend_Validate_Between(
 $value  = 10;
 $result = $valid->isValid($value);
 // returns false
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The example is almost equal to our first example but we excluded the border value. Now

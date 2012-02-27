@@ -23,7 +23,8 @@
         <programlisting language="php"><![CDATA[
 $ec2_kp = new Zend_Service_Amazon_Ec2_Keypair('aws_key','aws_secret_key');
 $return = $ec2_kp->create('my-new-key');
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.service.amazon.ec2.keypairs.delete"><info><title>Deleting an Amazon Keypair</title></info>
@@ -43,7 +44,8 @@ $return = $ec2_kp->create('my-new-key');
         <programlisting language="php"><![CDATA[
 $ec2_kp = new Zend_Service_Amazon_Ec2_Keypair('aws_key','aws_secret_key');
 $return = $ec2_kp->delete('my-new-key');
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.service.amazon.ec2.describe"><info><title>Describe an Amazon Keypair</title></info>
@@ -62,6 +64,7 @@ $return = $ec2_kp->delete('my-new-key');
         <programlisting language="php"><![CDATA[
 $ec2_kp = new Zend_Service_Amazon_Ec2_Keypair('aws_key','aws_secret_key');
 $return = $ec2_kp->describe('my-new-key');
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

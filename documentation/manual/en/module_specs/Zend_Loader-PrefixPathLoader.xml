@@ -88,7 +88,8 @@ $loader->addPrefixPaths(array(
     array('prefix' => 'Foo', 'path' => '../library/Foo'),
     array('prefix' => 'Bar', 'path' => '../vendor/Bar'),
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Once configured, you may then attempt to lookup a plugin.
@@ -99,7 +100,8 @@ if (false === ($class = $loader->load('bar'))) {
     throw new Exception("Plugin class matching 'bar' not found!");
 }
 $plugin = new $class();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.loader.prefix-path-loader.options"><info><title>Configuration Options</title></info>
@@ -549,7 +551,8 @@ project
 |   |-- Foo
 |   |   |-- Bar.php
 |   |   `-- Foobar.php
-            ]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 For purposes of this example, we'll assume that the common namespace is "Foo", and
@@ -576,7 +579,8 @@ $loader->addPrefixPaths(array(
 $bar    = $loader->load('bar');    // Foo\Bar from vendor/Foo/Bar.php
 $baz    = $loader->load('baz');    // Foo\Baz from library/Foo/Baz.php
 $foobar = $loader->load('foobar'); // Foo\Foobar from vendor/Foo/Baz.php
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.loader.prefix-path-loader.examples.optimizing"><info><title>Prototyping with PrefixPathLoader</title></info>
@@ -616,7 +620,8 @@ $foobar = $loader->load('foobar'); // Foo\Foobar from vendor/Foo/Baz.php
 // After a number of load() operations, or at the end of the request:
 $classMap  = $loader->getClassMap();
 $pluginMap = $loader->getPluginMap();
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 From here, you will need to do a little work. First, you need to serialize this
@@ -641,7 +646,8 @@ $cache = Cache::factory(
     array('cache_dir' => APPLICATION_PATH . '/../cache/classmaps')
 );
 $cache->save($pluginMap, 'pluginmap');
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Note: the examples alternate between the class map and plugin map; however, either
@@ -657,7 +663,8 @@ $cache->save($pluginMap, 'pluginmap');
             <programlisting language="php"><![CDATA[
 $autoloader = new Zend\Loader\ClassMapAutoloader();
 $autoloader->registerAutoloadMap(APPLICATION_PATH . '/.classmap.php');
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 If using <classname>Zend\Cache</classname>, you would retrieve the cached data, and
@@ -669,7 +676,8 @@ $autoloader->registerAutoloadMap(APPLICATION_PATH . '/.classmap.php');
 $map = $cache->load('pluginmap');
 
 $loader = new Zend\Loader\PluginClassLoader($map);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 With some creative and well disciplined architecture, you can likely automate these

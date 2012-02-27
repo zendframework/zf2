@@ -36,7 +36,8 @@
 $filter = new Zend_Filter_Alnum();
 $return = $filter->filter('This is (my) content: 123');
 // returns 'Thisismycontent123'
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example returns 'Thisismycontent123'. As you see all whitespaces and also the
@@ -65,7 +66,8 @@ $return = $filter->filter('This is (my) content: 123');
 $filter = new Zend_Filter_Alnum(array('allowwhitespace' => true));
 $return = $filter->filter('This is (my) content: 123');
 // returns 'This is my content 123'
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example returns 'This is my content 123'. As you see only the brackets are

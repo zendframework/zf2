@@ -32,7 +32,8 @@ $currency = new Zend_Currency(
 );
 
 print $currency; // Could return '$ ١٬٠٠٠٫٠٠'
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <para>
@@ -57,7 +58,8 @@ $currency = new Zend_Currency(
 );
 
 print $currency; // Could return '$ 1.000'
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         There are two ways to define the format which will be used. You can either give a
@@ -89,7 +91,8 @@ $currency_2 = new Zend_Currency(
 
 print $currency_1; // Could return '$ 1.000'
 print $currency_2; // Could return '$ 1,000'
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         When you define it manually then you must conform the format as described in
@@ -107,7 +110,8 @@ $currency = new Zend_Currency(
 );
 
 print $currency; // Could return '$ 1000'
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         In the above snippet we deleted the separator and also the precision.

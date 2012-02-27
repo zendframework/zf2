@@ -45,7 +45,8 @@ function myMethod($value)
     // some validation
     return true;
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To use it within <classname>Zend_Validate_Callback</classname> you just have to call it
@@ -59,7 +60,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.callback.closure"><info><title>Usage with closures</title></info>
@@ -83,7 +85,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.callback.class"><info><title>Usage with class-based callbacks</title></info>
@@ -103,7 +106,8 @@ class MyClass
         return true;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The definition of the callback is in this case almost the same. You have just to create
@@ -118,7 +122,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You may also define a static method as a callback. Consider the following class
@@ -141,7 +146,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Finally, if you are using <acronym>PHP</acronym> 5.3, you may define the magic method
@@ -166,7 +172,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.callback.options2"><info><title>Adding options</title></info>
@@ -190,7 +197,8 @@ class MyClass
         return true;
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             There are two ways to inform the validator of additional options: pass them in the
@@ -213,7 +221,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Otherwise, you may pass them to the validator after instantiation:
@@ -228,7 +237,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When there are additional values given to <methodname>isValid()</methodname> then these
@@ -244,7 +254,8 @@ if ($valid->isValid($input, $additional)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When making the call to the callback, the value to be validated will always be passed as

@@ -59,7 +59,8 @@ $ri = new RecursiveIteratorIterator($ldap->getBaseNode(),
 foreach ($ri as $rdn => $n) {
     var_dump($n);
 }
-]]></programlisting>
+]]>
+</programlisting>
             </example>
     </section>
 </section>

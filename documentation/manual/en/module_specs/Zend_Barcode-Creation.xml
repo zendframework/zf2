@@ -62,7 +62,8 @@ $rendererOptions = array();
 $renderer = Zend_Barcode::factory(
     'code39', 'image', $barcodeOptions, $rendererOptions
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.barcode.creation.configuration.example-2"><info><title>Using Zend_Barcode::factory() with Zend_Config objects</title></info>
@@ -84,7 +85,8 @@ $config = new Zend_Config(array(
 ));
 
 $renderer = Zend_Barcode::factory($config);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -112,7 +114,8 @@ $rendererOptions = array();
 $imageResource = Zend_Barcode::factory(
     'code39', 'image', $barcodeOptions, $rendererOptions
 )->draw();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.barcode.creation.drawing.example-2"><info><title>Drawing a barcode with Zend_Barcode::draw()</title></info>
@@ -129,7 +132,8 @@ $rendererOptions = array();
 $imageResource = Zend_Barcode::draw(
     'code39', 'image', $barcodeOptions, $rendererOptions
 );
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -158,7 +162,8 @@ $rendererOptions = array();
 Zend_Barcode::factory(
     'code39', 'image', $barcodeOptions, $rendererOptions
 )->render();
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This will generate this barcode:
@@ -184,7 +189,8 @@ $rendererOptions = array();
 Zend_Barcode::render(
     'code39', 'image', $barcodeOptions, $rendererOptions
 );
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This will generate the same barcode as the previous example.

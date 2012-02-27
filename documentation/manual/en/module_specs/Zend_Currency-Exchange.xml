@@ -38,7 +38,8 @@ class SimpleExchange implements Zend_Currency_CurrencyInterface
        throw new Exception('Unable to exchange $to');
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         We have now created a manual exchange service. It will not fit the real live, but it
@@ -86,7 +87,8 @@ $currency2 = new Zend_Currency(
 );
 
 print $currency->add($currency2);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The above example will return '$ 3.000' because the 1.000 <acronym>USD</acronym> will be

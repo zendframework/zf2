@@ -36,7 +36,8 @@ $options   = new FileOptions(array(
     },
 ));
 $transport->setOptions($options);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -69,7 +70,8 @@ $transport->setOptions($options);
 function (Zend\Mail\FileTransport $transport) {
     return 'ZendMail_' . time() . '_' . mt_rand() . '.tmp';
 }
-]]></programlisting>
+]]>
+</programlisting>
                 </listitem>
             </varlistentry>
         </variablelist>

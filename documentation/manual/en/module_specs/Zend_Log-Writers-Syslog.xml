@@ -31,7 +31,8 @@ $writer = new Zend_Log_Writer_Syslog(array('application' => 'FooBar'));
 
 // Any other time:
 $writer->setApplicationName('BarBaz');
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The system log also allows you to identify the "facility," or
@@ -53,7 +54,8 @@ $writer = new Zend_Log_Writer_Syslog(array('facility' => LOG_AUTH));
 
 // Any other time:
 $writer->setFacility(LOG_USER);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         When logging, you may continue to use the default

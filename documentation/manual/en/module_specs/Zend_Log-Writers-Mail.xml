@@ -44,7 +44,8 @@ $log->error('unable to connect to database');
 
 // On writer shutdown, Zend_Mail::send() is triggered to send an email with
 // all log entries at or above the Zend_Log filter level.
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         <classname>Zend_Log_Writer_Mail</classname> will render the email body as plain
@@ -110,7 +111,8 @@ $log->error('unable to connect to database');
 // On writer shutdown, Zend_Mail::send() is triggered to send an email with
 // all log entries at or above the Zend_Log filter level. The email will
 // contain both plain text and HTML parts.
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.log.writers.mail.dynamicsubjectline"><info><title>Subject Line Error Level Summary</title></info>

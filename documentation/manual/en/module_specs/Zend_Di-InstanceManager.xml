@@ -66,7 +66,8 @@ namespace MyMovieApp
         }
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In the above example, the class DbAdapter has 2 parameters: username
@@ -112,7 +113,8 @@ $movieLister = $di->get('MyMovieApp\MovieLister', array(
 $movieLister = $di->get('MyMovieApp\MovieLister', array(
     'dbAdapter' => new MyLibrary\DbAdaper('myusername', 'mypassword')
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
     </section>
 
@@ -152,7 +154,8 @@ namespace MyMovieApp
         }
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             What you'll notice above is that now the MovieLister type
@@ -174,7 +177,8 @@ namespace MyMovieApp
 $di->instanceManager()->addTypePreference('MyMovieApp\MovieFinderInterface', 'MyMovieApp\GenericMovieFinder');
 // assuming all instance config for username, password is setup
 $di->get('MyMovieApp\MovieLister');
-]]></programlisting>
+]]>
+</programlisting>
 
     </section>
 
@@ -224,7 +228,8 @@ $im->addTypePreference('MyLibrary\DbAdapter', 'dbadapter-readonly');
 
 $movieListerRead = $di->get('MyMovieApp\MovieLister');
 $movieListerReadWrite = $di->get('MyMovieApp\MovieLister', array('dbAdapter' => 'dbadapter-readwrite'));
-]]></programlisting>
+]]>
+</programlisting>
 
     </section>
 

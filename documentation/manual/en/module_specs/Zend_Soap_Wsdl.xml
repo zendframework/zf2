@@ -448,7 +448,8 @@ class MyClass {
 }
 ...
 $soapMyClassType = $wsdl->getType('MyClass');
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.soap.wsdl.types.add_complex"><info><title>Adding complex type information</title></info>

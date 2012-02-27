@@ -61,7 +61,8 @@ $barcode->setConfig($config);
 $barcode = new Zend_Barcode_Object_Code39();
 $barcode->setText('ZEND-FRAMEWORK')
         ->setBarHeight(40);
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <section xml:id="zend.barcode.objects.common.options"><info><title>Common Options</title></info>
@@ -273,7 +274,8 @@ Zend_Barcode::render(
         'font' => 3
     )
 ); // will use the 3rd GD internal font
-]]></programlisting>
+]]>
+</programlisting>
         </section>
     </section>
 

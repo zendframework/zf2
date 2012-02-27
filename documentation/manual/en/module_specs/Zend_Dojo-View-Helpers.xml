@@ -165,7 +165,8 @@
 
         <programlisting language="php"><![CDATA[
 $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <section xml:id="zend.dojo.view.dijit.layout"><info><title>Dijit Layout Elements</title></info>
@@ -206,8 +207,9 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
     array(
         'style' => 'width: 200px; height: 300px;',
     ),
-); ?>
-]]></programlisting>
+); 
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -227,8 +229,9 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
     array(
         'style' => 'background-color: lightgray;',
     ),
-); ?>
-]]></programlisting>
+); 
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -249,8 +252,9 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
     array(
         'style' => 'width: 100%; height: 100%',
     ),
-); ?>
-]]></programlisting>
+); 
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -270,8 +274,9 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
     array(
         'style' => 'width: 120px; background-color: lightgray;',
     ),
-); ?>
-]]></programlisting>
+); 
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -293,8 +298,9 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
     array(
         'style' => 'width: 400px; height: 500px;',
     ),
-); ?>
-]]></programlisting>
+); 
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -313,8 +319,9 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
     array(
         'style' => 'width: 400px; height: 500px; border: 1px;',
     ),
-); ?>
-]]></programlisting>
+); 
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -333,8 +340,9 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
     array(
         'style' => 'width: 400px; height: 500px; border: 1px;',
     ),
-); ?>
-]]></programlisting>
+); 
+]]>
+</programlisting>
             </listitem>
         </itemizedlist>
 
@@ -413,7 +421,8 @@ echo $view->contentPane(
 );
 
 echo $view->borderContainer()->captureEnd('masterLayout');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -446,8 +455,9 @@ echo $view->borderContainer()->captureEnd('masterLayout');
     'foo',
     'Show Me!',
     array('iconClass' => 'myButtons'),
-); ?>
-]]></programlisting>
+); 
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -486,8 +496,9 @@ echo $view->borderContainer()->captureEnd('masterLayout');
     array(),
     array(),
     array('checkedValue' => 'foo', 'unCheckedValue' => 'bar')
-); ?>
-]]></programlisting>
+); 
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -611,7 +622,8 @@ echo $view->comboBox(
         'storeParams'  => array('url' => '/js/states.json'),
     ),
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -632,7 +644,8 @@ echo $view->currencyTextBox(
     array('currency' => 'USD'),
     array('maxlength' => 20)
 );
-]]></programlisting>
+]]>
+</programlisting>
 
                 <note><info><title>Issues with Builds</title></info>
                     
@@ -648,7 +661,8 @@ echo $view->currencyTextBox(
                     <programlisting language="php"><![CDATA[
 $view->headMeta()->appendHttpEquiv('Content-Type',
                                    'text/html; charset=utf-8');
-]]></programlisting>
+]]>
+</programlisting>
 
                     <para>
                         This will mean, of course, that you will need to ensure
@@ -674,7 +688,8 @@ echo $view->dateTextBox(
     '2008-07-11',
     array('required' => true)
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -688,7 +703,8 @@ echo $view->dateTextBox(
 
                 <programlisting language="php"><![CDATA[
 echo $view->editor('foo');
-]]></programlisting>
+]]>
+</programlisting>
 
                 <note><info><title>Editor Dijit uses div by default</title></info>
                     
@@ -896,7 +912,8 @@ echo $view->horizontalSlider(
         ),
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -928,7 +945,8 @@ echo $view->numberSpinner(
         'maxlenth' => 3,
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -952,7 +970,8 @@ echo $view->numberTextBox(
         'maxlength' => 20,
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -975,7 +994,8 @@ echo $view->passwordTextBox(
         'maxlength' => 20,
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -1005,7 +1025,8 @@ echo $view->radioButton(
         'baz' => 'Baz',
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -1024,7 +1045,8 @@ echo $view->simpleTextarea(
     array(),
     array('style' => 'width: 90%; height: 5ems;')
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -1051,7 +1073,8 @@ echo $view->textarea(
     array(),
     array('style' => 'width: 300px;')
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -1085,7 +1108,8 @@ echo $view->textBox(
         'size' => 20,
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -1111,7 +1135,8 @@ echo $view->timeTextBox(
         'size' => 20,
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
 
             <listitem>
@@ -1173,7 +1198,8 @@ echo $view->validationTextBox(
         'maxlength' => 20,
     )
 );
-]]></programlisting>
+]]>
+</programlisting>
             </listitem>
         </itemizedlist>
     </section>
@@ -1231,8 +1257,9 @@ echo $view->validationTextBox(
         'title'    => 'Custom pane',
         'region'   => 'center'
     )
-); ?>
-]]></programlisting>
+); 
+]]>
+</programlisting>
 
             <para>
                 If you wanted to capture content instead, simply use the
@@ -1250,8 +1277,9 @@ echo $view->validationTextBox(
     )
 ); ?>
 This is the content of the pane
-<?php echo $this->customDijit()->captureEnd('foo'); ?>
-]]></programlisting>
+<?php echo $this->customDijit()->captureEnd('foo'); 
+]]>
+</programlisting>
 
             <para>
                 You can also extend <classname>CustomDijit</classname> easily to create
@@ -1274,7 +1302,8 @@ class My_View_Helper_FooContentPane
         return $this->customDijit($id, $value, $params, $attribs);
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 As long as your custom dijit follows the same basic <acronym>API</acronym> as

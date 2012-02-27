@@ -49,7 +49,8 @@ $regions = $ec2_region->describe();
 foreach($regions as $region) {
     print $region['regionName'] . ' -- ' . $region['regionUrl'] . '<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -89,7 +90,8 @@ $zones = $ec2_zones->describe();
 foreach($zones as $zone) {
     print $zone['zoneName'] . ' -- ' . $zone['zoneState'] . '<br />';
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

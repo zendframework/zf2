@@ -76,7 +76,8 @@
 $filter = new Zend_Filter_HtmlEntities();
 
 print $filter->filter('<');
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.filter.set.htmlentities.quotestyle"><info><title>Quote Style</title></info>
@@ -93,7 +94,8 @@ $filter = new Zend_Filter_HtmlEntities(array('quotestyle' => ENT_QUOTES));
 
 $input  = "A 'single' and " . '"double"';
 print $filter->filter($input);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example returns
@@ -106,7 +108,8 @@ $filter = new Zend_Filter_HtmlEntities(array('quotestyle' => ENT_COMPAT));
 
 $input  = "A 'single' and " . '"double"';
 print $filter->filter($input);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example returns <emphasis>A 'single' and "double"</emphasis>.
@@ -118,7 +121,8 @@ $filter = new Zend_Filter_HtmlEntities(array('quotestyle' => ENT_NOQUOTES));
 
 $input  = "A 'single' and " . '"double"';
 print $filter->filter($input);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example returns <emphasis>A 'single' and "double"</emphasis>. Notice that
@@ -144,7 +148,8 @@ $filter = new Zend_Filter_HtmlEntities();
 
 $filter->setQuoteStyle(ENT_QUOTES);
 print $filter->getQuoteStyle(ENT_QUOTES);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To change or retrieve the <property>charset</property> after instantiation, the two
@@ -159,7 +164,8 @@ $filter = new Zend_Filter_HtmlEntities();
 
 $filter->setQuoteStyle(ENT_QUOTES);
 print $filter->getQuoteStyle(ENT_QUOTES);
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             To change or retrieve the <property>doublequote</property> option after instantiation,
@@ -174,6 +180,7 @@ $filter = new Zend_Filter_HtmlEntities();
 
 $filter->setQuoteStyle(ENT_QUOTES);
 print $filter->getQuoteStyle(ENT_QUOTES);
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

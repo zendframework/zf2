@@ -35,7 +35,8 @@ while (!feof($fp)) {
 }
 
 $progressBar->finish();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In the first step, an instance of <classname>Zend_ProgressBar</classname> is

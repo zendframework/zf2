@@ -56,7 +56,8 @@ if ($validator->isValid('AT611904300234573201')) {
 } else {
     // IBAN is not valid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <note><info><title>Application wide locale</title></info>
                 
@@ -90,7 +91,8 @@ if ($validator->isValid('AT611904300234573201')) {
 } else {
     // IBAN is not valid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 So <emphasis>any</emphasis> <acronym>IBAN</acronym> number will be valid. Note that
@@ -115,7 +117,8 @@ if ($validator->isValid('AT611904300234573201')) {
 } else {
     // IBAN is not valid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <note><info><title>Use full qualified locales</title></info>
                 

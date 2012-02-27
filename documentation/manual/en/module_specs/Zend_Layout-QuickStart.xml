@@ -46,7 +46,8 @@
 ?>
 </body>
 </html>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Because <classname>Zend_Layout</classname> utilizes <classname>Zend_View</classname> for
@@ -79,7 +80,8 @@
     <?php echo $this->render('footer.phtml') ?>
 </body>
 </html>
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.layout.quickstart.mvc"><info><title>Using Zend_Layout with the Zend Framework MVC</title></info>
@@ -113,7 +115,8 @@
         <programlisting language="php"><![CDATA[
 // In your bootstrap:
 Zend_Layout::startMvc();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             <methodname>startMvc()</methodname> can take an optional array of options or
@@ -141,7 +144,8 @@ class FooController extends Zend_Controller_Action
         $this->_helper->layout->setLayout('foobaz');
     };
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             In your view scripts, you can then access the layout object via the
@@ -152,8 +156,9 @@ class FooController extends Zend_Controller_Action
         </para>
 
         <programlisting language="php"><![CDATA[
-<?php $this->layout()->setLayout('foo'); // set alternate layout ?>
-]]></programlisting>
+<?php $this->layout()->setLayout('foo'); // set alternate layout 
+]]>
+</programlisting>
 
         <para>
             At any time, you can fetch the <classname>Zend_Layout</classname> instance
@@ -164,7 +169,8 @@ class FooController extends Zend_Controller_Action
         <programlisting language="php"><![CDATA[
 // Returns null if startMvc() has not first been called
 $layout = Zend_Layout::getMvcInstance();
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Finally, <classname>Zend_Layout</classname>'s front controller plugin has one
@@ -195,7 +201,8 @@ $layout = Zend_Layout::getMvcInstance();
     <!-- renders /foo/index + /comment/fetch -->
     <div id="content"><?php echo $this->layout()->content ?></div>
 </body>
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This feature is particularly useful when used in conjunction with
@@ -244,7 +251,8 @@ $layout->setLayout('foo');
 
 // render final layout
 echo $layout->render();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.layout.quickstart.example"><info><title>Sample Layout</title></info>

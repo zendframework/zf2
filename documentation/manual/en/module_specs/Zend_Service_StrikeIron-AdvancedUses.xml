@@ -37,7 +37,8 @@ $result = $phone->lookup(array('Number' => '(408) 253-8800'));
 echo $result->listingName;
 
 // Zend Technologies USA Inc
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Using StrikeIron services from the WSDL will require at least some understanding
@@ -102,6 +103,7 @@ $taxBasic->getTaxRateCanada(array('province' => 'ontario'));
 $soapClient = $taxBasic->getSoapClient();
 echo $soapClient->__getLastRequest();
 echo $soapClient->__getLastResponse();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

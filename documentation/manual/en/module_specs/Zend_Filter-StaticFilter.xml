@@ -15,8 +15,10 @@
     </para>
 
     <programlisting language="php"><![CDATA[
+
 echo StaticFilter::execute('&', 'HtmlEntities');
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         You can also pass an array of constructor arguments, if they
@@ -24,10 +26,12 @@ echo StaticFilter::execute('&', 'HtmlEntities');
     </para>
 
     <programlisting language="php"><![CDATA[
+
 echo StaticFilter::execute('"',
                            'HtmlEntities',
                            array('quotestyle' => ENT_QUOTES));
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The static usage can be convenient for invoking a filter ad hoc,

@@ -42,7 +42,8 @@ $broker    = new ResourceBroker(array(
 
 $router = $broker->load('router');
 // routes will be configured per specification
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.loader.plugin-spec-broker.options">

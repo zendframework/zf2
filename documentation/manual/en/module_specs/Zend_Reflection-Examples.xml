@@ -25,7 +25,8 @@ echo "     It has " . count($functions) . ":\n";
 foreach ($functions as $function) {
     echo "         " . $function->getName() . "\n";
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.reflection.examples.class"><info><title>Performing reflection on a class</title></info>
@@ -43,7 +44,8 @@ printf(
 
 // Get the declaring file reflection
 $file = $r->getDeclaringFile();
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.reflection.examples.method"><info><title>Performing reflection on a method</title></info>
@@ -65,7 +67,8 @@ foreach ($r->getParameters() as $key => $param) {
         $param->getType()
     );
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <example xml:id="zend.reflection.examples.docblock"><info><title>Performing reflection on a docblock</title></info>
@@ -89,6 +92,7 @@ foreach ($docblock->getTags() as $tag) {
         $tag->getDescription()
     );
 }
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 </section>

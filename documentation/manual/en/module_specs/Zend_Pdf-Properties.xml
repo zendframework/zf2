@@ -22,7 +22,8 @@ echo $pdf->properties['Author'] . "\n";
 
 $pdf->properties['Title'] = 'New Title.';
 $pdf->save($pdfPath);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         The following keys are defined by <acronym>PDF</acronym> v1.4 (Acrobat 5) standard:
@@ -225,7 +226,8 @@ $title = $titleNode->nodeValue;
 $titleNode->nodeValue = 'New title';
 $pdf->setMetadata($metadataDOM->saveXML());
 $pdf->save($pdfPath);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         Common document properties are duplicated in the Info structure and Metadata document (if

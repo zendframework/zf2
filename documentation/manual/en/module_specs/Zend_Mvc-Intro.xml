@@ -205,7 +205,8 @@ namespace ZendUser;
 class Module
 {
 }
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       By default, if an <methodname>init()</methodname> method is defined, this
@@ -341,7 +342,8 @@ class Module
 $bootstrap   = new Bootstrap($config);
 $application = new Application();
 $bootstrap->bootstrap($application);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       At this point, your <classname>Application</classname> would be ready
@@ -351,7 +353,8 @@ $bootstrap->bootstrap($application);
     <programlisting language="php"><![CDATA[
 $response = $application->run();
 $response->send();
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
       The <methodname>run()</methodname> method does basically four things:
@@ -453,7 +456,8 @@ return array(
         ),
     ),
 );
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         As we add modules to the system, we'll add items to the
@@ -471,7 +475,8 @@ use Zend\Module\Listener;
 $moduleConfig     = include __DIR__ . '/../configs/application.config.php';
 $listenerOptions  = new Listener\ListenerOptions($moduleConfig['module_listener_options']);
 $defaultListeners = new Listener\DefaultListenerAggregate($listenerOptions);
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         Once we have that out of the way, we can instantiate our module
@@ -485,7 +490,8 @@ $moduleManager = new ModuleManager(
     $moduleConfig['modules']
 );
 $moduleManager->events()->attachAggregate($defaultListeners);
-]]></programlisting>
+]]>
+</programlisting>
 
       <para>
         Each <classname>Module</classname> class that has configuration it wants
@@ -505,7 +511,8 @@ class Module
         return include __DIR__ . '/config/module.config.php'
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
   </section>
 

@@ -203,7 +203,8 @@ $container = new Zend_Navigation(array(
         'route' => 'zf-route'
     )
 ));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.navigation.containers.creating.example.config"><info><title>Creating a container using a config object</title></info>
@@ -399,7 +400,8 @@ $container = new Zend_Navigation(array(
 
 $config = new Zend_Config_Xml('/path/to/navigation.xml', 'nav');
 $container = new Zend_Navigation($config);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -450,7 +452,8 @@ $container->addPages($pages);
 
 // remove existing pages and add the given pages
 $container->setPages($pages);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -497,7 +500,8 @@ $container->removePage(200);    // removes Page 2
 
 // remove all pages
 $container->removePages();      // removes all pages
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -613,7 +617,8 @@ $found = $container->findAllByfoo('bar');
 
 // Find all with controller = 'index'
 $found = $container->findAllByController('index'); // returns Page 2 and Page 3
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -674,7 +679,8 @@ $it = new RecursiveIteratorIterator(
 foreach ($it as $page) {
     echo $page->label;
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -806,7 +812,8 @@ array(2) {
   }
 }
 */
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

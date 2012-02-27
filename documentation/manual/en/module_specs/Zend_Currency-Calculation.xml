@@ -99,7 +99,8 @@ print $currency; // Could return '$ 1.000,00'
 
 $currency->add(500);
 print $currency; // Could return '$ 1.500,00'
-]]></programlisting>
+]]>
+</programlisting>
 
     <programlisting language="php"><![CDATA[
 $currency_2 = new Zend_Currency(
@@ -115,5 +116,6 @@ if ($currency->isMore($currency_2)) {
 
 $currency->div(5);
 print $currency; // Could return '$ 200,00'
-]]></programlisting>
+]]>
+</programlisting>
 </section>

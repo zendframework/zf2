@@ -36,7 +36,8 @@ $filter = new Zend_Filter_StringToLower();
 
 print $filter->filter('SAMPLE');
 // returns "sample"
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.filter.set.stringtolower.encoding"><info><title>Different encoded strings</title></info>
@@ -60,7 +61,8 @@ $filter = new Zend_Filter_StringToLower(array('encoding' => 'UTF-8'));
 
 // or do this afterwards
 $filter->setEncoding('ISO-8859-1');
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Setting wrong encodings</title></info>
             

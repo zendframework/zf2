@@ -85,7 +85,8 @@
 $ec2_instance = new Zend_Service_Amazon_Ec2_Instance_Reserved('aws_key',
                                                      'aws_secret_key');
 $return = $ec2_instance->describeInstances('instanceId');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.service.amazon.ec2.reserved.instance.offerings.describe"><info><title>Describe current Reserved Instance Offerings available</title></info>
@@ -109,7 +110,8 @@ $return = $ec2_instance->describeInstances('instanceId');
 $ec2_instance = new Zend_Service_Amazon_Ec2_Instance_Reserved('aws_key',
                                                      'aws_secret_key');
 $return = $ec2_instance->describeOfferings();
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.service.amazon.ec2.reserved.instance.offerings.purchase"><info><title>Turn off CloudWatch Monitoring on an Instance(s)</title></info>
@@ -131,7 +133,8 @@ $return = $ec2_instance->describeOfferings();
 $ec2_instance = new Zend_Service_Amazon_Ec2_Instance_Reserved('aws_key',
                                                      'aws_secret_key');
 $return = $ec2_instance->purchaseOffering('offeringId', 'instanceCount');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

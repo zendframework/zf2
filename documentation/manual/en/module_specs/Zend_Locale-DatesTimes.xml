@@ -203,7 +203,8 @@ Array
     [year] => 2006
     [fixed] => 4
 )
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -229,7 +230,8 @@ $date = Zend_Locale_Format::getDate('13.04.2006',
                                    );
 
 print_r ($date);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -249,7 +251,8 @@ $date = Zend_Locale_Format::getDate('13.04.2005 22:14:55',
                                     );
 
 print_r ($date);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -268,7 +271,8 @@ $date = Zend_Locale_Format::getDate('13200504T551422',
                                    );
 
 print_r ($date);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -390,7 +394,8 @@ $date = Zend_Locale_Format::getDate('41.10.20',
 
 // instead of 41 for the day, the 41 will be returned as year value
 print_r ($date);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -423,7 +428,8 @@ if (Zend_Locale_Format::checkDateFormat('13.Apr.2006',
 } else {
     print "not a date";
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -450,7 +456,8 @@ if (Zend_Locale_Format::getTime('13:44:42',
 } else {
     print "not a time";
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -475,7 +482,8 @@ if (Zend_Locale_Format::checkDateFormat('13:44:42',
 } else {
     print "not a time";
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 </section>

@@ -44,5 +44,6 @@ $queue->send('My Test Message');
 
 // Delete a queue we created and all of it's messages
 $queue->deleteQueue('queue2');
-]]></programlisting>
+]]>
+</programlisting>
 </section>

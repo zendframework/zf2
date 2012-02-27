@@ -106,7 +106,8 @@ $sqlInsert = "INSERT INTO users (username, password, real_name) "
 
 // Insert the data
 $dbAdapter->query($sqlInsert);
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 With the database connection and table data available, an
@@ -133,7 +134,8 @@ $authAdapter
     ->setIdentityColumn('username')
     ->setCredentialColumn('password')
 ;
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 At this point, the authentication adapter instance is ready to
@@ -151,7 +153,8 @@ $authAdapter
 ;
 
 // Perform the authentication query, saving the result
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 In addition to the availability of the
@@ -177,7 +180,8 @@ Array
     [password] => my_password
     [real_name] => My Real Name
 )
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 Since the table row contains the credential value, it is
@@ -227,7 +231,8 @@ if ($result->isValid()) {
     /* ... */
 
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.auth.adapter.dbtable.advanced.advanced_usage"><info><title>Advanced Usage By Example</title></info>
@@ -267,7 +272,8 @@ $adapter = new Zend_Auth_Adapter_DbTable(
     'username',
     'password',
     'MD5(?) AND active = "TRUE"'
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Another scenario can be the implementation of a salting mechanism.
@@ -286,7 +292,8 @@ $adapter = new Zend_Auth_Adapter_DbTable(
 $sqlAlter = "ALTER TABLE [users] "
           . "ADD COLUMN [password_salt] "
           . "AFTER [password]";
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Here's a simple way to generate a salt string for every user at
@@ -296,7 +303,8 @@ $sqlAlter = "ALTER TABLE [users] "
         <programlisting language="php"><![CDATA[
 for ($i = 0; $i < 50; $i++) {
     $dynamicSalt .= chr(rand(33, 126));
-]]></programlisting>
+]]>
+</programlisting>
         <para>
             And now let's build the adapter:
         </para>
@@ -311,7 +319,8 @@ $adapter = new Zend_Auth_Adapter_DbTable(
     . Zend_Registry::get('staticSalt')
     . "', ?, password_salt))"
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <note>
             <para>
@@ -356,6 +365,7 @@ $select->where('active = "TRUE"');
 
 // authenticate, this ensures that users.active = TRUE
 $adapter->authenticate();
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 </section>

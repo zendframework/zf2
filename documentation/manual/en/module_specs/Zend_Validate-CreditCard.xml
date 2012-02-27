@@ -138,7 +138,8 @@ if ($valid->isValid($input)) {
 } else {
     // input is invalid
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The above example would validate against all known credit card institutes.
@@ -168,7 +169,8 @@ if ($valid->isValid($input)) {
 $valid = new Zend_Validate_CreditCard(
     Zend_Validate_CreditCard::AMERICAN_EXPRESS
 );
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             When you want to allow multiple institutes, then you can provide them as array:
@@ -179,7 +181,8 @@ $valid = new Zend_Validate_CreditCard(array(
     Zend_Validate_CreditCard::AMERICAN_EXPRESS,
     Zend_Validate_CreditCard::VISA
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             And as with all validators, you can also pass an associative array of options or an
@@ -191,7 +194,8 @@ $valid = new Zend_Validate_CreditCard(array(
 $valid = new Zend_Validate_CreditCard(array(
     'type' => array(Zend_Validate_CreditCard::AMERICAN_EXPRESS)
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <table xml:id="zend.validate.set.creditcard.institute.table"><info><title>Constants for credit card institutes</title></info>
             
@@ -285,7 +289,8 @@ $valid->setType(array(
     Zend_Validate_CreditCard::AMERICAN_EXPRESS,
     Zend_Validate_CreditCard::VISA
 ));
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Default institute</title></info>
             
@@ -347,7 +352,8 @@ class CcService
 $service = new CcService();
 $valid   = new Zend_Validate_CreditCard(Zend_Validate_CreditCard::VISA);
 $valid->setService(array($service, 'checkOnline'));
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As you can see the callback method will be called with the creditcard number as the

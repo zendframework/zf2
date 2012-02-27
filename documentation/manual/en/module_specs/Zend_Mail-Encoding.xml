@@ -30,7 +30,8 @@ $mail = new Zend_Mail('KOI8-R');
 // Reset to Base64 Encoding because Russian expressed in KOI8-R is
 // different from Roman letters-based languages greatly.
 $mail->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
-]]></programlisting>
+]]>
+</programlisting>
 
     <para>
         <classname>Zend_Mail_Transport_Smtp</classname> encodes lines starting with one dot or two

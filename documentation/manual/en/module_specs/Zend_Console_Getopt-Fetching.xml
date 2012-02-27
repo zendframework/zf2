@@ -46,7 +46,8 @@ try {
     echo $e->getUsageMessage();
     exit;
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -94,7 +95,8 @@ try {
 $opts = new Zend_Console_Getopt('abp:');
 $b = $opts->getOption('b');
 $p_parameter = $opts->getOption('p');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -113,7 +115,8 @@ if (isset($opts->b)) {
     echo "I got the b option.\n";
 }
 $p_parameter = $opts->p; // null if not set
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>
@@ -191,7 +194,8 @@ $p_parameter = $opts->p; // null if not set
 $opts = new Zend_Console_Getopt('abp:');
 $opts->setArguments(array('-p', 'p_parameter', 'filename'));
 $args = $opts->getRemainingArgs(); // returns array('filename')
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>

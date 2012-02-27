@@ -91,7 +91,8 @@ class My_Component_Manifest
         );
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </example>
     </section>
 
@@ -119,7 +120,8 @@ class My_Component_HelloProvider
         echo 'Hello from my provider!';
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Given that code above, and assuming the developer wishes to access
@@ -130,7 +132,8 @@ class My_Component_HelloProvider
         <programlisting language="sh"><![CDATA[
 % zf say hello
 Hello from my provider!
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.response"><info><title>The response object</title></info>
@@ -154,7 +157,8 @@ class My_Component_HelloProvider
                         ->appendContent("Hello from my provider!");
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             As you can see one has to extend the
@@ -197,7 +201,8 @@ class My_Component_HelloProvider
         echo 'Hello' . $name . ', from my provider!';
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The above example can then be called via the command line
@@ -232,7 +237,8 @@ class My_Component_HelloProvider
         echo 'Hello' . $name . ', from my provider!';
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 This command throws an exception if the current client is not
@@ -277,7 +283,8 @@ class My_Component_HelloProvider
         }
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 To run the provider in pretend mode just call:
@@ -286,7 +293,8 @@ class My_Component_HelloProvider
             <programlisting language="sh"><![CDATA[
 % zf --pretend say hello Ralph
 I would say hello Ralph.
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.verbosedebug"><info><title>Verbose and Debug modes</title></info>
@@ -313,7 +321,8 @@ class My_Component_HelloProvider
         }
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.configstorage"><info><title>Accessing User Config and Storage</title></info>
@@ -341,7 +350,8 @@ class My_Component_HelloProvider
         }
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The returned configuration is of the type
@@ -366,7 +376,8 @@ class My_Component_HelloProvider
         echo "Hello $aValue!";
     }
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <para>
                 The <acronym>API</acronym> of the storage is very simple:
@@ -383,7 +394,8 @@ class Zend_Tool_Framework_Client_Storage
     public function remove($name);
     public function getStreamUri($name);
 }
-]]></programlisting>
+]]>
+</programlisting>
 
             <important>
                 <para>

@@ -75,7 +75,8 @@ $currency = new Zend_Currency(
 );
 
 print $currency; // Could return '$ 100'
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             By giving the proper option you can define what information which has to be
@@ -91,7 +92,8 @@ $currency = new Zend_Currency(
 );
 
 print $currency; // Could return 'USD 100'
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
              Without providing the <property>display</property> the currency sign will be used
@@ -134,7 +136,8 @@ $currency = new Zend_Currency(
 );
 
 print $currency; // Could return 'Dollar 100'
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             You could also set a sign or an abbreviations yourself.
@@ -149,7 +152,8 @@ $currency = new Zend_Currency(
 );
 
 print $currency; // Could return '$$$ 100'
-]]></programlisting>
+]]>
+</programlisting>
     </example>
 
     <note><info><title>Automatic display settings</title></info>

@@ -48,7 +48,8 @@
 date_default_timezone_set('America/Los_Angeles');
 // timezone for a German in Germany
 date_default_timezone_set('Europe/Berlin');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <para>

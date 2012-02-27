@@ -64,7 +64,8 @@
         <programlisting language="php"><![CDATA[
 $view = new My_Custom_View();
 $layout->setView($view);
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Not all Zend_View implementations are equal</title></info>
             
@@ -98,7 +99,8 @@ $layout->setView($view);
             <programlisting language="php"><![CDATA[
 $placeholders = new Zend_View_Helper_Placeholder();
 $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
-]]></programlisting>
+]]>
+</programlisting>
         </note>
     </section>
 
@@ -195,7 +197,8 @@ $layout->setInflectorTarget('layouts/:script.:suffix');
 
 // Set the layout view script suffix:
 $layout->setViewSuffix('php');
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.directmodification"><info><title>Direct modification of Zend_Layout inflector</title></info>
@@ -220,7 +223,8 @@ $layout->setViewSuffix('php');
 $layout->getInflector()->setTarget('layouts/:script.:suffix')
                        ->setStaticRule('suffix', 'html')
                        ->setFilterRule(array('Word_CamelCaseToUnderscore'));
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.custom"><info><title>Custom inflectors</title></info>
@@ -240,7 +244,8 @@ $inflector->addRules(array(
     'suffix'  => 'html'
 ));
 $layout->setInflector($inflector);
-]]></programlisting>
+]]>
+</programlisting>
         </example>
 
         <note><info><title>Inflection can be disabled</title></info>

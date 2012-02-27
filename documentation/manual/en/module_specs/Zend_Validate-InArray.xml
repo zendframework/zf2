@@ -54,7 +54,8 @@ if ($validator->isValid('value')) {
 } else {
     // no value found
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             This will behave exactly like <acronym>PHP</acronym>'s
@@ -83,7 +84,8 @@ if ($validator->isValid('value')) {
 } else {
     // no value found
 }
-]]></programlisting>
+]]>
+</programlisting>
     </section>
 
     <section xml:id="zend.validate.set.in_array.strict"><info><title>Strict array validation</title></info>
@@ -114,7 +116,8 @@ if ($validator->isValid('value')) {
 } else {
     // no value found
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             The <emphasis>haystack</emphasis> key contains your array to validate against. And by
@@ -166,7 +169,8 @@ if ($validator->isValid('value')) {
 } else {
     // no value found
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <para>
             Your array will then be validated recursive to see if the given value is contained.
@@ -190,7 +194,8 @@ if ($validator->isValid('value')) {
 } else {
     // no value found
 }
-]]></programlisting>
+]]>
+</programlisting>
 
         <note><info><title>Default setting for recursion</title></info>
             
