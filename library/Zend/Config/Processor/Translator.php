@@ -53,9 +53,9 @@ class Translator implements Processor
      * Translator uses the supplied Zend\Translator\Translator to find and
      * translate language strings in config.
      *
-     * @param \Zend\Translator\Translator $translator
-     * @param \Zend\Locale\Locale|string|null $locale
-     * @return \Zend\Config\Processor\Translator
+     * @param  ZendTranslator $translator
+     * @param  Locale|string|null $locale
+     * @return ZendTranslator
      */
     public function __construct(ZendTranslator $translator, $locale = null)
     {

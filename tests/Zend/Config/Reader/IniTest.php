@@ -49,6 +49,14 @@ class IniTest extends AbstractReaderTestCase
         return __DIR__ . '/TestAssets/Ini/' . $name . '.ini';
     }
     
+    public function testInvalidIniFile()
+    {
+        $this->reader = new Ini();
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException',
+                "The file " . $this->getTestAssetPath('invalid') . " is not a valid INI.");
+        $arrayIni = $this->reader->fromFile($this->getTestAssetPath('invalid'));
+    }
+    
     public function testFromString()
     {
         $ini = <<<ECS
@@ -58,10 +66,20 @@ bar[]= "foo"
 
 ECS;
         
-        $config = $this->reader->fromString($ini);
-        $this->assertEquals($config['test'], 'foo');
-        $this->assertEquals($config['bar'][0], 'baz');
-        $this->assertEquals($config['bar'][1], 'foo');
+        $arrayIni = $this->reader->fromString($ini);
+        $this->assertEquals($arrayIni['test'], 'foo');
+        $this->assertEquals($arrayIni['bar'][0], 'baz');
+        $this->assertEquals($arrayIni['bar'][1], 'foo');
+    }
+    
+    public function testInvalidString()
+    {
+        $ini = <<<ECS
+test== "foo"
+
+ECS;
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException','The string doesn\'t contain a valid INI.');
+        $arrayIni = $this->reader->fromString($ini);
     }
     
     public function testFromStringWithSection()
@@ -74,9 +92,9 @@ bar[]= "foo"
 
 ECS;
         
-        $config = $this->reader->fromString($ini);
-        $this->assertEquals($config['all']['test'], 'foo');
-        $this->assertEquals($config['all']['bar'][0], 'baz');
-        $this->assertEquals($config['all']['bar'][1], 'foo');
+        $arrayIni = $this->reader->fromString($ini);
+        $this->assertEquals($arrayIni['all']['test'], 'foo');
+        $this->assertEquals($arrayIni['all']['bar'][0], 'baz');
+        $this->assertEquals($arrayIni['all']['bar'][1], 'foo');
     }
 }

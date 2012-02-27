@@ -73,7 +73,8 @@ class Xml implements Reader
             throw new Exception\RuntimeException("The file $filename doesn't exists.");
         }
         $this->reader = new XMLReader();
-        $this->reader->open($filename, null, LIBXML_XINCLUDE);
+
+        $this->reader->open($filename, null, LIBXML_XINCLUDE);   
 
         $this->directory = dirname($filename);
 
@@ -85,14 +86,15 @@ class Xml implements Reader
      *
      * @see    Reader::fromString()
      * @param  string $string
-     * @return array|boolean
+     * @return array
      */
     public function fromString($string)
     {
         if (empty($string)) {
-            return false;
+            return array();
         }
         $this->reader = new XMLReader();
+        
         $this->reader->xml($string, null, LIBXML_XINCLUDE);
 
         $this->directory = null;
@@ -122,45 +124,49 @@ class Xml implements Reader
         $children = array();
         $text     = '';
 
-        while ($this->reader->read()) {
-            if ($this->reader->nodeType === XMLReader::ELEMENT) {
-                if ($this->reader->depth === 0) {
-                    return $this->processNextElement();
-                }
+        try {
+            while ($this->reader->read()) {
+                if ($this->reader->nodeType === XMLReader::ELEMENT) {
+                    if ($this->reader->depth === 0) {
+                        return $this->processNextElement();
+                    }
 
-                $attributes = $this->getAttributes();
-                $name       = $this->reader->name;
+                    $attributes = $this->getAttributes();
+                    $name       = $this->reader->name;
 
-                if ($this->reader->isEmptyElement) {
-                    $child = array();
-                } else {
-                    $child = $this->processNextElement();
-                }
-
-                if ($attributes) {
-                    if (!is_array($child)) {
+                    if ($this->reader->isEmptyElement) {
                         $child = array();
+                    } else {
+                        $child = $this->processNextElement();
                     }
 
-                    $child = array_merge($child, $attributes);
-                }
+                    if ($attributes) {
+                        if (!is_array($child)) {
+                            $child = array();
+                        }
 
-                if (isset($children[$name])) {
-                    if (!is_array($children[$name]) || !$children[$name]) {
-                        $children[$name] = array($children[$name]);
+                        $child = array_merge($child, $attributes);
                     }
 
-                    $children[$name][] = $child;
-                } else {
-                    $children[$name] = $child;
+                    if (isset($children[$name])) {
+                        if (!is_array($children[$name]) || !$children[$name]) {
+                            $children[$name] = array($children[$name]);
+                        }
+
+                        $children[$name][] = $child;
+                    } else {
+                        $children[$name] = $child;
+                    }
+                } elseif ($this->reader->nodeType === XMLReader::END_ELEMENT) {
+                    break;
+                } elseif (in_array($this->reader->nodeType, $this->textNodes)) {
+                    $text .= $this->reader->value;
                 }
-            } elseif ($this->reader->nodeType === XMLReader::END_ELEMENT) {
-                break;
-            } elseif (in_array($this->reader->nodeType, $this->textNodes)) {
-                $text .= $this->reader->value;
             }
+        } catch (\Exception $e) {
+            throw new Exception\RunTimeException('The XML is not well formed');
         }
-
+        
         return $children ?: $text;
     }
 

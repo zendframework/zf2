@@ -44,17 +44,8 @@ abstract class AbstractWriter implements Writer
      */
     public function toFile($filename, $config, $exclusiveLock = true)
     {
-        if (empty($filename)) {
-            throw new Exception\InvalidArgumentException('No filename was set');
-        }
-        if (empty($config)) {
-             throw new Exception\InvalidArgumentException('No config was set');
-        }
-        if (is_dir($filename)) {
-            throw new Exception\RuntimeException(sprintf('"%s" is a directory and not a file', $filename));
-        }
-        if (!is_writable($filename)) {
-            throw new Exception\RuntimeException(sprintf('File "%s" is not writable', $filename));
+        if (!is_file($filename) || !is_writable($filename)) {
+            throw new Exception\InvalidArgumentException(sprintf('File "%s" doesn\'t exist or is not writable', $filename));
         }
 
         $flags = 0;

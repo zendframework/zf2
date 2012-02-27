@@ -195,7 +195,7 @@ class Token implements Processor
     {
         if (!$this->suffix && !$this->prefix) {
             $this->map = $this->tokens;
-	} else {
+        } else {
             $this->map = array();
             foreach ($this->tokens as $token => $value) {
                 $this->map[$this->prefix . $token . $this->suffix] = $value;

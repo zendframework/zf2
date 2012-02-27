@@ -59,7 +59,7 @@ abstract class AbstractWriterTestCase extends TestCase
     protected function getTestAssetFileName()
     {
         if (empty($this->tmpfile)) {
-            $this->tmpfile = tempnam(__DIR__ . '/temp', 'tmp');
+            $this->tmpfile = tempnam(sys_get_temp_dir(), 'zend-config-writer');
         }
         return $this->tmpfile;
     }
@@ -71,25 +71,20 @@ abstract class AbstractWriterTestCase extends TestCase
     
     public function testNoFilenameSet()
     {
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'No filename was set');
+        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'File "" doesn\'t exist or is not writable');
         $this->writer->toFile('', '');
-    }
-
-    public function testNoConfigSet()
-    {
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'No config was set');
-        $this->writer->toFile($this->getTestAssetFileName(), '');
     }
 
     public function testFileNotValid()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException', '"." is a directory and not a file');
+        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'File "." doesn\'t exist or is not writable');
         $this->writer->toFile('.', new Config(array()));
     }
     
     public function testFileNotWritable()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'File "' . $this->getTestAssetFileName() . '" is not writable');
+        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 
+                'File "' . $this->getTestAssetFileName() . '" doesn\'t exist or is not writable');
         chmod($this->getTestAssetFileName(), 0444);
         $this->writer->toFile($this->getTestAssetFileName(), new Config(array()));
     }

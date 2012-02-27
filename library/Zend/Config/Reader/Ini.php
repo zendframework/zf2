@@ -22,7 +22,6 @@
 namespace Zend\Config\Reader;
 
 use Zend\Config\Reader,
-    Zend\Config\Config,
     Zend\Config\Exception;
 
 /**
@@ -86,7 +85,11 @@ class Ini implements Reader
         }
         $this->directory = dirname($filename);
 
-        return $this->process(parse_ini_file($filename, true));
+        $ini = @parse_ini_file($filename, true);
+        if ($ini===false) {
+             throw new Exception\RuntimeException("The file $filename is not a valid INI.");
+        }
+        return $this->process($ini);
     }
 
     /**
@@ -94,16 +97,20 @@ class Ini implements Reader
      *
      * @see    Reader::fromString()
      * @param  string $string
-     * @return array|boolean
+     * @return array
      */
     public function fromString($string)
     {
         if (empty($string)) {
-            return false;
+            return array();
         }
         $this->directory = null;
 
-        return $this->process(parse_ini_string($string, true));
+        $ini = @parse_ini_string($string, true);
+        if ($ini===false) {
+             throw new Exception\RuntimeException("The string doesn't contain a valid INI.");
+        }
+        return $this->process($ini);
     }
 
     /**

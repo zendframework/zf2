@@ -49,6 +49,14 @@ class XmlTest extends AbstractReaderTestCase
         return __DIR__ . '/TestAssets/Xml/' . $name . '.xml';
     }
     
+    public function testInvalidXmlFile()
+    {
+        $this->reader = new Xml();
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException',
+                'The XML is not well formed');
+        $arrayXml = $this->reader->fromFile($this->getTestAssetPath('invalid'));
+    }
+    
     public function testFromString()
     {
         $xml = <<<ECS
@@ -61,9 +69,23 @@ class XmlTest extends AbstractReaderTestCase
 
 ECS;
         
-        $config = $this->reader->fromString($xml);
-        $this->assertEquals($config['test'], 'foo');
-        $this->assertEquals($config['bar'][0], 'baz');
-        $this->assertEquals($config['bar'][1], 'foo');
+        $arrayXml= $this->reader->fromString($xml);
+        $this->assertEquals($arrayXml['test'], 'foo');
+        $this->assertEquals($arrayXml['bar'][0], 'baz');
+        $this->assertEquals($arrayXml['bar'][1], 'foo');
+    }
+    
+    public function testInvalidString()
+    {
+        $xml = <<<ECS
+<?xml version="1.0" encoding="UTF-8"?>
+<zend-config>
+    <bar>baz</baz>
+</zend-config>
+
+ECS;
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException',
+                'The XML is not well formed');
+        $arrayXml = $this->reader->fromString($xml);
     }
 }
