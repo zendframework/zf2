@@ -85,10 +85,17 @@ class Ini implements Reader
         }
         $this->directory = dirname($filename);
 
-        $ini = @parse_ini_file($filename, true);
-        if ($ini===false) {
-             throw new Exception\RuntimeException("The file $filename is not a valid INI.");
-        }
+        set_error_handler(
+            function($error, $message = '', $file = '', $line = 0) use ($filename) {
+                throw new Exception\RuntimeException(sprintf(
+                    'Error reading INI file "%s": %s',
+                    $filename, $message
+                ), $error);
+            }, E_WARNING
+        );
+        $ini = parse_ini_file($filename, true);
+        restore_error_handler();
+        
         return $this->process($ini);
     }
 
@@ -106,10 +113,17 @@ class Ini implements Reader
         }
         $this->directory = null;
 
-        $ini = @parse_ini_string($string, true);
-        if ($ini===false) {
-             throw new Exception\RuntimeException("The string doesn't contain a valid INI.");
-        }
+        set_error_handler(
+            function($error, $message = '', $file = '', $line = 0) {
+                throw new Exception\RuntimeException(sprintf(
+                    'Error reading INI string: %s',
+                    $message
+                ), $error);
+            }, E_WARNING
+        );
+        $ini = parse_ini_string($string, true);
+        restore_error_handler();
+        
         return $this->process($ini);
     }
 

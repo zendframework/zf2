@@ -71,20 +71,20 @@ abstract class AbstractWriterTestCase extends TestCase
     
     public function testNoFilenameSet()
     {
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'File "" doesn\'t exist or is not writable');
+        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'File name "" is not valid or is not writable');
         $this->writer->toFile('', '');
     }
 
     public function testFileNotValid()
     {
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'File "." doesn\'t exist or is not writable');
+        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'File name "." is not valid or is not writable');
         $this->writer->toFile('.', new Config(array()));
     }
     
     public function testFileNotWritable()
     {
         $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 
-                'File "' . $this->getTestAssetFileName() . '" doesn\'t exist or is not writable');
+                'File name "' . $this->getTestAssetFileName() . '" is not valid or is not writable');
         chmod($this->getTestAssetFileName(), 0444);
         $this->writer->toFile($this->getTestAssetFileName(), new Config(array()));
     }

@@ -4,7 +4,7 @@
 
     <para>
         <classname>Zend\Config\Writer</classname> gives you the ability to write config
-        files out of <classname>Zend\Config</classname> objects. The <classname>Zend\Config\Writer</classname>
+        files out of array, <classname>Zend\Config\Config</classname> and any Traversable object. The <classname>Zend\Config\Writer</classname>
         is an interface that defines two methods: <methodname>toFile()</methodname> and <methodname>toString()</methodname>.
         We have three specific writers that implement this interface:
     </para>
@@ -74,8 +74,8 @@ $config->production->database->params->username = 'production';
 $config->production->database->params->password = 'secret';
 $config->production->database->params->dbname = 'dbproduction';
 
-$ini = new Zend\Config\Writer\Ini();
-echo $ini->toString($config);
+$writer = new Zend\Config\Writer\Ini();
+echo $writer->toString($config);
 ]]>
             </programlisting>
             
@@ -128,8 +128,8 @@ $config->production->database->params->username = 'production';
 $config->production->database->params->password = 'secret';
 $config->production->database->params->dbname = 'dbproduction';
 
-$xml = new Zend\Config\Writer\Xml();
-echo $xml->toString($config);
+$writer = new Zend\Config\Writer\Xml();
+echo $writer->toString($config);
 ]]>
             </programlisting>
             
@@ -191,8 +191,8 @@ $config->production->database->params->username = 'production';
 $config->production->database->params->password = 'secret';
 $config->production->database->params->dbname = 'dbproduction';
 
-$phpArray = new Zend\Config\Writer\PhpArray();
-echo $phpArray->toString($config);
+$writer = new Zend\Config\Writer\PhpArray();
+echo $writer->toString($config);
 ]]>
             </programlisting>
             

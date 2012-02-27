@@ -46,7 +46,7 @@ abstract class AbstractWriter implements Writer
     public function toFile($filename, $config, $exclusiveLock = true)
     {
         if (!is_file($filename) || !is_writable($filename)) {
-            throw new Exception\InvalidArgumentException(sprintf('File "%s" doesn\'t exist or is not writable', $filename));
+            throw new Exception\InvalidArgumentException(sprintf('File name "%s" is not valid or is not writable', $filename));
         }
 
         $flags = 0;

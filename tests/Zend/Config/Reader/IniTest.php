@@ -52,8 +52,7 @@ class IniTest extends AbstractReaderTestCase
     public function testInvalidIniFile()
     {
         $this->reader = new Ini();
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException',
-                "The file " . $this->getTestAssetPath('invalid') . " is not a valid INI.");
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException');
         $arrayIni = $this->reader->fromFile($this->getTestAssetPath('invalid'));
     }
     
@@ -78,7 +77,7 @@ ECS;
 test== "foo"
 
 ECS;
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException','The string doesn\'t contain a valid INI.');
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException');
         $arrayIni = $this->reader->fromString($ini);
     }
     
