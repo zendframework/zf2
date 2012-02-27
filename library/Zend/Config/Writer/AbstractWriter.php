@@ -45,17 +45,26 @@ abstract class AbstractWriter implements Writer
      */
     public function toFile($filename, $config, $exclusiveLock = true)
     {
-        if (!is_file($filename) || !is_writable($filename)) {
-            throw new Exception\InvalidArgumentException(sprintf('File name "%s" is not valid or is not writable', $filename));
+        if (empty($filename)) {
+            throw new Exception\InvalidArgumentException('No file name specified');
         }
-
+        
         $flags = 0;
 
         if ($exclusiveLock) {
             $flags |= LOCK_EX;
         }
-
+        
+        set_error_handler(
+            function($error, $message = '', $file = '', $line = 0) use ($filename) {
+                throw new Exception\RuntimeException(sprintf(
+                    'Error writing to "%s": %s',
+                    $filename, $message
+                ), $error);
+            }, E_WARNING
+        );
         file_put_contents($filename, $this->toString($config), $exclusiveLock);
+        restore_error_handler();
     }
 
     /**
