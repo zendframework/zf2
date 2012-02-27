@@ -23,7 +23,8 @@ namespace Zend\Config\Writer;
 use Zend\Config\Writer,
     Zend\Config\Exception,
     Zend\Config\Config,
-    Zend\Stdlib\IteratorToArray;
+    Zend\Stdlib\IteratorToArray,
+    Traversable;
 
 /**
  * @category   Zend
@@ -66,9 +67,7 @@ abstract class AbstractWriter implements Writer
      */
     public function toString($config)
     {
-        if ($config instanceof Config) {
-            $config = $config->toArray();
-        } elseif ($config instanceof Traversable) {
+        if ($config instanceof Traversable) {
             $config = IteratorToArray::convert($config);
         } elseif (!is_array($config)) {
             throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable config');
