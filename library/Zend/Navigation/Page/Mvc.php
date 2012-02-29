@@ -45,16 +45,18 @@ class Mvc extends AbstractPage
     protected $action;
 
     /**
-     * @var bool
-     */
-    protected $active = false;
-
-    /**
      * Controller name to use when assembling URL
      *
      * @var string
      */
     protected $controller;
+
+    /**
+     * Module name to use when assembling URL
+     *
+     * @var string
+     */
+    protected $module;
 
     /**
      * Params to use when assembling URL
@@ -127,13 +129,25 @@ class Mvc extends AbstractPage
             if ($this->routeMatch instanceof RouteMatch) {
                 $reqParams = $this->routeMatch->getParams();
 
-                if ($this->routeMatch->getMatchedRouteName() === $this->getRoute()) {
+                if (null !== $this->getRoute()
+                    && $this->routeMatch->getMatchedRouteName() === $this->getRoute()
+                ) {
                     $this->active = true;
                     return true;
                 }
             }
 
+
             $myParams = $this->params;
+
+            if (null !== $this->module) {
+                $myParams['controller'] = $this->module;
+            } else {
+                /**
+                 * @todo In ZF1, this was configurable and pulled from the front controller
+                 */
+                $myParams['module'] = 'default';
+            }
 
             if (null !== $this->controller) {
                 $myParams['controller'] = $this->controller;
