@@ -155,6 +155,18 @@ class MvcTest extends TestCase
         $this->assertEquals(true, $page->isActive());
     }
 
+    public function testIsActiveReturnsFalseWhenNoRouteAndNoMatchedRouteNameIsSet()
+    {
+        $page = new Page\Mvc();
+
+        $routeMatch = new RouteMatch(array());
+        $this->urlHelper->setRouteMatch($routeMatch);
+
+        $page->setRouteMatch($routeMatch);
+
+        $this->assertFalse($page->isActive());
+    }
+
     /**
      * @group ZF-8922
      */
@@ -193,7 +205,7 @@ class MvcTest extends TestCase
     public function testIsActiveReturnsTrueOnIdenticalModuleControllerAction()
     {
         $page = new Page\Mvc(array(
-            'label'      => 'foo',
+            'module'     => 'application',
             'action'     => 'index',
             'controller' => 'index'
         ));
@@ -203,7 +215,7 @@ class MvcTest extends TestCase
             'controller' => 'index',
             'action'     => 'index',
         ));
-        $routeMatch->setMatchedRouteName('default');
+
         $this->urlHelper->setRouteMatch($routeMatch);
 
         $page->setRouteMatch($routeMatch);
@@ -224,7 +236,7 @@ class MvcTest extends TestCase
             'controller' => 'index',
             'action'     => 'index',
         ));
-        $routeMatch->setMatchedRouteName('default');
+
         $this->urlHelper->setRouteMatch($routeMatch);
 
         $page->setRouteMatch($routeMatch);
@@ -250,7 +262,7 @@ class MvcTest extends TestCase
             'action'     => 'view',
             'id'         => '1337'
         ));
-        $routeMatch->setMatchedRouteName('default');
+
         $this->urlHelper->setRouteMatch($routeMatch);
 
         $page->setRouteMatch($routeMatch);
@@ -273,7 +285,7 @@ class MvcTest extends TestCase
             'action'     => 'view',
             'id'         => '1337'
         ));
-        $routeMatch->setMatchedRouteName('default');
+
         $this->urlHelper->setRouteMatch($routeMatch);
 
         $page->setRouteMatch($routeMatch);
@@ -299,7 +311,7 @@ class MvcTest extends TestCase
             'action'     => 'view',
             'id'         => null
         ));
-        $routeMatch->setMatchedRouteName('default');
+
         $this->urlHelper->setRouteMatch($routeMatch);
 
         $page->setRouteMatch($routeMatch);
