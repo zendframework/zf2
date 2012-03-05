@@ -106,36 +106,36 @@ class Di implements DependencyInjection
      *
      * @param  string $name Class name or service alias
      * @param  null|array $params Parameters to pass to the constructor
-     * @param  Assertion|null $assertion
+     * @param  Assertion|null $assertion Asserts the type of object to be returned
      * @return object|null
      */
     public function get($name, array $params = array(), Assertion $assertion = null)
     {
         array_push($this->instanceContext, array('GET', $name));
-		
+        
         $im = $this->instanceManager;
-		$instance = null;
+        $instance = null;
 
         if ($params) {
             $fastHash = $im->hasSharedInstanceWithParameters($name, $params, true);
             if ($fastHash) {
                 array_pop($this->instanceContext);
-				$instance = $im->getSharedInstanceWithParameters(null, array(), $fastHash);
+                $instance = $im->getSharedInstanceWithParameters(null, array(), $fastHash);
             }
         } else {
             if ($im->hasSharedInstance($name, $params)) {
                 array_pop($this->instanceContext);
-				$instance = $im->getSharedInstance($name, $params);
+                $instance = $im->getSharedInstance($name, $params);
             }
         }
         
         if ($instance === null) {
-	        $instance = $this->newInstance($name, $params, $assertion);
-	        array_pop($this->instanceContext);
+            $instance = $this->newInstance($name, $params, $assertion);
+            array_pop($this->instanceContext);
         } else if ($assertion instanceof Assertion) {
-        	if (!$assertion->assert($instance, $this->definitions())) {
-        		throw new Exception\AssertionFailedException($assertion);
-			}
+            if (!$assertion->assert($instance, $this->definitions())) {
+                throw new Exception\AssertionFailedException($assertion);
+            }
         }
 
         return $instance;
@@ -147,10 +147,10 @@ class Di implements DependencyInjection
      * Forces retrieval of a discrete instance of the given class, using the
      * constructor parameters provided.
      *
-     * @param mixed $name Class name or service alias
-     * @param array $params Parameters to pass to the constructor
-     * @param Assertion|null $assertion
-     * @param bool $isShared
+     * @param  mixed $name Class name or service alias
+     * @param  array $params Parameters to pass to the constructor
+     * @param  Assertion|null $assertion Asserts the type of object to be returned
+     * @param  bool $isShared if true, allows the new object to be shared through the instanceManager
      * @return object|null
      */
     public function newInstance($name, array $params = array(), Assertion $assertion = null, $isShared = true)
@@ -176,17 +176,17 @@ class Di implements DependencyInjection
             );
         }
 
-		if ($assertion instanceof Assertion) {
-			// Make sure the class is the one we want before it's initialized
-			if (!$assertion->assert($class, $this->definitions())){
-				throw new Exception\AssertionFailedException($assertion);
-			}
-		}        
+        if ($assertion instanceof Assertion) {
+            // Make sure the class is the one we want before it's initialized
+            if (!$assertion->assert($class, $this->definitions())){
+                throw new Exception\AssertionFailedException($assertion);
+            }
+        }        
 
         $instantiator     = $definitions->getInstantiator($class);
         $injectionMethods = $definitions->getMethods($class);
 
-		$supertypes = $definitions->getClassSupertypes($class);
+        $supertypes = $definitions->getClassSupertypes($class);
         $supertypeInjectionMethods = array();
 
         foreach ($supertypes as $supertype) {

@@ -8,21 +8,21 @@ use Zend\Di\Definition\Definition;
  */
 interface Assertion
 {
-	/**
-	 * assert function.
-	 * 
-	 * @access public
-	 * @param mixed $class
-	 * @param mixed Definition $definition. (default: null)
-	 * @return void
-	 */
-	public function assert($class, Definition $definition = null);
+    /**
+     * assert function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @param mixed Definition $definition. (default: null)
+     * @return void
+     */
+    public function assert($class, Definition $definition = null);
 
-	/**
-	 * __toString function.
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function __toString();
+    /**
+     * __toString function.
+     * 
+     * @access public
+     * @return void
+     */
+    public function __toString();
 }

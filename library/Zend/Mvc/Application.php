@@ -296,7 +296,7 @@ class Application implements AppContext
         $routeMatch = $router->match($request);
 
         if (!$routeMatch instanceof Router\RouteMatch) {
-            $e->setError(static::ERROR_CONTROLLER_NOT_FOUND);
+            $e->setError(static::ERROR_ROUTER_NO_MATCH);
 
             $results = $this->events()->trigger('route.error', $e);
             if (count($results)) {
@@ -332,8 +332,8 @@ class Application implements AppContext
 
         try {
             $controller = $locator->get($controllerName, array(), 
-            	new TypeAssertion('Zend\Stdlib\Dispatchable'));
-		} catch (AssertionFailedException $exception) {
+                new TypeAssertion('Zend\Stdlib\Dispatchable'));
+        } catch (AssertionFailedException $exception) {
             $error = clone $e;
             $error->setError(static::ERROR_CONTROLLER_INVALID)
                   ->setController($controllerName)

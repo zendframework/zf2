@@ -24,15 +24,15 @@ interface Definition
      */
     public function getClassSupertypes($class);
 
-	/**
-	 * classHasSupertype function.
-	 * 
-	 * @access public
-	 * @param string $class
-	 * @param string $supertype
-	 * @return bool
-	 */
-	public function classHasSupertype($class, $supertype);
+    /**
+     * classHasSupertype function.
+     * 
+     * @access public
+     * @param string $class
+     * @param string $supertype
+     * @return bool
+     */
+    public function classHasSupertype($class, $supertype);
 
     /**
      * @abstract
