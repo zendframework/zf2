@@ -335,26 +335,30 @@ class Config implements Countable, Iterator, ArrayAccess
     /**
      * Merge another Config with this one.
      *
-     * The items in $merge will override the same named items in the current
-     * config.
-     *
+     * @see    Zend\Stdlib\RecursiveArrayMerge::merge()
      * @param  self $merge
      * @return self
      */
     public function merge(self $merge)
     {
-        foreach ($merge as $key => $item) {
+        foreach ($merge as $key => $value) {
             if (array_key_exists($key, $this->data)) {
-                if ($item instanceof self && $this->data[$key] instanceof self) {
-                    $this->data[$key] = $this->data[$key]->merge(new self($item->toArray(), $this->allowModifications));
+                if (is_int($key)) {
+                    $this->data[] = $value;
+                } elseif ($value instanceof self && $this->data[$key] instanceof self) {
+                    $this->data[$key] = $this->data[$key]->merge($value);
                 } else {
-                    $this->data[$key] = $item;
+                    if ($value instanceof self) {
+                        $this->data[$key] = new self($value->toArray(), $this->allowModifications);
+                    } else {
+                        $this->data[$key] = $value;
+                    }
                 }
             } else {
-                if ($item instanceof self) {
-                    $this->data[$key] = new self($item->toArray(), $this->allowModifications);
+                if ($value instanceof self) {
+                    $this->data[$key] = new self($value->toArray(), $this->allowModifications);
                 } else {
-                    $this->data[$key] = $item;
+                    $this->data[$key] = $value;
                 }
             }
         }
