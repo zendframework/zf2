@@ -105,11 +105,25 @@ class RuntimeDefinition implements Definition
      */
     public function getClassSupertypes($class)
     {
-        if (!array_key_exists($class, $this->classes[$class])) {
+        if (!array_key_exists($class, $this->classes)) {
             $this->processClass($class);
         }
         return $this->classes[$class]['supertypes'];
     }
+
+	/**
+	 * classHasSupertype function.
+	 * 
+	 * @access public
+	 * @param string $class
+	 * @param string $supertype
+	 * @return bool
+	 */
+	public function classHasSupertype($class, $supertype)
+	{
+		$supertypes = $this->getClassSupertypes($class);
+		return in_array($supertype, $supertypes);
+	}
 
     /**
      * Get the instantiator

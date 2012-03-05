@@ -7,6 +7,13 @@ use SplDoublyLinkedList;
 class DefinitionList extends SplDoublyLinkedList implements Definition\Definition
 {
 
+    /**
+     * __construct function.
+     * 
+     * @access public
+     * @param mixed $definitions
+     * @return void
+     */
     public function __construct($definitions)
     {
         if (!is_array($definitions)) {
@@ -17,6 +24,14 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         }
     }
     
+    /**
+     * addDefinition function.
+     * 
+     * @access public
+     * @param mixed Definition\Definition $definition
+     * @param bool $addToBackOfList. (default: true)
+     * @return void
+     */
     public function addDefinition(Definition\Definition $definition, $addToBackOfList = true)
     {
         if ($addToBackOfList) {
@@ -55,6 +70,13 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         return false;
     }
 
+    /**
+     * getDefinitionForClass function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @return void
+     */
     public function getDefinitionForClass($class)
     {
         /** @var $definition Definition\Definition */
@@ -65,13 +87,25 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         }
         return false;
     }
-
+    
+    /**
+     * forClass function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @return void
+     */
     public function forClass($class)
     {
         return $this->getDefinitionForClass($class);
     }
 
-
+    /**
+     * getClasses function.
+     * 
+     * @access public
+     * @return void
+     */
     public function getClasses()
     {
         $classes = array();
@@ -82,6 +116,13 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         return $classes;
     }
     
+    /**
+     * hasClass function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @return void
+     */
     public function hasClass($class)
     {
         /** @var $definition Definition\Definition */
@@ -93,6 +134,13 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         return false;
     }
     
+    /**
+     * getClassSupertypes function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @return void
+     */
     public function getClassSupertypes($class)
     {
         $supertypes = array();
@@ -103,7 +151,28 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         // @todo remove duplicates?
         return $supertypes;
     }
-    
+
+	/**
+	 * classHasSupertype function.
+	 * 
+	 * @access public
+	 * @param string $class
+	 * @param string $supertype
+	 * @return bool
+	 */
+	public function classHasSupertype($class, $supertype)
+	{
+		$supertypes = $this->getClassSupertypes($class);
+		return in_array($supertype, $supertypes);
+	}
+
+    /**
+     * getInstantiator function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @return void
+     */
     public function getInstantiator($class)
     {
         /** @var $definition Definition\Definition */
@@ -120,6 +189,13 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         return false;
     }
     
+    /**
+     * hasMethods function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @return void
+     */
     public function hasMethods($class)
     {
         /** @var $definition Definition\Definition */
@@ -135,6 +211,14 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         return false;
     }
     
+    /**
+     * hasMethod function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @param mixed $method
+     * @return void
+     */
     public function hasMethod($class, $method)
     {
         /** @var $definition Definition\Definition */
@@ -150,6 +234,13 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         return false;
     }
     
+    /**
+     * getMethods function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @return void
+     */
     public function getMethods($class)
     {
         /** @var $definition Definition\Definition */
@@ -166,12 +257,28 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         return $methods;
     }
 
+    /**
+     * hasMethodParameters function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @param mixed $method
+     * @return void
+     */
     public function hasMethodParameters($class, $method)
     {
         $methodParameters = $this->getMethodParameters($class, $method);
         return ($methodParameters !== array());
     }
 
+    /**
+     * getMethodParameters function.
+     * 
+     * @access public
+     * @param mixed $class
+     * @param mixed $method
+     * @return void
+     */
     public function getMethodParameters($class, $method)
     {
         /** @var $definition Definition\Definition */

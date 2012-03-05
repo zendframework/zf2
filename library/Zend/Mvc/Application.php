@@ -4,6 +4,8 @@ namespace Zend\Mvc;
 
 use ArrayObject,
     Zend\Di\Exception\ClassNotFoundException,
+    Zend\Di\Exception\AssertionFailedException,
+    Zend\Di\Assertion\TypeAssertion,
     Zend\Di\Locator,
     Zend\EventManager\EventCollection,
     Zend\EventManager\EventManager,
@@ -296,7 +298,7 @@ class Application implements AppContext
         if (!$routeMatch instanceof Router\RouteMatch) {
             $e->setError(static::ERROR_CONTROLLER_NOT_FOUND);
 
-            $results = $this->events()->trigger('dispatch.error', $e);
+            $results = $this->events()->trigger('route.error', $e);
             if (count($results)) {
                 $return  = $results->last();
             } else {
@@ -329,7 +331,22 @@ class Application implements AppContext
         $events         = $this->events();
 
         try {
-            $controller = $locator->get($controllerName);
+            $controller = $locator->get($controllerName, array(), 
+            	new TypeAssertion('Zend\Stdlib\Dispatchable'));
+		} catch (AssertionFailedException $exception) {
+            $error = clone $e;
+            $error->setError(static::ERROR_CONTROLLER_INVALID)
+                  ->setController($controllerName)
+                  ->setParam('exception', $exception);
+
+            $results = $events->trigger('dispatch.error', $error);
+            if (count($results)) {
+                $return  = $results->last();
+            } else {
+                $return = $error->getParams();
+            }
+            goto complete;
+            
         } catch (ClassNotFoundException $exception) {
             $error = clone $e;
             $error->setError(static::ERROR_CONTROLLER_NOT_FOUND)
@@ -347,21 +364,6 @@ class Application implements AppContext
 
         if ($controller instanceof LocatorAware) {
             $controller->setLocator($locator);
-        }
-
-        if (!$controller instanceof Dispatchable) {
-            $error = clone $e;
-            $error->setError(static::ERROR_CONTROLLER_INVALID)
-                  ->setController($controllerName)
-                  ->setControllerClass(get_class($controller));
-
-            $results = $events->trigger('dispatch.error', $error);
-            if (count($results)) {
-                $return  = $results->last();
-            } else {
-                $return = $error->getParams();
-            }
-            goto complete;
         }
 
         $request  = $e->getRequest();

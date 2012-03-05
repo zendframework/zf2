@@ -8,7 +8,8 @@ interface Locator
      * 
      * @param  string $name Class name or service name
      * @param  null|array $params Parameters to be used when instantiating a new instance of $name
+     * @param  Assertion|null $assertion
      * @return object|null
      */
-    public function get($name, array $params = array());
+    public function get($name, array $params = array(), Assertion $assertion = null);
 }

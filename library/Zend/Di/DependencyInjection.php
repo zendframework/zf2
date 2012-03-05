@@ -12,7 +12,9 @@ interface DependencyInjection extends Locator
      * 
      * @param  mixed $name Class name or service alias
      * @param  array $params Parameters to pass to the constructor
+     * @param  Assertion|null $assertion 
+     * @param  bool $isShared
      * @return object|null
      */
-    public function newInstance($name, array $params = array());
+    public function newInstance($name, array $params = array(), Assertion $assertion = null, $isShared = true);
 }

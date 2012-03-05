@@ -6,6 +6,7 @@ use Zend\Di\Di,
     Zend\Di\DefinitionList,
     Zend\Di\InstanceManager,
     Zend\Di\Configuration,
+    Zend\Di\Assertion,
     Zend\Di\Definition;
 
 
@@ -72,6 +73,14 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Di\Exception\ClassNotFoundException', 'could not be located in');
         $obj1 = $di->get('ZendTest\Di\TestAsset\NonExistentClass');
     }
+    
+    public function testGetThrowsExceptionWhenAssertionFails()
+    {
+    	$di = new Di();
+    	
+    	$this->setExpectedException('Zend\Di\Exception\AssertionFailedException', 'Assertion failed for ');
+    	$di->get('ZendTest\Di\TestAsset\BasicClass', array(), new Assertion\TypeAssertion('ZendTest\Di\TestAsset\NonExistentClass'));
+    }    
     
     public function testGetThrowsExceptionWhenMissingParametersAreEncountered()
     {

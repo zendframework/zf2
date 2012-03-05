@@ -97,7 +97,6 @@ class Di implements DependencyInjection
         return $this->instanceManager;
     }
 
-
     /**
      * Lazy-load a class
      *
@@ -107,28 +106,38 @@ class Di implements DependencyInjection
      *
      * @param  string $name Class name or service alias
      * @param  null|array $params Parameters to pass to the constructor
+     * @param  Assertion|null $assertion
      * @return object|null
      */
-    public function get($name, array $params = array())
+    public function get($name, array $params = array(), Assertion $assertion = null)
     {
         array_push($this->instanceContext, array('GET', $name));
-
+		
         $im = $this->instanceManager;
+		$instance = null;
 
         if ($params) {
             $fastHash = $im->hasSharedInstanceWithParameters($name, $params, true);
             if ($fastHash) {
                 array_pop($this->instanceContext);
-                return $im->getSharedInstanceWithParameters(null, array(), $fastHash);
+				$instance = $im->getSharedInstanceWithParameters(null, array(), $fastHash);
             }
         } else {
             if ($im->hasSharedInstance($name, $params)) {
                 array_pop($this->instanceContext);
-                return $im->getSharedInstance($name, $params);
+				$instance = $im->getSharedInstance($name, $params);
             }
         }
-        $instance = $this->newInstance($name, $params);
-        array_pop($this->instanceContext);
+        
+        if ($instance === null) {
+	        $instance = $this->newInstance($name, $params, $assertion);
+	        array_pop($this->instanceContext);
+        } else if ($assertion instanceof Assertion) {
+        	if (!$assertion->assert($instance, $this->definitions())) {
+        		throw new Exception\AssertionFailedException($assertion);
+			}
+        }
+
         return $instance;
     }
 
@@ -140,13 +149,14 @@ class Di implements DependencyInjection
      *
      * @param mixed $name Class name or service alias
      * @param array $params Parameters to pass to the constructor
+     * @param Assertion|null $assertion
      * @param bool $isShared
      * @return object|null
      */
-    public function newInstance($name, array $params = array(), $isShared = true)
+    public function newInstance($name, array $params = array(), Assertion $assertion = null, $isShared = true)
     {
         // localize dependencies (this also will serve as poka-yoke)
-        $definitions      = $this->definitions;
+        $definitions     = $this->definitions;
         $instanceManager = $this->instanceManager();
 
         if ($instanceManager->hasAlias($name)) {
@@ -166,11 +176,20 @@ class Di implements DependencyInjection
             );
         }
 
+		if ($assertion instanceof Assertion) {
+			// Make sure the class is the one we want before it's initialized
+			if (!$assertion->assert($class, $this->definitions())){
+				throw new Exception\AssertionFailedException($assertion);
+			}
+		}        
+
         $instantiator     = $definitions->getInstantiator($class);
         $injectionMethods = $definitions->getMethods($class);
 
+		$supertypes = $definitions->getClassSupertypes($class);
         $supertypeInjectionMethods = array();
-        foreach ($definitions->getClassSupertypes($class) as $supertype) {
+
+        foreach ($supertypes as $supertype) {
             $supertypeInjectionMethods[$supertype] = $definitions->getMethods($supertype);
         }
 
@@ -431,7 +450,7 @@ class Di implements DependencyInjection
         if ($this->instanceManager->hasConfiguration($class)) {
             $iConfig['thisClass'] = $this->instanceManager->getConfiguration($class);
         }
-
+        
         // for the parent class, provided we are deeper than one node
         list($requestedClass, $requestedAlias) = ($this->instanceContext[0][0] == 'NEW')
             ? array($this->instanceContext[0][1], $this->instanceContext[0][2])

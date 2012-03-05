@@ -85,6 +85,20 @@ class ClassDefinition implements Definition, PartialMarker
         return $this->supertypes;
     }
 
+	/**
+	 * classHasSupertype function.
+	 * 
+	 * @access public
+	 * @param string $class
+	 * @param string $supertype
+	 * @return bool
+	 */
+	public function classHasSupertype($class, $supertype)
+	{
+		$supertypes = $this->getClassSupertypes($class);
+		return in_array($supertype, $supertypes);
+	}
+
     /**
      * @param string $class
      * @return string|array

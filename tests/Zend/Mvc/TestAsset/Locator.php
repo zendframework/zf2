@@ -3,6 +3,7 @@
 namespace ZendTest\Mvc\TestAsset;
 
 use Zend\Di\Locator as LocatorDefinition,
+	Zend\Di\Assertion,
     Zend\Di\Exception\ClassNotFoundException;
 
 /**
@@ -12,7 +13,7 @@ class Locator implements LocatorDefinition
 {
     protected $services = array();
 
-    public function get($name, array $params = array())
+    public function get($name, array $params = array(), Assertion $assertion = null)
     {
         if (!isset($this->services[$name])) {
             throw new ClassNotFoundException();
