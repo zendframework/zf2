@@ -26,7 +26,7 @@ namespace Zend\Authentication\Adapter;
 use Zend\Authentication\Adapter as AuthenticationAdapter,
     Zend\Authentication\Result as AuthenticationResult,
     Zend\Db\Db,
-    Zend\Db\Adapter\AbstractAdapter as AbstractDBAdapter,
+    Zend\Db\Adapter\Adapter as AbstractDBAdapter,
     Zend\Db\Expr as DBExpr,
     Zend\Db\Select as DBSelect,
     Zend\Db\Table\AbstractTable;
