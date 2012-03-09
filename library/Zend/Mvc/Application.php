@@ -296,9 +296,9 @@ class Application implements AppContext
         $routeMatch = $router->match($request);
 
         if (!$routeMatch instanceof Router\RouteMatch) {
-            $e->setError(static::ERROR_ROUTER_NO_MATCH);
+            $e->setError(static::ERROR_CONTROLLER_NOT_FOUND);
 
-            $results = $this->events()->trigger('route.error', $e);
+            $results = $this->events()->trigger('dispatch.error', $e);
             if (count($results)) {
                 $return  = $results->last();
             } else {
