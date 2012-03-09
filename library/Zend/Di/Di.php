@@ -109,7 +109,7 @@ class Di implements DependencyInjection
      * @param  Assertion|null $assertion Asserts the type of object to be returned
      * @return object|null
      */
-    public function get($name, array $params = array())
+    public function get($name, array $params = array(), Assertion $assertion = null)
     {
         array_push($this->instanceContext, array('GET', $name, null));
 
