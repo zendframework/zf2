@@ -181,7 +181,8 @@ class Description extends AbstractDecorator
         $options   = $this->getOptions();
 
         if ($escape) {
-            $description = $view->vars()->escape($description);
+            $helper = $view->getBroker()->load('escape');
+            $descrption = $helper($description);
         }
 
         if (!empty($tag)) {
