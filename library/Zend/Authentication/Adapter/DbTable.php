@@ -26,10 +26,10 @@ namespace Zend\Authentication\Adapter;
 use Zend\Authentication\Adapter as AuthenticationAdapter,
     Zend\Authentication\Result as AuthenticationResult,
     Zend\Db\Db,
-    Zend\Db\Adapter\AbstractAdapter as AbstractDBAdapter,
-    Zend\Db\Expr as DBExpr,
-    Zend\Db\Select as DBSelect,
-    Zend\Db\Table\AbstractTable;
+    Zend\Db\Adapter\Adapter as AbstractDBAdapter,
+    Zend\Db\Sql\Select as DBSelect,
+    Zend\Db\ResultSet\ResultSet,
+    Zend\Db\TableGateway\StaticAdapterTableGateway;
 
 /**
  * @uses       Zend\Authentication\Adapter\Exception
@@ -169,7 +169,7 @@ class DbTable implements AuthenticationAdapter
          * If no adapter is specified, fetch default database adapter.
          */
         if(null === $this->_zendDb) {
-            $this->_zendDb = AbstractTable::getDefaultAdapter();
+            $this->_zendDb = TableGateway\StaticAdapterTableGateway::getStaticAdapter();
             if (null === $this->_zendDb) {
                 throw new Exception\RuntimeException(
                     'Null was provided for the adapter but there is no default'
@@ -301,7 +301,7 @@ class DbTable implements AuthenticationAdapter
     public function getDbSelect()
     {
         if ($this->_dbSelect == null) {
-            $this->_dbSelect = $this->_zendDb->select();
+            $this->_dbSelect = new DBSelect();
         }
 
         return $this->_dbSelect;
@@ -432,22 +432,15 @@ class DbTable implements AuthenticationAdapter
             $this->_credentialTreatment = '?';
         }
 
-        $credentialExpression = new DBExpr(
-            '(CASE WHEN ' .
-            $this->_zendDb->quoteInto(
-                $this->_zendDb->quoteIdentifier($this->_credentialColumn, true)
-                . ' = ' . $this->_credentialTreatment, $this->_credential
-                )
-            . ' THEN 1 ELSE 0 END) AS '
-            . $this->_zendDb->quoteIdentifier(
-                $this->_zendDb->foldCase('zend_auth_credential_match')
-                )
-            );
+        $platform = $this->_zendDb->platform;
+        $driver = $this->_zendDb->driver;
 
         // get select
         $dbSelect = clone $this->getDbSelect();
-        $dbSelect->from($this->_tableName, array('*', $credentialExpression))
-                 ->where($this->_zendDb->quoteIdentifier($this->_identityColumn, true) . ' = ?', $this->_identity);
+        $dbSelect->from($this->_tableName)
+                 ->columns(array('*'))
+                 ->where($platform->quoteIdentifier($this->_identityColumn, true) . ' = '.$driver->formatParameterName('identity'))
+                 ->where($platform->quoteIdentifier($this->_credentialColumn, true) . ' = '.$driver->formatParameterName('credential'));
 
         return $dbSelect;
     }
@@ -463,22 +456,23 @@ class DbTable implements AuthenticationAdapter
      */
     protected function _authenticateQuerySelect(DBSelect $dbSelect)
     {
-        try {
-            if ($this->_zendDb->getFetchMode() != Db::FETCH_ASSOC) {
-                $origDbFetchMode = $this->_zendDb->getFetchMode();
-                $this->_zendDb->setFetchMode(Db::FETCH_ASSOC);
-            }
-            $resultIdentities = $this->_zendDb->fetchAll($dbSelect->__toString());
-            if (isset($origDbFetchMode)) {
-                $this->_zendDb->setFetchMode($origDbFetchMode);
-                unset($origDbFetchMode);
-            }
-        } catch (\Exception $e) {
-            throw new Exception\RuntimeException('The supplied parameters to Zend\Authentication\Adapter\DbTable failed to '
-                                                . 'produce a valid sql statement, please check table and column names '
-                                                . 'for validity.', 0, $e);
-        }
-        return $resultIdentities;
+
+            // create a statement to use
+            $statment = $this->_zendDb->createStatement();
+
+            // prepare statement with $select
+            $dbSelect->prepareStatement($this->_zendDb, $statment);
+
+            $parameters = array(
+                'credential' => $this->_credential,
+                'identity' => $this->_identity
+            );
+
+            // instantiate a result set for result-as-object iteration
+            $resultSet = new ResultSet();
+            $resultSet->setDataSource($statment->execute($parameters));
+
+        return $resultSet->toArray();
     }
 
     /**
@@ -514,15 +508,6 @@ class DbTable implements AuthenticationAdapter
      */
     protected function _authenticateValidateResult($resultIdentity)
     {
-        $zendAuthCredentialMatchColumn = $this->_zendDb->foldCase('zend_auth_credential_match');
-
-        if ($resultIdentity[$zendAuthCredentialMatchColumn] != '1') {
-            $this->_authenticateResultInfo['code'] = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
-            $this->_authenticateResultInfo['messages'][] = 'Supplied credential is invalid.';
-            return $this->_authenticateCreateAuthResult();
-        }
-
-        unset($resultIdentity[$zendAuthCredentialMatchColumn]);
         $this->_resultRow = $resultIdentity;
 
         $this->_authenticateResultInfo['code'] = AuthenticationResult::SUCCESS;
