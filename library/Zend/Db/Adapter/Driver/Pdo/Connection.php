@@ -195,7 +195,7 @@ class Connection implements ConnectionInterface
         if (!isset($dsn) && isset($pdoDriver)) {
             $dsn = $pdoDriver . ':';
             if (isset($hostname)) {
-                $dsn .= "hostname=$hostname;";
+                $dsn .= "host=$hostname;";
             }
             if (isset($database)) {
                 $dsn .= "dbname=$database;";
