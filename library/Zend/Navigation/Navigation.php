@@ -79,49 +79,24 @@ class Navigation extends Container
         $this->locator = $locator;
 
         //set route match
-        if($routeMatch)
+        if($routeMatch) {
             $this->setRouteMatch($routeMatch);
-
-        //set url helper
-        if($urlHelper)
-            $this->setUrlHelper($urlHelper);
-
-        //set default url helper for mvc pages
-        if($locator)
-            MvcPage::setDefaultUrlHelper($locator->get('Zend\View\Helper\Url'));
-
-        //add pages
-        if($pages)
-            $this->addPages($pages);
-    }
-
-
-    /**
-     * Add pages
-     * Adds multiple pages at once.
-     *
-     * @param array|Traversable|Zend\Navigation\Container $pages
-     * @throws Zend\Navigation\Exception\InvalidArgumentException
-     * @return Zend\Navigation\Navigation
-     */
-    public function addPages($pages)
-    {
-        //check pages
-        if(!is_array($pages) && !$pages instanceof Traversable)
-        {
-            $error  = 'Invalid argument: pages must be an array, an ';
-            $error .= 'instance of Traversable or Zend\Navigation\Container';
-            throw new InvalidArgumentException($error);
         }
 
-        //convert pages to array
-        if($pages instanceof Container)
-            $pages = iterator_to_array($pages);
+        //set url helper
+        if($urlHelper) {
+            $this->setUrlHelper($urlHelper);
+        }
 
+        //set default url helper for mvc pages
+        if($locator) {
+            MvcPage::setDefaultUrlHelper($locator->get('Zend\View\Helper\Url'));
+        }
 
         //add pages
-        foreach($pages as $page)
-            $this->addPage($page);
+        if($pages) {
+            $this->addPages($pages);
+        }
     }
 
 
@@ -139,24 +114,27 @@ class Navigation extends Container
         $urlHelper = $this->getUrlHelper();
 
         //inject dependencies to mvc page
-        if($this->isMvcPage($page) && $page instanceof MvcPage)
-        {
+        if($this->isMvcPage($page) && $page instanceof MvcPage) {
             $pageHelper = $page->getUrlHelper();
-            if(!$pageHelper && $urlHelper)
+            if(!$pageHelper && $urlHelper) {
                 $page->setUrlHelper($urlHelper);
+            }
 
             $pageMatch  = $page->getRouteMatch();
-            if(!$pageMatch && $routeMatch)
+            if(!$pageMatch && $routeMatch) {
                 $page->setRouteMatch($routeMatch);
+            }
         }
 
         //add dependencies to mvc page options
         if($this->isMvcPage($page) && is_array($page))
         {
-            if(!isset($page['urlHelper']) && $urlHelper)
+            if(!isset($page['urlHelper']) && $urlHelper) {
                 $page['urlHelper'] = $urlHelper;
-            if(!isset($page['routeMatch']) && $routeMatch)
+            }
+            if(!isset($page['routeMatch']) && $routeMatch) {
                 $page['routeMatch'] = $routeMatch;
+            }
         }
 
         parent::addPage($page);
@@ -223,23 +201,26 @@ class Navigation extends Container
     protected function isMvcPage($page)
     {
         //check page type
-        if(!is_array($page) && !$page instanceof AbstractPage)
+        if(!is_array($page) && !$page instanceof AbstractPage) {
             return false;
+        }
 
         //of mvc type already?
-        if($page instanceof MvcPage)
+        if($page instanceof MvcPage) {
             return true;
+        }
 
 
         //detect type for array
-        if(is_array($page))
-        {
+        if(is_array($page)) {
             $hasModule = isset($page['module']);
             $hasController = isset($page['controller']);
             $hasAction = isset($page['action']);
             $hasRoute = isset($page['route']);
-            if($hasModule || $hasController || $hasAction || $hasRoute)
+
+            if($hasModule || $hasController || $hasAction || $hasRoute) {
                 return true;
+            }
         }
 
         //otherwise false
