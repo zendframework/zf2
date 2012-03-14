@@ -105,8 +105,8 @@ class Navigation extends Container
      * Adds a page to navigation container. In case MVC page is discovered
      * injects dependencies.
      *
-     * @param Zend\Navigation\Page\AbstractPage|array $page
-     * @return Zend\Navigation\Navigation
+     * @param Page\AbstractPage|array $page
+     * @return Navigation
      */
     public function addPage($page)
     {
@@ -147,7 +147,7 @@ class Navigation extends Container
      * Sets injected url helper instance
      *
      * @param Zend\View\Helper\Url $helper
-     * @return Zend\Navigation\Navigation
+     * @return Navigation
      */
     public function setUrlHelper(UrlHelper $helper)
     {
@@ -172,7 +172,7 @@ class Navigation extends Container
      * Sets injected route match instance
      *
      * @param Zend\Mvc\Router\Http\RouteMatch $routeMatch
-     * @return Zend\Navigation\Navigation
+     * @return Navigation
      */
     public function setRouteMatch(RouteMatch $routeMatch)
     {
@@ -195,7 +195,7 @@ class Navigation extends Container
     /**
      * Is MVC page
      * Checks if a page is of MVC type
-     * @param array|Zend\Navigation\Page\AbstractPage
+     * @param array|Page\AbstractPage
      * @return bool
      */
     protected function isMvcPage($page)
