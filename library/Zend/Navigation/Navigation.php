@@ -20,14 +20,14 @@
 
 namespace Zend\Navigation;
 
-use Traversable;
-use Zend\Di\Locator;
-use Zend\Navigation\Container;
-use Zend\Navigation\Page\AbstractPage;
-use Zend\Navigation\Page\Mvc as MvcPage;
-use Zend\Navigation\Exception\InvalidArgumentException;
-use Zend\Mvc\Router\Http\RouteMatch;
-use Zend\View\Helper\Url as UrlHelper;
+use Traversable,
+    Zend\Di\Locator,
+    Zend\Navigation\Container,
+    Zend\Navigation\Page\AbstractPage,
+    Zend\Navigation\Page\Mvc as MvcPage,
+    Zend\Navigation\Exception\InvalidArgumentException,
+    Zend\Mvc\Router\Http\RouteMatch,
+    Zend\View\Helper\Url as UrlHelper;
 
 /**
  * A simple container class for {@link Zend_Navigation_Page} pages
