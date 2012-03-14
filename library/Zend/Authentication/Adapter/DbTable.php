@@ -112,12 +112,12 @@ class DbTable implements AuthenticationAdapter
      * @var array
      */
     protected $_resultRow = null;
-    
+
     /**
-     * $_ambiguityIdentity - Flag to indicate same Identity can be used with 
+     * $_ambiguityIdentity - Flag to indicate same Identity can be used with
      * different credentials. Default is FALSE and need to be set to true to
      * allow ambiguity usage.
-     * 
+     *
      * @var boolean
      */
     protected $_ambiguityIdentity = false;
@@ -157,7 +157,7 @@ class DbTable implements AuthenticationAdapter
     /**
      * _setDbAdapter() - set the database adapter to be used for quering
      *
-     * @param Zend_Db_Adapter_Abstract 
+     * @param Zend_Db_Adapter_Abstract
      * @throws Zend_Auth_Adapter_Exception
      * @return Zend_Auth_Adapter_DbTable
      */
@@ -177,7 +177,7 @@ class DbTable implements AuthenticationAdapter
                     );
             }
         }
-        
+
         return $this;
     }
 
@@ -264,12 +264,12 @@ class DbTable implements AuthenticationAdapter
         $this->_credential = $credential;
         return $this;
     }
-    
+
     /**
      * setAmbiguityIdentity() - sets a flag for usage of identical identities
      * with unique credentials. It accepts integers (0, 1) or boolean (true,
      * false) parameters. Default is false.
-     * 
+     *
      * @param  int|bool $flag
      * @return Zend_Auth_Adapter_DbTable
      */
@@ -283,9 +283,9 @@ class DbTable implements AuthenticationAdapter
         return $this;
     }
     /**
-     * getAmbiguityIdentity() - returns TRUE for usage of multiple identical 
+     * getAmbiguityIdentity() - returns TRUE for usage of multiple identical
      * identies with different credentials, FALSE if not used.
-     * 
+     *
      * @return bool
      */
     public function getAmbiguityIdentity()
@@ -456,11 +456,8 @@ class DbTable implements AuthenticationAdapter
      */
     protected function _authenticateQuerySelect(DBSelect $dbSelect)
     {
-
-            // create a statement to use
+        try {
             $statment = $this->_zendDb->createStatement();
-
-            // prepare statement with $select
             $dbSelect->prepareStatement($this->_zendDb, $statment);
 
             $parameters = array(
@@ -468,9 +465,13 @@ class DbTable implements AuthenticationAdapter
                 'identity' => $this->_identity
             );
 
-            // instantiate a result set for result-as-object iteration
             $resultSet = new ResultSet();
             $resultSet->setDataSource($statment->execute($parameters));
+        } catch (\Exception $e) {
+            throw new Exception\RuntimeException('The supplied parameters to Zend\Authentication\Adapter\DbTable failed to '
+                . 'produce a valid sql statement, please check table and column names '
+                . 'for validity.', 0, $e);
+        }
 
         return $resultSet->toArray();
     }
@@ -531,3 +532,4 @@ class DbTable implements AuthenticationAdapter
     }
 
 }
+
