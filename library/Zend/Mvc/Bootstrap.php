@@ -236,6 +236,11 @@ class Bootstrap implements Bootstrapper
     {
         $router = $application->getLocator()->get('Zend\Mvc\Router\RouteStack');
         $application->setRouter($router);
+
+        $events   = $application->events();
+        $locator  = $application->getLocator();
+        $listener = $locator->get('Zend\Mvc\Router\InjectRouteMatchListener');
+        $events->attachAggregate($listener);
     }
 
     /**
