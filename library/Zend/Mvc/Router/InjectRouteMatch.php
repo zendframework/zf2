@@ -40,7 +40,7 @@ class InjectRouteMatch
             return;
         }        
 
-        $im = $e->getParam('application')->getLocator()->instanceManager();
+        $im = $e->getTarget()->getLocator()->instanceManager();
         $className = get_class($routeMatch);
         if (!$im->hasSharedInstance($className)) {
             $im->addSharedInstance($routeMatch, $className);
