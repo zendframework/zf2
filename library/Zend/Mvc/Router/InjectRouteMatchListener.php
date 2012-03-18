@@ -21,53 +21,18 @@
 
 namespace Zend\Mvc\Router;
 
-use Zend\EventManager\EventCollection as Events,
-    Zend\EventManager\ListenerAggregate,
-    Zend\Mvc\MvcEvent,
+use Zend\Mvc\MvcEvent,
     Zend\Mvc\Router\RouteMatch;
 
-class InjectRouteMatchListener implements ListenerAggregate
+class InjectRouteMatchListener
 {
-    /**
-     * Listeners we've registered
-     * 
-     * @var array
-     */
-    protected $listeners = array();
-
-    /**
-     * Attach listeners
-     * 
-     * @param  Events $events 
-     * @return void
-     */
-    public function attach(Events $events)
-    {
-        $this->listeners[] = $events->attach('route', array($this, 'injectRouteMatch'), -100);
-    }
-
-    /**
-     * Detach listeners
-     * 
-     * @param  Events $events 
-     * @return void
-     */
-    public function detach(Events $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
-    }
-
     /**
      * Set the RouteMatch as shared instance in the DI Locator
      *
      * @param  MvcEvent $e 
      * @return void
      */
-    public function injectRouteMatch(MvcEvent $e)
+    public function __invoke(MvcEvent $e)
     {
         $routeMatch = $e->getRouteMatch();
 
