@@ -7,8 +7,7 @@ use Zend\Di\Configuration as DiConfiguration,
     Zend\EventManager\EventCollection as Events,
     Zend\EventManager\EventManager,
     Zend\EventManager\StaticEventManager,
-    Zend\Mvc\Router\Http\TreeRouteStack as Router,
-    Zend\Mvc\Router\InjectRouteMatchListener;
+    Zend\Mvc\Router\InjectRouteMatch;
 
 class Bootstrap implements Bootstrapper
 {
@@ -239,7 +238,7 @@ class Bootstrap implements Bootstrapper
         $application->setRouter($router);
 
         $events   = $application->events();
-        $events->attach('route', new InjectRouteMatchListener);
+        $events->attach('route', new InjectRouteMatch);
     }
 
     /**

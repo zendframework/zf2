@@ -24,7 +24,7 @@ namespace Zend\Mvc\Router;
 use Zend\Mvc\MvcEvent,
     Zend\Mvc\Router\RouteMatch;
 
-class InjectRouteMatchListener
+class InjectRouteMatch
 {
     /**
      * Set the RouteMatch as shared instance in the DI Locator
