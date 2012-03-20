@@ -27,7 +27,9 @@ use Countable,
     RecursiveIterator,
     RecursiveIteratorIterator,
     Traversable,
-    Zend\Stdlib\ArrayUtils;
+    Zend\Stdlib\ArrayUtils,
+    Zend\Mvc\Router\Http\RouteMatch,
+    Zend\View\Helper\Url as UrlHelper;
 
 /**
  * Zend_Navigation_Container
@@ -43,61 +45,114 @@ abstract class Container implements RecursiveIterator, Countable
 {
     /**
      * Contains sub pages
-     *
      * @var array
      */
     protected $pages = array();
 
     /**
+     * Index
      * An index that contains the order in which to iterate pages
-     *
      * @var array
      */
     protected $index = array();
 
     /**
+     * Is dirty?
      * Whether index is dirty and needs to be re-arranged
-     *
      * @var bool
      */
     protected $dirtyIndex = false;
 
-    // Internal methods:
+    /**
+     * Url helper
+     * @var Zend\View\Helper\Url
+     */
+    protected $urlHelper;
 
     /**
-     * Sorts the page index according to page order
-     *
-     * @return void
+     * Route match
+     * @var Zend\Mvc\Router\Http\RouteMatch
      */
-    protected function sort()
+    protected $routeMatch;
+
+
+    //------------------------------------------------------------------------
+
+    /*
+     * Public API methods
+     */
+
+
+    /**
+     * Set url helper
+     * Sets injected url helper instance
+     * @param Zend\View\Helper\Url $urlHelper
+     * @return Container
+     */
+    public function setUrlHelper(UrlHelper $urlHelper)
     {
-        if (!$this->dirtyIndex) {
-            return;
-        }
+        $this->urlHelper = $urlHelper;
+        $this->injectIntoPages('urlHelper', $urlHelper);
+        return $this;
+    }
 
-        $newIndex = array();
-        $index    = 0;
 
-        foreach ($this->pages as $hash => $page) {
-            $order = $page->getOrder();
-            if ($order === null) {
-                $newIndex[$hash] = $index;
-                $index++;
-            } else {
-                $newIndex[$hash] = $order;
+    /**
+     * Set route match
+     * Sets injected route match instance
+     * @param \Zend\Mvc\Router\Http\RouteMatch $routeMatch
+     * @return Container
+     */
+    public function setRouteMatch(RouteMatch $routeMatch)
+    {
+        $this->routeMatch = $routeMatch;
+        $this->injectIntoPages('routeMatch', $routeMatch);
+        return $this;
+    }
+
+
+    /**
+     * Inject into pages
+     * Recursively injects the given parameter and value into existing pages.
+     * May be sed to inject routeMatch, urlHelper and any other stuff.
+     * Parameter must correspond to the setter method on a page object,
+     * otherwise it will be ignored.
+     *
+     * @param string $parameter
+     * @param mixed $value
+     * @return Countainer
+     */
+    public function injectIntoPages($parameter, $value)
+    {
+        foreach($this->pages as $page){
+
+            //set parameter
+            $method = 'set' . ucfirst($parameter);
+            if(method_exists($page, $method)){
+                $page->$method($value);
+            }
+
+            //go recursive
+            $subPages = $page->getPages();
+            if(!empty($subPages)) {
+                $updatedSubPages = array();
+                foreach($subPages as $subPage){
+                    $updatedSubPages[] = $subPage->injectIntoPages(
+                        $parameter,
+                        $value
+                    );
+                }
+                $page->setPages($updatedSubPages);
             }
         }
 
-        asort($newIndex);
-        $this->index      = $newIndex;
-        $this->dirtyIndex = false;
+        return $this;
     }
 
-    // Public methods:
 
     /**
+     * Notify order updated
      * Notifies container that the order of pages are updated
-     *
      * @return void
      */
     public function notifyOrderUpdated()
@@ -105,71 +160,51 @@ abstract class Container implements RecursiveIterator, Countable
         $this->dirtyIndex = true;
     }
 
+
     /**
-     * Adds a page to the container
+     * Set pages
+     * Sets pages this container should have, removing existing pages
      *
-     * This method will inject the container as the given page's parent by
-     * calling {@link Page\AbstractPage::setParent()}.
-     *
-     * @param  Page\AbstractPage|array|Traversable $page  page to add
-     * @return Container fluent interface, returns self
-     * @throws Exception\InvalidArgumentException if page is invalid
+     * @param array $pages
+     * @return Container
      */
-    public function addPage($page)
+    public function setPages(array $pages)
     {
-        if ($page === $this) {
-            throw new Exception\InvalidArgumentException(
-                'A page cannot have itself as a parent'
-            );
-        }
-
-        if (!$page instanceof Page\AbstractPage) {
-            if (!is_array($page) && !$page instanceof Traversable) {
-                throw new Exception\InvalidArgumentException(
-                    'Invalid argument: $page must be an instance of '
-                    . 'Zend\Navigation\Page\AbstractPage or Traversable, or an array'
-                );
-            }
-            $page = Page\AbstractPage::factory($page);
-        }
-
-        $hash = $page->hashCode();
-
-        if (array_key_exists($hash, $this->index)) {
-            // page is already in container
-            return $this;
-        }
-
-        // adds page to container and sets dirty flag
-        $this->pages[$hash] = $page;
-        $this->index[$hash] = $page->getOrder();
-        $this->dirtyIndex = true;
-
-        // inject self as page parent
-        $page->setParent($this);
-
-        return $this;
+        $this->removePages();
+        return $this->addPages($pages);
     }
 
     /**
+     * Get pages
+     * Returns pages in the container
+     * @return array
+     */
+    public function getPages()
+    {
+        return $this->pages;
+    }
+
+
+    /**
+     * Add pages
      * Adds several pages at once
      *
-     * @param  array|Traversable|Container $pages pages to add
-     * @return Container fluent interface, returns self
-     * @throws Exception\InvalidArgumentException if $pages is not array,
-     *                                            Traversable or Container
+     * @param  array|Traversable|Container $pages
+     * @throws Exception\InvalidArgumentException
+     * @return Container
      */
     public function addPages($pages)
     {
+        //check pages
         if (!is_array($pages) && !$pages instanceof Traversable) {
-            throw new Exception\InvalidArgumentException(
-                'Invalid argument: $pages must be an array, an '
-                . 'instance of Traversable or an instance of '
-                . 'Zend\Navigation\Container'
-            );
+
+            $error  = 'Invalid argument: $pages must be an array, an instance ';
+            $error .= 'of Traversable or an instance of ';
+            $error .= 'Zend\Navigation\Container.';
+            throw new Exception\InvalidArgumentException($error);
         }
 
-        // Because adding a page to a container removes it from the original 
+        // Because adding a page to a container removes it from the original
         // (see {@link Page\AbstractPage::setParent()}), iteration of the
         // original container will break. As such, we need to iterate the
         // container into an array first.
@@ -184,34 +219,117 @@ abstract class Container implements RecursiveIterator, Countable
         return $this;
     }
 
-    /**
-     * Sets pages this container should have, removing existing pages
-     *
-     * @param  array $pages pages to set
-     * @return Container fluent interface, returns self
-     */
-    public function setPages(array $pages)
-    {
-        $this->removePages();
-        return $this->addPages($pages);
-    }
 
     /**
-     * Returns pages in the container
+     * Add page
+     * Adds a page to the container. This method will inject the container as
+     * the given page's parent by calling {@link Page\AbstractPage::setParent()}
      *
-     * @return array  array of Page\AbstractPage instances
+     * @param  Page\AbstractPage|array|Traversable
+     * @throws Exception\InvalidArgumentException
+     * @return Container
      */
-    public function getPages()
+    public function addPage($page)
     {
-        return $this->pages;
+        //check parent
+        if ($page === $this) {
+            $error = 'A page cannot have itself as a parent';
+            throw new Exception\InvalidArgumentException($error);
+        }
+
+        //create page
+        if (!$page instanceof Page\AbstractPage) {
+
+            //check option
+            if (!is_array($page) && !$page instanceof Traversable) {
+
+                $error  = 'Invalid argument: $page must be an instance of ';
+                $error .= 'Zend\Navigation\Page\AbstractPage or Traversable, ';
+                $error .= 'or an array';
+                throw new Exception\InvalidArgumentException($error);
+            }
+
+            //now create
+            $page = $this->constructPage($page);
+        }
+
+
+        //check if page is already in container
+        $hash = $page->hashCode();
+        if (array_key_exists($hash, $this->index)) {
+            return $this;
+        }
+
+        //adds page to container and sets dirty flag
+        $this->pages[$hash] = $page;
+        $this->index[$hash] = $page->getOrder();
+        $this->dirtyIndex = true;
+
+        //inject self as page parent
+        $page->setParent($this);
+
+        return $this;
     }
 
+
     /**
-     * Removes the given page from the container
+     * Construct page
+     * Detects page type and constructs a page object of discovered type.
+     * Will throw an exception if page type can not be detected.
      *
-     * @param  Page\AbstractPage|int $page page to remove, either a page
-     *                                     instance or a specific page order
-     * @return bool whether the removal was successful
+     * @param  array|Traversable $options
+     * @throws Exception\InvalidArgumentException
+     * @return AbstractPage
+     */
+    public function constructPage($options)
+    {
+        //convert traversable to array
+        if ($options instanceof Traversable) {
+            $options = ArrayUtils::iteratorToArray($options);
+        }
+
+        //check options
+        if (!is_array($options)) {
+            $error = 'Error: $options must be an array or Traversable';
+            throw new Exception\InvalidArgumentException($error);
+        }
+
+        //detect page type
+        $pageType = $this->getPageType($options);
+        if (!class_exists($pageType, true)) {
+            $error = 'Cannot find class ' . $pageType;
+            throw new Exception\InvalidArgumentException($error);
+        }
+
+        //inject urlHelper is exists
+        if(!isset($options['urlHelper']) && $this->urlHelper) {
+            $options['urlHelper'] = $this->urlHelper;
+        }
+
+        //inject routeMatch if exists
+        if(!isset($options['routeMatch']) && $this->routeMatch) {
+            $options['routeMatch'] = $this->routeMatch;
+        }
+
+        //instantiate page
+        $page = new $pageType($options);
+        if (!$page instanceof self) {
+            $error  = "Invalid argument: Detected type '$pageType', which ";
+            $error .= 'is not an instance of Zend\Navigation\Page\AbstractPage';
+            throw new Exception\InvalidArgumentException($error);
+        }
+
+        return $page;
+    }
+
+
+    /**
+     * Remove page
+     * Removes the given page from the container. Accepts an instance of page
+     * or a specific page order index. Returns boolean result.
+     *
+     * @param  Page\AbstractPage|int $page
+     * @return bool
      */
     public function removePage($page)
     {
@@ -237,9 +355,9 @@ abstract class Container implements RecursiveIterator, Countable
     }
 
     /**
+     * Remove pages
      * Removes all pages in container
-     *
-     * @return Container fluent interface, returns self
+     * @return Container
      */
     public function removePages()
     {
@@ -248,13 +366,15 @@ abstract class Container implements RecursiveIterator, Countable
         return $this;
     }
 
+
     /**
-     * Checks if the container has the given page
+     * Has page?
+     * Checks if the container has the given page. May optionally do a
+     * recursive check (false by default).
      *
-     * @param  Page\AbstractPage $page page to look for
-     * @param  bool $recursive [optional] whether to search recursively. 
-     *                         Default is false.
-     * @return bool whether page is in container
+     * @param Page\AbstractPage $page
+     * @param bool $recursive
+     * @return bool
      */
     public function hasPage(Page\AbstractPage $page, $recursive = false)
     {
@@ -271,26 +391,33 @@ abstract class Container implements RecursiveIterator, Countable
         return false;
     }
 
+
     /**
-     * Returns true if container contains any pages
-     *
-     * @return bool  whether container has any pages
+     * Has pages?
+     * Returns true if container contains pages
+     * @return bool
      */
     public function hasPages()
     {
         return count($this->index) > 0;
     }
 
+
     /**
-     * Returns a child page matching $property == $value, or null if not found
+     * Find one by
+     * Returns a child page with property matching value Otherwise returns
+     * null if not found
      *
-     * @param  string $property        name of property to match against
-     * @param  mixed  $value           value to match property against
-     * @return Page\AbstractPage|null  matching page or null
+     * @param string $property
+     * @param  mixed  $value
+     * @return Page\AbstractPage|null
      */
     public function findOneBy($property, $value)
     {
-        $iterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::SELF_FIRST);
+        $iterator = new RecursiveIteratorIterator(
+            $this,
+            RecursiveIteratorIterator::SELF_FIRST
+        );
 
         foreach ($iterator as $page) {
             if ($page->get($property) == $value) {
@@ -301,41 +428,44 @@ abstract class Container implements RecursiveIterator, Countable
         return null;
     }
 
+
     /**
-     * Returns all child pages matching $property == $value, or an empty array
-     * if no pages are found
+     * Find all by
+     * Returns all child pages with property matching value, or an empty array
+     * if no pages are found.
      *
-     * @param  string $property  name of property to match against
-     * @param  mixed  $value     value to match property against
-     * @return array  array containing only Page\AbstractPage instances
+     * @param string $property
+     * @param mixed $value
+     * @return array
      */
     public function findAllBy($property, $value)
     {
-        $found = array();
+        $result = array();
 
-        $iterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::SELF_FIRST);
+        $iterator = new RecursiveIteratorIterator(
+            $this, RecursiveIteratorIterator::SELF_FIRST
+        );
 
         foreach ($iterator as $page) {
             if ($page->get($property) == $value) {
-                $found[] = $page;
+                $result[] = $page;
             }
         }
 
-        return $found;
+        return $result;
     }
 
+
     /**
-     * Returns page(s) matching $property == $value
+     * Find by
+     * Returns single or all pages with property matching value. By default
+     * searches for a single page. Returns either a single page, an array
+     * of pages or null if nothing is found.
      *
-     * @param  string $property  name of property to match against
-     * @param  mixed  $value     value to match property against
-     * @param  bool   $all       [optional] whether an array of all matching
-     *                           pages should be returned, or only the first.
-     *                           If true, an array will be returned, even if not
-     *                           matching pages are found. If false, null will
-     *                           be returned if no matching page is found.
-     *                           Default is false.
-     * @return Page\AbstractPage|null  matching page or null
+     * @param string $property
+     * @param mixed $value
+     * @param bool $all
+     * @return Page\AbstractPage|null
      */
     public function findBy($property, $value, $all = false)
     {
@@ -346,39 +476,10 @@ abstract class Container implements RecursiveIterator, Countable
         }
     }
 
-    /**
-     * Magic overload: Proxy calls to finder methods
-     *
-     * Examples of finder calls:
-     * <code>
-     * // METHOD                    // SAME AS
-     * $nav->findByLabel('foo');    // $nav->findOneBy('label', 'foo');
-     * $nav->findOneByLabel('foo'); // $nav->findOneBy('label', 'foo');
-     * $nav->findAllByClass('foo'); // $nav->findAllBy('class', 'foo');
-     * </code>
-     *
-     * @param  string $method             method name
-     * @param  array  $arguments          method arguments
-     * @throws Exception\BadMethodCallException  if method does not exist
-     */
-    public function __call($method, $arguments)
-    {
-        if (@preg_match('/(find(?:One|All)?By)(.+)/', $method, $match)) {
-            return $this->{$match[1]}($match[2], $arguments[0]);
-        }
-
-        throw new Exception\BadMethodCallException(
-            sprintf(
-                'Bad method call: Unknown method %s::%s',
-                get_class($this),
-                $method
-            )
-        );
-    }
 
     /**
+     * To array
      * Returns an array representation of all pages in container
-     *
      * @return array
      */
     public function toArray()
@@ -392,15 +493,60 @@ abstract class Container implements RecursiveIterator, Countable
         return $pages;
     }
 
-    // RecursiveIterator interface:
 
     /**
-     * Returns current page
+     * Finders overloading
+     * Proxy calls to finder methods.
      *
-     * Implements RecursiveIterator interface.
+     * Examples:
      *
-     * @return Page\AbstractPage current page or null
-     * @throws Exception\OutOfBoundsException  if the index is invalid
+     * $nav->findByLabel('foo'); // $nav->findOneBy('label', 'foo');
+     * $nav->findOneByLabel('foo'); // $nav->findOneBy('label', 'foo');
+     * $nav->findAllByClass('foo'); // $nav->findAllBy('class', 'foo');
+     *
+     * @param string $method
+     * @param array $arguments
+     * @throws Exception\BadMethodCallException
+     */
+    public function __call($method, $arguments)
+    {
+        if (@preg_match('/(find(?:One|All)?By)(.+)/', $method, $match)) {
+            return $this->{$match[1]}($match[2], $arguments[0]);
+        }
+
+        $class = get_class($this);
+        $error = 'Bad method call: Unknown method %s::%s';
+        throw new Exception\BadMethodCallException(
+            sprintf($error, $class, $method)
+        );
+    }
+
+
+    //------------------------------------------------------------------------
+
+    /*
+     * Implements RecursiveIterator
+     */
+
+
+    /**
+     * Key
+     * Returns hash code of current page.
+     * @return string
+     */
+    public function key()
+    {
+        $this->sort();
+        return key($this->index);
+    }
+
+
+    /**
+     * Current
+     * Returns current page or null
+     *
+     * @throws Exception\OutOfBoundsException
+     * @return Page\AbstractPage
      */
     public function current()
     {
@@ -409,33 +555,18 @@ abstract class Container implements RecursiveIterator, Countable
         current($this->index);
         $hash = key($this->index);
         if (!isset($this->pages[$hash])) {
-            throw new Exception\OutOfBoundsException(
-                'Corruption detected in container; '
-                . 'invalid key found in internal iterator'
-            );
+            $error  = 'Corruption detected in container ';
+            $error .= 'invalid key found in internal iterator.';
+            throw new Exception\OutOfBoundsException($error);
         }
 
         return $this->pages[$hash];
     }
 
-    /**
-     * Returns hash code of current page
-     *
-     * Implements RecursiveIterator interface.
-     *
-     * @return string  hash code of current page
-     */
-    public function key()
-    {
-        $this->sort();
-        return key($this->index);
-    }
 
     /**
-     * Moves index pointer to next page in the container
-     *
-     * Implements RecursiveIterator interface.
-     *
+     * Next
+     * Moves index pointer to next page in the container.
      * @return void
      */
     public function next()
@@ -444,11 +575,10 @@ abstract class Container implements RecursiveIterator, Countable
         next($this->index);
     }
 
+
     /**
-     * Sets index pointer to first page in the container
-     *
-     * Implements RecursiveIterator interface.
-     *
+     * Rewind
+     * Sets index pointer to first page in the container.
      * @return void
      */
     public function rewind()
@@ -457,11 +587,10 @@ abstract class Container implements RecursiveIterator, Countable
         reset($this->index);
     }
 
+
     /**
-     * Checks if container index is valid
-     *
-     * Implements RecursiveIterator interface.
-     *
+     * Valid
+     * Checks if container index is valid.
      * @return bool
      */
     public function valid()
@@ -470,11 +599,10 @@ abstract class Container implements RecursiveIterator, Countable
         return current($this->index) !== false;
     }
 
+
     /**
-     * Proxy to hasPages()
-     *
-     * Implements RecursiveIterator interface.
-     *
+     * Has children?
+     * Proxy to hasPages to return a boolean result if container has pages.
      * @return bool  whether container has any pages
      */
     public function hasChildren()
@@ -482,11 +610,10 @@ abstract class Container implements RecursiveIterator, Countable
         return $this->hasPages();
     }
 
+
     /**
+     * Get children
      * Returns the child container.
-     *
-     * Implements RecursiveIterator interface.
-     *
      * @return Page\AbstractPage|null
      */
     public function getChildren()
@@ -500,17 +627,116 @@ abstract class Container implements RecursiveIterator, Countable
         return null;
     }
 
-    // Countable interface:
+
+    //------------------------------------------------------------------------
+
+    /*
+     * Implements Countable
+     */
+
 
     /**
-     * Returns number of pages in container
-     *
-     * Implements Countable interface.
-     *
-     * @return int  number of pages in the container
+     * Count
+     * Returns number of pages in container.
+     * @return int
      */
     public function count()
     {
         return count($this->index);
     }
-}
+
+
+    //------------------------------------------------------------------------
+
+    /*
+     * Internal functionality
+     */
+
+
+    /**
+     * Sort
+     * Sorts the page index according to page order
+     * @return void
+     */
+    protected function sort()
+    {
+        if (!$this->dirtyIndex) {
+            return;
+        }
+
+        $newIndex = array();
+        $index = 0;
+
+        foreach ($this->pages as $hash => $page) {
+            $order = $page->getOrder();
+            if ($order === null) {
+                $newIndex[$hash] = $index;
+                $index++;
+            } else {
+                $newIndex[$hash] = $order;
+            }
+        }
+
+        asort($newIndex);
+        $this->index      = $newIndex;
+        $this->dirtyIndex = false;
+    }
+
+
+    /**
+     * Get page type
+     * Returns full class name to be instantiated on success.
+     *
+     * Page class can be specified with 'type' key in $options.
+     * The 'uri' or 'mvc' types will be resolved to corresponding page
+     * classes. Any other type will be considered full class name. All
+     * pages must extend Zend\Navigation\Page\AbstractPage.
+     *
+     * If no type is given it will be detected based on options. Options
+     * containing either 'controller', 'action' or 'route' will resolve to
+     * mvc page, and containing 'uri' will resolve to uri page. In all other
+     * cases an exception will be thrown.
+     *
+     * @param  array $page
+     * @throws Exception\InvalidArgumentException
+     * @return AbstractPage
+     */
+    protected function getPageType(array $page)
+    {
+        //is type explicitly defined?
+        if(isset($page['type']) && !empty($page['type'])) {
+            $type = $page['type'];
+            switch(strtolower($type)){
+                case 'mvc':
+                    return 'Zend\Navigation\Page\Mvc';
+                    break;
+
+                case 'uri':
+                    return 'Zend\Navigation\Page\Uri';
+                    break;
+
+                default:
+                    return $type;
+            }
+        }
+
+
+        //an mvc page?
+        $hasController = isset($page['controller']);
+        $hasAction = isset($page['action']);
+        $hasRoute = isset($page['route']);
+        if($hasController || $hasAction || $hasRoute){
+            return 'Zend\Navigation\Page\Mvc';
+        }
+
+        //or a uri page?
+        if(isset($page['uri'])){
+            return 'Zend\Navigation\Page\Uri';
+        }
+
+        //otherwise throw an exception
+        $error = 'Invalid argument: Unable to determine class to instantiate';
+        throw new Exception\InvalidArgumentException($error);
+    }
+
+} //class ends here

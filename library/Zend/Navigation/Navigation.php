@@ -20,7 +20,9 @@
 
 namespace Zend\Navigation;
 
-use Traversable;
+use Traversable,
+    Zend\Mvc\Router\Http\RouteMatch,
+    Zend\View\Helper\Url as UrlHelper;
 
 /**
  * A simple container class for {@link Zend_Navigation_Page} pages
@@ -33,20 +35,37 @@ use Traversable;
 class Navigation extends Container
 {
     /**
-     * Creates a new navigation container
+     * Construct navigation
+     * Creates a new navigation container. May accept an array of page objects
+     * or configuration to instantiate itself from.
      *
-     * @param  array|Traversable $pages    [optional] pages to add
-     * @throws Exception\InvalidArgumentException  if $pages is invalid
+     * @param  array|Traversable $pages
+     * @throws Exception\InvalidArgumentException
+     * @return void
      */
-    public function __construct($pages = null)
+    public function __construct(
+        $pages = null,
+        UrlHelper $urlHelper = null,
+        RouteMatch $routeMatch = null)
     {
-        if ($pages && (!is_array($pages) && !$pages instanceof Traversable)) {
-            throw new Exception\InvalidArgumentException(
-                'Invalid argument: $pages must be an array, an '
-                . 'instance of Traversable, or null'
-            );
+        //check pages
+        if ($pages && !is_array($pages) && !$pages instanceof Traversable) {
+            $error  = 'Invalid argument: $pages must be an array, an ';
+            $error .= 'instance of Traversable, or null.';
+            throw new Exception\InvalidArgumentException($error);
         }
 
+        //set helper
+        if($urlHelper){
+            $this->setUrlHelper($urlHelper);
+        }
+
+        //set route match
+        if($routeMatch){
+            $this->setRouteMatch($routeMatch);
+        }
+
+        //add pages
         if ($pages) {
             $this->addPages($pages);
         }
