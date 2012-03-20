@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.savehandler.tablegateway"><info><title>Zend_Session_SaveHandler_DbTable</title></info>
+    
+    <para>
+        The basic setup for <classname>Zend\Session\SaveHandler\TableGateway</classname>
+        provides you with an operational database handler. You must instantiate
+        the session save handler with at least a database adapter.
+        
+        If you would like to specify a few options to customize the adapter. You
+        may select these settings to modify:
+        
+        <variablelist xml:id="zend.session.savehandler.tablegateway.options">
+            <varlistentry xml:id="zend.session.savehandler.tablegateway.options.tableName">
+                <term>tableName</term>
+
+                <listitem>
+                    <para>
+                        (string) Session the table name.
+                    </para>
+                </listitem>
+
+            </varlistentry>
+
+            <varlistentry xml:id="zend.session.savehandler.tablegateway.options.primary">
+                <term>primary</term>
+
+                <listitem>
+                    <para>
+                        (string) Session table primary key. At this time a only a single key is supported.
+                    </para>
+                </listitem>
+
+            </varlistentry>
+
+            <varlistentry xml:id="zend.session.savehandler.tablegateway.options.timestampColumn">
+                <term>timestampColumn</term>
+
+                <listitem>
+                    <para>
+                        (string) Session table timestamp column. This is the last time the session was accessed by the client.
+                    </para>
+                </listitem>
+
+            </varlistentry>
+
+            <varlistentry xml:id="zend.session.savehandler.tablegateway.options.dataColumn">
+                <term>dataColumn</term>
+
+                <listitem>
+                    <para>
+                        (string) Session table data column. This holds the php serialized session. @see serialize()
+                    </para>
+                </listitem>
+
+            </varlistentry>
+
+            <varlistentry xml:id="zend.session.savehandler.tablegateway.options.lifetime">
+                <term>lifetime</term>
+
+                <listitem>
+                    <para>
+                        (integer) Session lifetime (optional; default: ini_get('session.gc_maxlifetime'))
+                    </para>
+                </listitem>
+
+            </varlistentry>
+
+        </variablelist>
+        
+    </para>
+    <para>
+    Note: Specifying an invalid option throws an exception.
+    </para>
+
+    <example xml:id="zend.session.savehandler.tablegateway.basic"><info><title>Basic Setup</title></info>
+            
+
+        <para>
+            Create a table in your database:
+        </para>
+
+            <programlisting language="SQL"><![CDATA[
+CREATE TABLE `sessions` (
+  `sessions_id` binary(32) NOT NULL,
+  `timestamp` int(10) unsigned NOT NULL,
+  `data` longtext NOT NULL,
+  PRIMARY KEY (`sessions_id`)
+);
+]]></programlisting>
+
+        <para>
+            A working example you can call from your broswer. Save this as test.php.
+        </para>
+
+        <programlisting language="php"><![CDATA[
+
+/**
+ * Library path
+ */
+define('LIBRARY_PATH', dirname(dirname(__FILE__)) . '/library');
+
+// Set the include path
+set_include_path(LIBRARY_PATH . PATH_SEPARATOR . get_include_path());
+
+// Zend Autoloader
+require_once LIBRARY_PATH . '/Zend/Loader/StandardAutoloader.php';
+
+$autoLoader = new Zend\Loader\StandardAutoloader(array(
+    'prefixes' => array(
+        'Zend' => LIBRARY_PATH . '/Zend',
+    ),
+    'fallback_autoloader' => false,
+));
+
+// register our StandardAutoloader with the SPL autoloader
+$autoLoader->register(); 
+
+use Zend\Session\SaveHandler\TableGateway,
+    Zend\Session\SessionManager;
+
+
+$options = array(
+    'driver' => 'Pdo',
+    'dsn' => 'mysql:dbname=theuntz;hostname=localhost',
+    //'driver' => 'Mysqli',
+    //'database' => 'theuntz',
+    'username' => 'mediawiki',
+    'password' => 'mediawiki'
+);
+$db = new \Zend\Db\Adapter\Adapter($options);
+
+$saveHandler = new TableGateway($db);
+
+$manager = new SessionManager(null, null, $saveHandler);
+//Bootstrap::puke($saveHandler, eval(DUMP) . __FUNCTION__ . PN . _ . "\$saveHandler");
+$manager->start();
+
+if (!isset($manager->getStorage()->initialized)) {
+    $manager->regenerateId();
+    $manager->getStorage()->initialized = true;
+}
+
+if ( !isset( $manager->getStorage()->counter ) ) {
+    $manager->getStorage()->counter = 0;
+}
+$manager->getStorage()->counter++;
+
+echo '<p>Testing \Zend\Session</p>';
+
+echo '<p>$_SESSION:</p>';
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
+]]></programlisting>
+
+        <para>
+            If everything is working properly, you should see something like:
+        </para>
+        
+        <programlisting language="php"><![CDATA[
+Testing \Zend\Session
+
+$_SESSION:
+
+Zend\Session\Storage\SessionStorage Object
+(
+    [_immutable:protected] => 
+    [storage:ArrayObject:private] => Array
+        (
+            [initialized] => 1
+            [counter] => 5
+            [message] => Array
+                (
+                )
+
+        )
+
+)
+]]></programlisting>
+
+    </example>
+
+</section>
