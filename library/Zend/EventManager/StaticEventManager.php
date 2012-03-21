@@ -88,6 +88,38 @@ class StaticEventManager implements StaticEventCollection
     }
 
     /**
+     * Attach a listener aggregate
+     *
+     * Listener aggregates accept an EventCollection instance, and call attach()
+     * one or more times, typically to attach to multiple events using local
+     * methods.
+     *
+     * @param  string $id Identifier for event emitting component(s)
+     * @param  ListenerAggregate $aggregate
+     * @param  int $priority If provided, a suggested priority for the aggregate to use
+     * @return mixed return value of {@link ListenerAggregate::attach()}
+     */
+    public function attachAggregate($id, StaticListenerAggregate $aggregate, $priority = 1)
+    {
+        return $aggregate->attach($id, $this, $priority);
+    }
+
+    /**
+     * Detach a listener aggregate
+     *
+     * Listener aggregates accept an EventCollection instance, and call detach()
+     * of all previously attached listeners.
+     *
+     * @param  string $id Identifier for event emitting component(s)
+     * @param  ListenerAggregate $aggregate
+     * @return mixed return value of {@link ListenerAggregate::detach()}
+     */
+    public function detachAggregate($id, ListenerAggregate $aggregate)
+    {
+        return $aggregate->detach($id, $this);
+    }
+
+    /**
      * Attach a listener to an event
      *
      * Allows attaching a callback to an event offerred by one or more 

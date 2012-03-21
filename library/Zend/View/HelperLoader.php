@@ -78,6 +78,7 @@ class HelperLoader extends PluginClassLoader
         'json'                => 'Zend\View\Helper\Json',
         'layout'              => 'Zend\View\Helper\Layout',
         'navigation'          => 'Zend\View\Helper\Navigation',
+        'navigationlocator'   => 'Zend\View\Helper\NavigationLocator',
         'paginationcontrol'   => 'Zend\View\Helper\PaginationControl',
         'partialloop'         => 'Zend\View\Helper\PartialLoop',
         'partial'             => 'Zend\View\Helper\Partial',
