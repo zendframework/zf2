@@ -57,7 +57,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     {
         $this->select->join('foo', 'x = y', Select::SQL_WILDCARD, Select::JOIN_INNER);
         $this->assertEquals(
-            array(array('foo', 'x = y', array(Select::SQL_WILDCARD), Select::JOIN_INNER)),
+            array(array('table' => 'foo', 'on' => 'x = y', 'columns' => array(Select::SQL_WILDCARD), 'type' => Select::JOIN_INNER)),
             $this->readAttribute($this->select, 'joins')
         );
     }
