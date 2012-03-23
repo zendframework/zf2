@@ -22,10 +22,10 @@
 namespace Zend\Navigation\Page;
 
 use Traversable,
-    Zend\Acl\Resource as AclResource,
-    Zend\Navigation\Container,
-    Zend\Navigation\Exception,
-    Zend\Stdlib\ArrayUtils;
+Zend\Acl\Resource as AclResource,
+Zend\Navigation\Container,
+Zend\Navigation\Exception,
+Zend\Stdlib\ArrayUtils;
 
 /**
  * Base class for Zend\Navigation\Page pages
@@ -222,7 +222,7 @@ abstract class AbstractPage extends Container
                     throw new Exception\InvalidArgumentException(
                         sprintf(
                             'Invalid argument: Detected type "%s", which ' .
-                            'is not an instance of Zend\Navigation\Page',
+                                'is not an instance of Zend\Navigation\Page',
                             $type
                         )
                     );
@@ -233,8 +233,8 @@ abstract class AbstractPage extends Container
 
         $hasUri = isset($options['uri']);
         $hasMvc = isset($options['action']) || isset($options['controller'])
-                || isset($options['module'])
-                || isset($options['route']);
+            || isset($options['module'])
+            || isset($options['route']);
 
         if ($hasMvc) {
             return new Mvc($options);
@@ -503,7 +503,7 @@ abstract class AbstractPage extends Container
             if (!is_array($relations)) {
                 throw new Exception\InvalidArgumentException(
                     'Invalid argument: $relations must be an ' .
-                    'array or an instance of Traversable'
+                        'array or an instance of Traversable'
                 );
             }
 
@@ -567,7 +567,7 @@ abstract class AbstractPage extends Container
             if (!is_array($relations)) {
                 throw new Exception\InvalidArgumentException(
                     'Invalid argument: $relations must be an ' .
-                    'array or an instance of Traversable'
+                        'array or an instance of Traversable'
                 );
             }
 
@@ -630,7 +630,7 @@ abstract class AbstractPage extends Container
         if (null !== $order && !is_int($order)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $order must be an integer or null, ' .
-                'or a string that casts to an integer'
+                    'or a string that casts to an integer'
             );
         }
 
@@ -657,15 +657,15 @@ abstract class AbstractPage extends Container
     /**
      * Sets ACL resource assoicated with this page
      *
-     * @param  string|AclResource $resource [optional] resource to associate 
-     *                                      with page. Default is null, which 
+     * @param  string|AclResource $resource [optional] resource to associate
+     *                                      with page. Default is null, which
      *                                      sets no resource.
      * @return AbstractPage fluent interface, returns self
      * @throws Exception\InvalidArgumentException if $resource is invalid
      */
     public function setResource($resource = null)
     {
-        if (null === $resource 
+        if (null === $resource
             || is_string($resource)
             || $resource instanceof AclResource
         ) {
@@ -673,7 +673,7 @@ abstract class AbstractPage extends Container
         } else {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $resource must be null, a string, ' .
-                'or an instance of Zend\Acl\Resource'
+                    'or an instance of Zend\Acl\Resource'
             );
         }
 
@@ -792,7 +792,7 @@ abstract class AbstractPage extends Container
      */
     public function isVisible($recursive = false)
     {
-        if ($recursive 
+        if ($recursive
             && isset($this->parent)
             && $this->parent instanceof self
         ) {

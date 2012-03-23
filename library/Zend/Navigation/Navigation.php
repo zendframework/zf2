@@ -42,8 +42,7 @@ class Navigation extends Container
     {
         if ($pages && (!is_array($pages) && !$pages instanceof Traversable)) {
             throw new Exception\InvalidArgumentException(
-                'Invalid argument: $pages must be an array, an '
-                . 'instance of Traversable, or null'
+                'Invalid argument: $pages must be an array, an instance of Traversable, or null'
             );
         }
 

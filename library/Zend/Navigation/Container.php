@@ -24,10 +24,10 @@
 namespace Zend\Navigation;
 
 use Countable,
-    RecursiveIterator,
-    RecursiveIteratorIterator,
-    Traversable,
-    Zend\Stdlib\ArrayUtils;
+RecursiveIterator,
+RecursiveIteratorIterator,
+Traversable,
+Zend\Stdlib\ArrayUtils;
 
 /**
  * Zend_Navigation_Container
@@ -127,7 +127,7 @@ abstract class Container implements RecursiveIterator, Countable
             if (!is_array($page) && !$page instanceof Traversable) {
                 throw new Exception\InvalidArgumentException(
                     'Invalid argument: $page must be an instance of '
-                    . 'Zend\Navigation\Page\AbstractPage or Traversable, or an array'
+                        . 'Zend\Navigation\Page\AbstractPage or Traversable, or an array'
                 );
             }
             $page = Page\AbstractPage::factory($page);
@@ -164,8 +164,8 @@ abstract class Container implements RecursiveIterator, Countable
         if (!is_array($pages) && !$pages instanceof Traversable) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $pages must be an array, an '
-                . 'instance of Traversable or an instance of '
-                . 'Zend\Navigation\Container'
+                    . 'instance of Traversable or an instance of '
+                    . 'Zend\Navigation\Container'
             );
         }
 
@@ -252,7 +252,7 @@ abstract class Container implements RecursiveIterator, Countable
      * Checks if the container has the given page
      *
      * @param  Page\AbstractPage $page page to look for
-     * @param  bool $recursive [optional] whether to search recursively. 
+     * @param  bool $recursive [optional] whether to search recursively.
      *                         Default is false.
      * @return bool whether page is in container
      */
@@ -411,7 +411,7 @@ abstract class Container implements RecursiveIterator, Countable
         if (!isset($this->pages[$hash])) {
             throw new Exception\OutOfBoundsException(
                 'Corruption detected in container; '
-                . 'invalid key found in internal iterator'
+                    . 'invalid key found in internal iterator'
             );
         }
 
