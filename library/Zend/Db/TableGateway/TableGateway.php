@@ -191,7 +191,8 @@ class TableGateway implements TableGatewayInterface
      */
     public function setSqlSelect(Select $sqlSelect)
     {
-        $this->sqlSelect = $sqlSelect;
+        $this->sqlSelect = clone $sqlSelect;
+        $this->sqlSelect->from($this->tableName, $this->databaseSchema);
     }
 
     /**
@@ -199,8 +200,11 @@ class TableGateway implements TableGatewayInterface
      * 
      * @return Select
      */
-    public function getSqlSelect()
+    public function getSqlSelect($clone = true)
     {
+        if ($clone) {
+        return clone $this->sqlSelect;
+        }
         return $this->sqlSelect;
     }
 
@@ -246,17 +250,20 @@ class TableGateway implements TableGatewayInterface
     /**
      * Select
      * 
-     * @param Closure $where
+     * @param Select | Closure $where
      * @return type 
      */
     public function select($where = null)
     {
-        $select = clone $this->sqlSelect;
-        $select->from($this->tableName, $this->databaseSchema);
-        if ($where instanceof \Closure) {
-            $where($select);
-        } elseif ($where !== null) {
-            $select->where($where);
+        if ($where instanceof Select) {
+            $select = $where;
+        } else {
+            $select = $this->getSqlSelect(true);
+            if ($where instanceof \Closure) {
+                $where($select);
+            } elseif ($where !== null) {
+                $select->where($where);
+            }
         }
 
         $statement = $this->adapter->createStatement();
@@ -361,7 +368,7 @@ class TableGateway implements TableGatewayInterface
     protected function initializeSqlObjects()
     {
         if (!$this->sqlSelect) {
-            $this->sqlSelect = new Select();
+            $this->setSqlSelect(new Select());
         }
         if (!$this->sqlInsert) {
             $this->sqlInsert = new Insert();
