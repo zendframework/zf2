@@ -2,7 +2,7 @@
 
 namespace Zend\Stdlib;
 
-class Response extends Message implements ResponseDescription
-{
-    // generic response implementation
-}
+/**
+ * Generic response implementation
+ */
+class Response extends Message {}

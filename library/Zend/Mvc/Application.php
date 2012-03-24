@@ -14,8 +14,8 @@ use ArrayObject,
     Zend\Stdlib\Dispatchable,
     Zend\Stdlib\ArrayUtils,
     Zend\Stdlib\Parameters,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response;
+    Zend\Stdlib\Request,
+    Zend\Stdlib\Response;
 
 /**
  * Main application class for invoking applications

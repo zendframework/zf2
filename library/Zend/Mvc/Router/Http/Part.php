@@ -26,7 +26,7 @@ namespace Zend\Mvc\Router\Http;
 
 use Traversable,
     Zend\Stdlib\ArrayUtils,
-    Zend\Stdlib\RequestDescription as Request,
+    Zend\Stdlib\Request,
     Zend\Mvc\Router\RouteBroker,
     Zend\Mvc\Router\Exception,
     Zend\Mvc\Router\PriorityList;

@@ -14,8 +14,8 @@ use Zend\Di\Locator,
     Zend\Mvc\LocatorAware,
     Zend\Mvc\MvcEvent,
     Zend\Stdlib\Dispatchable,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response,
+    Zend\Stdlib\Request,
+    Zend\Stdlib\Response,
     Zend\View\Model\ViewModel;
 
 /**
