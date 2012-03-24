@@ -10,7 +10,7 @@ class RouteMatchTest extends TestCase
     {
         $match = new RouteMatch(array('foo' => 'bar'));
         
-        $this->assertEquals(array('foo' => 'bar'), $match->getParams());
+        $this->assertEquals(array('foo' => 'bar'), $match->toArray());
     }
     
     public function testLengthIsStored()

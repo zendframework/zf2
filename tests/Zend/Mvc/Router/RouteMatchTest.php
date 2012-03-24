@@ -10,7 +10,7 @@ class RouteMatchTest extends TestCase
     {
         $match = new RouteMatch(array('foo' => 'bar'));
         
-        $this->assertEquals(array('foo' => 'bar'), $match->getParams());
+        $this->assertEquals(array('foo' => 'bar'), $match->toArray());
     }
     
     public function testMatchedRouteNameIsSet()
@@ -26,7 +26,7 @@ class RouteMatchTest extends TestCase
         $match = new RouteMatch(array());
         $match->setParam('foo', 'bar');
         
-        $this->assertEquals(array('foo' => 'bar'), $match->getParams());
+        $this->assertEquals(array('foo' => 'bar'), $match->toArray());
     }
     
     public function testGetParam()

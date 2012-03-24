@@ -23,6 +23,8 @@
  */
 namespace Zend\Mvc\Router;
 
+use Zend\Stdlib\Parameters;
+
 /**
  * Route match.
  *
@@ -30,31 +32,14 @@ namespace Zend\Mvc\Router;
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class RouteMatch
+class RouteMatch extends Parameters
 {
-    /**
-     * Match parameters.
-     *
-     * @var array
-     */
-    protected $params = array();
-
     /**
      * Matched route name.
      *
      * @var string
      */
     protected $matchedRouteName;
-
-    /**
-     * Create a RouteMatch with given parameters.
-     *
-     * @param array $params
-     */
-    public function __construct(array $params)
-    {
-        $this->params = $params;
-    }
 
     /**
      * Set name of matched route.
@@ -79,41 +64,41 @@ class RouteMatch
     }
 
     /**
-     * Set a parameter.
+     * Alias for set() - Set a parameter.
      *
+     * @see \Zend\Stdlib\Parameters::set()
      * @param  string $name
      * @param  mixed  $value
      * @return RouteMatch
      */
     public function setParam($name, $value)
     {
-        $this->params[$name] = $value;
-        return $this;
+        return parent::set($name, $value);
     }
 
     /**
-     * Get all parameters.
+     * Alias for get() - Get a specific parameter.
      *
-     * @return array
-     */
-    public function getParams()
-    {
-        return $this->params;
-    }
-
-    /**
-     * Get a specific parameter.
-     *
+     * @see \Zend\Stdlib\Parameters::set()
      * @param  string $name
      * @param  mixed $default
      * @return mixed
      */
     public function getParam($name, $default = null)
     {
-        if (array_key_exists($name, $this->params)) {
-            return $this->params[$name];
-        }
-
-        return $default;
+        return parent::get($name, $default);
     }
+
+    /**
+     * Get all parameters.
+     *
+     * @deprecated
+     * @see \Zend\Stdlib\Parameters::toArray()
+     * @return array
+     */
+    public function getParams()
+    {
+        return parent::toArray();
+    }
+
 }

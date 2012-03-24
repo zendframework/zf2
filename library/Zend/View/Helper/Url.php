@@ -109,7 +109,7 @@ class Url extends AbstractHelper
         }
         
         if ($reuseMatchedParams && $this->routeMatch !== null) {
-            $params = array_merge($this->routeMatch->getParams(), $params);
+            $params = array_merge($this->routeMatch->toArray(), $params);
         }
         
         $options['name'] = $name;

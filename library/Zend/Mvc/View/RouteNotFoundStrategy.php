@@ -312,7 +312,7 @@ class RouteNotFoundStrategy implements ListenerAggregate
                 return;
             }
 
-            $controller = $routeMatch->getParam('controller', false);
+            $controller = $routeMatch->get('controller', false);
             if (!$controller) {
                 return;
             }

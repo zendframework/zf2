@@ -328,7 +328,7 @@ class Application implements AppContext
         }
 
         $routeMatch     = $e->getRouteMatch();
-        $controllerName = $routeMatch->getParam('controller', 'not-found');
+        $controllerName = $routeMatch->get('controller', 'not-found');
         $events         = $this->events();
 
         try {
