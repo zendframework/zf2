@@ -121,7 +121,7 @@ class Select implements SqlInterface, PreparableSqlInterface
         if (!is_array($columns)) {
             $columns = array($columns);
         }
-        $this->joins[] = array($name, $on, $columns, $type);
+        $this->joins[] = array('table' => $name, 'on' => $on, 'columns' => $columns, 'type' => $type);
         return $this;
     }
 
@@ -193,10 +193,10 @@ class Select implements SqlInterface, PreparableSqlInterface
             $jArgs = array();
             foreach ($this->joins as $j => $join) {
                 $jArgs[$j] = array();
-                $jArgs[$j][] = strtoupper($join[3]); // type
-                $jArgs[$j][] = $platform->quoteIdentifier($join[0]); // table
-                $jArgs[$j][] = $platform->quoteIdentifierInFragment($join[1], array('=', 'AND', 'OR', '(', ')')); // on
-                foreach ($join[2] as /* $jColumnKey => */ $jColumn) {
+                $jArgs[$j][] = strtoupper($join['type']); // type
+                $jArgs[$j][] = $platform->quoteIdentifier($join['table']); // table
+                $jArgs[$j][] = $platform->quoteIdentifierInFragment($join['on'], array('=', 'AND', 'OR', '(', ')')); // on
+                foreach ($join['columns'] as /* $jColumnKey => */ $jColumn) {
                     $columns[] = $jArgs[$j][1] . $separator . $platform->quoteIdentifierInFragment($jColumn);
                 }
             }
