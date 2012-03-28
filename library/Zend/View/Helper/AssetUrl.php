@@ -98,7 +98,7 @@ class AssetUrl extends AbstractHelper
      */
     public function setSuffix($suffix)
     {
-        $this->suffix = $suffix;
+        $this->suffix = urlencode($suffix);
         return $this;
     }
 }
