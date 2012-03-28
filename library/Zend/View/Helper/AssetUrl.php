@@ -55,10 +55,11 @@ class AssetUrl extends AbstractHelper
      *
      * If a suffix was set, it will be appended as query parameter to the URL.
      *
-     * @param  string $file
+     * @param  string  $file
+     * @parma  boolean $omitSuffix
      * @return string
      */
-    public function __invoke($file)
+    public function __invoke($file, $omitSuffix = false)
     {
         if (null === $this->assetBaseUrl) {
             throw new Exception\RuntimeException('No asset base URL provided');
@@ -66,7 +67,7 @@ class AssetUrl extends AbstractHelper
 
         $url = $this->assetBaseUrl . '/' . ltrim($file, '/');
         
-        if (null !== $this->suffix) {
+        if (!$omitSuffix && null !== $this->suffix) {
             if (strpos($url, '?') === false) {
                 $url .= '?' . $this->suffix;
             } else {
