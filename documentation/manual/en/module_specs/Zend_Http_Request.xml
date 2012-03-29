@@ -147,7 +147,7 @@ $request->post()->set('foo', 'bar');
                     <methodsynopsis>
                         <methodname>setUri</methodname>
                         <methodparam>
-                            <funcparams>string|Zend\Stdlib\RequestDescription\Zend\Stdlib\Message\Zend\Stdlib\ParametersDescription\Zend\Stdlib\Parameters\Zend\Uri\Http $uri</funcparams>
+                            <funcparams>string|Zend\Stdlib\Request\Zend\Stdlib\Message\Zend\Stdlib\ParametersDescription\Zend\Stdlib\Parameters\Zend\Uri\Http $uri</funcparams>
                         </methodparam>
                     </methodsynopsis>
                     <para>

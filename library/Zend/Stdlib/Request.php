@@ -2,7 +2,7 @@
 
 namespace Zend\Stdlib;
 
-class Request extends Message implements RequestDescription
-{
-    // generic request implementation
-}
+/**
+ * Generic request implementation
+ */
+class Request extends Message {}

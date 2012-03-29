@@ -30,7 +30,7 @@ use Zend\Mvc\Router\Exception,
     Zend\Mvc\Router\SimpleRouteStack,
     Zend\Mvc\Router\Route as BaseRoute,
     Zend\Mvc\Router\Http\Route,
-    Zend\Stdlib\RequestDescription as Request,
+    Zend\Stdlib\Request,
     Zend\Uri\Http as HttpUri;
 
 /**

@@ -31,8 +31,8 @@ use ArrayIterator,
     Zend\Stdlib\Parameters,
     Zend\Stdlib\ParametersDescription,
     Zend\Stdlib\Dispatchable,
-    Zend\Stdlib\RequestDescription,
-    Zend\Stdlib\ResponseDescription;
+    Zend\Stdlib\Request as StdRequest,
+    Zend\Stdlib\Response as StdResponse;
 
 /**
  * Http client
@@ -734,11 +734,11 @@ class Client implements Dispatchable
     /**
      * Dispatch
      *
-     * @param RequestDescription $request
-     * @param ResponseDescription $response
-     * @return ResponseDescription
+     * @param StdRequest $request
+     * @param StdResponse $response
+     * @return Response
      */
-    public function dispatch(RequestDescription $request, ResponseDescription $response = null)
+    public function dispatch(StdRequest $request, StdResponse $response = null)
     {
         $response = $this->send($request);
         return $response;

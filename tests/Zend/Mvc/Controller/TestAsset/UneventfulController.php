@@ -3,8 +3,8 @@
 namespace ZendTest\Mvc\Controller\TestAsset;
 
 use Zend\Stdlib\Dispatchable,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response;
+    Zend\Stdlib\Request,
+    Zend\Stdlib\Response;
 
 class UneventfulController implements Dispatchable
 {

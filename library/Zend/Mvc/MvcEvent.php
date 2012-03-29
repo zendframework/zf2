@@ -3,8 +3,8 @@
 namespace Zend\Mvc;
 
 use Zend\EventManager\Event,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response,
+    Zend\Stdlib\Request,
+    Zend\Stdlib\Response,
     Zend\View\Model as ViewModel;
 
 class MvcEvent extends Event
