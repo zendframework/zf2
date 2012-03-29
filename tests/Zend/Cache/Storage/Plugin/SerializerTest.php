@@ -58,26 +58,27 @@ class SerializerTest extends CommonPluginTest
 
         // check attached callbacks
         $expectedListeners = array(
-            'getItem.post'        => 'onReadItemPost',
-            'getItems.post'       => 'onReadItemsPost',
+            'getItem.post'          => 'onReadItemPost',
+            'getItems.post'         => 'onReadItemsPost',
+            'getItemAsync.callback' => 'onReadItemCallback',
 
-            'fetch.post'          => 'onFetchPost',
-            'fetchAll.post'       => 'onFetchAllPost',
+            'fetch.post'            => 'onFetchPost',
+            'fetchAll.post'         => 'onFetchAllPost',
 
-            'setItem.pre'         => 'onWriteItemPre',
-            'setItems.pre'        => 'onWriteItemsPre',
-            'addItem.pre'         => 'onWriteItemPre',
-            'addItems.pre'        => 'onWriteItemsPre',
-            'replaceItem.pre'     => 'onWriteItemPre',
-            'replaceItems.pre'    => 'onWriteItemsPre',
-            'checkAndSetItem.pre' => 'onWriteItemPre',
+            'setItem.pre'           => 'onWriteItemPre',
+            'setItems.pre'          => 'onWriteItemsPre',
+            'addItem.pre'           => 'onWriteItemPre',
+            'addItems.pre'          => 'onWriteItemsPre',
+            'replaceItem.pre'       => 'onWriteItemPre',
+            'replaceItems.pre'      => 'onWriteItemsPre',
+            'checkAndSetItem.pre'   => 'onWriteItemPre',
 
-            'incrementItem.pre'   => 'onIncrementItemPre',
-            'incrementItems.pre'  => 'onIncrementItemsPre',
-            'decrementItem.pre'   => 'onDecrementItemPre',
-            'decrementItems.pre'  => 'onDecrementItemsPre',
+            'incrementItem.pre'     => 'onIncrementItemPre',
+            'incrementItems.pre'    => 'onIncrementItemsPre',
+            'decrementItem.pre'     => 'onDecrementItemPre',
+            'decrementItems.pre'    => 'onDecrementItemsPre',
 
-            'getCapabilities.post' => 'onGetCapabilitiesPost',
+            'getCapabilities.post'  => 'onGetCapabilitiesPost',
         );
         foreach ($expectedListeners as $eventName => $expectedCallbackMethod) {
             $listeners = $this->_adapter->events()->getListeners($eventName);

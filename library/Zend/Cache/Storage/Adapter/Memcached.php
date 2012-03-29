@@ -27,6 +27,8 @@ use ArrayObject,
     stdClass,
     Traversable,
     Zend\Cache\Exception,
+    Zend\Cache\Storage\Event,
+    Zend\Cache\Storage\CallbackEvent,
     Zend\Cache\Storage\Capabilities;
 
 /**
@@ -193,6 +195,84 @@ class Memcached extends AbstractAdapter
     }
 
     /**
+     * Get an item and call callback if it has been fetched.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * Options:
+     *  - namespace <string> optional
+     *    - The namespace to use (Default: namespace of object)
+     *  - token <mixed> optional
+     *    - If present the item array will come with a token
+     *      which can be used on checkAndSet
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return bool
+     * @throws Exception
+     *
+     * @triggers getItemAsync.pre(PreEvent)
+     * @triggers getItemAsync.post(PostEvent)
+     * @triggers getItemAsync.exception(ExceptionEvent)
+     * @triggers getItemAsync.callback(Event) On fetching each item
+     */
+    public function getItemAsync($key, $callback = null, array $options = array())
+    {
+        $baseOptions = $this->getOptions();
+        if (!$baseOptions->getReadable()) {
+            return false;
+        } elseif ($callback && !is_callable($callback, false)) {
+            throw new Exception\InvalidArgumentException('Invalid callback');
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+        $args = new ArrayObject(array(
+            'key'      => & $key,
+            'callback' => & $callback,
+            'options'  => & $options,
+        ));
+
+        try {
+            $eventRs = $this->triggerPre(__FUNCTION__, $args);
+            if ($eventRs->stopped()) {
+                return $eventRs->last();
+            }
+
+            $this->memcached->setOption(MemcachedResource::OPT_PREFIX_KEY, $options['namespace']);
+
+            // redirect callback
+            $withCas = array_key_exists('token', $options);
+            $that = $this;
+            $cb   = function (MemcachedResource $memc, array &$item) use ($that, &$callback, $args) {
+                $result = $item['value'];
+                $info   = new ArrayObject(array('key' => $item['key']));
+                if (isset($item['cas'])) {
+                    $info['token'] = $item['cas'];
+                }
+
+                $event = new CallbackEvent('getItemAsync.callback', $that, $args, $result, $info);
+                $that->events()->trigger($event);
+
+                if ($callback) {
+                    call_user_func($callback, $event->getResult(), $event->getInfo());
+                }
+            };
+
+            if (!$this->memcached->getDelayed(array($key), $withCas, $cb)) {
+                throw $this->getExceptionByResultCode($this->memcached->getResultCode());
+            }
+
+            $result = true;
+            return $this->triggerPost(__FUNCTION__, $args, $result);
+        } catch (\Exception $e) {
+            return $this->triggerException(__FUNCTION__, $args, $e);
+        }
+    }
+
+    /**
      * Get multiple items.
      *
      * Options:
@@ -233,6 +313,85 @@ class Memcached extends AbstractAdapter
                 throw $this->getExceptionByResultCode($this->memcached->getResultCode());
             }
 
+            return $this->triggerPost(__FUNCTION__, $args, $result);
+        } catch (\Exception $e) {
+            return $this->triggerException(__FUNCTION__, $args, $e);
+        }
+    }
+
+    /**
+     * Get multiple items and call callback for each fetched item.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * Options:
+     *  - namespace <string> optional
+     *    - The namespace to use (Default: namespace of object)
+     *  - token <mixed> optional
+     *    - If present the item array will come with a token
+     *      which can be used on checkAndSet
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return bool
+     * @throws Exception
+     *
+     * @triggers getItemsAsync.pre(PreEvent)
+     * @triggers getItemsAsync.post(PostEvent)
+     * @triggers getItemsAsync.exception(ExceptionEvent)
+     * @triggers getItemAsync.callback(Event) On fetching each item
+     */
+    public function getItemsAsync(array $keys, $callback = null, array $options = array())
+    {
+        $baseOptions = $this->getOptions();
+        if (!$baseOptions->getReadable()) {
+            return false;
+        } elseif (!$keys) {
+            return true;
+        } elseif ($callback && !is_callable($callback, false)) {
+            throw new Exception\InvalidArgumentException('Invalid callback');
+        }
+
+        $this->normalizeOptions($options);
+        $args = new ArrayObject(array(
+            'keys'     => & $keys,
+            'callback' => & $callback,
+            'options'  => & $options,
+        ));
+
+        try {
+            $eventRs = $this->triggerPre(__FUNCTION__, $args);
+            if ($eventRs->stopped()) {
+                return $eventRs->last();
+            }
+
+            $this->memcached->setOption(MemcachedResource::OPT_PREFIX_KEY, $options['namespace']);
+
+            // redirect callback
+            $withCas = array_key_exists('token', $options);
+            $that    = $this;
+            $cb      = function (MemcachedResource $memc, array &$item) use ($that, &$callback, $args) {
+                $result = $item['value'];
+                $info   = new ArrayObject(array('key' => $item['key']));
+                if (isset($item['cas'])) {
+                    $info['token'] = $item['cas'];
+                }
+
+                $event = new CallbackEvent('getItemAsync.callback', $that, $args, $result, $info);
+                $that->events()->trigger($event);
+
+                if ($callback) {
+                    call_user_func($callback, $event->getResult(), $event->getInfo());
+                }
+            };
+
+            if (!$this->memcached->getDelayed($keys, $withCas, $cb)) {
+                throw $this->getExceptionByResultCode($this->memcached->getResultCode());
+            }
+
+            $result = true;
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -818,98 +977,6 @@ class Memcached extends AbstractAdapter
     /* non-blocking */
 
     /**
-     * Get items that were marked to delay storage for purposes of removing blocking
-     *
-     * Options:
-     *  - namespace <string> optional
-     *    - The namespace to use (Default: namespace of object)
-     *  - select <array> optional
-     *    - An array of the information the returned item contains
-     *      (Default: array('key', 'value'))
-     *  - callback <callback> optional
-     *    - An result callback will be invoked for each item in the result set.
-     *    - The first argument will be the item array.
-     *    - The callback does not have to return anything.
-     *
-     * @param  array $keys
-     * @param  array $options
-     * @return bool
-     * @throws Exception
-     *
-     * @triggers getDelayed.pre(PreEvent)
-     * @triggers getDelayed.post(PostEvent)
-     * @triggers getDelayed.exception(ExceptionEvent)
-     */
-    public function getDelayed(array $keys, array $options = array())
-    {
-        $baseOptions = $this->getOptions();
-        if ($this->stmtActive) {
-            throw new Exception\RuntimeException('Statement already in use');
-        } elseif (!$baseOptions->getReadable()) {
-            return false;
-        } elseif (!$keys) {
-            return true;
-        }
-
-        $this->normalizeOptions($options);
-        if (isset($options['callback']) && !is_callable($options['callback'], false)) {
-            throw new Exception\InvalidArgumentException('Invalid callback');
-        }
-        if (!isset($options['select'])) {
-            $options['select'] = array('key', 'value');
-        }
-
-        $args = new ArrayObject(array(
-            'keys'    => & $keys,
-            'options' => & $options,
-        ));
-
-        try {
-            $eventRs = $this->triggerPre(__FUNCTION__, $args);
-            if ($eventRs->stopped()) {
-                return $eventRs->last();
-            }
-
-            $this->memcached->setOption(MemcachedResource::OPT_PREFIX_KEY, $options['namespace']);
-
-            // redirect callback
-            if (isset($options['callback'])) {
-                $cb = function (MemcachedResource $memc, array &$item) use (&$options, $baseOptions) {
-                    $select = & $options['select'];
-
-                    // handle selected key
-                    if (!in_array('key', $select)) {
-                        unset($item['key']);
-                    }
-
-                    // handle selected value
-                    if (!in_array('value', $select)) {
-                        unset($item['value']);
-                    }
-
-                    call_user_func($options['callback'], $item);
-                };
-
-                if (!$this->memcached->getDelayed($keys, false, $cb)) {
-                    throw $this->getExceptionByResultCode($this->memcached->getResultCode());
-                }
-            } else {
-                if (!$this->memcached->getDelayed($keys)) {
-                    throw $this->getExceptionByResultCode($this->memcached->getResultCode());
-                }
-
-                $this->stmtActive  = true;
-                $this->stmtOptions = &$options;
-            }
-
-            $result = true;
-            return $this->triggerPost(__FUNCTION__, $args, $result);
-        } catch (\Exception $e) {
-            return $this->triggerException(__FUNCTION__, $args, $e);
-        }
-    }
-
-    /**
      * Fetches the next item from result set
      *
      * @return array|boolean The next item or false
@@ -1079,6 +1146,7 @@ class Memcached extends AbstractAdapter
                         'iterable'           => false,
                         'clearAllNamespaces' => true,
                         'clearByNamespace'   => false,
+                        'asyncRead'          => true,
                     )
                 );
             }

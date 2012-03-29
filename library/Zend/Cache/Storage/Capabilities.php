@@ -56,6 +56,20 @@ class Capabilities
     protected $baseCapabilities;
 
     /**
+     * Support of a real asynchronously read
+     *
+     * @var boolean
+     */
+    protected $_asyncRead;
+
+    /**
+     * Support of a real asynchronously write
+     *
+     * @var boolean
+     */
+    protected $_asyncWrite;
+
+    /**
      * Clear all namespaces
      */
     protected $_clearAllNamespaces;
@@ -116,8 +130,8 @@ class Capabilities
     protected $_supportedMetadata;
 
     /**
-     * Supports tagging? 
-     * 
+     * Supports tagging?
+     *
      * @var bool
      */
     protected $_tagging;
@@ -550,7 +564,7 @@ class Capabilities
     {
         return $this->setCapability($marker, 'tagging', (bool) $tagging);
     }
-    
+
     /**
      * Get value for tagging
      *
@@ -559,6 +573,48 @@ class Capabilities
     public function getTagging()
     {
         return $this->getCapability('tagging', false);
+    }
+
+    /**
+     * Set support of a real asynchronously read
+     *
+     * @param  mixed tagging
+     * @return $this
+     */
+    public function setAsyncRead(stdClass $marker, $flag)
+    {
+        return $this->setCapability($marker, 'asyncRead', (bool) $flag);
+    }
+
+    /**
+     * Get support of a real asynchronously read
+     *
+     * @return mixed
+     */
+    public function getAsyncRead()
+    {
+        return $this->getCapability('asyncRead', false);
+    }
+
+    /**
+     * Set support of a real asynchronously write
+     *
+     * @param  mixed tagging
+     * @return $this
+     */
+    public function setAsyncWrite(stdClass $marker, $flag)
+    {
+        return $this->setCapability($marker, 'asyncWrite', (bool) $flag);
+    }
+
+    /**
+     * Get support of a real asynchronously write
+     *
+     * @return mixed
+     */
+    public function getAsyncWrite()
+    {
+        return $this->getCapability('asyncWrite', false);
     }
 
     /**

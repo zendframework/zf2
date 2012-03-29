@@ -1006,7 +1006,7 @@ class Memory extends AbstractAdapter
         }
     }
 
-    /* non-blocking */
+    /* find */
 
     /**
      * Find items.

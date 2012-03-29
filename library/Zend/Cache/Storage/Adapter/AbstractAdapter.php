@@ -30,8 +30,8 @@ use ArrayObject,
     Zend\Cache\Storage\Capabilities,
     Zend\Cache\Storage\Event,
     Zend\Cache\Storage\ExceptionEvent,
-    Zend\Cache\Storage\Plugin,
     Zend\Cache\Storage\PostEvent,
+    Zend\Cache\Storage\Plugin,
     Zend\EventManager\EventCollection,
     Zend\EventManager\EventManager;
 
@@ -351,6 +351,35 @@ abstract class AbstractAdapter implements Adapter
     /* reading */
 
     /**
+     * Get an item and call callback if it has been fetched.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return bool
+     * @throws Exception\InvalidArgumentException|Exception\RuntimeException
+     */
+    public function getItemAsync($key, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getReadable()) {
+            return false;
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        // Don't ignore ItemNotFoundException make it catchable
+        $ignoreMissingItems = $options['ignore_missing_items'];
+        $options['ignore_missing_items'] = false;
+
+        $this->emulateAsync('getItem', array($key, &$options), $callback, new ArrayObject(array('key' => $key)), $ignoreMissingItems);
+        return true;
+    }
+
+    /**
      * Get items
      *
      * @param  array $keys
@@ -380,11 +409,38 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
-     * Checks if adapter has an item
+     * Get multiple items and call callback for each fetched item.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return bool
+     * @throws Exception\InvalidArgumentException|Exception\RuntimeException
+     */
+    public function getItemsAsync(array $keys, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getReadable()) {
+            return false;
+        }
+
+        $ret = true;
+        foreach ($keys as $key) {
+            $ret = $this->getItemAsync($key, $callback, $options) && $ret;
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Test if an item exists.
      *
      * @param  string $key
-     * @param  array $options
-     * @return bool
+     * @param  array  $options
+     * @return boolean
+     * @throws Exception
      */
     public function hasItem($key, array $options = array())
     {
@@ -399,6 +455,31 @@ abstract class AbstractAdapter implements Adapter
         }
 
         return $ret;
+    }
+
+    /**
+     * Test if an item exists and call callback.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function hasItemAsync($key, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getReadable()) {
+            return false;
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        $this->emulateAsync('hasItem', array($key, &$options), $callback, new ArrayObject(array('key' => $key)));
+        return true;
     }
 
     /**
@@ -422,6 +503,61 @@ abstract class AbstractAdapter implements Adapter
         }
 
         return $ret;
+    }
+
+    /**
+     * Test multiple items and call callback for each item.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return array Array of existing keys
+     * @throws \Zend\Cache\Exception
+     */
+    public function hasItemsAsync(array $keys, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getReadable()) {
+            return false;
+        }
+
+        $ret = true;
+        foreach ($keys as $key) {
+            $ret = $this->hasItemAsync($key, $callback, $options) && $ret;
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Get metadata of an item and call callback.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return array|boolean Metadata or false on failure
+     * @throws Exception
+     */
+    public function getMetadataAsync($key, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getReadable()) {
+            return false;
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        // Don't ignore ItemNotFoundException make it catchable
+        $ignoreMissingItems = $options['ignore_missing_items'];
+        $options['ignore_missing_items'] = false;
+
+        $this->emulateAsync('getMetadata', array($key, &$options), $callback, new ArrayObject(array('key' => $key)), $ignoreMissingItems);
+        return true;
     }
 
     /**
@@ -452,10 +588,62 @@ abstract class AbstractAdapter implements Adapter
         return $ret;
     }
 
+    /**
+     * Get multiple metadata and call callback for each item.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function getMetadatasAsync(array $keys, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getReadable()) {
+            return false;
+        }
+
+        $ret = true;
+        foreach ($keys as $key) {
+            $ret = $this->getMetadataAsync($key, $callback, $options) && $ret;
+        }
+
+        return $ret;
+    }
+
     /* writing */
 
     /**
-     * Set items
+     * Store an item asynchronously.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function setItemAsync($key, $value, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        $this->emulateAsync('setItem', array($key, &$value, &$options), $callback, new ArrayObject(array('key' => $key)));
+        return true;
+    }
+
+    /**
+     * Store multiple items.
      *
      * @param  array $keyValuePairs
      * @param  array $options
@@ -476,6 +664,31 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
+     * Store multiple items and call callback for each item on finish.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function setItemsAsync(array $keyValuePairs, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $ret = true;
+        foreach ($keyValuePairs as $key => $value) {
+            $ret = $this->setItemAsync($key, $value, $callback, $options);
+        }
+        return $ret;
+    }
+
+    /**
      * Add an item
      *
      * @param  string|int $key
@@ -490,6 +703,32 @@ abstract class AbstractAdapter implements Adapter
             throw new Exception\RuntimeException("Key '{$key}' already exists");
         }
         return $this->setItem($key, $value, $options);
+    }
+
+    /**
+     * Add an item and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function addItemAsync($key, $value, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        $this->emulateAsync('addItem', array($key, &$value, &$options), $callback, new ArrayObject(array('key' => $key)));
+        return true;
     }
 
     /**
@@ -514,6 +753,31 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
+     * Add multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function addItemsAsync(array $keyValuePairs, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $ret = true;
+        foreach ($keyValuePairs as $key => $value) {
+            $ret = $this->addItemAsync($key, $value, $callback, $options);
+        }
+        return $ret;
+    }
+
+    /**
      * Replace an item
      *
      * @param  string|int $key
@@ -527,7 +791,34 @@ abstract class AbstractAdapter implements Adapter
         if (!$this->hasItem($key, $options)) {
             throw new Exception\ItemNotFoundException("Key '{$key}' doen't exists");
         }
+
         return $this->setItem($key, $value, $options);
+    }
+
+    /**
+     * Replace an item and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function replaceItemAsync($key, $value, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        $this->emulateAsync('replaceItem', array($key, &$value, &$options), $callback, new ArrayObject(array('key' => $key)));
+        return true;
     }
 
     /**
@@ -548,6 +839,31 @@ abstract class AbstractAdapter implements Adapter
             $ret = $this->replaceItem($key, $value, $options) && $ret;
         }
 
+        return $ret;
+    }
+
+    /**
+     * Replace multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws \Zend\Cache\Exception
+     */
+    public function replaceItemsAsync(array $keyValuePairs, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $ret = true;
+        foreach ($keyValuePairs as $key => $value) {
+            $ret = $this->replaceItemAsync($key, $value, $callback, $options);
+        }
         return $ret;
     }
 
@@ -606,6 +922,31 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
+     * Reset lifetime of an item and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function touchItemAsync($key, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        $this->emulateAsync('touchItem', array($key, &$options), $callback, new ArrayObject(array('key' => $key)));
+        return true;
+    }
+
+    /**
      * Touch items
      *
      * @param  array $keys
@@ -627,7 +968,57 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
-     * Remove items
+     * Reset lifetime of multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function touchItemsAsync(array $keys, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $ret = true;
+        foreach ($keys as $key) {
+            $ret = $this->touchItemAsync($key, $callback, $options);
+        }
+        return $ret;
+    }
+
+    /**
+     * Remove an item asynchron.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  string   $key
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function removeItemAsync($key, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        $this->emulateAsync('removeItem', array($key, &$options), $callback, new ArrayObject(array('key' => $key)));
+        return true;
+    }
+
+    /**
+     * Remove multiple items.
      *
      * @param  array $keys
      * @param  array $options
@@ -642,6 +1033,32 @@ abstract class AbstractAdapter implements Adapter
         $ret = true;
         foreach ($keys as $key) {
             $ret = $this->removeItem($key, $options) && $ret;
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Remove multiple items asynchron.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  array    $keys
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function removeItemsAsync(array $keys, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $ret = true;
+        foreach ($keys as $key) {
+            $ret = $this->removeItemAsync($key, $callback, $options) && $ret;
         }
 
         return $ret;
@@ -669,6 +1086,32 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
+     * Increment an item and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  string   $key
+     * @param  int      $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return int|boolean The new value of false on failure
+     * @throws Exception
+     */
+    public function incrementItemAsync($key, $value, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        $this->emulateAsync('incrementItem', array($key, &$value, &$options), $callback, new ArrayObject(array('key' => $key)));
+        return true;
+    }
+
+    /**
      * Increment items
      *
      * @param  array $keyValuePairs
@@ -685,6 +1128,31 @@ abstract class AbstractAdapter implements Adapter
         $ret = true;
         foreach ($keyValuePairs as $key => $value) {
             $ret = $this->incrementItem($key, $value, $options) && $ret;
+        }
+        return $ret;
+    }
+
+    /**
+     * Increment multiple items and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function incrementItemsAsync(array $keyValuePairs, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $ret = true;
+        foreach ($keyValuePairs as $key => $value) {
+            $ret = $this->incrementItemAsync($key, $value, $callback, $options);
         }
         return $ret;
     }
@@ -711,6 +1179,32 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
+     * Decrement an item and call callback for each item finished.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  string   $key
+     * @param  int      $value
+     * @param  callback $callback
+     * @param  array    $options
+     * @return int|boolean The new value or false or failure
+     * @throws Exception
+     */
+    public function decrementItemAsync($key, $value, $callback = null, array $options = array())
+    {
+        if (!$this->getOptions()->getWritable()) {
+            return false;
+        }
+
+        $this->normalizeKey($key);
+        $this->normalizeOptions($options);
+
+        $this->emulateAsync('decrementItem', array($key, &$value, &$options), $callback, new ArrayObject(array('key' => $key)));
+        return true;
+    }
+
+    /**
      * Decrement items
      *
      * @param  array $keyValuePairs
@@ -731,64 +1225,32 @@ abstract class AbstractAdapter implements Adapter
         return $ret;
     }
 
-    /* non-blocking */
-
     /**
-     * Get delayed
+     * Decrement multiple items and call callback for each item finished.
      *
-     * Options:
-     *  - ttl <float> optional
-     *    - The time-to-live (Default: ttl of object)
-     *  - namespace <string> optional
-     *    - The namespace to use (Default: namespace of object)
-     *  - select <array> optional
-     *    - An array of the information the returned item contains
-     *      (Default: array('key', 'value'))
-     *  - callback <callback> optional
-     *    - An result callback will be invoked for each item in the result set.
-     *    - The first argument will be the item array.
-     *    - The callback does not have to return anything.
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
      *
-     * @param  array $keys
-     * @param  array $options
-     * @return bool
-     * @throws Exception\InvalidArgumentException|Exception\RuntimeException
+     * @param  array    $keyValuePairs
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
      */
-    public function getDelayed(array $keys, array $options = array())
+    public function decrementItemsAsync(array $keyValuePairs, $callback = null, array $options = array())
     {
-        if ($this->stmtActive) {
-            throw new Exception\RuntimeException('Statement already in use');
-        }
-
-        if (!$this->getOptions()->getReadable()) {
+        if (!$this->getOptions()->getWritable()) {
             return false;
-        } elseif (!$keys) {
-            // empty statement
-            return true;
         }
 
-        $this->normalizeOptions($options);
-        if (!isset($options['select'])) {
-            $options['select'] = array('key', 'value');
+        $ret = true;
+        foreach ($keyValuePairs as $key => $value) {
+            $ret = $this->decrementItemAsync($key, $value, $callback, $options);
         }
-
-        $this->stmtOptions = array_merge($this->getOptions()->toArray(), $options);
-        $this->stmtKeys    = $keys;
-        $this->stmtActive  = true;
-
-        if (isset($options['callback'])) {
-            $callback = $options['callback'];
-            if (!is_callable($callback, false)) {
-                throw new Exception\InvalidArgumentException('Invalid callback');
-            }
-
-            while ( ($item = $this->fetch()) !== false) {
-                call_user_func($callback, $item);
-            }
-        }
-
-        return true;
+        return $ret;
     }
+
+    /* find */
 
     /**
      * Find
@@ -800,6 +1262,60 @@ abstract class AbstractAdapter implements Adapter
     public function find($mode = self::MATCH_ACTIVE, array $options = array())
     {
         throw new Exception\UnsupportedMethodCallException('find isn\'t supported by this adapter');
+    }
+
+    /**
+     * Find items and call callback for each item found.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  callback $callback
+     * @param  int      $mode      Matching mode (Value of Adapter::MATCH_*)
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function findAsync($callback = null, $mode = self::MATCH_ACTIVE, array $options = array())
+    {
+        $this->normalizeOptions($options);
+        $this->normalizeMatchingMode($mode, self::MATCH_ACTIV, $options);
+
+        // select the key to get it for info argument
+        $keySelected = in_array('key', $options['select']);
+        if (!$keySelected) {
+            $options['selected'][] = 'key';
+        }
+
+        $this->find($mode, $options);
+
+        do {
+            $result = false;
+            $info   = new ArrayObject();
+
+            try {
+                $result = $this->fetch();
+
+                // add key info
+                if (isset($result['key'])) {
+                    $info['key'] = $result['key'];
+                }
+
+                // remove key from result if not selected
+                if (!$keySelected) {
+                    unset($result['key']);
+                }
+
+            } catch (Exception $e) {
+                $info['exception'] = $e;
+            }
+
+            if ($callback) {
+                call_user_func($callback, $result, $info);
+            }
+        } while ($result !== false);
+
+        return true;
     }
 
     /**
@@ -896,6 +1412,37 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
+     * Clear items off all namespaces and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  callback $callback
+     * @param  int      $mode Matching mode (Value of Adapter::MATCH_*)
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     * @see    clear()
+     * @see    clearByNamespace()
+     * @see    clearAsyncByNamespace()
+     */
+    public function clearAsync($callback = null, $mode = self::MATCH_EXPIRED, array $options = array())
+    {
+        try {
+            $result = $this->clear($mode, $options);
+            $info   = new ArrayObject();
+        } catch (Exception $e) {
+            $info->exception = $e;
+        }
+
+        if ($callback) {
+            call_user_func($callback, $result, $mode);
+        }
+
+        return true;
+    }
+
+    /**
      * Clear by namespace
      *
      * @param  int $mode
@@ -910,6 +1457,37 @@ abstract class AbstractAdapter implements Adapter
     }
 
     /**
+     * Clear items by namespace and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  callback $callback
+     * @param  int      $mode Matching mode (Value of Adapter::MATCH_*)
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     * @see    clearByNamespace()
+     * @see    clear()
+     * @see    clearAsync()
+     */
+    public function clearAsyncByNamespace($callback = null, $mode = self::MATCH_EXPIRED, array $options = array())
+    {
+        try {
+            $info   = new ArrayObject();
+            $result = $this->clearByNamespace($mode, $options);
+        } catch (Exception $e) {
+            $info->exception = $e;
+        }
+
+        if ($callback) {
+            call_user_func($callback, $result, $mode);
+        }
+
+        return true;
+    }
+
+    /**
      * Optimize
      *
      * @param  array $options
@@ -917,6 +1495,33 @@ abstract class AbstractAdapter implements Adapter
      */
     public function optimize(array $options = array())
     {
+        return true;
+    }
+
+    /**
+     * Optimize adapter storage and call callback on finish.
+     *
+     * Callback-Definition:
+     * void callback(mixed $result, ArrayObject $info)
+     *
+     * @param  callback $callback
+     * @param  array    $options
+     * @return boolean
+     * @throws Exception
+     */
+    public function optimizeAsync($callback, array $options = array())
+    {
+        try {
+            $info   = new ArrayObject();
+            $result = $this->optimize($options);
+        } catch (Exception $e) {
+            $info->exception = $e;
+        }
+
+        if ($callback) {
+            call_user_func($callback, $result, $info);
+        }
+
         return true;
     }
 
@@ -1107,4 +1712,41 @@ abstract class AbstractAdapter implements Adapter
         }
         return $this->pluginRegistry;
     }
+
+    /**
+     * Emulate an async call
+     *
+     * @param  string        $method   Method to emulate asyncronus behavior
+     * @param  array         $args     Arguments of the asyncronus method
+     * @param  null|callback $callback The callback to call
+     * @param  ArrayObject   $info     An info object added as 2. argument of callback
+     * @param  boolean       $ignoreMissingItems If TRUE the callback will not be called on an ItemNotFoundException
+     * @return void
+     * @throws Exception\InvalidArgumentException
+     */
+    protected function emulateAsync($method, array $args, $callback, ArrayObject $info, $ignoreMissingItems = false)
+    {
+        if ($callback && !is_callable($callback, false)) {
+            throw new Exception\InvalidArgumentException('Invalid callback');
+        }
+
+        $result = false;
+
+        try {
+            $result = call_user_func_array(array($this, $method), $args);
+        } catch (Exception\ItemNotFoundException $e) {
+            if ($ignoreMissingItems) {
+                return;
+            } else {
+                $info['exception'] = $e;
+            }
+        } catch (Exception $e) {
+            $info['exception'] = $e;
+        }
+
+        if ($callback) {
+            call_user_func($callback, $result, $info);
+        }
+    }
+
 }

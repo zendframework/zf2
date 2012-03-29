@@ -925,7 +925,7 @@ class WinCache extends AbstractAdapter
         }
     }
 
-    /* non-blocking */
+    /* find */
 
 
     /* cleaning */
