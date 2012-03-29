@@ -331,13 +331,22 @@ class Application implements AppContext
         $controllerName = $routeMatch->getParam('controller', 'not-found');
         $events         = $this->events();
 
-        try {
-            $controller = $locator->get($controllerName);
-        } catch (ClassNotFoundException $exception) {
+        $im=$locator->instanceManager();
+        if($im->hasAlias($controllerName))
+        {
+            
+            $controllerClass=$im->getClassFromAlias($controllerName);
+        }
+        else {
+            $controllerClass=$controllerName;
+        }
+        
+        
+        if(!class_exists($controllerClass))
+        {
             $error = clone $e;
             $error->setError(static::ERROR_CONTROLLER_NOT_FOUND)
-                  ->setController($controllerName)
-                  ->setParam('exception', $exception);
+                  ->setController($controllerName);
 
             $results = $events->trigger('dispatch.error', $error);
             if (count($results)) {
@@ -347,17 +356,14 @@ class Application implements AppContext
             }
             goto complete;
         }
-
-        if ($controller instanceof LocatorAware) {
-            $controller->setLocator($locator);
-        }
-
-        if (!$controller instanceof Dispatchable) {
+        
+        if(!in_array("Zend\Stdlib\Dispatchable", class_implements($controllerClass)))
+        {
             $error = clone $e;
             $error->setError(static::ERROR_CONTROLLER_INVALID)
                   ->setController($controllerName)
-                  ->setControllerClass(get_class($controller));
-
+                  ->setControllerClass($controllerClass);
+            
             $results = $events->trigger('dispatch.error', $error);
             if (count($results)) {
                 $return  = $results->last();
@@ -366,6 +372,11 @@ class Application implements AppContext
             }
             goto complete;
         }
+        
+        
+        
+        
+        $controller = $locator->get($controllerName);
 
         $request  = $e->getRequest();
         $response = $this->getResponse();
