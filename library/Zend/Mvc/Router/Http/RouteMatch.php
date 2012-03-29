@@ -49,7 +49,7 @@ class RouteMatch extends BaseRouteMatch
      * @param  array   $params
      * @param  integer $length
      */
-    public function __construct(array $params, $length = 0)
+    public function __construct(array $params = null, $length = 0)
     {
         parent::__construct($params);
 
@@ -82,7 +82,7 @@ class RouteMatch extends BaseRouteMatch
      */
     public function merge(self $match)
     {
-        $this->params  = array_merge($this->params, $match->getParams());
+        $this->exchangeArray(array_merge($this->toArray(), $match->toArray()));
         $this->length += $match->getLength();
 
         $this->matchedRouteName = $match->getMatchedRouteName();

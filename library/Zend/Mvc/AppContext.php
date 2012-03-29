@@ -4,8 +4,8 @@ namespace Zend\Mvc;
 
 use Zend\Di\Locator,
     Zend\EventManager\EventCollection,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response;
+    Zend\Stdlib\Request,
+    Zend\Stdlib\Response;
 
 interface AppContext
 {

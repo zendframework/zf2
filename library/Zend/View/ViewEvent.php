@@ -21,8 +21,8 @@
 namespace Zend\View;
 
 use Zend\EventManager\Event,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response;
+    Zend\Stdlib\Request,
+    Zend\Stdlib\Response;
 
 /**
  * @category   Zend

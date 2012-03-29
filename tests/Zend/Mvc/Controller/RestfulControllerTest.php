@@ -47,7 +47,7 @@ class RestfulControllerTest extends TestCase
     {
         $entity = new stdClass;
         $this->controller->entity = $entity;
-        $this->routeMatch->setParam('id', 1);
+        $this->routeMatch->set('id', 1);
         $result = $this->controller->dispatch($this->request, $this->response);
         $this->assertArrayHasKey('entity', $result);
         $this->assertEquals($entity, $result['entity']);
@@ -70,7 +70,7 @@ class RestfulControllerTest extends TestCase
         $string = http_build_query($entity);
         $this->request->setMethod('PUT')
                       ->setContent($string);
-        $this->routeMatch->setParam('id', 1);
+        $this->routeMatch->set('id', 1);
         $result = $this->controller->dispatch($this->request, $this->response);
         $this->assertArrayHasKey('entity', $result);
         $test = $result['entity'];
@@ -85,7 +85,7 @@ class RestfulControllerTest extends TestCase
         $entity = array('id' => 1, 'name' => __FUNCTION__);
         $this->controller->entity = $entity;
         $this->request->setMethod('DELETE');
-        $this->routeMatch->setParam('id', 1);
+        $this->routeMatch->set('id', 1);
         $result = $this->controller->dispatch($this->request, $this->response);
         $this->assertEquals(array(), $result);
         $this->assertEquals(array(), $this->controller->entity);
@@ -93,7 +93,7 @@ class RestfulControllerTest extends TestCase
 
     public function testDispatchCallsActionMethodBasedOnNormalizingAction()
     {
-        $this->routeMatch->setParam('action', 'test.some-strangely_separated.words');
+        $this->routeMatch->set('action', 'test.some-strangely_separated.words');
         $result = $this->controller->dispatch($this->request, $this->response);
         $this->assertArrayHasKey('content', $result);
         $this->assertContains('Test Some Strangely Separated Words', $result['content']);
@@ -101,7 +101,7 @@ class RestfulControllerTest extends TestCase
 
     public function testDispatchCallsNotFoundActionWhenActionPassedThatCannotBeMatched()
     {
-        $this->routeMatch->setParam('action', 'test-some-made-up-action');
+        $this->routeMatch->set('action', 'test-some-made-up-action');
         $result   = $this->controller->dispatch($this->request, $this->response);
         $response = $this->controller->getResponse();
         $this->assertEquals(404, $response->getStatusCode());

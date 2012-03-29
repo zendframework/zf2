@@ -23,7 +23,7 @@
  */
 namespace Zend\Mvc\Router;
 
-use Zend\Stdlib\RequestDescription as Request;
+use Zend\Stdlib\Request;
 
 /**
  * Route interface.

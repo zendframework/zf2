@@ -14,6 +14,6 @@ class ForwardController extends ActionController
     public function testMatchesAction()
     {
         $e = $this->getEvent();
-        return $e->getRouteMatch()->getParams();
+        return $e->getRouteMatch()->toArray();
     }
 }

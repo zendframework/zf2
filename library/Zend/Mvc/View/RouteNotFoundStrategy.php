@@ -26,7 +26,7 @@ use Zend\EventManager\EventCollection,
     Zend\Http\Response as HttpResponse,
     Zend\Mvc\Application,
     Zend\Mvc\MvcEvent,
-    Zend\Stdlib\ResponseDescription as Response,
+    Zend\Stdlib\Response,
     Zend\View\Model as ViewModel;
 
 /**
@@ -312,7 +312,7 @@ class RouteNotFoundStrategy implements ListenerAggregate
                 return;
             }
 
-            $controller = $routeMatch->getParam('controller', false);
+            $controller = $routeMatch->get('controller', false);
             if (!$controller) {
                 return;
             }

@@ -2,10 +2,9 @@
 
 namespace Zend\Http;
 
-use Zend\Stdlib\Message,
-    Zend\Stdlib\ResponseDescription;
+use Zend\Stdlib\Response as StdResponse;
 
-class Response extends Message implements ResponseDescription
+class Response extends StdResponse
 {
 
     /**#@+

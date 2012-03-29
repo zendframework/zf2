@@ -96,13 +96,13 @@ class ForwardTest extends TestCase
     public function testRouteMatchObjectRemainsSameFollowingForwardDispatch()
     {
         $routeMatch  = $this->controller->getEvent()->getRouteMatch();
-        $matchParams = $routeMatch->getParams();
+        $matchParams = $routeMatch->toArray();
         $result = $this->plugin->dispatch('forward', array(
             'action' => 'test-matches',
             'param1' => 'foobar',
         ));
         $test       = $this->controller->getEvent()->getRouteMatch();
-        $testParams = $test->getParams();
+        $testParams = $test->toArray();
 
         $this->assertSame($routeMatch, $test);
         $this->assertEquals($matchParams, $testParams);

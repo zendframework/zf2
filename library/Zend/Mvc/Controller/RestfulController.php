@@ -11,8 +11,8 @@ use Zend\Di\Locator,
     Zend\Loader\Broker,
     Zend\Loader\Pluggable,
     Zend\Stdlib\Dispatchable,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response,
+    Zend\Stdlib\Request,
+    Zend\Stdlib\Response,
     Zend\Mvc\Exception,
     Zend\Mvc\InjectApplicationEvent,
     Zend\Mvc\LocatorAware,
@@ -130,7 +130,7 @@ abstract class RestfulController implements Dispatchable, InjectApplicationEvent
         }
 
         $request = $e->getRequest();
-        $action  = $routeMatch->getParam('action', false);
+        $action  = $routeMatch->get('action', false);
         if ($action) {
             // Handle arbitrary methods, ending in Action
             $method = static::getMethodFromAction($action);
@@ -142,7 +142,7 @@ abstract class RestfulController implements Dispatchable, InjectApplicationEvent
             // RESTful methods
             switch (strtolower($request->getMethod())) {
                 case 'get':
-                    if (null !== $id = $routeMatch->getParam('id')) {
+                    if (null !== $id = $routeMatch->get('id')) {
                         $return = $this->get($id);
                         break;
                     }
@@ -156,7 +156,7 @@ abstract class RestfulController implements Dispatchable, InjectApplicationEvent
                     $return = $this->create($request->post()->toArray());
                     break;
                 case 'put':
-                    if (null === $id = $routeMatch->getParam('id')) {
+                    if (null === $id = $routeMatch->get('id')) {
                         if (!($id = $request->query()->get('id', false))) {
                             throw new \DomainException('Missing identifier');
                         }
@@ -166,7 +166,7 @@ abstract class RestfulController implements Dispatchable, InjectApplicationEvent
                     $return = $this->update($id, $parsedParams);
                     break;
                 case 'delete':
-                    if (null === $id = $routeMatch->getParam('id')) {
+                    if (null === $id = $routeMatch->get('id')) {
                         if (!($id = $request->query()->get('id', false))) {
                             throw new \DomainException('Missing identifier');
                         }

@@ -14,8 +14,8 @@ use Zend\Di\Locator,
     Zend\Mvc\LocatorAware,
     Zend\Mvc\MvcEvent,
     Zend\Stdlib\Dispatchable,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response,
+    Zend\Stdlib\Request,
+    Zend\Stdlib\Response,
     Zend\View\Model\ViewModel;
 
 /**
@@ -56,7 +56,7 @@ abstract class ActionController implements Dispatchable, InjectApplicationEvent,
         $routeMatch = $event->getRouteMatch();
 
         $response->setStatusCode(404);
-        $routeMatch->setParam('action', 'not-found');
+        $routeMatch->set('action', 'not-found');
 
         return new ViewModel(array(
             'content' => 'Page not found'
@@ -111,7 +111,7 @@ abstract class ActionController implements Dispatchable, InjectApplicationEvent,
             throw new \DomainException('Missing route matches; unsure how to retrieve action');
         }
 
-        $action = $routeMatch->getParam('action', 'not-found');
+        $action = $routeMatch->get('action', 'not-found');
         $method = static::getMethodFromAction($action);
 
         if (!method_exists($this, $method)) {
