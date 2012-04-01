@@ -222,7 +222,7 @@ class Operator implements PredicateInterface
     public function getWhereParts()
     {
         return array(array(
-            '%s ' . $this->operator . ' %s', 
+            (is_int($this->left)? '%d ':'%s ') . $this->operator . (is_int($this->right)? ' %d':' %s'), 
             array($this->left, $this->right), 
             array($this->leftType, $this->rightType)
         ));
