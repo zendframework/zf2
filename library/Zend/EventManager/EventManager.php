@@ -411,25 +411,7 @@ class EventManager implements EventCollection
     protected function triggerListeners($event, EventDescription $e, $callback = null)
     {
         $responses = new ResponseCollection;
-        $listeners = $this->getListeners($event);
-
-        // add static listeners to the list of listeners
-        // but don't modify the listeners object
-        $staticListeners = $this->getStaticListeners($event);
-        if (count($staticListeners)) {
-            $listeners = clone $listeners;
-            foreach ($staticListeners as $listener) {
-                $priority = $listener->getMetadatum('priority');
-                if (null === $priority) {
-                    $priority = 1;
-                } elseif (is_array($priority)) {
-                    // If we have an array, likely using PriorityQueue. Grab first
-                    // element of the array, as that's the actual priority.
-                    $priority = array_shift($priority);
-                }
-                $listeners->insert($listener, $priority);
-            }
-        }
+        $listeners = $this->getAllListenersForEvent($event);
 
         if ($listeners->isEmpty()) {
             return $responses;
@@ -455,6 +437,40 @@ class EventManager implements EventCollection
         }
 
         return $responses;
+    }
+
+    /**
+     * Return the listeners for a specific event. Includes static listeners.
+     *
+     * If any static listeners are available, the PriorityQueue as returned
+     * by getListeners() will be cloned before being returned.
+     *
+     * @param string $event Event name
+     * @return PriorityQueue
+     */
+    protected function getListenersForEvent($event)
+    {
+        $listeners = $this->getListeners($event);
+
+        // add static listeners to the list of listeners
+        // but don't modify the listeners object
+        $staticListeners = $this->getStaticListeners($event);
+        if (count($staticListeners)) {
+            $listeners = clone $listeners;
+            foreach ($staticListeners as $listener) {
+                $priority = $listener->getMetadatum('priority');
+                if (null === $priority) {
+                    $priority = 1;
+                } elseif (is_array($priority)) {
+                    // If we have an array, likely using PriorityQueue. Grab first
+                    // element of the array, as that's the actual priority.
+                    $priority = array_shift($priority);
+                }
+                $listeners->insert($listener, $priority);
+            }
+        }
+
+        return $listeners;
     }
 
     /**
