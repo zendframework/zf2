@@ -320,51 +320,31 @@ class Application implements AppContext
      */
     public function dispatch(MvcEvent $e)
     {
-        $locator = $this->getLocator();
-        if (!$locator) {
-            throw new Exception\MissingLocatorException(
-                'Cannot dispatch without a locator'
-            );
-        }
+        $return = $this->internalDispatch($e);
 
-        $routeMatch     = $e->getRouteMatch();
-        $controllerName = $routeMatch->getParam('controller', 'not-found');
-        $events         = $this->events();
-
-        try {
-            $controller = $locator->get($controllerName);
-        } catch (ClassNotFoundException $exception) {
-            $error = clone $e;
-            $error->setError(static::ERROR_CONTROLLER_NOT_FOUND)
-                  ->setController($controllerName)
-                  ->setParam('exception', $exception);
-
-            $results = $events->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $error);
-            if (count($results)) {
-                $return  = $results->last();
-            } else {
-                $return = $error->getParams();
+        if (!is_object($return)) {
+            if (ArrayUtils::hasStringKeys($return)) {
+                $return = new ArrayObject($return, ArrayObject::ARRAY_AS_PROPS);
             }
-            goto complete;
         }
 
-        if ($controller instanceof LocatorAware) {
-            $controller->setLocator($locator);
-        }
+        $e->setResult($return);
+        return $return;
+    }
 
-        if (!$controller instanceof Dispatchable) {
-            $error = clone $e;
-            $error->setError(static::ERROR_CONTROLLER_INVALID)
-                  ->setController($controllerName)
-                  ->setControllerClass(get_class($controller));
+    /**
+     * Dispatch the matched route
+     * @param MvcEvent $e
+     * @return mixed
+     */
+    protected function internalDispatch(MvcEvent $e)
+    {
+        $return = null;
+        $controllerName = $this->getControllerName($e);
 
-            $results = $events->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $error);
-            if (count($results)) {
-                $return  = $results->last();
-            } else {
-                $return = $error->getParams();
-            }
-            goto complete;
+        $controller = $this->getDispatchableController($e, $controllerName, $return);
+        if (!$controller) {
+            return $return;
         }
 
         $request  = $e->getRequest();
@@ -375,30 +355,106 @@ class Application implements AppContext
         }
 
         try {
-            $return   = $controller->dispatch($request, $response);
+            return $controller->dispatch($request, $response);
         } catch (\Exception $ex) {
             $error = clone $e;
             $error->setError(static::ERROR_EXCEPTION)
                   ->setController($controllerName)
                   ->setControllerClass(get_class($controller))
                   ->setParam('exception', $ex);
-            $results = $events->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $error);
+
+            $results = $this->events()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $error);
             if (count($results)) {
-                $return  = $results->last();
+                return $results->last();
             } else {
-                $return = $error->getParams();
+                return $error->getParams();
             }
         }
 
-        complete:
+    }
 
-        if (!is_object($return)) {
-            if (ArrayUtils::hasStringKeys($return)) {
-                $return = new ArrayObject($return, ArrayObject::ARRAY_AS_PROPS);
-            }
+    /**
+     * @param MvcEvent $e
+     * @param string $controllerName
+     * @param reference $error
+     * @throws Exception\MissingLocatorException
+     */
+    protected function getDispatchableController(MvcEvent $e, $controllerName, &$error)
+    {
+        $locator = $this->getLocator();
+        if (!$locator) {
+            throw new Exception\MissingLocatorException(
+                    'Cannot retrieve a controller without a locator'
+            );
         }
-        $e->setResult($return);
-        return $return;
+
+        try {
+            $controller = $locator->get($controllerName);
+        } catch (ClassNotFoundException $exception) {
+            $error = clone $e;
+            $error->setError(static::ERROR_CONTROLLER_NOT_FOUND)
+                  ->setController($controllerName)
+                  ->setParam('exception', $exception);
+
+            $results = $this->events()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $error);
+            if (count($results)) {
+                $error = $results->last();
+            } else {
+                $error = $error->getParams();
+            }
+
+            return;
+        }
+
+        if ($controller instanceof LocatorAware) {
+            $controller->setLocator($locator);
+        }
+
+        if (!$this->validateController($e, $controller, $controllerName, $error)) {
+            return;
+        }
+
+        return $controller;
+    }
+
+    /**
+     * Check if the given controller is dispatchable
+     *
+     * @param MvcEvent $e
+     * @param object $controller
+     * @param string $controllerName
+     * @param reference $error
+     */
+    protected function validateController(MvcEvent $e, $controller, $controllerName, &$error)
+    {
+        if (!$controller instanceof Dispatchable) {
+            $error = clone $e;
+            $error->setError(static::ERROR_CONTROLLER_INVALID)
+                  ->setController($controllerName)
+                  ->setControllerClass(get_class($controller));
+
+            $results = $this->events()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $error);
+            if (count($results)) {
+                $error  = $results->last();
+            } else {
+                $error = $error->getParams();
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get the controller name based on the given MvcEvent
+     *
+     * @param MvcEvent $e
+     */
+    protected function getControllerName(MvcEvent $e)
+    {
+        $routeMatch = $e->getRouteMatch();
+        return $routeMatch->getParam('controller', 'not-found');
     }
 
     /**
