@@ -495,7 +495,6 @@ class EventManager implements EventCollection
         return $listeners;
     }
 
-
     /**
      * Get list of all listeners attached to the static collection for
      * identifiers registered by this instance
