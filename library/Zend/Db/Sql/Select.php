@@ -141,6 +141,7 @@ class Select implements SqlInterface, PreparableSqlInterface
         } else {
             if (is_string($predicate)) {
                 $predicate = new Predicate\Literal($predicate);
+	            $this->where->addPredicate($predicate, $combination);
             } elseif (is_array($predicate)) {
                 foreach ($predicate as $pkey => $pvalue) {
                     if (is_string($pkey) && strpos($pkey, '?') !== false) {
@@ -150,9 +151,9 @@ class Select implements SqlInterface, PreparableSqlInterface
                     } else {
                         $predicate = new Predicate\Literal($pvalue);
                     }
+		            $this->where->addPredicate($predicate, $combination);
                 }
             }
-            $this->where->addPredicate($predicate, $combination);
         }
         return $this;
     }
