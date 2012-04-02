@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Log
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,42 +23,35 @@
  */
 namespace Zend\Log;
 
+use Zend\Loader\PluginBroker;
+
 /**
+ * @uses       \Zend\Loader\PluginBroker
  * @category   Zend
  * @package    Zend_Log
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Writer
+class WriterBroker extends PluginBroker
 {
     /**
-     * Add a log filter to the writer
-     *
-     * @param  int|Filter $filter
-     * @return Writer
+     * @var string Default plugin loading strategy
      */
-    public function addFilter($filter);
+    protected $defaultClassLoader = 'Zend\Log\WriterLoader';
 
     /**
-     * Set a message formatter for the writer
+     * Determine whether we have a valid plugin
      *
-     * @param Formatter $formatter
-     * @return Writer
+     * @param mixed $plugin
+     * @return boolean
+     * @throws Exception\InvalidArgumentException
      */
-    public function setFormatter(Formatter $formatter);
+    protected function validatePlugin($plugin)
+    {
+        if (!$plugin instanceof Writer) {
+            throw new Exception\InvalidArgumentException('Writer must implement Zend\Log\Writer');
+        }
 
-    /**
-     * Write a log message
-     *
-     * @param  array $event
-     * @return Writer
-     */
-    public function write(array $event);
-
-    /**
-     * Perform shutdown activities
-     *
-     * @return void
-     */
-    public function shutdown();
+        return true;
+    }
 }
