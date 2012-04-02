@@ -254,7 +254,7 @@ class EventManager implements EventCollection
      * executed. By default, this value is 1; however, you may set it for any
      * integer value. Higher values have higher priority (i.e., execute first).
      *
-     * You can specify "*" for the event name. In such cases, the listener will 
+     * You can specify "*" for the event name. In such cases, the listener will
      * be triggered for every event.
      *
      * @param  string|array|ListenerAggregate $event An event or array of event names. If a ListenerAggregate, proxies to {@link attachAggregate()}.
@@ -430,25 +430,7 @@ class EventManager implements EventCollection
     protected function triggerListeners($event, EventDescription $e, $callback = null)
     {
         $responses = new ResponseCollection;
-        $listeners = $this->getListeners($event);
-
-        // Add static/wildcard listeners to the list of listeners,
-        // but don't modify the listeners object
-        $staticListeners         = $this->getStaticListeners($event);
-        $staticWildcardListeners = $this->getStaticListeners('*');
-        $wildcardListeners       = $this->getListeners('*');
-        if (count($staticListeners) || count($staticWildcardListeners) || count($wildcardListeners)) {
-            $listeners = clone $listeners;
-        }
-
-        // Static listeners on this specific event
-        $this->insertListeners($listeners, $staticListeners);
-
-        // Static wildcard listeners
-        $this->insertListeners($listeners, $staticWildcardListeners);
-
-        // Add wildcard listeners
-        $this->insertListeners($listeners, $wildcardListeners);
+        $listeners = $this->getAllListenersForEvent($event);
 
         if ($listeners->isEmpty()) {
             return $responses;
@@ -474,6 +456,43 @@ class EventManager implements EventCollection
         }
 
         return $responses;
+    }
+
+	/**
+     * Return the listeners for a specific event. Includes static & wildcard listeners.
+     *
+   	 * If any static listeners are available, the PriorityQueue as returned
+   	 * by getListeners() will be cloned before being returned.
+   	 *
+   	 * @param string $event Event name
+   	 * @return PriorityQueue
+     */
+    protected function getAllListenersForEvent ($event)
+    {
+        $listeners = $this->getListeners($event);
+
+        // Add static/wildcard listeners to the list of listeners,
+        // but don't modify the listeners object
+        $staticListeners         = $this->getStaticListeners($event);
+        $staticWildcardListeners = $this->getStaticListeners('*');
+        $wildcardListeners       = $this->getListeners('*');
+        if (count($staticListeners)
+           || count($staticWildcardListeners)
+           || count($wildcardListeners)
+        ) {
+            $listeners = clone $listeners;
+        }
+
+        // Static listeners on this specific event
+        $this->insertListeners($listeners, $staticListeners);
+
+        // Static wildcard listeners
+        $this->insertListeners($listeners, $staticWildcardListeners);
+
+        // Add wildcard listeners
+        $this->insertListeners($listeners, $wildcardListeners);
+
+        return $listeners;
     }
 
     /**
@@ -516,9 +535,9 @@ class EventManager implements EventCollection
      * Add listeners to the master queue of listeners
      *
      * Used to inject static listeners and wildcard listeners.
-     * 
-     * @param  PriorityQueue $masterListeners 
-     * @param  PriorityQueue $listeners 
+     *
+     * @param  PriorityQueue $masterListeners
+     * @param  PriorityQueue $listeners
      * @return void
      */
     protected function insertListeners($masterListeners, $listeners)
