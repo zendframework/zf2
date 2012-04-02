@@ -111,7 +111,7 @@ class Connection implements ConnectionInterface
 
         /** @var $result \PDOStatement */
         $result = $this->resource->query('SELECT DATABASE()');
-        $r = $result->fetch_row();
+        $r = $result->fetch(\PDO::FETCH_NUM);
         return $r[0];
     }
     /**
