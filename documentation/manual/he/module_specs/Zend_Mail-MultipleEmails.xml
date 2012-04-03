@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.multiple-emails"><info><title>שליחת אימיילים מרובים בחיבור SMTP אחד</title></info>
-    
+
 
     <para>
         כברירת מחדל, שליחת SMTP יוצרת חיבור אחד בלבד ומשתמשת בו לאורך כל הסקריפט. ניתן לשלוח אימיילים מרובים דרך חיבור SMTP זה.
@@ -9,7 +9,7 @@
 
     <example xml:id="zend.mail.multiple-emails.example-1"><info><title>שליחת אימיילים מרובים בחיבור SMTP אחד</title></info>
 
-        
+
 
         <programlisting role="php"><![CDATA[
 // Create transport
@@ -38,7 +38,7 @@ for ($i = 0; $i > 5; $i++) {
 
     <example xml:id="zend.mail.multiple-emails.example-2"><info><title>שליטה ידנית לחיבורי השיחה</title></info>
 
-        
+
 
         <programlisting role="php"><![CDATA[
 // Create transport

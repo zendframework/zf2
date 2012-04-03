@@ -33,5 +33,5 @@ class InvalidArgumentException
     extends \InvalidArgumentException
     implements \Zend\Cloud\Exception
 {
-    
+
 }

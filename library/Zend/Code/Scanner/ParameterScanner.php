@@ -29,32 +29,32 @@ class ParameterScanner
         $this->tokens = $parameterTokens;
         $this->nameInformation = $nameInformation;
     }
-    
+
     public function setDeclaringClass($class)
     {
         $this->declaringClass = $class;
     }
-    
+
     public function setDeclaringScannerClass(ClassScanner $scannerClass)
     {
         $this->declaringScannerClass = $scannerClass;
     }
-    
+
     public function setDeclaringFunction($function)
     {
         $this->declaringFunction = $function;
     }
-    
+
     public function setDeclaringScannerFunction(MethodScanner $scannerFunction)
     {
         $this->declaringScannerFunction = $scannerFunction;
     }
-    
+
     public function setPosition($position)
     {
         $this->position = $position;
     }
-    
+
     protected function scan()
     {
         if ($this->isScanned) {
@@ -216,5 +216,5 @@ class ParameterScanner
         return $this->isPassedByReference;
     }
 
-    
+
 }

@@ -19,8 +19,8 @@
  */
 
 namespace Zend\Filter\File;
-use Zend\Filter,
-    Zend\Filter\Exception;
+use Zend\Filter;
+use Zend\Filter\Exception;
 
 /**
  * @uses       Zend\Filter\Exception
@@ -196,7 +196,7 @@ class Rename extends Filter\AbstractFilter
      * @param  array $options
      * @return array
      */
-    protected function _convertOptions($options) 
+    protected function _convertOptions($options)
     {
         $files = array();
         foreach ($options as $key => $value) {

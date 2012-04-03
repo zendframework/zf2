@@ -4,7 +4,7 @@ Date   : 2008/6/26 20:34:25
 Version: 1.0
 
 -------------------------------------------------------------------------------
- 
+
  Zend Framework
 
  LICENSE
@@ -16,7 +16,7 @@ Version: 1.0
  If you did not receive a copy of the license and are unable to
  obtain it through the world-wide-web, please send an email
  to license@zend.com so we can send you a copy immediately.
- 
+
  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
 
 -------------------------------------------------------------------------------
@@ -187,7 +187,7 @@ $ ##
     / //  #
    | ||   #
    |_||   #
-   `-`    # 
+   `-`    #
           ##
   ____   #
  /    \\ #
@@ -744,7 +744,7 @@ __    __  #
   |_|`  #
   `-`  ##
 215  MULTIPLICATION SIGN
-      #  
+      #
       #
  \\// #
   \\  #

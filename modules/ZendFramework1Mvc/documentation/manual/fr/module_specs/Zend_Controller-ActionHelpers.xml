@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers"><info><title>Aides d'action (Helper)</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Les aides d'action permettent aux développeurs d'injecter, en cours d'exécution
@@ -28,7 +28,7 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.initialization"><info><title>Initialisation des aides</title></info>
-        
+
 
         <para>
             Une aide peut être initialisée de plusieurs manières différentes, basées sur vos
@@ -92,7 +92,7 @@ $this->_helper->FlashMessenger($message);
     </section>
 
     <section xml:id="zend.controller.actionhelper.broker"><info><title>Le gestionnaire d'aide (Broker)</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Action_HelperBroker</classname> gère les détails de
@@ -216,7 +216,7 @@ if (Zend_Controller_Action_HelperBroker::hasHelper('redirector')) {
     </section>
 
     <section xml:id="zend.controller.actionhelper.stockhelpers"><info><title>Aides d'action intégrées</title></info>
-        
+
 
         <para>
             Zend Framework inclue plusieurs aides d'action par défaut :
@@ -239,7 +239,7 @@ if (Zend_Controller_Action_HelperBroker::hasHelper('redirector')) {
     </section>
 
     <section xml:id="zend.controller.actionhelper.writingyourown"><info><title>Écrire vos propres aides</title></info>
-        
+
 
         <para>
             Les aides d'action étendent

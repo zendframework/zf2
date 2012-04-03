@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.java-lucene"><info><title>Взаимодействие с Java Lucene<!--Interoperating with Java Lucene--></title></info>
-    
+
 
     <section xml:id="zend.search.lucene.index-creation.file-formats"><info><title>Форматы файлов<!--File Formats--></title></info>
-        
+
         <para>
         Форматы файлов индекса Zend_Search_Lucene являются совместимыми с Lucene
         версии 1.4 и выше.
@@ -23,7 +23,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.index-directory"><info><title>Директория для индекса<!--Index Directory--></title></info>
-        
+
 
         <para>
         После создания индекса директория для индекса будет содержать несколько файлов:
@@ -65,7 +65,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.java-lucene.source-code"><info><title>Исходный код Java<!--Java Source Code--></title></info>
-        
+
         <para>
             Приведенный ниже листинг программы на Java представляет собой пример
             того, как индексировать файл, используя Java Lucene:

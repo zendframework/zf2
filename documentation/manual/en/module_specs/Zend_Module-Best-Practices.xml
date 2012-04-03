@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
+<section
     xmlns="http://docbook.org/ns/docbook" version="5.0"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xml:id="zend.module.best-practices">
@@ -39,9 +39,9 @@
                 always match the distribution verbatim. Any user-provided configuration should be
                 performed via overrides in the Application module or via application-level
                 configuration files. Any other required filesystem writes should be performed in
-                some writeable path that is outside of the module's directory. 
+                some writeable path that is outside of the module's directory.
             </para>
-                
+
             <para>
                 There are two primary advantages to following this rule. First, any modules which
                 attempt to write within themselves will not be compatible with phar packaging.

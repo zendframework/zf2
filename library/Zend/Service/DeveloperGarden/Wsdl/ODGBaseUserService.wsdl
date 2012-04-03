@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:tns="http://odg.tonline.de/ODGBaseUserService/" 
+	xmlns:tns="http://odg.tonline.de/ODGBaseUserService/"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ODGBaseUserService"
 	targetNamespace="http://odg.tonline.de/ODGBaseUserService/">
@@ -9,14 +9,14 @@
 			targetNamespace="http://odg.tonline.de/ODGBaseUserService/"
 			elementFormDefault="unqualified"
 			attributeFormDefault="unqualified">
-			<xsd:include schemaLocation="ODGBaseUserService.xsd" />			
+			<xsd:include schemaLocation="ODGBaseUserService.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="changeQuotaPool">
 		<wsdl:part name="request" element="tns:changeQuotaPool"></wsdl:part>
 	</wsdl:message>
 	<wsdl:message name="changeQuotaPoolResponse">
-		<wsdl:part name="response" 
+		<wsdl:part name="response"
 			element="tns:changeQuotaPoolResponse">
 		</wsdl:part>
 	</wsdl:message>
@@ -24,7 +24,7 @@
 		<wsdl:part name="request" element="tns:getQuotaInformation"></wsdl:part>
 	</wsdl:message>
 	<wsdl:message name="getQuotaInformationResponse">
-		<wsdl:part name="response" 
+		<wsdl:part name="response"
 			element="tns:getQuotaInformationResponse">
 		</wsdl:part>
 	</wsdl:message>
@@ -48,7 +48,7 @@
 			<wsdl:output message="tns:getAccountBalanceResponse"></wsdl:output>
 		</wsdl:operation>
 	</wsdl:portType>
-	<wsdl:binding name="ODGBaseUserServiceSOAP" 
+	<wsdl:binding name="ODGBaseUserServiceSOAP"
 		type="tns:ODGBaseUserService">
 
 		<soap:binding style="document"

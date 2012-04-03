@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers"><info><title>Помощники действий</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.introduction"><info><title>Введение</title></info>
-        
+
         <para>
             Помощники действий (action helpers) дают разработчикам возможность
             добавлять функционал во время выполнения или по требованию в любые
@@ -29,7 +29,7 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.initialization"><info><title>Инициализация помощника</title></info>
-        
+
 
         <para>
             Помощник может быть инициализирован несколькими различными
@@ -100,7 +100,7 @@ $this->_helper->FlashMessenger('We did something in the last request');
     </section>
 
     <section xml:id="zend.controller.actionhelper.broker"><info><title>Брокер помощников</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Action_HelperBroker</classname> управляет
@@ -233,7 +233,7 @@ if (Zend_Controller_Action_HelperBroker::hasHelper('redirector')) {
     </section>
 
     <section xml:id="zend.controller.actionhelper.stockhelpers"><info><title>Встроенные помощники действий</title></info>
-        
+
 
         <para>
             Zend Framework уже содержит в себе набор помощников действий:
@@ -273,7 +273,7 @@ if (Zend_Controller_Action_HelperBroker::hasHelper('redirector')) {
     </section>
 
     <section xml:id="zend.controller.actionhelper.writingyourown"><info><title>Написание собственных помощников</title></info>
-        
+
 
         <para>
             Помощники действий наследуют от абстрактного класса

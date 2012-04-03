@@ -150,7 +150,7 @@ class JsonStrategyTest extends TestCase
             $this->assertTrue($found, 'Listener not found');
         }
     }
-    
+
     public function testCanAttachListenersAtSpecifiedPriority()
     {
         $events = new EventManager();

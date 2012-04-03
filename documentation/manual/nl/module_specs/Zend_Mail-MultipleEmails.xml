@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.multiple-emails"><info><title>Meerdere e-mails sturen via een SMTP verbinding</title></info>
-    
+
     <para>
         Standaard wordt een SMTP verbinding gemaakt voor elke e-mail die wordt gestuurd. Indien je meerdere
         e-mails via eenzelfde SMTP verbinding wil sturen moet je zelf <code>connect()</code> afhandelen. Als de
@@ -8,7 +8,7 @@
         worden gebruikt en de verbinding zal niet afgesloten worden:
     </para>
     <example><info><title>Meerdere e-mails sturen via een SMTP verbinding</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 <?php
 require_once 'Zend/Mail.php';

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.view.placeholders.basics"><info><title>Utilisation de base des Placeholders</title></info>
-    
+
 
     <para>
         Zend Framework définit une aide de vue générique <methodname>placeholder()</methodname> que

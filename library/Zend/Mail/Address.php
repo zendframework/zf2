@@ -33,9 +33,9 @@ class Address implements AddressDescription
 
     /**
      * Constructor
-     * 
-     * @param  string $email 
-     * @param  null|string $name 
+     *
+     * @param  string $email
+     * @param  null|string $name
      * @return void
      */
     public function __construct($email, $name = null)
@@ -53,7 +53,7 @@ class Address implements AddressDescription
 
     /**
      * Retrieve email
-     * 
+     *
      * @return string
      */
     public function getEmail()
@@ -63,7 +63,7 @@ class Address implements AddressDescription
 
     /**
      * Retrieve name
-     * 
+     *
      * @return null|string
      */
     public function getName()
@@ -73,7 +73,7 @@ class Address implements AddressDescription
 
     /**
      * String representation of address
-     * 
+     *
      * @return string
      */
     public function toString()

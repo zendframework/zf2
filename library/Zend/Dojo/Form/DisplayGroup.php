@@ -21,8 +21,8 @@
 
 namespace Zend\Dojo\Form;
 
-use Zend\Loader\PrefixPathMapper as PluginLoader,
-    Zend\View\Renderer as View;
+use Zend\Loader\PrefixPathMapper as PluginLoader;
+use Zend\View\Renderer as View;
 
 /**
  * Dijit-enabled DisplayGroup

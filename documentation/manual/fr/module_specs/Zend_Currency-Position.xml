@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.position"><info><title>Où est le symbole monnétaire?</title></info>
-    
+
 
     <para>
         Le signe symbolique de la monnaie est positionné par rapport à sa valeur en fonction de
@@ -9,7 +9,7 @@
     </para>
 
     <table xml:id="zend.currency.position.table-1"><info><title>Positions disponibles pour la monnaie</title></info>
-        
+
 
         <tgroup cols="2" align="left">
             <thead>
@@ -46,7 +46,7 @@
     </table>
 
     <example xml:id="zend.currency.position.example-1"><info><title>Paramétrer la position du symbole monnétaire</title></info>
-        
+
 
         <para>
             Imaginons que le client utilise la locale "en_US". Sans option, la valeur retournée

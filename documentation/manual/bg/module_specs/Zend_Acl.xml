@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.introduction"><info><title>Въведение</title></info>
-    
+
 
     <para>
 
@@ -36,7 +36,7 @@
     </para>
 
     <section xml:id="zend.acl.introduction.resources"><info><title>Относно Resource</title></info>
-        
+
         <para>
             В Zend_Acl, създаването на Resource е много лесно. Zend_Acl предоставя
             <code>Zend_Acl_Resource_Interface</code> за да се създаде Resources.Даден клас просто трябва да наследява от този интерфейс
@@ -61,7 +61,7 @@
     </section>
 
     <section xml:id="zend.acl.introduction.roles"><info><title>Относно Roles</title></info>
-        
+
         <para>
             Както и Ресурса така и създаването Рole е много лесно.
             Zend_Acl излага <code>Zend_Acl_Role_Interface</code> за да подпомогне програмиста да създаде Role.
@@ -82,7 +82,7 @@
             Следния пример илюстрира как Zend_Acl улеснява в подобни ситуации.
         </para>
         <example xml:id="zend.acl.introduction.roles.example.multiple_inheritance"><info><title>Многократно онаследяване между Roles</title></info>
-            
+
             <para>
 
                 Следня код дефинира три басови Роли "<code>guest</code>", "<code>member</code>", и
@@ -142,7 +142,7 @@ echo $acl->isAllowed('someUser', 'someResource') ? 'allowed' : 'denied';
     </section>
 
     <section xml:id="zend.acl.introduction.creating"><info><title>Създаван на Access Control List (ACL)</title></info>
-        
+
 
         <para>
             An ACL can represent any set of physical or virtual objects that you wish.
@@ -166,7 +166,7 @@ $acl = new Zend_Acl();
     </section>
 
     <section xml:id="zend.acl.introduction.role_registry"><info><title>Регистриране на Роли</title></info>
-        
+
 
         <para>
             Content Management Systems почти винаги ще изискват йерархия от нива на достъп за да се определят
@@ -181,7 +181,7 @@ $acl = new Zend_Acl();
         </para>
 
         <table xml:id="zend.acl.introduction.role_registry.table.example_cms_access_controls"><info><title>Access Controls за Example CMS</title></info>
-          
+
           <tgroup cols="3">
             <thead>
               <row>
@@ -250,7 +250,7 @@ $acl->addRole(new Zend_Acl_Role('administrator'));
     </section>
 
     <section xml:id="zend.acl.introduction.defining"><info><title>Дефиниране на Access Controls</title></info>
-        
+
 
         <para>
             Сеаг вече когато ACL съдържа съответните роли, правилата могат да бъдат установени относно това как Ролите
@@ -304,7 +304,7 @@ $acl->allow('administrator');
     </section>
 
     <section xml:id="zend.acl.introduction.querying"><info><title>Допит до ACL</title></info>
-        
+
 
         <para>
             Сега ние имаме гъвкав ACL , който може да се използва за да се определи дали поискващите обекти имат

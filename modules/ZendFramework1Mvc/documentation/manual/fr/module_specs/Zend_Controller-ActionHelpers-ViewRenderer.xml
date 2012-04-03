@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.viewrenderer"><info><title>ViewRenderer</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.viewrenderer.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>L'aide <code>ViewRenderer</code> apporte les comportements suivants :</para>
 
@@ -93,7 +93,7 @@ $viewRenderer->setView($view)
     </section>
 
     <section xml:id="zend.controller.actionhelper.viewrenderer.api"><info><title>API</title></info>
-        
+
 
         <para>
             L'usage le plus banal consiste à instancier et passer l'objet
@@ -346,7 +346,7 @@ $viewRenderer =
         </itemizedlist>
 
         <note><info><title>Règles de résolution par défaut</title></info>
-            
+
             <para>
                 Le <code>ViewRenderer</code> utilise certaines règles par défaut pour
                 chercher ses scripts de vue, voyez plutôt :
@@ -487,10 +487,10 @@ $viewRenderer =
     </section>
 
     <section xml:id="zend.controller.actionhelper.viewrenderer.basicusage"><info><title>Exemples</title></info>
-        
+
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.basicusage.example-1"><info><title>Usage de base</title></info>
-            
+
 
             <para>
                 L'utilisation la plus basique consiste à initialiser ou et enregistrer un
@@ -538,7 +538,7 @@ class Foo_BarController extends Zend_Controller_Action
                 Conventions de noms : délimiteurs de mots dans les noms de contrôleur et
                 d'action
             </title></info>
-            
+
             <para>
                 Si les noms de votre contrôleur ou de votre action sont composés de plusieurs
                 mots, le distributeur s'attend à ce qu'ils soient séparés par des caractères bien
@@ -560,7 +560,7 @@ class Foo_BarController extends Zend_Controller_Action
         </note>
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.basicusage.example-2"><info><title>Désactivation du rendu automatique</title></info>
-            
+
 
             <para>
                 Il peut être nécessaire dans certains cas de désactiver manuellement le rendu
@@ -601,7 +601,7 @@ class Bar_BatController extends Zend_Controller_Action
         </note>
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.basicusage.example-3"><info><title>Choix d'un script de vue différent</title></info>
-            
+
 
             <para>
                 Il peut arriver que vous éprouviez le besoin de rendre un script de vue
@@ -644,7 +644,7 @@ class Foo_BarController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.basicusage.example-4"><info><title>Modification de l'objet de vue</title></info>
-            
+
 
             <para>
                 Si vous désirez modifier l'objet de vue absorbé par
@@ -676,10 +676,10 @@ class Foo_BarController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.actionhelper.viewrenderer.advancedusage"><info><title>Utilisation avancée</title></info>
-        
+
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.advancedusage.example-1"><info><title>Changement des spécifications de dossier</title></info>
-            
+
 
             <para>
                 Dans certains cas, il peut être nécessaire d'utiliser un chemin absolu, fixe.
@@ -714,7 +714,7 @@ Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
         </example>
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.advancedusage.example-2"><info><title>Rendu de plusieurs scripts de vue dans une même action</title></info>
-            
+
 
             <para>
                 Afin de rendre plusieurs scripts de vue dans une même action, appelez tout

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.part"><info><title>Zend_Mime_Part</title></info>
-    
+
 
     <section xml:id="zend.mime.part.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Cette classe représente une seule partie d'un message <acronym>MIME</acronym>. Elle contient le
@@ -16,7 +16,7 @@
     </section>
 
     <section xml:id="zend.mime.part.instantiation"><info><title>Instanciation</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime_Part</classname> est instanciée avec une chaîne de caractères
@@ -41,7 +41,7 @@ public $language;
     </section>
 
     <section xml:id="zend.mime.part.methods"><info><title>Méthodes pour retourner la partie du message en une chaîne de caractères</title></info>
-        
+
 
         <para>
             <methodname>getContent()</methodname> retourne le contenu encodé de MimePart en une chaîne de

@@ -21,11 +21,11 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Decorator\Fieldset as FieldsetDecorator,
-    Zend\Form\Element,
-    Zend\Form\Form,
-    Zend\Form\SubForm,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Decorator\Fieldset as FieldsetDecorator;
+use Zend\Form\Element;
+use Zend\Form\Form;
+use Zend\Form\SubForm;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Decorator_Fieldset
@@ -39,7 +39,7 @@ use Zend\Form\Decorator\Fieldset as FieldsetDecorator,
  */
 class FieldsetTest extends \PHPUnit_Framework_TestCase
 {
- 
+
     /**
      * @var FieldsetDecorator
      */
@@ -199,7 +199,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('<fieldset', $test, $test);
         $this->assertNotContains('helper="', $test);
     }
-    
+
     /**
      * @group ZF2-104
      */
@@ -209,14 +209,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $form->setAction('/foo/bar')
              ->setMethod('post')
              ->setView($this->getView());
-        
+
         $this->decorator->setElement($form);
         $form->setAttrib('class', 'someclass');
-        
+
         $this->assertEquals('someclass', $this->decorator->getOption('class'));
-        
+
         $this->decorator->setOption('class', 'otherclass');
-        
+
         $this->assertEquals('otherclass', $this->decorator->getOption('class'));
     }
 }

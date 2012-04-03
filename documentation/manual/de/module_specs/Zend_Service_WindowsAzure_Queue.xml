@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.windowsazure.storage.queue"><info><title>Zend_Service_WindowsAzure_Storage_Queue</title></info>
-    
+
 
     <para>
         Das Queue Service speichert Nachrichten die von jedem Client gelesen werden können welche
@@ -24,7 +24,7 @@
     </para>
 
     <section xml:id="zend.service.windowsazure.storage.queue.api"><info><title>API Beispiele</title></info>
-        
+
 
         <para>
             Dieses Thema listet einige Beispiele der Verwendung der
@@ -34,7 +34,7 @@
         </para>
 
         <section xml:id="zend.service.windowsazure.storage.queue.api.create-queue"><info><title>Erstellung einer Queue</title></info>
-            
+
 
             <para>
                 Bei Verwendung des folgenden Codes kann eine Queue auf dem Development Speicher
@@ -42,7 +42,7 @@
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.queue.api.create-queue.example"><info><title>Erstellung einer Queue</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Queue();
@@ -54,7 +54,7 @@ echo 'Der Name der Queue ist: ' . $result->Name;
         </section>
 
         <section xml:id="zend.service.windowsazure.storage.queue.api.delete-queue"><info><title>Löschen einer Queue</title></info>
-            
+
 
             <para>
                 Bei Verwendung des folgenden Codes kann eine Queue vom Development Speicher entfernt
@@ -62,7 +62,7 @@ echo 'Der Name der Queue ist: ' . $result->Name;
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.queue.api.delete-queue.example"><info><title>Löschen einer Queue</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Queue();
@@ -72,7 +72,7 @@ $storageClient->deleteQueue('testqueue');
         </section>
 
         <section xml:id="zend.service.windowsazure.storage.queue.api.storing-queue"><info><title>Hinzufügen einer Nachricht zu einer Queue</title></info>
-            
+
 
             <para>
                 Bei Verwendung des folgenden Codes kann eine Nachricht zu einer Queue im
@@ -81,7 +81,7 @@ $storageClient->deleteQueue('testqueue');
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.queue.api.storing-queue.example"><info><title>Hinzufügen einer Nachricht zu einer Queue</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Queue();
@@ -94,7 +94,7 @@ $storageClient->putMessage('testqueue', 'Das ist eine Testnachricht', 3600);
         </section>
 
         <section xml:id="zend.service.windowsazure.storage.queue.api.read-queue"><info><title>Lesen einer Nachricht von einer Queue</title></info>
-            
+
 
             <para>
                 Bei Verwendung des folgenden Codes kann eine Nachricht von einer Queue im
@@ -103,7 +103,7 @@ $storageClient->putMessage('testqueue', 'Das ist eine Testnachricht', 3600);
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.queue.api.read-queue.example"><info><title>Lesen einer Nachricht von einer Queue</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Queue();
@@ -126,7 +126,7 @@ foreach ($messages as $message) {
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.queue.api.read-queue.processexample"><info><title>Eine Nachricht als bearbeitet markieren</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Queue();
@@ -145,7 +145,7 @@ foreach ($messages as $message) {
         </section>
 
         <section xml:id="zend.service.windowsazure.storage.queue.api.peek-queue"><info><title>Prüfen ob es Nachrichten in der Queue gibt</title></info>
-            
+
 
             <para>
                 Bei Verwendung des folgenden Codes kann eine Queue auf neue Nachrichten geprüft
@@ -154,7 +154,7 @@ foreach ($messages as $message) {
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.queue.api.peek-queue.example"><info><title>Prüfen ob es Nachrichten in einer Queue gibt</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Queue();

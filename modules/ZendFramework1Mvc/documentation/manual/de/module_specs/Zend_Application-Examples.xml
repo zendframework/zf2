@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.examples"><info><title>Beispiele</title></info>
-    
+
 
     <para>
         Die Bootstrap Klasse selbst wird typischerweise sehr minimal sein; oft wird sie einfach
@@ -31,7 +31,7 @@ resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
 ]]></programlisting>
 
     <note><info><title>Namespaces für Autoloader</title></info>
-        
+
 
         <para>
             Weil diese Beispiele eigenen Code verwenden müssen wir die Präfixe der Namespaces

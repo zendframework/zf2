@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources"><info><title>利用できるリソースプラグイン</title></info>
-    
+
 
     <para>
         ここでは<classname>Zend_Application</classname>において既定で利用可能なリソースプラグインの

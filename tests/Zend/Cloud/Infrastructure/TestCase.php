@@ -21,8 +21,8 @@
 
 namespace ZendTest\Cloud\Infrastructure;
 
-use Zend\Cloud\Infrastructure\Adapter,
-    Zend\Cloud\Infrastructure\Instance;
+use Zend\Cloud\Infrastructure\Adapter;
+use Zend\Cloud\Infrastructure\Instance;
 
 /**
  * This class forces the adapter tests to implement tests for all methods on
@@ -114,7 +114,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     /**
      * Test construct with missing params
      */
-    public function testConstructExceptionMissingParams() 
+    public function testConstructExceptionMissingParams()
     {
         $this->setExpectedException(
             'Zend\Cloud\Infrastructure\Exception\InvalidArgumentException',

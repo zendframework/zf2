@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headmeta"><info><title>HeadMeta 助手</title></info>
-    
+
 
     <para>
         HTML <code>&lt;meta&gt;</code>元素用来提供关于HTML文档的 meta 信息－如关键字，文档字符集，缓冲的 pragama 等。Meta标签可以是'http-equiv' 或 'name' 类型，必须包含'content'属性，并且也可以有 'lang' 或 'scheme' 修饰属性。
@@ -46,7 +46,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.headmeta.basicusage"><info><title>HeadMeta 助手基本用法</title></info>
-        
+
 
         <para>
             你可以在任何时候指定一个新的meta标签。例如指定客户端缓冲规则或SEO关键字。

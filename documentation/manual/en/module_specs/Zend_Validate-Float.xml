@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.float"><info><title>Float</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Float</classname> allows you to validate if a given value contains
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.set.float.options"><info><title>Supported options for Zend_Validate_Float</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Validate_Float</classname>:
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.validate.set.float.basic"><info><title>Simple float validation</title></info>
-        
+
 
         <para>
             The simplest way to validate a float is by using the system settings. When no option
@@ -46,7 +46,7 @@ $validator->isValid('1,234.5'); // returns true
     </section>
 
     <section xml:id="zend.validate.set.float.localized"><info><title>Localized float validation</title></info>
-        
+
 
         <para>
             Often it's useful to be able to validate also localized values. Float values are often

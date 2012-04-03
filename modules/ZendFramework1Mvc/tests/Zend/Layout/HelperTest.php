@@ -21,9 +21,9 @@
 
 namespace ZendTest\Layout;
 
-use Zend\Layout,
-    Zend\Controller\Front as FrontController,
-    Zend\Layout\Controller\Action\Helper;
+use Zend\Layout;
+use Zend\Controller\Front as FrontController;
+use Zend\Layout\Controller\Action\Helper;
 
 
 /**

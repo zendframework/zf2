@@ -21,11 +21,11 @@
 
 namespace ZendTest\Form\Element;
 
-use Zend\Form\Element\Captcha as CaptchaElement,
-    Zend\Form\Form,
-    Zend\Captcha\Dumb as DumbCaptcha,
-    Zend\Captcha\ReCaptcha,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Element\Captcha as CaptchaElement;
+use Zend\Form\Form;
+use Zend\Captcha\Dumb as DumbCaptcha;
+use Zend\Captcha\ReCaptcha;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * @category   Zend
@@ -162,7 +162,7 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
         /**
          * Dumb captcha
          */
-        
+
         // Before rendering
         $decorators = array_keys($this->element->getDecorators());
         $this->assertSame(
@@ -175,9 +175,9 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
             $decorators,
             var_export($decorators, true)
         );
-        
+
         $this->element->render();
-        
+
         // After rendering
         $decorators = array_keys($this->element->getDecorators());
         $this->assertSame(
@@ -192,14 +192,14 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
             $decorators,
             var_export($decorators, true)
         );
-   
+
         /**
          * ReCaptcha
          */
-        
+
         // Reset element
         $this->setUp();
-        
+
         $options = array(
             'privKey' => 'privateKey',
             'pubKey'  => 'publicKey',
@@ -207,7 +207,7 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
             'xhtml'   => true,
         );
         $this->element->setCaptcha(new ReCaptcha($options));
-        
+
         // Before rendering
         $decorators = array_keys($this->element->getDecorators());
         $this->assertSame(
@@ -220,9 +220,9 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
             $decorators,
             var_export($decorators, true)
         );
-        
+
         $this->element->render();
-        
+
         // After rendering
         $decorators = array_keys($this->element->getDecorators());
         $this->assertSame(
@@ -237,7 +237,7 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
             var_export($decorators, true)
         );
     }
-    
+
     /**
      * @group ZF-11609
      */
@@ -253,18 +253,18 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
                 'disableLoadDefaultDecorators' => true,
             )
         );
-        
+
         // Before rendering
         $decorators = $element->getDecorators();
         $this->assertTrue(empty($decorators));
-        
+
         $element->render();
-        
+
         // After rendering
         $decorators = $element->getDecorators();
         $this->assertTrue(empty($decorators));
     }
-    
+
     /**
      * @group ZF-11609
      */
@@ -288,7 +288,7 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
                 ),
             )
         );
-        
+
         // Before rendering
         $decorators = array_keys($element->getDecorators());
         $this->assertSame(
@@ -302,9 +302,9 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
             $decorators,
             var_export($decorators, true)
         );
-        
+
         $element->render();
-        
+
         // After rendering
         $decorators = array_keys($element->getDecorators());
         $this->assertSame(
@@ -318,7 +318,7 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
             $decorators,
             var_export($decorators, true)
         );
-        
+
         // Disable default decorators is false
         $element = new CaptchaElement(
             'foo',
@@ -336,7 +336,7 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
                 ),
             )
         );
-        
+
         // Before rendering
         $decorators = array_keys($element->getDecorators());
         $this->assertSame(
@@ -350,9 +350,9 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
             $decorators,
             var_export($decorators, true)
         );
-        
+
         $element->render();
-        
+
         // After rendering
         $decorators = array_keys($element->getDecorators());
         $this->assertSame(

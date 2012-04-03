@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.mail"><info><title>Zend_Application_Resource_Mail</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Mail</classname> peut être utilisé
@@ -17,7 +17,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.mail.configExample"><info><title>Exemple de configuration de la ressource Mail</title></info>
-        
+
 
         <para>
             Ci-dessous, vous avez un extrait d'un fichier <acronym>INI</acronym>

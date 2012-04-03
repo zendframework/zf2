@@ -21,8 +21,8 @@
 
 namespace Zend\Amf\Parser;
 
-use Zend\Loader\PluginBroker,
-    Zend\Amf\Exception as AMFException;
+use Zend\Loader\PluginBroker;
+use Zend\Amf\Exception as AMFException;
 
 /**
  * Broker for parser resources
@@ -42,8 +42,8 @@ class ParserBroker extends PluginBroker
 
     /**
      * Determine if we have a valid parser
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return true
      * @throws AMFException
      */

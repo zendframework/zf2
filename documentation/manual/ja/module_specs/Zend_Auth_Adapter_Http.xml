@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.http"><info><title>HTTP 認証アダプタ</title></info>
 
-    
+
 
     <section xml:id="zend.auth.adapter.http.introduction"><info><title>導入</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Http</classname> は、
@@ -73,7 +73,7 @@
 
     <section xml:id="zend.auth.adapter.design_overview"><info><title>設計の概要</title></info>
 
-        
+
 
         <para>
             このアダプタはふたつのサブコンポーネントで構成されています。
@@ -88,7 +88,7 @@
 
     <section xml:id="zend.auth.adapter.configuration_options"><info><title>設定オプション</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Http</classname> クラスのコンストラクタには、
@@ -97,7 +97,7 @@
         </para>
 
         <table xml:id="zend.auth.adapter.configuration_options.table"><info><title>設定オプション</title></info>
-            
+
             <tgroup cols="3">
                 <thead>
                     <row>
@@ -170,7 +170,7 @@
 
     <section xml:id="zend.auth.adapter.http.resolvers"><info><title>リゾルバ</title></info>
 
-        
+
 
         <para>
             リゾルバの仕事は、ユーザ名とレルムを受け取って何らかの証明を返すことです。
@@ -191,7 +191,7 @@
 
         <section xml:id="zend.auth.adapter.http.resolvers.file"><info><title>File リゾルバ</title></info>
 
-            
+
 
             <para>
                 ファイルリゾルバは、非常にシンプルなクラスです。
@@ -246,7 +246,7 @@ $resolver->setFile($path);
 
     <section xml:id="zend.auth.adapter.http.basic_usage"><info><title>基本的な使用法</title></info>
 
-        
+
 
         <para>
             まず、必須設定項目を含む配列を作成します。

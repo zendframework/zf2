@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.modules"><info><title>Zend_Application_Resource_Modules</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Modules</classname> is used to initialize
@@ -52,7 +52,7 @@ $options = array(
 ]]></programlisting>
 
     <note><info><title>Front Controller Resource Dependency</title></info>
-        
+
 
         <para>
             The Modules resource has a dependency on the <link linkend="zend.application.available-resources.frontcontroller">Front
@@ -65,7 +65,7 @@ $options = array(
     </note>
 
     <example xml:id="zend.application.available-resources.modules.configExample"><info><title>Configuring Modules</title></info>
-        
+
 
         <para>
             You can specify module-specific configuration using the module name
@@ -111,7 +111,7 @@ news.resources.db.params.dbname = "news"
     </example>
 
     <example xml:id="zend.application.available-resources.modules.retrieveBootstrapExample"><info><title>Retrieving a specific module bootstrap</title></info>
-        
+
 
         <para>
             On occasion, you may need to retrieve the bootstrap object for a

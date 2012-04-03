@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.migration"><info><title> 从前面的版本迁移 </title></info>
 
-    
+
 
     <para>
         <code>Zend_Currency</code> 的 API 已经被修改来增加可用性。如果你从一个在本章提到的版本开始使用 <code>Zend_Currency</code>， 请遵循下面的指南来迁移你的脚本到新的 API。
@@ -9,7 +9,7 @@
 
     <section xml:id="zend.currency.usage.migration.fromonezerotwo"><info><title> 从 1.0.2 到 1.0.3 或更新的迁移 </title></info>
 
-        
+
 
         <para>
             创建 <code>Zend_Currency</code> 的对象变得容易了。现在你不再需要给一个脚本或把它设置为 null。可选的脚本参数现在可以通过 <code>setFormat()</code> 方法来设置。

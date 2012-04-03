@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.basics"><info><title>Uso Básico</title></info>
-    
+
 
     <para>
         O uso do <classname>Zend_Json</classname> envolve usar os dois métodos
@@ -17,7 +17,7 @@ $json = Zend_Json::encode($phpNative);
 ]]></programlisting>
 
     <section xml:id="zend.json.basics.prettyprint"><info><title>Impressão Formatada do JSON</title></info>
-        
+
 
         <para>
             Pode ser difícil as vezes explorar os dados <acronym>JSON</acronym> gerados por

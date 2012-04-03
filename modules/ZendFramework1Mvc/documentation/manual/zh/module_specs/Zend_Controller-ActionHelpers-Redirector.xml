@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.redirector"><info><title>转向器(Redirector)</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.redirector.introduction"><info><title>介绍</title></info>
-        
+
 
         <para>
         转向器<code>(Redirector)</code>助手让你使用一个转向器对象帮助程序重定向到新的URL。与<code>_redirect()</code>方法相比，它具有多项优势。例如能够在转向器对象中预先配置整个站点的行为，或者使用与<code>Zend_Controller_Action::_forward()</code>相似的<code>gotoSimple($action, $controller, $module, $params)</code>接口。
@@ -87,10 +87,10 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.redirector.basicusage"><info><title>基础用例</title></info>
-        
+
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-1"><info><title>设定选项</title></info>
-            
+
 
             <para>
                这个例子改变了几个选项，包括设定重定向时使用的HTTP状态码为303，重定向时不默认退出，以及定义了默认的URL供重定向使用。
@@ -134,7 +134,7 @@ class SomeController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-2"><info><title>使用默认设定</title></info>
-            
+
 
             <para>
                这个例子假定使用默认设定，也就意味着任何重定向将导致立即退出。
@@ -170,7 +170,7 @@ class AlternativeController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-3"><info><title>使用<code>goto()</code>的<code>_forward()</code>API</title></info>
-            
+
 
             <para>
                 <code>gotoSimple()</code>'s API 模拟了<code>Zend_Controller_Action::_forward()</code>。主要的不同在于它通过传入的参数构造URL，使用默认路由器的默认格式<code>:module/:controller/:action/*</code>。然后重定向而不是继续动作链循环。
@@ -211,7 +211,7 @@ class ForwardController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-4"><info><title>通过<code>gotoRoute()</code>使用路由组装<code>(route assembly)</code></title></info>
-            
+
 
             <para>
                 下面的例子使用了<link linkend="zend.controller.router">路由器</link>的<code>assemble()</code>方法，基于传入参数的关联数组来创建URL。假定下面的路由已经注册:

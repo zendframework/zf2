@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.quickstart"><info><title>Zend_Controller - Быстрый старт</title></info>
-    
+
 
     <section xml:id="zend.controller.quickstart.introduction"><info><title>Введение</title></info>
-        
+
         <para>
             <classname>Zend_Controller</classname> является ядром системы MVC в Zend
             Framework. Аббревиатура MVC - сокращение от
@@ -28,7 +28,7 @@
     </section>
 
     <section xml:id="zend.controller.quickstart.go"><info><title>Быстрый старт</title></info>
-        
+
 
         <para>
             Если вам нужна более подробная информация, то сразу переходите к
@@ -37,7 +37,7 @@
         </para>
 
         <section xml:id="zend.controller.quickstart.go.directory"><info><title>Создайте файловую структуру</title></info>
-            
+
 
             <para>
                 Первый шаг состоит в том, чтобы создать файловую
@@ -64,7 +64,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.docroot"><info><title>Установите корневую директорию для документов</title></info>
-            
+
 
             <para>
                 В своем веб-сервере установите директорию <code>html</code> из
@@ -74,7 +74,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.rewrite"><info><title>Создайте свои правила перезаписи</title></info>
-            
+
 
             <para>
                 Отредактируйте файл <code>html/.htaccess</code> из
@@ -92,7 +92,7 @@ RewriteRule ^.*$ index.php [NC,L]
             ]]></programlisting>
 
             <note><info><title>Узнайте больше о mod_rewrite</title></info>
-                
+
 
                 <para>
                     Приведенные выше правила перезаписи позволяют получить
@@ -156,7 +156,7 @@ RewriteRule ^.*$ index.php [NC,L]
         </section>
 
         <section xml:id="zend.controller.quickstart.go.bootstrap"><info><title>Создайте файл загрузки</title></info>
-            
+
 
             <para>
                 Файл загрузки - это страница, на которую направляются все
@@ -176,7 +176,7 @@ Zend_Controller_Front::run('/path/to/app/controllers');
         </section>
 
         <section xml:id="zend.controller.quickstart.go.controller"><info><title>Создайте свой контроллер действий, используемый по умолчанию</title></info>
-            
+
 
             <para>
                 До того, как начать обсуждение контроллеров действий, нужно
@@ -254,7 +254,7 @@ class IndexController extends Zend_Controller_Action
         </section>
 
         <section xml:id="zend.controller.quickstart.go.view"><info><title>Создайте скрипт вида</title></info>
-            
+
 
             <para>
                 Как было упомянуто в <link linkend="zend.controller.quickstart.go.controller">предыдущем
@@ -282,7 +282,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.errorhandler"><info><title>Создайте контроллер ошибок</title></info>
-            
+
 
             <para>
                 По умолчанию зарегистрирован <link linkend="zend.controller.plugins.standard.errorhandler">плагин-обработчик
@@ -328,7 +328,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.finish"><info><title>Смотрим сайт!</title></info>
-            
+
 
             <para>
                 Теперь, имея свои первые контроллер и вид, вы можете

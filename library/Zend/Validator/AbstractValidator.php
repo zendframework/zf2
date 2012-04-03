@@ -20,10 +20,10 @@
 
 namespace Zend\Validator;
 
-use Traversable,
-    Zend\Stdlib\ArrayUtils,
-    Zend\Translator,
-    Zend\Validator\Exception\InvalidArgumentException;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Translator;
+use Zend\Validator\Exception\InvalidArgumentException;
 
 /**
  * @uses       \Zend\Registry

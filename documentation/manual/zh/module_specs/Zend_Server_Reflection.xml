@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.server.reflection"><info><title>Zend_Server_Reflection</title></info>
-    
+
 
     <section xml:id="zend.server.reflection.introduction"><info><title> 简介 </title></info>
-        
+
 
         <para>
             Zend_Server_Reflection 提供了一个标准机制，在这个机制下，和服务器类一起执行函数和类自定义（ introspection ），它基于 PHP 5 的 Reflection API，并且集成它来提供方法来获取参数和返回值类型和描述、函数和方法原型的全部列表（例如，所有可能的有效调用组合）和函数/方法描述。
@@ -13,7 +13,7 @@
         </para>
     </section>
     <section xml:id="zend.server.reflection.usage"><info><title> 用法 </title></info>
-        
+
 
         <para>
             基本用法很简单：

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.server"><info><title>Zend_Json_Server - JSON-RPC server</title></info>
-    
+
 
     <para>
         <classname>Zend_Json_Server</classname> is a <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://groups.google.com/group/json-rpc/">JSON-RPC</link> server implementation.
@@ -51,7 +51,7 @@
     </para>
 
     <example xml:id="zend.json.server.usage"><info><title>Zend_Json_Server Usage</title></info>
-        
+
 
         <para>
             First, let's define a class we wish to expose via the JSON-RPC
@@ -193,7 +193,7 @@ $server->handle();
     </example>
 
     <section xml:id="zend.json.server.details"><info><title>Advanced Details</title></info>
-        
+
 
         <para>
             While most functionality for <classname>Zend_Json_Server</classname> is
@@ -202,7 +202,7 @@ $server->handle();
         </para>
 
         <section xml:id="zend.json.server.details.zendjsonserver"><info><title>Zend_Json_Server</title></info>
-            
+
 
             <para>
                 <classname>Zend_Json_Server</classname> is the core class in the JSON-RPC
@@ -304,7 +304,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonserverrequest"><info><title>Zend_Json_Server_Request</title></info>
-            
+
 
             <para>
                 The JSON-RPC request environment is encapsulated in the
@@ -440,7 +440,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonserverresponse"><info><title>Zend_Json_Server_Response</title></info>
-            
+
 
             <para>
                 The JSON-RPC response payload is encapsulated in the
@@ -548,7 +548,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonservererror"><info><title>Zend_Json_Server_Error</title></info>
-            
+
 
             <para>
                 JSON-RPC has a special format for reporting error conditions.
@@ -627,7 +627,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonserversmd"><info><title>Zend_Json_Server_Smd</title></info>
-            
+
 
             <para>
                 SMD stands for Service Mapping Description, a <acronym>JSON</acronym> schema that

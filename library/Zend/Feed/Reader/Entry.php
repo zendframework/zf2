@@ -134,7 +134,7 @@ interface Entry
      * @return string
      */
     public function getCommentFeedLink();
-    
+
     /**
      * Get all categories
      *

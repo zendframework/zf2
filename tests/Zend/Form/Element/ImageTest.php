@@ -21,12 +21,12 @@
 
 namespace ZendTest\Form\Element;
 
-use Zend\Form\Element\Image as ImageElement,
-    Zend\Form\Element\Xhtml as XhtmlElement,
-    Zend\Form\Element,
-    Zend\Form\Decorator,
-    Zend\Translator\Adapter\ArrayAdapter as ArrayTranslator,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Element\Image as ImageElement;
+use Zend\Form\Element\Xhtml as XhtmlElement;
+use Zend\Form\Element;
+use Zend\Form\Decorator;
+use Zend\Translator\Adapter\ArrayAdapter as ArrayTranslator;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Element_Image

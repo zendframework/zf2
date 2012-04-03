@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.introduction"><info><title>Introdução</title></info>
-    
+
 
     <para>
         <classname>Zend_Service</classname> é uma classe abstrata que serve como base para

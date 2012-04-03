@@ -44,8 +44,8 @@ class RendererBroker extends PluginBroker
 
     /**
      * Inject parser into broker, for injecting into renderer
-     * 
-     * @param  Parser $parser 
+     *
+     * @param  Parser $parser
      * @return RendererBroker
      */
     public function setParser(Parser $parser)
@@ -56,7 +56,7 @@ class RendererBroker extends PluginBroker
 
     /**
      * Retrieve parser instance
-     * 
+     *
      * @return null|Parser
      */
     public function getParser()
@@ -68,9 +68,9 @@ class RendererBroker extends PluginBroker
      * Register plugin with broker
      *
      * Injects parser into plugin, if registered.
-     * 
-     * @param  string $name 
-     * @param  mixed $plugin 
+     *
+     * @param  string $name
+     * @param  mixed $plugin
      * @return RendererBroker
      */
     public function register($name, $plugin)
@@ -86,8 +86,8 @@ class RendererBroker extends PluginBroker
 
     /**
      * Determine if we have a valid renderer
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return true
      * @throws Exception
      */

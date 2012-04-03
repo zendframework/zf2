@@ -21,11 +21,11 @@
 
 namespace ZendTest\Cloud\StorageService;
 
-use Zend\Config\Factory as ConfigFactory,
-    Zend\Cloud\StorageService\Factory,
-    Zend\Cloud\StorageService\Adapter\FileSystem,
-    Zend\Cloud\StorageService\Adapter\Nirvanix,
-    Zend\Cloud\StorageService\Adapter\S3,
+use Zend\Config\Factory as ConfigFactory;
+use Zend\Cloud\StorageService\Factory;
+use Zend\Cloud\StorageService\Adapter\FileSystem;
+use Zend\Cloud\StorageService\Adapter\Nirvanix;
+use Zend\Cloud\StorageService\Adapter\S3,
     //Zend\Cloud\StorageService\Adapter\WindowsAzure,
     Zend\Http\Client\Adapter\Test as HttpClientTest,
     Zend\Http\Response as HttpResponse,
@@ -81,9 +81,9 @@ class FactoryTest extends PHPUnitTestCase
         $root->appendChild($sessionTok);
         $doc->appendChild($root);
         $body = $doc->saveXML();
-        
+
         $resp = HttpResponse::fromString("HTTP/1.1 200 OK\nContent-type: text/xml;charset=UTF-8\nDate: 0\n\n".$body);
-        
+
         $httptest->setResponse($resp);
         $nirvanixAdapter = Factory::getAdapter($nirvanixConfig);
         $this->assertEquals('Zend\Cloud\StorageService\Adapter\Nirvanix', get_class($nirvanixAdapter));
@@ -127,7 +127,7 @@ class FactoryTest extends PHPUnitTestCase
         $httptest->setResponse($resp);
         $azureAdapter = Factory::getAdapter($azureConfig);
         $this->assertEquals('Zend\Cloud\StorageService\Adapter\WindowsAzure', get_class($azureAdapter));
-         * 
+         *
          */
     }
 

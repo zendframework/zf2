@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.using"><info><title>Uitzonderingen gebruiken</title></info>
 
-    
+
 
     <para>
         Alle uitzonderingen gegooid door een Zend Framework klasse zouden
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.exception.using.example"><info><title>Voorbeeld van het vangen van een uitzondering</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 
 try {

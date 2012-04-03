@@ -2,17 +2,17 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.project.internals"><info><title>Zend_Tool_Project Internals</title></info>
-    
+
 
     <section xml:id="zend.tool.project.internals.xml-structure"><info><title>Zend_Tool_Project Internal Xml Structure</title></info>
-        
+
 
         <para/>
         <!-- @todo -->
     </section>
 
     <section xml:id="zend.tool.project.internals.extending"><info><title>Zend_Tool_Project Internal Extending</title></info>
-        
+
 
         <para/>
         <!-- @todo -->

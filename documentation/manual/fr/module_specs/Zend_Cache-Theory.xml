@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.theory"><info><title>Aspect théorique</title></info>
-    
+
 
     <para>
         Il y a trois concepts clés dans <classname>Zend_Cache</classname>. Le premier est
@@ -38,7 +38,7 @@
     </note>
 
     <section xml:id="zend.cache.factory"><info><title>La méthode de fabrique de Zend_Cache</title></info>
-        
+
 
         <para>
             Une bonne manière de construire une instance utilisable d'un frontend
@@ -83,7 +83,7 @@ $cache = Zend_Cache::factory($frontendName,
     </section>
 
     <section xml:id="zend.cache.tags"><info><title>Baliser les enregistrements</title></info>
-        
+
 
         <para>
             Les balises sont un moyen de catégoriser les enregistrements de cache. Quand vous
@@ -110,7 +110,7 @@ $cache->save($grande_donnees,
     </section>
 
     <section xml:id="zend.cache.clean"><info><title>Nettoyer le cache</title></info>
-        
+
 
         <para>
             Pour supprimer / invalider un identifiant de cache particulier, vous pouvez

@@ -1034,7 +1034,7 @@
 	<dates>
 		<calendars>
 			<calendar type="buddhist">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d MMMM y 'г'. G</pattern>
@@ -1056,7 +1056,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E, d</dateFormatItem>
@@ -1562,7 +1562,7 @@
 						</monthWidth>
 					</monthContext>
 				</months>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d MMMM y 'г'. G</pattern>
@@ -1584,7 +1584,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E, d</dateFormatItem>
@@ -1617,7 +1617,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<eras> 
+				<eras>
 					<eraAbbr>
 						<era type="0">Эпоха Тайка</era>
 						<era type="1">Эпоха Хакути</era>
@@ -1682,7 +1682,7 @@
 						<era type="235">Хэйсэй</era>
 					</eraNarrow>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d MMMM y 'г'. G</pattern>
@@ -1704,7 +1704,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E, d</dateFormatItem>
@@ -1757,7 +1757,7 @@
 				</months>
 			</calendar>
 			<calendar type="roc">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d MMMM y 'г'. G</pattern>
@@ -1779,7 +1779,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E, d</dateFormatItem>

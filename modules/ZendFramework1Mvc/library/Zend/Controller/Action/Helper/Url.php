@@ -47,7 +47,7 @@ class Url extends AbstractHelper
     public function simple($action, $controller = null, $module = null, array $params = null)
     {
         $request = $this->getRequest();
-        
+
         if (null === $controller) {
             $controller = $request->getControllerName();
         }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.front"><info><title>El Front Controller</title></info>
-    
+
 
     <section xml:id="zend.controller.front.overview"><info><title>Introducción</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Front</classname> implementa un <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.martinfowler.com/eaaCatalog/frontController.html">Front Controller pattern</link> usado en aplicaciones <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Model-view-controller">Model-View-Controller (MVC)</link> . Su propósito es
@@ -34,7 +34,7 @@
             classes. </para>
 
         <note><info><title>Comportamiento por Defecto</title></info>
-            
+
             <para> Por defecto, el front controller carga el <link linkend="zend.controller.plugins.standard.errorhandler">ErrorHandler</link> plugin, así como al <link linkend="zend.controller.actionhelpers.viewrenderer">ViewRenderer</link> action helper plugin. Estos son para
                 simplificar el manejo de errores y el view renderering en sus
                 controladores, respectivamente. </para>
@@ -60,14 +60,14 @@ $front->setParam('noViewRenderer', true);
     </section>
 
     <section xml:id="zend.controller.front.methods.primary"><info><title>Métodos Básicos</title></info>
-        
+
 
         <para>El front controller tiene varios accessors para establecer su
             medio ambiente. Sin embargo, hay tres métodos básicos clave para la
             funcionalidad del front controller:</para>
 
         <section xml:id="zend.controller.front.methods.primary.getinstance"><info><title>getInstance()</title></info>
-            
+
 
             <para>
                 <methodname>getInstance()</methodname> se utiliza para recuperar
@@ -81,7 +81,7 @@ $front = Zend_Controller_Front::getInstance();
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.setcontrollerdirectory"><info><title>setControllerDirectory() y addControllerDirectory</title></info>
-            
+
 
             <para>
                 <methodname>setControllerDirectory()</methodname> se usa para
@@ -122,7 +122,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.addmoduledirectory"><info><title>addModuleDirectory() y getModuleDirectory()</title></info>
-            
+
 
             <para> Uno de los aspectos del front controller es que puede <link linkend="zend.controller.modular"> definir una estructura
                     modular de directorio</link> para crear componentes
@@ -149,7 +149,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.dispatch"><info><title>dispatch()</title></info>
-            
+
 
             <para>
                 <methodname>dispatch(Zend_Controller_Request_Abstract $request =
@@ -195,7 +195,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.run"><info><title>run()</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Controller_Front::run($path)</methodname> es un
@@ -217,7 +217,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.environment"><info><title>Métodos Accessor Ambientales</title></info>
-        
+
 
         <para>Además de los métodos enumerados anteriormente, hay una serie de
             métodos accessor que pueden utilizarse para afectar el entorno del
@@ -370,7 +370,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.params"><info><title>Parámetros de Front Controller</title></info>
-        
+
 
         <para>En la introducción, se indicó que el front controller también
             actúa como un registro de los distintos componentes del controlador.
@@ -464,7 +464,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.subclassing"><info><title>Extendiendo el Front Controller</title></info>
-        
+
 
         <para> Para extender el Front Controller, como mínimo que necesitará
             anular el método <methodname>getInstance()</methodname> : </para>

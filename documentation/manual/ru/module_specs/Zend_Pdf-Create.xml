@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.create"><info><title>Создание и загрузка документов PDF<!--Creating and loading PDF documents.--></title></info>
-    
+
     <para>
     Класс <code>Zend_Pdf</code> представляет документ PDF и обеспечивает
     функциональность для работы на уровне документа.
@@ -33,7 +33,7 @@
         Создание нового или загрузка существующего документа PDF
         <!-- Create new or load existing PDF document.-->
         </title></info>
-        
+
         <programlisting language="php"><![CDATA[<?php
 ...
 // Создание нового документа PDF
@@ -79,7 +79,7 @@ $pdf3 = Zend_Pdf::parse($pdfString);
     </para>
 
     <example><info><title>Извлечение определенной версии документа PDF<!--Requesting specified revision of the PDF document.--></title></info>
-        
+
         <programlisting language="php"><![CDATA[<?php
 ...
 // Загрузка предыдущей версии документа PDF

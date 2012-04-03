@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.placeholder"><info><title>Placeholder Helper</title></info>
-    
+
 
     <para>
         The <classname>Placeholder</classname> view helper is used to persist content
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.placeholder.usage"><info><title>Basic Usage of Placeholders</title></info>
-        
+
 
         <para>
             Basic usage of placeholders is to persist view data. Each invocation
@@ -31,7 +31,7 @@
     </example>
 
     <example xml:id="zend.view.helpers.initial.placeholder.aggregation"><info><title>Using Placeholders to Aggregate Content</title></info>
-        
+
 
         <para>
             Aggregating content via placeholders can be useful at times as well.
@@ -123,7 +123,7 @@ echo $foo['bar'];
     </example>
 
     <example xml:id="zend.view.helpers.initial.placeholder.capture"><info><title>Using Placeholders to Capture Content</title></info>
-        
+
 
         <para>
             Occasionally you may have content for a placeholder in a view script
@@ -203,7 +203,7 @@ foreach ($this->data as $datum): ?>
     </example>
 
     <section xml:id="zend.view.helpers.initial.placeholder.implementations"><info><title>Concrete Placeholder Implementations</title></info>
-        
+
 
         <para>
             Zend Framework ships with a number of "concrete" placeholder

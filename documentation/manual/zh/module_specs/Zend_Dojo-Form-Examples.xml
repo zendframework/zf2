@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form.examples"><info><title>Dojo 表单范例</title></info>
-    
+
 
     <example xml:id="zend.dojo.form.examples.dojoform"><info><title>使用 Zend_Dojo_Form</title></info>
-        
+
 
         <para>
             和 <code>Zend_Form</code> 一起使用 Dojo的最容易的办法是利用 <code>Zend_Dojo_Form</code>，
@@ -325,7 +325,7 @@ class My_Form_Test extends Zend_Dojo_Form
     </example>
 
     <example xml:id="zend.dojo.form.examples.decorating"><info><title> 修改已存在的表单来使用 Dojo </title></info>
-        
+
 
         <para>
             通过使用 <code>Zend_Dojo::enableForm()</code> 静态方法，已存在的表单也可以使用 Dojo。

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.memory-manager"><info><title>内存管理器</title></info>
-    
+
 
     <section xml:id="zend.memory.memory-manager.creation"><info><title>创建一个内存管理器</title></info>
 
-        
+
 
         <para>
             你可以使用<code>Zend_Memory::factory($backendName [, $backendOprions])</code>
@@ -54,7 +54,7 @@ $memoryManager = Zend_Memory::factory('None');
 
     <section xml:id="zend.memory.memory-manager.objects-management"><info><title>管理内存对象</title></info>
 
-        
+
 
         <para>
             这一节描述了在受管理的内存中创建和销毁对象,和控制内存管理的行为的设置.
@@ -62,7 +62,7 @@ $memoryManager = Zend_Memory::factory('None');
 
         <section xml:id="zend.memory.memory-manager.objects-management.movable"><info><title>创建可移动的对象</title></info>
 
-            
+
 
             <para>
                 使用<code>Zend_Memory_Manager::create([$data])</code> 方法创建可移动的对象 (对象可以被交换):
@@ -81,7 +81,7 @@ $memObject = $memoryManager->create($data);
 
         <section xml:id="zend.memory.memory-manager.objects-management.locked"><info><title>创建锁定的对象</title></info>
 
-            
+
 
             <para>
                 使用<code>Zend_Memory_Manager::createLocked([$data])</code>方法创建锁定的(对象不能被交换)对象:
@@ -99,7 +99,7 @@ $memObject = $memoryManager->createLocked($data);
 
         <section xml:id="zend.memory.memory-manager.objects-management.destruction"><info><title>销毁对象</title></info>
 
-            
+
 
             <para>
                 当内存对象超出作用域它们被从内存管理器中自动销毁和删除:
@@ -141,11 +141,11 @@ function foo()
 
     <section xml:id="zend.memory.memory-manager.settings"><info><title>内存管理器设置</title></info>
 
-        
+
 
         <section xml:id="zend.memory.memory-manager.settings.memory-limit"><info><title>内存限制</title></info>
 
-            
+
 
             <para>
                 内存限制是可以被加载的可移动对象使用的一个字节数量.
@@ -178,7 +178,7 @@ $memoryManager->setMemoryLimit($newLimit);     // Set memory limit in bytes
 
         <section xml:id="zend.memory.memory-manager.settings.min-size"><info><title>MinSize</title></info>
 
-            
+
 
             <para>
                 可以被内存管理器交换的最小对象大小.内存管理器不会交换小于此设置的对象.这是为了减少交换/加载操作的数量.

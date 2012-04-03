@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.recaptcha"><info><title>Zend_Service_ReCaptcha</title></info>
-    
+
 
     <section xml:id="zend.service.recaptcha.introduction"><info><title>הקדמה</title></info>
-        
+
 
         <para>
             <code>Zend_Service_ReCaptcha</code> מספק תמיכה בשירות ה <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://recaptcha.net/">reCAPTCHA</link>.
@@ -18,7 +18,7 @@
     </section>
 
     <section xml:id="zend.service.recaptcha.simplestuse"><info><title>שימוש בסיסי</title></info>
-        
+
 
         <para>
             יצירת אובייקט <code>Zend_Service_ReCaptcha</code> חדש עם העברת המפתחות שלכם בתור פרמטרים:

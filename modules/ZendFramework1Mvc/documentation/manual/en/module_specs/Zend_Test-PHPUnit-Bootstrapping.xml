@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.bootstrapping"><info><title>Bootstrapping your TestCase</title></info>
-    
+
 
     <para>
         As noted in the <link linkend="zend.test.phpunit.loginexample">Login

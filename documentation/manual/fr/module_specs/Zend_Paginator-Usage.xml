@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.paginator.usage"><info><title>Utilisation</title></info>
-    
+
 
     <section xml:id="zend.paginator.usage.paginating"><info><title>Paginer des collections de données</title></info>
-        
+
 
         <para>
             Afin de pouvoir paginer des éléments, <classname>Zend_Paginator</classname> doit
@@ -13,7 +13,7 @@
         </para>
 
         <table xml:id="zend.paginator.usage.paginating.adapters"><info><title>Adaptateurs pour <classname>Zend_Paginator</classname></title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -165,7 +165,7 @@ $this->view->paginator = $paginator;
     </section>
 
     <section xml:id="zend.paginator.usage.dbselect"><info><title>The DbSelect and DbTableSelect adapter</title></info>
-        
+
         <para>
             The usage of most adapters is pretty straight-forward. However, the
             database adapters require a more detailed explanation regarding
@@ -215,7 +215,7 @@ $paginator = new Zend_Paginator($adapter);
     </section>
 
     <section xml:id="zend.paginator.rendering"><info><title>Rendre des pages avec les scripts de vue</title></info>
-        
+
 
         <para>
             Le script de vue va être utilisé pour rendre les éléments de la page (bien sûr si
@@ -278,7 +278,7 @@ $paginator = new Zend_Paginator($adapter);
         <para>Il existe 4 types de défilement intégrés dans Zend Framework :</para>
 
         <table xml:id="zend.paginator.usage.rendering.scrolling-styles"><info><title>Types de défilement pour <classname>Zend_Paginator</classname></title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -374,7 +374,7 @@ $smarty->assign('pages', $paginator->getPages());
             </note>
 
             <section xml:id="zend.paginator.usage.rendering.example-controls"><info><title>Exemples de contrôles de pagination</title></info>
-                
+
 
             <para>
                 Voici quelques exemples qui vous aideront à démarrer avec le
@@ -498,7 +498,7 @@ $('paginationControl').observe('change', function() {
         </section>
 
         <section xml:id="zend.paginator.usage.rendering.properties"><info><title>Liste des propriétés</title></info>
-            
+
 
             <para>
                 Les options suivantes sont disponibles pour contrôler la pagination dans les
@@ -506,7 +506,7 @@ $('paginationControl').observe('change', function() {
             </para>
 
             <table xml:id="zend.paginator.usage.rendering.properties.table"><info><title>Propriétés disponibles aux partials de vue</title></info>
-                
+
 
                 <tgroup cols="3">
                     <thead>

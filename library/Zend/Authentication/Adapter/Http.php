@@ -21,11 +21,11 @@
 
 namespace Zend\Authentication\Adapter;
 
-use Zend\Authentication\Adapter as AuthenticationAdapter,
-    Zend\Authentication,
-    Zend\Http\Request as HTTPRequest,
-    Zend\Http\Response as HTTPResponse,
-    Zend\Uri\UriFactory;
+use Zend\Authentication\Adapter as AuthenticationAdapter;
+use Zend\Authentication;
+use Zend\Http\Request as HTTPRequest;
+use Zend\Http\Response as HTTPResponse;
+use Zend\Uri\UriFactory;
 
 /**
  * HTTP Authentication Adapter
@@ -501,7 +501,7 @@ class Http implements AuthenticationAdapter
         }
 
         $password = $this->_basicResolver->resolve($creds[0], $this->_realm);
-        if ($password && 
+        if ($password &&
             $this->_secureStringCompare($password, $creds[1])) {
             $identity = array('username'=>$creds[0], 'realm'=>$this->_realm);
             return new Authentication\Result(Authentication\Result::SUCCESS, $identity);

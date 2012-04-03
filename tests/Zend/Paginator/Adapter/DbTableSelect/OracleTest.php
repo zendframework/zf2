@@ -36,7 +36,7 @@ class OracleTest extends \ZendTest\Paginator\Adapter\DbSelect\OracleTest
     {
         $this->markTestSkipped('Skipping until Zend\Db is refactored.');
     }
-    
+
     /**
      * @group ZF-3775
      */

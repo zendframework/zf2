@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.database"><info><title>Zend_Db Performance</title></info>
-    
+
 
     <para>
         <classname>Zend_Db</classname> is a database abstraction layer, and is intended to
@@ -14,7 +14,7 @@
 
     <section xml:id="performance.database.tableMetadata"><info><title>How can I reduce overhead introduced by Zend_Db_Table for
             retrieving table metadata?</title></info>
-        
+
 
         <para>
             In order to keep usage as simple as possible, and also to support
@@ -30,7 +30,7 @@
         </para>
 
         <section xml:id="performance.database.tableMetadata.cache"><info><title>Use the metadata cache</title></info>
-            
+
 
             <para>
                 <classname>Zend_Db_Table</classname> can optionally utilize
@@ -46,7 +46,7 @@
         </section>
 
         <section xml:id="performance.database.tableMetadata.hardcoding"><info><title>Hardcode your metadata in the table definition</title></info>
-            
+
 
             <para>
                 As of 1.7.0, <classname>Zend_Db_Table</classname> also provides <link linkend="zend.db.table.metadata.caching.hardcoding">support
@@ -61,7 +61,7 @@
     <section xml:id="performance.database.select"><info><title>
             SQL generated with Zend_Db_Select s not hitting my indexes; how can I make it better?
         </title></info>
-        
+
 
         <para>
             <classname>Zend_Db_Select</classname> is relatively good at its job. However,
@@ -70,7 +70,7 @@
         </para>
 
         <section xml:id="performance.database.select.writeyourown"><info><title>Write your own tuned SQL</title></info>
-            
+
 
             <para>
                 The only real answer is to write your own <acronym>SQL</acronym>;

@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.intro"><info><title>Zend Framework &amp; MVC Einführung</title></info>
-    
+
 
     <section xml:id="learning.quickstart.intro.zf"><info><title>Zend Framework</title></info>
-        
+
 
         <para>
             Zend Framework ist ein Open Source, objektorientierter Web Anwendungs Framework für
@@ -45,7 +45,7 @@
     </section>
 
     <section xml:id="learning.quickstart.intro.mvc"><info><title>Model-View-Controller</title></info>
-        
+
 
         <para>
             Was also ist dieses <acronym>MVC</acronym> Pattern über das alle Welt redet, und warum
@@ -63,7 +63,7 @@
         </para>
 
         <note><info><title>Mehr Informationen</title></info>
-            
+
 
             <para>
                 Brechen wir das Pattern auf und schauen wir uns die individuellen Teile an:

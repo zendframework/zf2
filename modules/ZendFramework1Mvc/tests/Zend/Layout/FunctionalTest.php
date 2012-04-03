@@ -37,7 +37,7 @@ class FunctionalTest extends \Zend\Test\PHPUnit\ControllerTestCase
     {
         $this->markTestSkipped('Must wait until Zend\Test is converted.');
         return;
-        
+
         $this->bootstrap = array($this, 'appBootstrap');
         parent::setUp();
     }

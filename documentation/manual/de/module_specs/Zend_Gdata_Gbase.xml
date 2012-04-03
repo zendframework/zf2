@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.gbase"><info><title>Google Base verwenden</title></info>
-    
+
 
     <para>
         Die Google Base Daten <acronym>API</acronym> wurde entwickelt um Entwicklern zwei Dinge zu
@@ -32,7 +32,7 @@
     </para>
 
     <section xml:id="zend.gdata.gbase.connect"><info><title>Verbinden zum Base Service</title></info>
-        
+
 
         <para>
             Die Google Base <acronym>API</acronym> basiert, wie alle GData <acronym>API</acronym>s,
@@ -50,7 +50,7 @@
         </para>
 
         <section xml:id="zend.gdata.gbase.connect.authentication"><info><title>Authentifizierung</title></info>
-            
+
 
             <para>
                 Die Google Base <acronym>API</acronym> erlaubt Zugriff auf beide, sowohl öffentliche
@@ -94,7 +94,7 @@
         </section>
 
         <section xml:id="zend.gdata.gbase.connect.service"><info><title>Eine Service Instanz erstellen</title></info>
-            
+
 
             <para>
                 Im mit Google Base zu interagieren, bietet diese Bibliothek die
@@ -239,7 +239,7 @@ $service = new Zend_Gdata_Gbase();
     </section>
 
     <section xml:id="zend.gdata.gbase.retrieve"><info><title>Elemente empfangen</title></info>
-        
+
 
         <para>
             Benutzerdefinierte Feeds oder Feed Fetzen können abgefragt werden um Elemente zu
@@ -248,7 +248,7 @@ $service = new Zend_Gdata_Gbase();
         </para>
 
         <section xml:id="zend.gdata.gbase.retrieve.query"><info><title>Eine strukturierte Anfrage senden</title></info>
-            
+
 
             <para>
                 Eine strukturierte Anfrage kann gesendet werden um Elemente vom eigenen
@@ -266,7 +266,7 @@ $service = new Zend_Gdata_Gbase();
             </para>
 
             <section xml:id="zend.gdata.gbase.retrieve.query.customeritems"><info><title>Benutzerdefinierte Feed Elemente Anfragen</title></info>
-                
+
 
                 <para>
                     Um eine Abfrage auf Benutzerdefinierte Feed Elemente durchzuführen, gibt es die
@@ -292,7 +292,7 @@ $feed = $service->getGbaseItemFeed($query);
             </section>
 
             <section xml:id="zend.gdata.gbase.retrieve.query.snippets"><info><title>Feed Fetzen abfragen</title></info>
-                
+
 
                 <para>
                     Um eine Abfrage über öffentliche Feed Fetzen durchzuführen, gibt es die
@@ -318,7 +318,7 @@ $feed = $service->getGbaseSnippetFeed($query);
         </section>
 
         <section xml:id="zend.gdata.gbase.retrieve.iterate"><info><title>Über die Elemente iterieren</title></info>
-            
+
 
             <para>
                 Google Base Elemente können Element-Spezifische Attribute enthalten, wie
@@ -361,7 +361,7 @@ foreach ($feed->entries as $entry) {
     </section>
 
     <section xml:id="zend.gdata.gbase.crud"><info><title>Benutzerdefinierte Elemente einfügen, aktualisieren und löschen</title></info>
-        
+
 
         <para>
             Ein Benutzer/Eigentümer kann auf seine eigenen Benutzerdefinierten Feed Elemente
@@ -377,7 +377,7 @@ foreach ($feed->entries as $entry) {
         </para>
 
         <section xml:id="zend.gdata.gbase.crud.insert"><info><title>Ein Element einfügen</title></info>
-            
+
 
             <para>
                 Elemente können hinzugefügt werden durch Verwenden der
@@ -420,7 +420,7 @@ $createdEntry = $service->insertGbaseItem($newEntry, $dryRun);
         </section>
 
         <section xml:id="zend.gdata.gbase.crud.modify"><info><title>Ein Element modifizieren</title></info>
-            
+
 
             <para>
                 Jedes Atribut eines Element kann aktualisiert werden wenn durch Sie iteriert wird:
@@ -481,7 +481,7 @@ $entry->save($dryRun);
         </section>
 
         <section xml:id="zend.gdata.gbase.crud.delete"><info><title>Ein Element löschen</title></info>
-            
+
 
             <para>
                 ein Element kann gelöscht werden indem die

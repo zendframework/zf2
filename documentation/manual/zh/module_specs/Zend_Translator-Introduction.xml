@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.introduction"><info><title>简介</title></info>
 
-    
+
 
     <para>
         Zend_Translator是Zend框架为多语言应用程序提供的一个解决方案.
@@ -86,7 +86,7 @@
 
     <section xml:id="zend.translator.introduction.adapters"><info><title>开始多语言化</title></info>
 
-        
+
 
         <para>
             让我们打开多语言Web应用程序的窗口.我们想做的是转换字符串,产生翻译后的输出.

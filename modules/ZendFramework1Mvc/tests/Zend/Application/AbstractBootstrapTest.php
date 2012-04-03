@@ -23,11 +23,11 @@ namespace ZendTest\Application;
 
 require_once __DIR__ . '/TestAsset/Zf7696Bootstrap.php';
 
-use Zend\Loader\ResourceAutoloader,
-    Zend\Registry,
-    Zend\Application,
-    Zend\Application\ResourceBroker,
-    Zend\Application\Resource\AbstractResource;
+use Zend\Loader\ResourceAutoloader;
+use Zend\Registry;
+use Zend\Application;
+use Zend\Application\ResourceBroker;
+use Zend\Application\Resource\AbstractResource;
 
 /**
  * @category   Zend
@@ -642,41 +642,41 @@ class AbstractBootstrapTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('ZendTest\Application\TestAsset\ResourceBroker', $broker);
         $this->assertEquals(array('foo' => 'bar'), $broker->options);
     }
-    
+
     /**
      * @group ZF2-30
      */
     public function testMultipleApplicationResourcesInitialization()
     {
         define('APPLICATION_PATH_ZF2_30', __DIR__);
-        $application = new Application\Application('testing', __DIR__.'/TestAsset/Zf2-30.ini');        
-        $application->bootstrap();      
-        $loadedResource = $application->getBootstrap()->getBroker()->load('zf30');  
+        $application = new Application\Application('testing', __DIR__.'/TestAsset/Zf2-30.ini');
+        $application->bootstrap();
+        $loadedResource = $application->getBootstrap()->getBroker()->load('zf30');
         $this->assertFalse(($loadedResource->getInitCount() > 1), 'Resource Zf30 initilized '.$loadedResource->getInitCount().' times');
     }
-    
+
     /**
      * @group ZF2-36
      */
     public function testMultipleBrokersInitialization()
     {
-        $application = new Application\Application('testing', __DIR__ . '/TestAsset/Zf2-36.ini');        
-        $application->bootstrap();      
+        $application = new Application\Application('testing', __DIR__ . '/TestAsset/Zf2-36.ini');
+        $application->bootstrap();
         $broker1 = $application->getBootstrap()->getBroker();
         $application->getBootstrap()
                     ->setOptions(array('test' => true));
         $broker2 = $application->getBootstrap()->getBroker();
         $this->assertFalse(($broker1 !== $broker2), 'Application broker initialized second time');
     }
-    
+
     /**
      * @group ZF2-38
      */
     public function testContinueResourceExecutingByModulesResource()
     {
         define('APPLICATION_PATH_ZF2_38', __DIR__);
-        $application = new Application\Application('testing', __DIR__ . '/TestAsset/Zf2-38.ini');        
-        $application->bootstrap();      
+        $application = new Application\Application('testing', __DIR__ . '/TestAsset/Zf2-38.ini');
+        $application->bootstrap();
         $broker = $application->getBootstrap()->getBroker();
         $modulesInitTitme = $broker->load('zf38modules')->getInitTime();
         $zf38InitTitme = $broker->load('zf38')->getInitTime();

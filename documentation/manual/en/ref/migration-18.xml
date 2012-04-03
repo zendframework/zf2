@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.18"><info><title>Zend Framework 1.8</title></info>
-    
+
 
     <para>
         When upgrading from a previous release to Zend Framework 1.8 or higher you
@@ -8,10 +8,10 @@
     </para>
 
     <section xml:id="migration.18.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <section xml:id="migration.18.zend.controller.router"><info><title>Standard Route Changes</title></info>
-            
+
 
             <para>
                 As translated segments were introduced into the new standard
@@ -25,10 +25,10 @@
     </section>
 
     <section xml:id="migration.18.zend.locale"><info><title>Zend_Locale</title></info>
-        
+
 
         <section xml:id="migration.18.zend.locale.defaultcaching"><info><title>Default caching</title></info>
-            
+
 
             <para>
                 As with Zend Framework 1.8 a default caching was added. The reason behind this
@@ -44,7 +44,7 @@
             </para>
 
             <example xml:id="migration.18.zend.locale.defaultcaching.example"><info><title>Disabling default caching</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 Zend_Locale::disableCache(true);

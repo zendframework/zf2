@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.queue.stomp"><info><title>Stomp</title></info>
-    
+
 
     <para>
         <classname>Zend_Queue_Stomp</classname> bietet einen Basis Client um mit
@@ -23,7 +23,7 @@
     </para>
 
     <section xml:id="zend.queue.adapters-configuration.stomp"><info><title>Stomp - Unterstützende Klassen</title></info>
-        
+
 
         <itemizedlist>
             <listitem>

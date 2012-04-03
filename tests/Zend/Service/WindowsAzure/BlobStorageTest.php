@@ -21,7 +21,7 @@
 
 
 /**
- * @see Zend_Service_WindowsAzure_Storage_Blob 
+ * @see Zend_Service_WindowsAzure_Storage_Blob
  */
 
 /**

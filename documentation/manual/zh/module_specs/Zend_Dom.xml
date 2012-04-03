@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dom.introduction"><info><title>简介</title></info>
-    
+
 
     <para>
         <classname>Zend_Dom</classname> 提供了对 DOM 文档和结构进行操作的工具。

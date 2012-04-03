@@ -21,11 +21,11 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use RecursiveIteratorIterator,
-    Zend\Navigation,
-    Zend\Navigation\Page\AbstractPage,
-    Zend\View,
-    Zend\View\Exception;
+use RecursiveIteratorIterator;
+use Zend\Navigation;
+use Zend\Navigation\Page\AbstractPage;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Helper for printing <link> elements
@@ -739,9 +739,9 @@ class Links extends AbstractHelper
      *
      * Implements {@link Helper::render()}.
      *
-     * @param  Navigation\Container $container [optional] container to render. 
-     *                                         Default is to render the 
-     *                                         container registered in the 
+     * @param  Navigation\Container $container [optional] container to render.
+     *                                         Default is to render the
+     *                                         container registered in the
      *                                         helper.
      * @return string                          helper output
      */

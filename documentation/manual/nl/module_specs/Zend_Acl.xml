@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.introduction"><info><title>Introductie</title></info>
-    
+
 
     <para>
         Zend_Acl levert een lichte en flexibele toegangscontrolelijst (ACL) functionaliteit
@@ -38,7 +38,7 @@
     </para>
 
     <section xml:id="zend.acl.introduction.resources"><info><title>Over Bronnen</title></info>
-        
+
         <para>
             In Zend_Acl is het maken van een bron heel simpel. Zend_Acl heeft een
             <code>Zend_Acl_Resource_Interface</code> om het ontwikkelaars makkelijk te maken bij het
@@ -67,7 +67,7 @@
     </section>
 
     <section xml:id="zend.acl.introduction.roles"><info><title>Over Rollen</title></info>
-        
+
         <para>
             Net als bij Bronnen, is het aanmaken van een Rol ook heel simpel. Zend_Acl levert
             <code>Zend_Acl_Role_Interface</code> om het ontwikkelaars makkelijk te maken bij het maken
@@ -89,7 +89,7 @@
             een tegenstrijdige bepaling en hoe Zend_Acl dit oplost.
         </para>
         <example xml:id="zend.acl.introduction.roles.example.multiple_inheritance"><info><title>Meerdere overervingen tussen rollen</title></info>
-            
+
             <para>
                 De volgende code defineerd 3 basis Rollen - "<code>gast</code>", "<code>lid</code>", en
                 "<code>admin</code>" - waarvan andere Rollen kunnen erven. Vervolgens, wordt er een Rol,
@@ -149,7 +149,7 @@ echo $acl->isAllowed('eenGebruiker', 'eenBron') ? 'toegestaan' : 'weigeren';
     </section>
 
     <section xml:id="zend.acl.introduction.creating"><info><title>Maken van de toegangscontrolelijst (ACL)</title></info>
-        
+
 
         <para>
             Een ACL kan iedere groep van fysieke en virtuele objecten bevatten die je wenst.
@@ -172,7 +172,7 @@ $acl = new Zend_Acl();
     </section>
 
     <section xml:id="zend.acl.introduction.role_registry"><info><title>Registeren van Rollen</title></info>
-        
+
 
         <para>
             Content Management Systemen zullen bijna altijd een hiërarchie van rechten nodig hebben
@@ -188,7 +188,7 @@ $acl = new Zend_Acl();
         </para>
 
         <table xml:id="zend.acl.introduction.role_registry.table.example_cms_access_controls"><info><title>Toegang controle voor een voorbeeld CMS</title></info>
-          
+
           <tgroup cols="3">
             <thead>
               <row>
@@ -257,7 +257,7 @@ $acl->addRole(new Zend_Acl_Role('administrator'));
     </section>
 
     <section xml:id="zend.acl.introduction.defining"><info><title>Defineren van de toegangscontrole</title></info>
-        
+
 
         <para>
             Nu de ACL de relevante Rollen bevat, kunnen de regels worden opgesteld die defineren hoe
@@ -314,7 +314,7 @@ $acl->allow('administrator');
     </section>
 
     <section xml:id="zend.acl.introduction.querying"><info><title>Raadplegen van de ACL</title></info>
-        
+
 
         <para>
             We hebben nu een flexibele ACL die gebruikt kan worden om te bepalen of de aanvrager

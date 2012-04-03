@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-authentication"><info><title>SMTP 認証</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> は SMTP 認証の使用をサポートしています。
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.mail.smtp-authentication.example-1"><info><title>Zend_Mail_Transport_Smtp での認証の有効化</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $config = array('auth' => 'login',
@@ -31,7 +31,7 @@ $mail->send($transport);
     </example>
 
     <note><info><title>認証方式</title></info>
-        
+
 
         <para>
             認証方式は大文字小文字を区別しませんが、区切り文字は含めません。

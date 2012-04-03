@@ -36,14 +36,14 @@ class Zend_Service_WindowsAzure_RetryPolicyTest extends PHPUnit_Framework_TestCa
 {
     /**
      * Helper variable for counting retries
-     * 
+     *
      * @var int
      */
     protected $_executedRetries = 0;
-    
+
     /**
-     * Helper variable for setting Exception count 
-     * 
+     * Helper variable for setting Exception count
+     *
      * @var int
      */
     protected $_exceptionCount = 0;
@@ -60,7 +60,7 @@ class Zend_Service_WindowsAzure_RetryPolicyTest extends PHPUnit_Framework_TestCa
         );
         $this->assertEquals(1, $retries);
     }
-    
+
     /**
      * Test retry policy - retryN
      */
@@ -68,14 +68,14 @@ class Zend_Service_WindowsAzure_RetryPolicyTest extends PHPUnit_Framework_TestCa
     {
         $this->_executedRetries = 0;
         $this->_exceptionCount = 9;
-        
+
         $policy = Zend_Service_WindowsAzure_RetryPolicy_AbstractRetryPolicy::retryN(10, 100);
         $retries = $policy->execute(
             array($this, '_countRetriesAndThrowExceptions')
         );
         $this->assertEquals(10, $retries);
     }
-    
+
     /**
      * Helper function, counting retries
      */
@@ -83,7 +83,7 @@ class Zend_Service_WindowsAzure_RetryPolicyTest extends PHPUnit_Framework_TestCa
     {
         return ++$this->_executedRetries;
     }
-    
+
     /**
      * Helper function, counting retries and generating number of exceptions
      */

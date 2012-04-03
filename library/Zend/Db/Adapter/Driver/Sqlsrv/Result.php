@@ -37,7 +37,7 @@ class Result implements \Iterator, ResultInterface
      */
     protected $resource = null;
     /**
-     * @var boolean 
+     * @var boolean
      */
     protected $currentData = false;
     /**
@@ -52,9 +52,9 @@ class Result implements \Iterator, ResultInterface
     protected $position = -1;
     /**
      * Initialize
-     * 
+     *
      * @param  resource $resource
-     * @return Result 
+     * @return Result
      */
     public function initialize($resource)
     {
@@ -63,8 +63,8 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Get resource
-     * 
-     * @return resource 
+     *
+     * @return resource
      */
     public function getResource()
     {
@@ -72,21 +72,21 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Current
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function current()
     {
         if ($this->currentComplete) {
             return $this->currentData;
         }
-        
+
         $this->load();
         return $this->currentData;
     }
     /**
      * Next
-     * 
+     *
      * @return boolean
      */
     public function next()
@@ -96,9 +96,9 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Load
-     * 
+     *
      * @param  string $row
-     * @return mixed 
+     * @return mixed
      */
     protected function load($row = SQLSRV_SCROLL_NEXT)
     {
@@ -109,8 +109,8 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Key
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function key()
     {
@@ -118,8 +118,8 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Rewind
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function rewind()
     {
@@ -129,8 +129,8 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Valid
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function valid()
     {
@@ -142,7 +142,7 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Count
-     * 
+     *
      * @return integer
      */
     public function count()
@@ -151,8 +151,8 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Is query result
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isQueryResult()
     {
@@ -163,8 +163,8 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Get affected rows
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getAffectedRows()
     {

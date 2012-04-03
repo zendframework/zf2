@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.localization"><info><title>גלובאליזציה (i18n) ותמיכה בשפות שונות (l10n)</title></info>
-    
+
 
     <para>
         גלובאליזציה ותמיכה בשפות שונות הינם גורם הכרחי כדי לפנות לקהל יעד רחב יותר, ולוודא שכל המשתמשים מקבלים את המידע שהם צריכים.
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="performance.localization.translationadapter"><info><title>באיזו מתאם תרגום כדי לי להשתמש?</title></info>
-        
+
 
         <para>
             לא כל מתאמי התרגום הם שווים. לחלקם יש יותר אפשרויות מאחרים, וחלקם עובדים טוב יותר מאחרים.
@@ -18,7 +18,7 @@
         </para>
 
         <section xml:id="performance.localization.translationadapter.fastest"><info><title>השתמשו במתאם תרגום ללא שימוש ב XML למיטב הביצועים והמהירות</title></info>
-            
+
 
             <para>
                 Zend Framework מגיע עם מגוון מתאמי תרגום שונים לשימוש.
@@ -55,7 +55,7 @@
     </section>
 
     <section xml:id="performance.localization.cache"><info><title>כיצד ניתן להאיץ את התרגום והמתאמים אף יותר?</title></info>
-        
+
 
         <para>
             אולי, מסיבות עסקיות, הנכם מוגבלים לשימוש במתאם תרגום לקבצי XML.
@@ -63,7 +63,7 @@
         </para>
 
         <section xml:id="performance.localization.cache.usage"><info><title>שימוש במטמון</title></info>
-            
+
 
             <para>
                 גם <code>Zend_Translator</code> ו <code>Zend_Locale</code> מאפשרים שימוש במטמון אשר מאיצים ומשפרים את הביצועים בצורה משמעותית.

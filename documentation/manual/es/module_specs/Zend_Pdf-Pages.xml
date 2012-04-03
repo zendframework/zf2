@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.pages"><info><title>Trabajando con Páginas</title></info>
-    
+
     <section xml:id="zend.pdf.pages.creation"><info><title>Creación de Páginas</title></info>
-        
+
         <para>
             Las páginas en un documento
             <acronym>PDF</acronym>
@@ -96,7 +96,7 @@
         </para>
 
         <example xml:id="zend.pdf.pages.example-1"><info><title>Administración de Páginas de un Documento PDF</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 ...
 // Invertir el orden de las páginas.
@@ -116,7 +116,7 @@ unset($pdf->pages[$id]);
     </section>
 
     <section xml:id="zend.pdf.pages.cloning"><info><title>Clonado de Páginas</title></info>
-        
+
         <para>
             La página
             <acronym>PDF</acronym>
@@ -127,7 +127,7 @@ unset($pdf->pages[$id]);
         </para>
 
         <example xml:id="zend.pdf.pages.example-2"><info><title>Clonando una Página Existente</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 ...
 // Almacenar la página plantilla en una variable

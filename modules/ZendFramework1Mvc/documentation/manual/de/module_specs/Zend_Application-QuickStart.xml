@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.quick-start"><info><title>Zend_Application Quick Start</title></info>
-    
+
 
     <para>
         Es gibt zwei Wege um mit <classname>Zend_Application</classname> anzufangen, und diese
@@ -16,7 +16,7 @@
     </para>
 
     <section xml:id="zend.application.quick-start.zend-tool"><info><title>Verwenden von Zend_Tool</title></info>
-        
+
 
         <para>
             Der schnellste Weg um mit <classname>Zend_Application</classname> zu beginnen ist die
@@ -151,7 +151,7 @@ $application->bootstrap()
     </section>
 
     <section xml:id="zend.application.quick-start.manual"><info><title>Zend_Application in der eigenen Anwendung hinzufügen</title></info>
-        
+
 
         <para>
             Die Basis von <classname>Zend_Application</classname> ist wirklich einfach:
@@ -277,7 +277,7 @@ RewriteRule ^.*$ index.php [NC,L]
 ]]></programlisting>
 
         <note><info><title>Mehr über mod_rewrite lernen</title></info>
-            
+
 
             <para>
                 Die obigen Rewrite Regeln erlauben es auf jede Datei im Document Root des eigenen
@@ -295,7 +295,7 @@ RewriteRule ^.*$ index.php [NC,L]
     </section>
 
     <section xml:id="zend.application.quick-start.resources"><info><title>Hinzufügen und Erstellen von Ressourcen</title></info>
-        
+
 
         <para>
             Wenn man den Anleitungen von oben gefolgt ist, dann verwendet die Bootstrap Klasse
@@ -407,7 +407,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="zend.application.quick-start.next-steps"><info><title>Nächste Schritte mit Zend_Application</title></info>
-        
+
 
         <para>
             Das oben erwähnte reicht um mit <classname>Zend_Application</classname> zu beginnen und

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.character-sets"><info><title>Zeichensätze</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> prüft nicht auf die richtigen Zeichensätze für die
@@ -13,7 +13,7 @@
     </para>
 
     <note><info><title>Nur im Textformat</title></info>
-        
+
 
         <para>
             Zeichensätze sind nur auf Mailbestandteile im Textformat anwendbar.
@@ -21,7 +21,7 @@
     </note>
 
     <example xml:id="zend.mail.character-sets.cjk"><info><title>Verwendung in CJK Sprachen</title></info>
-        
+
 
         <para>
             Das folgende Beispiel zeigt wie <classname>Zend_Mail</classname> im japanischen

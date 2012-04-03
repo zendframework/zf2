@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.info"><info><title>Informação do Documento e Metadados</title></info>
     <!-- @todo review and revise upon completion of refactoring -->
-    
+
 
     <para>
         Um documento <acronym>PDF</acronym> deve incluir informações gerais como o título do

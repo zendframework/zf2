@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         Zend Framework ships <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://dojotoolkit.org">Dojo Toolkit</link> to support

@@ -84,8 +84,8 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  mixed $operand 
-     * @param  int $base 
+     * @param  mixed $operand
+     * @param  int $base
      * @return void
      */
     public function init($operand, $base = 10)
@@ -94,8 +94,8 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $left_operand 
-     * @param  string $right_operand 
+     * @param  string $left_operand
+     * @param  string $right_operand
      * @return string
      */
     public function add($left_operand, $right_operand)
@@ -104,8 +104,8 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $left_operand 
-     * @param  string $right_operand 
+     * @param  string $left_operand
+     * @param  string $right_operand
      * @return string
      */
     public function subtract($left_operand, $right_operand)
@@ -114,8 +114,8 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $left_operand 
-     * @param  string $right_operand 
+     * @param  string $left_operand
+     * @param  string $right_operand
      * @return integer
      */
     public function compare($left_operand, $right_operand)
@@ -124,8 +124,8 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $left_operand 
-     * @param  string $right_operand 
+     * @param  string $left_operand
+     * @param  string $right_operand
      * @return string
      */
     public function divide($left_operand, $right_operand)
@@ -134,8 +134,8 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $left_operand 
-     * @param  integer $modulus 
+     * @param  string $left_operand
+     * @param  integer $modulus
      * @return string
      */
     public function modulus($left_operand, $modulus)
@@ -144,8 +144,8 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $left_operand 
-     * @param  string $right_operand 
+     * @param  string $left_operand
+     * @param  string $right_operand
      * @return string
      */
     public function multiply($left_operand, $right_operand)
@@ -154,8 +154,8 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $left_operand 
-     * @param  string $right_operand 
+     * @param  string $left_operand
+     * @param  string $right_operand
      * @return string
      */
     public function pow($left_operand, $right_operand)
@@ -164,9 +164,9 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $left_operand 
-     * @param  string $right_operand 
-     * @param  integer $modulus 
+     * @param  string $left_operand
+     * @param  string $right_operand
+     * @param  integer $modulus
      * @return string
      */
     public function powmod($left_operand, $right_operand, $modulus)
@@ -175,7 +175,7 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $operand 
+     * @param  string $operand
      * @return string
      */
     public function sqrt($operand)
@@ -184,7 +184,7 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $operand 
+     * @param  string $operand
      * @return integer
      */
     public function binaryToInteger($operand)
@@ -193,7 +193,7 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  integer $operand 
+     * @param  integer $operand
      * @return string
      */
     public function integerToBinary($operand)
@@ -202,7 +202,7 @@ class BigInteger implements BigInteger\BigIntegerCapable
     }
 
     /**
-     * @param  string $operand 
+     * @param  string $operand
      * @return float
      */
     public function hexToDecimal($operand)

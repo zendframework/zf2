@@ -37,10 +37,10 @@ class XmlTest extends AbstractReaderTestCase
     {
         $this->reader = new Xml();
     }
-    
+
     /**
      * getTestAssetPath(): defined by AbstractReaderTestCase.
-     * 
+     *
      * @see    AbstractReaderTestCase::getTestAssetPath()
      * @return string
      */
@@ -48,14 +48,14 @@ class XmlTest extends AbstractReaderTestCase
     {
         return __DIR__ . '/TestAssets/Xml/' . $name . '.xml';
     }
-    
+
     public function testInvalidXmlFile()
     {
         $this->reader = new Xml();
         $this->setExpectedException('Zend\Config\Exception\RuntimeException');
         $arrayXml = $this->reader->fromFile($this->getTestAssetPath('invalid'));
     }
-    
+
     public function testFromString()
     {
         $xml = <<<ECS
@@ -67,13 +67,13 @@ class XmlTest extends AbstractReaderTestCase
 </zend-config>
 
 ECS;
-        
+
         $arrayXml= $this->reader->fromString($xml);
         $this->assertEquals($arrayXml['test'], 'foo');
         $this->assertEquals($arrayXml['bar'][0], 'baz');
         $this->assertEquals($arrayXml['bar'][1], 'foo');
     }
-    
+
     public function testInvalidString()
     {
         $xml = <<<ECS

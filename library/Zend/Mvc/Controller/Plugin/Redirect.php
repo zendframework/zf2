@@ -2,11 +2,11 @@
 
 namespace Zend\Mvc\Controller\Plugin;
 
-use Zend\Http\Response,
-    Zend\Mvc\InjectApplicationEvent,
-    Zend\Mvc\Exception,
-    Zend\Mvc\MvcEvent,
-    Zend\Mvc\Router\RouteStack;
+use Zend\Http\Response;
+use Zend\Mvc\InjectApplicationEvent;
+use Zend\Mvc\Exception;
+use Zend\Mvc\MvcEvent;
+use Zend\Mvc\Router\RouteStack;
 
 /**
  * @todo allow specifying status code as a default, or as an option to methods

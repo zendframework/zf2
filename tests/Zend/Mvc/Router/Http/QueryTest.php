@@ -47,7 +47,7 @@ class QueryTest extends TestCase
         $match = $route->match($request, $offset);
         $this->assertInstanceOf('Zend\Mvc\Router\RouteMatch', $match);
     }
-    
+
     /**
      * @dataProvider routeProvider
      * @param        Query $route
@@ -62,16 +62,16 @@ class QueryTest extends TestCase
             // Data which will not match are not tested for assembling.
             return;
         }
-                
+
         $result = $route->assemble($params);
-        
+
         if ($offset !== null) {
             $this->assertEquals($offset, strpos($path, $result, $offset));
         } else {
             $this->assertEquals($path, $result);
         }
     }
-    
+
     public function testNoMatchWithoutUriMethod()
     {
         $route   = new Query();
@@ -79,16 +79,16 @@ class QueryTest extends TestCase
         $match = $route->match($request);
         $this->assertInstanceOf('Zend\Mvc\Router\RouteMatch', $match);
     }
-    
+
     public function testGetAssembledParams()
     {
         $route = new Query();
         $route->assemble(array('foo' => 'bar'));
-        
-        
+
+
         $this->assertEquals(array('foo'), $route->getAssembledParams());
     }
-    
+
     public function testFactory()
     {
         $tester = new FactoryTester($this);

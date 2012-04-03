@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.iban"><info><title>Iban</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Iban</classname> valide si un nombre donnée est un numéro
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.validate.set.iban.options"><info><title>Options supportées par Zend_Validate_Iban</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par <classname>Zend_Validate_Iban</classname>:
@@ -26,7 +26,7 @@
     </section>
 
     <section xml:id="zend.validate.set.iban.basic"><info><title>Validation IBAN</title></info>
-        
+
 
         <para>
             Les numéros <acronym>IBAN</acronym> sont toujours relatifs à un pays. Ceci signifie que différents
@@ -36,7 +36,7 @@
         </para>
 
         <section xml:id="zend.validate.set.iban.basic.application"><info><title>Locale globale à l'application</title></info>
-            
+
 
             <para>
                 Nous pourrions utiliser la locale globale à l'application. Ainsi si on ne passe aucune
@@ -59,7 +59,7 @@ if ($validator->isValid('AT611904300234573201')) {
 ]]></programlisting>
 
             <note><info><title>Locale globale à l'application</title></info>
-                
+
 
                 <para>
                     Bien sûr cela ne fonctionne que lorsqu'une locale globale a été spécifiée et enregistrée
@@ -71,7 +71,7 @@ if ($validator->isValid('AT611904300234573201')) {
         </section>
 
         <section xml:id="zend.validate.set.iban.basic.false"><info><title>Validation IBAN simplifiée</title></info>
-            
+
 
             <para>
                 Il peut arriver parfois que vous ayiez juste besoin de vérifier le format du numéro
@@ -98,7 +98,7 @@ if ($validator->isValid('AT611904300234573201')) {
         </section>
 
         <section xml:id="zend.validate.set.iban.basic.aware"><info><title>Validation IBAN en fonction d'un pays</title></info>
-            
+
 
             <para>
                 Pour valider par rapport à un pays/région, passez simplement la locale désirée.
@@ -117,7 +117,7 @@ if ($validator->isValid('AT611904300234573201')) {
 ]]></programlisting>
 
             <note><info><title>Utilisez des locales pleinement qualifiées</title></info>
-                
+
 
                 <para>
                     Vous devez passer une locale pleinement qualifiée sinon le nom de la région ne

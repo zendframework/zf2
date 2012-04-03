@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.charset"><info><title>Conjunto de Caracteres</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.charset.description"><info><title>Suporte aos conjuntos de caracteres UTF-8 e single-byte</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> trabalha internamente com o conjunto de
@@ -37,7 +37,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.charset.default_analyzer"><info><title>Analisador de texto padrão</title></info>
-        
+
 
         <para>
             De qualquer modo, o analisador de texto padrão (que também é usado no analisador de
@@ -65,7 +65,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.charset.utf_analyzer"><info><title>Analisadores de texto compatíveis com UTF-8</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> também contém um conjunto de analisadores

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.load"><info><title>Cargando archivos y clases dinámicamente</title></info>
 
-    
+
 
     <para> La clase <classname>Zend_Loader</classname> incluye métodos para
         ayudar a cargar archivos dinámicamente. </para>
 
     <tip><info><title>Zend_Loader vs. require_once()</title></info>
-        
+
         <para> Los métodos de <classname>Zend_Loader</classname> tienen más
             utilidad si el nombre de archivo que necesita cargar es variable.
             Por ejemplo, si éste se basa en un parametro de entrada del usuario
@@ -21,7 +21,7 @@
 
     <section xml:id="zend.loader.load.file"><info><title>Cargando Archivos</title></info>
 
-        
+
 
         <para> El método estático
                 <methodname>Zend_Loader::loadFile()</methodname> carga un
@@ -35,7 +35,7 @@
             archivo especificado no existe. </para>
 
         <example xml:id="zend.loader.load.file.example"><info><title>Ejemplo del Método loadFile()</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Loader::loadFile($filename, $dirs=null, $once=false);
 ]]></programlisting>
@@ -71,14 +71,14 @@ Zend_Loader::loadFile($filename, $dirs=null, $once=false);
 
     <section xml:id="zend.loader.load.class"><info><title>Cargando Clases</title></info>
 
-        
+
 
         <para> El método estático <methodname>Zend_Loader::loadClass($class,
                 $dirs)</methodname> carga un archivo <acronym>PHP</acronym> y
             comprueba la existencia de la clase. </para>
 
         <example xml:id="zend.loader.load.class.example"><info><title>Ejemplo del método loadClass()</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Loader::loadClass('Container_Tree',
     array(
@@ -113,7 +113,7 @@ Zend_Loader::loadClass('Container_Tree',
             alfanuméricos, guiones ('-'), barras bajas ('_'), y puntos ('.'). </para>
 
             <note><info><title>Loading Classes from PHP Namespaces</title></info>
-            
+
 
             <para>
                 Starting in version 1.10.0, Zend Framework now allows loading classes from PHP
@@ -181,7 +181,7 @@ Zend_Loader::loadClass('Container_Tree',
 
     <section xml:id="zend.loader.load.isreadable"><info><title>Comprobando si un Archivo Puede Ser Leído</title></info>
 
-        
+
 
         <para> El método estático
                 <methodname>Zend_Loader::isReadable($pathname)</methodname>
@@ -190,7 +190,7 @@ Zend_Loader::loadClass('Container_Tree',
                 <constant>FALSE</constant> en caso contrario. </para>
 
         <example xml:id="zend.loader.load.isreadable.example"><info><title>Ejemplo del método isReadable()</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 if (Zend_Loader::isReadable($filename)) {
     // hace algo con $filename
@@ -211,7 +211,7 @@ if (Zend_Loader::isReadable($filename)) {
 
     <section xml:id="zend.loader.load.autoload"><info><title>Usando el Autoloader</title></info>
 
-        
+
 
         <para> La clase <classname>Zend_Loader</classname> contiene un método
             que se puede registrar con <acronym>PHP</acronym> SPL autoloader.
@@ -226,7 +226,7 @@ if (Zend_Loader::isReadable($filename)) {
 
         <example xml:id="zend.loader.load.autoload.example"><info><title>Ejemplo de registro del método callback del
                 autoloader</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Loader::registerAutoload();
 ]]></programlisting>
@@ -247,7 +247,7 @@ Zend_Loader::registerAutoload();
 
         <example xml:id="zend.loader.load.autoload.example-extended"><info><title>Ejemplo de registro del método de callback autoload desde una
                 clase extendida</title></info>
-            
+
             <para> Debido a la semántica de referencia de funciones estáticas en
                     <acronym>PHP</acronym> , se debe implementar código tanto
                 para la clase <methodname>loadClass()</methodname> como

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins.standard.errorhandler"><info><title>Zend_Controller_Plugins_ErrorHandler</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Plugins_ErrorHandler</classname> представляет собой
@@ -97,7 +97,7 @@
     </para>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.fourohfour"><info><title>Использование ErrorHandler в качестве обработчика ошибки 404</title></info>
-        
+
 
         <para>
             Поскольку плагин захватывает не только ошибки приложения, но и
@@ -224,7 +224,7 @@ public function errorAction()
     </section>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.buffer"><info><title>Управление сгенерированным ранее выводом</title></info>
-        
+
 
         <para>
             Если в процессе обработки запроса вызывается несколько действий,
@@ -248,10 +248,10 @@ $this->getResponse()->clearBody();
     </section>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.examples"><info><title>Примеры использования плагина</title></info>
-        
+
 
         <example xml:id="zend.controller.plugins.standard.errorhandler.examples.example-1"><info><title>Стандартное использование</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $front = Zend_Controller_Front::getInstance();
 $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler());
@@ -259,7 +259,7 @@ $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler());
         </example>
 
         <example xml:id="zend.controller.plugins.standard.errorhandler.examples.example-2"><info><title>Установка другого обработчика ошибок</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $front = Zend_Controller_Front::getInstance();
 $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array(
@@ -271,7 +271,7 @@ $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array(
         </example>
 
         <example xml:id="zend.controller.plugins.standard.errorhandler.examples.example-3"><info><title>Использование аксессоров</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $plugin = new Zend_Controller_Plugin_ErrorHandler();
 $plugin->setErrorHandlerModule('mystuff')
@@ -286,7 +286,7 @@ $front->registerPlugin($plugin);
     </section>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.controllerexamples"><info><title>Пример контроллера ошибок</title></info>
-        
+
 
         <para>
             Для того, чтобы использовать плагин ErrorHandler, нужен контроллер

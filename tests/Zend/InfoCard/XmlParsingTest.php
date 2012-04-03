@@ -20,10 +20,10 @@
  */
 
 namespace ZendTest\InfoCard;
-use Zend\InfoCard\XML\EncryptedData,
-    Zend\InfoCard\XML\KeyInfo,
-    Zend\InfoCard\XML,
-    Zend\InfoCard\XML\Exception;
+use Zend\InfoCard\XML\EncryptedData;
+use Zend\InfoCard\XML\KeyInfo;
+use Zend\InfoCard\XML;
+use Zend\InfoCard\XML\Exception;
 
 
 /**
@@ -58,13 +58,13 @@ class XmlParsingTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\InfoCard\XML\Exception\InvalidArgumentException', 'Unknown EncryptedData type found');
         $encryptedData = EncryptedData\Factory::getInstance($doc);
     }
-    
+
     public function testEncryptedDataTypeThrowsExceptionOnInvalidInput2()
     {
         $this->setExpectedException('Zend\InfoCard\XML\Exception\InvalidArgumentException', 'Invalid Data provided to create instance');
         $encryptedData = EncryptedData\Factory::getInstance(10);
     }
-    
+
     public function testEncryptedData()
     {
         $encryptedData = EncryptedData\Factory::getInstance($this->_xmlDocument);
@@ -182,7 +182,7 @@ class XmlParsingTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\InfoCard\XML\Exception\InvalidArgumentException', 'Invalid Data provided to create instance');
         XML\EncryptedKey::getInstance(10);
     }
-    
+
     public function testEncryptedKeyFactoryThrowsExceptionOnInvalidInput2()
     {
         $doc = file_get_contents(__DIR__ . "/_files/encryptedkey_bad_block.xml");
@@ -190,7 +190,7 @@ class XmlParsingTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\InfoCard\XML\Exception\InvalidArgumentException', 'Invalid XML Block provided for EncryptedKey');
         XML\EncryptedKey::getInstance($doc);
     }
-    
+
     public function testEncryptedKeyThrowsExceptionOnGetEncryptionMethodWithBadXml()
     {
         $doc = file_get_contents(__DIR__ . "/_files/encryptedkey_missing_enc_algo.xml");
@@ -205,7 +205,7 @@ class XmlParsingTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\InfoCard\XML\Exception\RuntimeException', 'Unknown KeyInfo Namespace provided');
         KeyInfo\Factory::getInstance("<foo xmlns:enc=\"http://notxmlencns.org#foo\"/>");
     }
-    
+
     public function testKeyInfoThrowsExceptionOnInvalidInput2()
     {
         $this->setExpectedException('Zend\InfoCard\XML\Exception\InvalidArgumentException', 'Invalid Data provided to create instance');
@@ -223,7 +223,7 @@ class XmlParsingTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\InfoCard\XML\Exception\InvalidArgumentException', 'Invalid Data provided to create instance');
         XML\SecurityTokenReference::getInstance(10);
     }
-    
+
     public function testSecurityTokenReferenceThrowsExceptionsOnKeyReferenceRetrievalWithInvalidXml()
     {
         $doc = file_get_contents(__DIR__ . "/_files/security_token_bad_keyref.xml");

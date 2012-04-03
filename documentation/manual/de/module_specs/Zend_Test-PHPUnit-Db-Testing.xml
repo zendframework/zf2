@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db.testing"><info><title>Verwendung, API und Erweiterungspunkte</title></info>
-    
+
 
     <para>
         Die Quickstart hat bereits eine gute Einführung darin gegeben wie Datenbank Tests durch
@@ -10,7 +10,7 @@
     </para>
 
     <note><info><title>Einige Hinweise über das Testen von Datenbanken</title></info>
-        
+
 
         <para>
             So wie der Controller TestCase eine Anwendung auf dem Level der Integration testet,
@@ -31,7 +31,7 @@
     </note>
 
     <section xml:id="zend.test.phpunit.db.testing.testcase"><info><title>Die Klasse Zend_Test_PHPUnit_DatabaseTestCase</title></info>
-        
+
 
         <para>
             Die Klasse <classname>Zend_Test_PHPUnit_DatabaseTestCase</classname> ist von
@@ -113,7 +113,7 @@
         </para>
 
         <table xml:id="zend.test.phpunit.db.testing.testcase.api-methods"><info><title>Die API Methoden von Zend_Test_PHPUnit_DatabaseTestCase</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -197,7 +197,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.db.testing.controllerintegration"><info><title>Integration von Datenbank Tests mit dem ControllerTestCase</title></info>
-        
+
 
         <para>
             Weil <acronym>PHP</acronym> die mehrfache Vererbung nicht unterstützt ist es nicht
@@ -210,7 +210,7 @@
         </para>
 
         <example xml:id="zend.test.phpunit.db.testing.controllerintegration.example"><info><title>Beispiele für die Integration der Datenbank</title></info>
-            
+
 
             <para>
                 Dieses Beispiel erweitert den User Controller Test aus der

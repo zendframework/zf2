@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.clientlogin"><info><title>Authentification avec ClientLogin</title></info>
-    
+
 
     <para>
         Le mécanisme dit "ClientLogin" vous permet d'écrire des applications <acronym>PHP</acronym> qui
@@ -31,7 +31,7 @@
     </para>
 
     <section xml:id="zend.gdata.clientlogin.login"><info><title>Création d'un client HTTP "ClientLogin" authentifié</title></info>
-        
+
 
         <para>
             La création d'un client <acronym>HTTP</acronym> "ClientLogin" authentifié est un processus servi par
@@ -96,7 +96,7 @@ $cal = new Zend_Gdata_Calendar($client);
     </section>
 
     <section xml:id="zend.gdata.clientlogin.terminating"><info><title>Fermer un client HTTP authentifié par ClientLogin</title></info>
-        
+
 
         <para>
             Il n'y a pas de méthode pour supprimer l'authentification effectuée via un

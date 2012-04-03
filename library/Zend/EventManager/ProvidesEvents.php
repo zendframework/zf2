@@ -30,7 +30,7 @@ use Traversable;
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-trait ProvidesEvents 
+trait ProvidesEvents
 {
     /**
      * @var EventCollection
@@ -39,8 +39,8 @@ trait ProvidesEvents
 
     /**
      * Set the event manager instance used by this context
-     * 
-     * @param  EventCollection $events 
+     *
+     * @param  EventCollection $events
      * @return mixed
      */
     public function setEventManager(EventCollection $events)
@@ -53,7 +53,7 @@ trait ProvidesEvents
      * Retrieve the event manager
      *
      * Lazy-loads an EventManager instance if none registered.
-     * 
+     *
      * @return EventCollection
      */
     public function events()

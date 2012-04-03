@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.introduction"><info><title>مقدمة</title></info>
-    
+
     <para>
         <code>Zend_Service</code> عبارة عن abstract class و الذى بدوره يصبح
         اساس لكل تطبيقات الـ web services (مثل XML-RPC ).

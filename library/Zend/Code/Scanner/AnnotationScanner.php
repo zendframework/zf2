@@ -2,10 +2,10 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Scanner,
-    Zend\Code\NameInformation,
-    Zend\Code\Annotation\AnnotationManager,
-    Zend\Code\Annotation\AnnotationCollection;
+use Zend\Code\Scanner;
+use Zend\Code\NameInformation;
+use Zend\Code\Annotation\AnnotationManager;
+use Zend\Code\Annotation\AnnotationCollection;
 
 class AnnotationScanner extends AnnotationCollection implements Scanner
 {

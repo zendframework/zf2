@@ -70,7 +70,7 @@ class ObjectList implements \Countable, \Iterator, \ArrayAccess
     protected $_errorMsg= '';
     /**
      * __construct()
-     * 
+     *
      * @param  array $list
      * @return boolean
      */
@@ -95,7 +95,7 @@ class ObjectList implements \Countable, \Iterator, \ArrayAccess
         }
         if (!$this->_error) {
             $this->_constructFromArray($list['list']);
-        }    
+        }
     }
     /**
      * Transforms the Array to array of posts
@@ -249,7 +249,7 @@ class ObjectList implements \Countable, \Iterator, \ArrayAccess
     }
     /**
      * Check if the service call was successful
-     * 
+     *
      * @return boolen
      */
     public function isSuccess() {
@@ -257,8 +257,8 @@ class ObjectList implements \Countable, \Iterator, \ArrayAccess
     }
     /**
      * Get the error masg
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getError() {
         return $this->_errorMsg;

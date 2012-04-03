@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.pluginloader"><info><title>プラグインのロード</title></info>
-    
+
 
     <para>
         Zend Framework の多くのコンポーネントはプラグイン方式を採用しており、
@@ -23,7 +23,7 @@
     </para>
 
     <section xml:id="zend.loader.pluginloader.usage"><info><title>基本的な使用例</title></info>
-        
+
 
         <para>
             次のようなディレクトリ構造とクラスファイル群の構成を考えてみましょう。
@@ -96,7 +96,7 @@ $formSubmitClass = $loader->load('FormSubmit'); // 'Bar_View_Helper_FormSubmit'
         </note>
 
         <note><info><title>インスタンス作成時のパスの定義</title></info>
-            
+
 
             <para>
                 プレフィックスとパス
@@ -134,7 +134,7 @@ $loader = new Zend_Loader_PluginLoader(array(), 'foobar');
     </section>
 
     <section xml:id="zend.loader.pluginloader.paths"><info><title>プラグインのパスの操作</title></info>
-        
+
 
         <para>
             先ほどのセクションの例では、プラグインローダーでパスを追加する方法を示しました。
@@ -170,7 +170,7 @@ $loader = new Zend_Loader_PluginLoader(array(), 'foobar');
     </section>
 
     <section xml:id="zend.loader.pluginloader.checks"><info><title>プラグインの確認とクラス名の取得</title></info>
-        
+
 
         <para>
             時には、プラグインクラスがロードされているかどうかを調べてから何かを行いたいこともあるでしょう。
@@ -193,7 +193,7 @@ if ($loader->isLoaded('Adapter')) {
     </section>
 
     <section xml:id="zend.loader.pluginloader.performance"><info><title>プラグインのパフォーマンスの向上</title></info>
-        
+
 
         <para>
             プラグインの読み込みは、非常に重い操作となりえます。
@@ -217,7 +217,7 @@ if ($loader->isLoaded('Adapter')) {
         </para>
 
         <example xml:id="zend.loader.pluginloader.performance.example"><info><title>PluginLoader クラスのファイルインクルードキャッシュの使用法</title></info>
-            
+
 
             <para>
                 クラスファイルのインクルードキャッシュを使用するには、

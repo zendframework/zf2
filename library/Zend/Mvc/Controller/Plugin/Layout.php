@@ -21,10 +21,10 @@
 
 namespace Zend\Mvc\Controller\Plugin;
 
-use Zend\Mvc\InjectApplicationEvent,
-    Zend\Mvc\Exception,
-    Zend\Mvc\MvcEvent,
-    Zend\View\Model;
+use Zend\Mvc\InjectApplicationEvent;
+use Zend\Mvc\Exception;
+use Zend\Mvc\MvcEvent;
+use Zend\View\Model;
 
 /**
  * @category   Zend
@@ -42,8 +42,8 @@ class Layout extends AbstractPlugin
 
     /**
      * Set the layout template
-     * 
-     * @param  string $template 
+     *
+     * @param  string $template
      * @return Layout
      */
     public function setTemplate($template)
@@ -58,8 +58,8 @@ class Layout extends AbstractPlugin
      *
      * If no arguments are given, grabs the "root" or "layout" view model.
      * Otherwise, attempts to set the template for that view model.
-     * 
-     * @param  null|string $template 
+     *
+     * @param  null|string $template
      * @return void
      */
     public function __invoke($template = null)
@@ -100,7 +100,7 @@ class Layout extends AbstractPlugin
 
     /**
      * Retrieve the root view model from the event
-     * 
+     *
      * @return ViewModel
      * @throws Exception\DomainException
      */

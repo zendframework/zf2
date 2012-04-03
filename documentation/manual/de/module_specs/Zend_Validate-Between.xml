@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.between"><info><title>Between</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Between</classname> erlaubt es zu prüfen ob ein angegebener Wert
@@ -8,7 +8,7 @@
     </para>
 
     <note><info><title>Zend_Validate_Between unterstützt nur die Prüfung von Nummern</title></info>
-        
+
 
         <para>
             Es ist zu beachten das <classname>Zend_Validate_Between</classname> nur die Prüfung von
@@ -18,7 +18,7 @@
     </note>
 
     <section xml:id="zend.validate.set.between.options"><info><title>Unterstützte Optionen für Zend_Validate_Between</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Validate_Between</classname>
@@ -51,7 +51,7 @@
     </section>
 
     <section xml:id="zend.validate.set.between.basic"><info><title>Standardverhalten für Zend_Validate_Between</title></info>
-        
+
 
         <para>
             Standardmäßig prüft diese Prüfung ob ein Wert zwischen <property>min</property> und
@@ -74,7 +74,7 @@ $result = $valid->isValid($value);
     </section>
 
     <section xml:id="zend.validate.set.between.inclusively"><info><title>Prüfung exklusive den Grenzwerten</title></info>
-        
+
 
         <para>
             Manchmal ist es nützlich einen Wert zu prüfen wobei die Grenzwerte exkludiert werden.

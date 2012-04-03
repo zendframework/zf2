@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form"><info><title>Dojo Form Elements and Decorators</title></info>
-    
+
 
     <para>
         Building on the <link linkend="zend.dojo.view.dijit">dijit view
@@ -49,7 +49,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.form.enable"><info><title>Enabling Dojo in your existing forms</title></info>
-        
+
 
         <para>
             "But wait," you say; "I'm already extending <classname>Zend_Form</classname> with my own

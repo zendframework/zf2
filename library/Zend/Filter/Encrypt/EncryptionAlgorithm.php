@@ -48,7 +48,7 @@ interface EncryptionAlgorithm
 
     /**
      * Return the adapter name
-     * 
+     *
      * @return string
      */
     public function toString();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.writing_validators"><info><title>Pisanie weryfikatorów</title></info>
 
-    
+
 
     <para>
         Zend_Validate zapewnia zestaw najczęściej potrzebnych weryfikatorów, ale
@@ -50,7 +50,7 @@
 
     <example xml:id="zend.validate.writing_validators.example.simple"><info><title>Creating a Simple Validation Class</title></info>
 
-        
+
 
         <para>
             The following example demonstrates how a very simple custom validator might be written. In this case the
@@ -92,7 +92,7 @@ class MyValid_Float extends Zend_Validate_Abstract
 
     <example xml:id="zend.validate.writing_validators.example.conditions.dependent"><info><title>Writing a Validation Class having Dependent Conditions</title></info>
 
-        
+
 
         <para>
             The following example demonstrates a more complex set of validation rules, where it is required that the
@@ -180,7 +180,7 @@ class MyValid_NumericBetween extends Zend_Validate_Abstract
 
     <example xml:id="zend.validate.writing_validators.example.conditions.independent"><info><title>Validation with Independent Conditions, Multiple Reasons for Failure</title></info>
 
-        
+
 
         <para>
             Consider writing a validation class for password strength enforcement - when a user is required to choose

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.openid"><info><title>Open ID Authentication</title></info>
-    
+
 
     <section xml:id="zend.auth.adapter.openid.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             The <classname>Zend_Auth_Adapter_OpenId</classname> adapter can be used to authenticate
@@ -38,7 +38,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.openid.specifics"><info><title>Specifics</title></info>
-        
+
 
         <para>
             As is the case for all <classname>Zend_Auth</classname> adapters, the

@@ -20,8 +20,8 @@
  */
 
 namespace Zend\Code\Generator;
-use Zend\Code\Generator,
-    Zend\Code\Generator\Exception;
+use Zend\Code\Generator;
+use Zend\Code\Generator\Exception;
 
 /**
  * @uses       \Zend\Code\Generator\AbstractPhp

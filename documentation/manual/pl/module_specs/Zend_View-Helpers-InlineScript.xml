@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.inlinescript"><info><title>Helper InlineScript</title></info>
-    
+
 
     <para>
         Znacznik HTML <code>&lt;script&gt;</code> używany jest zarówno do
@@ -15,7 +15,7 @@
     </para>
 
     <note><info><title>Używaj helpera InlineScript dla skryptów w sekcji HTML Body</title></info>
-        
+
 
         <para>
             Helpera <code>InlineScript</code> powinieneś użyć gdy chcesz dołączyć

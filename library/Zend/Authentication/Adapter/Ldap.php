@@ -21,8 +21,8 @@
 
 namespace Zend\Authentication\Adapter;
 
-use Zend\Authentication\Adapter as AuthenticationAdapter,
-    Zend\Authentication\Result as AuthenticationResult;
+use Zend\Authentication\Adapter as AuthenticationAdapter;
+use Zend\Authentication\Result as AuthenticationResult;
 
 /**
  * @uses       Zend\Authentication\Adapter\Exception

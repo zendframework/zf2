@@ -21,11 +21,11 @@
 
 namespace ZendTest\Controller;
 
-use Zend\Controller,
-    Zend\Controller\Front as FrontController,
-    Zend\Controller\Request,
-    Zend\Controller\Response,
-    Zend\Controller\Action\Helper;
+use Zend\Controller;
+use Zend\Controller\Front as FrontController;
+use Zend\Controller\Request;
+use Zend\Controller\Response;
+use Zend\Controller\Action\Helper;
 
 /**
  * @category   Zend
@@ -211,7 +211,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($params['foo']));
         $this->assertEquals('bar', $params['foo']);
     }
-    
+
     /**
      * @group ZF-5163
      */
@@ -220,7 +220,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         $this->_controller->setParam('foo', 'bar');
         $this->_controller->setParam('bar', 0);
         $this->_controller->setParam('baz', null);
-        
+
         $this->assertEquals('bar', $this->_controller->getParam('foo', -1));
         $this->assertEquals(0, $this->_controller->getParam('bar', -1));
         $this->assertEquals(-1, $this->_controller->getParam('baz', -1));
@@ -532,7 +532,7 @@ class TestController extends \Zend\Controller\Action
         $this->_setParam($key, $value);
         return $this;
     }
-    
+
     public function getParam($key, $default)
     {
         return $this->_getParam($key, $default);

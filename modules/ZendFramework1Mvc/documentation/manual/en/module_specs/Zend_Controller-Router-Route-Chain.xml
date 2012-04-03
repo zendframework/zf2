@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.chain"><info><title>Zend_Controller_Router_Route_Chain</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Router_Route_Chain</classname> is a route which allows
@@ -11,7 +11,7 @@
     </para>
 
     <note><info><title>Parameter Priority</title></info>
-        
+
 
         <para>
             When chaining routes together, the parameters of the outer route
@@ -67,7 +67,7 @@ echo $chainedRoute->assemble();
 ]]></programlisting>
 
     <section xml:id="zend.controller.router.routes.chain.config"><info><title>Chain Routes via Zend_Config</title></info>
-        
+
 
         <para>
             To chain routes together in a config file, there are additional

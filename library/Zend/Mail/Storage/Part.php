@@ -21,8 +21,8 @@
 
 namespace Zend\Mail\Storage;
 
-use RecursiveIterator,
-    Zend\Mime;
+use RecursiveIterator;
+use Zend\Mime;
 
 /**
  * @category   Zend
@@ -171,7 +171,7 @@ class Part implements RecursiveIterator, MailPart
      *
      * @return int size
      */
-    public function getSize() 
+    public function getSize()
     {
         return strlen($this->getContent());
     }

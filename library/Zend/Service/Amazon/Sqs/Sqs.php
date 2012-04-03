@@ -20,9 +20,9 @@
  */
 
 namespace Zend\Service\Amazon\Sqs;
-use Zend\Service\Amazon,
-    Zend\Service\Amazon\Sqs\Exception,
-    Zend\Crypt;
+use Zend\Service\Amazon;
+use Zend\Service\Amazon\Sqs\Exception;
+use Zend\Crypt;
 
 /**
  * Class for connecting to the Amazon Simple Queue Service (SQS)
@@ -289,7 +289,7 @@ class Sqs extends \Zend\Service\Amazon\AbstractAmazon
         if ($result->GetQueueAttributesResult->Attribute === null) {
             throw new Exception\RuntimeException($result->Error->Code);
         }
-        
+
         if(count($result->GetQueueAttributesResult->Attribute) > 1) {
             $attr_result = array();
             foreach($result->GetQueueAttributesResult->Attribute as $attribute) {

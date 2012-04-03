@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.in_array"><info><title>InArray</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_InArray</classname> erlaubt es zu prüfen ob ein gegebener Wert
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.set.in_array.options"><info><title>Unterstützte Optionen für Zend_Validate_InArray</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Validate_InArray</classname>
@@ -42,7 +42,7 @@
     </section>
 
     <section xml:id="zend.validate.set.in_array.basic"><info><title>Einfache Array Prüfung</title></info>
-        
+
 
         <para>
             Der einfachste Weg ist es, das Array welches durchsucht werden soll, bei der
@@ -90,7 +90,7 @@ if ($validator->isValid('value')) {
     </section>
 
     <section xml:id="zend.validate.set.in_array.strict"><info><title>Strikte Array Prüfung</title></info>
-        
+
 
         <para>
             Wie vorher erwähnt kann man auch eine Strikte Prüfung im Array durchführen.
@@ -142,7 +142,7 @@ if ($validator->isValid('value')) {
     </section>
 
     <section xml:id="zend.validate.set.in_array.recursive"><info><title>Rekursive Array Prüfung</title></info>
-        
+
 
         <para>
             Zusätzlich zu <acronym>PHP</acronym>'s <methodname>in_array()</methodname> Methode kann
@@ -199,7 +199,7 @@ if ($validator->isValid('value')) {
 ]]></programlisting>
 
         <note><info><title>Standardwert für die Rekursion</title></info>
-            
+
 
             <para>
                 Standardmäßig ist die rekursive Prüfung ausgeschaltet.
@@ -207,7 +207,7 @@ if ($validator->isValid('value')) {
         </note>
 
         <note><info><title>Optionsschlüssel im Haystack</title></info>
-            
+
 
             <para>
                 Wenn man die Schlüssel '<property>haystack</property>',

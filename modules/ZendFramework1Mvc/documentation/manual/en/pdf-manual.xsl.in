@@ -19,7 +19,7 @@
   <xsl:choose>
     <xsl:when test="starts-with($master-reference, 'index') or
                     starts-with($master-reference, 'titlepage') or
-                    starts-with($master-reference, 'lot') or  
+                    starts-with($master-reference, 'lot') or
                     starts-with($master-reference, 'front')">
       <xsl:attribute name="hyphenate">false</xsl:attribute>
     </xsl:when>
@@ -108,7 +108,7 @@
       </xsl:variable>
       <xsl:if test="contains($toc.params, 'toc')">
         <xsl:call-template name="component.toc">
-          <xsl:with-param name="toc.title.p" 
+          <xsl:with-param name="toc.title.p"
                           select="contains($toc.params, 'title')"/>
         </xsl:call-template>
         <xsl:call-template name="component.toc.separator"/>

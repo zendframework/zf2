@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.chain"><info><title>Zend_Controller_Router_Route_Chain</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Router_Route_Chain</classname>
@@ -14,7 +14,7 @@
     </para>
 
     <note><info><title>Prioridad de Parámetros</title></info>
-        
+
         <para>Cuando se encadenan en conjunto varias rutas, los parámetros de
             la ruta exterior tienen
             mayor prioridad que los parámetros de la
@@ -78,7 +78,7 @@ echo $chainedRoute->assemble();
 ]]></programlisting>
 
     <section xml:id="zend.controller.router.routes.chain.config"><info><title>Encadenar Rutas via Zend_Config</title></info>
-        
+
 
         <para>
             Para encadenar juntas a las rutas en un archivo de configuración,

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.assertions"><info><title>Assertions</title></info>
-    
+
 
     <para>
         Les assertions sont le coeur des tests unitaires; vous les utilisez pour vérifier que
@@ -12,7 +12,7 @@
     </para>
 
     <section xml:id="zend.test.phpunit.assertions.query"><info><title>Les assertions par sélecteurs CSS</title></info>
-        
+
 
         <para>
             Les sélecteurs <acronym>CSS</acronym> sont une manière simple de vérifier que certaines constructions
@@ -104,7 +104,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.assertions.xpath"><info><title>Les assertions XPath</title></info>
-        
+
 
         <para>
             Certains développeurs sont plus familiers avec XPath qu'avec des sélecteurs <acronym>CSS</acronym>,
@@ -168,7 +168,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.assertions.redirect"><info><title>Les assertions de redirections</title></info>
-        
+
 
         <para>
             Souvent une action va redirigé le visiteur. Plutôt que de suivre cette
@@ -227,7 +227,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.assertions.header"><info><title>Les assertions d'en-têtes de réponses</title></info>
-        
+
 
         <para>
             En plus de vérifier les en-têtes de redirection, vous avez souvent besoin de
@@ -276,7 +276,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.assertions.request"><info><title>Les assertions de requêtes</title></info>
-        
+
 
         <para>
             Il est souvent pratique de vérifier l'action, le contrôleur et le module

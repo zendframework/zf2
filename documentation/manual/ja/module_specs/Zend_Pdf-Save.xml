@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.save"><info><title>PDF ドキュメントへの変更内容の保存</title></info>
-    
+
     <para>
     <acronym>PDF</acronym> ドキュメントの変更内容を保存するには 2 種類の方法があります。
     <methodname>Zend_Pdf::save()</methodname> および <methodname>Zend_Pdf::render()</methodname> メソッドです。
@@ -20,7 +20,7 @@
     </para>
 
     <example xml:id="zend.pdf.save.example-1"><info><title>PDF ドキュメントの保存</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 ...

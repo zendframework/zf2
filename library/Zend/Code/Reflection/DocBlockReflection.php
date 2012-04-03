@@ -20,9 +20,9 @@
 
 namespace Zend\Code\Reflection;
 
-use Zend\Code\Reflection,
-    Zend\Code\Scanner\DocBlockScanner,
-    Zend\Code\Annotation\AnnotationManager;
+use Zend\Code\Reflection;
+use Zend\Code\Scanner\DocBlockScanner;
+use Zend\Code\Annotation\AnnotationManager;
 
 /**
  * @uses       Reflector

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins"><info><title>Wtyczki</title></info>
-    
+
 
     <section xml:id="zend.controller.plugins.introduction"><info><title>Wprowadzenie</title></info>
-        
+
 
         <para>
             Architektura kontrolera zawiera także system wtyczek, który pozwala
@@ -83,7 +83,7 @@
     </section>
 
     <section xml:id="zend.controller.plugins.writing"><info><title>Pisanie wtyczek</title></info>
-        
+
 
         <para>
             W celu napisania klasy wtyczki, w prosty sposób rozszerz klasę
@@ -113,7 +113,7 @@ class MyPlugin extends Zend_Controller_Plugin_Abstract
     </section>
 
     <section xml:id="zend.controller.plugins.using"><info><title>Użycie wtyczek</title></info>
-        
+
         <para>
             Klasy wtyczek są rejestrowane za pomocą metody
             <code>Zend_Controller_Front::registerPlugin()</code> i mogą być
@@ -190,7 +190,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.standard"><info><title>Wtyczki dołączone do standardowej dystrybucji</title></info>
-        
+
 
         <para>
             Zend Framework w standardowej dystrybucji zawiera wtyczkę służącą do

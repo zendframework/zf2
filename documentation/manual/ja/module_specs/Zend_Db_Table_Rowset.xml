@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.rowset"><info><title>Zend_Db_Table_Rowset</title></info>
 
-    
+
 
     <section xml:id="zend.db.table.rowset.introduction"><info><title>導入</title></info>
 
-        
+
 
         <para>
             テーブルクラスに対して <methodname>find()</methodname>
@@ -20,7 +20,7 @@
 
     <section xml:id="zend.db.table.rowset.fetch"><info><title>行セットの取得</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Db_Table_Abstract</classname> には <methodname>find()</methodname> と
@@ -30,7 +30,7 @@
 
         <example xml:id="zend.db.table.rowset.fetch.example"><info><title>行セットの取得の例</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $bugs   = new Bugs();
@@ -43,7 +43,7 @@ $rowset = $bugs->fetchAll("bug_status = 'NEW'");
 
     <section xml:id="zend.db.table.rowset.rows"><info><title>行セットからの行の取得</title></info>
 
-        
+
 
         <para>
             通常は、行セットそのものよりもその中に含まれる行のほうが重要になります。
@@ -61,7 +61,7 @@ $rowset = $bugs->fetchAll("bug_status = 'NEW'");
 
         <example xml:id="zend.db.table.rowset.rows.counting.example"><info><title>行セット内の行の数を数える</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $rowset   = $bugs->fetchAll("bug_status = 'FIXED'");
@@ -79,7 +79,7 @@ if ($rowCount > 0) {
 
         <example xml:id="zend.db.table.rowset.rows.current.example"><info><title>行セットからの単一の行の読み込み</title></info>
 
-            
+
 
             <para>
                 行セットから行にアクセスするための一番簡単な方法は
@@ -102,7 +102,7 @@ $row    = $rowset->current();
 
         <example xml:id="zend.db.table.rowset.rows.iterate.example"><info><title>行セットの順次処理</title></info>
 
-            
+
 
             <para>
                 <classname>Zend_Db_Table_Rowset_Abstract</classname> を継承したオブジェクトは
@@ -138,7 +138,7 @@ foreach ($rowset as $row) {
 
          <example xml:id="zend.db.table.rowset.rows.seek.example"><info><title>行セット内の既知の位置への移動</title></info>
 
-            
+
 
             <para>
                 <classname>SeekableIterator</classname> は、
@@ -206,7 +206,7 @@ $row9->save();
 
     <section xml:id="zend.db.table.rowset.to-array"><info><title>行セットの配列としての取得</title></info>
 
-        
+
 
         <para>
             行セット内のすべてのデータに対して配列としてアクセスするには、
@@ -217,7 +217,7 @@ $row9->save();
 
         <example xml:id="zend.db.table.rowset.to-array.example"><info><title>toArray() の使用法</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $bugs   = new Bugs();
@@ -247,7 +247,7 @@ foreach ($rowsetArray as $rowArray) {
 
     <section xml:id="zend.db.table.rowset.serialize"><info><title>行セットのシリアライズと復元</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Db_Table_Rowset_Abstract</classname> 型のオブジェクトはシリアライズ可能です。
@@ -257,7 +257,7 @@ foreach ($rowsetArray as $rowArray) {
 
         <example xml:id="zend.db.table.rowset.serialize.example.serialize"><info><title>行セットのシリアライズ</title></info>
 
-            
+
 
             <para>
                 <acronym>PHP</acronym> の <methodname>serialize()</methodname> 関数を使用して、
@@ -278,7 +278,7 @@ $serializedRowset = serialize($rowset);
 
         <example xml:id="zend.db.table.rowset.serialize.example.unserialize"><info><title>シリアライズした行セットの復元</title></info>
 
-            
+
 
             <para>
                 <acronym>PHP</acronym> の <methodname>unserialize()</methodname> 関数を使用して、
@@ -305,7 +305,7 @@ echo $row->bug_description;
         </example>
 
         <note><info><title>復元した行セットは、なぜ切断された状態なのですか?</title></info>
-            
+
             <para>
                 シリアライズしたオブジェクトは、可読形式の文字列となります。
                 データベースのアカウントやパスワードといった情報を
@@ -329,7 +329,7 @@ echo $row->bug_description;
 
         <example xml:id="zend.db.table.rowset.serialize.example.set-table"><info><title>生きたデータとしての行セットの復活</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $rowset = unserialize($serializedRowset);
@@ -358,7 +358,7 @@ $row->save();
 
     <section xml:id="zend.db.table.rowset.extending"><info><title>行セットクラスの拡張</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Db_Table_Rowset_Abstract</classname> を継承した新たな具象クラスを作成し、
@@ -369,7 +369,7 @@ $row->save();
         </para>
 
         <example xml:id="zend.db.table.rowset.extending.example"><info><title>独自の行セットクラスの指定</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 class MyRowset extends Zend_Db_Table_Rowset_Abstract
 {
@@ -398,7 +398,7 @@ $bugs = new Bugs(array('rowsetClass' => 'MyRowset'));
         </para>
 
         <example xml:id="zend.db.table.rowset.extending.example-aggregate"><info><title>行セットクラスに新しいメソッドを追加する例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 class MyBugsRowset extends Zend_Db_Table_Rowset_Abstract
 {

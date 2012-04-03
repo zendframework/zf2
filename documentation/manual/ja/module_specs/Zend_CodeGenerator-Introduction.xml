@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.codegenerator.introduction"><info><title>導入</title></info>
-    
+
 
     <para>
         <classname>Zend_CodeGenerator</classname>は、
@@ -12,7 +12,7 @@
     </para>
 
     <section xml:id="zend.codegenerator.introduction.theory"><info><title>Theory of Operation</title></info>
-        
+
 
         <para>
             最も代表的な使用例では、単にコード・ジェネレーター・クラスのインスタンスを生成して、

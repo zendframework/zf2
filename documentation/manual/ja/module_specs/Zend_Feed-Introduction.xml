@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.introduction"><info><title>導入</title></info>
-    
+
 
     <para>
         <classname>Zend_Feed</classname> は、<acronym>RSS</acronym> や Atom のフィードを扱う機能を提供します。
@@ -25,7 +25,7 @@
     </para>
 
     <note><info><title>注意</title></info>
-        
+
 
         <para>
             <acronym>RSS</acronym> フィードによって、使用できるチャネルやアイテムのプロパティが違います。
@@ -35,7 +35,7 @@
     </note>
 
     <example xml:id="zend.feed.introduction.example.rss"><info><title>Zend_Feed による RSS フィードデータの使用</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // 最新の Slashdot ヘッドラインを取得します

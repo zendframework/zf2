@@ -2,14 +2,14 @@
 
 namespace Zend\Module\Listener;
 
-use ArrayAccess,
-    Traversable,
-    Zend\Config\Config,
-    Zend\Config\Factory as ConfigFactory,
-    Zend\Module\ModuleEvent,
-    Zend\Stdlib\ArrayUtils,
-    Zend\EventManager\EventCollection,
-    Zend\EventManager\ListenerAggregate;
+use ArrayAccess;
+use Traversable;
+use Zend\Config\Config;
+use Zend\Config\Factory as ConfigFactory;
+use Zend\Module\ModuleEvent;
+use Zend\Stdlib\ArrayUtils;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\ListenerAggregate;
 
 class ConfigListener extends AbstractListener
     implements ConfigMerger, ListenerAggregate
@@ -55,9 +55,9 @@ class ConfigListener extends AbstractListener
     }
 
     /**
-     * __invoke proxy to loadModule for easier attaching 
-     * 
-     * @param ModuleEvent $e 
+     * __invoke proxy to loadModule for easier attaching
+     *
+     * @param ModuleEvent $e
      * @return ConfigListener
      */
     public function __invoke(ModuleEvent $e)
@@ -80,9 +80,9 @@ class ConfigListener extends AbstractListener
     }
 
     /**
-     * Pass self to the ModuleEvent object early so everyone has access. 
-     * 
-     * @param ModuleEvent $e 
+     * Pass self to the ModuleEvent object early so everyone has access.
+     *
+     * @param ModuleEvent $e
      * @return ConfigListener
      */
     public function loadModulesPre(ModuleEvent $e)
@@ -92,9 +92,9 @@ class ConfigListener extends AbstractListener
     }
 
     /**
-     * Merge the config for each module 
-     * 
-     * @param ModuleEvent $e 
+     * Merge the config for each module
+     *
+     * @param ModuleEvent $e
      * @return ConfigListener
      */
     public function loadModule(ModuleEvent $e)
@@ -114,7 +114,7 @@ class ConfigListener extends AbstractListener
      *
      * This should really only be called by the module manager.
      *
-     * @param ModuleEvent $e 
+     * @param ModuleEvent $e
      * @return ConfigListener
      */
     public function loadModulesPost(ModuleEvent $e)

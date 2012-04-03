@@ -11,14 +11,14 @@ class FactoryTester
 {
     /**
      * Test case to call assertions to.
-     * 
+     *
      * @var TestCase
      */
     protected $testCase;
-    
+
     /**
      * Create a new factory tester.
-     * 
+     *
      * @param  TestCase $testCase
      * @return void
      */
@@ -26,10 +26,10 @@ class FactoryTester
     {
         $this->testCase = $testCase;
     }
-    
+
     /**
      * Test a factory.
-     * 
+     *
      * @param  string $className
      * @return void
      */
@@ -42,11 +42,11 @@ class FactoryTester
         } catch (\Zend\Mvc\Router\Exception\InvalidArgumentException $e) {
             $this->testCase->assertContains('factory expects an array or Traversable set of options', $e->getMessage());
         }
-        
+
         // Test required options.
         foreach ($requiredOptions as $option => $exceptionMessage) {
             $testOptions = $options;
-            
+
             unset($testOptions[$option]);
 
             try {
@@ -56,10 +56,10 @@ class FactoryTester
                 $this->testCase->assertContains($exceptionMessage, $e->getMessage());
             }
         }
-        
+
         // Create the route, will throw an exception if something goes wrong.
         $classname::factory($options);
-        
+
         // Try the same with an iterator.
         $classname::factory(new ArrayIterator($options));
     }

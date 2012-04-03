@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.console.getopt.rules"><info><title>Declaring Getopt Rules</title></info>
-    
+
 
     <para>
         The constructor for the <classname>Zend_Console_Getopt</classname> class takes
@@ -25,7 +25,7 @@
     </para>
 
     <section xml:id="zend.console.getopt.rules.short"><info><title>Declaring Options with the Short Syntax</title></info>
-        
+
 
         <para>
             <classname>Zend_Console_Getopt</classname> supports a compact syntax similar
@@ -38,7 +38,7 @@
         </para>
 
         <example xml:id="zend.console.getopt.rules.short.example"><info><title>Using the Short Syntax</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
@@ -60,7 +60,7 @@ $opts = new Zend_Console_Getopt('abp:');
     </section>
 
     <section xml:id="zend.console.getopt.rules.long"><info><title>Declaring Options with the Long Syntax</title></info>
-        
+
 
         <para>
             A different syntax with more features is also available. This
@@ -112,7 +112,7 @@ $opts = new Zend_Console_Getopt('abp:');
         </para>
 
         <example xml:id="zend.console.getopt.rules.long.example"><info><title>Using the Long Syntax</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt(

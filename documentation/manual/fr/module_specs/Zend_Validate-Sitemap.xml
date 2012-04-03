@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.sitemap"><info><title>Validateurs de Sitemap</title></info>
-    
+
 
     <para>
         Les validateurs suivant sont conformes au protocole <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.sitemaps.org/protocol.php"><acronym>XML</acronym> Sitemap</link>.
     </para>
 
     <section xml:id="zend.validate.sitemap.changefreq"><info><title>Sitemap_Changefreq</title></info>
-        
+
 
         <para>
             Valide si oui ou non une chaîne utilisable en tant qu'élément "changefreq" dans un
@@ -22,7 +22,7 @@
     </section>
 
     <section xml:id="zend.validate.sitemap.lastmod"><info><title>Sitemap_Lastmod</title></info>
-        
+
 
         <para>
             Valide si oui ou non une chaîne utilisable en tant qu'élément "lastmod" dans un
@@ -37,7 +37,7 @@
         </para>
 
         <example xml:id="zend.validate.sitemap.lastmod.example"><info><title>Validateur de "lastmod" Sitemap</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_Sitemap_Lastmod();
 $validator->isValid('1999-11-11T22:23:52-02:00'); // true
@@ -54,7 +54,7 @@ $validator->isValid('yesterday'); // false
     </section>
 
     <section xml:id="zend.validate.sitemap.loc"><info><title>Sitemap_Loc</title></info>
-        
+
 
         <para>
             Valide si oui ou non une chaîne utilisable en tant qu'élément "loc" dans un
@@ -65,7 +65,7 @@ $validator->isValid('yesterday'); // false
     </section>
 
     <section xml:id="zend.validate.sitemap.priority"><info><title>Sitemap_Priority</title></info>
-        
+
 
         <para>
             Valide si oui ou non une valeur est utilisable en tant qu'élément "priority" dans un
@@ -74,7 +74,7 @@ $validator->isValid('yesterday'); // false
         </para>
 
         <example xml:id="zend.validate.sitemap.priority.example"><info><title>Validateur de "priority" Sitemap</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_Sitemap_Priority();
@@ -92,7 +92,7 @@ $validator->isValid('foo'); // false
     </section>
 
     <section xml:id="zend.validate.set.sitemap.options"><info><title>Options supportées par Zend_Validate_Sitemap_*</title></info>
-        
+
 
         <para>
             Il n'y a pas d'options supportées par ce validateur.

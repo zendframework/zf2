@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.localizedtonormalized"><info><title>LocalizedToNormalized and NormalizedToLocalized</title></info>
-    
+
 
     <para>
         These two filters can change given localized input to it's normalized representation and
@@ -12,7 +12,7 @@
             Supported options for Zend_Filter_LocalizedToNormalized and
             Zend_Filter_NormalizedToLocalized
         </title></info>
-        
+
 
         <para>
             The following options are supported for
@@ -45,7 +45,7 @@
     </section>
 
     <section xml:id="zend.filter.set.localizedtonormalized.workflow"><info><title>Workflow</title></info>
-        
+
 
         <para>
             Normalization allows your user to enter informations in his own language notation, and
@@ -115,7 +115,7 @@
     </section>
 
     <section xml:id="zend.filter.set.localizedtonormalized.numbersnormal"><info><title>Normalization for numbers</title></info>
-        
+
 
         <para>
             Any given number like integer, float or real value, can be normalized. Note, that
@@ -165,7 +165,7 @@ $filter->filter('123.456,78901');
     </section>
 
     <section xml:id="zend.filter.set.localizedtonormalized.dates"><info><title>Normalization for date and time</title></info>
-        
+
 
         <para>
             Input for date and time values can also be normalized. All given date and time values
@@ -201,7 +201,7 @@ $filter->filter('11:22:33');
     </section>
 
     <section xml:id="zend.filter.set.localizedtonormalized.numberslocal"><info><title>Localization for numbers</title></info>
-        
+
 
         <para>
             Any given number like integer, float or real value, can be localized. Note, that
@@ -252,7 +252,7 @@ $filter->filter(123456.78901);
     </section>
 
     <section xml:id="zend.filter.set.normalizedtolocalized.dates"><info><title>Localization for date and time</title></info>
-        
+
 
         <para>
             Normalized for date and time values can also be localized. All given date and time

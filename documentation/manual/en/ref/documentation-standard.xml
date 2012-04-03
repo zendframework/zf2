@@ -73,7 +73,7 @@
 
         <section xml:id="doc-standard.file-formatting.indentation">
             <info><title>Indentation</title></info>
-            
+
 
             <para>Indentation should consist of 4 spaces. Tabs are not allowed.</para>
             <para>Tags which are at the same level must have the same indentation.</para>
@@ -208,7 +208,7 @@ This is the class <classname>Zend_Class</classname>
 
             <section xml:id="doc-standard.file-formatting.whitespace.multiple-line-breaks">
                 <info><title>Multiple line breaks</title></info>
-                
+
 
                 <para>
                     Multiple line breaks within or between tags are not allowed.
@@ -426,7 +426,7 @@ $render = "xxx";
 
         <section xml:id="doc-standard.file-formatting.inline-tags">
             <info><title>Notes on specific inline tags</title></info>
-            
+
             <section xml:id="doc-standard.file-formatting.inline-tags.classname">
                 <info><title>classname</title></info>
 
@@ -446,7 +446,7 @@ $render = "xxx";
 
             <section xml:id="doc-standard.file-formatting.inline-tags.varname">
                 <info><title>varname</title></info>
-                
+
                 <para>
                     Variables must be wrapped in the <emphasis>&lt;varname&gt;</emphasis> tag.
                     Variables must be written using the "$" sigil. No other content is allowed
@@ -542,7 +542,7 @@ $render = "xxx";
 
         <section xml:id="doc-standard.file-formatting.block-tags">
             <info><title>Notes on specific block tags</title></info>
-            
+
             <section xml:id="doc-standard.file-formatting.block-tags.title">
                 <info><title>title</title></info>
 
@@ -580,7 +580,7 @@ $render = "xxx";
                 spaces, etc. Such changes can often make identification of actual content changes
                 difficult for translators.
             </para>
-                
+
             <para>
                 If possible, configure your editor's formatting settings such that they follow the
                 guidelines outlined in this document. If you cannot do so, please disable
@@ -643,7 +643,7 @@ $render = "xxx";
 
             <programlisting language="xml"><![CDATA[
 <para>
-    The <link xmlns:xlink="http://www.w3.org/1999/xlink" 
+    The <link xmlns:xlink="http://www.w3.org/1999/xlink"
         xlink:href="http://framework.zend.com/">Zend Framework site</link>.
 </para>
 ]]></programlisting>

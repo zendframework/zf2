@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headlink"><info><title>Helper HeadLink</title></info>
-    
+
 
     <para>
         Element HTML <code>&lt;link&gt;</code> jest używany do dołączania różnego
@@ -64,7 +64,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.headlink.basicusage"><info><title>Proste użycie helpera HeadLink</title></info>
-        
+
 
         <para>
             Możesz użyć helpera <code>headLink</code> w dowolnym momencie.

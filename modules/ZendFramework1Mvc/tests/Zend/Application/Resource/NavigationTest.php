@@ -21,12 +21,12 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application,
-    Zend\Application\Resource\Navigation as NavigationResource,
-    Zend\Registry,
-    Zend\Navigation\AbstractPage as NavigationPage,
-    Zend\Navigation\Page\Mvc as MvcPage;
+use Zend\Loader\Autoloader;
+use Zend\Application;
+use Zend\Application\Resource\Navigation as NavigationResource;
+use Zend\Registry;
+use Zend\Navigation\AbstractPage as NavigationPage;
+use Zend\Navigation\Page\Mvc as MvcPage;
 
 /**
  * @category   Zend

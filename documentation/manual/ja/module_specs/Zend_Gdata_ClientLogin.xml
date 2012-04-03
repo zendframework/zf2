@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.clientlogin"><info><title>ClientLogin による認証</title></info>
-    
+
 
     <para>
         ClientLogin を使用すると、<acronym>PHP</acronym> アプリケーションで
@@ -30,7 +30,7 @@
     </para>
 
     <section xml:id="zend.gdata.clientlogin.login"><info><title>ClientLogin 認証済みの Http クライアントの作成</title></info>
-        
+
 
         <para>
             ClientLogin を使用した認証済みの <acronym>HTTP</acronym> クライアントを作成するには、
@@ -101,7 +101,7 @@ $cal = new Zend_Gdata_Calendar($client);
     </section>
 
     <section xml:id="zend.gdata.clientlogin.terminating"><info><title>Http クライアントの ClientLogin 認証の解除</title></info>
-        
+
 
         <para>
             ClientLogin 認証を解除する方法はありません。というのは、これは

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.quick-start"><info><title>Zend_Application クイックスタート</title></info>
-    
+
 
     <para>
         <classname>Zend_Application</classname>で始める方法は2つあります、
@@ -17,7 +17,7 @@
     </para>
 
     <section xml:id="zend.application.quick-start.zend-tool"><info><title>Zend_Toolの利用</title></info>
-        
+
 
         <para>
             <classname>Zend_Application</classname>を使い始めるために最も早い方法は、
@@ -151,7 +151,7 @@ $application->bootstrap()
     </section>
 
     <section xml:id="zend.application.quick-start.manual"><info><title>アプリケーションにZend_Applicationを追加する</title></info>
-        
+
 
         <para>
             <classname>Zend_Application</classname>の基本は本当に単純です:
@@ -275,7 +275,7 @@ RewriteRule ^.*$ index.php [NC,L]
 ]]></programlisting>
 
         <note><info><title>mod_rewriteについて学ぶ</title></info>
-            
+
 
             <para>
                 上記の書き換えルールでは、バーチャル・ホスト・ドキュメント・ルートの配下の
@@ -293,7 +293,7 @@ RewriteRule ^.*$ index.php [NC,L]
     </section>
 
     <section xml:id="zend.application.quick-start.resources"><info><title>リソースの追加と作成</title></info>
-        
+
 
         <para>
             上記の手引きに従うと、ブートストラップ・クラスはフロントコントローラを利用します。
@@ -403,7 +403,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="zend.application.quick-start.next-steps"><info><title>Zend_Applicationを使った次のステップ</title></info>
-        
+
 
         <para>
             上記は、<classname>Zend_Application</classname>で始めるようにさせるべきです。

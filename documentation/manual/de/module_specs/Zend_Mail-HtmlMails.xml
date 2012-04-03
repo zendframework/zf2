@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.html-mails"><info><title>HTML E-Mail</title></info>
-    
+
 
     <para>
         Um einen E-Mail im <acronym>HTML</acronym> Format zu versenden, muss der Hauptteil der
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.mail.html-mails.example-1"><info><title>Versand von HTML E-Mail</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();

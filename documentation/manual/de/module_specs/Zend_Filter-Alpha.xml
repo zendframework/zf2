@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.alpha"><info><title>Alpha</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_Alpha</classname> ist ein Filter der den String
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.filter.set.alpha.options"><info><title>Unterstützte Optionen für Zend_Filter_Alpha</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Filter_Alpha</classname> unterstützt:
@@ -28,7 +28,7 @@
     </section>
 
     <section xml:id="zend.filter.set.alpha.basic"><info><title>Einfache Verwendung</title></info>
-        
+
 
         <para>
             Ein einfaches Beispiel der Verwendung ist anbei:
@@ -56,7 +56,7 @@ print $filter->filter('Das ist (mein) Inhalt: 123');
     </section>
 
      <section xml:id="zend.filter.set.alpha.whitespace"><info><title>Leerzeichen erlauben</title></info>
-         
+
 
         <para>
             <classname>Zend_Filter_Alpha</classname> kann auch Leerzeichen erlauben. Dies kann

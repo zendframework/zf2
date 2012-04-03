@@ -21,8 +21,8 @@
 
 namespace Zend\Controller\Action;
 
-use ArrayObject,
-    Zend\Controller\Action;
+use ArrayObject;
+use Zend\Controller\Action;
 
 /**
  * @uses       \Zend\Controller\Action\Exception
@@ -287,7 +287,7 @@ class HelperPriorityStack implements \IteratorAggregate, \ArrayAccess, \Countabl
      * Normalize a helper name
      *
      * Normalize to lowercase, with underscore separated words
-     * 
+     *
      * @param  string $name
      * @return string
      */

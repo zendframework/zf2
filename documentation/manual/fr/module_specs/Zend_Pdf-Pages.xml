@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.pages"><info><title>Les pages d'un document</title></info>
-    
+
 
     <section xml:id="zend.pdf.pages.creation"><info><title>Création de page</title></info>
-        
+
 
         <para>
             Les pages d'un document <acronym>PDF</acronym> sont représentés par la classe
@@ -63,7 +63,7 @@
         </para>
 
         <example xml:id="zend.pdf.pages.example-1"><info><title>Gestion des pages d'un document PDF</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -83,7 +83,7 @@ unset($pdf->pages[$id]);
     </section>
 
     <section xml:id="zend.pdf.pages.cloning"><info><title>Clonage de page</title></info>
-        
+
 
         <para>
             Les pages existantes d'un <acronym>PDF</acronym> peuvent être clonées en créant un nouvel objet
@@ -91,7 +91,7 @@ unset($pdf->pages[$id]);
         </para>
 
         <example xml:id="zend.pdf.pages.example-2"><info><title>Cloner une page existante</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view.dojo"><info><title>dojo() Ayudante de Vista</title></info>
-    
+
 
     <para> El ayudante de vista <methodname>dojo()</methodname> está destinado a
         simplificar el establecimiento del medio ambiente de Dojo, incluyendo
@@ -32,7 +32,7 @@
             <acronym>PHP</acronym> desde su script. </para>
 
     <example xml:id="zend.dojo.view.dojo.usage"><info><title>dojo() Ejemplo de Uso del Ayudante de Vista</title></info>
-        
+
 
         <para>En este ejemplo, asumamos que el desarrollador estará usando Dojo
             desde un path local, se necesitarán varios dijits, y se utilizará el
@@ -110,7 +110,7 @@ $this->dojo()->enable()
     </example>
 
     <note><info><title>UTF-8 encoding used by default</title></info>
-        
+
 
         <para>
             By default, Zend Framework uses <acronym>UTF-8</acronym> as its default encoding, and,
@@ -132,7 +132,7 @@ $this->dojo()->enable()
     </note>
 
     <section xml:id="zend.dojo.view.dojo.declarative"><info><title>Uso Programático y Declarativo de Dojo</title></info>
-        
+
 
         <para> Dojo permite usar a ambos <emphasis>declarative</emphasis> y
                 <emphasis>programmatic</emphasis> en muchas de sus
@@ -169,7 +169,7 @@ $this->dojo()->enable()
 
         <example xml:id="zend.dojo.view.dojo.declarative.usage"><info><title>Especificando el Uso Declarativo y Programático de
                 Dojo</title></info>
-            
+
 
             <para> Para especificar el uso declarativo, simplemente llame al
                 método estático <methodname>setUseDeclarative()</methodname> : </para>
@@ -197,7 +197,7 @@ Zend_Dojo_View_Helper_Dojo::setUseProgrammatic(-1);
     </section>
 
     <section xml:id="zend.dojo.view.dojo.themes"><info><title>Temas</title></info>
-        
+
 
         <para>Dojo permite la creación de los temas de su dijits (widgets).
             Puede seleccionar uno pasándolo en un path de módulo:</para>
@@ -222,7 +222,7 @@ $view->dojo()->addStylesheetModule('dijit.themes.tundra');
     </section>
 
     <section xml:id="zend.dojo.view.dojo.layers"><info><title>Usando Layers (Construcciones Personalizadas)</title></info>
-        
+
 
         <para>Por defecto, cuando utilice uns sentencia dojo.require, dojo hará
             una solicitud de retorno al servidor para agarrar al archivo
@@ -275,7 +275,7 @@ $view->dojo()->addLayer('/js/foo/foo.js');
     </section>
 
     <section xml:id="zend.dojo.view.dojo.methods"><info><title>Métodos Disponibles</title></info>
-        
+
 
         <para> El ayudante de vista <methodname>dojo()</methodname> siempre
             devuelve una instancia del contenedor del marcador de posición dojo.

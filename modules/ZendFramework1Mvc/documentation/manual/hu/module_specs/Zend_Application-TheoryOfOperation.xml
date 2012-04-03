@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.theory-of-operation"><info><title>Működési elv</title></info>
-    
+
 
     <para>
         Egy <acronym>MVC</acronym> alkalmazás beállítása és felkészítése az indulásra egyre növekvő
@@ -130,7 +130,7 @@
     </para>
 
     <section xml:id="zend.application.theory-of-operation.bootstrap"><info><title>Rendszertöltés</title></info>
-        
+
 
         <para>
             A <classname>Zend_Application</classname> felelősségi körébe tartozik az alkalmazás
@@ -170,7 +170,7 @@ interface Zend_Application_Bootstrap_Bootstrapper
         </para>
 
         <section xml:id="zend.application.theory-of-operation.bootstrap.resource-methods"><info><title>Erőforrás tagfüggvények</title></info>
-            
+
 
             <para>
                 A <classname>Zend_Application_Bootstrap_BootstrapAbstract</classname> megvalósítás
@@ -242,7 +242,7 @@ $bootstrap->bootstrap();
         </section>
 
         <section xml:id="zend.application.theory-of-operation.bootstrap.resource-plugins"><info><title>Bootstraps that use resource plugins</title></info>
-            
+
 
             <para>
                 To make your bootstraps more re-usable, we have provided the
@@ -370,7 +370,7 @@ $bootstrap->bootstrap();
         </section>
 
         <section xml:id="zend.application.theory-of-operation.bootstrap.registry"><info><title>Resource Registry</title></info>
-            
+
 
             <para>
                 Many, if not all, of your resource methods or plugins will
@@ -461,7 +461,7 @@ class FooController extends Zend_Controller_Action
         </section>
 
         <section xml:id="zend.application.theory-of-operation.bootstrap.dependency-tracking"><info><title>Dependency Tracking</title></info>
-            
+
 
             <para>
                 In addition to executing resource methods and plugins, it's
@@ -520,7 +520,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="zend.application.theory-of-operation.resources"><info><title>Resource Plugins</title></info>
-        
+
 
         <para>
             <link linkend="zend.application.theory-of-operation.bootstrap.resource-plugins">As noted

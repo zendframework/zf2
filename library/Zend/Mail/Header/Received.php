@@ -38,15 +38,15 @@ class Received implements MultipleHeaderDescription
 
     /**
      * Header encoding
-     * 
+     *
      * @var string
      */
     protected $encoding = 'ASCII';
 
     /**
      * Factory: create Received header object from string
-     * 
-     * @param  string $headerLine 
+     *
+     * @param  string $headerLine
      * @return Received
      * @throws Exception\InvalidArgumentException
      */
@@ -61,13 +61,13 @@ class Received implements MultipleHeaderDescription
 
         $header = new static();
         $header->value= $value;
-        
+
         return $header;
     }
 
     /**
      * Get header name
-     * 
+     *
      * @return string
      */
     public function getFieldName()
@@ -77,7 +77,7 @@ class Received implements MultipleHeaderDescription
 
     /**
      * Get header value
-     * 
+     *
      * @return string
      */
     public function getFieldValue()
@@ -87,11 +87,11 @@ class Received implements MultipleHeaderDescription
 
     /**
      * Set header encoding
-     * 
-     * @param  string $encoding 
+     *
+     * @param  string $encoding
      * @return AbstractAddressList
      */
-    public function setEncoding($encoding) 
+    public function setEncoding($encoding)
     {
         $this->encoding = $encoding;
         return $this;
@@ -99,7 +99,7 @@ class Received implements MultipleHeaderDescription
 
     /**
      * Get header encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -109,18 +109,18 @@ class Received implements MultipleHeaderDescription
 
     /**
      * Serialize to string
-     * 
+     *
      * @return string
      */
     public function toString()
     {
         return 'Received: ' . $this->getFieldValue();
     }
-    
+
     /**
      * Serialize collection of Received headers to string
-     * 
-     * @param  array $headers 
+     *
+     * @param  array $headers
      * @return string
      */
     public function toStringMultipleHeaders(array $headers)

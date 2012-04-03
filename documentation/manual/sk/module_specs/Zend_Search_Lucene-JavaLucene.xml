@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.java-lucene"><info><title>Spolupráca s Java Lucene</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.index-creation.file-formats"><info><title>Formáty súborov</title></info>
-        
+
         <para>
             Indexový súbor Zend_Search_Lucene je binárne kompatibilný s verziou
             Lucene 1.4 a vyššou.
@@ -17,7 +17,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.index-directory"><info><title>Adresár indexu</title></info>
-        
+
 
         <para>
         Po vytvorení indexu obsahuje adresár niekoľko súborov:
@@ -45,7 +45,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.java-lucene.source-code"><info><title>Zdrojový kód v Java</title></info>
-        
+
         <para>
             Nasledujúci Java kód poskytuje príklad ako indexovať súbor s použitím
             Java Lucene:

@@ -82,8 +82,8 @@ class TableObject
 
     /**
      * Constructor
-     * 
-     * @param string $name 
+     *
+     * @param string $name
      */
     public function __construct($name)
     {
@@ -93,8 +93,8 @@ class TableObject
     }
     /**
      * Get type
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getType()
     {
@@ -102,9 +102,9 @@ class TableObject
     }
     /**
      * Set type
-     * 
+     *
      * @param  string $type
-     * @return TableObject 
+     * @return TableObject
      */
     public function setType($type)
     {
@@ -113,8 +113,8 @@ class TableObject
     }
     /**
      * Set columns
-     * 
-     * @param array $columns 
+     *
+     * @param array $columns
      */
     public function setColumns(array $columns)
     {
@@ -122,8 +122,8 @@ class TableObject
     }
     /**
      * Get columns
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function getColumns()
     {
@@ -131,8 +131,8 @@ class TableObject
     }
     /**
      * Set constraints
-     * 
-     * @param array $constraints 
+     *
+     * @param array $constraints
      */
     public function setConstraints($constraints)
     {
@@ -140,8 +140,8 @@ class TableObject
     }
     /**
      * Get constraints
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function getConstraints()
     {
@@ -149,8 +149,8 @@ class TableObject
     }
     /**
      * Set name
-     * 
-     * @param string $name 
+     *
+     * @param string $name
      */
     public function setName($name)
     {
@@ -158,8 +158,8 @@ class TableObject
     }
     /**
      * Get name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getName()
     {

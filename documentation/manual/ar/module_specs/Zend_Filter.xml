@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.filter"><info><title>Zend_Filter</title></info>
-    
+
 
     <section xml:id="zend.filter.filter.introduction"><info><title>مقدمة</title></info>
-        
+
         <para>
 
         توفر <literal>Zend_Filter</literal> مكتبة من الـ static methods لفلترة البيانات ,
@@ -25,7 +25,7 @@
         ]]></programlisting>
     </section>
     <section xml:id="zend.filter.filter.usecases"><info><title>امثلة</title></info>
-        
+
         <para>
         فى كل من الأمثة التالية , <literal>value$</literal> تمثل قيمة ذات بعد واحد .
         </para>

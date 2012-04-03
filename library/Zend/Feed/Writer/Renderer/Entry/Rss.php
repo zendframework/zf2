@@ -20,10 +20,10 @@
 
 namespace Zend\Feed\Writer\Renderer\Entry;
 
-use Zend\Date,
-    Zend\Feed\Writer,
-    Zend\Feed\Writer\Renderer,
-    Zend\Uri;
+use Zend\Date;
+use Zend\Feed\Writer;
+use Zend\Feed\Writer\Renderer;
+use Zend\Uri;
 
 /**
 * @category Zend
@@ -35,18 +35,18 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
 {
     /**
      * Constructor
-     * 
-     * @param  Zend_Feed_Writer_Entry $container 
+     *
+     * @param  Zend_Feed_Writer_Entry $container
      * @return void
      */
     public function __construct (Writer\Entry $container)
     {
         parent::__construct($container);
     }
-    
+
     /**
      * Render RSS entry
-     * 
+     *
      * @return Zend_Feed_Writer_Renderer_Entry_Rss
      */
     public function render()
@@ -56,7 +56,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         $this->_dom->substituteEntities = false;
         $entry = $this->_dom->createElement('item');
         $this->_dom->appendChild($entry);
-        
+
         $this->_setTitle($this->_dom, $entry);
         $this->_setDescription($this->_dom, $entry);
         $this->_setDateCreated($this->_dom, $entry);
@@ -76,12 +76,12 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
 
         return $this;
     }
-    
+
     /**
      * Set entry title
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setTitle(\DOMDocument $dom, \DOMElement $root)
@@ -104,12 +104,12 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         $text = $dom->createTextNode($this->getDataContainer()->getTitle());
         $title->appendChild($text);
     }
-    
+
     /**
      * Set entry description
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setDescription(\DOMDocument $dom, \DOMElement $root)
@@ -136,12 +136,12 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         $text = $dom->createCDATASection($this->getDataContainer()->getDescription());
         $subtitle->appendChild($text);
     }
-    
+
     /**
      * Set date entry was last modified
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setDateModified(\DOMDocument $dom, \DOMElement $root)
@@ -157,12 +157,12 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         );
         $updated->appendChild($text);
     }
-    
+
     /**
      * Set date entry was created
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setDateCreated(\DOMDocument $dom, \DOMElement $root)
@@ -176,12 +176,12 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             );
         }
     }
-    
+
     /**
      * Set entry authors
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setAuthors(\DOMDocument $dom, \DOMElement $root)
@@ -201,12 +201,12 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             $root->appendChild($author);
         }
     }
-    
+
     /**
      * Set entry enclosure
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setEnclosure(\DOMDocument $dom, \DOMElement $root)
@@ -249,12 +249,12 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         $enclosure->setAttribute('url', $data['uri']);
         $root->appendChild($enclosure);
     }
-    
+
     /**
      * Set link to entry
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setLink(\DOMDocument $dom, \DOMElement $root)
@@ -267,12 +267,12 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         $text = $dom->createTextNode($this->getDataContainer()->getLink());
         $link->appendChild($text);
     }
-    
+
     /**
      * Set entry identifier
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setId(\DOMDocument $dom, \DOMElement $root)
@@ -294,12 +294,12 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
             $id->setAttribute('isPermaLink', 'false');
         }
     }
-    
+
     /**
      * Set link to entry comments
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setCommentLink(\DOMDocument $dom, \DOMElement $root)
@@ -313,12 +313,12 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\Renderer
         $clink->appendChild($text);
         $root->appendChild($clink);
     }
-    
+
     /**
      * Set entry categories
-     * 
-     * @param \DOMDocument $dom 
-     * @param \DOMElement $root 
+     *
+     * @param \DOMDocument $dom
+     * @param \DOMElement $root
      * @return void
      */
     protected function _setCategories(\DOMDocument $dom, \DOMElement $root)

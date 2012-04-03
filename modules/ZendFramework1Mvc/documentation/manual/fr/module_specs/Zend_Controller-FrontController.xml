@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.front"><info><title>Le contrôleur frontal (Front Controller)</title></info>
-    
+
 
     <section xml:id="zend.controller.front.overview"><info><title>Présentation générale</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Front</classname> implémente un
@@ -43,7 +43,7 @@
         </para>
 
         <note><info><title>Comportement par défaut</title></info>
-            
+
             <para>
                 Par défaut, le contrôleur frontal charge le plugin
                 <link linkend="zend.controller.plugins.standard.errorhandler">ErrorHandler</link>,
@@ -72,7 +72,7 @@ $front->setParam('noViewRenderer', true);
     </section>
 
     <section xml:id="zend.controller.front.methods.primary"><info><title>Méthodes principales</title></info>
-        
+
 
         <para>
             Le contrôleur frontal a plusieurs accesseurs pour construire son environnement.
@@ -81,7 +81,7 @@ $front->setParam('noViewRenderer', true);
         </para>
 
         <section xml:id="zend.controller.front.methods.primary.getinstance"><info><title>getInstance()</title></info>
-            
+
 
             <para>
                 <methodname>getInstance()</methodname> est utilisé pour récupérer une instance du
@@ -96,7 +96,7 @@ $front = Zend_Controller_Front::getInstance();
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.setcontrollerdirectory"><info><title>setControllerDirectory() et addControllerDirectory</title></info>
-            
+
 
             <para>
                 <methodname>setControllerDirectory()</methodname> est utilisé pour informer
@@ -140,7 +140,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.addmoduledirectory"><info><title>addModuleDirectory() et getModuleDirectory()</title></info>
-            
+
 
             <para>
                 Un des aspects du contrôleur frontal est que vous puissiez
@@ -171,7 +171,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.dispatch"><info><title>dispatch()</title></info>
-            
+
 
             <para>
                 <code>dispatch(Zend_Controller_Request_Abstract $request = null,
@@ -221,7 +221,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.run"><info><title>run()</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Controller_Front::run($path)</methodname> est une méthode
@@ -250,7 +250,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.environment"><info><title>Méthodes d'accès à l'environnement</title></info>
-        
+
 
         <para>
             En plus des méthodes énumérées ci-dessus, il y a un certain nombre de méthodes
@@ -389,7 +389,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.params"><info><title>Paramètres du contrôleur frontal</title></info>
-        
+
 
         <para>
             Dans l'introduction, nous avons indiqué que le contrôleur frontal agit également
@@ -482,7 +482,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.subclassing"><info><title>Étendre le contrôleur frontal</title></info>
-        
+
 
         <para>
             Pour étendre le contrôleur frontal, vous devez au minimum surcharger la méthode

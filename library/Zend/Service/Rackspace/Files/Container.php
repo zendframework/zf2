@@ -49,7 +49,7 @@ class Container
         }
         if (!array_key_exists('name', $data)) {
             throw new Exception\InvalidArgumentException(self::ERROR_PARAM_NO_NAME);
-        }    
+        }
         $this->service = $service;
         $this->name = $data['name'];
     }
@@ -90,7 +90,7 @@ class Container
     }
     /**
      * Return true if the container is CDN enabled
-     * 
+     *
      * @return boolean
      */
     public function isCdnEnabled()
@@ -103,10 +103,10 @@ class Container
     }
     /**
      * Get the TTL of the CDN
-     * 
-     * @return integer|boolean 
+     *
+     * @return integer|boolean
      */
-    public function getCdnTtl() 
+    public function getCdnTtl()
     {
         $data = $this->getCdnInfo();
         if (!isset($data['ttl'])) {
@@ -129,7 +129,7 @@ class Container
     }
     /**
      * Get the CDN URI
-     * 
+     *
      * @return string|boolean
      */
     public function getCdnUri()
@@ -171,14 +171,14 @@ class Container
                 if (isset ($result['metadata'][$key])) {
                     return $result['metadata'][$key];
                 }
-            }    
-        }    
+            }
+        }
         return false;
     }
     /**
      * Get the information of the container (total of objects, total size)
-     * 
-     * @return array|boolean 
+     *
+     * @return array|boolean
      */
     public function getInfo()
     {
@@ -199,7 +199,7 @@ class Container
     }
     /**
      * Get an object of the container
-     * 
+     *
      * @param string $name
      * @param array $headers
      * @return Zend\Service\Rackspace\Files\Object|boolean
@@ -261,7 +261,7 @@ class Container
      * @param array $metadata
      * @return boolean
      */
-    public function setMetadataObject($object,$metadata=array()) 
+    public function setMetadataObject($object,$metadata=array())
     {
         return $this->service->setMetadataObject($this->getName(),$object,$metadata);
     }
@@ -271,16 +271,16 @@ class Container
      * @param integer $ttl
      * @return array|boolean
      */
-    public function enableCdn($ttl=RackspaceFiles::CDN_TTL_MIN) 
+    public function enableCdn($ttl=RackspaceFiles::CDN_TTL_MIN)
     {
         return $this->service->enableCdnContainer($this->getName(),$ttl);
     }
     /**
      * Disable the CDN for the container
-     * 
+     *
      * @return boolean
      */
-    public function disableCdn() 
+    public function disableCdn()
     {
         $result = $this->service->updateCdnContainer($this->getName(),null,false);
         return ($result!==false);
@@ -291,7 +291,7 @@ class Container
      * @param integer $ttl
      * @return boolean
      */
-    public function changeTtlCdn($ttl) 
+    public function changeTtlCdn($ttl)
     {
         $result =  $this->service->updateCdnContainer($this->getName(),$ttl);
         return ($result!==false);
@@ -301,7 +301,7 @@ class Container
      *
      * @return boolean
      */
-    public function enableLogCdn() 
+    public function enableLogCdn()
     {
         $result =  $this->service->updateCdnContainer($this->getName(),null,null,true);
         return ($result!==false);
@@ -311,7 +311,7 @@ class Container
      *
      * @return boolean
      */
-    public function disableLogCdn() 
+    public function disableLogCdn()
     {
         $result =  $this->service->updateCdnContainer($this->getName(),null,null,false);
         return ($result!==false);
@@ -321,7 +321,7 @@ class Container
      *
      * @return array|boolean
      */
-    public function getCdnInfo() 
+    public function getCdnInfo()
     {
         return $this->service->getInfoCdnContainer($this->getName());
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xmlns="http://docbook.org/ns/docbook" version="5.0" 
+<section xmlns="http://docbook.org/ns/docbook" version="5.0"
     xml:id="zend.db.sql">
     <info><title>Zend\Db\Sql</title></info>
 
@@ -143,7 +143,7 @@ class Zend\Db\Sql\Delete
             SQL predicates expressed as objects for consumption in a Where object.  The
             following is a list of currently built-in predicte objects:
         </para>
-        
+
         <itemizedlist>
             <listitem>
                 <para>

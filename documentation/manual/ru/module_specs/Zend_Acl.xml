@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.introduction"><info><title>Введение</title></info>
-    
+
 
     <para>
         <classname>Zend_Acl</classname> предоставляет легковесную и гибкую реализацию списка прав
@@ -38,7 +38,7 @@
     </para>
 
     <section xml:id="zend.acl.introduction.resources"><info><title>Ресурсы</title></info>
-        
+
         <para>
             Создать ресурс в <classname>Zend_Acl</classname> очень просто. <classname>Zend_Acl</classname> предоставляет
             интерфейс ресурса <classname>Zend_Acl_Resource_Interface</classname> для
@@ -75,7 +75,7 @@
     </section>
 
     <section xml:id="zend.acl.introduction.roles"><info><title>Роли</title></info>
-        
+
         <para>
             Как и в случае с ресурсами, создавать роль тоже очень просто.
             Все роли должны реализовывать интерфейс
@@ -102,7 +102,7 @@
             проблему.
         </para>
         <example xml:id="zend.acl.introduction.roles.example.multiple_inheritance"><info><title>Множественное наследование ролей</title></info>
-            
+
             <para>
                 Следующий код определяет три базовые роли:
                 "<code>guest</code>", "<code>member</code>" и
@@ -173,7 +173,7 @@ echo $acl->isAllowed('someUser', 'someResource') ? 'разрешен' : 'зап�
     </section>
 
     <section xml:id="zend.acl.introduction.creating"><info><title>Создание списка контроля доступа (ACL)</title></info>
-        
+
 
         <para>
             Список контроля доступа (<acronym>ACL</acronym>) может представлять собой любое
@@ -199,7 +199,7 @@ $acl = new Zend_Acl();
     </section>
 
     <section xml:id="zend.acl.introduction.role_registry"><info><title>Регистрация ролей</title></info>
-        
+
 
         <para>
             <acronym>CMS</acronym> почти всегда нуждаются в иерархии
@@ -221,7 +221,7 @@ $acl = new Zend_Acl();
         </para>
 
         <table xml:id="zend.acl.introduction.role_registry.table.example_cms_access_controls"><info><title>Контроль за доступом для демонстрационной CMS</title></info>
-          
+
           <tgroup cols="3">
             <thead>
               <row>
@@ -289,7 +289,7 @@ $acl->addRole(new Zend_Acl_Role('administrator'));
     </section>
 
     <section xml:id="zend.acl.introduction.defining"><info><title>Определение контроля доступа</title></info>
-        
+
 
         <para>
             Теперь, когда <acronym>ACL</acronym> содержит все необходимые роли, можно определить
@@ -349,7 +349,7 @@ $acl->allow('administrator');]]></programlisting>
     </section>
 
     <section xml:id="zend.acl.introduction.querying"><info><title>Запросы к ACL</title></info>
-        
+
 
         <para>
             Теперь у нас есть гибкий <acronym>ACL</acronym>, который может использоваться для

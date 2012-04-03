@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.health"><info><title>Using Google Health</title></info>
-    
+
 
     <para>
         The Google Health Data <acronym>API</acronym> is designed to enable developers to do two
@@ -65,7 +65,7 @@
     </para>
 
     <section xml:id="zend.gdata.health.connect"><info><title>Connect To The Health Service</title></info>
-        
+
 
         <para>
             The Google Health <acronym>API</acronym>, like all Google Data <acronym>API</acronym>s,
@@ -81,7 +81,7 @@
         </para>
 
         <section xml:id="zend.gdata.health.connect.authentication"><info><title>Authentication</title></info>
-            
+
 
             <para>
                 The Google Health <acronym>API</acronym> allows programmatic access to a user's
@@ -128,7 +128,7 @@
         </section>
 
         <section xml:id="zend.gdata.health.connect.service"><info><title>Create A Health Service Instance</title></info>
-            
+
 
             <para>
                 In order to interact with Google Health, the client library provides the
@@ -274,7 +274,7 @@ $healthService = new Zend_Gdata_Health($client,
     </section>
 
     <section xml:id="zend.gdata.health.profilefeed"><info><title>Profile Feed</title></info>
-        
+
 
         <para>
             To query the user's profile feed, make sure your initial AuthSub token was requested
@@ -284,7 +284,7 @@ $healthService = new Zend_Gdata_Health($client,
         </para>
 
         <section xml:id="zend.gdata.health.profilefeed.query"><info><title>Send a Structured Query</title></info>
-            
+
 
             <para>
                 You can send structured queries to retrieve specific records from a user's profile.
@@ -299,7 +299,7 @@ $healthService = new Zend_Gdata_Health($client,
             </para>
 
             <section xml:id="zend.gdata.health.profilefeed.query.construct"><info><title>Query The Feed</title></info>
-                
+
 
                 <para>
                     To execute a query against the profile feed, invoke a new instance of an
@@ -344,7 +344,7 @@ $profileFeed = $healthService->getHealthProfileFeed($query);
         </section>
 
         <section xml:id="zend.gdata.health.profilefeed.iterate"><info><title>Iterate Through The Profile Entries</title></info>
-            
+
 
             <para>
                 Each Google Health entry contains CCR data, however, using the
@@ -409,7 +409,7 @@ foreach ($conditions as $cond) {
     </section>
 
     <section xml:id="zend.gdata.health.profilelist"><info><title>Profile List Feed</title></info>
-        
+
 
         <para>NOTE: This feed is only available when using ClientLogin</para>
 
@@ -422,7 +422,7 @@ foreach ($conditions as $cond) {
         </para>
 
         <section xml:id="zend.gdata.health.profilelist.query"><info><title>Query The Feed</title></info>
-            
+
 
             <para>
                 To execute a query against the profile list feed, call the service's
@@ -465,7 +465,7 @@ echo '<p><b>Queried profileID</b>: ' . $profileID . '</p>';
     </section>
 
     <section xml:id="zend.gdata.health.notice"><info><title>Sending Notices to the Register Feed</title></info>
-        
+
 
         <para>
             Individual posts to the register feed are known as notices. Notice are sent from
@@ -477,7 +477,7 @@ echo '<p><b>Queried profileID</b>: ' . $profileID . '</p>';
         </para>
 
         <section xml:id="zend.gdata.health.notice.send"><info><title>Sending a notice</title></info>
-            
+
 
             <para>
                 Notices can be sent by using the <methodname>sendHealthNotice()</methodname> method

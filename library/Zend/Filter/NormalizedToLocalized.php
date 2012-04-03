@@ -19,8 +19,8 @@
  */
 
 namespace Zend\Filter;
-use Zend\Locale\Format,
-    Zend\Date\Date;
+use Zend\Locale\Format;
+use Zend\Date\Date;
 
 /**
  * Localizes given normalized input

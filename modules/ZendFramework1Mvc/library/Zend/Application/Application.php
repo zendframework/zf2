@@ -20,11 +20,11 @@
 
 namespace Zend\Application;
 
-use Traversable,
-    Zend\Config,
-    Zend\Loader\SplAutoloader,
-    Zend\Loader\StandardAutoloader,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Config;
+use Zend\Loader\SplAutoloader;
+use Zend\Loader\StandardAutoloader;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @category   Zend

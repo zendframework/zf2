@@ -44,7 +44,7 @@ class GenericHeader implements Header
 
     /**
      * Header encoding
-     * 
+     *
      * @var string
      */
     protected $encoding = 'ASCII';
@@ -66,7 +66,7 @@ class GenericHeader implements Header
 
     /**
      * Constructor
-     * 
+     *
      * @param null|string $fieldName
      * @param null|string $fieldValue
      */
@@ -83,7 +83,7 @@ class GenericHeader implements Header
 
     /**
      * Set header field name
-     * 
+     *
      * @param  string $fieldName
      * @return GenericHeader
      */
@@ -117,7 +117,7 @@ class GenericHeader implements Header
 
     /**
      * Set header field value
-     * 
+     *
      * @param  string $fieldValue
      * @return GenericHeader
      */
@@ -135,7 +135,7 @@ class GenericHeader implements Header
 
     /**
      * Retrieve header field value
-     * 
+     *
      * @return string
      */
     public function getFieldValue()
@@ -145,11 +145,11 @@ class GenericHeader implements Header
 
     /**
      * Set header encoding
-     * 
-     * @param  string $encoding 
+     *
+     * @param  string $encoding
      * @return GenericHeader
      */
-    public function setEncoding($encoding) 
+    public function setEncoding($encoding)
     {
         $this->encoding = $encoding;
         return $this;
@@ -157,7 +157,7 @@ class GenericHeader implements Header
 
     /**
      * Get header encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()

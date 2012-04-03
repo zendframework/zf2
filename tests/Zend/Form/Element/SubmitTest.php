@@ -21,15 +21,15 @@
 
 namespace ZendTest\Form\Element;
 
-use Zend\Form\Element\Submit as SubmitElement,
-    Zend\Form\Element\Xhtml as XhtmlElement,
-    Zend\Form\Element,
-    Zend\Form\Decorator,
-    Zend\Form\Form,
-    Zend\Registry,
-    Zend\Translator\Translator,
-    Zend\Translator\Adapter\ArrayAdapter as ArrayTranslator,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Element\Submit as SubmitElement;
+use Zend\Form\Element\Xhtml as XhtmlElement;
+use Zend\Form\Element;
+use Zend\Form\Decorator;
+use Zend\Form\Form;
+use Zend\Registry;
+use Zend\Translator\Translator;
+use Zend\Translator\Adapter\ArrayAdapter as ArrayTranslator;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Element_Submit
@@ -161,7 +161,7 @@ class SubmitTest extends \PHPUnit_Framework_TestCase
         $submit = new SubmitElement('foo', 'label');
         $submit->setTranslator($translate);
         $submit->setValue($translations['label']);
-        
+
         $this->assertTrue($submit->isChecked());
 
         $submit->setValue('label');
@@ -196,12 +196,12 @@ class SubmitTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('bar', $html);
         $this->assertNotContains('baz', $html);
     }
-    
+
     public function testSetDefaultIgnoredToTrueWhenNotDefined()
     {
         $this->assertTrue($this->element->getIgnore());
     }
-    
+
     /**
      * Prove the fluent interface on Zend_Form_Element_Submit::loadDefaultDecorators
      *

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.theory_of_operation"><info><title>Aspectos Teóricos</title></info>
-    
+
     <para> Los datos de configuración se hacen accesibles al constructor
             <classname>Zend_Config</classname> a través de un array asociativo,
         que puede ser multidimensional, para permitir organizar los datos desde

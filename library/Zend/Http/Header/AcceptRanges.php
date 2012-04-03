@@ -74,5 +74,5 @@ class AcceptRanges implements HeaderDescription
     {
         return 'Accept-Ranges: ' . $this->getFieldValue();
     }
-    
+
 }

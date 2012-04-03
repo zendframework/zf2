@@ -26,8 +26,8 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
     define("PHPUnit_MAIN_METHOD", "Zend\Cloud\StorageService\FactoryTest::main");
 }
 
-use Zend\Config\Factory as ConfigFactory,
-    Zend\Cloud\QueueService\Factory,
+use Zend\Config\Factory as ConfigFactory;
+use Zend\Cloud\QueueService\Factory,
     PHPUnit_Framework_TestCase as PHPUnitTestCase;
 
 /**

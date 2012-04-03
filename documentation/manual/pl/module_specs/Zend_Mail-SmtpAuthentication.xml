@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-authentication"><info><title>Uwierzytelnianie SMTP</title></info>
-  
+
 
   <para>Klasa <code>Zend_Mail</code> obsługuje uwierzytelnianie SMTP, które
   może być aktywowane przez przekazanie parametru 'auth' w tablicy
@@ -10,7 +10,7 @@
   konfiguracyjnej.</para>
 
   <example xml:id="zend.mail.smtp-authentication.example-1"><info><title>Aktywowanie uwierzytelniania w klasie Zend_Mail_Transport_Smtp</title></info>
-    
+
 
     <programlisting role="php"><![CDATA[
 $config = array('auth' => 'login',
@@ -30,7 +30,7 @@ $mail->send($transport);
   </example>
 
   <note><info><title>Typy uwierzytelniania</title></info>
-    
+
 
     <para>
         Nie znaczenia czy nazwę typu uwierzytelniania podamy używając wielkich

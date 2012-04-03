@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2.elasticip"><info><title>Zend_Service_Amazon_Ec2: Elastische IP Adressen</title></info>
-    
+
 
     <para>
         Standardmäßig werden allen Amazon EC2 Instanzen beim Starten zwei IP Adressen zugeordnet:
@@ -27,7 +27,7 @@
     </para>
 
     <example xml:id="zend.service.amazon.ec2.elasticip.allocate"><info><title>Eine neue Elastische IP allokieren</title></info>
-        
+
 
         <para>
             <code>allocate</code> fügt dem eigenen Account eine neue Elastische IP Adresse hinzu.
@@ -47,7 +47,7 @@ print $ip;
     </example>
 
     <example xml:id="zend.service.amazon.ec2.elasticip.describe"><info><title>Beschreiben von Verknüpften elastischen IP Adressen</title></info>
-        
+
 
         <para>
             <code>describe</code> hat einen optionalen Parameter um alle eigenen verknüpften
@@ -75,7 +75,7 @@ $ip = $ec2_eip->describe('ip1');
     </example>
 
     <example xml:id="zend.service.amazon.ec2.elasticip.release"><info><title>Freigeben einer elastischen IP</title></info>
-        
+
 
         <para>
             <code>release</code> gibt eine elastische IP wieder für Amazon frei.
@@ -92,7 +92,7 @@ $ec2_eip->release('ipaddress');
     </example>
 
     <example xml:id="zend.service.amazon.ec2.elasticip.associate"><info><title>Verknüpft eine elastische IP zu einer Instanz</title></info>
-        
+
 
         <para>
             <code>associate</code> verknüpft eine elastische IP mit einer bereits laufenden
@@ -110,7 +110,7 @@ $ec2_eip->associate('instance_id', 'ipaddress');
     </example>
 
     <example xml:id="zend.service.amazon.ec2.elasticip.disassociate"><info><title>Entfernt die Verknüpfung einer elastischen IP von einer Instanz</title></info>
-        
+
 
         <para>
             <code>disassocate</code> entfernt die Verknüpfung einer elastischen IP von einer

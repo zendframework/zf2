@@ -21,11 +21,11 @@
 
 namespace ZendTest\Session\SaveHandler;
 
-use Zend\Session\SaveHandler\Cache,
-    Zend\Session\SaveHandler\Exception as SaveHandlerException,
-    Zend\Session\Manager,
-    Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Session\SaveHandler\Cache;
+use Zend\Session\SaveHandler\Exception as SaveHandlerException;
+use Zend\Session\Manager;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
 
 /**
  * Unit testing for DbTable include all tests for

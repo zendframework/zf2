@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.advanced"><info><title>高级用法</title></info>
 
-    
+
 
     <section xml:id="zend.acl.advanced.storing"><info><title>保存 ACL 数据确保持久性</title></info>
 
-        
+
 
         <para>
            Zend_Acl 就是这样设计的，它不需要为 ACL 数据的存储而要求任何特别的后台技术如数据库或者缓冲服务器。它的完全的 PHP 实现使得在Zend_Acl之上构建定制的管理工具相当地容易和灵活。许多情形需要一些 ACL 的交互式维护，并且 Zend_Acl 为设定、查询、应用软件的访问控制提供了方法。
@@ -19,7 +19,7 @@
 
     <section xml:id="zend.acl.advanced.assertions"><info><title>使用声明(Assert)来编写条件性的 ACL 规则</title></info>
 
-        
+
 
         <para>
            有时候允许或禁止一个 Role 访问一个 Resource 的规则不是绝对的而是依靠不同的标准。例如，只有在 8：00am 和 5:00pm 之间，特定的访问才被允许。另外一个禁止访问的例子是因为一个请求来自于被标记为不良的 IP 地址。Zend_Acl 对基于无论开发者有什么需要的条件的规则实现有个内置的支持。

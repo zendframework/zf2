@@ -20,19 +20,19 @@
 
 namespace Zend\Paginator;
 
-use ArrayIterator,
-    Countable,
-    Iterator,
-    IteratorAggregate,
-    Traversable,
-    Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Db\Select as DbSelect,
-    Zend\Db\Table\AbstractRowset as DbAbstractRowset,
-    Zend\Db\Table\Select as DbTableSelect,
-    Zend\Filter\Filter,
-    Zend\Json\Json,
-    Zend\Stdlib\ArrayUtils,
-    Zend\View;
+use ArrayIterator;
+use Countable;
+use Iterator;
+use IteratorAggregate;
+use Traversable;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Db\Select as DbSelect;
+use Zend\Db\Table\AbstractRowset as DbAbstractRowset;
+use Zend\Db\Table\Select as DbTableSelect;
+use Zend\Filter\Filter;
+use Zend\Json\Json;
+use Zend\Stdlib\ArrayUtils;
+use Zend\View;
 
 /**
  * @category   Zend
@@ -214,8 +214,8 @@ class Paginator implements Countable, IteratorAggregate
 
     /**
      * Set the adapter broker
-     * 
-     * @param  Broker $broker 
+     *
+     * @param  Broker $broker
      * @return void
      */
     public static function setAdapterBroker($broker)
@@ -268,13 +268,13 @@ class Paginator implements Countable, IteratorAggregate
 
         self::$_config = $config;
 
-        if (isset($config['adapter_broker']) 
+        if (isset($config['adapter_broker'])
             && null !== ($broker = $config['adapter_broker'])
         ) {
             self::setAdapterBroker($broker);
         }
 
-        if (isset($config['scrolling_style_broker']) 
+        if (isset($config['scrolling_style_broker'])
             && null !== ($broker = $config['scrolling_style_broker'])
         ) {
             self::setScrollingStyleBroker($broker);
@@ -719,8 +719,8 @@ class Paginator implements Countable, IteratorAggregate
 
         if ($this->_cacheEnabled()) {
             self::$_cache->setItem(
-                $this->_getCacheId($pageNumber), 
-                $items, 
+                $this->_getCacheId($pageNumber),
+                $items,
                 array('tags' => array($this->_getCacheInternalId()))
             );
         }
@@ -827,7 +827,7 @@ class Paginator implements Countable, IteratorAggregate
     }
 
     /**
-     * Retrieves the view instance.  
+     * Retrieves the view instance.
      *
      * If none registered, instantiates a PhpRenderer instance.
      *

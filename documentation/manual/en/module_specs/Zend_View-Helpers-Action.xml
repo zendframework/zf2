@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.action"><info><title>Action View Helper</title></info>
-    
+
 
     <para>
         The <classname>Action</classname> view helper enables view scripts to dispatch a
@@ -23,7 +23,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.action.usage"><info><title>Basic Usage of Action View Helper</title></info>
-        
+
 
         <para>
             As an example, you may have a <classname>CommentController</classname> with a

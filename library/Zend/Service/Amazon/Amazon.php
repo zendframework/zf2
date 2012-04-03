@@ -20,10 +20,10 @@
  */
 
 namespace Zend\Service\Amazon;
-use Zend\Service,
-    Zend\Service\Amazon\Exception,
-    Zend\Rest\Client,
-    Zend\Crypt;
+use Zend\Service;
+use Zend\Service\Amazon\Exception;
+use Zend\Rest\Client;
+use Zend\Crypt;
 
 /**
  * @uses       DOMDocument

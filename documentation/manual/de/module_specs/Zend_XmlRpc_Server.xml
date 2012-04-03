@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.xmlrpc.server"><info><title>Zend_XmlRpc_Server</title></info>
-    
+
 
     <section xml:id="zend.xmlrpc.server.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_XmlRpc_Server</classname> ist als vollständiger
@@ -14,7 +14,7 @@
     </section>
 
     <section xml:id="zend.xmlrpc.server.usage"><info><title>Grundlegende Benutzung</title></info>
-        
+
 
         <para>
             Ein Beispiel der grundlegendsten Benutzung:
@@ -28,7 +28,7 @@ echo $server->handle();
     </section>
 
     <section xml:id="zend.xmlrpc.server.structure"><info><title>Server-Struktur</title></info>
-        
+
 
         <para>
             <classname>Zend_XmlRpc_Server</classname> ist aus einer Vielfalt von Komponenten
@@ -63,10 +63,10 @@ echo $server->handle();
     </section>
 
     <section xml:id="zend.xmlrpc.server.anatomy"><info><title>Anatomie eines Webservices</title></info>
-        
+
 
         <section xml:id="zend.xmlrpc.server.anatomy.general"><info><title>Generelle Annahmen</title></info>
-            
+
 
             <para>
                 Für eine maximale Performance ist es Notwendig eine einfache Bootstrap Datei für die
@@ -89,7 +89,7 @@ echo $server->handle();
         </section>
 
         <section xml:id="zend.xmlrpc.server.anatomy.expose"><info><title>Was kann man freigeben?</title></info>
-            
+
 
             <para>
                 Meistens ist es nicht sensibel Business Objekte direkt freizugeben. Business
@@ -107,7 +107,7 @@ echo $server->handle();
     </section>
 
     <section xml:id="zend.xmlrpc.server.conventions"><info><title>Konventionen</title></info>
-        
+
 
         <para>
             <classname>Zend_XmlRpc_Server</classname> ermöglicht es dem Entwickler, Funktionen und
@@ -201,7 +201,7 @@ function myFunc($val1, $val2, $val3)
     </section>
 
     <section xml:id="zend.xmlrpc.server.namespaces"><info><title>Nutzen von Namensräumen</title></info>
-        
+
 
         <para>
             <acronym>XML-RPC</acronym> besitzt ein Konzept für Namensräume; Grundlegend erlaubt es
@@ -238,7 +238,7 @@ $server->addFunction('somefunc', 'funcs');
     </section>
 
     <section xml:id="zend.xmlrpc.server.request"><info><title>Eigene Request-Objekte</title></info>
-        
+
 
         <para>
             Die meiste Zeit wird man einfach den Standard-Anfragetyp
@@ -257,7 +257,7 @@ $server->addFunction('somefunc', 'funcs');
     </section>
 
     <section xml:id="zend.xmlrpc.server.response"><info><title>Eigene Antwort-Objekte</title></info>
-        
+
 
         <para>
             Ähnlich wie bei den Anfrage-Objekten, kann der <classname>Zend_XmlRpc_Server</classname>
@@ -276,7 +276,7 @@ $server->addFunction('somefunc', 'funcs');
     </section>
 
     <section xml:id="zend.xmlrpc.server.fault"><info><title>Verarbeiten von Exceptions durch Fehler</title></info>
-        
+
 
         <para>
             <classname>Zend_XmlRpc_Server</classname> fängt die, durch eine ausgeführte Methode
@@ -315,7 +315,7 @@ Zend_XmlRpc_Server_Fault::attachFaultException('My_Project_Exception');
     </section>
 
     <section xml:id="zend.xmlrpc.server.caching"><info><title>Zwischenspeichern von Serverdefinitionen zwischen den Anfragen</title></info>
-        
+
 
         <para>
             Das Hinzufügen einer Vielzahl von Klassen zu einer <acronym>XML-RPC</acronym> Server
@@ -371,7 +371,7 @@ echo $server->handle();
     </section>
 
     <section xml:id="zend.xmlrpc.server.use"><info><title>Nutzungsbeispiele</title></info>
-        
+
 
         <para>
             Unten finden sich etliche Beispiele für eine Nutzung, die das
@@ -380,7 +380,7 @@ echo $server->handle();
         </para>
 
         <example xml:id="zend.xmlrpc.server.use.attach-function"><info><title>Grundlegende Benutzung</title></info>
-            
+
 
             <para>
                 Folgendes Beispiel fügt eine Funktion als ausführbare
@@ -406,7 +406,7 @@ echo $server->handle();
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.attach-class"><info><title>Hinzufügen einer Klasse</title></info>
-            
+
 
             <para>
                 Das nächste Beispiel illustriert, wie man die öffentlichen Methoden
@@ -421,7 +421,7 @@ echo $server->handle();
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.attach-class-with-arguments"><info><title>Hinzufügen einer Klasse mit Argumenten</title></info>
-            
+
 
             <para>
                 Das folgende Beispiel zeigt wie öffentliche Methoden einer Klasse hinzugefügt werden
@@ -463,7 +463,7 @@ $server->setClass('Services_PricingService',
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.attach-class-with-arguments-constructor"><info><title>Argumente nur dem Constructor übergeben</title></info>
-            
+
 
             <para>
                 <classname>Zend_XmlRpc_Server</classname> erlaubt es die Übergabe von Argumenten nur
@@ -513,7 +513,7 @@ $server->setClass('Services_PricingService2',
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.attach-instance"><info><title>Die Instanz einer Klasse anhängen</title></info>
-            
+
 
             <para>
                 <methodname>setClass()</methodname> erlaubt es ein vorher instanziertes Objekt beim
@@ -524,7 +524,7 @@ $server->setClass('Services_PricingService2',
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.attach-several-classes-namespaces"><info><title>Mehrere Klassen unter der Nutzung von Namensräumen hinzufügen</title></info>
-            
+
 
             <para>
                 Das nächste Beispiel zeigt, wie man mehrer Klassen mit ihren eigenen
@@ -551,7 +551,7 @@ echo $server->handle();
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.exception-faults"><info><title>Bestimmen von Exceptions als gültige Fehler-Antwort</title></info>
-            
+
 
             <para>
                 Im nächsten Beispiel wird gezeigt, wie man jede Exception, die von
@@ -583,7 +583,7 @@ echo $server->handle();
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.custom-request-object"><info><title>Anpassen eigener Anfrage und Antwort Objekte</title></info>
-            
+
 
             <para>
                  Einige Anwendungsfälle verlangen die Verwendung eines eigenen Request Objektes.
@@ -629,7 +629,7 @@ echo $server->handle($request);
         </example>
 
         <example xml:id="zend.xmlrpc.server.use.custom-response-object"><info><title>Eine eigene Antwort Klasse spezifizieren</title></info>
-            
+
 
             <para>
                 Das nachstehende Beispiel zeigt, wie man eine eigene Antwort-Klasse
@@ -670,10 +670,10 @@ echo $server->handle($request);
     </section>
 
     <section xml:id="zend.xmlrpc.server.performance"><info><title>Performance Optimierung</title></info>
-        
+
 
         <example xml:id="zend.xmlrpc.server.performance.caching"><info><title>Zwischenspeichern von Serverdefinition zwischen den Anfragen</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt, wie man Serverdefinitionen zwischen verschiedenen
@@ -723,7 +723,7 @@ echo $server->handle($request);
         </note>
 
         <example xml:id="zend.xmlrpc.server.performance.xmlgen"><info><title>Optimizing XML generation</title></info>
-            
+
 
             <para>
                 <classname>Zend_XmlRpc_Server</classname> verwendet
@@ -753,7 +753,7 @@ $server = new Zend_XmlRpc_Server();
         </example>
 
         <note><info><title>Die eigene Anwendung benchmarken</title></info>
-            
+
 
             <para>
                 Performance wird durch eine Vielzahl an Parametern und Benchmarks ermittelt
@@ -766,7 +766,7 @@ $server = new Zend_XmlRpc_Server();
         </note>
 
         <note><info><title>Den eigenen Client benchmarken</title></info>
-            
+
 
             <para>
                 Diese Optimierung macht auch für die Client Seite Sinn. Man muss den

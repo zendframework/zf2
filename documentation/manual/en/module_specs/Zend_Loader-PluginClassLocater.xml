@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.plugin-class-locater"><info><title>The PluginClassLocater interface</title></info>
-    
+
 
     <section xml:id="zend.loader.plugin-class-locater.intro"><info><title>Overview</title></info>
-        
+
 
         <para>
             The <interfacename>PluginClassLocater</interfacename> interface describes a component
@@ -14,7 +14,7 @@
     </section>
 
     <section xml:id="zend.loader.plugin-class-locater.quick-start"><info><title>Quick Start</title></info>
-        
+
 
         <para>
             Classes implementing the <interfacename>PluginClassLocater</interfacename> need to
@@ -34,7 +34,7 @@ interface PluginClassLocater
     </section>
 
     <section xml:id="zend.loader.plugin-class-locater.options"><info><title>Configuration Options</title></info>
-        
+
 
         <para>
             This component defines no configuration options, as it is an interface.
@@ -42,7 +42,7 @@ interface PluginClassLocater
     </section>
 
     <section xml:id="zend.loader.plugin-class-locater.methods"><info><title>Available Methods</title></info>
-        
+
 
         <refentry xml:id="zend.loader.plugin-class-locater.methods.register-plugin">
             <refnamediv>
@@ -60,7 +60,7 @@ interface PluginClassLocater
             </refsynopsisdiv>
 
             <refsection><info><title>registerPlugin()</title></info>
-                
+
 
                 <para>
                     Implement this method to add or overwrite plugin name/class name associations in
@@ -86,7 +86,7 @@ interface PluginClassLocater
             </refsynopsisdiv>
 
             <refsection><info><title>unregisterPlugin()</title></info>
-                
+
 
                 <para>
                     Implement this to allow removing an existing plugin mapping corresponding to
@@ -108,7 +108,7 @@ interface PluginClassLocater
             </refsynopsisdiv>
 
             <refsection><info><title>getRegisteredPlugins()</title></info>
-                
+
 
                 <para>
                     Implement this to allow returning the plugin name/class name map.
@@ -119,7 +119,7 @@ interface PluginClassLocater
     </section>
 
     <section xml:id="zend.loader.plugin-class-locater.examples"><info><title>Examples</title></info>
-        
+
 
 
         <para>

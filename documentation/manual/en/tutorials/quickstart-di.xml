@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.di.very-brief-introduction-to-di">
   <info><title>Very brief introduction to Di.</title></info>
-  
+
   <para>
     <emphasis>Dependency Injection</emphasis> is a concept that has been
     talked about in numerous places over the web. For the purposes of
@@ -27,13 +27,13 @@ $b = new B(new A));
   </para>
 </section>
 <section xml:id="learning.di.very-brief-introduction-to-di-container"><info><title>Very brief introduction to Di Container.</title></info>
-  
+
   <programlisting language="php"><![CDATA[
 TBD.
 ]]></programlisting>
 </section>
 <section xml:id="learning.di.simplest-usage-case-2-classes-one-consumes-the-other"><info><title>Simplest usage case (2 classes, one consumes the other)</title></info>
-  
+
   <para>
     In the simplest use case, a developer might have one class
     (<literal>A</literal>) that is consumed by another class
@@ -207,7 +207,7 @@ namespace My {
   </para>
 </section>
 <section xml:id="learning.di.simplest-usage-case-without-type-hints"><info><title>Simplest Usage Case Without Type-hints</title></info>
-  
+
   <para>
     If your code does not have type-hints or you are using 3rd party
     code that does not have type-hints but does practice dependency
@@ -273,7 +273,7 @@ $class->addInjectableMethod(($im = new Builder\InjectibleMethod));
 $im->setName('setA');
 $im->addParameter('a', 'My\A');
 
-// Use both our Builder Definition as well as the default 
+// Use both our Builder Definition as well as the default
 // RuntimeDefinition, builder first
 $aDef = new Definition\AggregateDefinition;
 $aDef->addDefinition($builder);
@@ -302,7 +302,7 @@ $c = $di->get('My\C', $parameters);
   </para>
 </section>
 <section xml:id="learning.di.simplest-usage-case-with-compiled-definition"><info><title>Simplest usage case with Compiled Definition</title></info>
-  
+
   <para>
     Without going into the gritty details, as you might expect, PHP at
     its core is not DI friendly. Out-of-the-box, the
@@ -410,7 +410,7 @@ if (!file_exists(__DIR__ . '/di-definition.php') && $isProduction) {
     );
     $definition = $compiler->compile();
     file_put_contents(
-        __DIR__ . '/di-definition.php', 
+        __DIR__ . '/di-definition.php',
         '<?php return ' . var_export($definition->toArray(), true) . ';'
     );
 } else {
@@ -419,7 +419,7 @@ if (!file_exists(__DIR__ . '/di-definition.php') && $isProduction) {
     );
 }
 
-// $definition can now be used; in a production system it will be written 
+// $definition can now be used; in a production system it will be written
 // to disk.
 ]]></programlisting>
   <para>
@@ -432,7 +432,7 @@ if (!file_exists(__DIR__ . '/di-definition.php') && $isProduction) {
   </para>
 </section>
 <section xml:id="learning.di.creating-a-precompiled-definition-for-others-to-use"><info><title>Creating a precompiled definition for others to use</title></info>
-  
+
   <para>
     If you are a 3rd party code developer, it makes sense to produce a
     <literal>Definition</literal> file that describes your code so that
@@ -464,7 +464,7 @@ file_put_contents(__DIR__ . '/My/DiDefinition.php', $codeGenerator->generate());
 ]]></programlisting>
 </section>
 <section xml:id="learning.di.using-multiple-definitions-from-multiple-sources"><info><title>Using Multiple Definitions From Multiple Sources</title></info>
-  
+
   <para>
     In all actuality, you will be using code from multiple places, some
     Zend Framework code, some other 3rd party code, and of course, your
@@ -506,9 +506,9 @@ $diDefAggregate->addDefinition($appDefinition);
 $im = $di->getInstanceManager();
 
 // this could come from Zend\Config\Config::toArray
-$propertiesFromConfig = array( 
+$propertiesFromConfig = array(
     'ThirdParty\Dbal\DbAdapter' => array(
-        'username' => 'someUsername', 
+        'username' => 'someUsername',
         'password' => 'somePassword'
     ),
     'Zend\Controller\Helper\ContentType' => array(
@@ -519,7 +519,7 @@ $im->setProperties($propertiesFromConfig);
 ]]></programlisting>
 </section>
 <section xml:id="learning.di.generating-service-locators"><info><title>Generating Service Locators</title></info>
-    
+
 
     <para>
         In production, you want things to be as fast as possible. The Dependency
@@ -584,11 +584,11 @@ class Context extends ServiceLocator
             case 'composed':
             case 'My\ComposedClass':
                 return $this->getMyComposedClass();
-        
+
             case 'struct':
             case 'My\Struct':
                 return $this->getMyStruct();
-        
+
             default:
                 return parent::get($name, $params);
         }
@@ -599,7 +599,7 @@ class Context extends ServiceLocator
         if (isset($this->services['My\ComposedClass'])) {
             return $this->services['My\ComposedClass'];
         }
-        
+
         $object = new \My\ComposedClass();
         $this->services['My\ComposedClass'] = $object;
         return $object;
@@ -609,7 +609,7 @@ class Context extends ServiceLocator
         if (isset($this->services['My\Struct'])) {
             return $this->services['My\Struct'];
         }
-        
+
         $object = new \My\Struct();
         $this->services['My\Struct'] = $object;
         return $object;

@@ -19,8 +19,8 @@
  */
 
 namespace Zend\Controller;
-use Zend,
-    Zend\Loader\Broker;
+use Zend;
+use Zend\Loader\Broker;
 
 /**
  * @category   Zend
@@ -768,8 +768,8 @@ class Front
 
     /**
      * Set helper broker to inject in action controllers
-     * 
-     * @param  string|Broker $broker 
+     *
+     * @param  string|Broker $broker
      * @return Front
      */
     public function setHelperBroker($broker)
@@ -795,7 +795,7 @@ class Front
 
     /**
      * Retrieve action helper broker
-     * 
+     *
      * @return Broker
      */
     public function getHelperBroker()

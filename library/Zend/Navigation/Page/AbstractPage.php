@@ -21,11 +21,11 @@
 
 namespace Zend\Navigation\Page;
 
-use Traversable,
-    Zend\Acl\Resource as AclResource,
-    Zend\Navigation\Container,
-    Zend\Navigation\Exception,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Acl\Resource as AclResource;
+use Zend\Navigation\Container;
+use Zend\Navigation\Exception;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Base class for Zend\Navigation\Page pages
@@ -656,15 +656,15 @@ abstract class AbstractPage extends Container
     /**
      * Sets ACL resource assoicated with this page
      *
-     * @param  string|AclResource $resource [optional] resource to associate 
-     *                                      with page. Default is null, which 
+     * @param  string|AclResource $resource [optional] resource to associate
+     *                                      with page. Default is null, which
      *                                      sets no resource.
      * @return AbstractPage fluent interface, returns self
      * @throws Exception\InvalidArgumentException if $resource is invalid
      */
     public function setResource($resource = null)
     {
-        if (null === $resource 
+        if (null === $resource
             || is_string($resource)
             || $resource instanceof AclResource
         ) {
@@ -791,7 +791,7 @@ abstract class AbstractPage extends Container
      */
     public function isVisible($recursive = false)
     {
-        if ($recursive 
+        if ($recursive
             && isset($this->parent)
             && $this->parent instanceof self
         ) {

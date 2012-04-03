@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form"><info><title>Dojoフォーム要素とデコレーター</title></info>
-    
+
 
     <para>
         <link linkend="zend.dojo.view.dijit">dijit表示ヘルパーに基き</link>、
@@ -46,7 +46,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.form.enable"><info><title>既存のフォームでDojoを使用可能にする</title></info>
-        
+
 
         <para>
             "ちょっと待って" とあなたは言います;

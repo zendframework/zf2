@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.stringtoupper"><info><title>StringToUpper</title></info>
-    
+
 
     <para>
         This filter converts any input to be uppercased.
     </para>
 
     <section xml:id="zend.filter.set.stringtoupper.options"><info><title>Supported options for Zend_Filter_StringToUpper</title></info>
-        
+
 
         <para>
             The following options are supported for
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.filter.set.stringtoupper.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             This is a basic example for using the <classname>StringToUpper</classname> filter:
@@ -41,7 +41,7 @@ print $filter->filter('Sample');
     </section>
 
     <section xml:id="zend.filter.set.stringtoupper.encoding"><info><title>Different encoded strings</title></info>
-        
+
 
         <para>
             Like the <classname>StringToLower</classname> filter, this filter handles

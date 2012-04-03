@@ -3,9 +3,9 @@
 
 namespace Zend\Http\PhpEnvironment;
 
-use Zend\Http\Header\MultipleHeaderDescription,
-    Zend\Http\Response as HttpResponse,
-    Zend\Stdlib\Parameters;
+use Zend\Http\Header\MultipleHeaderDescription;
+use Zend\Http\Response as HttpResponse;
+use Zend\Stdlib\Parameters;
 
 class Response extends HttpResponse
 {
@@ -16,17 +16,17 @@ class Response extends HttpResponse
     public function __construct()
     {
     }
-    
+
     public function headersSent()
     {
         return $this->headersSent;
     }
-    
+
     public function contentSent()
     {
         return $this->contentSent;
     }
-    
+
     public function sendHeaders()
     {
         if ($this->headersSent()) {
@@ -47,7 +47,7 @@ class Response extends HttpResponse
         $this->headersSent = true;
         return $this;
     }
-    
+
     public function sendContent()
     {
         if ($this->contentSent()) {
@@ -64,6 +64,6 @@ class Response extends HttpResponse
              ->sendContent();
         return $this;
     }
-    
+
 }
-    
+

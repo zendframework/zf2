@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="doc-standard"><info><title>Recommandation sur la documentation de Zend Framework</title></info>
-    
+
 
     <section xml:id="doc-standard.overview"><info><title>Présentation</title></info>
-        
+
 
         <section xml:id="doc-standard.overview.scope"><info><title>Cadre</title></info>
-            
+
 
             <para>
                 Ce document fournit les lignes directrices pour la création de documentation pour
@@ -31,10 +31,10 @@
     </section>
 
     <section xml:id="doc-standard.file-formatting"><info><title>Format des fichiers de documentation</title></info>
-        
+
 
         <section xml:id="doc-standard.file-formatting.xml-tags"><info><title>Balises XML</title></info>
-            
+
 
             <para>
                 Chaque fichier du manuel doit inclure la déclaration <acronym>XML</acronym>
@@ -60,7 +60,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.max-line-length"><info><title>Longueur maximum d'une ligne</title></info>
-            
+
 
             <para>
                 La longueur maximum d'une ligne, incluant les balises, les attributs,
@@ -71,7 +71,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.indentation"><info><title>Indentation</title></info>
-            
+
 
             <para>
                 L'indentation est faite de 4 espaces. Les tabulations ne sont pas autorisées.
@@ -115,7 +115,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.line-termination"><info><title>Fin de ligne</title></info>
-            
+
 
             <para>
                 Les fins de ligne suivent les conventions de fichier Unix. Les lignes doivent
@@ -132,7 +132,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.empty-tags"><info><title>Éléments vides</title></info>
-            
+
 
             <para>
                 Les éléments vides ne sont pas autorisés, tous les éléments doivent
@@ -150,10 +150,10 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.whitespace"><info><title>Utilisation des espaces dans les documents</title></info>
-            
+
 
             <section xml:id="doc-standard.file-formatting.whitespace.trailing"><info><title>Espace entre les balises</title></info>
-                
+
 
                 <para>
                     Les balises ouvrantes des éléments bloc ne devrait pas être suivi
@@ -206,7 +206,7 @@ C'est la classe  <classname>Zend_Class</classname>
             </section>
 
             <section xml:id="doc-standard.file-formatting.whitespace.multiple-line-breaks"><info><title>Sauts de ligne multiples</title></info>
-                
+
 
                 <para>
                     Les sauts de ligne multiples ne sont pas autorisés ni dans les balises,
@@ -237,7 +237,7 @@ C'est la classe  <classname>Zend_Class</classname>
             </section>
 
             <section xml:id="doc-standard.file-formatting.whitespace.tag-separation"><info><title>Séparation entre les balises</title></info>
-                
+
 
                 <para>
                     Les éléments qui sont au même niveau doivent être séparés par une ligne vide
@@ -298,7 +298,7 @@ C'est la classe  <classname>Zend_Class</classname>
         </section>
 
         <section xml:id="doc-standard.file-formatting.program-listing"><info><title>Exemple de code</title></info>
-            
+
 
             <para>
                 La balise ouvrante de l'élement <emphasis>&lt;programlisting&gt;</emphasis> doit
@@ -404,7 +404,7 @@ $render = "xxx";
             </para>
 
             <note><info><title>N'utilisez jamais les short tags</title></info>
-                
+
 
                 <para>
                     Les short tags (e.g., "&lt;?", "&lt;?=")  ne devrait jamais être utilisés dans
@@ -415,10 +415,10 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.file-formatting.inline-tags"><info><title>Notes spécifiques sur les éléments en-ligne</title></info>
-            
+
 
             <section xml:id="doc-standard.file-formatting.inline-tags.classname"><info><title>classname</title></info>
-                
+
 
                 <para>
                     L'élément <emphasis>&lt;classname&gt;</emphasis> doit être utilisé chaque fois
@@ -435,7 +435,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.varname"><info><title>varname</title></info>
-                
+
 
                 <para>
                     Les variables doivent être entourées par les balises <emphasis>&lt;varname&gt;
@@ -454,7 +454,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.methodname"><info><title>methodname</title></info>
-                
+
 
                 <para>
                     Les méthodes doivent être entourées par les balises
@@ -474,7 +474,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.constant"><info><title>constant</title></info>
-                
+
 
                 <para>
                     Utilisez l'élément <emphasis>&lt;constant&gt;</emphasis> pour indiquer
@@ -492,7 +492,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.filename"><info><title>filename</title></info>
-                
+
 
                 <para>
                     Les noms de fichier et chemins doivent être entourés par les balises
@@ -508,7 +508,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.command"><info><title>command</title></info>
-                
+
 
                 <para>
                     Les commandes, les scripts shell, ainsi que l'appel de programme doivent être
@@ -524,7 +524,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.code"><info><title>code</title></info>
-                
+
 
                 <para>
                     L'utilisation de l'élément <emphasis>&lt;code&gt;</emphasis> est déconseillée,
@@ -534,10 +534,10 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.file-formatting.block-tags"><info><title>Notes spécifiques sur les éléments bloc</title></info>
-            
+
 
             <section xml:id="doc-standard.file-formatting.block-tags.title"><info><title>title</title></info>
-                
+
 
                 <para>
                     L'élément <emphasis>&lt;title&gt;</emphasis> ne peut pas contenir d'éléments enfants.
@@ -554,10 +554,10 @@ $render = "xxx";
     </section>
 
     <section xml:id="doc-standard.recommendations"><info><title>Recommendations</title></info>
-        
+
 
         <section xml:id="doc-standard.recommendations.editors"><info><title>Utilisez un éditeur sans formatage automatique</title></info>
-            
+
 
             <para>
                 Pour éditer la documentation, vous ne devriez pas utiliser un éditeur
@@ -576,7 +576,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.images"><info><title>Utilisez des images</title></info>
-            
+
 
             <para>
                 Les images et les diagrammes peuvent améliorer la lisibilité et la compréhension.
@@ -587,7 +587,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.examples"><info><title>Utilisez des cas d'utilisations</title></info>
-            
+
 
             <para>
                 Cherchez de bons cas d'utilisation soumis par la communauté, particulièrement
@@ -602,7 +602,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.phpdoc"><info><title>Évitez de répéter le contenu des phpdoc</title></info>
-            
+
 
             <para>
                 Ce manuel a pour objectif d'être une référence pour l'utilisateur final.
@@ -615,7 +615,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.links"><info><title>Utilisez des liens</title></info>
-            
+
 
             <para>
                 Créez des liens vers les autres sections ou des ressources externes plutôt que

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
+<section
     xmlns="http://docbook.org/ns/docbook" version="5.0"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xml:id="zend.mvc.quick-start">
@@ -419,9 +419,9 @@ class HelloController extends ActionController
         you to specify this: "/zend-user-hello/world". We're
         going to create a route here mainly for illustration purposes, as
         creating explicit routes is a recommended practice.
-        The application will look for a 
+        The application will look for a
         <classname>Zend\Mvc\Router\RouteStack</classname> instance to setup
-        routing. The default generated router is a 
+        routing. The default generated router is a
         <classname>Zend\Mvc\Router\Http\TreeRouteStack</classname>.
       </para>
     </note>
@@ -485,7 +485,7 @@ return array(
         'Application',
         '<module namespace>',
     ),
-    'module_listener_options' => array( 
+    'module_listener_options' => array(
         'module_paths' => array(
             './module',
             './vendor',

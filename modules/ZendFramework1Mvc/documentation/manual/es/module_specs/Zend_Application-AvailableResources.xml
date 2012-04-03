@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources"><info><title>Plugins de Recursos Disponibles</title></info>
-    
+
 
    <para>Aquí encontrará documentación del tipo <acronym>API</acronym> sobre todos los recursos de
         plugins disponibles por defecto en <classname>Zend_Application</classname>.</para>

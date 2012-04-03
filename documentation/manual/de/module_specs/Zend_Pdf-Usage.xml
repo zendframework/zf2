@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.usage"><info><title>Anwendungsbeispiel für die Zend_Pdf Komponente</title></info>
-    
+
 
     <para>
         Dieser Abschnitt stellt ein Beispiel für die Anwendung der Komponente bereit.
@@ -17,7 +17,7 @@
     </para>
 
     <example xml:id="zend.pdf.usage.example-1"><info><title>Anwendungsbeispiel für die Zend_Pdf Komponente</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 /**

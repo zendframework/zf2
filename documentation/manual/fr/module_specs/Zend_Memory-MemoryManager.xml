@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.memory-manager"><info><title>Manager de mémoire</title></info>
-    
+
 
     <section xml:id="zend.memory.memory-manager.creation"><info><title>Créer un manager de mémoire</title></info>
-        
+
 
         <para>
             Vous pouvez créer un nouveau manager de mémoire (objet
@@ -51,7 +51,7 @@ $memoryManager = Zend_Memory::factory('None');
     </section>
 
     <section xml:id="zend.memory.memory-manager.objects-management"><info><title>Manager les objets mémoire</title></info>
-        
+
 
         <para>
             Cette section décrit la création et la destruction d'objet de mémoire, et les
@@ -59,7 +59,7 @@ $memoryManager = Zend_Memory::factory('None');
         </para>
 
         <section xml:id="zend.memory.memory-manager.objects-management.movable"><info><title>Créer des objets mobiles</title></info>
-            
+
 
             <para>
                 Créer des objets mobiles (objets qui peuvent être mis en cache) en utilisant
@@ -76,7 +76,7 @@ $memObject = $memoryManager->create($data);
         </section>
 
         <section xml:id="zend.memory.memory-manager.objects-management.locked"><info><title>Créer des objets verrouillés</title></info>
-            
+
 
             <para>
                 Créer des objets verrouillés (objets qui ne doivent pas être mis en cache) en
@@ -93,7 +93,7 @@ $memObject = $memoryManager->createLocked($data);
         </section>
 
         <section xml:id="zend.memory.memory-manager.objects-management.destruction"><info><title>Détruire des objets</title></info>
-            
+
 
             <para>
                 Les objets mémoire sont automatiquement détruits et effacés de la mémoire
@@ -128,10 +128,10 @@ function foo()
         </section>
 
         <section xml:id="zend.memory.memory-manager.settings"><info><title>Régler le manager de mémoire</title></info>
-            
+
 
             <section xml:id="zend.memory.memory-manager.settings.memory-limit"><info><title>Mémoire limite</title></info>
-                
+
 
             <para>
                 La mémoire limite est le nombre d'octets autorisés à être utilisés par des
@@ -164,7 +164,7 @@ $memoryManager->setMemoryLimit($newLimit);
         </section>
 
         <section xml:id="zend.memory.memory-manager.settings.min-size"><info><title>MinSize (taille minimum)</title></info>
-            
+
 
             <para>
                 <code>MinSize</code> est la taille minimale des objets de mémoire, qui peuvent

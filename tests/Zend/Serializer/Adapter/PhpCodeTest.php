@@ -21,8 +21,8 @@
 
 namespace ZendTest\Serializer\Adapter;
 
-use Zend\Serializer,
-    Zend\Serializer\Exception;
+use Zend\Serializer;
+use Zend\Serializer\Exception;
 
 /**
  * @category   Zend
@@ -142,7 +142,7 @@ class PhpCodeTest extends \PHPUnit_Framework_TestCase
     public function testUnserializeInvalid()
     {
         $value = 'not a serialized string';
-        
+
         $this->setExpectedException('Zend\Serializer\Exception\RuntimeException', 'eval failed: syntax error');
         $this->_adapter->unserialize($value);
     }

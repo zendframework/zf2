@@ -39,11 +39,11 @@ class ResourceBroker extends PluginSpecBroker implements BootstrapAware
 
     /**
      * Bootstrap object with which to inject plugins
-     * 
+     *
      * @var Bootstrap
      */
     protected $bootstrap;
-    
+
     /**
      * @var array Initializers that have been run
      */
@@ -52,8 +52,8 @@ class ResourceBroker extends PluginSpecBroker implements BootstrapAware
 
     /**
      * Set boostrap object with which to inject resources
-     * 
-     * @param  ResourceBootstrapper $bootstrap 
+     *
+     * @param  ResourceBootstrapper $bootstrap
      * @return ResourceBroker
      */
     public function setBootstrap(Bootstrapper $bootstrap)
@@ -64,7 +64,7 @@ class ResourceBroker extends PluginSpecBroker implements BootstrapAware
 
     /**
      * Retrieve bootstrap object
-     * 
+     *
      * @return null|ResourceBootstrapper
      */
     public function getBootstrap()
@@ -74,9 +74,9 @@ class ResourceBroker extends PluginSpecBroker implements BootstrapAware
 
     /**
      * Load a resource
-     * 
-     * @param  mixed $plugin 
-     * @param  array $options 
+     *
+     * @param  mixed $plugin
+     * @param  array $options
      * @return Zend\Application\Resource
      */
     public function load($plugin, array $options = null)
@@ -90,8 +90,8 @@ class ResourceBroker extends PluginSpecBroker implements BootstrapAware
 
     /**
      * Determine if we have a valid resource
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return true
      * @throws InvalidArgumentException
      */
@@ -102,7 +102,7 @@ class ResourceBroker extends PluginSpecBroker implements BootstrapAware
         }
         return true;
     }
-    
+
     /**
      * Mark a resource as having run
      *
@@ -115,7 +115,7 @@ class ResourceBroker extends PluginSpecBroker implements BootstrapAware
             $this->run[] = $resource;
         }
     }
-    
+
     /**
      * Check if resource has run
      *

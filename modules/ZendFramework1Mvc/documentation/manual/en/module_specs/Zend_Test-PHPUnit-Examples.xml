@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.examples"><info><title>Examples</title></info>
-    
+
 
     <para>
         Knowing how to setup your testing infrastructure and how to make
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.test.phpunit.examples.userController"><info><title>Testing a UserController</title></info>
-        
+
 
         <para>
             Let's consider a standard task for a website: authenticating and registering users. In

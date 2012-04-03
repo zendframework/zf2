@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.xmlrpc.client"><info><title>Zend_XmlRpc_Client</title></info>
-    
+
 
     <section xml:id="zend.xmlrpc.client.introduction"><info><title>Wprowadzenie</title></info>
-        
+
 
         <para>
             Zend Framework zapewnia obsługę wywoływania zdalnych serwisów
@@ -17,7 +17,7 @@
 
 
     <section xml:id="zend.xmlrpc.client.method-calls"><info><title>Wywołania metod</title></info>
-        
+
 
         <para>
             Konstruktor klasy <code>Zend_XmlRpc_Client</code> odbiera w
@@ -35,7 +35,7 @@
         </para>
 
         <example xml:id="zend.xmlrpc.client.method-calls.example-1"><info><title>Wywołanie metody XML-RPC</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 $client = new Zend_XmlRpc_Client('http://framework.zend.com/xmlrpc');
 
@@ -62,7 +62,7 @@ echo $client->call('test.sayHello');
         </para>
 
         <example xml:id="zend.xmlrpc.client.method-calls.example-2"><info><title>Wywołanie metody XML-RPC z parametrem</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 $client = new Zend_XmlRpc_Client('http://framework.zend.com/xmlrpc');
 
@@ -94,7 +94,7 @@ $result = $client->call('test.sayHello', array($arg1, $arg2));
     </section>
 
     <section xml:id="zend.xmlrpc.value.parameters"><info><title>Typy i konwersje</title></info>
-        
+
         <para>
             Niektóre zdalne wywołania metod wymagają parametrów. Są one
             przekazywane do metody <code>call()</code> obiektu
@@ -105,7 +105,7 @@ $result = $client->call('test.sayHello', array($arg1, $arg2));
         </para>
 
         <section xml:id="zend.xmlrpc.value.parameters.php-native"><info><title>Natywne typy PHP jako parametry</title></info>
-            
+
             <para>
                 Parametry mogą być przekazane do metody <code>call()</code> jako
                 natywne zmienne PHP, czyli jako <code>string</code>,
@@ -116,7 +116,7 @@ $result = $client->call('test.sayHello', array($arg1, $arg2));
             </para>
 
             <table xml:id="zend.xmlrpc.value.parameters.php-native.table-1"><info><title>Konwersje między typami PHP oraz XML-RPC</title></info>
-                
+
                 <tgroup cols="2">
                     <thead>
                         <row>
@@ -158,7 +158,7 @@ $result = $client->call('test.sayHello', array($arg1, $arg2));
             </table>
 
             <note><info><title>Na co zamieniane są puste tablice?</title></info>
-                
+
 
                 <para>
                     Przekazanie pustej tablicy do metody XML-RPC jest
@@ -195,7 +195,7 @@ $result = $client->call('foo.bar', array(array()));
         </section>
 
         <section xml:id="zend.xmlrpc.value.parameters.xmlrpc-value"><info><title>Obiekty <code>Zend_XmlRpc_Value</code> jako parametry</title></info>
-            
+
             <para>
                 Parametry mogą być także tworzone jako instancje klasy
                 <code>Zend_XmlRpc_Value</code> w celu określenia dokładnego typu
@@ -239,7 +239,7 @@ $result = $client->call('foo.bar', array(array()));
             </para>
 
             <table xml:id="zend.xmlrpc.value.parameters.xmlrpc-value.table-1"><info><title>Obiekty <code>Zend_XmlRpc_Value</code> dla typów XML-RPC</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -295,7 +295,7 @@ $result = $client->call('foo.bar', array(array()));
 
             <para>
                 <note><info><title>Automatyczna konwersja</title></info>
-                    
+
                     <para>
                         Kiedy tworzymy nowy obiekt
                         <code>Zend_XmlRpc_Value</code>, jego wartość jest
@@ -312,7 +312,7 @@ $result = $client->call('foo.bar', array(array()));
     </section>
 
     <section xml:id="zend.xmlrpc.client.requests-and-responses"><info><title>Obiekt serwera proxy</title></info>
-        
+
         <para>
             Innym sposobem wywołania zdalnych metod za pomocą klienta XML-RPC
             jest użycie serwera proxy. Jest to obiekt PHP, który rozszerza
@@ -330,7 +330,7 @@ $result = $client->call('foo.bar', array(array()));
         </para>
 
         <example xml:id="zend.xmlrpc.client.requests-and-responses.example-1"><info><title>Rozszerzanie domyślnej przestrzeni nazw</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 $client = new Zend_XmlRpc_Client('http://framework.zend.com/xmlrpc');
 
@@ -351,7 +351,7 @@ $hello = $server->test->sayHello(1, 2);  // test.Hello(1, 2) zwraca "hello"
         </para>
 
         <example xml:id="zend.xmlrpc.client.requests-and-responses.example-2"><info><title>Rozszerzanie dowolnej przestrzeni nazw</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 $client = new Zend_XmlRpc_Client('http://framework.zend.com/xmlrpc');
 
@@ -373,7 +373,7 @@ $hello = $test->sayHello(1, 2);         // test.Hello(1,2) zwraca "hello"
 
 
     <section xml:id="zend.xmlrpc.client.error-handling"><info><title>Obsługa błędów</title></info>
-        
+
         <para>
             Dwa rodzaje błędów mogą wystąpić podczas wywoływania metod XML-RPC:
             błędy HTTP oraz błędy XML-RPC. Klient <code>Zend_XmlRpc_Client</code>
@@ -382,7 +382,7 @@ $hello = $test->sayHello(1, 2);         // test.Hello(1,2) zwraca "hello"
         </para>
 
         <section xml:id="zend.xmlrpc.client.error-handling.http"><info><title>Błędy HTTP</title></info>
-            
+
 
             <para>
                 Jeśli wystąpi jakiś błąd HTTP, na przykład gdy zdalny serwer
@@ -391,7 +391,7 @@ $hello = $test->sayHello(1, 2);         // test.Hello(1,2) zwraca "hello"
             </para>
 
             <example xml:id="zend.xmlrpc.client.error-handling.http.example-1"><info><title>Obsługa błędów HTTP</title></info>
-                
+
 
                 <programlisting role="php"><![CDATA[
 $client = new Zend_XmlRpc_Client('http://foo/404');
@@ -418,7 +418,7 @@ try {
         </section>
 
         <section xml:id="zend.xmlrpc.client.error-handling.faults"><info><title>Błędy XML-RPC</title></info>
-            
+
 
             <para>
                 Błędy XML-RPC są analogiczne do wyjątków PHP. Jest to specjalny
@@ -437,7 +437,7 @@ try {
             </para>
 
             <example xml:id="zend.xmlrpc.client.error-handling.faults.example-1"><info><title>Obsługa błędów XML-RPC</title></info>
-                
+
 
                 <programlisting role="php"><![CDATA[
 $client = new Zend_XmlRpc_Client('http://framework.zend.com/xmlrpc');
@@ -477,7 +477,7 @@ try {
     </section>
 
     <section xml:id="zend.xmlrpc.client.introspection"><info><title>Introspekcja serwerów</title></info>
-        
+
         <para>
             Niektóre serwery XML-RPC obsługują metody introspekcji w przestrzeni
             nazw XML-RPC <code>system.</code>. <code>Zend_XmlRpc_Client</code>
@@ -493,7 +493,7 @@ try {
     </section>
 
     <section xml:id="zend.xmlrpc.client.request-to-response"><info><title>Od żądania do odpowiedzi</title></info>
-        
+
         <para>
             Wewnątrz wygląda to tak, że metoda <code>call()</code> instancji
             obiektu <code>Zend_XmlRpc_Client</code> buduje obiekt żądania
@@ -508,7 +508,7 @@ try {
         </para>
 
         <example xml:id="zend.xmlrpc.client.request-to-response.example-1"><info><title>Przetwarzanie żądania do odpowiedzi</title></info>
-            
+
 
             <programlisting role="php"><![CDATA[
 $client = new Zend_XmlRpc_Client('http://framework.zend.com/xmlrpc');
@@ -536,7 +536,7 @@ $client->doRequest($request);
     </section>
 
     <section xml:id="zend.xmlrpc.client.http-client"><info><title>Klient HTTP i testowanie</title></info>
-        
+
 
         <para>
             We wszystkich poprzednich przykładach nie został określony żaden

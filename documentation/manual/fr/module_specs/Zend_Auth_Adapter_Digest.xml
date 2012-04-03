@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.digest"><info><title>Authentification "Digest"</title></info>
-    
+
 
     <section xml:id="zend.auth.adapter.digest.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://fr.wikipedia.org/wiki/HTTP_Authentification#M.C3.A9thode_Digest">
@@ -49,7 +49,7 @@ unUtilisateur:Un domaine:3b17d7f3a9374666e892cbce58aa724f
     </section>
 
     <section xml:id="zend.auth.adapter.digest.specifics"><info><title>Spécifications</title></info>
-        
+
 
         <para>
             L'adaptateur d'authentification Digest, <classname>Zend_Auth_Adapter_Digest</classname>
@@ -87,7 +87,7 @@ unUtilisateur:Un domaine:3b17d7f3a9374666e892cbce58aa724f
     </section>
 
     <section xml:id="zend.auth.adapter.digest.identity"><info><title>Identité</title></info>
-        
+
 
         <para>
             L'adaptateur d'authentification Digest retourne un objet

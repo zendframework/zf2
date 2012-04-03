@@ -20,9 +20,9 @@
 
 namespace Zend\Code\Reflection;
 
-use Zend\Code\Reflection,
-    Zend\Code\NameInformation,
-    Zend\Code\Scanner\CachingFileScanner;
+use Zend\Code\Reflection;
+use Zend\Code\NameInformation;
+use Zend\Code\Scanner\CachingFileScanner;
 
 /**
  * @uses       Reflector

@@ -2,9 +2,9 @@
 
 namespace ZendTest\Mvc\Controller\TestAsset;
 
-use Zend\Stdlib\Dispatchable,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response;
+use Zend\Stdlib\Dispatchable;
+use Zend\Stdlib\RequestDescription as Request;
+use Zend\Stdlib\ResponseDescription as Response;
 
 class UneventfulController implements Dispatchable
 {

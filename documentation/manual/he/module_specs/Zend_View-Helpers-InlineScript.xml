@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.inlinescript"><info><title>תוסף עזרה לסקריפטים</title></info>
-    
+
 
     <para>
         תגית ה <code>&lt;script&gt;</code> ב HTML משמשת בעיקר כדי להוסיף קוד סקריפט בצד הלקוח ישירות בעמוד, או להוסיף קישור לקובץ סקריפט חיצוני.
@@ -12,7 +12,7 @@
     </para>
 
     <note><info><title>השתמש בתוסף העזרה InlineScript בתוכן ה HTML</title></info>
-        
+
 
         <para>
             יש להשתמש ב  <code>InlineScript</code> כשהנכם רוצים להוסיף סקריפטים ישירות לקוד ה HTML של העמוד.

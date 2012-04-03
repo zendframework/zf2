@@ -37,7 +37,7 @@ interface Manager
     public function getConfig();
     public function getStorage();
     public function getSaveHandler();
-    
+
     public function sessionExists();
     public function start();
     public function destroy();

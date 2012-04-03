@@ -107,7 +107,7 @@ class JSONTest extends \PHPUnit_Framework_TestCase
     {
         $layout = Layout\Layout::startMvc();
         $this->assertTrue($layout->isEnabled());
-        
+
         $data = $this->helper->__invoke(array('foobar'), true);
         $this->assertTrue($layout->isEnabled());
     }

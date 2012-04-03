@@ -49,14 +49,14 @@ class Replace extends AbstractMarkup
      * @var string
      */
     protected $_end;
-    
+
 
     /**
      * Constructor
      *
      * @param string $start
      * @param string $end
-     * 
+     *
      * @return void
      */
     public function __construct($start, $end)

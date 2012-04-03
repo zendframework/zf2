@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.front"><info><title>フロントコントローラ</title></info>
-    
+
 
     <section xml:id="zend.controller.front.overview"><info><title>概要</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Front</classname> は
@@ -38,7 +38,7 @@
         </para>
 
         <note><info><title>デフォルトの挙動</title></info>
-            
+
             <para>
                 デフォルトでは、フロントコントローラは
                 <link linkend="zend.controller.plugins.standard.errorhandler">ErrorHandler</link>
@@ -71,7 +71,7 @@ $front->setParam('noViewRenderer', true);
     </section>
 
     <section xml:id="zend.controller.front.methods.primary"><info><title>主要なメソッド</title></info>
-        
+
 
         <para>
             フロントコントローラには、その環境設定用のメソッドがいくつか用意されています。
@@ -79,7 +79,7 @@ $front->setParam('noViewRenderer', true);
         </para>
 
         <section xml:id="zend.controller.front.methods.primary.getinstance"><info><title>getInstance()</title></info>
-            
+
 
             <para>
                 <methodname>getInstance()</methodname> は、フロントコントローラのインスタンスを取得します。
@@ -93,7 +93,7 @@ $front = Zend_Controller_Front::getInstance();
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.setcontrollerdirectory"><info><title>setControllerDirectory() および addControllerDirectory</title></info>
-            
+
 
             <para>
                 <methodname>setControllerDirectory()</methodname> は、<link linkend="zend.controller.dispatcher">ディスパッチャ</link>
@@ -138,7 +138,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.addmoduledirectory"><info><title>addModuleDirectory() および getModuleDirectory()</title></info>
-            
+
 
             <para>
                 フロントコントローラのひとつの側面として、<link linkend="zend.controller.modular">モジュラーディレクトリ構造を定義
@@ -167,7 +167,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.dispatch"><info><title>dispatch()</title></info>
-            
+
 
             <para>
                 <methodname>dispatch(Zend_Controller_Request_Abstract $request = null,
@@ -213,7 +213,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.run"><info><title>run()</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Controller_Front::run($path)</methodname>
@@ -241,7 +241,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.environment"><info><title>環境へのアクセス用メソッド群</title></info>
-        
+
 
         <para>
             これまでに説明したメソッド以外にもさまざまなアクセス用メソッドが用意されており、
@@ -400,7 +400,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.params"><info><title>フロントコントローラのパラメータ</title></info>
-        
+
 
         <para>
             最初のほうで、フロントコントローラはレジストリとしても使用できると説明しました。
@@ -507,7 +507,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.subclassing"><info><title>フロントコントローラの継承</title></info>
-        
+
 
         <para>
             フロントコントローラを継承する際には、

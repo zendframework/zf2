@@ -21,8 +21,8 @@
 
 namespace Zend\Http\Header;
 
-use Zend\Uri,
-    ArrayObject;
+use Zend\Uri;
+use ArrayObject;
 
 /**
  * @see http://www.ietf.org/rfc/rfc2109.txt
@@ -74,7 +74,7 @@ class Cookie extends ArrayObject implements HeaderDescription
         }
 
         $header->exchangeArray($arrayInfo);
-        
+
         return $header;
     }
 
@@ -109,7 +109,7 @@ class Cookie extends ArrayObject implements HeaderDescription
 
         return implode('; ', $nvPairs);
     }
-    
+
     public function toString()
     {
         return 'Cookie: ' . $this->getFieldValue();

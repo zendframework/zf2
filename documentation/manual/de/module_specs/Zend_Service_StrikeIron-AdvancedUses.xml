@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.strikeiron.advanced-uses"><info><title>Zend_Service_StrikeIron: Erweiterte Verwendung</title></info>
-    
+
 
     <para>
         Diese Sektion beschreibt die erweiterte Verwendung von
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.service.strikeiron.advanced-uses.services-by-wsdl"><info><title>Die Services durch WSDL verwenden</title></info>
-        
+
 
         <para>
             Für einige StrikeIron Services können <acronym>PHP</acronym> Wrapper Klassen vorhanden
@@ -56,7 +56,7 @@ echo $result->listingName;
     </section>
 
     <section xml:id="zend.service.strikeiron.viewing-soap-transactions"><info><title>SOAP Transaktionen betrachten</title></info>
-        
+
 
         <para>
             Die gesamte Kommunikation mit StrikeIron wird durch Verwenden der

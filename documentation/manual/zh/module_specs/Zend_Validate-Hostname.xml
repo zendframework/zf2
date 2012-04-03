@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.hostnames"><info><title>主机名</title></info>
 
-    
+
 
     <para>
         Zend_Validate_Hostname允许你根据一组已知的规范来校验主机名。它检查三种不同的主机名：DNS主机名（例如domain.com），IP地址（例如1.2.3.4），和本地主机名（例如localhost）。缺省地，只有DNS主机名被匹配。

@@ -21,9 +21,9 @@
 
 namespace ZendTest\Filter;
 
-use Zend\Filter\Alnum as AlnumFilter,
-    Zend\Locale\Locale as ZendLocale,
-    Zend\Registry;
+use Zend\Filter\Alnum as AlnumFilter;
+use Zend\Locale\Locale as ZendLocale;
+use Zend\Registry;
 
 /**
  * @category   Zend

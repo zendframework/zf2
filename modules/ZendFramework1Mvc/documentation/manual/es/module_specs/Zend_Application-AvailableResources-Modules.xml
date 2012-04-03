@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.modules"><info><title>Zend_Application_Resource_Modules</title></info>
-    
+
     <para>
         <classname>Zend_Application_Resource_Modules</classname> se utiliza para
         inicializar sus módulos de aplicación. Si su módulo tiene un archivo
@@ -40,7 +40,7 @@ $options = array(
 ]]></programlisting>
 
     <note><info><title>Dependencia de Recursos del Front Controller</title></info>
-        
+
         <para> El recurso Modules tiene una dependencia de <link linkend="zend.application.available-resources.frontcontroller">
                 Front Controller resource</link> . Usted puede, por supuesto,
             proporcionar su propia sustitución de ese recurso mediante un
@@ -51,7 +51,7 @@ $options = array(
             insensible). </para>
     </note>
     <example xml:id="zend.application.available-resources.modules.configExample"><info><title>Configurando Módulos</title></info>
-        
+
         <para> Usted puede especificar una configuración específica de un módulo
             utilizando el nombre del módulo como un prefijo/sub-sección en su
             archivo de configuración. </para>
@@ -91,7 +91,7 @@ news.resources.layout.layout = "news"
 ]]></programlisting>
     </example>
     <example xml:id="zend.application.available-resources.modules.retrieveBootstrapExample"><info><title>Recuperando el bootstrap de un módulo específico</title></info>
-        
+
         <para> En ocasiones, puede que necesite para recuperar el objeto
             bootstrap de un módulo específico -- tal vez para ejecutar discretos
             métodos bootstrap ,o a recoger el cargador automático con el fin de

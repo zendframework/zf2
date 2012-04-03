@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.read"><info><title>Lesen von Mail Nachrichten</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> kann Mail Nachrichten von verschiedenen lokalen oder
@@ -11,7 +11,7 @@
     </para>
 
     <table xml:id="zend.mail.read.table-1"><info><title>Übersicht der Lesefeatures für Mails</title></info>
-        
+
 
         <tgroup cols="5">
             <thead>
@@ -85,7 +85,7 @@
     </table>
 
     <section xml:id="zend.mail.read-example"><info><title>Einfaches Beispiel für POP3</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail_Storage_Pop3(array('host'     => 'localhost',
@@ -100,7 +100,7 @@ foreach ($mail as $message) {
     </section>
 
     <section xml:id="zend.mail.read-open-local"><info><title>Öffnen eines lokalen Speichers</title></info>
-        
+
 
         <para>
             Mbox und Maildir sind zwei unterstützte Formate für lokale Mailspeicher, beide in Ihrem
@@ -131,7 +131,7 @@ $mail = new Zend_Mail_Storage_Maildir(array('dirname' =>
     </section>
 
     <section xml:id="zend.mail.read-open-remote"><info><title>Öffnen eines entfernten Speichers</title></info>
-        
+
 
         <para>
             Für entfernte Speicher werden die zwei populärsten Protokolle unterstützt: Pop3 und
@@ -190,7 +190,7 @@ $mail = new Zend_Mail_Storage_Pop3(array('host'     => 'example.com',
     </section>
 
     <section xml:id="zend.mail.read-fetching"><info><title>Nachrichten holen und einfache Methoden</title></info>
-        
+
 
         <para>
             Wenn der Speicher einmal geöffnet wurde können Nachrichten geholt werden. Man benötigt
@@ -250,7 +250,7 @@ unset($mail[$messageNum]);
     </section>
 
     <section xml:id="zend.mail.read-message"><info><title>Arbeiten mit Nachrichten</title></info>
-        
+
 
         <para>
             Nachdem die Nachrichten mit <methodname>getMessage()</methodname> geholt wurden, wird
@@ -393,7 +393,7 @@ if (!$foundPart) {
     </section>
 
     <section xml:id="zend.mail.read-flags"><info><title>Auf Flags prüfen</title></info>
-        
+
 
         <para>
             Maildir und IMAP unterstützen das Speichern von Flags. Die Klasse
@@ -463,7 +463,7 @@ if (!$message->hasFlag('$SpamTested')) {
     </section>
 
     <section xml:id="zend.mail.read-folders"><info><title>Verwenden von Ordnern</title></info>
-        
+
 
         <para>
             Alle Speicher, ausser Pop3, unterstützen Ordner, welche Mailboxen genannt werden. Das
@@ -529,7 +529,7 @@ $mail = new Zend_Mail_Storage_Imap(array('host'     => 'example.com',
         </para>
 
         <table xml:id="zend.mail.read-folders.table-1"><info><title>Namen für Nachrichtenordner</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -610,10 +610,10 @@ $mail->selectFolder($folder);
     </section>
 
     <section xml:id="zend.mail.read-advanced"><info><title>Fortgeschrittene Verwendung</title></info>
-        
+
 
         <section xml:id="zend.mail.read-advanced.noop"><info><title>NOOP verwenden</title></info>
-            
+
 
             <para>
                 Wenn ein entfernter Speicher verwendet werden soll und einige lange Aufgaben
@@ -635,7 +635,7 @@ foreach ($mail as $message) {
         </section>
 
         <section xml:id="zend.mail.read-advanced.caching"><info><title>Instanzen cachen</title></info>
-            
+
 
             <para>
                 <classname>Zend_Mail_Storage_Mbox</classname>,
@@ -676,7 +676,7 @@ $cache->set($cache_id, $mail);
         </section>
 
         <section xml:id="zend.mail.read-advanced.extending"><info><title>Prokoll Klassen erweitern</title></info>
-            
+
 
             <para>
                 Entfernte Speicher verwenden zwei Klassen:
@@ -772,7 +772,7 @@ $mail = new Example_Mail_Pop3_Knock(array('host'        => 'localhost',
         </section>
 
         <section xml:id="zend.mail.read-advanced.quota"><info><title>Quote verwenden (seit 1.5)</title></info>
-            
+
 
             <para>
                 <classname>Zend_Mail_Storage_Writable_Maildir</classname> bietet Unterstützung für

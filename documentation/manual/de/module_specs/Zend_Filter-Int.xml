@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.int"><info><title>Int</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_Int</classname> erlaubt es einen skalaren Wert in einen Integer Wert
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.int.options"><info><title>Unterstützte Optionen für Zend_Filter_Int</title></info>
-        
+
 
         <para>
             Es gibt keine zusätzlichen Optionen für <classname>Zend_Filter_Int</classname>.
@@ -16,7 +16,7 @@
     </section>
 
     <section xml:id="zend.filter.set.int.basic"><info><title>Einfache Verwendung</title></info>
-        
+
 
         <para>
             Ein einfaches Beispiel der Verwendung ist nachfolgend zu finden:

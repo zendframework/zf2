@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.writing-providers"><info><title>Erstellen von Providern für die Verwendung mit Zend_Tool_Framework</title></info>
-    
+
 
     <para>
         Generell ist ein Provider für sich selbst nichts mehr als die Shell für einen Entwickler
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.tool.framework.writing-providers.loading"><info><title>Wie Zend_Tool eigene Provider findet</title></info>
-        
+
 
         <para>
             Standardmäßig verwendet <classname>Zend_Tool</classname> den IncludePathLoader um alle
@@ -65,7 +65,7 @@
         </note>
 
         <example xml:id="zend.tool.framework.writing-providers.loading.example"><info><title>Eigene Provider mit einem Manifest bekanntmachen</title></info>
-            
+
 
             <para>
                 Man kann eigene Provider bei <classname>Zend_Tool</classname> bekannt machen indem
@@ -93,7 +93,7 @@ class My_Component_Manifest
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.basic"><info><title>Grundsätzliche Anweisungen für die Erstellung von Providern</title></info>
-        
+
 
         <para>
             Wenn, als Beispiel, ein Entwickler die Fähigkeit hinzufügen will, die Version einer
@@ -130,7 +130,7 @@ Hello from my provider!
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.response"><info><title>Das Antwort Objekt</title></info>
-        
+
 
         <para>
             Wie in der Archikektur Sektion diskutiert erlaubt <classname>Zend_Tool</classname>
@@ -162,10 +162,10 @@ class My_Component_HelloProvider
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.advanced"><info><title>Fortgeschrittene Informationen für die Entwicklung</title></info>
-        
+
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.variables"><info><title>Variablen an einen Provider übergeben</title></info>
-            
+
 
             <para>
                 Das obige "Hello World" Beispiel ist perfekt für einfache Kommandos, aber was ist
@@ -204,7 +204,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.prompt"><info><title>Den Benutzer nach einer Eingabe fragen</title></info>
-            
+
 
             <para>
                 Es gibt Fälle in denen der Workflow des Providers es notwendig macht, den Benutzer
@@ -236,7 +236,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.pretendable"><info><title>Voranstellen um eine Provider Aktion auszuführen</title></info>
-            
+
 
             <para>
                 Ein anderes interessantes Feature das man implementieren kann ist
@@ -284,7 +284,7 @@ I würde zu Ralph hallo sagen.
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.verbosedebug"><info><title>Verbose und Debug Modi</title></info>
-            
+
 
             <para>
                 Man kann Provider Aktionen auch im "verbose" oder "debug" Modus ausführen. Die
@@ -311,7 +311,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.configstorage"><info><title>Zugriff auf Benutzer Konfiguration und Speicher</title></info>
-            
+
 
             <para>
                 Wenn man die Umgebungsvariable <property>ZF_CONFIG_FILE</property> oder

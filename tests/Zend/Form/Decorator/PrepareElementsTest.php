@@ -21,10 +21,10 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Form,
-    Zend\Form\SubForm,
-    Zend\Translator\Translator,
-    Zend\View\Renderer\PhpRenderer;
+use Zend\Form\Form;
+use Zend\Form\SubForm;
+use Zend\Translator\Translator;
+use Zend\View\Renderer\PhpRenderer;
 
 /**
  * Test class for Zend_Form_Decorator_PrepareElements

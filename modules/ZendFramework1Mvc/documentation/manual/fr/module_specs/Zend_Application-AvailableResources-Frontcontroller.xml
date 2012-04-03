@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.frontcontroller"><info><title>Zend_Application_Resource_Frontcontroller</title></info>
-    
+
 
     <para>
         Probablement la ressource que vous allez le plus communément charger avec
@@ -87,7 +87,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.frontcontroller.configExample"><info><title>Exemple de configuration d'une ressource de contrôleur frontal</title></info>
-        
+
 
         <para>
             Voici un extrait de configuration <acronym>INI</acronym> montrant comment configurer
@@ -113,7 +113,7 @@ resources.frontController.env = APPLICATION_ENV
     </example>
 
     <example xml:id="zend.application.available-resources.frontcontroller.propertyExample"><info><title>Récupération de votre contrôleur frontal à partir de votre initialiseur</title></info>
-        
+
 
         <para>
             Une fois la ressource de contrôleur frontal initialisée, vous pouvez récupérer

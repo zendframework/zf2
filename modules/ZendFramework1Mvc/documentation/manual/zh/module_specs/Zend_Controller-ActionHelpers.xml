@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers"><info><title>动作助手</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.introduction"><info><title>介绍</title></info>
-        
+
         <para>
            动作助手可以向任何Zend_Controller_Action的衍生动作控制器中，即时的加入功能(runtime and/or on-demand functionality)，以使得增加公共的动作控制器功能时，尽量减少衍生动作控制器类的必要。
         </para>
@@ -14,7 +14,7 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.initialization"><info><title>初始化助手</title></info>
-        
+
 
         <para>
            根据需求以及助手的功能，可有几种不同的初始化方式。
@@ -71,7 +71,7 @@ $this->_helper->FlashMessenger('We did something in the last request');
     </section>
 
     <section xml:id="zend.controller.actionhelper.broker"><info><title>助手经纪人</title></info>
-        
+
 
         <para>
             <code>Zend_Controller_Action_HelperBroker</code>处理注册助手对象和助手路径，即时的获取助手等细节。
@@ -170,7 +170,7 @@ if (Zend_Controller_Action_HelperBroker::hasHelper('redirector')) {
     </section>
 
     <section xml:id="zend.controller.actionhelper.stockhelpers"><info><title>内建的动作助手</title></info>
-        
+
 
         <para>
            Zend Framework 默认包含若干个动作助手：<code>AutoComplete</code> 自动响应 AJAX 的自动完成；<code>ContextSwitch</code> 和 <code>AjaxContext</code> 为你的动作提供替代响应格式；<code>FlashMessenger</code> 用来处理Flash Messenger会话；<code>Json</code> 用来解码和发送 JSON 响应；<code>Redirector</code> 提供另一种实现方式，帮助程序重定向到内部或者外部页面；<code>ViewRenderer</code> 自动的完成在控制器内建立视图对象并渲染视图的过程。
@@ -186,7 +186,7 @@ if (Zend_Controller_Action_HelperBroker::hasHelper('redirector')) {
     </section>
 
     <section xml:id="zend.controller.actionhelper.writingyourown"><info><title>编写自己的助手</title></info>
-        
+
 
         <para>
            动作助手继承抽象类<code>Zend_Controller_Action_Helper_Abstract</code>，该类提供了助手经纪人要求的基本接口和功能，包含下列方法：

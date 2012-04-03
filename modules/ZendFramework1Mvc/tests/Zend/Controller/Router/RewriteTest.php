@@ -21,11 +21,11 @@
 
 namespace ZendTest\Controller\Router;
 
-use Zend\Config,
-    Zend\Controller,
-    Zend\Controller\Router\Route,
-    Zend\Controller\Router,
-    Zend\Uri\UriFactory;
+use Zend\Config;
+use Zend\Controller;
+use Zend\Controller\Router\Route;
+use Zend\Controller\Router;
+use Zend\Uri\UriFactory;
 
 /**
  * @category   Zend
@@ -687,7 +687,7 @@ class RewriteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('/articles/777', $url);
     }
-    
+
 
     /**
      * Test that it is possible to generate a URL with a numerical key
@@ -699,7 +699,7 @@ class RewriteTest extends \PHPUnit_Framework_TestCase
     public function testCanGenerateNumericKeyUri()
     {
         $this->_router->addRoute(
-            'application', 
+            'application',
             new Route\Route(
                 ':controller/:action/*',
                 array('controller' => 'index', 'action' => 'index')

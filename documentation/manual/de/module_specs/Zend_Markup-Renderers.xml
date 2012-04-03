@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.markup.renderers"><info><title>Zend_Markup Renderer</title></info>
-    
+
 
     <para>
         <classname>Zend_Markup</classname> wird aktuell mit einem Renderer ausgeliefert, dem
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.markup.renderers.add"><info><title>Eigene Markups hinzufügen</title></info>
-        
+
 
         <para>
             Indem man eigene Merkups hinzufügt, kann man den <classname>Zend_Markup</classname>
@@ -54,7 +54,7 @@ echo $bbcode->render('my [foo]markup[/foo]');
         </para>
 
         <section xml:id="zend.markup.renderers.add.callback"><info><title>Ein Callback Markup hinzufügen</title></info>
-            
+
 
             <para>
                 Durch das Hinzufügen eines Callback Markups kann man viel mehr tun als nur das
@@ -114,10 +114,10 @@ echo $bbcode->render('my [upper]markup[/upper]');
     </section>
 
     <section xml:id="zend.markup.renderers.list"><info><title>Liste der Markups</title></info>
-        
+
 
         <table xml:id="zend.markup.renderers.list.markups"><info><title>Liste der Markups</title></info>
-            
+
 
             <tgroup cols="2" align="left" colsep="1" rowsep="1">
                 <thead>

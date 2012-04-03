@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.version.reading"><info><title>Zend Framework のバージョンの取得</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Version</classname> が提供するクラス定数
@@ -20,7 +20,7 @@
     </para>
 
     <example xml:id="zend.version.reading.example"><info><title>compareVersion() メソッドの例</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // -1、0 あるいは 1 を返します
@@ -29,13 +29,13 @@ $cmp = Zend_Version::compareVersion('2.0.0');
     </example>
 
     <para>
-        The static method <methodname>Zend_Version::getLatest()</methodname> provides the version 
-        number of the last stable release available for download on the site 
+        The static method <methodname>Zend_Version::getLatest()</methodname> provides the version
+        number of the last stable release available for download on the site
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://framework.zend.com/download/latest">Zend Framework</link>.
     </para>
 
     <example xml:id="zend.version.latest.example"><info><title>getLatest() メソッドの例</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // 1.11.0 またはそれ以降のバージョンを返します

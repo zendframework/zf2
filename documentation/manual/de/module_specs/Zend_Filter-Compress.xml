@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.compress"><info><title>Compress und Decompress</title></info>
-    
+
 
     <para>
         Diese zwei Filter sind in der Lage Strings, Dateien und Verzeichnisse zu komprimieren und zu
@@ -24,7 +24,7 @@
     </para>
 
     <section xml:id="zend.filter.set.compress.generic"><info><title>Generelle Handhabung</title></info>
-        
+
 
         <para>
             Um einen Kompressions Filter zu erstellen muss man das Kompressions Format auswählen
@@ -71,7 +71,7 @@ $filter = new Zend_Filter_Compress(array(
 ]]></programlisting>
 
         <note><info><title>Standardmäßiger Kompressions Adapter</title></info>
-            
+
 
             <para>
                 Wenn kein Kompressions Adapter angegeben wird, dann wird der
@@ -110,7 +110,7 @@ $compressed = $filter->filter('Compressed string');
 ]]></programlisting>
 
         <note><info><title>Hinweis zur Komprimierung von Strings</title></info>
-            
+
 
             <para>
                 Nicht alle Adapter unterstützen die Kompression von Strings. Kompressions Formate
@@ -122,7 +122,7 @@ $compressed = $filter->filter('Compressed string');
     </section>
 
     <section xml:id="zend.filter.set.compress.archive"><info><title>Ein Archiv erstellen</title></info>
-        
+
 
         <para>
             Die Erstellung einer Archivedatei arbeitet fast auf die gleiche Weise wie die
@@ -147,7 +147,7 @@ $compressed = $filter->filter('Uncompressed string');
         </para>
 
         <note><info><title>Existierende Archive werden überschrieben</title></info>
-            
+
 
             <para>
                 Der Inhalt einer existierenden Datei wird überschrieben wenn der angegebene
@@ -189,7 +189,7 @@ $compressed = $filter->filter('C:\temp\somedir');
 ]]></programlisting>
 
         <note><info><title>Keine großen oder Basisverzeichnisse komprimieren</title></info>
-            
+
 
             <para>
                 Man sollte niemals große oder Basisverzeichnisse wie eine komplette Partition
@@ -201,7 +201,7 @@ $compressed = $filter->filter('C:\temp\somedir');
     </section>
 
     <section xml:id="zend.filter.set.compress.decompress"><info><title>Ein Archiv dekomprimieren</title></info>
-        
+
 
         <para>
             Die Dekomprimierung einer Archivdatei arbeitet fast wie dessen Komprimierung. Man muss
@@ -234,7 +234,7 @@ $compressed = $filter->filter('filename.zip');
 ]]></programlisting>
 
         <note><info><title>Verzeichnisse in welche extrahiert werden soll müssen existieren</title></info>
-            
+
 
             <para>
                 Wenn man ein Archiv in ein Verzeichnis dekomprimieren will, dann muss dieses
@@ -244,7 +244,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.bz2"><info><title>Bz2 Adapter</title></info>
-        
+
 
         <para>
             Der Bz2 Adapter kann folgendes komprimieren und dekomprimieren:
@@ -291,7 +291,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.gz"><info><title>Gz Adapter</title></info>
-        
+
 
         <para>
             Der Gz Adapter kann folgendes komprimieren und dekomprimieren:
@@ -344,7 +344,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.lzf"><info><title>Lzf Adapter</title></info>
-        
+
 
         <para>
             Der Lzf Adapter kann folgendes komprimieren und dekomprimieren:
@@ -355,7 +355,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Lzf unterstützt nur Strings</title></info>
-            
+
 
             <para>
                 Der Lzf Adapter kann keine Dateien oder Verzeichnisse verarbeiten.
@@ -372,7 +372,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.rar"><info><title>Rar Adapter</title></info>
-        
+
 
         <para>
             Der Rar Adapter kann folgendes komprimieren und dekomprimieren:
@@ -384,7 +384,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Rar unterstützt keine Strings</title></info>
-            
+
 
             <para>
                 Der Rar Adapter kann keine Strings verarbeiten.
@@ -396,7 +396,7 @@ $compressed = $filter->filter('filename.zip');
         </para>
 
         <note><info><title>Die Kompression wird von Rar nicht unterstützt</title></info>
-            
+
 
             <para>
                 Durch Beschränkungen des Kompressions Formats von Rar, gibt es keine frei
@@ -450,7 +450,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.tar"><info><title>Tar Adapter</title></info>
-        
+
 
         <para>
             Der Rar Adapter kann folgendes komprimieren und dekomprimieren:
@@ -462,7 +462,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Tar unterstützt keine Strings</title></info>
-            
+
 
             <para>
                 Der Tar Adapter kann keine Strings verarbeiten.
@@ -513,7 +513,7 @@ $compressed = $filter->filter('filename.zip');
         </para>
 
         <note><info><title>Verwendung von Verzeichnissen</title></info>
-            
+
 
             <para>
                 Wenn Verzeichnisse mit Tar komprimiert werden, dann wird der komplette Dateipfad
@@ -524,7 +524,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.zip"><info><title>Zip Adapter</title></info>
-        
+
 
         <para>
             Der Rar Adapter kann folgendes komprimieren und dekomprimieren:
@@ -537,7 +537,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Zip unterstützt die Dekomprimierung von Strings nicht</title></info>
-            
+
 
             <para>
                 Der Zip Adapter kann die Dekomprimierung von Strings nicht verarbeiten; eine

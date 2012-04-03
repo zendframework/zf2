@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.introduction"><info><title>Introducere</title></info>
-    
+
     <para>
         <code>Zend_Cache</code> oferă un mod generic de a stoca temporar orice fel de date.
     </para>
@@ -16,7 +16,7 @@
         pentru convenienţă: <code>Output</code>, <code>File</code>, <code>Function</code> şi <code>Class</code>.
     </para>
     <example><info><title>Obţinerea unei interfeţe (frontend) cu <code>Zend_Cache::factory()</code></title></info>
-        
+
         <para>
             <code>Zend_Cache::factory()</code> creează instanţe ale obiectelor şi face legătura între ele.
             În acest prim exemplu, vom folosi interfaţa <code>Core</code> împreună cu adaptorul <code>File</code>
@@ -41,7 +41,7 @@ $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
     </example>
 
     <note><info><title>Frontend şi backend construit din mai multe cuvinte</title></info>
-        
+
         <para>
             Numele unor interfeţe şi backend-uri este construit din mai multe
             cuvinte, cum ar fi „ZendPlatform”. Când le specificaţi fabricii,
@@ -51,7 +51,7 @@ $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
     </note>
 
     <example xml:id="zend.cache.introduction.example-2"><info><title>Păstrarea în cache a unui rezultat de interogare</title></info>
-        
+
 
        <para>
                Acum că avem o interfaţă, putem stoca orice tip de date (am pornit serializarea). De
@@ -85,7 +85,7 @@ print_r($result);?>
     </example>
 
     <example xml:id="zend.cache.introduction.example-3"><info><title>Punerea în cache a textelor afişate cu interfaţa de ieşire din <code>Zend_Cache</code></title></info>
-        
+
         <para>
             Marcăm secţiuni în care dorim să punem în cache textele care vor fi afişate adăugând nişte condiţii,
             mai exact încapsulăm fiecare secţiune între metodele <code>start()</code> şi <code>end()</code>

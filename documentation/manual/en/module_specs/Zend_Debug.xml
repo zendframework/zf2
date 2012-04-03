@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.debug.dumping"><info><title>Dumping Variables</title></info>
 
-    
+
 
     <para>
         The static method <methodname>Zend_Debug::dump()</methodname> prints or returns
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.debug.dumping.example"><info><title>Example of dump() method</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 Zend_Debug::dump($var, $label = null, $echo = true);
@@ -49,7 +49,7 @@ Zend_Debug::dump($var, $label = null, $echo = true);
     </para>
 
     <tip><info><title>Debugging with Zend_Log</title></info>
-        
+
 
         <para>
             Using <methodname>Zend_Debug::dump()</methodname> is best for ad hoc

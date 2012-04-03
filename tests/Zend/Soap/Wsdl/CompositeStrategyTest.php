@@ -19,12 +19,12 @@
  */
 
 namespace ZendTest\Soap\Wsdl;
-use Zend\Soap\Wsdl\ComplexTypeStrategy,
-    Zend\Soap\Wsdl,
-    Zend\Soap\WsdlException,
-    Zend\Soap\Wsdl\ComplexTypeStrategy\Composite,
-    Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeComplex,
-    Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence;
+use Zend\Soap\Wsdl\ComplexTypeStrategy;
+use Zend\Soap\Wsdl;
+use Zend\Soap\WsdlException;
+use Zend\Soap\Wsdl\ComplexTypeStrategy\Composite;
+use Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeComplex;
+use Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence;
 
 /**
  * @package Zend_Soap

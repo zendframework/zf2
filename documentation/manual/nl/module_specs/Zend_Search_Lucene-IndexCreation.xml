@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.index-creation"><info><title>Indexes Bouwen</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.index-creation.creating"><info><title>Een Nieuwe Index Maken</title></info>
-        
+
 
         <para>
             De mogelijkheid om nieuwe Indexes te maken en ze up te daten is geïmplementeerd in de Zend_Search_Lucene
@@ -74,7 +74,7 @@ $index->commit();
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.updating"><info><title>Index Updaten</title></info>
-        
+
 
         <para>
             Dezelfde procedure wordt gebruikt om een bestaande index up te daten. Het enige verschil is dat de index
@@ -114,7 +114,7 @@ $index->commit();
         </para>
     </section>
     <section xml:id="zend.search.lucene.index-creation.document-updating"><info><title>Documenten updaten</title></info>
-        
+
 
         <para>
             Het Lucene index bestandformaat ondersteund het updaten van documenten niet. Documenten zouden moeten worden

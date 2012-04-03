@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.migration"><info><title>从以前的版本移植</title></info>
-    
+
 
     <para>
         随着时间的推移，MVC组件的API修改了许多。如果你从Zend Framework早期的版本开始使用，遵照下面的方针来移植你的脚本来使用新的架构。
     </para>
 
         <section xml:id="zend.controller.migration.fromoneohtoonesix"><info><title> 从 1.5.x 移植到 1.6.0 或更新的版本 </title></info>
-        
+
 
         <section xml:id="zend.controller.migration.fromoneohtoonesix.dispatcher"><info><title> 分发器接口修改 </title></info>
-            
+
 
             <para>
                 引起我们注意的是<code>Zend_Controller_Front</code> 和
@@ -35,7 +35,7 @@
     </section>
 
     <section xml:id="zend.controller.migration.fromoneohtoonefive"><info><title> 从 1.0.x 到 1.5.0 或更新的版本的移植 </title></info>
-        
+
 
         <para>
             尽管大部分基本功能和所有有文档的功能保持不变，但有一个特别的 <emphasis> 未披露的（undocumented）</emphasis> “功能”发生了改变。
@@ -113,7 +113,7 @@ $front->setParam('useCaseSensitiveActions', true);
     </section>
 
     <section xml:id="zend.controller.migration.fromzeroninethree"><info><title> 从 0.9.3 到 1.0.0RC1 或更新的版本的移植 </title></info>
-        
+
 
         <para>
             在1.0.0RC1中的主要变化是<link linkend="zend.controller.plugins.standard.errorhandler">ErrorHandler</link>插件的缺省激活 和 <link linkend="zend.controller.actionhelpers.viewrenderer">ViewRenderer</link>的动作助手的简介。请阅读整个的文档来看它们是如何工作的和对你的应用程序有什么影响。
@@ -247,7 +247,7 @@ $viewRenderer->setView($view);
     </section>
 
     <section xml:id="zend.controller.migration.fromzeroninetwo"><info><title>从 0.9.2 移植到 0.9.3 或更新的版本</title></info>
-        
+
 
         <para>
             0.9.3 介绍了<link linkend="zend.controller.actionhelpers">action helpers</link>。作为这个改变的一部分，下面的方法已经删除因为它们现在被封装到<link linkend="zend.controller.actionhelpers.redirector">重定向动作助手</link>：
@@ -277,7 +277,7 @@ $viewRenderer->setView($view);
     </section>
 
     <section xml:id="zend.controller.migration.fromzerosix"><info><title>从 0.6.0 移植到 0.8.0 或更新的版本 </title></info>
-        
+
 
         <para>
             每次修改，MVC组件的最基本用法保持不变：
@@ -341,7 +341,7 @@ final protected function _forward($action, $controller = null, $module = null, a
     </section>
 
     <section xml:id="zend.controller.migration.fromzerotwo"><info><title>从 0.2.0 或以前的版本移植到 0.6.0</title></info>
-        
+
 
         <para>
             （这段就让它保持原样吧 Jason Qi）

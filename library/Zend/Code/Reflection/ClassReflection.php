@@ -20,12 +20,12 @@
 
 namespace Zend\Code\Reflection;
 
-use Zend\Code\Reflection,
-    ReflectionClass,
-    Zend\Code\Reflection\FileReflection,
-    Zend\Code\Scanner\FileScanner,
-    Zend\Code\Annotation,
-    Zend\Code\Scanner\AnnotationScanner;
+use Zend\Code\Reflection;
+use ReflectionClass;
+use Zend\Code\Reflection\FileReflection;
+use Zend\Code\Scanner\FileScanner;
+use Zend\Code\Annotation;
+use Zend\Code\Scanner\AnnotationScanner;
 
 /**
  * @uses       ReflectionClass

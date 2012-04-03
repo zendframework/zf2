@@ -21,8 +21,8 @@
 
 namespace ZendTest\OpenId;
 
-use Zend\OpenId,
-    Zend\OpenId\Provider\User\Session;
+use Zend\OpenId;
+use Zend\OpenId\Provider\User\Session;
 
 
 /**

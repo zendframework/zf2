@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.sending"><info><title>Wysyłanie przez SMTP</title></info>
-    
+
     <para>
         Aby wysłać mail przez SMTP, obiekt <code>Zend_Mail_Transport_Smtp</code>
         musi być utworzony i zarejestrowany w obiekcie <code>Zend_Mail</code>
@@ -8,7 +8,7 @@
         <code>Zend_Mail::send()</code> w tym skrypcie będzie także użyty transport SMTP:
     </para>
     <example xml:id="zend.mail.sending.example-1"><info><title>Wysyłanie e-maila przez SMTP</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 $tr = new Zend_Mail_Transport_Smtp('mail.example.com');
 Zend_Mail::setDefaultTransport($tr);

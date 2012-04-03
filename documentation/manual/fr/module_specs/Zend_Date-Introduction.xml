@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         Le composant <classname>Zend_Date</classname> fournit une <acronym>API</acronym> simple de manipulation
@@ -26,7 +26,7 @@
     </para>
 
     <section xml:id="zend.date.setdefaulttimezone"><info><title>Définissez toujours un fuseau horaire par défaut</title></info>
-        
+
 
         <para>
             Avant toute manipulation de date, que ce soit par les fonctions PHP, ou par Zend
@@ -39,7 +39,7 @@
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://unicode.org/cldr/data/diff/supplemental/territory_containment_un_m_49.html">
             La liste des identifiants de fuseaux horaires</link>.
             <example xml:id="zend.date.setdefaulttimezone.example-1"><info><title>Spécifier un fuseau par défaut </title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // timezone pour un américain en Californie
@@ -64,7 +64,7 @@ date_default_timezone_set('Europe/Berlin');
     </section>
 
     <section xml:id="zend.date.why"><info><title>Pourquoi utiliser Zend_Date ?</title></info>
-        
+
 
         <para>
             <classname>Zend_Date</classname> a les caractéristiques suivantes, qui étendent

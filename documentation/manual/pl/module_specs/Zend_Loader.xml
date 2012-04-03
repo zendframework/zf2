@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.load"><info><title>Dynamiczne ładowanie plików i klas</title></info>
 
-    
+
 
     <para>
         Klasa <code>Zend_Loader</code> zawiera metody pomagające ci w dynamicznym ładowaniu
@@ -9,7 +9,7 @@
     </para>
 
     <tip><info><title>Zend_Loader a require_once()</title></info>
-        
+
         <para>
             Metody klasy <code>Zend_Loader</code> są przydatne gdy nazwa pliku, który chcesz
             załadować jest zmienną. Na przykład, jeśli nazwa jest oparta na
@@ -23,7 +23,7 @@
 
     <section xml:id="zend.loader.load.file"><info><title>Ładowanie plików</title></info>
 
-        
+
 
         <para>
             Statyczna metoda <code>Zend_Loader::loadFile()</code> ładuje plik
@@ -35,7 +35,7 @@
         </para>
 
         <example xml:id="zend.loader.load.file.example"><info><title>Przykład użycia metody loadFile()</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 Zend_Loader::loadFile($filename, $dirs=null, $once=false);
 
@@ -73,7 +73,7 @@ Zend_Loader::loadFile($filename, $dirs=null, $once=false);
 
     <section xml:id="zend.loader.load.class"><info><title>Ładowanie klas</title></info>
 
-        
+
 
         <para>
             Statyczna metoda <code>Zend_Loader::loadClass($class, $dirs)</code>
@@ -81,7 +81,7 @@ Zend_Loader::loadFile($filename, $dirs=null, $once=false);
         </para>
 
         <example xml:id="zend.loader.load.class.example"><info><title>Przykład użycia metody loadClass()</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 Zend_Loader::loadClass('Container_Tree',
     array(
@@ -125,7 +125,7 @@ Zend_Loader::loadClass('Container_Tree',
 
     <section xml:id="zend.loader.load.isreadable"><info><title>Sprawdzanie czy plik jest dostępny do odczytu</title></info>
 
-        
+
 
         <para>
             Statyczna metoda <code>Zend_Loader::isReadable($pathname)</code>
@@ -135,7 +135,7 @@ Zend_Loader::loadClass('Container_Tree',
         </para>
 
         <example xml:id="zend.loader.load.isreadable.example"><info><title>Przykład użycia metody isReadable()</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 if (Zend_Loader::isReadable($filename)) {
     // zrób coś z $filename
@@ -156,7 +156,7 @@ if (Zend_Loader::isReadable($filename)) {
 
     <section xml:id="zend.loader.load.autoload"><info><title>Użycie Autoloadera</title></info>
 
-        
+
 
         <para>
             Klasa <code>Zend_Loader</code> zawiera metodę, którą możesz zarejestrować jako
@@ -170,7 +170,7 @@ if (Zend_Loader::isReadable($filename)) {
         </para>
 
         <example xml:id="zend.loader.load.autoload.example-extended"><info><title>Przykład zarejestrowania metody autoloadera</title></info>
-            
+
             <para>
                 Z powodu semantyki referencji do statycznych funkcji w PHP,
                 musisz zaimplementować kod zarówno dla metody <code>loadClass()</code>
@@ -203,7 +203,7 @@ Zend_Loader::registerAutoload();
 
         <example xml:id="zend.loader.load.autoload.example"><info><title>Przykład rejestrowania metody autoloadera z rozszerzonej
                 klasy</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 class My_Loader extends Zend_Loader
 {

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.reflection.reference"><info><title>Zend_Reflectionリファレンス</title></info>
-    
+
 
     <para>
         <classname>Zend_Reflection</classname>の様々なクラスは、
@@ -40,7 +40,7 @@
     </para>
 
     <section xml:id="zend.reflection.reference.docblock"><info><title>Zend_Reflection_Docblock</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Docblock</classname>は
@@ -91,7 +91,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.docblock-tag"><info><title>Zend_Reflection_Docblock_Tag</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Docblock_Tag</classname>は個別の注釈タグのためのReflectionを提供します。
@@ -121,7 +121,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.docblock-tag-param"><info><title>Zend_Reflection_Docblock_Tag_Param</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Docblock_Tag_Param</classname>は
@@ -142,7 +142,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.docblock-tag-return"><info><title>Zend_Reflection_Docblock_Tag_Return</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Docblock_Tag_Param</classname>のように、
@@ -160,7 +160,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.file"><info><title>Zend_Reflection_File</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_File</classname>により<acronym>PHP</acronym>ファイル内部を参照できます。
@@ -210,7 +210,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.class"><info><title>Zend_Reflection_Class</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Class</classname>は<classname>ReflectionClass</classname>を拡張して、
@@ -264,7 +264,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.extension"><info><title>Zend_Reflection_Extension</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Extension</classname>は<classname>ReflectionExtension</classname>を拡張して、
@@ -290,7 +290,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.function"><info><title>Zend_Reflection_Function</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Function</classname>は、
@@ -319,7 +319,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.method"><info><title>Zend_Reflection_Method</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Method</classname>は<classname>Zend_Reflection_Function</classname>を継承して、
@@ -335,7 +335,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.parameter"><info><title>Zend_Reflection_Parameter</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Parameter</classname>は
@@ -370,7 +370,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.property"><info><title>Zend_Reflection_Property</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Property</classname>は、

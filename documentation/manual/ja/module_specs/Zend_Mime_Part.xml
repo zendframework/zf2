@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.part"><info><title>Zend_Mime_Part</title></info>
-    
+
 
     <section xml:id="zend.mime.part.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             このクラスは、 <acronym>MIME</acronym> メッセージのひとつのパートを表します。
@@ -16,7 +16,7 @@
     </section>
 
     <section xml:id="zend.mime.part.instantiation"><info><title>インスタンスの作成</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime_Part</classname> のインスタンスを作成する際には、
@@ -41,7 +41,7 @@ public $language;
     </section>
 
     <section xml:id="zend.mime.part.methods"><info><title>メッセージパートを文字列にレンダリングするためのメソッド</title></info>
-        
+
 
         <para>
             <methodname>getContent()</methodname> は、MimePart

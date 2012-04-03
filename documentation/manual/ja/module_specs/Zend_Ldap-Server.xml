@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.server"><info><title>LDAPサーバから情報を取得</title></info>
-    
+
     <section xml:id="zend.ldap.server.rootdse"><info><title>ルートDSE</title></info>
-        
+
 
         <para>
-            
+
             与えられた<acronym>LDAP</acronym>サーバのためのルートDSEに含まれる属性についての
             詳細は以下の文書をご覧下さい。
         </para>
@@ -31,7 +31,7 @@
         </itemizedlist>
 
         <example xml:id="zend.ldap.server.rootdse.getting"><info><title>ルートDSEを手に入れる</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $options = array(/* ... */);
 $ldap = new Zend_Ldap($options);
@@ -42,10 +42,10 @@ $serverType = $rootdse->getServerType();
     </section>
 
     <section xml:id="zend.ldap.server.schema"><info><title>参照するスキーマ</title></info>
-        
+
 
         <example xml:id="zend.ldap.server.schema.getting"><info><title>サーバ・スキーマを手に入れる</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $options = array(/* ... */);
 $ldap = new Zend_Ldap($options);
@@ -55,14 +55,14 @@ $classes = $schema->getObjectClasses();
         </example>
 
         <section xml:id="zend.ldap.server.schema.openldap"><info><title>OpenLDAP</title></info>
-            
+
             <para/>
         </section>
 
         <section xml:id="zend.ldap.server.schema.activedirectory"><info><title>ActiveDirectory</title></info>
-            
+
             <note><info><title>ActiveDirectoryサーバで参照するスキーマ</title></info>
-                
+
                 <para>
                     包括的探索ルーチンによって返される項目の数に関する
                     Microsoft ActiveDirectoryサーバに対する制限のために、

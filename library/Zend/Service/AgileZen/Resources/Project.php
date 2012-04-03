@@ -21,8 +21,8 @@
 
 namespace Zend\Service\AgileZen\Resources;
 
-use Zend\Service\AgileZen\AgileZen,
-    Zend\Service\AgileZen\Entity;
+use Zend\Service\AgileZen\AgileZen;
+use Zend\Service\AgileZen\Entity;
 
 /**
  * @category   Zend
@@ -35,44 +35,44 @@ class Project extends Entity
 {
     /**
      * Name
-     * 
+     *
      * @var string
      */
     protected $name;
 
     /**
      * Service
-     * 
-     * @var AgileZen 
+     *
+     * @var AgileZen
      */
     protected $service;
 
     /**
      * Description
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $description;
 
     /**
      * Owner
-     * 
+     *
      * @var User
      */
     protected $owner;
 
     /**
      * Create time
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $createTime;
 
     /**
      * Constructor
-     * 
+     *
      * @param AgileZen $service
-     * @param array $data 
+     * @param array $data
      */
     public function __construct(AgileZen $service, array $data)
     {
@@ -82,20 +82,20 @@ class Project extends Entity
         if (!array_key_exists('name', $data)) {
              throw new Exception\InvalidArgumentException("You must pass the name of the project");
         }
-        
+
         $this->name        = $data['name'];
         $this->description = $data['description'];
         $this->createTime  = $data['createTime'];
         $this->owner       = new User($service, $data['owner']);
         $this->service     = $service;
-        
+
         parent::__construct($data['id']);
     }
 
     /**
      * Get name of the project
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getName()
     {
@@ -104,8 +104,8 @@ class Project extends Entity
 
     /**
      * Get the description of the project
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getDescription()
     {
@@ -114,8 +114,8 @@ class Project extends Entity
 
     /**
      * Get create time of the project
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getCreateTime()
     {
@@ -124,7 +124,7 @@ class Project extends Entity
 
     /**
      * Get the owner of the project
-     * 
+     *
      * @return User
      */
     public function getOwner()
@@ -134,8 +134,8 @@ class Project extends Entity
 
     /**
      * Get the members of the project
-     * 
-     * @return Zend\Service\AgileZen\Container 
+     *
+     * @return Zend\Service\AgileZen\Container
      */
     public function getMembers()
     {
@@ -144,9 +144,9 @@ class Project extends Entity
 
     /**
      * Add a member to the project
-     * 
+     *
      * @param string|integer $member
-     * @return boolean 
+     * @return boolean
      */
     public function addMember($member)
     {
@@ -155,9 +155,9 @@ class Project extends Entity
 
     /**
      * Remove a member from the project
-     * 
+     *
      * @param  string|integer $member
-     * @return boolean 
+     * @return boolean
      */
     public function removeMember($member)
     {
@@ -166,9 +166,9 @@ class Project extends Entity
 
     /**
      * Get the phases of the project
-     * 
+     *
      * @param  array $params
-     * @return \Zend\Service\AgileZen\Container 
+     * @return \Zend\Service\AgileZen\Container
      */
     public function getPhases($params=array())
     {
@@ -177,9 +177,9 @@ class Project extends Entity
 
     /**
      * Get the stories of the project
-     * 
+     *
      * @param  array $params
-     * @return \Zend\Service\AgileZen\Container 
+     * @return \Zend\Service\AgileZen\Container
      */
     public function getStories($params=array())
     {
@@ -188,12 +188,12 @@ class Project extends Entity
 
     /**
      * Get a specific phase of the project
-     * 
+     *
      * @param  string $id
      * @param  array  $params
      * @return Phase
      */
-    public function getPhase($id, $params=array()) 
+    public function getPhase($id, $params=array())
     {
         if (!empty($id)) {
             return $this->service->getPhase($this->id, $id, $params);
@@ -202,12 +202,12 @@ class Project extends Entity
 
     /**
      * Get a specific story of the project
-     * 
+     *
      * @param  string $id
      * @param  array  $params
      * @return Phase
      */
-    public function getStory($id, $params=array()) 
+    public function getStory($id, $params=array())
     {
         if (!empty($id)) {
             return $this->service->getStory($this->id, $id, $params);
@@ -216,16 +216,16 @@ class Project extends Entity
 
     /**
      * Check if an array of keys is valid as data set of a project
-     * 
+     *
      * @param  array $keys
-     * @return boolean 
+     * @return boolean
      */
     public static function validKeys($keys)
     {
         $validProjectKeys = array ('id', 'name', 'description', 'details', 'createTime', 'owner');
         $validUserKeys    = array('id', 'name', 'userName', 'email');
-          
-        $result = (boolean) array_diff(array_keys($keys), $validProjectKeys);   
+
+        $result = (boolean) array_diff(array_keys($keys), $validProjectKeys);
         if (isset($keys['owner'])) {
             $result = $result || (boolean) array_diff(array_keys($keys['owner']), $validUserKeys);
         }

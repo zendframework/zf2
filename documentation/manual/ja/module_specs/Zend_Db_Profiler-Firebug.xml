@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.profiler.profilers.firebug"><info><title>Firebug によるプロファイリング</title></info>
-    
+
 
     <para>
         <classname>Zend_Db_Profiler_Firebug</classname> は、プロファイリング情報を
@@ -43,7 +43,7 @@
     </itemizedlist>
 
     <example xml:id="zend.db.profiler.profilers.firebug.example.with_front_controller"><info><title>Zend_Controller_Front を使った DB のプロファイリング</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // 起動ファイル
@@ -62,7 +62,7 @@ $db->setProfiler($profiler)
     </example>
 
     <example xml:id="zend.db.profiler.profilers.firebug.example.without_front_controller"><info><title>Zend_Controller_Front を使わない DB のプロファイリング</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $profiler = new Zend_Db_Profiler_Firebug('All DB Queries');

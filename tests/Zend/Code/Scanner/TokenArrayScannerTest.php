@@ -54,4 +54,4 @@ class TokenArrayScannerTest extends TestCase
 
 
 
- 
+

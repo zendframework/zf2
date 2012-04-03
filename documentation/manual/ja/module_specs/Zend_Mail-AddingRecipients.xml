@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.adding-recipients"><info><title>受信者の追加</title></info>
-    
+
 
     <para>
         受信者を追加するには、次のようにします。
@@ -34,7 +34,7 @@
     </para>
 
     <note><info><title>追加のパラメータ</title></info>
-        
+
 
         <para>
             <methodname>addTo()</methodname> および <methodname>addCc()</methodname> では、
@@ -44,7 +44,7 @@
     </note>
 
     <note><info><title>選択できる使用法</title></info>
-        
+
 
         <para>
             これらのメソッド３つは全て、１回につき一つの代わりに、

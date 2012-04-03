@@ -20,8 +20,8 @@
  */
 
 namespace Zend\Service\Amazon\Ec2;
-use Zend\Service\Amazon,
-    Zend\Service\Amazon\Ec2\Exception;
+use Zend\Service\Amazon;
+use Zend\Service\Amazon\Ec2\Exception;
 
 /**
  * An Amazon EC2 interface that allows yout to run, terminate, reboot and describe Amazon
@@ -341,7 +341,7 @@ class Instance extends AbstractEc2
         } elseif($instanceId) {
             $params['InstanceId.1'] = $instanceId;
         }
-        
+
         $response = $this->sendRequest($params);
         $xpath = $response->getXPath();
 

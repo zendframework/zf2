@@ -2,13 +2,13 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.autoloading.conclusion"><info><title>Podsumowanie</title></info>
-    
+
 
     <para>
         Zend Framework zachęca do stosowanie automatycznego ładowania plików a nawet korzysta z
         niego w domyślnej konfiguracji poprzez <classname>Zend_Application</classname>. Powyższy
         samouczek przedstawia informacje niezbędne do pomyślnego użycia klasy
-        <classname>Zend_Loader_Autoloader</classname> jak i do rozszerzenia jego możliwości o 
+        <classname>Zend_Loader_Autoloader</classname> jak i do rozszerzenia jego możliwości o
         własne metody automatycznego dołączania plików i zasobów.
     </para>
 

@@ -21,9 +21,9 @@
 
 namespace Zend\Service\AgileZen\Resources;
 
-use Zend\Service\AgileZen\AgileZen,
-    Zend\Service\AgileZen\Entity,
-    Zend\Service\AgileZen\Container;
+use Zend\Service\AgileZen\AgileZen;
+use Zend\Service\AgileZen\Entity;
+use Zend\Service\AgileZen\Container;
 
 /**
  * @category   Zend
@@ -36,105 +36,105 @@ class Story extends Entity
 {
     /**
      * Text
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $text;
 
     /**
      * Details
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $details;
     /**
      * Size
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $size;
 
     /**
      * Color
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $color;
 
     /**
      * Priority
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $priority;
 
     /**
      * Deadline
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $deadline;
 
     /**
      * Status
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $status;
 
     /**
      * Project Id
-     * 
-     * @var integer 
+     *
+     * @var integer
      */
     protected $projectId;
 
     /**
      * Phase Id
-     * 
-     * @var integer 
+     *
+     * @var integer
      */
     protected $phaseId;
 
     /**
      * Creator
-     * 
-     * @var User 
+     *
+     * @var User
      */
     protected $creator;
 
     /**
      * Owner
-     * 
-     * @var User  
+     *
+     * @var User
      */
     protected $owner;
 
     /**
      * Tags
-     * 
+     *
      * @var Zend\Service\AgileZen\Container
      */
     protected $tags;
     /**
      * AgileZen service
-     * 
-     * @var AgileZen 
+     *
+     * @var AgileZen
      */
     protected $service;
 
     /**
      * Constructor
-     * 
+     *
      * @param AgileZen $service
-     * @param array $data 
+     * @param array $data
      */
     public function __construct(AgileZen $service, array $data)
     {
         if (!array_key_exists('id', $data)) {
              throw new Exception\InvalidArgumentException("You must pass the id of the user");
         }
-        
+
         $this->text = $data['text'];
         if (isset($data['details'])) {
             $this->details = $data['details'];
@@ -148,7 +148,7 @@ class Story extends Entity
 
         if (isset($data['deadline'])) {
             $this->deadline = $data['deadline'];
-        }    
+        }
 
         $this->status    = $data['status'];
         $this->projectId = $data['project']['id'];
@@ -156,7 +156,7 @@ class Story extends Entity
 
         if (isset($data['creator']) && !empty($data['creator'])) {
             $this->creator = new User($service, $data['creator']);
-        }    
+        }
 
         if (isset($data['owner']) && !empty($data['owner'])) {
             $this->owner = new User($service, $data['owner']);
@@ -166,14 +166,14 @@ class Story extends Entity
         }
 
         $this->service= $service;
-        
+
         parent::__construct($data['id']);
     }
 
     /**
      * Get text
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getText()
     {
@@ -182,8 +182,8 @@ class Story extends Entity
 
     /**
      * Get details
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getDetails()
     {
@@ -191,8 +191,8 @@ class Story extends Entity
     }
     /**
      * Get size
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getSize()
     {
@@ -201,8 +201,8 @@ class Story extends Entity
 
     /**
      * Get color
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getColor()
     {
@@ -211,8 +211,8 @@ class Story extends Entity
 
     /**
      * Get priority
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getPriority()
     {
@@ -221,8 +221,8 @@ class Story extends Entity
 
     /**
      * Get deadline
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getDeadline()
     {
@@ -231,8 +231,8 @@ class Story extends Entity
 
     /**
      * Get status
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getStatus()
     {
@@ -241,8 +241,8 @@ class Story extends Entity
 
     /**
      * Get the project
-     * 
-     * @return Project 
+     *
+     * @return Project
      */
     public function getProject()
     {
@@ -251,7 +251,7 @@ class Story extends Entity
 
     /**
      * Get the phase
-     * 
+     *
      * @param  array $params
      * @return Phase
      */
@@ -262,7 +262,7 @@ class Story extends Entity
 
     /**
      * Get the creator
-     * 
+     *
      * @return User
      */
     public function getCreator()
@@ -272,8 +272,8 @@ class Story extends Entity
 
     /**
      * Get the owner
-     * 
-     * @return User 
+     *
+     * @return User
      */
     public function getOwner()
     {
@@ -282,9 +282,9 @@ class Story extends Entity
 
     /**
      * Get the tasks
-     * 
+     *
      * @param  array $params
-     * @return \Zend\Service\AgileZen\Container 
+     * @return \Zend\Service\AgileZen\Container
      */
     public function getTasks($params=array())
     {
@@ -293,32 +293,32 @@ class Story extends Entity
 
     /**
      * Get a task
-     * 
+     *
      * @param  integer $taskId
-     * @return Task 
+     * @return Task
      */
-    public function getTask($taskId) 
+    public function getTask($taskId)
     {
         return $this->service->getTask($this->projectId, $this->id, $taskId);
     }
 
     /**
      * Add a task
-     * 
+     *
      * @param  array $data
-     * @return Task  
+     * @return Task
      */
-    public function addTask($data) 
+    public function addTask($data)
     {
         return $this->service->addTask($this->projectId, $this->id, $data);
     }
 
     /**
      * Update a task
-     * 
+     *
      * @param  integer $id
      * @param  array $data
-     * @return Task 
+     * @return Task
      */
     public function updateTask($id, $data)
     {
@@ -327,9 +327,9 @@ class Story extends Entity
 
     /**
      * Remove a task
-     * 
+     *
      * @param  integer $id
-     * @return boolean 
+     * @return boolean
      */
     public function removeTask($id)
     {
@@ -338,8 +338,8 @@ class Story extends Entity
 
     /**
      * Get the comments
-     * 
-     * @return \Zend\Service\AgileZen\Container  
+     *
+     * @return \Zend\Service\AgileZen\Container
      */
     public function getComments()
     {
@@ -348,7 +348,7 @@ class Story extends Entity
 
     /**
      * Get a comment
-     * 
+     *
      * @param  integer $commentId
      * @return Comment
      */
@@ -359,9 +359,9 @@ class Story extends Entity
 
     /**
      * Add a comment
-     * 
+     *
      * @param  array $data
-     * @return Comment 
+     * @return Comment
      */
     public function addComment($data)
     {
@@ -370,9 +370,9 @@ class Story extends Entity
 
     /**
      * Update a comment
-     * 
+     *
      * @param  array $data
-     * @return Comment 
+     * @return Comment
      */
     public function updateComment($data)
     {
@@ -381,9 +381,9 @@ class Story extends Entity
 
     /**
      * Remove a comment
-     * 
+     *
      * @param  integer $commentId
-     * @return boolean 
+     * @return boolean
      */
     public function removeComment($commentId)
     {
@@ -392,17 +392,17 @@ class Story extends Entity
 
     /**
      * Get the project's Id
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getProjectId()
     {
         return $this->projectId;
     }
-    
+
     /**
      * Get tags
-     * 
+     *
      * @return Zend\Service\AgileZen\Container
      */
     public function getTags()

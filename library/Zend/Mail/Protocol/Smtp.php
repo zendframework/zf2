@@ -105,10 +105,10 @@ class Smtp extends AbstractProtocol
      * Constructor.
      *
      * The first argument may be an array of all options. If so, it must include
-     * the 'host' and 'port' keys in order to ensure that all required values 
+     * the 'host' and 'port' keys in order to ensure that all required values
      * are present.
      *
-     * @param  string|array $host 
+     * @param  string|array $host
      * @param  null|integer $port
      * @param  null|array   $config
      * @return void

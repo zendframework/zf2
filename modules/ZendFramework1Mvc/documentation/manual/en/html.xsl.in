@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE entities
-[    
+[
     <!-- Add translated specific definitions and snippets -->
     <!ENTITY % language-snippets SYSTEM "./ref/language-snippets.xml">
     %language-snippets;
@@ -11,8 +11,8 @@
     %language-snippets.default;
 ]>
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-                xmlns:fo="http://www.w3.org/1999/XSL/Format"   
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:fo="http://www.w3.org/1999/XSL/Format"
 				version="1.0">
 
 <xsl:import href="@DOCBOOK_XSL@"/>

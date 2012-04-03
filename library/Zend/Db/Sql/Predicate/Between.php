@@ -34,13 +34,13 @@ class Between implements PredicateInterface
     protected $identifier    = null;
     protected $minValue      = null;
     protected $maxValue      = null;
-    
+
     /**
      * Constructor
-     * 
-     * @param  string $identifier 
-     * @param  string $minValue 
-     * @param  string $maxValue 
+     *
+     * @param  string $identifier
+     * @param  string $minValue
+     * @param  string $maxValue
      * @return void
      */
     public function __construct($identifier = null, $minValue = null, $maxValue = null)
@@ -58,8 +58,8 @@ class Between implements PredicateInterface
 
     /**
      * Set identifier for comparison
-     * 
-     * @param  string $identifier 
+     *
+     * @param  string $identifier
      * @return Between
      */
     public function setIdentifier($identifier)
@@ -70,7 +70,7 @@ class Between implements PredicateInterface
 
     /**
      * Get identifier of comparison
-     * 
+     *
      * @return null|string
      */
     public function getIdentifier()
@@ -80,8 +80,8 @@ class Between implements PredicateInterface
 
     /**
      * Set minimum boundary for comparison
-     * 
-     * @param  int|float|string $minValue 
+     *
+     * @param  int|float|string $minValue
      * @return Between
      */
     public function setMinValue($minValue)
@@ -92,7 +92,7 @@ class Between implements PredicateInterface
 
     /**
      * Get minimum boundary for comparison
-     * 
+     *
      * @return null|int|float|string
      */
     public function getMinValue()
@@ -102,8 +102,8 @@ class Between implements PredicateInterface
 
     /**
      * Set maximum boundary for comparison
-     * 
-     * @param  int|float|string $maxValue 
+     *
+     * @param  int|float|string $maxValue
      * @return Between
      */
     public function setMaxValue($maxValue)
@@ -114,7 +114,7 @@ class Between implements PredicateInterface
 
     /**
      * Get maximum boundary for comparison
-     * 
+     *
      * @return null|int|float|string
      */
     public function getMaxValue()
@@ -124,8 +124,8 @@ class Between implements PredicateInterface
 
     /**
      * Set specification string to use in forming SQL predicate
-     * 
-     * @param  string $specification 
+     *
+     * @param  string $specification
      * @return Between
      */
     public function setSpecification($specification)
@@ -136,7 +136,7 @@ class Between implements PredicateInterface
 
     /**
      * Get specification string to use in forming SQL predicate
-     * 
+     *
      * @return string
      */
     public function getSpecification()

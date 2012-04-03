@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view"><info><title>Dojo 视图助手</title></info>
-    
+
 
     <para>
         Zend Framework 提供下列 Dojo-specific 视图助手：
@@ -14,7 +14,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.view.setup"><info><title>使用 Dojo 视图助手</title></info>
-        
+
 
         <para>
             为了使用 Dojo 视图助手，你需要告诉视图对象到哪里去找它们，调用

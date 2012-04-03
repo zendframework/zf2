@@ -1064,7 +1064,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E d.</dateFormatItem>
 						<dateFormatItem id="H">HH 'Uhr'</dateFormatItem>
@@ -1548,7 +1548,7 @@
 						<alias source="locale" path="../eraAbbr"/>
 					</eraNarrow>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d. MMMM y G</pattern>
@@ -1571,7 +1571,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E d.</dateFormatItem>
 						<dateFormatItem id="H">HH 'Uhr'</dateFormatItem>
@@ -1604,7 +1604,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d. MMMM y G</pattern>
@@ -1627,7 +1627,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E d.</dateFormatItem>
 						<dateFormatItem id="H">HH 'Uhr'</dateFormatItem>
@@ -1660,7 +1660,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="roc">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d. MMMM y G</pattern>
@@ -1683,7 +1683,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E d.</dateFormatItem>
 						<dateFormatItem id="H">HH 'Uhr'</dateFormatItem>

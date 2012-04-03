@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.queue.adapters"><info><title>Adapter</title></info>
-    
+
 
     <para>
         <classname>Zend_Queue</classname> unterstützt alle Queues die das Interface
@@ -36,7 +36,7 @@
     </itemizedlist>
 
     <note xml:id="zend.queue.adapters.limitations"><info><title>Einschränkungen</title></info>
-        
+
 
         <para>
             Das Transaction Handling für Nachrichten wird nicht unterstützt.
@@ -44,7 +44,7 @@
     </note>
 
     <section xml:id="zend.queue.adapters.configuration"><info><title>Spezielle Adapter - Konfigurations Optionen</title></info>
-        
+
 
         <para>
             Wenn eine Standardeinstellung angezeigt wird, dann ist der Parameter optional.
@@ -52,7 +52,7 @@
         </para>
 
         <section xml:id="zend.queue.adapters.configuration.apachemq"><info><title>Apache ActiveMQ - Zend_Queue_Adapter_Activemq</title></info>
-            
+
 
             <para>
                 Hier aufgeführte Optionen sind bekannte Notwendigkeiten. Nicht alle Nachrichten
@@ -137,7 +137,7 @@
         </section>
 
         <section xml:id="zend.queue.adapters.configuration.Db"><info><title>Db - Zend_Queue_Adapter_Db</title></info>
-            
+
 
             <para>
                 Optionen des Treibers werden für wenige benötigte Optionen geprüft so wie
@@ -239,7 +239,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.configuration.memcacheq"><info><title>MemcacheQ - Zend_Queue_Adapter_Memcacheq</title></info>
-            
+
 
             <itemizedlist>
                 <listitem>
@@ -282,7 +282,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.configuration.platformjq"><info><title>Zend Platform Job Queue - Zend_Queue_Adapter_PlatformJobQueue</title></info>
-            
+
 
             <itemizedlist>
                 <listitem>
@@ -311,7 +311,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.configuration.array"><info><title>Array - Zend_Queue_Adapter_Array</title></info>
-            
+
 
             <itemizedlist>
                 <listitem>
@@ -328,11 +328,11 @@ $queue = new Zend_Queue('Db', $options);
     </section>
 
     <section xml:id="zend.queue.adapters.notes"><info><title>Hinweise für spezielle Adapter</title></info>
-        
+
         <para>Die folgenden Adapter haben Hinweise:</para>
 
         <section xml:id="zend.queue.adapters.notes.activemq"><info><title>Apache ActiveMQ</title></info>
-            
+
 
             <para>
                 Die Dauer der Sichtbarkeit (visibility duration) ist für
@@ -390,7 +390,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.notes.zend_db"><info><title>Zend_Db</title></info>
-            
+
 
             <para>
                 Das Datenbank <acronym>SQL</acronym> Statement
@@ -400,7 +400,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.notes.memcacheQ"><info><title>MemcacheQ</title></info>
-            
+
 
             <para>
                 Memcache kann von <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.danga.com/memcached/">http://www.danga.com/memcached/</link>
@@ -434,7 +434,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.notes.platformjq"><info><title>Zend Platform Job Queue</title></info>
-            
+
 
             <para>
                 Job Queue ist ein Feature das von Zend Platform's Enterprise Solution angeboten
@@ -653,7 +653,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.notes.array"><info><title>Array (Lokal)</title></info>
-            
+
 
             <para>
                 Die Array Queue ist ein <acronym>PHP</acronym> <methodname>array()</methodname>

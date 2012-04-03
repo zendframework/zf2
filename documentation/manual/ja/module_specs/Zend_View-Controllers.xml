@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.controllers"><info><title>コントローラスクリプト</title></info>
-    
+
 
     <para>
         <classname>Zend_View</classname> のインスタンスを作成して設定を行うのがコントローラの役目です。
@@ -10,7 +10,7 @@
 
     <section xml:id="zend.view.controllers.assign"><info><title>変数の代入</title></info>
 
-        
+
 
         <para>
             ビュースクリプトに制御を移す前に、
@@ -73,7 +73,7 @@ $view->assign('c', "Sea");
 
     <section xml:id="zend.view.controllers.render"><info><title>ビュースクリプトのレンダリング</title></info>
 
-        
+
 
         <para>
             必要な変数にすべて値を代入したら、コントローラは <classname>Zend_View</classname> に、
@@ -97,7 +97,7 @@ echo $view->render('someView.php');
 
     <section xml:id="zend.view.controllers.script-paths"><info><title>ビュースクリプトのパス</title></info>
 
-        
+
 
         <para>
             デフォルトでは、<classname>Zend_View</classname> は、
@@ -145,7 +145,7 @@ $view->addScriptPath('/path/to/custom/');
 ]]></programlisting>
 
         <note><info><title>ユーザの入力内容をスクリプトパスに設定してはいけません</title></info>
-            
+
 
             <para>
                 <classname>Zend_View</classname> は、

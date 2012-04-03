@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.introduction"><info><title> 简介 </title></info>
 
-    
+
 
     <para>
         Zend_Filter 组件提供了一系列普遍使用的数据过滤器(data filter)，同时也提供了一个简单的过滤器链机制，使多个过滤器以用户定义的顺序对一个单一的数据进行过滤。
@@ -9,7 +9,7 @@
 
     <section xml:id="zend.filter.introduction.definition"><info><title> 什么是过滤器(filter)？</title></info>
 
-        
+
 
         <para>
             在现实世界中，过滤器被用来过滤掉输入物中不需要的部分，并期望产出部分输出物（比如，咖啡）。在这样的情景下，过滤器就像是一个操作员，生产出输入物的子集。这种类型的过滤对Web应用程序来说是很有用的－移除非法的输入数据，去除不必要的空格，等等。
@@ -23,7 +23,7 @@
 
     <section xml:id="zend.filter.introduction.using"><info><title> 过滤器的基本用法 </title></info>
 
-        
+
 
         <para>
             确立了这样的过滤器定义，为 <code>Zend_Filter_Interface</code> 接口奠定了理论基础，需要过滤器类实现一个名为 <code>filter()</code> 的方法。
@@ -46,7 +46,7 @@ echo $htmlEntities->filter('"'); // "
 
     <section xml:id="zend.filter.introduction.static"><info><title> 使用静态 <code>get()</code> 方法 </title></info>
 
-        
+
 
         <para>
             如果不方便加载给定的过滤器类和创建过滤器的实例，可以使用静态方法 <code>Zend_Filter::get()</code> 作为备用的调用风格。这个方法的第一个参数是数据输入值，将传递给 <code>filter()</code> 方法，第二个参数是个字符串，对应于过滤器类的基本名，和 Zend_Filter 名称空间有关。<code>get()</code> 方法自动加载这个类，创建一个实例，并应用 <code>filter()</code> 方法给数据输入。

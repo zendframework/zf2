@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.description"><info><title>What makes a currency?</title></info>
-    
+
 
     <para>
         The currency consists of several informations. A name, a abbreviation and a sign. Each
@@ -14,7 +14,7 @@
     </para>
 
     <table xml:id="zend.currency.description.table-1"><info><title>Rendered informations for a currency</title></info>
-        
+
 
         <tgroup cols="2" align="left">
             <thead>
@@ -60,7 +60,7 @@
     </table>
 
     <example xml:id="zend.currency.description.example-1"><info><title>Selecting the currency description</title></info>
-        
+
 
         <para>
             Let's assume that your client has again set "en_US" as locale. Using no option the
@@ -101,7 +101,7 @@ print $currency; // Could return 'USD 100'
     </example>
 
     <note><info><title>Not all currencies have signs</title></info>
-        
+
 
         <para>
             You should note that not all currencies have default currency signs. This means,
@@ -117,7 +117,7 @@ print $currency; // Could return 'USD 100'
     </para>
 
     <example xml:id="zend.currency.description.example-2"><info><title>Changing the currency description</title></info>
-        
+
 
         <para>
             Let's assume that your client has again set "en_US" as locale. But now we don't want
@@ -153,7 +153,7 @@ print $currency; // Could return '$$$ 100'
     </example>
 
     <note><info><title>Automatic display settings</title></info>
-        
+
 
         <para>
             When you set a name, abbreviation or sign yourself, than this new information will

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.delicious"><info><title>Zend_Service_Delicious</title></info>
-    
+
 
     <section xml:id="zend.service.delicious.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Delicious</classname> is simple <acronym>API</acronym> for using
@@ -14,7 +14,7 @@
         </para>
 
         <example xml:id="zend.service.delicious.introduction.getAllPosts"><info><title>Get all posts</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $delicious = new Zend_Service_Delicious('username', 'password');
@@ -30,7 +30,7 @@ foreach ($posts as $post) {
     </section>
 
     <section xml:id="zend.service.delicious.retrieving_posts"><info><title>Retrieving posts</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Delicious</classname> provides three methods for retrieving
@@ -72,7 +72,7 @@ public function getAllPosts($tag = null);
     </section>
 
     <section xml:id="zend.service.delicious.postlist"><info><title>Zend_Service_Delicious_PostList</title></info>
-        
+
 
         <para>
             Instances of this class are returned by the <methodname>getPosts()</methodname>,
@@ -87,7 +87,7 @@ public function getAllPosts($tag = null);
         </para>
 
         <example xml:id="zend.service.delicious.postlist.accessing_post_lists"><info><title>Accessing post lists</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $delicious = new Zend_Service_Delicious('username', 'password');
@@ -124,7 +124,7 @@ echo $posts[0]->getTitle();
         </para>
 
         <example xml:id="zend.service.delicious.postlist.example.withTags"><info><title>Filtering a Post List with Specific Tags</title></info>
-            
+
 
             <para>
                 Posts may be filtered by specific tags using <methodname>withTags()</methodname>. As
@@ -145,7 +145,7 @@ foreach ($posts->withTags(array('php', 'zend')) as $post) {
         </example>
 
         <example xml:id="zend.service.delicious.postlist.example.byUrl"><info><title>Filtering a Post List by URL</title></info>
-            
+
 
             <para>
                 Posts may be filtered by <acronym>URL</acronym> matching a specified regular
@@ -166,10 +166,10 @@ foreach ($posts->withUrl('/help/') as $post) {
     </section>
 
     <section xml:id="zend.service.delicious.editing_posts"><info><title>Editing posts</title></info>
-        
+
 
         <example xml:id="zend.service.delicious.editing_posts.post_editing"><info><title>Post editing</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $delicious = new Zend_Service_Delicious('username', 'password');
@@ -183,7 +183,7 @@ $posts[0]->save();
         </example>
 
         <example xml:id="zend.service.delicious.editing_posts.method_call_chaining"><info><title>Method call chaining</title></info>
-            
+
 
             <para>
                Every setter method returns the post object so that you can chain method calls using
@@ -202,7 +202,7 @@ $posts[0]->setTitle('New title')
     </section>
 
     <section xml:id="zend.service.delicious.deleting_posts"><info><title>Deleting posts</title></info>
-        
+
 
         <para>
             There are two ways to delete a post, by specifying the post <acronym>URL</acronym> or by
@@ -210,7 +210,7 @@ $posts[0]->setTitle('New title')
         </para>
 
         <example xml:id="zend.service.delicious.deleting_posts.deleting_posts"><info><title>Deleting posts</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $delicious = new Zend_Service_Delicious('username', 'password');
@@ -229,7 +229,7 @@ $delicious->deletePost($posts[0]->getUrl());
     </section>
 
     <section xml:id="zend.service.delicious.adding_posts"><info><title>Adding new posts</title></info>
-        
+
 
         <para>
             To add a post you first need to call the <methodname>createNewPost()</methodname>
@@ -239,7 +239,7 @@ $delicious->deletePost($posts[0]->getUrl());
         </para>
 
         <example xml:id="zend.service.delicious.adding_posts.adding_a_post"><info><title>Adding a post</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $delicious = new Zend_Service_Delicious('username', 'password');
@@ -259,10 +259,10 @@ $newPost->save();
     </section>
 
     <section xml:id="zend.service.delicious.tags"><info><title>Tags</title></info>
-        
+
 
         <example xml:id="zend.service.delicious.tags.tags"><info><title>Tags</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $delicious = new Zend_Service_Delicious('username', 'password');
@@ -277,10 +277,10 @@ $delicious->renameTag('ZF', 'zendFramework');
     </section>
 
     <section xml:id="zend.service.delicious.bundles"><info><title>Bundles</title></info>
-        
+
 
         <example xml:id="zend.service.delicious.bundles.example"><info><title>Bundles</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $delicious = new Zend_Service_Delicious('username', 'password');
@@ -298,7 +298,7 @@ $delicious->addBundle('newBundle', array('tag1', 'tag2'));
     </section>
 
     <section xml:id="zend.service.delicious.public_data"><info><title>Public data</title></info>
-        
+
 
         <para>
             The del.icio.us web <acronym>API</acronym> allows access to the public data of all
@@ -306,7 +306,7 @@ $delicious->addBundle('newBundle', array('tag1', 'tag2'));
         </para>
 
         <table xml:id="zend.service.delicious.public_data.functions_for_retrieving_public_data"><info><title>Methods for retrieving public data</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>
@@ -353,7 +353,7 @@ $delicious->addBundle('newBundle', array('tag1', 'tag2'));
         </note>
 
         <example xml:id="zend.service.delicious.public_data.retrieving_public_data"><info><title>Retrieving public data</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // username and password are not required
@@ -371,7 +371,7 @@ print_r($delicious->getUserTags('someUser'));
         </example>
 
         <section xml:id="zend.service.delicious.public_data.posts"><info><title>Public posts</title></info>
-            
+
 
             <para>
                 When retrieving public posts with the <methodname>getUserPosts()</methodname>
@@ -382,7 +382,7 @@ print_r($delicious->getUserTags('someUser'));
             </para>
 
             <table xml:id="zend.service.delicious.public_data.posts.SimplePost_methods"><info><title>Methods of the Zend_Service_Delicious_SimplePost class</title></info>
-                
+
 
                 <tgroup cols="3">
                     <thead>
@@ -424,7 +424,7 @@ print_r($delicious->getUserTags('someUser'));
     </section>
 
     <section xml:id="zend.service.delicious.httpclient"><info><title>HTTP client</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Delicious</classname> uses
@@ -435,7 +435,7 @@ print_r($delicious->getUserTags('someUser'));
         </para>
 
         <example xml:id="zend.service.delicious.httpclient.changing"><info><title>Changing the HTTP client of Zend_Rest_Client</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $myHttpClient = new My_Http_Client();
@@ -450,7 +450,7 @@ Zend_Rest_Client::setHttpClient($myHttpClient);
         </para>
 
         <example xml:id="zend.service.delicious.httpclient.keepalive"><info><title>Configuring your HTTP client to keep connections alive</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 Zend_Rest_Client::getHttpClient()->setConfig(array(

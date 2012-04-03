@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.classloading"><info><title>Chargement des classes</title></info>
-    
+
 
     <para>
         Tous ceux qui ont déjà réalisé le profilage d'une application Zend Framework
@@ -13,7 +13,7 @@
     </para>
 
     <section xml:id="performance.classloading.includepath"><info><title>Comment optimiser mon include_path ?</title></info>
-        
+
 
         <para>
             Une optimisation triviale pour accélérer la vitesse de chargement des classes est
@@ -25,7 +25,7 @@
         </para>
 
         <section xml:id="performance.classloading.includepath.abspath"><info><title>Utiliser des chemins absolus</title></info>
-            
+
 
             <para>
                 Tandis que ceci peut sembler une micro-optimisation, le fait est que si vous
@@ -71,7 +71,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths);
         </section>
 
         <section xml:id="performance.classloading.includepath.reduce"><info><title>Réduire le nombre de dossier défini dans l'include_path</title></info>
-            
+
 
             <para>
                 Les chemins d'inclusion sont scannés dans l'ordre dans lequel ils apparaissent
@@ -99,7 +99,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths);
         <section xml:id="performance.classloading.includepath.early"><info><title>
                 Définir le dossier de Zend Framework le plus tôt possible dans l'include_path
             </title></info>
-            
+
 
             <para>
                 Pour continuer avec les suggestions précédentes, une autre optimisation
@@ -111,7 +111,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths);
         </section>
 
         <section xml:id="performance.classloading.includepath.currentdir"><info><title>Définir le dossier courant le plus tard possible ou pas du tout</title></info>
-            
+
 
             <para>
                 La plupart des exemples d'<code>include_path</code> montre l'utilisation du
@@ -125,7 +125,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths);
             </para>
 
             <example xml:id="performance.classloading.includepath.example"><info><title>Exemple : optimisation de l'include_path</title></info>
-                
+
 
                 <para>
                     Essayons de mettre ensemble toutes ces suggestions. Considérons que nous
@@ -185,7 +185,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths));
     </section>
 
     <section xml:id="performance.classloading.striprequires"><info><title>Comment éliminer les déclarations require_once non nécessaires ?</title></info>
-        
+
 
         <para>
             Le chargement tardif ("lazy loading") est une technique d'optimisation conçue pour
@@ -206,7 +206,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths));
         </para>
 
         <section xml:id="performance.classloading.striprequires.sed"><info><title>Effacer les appels de require_once avec find et sed</title></info>
-            
+
 
             <para>
                 Une manière simple d'effacer les appels require_once est d'utiliser les
@@ -249,7 +249,7 @@ Zend_Loader_Autoloader::getInstance();
     </section>
 
     <section xml:id="performance.classloading.pluginloader"><info><title>Comment accélérer le chargement des plugins ?</title></info>
-        
+
 
         <para>
             Certains composants utilisent les plugins, ce qui vous permet de créer vos propres
@@ -325,7 +325,7 @@ Zend_Loader_Autoloader::getInstance();
         <para>Comment réduire le nombre des appels réalisés ?</para>
 
         <section xml:id="performance.classloading.pluginloader.includefilecache"><info><title>Utiliser le fichier de cache des inclusions du PluginLoader</title></info>
-            
+
 
             <para>
                 Zend Framework 1.7.0 ajoute un fichier de cache des inclusions au

@@ -29,10 +29,10 @@
 
 namespace Zend\Service\Twitter;
 
-use Zend\Feed,
-    Zend\Http,
-    Zend\Json,
-    Zend\Rest\Client;
+use Zend\Feed;
+use Zend\Http;
+use Zend\Json;
+use Zend\Rest\Client;
 
 class Search extends Client\RestClient
 {

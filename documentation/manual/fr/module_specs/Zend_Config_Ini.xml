@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.adapters.ini"><info><title>Zend_Config_Ini</title></info>
-    
+
 
     <para>
         <classname>Zend_Config_Ini</classname> permet aux développeurs de stocker des données de
@@ -16,7 +16,7 @@
     </para>
 
     <note><info><title>Analyse d'un fichier INI</title></info>
-        
+
         <para>
             <classname>Zend_Config_Ini</classname> utilise la fonction
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://fr.php.net/parse_ini_file"><methodname>parse_ini_file()</methodname></link>
@@ -29,7 +29,7 @@
     </note>
 
     <note><info><title>Séparateur de clé</title></info>
-        
+
         <para>
             Par défaut, le séparateur de clé est le caractère point (<emphasis>.</emphasis>),
             cependant cela peut être changé en changeant la clé <property>nestSeparator</property>
@@ -47,7 +47,7 @@ $options = new Zend_Config_Ini('/chemin/vers/config.ini',
     </note>
 
     <example xml:id="zend.config.adapters.ini.example.using"><info><title>Utiliser Zend_Config_Ini</title></info>
-        
+
 
         <para>
             Cet exemple illustre une utilisation de base de <classname>Zend_Config_Ini</classname>
@@ -97,7 +97,7 @@ echo $config->database->params->dbname; // affiche "dbname"
 
     <note>
         <table xml:id="zend.config.adapters.ini.table"><info><title>Paramètres du constructeur de Zend_Config_Ini</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>

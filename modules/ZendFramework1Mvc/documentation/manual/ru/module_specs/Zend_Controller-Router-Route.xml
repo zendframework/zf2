@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.standard"><info><title>Zend_Controller_Router_Route</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Router_Route</classname> - стандартный маршрут
@@ -41,7 +41,7 @@ $router->addRoute('user', $route);
     </para>
 
     <note><info><title>Использование символов</title></info>
-        
+
         <para>
             Текущая реализация позволяет использовать любые (за исключением
             косой черты) символы в идентификаторе переменной,
@@ -106,7 +106,7 @@ $router->addRoute('default', $route);
 ]]></programlisting>
 
     <section xml:id="zend.controller.router.routes.standard.variable-defaults"><info><title>Значения переменных по умолчанию</title></info>
-        
+
 
         <para>
             Любая переменная в маршруте может иметь значение по умолчанию, для
@@ -162,7 +162,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.variable-requirements"><info><title>Требования к переменным</title></info>
-        
+
 
         <para>
             Можно передать конструктору
@@ -196,7 +196,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.translated-segments"><info><title>Переводимые сегменты</title></info>
-        
+
 
         <para>
             Стандартный маршрут поддерживает переводимые сегменты. Для того,
@@ -272,7 +272,7 @@ $router->addRoute('archive', $route);
         </para>
 
         <note><info><title>Идентификаторы сообщений и отдельный языковый файл</title></info>
-            
+
             <para>
                 Может случайно получиться так, что идентификатор сообщения,
                 который вы собираетесь использовать в одном из своих

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.authsub"><info><title>AuthSub による認証</title></info>
-    
+
 
     <para>
         AuthSub を使用すると、ウェブアプリケーションで
@@ -30,7 +30,7 @@
     </para>
 
     <note><info><title>登録されたアプリケーション</title></info>
-        
+
         <para>
             <classname>Zend_Gdata</classname> は、現在はセキュアなトークンの使用をサポートしていません。
             なぜなら、デジタル証明書によるセキュアなトークンの取得を
@@ -39,7 +39,7 @@
     </note>
 
     <section xml:id="zend.gdata.authsub.login"><info><title>AuthSub 認証済みの Http クライアントの作成</title></info>
-        
+
 
         <para>
             あなたの作成した <acronym>PHP</acronym> アプリケーションで、認証を行う
@@ -103,7 +103,7 @@ $cal = new Zend_Gdata_Calendar($client);
     </section>
 
     <section xml:id="zend.gdata.authsub.logout"><info><title>AuthSub 認証の解除</title></info>
-        
+
 
         <para>
             指定したトークンによる認証状態を終わらせるには、静的関数
@@ -127,7 +127,7 @@ if (isset($_GET['logout'])) {
 ]]></programlisting>
 
     <note><info><title>セキュリティについて</title></info>
-        
+
         <para>
             上の例における <varname>$php_self</varname> の扱い方は、
             一般的なセキュリティ問題の対応法に従ったものです。

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.server"><info><title>Getting information from the LDAP server</title></info>
-    
+
 
     <section xml:id="zend.ldap.server.rootdse"><info><title>RootDSE</title></info>
-        
+
 
         <para>
             See the following documents for more information on the attributes contained within
@@ -33,7 +33,7 @@
         </itemizedlist>
 
         <example xml:id="zend.ldap.server.rootdse.getting"><info><title>Getting hands on the RootDSE</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $options = array(/* ... */);
@@ -45,10 +45,10 @@ $serverType = $rootdse->getServerType();
     </section>
 
     <section xml:id="zend.ldap.server.schema"><info><title>Schema Browsing</title></info>
-        
+
 
         <example xml:id="zend.ldap.server.schema.getting"><info><title>Getting hands on the server schema</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $options = array(/* ... */);
@@ -59,15 +59,15 @@ $classes = $schema->getObjectClasses();
         </example>
 
         <section xml:id="zend.ldap.server.schema.openldap"><info><title>OpenLDAP</title></info>
-            
+
             <para/>
         </section>
 
         <section xml:id="zend.ldap.server.schema.activedirectory"><info><title>ActiveDirectory</title></info>
-            
+
 
             <note><info><title>Schema browsing on ActiveDirectory servers</title></info>
-                
+
 
                 <para>
                     Due to restrictions on Microsoft ActiveDirectory servers regarding

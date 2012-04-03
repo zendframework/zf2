@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.overview"><info><title>Overview</title></info>
-    
+
 
     <section xml:id="zend.memory.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             The <classname>Zend_Memory</classname> component is intended to manage data in an
@@ -30,7 +30,7 @@
         </para>
 
         <example xml:id="zend.memory.introduction.example-1"><info><title>Using Zend_Memory component</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Memory::factory()</methodname> instantiates the memory
@@ -64,7 +64,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
     </section>
 
     <section xml:id="zend.memory.theory-of-operation"><info><title>Theory of Operation</title></info>
-        
+
 
         <para>
             <classname>Zend_Memory</classname> component operates with the following concepts:
@@ -89,7 +89,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
         </para>
 
         <section xml:id="zend.memory.theory-of-operation.manager"><info><title>Memory manager</title></info>
-            
+
 
             <para>
                 The memory manager generates memory objects (locked or movable)
@@ -99,7 +99,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
         </section>
 
         <section xml:id="zend.memory.theory-of-operation.container"><info><title>Memory container</title></info>
-            
+
 
             <para>
                 The memory container has a virtual or actual <property>value</property>
@@ -136,7 +136,7 @@ $memObject->value = substr($memObject->value, $start, $length);
         </section>
 
         <section xml:id="zend.memory.theory-of-operation.locked"><info><title>Locked memory</title></info>
-            
+
 
             <para>
                 Locked memory objects are always stored in memory.
@@ -146,7 +146,7 @@ $memObject->value = substr($memObject->value, $start, $length);
         </section>
 
         <section xml:id="zend.memory.theory-of-operation.movable"><info><title>Movable memory</title></info>
-            
+
 
             <para>
                 Movable memory objects are transparently swapped and loaded

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.index-creation"><info><title>インデックスの構築</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.index-creation.creating"><info><title>新しいインデックスの作成</title></info>
-        
+
 
         <para>
             インデックスの作成機能および更新機能は、
@@ -40,7 +40,7 @@ $index->addDocument($doc);
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.updating"><info><title>インデックスの更新</title></info>
-        
+
 
         <para>
             既存のインデックスを更新する際にも同じ手順を使用します。ただひとつの違いは、
@@ -64,7 +64,7 @@ $index->addDocument($doc);
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.document-updating"><info><title>ドキュメントの更新</title></info>
-        
+
 
         <para>
             Lucene インデックスファイルは、ドキュメントの更新をサポートしていません。
@@ -87,7 +87,7 @@ foreach ($hits as $hit) {
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.counting"><info><title>インデックスの大きさの取得</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> のインデックスの大きさを知るには、二通りの方法があります。
@@ -131,7 +131,7 @@ for ($count = 0; $count < $index->maxDoc(); $count++) {
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.optimization"><info><title>インデックスの最適化</title></info>
-        
+
 
         <para>
             Lucene のインデックスは、セグメントから構成されます。
@@ -178,7 +178,7 @@ $index->optimize();
         </para>
 
         <section xml:id="zend.search.lucene.index-creation.optimization.maxbuffereddocs"><info><title>自動最適化オプション MaxBufferedDocs</title></info>
-            
+
             <para>
                 <emphasis>MaxBufferedDocs</emphasis> は、メモリ内に溜め込まれたドキュメントを
                 新しいセグメントに書き出す際の最小ドキュメント数です。
@@ -193,7 +193,7 @@ $index->optimize();
         </section>
 
         <section xml:id="zend.search.lucene.index-creation.optimization.maxmergedocs"><info><title>自動最適化オプション MaxMergeDocs</title></info>
-            
+
             <para>
                 <emphasis>MaxMergeDocs</emphasis> は、addDocument()
                 によってまとめられる最大のドキュメント数です。小さな値
@@ -211,7 +211,7 @@ $index->optimize();
         </section>
 
         <section xml:id="zend.search.lucene.index-creation.optimization.mergefactor"><info><title>自動最適化オプション MergeFactor</title></info>
-            
+
             <para>
                 <emphasis>MergeFactor</emphasis> は、addDocument() でセグメントをまとめる頻度を指定します。
                 小さな値を指定すると、インデックス作成の際に使用する <acronym>RAM</acronym> の量を抑えられます。
@@ -257,7 +257,7 @@ $index->optimize();
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.permissions"><info><title>パーミッション</title></info>
-        
+
 
         <para>
             インデックスファイルは、デフォルトでは全員が読み書き可能となっています。
@@ -280,10 +280,10 @@ Zend_Search_Lucene_Storage_Directory_Filesystem::setDefaultFilePermissions(0660)
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.limitations"><info><title>制限事項</title></info>
-        
+
 
         <section xml:id="zend.search.lucene.index-creation.limitations.index-size"><info><title>インデックスの大きさ</title></info>
-            
+
             <para>
                 インデックスの大きさは、
                 32 ビットプラットフォームでは最大 2GB までとなります。
@@ -296,7 +296,7 @@ Zend_Search_Lucene_Storage_Directory_Filesystem::setDefaultFilePermissions(0660)
         </section>
 
         <section xml:id="zend.search.lucene.index-creation.limitations.filesystems"><info><title>サポートするファイルシステム</title></info>
-            
+
             <para>
                 <classname>Zend_Search_Lucene</classname> は、
                 検索処理やインデックス更新、インデックスの最適化を処理する際に

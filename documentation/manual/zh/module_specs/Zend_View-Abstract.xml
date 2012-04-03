@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.abstract"><info><title>Zend_View_Abstract</title></info>
-    
+
 
     <para>
         <code>Zend_View_Abstract</code> 是个基础类，<code>Zend_View</code> 就是继承它的并声明 <code>_run()</code> 方法的具体实现 （由 <code>render()</code> 调用 ）。

@@ -21,8 +21,8 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject,
-    Zend\Cache\Exception;
+use ArrayObject;
+use Zend\Cache\Exception;
 
 /**
  * @category   Zend

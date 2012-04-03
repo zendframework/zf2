@@ -27,7 +27,7 @@ class DefaultListenerAggregateTest extends TestCase
         $this->includePath = get_include_path();
 
         $this->defaultListeners = new DefaultListenerAggregate(
-            new ListenerOptions(array( 
+            new ListenerOptions(array(
                 'module_paths'         => array(
                     realpath(__DIR__ . '/TestAsset'),
                 ),

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.registry.using"><info><title>レジストリの使用法</title></info>
 
-    
+
 
     <para>
         レジストリは、アプリケーション空間でオブジェクトや変数を保存するためのコンテナです。
@@ -19,7 +19,7 @@
 
     <section xml:id="zend.registry.using.storing"><info><title>レジストリへの値の設定</title></info>
 
-        
+
 
         <para>
             あるエントリをレジストリに保存するには、静的メソッド
@@ -27,7 +27,7 @@
         </para>
 
         <example xml:id="zend.registry.using.storing.example"><info><title>set() メソッドの使用例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Registry::set('index', $value);
 ]]></programlisting>
@@ -48,7 +48,7 @@ Zend_Registry::set('index', $value);
 
     <section xml:id="zend.registry.using.retrieving"><info><title>レジストリからの値の取得</title></info>
 
-        
+
 
         <para>
             エントリの内容をレジストリから取得するには、静的メソッド
@@ -56,7 +56,7 @@ Zend_Registry::set('index', $value);
         </para>
 
         <example xml:id="zend.registry.using.retrieving.example"><info><title>get() メソッドの使用例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $value = Zend_Registry::get('index');
 ]]></programlisting>
@@ -70,7 +70,7 @@ $value = Zend_Registry::get('index');
         </para>
 
         <example xml:id="zend.registry.using.retrieving.example-iterating"><info><title>レジストリの順次処理の例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $registry = Zend_Registry::getInstance();
 
@@ -85,7 +85,7 @@ foreach ($registry as $index => $value) {
 
     <section xml:id="zend.registry.using.constructing"><info><title>レジストリオブジェクトの作成</title></info>
 
-        
+
 
         <para>
             静的メソッドを使用して静的なレジストリにアクセスするだけでなく、
@@ -107,7 +107,7 @@ foreach ($registry as $index => $value) {
         </para>
 
         <example xml:id="zend.registry.using.constructing.example"><info><title>レジストリを作成する例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $registry = new Zend_Registry(array('index' => $value));
 ]]></programlisting>
@@ -122,7 +122,7 @@ $registry = new Zend_Registry(array('index' => $value));
         </para>
 
         <example xml:id="zend.registry.using.constructing.example-setinstance"><info><title>シングルトンレジストリの初期化の例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $registry = new Zend_Registry(array('index' => $value));
 
@@ -140,7 +140,7 @@ Zend_Registry::setInstance($registry);
 
     <section xml:id="zend.registry.using.array-access"><info><title>レジストリへの配列風のアクセス</title></info>
 
-        
+
 
         <para>
             複数の値を取得したり設定したりする場合は、
@@ -148,7 +148,7 @@ Zend_Registry::setInstance($registry);
         </para>
 
         <example xml:id="zend.registry.using.array-access.example"><info><title>配列アクセスの例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $registry = Zend_Registry::getInstance();
 
@@ -162,7 +162,7 @@ var_dump( $registry['index'] );
 
     <section xml:id="zend.registry.using.array-object"><info><title>オブジェクト形式でのレジストリへのアクセス</title></info>
 
-        
+
 
         <para>
             オブジェクト指向の方式で、
@@ -177,7 +177,7 @@ var_dump( $registry['index'] );
             </note>
         </para>
             <warning><info><title>ArrayObject::ARRAY_AS_PROPS オプションの既知の問題</title></info>
-                
+
 
                 <para>
                     <acronym>PHP</acronym> のバージョンによっては、
@@ -187,7 +187,7 @@ var_dump( $registry['index'] );
             </warning>
 
         <example xml:id="zend.registry.using.array-object.example"><info><title>オブジェクト形式のアクセスの例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // アプリケーションの起動ファイルでの記述
 $registry = new Zend_Registry(array(), ArrayObject::ARRAY_AS_PROPS)
@@ -213,7 +213,7 @@ var_dump($registry->index);
 
     <section xml:id="zend.registry.using.isset"><info><title>インデックスが存在するかどうかの確認</title></info>
 
-        
+
 
         <para>
             レジストリの特定のインデックスが値を持っているかどうかを調べるには、
@@ -221,7 +221,7 @@ var_dump($registry->index);
         </para>
 
         <example xml:id="zend.registry.using.isset.example-isregistered"><info><title>isRegistered() メソッドの使用例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 if (Zend_Registry::isRegistered($index)) {
     $value = Zend_Registry::get($index);
@@ -235,7 +235,7 @@ if (Zend_Registry::isRegistered($index)) {
         </para>
 
         <example xml:id="zend.registry.using.isset.example-isset"><info><title>isset() メソッドの使用例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $registry = Zend_Registry::getInstance();
 
@@ -255,7 +255,7 @@ if (isset($registry->index)) {
 
     <section xml:id="zend.registry.using.subclassing"><info><title>レジストリの拡張</title></info>
 
-        
+
 
         <para>
             静的レジストリは <classname>Zend_Registry</classname> クラスのインスタンスです。
@@ -270,7 +270,7 @@ if (isset($registry->index)) {
         </para>
 
         <example xml:id="zend.registry.using.subclassing.example"><info><title>シングルトンレジストリのクラス名を指定する例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Registry::setClassName('My_Registry');
 
@@ -288,7 +288,7 @@ Zend_Registry::set('index', $value);
 
     <section xml:id="zend.registry.using.unsetting"><info><title>静的レジストリの削除</title></info>
 
-        
+
 
         <para>
             通常は不要ですが、レジストリの静的インスタンスを削除することもできます。
@@ -297,7 +297,7 @@ Zend_Registry::set('index', $value);
         </para>
 
         <warning><info><title>データを失うリスク</title></info>
-            
+
             <para>
                 <methodname>_unsetInstance()</methodname> を使用すると、
                 静的レジストリ内の全データが破棄され、
@@ -316,7 +316,7 @@ Zend_Registry::set('index', $value);
         </para>
 
         <example xml:id="zend.registry.using.unsetting.example"><info><title>_unsetInstance() メソッドの例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Registry::set('index', $value);
 

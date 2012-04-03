@@ -133,12 +133,12 @@ create a branch for fixing an issue in the tracker.
 Switched to a new branch 'zf9295'
 ```
 ... do some work ...
-  
+
 ```sh
 % git commit
 ```
 ... write your log message ...
-  
+
 ```sh
 % git push origin HEAD:zf9295
 Counting objects: 38, done.
@@ -178,7 +178,7 @@ Once you know that your changes have been accepted to the master
 repository, we suggest doing some cleanup of these branches.
 
  -  Local branch cleanup
-    
+
     ```sh
     % git branch -d <branchname>
     ```

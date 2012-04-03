@@ -20,9 +20,9 @@
 
 namespace Zend\Acl\Role;
 
-use Zend\Acl,
-    Zend\Acl\Exception,
-    Zend\Acl\Role;
+use Zend\Acl;
+use Zend\Acl\Exception;
+use Zend\Acl\Role;
 
 
 /**

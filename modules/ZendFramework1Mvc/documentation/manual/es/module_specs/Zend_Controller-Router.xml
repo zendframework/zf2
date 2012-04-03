@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router"><info><title>El Router Standard</title></info>
-    
+
     <section xml:id="zend.controller.router.introduction"><info><title>Introducción</title></info>
-        
+
         <para>
             <classname>Zend_Controller_Router_Rewrite</classname> Es el router
             standard del Framework. Routing es el proceso de tomar la parte
@@ -54,7 +54,7 @@ RewriteRule ^[\w/\%]*(?:\.(?!(?:js|ico|gif|jpg|png|css|html)$)[\w\%]*$)? /index.
 ]]></programlisting>
 
         <note><info><title>IIS Isapi_Rewrite</title></info>
-            
+
             <para> Cuando se usa <acronym>IIS</acronym> ,
                     <varname>$_SERVER['REQUEST_URI']</varname> puede no existir,
                 o establecerlo como un string vacío. En este caso,
@@ -108,7 +108,7 @@ url.rewrite-once = (
     </section>
 
     <section xml:id="zend.controller.router.usage"><info><title>Usando un Router</title></info>
-        
+
 
         <para> Para utilizar adecuadamente el router de reescritura debe
             instanciarlo, agregar algunas rutas definidas por el usuario y luego
@@ -129,7 +129,7 @@ $router->addRoute(
     </section>
 
     <section xml:id="zend.controller.router.basic"><info><title>Operación Básica del Rewrite Router</title></info>
-        
+
 
         <para> El corazón del RewriteRouter es la definición de la rutas
             definidas por el usuario. Las rutas se agregan llamando al método
@@ -221,13 +221,13 @@ $router->addRoute('user',
                 <methodname>getCurrentRoute()</methodname> . </para>
 
         <note><info><title>Matching Inverso</title></info>
-            
+
             <para> Las rutas están equiparadas en orden inverso para asegurarse
                 que las rutas más genéricas se definan primero. </para>
         </note>
 
         <note><info><title>Valores Retornados</title></info>
-            
+
             <para> Los valores retornados del routing provienen de parámetros
                     <acronym>URL</acronym> o de rutas definidas por defecto por
                 el usuario. Estas variables son accesibles posteriormente a
@@ -243,7 +243,7 @@ $router->addRoute('user',
             un controlador y una acción para hacer el dispatch. </para>
 
         <note><info><title>Variables Especiales</title></info>
-            
+
             <para> Los nombres de estas variables especiales pueden ser
                 diferentes si elige alterar los valores por defecto en
                     <classname>Zend_Controller_Request_Http</classname> mediante
@@ -254,7 +254,7 @@ $router->addRoute('user',
     </section>
 
     <section xml:id="zend.controller.router.default-routes"><info><title>Routes por Defecto</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Router_Rewrite</classname> viene
@@ -333,7 +333,7 @@ $router->removeDefaultRoutes();
     </section>
 
     <section xml:id="zend.controller.router.rewritebase"><info><title>URL Base y Subdirectorios</title></info>
-        
+
 
         <para> El router rewrite puede ser utilizado en subdirectorios (por
             ejemplo
@@ -356,7 +356,7 @@ $request->setBaseUrl('/~user/application-root/');
     </section>
 
     <section xml:id="zend.controller.router.global.parameters"><info><title>Parámetros Globales</title></info>
-        
+
 
         <para> Puede establecer los parámetros globales en un router que se
             proporcionan automáticamente a una ruta cuando se ensamblasn
@@ -371,7 +371,7 @@ $router->setGlobalParam('lang', 'en');
     </section>
 
     <section xml:id="zend.controller.router.routes"><info><title>Tipos de Route</title></info>
-        
+
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route.xml"/>
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route-Static.xml"/>
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route-Regex.xml"/>
@@ -380,7 +380,7 @@ $router->setGlobalParam('lang', 'en');
     </section>
 
     <section xml:id="zend.controller.router.add-config"><info><title> Usando Zend_Config con RewriteRouter </title></info>
-        
+
 
         <para> A veces es más conveniente para actualizar un archivo de
             configuración con nuevas rutas que modificar el código. Esto es
@@ -441,7 +441,7 @@ $router->addConfig($config, 'routes');
     </section>
 
     <section xml:id="zend.controller.router.subclassing"><info><title>Subclassing del Router</title></info>
-        
+
 
         <para> El standard rewrite router debería proporcionarle más
             funcionalidad si la necesita; más a menudo, sólo necesitará crear un

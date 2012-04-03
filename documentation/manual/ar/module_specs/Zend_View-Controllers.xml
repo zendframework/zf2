@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.controllers"><info><title>جزء الـ Controller</title></info>
-    
+
 
     <para>
         الـ controller هو حيث يتم إنشاء نسخة من Zend_View و إعدادها , أنت بعد ذلك تقم
@@ -10,7 +10,7 @@
 
     <section xml:id="zend.view.controllers.assign"><info><title>إنشاء متغيرات و إعطائها قيم</title></info>
 
-        
+
 
         <para>
             يجب أن يقوم الـ controller خاصتك بإنشاء المتغيرات التى يحتاج إليها فى الـ view و تمريرها له
@@ -77,7 +77,7 @@ $view->assign('c', "Sea");
 
     <section xml:id="zend.view.controllers.render"><info><title>معالجة(تصيير) جزء الـ View</title></info>
 
-        
+
 
         <para>
             بمجرد إنتهائك من عملية إنساب المتغيرات التى تحتاجها فى الـ view , يجب أن يقوم الـ controller
@@ -99,7 +99,7 @@ echo $view->render('someView.php');
 
     <section xml:id="zend.view.controllers.script-paths"><info><title>مسارات أجزاء الـ View</title></info>
 
-        
+
 
         <para>
             الأعدادات الأساسية لـ Zend_View تعتبر أن الملفات التى تحتوى أجزاء الـ view خاصتك

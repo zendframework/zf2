@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.strikeiron.bundled-services"><info><title>Zend_Service_StrikeIron: Mitgelieferte Services</title></info>
-    
+
 
     <para>
         <classname>Zend_Service_StrikeIron</classname> kommt mit Wrapper Klassen für drei populäre
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.service.strikeiron.bundled-services.zip-code-information"><info><title>ZIP Code Informationen</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_StrikeIron_ZipCodeInfo</classname> bietet einen Client für
@@ -75,7 +75,7 @@ $status = $response->serviceStatus;
     </section>
 
     <section xml:id="zend.service.strikeiron.bundled-services.us-address-verification"><info><title>U.S. Address-Prüfung</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_StrikeIron_USAddressVerification</classname> bietet einen Client
@@ -139,7 +139,7 @@ if ($result->addressErrorNumber != 0) {
     </section>
 
     <section xml:id="zend.service.strikeiron.bundled-services.sales-use-tax-basic"><info><title>Verkaufs &amp; Steuer Grundlagen</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_StrikeIron_SalesUseTaxBasic</classname> bietet einen Client für

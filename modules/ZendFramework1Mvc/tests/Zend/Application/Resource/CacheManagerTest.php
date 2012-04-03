@@ -21,11 +21,11 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application\Resource\CacheManager,
-    Zend\Application,
-    Zend\Controller\Front as FrontController,
-    ZendTest\Application\TestAsset\ZfAppBootstrap;
+use Zend\Loader\Autoloader;
+use Zend\Application\Resource\CacheManager;
+use Zend\Application;
+use Zend\Controller\Front as FrontController;
+use ZendTest\Application\TestAsset\ZfAppBootstrap;
 
 /**
  * @category   Zend

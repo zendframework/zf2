@@ -34,17 +34,17 @@
  */
 abstract class Zend_Service_WindowsAzure_Storage_AbstractBatchStorage
     extends Zend_Service_WindowsAzure_Storage
-{	
+{
     /**
      * Current batch
-     * 
+     *
      * @var Zend_Service_WindowsAzure_Storage_Batch
      */
     protected $_currentBatch = null;
-    
+
     /**
      * Set current batch
-     * 
+     *
      * @param Zend_Service_WindowsAzure_Storage_Batch $batch Current batch
      * @throws Zend_Service_WindowsAzure_Exception
      */
@@ -55,30 +55,30 @@ abstract class Zend_Service_WindowsAzure_Storage_AbstractBatchStorage
         }
         $this->_currentBatch = $batch;
     }
-    
+
     /**
      * Get current batch
-     * 
+     *
      * @return Zend_Service_WindowsAzure_Storage_Batch
      */
     public function getCurrentBatch()
     {
         return $this->_currentBatch;
     }
-    
+
     /**
      * Is there a current batch?
-     * 
+     *
      * @return boolean
      */
     public function isInBatch()
     {
         return $this->_currentBatch !== null;
     }
-    
+
     /**
      * Starts a new batch operation set
-     * 
+     *
      * @return Zend_Service_WindowsAzure_Storage_Batch
      * @throws Zend_Service_WindowsAzure_Exception
      */
@@ -86,7 +86,7 @@ abstract class Zend_Service_WindowsAzure_Storage_AbstractBatchStorage
     {
         return new Zend_Service_WindowsAzure_Storage_Batch($this, $this->getBaseUrl());
     }
-	
+
 	/**
 	 * Perform batch using Zend_Http_Client channel, combining all batch operations into one request
 	 *
@@ -102,38 +102,38 @@ abstract class Zend_Service_WindowsAzure_Storage_AbstractBatchStorage
 	    // Generate boundaries
 	    $batchBoundary = 'batch_' . md5(time() . microtime());
 	    $changesetBoundary = 'changeset_' . md5(time() . microtime());
-	    
+
 	    // Set headers
 	    $headers = array();
-	    
+
 		// Add version header
 		$headers['x-ms-version'] = $this->_apiVersion;
-		
+
 		// Add content-type header
 		$headers['Content-Type'] = 'multipart/mixed; boundary=' . $batchBoundary;
 
 		// Set path and query string
 		$path           = '/$batch';
 		$queryString    = '';
-		
+
 		// Set verb
 		$httpVerb = Zend_Http_Client::POST;
-		
+
 		// Generate raw data
     	$rawData = '';
-    		
+
 		// Single select?
 		if ($isSingleSelect) {
 		    $operation = $operations[0];
 		    $rawData .= '--' . $batchBoundary . "\n";
             $rawData .= 'Content-Type: application/http' . "\n";
             $rawData .= 'Content-Transfer-Encoding: binary' . "\n\n";
-            $rawData .= $operation; 
+            $rawData .= $operation;
             $rawData .= '--' . $batchBoundary . '--';
 		} else {
     		$rawData .= '--' . $batchBoundary . "\n";
     		$rawData .= 'Content-Type: multipart/mixed; boundary=' . $changesetBoundary . "\n\n";
-    		
+
         		// Add operations
         		foreach ($operations as $operation)
         		{
@@ -143,7 +143,7 @@ abstract class Zend_Service_WindowsAzure_Storage_AbstractBatchStorage
                 	$rawData .= $operation;
         		}
         		$rawData .= '--' . $changesetBoundary . '--' . "\n";
-    		    		    
+
     		$rawData .= '--' . $batchBoundary . '--';
 		}
 
@@ -156,7 +156,7 @@ abstract class Zend_Service_WindowsAzure_Storage_AbstractBatchStorage
 		$this->_httpClientChannel->setUri($requestUrl);
 		$this->_httpClientChannel->setHeaders($requestHeaders);
 		$this->_httpClientChannel->setRawData($rawData);
-		
+
 		// Execute request
 		$response = $this->_retryPolicy->execute(
 		    array($this->_httpClientChannel, 'request'),

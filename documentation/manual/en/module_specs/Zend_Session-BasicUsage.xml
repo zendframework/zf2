@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.basic_usage"><info><title>Basic Usage</title></info>
-    
+
 
     <para>
         <classname>Zend_Session_Namespace</classname> instances provide the primary
@@ -34,7 +34,7 @@ $myNamespace = new Zend_Session_Namespace('myNamespace');
     </para>
 
     <section xml:id="zend.session.basic_usage.basic_examples"><info><title>Tutorial Examples</title></info>
-        
+
 
         <para>
             If no namespace is specified when instantiating
@@ -47,7 +47,7 @@ $myNamespace = new Zend_Session_Namespace('myNamespace');
         </para>
 
         <example xml:id="zend.session.basic_usage.basic_examples.example.counting_page_views"><info><title>Counting Page Views</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $defaultNamespace = new Zend_Session_Namespace('Default');
@@ -81,7 +81,7 @@ echo "Page requests this session: ",
         </para>
 
         <example xml:id="zend.session.basic_usage.basic_examples.example.namespaces.new"><info><title>New Way: Namespaces Avoid Collisions</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // in the Zend_Auth component
@@ -100,7 +100,7 @@ $webServiceNamespace->user = "mywebusername";
         </para>
 
         <example xml:id="zend.session.basic_usage.basic_examples.example.namespaces.old"><info><title>Old Way: PHP Session Access</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $_SESSION['Zend_Auth']['user'] = "myusername";
@@ -110,7 +110,7 @@ $_SESSION['Some_Web_Service']['user'] = "mywebusername";
     </section>
 
     <section xml:id="zend.session.basic_usage.iteration"><info><title>Iterating Over Session Namespaces</title></info>
-        
+
 
         <para>
             <classname>Zend_Session_Namespace</classname> provides the full <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.php.net/~helly/php/ext/spl/interfaceIteratorAggregate.html">IteratorAggregate
@@ -118,7 +118,7 @@ $_SESSION['Some_Web_Service']['user'] = "mywebusername";
         </para>
 
         <example xml:id="zend.session.basic_usage.iteration.example"><info><title>Session Iteration</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $aNamespace =
@@ -132,7 +132,7 @@ foreach ($aNamespace as $index => $value) {
     </section>
 
     <section xml:id="zend.session.basic_usage.accessors"><info><title>Accessors for Session Namespaces</title></info>
-        
+
 
         <para>
             <classname>Zend_Session_Namespace</classname> implements the
@@ -144,7 +144,7 @@ foreach ($aNamespace as $index => $value) {
         </para>
 
         <example xml:id="zend.session.basic_usage.accessors.example"><info><title>Accessing Session Data</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $namespace = new Zend_Session_Namespace(); // default namespace

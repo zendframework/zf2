@@ -36,11 +36,11 @@ class AtomSourceTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $_feedSamplePath = null;
-    
+
     protected $_options = array();
-    
+
     protected $_expectedCats = array();
-    
+
     protected $_expectedCatsDc = array();
 
     public function setup()
@@ -88,19 +88,19 @@ class AtomSourceTest extends \PHPUnit_Framework_TestCase
             )
         );
     }
-    
+
     public function teardown()
     {
         Date\Date::setOptions($this->_options);
     }
-    
+
     public function testGetsSourceFromEntry()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath.'/title/atom10.xml')
         );
         $source = $feed->current()->getSource();
-        $this->assertTrue($source instanceof Reader\Feed\Atom\Source);  
+        $this->assertTrue($source instanceof Reader\Feed\Atom\Source);
     }
 
     /**
@@ -275,7 +275,7 @@ class AtomSourceTest extends \PHPUnit_Framework_TestCase
         $source = $feed->current()->getSource();
         $this->assertEquals('http://www.example.com/feed/atom', $source->getFeedLink());
     }
-    
+
     /**
      * Get Pubsubhubbub Hubs
      */
@@ -290,7 +290,7 @@ class AtomSourceTest extends \PHPUnit_Framework_TestCase
             'http://www.example.com/hub2'
         ), $source->getHubs());
     }
-    
+
     /**
      * Get category data
      */

@@ -38,8 +38,8 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
 {
     /**
      * Constructor
-     * 
-     * @param  \Zend\Feed\Writer\Feed $container 
+     *
+     * @param  \Zend\Feed\Writer\Feed $container
      * @return void
      */
     public function __construct ($container)
@@ -49,9 +49,9 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
 
     /**
      * Set feed language
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setLanguage(\DOMDocument $dom, \DOMElement $root)
@@ -64,9 +64,9 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
 
     /**
      * Set feed title
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setTitle(\DOMDocument $dom, \DOMElement $root)
@@ -92,9 +92,9 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
 
     /**
      * Set feed description
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setDescription(\DOMDocument $dom, \DOMElement $root)
@@ -111,9 +111,9 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
 
     /**
      * Set date feed was last modified
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setDateModified(\DOMDocument $dom, \DOMElement $root)
@@ -140,9 +140,9 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
 
     /**
      * Set feed generator string
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setGenerator(\DOMDocument $dom, \DOMElement $root)
@@ -167,9 +167,9 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
 
     /**
      * Set link to feed
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setLink(\DOMDocument $dom, \DOMElement $root)
@@ -186,9 +186,9 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
 
     /**
      * Set feed links
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setFeedLinks(\DOMDocument $dom, \DOMElement $root)
@@ -217,12 +217,12 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
             $flink->setAttribute('href', $href);
         }
     }
-    
+
     /**
-     * Set feed authors 
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     * Set feed authors
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setAuthors(\DOMDocument $dom, \DOMElement $root)
@@ -260,9 +260,9 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
 
     /**
      * Set feed identifier
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setId(\DOMDocument $dom, \DOMElement $root)
@@ -291,12 +291,12 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
         $text = $dom->createTextNode($this->getDataContainer()->getId());
         $id->appendChild($text);
     }
-    
+
     /**
      * Set feed copyright
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setCopyright(\DOMDocument $dom, \DOMElement $root)
@@ -312,9 +312,9 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
     }
     /**
      * Set feed level logo (image)
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setImage(\DOMDocument $dom, \DOMElement $root)
@@ -328,13 +328,13 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
         $text = $dom->createTextNode($image['uri']);
         $img->appendChild($text);
     }
-    
-    
+
+
     /**
-     * Set date feed was created 
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     * Set date feed was created
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setDateCreated(\DOMDocument $dom, \DOMElement $root)
@@ -348,12 +348,12 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
             );
         }
     }
-    
+
     /**
      * Set base URL to feed links
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setBaseUrl(\DOMDocument $dom, \DOMElement $root)
@@ -364,12 +364,12 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
         }
         $root->setAttribute('xml:base', $baseUrl);
     }
-    
+
     /**
-     * Set hubs to which this feed pushes 
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     * Set hubs to which this feed pushes
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setHubs(\DOMDocument $dom, \DOMElement $root)
@@ -385,12 +385,12 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
             $root->appendChild($hub);
         }
     }
-    
+
     /**
-     * Set feed cateories 
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     * Set feed cateories
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setCategories(\DOMDocument $dom, \DOMElement $root)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.backends"><info><title>Zend_Cache Backends</title></info>
-    
+
 
     <para>
         There are two kinds of backends: standard ones and extended ones. Of course, extended
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.cache.backends.file"><info><title>Zend_Cache_Backend_File</title></info>
-        
+
 
         <para>
             This (extended) backends stores cache records into files (in a chosen directory).
@@ -19,7 +19,7 @@
         </para>
 
         <table xml:id="zend.cache.backends.file.table"><info><title>File Backend Options</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -133,7 +133,7 @@
     </section>
 
     <section xml:id="zend.cache.backends.sqlite"><info><title>Zend_Cache_Backend_Sqlite</title></info>
-        
+
 
         <para>
             This (extended) backends stores cache records into a SQLite database.
@@ -144,7 +144,7 @@
         </para>
 
         <table xml:id="zend.cache.backends.sqlite.table"><info><title>Sqlite Backend Options</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -190,7 +190,7 @@
     </section>
 
     <section xml:id="zend.cache.backends.memcached"><info><title>Zend_Cache_Backend_Memcached</title></info>
-        
+
 
         <para>
             This (extended) backends stores cache records into a memcached server. <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.danga.com/memcached/">memcached</link> is a high-performance,
@@ -209,7 +209,7 @@
         </para>
 
         <table xml:id="zend.cache.backends.memcached.table"><info><title>Memcached Backend Options</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -273,7 +273,7 @@
     </section>
 
     <section xml:id="zend.cache.backends.apc"><info><title>Zend_Cache_Backend_Apc</title></info>
-        
+
 
         <para>
             This (extended) backends stores cache records in shared memory through
@@ -293,7 +293,7 @@
     </section>
 
     <section xml:id="zend.cache.backends.xcache"><info><title>Zend_Cache_Backend_Xcache</title></info>
-        
+
 
         <para>
             This backends stores cache records in shared memory through
@@ -311,7 +311,7 @@
         </para>
 
         <table xml:id="zend.cache.backends.xcache.table"><info><title>Xcache Backend Options</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -352,7 +352,7 @@
     </section>
 
     <section xml:id="zend.cache.backends.platform"><info><title>Zend_Cache_Backend_ZendPlatform</title></info>
-        
+
 
         <para>
             This backend uses content caching <acronym>API</acronym> of the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.zend.com/en/products/platform/">Zend Platform</link> product.
@@ -380,7 +380,7 @@ $cache = Zend_Cache::factory('Core', 'Zend Platform');
     </section>
 
     <section xml:id="zend.cache.backends.twolevels"><info><title>Zend_Cache_Backend_TwoLevels</title></info>
-        
+
 
         <para>
             This (extend) backend is an hybrid one. It stores cache records in two other backends :
@@ -408,7 +408,7 @@ $cache = Zend_Cache::factory('Core', 'Two Levels');
         </para>
 
         <table xml:id="zend.cache.backends.twolevels.table"><info><title>TwoLevels Backend Options</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -525,7 +525,7 @@ $cache = Zend_Cache::factory('Core', 'Two Levels');
     </section>
 
     <section xml:id="zend.cache.backends.zendserver"><info><title>Zend_Cache_Backend_ZendServer_Disk and Zend_Cache_Backend_ZendServer_ShMem</title></info>
-        
+
 
         <para>
             These backends store cache records using <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.zend.com/en/products/server/downloads-all?zfs=zf_download">Zend
@@ -560,7 +560,7 @@ $cache = Zend_Cache::factory('Core', 'Zend_Cache_Backend_ZendServer_Disk',
     </section>
 
     <section xml:id="zend.cache.backends.static"><info><title>Zend_Cache_Backend_Static</title></info>
-        
+
 
         <para>
             This backend works in concert with <classname>Zend_Cache_Frontend_Capture</classname>
@@ -677,7 +677,7 @@ RewriteRule ^.*$ index.php [NC,L]
         </note>
 
         <table xml:id="zend.cache.backends.static.table"><info><title>Static Backend Options</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>

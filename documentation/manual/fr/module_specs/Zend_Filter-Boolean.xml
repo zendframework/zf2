@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.boolean"><info><title>Boolean</title></info>
-    
+
 
     <para>
         Ce filtre transforme toute donnée en valeur <constant>BOOLEENNE</constant>. Ce peut être
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.boolean.default"><info><title>Comportement par défaut de Zend_Filter_Boolean</title></info>
-        
+
 
         <para>
             Par défaut, ce filtre caste (transtype) sa valeur vers un
@@ -32,7 +32,7 @@ $result = $filter->filter($value);
     </section>
 
     <section xml:id="zend.filter.set.boolean.types"><info><title>Changer le comportement de Zend_Filter_Boolean</title></info>
-        
+
 
         <para>
             Quelques fois, le cast vers tel que <command>(boolean)</command> peut ne pas suffire.
@@ -165,7 +165,7 @@ $filter = new Zend_Filter_Boolean(array(
     </section>
 
     <section xml:id="zend.filter.set.boolean.localized"><info><title>Booléens localisés</title></info>
-        
+
 
         <para>
             Comme déja précisé, <classname>Zend_Filter_Boolean</classname> reconnait les chaînes
@@ -197,7 +197,7 @@ $filter->filter('yes');
     </section>
 
     <section xml:id="zend.filter.set.boolean.casting"><info><title>Désactiver le cast (transtypage)</title></info>
-        
+
 
         <para>
             Il peut arriver de ne vouloir que reconnaitre <constant>TRUE</constant> ou
@@ -215,7 +215,7 @@ $filter->filter('yes');
         </para>
 
         <table xml:id="zend.filter.set.boolean.casting.table"><info><title>Utilisation sans transtypage</title></info>
-            
+
             <tgroup cols="3">
                 <thead>
                     <row>

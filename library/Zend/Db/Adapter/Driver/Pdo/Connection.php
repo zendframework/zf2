@@ -21,9 +21,9 @@
 
 namespace Zend\Db\Adapter\Driver\Pdo;
 
-use Zend\Db\Adapter\Driver\ConnectionInterface,
-    Zend\Db\Adapter\Driver\DriverInterface,
-    Zend\Db\Adapter\Exception\InvalidQueryException;
+use Zend\Db\Adapter\Driver\ConnectionInterface;
+use Zend\Db\Adapter\Driver\DriverInterface;
+use Zend\Db\Adapter\Exception\InvalidQueryException;
 
 /**
  * @category   Zend
@@ -120,9 +120,9 @@ class Connection implements ConnectionInterface
 
     /**
      * Set resource
-     * 
+     *
      * @param  \PDO $resource
-     * @return Connection 
+     * @return Connection
      */
     public function setResource(\PDO $resource)
     {
@@ -322,8 +322,8 @@ class Connection implements ConnectionInterface
     }
     /**
      * Get last generated id
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getLastGeneratedId()
     {

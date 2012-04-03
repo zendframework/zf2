@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.request"><info><title>リクエストオブジェクト</title></info>
-    
+
     <section xml:id="zend.controller.request.introduction"><info><title>導入</title></info>
-        
+
         <para>
             リクエストオブジェクトとは <classname>Zend_Controller_Front</classname> とルータ、
             ディスパッチャそしてコントローラクラスの間でやり取りされる単純なバリューオブジェクトです。
@@ -67,10 +67,10 @@
     </section>
 
     <section xml:id="zend.controller.request.http"><info><title>HTTP リクエスト</title></info>
-        
+
 
         <section xml:id="zend.controller.request.http.dataacess"><info><title>リクエストデータへのアクセス</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> は、関連する値へのアクセスをカプセル化します。
@@ -85,7 +85,7 @@
             </para>
 
             <note><info><title>スーバーグローバルデータ</title></info>
-                
+
                 <para>
                     <classname>Zend_Controller_Request_Http</classname> のパブリックプロパティを使用して
                     スーパーグローバルデータにアクセスする際に注意すべき点は、
@@ -107,7 +107,7 @@
             </para>
 
             <note><info><title>GET および POST データ</title></info>
-                
+
                 <para>
                     リクエストオブジェクトのデータを扱う際には注意しましょう。
                     これらのデータは、一切フィルタリングを行っていません。
@@ -117,7 +117,7 @@
             </note>
 
             <note><info><title>生の POST データの取得</title></info>
-                
+
 
                 <para>
                     1.5.0 以降では、生の投稿データを
@@ -141,7 +141,7 @@
             </para>
 
             <note><info><title>getParam() でのユーザパラメータ以外の取得</title></info>
-                
+
 
                 <para>
                     <methodname>getParam()</methodname> は、実際にはユーザパラメータ以外のところからも情報を取得しています。
@@ -168,7 +168,7 @@
             </note>
 
             <note><info><title>Apache のおかしな挙動</title></info>
-                
+
                 <para>
                     Apache の 404 ハンドラを使用して
                     リクエストをフロントコントローラに渡したり、
@@ -199,7 +199,7 @@ $front->setRequest($request);
         </section>
 
         <section xml:id="zend.controller.request.http.baseurl"><info><title>ベース URL およびサブディレクトリ</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> は、
@@ -220,7 +220,7 @@ $front->setRequest($request);
             </para>
 
             <note><info><title>URL の検出は大文字小文字を区別します</title></info>
-                
+
                 <para>
                     自動的なベース <acronym>URL</acronym> の検出処理は大文字小文字を区別します。そのため、
                     <acronym>URL</acronym> とファイルシステムのサブディレクトリ名が確実に一致する必要があります
@@ -255,7 +255,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.method"><info><title>リクエストメソッドの判定</title></info>
-            
+
 
             <para>
                 <methodname>getMethod()</methodname> では、
@@ -281,7 +281,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.ajax"><info><title>AJAX リクエストの検出</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> には、
@@ -315,7 +315,7 @@ $response   = $controller->dispatch();
     </section>
 
     <section xml:id="zend.controller.request.subclassing"><info><title>リクエストオブジェクトのサブクラスの作成</title></info>
-        
+
 
         <para>
             すべてのリクエストオブジェクトクラスは、抽象クラス

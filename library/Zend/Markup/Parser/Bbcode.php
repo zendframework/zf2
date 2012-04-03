@@ -20,10 +20,10 @@
  */
 
 namespace Zend\Markup\Parser;
-use Zend\Markup\Parser,
-    Zend\Markup\Token,
-    Zend\Markup\TokenList,
-    Zend\Config\Config;
+use Zend\Markup\Parser;
+use Zend\Markup\Token;
+use Zend\Markup\TokenList;
+use Zend\Config\Config;
 
 /**
  * @uses       \Zend\Markup\Parser\Exception

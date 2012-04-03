@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.introduction"><info><title>Introduzione</title></info>
-    
+
     <para>
         <code>Zend_Feed</code> fornisce le funzionalità per utilizzare feed RSS e Atom.
         Offre una sintassi naturale per accedere alla struttura del feed del feed, attributi ed attributi degli elementi.
@@ -17,7 +17,7 @@
     </para>
 
     <note><info><title>Attenzione</title></info>
-        
+
         <para>
             Molti feed RSS hanno diverse proprietà disponibili per il canale (channel) così come per i suoi elementi (item).
             Le specifiche RSS indicano numerose proprietà opzionali quindi è necessario prestare loro attenzione quando si scrive codice per interagire con dati provenienti da un RSS.
@@ -25,7 +25,7 @@
     </note>
 
     <example xml:id="zend.feed.introduction.example.rss"><info><title>Lettura di un feed RSS con Zend_Feed</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Feed.php';
 

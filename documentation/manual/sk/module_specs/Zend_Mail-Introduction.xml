@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.introduction"><info><title>Úvod</title></info>
-    
+
     <para>
         <code>Zend_Mail</code> poskytuje obecnú funkcionalitu pre posielanie a vytvaranie
         textovych a MIME e-mailov. E-Mail môže byť poslaný pomocou vstavanej PHP
@@ -8,7 +8,7 @@
         cez SMTP spojenie.
     </para>
     <example><info><title>Jednoduchý E-Mail pomocou Zend_Mail</title></info>
-        
+
         <para>
             Jednoduchý e-mail pozostáva z niekoľkých prijímateľov, predmetu, tela
             a odosielateľa. Pre poslanie e-mailu pomocou PHP funkcie
@@ -25,7 +25,7 @@ $mail->send();
 ?>   ]]></programlisting>
     </example>
     <note><info><title>Minimálne požiadavky</title></info>
-        
+
         <para>
             Na poslanie e-mailu pomocou <code>Zend_Mail</code> je potrebné zadať
             aspoň jedného príjemcu, odosielateľa (<code>setFrom()</code>) a telo

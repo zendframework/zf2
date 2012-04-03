@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.null"><info><title>Null</title></info>
-    
+
 
     <para>
         Dieser Filter ändert die angegebene Eingabe so dass Sie <constant>NULL</constant> ist wenn
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.filter.set.null.default"><info><title>Standardverhalten für Zend_Filter_Null</title></info>
-        
+
 
         <para>
             Standardmäßig arbeitet dieser Filter wie <acronym>PHP</acronym>'s
@@ -38,7 +38,7 @@ $result = $filter->filter($value);
     </section>
 
     <section xml:id="zend.filter.set.null.types"><info><title>Ändern des Verhaltens von Zend_Filter_Null</title></info>
-        
+
 
         <para>
             Manchmal ist es nicht genug basieren auf <methodname>empty()</methodname> zu filtern.

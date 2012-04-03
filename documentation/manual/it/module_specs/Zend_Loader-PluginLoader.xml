@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.pluginloader"><info><title>Caricamento di plugin</title></info>
-    
+
 
     <para>
         Diversi componenti del Framework Zend sono estendibili e permettono il caricamento dinamico di funzionalità specificando un prefisso di classe ed un percorso ai file contenenti le classi che non necessariamente rientra nei percorsi specificati in <code>include_path</code> o segue le convenzioni tradizionali sui nomi di classe.
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="zend.loader.pluginloader.usage"><info><title>Esempio di utilizzo base</title></info>
-        
+
 
         <para>
             Innanzi tutto, si assuma la seguente struttura di cartelle e file contenenti classi e che le cartelle application e library siano incluse in <code>include_path</code>:
@@ -73,7 +73,7 @@ $formSubmitClass = $loader->load('FormSubmit'); // 'Bar_View_Helper_FormSubmit'
         </para>
 
         <note><info><title>Registrazione di più percorsi per un prefisso</title></info>
-            
+
 
             <para>
                 In alcuni casi, è necessario utilizzare lo stesso prefisso per percorsi differenti.
@@ -84,7 +84,7 @@ $formSubmitClass = $loader->load('FormSubmit'); // 'Bar_View_Helper_FormSubmit'
         </note>
 
         <note><info><title>E' possibile definire i percorsi in fase di creazione di un'istanza</title></info>
-            
+
 
             <para>
                 Opzionalmente è possibile fornire un array di coppie prefisso / percorso
@@ -116,7 +116,7 @@ $loader = new Zend_Loader_PluginLoader(array(), 'foobar');
     </section>
 
     <section xml:id="zend.loader.pluginloader.paths"><info><title>Manipolazione dei percorsi dei plugin</title></info>
-        
+
 
         <para>
             L'esempio nella sezione precedente mostra come aggiungere percorsi al plugin loader.
@@ -140,7 +140,7 @@ $loader = new Zend_Loader_PluginLoader(array(), 'foobar');
     </section>
 
     <section xml:id="zend.loader.pluginloader.checks"><info><title>Verifica di plugin ed estrazione dei nomi delle classi</title></info>
-        
+
 
         <para>
             Qualche volta è necessario determinare semplicemente se la classe di un plugin è stata caricata prima di eseguire un'azione.

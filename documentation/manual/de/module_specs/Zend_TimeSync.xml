@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.timesync.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_TimeSync</classname> ist fähig, die Internet- oder Netzwerkzeit von einem
@@ -19,7 +19,7 @@
     </para>
 
     <note><info><title>Hintergrund</title></info>
-        
+
 
         <para>
             <classname>Zend_TimeSync</classname> ist nicht fähig die Zeit des Servers zu ändern,
@@ -29,7 +29,7 @@
     </note>
 
     <section xml:id="zend.timesync.introduction.why"><info><title>Warum Zend_TimeSync ?</title></info>
-        
+
 
         <para>
             Warum würde jemand <classname>Zend_TimeSync</classname> verwenden ?
@@ -99,7 +99,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.ntp"><info><title>Was ist NTP ?</title></info>
-        
+
 
         <para>
             Das Network Time Protocol (<emphasis>NTP</emphasis>) ist
@@ -111,7 +111,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.sntp"><info><title>Was ist SNTP?</title></info>
-        
+
 
         <para>
             Das Simple Network Time Protocol (<emphasis>SNTP</emphasis>)
@@ -123,7 +123,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.problematic"><info><title>Problematische Verwendung</title></info>
-        
+
 
         <para>
             Vorsicht das man sich, wenn <classname>Zend_TimeSync</classname> verwendet wird, einige
@@ -135,7 +135,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.decision"><info><title>Auswählen welcher Server verwendet werden soll</title></info>
-        
+
 
         <para>
             Der Zeitserver, der verwendet werden soll, muß anhand der folgenden Kriterien, sehr

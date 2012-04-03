@@ -21,13 +21,13 @@
 
 namespace Zend\Mvc\Controller\Plugin;
 
-use ArrayIterator,
-    Countable,
-    IteratorAggregate,
-    Zend\Session\Container,
-    Zend\Session\Manager,
-    Zend\Session\SessionManager,
-    Zend\Stdlib\SplQueue;
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
+use Zend\Session\Container;
+use Zend\Session\Manager;
+use Zend\Session\SessionManager;
+use Zend\Stdlib\SplQueue;
 
 /**
  * Flash Messenger - implement session-based messages
@@ -72,8 +72,8 @@ class FlashMessenger implements IteratorAggregate, Countable
 
     /**
      * Set the session manager
-     * 
-     * @param  Manager $manager 
+     *
+     * @param  Manager $manager
      * @return FlashMessenger
      */
     public function setSessionManager(Manager $manager)
@@ -86,7 +86,7 @@ class FlashMessenger implements IteratorAggregate, Countable
      * Retrieve the session manager
      *
      * If none composed, lazy-loads a SessionManager instance
-     * 
+     *
      * @return Manager
      */
     public function getSessionManager()
@@ -99,7 +99,7 @@ class FlashMessenger implements IteratorAggregate, Countable
 
     /**
      * Get session container for flash messages
-     * 
+     *
      * @return Container
      */
     public function getContainer()
@@ -114,7 +114,7 @@ class FlashMessenger implements IteratorAggregate, Countable
     }
 
     /**
-     * Change the namespace messages are added to 
+     * Change the namespace messages are added to
      *
      * Useful for per action controller messaging between requests
      *
@@ -129,7 +129,7 @@ class FlashMessenger implements IteratorAggregate, Countable
 
     /**
      * Get the message namespace
-     * 
+     *
      * @return string
      */
     public function getNamespace()
@@ -285,7 +285,7 @@ class FlashMessenger implements IteratorAggregate, Countable
      *
      * Iterates through the session container, removing messages into the local
      * scope.
-     * 
+     *
      * @return void
      */
     protected function getMessagesFromContainer()

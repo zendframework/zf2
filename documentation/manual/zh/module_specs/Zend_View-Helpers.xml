@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers"><info><title>视图助手（View Helper）</title></info>
 
-    
+
 
     <para>
         在你的视图脚本中，经常需要执行某些特定的复杂的功能：例如，格式化日期，生成表单对象，或者显示action的链接等等。你可以使用助手类来完成这些工作。
@@ -12,13 +12,13 @@
     </para>
 
     <note><info><title> 注意大小写 </title></info>
-        
+
         <para>
             助手名称总是遵循驼峰格式，例如，它们从不以大写字母开头。类名是混合大小写字格式，但方法在执行时是驼峰格式。
         </para>
     </note>
     <note><info><title> 缺省助手路径 </title></info>
-        
+
 
         <para>
             即使调用 <code>setHelperPath()</code> 来重写当前的路径，缺省助手路径总是指向 Zend Framework 视图助手， 例如：'Zend/View/Helper/'，设置这个路径来确保缺省的助手工作。
@@ -33,7 +33,7 @@
 
 
     <section xml:id="zend.view.helpers.initial"><info><title>基本的助手</title></info>
-        
+
 
         <para>
             <code>Zend_View</code>自带了几个helper类，大部分是用来生成组件的和有自动转义变量的功能。另外，有些助手用来创建基于路由的URL和HTML列表以及声明变量。当前的助手包括：
@@ -269,7 +269,7 @@ echo $this->formCheckbox('foo', null, array('checked' => false), array('bar', 'b
 
     <section xml:id="zend.view.helpers.paths"><info><title>助手的路径</title></info>
 
-        
+
 
         <para>
             就像可以指定视图脚本的路径，控制器也可以为<code>Zend_View</code>设定助手类的路径。默认地，<code>Zend_View</code>会到 “Zend/View/Helper/”下查找助手类。可以用 <code>setHelperPath()</code> 和 <code>addHelperPath()</code> 方法来告诉 <code>Zend_View</code> 从其它地方来找路径。另外，你也可以指定类名的前缀，用于指定助手类所在的路径，允许给助手类命名空间。默认情况下，如果没有给出前缀，会假设使用“Zend_View_Helper_”。
@@ -304,7 +304,7 @@ $view->addHelperPath('/other/path/to/helpers', 'Your_View_Helper');
 
     <section xml:id="zend.view.helpers.custom"><info><title>编写自定义的助手类</title></info>
 
-        
+
 
         <para>
             编写自定义的助手类很容易，只要遵循以下几个原则即可：

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.query-api"><info><title>Abfrage Erzeugungs API</title></info>
-    
+
 
     <para>
         Zusätzlich zum automatischen Analysieren vom Abfragen ist es auch möglich diese durch eine
@@ -18,7 +18,7 @@ $query = Zend_Search_Lucene_Search_QueryParser::parse($queryString);
 ]]></programlisting>
 
     <section xml:id="zend.search.lucene.queries.exceptions"><info><title>Abfrageparser Ausnahmen</title></info>
-        
+
 
         <para>
             Der Abfrageparser kann zwei Typen von Ausnahmen erstellen.
@@ -72,7 +72,7 @@ try {
     </section>
 
     <section xml:id="zend.search.lucene.queries.term-query"><info><title>Begriffsabfrage</title></info>
-        
+
 
         <para>
             Begriffsabfragen können für das Suchen mit einem einzelnen Begriff verwendet werden.
@@ -112,7 +112,7 @@ $hits  = $index->find($query);
     </section>
 
     <section xml:id="zend.search.lucene.queries.multiterm-query"><info><title>Mehrfache Begriffsabfrage</title></info>
-        
+
 
         <para>
             Mehrfache Begriffsabfragen sind für Suchen mit einem Satz von Begriffen gedacht.
@@ -239,7 +239,7 @@ $hits  = $index->find($query);
     </section>
 
     <section xml:id="zend.search.lucene.queries.boolean-query"><info><title>Boolsche Abfragen</title></info>
-        
+
 
         <para>
             Boolsche Abfragen erlauben die Erstellung von Abfragen die andere Abfragen und boolsche
@@ -405,7 +405,7 @@ word1 AND (word2 AND word3 AND NOT word4) OR word5
     </section>
 
     <section xml:id="zend.search.lucene.queries.wildcard"><info><title>Wildcard Abfragen</title></info>
-        
+
 
         <para>
             Wildcard Abfragen können dazu verwendet werden um nach Dokumenten zu suchen die Strings
@@ -453,7 +453,7 @@ $hits  = $index->find($query);
     </section>
 
     <section xml:id="zend.search.lucene.queries.fuzzy"><info><title>Fuzzy Abfragen</title></info>
-        
+
 
         <para>
             Fuzzy Abfragen können verwendet werden um nach Dokumenten zu Suchen die Strings
@@ -522,7 +522,7 @@ $hits  = $index->find($query);
     </section>
 
     <section xml:id="zend.search.lucene.queries.phrase-query"><info><title>Phrasenabfrage</title></info>
-        
+
 
         <para>
             Phrasenabfragen können für das Suchen einer Phrase innerhalb von Dokumenten verwendet
@@ -733,7 +733,7 @@ $hits2 = $index->find($query);
     </section>
 
     <section xml:id="zend.search.lucene.queries.range"><info><title>Bereichsabfragen</title></info>
-        
+
 
         <para>
             <link linkend="zend.search.lucene.query-language.range">Bereichsabfragen</link> sind

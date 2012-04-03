@@ -2,21 +2,20 @@
 
 namespace Zend\Di\Definition;
 
-use Zend\Code\Scanner\DerivedClassScanner,
-    Zend\Code\Scanner\AggregateDirectoryScanner,
-    Zend\Code\Scanner\DirectoryScanner,
-    
-    Zend\Di\Definition\Annotation,
-    Zend\Code\Annotation\AnnotationManager,
-    Zend\Code\Reflection,
-    Zend\Code\Annotation\AnnotationCollection;
+use Zend\Code\Scanner\DerivedClassScanner;
+use Zend\Code\Scanner\AggregateDirectoryScanner;
+use Zend\Code\Scanner\DirectoryScanner;
+use Zend\Di\Definition\Annotation;
+use Zend\Code\Annotation\AnnotationManager;
+use Zend\Code\Reflection;
+use Zend\Code\Annotation\AnnotationCollection;
 
 class CompilerDefinition implements Definition
 {
     protected $isCompiled = false;
 
     protected $introspectionStrategy = null;
-    
+
     /**
      * @var AggregateDirectoryScanner
      */
@@ -34,9 +33,9 @@ class CompilerDefinition implements Definition
     {
         $this->introspectionStrategy = $introspectionStrategy;
     }
-    
+
     /**
-     * 
+     *
      * @return IntrospectionStrategy
      */
     public function getIntrospectionStrategy()
@@ -53,16 +52,16 @@ class CompilerDefinition implements Definition
     {
         $this->directoryScanner->addDirectoryScanner($directoryScanner);
     }
-    
+
     public function addCodeScannerFile(FileScanner $fileScanner)
     {
         if ($this->directoryScanner == null) {
             $this->directoryScanner = new DirectoryScanner();
         }
-        
+
         $this->directoryScanner->addFileScanner($fileScanner);
     }
-    
+
     public function compile()
     {
         /* @var $classScanner \Zend\Code\Scanner\DerivedClassScanner */

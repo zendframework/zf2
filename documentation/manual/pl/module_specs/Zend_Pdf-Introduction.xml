@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.introduction"><info><title>Wprowadzenie</title></info>
     <!-- @todo review and revise upon completion of refactoring -->
-    
+
     <para>
     Moduł Zend_Pdf jest silnikiem służącym do manipulacji plikami PDF (Portable Document Format)
     napisanym w całości w PHP 5. Może on ładować istniejące dokumenty, tworzyć nowe,

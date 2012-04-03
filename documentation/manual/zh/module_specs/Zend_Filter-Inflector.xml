@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.inflector"><info><title>Zend_Filter_Inflector</title></info>
-    
+
 
     <para>
         <code>Zend_Filter_Inflector</code> 是一个为基于规则的把字符串变形到给定目标的一般意义上的工具。
@@ -17,7 +17,7 @@
     </para>
 
     <example xml:id="zend.filter.inflector.camel_case_example"><info><title> 把混合大小写字（MixedCase）和驼峰字符 （camelCaseText） 变成其它格式 </title></info>
-        
+
 
         <programlisting role="php"><![CDATA[<?php
 $inflector = new Zend_Filter_Inflector('pages/:page.:suffix');
@@ -35,7 +35,7 @@ $filtered = $inflector->filter(array('page' => $string)); // pages/this_is_not_c
     </example>
 
     <section xml:id="zend.filter.inflector.operation"><info><title> 操作 </title></info>
-        
+
 
         <para>
             变形器要求 <emphasis>target</emphasis> 和一个或多个 <emphasis>rules</emphasis>。
@@ -60,7 +60,7 @@ $filtered = $inflector->filter(array('page' => $string)); // pages/this_is_not_c
     </section>
 
      <section xml:id="zend.filter.inflector.paths"><info><title> 设置到预备的过滤器的路径 </title></info>
-        
+
 
         <para>
             <code>Zend_Filter_Inflector</code> 使用 <code>Zend_Loader_PluginLoader</code> 来管理加载和变形一起使用的过滤器。
@@ -96,7 +96,7 @@ $loader->addPrefixPath('My_Filter', 'My/Filter/');
     </section>
 
     <section xml:id="zend.filter.inflector.targets"><info><title> 设置变形器目标 </title></info>
-        
+
 
         <para>
             变形器目标是一个带有一些变量的占位符的字符串。
@@ -165,7 +165,7 @@ class Foo
     </section>
 
     <section xml:id="zend.filter.inflector.rules"><info><title> 变形规则 </title></info>
-        
+
 
         <para>
             如在简介中所提到的，有两种类型的规则：静态的和基于过滤器的。
@@ -182,7 +182,7 @@ class Foo
         </note>
 
         <section xml:id="zend.filter.inflector.rules.static"><info><title> 静态规则 </title></info>
-            
+
 
             <para>
                 静态规则做简单的字符替换，当在静态目标里有片段，但你想让开发者修改的时候使用它们。
@@ -237,7 +237,7 @@ class Foo
         </section>
 
         <section xml:id="zend.filter.inflector.rules.filters"><info><title> 过滤变形器规则 </title></info>
-            
+
 
             <para>
                 <code>Zend_Filter</code> 过滤器也可以当作变形器来使用。像静态规则的一方面是可以绑定到目标变量；
@@ -283,7 +283,7 @@ $inflector->setFilterRule('script', array(
         </section>
 
         <section xml:id="zend.filter.inflector.rules.multiple"><info><title> 一次设置多个规则 </title></info>
-            
+
 
             <para>
                 一般地，一次设置多个规则比每次配置一个单个的变量和它的变形器规则要容易。
@@ -306,7 +306,7 @@ $inflector->setFilterRule('script', array(
             </itemizedlist>
 
             <example xml:id="zend.filter.inflector.rules.multiple.example"><info><title> 一次设置多重规则 </title></info>
-                
+
 
                 <programlisting role="php"><![CDATA[<?php
 // Could also use setRules() with this notation:
@@ -324,7 +324,7 @@ $inflector->addRules(array(
     </section>
 
     <section xml:id="zend.filter.inflector.utility"><info><title> 实用方法 </title></info>
-        
+
 
         <para>
             <code>Zend_Filter_Inflector</code> 有很多实用方法用来读取和设置插件加载器、处理和读取规则以及当有异常抛出时的控制。
@@ -358,7 +358,7 @@ $inflector->addRules(array(
     </section>
 
     <section xml:id="zend.filter.inflector.config"><info><title> 对 Zend_Filter_Inflector 使用 Zend_Config </title></info>
-        
+
 
         <para>
             你可以通过传递 <code>Zend_Config</code> 对象给构造器或<code>setConfig()</code>来使用
@@ -389,7 +389,7 @@ $inflector->addRules(array(
         </itemizedlist>
 
         <example xml:id="zend.filter.inflector.config.example"><info><title> 使用 Zend_Config with Zend_Filter_Inflector</title></info>
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 // With the constructor:

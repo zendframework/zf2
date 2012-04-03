@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.advanced"><info><title>Fortgeschrittene Verwendung von Zend_Form</title></info>
-    
+
 
     <para>
         <classname>Zend_Form</classname> hat eine Vielzahl an Funktionalitäten, von denen viele auf
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.form.advanced.arrayNotation"><info><title>Array Schreibweise</title></info>
-        
+
 
         <para>
             Viele fortgeschrittene Entwickler gruppieren zusammengehörige Formularelemente durch
@@ -207,7 +207,7 @@
     </section>
 
     <section xml:id="zend.form.advanced.multiPage"><info><title>Mehrseitige Formulare</title></info>
-        
+
 
         <para>
             Aktuell werden mehrseitige Formulare nicht offiziell in <classname>Zend_Form</classname>
@@ -223,7 +223,7 @@
         </para>
 
         <example xml:id="zend.form.advanced.multiPage.registration"><info><title>Beispiel: Anmeldeformular</title></info>
-            
+
 
             <para>
                 Verwenden wir also ein Anmeldeformular als Beispiel. Für unsere Zwecke wollen wir

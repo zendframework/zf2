@@ -21,9 +21,9 @@
 
 namespace ZendTest\Paginator\Adapter\DbSelect;
 
-use Zend\Paginator\Adapter,
-    Zend\Db\Statement\Oracle,
-    Zend\Db\Statement\OracleException;
+use Zend\Paginator\Adapter;
+use Zend\Db\Statement\Oracle;
+use Zend\Db\Statement\OracleException;
 
 require_once 'Zend/Paginator/Adapter/DbSelectTest.php';
 require_once __DIR__ . '/../../_files/TestTable.php';
@@ -45,7 +45,7 @@ class OracleTest extends \ZendTest\Paginator\Adapter\DbSelectTest
     protected function setUp ()
     {
         $this->markTestSkipped('Will skip until Zend\Db is refactored.');
-        
+
         if (! extension_loaded('oci8')) {
             $this->markTestSkipped('Oci8 extension is not loaded');
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.log"><info><title>Zend_Application_Resource_Log</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Log</classname> permet d'instancier une instance
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.log.configExample"><info><title>Exemple de configuration d'une ressource de journalisation</title></info>
-        
+
 
         <para>
             Ci-dessous, vous avez un extrait de fichier <acronym>INI</acronym> montrant comment

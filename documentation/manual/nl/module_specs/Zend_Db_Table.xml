@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table"><info><title>Zend_Db_Table</title></info>
 
-    
+
 
     <section xml:id="zend.db.table.introduction"><info><title>Inleiding</title></info>
 
-        
+
 
         <para>
             Zend_Db_Table is een tabellenmodule voor het Zend Framework. Het
@@ -18,7 +18,7 @@
 
     <section xml:id="zend.db.table.getting-started"><info><title>Om te beginnen</title></info>
 
-        
+
 
         <para>
             Het eerste wat gedaan moet worden is een standaard database
@@ -65,7 +65,7 @@ $table = new RoundTable();
 
     <section xml:id="zend.db.table.name-and-key"><info><title>Tabelnaam en Primaire Key</title></info>
 
-        
+
 
         <para>
             Per definitie verwacht Zend_Db_Table dat de tabelnaam in de
@@ -130,7 +130,7 @@ class ClassName extends Zend_Db_Table
 
     <section xml:id="zend.db.table.insert"><info><title>Rijen invoegen</title></info>
 
-        
+
 
         <para>
             Om een nieuwe rij in jouw tabel in te voegen roep je gewoon
@@ -166,7 +166,7 @@ $id = $table->insert($data);
 
     <section xml:id="zend.db.table.udpate"><info><title>Rijen updaten</title></info>
 
-        
+
 
         <para>
             Om eender welk aantal rijen in je tabel te updaten roep je
@@ -208,7 +208,7 @@ $rows_affected = $table->update($set, $where);
 
     <section xml:id="zend.db.table.delete"><info><title>Rijen verwijderen</title></info>
 
-        
+
 
         <para>
             Om eender welk aantal rijen te verwijderen uit een tabel
@@ -244,7 +244,7 @@ $rows_affected = $table->delete($where);
 
     <section xml:id="zend.db.table.findbykey"><info><title>Rijen vinden per primaire key</title></info>
 
-        
+
 
         <para>
             Het is eenvoudig om rijen uit een tabel te verkrijgen door
@@ -271,7 +271,7 @@ $rowset = $table->find(array(1, 2, 3));
 
     <section xml:id="zend.db.table.fetchonerow"><info><title>Eén enkele rij ophalen</title></info>
 
-        
+
 
         <para>
             Hoewel je gemakkellijk een rij kan vinden via zijn primaire key met
@@ -314,7 +314,7 @@ $row = $table->fetchRow($where, $order);
 
     <section xml:id="zend.db.table.fetchmultiple"><info><title>Meerdere rijen ophalen</title></info>
 
-        
+
 
         <para>
             Indien je meerdere rijen in een enkele keer moet ophalen kan
@@ -355,7 +355,7 @@ $rowset = $table->fetchRow($where, $order, $count, $offset);
 
     <section xml:id="zend.db.table.domain-logic"><info><title>Domein Logica Invoegen</title></info>
 
-        
+
 
         <para>
             Als een tabelmodule leent Zend_Db_Table er zichzelf goed toe om

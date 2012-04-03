@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.database"><info><title>Zend_Dbパフォーマンス</title></info>
-    
+
 
     <para>
         <classname>Zend_Db</classname>はデータベースを抽象化するレイヤーで、
@@ -13,7 +13,7 @@
 
     <section xml:id="performance.database.tableMetadata"><info><title>テーブルのメタデータを取得する際にZend_Db_Tableによってもたらされる
         オーバーヘッドをどのようにしたら減らせますか？</title></info>
-        
+
 
         <para>
             できる限り使い方を簡単に保つために、
@@ -29,7 +29,7 @@
         </para>
 
         <section xml:id="performance.database.tableMetadata.cache"><info><title>メタデータキャッシュの利用</title></info>
-            
+
 
             <para>
                 <classname>Zend_Db_Table</classname>ではテーブルのメタデータをキャッシュする
@@ -45,7 +45,7 @@
         </section>
 
         <section xml:id="performance.database.tableMetadata.hardcoding"><info><title>テーブル定義でメタデータをハードコーディングする</title></info>
-            
+
 
             <para>
                 1.7.0では、<classname>Zend_Db_Table</classname>は<link linkend="zend.db.table.metadata.caching.hardcoding">テーブルの定義でメタデータをハードコーディングすることをサポート</link>
@@ -60,7 +60,7 @@
             Zend_Db_Selectで生成されたSQLがインデックスにヒットしません。
             どのようにしたらより良く出来ますか？
         </title></info>
-        
+
 
         <para>
             <classname>Zend_Db_Select</classname>は比較的その仕事が得意です。
@@ -69,7 +69,7 @@
         </para>
 
         <section xml:id="performance.database.select.writeyourown"><info><title>自分で最適化したSQLを書く</title></info>
-            
+
 
             <para>
                 現実的な唯一の答えは自分で<acronym>SQL</acronym>を書くことです;

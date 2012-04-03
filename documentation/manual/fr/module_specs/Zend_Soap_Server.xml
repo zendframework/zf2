@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.server"><info><title>Zend_Soap_Server</title></info>
-    
+
 
     <para>
         La classe <classname>Zend_Soap_Server</classname> a été créée pour simplifier la
@@ -30,7 +30,7 @@
     </para>
 
     <section xml:id="zend.soap.server.constructor"><info><title>Constructeur de <classname>Zend_Soap_Server</classname></title></info>
-        
+
 
         <para>
             Le constructeur de <classname>Zend_Soap_Server</classname> s'utilise différemment
@@ -38,7 +38,7 @@
         </para>
 
         <section xml:id="zend.soap.server.constructor.wsdl_mode"><info><title>Constructeur de <classname>Zend_Soap_Server</classname> en mode WSDL</title></info>
-            
+
 
             <para>
                 Le constructeur de <classname>Zend_Soap_Server</classname> prend 2 paramètres
@@ -113,7 +113,7 @@
 
         <section xml:id="zend.soap.server.wsdl_mode"><info><title>Constructeur de <classname>Zend_Soap_Server</classname> en mode
             non-WSDL</title></info>
-            
+
 
             <para>
                 Le premier paramètre du constructeur <emphasis>doit</emphasis> être mis à la
@@ -177,7 +177,7 @@
     </section>
 
     <section xml:id="zend.soap.server.api_define_methods"><info><title>Méthodes de définitions de l'API du service</title></info>
-        
+
 
         <para>Il existe 2 manières de déclarer l'API de votre serveur <acronym>SOAP</acronym>.</para>
 
@@ -219,7 +219,7 @@ $server->setObject(new MyClass());
 ...
 $server->handle();
 ]]></programlisting> <note><info><title>Important!</title></info>
-                    
+
 
                 <para>
                     Vous devriez complètement décrire chaque méthode grâce aux blocs de
@@ -264,10 +264,10 @@ $server->handle();
         </section>
 
         <section xml:id="zend.soap.server.request_response"><info><title>Gestion des objets de requête et de réponse</title></info>
-            
+
 
             <note><info><title>Avancée</title></info>
-                
+
 
             <para>
                 Cette section décrit la gestion avancée des requêtes et réponses <acronym>SOAP</acronym> et
@@ -282,7 +282,7 @@ $server->handle();
         </para>
 
         <section xml:id="zend.soap.server.request_response.request"><info><title>Requête</title></info>
-            
+
 
             <para>
                 La méthode <methodname>Zend_Soap_Server::handle()</methodname> utilise la
@@ -343,7 +343,7 @@ $request = $server->getLastRequest();
             </section>
 
             <section xml:id="zend.soap.server.request_response.response"><info><title>Réponse</title></info>
-                
+
 
             <para>
                 <methodname>Zend_Soap_Server::handle()</methodname> émet automatiquement la

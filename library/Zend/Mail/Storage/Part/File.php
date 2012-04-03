@@ -21,8 +21,8 @@
 
 namespace Zend\Mail\Storage\Part;
 
-use Zend\Mail\Storage\Part,
-    Zend\Mime;
+use Zend\Mail\Storage\Part;
+use Zend\Mime;
 
 /**
  * @category   Zend
@@ -149,7 +149,7 @@ class File extends Part
      *
      * @return int size
      */
-    public function getSize() 
+    public function getSize()
     {
         return $this->_contentPos[1] - $this->_contentPos[0];
     }

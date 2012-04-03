@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.locale"><info><title>Zend_Application_Resource_Locale</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Locale</classname> kann verwendet werden um ein
@@ -16,7 +16,7 @@
     </para>
 
     <section xml:id="zend.application.available-resources.locale.auto"><info><title>Automatische Erkennung des zu verwendenden Gebietsschemas</title></info>
-        
+
 
         <para>
             Ohne Spezifikation einer Option für
@@ -94,7 +94,7 @@
     </section>
 
     <section xml:id="zend.application.available-resources.locale.fallback"><info><title>Das Gebietsschema automatisch erkennen und ein eigenes Fallback hinzufügen</title></info>
-        
+
 
         <para>
             Die automatische Erkennung von vorher könnte zu Problemen führen wenn das Gebietsschema
@@ -105,7 +105,7 @@
         </para>
 
         <example xml:id="zend.application.available-resources.locale.configExampleDetectAndFallback"><info><title>Automatische Erkennung des Gebietsschemas und setzen eines Fallbacks</title></info>
-            
+
 
             <para>
                 Der folgende Abschnitt zeigt wie ein eigenes Standardgebietsschema gesetzt werden
@@ -121,7 +121,7 @@ resources.locale.default = "nl_NL"
     </section>
 
     <section xml:id="zend.application.available-resources.locale.forcing"><info><title>Erzwingen eines Gebietsschemas für die Verwendung</title></info>
-        
+
 
         <para>
             Manchmal ist es nützlich ein einzelnes Gebietsschema zu definieren welches verwendet
@@ -135,7 +135,7 @@ resources.locale.default = "nl_NL"
         </para>
 
         <example xml:id="zend.application.available-resources.locale.configExampleFallbackOnly"><info><title>Definition eines einzelnen Gebietsschemas für die Verwendung</title></info>
-            
+
 
             <para>
                 Der folgende Abschnitt zeigt wie ein einzelnes Gebietsschema für die komplette

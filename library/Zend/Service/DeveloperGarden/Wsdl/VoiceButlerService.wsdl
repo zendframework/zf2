@@ -9,13 +9,13 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
 	<wsdl:documentation>VoiceButlerService</wsdl:documentation>
-	<wsdl:types> 
-		<xsd:schema 
+	<wsdl:types>
+		<xsd:schema
 			targetNamespace="http://webservice.voicebutler.odg.tonline.de"
 			elementFormDefault="unqualified"
 			attributeFormDefault="unqualified">
 			<xsd:include schemaLocation="VoiceButlerService.xsd" />
-			
+
 		</xsd:schema>
 	</wsdl:types>
 
@@ -82,7 +82,7 @@
         wsaw:Action="urn:newCallSequenceResponse" />
 		</wsdl:operation>
 	</wsdl:portType>
- 
+
 	<wsdl:binding name="VoiceButlerServiceHttpBinding"
 		type="tns:VoiceButlerServicePortType">
 
@@ -102,15 +102,15 @@
 			</wsdl:output>
 		</wsdl:operation>
       <wsdl:operation name="callStatus2">
-  
+
         <soap:operation
           soapAction="http://webservice.voicebutler.odg.tonline.de/callStatus2" />
         <wsdl:input>
-  
+
           <soap:body use="literal" />
         </wsdl:input>
         <wsdl:output>
-  
+
           <soap:body use="literal" />
         </wsdl:output>
       </wsdl:operation>

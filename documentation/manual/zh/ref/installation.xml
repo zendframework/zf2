@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="introduction.installation"><info><title>安装</title></info>
 
-    
+
 
     <para>
         Zend Framework 要求 PHP版本不低于5.1.4，但强烈建议使用 5.2.3 或更高版本，因为在这两个版本之间有

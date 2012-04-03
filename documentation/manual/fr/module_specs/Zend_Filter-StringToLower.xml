@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.stringtolower"><info><title>StringToLower</title></info>
-    
+
 
     <para>
         Ce filtre convertit toute entrée vers des caractères minuscules.
@@ -33,7 +33,7 @@ $filter->setEncoding('ISO-8859-1');
 ]]></programlisting>
 
     <note><info><title>Préciser des mauvais encodages</title></info>
-        
+
 
         <para>
             Attention une exception sera levée si vous précisez un encodage alors que l'extension

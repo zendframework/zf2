@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.standard"><info><title>Zend_Controller_Router_Route</title></info>
-    
+
 
     <para>
         <code>Zend_Controller_Router_Route</code> 是标准的框架路由。它结合了灵活路由定义的易用性。每个路由包含了基本的URL映射（静态的和动态的部分（变量））并且可以被缺省地初始化，也可以根据不同的要求初始化。
@@ -28,7 +28,7 @@ $router->addRoute('user', $route);
     </para>
 
     <note><info><title>字符的的用法</title></info>
-        
+
         <para>
             当前的实现允许你使用任何字符（正斜杠除外）作为变量标识符，但强烈建议只使用PHP使用的变量标识符。将来的实现也许会改变这个行为，它可能会导致在你的代码里有隐藏的bugs。
         </para>
@@ -76,7 +76,7 @@ $router->addRoute('default', $route);
     ]]></programlisting>
 
     <section xml:id="zend.controller.router.routes.standard.variable-defaults"><info><title>变量缺省</title></info>
-        
+
 
         <para>
             在路由中每个变量可以有一个缺省值，这就是<code>Zend_Controller_Router_Route</code>中构造函数使用的第二个变量。这个参数是一个数组，在数组中键表示变量名，值就是期望的缺省值：
@@ -119,7 +119,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.variable-requirements"><info><title>变量请求</title></info>
-        
+
 
         <para>
             当变量请求被设定，第三个参数可以加给<code>Zend_Controller_Router_Route</code>的构造函数。这些被定义为正则表达式的一部分：
@@ -145,7 +145,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.hostname-routing"><info><title> 主机名路由 </title></info>
-        
+
 
         <para>
             你也可以使用主机名做路由匹配。对简单的匹配使用静态主机名选项：

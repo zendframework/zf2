@@ -21,10 +21,10 @@
 
 namespace Zend\Service\Amazon\S3;
 
-use Zend\Crypt,
-    Zend\Service\Amazon,
-    Zend\Service\Amazon\S3\Exception,
-    Zend\Uri;
+use Zend\Crypt;
+use Zend\Service\Amazon;
+use Zend\Service\Amazon\S3\Exception;
+use Zend\Uri;
 
 /**
  * Amazon S3 PHP connection class
@@ -295,7 +295,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
 
         return $objects;
     }
-    
+
     /**
      * List the objects and common prefixes in a bucket.
      *
@@ -341,7 +341,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             'prefixes' => $prefixes
         );
     }
-    
+
     /**
      * Make sure the object name is valid
      *

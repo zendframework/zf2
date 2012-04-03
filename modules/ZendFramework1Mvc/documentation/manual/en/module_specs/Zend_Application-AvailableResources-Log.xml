@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.log"><info><title>Zend_Application_Resource_Log</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Log</classname> to instantiate a
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.log.configExample"><info><title>Sample Log Resource Configuration</title></info>
-        
+
 
         <para>
             Below is a sample <acronym>INI</acronym> snippet showing how to

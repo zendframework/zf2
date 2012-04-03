@@ -113,7 +113,7 @@ class Plain extends Smtp
         $this->username = $username;
         return $this;
     }
-    
+
     /**
      * Get username
      *
@@ -135,7 +135,7 @@ class Plain extends Smtp
         $this->password = $password;
         return $this;
     }
-    
+
     /**
      * Get password
      *

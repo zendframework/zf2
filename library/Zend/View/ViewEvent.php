@@ -20,9 +20,9 @@
 
 namespace Zend\View;
 
-use Zend\EventManager\Event,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response;
+use Zend\EventManager\Event;
+use Zend\Stdlib\RequestDescription as Request;
+use Zend\Stdlib\ResponseDescription as Response;
 
 /**
  * @category   Zend

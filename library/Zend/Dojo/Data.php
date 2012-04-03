@@ -458,7 +458,7 @@ class Data implements \ArrayAccess,\IteratorAggregate,\Countable
 
     /**
      * IteratorAggregate: return an iterator
-     * 
+     *
      * @return Traversable
      */
     public function getIterator()
@@ -492,7 +492,7 @@ class Data implements \ArrayAccess,\IteratorAggregate,\Countable
         if (null === ($identifier = $this->getIdentifier())) {
             throw new Exception\RuntimeException('You must set an identifier prior to adding items');
         }
-        
+
         if (is_object($item)) {
             if (method_exists($item, 'toArray')) {
                 $item = $item->toArray();

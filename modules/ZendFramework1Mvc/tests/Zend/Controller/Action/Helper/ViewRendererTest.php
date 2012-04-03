@@ -21,10 +21,10 @@
 
 namespace ZendTest\Controller\Action\Helper;
 
-use Zend\Controller\Action\Helper,
-    Zend\Controller\Front as FrontController,
-    Zend\View,
-    Zend\Filter;
+use Zend\Controller\Action\Helper;
+use Zend\Controller\Front as FrontController;
+use Zend\View;
+use Zend\Filter;
 
 require_once __DIR__ . '/../../_files/modules/foo/controllers/IndexController.php';
 require_once __DIR__ . '/../../_files/modules/bar/controllers/IndexController.php';

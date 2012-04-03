@@ -34,12 +34,12 @@ interface LazyLoadingBroker extends Broker
      * Register a plugin specification
      *
      * Registers a plugin "specification". Implementations should allow
-     * aggregating such specifications in order to retrieve "registered" 
-     * plugins later. The specification will be the argument passed to 
+     * aggregating such specifications in order to retrieve "registered"
+     * plugins later. The specification will be the argument passed to
      * load() when the plugin is requested later.
-     * 
-     * @param  string $name 
-     * @param  array $spec 
+     *
+     * @param  string $name
+     * @param  array $spec
      * @return LazyLoadingBroker
      */
     public function registerSpec($name, array $spec = null);
@@ -49,16 +49,16 @@ interface LazyLoadingBroker extends Broker
      *
      * Implementations should allow both array and Traversable arguments, and
      * loop through the argument assuming key/value pairs of name/specs.
-     * 
-     * @param  array|Traversable $specs 
+     *
+     * @param  array|Traversable $specs
      * @return LazyLoadingBroker
      */
     public function registerSpecs($specs);
 
     /**
      * Unregister a plugin specification
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return void
      */
     public function unregisterSpec($name);
@@ -66,10 +66,10 @@ interface LazyLoadingBroker extends Broker
     /**
      * Retrieve a list of plugins and/or specs registered
      *
-     * Differs from getPlugins() in that this will return true for both a 
+     * Differs from getPlugins() in that this will return true for both a
      * plugin that has been loaded, as well as a plugin for which only a spec
      * is available.
-     * 
+     *
      * @return array
      */
     public function getRegisteredPlugins();
@@ -77,12 +77,12 @@ interface LazyLoadingBroker extends Broker
     /**
      * Whether or not a plugin exists
      *
-     * Should be used to indicate either whether a given plugin has been 
+     * Should be used to indicate either whether a given plugin has been
      * previously loaded, or whether a specification has been registered.
      * As such, it differs from isLoaded(), which should report only if the
      * plugin has already been loaded.
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return bool
      */
     public function hasPlugin($name);

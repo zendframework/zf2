@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.currency"><info><title>Aide Currency</title></info>
-    
+
 
     <para>
         Afficher des informations de monnaie localisées est très courant; l'aide de vue de
@@ -56,7 +56,7 @@
     </note>
 
     <example xml:id="zend.view.helpers.initial.currency.registered"><info><title>Instance en registre</title></info>
-        
+
 
         <para>
             Pour utiliser une instance en registre, créez une instance de
@@ -82,7 +82,7 @@ echo $this->currency(1234.56);
     </para>
 
     <example xml:id="zend.view.helpers.initial.currency.afterwards"><info><title>Instance dans la vue</title></info>
-        
+
 
         <para>
             Pour utiliser l'interface fluide, créez une instance de <classname>Zend_Currency</classname>,
@@ -103,7 +103,7 @@ $this->currency()->setCurrency($currency)->currency(1234.56);
     </para>
 
     <example xml:id="zend.view.helpers.initial.currency.directly.example-1"><info><title>Utilisation directe via instanciation</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // Notre monnaie d'exemple
@@ -123,7 +123,7 @@ echo $helper->currency(1234.56); // Ceci affiche '€ 1.234,56'
     </para>
 
     <example xml:id="zend.view.helpers.initial.currency.directly.example-2"><info><title>Utilisation directe</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // Notre monnaie d'exemple

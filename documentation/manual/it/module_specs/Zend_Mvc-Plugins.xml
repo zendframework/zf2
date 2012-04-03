@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
+<section
     xmlns="http://docbook.org/ns/docbook" version="5.0"
     xml:id="zend.mvc.controller-plugins">
   <info><title>Controller Plugins</title></info>
 
   <para>
-    Quando usi l'<classname>ActionController</classname> o 
+    Quando usi l'<classname>ActionController</classname> o
     <classname>RestfulController</classname>, o se tu utilizzi il
     <classname>Zend\Mvc\Controller\PluginBroker</classname> nei tuoi
     controller custom, puoi avere accesso ad un numero di plugin
     precostruiti. In aggiunta, puoi registrare dei tuoi plugin
-    custom con il broker, sempre se vuoi con 
+    custom con il broker, sempre se vuoi con
     <classname>Zend\Loader\PluginBroker</classname>.
   </para>
 
@@ -46,10 +46,10 @@
   </itemizedlist>
 
   <para>
-    Se il tuo controller implementa l'interfaccia 
+    Se il tuo controller implementa l'interfaccia
     <classname>Zend\Loader\Pluggable</classname>, puoi accedere a quei
-    plugin utilizzando il loro nome corto attraverso il metodo 
-    <methodname>plugin()</methodname>: 
+    plugin utilizzando il loro nome corto attraverso il metodo
+    <methodname>plugin()</methodname>:
   </para>
 
   <programlisting language="php"><![CDATA[
@@ -57,9 +57,9 @@ $plugin = $this->plugin('url');
 ]]></programlisting>
 
   <para>
-    Per un ulteriore strato di convenienza, entrambi i 
+    Per un ulteriore strato di convenienza, entrambi i
     <classname>ActionController</classname> e <classname>RestfulController</classname>
-    hanno l'implementazione <methodname>__call()</methodname> che 
+    hanno l'implementazione <methodname>__call()</methodname> che
     ti permette di ottenere i plugin attraverso le chiamate al metodo:
   </para>
 
@@ -72,7 +72,7 @@ $plugin = $this->url();
 
     <para>
       Il <classname>FlashMessenger</classname> è un plugin disegnato
-      per creare e ricevere messaggi, basati sulla sessione, che 
+      per creare e ricevere messaggi, basati sulla sessione, che
       "scadono" da soli. Questo espone diversi metodi:
     </para>
 
@@ -86,7 +86,7 @@ $plugin = $this->url();
 
       <listitem>
         <para>
-          <methodname>getSessionManager()</methodname> ti permette di ricevere il 
+          <methodname>getSessionManager()</methodname> ti permette di ricevere il
           session manager registrato.
         </para>
       </listitem>
@@ -137,7 +137,7 @@ $plugin = $this->url();
 
       <listitem>
         <para>
-          <methodname>clearMessages()</methodname> cancella tutti i messaggi nel 
+          <methodname>clearMessages()</methodname> cancella tutti i messaggi nel
           namespsace corrente del tuo session container.
         </para>
       </listitem>
@@ -167,7 +167,7 @@ $plugin = $this->url();
     <para>
       In aggiunta, il <classname>FlashMessenger</classname> implementa sia
       <classname>IteratorAggregate</classname> che <classname>Countable</classname>,
-      permettendoti di iterare i contenuti e contare i messaggi flash nel 
+      permettendoti di iterare i contenuti e contare i messaggi flash nel
       namespace corrente contenuti all'interno del tuo session container.
     </para>
 
@@ -200,16 +200,16 @@ public function successAction()
 
     <para>
       Occasionalmente, vuoi eseguire controller addizionali a partire da
-      un controller in uso -- per esempio, potresti utilizzare questo 
+      un controller in uso -- per esempio, potresti utilizzare questo
       approccio quando stai contruendo dei contenuti tipo "widget". Il
       <classname>Forward</classname> plugin ti aiuta a lavorare su questo.
     </para>
 
     <para>
       Per lavorare con il <classname>Forward</classname> plugin, il controller
-      che lo chiame deve essere un <classname>LocatorAware</classname>; altrimenti, 
+      che lo chiame deve essere un <classname>LocatorAware</classname>; altrimenti,
       il plugin non sarà in grado di ricevere una configurata istanza del
-      controller richiesto ed iniettarla. 
+      controller richiesto ed iniettarla.
     </para>
 
     <para>
@@ -223,7 +223,7 @@ public function successAction()
           <varnane>$name</varnane>, il nome del controller da invocare.
           Questo dovrebbe essere un nome di classe completamente identificabile,
           oppure un alias definito e riconoscibile dall'istanza Locator attaccata
-          al controller invocante.          
+          al controller invocante.
         </para>
       </listitem>
 
@@ -272,7 +272,7 @@ return array(
 
       <listitem>
         <para>
-          Creare ed iniettare un header "Location" all'interno dell'oggetto 
+          Creare ed iniettare un header "Location" all'interno dell'oggetto
           <classname>Response</classname>, puntando all'URL assemblato.
         </para>
       </listitem>
@@ -315,9 +315,9 @@ return array(
     </para>
 
     <para>
-      Una nota: questo plugin richiede che il controller che lo invoca 
+      Una nota: questo plugin richiede che il controller che lo invoca
       deve implementare <classname>InjectApplicationEvent</classname>, e
-      così ha un <classname>MvcEvent</classname> composto, così come 
+      così ha un <classname>MvcEvent</classname> composto, così come
       riceve il rute dall'oggetto evento.
     </para>
 
@@ -336,7 +336,7 @@ return $this->redirect()->toRoute('login-success');
     <para>
       Spesso vuoi generare gli URL da una strada definita insieme ai tuoi
       controller -- per riuscire a realizzare una view, generare gli header,
-      etc. Finchè l'oggetto <classname>MvcEvent</classname> compone il 
+      etc. Finchè l'oggetto <classname>MvcEvent</classname> compone il
       router, farlo manualmente richiede questo workflow:
     </para>
 
@@ -355,7 +355,7 @@ $url = $this->url()->fromRoute('route-name', $params);
 
     <para>
       Il metodo <methodname>fromRoute()</methodname> è l'unico metodo
-      pubblico, ed ha la seguente firma: 
+      pubblico, ed ha la seguente firma:
     </para>
 
     <programlisting language="php"><![CDATA[
@@ -363,9 +363,9 @@ public function fromRoute($route, array $params = array(), array $options = arra
 ]]></programlisting>
 
     <para>
-      Un'osservazione: questo plugin richiede che il controller che lo 
+      Un'osservazione: questo plugin richiede che il controller che lo
       invoca implementi <classname>InjectApplicationEvent</classname>, così
-      da avere un <classname>MvcEvent</classname> composto, così riceve il 
+      da avere un <classname>MvcEvent</classname> composto, così riceve il
       router da un oggetto evento.
     </para>
   </section>

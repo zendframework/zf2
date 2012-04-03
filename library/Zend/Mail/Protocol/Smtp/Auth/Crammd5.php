@@ -50,8 +50,8 @@ class Crammd5 extends Smtp
     /**
      * Constructor.
      *
-     * All parameters may be passed as an array to the first argument of the 
-     * constructor. If so, 
+     * All parameters may be passed as an array to the first argument of the
+     * constructor. If so,
      *
      * @param  string|array $host   (Default: 127.0.0.1)
      * @param  null|int     $port   (Default: null)
@@ -115,7 +115,7 @@ class Crammd5 extends Smtp
         $this->username = $username;
         return $this;
     }
-    
+
     /**
      * Get username
      *
@@ -137,7 +137,7 @@ class Crammd5 extends Smtp
         $this->password = $password;
         return $this;
     }
-    
+
     /**
      * Get password
      *

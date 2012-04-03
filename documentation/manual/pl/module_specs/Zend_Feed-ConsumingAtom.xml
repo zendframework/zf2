@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.feed.consuming-atom.example.usage"><info><title>Podstawowe użycie kanału Atom</title></info>
-        
+
         <para>
             Odczytywanie kanału Atom i wyświetlenie pól <code>title</code> i
             <code>summary</code> dla każdego z wpisów:

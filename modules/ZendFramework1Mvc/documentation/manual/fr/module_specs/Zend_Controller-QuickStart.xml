@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.quickstart"><info><title>Zend_Controller - Démarrage rapide</title></info>
-    
+
 
     <section xml:id="zend.controller.quickstart.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller</classname> est le coeur du système <acronym>MVC</acronym> de Zend
@@ -29,7 +29,7 @@
     </section>
 
     <section xml:id="zend.controller.quickstart.go"><info><title>Démarrage rapide</title></info>
-        
+
 
         <para>
             Si vous avez besoin d'informations plus détaillées, lisez les sections suivantes.
@@ -37,7 +37,7 @@
         </para>
 
         <section xml:id="zend.controller.quickstart.go.directory"><info><title>Créer votre disposition de système de fichiers</title></info>
-            
+
 
             <para>
                 La première étape est de créer votre disposition de système de fichiers. La
@@ -62,7 +62,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.docroot"><info><title>Régler votre document root</title></info>
-            
+
 
             <para>
                 Dans votre serveur Web, faîtes pointer votre "document root" vers le dossier
@@ -71,7 +71,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.rewrite"><info><title>Créer vos règles de réécriture</title></info>
-            
+
 
             <para>Éditez le fichier <code>html/.htaccess</code> afin de lire ceci :</para>
 
@@ -85,7 +85,7 @@ RewriteRule ^.*$ index.php [NC,L]
 ]]></programlisting>
 
             <note><info><title>Connaître mod_rewrite</title></info>
-                
+
 
                 <para>
                     Les règles de réécriture ci-dessus autorisent l'accès à tous fichiers sous la
@@ -145,7 +145,7 @@ RewriteRule ^.*$ index.php [NC,L]
         </section>
 
         <section xml:id="zend.controller.quickstart.go.bootstrap"><info><title>Créer votre fichier d'amorçage (bootstrap)</title></info>
-            
+
 
             <para>
                 Le fichier d'amorçage est la page vers laquelle toutes les demandes sont
@@ -166,7 +166,7 @@ Zend_Controller_Front::run('/chemin/vers/application/controllers');
         </section>
 
         <section xml:id="zend.controller.quickstart.go.controller"><info><title>Créer votre contrôleur d'action par défaut</title></info>
-            
+
 
             <para>
                 Avant de discuter des contrôleurs d'action, vous devez d'abord comprendre
@@ -236,7 +236,7 @@ class IndexController extends Zend_Controller_Action
         </section>
 
         <section xml:id="zend.controller.quickstart.go.view"><info><title>Créer votre script de vue</title></info>
-            
+
 
             <para>
                 Comme mentionné
@@ -265,7 +265,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.errorhandler"><info><title>Créer votre contrôleur d'erreur</title></info>
-            
+
 
             <para>
                 Par défaut,
@@ -311,7 +311,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.finish"><info><title>Voir le site !</title></info>
-            
+
 
             <para>
                 Avec votre premier contrôleur et votre première vue, vous pouvez maintenant

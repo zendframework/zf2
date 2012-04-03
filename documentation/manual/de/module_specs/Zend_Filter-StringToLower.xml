@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.stringtolower"><info><title>StringToLower</title></info>
-    
+
 
     <para>
         Dieser Filter konvertiert alle Eingabe so das Sie kleingeschrieben sind.
@@ -35,7 +35,7 @@ $filter->setEncoding('ISO-8859-1');
 ]]></programlisting>
 
     <note><info><title>Falsche Kodierungen setzen</title></info>
-        
+
 
         <para>
             Man sollte darauf achten das man eine Exception bekommt wenn man eine Kodierung setzt,

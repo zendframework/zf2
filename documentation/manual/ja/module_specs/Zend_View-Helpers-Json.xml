@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.json"><info><title>JSON ヘルパー</title></info>
-    
+
 
     <para>
         <acronym>JSON</acronym> を返すビューを作成する際に大事なのは、
@@ -32,7 +32,7 @@ Content-Type: application/json
 ]]></programlisting>
 
     <note><info><title>レイアウトの維持、およびZend_Json_Expr によるエンコードの有効化</title></info>
-        
+
 
         <para>
             <acronym>JSON</acronym> ヘルパーの各メソッドには、オプションで 2 番目の引数を指定できます。
@@ -67,7 +67,7 @@ echo $this->json($this->data, array('keepLayouts' => true));
 
         <programlisting language="php"><![CDATA[
 <?php echo $this->json($this->data, array(
-    'enableJsonExprFinder' => true, 
+    'enableJsonExprFinder' => true,
     'keepLayouts'          => true,
 )) ?>
 ]]></programlisting>

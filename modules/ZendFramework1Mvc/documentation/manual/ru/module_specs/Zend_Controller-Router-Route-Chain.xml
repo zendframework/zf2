@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.chain"><info><title>Zend_Controller_Router_Route_Chain</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Router_Route_Chain</classname>
@@ -12,16 +12,16 @@
     </para>
 
     <note><info><title>Приоритет параметров</title></info>
-        
+
         <para>
             При объединении маршрутов параметры внешнего маршрута имеют
-            больший приоритет, чем параметры внутреннего маршрута. 
+            больший приоритет, чем параметры внутреннего маршрута.
             Таким образом, если вы определили контроллер одновременно во
             внутреннем и внешнем маршрутах, то будет выбран контроллер из
             внешнего маршрута.
         </para>
     </note>
-    
+
     <para>
         При объединении маршрутов программным путем есть два способа достижения
         этого. Первый состоит в создании нового экземпляра класса
@@ -69,7 +69,7 @@ echo $chainedRoute->assemble();
 ]]></programlisting>
 
     <section xml:id="zend.controller.router.routes.chain.config"><info><title>Объединение маршрутов через Zend_Config</title></info>
-        
+
 
         <para>
             Для объединения маршрутов в конфигурационном файле есть

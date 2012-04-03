@@ -21,8 +21,8 @@
 
 namespace Zend\Ldap\Node\Schema\ObjectClass;
 
-use Zend\Ldap\Node\Schema\ObjectClass,
-    Zend\Ldap\Node\Schema;
+use Zend\Ldap\Node\Schema\ObjectClass;
+use Zend\Ldap\Node\Schema;
 
 /**
  * Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory provides access to the objectClass

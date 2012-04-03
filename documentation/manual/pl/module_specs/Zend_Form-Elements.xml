@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.elements"><info><title>Tworzenie elementów formularza za pomocą klasy Zend_Form_Element</title></info>
-    
+
 
     <para>
         Formularz składa się z elementów, które zazwyczaj odpowiadają elementom
@@ -41,7 +41,7 @@
     </para>
 
     <section xml:id="zend.form.elements.loaders"><info><title>Ładowanie wtyczek</title></info>
-        
+
 
         <para>
             Klasa <code>Zend_Form_Element</code> używa klasy <link linkend="zend.loader.pluginloader">Zend_Loader_PluginLoader</link>
@@ -100,7 +100,7 @@
         </para>
 
         <example xml:id="zend.form.elements.loaders.customLabel"><info><title>Własna etykieta</title></info>
-            
+
 
             <para>
                 One common use case for plugins is to provide replacements for
@@ -189,7 +189,7 @@ $form->addElementPrefixPath('My_Decorator', 'My/Decorator/', 'decorator');
     </section>
 
     <section xml:id="zend.form.elements.filters"><info><title>Filtry</title></info>
-        
+
 
         <para>
             It's often useful and/or necessary to perform some normalization on
@@ -249,7 +249,7 @@ $element->addFilter('alnum');
         </para>
 
         <note><info><title>Użycie własnych klas filtrów</title></info>
-            
+
 
             <para>
                 Jeśli posiadasz własny zestaw klas filtrów, możesz przekazać
@@ -320,7 +320,7 @@ $unfiltered = $element->getUnfilteredValue();
     </section>
 
     <section xml:id="zend.form.elements.validators"><info><title>Weryfikatory</title></info>
-        
+
 
         <para>
             If you subscribe to the security mantra of "filter input, escape
@@ -368,7 +368,7 @@ $element->addValidator('alnum');
         </para>
 
         <note><info><title>Użycie własnych klas weryfikatorów</title></info>
-            
+
 
             <para>
                 Jeśli posiadasz własny zestaw klas weryfikatorów, możesz przekazać
@@ -424,7 +424,7 @@ $validator = new Zend_Validate_StringLength(6, 20);
         ]]></programlisting>
 
         <note><info><title>Określanie własnych komunikatów o błędach</title></info>
-            
+
 
             <para>
                 Some developers may wish to provide custom error messages for a
@@ -516,7 +516,7 @@ if ($element->isValid($value)) {
         ]]></programlisting>
 
         <note><info><title>Weryfikowane są przefiltrowane wartości</title></info>
-            
+
 
             <para>
                 <code>Zend_Form_Element::isValid()</code> filtruje wartości
@@ -527,7 +527,7 @@ if ($element->isValid($value)) {
         </note>
 
         <note><info><title>Weryfikacja w kontekście</title></info>
-            
+
 
             <para>
                 <code>Zend_Form_Element::isValid()</code> supports an
@@ -645,7 +645,7 @@ $messages = $element->getMessages();
         </para>
 
         <note><info><title>Użycie klasy Zend_Form_Elements jako weryfikatora</title></info>
-            
+
 
             <para>
                 Klasa <code>Zend_Form_Element</code> implementuje interfejs
@@ -714,7 +714,7 @@ $messages = $element->getMessages();
         </itemizedlist>
 
         <section xml:id="zend.form.elements.validators.errors"><info><title>Custom Error Messages</title></info>
-            
+
 
             <para>
                 At times, you may want to specify one or more specific error
@@ -790,7 +790,7 @@ $messages = $element->getMessages();
     </section>
 
     <section xml:id="zend.form.elements.decorators"><info><title>Dekoratory</title></info>
-        
+
 
         <para>
             One particular pain point for many web developers is the creation
@@ -842,7 +842,7 @@ $messages = $element->getMessages();
         </itemizedlist>
 
         <note><info><title>Domyślne dekoratory nie muszą być ładowane</title></info>
-            
+
 
             <para>
                 Domyślny zestaw dekoratorów jest ładowany podczas inicjowania
@@ -914,7 +914,7 @@ $this->addDecorators(array(
         </para>
 
         <note><info><title>Użycie wielu dekoratorów tego samego typu</title></info>
-            
+
 
             <para>
                 Internally, <code>Zend_Form_Element</code> uses a decorator's
@@ -1001,7 +1001,7 @@ $fooBar  = $element->getDecorator('FooBar');
     </section>
 
     <section xml:id="zend.form.elements.metadata"><info><title>Dane meta i atrybuty</title></info>
-        
+
 
         <para>
             <code>Zend_Form_Element</code> obsługuje wiele atrybutów i danych
@@ -1111,7 +1111,7 @@ $element->class = 'text;
     </section>
 
     <section xml:id="zend.form.elements.standard"><info><title>Standardowe elementy</title></info>
-        
+
 
         <para>
             Komponent <code>Zend_Form</code> posiada duży zestaw standardowych
@@ -1122,7 +1122,7 @@ $element->class = 'text;
     </section>
 
     <section xml:id="zend.form.elements.methods"><info><title>Metody klasy Zend_Form_Element</title></info>
-        
+
 
         <para>
             Klasa <code>Zend_Form_Element</code> posiada bardzo dużo metod. Poniżej
@@ -1229,7 +1229,7 @@ $element->class = 'text;
     </section>
 
     <section xml:id="zend.form.elements.config"><info><title>Konfiguracja</title></info>
-        
+
 
         <para>
             Konstruktor klasy <code>Zend_Form_Element</code>przyjmuje w
@@ -1322,7 +1322,7 @@ decorators.label.decorator = "Label"
     </section>
 
     <section xml:id="zend.form.elements.custom"><info><title>Własne elementy</title></info>
-        
+
 
         <para>
             Możesz tworzyć własne elementy po prostu rozszerzając klasę

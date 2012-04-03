@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.architecture"><info><title>Architecture</title></info>
-    
+
 
     <section xml:id="zend.tool.framework.architecture.registry"><info><title>Registry</title></info>
-        
+
 
         <para>
             Because providers and manifests may come from anywhere in the
@@ -67,7 +67,7 @@ interface Zend_Tool_Framework_Registry_EnabledInterface
     </section>
 
     <section xml:id="zend.tool.framework.architecture.providers"><info><title>Providers</title></info>
-        
+
 
         <para>
             <classname>Zend_Tool_Framework_Provider</classname> represents the functional
@@ -111,7 +111,7 @@ abstract class Zend_Tool_Framework_Provider_Abstract
     </section>
 
     <section xml:id="zend.tool.framework.architecture.loaders"><info><title>Loaders</title></info>
-        
+
 
         <para>
             The purpose of a Loader is to find Providers and Manifest files that
@@ -179,7 +179,7 @@ class Zend_Tool_Framework_Loader_IncludePathLoader
     </section>
 
     <section xml:id="zend.tool.framework.architecture.manifests"><info><title>Manifests</title></info>
-        
+
 
         <para>
             In short, the Manifest shall contain specific or arbitrary metadata
@@ -350,7 +350,7 @@ class Zend_Tool_Framework_Manifest_Repository
     </section>
 
     <section xml:id="zend.tool.framework.architecture.clients"><info><title>Clients</title></info>
-        
+
 
         <para>
             Clients are the interface which bridges a user or external tool into

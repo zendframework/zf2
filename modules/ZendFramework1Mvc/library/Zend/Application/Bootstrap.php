@@ -21,8 +21,8 @@
 
 namespace Zend\Application;
 
-use Zend\Loader\ResourceAutoloader,
-    Zend\Application\Module\Autoloader as ModuleAutoloader;
+use Zend\Loader\ResourceAutoloader;
+use Zend\Application\Module\Autoloader as ModuleAutoloader;
 
 /**
  * Concrete base class for bootstrap classes

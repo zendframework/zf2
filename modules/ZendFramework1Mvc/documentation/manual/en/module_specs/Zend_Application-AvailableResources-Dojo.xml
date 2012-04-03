@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.dojo"><info><title>Zend_Application_Resource_Dojo</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Dojo</classname> can be used
@@ -8,7 +8,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.dojo.configExample"><info><title>Sample Dojo resource configuration</title></info>
-        
+
 
         <para>
             Below is a sample <acronym>INI</acronym> file showing how

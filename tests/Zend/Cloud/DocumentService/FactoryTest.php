@@ -26,10 +26,10 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
     define("PHPUnit_MAIN_METHOD", "ZendTest\Cloud\DocumentService\FactoryTest::main");
 }
 
-use Zend\Cloud\DocumentService\Factory as DocumentFactory,
-    Zend\Config\Config,
-    ZendTest\Cloud\DocumentService\Adapter\SimpleDbTest,
-    ZendTest\Cloud\DocumentService\Adapter\WindowsAzureTest,
+use Zend\Cloud\DocumentService\Factory as DocumentFactory;
+use Zend\Config\Config;
+use ZendTest\Cloud\DocumentService\Adapter\SimpleDbTest;
+use ZendTest\Cloud\DocumentService\Adapter\WindowsAzureTest,
     PHPUnit_Framework_TestCase as PHPUnitTestCase;
 
 /**
@@ -67,7 +67,7 @@ class FactoryTest extends PHPUnitTestCase
                                 );
 
         $this->assertEquals('Zend\Cloud\DocumentService\Adapter\SimpleDb', get_class($simpleDbAdapter));
-        
+
         // Azure adapter
         /*
          * Disable WindowsAzure test

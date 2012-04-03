@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.uri.chapter"><info><title>Zend_Uri</title></info>
-    
+
 
     <section xml:id="zend.uri.overview"><info><title>Aperçu</title></info>
-        
+
 
         <para>
             <classname>Zend_Uri</classname> est un composant destiné à aider à la manipulation
@@ -26,7 +26,7 @@
     </section>
 
     <section xml:id="zend.uri.creation"><info><title>Créer un nouvel URI</title></info>
-        
+
 
         <para>
             <classname>Zend_Uri</classname> fabriquera un <acronym>URI</acronym> vierge, si seul son schéma est
@@ -34,7 +34,7 @@
         </para>
 
         <example xml:id="zend.uri.creation.example-1"><info><title>Créer un URI avec <methodname>Zend_Uri::factory()</methodname></title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Création d'un URI vierge
@@ -62,7 +62,7 @@ $uri = Zend_Uri::factory('http');
         </para>
 
         <section><info><title>Creating a New Custom-Class URI</title></info>
-            
+
 
             <para>
                 Starting from Zend Framework 1.10.5, you can specify a custom class to be
@@ -81,7 +81,7 @@ $uri = Zend_Uri::factory('http');
             </para>
 
             <example xml:id="zend.uri.creation.custom.example-1"><info><title>Creating a URI using a custom class</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Create a new 'ftp' URI based on a custom class
@@ -97,7 +97,7 @@ $ftpUri = Zend_Uri::factory(
     </section>
 
     <section xml:id="zend.uri.manipulation"><info><title>Manipuler un URI existant</title></info>
-        
+
 
         <para>
             Pour manipuler un <acronym>URI</acronym> existant, passez le entièrement à
@@ -106,7 +106,7 @@ $ftpUri = Zend_Uri::factory(
 
         <example xml:id="zend.uri.manipulation.example-1"><info><title>Manipuler un URI existant avec
             <methodname>Zend_Uri::factory()</methodname></title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Passez l'URI complet à la fabrique
@@ -125,7 +125,7 @@ $uri = Zend_Uri::factory('http://www.zend.com');
     </section>
 
     <section xml:id="zend.uri.validation"><info><title>Validation d'URI</title></info>
-        
+
 
         <para>
             La méthode <methodname>Zend_Uri::check()</methodname> peut être utilisée pour
@@ -133,7 +133,7 @@ $uri = Zend_Uri::factory('http://www.zend.com');
         </para>
 
         <example xml:id="zend.uri.validation.example-1"><info><title>Validation d'URI avec <methodname>Zend_Uri::check()</methodname></title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Valide si l'URI passé est bien formé
@@ -150,7 +150,7 @@ $valid = Zend_Uri::check('http://uri.en.question');
         </para>
 
         <section xml:id="zend.uri.validation.allowunwise"><info><title>Autoriser les caractères "imprudents" dans les URIs</title></info>
-            
+
 
             <para>
                 Par défaut, <classname>Zend_Uri</classname> n'acceptera pas les caractères
@@ -166,7 +166,7 @@ $valid = Zend_Uri::check('http://uri.en.question');
             </para>
 
             <example xml:id="zend.uri.validation.allowunwise.example-1"><info><title>Autoriser les caractères spéciaux dans les URIs</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Normalement, ceci devrait retourner false :
@@ -194,7 +194,7 @@ Zend_Uri::setConfig(array('allow_unwise' => false));
     </section>
 
     <section xml:id="zend.uri.instance-methods"><info><title>Méthodes communes</title></info>
-        
+
 
         <para>
             Toute instance sous-classe de <classname>Zend_Uri</classname> (par exemple
@@ -202,7 +202,7 @@ Zend_Uri::setConfig(array('allow_unwise' => false));
         </para>
 
         <section xml:id="zend.uri.instance-methods.getscheme"><info><title>Retrouver le schéma d'un URI</title></info>
-            
+
 
             <para>
                 Le schéma d'un <acronym>URI</acronym> est la partie précédent les double-points (:). Par exemple,
@@ -210,7 +210,7 @@ Zend_Uri::setConfig(array('allow_unwise' => false));
             </para>
 
             <example xml:id="zend.uri.instance-methods.getscheme.example-1"><info><title>Récupérer le schéma d'un objet <classname>Zend_Uri_*</classname></title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $uri = Zend_Uri::factory('http://www.zend.com');
@@ -223,11 +223,11 @@ $scheme = $uri->getScheme();  // "http"
         </section>
 
         <section xml:id="zend.uri.instance-methods.geturi"><info><title>Récupérer l'URI entier</title></info>
-            
+
 
             <example xml:id="zend.uri.instance-methods.geturi.example-1"><info><title>Récupérer l'URI entier depuis un objet
                 <classname>Zend_Uri_*</classname></title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $uri = Zend_Uri::factory('http://www.zend.com');
@@ -243,7 +243,7 @@ echo $uri->getUri();  // "http://www.zend.com"
         </section>
 
         <section xml:id="zend.uri.instance-methods.valid"><info><title>Valider l'URI</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Uri::factory()</methodname> validera de toute façon
@@ -252,7 +252,7 @@ echo $uri->getUri();  // "http://www.zend.com"
             </para>
 
             <example xml:id="zend.uri.instance-methods.valid.example-1"><info><title>Valider un objet <classname>Zend_Uri_*</classname></title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $uri = Zend_Uri::factory('http://www.zend.com');

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.consuming-rss"><info><title>Consuming an RSS Feed</title></info>
-    
+
 
     <para>
         Reading an <acronym>RSS</acronym> feed is as simple as instantiating a

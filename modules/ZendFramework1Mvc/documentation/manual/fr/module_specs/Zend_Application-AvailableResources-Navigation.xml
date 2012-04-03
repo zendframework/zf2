@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.navigation"><info><title>Zend_Application_Resource_Navigation</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Navigation</classname> peut être utilisé pour
@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.navigation.configExample"><info><title>Exemple de configuration de la ressource Navigation</title></info>
-        
+
 
         <para>
             Voici un exemple de syntaxe <acronym>INI</acronym> concernant la configuration

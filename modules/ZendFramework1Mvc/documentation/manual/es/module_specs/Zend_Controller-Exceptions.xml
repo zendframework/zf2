@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.exceptions"><info><title>Excepciones MVC</title></info>
-    
+
 
     <section xml:id="zend.controller.exceptions.introduction"><info><title>Introducción</title></info>
-        
+
 
         <para>
             Los componentes
@@ -35,7 +35,7 @@
     </section>
 
     <section xml:id="zend.controller.exceptions.handling"><info><title>Manejando las Excepciones</title></info>
-        
+
 
         <para>
             Ya hay varios mecanismos construidos en los componentes de
@@ -187,7 +187,7 @@ if ($response->isException()) {
     </section>
 
     <section xml:id="zend.controller.exceptions.internal"><info><title>Excepciones MVC que Usted Pueda Encontrar</title></info>
-        
+
 
         <para>
             Los diversos componentes de

@@ -5,7 +5,7 @@ Required software:
 - xsltproc
 - xmllint
 
-On Windows, you should use Cygwin software or another port of GNU 
+On Windows, you should use Cygwin software or another port of GNU
 development tools.
 
 How to build the DocBook documentation:

@@ -53,7 +53,7 @@ class ConstraintKeyObject
     protected $positionInUniqueConstraint = null;
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $referencedTableSchema = null;
     /**
@@ -63,24 +63,24 @@ class ConstraintKeyObject
     protected $referencedTableName = null;
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $referencedColumnName = null;
     /**
      *
-     * @var type 
+     * @var type
      */
     protected $foreignKeyUpdateRule = null;
     /**
      *
-     * @var type 
+     * @var type
      */
     protected $foreignKeyDeleteRule = null;
 
     /**
      * Constructor
-     * 
-     * @param string $column 
+     *
+     * @param string $column
      */
     public function __construct($column)
     {
@@ -88,8 +88,8 @@ class ConstraintKeyObject
     }
     /**
      * Get column name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getColumnName()
     {
@@ -97,9 +97,9 @@ class ConstraintKeyObject
     }
     /**
      * Set column name
-     * 
+     *
      * @param  string $columnName
-     * @return ConstraintKeyObject 
+     * @return ConstraintKeyObject
      */
     public function setColumnName($columnName)
     {
@@ -108,8 +108,8 @@ class ConstraintKeyObject
     }
     /**
      * Get ordinal position
-     * 
-     * @return type 
+     *
+     * @return type
      */
     public function getOrdinalPosition()
     {
@@ -117,9 +117,9 @@ class ConstraintKeyObject
     }
     /**
      * Set ordinal position
-     * 
+     *
      * @param  type $ordinalPosition
-     * @return ConstraintKeyObject 
+     * @return ConstraintKeyObject
      */
     public function setOrdinalPosition($ordinalPosition)
     {
@@ -128,8 +128,8 @@ class ConstraintKeyObject
     }
     /**
      * Get position in unique constraint
-     * 
-     * @return type 
+     *
+     * @return type
      */
     public function getPositionInUniqueConstraint()
     {
@@ -137,9 +137,9 @@ class ConstraintKeyObject
     }
     /**
      * Set position in unique constraint
-     * 
+     *
      * @param  type $positionInUniqueConstraint
-     * @return ConstraintKeyObject 
+     * @return ConstraintKeyObject
      */
     public function setPositionInUniqueConstraint($positionInUniqueConstraint)
     {
@@ -148,8 +148,8 @@ class ConstraintKeyObject
     }
     /**
      * Get referencred table schema
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getReferencedTableSchema()
     {
@@ -157,9 +157,9 @@ class ConstraintKeyObject
     }
     /**
      * Set referenced table schema
-     * 
+     *
      * @param type $referencedTableSchema
-     * @return ConstraintKeyObject 
+     * @return ConstraintKeyObject
      */
     public function setReferencedTableSchema($referencedTableSchema)
     {
@@ -168,8 +168,8 @@ class ConstraintKeyObject
     }
     /**
      * Get referenced table name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getReferencedTableName()
     {
@@ -177,9 +177,9 @@ class ConstraintKeyObject
     }
     /**
      * Set Referenced table name
-     * 
+     *
      * @param  string $referencedTableName
-     * @return ConstraintKeyObject 
+     * @return ConstraintKeyObject
      */
     public function setReferencedTableName($referencedTableName)
     {
@@ -188,8 +188,8 @@ class ConstraintKeyObject
     }
     /**
      * Get referenced column name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getReferencedColumnName()
     {
@@ -197,9 +197,9 @@ class ConstraintKeyObject
     }
     /**
      * Set referenced column name
-     * 
+     *
      * @param  string $referencedColumnName
-     * @return ConstraintKeyObject 
+     * @return ConstraintKeyObject
      */
     public function setReferencedColumnName($referencedColumnName)
     {
@@ -208,8 +208,8 @@ class ConstraintKeyObject
     }
     /**
      * set foreign key update rule
-     * 
-     * @param type $foreignKeyUpdateRule 
+     *
+     * @param type $foreignKeyUpdateRule
      */
     public function setForeignKeyUpdateRule($foreignKeyUpdateRule)
     {
@@ -217,8 +217,8 @@ class ConstraintKeyObject
     }
     /**
      * Get foreign key update rule
-     * 
-     * @return type 
+     *
+     * @return type
      */
     public function getForeignKeyUpdateRule()
     {
@@ -226,8 +226,8 @@ class ConstraintKeyObject
     }
     /**
      * Set foreign key delete rule
-     * 
-     * @param type $foreignKeyDeleteRule 
+     *
+     * @param type $foreignKeyDeleteRule
      */
     public function setForeignKeyDeleteRule($foreignKeyDeleteRule)
     {
@@ -235,8 +235,8 @@ class ConstraintKeyObject
     }
     /**
      * get foreign key delete rule
-     * 
-     * @return type 
+     *
+     * @return type
      */
     public function getForeignKeyDeleteRule()
     {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.request"><info><title>L'objet Requête</title></info>
-    
+
 
     <section xml:id="zend.controller.request.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             L'objet requête est un objet simple de valeur qui est passé entre
@@ -68,10 +68,10 @@
     </section>
 
     <section xml:id="zend.controller.request.http"><info><title>Les requêtes HTTP</title></info>
-        
+
 
         <section xml:id="zend.controller.request.http.dataacess"><info><title>Accéder aux données de la requête</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> encapsule l'accès aux
@@ -86,7 +86,7 @@
             </para>
 
             <note><info><title>Données superglobales</title></info>
-                
+
                 <para>
                     En accédant à des données superglobales par
                     <classname>Zend_Controller_Request_Http</classname> en tant que propriétés
@@ -108,7 +108,7 @@
             </para>
 
             <note><info><title>Données GET et POST</title></info>
-                
+
                 <para>
                     Soyez prudent en accédant à des données de l'objet de requête car il
                     n'est pas du tout filtré. Le routeur et le distributeur valident et filtrent
@@ -118,7 +118,7 @@
             </note>
 
             <note><info><title>Récupérer les données POST brutes</title></info>
-                
+
                 <para>
                     A partir de la version 1.5.0, vous pouvez aussi les données POST brutes
                     avec la méthode <methodname>getRawBody()</methodname>. La méthode retourne
@@ -140,7 +140,7 @@
             </para>
 
             <note><info><title>getParam() retrouve plus que les paramètres d'utilisateur</title></info>
-                
+
                 <para>
                     Afin d'effectuer une partie de son travail, <methodname>getParam()</methodname>
                     recherche réellement dans plusieurs sources. Dans l'ordre de priorité, ceux-ci
@@ -166,7 +166,7 @@
             </note>
 
             <note><info><title>Caprices d'Apache</title></info>
-                
+
                 <para>
                     Si vous utilisez le gestionnaire 404 d'Apache pour passer les requêtes
                     entrantes au contrôleur frontal, ou si vous utilisez le drapeau PT avec les
@@ -191,7 +191,7 @@ $front->setRequest($request);
         </section>
 
         <section xml:id="zend.controller.request.http.baseurl"><info><title>Base de l'URL et sous-dossiers</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> permet à
@@ -212,7 +212,7 @@ $front->setRequest($request);
             </para>
 
             <note><info><title>La détection d'URL est sensible à la casse</title></info>
-                
+
                 <para>
                     La détection automatique d'URL de base est sensible à la casse, ainsi
                     assurez vous que votre <acronym>URL</acronym> correspond à un nom de sous-répertoire dans le
@@ -247,7 +247,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.method"><info><title>Déterminer le type de la requête</title></info>
-            
+
 
             <para>
                 <methodname>getMethod()</methodname> vous permet de déterminer le type de requête <acronym>HTTP</acronym>
@@ -284,7 +284,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.ajax"><info><title>Détecter les requêtes AJAX</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> possède une méthode
@@ -325,7 +325,7 @@ $response   = $controller->dispatch();
     </section>
 
     <section xml:id="zend.controller.request.subclassing"><info><title>Sous-classer l'objet Requête</title></info>
-        
+
 
         <para>
             La classe de requête de base utilisée pour tous les objets de requête est la

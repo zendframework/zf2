@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="coding-standard"><info><title>Zend Framework PHP Kodlama Standardı</title></info>
-  
+
     <section xml:id="coding-standard.overview"><info><title>Genel Açıklama</title></info>
-        
+
 
         <section xml:id="coding-standard.overview.scope"><info><title>Kapsam</title></info>
-            
+
 
             <para>
         Bu belge geliştiriciler ve geliştirici takımları veya Zend Framework üzerinde
@@ -33,7 +33,7 @@
         </section>
 
         <section xml:id="coding-standard.overview.goals"><info><title>Amaçlar</title></info>
-            
+
 
             <para>
         Her geliştirme projesinde iyi kodlama standartları önemlidir , ama bilhassa birden fazla
@@ -44,10 +44,10 @@
     </section>
 
     <section xml:id="coding-standard.php-file-formatting"><info><title>PHP Dosya Biçimlemesi</title></info>
-        
+
 
         <section xml:id="coding-standard.php-file-formatting.general"><info><title>Genel</title></info>
-            
+
 
             <para>
                 Sadece PHP kodu içeren dosyalar için kapama etiketi ("?&gt;") kullanılmamalı.
@@ -63,13 +63,13 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.indentation"><info><title>Girintili Yazma</title></info>
-            
+
 
             <para>Satırbaşı boşluğu olarak tab olmadan 4 boşluk kullanın.</para>
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.max-line-length"><info><title>Maksimum Satır Uzunluğu</title></info>
-            
+
 
             <para>
                 Hedef satır uzunluğu 80 karakterdir , örn. geliştiriciler mümkün olduğunca
@@ -79,7 +79,7 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.line-termination"><info><title>Satır Sonlandırma</title></info>
-            
+
 
             <para>
         Satır sonlandırma unix metin dosyaları için standart bir yöntemdir.Satırlar
@@ -96,10 +96,10 @@
     </section>
 
     <section xml:id="coding-standard.naming-conventions"><info><title>İsimlendirme Kuralları</title></info>
-        
+
 
         <section xml:id="coding-standard.naming-conventions.classes"><info><title>Sınıflar</title></info>
-            
+
 
             <para>
         Zend Framework sınıfların isimlerini bulundukları dizinlere eşlenmesini sağlayan  bir isimlendirme kuralına sahip.
@@ -144,7 +144,7 @@ Zend_View_Helper
         </section>
 
         <section xml:id="coding-standard.naming-conventions.interfaces"><info><title>Arayüzler</title></info>
-            
+
 
             <para>
                 Arayüz sınıfları diğer sınıflarla aynı kurallara uymalıdır (yukarıya bakın) ,
@@ -158,7 +158,7 @@ Zend_Controller_Dispatcher_Interface
         </section>
 
         <section xml:id="coding-standard.naming-conventions.filenames"><info><title>Dosya Adları</title></info>
-            
+
 
             <para>
         Diğer tüm dosyalar için sadece alfanümerik karakterler , altçizgiler ve tire karakteri ("-")
@@ -183,7 +183,7 @@ Zend/View/Helper/FormRadio.php
         </section>
 
         <section xml:id="coding-standard.naming-conventions.functions-and-methods"><info><title>Fonksiyonlar ve Metodlar</title></info>
-            
+
 
             <para>
         Fonksiyon isimleri sadece alfanümerik karakterler içerebilir. Altçizgiler fonksiyon isimlerinde
@@ -225,7 +225,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.variables"><info><title>Değişkenler</title></info>
-            
+
 
             <para>
                 Değişken isimleri sadece alfanümerik karakterleden oluşabilir.Altçizgi kullanılamaz.
@@ -252,7 +252,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.constants"><info><title>Sabitler</title></info>
-            
+
 
             <para>
                 Sabitler hem altçizgi hemde alfanümerik karakterler içerebilir. Sabit isimlerinde sayılar kullanılabilir.
@@ -276,10 +276,10 @@ widgetFactory()
     </section>
 
     <section xml:id="coding-standard.coding-style"><info><title>Kodlama Stili</title></info>
-        
+
 
         <section xml:id="coding-standard.coding-style.php-code-demarcation"><info><title>PHP Kodu Sınırlaması</title></info>
-            
+
 
             <para>
                 PHP kodu her zaman için tam,standart PHP tagleri ile ayrılmalı :
@@ -296,10 +296,10 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.coding-style.strings"><info><title>Stringler</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.strings.literals"><info><title>Yalın Stringler</title></info>
-                
+
 
                 <para>
                     Bir string yalın olduğunda (değişken değişimi olmadığında) , kesme işareti veya
@@ -312,7 +312,7 @@ $a = 'Örnek String';
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.literals-containing-apostrophes"><info><title>Kesme işareti içeren Yalın Stringler</title></info>
-                
+
 
                 <para>
             Bir yalın string kesme işareti içerdiği zaman string tırnak işareti veya çift tırnak ile ayrılmalı.
@@ -328,7 +328,7 @@ $sql = "SELECT `id`, `name` from `people` WHERE `name`='Fred' OR `name`='Susan'"
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.variable-substitution"><info><title>Değişken Yerine koyma</title></info>
-                
+
 
                 <para>
                     Değişken yerine koyma şu iki şekilde yapılabilir :
@@ -352,7 +352,7 @@ $greeting = "Merhaba ${isim}, tekrar hoşgeldin!";
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.string-concatenation"><info><title>String Birleştirme</title></info>
-                
+
 
                 <para>
                     Stringler "." operetörü ile birleştirilebilirler. Okunabilirliği artırmak için
@@ -379,10 +379,10 @@ $sql = "SELECT `id`, `name` FROM `people` "
         </section>
 
         <section xml:id="coding-standard.coding-style.arrays"><info><title>Diziler</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.arrays.numerically-indexed"><info><title>Sayısal İndeksli Diziler</title></info>
-                
+
 
                 <para>Negatif sayılar indis olamaz.</para>
 
@@ -415,7 +415,7 @@ $sampleArray = array(1, 2, 3, 'Zend', 'Studio',
             </section>
 
             <section xml:id="coding-standard.coding-style.arrays.associative"><info><title>Birleşmeli Diziler</title></info>
-                
+
 
                 <para>
                     Birleşmeli dizileri <code>array</code> construct'ı ile tanımlarken ifadeyi satırlara bölmek
@@ -432,10 +432,10 @@ $sampleArray = array('ilkAnahtar'  => 'ilkDeger',
         </section>
 
         <section xml:id="coding-standard.coding-style.classes"><info><title>Sınıflar</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.classes.declaration"><info><title>Sınıf Tanımlama</title></info>
-                
+
 
                 <para>
                     Sınıflar takip eden isimlendirme kurallarına göre isimlendirilmeli.
@@ -466,7 +466,7 @@ class SampleClass
             </section>
 
             <section xml:id="coding-standard.coding-style.classes.member-variables"><info><title>Sınıf Üyesi Değişkenler</title></info>
-                
+
 
                 <para>
                     Üye değişkenler takip eden değişken isimlendirme kurallarına göre isimlendirilmeli.
@@ -483,10 +483,10 @@ class SampleClass
         </section>
 
         <section xml:id="coding-standard.coding-style.functions-and-methods"><info><title>Fonksiyonlar ve Metodlar</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.declaration"><info><title>Fonksion ve Metod Tanımlaması</title></info>
-                
+
 
                 <para>
                     Fonksiyonlar takip eden isimlendirme kurallarına göre isimlendirilmeli.
@@ -580,7 +580,7 @@ class Foo
             </section>
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.usage"><info><title>Fonksiyon ve Metod Kullanımı</title></info>
-                
+
 
                 <para>
                     Fonksiyon argümanları virgülden ayıracından sonra bir boşluk bırakılarak yazılır.
@@ -614,10 +614,10 @@ threeArguments(array(1, 2, 3, 'Zend', 'Studio',
         </section>
 
         <section xml:id="coding-standard.coding-style.control-statements"><info><title>Kontrol İfadeleri</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.control-statements.if-else-elseif"><info><title>If / Else / Elseif</title></info>
-                
+
 
                 <para>
                    <code>if</code> ve <code>elseif</code> constructlarına dayanan kontrol ifadelerinde
@@ -672,7 +672,7 @@ if ($a != 2) {
             </section>
 
             <section xml:id="coding-standards.coding-style.control-statements.switch"><info><title>Switch</title></info>
-                
+
 
                 <para>
                     "switch" construct'ı ile yazılan kontrol ifadelerinde koşulun açılış parantezinden önce ve
@@ -713,10 +713,10 @@ switch ($numPeople) {
         </section>
 
         <section xml:id="coding-standards.inline-documentation"><info><title>Satıriçi Belgelendirme</title></info>
-            
+
 
             <section xml:id="coding-standards.inline-documentation.documentation-format"><info><title>Belgelendirme Biçimi</title></info>
-                
+
 
                 <para>
                     Tüm bilgilendirme kısımları ("docblocks") phpDocumentor biçimi ile uyumlu olmalı.
@@ -733,7 +733,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.files"><info><title>Dosyalar</title></info>
-                
+
 
                 <para>
                     PHP kodu içeren her dosya üst kısmında en az aşağıdaki kadar phpDocumentor tagleri içerecek şekilde
@@ -757,7 +757,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.classes"><info><title>Sınıflar</title></info>
-                
+
 
                 <para>
                     Her sınıf en az aşağıdaki kadar phpDocumentor tagleri içerecek şekilde bilgilendirme kısmı içermeli :
@@ -781,7 +781,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.functions"><info><title>Fonksiyonlar</title></info>
-                
+
 
                 <para>
                 Her fonksiyon ,nesne methodları  en az aşağıdaki gibi bilgilendirme kısmı içermeli:

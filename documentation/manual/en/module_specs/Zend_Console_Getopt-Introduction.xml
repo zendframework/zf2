@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.console.getopt.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         The <classname>Zend_Console_Getopt</classname> class helps command-line
@@ -110,7 +110,7 @@
     </para>
 
     <note><info><title>Getopt is not an Application Framework</title></info>
-        
+
 
         <para>
             <classname>Zend_Console_Getopt</classname> does <emphasis>not</emphasis>

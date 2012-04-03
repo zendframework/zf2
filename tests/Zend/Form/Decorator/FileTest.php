@@ -21,11 +21,11 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Decorator\File as FileDecorator,
-    Zend\Form\Decorator\AbstractDecorator,
-    Zend\Form\Element\File as FileElement,
-    Zend\Form\Element,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Decorator\File as FileDecorator;
+use Zend\Form\Decorator\AbstractDecorator;
+use Zend\Form\Element\File as FileElement;
+use Zend\Form\Element;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Decorator_Errors

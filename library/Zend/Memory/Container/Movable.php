@@ -19,8 +19,8 @@
  */
 
 namespace Zend\Memory\Container;
-use Zend\Memory,
-    Zend\Memory\Exception;
+use Zend\Memory;
+use Zend\Memory\Exception;
 
 /**
  * Memory value container

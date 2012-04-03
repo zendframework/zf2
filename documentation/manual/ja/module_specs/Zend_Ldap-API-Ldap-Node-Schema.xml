@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.api.reference.zend-ldap-node-schema"><info><title>Zend_Ldap_Node_Schema</title></info>
-    
+
 
     <para>ベンダー固有のサブクラス全てで下記のメソッドが利用可能です。</para>
 
@@ -22,7 +22,7 @@
     </para>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.table"><info><title>Zend_Ldap_Node_Schema API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -200,7 +200,7 @@
     </table>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.attributetype-interface.table"><info><title>Zend_Ldap_Node_Schema_AttributeType_Interface API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -239,7 +239,7 @@
     </table>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.objectclass-interface.table"><info><title>Zend_Ldap_Node_Schema_ObjectClass_Interface API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -333,7 +333,7 @@
     </para>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.schema-item.table"><info><title>Zend_Ldap_Node_Schema_Item API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -361,7 +361,7 @@
     </table>
 
     <section xml:id="zend.ldap.api.reference.zend-ldap-node-schema.openldap"><info><title>OpenLDAP</title></info>
-        
+
 
         <para>
             さらに、上記の共通メソッドが <code>Zend_Ldap_Node_Schema_OpenLDAP</code>
@@ -369,7 +369,7 @@
         </para>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.openldap.table"><info><title>Zend_Ldap_Node_Schema_OpenLDAP API</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -398,7 +398,7 @@
         </table>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.openldap.attributetype-interface.table"><info><title>Zend_Ldap_Node_Schema_AttributeType_OpenLDAP API</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -422,7 +422,7 @@
         </table>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.openldap.objectclass-interface.table"><info><title>Zend_Ldap_Node_Schema_ObjectClass_OpenLDAP API</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -446,10 +446,10 @@
     </section>
 
     <section xml:id="zend.ldap.api.reference.zend-ldap-node-schema.activedirectory"><info><title>ActiveDirectory</title></info>
-        
+
 
         <note><info><title>ActiveDirectory サーバ上でのスキーマ・ブラウジング</title></info>
-            
+
             <para>
                 包括的探索ルーチンで返されるエントリーの数に関する
                 Microsoft ActiveDirectory サーバでの、規制のため、
@@ -465,7 +465,7 @@
         </para>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.activedirectory.attributetype-interface.table"><info><title>Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory API</title></info>
-            
+
 
             <tgroup cols="1">
                 <tbody>
@@ -480,7 +480,7 @@
         </table>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.activedirectory.objectclass-interface.table"><info><title>Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory API</title></info>
-            
+
 
             <tgroup cols="1">
                 <tbody>

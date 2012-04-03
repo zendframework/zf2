@@ -37,8 +37,8 @@ class StaticFilter
 
     /**
      * Set broker for resolving filter classes
-     * 
-     * @param  Broker $broker 
+     *
+     * @param  Broker $broker
      * @return void
      */
     public static function setBroker(Broker $broker = null)
@@ -48,7 +48,7 @@ class StaticFilter
 
     /**
      * Get broker for loading filter classes
-     * 
+     *
      * @return Broker
      */
     public static function getBroker()

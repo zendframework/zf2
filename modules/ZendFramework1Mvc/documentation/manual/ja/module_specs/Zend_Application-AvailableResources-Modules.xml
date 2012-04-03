@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.modules"><info><title>Zend_Application_Resource_Modules</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Modules</classname>は、
@@ -53,7 +53,7 @@ $options = array(
 ]]></programlisting>
 
     <note><info><title>フロントコントローラ・リソース依存</title></info>
-        
+
 
         <para>
             モジュール・リソースは、<link linkend="zend.application.available-resources.frontcontroller">フロントコントローラ・リソース</link>
@@ -67,7 +67,7 @@ $options = array(
     </note>
 
     <example xml:id="zend.application.available-resources.modules.configExample"><info><title>モジュールの設定</title></info>
-        
+
 
         <para>
             構成ファイルのプレフィックスまたはサブセクションとして
@@ -112,7 +112,7 @@ news.resources.db.params.dbname = "news"
     </example>
 
     <example xml:id="zend.application.available-resources.modules.retrieveBootstrapExample"><info><title>特定のモジュール・ブートストラップを取得する</title></info>
-        
+
 
         <para>
             時には、特定のモジュールのためにブートストラップ・オブジェクトを取得する必要があるかもしれません

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.flickr"><info><title>Zend_Service_Flickr</title></info>
-    
+
     <section xml:id="zend.service.flickr.introduction"><info><title>導入</title></info>
-        
+
         <para>
             <classname>Zend_Service_Flickr</classname> は、Flickr の REST Web Service
             を使用するためのシンプルな <acronym>API</acronym> です。
@@ -16,7 +16,7 @@
             <methodname>tagSearch()</methodname> メソッドを使用して検索します。
         </para>
         <example xml:id="zend.service.flickr.introduction.example-1"><info><title>単純な Flickr 検索</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $flickr = new Zend_Service_Flickr('MY_API_KEY');
 
@@ -28,7 +28,7 @@ foreach ($results as $result) {
 ]]></programlisting>
         </example>
         <note><info><title>オプションのパラメータ</title></info>
-            
+
             <para>
                 <methodname>tagSearch()</methodname> は、オプションの
                 二番目の引数に検索オプションを指定できます。
@@ -36,7 +36,7 @@ foreach ($results as $result) {
         </note>
     </section>
     <section xml:id="zend.service.flickr.finding-users"><info><title>Flickr ユーザの写真や情報の検索</title></info>
-        
+
         <para>
             <classname>Zend_Service_Flickr</classname> では、いくつかの方法で
             Flickr ユーザについての情報を取得できます。
@@ -64,7 +64,7 @@ foreach ($results as $result) {
             </listitem>
         </itemizedlist>
         <example xml:id="zend.service.flickr.finding-users.example-1"><info><title>メールアドレスからの Flickr ユーザの公開している写真の検索</title></info>
-            
+
             <para>
                 この例では、メールアドレスがわかっている Flickr ユーザが公開している写真を
                 <methodname>userSearch()</methodname> メソッドを用いて探します。
@@ -81,14 +81,14 @@ foreach ($results as $result) {
         </example>
     </section>
     <section xml:id="zend.service.flickr.grouppoolgetphotos"><info><title>グループプールからの写真の検索</title></info>
-        
+
         <para>
             <classname>Zend_Service_Flickr</classname> は、
             グループにプールされている写真をグループ ID を指定して取得できます。
             <methodname>groupPoolGetPhotos()</methodname> メソッドを使用します。
         </para>
         <example xml:id="zend.service.flickr.grouppoolgetphotos.example-1"><info><title>グループ ID を指定し、グループにプールされている写真を取得する</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $flickr = new Zend_Service_Flickr('MY_API_KEY');
 
@@ -100,7 +100,7 @@ $flickr = new Zend_Service_Flickr('MY_API_KEY');
 ]]></programlisting>
         </example>
         <note><info><title>オプションのパラメータ</title></info>
-            
+
             <para>
                 <methodname>groupPoolGetPhotos()</methodname> は、オプションの
                 二番目の引数に設定の配列を指定できます。
@@ -108,7 +108,7 @@ $flickr = new Zend_Service_Flickr('MY_API_KEY');
         </note>
     </section>
     <section xml:id="zend.service.flickr.getimagedetails"><info><title>Flickr 画像の詳細の取得</title></info>
-        
+
         <para>
             <classname>Zend_Service_Flickr</classname> を使用すると、指定した画像 ID
             の画像についての詳細情報をすばやく簡単に取得できます。
@@ -116,7 +116,7 @@ $flickr = new Zend_Service_Flickr('MY_API_KEY');
             <methodname>getImageDetails()</methodname> メソッドを使用します。
         </para>
         <example xml:id="zend.service.flickr.getimagedetails.example-1"><info><title>Flickr 画像の詳細の取得</title></info>
-            
+
             <para>
                 Flickr 画像 ID を使用すると、簡単に画像の情報が取得できます。
             </para>
@@ -131,7 +131,7 @@ echo "<a href=\"$image->clickUri\">クリックすると画像を表示します
         </example>
     </section>
     <section xml:id="zend.service.flickr.classes"><info><title>Zend_Service_Flickr 結果クラス群</title></info>
-        
+
         <para>
             <methodname>tagSearch()</methodname> あるいは <methodname>userSearch()</methodname>
             から返されるのは、以下のクラスのいずれかです。
@@ -142,7 +142,7 @@ echo "<a href=\"$image->clickUri\">クリックすると画像を表示します
             </itemizedlist>
         </para>
         <section xml:id="zend.service.flickr.classes.resultset"><info><title>Zend_Service_Flickr_ResultSet</title></info>
-            
+
             <para>Flickr 検索からの結果セットを表します。</para>
             <note>
                 <para>
@@ -152,9 +152,9 @@ echo "<a href=\"$image->clickUri\">クリックすると画像を表示します
                 </para>
             </note>
             <section xml:id="zend.service.flickr.classes.resultset.properties"><info><title>プロパティ</title></info>
-                
+
                 <table xml:id="zend.service.flickr.classes.resultset.properties.table-1"><info><title>Zend_Service_Flickr_ResultSet のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -184,7 +184,7 @@ echo "<a href=\"$image->clickUri\">クリックすると画像を表示します
                 </table>
             </section>
             <section xml:id="zend.service.flickr.classes.resultset.totalResults"><info><title>Zend_Service_Flickr_ResultSet::totalResults()</title></info>
-                
+
                 <para>
                     <methodsynopsis>
                         <type>int</type>
@@ -201,14 +201,14 @@ echo "<a href=\"$image->clickUri\">クリックすると画像を表示します
             </section>
         </section>
         <section xml:id="zend.service.flickr.classes.result"><info><title>Zend_Service_Flickr_Result</title></info>
-            
+
             <para>
                 Flickr クエリから返される結果の画像情報を表します。
             </para>
             <section xml:id="zend.service.flickr.classes.result.properties"><info><title>プロパティ</title></info>
-                
+
                 <table xml:id="zend.service.flickr.classes.result.properties.table-1"><info><title>Zend_Service_Flickr_Result のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -322,12 +322,12 @@ echo "<a href=\"$image->clickUri\">クリックすると画像を表示します
             </section>
         </section>
         <section xml:id="zend.service.flickr.classes.image"><info><title>Zend_Service_Flickr_Image</title></info>
-            
+
             <para>Flickr 検索が返す画像を表します。</para>
             <section xml:id="zend.service.flickr.classes.image.properties"><info><title>プロパティ</title></info>
-                
+
                 <table xml:id="zend.service.flickr.classes.image.properties.table-1"><info><title>Zend_Service_Flickr_Image のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>

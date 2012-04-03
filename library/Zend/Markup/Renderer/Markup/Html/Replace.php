@@ -48,7 +48,7 @@ class Replace extends AbstractHtml
      * Constructor
      *
      * @param string $replace
-     * 
+     *
      * @return void
      */
     public function __construct($replace)

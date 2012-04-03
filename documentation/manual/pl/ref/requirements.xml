@@ -3,7 +3,7 @@
 
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="requirements"><info><title>Wymagania Zend Framework</title></info>
 
-    
+
 
     <para>
         Zend Framework wymaga interpretera PHP 5 z serwerem pozwalającym na
@@ -24,7 +24,7 @@
 
     <section xml:id="requirements.version"><info><title>Wersja PHP</title></info>
 
-        
+
 
         <para>
             Zend zaleca wersję PHP 5.2.3 lub wyższą z powodu znacznego zwiększenia
@@ -41,7 +41,7 @@
 
     <section xml:id="requirements.extensions"><info><title>Rozszerzenia PHP</title></info>
 
-        
+
 
         <para>
             Poniżej znajdziesz tabelę wypisującą wszystkie typowe rozszerzenia
@@ -62,7 +62,7 @@
         </para>
 
         <table frame="all" xml:id="requirements.extensions.table-1"><info><title>Rozszerzenia PHP używane przez komponenty Zend Framework</title></info>
-            
+
             <tgroup cols="3">
                 <!-- <colspec colwidth='1in'/>
                 <colspec colwidth='1in'/>
@@ -620,7 +620,7 @@
 
     <section xml:id="requirements.zendcomponents"><info><title>Komponenty Zend Framework</title></info>
 
-        
+
 
         <para>
             Poniżej znajduje się tabela, która przedstawia spis wszystkich
@@ -641,7 +641,7 @@
         </para>
 
         <table frame="all" xml:id="requirements.zendcomponents.table-1"><info><title>Komponenty Zend Framework i rozszerzenia PHP których używają</title></info>
-            
+
             <tgroup cols="4">
                 <!-- <colspec colwidth='3in'/>
                 <colspec colwidth='1in'/>
@@ -1178,7 +1178,7 @@
 
     <section xml:id="requirements.dependencies"><info><title>Zależności Zend Framework</title></info>
 
-        
+
 
         <para>
             Poniżej możesz znaleźć tabelę wypisującą komponenty Zend Framework
@@ -1204,7 +1204,7 @@
         </note>
 
         <table frame="all" xml:id="requirements.dependencies.table-1"><info><title>Komponenty Zend Framework i ich zależności od innych komponentów Zend Framework</title></info>
-            
+
             <tgroup cols="3">
                 <colspec colwidth="2in"/>
                 <colspec colwidth="1in"/>

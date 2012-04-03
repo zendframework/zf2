@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2.keypairs"><info><title>Zend_Service_Amazon_Ec2: Schlüsselpaare</title></info>
-    
+
 
     <para>
         Schlüsselpaare werden verwendet um auf Instanzen zuzugreifen.
     </para>
 
     <example xml:id="zend.service.amazon.ec2.keypairs.create"><info><title>Erstellen eines neuen Amazon Schlüsselpaars</title></info>
-        
+
 
         <para>
             <code>create</code>, erstellt ein neues 2048 RSA Schlüsselpaar und gibt eine eindeutige
@@ -27,7 +27,7 @@ $return = $ec2_kp->create('my-new-key');
     </example>
 
     <example xml:id="zend.service.amazon.ec2.keypairs.delete"><info><title>Löschen eines Amazon Schlüsselpaares</title></info>
-        
+
 
         <para>
             <code>delete</code>, löscht das Schlüsselpaar. Das verhindert nur das er von neuen
@@ -47,7 +47,7 @@ $return = $ec2_kp->delete('my-new-key');
     </example>
 
     <example xml:id="zend.service.amazon.ec2.describe"><info><title>Ein Amazon Schlüsselpaar beschreiben</title></info>
-        
+
 
         <para>
             <code>describe</code> gibt Informationen über das vorliegende Schlüsselpaar zurück.

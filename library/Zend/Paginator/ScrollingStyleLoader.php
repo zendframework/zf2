@@ -33,7 +33,7 @@ use Zend\Loader\PluginClassLoader;
 class ScrollingStyleLoader extends PluginClassLoader
 {
     /**
-     * @var array Pre-aliased adapters 
+     * @var array Pre-aliased adapters
      */
     protected $plugins = array(
         'all'     => 'Zend\Paginator\ScrollingStyle\All',

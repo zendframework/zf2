@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.save"><info><title>Guardar Cambios a Documentos PDF</title></info>
-    
+
     <para> Hay dos métodos que guardan los cambios a los documentos
             <acronym>PDF</acronym> : los métodos son
             <methodname>Zend_Pdf::save()</methodname> y
@@ -20,7 +20,7 @@
         archivo <acronym>PDF</acronym> es devuelto. </para>
 
     <example xml:id="zend.pdf.save.example-1"><info><title>Guardando Documentos PDF</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 ...
 // Cargar el documento PDF

@@ -42,8 +42,8 @@ class Utility
      * @return array
      */
     public function assembleParams(
-        $url, 
-        OAuth\Config $config, 
+        $url,
+        OAuth\Config $config,
         array $serviceProviderParams = null
     ) {
         $params = array(
@@ -53,7 +53,7 @@ class Utility
             'oauth_timestamp'        => $this->generateTimestamp(),
             'oauth_version'          => $config->getVersion(),
         );
-        
+
         if ($config->getToken()->getToken() != null) {
             $params['oauth_token'] = $config->getToken()->getToken();
         }
@@ -95,8 +95,8 @@ class Utility
         }
         $encodedParams = array();
         foreach ($params as $key => $value) {
-            $encodedParams[] = self::urlEncode($key) 
-                             . '=' 
+            $encodedParams[] = self::urlEncode($key)
+                             . '='
                              . self::urlEncode($value);
         }
         return implode('&', $encodedParams);
@@ -104,10 +104,10 @@ class Utility
 
     /**
      * Cast to authorization header
-     * 
-     * @param  array $params 
-     * @param  null|string $realm 
-     * @param  bool $excludeCustomParams 
+     *
+     * @param  array $params
+     * @param  null|string $realm
+     * @param  bool $excludeCustomParams
      * @return void
      */
     public function toAuthorizationHeader(array $params, $realm = null, $excludeCustomParams = true)
@@ -122,7 +122,7 @@ class Utility
                     continue;
                 }
             }
-            $headerValue[] = self::urlEncode($key) 
+            $headerValue[] = self::urlEncode($key)
                            . '="'
                            . self::urlEncode($value) . '"';
         }
@@ -131,13 +131,13 @@ class Utility
 
     /**
      * Sign request
-     * 
-     * @param  array $params 
-     * @param  string $signatureMethod 
-     * @param  string $consumerSecret 
-     * @param  null|string $tokenSecret 
-     * @param  null|string $method 
-     * @param  null|string $url 
+     *
+     * @param  array $params
+     * @param  string $signatureMethod
+     * @param  string $consumerSecret
+     * @param  null|string $tokenSecret
+     * @param  null|string $method
+     * @param  null|string $url
      * @return string
      */
     public function sign(
@@ -159,8 +159,8 @@ class Utility
 
     /**
      * Parse query string
-     * 
-     * @param  mixed $query 
+     *
+     * @param  mixed $query
      * @return array
      */
     public function parseQueryString($query)
@@ -182,7 +182,7 @@ class Utility
 
     /**
      * Generate nonce
-     * 
+     *
      * @return string
      */
     public function generateNonce()
@@ -192,7 +192,7 @@ class Utility
 
     /**
      * Generate timestamp
-     * 
+     *
      * @return int
      */
     public function generateTimestamp()
@@ -202,8 +202,8 @@ class Utility
 
     /**
      * urlencode a value
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return string
      */
     public static function urlEncode($value)

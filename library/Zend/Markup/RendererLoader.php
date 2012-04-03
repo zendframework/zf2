@@ -33,7 +33,7 @@ use Zend\Loader\PluginClassLoader;
 class RendererLoader extends PluginClassLoader
 {
     /**
-     * @var array Pre-aliased renderers 
+     * @var array Pre-aliased renderers
      */
     protected $plugins = array(
         'html'  => 'Zend\Markup\Renderer\Html',

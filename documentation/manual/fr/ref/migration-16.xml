@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.16"><info><title>Zend Framework 1.6</title></info>
-    
+
 
     <para>
         Lors de la migration d'un version précédente vers Zend Framework 1.6 ou plus récent
@@ -8,10 +8,10 @@
     </para>
 
     <section xml:id="migration.16.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <section xml:id="migration.16.zend.controller.dispatcher"><info><title>Changement dans l'interface Dispatcher</title></info>
-            
+
 
             <para>
                 Les utilisateurs ont porté à notre connaissance le fait que
@@ -46,10 +46,10 @@
     </section>
 
     <section xml:id="migration.16.zend.file.transfer"><info><title>Zend_File_Transfer</title></info>
-        
+
 
         <section xml:id="migration.16.zend.file.transfer.validators"><info><title>Changements quand vous utilisez des validateurs</title></info>
-            
+
 
             <para>
                 Certaines remarques des utilisateurs indiquaient que les validateurs de
@@ -87,7 +87,7 @@
             </para>
 
             <example xml:id="migration.16.zend.file.transfer.example"><info><title>Changer les validateurs de fichiers de 1.6.1 vers 1.6.2</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Exemple pour 1.6.1

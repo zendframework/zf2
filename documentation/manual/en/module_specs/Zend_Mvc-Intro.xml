@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
+<section
     xmlns="http://docbook.org/ns/docbook" version="5.0"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xml:id="zend.mvc.intro">
@@ -327,7 +327,7 @@ class Module
     <para>
       Once those two tasks are accomplished, it then triggers a "bootstrap"
       event on its attached <classname>EventManager</classname> instance. This
-      allows your modules to attach listeners, and thus perform additional, 
+      allows your modules to attach listeners, and thus perform additional,
       module-specific, bootstrapping tasks (which might include registering
       ACLs, setting up cache or log listeners, etc.).
     </para>
@@ -446,7 +446,7 @@ return array(
     'modules' => array(
         /* ... */
     ),
-    'module_listener_options' => array( 
+    'module_listener_options' => array(
         'module_paths' => array(
             './module',
             './vendor',

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.file-transport"><info><title>Using File Transport</title></info>
-    
-    
+
+
     <para>
         <classname>Zend_Mail_Transport_File</classname> is useful in a
         development environment or for testing purposes. Instead of sending any real
@@ -10,7 +10,7 @@
         <classname>Zend_Application_Resource_Mail</classname> or passed to the
         <methodname>send()</methodname> method of a <classname>Zend_Mail</classname> instance.
     </para>
-    
+
     <para>
         The transport has two optional parameters that can be passed to the constructor or
         via <methodname>setOptions()</methodname> method. The <property>path</property>

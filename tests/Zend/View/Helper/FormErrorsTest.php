@@ -21,8 +21,8 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View,
-    Zend\View\Helper\FormErrors;
+use Zend\View\Renderer\PhpRenderer as View;
+use Zend\View\Helper\FormErrors;
 
 /**
  * Test class for Zend_View_Helper_FormErrors

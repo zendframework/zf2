@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form.examples"><info><title>Dojo Formサンプル</title></info>
-    
+
 
     <example xml:id="zend.dojo.form.examples.dojoform"><info><title>Zend_Dojo_Formの利用</title></info>
-        
+
 
         <para>
             直接使うにせよ、それを拡張するにせよ、
@@ -352,7 +352,7 @@ class My_Form_Test extends Zend_Dojo_Form
     </example>
 
     <example xml:id="zend.dojo.form.examples.decorating"><info><title>既存のフォームをDojoを使って変更する</title></info>
-        
+
 
         <para>
             <methodname>Zend_Dojo::enableForm()</methodname>という静的メソッドを利用して、

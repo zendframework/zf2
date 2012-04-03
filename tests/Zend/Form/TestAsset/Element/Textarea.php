@@ -2,8 +2,8 @@
 
 namespace ZendTest\Form\TestAsset\Element;
 
-use Zend\Form\Element,
-    Zend\Config\Config;
+use Zend\Form\Element;
+use Zend\Config\Config;
 
 class Textarea extends Element
 {

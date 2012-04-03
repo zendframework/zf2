@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.normalizedtolocalized"><info><title>NormalizedToLocalized</title></info>
-    
+
 
     <para>
         Dieser Filter ist das Gegenteil des <classname>Zend_Filter_LocalizedToNormalized</classname>
@@ -62,7 +62,7 @@
     </para>
 
     <section xml:id="zend.filter.set.normalizedtolocalized.numbers"><info><title>Lokalisierung von Zahlen</title></info>
-        
+
 
         <para>
             Jede angegebene Zahl wie Integer, Float oder Realzahlen können lokalisiert werden.
@@ -124,7 +124,7 @@ $filter->filter(123456.78901);
     </section>
 
     <section xml:id="zend.filter.set.normalizedtolocalized.dates"><info><title>Lokalisierung für Datum und Zeit</title></info>
-        
+
 
         <para>
             Normalisierte Datums- und Zeitwerte können auch lokalisiert werden. Alle angegebenen

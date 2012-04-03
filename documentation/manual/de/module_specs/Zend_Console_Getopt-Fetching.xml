@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.console.getopt.fetching"><info><title>Holen von Optionen und Argumenten</title></info>
-    
+
 
     <para>
         Nach dem Erstellen der Optionen welche das <classname>Zend_Console_Getopt</classname>
@@ -21,7 +21,7 @@
     </para>
 
     <section xml:id="zend.console.getopt.fetching.exceptions"><info><title>Handhaben von Getopt Ausnahmen</title></info>
-        
+
 
         <para>
             Wenn ein Benutzer irgendeine ungültige Option auf der Kommandozeile
@@ -38,7 +38,7 @@
         </para>
 
         <example xml:id="zend.console.getopt.fetching.exceptions.example"><info><title>Getopt Ausnahmen auffangen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 try {
@@ -79,7 +79,7 @@ try {
     </section>
 
     <section xml:id="zend.console.getopt.fetching.byname"><info><title>Optionen durch Ihren Namen finden</title></info>
-        
+
 
         <para>
             Die <methodname>getOption()</methodname> Methode kann verwendet werden um den
@@ -91,7 +91,7 @@ try {
         </para>
 
         <example xml:id="zend.console.getopt.fetching.byname.example.setoption"><info><title>Verwenden von getOption()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
@@ -108,7 +108,7 @@ $p_parameter = $opts->getOption('p');
         </para>
 
         <example xml:id="zend.console.getopt.fetching.byname.example.magic"><info><title>Verwenden der magischen __get() und __isset() Methoden</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
@@ -126,7 +126,7 @@ $p_parameter = $opts->p; // Null wenn nicht gesetzt
     </section>
 
     <section xml:id="zend.console.getopt.fetching.reporting"><info><title>Optionen berichten</title></info>
-        
+
 
         <para>
             Es gibt einige Methoden um das komplette Set an Optionen
@@ -178,7 +178,7 @@ $p_parameter = $opts->p; // Null wenn nicht gesetzt
     </section>
 
     <section xml:id="zend.console.getopt.fetching.remainingargs"><info><title>Nicht-Options Argumente erhalten</title></info>
-        
+
 
         <para>
             Nachdem die Argumente der Option und deren Parameter von der Kommandozeile analysiert
@@ -189,7 +189,7 @@ $p_parameter = $opts->p; // Null wenn nicht gesetzt
         </para>
 
         <example xml:id="zend.console.getopt.fetching.remainingargs.example"><info><title>Verwenden von getRemainingArgs()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');

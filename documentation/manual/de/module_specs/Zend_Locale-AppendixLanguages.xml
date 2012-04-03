@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.locale.appendix"><info><title>Unterstützte Gebietsschemata</title></info>
-    
+
 
     <para>
         <classname>Zend_Locale</classname> bietet Informationen über verschiedenste Gebietsschemata.
@@ -11,7 +11,7 @@
     </para>
 
     <table xml:id="zend.locale.appendix.table"><info><title>Liste aller unterstützten Sprachen</title></info>
-        
+
 
         <tgroup cols="3">
             <thead>

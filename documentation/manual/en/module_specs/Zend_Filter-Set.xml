@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set"><info><title>Standard Filter Classes</title></info>
-    
+
 
     <para>
         Zend Framework comes with a standard set of filters, which are ready for you to use.

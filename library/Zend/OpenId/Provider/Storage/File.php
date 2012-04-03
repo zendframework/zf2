@@ -256,7 +256,7 @@ class File extends AbstractStorage
             fclose($lock);
             return false;
         }
-        try { 
+        try {
             $f = @fopen($name, 'r');
             if ($f === false) {
                 fclose($lock);

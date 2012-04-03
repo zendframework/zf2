@@ -21,9 +21,9 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Decorator\HtmlTag as HtmlTagDecorator,
-    Zend\Form\Element,
-    Zend\View\View;
+use Zend\Form\Decorator\HtmlTag as HtmlTagDecorator;
+use Zend\Form\Element;
+use Zend\View\View;
 
 /**
  * Test class for Zend_Form_Decorator_HtmlTag

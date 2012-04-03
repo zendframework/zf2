@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.relationships"><info><title>Связи между таблицами Zend_Db_Table</title></info>
 
-    
+
 
     <section xml:id="zend.db.table.relationships.introduction"><info><title>Введение</title></info>
 
-        
+
 
         <para>
             В реляционной БД таблицы имеют связи друг с другом. Запись в таблице
@@ -23,7 +23,7 @@
 
     <section xml:id="zend.db.table.relationships.defining"><info><title>Определение связей</title></info>
 
-        
+
 
         <para>
             Определите классы для каждой из ваших таблиц, расширяя абстрактный
@@ -218,7 +218,7 @@ class BugsProducts extends Zend_Db_Table_Abstract
 
     <section xml:id="zend.db.table.relationships.fetching.dependent"><info><title>Извлечение зависимых строк</title></info>
 
-        
+
 
         <para>
             Если вы имеете объект Row (строка) в результате запроса к
@@ -247,7 +247,7 @@ $row->findDependentRowset($table, [$rule]);
 
         <example xml:id="zend.db.table.relationships.fetching.dependent.example"><info><title>Извлечение зависимых строк</title></info>
 
-            
+
 
             <para>
                 Этот пример демонстрирует получение объекта строки из таблицы
@@ -284,7 +284,7 @@ $bugsReportedByUser = $user1234->findDependentRowset('Bugs');
 
         <example xml:id="zend.db.table.relationships.fetching.dependent.example-by"><info><title>Извлечение зависимых строк по определенному правилу</title></info>
 
-            
+
 
             <para>
                 Этот пример демонстрирует получение строки из таблицы
@@ -309,7 +309,7 @@ $bugsAssignedToUser = $user1234->findDependentRowset('Bugs', 'Engineer');
 
             <example xml:id="zend.db.table.relationships.fetching.dependent.example-by-select"><info><title>Извлечение зависимых строк с использованием Zend_Db_Table_Select</title></info>
 
-                
+
 
                 <para>
                     Этот пример демонстрирует получение объекта строки из
@@ -379,7 +379,7 @@ $bugsAssignedToUser = $user1234->findDependentRowset('Bugs',
         <example xml:id="zend.db.table.relationships.fetching.dependent.example-magic"><info><title>Извлечение зависимых строк с использованием магического
             метода</title></info>
 
-            
+
 
             <para>
                 Этот пример демонстрирует поиск зависимых строк, эквивалентный
@@ -407,7 +407,7 @@ $bugsAssignedTo = $user1234->findBugsByEngineer();
 
     <section xml:id="zend.db.table.relationships.fetching.parent"><info><title>Извлечение родительской строки</title></info>
 
-        
+
 
         <para>
             Если вы имеете объект Row в результате запроса к зависимой таблице,
@@ -435,7 +435,7 @@ $row->findParentRow($table, [$rule]);
 
         <example xml:id="zend.db.table.relationships.fetching.parent.example"><info><title>Извлечение родительской строки</title></info>
 
-            
+
 
             <para>
                 Этот пример демонстрирует получение объекта Row из таблицы
@@ -473,7 +473,7 @@ $reporter = $bug1->findParentRow('Accounts');
 
         <example xml:id="zend.db.table.relationships.fetching.parent.example-by"><info><title>Извлечение родительской строки по определенному правилу</title></info>
 
-            
+
 
             <para>
                 Этот пример демонстрирует получение объекта Row из таблицы
@@ -537,7 +537,7 @@ $engineer = $bug1->findParentRow('Accounts', 'Engineer');
 
         <example xml:id="zend.db.table.relationships.fetching.parent.example-magic"><info><title>Извлечение родительской строки с использованием магического метода</title></info>
 
-            
+
 
             <para>
                 Этот пример демонстрирует поиск родительской строки,
@@ -565,7 +565,7 @@ $engineer = $bug1->findParentAccountsByEngineer();
 
     <section xml:id="zend.db.table.relationships.fetching.many-to-many"><info><title>Извлечение строк через связи "многие-ко-многим"</title></info>
 
-        
+
 
         <para>
             Если вы имеете объект Row в результате выполнения запроса к одной из
@@ -610,7 +610,7 @@ $row->findManyToManyRowset($table,
 
         <example xml:id="zend.db.table.relationships.fetching.many-to-many.example"><info><title>Извлечение строк через метод для связей "многие-ко-многим"</title></info>
 
-            
+
 
             <para>
                 Этот пример демонстрирует получение объекта Row из исходной
@@ -668,7 +668,7 @@ $productsRowset = $bug1234->findManyToManyRowset('Products',
 
         <example xml:id="zend.db.table.relationships.fetching.many-to-many.example-by"><info><title>Извлечение строк через метод для связей "многие-ко-многим" по определенному правилу</title></info>
 
-            
+
 
             <para>
                 Этот пример демонстрирует получение объекта Row из исходной
@@ -742,7 +742,7 @@ $productsRowset = $bug1234->findManyToManyRowset('Products',
 
         <example xml:id="zend.db.table.relationships.fetching.many-to-many.example-magic"><info><title>Извлечение строк с использованием магического метода для связей "многие-ко-многим"</title></info>
 
-            
+
 
             <para>
                 Этот пример демонстрирует поиск в целевой таблице в связи
@@ -770,10 +770,10 @@ $products = $bug1234->findProductsViaBugsProductsByBug();
 
     <section xml:id="zend.db.table.relationships.cascading"><info><title>Каскадные операции записи</title></info>
 
-        
+
 
         <note><info><title>Объявление DRI в БД</title></info>
-            
+
             <para>
                 Объявление каскадных операций в Zend_Db_Table предназначено
                 <emphasis>только</emphasis> для тех СУРБД, которые
@@ -807,7 +807,7 @@ $products = $bug1234->findProductsViaBugsProductsByBug();
         </para>
 
         <example xml:id="zend.db.table.relationships.cascading.example-delete"><info><title>Пример каскадного удаления</title></info>
-            
+
             <para>
                 Этот пример демонстрирует удаление строки в таблице
                 <code>Products</code>, которая была сконфигурирована для
@@ -856,7 +856,7 @@ $product1234->delete();
         </para>
 
         <example xml:id="zend.db.table.relationships.cascading.example-declaration"><info><title>Пример объявления каскадных операций</title></info>
-            
+
             <para>
                 В примере ниже строки в таблице <code>Bugs</code> автоматически
                 удаляются, если строка в таблице <code>Products</code>, на
@@ -893,7 +893,7 @@ class BugsProducts extends Zend_Db_Table_Abstract
 
         <section xml:id="zend.db.table.relationships.cascading.notes"><info><title>Примечания относительно каскадных операций</title></info>
 
-            
+
 
             <para>
                 <emphasis>Каскадные операции, вызываемые

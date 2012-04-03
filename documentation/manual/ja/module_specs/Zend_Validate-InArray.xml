@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.in_array"><info><title>InArray</title></info>
 
-    
+
 
     <para>
         任意の値が配列の中で含まれるかどうか、
@@ -11,7 +11,7 @@
 
     <!-- TODO : to be translated -->
     <section xml:id="zend.validate.set.in_array.options"><info><title>Supported options for Zend_Validate_InArray</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Validate_InArray</classname>:
@@ -42,7 +42,7 @@
     </section>
 
     <section xml:id="zend.validate.set.in_array.basic"><info><title>単純な配列の検証</title></info>
-        
+
 
         <para>
             最も単純な方法は、初期化の際に検索される配列を与えることがまさにそうです。
@@ -89,7 +89,7 @@ if ($validator->isValid('value')) {
     </section>
 
     <section xml:id="zend.validate.set.in_array.strict"><info><title>厳密な配列の検証</title></info>
-        
+
 
         <para>
             上述のように、配列の中で厳密な検証をすることもできます。
@@ -139,7 +139,7 @@ if ($validator->isValid('value')) {
     </section>
 
     <section xml:id="zend.validate.set.in_array.recursive"><info><title>再帰的な配列の検証</title></info>
-        
+
 
         <para>
             <acronym>PHP</acronym>の<methodname>in_array()</methodname>メソッド
@@ -195,7 +195,7 @@ if ($validator->isValid('value')) {
 ]]></programlisting>
 
         <note><info><title>再帰的な検証のデフォルト設定</title></info>
-            
+
 
             <para>
                 デフォルトでは再帰的な検証は無効となります。
@@ -203,7 +203,7 @@ if ($validator->isValid('value')) {
         </note>
 
         <note><info><title>配列内でのオプションキー</title></info>
-            
+
 
             <para>
                 '<property>haystack</property>' や

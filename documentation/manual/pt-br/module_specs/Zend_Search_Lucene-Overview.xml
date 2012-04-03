@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.overview"><info><title>Resumo</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.introduction"><info><title>Introdução</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> é um mecanismo para pesquisa de texto, de
@@ -38,7 +38,7 @@
         </para>
 
         <note><info><title/></info>
-            
+
 
             <para>
                 Implementações anteriores de <classname>Zend_Search_Lucene</classname> suportam os
@@ -56,7 +56,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.documents-and-fields"><info><title>Objetos Documento e Campo</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> trabalha sobre os documentos
@@ -178,7 +178,7 @@ $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $contents));
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.understanding-field-types"><info><title>Entendendo os Tipos de Campos</title></info>
-        
+
 
         <itemizedlist>
             <listitem>
@@ -232,7 +232,7 @@ $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $contents));
                 </para>
 
                 <table xml:id="zend.search.lucene.index-creation.understanding-field-types.table"><info><title>Tipos de Zend_Search_Lucene_Field</title></info>
-                    
+
 
                     <tgroup cols="5">
                         <thead>
@@ -293,7 +293,7 @@ $doc->addField(Zend_Search_Lucene_Field::UnStored('contents', $contents));
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.html-documents"><info><title>Documentos HTML</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> oferece um recurso para análise de
@@ -399,7 +399,7 @@ $headerLinksArray = $doc->getHeaderLinks();
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.docx-documents"><info><title>Documentos do Word 2007</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> oferece um recurso de análise para Word 2007.
@@ -500,7 +500,7 @@ $index->addDocument($doc);
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.pptx-documents"><info><title>Documentos do Powerpoint 2007</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> oferece um recurso de análise para Powerpoint
@@ -599,7 +599,7 @@ $index->addDocument($doc);
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.xlsx-documents"><info><title>Documentos do Excel 2007</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> oferece um recurso de análise para Excel 2007.

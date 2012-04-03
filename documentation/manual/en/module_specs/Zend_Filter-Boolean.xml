@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.boolean"><info><title>Boolean</title></info>
-    
+
 
     <para>
         This filter changes a given input to be a <constant>BOOLEAN</constant> value. This is often
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.boolean.options"><info><title>Supported options for Zend_Filter_Boolean</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Filter_Boolean</classname>:
@@ -41,7 +41,7 @@
     </section>
 
     <section xml:id="zend.filter.set.boolean.default"><info><title>Default behaviour for Zend_Filter_Boolean</title></info>
-        
+
 
         <para>
             By default, this filter works by casting the input to a <constant>BOOLEAN</constant>
@@ -65,7 +65,7 @@ $result = $filter->filter($value);
     </section>
 
     <section xml:id="zend.filter.set.boolean.types"><info><title>Changing behaviour for Zend_Filter_Boolean</title></info>
-        
+
 
         <para>
             Sometimes casting with <command>(boolean)</command> will not suffice.
@@ -199,7 +199,7 @@ $filter = new Zend_Filter_Boolean(array(
     </section>
 
     <section xml:id="zend.filter.set.boolean.localized"><info><title>Localized booleans</title></info>
-        
+
 
         <para>
             As mentioned previously, <classname>Zend_Filter_Boolean</classname> can also recognise
@@ -231,7 +231,7 @@ $filter->filter('yes');
     </section>
 
     <section xml:id="zend.filter.set.boolean.casting"><info><title>Disable casting</title></info>
-        
+
 
         <para>
             Sometimes it is necessary to recognise only <constant>TRUE</constant> or
@@ -248,7 +248,7 @@ $filter->filter('yes');
         </para>
 
         <table xml:id="zend.filter.set.boolean.casting.table"><info><title>Usage without casting</title></info>
-            
+
             <tgroup cols="3">
                 <thead>
                     <row>

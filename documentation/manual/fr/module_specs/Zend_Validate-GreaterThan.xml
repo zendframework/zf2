@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.greaterthan"><info><title>GreaterThan</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_GreaterThan</classname> permet de valider qu'une valeur est plus grande
@@ -8,7 +8,7 @@
     </para>
 
     <note><info><title>Zend_Validate_GreaterThan ne supporte que les nombres</title></info>
-        
+
 
         <para>
             Zend_Validate_GreaterThan ne fonctionnera pas avec les chaines ou les dates.
@@ -16,7 +16,7 @@
     </note>
 
     <section xml:id="zend.validate.set.greaterthan.options"><info><title>Options supportées par Zend_Validate_GreaterThan</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par <classname>Zend_Validate_GreaterThan</classname>:
@@ -32,7 +32,7 @@
     </section>
 
     <section xml:id="zend.validate.set.greaterthan.basic"><info><title>Utilisation de base</title></info>
-        
+
 
         <para>
             Voyez l'exemple ci-après.

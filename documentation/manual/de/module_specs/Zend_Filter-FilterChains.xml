@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.filter_chains"><info><title>Filter Ketten</title></info>
-    
+
 
     <para>
         Oft müssen mehrere Filter auf Werte in einer speziellen Reihenfolge angewendet werden. Zum
@@ -33,7 +33,7 @@ $username = $filterChain->filter($_POST['username']);
     </para>
 
     <section xml:id="zend.filter.filter_chains.order"><info><title>Ändern der Reihenfolge der Filterkette</title></info>
-        
+
 
         <para>
             Seit 1.10 unterstützt die <classname>Zend_Filter</classname> Kette auch das Ändern der

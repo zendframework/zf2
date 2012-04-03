@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.modifying-feed"><info><title>フィードおよびエントリの構造の変更</title></info>
-    
+
 
     <para>
         フィードやエントリを読み込むだけでなく、それらを作成したり変更したりする場合にも
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.feed.modifying-feed.example.modifying"><info><title>既存のフィードエントリの変更</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $feed = new Zend_Feed_Atom('http://atom.example.com/feed/1');
@@ -46,7 +46,7 @@ echo $entry->saveXML();
     </para>
 
     <example xml:id="zend.feed.modifying-feed.example.creating"><info><title>独自の名前空間の要素としての Atom エントリの作成</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $entry = new Zend_Feed_Entry_Atom();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.layout.intro"><info><title>Einführung</title></info>
-    
+
 
     <para>
         Wenn eine Website gebaut wird, die Zend Frameworks <acronym>MVC</acronym> Layer verwendet,

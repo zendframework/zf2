@@ -10,7 +10,7 @@ PLEASE USE AT YOUR OWN RISK.
 This is the third in a series of planned beta releases. The beta release
 cycle will follow the "gmail" style of betas, whereby new features will
 be added in each new release, and BC will not be guaranteed; beta
-releases will happen approximately every six weeks. 
+releases will happen approximately every six weeks.
 
 Once the established milestones have been reached and the featureset has
 reached maturity and reasonable stability, we will freeze the API and
@@ -18,30 +18,30 @@ prepare for Release Candidate status.
 
 ### NEW FEATURES IN BETA3
 
- -  Refactored Config component (Ben Scholzen, Artur Bodera, Enrico Zimuel, 
+ -  Refactored Config component (Ben Scholzen, Artur Bodera, Enrico Zimuel,
     Evan Coury)
      -  All readers moved under Zend\Config\Reader
          -  JSON and YAML readers removed until beta4
          -  New API:
 
             ```php
-            $xml = new Zend\Config\Reader\Xml(); 
+            $xml = new Zend\Config\Reader\Xml();
             $config = new Zend\Config\Config($xml->fromFile($filename);
             ```
             or:
 
             ```php
-            $xml     = new Zend\Config\Reader\Xml(); 
+            $xml     = new Zend\Config\Reader\Xml();
             $config = $xml->fromFile($filename, true);
             ```
 
             or, simpler: `$config = Zend\Config\Factory::fromFile($filename);`
          -  All constant injection removed from readers
-             -  New Processor API allows processing the retrieved configuration 
+             -  New Processor API allows processing the retrieved configuration
                 to do optional injection/manipulation of configuration values.
-         -  Ability to import other configuration files within a configuration 
+         -  Ability to import other configuration files within a configuration
             file added.
-     -  Factory added, to simplify retrieving configuration from any 
+     -  Factory added, to simplify retrieving configuration from any
         configuration format supported.
  -  New View layer (Matthew Weier O'Phinney)
      -  View layer is now:
@@ -51,14 +51,14 @@ prepare for Release Candidate status.
             Models
          -  Resolvers, which resolve template names to resources a renderer may
             consume
-         -  View, which allows attaching strategies for determining the renderer 
+         -  View, which allows attaching strategies for determining the renderer
             to use, as well as how to inject the response when done.
      -  Old `Zend_View` is now `Zend\View\Renderer\PhpRenderer`
-         -  Composes a `Resolver`, a `PluginBroker` (for helpers), a Variables 
-            container (for aggregating variables to pass to the view script), 
-            and a `FilterChain` (for output filtering). 
+         -  Composes a `Resolver`, a `PluginBroker` (for helpers), a Variables
+            container (for aggregating variables to pass to the view script),
+            and a `FilterChain` (for output filtering).
          -  `render()` now accepts `View\Models`
-         -  allows rendering stacks of templates under the same variable scope, 
+         -  allows rendering stacks of templates under the same variable scope,
             via the `addTemplate()` mechanism
          -  moves escaping to an Escape view helper; no auto-escaping is enabled
      -  MVC integration
@@ -72,14 +72,14 @@ prepare for Release Candidate status.
  -  New Db layer (Ralph Schindler)
      -  Complete rewrite from the ground up.
      -  New architecture features low-level drivers, which also provide access to
-        the PHP resource being consumed; adapters, which provide basic 
-        abstraction for common CRUD operations; new SQL abstraction layer, with 
-        full predicate support; abstraction for ResultSet's, with the ability to 
-        cast rows to specific object types; abstraction for SQL metadata; and a 
+        the PHP resource being consumed; adapters, which provide basic
+        abstraction for common CRUD operations; new SQL abstraction layer, with
+        full predicate support; abstraction for ResultSet's, with the ability to
+        cast rows to specific object types; abstraction for SQL metadata; and a
        revised Table and Row Data Gateway.
  -  New Zend\Service\AgileZen component (Enrico Zimuel)
      -  Support for the full AgileZen (http://www.agilezen.com) API
-     -  Developed for use with http://framework.zend.com/zf2/board 
+     -  Developed for use with http://framework.zend.com/zf2/board
  -  PHP 5.4 support
      -  A number of issues when running ZF2 under PHP 5.4 were identified and
         corrected.

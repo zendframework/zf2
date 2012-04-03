@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="coding-standard"><info><title>Estándares de codificación de Zend Framework para PHP</title></info>
-    
+
     <section xml:id="coding-standard.overview"><info><title>Introducción</title></info>
-        
+
 
         <section xml:id="coding-standard.overview.scope"><info><title>Alcance</title></info>
-            
+
 
             <para> Este documento provee las pautas para el formato del código y
                 la documentación a personas y equipos que contribuyan con Zend
@@ -51,7 +51,7 @@
         </section>
 
         <section xml:id="coding-standard.overview.goals"><info><title>Objetivos</title></info>
-            
+
             <para> Los estándares de código resultan importantes en cualquier
                 proyecto de desarrollo, pero son especialmente importantes
                 cuando muchos desarrolladores trabajan en el mismo proyecto. Los
@@ -62,10 +62,10 @@
     </section>
 
     <section xml:id="coding-standard.php-file-formatting"><info><title>Formato de archivos PHP</title></info>
-        
+
 
         <section xml:id="coding-standard.php-file-formatting.general"><info><title>General</title></info>
-            
+
 
             <para> Para archivos que contengan únicamente código
                     <acronym>PHP</acronym> , la etiqueta de cierre ("?&gt;") no
@@ -86,14 +86,14 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.indentation"><info><title>Identación</title></info>
-            
+
 
             <para>La identación suele estar compuesta por 4 espacios. Las
                 tabulaciones no están permitidas.</para>
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.max-line-length"><info><title>Tamaño máximo de línea</title></info>
-            
+
 
             <para> La longitud recomendable para una línea de código es de 80
                 caracteres. Esto significa que los desarrolladores de Zend
@@ -105,7 +105,7 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.line-termination"><info><title>Final de línea</title></info>
-            
+
 
             <para> El Final de Línea sigue la convención de archivos de texto
                 Unix. Las líneas deben acabar con un carácter linefeed (LF). Los
@@ -120,10 +120,10 @@
     </section>
 
     <section xml:id="coding-standard.naming-conventions"><info><title>Convenciones de Nombres</title></info>
-        
+
 
         <section xml:id="coding-standard.naming-conventions.classes"><info><title>Clases</title></info>
-            
+
 
             <para> Zend Framework se estandariza una convencion de nombres de
                 clases donde los nombres de las clases apuntan directamente a
@@ -168,7 +168,7 @@
         </section>
 
         <section xml:id="coding-standard.naming-conventions.abstracts"><info><title>Clases Abstractas </title></info>
-            
+
 
             <para> En general, las clases abstractas siguen las mismas
                 convenciones que las <link linkend="coding-standard.naming-conventions.classes">clases</link> , con una regla adicional: Los nombres de las
@@ -189,7 +189,7 @@
         </section>
 
         <section xml:id="coding-standard.naming-conventions.interfaces"><info><title>Interfaces</title></info>
-            
+
 
             <para> En general, las clases abstractas siguen las mismas
                 convenciones que las <link linkend="coding-standard.naming-conventions.classes">classes</link> , con una regla adicional: Los nombres de
@@ -216,7 +216,7 @@
         </section>
 
         <section xml:id="coding-standard.naming-conventions.filenames"><info><title>Nombres de Archivo</title></info>
-            
+
 
             <para> Para cualquier otro archivo, sólo caracteres alfanuméricos,
                 barras bajas (_) y guiones (-) están permitidos. Los espacios en
@@ -239,7 +239,7 @@ Zend/View/Helper/FormRadio.php
         </section>
 
         <section xml:id="coding-standard.naming-conventions.functions-and-methods"><info><title>Funciones y Métodos</title></info>
-            
+
 
             <para> Los nombres de funciones pueden contener únicamente
                 caracteres alfanuméricos. Las guiones bajos (_) no estan
@@ -285,7 +285,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.variables"><info><title>Variables</title></info>
-            
+
 
             <para> Los nombres de variables pueden contener caracteres
                 alfanuméricos. Las barras bajas (_) no están permitidas. Los
@@ -314,7 +314,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.constants"><info><title>Constantes</title></info>
-            
+
 
             <para> Las constantes pueden contener tanto caracteres alfanuméricos
                 como barras bajas (_). Los números están permitidos. </para>
@@ -336,10 +336,10 @@ widgetFactory()
     </section>
 
     <section xml:id="coding-standard.coding-style"><info><title>Estilo de código</title></info>
-        
+
 
         <section xml:id="coding-standard.coding-style.php-code-demarcation"><info><title>Demarcación de código PHP</title></info>
-            
+
 
             <para> El código <acronym>PHP</acronym> debe estar delimitado
                 siempre por la forma completa de las etiquetas
@@ -358,10 +358,10 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.coding-style.strings"><info><title>Cadenas de Caracteres </title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.strings.literals"><info><title>Cadenas Literales de Caracteres</title></info>
-                
+
 
                 <para> Cuando una cadena es literal (no contiene sustitución de
                     variables), el apóstrofo o "comilla" debería ser usado
@@ -375,7 +375,7 @@ $a = 'Example String';
 
             <section xml:id="coding-standard.coding-style.strings.literals-containing-apostrophes"><info><title>Cadenas Literales de Caracteres que Contengan
                     Apóstrofos</title></info>
-                
+
 
                 <para> Cuando una cadena literal de caracteres contega
                     apóstrofos, es permitido delimitar la cadena de caracteres
@@ -389,7 +389,7 @@ $sql = "SELECT `id`, `name` from `people` WHERE `name`='Fred' OR `name`='Susan'"
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.variable-substitution"><info><title>Sustitución de Variables</title></info>
-                
+
 
                 <para> La sustitución de variables está permitida en cualquiera
                     de estas formas: </para>
@@ -408,7 +408,7 @@ $greeting = "Hello ${name}, welcome back!";
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.string-concatenation"><info><title>Concatenación de cadenas</title></info>
-                
+
 
                 <para> Las cadenas deben ser concatenadas usando el operador
                     punto ("."). Un espacio debe añadirse siempre antes y
@@ -431,10 +431,10 @@ $sql = "SELECT `id`, `name` FROM `people` "
         </section>
 
         <section xml:id="coding-standard.coding-style.arrays"><info><title>Arrays</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.arrays.numerically-indexed"><info><title>Arrays Indexados Numéricamente</title></info>
-                
+
 
                 <para>No están permitidos números negativos como índices.</para>
 
@@ -485,7 +485,7 @@ $sampleArray = array(
             </section>
 
             <section xml:id="coding-standard.coding-style.arrays.associative"><info><title>Arrays Asociativos</title></info>
-                
+
 
                 <para> Al declarar arrays asociativos con la construcción
                         <methodname>array</methodname> , se recomienda partir la
@@ -526,10 +526,10 @@ $sampleArray = array(
         </section>
 
         <section xml:id="coding-standard.coding-style.classes"><info><title>Clases</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.classes.declaration"><info><title>Declaración de clases</title></info>
-                
+
 
                 <para> Las Clases deben ser nombradas de acuerdo a las
                     convencion de nombres de Zend Framework. </para>
@@ -597,7 +597,7 @@ class SampleClass
             </section>
 
             <section xml:id="coding-standard.coding-style.classes.member-variables"><info><title>Variables de miembros de clase</title></info>
-                
+
 
                 <para> Las variables de miembros de clase deben ser nombradas de
                     acuerdo con las conveciones de nombrado de variables de Zend
@@ -618,10 +618,10 @@ class SampleClass
         </section>
 
         <section xml:id="coding-standard.coding-style.functions-and-methods"><info><title>Funciones y Métodos</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.declaration"><info><title>Declaración de Funciones y Métodos</title></info>
-                
+
 
                 <para> Las Funciones deben ser nombradas de acuerdo a las
                     convenciones de nombrado de Zend Framework. </para>
@@ -736,7 +736,7 @@ class Foo
             </section>
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.usage"><info><title>Uso de Funciones y Métodos</title></info>
-                
+
 
                 <para> Los argumentos de la función tendrían que estar separados
                     por un único espacio posterior después del delimitador coma.
@@ -774,10 +774,10 @@ threeArguments(array(
         </section>
 
         <section xml:id="coding-standard.coding-style.control-statements"><info><title>Sentencias de Control</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.control-statements.if-else-elseif"><info><title>If/Else/Elseif</title></info>
-                
+
 
                 <para> Las sentencias de control basadas en las construcciones
                         <emphasis>if</emphasis> y <emphasis>elseif</emphasis>
@@ -870,7 +870,7 @@ if (($a == $b)
             </section>
 
             <section xml:id="coding-standards.coding-style.control-statements.switch"><info><title>Switch</title></info>
-                
+
 
                 <para> Las declaraciones de control escritas con la declaración
                     "switch" deben tener un único espacio en blanco antes del
@@ -916,10 +916,10 @@ switch ($numPeople) {
         </section>
 
         <section xml:id="coding-standards.inline-documentation"><info><title>Documentación integrada</title></info>
-            
+
 
             <section xml:id="coding-standards.inline-documentation.documentation-format"><info><title>Formato de documentación</title></info>
-                
+
 
                 <para> Todos los bloques de documentación ("docblocks") deben
                     ser compatibles con el formato de phpDocumentor. Describir
@@ -935,7 +935,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.files"><info><title>Archivos</title></info>
-                
+
 
                 <para> Cada archivo que contenga código <acronym>PHP</acronym>
                     debe tener un bloque de documentación al principio del
@@ -979,7 +979,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.classes"><info><title>Clases</title></info>
-                
+
 
                 <para> Cada clase debe contener un bloque de documentación que
                     contenga como mínimo las siguientes etiquetas phpDocumentor: </para>
@@ -1019,7 +1019,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.functions"><info><title>Funciones</title></info>
-                
+
 
                 <para> Cada función, incluyendo métodos de objeto, debe contener
                     un bloque de documentación que contenga como mínimo: </para>

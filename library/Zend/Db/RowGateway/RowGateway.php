@@ -21,10 +21,10 @@
 
 namespace Zend\Db\RowGateway;
 
-use Zend\Db\Adapter\Adapter,
-    Zend\Db\ResultSet\Row,
-    Zend\Db\ResultSet\RowObjectInterface,
-    Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\ResultSet\Row;
+use Zend\Db\ResultSet\RowObjectInterface;
+use Zend\Db\TableGateway\TableGateway;
 
 /**
  * @category   Zend
@@ -37,7 +37,7 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
 {
     /**
      *
-     * @var type 
+     * @var type
      */
     protected $tableGateway = null;
     /**
@@ -47,20 +47,20 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     protected $primaryKey = null;
     /**
      *
-     * @var type 
+     * @var type
      */
     protected $originalData = null;
     /**
      *
-     * @var type 
+     * @var type
      */
     protected $currentData = null;
 
     /**
      * Constructor
-     * 
+     *
      * @param TableGateway $tableGateway
-     * @param type $primaryKey 
+     * @param type $primaryKey
      */
     public function __construct(TableGateway $tableGateway, $primaryKey)
     {
@@ -71,10 +71,10 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
 
     /**
      * Populate Original Data
-     * 
+     *
      * @param  type $originalData
      * @param  boolean $originalDataIsCurrent
-     * @return RowGateway 
+     * @return RowGateway
      */
     public function populateOriginalData($originalData, $originalDataIsCurrent = true)
     {
@@ -86,9 +86,9 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     }
     /**
      * Populate current data
-     * 
+     *
      * @param  type $currentData
-     * @return RowGateway 
+     * @return RowGateway
      */
     public function populateCurrentData($currentData)
     {
@@ -97,8 +97,8 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     }
     /**
      * Save
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function save()
     {
@@ -128,8 +128,8 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     }
     /**
      * Delete
-     * 
-     * @return type 
+     *
+     * @return type
      */
     public function delete()
     {
@@ -142,7 +142,7 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     }
     /**
      * Offset Exists
-     * 
+     *
      * @param  string $offset
      * @return boolean
      */
@@ -152,9 +152,9 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     }
     /**
      * Offset get
-     * 
+     *
      * @param  string $offset
-     * @return type 
+     * @return type
      */
     public function offsetGet($offset)
     {
@@ -162,10 +162,10 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     }
     /**
      * Offset set
-     * 
+     *
      * @param  string $offset
      * @param  type $value
-     * @return RowGateway 
+     * @return RowGateway
      */
     public function offsetSet($offset, $value)
     {
@@ -174,9 +174,9 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     }
     /**
      * Offset unset
-     * 
+     *
      * @param  string $offset
-     * @return RowGateway 
+     * @return RowGateway
      */
     public function offsetUnset($offset)
     {
@@ -185,9 +185,9 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     }
     /**
      * Exchange array
-     * 
+     *
      * @param  string $input
-     * @return RowGateway 
+     * @return RowGateway
      */
     public function exchangeArray($input)
     {
@@ -210,8 +210,8 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     }
     /**
      * To array
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -219,9 +219,9 @@ class RowGateway implements RowGatewayInterface, RowObjectInterface
     }
     /**
      * __get
-     * 
+     *
      * @param  string $name
-     * @return type 
+     * @return type
      */
     public function __get($name)
     {

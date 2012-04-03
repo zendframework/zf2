@@ -21,9 +21,9 @@
 
 namespace ZendTest\Mvc\Router\TestAsset;
 
-use Zend\Mvc\Router\Route,
-    Zend\Mvc\Router\RouteMatch,
-    Zend\Stdlib\RequestDescription as Request;
+use Zend\Mvc\Router\Route;
+use Zend\Mvc\Router\RouteMatch;
+use Zend\Stdlib\RequestDescription as Request;
 
 /**
  * Dummy route.
@@ -47,7 +47,7 @@ class DummyRouteWithParam extends DummyRoute
     {
         return new RouteMatch(array('foo' => 'bar'));
     }
-    
+
     /**
      * assemble(): defined by Route interface.
      *
@@ -61,7 +61,7 @@ class DummyRouteWithParam extends DummyRoute
         if (isset($params['foo'])) {
             return $params['foo'];
         }
-        
+
         return '';
     }
 }

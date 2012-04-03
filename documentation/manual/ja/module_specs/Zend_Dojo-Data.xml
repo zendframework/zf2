@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.data"><info><title>Zend_Dojo_Data: dojo.data エンベロープ</title></info>
-    
+
 
     <para>
         Dojo には、データを扱うウィジェットのデータを抽象化するための
@@ -38,7 +38,7 @@
     </para>
 
     <section xml:id="zend.dojo.data.usage"><info><title>Zend_Dojo_Data の使用法</title></info>
-        
+
 
         <para>
             もっともシンプルな使用法は、<command>dojo.data</command>
@@ -47,7 +47,7 @@
         </para>
 
         <example xml:id="zend.dojo.data.usage.constructor"><info><title>コンストラクタでの Zend_Dojo_Data の初期化</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $data = new Zend_Dojo_Data('id', $items);
@@ -55,7 +55,7 @@ $data = new Zend_Dojo_Data('id', $items);
         </example>
 
         <example xml:id="zend.dojo.data.usage.mutators"><info><title>設定用メソッドでの Zend_Dojo_Data の初期化</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $data = new Zend_Dojo_Data();
@@ -71,7 +71,7 @@ $data->setIdentifier('id')
         </para>
 
         <example xml:id="zend.dojo.data.usage.append"><info><title>Zend_Dojo_Data へのデータの追加</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $data = new Zend_Dojo_Data($identifier, $items);
@@ -82,7 +82,7 @@ $data->addItems($someMoreItems);
         </example>
 
         <note><info><title>常に identifier を使うこと!</title></info>
-            
+
 
             <para>
                 すべての <command>dojo.data</command> データストアは、identifier
@@ -136,7 +136,7 @@ $data->addItems($someMoreItems);
         </para>
 
         <example xml:id="zend.dojo.data.usage.label"><info><title>Zend_Dojo_Data での label フィールドの指定</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $data->setLabel('name');
@@ -150,7 +150,7 @@ $data->setLabel('name');
         </para>
 
         <example xml:id="zend.dojo.data.usage.populate"><info><title>JSON からの Zend_Dojo_Data の作成</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $data->fromJson($json);
@@ -159,7 +159,7 @@ $data->fromJson($json);
     </section>
 
     <section xml:id="zend.dojo.data.metadata"><info><title>コンテナへのメタデータの追加</title></info>
-        
+
 
         <para>
             Dojo コンポーネントの中には、
@@ -206,7 +206,7 @@ $data->clearMetadata();
     </section>
 
     <section xml:id="zend.dojo.data.advanced"><info><title>高度な使用法</title></info>
-        
+
 
         <para>
             シリアライズ可能なデータコンテナとしての働きだけではなく、
@@ -285,7 +285,7 @@ $json = (string) $data; // 文字列へのキャスト == JSON へのキャス�
 ]]></programlisting>
 
         <section xml:id="zend.dojo.data.advanced.methods"><info><title>使用可能なメソッド</title></info>
-            
+
 
             <para>
                 上で説明したインターフェイスを実装するのに必要なメソッドに加えて、

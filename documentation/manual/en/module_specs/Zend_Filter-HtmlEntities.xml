@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.htmlentities"><info><title>HtmlEntities</title></info>
-    
+
 
     <para>
         Returns the string <varname>$value</varname>, converting characters to their corresponding
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.htmlentities.options"><info><title>Supported options for Zend_Filter_HtmlEntities</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Filter_HtmlEntities</classname>:
@@ -66,7 +66,7 @@
     </section>
 
     <section xml:id="zend.filter.set.htmlentities.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             See the following example for the default behaviour of this filter.
@@ -80,7 +80,7 @@ print $filter->filter('<');
     </section>
 
     <section xml:id="zend.filter.set.htmlentities.quotestyle"><info><title>Quote Style</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_HtmlEntities</classname> allows changing the quote style used.
@@ -127,7 +127,7 @@ print $filter->filter($input);
     </section>
 
     <section xml:id="zend.filter.set.htmlentities."><info><title>Helper Methods</title></info>
-        
+
 
         <para>
             To change or retrieve the <property>quotestyle</property> after instantiation, the two

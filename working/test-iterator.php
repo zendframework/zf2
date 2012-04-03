@@ -17,13 +17,13 @@ if (!is_dir($output)) {
 
 foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)) as $fs_item) {
     $relative_to_tests = preg_replace('#^' . preg_quote($tests_path) . '/#', '', $fs_item->getRealPath());
-    
+
     $subdir = $output . '/' . substr($relative_to_tests, 0, strrpos($relative_to_tests, '/'));
     if (strpos($relative_to_tests, '/') && !file_exists($subdir)) {
         echo 'Making dir: ' . $subdir . PHP_EOL;
         mkdir($subdir, 0777, true);
     }
-    
+
     // if its not a .php file, just copy it
     if (!preg_match('#\.php$#', $fs_item->getRealPath())) {
         echo "Copying file " . $fs_item->getRealPath() . " to $output/$relative_to_tests\n";

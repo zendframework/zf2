@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.filters"><info><title>过滤器</title></info>
-    
+
 
     <para>
       一个Filter对象阻塞一个消息被写入到日志.
     </para>
 
     <section xml:id="zend.log.filters.all-writers"><info><title>对所有Writer过滤</title></info>
-      
+
 
       <para>
         要在所有writer之前过滤消息,你可以使用<code>addFilter()</code>方法添加任意数量的Filter到Log对象:
@@ -34,7 +34,7 @@ $logger->emerg('Emergency message');
     </section>
 
     <section xml:id="zend.log.filters.single-writer"><info><title>过滤一个Writer实例</title></info>
-      
+
 
       <para>
         要在一个特定的Writer上进行消息过滤,使用该Writer对象的<code>addFilter()</code>方法:

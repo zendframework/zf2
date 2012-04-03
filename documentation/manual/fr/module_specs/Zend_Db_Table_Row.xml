@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.row"><info><title>Zend_Db_Table_Row</title></info>
-    
+
 
     <section xml:id="zend.db.table.row.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Db_Table_Row</classname> est la classe qui donne accès à chacun
@@ -22,7 +22,7 @@
     </section>
 
     <section xml:id="zend.db.table.row.read"><info><title>Récupérer un résultat (un "Row")</title></info>
-        
+
 
         <para>
             <classname>Zend_Db_Table_Abstract</classname> possède des méthodes
@@ -32,7 +32,7 @@
         </para>
 
         <example xml:id="zend.db.table.row.read.example"><info><title>Exemple de récupération d'un Row</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -47,7 +47,7 @@ $row = $bugs->fetchRow($bugs->select()
         </para>
 
         <example xml:id="zend.db.table.row.read.example-rowset"><info><title>Exemple de lecture d'un Row dans un Rowset</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -58,7 +58,7 @@ $row = $rowset->current();
         </example>
 
         <section xml:id="zend.db.table.row.read.get"><info><title>Lecture des valeurs des colonnes, dans un Row</title></info>
-            
+
 
             <para>
                 <classname>Zend_Db_Table_Row_Abstract</classname> possède des accesseurs. Les
@@ -67,7 +67,7 @@ $row = $rowset->current();
             </para>
 
             <example xml:id="zend.db.table.row.read.get.example"><info><title>Lecture d'une colonne dans un Row</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -95,7 +95,7 @@ echo $row->bug_description;
         </section>
 
         <section xml:id="zend.db.table.row.read.to-array"><info><title>Récupérer les valeurs des colonnes comme un tableau</title></info>
-            
+
 
             <para>
                 Vous pouvez accéder aux données d'un row sous forme de tableau grâce à la
@@ -103,7 +103,7 @@ echo $row->bug_description;
             </para>
 
             <example xml:id="zend.db.table.row.read.to-array.example"><info><title>Exemple avec toArray()</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -129,7 +129,7 @@ foreach ($rowArray as $column => $value) {
         </section>
 
         <section xml:id="zend.db.table.row.read.relationships"><info><title>Récupérer des données des tables liées</title></info>
-            
+
 
             <para>
                 <classname>Zend_Db_Table_Row_Abstract</classname> possède des méthodes
@@ -141,10 +141,10 @@ foreach ($rowArray as $column => $value) {
     </section>
 
     <section xml:id="zend.db.table.row.write"><info><title>Sauvegarde un Row en base de données</title></info>
-        
+
 
         <section xml:id="zend.db.table.row.write.set"><info><title>Changement des valeurs des colonnes d'un Row</title></info>
-            
+
 
             <para>
                 Vous pouvez changer les valeurs de chaque colonne du résultat Row, simplement
@@ -158,7 +158,7 @@ foreach ($rowArray as $column => $value) {
             </para>
 
             <example xml:id="zend.db.table.row.write.set.example"><info><title>Exemple de changement de la valeur d'une colonne dans un Row</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -175,7 +175,7 @@ $row->save();
         </section>
 
         <section xml:id="zend.db.table.row.write.insert"><info><title>Créer un Row vierge</title></info>
-            
+
 
             <para>
                 Vous pouvez créer un nouvel enregistrement vierge (Row) pour une table avec la
@@ -185,7 +185,7 @@ $row->save();
             </para>
 
             <example xml:id="zend.db.table.row.write.insert.example"><info><title>Exemple de création d'un Row vierge pour une table</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -206,7 +206,7 @@ $newRow->save();
             </para>
 
             <example xml:id="zend.db.table.row.write.insert.example2"><info><title>Exemple de remplissage des valeurs d'un nouveau Row vierge</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $data = array(
@@ -233,7 +233,7 @@ $newRow->save();
         </section>
 
         <section xml:id="zend.db.table.row.write.set-from-array"><info><title>Changement en masse des valeurs dans un Row</title></info>
-            
+
 
             <para>
                 <classname>Zend_Db_Table_Row_Abstract</classname> possède une méthode
@@ -244,7 +244,7 @@ $newRow->save();
             <example xml:id="zend.db.table.row.write.set-from-array.example"><info><title>
                     Exemple d'utilisation de setFromArray() avec un enregistrement (Row) vierge
                 </title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -266,7 +266,7 @@ $newRow->save();
         </section>
 
         <section xml:id="zend.db.table.row.write.delete"><info><title>Supprimer un Row</title></info>
-            
+
 
             <para>
                 Vous pouvez appeler la méthode <methodname>delete()</methodname> d'un objet Row. Ceci
@@ -275,7 +275,7 @@ $newRow->save();
             </para>
 
             <example xml:id="zend.db.table.row.write.delete.example"><info><title>Effacer un Row</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -294,7 +294,7 @@ $row->delete();
     </section>
 
     <section xml:id="zend.db.table.row.serialize"><info><title>Sérialisation et désérialisation d'un Row</title></info>
-        
+
 
         <para>
             Il peut être utile de sauvegarder le contenu d'un enregistrement (Row) sur un
@@ -305,7 +305,7 @@ $row->delete();
         </para>
 
         <section xml:id="zend.db.table.row.serialize.serializing"><info><title>Sérialiser un Row</title></info>
-            
+
 
             <para>
                 Utilisez simplement la fonction <acronym>PHP</acronym> <methodname>serialize()</methodname> pour créer une
@@ -313,7 +313,7 @@ $row->delete();
             </para>
 
             <example xml:id="zend.db.table.row.serialize.serializing.example"><info><title>Exemple de sérialisation d'un Row</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -329,7 +329,7 @@ $serializedRow = serialize($row);
         </section>
 
         <section xml:id="zend.db.table.row.serialize.unserializing"><info><title>Désérialiser les données d'un Row</title></info>
-            
+
 
             <para>
                 Utilisez simplement la fonction <acronym>PHP</acronym> <methodname>unserialize()</methodname>. L'objet Row
@@ -344,7 +344,7 @@ $serializedRow = serialize($row);
             </para>
 
             <example xml:id="zend.db.table.row.serialize.unserializing.example"><info><title>Exemple de désérialisation d'un objet Row sérialisé</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $rowClone = unserialize($serializedRow);
@@ -355,7 +355,7 @@ echo $rowClone->bug_description;
             </example>
 
             <note><info><title>Pourquoi ce mode déconnecté imposé ?</title></info>
-                
+
 
                 <para>
                     Un objet sérialisé est une chaîne de caractère, humainement visible. Il
@@ -368,7 +368,7 @@ echo $rowClone->bug_description;
         </section>
 
         <section xml:id="zend.db.table.row.serialize.set-table"><info><title>Reconnecter l'objet Row à la Table</title></info>
-            
+
 
             <para>
                 Il est bien entendu possible de reconnecter l'objet Row à la base de données,
@@ -380,7 +380,7 @@ echo $rowClone->bug_description;
             </para>
 
             <example xml:id="zend.db.table.row.serialize.set-table.example"><info><title>Exemple de réactivation d'un Row</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $rowClone = unserialize($serializedRow);
@@ -399,7 +399,7 @@ $rowClone->save();
     </section>
 
     <section xml:id="zend.db.table.row.extending"><info><title>Étendre la classe Row</title></info>
-        
+
 
         <para>
             Vous pouvez utilisez votre propre classe étendant
@@ -409,7 +409,7 @@ $rowClone->save();
         </para>
 
         <example xml:id="zend.db.table.row.extending.example"><info><title>Spécification d'une classe Row personnalisée</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 class MyRow extends Zend_Db_Table_Row_Abstract
@@ -431,14 +431,14 @@ $bugs = new Bugs(array('rowClass' => 'MyRow'));
         </example>
 
         <section xml:id="zend.db.table.row.extending.overriding"><info><title>Initialisation et pré-traitements d'un Row</title></info>
-            
+
 
             <para>
                 Si vous avez un besoin spécifique d'implémenter une logique spéciale après la
                 création d'une instance de Row, vous pouvez utiliser sa méthode <methodname>init()</methodname>,
                 qui est appelée dans son constructeur, mais après que les méta données aient été
                 calculées. <example xml:id="zend.db.table.row.init.usage.example"><info><title>Exemple d'utilisation de la méthode init()</title></info>
-                        
+
 
                         <programlisting language="php"><![CDATA[
 class MyApplicationRow extends Zend_Db_Table_Row_Abstract
@@ -458,7 +458,7 @@ class MyApplicationRow extends Zend_Db_Table_Row_Abstract
         <section xml:id="zend.db.table.row.extending.insert-update"><info><title>
                 Définir sa propre logique pour Insert, Update, et Delete dans Zend_Db_Table_Row
             </title></info>
-            
+
 
             <para>
                 La classe des Rows appelle les méthodes protégées <methodname>_insert()</methodname>,
@@ -474,7 +474,7 @@ class MyApplicationRow extends Zend_Db_Table_Row_Abstract
             </para>
 
             <example xml:id="zend.db.table.row.extending.overriding-example1"><info><title>Exemple de logique personnalisée dans une classe de Row</title></info>
-                
+
 
                 <para>
                     La logique personnelle peut donc être déportée dans une classe de Row qui
@@ -511,7 +511,7 @@ if ($loggingEnabled) {
 
             <example xml:id="zend.db.table.row.extending.overriding-example2"><info><title>Exemple d'une classe de Row qui historise les insertions de plusieurs
                 tables</title></info>
-                
+
 
                 <para>
                     En passant l'objet Row personnalisé à chacune des Tables concernées, alors
@@ -552,7 +552,7 @@ class Products extends Zend_Db_Table_Abstract
         </section>
 
         <section xml:id="zend.db.table.row.extending.inflection"><info><title>Définir l'inflexion dans Zend_Db_Table_Row</title></info>
-            
+
 
             <para>
                 Il peut être intéressant de personnaliser l'accès aux colonnes de la table
@@ -574,7 +574,7 @@ class Products extends Zend_Db_Table_Abstract
             </para>
 
             <example xml:id="zend.db.table.row.extending.inflection.example"><info><title>Exemple d'utilisation de l'inflexion</title></info>
-                
+
 
                 <para>
                     Ceci vous permet d'utiliser les accesseurs de votre Row de manière

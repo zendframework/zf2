@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.front"><info><title>Фронт-контроллер</title></info>
-    
+
 
     <section xml:id="zend.controller.front.overview"><info><title>Обзор</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Front</classname> реализует
@@ -42,7 +42,7 @@
         </para>
 
         <note><info><title>Поведение по умолчанию</title></info>
-            
+
             <para>
                 По умолчанию фронт-контроллер загружает плагин <link linkend="zend.controller.plugins.standard.errorhandler">ErrorHandler</link>
                 и помощник действий <link linkend="zend.controller.actionhelpers.viewrenderer">ViewRenderer</link>.
@@ -74,7 +74,7 @@ $front->setParam('noViewRenderer', true);
     </section>
 
     <section xml:id="zend.controller.front.methods.primary"><info><title>Ключевые методы</title></info>
-        
+
 
         <para>
             Фронт-контроллер имеет несколько аксессоров для настройки его
@@ -83,7 +83,7 @@ $front->setParam('noViewRenderer', true);
         </para>
 
         <section xml:id="zend.controller.front.methods.primary.getinstance"><info><title>getInstance()</title></info>
-            
+
 
             <para>
                 <code>getInstance()</code> используется для получения экземпляра
@@ -98,7 +98,7 @@ $front = Zend_Controller_Front::getInstance();
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.setcontrollerdirectory"><info><title>setControllerDirectory() и addControllerDirectory()</title></info>
-            
+
 
             <para>
                 <code>setControllerDirectory()</code> используется для того,
@@ -145,7 +145,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.addmoduledirectory"><info><title>addModuleDirectory() и getModuleDirectory()</title></info>
-            
+
 
             <para>
                 Одной из возможностей фронт-контроллера является то, что вы
@@ -179,7 +179,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.dispatch"><info><title>dispatch()</title></info>
-            
+
 
             <para>
                 <code>dispatch(Zend_Controller_Request_Abstract $request = null,
@@ -237,7 +237,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.run"><info><title>run()</title></info>
-            
+
 
             <para>
                 <code>Zend_Controller_Front::run($path)</code> - статический
@@ -263,7 +263,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.environment"><info><title>Методы-аксессоры для конфигурирования</title></info>
-        
+
 
         <para>
             Кроме методов, перечисленных выше, есть методы-аксессоры, которые
@@ -433,7 +433,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.params"><info><title>Параметры фронт-контроллера</title></info>
-        
+
 
         <para>
             Во введении мы указали на то, что фронт-контроллер также выступает
@@ -544,7 +544,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.subclassing"><info><title>Расширение фронт-контроллера</title></info>
-        
+
 
         <para>
             При наследовании от фронт-контроллера, необходимо, как

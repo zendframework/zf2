@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.debug.dumping"><info><title>Дамп переменных</title></info>
 
-    
+
 
     <para>
         Статический метод <code>Zend_Debug::dump()</code> выводит или возвращает
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.debug.dumping.example"><info><title>Пример использования метода dump()</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 Zend_Debug::dump($var, $label=null, $echo=true);
 ]]></programlisting>
@@ -51,7 +51,7 @@ Zend_Debug::dump($var, $label=null, $echo=true);
     </para>
 
     <tip><info><title>Отладка с применением Zend_Log</title></info>
-        
+
         <para>
             <code>Zend_Debug::dump()</code> хорошо применять для отладки
             во время разработки приложения. Вы можете быстро

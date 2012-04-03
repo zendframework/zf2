@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.creditcard"><info><title>CreditCard</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_CreditCard</classname> erlaubt es zu prüfen ob ein angegebener
@@ -49,7 +49,7 @@
     </itemizedlist>
 
     <note><info><title>Ungültige Institute</title></info>
-        
+
 
         <para>
             Die Institute <emphasis>Bankcard</emphasis> und <emphasis>Diners Club
@@ -63,7 +63,7 @@
     </note>
 
     <section xml:id="zend.validate.set.creditcard.options"><info><title>Unterstützte Optionen für Zend_Validate_CreditCard</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Validate_CreditCard</classname>
@@ -88,7 +88,7 @@
     </section>
 
     <section xml:id="zend.validate.set.creditcard.basic"><info><title>Grundsätzliche Verwendung</title></info>
-        
+
 
         <para>
             Es gibt verschiedene Kreditkarten Institute wie mit
@@ -112,7 +112,7 @@ if ($valid->isValid($input)) {
     </section>
 
     <section xml:id="zend.validate.set.creditcard.institute"><info><title>Definierte Kreditkarte akzeptieren</title></info>
-        
+
 
         <para>
             Manchmal ist es notwendig nur definierte Kreditkarten Institute zu akzeptieren statt
@@ -161,7 +161,7 @@ $valid = new Zend_Validate_CreditCard(array(
 ]]></programlisting>
 
         <table xml:id="zend.validate.set.creditcard.institute.table"><info><title>Konstanten für Kreditkarten Institute</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -255,7 +255,7 @@ $valid->setType(array(
 ]]></programlisting>
 
         <note><info><title>Standard Institute</title></info>
-            
+
 
             <para>
                 Wenn bei der Initiierung kein Institut angegeben wird, dann wird
@@ -270,7 +270,7 @@ $valid->setType(array(
     </section>
 
     <section xml:id="zend.validate.set.creditcard.servicecheck"><info><title>Prüfung durch Verwendung einer fremden API</title></info>
-        
+
 
         <para>
             Wie vorher erwähnt prüft <classname>Zend_Validate_CreditCard</classname> nur die

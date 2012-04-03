@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.queue.framework"><info><title>Framework</title></info>
-    
+
 
     <para>
         <classname>Zend_Queue</classname> ist ein Proxy der die Details des Queue Services
@@ -65,7 +65,7 @@ foreach ($messages as $i => $message) {
     </para>
 
     <section xml:id="zend.queue.framework.basics"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname> ist eine Proxy Klasse die einen Adapter
@@ -85,7 +85,7 @@ foreach ($messages as $i => $message) {
     </section>
 
     <section xml:id="zend.queue.framework.support"><info><title>Gemeinsamkeiten für alle Adapter</title></info>
-        
+
 
         <para>
             Die Queue Services die von <classname>Zend_Queue</classname> unterstützt werden

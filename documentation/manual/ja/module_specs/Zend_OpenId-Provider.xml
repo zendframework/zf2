@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.openid.provider"><info><title>Zend_OpenId_Provider</title></info>
-    
+
     <para>
         <classname>Zend_OpenId_Provider</classname>
         は、OpenID サーバを実装するために使用するものです。
@@ -11,7 +11,7 @@
     </para>
 
     <section xml:id="zend.openid.provider.start"><info><title>クイックスタート</title></info>
-        
+
         <para>
             以下の識別子は、<classname>Zend_OpenId_Provider::register</classname>
             を使用してユーザアカウントを作成するコードを含みます。
@@ -27,7 +27,7 @@
         </para>
 
         <example xml:id="zend.openid.provider.example-1"><info><title>識別子</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 <?php
 // テスト用の識別子を準備します
@@ -68,7 +68,7 @@ if (!$server->hasUser(TEST_ID)) {
         </para>
 
         <example xml:id="zend.openid.provider.example-2"><info><title>シンプルな識別プロバイダ</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $server = new Zend_OpenId_Provider("example-8-login.php",
                                    "example-8-trust.php");
@@ -120,7 +120,7 @@ if (is_string($ret)) {
         </note>
 
         <example xml:id="zend.openid.provider.example-3"><info><title>シンプルなログイン画面</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 <?php
 $server = new Zend_OpenId_Provider();
@@ -186,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
         </para>
 
         <example xml:id="zend.openid.provider.example-4"><info><title>シンプルな信頼画面</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 <?php
 $server = new Zend_OpenId_Provider();
@@ -243,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
     </section>
 
     <section xml:id="zend.openid.provider.all"><info><title>すべてを組み合わせる</title></info>
-        
+
         <para>
             プロバイダのすべての関数をひとつのスクリプトにまとめることもできます。
             この場合はログイン <acronym>URL</acronym> と信頼済み <acronym>URL</acronym> は省略され、
@@ -263,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
         </note>
 
         <example xml:id="zend.openid.provider.example-5"><info><title>すべてをまとめたもの</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $server = new Zend_OpenId_Provider();
 
@@ -302,7 +302,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' &&
     </section>
 
     <section xml:id="zend.openid.provider.sreg"><info><title>Simple Registration Extension</title></info>
-        
+
         <para>
             次に示す識別子ページには、またもやおまじないが組み込まれています。
             ここでは新たなユーザアカウントの作成を行い、それをプロファイル
@@ -313,7 +313,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' &&
         </para>
 
         <example xml:id="zend.openid.provider.example-6"><info><title>プロファイルを関連付けた識別子</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 <?php
 define("TEST_SERVER", Zend_OpenId::absoluteURL("example-10.php"));
@@ -368,7 +368,7 @@ if (!$server->hasUser(TEST_ID)) {
         </para>
 
         <example xml:id="zend.openid.provider.example-7"><info><title>SREG を使用したプロバイダ</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $server = new Zend_OpenId_Provider();
 $sreg = new Zend_OpenId_Extension_Sreg();
@@ -400,7 +400,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' &&
     </section>
 
     <section xml:id="zend.openid.provider.else"><info><title>それ以外には?</title></info>
-        
+
         <para>
             OpenID サーバの作成は、
             OpenID 対応のサイトの作成ほど頻繁に行うものではありません。

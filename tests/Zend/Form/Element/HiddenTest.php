@@ -21,11 +21,11 @@
 
 namespace ZendTest\Form\Element;
 
-use Zend\Form\Element\Hidden as HiddenElement,
-    Zend\Form\Element\Xhtml as XhtmlElement,
-    Zend\Form\Element,
-    Zend\Form\Decorator,
-    Zend\View\View;
+use Zend\Form\Element\Hidden as HiddenElement;
+use Zend\Form\Element\Xhtml as XhtmlElement;
+use Zend\Form\Element;
+use Zend\Form\Decorator;
+use Zend\View\View;
 
 /**
  * Test class for Zend_Form_Element_Hidden

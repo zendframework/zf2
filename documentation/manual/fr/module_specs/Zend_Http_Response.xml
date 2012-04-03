@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.http.response"><info><title>Zend_Http_Response</title></info>
-    
+
 
     <section xml:id="zend.http.response.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Http_Response</classname> fournit un accès simplifié aux réponses
@@ -18,7 +18,7 @@
             une réponse HTTP, et retourne un nouvel objet <classname>Zend_Http_Response</classname>
             : <example xml:id="zend.http.response.introduction.example-1"><info><title>Instancier un objet Zend_Http_Response en utilisant la méthode
                     factory</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $str = '';
@@ -87,7 +87,7 @@ $response = Zend_Http_Response::fromString($str);
     </section>
 
     <section xml:id="zend.http.response.testers"><info><title>Méthodes de tests booléennes</title></info>
-        
+
 
         <para>
             Une fois qu'un objet <classname>Zend_Http_Response</classname> est instancié, il
@@ -116,7 +116,7 @@ $response = Zend_Http_Response::fromString($str);
                     </para>
                 </listitem>
             </itemizedlist> <example xml:id="zend.http.response.testers.example-1"><info><title>Utiliser la méthode isError() pour valider une réponse</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 if ($response->isError()) {
@@ -133,7 +133,7 @@ if ($response->isError()) {
     </section>
 
     <section xml:id="zend.http.response.acessors"><info><title>Méthodes accesseurs</title></info>
-        
+
 
         <para>
             Le but principal de l'objet réponse est de fournir un accès facile à divers
@@ -204,7 +204,7 @@ if ($response->isError()) {
                     </para>
                 </listitem>
             </itemizedlist> <example xml:id="zend.http.response.acessors.example-1"><info><title>Utiliser les méthodes accesseurs de Zend_Http_Response</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 if ($response->getStatus() == 200) {
@@ -216,7 +216,7 @@ if ($response->getStatus() == 200) {
 }
 ]]></programlisting>
             </example> <note><info><title>Vérifier toujours la valeur retournée</title></info>
-                
+
 
                 <para>
                     Puisqu'une réponse peut contenir plusieurs exemplaires du même en-tête, la
@@ -226,7 +226,7 @@ if ($response->getStatus() == 200) {
                     est une chaîne ou un tableau.
                 </para>
             </note> <example xml:id="zend.http.response.acessors.example-2"><info><title>Accéder aux en-têtes de réponse</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $ctype = $response->getHeader('Content-type');
@@ -244,7 +244,7 @@ echo $body;
     </section>
 
     <section xml:id="zend.http.response.static_parsers"><info><title>Analyseurs statiques de réponse HTTP</title></info>
-        
+
 
         <para>
             La classe <classname>Zend_Http_Response</classname> inclut également plusieurs

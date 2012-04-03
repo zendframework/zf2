@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.recaptcha"><info><title>Zend_Service_ReCaptcha</title></info>
-    
+
 
     <section xml:id="zend.service.recaptcha.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_ReCaptcha</classname> provides a client for the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://recaptcha.net/">reCAPTCHA Web Service</link>.
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.service.recaptcha.simplestuse"><info><title>Simplest use</title></info>
-        
+
 
         <para>
             Instantiate a <classname>Zend_Service_ReCaptcha</classname> object, passing it
@@ -33,7 +33,7 @@
         </para>
 
         <example xml:id="zend.service.recaptcha.example-1"><info><title>Creating an instance of the reCAPTCHA service</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $recaptcha = new Zend_Service_ReCaptcha($pubKey, $privKey);
@@ -46,7 +46,7 @@ $recaptcha = new Zend_Service_ReCaptcha($pubKey, $privKey);
         </para>
 
         <example xml:id="zend.service.recaptcha.example-2"><info><title>Displaying the reCAPTCHA</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 echo $recaptcha->getHTML();
@@ -60,7 +60,7 @@ echo $recaptcha->getHTML();
         </para>
 
         <example xml:id="zend.service.recaptcha.example-3"><info><title>Verifying the form fields</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $result = $recaptcha->verify(
@@ -77,7 +77,7 @@ $result = $recaptcha->verify(
         </para>
 
         <example xml:id="zend.service.recaptcha.example-4"><info><title>Validating the reCAPTCHA</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 if (!$result->isValid()) {
@@ -96,7 +96,7 @@ if (!$result->isValid()) {
     </section>
 
     <section xml:id="zend.service.recaptcha.mailhide"><info><title>Hiding email addresses</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_ReCaptcha_MailHide</classname> can be used to hide email
@@ -112,7 +112,7 @@ if (!$result->isValid()) {
         </para>
 
         <example xml:id="zend.service.recaptcha.mailhide.example-1"><info><title>Using the mail hide component</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // The mail address we want to hide
@@ -141,7 +141,7 @@ print($mailHide);
             options for the component. The available options are listed in the following table:
 
             <table xml:id="zend.service.recaptcha.mailhide.options.table"><info><title>Zend_Service_ReCaptcha_MailHide options</title></info>
-                
+
 
                 <tgroup cols="4">
                     <thead>
@@ -193,7 +193,7 @@ print($mailHide);
         </para>
 
         <example xml:id="zend.service.recaptcha.mailhide.example-2"><info><title>Generating many hidden email addresses</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Create an instance of the mailhide component, passing it your public

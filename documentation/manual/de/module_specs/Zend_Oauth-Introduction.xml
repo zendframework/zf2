@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.oauth.introduction"><info><title>Einführung zu OAuth</title></info>
-    
+
 
     <para>
         OAuth erlaubt es Zugriffe auf private Daten welche in einer Website gespeicher sind von

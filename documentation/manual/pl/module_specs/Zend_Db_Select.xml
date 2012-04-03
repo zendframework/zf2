@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.select"><info><title>Zend_Db_Select</title></info>
-    
+
 
     <section xml:id="zend.db.select.introduction"><info><title>Wprowadzenie</title></info>
-        
+
 
         <para>
             Obiekt <classname>Zend_Db_Select</classname> reprezentuje pojedyncze polecenie
             <acronym>SQL</acronym> <acronym>SELECT</acronym>. Klasa posiada metody służące do
             umieszczenia poszczególnych części zapytania. Za jej pomocą można zapisać elementy
-            zapytania poprzez metody i struktur danych <acronym>PHP</acronym> a klasa sama 
+            zapytania poprzez metody i struktur danych <acronym>PHP</acronym> a klasa sama
             tworzy poprawne polecenie <acronym>SQL</acronym>. Po zbudowaniu zapytania można go
             użyć tak jakby było napisane w postaci zwykłego łańcucha znaków.
         </para>
@@ -21,29 +21,29 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    Metody obiektowe służące tworzeniu zapytań <acronym>SQL</acronym> krok po 
+                    Metody obiektowe służące tworzeniu zapytań <acronym>SQL</acronym> krok po
                     kroku;
                 </para>
             </listitem>
 
             <listitem>
                 <para>
-                    Poziom abstrakcji umożliwiający używanie określonych części zapytania 
+                    Poziom abstrakcji umożliwiający używanie określonych części zapytania
                     <acronym>SQL</acronym> są w sposób niezależny od rodzaju bazy danych;
                 </para>
             </listitem>
 
             <listitem>
                 <para>
-                    Automatyczne umieszczanie identyfikatorów metadanych w cudzysłowach ułatwia 
-                    używanie identyfikatorów zawierających zarezerwowane słowa i specjalne znaki 
+                    Automatyczne umieszczanie identyfikatorów metadanych w cudzysłowach ułatwia
+                    używanie identyfikatorów zawierających zarezerwowane słowa i specjalne znaki
                     <acronym>SQL</acronym>;
                 </para>
             </listitem>
 
             <listitem>
                 <para>
-                    Umieszczanie identyfikatorów i wartości w cudzysłowach pomaga ograniczyć 
+                    Umieszczanie identyfikatorów i wartości w cudzysłowach pomaga ograniczyć
                     ryzyko ataków wstrzykiwania kodu <acronym>SQL</acronym> (<acronym>SQL</acronym>
                     injection);
                 </para>
@@ -53,11 +53,11 @@
         <para>
             Używanie <classname>Zend_Db_Select</classname> nie jest obowiązkowe. Dla najprostszych
             zapytań <acronym>SELECT</acronym> z reguły łatwiej jest zapisać
-            całe polecenie <acronym>SQL</acronym> w 
-            postaci łańcucha znaków i wywołać je za pomocą metod Adaptera takich jak 
+            całe polecenie <acronym>SQL</acronym> w
+            postaci łańcucha znaków i wywołać je za pomocą metod Adaptera takich jak
             <methodname>query()</methodname> lub <methodname>fetchAll()</methodname>. Użycie
-            <classname>Zend_Db_Select</classname> jest przydatne jeśli zajdzie potrzeba połączenia 
-            części złożonego zapytania w kodzie np. w zależności od wystąpienia dodatkowych warunków 
+            <classname>Zend_Db_Select</classname> jest przydatne jeśli zajdzie potrzeba połączenia
+            części złożonego zapytania w kodzie np. w zależności od wystąpienia dodatkowych warunków
             logicznych.
         </para>
 
@@ -65,17 +65,17 @@
 
     <section xml:id="zend.db.select.creating"><info><title>Tworzenie obiektu Select</title></info>
 
-        
+
 
         <para>
-            Instancję klasy <classname>Zend_Db_Select</classname> można utworzyć poprzez metodę 
-            <methodname>select()</methodname> obiektu 
+            Instancję klasy <classname>Zend_Db_Select</classname> można utworzyć poprzez metodę
+            <methodname>select()</methodname> obiektu
             <classname>Zend_Db_Adapter_Abstract</classname>.
         </para>
 
         <example xml:id="zend.db.select.creating.example-db"><info><title>Przykład metody select() adaptera bazy danych</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $db = Zend_Db::factory( ...options... );
@@ -91,7 +91,7 @@ $select = $db->select();
 
         <example xml:id="zend.db.select.creating.example-new"><info><title>Przykład tworzenia nowego obiektu Select</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $db = Zend_Db::factory( ...options... );
@@ -104,17 +104,17 @@ $select = new Zend_Db_Select($db);
 
     <section xml:id="zend.db.select.building"><info><title>Tworzenie poleceń Select</title></info>
 
-        
+
 
         <para>
-            Budując zapytanie można dodawać jego części jedna po drugiej. Obiekt 
-            <classname>Zend_Db_Select</classname> posiada odrębne metody dla każdej klauzuli 
+            Budując zapytanie można dodawać jego części jedna po drugiej. Obiekt
+            <classname>Zend_Db_Select</classname> posiada odrębne metody dla każdej klauzuli
             <acronym>SQL</acronym>.
         </para>
 
         <example xml:id="zend.db.select.building.example"><info><title>Przykład użycia metod służących dodawaniu części zapytania</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 // Utworzenie obiektu Zend_Db_Select
@@ -134,14 +134,14 @@ $select->order( ...podanie kryteriów sortowania... );
 
         <para>
             Większości metod obiektu <classname>Zend_Db_Select</classname> można używać za pomocą
-            przyjaznego płynnego interfejsu (fluent interface). Interfejs płynny oznacza, że 
-            każda z metod zwraca referencję do obiektu wywołującego więc można od razu 
+            przyjaznego płynnego interfejsu (fluent interface). Interfejs płynny oznacza, że
+            każda z metod zwraca referencję do obiektu wywołującego więc można od razu
             użyć następnej metody.
         </para>
 
         <example xml:id="zend.db.select.building.example-fluent"><info><title>Przykład użycia płynnego interfejsu</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $select = $db->select()
@@ -161,7 +161,7 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.from"><info><title>Dodawanie klauzuli FROM</title></info>
 
-            
+
 
             <para>
                 Można wybrać tabelę dla zapytania używając metody <methodname>from()</methodname>.
@@ -172,7 +172,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.from.example"><info><title>Przykład użycia metody from()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Utworzenie zapytania:
@@ -188,17 +188,17 @@ $select = $db->select()
             <para>
                 Można podać również nazwę korelacyjną (nazywaną również aliasem tabeli) danej
                 tabeli.
-                Aby to zrobić w argumencie należy podać tablicę asocjacyjną, która będzie zawierała 
-                mapowanie nazwy aliasu na nazwę tabeli. W pozostałych częściach zapytania 
-                <acronym>SQL</acronym> będzie można używać tej nazwy zamiast tabeli. Jeśli 
-                dane zapytanie łączy wiele tabel 
-                <classname>Zend_Db_Select</classname> utworzy unikalne aliasy na 
+                Aby to zrobić w argumencie należy podać tablicę asocjacyjną, która będzie zawierała
+                mapowanie nazwy aliasu na nazwę tabeli. W pozostałych częściach zapytania
+                <acronym>SQL</acronym> będzie można używać tej nazwy zamiast tabeli. Jeśli
+                dane zapytanie łączy wiele tabel
+                <classname>Zend_Db_Select</classname> utworzy unikalne aliasy na
                 podstawie prawdziwych nazw dla każdej tabeli dla której nie zrobi tego użytkownik.
             </para>
 
             <example xml:id="zend.db.select.building.from.example-cname"><info><title>Przykład użycia aliasu</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Utworzenie zapytania:
@@ -212,18 +212,18 @@ $select = $db->select()
             </example>
 
             <para>
-                Niektóre silniki bazy danych (<acronym>RDBMS</acronym>) wspierają podawanie 
-                nazw schematu przed nazwą tabeli. W takim przypadku należy podać nazwę tabeli jako 
+                Niektóre silniki bazy danych (<acronym>RDBMS</acronym>) wspierają podawanie
+                nazw schematu przed nazwą tabeli. W takim przypadku należy podać nazwę tabeli jako
                 "<command>nazwaSchematu.nazwaTabeli</command>" a
                 <classname>Zend_Db_Select</classname>
                 umieści w cudzysłowach każdą z części takiej nazwy indywidualnie. Można też podać
                 nazwę schematu oddzielnie. Nazwa schematu podana przy nazwie tabeli ma pierwszeństwo
-                wobec nazwy schematu podanej osobno (jeśli obie występują). 
+                wobec nazwy schematu podanej osobno (jeśli obie występują).
             </para>
 
             <example xml:id="zend.db.select.building.from.example-schema"><info><title>Przykład podawania nazwy schematu</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Utworzenie zapytania:
@@ -245,18 +245,18 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.columns"><info><title>Dodawanie kolumn</title></info>
 
-            
+
 
             <para>
                 Drugi argument metody <methodname>from()</methodname> może zawierać kolumny, które
-                mają zostać pobrane z odpowiedniej tabeli. Jeśli nie poda się tego 
-                argumentu domyślną wartością jest "<emphasis>*</emphasis>" czyli znak 
+                mają zostać pobrane z odpowiedniej tabeli. Jeśli nie poda się tego
+                argumentu domyślną wartością jest "<emphasis>*</emphasis>" czyli znak
                 specjalny <acronym>SQL</acronym> odpowiadający wszystkim kolumnom.
             </para>
 
             <para>
                 Kolumny można podawać w prostej tablicy łańcuchów tekstowych lub jako asocjacyjnej
-                tablicy aliasów kolumn do nazw kolumn. Jeśli potrzebna jest tylko jedna kolumna to 
+                tablicy aliasów kolumn do nazw kolumn. Jeśli potrzebna jest tylko jedna kolumna to
                 można ją podać w prostym stringu - nie trzeba używać tablicy.
             </para>
 
@@ -270,13 +270,13 @@ $select = $db->select()
             <para>
                 Nazwę kolumny można podać w formie "<command>nazwaAliasu.nazwaKolumny</command>".
                 <classname>Zend_Db_Select</classname> umieści każdą z części nazwy oddzielnie
-                w cudzysłowach, używając aliasu wcześniej ustalonego w metodzie 
-                <methodname>from()</methodname> (jeśli nie został podany bezpośrednio). 
+                w cudzysłowach, używając aliasu wcześniej ustalonego w metodzie
+                <methodname>from()</methodname> (jeśli nie został podany bezpośrednio).
             </para>
 
             <example xml:id="zend.db.select.building.columns.example"><info><title>Przykład dodawania kolumn</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -310,12 +310,12 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.columns-expr"><info><title>Dodawanie kolumn z wyrażeniami</title></info>
 
-            
+
 
             <para>
-                W zapytaniach <acronym>SQL</acronym> często zachodzi potrzeba użycia wyrażeń 
+                W zapytaniach <acronym>SQL</acronym> często zachodzi potrzeba użycia wyrażeń
                 zamiast zwykłych kolumn tabeli. Wyrażenia nie powinny być otoczone cudzysłowami
-                ani zawierać aliasów tabel. Jeśli podana kolumna zawiera nawiasy 
+                ani zawierać aliasów tabel. Jeśli podana kolumna zawiera nawiasy
                 <classname>Zend_Db_Select</classname> rozpoznaje ją jako wyrażenie.
             </para>
 
@@ -323,7 +323,7 @@ $select = $db->select()
                 Można również samemu utworzyć obiekt klasy <classname>Zend_Db_Expr</classname>
                 aby łańcuch znaków nie został potraktowany jak zwykła nazwa kolumny.
                 <classname>Zend_Db_Expr</classname> jest małą klasą zawierającą jeden string.
-                <classname>Zend_Db_Select</classname> rozpoznaje instancje klasy 
+                <classname>Zend_Db_Select</classname> rozpoznaje instancje klasy
                 <classname>Zend_Db_Expr</classname> i zamienia je na łańcuchy znaków ale nie
                 wprowadza zmian takich jak cudzysłowy czy aliasy tabel.
             </para>
@@ -341,7 +341,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.columns-expr.example"><info><title>Przykłady podawania kolumn zawierających wyrażenia</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -384,7 +384,7 @@ $select = $db->select()
             </para>
 
             <para>
-                Jeśli podane nazwy kolumn zawierają słowa kluczowe <acronym>SQL</acronym> lub 
+                Jeśli podane nazwy kolumn zawierają słowa kluczowe <acronym>SQL</acronym> lub
                 znaki specjalne należy użyć metody adaptera połączenia o nazwie
                 <methodname>quoteIdentifier()</methodname> i rezultat umieścić w stringu. Metoda
                 <methodname>quoteIdentifier()</methodname> używa cudzysłowów dzięki czemu można być
@@ -396,19 +396,19 @@ $select = $db->select()
                 Dzięki użyciu metody <methodname>quoteIdentifier()</methodname> zamiast ręcznego
                 wpisywania cudzysłowów kod staje się niezależny od rodzaju bazy danych. Niektóre
                 systemy zarządzania bazą danych (<acronym>RDBMS</acronym>) używają niestandardowych
-                znaków do ograniczania identyfikatorów. Metoda 
-                <methodname>quoteIdentifier()</methodname> jest przystosowana do 
-                używania odpowiednich symboli ograniczających w zależności od typu 
+                znaków do ograniczania identyfikatorów. Metoda
+                <methodname>quoteIdentifier()</methodname> jest przystosowana do
+                używania odpowiednich symboli ograniczających w zależności od typu
                 używanego adaptera. Metoda <methodname>quoteIdentifier()</methodname> dokonuje
                 również unikania znaków cudzysłowu, które pojawią się w argumencie wejściowym.
             </para>
 
             <example xml:id="zend.db.select.building.columns-quoteid.example"><info><title>Przykłady umieszczania wyrażeń w cudzysłowach</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
-// Tworzenie zapytania, 
+// Tworzenie zapytania,
 // umieszczając kolumnę o nazwie "from" w cudzysłowach:
 //   SELECT p."from" + 10 AS origin
 //   FROM "products" AS p
@@ -426,7 +426,7 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.columns-atomic"><info><title>Dodawanie kolumn do wcześniej utworzonej klauzuli FROM lub JOIN</title></info>
 
-            
+
 
             <para>
                 Może powstać sytuacja w której niezbędne okazuje się dodanie kolumn do klauzuli
@@ -435,14 +435,14 @@ $select = $db->select()
                 Metoda <methodname>columns()</methodname> pozwala na dodanie kolumn w dowolnym
                 momencie przed wykonaniem zapytania. Kolumny można podać jako łańcuchy znaków,
                 obiekty <classname>Zend_Db_Expr</classname> lub jako tablice tych elementów. Drugi
-                argument tej metody może zostać pominięty co oznacza, że kolumny powinny zostać 
+                argument tej metody może zostać pominięty co oznacza, że kolumny powinny zostać
                 dodane do tabeli z klauzuli <acronym>FROM</acronym>.
                 W przeciwnym razie należy podać alias lub nazwę tabeli.
             </para>
 
             <example xml:id="zend.db.select.building.columns-atomic.example"><info><title>Przykłady dodawania kolumn metodą columns()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -469,12 +469,12 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.join"><info><title>Dodawanie tabeli do zapytania za pomocą JOIN</title></info>
 
-            
+
 
             <para>
                 Wiele użytecznych zapytań zawiera klauzulę <acronym>JOIN</acronym> służącą do
                 łączenia wierszy z wielu tabel. Aby dodać tabele do obiektu
-                <classname>Zend_Db_Select</classname> należy użyć metody 
+                <classname>Zend_Db_Select</classname> należy użyć metody
                 <methodname>join()</methodname>. Używanie jej jest podobne do użycia metody
                 <methodname>from()</methodname> z tym, że tu można również użyć warunek łączenia
                 tabel.
@@ -482,7 +482,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.join.example"><info><title>Przykład użycia metody join()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -502,7 +502,7 @@ $select = $db->select()
             <para>
                 Drugi argument metody <methodname>join()</methodname> to string stanowiący warunek
                 połączenia. Jest to wyrażenie określające kryteria wg. których wiersze z
-                jednej tabeli łączą się z wierszami drugiej tabeli. W tym miejscu 
+                jednej tabeli łączą się z wierszami drugiej tabeli. W tym miejscu
                 można użyć aliasów tabel.
             </para>
 
@@ -511,15 +511,15 @@ $select = $db->select()
                 <para>
                     Do warunku połączenia nie są stosowane cudzysłowy; Jeśli występuje konieczność
                     umieszczenia nazwy kolumny w cudzysłowach, należy użyć metody adaptera
-                    <methodname>quoteIdentifier()</methodname> przy formowaniu wyrażenia warunku 
+                    <methodname>quoteIdentifier()</methodname> przy formowaniu wyrażenia warunku
                     połączenia.
                 </para>
 
             </note>
 
             <para>
-                Trzeci argument metody <methodname>join()</methodname> to tablica nazw kolumn (tak 
-                jak przy metodzie <methodname>from()</methodname>). Domyślną wartością jest 
+                Trzeci argument metody <methodname>join()</methodname> to tablica nazw kolumn (tak
+                jak przy metodzie <methodname>from()</methodname>). Domyślną wartością jest
                 "<emphasis>*</emphasis>". Można w nim podawać aliasy kolumn, wyrażenia lub obiekty
                 <classname>Zend_Db_Expr</classname> w taki sam sposób jak w metodzie
                 <methodname>from()</methodname>.
@@ -527,14 +527,14 @@ $select = $db->select()
 
             <para>
                 Aby nie wybierać żadnej kolumny należy podać pustą tablicę zamiast nazw kolumn.
-                Ten sposób działa również w metodzie <methodname>from()</methodname> ale z 
-                podstawowych tabel przeważnie kolumny są potrzebne, co nie zawsze jest prawdą 
+                Ten sposób działa również w metodzie <methodname>from()</methodname> ale z
+                podstawowych tabel przeważnie kolumny są potrzebne, co nie zawsze jest prawdą
                 dla kolumn tabeli połączonej.
             </para>
 
             <example xml:id="zend.db.select.building.join.example-no-columns"><info><title>Przykład nie podawania kolumn</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -565,14 +565,14 @@ $select = $db->select()
             <itemizedlist>
                 <listitem>
                     <para>
-                        <command>INNER JOIN</command> za pomocą 
+                        <command>INNER JOIN</command> za pomocą
                         <methodname>join(tabela, warunek, [kolumny])</methodname>
                         lub <methodname>joinInner(tabela, warunek, [kolumny])</methodname>
                     </para>
 
                     <para>
                         To jest najbardziej popularny rodzaj połączenia JOIN. Wiersze z
-                        każdej tabeli są porównywane za pomocą podanego warunku. Zbiór 
+                        każdej tabeli są porównywane za pomocą podanego warunku. Zbiór
                         wyjściowy zawiera jedynie
                         wiersze, które spełniają warunek połączenia. Jeśli żadna para wierszy nie
                         spełnia warunku to zbiór pozostanie pusty.
@@ -611,8 +611,8 @@ $select = $db->select()
 
                     <para>
                         RIGHT JOIN to przeciwieństwo LEFT JOIN. Wszystkie wiersze z
-                        tabeli znajdującej się po prawej stronie są umieszczone w wyniku. 
-                        Te, które nie posiadają 
+                        tabeli znajdującej się po prawej stronie są umieszczone w wyniku.
+                        Te, które nie posiadają
                         odpowiednika w tabeli lewej otrzymują wartości <constant>NULL</constant>
                         w kolumnach z lewej tabeli.
                     </para>
@@ -620,7 +620,7 @@ $select = $db->select()
                     <para>
                         Niektóre systemy zarządzania bazą danych (<acronym>RDBMS</acronym>) nie
                         wspierają tego typu polecenia JOIN ale generalnie każdy
-                        <command>RIGHT JOIN</command> może zostać zaprezentowany jako 
+                        <command>RIGHT JOIN</command> może zostać zaprezentowany jako
                         <command>LEFT JOIN</command> poprzez odwrócenie kolejności dodawania tabel.
                     </para>
                 </listitem>
@@ -647,23 +647,23 @@ $select = $db->select()
 
                 <listitem>
                     <para>
-                        <command>CROSS JOIN</command> za pomocą metody 
+                        <command>CROSS JOIN</command> za pomocą metody
                         <methodname>joinCross(tabela, [kolumny])</methodname>.
                     </para>
 
                     <para>
-                        Cross join to iloczyn kartezjański tabel. Każdy wiersz z pierwszej tabeli 
+                        Cross join to iloczyn kartezjański tabel. Każdy wiersz z pierwszej tabeli
                         zostaje połączony z każdym wierszem z tabeli drugiej. Ilość wierszy
-                        w zbiorze wynikowym jest równa iloczynowi ilości wierszy w obu tabelach. 
+                        w zbiorze wynikowym jest równa iloczynowi ilości wierszy w obu tabelach.
                         Poprzez użycie warunku <acronym>WHERE</acronym> można ograniczyć
                         wiersze wynikowe przez co cross join może być podobny
-                        do składni polecenia join 
+                        do składni polecenia join
                         ze standardu <acronym>SQL</acronym>-89.
                     </para>
 
                     <para>
                         Metoda <methodname>joinCross()</methodname> nie ma parametru odnoszącego się
-                        do warunku połączenia. Niektóre systemy zarządzania bazą danych 
+                        do warunku połączenia. Niektóre systemy zarządzania bazą danych
                         (<acronym>RDBMS</acronym>) nie wspierają tego typu
                         polecenia <acronym>JOIN</acronym>.
                     </para>
@@ -679,8 +679,8 @@ $select = $db->select()
                         Polecenie natural join łączy wiersze pod względem wszystkich kolumn, które
                         mają taką samą nazwę w obydwu tabelach. Warunkiem połączenia jest zgodność
                         wartości wszystkich tak samo nazwanych kolumn tabel. Porównywanie wartości
-                        na zasadzie niezgodności (różnicy) nie stanowi polecenia natural join. 
-                        Jedynie polecenia typu natural inner join są zaimplementowane w tym API 
+                        na zasadzie niezgodności (różnicy) nie stanowi polecenia natural join.
+                        Jedynie polecenia typu natural inner join są zaimplementowane w tym API
                         pomimo tego że standard <acronym>SQL</acronym> definiuje też polecenia
                         natural outer join.
                     </para>
@@ -694,14 +694,14 @@ $select = $db->select()
 
             <para>
                 Oprócz powyższych metod można uprościć zapytania używając metod JoinUsing. Zamiast
-                podawania pełnego warunku można wybrać nazwę kolumny, na podstawie której 
+                podawania pełnego warunku można wybrać nazwę kolumny, na podstawie której
                 połączenie będzie przeprowadzone a obiekt <classname>Zend_Db_Select</classname>
                 dopisze niezbędną część polecenia warunku.
             </para>
 
             <example xml:id="zend.db.select.building.joinusing.example"><info><title>Przykład użycia metody joinUsing()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -720,7 +720,7 @@ $select = $db->select()
             </example>
 
             <para>
-                Każda z metod połączenia klasy <classname>Zend_Db_Select</classname> ma 
+                Każda z metod połączenia klasy <classname>Zend_Db_Select</classname> ma
                 odpowiednią metodę 'using'.
             </para>
 
@@ -755,7 +755,7 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.where"><info><title>Dodawanie klauzuli WHERE</title></info>
 
-            
+
 
             <para>
                 Za pomocą metody <methodname>where()</methodname> można określić kryteria
@@ -766,7 +766,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.where.example"><info><title>Przykład użycia metody where()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -787,7 +787,7 @@ $select = $db->select()
                 <para>
                     Wyrażenia w metodach <methodname>where()</methodname> lub
                     <methodname>orWhere()</methodname> nie zostają umieszczone w cudzysłowach.
-                    Jeśli nazwa kolumny tego wymaga należy użyć metody 
+                    Jeśli nazwa kolumny tego wymaga należy użyć metody
                     <methodname>quoteIdentifier()</methodname> podczas tworzenia parametru warunku.
                 </para>
 
@@ -795,14 +795,14 @@ $select = $db->select()
 
             <para>
                 Drugi argument metody <methodname>where()</methodname> jest opcjonalny. Stanowi on
-                wartość umieszczaną w warunku. <classname>Zend_Db_Select</classname> ogranicza tą 
-                wartość cudzysłowami i za jej pomocą podmienia symbol znaku zapytania 
+                wartość umieszczaną w warunku. <classname>Zend_Db_Select</classname> ogranicza tą
+                wartość cudzysłowami i za jej pomocą podmienia symbol znaku zapytania
                 ("<emphasis>?</emphasis>") w warunku.
             </para>
 
             <example xml:id="zend.db.select.building.where.example-param"><info><title>Przykład użycia parametru w metodzie where()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -827,7 +827,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.where.example-array"><info><title>Przykład użycia tablicy w metodzie where()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -853,7 +853,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.where.example-and"><info><title>Przykład wywołania metody where() wiele razy</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -884,7 +884,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.where.example-or"><info><title>Przykład użycia metody orWhere()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -914,7 +914,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.where.example-parens"><info><title>Przykład umieszczania wyrażeń w nawiasach</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -939,7 +939,7 @@ $select = $db->select()
             <para>
                 W powyższym przykładzie zapytanie bez nawiasów przyniosłoby inny rezultat ponieważ
                 <acronym>AND</acronym> ma wyższy priorytet niż <acronym>OR</acronym>.
-                Dzięki nawiasom <classname>Zend_Db_Select</classname> sprawia, że każde 
+                Dzięki nawiasom <classname>Zend_Db_Select</classname> sprawia, że każde
                 wywołanie metody <methodname>where()</methodname> łączy zawarte w niej warunki
                 z wyższym priorytetem niż <acronym>AND</acronym> który łączy poszczególne warunki.
             </para>
@@ -948,17 +948,17 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.group"><info><title>Dodanie klauzuli GROUP BY</title></info>
 
-            
+
 
             <para>
-                W <acronym>SQL</acronym>, klauzula <command>GROUP BY</command> pozwala na 
-                ograniczenie wierszy wyników zapytania do jednego wiersza na każdą unikalną wartość 
+                W <acronym>SQL</acronym>, klauzula <command>GROUP BY</command> pozwala na
+                ograniczenie wierszy wyników zapytania do jednego wiersza na każdą unikalną wartość
                 znalezioną w kolumnie podanej przy klauzuli <command>GROUP BY</command>.
             </para>
 
             <para>
                 Aby określić kolumny używane do podzielenia wyników na grupy w
-                <classname>Zend_Db_Select</classname> należy użyć metody 
+                <classname>Zend_Db_Select</classname> należy użyć metody
                 <methodname>group()</methodname>.
                 Jako argument podaje się kolumnę lub tablicę kolumn, które mają trafić
                 do klauzuli <command>GROUP BY</command>.
@@ -966,7 +966,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.group.example"><info><title>Przykład użycia metody group()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -987,9 +987,9 @@ $select = $db->select()
             </example>
 
             <para>
-                Podobnie jak w przypadku metody <methodname>from()</methodname> w argumencie można 
+                Podobnie jak w przypadku metody <methodname>from()</methodname> w argumencie można
                 używać aliasów tabel a nazwy są umieszczane w cudzysłowach jako identyfikatory
-                chyba że łańcuch znaków zawiera nawiasy lub jest 
+                chyba że łańcuch znaków zawiera nawiasy lub jest
                 obiektem <classname>Zend_Db_Expr</classname>.
             </para>
 
@@ -997,11 +997,11 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.having"><info><title>Dodanie klauzuli HAVING</title></info>
 
-            
+
 
             <para>
                 W <acronym>SQL</acronym>, klauzula <constant>HAVING</constant> wprowadza
-                ograniczenie w stosunku do grup wierszy. Jest to podobne do sposobu w jaki klauzula 
+                ograniczenie w stosunku do grup wierszy. Jest to podobne do sposobu w jaki klauzula
                 <constant>WHERE</constant> ogranicza wiersze ogólnie. Te klauzule są różne ponieważ
                 warunki <constant>WHERE</constant> są oceniane prze definiowaniem grup, podczas gdy
                 warunki <constant>HAVING</constant> nakładane są po uformowaniu grup.
@@ -1012,8 +1012,8 @@ $select = $db->select()
                 grup wierszy za pomocą metody <methodname>having()</methodname>.
                 Użycie jej jest podobne do metody <methodname>where()</methodname>. Pierwszy
                 argument to string zawierający wyrażenie <acronym>SQL</acronym>. Opcjonalny
-                drugi argument to wartość używana do zamienienia pozycyjnych parametrów w 
-                wyrażeniu <acronym>SQL</acronym>. Wyrażenia umieszczone w wielu wywołaniach 
+                drugi argument to wartość używana do zamienienia pozycyjnych parametrów w
+                wyrażeniu <acronym>SQL</acronym>. Wyrażenia umieszczone w wielu wywołaniach
                 metody <methodname>having()</methodname> są łączone za pomocą operatora
                 <acronym>AND</acronym> lub <acronym>OR</acronym> - jeśli zostanie użyta metoda
                 <methodname>orHaving()</methodname>.
@@ -1021,7 +1021,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.having.example"><info><title>Przykład użycia metody having()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -1047,9 +1047,9 @@ $select = $db->select()
 
                 <para>
                     W metodach <methodname>having()</methodname> oraz
-                    <methodname>orHaving()</methodname> nie jest stosowane umieszczanie 
-                    identyfikatorów w cudzysłowach. Jeśli nazwa kolumny tego wymaga należy użyć 
-                    metody <methodname>quoteIdentifier()</methodname> podczas tworzenia parametru 
+                    <methodname>orHaving()</methodname> nie jest stosowane umieszczanie
+                    identyfikatorów w cudzysłowach. Jeśli nazwa kolumny tego wymaga należy użyć
+                    metody <methodname>quoteIdentifier()</methodname> podczas tworzenia parametru
                     warunku.
                 </para>
 
@@ -1059,25 +1059,25 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.order"><info><title>Dodanie klauzuli ORDER BY</title></info>
 
-            
+
 
             <para>
                 W <acronym>SQL</acronym>, klauzula <acronym>ORDER BY</acronym>
                 określa jedną bądź więcej
                 kolumn lub wyrażeń według których zbiór wynikowy jest posortowany. Jeśli poda się
                 wiele kolumn to sortowanie odbywa się w pierwszej kolejności na podstawie wcześniej
-                podanej kolumny. Jeśli istnieją wiersze o takiej samej wartości w danej kolumnie 
+                podanej kolumny. Jeśli istnieją wiersze o takiej samej wartości w danej kolumnie
                 to do sortowania używana jest kolejna klumna klauzuli <code>ORDER BY</code>.
                 Domyślny kierunek sortowania to od najmniejszej wartości do największej.
-                Można sortować w przeciwnym kierunku przez użycie słowa kluczowego 
+                Można sortować w przeciwnym kierunku przez użycie słowa kluczowego
                 <constant>DESC</constant> po nazwie kolumny sortowania.
             </para>
 
             <para>
                 W <classname>Zend_Db_Select</classname> można użyć metody
-                <methodname>order()</methodname> i podać kolumnę lub tablicę kolumn 
+                <methodname>order()</methodname> i podać kolumnę lub tablicę kolumn
                 według których sortowanie ma przebiegać. Każdy z elementów tablicy
-                powinien być łańcuchem znaków określającym kolumnę. Opcjonalnie można dodać 
+                powinien być łańcuchem znaków określającym kolumnę. Opcjonalnie można dodać
                 słowa kluczowe <constant>ASC</constant> lub <constant>DESC</constant>
                 oddzielone od kolumny spacją.
             </para>
@@ -1090,7 +1090,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.order.example"><info><title>Przykład użycia metody order()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -1117,20 +1117,20 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.limit"><info><title>Dodanie klauzuli LIMIT</title></info>
 
-            
+
 
             <para>
                 Niektóre systemy zarządzania bazą danych (<acronym>RDBMS</acronym>) rozszerzają
-                <acronym>SQL</acronym> za pomocą klauzuli <constant>LIMIT</constant>. Za jej 
+                <acronym>SQL</acronym> za pomocą klauzuli <constant>LIMIT</constant>. Za jej
                 pomocą można ograniczyć ilość wierszy zwracanych w zapytaniu do podanej ilości.
                 Można również określić ilość wierszy, która ma zostać opuszczona przed
                 rozpoczęciem zwracania wyników zapytania. Dzięki temu można w łatwy sposób
-                uzyskać podzbiór ze zbioru wynikowego. Może to być przydatne 
+                uzyskać podzbiór ze zbioru wynikowego. Może to być przydatne
                 np. przy wyświetlaniu rezultatów zapytania z podziałem na strony.
             </para>
 
             <para>
-                W <classname>Zend_Db_Select</classname> można użyć metody 
+                W <classname>Zend_Db_Select</classname> można użyć metody
                 <methodname>limit()</methodname> aby określić ilość wierszy do zwrócenia oraz do
                 opuszczenia. <emphasis>Pierwszy</emphasis> argument metody to ilość wierszy
                 jaka maksymalnie ma zostać zwrócona. <emphasis>Drugi</emphasis> argument to ilość
@@ -1139,7 +1139,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.building.limit.example"><info><title>Przykład użycia metody limit()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -1165,7 +1165,7 @@ $select = $db->select()
                     Polecenie <constant>LIMIT</constant> nie jest wspierane przez wszystkie rodzaje
                     baz danych. Niektóre z nich wymagają innej składni dla uzyskania
                     podobnego efektu. Każda z klas <classname>Zend_Db_Adapter_Abstract</classname>
-                    zawiera metodę tworzącą polecenie <acronym>SQL</acronym> odpowiednie dla danego 
+                    zawiera metodę tworzącą polecenie <acronym>SQL</acronym> odpowiednie dla danego
                     <acronym>RDBMS</acronym>.
                 </para>
 
@@ -1178,14 +1178,14 @@ $select = $db->select()
                 i zwrócenie jednego z nich.
                 Innymi słowy należy określić długość jednej "strony" z wynikami zapytania
                 oraz liczbę porządkową określającą stronę, która ma zostać zwrócona.
-                Numer strony stanowi pierwszy argument metody 
+                Numer strony stanowi pierwszy argument metody
                 <methodname>limitPage()</methodname> a długość strony to drugi argument.
                 Obydwa argumenty są wymagane - nie mają wartości domyślnych.
             </para>
 
             <example xml:id="zend.db.select.building.limit.example2"><info><title>Przykład użycia metody limitPage()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -1205,16 +1205,16 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.distinct"><info><title>Dodanie słowa kluczowego DISTINCT do zapytania</title></info>
 
-            
+
 
             <para>
-                Metoda <methodname>distinct()</methodname> pozwala na dodanie słowa 
+                Metoda <methodname>distinct()</methodname> pozwala na dodanie słowa
                 kluczowego <constant>DISTINCT</constant> do zapytania <acronym>SQL</acronym>.
             </para>
 
             <example xml:id="zend.db.select.building.distinct.example"><info><title>Przykład użycia metody distinct()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -1232,16 +1232,16 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.building.for-update"><info><title>Dodanie słowa kluczowego FOR UPDATE do zapytania</title></info>
 
-            
+
 
             <para>
-                Metoda <methodname>forUpdate()</methodname> pozwala na dodanie słowa 
+                Metoda <methodname>forUpdate()</methodname> pozwala na dodanie słowa
                 kluczowego <acronym>FOR UPDATE</acronym> do zapytania <acronym>SQL</acronym>.
             </para>
 
             <example xml:id="zend.db.select.building.for-update.example"><info><title>Przykład użycia metody forUpdate()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:
@@ -1258,21 +1258,21 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.union"><info><title>Tworzenie zapytania z UNION</title></info>
-            
+
 
             <para>
                 Z <classname>Zend_Db_Select</classname> można łączyć zapytania poprzez
                 przekazanie tablicy obiektów <classname>Zend_Db_Select</classname>
                 lub łańcuchów zapytań <acronym>SQL</acronym>
                 do metody <methodname>union()</methodname>.
-                Jako drugi parametr można podać stałe 
+                Jako drugi parametr można podać stałe
                 <constant>Zend_Db_Select::SQL_UNION</constant>
                 lub <constant>Zend_Db_Select::SQL_UNION_ALL</constant>
                 aby określić rodzaj połączenia jaki chce się uzyskać.
             </para>
 
             <example xml:id="zend.db.select.building.union.example"><info><title>Przykład użycia metody union()</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $sql1 = $db->select();
@@ -1289,7 +1289,7 @@ $select = $db->select()
 
     <section xml:id="zend.db.select.execute"><info><title>Wykonywanie zapytań Select</title></info>
 
-        
+
 
         <para>
             Poniższa część opisuje jak wywołać zapytanie zawarte w obiekcie
@@ -1298,7 +1298,7 @@ $select = $db->select()
 
         <section xml:id="zend.db.select.execute.query-adapter"><info><title>Wykonywanie zapytań Select z poziomu adaptera bazy danych</title></info>
 
-            
+
 
             <para>
                 Zapytanie zawarte w obiekcie <classname>Zend_Db_Select</classname> można wywołać
@@ -1316,7 +1316,7 @@ $select = $db->select()
 
             <example xml:id="zend.db.select.execute.query-adapter.example"><info><title>Przykład użycia metody query() adaptera bazy danych</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $select = $db->select()
@@ -1332,20 +1332,20 @@ $result = $stmt->fetchAll();
 
         <section xml:id="zend.db.select.execute.query-select"><info><title>Wykonywanie zapytań Select z samego obiektu</title></info>
 
-            
+
 
             <para>
                 Jako alternatywny sposób w stosunku do użycia
                 metody <methodname>query()</methodname> adaptera bazy danych,
-                można użyć metody o takiej samej nazwie obiektu 
+                można użyć metody o takiej samej nazwie obiektu
                 <classname>Zend_Db_Select</classname>. Obydwie metody zwracają obiekt klasy
-                <classname>Zend_Db_Statement</classname> lub PDOStatement w zależności od typu 
+                <classname>Zend_Db_Statement</classname> lub PDOStatement w zależności od typu
                 użytego adaptera.
             </para>
 
             <example xml:id="zend.db.select.execute.query-select.example"><info><title>Przykład użycia metody obiektu Zend_Db_Select</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $select = $db->select()
@@ -1361,7 +1361,7 @@ $result = $stmt->fetchAll();
 
         <section xml:id="zend.db.select.execute.tostring"><info><title>Zamiana obiektu Select w łańcuch polecenia SQL</title></info>
 
-            
+
 
             <para>
                 Jeśli niezbędny jest dostęp do polecenia <acronym>SQL</acronym> w postaci łańcucha
@@ -1371,7 +1371,7 @@ $result = $stmt->fetchAll();
 
             <example xml:id="zend.db.select.execute.tostring.example"><info><title>Przykład użycia metody __toString()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $select = $db->select()
@@ -1392,29 +1392,29 @@ echo "$sql\n";
 
     <section xml:id="zend.db.select.other"><info><title>Inne metody</title></info>
 
-        
+
 
         <para>
-            Ta część opisuje inne metody klasy <classname>Zend_Db_Select</classname>, które nie 
+            Ta część opisuje inne metody klasy <classname>Zend_Db_Select</classname>, które nie
             zostały wymienione wcześniej: <methodname>getPart()</methodname> oraz
             <methodname>reset()</methodname>.
         </para>
 
         <section xml:id="zend.db.select.other.get-part"><info><title>Uzyskanie części obiektu Select</title></info>
 
-            
+
 
             <para>
                 Metoda <methodname>getPart()</methodname> zwraca postać łańcucha
                 znaków odpowiadającą jednej części polecenia <acronym>SQL</acronym>.
                 Można użyć tej metody aby uzyskać tablicę warunków klauzuli
                 <constant>WHERE</constant>, tablicę kolumn (lub wyrażeń)
-                zawartych w liście <constant>SELECT</constant> albo wartości ilości wierszy 
+                zawartych w liście <constant>SELECT</constant> albo wartości ilości wierszy
                 klauzuli <constant>LIMIT</constant>.
             </para>
 
             <para>
-                Wartością zwracaną nie jest string zawierający składnię <acronym>SQL</acronym>. 
+                Wartością zwracaną nie jest string zawierający składnię <acronym>SQL</acronym>.
                 Zamiast tego zwracana jest wewnętrzna postać danych, co przeważnie oznacza tablicę
                 zawierającą wartości i wyrażenia. Każda część zapytania ma inną strukturę.
             </para>
@@ -1428,14 +1428,14 @@ echo "$sql\n";
             </para>
 
             <para>
-                Klasa <classname>Zend_Db_Select</classname> definiuje stałe, których można użyć 
+                Klasa <classname>Zend_Db_Select</classname> definiuje stałe, których można użyć
                 jako oznaczeń zapytania <acronym>SQL</acronym>. Dozwolone jest stosowanie tych
                 stałych bądź nazw dosłownych.
             </para>
 
             <table xml:id="zend.db.select.other.get-part.table"><info><title>Stałe używane przez metody getPart() oraz reset()</title></info>
 
-                
+
 
                 <tgroup cols="2">
                     <thead>
@@ -1501,7 +1501,7 @@ echo "$sql\n";
 
             <example xml:id="zend.db.select.other.get-part.example"><info><title>Przykład użycia metody getPart()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $select = $db->select()
@@ -1525,7 +1525,7 @@ print_r( $orderData );
 
         <section xml:id="zend.db.select.other.reset"><info><title>Czyszczenie części obiektu Select</title></info>
 
-            
+
 
             <para>
                 Metoda <methodname>reset()</methodname> umożliwia wyczyszczenie podanej części
@@ -1548,7 +1548,7 @@ print_r( $orderData );
 
             <example xml:id="zend.db.select.other.reset.example"><info><title>Przykład użycia metody reset()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Tworzenie zapytania:

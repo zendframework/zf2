@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.markup.parsers"><info><title>Zend_Markup Parser</title></info>
-    
+
 
     <para>
         <classname>Zend_Markup</classname> wird aktuell mit zwei Parsern ausgeliefert, einen BBCode
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.markup.parsers.theory"><info><title>Theorie des Parsens</title></info>
-        
+
 
         <para>
             Die Parser von <classname>Zend_Markup</classname> sind Klasse die Text mit Markup in
@@ -62,7 +62,7 @@
     </section>
 
     <section xml:id="zend.markup.parsers.bbcode"><info><title>Der BBCode Parser</title></info>
-        
+
 
         <para>
             Der BBCode Parser ist ein <classname>Zend_Markup</classname> Parser der BBCode in einen
@@ -90,7 +90,7 @@
     </section>
 
     <section xml:id="zend.markup.parsers.textile"><info><title>Der Textile Parser</title></info>
-        
+
 
         <para>
             Der Textile Parser ist ein <classname>Zend_Markup</classname> Parser der Textile in
@@ -99,7 +99,7 @@
         </para>
 
         <table xml:id="zend.markup.parsers.textile.tags"><info><title>Liste der grundsätzlichen Textile Tags</title></info>
-            
+
 
             <tgroup cols="2" align="left" colsep="1" rowsep="1">
                 <thead>
@@ -193,7 +193,7 @@
         </para>
 
         <section xml:id="zend.markup.parsers.textile.lists"><info><title>Listen</title></info>
-            
+
 
             <para>
                 Der Textile Parser unterstützt auch zwei Typen von Listen. Den nummerischen Typ

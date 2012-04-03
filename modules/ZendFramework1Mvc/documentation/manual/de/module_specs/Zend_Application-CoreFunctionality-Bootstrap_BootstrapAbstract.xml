@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.bootstrap-bootstrapabstract"><info><title>Zend_Application_Bootstrap_BootstrapAbstract</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Bootstrap_BootstrapAbstract</classname> ist eine abstrakte
@@ -12,7 +12,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.bootstrap-bootstrapabstract.api.table"><info><title>Zend_Application_Bootstrap_BootstrapAbstract Methoden</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>

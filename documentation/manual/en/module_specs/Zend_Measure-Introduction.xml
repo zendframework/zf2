@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.introduction"><info><title>Introduction</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Measure_*</classname> classes provide a generic and easy way for working
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.measure.introduction.example-1"><info><title>Converting measurements</title></info>
-        
+
 
         <para>
             The following introductory example shows automatic conversion of units of measurement.
@@ -40,7 +40,7 @@ echo $unit->convertTo(Zend_Measure_Length::YARD);
     </para>
 
     <example xml:id="zend.measure.introduction.example-2"><info><title>The meter measurement</title></info>
-        
+
 
         <para>
             The <emphasis>meter</emphasis> is used for measuring lengths, so its type constant can

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.barcode.objects"><info><title>Objetos Zend_Barcode</title></info>
-    
+
 
     <para>
         Os objetos código de barras te permitem gerar códigos de barras independentemente do suporte
@@ -40,7 +40,7 @@
     </itemizedlist>
 
     <example xml:id="zend.barcode.objects.configuration"><info><title>Diferentes maneiras de parametrizar um objeto código de barras</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $options = array('text' => 'ZEND-FRAMEWORK', 'barHeight' => 40);
@@ -65,7 +65,7 @@ $barcode->setText('ZEND-FRAMEWORK')
     </example>
 
     <section xml:id="zend.barcode.objects.common.options"><info><title>Opções Comuns</title></info>
-        
+
 
         <para>
             Na lista seguinte, os valores não têm unidades; usaremos o termo "unidade". Por exemplo,
@@ -79,7 +79,7 @@ $barcode->setText('ZEND-FRAMEWORK')
         </para>
 
         <table xml:id="zend.barcode.objects.common.options.table"><info><title>Opções Comuns</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -251,7 +251,7 @@ $barcode->setText('ZEND-FRAMEWORK')
         </table>
 
         <section xml:id="zend.barcode.objects.common.options.barcodefont"><info><title>O caso particular do setBarcodeFont() estático</title></info>
-            
+
 
             <para>
                 Você pode definir uma fonte comum para todos os seus objetos usando o método
@@ -285,12 +285,12 @@ Zend_Barcode::render(
     </section>
 
     <section xml:id="zend.barcode.objects.common.getters"><info><title>Métodos de Leitura Comuns Adicionais</title></info>
-        
+
 
         <para/>
 
         <table xml:id="zend.barcode.objects.common.getters.table"><info><title>Métodos de Leitura Comuns</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>

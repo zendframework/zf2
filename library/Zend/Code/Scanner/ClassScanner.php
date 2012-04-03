@@ -2,10 +2,10 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Scanner,
-    Zend\Code\NameInformation,
-    Zend\Code\Annotation\AnnotationManager,
-    Zend\Code\Exception;
+use Zend\Code\Scanner;
+use Zend\Code\NameInformation;
+use Zend\Code\Annotation\AnnotationManager;
+use Zend\Code\Exception;
 
 class ClassScanner implements Scanner
 {
@@ -513,7 +513,7 @@ class ClassScanner implements Scanner
                                 if ($tokenContent === ';') {
                                     goto SCANNER_CLASS_BODY_CONST_END;
                                 }
-                                
+
                                 if ($tokenType === T_STRING) {
                                     $infos[$infoIndex]['name'] = $tokenContent;
                                 }
@@ -611,7 +611,7 @@ class ClassScanner implements Scanner
                                 goto SCANNER_CLASS_BODY_CONTINUE;
 
                         case null: // no type, is a string
-                            
+
                             switch ($tokenContent) {
                                 case '{':
                                     $braceCount++;

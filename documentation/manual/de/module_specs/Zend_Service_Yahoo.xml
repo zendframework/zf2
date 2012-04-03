@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.yahoo"><info><title>Zend_Service_Yahoo</title></info>
-    
+
 
     <section xml:id="zend.service.yahoo.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Yahoo</classname> ist eine einfach <acronym>API</acronym> für
@@ -17,7 +17,7 @@
     </section>
 
     <section xml:id="zend.service.yahoo.websearch"><info><title>Suchen im Web mit Yahoo!</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Yahoo</classname> ermöglicht es im Web mit Yahoo! zu Suchen mit
@@ -29,7 +29,7 @@
         </para>
 
         <example xml:id="zend.service.yahoo.websearch.example-1"><info><title>Suchen im Web mit Yahoo!</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -42,7 +42,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.service.yahoo.imagesearch"><info><title>Finden von Bildern mit Yahoo!</title></info>
-        
+
 
         <para>
             Man kann mit Yahoo nach Bildern suchen indem man
@@ -55,7 +55,7 @@ foreach ($results as $result) {
         </para>
 
         <example xml:id="zend.service.yahoo.imagesearch.example-1"><info><title>Finden von Bildern mit Yahoo!</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -68,7 +68,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.service.yahoo.videosearch"><info><title>Videos mit Yahoo! finden</title></info>
-        
+
 
         <para>
             Mit Yahoo können Videos gesucht werden indem <classname>Zend_Service_Yahoo</classname>'s
@@ -78,7 +78,7 @@ foreach ($results as $result) {
         </para>
 
         <example xml:id="zend.service.yahoo.videosearch.example-1"><info><title>Videos mit Yahoo! finden</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -91,7 +91,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.service.yahoo.localsearch"><info><title>Finden von lokalen Geschäften und Services mit Yahoo!</title></info>
-        
+
 
         <para>
             Man kann mit Yahoo! nach lokalen Geschäften und Services suchen, indem man die
@@ -101,7 +101,7 @@ foreach ($results as $result) {
         </para>
 
         <example xml:id="zend.service.yahoo.localsearch.example-1"><info><title>Finden von lokalen Geschäften und Services mit Yahoo!</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -114,7 +114,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.service.yahoo.newssearch"><info><title>Suchen mit Yahoo! News</title></info>
-        
+
 
         <para>
             Suchen mit Yahoo! News ist einfach; nur die <methodname>newsSearch()</methodname>
@@ -124,7 +124,7 @@ foreach ($results as $result) {
         </para>
 
         <example xml:id="zend.service.yahoo.newssearch.example-1"><info><title>Suchen in Yahoo! News</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -137,7 +137,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.service.yahoo.inlinkdatasearch"><info><title>Durchsuchen von Yahoo! Site Explorer Inbound Links</title></info>
-        
+
 
         <para>
             Das Durchsuchen von Yahoo! Site Explorer Inbound Links ist einfach; es muß nur die
@@ -148,7 +148,7 @@ foreach ($results as $result) {
         </para>
 
         <example xml:id="zend.service.yahoo.inlinkdatasearch.example-1"><info><title>Durchsuchen von Yahoo! Site Explorer Inbound Links</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -161,7 +161,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.service.yahoo.pagedatasearch"><info><title>Durchsuchen von Yahoo! Site Explorer's PageData</title></info>
-        
+
 
         <para>
             Das Durchsuchen von Yahoo! Site Explorer's PageData ist einfach; es muß nur die
@@ -172,7 +172,7 @@ foreach ($results as $result) {
         </para>
 
         <example xml:id="zend.service.yahoo.pagedatasearch.example-1"><info><title>Durchsuchen von Yahoo! Site Explorer's PageData</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -185,7 +185,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.service.yahoo.classes"><info><title>Zend_Service_Yahoo Klassen</title></info>
-        
+
 
         <para>
             Die folgenden Klassen werden durch die verschiedenen Yahoo! Suchen zurückgegeben. Jeder
@@ -300,7 +300,7 @@ foreach ($results as $result) {
         </para>
 
         <section xml:id="zend.service.yahoo.classes.resultset"><info><title>Zend_Service_Yahoo_ResultSet</title></info>
-            
+
 
             <para>
                 Jedes der speziellen Ergebnis Sets ist von dieser Basis Klasse abgeleitet
@@ -313,7 +313,7 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.yahoo.classes.resultset.totalResults"><info><title>Zend_Service_Yahoo_ResultSet::totalResults()</title></info>
-                
+
 
                 <para>
                     <methodsynopsis>
@@ -329,10 +329,10 @@ foreach ($results as $result) {
             </section>
 
             <section xml:id="zend.service.yahoo.classes.resultset.properties"><info><title>Eigenschaften</title></info>
-                
+
 
                 <table xml:id="zend.service.yahoo.classes.resultset.properties.table-1"><info><title>Zend_Service_Yahoo_ResultSet</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -376,7 +376,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.webresultset"><info><title>Zend_Service_Yahoo_WebResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Yahoo_WebResultSet</classname> repräsentiert das Ergebnis
@@ -395,7 +395,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.imageresultset"><info><title>Zend_Service_Yahoo_ImageResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Yahoo_ImageResultSet</classname> repräsentiert das Ergebnis
@@ -414,7 +414,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.videoresultset"><info><title>Zend_Service_Yahoo_VideoResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Yahoo_VideoResultSet</classname> repräsentiert ein Yahoo!
@@ -433,7 +433,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.localresultset"><info><title>Zend_Service_Yahoo_LocalResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Yahoo_LocalResultSet</classname> repräsentiert das Ergebnis
@@ -441,7 +441,7 @@ foreach ($results as $result) {
             </para>
 
             <table xml:id="zend.service.yahoo.classes.localresultset.table-1"><info><title>Zend_Service_Yahoo_LocalResultSet Properties</title></info>
-                
+
 
                 <tgroup cols="3">
                     <thead>
@@ -478,7 +478,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.newsresultset"><info><title>Zend_Service_Yahoo_NewsResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Yahoo_NewsResultSet</classname> repräsentiert das Ergebnis
@@ -497,7 +497,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.inlinkdataresultset"><info><title>Zend_Service_Yahoo_InlinkDataResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Yahoo_InlinkDataResultSet</classname> repräsentiert das
@@ -516,7 +516,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.pagedataresultset"><info><title>Zend_Service_Yahoo_PageDataResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Yahoo_PageDataResultSet</classname> repräsentiert das
@@ -535,17 +535,17 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.result"><info><title>Zend_Service_Yahoo_Result</title></info>
-            
+
 
             <para>
                 Jedes der speziellen Suchergebnisse ist von dieser Basis Klasse erweitert.
             </para>
 
             <section xml:id="zend.service.yahoo.classes.result.properties"><info><title>Eigenschaften</title></info>
-                
+
 
                 <table xml:id="zend.service.yahoo.classes.result.properties.table-1"><info><title>Zend_Service_Yahoo_Result Eigenschaften</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -588,7 +588,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.webresult"><info><title>Zend_Service_Yahoo_WebResult</title></info>
-            
+
 
             <para>
                 Jedes Suchergebnis im Web wird als
@@ -596,10 +596,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.yahoo.classes.webresult.properties"><info><title>Eigenschaften</title></info>
-                
+
 
                 <table xml:id="zend.service.yahoo.classes.webresult.properties.table-1"><info><title>Zend_Service_Yahoo_WebResult Eigenschaften</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -659,7 +659,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.imageresult"><info><title>Zend_Service_Yahoo_ImageResult</title></info>
-            
+
 
             <para>
                 Jedes Suchergebnis für Bilder wird als
@@ -667,10 +667,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.yahoo.classes.imageresult.properties"><info><title>Eigenschaften</title></info>
-                
+
 
                 <table xml:id="zend.service.yahoo.classes.imageresult.properties.table-1"><info><title>Zend_Service_Yahoo_ImageResult Eigenschaften</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -741,7 +741,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.videoresult"><info><title>Zend_Service_Yahoo_VideoResult</title></info>
-            
+
 
             <para>
                 Jedes Video Suchergebnis wird als
@@ -749,10 +749,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.yahoo.classes.videoresult.properties"><info><title>Eigenschaften</title></info>
-                
+
 
                 <table xml:id="zend.service.yahoo.classes.videoresult.properties.table-1"><info><title>Zend_Service_Yahoo_VideoResult Eigenschaften</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -845,7 +845,7 @@ foreach ($results as $result) {
          </section>
 
          <section xml:id="zend.service.yahoo.classes.localresult"><info><title>Zend_Service_Yahoo_LocalResult</title></info>
-            
+
 
             <para>
                 Jedes Suchergebnis für Pläne wird als
@@ -853,10 +853,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.yahoo.classes.localresult.properties"><info><title>Eigenschaften</title></info>
-                
+
 
                 <table xml:id="zend.service.yahoo.classes.localresult.properties.table-1"><info><title>Zend_Service_Yahoo_LocalResult Eigenschaften</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -943,7 +943,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.newsresult"><info><title>Zend_Service_Yahoo_NewsResult</title></info>
-            
+
 
             <para>
                 Jedes News Suchergebnis wird als
@@ -951,10 +951,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.yahoo.classes.newsresult.properties"><info><title>Eigenschaften</title></info>
-                
+
 
                 <table xml:id="zend.service.yahoo.classes.newsresult.properties.table-1"><info><title>Zend_Service_Yahoo_NewsResult Eigenschaften</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -1036,7 +1036,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.inlinkdataresult"><info><title>Zend_Service_Yahoo_InlinkDataResult</title></info>
-            
+
 
             <para>
                 Jedes Ergebnis einer Inbound Link Suche wird als
@@ -1049,7 +1049,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.yahoo.classes.pagedataresult"><info><title>Zend_Service_Yahoo_PageDataResult</title></info>
-            
+
 
             <para>
                 Jedes Ergebnis einer PageData Suche wird als
@@ -1061,7 +1061,7 @@ foreach ($results as $result) {
             </para>
         </section>
         <section xml:id="zend.service.yahoo.classes.image"><info><title>Zend_Service_Yahoo_Image</title></info>
-            
+
 
             <para>
                 Alle Bilder welche durch eine Yahoo! Bilder Suche oder einer Yahoo! News Suche
@@ -1070,10 +1070,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.yahoo.classes.image.properties"><info><title>Eigenschaften</title></info>
-                
+
 
                 <table xml:id="zend.service.yahoo.classes.image.properties.table-1"><info><title>Zend_Service_Yahoo_Image Eigenschaften</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>

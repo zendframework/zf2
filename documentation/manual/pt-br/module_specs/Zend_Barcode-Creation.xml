@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.barcode.creation"><info><title>Criação de código de barras usando a classe Zend_Barcode</title></info>
-    
+
 
     <section xml:id="zend.barcode.creation.configuration"><info><title>Usando o Zend_Barcode::factory</title></info>
-        
+
 
         <para>
             <classname>Zend_Barcode</classname> utiliza um método de fábrica para criar uma
@@ -47,7 +47,7 @@
         </orderedlist>
 
         <example xml:id="zend.barcode.creation.configuration.example-1"><info><title>Recuperando um Renderizador com Zend_Barcode::factory()</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Barcode::factory()</methodname> instancia objetos código de barras
@@ -69,7 +69,7 @@ $renderer = Zend_Barcode::factory(
         </example>
 
         <example xml:id="zend.barcode.creation.configuration.example-2"><info><title>Usando o Zend_Barcode::factory() com objetos Zend_Config</title></info>
-            
+
 
             <para>
                 Você pode passar um objeto <classname>Zend_Config</classname> para a fábrica, a fim
@@ -92,7 +92,7 @@ $renderer = Zend_Barcode::factory($config);
     </section>
 
     <section xml:id="zend.barcode.creation.drawing"><info><title>Desenhando um código de barras</title></info>
-        
+
 
         <para>
             Quando você <emphasis>desenha</emphasis> o código de barras, você recuperar o recurso em
@@ -102,7 +102,7 @@ $renderer = Zend_Barcode::factory($config);
         </para>
 
         <example xml:id="zend.barcode.creation.drawing.example-1"><info><title>Desenhando um código de barras com o objeto renderizador</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Somente o texto a ser escrito é necessário
@@ -119,7 +119,7 @@ $imageResource = Zend_Barcode::factory(
         </example>
 
         <example xml:id="zend.barcode.creation.drawing.example-2"><info><title>Desenhando um código de barras com Zend_Barcode::draw()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Somente o texto a ser escrito é necessário
@@ -137,7 +137,7 @@ $imageResource = Zend_Barcode::draw(
     </section>
 
     <section xml:id="zend.barcode.creation.renderering"><info><title>Renderizando um código de barras</title></info>
-        
+
 
         <para>
             Quando você renderiza um código de barras, você desenha o código de barras, envia os
@@ -148,7 +148,7 @@ $imageResource = Zend_Barcode::draw(
         </para>
 
         <example xml:id="zend.barcode.creation.renderering.example-1"><info><title>Renderizando um código de barras com o objeto renderizador</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Somente o texto a ser escrito é necessário
@@ -174,7 +174,7 @@ Zend_Barcode::factory(
         </example>
 
         <example xml:id="zend.barcode.creation.renderering.example-2"><info><title>Renderizando um código de barras com Zend_Barcode::render()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Somente o texto a ser escrito é necessário

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.introduction"><info><title>Wprowadzenie</title></info>
 
-    
+
 
     <para>
         Komponent Zend_Validate zapewnia zestaw najczęściej potrzebnych
@@ -12,7 +12,7 @@
 
     <section xml:id="zend.validate.introduction.definition"><info><title>Czym jest weryfikator?</title></info>
 
-        
+
 
         <para>
             Weryfikator bada dane wejściowe w oparciu o pewne wymagania i tworzy
@@ -35,7 +35,7 @@
 
     <section xml:id="zend.validate.introduction.using"><info><title>Podstawowe użycie weryfikatorów</title></info>
 
-        
+
 
         <para>
             Mająć ustaloną w ten sposób definicję weryfikacji, możemy zapewnić
@@ -96,7 +96,7 @@ if ($validator->isValid($email)) {
 
     <section xml:id="zend.validate.introduction.messages"><info><title>Własne komunikaty</title></info>
 
-        
+
 
         <para>
             Klasy weryfikatorów zapewniają metodę <code>setMessage()</code> za
@@ -195,7 +195,7 @@ if (!validator->isValid('word')) {
 
     <section xml:id="zend.validate.introduction.static"><info><title>Użycie statycznej metody <code>is()</code></title></info>
 
-        
+
 
         <para>
             Jeśli niewygodne jest ładowanie danej klasy weryfikatora i tworzenie

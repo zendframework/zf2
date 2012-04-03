@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.action"><info><title>Contrôleurs d'action</title></info>
-    
+
 
     <section xml:id="zend.controller.action.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Action</classname> est une classe abstraite que vous
@@ -53,7 +53,7 @@ class FooController extends Zend_Controller_Action
         </para>
 
         <note><info><title>Comportement par défaut</title></info>
-            
+
             <para>
                 Par défaut, le <link linkend="zend.controller.front">contrôleur frontal</link>
                 active l'aide d'action
@@ -117,7 +117,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.initialization"><info><title>Initialisation d'objet</title></info>
-        
+
 
         <para>
             Même si vous pouvez toujours surcharger le constructeur du contrôleur d'action,
@@ -153,7 +153,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.prepostdispatch"><info><title>Détournement Pre et Post-Dispatch (Hook)</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Action</classname> spécifie deux méthodes qui peuvent être
@@ -167,7 +167,7 @@ class FooController extends Zend_Controller_Action
         </para>
 
         <note><info><title>Utilisation de init() ou de preDispatch()</title></info>
-            
+
 
             <para>
                 Dans la <link linkend="zend.controller.action.initialization">section
@@ -203,7 +203,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.accessors"><info><title>Accesseurs</title></info>
-        
+
 
         <para>
             Un certain nombre d'objets et de variables sont enregistrés avec l'objet et chacun
@@ -277,12 +277,12 @@ if ($this->_hasParam('id') {
     </section>
 
     <section xml:id="zend.controller.action.viewintegration"><info><title>Intégration des Vues</title></info>
-        
+
 
         <note xml:id="zend.controller.action.viewintegration.viewrenderer"><info><title>
                 Par défaut, l'intégration des vues est réalisé via le ViewRenderer
             </title></info>
-            
+
             <para>
                 Le contenu de cette section n'est valable que si vous avez explicitement
                 désactivé le
@@ -301,7 +301,7 @@ if ($this->_hasParam('id') {
         </para>
 
         <section xml:id="zend.controller.action.viewintegration.initview"><info><title>Initialisation des Vues</title></info>
-            
+
 
             <para>
                 <methodname>initView()</methodname> initialise l'objet Vue.
@@ -343,7 +343,7 @@ applicationOrModule/
         </section>
 
         <section xml:id="zend.controller.action.viewintegration.render"><info><title>Effectuer le rendu des Vues</title></info>
-            
+
 
             <para><methodname>render()</methodname> a la signature suivante :</para>
 
@@ -418,7 +418,7 @@ class MonController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.utilmethods"><info><title>Méthodes utiles</title></info>
-        
+
 
         <para>
             En plus de l'accesseur et des méthodes d'intégration de vue,
@@ -489,7 +489,7 @@ class MonController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.subclassing"><info><title>Sous-classer le contrôleur d'action</title></info>
-        
+
 
         <para>
             Par conception, <classname>Zend_Controller_Action</classname> doit être
@@ -506,7 +506,7 @@ class MonController extends Zend_Controller_Action
         </para>
 
         <example xml:id="zend.controller.action.subclassing.example-call"><info><title>Comment gérer des actions non-existantes</title></info>
-            
+
 
             <para>
                 Si une requête vers un contrôleur est faite en incluant une méthode d'action

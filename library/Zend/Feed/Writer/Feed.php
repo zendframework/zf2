@@ -20,10 +20,10 @@
 
 namespace Zend\Feed\Writer;
 
-use Countable,
-    Iterator,
-    Zend\Date,
-    Zend\Feed\Writer\Renderer;
+use Countable;
+use Iterator;
+use Zend\Date;
+use Zend\Feed\Writer\Renderer;
 
 /**
 * @category Zend
@@ -75,7 +75,7 @@ class Feed extends AbstractFeed implements Iterator, Countable
     {
         $this->_entries[] = $deleted;
     }
-    
+
     /**
      * Creates a new Zend_Feed_Writer_Deleted data container for use. This is NOT
      * added to the current feed automatically, but is necessary to create a

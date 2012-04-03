@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.options"><info><title>Optionen für Währungen</title></info>
-    
+
 
     <para>
         Abhängig von der Notwendigkeit können verschiedene Optionen bei der Instanzierung

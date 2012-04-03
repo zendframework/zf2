@@ -1,7 +1,7 @@
 <?php
 /**
  * Exception
- * 
+ *
  * @category   Zend
  * @package    Zend\Cloud
  * @subpackage DocumentService

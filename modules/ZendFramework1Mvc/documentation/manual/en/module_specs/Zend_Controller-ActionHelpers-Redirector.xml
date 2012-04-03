@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.redirector"><info><title>Redirector</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.redirector.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             The <emphasis>Redirector</emphasis> helper allows you to use a redirector
@@ -130,10 +130,10 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.redirector.basicusage"><info><title>Basic Usage Examples</title></info>
-        
+
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-1"><info><title>Setting Options</title></info>
-            
+
 
             <para>
                 This example overrides several options, including setting the
@@ -179,7 +179,7 @@ class SomeController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-2"><info><title>Using Defaults</title></info>
-            
+
 
             <para>
                 This example assumes that the defaults are used, which means
@@ -216,7 +216,7 @@ class AlternativeController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-3"><info><title>Using goto()'s _forward() API</title></info>
-            
+
 
             <para>
                 <methodname>gotoSimple()</methodname>'s <acronym>API</acronym> mimics that of
@@ -261,7 +261,7 @@ class ForwardController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-4"><info><title>Using Route Assembly with gotoRoute()</title></info>
-            
+
 
             <para>
                 The following example uses the <link linkend="zend.controller.router">router's</link>

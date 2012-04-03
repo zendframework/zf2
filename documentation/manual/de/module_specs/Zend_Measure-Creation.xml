@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.creation"><info><title>Erstellung einer Maßeinheit</title></info>
-    
+
 
     <para>
         Bei der Erstellung einer Maßeinheit erwarten die <classname>Zend_Measure_*</classname>
@@ -14,7 +14,7 @@
     </para>
 
     <section xml:id="zend.measure.creation.number"><info><title>Eine Maßeinheit von einer Integer oder Floatzahl erstellen</title></info>
-        
+
 
         <para>
             Zusätzlich zu Integerwerten können Floatwerte benutzt werden, aber
@@ -25,7 +25,7 @@
         </para>
 
         <example xml:id="zend.measure.creation.number.example-1"><info><title>Erstellung einer Maßeinheit durch Integer oder Floatwerte</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $measurement = 1234.7;
@@ -42,7 +42,7 @@ echo $unit;
     </section>
 
     <section xml:id="zend.measure.creation.string"><info><title>Erstellen einer Maßeinheit aus Zeichenketten</title></info>
-        
+
 
         <para>
             Viele Maßeinheiten die als Eingabe einer Zend Framework Anwendung empfangen werden
@@ -59,7 +59,7 @@ echo $unit;
         </para>
 
         <example xml:id="zend.measure.creation.string.example-1"><info><title>Erstellung einer Maßeinheit durch Strings</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $mystring = "10010100111010111010100001011011101010001";
@@ -71,7 +71,7 @@ echo $unit;
     </section>
 
     <section xml:id="zend.measure.creation.localized"><info><title>Maßeinheiten von lokalisierten Zeichenketten</title></info>
-        
+
 
         <para>
             Wenn eine Zeichenkette in lokalisierter Schreibweise eingegeben wurde, kann die richtige
@@ -85,7 +85,7 @@ echo $unit;
         </para>
 
         <example xml:id="zend.measure.creation.localized.example-1"><info><title>Lokalisierte Zeichenketten</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de');

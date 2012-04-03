@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.advanced"><info><title>Erweitert</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.advanced.format_migration"><info><title>Beginnend mit 1.6, Behandlung von Index Format Veränderungen</title></info>
-        
+
 
         <para>
             Die <classname>Zend_Search_Lucene</classname> Komponente arbeitet mit den Index Formaten
@@ -81,7 +81,7 @@
         </para>
 
         <note><info><title>Wichtig!</title></info>
-            
+
 
             <para>
                 Sobald Indezes in eine höhere Version konvertiert wurden können Sie nicht zurück
@@ -94,7 +94,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.advanced.static"><info><title>Den Index als statische Eigenschaft verwenden</title></info>
-        
+
 
         <para>
             Das <classname>Zend_Search_Lucene</classname> Objekt verwendet einen Objekt Destruktor

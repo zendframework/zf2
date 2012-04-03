@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.message"><info><title>Zend_Mime_Message</title></info>
-    
+
 
     <section xml:id="zend.mime.message.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime_Message</classname> représente un message compatible <acronym>MIME</acronym> qui
@@ -19,7 +19,7 @@
     </section>
 
     <section xml:id="zend.mime.message.instantiation"><info><title>Instancier Zend_Mime_Message</title></info>
-        
+
 
         <para>
             Il n'y a pas de constructeur explicite pour
@@ -28,7 +28,7 @@
     </section>
 
     <section xml:id="zend.mime.message.addparts"><info><title>Ajouter des parties MIME</title></info>
-        
+
 
         <para>
             Les objets <link linkend="zend.mime.part"><classname>Zend_Mime_Part</classname></link> peuvent êtres
@@ -54,7 +54,7 @@
     </section>
 
     <section xml:id="zend.mime.message.bondary"><info><title>Gérer les frontières</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime_Message</classname> crée et utilise généralement son propre
@@ -82,7 +82,7 @@
 
     <section xml:id="zend.mime.message.parse"><info><title>Parser une chaîne de caractère pour créer un objet Zend_Mime_Message
         (expérimental)</title></info>
-        
+
 
         <para>
             Un message compatible <acronym>MIME</acronym> donné sous forme de chaîne de caractère peut être

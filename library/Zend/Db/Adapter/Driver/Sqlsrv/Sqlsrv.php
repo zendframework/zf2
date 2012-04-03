@@ -69,9 +69,9 @@ class Sqlsrv implements DriverInterface
     }
     /**
      * Register connection
-     * 
+     *
      * @param  Connection $connection
-     * @return Sqlsrv 
+     * @return Sqlsrv
      */
     public function registerConnection(Connection $connection)
     {
@@ -81,8 +81,8 @@ class Sqlsrv implements DriverInterface
     }
     /**
      * Register statement prototype
-     * 
-     * @param Statement $statementPrototype 
+     *
+     * @param Statement $statementPrototype
      */
     public function registerStatementPrototype(Statement $statementPrototype)
     {
@@ -91,8 +91,8 @@ class Sqlsrv implements DriverInterface
     }
     /**
      * Register result prototype
-     * 
-     * @param Result $resultPrototype 
+     *
+     * @param Result $resultPrototype
      */
     public function registerResultPrototype(Result $resultPrototype)
     {
@@ -100,9 +100,9 @@ class Sqlsrv implements DriverInterface
     }
     /**
      * Get database paltform name
-     * 
+     *
      * @param  string $nameFormat
-     * @return string 
+     * @return string
      */
     public function getDatabasePlatformName($nameFormat = self::NAME_FORMAT_CAMELCASE)
     {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.encrypt"><info><title>Encrypt</title></info>
-    
+
 
     <para>
         Dieser Filter verschlüsselt beliebige Strings mit den angegebenen Einstellungen. Hierfür
@@ -42,7 +42,7 @@ $filter->setAdapter('openssl');
     </note>
 
     <section xml:id="zend.filter.set.encrypt.mcrypt"><info><title>Verschlüsselung mit Mcrypt</title></info>
-        
+
 
         <para>
             Wenn man die <classname>Mcrypt</classname> Erweiterung installiert hat, kann man den
@@ -173,7 +173,7 @@ print $encrypted;
     </section>
 
     <section xml:id="zend.filter.set.encrypt.openssl"><info><title>Verschlüsselung mit OpenSSL</title></info>
-        
+
 
         <para>
             Wenn man die <classname>OpenSSL</classname> Erweiterung installiert hat, kann man den
@@ -309,7 +309,7 @@ print $encrypted;
 ]]></programlisting>
 
         <section xml:id="zend.filter.set.encrypt.openssl.simplified"><info><title>Vereinfachte Verwendung mit Openssl</title></info>
-            
+
 
             <para>
                 Wie vorher zu sehen war, muss man den Umschlagschlüssel holen um in der Lage zu sein
@@ -348,7 +348,7 @@ print $encrypted;
         </section>
 
         <section xml:id="zend.filter.set.encrypt.openssl.compressed"><info><title>Komprimieren des Inhalts</title></info>
-            
+
 
             <para>
                 Basierend auf dem originalen Wert, kann der verschlüsselte Wert ein sehr langer
@@ -383,7 +383,7 @@ $filter2 = new Zend_Filter_Encrypt(array(
 ]]></programlisting>
 
             <note><info><title>Entschlüsselung mit den selben Werten</title></info>
-                
+
 
                 <para>
                     Wenn man einen Wert entschlüsseln will welcher zusätzlich komprimiert wurde,

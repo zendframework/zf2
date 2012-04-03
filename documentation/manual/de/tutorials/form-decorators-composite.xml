@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.form.decorators.composite"><info><title>Erstellung und Darstellung von kombinierten Elementen</title></info>
-    
+
 
     <para>
         Im <link linkend="learning.form.decorators.individual">letzten Abschnitt</link>, hatten wir
@@ -27,7 +27,7 @@
     </para>
 
     <section xml:id="learning.form.decorators.composite.element"><info><title>Das Element</title></info>
-        
+
 
         <para>
             Die Fragen darüber wie das Element arbeiten würde beinhalten:
@@ -183,7 +183,7 @@ class My_Form_Element_Date extends Zend_Form_Element_Xhtml
     </section>
 
     <section xml:id="learning.form.decorators.composite.decorator"><info><title>Der Decorator</title></info>
-        
+
 
         <para>
             Bei der erneuten Betrachtung des Beispiels im letzten Abschnitt, nehmen wir wir an dass
@@ -354,7 +354,7 @@ $d->setValue(array('year' => '2009', 'month' => '04', 'day' => '20'));
     </section>
 
     <section xml:id="learning.form.decorators.composite.conclusion"><info><title>Zusammenfassung</title></info>
-        
+
 
         <para>
             Wir haben jetzt ein Element das mehrere zusammengehörende Formular Eingabefelder

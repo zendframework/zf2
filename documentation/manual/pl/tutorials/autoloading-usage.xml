@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.autoloading.usage"><info><title>Podstawowe użycie autoloadera</title></info>
-    
+
 
     <para>
         Po krótkim opisie samej idei autoloadera jak i konwencji oraz celi związanych z
@@ -21,7 +21,7 @@ Zend_Loader_Autoloader::getInstance();
 ]]></programlisting>
 
     <para>
-        Domyślnie spowoduje to automatyczne dołączanie dowolnych klas zawierających prefiks 
+        Domyślnie spowoduje to automatyczne dołączanie dowolnych klas zawierających prefiks
         przestrzeni nazw "Zend_" oraz "ZendX_" pod warunkiem, że znajdują się w katalogu zawartym w
         <property>include_path</property>.
     </para>
@@ -50,7 +50,7 @@ $loader->setFallbackAutoloader(true);
 ]]></programlisting>
 
     <warning><info><title>Nie należy używać autoloadera awaryjnego</title></info>
-        
+
 
         <para>
             Użycie <classname>Zend_Loader_Autoloader</classname> jako autoloadera awaryjnego może
@@ -93,7 +93,7 @@ $loader->setFallbackAutoloader(true);
     </warning>
 
     <note><info><title>Prefiksy przestrzeni nazw a przestrzenie nazw PHP</title></info>
-        
+
 
         <para>
             W momencie powstawania tego dokumentu istnieje stabilna wersja
@@ -131,7 +131,7 @@ $loader->setFallbackAutoloader(true);
                 Każda z tych metod przyjmuje drugi, opcjonalny argument - prefiks przestrzeni nazw.
                 Można go użyć do wskazania aby podany autoloader był używany jedynie do dołączania
                 klas zawierających podany prefiks. Jeśli dana klasa go nie posiada to autoloader nie
-                zostanie uruchomiony - takie podejście może znacznie zwiększyć wydajność. 
+                zostanie uruchomiony - takie podejście może znacznie zwiększyć wydajność.
             </para>
         </listitem>
 

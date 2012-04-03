@@ -21,8 +21,8 @@
 
 namespace Zend\View\Helper;
 
-use Zend\View,
-    Zend\View\Exception;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Zend_Layout_View_Helper_HeadMeta
@@ -175,10 +175,10 @@ class HeadMeta extends Placeholder\Container\Standalone
 
 	/**
 	 * Create an HTML5-style meta charset tag. Something like <meta charset="utf-8">
-	 * 
+	 *
 	 * Not valid in a non-HTML5 doctype
 	 *
-	 * @param string $charset 
+	 * @param string $charset
 	 * @return \Zend\View\Helper\HeadMeta Provides a fluent interface
 	 */
     public function setCharset($charset)

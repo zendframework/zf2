@@ -21,8 +21,8 @@
 
 namespace Zend\Search\Lucene\Analysis\TokenFilter;
 
-use Zend\Search\Lucene\Analysis\TokenFilter,
-    Zend\Search\Lucene\Analysis\Token;
+use Zend\Search\Lucene\Analysis\TokenFilter;
+use Zend\Search\Lucene\Analysis\Token;
 
 /**
  * Token filter that removes short words. What is short word can be configured with constructor.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.wsdl"><info><title>WSDLアクセッサ</title></info>
-    
+
 
     <note>
         <para>
@@ -15,7 +15,7 @@
     </note>
 
     <section xml:id="zend.soap.wsdl.constructor"><info><title>Zend_Soap_Wsdlコンストラクタ</title></info>
-        
+
         <para>
             <classname>Zend_Soap_Wsdl</classname>コンストラクタは３つのパラメータをとります:
             <orderedlist>
@@ -44,7 +44,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.addmessage"><info><title>addMessage()メソッド</title></info>
-        
+
         <para>
             <methodname>addMessage($name, $parts)</methodname>メソッドは、新しいメッセージの説明をWSDL文書に加えます。
             (/definitions/message 要素)
@@ -89,7 +89,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_port_type"><info><title>addPortType()メソッド</title></info>
-        
+
         <para>
             <methodname>addPortType($name)</methodname>メソッドは指定されたポートタイプ名で
             WSDL文書 (/definitions/portType) に新規のポートタイプを追加します。
@@ -103,7 +103,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_port_operation"><info><title>addPortOperation()メソッド</title></info>
-        
+
         <para>
             <methodname>addPortOperation($portType, $name, $input = false, $output = false, $fault = false)</methodname>
             メソッドは、新しいポート・オペレーションをWSDL文書 (/definitions/portType/operation) の
@@ -142,7 +142,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_binding"><info><title>addBinding()メソッド</title></info>
-        
+
         <para>
             <methodname>addBinding($name, $portType)</methodname>メソッドは、新しいバインディングをWSDL文書 (/definitions/binding) に加えます。
         </para>
@@ -162,7 +162,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_binding_operation"><info><title>addBindingOperation()メソッド</title></info>
-        
+
         <para>
             <methodname>addBindingOperation($binding, $name, $input = false, $output = false, $fault = false)</methodname>
             メソッドはバインディング要素 (/definitions/binding/operation) に指定された名前で操作を追加します。
@@ -185,7 +185,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_soap_binding"><info><title>addSoapBinding()メソッド</title></info>
-        
+
         <para>
             <methodname>addSoapBinding($binding, $style = 'document', $transport = 'http://schemas.xmlsoap.org/soap/http')</methodname>
             メソッドは、指定されたスタイルとトランスポート（<classname>Zend_Soap_Server</classname>の実装では、<acronym>HTTP</acronym>についてRPCスタイルを使用します）で
@@ -201,7 +201,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_soap_operation"><info><title>addSoapOperation()メソッド</title></info>
-        
+
         <para>
             <methodname>addSoapOperation($binding, $soap_action)</methodname>メソッドは、
             <acronym>SOAP</acronym>操作項目 ('soap:operation') を指定されたアクションでバインディング要素に加えます。
@@ -224,7 +224,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_service"><info><title>addService()メソッド</title></info>
-        
+
         <para>
             <methodname>addService($name, $port_name, $binding, $location)</methodname>メソッドは
             指定したウェブサービス名やポートタイプ及びバインディング、ロケーションとともに
@@ -276,7 +276,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.types"><info><title>型のマッピング</title></info>
-        
+
         <para>
             <classname>Zend_Soap</classname> WSDLアクセッサの実装では、<acronym>PHP</acronym>と<acronym>SOAP</acronym>型の間で以下の型マッピングを使用します:
             <itemizedlist>
@@ -330,7 +330,7 @@
         </para>
 
         <section xml:id="zend.soap.wsdl.types.retrieve"><info><title>型情報の取得</title></info>
-            
+
             <para>
                 <methodname>getType($type)</methodname>メソッドは、指定された <acronym>PHP</acronym> 型をマップするために用いられるかもしれません:
             </para>
@@ -353,7 +353,7 @@ $soapMyClassType = $wsdl->getType('MyClass');
         </section>
 
         <section xml:id="zend.soap.wsdl.types.add_complex"><info><title>複雑な型の情報を追加する</title></info>
-            
+
             <para>
                 <methodname>addComplexType($type)</methodname>メソッドは、
                 複雑な型（<acronym>PHP</acronym>クラス）をWSDL文書に追加するために使われます。
@@ -437,7 +437,7 @@ $soapMyClassType = $wsdl->getType('MyClass');
     </section>
 
     <section xml:id="zend.soap.wsdl.add_documentation"><info><title>addDocumentation()メソッド</title></info>
-        
+
         <para>
             <methodname>addDocumentation($input_node, $documentation)</methodname>メソッドは、
             オプションの 'wsdl:document' 要素を用いて人間の読める文書を追加します。
@@ -452,7 +452,7 @@ $soapMyClassType = $wsdl->getType('MyClass');
     </section>
 
     <section xml:id="zend.soap.wsdl.retrieve"><info><title>確定したWSDL文書を取得</title></info>
-        
+
         <para>
             <methodname>toXML()</methodname>や<methodname>toDomDocument()</methodname>および<methodname>dump($filename = false)</methodname>メソッドは、
             WSDL文書を<acronym>XML</acronym>やDOMの構造もしくはファイルとして取得するために使われるかもしれません。

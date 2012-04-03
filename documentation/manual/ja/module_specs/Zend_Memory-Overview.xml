@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.overview"><info><title>概要</title></info>
-    
+
 
     <section xml:id="zend.memory.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_Memory</classname> コンポーネントは、
@@ -32,7 +32,7 @@
         </para>
 
         <example xml:id="zend.memory.introduction.example-1"><info><title>Zend_Memory コンポーネントの使用法</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Memory::factory()</methodname> は、
@@ -67,7 +67,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
 
     <section xml:id="zend.memory.theory-of-operation"><info><title>動作原理</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Memory</classname> コンポーネントは、以下の概念で構成されています。
@@ -93,7 +93,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
 
         <section xml:id="zend.memory.theory-of-operation.manager"><info><title>メモリマネージャ</title></info>
 
-            
+
 
             <para>
                 メモリマネージャは、アプリケーションからの要求に応じて
@@ -105,7 +105,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
 
         <section xml:id="zend.memory.theory-of-operation.container"><info><title>メモリコンテナ</title></info>
 
-            
+
 
             <para>
                 メモリコンテナは、文字列型の属性 <code>value</code> を
@@ -144,7 +144,7 @@ $memObject->value = substr($memObject->value, $start, $length);
 
         <section xml:id="zend.memory.theory-of-operation.locked"><info><title>ロックされたメモリ</title></info>
 
-            
+
 
             <para>
                 ロックされたメモリオブジェクトは、常にメモリ内に保持されます。
@@ -156,7 +156,7 @@ $memObject->value = substr($memObject->value, $start, $length);
 
         <section xml:id="zend.memory.theory-of-operation.movable"><info><title>移動可能なメモリ</title></info>
 
-            
+
 
             <para>
                 移動可能なメモリオブジェクトは、

@@ -11,7 +11,7 @@
 			<settings normalization="on"/>
             <rules>
 			<reset>ཀ</reset>
-				<s>ྈྐ</s> 
+				<s>ྈྐ</s>
        			<p>དཀ</p>
        			<p>བཀ</p>
        			<p>རྐ</p>
@@ -51,7 +51,7 @@
        			<p>བགྲ</p>
        			<p>བགླ</p>
       			<p>མགར</p>
-       			<p>མགལ</p> 
+       			<p>མགལ</p>
        			<p>མགུ</p>
        			<p>མགེ</p>
        			<p>མགོ</p>
@@ -309,20 +309,20 @@
        			<p>འཛ</p>
        			<p>རྫ</p>
       			<p>བརྫ</p>
-			
+
 			<reset>ཞ</reset>
        			<p>གཞ</p>
        			<p>བཞ</p>
 			<reset>ཟ</reset>
       			<p>གཟ</p>
        			<p>བཟ</p>
-			
+
 			<reset>ཡ</reset>
        			<p>གཡ</p>
 			<reset>ར</reset>
 				<t>ཪ</t>
        			<p>བརླ</p>
-			
+
 			<reset>ཤ</reset>
 				<t>ཥ</t>
        			<p>གཤ</p>
@@ -358,16 +358,16 @@
        			<p>བསླ</p>
 			<reset>ཧ</reset>
        			<p>ལྷ</p>
-			
-			
+
+
 			<reset>ི</reset>
 				<t>ྀ</t>
-			
+
 			<reset>ེ</reset>
 				<t>ཻ</t>
 			<reset>ོ</reset>
 				<t>ཽ</t>
-			
+
 				<p>ྐ</p>
 				<p>ྑ</p>
 				<p>ྒ</p>
@@ -406,7 +406,7 @@
 				<p>ྶ</p>
 				<p>ྷ</p>
 				<p>ྸ</p>
-			
+
 			<reset>༹</reset>
 				<s>྄</s>
 				<s>ཱ</s>
@@ -417,12 +417,12 @@
 				<s>ྉ</s>
 				<s>ྊ</s>
 				<s>ྋ</s>
-			
+
 			<reset>ྲཱྀ</reset>
 				<i>ཷ</i>
 			<reset>ླཱྀ</reset>
 				<i>ཹ</i>
-			
+
 			<reset>དགགས</reset>
 				<t>དགཊ</t>
 				<t>དགཌ</t>
@@ -474,10 +474,10 @@
 			<reset>བསགས</reset>
 				<t>བསཊ</t>
 				<t>བསཌ</t>
-			
+
 			<reset>྿</reset>
 				<p>ༀ</p>
-			
+
 			<reset>ໆ</reset>
 				<p>་</p>
 				<t>༌</t>
@@ -488,7 +488,7 @@
 				<s>༑</s>
 				<s>༔</s>
 				<s>༴</s>
-            </rules>   
+            </rules>
         </collation>
     </collations>
 </ldml>

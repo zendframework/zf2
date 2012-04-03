@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.definition.theory"><info><title>Aspect théorique</title></info>
-    
+
 
     <para>
         Pourquoi n'existe-il que l'unique classe <classname>Zend_Date</classname> pour gérer
@@ -26,7 +26,7 @@
     </para>
 
     <section xml:id="zend.date.theory.internals"><info><title>Fonctionnement interne</title></info>
-        
+
 
         <itemizedlist mark="opencircle">
             <listitem>

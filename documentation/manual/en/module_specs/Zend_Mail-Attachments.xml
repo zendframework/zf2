@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.attachments"><info><title>Attachments</title></info>
-    
+
 
     <para>
         Files can be attached to an e-mail using the <methodname>createAttachment()</methodname>
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.mail.attachments.example-1"><info><title>E-Mail Messages with Attachments</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();

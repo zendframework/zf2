@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.classloading"><info><title>Class Loading</title></info>
-    
+
 
     <para>
         Anyone who ever performs profiling of a Zend Framework application will
@@ -14,7 +14,7 @@
     </para>
 
     <section xml:id="performance.classloading.includepath"><info><title>How can I optimize my include_path?</title></info>
-        
+
 
         <para>
             One trivial optimization you can do to increase the speed of class
@@ -27,7 +27,7 @@
         </para>
 
         <section xml:id="performance.classloading.includepath.abspath"><info><title>Use absolute paths</title></info>
-            
+
 
             <para>
                 While this may seem a micro-optimization, the fact is that if
@@ -73,7 +73,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths);
         </section>
 
         <section xml:id="performance.classloading.includepath.reduce"><info><title>Reduce the number of include paths you define</title></info>
-            
+
 
             <para>
                 Include paths are scanned in the order in which they appear in
@@ -98,7 +98,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths);
         </section>
 
         <section xml:id="performance.classloading.includepath.early"><info><title>Define your Zend Framework include_path as early as possible</title></info>
-            
+
 
             <para>
                 Continuing from the previous suggestion, another obvious
@@ -110,7 +110,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths);
         </section>
 
         <section xml:id="performance.classloading.includepath.currentdir"><info><title>Define the current directory last, or not at all</title></info>
-            
+
 
             <para>
                 Most include_path examples show using the current directory, or
@@ -124,7 +124,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths);
             </para>
 
             <example xml:id="performance.classloading.includepath.example"><info><title>Example: Optimized include_path</title></info>
-                
+
 
                 <para>
                     Let's put all of these suggestions together. Our assumption will be that you
@@ -182,7 +182,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths));
     </section>
 
     <section xml:id="performance.classloading.striprequires"><info><title>How can I eliminate unnecessary require_once statements?</title></info>
-        
+
 
         <para>
             Lazy loading is an optimization technique designed to push the
@@ -203,7 +203,7 @@ set_include_path(implode(PATH_SEPARATOR, $paths));
         </para>
 
         <section xml:id="performance.classloading.striprequires.sed"><info><title>Strip require_once calls with find and sed</title></info>
-            
+
 
             <para>
                 An easy way to strip <methodname>require_once()</methodname> calls is to use the
@@ -247,7 +247,7 @@ Zend_Loader_Autoloader::getInstance();
     </section>
 
     <section xml:id="performance.classloading.pluginloader"><info><title>How can I speed up plugin loading?</title></info>
-        
+
 
         <para>
             Many components have plugins, which allow you to create your own
@@ -331,7 +331,7 @@ Zend_Loader_Autoloader::getInstance();
         </para>
 
         <section xml:id="performance.classloading.pluginloader.includefilecache"><info><title>Use the PluginLoader include file cache</title></info>
-            
+
 
             <para>
                 Zend Framework 1.7.0 adds an include file cache to the

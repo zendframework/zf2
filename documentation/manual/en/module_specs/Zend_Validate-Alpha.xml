@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.alpha"><info><title>Alpha</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Alpha</classname> allows you to validate if a given value contains
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.validate.set.alpha.options"><info><title>Supported options for Zend_Validate_Alpha</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Validate_Alpha</classname>:
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.validate.set.alpha.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             A basic example is the following one:
@@ -44,7 +44,7 @@ if ($validator->isValid('Abcd')) {
     </section>
 
     <section xml:id="zend.validate.set.alpha.whitespace"><info><title>Using whitespaces</title></info>
-        
+
 
         <para>
             Per default whitespaces are not accepted because they are not part of the alphabet.
@@ -70,7 +70,7 @@ if ($validator->isValid('Abcd and efg')) {
     </section>
 
     <section xml:id="zend.validate.set.alpha.languages"><info><title>Using different languages</title></info>
-        
+
 
         <para>
             When using <classname>Zend_Validate_Alpha</classname> then the language which the user

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.twitter"><info><title>Zend_Service_Twitter</title></info>
-    
+
 
     <section xml:id="zend.service.twitter.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Twitter</classname> provides a client for the
@@ -78,7 +78,7 @@
     </section>
 
     <section xml:id="zend.service.twitter.authentication"><info><title>Authentication</title></info>
-        
+
 
         <para>
             With the exception of fetching the public timeline,
@@ -90,7 +90,7 @@
         </para>
 
         <example xml:id="zend.service.twitter.authentication.example"><info><title>Creating the Twitter Class</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Twitter</classname> must authorize itself, on behalf of a user, before use with the
@@ -161,7 +161,7 @@ $response = $twitter->account->verifyCredentials();
     </section>
 
     <section xml:id="zend.service.twitter.account"><info><title>Account Methods</title></info>
-        
+
 
         <itemizedlist>
             <listitem>
@@ -171,7 +171,7 @@ $response = $twitter->account->verifyCredentials();
                 </para>
 
                 <example xml:id="zend.service.twitter.account.verifycredentails"><info><title>Verifying credentials</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -190,7 +190,7 @@ $response   = $twitter->account->verifyCredentials();
                 </para>
 
                 <example xml:id="zend.service.twitter.account.endsession"><info><title>Sessions ending</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -210,7 +210,7 @@ $response   = $twitter->account->endSession();
                 </para>
 
                 <example xml:id="zend.service.twitter.account.ratelimitstatus"><info><title>Rating limit status</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -225,7 +225,7 @@ $response   = $twitter->account->rateLimitStatus();
     </section>
 
     <section xml:id="zend.service.twitter.status"><info><title>Status Methods</title></info>
-        
+
 
         <itemizedlist>
             <listitem>
@@ -236,7 +236,7 @@ $response   = $twitter->account->rateLimitStatus();
                 </para>
 
                 <example xml:id="zend.service.twitter.status.publictimeline"><info><title>Retrieving public timeline</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -255,7 +255,7 @@ $response   = $twitter->status->publicTimeline();
                 </para>
 
                 <example xml:id="zend.service.twitter.status.friendstimeline"><info><title>Retrieving friends timeline</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -294,7 +294,7 @@ $response   = $twitter->status->friendsTimeline();
                 </para>
 
                 <example xml:id="zend.service.twitter.status.usertimeline"><info><title>Retrieving user timeline</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -347,7 +347,7 @@ $response   = $twitter->status->userTimeline();
                 </para>
 
                 <example xml:id="zend.service.twitter.status.show"><info><title>Showing user status</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -367,7 +367,7 @@ $response   = $twitter->status->show(1234);
                 </para>
 
                 <example xml:id="zend.service.twitter.status.update"><info><title>Updating user status</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -400,7 +400,7 @@ $response   = $twitter->status->update('My Great Tweet');
                 </para>
 
                 <example xml:id="zend.service.twitter.status.replies"><info><title>Showing user replies</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -445,7 +445,7 @@ $response   = $twitter->status->replies();
                 </para>
 
                 <example xml:id="zend.service.twitter.status.destroy"><info><title>Deleting user status</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -460,7 +460,7 @@ $response   = $twitter->status->destroy(12345);
     </section>
 
      <section xml:id="zend.service.twitter.user"><info><title>User Methods</title></info>
-        
+
 
         <itemizedlist>
             <listitem>
@@ -470,7 +470,7 @@ $response   = $twitter->status->destroy(12345);
                 </para>
 
                 <example xml:id="zend.service.twitter.user.friends"><info><title>Retrieving user friends</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -516,7 +516,7 @@ $response   = $twitter->user->friends();
                 </para>
 
                 <example xml:id="zend.service.twitter.user.followers"><info><title>Retrieving user followers</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -556,7 +556,7 @@ $response   = $twitter->user->followers();
                 </para>
 
                 <example xml:id="zend.service.twitter.user.show"><info><title>Showing user informations</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -571,7 +571,7 @@ $response   = $twitter->user->show('myfriend');
     </section>
 
     <section xml:id="zend.service.twitter.directmessage"><info><title>Direct Message Methods</title></info>
-        
+
 
         <itemizedlist>
             <listitem>
@@ -581,7 +581,7 @@ $response   = $twitter->user->show('myfriend');
                 </para>
 
                 <example xml:id="zend.service.twitter.directmessage.messages"><info><title>Retrieving recent direct messages received</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -627,7 +627,7 @@ $response   = $twitter->directMessage->messages();
                 </para>
 
                 <example xml:id="zend.service.twitter.directmessage.sent"><info><title>Retrieving recent direct messages sent</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -673,7 +673,7 @@ $response   = $twitter->directMessage->sent();
                 </para>
 
                 <example xml:id="zend.service.twitter.directmessage.new"><info><title>Sending direct message</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -693,7 +693,7 @@ $response   = $twitter->directMessage->new('myfriend', 'mymessage');
                 </para>
 
                 <example xml:id="zend.service.twitter.directmessage.destroy"><info><title>Deleting direct message</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -708,7 +708,7 @@ $response   = $twitter->directMessage->destroy(123548);
     </section>
 
     <section xml:id="zend.service.twitter.friendship"><info><title>Friendship Methods</title></info>
-        
+
 
         <itemizedlist>
             <listitem>
@@ -718,7 +718,7 @@ $response   = $twitter->directMessage->destroy(123548);
                 </para>
 
                 <example xml:id="zend.service.twitter.friendship.create"><info><title>Creating friend</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -737,7 +737,7 @@ $response   = $twitter->friendship->create('mynewfriend');
                 </para>
 
                 <example xml:id="zend.service.twitter.friendship.destroy"><info><title>Deleting friend</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -756,7 +756,7 @@ $response   = $twitter->friendship->destroy('myoldfriend');
                 </para>
 
                 <example xml:id="zend.service.twitter.friendship.exists"><info><title>Checking friend existence</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -771,7 +771,7 @@ $response   = $twitter->friendship->exists('myfriend');
     </section>
 
     <section xml:id="zend.service.twitter.favorite"><info><title>Favorite Methods</title></info>
-        
+
 
         <itemizedlist>
             <listitem>
@@ -782,7 +782,7 @@ $response   = $twitter->friendship->exists('myfriend');
                 </para>
 
                 <example xml:id="zend.service.twitter.favorite.favorites"><info><title>Retrieving favorites</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -821,7 +821,7 @@ $response   = $twitter->favorite->favorites();
                 </para>
 
                 <example xml:id="zend.service.twitter.favorite.create"><info><title>Creating favorites</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -840,7 +840,7 @@ $response   = $twitter->favorite->create(12351);
                 </para>
 
                 <example xml:id="zend.service.twitter.favorite.destroy"><info><title>Deleting favorites</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -855,7 +855,7 @@ $response   = $twitter->favorite->destroy(12351);
     </section>
 
     <section xml:id="zend.service.twitter.block"><info><title>Block Methods</title></info>
-        
+
 
         <itemizedlist>
             <listitem>
@@ -866,7 +866,7 @@ $response   = $twitter->favorite->destroy(12351);
                 </para>
 
                 <example xml:id="zend.service.twitter.block.exists"><info><title>Checking if block exists</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -907,7 +907,7 @@ $response2 = $twitter->block->exists('blockeduser', true);
                 </para>
 
                 <example xml:id="zend.service.twitter.block.create"><info><title>Blocking a user</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -927,7 +927,7 @@ $response   = $twitter->block->create('usertoblock);
                 </para>
 
                 <example xml:id="zend.service.twitter.block.destroy"><info><title>Removing a block</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(
@@ -946,7 +946,7 @@ $response   = $twitter->block->destroy('blockeduser');
                 </para>
 
                 <example xml:id="zend.service.twitter.block.blocking"><info><title>Who are you blocking</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter(array(

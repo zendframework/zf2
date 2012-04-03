@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.rest.introduction"><info><title>導入</title></info>
-    
+
 
     <para>
         REST ウェブサービスは、そのサービス固有の <acronym>XML</acronym> フォーマットを使用します。
@@ -22,7 +22,7 @@
     </para>
 
     <para>
-        
+
         <classname>Zend_Rest_Server</classname> 及び <classname>Zend_Rest_Client</classname>
         コンポーネントに加えて、コントローラに REST リクエストをルーティングすることを助けるために
         <link linkend="zend.controller.router.routes.rest"><classname>Zend_Rest_Route</classname>

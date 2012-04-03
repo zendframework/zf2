@@ -358,7 +358,7 @@ class Atom extends AbstractFeed
 
         return $this->_data['hubs'];
     }
-    
+
     /**
      * Get all categories
      *
@@ -371,7 +371,7 @@ class Atom extends AbstractFeed
         }
 
         $categoryCollection = $this->getExtension('Atom')->getCategories();
-        
+
         if (count($categoryCollection) == 0) {
             $categoryCollection = $this->getExtension('DublinCore')->getCategories();
         }

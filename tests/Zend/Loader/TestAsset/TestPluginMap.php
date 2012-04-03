@@ -34,7 +34,7 @@ class TestPluginMap implements \IteratorAggregate
 {
     /**
      * Plugin map
-     * 
+     *
      * @var array
      */
     public $map = array(
@@ -45,7 +45,7 @@ class TestPluginMap implements \IteratorAggregate
 
     /**
      * Return iterator
-     * 
+     *
      * @return Traversable
      */
     public function getIterator()

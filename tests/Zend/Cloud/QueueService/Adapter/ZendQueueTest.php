@@ -21,10 +21,10 @@
 
 namespace ZendTest\Cloud\QueueService\Adapter;
 
-use ZendTest\Cloud\QueueService\TestCase,
-    Zend\Cloud\QueueService\Adapter\ZendQueue,
-    Zend\Config\Config,
-    Zend\Cloud\QueueService\Factory;
+use ZendTest\Cloud\QueueService\TestCase;
+use Zend\Cloud\QueueService\Adapter\ZendQueue;
+use Zend\Config\Config;
+use Zend\Cloud\QueueService\Factory;
 
 // Call Zend\Cloud\QueueService\Adapter\ZendQueueTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
@@ -47,7 +47,7 @@ class ZendQueueTest extends TestCase
      * @var int
      */
     protected $_waitPeriod = 0;
-    
+
     protected $_clientType = 'Zend\Queue\Queue';
 
 	/**

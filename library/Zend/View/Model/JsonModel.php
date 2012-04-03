@@ -21,9 +21,9 @@
 
 namespace Zend\View\Model;
 
-use Traversable,
-    Zend\Json\Json,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Json\Json;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @category   Zend
@@ -35,31 +35,31 @@ use Traversable,
 class JsonModel extends ViewModel
 {
     /**
-     * JSON probably won't need to be captured into a 
+     * JSON probably won't need to be captured into a
      * a parent container by default.
-     * 
+     *
      * @var string
      */
     protected $captureTo = null;
 
     /**
      * JSONP callback (if set, wraps the return in a function call)
-     * 
+     *
      * @var string
      */
     protected $jsonpCallback = null;
 
     /**
      * JSON is usually terminal
-     * 
+     *
      * @var bool
      */
     protected $terminate = true;
 
     /**
      * Set the JSONP callback function name
-     * 
-     * @param  string $callback 
+     *
+     * @param  string $callback
      * @return JsonpModel
      */
     public function setJsonpCallback($callback)
@@ -70,7 +70,7 @@ class JsonModel extends ViewModel
 
     /**
      * Serialize to JSON
-     * 
+     *
      * @return string
      */
     public function serialize()

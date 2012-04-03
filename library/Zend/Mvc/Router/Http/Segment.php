@@ -21,10 +21,10 @@
 
 namespace Zend\Mvc\Router\Http;
 
-use Traversable,
-    Zend\Stdlib\ArrayUtils,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Mvc\Router\Exception;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Stdlib\RequestDescription as Request;
+use Zend\Mvc\Router\Exception;
 
 /**
  * Segment route.
@@ -209,7 +209,7 @@ class Segment implements Route
 
                 case 'parameter':
                     $groupName = '?P<param' . $groupIndex . '>';
-                    
+
                     if (isset($constraints[$part[1]])) {
                         $regex .= '(' . $groupName . $constraints[$part[1]] . ')';
                     } elseif ($part[2] === null) {

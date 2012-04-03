@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.memory-objects"><info><title>内存对象</title></info>
 
-    
+
 
     <section xml:id="zend.memory.memory-objects.movable"><info><title>可移动的</title></info>
 
-        
+
 
         <para>
             使用内存管理器的<code>create([$data])</code>方法创建可移动的内存对象:
@@ -23,7 +23,7 @@ $memObject = $memoryManager->create($data);
 
     <section xml:id="zend.memory.memory-objects.locked"><info><title>锁定的</title></info>
 
-        
+
 
         <para>
             使用内存管理器的<code>createLocked([$data])</code>方法创建锁定的内存对象:
@@ -62,7 +62,7 @@ $memObject = $memoryManager->createLocked($data);
 
     <section xml:id="zend.memory.memory-objects.value"><info><title>内存容器 '值' 属性.</title></info>
 
-        
+
 
         <para>
             使用内存容器(可移动或者锁定)'<code>值</code>'属性操作内存对象数据:
@@ -90,7 +90,7 @@ $memObject->value = substr($memObject->value, $start, $length);
 
     <section xml:id="zend.memory.memory-objects.api"><info><title>内存容器接口</title></info>
 
-        
+
 
         <para>
             内存容器提供下面的方法:
@@ -98,7 +98,7 @@ $memObject->value = substr($memObject->value, $start, $length);
 
         <section xml:id="zend.memory.memory-objects.api.getRef"><info><title>getRef() 方法</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[
 public function &getRef();
@@ -139,7 +139,7 @@ for ($count = 0; $count < strlen($value); $count++) {
 
         <section xml:id="zend.memory.memory-objects.api.touch"><info><title>touch() 方法</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[
 public function touch();
@@ -171,7 +171,7 @@ $memObject->touch();
 
         <section xml:id="zend.memory.memory-objects.api.lock"><info><title>lock() 方法</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[
 public function lock();
@@ -211,7 +211,7 @@ $memObject2->unlock();
 
         <section xml:id="zend.memory.memory-objects.api.unlock"><info><title>unlock() 方法</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[
 public function unlock();
@@ -226,7 +226,7 @@ public function unlock();
 
         <section xml:id="zend.memory.memory-objects.api.isLocked"><info><title>isLocked() 方法</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[
 public function isLocked();

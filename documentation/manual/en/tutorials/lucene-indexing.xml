@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.lucene.indexing"><info><title>Indexing</title></info>
-    
+
 
     <para>
         Indexing is performed by adding a new document to an existing or new index:
@@ -15,7 +15,7 @@ $index->addDocument($doc);
     </para>
 
     <example xml:id="learning.lucene.indexing.doc-creation"><info><title>Manual Document Construction</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $doc = new Zend_Search_Lucene_Document();
@@ -31,7 +31,7 @@ $doc->addField(Zend_Search_Lucene_Field::binary('avatar', $avatarData));
     </para>
 
     <example xml:id="learning.lucene.indexing.doc-loading"><info><title>Document loading</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $doc = Zend_Search_Lucene_Document_Html::loadHTML($htmlString);
@@ -47,7 +47,7 @@ $doc = Zend_Search_Lucene_Document_Xlsx::loadXlsxFile($path);
     </para>
 
     <section xml:id="learning.lucene.indexing.policy"><info><title>Indexing Policy</title></info>
-        
+
 
         <para>
             You should define indexing policy within your application architectural design.
@@ -76,7 +76,7 @@ $doc = Zend_Search_Lucene_Document_Xlsx::loadXlsxFile($path);
         </para>
 
         <example xml:id="learning.lucene.indexing.optimization"><info><title>Index optimization</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $index->optimize();

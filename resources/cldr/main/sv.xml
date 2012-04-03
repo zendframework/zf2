@@ -1058,7 +1058,7 @@
 		<dateRangePattern>{0} till {1}</dateRangePattern>
 		<calendars>
 			<calendar type="buddhist">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d MMMM y G</pattern>
@@ -1080,7 +1080,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d</dateFormatItem>
@@ -1579,7 +1579,7 @@
 						</monthWidth>
 					</monthContext>
 				</months>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d MMMM y G</pattern>
@@ -1601,7 +1601,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d</dateFormatItem>
@@ -1637,7 +1637,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d MMMM y G</pattern>
@@ -1659,7 +1659,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d</dateFormatItem>
@@ -1716,12 +1716,12 @@
 			</calendar>
 			<calendar type="roc">
 				<eras>
-					<eraAbbr> 
+					<eraAbbr>
 						<era type="0">före R.K.</era>
 						<era type="1">R.K.</era>
 					</eraAbbr>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d MMMM y G</pattern>
@@ -1743,7 +1743,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d</dateFormatItem>

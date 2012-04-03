@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.custom"><info><title>Erstellung eigener Seiten Typen</title></info>
-    
+
 
     <para>
         Wenn <classname>Zend_Navigation_Page</classname> erweiter wird, besteht normalerweise keine
@@ -19,7 +19,7 @@
     </para>
 
     <example xml:id="zend.navigation.custom.example.simple"><info><title>Die einfachste eigene Seite</title></info>
-        
+
 
         <para>
             Das einzige Ding das eine eigene Seite implementieren muß ist die
@@ -38,7 +38,7 @@ class My_Simple_Page extends Zend_Navigation_Page
     </example>
 
     <example xml:id="zend.navigation.custom.example.properties"><info><title>Eine eigene Seite mit Eigenschaften</title></info>
-        
+
 
         <para>
             Wenn Eigenschaften an eine erweiterte Seite angefügt werden, gibt es keine

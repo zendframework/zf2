@@ -330,7 +330,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(array('id'=>'verifytokenkey','verify_token'=>hash('sha256', 'cba'),'created_time'=>$t->get(Date\Date::TIMESTAMP),'lease_seconds'=>1234567,'subscription_state'=>'verified','expiration_time'=>$t->add(1234567,Date\Date::SECOND)->get('yyyy-MM-dd HH:mm:ss'))),
                 $this->equalTo(array('id' => 'verifytokenkey'))
             );
-        
+
         $this->_callback->handle($this->_get);
         $this->assertTrue($this->_callback->getHttpResponse()->getBody() == 'abc');
     }
@@ -466,7 +466,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->_callback->getHttpResponse()->getHeader('X-Hub-On-Behalf-Of') == 1);
     }
 
-    protected function _getCleanMock($className) 
+    protected function _getCleanMock($className)
     {
         $class = new \ReflectionClass($className);
         $methods = $class->getMethods();

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.overview"><info><title>概述</title></info>
-    
+
 
     <section xml:id="zend.memory.introduction"><info><title> 简介 </title></info>
-        
+
         <para>
             Zend_Memory组件用于在一个受限制的内存环境下管理数据.
         </para>
@@ -22,7 +22,7 @@
         </para>
 
         <example xml:id="zend.memory.introduction.example-1"><info><title>使用 Zend_Memory 组件</title></info>
-            
+
             <para>
                 <code>Zend_Memory::factory()</code> 用指定的后端选项实例化内存管理器对象.
             </para>
@@ -57,7 +57,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
 
     <section xml:id="zend.memory.theory-of-operation"><info><title>操作原理</title></info>
 
-        
+
 
         <para>
             Zend_Memory 组件操作有如下的概念:
@@ -79,7 +79,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
 
         <section xml:id="zend.memory.theory-of-operation.manager"><info><title>内存管理器</title></info>
 
-            
+
 
             <para>
                 内存管理器按照用户应用程序的请求生成内存对象(锁定的或可移动的)并返回已交换到内存容器对象中的那些.
@@ -89,7 +89,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
 
         <section xml:id="zend.memory.theory-of-operation.container"><info><title>内存容器</title></info>
 
-            
+
 
             <para>
                 内存容器有一个虚拟的或者实际的字符串类型的<code>值</code>.
@@ -126,7 +126,7 @@ $memObject->value = substr($memObject->value, $start, $length);
 
         <section xml:id="zend.memory.theory-of-operation.locked"><info><title>锁定的内存</title></info>
 
-            
+
 
             <para>
                 锁定的内存对象总是存储在内存中.存储在锁定内存对象中的数据绝不会被交换到缓存后端中去.
@@ -136,7 +136,7 @@ $memObject->value = substr($memObject->value, $start, $length);
 
         <section xml:id="zend.memory.theory-of-operation.movable"><info><title>可移动内存</title></info>
 
-            
+
 
             <para>
                 当需要时,可移动内存对象由Zend_Memory透明的交换到缓存后端或则从缓存后端加载.

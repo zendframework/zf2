@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.writers"><info><title>ライター</title></info>
-  
+
   <para>
     ライターは、<classname>Zend_Log_Writer_Abstract</classname>
     を継承したオブジェクトです。ライターの役割は、
@@ -8,7 +8,7 @@
   </para>
 
   <section xml:id="zend.log.writers.stream"><info><title>ストリームへの書き出し</title></info>
-    
+
     <para>
       <classname>Zend_Log_Writer_Stream</classname> は、ログデータを
       <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.php.net/stream">PHP のストリーム</link>
@@ -71,7 +71,7 @@ $logger->info('通知メッセージ');
   </section>
 
   <section xml:id="zend.log.writers.database"><info><title>データベースへの書き出し</title></info>
-    
+
 
     <para>
       <classname>Zend_Log_Writer_Db</classname> は、
@@ -113,7 +113,7 @@ $logger->info('通知メッセージ');
   </xi:include>
 
   <section xml:id="zend.log.writers.null"><info><title>ライターのスタブ</title></info>
-    
+
 
     <para>
       <classname>Zend_Log_Writer_Null</classname> はスタブで、ログデータをどこにも書き出しません。
@@ -130,7 +130,7 @@ $logger->info('通知メッセージ');
   </section>
 
   <section xml:id="zend.log.writers.mock"><info><title>モックによるテスト</title></info>
-    
+
 
     <para>
       <classname>Zend_Log_Writer_Mock</classname> は非常にシンプルなライターです。
@@ -161,7 +161,7 @@ var_dump($mock->events[0]);
   </section>
 
   <section xml:id="zend.log.writers.compositing"><info><title>ライターを組み合わせる</title></info>
-    
+
 
     <para>
       合成ライターオブジェクトはありません。

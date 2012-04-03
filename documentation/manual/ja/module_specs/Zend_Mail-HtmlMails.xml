@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.html-mails"><info><title>HTML メール</title></info>
-    
+
 
     <para>
         <acronym>HTML</acronym> 形式のメールを送信するには、本文を作成する際に
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.mail.html-mails.example-1"><info><title>HTML メールの送信</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();

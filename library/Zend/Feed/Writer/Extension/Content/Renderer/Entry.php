@@ -17,7 +17,7 @@
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
- 
+
 namespace Zend\Feed\Writer\Extension\Content\Renderer;
 use Zend\Feed\Writer\Extension;
 
@@ -39,10 +39,10 @@ class Entry extends Extension\AbstractRenderer
      * @var bool
      */
     protected $_called = false;
-    
+
     /**
      * Render entry
-     * 
+     *
      * @return void
      */
     public function render()
@@ -55,23 +55,23 @@ class Entry extends Extension\AbstractRenderer
             $this->_appendNamespaces();
         }
     }
-    
+
     /**
      * Append namespaces to root element
-     * 
+     *
      * @return void
      */
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:content',
-            'http://purl.org/rss/1.0/modules/content/');  
+            'http://purl.org/rss/1.0/modules/content/');
     }
 
     /**
      * Set entry content
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setContent(\DOMDocument $dom, \DOMElement $root)

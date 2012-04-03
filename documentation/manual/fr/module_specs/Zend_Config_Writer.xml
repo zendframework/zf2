@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.writer.introduction"><info><title>Zend_Config_Writer</title></info>
-    
+
 
     <para>
         <classname>Zend_Config_Writer</classname> vous donne la possibilité d'écrire des
@@ -56,7 +56,7 @@
     </para>
 
     <example xml:id="zend.config.writer.example.using"><info><title>Utilisation de Zend_Config_Writer</title></info>
-        
+
 
         <para>
             Cet exemple illustre une utilisation basique
@@ -103,7 +103,7 @@ $writer->write('config.xml', $config);
     </example>
 
     <example xml:id="zend.config.writer.modifying"><info><title>Modifier une configuration existante</title></info>
-        
+
 
         <para>
             Cet exemple montre comment modifier un fichier de configuration
@@ -129,7 +129,7 @@ $writer->write();
     </example>
 
     <note><info><title>Chargement d'un fichier de configuration</title></info>
-        
+
         <para>
             Lors du chargement d'un fichier de configuration existant afin de le modifier, il
             est très important de charger toutes les sections et d'éviter les sections étendues,

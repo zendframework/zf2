@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form"><info><title>Les éléments de formulaire et les décorateurs Dojo</title></info>
-    
+
 
     <para>
         Bâtie sur les
@@ -50,7 +50,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.form.enable"><info><title>Activation de Dojo dans vos formulaires existants</title></info>
-        
+
 
         <para>
             "Mais attendez," vous allez me dire ; "j'étends déjà

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.compress"><info><title>Compress and Decompress</title></info>
-    
+
 
     <para>
         These two filters are capable of compressing and decompressing strings, files, and
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.compress.options"><info><title>Supported options for Zend_Filter_Compress and Zend_Filter_Decompress</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Filter_Compress</classname>
@@ -33,7 +33,7 @@
     </section>
 
     <section xml:id="zend.filter.set.compress.basic"><info><title>Supported compression adapters</title></info>
-        
+
 
         <para>
             The following compression formats are supported by their own adapter:
@@ -86,7 +86,7 @@
     </section>
 
     <section xml:id="zend.filter.set.compress.generic"><info><title>Generic handling</title></info>
-        
+
 
         <para>
             To create a compression filter you need to select the compression format you want to
@@ -131,7 +131,7 @@ $filter = new Zend_Filter_Compress(array(
 ]]></programlisting>
 
         <note><info><title>Default compression Adapter</title></info>
-            
+
 
             <para>
                 When no compression adapter is given, then the <emphasis>Gz</emphasis> adapter will
@@ -170,7 +170,7 @@ $compressed = $filter->filter('Compressed string');
 ]]></programlisting>
 
         <note><info><title>Note on string compression</title></info>
-            
+
 
             <para>
                 Not all adapters support string compression. Compression formats like
@@ -181,7 +181,7 @@ $compressed = $filter->filter('Compressed string');
     </section>
 
     <section xml:id="zend.filter.set.compress.archive"><info><title>Creating an archive</title></info>
-        
+
 
         <para>
             Creating an archive file works almost the same as compressing a string. However, in this
@@ -206,7 +206,7 @@ $compressed = $filter->filter('Uncompressed string');
         </para>
 
         <note><info><title>Existing archives will be overwritten</title></info>
-            
+
 
             <para>
                 The content of any existing file will be overwritten when the given filename of
@@ -246,7 +246,7 @@ $compressed = $filter->filter('C:\temp\somedir');
 ]]></programlisting>
 
         <note><info><title>Do not compress large or base directories</title></info>
-            
+
 
             <para>
                 You should never compress large or base directories like a complete partition.
@@ -258,7 +258,7 @@ $compressed = $filter->filter('C:\temp\somedir');
     </section>
 
     <section xml:id="zend.filter.set.compress.decompress"><info><title>Decompressing an archive</title></info>
-        
+
 
         <para>
             Decompressing an archive file works almost like compressing it. You must specify either
@@ -290,7 +290,7 @@ $compressed = $filter->filter('filename.zip');
 ]]></programlisting>
 
         <note><info><title>Directories to extract to must exist</title></info>
-            
+
 
             <para>
                 When you want to decompress an archive into a directory, then that directory must
@@ -300,7 +300,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.bz2"><info><title>Bz2 Adapter</title></info>
-        
+
 
         <para>
             The Bz2 Adapter can compress and decompress:
@@ -353,7 +353,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.gz"><info><title>Gz Adapter</title></info>
-        
+
 
         <para>
             The Gz Adapter can compress and decompress:
@@ -413,7 +413,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.lzf"><info><title>Lzf Adapter</title></info>
-        
+
 
         <para>
             The Lzf Adapter can compress and decompress:
@@ -426,7 +426,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Lzf supports only strings</title></info>
-            
+
 
             <para>
                 The Lzf adapter can not handle files and directories.
@@ -443,7 +443,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.rar"><info><title>Rar Adapter</title></info>
-        
+
 
         <para>
             The Rar Adapter can compress and decompress:
@@ -460,7 +460,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Rar does not support strings</title></info>
-            
+
 
             <para>
                 The Rar Adapter can not handle strings.
@@ -472,7 +472,7 @@ $compressed = $filter->filter('filename.zip');
         </para>
 
         <note><info><title>Rar compression not supported</title></info>
-            
+
 
             <para>
                 Due to restrictions with the Rar compression format, there is no compression
@@ -524,7 +524,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.tar"><info><title>Tar Adapter</title></info>
-        
+
 
         <para>
             The Tar Adapter can compress and decompress:
@@ -541,7 +541,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Tar does not support strings</title></info>
-            
+
 
             <para>
                 The Tar Adapter can not handle strings.
@@ -591,7 +591,7 @@ $compressed = $filter->filter('filename.zip');
         </para>
 
         <note><info><title>Directory usage</title></info>
-            
+
 
             <para>
                 When compressing directories with Tar then the complete file path is used. This
@@ -602,7 +602,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.zip"><info><title>Zip Adapter</title></info>
-        
+
 
         <para>
             The Zip Adapter can compress and decompress:
@@ -623,7 +623,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Zip does not support string decompression</title></info>
-            
+
 
             <para>
                 The Zip Adapter can not handle decompression to a string; decompression will

@@ -33,7 +33,7 @@ use Zend\Application\ResourceBroker as BaseResourceBroker;
 class ResourceBroker extends BaseResourceBroker
 {
     protected $defaultClassLoader = 'ZendTest\Application\TestAsset\ResourceLoader';
-        
+
     public function __construct($options = null)
     {
         $this->options = $options;

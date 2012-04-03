@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.definition"><info><title>Zend_Db_Table_Definition</title></info>
 
-    
+
 
     <section xml:id="zend.db.table.definition.introduction"><info><title>導入</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Db_Table_Definition</classname>は、
@@ -18,7 +18,7 @@
 
     <section xml:id="zend.db.table.definition.usage"><info><title>基本的な利用法</title></info>
 
-        
+
 
         <para>
             拡張した <classname>Zend_Db_Table_Abstract</classname> クラスを設定するとき、
@@ -39,7 +39,7 @@
 
         <example xml:id="zend.db.table.definition.example1"><info><title>データベース・データモデルの定義を記述</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $definition = new Zend_Db_Table_Definition(array(
@@ -94,7 +94,7 @@ $definition = new Zend_Db_Table_Definition(array(
 
         <example xml:id="zend.db.table.definition.example2"><info><title>記述された定義との相互作用</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $authorTable = new Zend_Db_Table('author', $definition);
@@ -126,7 +126,7 @@ foreach ($authors as $author) {
 
     <section xml:id="zend.db.table.definition.advanced-usage"><info><title>高度な利用法</title></info>
 
-        
+
 
         <para>
             時々、テーブル・ゲートウェイの定義、
@@ -138,7 +138,7 @@ foreach ($authors as $author) {
 
         <para>
             上記の例をもとに、
-            
+
             テーブル構成のうちの1つはZend_Db_Table_Abstractを拡張したクラスであることができます。
             その一方で、残りのテーブルは定義の一部として保ちます。
             この新しい定義とどのように相互作用するかも示します。
@@ -146,7 +146,7 @@ foreach ($authors as $author) {
 
         <example xml:id="zend.db.table.definition.example3"><info><title>Zend_Db_Table定義の混合利用との相互作用</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 class MyBook extends Zend_Db_Table_Abstract

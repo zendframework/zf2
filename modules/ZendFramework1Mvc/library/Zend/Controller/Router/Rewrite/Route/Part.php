@@ -37,7 +37,7 @@ class Part implements Route
 {
     /**
      * Route to match
-     * 
+     *
      * @var Route
      */
     protected $_route;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.pregreplace"><info><title>PregReplace</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_PregReplace</classname> performs a search using regular expressions
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.pregreplace.options"><info><title>Supported options for Zend_Filter_PregReplace</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Filter_PregReplace</classname>:
@@ -32,7 +32,7 @@
     </section>
 
     <section xml:id="zend.filter.set.pregreplace.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             To use this filter properly you must give two options:

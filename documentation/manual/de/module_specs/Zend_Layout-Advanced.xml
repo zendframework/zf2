@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.advanced"><info><title>Erweiterte Verwendung von Zend_Layout</title></info>
-    
+
 
     <para>
         <classname>Zend_Layout</classname> hat eine Vielzahl an Verwendungsmöglichkeiten für den
@@ -49,7 +49,7 @@
     </itemizedlist>
 
     <section xml:id="zend.layout.advanced.view"><info><title>Eigene View Objekte</title></info>
-        
+
 
         <para>
             <classname>Zend_Layout</classname> erlaubt es jede Klasse für die Darstellung der Layout
@@ -66,7 +66,7 @@ $layout->setView($view);
 ]]></programlisting>
 
         <note><info><title>Nicht alle Zend_View Implementationen sind gleich</title></info>
-            
+
 
             <para>
                 Wärend es <classname>Zend_Layout</classname> erlaubt jede Klasse zu verwenden die
@@ -102,7 +102,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.plugin"><info><title>Eigene Front Controller Plugins</title></info>
-        
+
 
         <para>
             Wenn <classname>Zend_Layout</classname> mit den <acronym>MVC</acronym> Komponenten
@@ -128,7 +128,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.helper"><info><title>Eigene Action Helfer</title></info>
-        
+
 
         <para>
             Wenn <classname>Zend_Layout</classname> mit den <acronym>MVC</acronym> Komponenten
@@ -149,7 +149,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.inflector"><info><title>Auflösung eigener Layout Skript Pfade: Verwenden der Beugung</title></info>
-        
+
 
         <para>
             <classname>Zend_Layout</classname> verwendet
@@ -173,7 +173,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
          </para>
 
         <example xml:id="zend.layout.advanced.inflector.accessors"><info><title>Verwenden von Zend_Layout Zugriffsmethoden zur Änderung der Beugung</title></info>
-            
+
 
             <para>
                 Der standardmäßige <classname>Zend_Layout</classname> Beugungsmechanismus verwendet
@@ -191,7 +191,7 @@ $layout->setViewSuffix('php');
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.directmodification"><info><title>Direkte Änderung der Zend_Layout Beugung</title></info>
-            
+
 
             <para>
                 Beugung hat ein Ziel und ein oder mehrere Regeln. Das Standardziel das von
@@ -215,7 +215,7 @@ $layout->getInflector()->setTarget('layouts/:script.:suffix')
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.custom"><info><title>Eigene Beugung</title></info>
-            
+
 
             <para>
                 In den meisten Fällen ist es ausreichend den bestehenden Beugungsmechanismus zu
@@ -235,7 +235,7 @@ $layout->setInflector($inflector);
         </example>
 
         <note><info><title>Beugung kann ausgeschaltet werden</title></info>
-            
+
 
             <para>
                 Beugung kann ausgeschaltet und eingeschaltet werden indem eine zugriffsmethode auf

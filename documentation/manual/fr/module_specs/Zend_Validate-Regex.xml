@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.regex"><info><title>Regex</title></info>
-    
+
 
     <para>
         Ce validateur valide si une chaine correspond à un motif d'expression régulière.
     </para>
 
     <section xml:id="zend.validate.set.regex.options"><info><title>Options supportées par Zend_Validate_Regex</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.validate.set.regex.basic"><info><title>Validation avec Zend_Validate_Regex</title></info>
-        
+
 
         <para>
             La validation au travers d'expressions régulières est pratique, très utilisée et simple
@@ -50,7 +50,7 @@ $validator->isValid("Pest"); // retourne false
     </section>
 
     <section xml:id="zend.validate.set.regex.handling"><info><title>Gestion des motifs</title></info>
-        
+
 
         <para>
             Vous pouvez affecter / récupérer le motif après avoir crée le validateur en

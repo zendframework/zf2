@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.authsub"><info><title>Authentification par procédé AuthSub</title></info>
-    
+
 
     <para>
         Le mécanisme d'authentification AuthSub permet d'écrire des applications dans
@@ -29,7 +29,7 @@
     </para>
 
     <note><info><title>Jetons sécurisés et certificats</title></info>
-        
+
 
         <para>
             <classname>Zend_Gdata</classname> ne supporte pas actuellement l'utilisation de
@@ -39,7 +39,7 @@
     </note>
 
     <section xml:id="zend.gdata.authsub.login"><info><title>Création d'un client HTTP authentifié avec AuthSub</title></info>
-        
+
 
         <para>
             Votre application <acronym>PHP</acronym> devrait fournir un lien <acronym>URL</acronym> vers le service
@@ -104,7 +104,7 @@ $cal = new Zend_Gdata_Calendar($client);
     </section>
 
     <section xml:id="zend.gdata.authsub.logout"><info><title>Destruction de l'authentification AuthSub</title></info>
-        
+
 
         <para>
             Pour détruire la validité d'un jeton d'authentification, utilisez la méthode
@@ -128,7 +128,7 @@ if (isset($_GET['logout'])) {
 ]]></programlisting>
 
         <note><info><title>Notes de sécurité</title></info>
-            
+
 
             <para>
                 Le traitement effectué pour la variable <varname>$php_self</varname> dans l'exemple

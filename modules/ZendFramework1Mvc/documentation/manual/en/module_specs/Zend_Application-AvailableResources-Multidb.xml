@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.multidb"><info><title>Zend_Application_Resource_Multidb</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Multidb</classname> is used to initialize
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.multidb.configexample"><info><title>Setting up multiple Db Connections</title></info>
-        
+
 
         <para>
             Below is an example <acronym>INI</acronym> configuration that can be used to initialize
@@ -35,7 +35,7 @@ resources.multidb.db2.default = true
     </example>
 
     <example xml:id="zend.application.available-resources.multidb.retrieveSpecificDb"><info><title>Retrieving a specific database adapter</title></info>
-        
+
 
         <para>
             When using this resource plugin you usually will want to retrieve
@@ -56,7 +56,7 @@ $defaultDb = $resource->getDb();
     </example>
 
     <example xml:id="zend.application.available-resources.multidb.retrieveDefaultDb"><info><title>Retrieving the default database adapter</title></info>
-        
+
 
         <para>
             Additionally, you can retrieve the default database adapter

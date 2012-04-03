@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.openid.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_OpenId</classname> is a Zend Framework component that provides a
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.openid.introduction.what"><info><title>What is OpenID?</title></info>
-        
+
 
         <para>
             OpenID is a set of protocols for user-centric digital identities.
@@ -34,7 +34,7 @@
     </section>
 
     <section xml:id="zend.openid.introduction.how"><info><title>How Does it Work?</title></info>
-        
+
 
         <para>
             The purpose of the <classname>Zend_OpenId</classname> component is to
@@ -123,7 +123,7 @@
     </section>
 
     <section xml:id="zend.openid.introduction.structure"><info><title>Zend_OpenId Structure</title></info>
-        
+
 
         <para>
             <classname>Zend_OpenId</classname> consists of two sub-packages. The first one
@@ -150,7 +150,7 @@
     </section>
 
     <section xml:id="zend.openid.introduction.standards"><info><title>Supported OpenID Standards</title></info>
-        
+
 
         <para>
             The <classname>Zend_OpenId</classname> component supports the following

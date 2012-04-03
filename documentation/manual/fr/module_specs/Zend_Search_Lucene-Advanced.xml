@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.advanced"><info><title>Avancé</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.advanced.format_migration"><info><title>Depuis Zend Framework 1.6, gestion des transformations de format d'index</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> fonctionne avec les index Lucene Java
@@ -78,7 +78,7 @@
         </para>
 
         <note><info><title>Important!</title></info>
-            
+
 
             <para>
                 Les formats ne peuvent pas être convertis vers des versions antérieures.
@@ -89,7 +89,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.advanced.static"><info><title>Utiliser les propriétés statiques de l'index</title></info>
-        
+
 
         <para>
             L'objet <classname>Zend_Search_Lucene</classname> utilise la méthode de

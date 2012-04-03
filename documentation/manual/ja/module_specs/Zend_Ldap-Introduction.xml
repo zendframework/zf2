@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.introduction"><info><title>導入</title></info>
-    
+
 
     <para>
         <classname>Zend_Ldap</classname> は <acronym>LDAP</acronym>操作を行うクラスです。
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.ldap.introduction.theory-of-operations"><info><title>動作原理</title></info>
-        
+
 
         <para>
             現在このコンポーネントは、OpenLDAPまたはActiveDirectory（AD）サーバのような
@@ -97,7 +97,7 @@ echo "$acctname\n";
         </para>
 
         <section xml:id="zend.ldap.introduction.theory-of-operations.automatic-username-canonicalization"><info><title>バインド時のユーザ名自動正規化</title></info>
-            
+
 
             <para>
                 <emphasis>bindRequiresDN</emphasis> が <constant>TRUE</constant>で、
@@ -149,7 +149,7 @@ echo "$acctname\n";
         </section>
 
         <section xml:id="zend.ldap.introduction.theory-of-operations.account-name-canonicalization"><info><title>アカウント名の正規化</title></info>
-            
+
 
             <para>
                 <emphasis>accountDomainName</emphasis>および
@@ -163,7 +163,7 @@ echo "$acctname\n";
             </para>
 
             <table xml:id="zend.ldap.using.theory-of-operation.account-name-canonicalization.table"><info><title>accountCanonicalFormのオプション</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -228,7 +228,7 @@ echo "$acctname\n";
         </section>
 
         <section xml:id="zend.ldap.introduction.theory-of-operations.multi-domain-failover"><info><title>複数ドメインの認証とフェイルオーバー</title></info>
-            
+
 
             <para>
                 <classname>Zend_Ldap</classname> コンポーネント自身は、

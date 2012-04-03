@@ -2,9 +2,9 @@
 
 namespace Zend\Module\Listener;
 
-use Zend\EventManager\ListenerAggregate,
-    Zend\EventManager\EventCollection,
-    Zend\Loader\ModuleAutoloader;
+use Zend\EventManager\ListenerAggregate;
+use Zend\EventManager\EventCollection;
+use Zend\Loader\ModuleAutoloader;
 
 class DefaultListenerAggregate extends AbstractListener
     implements ListenerAggregate

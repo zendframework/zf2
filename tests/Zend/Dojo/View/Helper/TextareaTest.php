@@ -21,10 +21,10 @@
 
 namespace ZendTest\Dojo\View\Helper;
 
-use Zend\Dojo\View\Helper\Textarea as TextareaHelper,
-    Zend\Dojo\View\Helper\Dojo as DojoHelper,
-    Zend\Registry,
-    Zend\View;
+use Zend\Dojo\View\Helper\Textarea as TextareaHelper;
+use Zend\Dojo\View\Helper\Dojo as DojoHelper;
+use Zend\Registry;
+use Zend\View;
 
 /**
  * Test class for Zend_Dojo_View_Helper_Textarea.
@@ -91,7 +91,7 @@ class TextareaTest extends \PHPUnit_Framework_TestCase
         $html = $this->helper->__invoke('foo[bar]', '', array(), array('id' => 'foo-bar'));
         $this->assertContains('id="foo-bar"', $html);
     }
-    
+
     public function testGeneratedMarkupShouldNotIncludeTypeAttribute()
     {
         $html = $this->getElement();

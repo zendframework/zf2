@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-layout"><info><title>Create A Layout</title></info>
-    
+
 
     <para>
         You may have noticed that the view scripts in the previous sections were
@@ -216,7 +216,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </para>
 
     <note><info><title>Checkpoint</title></info>
-        
+
 
         <para>
             Now go to "http://localhost" and check out the source. You should see your XHTML header,

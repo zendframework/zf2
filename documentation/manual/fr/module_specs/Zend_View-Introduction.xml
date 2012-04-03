@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_View</classname> est une classe qui permet de travailler avec la
@@ -24,7 +24,7 @@
     </para>
 
     <section xml:id="zend.view.introduction.controller"><info><title>Script du Contrôleur</title></info>
-        
+
 
         <para>
             Comme exemple simple, imaginons que votre contrôleur aie une liste de données sur
@@ -61,7 +61,7 @@ echo $view->render('booklist.php');
     </section>
 
     <section xml:id="zend.view.introduction.view"><info><title>Script de vue</title></info>
-        
+
 
         <para>
             Maintenant, nous avons besoin d'associer le script de vue
@@ -108,7 +108,7 @@ echo $view->render('booklist.php');
     </section>
 
     <section xml:id="zend.view.introduction.options"><info><title>Options</title></info>
-        
+
 
         <para>
             <classname>Zend_View</classname> possède plusieurs options qui peuvent être
@@ -176,7 +176,7 @@ chemin/vers/
     </section>
 
     <section xml:id="zend.view.introduction.shortTags"><info><title>Balises courtes dans les scripts de vue</title></info>
-        
+
 
         <para>
             Dans nos exemples et notre documentation, nous utilisons les balises longues <acronym>PHP</acronym> :
@@ -253,7 +253,7 @@ $view->setUseStreamWrapper(true);
         </itemizedlist>
 
         <warning><info><title>Les enveloppes de flux de vue dégradent les performances</title></info>
-            
+
 
             <para>
                 L'utilisation d'enveloppe de flux <emphasis>dégradera</emphasis> les
@@ -267,7 +267,7 @@ $view->setUseStreamWrapper(true);
     </section>
 
     <section xml:id="zend.view.introduction.accessors"><info><title>Accesseurs utiles</title></info>
-        
+
 
         <para>
             Typiquement, vous ne devriez seulement avoir besoin d'appeler les méthodes

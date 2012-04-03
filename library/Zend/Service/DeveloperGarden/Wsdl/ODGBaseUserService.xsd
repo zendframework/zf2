@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsd:schema 
+<xsd:schema
 	xmlns="http://odg.tonline.de/ODGBaseUserService/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:tns="http://odg.tonline.de/ODGBaseUserService/"
 	targetNamespace="http://odg.tonline.de/ODGBaseUserService/"
-	elementFormDefault="unqualified" 
+	elementFormDefault="unqualified"
 	attributeFormDefault="unqualified" version="1.1">
-	
-	
-	
-	
-	
+
+
+
+
+
 	<xsd:complexType name="AccountBalance">
 		<xsd:sequence>
 			<xsd:element name="Account" type="xsd:string"></xsd:element>

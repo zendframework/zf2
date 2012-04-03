@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.backends"><info><title>Zend_Cache backends</title></info>
-    
+
 
     <section xml:id="zend.cache.backends.file"><info><title>Zend_Cache_Backend_File</title></info>
-        
+
         <para>
             Deze backends slaat cache records op in bestanden (in een gekozen map).
         </para>
@@ -13,7 +13,7 @@
             Beschikbare opties zijn :
         </para>
         <table><info><title>Beschikbare opties</title></info>
-            
+
             <tgroup cols="4">
                  <thead>
                       <row>
@@ -87,7 +87,7 @@
           </table>
     </section>
     <section xml:id="zend.cache.backends.sqlite"><info><title>Zend_Cache_Backend_Sqlite</title></info>
-        
+
         <para>
             Deze backend slaat cache records op in een SQLite database.
         </para>
@@ -95,7 +95,7 @@
             Beschikbare opties zijn :
         </para>
         <table><info><title>Beschikbare opties</title></info>
-            
+
             <tgroup cols="4">
                  <thead>
                       <row>
@@ -119,7 +119,7 @@
           </table>
     </section>
     <section xml:id="zend.cache.backends.memcached"><info><title>Zend_Cache_Backend_Memcached</title></info>
-        
+
         <para>
             Deze backend slaat cache records op in een memcache server. <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.danga.com/memcached/">memcached</link> is een high-performance, gedistribueerd systeem van object caching. Om deze
             backend te gebruiken heb je een memcached daemon en de <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://pecl.php.net/package/memcache">memcache PECL extension</link> nodig.
@@ -131,7 +131,7 @@
             Beschikbare opties zijn :
         </para>
         <table><info><title>Beschikbare opties</title></info>
-            
+
             <tgroup cols="4">
                  <thead>
                       <row>
@@ -167,7 +167,7 @@
           </table>
     </section>
     <section xml:id="zend.cache.backends.apc"><info><title>Zend_Cache_Backend_APC</title></info>
-        
+
         <para>
             Deze backend slaat cache records op in shared memory via de
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://pecl.php.net/package/APC">APC</link> (Alternative PHP Cache) extensie

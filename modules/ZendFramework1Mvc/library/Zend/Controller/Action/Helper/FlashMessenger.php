@@ -20,8 +20,8 @@
  */
 
 namespace Zend\Controller\Action\Helper;
-use Zend\Session,
-    Zend\Stdlib\SplQueue;
+use Zend\Session;
+use Zend\Stdlib\SplQueue;
 
 /**
  * Flash Messenger - implement session-based messages
@@ -75,7 +75,7 @@ class FlashMessenger extends AbstractHelper implements \IteratorAggregate, \Coun
         if (!self::$_session instanceof Session\Container) {
             self::$_session = new Session\Container($this->getName());
 
-            // Should not modify the iterator while iterating; aggregate 
+            // Should not modify the iterator while iterating; aggregate
             // namespaces so they may be deleted after retrieving messages.
             $namespaces = array();
             foreach (self::$_session as $namespace => $messages) {

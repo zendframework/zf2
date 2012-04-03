@@ -20,12 +20,12 @@
 
 namespace Zend\Config\Processor;
 
-use Zend\Config\Config,
-    Zend\Config\Processor,
-    Zend\Config\Exception,
-    Zend\Filter\Filter as ZendFilter,
-    \Traversable,
-    \ArrayObject;
+use Zend\Config\Config;
+use Zend\Config\Processor;
+use Zend\Config\Exception;
+use Zend\Filter\Filter as ZendFilter;
+use \Traversable;
+use \ArrayObject;
 
 /**
  * @category   Zend
@@ -69,9 +69,9 @@ class Filter implements Processor
 
     /**
      * Process
-     * 
+     *
      * @param  Config $config
-     * @return Config 
+     * @return Config
      */
     public function process(Config $config)
     {

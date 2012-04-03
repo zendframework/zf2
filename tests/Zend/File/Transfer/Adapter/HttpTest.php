@@ -318,6 +318,6 @@ class HTTPTestMockAdapter extends \Zend\File\Transfer\Adapter\Http
         self::$_callbackApc = null;
         self::$_callbackUploadProgress = array('HTTPTestMockAdapter', 'uPTest');
     }
-    
-    
+
+
 }

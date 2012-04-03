@@ -2,8 +2,8 @@
 
 namespace ZendTest\Acl\TestAsset\UseCase1;
 
-use Zend\Acl\Assertion,
-    Zend\Acl as ZendAcl;
+use Zend\Acl\Assertion;
+use Zend\Acl as ZendAcl;
 
 class UserIsBlogPostOwnerAssertion implements Assertion
 {

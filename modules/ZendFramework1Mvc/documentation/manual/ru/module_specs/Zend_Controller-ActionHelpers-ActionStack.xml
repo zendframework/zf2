@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.actionstack"><info><title>ActionStack</title></info>
-    
+
 
     <para>
         Помощник <code>ActionStack</code> позволяет помещать в стек запросы к
@@ -13,7 +13,7 @@
     </para>
 
     <note><info><title>Вызов помощника ActionStack инициализирует плагин ActionStack</title></info>
-        
+
 
         <para>
             При вызове помощника <code>ActionStack</code> неявным образом
@@ -25,7 +25,7 @@
     </note>
 
     <example xml:id="zend.controller.actionhelpers.actionstack.simple"><info><title>Добавление задачи с использованием имен действия, контроллера и модуля</title></info>
-        
+
 
         <para>
             Зачастую наиболее простым способом будет указание действия,
@@ -57,7 +57,7 @@ class FooController extends Zend_Controller_Action
     </example>
 
     <example xml:id="zend.controller.actionhelpers.actionstack.simple2"><info><title>Добавление задачи с использованием объекта запроса</title></info>
-        
+
 
         <para>
             Иногда имеет смысл использовать объект запроса, что более

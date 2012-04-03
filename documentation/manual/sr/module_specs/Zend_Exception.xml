@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.using"><info><title>Koriscenje izuzetaka</title></info>
 
-    
+
 
     <para>
         All exceptions thrown by Zend Framework classes should throw
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.exception.using.example"><info><title>Example of catching an exception</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 
 try {

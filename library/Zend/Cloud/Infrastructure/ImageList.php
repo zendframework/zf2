@@ -9,11 +9,11 @@
 
 namespace Zend\Cloud\Infrastructure;
 
-use Zend\Cloud\Infrastructure\Image,  
-    Zend\Cloud\Infrastructure\Exception,
-    Countable,
-    Iterator,
-    ArrayAccess;
+use Zend\Cloud\Infrastructure\Image;
+use Zend\Cloud\Infrastructure\Exception;
+use Countable;
+use Iterator;
+use ArrayAccess;
 
 /**
  * List of images
@@ -37,7 +37,7 @@ class ImageList implements Countable, Iterator, ArrayAccess
 
     /**
      * The Image adapter (if exists)
-     * 
+     *
      * @var object
      */
     protected $adapter;

@@ -11,7 +11,7 @@
 
         <para>
             Storage capabilities describes how a storage adapter works and
-            which features it supports. 
+            which features it supports.
         </para>
 
         <para>
@@ -371,7 +371,7 @@
                     </methodsynopsis>
 
                     <para>Get if namespace support is implemented as a key prefix.</para>
-                    
+
                     <para>Returns boolean</para>
                 </listitem>
             </varlistentry>

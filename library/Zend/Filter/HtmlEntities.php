@@ -195,9 +195,9 @@ class HtmlEntities extends AbstractFilter
     public function filter($value)
     {
         return htmlentities(
-            (string) $value, 
-            $this->getQuoteStyle(), 
-            $this->getEncoding(), 
+            (string) $value,
+            $this->getQuoteStyle(),
+            $this->getEncoding(),
             $this->getDoubleQuote()
         );
     }

@@ -4,7 +4,7 @@
 	<identity>
 		<version number="$Revision: 5032 $"/>
 		<generation date="$Date: 2010-08-26 15:28:48 -0500 (Thu, 26 Aug 2010) $"/>
-		<language type="te" /> 
+		<language type="te" />
 	</identity>
 	<collations  validSubLocales="te_IN">
 		<collation type="standard">

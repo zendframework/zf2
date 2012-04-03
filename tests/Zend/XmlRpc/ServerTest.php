@@ -20,12 +20,12 @@
  */
 
 namespace ZendTest\XmlRpc;
-use Zend\XmlRpc\Server,
-    Zend\XmlRpc\Request,
-    Zend\XmlRpc\Response,
-    Zend\XmlRpc\Value,
-    Zend\XmlRpc\Fault,
-    Zend\XmlRpc;
+use Zend\XmlRpc\Server;
+use Zend\XmlRpc\Request;
+use Zend\XmlRpc\Response;
+use Zend\XmlRpc\Value;
+use Zend\XmlRpc\Fault;
+use Zend\XmlRpc;
 
 /**
  * Test case for Zend_XmlRpc_Server

@@ -2,9 +2,9 @@
 
 namespace Zend\Module;
 
-use Traversable,
-    Zend\EventManager\EventCollection,
-    Zend\EventManager\EventManager;
+use Traversable;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\EventManager;
 
 class Manager implements ModuleHandler
 {
@@ -128,9 +128,9 @@ class Manager implements ModuleHandler
     }
 
     /**
-     * Get an instance of a module class by the module name 
-     * 
-     * @param string $moduleName 
+     * Get an instance of a module class by the module name
+     *
+     * @param string $moduleName
      * @return mixed
      */
     public function getModule($moduleName)

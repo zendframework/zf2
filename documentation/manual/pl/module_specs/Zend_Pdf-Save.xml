@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.save"><info><title>Zapisywanie zmian w dokumencie PDF.</title></info>
-    
+
     <para>
     Dostępne są dwie metody, które zapewniają zapisywanie zmian w dokumencie PDF.
     Są to metody <code>Zend_Pdf::save()</code> oraz <code>Zend_Pdf::render()</code>.
@@ -20,7 +20,7 @@
     </para>
 
     <example xml:id="zend.pdf.save.example-1"><info><title>Zapisywanie dokumentu PDF.</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 ...
 // Załaduj dokument PDF.

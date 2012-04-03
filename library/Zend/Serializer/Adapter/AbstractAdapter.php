@@ -21,8 +21,8 @@
 
 namespace Zend\Serializer\Adapter;
 
-use Zend\Serializer\Adapter as SerializationAdapter,
-    Zend\Serializer\Exception\InvalidArgumentException;
+use Zend\Serializer\Adapter as SerializationAdapter;
+use Zend\Serializer\Exception\InvalidArgumentException;
 
 /**
  * @uses       \Zend\Serializer\Adapter
@@ -47,7 +47,7 @@ abstract class AbstractAdapter implements SerializationAdapter
      *
      * @param array|Zend\Config\Config $opts Serializer options
      */
-    public function __construct($opts = array()) 
+    public function __construct($opts = array())
     {
         $this->setOptions($opts);
     }
@@ -58,7 +58,7 @@ abstract class AbstractAdapter implements SerializationAdapter
      * @param  array|Zend\Config\Config $opts Serializer options
      * @return Zend\Serializer\Adapter\AbstractAdapter
      */
-    public function setOptions($opts) 
+    public function setOptions($opts)
     {
         if ($opts instanceof \Zend\Config\Config) {
             $opts = $opts->toArray();
@@ -79,7 +79,7 @@ abstract class AbstractAdapter implements SerializationAdapter
      * @param  mixed $value Option value
      * @return Zend\Serializer\Adapter\AbstractAdapter
      */
-    public function setOption($name, $value) 
+    public function setOption($name, $value)
     {
         $this->_options[(string) $name] = $value;
         return $this;
@@ -90,7 +90,7 @@ abstract class AbstractAdapter implements SerializationAdapter
      *
      * @return array
      */
-    public function getOptions() 
+    public function getOptions()
     {
         return $this->_options;
     }
@@ -102,7 +102,7 @@ abstract class AbstractAdapter implements SerializationAdapter
      * @return mixed
      * @throws Zend\Serializer\Exception
      */
-    public function getOption($name) 
+    public function getOption($name)
     {
         $name = (string) $name;
         if (!array_key_exists($name, $this->_options)) {

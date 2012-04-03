@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form.decorators"><info><title>Decoradores de Forms Específicos de Dijit</title></info>
-    
+
 
     <para>La mayoría de los elementos de formularios pueden usar el decorador
         DijitElement, que tomará los parámetros dijit de los elementos, y
@@ -17,7 +17,7 @@
         información. </para>
 
     <section xml:id="zend.dojo.form.decorators.dijitElement"><info><title>Decorador DijitElement</title></info>
-        
+
 
         <para> Al igual que <link linkend="zend.form.standardDecorators.viewHelper"> el decorador
                 ViewHelper</link> , DijitElement espera una propiedad del
@@ -40,7 +40,7 @@
             adicionales.</para>
 
         <example xml:id="zend.dojo.form.decorators.dijitElement.usage"><info><title>Uso del Decorador DijitElement</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $element->setDecorators(array(
@@ -54,7 +54,7 @@ $element->setDecorators(array(
     </section>
 
     <section xml:id="zend.dojo.form.decorators.dijitForm"><info><title>Decorador DijitForm</title></info>
-        
+
 
         <para> El decorador DijitForm es muy similar al <link linkend="zend.form.standardDecorators.form">Form
                 decorator</link> ; de hecho, básicamente puede ser utilizado de
@@ -70,7 +70,7 @@ $element->setDecorators(array(
     </section>
 
     <section xml:id="zend.dojo.form.decorators.dijitContainer"><info><title>Decoradores basados en DijitContainer</title></info>
-        
+
 
         <para> El decorador <classname>DijitContainer</classname> es en
             realidad una clase abstracta desde la cual derivan una variedad de
@@ -110,7 +110,7 @@ $element->setDecorators(array(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.decorators.dijitContainer.usage"><info><title>Uso del Decorador DijitContainer</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Use un TabContainer para su form:

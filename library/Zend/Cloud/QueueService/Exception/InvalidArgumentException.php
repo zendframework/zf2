@@ -27,5 +27,5 @@ class InvalidArgumentException
     extends \InvalidArgumentException
     implements \Zend\Cloud\QueueService\Exception
 {
-    
+
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.http"><info><title>HTTP Authentication Adapter</title></info>
-    
+
 
     <section xml:id="zend.auth.adapter.http.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Http</classname> provides a mostly-compliant
@@ -76,7 +76,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.design_overview"><info><title>Design Overview</title></info>
-        
+
 
         <para>
             This adapter consists of two sub-components, the <acronym>HTTP</acronym> authentication
@@ -90,7 +90,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.configuration_options"><info><title>Configuration Options</title></info>
-        
+
 
         <para>
             The <classname>Zend_Auth_Adapter_Http</classname> class requires a configuration array
@@ -99,7 +99,7 @@
         </para>
 
         <table xml:id="zend.auth.adapter.configuration_options.table"><info><title>Configuration Options</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>
@@ -188,7 +188,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.http.resolvers"><info><title>Resolvers</title></info>
-        
+
 
         <para>
             The resolver's job is to take a username and realm, and return some kind of credential
@@ -206,7 +206,7 @@
         </para>
 
         <section xml:id="zend.auth.adapter.http.resolvers.file"><info><title>File Resolver</title></info>
-            
+
 
             <para>
                 The file resolver is a very simple class. It has a single property specifying a
@@ -255,7 +255,7 @@ $resolver->setFile($path);
     </section>
 
     <section xml:id="zend.auth.adapter.http.basic_usage"><info><title>Basic Usage</title></info>
-        
+
 
         <para>
             First, set up an array with the required configuration values:

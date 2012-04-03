@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.10"><info><title>Zend Framework 1.0</title></info>
-    
+
 
     <para>
         以前のバージョンから Zend Framework 1.0 またはそれ以降に更新する際は、
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="migration.10.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <para>
             1.0.0RC1 での最大の変更点は、
@@ -187,7 +187,7 @@ $viewRenderer->setView($view);]]></programlisting>
     </section>
 
     <section xml:id="migration.10.zend.currency"><info><title>Zend_Currency</title></info>
-        
+
 
         <para>
             <classname>Zend_Currency</classname> のオブジェクトを、

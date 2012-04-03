@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.ldap"><info><title>LDAP 认证 </title></info>
 
-    
+
 
     <section xml:id="zend.auth.adapter.ldap.introduction"><info><title> 简介 </title></info>
 
-        
+
 
         <para>
             <code>Zend_Auth_Adapter_Ldap</code> 用 LDAP 服务支持 web 程序认证。它的功能包括用户名和域名规范化、多域认证和实效切（failover）换能力。经测试，它能与  <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.microsoft.com/windowsserver2003/technologies/directory/activedirectory/">Microsoft Active Directory</link> 和 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.openldap.org/">OpenLDAP</link> 一起工作，它也应该能和其它 LDAP 服务提供者一起工作。
@@ -19,7 +19,7 @@
 
     <section xml:id="zend.auth.adapter.ldap.usage"><info><title> 用法 </title></info>
 
-        
+
 
         <para>
             为了快速把 <code>Zend_Auth_Adapter_Ldap</code> 认证集成到你的程序中，即使你不使用 <code>Zend_Controller</code>，代码的基本部分看起来是这样的：
@@ -101,7 +101,7 @@ ldap.server2.baseDn = "CN=Users,DC=w,DC=net"
 
     <section xml:id="zend.auth.adapter.ldap.api"><info><title>The API</title></info>
 
-        
+
 
         <para>
             <code>Zend_Auth_Adapter_Ldap</code> 构造器接受三个参数。
@@ -145,7 +145,7 @@ Array
         </para>
 
         <note><info><title> 什么是 DN?</title></info>
-            
+
             <para>
                 DN 或者 "distinguished name" 是一个字符串，表示在 LDAP 目录中到一个对象的路径。每个用逗号分隔的组件是一个属性并且它的值表示一个节点。组件是按反顺序来算的，例如：用户账户 <emphasis>CN=Bob Carter,CN=Users,DC=w,DC=net</emphasis> 直接位于 <emphasis>CN=Users,DC=w,DC=net container</emphasis> 里的。这种结构用 LDAP 浏览器如 ADSI Edit MMC snap-in for Active Directory 或 phpLDAPadmin 可以最好地浏览。
             </para>
@@ -160,7 +160,7 @@ Array
         </para>
 
         <note><info><title> 非常详细的介绍 （The Gory Details）－ 在认证方法中到底发生了什么？</title></info>
-            
+
             <para>
                 当调用 <code>authenticate()</code> 方法，适配器反复把每组服务器选项设置到内部 <code>Zend_Ldap</code> 实例并带用于认证的用户名和密码调用 <code>Zend_Ldap::bind()</code> 方法。<code>Zend_Ldap</code> 类检查用户名是否在域中合格 （例如，有域的组件如 <emphasis>alice@foo.net</emphasis> 或 <emphasis>FOO\alice</emphasis>）。如果域存在，但它不匹配任何一种服务器的域名（<emphasis>foo.net</emphasis> 或 <emphasis>FOO</emphasis>），就抛出一个特殊的异常并由 <code>Zend_Auth_Adapter_Ldap</code> 捕捉，这样那个服务器就被忽略并且选择下个服务器选项。如果域名 <emphasis> 确实 </emphasis> 匹配，但是如果用户没有提供一个合格的用户名，<code>Zend_Ldap</code> 继续尝试绑定被提供的证书（credentials）。如果绑定不成功，<code>Zend_Ldap</code> 抛出一个由 <code>Zend_Auth_Adapter_Ldap</code> 捕捉的 <code>Zend_Ldap_Exception</code> 并尝试下一组服务器选项。如果绑定成功，反复尝试（迭代？(iteration)）就停止，并且适配器的 <code>authenticate()</code> 方法返回一个成功的结果。如果所有服务器选项都试过了而且都不成功，认证就失败了，<code>authenticate()</code> 返回一个失败的结果并带有最后一个尝试的错误消息。
             </para>
@@ -174,13 +174,13 @@ Array
 
     <section xml:id="zend.auth.adapter.ldap.server-options"><info><title> 服务器选项 </title></info>
 
-        
+
 
         <para>
             <emphasis> 在 Zend_Auth_Adapter_Ldap 的上下文中</emphasis> 的每组服务器选项包含下列选项，它们基本上不可修改地传递给 <code>Zend_Ldap::setOptions()</code>：
 
             <table xml:id="zend.auth.adapter.ldap.server-options.table"><info><title> 服务器选项 </title></info>
-              
+
               <tgroup cols="2">
                 <thead>
                   <row>
@@ -272,13 +272,13 @@ Array
 
     <section xml:id="zend.auth.adapter.ldap.debugging"><info><title> 收集调试信息 </title></info>
 
-        
+
 
         <para>
             <code>Zend_Auth_Adapter_Ldap</code> 在它的 <code>authenticate()</code> 方法里收集调试信息。这个信息存储在 <code>Zend_Auth_Result</code> 对象里。下面描述由 <code>Zend_Auth_Result::getMessages()</code> 返回的数组：
 
             <table xml:id="zend.auth.adapter.ldap.debugging.table"><info><title> 调试信息 （Messages）</title></info>
-              
+
               <tgroup cols="2">
                 <thead>
                   <row>
@@ -316,17 +316,17 @@ Array
 
     <section xml:id="zend.auth.adapter.ldap.options-common-server-specific"><info><title> 特定服务器的通用选项 </title></info>
 
-        
+
 
         <section xml:id="zend.auth.adapter.ldap.options-common-server-specific.active-directory"><info><title>Active Directory 的选项 </title></info>
 
-            
+
 
             <para>
                 对于 ADS，下列选项值得注意：
 
                 <table xml:id="zend.auth.adapter.ldap.options-common-server-specific.active-directory.table"><info><title>Active Directory 的选项 </title></info>
-                  
+
                   <tgroup cols="2">
                     <thead>
                       <row>
@@ -386,13 +386,13 @@ Array
 
         <section xml:id="zend.auth.adapter.ldap.options-common-server-specific.openldap"><info><title>OpenLDAP 的选项 </title></info>
 
-            
+
 
             <para>
                 对于 OpenLDAP 或一般的使用典型的 posixAccount 风格的 LDAP 服务器，下面的选项值得注意：
 
                 <table xml:id="zend.auth.adapter.ldap.options-common-server-specific.openldap.table"><info><title> OpenLDAP 的选项 </title></info>
-                  
+
                   <tgroup cols="2">
                     <thead>
                       <row>

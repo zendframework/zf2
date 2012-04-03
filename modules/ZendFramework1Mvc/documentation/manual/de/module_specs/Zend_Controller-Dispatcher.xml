@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.dispatcher"><info><title>Der Dispatcher</title></info>
-    
+
 
     <section xml:id="zend.controller.dispatcher.overview"><info><title>Überblick</title></info>
-        
+
 
         <para>
             Dispatching ist der Prozess, das Request Objekt
@@ -21,7 +21,7 @@
         </para>
 
         <note><info><title>Standard Module</title></info>
-            
+
 
             <para>
                 Bei der Erstellung von modularen Anwendungen kann es sein das man auch einen
@@ -94,7 +94,7 @@ public function bazAction()
     </section>
 
     <section xml:id="zend.controller.dispatcher.subclassing"><info><title>Erben vom Dispatcher</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Front</classname> ruft zuerst den Router auf, um die erste

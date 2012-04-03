@@ -20,11 +20,11 @@
  */
 
 /**
- * @see Zend_Service_WindowsAzure_SessionHandler 
+ * @see Zend_Service_WindowsAzure_SessionHandler
  */
 
 /**
- * @see Zend_Service_WindowsAzure_Storage_Table 
+ * @see Zend_Service_WindowsAzure_Storage_Table
  */
 
 /**

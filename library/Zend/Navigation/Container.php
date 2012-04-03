@@ -20,11 +20,11 @@
 
 namespace Zend\Navigation;
 
-use Countable,
-    RecursiveIterator,
-    RecursiveIteratorIterator,
-    Traversable,
-    Zend\Stdlib\ArrayUtils;
+use Countable;
+use RecursiveIterator;
+use RecursiveIteratorIterator;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Zend_Navigation_Container
@@ -166,7 +166,7 @@ abstract class Container implements RecursiveIterator, Countable
             );
         }
 
-        // Because adding a page to a container removes it from the original 
+        // Because adding a page to a container removes it from the original
         // (see {@link Page\AbstractPage::setParent()}), iteration of the
         // original container will break. As such, we need to iterate the
         // container into an array first.
@@ -249,7 +249,7 @@ abstract class Container implements RecursiveIterator, Countable
      * Checks if the container has the given page
      *
      * @param  Page\AbstractPage $page page to look for
-     * @param  bool $recursive [optional] whether to search recursively. 
+     * @param  bool $recursive [optional] whether to search recursively.
      *                         Default is false.
      * @return bool whether page is in container
      */

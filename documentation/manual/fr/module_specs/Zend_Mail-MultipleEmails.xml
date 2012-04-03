@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.multiple-emails"><info><title>Envoyer plusieurs émail par connexion SMTP</title></info>
-    
+
 
     <para>
         Par défaut un transport SMTP unique crée une connexion unique et la réutilise pour
@@ -21,7 +21,7 @@
     </para>
 
     <example xml:id="zend.mail.multiple-emails.example-1"><info><title>Envoyer plusieurs émail par connexion SMTP</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // Créer un transport
@@ -58,7 +58,7 @@ Zend_Mail::clearDefaultReplyTo();
     </para>
 
     <example xml:id="zend.mail.multiple-emails.example-2"><info><title>Contrôler manuellement la connexion de transport</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // Créer un transport

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.writing_validators"><info><title>Написание валидаторов</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Validate</classname> предоставляет набор наиболее
@@ -59,7 +59,7 @@
 
     <example xml:id="zend.validate.writing_validators.example.simple"><info><title>Создание простого класса валидации</title></info>
 
-        
+
 
         <para>
             Следующий пример демонстрирует создание простейшего валидатора.
@@ -104,7 +104,7 @@ class MyValid_Float extends Zend_Validate_Abstract
 
     <example xml:id="zend.validate.writing_validators.example.conditions.dependent"><info><title>Написание классов валидации с подчиненными условиями</title></info>
 
-        
+
 
         <para>
             Следующий пример демонстрирует более сложный набор правил валидации,
@@ -201,7 +201,7 @@ class MyValid_NumericBetween extends Zend_Validate_Abstract
 
     <example xml:id="zend.validate.writing_validators.example.conditions.independent"><info><title>Валидация с независимыми условиями и возвратом нескольких причин непрохождения валидации</title></info>
 
-        
+
 
         <para>
             Рассмотрим написание класса валидации для обеспечения стойкости

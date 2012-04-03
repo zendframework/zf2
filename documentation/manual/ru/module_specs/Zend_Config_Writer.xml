@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.writer.introduction"><info><title>Zend_Config_Writer</title></info>
-    
+
     <para>
         <classname>Zend_Config_Writer</classname> позволяет создавать конфигурационные
         файлы из объектов <classname>Zend_Config</classname>.
@@ -56,7 +56,7 @@
     </para>
 
     <example xml:id="zend.config.writer.example.using"><info><title>Использование Zend_Config_Writer</title></info>
-        
+
         <para>
             Этот пример демонстрирует использование
             <classname>Zend_Config_Writer_Xml</classname> для создания нового
@@ -102,7 +102,7 @@ $writer->write('config.xml', $config);
     </example>
 
     <example xml:id="zend.config.writer.modifying"><info><title>Изменение существующего конфигурационного файла</title></info>
-        
+
         <para>
             Этот пример демонстрирует редактирование существующего
             конфигурационного файла.
@@ -126,7 +126,7 @@ $writer->write();
     </example>
 
     <note><info><title>Загрузка конфигурационного файла</title></info>
-        
+
         <para>
             При загрузке существующего файла для последующих изменений
             важно загрузить все

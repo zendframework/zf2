@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.markup.parsers"><info><title>Analyseurs Zend_Markup (parsers)</title></info>
-    
+
 
     <para>
         <classname>Zend_Markup</classname> est fourni avec deux analyseurs, BBCode et
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.markup.parsers.theory"><info><title>Theorie de l'analyse</title></info>
-        
+
 
         <para>
             Les analyseurs syntaxiques de <classname>Zend_Markup</classname> sont des classes
@@ -62,7 +62,7 @@
     </section>
 
     <section xml:id="zend.markup.parsers.bbcode"><info><title>L'analyseur BBCode</title></info>
-        
+
 
         <para>
             L'analyseur BBCode est un analyseur de <classname>Zend_Markup</classname> qui
@@ -90,7 +90,7 @@
     </section>
 
     <section xml:id="zend.markup.parsers.textile"><info><title>L'analyseur Textile</title></info>
-        
+
 
         <para>
             L'analyseur Textile de <classname>Zend_Markup</classname> convertit du texte au format Textile
@@ -99,7 +99,7 @@
         </para>
 
         <table xml:id="zend.markup.parsers.textile.tags"><info><title>Liste de tags Textile basiques</title></info>
-            
+
 
             <tgroup cols="2" align="left" colsep="1" rowsep="1">
                 <thead>
@@ -198,7 +198,7 @@
         </para>
 
         <section xml:id="zend.markup.parsers.textile.lists"><info><title>Listes</title></info>
-            
+
 
             <para>
                 L'analyseur Textile supporte aussi deux types de listes. Le type numérique, utilisant

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.09"><info><title>Zend Framework 0.9</title></info>
-    
+
 
     <para>
         Lors de la migration d'un version précédente vers Zend Framework 0.9 ou plus récent
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="migration.09.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <para>
             0.9.3 introduit les

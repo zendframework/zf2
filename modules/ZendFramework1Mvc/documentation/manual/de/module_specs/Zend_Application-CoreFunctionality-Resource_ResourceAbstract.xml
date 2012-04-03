@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.resource-resourceabstract"><info><title>Zend_Application_Resource_ResourceAbstract</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_ResourceAbstract</classname> ist eine abstrakte Klasse
@@ -14,7 +14,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.resource-resourceabstract.api"><info><title>Zend_Application_Resource_ResourceAbstract Methods</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>
@@ -110,7 +110,7 @@
     </table>
 
     <section xml:id="zend.application.core-functionality.resource-resourceabstract.names"><info><title>Ressourcen Namen</title></info>
-        
+
 
         <para>
             Wenn man Ressourcen Plugins registriert, besteht ein Problem das hierdurch entsteht

@@ -20,10 +20,10 @@
  */
 
 namespace ZendTest\Json;
-use Zend\Json\Server,
-    Zend\Json,
-    Zend\Json\Server\Request,
-    Zend\Json\Server\Response;
+use Zend\Json\Server;
+use Zend\Json;
+use Zend\Json\Server\Request;
+use Zend\Json\Server\Response;
 
 /**
  * Test class for Zend_JSON_Server
@@ -315,7 +315,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams( array( 
+                ->setParams( array(
                     'three' => 3,
                     'two'   => 2,
                     'one'   => 1
@@ -336,7 +336,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams( array( 
+                ->setParams( array(
                     'three' => 3,
                     'one'   => 1,
                     'two'   => 2,

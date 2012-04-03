@@ -63,11 +63,11 @@ abstract class AbstractManager implements Manager
     /**
      * Constructor
      *
-     * Allow passing a configuration object or class name, a storage object or 
+     * Allow passing a configuration object or class name, a storage object or
      * class name, or an array of configuration.
-     * 
-     * @param  Configuration $config 
-     * @param  Storage $storage 
+     *
+     * @param  Configuration $config
+     * @param  Storage $storage
      * @param  SaveHandler $saveHandler
      * @return void
      */
@@ -83,7 +83,7 @@ abstract class AbstractManager implements Manager
     /**
      * Set configuration object
      *
-     * @param  null|Configuration $config 
+     * @param  null|Configuration $config
      * @return void
      */
     public function setConfig(Configuration $config = null)
@@ -100,7 +100,7 @@ abstract class AbstractManager implements Manager
 
     /**
      * Retrieve configuration object
-     * 
+     *
      * @return Configuration
      */
     public function getConfig()
@@ -111,7 +111,7 @@ abstract class AbstractManager implements Manager
     /**
      * Set session storage object
      *
-     * @param  null|Storage $storage 
+     * @param  null|Storage $storage
      * @return void
      */
     public function setStorage(Storage $storage = null)
@@ -128,7 +128,7 @@ abstract class AbstractManager implements Manager
 
     /**
      * Retrieve storage object
-     * 
+     *
      * @return Storage
      */
     public function getStorage()

@@ -20,9 +20,9 @@
 
 namespace Zend\Soap;
 
-use DOMDocument,
-    Zend\Uri\Uri,
-    Zend\Soap\Wsdl\ComplexTypeStrategy;
+use DOMDocument;
+use Zend\Uri\Uri;
+use Zend\Soap\Wsdl\ComplexTypeStrategy;
 
 /**
  * \Zend\Soap\Wsdl

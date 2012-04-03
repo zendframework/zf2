@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.http.client"><info><title>Zend_Http_Client - 介绍</title></info>
-    
+
 
     <section xml:id="zend.http.client.introduction"><info><title>介绍</title></info>
-        
+
         <para>
             Zend_Http_Client 提供了一个简单的界面来执行HTTP请求。Zend_Http_Client 支持
             作为一个 HTTP 客户端应有的大多数简单功能，也包括象HTTP认证和文件上传等更加
@@ -16,7 +16,7 @@
             第二个可选参数是一个包含配置参数的数组。这两个参数也可以全空，之后由
             setUri()和setConfig()方法提供。
             <example xml:id="zend.http.client.introduction.example-1"><info><title>初始化一个 Zend_Http_Client 对象</title></info>
-                
+
                 <programlisting role="php"><![CDATA[
 $client = new Zend_Http_Client('http://example.org', array(
     'maxredirects' => 0,
@@ -34,12 +34,12 @@ $client->setConfig(array(
         </para>
     </section>
     <section xml:id="zend.http.client.configuration"><info><title>配置参数</title></info>
-        
+
         <para>
             构造器和 setConfig() 方法接受一个复合的配置参数数组，因为这些配置参数
             有一个缺省值，所以是否配置这些参数都是可选的。
             <table xml:id="zend.http.client.configuration.table"><info><title>Zend_Http_Client 配置参数</title></info>
-                
+
                 <tgroup cols="4">
                     <thead>
                         <row>
@@ -111,11 +111,11 @@ $client->setConfig(array(
         </para>
     </section>
     <section xml:id="zend.http.client.basic-requests"><info><title>执行基本 HTTP 请求</title></info>
-        
+
         <para>
             使用 request() 方法执行简单 HTTP 请求是件非常容易的事情，3行代码即可搞定：
             <example xml:id="zend.http.client.basic-requests.example-1"><info><title>执行一个简单的 GET 请求</title></info>
-                
+
                 <programlisting role="php"><![CDATA[
 $client = new Zend_Http_Client('http://example.org');
 $response = $client->request();
@@ -136,7 +136,7 @@ $response = $client->request();
             如果没有指定请求方法，则使用最后一次 setMethod() 设定的请求方法。
             如果从未使用 setMethod()，那么缺省的请求方法是 GET（见上述的例子）。
             <example xml:id="zend.http.client.basic-requests.example-2"><info><title>使用 GET 以外的请求方法</title></info>
-                
+
                 <programlisting role="php"><![CDATA[
 // 执行一个 POST 请求
 $response = $client->request('POST');
@@ -151,7 +151,7 @@ $response = $client->request();
     </section>
 
     <section xml:id="zend.http.client.parameters"><info><title>添加 GET 和 POST 参数 </title></info>
-        
+
         <para>
             在一个HTTP请求中添加GET参数是非常简单的，既可以通过把参数指定为
             URL的一部分，也可以通过使用 setParameterGet() 方法来添加。这个方
@@ -160,7 +160,7 @@ $response = $client->request();
             （名称 =&gt; 值）的 GET 参数，这种方式对于需要设置几个 GET 参数时更
             加方便。
             <example xml:id="zend.http.client.parameters.example-1"><info><title>设置 GET 参数</title></info>
-                
+
                 <programlisting role="php"><![CDATA[
 // 使用 setParameterGet 方法设置一个 GET 参数
 $client->setParameterGet('knight', 'lancelot');
@@ -184,7 +184,7 @@ $client->setParameterGet(array(
             setParameterPost() 方法完成的，该方法在结构上与 setParameterGet()
             方法很相似。
             <example xml:id="zend.http.client.parameters.example-2"><info><title>设置 POST 参数</title></info>
-                
+
                 <programlisting role="php"><![CDATA[
 // 设置一个 POST 参数
 $client->setParameterPost('language', 'fr');
@@ -206,7 +206,7 @@ $client->setParameterPost(array(
     </section>
 
     <section xml:id="zend.http.client.accessing_last"><info><title>访问最后一次的请求和响应</title></info>
-        
+
         <para>
             Zend_Http_Client 提供了访问客户端最后一次发送的请求和访问客户端最后
             一次接收到的响应的方法。

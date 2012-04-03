@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit"><info><title>Zend_Test_PHPUnit</title></info>
-    
+
 
     <para>
         <classname>Zend_Test_PHPUnit</classname> bietet einen Testfall für <acronym>MVC</acronym>-Anwendungen,
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.test.phpunit.loginexample"><info><title>Beispiel eines Testfalls für ein Anwendungs-Login</title></info>
-        
+
 
         <para>
             Das folgende ist ein einfacher Testfall für einen <classname>UserController</classname>,

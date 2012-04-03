@@ -21,11 +21,11 @@
 
 namespace ZendTest\Dojo\View\Helper;
 
-use Zend\Dojo\View\Helper\Editor as EditorHelper,
-    Zend\Dojo\View\Helper\Dojo as DojoHelper,
-    Zend\Json\Json,
-    Zend\Registry,
-    Zend\View;
+use Zend\Dojo\View\Helper\Editor as EditorHelper;
+use Zend\Dojo\View\Helper\Dojo as DojoHelper;
+use Zend\Json\Json;
+use Zend\Registry;
+use Zend\View;
 
 /**
  * Test class for Zend_Dojo_View_Helper_Editor.
@@ -179,7 +179,7 @@ class EditorTest extends \PHPUnit_Framework_TestCase
         $html = $this->helper->__invoke('foo');
         $this->assertRegexp('#<noscript><textarea[^>]*>#', $html, $html);
     }
-    
+
     /**
      * @group ZF-11315
      */

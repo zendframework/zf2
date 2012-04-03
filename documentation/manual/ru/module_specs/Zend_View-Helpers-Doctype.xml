@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.doctype"><info><title>Помощник Doctype</title></info>
-    
+
 
     <para>
         Валидные HTML- и XHTML-документы должны включать в себя декларацию
@@ -34,13 +34,13 @@
     </para>
 
     <para>
-        Помощник <code>Doctype</code> является частной реализацией 
+        Помощник <code>Doctype</code> является частной реализацией
         <link linkend="zend.view.helpers.initial.placeholder">помощника
             Placeholder</link>.
     </para>
 
     <example xml:id="zend.view.helpers.initial.doctype.basicusage"><info><title>Использование помощника Doctype</title></info>
-        
+
 
         <para>
             Вы можете указать декларацию DOCTYPE в любой момент времени. Но
@@ -65,7 +65,7 @@ $doctypeHelper->doctype('XHTML1_STRICT');
     </example>
 
     <example xml:id="zend.view.helpers.initial.doctype.retrieving"><info><title>Извлечение DOCTYPE</title></info>
-        
+
 
         <para>
             Если нужно узнать тип документа, то вы можете сделать

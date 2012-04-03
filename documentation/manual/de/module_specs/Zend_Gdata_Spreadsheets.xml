@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.spreadsheets"><info><title>Google Tabellenkalkulation verwenden</title></info>
-    
+
 
     <para>
         Die Google Tabellenkalkulations Daten <acronym>API</acronym> erlaubt es Client Anwendungen
@@ -17,7 +17,7 @@
     </para>
 
     <section xml:id="zend.gdata.spreadsheets.creating"><info><title>Eine Tabellenkalkulation erstellen</title></info>
-        
+
 
         <para>
             Die Tabellenkalkulations Daten <acronym>API</acronym> bietet aktuell noch keinen Weg um
@@ -26,7 +26,7 @@
     </section>
 
     <section xml:id="zend.gdata.spreadsheets.listspreadsheets"><info><title>Eine Liste von Tabellenkalkulationen erhalten</title></info>
-        
+
 
         <para>
             Man kann eine Liste von Tabellenkalkulationen für einen bestimmten Benutzer erhalten
@@ -46,7 +46,7 @@ $feed = $spreadsheetService->getSpreadsheetFeed();
     </section>
 
      <section xml:id="zend.gdata.spreadsheets.listworksheets"><info><title>Eine Liste von Arbeitsblättern erhalten</title></info>
-        
+
 
         <para>
             Eine gegebene Tabellenkalkulation kann mehrere Arbeitsblätter enthalten. Für jedes
@@ -77,7 +77,7 @@ $feed = $spreadsheetService->getWorksheetFeed($query);
     </section>
 
     <section xml:id="zend.gdata.spreadsheets.listfeeds"><info><title>Mit listen-basierenden Feeds interagieren</title></info>
-        
+
 
         <para>
             Ein gegebenes Arbeitsblatt enthält generell mehrere Zeilen, wobei jede mehrere Zellen
@@ -120,7 +120,7 @@ $feed = $spreadsheetService->getWorksheetFeed($query);
         </para>
 
         <section xml:id="zend.gdata.spreadsheets.listfeeds.get"><info><title>Einen listen-basierenden Feed erhalten</title></info>
-            
+
 
             <para>
                 Um einen Listenfeed eines Arbeitsblattes zu erhalten, kann die
@@ -170,7 +170,7 @@ echo $customEntry->getColumnName() . " = " . $customEntry->getText();
         </section>
 
         <section xml:id="zend.gdata.spreadsheets.listfeeds.reverse"><info><title>Umgekehrt-sortierte Zeilen</title></info>
-            
+
 
             <para>
                 Standardmäßig werden die Zeilen im Feed in der gleichen Reihenfolge angezeigt wie in
@@ -198,7 +198,7 @@ $listFeed = $spreadsheetService->getListFeed($query);
         </section>
 
         <section xml:id="zend.gdata.spreadsheets.listfeeds.sq"><info><title>Eine strukturierte Abfrage senden</title></info>
-            
+
 
             <para>
                 Der <property>sq</property> Wert von
@@ -220,7 +220,7 @@ $listFeed = $spreadsheetService->getListFeed($query);
         </section>
 
         <section xml:id="zend.gdata.spreadsheets.listfeeds.addrow"><info><title>Hinzufügen einer Zeile</title></info>
-            
+
 
             <para>
                 Zeilen können zu einer Tabellenkalkulation hinzugefügt werden durch Verendung der
@@ -248,7 +248,7 @@ $insertedListEntry = $spreadsheetService->insertRow($rowData,
         </section>
 
         <section xml:id="zend.gdata.spreadsheets.listfeeds.editrow"><info><title>Eine Zeile bearbeiten</title></info>
-            
+
 
             <para>
                 Sobald ein <classname>Zend_Gdata_Spreadsheets_ListEntry</classname> Objekt geholt
@@ -272,7 +272,7 @@ $updatedListEntry = $spreadsheetService->updateRow($oldListEntry,
         </section>
 
         <section xml:id="zend.gdata.spreadsheets.listfeeds.deleterow"><info><title>Eine Zeile löschen</title></info>
-            
+
 
             <para>
                 Um eine Zeile zu löschen muß einfach <methodname>deleteRow()</methodname> auf dem
@@ -296,7 +296,7 @@ $listEntry->delete();
     </section>
 
     <section xml:id="zend.gdata.spreadsheets.cellfeeds"><info><title>Mit zellen-basierenden Feeds interagieren</title></info>
-        
+
 
         <para>
             In einem zellen-basierenden Feed repräsentiert jeder Eintrag eine einzelne Zelle.
@@ -308,7 +308,7 @@ $listEntry->delete();
         </para>
 
         <section xml:id="zend.gdata.spreadsheets.cellfeeds.get"><info><title>Einen zellen-basierenden Feed erhalten</title></info>
-            
+
 
             <para>
                 Um einen Zellen Feed des Arbeitsblatt zu erhalten muß die
@@ -343,7 +343,7 @@ foreach($cellFeed as $cellEntry) {
         </section>
 
         <section xml:id="zend.gdata.spreadsheets.cellfeeds.cellrangequery"><info><title>Eine Zellen-Bereichs Abfrage senden</title></info>
-            
+
 
             <para>
                 Angenommen man will die Zellen der ersten Spalte des Arbeitsblattes empfangen. Man
@@ -365,7 +365,7 @@ $feed = $spreadsheetService->getCellsFeed($query);
         </section>
 
         <section xml:id="zend.gdata.spreadsheets.cellfeeds.updatecell"><info><title>Den Inhalt einer Zelle ändern</title></info>
-            
+
 
             <para>
                 Um den Inhalt einer Zelle zu ändern, muß <methodname>updateCell()</methodname> mit

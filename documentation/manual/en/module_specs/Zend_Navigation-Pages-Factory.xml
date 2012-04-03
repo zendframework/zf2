@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.factory"><info><title>Creating pages using the page factory</title></info>
-    
+
 
     <para>
         All pages (also custom classes), can be created using the page
@@ -22,7 +22,7 @@
     </para>
 
     <example xml:id="zend.navigation.pages.factory.example.mvc"><info><title>Creating an MVC page using the page factory</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $page = Zend_Navigation_Page::factory(array(
@@ -53,7 +53,7 @@ $page = Zend_Navigation_Page::factory(array(
     </example>
 
     <example xml:id="zend.navigation.pages.factory.example.uri"><info><title>Creating a URI page using the page factory</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $page = Zend_Navigation_Page::factory(array(
@@ -80,7 +80,7 @@ $page = Zend_Navigation_Page::factory(array(
     </example>
 
     <example xml:id="zend.navigation.pages.factory.example.custom"><info><title>Creating a custom page type using the page factory</title></info>
-        
+
 
         <para>
             To create a custom page type using the factory, use the option

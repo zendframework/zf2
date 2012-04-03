@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.timesync.working"><info><title>Zend_TimeSync の動作</title></info>
 
-    
+
 
     <para>
         <classname>Zend_TimeSync</classname> は、指定した任意の
@@ -22,7 +22,7 @@
 
     <section xml:id="zend.timesync.working.generic"><info><title>一般的なタイムサーバへのリクエスト</title></info>
 
-        
+
 
         <para>
             タイムサーバから時刻を取得するのはきわめて簡単です。
@@ -55,7 +55,7 @@ print $server->getDate()->getIso();
 
     <section xml:id="zend.timesync.working.multiple"><info><title>複数のタイムサーバ</title></info>
 
-        
+
 
         <para>
             すべてのタイムサーバが常に使用可能で時刻を返してくれるとは限りません。
@@ -113,7 +113,7 @@ print $server->getDate()->getIso();
 
     <section xml:id="zend.timesync.working.protocol"><info><title>タイムサーバのプロトコル</title></info>
 
-        
+
 
         <para>
             タイムサーバにはさまざまな形式があります。
@@ -147,7 +147,7 @@ print $server->getDate()->getIso();
 
     <section xml:id="zend.timesync.working.ports"><info><title>タイムサーバのポートの指定</title></info>
 
-        
+
 
         <para>
             ウェブにおけるさまざまな他のプロトコルと同様、<emphasis>NTP</emphasis> や
@@ -175,7 +175,7 @@ print $server->getDate()->getIso();
 
     <section xml:id="zend.timesync.working.options"><info><title>タイムサーバ用のオプション</title></info>
 
-        
+
 
         <para>
             実際のところ <classname>Zend_TimeSync</classname> で使用するオプションはひとつだけで、
@@ -221,7 +221,7 @@ print "Timeout = " . Zend_TimeSync::getOptions('timeout');
 
     <section xml:id="zend.timesync.working.different"><info><title>別のタイムサーバの使用法</title></info>
 
-        
+
 
         <para>
             時間を取得したい場合、デフォルトでは最初に指定したサーバにリクエストを送信します。
@@ -248,7 +248,7 @@ $server = $server->setServer('additional');
 
     <section xml:id="zend.timesync.working.informations"><info><title>タイムサーバからの情報</title></info>
 
-        
+
 
         <para>
             タイムサーバは、時刻以外にも付加情報を提供します。
@@ -271,7 +271,7 @@ print_r ($server->getInfo());
 
     <section xml:id="zend.timesync.working.exceptions"><info><title>例外処理</title></info>
 
-        
+
 
         <para>
             すべてのタイムサーバで発生した例外は、ひとつの配列にまとめて返されます。

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.http.cookies"><info><title>Zend_Http_Cookie and Zend_Http_CookieJar</title></info>
-    
+
 
     <section xml:id="zend.http.cookies.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Http_Cookie</classname>, comme son nom l'indique, est une classe
@@ -30,7 +30,7 @@
     </section>
 
     <section xml:id="zend.http.cookies.cookie.instantiating"><info><title>Instancier des objets Zend_Http_Cookie</title></info>
-        
+
 
         <para>
             L'instanciation se fait de deux manières différentes : <itemizedlist>
@@ -121,7 +121,7 @@
                     </itemizedlist>
                 </listitem>
             </itemizedlist> <example xml:id="zend.http.cookies.cookie.instantiating.example-1"><info><title>Créer un objet Zend_Http_Cookie</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // D'abord, en utilisant son constructeur.
@@ -159,7 +159,7 @@ $cookie = Zend_Http_Cookie::fromString(
             partir de l'objet <classname>Zend_Http_Cookie</classname>. La chaîne alors retournée est
             la même que celle utilisée dans l'en-tête HTTP "Cookie", à savoir une chaîne encodée,
             terminée par un point-virgule (;) : <example xml:id="zend.http.cookies.cookie.instantiating.example-2"><info><title>Passer de l'objet Zend_Http_Cookie à la chaîne</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 // Création d'un nouveau cookie
@@ -183,7 +183,7 @@ echo $cookie;
     </section>
 
     <section xml:id="zend.http.cookies.cookie.accessors"><info><title>Zend_Http_Cookie méthodes getter</title></info>
-        
+
 
         <para>
             Une fois l'objet <classname>Zend_Http_Cookie</classname> crée, il existe des
@@ -252,7 +252,7 @@ echo $cookie;
 
         <para>
             <example xml:id="zend.http.cookies.cookie.accessors.example-1"><info><title>Utilisation des méthodes getter de Zend_Http_Cookie</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 // Création d'un cookie
@@ -285,7 +285,7 @@ echo ($cookie->isSessionCookie() ? 'Yes' : 'No');
     </section>
 
     <section xml:id="zend.http.cookies.cookie.matching"><info><title>Zend_Http_Cookie: Correspondance de scénario</title></info>
-        
+
 
         <para>
             La vraie valeur ajoutée d'un objet <classname>Zend_Http_Cookie</classname> est sa
@@ -319,7 +319,7 @@ echo ($cookie->isSessionCookie() ? 'Yes' : 'No');
                     </para>
                 </listitem>
             </itemizedlist> <example xml:id="zend.http.cookies.cookie.matching.example-1"><info><title>Correspondance de cookies</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Création de l'objet cookie - d'abord un cookie sécurisé
@@ -368,7 +368,7 @@ $cookie->match('http://www.example.com/', true, time() + (3 * 3600));
     </section>
 
     <section xml:id="zend.http.cookies.cookiejar"><info><title>Classe Zend_Http_CookieJar : Instanciation</title></info>
-        
+
 
         <para>
             Dans la plupart des cas, il ne sera pas nécessaire d'instancier soi-même un objet
@@ -395,7 +395,7 @@ $cookie->match('http://www.example.com/', true, time() + (3 * 3600));
     </section>
 
     <section xml:id="zend.http.cookies.cookiejar.adding_cookies"><info><title>Ajouter des cookies à un objet Zend_Http_CookieJar</title></info>
-        
+
 
         <para>
             En temps normal, c'est l'objet <classname>Zend_Http_Client</classname> qui
@@ -430,7 +430,7 @@ $cookie->match('http://www.example.com/', true, time() + (3 * 3600));
     </section>
 
     <section xml:id="zend.http.cookies.cookiejar.getting_cookies"><info><title>Récupérer les cookies présents dans un objet Zend_Http_CookieJar</title></info>
-        
+
 
         <para>
             Comme pour l'ajout de cookies, en théorie, vous n'aurez pas besoin de récupérer

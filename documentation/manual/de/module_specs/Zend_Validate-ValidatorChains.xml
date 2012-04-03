@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.validator_chains"><info><title>Kettenprüfungen</title></info>
-    
+
 
     <para>
         Oft sollen mehrere Prüfungen an dem selben Wert in einer bestimmten Reihenfolge durchgeführt

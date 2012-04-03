@@ -21,8 +21,8 @@
 
 namespace Zend\Service\AgileZen;
 
-use DOMDocument,
-    Zend\Http\Client as HttpClient;
+use DOMDocument;
+use Zend\Http\Client as HttpClient;
 
 /**
  * @category   Zend
@@ -54,22 +54,22 @@ class AgileZen
 
     /**
      * API KEY
-     * 
+     *
      * @var string
-     */    
+     */
     protected $apiKey;
 
     /**
      * Http Client
-     * 
-     * @var HttpClient 
+     *
+     * @var HttpClient
      */
     protected $httpClient;
 
     /**
      * Constructore
-     * 
-     * @param string $apiKey 
+     *
+     * @param string $apiKey
      */
     public function __construct($apiKey)
     {
@@ -81,10 +81,10 @@ class AgileZen
 
     /**
      * Set Api Key
-     * 
-     * @param string $apiKey 
+     *
+     * @param string $apiKey
      */
-    public function setApiKey($apiKey) 
+    public function setApiKey($apiKey)
     {
         if (!empty($apiKey)) {
             $this->apiKey = $apiKey;
@@ -93,8 +93,8 @@ class AgileZen
 
     /**
      * Get Api Key
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getApiKey()
     {
@@ -127,10 +127,10 @@ class AgileZen
     {
         $client = $this->getHttpClient();
         $client->resetParameters();
-        
+
         $headers = array();
         $headers[self::HEADER_KEY]= $this->getApiKey();
-        
+
         if (!empty($body)) {
             if (is_array($body)) {
                 $body = json_encode($body);
@@ -145,7 +145,7 @@ class AgileZen
         $client->setUri(self::URL . $url);
         $this->errorMsg = null;
         $this->errorCode = null;
-        
+
         $result = $client->send();
         $status = $result->getStatusCode();
         if ($status != 200) {
@@ -158,8 +158,8 @@ class AgileZen
 
     /**
      * Return true is the last call was successful
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isSuccessful()
     {
@@ -171,25 +171,25 @@ class AgileZen
      *
      * @return string
      */
-    public function getErrorMsg() 
+    public function getErrorMsg()
     {
         return $this->errorMsg;
     }
 
     /**
      * Get the error code of the last HTTP call
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    public function getErrorCode() 
+    public function getErrorCode()
     {
         return $this->errorCode;
     }
 
     /**
      * Authenticate
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function authenticate()
     {
@@ -199,9 +199,9 @@ class AgileZen
 
     /**
      * Get the list of the projects
-     * 
+     *
      * @param  array $params
-     * @return Container|boolean 
+     * @return Container|boolean
      */
     public function getProjects($params=array())
     {
@@ -212,16 +212,16 @@ class AgileZen
         $list = json_decode($result->getBody(), true);
         if (is_array($list) && !empty($list['items'])) {
             return new Container($this, $list['items'], 'project');
-        } 
-        return false;    
+        }
+        return false;
     }
 
     /**
      * Get project
-     * 
+     *
      * @param  integer $id
      * @param  array   $params
-     * @return Resources\Project|boolean 
+     * @return Resources\Project|boolean
      */
     public function getProject($projectId, $params=array())
     {
@@ -235,16 +235,16 @@ class AgileZen
         $project = json_decode($result->getBody(), true);
         if (is_array($project)) {
             return new Resources\Project($this, $project);
-        } 
-        return false;       
+        }
+        return false;
     }
 
     /**
      * Modifies a single project’s metadata.
-     * 
+     *
      * @param  integer $id
      * @param  array $data (valid keys are: 'name', 'description', 'details', 'owner')
-     * @return Resources\Project|boolean 
+     * @return Resources\Project|boolean
      */
     public function updateProject($id, $data)
     {
@@ -261,13 +261,13 @@ class AgileZen
         $project = json_decode($result->getBody(), true);
         if (is_array($project)) {
             return new Resources\Project($this, $project);
-        } 
-        return false;    
+        }
+        return false;
     }
 
     /**
      * Get the members of a project
-     * 
+     *
      * @param  integer $projectId
      * @param  array   $params
      * @return Container|boolean
@@ -277,7 +277,7 @@ class AgileZen
         if (empty($projectId)) {
             throw new Exception\InvalidArgumentException(self::ERR_ID_PROJECT);
         }
-        $result = $this->httpCall("/projects/$projectId/members" . 
+        $result = $this->httpCall("/projects/$projectId/members" .
                 $this->getUrlParameters($params), 'GET');
         if ($result===false) {
             return false;
@@ -285,16 +285,16 @@ class AgileZen
         $members = json_decode($result->getBody(), true);
         if (is_array($members) && !empty($members['items'])) {
             return new Container($this, $members['items'], 'user');
-        } 
+        }
         return false;
     }
 
     /**
      * Add a member to a project
-     * 
+     *
      * @param  integer $projectId
      * @param  string|integer $member can be the user id or the name
-     * @return boolean 
+     * @return boolean
      */
     public function addProjectMember($projectId, $member)
     {
@@ -310,10 +310,10 @@ class AgileZen
 
     /**
      * Remove a member of a project
-     * 
+     *
      * @param  integer $projectId
      * @param  string|integer $member can be the user id or the name
-     * @return boolean 
+     * @return boolean
      */
     public function removeProjectMember($projectId, $member)
     {
@@ -329,7 +329,7 @@ class AgileZen
 
     /**
      * Get the phases of a project
-     * 
+     *
      * @param  integer $id
      * @param  array   $params
      * @return Container|boolean
@@ -346,13 +346,13 @@ class AgileZen
         $phases = json_decode($result->getBody(), true);
         if (is_array($phases) && !empty($phases['items'])) {
             return new Container($this, $phases['items'], 'phase', $projectId);
-        } 
+        }
         return false;
     }
 
     /**
      * Get the phases of a project
-     * 
+     *
      * @param  integer $projectId
      * @param  array $params
      * @return Container|boolean
@@ -369,17 +369,17 @@ class AgileZen
         $stories = json_decode($result->getBody(), true);
         if (is_array($stories) && !empty($stories['items'])) {
             return new Container($this, $stories['items'], 'story', $projectId);
-        } 
+        }
         return false;
     }
 
     /**
      * Get stories in a phase
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $phaseId
      * @param  arary   $params
-     * @return Container 
+     * @return Container
      */
     public function getStoriesPhase ($projectId, $phaseId, $params=array())
     {
@@ -389,7 +389,7 @@ class AgileZen
         if (empty($phaseId)) {
             throw new Exception\InvalidArgumentException(self::ERR_ID_PHASE);
         }
-        $result = $this->httpCall("/projects/$projectId/phases/$phaseId/stories" . 
+        $result = $this->httpCall("/projects/$projectId/phases/$phaseId/stories" .
                 $this->getUrlParameters($params), 'GET');
         if ($result===false) {
             return false;
@@ -397,15 +397,15 @@ class AgileZen
         $stories = json_decode($result->getBody(), true);
         if (is_array($stories) && !empty($stories['items'])) {
             return new Container($this, $stories['items'], 'story', $projectId);
-        } 
+        }
         return false;
     }
 
     /**
      * Get the metrics of a project
-     * 
+     *
      * @param  integer $id
-     * @return array|boolean 
+     * @return array|boolean
      */
     public function getProjectMetrics($id)
     {
@@ -421,16 +421,16 @@ class AgileZen
             return $result['metrics'];
         }
         return false;
-            
+
     }
 
     /**
      * Get a story of a project
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  array   $params
-     * @return Resources\Story|boolean 
+     * @return Resources\Story|boolean
      */
     public function getStory($projectId, $storyId, $params=array())
     {
@@ -440,7 +440,7 @@ class AgileZen
         if (empty($storyId)) {
             throw new Exception\InvalidArgumentException(self::ERR_ID_STORY);
         }
-        $result = $this->httpCall("/projects/$projectId/stories/$storyId" . 
+        $result = $this->httpCall("/projects/$projectId/stories/$storyId" .
                 $this->getUrlParameters($params), 'GET');
         if ($result===false) {
             return false;
@@ -455,10 +455,10 @@ class AgileZen
 
     /**
      * Get a phase of a project
-     * 
+     *
      * @param  integer $id
      * @param  array $params
-     * @return Resources\Phase|boolean 
+     * @return Resources\Phase|boolean
      */
     public function getPhase($projectId, $phaseId, $params=array())
     {
@@ -468,7 +468,7 @@ class AgileZen
         if (empty($phaseId)) {
             throw new Exception\InvalidArgumentException("You did not specify the id of the phase");
         }
-        $result = $this->httpCall("/projects/$projectId/phases/$phaseId" . 
+        $result = $this->httpCall("/projects/$projectId/phases/$phaseId" .
                 $this->getUrlParameters($params), 'GET');
         if ($result===false) {
             return false;
@@ -483,10 +483,10 @@ class AgileZen
 
     /**
      * Get project roles
-     * 
+     *
      * @param  integer $id
      * @param  array   $params
-     * @return Container 
+     * @return Container
      */
     public function getRoles($projectId, $params=array())
     {
@@ -500,17 +500,17 @@ class AgileZen
         $roles = json_decode($result->getBody(), true);
         if (is_array($roles) && !empty($roles['items'])) {
             return new Container($this, $roles['items'], 'role', $projectId);
-        } 
-        return false;       
+        }
+        return false;
     }
 
     /**
      * Get a phase of a project
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $roleId
      * @param  array   $params
-     * @return Resources\Role|boolean 
+     * @return Resources\Role|boolean
      */
     public function getRole($projectId, $roleId, $params=array())
     {
@@ -520,7 +520,7 @@ class AgileZen
         if (empty($roleId)) {
             throw new Exception\InvalidArgumentException("You did not specify the id of the role");
         }
-        $result = $this->httpCall("/projects/$projectId/roles/$roleId" . 
+        $result = $this->httpCall("/projects/$projectId/roles/$roleId" .
                 $this->getUrlParameters($params), 'GET');
         if ($result===false) {
             return false;
@@ -535,35 +535,35 @@ class AgileZen
 
     /**
      * Get invites of the project
-     *  
+     *
      * @param  integer $id
      * @param  array   $params
-     * @return Container 
+     * @return Container
      */
     public function getInvites($projectId, $params=array())
     {
         if (empty($projectId)) {
             throw new Exception\InvalidArgumentException(self::ERR_ID_PROJECT);
         }
-        $result = $this->httpCall("/projects/$projectId/invites" . 
+        $result = $this->httpCall("/projects/$projectId/invites" .
                 $this->getUrlParameters($params), 'GET');
         if ($result===false) {
             return false;
-        } 
+        }
         $invites = json_decode($result->getBody(), true);
         if (is_array($invites) && !empty($invites['items'])) {
             return new Container($this, $invites['items'], 'invite', $projectId);
-        } 
-        return false;    
+        }
+        return false;
     }
 
     /**
      * Get an invite of a project
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $inviteId
      * @param  array   $params
-     * @return Resources\Invite|boolean 
+     * @return Resources\Invite|boolean
      */
     public function getInvite($projectId, $inviteId, $params=array())
     {
@@ -582,12 +582,12 @@ class AgileZen
             $invite['projectId'] = $projectId;
             return new Resources\Invite($this, $invite);
         }
-        return false;    
+        return false;
     }
 
     /**
      * Get the tasks of a story
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  array   $params
@@ -601,7 +601,7 @@ class AgileZen
         if (empty($storyId)) {
             throw new Exception\InvalidArgumentException(self::ERR_ID_STORY);
         }
-        $result = $this->httpCall("/projects/$projectId/stories/$storyId/tasks" . 
+        $result = $this->httpCall("/projects/$projectId/stories/$storyId/tasks" .
                 $this->getUrlParameters($params), 'GET');
         if ($result===false) {
             return false;
@@ -615,7 +615,7 @@ class AgileZen
 
     /**
      * Get the task of a story
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  integer $taskId
@@ -648,7 +648,7 @@ class AgileZen
 
     /**
      * Add a task to a story
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  array $data valid keys are 'text' (required) and 'status'
@@ -677,17 +677,17 @@ class AgileZen
             $task['projectId'] = $projectId;
             return new Resources\Task($this, $task);
         }
-        return false;   
+        return false;
     }
 
     /**
      * Update a task of a story
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  integer $taskId
      * @param  array $data valid keys are 'text' (required) and 'status'
-     * @return Resources\Task|boolean 
+     * @return Resources\Task|boolean
      */
     public function updateTask($projectId, $storyId, $taskId, $data)
     {
@@ -720,11 +720,11 @@ class AgileZen
 
     /**
      * Remove a task from a story
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  integer $taskId
-     * @return boolean 
+     * @return boolean
      */
     public function removeTask($projectId, $storyId, $taskId)
     {
@@ -743,7 +743,7 @@ class AgileZen
 
     /**
      * Add a story to a project
-     * 
+     *
      * @param  integer $projectId
      * @param  array $data
      * @param  aray  $params
@@ -760,7 +760,7 @@ class AgileZen
         if (!isset($data['text'])) {
             throw new Exception\InvalidArgumentException("You did not specify the text key in data");
         }
-        $result = $this->httpCall("/projects/$projectId/stories" . 
+        $result = $this->httpCall("/projects/$projectId/stories" .
                 $this->getUrlParameters($params), 'POST', $data);
         if ($result===false) {
             return false;
@@ -771,12 +771,12 @@ class AgileZen
             return new Resources\Story($this, $story);
         }
         return false;
-            
+
     }
 
     /**
      * Update a story
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  array $data
@@ -806,15 +806,15 @@ class AgileZen
             return new Resources\Story($this, $story);
         }
         return false;
-            
+
     }
 
     /**
      * Remove a story
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
-     * @return boolean 
+     * @return boolean
      */
     public function removeStory($projectId, $storyId)
     {
@@ -830,7 +830,7 @@ class AgileZen
 
     /**
      * Add a role
-     * 
+     *
      * @param  integer $projectId
      * @param  array $data
      * @return Resources\Role|boolean
@@ -855,16 +855,16 @@ class AgileZen
             $role['projectId'] = $projectId;
             return new Resources\Role($this, $role);
         }
-        return false;   
+        return false;
     }
 
     /**
      * Update a role
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $roleId
      * @param  array $data
-     * @return Resources\Role|boolean 
+     * @return Resources\Role|boolean
      */
     public function updateRole($projectId, $roleId, $data)
     {
@@ -889,15 +889,15 @@ class AgileZen
             $role['projectId'] = $projectId;
             return new Resources\Role($this, $role);
         }
-        return false; 
+        return false;
     }
 
     /**
      * Remove a role
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $roleId
-     * @return boolean 
+     * @return boolean
      */
     public function removeRole($projectId, $roleId)
     {
@@ -913,7 +913,7 @@ class AgileZen
 
     /**
      * Add a phase
-     * 
+     *
      * @param  integer $projectId
      * @param  array $data
      * @return Resources\Phase|boolean
@@ -941,16 +941,16 @@ class AgileZen
             $phase['projectId'] = $projectId;
             return new Resources\Phase($this, $phase);
         }
-        return false;    
+        return false;
     }
 
     /**
      * Update a phase
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $phaseId
      * @param  array $data
-     * @return Resources\Phase|boolean 
+     * @return Resources\Phase|boolean
      */
     public function updatePhase($projectId, $phaseId, $data)
     {
@@ -975,15 +975,15 @@ class AgileZen
             $phase['projectId'] = $projectId;
             return new Resources\Phase($this, $phase);
         }
-        return false;   
+        return false;
     }
 
     /**
      * Remove a phase
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $phaseId
-     * @return boolean 
+     * @return boolean
      */
     public function removePhase($projectId, $phaseId)
     {
@@ -999,7 +999,7 @@ class AgileZen
 
     /**
      * Create a new invite
-     * 
+     *
      * @param  integer $projectId
      * @param  array $data
      * @return Resources\Invite|boolean
@@ -1028,15 +1028,15 @@ class AgileZen
             return new Resources\Invite($this, $invite);
         }
         return false;
-            
+
     }
 
     /**
      * Remove an invite
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $inviteId
-     * @return boolean 
+     * @return boolean
      */
     public function removeInvite($projectId, $inviteId)
     {
@@ -1052,11 +1052,11 @@ class AgileZen
 
     /**
      * Get a tag
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $tagId
      * @param  array   $params
-     * @return Resources\Tag|boolean 
+     * @return Resources\Tag|boolean
      */
     public function getTag($projectId, $tagId, $params=array())
     {
@@ -1066,25 +1066,25 @@ class AgileZen
         if (empty($tagId)) {
             throw new Exception\InvalidArgumentException(self::ERR_ID_TAG);
         }
-        $result = $this->httpCall("/projects/$projectId/tags/$tagId" . 
+        $result = $this->httpCall("/projects/$projectId/tags/$tagId" .
                 $this->getUrlParameters($params), 'GET');
         if ($result===false) {
             return false;
-        } 
+        }
         $tag = json_decode($result->getBody(), true);
         if (is_array($tag) && !empty($tag)) {
             $tag['projectId'] = $projectId;
             return new Resources\Tag($this, $tag);
         }
-        return false; 
+        return false;
     }
 
     /**
      * Get the tags of a project
-     * 
+     *
      * @param  integer $projectId
      * @param  array   $params
-     * @return Container 
+     * @return Container
      */
     public function getTags($projectId, $params=array())
     {
@@ -1098,16 +1098,16 @@ class AgileZen
         $tags = json_decode($result->getBody(), true);
         if (is_array($tags) && !empty($tags['items'])) {
             return new Container($this, $tags['items'], 'tag', $projectId);
-        } 
-        return false;    
+        }
+        return false;
     }
 
     /**
      * Add a tag
-     * 
+     *
      * @param  integer $projectId
      * @param  array $data
-     * @return Resources\Tag 
+     * @return Resources\Tag
      */
     public function addTag($projectId, $data)
     {
@@ -1134,10 +1134,10 @@ class AgileZen
 
     /**
      * Update a tag
-     * 
+     *
      * @param  integer $projectId
      * @param  array $data
-     * @return Resources\Task 
+     * @return Resources\Task
      */
     public function updateTag($projectId, $data)
     {
@@ -1159,15 +1159,15 @@ class AgileZen
             $task['projectId'] = $projectId;
             return new Resources\Task($this, $task);
         }
-        return false;        
+        return false;
     }
 
     /**
      * Remove a tag
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $tagId
-     * @return boolean 
+     * @return boolean
      */
     public function removeTag($projectId, $tagId)
     {
@@ -1183,12 +1183,12 @@ class AgileZen
 
     /**
      * Get an attachment
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  integer $attachId
      * @param  array   $params
-     * @return Resources\Attachment|boolean 
+     * @return Resources\Attachment|boolean
      */
     public function getAttachment($projectId, $storyId, $attachId, $params=array())
     {
@@ -1201,7 +1201,7 @@ class AgileZen
         if (empty($attachId)) {
             throw new Exception\InvalidArgumentException(self::ERR_ID_ATTACH);
         }
-        $result = $this->httpCall("/projects/$projectId/stories/$storyId/attachments/$attachId" . 
+        $result = $this->httpCall("/projects/$projectId/stories/$storyId/attachments/$attachId" .
                 $this->getUrlParameters($params), 'GET');
         if ($result===false) {
             return false;
@@ -1211,16 +1211,16 @@ class AgileZen
             $attach['projectId'] = $projectId;
             return new Resources\Attachment($this, $attach);
         }
-        return false;       
+        return false;
     }
 
     /**
      * Get the attachments of a story
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  array   $params
-     * @return Container 
+     * @return Container
      */
     public function getAttachments($projectId, $storyId, $params=array())
     {
@@ -1238,17 +1238,17 @@ class AgileZen
         $attachments = json_decode($result->getBody(), true);
         if (is_array($attachments) && !empty($attachments['items'])) {
             return new Container($this, $attachments['items'], 'attachment', $projectId);
-        } 
-        return false;    
+        }
+        return false;
     }
 
     /**
      * Add one or more files (attachments)
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  array $data
-     * @return Container 
+     * @return Container
      */
     public function addAttachment($projectId, $storyId, $data)
     {
@@ -1271,13 +1271,13 @@ class AgileZen
         $attachments = json_decode($result->getBody(), true);
         if (is_array($attachments) && !empty($attachments['items'])) {
             return new Container($this, $attachments['items'], 'attachment', $projectId);
-        } 
-        return false;   
+        }
+        return false;
     }
 
     /**
      * Update the filename of an attachment
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  integer $attachId
@@ -1310,16 +1310,16 @@ class AgileZen
             $attachment['projectId'] = $projectId;
             return new Resources\Attachment($this, $attachment);
         }
-        return false;    
+        return false;
     }
 
     /**
      * Remove an attachment
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  integer $attachId
-     * @return boolean 
+     * @return boolean
      */
     public function removeAttachment($projectId, $storyId, $attachId)
     {
@@ -1338,12 +1338,12 @@ class AgileZen
 
     /**
      * Get a comment
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  integer $commentId
      * @param  array   $params
-     * @return Resources\Comment|boolean 
+     * @return Resources\Comment|boolean
      */
     public function getComment($projectId, $storyId, $commentId, $params=array())
     {
@@ -1356,7 +1356,7 @@ class AgileZen
         if (empty($commentId)) {
             throw new Exception\InvalidArgumentException(self::ERR_ID_COMMENT);
         }
-        $result = $this->httpCall("/projects/$projectId/stories/$storyId/comments/$commentId" . 
+        $result = $this->httpCall("/projects/$projectId/stories/$storyId/comments/$commentId" .
                 $this->getUrlParameters($params), 'GET');
         if ($result===false) {
             return false;
@@ -1366,16 +1366,16 @@ class AgileZen
             $comment['projectId'] = $projectId;
             return new Resources\Comment($this, $comment);
         }
-        return false; 
+        return false;
     }
 
     /**
      * Get the comments of a story
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  array   $params
-     * @return Container 
+     * @return Container
      */
     public function getComments($projectId, $storyId, $params=array())
     {
@@ -1393,17 +1393,17 @@ class AgileZen
         $comments = json_decode($result->getBody(), true);
         if (is_array($comments) && !empty($comments['items'])) {
             return new Container($this, $comments['items'], 'comment', $projectId);
-        } 
-        return false;   
+        }
+        return false;
     }
 
     /**
      * Add a comment
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  array $data
-     * @return Container 
+     * @return Container
      */
     public function addComment($projectId, $storyId, $data)
     {
@@ -1427,13 +1427,13 @@ class AgileZen
         if (is_array($comment) && !empty($comment)) {
             $comment['projectId'] = $projectId;
             return new Resources\Comment($this, $comment);
-        } 
-        return false;    
+        }
+        return false;
     }
 
     /**
      * Update a comment
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  integer $commentId
@@ -1466,16 +1466,16 @@ class AgileZen
             $comment['projectId'] = $projectId;
             return new Resources\Comment($this, $comment);
         }
-        return false;  
+        return false;
     }
 
     /**
      * Remove a comment
-     * 
+     *
      * @param  integer $projectId
      * @param  integer $storyId
      * @param  integer $commentId
-     * @return boolean 
+     * @return boolean
      */
     public function removeComment($projectId, $storyId, $commentId)
     {
@@ -1494,7 +1494,7 @@ class AgileZen
 
     /**
      * Get information about Me
-     * 
+     *
      * @return Resources\User|boolean
      */
     public function getMe()
@@ -1507,12 +1507,12 @@ class AgileZen
         if (is_array($me) && !empty($me)) {
             return new Resources\User($this, $me);
         }
-        return false;   
+        return false;
     }
 
     /**
      * Update information about Me
-     * 
+     *
      * @param  array $data
      * @return Resources\User|boolean
      */
@@ -1534,7 +1534,7 @@ class AgileZen
 
     /**
      * Get my stories
-     * 
+     *
      * @param  array $params
      * @return Container|boolean
      */
@@ -1547,17 +1547,17 @@ class AgileZen
         $stories = json_decode($result->getBody(), true);
         if (is_array($stories) && !empty($stories['items'])) {
             return new Container($this, $stories['items'], 'story');
-        } 
-        return false;    
+        }
+        return false;
     }
 
     /**
      * Get the error message from the HTML body of the response
-     * 
-     * @param  \Zend\Http\Response $response 
+     *
+     * @param  \Zend\Http\Response $response
      * @return string
      */
-    protected function getErrorFromResponse($response) 
+    protected function getErrorFromResponse($response)
     {
         $dom = new DOMDocument;
         $dom->loadHTML($response->getBody());
@@ -1574,9 +1574,9 @@ class AgileZen
     }
     /**
      * Format the URL with the parameters filter, enrichments, and pagination
-     * 
+     *
      * @param  array $params
-     * @return string 
+     * @return string
      */
     protected function getUrlParameters($params)
     {
@@ -1589,7 +1589,7 @@ class AgileZen
         $validKeys = array ('where', 'with', 'page', 'pageSize');
         $url = '?';
         foreach ($validKeys as $key) {
-             if (isset($params[$key])) { 
+             if (isset($params[$key])) {
                  if ($url!=='?') {
                      $url.= '&';
                  }

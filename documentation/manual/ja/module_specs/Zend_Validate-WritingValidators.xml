@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.writing_validators"><info><title>バリデータの書き方</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Validate</classname> には、よく使うバリデータ群が付属しています。しかし、
@@ -27,7 +27,7 @@
         Zend Framework が提供しているバリデーションクラスの返り値は、
         検証に成功したか失敗したかを表す boolean 値となります。また、<emphasis>なぜ</emphasis>
         検証が失敗したのかについての情報も提供します。この理由がわかると、
-        アプリケーション側で何かと便利です。たとえば、ユーザビリティ改善のための統計情報として利用することなどができます。　
+        アプリケーション側で何かと便利です。たとえば、ユーザビリティ改善のための統計情報として利用することなどができます。
     </para>
 
     <para>
@@ -51,7 +51,7 @@
 
     <example xml:id="zend.validate.writing_validators.example.simple"><info><title>単純なバリデーションクラスの作成</title></info>
 
-        
+
 
         <para>
             次の例は、非常に単純なバリデータの書き方を説明するものです。
@@ -95,7 +95,7 @@ class MyValid_Float extends Zend_Validate_Abstract
 
     <example xml:id="zend.validate.writing_validators.example.conditions.dependent"><info><title>依存条件を伴うバリデーションクラスの作成</title></info>
 
-        
+
 
         <para>
             次の例は、複数の検証規則を組み合わせた複雑なものとなります。
@@ -188,7 +188,7 @@ class MyValid_NumericBetween extends Zend_Validate_Abstract
 
     <example xml:id="zend.validate.writing_validators.example.conditions.independent"><info><title>個々に独立した条件による検証を行い、失敗時に複数の原因を返す</title></info>
 
-        
+
 
         <para>
             パスワードの強度を確認するバリデーションクラスを書くことを考えてみましょう。

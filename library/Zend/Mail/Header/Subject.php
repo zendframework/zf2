@@ -39,15 +39,15 @@ class Subject implements Header, UnstructuredHeader
 
     /**
      * Header encoding
-     * 
+     *
      * @var string
      */
     protected $encoding = 'ASCII';
 
     /**
      * Factory from header line
-     * 
-     * @param  string $headerLine 
+     *
+     * @param  string $headerLine
      * @return Subject
      */
     public static function fromString($headerLine)
@@ -62,13 +62,13 @@ class Subject implements Header, UnstructuredHeader
 
         $header = new static();
         $header->setSubject($value);
-        
+
         return $header;
     }
 
     /**
      * Get the header name
-     * 
+     *
      * @return string
      */
     public function getFieldName()
@@ -78,7 +78,7 @@ class Subject implements Header, UnstructuredHeader
 
     /**
      * Get the header value
-     * 
+     *
      * @return string
      */
     public function getFieldValue()
@@ -92,11 +92,11 @@ class Subject implements Header, UnstructuredHeader
 
     /**
      * Set header encoding
-     * 
-     * @param  string $encoding 
+     *
+     * @param  string $encoding
      * @return Subject
      */
-    public function setEncoding($encoding) 
+    public function setEncoding($encoding)
     {
         $this->encoding = $encoding;
         return $this;
@@ -104,7 +104,7 @@ class Subject implements Header, UnstructuredHeader
 
     /**
      * Get header encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -114,8 +114,8 @@ class Subject implements Header, UnstructuredHeader
 
     /**
      * Set the value of the header
-     * 
-     * @param  string $subject 
+     *
+     * @param  string $subject
      * @return Subject
      */
     public function setSubject($subject)
@@ -126,7 +126,7 @@ class Subject implements Header, UnstructuredHeader
 
     /**
      * String representation of header
-     * 
+     *
      * @return string
      */
     public function toString()

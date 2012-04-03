@@ -21,11 +21,11 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Application\Resource\MultiDb as MultidbResource,
-    Zend\Application,
-    Zend\Controller\Front as FrontController,
-    Zend\Db\Table\Table as DBTable,
-    Zend\Cache\Cache;
+use Zend\Application\Resource\MultiDb as MultidbResource;
+use Zend\Application;
+use Zend\Controller\Front as FrontController;
+use Zend\Db\Table\Table as DBTable;
+use Zend\Cache\Cache;
 
 /**
  * @category   Zend
@@ -45,13 +45,13 @@ class MultidbResourceTest extends \PHPUnit_Framework_TestCase
             'username' => 'webuser',
         ),
         'db2' => array(
-            'adapter'  => 'Pdo\Sqlite', 
-            'dbname'   => 'db2', 
-            'password' => 'notthatpublic', 
+            'adapter'  => 'Pdo\Sqlite',
+            'dbname'   => 'db2',
+            'password' => 'notthatpublic',
             'username' => 'dba',
         )
     );
-    
+
     public function setUp()
     {
         // Store original autoloaders
@@ -106,7 +106,7 @@ class MultidbResourceTest extends \PHPUnit_Framework_TestCase
     {
         $options = $this->_dbOptions;
         $options['db2']['default'] = true;
-        
+
         $resource = new MultidbResource(array());
         $resource->setBootstrap($this->bootstrap);
         $resource->setOptions($options);
@@ -117,7 +117,7 @@ class MultidbResourceTest extends \PHPUnit_Framework_TestCase
 
         $options = $this->_dbOptions;
         $options['db2']['isDefaultTableAdapter'] = true;
-        
+
         $resource = new MultidbResource(array());
         $resource->setBootstrap($this->bootstrap);
         $resource->setOptions($options);
@@ -169,7 +169,7 @@ class MultidbResourceTest extends \PHPUnit_Framework_TestCase
             'charset'        => null,
             'persistent'     => false,
             'options'        => array(
-                'caseFolding'          => 0, 
+                'caseFolding'          => 0,
                 'autoQuoteIdentifiers' => true,
             ),
             'driver_options' => array());

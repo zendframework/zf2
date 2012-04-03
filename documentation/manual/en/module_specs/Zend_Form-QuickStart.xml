@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.quickstart"><info><title>Zend_Form Quick Start</title></info>
-    
+
 
     <para>
         This quick start guide covers the basics of creating,
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.form.quickstart.create"><info><title>Create a form object</title></info>
-        
+
 
         <para>
             Creating a form object is very simple: simply instantiate
@@ -56,7 +56,7 @@ $form->setAttrib('id', 'login');
     </section>
 
     <section xml:id="zend.form.quickstart.elements"><info><title>Add elements to the form</title></info>
-        
+
 
         <para>
             A form is nothing without its elements. <classname>Zend_Form</classname>
@@ -219,7 +219,7 @@ $form->addElement('text', 'username', array(
     </section>
 
     <section xml:id="zend.form.quickstart.render"><info><title>Render a form</title></info>
-        
+
 
         <para>
             Rendering a form is simple. Most elements use a
@@ -325,7 +325,7 @@ $form->addElement('text', 'username', array('order' => 10));
     </section>
 
     <section xml:id="zend.form.quickstart.validate"><info><title>Check if a form is valid</title></info>
-        
+
 
         <para>
             After a form is submitted, you will need to check and see if it
@@ -400,7 +400,7 @@ $values = $form->getValidValues($_POST);
     </section>
 
     <section xml:id="zend.form.quickstart.errorstatus"><info><title>Get error status</title></info>
-        
+
 
         <para>
             Did your form have failed validations on submission? In most cases, you can simply
@@ -430,7 +430,7 @@ if (!$form->isValid($_POST)) {
     </section>
 
     <section xml:id="zend.form.quickstart.puttingtogether"><info><title>Putting it together</title></info>
-        
+
 
         <para>
             Let's build a simple login form. It will need elements
@@ -537,7 +537,7 @@ class UserController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.form.quickstart.config"><info><title>Using a Zend_Config Object</title></info>
-        
+
 
         <para>
             All <classname>Zend_Form</classname> classes are configurable using
@@ -593,7 +593,7 @@ $form   = new Zend_Form($config->user->login);
     </section>
 
     <section xml:id="zend.form.quickstart.conclusion"><info><title>Conclusion</title></info>
-        
+
 
         <para>
             Hopefully with this little tutorial, you should now be well on your

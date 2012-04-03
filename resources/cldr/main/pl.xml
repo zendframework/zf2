@@ -1047,13 +1047,13 @@
 							<pattern>d MMM y G</pattern>
 						</dateFormat>
 					</dateFormatLength>
-					<dateFormatLength type="short">  
+					<dateFormatLength type="short">
 						<dateFormat>
 							<pattern>dd.MM.yyyy G</pattern>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E, d</dateFormatItem>
@@ -1473,7 +1473,7 @@
 				</fields>
 			</calendar>
 			<calendar type="islamic">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d MMMM, y G</pattern>
@@ -1495,7 +1495,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E, d</dateFormatItem>
@@ -1525,7 +1525,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d MMMM, y G</pattern>
@@ -1547,7 +1547,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E, d</dateFormatItem>
@@ -1579,7 +1579,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="roc">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d MMMM, y G</pattern>
@@ -1601,7 +1601,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E, d</dateFormatItem>

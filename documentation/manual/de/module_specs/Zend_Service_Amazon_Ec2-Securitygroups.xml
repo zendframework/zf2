@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2.securitygroups"><info><title>Zend_Service_Amazon_Ec2: Sicherheitsgruppen</title></info>
-    
+
 
     <para>
         Eine Sicherheitsgruppe ist eine benante Sammlung von Zugriffsregeln. Diese Zugriffsregeln
@@ -14,15 +14,15 @@
     </para>
 
     <note><info><title>Maximale Sicherheitsgruppen</title></info>
-        
+
         <para>Man kann bis zu 100 Sicherheitsgruppen erstellen.</para>
     </note>
 
     <section xml:id="zend.service.amazon.ec2.securitygroups.maintenance"><info><title>Wartung von Sicherheitsgruppen</title></info>
-        
+
 
         <example xml:id="zend.service.amazon.ec2.securitygroups.maintenance.create"><info><title>Eine neue Sicherheitsgruppe erstellen</title></info>
-            
+
 
             <para>
                 <code>create</code> erstellt eine neue Sicherheitsgruppe. Jede Instanz wird in
@@ -46,7 +46,7 @@ $return = $ec2_sg->create('mygroup', 'my group description');
         </example>
 
         <example xml:id="zend.service.amazon.ec2.securitygroups.maintenance.describe"><info><title>Eine Sicherheitsgruppe beschreiben</title></info>
-            
+
 
             <para>
                 <code>describe</code> gibt Informationen über die Sicherheitsgruppen zurück welche
@@ -74,7 +74,7 @@ $return = $ec2_sg->describe('mygroup');
         </example>
 
         <example xml:id="zend.service.amazon.ec2.securitygroups.maintenance.delete"><info><title>Eine Sicherheitsgruppe löschen</title></info>
-            
+
 
             <para>
                 <code>delete</code> entfernt die Sicherheitsgruppe. Wenn man versucht eine
@@ -100,10 +100,10 @@ $return = $ec2_sg->delete('mygroup');
     </section>
 
     <section xml:id="zend.service.amazon.ec2.securitygroups.authorize"><info><title>Zugriff authorisieren</title></info>
-        
+
 
         <example xml:id="zend.service.amazon.ec2.securitygroups.authorize.ip"><info><title>Authorisierung durch die IP</title></info>
-            
+
 
             <para>
                 <code>authorizeIp</code> fügt einer Sicherheitsgruppe eine Erlaubnis hinzu
@@ -141,7 +141,7 @@ $return = $ec2_sg->authorizeIp('mygroup',
         </example>
 
         <example xml:id="zend.service.amazon.ec2.securitygroups.authorize.group"><info><title>Authorisierung durch die Gruppe</title></info>
-            
+
 
             <para>
                 <code>authorizeGroup</code> fügt die Erlaubnis für eine Sicherheitsgruppe hinzu.
@@ -167,10 +167,10 @@ $return = $ec2_sg->authorizeGroup('mygroup', 'securityGroupName', 'ownerId');
     </section>
 
     <section xml:id="zend.service.amazon.ec2.securitygroups.revoke"><info><title>Zugriff entziehen</title></info>
-        
+
 
         <example xml:id="zend.service.amazon.ec2.securitygroups.revoke.ip"><info><title>Entziehen durch die IP</title></info>
-            
+
 
             <para>
                 <code>revokeIp</code> entzieht den Zugriff zu einer Sicherheitsgruppe basieren
@@ -210,7 +210,7 @@ $return = $ec2_sg->revokeIp('mygroup',
         </example>
 
         <example xml:id="zend.service.amazon.ec2.securitygroups.revoke.group"><info><title>Entziehen durch die Gruppe</title></info>
-            
+
 
             <para>
                 <code>revokeGroup</code> fübt eine Erlaubnis zu einer Sicherheitsgruppe hinzu.

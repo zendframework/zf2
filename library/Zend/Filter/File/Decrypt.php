@@ -19,8 +19,8 @@
  */
 
 namespace Zend\Filter\File;
-use Zend\Filter,
-    Zend\Filter\Exception;
+use Zend\Filter;
+use Zend\Filter\Exception;
 
 /**
  * Decrypts a given file and stores the decrypted file content

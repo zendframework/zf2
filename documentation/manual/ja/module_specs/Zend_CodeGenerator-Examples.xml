@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.codegenerator.examples"><info><title>Zend_CodeGeneratorサンプル</title></info>
-    
+
 
     <example xml:id="zend.codegenerator.examples.class"><info><title>PHPクラスを生成</title></info>
-        
+
 
         <para>
             下記の例ではクラスレベルのDocBlock付きで空のクラスを生成します。
@@ -52,7 +52,7 @@ class Foo
     </example>
 
     <example xml:id="zend.codegenerator.examples.class-properties"><info><title>クラスのプロパティ付でPHPクラスを生成</title></info>
-        
+
 
         <para>
             では、前の例を基にして、生成したクラスにプロパティを加えます。
@@ -124,7 +124,7 @@ class Foo
     </example>
 
     <example xml:id="zend.codegenerator.examples.class-methods"><info><title>クラスのメソッド付でPHPクラスを生成</title></info>
-        
+
 
         <para>
             <classname>Zend_CodeGenerator_Php_Class</classname>のおかげで、
@@ -255,7 +255,7 @@ class Foo
     </example>
 
     <example xml:id="zend.codegenerator.examples.file"><info><title>PHPファイルの生成</title></info>
-        
+
 
         <para>
             <classname>Zend_CodeGenerator_Php_File</classname>は<acronym>PHP</acronym>ファイルのコンテンツ生成でも使えます。
@@ -354,7 +354,7 @@ define('APPLICATION_ENV', 'testing');
     </example>
 
     <example xml:id="zend.codegenerator.examples.reflection-file"><info><title>reflection経由のPHPファイルのコード生成の種まき</title></info>
-        
+
 
         <para>
             コード・ジェネレーターを使って、
@@ -372,7 +372,7 @@ file_put_contents($path, $generator->generate());
     </example>
 
     <example xml:id="zend.codegenerator.examples.reflection-class"><info><title>reflection経由のPHPクラス生成の種まき</title></info>
-        
+
 
         <para>
             コード・ジェネレーターを使って、既存のPHPファイルにPHPコードを加えることができます。

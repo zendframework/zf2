@@ -49,7 +49,7 @@ class HOnlineComAtom10Test extends \PHPUnit_Framework_TestCase
         }
         Date\Date::setOptions(array('format_type'=>'iso'));
     }
-    
+
     public function teardown()
     {
         Date\Date::setOptions($this->_options);

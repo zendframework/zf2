@@ -20,9 +20,9 @@
 
 namespace Zend\Dojo;
 
-use Zend\Config\Config,
-    Zend\Json\Json,
-    Zend\View\Renderer;
+use Zend\Config\Config;
+use Zend\Json\Json;
+use Zend\View\Renderer;
 
 /**
  * Dojo module layer and custom build profile generation support

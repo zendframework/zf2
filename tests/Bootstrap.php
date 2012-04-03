@@ -60,12 +60,12 @@ if (is_readable($zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php')) {
     require_once $zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php.dist';
 }
 
-if (defined('TESTS_GENERATE_REPORT') 
-    && TESTS_GENERATE_REPORT === true 
+if (defined('TESTS_GENERATE_REPORT')
+    && TESTS_GENERATE_REPORT === true
     && version_compare(PHPUnit_Runner_Version::id(), '3.1.6', '>=')
 ) {
     $codeCoverageFilter = PHP_CodeCoverage_Filter::getInstance();
-        
+
     $lastArg = end($_SERVER['argv']);
     if (is_dir($zfCoreTests . '/' . $lastArg)) {
         $codeCoverageFilter->addDirectoryToWhitelist($zfCoreLibrary . '/' . $lastArg);

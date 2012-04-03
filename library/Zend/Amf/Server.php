@@ -20,12 +20,12 @@
 
 namespace Zend\Amf;
 
-use Zend\Amf\Exception,
-    Zend\Authentication\AuthenticationService,
-    Zend\Loader\Broker,
-    Zend\Loader\PluginBroker,
-    Zend\Server\Reflection,
-    Zend\Server\Server as ServerDefinition;
+use Zend\Amf\Exception;
+use Zend\Authentication\AuthenticationService;
+use Zend\Loader\Broker;
+use Zend\Loader\PluginBroker;
+use Zend\Server\Reflection;
+use Zend\Server\Server as ServerDefinition;
 
 /**
  * An AMF gateway server implementation to allow the connection of the Adobe Flash Player to
@@ -95,7 +95,7 @@ class Server implements ServerDefinition
     protected $_response;
 
     /**
-     * Flag: whether or not to return a response instead of automatically 
+     * Flag: whether or not to return a response instead of automatically
      * emitting it. By default, returns it.
      * @var boolean
      */
@@ -313,8 +313,8 @@ class Server implements ServerDefinition
 
     /**
      * Set broker instance
-     * 
-     * @param  string|Broker $broker 
+     *
+     * @param  string|Broker $broker
      * @return Server
      */
     public function setBroker($broker)

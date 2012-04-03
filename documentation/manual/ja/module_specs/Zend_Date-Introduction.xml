@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.introduction"><info><title>導入</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Date</classname> コンポーネントは、
@@ -36,7 +36,7 @@
 
     <section xml:id="zend.date.setdefaulttimezone"><info><title>デフォルトタイムゾーンの設定</title></info>
 
-        
+
 
         <para>
             日付関連の関数を <acronym>PHP</acronym> や Zend Framework で使う前には、
@@ -53,7 +53,7 @@
         </para>
 
         <example xml:id="zend.date.setdefaulttimezone.example-1"><info><title>デフォルトタイムゾーンの設定</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // カリフォルニアのアメリカ人用のタイムゾーン
 date_default_timezone_set('America/Los_Angeles');
@@ -80,7 +80,7 @@ date_default_timezone_set('Europe/Berlin');
 
     <section xml:id="zend.date.why"><info><title>なぜ Zend_Date なのか?</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Date</classname> が提供する機能は次のとおりで、これは

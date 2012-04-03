@@ -148,7 +148,7 @@ class Bcmath implements BigIntegerCapable
     }
 
     /**
-     * @param  string $operand 
+     * @param  string $operand
      * @return integer
      */
     public function binaryToInteger($operand)
@@ -164,7 +164,7 @@ class Bcmath implements BigIntegerCapable
 
 
     /**
-     * @param  integer $operand 
+     * @param  integer $operand
      * @return string
      */
     public function integerToBinary($operand)
@@ -185,7 +185,7 @@ class Bcmath implements BigIntegerCapable
     }
 
     /**
-     * @param  string $operand 
+     * @param  string $operand
      * @return string
      */
     public function hexToDecimal($operand)

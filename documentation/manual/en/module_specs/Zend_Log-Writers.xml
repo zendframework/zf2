@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.writers"><info><title>Writers</title></info>
-    
+
 
     <para>
         A Writer is an object that inherits from <classname>Zend_Log_Writer_Abstract</classname>.
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.log.writers.stream"><info><title>Writing to Streams</title></info>
-        
+
 
         <para>
             <classname>Zend_Log_Writer_Stream</classname> sends log
@@ -71,7 +71,7 @@ $logger->info('Informational message');
     </section>
 
     <section xml:id="zend.log.writers.database"><info><title>Writing to Databases</title></info>
-        
+
 
         <para>
             <classname>Zend_Log_Writer_Db</classname> writes log information to a database table
@@ -109,7 +109,7 @@ $logger->info('Informational message');
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Log-Writers-ZendMonitor.xml"/>
 
     <section xml:id="zend.log.writers.null"><info><title>Stubbing Out the Writer</title></info>
-        
+
 
         <para>
             The <classname>Zend_Log_Writer_Null</classname> is a stub that does not write log data
@@ -126,7 +126,7 @@ $logger->info('Informational message');
     </section>
 
     <section xml:id="zend.log.writers.mock"><info><title>Testing with the Mock</title></info>
-        
+
 
         <para>
             The <classname>Zend_Log_Writer_Mock</classname> is a very simple writer that records
@@ -157,7 +157,7 @@ var_dump($mock->events[0]);
     </section>
 
     <section xml:id="zend.log.writers.compositing"><info><title>Compositing Writers</title></info>
-        
+
 
         <para>
             There is no composite Writer object. However, a Log instance can write

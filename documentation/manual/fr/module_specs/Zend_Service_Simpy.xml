@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.simpy"><info><title>Zend_Service_Simpy</title></info>
-    
+
 
     <section xml:id="zend.service.simpy.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Simpy</classname> permet l'interaction avec les services
@@ -41,7 +41,7 @@
     </section>
 
     <section xml:id="zend.service.simpy.links"><info><title>Liens</title></info>
-        
+
 
         <para>
             Lors d'interactions avec les liens, ceux-ci sont retournées dans l'ordre
@@ -52,7 +52,7 @@
         </para>
 
         <example xml:id="zend.service.simpy.links.querying"><info><title>Requêter des liens</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $simpy = new Zend_Service_Simpy('yourusername', 'yourpassword');
@@ -105,7 +105,7 @@ $linkQuery->setAfterDate('2006-12-09');
         </para>
 
         <example xml:id="zend.service.simpy.links.modifying"><info><title>Modifier des liens</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $simpy = new Zend_Service_Simpy('yourusername', 'yourpassword');
@@ -143,7 +143,7 @@ foreach ($linkSet as $link) {
     </section>
 
     <section xml:id="zend.service.simpy.tags"><info><title>Mots-clés</title></info>
-        
+
 
         <para>
             Les mots-clés sont récupérés dans l'ordre descendant, par le nombre de liens
@@ -151,7 +151,7 @@ foreach ($linkSet as $link) {
         </para>
 
         <example xml:id="zend.service.simpy.tags.working"><info><title>Travailler avec les mots-clés</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $simpy = new Zend_Service_Simpy('yourusername', 'yourpassword');
@@ -195,7 +195,7 @@ $simpy->mergeTags('framework', 'development', 'frameworks');
     </section>
 
     <section xml:id="zend.service.simpy.notes"><info><title>Notes</title></info>
-        
+
 
         <para>
             Les notes peuvent être sauvées, récupérées, effacées. Elles possèdent un
@@ -203,7 +203,7 @@ $simpy->mergeTags('framework', 'development', 'frameworks');
         </para>
 
         <example xml:id="zend.service.simpy.notes.working"><info><title>Travailler avec les notes</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $simpy = new Zend_Service_Simpy('yourusername', 'yourpassword');
@@ -251,7 +251,7 @@ $simpy->deleteNote($note->getId());
     </section>
 
     <section xml:id="zend.service.simpy.watchlists"><info><title>Listes de surveillance</title></info>
-        
+
 
         <para>
             Les listes de surveillance ne peuvent qu'être requêtées via l'API Simpy. Vous
@@ -260,7 +260,7 @@ $simpy->deleteNote($note->getId());
         </para>
 
         <example xml:id="zend.service.simpy.watchlists.retrieving"><info><title>Récupérer des listes de surveillance</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $simpy = new Zend_Service_Simpy('yourusername', 'yourpassword');

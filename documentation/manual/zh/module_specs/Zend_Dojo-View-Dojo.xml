@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view.dojo"><info><title>dojo() 视图助手</title></info>
-    
+
 
     <para>
         <code>dojo()</code> 视图助手用来简化设置 Dojo 环境，包括下列职责:
@@ -20,7 +20,7 @@
     </para>
 
     <example xml:id="zend.dojo.view.dojo.usage"><info><title>dojo() 视图助手用法范例</title></info>
-        
+
 
         <para>
             对本范例，假设开发者将从本地路径使用 Dojo 表单，需要请求若干个 dijits，
@@ -96,7 +96,7 @@ $this->dojo()->enable()
     </example>
 
     <section xml:id="zend.dojo.view.dojo.declarative"><info><title> Dojo 的 Programmatic 和 Declarative 用法</title></info>
-        
+
 
         <para>
             Dojo 在其许多功能上使用 <emphasis>declarative</emphasis> 和
@@ -126,7 +126,7 @@ $this->dojo()->enable()
         </para>
 
         <example xml:id="zend.dojo.view.dojo.declarative.usage"><info><title>指定 Declarative 和 Programmatic Dojo 用法范例</title></info>
-            
+
 
             <para>
                 为指定 declarative 用法，简单地调用静态方法
@@ -158,7 +158,7 @@ Zend_Dojo_View_Helper_Dojo::setUseProgrammatic(-1);
     </section>
 
     <section xml:id="zend.dojo.view.dojo.themes"><info><title>主题</title></info>
-        
+
 
         <para>
             Dojo 允许为它的 dijits（小部件）生成主题。你可以通过传递模块路径来选择一个：
@@ -184,7 +184,7 @@ $view->dojo()->addStylesheetModule('dijit.themes.tundra');
     </section>
 
     <section xml:id="zend.dojo.view.dojo.layers"><info><title>使用 Layers （定制）</title></info>
-        
+
 
         <para>
             缺省地，当你使用 dojo.require 语句，dojo 将请求服务器抓取适当的 javascript 文件。
@@ -233,7 +233,7 @@ $view->dojo()->addLayer('/js/foo/foo.js');
     </section>
 
     <section xml:id="zend.dojo.view.dojo.methods"><info><title>可用方法</title></info>
-        
+
 
         <para>
             <code>dojo()</code> 视图助手总返回 dojo 占位符容器的实例。

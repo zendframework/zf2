@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view"><info><title>Les aides de vues Dojo</title></info>
-    
+
 
     <para>Zend Framework fournit les aides de vues spécifiques à Dojo suivantes :</para>
 
@@ -18,7 +18,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.view.setup"><info><title>Utilisation des aides de vues Dojo</title></info>
-        
+
 
         <para>
             Pour utiliser les aides de vues Dojo, vous devrez informer votre objet de vue de

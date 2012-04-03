@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.mime"><info><title>Zend_Mime</title></info>
-    
+
 
     <section xml:id="zend.mime.mime.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime</classname> ist eine Hilfsklasse für die Verarbeitung von
@@ -16,7 +16,7 @@
     </section>
 
     <section xml:id="zend.mime.mime.static"><info><title>Statische Methoden und Konstanten</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime</classname> stellt einige einfache statische Hilfsmethoden für die
@@ -138,7 +138,7 @@
     </section>
 
     <section xml:id="zend.mime.mime.instantiation"><info><title>Zend_Mime instanziieren</title></info>
-        
+
 
         <para>
             Wenn ein <classname>Zend_Mime</classname> instanziiert wird, wird eine

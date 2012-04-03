@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.dir"><info><title>Dir</title></info>
-    
+
 
     <para>
         Ein angegebener String welcher den Pfad zu einer Datei enthält wird von dieser Funktion nur
@@ -8,7 +8,7 @@
     </para>
 
      <section xml:id="zend.filter.set.dir.options"><info><title>Unterstützte Optionen für Zend_Filter_Dir</title></info>
-        
+
 
         <para>
             Es gibt keine zusätzlichen Optionen für <classname>Zend_Filter_Dir</classname>.
@@ -16,7 +16,7 @@
     </section>
 
      <section xml:id="zend.filter.set.dir.basic"><info><title>Einfache Verwendung</title></info>
-        
+
 
         <para>
             Ein einfaches Beispiel der Verwendung ist nachfolgend zu finden:

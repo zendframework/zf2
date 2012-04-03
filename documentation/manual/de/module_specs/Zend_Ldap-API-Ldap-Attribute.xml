@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.api.reference.zend-ldap-attribute"><info><title>Zend_Ldap_Attribute</title></info>
-    
+
 
     <para>
         <classname>Zend_Ldap_Attribute</classname> ist eine Helfer Klasse die nur Statische Methoden
@@ -94,7 +94,7 @@
     </variablelist>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-attribute.table"><info><title>Zend_Ldap_Attribute API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.barcode.objects"><info><title>Zend_Barcode Objects</title></info>
-    
+
 
     <para>
         Barcode objects allow you to generate barcodes independently of the rendering support. After
@@ -40,7 +40,7 @@
     </itemizedlist>
 
     <example xml:id="zend.barcode.objects.configuration"><info><title>Different ways to parameterize a barcode object</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $options = array('text' => 'ZEND-FRAMEWORK', 'barHeight' => 40);
@@ -65,7 +65,7 @@ $barcode->setText('ZEND-FRAMEWORK')
     </example>
 
     <section xml:id="zend.barcode.objects.common.options"><info><title>Common Options</title></info>
-        
+
 
         <para>
             In the following list, the values have no units; we will use the term "unit." For
@@ -78,7 +78,7 @@ $barcode->setText('ZEND-FRAMEWORK')
         </para>
 
         <table xml:id="zend.barcode.objects.common.options.table"><info><title>Common Options</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -244,7 +244,7 @@ $barcode->setText('ZEND-FRAMEWORK')
         </table>
 
         <section xml:id="zend.barcode.objects.common.options.barcodefont"><info><title>Particular case of static setBarcodeFont()</title></info>
-            
+
 
             <para>
                 You can set a commont font for all your objects by using the static method
@@ -278,12 +278,12 @@ Zend_Barcode::render(
     </section>
 
     <section xml:id="zend.barcode.objects.common.getters"><info><title>Common Additional Getters</title></info>
-        
+
 
         <para/>
 
         <table xml:id="zend.barcode.objects.common.getters.table"><info><title>Common Getters</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>

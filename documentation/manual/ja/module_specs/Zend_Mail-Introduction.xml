@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.introduction"><info><title>導入</title></info>
 
-    
+
 
     <section xml:id="zend.mail.introduction.getting-started"><info><title>まずはじめに</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Mail</classname> は、テキストメールや <acronym>MIME</acronym>
@@ -18,7 +18,7 @@
 
         <example xml:id="zend.mail.introduction.example-1"><info><title>Zend_Mail を使用したシンプルなメール送信</title></info>
 
-            
+
 
             <para>
                 受信者、表題、本文および送信者を指定しただけの単純なメールです。
@@ -38,7 +38,7 @@ $mail->send();
         </example>
 
         <note><info><title>最低限の定義</title></info>
-            
+
 
             <para>
                 <classname>Zend_Mail</classname> でメールを送信するには、
@@ -80,7 +80,7 @@ $mail->setBodyText('This is the text of the mail.')
 
     <section xml:id="zend.mail.introduction.sendmail"><info><title>デフォルトの sendmail トランスポートの設定</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Mail</classname> がデフォルトで使用するのは
@@ -97,7 +97,7 @@ $mail->setBodyText('This is the text of the mail.')
 
         <example xml:id="zend.mail.introduction.sendmail.example-1"><info><title>Zend_Mail_Transport_Sendmail トランスポートへの追加パラメータの渡し方</title></info>
 
-            
+
 
             <para>
                 この例は、<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/mail"><methodname>mail()</methodname></link>
@@ -119,7 +119,7 @@ $mail->send();
         </example>
 
         <note><info><title>セーフモード時の制限</title></info>
-            
+
             <para>
                 <acronym>PHP</acronym> をセーフモードで実行している場合、オプションの追加パラメータを指定すると
                 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/mail"><methodname>mail()</methodname></link>
@@ -128,7 +128,7 @@ $mail->send();
         </note>
 
         <warning><info><title>Sendmail トランスポートと Windows</title></info>
-            
+
 
             <para>
                 <acronym>PHP</acronym> マニュアルでは、<methodname>mail()</methodname>関数は Windows と *nix ベースのシステムとでは、

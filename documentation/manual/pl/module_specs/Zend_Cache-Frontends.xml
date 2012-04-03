@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.frontends"><info><title>Frontendy Zend_Cache</title></info>
-    
+
 
     <section xml:id="zend.cache.core"><info><title>Zend_Cache_Core</title></info>
-        
+
         <section xml:id="zend.cache.core.introduction"><info><title>Wprowadzenie</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Core</classname> jest specjalnym frontendem ponieważ
                 jest on jądrem modułu. Jest on podstawowym frontendem bufora i
@@ -18,13 +18,13 @@
             </para></note>
         </section>
         <section xml:id="zend.cache.core.options"><info><title>Dostępne opcje</title></info>
-            
+
             <para>
                 Te opcje są przekazywane do metody fabryki jako pokazano w
                 poprzednich przykładach.
             </para>
             <table xml:id="zend.cache.frontends.core.options.table"><info><title>Dostępne opcje</title></info>
-                
+
                 <tgroup cols="4">
                      <thead>
                           <row>
@@ -128,7 +128,7 @@
         </section>
 
         <section xml:id="zend.cache.core.examples"><info><title>Przykłady</title></info>
-            
+
             <para>
                 Przykład jest podany w dokumentacji na samym początku.
             </para>
@@ -241,9 +241,9 @@ if (!($cache->test($id))) {
     </section>
 
     <section xml:id="zend.cache.frontend.output"><info><title>Zend_Cache_Frontend_Output</title></info>
-        
+
         <section xml:id="zend.cache.frontend.output.introduction"><info><title>Wprowadzenie</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Frontend_Output</classname> jest frontendem przechwytującym
                 dane wyjściowe. Przejmuje on wyświetlanie danych wyjściowych w PHP
@@ -252,7 +252,7 @@ if (!($cache->test($id))) {
             </para>
         </section>
         <section xml:id="zend.cache.frontend.output.options"><info><title>Dostępne opcje</title></info>
-            
+
             <para>
                 Ten frontend nie ma żadnych specyficznych opcji innych niż te
                 z <classname>Zend_Cache_Core</classname>.
@@ -260,7 +260,7 @@ if (!($cache->test($id))) {
         </section>
 
         <section xml:id="zend.cache.frontend.output.examples"><info><title>Przykłady</title></info>
-            
+
             <para>
                 Przykład jest podany w dokumentacji na samym początku. To są główne różnice:
             </para>
@@ -286,9 +286,9 @@ echo 'To nie jest nigdy buforowane ('.time().').';
     </section>
 
     <section xml:id="zend.cache.frontend.function"><info><title>Zend_Cache_Frontend_Function</title></info>
-        
+
         <section xml:id="zend.cache.frontend.function.introduction"><info><title>Wprowadzenie</title></info>
-            
+
             <para>
                 Frontend <classname>Zend_Cache_Frontend_Function</classname> buforuje
                 rezultaty wywołań funkcji. Posiada on jedną metodą nazwaną
@@ -297,9 +297,9 @@ echo 'To nie jest nigdy buforowane ('.time().').';
             </para>
         </section>
         <section xml:id="zend.cache.frontend.function.options"><info><title>Dostępne opcje</title></info>
-            
+
             <table><info><title>Dostępne opcje</title></info>
-                
+
                 <tgroup cols="4">
                      <thead>
                           <row>
@@ -341,7 +341,7 @@ echo 'To nie jest nigdy buforowane ('.time().').';
         </section>
 
         <section xml:id="zend.cache.frontend.function.examples"><info><title>Przykłady</title></info>
-            
+
             <para>
                 Użycie funkcji <methodname>call()</methodname> jest takie samo jak użycie
                 funkcji <methodname>call_user_func_array()</methodname> w PHP:
@@ -369,9 +369,9 @@ $cache->call('veryExpensiveFunc', $params);
     </section>
 
     <section xml:id="zend.cache.frontend.class"><info><title>Zend_Cache_Frontend_Class</title></info>
-        
+
         <section xml:id="zend.cache.frontend.class.introduction"><info><title>Wprowadzenie</title></info>
-            
+
             <para>
                 Frontend <classname>Zend_Cache_Frontend_Class</classname> różnie się od
                 frontendu <classname>Zend_Cache_Frontend_Function</classname> tym, że
@@ -379,9 +379,9 @@ $cache->call('veryExpensiveFunc', $params);
             </para>
         </section>
         <section xml:id="zend.cache.frontend.class.options"><info><title>Dostępne opcje</title></info>
-            
+
             <table xml:id="zend.cache.frontends.class.options.table"><info><title>Dostępne opcje</title></info>
-                
+
                 <tgroup cols="4">
                      <thead>
                           <row>
@@ -432,7 +432,7 @@ $cache->call('veryExpensiveFunc', $params);
         </section>
 
         <section xml:id="zend.cache.frontend.class.examples"><info><title>Przykłady</title></info>
-            
+
             <para>
                 Na przykład, aby buforować statyczne wywołania:
             </para>
@@ -485,9 +485,9 @@ $result = $cache->foobar2('1', '2');
     </section>
 
     <section xml:id="zend.cache.frontends.file"><info><title>Zend_Cache_Frontend_File</title></info>
-        
+
         <section xml:id="zend.cache.frontends.file.introduction"><info><title>Wprowadzenie</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Frontend_File</classname> jeest frontendem działającym
                 w oparciu o datę modyfikacji "głównego pliku". Jest to bardzo
@@ -505,9 +505,9 @@ $result = $cache->foobar2('1', '2');
             </para>
         </section>
         <section xml:id="zend.cache.frontends.file.options"><info><title>Dostępne opcje</title></info>
-            
+
             <table xml:id="zend.cache.frontends.file.options.table"><info><title>Dostępne opcje</title></info>
-                
+
                 <tgroup cols="4">
                      <thead>
                           <row>
@@ -531,7 +531,7 @@ $result = $cache->foobar2('1', '2');
               </table>
         </section>
         <section xml:id="zend.cache.frontends.file.examples"><info><title>Przykłady</title></info>
-            
+
             <para>
                 Użycie tego frontendu jest takie same jak <classname>Zend_Cache_Core</classname>.
                 Nie ma potrzeby zamieszczania specyficznego przykładu - jedyną rzeczą
@@ -542,9 +542,9 @@ $result = $cache->foobar2('1', '2');
     </section>
 
     <section xml:id="zend.cache.frontends.page"><info><title>Zend_Cache_Frontend_Page</title></info>
-        
+
         <section xml:id="zend.cache.frontends.page.introduction"><info><title>Wprowadzenie</title></info>
-            
+
             <para>
                 Frontend <classname>Zend_Cache_Frontend_Page</classname> działa jak <classname>Zend_Cache_Frontend_Output</classname>
                 ale jest zaprojektowany dla kompletnej strony. Nie jest możliwe użycie <classname>Zend_Cache_Frontend_Page</classname>
@@ -565,9 +565,9 @@ $result = $cache->foobar2('1', '2');
             </para>
         </section>
         <section xml:id="zend.cache.frontends.page.options"><info><title>Dostępne opcje (for this frontend in Zend_Cache factory)</title></info>
-            
+
             <table xml:id="zend.cache.frontends.page.options.table"><info><title>Dostępne opcje</title></info>
-                
+
                 <tgroup cols="4">
                      <thead>
                           <row>
@@ -728,7 +728,7 @@ $result = $cache->foobar2('1', '2');
               </table>
         </section>
         <section xml:id="zend.cache.frontends.page.examples"><info><title>Przykłady</title></info>
-            
+
             <para>
                 Użycie <classname>Zend_Cache_Frontend_Page</classname> jest naprawdę łatwe:
             </para>
@@ -798,7 +798,7 @@ $cache->start();
 ]]></programlisting>
         </section>
         <section xml:id="zend.cache.frontends.page.cancel"><info><title>Metoda zaniechania buforowania</title></info>
-            
+
             <para>
                 Z powodu wymagań projektowych, w niektórych przypadkach (na przykład
                 gdy używamy kodów innych niż HTTP/200), możesz potrzebować zaniechać

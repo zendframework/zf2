@@ -21,8 +21,8 @@
 
 namespace Zend\Service\AgileZen\Resources;
 
-use Zend\Service\AgileZen\AgileZen,
-    Zend\Service\AgileZen\Entity;
+use Zend\Service\AgileZen\AgileZen;
+use Zend\Service\AgileZen\Entity;
 
 /**
  * @category   Zend
@@ -35,30 +35,30 @@ class Tag extends Entity
 {
     /**
      * Name
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $name;
 
     /**
      * AgileZen service
-     * 
-     * @var AgileZen 
+     *
+     * @var AgileZen
      */
     protected $service;
 
     /**
      * Project Id
-     * 
-     * @var integer 
+     *
+     * @var integer
      */
     protected $projectId;
 
     /**
      * Constructor
-     * 
+     *
      * @param AgileZen $service
-     * @param array $data 
+     * @param array $data
      */
     public function __construct(AgileZen $service, array $data)
     {
@@ -68,17 +68,17 @@ class Tag extends Entity
         if (!array_key_exists('name', $data)) {
              throw new Exception\InvalidArgumentException("You must pass the name of the user");
         }
-        
+
         $this->name      = $data['name'];
         $this->service   = $service;
         $this->projectId = $data['projectId'];
-        
+
         parent::__construct($data['id']);
     }
 
     /**
      * Get name
-     * 
+     *
      * @return string
      */
     public function getName()
@@ -88,8 +88,8 @@ class Tag extends Entity
 
     /**
      * Get the project's Id
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getProjectId()
     {

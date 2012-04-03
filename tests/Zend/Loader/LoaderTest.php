@@ -20,9 +20,9 @@
  */
 
 namespace ZendTest\Loader;
-use \stdClass,
-    \Phar,
-    \Zend\Loader;
+use \stdClass;
+use \Phar;
+use \Zend\Loader;
 
 /**
  * @category   Zend

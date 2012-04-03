@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         Google Data <acronym>API</acronym>s provide programmatic interface to some of Google's
@@ -105,7 +105,7 @@
     </para>
 
     <note><info><title>Unsupported services</title></info>
-        
+
 
         <para>
             <classname>Zend_Gdata</classname> does not provide an interface to any other Google
@@ -115,7 +115,7 @@
     </note>
 
     <section xml:id="zend.gdata.introduction.structure"><info><title>Structure of Zend_Gdata</title></info>
-        
+
 
         <para>
             <classname>Zend_Gata</classname> is composed of several types of classes:
@@ -215,7 +215,7 @@
     </section>
 
     <section xml:id="zend.gdata.introduction.services"><info><title>Interacting with Google Services</title></info>
-        
+
 
         <para>
             Google data services are based upon the Atom Publishing Protocol
@@ -236,7 +236,7 @@
     </section>
 
     <section xml:id="zend.gdata.introduction.magicfactory"><info><title>Obtaining instances of Zend_Gdata classes</title></info>
-        
+
 
         <para>
             The Zend Framework naming standards require that all classes be
@@ -284,7 +284,7 @@ $entry->cell = $cell;
     </section>
 
     <section xml:id="zend.gdata.introduction.authentication"><info><title>Google Data Client Authentication</title></info>
-        
+
 
         <para>
             Most Google Data services require client applications to
@@ -303,7 +303,7 @@ $entry->cell = $cell;
     </section>
 
     <section xml:id="zend.gdata.introduction.dependencies"><info><title>Dependencies</title></info>
-        
+
 
         <para>
             <classname>Zend_Gdata</classname> makes use of
@@ -322,7 +322,7 @@ $entry->cell = $cell;
     </section>
 
     <section xml:id="zend.gdata.introduction.creation"><info><title>Creating a new Gdata client</title></info>
-        
+
 
         <para>
             Create a new object of class <classname>Zend_Gdata_App</classname>,
@@ -374,7 +374,7 @@ $gdata->setMinorProtocolVersion(null);
     </section>
 
     <section xml:id="zend.gdata.introduction.parameters"><info><title>Common Query Parameters</title></info>
-        
+
 
         <para>
             You can specify parameters to customize queries with <classname>Zend_Gdata</classname>.
@@ -514,7 +514,7 @@ $query->resetParameters();      // clears all parameters
     </section>
 
     <section xml:id="zend.gdata.introduction.getfeed"><info><title>Fetching a Feed</title></info>
-        
+
 
         <para>
             Use the <methodname>getFeed()</methodname> function to retrieve
@@ -541,7 +541,7 @@ $feed = $gdata->getFeed($query);
     </section>
 
     <section xml:id="zend.gdata.introduction.paging"><info><title>Working with Multi-page Feeds</title></info>
-        
+
 
         <para>
             When retrieving a feed that contains a large number of entries,
@@ -586,7 +586,7 @@ $feed = $gdata->retrieveAllEntriesForFeed($gdata->getFeed($query));
     </section>
 
     <section xml:id="zend.gdata.introduction.usefeedentry"><info><title>Working with Data in Feeds and Entries</title></info>
-        
+
 
         <para>
             After retrieving a feed, you can read the data from the feed
@@ -612,7 +612,7 @@ foreach ($feed as $entry) {
     </section>
 
     <section xml:id="zend.gdata.introduction.updateentry"><info><title>Updating Entries</title></info>
-        
+
 
         <para>
             After retrieving an entry, you can update that entry and save
@@ -639,7 +639,7 @@ foreach ($feed as $entry) {
     </section>
 
     <section xml:id="zend.gdata.introduction.post"><info><title>Posting Entries to Google Servers</title></info>
-        
+
 
         <para>
             The <classname>Zend_Gdata</classname> object has a function
@@ -688,7 +688,7 @@ echo 'The <id> of the resulting entry is: ' . $entryResult->id->text;
     </section>
 
     <section xml:id="zend.gdata.introduction.delete"><info><title>Deleting Entries on Google Servers</title></info>
-        
+
 
         <para>
             Option 1: The <classname>Zend_Gdata</classname> object has a function

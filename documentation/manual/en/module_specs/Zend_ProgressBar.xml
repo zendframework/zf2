@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.introduction"><info><title>Zend_ProgressBar</title></info>
-    
+
 
     <section xml:id="zend.progressbar.whatisit"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> is a component to create and update
@@ -16,7 +16,7 @@
     </section>
 
     <section xml:id="zend.progressbar.basic"><info><title>Basic Usage of Zend_Progressbar</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> is quite easy in its usage. You
@@ -54,7 +54,7 @@ $progressBar->finish();
     </section>
 
     <section xml:id="zend.progressbar.persistent"><info><title>Persistent progress</title></info>
-        
+
 
         <para>
             If you want the progressbar to be persistent over multiple requests,
@@ -68,7 +68,7 @@ $progressBar->finish();
     </section>
 
     <section xml:id="zend.progressbar.adapters"><info><title>Standard adapters</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> comes with the following three adapters:

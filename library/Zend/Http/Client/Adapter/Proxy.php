@@ -20,8 +20,8 @@
  */
 
 namespace Zend\Http\Client\Adapter;
-use Zend\Http\Client,
-    Zend\Http\Client\Adapter\Exception as AdapterException;
+use Zend\Http\Client;
+use Zend\Http\Client\Adapter\Exception as AdapterException;
 
 /**
  * HTTP Proxy-supporting Zend_Http_Client adapter class, based on the default
@@ -81,7 +81,7 @@ class Proxy extends Socket
         if (! $this->config['proxy_host']) {
             return parent::connect($host, $port, $secure);
         }
-        
+
         /* Url might require stream context even if proxy connection doesn't */
         if ($secure) {
             $this->config['sslusecontext'] = true;
@@ -172,7 +172,7 @@ class Proxy extends Socket
                 throw new AdapterException\RuntimeException('Error writing request to server');
             }
         }
-        
+
         return $request;
     }
 

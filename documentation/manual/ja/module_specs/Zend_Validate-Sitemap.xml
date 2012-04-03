@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.sitemap"><info><title>サイトマップ・バリデータ</title></info>
-    
+
 
     <para>
         以下のバリデータは、
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.validate.sitemap.changefreq"><info><title>Sitemap_Changefreq</title></info>
-        
+
 
         <para>
             文字列がサイトマップ <acronym>XML</acronym> 文書で 'changefreq' 要素として
@@ -24,7 +24,7 @@
     </section>
 
     <section xml:id="zend.validate.sitemap.lastmod"><info><title>Sitemap_Lastmod</title></info>
-        
+
 
         <para>
             文字列がサイトマップ <acronym>XML</acronym> 文書で 'lastmod' 要素として
@@ -39,7 +39,7 @@
         </para>
 
         <example xml:id="zend.validate.sitemap.lastmod.example"><info><title>サイトマップ Lastmod バリデータ</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_Sitemap_Lastmod();
@@ -59,7 +59,7 @@ $validator->isValid('yesterday'); // false
     </section>
 
     <section xml:id="zend.validate.sitemap.loc"><info><title>Sitemap_Loc</title></info>
-        
+
 
         <para>
             文字列がサイトマップ <acronym>XML</acronym> 文書で 'loc' 要素として
@@ -70,7 +70,7 @@ $validator->isValid('yesterday'); // false
     </section>
 
     <section xml:id="zend.validate.sitemap.priority"><info><title>Sitemap_Priority</title></info>
-        
+
 
         <para>
             文字列がサイトマップ <acronym>XML</acronym> 文書で 'priority' 要素として
@@ -80,7 +80,7 @@ $validator->isValid('yesterday'); // false
         </para>
 
         <example xml:id="zend.validate.sitemap.priority.example"><info><title>サイトマップ 優先度 バリデータ</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_Sitemap_Priority();
@@ -100,7 +100,7 @@ $validator->isValid('foo'); // false
     </section>
 
     <section xml:id="zend.validate.set.sitemap.options"><info><title>Zend_Validate_Sitemap_* でサポートされるオプション</title></info>
-        
+
 
         <para>
             サイトマップ・バリデータのいずれもサポートするオプションはありません。

@@ -6,4 +6,4 @@ class InvalidArgumentException
     extends \InvalidArgumentException
     implements \Zend\Authentication\Adapter\Exception
 {
-} 
+}

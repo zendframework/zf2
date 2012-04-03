@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.rest.server"><info><title>Zend_Rest_Server</title></info>
-    
+
 
     <section xml:id="zend.rest.server.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Rest_Server</classname> ist ein komplett-feature REST Server.
@@ -11,10 +11,10 @@
     </section>
 
     <section xml:id="zend.rest.server.usage"><info><title>Verwenden des REST Servers</title></info>
-        
+
 
         <example xml:id="zend.rest.server.usage.example-1"><info><title>Grundsätzliche Verwendung von Zend_Rest_Server: Klassen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $server = new Zend_Rest_Server();
@@ -24,7 +24,7 @@ $server->handle();
         </example>
 
         <example xml:id="zend.rest.server.usage.example-2"><info><title>Grundsätzliche Verwendung von Zend_Rest_Server: Funktionen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**
@@ -47,7 +47,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.args"><info><title>Aufruf eines Zend_Rest_Server Services</title></info>
-        
+
 
         <para>
             Um ein <classname>Zend_Rest_Server</classname> Service aufzurufen, muß ein
@@ -59,7 +59,7 @@ $server->handle();
         </para>
 
         <note><info><title>Nummerischer Index</title></info>
-            
+
 
             <para>
                 Nummerische Argumente verwenden einen 1-basierenden Index.
@@ -84,7 +84,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.customstatus"><info><title>Senden eines eigenen Status</title></info>
-        
+
 
         <para>
             Wenn Werte zurückgegeben werden, kann man, um einen eigenen Status zurückzugeben, ein
@@ -92,7 +92,7 @@ $server->handle();
         </para>
 
         <example xml:id="zend.rest.server.customstatus.example-1"><info><title>Einen eigenen Status zurückgeben</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**
@@ -115,7 +115,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.customxml"><info><title>Eigene XML Antworten zurückgeben</title></info>
-        
+
 
         <para>
             Wenn man eigenes <acronym>XML</acronym> zurückgeben will, kann einfach ein
@@ -124,7 +124,7 @@ $server->handle();
         </para>
 
         <example xml:id="zend.rest.server.customxml.example-1"><info><title>Eigenes XML zurückgeben</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**

@@ -894,7 +894,7 @@ $outputCache = PatternFactory::factory('output', array(
 // output and return true, else false.
 if ($outputCache->start('MyUniqueKey') === false) {
     echo 'cache output since: ' . date('H:i:s') . "<br />\n";
-    
+
     // end capturing output, write content to cache storage and display
     // captured content
     $outputCache->end();
@@ -906,22 +906,22 @@ echo 'This output is never cached.';
 
         <example xml:id="zend.cache.pattern.examples.capture">
             <info><title>Using the capture cache pattern</title></info>
-            
+
             <para>
                 You need to configure your HTTP server to redirect missing content to run your
                 script generating it.
             </para>
-            
+
             <para>
                 This example uses Apache with the following .htaccess:
             </para>
-            
+
             <programlisting language="plain"><![CDATA[
 ErrorDocument 404 /index.php
 ]]></programlisting>
-            
+
             <para>Within your index.php you can add the following content:</para>
-            
+
             <programlisting language="php"><![CDATA[
 use Zend\Cache\PatternFactory;
 

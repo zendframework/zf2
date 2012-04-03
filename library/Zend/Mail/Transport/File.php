@@ -21,8 +21,8 @@
 
 namespace Zend\Mail\Transport;
 
-use Zend\Mail\Message,
-    Zend\Mail\Transport;
+use Zend\Mail\Message;
+use Zend\Mail\Transport;
 
 /**
  * File transport
@@ -44,7 +44,7 @@ class File implements Transport
 
     /**
      * Last file written to
-     * 
+     *
      * @var string
      */
     protected $lastFile;
@@ -100,7 +100,7 @@ class File implements Transport
 
     /**
      * Get the name of the last file written to
-     * 
+     *
      * @return null|string
      */
     public function getLastFile()

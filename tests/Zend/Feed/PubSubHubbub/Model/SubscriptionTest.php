@@ -44,9 +44,9 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
 
         $adapter = $this->initDb();
         $table = new TableGateway('subscription', $adapter);
-        
+
         $subscription = new Subscription($table);
-        
+
         $id = uniqid();
         $this->assertFalse($subscription->hasSubscription($id));
         $this->assertFalse($subscription->getSubscription($id));
@@ -82,7 +82,7 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
         }
         $db = new DbAdapter(array('driver' => 'pdo_sqlite', 'dsn' => 'sqlite::memory:'));
         $this->createTable($db);
-        
+
         return $db;
     }
 

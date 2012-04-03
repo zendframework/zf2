@@ -199,8 +199,8 @@ interface Dispatcher
 
     /**
      * Set helper broker
-     * 
-     * @param  Broker $broker 
+     *
+     * @param  Broker $broker
      * @return Dispatches
      */
     public function setHelperBroker(Broker $broker = null);

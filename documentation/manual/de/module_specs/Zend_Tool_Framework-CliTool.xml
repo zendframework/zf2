@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.clitool"><info><title>Verwenden des CLI Tools</title></info>
-    
+
 
     <para>
         Das <acronym>CLI</acronym>, oder Kommandozeilen Tool (Intern als Consolen Tool bekannt),
@@ -12,7 +12,7 @@
     </para>
 
     <section xml:id="zend.tool.framework.clitool.setup-general"><info><title>Vorbereiten des CLI Tools</title></info>
-        
+
 
         <para>
             Um werkmäßige Anfragen über den Kommandozeilen Client zu erstellen, muß man zuerst den
@@ -68,7 +68,7 @@
     </section>
 
     <section xml:id="zend.tool.framework.clitool.setup-starnix"><info><title>Das CLI Tool in Unix-artigen Systemen vorbereiten</title></info>
-        
+
 
         <para>
             Das übliche Setup in einer *nix Umgebung, besteht darin <filename>zf.sh</filename> und
@@ -154,7 +154,7 @@ ln -s /home/username/lib/ZendFramework/bin/zf.sh /home/username/bin/zf
     </section>
 
     <section xml:id="zend.tool.framework.clitool.setup-windows"><info><title>Das CLI Tool in Windows vorbereiten</title></info>
-        
+
 
         <para>
             Das üblichste Setup in einer Windows Win32 Umgebung besteht darin,
@@ -223,7 +223,7 @@ C:\WAMP\PHP\bin
     </section>
 
     <section xml:id="zend.tool.framework.clitool.setup-othernotes"><info><title>Andere Überlegungen für ein Setup</title></info>
-        
+
 
         <para>
             Wenn man aus bestimmten Gründen die Zend Framework Bibliothek nicht im
@@ -247,7 +247,7 @@ C:\WAMP\PHP\bin
     </section>
 
     <section xml:id="zend.tool.framework.clitool.continuing"><info><title>Wohin als nächstes?</title></info>
-        
+
 
         <para>
             An diesem Punkt sollte man dafür gerüstet sein einige "interessantere" Kommandos

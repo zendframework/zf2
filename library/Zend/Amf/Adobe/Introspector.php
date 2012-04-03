@@ -20,12 +20,12 @@
 
 namespace Zend\Amf\Adobe;
 
-use Zend\Amf\Exception,
-    Zend\Code\Reflection\ClassReflection,
-    Zend\Code\Reflection\PropertyReflection,
-    Zend\Server\Reflection,
-    Zend\Server\Reflection\ReflectionClass as ServerReflectionClass,
-    SplFileInfo;
+use Zend\Amf\Exception;
+use Zend\Code\Reflection\ClassReflection;
+use Zend\Code\Reflection\PropertyReflection;
+use Zend\Server\Reflection;
+use Zend\Server\Reflection\ReflectionClass as ServerReflectionClass;
+use SplFileInfo;
 
 /**
  * This class implements a service for generating AMF service descriptions as XML.
@@ -317,8 +317,8 @@ class Introspector
 
     /**
      * Load a service class from the service path
-     * 
-     * @param  string $class 
+     *
+     * @param  string $class
      * @return bool
      */
     protected function _loadClass($class)

@@ -21,11 +21,11 @@
 
 namespace Zend\View\Resolver;
 
-use SplFileInfo,
-    Zend\Stdlib\SplStack,
-    Zend\View\Exception,
-    Zend\View\Renderer,
-    Zend\View\Resolver;
+use SplFileInfo;
+use Zend\Stdlib\SplStack;
+use Zend\View\Exception;
+use Zend\View\Renderer;
+use Zend\View\Resolver;
 
 /**
  * Resolves view scripts based on a stack of paths
@@ -45,7 +45,7 @@ class TemplatePathStack implements Resolver
      * Default suffix to use
      *
      * Appends this suffix if the template requested does not use it.
-     * 
+     *
      * @var string
      */
     protected $defaultSuffix = 'phtml';
@@ -57,7 +57,7 @@ class TemplatePathStack implements Resolver
 
     /**
      * Reason for last lookup failure
-     * 
+     *
      * @var false|string
      */
     protected $lastLookupFailure = false;
@@ -142,7 +142,7 @@ class TemplatePathStack implements Resolver
         $this->defaultSuffix = ltrim($this->defaultSuffix, '.');
         return $this;
     }
-    
+
     /**
      * Get default file suffix
      *
@@ -329,7 +329,7 @@ class TemplatePathStack implements Resolver
                     if (!file_exists($filePath)) {
                         break;
                     }
-                } 
+                }
                 if ($this->useStreamWrapper()) {
                     // If using a stream wrapper, prepend the spec to the path
                     $filePath = 'zend.view://' . $filePath;
@@ -344,7 +344,7 @@ class TemplatePathStack implements Resolver
 
     /**
      * Get the last lookup failure message, if any
-     * 
+     *
      * @return false|string
      */
     public function getLastLookupFailure()

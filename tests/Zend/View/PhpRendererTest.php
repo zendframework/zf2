@@ -21,12 +21,12 @@
 
 namespace ZendTest\View;
 
-use Zend\View\Renderer\PhpRenderer,
-    Zend\View\Model\ViewModel,
-    Zend\View\Resolver\TemplateMapResolver,
-    Zend\View\Resolver\TemplatePathStack,
-    Zend\View\Variables,
-    Zend\Filter\FilterChain;
+use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Model\ViewModel;
+use Zend\View\Resolver\TemplateMapResolver;
+use Zend\View\Resolver\TemplatePathStack;
+use Zend\View\Variables;
+use Zend\Filter\FilterChain;
 
 /**
  * @category   Zend
@@ -182,14 +182,14 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
             $this->assertContains("<li>$value</li>", $content);
         }
     }
-    
+
     /**
      * @group ZF2-68
      */
     public function testCanSpecifyArrayForVarsAndGetAlwaysArrayObject()
     {
         $vars = array('foo' => 'bar');
-        $this->renderer->setVars($vars);       
+        $this->renderer->setVars($vars);
         $this->assertTrue($this->renderer->vars() instanceof Variables);
     }
 
@@ -265,7 +265,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('testLocalVars.phtml');
         $this->assertContains($expected, $test);
-    }    
+    }
 
     public function testRendersTemplatesInAStack()
     {

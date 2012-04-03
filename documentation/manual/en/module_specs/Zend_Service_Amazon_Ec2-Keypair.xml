@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2.keypairs"><info><title>Zend_Service_Amazon_Ec2: Keypairs</title></info>
-    
+
 
     <para>
         Keypairs are used to access instances.
     </para>
 
     <example xml:id="zend.service.amazon.ec2.keypairs.create"><info><title>Creating a new Amazon Keypair</title></info>
-        
+
 
         <para>
             <code>create</code>, creates a new 2048 bit RSA key pair and
@@ -27,7 +27,7 @@ $return = $ec2_kp->create('my-new-key');
     </example>
 
     <example xml:id="zend.service.amazon.ec2.keypairs.delete"><info><title>Deleting an Amazon Keypair</title></info>
-        
+
 
         <para>
             <code>delete</code>, will delete the key pair. This will only
@@ -47,7 +47,7 @@ $return = $ec2_kp->delete('my-new-key');
     </example>
 
     <example xml:id="zend.service.amazon.ec2.describe"><info><title>Describe an Amazon Keypair</title></info>
-        
+
 
         <para>
             <code>describe</code> returns information about key pairs available to you.

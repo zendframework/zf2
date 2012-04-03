@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.i18n"><info><title>Internationaliser un formulaire Zend_Form</title></info>
-    
+
 
     <para>
         De plus en plus de développeurs ont besoin de fournir des applications multilingues.
@@ -17,7 +17,7 @@
     </para>
 
     <note><info><title>L'i18n peut être désactivée par objet</title></info>
-        
+
 
         <para>
             Vous pouvez désactiver la traduction pour tout formulaire, élément, groupe
@@ -29,7 +29,7 @@
     </note>
 
     <section xml:id="zend.form.i18n.initialization"><info><title>Initialiser l'i18n dans les formulaires</title></info>
-        
+
 
         <para>
             Pour activer les traductions dans vos formulaires, vous avez besoin soit d'un
@@ -114,7 +114,7 @@ $element->setTranslator($translate);
     </section>
 
     <section xml:id="zend.form.i18n.standard"><info><title>Cibles gérées par l'I18n</title></info>
-        
+
 
         <para>
             Maintenant que vous avez attaché un objet de traduction, que pouvez vous faire

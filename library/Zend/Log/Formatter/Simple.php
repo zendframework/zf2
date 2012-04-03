@@ -21,8 +21,8 @@
 
 namespace Zend\Log\Formatter;
 
-use Zend\Log\Formatter,
-    Zend\Config\Config;
+use Zend\Log\Formatter;
+use Zend\Config\Config;
 
 /**
  * @uses       \Zend\Log\Exception\InvalidArgumentException

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.hostname"><info><title>Hostname (Nombre de Host)</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Validate_Hostname</classname> le permite validar un

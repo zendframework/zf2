@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.creation"><info><title>Erstellen von Datumswerten</title></info>
-    
+
 
     <para>
         <classname>Zend_Date</classname> unterstützt viele verschiedene Wege, um eine neue Instanz
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.date.creation.actual"><info><title>Erstellen des aktuellen Datums</title></info>
-        
+
 
         <para>
             Der einfachste Weg der Erstellung eines Datumsobjektes ist es, ein aktuelles Datum zu
@@ -21,7 +21,7 @@
         </para>
 
         <example xml:id="zend.date.creation.actual.example-1"><info><title>Datum durch Instanz erstellen</title></info>
-            
+
 
             <para>
                 Datumserstellung durch Erzeugen einer neuen Instanz bedeutet, dass man keinen
@@ -36,7 +36,7 @@ $date = new Zend_Date();
         </example>
 
         <example xml:id="zend.date.creation.actual.example-2"><info><title>Statische Erstellung eines Datums</title></info>
-            
+
 
             <para>
                 Machmal ist es einfacher, eine statische Methode für die Erstellung eines Datums zu
@@ -55,7 +55,7 @@ $date = Zend_Date::now();
     </section>
 
     <section xml:id="zend.date.creation.database"><info><title>Erstellen von Datumswerten von einer Datenbank</title></info>
-        
+
 
         <para>
             Datenbanken werden oft verwendet, um Datumswerte zu speichern. Das Problem ist dabei,
@@ -81,7 +81,7 @@ $date = Zend_Date::now();
         </para>
 
         <example xml:id="zend.date.creation.database.example-1"><info><title>Schnelle Erstellung eines Datums von Datumswerten einer Datenbank</title></info>
-            
+
 
             <para>
                 Von allen Datenbanken ist bekannt, dass Abfragen so schnell wie möglich bearbeitet
@@ -100,7 +100,7 @@ $date = new Zend_Date($unixtimestamp, Zend_Date::TIMESTAMP);
         </example>
 
         <example xml:id="zend.date.creation.database.example-2"><info><title>Bequeme Erstellung eines Datums von Datumswerten einer Datenbank</title></info>
-            
+
 
             <para>
                 Die Standardausgabe von allen Datenbanken ist leicht unterschiedlich, selbst wenn
@@ -125,7 +125,7 @@ $date = new Zend_Date($datecolumn, Zend_Date::ISO_8601);
     </section>
 
     <section xml:id="zend.date.creation.array"><info><title>Erstellung eines Datums von einem Array</title></info>
-        
+
 
         <para>
             Datumswerte können auch durch die Verwendung eines Arrays erstellt werden. Das ist ein
@@ -146,7 +146,7 @@ $date = new Zend_Date($datecolumn, Zend_Date::ISO_8601);
         </itemizedlist>
 
         <example xml:id="zend.date.creation.array.example"><info><title>Erstellen eines Datums durch ein Array</title></info>
-            
+
 
             <para>
                 Normalerweise wird ein komplettes Datumsarray für die Erstellung einer neuen Instanz

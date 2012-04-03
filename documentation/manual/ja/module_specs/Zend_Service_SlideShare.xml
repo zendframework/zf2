@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.slideshare"><info><title>Zend_Service_SlideShare</title></info>
-    
+
 
     <para>
         <classname>Zend_Service_SlideShare</classname> コンポーネントは、
@@ -14,7 +14,7 @@
 
     <section xml:id="zend.service.slideshare.basicusage"><info><title>Zend_Service_SlideShare の使い方</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Service_SlideShare</classname> コンポーネントを使うには、まず
@@ -42,7 +42,7 @@ $ss = new Zend_Service_SlideShare('APIKEY',
 
     <section xml:id="zend.service.slideshare.slideshowobj"><info><title>SlideShow オブジェクト</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Service_SlideShare</classname> コンポーネントのすべてのスライドショーは
@@ -207,7 +207,7 @@ class Zend_Service_SlideShare_SlideShow {
 
     <section xml:id="zend.service.slideshare.getslideshow"><info><title>単一のスライドショーの取得</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Service_SlideShare</classname> コンポーネントのもっともシンプルな使用法は、
@@ -235,7 +235,7 @@ print "閲覧回数: {$slideshow->getNumViews()}<br/>\n";
 
     <section xml:id="zend.service.slideshare.getslideshowlist"><info><title>スライドショーのグループの取得</title></info>
 
-        
+
 
         <para>
             取得したいスライドショーの ID がわからない場合は、
@@ -310,7 +310,7 @@ foreach($ss_user as $slideshow) {
 
     <section xml:id="zend.service.slideshare.caching"><info><title>Zend_Service_SlideShare のキャッシュ処理のポリシー</title></info>
 
-        
+
 
         <para>
             デフォルトでは、<classname>Zend_Service_SlideShare</classname>
@@ -346,7 +346,7 @@ $ss_user = $ss->getSlideShowsByUser('username', $starting_offset, $limit);
 
     <section xml:id="zend.service.slideshare.httpclient"><info><title>HTTP クライアントの振る舞いの変更</title></info>
 
-        
+
 
         <para>
             何らかの理由でウェブサービスにリクエストを送る

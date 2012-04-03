@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.quickstart"><info><title>Zend_Form démarrage rapide</title></info>
-    
+
 
     <para>
         Ce guide rapide couvre les bases de la création, de la validation, et du rendu des
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.form.quickstart.create"><info><title>Créer un objet de formulaire</title></info>
-        
+
 
         <para>Instanciez simplement un objet <classname>Zend_Form</classname> :</para>
 
@@ -50,7 +50,7 @@ $form->setAttrib('id', 'login');
     </section>
 
     <section xml:id="zend.form.quickstart.elements"><info><title>Ajouter des éléments au formulaire</title></info>
-        
+
 
         <para>
             Un formulaire ne sert à rien sans éléments. Le composant
@@ -232,7 +232,7 @@ $form->addElement('text', 'username', array(
     </section>
 
     <section xml:id="zend.form.quickstart.render"><info><title>Rendre (visuellement) un formulaire</title></info>
-        
+
 
         <para>
             Rendre un formulaire est très simple. La plupart des éléments nécessitent les
@@ -332,7 +332,7 @@ $form->addElement('text', 'username', array('order' => 10));
     </section>
 
     <section xml:id="zend.form.quickstart.validate"><info><title>Vérifier qu'un formulaire est valide</title></info>
-        
+
 
         <para>
             Après l'envoi du formulaire, il faut vérifier les valeurs que contiennent ses
@@ -402,7 +402,7 @@ $values = $form->getValidValues($_POST);
     </section>
 
     <section xml:id="zend.form.quickstart.errorstatus"><info><title>Les statuts d'erreur</title></info>
-        
+
 
         <para>
             Votre formulaire a échoué à l'envoi ? Dans la plupart des cas, vous voudrez rendre
@@ -430,7 +430,7 @@ if (!$form->isValid($_POST)) {
     </section>
 
     <section xml:id="zend.form.quickstart.puttingtogether"><info><title>Assembler le tout ensemble</title></info>
-        
+
 
         <para>
             Créons un formulaire de d'authentification. Il aura besoin d'élément représentant :
@@ -538,7 +538,7 @@ class UserController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.form.quickstart.config"><info><title>Utiliser un objet <classname>Zend_Config</classname></title></info>
-        
+
 
         <para>
             Toutes les classes du composant <classname>Zend_Form</classname> sont
@@ -590,7 +590,7 @@ $form   = new Zend_Form($config->user->login);
     </section>
 
     <section xml:id="zend.form.quickstart.conclusion"><info><title>Conclusion</title></info>
-        
+
 
         <para>
             Vous êtes maintenant capable de libérer la puissance de

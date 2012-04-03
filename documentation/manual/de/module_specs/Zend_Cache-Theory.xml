@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.theory"><info><title>Die Theorie des Cachens</title></info>
-    
+
 
     <para>
         Es gibt 3 Schlüsselkonzepte in <classname>Zend_Cache</classname>. Eines ist die eindeutige
@@ -39,7 +39,7 @@
     </note>
 
     <section xml:id="zend.cache.factory"><info><title>Die Zend_Cache Factory Methode</title></info>
-        
+
 
         <para>
             Ein guter Weg, um eine verwendbare Instanz eines <classname>Zend_Cache</classname>
@@ -83,7 +83,7 @@ $cache = Zend_Cache::factory($frontendName,
     </section>
 
     <section xml:id="zend.cache.tags"><info><title>Markierte Datensätze</title></info>
-        
+
 
         <para>
             Markierungen sind ein Weg um Cache Datensätze zu kategorisieren. Wenn der Cache mit der
@@ -108,7 +108,7 @@ $cache->save($huge_data, 'myUniqueID', array('tagA', 'tagB', 'tagC'));
     </section>
 
     <section xml:id="zend.cache.clean"><info><title>Löschen des Caches</title></info>
-        
+
 
         <para>
             Um eine bestimmte Cache ID zu entfernen oder annullieren, kann die

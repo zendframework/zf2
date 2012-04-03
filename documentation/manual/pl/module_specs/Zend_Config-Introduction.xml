@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.introduction"><info><title>Wprowadzenie</title></info>
-    
+
     <para>
         Klasa <code>Zend_Config</code> została stworzona aby uprościć użycie
         danych konfiguracyjnych w aplikacjach. Dostarcza ona interfejs bazujący
@@ -14,7 +14,7 @@
 
     </para>
     <example xml:id="zend.config.introduction.example.using"><info><title>Użycie Zend_Config</title></info>
-        
+
         <para>
             Normalnie jest tak, że użytkownicy użyliby jednej z klas adaptera,
             takiej jak <link linkend="zend.config.adapters.ini"><code>Zend_Config_Ini</code></link>
@@ -70,7 +70,7 @@ $host = $config->database->get('host', 'localhost');
 
     ]]></programlisting>
     <example xml:id="zend.config.introduction.example.file.php"><info><title>Użycie Zend_Config z plikiem konfiguracyjnym PHP</title></info>
-        
+
         <para>
             Często wskazane może być użycie do konfiguracji zwykłego pliku PHP.
             Poniższy kod pokazuje w jak łatwy sposób można to zrobić:

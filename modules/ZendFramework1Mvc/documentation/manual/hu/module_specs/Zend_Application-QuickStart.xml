@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.quick-start"><info><title>Gyorstalpaló</title></info>
-    
+
 
     <para>
         Két útja van a <classname>Zend_Application</classname> használatba
@@ -18,7 +18,7 @@
     </para>
 
     <section xml:id="zend.application.quick-start.zend-tool"><info><title>A Zend_Tool használata</title></info>
-        
+
 
         <para>
             A <classname>Zend_Application</classname> használatba vételének
@@ -158,7 +158,7 @@ $application->bootstrap()
     </section>
 
     <section xml:id="zend.application.quick-start.manual"><info><title>Hozzáadás az alkalmazáshoz</title></info>
-        
+
 
         <para>
             A <classname>Zend_Application</classname> alapjai meglehetősen
@@ -279,13 +279,13 @@ RewriteRule ^.*$ index.php [NC,L]
 ]]></programlisting>
 
         <note><info><title>A mod_rewrite-ról</title></info>
-            
+
 
             <para>
                 A fenti átíró szabályok a virtuális kiszolgáló dokumentum
                 gyökére alatti minden állományt elérhetővé tesznek. Ha
                 ez nem kívánatos, a szabályok szigoríthatók. Továbbiakért lásd
-                az Apache weblapjának 
+                az Apache weblapjának
                 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://httpd.apache.org/docs/2.0/mod/mod_rewrite.html">mod_rewrite fejezetét</link>.
             </para>
         </note>
@@ -297,7 +297,7 @@ RewriteRule ^.*$ index.php [NC,L]
     </section>
 
     <section xml:id="zend.application.quick-start.resources"><info><title>Erőforrások hozzáadása és létrehozása</title></info>
-        
+
 
         <para>
             A fentieket követve rendszertöltő osztály igénybe vesz, és
@@ -410,8 +410,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="zend.application.quick-start.next-steps"><info><title>Hogyan tovább</title></info>
-        
-        
+
+
         <para>
             A fentiek már elegendők kiindulásnak. A továbblépéshez hozzunk létre
             erőforrás-tagfüggvényeket, vagy – a teljes újrahasználhatóság

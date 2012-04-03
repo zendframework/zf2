@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.quickstart"><info><title>Zend_Layout Snelle Start</title></info>
-    
+
 
     <para>
         Er zijn twee belangrijke gebruiksomgevingen voor <code>Zend_Layout</code>:
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.layout.quickstart.layouts"><info><title>Layout scripts</title></info>
-        
+
 
         <para>
             In beide gevallen heb je een layout script nodig.
@@ -85,7 +85,7 @@
     </section>
 
     <section xml:id="zend.layout.quickstart.mvc"><info><title>Zend_Layout met Zend Framework MVC-componenten</title></info>
-        
+
 
         <para>
             <code>Zend_Controller</code> biedt een uitgebreide set aan
@@ -214,7 +214,7 @@ $layout = Zend_Layout::getMvcInstance();
     </section>
 
     <section xml:id="zend.layout.quickstart.standalone"><info><title>Zend_Layout als standalone component</title></info>
-        
+
 
         <para>
             Zonder de Zend Framework MVC-context is Zend_Layout niet half zo
@@ -261,7 +261,7 @@ echo $layout->render();
     </section>
 
     <section xml:id="zend.layout.quickstart.example"><info><title>Voorbeeld</title></info>
-        
+
 
         <para>
             Soms zegt een plaatje meer dan duizend woorden. Vandaar de volgende

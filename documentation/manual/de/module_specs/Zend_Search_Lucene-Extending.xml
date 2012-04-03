@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.extending"><info><title>Erweiterbarkeit</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.extending.analysis"><info><title>Textanalyse</title></info>
-        
+
 
         <para>
             Die <classname>Zend_Search_Lucene_Analysis_Analyzer</classname> Klasse wird vom Indexer
@@ -57,7 +57,7 @@ $index->addDocument($doc);
             Begriffe akzeptiert:
 
             <example xml:id="zend.search.lucene.extending.analysis.example-1"><info><title>Eigener Textanalysator</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 /**
@@ -136,7 +136,7 @@ Zend_Search_Lucene_Analysis_Analyzer::setDefault(
     </section>
 
     <section xml:id="zend.search.lucene.extending.filters"><info><title>Filtern von Tokens</title></info>
-        
+
 
         <para>
             Der <classname>Zend_Search_Lucene_Analysis_Analyzer_Common</classname> Analisator bietet
@@ -242,7 +242,7 @@ Zend_Search_Lucene_Analysis_Analyzer::setDefault($analyzer);
     </section>
 
     <section xml:id="zend.search.lucene.extending.scoring"><info><title>Algorithmen für Punktwertermittlung</title></info>
-        
+
 
         <para>
             Der Punktwert einer Abfrage <literal>q</literal> für das Dokument <literal>d</literal>
@@ -354,7 +354,7 @@ Zend_Search_Lucene_Search_Similarity::setDefault($mySimilarity);
     </section>
 
     <section xml:id="zend.search.lucene.extending.storage"><info><title>Storage Container</title></info>
-        
+
 
         <para>
             Die abstrakte Klasse <classname>Zend_Search_Lucene_Storage_Directory</classname>

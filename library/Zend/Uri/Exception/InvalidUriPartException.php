@@ -2,13 +2,13 @@
 
 namespace Zend\Uri\Exception;
 
-class InvalidUriPartException 
+class InvalidUriPartException
     extends \InvalidArgumentException
     implements \Zend\Uri\Exception
 {
     /**
      * Part-specific error codes
-     * 
+     *
      * @var integer
      */
     const INVALID_SCHEME    = 1;
@@ -20,5 +20,5 @@ class InvalidUriPartException
     const INVALID_AUTHORITY = 30;
     const INVALID_PATH      = 32;
     const INVALID_QUERY     = 64;
-    const INVALID_FRAGMENT  = 128;  
+    const INVALID_FRAGMENT  = 128;
 }

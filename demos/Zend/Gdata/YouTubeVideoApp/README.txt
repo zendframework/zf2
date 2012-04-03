@@ -24,10 +24,10 @@ Please be sure to obtain a Developer Key from YouTube prior to using
 this application by visiting this site:
 
 http://code.google.com/apis/youtube/dashboard/
-        
+
 More information on the YouTube Data API and Tools is available here:
-        
-http://code.google.com/apis/youtube 
+
+http://code.google.com/apis/youtube
 
 For a video explaining the basics of how this application works, please
 visit this link:

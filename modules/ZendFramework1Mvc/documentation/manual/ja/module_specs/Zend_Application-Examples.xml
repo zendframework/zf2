@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.examples"><info><title>例</title></info>
-    
+
 
     <para>
         ブートストラップ・クラスそのものは、一般的にかなりごく小さいものです;
@@ -31,7 +31,7 @@ resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
 ]]></programlisting>
 
     <note><info><title>Autoloader namespaces</title></info>
-        
+
 
         <para>
             Because these examples use custom code, we need to register the namespace prefixes for

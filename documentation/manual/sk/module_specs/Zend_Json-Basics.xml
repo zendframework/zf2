@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.basics"><info><title>Základné použtie</title></info>
-    
+
     <para>
         Používanie <code>Zend_Json</code> vyžaduje použitie týchto dvoch metód:
         <code>Zend_Json::encode()</code> a <code>Zend_Json::decode()</code>.

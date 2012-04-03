@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.api"><info><title>API概要</title></info>
-    
+
 
     <section xml:id="zend.ldap.api.configuration"><info><title>設定／オプション</title></info>
-        
+
 
         <para>
             <classname>Zend_Ldap</classname>コンポーネント用のオプション配列は、
@@ -14,7 +14,7 @@
         </para>
 
         <table xml:id="zend.ldap.api.configuration.table"><info><title>Zend_Ldapオプション</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -207,7 +207,7 @@
     </section>
 
     <section xml:id="zend.ldap.api.reference"><info><title>APIリファレンス</title></info>
-        
+
 
         <note>
             <para><emphasis>斜体</emphasis>のメソッド名は static メソッドです。</para>

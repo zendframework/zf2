@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.quickstart"><info><title>Szybki start z Zend_Form</title></info>
-    
+
 
     <para>
         Ten przewodnik opisuje podstawy tworzenia, weryfikacji oraz
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.form.quickstart.create"><info><title>Tworzenie obiektu formularza</title></info>
-        
+
 
         <para>
             Tworzenie obiektu formularza jest bardzo proste: należy, po prostu, utworzyć
@@ -59,7 +59,7 @@ $form->setAttrib('id', 'login');
     </section>
 
     <section xml:id="zend.form.quickstart.elements"><info><title>Dodawanie elementów do formularza</title></info>
-        
+
 
         <para>
             Formularz jest bezużyteczny jeśli nie posiada elementów.
@@ -165,7 +165,7 @@ $username->addValidator('alnum');
 
         <para>
             Dla drugiego sposobu, można przekazać w trzecim parametrze metody
-            tablicę z argumentami konstruktora wybranego walidatora. 
+            tablicę z argumentami konstruktora wybranego walidatora.
         </para>
 
         <programlisting language="php"><![CDATA[
@@ -260,7 +260,7 @@ $form->addElement('text', 'username', array(
     </section>
 
     <section xml:id="zend.form.quickstart.render"><info><title>Renderowanie formularza</title></info>
-        
+
 
         <para>
             Renderowanie formularza jest proste. Większość elementów używa do
@@ -371,7 +371,7 @@ $form->addElement('text', 'username', array('order' => 10));
     </section>
 
     <section xml:id="zend.form.quickstart.validate"><info><title>Sprawdzanie poprawności formularza</title></info>
-        
+
 
         <para>
             Po tym jak formularz zostanie wysłany, należy sprawdzić czy pomyślnie
@@ -440,7 +440,7 @@ $unfiltered = $form->getUnfilteredValues();
     </section>
 
     <section xml:id="zend.form.quickstart.errorstatus"><info><title>Pobieranie informacji o błędach</title></info>
-        
+
 
         <para>
             Formularz nie przeszedł weryfikacji? W większości przypadków
@@ -472,7 +472,7 @@ if (!$form->isValid($_POST)) {
     </section>
 
     <section xml:id="zend.form.quickstart.puttingtogether"><info><title>Złożenie w całość</title></info>
-        
+
 
         <para>
             Teraz można przystąpić do budowy prostego formularza logowania.
@@ -579,7 +579,7 @@ class UserController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.form.quickstart.config"><info><title>Użycie obiektu Zend_Config</title></info>
-        
+
 
         <para>
             Wszystkie klasy <classname>Zend_Form</classname> można skonfigurować za pomocą
@@ -636,7 +636,7 @@ $form   = new Zend_Form($config->user->login);
     </section>
 
     <section xml:id="zend.form.quickstart.conclusion"><info><title>Podsumowanie</title></info>
-        
+
 
         <para>
             Dzięki temu przewodnikowi czytelnik powinien być na dobrej drodze do wykorzystania mocy

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.oauth.introduction.protocol-workflow"><info><title>Workflow des Protokolls</title></info>
-    
+
 
     <para>
         Bevor OAuth implementiert wird macht es Sinn zu verstehen wie das Protokoll arbeitet.

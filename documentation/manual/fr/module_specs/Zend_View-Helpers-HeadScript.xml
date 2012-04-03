@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headscript"><info><title>L'aide de vue HeadScript</title></info>
-    
+
 
     <para>
         L'élément HTML <code>&lt;script&gt;</code> est utilisé pour à la fois pour fournir des
@@ -78,7 +78,7 @@
     </para>
 
     <note><info><title>Paramétrez des commentaires conditionnels</title></info>
-        
+
 
         <para>
             <code>HeadScript</code> vous permet d'englober vos balises de script avec des
@@ -89,7 +89,7 @@
         </para>
 
         <example xml:id="zend.view.helpers.initial.headscript.conditional"><info><title>Headscript avec des commentaires conditionnels</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // adding scripts
@@ -130,7 +130,7 @@ $this->headScript()->appendFile('/js/prototype.js',
     </para>
 
     <note><info><title>Utilisez InlineScript pour les scripts dans le corps ("body") du HTML</title></info>
-        
+
 
         <para>
             L'aide de vue, <link linkend="zend.view.helpers.initial.inlinescript">InlineScript</link>, similaire à
@@ -142,7 +142,7 @@ $this->headScript()->appendFile('/js/prototype.js',
     </note>
 
     <note><info><title>Les attributs arbitraires sont désactivées par défaut</title></info>
-        
+
 
         <para>
             Par défaut, <code>HeadScript</code> affichera seulement les attributs de
@@ -159,7 +159,7 @@ $this->headScript()->setAllowArbitraryAttributes(true);
     </note>
 
     <example xml:id="zend.view.helpers.initial.headscript.basicusage"><info><title>Utilisation basique de l'aide HeadScript</title></info>
-        
+
 
         <para>
             Vous devriez ajouter une nouvelle balise de script à chaque fois. Comme noté
@@ -208,7 +208,7 @@ $this->headScript()->prependFile('/js/prototype.js');
     </example>
 
     <example xml:id="zend.view.helpers.initial.headscript.capture"><info><title>Capturer les scripts en utilisant l'aide HeadScript</title></info>
-        
+
 
         <para>
             Parfois vous devez générer des scripts côté-client par programme. Même si vous

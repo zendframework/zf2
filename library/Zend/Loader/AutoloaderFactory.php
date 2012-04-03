@@ -200,7 +200,7 @@ abstract class AutoloaderFactory
         if (null !== static::$standardAutoloader) {
             return static::$standardAutoloader;
         }
-        
+
         // Extract the filename from the classname
         $stdAutoloader = substr(strrchr(static::STANDARD_AUTOLOADER, '\\'), 1);
 

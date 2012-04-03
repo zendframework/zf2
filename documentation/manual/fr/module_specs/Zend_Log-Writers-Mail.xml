@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.writers.mail"><info><title>Écrire vers un courriel</title></info>
-    
+
 
     <para>
         <classname>Zend_Log_Writer_Mail</classname> va écrire les entrées du log dans un message
@@ -57,7 +57,7 @@ $log->error('unable to connect to database');
     </para>
 
     <section xml:id="zend.log.writers.mail.layoutusage"><info><title>Utilisation avec Zend_Layout</title></info>
-        
+
 
         <para>
             Une instance de <classname>Zend_Layout</classname> peut être utilisée pour générer
@@ -108,7 +108,7 @@ $log->error('unable to connect to database');
     </section>
 
     <section xml:id="zend.log.writers.mail.dynamicsubjectline"><info><title>Ligne du sujet dynamique</title></info>
-        
+
 
         <para>
             La méthode <methodname>setSubjectPrependText()</methodname> est utilisée à la place de
@@ -123,7 +123,7 @@ $log->error('unable to connect to database');
     </section>
 
     <section xml:id="zend.log.writers.mail.caveats"><info><title>Attention</title></info>
-        
+
 
         <para>
             Envoyer des rapports d'erreurs par emails peut être dangereux.

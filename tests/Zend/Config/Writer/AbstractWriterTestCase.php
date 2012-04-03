@@ -38,22 +38,22 @@ abstract class AbstractWriterTestCase extends TestCase
      * @var Reader
      */
     protected $reader;
-    
+
     /**
      *
      * @var Writer
      */
     protected $writer;
-    
+
     /**
      *
      * @var string
      */
     protected $tmpfile;
-    
+
     /**
      * Get test asset name for current test case.
-     * 
+     *
      * @return string
      */
     protected function getTestAssetFileName()
@@ -63,12 +63,12 @@ abstract class AbstractWriterTestCase extends TestCase
         }
         return $this->tmpfile;
     }
-       
+
     public function tearDown()
     {
         @unlink($this->getTestAssetFileName());
     }
-    
+
     public function testNoFilenameSet()
     {
         $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'No file name specified');
@@ -80,7 +80,7 @@ abstract class AbstractWriterTestCase extends TestCase
         $this->setExpectedException('Zend\Config\Exception\RuntimeException');
         $this->writer->toFile('.', new Config(array()));
     }
-    
+
     public function testFileNotWritable()
     {
         $this->setExpectedException('Zend\Config\Exception\RuntimeException');

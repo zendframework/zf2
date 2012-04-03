@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.quickstart"><info><title>Szybki start z klasą Zend_Controller</title></info>
-    
+
 
     <section xml:id="zend.controller.quickstart.introduction"><info><title>Wprowadzenie</title></info>
-        
+
         <para>
             Klasa <code>Zend_Controller</code> jest sercem systemu MVC
             biblioteki Zend Framework. MVC oznacza <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://pl.wikipedia.org/wiki/Model-widok-kontroler">Model-Widok-Kontroler</link>
@@ -26,7 +26,7 @@
     </section>
 
     <section xml:id="zend.controller.quickstart.go"><info><title>Szybki start</title></info>
-        
+
 
         <para>
             If you need more in-depth information, see the following sections.
@@ -34,7 +34,7 @@
         </para>
 
         <section xml:id="zend.controller.quickstart.go.directory"><info><title>Utwórz strukturę katalogów</title></info>
-            
+
 
             <para>
                 Pierwszym krokiem jest utworzenie struktury katalogów. Typowa
@@ -61,7 +61,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.docroot"><info><title>Ustaw główną ścieżkę serwera</title></info>
-            
+
 
             <para>
                 W swoim serwerze www, ustaw główną ścieżkę serwera na katalog
@@ -71,7 +71,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.rewrite"><info><title>Ustaw reguły przepisania</title></info>
-            
+
 
             <para>
                 Zedytuj plik <code>html/.htaccess</code> aby wyglądał w taki
@@ -103,7 +103,7 @@ RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
         </section>
 
         <section xml:id="zend.controller.quickstart.go.bootstrap"><info><title>Utwórz plik ładujący</title></info>
-            
+
 
             <para>
                 Plik ładujący jest miejscem, przez którze przechodzą wszystkie
@@ -124,7 +124,7 @@ Zend_Controller_Front::run('/path/to/app/controllers');
         </section>
 
         <section xml:id="zend.controller.quickstart.go.controller"><info><title>Utwórz domyślny kontroler akcji</title></info>
-            
+
 
             <para>
                 Before discussing action controllers, you should first
@@ -200,7 +200,7 @@ class IndexController extends Zend_Controller_Action
         </section>
 
         <section xml:id="zend.controller.quickstart.go.view"><info><title>Utwórz własny skrypt widoku</title></info>
-            
+
 
             <para>
                 As mentioned <link linkend="zend.controller.quickstart.go.controller">in the
@@ -229,7 +229,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.errorhandler"><info><title>Utwórz kontroler błędu</title></info>
-            
+
 
             <para>
                 Domyślnie, <link linkend="zend.controller.plugins.standard.errorhandler">wtyczka
@@ -276,7 +276,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.finish"><info><title>Zobacz stronę!</title></info>
-            
+
 
             <para>
                 With your first controller and view under your belt, you can now

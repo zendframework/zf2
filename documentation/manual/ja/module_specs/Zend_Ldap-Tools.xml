@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.tools"><info><title>ツール</title></info>
-    
+
 
     <section xml:id="zend.ldap.tools.dn"><info><title>DN 文字列の作成及び変更</title></info>
-        
+
         <para/>
     </section>
 
     <section xml:id="zend.ldap.tools.filter"><info><title>検索フィルタを作成するためにフィルタAPIを使う</title></info>
-        
+
 
         <example><info><title>単純なLDAPフィルタの作成</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $f1  = Zend_Ldap_Filter::equals('name', 'value');         // (name=value)
 $f2  = Zend_Ldap_Filter::begins('name', 'value');         // (name=value*)
@@ -27,7 +27,7 @@ $f10 = Zend_Ldap_Filter::any('name');                     // (name=*)
         </example>
 
         <example><info><title>より複雑なLDAPフィルタの作成</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $f1 = Zend_Ldap_Filter::ends('name', 'value')->negate(); // (!(name=*value))
 
@@ -46,7 +46,7 @@ $f6 = Zend_Ldap_Filter::orFilter($f2, $f3, $f4);
     </section>
 
     <section xml:id="zend.ldap.tools.attribute"><info><title>属性APIを使用するLDAP項目の変更</title></info>
-        
+
         <para/>
     </section>
 </section>

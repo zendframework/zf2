@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.normalizedtolocalized"><info><title>NormalizedToLocalized</title></info>
 
-    
+
 
     <para>
         Ce filtre est l'inverse de
@@ -63,7 +63,7 @@
 
     <section xml:id="zend.filter.set.normalizedtolocalized.numbers"><info><title>Localisation des nombres</title></info>
 
-        
+
 
         <para>
             Tout type de nombre peut être localisé, à l'exception des nombres représentant une notation scientifique.
@@ -135,7 +135,7 @@ $filter->filter(123456.78901);
 
     <section xml:id="zend.filter.set.normalizedtolocalized.dates"><info><title>Localiser des dates et des temps</title></info>
 
-        
+
 
         <para>
             Les dates et les temps peuvent aussi être localisés. Des chaines de caractères sont alors retournées,

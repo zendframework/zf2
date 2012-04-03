@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.system-providers"><info><title>Shipped System Providers</title></info>
-    
+
 
     <para>
         In addition to the more useful project based providers that come shipped
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="zend.tool.framework.system-providers.version"><info><title>The Version Provider</title></info>
-        
+
 
         <para>
             The Version provider is included so that you may determine which
@@ -29,7 +29,7 @@
     </section>
 
     <section xml:id="zend.tool.framework.system-providers.manifest"><info><title>The Manifest Provider</title></info>
-        
+
 
         <para>
             The Manifest provider is included so that you may determine what

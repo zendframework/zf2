@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.navigation"><info><title>Zend_Application_Resource_Navigation</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Navigation</classname> can be used to configure
@@ -15,7 +15,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.navigation.configExample"><info><title>Sample Navigation resource configuration</title></info>
-        
+
 
         <para>
             Below is a sample <acronym>INI</acronym> snippet showing how to

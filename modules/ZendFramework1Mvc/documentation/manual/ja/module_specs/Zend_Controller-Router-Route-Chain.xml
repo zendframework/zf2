@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.chain"><info><title>Zend_Controller_Router_Route_Chain</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Router_Route_Chain</classname> は、
@@ -10,7 +10,7 @@
     </para>
 
     <note><info><title>パラメータ優先度</title></info>
-        
+
 
         <para>
             ルートを一緒にチェーンするとき、
@@ -66,7 +66,7 @@ echo $chainedRoute->assemble();
 ]]></programlisting>
 
     <section xml:id="zend.controller.router.routes.chain.config"><info><title>Zend_Configを介したルートのチェーン</title></info>
-        
+
 
         <para>
             構成ファイルでルートをチェーンするために、それらの構成のための付加パラメータがあります。

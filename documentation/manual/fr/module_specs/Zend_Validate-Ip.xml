@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.ip"><info><title>Ip</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Validate_Ip</classname> permet de déterminer si une adresse IP donnée
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.validate.set.ip.options"><info><title>Options supportées par Zend_Validate_Ip</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par
@@ -36,7 +36,7 @@
     </section>
 
     <section xml:id="zend.validate.set.ip.basic"><info><title>Utilisation classique</title></info>
-        
+
 
         <para>
             Voici un exemple banal:
@@ -52,7 +52,7 @@ if ($validator->isValid($ip)) {
 ]]></programlisting>
 
         <note><info><title>adresses IP invalides</title></info>
-            
+
 
             <para>
                 <classname>Zend_Validate_Ip</classname> ne valide que des adresses IP.
@@ -64,7 +64,7 @@ if ($validator->isValid($ip)) {
         </note>
 
         <note><info><title>Validation IPv6</title></info>
-            
+
 
             <para>
                 <classname>Zend_Validate_Ip</classname> valides les adresses IPv6 au moyen
@@ -76,7 +76,7 @@ if ($validator->isValid($ip)) {
     </section>
 
     <section xml:id="zend.validate.set.ip.singletype"><info><title>Valider IPv4 ou IPV6 seules</title></info>
-        
+
 
         <para>
             Il peut arriver de ne vouloir valider qu'un seul des deux formats. Par exemple si le
@@ -100,7 +100,7 @@ if ($validator->isValid($ip)) {
 ]]></programlisting>
 
         <note><info><title>Comportement par défaut</title></info>
-            
+
 
             <para>
                 Le comportement par défaut de <classname>Zend_Validate_Ip</classname> est de valider

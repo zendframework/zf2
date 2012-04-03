@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_Acl</classname> provides a lightweight and flexible access control list
@@ -42,7 +42,7 @@
     </para>
 
     <section xml:id="zend.acl.introduction.resources"><info><title>Resources</title></info>
-        
+
 
         <para>
             Creating a resource in <classname>Zend_Acl</classname> is very simple.
@@ -77,7 +77,7 @@
     </section>
 
     <section xml:id="zend.acl.introduction.roles"><info><title>Roles</title></info>
-        
+
 
         <para>
             As with resources, creating a role is also very simple. All roles must implement
@@ -102,7 +102,7 @@
         </para>
 
         <example xml:id="zend.acl.introduction.roles.example.multiple_inheritance"><info><title>Multiple Inheritance among Roles</title></info>
-            
+
 
             <para>
                 The following code defines three base roles - "guest",
@@ -168,7 +168,7 @@ echo $acl->isAllowed('someUser', 'someResource') ? 'allowed' : 'denied';
     </section>
 
     <section xml:id="zend.acl.introduction.creating"><info><title>Creating the Access Control List</title></info>
-        
+
 
         <para>
             An Access Control List (<acronym>ACL</acronym>) can represent any set of physical or
@@ -192,7 +192,7 @@ $acl = new Zend_Acl();
     </section>
 
     <section xml:id="zend.acl.introduction.role_registry"><info><title>Registering Roles</title></info>
-        
+
 
         <para>
             <acronym>CMS</acronym>'s will nearly always require a hierarchy of permissions to
@@ -209,7 +209,7 @@ $acl = new Zend_Acl();
         </para>
 
         <table xml:id="zend.acl.introduction.role_registry.table.example_cms_access_controls"><info><title>Access Controls for an Example CMS</title></info>
-            
+
             <tgroup cols="3">
                 <thead>
                     <row>
@@ -278,7 +278,7 @@ $acl->addRole(new Zend_Acl_Role('administrator'));
     </section>
 
     <section xml:id="zend.acl.introduction.defining"><info><title>Defining Access Controls</title></info>
-        
+
 
         <para>
             Now that the <acronym>ACL</acronym> contains the relevant roles, rules can be
@@ -338,7 +338,7 @@ $acl->allow('administrator');
     </section>
 
     <section xml:id="zend.acl.introduction.querying"><info><title>Querying an ACL</title></info>
-        
+
 
         <para>
             We now have a flexible <acronym>ACL</acronym> that can be used to determine whether

@@ -20,10 +20,10 @@
 
 namespace Zend\Feed\Reader;
 
-use Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Http,
-    Zend\Loader,
-    Zend\Stdlib\ErrorHandler;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Http;
+use Zend\Loader;
+use Zend\Stdlib\ErrorHandler;
 
 /**
 * @category Zend

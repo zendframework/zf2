@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.rest.server"><info><title>Zend_Rest_Server</title></info>
-    
+
 
     <section xml:id="zend.rest.server.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_Rest_Server</classname> は、完全に機能する REST サーバを作成するためのものです。
@@ -11,10 +11,10 @@
     </section>
 
     <section xml:id="zend.rest.server.usage"><info><title>REST サーバの使用法</title></info>
-        
+
 
         <example xml:id="zend.rest.server.usage.example-1"><info><title>基本的な Zend_Rest_Server の使用法 - クラス</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $server = new Zend_Rest_Server();
@@ -24,7 +24,7 @@ $server->handle();
         </example>
 
         <example xml:id="zend.rest.server.usage.example-2"><info><title>基本的な Zend_Rest_Server の使用法 - 関数</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**
@@ -47,7 +47,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.args"><info><title>Zend_Rest_Server サービスのコール</title></info>
-        
+
 
         <para>
             <classname>Zend_Rest_Server</classname> サービスをコールするには、
@@ -58,7 +58,7 @@ $server->handle();
         </para>
 
         <note><info><title>数値インデックス</title></info>
-            
+
 
             <para>
                数値で指定する引数のインデックスは、1 から始まります。
@@ -83,7 +83,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.customstatus"><info><title>独自のステータスの送信</title></info>
-        
+
 
         <para>
             値を返す際に独自のステータスを返すには、
@@ -91,7 +91,7 @@ $server->handle();
         </para>
 
         <example xml:id="zend.rest.server.customstatus.example-1"><info><title>独自のステータスを返す</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**
@@ -114,7 +114,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.customxml"><info><title>独自の XML レスポンスを返す</title></info>
-        
+
 
         <para>
             独自の <acronym>XML</acronym> を返したい場合は、
@@ -123,7 +123,7 @@ $server->handle();
         </para>
 
         <example xml:id="zend.rest.server.customxml.example-1"><info><title>独自の XML を返す</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**

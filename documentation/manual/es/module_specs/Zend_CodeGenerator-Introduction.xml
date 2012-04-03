@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.codegenerator.introduction"><info><title>Introducción</title></info>
-    
+
 
     <para>
         <classname>Zend_CodeGenerator</classname>
@@ -19,7 +19,7 @@
     </para>
 
     <section xml:id="zend.codegenerator.introduction.theory"><info><title>Teoría de Operación</title></info>
-        
+
 
         <para>
             En el caso de uso más típico, simplemente instanciará una clase de

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.identical"><info><title>Identical</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Identical</classname> vous permet de valider si une valeur donnée
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.set.identical.options"><info><title>Options supportées par Zend_Validate_Identical</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par
@@ -26,7 +26,7 @@
     </section>
 
     <section xml:id="zend.validate.set.identical.basic"><info><title>Utilisation de base</title></info>
-        
+
 
         <para>
             Pour valider si deux valeurs sont identiques, vous devez d'abord fournir la valeur
@@ -54,7 +54,7 @@ if ($valid->isValid($value) {
     </section>
 
     <section xml:id="zend.validate.set.identical.types"><info><title>Objets identiques</title></info>
-        
+
 
         <para>
             Bien sûr <classname>Zend_Validate_Identical</classname> ne se limite pas à la
@@ -73,7 +73,7 @@ if ($valid->isValid($input)) {
 ]]></programlisting>
 
         <note><info><title>Comparaison de type</title></info>
-            
+
 
             <para>
                 Il est important de noter que le type de la variable sert aussi lors de la
@@ -92,7 +92,7 @@ if ($valid->isValid($input)) {
     </section>
 
     <section xml:id="zend.validate.set.identical.configuration"><info><title>Configuration</title></info>
-        
+
 
         <para>
             omme tous les autres validateurs <classname>Zend_Validate_Identical</classname>

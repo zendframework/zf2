@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.dispatcher"><info><title>分发器</title></info>
-    
+
 
     <section xml:id="zend.controller.dispatcher.overview"><info><title>概述</title></info>
-        
+
 
         <para>
             分发是取得请求对象，提取其中的模块名，控制器名，动作名以及可选参数，然后实例化控制器并调用其中的动作的整过过程。如果其中的模块、控制器或者动作没能找到，将使用它们的默认值。<code>Zend_Controller_Dispatcher_Standard</code>指定每个控制器和动作的默认值为 <code>index</code>，模块的默认值为<code>default</code>，允许开发人通过<code>setDefaultController()</code>、<code>setDefaultAction()</code>和<code>setDefaultModule()</code>改变默认值设定。
         </para>
 
         <note><info><title>缺省模块</title></info>
-            
+
 
             <para>
                 当创建模块程序，你可能也需要缺省模块的命名空间（缺省配置中，缺省模块<emphasis>没有</emphasis>命名空间）。从 1.5.0 开始，可以在前端控制器或你的派遣器里通过指定 <code>prefixDefaultModule</code>  为 true 来实现。
@@ -68,7 +68,7 @@ public function bazAction()
     </section>
 
     <section xml:id="zend.controller.dispatcher.subclassing"><info><title>子类化分发器</title></info>
-        
+
 
         <para>
             <code>Zend_Controller_Front</code>首先调用路由器找到请求中的第一个动作，然后进入分发循环，调用分发器分发动作。

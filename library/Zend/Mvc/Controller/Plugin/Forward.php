@@ -2,13 +2,13 @@
 
 namespace Zend\Mvc\Controller\Plugin;
 
-use Zend\Di\Locator,
-    Zend\Mvc\InjectApplicationEvent,
-    Zend\Mvc\Exception,
-    Zend\Mvc\LocatorAware,
-    Zend\Mvc\MvcEvent,
-    Zend\Mvc\Router\RouteMatch,
-    Zend\Stdlib\Dispatchable;
+use Zend\Di\Locator;
+use Zend\Mvc\InjectApplicationEvent;
+use Zend\Mvc\Exception;
+use Zend\Mvc\LocatorAware;
+use Zend\Mvc\MvcEvent;
+use Zend\Mvc\Router\RouteMatch;
+use Zend\Stdlib\Dispatchable;
 
 class Forward extends AbstractPlugin
 {
@@ -17,7 +17,7 @@ class Forward extends AbstractPlugin
 
     /**
      * Dispatch another controller
-     * 
+     *
      * @param  string $name Controller name; either a class name or an alias used in the DI container or service locator
      * @param  null|array $params Parameters with which to seed a custom RouteMatch object for the new controller
      * @return mixed
@@ -59,7 +59,7 @@ class Forward extends AbstractPlugin
 
     /**
      * Get the locator
-     * 
+     *
      * @return Locator
      * @throws Exception\DomainException if unable to find locator
      */
@@ -84,7 +84,7 @@ class Forward extends AbstractPlugin
 
     /**
      * Get the event
-     * 
+     *
      * @return MvcEvent
      * @throws Exception\DomainException if unable to find event
      */

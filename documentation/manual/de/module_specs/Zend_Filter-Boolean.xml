@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.boolean"><info><title>Boolean</title></info>
-    
+
 
     <para>
         Dieser Filter ändert eine gegebene Eingabe auf einen <constant>BOOLEAN</constant> Wert. Das
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.filter.set.boolean.default"><info><title>Standardverhalten von Zend_Filter_Boolean</title></info>
-        
+
 
         <para>
             Standardmäßig arbeitet dieser Filter indem er Eingabe auf <constant>BOOLEAN</constant>
@@ -32,7 +32,7 @@ $result = $filter->filter($value);
     </section>
 
     <section xml:id="zend.filter.set.boolean.types"><info><title>Das Verhalten von Zend_Filter_Boolean ändern</title></info>
-        
+
 
         <para>
             Manchmal ist das Casten mit <command>(boolean)</command> nicht ausreichend.
@@ -167,7 +167,7 @@ $filter = new Zend_Filter_Boolean(array(
     </section>
 
     <section xml:id="zend.filter.set.boolean.localized"><info><title>Lokalisierte Boolsche Werte</title></info>
-        
+
 
         <para>
             Wie vorher erwähnt erkennt <classname>Zend_Filter_Boolean</classname> auch die
@@ -200,7 +200,7 @@ $filter->filter('yes');
     </section>
 
     <section xml:id="zend.filter.set.boolean.casting"><info><title>Casten ausschalten</title></info>
-        
+
 
         <para>
             Machmal ist es nützlich nur <constant>TRUE</constant> oder <constant>FALSE</constant>
@@ -218,7 +218,7 @@ $filter->filter('yes');
         </para>
 
         <table xml:id="zend.filter.set.boolean.casting.table"><info><title>Verwendung ohne Casten</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>

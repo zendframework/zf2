@@ -8,12 +8,12 @@ This is a module loader and manager for ZF2.
 Currently Implemented
 ---------------------
 
-* **Phar support:** 
-  Modules can be packaged, distributed, installed, and ran as phar archives. 
+* **Phar support:**
+  Modules can be packaged, distributed, installed, and ran as phar archives.
   Supports both executable and non-executable archives; with and without a stub.
   `Module` class must be made available by either Module.php in the root of the
-  phar or in the stub if it is an executable phar. Below is a list of phar 
-  archive/compression formats that are supported and their respective extensions, 
+  phar or in the stub if it is an executable phar. Below is a list of phar
+  archive/compression formats that are supported and their respective extensions,
   as detected by the module loader:
     * **Executable** (can be included directly, which executes stub):
         * phar (.phar)
@@ -49,10 +49,10 @@ Currently Implemented
 * **100% unit test coverage:**
     Much effort has been put into extensive unit testing of the module loader
     and manager. In addition to covering every line of code, further effort was
-    made to test other use-cases such as nested/sub-modules and various other 
+    made to test other use-cases such as nested/sub-modules and various other
     behaviors.
 * **Module Dependancy**
-    Refectored to now allow self resolution of dependencies. Now provides better access 
+    Refectored to now allow self resolution of dependencies. Now provides better access
     to all provisions & dependencies within an application. This is opt-in with
     the enable_dependency_check option. Modules can declare dependencies on
     other modules (and versions of the required modules).

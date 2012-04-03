@@ -20,8 +20,8 @@
 
 namespace Zend\Feed\PubSubHubbub;
 
-use Zend\Feed\Reader,
-    Zend\Http;
+use Zend\Feed\Reader;
+use Zend\Http;
 
 /**
  * @category   Zend
@@ -36,7 +36,7 @@ class PubSubHubbub
      */
     const VERIFICATION_MODE_SYNC  = 'sync';
     const VERIFICATION_MODE_ASYNC = 'async';
-    
+
     /**
      * Subscription States
      */

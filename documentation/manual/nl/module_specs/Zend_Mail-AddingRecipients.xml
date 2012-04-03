@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.adding-recipients"><info><title>Geadresseerde bijvoegen</title></info>
-    
+
     <para>
         Geadresseerden kunnen op drie manieren worden bijgevoegd:
         <itemizedlist>

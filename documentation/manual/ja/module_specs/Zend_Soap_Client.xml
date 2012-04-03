@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.client"><info><title>Zend_Soap_Client</title></info>
-    
+
 
     <para>
         <classname>Zend_Soap_Client</classname>により<acronym>PHP</acronym>プログラマーにとって<acronym>SOAP</acronym>クライアントの開発が簡単になります。
@@ -23,7 +23,7 @@
     </para>
 
     <section xml:id="zend.soap.client.constructor"><info><title>Zend_Soap_Clientコンストラクタ</title></info>
-        
+
         <para>
             <classname>Zend_Soap_Client</classname>コンストラクタには引数が２つあります:
             <itemizedlist>
@@ -45,7 +45,7 @@
         </para>
 
         <note><info><title>重要</title></info>
-            
+
             <para>
                 もし非WSDLモードで<classname>Zend_Soap_Client</classname>コンポーネントを使う場合、
                 'location' および 'uri' オプションを設定し<emphasis>なければなりません</emphasis>。
@@ -121,7 +121,7 @@
                 </listitem>
                 <listitem>
                     <para>
-                        'compression' - 圧縮オプション; 
+                        'compression' - 圧縮オプション;
                         <code>SOAP_COMPRESSION_ACCEPT</code>や<code>SOAP_COMPRESSION_GZIP</code>、
                         <code>SOAP_COMPRESSION_DEFLATE</code>の組み合わせです。
                         下記のように使われるでしょう:
@@ -147,7 +147,7 @@ $client = new Zend_Soap_Client("some.wsdl",
     </section>
 
     <section xml:id="zend.soap.client.calls"><info><title>SOAPリクエストの実行</title></info>
-        
+
 
         <para>
             <classname>Zend_Soap_Client</classname>オブジェクトを作成したら、<acronym>SOAP</acronym>リクエストを実行する準備ができます。

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dom.introduction"><info><title>導入</title></info>
-    
+
 
     <para>
         <classname>Zend_Dom</classname> は、 <acronym>DOM</acronym> ドキュメントや構造を扱うためのツールを提供します。

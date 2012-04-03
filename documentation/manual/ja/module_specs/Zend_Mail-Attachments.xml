@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.attachments"><info><title>ファイルの添付</title></info>
-    
+
 
     <para>
         メールにファイルを添付するには <methodname>createAttachment()</methodname> メソッドを使用します。
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.mail.attachments.example-1"><info><title>ファイルを添付したメール</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();

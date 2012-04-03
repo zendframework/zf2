@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.timesync.working"><info><title>Working with Zend_TimeSync</title></info>
-    
+
 
     <para>
         <classname>Zend_TimeSync</classname> can return the actual time from any given
@@ -17,7 +17,7 @@
     </note>
 
     <section xml:id="zend.timesync.working.generic"><info><title>Generic Time Server Request</title></info>
-        
+
 
         <para>
             Requesting the time from a time server is simple. First, you provide the time server
@@ -48,7 +48,7 @@ print $server->getDate()->getIso();
     </section>
 
     <section xml:id="zend.timesync.working.multiple"><info><title>Multiple Time Servers</title></info>
-        
+
 
         <para>
             Not all time servers are always available to return their time. Servers may be
@@ -102,7 +102,7 @@ print $server->getDate()->getIso();
     </section>
 
     <section xml:id="zend.timesync.working.protocol"><info><title>Protocols of Time Servers</title></info>
-        
+
 
         <para>
             There are different types of time servers. Most public time servers use the
@@ -134,7 +134,7 @@ print $server->getDate()->getIso();
     </section>
 
     <section xml:id="zend.timesync.working.ports"><info><title>Using Ports for Time Servers</title></info>
-        
+
 
         <para>
             As with every protocol within the world wide web, the <emphasis>NTP</emphasis> and
@@ -159,7 +159,7 @@ print $server->getDate()->getIso();
     </section>
 
     <section xml:id="zend.timesync.working.options"><info><title>Time Servers Options</title></info>
-        
+
 
         <para>
             There is only one option within <classname>Zend_TimeSync</classname> which will be used
@@ -202,7 +202,7 @@ print "Timeout = " . Zend_TimeSync::getOptions('timeout');
     </section>
 
     <section xml:id="zend.timesync.working.different"><info><title>Using Different Time Servers</title></info>
-        
+
 
         <para>
             <classname>Zend_TimeSync</classname>'s default behavior for requesting a time is to
@@ -226,7 +226,7 @@ $server = $server->setServer('additional');
     </section>
 
     <section xml:id="zend.timesync.working.informations"><info><title>Information from Time Servers</title></info>
-        
+
 
         <para>
             Time servers not only offer the time itself, but also additional information. You can
@@ -247,7 +247,7 @@ print_r ($server->getInfo());
     </section>
 
     <section xml:id="zend.timesync.working.exceptions"><info><title>Handling Exceptions</title></info>
-        
+
 
         <para>
             Exceptions are collected for all time servers and returned as an array. So you can

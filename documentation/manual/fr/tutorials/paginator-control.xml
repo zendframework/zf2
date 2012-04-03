@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.paginator.control"><info><title>Contrôles de la pagination et styles de défilement</title></info>
-    
+
 
     <para>
         Rendre visuellement les éléments d'une page est un bon départ. Dans les sections précédentes, nous

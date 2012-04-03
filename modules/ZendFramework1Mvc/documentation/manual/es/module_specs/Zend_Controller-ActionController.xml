@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.action"><info><title>Controladores de Acción</title></info>
-    
+
 
     <section xml:id="zend.controller.action.introduction"><info><title>Introducción</title></info>
-        
+
         <para>
             <classname>Zend_Controller_Action</classname> es una clase abstracta
             que puede utilizar para implementar controladores de acción (Action
@@ -51,7 +51,7 @@ class FooController extends Zend_Controller_Action
             acciones. </para>
 
         <note><info><title>Comportamiento por Defecto</title></info>
-            
+
 
             <para> Por defecto, el <link linkend="zend.controller.front">front
                     controller</link> habilita al ayudante de acción <link linkend="zend.controller.actionhelpers.viewrenderer">ViewRenderer</link> . Este ayudante toma a su cargo la
@@ -118,7 +118,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.initialization"><info><title>Inicialización de Objectos</title></info>
-        
+
 
         <para> Si bien siempre puede anular el contolador de acción del
             constructor, no lo recomendamos.
@@ -153,7 +153,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.prepostdispatch"><info><title>Ganchos de Pre- and Post-Despacho</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Action</classname> especifica dos métodos
@@ -168,7 +168,7 @@ class FooController extends Zend_Controller_Action
             del sitio ( <methodname>postDispatch()</methodname> ). </para>
 
         <note><info><title>Usage of init() vs. preDispatch()</title></info>
-            
+
 
             <para> In the <link linkend="zend.controller.action.initialization">previous section</link> , we introduced the
                     <methodname>init()</methodname> method, and in this section,
@@ -199,7 +199,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.accessors"><info><title>Accessors (Accededores)</title></info>
-        
+
 
         <para> Con el objeto, se registran una serie de objetos y variables, y
             cada uno tiene métodos de acceso. </para>
@@ -281,10 +281,10 @@ if ($this->_hasParam('id') {
     </section>
 
     <section xml:id="zend.controller.action.viewintegration"><info><title>Integración de Vistas</title></info>
-        
+
 
         <note xml:id="zend.controller.action.viewintegration.viewrenderer"><info><title>Integración de la Vista por Defecto via ViewRenderer</title></info>
-            
+
 
             <para> El contenido de esta sección sólo es válida cuando usted
                 tiene explícitamente deshabilitado a <link linkend="zend.controller.actionhelpers.viewrenderer">ViewRenderer</link> . De lo contrario, puede saltarse esta
@@ -302,7 +302,7 @@ if ($this->_hasParam('id') {
             script. </para>
 
         <section xml:id="zend.controller.action.viewintegration.initview"><info><title>Inicialización de la Vista</title></info>
-            
+
 
             <para>
                 <methodname>initView()</methodname> inicializa el objeto vista.
@@ -344,7 +344,7 @@ applicationOrModule/
         </section>
 
         <section xml:id="zend.controller.action.viewintegration.render"><info><title>Suministrando las Vistas</title></info>
-            
+
 
             <para>
                 <methodname>render()</methodname> tiene la siguiente firma: </para>
@@ -421,7 +421,7 @@ class MyController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.utilmethods"><info><title>Métodos Utilitarios</title></info>
-        
+
 
         <para> Además de los accesadores y de los métodos de integración de
             vistas, <classname>Zend_Controller_Action</classname> tiene varios
@@ -496,7 +496,7 @@ class MyController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.subclassing"><info><title>Controladores de Acción y haciendo Subclases</title></info>
-        
+
 
         <para> Por diseño, <classname>Zend_Controller_Action</classname> debe
             ser "subclaseada" a fin de crear un controlador de acción. Como
@@ -511,7 +511,7 @@ class MyController extends Zend_Controller_Action
             esta redundacia. </para>
 
         <example xml:id="zend.controller.action.subclassing.example-call"><info><title>Manejando Acciones No Existentes</title></info>
-            
+
 
             <para> Si hay una solicitud a un controlador que incluye un método
                 de acción no definido, se invocará a

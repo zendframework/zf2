@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.mvc"><info><title>Zend_Navigation_Page_Mvc</title></info>
-    
+
 
     <para>
         <acronym>MVC</acronym> Seiten werden definiert indem <acronym>MVC</acronym> Parameter
@@ -13,7 +13,7 @@
     </para>
 
     <table xml:id="zend.navigation.pages.mvc.options"><info><title>MVC Seiten Optionen</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>
@@ -106,7 +106,7 @@
     </note>
 
     <example xml:id="zend.navigation.pages.mvc.example.getHref"><info><title>getHref() erstellt die Seiten URI</title></info>
-        
+
 
         <para>
             Dieses Beispiel zeigt das <acronym>MVC</acronym> Seiten intern
@@ -139,7 +139,7 @@ $page = new Zend_Navigation_Page_Mvc(array(
     </example>
 
     <example xml:id="zend.navigation.pages.mvc.example.isActive"><info><title>isActive() erkennt ob eine Seite aktiv ist</title></info>
-        
+
 
         <para>
             Dieses Beispiel zeigt das <acronym>MVC</acronym> Seiten erkennen ob sie aktiv sind indem
@@ -203,7 +203,7 @@ $page->isActive(); // gibt false zurück
     </example>
 
     <example xml:id="zend.navigation.pages.mvc.example.routes"><info><title>Routen verwenden</title></info>
-        
+
 
         <para>
             Routen können mit <acronym>MVC</acronym> Seite verwendet werden. Wenn eine Seite eine

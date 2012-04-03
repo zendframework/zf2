@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.server"><info><title>Récupérer des informations depuis un serveur LDAP</title></info>
-    
+
 
     <section xml:id="zend.ldap.server.rootdse"><info><title>RootDSE</title></info>
-        
+
 
         <para>
             Voyez les documents qui suivent pour plus d'informations sur les attributs contenus
@@ -33,7 +33,7 @@
         </itemizedlist>
 
         <example xml:id="zend.ldap.server.rootdse.getting"><info><title>Prendre la main sur le RootDSE</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $options = array(/* ... */);
@@ -45,10 +45,10 @@ $serverType = $rootdse->getServerType();
     </section>
 
     <section xml:id="zend.ldap.server.schema"><info><title>Parcours de Schema</title></info>
-        
+
 
         <example xml:id="zend.ldap.server.schema.getting"><info><title>Prendre la main sur le schema du serveur</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $options = array(/* ... */);
@@ -59,15 +59,15 @@ $classes = $schema->getObjectClasses();
         </example>
 
         <section xml:id="zend.ldap.server.schema.openldap"><info><title>OpenLDAP</title></info>
-            
+
             <para/>
         </section>
 
         <section xml:id="zend.ldap.server.schema.activedirectory"><info><title>ActiveDirectory</title></info>
-            
+
 
             <note><info><title>Parcours du Schema pour les serveurs ActiveDirectory</title></info>
-                
+
 
                 <para>
                     A cause de restrictions concernant le nombre d'entrées retournées par une

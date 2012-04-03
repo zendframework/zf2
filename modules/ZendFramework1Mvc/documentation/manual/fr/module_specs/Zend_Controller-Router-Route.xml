@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.standard"><info><title>Zend_Controller_Router_Route</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Router_Route</classname> est la route par défaut intégrée
@@ -40,7 +40,7 @@ $router->addRoute('user', $route);
     </para>
 
     <note><info><title>Utilisation des caractères</title></info>
-        
+
         <para>
             Pour identifier une variable dans un schéma de routage (après le deux-points), en
             théorie n'importe quel caractère fait l'affaire (sauf le slash "/"). Cependant il est
@@ -103,7 +103,7 @@ $router->addRoute('default', $route);
 
     <section xml:id="zend.controller.router.routes.standard.variable-defaults"><info><title>Variables par défaut</title></info>
 
-        
+
 
         <para>
             Chaque variable dynamique dans la définition des routes peut avoir une valeur par
@@ -157,7 +157,7 @@ $router->addRoute('archive', $route);
 
     <section xml:id="zend.controller.router.routes.standard.variable-requirements"><info><title>Obligations et contraintes des variables</title></info>
 
-        
+
 
         <para>
             Vous pouvez ajouter un troisième paramètre au constructeur de
@@ -189,7 +189,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.translated-segments"><info><title>Translated segments</title></info>
-        
+
 
         <para>
             The standard route supports translated segments. To use this
@@ -265,7 +265,7 @@ $router->addRoute('archive', $route);
         </para>
 
         <note><info><title>Message IDs and separate language file</title></info>
-            
+
 
             <para>
                 Occasionally a message ID which you want to use in one

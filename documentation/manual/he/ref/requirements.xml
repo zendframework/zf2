@@ -3,11 +3,11 @@
 
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="requirements"><info><title>דרישות Zend Framework</title></info>
 
-    
+
 
     <section xml:id="requirements.introduction"><info><title>הקדמה</title></info>
 
-        
+
 
         <para>
             Zend Framework דורש לפחות PHP 5 עם שרת אשר יכול להריץ קבצי PHP בצורה נכונה.
@@ -20,7 +20,7 @@
 
         <section xml:id="requirements.version"><info><title>גרסאת PHP</title></info>
 
-            
+
 
             <para>
                 Zend ממליצים על שימוש בגרסא האחרונה של PHP אשר מכילה את כל תיקוני הבאגים ופרצות האבטחה שנמצאו, וכרגע תומכת ב PHP 5.2.4 ומעלה.
@@ -34,7 +34,7 @@
 
         <section xml:id="requirements.extensions"><info><title>תוספי PHP</title></info>
 
-            
+
 
             <para>
                    למטה מוצגת טבלה המציגה רשימה של כל התוספים הנמצאים ב PHP ואיך Zend Framework משתמש בכל אחד ואחד מהם.
@@ -49,7 +49,7 @@
             </para>
 
             <table frame="all" xml:id="requirements.extensions.table-1"><info><title>תוספי PHP אשר Zend Framework נעזר בהם</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -630,7 +630,7 @@
 
         <section xml:id="requirements.zendcomponents"><info><title>רכיבי Zend Framework</title></info>
 
-            
+
 
             <para>
                 למטה מוצגת טבלה אשר מציגה את כל הרכיבים הקיימים ב Zend Framework ואילו תוספי PHP הם דורשים.
@@ -644,7 +644,7 @@
             </para>
 
             <table frame="all" xml:id="requirements.zendcomponents.table-1"><info><title>רכיבי Zend Framework והתוספים בהם הם משתמשים</title></info>
-                
+
                 <tgroup cols="4">
                     <thead>
                         <row>
@@ -1169,7 +1169,7 @@
 
         <section xml:id="requirements.dependencies"><info><title>תלות של רכיבים ב Zend Framework ברכיבים אחרים</title></info>
 
-            
+
 
             <para>
                 למטה ניתן לראות טבלה המציגה את רכיבי Zend Framework ואת התלות שלהם ברכיבים אחרים
@@ -1189,7 +1189,7 @@
             </note>
 
             <table frame="all" xml:id="requirements.dependencies.table-1"><info><title>תלות של רכיבים ב Zend Framework ברכיבים אחרים</title></info>
-                
+
                 <tgroup cols="3">
                     <colspec colwidth="2in"/>
                     <colspec colwidth="1in"/>

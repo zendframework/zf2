@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.charset"><info><title>Zeichensätze</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.charset.description"><info><title>Unterstützung für UTF-8 und Einzel-Byte Zeichensätze</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> arbeitet intern mit dem UTF-8 Zeichensatz.
@@ -36,7 +36,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.charset.default_analyzer"><info><title>Standard Textanalysator</title></info>
-        
+
 
         <para>
             Trotzdem verwendet der standardmäßige Textanalysator (welche auch im Anfrageparser
@@ -57,7 +57,7 @@
         </para>
 
         <note><info><title/></info>
-            
+
 
             <para>
                 Der Standardanalysator behandelt Zahlen nicht als Teile von Ausdrücken. Wenn Wörter
@@ -68,7 +68,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.charset.utf_analyzer"><info><title>UTF-8 kompatibler Textanalysator</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> enthält auch ein Set von UTF-8 kompatiblen
@@ -88,7 +88,7 @@ Zend_Search_Lucene_Analysis_Analyzer::setDefault(
 ]]></programlisting>
 
         <warning><info><title/></info>
-            
+
 
             <para>
                 Die UTF-8 kompatiblen Analysatoren wurden in Zend Framework 1.5 verbessert. Frühere

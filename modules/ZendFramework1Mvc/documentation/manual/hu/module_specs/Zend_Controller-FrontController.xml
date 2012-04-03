@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.front"><info><title>Az elülső vezérlő</title></info>
-    
+
     <section xml:id="zend.controller.front.overview"><info><title>Áttekintés</title></info>
-        
+
         <para>
             A
             <code>Zend_Controller_Front</code>
@@ -32,7 +32,7 @@
             tartalmazó könyvtár elérési útjára van szüksége. Különféle más tagfüggvények is meghívhatók az elülső vezérlő és segéd osztályai környezetének további testreszabásához.
         </para>
         <note><info><title>Alapértelmezett viselkedés</title></info>
-            
+
             <para>
                 Alapból az elülső vezérlő betölti az
                 <link linkend="zend.controller.plugins.standard.errorhandler">ErrorHandler</link>
@@ -81,7 +81,7 @@ $front->setParam('noViewRenderer', true);
 
 
     <section xml:id="zend.controller.front.methods.primary"><info><title>Primary Methods</title></info>
-        
+
 
         <para>
             The front controller has several accessors for setting up its
@@ -90,7 +90,7 @@ $front->setParam('noViewRenderer', true);
         </para>
 
         <section xml:id="zend.controller.front.methods.primary.getinstance"><info><title>getInstance()</title></info>
-            
+
 
             <para>
                 <code>getInstance()</code> is used to retrieve a front
@@ -105,7 +105,7 @@ $front = Zend_Controller_Front::getInstance();
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.setcontrollerdirectory"><info><title>setControllerDirectory() and addControllerDirectory</title></info>
-            
+
 
             <para>
                 <code>setControllerDirectory()</code> is used to tell <link linkend="zend.controller.dispatcher">the dispatcher</link>
@@ -150,7 +150,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.dispatch"><info><title>dispatch()</title></info>
-            
+
 
             <para>
                 <code>dispatch(Zend_Controller_Request_Abstract $request = null,
@@ -197,7 +197,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.run"><info><title>run()</title></info>
-            
+
 
             <para>
                 <code>Zend_Controller_Front::run($path)</code> is a static
@@ -223,7 +223,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.environment"><info><title>Environmental Accessor Methods</title></info>
-        
+
 
         <para>
             In addition to the methods listed above, there are a number of
@@ -379,7 +379,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.params"><info><title>Front Controller Parameters</title></info>
-        
+
 
         <para>
             In the introduction, we indicated that the front controller also
@@ -482,7 +482,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.subclassing"><info><title>Subclassing the Front Controller</title></info>
-        
+
 
         <para>
             To subclass the Front Controller, at the very minimum you will need

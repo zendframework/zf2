@@ -20,9 +20,9 @@
  */
 
 namespace ZendTest\Measure;
-use Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Locale\Locale;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Locale\Locale;
 
 /**
  * PHPUnit test case

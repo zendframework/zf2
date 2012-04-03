@@ -21,8 +21,8 @@
 
 namespace Zend\View;
 
-use Countable,
-    IteratorAggregate;
+use Countable;
+use IteratorAggregate;
 
 /**
  * Interface describing a view model.
@@ -42,55 +42,55 @@ interface Model extends Countable, IteratorAggregate
 {
     /**
      * Set renderer option/hint
-     * 
-     * @param  string $name 
-     * @param  mixed $value 
+     *
+     * @param  string $name
+     * @param  mixed $value
      * @return Model
      */
     public function setOption($name, $value);
 
     /**
      * Set renderer options/hints en masse
-     * 
-     * @param  array|\Traversable $name 
+     *
+     * @param  array|\Traversable $name
      * @return Model
      */
     public function setOptions($options);
 
     /**
      * Get renderer options/hints
-     * 
+     *
      * @return array|\Traversable
      */
     public function getOptions();
-     
+
     /**
      * Set view variable
-     * 
-     * @param  string $name 
-     * @param  mixed $value 
+     *
+     * @param  string $name
+     * @param  mixed $value
      * @return Model
      */
     public function setVariable($name, $value);
 
     /**
      * Set view variables en masse
-     * 
-     * @param  array|\ArrayAccess $variables 
+     *
+     * @param  array|\ArrayAccess $variables
      * @return Model
      */
     public function setVariables($variables);
 
     /**
      * Get view variables
-     * 
+     *
      * @return array|\ArrayAccess
      */
     public function getVariables();
 
     /**
-     * Set the template to be used by this model 
-     * 
+     * Set the template to be used by this model
+     *
      * @param  string $template
      * @return Model
      */
@@ -98,15 +98,15 @@ interface Model extends Countable, IteratorAggregate
 
     /**
      * Get the template to be used by this model
-     * 
+     *
      * @return string
      */
     public function getTemplate();
 
     /**
      * Add a child model
-     * 
-     * @param  Model $child 
+     *
+     * @param  Model $child
      * @param  null|string $captureTo Optional; if specified, the "capture to" value to set on the child
      * @return Model
      */
@@ -122,38 +122,38 @@ interface Model extends Countable, IteratorAggregate
     public function getChildren();
 
     /**
-     * Does the model have any children? 
-     * 
+     * Does the model have any children?
+     *
      * @return bool
      */
     public function hasChildren();
 
     /**
      * Set the name of the variable to capture this model to, if it is a child model
-     * 
-     * @param  string $capture 
+     *
+     * @param  string $capture
      * @return Model
      */
     public function setCaptureTo($capture);
 
     /**
      * Get the name of the variable to which to capture this model
-     * 
+     *
      * @return string
      */
     public function captureTo();
 
     /**
      * Set flag indicating whether or not this is considered a terminal or standalone model
-     * 
-     * @param  bool $terminate 
+     *
+     * @param  bool $terminate
      * @return Model
      */
     public function setTerminal($terminate);
 
     /**
      * Is this considered a terminal or standalone model?
-     * 
+     *
      * @return bool
      */
     public function terminate();

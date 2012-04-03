@@ -22,8 +22,8 @@
 namespace Zend\Pdf\InternalType\StreamFilter;
 use Zend\Pdf\Exception;
 
-use Zend\Pdf\InternalType\StreamFilter,
-    Zend\Pdf;
+use Zend\Pdf\InternalType\StreamFilter;
+use Zend\Pdf;
 
 /**
  * AsciiHex stream filter

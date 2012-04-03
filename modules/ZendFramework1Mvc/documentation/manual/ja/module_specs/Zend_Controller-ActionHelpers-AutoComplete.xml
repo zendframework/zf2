@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.autocomplete"><info><title>AutoComplete</title></info>
-    
+
 
     <para>
         多くの <acronym>AJAX</acronym> 用 javascript ライブラリでは、
@@ -113,7 +113,7 @@ class FooController extends Zend_Controller_Action
     </para>
 
     <section xml:id="zend.controller.actionhelpers.autocomplete.dojo"><info><title>Dojo でのオートコンプリート</title></info>
-        
+
 
         <para>
             Dojo には、オートコンプリートのためだけのウィジェットはありません。
@@ -137,7 +137,7 @@ $this->_helper->autoCompleteDojo($data);
 ]]></programlisting>
 
         <example xml:id="zend.controller.actionhelpers.autocomplete.dojo.example1"><info><title>Zend MVC を使用した、Dojo でのオートコンプリート</title></info>
-            
+
 
             <para>
                 Zend <acronym>MVC</acronym> で Dojo によるオートコンプリートを使用するには、
@@ -336,7 +336,7 @@ dojo.require("custom.TestNameReadStore");
     </section>
 
     <section xml:id="zend.controller.actionhelpers.autocomplete.scriptaculous"><info><title>Scriptaculous でのオートコンプリート</title></info>
-        
+
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wiki.script.aculo.us/scriptaculous/show/Ajax.Autocompleter">Scriptaculous</link>
             は、所定の形式の <acronym>HTML</acronym> レスポンスを受け取ることを想定しています。

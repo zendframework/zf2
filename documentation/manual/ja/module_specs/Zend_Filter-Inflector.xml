@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.inflector"><info><title>Zend_Filter_Inflector</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_Inflector</classname>
@@ -23,7 +23,7 @@
     </para>
 
     <example xml:id="zend.filter.inflector.camel_case_example"><info><title>MixedCase あるいは camelCase のテキストを別形式に変換する</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $inflector = new Zend_Filter_Inflector('pages/:page.:suffix');
@@ -43,7 +43,7 @@ $filtered = $inflector->filter(array('page' => $string));
     </example>
 
     <section xml:id="zend.filter.inflector.operation"><info><title>操作</title></info>
-        
+
 
         <para>
             インフレクタには、ひとつの <emphasis>ターゲット</emphasis>
@@ -77,7 +77,7 @@ $filtered = $inflector->filter(array('page' => $string));
     </section>
 
      <section xml:id="zend.filter.inflector.paths"><info><title>その他のフィルタ向けのパスの設定</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_Inflector</classname> は、
@@ -122,7 +122,7 @@ $loader->addPrefixPath('My_Filter', 'My/Filter/');
     </section>
 
     <section xml:id="zend.filter.inflector.targets"><info><title>インフレクタのターゲットの設定</title></info>
-        
+
 
         <para>
             インフレクタのターゲットは、変数用のプレースホルダを含む文字列となります。
@@ -203,7 +203,7 @@ class Foo
     </section>
 
     <section xml:id="zend.filter.inflector.rules"><info><title>インフレクションのルール</title></info>
-        
+
 
         <para>
             先ほど説明したように、静的なルールとフィルタを使用したルールのふたつがあります。
@@ -225,7 +225,7 @@ class Foo
         </note>
 
         <section xml:id="zend.filter.inflector.rules.static"><info><title>静的なルール</title></info>
-            
+
 
             <para>
                 静的なルールは、単なる文字列の置換を行います。
@@ -285,7 +285,7 @@ class Foo
         </section>
 
         <section xml:id="zend.filter.inflector.rules.filters"><info><title>Filter Inflector ルール</title></info>
-            
+
 
             <para>
                 <classname>Zend_Filter</classname> のフィルタ群も、インフレクタのルールとして使用できます。
@@ -342,7 +342,7 @@ $inflector->setFilterRule('script', array(
         </section>
 
         <section xml:id="zend.filter.inflector.rules.multiple"><info><title>多くのルールを一度に設定する</title></info>
-            
+
 
             <para>
                 一般に、各変数に対して個別にインフレクタルールを設定するよりも、
@@ -371,7 +371,7 @@ $inflector->setFilterRule('script', array(
             </itemizedlist>
 
             <example xml:id="zend.filter.inflector.rules.multiple.example"><info><title>複数のルールの一括設定</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Could also use setRules() with this notation:
@@ -389,7 +389,7 @@ $inflector->addRules(array(
     </section>
 
     <section xml:id="zend.filter.inflector.utility"><info><title>ユーティリティメソッド</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_Inflector</classname> のユーティリティメソッド群には、
@@ -438,7 +438,7 @@ $inflector->addRules(array(
     </section>
 
     <section xml:id="zend.filter.inflector.config"><info><title>Zend_Filter_Inflector での Zend_Config の使用法</title></info>
-        
+
 
         <para>
             <classname>Zend_Config</classname> を使用してルールを設定したり、
@@ -478,7 +478,7 @@ $inflector->addRules(array(
         </itemizedlist>
 
         <example xml:id="zend.filter.inflector.config.example"><info><title>Zend_Filter_Inflector での Zend_Config の使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // コンストラクタで

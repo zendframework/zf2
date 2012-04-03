@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.modifying-feed"><info><title>Feed en Entry structuren wijzigen</title></info>
-    
+
 
     <para>
         De intuïtieve syntax van <code>Zend_Feed</code> breidt zich uit voor het bouwen en wijzigen van feeds en
@@ -9,7 +9,7 @@
     </para>
 
     <example><info><title>Wijzigen van een bestaande Feed Entry</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 <?php
 
@@ -42,7 +42,7 @@ echo $entry->saveXML();
     </para>
 
     <example><info><title>Een Atom Entry met elementen van een aangepaste namespace</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 <?php
 

@@ -21,8 +21,8 @@
 
 namespace ZendTest\Controller\Action;
 
-use Zend\Controller\Action\HelperPriorityStack,
-    Zend\Controller\Action\Helper;
+use Zend\Controller\Action\HelperPriorityStack;
+use Zend\Controller\Action\Helper;
 
 /**
  * @category   Zend

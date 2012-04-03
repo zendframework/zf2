@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.locale"><info><title>Zend_Application_Resource_Locale</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Locale</classname> can be used to
@@ -16,7 +16,7 @@
     </para>
 
     <section xml:id="zend.application.available-resources.locale.auto"><info><title>Autodetect the locale to use</title></info>
-        
+
 
         <para>
             Without specifying any options for
@@ -93,7 +93,7 @@
     </section>
 
     <section xml:id="zend.application.available-resources.locale.fallback"><info><title>Autodetect the locale and adding a own fallback</title></info>
-        
+
 
         <para>
             The above autodetection could lead to problems when the locale could not be detected and
@@ -103,7 +103,7 @@
         </para>
 
         <example xml:id="zend.application.available-resources.locale.configExampleDetectAndFallback"><info><title>Autodetect locale and setting a fallback</title></info>
-            
+
 
             <para>
                 The following snippet shows how to set a own default locale which will be used when
@@ -119,7 +119,7 @@ resources.locale.default = "nl_NL"
     </section>
 
     <section xml:id="zend.application.available-resources.locale.forcing"><info><title>Forcing a specific locale to use</title></info>
-        
+
 
         <para>
             Sometimes it is useful to define a single locale which has to be used. This can be done
@@ -132,7 +132,7 @@ resources.locale.default = "nl_NL"
         </para>
 
         <example xml:id="zend.application.available-resources.locale.configExampleFallbackOnly"><info><title>Defining a single locale to use</title></info>
-            
+
 
             <para>
                 The following snippet shows how to set a single locale for your entire application.

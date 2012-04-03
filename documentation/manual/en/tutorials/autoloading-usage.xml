@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.autoloading.usage"><info><title>Basic Autoloader Usage</title></info>
-    
+
 
     <para>
         Now that we have an understanding of what autoloading is and the goals and design of Zend
@@ -49,7 +49,7 @@ $loader->setFallbackAutoloader(true);
 ]]></programlisting>
 
     <warning><info><title>Do not use as a fallback autoloader</title></info>
-        
+
 
         <para>
             While it's tempting to use <classname>Zend_Loader_Autoloader</classname> as a fallback
@@ -91,7 +91,7 @@ $loader->setFallbackAutoloader(true);
     </warning>
 
     <note><info><title>Namespace Prefixes vs PHP Namespaces</title></info>
-        
+
 
         <para>
             At the time this is written, <acronym>PHP</acronym> 5.3 has been released. With that

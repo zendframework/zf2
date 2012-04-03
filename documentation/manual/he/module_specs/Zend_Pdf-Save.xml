@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.save"><info><title>שמירת שינויים בטפסי PDF</title></info>
-    
+
     <para>
         ישנם שני מתודות אשר שומרות שינויים לטפסי PDF: <code>Zend_Pdf::save()</code> ו <code>Zend_Pdf::render()</code>.
     </para>
@@ -16,7 +16,7 @@
     </para>
 
     <example xml:id="zend.pdf.save.example-1"><info><title>שמירת קבצי PDF</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 ...
 // Load the PDF document

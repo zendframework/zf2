@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="introduction.overview"><info><title>Áttekintés</title></info>
 
-    
+
 
     <para>
         A Zend Framework egy nyíltforrású keretrendszer webalkalmazások és
@@ -32,7 +32,7 @@
         drámaian lecsökkenti a fejlesztési időt, mélyrehatóan bevizsgált
         alapokra építve.
     </para>
-    
+
     <para>
         A „Zend Keretrendszer” kezdeményezés elsődleges támogatója a
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.zend.com">Zend Technologies</link>, azonban sok
@@ -41,11 +41,11 @@
         fejlesztők számára elérhetővé tenni kívánt webszolgáltatás felületeik és
         más technológiák kapcsán, mint a Google, a Microsoft és StrikeIron.
     </para>
-    
+
     <para>
         Mindezen lehetőségek megteremtése és fenntartása nem valósulhatott volna
         meg a Zend Framework élénk közösségének segítsége nélkül. A közösségi
-        tagok, beleértve a közreműködőket is, elérhetők a 
+        tagok, beleértve a közreműködőket is, elérhetők a
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://framework.zend.com/archives">levelezőlistákon</link>
         , <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.zftalk.com">IRC csatornákon</link> és
         más fórumokon. Bármilyen kérdés merüljön fel, a közösség mindig elérhető

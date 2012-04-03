@@ -2,7 +2,7 @@
 <!-- Reviewed: no -->
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.event-manager.event-manager">
     <info><title>The EventManager</title></info>
- 
+
     <section xml:id="zend.event-manager.event-manager.intro">
         <info><title>Overview</title></info>
 
@@ -37,7 +37,7 @@
             listeners.
         </para>
     </section>
- 
+
     <section xml:id="zend.event-manager.event-manager.quick-start">
         <info><title>Quick Start</title></info>
 
@@ -168,7 +168,7 @@ $foo = new Foo();
 
 // And we can still trigger the above event:
 $foo->bar('baz', 'bat');
-// results in log message: 
+// results in log message:
 // bar called on Foo, using params {"baz" : "baz", "bat" : "bat"}"
 ]]></programlisting>
 
@@ -178,7 +178,7 @@ $foo->bar('baz', 'bat');
             values of listeners, test and loop through the results returned by listeners, prioritize
             listeners, and more. Many of these features are detailed in the examples.
         </para>
-        
+
         <section xml:id="zend.event-manager.event-manager.quick-start.wildcard">
             <info><title>Wildcard Listeners</title></info>
 
@@ -263,16 +263,16 @@ $events->attach(array('foo', 'bar'), '*', $callback);
             </example>
         </section>
     </section>
- 
+
     <section xml:id="zend.event-manager.event-manager.options">
         <info><title>Configuration Options</title></info>
- 
+
         <variablelist>
             <title>EventManager Options</title>
- 
+
             <varlistentry>
                 <term>identifier</term>
- 
+
                 <listitem>
                     <para>
                         A string or array of strings to which the given
@@ -284,7 +284,7 @@ $events->attach(array('foo', 'bar'), '*', $callback);
 
             <varlistentry>
                 <term>event_class</term>
- 
+
                 <listitem>
                     <para>
                         The name of an alternate <classname>Event</classname> class to use for
@@ -295,7 +295,7 @@ $events->attach(array('foo', 'bar'), '*', $callback);
 
             <varlistentry>
                 <term>static_connections</term>
- 
+
                 <listitem>
                     <para>
                         An instance of a <interfacename>StaticEventCollection</interfacename>
@@ -309,10 +309,10 @@ $events->attach(array('foo', 'bar'), '*', $callback);
             </varlistentry>
         </variablelist>
     </section>
- 
+
     <section xml:id="zend.event-manager.event-manager.methods">
         <info><title>Available Methods</title></info>
- 
+
         <variablelist>
             <varlistentry xml:id="zend.event-manager.event-manager.methods.constructor">
                 <term>__construct</term>
@@ -406,7 +406,7 @@ $events->attach(array('foo', 'bar'), '*', $callback);
                         <varname>$params</varname> should typically be an associative array or
                         <classname>ArrayAccess</classname> instance; we recommend using the
                         parameters passed to the function/method (<function>compact()</function> is
-                        often useful here). This method can also take a callback and behave in the 
+                        often useful here). This method can also take a callback and behave in the
                         same way as <methodname>triggerUntil()</methodname>.
                     </para>
 
@@ -600,13 +600,13 @@ $events->attach(array('foo', 'bar'), '*', $callback);
             </varlistentry>
         </variablelist>
     </section>
- 
+
     <section xml:id="zend.event-manager.event-manager.examples">
         <info><title>Examples</title></info>
- 
+
         <example xml:id="zend.event-manager.event-manager.examples.modifying-args">
             <info><title>Modifying Arguments</title></info>
- 
+
             <para>
                 Occasionally it can be useful to allow listeners to modify the arguments they
                 receive so that later listeners or the calling method will receive those changed
@@ -623,7 +623,7 @@ $events->attach(array('foo', 'bar'), '*', $callback);
                 and pass this new object when triggering an event. You will then pull that value
                 back into your method.
             </para>
- 
+
             <programlisting language="php"><![CDATA[
 class ValueObject
 {
@@ -662,7 +662,7 @@ $v->inject(array(
 
         <example xml:id="zend.event-manager.event-manager.examples.short-circuiting">
             <info><title>Short Circuiting</title></info>
- 
+
             <para>
                 One common use case for events is to trigger listeners until either one indicates no
                 further processing should be done, or until a return value meets specific criteria.
@@ -672,7 +672,7 @@ $v->inject(array(
             <programlisting language="php"><![CDATA[
 $listener = function($e) {
     // do some work
-    
+
     // Stop propagation and return a response
     $e->stopPropagation(true);
     return $response;
@@ -682,7 +682,7 @@ $listener = function($e) {
             <para>
                 Alternately, we could do the check from the method triggering the event.
             </para>
- 
+
             <programlisting language="php"><![CDATA[
 class Foo implements Dispatchable
 {
@@ -707,7 +707,7 @@ class Foo implements Dispatchable
                 <methodname>last()</methodname> method to retrieve the return value from the last
                 executed listener:
             </para>
- 
+
             <programlisting language="php"><![CDATA[
 class Foo implements Dispatchable
 {
@@ -733,10 +733,10 @@ class Foo implements Dispatchable
 
         <example xml:id="zend.event-manager.event-manager.examples.priority">
             <info><title>Assigning Priority to Listeners</title></info>
- 
+
             <para>
                 One use case for the <classname>EventManager</classname> is for implementing caching
-                systems. As such, you often want to check the cache early, and save to it late. 
+                systems. As such, you often want to check the cache early, and save to it late.
             </para>
 
             <para>
@@ -749,7 +749,7 @@ class Foo implements Dispatchable
             <para>
                 So, to implement a caching system, our method will need to trigger an event at
                 method start as well as at method end. At method start, we want an event that will
-                trigger early; at method end, an event should trigger late. 
+                trigger early; at method end, an event should trigger late.
             </para>
 
             <para>

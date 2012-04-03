@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router"><info><title>标准路由器</title></info>
-    
+
     <section xml:id="zend.controller.router.introduction"><info><title>简介</title></info>
-        
+
         <para>
             <code>Zend_Controller_Router_Rewrite</code>是标准的框架路由器。路由是个过程，在这个过程中它取出URI的端点（跟着基本URL的URI的那部分）并把它分解成参数来决定哪个模块、哪个控制器和控制器中的哪个动作应该接受请求。模块、控制器、动作和其它参数被打包到<code>Zend_Controller_Request_Http</code>对象，接着这个对象由<code>Zend_Controller_Dispatcher_Standard</code>来处理。路由只发生一次：当请求最初被接收和第一个控制器被派遣之前。
         </para>
@@ -39,7 +39,7 @@ RewriteRule ^[\w/\%]*(?:\.(?!(?:js|ico|gif|jpg|png|css)$)[\w\%]*$)? /index.php [
         ]]></programlisting>
 
         <note><info><title>IIS Isapi_Rewrite</title></info>
-            
+
             <para>
                 当使用IIS，<code>$_SERVER['REQUEST_URI']</code>将要么不存在，要么被设置成一个空串。在这个例子中，<code>Zend_Controller_Request_Http</code>将企图使用被Isapi_Rewrite扩展设置的<code>$_SERVER['HTTP_X_REWRITE_URL']</code>的值。
             </para>
@@ -60,7 +60,7 @@ url.rewrite-once = (
     </section>
 
     <section xml:id="zend.controller.router.usage"><info><title>使用路由器</title></info>
-        
+
 
         <para>
             为正确使用rewrite路由器你必须初始化它，添加一些用户定义的路由并注入到控制器。下面的代码示例这个过程：
@@ -81,7 +81,7 @@ $router->addRoute(
     </section>
 
     <section xml:id="zend.controller.router.basic"><info><title>基本的Rewrite路由器操作</title></info>
-        
+
 
         <para>
             RewriteRouter的核心是用户定义路由的定义。路由通过调用RewriteRouter的addRoute方法和传递一个由类实现的<code>Zend_Controller_Router_Route_Interface</code>的新的实例被添加。例如：
@@ -132,14 +132,14 @@ $router->addRoute('user',
         </para>
 
         <note><info><title>倒序匹配</title></info>
-            
+
             <para>
                 用倒序来匹配路由确保最通用的路由被首先定义。
             </para>
         </note>
 
         <note><info><title>返回的值</title></info>
-            
+
             <para>
                 从路由返回的值来自于URL参数或用于定义的缺省值。这些变量以后可通过<code>Zend_Controller_Request::getParam()</code> 或 <code>Zend_Controller_Action::_getParam()</code> 方法来访问。
             </para>
@@ -150,7 +150,7 @@ $router->addRoute('user',
         </para>
 
         <note><info><title>特殊变量</title></info>
-            
+
             <para>
                 如果你选择通过 <code>setControllerKey</code> 和 <code>setActionKey</code>方法的方式来改变缺省值，这些特殊变量的名字可能会不同。
             </para>
@@ -159,7 +159,7 @@ $router->addRoute('user',
     </section>
 
     <section xml:id="zend.controller.router.default-routes"><info><title>缺省路由</title></info>
-        
+
 
         <para>
             Zend_Controller_Router_Rewrite 和缺省路由一起预先配置，它将以<code>controller/action</code>的形式匹配URIs。另外，模块名可以被指定作为第一个路径参数，允许这种<code>module/controller/action</code>形式的URIs。最后，它也将缺省地匹配任何另外的追加到URI的参数－<code>controller/action/var1/value1/var2/value2</code>。
@@ -233,7 +233,7 @@ $router->removeDefaultRoutes();
     </section>
 
     <section xml:id="zend.controller.router.rewritebase"><info><title>基本 URL 和子目录</title></info>
-        
+
 
         <para>
             rewrite路由器可以被用在子目录（例如，<code>http://domain.com/~user/application-root/</code>），在此例中，应用程序 (<code>/~user/application-root</code>)的基本URL应该能自动被<code>Zend_Controller_Request_Http</code>检测到并使用。
@@ -251,14 +251,14 @@ $request->setBaseUrl('/~user/application-root/');
     </section>
 
     <section xml:id="zend.controller.router.routes"><info><title>Route Types</title></info>
-        
+
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route.xml"/>
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route-Static.xml"/>
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route-Regex.xml"/>
     </section>
 
     <section xml:id="zend.controller.router.add-config"><info><title>使用 Zend_Config with the RewriteRouter</title></info>
-        
+
 
         <para>
             有时候，用新路由更新配置文件比修改代码更方便。这个可能通过<code>addConfig()</code>方法来做。基本上，你创建一个Zend_Config-compatible配置，并在你的代码中读入然后传递给RewriteRouter。
@@ -307,7 +307,7 @@ $router->addConfig($config, 'routes');
     </section>
 
     <section xml:id="zend.controller.router.subclassing"><info><title>Subclassing the Router</title></info>
-        
+
 
         <para>
             标准的rewrite路由器应当最大限度提供你所需的功能；大多时候，为了通过已知的路由提供新的或修改的功能，你将只需要创建一个新的路由类型

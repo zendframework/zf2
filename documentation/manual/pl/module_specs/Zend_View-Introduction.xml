@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.introduction"><info><title>Wprowadzenie</title></info>
 
-    
+
 
     <para>
         Zend_View jest klasą zapewniającą obsługę części widoku ("view")
@@ -28,7 +28,7 @@
 
     <section xml:id="zend.view.introduction.controller"><info><title>Skrypt kontrolera</title></info>
 
-        
+
 
         <para>
             Aby pokazać prosty przykład załóżmy, że kontroler ma dane w postaci
@@ -67,7 +67,7 @@ echo $view->render('booklist.php');
 
     <section xml:id="zend.view.introduction.view"><info><title>Skrypt widoku</title></info>
 
-        
+
 
         <para>
             Teraz potrzebujemy skryptu widoku "booklist.php". Jest
@@ -114,7 +114,7 @@ if ($this->books): ?>
     </section>
 
     <section xml:id="zend.view.introduction.options"><info><title>Opcje</title></info>
-        
+
 
         <para>
             <code>Zend_View</code> posiada kilka opcji, które mogą być użyte do
@@ -181,7 +181,7 @@ base/path/
     </section>
 
     <section xml:id="zend.view.introduction.shortTags"><info><title>Krótkie znaczniki wewnątrz skryptów widoków</title></info>
-        
+
 
         <para>
             W naszych przykładach i dokumentacji używamy krótkich znaczników PHP:
@@ -252,7 +252,7 @@ $view->setUseStreamWrapper(true);
         </itemizedlist>
 
         <note><info><title>Alternatywna obsługa strumienia danych zmniejsza wydajność</title></info>
-            
+
 
             <para>
                 Użycie strumienia danych <emphasis>zmniejszy</emphasis> wydajność
@@ -266,7 +266,7 @@ $view->setUseStreamWrapper(true);
     </section>
 
     <section xml:id="zend.view.introduction.accessors"><info><title>Narzędziowe metody dostępowe</title></info>
-        
+
 
         <para>
             W większości przypadków będziesz używał tylko metod

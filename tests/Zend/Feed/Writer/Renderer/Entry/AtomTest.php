@@ -43,9 +43,9 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->_validWriter = new Writer\Feed;
-        
+
         $this->_validWriter->setType('atom');
-        
+
         $this->_validWriter->setTitle('This is a test feed.');
         $this->_validWriter->setDescription('This is a test description.');
         $this->_validWriter->setDateModified(1234567890);
@@ -103,7 +103,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('This is a test entry.', $entry->getTitle());
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -132,7 +132,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('<p class="xhtml:">This is test content for <em>xhtml:</em></p>', $entry->getContent());
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -151,7 +151,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals(1234567890, $entry->getDateModified()->get(Date\Date::TIMESTAMP));
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -189,7 +189,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             'email'=>'jane@example.com',
             'uri'=>'http://www.example.com/jane'), $entry->getAuthor());
     }
-    
+
     public function testEntryHoldsAnyEnclosureAdded()
     {
         $renderer = new Renderer\Feed\Atom($this->_validWriter);
@@ -214,7 +214,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6', $entry->getId());
     }
-    
+
     public function testEntryIdHasBeenSetUsingSimpleTagUri()
     {
         $this->_validEntry->setId('tag:example.org,2010:/foo/bar/');
@@ -223,7 +223,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('tag:example.org,2010:/foo/bar/', $entry->getId());
     }
-    
+
     public function testEntryIdHasBeenSetUsingComplexTagUri()
     {
         $this->_validEntry->setId('tag:diveintomark.org,2004-05-27:/archives/2004/05/27/howto-atom-linkblog');
@@ -240,7 +240,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals($entry->getLink(), $entry->getId());
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -251,7 +251,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->_validEntry->remove('link');
         $atomFeed->render();
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -264,7 +264,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->_validEntry->setId('not-a-uri');
         $atomFeed->render();
     }
-    
+
     public function testCommentLinkRendered()
     {
         $renderer = new Renderer\Feed\Atom($this->_validWriter);
@@ -273,7 +273,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('http://www.example.com/id/1', $entry->getCommentLink());
     }
-    
+
     public function testCommentCountRendered()
     {
         $renderer = new Renderer\Feed\Atom($this->_validWriter);
@@ -282,7 +282,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals(22, $entry->getCommentCount());
     }
-    
+
     public function testCategoriesCanBeSet()
     {
         $this->_validEntry->addCategories(array(
@@ -299,7 +299,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($expected, (array) $entry->getCategories());
     }
-    
+
     public function testCommentFeedLinksRendered()
     {
         $renderer = new Renderer\Feed\Atom($this->_validWriter);
@@ -313,5 +313,5 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         //$this->assertEquals('http://www.example.com/rss/id/1', $entry->getCommentFeedLink('rss'));
         $this->assertEquals('http://www.example.com/atom/id/1', $entry->getCommentFeedLink('atom'));
     }
-    
+
 }

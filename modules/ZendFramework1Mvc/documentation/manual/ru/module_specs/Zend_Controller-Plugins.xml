@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins"><info><title>Плагины</title></info>
-    
+
 
     <section xml:id="zend.controller.plugins.introduction"><info><title>Введение</title></info>
-        
+
 
         <para>
             Архитектура контроллеров включает в себя систему плагинов, которая
@@ -86,7 +86,7 @@
     </section>
 
     <section xml:id="zend.controller.plugins.writing"><info><title>Написание плагинов</title></info>
-        
+
 
         <para>
             Для того, чтобы написать класс плагина, просто включите и расширьте
@@ -118,7 +118,7 @@ class MyPlugin extends Zend_Controller_Plugin_Abstract
     </section>
 
     <section xml:id="zend.controller.plugins.using"><info><title>Использование плагинов</title></info>
-        
+
 
         <para>
             Классы плагинов регистрируются через
@@ -200,7 +200,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.manipulating"><info><title>Извлечение и работа с плагинами</title></info>
-        
+
 
         <para>
             Иногда может понадобиться отменить регистрацию плагина или извлечь
@@ -229,7 +229,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.standard"><info><title>Плагины, включенные в стандартную поставку</title></info>
-        
+
 
         <para>
             Zend Framework в его стандартной поставке включает в себя плагин для

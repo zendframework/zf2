@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.importing"><info><title>フィードの読み込み</title></info>
-    
+
 
     <para>
         <classname>Zend_Feed</classname> を使用すると、フィードの取得が非常に簡単に行えます。
@@ -36,7 +36,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
     </para>
 
     <section xml:id="zend.feed.importing.custom"><info><title>独自のフィード</title></info>
-        
+
 
         <para>
             <classname>Zend_Feed</classname> を使用すると、独自のフィードを簡単に作成できます。
@@ -48,7 +48,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
         </para>
 
         <section xml:id="zend.feed.importing.custom.importarray"><info><title>独自の配列の読み込み</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // フィードを配列から読み込みます
@@ -281,7 +281,7 @@ array(
         </section>
 
         <section xml:id="zend.feed.importing.custom.importbuilder"><info><title>独自のデータソースの読み込み</title></info>
-            
+
 
             <para>
                 <classname>Zend_Feed_Builder_Interface</classname> を実装した任意のデータソースから、
@@ -329,7 +329,7 @@ $rssFeedFromArray =
 
         <section xml:id="zend.feed.importing.custom.dump"><info><title>フィードの内容の出力</title></info>
 
-            
+
 
             <para>
                 <classname>Zend_Feed_Abstract</classname> インスタンスの内容を出力するには、

@@ -43,9 +43,9 @@ class RssTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->_validWriter = new Writer\Feed;
-        
+
         $this->_validWriter->setType('rss');
-        
+
         $this->_validWriter->setTitle('This is a test feed.');
         $this->_validWriter->setDescription('This is a test description.');
         $this->_validWriter->setLink('http://www.example.com');
@@ -96,7 +96,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('This is a test entry.', $entry->getTitle());
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -107,7 +107,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->_validEntry->remove('description');
         $atomFeed->render();
     }
-    
+
     public function testEntryTitleCharDataEncoding()
     {
         $renderer = new Renderer\Feed\Rss($this->_validWriter);
@@ -124,7 +124,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('This is a test entry description.', $entry->getDescription());
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -135,7 +135,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->_validEntry->remove('title');
         $atomFeed->render();
     }
-    
+
     public function testEntryDescriptionCharDataEncoding()
     {
         $renderer = new Renderer\Feed\Rss($this->_validWriter);
@@ -144,7 +144,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('<>&\'"áéíóú', $entry->getDescription());
     }
-    
+
     public function testEntryContentHasBeenSet()
     {
         $this->_validEntry->setContent('This is test entry content.');
@@ -153,7 +153,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('This is test entry content.', $entry->getContent());
     }
-    
+
     public function testEntryContentCharDataEncoding()
     {
         $renderer = new Renderer\Feed\Rss($this->_validWriter);
@@ -198,7 +198,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $author = $entry->getAuthor();
         $this->assertEquals(array('name'=>'Jane'), $entry->getAuthor());
     }
-    
+
     public function testEntryAuthorCharDataEncoding()
     {
         $this->_validEntry->addAuthor('<>&\'"áéíóú', 'jane@example.com', 'http://www.example.com/jane');
@@ -208,7 +208,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $author = $entry->getAuthor();
         $this->assertEquals(array('name'=>'<>&\'"áéíóú'), $entry->getAuthor());
     }
-    
+
     public function testEntryHoldsAnyEnclosureAdded()
     {
         $renderer = new Renderer\Feed\Rss($this->_validWriter);
@@ -250,7 +250,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         ));
         $renderer->render();
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -264,7 +264,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         ));
         $renderer->render();
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -287,7 +287,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6', $entry->getId());
     }
-    
+
     public function testEntryIdHasBeenSetWithPermaLinkAsFalseWhenNotUri()
     {
         $this->markTestIncomplete('Untest due to ZFR potential bug');
@@ -300,7 +300,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals($entry->getLink(), $entry->getId());
     }
-    
+
     public function testCommentLinkRendered()
     {
         $renderer = new Renderer\Feed\Rss($this->_validWriter);
@@ -309,7 +309,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('http://www.example.com/id/1', $entry->getCommentLink());
     }
-    
+
     public function testCommentCountRendered()
     {
         $renderer = new Renderer\Feed\Rss($this->_validWriter);
@@ -318,7 +318,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals(22, $entry->getCommentCount());
     }
-    
+
     public function testCommentFeedLinksRendered()
     {
         $renderer = new Renderer\Feed\Rss($this->_validWriter);
@@ -332,7 +332,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.example.com/rss/id/1', $entry->getCommentFeedLink('rss'));
         //$this->assertEquals('http://www.example.com/atom/id/1', $entry->getCommentFeedLink('atom'));
     }
-    
+
     public function testCategoriesCanBeSet()
     {
         $this->_validEntry->addCategories(array(
@@ -348,7 +348,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($expected, (array) $entry->getCategories());
     }
-    
+
     /**
      * @group ZFWCHARDATA01
      */

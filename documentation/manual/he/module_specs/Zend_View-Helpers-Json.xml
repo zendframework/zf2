@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.json"><info><title>פלאגין עזר ל JSON</title></info>
-    
+
 
     <para>
         כשיוצרים קובץ תצוגה שמחזיר JSON, חשוב לדעת להחזיר את הכותר המתאים שיציג את ה JSON כפי שצריך.

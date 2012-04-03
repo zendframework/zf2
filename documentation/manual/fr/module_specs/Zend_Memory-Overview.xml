@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.overview"><info><title>Présentation</title></info>
-    
+
 
     <section xml:id="zend.memory.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Le composant <classname>Zend_Memory</classname> est destiné à gérer des données
@@ -29,7 +29,7 @@
         </para>
 
         <example xml:id="zend.memory.introduction.example-1"><info><title>Utiliser le composant Zend_Memory</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Memory::factory()</methodname> instancie l'objet de management
@@ -64,7 +64,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
     </section>
 
     <section xml:id="zend.memory.theory-of-operation"><info><title>Aspect théorique</title></info>
-        
+
 
         <para>
             <classname>Zend_Memory</classname> travaille avec les concepts suivants :
@@ -88,7 +88,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
             </para>
 
         <section xml:id="zend.memory.theory-of-operation.manager"><info><title>Manager de mémoire</title></info>
-            
+
 
             <para>
                 Le manager de mémoire produit des objets de mémoire (verrouillé ou mobile) sur
@@ -98,7 +98,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
         </section>
 
         <section xml:id="zend.memory.theory-of-operation.container"><info><title>Conteneur de mémoire</title></info>
-            
+
 
             <para>
                 Le conteneur de mémoire a un attribut <code>value</code> virtuel ou réel de
@@ -132,7 +132,7 @@ $memObject->value = substr($memObject->value, $start, $length);
         </section>
 
         <section xml:id="zend.memory.theory-of-operation.locked"><info><title>Objet de mémoire verrouillé</title></info>
-            
+
 
             <para>
                 Les objets de mémoire verrouillés sont toujours stockés dans la mémoire. Les
@@ -141,7 +141,7 @@ $memObject->value = substr($memObject->value, $start, $length);
         </section>
 
         <section xml:id="zend.memory.theory-of-operation.movable"><info><title>Objet de mémoire mobile</title></info>
-            
+
 
             <para>
                 Les objets de mémoire mobiles sont mis en cache et chargés de manière

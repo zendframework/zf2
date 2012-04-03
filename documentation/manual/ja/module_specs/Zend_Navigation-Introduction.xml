@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.introduction"><info><title>導入</title></info>
-    
+
 
     <para>
         <classname>Zend_Navigation</classname>は、
@@ -13,14 +13,14 @@
     </para>
 
     <section xml:id="zend.navigation.introduction.concepts"><info><title>ページとコンテナ</title></info>
-        
+
 
         <para>
             <classname>Zend_Navigation</classname>には2つの主要な概念があります:
         </para>
 
         <section xml:id="zend.navigation.introduction.pages"><info><title>ページ</title></info>
-            
+
 
             <para>
                 <classname>Zend_Navigation</classname>におけるページ (<classname>Zend_Navigation_Page</classname>) は、
@@ -39,7 +39,7 @@
         </section>
 
         <section xml:id="zend.navigation.introduction.containers"><info><title>コンテナ</title></info>
-            
+
 
             <para>
                 ナビゲーション・コンテナ (<classname>Zend_Navigation_Container</classname>) は、
@@ -67,7 +67,7 @@
     </section>
 
     <section xml:id="zend.navigation.introduction.separation"><info><title>データ（モデル）とレンダリング（ビュー）の分離</title></info>
-        
+
 
         <para>
             <classname>Zend_Navigation</classname> 名前空間のクラスは、

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.oauth.introduction.security-architecture"><info><title>Architektur der Sicherheit</title></info>
-    
+
 
     <para>
         OAuth wurde speziell designt um über eine unsichere <acronym>HTTP</acronym> Verbindung zu

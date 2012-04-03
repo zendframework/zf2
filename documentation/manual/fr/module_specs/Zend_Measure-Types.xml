@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.types"><info><title>Types de mesures</title></info>
-    
+
 
     <para>
         Tous les types de mesures supportées sont listées ci-dessous, chacun avec une exemple
@@ -8,7 +8,7 @@
     </para>
 
     <table xml:id="zend.measure.types.table-1"><info><title>Liste des types de mesure</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>
@@ -262,7 +262,7 @@
     </table>
 
     <section xml:id="zend.measure.types.binary"><info><title>Conseils pour Zend_Measure_Binary</title></info>
-        
+
 
         <para>
             Quelques conventions binaires populaires, incluent des termes comme le kilo-, le
@@ -284,7 +284,7 @@
     </section>
 
     <section xml:id="zend.measure.types.decimal"><info><title>Conseils pour Zend_Measure_Number</title></info>
-        
+
 
         <para>
             Le format de nombre le plus connu est le système décimal. De manière
@@ -296,7 +296,7 @@
     </section>
 
     <section xml:id="zend.measure.types.roman"><info><title>Chiffres romains</title></info>
-        
+
 
         <para>
             Les chiffres romains plus grands que 4000 sont supportés. <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://fr.wikipedia.org/wiki/Num%C3%A9ration_romaine#Extensions_classiques">Ces

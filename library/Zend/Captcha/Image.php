@@ -21,9 +21,9 @@
 
 namespace Zend\Captcha;
 
-use Zend\Captcha\Exception,
-    Zend\Loader\Pluggable,
-    Zend\View\Renderer;
+use Zend\Captcha\Exception;
+use Zend\Loader\Pluggable;
+use Zend\View\Renderer;
 
 /**
  * Image-based captcha element
@@ -630,10 +630,10 @@ class Image extends Word
             }
         }
 
-        return '<img width="' . $this->getWidth() 
-            . '" height="' . $this->getHeight() 
+        return '<img width="' . $this->getWidth()
+            . '" height="' . $this->getHeight()
             . '" alt="' . $this->getImgAlt()
-            . '" src="' . $this->getImgUrl() . $this->getId() . $this->getSuffix() . '"' 
+            . '" src="' . $this->getImgUrl() . $this->getId() . $this->getSuffix() . '"'
             . $endTag;
     }
 }

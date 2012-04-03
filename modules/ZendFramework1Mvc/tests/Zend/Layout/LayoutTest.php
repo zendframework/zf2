@@ -20,10 +20,10 @@
  */
 
 namespace ZendTest\Layout;
-use Zend\Controller,
-    Zend\Layout,
-    Zend\Config,
-    Zend\View;
+use Zend\Controller;
+use Zend\Layout;
+use Zend\Config;
+use Zend\View;
 
 /**
  * Test class for Zend_Layout.

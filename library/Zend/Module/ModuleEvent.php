@@ -2,8 +2,8 @@
 
 namespace Zend\Module;
 
-use Zend\EventManager\Event,
-    Zend\Module\Listener\ConfigMerger;
+use Zend\EventManager\Event;
+use Zend\Module\Listener\ConfigMerger;
 
 /**
  * Custom event for use with module manager

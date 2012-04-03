@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.wildfire.chapter"><info><title>Zend_Wildfire</title></info>
-    
+
 
     <para>
         <classname>Zend_Wildfire</classname> est un composant qui facilite la communication

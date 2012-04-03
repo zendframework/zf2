@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.request"><info><title>请求对象</title></info>
-    
+
     <section xml:id="zend.controller.request.introduction"><info><title>介绍</title></info>
-        
+
         <para>
             请求对象是在前端控制器，路由器，分发器，以及控制类间传递的简单值对象。请求对象封装了请求的模块，控制器，动作以及可选的参数，还包括其他的请求环境，如HTTP，CLI，PHP-GTK。
         </para>
@@ -39,17 +39,17 @@
     </section>
 
     <section xml:id="zend.controller.request.http"><info><title>HTTP 请求</title></info>
-        
+
 
         <section xml:id="zend.controller.request.http.dataacess"><info><title>访问请求数据</title></info>
-            
+
 
             <para>
                 <code>Zend_Controller_Request_Http</code>封装了对相关值的访问，如控制器和动作路由器变量的键名和值，从URL解析的附加参数。它还允许访问作为公共成员的超全局变量，管理当前的基地址(Base URL)和请求URI。超全局变量不能在请求对象中赋值，但可以通过setParam/getParam方法设定/获取用户参数。
             </para>
 
             <note><info><title>超全局数据</title></info>
-                
+
                 <para>
                     通过<code>Zend_Controller_Request_Http</code>访问公共成员属性的超全局数据,有必要认识到一点，这些属性名(超全局数组的键)按照特定次序匹配超全局变量：1. GET，2.POST，3. COOKIE，4. SERVER，5. ENV。
                 </para>
@@ -60,14 +60,14 @@
             </para>
 
             <note><info><title>GET和POST数据</title></info>
-                
+
                 <para>
                     需要注意：在请求对象中访问数据是没有经过任何过滤的，路由器和分发器根据任务来验证过滤数据，但在请求对象中没有任何处理。
                 </para>
             </note>
 
               <note><info><title> 也获取原始 （Raw） POST 数据！</title></info>
-                
+
 
                 <para>
                     从 1.5.0 开始，也可以通过 <code>getRawBody()</code>  方法获取原始 post 数据。如果没有数据以那种方式提交，该方法返回 false，但 post 的全体（full boday）是个例外。
@@ -83,7 +83,7 @@
             </para>
 
             <note><info><title>getParam()不只可以获取用户参数</title></info>
-                
+
 
                 <para>
                     <code>getParam()</code>事实上从几个资源中获取参数。根据优先级排序：通过<code>setParam()</code>设置的用户参数，<code>GET</code> 参数，最后是<code>POST</code>参数。 通过该方法获取数据时需要注意这点。
@@ -99,7 +99,7 @@
             </para>
 
             <note><info><title>Apache相关</title></info>
-                
+
                 <para>
                         如果使用apache的404处理器来传递请求到前端控制器，或者使用重写规则(rewrite rules)的PT标志，URI包含在<code>$_SERVER['REDIRECT_URL']</code>，而不是<code>$_SERVER['REQUEST_URI']</code>。如果使用这样的设定并获取无效的路由，应该使用<code>Zend_Controller_Request_Apache404</code>类代替默认的HTTP类：
                 </para>
@@ -117,7 +117,7 @@ $front->setRequest($request);
         </section>
 
         <section xml:id="zend.controller.request.http.baseurl"><info><title>基地址和子目录</title></info>
-            
+
 
             <para>
                 <code>Zend_Controller_Request_Http</code>允许在子目录中使用<code>Zend_Controller_Router_Rewrite</code>。<code>Zend_Controller_Request_Http</code>试图自动的检测你的基地址，并进行相应的设置。
@@ -128,7 +128,7 @@ $front->setRequest($request);
             </para>
 
             <note><info><title>URL检测区分大小写</title></info>
-                
+
                 <para>
             基地址的自动检测是区分大小写的，因此需要确保URL与文件系统中的子目录匹配。否则将会引发异常。
                 </para>
@@ -154,7 +154,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.method"><info><title> 决定请求方式 </title></info>
-            
+
 
             <para>
                 <code>getMethod()</code> 允许你决定用于请求当前资源的 HTTP 请求方法。另外，当询问是否一个请求的特定类型是否已经存在，有许多方法允许你获得布尔响应：
@@ -175,7 +175,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.ajax"><info><title>删除 AJAX 请求</title></info>
-            
+
 
             <para>
                 <code>Zend_Controller_Request_Http</code> 有一个初步的方法用来检测AJAX请求：<code>isXmlHttpRequest()</code>。这个方法寻找一个带有'XMLHttpRequest' 值的HTTP请求头<code>X-Requested-With</code>；如果发现，就返回true。
@@ -200,7 +200,7 @@ $response   = $controller->dispatch();
     </section>
 
     <section xml:id="zend.controller.request.subclassing"><info><title>子类化请求对象</title></info>
-        
+
 
         <para>
         所有请求对象的基请求类是抽象类<code>Zend_Controller_Request_Abstract</code>。定义了一些最基本的方法：

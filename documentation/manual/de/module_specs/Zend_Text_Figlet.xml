@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.text.figlet"><info><title>Zend_Text_Figlet</title></info>
-    
+
 
     <para>
         <classname>Zend_Text_Figlet</classname> ist eine Komponente die es Entwicklern erlaubt einen
@@ -13,7 +13,7 @@
     </para>
 
     <note><info><title>Komprimierte Schriftarten</title></info>
-        
+
 
         <para>
             <classname>Zend_Text_Figlet</classname> unterstützt gezippte Schriftarten. Das bedeutet
@@ -26,7 +26,7 @@
     </note>
 
     <note><info><title>Encoding</title></info>
-        
+
 
         <para>
             <classname>Zend_Text_Figlet</classname> erwartet das Strings standardmäßig UTF-8 kodiert
@@ -108,7 +108,7 @@
     </para>
 
     <example xml:id="zend.text.figlet.example.using"><info><title>Verwendung von Zend_Text_Figlet</title></info>
-        
+
 
         <para>
             Dieses Beispiel zeigt die einfache Verwendung von

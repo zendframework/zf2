@@ -17,7 +17,7 @@
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
- 
+
 namespace Zend\Feed\Writer\Extension\ITunes\Renderer;
 use Zend\Feed\Writer\Extension;
 
@@ -38,10 +38,10 @@ class Entry extends Extension\AbstractRenderer
      * @var bool
      */
     protected $_called = false;
-    
+
     /**
      * Render entry
-     * 
+     *
      * @return void
      */
     public function render()
@@ -57,23 +57,23 @@ class Entry extends Extension\AbstractRenderer
             $this->_appendNamespaces();
         }
     }
-    
+
     /**
      * Append namespaces to entry root
-     * 
+     *
      * @return void
      */
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:itunes',
-            'http://www.itunes.com/dtds/podcast-1.0.dtd');  
+            'http://www.itunes.com/dtds/podcast-1.0.dtd');
     }
 
     /**
      * Set entry authors
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setAuthors(\DOMDocument $dom, \DOMElement $root)
@@ -90,12 +90,12 @@ class Entry extends Extension\AbstractRenderer
             $this->_called = true;
         }
     }
-    
+
     /**
      * Set itunes block
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setBlock(\DOMDocument $dom, \DOMElement $root)
@@ -110,12 +110,12 @@ class Entry extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set entry duration
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setDuration(\DOMDocument $dom, \DOMElement $root)
@@ -130,12 +130,12 @@ class Entry extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set explicit flag
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setExplicit(\DOMDocument $dom, \DOMElement $root)
@@ -150,12 +150,12 @@ class Entry extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set entry keywords
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setKeywords(\DOMDocument $dom, \DOMElement $root)
@@ -170,12 +170,12 @@ class Entry extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set entry subtitle
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setSubtitle(\DOMDocument $dom, \DOMElement $root)
@@ -190,12 +190,12 @@ class Entry extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set entry summary
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setSummary(\DOMDocument $dom, \DOMElement $root)

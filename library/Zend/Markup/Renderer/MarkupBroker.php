@@ -41,8 +41,8 @@ class MarkupBroker extends PluginBroker
 
     /**
      * Determine if we have a valid markup
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return true
      * @throws Exception
      */

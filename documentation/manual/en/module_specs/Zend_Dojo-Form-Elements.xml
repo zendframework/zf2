@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form.elements"><info><title>Dijit-Specific Form Elements</title></info>
-    
+
 
     <para>
         Each form dijit for which a view helper is provided has a corresponding
@@ -101,7 +101,7 @@ $element->addDecorator('DijitElement')
     </para>
 
     <section xml:id="zend.dojo.form.elements.button"><info><title>Button</title></info>
-        
+
 
         <para>
             While not deriving from <link linkend="zend.form.standardElements.button">the standard Button
@@ -135,7 +135,7 @@ $element->addDecorator('DijitElement')
         </para>
 
         <example xml:id="zend.dojo.form.elements.button.example"><info><title>Example Button dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -150,7 +150,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.checkBox"><info><title>CheckBox</title></info>
-        
+
 
         <para>
             While not deriving from <link linkend="zend.form.standardElements.checkbox">the standard
@@ -203,7 +203,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.checkBox.example"><info><title>Example CheckBox dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -221,7 +221,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.comboBox"><info><title>ComboBox and FilteringSelect</title></info>
-        
+
 
         <para>
             As noted in the ComboBox <link linkend="zend.dojo.view.dijit.form">dijit view helper
@@ -232,7 +232,7 @@ $form->addElement(
         </para>
 
         <note><info><title>ComboBoxes return the label values</title></info>
-            
+
 
             <para>
                 ComboBoxes return the label values, and not the option values,
@@ -330,7 +330,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.comboBox.selectExample"><info><title>ComboBox dijit element usage as select input</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -354,7 +354,7 @@ $form->addElement(
         </example>
 
         <example xml:id="zend.dojo.form.elements.comboBox.datastoreExample"><info><title>ComboBox dijit element usage with datastore</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -382,7 +382,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.currencyTextBox"><info><title>CurrencyTextBox</title></info>
-        
+
 
         <para>
             The CurrencyTextBox is primarily for supporting currency input. The
@@ -441,7 +441,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.currencyTextBox.example"><info><title>Example CurrencyTextBox dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -461,7 +461,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.dateTextBox"><info><title>DateTextBox</title></info>
-        
+
 
         <para>
             DateTextBox provides a calendar drop-down for selecting a date, as
@@ -526,7 +526,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.dateTextBox.example"><info><title>Example DateTextBox dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -544,7 +544,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.editor"><info><title>Editor</title></info>
-        
+
 
         <para>
             Editor provides a <acronym>WYSIWYG</acronym> editor that can be used to both create and
@@ -736,7 +736,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.editor.example"><info><title>Example Editor dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement('editor', 'content', array(
@@ -751,7 +751,7 @@ $form->addElement('editor', 'content', array(
         </example>
 
         <note><info><title>Editor Dijit uses div by default</title></info>
-            
+
 
             <para>
                 The Editor dijit uses an <acronym>HTML</acronym> <acronym>DIV</acronym> by default.
@@ -784,7 +784,7 @@ $editor->degrade = true;
     </section>
 
     <section xml:id="zend.dojo.form.elements.horizontalSlider"><info><title>HorizontalSlider</title></info>
-        
+
 
         <para>
             HorizontalSlider provides a slider UI widget for selecting a
@@ -859,7 +859,7 @@ $editor->degrade = true;
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.horizontalSlider.example"><info><title>Example HorizontalSlider dijit element usage</title></info>
-            
+
 
             <para>
                 The following will create a horizontal slider selection with
@@ -918,7 +918,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.numberSpinner"><info><title>NumberSpinner</title></info>
-        
+
 
         <para>
             A number spinner is a text element for entering numeric values; it
@@ -998,7 +998,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.numberSpinner.example"><info><title>Example NumberSpinner dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1022,7 +1022,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.numberTextBox"><info><title>NumberTextBox</title></info>
-        
+
 
         <para>
             A number text box is a text element for entering numeric values;
@@ -1082,7 +1082,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.numberTextBox.example"><info><title>Example NumberTextBox dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1104,7 +1104,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.passwordTextBox"><info><title>PasswordTextBox</title></info>
-        
+
 
         <para>
             PasswordTextBox is simply a ValidationTextBox that is tied to a
@@ -1119,7 +1119,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.passwordTextBox.example"><info><title>Example PasswordTextBox dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1140,7 +1140,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.radioButton"><info><title>RadioButton</title></info>
-        
+
 
         <para>
             RadioButton wraps standard radio input elements to provide a
@@ -1164,7 +1164,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.radioButton.example"><info><title>Example RadioButton dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1185,7 +1185,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.simpletextarea"><info><title>SimpleTextarea</title></info>
-        
+
 
         <para>
             SimpleTextarea acts primarily like a standard <acronym>HTML</acronym> textarea. However,
@@ -1195,7 +1195,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.simpletextarea.example"><info><title>Example SimpleTextarea dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1212,7 +1212,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.slider"><info><title>Slider abstract element</title></info>
-        
+
 
         <para>
             Slider is an abstract element from which
@@ -1287,7 +1287,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.submitButton"><info><title>SubmitButton</title></info>
-        
+
 
         <para>
             While there is no Dijit named SubmitButton, we include one here to
@@ -1297,7 +1297,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.submitButton.example"><info><title>Example SubmitButton dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1314,7 +1314,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.textBox"><info><title>TextBox</title></info>
-        
+
 
         <para>
             TextBox is included primarily to provide a text input with
@@ -1367,7 +1367,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.textBox.example"><info><title>Example TextBox dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1385,7 +1385,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.textarea"><info><title>Textarea</title></info>
-        
+
 
         <para>
             Textarea acts primarily like a standard <acronym>HTML</acronym> textarea. However, it
@@ -1396,7 +1396,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.textarea.example"><info><title>Example Textarea dijit element usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1413,7 +1413,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.timeTextBox"><info><title>TimeTextBox</title></info>
-        
+
 
         <para>
             TimeTextBox is a text input that provides a drop-down for selecting
@@ -1466,7 +1466,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.timeTextBox.example"><info><title>Example TimeTextBox dijit element usage</title></info>
-            
+
 
             <para>
                 The following will create a TimeTextBox that displays 2 hours
@@ -1490,7 +1490,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.validationTextBox"><info><title>ValidationTextBox</title></info>
-        
+
 
         <para>
             ValidationTextBox provides the ability to add validations and constraints to a text
@@ -1559,7 +1559,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.validationTextBox.example"><info><title>Example ValidationTextBox dijit element usage</title></info>
-            
+
 
             <para>
                 The following will create a ValidationTextBox that requires a
@@ -1583,7 +1583,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.verticalSlider"><info><title>VerticalSlider</title></info>
-        
+
 
         <para>
             VerticalSlider is the sibling of <link linkend="zend.dojo.form.elements.horizontalSlider">HorizontalSlider</link>,
@@ -1595,7 +1595,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.verticalSlider.example"><info><title>Example VerticalSlider dijit element usage</title></info>
-            
+
 
             <para>
                 The following will create a vertical slider selection with

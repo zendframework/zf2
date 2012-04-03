@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.basics"><info><title>Zend_Controller の基本</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller</classname> は軽量で部品化されており、拡張しやすいように設計されています。
@@ -125,7 +125,7 @@
                 </para>
 
                 <note><info><title>大文字小文字の命名規約</title></info>
-                    
+
 
                     <para>
                         人はみな、リンクをタイプする際に大文字小文字の区別をあまり気にしないものです。

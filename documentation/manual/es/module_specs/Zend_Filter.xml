@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.introduction"><info><title>Introducción</title></info>
 
-    
+
 
     <para> El componente <classname>Zend_Filter</classname> proporciona un
         conjunto de filtros de datos comúnmente necesarios. También proporciona
@@ -9,7 +9,7 @@
         a un solo dato en un orden definido por el usuario. </para>
 
     <section xml:id="zend.filter.introduction.definition"><info><title>¿Qué es un filtro?</title></info>
-        
+
         <para>En el mundo físico, un filtro se suele utilizar para eliminar
             partes no deseadas de lo ingresado, y la vez lo ingresado pasa a
             través de un filtro de salida (por ejemplo, el café). En este caso,
@@ -62,7 +62,7 @@
 
     <section xml:id="zend.filter.introduction.using"><info><title>Uso básico de los filtros</title></info>
 
-        
+
 
         <para> Having this filter definition established provides the foundation
             for <classname>Zend_Filter_Interface</classname> , which requires a
@@ -83,7 +83,7 @@ echo $htmlEntities->filter('"'); // "
 
     <section xml:id="zend.filter.introduction.static"><info><title> Usando el método estático staticFilter()</title></info>
 
-        
+
 
         <para> If it is inconvenient to load a given filter class and create an
             instance of the filter, you can use the static method
@@ -118,7 +118,7 @@ echo Zend_Filter::filterStatic('"', 'HtmlEntities', array(ENT_QUOTES));
 
         <section xml:id="zend.filter.introduction.static.namespaces"><info><title>Namespaces</title></info>
 
-            
+
 
             <para> When working with self defined filters you can give a forth
                 parameter to

@@ -27,7 +27,7 @@
  * @package    Zend_Service_WindowsAzure
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 class Zend_Service_WindowsAzure_Credentials_SharedKeyLite
     extends Zend_Service_WindowsAzure_Credentials_AbstractCredentials
 {
@@ -46,7 +46,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyLite
 	) {
 	    return $requestUrl;
 	}
-	
+
 	/**
 	 * Sign request headers with credentials
 	 *
@@ -94,7 +94,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyLite
 		    $requestDate = gmdate('D, d M Y H:i:s', time()) . ' GMT'; // RFC 1123
 		}
 
-		// Create string to sign   
+		// Create string to sign
 		$stringToSign   = array();
     	$stringToSign[] = $requestDate; // Date
     	$stringToSign[] = $canonicalizedResource;		 			// Canonicalized resource
@@ -104,7 +104,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyLite
     	// Sign request
     	$headers[Zend_Service_WindowsAzure_Credentials_AbstractCredentials::PREFIX_STORAGE_HEADER . 'date'] = $requestDate;
     	$headers['Authorization'] = 'SharedKeyLite ' . $this->_accountName . ':' . $signString;
-    	
+
     	// Return headers
     	return $headers;
 	}

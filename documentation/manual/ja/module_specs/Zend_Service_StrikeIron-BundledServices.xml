@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.strikeiron.bundled-services"><info><title>Zend_Service_StrikeIron: バンドルされているサービス</title></info>
-    
+
 
     <para>
       <classname>Zend_Service_StrikeIron</classname> には、StrikeIron
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.service.strikeiron.bundled-services.zip-code-information"><info><title>ZIP Code Information</title></info>
-      
+
 
       <para>
         <classname>Zend_Service_StrikeIron_ZipCodeInfo</classname> は、StrikeIron の
@@ -72,7 +72,7 @@ $status = $response->serviceStatus;
     </section>
 
     <section xml:id="zend.service.strikeiron.bundled-services.us-address-verification"><info><title>U.S. Address Verification</title></info>
-      
+
 
       <para>
         <classname>Zend_Service_StrikeIron_USAddressVerification</classname>
@@ -133,7 +133,7 @@ if ($result->addressErrorNumber != 0) {
     </section>
 
     <section xml:id="zend.service.strikeiron.bundled-services.sales-use-tax-basic"><info><title>Sales &amp; Use Tax Basic</title></info>
-      
+
 
       <para>
         <classname>Zend_Service_StrikeIron_SalesUseTaxBasic</classname> は、

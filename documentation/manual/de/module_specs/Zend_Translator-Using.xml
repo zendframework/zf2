@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.using"><info><title>Verwendung der Übersetzungsadapter</title></info>
-    
+
 
     <para>
         Der nächste Schritt ist die Benutzung des Adapters im eigenen Code.
     </para>
 
     <example xml:id="zend.translator.using.example1"><info><title>Beispiel eines einsprachigen PHP Codes</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 print "Beispiel\n";
@@ -32,7 +32,7 @@ print "Hier ist Zeile zwei\n";
     </para>
 
     <example xml:id="zend.translator.using.example2"><info><title>Beispiel für mehrsprachigen PHP Code</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $translate = new Zend_Translator(
@@ -157,7 +157,7 @@ print $translate->_(2) . "\n";
     </para>
 
     <section xml:id="zend.translator.using.structure"><info><title>Strukturen für Übersetzungdateien</title></info>
-        
+
 
         <para>
             Der nächste Schritt besteht in der Erstellung der Übersetzungsdateien für die

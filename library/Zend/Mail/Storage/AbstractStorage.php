@@ -21,10 +21,10 @@
 
 namespace Zend\Mail\Storage;
 
-use ArrayAccess,
-    Countable,
-    SeekableIterator,
-    Zend\Mail\Storage;
+use ArrayAccess;
+use Countable;
+use SeekableIterator;
+use Zend\Mail\Storage;
 
 /**
  * @category   Zend

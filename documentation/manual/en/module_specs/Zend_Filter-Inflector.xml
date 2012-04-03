@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.inflector"><info><title>Zend_Filter_Inflector</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_Inflector</classname> is a general purpose tool for
@@ -21,7 +21,7 @@
     </para>
 
     <example xml:id="zend.filter.inflector.camel_case_example"><info><title>Transforming MixedCase and camelCaseText to another format</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $inflector = new Zend_Filter_Inflector('pages/:page.:suffix');
@@ -41,7 +41,7 @@ $filtered = $inflector->filter(array('page' => $string));
     </example>
 
     <section xml:id="zend.filter.inflector.operation"><info><title>Operation</title></info>
-        
+
 
         <para>
             An inflector requires a <emphasis>target</emphasis> and one or more
@@ -74,7 +74,7 @@ $filtered = $inflector->filter(array('page' => $string));
     </section>
 
      <section xml:id="zend.filter.inflector.paths"><info><title>Setting Paths To Alternate Filters</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_Inflector</classname> uses
@@ -117,7 +117,7 @@ $loader->addPrefixPath('My_Filter', 'My/Filter/');
     </section>
 
     <section xml:id="zend.filter.inflector.targets"><info><title>Setting the Inflector Target</title></info>
-        
+
 
         <para>
             The inflector target is a string with some placeholders for
@@ -196,7 +196,7 @@ class Foo
     </section>
 
     <section xml:id="zend.filter.inflector.rules"><info><title>Inflection Rules</title></info>
-        
+
 
         <para>
             As mentioned in the introduction, there are two types of rules:
@@ -217,7 +217,7 @@ class Foo
         </note>
 
         <section xml:id="zend.filter.inflector.rules.static"><info><title>Static Rules</title></info>
-            
+
 
             <para>
                 Static rules do simple string substitution; use them when you
@@ -278,7 +278,7 @@ class Foo
         </section>
 
         <section xml:id="zend.filter.inflector.rules.filters"><info><title>Filter Inflector Rules</title></info>
-            
+
 
             <para>
                 <classname>Zend_Filter</classname> filters may be used as inflector rules
@@ -341,7 +341,7 @@ $inflector->setFilterRule('script', array(
         </section>
 
         <section xml:id="zend.filter.inflector.rules.multiple"><info><title>Setting Many Rules At Once</title></info>
-            
+
 
             <para>
                 Typically, it's easier to set many rules at once than to
@@ -373,7 +373,7 @@ $inflector->setFilterRule('script', array(
             </itemizedlist>
 
             <example xml:id="zend.filter.inflector.rules.multiple.example"><info><title>Setting Multiple Rules at Once</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Could also use setRules() with this notation:
@@ -391,7 +391,7 @@ $inflector->addRules(array(
     </section>
 
     <section xml:id="zend.filter.inflector.utility"><info><title>Utility Methods</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_Inflector</classname> has a number of utility methods
@@ -448,7 +448,7 @@ $inflector->addRules(array(
     </section>
 
     <section xml:id="zend.filter.inflector.config"><info><title>Using Zend_Config with Zend_Filter_Inflector</title></info>
-        
+
 
         <para>
             You can use <classname>Zend_Config</classname> to set rules, filter prefix
@@ -497,7 +497,7 @@ $inflector->addRules(array(
         </itemizedlist>
 
         <example xml:id="zend.filter.inflector.config.example"><info><title>Using Zend_Config with Zend_Filter_Inflector</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // With the constructor:

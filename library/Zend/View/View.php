@@ -20,11 +20,11 @@
 
 namespace Zend\View;
 
-use Zend\EventManager\EventCollection,
-    Zend\EventManager\EventManager,
-    Zend\Mvc\MvcEvent,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\EventManager;
+use Zend\Mvc\MvcEvent;
+use Zend\Stdlib\RequestDescription as Request;
+use Zend\Stdlib\ResponseDescription as Response;
 
 /**
  * @category   Zend

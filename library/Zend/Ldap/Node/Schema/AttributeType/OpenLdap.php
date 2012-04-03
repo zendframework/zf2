@@ -21,8 +21,8 @@
 
 namespace Zend\Ldap\Node\Schema\AttributeType;
 
-use Zend\Ldap\Node\Schema\AttributeType,
-    Zend\Ldap\Node\Schema;
+use Zend\Ldap\Node\Schema\AttributeType;
+use Zend\Ldap\Node\Schema;
 
 /**
  * Zend_Ldap_Node_Schema_AttributeType_OpenLdap provides access to the attribute type

@@ -2,9 +2,9 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Scanner,
-    Zend\Code\Exception,
-    Zend\Code\Annotation\AnnotationManager;
+use Zend\Code\Scanner;
+use Zend\Code\Exception;
+use Zend\Code\Annotation\AnnotationManager;
 
 class FileScanner extends TokenArrayScanner implements Scanner
 {

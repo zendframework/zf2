@@ -15,7 +15,7 @@
         </para>
 
         <para>
-            Il modo più semplice per fare questo: 
+            Il modo più semplice per fare questo:
         </para>
 
 
@@ -25,7 +25,7 @@
 
         <para>
             Se stai utilizzando una RuntimeDefinition dove ti aspetti che
-            una definizione specifica venga risolta alla prima chiamata, 
+            una definizione specifica venga risolta alla prima chiamata,
             puoi vedere questa informazione forzando il display della
             console a leggere quella classe:
         </para>

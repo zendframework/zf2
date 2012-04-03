@@ -17,7 +17,7 @@
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
- 
+
 namespace Zend\Feed\Writer\Extension\DublinCore\Renderer;
 use Zend\Feed\Writer\Extension;
 
@@ -39,10 +39,10 @@ class Feed extends Extension\AbstractRenderer
      * @var bool
      */
     protected $_called = false;
-    
+
     /**
      * Render feed
-     * 
+     *
      * @return void
      */
     public function render()
@@ -55,23 +55,23 @@ class Feed extends Extension\AbstractRenderer
             $this->_appendNamespaces();
         }
     }
-    
+
     /**
      * Append namespaces to feed element
-     * 
+     *
      * @return void
      */
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:dc',
-            'http://purl.org/dc/elements/1.1/');  
+            'http://purl.org/dc/elements/1.1/');
     }
 
     /**
      * Set feed authors
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setAuthors(\DOMDocument $dom, \DOMElement $root)
@@ -85,7 +85,7 @@ class Feed extends Extension\AbstractRenderer
             if (array_key_exists('name', $data)) {
                 $text = $dom->createTextNode($data['name']);
                 $author->appendChild($text);
-                $root->appendChild($author);  
+                $root->appendChild($author);
             }
         }
         $this->_called = true;

@@ -94,11 +94,11 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     public function testUnknownCountryException()
     {
         $this->setExpectedException(
-            'Zend\Service\Amazon\Exception\InvalidArgumentException', 
+            'Zend\Service\Amazon\Exception\InvalidArgumentException',
             'Unknown country code: wrong-country-code');
         $aws = new Amazon\Amazon(
-            TESTS_ZEND_SERVICE_AMAZON_ONLINE_ACCESSKEYID, 
-            'wrong-country-code', 
+            TESTS_ZEND_SERVICE_AMAZON_ONLINE_ACCESSKEYID,
+            'wrong-country-code',
             TESTS_ZEND_SERVICE_AMAZON_ONLINE_SECRETKEY);
     }
 
@@ -205,7 +205,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     public function testItemSearchExceptionCityInvalid()
     {
         $this->setExpectedException(
-            'Zend\Service\Amazon\Exception\RuntimeException', 
+            'Zend\Service\Amazon\Exception\RuntimeException',
             'The value you specified for SearchIndex is invalid.'
         );
         $this->_amazon->itemSearch(array(

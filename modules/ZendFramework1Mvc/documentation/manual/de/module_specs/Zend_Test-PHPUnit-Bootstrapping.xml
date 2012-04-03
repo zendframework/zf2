@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.bootstrapping"><info><title>Bootstrapping der eigenen Testfälle</title></info>
-    
+
 
     <para>
         Wie im <link linkend="zend.test.phpunit.loginexample">Login-Beispiel</link> gezeigt, sollten

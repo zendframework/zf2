@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.inflector"><info><title>Zend_Filter_Inflector</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_Inflector</classname> ist ein generell verwendbares Tool für
@@ -21,7 +21,7 @@
     </para>
 
     <example xml:id="zend.filter.inflector.camel_case_example"><info><title>MixedCase und camelCaseText in ein anderes Format transformieren</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $inflector = new Zend_Filter_Inflector('pages/:page.:suffix');
@@ -41,7 +41,7 @@ $filtered = $inflector->filter(array('page' => $string));
     </example>
 
     <section xml:id="zend.filter.inflector.operation"><info><title>Funktion</title></info>
-        
+
 
         <para>
             Eine Beugung benötigt ein <emphasis>Ziel</emphasis> (target) und ein oder mehrere
@@ -76,7 +76,7 @@ $filtered = $inflector->filter(array('page' => $string));
     </section>
 
      <section xml:id="zend.filter.inflector.paths"><info><title>Pfade zu alternativen Filtern setzen</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_Inflector</classname> verwendet
@@ -118,7 +118,7 @@ $loader->addPrefixPath('My_Filter', 'My/Filter/');
     </section>
 
     <section xml:id="zend.filter.inflector.targets"><info><title>Das Ziel der Beugung setzen</title></info>
-        
+
 
         <para>
             Das Ziel der Beugung ist ein String mit einigen Platzhaltern für Variablen. Platzhalter
@@ -195,7 +195,7 @@ class Foo
     </section>
 
     <section xml:id="zend.filter.inflector.rules"><info><title>Beugungsregeln</title></info>
-        
+
 
         <para>
             Wie bereits in der Einführung erwähnt, gibt es zwei Typen von Regeln: statische und
@@ -217,7 +217,7 @@ class Foo
         </note>
 
         <section xml:id="zend.filter.inflector.rules.static"><info><title>Statische Regeln</title></info>
-            
+
 
             <para>
                 Statische Regeln führen einfach eine Ersetzung von Strings aus; sie sollten
@@ -280,7 +280,7 @@ class Foo
         </section>
 
         <section xml:id="zend.filter.inflector.rules.filters"><info><title>Beugungsregeln filtern</title></info>
-            
+
 
             <para>
                 Die Filter von <classname>Zend_Filter</classname> können auch als Beugungsregeln
@@ -343,7 +343,7 @@ $inflector->setFilterRule('script', array(
         </section>
 
         <section xml:id="zend.filter.inflector.rules.multiple"><info><title>Viele Regeln auf einmal setzen</title></info>
-            
+
 
             <para>
                 Typischerweise ist es einfacher viele Regeln auf einmal zu setzen als eine einzelne
@@ -365,7 +365,7 @@ $inflector->setFilterRule('script', array(
             </itemizedlist>
 
             <example xml:id="zend.filter.inflector.rules.multiple.example"><info><title>Mehrere Regeln auf einmal setzen</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Es kann auch setRules() mit dieser Schreibweise verwendet werden:
@@ -383,7 +383,7 @@ $inflector->addRules(array(
     </section>
 
     <section xml:id="zend.filter.inflector.utility"><info><title>Hilfsmethoden</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_Inflector</classname> hat eine Anzahl von Hilfsmethoden für das
@@ -438,7 +438,7 @@ $inflector->addRules(array(
     </section>
 
     <section xml:id="zend.filter.inflector.config"><info><title>Zend_Config mit Zend_Filter_Inflector verwenden</title></info>
-        
+
 
         <para>
             <classname>Zend_Config</classname> kann verwendet werden um Regeln, Filter Präfix Pfade,
@@ -486,7 +486,7 @@ $inflector->addRules(array(
         </itemizedlist>
 
         <example xml:id="zend.filter.inflector.config.example"><info><title>Zend_Config mit Zend_Filter_Inflector verwenden</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Mit dem Konstruktor:

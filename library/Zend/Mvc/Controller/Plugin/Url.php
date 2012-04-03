@@ -2,21 +2,21 @@
 
 namespace Zend\Mvc\Controller\Plugin;
 
-use Zend\Mvc\InjectApplicationEvent,
-    Zend\Mvc\Exception,
-    Zend\Mvc\MvcEvent,
-    Zend\Mvc\Router\RouteStack;
+use Zend\Mvc\InjectApplicationEvent;
+use Zend\Mvc\Exception;
+use Zend\Mvc\MvcEvent;
+use Zend\Mvc\Router\RouteStack;
 
 class Url extends AbstractPlugin
 {
     /**
      * Generates a URL based on a route
-     * 
+     *
      * @param  string $route Route name
      * @param  array $params Parameters to use in url generation, if any
      * @param  array $options Route-specific options to use in url generation, if any
      * @return string
-     * @throws Exception\DomainException if composed controller does not implement InjectApplicationEvent, or 
+     * @throws Exception\DomainException if composed controller does not implement InjectApplicationEvent, or
      *         router cannot be found in controller event
      */
     public function fromRoute($route, array $params = array(), array $options = array())

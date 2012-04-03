@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headlink"><info><title>HeadLink Helfer</title></info>
-    
+
 
     <para>
         Das <acronym>HTML</acronym> <emphasis>&lt;link&gt;</emphasis> Element wird immer mehr für
@@ -96,7 +96,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.headlink.basicusage"><info><title>Grundsätzliche Verwendung des HeadLink Helfers</title></info>
-        
+
 
         <para>
             <emphasis>headLink</emphasis> kann jederzeit spezifiziert werden. Typischerweise wird

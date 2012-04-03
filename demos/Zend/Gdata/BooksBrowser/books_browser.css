@@ -91,30 +91,30 @@ form {
 }
 
 .volumeList td
-{ 
+{
   border-top: 1px solid #aaaaaa;
   padding: 6px;
 }
 
-.thumbnail 
-{ 
+.thumbnail
+{
   height: 80px;
   padding: 3px;
 }
 
 .previewbutton
-{ 
+{
   border: 0px;
   margin: 6px 0px 6px 0px;
 }
 
 #resultcell
-{ 
+{
   padding-right: 20px;
 }
 
 #previewcell
-{ 
+{
   border-left: 1px dotted #aaa;
   padding-left: 20px;
   display: none;
@@ -125,7 +125,7 @@ form {
   height: 500px;
   width: 100%;
   border: 1px solid #aaa;
-  
+
 }
 
 /* Google Preview: Boilerplate styling */

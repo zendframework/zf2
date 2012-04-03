@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins"><info><title>プラグイン</title></info>
-    
+
 
     <section xml:id="zend.controller.plugins.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             コントローラにはプラグイン機構が組み込まれており、
@@ -75,7 +75,7 @@
     </section>
 
     <section xml:id="zend.controller.plugins.writing"><info><title>プラグインの書き方</title></info>
-        
+
 
         <para>
             プラグインクラスを書くには、単に抽象クラス
@@ -106,7 +106,7 @@ class MyPlugin extends Zend_Controller_Plugin_Abstract
     </section>
 
     <section xml:id="zend.controller.plugins.using"><info><title>プラグインの使用法</title></info>
-        
+
         <para>
             プラグインクラスを登録するには、
             <methodname>Zend_Controller_Front::registerPlugin()</methodname> をコールします。
@@ -186,7 +186,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.manipulating"><info><title>プラグインの取得と操作</title></info>
-        
+
 
         <para>
             時には、プラグインの登録を解除したりプラグインの情報を取得したいこともあるでしょう。
@@ -221,7 +221,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.standard"><info><title>標準の配布パッケージに含まれるプラグイン</title></info>
-        
+
 
         <para>
             Zend Framework の配布パッケージには、

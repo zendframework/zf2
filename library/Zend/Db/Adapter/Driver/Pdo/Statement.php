@@ -21,10 +21,10 @@
 
 namespace Zend\Db\Adapter\Driver\Pdo;
 
-use Zend\Db\Adapter\Driver\StatementInterface,
-    Zend\Db\Adapter\ParameterContainerInterface,
-    Zend\Db\Adapter\ParameterContainer,
-    Zend\Db\Adapter\Exception;
+use Zend\Db\Adapter\Driver\StatementInterface;
+use Zend\Db\Adapter\ParameterContainerInterface;
+use Zend\Db\Adapter\ParameterContainer;
+use Zend\Db\Adapter\Exception;
 
 /**
  * @category   Zend
@@ -52,15 +52,15 @@ class Statement implements StatementInterface
     protected $sql = '';
     /**
      *
-     * @var boolean 
+     * @var boolean
      */
     protected $isQuery = null;
     /**
      *
-     * @var ParameterContainer 
+     * @var ParameterContainer
      */
     protected $parameterContainer = null;
-    
+
     /**
      * @var \PDOStatement
      */
@@ -73,9 +73,9 @@ class Statement implements StatementInterface
     protected $isPrepared = false;
     /**
      * Set driver
-     * 
+     *
      * @param  Pdo $driver
-     * @return Statement 
+     * @return Statement
      */
     public function setDriver(Pdo $driver)
     {
@@ -84,9 +84,9 @@ class Statement implements StatementInterface
     }
     /**
      * Initialize
-     * 
+     *
      * @param  \PDO $connectionResource
-     * @return Statement 
+     * @return Statement
      */
     public function initialize(\PDO $connectionResource)
     {
@@ -102,9 +102,9 @@ class Statement implements StatementInterface
     */
     /**
      * Set resource
-     * 
+     *
      * @param  \PDOStatement $pdoStatement
-     * @return Statement 
+     * @return Statement
      */
     public function setResource(\PDOStatement $pdoStatement)
     {
@@ -113,8 +113,8 @@ class Statement implements StatementInterface
     }
     /**
      * Get resource
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function getResource()
     {
@@ -124,7 +124,7 @@ class Statement implements StatementInterface
 
     /**
      * Set sql
-     * 
+     *
      * @param string $sql
      */
     public function setSql($sql)
@@ -134,8 +134,8 @@ class Statement implements StatementInterface
     }
     /**
      * Get sql
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getSql()
     {
@@ -225,8 +225,8 @@ class Statement implements StatementInterface
 
     /**
      * Bind parameters from container
-     * 
-     * @param ParameterContainerInterface $container 
+     *
+     * @param ParameterContainerInterface $container
      */
     protected function bindParametersFromContainer(ParameterContainerInterface $container)
     {

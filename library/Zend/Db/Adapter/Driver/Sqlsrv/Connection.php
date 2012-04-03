@@ -41,7 +41,7 @@ class Connection implements ConnectionInterface
      * @var array
      */
     protected $connectionParameters = array();
-    
+
     /**
      * @var resource
      */
@@ -51,11 +51,11 @@ class Connection implements ConnectionInterface
      * @var bool
      */
     protected $inTransaction = false;
-    
+
     /**
      * Constructor
-     * 
-     * @param mixed $connectionInfo 
+     *
+     * @param mixed $connectionInfo
      */
     public function __construct($connectionInfo)
     {
@@ -67,9 +67,9 @@ class Connection implements ConnectionInterface
     }
     /**
      * Set driver
-     * 
+     *
      * @param  Sqlsrv $driver
-     * @return Connection 
+     * @return Connection
      */
     public function setDriver(Sqlsrv $driver)
     {
@@ -78,9 +78,9 @@ class Connection implements ConnectionInterface
     }
     /**
      * Set connection parameters
-     * 
+     *
      * @param  array $connectionParameters
-     * @return Connection 
+     * @return Connection
      */
     public function setConnectionParameters(array $connectionParameters)
     {
@@ -89,8 +89,8 @@ class Connection implements ConnectionInterface
     }
     /**
      * Get connection parameters
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function getConnectionParameters()
     {
@@ -98,8 +98,8 @@ class Connection implements ConnectionInterface
     }
     /**
      * Get default catalog
-     * 
-     * @return null 
+     *
+     * @return null
      */
     public function getDefaultCatalog()
     {
@@ -107,8 +107,8 @@ class Connection implements ConnectionInterface
     }
     /**
      * Get dafault schema
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getDefaultSchema()
     {
@@ -122,9 +122,9 @@ class Connection implements ConnectionInterface
     }
     /**
      * Set resource
-     * 
+     *
      * @param  resource $resource
-     * @return Connection 
+     * @return Connection
      */
     public function setResource($resource)
     {
@@ -144,15 +144,15 @@ class Connection implements ConnectionInterface
     }
     /**
      * Connect
-     * 
-     * @return null 
+     *
+     * @return null
      */
     public function connect()
     {
         if ($this->resource) {
             return;
         }
-        
+
         $serverName = '.';
         $params = array();
         foreach ($this->connectionParameters as $key => $value) {
@@ -191,8 +191,8 @@ class Connection implements ConnectionInterface
     }
     /**
      * Is connected
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isConnected()
     {
@@ -200,17 +200,17 @@ class Connection implements ConnectionInterface
     }
     /**
      * Disconnect
-     * 
+     *
      */
     public function disconnect()
     {
         sqlsrv_close($this->resource);
         unset($this->resource);
     }
-    
+
     /**
      * Begin transaction
-     * 
+     *
      */
     public function beginTransaction()
     {
@@ -230,14 +230,14 @@ class Connection implements ConnectionInterface
         if (!$this->resource) {
             $this->connect();
         }
-        
+
         $this->resource->commit();
-        
+
         $this->inTransaction = false;
         */
     }
     /**
-     * Rollback 
+     * Rollback
      */
     public function rollback()
     {
@@ -246,21 +246,21 @@ class Connection implements ConnectionInterface
         if (!$this->resource) {
             throw new \Exception('Must be connected before you can rollback.');
         }
-        
+
         if (!$this->_inCommit) {
             throw new \Exception('Must call commit() before you can rollback.');
         }
-        
+
         $this->resource->rollback();
         return $this;
         */
     }
-    
+
     /**
      * Execute
-     * 
+     *
      * @param  string $sql
-     * @return mixed 
+     * @return mixed
      */
     public function execute($sql)
     {
@@ -269,7 +269,7 @@ class Connection implements ConnectionInterface
         }
 
         $returnValue = sqlsrv_query($this->resource, $sql);
-        
+
         // if the returnValue is something other than a Sqlsrv_result, bypass wrapping it
         if ($returnValue === false) {
             $errors = sqlsrv_errors();
@@ -284,9 +284,9 @@ class Connection implements ConnectionInterface
     }
     /**
      * Prepare
-     * 
+     *
      * @param  string $sql
-     * @return string 
+     * @return string
      */
     public function prepare($sql)
     {
@@ -299,8 +299,8 @@ class Connection implements ConnectionInterface
     }
     /**
      * Get last generated id
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function getLastGeneratedId()
     {
@@ -311,4 +311,3 @@ class Connection implements ConnectionInterface
     }
 
 }
-    

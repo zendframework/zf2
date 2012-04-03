@@ -36,7 +36,7 @@ class Regex implements Route
 {
     /**
      * Regex to match
-     * 
+     *
      * @var string
      */
     protected $_regex;

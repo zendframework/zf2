@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.modifying-feed"><info><title>Modyfikacja kanału oraz struktury wpisów</title></info>
-    
+
 
     <para>
         Naturalna składnia <code>Zend_Feed</code> pozwala na konstruowanie oraz
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.feed.modifying-feed.example.modifying"><info><title>Modyfikacja istniejącego wpisu</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 $feed = new Zend_Feed_Atom('http://atom.example.com/feed/1');
 $entry = $feed->current();
@@ -45,7 +45,7 @@ echo $entry->saveXML();
     </para>
 
     <example xml:id="zend.feed.modifying-feed.example.creating"><info><title>Tworzenie wpisu Atom z elementami własnej przestrzeni nazw</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 $entry = new Zend_Feed_Entry_Atom();
 // id w Atom jest zawsze nadane przez serwer

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.controllers"><info><title>控制器脚本</title></info>
-    
+
 
     <para>
         控制器是你实例化和配置Zend_View的地方。你可以分配变量给view，并让view使用某个特定的模板来输出。
@@ -8,7 +8,7 @@
 
     <section xml:id="zend.view.controllers.assign"><info><title>变量赋值</title></info>
 
-        
+
 
         <para>
             控制器需要向视图传递必要的变量，在它处理view的代码之前。通常你可以一次一个地完成变量赋值的工作。
@@ -63,7 +63,7 @@ $view->assign('c', "Sea");
 
     <section xml:id="zend.view.controllers.render"><info><title>调用视图脚本并打印输出</title></info>
 
-        
+
 
         <para>
             完成所有变量赋值后，Controller通知Zend_View通过render()调用一段特定的视图代码。注意，这个方法将只返回处理后的视图，而不直接输出，所以你要用print或echo来打印输出。
@@ -82,7 +82,7 @@ echo $view->render('someView.php');
 
     <section xml:id="zend.view.controllers.script-paths"><info><title>视图脚本的路径</title></info>
 
-        
+
 
         <para>
         默认地， Zend_View希望你的View脚本和Controller脚本在同一目录下。比如说，如果你的Controller文件在 “/path/to/app/controllers”目录下，并调用$view-&gt;render('someView.php')，则Zend_View会查找"/path/to/app/controllers/someVire.php"文件。

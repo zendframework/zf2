@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.timesync.introduction"><info><title>導入</title></info>
 
-    
+
 
     <para>
         <classname>Zend_TimeSync</classname> は、インターネット時刻
@@ -22,7 +22,7 @@
 
     <note><info><title>背景</title></info>
 
-        
+
 
         <para>
             <classname>Zend_TimeSync</classname> はサーバの時刻を変更することはできません。
@@ -34,7 +34,7 @@
 
     <section xml:id="zend.timesync.introduction.why"><info><title>なぜ Zend_TimeSync ?</title></info>
 
-        
+
 
         <para>
             いったいなぜ <classname>Zend_TimeSync</classname> を使うのでしょう?
@@ -106,7 +106,7 @@
 
     <section xml:id="zend.timesync.introduction.ntp"><info><title>NTP とは?</title></info>
 
-        
+
 
         <para>
             Network Time Protocol (<emphasis>NTP</emphasis>)
@@ -121,7 +121,7 @@
 
     <section xml:id="zend.timesync.introduction.sntp"><info><title>SNTP とは?</title></info>
 
-        
+
 
         <para>
             Simple Network Time Protocol (<emphasis>SNTP</emphasis>)
@@ -134,7 +134,7 @@
 
     <section xml:id="zend.timesync.introduction.problematic"><info><title>問題のある使用法</title></info>
 
-        
+
 
         <para>
             <classname>Zend_TimeSync</classname> を使用する際は、
@@ -148,7 +148,7 @@
 
     <section xml:id="zend.timesync.introduction.decision"><info><title>どのサーバを使用するか</title></info>
 
-        
+
 
         <para>
             どのタイムサーバを使用するかは注意して決めなければいけません。

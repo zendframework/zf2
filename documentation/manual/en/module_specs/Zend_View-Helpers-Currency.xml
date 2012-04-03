@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.currency"><info><title>Currency Helper</title></info>
-    
+
 
     <para>
         Displaying localized currency values is a common task; the
@@ -60,7 +60,7 @@
     </note>
 
     <example xml:id="zend.view.helpers.initial.currency.registered"><info><title>Registered instance</title></info>
-        
+
 
         <para>
             To use a registered instance, simply create an instance of
@@ -86,7 +86,7 @@ echo $this->currency(1234.56);
     </para>
 
     <example xml:id="zend.view.helpers.initial.currency.afterwards"><info><title>Within the view</title></info>
-        
+
 
         <para>
             To use the fluent interface, create an instance of <classname>Zend_Currency</classname>,
@@ -108,7 +108,7 @@ $this->currency()->setCurrency($currency)->currency(1234.56);
     </para>
 
     <example xml:id="zend.view.helpers.initial.currency.directly.example-1"><info><title>Direct usage</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // our example currency
@@ -127,7 +127,7 @@ echo $helper->currency(1234.56); // this returns '€ 1.234,56'
     </para>
 
     <example xml:id="zend.view.helpers.initial.currency.directly.example-2"><info><title>Direct usage</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // our example currency

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.java-lucene"><info><title>Zusammenarbeit Mit Java Lucene</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.index-creation.file-formats"><info><title>Dateiformate</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> Indexdateiformate sind binär kompatibel mit
@@ -24,7 +24,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.index-directory"><info><title>Indexverzeichnis</title></info>
-        
+
 
         <para>
             Nach der Indexerstellung wird das Indexverzeichnis verschiedene Dateien enthalten:
@@ -54,7 +54,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.java-lucene.source-code"><info><title>Java Quellcode</title></info>
-        
+
 
         <para>
             Das unten gelistete Java Programm stellt ein Beispiel für die Indizierung einer Datei

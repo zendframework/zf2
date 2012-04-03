@@ -21,9 +21,9 @@
 
 namespace Zend\Serializer\Adapter;
 
-use Zend\Serializer\Exception\InvalidArgumentException,
-    Zend\Serializer\Exception\RuntimeException,
-    Zend\Json\Json as ZendJson;
+use Zend\Serializer\Exception\InvalidArgumentException;
+use Zend\Serializer\Exception\RuntimeException;
+use Zend\Json\Json as ZendJson;
 
 /**
  * @uses       Zend\Serializer\Adapter\AbstractAdapter
@@ -49,9 +49,9 @@ class Json extends AbstractAdapter
 
     /**
      * Serialize PHP value to JSON
-     * 
-     * @param  mixed $value 
-     * @param  array $opts 
+     *
+     * @param  mixed $value
+     * @param  array $opts
      * @return string
      * @throws Zend\Serializer\Exception on JSON encoding exception
      */
@@ -70,9 +70,9 @@ class Json extends AbstractAdapter
 
     /**
      * Deserialize JSON to PHP value
-     * 
-     * @param  string $json 
-     * @param  array $opts 
+     *
+     * @param  string $json
+     * @param  array $opts
      * @return mixed
      */
     public function unserialize($json, array $opts = array())

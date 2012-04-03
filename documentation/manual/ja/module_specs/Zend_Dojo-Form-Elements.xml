@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form.elements"><info><title>Dijit固有のフォーム要素</title></info>
-    
+
 
     <para>
         ビュー・ヘルパーが提供される各々のフォームdijitには、
@@ -88,7 +88,7 @@ $element->addDecorator('DijitElement')
     </para>
 
     <section xml:id="zend.dojo.form.elements.button"><info><title>ボタン</title></info>
-        
+
 
         <para>
             <link linkend="zend.form.standardElements.button">標準的なボタン要素</link>に
@@ -119,7 +119,7 @@ $element->addDecorator('DijitElement')
         </para>
 
         <example xml:id="zend.dojo.form.elements.button.example"><info><title>ボタンdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -134,7 +134,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.checkBox"><info><title>チェックボックス</title></info>
-        
+
 
         <para>
             <link linkend="zend.form.standardElements.checkbox">標準的なチェックボックス要素</link>
@@ -176,7 +176,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.checkBox.example"><info><title>チェックボックスdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -194,7 +194,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.comboBox"><info><title>コンボボックス及びフィルタリング選択</title></info>
-        
+
 
         <para>
             コンボボックス
@@ -205,7 +205,7 @@ $form->addElement(
         </para>
 
         <note><info><title>ラベル値を返すコンボボックス</title></info>
-            
+
 
             <para>
                 コンボボックスはラベル値を返します。
@@ -289,7 +289,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.comboBox.selectExample"><info><title>コンボボックスdijit要素を選択肢入力として使う</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -313,7 +313,7 @@ $form->addElement(
         </example>
 
         <example xml:id="zend.dojo.form.elements.comboBox.datastoreExample"><info><title>コンボボックスdijit要素をデータ・ストアと一緒に使う</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -341,7 +341,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.currencyTextBox"><info><title>通貨テキストボックス</title></info>
-        
+
 
         <para>
             通貨テキストボックスは、主に通貨入力をサポートするためにあります。
@@ -391,7 +391,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.currencyTextBox.example"><info><title>通貨テキストボックスdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -411,7 +411,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.dateTextBox"><info><title>日付テキストボックス</title></info>
-        
+
 
         <para>
             日付テキストボックスは、
@@ -468,7 +468,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.dateTextBox.example"><info><title>日付テキストボックスdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -486,7 +486,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.editor"><info><title>エディタ</title></info>
-        
+
 
         <para>
             エディタはリッチなHTML内容を作成して、
@@ -633,7 +633,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.editor.example"><info><title>エディタdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement('editor', 'content', array(
@@ -648,7 +648,7 @@ $form->addElement('editor', 'content', array(
         </example>
 
         <note><info><title>エディタ Dijit は既定で div を使います</title></info>
-            
+
 
             <para>
                 エディタ dijit は既定で <acronym>HTML</acronym> の <acronym>DIV</acronym> を使います。
@@ -682,7 +682,7 @@ $editor->degrade = true;
     </section>
 
     <section xml:id="zend.dojo.form.elements.horizontalSlider"><info><title>水平スライダー</title></info>
-        
+
 
         <para>
             水平スライダーは、
@@ -758,7 +758,7 @@ $editor->degrade = true;
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.horizontalSlider.example"><info><title>水平スライダーdijit要素の使用例</title></info>
-            
+
 
             <para>
                 下記では、-10から10の間の整数を選択する水平スライダーを生成します。
@@ -816,7 +816,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.numberSpinner"><info><title>数スピナー</title></info>
-        
+
 
         <para>
             数スピナーは、数値を入力するためのテキスト要素です;
@@ -878,7 +878,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.numberSpinner.example"><info><title>数スピナーdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -902,7 +902,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.numberTextBox"><info><title>数テキストボックス</title></info>
-        
+
 
         <para>
             数テキストボックスは、数を入力するためのテキスト要素です;
@@ -950,7 +950,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.numberTextBox.example"><info><title>数テキストボックスdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -972,7 +972,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.passwordTextBox"><info><title>パスワードテキストボックス</title></info>
-        
+
 
         <para>
             パスワードテキストボックスは、
@@ -989,7 +989,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.passwordTextBox.example"><info><title>パスワードテキストボックスの使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1010,7 +1010,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.radioButton"><info><title>ラジオボタン</title></info>
-        
+
 
         <para>
             ラジオボタンは、他のDojo dijitと一貫したルック＆フィールを提示するために、
@@ -1032,7 +1032,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.radioButton.example"><info><title>ラジオボタンdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1053,7 +1053,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.simpletextarea"><info><title>シンプルテキストエリア</title></info>
-        
+
 
         <para>
             シンプルテキストエリアは、主に標準的なHTMLの textarea のようにふるまいます。
@@ -1063,7 +1063,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.simpletextarea.example"><info><title>シンプルテキストエリアdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1080,7 +1080,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.slider"><info><title>スライダーabstract要素</title></info>
-        
+
 
         <para>
             スライダーは
@@ -1140,7 +1140,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.submitButton"><info><title>サブミットボタン</title></info>
-        
+
 
         <para>
             SubmitButtonという名前のDijitはありませんが、
@@ -1150,7 +1150,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.submitButton.example"><info><title>サブミットボタンdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1167,7 +1167,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.textBox"><info><title>テキストボックス</title></info>
-        
+
 
         <para>
             テキストボックスは、
@@ -1206,7 +1206,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.textBox.example"><info><title>テキストボックスdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1224,7 +1224,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.textarea"><info><title>テキストエリア</title></info>
-        
+
 
         <para>
             テキストエリアは、主に標準的なHTMLの textarea のようにふるまいます。
@@ -1235,7 +1235,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.textarea.example"><info><title>テキストエリアdijit要素の使用例</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $form->addElement(
@@ -1252,7 +1252,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.timeTextBox"><info><title>時刻テキストボックス</title></info>
-        
+
 
         <para>
             時刻テキストボックスは、
@@ -1300,7 +1300,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.timeTextBox.example"><info><title>時刻テキストボックスdijit要素の使用例</title></info>
-            
+
 
             <para>
                 以下は、時刻に２時を表示する、増分が10分毎の時刻テキストボックスをつくります。
@@ -1323,7 +1323,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.validationTextBox"><info><title>バリデーションテキストボックス</title></info>
-        
+
 
         <para>
             バリデーションテキストボックスは、
@@ -1379,7 +1379,7 @@ $form->addElement(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.elements.validationTextBox.example"><info><title>バリデーションテキストボックスdijit要素の使用例</title></info>
-            
+
 
             <para>
                 以下は、
@@ -1403,7 +1403,7 @@ $form->addElement(
     </section>
 
     <section xml:id="zend.dojo.form.elements.verticalSlider"><info><title>垂直スライダー</title></info>
-        
+
 
         <para>
             垂直スライダーは<link linkend="zend.dojo.form.elements.horizontalSlider">水平スライダー</link>
@@ -1415,7 +1415,7 @@ $form->addElement(
         </para>
 
         <example xml:id="zend.dojo.form.elements.verticalSlider.example"><info><title>垂直スライダーdijit要素の使用例</title></info>
-            
+
 
             <para>
                 下記では、-10から10の間の整数を選択する垂直スライダーを生成します。

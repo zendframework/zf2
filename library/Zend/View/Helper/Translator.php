@@ -21,12 +21,12 @@
 
 namespace Zend\View\Helper;
 
-use Zend\Locale\Locale,
-    Zend\Registry,
-    Zend\Translator\Adapter\AbstractAdapter as TranslationAdapter,
-    Zend\Translator\Translator as Translation,
-    Zend\View,
-    Zend\View\Exception;
+use Zend\Locale\Locale;
+use Zend\Registry;
+use Zend\Translator\Adapter\AbstractAdapter as TranslationAdapter;
+use Zend\Translator\Translator as Translation;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Translation view helper
@@ -181,7 +181,7 @@ class Translator extends AbstractHelper
     /**
      * Returns the set locale for translations
      *
-     * @throws ViewException 
+     * @throws ViewException
      * @return string|Locale
      * @throws Exception\RuntimeException When no Translation instance was set
      */

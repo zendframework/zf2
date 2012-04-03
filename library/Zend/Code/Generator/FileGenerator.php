@@ -280,7 +280,7 @@ class FileGenerator extends AbstractGenerator
 
     /**
      * setNamespace()
-     * 
+     *
      * @param $namespace
      * @return Zend\Code\Generator\PhpFile
      */
@@ -292,7 +292,7 @@ class FileGenerator extends AbstractGenerator
 
     /**
      * getUses()
-     * 
+     *
      * Returns an array with the first element the use statement, second is the as part.
      * If $withResolvedAs is set to true, there will be a third element that is the
      * "resolved" as statement, as the second part is not required in use statements

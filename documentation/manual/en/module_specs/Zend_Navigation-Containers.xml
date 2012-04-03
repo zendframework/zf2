@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.containers"><info><title>Containers</title></info>
-    
+
 
     <para>
         Containers have methods for adding, retrieving, deleting and
@@ -13,7 +13,7 @@
     </para>
 
     <section xml:id="zend.navigation.containers.creating"><info><title>Creating containers</title></info>
-        
+
 
         <para>
             <classname>Zend_Navigation_Container</classname> is
@@ -34,7 +34,7 @@
         </para>
 
         <example xml:id="zend.navigation.containers.creating.example.array"><info><title>Creating a container using an array</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /*
@@ -207,7 +207,7 @@ $container = new Zend_Navigation(array(
         </example>
 
         <example xml:id="zend.navigation.containers.creating.example.config"><info><title>Creating a container using a config object</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /* CONTENTS OF /path/to/navigation.xml:
@@ -404,7 +404,7 @@ $container = new Zend_Navigation($config);
     </section>
 
     <section xml:id="zend.navigation.containers.adding"><info><title>Adding pages</title></info>
-        
+
 
         <para>
             Adding pages to a container can be done with the methods
@@ -413,7 +413,7 @@ $container = new Zend_Navigation($config);
         </para>
 
         <example xml:id="zend.navigation.containers.adding.example"><info><title>Adding pages to a container</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // create container
@@ -455,7 +455,7 @@ $container->setPages($pages);
     </section>
 
     <section xml:id="zend.navigation.containers.removing"><info><title>Removing pages</title></info>
-        
+
 
         <para>
             Removing pages can be done with <methodname>removePage()</methodname> or
@@ -466,7 +466,7 @@ $container->setPages($pages);
         </para>
 
         <example xml:id="zend.navigation.containers.removing.example"><info><title>Removing pages from a container</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $container = new Zend_Navigation(array(
@@ -502,7 +502,7 @@ $container->removePages();      // removes all pages
     </section>
 
     <section xml:id="zend.navigation.containers.finding"><info><title>Finding pages</title></info>
-        
+
 
         <para>
             Containers have finder methods for retrieving pages.
@@ -532,7 +532,7 @@ $container->removePages();      // removes all pages
         </para>
 
         <example xml:id="zend.navigation.containers.finding.example"><info><title>Finding pages in a container</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $container = new Zend_Navigation(array(
@@ -618,7 +618,7 @@ $found = $container->findAllByController('index'); // returns Page 2 and Page 3
     </section>
 
     <section xml:id="zend.navigation.containers.iterating"><info><title>Iterating containers</title></info>
-        
+
 
         <para>
             <classname>Zend_Navigation_Container</classname> implements
@@ -629,7 +629,7 @@ $found = $container->findAllByController('index'); // returns Page 2 and Page 3
         </para>
 
         <example xml:id="zend.navigation.containers.iterating.example"><info><title>Iterating a container</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /*
@@ -679,7 +679,7 @@ foreach ($it as $page) {
     </section>
 
     <section xml:id="zend.navigation.containers.other"><info><title>Other operations</title></info>
-        
+
 
         <para>
             The method <methodname>hasPage(Zend_Navigation_Page $page)</methodname> checks
@@ -695,7 +695,7 @@ foreach ($it as $page) {
         </para>
 
         <example xml:id="zend.navigation.containers.other.example.toarray"><info><title>Converting a container to an array</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $container = new Zend_Navigation(array(

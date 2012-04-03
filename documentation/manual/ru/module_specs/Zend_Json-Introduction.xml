@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.introduction"><info><title>Введение</title></info>
-    
+
     <para>
         <code>Zend_Json</code> предоставляет удобные методы для
         преобразования кода PHP в JSON и декодирования JSON в код PHP.

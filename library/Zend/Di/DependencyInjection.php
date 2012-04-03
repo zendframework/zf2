@@ -9,7 +9,7 @@ interface DependencyInjection extends Locator
      *
      * Forces retrieval of a discrete instance of the given class, using the
      * constructor parameters provided.
-     * 
+     *
      * @param  mixed $name Class name or service alias
      * @param  array $params Parameters to pass to the constructor
      * @return object|null

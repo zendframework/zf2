@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.exception"><info><title>Attraper les exceptions Gdata</title></info>
-    
+
 
     <para>
         La classe <classname>Zend_Gdata_App_Exception</classname> est la classe de base de

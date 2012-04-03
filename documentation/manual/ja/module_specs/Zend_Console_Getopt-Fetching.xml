@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.console.getopt.fetching"><info><title>オプションおよび引数の取得</title></info>
-    
+
     <para>
         <classname>Zend_Console_Getopt</classname> オブジェクトでオプションを宣言し、
         コマンドラインあるいは配列から引数を受け取ったら、
@@ -17,7 +17,7 @@
     </para>
 
     <section xml:id="zend.console.getopt.fetching.exceptions"><info><title>Getopt の例外処理</title></info>
-        
+
         <para>
             ユーザがコマンドラインで無効な引数を指定すると、
             パース関数は <classname>Zend_Console_Getopt_Exception</classname>
@@ -31,7 +31,7 @@
             使用法を説明した文字列を返します。
         </para>
         <example xml:id="zend.console.getopt.fetching.exceptions.example"><info><title>Getopt の例外処理</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 try {
     $opts = new Zend_Console_Getopt('abp:');
@@ -66,7 +66,7 @@ try {
     </section>
 
     <section xml:id="zend.console.getopt.fetching.byname"><info><title>名前によるオプションの取得</title></info>
-        
+
         <para>
             <methodname>getOption()</methodname> メソッドを使用すると、
             オプションの値を問い合わせることができます。
@@ -77,7 +77,7 @@ try {
             それ以外の場合は、このメソッドは <constant>NULL</constant> を返します。
         </para>
         <example xml:id="zend.console.getopt.fetching.byname.example.setoption"><info><title>getOption() の使用法</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
 $b = $opts->getOption('b');
@@ -90,7 +90,7 @@ $p_parameter = $opts->getOption('p');
             また、マジックメソッド <methodname>__isset()</methodname> も実装しています。
         </para>
         <example xml:id="zend.console.getopt.fetching.byname.example.magic"><info><title>マジックメソッド __get() および __isset() の使用例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
 if (isset($opts->b)) {
@@ -106,7 +106,7 @@ $p_parameter = $opts->p; // 設定されていない場合は null となりま�
     </section>
 
     <section xml:id="zend.console.getopt.fetching.reporting"><info><title>オプションの取得</title></info>
-        
+
         <para>
             ユーザがコマンドラインで入力したオプションの全一覧を取得するには、
             いくつかの方法があります。
@@ -152,7 +152,7 @@ $p_parameter = $opts->p; // 設定されていない場合は null となりま�
     </section>
 
     <section xml:id="zend.console.getopt.fetching.remainingargs"><info><title>非オプション引数の取得</title></info>
-        
+
         <para>
             オプション引数およびそのパラメータをコマンドラインからパースした後も、
             まだ追加の引数が残っているかも知れません。これらの引数を取得するには
@@ -160,7 +160,7 @@ $p_parameter = $opts->p; // 設定されていない場合は null となりま�
             どのオプションにも属さない文字列の配列を返します。
         </para>
         <example xml:id="zend.console.getopt.fetching.remainingargs.example"><info><title>getRemainingArgs() の使用法</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
 $opts->setArguments(array('-p', 'p_parameter', 'filename'));

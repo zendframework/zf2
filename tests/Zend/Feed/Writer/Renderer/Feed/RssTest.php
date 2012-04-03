@@ -45,7 +45,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->_validWriter->setTitle('This is a test feed.');
         $this->_validWriter->setDescription('This is a test description.');
         $this->_validWriter->setLink('http://www.example.com');
-        
+
         $this->_validWriter->setType('rss');
     }
 
@@ -95,7 +95,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals('This is a test feed.', $feed->getTitle());
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -125,7 +125,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals('This is a test description.', $feed->getDescription());
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -135,7 +135,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->_validWriter->remove('description');
         $rssFeed->render();
     }
-    
+
     /**
      * @group ZFWCHARDATA01
      */
@@ -156,7 +156,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals(1234567890, $feed->getDateModified()->get(Date\Date::TIMESTAMP));
     }
-    
+
     public function testFeedUpdatedDateIfMissingThrowsNoException()
     {
         $rssFeed = new Renderer\Feed\Rss($this->_validWriter);
@@ -181,7 +181,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals('FooFeedBuilder 1.00 (http://www.example.com)', $feed->getGenerator());
     }
-    
+
     public function testFeedGeneratorIfMissingThrowsNoException()
     {
         $rssFeed = new Renderer\Feed\Rss($this->_validWriter);
@@ -205,7 +205,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals('fr', $feed->getLanguage());
     }
-    
+
     public function testFeedLanguageIfMissingThrowsNoException()
     {
         $rssFeed = new Renderer\Feed\Rss($this->_validWriter);
@@ -228,7 +228,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals('http://www.example.com', $feed->getLink());
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -247,14 +247,14 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals('http://www.example.com/rss', $feed->getFeedLink());
     }
-    
+
     public function testFeedLinkToXmlRssWhereTheFeedWillBeAvailableIfMissingThrowsNoException()
     {
         $rssFeed = new Renderer\Feed\Rss($this->_validWriter);
         $this->_validWriter->remove('feedLinks');
         $rssFeed->render();
     }
-    
+
     public function testBaseUrlCanBeSet()
     {
         $this->_validWriter->setBaseUrl('http://www.example.com/base');
@@ -263,7 +263,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals('http://www.example.com/base', $feed->getBaseUrl());
     }
-    
+
     /**
      * @group ZFW003
      */
@@ -276,12 +276,12 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $author = $feed->getAuthor();
         $this->assertEquals(array('name'=>'Joe'), $feed->getAuthor());
     }
-    
+
     /**
      * @group ZFWCHARDATA01
      */
     public function testFeedAuthorCharDataEncoding()
-    {   
+    {
         $this->_validWriter->addAuthor('<>&\'"áéíóú', 'joe@example.com', 'http://www.example.com/joe');
         $atomFeed = new Renderer\Feed\Rss($this->_validWriter);
         $atomFeed->render();
@@ -289,7 +289,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $author = $feed->getAuthor();
         $this->assertEquals(array('name'=>'<>&\'"áéíóú'), $feed->getAuthor());
     }
-    
+
     public function testCopyrightCanBeSet()
     {
         $this->_validWriter->setCopyright('Copyright © 2009 Paddy');
@@ -298,7 +298,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals('Copyright © 2009 Paddy', $feed->getCopyright());
     }
-    
+
     /**
      * @group ZFWCHARDATA01
      */
@@ -310,7 +310,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals('<>&\'"áéíóú', $feed->getCopyright());
     }
-    
+
     public function testCategoriesCanBeSet()
     {
         $this->_validWriter->addCategories(array(
@@ -326,7 +326,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($expected, (array) $feed->getCategories());
     }
-    
+
     /**
      * @group ZFWCHARDATA01
      */
@@ -345,7 +345,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($expected, (array) $feed->getCategories());
     }
-    
+
     public function testHubsCanBeSet()
     {
         $this->_validWriter->addHubs(
@@ -379,9 +379,9 @@ class RssTest extends \PHPUnit_Framework_TestCase
             'title' => 'Image ALT',
             'height' => '400',
             'width' => '144',
-            'description' => 'Image TITLE'  
+            'description' => 'Image TITLE'
         );
-        $this->assertEquals($expected, $feed->getImage()); 
+        $this->assertEquals($expected, $feed->getImage());
     }
 
     public function testImageCanBeSetWithOnlyRequiredElements()
@@ -397,9 +397,9 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $expected = array(
             'uri' => 'http://www.example.com/logo.gif',
             'link' => 'http://www.example.com',
-            'title' => 'Image ALT' 
+            'title' => 'Image ALT'
         );
-        $this->assertEquals($expected, $feed->getImage()); 
+        $this->assertEquals($expected, $feed->getImage());
     }
 
     /**
@@ -566,6 +566,6 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $rssFeed = new Renderer\Feed\Rss($this->_validWriter);
         $rssFeed->render();
     }
-    
+
 
 }

@@ -2,7 +2,7 @@
 
 
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="requirements"><info><title>Requisitos de Zend Framework</title></info>
-    
+
     <para> Zend Framework requiere un intérprete <acronym>PHP</acronym> 5 con un
         servidor web configurado para manejar scripts <acronym>PHP</acronym>
         correctamente. Algunas características requieren extensiones adicionales
@@ -22,7 +22,7 @@
 
     <section xml:id="requirements.version"><info><title>Versión de PHP</title></info>
 
-        
+
 
         <para> Zend recomienda <acronym>PHP</acronym> 5.2.3 o superior por
             mejoras en la seguridad críticas y en el rendimiento, aunque Zend
@@ -35,7 +35,7 @@
 
     <section xml:id="requirements.extensions"><info><title>Extensiones de PHP</title></info>
 
-        
+
 
         <para> Usted encontrará un cuadro con todas las extensiones que suelen
             encontrarse en <acronym>PHP</acronym> y debajo cómo se usan en Zend
@@ -60,7 +60,7 @@
 
     <section xml:id="requirements.zendcomponents"><info><title>Componentes de Zend Framework</title></info>
 
-        
+
 
         <para> Más abajo hay un cuadro que enumera todos los Componentes de Zend
             Framework y que extensión de PHP necesitan. Esto puede ayudar a
@@ -84,7 +84,7 @@
 
     <section xml:id="requirements.dependencies"><info><title>Dependencias de Zend Framework</title></info>
 
-        
+
 
         <para> A continuación encontrará un cuadro de Componennetes de Zend
             Framework y sus dependencias a otros Componentes de Zend Framework.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.view"><info><title>View Rendering</title></info>
-    
+
 
     <para>
         When using Zend Framework's <acronym>MVC</acronym> layer, chances are you will be using
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="performance.view.pluginloader"><info><title>How can I speed up resolution of view helpers?</title></info>
-        
+
 
         <para>
             Most <classname>Zend_View</classname> "methods" are actually provided via
@@ -44,7 +44,7 @@
         </para>
 
         <section xml:id="performance.view.pluginloader.cache"><info><title>Use the PluginLoader include file cache</title></info>
-            
+
 
             <para>
                 The simplest, cheapest solution is the same as for <link linkend="performance.classloading.pluginloader">general
@@ -57,7 +57,7 @@
         </section>
 
         <section xml:id="performance.view.pluginloader.extend"><info><title>Extend Zend_View to provide often used helper methods</title></info>
-            
+
 
             <para>
                 Another solution for those seeking to tune performance even
@@ -123,7 +123,7 @@ class My_View extends Zend_View
     </section>
 
     <section xml:id="performance.view.partial"><info><title>How can I speed up view partials?</title></info>
-        
+
 
         <para>
             Those who use partials heavily and who profile their applications
@@ -133,7 +133,7 @@ class My_View extends Zend_View
         </para>
 
         <section xml:id="performance.view.partial.render"><info><title>Use partial() only when really necessary</title></info>
-            
+
 
             <para>
                 The <methodname>partial()</methodname> view helper accepts three arguments:
@@ -186,7 +186,7 @@ class My_View extends Zend_View
     </section>
 
     <section xml:id="performance.view.action"><info><title>How can I speed up calls to the action() view helper?</title></info>
-        
+
 
         <para>
             Version 1.5.0 introduced the <methodname>action()</methodname> view helper,
@@ -204,7 +204,7 @@ class My_View extends Zend_View
         </para>
 
         <section xml:id="performance.view.action.actionstack"><info><title>Use the ActionStack when possible</title></info>
-            
+
 
             <para>
                 Introduced at the same time as the <methodname>action()</methodname> view
@@ -275,7 +275,7 @@ class LoginPlugin extends Zend_Controller_Plugin_Abstract
         </section>
 
         <section xml:id="performance.view.action.model"><info><title>Favor helpers that query the model over action()</title></info>
-            
+
 
             <para>
                 In most cases, using <methodname>action()</methodname> is simply overkill.

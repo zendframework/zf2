@@ -21,11 +21,11 @@
 
 namespace Zend\Barcode\Object;
 
-use Traversable,
-    Zend\Barcode,
-    Zend\Barcode\Object\Exception,
-    Zend\Validator\Barcode as BarcodeValidator,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Barcode;
+use Zend\Barcode\Object\Exception;
+use Zend\Validator\Barcode as BarcodeValidator;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Class for generate Barcode

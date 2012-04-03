@@ -32,15 +32,15 @@ class TextUi
 {
     /**
      *
-     * @var 
+     * @var
      */
     protected $camelCaseFilter = null;
 
     /**
      * Render
-     * 
+     *
      * @param  \Zend\Db\Metadata\Metadata $metadata
-     * @return string 
+     * @return string
      */
     public function render(\Zend\Db\Metadata\Metadata $metadata)
     {
@@ -50,23 +50,23 @@ class TextUi
     }
     /**
      * Render tables
-     * 
+     *
      * @param  array $tables
-     * @return string 
+     * @return string
      */
     public function renderTables(array $tables)
     {
         $output = '';
         foreach ($tables as $table) {
-            $output .= $this->renderTable($tableMetadata); 
+            $output .= $this->renderTable($tableMetadata);
         }
         return $output;
     }
     /**
      * Render table
-     * 
+     *
      * @param  \Zend\Db\Metadata\Table $table
-     * @return string 
+     * @return string
      */
     public function renderTable(\Zend\Db\Metadata\Table $table)
     {
@@ -78,9 +78,9 @@ class TextUi
     }
     /**
      * Render columns
-     * 
+     *
      * @param  \Zend\Db\Metadata\ColumnCollection $columnCollection
-     * @return string 
+     * @return string
      */
     public function renderColumns(\Zend\Db\Metadata\ColumnCollection $columnCollection)
     {
@@ -97,7 +97,7 @@ class TextUi
             array('characterSetName', "Charset\nName", 8),
             array('collationName', "Collation\nName", 12),
             );
-        
+
         $rows = $rowWidths = array();
         // make header
         foreach ($columnAttributes as $cAttrIndex => $cAttrData) {
@@ -105,9 +105,9 @@ class TextUi
             $row[$cAttrIndex] = $cAttrDisplayName;
             $rowWidths[$cAttrIndex] = $cAttrDefaultLength; // default width
         }
-        
+
         $rows[] = $row;
-        
+
         foreach ($columnCollection as $columnMetadata) {
             $row = array();
             foreach ($columnAttributes as $cAttrIndex => $cAttrData) {
@@ -120,7 +120,7 @@ class TextUi
             }
             $rows[] = $row;
         }
-        
+
         $table = new \Zend\Text\Table\Table(array(
             'columnWidths' => $rowWidths,
             'decorator' => 'ascii'
@@ -128,14 +128,14 @@ class TextUi
         foreach ($rows as $row) {
             $table->appendRow($row);
         }
-        
+
         return 'Columns' . PHP_EOL . $table->render();
     }
     /**
      * Render constraints
-     * 
+     *
      * @param  \Zend\Db\Metadata\ConstraintCollection $constraints
-     * @return string 
+     * @return string
      */
     public function renderConstraints(\Zend\Db\Metadata\ConstraintCollection $constraints)
     {
@@ -146,7 +146,7 @@ class TextUi
             $row[] = $constraint->getType();
             $rows[] = $row;
         }
-        
+
         $table = new \Zend\Text\Table\Table(array(
             'columnWidths' => array(25, 25),
             'decorator' => 'ascii'
@@ -154,8 +154,8 @@ class TextUi
         foreach ($rows as $row) {
             $table->appendRow($row);
         }
-        
+
         return 'Constraints: ' . PHP_EOL . $table->render();
     }
-    
+
 }

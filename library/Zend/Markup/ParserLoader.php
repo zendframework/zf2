@@ -33,7 +33,7 @@ use Zend\Loader\PluginClassLoader;
 class ParserLoader extends PluginClassLoader
 {
     /**
-     * @var array Pre-aliased parsers 
+     * @var array Pre-aliased parsers
      */
     protected $plugins = array(
         'bbcode'  => 'Zend\Markup\Parser\Bbcode',

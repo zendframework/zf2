@@ -21,12 +21,12 @@
 
 namespace Zend\Db\Sql;
 
-use Zend\Db\Adapter\Adapter,
-    Zend\Db\Adapter\Driver\StatementInterface,
-    Zend\Db\Adapter\Platform\PlatformInterface,
-    Zend\Db\Adapter\Platform\Sql92,
-    Zend\Db\Adapter\ParameterContainerInterface,
-    Zend\Db\Adapter\ParameterContainer;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\Adapter\Driver\StatementInterface;
+use Zend\Db\Adapter\Platform\PlatformInterface;
+use Zend\Db\Adapter\Platform\Sql92;
+use Zend\Db\Adapter\ParameterContainerInterface;
+use Zend\Db\Adapter\ParameterContainer;
 
 /**
  * @category   Zend
@@ -81,8 +81,8 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Constructor
-     * 
-     * @param  null|string $table 
+     *
+     * @param  null|string $table
      * @param  null|string $schema
      * @return void
      */
@@ -96,8 +96,8 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Create from statement
-     * 
-     * @param  string $table 
+     *
+     * @param  string $table
      * @param  null|string $schema
      * @return Delete
      */
@@ -112,8 +112,8 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Create where clause
-     * 
-     * @param  Where|Closure|string|array $predicate 
+     *
+     * @param  Where|Closure|string|array $predicate
      * @param  string $combination One of the OP_* constants from Predicate\PredicateSet
      * @return Delete
      */
@@ -144,9 +144,9 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Prepare the delete statement
-     * 
-     * @param  Adapter $adapter 
-     * @param  StatementInterface $statement 
+     *
+     * @param  Adapter $adapter
+     * @param  StatementInterface $statement
      * @return void
      */
     public function prepareStatement(Adapter $adapter, StatementInterface $statement)
@@ -184,8 +184,8 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Get the SQL string, based on the platform
      *
      * Platform defaults to Sql92 if none provided
-     * 
-     * @param  null|PlatformInterface $platform 
+     *
+     * @param  null|PlatformInterface $platform
      * @return string
      */
     public function getSqlString(PlatformInterface $platform = null)
@@ -211,8 +211,8 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Property overloading
      *
      * Overloads "where" only.
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return mixed
      */
     public function __get($name)

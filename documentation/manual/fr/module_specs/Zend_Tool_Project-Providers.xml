@@ -2,13 +2,13 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.project.providers"><info><title>Fournisseurs de Zend_Tool_Project</title></info>
-    
+
     <para>
         Ci-dessous, vous trouverez un tableau de tous les fournisseurs embarqués avec
         <classname>Zend_Tool_Project</classname>.
     </para>
     <table xml:id="zend.tool.project.project-provider"><info><title>Options du fournisseur Project</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>

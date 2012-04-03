@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.using"><info><title>Using Exceptions</title></info>
-    
+
 
     <para>
         <classname>Zend_Exception</classname> is simply the base class for all exceptions thrown
@@ -8,7 +8,7 @@
     </para>
 
     <example xml:id="zend.exception.using.example"><info><title>Catching an Exception</title></info>
-        
+
 
         <para>
             The following code listing demonstrates how to catch an exception thrown in a Zend

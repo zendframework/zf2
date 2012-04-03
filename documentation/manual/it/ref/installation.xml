@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="introduction.installation"><info><title>Installazione</title></info>
 
-    
+
 
     <para>
         Il Framework Zend è sviluppato con una programmazione in PHP 5 orientata agli oggetti e necessita di PHP 5.1.4 o successivo.

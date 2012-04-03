@@ -35,7 +35,7 @@ use Zend\Loader\PluginClassLoader;
 class MarkupLoader extends PluginClassLoader
 {
     /**
-     * @var array Pre-aliased markup converters 
+     * @var array Pre-aliased markup converters
      */
     protected $plugins = array(
         'code'      => 'Zend\Markup\Renderer\Markup\Html\Code',

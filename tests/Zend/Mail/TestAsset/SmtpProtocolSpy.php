@@ -42,7 +42,7 @@ class SmtpProtocolSpy extends Smtp
 
     /**
      * "Connect" to server
-     * 
+     *
      * @return void
      */
     public function connect()
@@ -52,8 +52,8 @@ class SmtpProtocolSpy extends Smtp
 
     /**
      * Set server name we're talking to
-     * 
-     * @param  string $serverName 
+     *
+     * @param  string $serverName
      * @return void
      */
     public function helo($serverName = '127.0.0.1')
@@ -65,7 +65,7 @@ class SmtpProtocolSpy extends Smtp
      * quit implementation
      *
      * Resets helo value and calls rset
-     * 
+     *
      * @return void
      */
     public function quit()
@@ -78,7 +78,7 @@ class SmtpProtocolSpy extends Smtp
      * Disconnect implementation
      *
      * Resets connect flag and calls rset
-     * 
+     *
      * @return void
      */
     public function disconnect()
@@ -92,7 +92,7 @@ class SmtpProtocolSpy extends Smtp
      * "Reset" connection
      *
      * Resets state of mail, rcpt, and data properties
-     * 
+     *
      * @return void
      */
     public function rset()
@@ -104,8 +104,8 @@ class SmtpProtocolSpy extends Smtp
 
     /**
      * Set envelope FROM
-     * 
-     * @param  string $from 
+     *
+     * @param  string $from
      * @return void
      */
     public function mail($from)
@@ -115,8 +115,8 @@ class SmtpProtocolSpy extends Smtp
 
     /**
      * Add recipient
-     * 
-     * @param  string $to 
+     *
+     * @param  string $to
      * @return void
      */
     public function rcpt($to)
@@ -126,8 +126,8 @@ class SmtpProtocolSpy extends Smtp
 
     /**
      * Set data
-     * 
-     * @param  string $data 
+     *
+     * @param  string $data
      * @return void
      */
     public function data($data)
@@ -137,7 +137,7 @@ class SmtpProtocolSpy extends Smtp
 
     /**
      * Are we connected?
-     * 
+     *
      * @return bool
      */
     public function isConnected()
@@ -147,7 +147,7 @@ class SmtpProtocolSpy extends Smtp
 
     /**
      * Get server name we opened a connection with
-     * 
+     *
      * @return null|string
      */
     public function getHelo()
@@ -157,7 +157,7 @@ class SmtpProtocolSpy extends Smtp
 
     /**
      * Get value of mail property
-     * 
+     *
      * @return null|string
      */
     public function getMail()
@@ -167,7 +167,7 @@ class SmtpProtocolSpy extends Smtp
 
     /**
      * Get recipients
-     * 
+     *
      * @return array
      */
     public function getRecipients()
@@ -177,7 +177,7 @@ class SmtpProtocolSpy extends Smtp
 
     /**
      * Get data value
-     * 
+     *
      * @return null|string
      */
     public function getData()

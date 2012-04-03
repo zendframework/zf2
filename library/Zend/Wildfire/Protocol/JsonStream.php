@@ -20,9 +20,9 @@
  */
 
 namespace Zend\Wildfire\Protocol;
-use Zend\Wildfire\Plugin,
-    Zend\Wildfire\Protocol\Exception,
-    Zend\Wildfire;
+use Zend\Wildfire\Plugin;
+use Zend\Wildfire\Protocol\Exception;
+use Zend\Wildfire;
 
 /**
  * Encodes messages into the Wildfire JSON Stream Communication Protocol.

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2"><info><title>Zend_Service_Amazon_Ec2</title></info>
-    
+
 
     <section xml:id="zend.service.amazon.ec2.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Amazon_Ec2</classname> provides an interface to Amazon Elastic
@@ -12,7 +12,7 @@
     </section>
 
     <section xml:id="zend.service.amazon.ec2.whatis"><info><title>What is Amazon Ec2?</title></info>
-        
+
 
         <para>
             Amazon EC2 is a web service that enables you to launch and manage server instances in
@@ -23,7 +23,7 @@
     </section>
 
     <section xml:id="zend.service.amazon.ec2.staticmethods"><info><title>Static Methods</title></info>
-        
+
 
         <para>
             To make using the Ec2 class easier to use there are two static methods that can be
@@ -33,7 +33,7 @@
         </para>
 
         <example xml:id="zend.service.amazon.ec2.staticmethods.setkeys"><info><title>setKeys() Example</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 Zend_Service_Amazon_Ec2_Ebs::setKeys('aws_key','aws_secret_key');
@@ -48,7 +48,7 @@ Zend_Service_Amazon_Ec2_Ebs::setKeys('aws_key','aws_secret_key');
         </para>
 
         <example xml:id="zend.service.amazon.ec2.staticmethods.setregion"><info><title>setRegion() Example</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 Zend_Service_Amazon_Ec2_Ebs::setRegion('us-east-1');
@@ -56,7 +56,7 @@ Zend_Service_Amazon_Ec2_Ebs::setRegion('us-east-1');
         </example>
 
         <note xml:id="zend.service.amazon.ec2.staticmethods.setregion.note"><info><title>Set Amazon Ec2 Region</title></info>
-            
+
 
             <para>
                 Alternativly you can set the region when you create each class as the third

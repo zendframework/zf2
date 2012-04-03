@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.project.providers"><info><title>Zend_Tool Project Providers</title></info>
-    
+
 
     <para>
         Below is a table of all of the providers shipped with
@@ -10,7 +10,7 @@
     </para>
 
     <table xml:id="zend.tool.project.project-provider"><info><title>Project Provider Options</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>

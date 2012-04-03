@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.response"><info><title>レスポンスオブジェクト</title></info>
-    
+
 
     <section xml:id="zend.controller.response.usage"><info><title>使用法</title></info>
-        
+
 
         <para>
             レスポンスオブジェクトは、
@@ -136,7 +136,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.response.headers"><info><title>ヘッダの操作</title></info>
-        
+
 
         <para>
             先ほど説明したように、レスポンスオブジェクトの役割のひとつは
@@ -236,7 +236,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.response.namedsegments"><info><title>名前つきセグメント</title></info>
-        
+
 
         <para>
             レスポンスオブジェクトでは「名前つきセグメント」をサポートしています。
@@ -373,7 +373,7 @@ array(
     </section>
 
     <section xml:id="zend.controller.response.exceptions"><info><title>レスポンスオブジェクト内での例外の検査</title></info>
-        
+
 
         <para>
             先ほど説明したように、デフォルトでは
@@ -466,7 +466,7 @@ array(
     </section>
 
     <section xml:id="zend.controller.response.subclassing"><info><title>レスポンスオブジェクトのサブクラスの作成</title></info>
-        
+
 
         <para>
             レスポンスオブジェクトの役割は、

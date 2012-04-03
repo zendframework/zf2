@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.autoloader"><info><title>Автозагрузчик</title></info>
-    
+
 
     <para>
         <classname>Zend_Loader_Autoloader</classname> представляет собой
@@ -38,7 +38,7 @@
     </para>
 
     <section xml:id="zend.loader.autoloader.usage"><info><title>Использование автозагрузчика</title></info>
-        
+
 
         <para>
             Когда экземпляр автозагрузчика извлекается в первый раз,
@@ -65,7 +65,7 @@ $autoloader->registerNamespace('My_');
 ]]></programlisting>
 
         <note><info><title>Префиксы пространств имен</title></info>
-            
+
 
             <para>
                 Обратите внимание, что предыдущий пример использует в
@@ -141,7 +141,7 @@ $autoloader->setFallbackAutoloader(true);
     </section>
 
     <section xml:id="zend.loader.autoloader.interface"><info><title>Итерфейс автозагрузчика</title></info>
-        
+
 
         <para>
             Кроме возможности указывать любые обратные вызовы в качестве
@@ -172,7 +172,7 @@ $autoloader->pushAutoloader($foo, 'Foo_');
     </section>
 
     <section xml:id="zend.loader.autoloader.reference"><info><title>Справка по автозагрузчику</title></info>
-        
+
 
         <para>
             Ниже приведено руководство по методам, доступным в классе
@@ -180,7 +180,7 @@ $autoloader->pushAutoloader($foo, 'Foo_');
         </para>
 
         <table xml:id="zend.loader.autoloader.reference.api"><info><title>Методы Zend_Loader_Autoloader-а</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.importing"><info><title>Feeds importieren</title></info>
-    
+
 
     <para>
         <classname>Zend_Feed</classname> ermöglicht es Entwicklern, Feeds sehr einfach abzurufen.
@@ -36,7 +36,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
     </para>
 
     <section xml:id="zend.feed.importing.custom"><info><title>Eigene Feeds</title></info>
-        
+
 
         <para>
             <classname>Zend_Feed</classname> ermöglicht es Entwicklern Ihre eigenen Feeds sehr
@@ -49,7 +49,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
         </para>
 
         <section xml:id="zend.feed.importing.custom.importarray"><info><title>Importieren eines eigenen Arrays</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Importieren eines Feeds von einem Array
@@ -292,7 +292,7 @@ array(
         </section>
 
         <section xml:id="zend.feed.importing.custom.importbuilder"><info><title>Importieren einer eigenen Daten Quelle</title></info>
-            
+
 
             <para>
                 Eine <classname>Zend_Feed</classname> Instanz kann von jeder Datenquelle erstellt
@@ -341,7 +341,7 @@ $rssFeedFromArray =
         </section>
 
         <section xml:id="zend.feed.importing.custom.dump"><info><title>Ausgeben des Inhalts eines Feeds</title></info>
-            
+
 
             <para>
                 Um den Inhalt einer <classname>Zend_Feed_Abstract</classname> Instanz auszugeben

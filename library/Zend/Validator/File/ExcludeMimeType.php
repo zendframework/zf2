@@ -20,8 +20,8 @@
 
 namespace Zend\Validator\File;
 
-use finfo,
-    Zend\Loader;
+use finfo;
+use Zend\Loader;
 
 /**
  * Validator for the mime type of a file

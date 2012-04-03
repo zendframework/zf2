@@ -110,7 +110,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
         $actual = $this->_adapter->getItems(0, 10);
         $this->assertEquals(array(), $actual);
     }
-    
+
     /**
      * Verify that the fix for ZF-4151 doesn't create an OBO error
      */

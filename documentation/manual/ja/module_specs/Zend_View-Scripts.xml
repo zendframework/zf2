@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.scripts"><info><title>ビュースクリプト</title></info>
 
-    
+
 
     <para>
         コントローラが変数を代入して <methodname>render()</methodname> をコールすると、
@@ -52,7 +52,7 @@
 
     <section xml:id="zend.view.scripts.escaping"><info><title>出力のエスケープ</title></info>
 
-        
+
 
         <para>
             ビュースクリプトで行うべき仕事のうち最も重要なもののひとつは、
@@ -110,7 +110,7 @@ echo $view->render(...);
     </section>
 
     <section xml:id="zend.view.scripts.templates"><info><title>別のテンプレートシステムの使用</title></info>
-        
+
 
         <para>
             <acronym>PHP</acronym> 自身も強力なテンプレートシステムではありますが、
@@ -122,7 +122,7 @@ echo $view->render(...);
         </para>
 
         <section xml:id="zend.view.scripts.templates.scripts"><info><title>ビュースクリプトを使用したテンプレートシステム</title></info>
-            
+
 
             <para>
                 ビュースクリプトを使用して、PHPLIB 形式のテンプレートのような
@@ -181,7 +181,7 @@ if ($this->books) {
         </section>
 
         <section xml:id="zend.view.scripts.templates.interface"><info><title>Zend_View_Interface を使用したテンプレート</title></info>
-            
+
 
             <para>
                 <classname>Zend_View</classname> 互換のテンプレートエンジンを使用するほうが簡単だという人もいるでしょう。

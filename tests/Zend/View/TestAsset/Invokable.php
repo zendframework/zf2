@@ -2,8 +2,8 @@
 
 namespace ZendTest\View\TestAsset;
 
-use Zend\View\Renderer,
-    Zend\View\Helper;
+use Zend\View\Renderer;
+use Zend\View\Helper;
 
 class Invokable implements Helper
 {
@@ -32,8 +32,8 @@ class Invokable implements Helper
 
     /**
      * Invokable functor
-     * 
-     * @param  string $message 
+     *
+     * @param  string $message
      * @return string
      */
     public function __invoke($message)

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.api.reference.zend-ldap-node-schema"><info><title>Zend_Ldap_Node_Schema</title></info>
-    
+
 
     <para>
         Die folgenden Methoden sind für alle Hersteller-spezifischen Unterklassen vorhanden.
@@ -20,7 +20,7 @@
     </para>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.table"><info><title>Zend_Ldap_Node_Schema API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -225,7 +225,7 @@
     </table>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.attributetype-interface.table"><info><title>Zend_Ldap_Node_Schema_AttributeType_Interface API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -270,7 +270,7 @@
     </table>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.objectclass-interface.table"><info><title>Zend_Ldap_Node_Schema_ObjectClass_Interface API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -368,7 +368,7 @@
     </para>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.schema-item.table"><info><title>Zend_Ldap_Node_Schema_Item API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -397,7 +397,7 @@
     </table>
 
     <section xml:id="zend.ldap.api.reference.zend-ldap-node-schema.openldap"><info><title>OpenLDAP</title></info>
-        
+
 
         <para>
             Zusätzlich können die üblichen Methoden von oben auf Instanzen von
@@ -405,7 +405,7 @@
         </para>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.openldap.table"><info><title>Zend_Ldap_Node_Schema_OpenLDAP API</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -435,7 +435,7 @@
         </table>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.openldap.attributetype-interface.table"><info><title>Zend_Ldap_Node_Schema_AttributeType_OpenLDAP API</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -462,7 +462,7 @@
         </table>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.openldap.objectclass-interface.table"><info><title>Zend_Ldap_Node_Schema_ObjectClass_OpenLDAP API</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -488,10 +488,10 @@
     </section>
 
     <section xml:id="zend.ldap.api.reference.zend-ldap-node-schema.activedirectory"><info><title>ActiveDirectory</title></info>
-        
+
 
         <note><info><title>Browsen im Schema von ActiveDirectory Servern</title></info>
-            
+
 
             <para>
                 Durch eine Einschränkung in Microsoft ActiveDirectory Servern betreffend der Anzahl
@@ -507,7 +507,7 @@
         </para>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.activedirectory.attributetype-interface.table"><info><title>Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory API</title></info>
-            
+
 
             <tgroup cols="1">
                 <tbody>
@@ -522,7 +522,7 @@
         </table>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-schema.activedirectory.objectclass-interface.table"><info><title>Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory API</title></info>
-            
+
 
             <tgroup cols="1">
                 <tbody>

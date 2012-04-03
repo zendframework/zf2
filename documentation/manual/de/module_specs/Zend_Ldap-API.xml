@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.api"><info><title>API Übersicht</title></info>
-    
+
 
     <section xml:id="zend.ldap.api.configuration"><info><title>Konfiguration und Optionen</title></info>
-        
+
 
         <para>
             Die <classname>Zend_Ldap</classname> Komponente akzeptiert ein Array von Optionen die
@@ -14,7 +14,7 @@
         </para>
 
         <table xml:id="zend.ldap.api.configuration.table"><info><title>Zend_Ldap Optionen</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -208,7 +208,7 @@
     </section>
 
     <section xml:id="zend.ldap.api.reference"><info><title>API Referenz</title></info>
-        
+
 
         <note>
             <para>Methodennamen in <emphasis>italic</emphasis> sind statische Methoden.</para>

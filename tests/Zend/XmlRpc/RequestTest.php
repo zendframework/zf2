@@ -21,8 +21,8 @@
 
 namespace ZendTest\XmlRpc;
 
-use Zend\XmlRpc\Request,
-    Zend\XmlRpc\Value;
+use Zend\XmlRpc\Request;
+use Zend\XmlRpc\Value;
 
 /**
  * Test case for Zend_XmlRpc_Request
@@ -184,7 +184,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $xml = $dom->saveXml();
 
-        
+
         $parsed = $this->_request->loadXml($xml);
         $this->assertTrue($parsed, $xml);
 

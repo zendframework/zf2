@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-model"><info><title>Créer un modèle et une table en base de données</title></info>
-    
+
 
     <para>
         Avant de démarrer, considérons ceci: où vont se trouver ces classes et comment les retrouver?
@@ -708,7 +708,7 @@ Guestbook Entries: <br />
 ]]></programlisting>
 
     <note><info><title>Checkpoint</title></info>
-        
+
 
         <para>
             Naviguez maintenant vers "http://localhost/guestbook". Vous devriez voir ceci
@@ -721,7 +721,7 @@ Guestbook Entries: <br />
     </note>
 
     <note><info><title>Utiliser le script de chargement des données</title></info>
-        
+
 
         <para>
             Le script de chargement des données montré dans la section en question

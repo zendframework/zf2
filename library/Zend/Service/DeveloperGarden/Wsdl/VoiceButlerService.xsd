@@ -180,10 +180,10 @@
             <xsd:element minOccurs="0" name="reasonb" type="xsd:int" />
             <xsd:element minOccurs="0" name="statea" type="xsd:string" />
             <xsd:element minOccurs="0" name="stateb" type="xsd:string" />
-            
-            <xsd:element minOccurs="0" name="be164" type="xsd:string" 
+
+            <xsd:element minOccurs="0" name="be164" type="xsd:string"
               nillable="true"/>
-            <xsd:element minOccurs="0" name="bindex" type="xsd:int" 
+            <xsd:element minOccurs="0" name="bindex" type="xsd:int"
               nillable="true"/>
           </xsd:sequence>
         </xsd:extension>

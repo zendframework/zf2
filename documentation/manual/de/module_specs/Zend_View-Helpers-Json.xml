@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.json"><info><title>JSON Helfer</title></info>
-    
+
 
     <para>
         Wenn Views erstellt werden die <acronym>JSON</acronym> zurückgeben ist es wichtig auch den
@@ -31,7 +31,7 @@ Content-Type: application/json
 ]]></programlisting>
 
     <note><info><title>Layouts behalten und Encoding einschalten durch Verwendung von Zend_Json_Expr</title></info>
-        
+
 
         <para>
             Jede Methode im <acronym>JSON</acronym> Helfer akzwptiert ein zweites, optionales,

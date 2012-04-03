@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.doctype"><info><title>Helper Doctype</title></info>
-    
+
 
     <para>
         Poprawne dokumenty HTML oraz XHTML powinny zawierać deklarację typu
@@ -38,7 +38,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.doctype.basicusage"><info><title>Podstawowe użycie helpera Doctype</title></info>
-        
+
 
         <para>
             Możesz określić typ dokumentu w dowolnej chwili.
@@ -66,7 +66,7 @@ $doctypeHelper->doctype('XHTML1_STRICT');
     </example>
 
     <example xml:id="zend.view.helpers.initial.doctype.retrieving"><info><title>Pobieranie typu dokumentu</title></info>
-        
+
 
         <para>
             Jeśli potrzebujesz sprawdzić typ dokumentu, możesz to zrobić

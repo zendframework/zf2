@@ -2,10 +2,10 @@
 
 namespace Zend\Mvc;
 
-use Zend\EventManager\Event,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response,
-    Zend\View\Model as ViewModel;
+use Zend\EventManager\Event;
+use Zend\Stdlib\RequestDescription as Request;
+use Zend\Stdlib\ResponseDescription as Response;
+use Zend\View\Model as ViewModel;
 
 class MvcEvent extends Event
 {

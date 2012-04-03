@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.int"><info><title>Int</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Int</classname> prüft ob ein angegebener Wert ein Integer
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.set.int.options"><info><title>Unterstützte Optionen für Zend_Validate_Int</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Validate_Int</classname> unterstützt:
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.validate.set.int.basic"><info><title>Einfache Integer Prüfung</title></info>
-        
+
 
         <para>
             Der einfachste Weg um einen Integerwert zu prüfen ist die Verwendung der
@@ -48,7 +48,7 @@ $validator->isValid('1,234'); // Gibt true zurück
     </section>
 
     <section xml:id="zend.validate.set.int.localized"><info><title>Lokalisierte Integer Prüfung</title></info>
-        
+
 
         <para>
             Oft ist es nützlich dazu in der Lage zu sein lokalisierte Werte zu prüfen. Integerwerte

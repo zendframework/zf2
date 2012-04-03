@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.debug.dumping"><info><title>Ladění proměnných</title></info>
 
-    
+
 
     <para>
         Statická metoda <code>Zend_Debug::dump()</code> vypisuje nebo vrací informaci
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.debug.dumping.example"><info><title>Příklad použití metody dump()</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 
 Zend_Debug::dump($var, $label=null, $echo=true)
@@ -49,7 +49,7 @@ Zend_Debug::dump($var, $label=null, $echo=true)
     </para>
 
     <tip><info><title>Ladění pomocí Zend_Log</title></info>
-        
+
         <para>
             Používání metody <code>Zend_Debug::dump()</code> je velmi dobré pro
             jednoduché ladění během vývoje. Jednoduše můžete přidat kód, který

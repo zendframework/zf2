@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.save"><info><title>Сохранение изменений в документе PDF<!-- Save changes to the PDF document. --></title></info>
-    
+
     <para>
     Есть два метода, с помощью которых производится сохранение изменений в документе
     PDF. Это методы <code>Zend_Pdf::save()</code> и <code>Zend_Pdf::render()</code>.
@@ -32,7 +32,7 @@
     </para>
 
     <example><info><title>Сохранение документа PDF<!-- Save PDF document. --></title></info>
-        
+
         <programlisting language="php"><![CDATA[<?php
 ...
 // Загрузка документа PDF

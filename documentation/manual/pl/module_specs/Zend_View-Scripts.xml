@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.scripts"><info><title>Skrypty widoków</title></info>
 
-    
+
 
     <para>
         Kiedy już kontroler przypisze zmienne i wywoła metodę render(),
@@ -52,7 +52,7 @@ if ($this->books): ?>
 
     <section xml:id="zend.view.scripts.escaping"><info><title>Filtrowanie danych wyjściowych</title></info>
 
-        
+
 
         <para>
             Jedną z najważniejszych rzeczy do zrobienia w skrypcie widoku
@@ -114,7 +114,7 @@ echo $view->render(...);
 
     <section xml:id="zend.view.scripts.templates"><info><title>Użycie alternatywnych systemów szablonów</title></info>
 
-        
+
 
         <para>
             Chociaż PHP jest sam w sobie potężnym systemem szablonów, wielu
@@ -126,7 +126,7 @@ echo $view->render(...);
         </para>
 
         <section xml:id="zend.view.scripts.templates.scripts"><info><title>Systemy szablonów używające skryptów widoku</title></info>
-            
+
 
             <para>
                 Skrypt widoku może być użyty w celu utworzenia instancji
@@ -187,7 +187,7 @@ if ($this->books) {
         </section>
 
         <section xml:id="zend.view.scripts.templates.interface"><info><title>Systemy szablonów używające interfejsu Zend_View_Interface</title></info>
-            
+
 
             <para>
                 Niektórzy mogą zrobić to łatwiej zapewniając w prosty sposób system

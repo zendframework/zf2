@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.lucene.indexing"><info><title>Indizierung</title></info>
-    
+
 
     <para>
         Indizierung wird durch das Hinzufügen eines neuen Dokuments zu einem bestehenden oder neuen
@@ -16,7 +16,7 @@ $index->addDocument($doc);
     </para>
 
     <example xml:id="learning.lucene.indexing.doc-creation"><info><title>Manuelle Dokument Erstellung</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $doc = new Zend_Search_Lucene_Document();
@@ -33,7 +33,7 @@ $doc->addField(Zend_Search_Lucene_Field::binary('avatar', $avatarData));
     </para>
 
     <example xml:id="learning.lucene.indexing.doc-loading"><info><title>Laden vom Dokument</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $doc = Zend_Search_Lucene_Document_Html::loadHTML($htmlString);
@@ -49,7 +49,7 @@ $doc = Zend_Search_Lucene_Document_Xlsx::loadXlsxFile($path);
     </para>
 
     <section xml:id="learning.lucene.indexing.policy"><info><title>Indizierungs Policy</title></info>
-        
+
 
         <para>
             Man sollte eine Indizierungs Policy im Architektur Design der eigenen Anwendung
@@ -82,7 +82,7 @@ $doc = Zend_Search_Lucene_Document_Xlsx::loadXlsxFile($path);
         </para>
 
         <example xml:id="learning.lucene.indexing.optimization"><info><title>Index Optimierung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $index->optimize();

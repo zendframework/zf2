@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.server.introduction"><info><title>Úvod</title></info>
-    
+
     <para>
         Rodina tříd <code>Zend_Server</code> poskytuje funkcionalitu pro různé
         serverové třídy včetně <code>Zend_XmlRpc_Server</code>,

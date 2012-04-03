@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.introduction"><info><title>Введение</title></info>
 
-    
+
 
     <para>
         <classname>Zend_View</classname> является классом для работы с частью вид (view)
@@ -31,7 +31,7 @@
 
     <section xml:id="zend.view.introduction.controller"><info><title>Скрипт контроллера</title></info>
 
-        
+
 
         <para>
             В качестве простого примера предположим, что ваш контроллер имеет
@@ -69,7 +69,7 @@ echo $view->render('booklist.php');
 
     <section xml:id="zend.view.introduction.view"><info><title>Скрипт вида</title></info>
 
-        
+
 
         <para>
             Теперь нам нужен сопутствующий скрипт вида "booklist.php".
@@ -116,7 +116,7 @@ echo $view->render('booklist.php');
     </section>
 
     <section xml:id="zend.view.introduction.options"><info><title>Опции</title></info>
-        
+
 
         <para>
             <classname>Zend_View</classname> имеет несколько опций, которые могут
@@ -181,7 +181,7 @@ base/path/
     </section>
 
     <section xml:id="zend.view.introduction.shortTags"><info><title>Короткие теги в скриптах вида</title></info>
-        
+
 
         <para>
             В нашей документации и примерах мы применяем короткие теги PHP:
@@ -254,7 +254,7 @@ $view->setUseStreamWrapper(true);
         </itemizedlist>
 
         <note><info><title>Обертка потока для скриптов вида снижает производительность</title></info>
-            
+
 
             <para>
                 Использование обертки потока <emphasis>снижает</emphasis>
@@ -269,7 +269,7 @@ $view->setUseStreamWrapper(true);
     </section>
 
     <section xml:id="zend.view.introduction.accessors"><info><title>Вспомогательные аксессоры</title></info>
-        
+
 
         <para>
             Скорее всего, вам никогда не понадобится вызывать

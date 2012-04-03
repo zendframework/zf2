@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.api.reference.zend-ldap-node-rootdse"><info><title>Zend_Ldap_Node_RootDse</title></info>
-    
+
 
     <para>
         Die folgenden Methoden sind in allen Hersteller-Spezifischen Unterklassen vorhanden.
@@ -23,7 +23,7 @@
     </para>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-node-rootdse.table"><info><title>Zend_Ldap_Node_RootDse API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -288,7 +288,7 @@
     </table>
 
     <section xml:id="zend.ldap.api.reference.zend-ldap-node-rootdse.openldap"><info><title>OpenLDAP</title></info>
-        
+
 
         <para>
             Zusätzlich können die üblichen Methoden von oben auch auf Instanzen von
@@ -304,7 +304,7 @@
         </note>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-rootdse.openldap.table"><info><title>Zend_Ldap_Node_RootDse_OpenLdap API</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -355,7 +355,7 @@
     </section>
 
     <section xml:id="zend.ldap.api.reference.zend-ldap-node-rootdse.activedirectory"><info><title>ActiveDirectory</title></info>
-        
+
 
         <para>
             Zusätzlich können die üblichen Methoden von oben auch auf Instanzen von
@@ -371,7 +371,7 @@
         </note>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-rootdse.activedirectory.table"><info><title>Zend_Ldap_Node_RootDse_ActiveDirectory API</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -487,7 +487,7 @@
     </section>
 
     <section xml:id="zend.ldap.api.reference.zend-ldap-node-rootdse.edirectory"><info><title>eDirectory</title></info>
-        
+
 
         <para>
             Zusätzlich können die üblichen Methoden von oben auch auf Instanzen von
@@ -503,7 +503,7 @@
         </note>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap-node-rootdse.edirectory.table"><info><title>Zend_Ldap_Node_RootDse_eDirectory API</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.different-transports"><info><title>Verwendung von unterschiedlichen Versandwegen</title></info>
-    
+
 
     <para>
         Falls du verschiedene E-Mails über verschiedene Verbindungen versenden möchtest, kannst du
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.mail.different-transports.example-1"><info><title>Verwendung von unterschiedlichen Transportwegen</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();
@@ -25,7 +25,7 @@ $mail->send();  // wieder Standardmethode verwenden
     </example>
 
     <note><info><title>Zusätzliche Versandwege</title></info>
-        
+
 
         <para>
             Weitere Versandwege können geschrieben werden, indem

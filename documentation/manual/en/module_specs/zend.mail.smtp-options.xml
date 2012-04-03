@@ -263,7 +263,7 @@ $transport->setOptions($options);
                         </methodparam>
                     </methodsynopsis>
 
-                    <para> 
+                    <para>
                         Set configuration for the connection class. Typically, if using anything
                         other than the default connection class, this will be an associative array
                         with the keys "username" and "password".

@@ -34,7 +34,7 @@ class ContentType implements Header
 {
     /**
      * Header encoding
-     * 
+     *
      * @var string
      */
     protected $encoding = 'ASCII';
@@ -51,8 +51,8 @@ class ContentType implements Header
 
     /**
      * Factory: create Content-Type header object from string
-     * 
-     * @param  string $headerLine 
+     *
+     * @param  string $headerLine
      * @return ContentType
      */
     public static function fromString($headerLine)
@@ -79,13 +79,13 @@ class ContentType implements Header
                 $header->addParameter($key, $value);
             }
         }
-        
+
         return $header;
     }
 
     /**
      * Get header name
-     * 
+     *
      * @return string
      */
     public function getFieldName()
@@ -95,7 +95,7 @@ class ContentType implements Header
 
     /**
      * Get header value
-     * 
+     *
      * @return string
      */
     public function getFieldValue()
@@ -115,11 +115,11 @@ class ContentType implements Header
 
     /**
      * Set header encoding
-     * 
-     * @param  string $encoding 
+     *
+     * @param  string $encoding
      * @return ContentType
      */
-    public function setEncoding($encoding) 
+    public function setEncoding($encoding)
     {
         $this->encoding = $encoding;
         return $this;
@@ -127,7 +127,7 @@ class ContentType implements Header
 
     /**
      * Get header encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -137,7 +137,7 @@ class ContentType implements Header
 
     /**
      * Serialize header to string
-     * 
+     *
      * @return string
      */
     public function toString()
@@ -147,8 +147,8 @@ class ContentType implements Header
 
     /**
      * Set the content type
-     * 
-     * @param  string $type 
+     *
+     * @param  string $type
      * @return ContentType
      */
     public function setType($type)
@@ -166,7 +166,7 @@ class ContentType implements Header
 
     /**
      * Retrieve the content type
-     * 
+     *
      * @return void
      */
     public function getType()
@@ -176,9 +176,9 @@ class ContentType implements Header
 
     /**
      * Add a parameter pair
-     * 
-     * @param  string $name 
-     * @param  string $value 
+     *
+     * @param  string $name
+     * @param  string $value
      * @return ContentType
      */
     public function addParameter($name, $value)
@@ -190,7 +190,7 @@ class ContentType implements Header
 
     /**
      * Get all parameters
-     * 
+     *
      * @return array
      */
     public function getParameters()
@@ -200,8 +200,8 @@ class ContentType implements Header
 
     /**
      * Get a parameter by name
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return null|string
      */
     public function getParameter($name)
@@ -215,8 +215,8 @@ class ContentType implements Header
 
     /**
      * Remove a named parameter
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return bool
      */
     public function removeParameter($name)

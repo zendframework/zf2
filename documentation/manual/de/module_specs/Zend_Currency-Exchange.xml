@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.exchange"><info><title>Währungen wechseln</title></info>
-    
+
 
     <para>
         Im vorherigen Abschnitt haben wir die Berechnung der Währung besprochen. Aber wie man sich
@@ -96,7 +96,7 @@ print $currency->add($currency2);
     </para>
 
     <note><info><title>Kalkulation ohne Umrechnungsservice</title></info>
-        
+
 
         <para>
             Wenn man versucht zwei Währungsobjekte zu berechnen wenn diese nicht die selbe Währung

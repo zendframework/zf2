@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headmeta"><info><title>Помощник HeadMeta</title></info>
-    
+
 
     <para>
         Элемент <code>&lt;meta&gt;</code> используется для добавления
@@ -67,13 +67,13 @@
     </para>
 
     <para>
-        Помощник <code>HeadMeta</code> является частной реализацией 
+        Помощник <code>HeadMeta</code> является частной реализацией
         <link linkend="zend.view.helpers.initial.placeholder">помощника
             Placeholder</link>.
     </para>
 
     <example xml:id="zend.view.helpers.initial.headmeta.basicusage"><info><title>Использование помощника HeadMeta</title></info>
-        
+
 
         <para>
             Вы можете указывать новые метатеги в любой момент времени. Обычно

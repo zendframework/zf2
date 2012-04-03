@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.using"><info><title>Používanie výnimiek</title></info>
-    
+
 
     <para>
         Všetky výnimky generované triedami Zend Framework mali by byť
@@ -8,7 +8,7 @@
     </para>
 
     <example xml:id="zend.exception.using.example"><info><title>Príklad odchytenia výnimky</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 
 try {

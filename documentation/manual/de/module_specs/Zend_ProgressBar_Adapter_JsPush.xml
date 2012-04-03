@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.adapter.jspush"><info><title>Zend_ProgressBar_Adapter_JsPush</title></info>
-    
+
 
     <para>
         <classname>Zend_ProgressBar_Adapter_JsPush</classname> ist ein Adapter der es erlaubt den
@@ -63,7 +63,7 @@
     </itemizedlist>
 
     <example xml:id="zend.progressbar-adapter.jspush.example"><info><title>Grundsätzliches Beispiel für den Client-seitigen Teil</title></info>
-        
+
 
         <para>
             Dieses Beispiel zeigt ein grundsätzliches Setup von <acronym>HTML</acronym>,
@@ -150,7 +150,7 @@ function Zend_ProgressBar_Update(data)
     </example>
 
     <note><info><title>Intervall der Updates</title></info>
-        
+
 
         <para>
             Man sollte davon Abstand nehmen zuviele Updates zu senden, da jedes Update eine

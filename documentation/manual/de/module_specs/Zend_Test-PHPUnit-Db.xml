@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db"><info><title>Zend_Test_PHPUnit_Db</title></info>
-    
+
 
     <para>
         Die Kopplung von Datenzugriff und dem Domain Modell benötigt oft die Verwendung einer

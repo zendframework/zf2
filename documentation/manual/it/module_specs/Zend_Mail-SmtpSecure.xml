@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-secure"><info><title>Messa in sicurezza del trasporto SMTP</title></info>
-    
+
 
     <para>
         <code>Zend_Mail</code> supporta anche l'uso di TLS e SSL per incrementare la sicurezza di una connessione SMTP.
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.mail.smtp-secure.example-1"><info><title>Abilitazione di una connessione sicura in Zend_Mail_Transport_Smtp</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Mail.php';
 require_once 'Zend/Mail/Transport/Smtp.php';

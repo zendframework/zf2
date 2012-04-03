@@ -21,13 +21,13 @@
 
 namespace Zend\Mail\Storage\Writable;
 
-use Zend\Mail\Storage,
-    Zend\Mail\Storage\Exception,
-    Zend\Mail\Exception as MailException,
-    Zend\Mail\Storage\Folder,
-    Zend\Mail\Storage\Folder\Maildir as MaildirFolder,
-    Zend\Mail\Storage\Maildir as MaildirStorage,
-    Zend\Mail\Storage\Writable;
+use Zend\Mail\Storage;
+use Zend\Mail\Storage\Exception;
+use Zend\Mail\Exception as MailException;
+use Zend\Mail\Storage\Folder;
+use Zend\Mail\Storage\Folder\Maildir as MaildirFolder;
+use Zend\Mail\Storage\Maildir as MaildirStorage;
+use Zend\Mail\Storage\Writable;
 
 /**
  * @uses       RecursiveIteratorIterator
@@ -99,7 +99,7 @@ class Maildir extends MaildirFolder implements Writable
      * @param  $params array mail reader specific parameters
      * @throws \Zend\Mail\Storage\Exception
      */
-    public function __construct($params) 
+    public function __construct($params)
     {
         if (is_array($params)) {
             $params = (object)$params;
@@ -582,7 +582,7 @@ class Maildir extends MaildirFolder implements Writable
      * @return null
      * @throws \Zend\Mail\Storage\Exception
      */
-    public function moveMessage($id, $folder) 
+    public function moveMessage($id, $folder)
     {
         if (!($folder instanceof Folder)) {
             $folder = $this->getFolders($folder);
@@ -697,7 +697,7 @@ class Maildir extends MaildirFolder implements Writable
      * @param bool|array $value new quota value
      * @return null
      */
-    public function setQuota($value) 
+    public function setQuota($value)
     {
         $this->_quota = $value;
     }
@@ -709,7 +709,7 @@ class Maildir extends MaildirFolder implements Writable
      *
      * @return bool|array
      */
-    public function getQuota($fromStorage = false) 
+    public function getQuota($fromStorage = false)
     {
         if ($fromStorage) {
             $fh = @fopen($this->_rootdir . 'maildirsize', 'r');
@@ -736,7 +736,7 @@ class Maildir extends MaildirFolder implements Writable
     /**
      * @see http://www.inter7.com/courierimap/README.maildirquota.html "Calculating maildirsize"
      */
-    protected function _calculateMaildirsize() 
+    protected function _calculateMaildirsize()
     {
         $timestamps = array();
         $messages = 0;
@@ -833,7 +833,7 @@ class Maildir extends MaildirFolder implements Writable
     /**
      * @see http://www.inter7.com/courierimap/README.maildirquota.html "Calculating the quota for a Maildir++"
      */
-    protected function _calculateQuota($forceRecalc = false) 
+    protected function _calculateQuota($forceRecalc = false)
     {
         $fh = null;
         $total_size = 0;
@@ -903,7 +903,7 @@ class Maildir extends MaildirFolder implements Writable
         return array('size' => $total_size, 'count' => $messages, 'quota' => $quota, 'over_quota' => $over_quota);
     }
 
-    protected function _addQuotaEntry($size, $count = 1) 
+    protected function _addQuotaEntry($size, $count = 1)
     {
         if (!file_exists($this->_rootdir . 'maildirsize')) {
             // TODO: should get file handler from _calculateQuota
@@ -919,7 +919,7 @@ class Maildir extends MaildirFolder implements Writable
      * @param bool $detailedResponse return known data of quota and current size and message count @see _calculateQuota()
      * @return bool|array over quota state or detailed response
      */
-    public function checkQuota($detailedResponse = false, $forceRecalc = false) 
+    public function checkQuota($detailedResponse = false, $forceRecalc = false)
     {
         $result = $this->_calculateQuota($forceRecalc);
         return $detailedResponse ? $result : $result['over_quota'];

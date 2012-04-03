@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.text.figlet"><info><title>Zend_Text_Figlet</title></info>
-    
+
 
     <para>
         <classname>Zend_Text_Figlet</classname> は、いわゆる
@@ -14,7 +14,7 @@
     </para>
 
     <note><info><title>圧縮されたフォント</title></info>
-        
+
 
         <para>
             <classname>Zend_Text_Figlet</classname> は gzip で圧縮されたフォントに対応しています。
@@ -27,7 +27,7 @@
     </note>
 
     <note><info><title>エンコーディング</title></info>
-        
+
 
         <para>
             <classname>Zend_Text_Figlet</classname> は、デフォルトでは文字列が UTF-8
@@ -115,7 +115,7 @@
     </para>
 
     <example xml:id="zend.text.figlet.example.using"><info><title>Zend_Text_Figlet の使用法</title></info>
-        
+
 
         <para>
             この例は、<classname>Zend_Text_Figlet</classname>

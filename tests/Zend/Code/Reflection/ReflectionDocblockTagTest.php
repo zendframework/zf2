@@ -101,7 +101,7 @@ class ReflectionDocblockTagTest extends \PHPUnit_Framework_TestCase
         $paramTag = $classReflection->getMethod('doSomething')->getDocblock()->getTag('param');
 
         $trimOpt = Reflection\ReflectionDocblockTag::TRIM_WHITESPACE;
-        
+
         $this->assertEquals($paramTag->getType($trimOpt), 'int', 'Second Match Failed');
         $this->assertEquals($paramTag->getVariable($trimOpt), '$var', 'Third Match Failed');
         $this->assertEquals($paramTag->getDescription($trimOpt),'Description of $var', 'Final Match Failed');
@@ -112,17 +112,17 @@ class ReflectionDocblockTagTest extends \PHPUnit_Framework_TestCase
      * @group ZF-8307
      */
     public function testNamespaceInParam()
-    {    
+    {
         $classReflection = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass7');
         $paramTag = $classReflection->getMethod('doSomething')->getDocblock()->getTag('param');
 
         $trimOpt = Reflection\ReflectionDocblockTag::TRIM_WHITESPACE;
-        
+
         $this->assertEquals('Zend\Foo\Bar', $paramTag->getType($trimOpt));
         $this->assertEquals('$var', $paramTag->getVariable($trimOpt));
         $this->assertEquals('desc', $paramTag->getDescription($trimOpt));
     }
-    
+
     public function testType()
     {
         $classReflection = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
@@ -136,13 +136,13 @@ class ReflectionDocblockTagTest extends \PHPUnit_Framework_TestCase
         $classReflection = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass6');
 
         $trimOpt = Reflection\ReflectionDocblockTag::TRIM_WHITESPACE;
-        
+
         $paramTag = $classReflection->getMethod('doSomething')->getDocblock()->getTag('return');
 
         $this->assertEquals($paramTag->getType($trimOpt), 'string', 'Second Match Failed');
         $this->assertEquals($paramTag->getDescription($trimOpt),'Description of return value', 'Final Match Failed');
     }
-    
+
 
 
     /**
@@ -157,9 +157,9 @@ class ReflectionDocblockTagTest extends \PHPUnit_Framework_TestCase
         $trimOpt = Reflection\ReflectionDocblockTag::TRIM_WHITESPACE;
         $this->assertEquals('Zend\Code\Reflection\DocBlock', $paramTag->getType($trimOpt));
     }
-    
-    
-    
+
+
+
 }
 
 

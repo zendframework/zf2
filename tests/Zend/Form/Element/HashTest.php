@@ -21,10 +21,10 @@
 
 namespace ZendTest\Form\Element;
 
-use Zend\Form\Element\Hash as HashElement,
-    Zend\Form\Element\Xhtml as XhtmlElement,
-    Zend\Form\Element,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Element\Hash as HashElement;
+use Zend\Form\Element\Xhtml as XhtmlElement;
+use Zend\Form\Element;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Element_Hash

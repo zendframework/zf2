@@ -190,7 +190,7 @@ class PredicateTest extends TestCase
 
         $this->assertContains('%s = %s', $parts[5]);
         $this->assertContains(array('baz.bat', 'foo'), $parts[5]);
-        
+
         $this->assertEquals(')', $parts[6]);
     }
 }

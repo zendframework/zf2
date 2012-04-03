@@ -21,10 +21,10 @@
 
 namespace ZendTest\Dojo\View\Helper;
 
-use Zend\Dojo\View\Helper\DojoForm as DojoFormHelper,
-    Zend\Dojo\View\Helper\Dojo as DojoHelper,
-    Zend\Registry,
-    Zend\View;
+use Zend\Dojo\View\Helper\DojoForm as DojoFormHelper;
+use Zend\Dojo\View\Helper\Dojo as DojoHelper;
+use Zend\Registry;
+use Zend\View;
 
 /**
  * Test class for Zend_Dojo_View_Helper_Form.
@@ -94,7 +94,7 @@ class DojoFormTest extends \PHPUnit_Framework_TestCase
         $html = $this->helper->__invoke('foo', array('id' => 'bar'));
         $this->assertRegexp('/<form[^>]*(id="bar")/', $html);
     }
-    
+
     public function testShouldNotRenderClosingTagIfContentIsFalse()
     {
         $html = $this->helper->__invoke('foo');

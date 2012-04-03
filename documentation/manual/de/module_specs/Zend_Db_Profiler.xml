@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.profiler"><info><title>Zend_Db_Profiler</title></info>
-    
+
 
     <section xml:id="zend.db.profiler.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Db_Profiler</classname> kann aktiviert werden, um das Erstellen von
@@ -130,7 +130,7 @@ $db = Zend_Db::factory('PDO_MYSQL', $params);
     </section>
 
     <section xml:id="zend.db.profiler.using"><info><title>Den Profiler verwenden</title></info>
-        
+
 
         <para>
             Der Profiler kann jederzeit über die Adapter Methode
@@ -265,7 +265,7 @@ echo "Longest query: \n" . $longestQuery . "\n";
     </section>
 
     <section xml:id="zend.db.profiler.advanced"><info><title>Fortgeschrittene Profiler Verwendung</title></info>
-        
+
 
         <para>
             Zusätzlich zum Untersuchen von Anfragen erlaubt der Profiler dem Entwickler auch zu
@@ -274,7 +274,7 @@ echo "Longest query: \n" . $longestQuery . "\n";
         </para>
 
         <section xml:id="zend.db.profiler.advanced.filtertime"><info><title>Filtern anhand der Laufzeit der Abfragen</title></info>
-            
+
 
             <para>
                 <methodname>setFilterElapsedSecs()</methodname> ermöglicht dem Entwickler, eine
@@ -293,7 +293,7 @@ $profiler->setFilterElapsedSecs(null);
         </section>
 
         <section xml:id="zend.db.profiler.advanced.filtertype"><info><title>Filtern anhand des Abfragetyp</title></info>
-            
+
 
             <para>
                 <methodname>setFilterQueryType()</methodname> ermöglicht dem Entwickler anzugeben,
@@ -382,7 +382,7 @@ $profiler->setFilterQueryType(null);
         </section>
 
         <section xml:id="zend.db.profiler.advanced.getbytype"><info><title>Hole Profil nach Abfragetyp zurück</title></info>
-            
+
 
             <para>
                 Die Verwendung von <methodname>setFilterQueryType()</methodname> kann die Anzahl
@@ -411,7 +411,7 @@ $profiles = $profiler->getQueryProfiles(Zend_Db_Profiler::DELETE);
     </section>
 
     <section xml:id="zend.db.profiler.profilers"><info><title>Specialized Profilers</title></info>
-        
+
 
         <para>
             Ein spezialisierter Profiler ist ein Objekt das von

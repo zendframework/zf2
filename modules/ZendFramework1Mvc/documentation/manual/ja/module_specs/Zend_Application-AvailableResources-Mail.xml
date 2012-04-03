@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.mail"><info><title>Zend_Application_Resource_Mail</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Mail</classname> は、
@@ -15,7 +15,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.mail.configExample"><info><title>メール・リソース構成サンプル</title></info>
-        
+
 
         <para>
             下記は、メール・リソースプラグインを設定する方法を示す、

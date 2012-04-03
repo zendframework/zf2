@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.introduction"><info><title>Inleiding</title></info>
     <!-- @todo review and revise upon completion of refactoring -->
-    
+
     <para>
     De <code>Zend_Pdf</code> module is een volledig in PHP 5 geschreven motor voor het manipuleren van PDF (Portable Document Format).
     Het kan bestaande documenten laden, nieuwe documenten maken, documenten wijzigen en weer opslaan. Het laat dus eender

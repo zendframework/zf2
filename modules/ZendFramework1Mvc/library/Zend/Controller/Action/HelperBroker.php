@@ -21,8 +21,8 @@
 
 namespace Zend\Controller\Action;
 
-use Zend\Controller\Action,
-    Zend\Loader\PluginSpecBroker;
+use Zend\Controller\Action;
+use Zend\Loader\PluginSpecBroker;
 
 /**
  * @uses       \Zend\Controller\Action\Exception
@@ -55,7 +55,7 @@ class HelperBroker extends PluginSpecBroker implements \IteratorAggregate
      * @var \Zend\Controller\Action\HelperBroker\PriorityStack
      */
     protected $stack = null;
-   
+
     /**
      * resetHelpers()
      *
@@ -85,14 +85,14 @@ class HelperBroker extends PluginSpecBroker implements \IteratorAggregate
     /**
      * Register a helper
      *
-     * Proxies to parent functionality, and then registers helper with 
+     * Proxies to parent functionality, and then registers helper with
      * HelperPriorityStack.
      *
      * Additionally, if the plugin implements a "setBroker()" method, it will
      * inject itself into the helper.
-     * 
-     * @param  string $name 
-     * @param  mixed $plugin 
+     *
+     * @param  string $name
+     * @param  mixed $plugin
      * @return HelperBroker
      */
     public function register($name, $plugin)
@@ -112,7 +112,7 @@ class HelperBroker extends PluginSpecBroker implements \IteratorAggregate
 
         return $this;
     }
-    
+
     /**
      * Load and return a plugin instance
      *
@@ -150,8 +150,8 @@ class HelperBroker extends PluginSpecBroker implements \IteratorAggregate
 
     /**
      * Determine if we have a valid helper
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return true
      * @throws Exception
      */
@@ -170,7 +170,7 @@ class HelperBroker extends PluginSpecBroker implements \IteratorAggregate
      * and loads them; the full stack is returned.
      *
      * Returns the HelperPriorityStack.
-     * 
+     *
      * @return HelperPriorityStack
      */
     public function getPlugins()
@@ -185,7 +185,7 @@ class HelperBroker extends PluginSpecBroker implements \IteratorAggregate
 
     /**
      * Iterate over helpers
-     * 
+     *
      * @return Iterator
      */
     public function getIterator()
@@ -195,8 +195,8 @@ class HelperBroker extends PluginSpecBroker implements \IteratorAggregate
 
     /**
      * Set action controller instance
-     * 
-     * @param  Action $actionController 
+     *
+     * @param  Action $actionController
      * @return HelperBroker
      */
     public function setActionController(Action $actionController)
@@ -211,7 +211,7 @@ class HelperBroker extends PluginSpecBroker implements \IteratorAggregate
 
     /**
      * Retrieve currently registered action controller instance
-     * 
+     *
      * @return null|Action
      */
     public function getActionController()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.pubsubhubbub.introduction"><info><title>Zend_Feed_Pubsubhubbub</title></info>
-    
+
 
     <para>
         <classname>Zend_Feed_Pubsubhubbub</classname> is an implementation of the PubSubHubbub Core
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.feed.pubsubhubbub.what.is.pubsubhubbub"><info><title>What is Pubsubhubbub?</title></info>
-        
+
 
         <para>
             Pubsubhubbub is an open, simple web-scale pubsub protocol. A common use case to enable
@@ -50,7 +50,7 @@
     </section>
 
     <section xml:id="zend.feed.pubsubhubbub.architecture"><info><title>Architecture</title></info>
-        
+
 
         <para>
             <classname>Zend_Feed_Pubsubhubbub</classname> implements two sides of the Pubsubhubbub
@@ -94,7 +94,7 @@
     </section>
 
     <section xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.publisher"><info><title>Zend_Feed_Pubsubhubbub_Publisher</title></info>
-        
+
 
         <para>
             In Pubsubhubbub, the Publisher is the party who publishes a live feed and frequently
@@ -184,7 +184,7 @@ if (!$publisher->isSuccess()) {
     </section>
 
     <section xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.subscriber"><info><title>Zend_Feed_Pubsubhubbub_Subscriber</title></info>
-        
+
 
         <para>
             In Pubsubhubbub, the Subscriber is the party who wishes to receive updates to any Topic
@@ -231,7 +231,7 @@ if (!$publisher->isSuccess()) {
         </important>
 
         <section xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.subscriber.subscribing.and.unsubscribing"><info><title>Subscribing and Unsubscribing</title></info>
-            
+
 
             <para>
                 <classname>Zend_Feed_Pubsubhubbub_Subscriber</classname> implements a full
@@ -321,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `subscription` (
             </para>
 
             <table xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.subscriber.subscribing.and.unsubscribing.table"><info><title>Subscription request parameters</title></info>
-                
+
 
                 <tgroup cols="3">
                     <thead>
@@ -507,7 +507,7 @@ CREATE TABLE IF NOT EXISTS `subscription` (
         </section>
 
         <section xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.subscriber.handling.hub.callbacks"><info><title>Handling Subscriber Callbacks</title></info>
-            
+
 
             <para>
                 Whenever a subscription or unsubscription request is made, the Hub must verify the
@@ -580,7 +580,7 @@ if ($callback->hasFeedUpdate()) {
         </section>
 
         <section xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.subscriber.setting.up.and.using.a.callback.url.route"><info><title>Setting Up And Using A Callback URL Route</title></info>
-            
+
 
             <para>
                 As noted earlier, the

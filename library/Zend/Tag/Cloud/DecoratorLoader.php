@@ -35,7 +35,7 @@ use Zend\Loader\PluginClassLoader;
 class DecoratorLoader extends PluginClassLoader
 {
     /**
-     * @var array Pre-aliased decorators 
+     * @var array Pre-aliased decorators
      */
     protected $plugins = array(
         'html_cloud' => 'Zend\Tag\Cloud\Decorator\HtmlCloud',

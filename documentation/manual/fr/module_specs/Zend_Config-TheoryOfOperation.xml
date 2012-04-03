@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.theory_of_operation"><info><title>Aspect théorique</title></info>
-    
+
 
     <para>
         Les données de configuration sont transmis au constructeur de

@@ -2,14 +2,14 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.captcha.adapters"><info><title>CAPTCHA アダプタ</title></info>
-    
+
 
     <para>
         次のアダプタが、Zend Framework に同梱されています。
     </para>
 
     <section xml:id="zend.captcha.adapters.word"><info><title>Zend_Captcha_Word</title></info>
-        
+
 
         <para>
             <classname>Zend_Captcha_Word</classname> は抽象アダプタで、
@@ -98,7 +98,7 @@
     </section>
 
     <section xml:id="zend.captcha.adapters.dumb"><info><title>Zend_Captcha_Dumb</title></info>
-        
+
 
         <para>
             <classname>Zend_Captch_Dumb</classname> アダプタは、その名が示すとおりのものです。
@@ -111,7 +111,7 @@
     </section>
 
     <section xml:id="zend.captcha.adapters.figlet"><info><title>Zend_Captcha_Figlet</title></info>
-        
+
 
         <para>
             <classname>Zend_Captcha_Figlet</classname> アダプタは、<link linkend="zend.text.figlet">Zend_Text_Figlet</link>
@@ -128,7 +128,7 @@
     </section>
 
     <section xml:id="zend.captcha.adapters.image"><info><title>Zend_Captcha_Image</title></info>
-        
+
 
         <para>
             <classname>Zend_Captcha_Image</classname> アダプタは、
@@ -214,10 +214,10 @@
 
             <listitem><para>
                 <methodname>setDotNoiseLevel($level)</methodname> and <methodname>getDotNoiseLevel()</methodname>,
-                along with <methodname>setLineNoiseLevel($level)</methodname> and 
+                along with <methodname>setLineNoiseLevel($level)</methodname> and
                 <methodname>getLineNoiseLevel()</methodname>,
-                allow you to control how much "noise" in the form of random dots and lines the image 
-                would contain. Each unit of <varname>$level</varname> produces one random dot or line. 
+                allow you to control how much "noise" in the form of random dots and lines the image
+                would contain. Each unit of <varname>$level</varname> produces one random dot or line.
                 The default is 100 dots and 5 lines. The noise is added twice - before and after
                 the image distortion transformation.
             </para></listitem>
@@ -231,7 +231,7 @@
     </section>
 
     <section xml:id="zend.captcha.adapters.recaptcha"><info><title>Zend_Captcha_ReCaptcha</title></info>
-        
+
 
         <para>
             <classname>Zend_Captcha_ReCaptcha</classname> アダプタは、<link linkend="zend.service.recaptcha">Zend_Service_ReCaptcha</link>

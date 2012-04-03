@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.overview"><info><title>Zend_Date API Übersicht</title></info>
-    
+
 
     <para>
         Obwohl die <acronym>API</acronym> von <classname>Zend_Date</classname> simpel und einheitlich
@@ -9,10 +9,10 @@
     </para>
 
     <section xml:id="zend.date.options"><info><title>Zend_Date Optionen</title></info>
-        
+
 
         <section xml:id="zend.date.options.formattype"><info><title>Auswahl der Art des Datumsformats</title></info>
-            
+
 
             <para>
                 Viele Methoden benutzen Zeichenketten für Datumsformate so ähnlich wie
@@ -32,7 +32,7 @@
         </section>
 
         <section xml:id="zend.date.options.fixdst"><info><title>Sommer-/Winterzeit und Datumsberechnungen</title></info>
-            
+
 
             <para>
                 Wenn Daten manipuliert werden, überschreiten sie manchmal die <acronym>DST</acronym>-Grenze
@@ -76,7 +76,7 @@
         </section>
 
         <section xml:id="zend.date.options.extendmonth"><info><title>Monatsberechnungen</title></info>
-            
+
 
             <para>
                 Wenn Monate zu einem existierenden Datum hinzugefügt oder davon entfernt werden, kann der
@@ -106,7 +106,7 @@
         <section xml:id="zend.date.options.cache"><info><title>
                 Lokalisierung und Normalisierung von Daten mit Zend_Cache schneller machen
             </title></info>
-            
+
 
             <para>
                 Man kann <classname>Zend_Date</classname> schneller machen, indem ein
@@ -123,7 +123,7 @@
         </section>
 
         <section xml:id="zend.date.options.timesync"><info><title>Syncronisierte Zeiten mit Zend_TimeSync erhalten</title></info>
-            
+
 
             <para>
                 Normalerweise unterscheiden sich die Uhren von Servern und Computern voneinander.
@@ -140,7 +140,7 @@
     </section>
 
     <section xml:id="zend.date.values"><info><title>Arbeiten mit Datumswerten</title></info>
-        
+
 
         <para>
             Sobald die Eingabe durch die Erstellung eines <classname>Zend_Date</classname>-Objekts
@@ -181,7 +181,7 @@
         </para>
 
         <example xml:id="zend.date.values.example-1"><info><title>Benutzerdefinierte Eingabeformate für Daten</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $date1 = new Zend_Date('Feb 31, 2007', null, 'en_US');
@@ -238,7 +238,7 @@ $date = new Zend_Date('31.Feb.2007');
     </section>
 
     <section xml:id="id.date.basic"><info><title>Grundsätzliche Zend_Date Operationen für die meisten Teile von Daten</title></info>
-        
+
 
         <para>
             Die Methoden <methodname>add()</methodname>, <methodname>sub()</methodname>,
@@ -258,7 +258,7 @@ $date = new Zend_Date('31.Feb.2007');
         </para>
 
         <example xml:id="zend.date.basic.example-1"><info><title>Arbeiten an Teilen von Daten</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $date = new Zend_Date(); // $date's Zeitstempel === time()
@@ -291,10 +291,10 @@ print $date;
         </para>
 
         <section xml:id="id.date.basic.parts"><info><title>Liste der Datumsabschnitte</title></info>
-            
+
 
             <table xml:id="id.date.basic.parts.table"><info><title>Datumsabschnitte</title></info>
-                
+
 
                 <tgroup cols="2">
                     <thead>
@@ -507,7 +507,7 @@ print $date;
         </section>
 
         <section xml:id="id.date.basic.operations"><info><title>Liste der Datums-Operationen</title></info>
-            
+
 
             <para>
                 Die unten aufgeführten Basisoperationen können statt den Komfortoperationen für
@@ -516,7 +516,7 @@ print $date;
             </para>
 
             <table xml:id="id.date.basic.operations.table"><info><title>Basisoperationen</title></info>
-                
+
 
                 <tgroup cols="2">
                     <thead>
@@ -547,7 +547,7 @@ print $date;
                                 </para>
 
                                 <note><info><title>Verhalten von get()</title></info>
-                                    
+
 
                                     <para>
                                         Anders als <methodname>get()</methodname> geben die anderen
@@ -657,7 +657,7 @@ print $date;
     </section>
 
     <section xml:id="zend.date.others.comparison"><info><title>Vergleichen von Daten</title></info>
-        
+
 
         <para>
             Die folgenden Basisoperationen haben keine vergleichbaren vereinfachten Methoden für
@@ -666,7 +666,7 @@ print $date;
         </para>
 
         <table xml:id="zend.date.others.comparison.table"><info><title>Methoden zum Vergleichen von Daten</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -825,7 +825,7 @@ print $date;
     </section>
 
     <section xml:id="zend.date.others.gettingparts"><info><title>Daten und Teile von Daten abfragen</title></info>
-        
+
 
         <para>
             Mehrere Methoden erlauben es, Werte abzurufen, die sich auf eine
@@ -833,7 +833,7 @@ print $date;
         </para>
 
         <table xml:id="zend.date.others.gettingparts.table"><info><title>Ausgabemethoden von Daten</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -988,7 +988,7 @@ print $date;
                             </para>
 
                             <note><info><title>Grenzen von toValue()</title></info>
-                                
+
 
                                 <para>
                                     Diese Methode ruft <link linkend="id.date.basic.operations"><methodname>get()</methodname></link>
@@ -1047,7 +1047,7 @@ print $date;
     </section>
 
     <section xml:id="zend.date.others.fractions"><info><title>Arbeiten mit Sekundenbruchteilen</title></info>
-        
+
 
         <para>
             Viele Methoden unterstützen es, Werte relativ zu einer <classname>Zend_Date</classname>
@@ -1055,7 +1055,7 @@ print $date;
         </para>
 
         <table xml:id="zend.date.others.fractions.table"><info><title>Methoden zur Datumsausgabe</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -1091,7 +1091,7 @@ print $date;
     </section>
 
     <section xml:id="zend.date.other.sun"><info><title>Sonnenaufgang / Sonnenuntergang</title></info>
-        
+
 
         <para>
             Drei Methoden geben Zugriff auf geographisch lokalisierte Informationen über die Sonne,
@@ -1099,7 +1099,7 @@ print $date;
         </para>
 
         <table xml:id="zend.date.other.sun.table"><info><title>Gewöhnliche Methoden</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>

@@ -21,8 +21,8 @@
 
 namespace Zend\Db\ResultSet;
 
-use ArrayAccess,
-    Countable;
+use ArrayAccess;
+use Countable;
 
 /**
  * @category   Zend

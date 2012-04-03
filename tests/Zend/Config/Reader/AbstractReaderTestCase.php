@@ -39,27 +39,27 @@ abstract class AbstractReaderTestCase extends TestCase
      * @var Reader
      */
     protected $reader;
-    
+
     /**
      * Get test asset name for current test case.
-     * 
+     *
      * @return string
      */
     abstract protected function getTestAssetPath($name);
-       
+
     public function testMissingFile()
     {
         $filename = $this->getTestAssetPath('no-file');
         $this->setExpectedException('Zend\Config\Exception\RuntimeException', "The file $filename doesn't exists.");
-        $config = $this->reader->fromFile($filename); 
+        $config = $this->reader->fromFile($filename);
     }
-    
+
     public function testFromFile()
     {
         $config = $this->reader->fromFile($this->getTestAssetPath('include-base'));
         $this->assertEquals('foo', $config['base']['foo']);
     }
-    
+
     public function testFromEmptyString()
     {
         $config = $this->reader->fromString('');

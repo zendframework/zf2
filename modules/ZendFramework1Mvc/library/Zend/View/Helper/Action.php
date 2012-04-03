@@ -21,9 +21,9 @@
 
 namespace Zend\View\Helper;
 
-use Zend\View,
-    Zend\View\Exception,
-    Zend\Controller\Front as FrontController;
+use Zend\View;
+use Zend\View\Exception;
+use Zend\Controller\Front as FrontController;
 
 /**
  * Helper for rendering output of a controller action

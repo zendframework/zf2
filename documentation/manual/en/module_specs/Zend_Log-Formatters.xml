@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.formatters"><info><title>Formatters</title></info>
-    
+
 
     <para>
         A Formatter is an object that is responsible for taking an <property>event</property> array
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="zend.log.formatters.simple"><info><title>Simple Formatting</title></info>
-        
+
 
         <para>
             <classname>Zend_Log_Formatter_Simple</classname> is the default formatter. It is
@@ -57,7 +57,7 @@ $logger->info('there');
     </section>
 
     <section xml:id="zend.log.formatters.xml"><info><title>Formatting to XML</title></info>
-        
+
 
         <para>
             <classname>Zend_Log_Formatter_Xml</classname> formats log data into

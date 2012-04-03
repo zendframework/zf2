@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.doctype"><info><title>Doctype Helper</title></info>
-    
+
 
     <para>
         Valid <acronym>HTML</acronym> and <acronym>XHTML</acronym> documents should include a
@@ -37,7 +37,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.doctype.basicusage"><info><title>Doctype Helper Basic Usage</title></info>
-        
+
 
         <para>
             You may specify the doctype at any time. However, helpers that
@@ -61,7 +61,7 @@ $doctypeHelper->doctype('XHTML1_STRICT');
     </example>
 
     <example xml:id="zend.view.helpers.initial.doctype.retrieving"><info><title>Retrieving the Doctype</title></info>
-        
+
 
         <para>
             If you need to know the doctype, you can do so by calling

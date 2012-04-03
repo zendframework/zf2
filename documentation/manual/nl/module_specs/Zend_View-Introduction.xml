@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.introduction"><info><title>Inleiding</title></info>
 
-    
+
 
     <para>
         Zend_View is een klasse bestemd om met het "view" deel van
@@ -31,7 +31,7 @@
 
     <section xml:id="zend.view.introduction.controller"><info><title>Controller Script</title></info>
 
-        
+
 
         <para>
             Als een eenvoudig voorbeeld, laat ons zeggen dat je controller een
@@ -70,7 +70,7 @@ echo $view->render('boeklijst.php');
 
     <section xml:id="zend.view.introduction.view"><info><title>View Script</title></info>
 
-        
+
 
         <para>
             Nu hebben we het geassocieerde view script, "boeklijst.php" nodig.

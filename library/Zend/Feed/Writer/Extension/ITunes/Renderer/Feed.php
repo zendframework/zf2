@@ -17,7 +17,7 @@
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
- 
+
 namespace Zend\Feed\Writer\Extension\ITunes\Renderer;
 use Zend\Feed\Writer\Extension;
 
@@ -30,7 +30,7 @@ use Zend\Feed\Writer\Extension;
 */
 class Feed extends Extension\AbstractRenderer
 {
-    
+
     /**
      * Set to TRUE if a rendering method actually renders something. This
      * is used to prevent premature appending of a XML namespace declaration
@@ -39,10 +39,10 @@ class Feed extends Extension\AbstractRenderer
      * @var bool
      */
     protected $_called = false;
-    
+
     /**
      * Render feed
-     * 
+     *
      * @return void
      */
     public function render()
@@ -62,23 +62,23 @@ class Feed extends Extension\AbstractRenderer
             $this->_appendNamespaces();
         }
     }
-    
+
     /**
      * Append feed namespaces
-     * 
+     *
      * @return void
      */
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:itunes',
-            'http://www.itunes.com/dtds/podcast-1.0.dtd');  
+            'http://www.itunes.com/dtds/podcast-1.0.dtd');
     }
 
     /**
      * Set feed authors
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setAuthors(\DOMDocument $dom, \DOMElement $root)
@@ -95,12 +95,12 @@ class Feed extends Extension\AbstractRenderer
         }
         $this->_called = true;
     }
-    
+
     /**
      * Set feed itunes block
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setBlock(\DOMDocument $dom, \DOMElement $root)
@@ -115,12 +115,12 @@ class Feed extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed categories
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setCategories(\DOMDocument $dom, \DOMElement $root)
@@ -147,12 +147,12 @@ class Feed extends Extension\AbstractRenderer
         }
         $this->_called = true;
     }
-    
+
     /**
      * Set feed image (icon)
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setImage(\DOMDocument $dom, \DOMElement $root)
@@ -166,12 +166,12 @@ class Feed extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed cumulative duration
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setDuration(\DOMDocument $dom, \DOMElement $root)
@@ -186,12 +186,12 @@ class Feed extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set explicit flag
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setExplicit(\DOMDocument $dom, \DOMElement $root)
@@ -206,12 +206,12 @@ class Feed extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed keywords
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setKeywords(\DOMDocument $dom, \DOMElement $root)
@@ -226,12 +226,12 @@ class Feed extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed's new URL
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setNewFeedUrl(\DOMDocument $dom, \DOMElement $root)
@@ -246,12 +246,12 @@ class Feed extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
-     * Set feed owners 
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     * Set feed owners
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setOwners(\DOMDocument $dom, \DOMElement $root)
@@ -274,12 +274,12 @@ class Feed extends Extension\AbstractRenderer
         }
         $this->_called = true;
     }
-    
+
     /**
      * Set feed subtitle
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setSubtitle(\DOMDocument $dom, \DOMElement $root)
@@ -294,12 +294,12 @@ class Feed extends Extension\AbstractRenderer
         $root->appendChild($el);
         $this->_called = true;
     }
-    
+
     /**
      * Set feed summary
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setSummary(\DOMDocument $dom, \DOMElement $root)

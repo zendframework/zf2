@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.infocard.basics"><info><title>Einführung</title></info>
-    
+
 
     <para>
         Die <classname>Zend_InfoCard</classname> Komponente implementiert die Unterstützung
@@ -16,7 +16,7 @@
     </para>
 
     <section xml:id="zend.infocard.basics.theory"><info><title>Grundsätzliche Theorie der Verwendung</title></info>
-        
+
 
         <para>
             <classname>Zend_InfoCard</classname> kann auf einem von zwei Wegen verwendet werden:
@@ -73,7 +73,7 @@
     </section>
 
     <section xml:id="zend.infocard.basics.auth"><info><title>Verwendung als Teil von Zend_Auth</title></info>
-        
+
 
         <para>
             Um diese Komponente als Teil des <classname>Zend_Auth</classname>
@@ -162,7 +162,7 @@ if (isset($_POST['xmlToken'])) {
     </section>
 
     <section xml:id="zend.infocard.basics.standalone"><info><title>Die Zend_InfoCard Komponente alleine verwenden</title></info>
-        
+
 
         <para>
             Es ist auch möglich die <classname>Zend_InfoCard</classname> Komponente als
@@ -222,7 +222,7 @@ if (isset($_POST['xmlToken'])) {
     </section>
 
     <section xml:id="zend.infocard.basics.claims"><info><title>Mit einem Forderungs Objekt arbeiten</title></info>
-        
+
 
         <para>
             Egal ob die <classname>Zend_InfoCard</classname> Komponente als alleinstehende
@@ -263,7 +263,7 @@ if (isset($_POST['xmlToken'])) {
     </section>
 
     <section xml:id="zend.infocard.basics.attaching"><info><title>Informationskarten an bestehende Konten anhängen</title></info>
-        
+
 
         <para>
             Es ist möglich Unterstützung für Informationskarten zu einem bestehenden
@@ -331,7 +331,7 @@ public function submitinfocardAction()
     </section>
 
     <section xml:id="zend.infocard.basics.adapters"><info><title>Erstellung von Zend_InfoCard Adapter</title></info>
-        
+
 
         <para>
             Die <classname>Zend_InfoCard</classname> Komponente wurde entwickelt um den Wachstum im

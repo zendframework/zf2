@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.writing-providers"><info><title>Zend_Tool_Frameworkを利用してプロバイダを作成する</title></info>
-    
+
 
     <para>
         一般的に、プロバイダそれ自体は、
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.tool.framework.writing-providers.loading"><info><title>Zend_Tool はどのようにプロバイダを見つけるか</title></info>
-        
+
 
         <para>
             By default <classname>Zend_Tool</classname> uses the IncludePathLoader to find all
@@ -67,7 +67,7 @@
         </note>
 
         <example xml:id="zend.tool.framework.writing-providers.loading.example"><info><title>Exposing Your Providers with a Manifest</title></info>
-            
+
 
             <para>
                 You can expose your providers to <classname>Zend_Tool</classname> by offering a manifest
@@ -97,7 +97,7 @@ class My_Component_Manifest
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.basic"><info><title>プロバイダを作成するための基本命令</title></info>
-        
+
 
         <para>
             例えば、サード・パーティのコンポーネントが働かせる
@@ -134,7 +134,7 @@ Hello from my provider!
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.response"><info><title>レスポンスオブジェクト</title></info>
-        
+
 
         <para>
             As discussed in the architecture section <classname>Zend_Tool</classname> allows to hook different clients for
@@ -164,10 +164,10 @@ class My_Component_HelloProvider
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.advanced"><info><title>先進の開発情報</title></info>
-        
+
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.variables"><info><title>プロバイダに変数を渡す</title></info>
-            
+
 
             <para>
                 上記の例の "Hello World" は、単純なコマンドとして有名です、
@@ -211,7 +211,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.prompt"><info><title>Prompt the User for Input</title></info>
-            
+
 
             <para>
                 There are cases when the workflow of your provider requires
@@ -243,7 +243,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.pretendable"><info><title>プロバイダ・アクションを実行するための擬態</title></info>
-            
+
 
             <para>
                 あなたが実装したいかもしれないもう一つの面白い特徴は、<emphasis>擬態性</emphasis>です。
@@ -292,7 +292,7 @@ I would say hello Ralph.
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.verbosedebug"><info><title>冗長及びデバッグモード</title></info>
-            
+
 
             <para>
                 You can also run your provider actions in "verbose" or "debug" modes.
@@ -319,7 +319,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.configstorage"><info><title>ユーザーの構成及びストレージにアクセス</title></info>
-            
+
 
             <para>
                 Using the Enviroment variable <property>ZF_CONFIG_FILE</property> or the

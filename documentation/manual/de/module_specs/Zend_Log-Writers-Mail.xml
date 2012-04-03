@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.writers.mail"><info><title>In Emails schreiben</title></info>
-    
+
 
     <para>
         <classname>Zend_Log_Writer_Mail</classname> schreibt Logeinträge in eine Email Nachricht
@@ -60,7 +60,7 @@ $log->error('Kann nicht zur datenbank verbinden');
     </para>
 
     <section xml:id="zend.log.writers.mail.layoutusage"><info><title>Zend_Layout Verwendung</title></info>
-        
+
 
         <para>
             Eine <classname>Zend_Layout</classname> Instanz kann verwendet werden um den
@@ -117,7 +117,7 @@ $log->error('unable to connect to database');
     </section>
 
     <section xml:id="zend.log.writers.mail.dynamicsubjectline"><info><title>Zusammenfassung der Fehlerlevel in der Subjektzeile</title></info>
-        
+
 
         <para>
             Die <methodname>setSubjectPrependText()</methodname> Methode kann statt
@@ -132,7 +132,7 @@ $log->error('unable to connect to database');
     </section>
 
     <section xml:id="zend.log.writers.mail.caveats"><info><title>Vorbehalte</title></info>
-        
+
 
         <para>
             Das Senden von Logeinträgen über Emails kann gefährlich sein. Wenn Fehlerzustände

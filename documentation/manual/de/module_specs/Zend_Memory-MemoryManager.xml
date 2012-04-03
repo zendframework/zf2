@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.memory-manager"><info><title>Memory Manager</title></info>
-    
+
 
     <section xml:id="zend.memory.memory-manager.creation"><info><title>Erstellen eines Memory Manager</title></info>
-        
+
 
         <para>
             Ein neuer Memory Manager (<classname>Zend_Memory_Manager</classname> object)
@@ -59,7 +59,7 @@ $memoryManager = Zend_Memory::factory('None');
     </section>
 
     <section xml:id="zend.memory.memory-manager.objects-management"><info><title>Memory Objekte verwalten</title></info>
-        
+
 
         <para>
             Diese Sektion beschreibt die Erstellung und Vernichtung von Objekten im
@@ -68,7 +68,7 @@ $memoryManager = Zend_Memory::factory('None');
         </para>
 
         <section xml:id="zend.memory.memory-manager.objects-management.movable"><info><title>Erstellung verschiebbarer Objekte</title></info>
-            
+
 
             <para>
                 Verschiebbare Objekte (Objekte, welche verschoben werden können)
@@ -88,7 +88,7 @@ $memObject = $memoryManager->create($data);
         </section>
 
         <section xml:id="zend.memory.memory-manager.objects-management.locked"><info><title>Erstellen verschlüsselter Objekte</title></info>
-            
+
 
             <para>
                 Verschlüsselte Objekte (Objekte, welche niemals getauscht werden) können
@@ -108,7 +108,7 @@ $memObject = $memoryManager->createLocked($data);
         </section>
 
         <section xml:id="zend.memory.memory-manager.objects-management.destruction"><info><title>Objekte vernichten</title></info>
-            
+
 
             <para>
                 Memory Objekte werden automatische vernichtet und vom Speicher
@@ -148,10 +148,10 @@ function foo()
     </section>
 
     <section xml:id="zend.memory.memory-manager.settings"><info><title>Memory Manager Einstellungen</title></info>
-        
+
 
         <section xml:id="zend.memory.memory-manager.settings.memory-limit"><info><title>Memory Limit</title></info>
-            
+
 
             <para>
                 Das Memory Limit ist eine Zahl von Bytes die zur Verwendung durch
@@ -187,7 +187,7 @@ $memoryManager->setMemoryLimit($newLimit);    // Memorylimit in Bytes setzen
         </section>
 
         <section xml:id="zend.memory.memory-manager.settings.min-size"><info><title>MinSize</title></info>
-            
+
 
             <para>
                 MinSize ist die minimalste Größe von Memory Objekten, welche vom

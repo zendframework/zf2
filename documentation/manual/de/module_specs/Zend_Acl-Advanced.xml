@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.advanced"><info><title>Fortgeschrittene Verwendung</title></info>
-    
+
 
     <section xml:id="zend.acl.advanced.storing"><info><title>Dauerhafte Speicherung von ACL-Daten</title></info>
-        
+
 
         <para>
             <classname>Zend_Acl</classname> wurde so entwickelt, dass keine spezielle Backend
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.acl.advanced.assertions"><info><title>Schreiben von bedingten ACL-Regeln mit Zusicherungen</title></info>
-        
+
 
         <para>
             Manchmal soll eine Regel für das Erlauben oder Verbieten des Zugriffs auf eine

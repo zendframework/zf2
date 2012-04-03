@@ -21,9 +21,9 @@
 
 namespace ZendTest\Controller\Dispatcher;
 
-use Zend\Controller,
-    Zend\Controller\Request,
-    Zend\Controller\Response;
+use Zend\Controller;
+use Zend\Controller\Request;
+use Zend\Controller\Response;
 
 
 /**

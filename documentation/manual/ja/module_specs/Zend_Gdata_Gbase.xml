@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.gbase"><info><title>Google Base の使用法</title></info>
-    
+
     <para>
         Google Base データ <acronym>API</acronym> は、開発者が以下のことを行えるように設計されています。
         <itemizedlist>
@@ -30,7 +30,7 @@
         を参照ください。
     </para>
     <section xml:id="zend.gdata.gbase.connect"><info><title>Base サービスへの接続</title></info>
-        
+
         <para>
             Google Base <acronym>API</acronym> は、他の GData <acronym>API</acronym> と同様に Atom Publishing Protocol (APP)
             を使用しています。これは、ウェブベースのリソースを扱うための
@@ -44,7 +44,7 @@
             サービスのインスタンスをそのクライアントにバインドします。
         </para>
         <section xml:id="zend.gdata.gbase.connect.authentication"><info><title>認証</title></info>
-            
+
             <para>
                 Google Base <acronym>API</acronym> は、公開 (public) フィードと非公開 (private)
                 フィードの両方にアクセスできます。
@@ -84,7 +84,7 @@
             </para>
         </section>
         <section xml:id="zend.gdata.gbase.connect.service"><info><title>サービスのインスタンスの作成</title></info>
-            
+
             <para>
                 Google Base に対する作業を行うために
                 <classname>Zend_Gdata_Gbase</classname> サービスクラスが用意されています。
@@ -216,7 +216,7 @@ $service = new Zend_Gdata_Gbase();
         </section>
     </section>
     <section xml:id="zend.gdata.gbase.retrieve"><info><title>アイテムの取得</title></info>
-        
+
         <para>
             customer items フィードや snippets フィードに問い合わせて、
             アイテムを取得できます。
@@ -224,7 +224,7 @@ $service = new Zend_Gdata_Gbase();
             返ってきたフィードを順に取得するという二段階の手順で行います。
         </para>
         <section xml:id="zend.gdata.gbase.retrieve.query"><info><title>構造化クエリの送信</title></info>
-            
+
             <para>
                 構造化クエリを送信することで、あなた自身の customer items
                 フィードや公開 snippets フィードの内容を問い合わせることができます。
@@ -238,7 +238,7 @@ $service = new Zend_Gdata_Gbase();
                 パラメータを指定すると、これらのクラスがクエリ URL を作成してくれるのです。
             </para>
             <section xml:id="zend.gdata.gbase.retrieve.query.customeritems"><info><title>Customer Items フィードに対する問い合わせ</title></info>
-                
+
                 <para>
                     customer items フィードに対するクエリを実行するには
                     <methodname>newItemQuery()</methodname> メソッドおよび <methodname>getGbaseItemFeed()</methodname>
@@ -260,7 +260,7 @@ $feed = $service->getGbaseItemFeed($query);
                 </para>
             </section>
             <section xml:id="zend.gdata.gbase.retrieve.query.snippets"><info><title>Snippets フィードに対する問い合わせ</title></info>
-                
+
                 <para>
                     公開 snippets フィードに対するクエリを実行するには
                     <methodname>newSnippetQuery()</methodname> メソッドおよび
@@ -283,7 +283,7 @@ $feed = $service->getGbaseSnippetFeed($query);
             </section>
         </section>
         <section xml:id="zend.gdata.gbase.retrieve.iterate"><info><title>アイテムに対する順次処理</title></info>
-            
+
             <para>
                 Google Base のアイテムには、<emphasis>&lt;g:main_ingredient&gt;</emphasis>
                 や <emphasis>&lt;g:weight&gt;</emphasis> といったアイテム固有の属性が含まれています。
@@ -316,7 +316,7 @@ foreach ($feed->entries as $entry) {
         </section>
     </section>
     <section xml:id="zend.gdata.gbase.crud"><info><title>Customer Items の追加、更新、削除</title></info>
-        
+
         <para>
             カスタマー/オーナーは、自分自身の Customer Items
             フィードに対する追加、更新あるいは削除を行うことができます。
@@ -329,7 +329,7 @@ foreach ($feed->entries as $entry) {
             <constant>FALSE</constant> にして実際の操作を行います。
         </para>
         <section xml:id="zend.gdata.gbase.crud.insert"><info><title>アイテムの追加</title></info>
-            
+
             <para>
                 アイテムを追加するには、Base サービスの
                 <methodname>insertGbaseItem()</methodname> メソッドを使用します。
@@ -369,7 +369,7 @@ $createdEntry = $service->insertGbaseItem($newEntry, $dryRun);
 ]]></programlisting>
         </section>
         <section xml:id="zend.gdata.gbase.crud.modify"><info><title>アイテムの変更</title></info>
-            
+
             <para>
                 アイテムの各属性要素の値を変更できます。
             </para>
@@ -425,7 +425,7 @@ $entry->save($dryRun);
             </para>
         </section>
         <section xml:id="zend.gdata.gbase.crud.delete"><info><title>アイテムの削除</title></info>
-            
+
             <para>
                 アイテムを削除するには、<methodname>deleteGbaseItem()</methodname>
                 メソッドをコールします。

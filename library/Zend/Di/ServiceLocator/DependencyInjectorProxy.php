@@ -2,8 +2,8 @@
 
 namespace Zend\Di\ServiceLocator;
 
-use Zend\Di\Di,
-    Zend\Di\Exception;
+use Zend\Di\Di;
+use Zend\Di\Exception;
 
 class DependencyInjectorProxy extends Di
 {

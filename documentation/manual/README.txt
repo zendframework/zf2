@@ -1,8 +1,8 @@
 INTRODUCTION
 
 The manual is written in Docbook XML and requires a Unix-like
-operating system with the standard GNU toolchain and xsltproc 
-or a similar XSLT processor to build the source XML into the 
+operating system with the standard GNU toolchain and xsltproc
+or a similar XSLT processor to build the source XML into the
 HTML that is shipped with the Zend Framework distributions.
 
 On Windows, you can compile the docbook using Cygwin.  See:
@@ -32,17 +32,17 @@ Installation steps for Cygwin:
      your liking. Click [Finish].
 
 
-     
-BUILDING THE DOCUMENTATION (*NIX AND CYGWIN)     
+
+BUILDING THE DOCUMENTATION (*NIX AND CYGWIN)
 
 To build the documentation into HTML:
-  1. Go to a shell prompt, or Windows users will run Cygwin (you can double-click 
-     the icon on the Desktop or in the Start menu if you've chosen any of these 
+  1. Go to a shell prompt, or Windows users will run Cygwin (you can double-click
+     the icon on the Desktop or in the Start menu if you've chosen any of these
      options at install-time)
   2. Navigate to the directory where the documentation files are stored using
-     the traditional Unix commands.  For Cygwin users, drives are stored under 
-     "/cygdrive".  So if your documentation files are stored under 
-     "c:\ZF\documentation", you'll need to run the command "cd c:/ZF/documentation/". 
+     the traditional Unix commands.  For Cygwin users, drives are stored under
+     "/cygdrive".  So if your documentation files are stored under
+     "c:\ZF\documentation", you'll need to run the command "cd c:/ZF/documentation/".
      You're under a Unix environment, so don't forget all paths are case sensitive!
   3. To compile the doc, go to the directory in which manual.xml is located and run:
      $ autoconf
@@ -50,18 +50,17 @@ To build the documentation into HTML:
      $ make
 
 
-   
-TROUBLESHOOTING   
-    
+
+TROUBLESHOOTING
+
 If you're encountering errors while trying the build instructions above...
   1. Remove all files from the html/ subdir except dbstyle.css
-  
+
   2. Remove all files from the root dir except manual.xml, configure.in,
      Makefile.in and README.  The important one here is entities.ent.
-     
+
   3. You can optionally remove the "/autom4te.cache" directory and the
      "/build/docbook-xsl" directory
-     
+
   4. Try to build again following the instructions given above. If it still
      throws errors, post a message to the fw-docs@lists.zend.com list.
-     

@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Crypt;
-use Zend\Crypt\Rsa as RSA,
-    Zend\Crypt;
+use Zend\Crypt\Rsa as RSA;
+use Zend\Crypt;
 
 /**
  * @category   Zend

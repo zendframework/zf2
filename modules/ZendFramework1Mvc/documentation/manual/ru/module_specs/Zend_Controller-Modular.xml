@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.modular"><info><title>Использование модульной структуры директорий</title></info>
-    
+
 
     <section xml:id="zend.controller.modular.introduction"><info><title>Введение</title></info>
-        
+
         <para>
             Определенная соглашением модульная структура директорий позволяет
             разделять различные приложения MVC в автономные единицы и повторно
@@ -59,7 +59,7 @@ application/
         </para>
 
         <note><info><title>Нет пространств имен в модуле, используемом по умолчанию</title></info>
-            
+
             <para>
                 Обратите внимание, что в модуле, используемом по умолчанию,
                 контролеры не нуждаются в префиксе пространства имен. В примере
@@ -78,7 +78,7 @@ application/
     </section>
 
     <section xml:id="zend.controller.modular.directories"><info><title>Определение директорий контроллеров в модулях</title></info>
-        
+
 
         <para>
             Первым шагом в использовании модулей является изменение способа
@@ -177,7 +177,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.router"><info><title>Маршрутизация применительно к модулям</title></info>
-        
+
 
         <para>
             Маршрут, используемый по умолчанию в
@@ -206,7 +206,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.defaultcontroller"><info><title>Модуль или глобальный контроллер по умолчанию</title></info>
-        
+
 
         <para>
             В маршрутизаторе, используемом по умолчанию, если контроллер не был

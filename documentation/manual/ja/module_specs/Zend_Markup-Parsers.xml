@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.markup.parsers"><info><title>Zend_Markup パーサー</title></info>
-    
+
 
     <para>
         <classname>Zend_Markup</classname> には現在 BBCode パーサーと Textile パーサー
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.markup.parsers.theory"><info><title>パーサーの仕組み</title></info>
-        
+
 
         <para>
             <classname>Zend_Markup</classname> のパーサは、マークアップによる文をトークン木へと
@@ -62,7 +62,7 @@
     </section>
 
     <section xml:id="zend.markup.parsers.bbcode"><info><title>BBCode パーサー</title></info>
-        
+
 
         <para>
             BBCode パーサーは BBCode をトークン木へ変換する
@@ -90,7 +90,7 @@
     </section>
 
     <section xml:id="zend.markup.parsers.textile"><info><title>Textile パーサー</title></info>
-        
+
 
         <para>
             Textile パーサーは、Textile からトークン木へと変換する <classname>Zend_Markup</classname>
@@ -99,7 +99,7 @@
         </para>
 
         <table xml:id="zend.markup.parsers.textile.tags"><info><title>基本的な Textile タグのリスト</title></info>
-            
+
 
             <tgroup cols="2" align="left" colsep="1" rowsep="1">
                 <thead>
@@ -204,7 +204,7 @@
         </para>
 
         <section xml:id="zend.markup.parsers.textile.lists"><info><title>リスト</title></info>
-            
+
 
             <para>
                 Textile パーサーは2種類のリストをサポートします。"#"記号を用いた数値型と

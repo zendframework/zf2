@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.position"><info><title>Where is the currency?</title></info>
-    
+
 
     <para>
         The position where the currency sign or name will be displayed depends on the locale.
@@ -9,7 +9,7 @@
     </para>
 
     <table xml:id="zend.currency.position.table-1"><info><title>Available positions for the currency</title></info>
-        
+
 
         <tgroup cols="2" align="left">
             <thead>
@@ -45,7 +45,7 @@
     </table>
 
     <example xml:id="zend.currency.position.example-1"><info><title>Setting the currency position</title></info>
-        
+
 
         <para>
             Let's assume that your client has again set "en_US" as locale. Using no option the

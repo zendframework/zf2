@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.session"><info><title>Zend_Application_Resource_Session</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Session</classname> erlaubt es
@@ -47,7 +47,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.session.configExample"><info><title>Beispiel der Konfiguration einer Session Ressource</title></info>
-        
+
 
         <para>
             Anbei ist das Beispiel eines <acronym>INI</acronym> Abschnitts der zeigt wie die
@@ -75,7 +75,7 @@ resources.session.saveHandler.options.lifetimeColumn = "lifetime"
     </example>
 
     <note><info><title>Die Datenbank zuerst bootstrappen!</title></info>
-        
+
 
         <para>
             Wenn man den <classname>Zend_Session_SaveHandler_DbTable</classname> Session Save

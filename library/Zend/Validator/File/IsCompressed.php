@@ -20,8 +20,8 @@
 
 namespace Zend\Validator\File;
 
-use Traversable,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Validator which checks if the file already exists in the directory
@@ -119,7 +119,7 @@ class IsCompressed extends MimeType
                 if(array_key_exists('name', $file)) {
                     $file = $file['name'];
                 }
-            } 
+            }
 
             if (is_string($file)) {
                 $this->value = basename($file);

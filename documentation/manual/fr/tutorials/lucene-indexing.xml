@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.lucene.indexing"><info><title>Indexation</title></info>
-    
+
 
     <para>
         L'indexation s'effectue en ajoutant un nouveau document à un index existant ou à un
@@ -17,7 +17,7 @@ $index->addDocument($doc);
     </para>
 
     <example xml:id="learning.lucene.indexing.doc-creation"><info><title>Construction manuel de document</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $doc = new Zend_Search_Lucene_Document();
@@ -34,7 +34,7 @@ $doc->addField(Zend_Search_Lucene_Field::binary('avatar', $avatarData));
     </para>
 
     <example xml:id="learning.lucene.indexing.doc-loading"><info><title>Chargement de document</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $doc = Zend_Search_Lucene_Document_Html::loadHTML($htmlString);
@@ -50,7 +50,7 @@ $doc = Zend_Search_Lucene_Document_Xlsx::loadXlsxFile($path);
     </para>
 
     <section xml:id="learning.lucene.indexing.policy"><info><title>Politique d'indexation</title></info>
-        
+
 
         <para>
             Vous devrez définir votre politique d'indexation au sein de la conception de
@@ -84,7 +84,7 @@ $doc = Zend_Search_Lucene_Document_Xlsx::loadXlsxFile($path);
         </para>
 
         <example xml:id="learning.lucene.indexing.optimization"><info><title>Optimisation d'index</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $index->optimize();

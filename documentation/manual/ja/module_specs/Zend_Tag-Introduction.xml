@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tag.introduction"><info><title>導入</title></info>
-    
+
 
     <para>
         <classname>Zend_Tag</classname>は、タグ付けできる項目で動作するための機能を与える
@@ -30,7 +30,7 @@
     </para>
 
     <example xml:id="zend.tag.example.using"><info><title>Zend_Tagの利用</title></info>
-        
+
 
         <para>
             この例は、タグの一覧を作成して、

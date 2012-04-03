@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.quickstart"><info><title>Inicio rápido a Zend_Controller</title></info>
-    
+
 
     <section xml:id="zend.controller.quickstart.introduction"><info><title>Introducción</title></info>
-        
+
         <para>
             <classname>Zend_Controller</classname>
             es el corazón del sistema de
@@ -49,7 +49,7 @@
     </section>
 
     <section xml:id="zend.controller.quickstart.go"><info><title>Quick Start</title></info>
-        
+
 
         <para>
             Si necesita información más detallada, mire las secciones
@@ -59,7 +59,7 @@
        </para>
 
         <section xml:id="zend.controller.quickstart.go.directory"><info><title>Cree su estructura de archivos</title></info>
-            
+
 
             <para>
                 El primer paso es crear su estructura de archivos. La
@@ -86,7 +86,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.docroot"><info><title>Establezca el document root</title></info>
-            
+
 
             <para>
                 Apunte su document root en su servidor web hacia el
@@ -97,7 +97,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.rewrite"><info><title>Cree sus reglas de reescritura</title></info>
-            
+
 
             <para>
                 Edite el archivo
@@ -115,7 +115,7 @@ RewriteRule ^.*$ index.php [NC,L]
 ]]></programlisting>
 
             <note><info><title>Learn about mod_rewrite</title></info>
-                
+
 
                 <para>
                     The above rewrite rules allow access to any file under your
@@ -186,7 +186,7 @@ RewriteRule ^.*$ index.php [NC,L]
         </section>
 
         <section xml:id="zend.controller.quickstart.go.bootstrap"><info><title>Crear el archivo bootstrap</title></info>
-            
+
 
             <para>
                 El archivo bootstrap es la página a la que todas las peticiones
@@ -210,7 +210,7 @@ Zend_Controller_Front::run('/path/to/app/controllers');
         </section>
 
         <section xml:id="zend.controller.quickstart.go.controller"><info><title>Crear el action controller por defecto</title></info>
-            
+
 
             <para>
                 Antes de tratar los action controllers, debe primero
@@ -334,7 +334,7 @@ class IndexController extends Zend_Controller_Action
         </section>
 
         <section xml:id="zend.controller.quickstart.go.view"><info><title>Cree su view script</title></info>
-            
+
 
             <para>
                 Como hemos mencionado
@@ -366,7 +366,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.errorhandler"><info><title>Cree su controlador de errores</title></info>
-            
+
 
             <para>
                 Por defecto, está registrado
@@ -419,7 +419,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.finish"><info><title>¡Vea el sitio!</title></info>
-            
+
 
             <para>
                 Con su primer controlador y vista, ya puede arrancar su navegador y acceder a su

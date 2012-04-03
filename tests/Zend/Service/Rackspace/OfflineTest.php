@@ -20,9 +20,9 @@
  */
 
 namespace ZendTest\Service\Rackspace;
-use Zend\Service\Rackspace\Files as RackspaceFiles,
-        Zend\Service\Rackspace\Files\ContainerList,
-        Zend\Http\Client\Adapter\Test as HttpTest;
+use Zend\Service\Rackspace\Files as RackspaceFiles;
+use Zend\Service\Rackspace\Files\ContainerList;
+use Zend\Http\Client\Adapter\Test as HttpTest;
 
 /**
  * Test helper
@@ -116,7 +116,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * Test the set of the key
-     * 
+     *
      * @return void
      */
     public function testSetKey()

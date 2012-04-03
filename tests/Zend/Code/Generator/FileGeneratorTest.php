@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Code\Generator;
-use Zend\Code\Generator\FileGenerator,
-    Zend\Code\Reflection\FileReflection;
+use Zend\Code\Generator\FileGenerator;
+use Zend\Code\Reflection\FileReflection;
 
 /**
  * @category   Zend

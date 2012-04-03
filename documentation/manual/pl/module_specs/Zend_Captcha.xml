@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.captcha.introduction"><info><title>Wprowadzenie</title></info>
-    
+
 
     <para>
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Captcha">CAPTCHA</link>
@@ -17,7 +17,7 @@
     <para>
         Elementy Captcha przyjmują wiele różnych form, włączając w to zadawanie
         logicznych pytań, prezentowanie krzywych czcionek, a także prezentowanie
-        obrazków i pytań odnośnie do nich. Komponent <classname>Zend_Captcha</classname> 
+        obrazków i pytań odnośnie do nich. Komponent <classname>Zend_Captcha</classname>
         ma na celu zapewnienie wielu backendów które mogą być wykorzystane jako osobne
         komponenty lub w połączeniu z komponentem <classname>Zend_Form</classname>.
     </para>

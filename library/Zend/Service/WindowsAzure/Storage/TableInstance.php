@@ -26,7 +26,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * 
+ *
  * @property string  $Id              Id
  * @property string  $Name            Name
  * @property string  $Href            Href
@@ -36,21 +36,21 @@ class Zend_Service_WindowsAzure_Storage_TableInstance
 {
     /**
      * Data
-     * 
+     *
      * @var array
      */
     protected $_data = null;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param string  $id              Id
      * @param string  $name            Name
      * @param string  $href            Href
      * @param string  $updated         Updated
      */
-    public function __construct($id, $name, $href, $updated) 
-    {	        
+    public function __construct($id, $name, $href, $updated)
+    {
         $this->_data = array(
             'id'               => $id,
             'name'             => $name,
@@ -58,10 +58,10 @@ class Zend_Service_WindowsAzure_Storage_TableInstance
             'updated'          => $updated
         );
     }
-    
+
     /**
      * Magic overload for setting properties
-     * 
+     *
      * @param string $name     Name of the property
      * @param string $value    Value to set
      */
@@ -76,7 +76,7 @@ class Zend_Service_WindowsAzure_Storage_TableInstance
 
     /**
      * Magic overload for getting properties
-     * 
+     *
      * @param string $name     Name of the property
      */
     public function __get($name) {

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.project.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_Tool_Project</classname> baut auf die Möglichkeiten von

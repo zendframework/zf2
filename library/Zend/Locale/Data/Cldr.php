@@ -21,10 +21,10 @@
 
 namespace Zend\Locale\Data;
 
-use Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Locale\Locale,
-    Zend\Locale\Exception;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Locale\Locale;
+use Zend\Locale\Exception;
 
 /**
  * Locale data provider, handles CLDR

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.drawing"><info><title>Dessiner</title></info>
-    
+
 
     <section xml:id="zend.pdf.drawing.geometry"><info><title>Géométrie</title></info>
-        
+
 
         <para>
             Le format <acronym>PDF</acronym> utilise la même géométrie que le format PostScript. Elle démarre
@@ -20,7 +20,7 @@ $height = $pdfPage->getHeight();
         </section>
 
         <section xml:id="zend.pdf.drawing.color"><info><title>Couleurs</title></info>
-            
+
 
         <para>
             Le format <acronym>PDF</acronym> a d'excellentes capacités dans la représentation des couleurs. Le
@@ -58,7 +58,7 @@ $color3 = new Zend_Pdf_Color_Html('forestgreen');
     </section>
 
     <section xml:id="zend.pdf.drawing.shape-drawing"><info><title>Dessiner des formes</title></info>
-        
+
 
         <para>
             Toutes les opérations de dessins peuvent être réalisées dans le contexte d'une
@@ -222,7 +222,7 @@ public function drawEllipse(
         </section>
 
         <section xml:id="zend.pdf.drawing.text-drawing"><info><title>Dessiner du texte</title></info>
-            
+
 
         <para>
             Les opérations de dessins existent bien sûr dans le contexte d'une page <acronym>PDF</acronym>. Vous
@@ -248,7 +248,7 @@ public function drawText($text, $x, $y, $charEncoding = '');
 ]]></programlisting></para>
 
             <example xml:id="zend.pdf.drawing.text-drawing.example-1"><info><title>Dessiner une ligne dans la page</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 ...
@@ -267,7 +267,7 @@ $pdfPage->drawText('Bonjour le monde!', 72, 720);
         </para>
 
         <example xml:id="zend.pdf.drawing.text-drawing.example-2"><info><title>Dessiner une chaîne UTF-8 sur une page</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -282,7 +282,7 @@ $pdfPage->drawText($unicodeString, 72, 720, 'UTF-8');
     </section>
 
     <section xml:id="zend.pdf.drawing.using-fonts"><info><title>Utiliser des polices de caractères</title></info>
-        
+
 
         <para>
             <methodname>Zend_Pdf_Page::drawText()</methodname> utilise la police courante ainsi
@@ -318,7 +318,7 @@ public function setFont(Zend_Pdf_Resource_Font $font, $fontSize);
         </para>
 
         <example xml:id="zend.pdf.drawing.using-fonts.example-1"><info><title>Créer une police standard</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -406,7 +406,7 @@ $pdfPage->setFont($font, 36);
         </para>
 
         <example xml:id="zend.pdf.drawing.using-fonts.example-2"><info><title>Créer une police TrueType</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -428,7 +428,7 @@ $pdfPage->setFont($goodDogCoolFont, 36);
         </para>
 
         <example xml:id="zend.pdf.drawing.using-fonts.example-3"><info><title>Créer une police TrueType sans l'incorporer dans le document PDF</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -464,7 +464,7 @@ $pdfPage->setFont($goodDogCoolFont, 36);
         </para>
 
         <example xml:id="zend.pdf.drawing.using-fonts.example-4"><info><title>Ne pas lever d'exception pour les polices ne pouvant être incorporées</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -490,7 +490,7 @@ $font =
         </para>
 
         <example xml:id="zend.pdf.drawing.using-fonts.example-5"><info><title>Ne pas compresser une police incorporée</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -507,7 +507,7 @@ $font =
         </para>
 
         <example xml:id="zend.pdf.drawing.using-fonts.example-6"><info><title>Combiner les options de polices incorporées</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -521,7 +521,7 @@ $font = Zend_Pdf_Font::fontWithPath(
     </section>
 
     <section xml:id="zend.pdf.drawing.standard-fonts-limitations"><info><title>Limitations des polices standard PDF</title></info>
-        
+
 
         <para>
             Les polices standard <acronym>PDF</acronym> emploient en interne plusieurs encodages sur un seul
@@ -543,7 +543,7 @@ $font = Zend_Pdf_Font::fontWithPath(
         </para>
 
         <example xml:id="zend.pdf.drawing.using-fonts.example-7"><info><title>Combiner les options de polices embarqués</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -557,7 +557,7 @@ $pdfPage->setFont($font, 36)
     </section>
 
     <section xml:id="zend.pdf.drawing.extracting-fonts"><info><title>Extraction des polices</title></info>
-        
+
 
         <para>
             Depuis la version 1.5, <classname>Zend_Pdf</classname> fournit la possibilité
@@ -577,7 +577,7 @@ $pdfPage->setFont($font, 36)
         </para>
 
         <example xml:id="zend.pdf.drawing.extracting-fonts.example-1"><info><title>Extraction de polices à partir d'un document chargé</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -607,7 +607,7 @@ $firstPageFonts = $firstPage->extractFonts();
 
         <example xml:id="zend.pdf.drawing.extracting-fonts.example-2"><info><title>Extraction d'une police à partir d'un document chargé en spécifiant le nom de
             police</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -682,7 +682,7 @@ for ($charIndex = 0; $charIndex < strlen($text); $charIndex++) {
     </section>
 
     <section xml:id="zend.pdf.drawing.image-drawing"><info><title>Insertion d'images</title></info>
-        
+
 
         <para>
             La classe <classname>Zend_Pdf_Page</classname> fournis la méthode
@@ -711,7 +711,7 @@ public function drawImage(Zend_Pdf_Resource_Image $image, $x1, $y1, $x2, $y2);
         </para>
 
         <example xml:id="zend.pdf.drawing.image-drawing.example-1"><info><title>Insertion d'images</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -736,7 +736,7 @@ $pdfPage->drawImage($image, 100, 100, 400, 300);
     </section>
 
     <section xml:id="zend.pdf.drawing.line-drawing-style"><info><title>Style de lignes</title></info>
-        
+
 
         <para>
             Le style de ligne est définit par l'épaisseur, la couleur et le style de tiret.
@@ -769,7 +769,7 @@ public function setLineDashingPattern($pattern, $phase = 0);
         </section>
 
         <section xml:id="zend.pdf.drawing.fill-style"><info><title>Style de remplissage</title></info>
-            
+
 
         <para>
             Les méthodes <methodname>Zend_Pdf_Page::drawRectangle()</methodname>,
@@ -868,10 +868,10 @@ public function setLineDashingPattern($pattern, $phase = 0);
     </section>
 
     <section xml:id="zend.pdf.drawing.linear-transformations"><info><title>Transformations linéaires</title></info>
-        
+
 
         <section xml:id="zend.pdf.drawing.linear-transformations.rotations"><info><title>Rotations</title></info>
-            
+
 
             <para>
                 La page <acronym>PDF</acronym> page peut être tourné avant d'appliquer toute opération de dessin.
@@ -893,7 +893,7 @@ public function rotate($x, $y, $angle);
         </section>
 
         <section xml:id="zend.pdf.drawing.linear-transformations.scale"><info><title>A partir de Zend Framework 1.8, mise à l'échelle</title></info>
-            
+
 
             <para>
                 La mise à l'échelle est fournie par la méthode
@@ -913,7 +913,7 @@ public function scale($xScale, $yScale);
         </section>
 
         <section xml:id="zend.pdf.drawing.linear-transformations.translate"><info><title>A partir de Zend Framework 1.8, décalage</title></info>
-            
+
 
             <para>
                 Le décalage du système de coordonnées est réalisé par la méthode
@@ -933,7 +933,7 @@ public function translate($xShift, $yShift);
         </section>
 
         <section xml:id="zend.pdf.drawing.linear-transformations.skew"><info><title>A partir de Zend Framework 1.8, mise en biais</title></info>
-            
+
 
             <para>
                 La mise en biais de la page peut être réalisé par la méthode
@@ -956,7 +956,7 @@ public function skew($x, $y, $xAngle, $yAngle);
     </section>
 
     <section xml:id="zend.pdf.drawing.save-restore"><info><title>Sauvegarder et restaurer l'état graphique</title></info>
-        
+
 
         <para>
             L'état graphique (police courante, taille de caractère, couleur de ligne, couleur
@@ -991,7 +991,7 @@ public function restoreGS();
         </section>
 
         <section xml:id="zend.pdf.drawing.clipping"><info><title>Zone de dessin</title></info>
-            
+
 
         <para>
             Le format <acronym>PDF</acronym> et le module Zend_Pdf supporte le découpage de la zone de dessin. La
@@ -1073,7 +1073,7 @@ public function clipEllipse(
         </section>
 
         <section xml:id="zend.pdf.drawing.styles"><info><title>Styles</title></info>
-            
+
 
         <para>
             La classe <classname>Zend_Pdf_Style</classname> fournit les fonctionnalités de
@@ -1251,7 +1251,7 @@ public function getFontSize();
         </section>
 
         <section xml:id="zend.pdf.drawing.alpha"><info><title>Transparence</title></info>
-            
+
 
         <para>
             Le module <classname>Zend_Pdf</classname> supporte la gestion de la

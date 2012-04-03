@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.modifying-feed"><info><title>Modifier la structure du flux ou des entrées</title></info>
-    
+
 
     <para>
         La syntaxe intuitive de <classname>Zend_Feed</classname> peut aussi bien servir à
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.feed.modifying-feed.example.modifying"><info><title>Modifier l'entrée existante d'un flux</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $flux = new Zend_Feed_Atom('http://atom.exemple.com/flux/1');
@@ -52,7 +52,7 @@ echo $entree->saveXML();
             Créer une entrée Atom dont les éléments appartiennent à un espace de noms
             personnalisé
         </title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $entree = new Zend_Feed_Entry_Atom();

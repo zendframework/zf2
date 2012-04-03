@@ -78,7 +78,7 @@
 					</eraNames>
 					<eraAbbr>
 						<era type="0">BE</era>
-						
+
 					</eraAbbr>
 					<eraNarrow>
 						<alias source="locale" path="../eraAbbr"/>
@@ -172,7 +172,7 @@
 				<dayPeriods>
 					<alias source="locale" path="../../calendar[@type='gregorian']/dayPeriods"/>
 				</dayPeriods>
-				
+
 				<dateFormats>
 					<default choice="medium"/>
 					<dateFormatLength type="full">
@@ -1476,7 +1476,7 @@
 					<eraNames>
 						<alias source="locale" path="../eraAbbr"/>
 					</eraNames>
-					
+
 					<eraAbbr>
 						<era type="0">Before R.O.C.</era>
 						<era type="1">R.O.C.</era>
@@ -3198,7 +3198,7 @@
 		</currencies>
 	</numbers>
 	<units>
-		
+
 		<unit type="day">
 			<unitPattern count="other">{0} d</unitPattern>
 		</unit>

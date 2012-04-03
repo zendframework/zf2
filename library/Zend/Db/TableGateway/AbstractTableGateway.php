@@ -21,8 +21,8 @@
 
 namespace Zend\Db\TableGateway;
 
-use Zend\Db\Adapter\Adapter,
-    Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\ResultSet\ResultSet;
 
 /**
  * @category   Zend
@@ -56,8 +56,8 @@ abstract class AbstractTableGateway extends TableGateway
     }
     /**
      * Set adapter
-     * 
-     * @param Adapter $adapter 
+     *
+     * @param Adapter $adapter
      */
     public function setAdapter(Adapter $adapter)
     {
@@ -73,8 +73,8 @@ abstract class AbstractTableGateway extends TableGateway
     }
     /**
      * Initialize
-     * 
-     * @return null 
+     *
+     * @return null
      */
     public function initialize()
     {
@@ -104,9 +104,9 @@ abstract class AbstractTableGateway extends TableGateway
     }
     /**
      * Select
-     * 
+     *
      * @param  string $where
-     * @return type 
+     * @return type
      */
     public function select($where = null)
     {
@@ -115,9 +115,9 @@ abstract class AbstractTableGateway extends TableGateway
     }
     /**
      * Insert
-     * 
+     *
      * @param type $set
-     * @return type 
+     * @return type
      */
     public function insert($set)
     {
@@ -126,10 +126,10 @@ abstract class AbstractTableGateway extends TableGateway
     }
     /**
      * Update
-     * 
+     *
      * @param  string $set
      * @param  string $where
-     * @return type 
+     * @return type
      */
     public function update($set, $where = null)
     {
@@ -138,9 +138,9 @@ abstract class AbstractTableGateway extends TableGateway
     }
     /**
      * Delete
-     * 
+     *
      * @param  string $where
-     * @return type 
+     * @return type
      */
     public function delete($where)
     {

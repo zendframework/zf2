@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.compress"><info><title>Compression et décompression</title></info>
-    
+
     <para>
         Ces deux filtres sont capables de compresser et décompresser des chaines, des fichiers ou des
         dossiers. Ils utilisent des adaptateurs dans ce but et supportent les formats suivants:
@@ -51,7 +51,7 @@
     </para>
 
     <section xml:id="zend.filter.set.compress.generic"><info><title>Les bases</title></info>
-        
+
 
         <para>
             Pour créer un filtre de compression vous devez sélectionner le format que vous désirez.
@@ -96,7 +96,7 @@ $filter = new Zend_Filter_Compress(array(
 ]]></programlisting>
 
         <note><info><title>Adaptateur de compression par défaut</title></info>
-            
+
 
             <para>
                 Lorsque vous ne précisez aucun adaptateur, <emphasis>Gz</emphasis> sera utilisé
@@ -134,7 +134,7 @@ $compressed = $filter->filter('Compressed string');
 ]]></programlisting>
 
         <note><info><title>Note sur la compression de chaines</title></info>
-            
+
 
             <para>
                 Tous les adaptateurs ne supportent pas la compression de chaines. Les formats tels que
@@ -145,7 +145,7 @@ $compressed = $filter->filter('Compressed string');
     </section>
 
     <section xml:id="zend.filter.set.compress.archive"><info><title>Créer une archive</title></info>
-        
+
 
         <para>
             Créer une archive fonctionne quasiment de la même manière que la compression d'une chaine.
@@ -169,7 +169,7 @@ $compressed = $filter->filter('Uncompressed string');
         </para>
 
         <note><info><title>Les archives existantes seront écrasées</title></info>
-            
+
 
             <para>
                 Si l'archive existe déja, elle sera écrasée.
@@ -208,7 +208,7 @@ $compressed = $filter->filter('C:\temp\somedir');
 ]]></programlisting>
 
         <note><info><title>Ne compressez pas un dossier trop gros ou trop profond</title></info>
-            
+
 
             <para>
                 Vous ne devriez jamais tenter de compresser un dossier trop gros ou trop profond, comme
@@ -219,7 +219,7 @@ $compressed = $filter->filter('C:\temp\somedir');
     </section>
 
     <section xml:id="zend.filter.set.compress.decompress"><info><title>Décompresser une archive</title></info>
-        
+
 
         <para>
             Décompresser une archive s'éxecute d'une manière sensiblement identique à la compression.
@@ -250,7 +250,7 @@ $compressed = $filter->filter('filename.zip');
 ]]></programlisting>
 
         <note><info><title>Les dossiers de cible doivent exister</title></info>
-            
+
 
             <para>
                 Lorsque vous souhaitez décompresser une archive dans un dossier cible, vérifiez
@@ -260,7 +260,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.bz2"><info><title>Adaptateur Bz2</title></info>
-        
+
 
         <para>
             L'adaptateur Bz2 peut compresser et décompresser:
@@ -312,7 +312,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.gz"><info><title>Adaptateur Gz</title></info>
-        
+
 
         <para>
             L'adaptateur Bz2 peut compresser et décompresser:
@@ -371,7 +371,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.lzf"><info><title>Adaptateur Lzf</title></info>
-        
+
 
         <para>
             L'adaptateur Lzf peut compresser et décompresser:
@@ -384,7 +384,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Lzf ne supporte que les chaines de caractères</title></info>
-            
+
 
             <para>
                 Lzf ne supporte pas les fichiers et les dossiers.
@@ -401,7 +401,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.rar"><info><title>Adaptateur Rar</title></info>
-        
+
 
         <para>
             L'adaptateur Rar peut compresser et décompresser:
@@ -418,7 +418,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Rar ne supporte pas les chaines de caractères</title></info>
-            
+
 
             <para>
                 L'adaptateur Rar ne supporte pas les chaines de caractères
@@ -430,7 +430,7 @@ $compressed = $filter->filter('filename.zip');
         </para>
 
         <note><info><title>Compression Rar non supportée</title></info>
-            
+
 
             <para>
                 Des restrictions du format Rar ne permettent pas la compression gratuite. Si vous souhaitez
@@ -481,7 +481,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.tar"><info><title>Tar Adapter</title></info>
-        
+
 
         <para>
             L'adaptateur Tar peut compresser et décompresser:
@@ -498,7 +498,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Tar ne supporte pas les chaines de caractères</title></info>
-            
+
 
             <para>
                 L'adaptateur Tar ne supporte pas les chaines de caractères
@@ -546,7 +546,7 @@ $compressed = $filter->filter('filename.zip');
         </para>
 
         <note><info><title>Utilisation avec des dossiers</title></info>
-            
+
 
             <para>
                 La compression des dossiers avec Tar utilise le chemin complet comme nom de fichier.
@@ -555,7 +555,7 @@ $compressed = $filter->filter('filename.zip');
     </section>
 
     <section xml:id="zend.filter.set.compress.zip"><info><title>Adaptateur Zip</title></info>
-        
+
 
         <para>
             L'adaptateur Zip peut compresser et décompresser:
@@ -576,7 +576,7 @@ $compressed = $filter->filter('filename.zip');
         </itemizedlist>
 
         <note><info><title>Zip ne supporte pas la décompression vers des chaines</title></info>
-            
+
 
             <para>
                 L'adaptateur Zip ne supporte pas la décompression vers des chaines.

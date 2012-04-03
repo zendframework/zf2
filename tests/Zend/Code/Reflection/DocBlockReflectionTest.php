@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Code\Reflection;
-use Zend\Code\Reflection\DocBlockReflection,
-    Zend\Code\Reflection\ClassReflection;
+use Zend\Code\Reflection\DocBlockReflection;
+use Zend\Code\Reflection\ClassReflection;
 
 /**
  * @category   Zend

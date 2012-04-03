@@ -21,8 +21,8 @@
 
 namespace Zend\Markup\Renderer;
 
-use Zend\Markup\Token,
-    Zend\Filter\Filter;
+use Zend\Markup\Token;
+use Zend\Filter\Filter;
 
 /**
  * Interface for a markup

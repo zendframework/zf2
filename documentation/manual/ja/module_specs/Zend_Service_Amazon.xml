@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon"><info><title>Zend_Service_Amazon</title></info>
-    
+
     <section xml:id="zend.service.amazon.introduction"><info><title>導入</title></info>
-        
+
         <para>
             <classname>Zend_Service_Amazon</classname> は Amazon
             ウェブサービスを使用するためのシンプルな <acronym>API</acronym> です。
@@ -53,14 +53,14 @@
             を <classname>Zend_Service_Amazon</classname> で使うにはシークレットキーが必要となります。
         </para>
         <note><info><title>注意</title></info>
-            
+
             <para>
                 Amazon デベロッパ <acronym>API</acronym> キーおよびシークレットキーは Amazon のアカウントと関連付けられます。
                 取得した <acronym>API</acronym> キーは自分自身でのみ使用するようにしましょう。
             </para>
         </note>
         <example xml:id="zend.service.amazon.introduction.example.itemsearch"><info><title>伝統的な API を使用した Amazon 検索</title></info>
-            
+
             <para>
                 この例では、Amazon で PHP に関する書籍を検索し、
                 結果の一覧を表示します。
@@ -75,7 +75,7 @@ foreach ($results as $result) {
 ]]></programlisting>
         </example>
         <example xml:id="zend.service.amazon.introduction.example.query_api"><info><title>クエリ API を使用した Amazon 検索</title></info>
-            
+
             <para>
                 ここでも Amazon で PHP に関する書籍を検索します。
                 しかし、ここではクエリ <acronym>API</acronym> を使用します。この <acronym>API</acronym>
@@ -94,21 +94,21 @@ foreach ($results as $result) {
         </example>
     </section>
     <section xml:id="zend.service.amazon.countrycodes"><info><title>国コード</title></info>
-        
+
         <para>
             デフォルトでは、<classname>Zend_Service_Amazon</classname> は米国 ("<code>US</code>")
             の Amazon Web Service に接続します。他の国のサービスに接続するには、
             コンストラクタの 2 番目のパラメータとして、適切な国コード文字列を指定するだけです。
         </para>
         <example xml:id="zend.service.amazon.countrycodes.example.country_code"><info><title>Amazon Web Service の国の選択</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // 日本の Amazon に接続します
 $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'JP', 'AMAZON_SECRET_KEY');
 ]]></programlisting>
         </example>
         <note><info><title>国コード</title></info>
-            
+
             <para>
                 使用できる国コードは <code>CA</code>、<code>DE</code>、<code>FR</code>、<code>JP</code>、
                 <code>UK</code> および <code>US</code> です。
@@ -116,13 +116,13 @@ $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'JP', 'AMAZON_SECRET_KEY');
         </note>
     </section>
     <section xml:id="zend.service.amazon.itemlookup"><info><title>ASIN を使用した商品の検索</title></info>
-        
+
         <para>
             <acronym>ASIN</acronym> がわかっている場合は、<methodname>itemLookup()</methodname>
             メソッドを使用すると Amazon の商品を検索できます。
         </para>
         <example xml:id="zend.service.amazon.itemlookup.example.asin"><info><title>ASIN を使用した Amazon の商品検索</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'US', 'AMAZON_SECRET_KEY');
 $item = $amazon->itemLookup('B0000A432X');
@@ -135,7 +135,7 @@ $item = $amazon->itemLookup('B0000A432X');
             を参照ください。
         </para>
         <note><info><title>画像の情報</title></info>
-            
+
             <para>
                 検索結果の画像情報を取得するには、オプション <code>ResponseGroup</code>
                 を <code>Medium</code> あるいは <code>Large</code> に設定しなければなりません。
@@ -143,14 +143,14 @@ $item = $amazon->itemLookup('B0000A432X');
         </note>
     </section>
     <section xml:id="zend.service.amazon.itemsearch"><info><title>Amazon の商品検索の実行</title></info>
-        
+
         <para>
             さまざまな条件指定による商品検索を行うには
             <methodname>itemSearch()</methodname> メソッドを使用します。
             以下に例を示します。
         </para>
         <example xml:id="zend.service.amazon.itemsearch.example.basic"><info><title>Amazon の商品検索の実行</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'US', 'AMAZON_SECRET_KEY');
 $results = $amazon->itemSearch(array('SearchIndex' => 'Books',
@@ -161,7 +161,7 @@ foreach ($results as $result) {
 ]]></programlisting>
         </example>
         <example xml:id="zend.service.amazon.itemsearch.example.responsegroup"><info><title>ResponseGroup オプションの使用法</title></info>
-            
+
             <para>
                 <code>ResponseGroup</code> オプションを使用すると、
                 レスポンスで返される情報を制御できます。
@@ -193,9 +193,9 @@ foreach ($results as $result) {
         </tip>
     </section>
     <section xml:id="zend.service.amazon.query"><info><title>もうひとつのクエリ API の使用法</title></info>
-        
+
         <section xml:id="zend.service.amazon.query.introduction"><info><title>導入</title></info>
-            
+
             <para>
                 <classname>Zend_Service_Amazon_Query</classname> は、Amazon Web Service
                 を使用するためのもうひとつの <acronym>API</acronym> を提供します。
@@ -209,7 +209,7 @@ foreach ($results as $result) {
                 各オプションの設定はメソッドのコールで行い、メソッドの引数がオプションの値に対応します。
             </para>
             <example xml:id="zend.service.amazon.query.introduction.example.basic"><info><title>もうひとつのクエリ API を使用した Amazon の検索</title></info>
-                
+
                 <para>
                     この例では、もうひとつのクエリ <acronym>API</acronym> のインターフェイスを使用して、
                     オプションとその値を設定します。
@@ -235,7 +235,7 @@ foreach ($results as $result) {
         </section>
     </section>
     <section xml:id="zend.service.amazon.classes"><info><title>Zend_Service_Amazon クラス群</title></info>
-        
+
         <para>
             以下のクラスは、すべて
             <link linkend="zend.service.amazon.itemlookup"><methodname>Zend_Service_Amazon::itemLookup()</methodname></link>
@@ -256,14 +256,14 @@ foreach ($results as $result) {
             </itemizedlist>
         </para>
         <section xml:id="zend.service.amazon.classes.item"><info><title>Zend_Service_Amazon_Item</title></info>
-            
+
             <para>
                 <classname>Zend_Service_Amazon_Item</classname> は、ウェブサービスから返される
                 Amazon の商品を表すために使用されるクラスです。
                 商品のタイトル、説明、レビューなどを含むすべての属性を包含します。
             </para>
             <section xml:id="zend.service.amazon.classes.item.asxml"><info><title>Zend_Service_Amazon_Item::asXML()</title></info>
-                
+
                 <para>
                     <methodsynopsis>
                         <type>string</type>
@@ -274,13 +274,13 @@ foreach ($results as $result) {
                 <para>商品情報を、元の XML で返します。</para>
             </section>
             <section xml:id="zend.service.amazon.classes.item.properties"><info><title>プロパティ</title></info>
-                
+
                 <para>
                     <classname>Zend_Service_Amazon_Item</classname> が持つプロパティは、
                     それぞれが標準の Amazon <acronym>API</acronym> に直接対応しています。
                 </para>
                 <table xml:id="zend.service.amazon.classes.item.properties.table-1"><info><title>Zend_Service_Amazon_Item のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -404,12 +404,12 @@ foreach ($results as $result) {
             </section>
         </section>
         <section xml:id="zend.service.amazon.classes.image"><info><title>Zend_Service_Amazon_Image</title></info>
-            
+
             <para><classname>Zend_Service_Amazon_Image</classname> は、商品の画像を表します。</para>
             <section xml:id="zend.service.amazon.classes.image.properties"><info><title>プロパティ</title></info>
-                
+
                 <table xml:id="zend.service.amazon.classes.image.properties.table-1"><info><title>Zend_Service_Amazon_Image のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -443,14 +443,14 @@ foreach ($results as $result) {
             </section>
         </section>
         <section xml:id="zend.service.amazon.classes.resultset"><info><title>Zend_Service_Amazon_ResultSet</title></info>
-            
+
             <para>
                 <classname>Zend_Service_Amazon_ResultSet</classname> オブジェクトは
                 <link linkend="zend.service.amazon.itemsearch">Zend_Service_Amazon::itemSearch()</link>
                 から返され、結果が複数返された場合に簡単に処理できるようにします。
             </para>
             <note><info><title>SeekableIterator</title></info>
-                
+
                 <para>
                     操作性を高めるため、<code>SeekableIterator</code> を実装しています。
                     これにより、一般的な順次処理 (例えば <code>foreach</code> など)
@@ -458,7 +458,7 @@ foreach ($results as $result) {
                 </para>
             </note>
             <section xml:id="zend.service.amazon.classes.resultset.totalresults"><info><title>Zend_Service_Amazon_ResultSet::totalResults()</title></info>
-                
+
                 <methodsynopsis>
                     <type>int</type>
                     <methodname>totalResults</methodname>
@@ -471,7 +471,7 @@ foreach ($results as $result) {
             </section>
         </section>
         <section xml:id="zend.service.amazon.classes.offerset"><info><title>Zend_Service_Amazon_OfferSet</title></info>
-            
+
             <para>
                 Each result returned by
                 <link linkend="zend.service.amazon.itemsearch">Zend_Service_Amazon::itemSearch()</link>
@@ -482,9 +482,9 @@ foreach ($results as $result) {
                 ここから商品の販売情報が取得できます。
             </para>
             <section xml:id="zend.service.amazon.classes.offerset.parameters"><info><title>プロパティ</title></info>
-                
+
                 <table xml:id="zend.service.amazon.classes.offerset.parameters.table-1"><info><title>Zend_Service_Amazon_OfferSet のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -555,16 +555,16 @@ foreach ($results as $result) {
             </section>
         </section>
         <section xml:id="zend.service.amazon.classes.offer"><info><title>Zend_Service_Amazon_Offer</title></info>
-            
+
             <para>
                 商品の個々の販売情報が
                 <classname>Zend_Service_Amazon_Offer</classname>
                 オブジェクトとして返されます。
             </para>
             <section xml:id="zend.service.amazon.classes.offer.properties"><info><title>Zend_Service_Amazon_Offer のプロパティ</title></info>
-                
+
                 <table xml:id="zend.service.amazon.classes.offer.properties.table-1"><info><title>プロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -628,7 +628,7 @@ foreach ($results as $result) {
             </section>
         </section>
         <section xml:id="zend.service.amazon.classes.similarproduct"><info><title>Zend_Service_Amazon_SimilarProduct</title></info>
-            
+
             <para>
                 商品を検索した際に、Amazon は検索結果の商品と似た商品の一覧も返します。
                 個々のデータは <classname>Zend_Service_Amazon_SimilarProduct</classname>
@@ -639,9 +639,9 @@ foreach ($results as $result) {
                 その商品の完全な情報を取得するリクエストを行うことができます。
             </para>
             <section xml:id="zend.service.amazon.classes.similarproduct.properties"><info><title>プロパティ</title></info>
-                
+
                 <table xml:id="zend.service.amazon.classes.similarproduct.properties.table-1"><info><title>Zend_Service_Amazon_SimilarProduct のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -670,16 +670,16 @@ foreach ($results as $result) {
             </section>
         </section>
         <section xml:id="zend.service.amazon.classes.accessories"><info><title>Zend_Service_Amazon_Accessories</title></info>
-            
+
             <para>
                 返される結果の中の「アクセサリ」については
                 <classname>Zend_Service_Amazon_Accessories</classname>
                 オブジェクトで表されます。
             </para>
             <section xml:id="zend.service.amazon.classes.accessories.properties"><info><title>プロパティ</title></info>
-                
+
                 <table xml:id="zend.service.amazon.classes.accessories.properties.table-1"><info><title>Zend_Service_Amazon_Accessories のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -708,16 +708,16 @@ foreach ($results as $result) {
             </section>
         </section>
         <section xml:id="zend.service.amazon.classes.customerreview"><info><title>Zend_Service_Amazon_CustomerReview</title></info>
-            
+
             <para>
                 カスタマーレビューのデータは
                 <classname>Zend_Service_Amazon_CustomerReview</classname>
                 オブジェクトで返されます。
             </para>
             <section xml:id="zend.service.amazon.classes.customerreview.properties"><info><title>プロパティ</title></info>
-                
+
                 <table xml:id="zend.service.amazon.classes.customerreview.properties.table-1"><info><title>Zend_Service_Amazon_CustomerReview のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -771,16 +771,16 @@ foreach ($results as $result) {
             </section>
         </section>
         <section xml:id="zend.service.amazon.classes.editorialreview"><info><title>Zend_Service_Amazon_EditorialReview</title></info>
-            
+
             <para>
                 出版社/著者からの内容紹介は
                 <classname>Zend_Service_Amazon_EditorialReview</classname>
                 オブジェクトで返されます。
             </para>
             <section xml:id="zend.service.amazon.classes.editorialreview.properties"><info><title>プロパティ</title></info>
-                
+
                 <table xml:id="zend.service.amazon.classes.editorialreview.properties.table-1"><info><title>Zend_Service_Amazon_EditorialReview のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -809,16 +809,16 @@ foreach ($results as $result) {
             </section>
         </section>
         <section xml:id="zend.service.amazon.classes.listmania"><info><title>Zend_Service_Amazon_Listmania</title></info>
-            
+
             <para>
                 リストマニアのリストデータは
                 <classname>Zend_Service_Amazon_Listmania</classname>
                 オブジェクトで返されます。
             </para>
             <section xml:id="zend.service.amazon.classes.listmania.properties"><info><title>プロパティ</title></info>
-                
+
                 <table xml:id="zend.service.amazon.classes.listmania.properties.table-1"><info><title>Zend_Service_Amazon_Listmania のプロパティ</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>

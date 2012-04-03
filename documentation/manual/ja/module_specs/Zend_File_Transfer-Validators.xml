@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.file.transfer.validators"><info><title>Zend_File_Transfer 用のバリデータ</title></info>
 
-    
+
 
     <para>
         <classname>Zend_File_Transfer</classname> にはファイル関連のバリデータがいくつか同梱されています。
@@ -158,7 +158,7 @@
     </itemizedlist>
 
     <section xml:id="zend.file.transfer.validators.usage"><info><title>Zend_File_Transfer でのバリデータの使用法</title></info>
-        
+
 
         <para>
             バリデータの使い方はきわめて簡単です。
@@ -243,7 +243,7 @@
         </itemizedlist>
 
         <example xml:id="zend.file.transfer.validators.usage.example"><info><title>ファイル転送用のバリデータの追加</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -264,7 +264,7 @@ $upload->setValidators(array(
         </example>
 
         <example xml:id="zend.file.transfer.validators.usage.exampletwo"><info><title>特定のファイルに対してのみのバリデータの適用</title></info>
-            
+
 
             <para>
                 <methodname>addValidator()</methodname>、<methodname>addValidators()</methodname> および
@@ -289,7 +289,7 @@ $upload->addValidator('Size', false, 20000, 'file2');
         </para>
 
         <example xml:id="zend.file.transfer.validators.usage.examplemultiple"><info><title>複数のバリデータの追加</title></info>
-            
+
 
             <para>
                 単に <methodname>addValidator()</methodname> を複数回コールするほうがシンプルに書けます。
@@ -323,7 +323,7 @@ $upload->addValidator('Size', false, 20000)
         </para>
 
         <example xml:id="zend.file.transfer.validators.usage.exampleisvalid"><info><title>ファイルの検証</title></info>
-            
+
 
             <para>
                 <methodname>isValid()</methodname> には、
@@ -365,7 +365,7 @@ if (!$upload->isValid()) {
     </section>
 
     <section xml:id="zend.file.transfer.validators.count"><info><title>Count バリデータ</title></info>
-        
+
 
         <para>
             <code>Count</code> バリデータは、
@@ -413,7 +413,7 @@ if (!$upload->isValid()) {
         </para>
 
         <example xml:id="zend.file.transfer.validators.count.example"><info><title>Count バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -435,7 +435,7 @@ $upload->addValidator('Count', false, array('min' =>1, 'max' => 5));
     </section>
 
     <section xml:id="zend.file.transfer.validators.crc32"><info><title>Crc32 バリデータ</title></info>
-        
+
 
         <para>
             <code>Crc32</code> バリデータは、転送されたファイルの中身のハッシュをチェックします。
@@ -459,7 +459,7 @@ $upload->addValidator('Count', false, array('min' =>1, 'max' => 5));
         </itemizedlist>
 
         <example xml:id="zend.file.transfer.validators.crc32.example"><info><title>Crc32 バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -474,7 +474,7 @@ $upload->addValidator('Crc32', false, array('3b3652f', 'e612b69'));
     </section>
 
     <section xml:id="zend.file.transfer.validators.excludeextension"><info><title>ExcludeExtension バリデータ</title></info>
-        
+
 
         <para>
             <code>ExcludeExtension</code> バリデータは、
@@ -514,7 +514,7 @@ $upload->addValidator('Crc32', false, array('3b3652f', 'e612b69'));
         </para>
 
         <example xml:id="zend.file.transfer.validators.excludeextension.example"><info><title>ExcludeExtension バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -544,7 +544,7 @@ $upload->addValidator('ExcludeExtension',
     </section>
 
     <section xml:id="zend.file.transfer.validators.excludemimetype"><info><title>ExcludeMimeType バリデータ</title></info>
-        
+
 
         <para>
             <code>ExcludeMimeType</code> バリデータは、
@@ -583,7 +583,7 @@ $upload->addValidator('ExcludeExtension',
         </para>
 
         <example xml:id="zend.file.transfer.validators.excludemimetype.example"><info><title>ExcludeMimeType バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -618,7 +618,7 @@ $upload->addValidator('ExcludeMimeType', false, 'image');
     </section>
 
     <section xml:id="zend.file.transfer.validators.exists"><info><title>Exists バリデータ</title></info>
-        
+
 
         <para>
             <code>Exists</code> バリデータは、
@@ -643,7 +643,7 @@ $upload->addValidator('ExcludeMimeType', false, 'image');
         </para>
 
         <example xml:id="zend.file.transfer.validators.exists.example"><info><title>Exists バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -667,7 +667,7 @@ $upload->addValidator('Exists',
     </section>
 
     <section xml:id="zend.file.transfer.validators.extension"><info><title>Extension バリデータ</title></info>
-        
+
 
         <para>
             <code>Extension</code> バリデータは、
@@ -707,7 +707,7 @@ $upload->addValidator('Exists',
         </para>
 
         <example xml:id="zend.file.transfer.validators.extension.example"><info><title>Extension バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -735,7 +735,7 @@ if (!$upload->isValid('C:\temp\myfile.MO')) {
     </section>
 
     <section xml:id="zend.file.transfer.validators.filessize"><info><title>FilesSize バリデータ</title></info>
-        
+
 
         <para>
             <code>FilesSize</code> バリデータは、
@@ -797,7 +797,7 @@ if (!$upload->isValid('C:\temp\myfile.MO')) {
         </para>
 
         <example xml:id="zend.file.transfer.validators.filessize.example"><info><title>FilesSize バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -828,7 +828,7 @@ $upload->addValidator('FilesSize',
     </section>
 
     <section xml:id="zend.file.transfer.validators.imagesize"><info><title>ImageSize バリデータ</title></info>
-        
+
 
         <para>
             <code>ImageSize</code> バリデータは、
@@ -881,7 +881,7 @@ $upload->addValidator('FilesSize',
         </para>
 
         <example xml:id="zend.file.transfer.validators.imagesize.example"><info><title>ImageSize バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -901,7 +901,7 @@ $upload->setImageWidth(array('minwidth' => 20, 'maxwidth' => 200));
     </section>
 
     <section xml:id="zend.file.transfer.validators.iscompressed"><info><title>IsCompressed バリデータ</title></info>
-        
+
 
         <para>
             <code>IsCompressed</code> バリデータは、
@@ -913,7 +913,7 @@ $upload->setImageWidth(array('minwidth' => 20, 'maxwidth' => 200));
         </para>
 
         <example xml:id="zend.file.transfer.validators.iscompressed.example"><info><title>IsCompressed バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -941,7 +941,7 @@ $upload->addValidator('IsCompressed', false, 'zip');
     </section>
 
     <section xml:id="zend.file.transfer.validators.isimage"><info><title>IsImage バリデータ</title></info>
-        
+
 
         <para>
             <code>IsImage</code> バリデータは、
@@ -953,7 +953,7 @@ $upload->addValidator('IsCompressed', false, 'zip');
         </para>
 
         <example xml:id="zend.file.transfer.validators.isimage.example"><info><title>IsImage バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -981,7 +981,7 @@ $upload->addValidator('IsImage', false, 'jpeg');
     </section>
 
     <section xml:id="zend.file.transfer.validators.hash"><info><title>Hash バリデータ</title></info>
-        
+
 
         <para>
             <code>Hash</code> バリデータは、転送されたファイルの中身のハッシュをチェックします。
@@ -1016,7 +1016,7 @@ $upload->addValidator('IsImage', false, 'jpeg');
         </itemizedlist>
 
         <example xml:id="zend.file.transfer.validators.hash.example"><info><title>Hash バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1048,7 +1048,7 @@ $upload->addValidator('Hash',
     </section>
 
     <section xml:id="zend.file.transfer.validators.md5"><info><title>Md5 バリデータ</title></info>
-        
+
 
         <para>
             <code>Md5</code> バリデータは、転送されたファイルの中身のハッシュをチェックします。
@@ -1071,7 +1071,7 @@ $upload->addValidator('Hash',
         </itemizedlist>
 
         <example xml:id="zend.file.transfer.validators.md5.example"><info><title>Md5 バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1089,7 +1089,7 @@ $upload->addValidator('Md5',
     </section>
 
     <section xml:id="zend.file.transfer.validators.mimetype"><info><title>MimeType バリデータ</title></info>
-        
+
 
         <para>
             <code>MimeType</code> バリデータは、
@@ -1148,7 +1148,7 @@ $upload->addValidator('Md5',
         </para>
 
         <example xml:id="zend.file.transfer.validators.mimetype.example"><info><title>MimeType バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1205,7 +1205,7 @@ $upload->addValidator('MimeType',
     </section>
 
     <section xml:id="zend.file.transfer.validators.notexists"><info><title>NotExists バリデータ</title></info>
-        
+
 
         <para>
             <code>NotExists</code> バリデータは、
@@ -1230,7 +1230,7 @@ $upload->addValidator('MimeType',
         </para>
 
         <example xml:id="zend.file.transfer.validators.notexists.example"><info><title>NotExists バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1255,7 +1255,7 @@ $upload->addValidator('NotExists', false,
     </section>
 
 <section xml:id="zend.file.transfer.validators.sha1"><info><title>Sha1 バリデータ</title></info>
-        
+
 
         <para>
             <code>Sha1</code> バリデータは、転送されたファイルの中身のハッシュをチェックします。
@@ -1278,7 +1278,7 @@ $upload->addValidator('NotExists', false,
         </itemizedlist>
 
         <example xml:id="zend.file.transfer.validators.sha1.example"><info><title>sha1 バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1295,7 +1295,7 @@ $upload->addValidator('Sha1',
     </section>
 
     <section xml:id="zend.file.transfer.validators.size"><info><title>Size バリデータ</title></info>
-        
+
 
         <para>
             <code>Size</code> バリデータは、
@@ -1358,7 +1358,7 @@ $upload->addValidator('Sha1',
         </para>
 
         <example xml:id="zend.file.transfer.validators.size.example"><info><title>Size バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1379,7 +1379,7 @@ $upload->addValidator('Size',
     </section>
 
     <section xml:id="zend.file.transfer.validators.wordcount"><info><title>WordCount バリデータ</title></info>
-        
+
 
         <para>
             <code>WordCount</code> バリデータは、
@@ -1410,7 +1410,7 @@ $upload->addValidator('Size',
         </para>
 
         <example xml:id="zend.file.transfer.validators.wordcount.example"><info><title>WordCount バリデータの使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.advanced"><info><title>Zend_Form 的高级用法 </title></info>
-    
+
 
     <para>
         <code>Zend_Form</code> 有丰富的函数，其中许多面向有经验的开发者。这一章打算用例子和用例来介绍这些函数。
     </para>
 
     <section xml:id="zend.form.advanced.arrayNotation"><info><title> 数组符号（Notation）</title></info>
-        
+
 
         <para>
             许多有经验的 web 开发者喜欢在元素名上用数组符号把相关的表单元素组成组。例如，如果有两个地址在表单上，一个邮寄地址和一个帐单地址，你可能会有相同的元素，通过把它们用数组组成组，你可以确保它们能分别被抓取。用下面的表单做个例子：
@@ -166,7 +166,7 @@
     </section>
 
     <section xml:id="zend.form.advanced.multiPage"><info><title> 多页表单 </title></info>
-        
+
 
         <para>
             目前，<code>Zend_Form</code> 没有正式支持多页表单，然而，可以用一些额外的工具来实现。
@@ -177,7 +177,7 @@
         </para>
 
         <example xml:id="zend.form.advanced.multiPage.registration"><info><title> 注册表单示例 </title></info>
-            
+
 
             <para>
                 让我们用注册表单作为例子，我们的意图是在第一页上读取期望的用户名和密码，还有用户的元数据 －－ 用户的名字、姓和地点 －－ 最后让他们决定使用哪个邮件列表（如果有的话）。

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.doctype"><info><title>Doctype Helfer</title></info>
-    
+
 
     <para>
         Gültige <acronym>HTML</acronym> und <acronym>XHTML</acronym> Dokumente sollten eine
@@ -37,7 +37,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.doctype.basicusage"><info><title>Grundsätzliche Verwendung des Doctype Helfers</title></info>
-        
+
 
         <para>
             Der Doctype kann jederzeit spezifiziert werden. Trotzdem werden Helfer die vom Doctype
@@ -60,7 +60,7 @@ $doctypeHelper->doctype('XHTML1_STRICT');
     </example>
 
     <example xml:id="zend.view.helpers.initial.doctype.retrieving"><info><title>Empfangen des Doctypes</title></info>
-        
+
 
         <para>
             Wenn man den Doctype wissen will, kann einfach <methodname>getDoctype()</methodname> auf

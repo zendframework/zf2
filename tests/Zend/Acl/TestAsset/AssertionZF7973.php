@@ -2,8 +2,8 @@
 
 namespace ZendTest\Acl\TestAsset;
 
-use Zend\Acl\Assertion,
-    Zend\Acl;
+use Zend\Acl\Assertion;
+use Zend\Acl;
 
 class AssertionZF7973 implements Assertion {
     public function assert(Acl\Acl $acl, Acl\Role $role = null, Acl\Resource $resource = null, $privilege = null)

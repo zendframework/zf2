@@ -21,8 +21,8 @@
 
 namespace Zend\Search\Lucene\Analysis\TokenFilter;
 
-use Zend\Search\Lucene\Analysis\TokenFilter,
-    Zend\Search\Lucene\Analysis\Token;
+use Zend\Search\Lucene\Analysis\TokenFilter;
+use Zend\Search\Lucene\Analysis\Token;
 
 /**
  * Lower case Token filter.

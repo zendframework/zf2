@@ -21,13 +21,13 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use DOMDocument,
-    RecursiveIteratorIterator,
-    Zend\Navigation\Page\AbstractPage,
-    Zend\Navigation\Container,
-    Zend\Uri,
-    Zend\View,
-    Zend\View\Exception;
+use DOMDocument;
+use RecursiveIteratorIterator;
+use Zend\Navigation\Page\AbstractPage;
+use Zend\Navigation\Container;
+use Zend\Uri;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Helper for printing sitemaps
@@ -439,8 +439,8 @@ class Sitemap extends AbstractHelper
      *
      * Implements {@link Helper::render()}.
      *
-     * @param  Container $container [optional] container to render. Default is 
-     *                              to render the container registered in the 
+     * @param  Container $container [optional] container to render. Default is
+     *                              to render the container registered in the
      *                              helper.
      * @return string               helper output
      */

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.livedocx"><info><title>Zend_Service_LiveDocx</title></info>
-    
+
 
     <section xml:id="zend.service.livedocx.introduction"><info><title>Einführung in LiveDocx</title></info>
-        
+
 
         <para>
             LiveDocx ist ein <acronym>SOAP</acronym>-Service, der es Entwicklern erlaubt, MS Word
@@ -71,7 +71,7 @@
         </itemizedlist>
 
         <section xml:id="zend.service.livedocx.account"><info><title>Für einen Account anmelden</title></info>
-            
+
 
             <para>
                 Bevor man damit beginnt LiveDocx zu verwenden, muss man sich zuerst für einen Account
@@ -84,7 +84,7 @@
         </section>
 
         <section xml:id="zend.service.livedocx.templates-documents"><info><title>Templates und Dokumente</title></info>
-            
+
 
             <para>
                 LiveDocx unterscheidet zwischen den folgenden Ausdrücken: 1)
@@ -107,14 +107,14 @@
         </section>
 
         <section xml:id="zend.service.livedocx.formats"><info><title>Unterstützte Dateiformate</title></info>
-            
+
 
             <para>
                 LiveDocx unterstützt die folgenden Dateiformate:
             </para>
 
             <section xml:id="zend.service.livedocx.formats.template"><info><title>Template Dateiformate (Eingabe)</title></info>
-                
+
 
                 <para>
                     Templates können in jedem der folgenden Dateiformate gespeichert werden:
@@ -152,7 +152,7 @@
             </section>
 
             <section xml:id="zend.service.livedocx.formats.document"><info><title>Dateiformate des Dokuments (Ausgabe):</title></info>
-                
+
 
                 <para>
                     Das resultierende Dokument kann in jedem der folgenden Dateiformate gespeichert
@@ -212,7 +212,7 @@
             </section>
 
             <section xml:id="zend.service.livedocx.formats.image"><info><title>Bilddateiformate (Ausgabe):</title></info>
-                
+
 
                 <para>
                     Das resultierende Dokument kann in jedem der folgenden grafischen Dateiformate
@@ -267,7 +267,7 @@
     </section>
 
     <section xml:id="zend.service.livedocx.mailmerge"><info><title>Zend_Service_LiveDocx_MailMerge</title></info>
-        
+
 
         <para>
              <classname>Zend_Service_LiveDocx_MailMerge</classname> ist das Mail-Merge-Objekt in der
@@ -275,7 +275,7 @@
         </para>
 
         <section xml:id="zend.service.livedocx.mailmerge.generation"><info><title>Prozess der Dokumentenerstellung</title></info>
-            
+
 
             <para>
                 Der Prozess der Erstellung des Dokuments kann mit der folgenden Gleichung
@@ -306,7 +306,7 @@
         </section>
 
         <section xml:id="zend.service.livedocx.mailmerge.templates"><info><title>Erstellen von Templates in Microsoft Word 2007</title></info>
-            
+
 
             <para>
                 Man muss damit beginnen Microsoft Word zu starten und ein neues Dokument zu
@@ -396,7 +396,7 @@ file_put_contents('document.pdf', $document);
         </section>
 
         <section xml:id="zend.service.livedocx.mailmerge.advanced"><info><title>Gehobeneres Mail-Merge</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_LiveDocx_MailMerge</classname> erlaubt es Entwicklern eine
@@ -548,7 +548,7 @@ file_put_contents('document.pdf', $document);
         </section>
 
         <section xml:id="zend.service.livedocx.mailmerge.bitmaps"><info><title>Erstellen von Bitmap Bildern</title></info>
-            
+
 
             <para>
                 Zusätzlich zu den Dateiformaten für Dokumente erlaubt es
@@ -633,7 +633,7 @@ foreach ($bitmaps as $pageNumber => $bitmapData) {
         </section>
 
         <section xml:id="zend.service.livedocx.mailmerge.templates-types"><info><title>Lokale vs. Remote Templates</title></info>
-            
+
 
             <para>
                 Templates können <emphasis>lokal</emphasis> auf der Client-Maschine gespeichert
@@ -705,7 +705,7 @@ $phpLiveDocx->setRemoteTemplate('template.docx');
         </section>
 
         <section xml:id="zend.service.livedocx.mailmerge.information"><info><title>Informationen erhalten</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_LiveDocx_MailMerge</classname> bietet eine Anzahl an
@@ -714,7 +714,7 @@ $phpLiveDocx->setRemoteTemplate('template.docx');
             </para>
 
             <example xml:id="zend.service.livedocx.mailmerge.information.getfieldname"><info><title>Ein Array an Feldnamen vom Template erhalten</title></info>
-                
+
 
                 <para>
                     Der folgende Code gibt ein Array aller Feldnamen im angegebenen Template
@@ -739,7 +739,7 @@ foreach ($fieldNames as $fieldName) {
             </example>
 
             <example xml:id="zend.service.livedocx.mailmerge.information.getblockfieldname"><info><title>Ein Array an Blockfeldnamen vom Template erhalten</title></info>
-                
+
 
                 <para>
                     Der folgende Code zeigt ein Array aller Blockfeldnamen im
@@ -771,7 +771,7 @@ foreach ($blockNames as $blockName) {
             <example xml:id="zend.service.livedocx.mailmerge.information.getfontnames"><info><title>
                     Ein Array von Schriftarten erhalten welche auf dem Server installiert sind
                 </title></info>
-                
+
 
                 <para>
                     Der folgende Code zeigt ein Array aller auf dem Server installierten
@@ -801,7 +801,7 @@ Zend_Debug::dump($phpLiveDocx->getFontNames());
             </example>
 
             <example xml:id="zend.service.livedocx.mailmerge.information.gettemplateformats"><info><title>Ein Array an unterstützten Dateiformaten für Templates erhalten</title></info>
-                
+
 
                 <para>
                     Der folgende Code zeigt ein Array aller unterstützten
@@ -827,7 +827,7 @@ Zend_Debug::dump($phpLiveDocx->getTemplateFormats());
             </example>
 
             <example xml:id="zend.service.livedocx.mailmerge.information.getdocumentformats"><info><title>Ein Array an unterstützten Dateiformaten für Dokumente erhalten</title></info>
-                
+
 
                 <para>
                     Der folgende Code zeigt ein Array aller unterstützten
@@ -847,7 +847,7 @@ Zend_Debug::dump($phpLiveDocx->getDocumentFormats());
             </example>
 
             <example xml:id="zend.service.livedocx.mailmerge.information.getimageformats"><info><title>Ein Array an unterstützten Dateiformaten für Bilder erhalten</title></info>
-                
+
 
                 <para>
                     Der folgende Code zeigt ein Array aller unterstützten

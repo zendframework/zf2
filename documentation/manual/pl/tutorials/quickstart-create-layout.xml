@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-layout"><info><title>Utworzenie layoutu</title></info>
-    
+
 
     <para>
         Jak nie trudno zauważyć, skrypty widoków z poprzedniej części zawierały jedynie fragmenty
@@ -130,9 +130,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 ]]></programlisting>
 
     <para>
-        W ciele metody należy powiadomić zasób widoku aby użył odpowiedniego DocType. 
-        Tylko skąd wziąć obiekt widoku? Najłatwiejszym rozwiązaniem jest 
-        zainicjalizowanie zasobu <classname>View</classname>. Potem można pobrać 
+        W ciele metody należy powiadomić zasób widoku aby użył odpowiedniego DocType.
+        Tylko skąd wziąć obiekt widoku? Najłatwiejszym rozwiązaniem jest
+        zainicjalizowanie zasobu <classname>View</classname>. Potem można pobrać
         obiekt i go użyć.
     </para>
 
@@ -150,15 +150,15 @@ resources.view[] =
 ]]></programlisting>
 
     <para>
-        Ten zapis inicjalizuje widok bez żadnych opcji (pisownia '[]' oznacza, 
+        Ten zapis inicjalizuje widok bez żadnych opcji (pisownia '[]' oznacza,
         że "view" jest tablicą bez żadnych kluczy ani wartości).
     </para>
 
     <para>
         Teraz, skoro widok jest skonfigurowany, można wrócić do metody
         <methodname>_initDoctype()</methodname>.
-        W niej należy upewnić się, że zasób <classname>View</classname> został 
-        zainicjowany (na podstawie zapisów w pliku konfiguracyjnym), pobrać obiekt 
+        W niej należy upewnić się, że zasób <classname>View</classname> został
+        zainicjowany (na podstawie zapisów w pliku konfiguracyjnym), pobrać obiekt
         widoku i go skonfigurować:
     </para>
 
@@ -177,7 +177,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 ]]></programlisting>
 
     <para>
-        Po zainicjalizowaniu <classname>Zend_Layout</classname> i ustawieniu 
+        Po zainicjalizowaniu <classname>Zend_Layout</classname> i ustawieniu
         deklaracji Doctype, należy utworzyć główny layout strony:
     </para>
 
@@ -226,7 +226,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </para>
 
     <note><info><title>Punkt kontrolny</title></info>
-        
+
 
         <para>
             Teraz należy udać się pod adres "http://localhost" i sprawdzić efekty oraz

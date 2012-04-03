@@ -21,8 +21,8 @@
 
 namespace ZendTest\Service\ReCaptcha;
 
-use Zend\Service\ReCaptcha,
-    Zend\Http\Response;
+use Zend\Service\ReCaptcha;
+use Zend\Http\Response;
 
 /**
  * @category   Zend
@@ -67,7 +67,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(false, $this->_response->isValid());
     }
 
-    public function testSetFromHttpResponse() 
+    public function testSetFromHttpResponse()
     {
         $status       = 'false';
         $errorCode    = 'foobar';

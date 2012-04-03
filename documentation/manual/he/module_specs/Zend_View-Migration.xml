@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.migration"><info><title>עדכון מגרסאות קודמות</title></info>
-    
+
 
     <para>
         פרק זה נועד בעיקר למידע אודות עדכון המערכות שלכם שנכתבו על גבי גרסאות קודמות של Zend Framework ודורשות עדכונים מסויימים כדי לעבוד עם הגרסאות החדשות.
     </para>
 
     <section xml:id="zend.view.migration.zf5748"><info><title>עדכון מגרסאות קודמות ל 1.7.5</title></info>
-        
+
 
         <para>
             לפני גרסאת 1.7.5, צוות Zend Framework קבל דיווח על פירצת אבטחה אשר מאפשרת הוספת קובץ מקומי במתודת ה <code>Zend_View::render()</code>. הפרצה היא מסוג
@@ -26,7 +26,7 @@ echo $view->render($_GET['foobar']); // LFI inclusion
         </para>
 
         <section xml:id="zend.view.migration.zf5748.disabling"><info><title>ביטול הגנה מפני LFI במתודת ה render()</title></info>
-            
+
 
             <para>
                 מאחר וכמה מתכנתים דווחו שהם משתמשים בדרך זו של טעינה של קבצים אשר לא מתקבלים על ידי הזנת משתמשים, נוצר סימון מיוחד אשר מאפשר ביטול ההגנה זו כברירת מחדל.

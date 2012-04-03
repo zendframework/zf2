@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_Cache</classname> provides a generic way to cache any data.
@@ -22,7 +22,7 @@
     </para>
 
     <example xml:id="zend.cache.introduction.example-1"><info><title>Getting a Frontend with Zend_Cache::factory()</title></info>
-        
+
 
         <para>
             <methodname>Zend_Cache::factory()</methodname> instantiates correct objects and ties
@@ -49,7 +49,7 @@ $cache = Zend_Cache::factory('Core',
     </example>
 
     <note><info><title>Frontends and Backends Consisting of Multiple Words</title></info>
-        
+
 
         <para>
             Some frontends and backends are named using multiple words, such
@@ -60,7 +60,7 @@ $cache = Zend_Cache::factory('Core',
     </note>
 
     <example xml:id="zend.cache.introduction.example-2"><info><title>Caching a Database Query Result</title></info>
-        
+
 
         <para>
             Now that we have a frontend, we can cache any type of data (we turned on serialization).
@@ -95,7 +95,7 @@ print_r($result);
     </example>
 
     <example xml:id="zend.cache.introduction.example-3"><info><title>Caching Output with Zend_Cache Output Frontend</title></info>
-        
+
 
         <para>
             We 'mark up' sections in which we want to cache output by adding some conditional logic,

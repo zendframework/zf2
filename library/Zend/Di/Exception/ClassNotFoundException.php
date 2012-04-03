@@ -1,8 +1,8 @@
 <?php
 namespace Zend\Di\Exception;
 
-use Zend\Di\Exception,
-    DomainException;
+use Zend\Di\Exception;
+use DomainException;
 
 class ClassNotFoundException extends DomainException implements Exception
 {

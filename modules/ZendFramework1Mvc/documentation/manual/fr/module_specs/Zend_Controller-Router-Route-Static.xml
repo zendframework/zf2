@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.static"><info><title>Zend_Controller_Router_Route_Static</title></info>
 
-    
+
 
     <para>
         Les exemples ci-dessus utilisent des routes dynamiques - routes qui contiennent des
@@ -27,7 +27,7 @@ $router->addRoute('login', $route);
             ATTENTION : Les routes statiques doivent contenir des valeurs par défaut
             saines
         </title></info>
-        
+
         <para>
             Puisqu'une route statique ne fournit aucune partie de l'URL à l'objet de requête
             en tant que paramètres, vous <emphasis>devez</emphasis> fournir par défaut pour la

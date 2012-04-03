@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.introduction"><info><title>Zend_ProgressBar</title></info>
-    
+
 
     <section xml:id="zend.progressbar.whatisit"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> は、
@@ -15,7 +15,7 @@
     </section>
 
     <section xml:id="zend.progressbar.basic"><info><title>Zend_Progressbar の基本的な使用法</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> の使い方はきわめて簡単です。
@@ -55,7 +55,7 @@ $progressBar->finish();
     </section>
 
     <section xml:id="zend.progressbar.persistent"><info><title>進捗の永続化</title></info>
-        
+
 
         <para>
             複数のリクエストにまたがってプログレスバーを持続させたい場合は、
@@ -69,7 +69,7 @@ $progressBar->finish();
     </section>
 
     <section xml:id="zend.progressbar.adapters"><info><title>標準のアダプタ</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> には次の 3 つのアダプタが同梱されています。

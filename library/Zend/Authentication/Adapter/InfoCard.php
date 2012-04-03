@@ -20,8 +20,8 @@
  */
 
 namespace Zend\Authentication\Adapter;
-use Zend\Authentication\Adapter as AuthenticationAdapter,
-    Zend\Authentication\Result as AuthenticationResult;
+use Zend\Authentication\Adapter as AuthenticationAdapter;
+use Zend\Authentication\Result as AuthenticationResult;
 
 /**
  * A Zend_Auth Authentication Adapter allowing the use of Information Cards as an

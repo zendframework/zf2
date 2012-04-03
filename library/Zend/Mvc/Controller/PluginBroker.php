@@ -2,8 +2,8 @@
 
 namespace Zend\Mvc\Controller;
 
-use Zend\Loader\PluginBroker as PluginBrokerBase,
-    Zend\Stdlib\Dispatchable;
+use Zend\Loader\PluginBroker as PluginBrokerBase;
+use Zend\Stdlib\Dispatchable;
 
 class PluginBroker extends PluginBrokerBase
 {
@@ -42,7 +42,7 @@ class PluginBroker extends PluginBrokerBase
     /**
      * Load a plugin
      *
-     * Injects the controller object into the plugin prior to returning it, if 
+     * Injects the controller object into the plugin prior to returning it, if
      * available, and if the plugin supports it.
      *
      * @param  mixed $plugin

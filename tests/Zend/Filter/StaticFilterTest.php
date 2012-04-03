@@ -21,10 +21,10 @@
 
 namespace ZendTest\Filter;
 
-use Zend\Filter\StaticFilter,
-    Zend\Filter\FilterBroker,
-    Zend\Loader\Broker,
-    Zend\Loader\PluginBroker;
+use Zend\Filter\StaticFilter;
+use Zend\Filter\FilterBroker;
+use Zend\Loader\Broker;
+use Zend\Loader\PluginBroker;
 
 /**
  * @category   Zend

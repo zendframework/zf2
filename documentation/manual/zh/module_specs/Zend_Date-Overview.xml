@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.overview"><info><title>Zend_Date API 概述</title></info>
-    
+
 
     <para>
         虽然 <code>Zend_Date</code> API 简单并单一，但是通过操作和操作数的丰富组合，它的设计灵活而强大。
@@ -8,11 +8,11 @@
 
     <section xml:id="zend.date.options"><info><title>Zend_Date 选项</title></info>
 
-        
+
 
         <section xml:id="zend.date.options.formattype"><info><title>选择日期格式类型</title></info>
 
-            
+
 
             <para>
                 有若干方法使用日期格式串，和 PHP 的 <code>date()</code> 类似。如果你觉得用 PHP 的日期格式指示器（ specifier） 比用 ISO 格式指示器舒服，
@@ -26,7 +26,7 @@
 
         <section xml:id="zend.date.options.fixdst"><info><title>DST 和日期数学 </title></info>
 
-            
+
 
             <para>
                 当处理日期时，有时候需要考虑 DST（夏令时）更改的影响，一般是加上或减去一个小时。例如，在DST更改前加
@@ -47,7 +47,7 @@
 
         <section xml:id="zend.date.options.extendmonth"><info><title>月份计算</title></info>
 
-            
+
 
             <para>
                 当从一个日期加减月份时，如果原来的日期接近月末，结果在某月的某天可能不是所期望的。
@@ -63,7 +63,7 @@
 
         <section xml:id="zend.date.options.cache"><info><title> 用 Zend_Cache 加速日期本地化和标准化 </title></info>
 
-            
+
 
             <para>
                 通过使用 <code>Zend_Cache</code> 适配器，你可以加速 <code>Zend_Date</code> 的运算。当你使用本地化的数据，<code>Zend_Date</code> 的所有方法都会加速。
@@ -75,7 +75,7 @@
 
         <section xml:id="zend.date.options.timesync"><info><title> 用 Zend_TimeSync 同步时间戳 </title></info>
 
-            
+
 
             <para>
                 一般来说服务器和计算机上的时钟都不相同。<code>Zend_TimeSync</code> 帮助 <code>Zend_Date</code>  来处理这样的问题。
@@ -90,7 +90,7 @@
 
     <section xml:id="zend.date.values"><info><title> 使用日期值 </title></info>
 
-        
+
 
         <para>
             一旦通过生成 <code>Zend_Date</code> 对象格式化输入，它就携带一个时区，但在内部用标准的 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Unix_Time">UNIX 时间戳</link> 来表示。
@@ -113,7 +113,7 @@
         </para>
 
         <example xml:id="zend.date.values.example-1"><info><title> 用户指定的日期输入格式 </title></info>
-            
+
             <programlisting role="php"><![CDATA[
 $date1 = new Zend_Date('Feb 31, 2007', null, 'en_US');
 echo $date1, "\n"; // outputs "Mar 3, 2007 12:00:00 AM"
@@ -156,7 +156,7 @@ $date = new Zend_Date('31.Feb.2007');
 
     <section xml:id="id.date.basic"><info><title>Basic <code>Zend_Date</code> Operations Common to Many Date Parts</title></info>
 
-        
+
 
         <para>
             <code>add(), sub(), compare(), get(), and set()</code> 方法一般用来操作日期，就是操作对象里的日期。
@@ -167,7 +167,7 @@ $date = new Zend_Date('31.Feb.2007');
         </para>
 
         <example xml:id="zend.date.basic.example-1"><info><title> 日期部件的操作 </title></info>
-            
+
             <programlisting role="php"><![CDATA[
 $date = new Zend_Date(); // $date's timestamp === time()
 
@@ -191,10 +191,10 @@ print $date;
 
         <section xml:id="id.date.basic.parts"><info><title> 日期部件列表 </title></info>
 
-            
+
 
             <table xml:id="id.date.basic.parts.table"><info><title>日期部件</title></info>
-                
+
                 <tgroup cols="2">
                     <thead>
                         <row>
@@ -319,7 +319,7 @@ print $date;
 
         <section xml:id="id.date.basic.operations"><info><title>List of Date Operations 日期操作列表</title></info>
 
-            
+
 
             <para>
                 如果 <link linkend="zend.date.constants.list"> 合适的常量 </link> 用于 <code>$part</code> 参数，
@@ -327,7 +327,7 @@ print $date;
             </para>
 
             <table xml:id="id.date.basic.operations.table"><info><title>基本操作</title></info>
-                
+
                 <tgroup cols="2">
                     <thead>
                         <row>
@@ -415,14 +415,14 @@ print $date;
 
     <section xml:id="zend.date.others.comparison"><info><title> 比较日期 </title></info>
 
-        
+
 
         <para>
              对于列表在 <xref linkend="zend.date.overview"/>的日期部件，下列基本操作没有相应的方便方法。
         </para>
 
         <table xml:id="zend.date.others.comparison.table"><info><title> 日期比较方法 </title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>
@@ -529,14 +529,14 @@ print $date;
 
     <section xml:id="zend.date.others.gettingparts"><info><title>获取日期和日期部件</title></info>
 
-        
+
 
         <para>
             有若干方法支持获取和 <code>Zend_Date</code> 实例相关的值。
         </para>
 
         <table xml:id="zend.date.others.gettingparts.table"><info><title>日期输出方法</title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>
@@ -695,14 +695,14 @@ print $date;
 
     <section xml:id="zend.date.others.fractions"><info><title> 使用秒的片段 </title></info>
 
-        
+
 
         <para>
             Several methods support retrieving values related to a <code>Zend_Date</code> instance.
         </para>
 
         <table xml:id="zend.date.others.fractions.table"><info><title> 日期输出方法 </title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>
@@ -735,14 +735,14 @@ print $date;
 
     <section xml:id="zend.date.other.sun"><info><title> 日出 / 日落 </title></info>
 
-        
+
 
         <para>
             有三个方法提供访问关于太阳的地理本地化信息，包括日出和日落的时间。
         </para>
 
         <table xml:id="zend.date.other.sun.table"><info><title> 辅助方法 </title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>

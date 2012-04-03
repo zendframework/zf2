@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set"><info><title>標準のフィルタクラス群</title></info>
 
-    
+
 
     <para>
         Zend Framework には、すぐに使える標準のフィルタ群が同梱されています。
@@ -54,7 +54,7 @@
     </xi:include>
 
     <section xml:id="zend.filter.set.stripnewlines"><info><title>StripNewlines</title></info>
-        
+
 
         <para>
             文字列 <varname>$value</varname> から一切の改行制御文字を取り除いたものを返します。
@@ -62,7 +62,7 @@
     </section>
 
     <section xml:id="zend.filter.set.striptags"><info><title>StripTags</title></info>
-        
+
 
         <para>
             入力文字列からすべての <acronym>HTML</acronym> タグおよび <acronym>PHP</acronym> タグを取り除いた結果を返します。

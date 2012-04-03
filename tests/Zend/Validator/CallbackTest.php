@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Validator;
-use Zend\Validator,
-    ReflectionClass;
+use Zend\Validator;
+use ReflectionClass;
 
 /**
  * @category   Zend
@@ -92,11 +92,11 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new Validator\Callback(array($this, 'objectCallback'));
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -105,16 +105,16 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = new Validator\Callback(array($this, 'objectCallback'));
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

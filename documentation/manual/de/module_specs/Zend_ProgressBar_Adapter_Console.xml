@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.adapter.console"><info><title>Zend_ProgressBar_Adapter_Console</title></info>
-    
+
 
     <para>
         <classname>Zend_ProgressBar_Adapter_Console</classname> ist ein Textbasierter Adater für
@@ -13,7 +13,7 @@
     </para>
 
     <note><info><title>Automatische Breitenerkennung der Konsole</title></info>
-        
+
 
         <para>
             <code>shell_exec</code> wird benötigt damit dieses Feature auf *nix basierenden Systemen

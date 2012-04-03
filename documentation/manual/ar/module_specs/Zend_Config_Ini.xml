@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.adapters.ini"><info><title>Zend_Config_Ini</title></info>
-    
+
     <para>
         يوفر <code>Zend_Config_Ini</code> للمبرمج امكانية حفظ البيانات الخاصة بإعدادات البرنامج ,
         و ذلك بصيغة الـ INI المألوفة , ثم تمكنه من قرائه هذه البيانات داخل برنامجه بيسر من خلال
@@ -14,7 +14,7 @@
         ثم إلحاقها بأسم القسم الذى سيتم الوراثة منه.
     </para>
     <note><info><title>parse_ini_file</title></info>
-        
+
         <para>
             تستخدم <code>Zend_Config_Ini</code> دالة PHP تسمى
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/parse_ini_file"><code>()parse_ini_file</code></link> ,
@@ -26,7 +26,7 @@
         </para>
     </note>
     <example><info><title>إستخدام Zend_Config_Ini</title></info>
-        
+
         <para>
             هذا المثال يوضح إستخدام بسيط لـ <code>Zend_Config_Ini</code> لتحميل بيانات الأعدادات
             من ملف INI , فى هذا المثال يوجد بيانات الأعدادات الخاصة بكل من مرحلة الأنتاج "production"

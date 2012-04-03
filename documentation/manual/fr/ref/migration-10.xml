@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.10"><info><title>Zend Framework 1.0</title></info>
-    
+
 
     <para>
         Lors de la migration d'un version précédente vers Zend Framework 0.8 ou plus récent
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="migration.10.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <para>
             Les principaux changements introduits dans la version 1.0.0RC1 sont l'ajout et
@@ -185,7 +185,7 @@ $viewRenderer->setView($view);
     </section>
 
     <section xml:id="migration.10.zend.currency"><info><title>Zend_Currency</title></info>
-        
+
 
         <para>
             Créer un objet <classname>Zend_Currency</classname> est devenu plus simple. Vous

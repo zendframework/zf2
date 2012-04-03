@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.xmlrpc.introduction"><info><title>Inleiding</title></info>
-    
+
     <para>
         XML-RPC is een " ... manier van op afstand aanroepen van procedures gebruik makend
     van HTTP als transport mechanisme en XML als encoding. XML-RPC is ontworden om zo

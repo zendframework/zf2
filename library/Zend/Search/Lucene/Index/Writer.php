@@ -21,11 +21,11 @@
 
 namespace Zend\Search\Lucene\Index;
 
-use Zend\Search\Lucene\Storage\Directory,
-	Zend\Search\Lucene\Document,
-	Zend\Search\Lucene,
-	Zend\Search\Lucene\Exception\RuntimeException,
-	Zend\Search\Lucene\Exception\InvalidFileFormatException;
+use Zend\Search\Lucene\Storage\Directory;
+use Zend\Search\Lucene\Document;
+use Zend\Search\Lucene;
+use Zend\Search\Lucene\Exception\RuntimeException;
+use Zend\Search\Lucene\Exception\InvalidFileFormatException;
 
 /**
  * @uses       \Zend\Search\Lucene\Index

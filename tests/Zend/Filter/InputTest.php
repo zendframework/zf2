@@ -22,11 +22,11 @@
 namespace ZendTest\Filter
 {
 
-use Zend\Filter\InputFilter,
-    Zend\Filter,
-    Zend\Validator,
-    Zend\Loader\PluginBroker,
-    Zend\Translator;
+use Zend\Filter\InputFilter;
+use Zend\Filter;
+use Zend\Validator;
+use Zend\Loader\PluginBroker;
+use Zend\Translator;
 
 /**
  * @category   Zend
@@ -1995,12 +1995,12 @@ class InputFilterTest extends \PHPUnit_Framework_TestCase
         $messages = $input->getMessages();
         $this->assertSame($messages['field1']['isEmpty'], $customMessage, 'For the NotEmpty validator the custom message is not used');
     }
-    
+
     /**
-     * This test doesn't include any assertions as it's purpose is to 
-     * ensure that passing an empty array value into a $validators rule 
+     * This test doesn't include any assertions as it's purpose is to
+     * ensure that passing an empty array value into a $validators rule
      * doesn't cause a notice to be emitted
-     *  
+     *
      * @group ZF-11819
      */
     public function testValidatorRuleCanHaveEmptyArrayAsMetacommandValue()

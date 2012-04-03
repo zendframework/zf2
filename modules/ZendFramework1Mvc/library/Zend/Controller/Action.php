@@ -20,10 +20,10 @@
 
 namespace Zend\Controller;
 
-use Zend\Controller\Request\AbstractRequest,
-    Zend\Controller\Response\AbstractResponse,
-    Zend\Loader\Broker,
-    Zend\View;
+use Zend\Controller\Request\AbstractRequest;
+use Zend\Controller\Response\AbstractResponse;
+use Zend\Loader\Broker;
+use Zend\View;
 
 /**
  * @uses       \Zend\Controller\Action\Exception

@@ -71,9 +71,9 @@
 			</timezone>
 			<timezone type="America/Mendoza">
 				<usesMetazone to="1990-03-04 02:00" mzone="Argentina"/>
-				
+
 				<usesMetazone to="2004-05-23 03:00" from="1992-10-18 04:00" mzone="Argentina"/>
-				
+
 				<usesMetazone from="2004-09-26 04:00" mzone="Argentina"/>
 			</timezone>
 			<timezone type="America/Argentina/San_Juan">
@@ -85,7 +85,7 @@
 			</timezone>
 			<timezone type="America/Argentina/Ushuaia">
 				<usesMetazone to="2004-05-30 03:00" mzone="Argentina"/>
-				
+
 				<usesMetazone from="2004-06-20 04:00" mzone="Argentina"/>
 			</timezone>
 			<timezone type="America/Argentina/La_Rioja">
@@ -97,26 +97,26 @@
 			</timezone>
 			<timezone type="America/Catamarca">
 				<usesMetazone to="1991-03-03 02:00" mzone="Argentina"/>
-				
+
 				<usesMetazone to="2004-06-01 03:00" from="1991-10-20 04:00" mzone="Argentina"/>
 				<usesMetazone to="2004-06-20 04:00" from="2004-06-01 03:00" mzone="Argentina_Western"/>
 				<usesMetazone from="2004-06-20 04:00" mzone="Argentina"/>
 			</timezone>
 			<timezone type="America/Jujuy">
 				<usesMetazone to="1990-03-04 02:00" mzone="Argentina"/>
-				
+
 				<usesMetazone from="1991-10-06 04:00" mzone="Argentina"/>
 			</timezone>
 			<timezone type="America/Argentina/Tucuman">
 				<usesMetazone to="1991-03-03 02:00" mzone="Argentina"/>
-				
+
 				<usesMetazone to="2004-06-01 03:00" from="1991-10-20 04:00" mzone="Argentina"/>
 				<usesMetazone to="2004-06-13 04:00" from="2004-06-01 03:00" mzone="Argentina_Western"/>
 				<usesMetazone from="2004-06-13 04:00" mzone="Argentina"/>
 			</timezone>
 			<timezone type="America/Cordoba">
 				<usesMetazone to="1991-03-03 02:00" mzone="Argentina"/>
-				
+
 				<usesMetazone from="1991-10-20 04:00" mzone="Argentina"/>
 			</timezone>
 			<timezone type="America/Buenos_Aires">
@@ -134,7 +134,7 @@
 			</timezone>
 			<timezone type="America/Argentina/Salta">
 				<usesMetazone to="1991-03-03 02:00" mzone="Argentina"/>
-				
+
 				<usesMetazone from="1991-10-20 04:00" mzone="Argentina"/>
 			</timezone>
 			<timezone type="Pacific/Pago_Pago">

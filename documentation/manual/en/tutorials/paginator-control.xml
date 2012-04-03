@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.paginator.control"><info><title>Pagination Control and ScrollingStyles</title></info>
-    
+
 
     <para>
         Rendering the items for a page on the screen has been a good start. In the code

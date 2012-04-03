@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.layout"><info><title>Zend_Application_Resource_Layout</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Layout</classname> kann verwendet werden um
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.layout.configExample"><info><title>Einfache Konfiguration eines Layouts</title></info>
-        
+
 
         <para>
             Anbei ist ein beispielhaftes <acronym>INI</acronym> Schnipsel das zeigt wie

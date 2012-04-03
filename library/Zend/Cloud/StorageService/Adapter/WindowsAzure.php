@@ -22,9 +22,9 @@
  */
 namespace Zend\Cloud\StorageService\Adapter;
 
-use Zend\Cloud\StorageService\Adapter,
-    Zend\Cloud\StorageService\Exception,
-    Zend\Service\WindowsAzure\Storage\Blob;
+use Zend\Cloud\StorageService\Adapter;
+use Zend\Cloud\StorageService\Exception;
+use Zend\Service\WindowsAzure\Storage\Blob;
 
 /**
  *

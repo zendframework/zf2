@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.filters"><info><title>Filtres</title></info>
-    
+
 
     <para>Un objet <code>Filter</code> bloque les messages avant l'écriture dans le log.</para>
 
     <section xml:id="zend.log.filters.all-writers"><info><title>Filtrer pour tous les rédacteurs (Writers)</title></info>
-        
+
 
         <para>
             Pour filtrer avant tous les rédacteurs, vous pouvez ajouter autant de filtres que
@@ -31,7 +31,7 @@ $logger->emerg("Message d'urgence");
     </section>
 
     <section xml:id="zend.log.filters.single-writer"><info><title>Filtrer pour une seule instance de rédacteur</title></info>
-        
+
 
         <para>
             Pour filtrer seulement sur un instance spécifique de rédacteur, employer la

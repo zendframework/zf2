@@ -1037,7 +1037,7 @@
 		<dateRangePattern>{0} – {1}</dateRangePattern>
 		<calendars>
 			<calendar type="buddhist">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d 'de' MMMM 'de' y G</pattern>
@@ -1059,7 +1059,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d</dateFormatItem>
@@ -1499,7 +1499,7 @@
 						<alias source="locale" path="../eraAbbr"/>
 					</eraNarrow>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d 'de' MMMM 'de' y G</pattern>
@@ -1521,7 +1521,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d</dateFormatItem>
@@ -1556,7 +1556,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d 'de' MMMM 'de' y G</pattern>
@@ -1578,7 +1578,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d</dateFormatItem>
@@ -1613,7 +1613,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="roc">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d 'de' MMMM 'de' y G</pattern>
@@ -1635,7 +1635,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d</dateFormatItem>

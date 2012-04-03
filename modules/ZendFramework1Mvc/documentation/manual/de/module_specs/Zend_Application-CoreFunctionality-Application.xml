@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.application"><info><title>Zend_Application</title></info>
-    
+
 
     <para>
         <classname>Zend_Application</classname> bietet die Basisfunktionalität der Komponente, und
@@ -19,7 +19,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.application.api.options"><info><title>Optionen für Zend_Application</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -80,7 +80,7 @@
     </table>
 
     <note><info><title>Namen der Optionen</title></info>
-        
+
 
         <para>
             Beachten Sie das die Namen für die Optionen von der Groß- und Kleinschreibung abhängen.
@@ -88,7 +88,7 @@
     </note>
 
     <table xml:id="zend.application.core-functionality.application.api.table"><info><title>Zend_Application Methoden</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>

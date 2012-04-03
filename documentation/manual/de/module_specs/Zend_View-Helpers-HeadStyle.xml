@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headstyle"><info><title>HeadStyle Helfer</title></info>
-    
+
 
     <para>
         Das <acronym>HTML</acronym> Element <emphasis>&lt;style&gt;</emphasis> wird verwendet um
@@ -9,7 +9,7 @@
     </para>
 
     <note><info><title>HeadLink verwenden um CSS Dateien zu verlinken</title></info>
-        
+
 
         <para>
             <link linkend="zend.view.helpers.initial.headlink">HeadLink</link> sollte verwendet
@@ -58,7 +58,7 @@
     </para>
 
     <note><info><title>Abhängige Kommentare setzen</title></info>
-        
+
 
         <para>
             <classname>HeadStyle</classname> erlaubt es ein Script Tag in abhängige Kommentare zu
@@ -68,7 +68,7 @@
         </para>
 
         <example xml:id="zend.view.helpers.initial.headstyle.conditional"><info><title>Headstyle mit abhängigen Kommentaren</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Skripte hinzufügen
@@ -108,7 +108,7 @@ $this->headStyle()->appendStyle($styles, array('conditional' => 'lt IE 7'));
     </para>
 
     <note><info><title>Standardmäßig wird die UTF-8 Kodierung verwendet</title></info>
-        
+
 
         <para>
             Standardmäßig verwendet Zend Framework <acronym>UTF-8</acronym> als seine
@@ -131,7 +131,7 @@ $this->headStyle()->appendStyle($styles, array('conditional' => 'lt IE 7'));
     </note>
 
     <example xml:id="zend.view.helpers.initial.headstyle.basicusage"><info><title>Grundsätzliche Verwendung des HeadStyle Helfers</title></info>
-        
+
 
         <para>
             Ein neues Style Tag kann jederzeit spezifiziert werden:
@@ -173,7 +173,7 @@ $this->headStyle()->prependStyle($firstStyles);
     </example>
 
     <example xml:id="zend.view.helpers.initial.headstyle.capture"><info><title>Den HeadStyle Helfer verwenden um Style Deklarationen zu Erfassen</title></info>
-        
+
 
         <para>
             Hier und da müssen <acronym>CSS</acronym> Style Deklarationen programmtechnisch erstellt

@@ -32,27 +32,27 @@ abstract class Entity
 {
     /**
      * Id of the entity
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $id;
 
     /**
      * Get the Id
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    public function getId() 
+    public function getId()
     {
         return $this->id;
     }
 
     /**
      * Constructor
-     * 
-     * @param string $id 
+     *
+     * @param string $id
      */
-    public function __construct($id) 
+    public function __construct($id)
     {
         if (empty($id)) {
             throw new Exception\InvalidArgumentException('The id is required for the entity');

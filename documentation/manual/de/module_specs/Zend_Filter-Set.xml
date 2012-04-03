@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set"><info><title>Standard Filter Klassen</title></info>
-    
+
 
     <para>
         Zend Framework kommt mit einem Standardset von Filtern, welche bereits zur Verwendung fertig
@@ -31,7 +31,7 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Filter-StringTrim.xml"/>
 
     <section xml:id="zend.filter.set.stripnewlines"><info><title>StripNewlines</title></info>
-        
+
 
         <para>
             Gibt den String <varname>$value</varname> ohne Zeilenumbruch Zeichen zurück.
@@ -39,7 +39,7 @@
     </section>
 
     <section xml:id="zend.filter.set.striptags"><info><title>StripTags</title></info>
-        
+
 
         <para>
             Dieser Filter gibt den Eingabestring zurück, wobei alle <acronym>HTML</acronym> und

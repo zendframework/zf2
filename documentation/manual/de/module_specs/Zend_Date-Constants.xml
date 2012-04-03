@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.constants"><info><title>Konstanten für generelle Datums Funktionen</title></info>
-    
+
 
     <para>
         Wo auch immer eine <classname>Zend_Date</classname> Methode einen <varname>$parts</varname>
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.date.constants.using"><info><title>Konstanten benutzen</title></info>
-        
+
 
         <para>
             Zum Beispiel kann die Konstante <constant>Zend_Date::HOUR</constant> in den anbei
@@ -26,7 +26,7 @@
         </para>
 
         <table xml:id="zend.date.constants.using.table"><info><title>Berechnungen die Zend_Date::HOUR beinhalten</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -122,7 +122,7 @@
     </section>
 
     <section xml:id="zend.date.constants.list"><info><title>Liste aller Konstanten</title></info>
-        
+
 
         <para>
             Jeder Teil von Datum oder Zeit hat eine eindeutige Konstante in
@@ -131,7 +131,7 @@
         </para>
 
         <table xml:id="zend.date.constants.list.table-1"><info><title>Konstanten für den Tag</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -236,7 +236,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-2"><info><title>Konstanten für die Woche</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -260,7 +260,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-3"><info><title>Konstanten für das Monat</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -327,7 +327,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-4"><info><title>Konstanten für das Jahr</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -384,7 +384,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-5"><info><title>Konstanten für die Zeit</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -478,7 +478,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-6"><info><title>Konstanten für die Zeitzone</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -554,7 +554,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-7"><info><title>Konstanten für Datumsformate (Formate beinhalten die Zeitzone)</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -681,7 +681,7 @@
         </para>
 
         <table xml:id="zend.date.constants.list.table-8"><info><title>Datums- und Zeitformate (Formate variieren laut Gebietsschema)</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -829,7 +829,7 @@
     </section>
 
     <section xml:id="zend.date.constants.selfdefinedformats"><info><title>Selbst-Definierte AUSGABE Formate mit ISO</title></info>
-        
+
 
         <para>
             Wenn ein Datumsformat benötigt wird, das oben nicht angeführt ist, kann auch ein
@@ -854,7 +854,7 @@
         </para>
 
         <example xml:id="zend.date.constants.selfdefinedformats.example-1"><info><title>Selbstdefinition von ISO Formaten</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');
@@ -864,7 +864,7 @@ print $date->toString("'Epoche:GGGG='GGGG, ' Datum:yy.MMMM.dd'yy.MMMM.dd");
         </example>
 
         <table xml:id="zend.date.constants.selfdefinedformats.table"><info><title>Konstanten für ISO 8601 Datums Ausgaben</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -1303,7 +1303,7 @@ print $date->toString("'Epoche:GGGG='GGGG, ' Datum:yy.MMMM.dd'yy.MMMM.dd");
     <section xml:id="zend.date.constants.phpformats"><info><title>
             Selbst-definierte AUSGABE Formate welche PHP's date() Formatdefinition verwenden
         </title></info>
-        
+
 
         <para>
             Wenn man mit <acronym>PHP</acronym>'s date Formatdefinition vertrauter ist als mit den
@@ -1326,7 +1326,7 @@ print $date->toString("'Epoche:GGGG='GGGG, ' Datum:yy.MMMM.dd'yy.MMMM.dd");
         </para>
 
         <example xml:id="zend.date.constants.phpformats.example-1"><info><title>Selbstdefinierte Formate mit PHP Bezeichnern</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');
@@ -1341,7 +1341,7 @@ print $date->toString("'Format:D M j G:i:s T Y='D M j G:i:s T Y");
         </example>
 
         <important><info><title>PHP Datums Format und die Verwendung von Konstanten</title></info>
-            
+
 
             <para>
                 Es ist wichtig anzumerken das die Konstanten von <classname>Zend_Date</classname>
@@ -1367,7 +1367,7 @@ print $date->toString("'Format:D M j G:i:s T Y='D M j G:i:s T Y");
         </para>
 
         <table xml:id="zend.date.constants.phpformats.table"><info><title>Konstanten für PHP date Ausgaben</title></info>
-            
+
 
             <tgroup cols="5">
                 <thead>

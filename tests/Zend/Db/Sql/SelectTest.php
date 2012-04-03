@@ -1,10 +1,10 @@
 <?php
 namespace ZendTest\Db\Sql;
 
-use Zend\Db\Sql\Select,
-    Zend\Db\Sql\Expression,
-    Zend\Db\Sql\Where,
-    Zend\Db\Adapter\ParameterContainer;
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Expression;
+use Zend\Db\Sql\Where;
+use Zend\Db\Adapter\ParameterContainer;
 
 class SelectTest extends \PHPUnit_Framework_TestCase
 {

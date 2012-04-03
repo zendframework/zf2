@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.barcode.renderers"><info><title>Renderizadores do Zend_Barcode</title></info>
-    
+
 
     <para>
         Os renderizadores tem algumas opções em comum. Essas opções podem ser definidas em
@@ -34,7 +34,7 @@
     </itemizedlist>
 
     <example xml:id="zend.barcode.renderers.configuration"><info><title>Diferentes maneiras de parametrizar um objeto renderizador</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $options = array('topOffset' => 10);
@@ -58,7 +58,7 @@ $renderer->setTopOffset(10);
     </example>
 
     <section xml:id="zend.barcode.renderers.common.options"><info><title>Opções Comuns</title></info>
-        
+
 
         <para>
             Na lista seguinte, os valores não têm unidades; usaremos o termo "unidade". Por exemplo,
@@ -70,7 +70,7 @@ $renderer->setTopOffset(10);
         </para>
 
         <table xml:id="zend.barcode.renderers.common.options.table"><info><title>Opções Comuns</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -180,7 +180,7 @@ $renderer->setTopOffset(10);
     </section>
 
     <section xml:id="zend.barcode.renderers.image"><info><title>Zend_Barcode_Renderer_Image</title></info>
-        
+
 
         <para>
             O renderizador Image irá desenhar a lista de instruções do objeto código de barras em
@@ -191,7 +191,7 @@ $renderer->setTopOffset(10);
         <para>As opções disponíveis são:</para>
 
         <table xml:id="zend.barcode.renderers.image.table"><info><title>Opções do Zend_Barcode_Renderer_Image</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -241,7 +241,7 @@ $renderer->setTopOffset(10);
     </section>
 
     <section xml:id="zend.barcode.renderers.pdf"><info><title>Zend_Barcode_Renderer_Pdf</title></info>
-        
+
 
         <para>
             O renderizador de <acronym>PDF</acronym> irá desenhar a lista de instruções do objeto

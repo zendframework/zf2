@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.actionstack"><info><title>ActionStack</title></info>
-    
+
 
     <para>
         El helper
@@ -18,7 +18,7 @@
 
     <note><info><title>Invocando al Ayudante ActionStack Inicializa el Plugin de
             ActionStack</title></info>
-        
+
 
         <para>
             Invocando al helper
@@ -35,7 +35,7 @@
 
     <example xml:id="zend.controller.actionhelpers.actionstack.simple"><info><title>Agregando una Tarea Usando Nombres de Acción, Controllador y
             Módulo</title></info>
-        
+
 
         <para>
             A menudo, es más sencillo simplemente especificar la acción, el
@@ -69,7 +69,7 @@ class FooController extends Zend_Controller_Action
     </example>
 
     <example xml:id="zend.controller.actionhelpers.actionstack.simple2"><info><title>Agregando una Tarea al Objeto Solicitud (Request)</title></info>
-        
+
 
         <para>
             A veces la naturaleza

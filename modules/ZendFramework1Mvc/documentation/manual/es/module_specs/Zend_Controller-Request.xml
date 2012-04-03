@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.request"><info><title>La solicitud del Objeto</title></info>
-    
+
     <section xml:id="zend.controller.request.introduction"><info><title>Introducción</title></info>
-        
+
         <para>
             El objeto request es un objeto de valor simple que es pasado
             entre
@@ -115,10 +115,10 @@
     </section>
 
     <section xml:id="zend.controller.request.http"><info><title>Solicitud HTTP</title></info>
-        
+
 
         <section xml:id="zend.controller.request.http.dataacess"><info><title>Solicitud de acceso a datos</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname>
@@ -148,7 +148,7 @@
             </para>
 
             <note><info><title>Datos Superglobales</title></info>
-                
+
                 <para>
                     Cuando se accede a datos Superglobales a través
                     <classname>Zend_Controller_Request_Http</classname>
@@ -193,7 +193,7 @@
             </para>
 
             <note><info><title>Datos GET y POST</title></info>
-                
+
                 <para>Sea cauteloso cuando accede a los datos de la solicitud
                     objeto como no es
                     filtrado en ninguna manera. El router y
@@ -204,7 +204,7 @@
             </note>
 
             <note><info><title>Recuperando los datos POST sin procesar</title></info>
-                
+
 
                 <para>
                     Como 1.5.0, se puede recuperar los datos sin procesar a
@@ -241,7 +241,7 @@
             </para>
 
             <note><info><title>getParam() Recupera mas que Parámetros de Usuario</title></info>
-                
+
 
                 <para>
                     En orden para hacer el mismo trabajo,
@@ -287,7 +287,7 @@
             </note>
 
             <note><info><title>Apache Quirks</title></info>
-                
+
                 <para>
                     Si está usando Apache 404 handler para pasar If you are
                     using Apache's 404
@@ -325,7 +325,7 @@ $front->setRequest($request);
         </section>
 
         <section xml:id="zend.controller.request.http.baseurl"><info><title>Base Url and Subdirectories</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname>
@@ -366,7 +366,7 @@ $front->setRequest($request);
             </para>
 
             <note><info><title>URL Detection is Case Sensitive</title></info>
-                
+
                 <para>
                     Automatic base
                     <acronym>URL</acronym>
@@ -417,7 +417,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.method"><info><title>Determining the Request Method</title></info>
-            
+
 
             <para>
                 <methodname>getMethod()</methodname>
@@ -472,7 +472,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.ajax"><info><title>Detecting AJAX Requests</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname>
@@ -529,7 +529,7 @@ $response   = $controller->dispatch();
     </section>
 
     <section xml:id="zend.controller.request.subclassing"><info><title>Subclassing the Request Object</title></info>
-        
+
 
         <para>
             The base request class used for all request objects is the

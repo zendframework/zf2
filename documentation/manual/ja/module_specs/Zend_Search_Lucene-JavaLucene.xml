@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.java-lucene"><info><title>Java Lucene との相互運用</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.index-creation.file-formats"><info><title>ファイルフォーマット</title></info>
-        
+
         <para>
           <classname>Zend_Search_Lucene</classname> のインデックスファイルのフォーマットは、
           Lucene バージョン 1.4 以降のフォーマットとバイナリ互換性があります。
@@ -19,7 +19,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.index-directory"><info><title>インデックスディレクトリ</title></info>
-        
+
 
         <para>
         インデックスを作成すると、
@@ -48,7 +48,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.java-lucene.source-code"><info><title>Java のソースコード</title></info>
-        
+
         <para>
             以下の Java プログラムリストは、Java Lucene
             を使用してファイルのインデックスを作成する方法を示す例です。

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.exceptions"><info><title>MVC 异常</title></info>
-    
+
 
     <section xml:id="zend.controller.exceptions.introduction"><info><title>介绍</title></info>
-        
+
 
         <para>
               Zend Framework 中的MVC元件利用了一个前端控制器，这意味着到一个站点的所有请求都将通过单一入口。因此，所有的异常最终将起泡到前端控制器，开发人员可在一个位置处理这些异常。
@@ -15,7 +15,7 @@
     </section>
 
     <section xml:id="zend.controller.exceptions.handling"><info><title>如何处理异常?</title></info>
-        
+
 
         <para>
               MVC元件已经建立了几种机制来处理异常。
@@ -102,7 +102,7 @@ if ($response->isException()) {
     </section>
 
     <section xml:id="zend.controller.exceptions.internal"><info><title>可能遭遇的MVC异常</title></info>
-        
+
 
         <para>
               各种MVC元件--请求，路由器，分发器，动作控制器，响应对象--在同一事件中可能每一个都会抛出异常。一些异常可能根据情况被忽略，其他的则提示开发人员考虑程序的结构。

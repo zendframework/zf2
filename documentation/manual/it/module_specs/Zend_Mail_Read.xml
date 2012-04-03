@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.read"><info><title>Lettura di messaggi e-mail</title></info>
-    
+
 
     <para>
         <code>Zend_Mail</code> può leggere messaggi e-mail da diversi sistemi di salvataggio locali o remoti.
@@ -9,7 +9,7 @@
     </para>
 
     <table xml:id="zend.mail.read.table-1"><info><title>Panoramica delle caratteristiche dei sistemi di lettura di e-mail</title></info>
-        
+
         <tgroup cols="5">
             <thead>
                 <row>
@@ -68,7 +68,7 @@
     </table>
 
     <section xml:id="zend.mail.read-example"><info><title>Semplice esempio usando Pop3</title></info>
-        
+
 
         <programlisting role="php"><![CDATA[<?php
 $mail = new Zend_Mail_Storage_Pop3(array('host'     => 'localhost',
@@ -83,7 +83,7 @@ foreach ($mail as $message) {
 
     </section>
     <section xml:id="zend.mail.read-open-local"><info><title>Apertura di un sistema di salvataggio locale</title></info>
-        
+
 
         <para>
             Mbox e Maildir sono due formati supportati per lo salvataggio locale delle e-mail, entrambi nel loro formato più semplice.
@@ -107,7 +107,7 @@ $mail = new Zend_Mail_Storage_Maildir(array('dirname' => '/home/test/mail/'));
     </section>
 
     <section xml:id="zend.mail.read-open-remote"><info><title>Apertura di un sistema di salvataggio remoto</title></info>
-        
+
 
         <para>
             Per quanto riguarda i sistemi di salvataggio remoto i due protocolli più popolari sono entrambi supportati: Pop3 e Imap.
@@ -162,7 +162,7 @@ $mail = new Zend_Mail_Storage_Pop3(array('host'     => 'example.com'
     </section>
 
     <section xml:id="zend.mail.read-fetching"><info><title>Lettura dei messaggi e semplici metodi</title></info>
-        
+
 
         <para>
             Una volta aperta la connessione, è possibile estrarre i messaggi.
@@ -216,7 +216,7 @@ unset($mail[$messageNum]);
     </section>
 
     <section xml:id="zend.mail.read-message"><info><title>Interazione con i messaggi</title></info>
-        
+
 
         <para>
             Dopo aver estratto i messaggi <code>getMessage()</code> potrebbe essere necessario estrarre le intestazioni, il contenuto o singole parti di un messaggio multipart.
@@ -334,7 +334,7 @@ if (!$foundPart) {
 
     </section>
     <section xml:id="zend.mail.read-flags"><info><title>Controllo dei contrassegni</title></info>
-        
+
 
         <para>
             Maildir e IMAP supportano il salvataggio dei contrassegni.
@@ -400,7 +400,7 @@ if (!$message->hasFlag('$SpamTested')) {
 
     </section>
     <section xml:id="zend.mail.read-folders"><info><title>Utilizzo delle cartelle</title></info>
-        
+
 
         <para>
             Tutti i sistemi di salvataggio, eccetto Pop3, supportano le cartelle anche chiamate mailbox.
@@ -446,7 +446,7 @@ $mail = new Zend_Mail_Storage_Imap(array('host'     => 'example.com'
         </para>
 
         <table xml:id="zend.mail.read-folders.table-1"><info><title>Nomi delle cartelle e-mail</title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>
@@ -513,10 +513,10 @@ $mail->selectFolder($folder);
 
     </section>
     <section xml:id="zend.mail.read-advanced"><info><title>Utilizzo avanzato</title></info>
-        
+
 
         <section xml:id="zend.mail.read-advanced.noop"><info><title>Utilizzo di NOOP</title></info>
-            
+
 
             <para>
                 Se si utilizza un sistema di salvataggio remoto e si devono eseguire alcune attività di lunga durata, è necessario mantenere attiva la connessione via noop:
@@ -537,7 +537,7 @@ foreach ($mail as $message) {
 
         </section>
         <section xml:id="zend.mail.read-advanced.caching"><info><title>Salvataggio in cache delle istanze</title></info>
-            
+
 
             <para>
                 <code>Zend_Mail_Storage_Mbox</code>, <code>Zend_Mail_Storage_Folder_Mbox</code>, <code>Zend_Mail_Storage_Maildir</code> e <code>Zend_Mail_Storage_Folder_Maildir</code> implementano i metodi magici <code>__sleep()</code> e <code>__wakeup()</code>, dunque sono serializzabili. Questo evita di eseguire la lettura dei file o delle cartelle più di una volta.
@@ -566,7 +566,7 @@ $cache->set($cache_id, $mail);
 
         </section>
         <section xml:id="zend.mail.read-advanced.extending"><info><title>Estensione delle classi dei protocolli</title></info>
-            
+
 
             <para>
                 I sistemi di salvataggio remoti utilizzano due classi: <code>Zend_Mail_Storage_&lt;Name&gt;</code> e <code>Zend_Mail_Protocol_&lt;Name&gt;</code>.

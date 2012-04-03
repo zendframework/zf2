@@ -21,16 +21,16 @@
 
 namespace Zend\Translator\Adapter;
 
-use RecursiveDirectoryIterator,
-    RecursiveIteratorIterator,
-    RecursiveRegexIterator,
-    Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Config\Config,
-    Zend\Log,
-    Zend\Locale,
-    Zend\Translator,
-    Zend\Translator\Plural,
-    Zend\Translator\Exception;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RecursiveRegexIterator;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Config\Config;
+use Zend\Log;
+use Zend\Locale;
+use Zend\Translator;
+use Zend\Translator\Plural;
+use Zend\Translator\Exception;
 
 /**
  * Abstract adapter class for each translation source adapter

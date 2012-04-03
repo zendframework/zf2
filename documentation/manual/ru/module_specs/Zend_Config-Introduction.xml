@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.introduction"><info><title>Введение</title></info>
-    
+
     <para>
         <classname>Zend_Config</classname> создан для того, чтобы сделать более
         простым доступ к конфигурационным данным и их использование внутри приложения.
@@ -14,7 +14,7 @@
         и <link linkend="zend.config.adapters.xml"><classname>Zend_Config_Xml</classname></link>.
     </para>
     <example xml:id="zend.config.introduction.example.using"><info><title>Использование Zend_Config</title></info>
-        
+
         <para>
             Обычно предполагается, что используется один из классов адаптеров, например,
             <link linkend="zend.config.adapters.ini"><classname>Zend_Config_Ini</classname></link>
@@ -72,7 +72,7 @@ $db = Zend_Db::factory($config->database);
 $host = $config->database->get('host', 'localhost');
 ]]></programlisting>
     <example xml:id="zend.config.introduction.example.file.php"><info><title>Использование Zend_Config с конфигурационным файлом PHP</title></info>
-        
+
         <para>
             Часто требуется использовать конфигурационный файл,
             основанный на "чистом" <acronym>PHP</acronym>. Следующий код

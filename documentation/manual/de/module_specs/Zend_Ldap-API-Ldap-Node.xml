@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.api.reference.zend-ldap-node"><info><title>Zend_Ldap_Node</title></info>
-    
+
 
     <para>
         <classname>Zend_Ldap_Node</classname> enthält die magischen Zugriffsmethoden
@@ -19,7 +19,7 @@
     </para>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-node.table"><info><title>Zend_Ldap_Node API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
+<section
     xmlns="http://docbook.org/ns/docbook" version="5.0"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xml:id="zend.module.module-autoloader">
@@ -86,7 +86,7 @@ $moduleManager->loadModules();
         </note>
 
     </section>
-    
+
     <section xml:id="zend.module.module-autoloader.non-standard-module-paths">
         <info>
             <title>Non-Standard / Explicit Module Paths</title>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.flashmessenger"><info><title>FlashMessenger</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.flashmessenger.introduction"><info><title>Úvod</title></info>
-        
+
         <para>
             Pomocná trieda <code>FlashMessenger</code> umožnuje odovzdanie správ
             ktoré možno potrebuje vidieť užívateľ pri ďalšom požiadavku. Pri
@@ -19,7 +19,7 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.flashmessenger.basicusage"><info><title>Základné použitie</title></info>
-        
+
         <para>
             Nasledujúci príklad ukazuje jednoduché použitie <code>FlashMessenger</code>.
             Ak zavolá akcia <code>/some/my</code>, tak sa uloží správa "Uložené!".

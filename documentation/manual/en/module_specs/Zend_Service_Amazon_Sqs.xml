@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.sqs"><info><title>Zend_Service_Amazon_Sqs</title></info>
-    
+
 
     <section xml:id="zend.service.amazon.sqs.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://aws.amazon.com/sqs/">Amazon Simple Queue Service
@@ -29,7 +29,7 @@
     </section>
 
     <section xml:id="zend.service.amazon.sqs.registering"><info><title>Registering with Amazon SQS</title></info>
-        
+
 
         <para>
             Before you can get started with
@@ -45,7 +45,7 @@
     </section>
 
     <section xml:id="zend.service.amazon.sqs.apiDocumentation"><info><title>API Documentation</title></info>
-        
+
 
         <para>
             The <classname>Zend_Service_Amazon_Sqs</classname> class provides
@@ -58,7 +58,7 @@
     </section>
 
     <section xml:id="zend.service.amazon.sqs.features"><info><title>Features</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Amazon_Sqs</classname> provides the
@@ -100,7 +100,7 @@
     </section>
 
     <section xml:id="zend.service.amazon.sqs.storing-your-first"><info><title>Getting Started</title></info>
-        
+
 
         <para>
             Once you have registered with Amazon SQS, you're ready to create
@@ -114,7 +114,7 @@
         </para>
 
         <example xml:id="zend.service.amazon.sqs.storing-your-first.example"><info><title>Zend_Service_Amazon_Sqs Usage Example</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $sqs = new Zend_Service_Amazon_Sqs($my_aws_key, $my_aws_secret_key);
@@ -144,7 +144,7 @@ $sqs = new Zend_Service_Amazon_Sqs();
     </section>
 
     <section xml:id="zend.service.amazon.sqs.queues"><info><title>Queue operations</title></info>
-        
+
 
         <para>
             All messages SQS are stored in queues. A queue has to be created
@@ -172,7 +172,7 @@ $sqs = new Zend_Service_Amazon_Sqs();
                 </para>
 
                 <example xml:id="zend.service.amazon.sqs.queues.removalExample"><info><title>Zend_Service_Amazon_Sqs Queue Removal Example</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $sqs = new Zend_Service_Amazon_Sqs($my_aws_key, $my_aws_secret_key);
@@ -189,7 +189,7 @@ $sqs->delete($queue_url);
                 </para>
 
                 <example xml:id="zend.service.amazon.sqs.queues.countExample"><info><title>Zend_Service_Amazon_Sqs Queue Count Example</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $sqs = new Zend_Service_Amazon_Sqs($my_aws_key, $my_aws_secret_key);
@@ -207,7 +207,7 @@ $count = $sqs->count($queue_url); // Returns '1'
                 </para>
 
                 <example xml:id="zend.service.amazon.sqs.queues.listExample"><info><title>Zend_Service_Amazon_Sqs Queue Listing Example</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $sqs = new Zend_Service_Amazon_Sqs($my_aws_key, $my_aws_secret_key);
@@ -222,7 +222,7 @@ foreach($list as $queue) {
     </section>
 
     <section xml:id="zend.service.amazon.sqs.messages"><info><title>Message operations</title></info>
-        
+
 
         <para>
             After a queue is created, simple messages can be sent into the queue
@@ -240,7 +240,7 @@ foreach($list as $queue) {
                 </para>
 
                 <example xml:id="zend.service.amazon.sqs.messages.sendExample"><info><title>Zend_Service_Amazon_Sqs Message Send Example</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $sqs = new Zend_Service_Amazon_Sqs($my_aws_key, $my_aws_secret_key);
@@ -257,7 +257,7 @@ $sqs->send($queue_url, 'this is a test message');
                 </para>
 
                 <example xml:id="zend.service.amazon.sqs.messages.receiveExample"><info><title>Zend_Service_Amazon_Sqs Message Receive Example</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $sqs = new Zend_Service_Amazon_Sqs($my_aws_key, $my_aws_secret_key);
@@ -279,7 +279,7 @@ foreach ($sqs->receive($queue_url) as $message) {
                 </para>
 
                 <example xml:id="zend.service.amazon.sqs.messages.deleteExample"><info><title>Zend_Service_Amazon_Sqs Message Delete Example</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 $sqs = new Zend_Service_Amazon_Sqs($my_aws_key, $my_aws_secret_key);

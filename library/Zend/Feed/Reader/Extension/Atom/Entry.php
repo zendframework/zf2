@@ -20,14 +20,14 @@
 
 namespace Zend\Feed\Reader\Extension\Atom;
 
-use DOMDocument,
-    DOMElement,
-    stdClass,
-    Zend\Date,
-    Zend\Feed\Reader,
-    Zend\Feed\Reader\Collection,
-    Zend\Feed\Reader\Extension,
-    Zend\Uri;
+use DOMDocument;
+use DOMElement;
+use stdClass;
+use Zend\Date;
+use Zend\Feed\Reader;
+use Zend\Feed\Reader\Collection;
+use Zend\Feed\Reader\Extension;
+use Zend\Uri;
 
 /**
 * @category Zend
@@ -106,9 +106,9 @@ class Entry extends Extension\AbstractEntry
         if (array_key_exists('content', $this->_data)) {
             return $this->_data['content'];
         }
-        
+
         $content = null;
-        
+
         $el = $this->getXpath()->query($this->getXpathPrefix() . '/atom:content');
         if($el->length > 0) {
             $el = $el->item(0);
@@ -145,7 +145,7 @@ class Entry extends Extension\AbstractEntry
 
         return $this->_data['content'];
     }
-    
+
     /**
      * Parse out XHTML to remove the namespacing
      */
@@ -486,7 +486,7 @@ class Entry extends Extension\AbstractEntry
 
         return $this->_data['commentfeedlink'];
     }
-    
+
     /**
      * Get all categories
      *
@@ -527,7 +527,7 @@ class Entry extends Extension\AbstractEntry
 
         return $this->_data['categories'];
     }
-    
+
     /**
      * Get source feed metadata from the entry
      *
@@ -538,7 +538,7 @@ class Entry extends Extension\AbstractEntry
         if (array_key_exists('source', $this->_data)) {
             return $this->_data['source'];
         }
-        
+
         $source = null;
         // TODO: Investigate why _getAtomType() fails here. Is it even needed?
         if ($this->getType() == Reader\Reader::TYPE_ATOM_10) {
@@ -548,9 +548,9 @@ class Entry extends Extension\AbstractEntry
                 $source = new Reader\Feed\Atom\Source($element, $this->getXpathPrefix());
             }
         }
-        
+
         $this->_data['source'] = $source;
-        return $this->_data['source']; 
+        return $this->_data['source'];
     }
 
     /**
@@ -583,7 +583,7 @@ class Entry extends Extension\AbstractEntry
         $emailNode = $element->getElementsByTagName('email');
         $nameNode  = $element->getElementsByTagName('name');
         $uriNode   = $element->getElementsByTagName('uri');
-        
+
         if ($emailNode->length && strlen($emailNode->item(0)->nodeValue) > 0) {
             $author['email'] = $emailNode->item(0)->nodeValue;
         }

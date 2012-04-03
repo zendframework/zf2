@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.rest"><info><title>Zend_Rest_Route</title></info>
-    
+
 
     <para>
         Le composant <classname>Zend_Rest</classname> contient une route RESTful pour
@@ -12,7 +12,7 @@
     </para>
 
     <table frame="all"><info><title>Comportement de Zend_Rest_Route</title></info>
-        
+
 
         <tgroup cols="3" align="left" colsep="1" rowsep="1">
             <colspec colname="method"/>
@@ -70,7 +70,7 @@
     </table>
 
     <section xml:id="zend.rest.route_usage"><info><title>Utilisation de Zend_Rest_Route</title></info>
-        
+
 
         <para>
             Pour activer <classname>Zend_Rest_Route</classname> pour une application entière,
@@ -119,7 +119,7 @@ $front->getRouter()->addRoute('rest', $restRoute);
     </section>
 
     <section xml:id="zend.rest.route_config"><info><title>Zend_Rest_Route avec Zend_Config_Ini</title></info>
-        
+
 
         <para>
             To use Zend_Rest_Route from an INI config file, use a route type
@@ -151,7 +151,7 @@ $router->addConfig($config, 'routes');
     </section>
 
     <section xml:id="zend.rest.controller"><info><title>Zend_Rest_Controller</title></info>
-        
+
 
         <para>
             Pour vous aidez à utiliser des contrôleurs avec

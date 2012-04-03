@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.basic_usage"><info><title>基本的な使用法</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Session_Namespace</classname>
@@ -36,7 +36,7 @@ $myNamespace = new Zend_Session_Namespace('myNamespace');
 
     <section xml:id="zend.session.basic_usage.basic_examples"><info><title>チュートリアル</title></info>
 
-        
+
 
         <para>
             何も名前空間を指定せずに <classname>Zend_Session_Namespace</classname> のインスタンスを作成すると、
@@ -50,7 +50,7 @@ $myNamespace = new Zend_Session_Namespace('myNamespace');
 
         <example xml:id="zend.session.basic_usage.basic_examples.example.counting_page_views"><info><title>ページビューの数え方</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $defaultNamespace = new Zend_Session_Namespace('Default');
@@ -87,7 +87,7 @@ echo "このセッションでページがリクエストされた回数: ",
 
         <example xml:id="zend.session.basic_usage.basic_examples.example.namespaces.new"><info><title>新しい方法: 名前空間の衝突を避ける</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 // Zend_Auth コンポーネント用
@@ -108,7 +108,7 @@ $webServiceNamespace->user = "mywebusername";
 
         <example xml:id="zend.session.basic_usage.basic_examples.example.namespaces.old"><info><title>古い方法: PHP のセッションへのアクセス</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $_SESSION['Zend_Auth']['user'] = "myusername";
@@ -121,7 +121,7 @@ $_SESSION['Some_Web_Service']['user'] = "mywebusername";
 
     <section xml:id="zend.session.basic_usage.iteration"><info><title>セッション名前空間の順次処理</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Session_Namespace</classname> は
@@ -131,7 +131,7 @@ $_SESSION['Some_Web_Service']['user'] = "mywebusername";
 
         <example xml:id="zend.session.basic_usage.iteration.example"><info><title>セッションの順次処理</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $aNamespace =
@@ -148,7 +148,7 @@ foreach ($aNamespace as $index => $value) {
 
     <section xml:id="zend.session.basic_usage.accessors"><info><title>セッション名前空間へのアクセス方法</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Session_Namespace</classname> は <methodname>__get()</methodname>、<methodname>__set()</methodname>、
@@ -160,7 +160,7 @@ foreach ($aNamespace as $index => $value) {
 
         <example xml:id="zend.session.basic_usage.accessors.example"><info><title>セッションデータへのアクセス</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $namespace = new Zend_Session_Namespace(); // デフォルトの名前空間

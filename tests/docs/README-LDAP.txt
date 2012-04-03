@@ -18,7 +18,7 @@ a few changes.  First, the slapd.conf needs to be altered:
 
 That contains the hashed password for 'insecure'.
 
-Make sure the daemon is running, 
+Make sure the daemon is running,
 
 Next create the structure that is needed.
 
@@ -32,21 +32,21 @@ Creating top level node, as well as entry for Manager
         objectClass: dcObject
         objectClass: organization
         o: example
-    
+
     Add this:
 
         ldapadd -x -D "cn=Manager,dc=example,dc=com" -W -f ./example.com.ldif
-    
+
     File: manager.example.com.ldif
 
         dn: cn=Manager,dc=example,dc=com
         cn: Manager
         objectClass: organizationalRole
-    
+
     Add this:
 
         ldapadd -x -D "cn=Manager,dc=example,dc=com" -W -f ./manager.example.com.ldif
-        
+
 After this has been added, we can then use something like Apache Studio
 for LDAP to handle creating the rest of the required information.
 

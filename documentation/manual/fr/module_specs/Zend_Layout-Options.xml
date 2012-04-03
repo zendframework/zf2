@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.options"><info><title>Zend_Layout options de configuration</title></info>
-    
+
 
     <para>
         <classname>Zend_Layout</classname> possède quelques options. Vous pouvez les spécifier
@@ -90,7 +90,7 @@
     </itemizedlist>
 
     <note><info><title>Vous devez passer les helperClass et pluginClass à startMvc()</title></info>
-        
+
 
         <para>
             Pour que les paramètres <code>helperClass</code> et <code>pluginClass</code>
@@ -100,7 +100,7 @@
     </note>
 
     <section xml:id="zend.layout.options.examples"><info><title>Exemples</title></info>
-        
+
 
         <para>
             Les exemples sont basés sur les paramètres <varname>$options</varname> et
@@ -127,7 +127,7 @@ $config = new Zend_Config_Ini('/chemin/vers/layout.ini', 'layout');
 ]]></programlisting>
 
         <example xml:id="zend.layout.options.examples.constructor"><info><title>Passer des options au constructeur ou à startMvc()</title></info>
-            
+
 
             <para>
                 Le constructeur et la méthode statique <methodname>startMvc()</methodname> acceptent soit
@@ -163,7 +163,7 @@ $layout = Zend_Layout::startMvc($config);
         </example>
 
         <example xml:id="zend.layout.options.examples.setoptionsconfig"><info><title>Utilisation de setOptions() et setConfig()</title></info>
-            
+
 
             <para>
                 Pour configurer <classname>Zend_Layout</classname> après l'avoir instanciée,
@@ -187,7 +187,7 @@ $layout->setConfig($options);
         </example>
 
         <example xml:id="zend.layout.options.examples.accessors"><info><title>Utilisation des accesseurs</title></info>
-            
+
 
             <para>
                 Enfin, vous pouvez aussi configurer votre objet de

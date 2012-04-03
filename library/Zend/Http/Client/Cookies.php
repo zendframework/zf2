@@ -20,17 +20,17 @@
 
 namespace Zend\Http\Client;
 
-use Zend\Stdlib\ParametersDescription,
-    Zend\Uri,
-    Zend\Http\Header\Cookie,
-    Zend\Http\Response;
+use Zend\Stdlib\ParametersDescription;
+use Zend\Uri;
+use Zend\Http\Header\Cookie;
+use Zend\Http\Response;
 
 /**
  * A Cookies object is designed to contain and maintain HTTP cookies, and should
  * be used along with Zend_Http_Client in order to manage cookies across HTTP requests and
  * responses.
  *
- * The class contains an array of Zend\Http\Header\Cookie objects. Cookies can be added 
+ * The class contains an array of Zend\Http\Header\Cookie objects. Cookies can be added
  * automatically from a request or manually. Then, the Cookies class can find and return the
  * cookies needed for a specific HTTP request.
  *
@@ -95,7 +95,7 @@ class Cookies //implements ParametersDescription
     protected $_rawCookies = array();
 
     /**
-     * Construct 
+     * Construct
      *
      */
     public function __construct()
@@ -381,7 +381,7 @@ class Cookies //implements ParametersDescription
     }
 
     /**
-     * Tells if the array of cookies is empty 
+     * Tells if the array of cookies is empty
      *
      * @return bool
      */

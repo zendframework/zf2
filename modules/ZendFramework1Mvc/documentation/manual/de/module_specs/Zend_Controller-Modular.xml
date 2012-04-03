@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.modular"><info><title>Eine konventionelle modulare Verzeichnis Struktur verwenden</title></info>
-    
+
 
     <section xml:id="zend.controller.modular.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             Eine konventionelle modulare Verzeichnisstruktur erlaubt es verschiedene
@@ -61,7 +61,7 @@ application/
         </para>
 
         <note><info><title>Keine Verwendung von Namensräumen im Standard Modul</title></info>
-            
+
 
             <para>
                 Es ist zu beachten das Controller, im Standardmodul, keinen Prefix für den
@@ -80,7 +80,7 @@ application/
     </section>
 
     <section xml:id="zend.controller.modular.directories"><info><title>Verzeichnisse für Modul Controller spezifizieren</title></info>
-        
+
 
         <para>
             Der erste Schritt um Module zu verwenden ist es, die Art der Spezifizierung der
@@ -179,7 +179,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.router"><info><title>Zu Modulen routen</title></info>
-        
+
 
         <para>
             Die Standardroute in <classname>Zend_Controller_Router_Rewrite</classname> ist ein
@@ -202,7 +202,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.defaultcontroller"><info><title>Modul oder globaler Standard Controller</title></info>
-        
+
 
         <para>
             Im Standardrouter wird der StandardController verwendet

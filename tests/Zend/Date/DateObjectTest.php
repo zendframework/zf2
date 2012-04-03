@@ -21,11 +21,11 @@
 
 namespace ZendTest\Date;
 
-use Zend\Date\Date,
-    Zend\Date\DateObject,
-    Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Locale\Locale;
+use Zend\Date\Date;
+use Zend\Date\DateObject;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Locale\Locale;
 
 /**
  * @category   Zend

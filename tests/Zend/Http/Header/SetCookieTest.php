@@ -127,7 +127,7 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
-    
+
     /**
      * @group ZF2-169
      * @see http://framework.zend.com/issues/browse/ZF2-169

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tag.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_Tag</classname> ist eine Komponenten Suite welche zwei Klassen anbietet
@@ -27,7 +27,7 @@
     </para>
 
     <example xml:id="zend.tag.example.using"><info><title>Verwenden von Zend_Tag</title></info>
-        
+
 
         <para>
             Dieses Beispiel zeigt wie eine Liste von Tags erstellt, und Werte des absoluten Gewichts

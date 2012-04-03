@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="coding-standard"><info><title>Zend Framework Coding Standard for PHP</title></info>
-    
+
 
     <section xml:id="coding-standard.overview"><info><title>Overview</title></info>
-        
+
 
         <section xml:id="coding-standard.overview.scope"><info><title>Scope</title></info>
-            
+
 
             <para>
                 This document provides guidelines for code formatting and documentation to
@@ -50,7 +50,7 @@
         </section>
 
         <section xml:id="coding-standard.overview.goals"><info><title>Goals</title></info>
-            
+
 
             <para>
                 Coding standards are important in any development project, but they are particularly
@@ -62,10 +62,10 @@
     </section>
 
     <section xml:id="coding-standard.php-file-formatting"><info><title>PHP File Formatting</title></info>
-        
+
 
         <section xml:id="coding-standard.php-file-formatting.general"><info><title>General</title></info>
-            
+
 
             <para>
                 For files that contain only <acronym>PHP</acronym> code, the closing tag ("?&gt;") is
@@ -84,13 +84,13 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.indentation"><info><title>Indentation</title></info>
-            
+
 
             <para>Indentation should consist of 4 spaces. Tabs are not allowed.</para>
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.max-line-length"><info><title>Maximum Line Length</title></info>
-            
+
 
             <para>
                 The target line length is 80 characters. That is to say, Zend Framework developers
@@ -101,7 +101,7 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.line-termination"><info><title>Line Termination</title></info>
-            
+
 
             <para>
                 Line termination follows the Unix text file convention. Lines must end with a
@@ -118,10 +118,10 @@
     </section>
 
     <section xml:id="coding-standard.naming-conventions"><info><title>Naming Conventions</title></info>
-        
+
 
         <section xml:id="coding-standard.naming-conventions.classes"><info><title>Classes</title></info>
-            
+
 
             <para>
                 Zend Framework standardizes on a class naming convention whereby the names of the
@@ -168,7 +168,7 @@
         </section>
 
         <section xml:id="coding-standard.naming-conventions.abstracts"><info><title>Abstract Classes</title></info>
-            
+
 
             <para>
                 In general, abstract classes follow the same conventions as <link linkend="coding-standard.naming-conventions.classes">classes</link>,
@@ -233,7 +233,7 @@ abstract class RequestAbstract
         </section>
 
         <section xml:id="coding-standard.naming-conventions.interfaces"><info><title>Interfaces</title></info>
-            
+
 
             <para>
                 In general, interfaces follow the same conventions as <link linkend="coding-standard.naming-conventions.classes">classes</link>,
@@ -262,7 +262,7 @@ abstract class RequestAbstract
         </section>
 
         <section xml:id="coding-standard.naming-conventions.filenames"><info><title>Filenames</title></info>
-            
+
 
             <para>
                 For all other files, only alphanumeric characters, underscores, and the dash
@@ -289,7 +289,7 @@ Zend/View/Helper/FormRadio.php
         </section>
 
         <section xml:id="coding-standard.naming-conventions.functions-and-methods"><info><title>Functions and Methods</title></info>
-            
+
 
             <para>
                 Function names may only contain alphanumeric characters. Underscores are not
@@ -341,7 +341,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.variables"><info><title>Variables</title></info>
-            
+
 
             <para>
                 Variable names may only contain alphanumeric characters. Underscores are not
@@ -371,7 +371,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.constants"><info><title>Constants</title></info>
-            
+
 
             <para>
                 Constants may contain both alphanumeric characters and underscores. Numbers are
@@ -397,10 +397,10 @@ widgetFactory()
     </section>
 
     <section xml:id="coding-standard.coding-style"><info><title>Coding Style</title></info>
-        
+
 
         <section xml:id="coding-standard.coding-style.php-code-demarcation"><info><title>PHP Code Demarcation</title></info>
-            
+
 
             <para>
                 <acronym>PHP</acronym> code must always be delimited by the full-form, standard
@@ -420,10 +420,10 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.coding-style.strings"><info><title>Strings</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.strings.literals"><info><title>String Literals</title></info>
-                
+
 
                 <para>
                     When a string is literal (contains no variable substitutions), the apostrophe or
@@ -436,7 +436,7 @@ $a = 'Example String';
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.literals-containing-apostrophes"><info><title>String Literals Containing Apostrophes</title></info>
-                
+
 
                 <para>
                     When a literal string itself contains apostrophes, it is permitted to demarcate
@@ -455,7 +455,7 @@ $sql = "SELECT `id`, `name` from `people` "
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.variable-substitution"><info><title>Variable Substitution</title></info>
-                
+
 
                 <para>
                     Variable substitution is permitted using either of these forms:
@@ -477,7 +477,7 @@ $greeting = "Hello ${name}, welcome back!";
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.string-concatenation"><info><title>String Concatenation</title></info>
-                
+
 
                 <para>
                     Strings must be concatenated using the "." operator. A space must always
@@ -504,10 +504,10 @@ $sql = "SELECT `id`, `name` FROM `people` "
         </section>
 
         <section xml:id="coding-standard.coding-style.arrays"><info><title>Arrays</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.arrays.numerically-indexed"><info><title>Numerically Indexed Arrays</title></info>
-                
+
 
                 <para>Negative numbers are not permitted as indices.</para>
 
@@ -562,7 +562,7 @@ $sampleArray = array(
             </section>
 
             <section xml:id="coding-standard.coding-style.arrays.associative"><info><title>Associative Arrays</title></info>
-                
+
 
                 <para>
                     When declaring associative arrays with the <type>Array</type> construct,
@@ -603,10 +603,10 @@ $sampleArray = array(
         </section>
 
         <section xml:id="coding-standard.coding-style.classes"><info><title>Classes</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.classes.declaration"><info><title>Class Declaration</title></info>
-                
+
 
                 <para>
                     Classes must be named according to Zend Framework's naming conventions.
@@ -691,7 +691,7 @@ class SampleClass
             </section>
 
             <section xml:id="coding-standard.coding-style.classes.member-variables"><info><title>Class Member Variables</title></info>
-                
+
 
                 <para>
                     Member variables must be named according to Zend Framework's variable naming
@@ -714,10 +714,10 @@ class SampleClass
         </section>
 
         <section xml:id="coding-standard.coding-style.functions-and-methods"><info><title>Functions and Methods</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.declaration"><info><title>Function and Method Declaration</title></info>
-                
+
 
                 <para>
                     Functions must be named according to Zend Framework's function naming
@@ -847,7 +847,7 @@ class Foo
             </section>
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.usage"><info><title>Function and Method Usage</title></info>
-                
+
 
                 <para>
                     Function arguments should be separated by a single trailing space after the
@@ -887,10 +887,10 @@ threeArguments(array(
         </section>
 
         <section xml:id="coding-standard.coding-style.control-statements"><info><title>Control Statements</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.control-statements.if-else-elseif"><info><title>If/Else/Elseif</title></info>
-                
+
 
                 <para>
                     Control statements based on the <emphasis>if</emphasis> and
@@ -984,7 +984,7 @@ if (($a == $b)
             </section>
 
             <section xml:id="coding-standards.coding-style.control-statements.switch"><info><title>Switch</title></info>
-                
+
 
                 <para>
                     Control statements written with the "switch" statement must have a single space
@@ -1031,10 +1031,10 @@ switch ($numPeople) {
         </section>
 
         <section xml:id="coding-standards.inline-documentation"><info><title>Inline Documentation</title></info>
-            
+
 
             <section xml:id="coding-standards.inline-documentation.documentation-format"><info><title>Documentation Format</title></info>
-                
+
 
                 <para>
                     All documentation blocks ("docblocks") must be compatible with the phpDocumentor
@@ -1050,7 +1050,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.files"><info><title>Files</title></info>
-                
+
 
                 <para>
                     Every file that contains <acronym>PHP</acronym> code must have a docblock at
@@ -1095,7 +1095,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.classes"><info><title>Classes</title></info>
-                
+
 
                 <para>
                     Every class must have a docblock that contains these phpDocumentor tags at a
@@ -1140,7 +1140,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.functions"><info><title>Functions</title></info>
-                
+
 
                 <para>
                     Every function, including object methods, must have a docblock that contains at

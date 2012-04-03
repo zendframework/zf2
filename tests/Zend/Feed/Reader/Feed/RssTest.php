@@ -36,11 +36,11 @@ class RssTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $_feedSamplePath = null;
-    
+
     protected $_expectedCats = array();
-    
+
     protected $_expectedCatsRdf = array();
-    
+
     protected $_expectedCatsAtom = array();
 
     public function setup()
@@ -105,7 +105,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             )
         );
     }
-    
+
     public function teardown()
     {
         Date\Date::setOptions($this->_options);
@@ -2560,13 +2560,13 @@ class RssTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals(null, $feed->getHubs());
     }
-    
+
     /**
      * Get category data
      */
-    
+
     // RSS 2.0
-    
+
     public function testGetsCategoriesFromRss20()
     {
         $feed = Reader\Reader::importString(
@@ -2575,9 +2575,9 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCats, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     // DC 1.0
-    
+
     public function testGetsCategoriesFromRss090_Dc10()
     {
         $feed = Reader\Reader::importString(
@@ -2586,7 +2586,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss091_Dc10()
     {
         $feed = Reader\Reader::importString(
@@ -2595,7 +2595,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss092_Dc10()
     {
         $feed = Reader\Reader::importString(
@@ -2604,7 +2604,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss093_Dc10()
     {
         $feed = Reader\Reader::importString(
@@ -2613,7 +2613,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss094_Dc10()
     {
         $feed = Reader\Reader::importString(
@@ -2622,7 +2622,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss10_Dc10()
     {
         $feed = Reader\Reader::importString(
@@ -2631,9 +2631,9 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     // DC 1.1
-    
+
     public function testGetsCategoriesFromRss090_Dc11()
     {
         $feed = Reader\Reader::importString(
@@ -2642,7 +2642,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss091_Dc11()
     {
         $feed = Reader\Reader::importString(
@@ -2651,7 +2651,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss092_Dc11()
     {
         $feed = Reader\Reader::importString(
@@ -2660,7 +2660,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss093_Dc11()
     {
         $feed = Reader\Reader::importString(
@@ -2669,7 +2669,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss094_Dc11()
     {
         $feed = Reader\Reader::importString(
@@ -2678,7 +2678,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss10_Dc11()
     {
         $feed = Reader\Reader::importString(
@@ -2687,9 +2687,9 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsRdf, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     // Atom 1.0
-    
+
     public function testGetsCategoriesFromRss090_Atom10()
     {
         $feed = Reader\Reader::importString(
@@ -2698,7 +2698,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsAtom, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss091_Atom10()
     {
         $feed = Reader\Reader::importString(
@@ -2707,7 +2707,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsAtom, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss092_Atom10()
     {
         $feed = Reader\Reader::importString(
@@ -2716,7 +2716,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsAtom, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss093_Atom10()
     {
         $feed = Reader\Reader::importString(
@@ -2725,7 +2725,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsAtom, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss094_Atom10()
     {
         $feed = Reader\Reader::importString(
@@ -2734,7 +2734,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsAtom, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss10_Atom10()
     {
         $feed = Reader\Reader::importString(
@@ -2743,9 +2743,9 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsAtom, (array) $feed->getCategories());
         $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
-    
+
     // No Categories In Entry
-    
+
     public function testGetsCategoriesFromRss20_None()
     {
         $feed = Reader\Reader::importString(
@@ -2754,7 +2754,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), (array) $feed->getCategories());
         $this->assertEquals(array(), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss090_None()
     {
         $feed = Reader\Reader::importString(
@@ -2763,7 +2763,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), (array) $feed->getCategories());
         $this->assertEquals(array(), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss091_None()
     {
         $feed = Reader\Reader::importString(
@@ -2772,7 +2772,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), (array) $feed->getCategories());
         $this->assertEquals(array(), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss092_None()
     {
         $feed = Reader\Reader::importString(
@@ -2781,7 +2781,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), (array) $feed->getCategories());
         $this->assertEquals(array(), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss093_None()
     {
         $feed = Reader\Reader::importString(
@@ -2790,7 +2790,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), (array) $feed->getCategories());
         $this->assertEquals(array(), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss094_None()
     {
         $feed = Reader\Reader::importString(
@@ -2799,7 +2799,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), (array) $feed->getCategories());
         $this->assertEquals(array(), array_values($feed->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromRss10_None()
     {
         $feed = Reader\Reader::importString(

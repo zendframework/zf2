@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.digest"><info><title>摘要式认证</title></info>
 
-    
+
 
     <section xml:id="zend.auth.adapter.digest.introduction"><info><title>简介</title></info>
 
-        
+
 
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Digest_access_authentication">摘要式认证</link>是一个HTTP认证的方法，它通过不需要通过网络传递明文密码的方法对<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Basic_authentication_scheme">基本认证</link>加以改进。
@@ -42,7 +42,7 @@ someUser:Some Realm:fde17b91c3a510ecbaf7dbd37f59d4f8
 
     <section xml:id="zend.auth.adapter.digest.specifics"><info><title>规范（Specifics）</title></info>
 
-        
+
 
         <para>
             摘要式认证适配器<code>Zend_Auth_Adapter_Digest</code>需要若干输入参数：
@@ -75,7 +75,7 @@ someUser:Some Realm:fde17b91c3a510ecbaf7dbd37f59d4f8
 
     <section xml:id="zend.auth.adapter.digest.identity"><info><title>身份（Identity）</title></info>
 
-        
+
 
         <para>
             摘要式认证返回一个<code>Zend_Auth_Result</code> 对象，它由包含<code>realm</code>和<code>username</code>健值的数组的身份形成。在<code>authenticate()</code>被调用之前，分别设置和这些健值关联的数组值为相符的值。

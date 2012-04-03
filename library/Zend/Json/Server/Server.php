@@ -20,12 +20,12 @@
 
 namespace Zend\Json\Server;
 
-use ReflectionFunction,
-    ReflectionMethod,
-    Zend\Server\AbstractServer,
-    Zend\Server\Definition,
-    Zend\Server\Method,
-    Zend\Server\Reflection;
+use ReflectionFunction;
+use ReflectionMethod;
+use Zend\Server\AbstractServer;
+use Zend\Server\Definition;
+use Zend\Server\Method;
+use Zend\Server\Reflection;
 
 /**
  * @category   Zend
@@ -547,8 +547,8 @@ class Server extends AbstractServer
             if ('function' == $callback->getType()) {
                 $reflection = new ReflectionFunction( $callback->getFunction() );
             } else {
-                
-                $reflection = new ReflectionMethod( 
+
+                $reflection = new ReflectionMethod(
                     $callback->getClass(),
                     $callback->getMethod()
                 );

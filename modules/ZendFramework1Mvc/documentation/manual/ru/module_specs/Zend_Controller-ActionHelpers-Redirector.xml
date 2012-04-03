@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.redirector"><info><title>Redirector</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.redirector.introduction"><info><title>Введение</title></info>
-        
+
 
         <para>
             Помощник <code>Redirector</code> позволяет использовать объект
@@ -131,10 +131,10 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.redirector.basicusage"><info><title>Базовые примеры использования</title></info>
-        
+
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-1"><info><title>Опции настройки</title></info>
-            
+
 
             <para>
                 В этом примере переопределяются несколько опций, включая
@@ -181,7 +181,7 @@ class SomeController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-2"><info><title>Использование по умолчанию</title></info>
-            
+
 
             <para>
                 Этот пример предполагает, что используются значения по
@@ -219,7 +219,7 @@ class AlternativeController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-3"><info><title>Использование интерфейса _forward() для gotoSimple()</title></info>
-            
+
 
             <para>
                 Метод <code>gotoSimple()</code> копирует интерфейс метода
@@ -266,7 +266,7 @@ class ForwardController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-4"><info><title>Использование маршрута с gotoRoute()</title></info>
-            
+
 
             <para>
                 Следующий пример использует метод <code>assemble()</code>

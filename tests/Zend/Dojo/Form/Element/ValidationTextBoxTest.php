@@ -21,10 +21,10 @@
 
 namespace ZendTest\Dojo\Form\Element;
 
-use Zend\Dojo\Form\Element\ValidationTextBox as ValidationTextBoxElement,
-    Zend\Dojo\View\Helper\Dojo as DojoHelper,
-    Zend\Registry,
-    Zend\View;
+use Zend\Dojo\Form\Element\ValidationTextBox as ValidationTextBoxElement;
+use Zend\Dojo\View\Helper\Dojo as DojoHelper;
+use Zend\Registry;
+use Zend\View;
 
 /**
  * Test class for Zend_Dojo_Form_Element_ValidationTextBox.
@@ -145,13 +145,13 @@ class ValidationTextBoxTest extends \PHPUnit_Framework_TestCase
         $html = $this->element->render();
         $this->assertContains('dojoType="dijit.form.ValidationTextBox"', $html);
     }
-    
+
     public function testSettingMultipleConstraintsShouldNotOverridePreviousConstraints()
     {
         $this->element->setConstraint('foo', 'bar');
-        
+
         $this->element->setConstraints(array('spam' => 'ham'));
-        
+
         $this->assertEquals('bar', $this->element->getConstraint('foo'));
     }
 }

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.queue.stomp"><info><title>Stomp</title></info>
-    
+
     <para>
         <classname>Zend_Queue_Stomp</classname>は、
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://stomp.codehaus.org/">Stomp</link>互換の一部のサーバと通信するために、
@@ -24,7 +24,7 @@
     </para>
 
     <section xml:id="zend.queue.adapters-configuration.stomp"><info><title>Stomp - サポートするクラス</title></info>
-        
+
 
         <itemizedlist>
             <listitem>

@@ -21,9 +21,9 @@
 
 namespace Zend\Cache;
 
-use Traversable,
-    Zend\Loader\Broker,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Loader\Broker;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @category   Zend

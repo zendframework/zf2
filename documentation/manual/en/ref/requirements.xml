@@ -2,10 +2,10 @@
 
 
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="requirements"><info><title>Zend Framework Requirements</title></info>
-    
+
 
     <section xml:id="requirements.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Zend Framework requires a <acronym>PHP</acronym> 5 interpreter with a web server
@@ -23,7 +23,7 @@
         </para>
 
         <section xml:id="requirements.version"><info><title>PHP Version</title></info>
-            
+
 
             <para>
                 Zend recommends the most current release of <acronym>PHP</acronym> for critical
@@ -38,7 +38,7 @@
         </section>
 
         <section xml:id="requirements.extensions"><info><title>PHP Extensions</title></info>
-            
+
 
             <para>
                 You will find a table listing all extensions typically found in
@@ -62,7 +62,7 @@
         </section>
 
         <section xml:id="requirements.zendcomponents"><info><title>Zend Framework Components</title></info>
-            
+
 
             <para>
                 Below is a table that lists all available Zend Framework Components
@@ -86,7 +86,7 @@
         </section>
 
         <section xml:id="requirements.dependencies"><info><title>Zend Framework Dependencies</title></info>
-            
+
 
             <para>
                 Below you can find a table listing Zend Framework Components

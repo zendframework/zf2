@@ -22,8 +22,8 @@
 
 namespace ZendTest\Loader;
 
-use ReflectionClass,
-    Zend\Loader\AutoloaderFactory;
+use ReflectionClass;
+use Zend\Loader\AutoloaderFactory;
 
 /**
  * @category   Zend
@@ -93,7 +93,7 @@ class AutoloaderFactoryTest extends \PHPUnit_Framework_TestCase
         }
         include __DIR__ . '/_files/InvalidInterfaceAutoloader.php';
         AutoloaderFactory::factory(array(
-            'InvalidInterfaceAutoloader' => array()            
+            'InvalidInterfaceAutoloader' => array()
         ));
     }
 

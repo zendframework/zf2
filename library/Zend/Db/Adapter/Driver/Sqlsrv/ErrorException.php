@@ -32,18 +32,18 @@ class ErrorException extends \Exception
 {
     /**
      * Errors
-     * 
+     *
      * @var array
      */
     protected $errors = array();
     /**
      * Construct
-     * 
-     * @param boolean $errors 
+     *
+     * @param boolean $errors
      */
     public function __construct($errors = false)
     {
         $this->errors = ($errors === false) ? sqlsrv_errors() : $errors;
     }
-    
+
 }

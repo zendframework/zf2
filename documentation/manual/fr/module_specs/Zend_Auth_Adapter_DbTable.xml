@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.dbtable"><info><title>Authentification avec une table de base de données</title></info>
-    
+
 
     <section xml:id="zend.auth.adapter.dbtable.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_DbTable</classname> fournit la possibilité d'authentifier
@@ -62,7 +62,7 @@
         </itemizedlist>
 
         <example xml:id="zend.auth.adapter.dbtable.introduction.example.basic_usage"><info><title>Utilisation basique</title></info>
-            
+
 
             <para>
                 Comme expliqué dans l'introduction, le constructeur de
@@ -177,7 +177,7 @@ Array
     </section>
 
     <section xml:id="zend.auth.adapter.dbtable.advanced.storing_result_row"><info><title>Utilisation avancée : maintenir persistant l'objet de résultat DbTable</title></info>
-        
+
 
         <para>
             Par défaut, <classname>Zend_Auth_Adapter_DbTable</classname> retourne l'identité
@@ -217,7 +217,7 @@ if ($result->isValid()) {
     </section>
 
     <section xml:id="zend.auth.adapter.dbtable.advanced.advanced_usage"><info><title>Utilisation avancée par l'exemple</title></info>
-        
+
 
         <para>
             Bien que le but initial de <classname>Zend_Auth</classname> (et par extension celui de

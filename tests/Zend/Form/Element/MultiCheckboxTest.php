@@ -21,13 +21,13 @@
 
 namespace ZendTest\Form\Element;
 
-use Zend\Form\Element\MultiCheckbox as MultiCheckboxElement,
-    Zend\Form\Element\Multi as MultiElement,
-    Zend\Form\Element\Xhtml as XhtmlElement,
-    Zend\Form\Element,
-    Zend\Form\Decorator,
-    Zend\Form\Form,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Element\MultiCheckbox as MultiCheckboxElement;
+use Zend\Form\Element\Multi as MultiElement;
+use Zend\Form\Element\Xhtml as XhtmlElement;
+use Zend\Form\Element;
+use Zend\Form\Decorator;
+use Zend\Form\Form;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Element_MultiCheckbox
@@ -250,7 +250,7 @@ class MultiCheckboxTest extends \PHPUnit_Framework_TestCase
         $this->element->isValid(array('foo', 'bogus'));
         $html = $this->element->render($this->getView());
     }
- 
+
     /**
      * @group ZF-11402
     */
@@ -268,7 +268,7 @@ class MultiCheckboxTest extends \PHPUnit_Framework_TestCase
 
         $this->element->setAllowEmpty(true);
         $this->assertTrue($this->element->isValid(array()));
- 
+
         // Empty value + AllowEmpty=true = no error messages
         $messages = $this->element->getMessages();
         $this->assertEquals(0, count($messages), 'Received unexpected error message(s)');

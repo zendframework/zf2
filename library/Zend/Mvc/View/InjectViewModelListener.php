@@ -21,11 +21,11 @@
 
 namespace Zend\Mvc\View;
 
-use Zend\EventManager\EventCollection as Events,
-    Zend\EventManager\ListenerAggregate,
-    Zend\Mvc\MvcEvent,
-    Zend\Mvc\Router\RouteMatch,
-    Zend\View\Model as ViewModel;
+use Zend\EventManager\EventCollection as Events;
+use Zend\EventManager\ListenerAggregate;
+use Zend\Mvc\MvcEvent;
+use Zend\Mvc\Router\RouteMatch;
+use Zend\View\Model as ViewModel;
 
 class InjectViewModelListener implements ListenerAggregate
 {

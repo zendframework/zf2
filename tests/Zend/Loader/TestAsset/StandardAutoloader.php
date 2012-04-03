@@ -36,7 +36,7 @@ class StandardAutoloader extends Psr0Autoloader
 {
     /**
      * Get registered namespaces
-     * 
+     *
      * @return array
      */
     public function getNamespaces()
@@ -46,7 +46,7 @@ class StandardAutoloader extends Psr0Autoloader
 
     /**
      * Get registered prefixes
-     * 
+     *
      * @return array
      */
     public function getPrefixes()

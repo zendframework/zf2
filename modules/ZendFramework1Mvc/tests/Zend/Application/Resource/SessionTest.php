@@ -21,10 +21,10 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application,
-    Zend\Application\Resource\Session as SessionResource,
-    Zend\Controller\Front as FrontController;
+use Zend\Loader\Autoloader;
+use Zend\Application;
+use Zend\Application\Resource\Session as SessionResource;
+use Zend\Controller\Front as FrontController;
 
 /**
  * @category   Zend

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.usage"><info><title>Zend_Pdf モジュールの使用例</title></info>
-    
+
     <para>
     この節では、モジュールの使用例を示します。
     </para>
@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.pdf.usage.example-1"><info><title>Zend_Pdf モジュールの使用例</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 /**
  * @package Zend_Pdf

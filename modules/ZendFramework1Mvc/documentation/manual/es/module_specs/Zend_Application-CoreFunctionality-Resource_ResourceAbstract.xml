@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.resource-resourceabstract"><info><title>Zend_Application_Resource_ResourceAbstract</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_ResourceAbstract</classname>
@@ -20,7 +20,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.resource-resourceabstract.api"><info><title>Zend_Application_Resource_ResourceAbstract Methods</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>
@@ -146,7 +146,7 @@
         </tgroup>
     </table>
     <section xml:id="zend.application.core-functionality.resource-resourceabstract.names"><info><title>Resource Names</title></info>
-        
+
 
         <para>
             When registering plugin resources, one issue that arises is how you

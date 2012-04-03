@@ -21,11 +21,11 @@
 
 namespace ZendTest\Dojo\Form\Element;
 
-use Zend\Dojo\Form\Element\TimeTextBox as TimeTextBoxElement,
-    Zend\Dojo\Form\Element\DateTextBox as DateTextBoxElement,
-    Zend\Dojo\View\Helper\Dojo as DojoHelper,
-    Zend\Registry,
-    Zend\View;
+use Zend\Dojo\Form\Element\TimeTextBox as TimeTextBoxElement;
+use Zend\Dojo\Form\Element\DateTextBox as DateTextBoxElement;
+use Zend\Dojo\View\Helper\Dojo as DojoHelper;
+use Zend\Registry;
+use Zend\View;
 
 /**
  * Test class for Zend_Dojo_Form_Element_TimeTextBox.
@@ -153,7 +153,7 @@ class TimeTextBoxTest extends \PHPUnit_Framework_TestCase
     {
         $this->element->setValue('T08:00');
         $html = $this->element->render();
-        
+
         $this->assertSame('T08:00', $this->element->getValue());
         $this->assertContains('value="T08:00"', $html);
     }

@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.refining"><info><title>Analiza kontroli dostępu</title></info>
 
-    
+
 
     <section xml:id="zend.acl.refining.precise"><info><title>Precyzyjna kontrola dostępu</title></info>
 
-        
+
 
         <para>
             Podstawowe <acronym>ACL</acronym> zdefiniowane w
             <link linkend="zend.acl.introduction">poprzedniej sekcji</link> pokazują
-            jakie rozmaite uprawnienia mogą być dozwolone dla <acronym>ACL</acronym> 
-            (dla wszystkich zasobów). W praktyce, kontrola dostępu ma skłonność do 
-            posiadania wyjątków od reguł oraz różnych stopni skomplikowania. 
-            <classname>Zend_Acl</classname> pozwoli ci przeprowadzić te analizy 
+            jakie rozmaite uprawnienia mogą być dozwolone dla <acronym>ACL</acronym>
+            (dla wszystkich zasobów). W praktyce, kontrola dostępu ma skłonność do
+            posiadania wyjątków od reguł oraz różnych stopni skomplikowania.
+            <classname>Zend_Acl</classname> pozwoli ci przeprowadzić te analizy
             w przystępny i elastyczny sposób.
         </para>
 
         <para>
-            W przykładowej aplikacji <acronym>CMS</acronym>, zostało zdecydowane, 
-            że podczas gdy grupa 'staff' pokryje potrzeby większości użytkowników, 
-            potrzebna jest jeszcze jedna nowa grupa 'marketing', która wymaga dostępu 
-            do newslettera oraz ostatnich nowości w <acronym>CMS</acronym>. Ta grupa 
+            W przykładowej aplikacji <acronym>CMS</acronym>, zostało zdecydowane,
+            że podczas gdy grupa 'staff' pokryje potrzeby większości użytkowników,
+            potrzebna jest jeszcze jedna nowa grupa 'marketing', która wymaga dostępu
+            do newslettera oraz ostatnich nowości w <acronym>CMS</acronym>. Ta grupa
             jest naprawdę samowystarczalna i będzie dawała możliwość publikowania oraz
             archiwizowania zarówno newsletterów jak i ostatnich nowości.
         </para>
@@ -89,7 +89,7 @@ $acl->deny(null, 'announcement', 'archive');
 ]]></programlisting>
 
         <para>
-            Teraz możemy przeprowadzić zapytanie do <acronym>ACL</acronym> z 
+            Teraz możemy przeprowadzić zapytanie do <acronym>ACL</acronym> z
             uwzględnieniem ostatnich zmian:
         </para>
 
@@ -131,14 +131,14 @@ echo $acl->isAllowed('administrator', 'announcement', 'archive') ?
 
     <section xml:id="zend.acl.refining.removing"><info><title>Usuwanie kontroli dostępu</title></info>
 
-        
+
 
         <para>
-            Aby usunąć jedną lub więcej reguł z <acronym>ACL</acronym>, po prostu użyj 
-            dostępnych metod <methodname>removeAllow()</methodname> lub 
-            <methodname>removeDeny()</methodname>. Podobnie jak w  metodach 
-            <methodname>allow()</methodname> oraz <methodname>deny()</methodname>, 
-            możesz podać wartość <constant>NULL</constant> aby oznaczyć wszystkie 
+            Aby usunąć jedną lub więcej reguł z <acronym>ACL</acronym>, po prostu użyj
+            dostępnych metod <methodname>removeAllow()</methodname> lub
+            <methodname>removeDeny()</methodname>. Podobnie jak w  metodach
+            <methodname>allow()</methodname> oraz <methodname>deny()</methodname>,
+            możesz podać wartość <constant>NULL</constant> aby oznaczyć wszystkie
             role, wszystkie zasoby i/lub wszystkie przywileje:
         </para>
 

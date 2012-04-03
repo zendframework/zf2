@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set"><info><title>Classes de filtre standards</title></info>
-    
+
 
     <para>
         Zend Framework est fourni avec un jeu de filtres standards, qui sont directement
@@ -63,7 +63,7 @@
     </xi:include>
 
     <section xml:id="zend.filter.set.stripnewlines"><info><title>Int</title></info>
-        
+
 
         <para>
             Retourne la valeur <varname>$value</varname> en enlevant les caractères représentant une
@@ -72,7 +72,7 @@
     </section>
 
     <section xml:id="zend.filter.set.striptags"><info><title>StripTags</title></info>
-        
+
 
         <para>
             Ce filtre retourne une chaîne, où toutes les balises HTML et <acronym>PHP</acronym> sont supprimées,

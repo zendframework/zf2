@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-secure"><info><title>Защищенное SMTP-соединение</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> также поддерживает использование
@@ -13,7 +13,7 @@
     </para>
 
     <example xml:id="zend.mail.smtp-secure.example-1"><info><title>Включение защищенного соединения через Zend_Mail_Transport_Smtp</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $config = array('ssl' => 'tls',

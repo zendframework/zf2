@@ -21,10 +21,10 @@
 
 namespace Zend\Db\Adapter\Driver\Pdo;
 
-use Zend\Db\Adapter\Driver\ResultInterface,
-    Iterator,
-    PDO as PDOResource,
-    PDOStatement;
+use Zend\Db\Adapter\Driver\ResultInterface;
+use Iterator;
+use PDO as PDOResource;
+use PDOStatement;
 
 /**
  * @category   Zend
@@ -74,12 +74,12 @@ class Result implements Iterator, ResultInterface
      * @var int
      */
     protected $position = -1;
-    
+
     /**
      * Initialize
-     * 
+     *
      * @param  PDOStatement $resource
-     * @return Result 
+     * @return Result
      */
     public function initialize(PDOStatement $resource)
     {
@@ -88,14 +88,14 @@ class Result implements Iterator, ResultInterface
     }
     /**
      * Get resource
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function getResource()
     {
         return $this->resource;
     }
-    
+
     /**
      * @todo Should we allow passing configuration flags to the fetch() call?
      */
@@ -110,8 +110,8 @@ class Result implements Iterator, ResultInterface
     }
     /**
      * Next
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function next()
     {
@@ -120,10 +120,10 @@ class Result implements Iterator, ResultInterface
         $this->position++;
         return $this->currentData;
     }
-    /** 
+    /**
      * Key
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function key()
     {
@@ -144,7 +144,7 @@ class Result implements Iterator, ResultInterface
     }
     /**
      * Valid
-     * 
+     *
      * @return boolean
      */
     public function valid()
@@ -153,8 +153,8 @@ class Result implements Iterator, ResultInterface
     }
     /**
      * Count
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function count()
     {
@@ -162,8 +162,8 @@ class Result implements Iterator, ResultInterface
     }
     /**
      * Is query result
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isQueryResult()
     {
@@ -171,8 +171,8 @@ class Result implements Iterator, ResultInterface
     }
     /**
      * Get affected rows
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getAffectedRows()
     {

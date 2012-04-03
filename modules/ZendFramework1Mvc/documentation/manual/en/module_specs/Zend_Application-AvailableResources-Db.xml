@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.db"><info><title>Zend_Application_Resource_Db</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Db</classname> will initialize a
@@ -47,7 +47,7 @@
     </itemizedlist>
 
     <example xml:id="zend.application.available-resources.db.configExample"><info><title>Sample DB adapter resource configuration</title></info>
-        
+
 
         <para>
             Below is an example <acronym>INI</acronym> configuration that can be used to initialize
@@ -69,7 +69,7 @@ resources.db.defaultMetadataCache = "database"
     </example>
 
     <note><info><title>Retrieving the Adapter instance</title></info>
-        
+
 
         <para>
             If you choose not to make the adapter instantiated with this

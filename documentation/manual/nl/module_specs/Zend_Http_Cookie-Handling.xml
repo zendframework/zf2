@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.http.cookies"><info><title>Zend_Http_Cookie and Zend_Http_CookieJar</title></info>
-    
+
 
     <section xml:id="zend.http.cookies.introduction"><info><title>Inleiding</title></info>
-        
+
         <para>
             Zend_Http_Cookie is, zoals verwacht, een klasse die een HTTP cookie voorstelt.
             Ze verstrekt methodes voor het inlezen van HTTP response strings, cookies verzamelen
@@ -24,7 +24,7 @@
     </section>
 
     <section xml:id="zend.http.cookies.cookie.instantiating"><info><title>Instantiating Zend_Http_Cookie Objects</title></info>
-        
+
         <para>
             Instantiating a Cookie object can be done in two ways:
             <itemizedlist>
@@ -79,7 +79,7 @@
                 </listitem>
             </itemizedlist>
             <example><info><title>Instantiating a Zend_Http_Cookie object</title></info>
-               
+
                <programlisting role="php"><![CDATA[<?php
 // First, using the constructor. This cookie will expire in 2 hours
 $cookie = new Zend_Http_Cookie('foo', 'bar', '.example.com', time() + 7200, '/path');
@@ -107,7 +107,7 @@ $cookie = Zend_Http_Cookie::fromString('foo=bar; secure;', 'http://www.example.c
             and value, and terminated by a semicolon (';').
             The value will be URL encoded, as expected in a Cookie header:
             <example><info><title>Stringifying a Zend_Http_Cookie object</title></info>
-               
+
                <programlisting role="php"><![CDATA[<?php
 // Create a new cookie
 $cookie = new Zend_Http_Cookie('foo', 'two words', '.example.com', time() + 7200, '/path');
@@ -126,7 +126,7 @@ echo $cookie;
     </section>
 
     <section xml:id="zend.http.cookies.cookie.accessors"><info><title>Zend_Http_Cookie getter methods</title></info>
-        
+
         <para>
             Once a Zend_Http_Cookie object is instantiated, it provides several getter methods to get
             the different properties of the HTTP cookie:
@@ -185,7 +185,7 @@ echo $cookie;
         </para>
         <para>
             <example><info><title>Using getter methods with Zend_Http_Cookie</title></info>
-                
+
                 <programlisting role="php"><![CDATA[<?php
 // First, create the cookie
 $cookie = Zend_Http_Client('foo=two+words; domain=.example.com; path=/somedir; secure; expires=Wednesday, 28-Feb-05 20:41:22 UTC');
@@ -212,7 +212,7 @@ echo ($cookie->isSessionCookie() ? 'Yes' : 'No');
     </section>
 
     <section xml:id="zend.http.cookies.cookie.matching"><info><title>Zend_Http_Cookie: Matching against a scenario</title></info>
-        
+
         <para>
             The only real logic contained in a Zend_Http_Cookie object, is in the match() method.
             This method is used to test a cookie against a given HTTP request scenario, in order
@@ -241,7 +241,7 @@ echo ($cookie->isSessionCookie() ? 'Yes' : 'No');
                 </listitem>
             </itemizedlist>
             <example><info><title>Matching cookies</title></info>
-                
+
                 <programlisting role="php"><![CDATA[<?php
 // Create the cookie object - first, a secure session cookie
 $cookie = Zend_Http_Client('foo=two+words; domain=.example.com; path=/somedir; secure;');
@@ -284,7 +284,7 @@ $cookie->match('http://www.example.com/', true, time() + (3 * 3600));
     </section>
 
     <section xml:id="zend.http.cookies.cookiejar"><info><title>The Zend_Http_CookieJar Class: Instantiation</title></info>
-        
+
         <para>
             In most cases, there is no need to directly instantiate a
             Zend_Http_CookieJar object. If you want to attach a new cookie jar
@@ -308,7 +308,7 @@ $cookie->match('http://www.example.com/', true, time() + (3 * 3600));
     </section>
 
     <section xml:id="zend.http.cookies.cookiejar.adding_cookies"><info><title>Adding Cookies to a Zend_Http_CookieJar object</title></info>
-        
+
         <para>
             Usually, the Zend_Http_Client object you attached your CookieJar object
             to will automatically add cookies set by HTTP responses to your jar. If
@@ -339,7 +339,7 @@ $cookie->match('http://www.example.com/', true, time() + (3 * 3600));
     </section>
 
     <section xml:id="zend.http.cookies.cookiejar.getting_cookies"><info><title>Retrieving Cookies From a Zend_Http_CookieJar object</title></info>
-        
+
         <para>
             Just like with adding cookies, there is usually no need to manually
             fetch cookies from a CookieJar object. Your Zend_Http_Client object

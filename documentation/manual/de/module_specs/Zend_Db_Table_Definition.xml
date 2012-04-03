@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.definition"><info><title>Zend_Db_Table_Definition</title></info>
-    
+
 
     <section xml:id="zend.db.table.definition.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Db_Table_Definition</classname> ist eine Klasse die verwendet werden
@@ -14,7 +14,7 @@
     </section>
 
     <section xml:id="zend.db.table.definition.usage"><info><title>Grundsätzliche Verwendung</title></info>
-        
+
 
         <para>
             Für alle gleichen Optionen die vorhanden sind wenn eine erweiterte
@@ -32,7 +32,7 @@
         </para>
 
         <example xml:id="zend.db.table.definition.example1"><info><title>Die Definition eines Datenbank Data Modells beschreiben</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $definition = new Zend_Db_Table_Definition(array(
@@ -85,7 +85,7 @@ $definition = new Zend_Db_Table_Definition(array(
         </para>
 
         <example xml:id="zend.db.table.definition.example2"><info><title>Mit der beschriebenen Definition interagieren</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $authorTable = new Zend_Db_Table('author', $definition);
@@ -114,7 +114,7 @@ foreach ($authors as $author) {
     </section>
 
     <section xml:id="zend.db.table.definition.advanced-usage"><info><title>Fortgeschrittene Verwendung</title></info>
-        
+
 
         <para>
             Manchmal will man beide Paradigmen für die Definition und Verwendung des
@@ -132,7 +132,7 @@ foreach ($authors as $author) {
         </para>
 
         <example xml:id="zend.db.table.definition.example3"><info><title>Mit einer gemischten Zend_Db_Table Definition interagieren</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 class MyBook extends Zend_Db_Table_Abstract

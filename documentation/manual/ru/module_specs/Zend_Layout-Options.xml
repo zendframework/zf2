@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.options"><info><title>Опции конфигурирования Zend_Layout</title></info>
-    
+
 
     <para>
         <code>Zend_Layout</code> имеет свой набор конфигурационных опций. Они
@@ -84,7 +84,7 @@
     </itemizedlist>
 
     <note><info><title>helperClass и pluginClass должны передаваться startMvc()</title></info>
-        
+
 
         <para>
             Для того чтобы установка опций <code>helperClass</code> и
@@ -95,7 +95,7 @@
     </note>
 
     <section xml:id="zend.layout.options.examples"><info><title>Примеры</title></info>
-        
+
 
         <para>
             Следующие примеры предполагают наличие следующих массива опций и
@@ -121,7 +121,7 @@ $config = new Zend_Config_Ini('/path/to/layout.ini', 'layout');
 ?>]]></programlisting>
 
         <example xml:id="zend.layout.options.examples.constructor"><info><title>Передача опций конструктору или startMvc()</title></info>
-            
+
 
             <para>
                 Как конструктор, так и статический метод <code>startMvc()</code>
@@ -163,7 +163,7 @@ $layout = Zend_Layout::startMvc($config);
         </example>
 
         <example xml:id="zend.layout.options.examples.setoptionsconfig"><info><title>Использование setOption() и setConfig()</title></info>
-            
+
 
             <para>
                 Иногда нужно сконфигурировать объект <code>Zend_Layout</code>
@@ -190,7 +190,7 @@ $layout->setConfig($options);
         </example>
 
         <example xml:id="zend.layout.options.examples.accessors"><info><title>Использование аксессоров</title></info>
-            
+
 
             <para>
                 И наконец, вы можете конфигурировать свой экземпляр с

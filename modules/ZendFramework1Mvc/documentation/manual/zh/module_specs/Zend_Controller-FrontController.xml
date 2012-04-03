@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.front"><info><title>前端控制器</title></info>
-    
+
 
     <section xml:id="zend.controller.front.overview"><info><title>概述</title></info>
-        
+
 
         <para>
             <code>Zend_Controller_Front</code>实现了<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Model-view-controller">模型-视图-控制器 (MVC)</link>应用程序的<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.martinfowler.com/eaaCatalog/frontController.html">前端控制器模式</link>。目的在于初始化请求环境，并路由到来的请求，接着分发任何发现的动作；收集所有的响应，在整个过程完成时就其返回。
@@ -22,7 +22,7 @@
         </para>
 
         <note><info><title>默认的行为</title></info>
-            
+
             <para>
                 默认地，前端控制器加载<link linkend="zend.controller.plugins.standard.errorhandler">ErrorHandler</link>插件，以及<link linkend="zend.controller.actionhelpers.viewrenderer">ViewRenderer</link>动作助手，分别为了简化控制器中的错误处理和视图渲染。
             </para>
@@ -50,14 +50,14 @@ $front->setParam('noViewRenderer', true);
     </section>
 
     <section xml:id="zend.controller.front.methods.primary"><info><title>主要方法</title></info>
-        
+
 
         <para>
             前端控制器有很多建立其环境的访问器。但是，有三个是开启前端控制器功能的主要方法：
         </para>
 
         <section xml:id="zend.controller.front.methods.primary.getinstance"><info><title>getInstance()</title></info>
-            
+
 
             <para>
                 <code>getInstance()</code>方法用来获取前端控制器实例。因为前端控制器实现了单件模式，这可能是唯一创建前端控制器对象的方法。
@@ -70,7 +70,7 @@ $front = Zend_Controller_Front::getInstance();
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.setcontrollerdirectory"><info><title>setControllerDirectory() 和 addControllerDirectory()</title></info>
-            
+
 
             <para>
                 <code>setControllerDirectory()</code>通知<link linkend="zend.controller.dispatcher">分发器</link>到哪查找动作控制器<link linkend="zend.controller.action">action controller</link>类文件。参数接受单一路径和模块/路径对关联数组。
@@ -108,7 +108,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.addmoduledirectory"><info><title>addModuleDirectory() and getModuleDirectory()</title></info>
-            
+
 
             <para>
                 前端控制器的一个功能是你可以
@@ -134,7 +134,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.dispatch"><info><title>dispatch()</title></info>
-            
+
 
             <para>
                 <code>dispatch(Zend_Controller_Request_Abstract $request = null, Zend_Controller_Response_Abstract $response = null)</code>完成前端控制器最繁重的工作。该方法带有可选的参数<link linkend="zend.controller.request">请求对象</link>和/或<link linkend="zend.controller.response">响应对象</link>，允许开发人员为每一个传入定制的对象。
@@ -164,7 +164,7 @@ $front->addControllerDirectory('../modules/foo/controllers', 'foo');
         </section>
 
         <section xml:id="zend.controller.front.methods.primary.run"><info><title>run()</title></info>
-            
+
 
             <para>
                 <code>Zend_Controller_Front::run($path)</code>是静态方法，只带一个参数，就是指向包含控制器的目录的路径。它首先通过<link linkend="zend.controller.front.methods.primary.getinstance">getInstance()</link>获取前端控制器实例，然后通过<link linkend="zend.controller.front.methods.primary.setcontrollerdirectory">setControllerDirectory()</link>注册传入的路径，最后<link linkend="zend.controller.front.methods.primary.dispatch">分发</link>。
@@ -184,7 +184,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.environment"><info><title>环境访问器方法</title></info>
-        
+
 
         <para>
                   除了上面所列的方法以外，还有很多访问器方法可以影响前端控制器环境 —— 因而也影响前端控制器代理（delegate）的类的环境。
@@ -282,7 +282,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.methods.params"><info><title>前端控制器参数</title></info>
-        
+
 
         <para>
                   介绍里曾提到前端控制器可以用作各种控制器组件的注册表。它通过一个"param"家族的方法来做到这些。这些方法允许通过前端控制器注册任意类型的数据 —— 对象和变量，可以在分发链中的任何时候获取。这些变量被传递到路由器，分发器，以及动作控制器。这些方法包括：
@@ -356,7 +356,7 @@ Zend_Controller_Front::run('../application/controllers');
     </section>
 
     <section xml:id="zend.controller.front.subclassing"><info><title>继承前端控制器</title></info>
-        
+
 
         <para>
                   要继承前端控制器，至少需要覆盖<code>getInstance()</code>方法：

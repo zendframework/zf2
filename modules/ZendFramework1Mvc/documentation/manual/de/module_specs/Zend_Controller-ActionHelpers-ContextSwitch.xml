@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.contextswitch"><info><title>ContextSwitch und AjaxContext</title></info>
-    
+
 
     <para>
         Der <emphasis>ContextSwitch</emphasis> Action Helfer ist vorgesehen für die Erleicherung
@@ -146,7 +146,7 @@ class NewsController extends Zend_Controller_Action
     </para>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.contexts"><info><title>Vorhandene Standard Kontexte</title></info>
-        
+
 
         <para>
             Standardmäßig sind zwei Kontexte im <emphasis>ContextSwitch</emphasis> Helfer
@@ -189,7 +189,7 @@ $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.custom"><info><title>Eigene Kontexte erstellen</title></info>
-        
+
 
         <para>
             Manchmal sind die Standardkontexte nicht genug. Zum Beispiel wenn man
@@ -324,7 +324,7 @@ $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.actions"><info><title>Kontexte per Aktion setzen</title></info>
-        
+
 
         <para>
             Es gibt zwei Mechanismen für das Setzen vorhandener Kontexte. Es kann entweder manuell
@@ -489,7 +489,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.initcontext"><info><title>Kontext Switching initialisieren</title></info>
-        
+
 
         <para>
             Um Kontext Switching zu initialisieren, muß <methodname>initContext()</methodname> im
@@ -519,7 +519,7 @@ $contextSwitch->initContext('xml');
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.misc"><info><title>Zusätzliche Funktionalitäten</title></info>
-        
+
 
         <para>
             Eine Vielzahl an Methoden kann verwendet werden um das Verhalten des
@@ -728,7 +728,7 @@ $contextSwitch->initContext();
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.ajaxcontext"><info><title>AjaxContext Funktionalität</title></info>
-        
+
 
         <para>
             Der <emphasis>AjaxContext</emphasis> Helfer erweitert
@@ -762,7 +762,7 @@ $contextSwitch->initContext();
         </para>
 
         <example xml:id="zend.controller.actionhelpers.contextswitch.ajaxcontext.example"><info><title>Aktionen erlauben auf Ajax Anfragen zu antworten</title></info>
-            
+
 
             <para>
                 In dem folgenden Beispiel erlauben wir Anfragen auf die Aktionen 'view', 'form' und

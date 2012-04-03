@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.info"><info><title>ドキュメントの情報およびメタデータ</title></info>
     <!-- @todo review and revise upon completion of refactoring -->
-    
+
     <para>
         <acronym>PDF</acronym> ドキュメントには、そのドキュメントに関する情報
         (たとえばタイトルや作者、作成日、更新日など)

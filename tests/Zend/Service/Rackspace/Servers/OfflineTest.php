@@ -21,8 +21,8 @@
 
 namespace ZendTest\Service\Rackspace\Servers;
 
-use Zend\Service\Rackspace\Servers,
-    Zend\Http\Client\Adapter\Test as HttpTest;
+use Zend\Service\Rackspace\Servers;
+use Zend\Http\Client\Adapter\Test as HttpTest;
 
 
 /**
@@ -45,49 +45,49 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Check if the resize was successfully done
-     * 
-     * @var boolean 
+     *
+     * @var boolean
      */
     protected static $resize;
 
     /**
      * List of flavors available
-     * 
+     *
      * @var array
      */
     protected static $flavors;
 
     /**
      * List of images available
-     * 
-     * @var Zend\Service\Rackspace\Servers\ImageList 
+     *
+     * @var Zend\Service\Rackspace\Servers\ImageList
      */
     protected static $images;
 
     /**
      * Id of the image created
-     * 
+     *
      * @var string
      */
     protected static $imageId;
 
     /**
      * Server id of testing
-     * 
-     * @var integer 
+     *
+     * @var integer
      */
     protected static $serverId;
 
     /**
      * Admin password of the server
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected static $adminPass;
 
     /**
      * Shared Ip group
-     * 
+     *
      * @var Zend\Service\Rackspace\Servers\SharedIpGroup
      */
     protected static $sharedIpGroup;
@@ -105,19 +105,19 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->rackspace= new Servers('foo','bar');
-        
+
         $this->httpClientAdapterTest = new HttpTest();
 
         $this->rackspace->getHttpClient()
                         ->setAdapter($this->httpClientAdapterTest);
-        
+
         // authentication (from a file)
         $this->httpClientAdapterTest->setResponse(self::loadResponse('../../_files/testAuthenticate'));
-        $this->assertTrue($this->rackspace->authenticate(),'Authentication failed'); 
-        
+        $this->assertTrue($this->rackspace->authenticate(),'Authentication failed');
+
         // load the HTTP response (from a file)
-        $this->httpClientAdapterTest->setResponse($this->loadResponse($this->getName()));   
-       
+        $this->httpClientAdapterTest->setResponse($this->loadResponse($this->getName()));
+
     }
 
     /**
@@ -130,7 +130,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
     {
         return @file_get_contents(__DIR__ . '/_files/' . $name . '.response');
     }
-    
+
     /**
      * Test constants
      */
@@ -145,14 +145,14 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
      * Test create server
      */
     public function testCreateServer()
-    {       
+    {
         $data = array (
             'name'     => TESTS_ZEND_SERVICE_RACKSPACE_SERVER_NAME,
             'imageId'  => TESTS_ZEND_SERVICE_RACKSPACE_SERVER_IMAGEID,
             'flavorId' => TESTS_ZEND_SERVICE_RACKSPACE_SERVER_FLAVORID
         );
         $server= $this->rackspace->createServer($data);
-        
+
         $this->assertTrue($server!==false);
         self::$serverId= $server->getId();
         $this->assertEquals(TESTS_ZEND_SERVICE_RACKSPACE_SERVER_NAME,$server->getName());
@@ -400,14 +400,14 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get shared IP group 
+     * Test get shared IP group
      */
     public function testGetSharedIpGroup()
     {
         $groupId= self::$sharedIpGroup->getId();
         $group= $this->rackspace->getSharedIpGroup($groupId);
         $this->assertTrue($group!==false);
-        $this->assertEquals($group->getId(), $groupId);   
+        $this->assertEquals($group->getId(), $groupId);
     }
 
     /**
@@ -415,7 +415,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteSharedIpGroup()
     {
-        $this->assertTrue($this->rackspace->deleteSharedIpGroup(self::$sharedIpGroup->getId())); 
+        $this->assertTrue($this->rackspace->deleteSharedIpGroup(self::$sharedIpGroup->getId()));
     }
 
     /**

@@ -44,8 +44,8 @@ interface Renderer
 
     /**
      * Set the resolver used to map a template name to a resource the renderer may consume.
-     * 
-     * @param  Resolver $resolver 
+     *
+     * @param  Resolver $resolver
      * @return Renderer
      */
     public function setResolver(Resolver $resolver);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.multiuser.authentication"><info><title>Authentification d'utilisateurs dans Zend Framework</title></info>
-    
+
 
     <section xml:id="learning.multiuser.authentication.intro"><info><title>Introduction à l'authentification</title></info>
-        
+
 
         <para>
             Une fois que l'application a récupéré les informations d'un utilisateur, elle doit
@@ -22,7 +22,7 @@
     </section>
 
     <section xml:id="learning.multiuser.authentication.basic-usage"><info><title>Utilisation de base de Zend_Auth</title></info>
-        
+
 
         <para>
             Dans l'exemple suivant, nous utiliserons <classname>Zend_Auth</classname> afin d'effectuer

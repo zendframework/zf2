@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.server"><info><title>Zend_Json_Server - JSON-RPC Server</title></info>
-    
+
 
     <para>
         <classname>Zend_Json_Server</classname> ist eine
@@ -55,7 +55,7 @@
     </para>
 
     <example xml:id="zend.json.server.usage"><info><title>Zend_Json_Server Verwendung</title></info>
-        
+
 
         <para>
             Zuerst müssen wir eine Klasse definieren die wir über den JSON-RPC
@@ -197,7 +197,7 @@ $server->handle();
     </example>
 
     <section xml:id="zend.json.server.details"><info><title>Fortgescrittene Details</title></info>
-        
+
 
         <para>
             Obwohl das meiste an Funktionalität für <classname>Zend_Json_Server</classname> in
@@ -206,7 +206,7 @@ $server->handle();
         </para>
 
         <section xml:id="zend.json.server.details.zendjsonserver"><info><title>Zend_Json_Server</title></info>
-            
+
 
             <para>
                 <classname>Zend_Json_Server</classname> ist die Kernklasse von
@@ -309,7 +309,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonserverrequest"><info><title>Zend_Json_Server_Request</title></info>
-            
+
 
             <para>
                 Die JSON-RPC Anfrageumgebung ist in ein
@@ -446,7 +446,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonserverresponse"><info><title>Zend_Json_Server_Response</title></info>
-            
+
 
             <para>
                 Der JSON-RPC Antwort Payload ist in ein
@@ -554,7 +554,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonservererror"><info><title>Zend_Json_Server_Error</title></info>
-            
+
 
             <para>
                 JSON-RPC hat ein spezielles Format für das Melden von
@@ -634,7 +634,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonserversmd"><info><title>Zend_Json_Server_Smd</title></info>
-            
+
 
             <para>
                 SMD steht für Service Mapping Description, ein <acronym>JSON</acronym> Schema das

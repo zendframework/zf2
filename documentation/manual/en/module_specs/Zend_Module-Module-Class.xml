@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
+<section
     xmlns="http://docbook.org/ns/docbook" version="5.0"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xml:id="zend.module.module-class">
@@ -27,13 +27,13 @@
             registered autoloader, (typically <classname
                 xlink:href="zend.module.module-autoloader">Zend\Loader\ModuleAutoloader</classname>)
             to find and include the <classname>MyModule\Module</classname> class if it is not
-            already available. 
+            already available.
         </para>
 
         <para>
             A module named "MyModule" module might start out looking something like this:
         </para>
- 
+
         <literallayout>
 MyModule/
     Module.php
@@ -102,7 +102,7 @@ class Module implements AutoloaderProvider
     }
 }
 ]]></programlisting>
-    </example>    
+    </example>
 
     <para>
         For a list of the provided module manager listeners and the interfaces and methods that
@@ -122,7 +122,7 @@ class Module implements AutoloaderProvider
             It is not safe for a module to assume that any other modules have already been loaded at
             the time <methodname>init()</methodname> method is called. If your module needs to
             perform any actions after all other modules have been loaded, the module manager's
-            "loadModules.post" event makes this easy. 
+            "loadModules.post" event makes this easy.
         </para>
 
         <note>

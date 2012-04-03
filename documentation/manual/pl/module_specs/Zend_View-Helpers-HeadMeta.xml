@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headmeta"><info><title>Helper HeadMeta</title></info>
-    
+
 
     <para>
         Element HTML <code>&lt;meta&gt;</code> używany jest do definiowania
@@ -74,7 +74,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.headmeta.basicusage"><info><title>Podstawowe użycie helpera HeadMeta</title></info>
-        
+
 
         <para>
             Możesz określić nowy znacznik meta w dowolnej chwili. Najczęściej

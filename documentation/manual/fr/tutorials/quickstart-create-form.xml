@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-form"><info><title>Créer un formulaire</title></info>
-    
+
 
     <para>
         Pour que notre livre d'or soit utile, nous allons avoir besoin d'un formulaire permettant de
@@ -156,7 +156,7 @@ echo $this->form;
 ]]></programlisting>
 
     <note><info><title>Améliorer le rendu visuel du formulaire</title></info>
-        
+
 
         <para>
             Ce formulaire n'a pas un look terrible, peu importe : l'apparence d'un formulaire
@@ -171,7 +171,7 @@ echo $this->form;
     </note>
 
     <note><info><title>Checkpoint</title></info>
-        
+
 
         <para>
             Naviguez maintenant sur "http://localhost/guestbook/sign". Vous devriez voir ceci dans

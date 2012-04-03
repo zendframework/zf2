@@ -23,17 +23,17 @@ namespace ZendTest\Form;
 
 require_once __DIR__ . '/TestAsset/decorators/TableRow.php';
 
-use Zend\Form\Form,
-    Zend\Form\SubForm,
-    Zend\Registry,
-    Zend\Config\Config,
-    Zend\Config\Factory as ConfigFactory,
-    Zend\Loader\PrefixPathLoader,
-    Zend\Loader\PrefixPathMapper,
-    Zend\Json\Json,
-    Zend\Translator\Translator,
-    Zend\Validator\Validator,
-    Zend\View;
+use Zend\Form\Form;
+use Zend\Form\SubForm;
+use Zend\Registry;
+use Zend\Config\Config;
+use Zend\Config\Factory as ConfigFactory;
+use Zend\Loader\PrefixPathLoader;
+use Zend\Loader\PrefixPathMapper;
+use Zend\Json\Json;
+use Zend\Translator\Translator;
+use Zend\Validator\Validator;
+use Zend\View;
 
 /**
  * @category   Zend
@@ -1064,7 +1064,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->form->isArray());
     }
 
-    /** 
+    /**
      * @group ZF-6741
      */
     public function testUseIdForDdTagByDefault()
@@ -1513,8 +1513,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
                              ->quo->addValidator('Identical',
                                                  false,
                                                  array('quo Value'));
-        
-        // This is setting elementsBelongTo point into the middle of 
+
+        // This is setting elementsBelongTo point into the middle of
         // a chain of another SubForms elementsBelongTo
         $this->form->addSubForm(new SubForm(), 'duh')
                    ->duh->setElementsBelongTo('foo[zoo]')            // foo[zoo] !!!!
@@ -1539,8 +1539,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
                                                array('foo' =>
                                                      array('foo' => 'foo Value',
                                                            'quo' => 'quo Value'),
-                                                     'baz' => 
-                                                     array('baz' => 
+                                                     'baz' =>
+                                                     array('baz' =>
                                                            array('baz' =>
                                                                  array('baz' => 'baz Value')))),
                                                'zoo' =>
@@ -1551,8 +1551,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
                                                array('foo' =>
                                                      array('foo' => 'foo Invalid',
                                                            'quo' => 'quo Value'),
-                                                     'baz' => 
-                                                     array('baz' => 
+                                                     'baz' =>
+                                                     array('baz' =>
                                                            array('baz' =>
                                                                  array('baz' => 'baz Value')))),
                                                'zoo' =>
@@ -1560,11 +1560,11 @@ class FormTest extends \PHPUnit_Framework_TestCase
                                                      'iek' => 'iek Invalid'))),
                       'partial' => array('foo' =>
                                          array('foo' =>
-                                               array('baz' => 
-                                                     array('baz' => 
+                                               array('baz' =>
+                                                     array('baz' =>
                                                            array('baz' =>
                                                                  array('baz' => 'baz Value'))),
-                                                    'foo' => 
+                                                    'foo' =>
                                                      array('quo' => 'quo Value')),
                                                'zoo' =>
                                                array('zoo' => 'zoo Value'))));
@@ -1575,13 +1575,13 @@ class FormTest extends \PHPUnit_Framework_TestCase
     {
         $data = $this->_setup9350();
         $this->assertTrue($this->form->isValid($data['valid']));
-    } 
+    }
 
     public function testIsValidPartialEqualSubFormAndElementName()
     {
         $data = $this->_setup9350();
         $this->assertTrue($this->form->isValidPartial($data['partial']));
-    } 
+    }
 
     public function testPopulateWithElementsBelongTo()
     {
@@ -1659,9 +1659,9 @@ class FormTest extends \PHPUnit_Framework_TestCase
                                          array(2 =>
                                                array(0 =>
                                                      array('quo' => 'quo Value')))));
-        return $data;                      
+        return $data;
     }
-    
+
     public function testGetErrorsNumericalSubForms()
     {
         $data = $this->_setup9401();
@@ -1669,7 +1669,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $err = $this->form->getErrors();
         $this->assertTrue(is_array($err['f'][2]['foo']) && !empty($err['f'][2]['foo']));
     }
-    
+
     public function testGetMessagesNumericalSubForms()
     {
         $data = $this->_setup9401();
@@ -1732,21 +1732,21 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->form->isValidPartial($data['valid']));
         $this->assertSame('foo Value', $this->form->foo->getValue());
     }
-  
+
     public function testPopulateWithBelongsTo()
     {
         $data = $this->_setup9607();
         $this->form->populate($data['valid']);
         $this->assertSame('foo Value', $this->form->foo->getValue());
     }
-  
+
     public function testGetValuesWithBelongsTo()
     {
         $data = $this->_setup9607();
         $this->form->populate($data['valid']);
         $this->assertSame($data['valid'], $this->form->getValues());
     }
-  
+
     public function testGetValidValuesWithBelongsTo()
     {
         $data = $this->_setup9607();
@@ -1779,8 +1779,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->form->isValid(array());
 
         $err = $this->form->getErrors();
-        $msg = $this->form->getMessages(); 
-        
+        $msg = $this->form->getMessages();
+
         $this->assertTrue(is_array($err['f'][$e]) && is_array($err['f'][$s][$e]));
         $this->assertTrue(is_array($msg['f'][$e]) && is_array($msg['f'][$s][$e]));
     }
@@ -4085,7 +4085,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(array('isEmpty' => 'validate'), $this->form->foo->getMessages());
     }
-    
+
     /**
      * @group ZF-9494
      */
@@ -4100,13 +4100,13 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $messages = $this->form->getMessages();
         $this->assertEquals(1, count($messages));
         $this->assertEquals('Element message', $messages['foo']['isEmpty']);
-        
+
         $this->assertFalse($this->form->isValidPartial(array('foo'=>'')));
         $messages = $this->form->getMessages();
         $this->assertEquals(1, count($messages));
         $this->assertEquals('Element message', $messages['foo']['isEmpty']);
-    }  
-    
+    }
+
     /**
      * @group ZF-9364
      */
@@ -4129,14 +4129,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($messages));
         $this->assertEquals('Element message', $messages['foo']['isEmpty']);
         $this->assertEquals('Form message', $messages['bar']['isEmpty']);
-        
+
         $this->assertFalse($this->form->isValidPartial(array('foo'=>'', 'bar'=>'')));
         $messages = $this->form->getMessages();
         $this->assertEquals(2, count($messages));
         $this->assertEquals('Element message', $messages['foo']['isEmpty']);
         $this->assertEquals('Form message', $messages['bar']['isEmpty']);
     }
-    
+
     /**
      * @group ZF-9364
      */
@@ -4147,16 +4147,16 @@ class FormTest extends \PHPUnit_Framework_TestCase
         );
         $formTranslations = array(
             'isEmpty' => 'Form message',
-        );        
+        );
         $elementTranslations = array(
             'isEmpty' => 'Element message',
         );
         $defaultTranslate = new Translator('ArrayAdapter', $defaultTranslations);
         $formTranslate = new Translator('ArrayAdapter', $formTranslations);
         $elementTranslate = new Translator('ArrayAdapter', $elementTranslations);
-        
+
         Registry::set('Zend_Translator', $defaultTranslate);
-        $this->form->setTranslator($formTranslate);        
+        $this->form->setTranslator($formTranslate);
         $this->form->addElement('text', 'foo', array('required'=>true, 'translator'=>$elementTranslate));
         $this->form->addElement('text', 'bar', array('required'=>true));
 
@@ -4165,7 +4165,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($messages));
         $this->assertEquals('Element message', $messages['foo']['isEmpty']);
         $this->assertEquals('Form message', $messages['bar']['isEmpty']);
-        
+
         $this->assertFalse($this->form->isValidPartial(array('foo'=>'', 'bar'=>'')));
         $messages = $this->form->getMessages();
         $this->assertEquals(2, count($messages));
@@ -4180,10 +4180,10 @@ class FormTest extends \PHPUnit_Framework_TestCase
     {
         $defaultTranslations = array('isEmpty' => 'Default message');
         $subformTranslations = array('isEmpty' => 'SubForm message');
-                
+
         $defaultTranslate = new Translator('ArrayAdapter', $defaultTranslations);
         $subformTranslate = new Translator('ArrayAdapter', $subformTranslations);
-        
+
         Registry::set('Zend_Translator', $defaultTranslate);
         $this->form->addSubForm(new SubForm(), 'subform');
         $this->form->subform->setTranslator($subformTranslate);
@@ -4192,7 +4192,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->form->isValid(array('subform' => array('foo'=>''))));
         $messages = $this->form->getMessages();
         $this->assertEquals('SubForm message', $messages['subform']['foo']['isEmpty']);
-        
+
         $this->assertFalse($this->form->isValidPartial(array('subform' => array('foo'=>''))));
         $messages = $this->form->getMessages();
         $this->assertEquals('SubForm message', $messages['subform']['foo']['isEmpty']);
@@ -4224,14 +4224,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $t2 = $this->form->getDecorators();
         $this->assertEquals($t1, $t2);
     }
-    
+
     /**
      * @group ZF-11831
      */
     public function testElementsOfSubFormReceiveCorrectDefaultTranslator()
     {
         $isEmptyKey = \Zend\Validator\NotEmpty::IS_EMPTY;
-        
+
         // Global default translator
         $trDefault = new Translator(array(
             'adapter' => 'arrayAdapter',
@@ -4241,7 +4241,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
             'locale' => 'en'
         ));
         Registry::set('Zend_Translate', $trDefault);
-        
+
         // Translator to use for elements
         $trElement = new Translator(array(
             'adapter' => 'arrayAdapter',
@@ -4251,14 +4251,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
             'locale' => 'en'
         ));
         \Zend\Validator\AbstractValidator::setDefaultTranslator($trElement);
-        
+
         // Change the form's translator
         $form = new Form();
         $form->addElement(new \Zend\Form\Element\Text('foo', array(
             'required'   => true,
             'validators' => array('NotEmpty')
         )));
-        
+
         // Create a subform with it's own validator
         $sf1 = new SubForm();
         $sf1->addElement(new \Zend\Form\Element\Text('foosub', array(
@@ -4266,19 +4266,19 @@ class FormTest extends \PHPUnit_Framework_TestCase
             'validators' => array('NotEmpty')
         )));
         $form->addSubForm($sf1, 'Test1');
-        
+
         $form->isValid(array());
 
         $messages = $form->getMessages();
         $this->assertEquals(
-            'Element', 
-            @$messages['foo'][$isEmptyKey], 
+            'Element',
+            @$messages['foo'][$isEmptyKey],
             'Form element received wrong validator'
         );
         $this->assertEquals(
-            'Element', 
-            @$messages['Test1']['foosub'][$isEmptyKey], 
+            'Element',
+            @$messages['Test1']['foosub'][$isEmptyKey],
             'SubForm element received wrong validator'
-        );        
+        );
     }
 }

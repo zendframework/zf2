@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.inlinescript"><info><title>InlineScript Helfer</title></info>
-    
+
 
     <para>
         Das <acronym>HTML</acronym> <emphasis>&lt;script&gt;</emphasis> Element wird verwendet um
@@ -15,7 +15,7 @@
     </para>
 
     <note><info><title>InlineScript für HTML Body Skripte verwenden</title></info>
-        
+
 
         <para>
             <classname>InlineScript</classname>, sollte verwendet werden wenn man Skripte im

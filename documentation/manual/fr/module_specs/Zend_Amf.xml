@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.amf.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_Amf</classname> fournit le support pour l'

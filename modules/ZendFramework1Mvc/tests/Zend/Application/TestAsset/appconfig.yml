@@ -3,5 +3,4 @@ production:
 
 testing:
   _extends: production
-  
-  
+

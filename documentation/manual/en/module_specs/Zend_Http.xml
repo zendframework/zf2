@@ -5,14 +5,14 @@
 
     <section xml:id="zend.http.overview.intro">
         <info><title>Overview</title></info>
-        
+
         <para>
             <classname>Zend\Http</classname> is a primary foundational component of Zend Framework.
             Since much of what PHP does is web-based, specifically HTTP, it makes sense to have a
             performant, extensible, concise and consistent API to do all things HTTP.  In nutshell,
             there are several parts of <classname>Zend\Http:</classname>
         </para>
-        
+
         <itemizedlist>
             <listitem>
                 <para>
@@ -20,7 +20,7 @@
                     classes that expose a fluent API for introspecting several aspects of HTTP
                     messages:
                 </para>
-                
+
                 <itemizedlist>
                     <listitem>
                         <para>
@@ -56,7 +56,7 @@
 
     <section xml:id="zend.http.overview.request-response-and-headers">
         <info><title>Zend\Http Request, Response and Headers</title></info>
-    
+
         <para>
             The Request, Response and Headers portion of the <classname>Zend\Http</classname>
             component provides a fluent, object-oriented interface for introspecting information

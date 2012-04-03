@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.file.transfer.validators"><info><title>Prüfungen für Zend_File_Transfer</title></info>
-    
+
 
     <para>
         <classname>Zend_File_Transfer</classname> wird mit verschiedenen Datei-relevanten Prüfungen
@@ -162,7 +162,7 @@
     </itemizedlist>
 
     <section xml:id="zend.file.transfer.validators.usage"><info><title>Prüfungen mit Zend_File_Transfer verwenden</title></info>
-        
+
 
         <para>
             Prüfungen einzubinden ist sehr einfach. Es gibt verschiedene Methoden für das
@@ -246,7 +246,7 @@
         </itemizedlist>
 
         <example xml:id="zend.file.transfer.validators.usage.example"><info><title>Prüfungen zu einem File Transfer Objekt hinzufügen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -267,7 +267,7 @@ $upload->setValidators(array(
         </example>
 
         <example xml:id="zend.file.transfer.validators.usage.exampletwo"><info><title>Prüfungen auf eine einzelne Datei limitieren</title></info>
-            
+
 
             <para>
                 <methodname>addValidator()</methodname>, <methodname>addValidators()</methodname>,
@@ -291,7 +291,7 @@ $upload->addValidator('Size', false, 20000, 'file2');
         </para>
 
         <example xml:id="zend.file.transfer.validators.usage.examplemultiple"><info><title>Mehrere Prüfungen hinzufügen</title></info>
-            
+
 
             <para>
                 Oft ist es einfacher <methodname>addValidator()</methodname> mehrere Male
@@ -324,7 +324,7 @@ $upload->addValidator('Size', false, 20000)
         </para>
 
         <example xml:id="zend.file.transfer.validators.usage.exampleisvalid"><info><title>Prüfen der Dateien</title></info>
-            
+
 
             <para>
                 <methodname>isValid()</methodname> akzeptiert den Dateinamen der hochgeladenen oder
@@ -365,7 +365,7 @@ if (!$upload->isValid()) {
     </section>
 
     <section xml:id="zend.file.transfer.validators.count"><info><title>Count Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>Count</classname> Prüfung checkt die Anzahl der Dateien die angegeben
@@ -416,7 +416,7 @@ if (!$upload->isValid()) {
         </para>
 
         <example xml:id="zend.file.transfer.validators.count.example"><info><title>Die Count Prüfung verwenden</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -438,7 +438,7 @@ $upload->addValidator('Count', false, array('min' =>1, 'max' => 5));
     </section>
 
     <section xml:id="zend.file.transfer.validators.crc32"><info><title>Crc32 Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>Crc32</classname> Prüfung checkt den Inhalt einer übertragenen Datei
@@ -462,7 +462,7 @@ $upload->addValidator('Count', false, array('min' =>1, 'max' => 5));
         </itemizedlist>
 
         <example xml:id="zend.file.transfer.validators.crc32.example"><info><title>Verwenden der Crc32 Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -477,7 +477,7 @@ $upload->addValidator('Crc32', false, array('3b3652f', 'e612b69'));
     </section>
 
     <section xml:id="zend.file.transfer.validators.excludeextension"><info><title>ExcludeExtension Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>ExcludeExtension</classname> Prüfung checkt die Dateierweiterung der
@@ -518,7 +518,7 @@ $upload->addValidator('Crc32', false, array('3b3652f', 'e612b69'));
         </para>
 
         <example xml:id="zend.file.transfer.validators.excludeextension.example"><info><title>Die ExcludeExtension Prüfung verwenden</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -546,7 +546,7 @@ $upload->addValidator('ExcludeExtension',
     </section>
 
     <section xml:id="zend.file.transfer.validators.excludemimetype"><info><title>ExcludeMimeType Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>ExcludeMimeType</classname> Prüfung checkt den <acronym>MIME</acronym>
@@ -586,7 +586,7 @@ $upload->addValidator('ExcludeExtension',
         </para>
 
         <example xml:id="zend.file.transfer.validators.excludemimetype.example"><info><title>Verwendung der ExcludeMimeType Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -624,7 +624,7 @@ $upload->setValidator('ExcludeMimeType', 'image');
     </section>
 
     <section xml:id="zend.file.transfer.validators.exists"><info><title>Exists Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>Exists</classname> Prüfung checkt ob Dateien die spezifiziert werden
@@ -650,7 +650,7 @@ $upload->setValidator('ExcludeMimeType', 'image');
         </para>
 
         <example xml:id="zend.file.transfer.validators.exists.example"><info><title>Die Exists Prüfung verwenden</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -675,7 +675,7 @@ $upload->addValidator('Exists',
     </section>
 
     <section xml:id="zend.file.transfer.validators.extension"><info><title>Extension Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>Extension</classname> Prüfung checkt die Dateierweiterung der angegebenen
@@ -714,7 +714,7 @@ $upload->addValidator('Exists',
         </para>
 
         <example xml:id="zend.file.transfer.validators.extension.example"><info><title>Verwendung der Extension Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -743,7 +743,7 @@ if (!$upload->isValid('C:\temp\myfile.MO')) {
     </section>
 
     <section xml:id="zend.file.transfer.validators.filessize"><info><title>FilesSize Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>FilesSize</classname> Prüfung checkt die komplette Größe aller
@@ -803,7 +803,7 @@ if (!$upload->isValid('C:\temp\myfile.MO')) {
         </para>
 
         <example xml:id="zend.file.transfer.validators.filessize.example"><info><title>Verwenden der FilesSize Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -836,7 +836,7 @@ $upload->addValidator('FilesSize',
     </section>
 
     <section xml:id="zend.file.transfer.validators.imagesize"><info><title>ImageSize Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>ImageSize</classname> Prüfung checkt die Größe von Bildern. Sie
@@ -882,7 +882,7 @@ $upload->addValidator('FilesSize',
         </para>
 
         <example xml:id="zend.file.transfer.validators.imagesize.example"><info><title>Verwendung der ImageSize Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -903,7 +903,7 @@ $upload->setImageWidth(array('minwidth' => 20, 'maxwidth' => 200));
     </section>
 
     <section xml:id="zend.file.transfer.validators.iscompressed"><info><title>IsCompressed Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>IsCompressed</classname> Prüfung checkt ob eine übertragene Datei
@@ -914,7 +914,7 @@ $upload->setImageWidth(array('minwidth' => 20, 'maxwidth' => 200));
         </para>
 
         <example xml:id="zend.file.transfer.validators.iscompressed.example"><info><title>Verwenden der IsCompressed Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -942,7 +942,7 @@ $upload->addValidator('IsCompressed', false, 'zip');
     </section>
 
     <section xml:id="zend.file.transfer.validators.isimage"><info><title>IsImage Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>IsImage</classname> Prüfung checkt ob eine übertragene Datei eine
@@ -953,7 +953,7 @@ $upload->addValidator('IsCompressed', false, 'zip');
         </para>
 
         <example xml:id="zend.file.transfer.validators.isimage.example"><info><title>Verwenden der IsImage Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -981,7 +981,7 @@ $upload->addValidator('IsImage', false, 'jpeg');
     </section>
 
     <section xml:id="zend.file.transfer.validators.hash"><info><title>Hash Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>Hash</classname> Prüfung checkt den Inhalt einer übertragenen Datei indem
@@ -1017,7 +1017,7 @@ $upload->addValidator('IsImage', false, 'jpeg');
         </itemizedlist>
 
         <example xml:id="zend.file.transfer.validators.hash.example"><info><title>Verwenden der Hash Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1047,7 +1047,7 @@ $upload->addValidator('Hash',
     </section>
 
     <section xml:id="zend.file.transfer.validators.md5"><info><title>Md5 Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>Md5</classname> Prüfung checkt den Inhalt einer übertragenen Datei durch
@@ -1071,7 +1071,7 @@ $upload->addValidator('Hash',
         </itemizedlist>
 
         <example xml:id="zend.file.transfer.validators.md5.example"><info><title>Verwenden der Md5 Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1089,7 +1089,7 @@ $upload->addValidator('Md5',
     </section>
 
     <section xml:id="zend.file.transfer.validators.mimetype"><info><title>MimeType Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>MimeType</classname> Prüfung checkt den <acronym>MIME</acronym> Typ von
@@ -1149,7 +1149,7 @@ $upload->addValidator('Md5',
         </para>
 
         <example xml:id="zend.file.transfer.validators.mimetype.example"><info><title>Verwendung der MimeType Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1209,7 +1209,7 @@ $upload->addValidator('MimeType',
     </section>
 
     <section xml:id="zend.file.transfer.validators.notexists"><info><title>NotExists Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>NotExists</classname> Prüfung checkt ob Dateien die angegeben werden
@@ -1234,7 +1234,7 @@ $upload->addValidator('MimeType',
         </para>
 
         <example xml:id="zend.file.transfer.validators.notexists.example"><info><title>Verwendung der NotExists Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1260,7 +1260,7 @@ $upload->addValidator('NotExists',
     </section>
 
     <section xml:id="zend.file.transfer.validators.sha1"><info><title>Sha1 Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>Sha1</classname> Prüfung checkt den Inhalt einer übertragenen Datei durch
@@ -1284,7 +1284,7 @@ $upload->addValidator('NotExists',
         </itemizedlist>
 
         <example xml:id="zend.file.transfer.validators.sha1.example"><info><title>Verwenden der Sha1 Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1301,7 +1301,7 @@ $upload->addValidator('Sha1',
     </section>
 
     <section xml:id="zend.file.transfer.validators.size"><info><title>Size Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>Size</classname> Prüfung checkt die Größe von einzelnen Dateien. Sie
@@ -1350,7 +1350,7 @@ $upload->addValidator('Sha1',
         </para>
 
         <example xml:id="zend.file.transfer.validators.size.example"><info><title>Verwendung der Size Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();
@@ -1371,7 +1371,7 @@ $upload->addValidator('Size',
     </section>
 
     <section xml:id="zend.file.transfer.validators.wordcount"><info><title>WordCount Prüfung</title></info>
-        
+
 
         <para>
             Die <classname>WordCount</classname> Prüfung checkt die Anzahl von Wörtern in
@@ -1403,7 +1403,7 @@ $upload->addValidator('Size',
         </para>
 
         <example xml:id="zend.file.transfer.validators.wordcount.example"><info><title>Verwendung der WordCount Prüfung</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $upload = new Zend_File_Transfer();

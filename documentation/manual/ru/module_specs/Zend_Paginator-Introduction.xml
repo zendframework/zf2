@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.paginator.introduction"><info><title>Введение</title></info>
-    
+
 
     <para>
         <classname>Zend_Paginator</classname> - гибкая компонента для разбиения

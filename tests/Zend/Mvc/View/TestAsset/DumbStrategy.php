@@ -21,10 +21,10 @@
 
 namespace ZendTest\Mvc\View\TestAsset;
 
-use ArrayObject,
-    Zend\View\Model,
-    Zend\View\Renderer,
-    Zend\View\Resolver;
+use ArrayObject;
+use Zend\View\Model;
+use Zend\View\Renderer;
+use Zend\View\Resolver;
 
 /**
  * Mock renderer

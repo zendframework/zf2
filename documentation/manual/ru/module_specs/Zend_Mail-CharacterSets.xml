@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.character-sets"><info><title>Наборы символов</title></info>
-    
+
     <para>
         <classname>Zend_Mail</classname> не проверяет правильность выбранного
         набора символов для частей сообщения. Набор символов для сообщения
@@ -14,7 +14,7 @@
         должна быть указана.
     </para>
     <note><info><title>Только для текстового формата</title></info>
-        
+
         <para>
             Наборы символов применимы только к частям сообщения в текстовом формате.
         </para>

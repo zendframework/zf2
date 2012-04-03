@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db.quickstart"><info><title>Quickstart</title></info>
-    
+
 
     <section xml:id="zend.test.phpunit.db.quickstart.testcase"><info><title>Configurer un cas de tests Database</title></info>
-        
+
 
         <para>
             Nous allons à présent écrire des tests pour la base de données Bug de la
@@ -103,7 +103,7 @@ class BugsTest extends Zend_Test_PHPUnit_DatabaseTestCase
     </section>
 
     <section xml:id="zend.test.phpunit.db.quickstart.dataset"><info><title>Spécifier un jeu de données (DataSet)</title></info>
-        
+
 
         <para>
             Dans l'exemple précédent, nous avons préciser un fichier de jeu de données. Nous allons
@@ -151,7 +151,7 @@ PRIMARY KEY  (`bug_id`)
     </section>
 
     <section xml:id="zend.test.phpunit.db.quickstart.initial-tests"><info><title>Quelques tests initiaux</title></info>
-        
+
 
         <para>
             Maintenant que nous avons écrits les deux méthodes obligatoires pour

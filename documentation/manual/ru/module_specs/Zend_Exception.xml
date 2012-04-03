@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.using"><info><title>Использование исключений</title></info>
 
-    
+
 
     <para>
         Все исключения, бросаемые классами Zend Framework, должны быть
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.exception.using.example"><info><title>Пример отлова исключения</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 try {
     Zend_Loader::loadClass('nonexistantclass');

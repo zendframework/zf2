@@ -21,14 +21,14 @@
 
 namespace Zend\Soap;
 
-use Zend\Uri,
-    Zend\Soap\Wsdl,
-    Zend\Soap\Wsdl\ComplexTypeStrategy,
-    Zend\Server\Reflection\AbstractFunction,
-    Zend\Server\Reflection,
-    Zend\Server\Reflection\Prototype,
-    Zend\Server\Reflection\ReflectionParameter,
-    Zend\Soap\AutoDiscover\DiscoveryStrategy\ReflectionDiscovery;
+use Zend\Uri;
+use Zend\Soap\Wsdl;
+use Zend\Soap\Wsdl\ComplexTypeStrategy;
+use Zend\Server\Reflection\AbstractFunction;
+use Zend\Server\Reflection;
+use Zend\Server\Reflection\Prototype;
+use Zend\Server\Reflection\ReflectionParameter;
+use Zend\Soap\AutoDiscover\DiscoveryStrategy\ReflectionDiscovery;
 
 /**
  * \Zend\Soap\AutoDiscover

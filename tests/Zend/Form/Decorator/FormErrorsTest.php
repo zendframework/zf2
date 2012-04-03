@@ -21,10 +21,10 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Decorator\FormErrors as FormErrorsDecorator,
-    Zend\Form\Form,
-    Zend\Form\SubForm,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Decorator\FormErrors as FormErrorsDecorator;
+use Zend\Form\Form;
+use Zend\Form\SubForm;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Decorator_FormErrors

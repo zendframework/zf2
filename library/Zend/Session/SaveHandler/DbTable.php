@@ -20,12 +20,12 @@
 
 namespace Zend\Session\SaveHandler;
 
-use Zend\Config\Config as Configuration,
-    Zend\Session\SaveHandler as Savable,
-    Zend\Session\Container,
-    Zend\Session\Exception,
-    Zend\Db\Table\AbstractTable,
-    Zend\Db\Table\AbstractRow;
+use Zend\Config\Config as Configuration;
+use Zend\Session\SaveHandler as Savable;
+use Zend\Session\Container;
+use Zend\Session\Exception;
+use Zend\Db\Table\AbstractTable;
+use Zend\Db\Table\AbstractRow;
 
 /**
  * DB Table session save handler

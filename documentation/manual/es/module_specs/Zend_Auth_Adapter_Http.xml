@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.http"><info><title>Adaptador de Autenticación HTTP</title></info>
 
-    
+
 
     <section xml:id="zend.auth.adapter.http.introduction"><info><title>Introducción</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Http</classname>
@@ -80,7 +80,7 @@
 
     <section xml:id="zend.auth.adapter.design_overview"><info><title>Descripción del diseño</title></info>
 
-        
+
 
         <para>
             Este adaptador consiste en dos sub-componentes, la propia clase
@@ -106,7 +106,7 @@
 
     <section xml:id="zend.auth.adapter.configuration_options"><info><title>Opciones de Configuración</title></info>
 
-        
+
 
         <para>
             La clase
@@ -117,7 +117,7 @@
             configuración disponibles, y algunas son obligatorias:
         </para>
         <table xml:id="zend.auth.adapter.configuration_options.table"><info><title>Opciones de Configuración</title></info>
-            
+
             <tgroup cols="3">
                 <thead>
                     <row>
@@ -233,7 +233,7 @@
 
     <section xml:id="zend.auth.adapter.http.resolvers"><info><title>Resolvers</title></info>
 
-        
+
 
         <para>
             El trabajo del "Resolver" es tener un username y un realm, y
@@ -264,7 +264,7 @@
         </para>
 
         <section xml:id="zend.auth.adapter.http.resolvers.file"><info><title>Archivo Resolver</title></info>
-            
+
             <para>
                 El archivo "resolver" es una clase muy simple. Tiene una
                 única propiedad que
@@ -319,7 +319,7 @@ $resolver->setFile($path);
 
     <section xml:id="zend.auth.adapter.http.basic_usage"><info><title>Uso Básico</title></info>
 
-        
+
 
         <para>En primer lugar, establecemos un array con los valores de
             configuración obligatorios:</para>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-layout"><info><title>Ein Layout erstellen</title></info>
-    
+
 
     <para>
         Wie man festgestellen kann waren die View Skripte im vorhergehenden Kapitel
@@ -219,7 +219,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </para>
 
     <note><info><title>Checkpoint</title></info>
-        
+
 
         <para>
             Jetzt gehen wir zu "http://localhost" und prüfen die Quelle. Man sieht den XHTML Header,

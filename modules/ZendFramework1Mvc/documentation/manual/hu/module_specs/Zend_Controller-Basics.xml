@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.basics"><info><title>Zend_Controller alapok</title></info>
-    
+
     <para>
         A
         <code>Zend_Controller</code>
@@ -100,7 +100,7 @@
                     hivatkozhatunk.
                 </para>
                 <note><info><title>TeveBetűzöttElnevezésiMegállapodások</title></info>
-                    
+
                     <para>
                         Mivel az emberek közismerten következetlenek a betűzés megtartásában hivatkozások gépelésekor, a Zend Framework egységesen kisbetűsre alakítja az elérési utakat. Ez természetesen kihatással lesz arra, hogyan nevezed el a vezérlőid és műveleteid… vagy hogyan utalsz rájuk a hivatkozásokban.
                     </para>

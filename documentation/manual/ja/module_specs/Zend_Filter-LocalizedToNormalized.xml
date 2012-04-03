@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.localizedtonormalized"><info><title>LocalizedToNormalized</title></info>
 
-    
+
 
     <para>
         このフィルタは与えられたローカライズされた入力をその正規化された表現に変換します。
@@ -73,7 +73,7 @@
 
     <section xml:id="zend.filter.set.localizedtonormalized.numbers"><info><title>数値の正規化</title></info>
 
-        
+
 
         <para>
             整数、フロートまたは実数のようなあらゆる数が正規化されます。
@@ -151,7 +151,7 @@ $filter->filter('123.456,78901');
 
     <section xml:id="zend.filter.set.localizedtonormalized.dates"><info><title>日時の正規化</title></info>
 
-        
+
 
         <para>
             日付や時刻の値の入力もまた、正規化できます。

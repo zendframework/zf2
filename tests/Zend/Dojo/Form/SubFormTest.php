@@ -21,8 +21,8 @@
 
 namespace ZendTest\Dojo\Form;
 
-use Zend\Dojo\Form\SubForm as DojoSubForm,
-    Zend\View;
+use Zend\Dojo\Form\SubForm as DojoSubForm;
+use Zend\View;
 
 /**
  * Test class for Zend_Dojo_SubForm
@@ -88,7 +88,7 @@ class SubFormTest extends \PHPUnit_Framework_TestCase
     public function testShouldRegisterDojoViewHelper()
     {
         $view = $this->form->getView();
-        
+
         $this->assertInstanceOf('Zend\Dojo\View\Helper\Dojo', $view->plugin('dojo'));
     }
 }

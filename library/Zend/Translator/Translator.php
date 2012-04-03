@@ -20,9 +20,9 @@
 
 namespace Zend\Translator;
 
-use Traversable,
-    Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @category   Zend

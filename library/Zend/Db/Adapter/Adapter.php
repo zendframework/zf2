@@ -108,7 +108,7 @@ class Adapter
 
     /**
      * getDriver()
-     * 
+     *
      * @throws Exception
      * @return Driver\DriverInterface
      */
@@ -132,7 +132,7 @@ class Adapter
                 sprintf('Query Mode must be one of "%s" or "%s"', self::QUERY_MODE_EXECUTE, self::QUERY_MODE_PREPARE)
             );
         }
-        
+
         $this->queryMode = $queryMode;
         return $this;
     }
@@ -199,10 +199,10 @@ class Adapter
 
     /**
      * Create statement
-     * 
+     *
      * @param  string $initialSql
      * @param  ParameterContainerInterface $initialParameters
-     * @return Driver\StatementInterface 
+     * @return Driver\StatementInterface
      */
     public function createStatement($initialSql = null, $initialParameters = null)
     {

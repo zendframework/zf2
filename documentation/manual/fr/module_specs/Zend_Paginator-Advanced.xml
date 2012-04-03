@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.paginator.advanced"><info><title>Utilisation avancée</title></info>
-    
+
 
     <section xml:id="zend.paginator.advanced.adapters"><info><title>Adaptateurs de source de données personnalisée</title></info>
-        
+
 
         <para>
             À partir d'un moment, vous pourriez avoir besoin de parcourir un type de données
@@ -62,7 +62,7 @@ return array_slice($this->_array, $offset, $itemCountPerPage);
     </section>
 
     <section xml:id="zend.paginator.advanced.scrolling-styles"><info><title>Styles de défilement personnalisés</title></info>
-        
+
 
         <para>
             Créer votre propre style de défilement requiert que vous implémentiez
@@ -114,7 +114,7 @@ Zend_Paginator::addScrollingStylePrefixPath($prefix, $path);
     </section>
 
     <section xml:id="zend.paginator.advanced.caching"><info><title>Fonctionnalité de mise en cache</title></info>
-        
+
 
         <para>
             <classname>Zend_Paginator</classname> peut mettre en cache les données qu'il a
@@ -212,7 +212,7 @@ var_dump($paginator->getPageItemCache());
     </section>
 
     <section xml:id="zend.paginator.advanced.aggregator"><info><title>Zend_Paginator_AdapterAggregate Interface</title></info>
-        
+
 
         <para>
             Depending on your application you might want to paginate objects, whose internal data-structure

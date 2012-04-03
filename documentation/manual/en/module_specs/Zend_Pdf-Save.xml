@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.save"><info><title>Save Changes to PDF Documents</title></info>
-    
+
 
     <para>
         There are two methods that save changes to <acronym>PDF</acronym> documents: the
@@ -23,7 +23,7 @@
     </para>
 
     <example xml:id="zend.pdf.save.example-1"><info><title>Saving PDF Documents</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 ...

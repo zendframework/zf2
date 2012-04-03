@@ -21,11 +21,11 @@
 
 namespace ZendTest\Controller\Router\Route;
 
-use Zend\Config,
-    Zend\Controller\Router\Route,
-    Zend\Controller\Router,
-    Zend\Controller,
-    Zend\Uri\UriFactory;
+use Zend\Config;
+use Zend\Controller\Router\Route;
+use Zend\Controller\Router;
+use Zend\Controller;
+use Zend\Uri\UriFactory;
 
 /**
  * @category   Zend
@@ -596,7 +596,7 @@ class ChainTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $res['controller']);
         $this->assertEquals('bar', $res['action']);
     }
-    
+
     protected function _getRouter()
     {
         $router = new Router\Rewrite();

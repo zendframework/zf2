@@ -70,18 +70,18 @@ class ConstraintObject
     {
         return $this->catalogName;
     }
-    
+
     public function setCatalogName($catalogName)
     {
         $this->catalogName = $catalogName;
         return $this;
     }
-    
+
     public function getSchemaName()
     {
         return $this->schemaName;
     }
-    
+
     public function setSchemaName($schemaName)
     {
         $this->schemaName = $schemaName;
@@ -90,10 +90,10 @@ class ConstraintObject
     */
     /**
      * Constructor
-     * 
+     *
      * @param string $name
      * @param string $table
-     * @param string $schemaName 
+     * @param string $schemaName
      */
     public function __construct($name, $table, $schemaName = null)
     {
@@ -105,8 +105,8 @@ class ConstraintObject
     }
     /**
      * Set name
-     * 
-     * @param string $name 
+     *
+     * @param string $name
      */
     public function setName($name)
     {
@@ -114,8 +114,8 @@ class ConstraintObject
     }
     /**
      * Get name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getName()
     {
@@ -123,8 +123,8 @@ class ConstraintObject
     }
     /**
      * Set schema name
-     * 
-     * @param string $schemaName 
+     *
+     * @param string $schemaName
      */
     public function setSchemaName($schemaName)
     {
@@ -132,8 +132,8 @@ class ConstraintObject
     }
     /**
      * Get schema name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getSchemaName()
     {
@@ -141,8 +141,8 @@ class ConstraintObject
     }
     /**
      * Get table name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getTableName()
     {
@@ -150,9 +150,9 @@ class ConstraintObject
     }
     /**
      * Set table name
-     * 
+     *
      * @param  string $tableName
-     * @return ConstraintObject 
+     * @return ConstraintObject
      */
     public function setTableName($tableName)
     {
@@ -161,8 +161,8 @@ class ConstraintObject
     }
     /**
      * Set type
-     * 
-     * @param type $constraintType 
+     *
+     * @param type $constraintType
      */
     public function setType($constraintType)
     {
@@ -170,8 +170,8 @@ class ConstraintObject
     }
     /**
      * Get type
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getType()
     {
@@ -179,8 +179,8 @@ class ConstraintObject
     }
     /**
      * Set keys
-     * 
-     * @param array $keys 
+     *
+     * @param array $keys
      */
     public function setKeys(array $keys)
     {
@@ -188,8 +188,8 @@ class ConstraintObject
     }
     /**
      * Get keys
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getKeys()
     {
@@ -197,8 +197,8 @@ class ConstraintObject
     }
     /**
      * Is primary key
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isPrimaryKey()
     {
@@ -206,8 +206,8 @@ class ConstraintObject
     }
     /**
      * Is unique key
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isUniqueKey()
     {
@@ -215,8 +215,8 @@ class ConstraintObject
     }
     /**
      * Is foreign key
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isForeignKey()
     {

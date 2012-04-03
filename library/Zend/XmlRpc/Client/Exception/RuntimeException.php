@@ -6,4 +6,3 @@ class RuntimeException
     extends \RuntimeException
     implements \Zend\XmlRpc\Client\Exception
 {}
-    

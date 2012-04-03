@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.introduction"><info><title>简介</title></info>
-    
+
 
     <para>
         从1.6.0版开始，Zend Framework包含<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://dojotoolkit.org">Dojo Toolkit</link>

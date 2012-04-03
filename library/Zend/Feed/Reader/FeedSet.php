@@ -20,8 +20,8 @@
 
 namespace Zend\Feed\Reader;
 
-use ArrayObject,
-    Zend\Uri;
+use ArrayObject;
+use Zend\Uri;
 
 /**
 * @category Zend
@@ -75,7 +75,7 @@ class FeedSet extends ArrayObject
             ));
         }
     }
-    
+
     /**
      *  Attempt to turn a relative URI into an absolute URI
      */
@@ -98,7 +98,7 @@ class FeedSet extends ArrayObject
         }
         return $link;
     }
-    
+
     /**
      *  Canonicalize relative path
      */

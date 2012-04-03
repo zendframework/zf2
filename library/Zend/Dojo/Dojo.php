@@ -20,8 +20,8 @@
 
 namespace Zend\Dojo;
 
-use Zend\View\Renderer,
-    Zend\View\Renderer\PhpRenderer;
+use Zend\View\Renderer;
+use Zend\View\Renderer\PhpRenderer;
 
 /**
  * Enable Dojo components
@@ -91,10 +91,10 @@ class Dojo
              ->getClassLoader()
              ->registerPlugins(new View\HelperLoader());
     }
-    
+
     /**
      * Dojo-disable a dojo enabled view
-     * 
+     *
      * @param  \Zend\View\Renderer $view
      * @return void
      */
@@ -103,7 +103,7 @@ class Dojo
         if (!$view instanceof PhpRenderer) {
             return;
         }
-        
+
         $broker  = $view->getBroker();
         $loader  = $broker->getClassLoader();
         $plugins = $broker->getPlugins();

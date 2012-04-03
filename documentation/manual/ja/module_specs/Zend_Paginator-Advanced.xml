@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.paginator.advanced"><info><title>高度な使用法</title></info>
-    
+
 
     <section xml:id="zend.paginator.advanced.adapters"><info><title>独自のデータソースアダプタ</title></info>
-        
+
 
         <para>
             同梱のアダプタでは対応していないようなデータ形式を処理したくなることもあるでしょう。
@@ -65,7 +65,7 @@ return array_slice($this->_array, $offset, $itemCountPerPage);
     </section>
 
     <section xml:id="zend.paginator.advanced.scrolling-styles"><info><title>独自のスクロール形式</title></info>
-        
+
 
         <para>
             独自のスクロール形式を作成するには
@@ -121,7 +121,7 @@ Zend_Paginator::addScrollingStylePrefixPath($prefix, $path);
     </section>
 
     <section xml:id="zend.paginator.advanced.caching"><info><title>キャッシュ機能</title></info>
-        
+
 
         <para>
             <classname>Zend_Paginator</classname> は、渡されたデータをキャッシュする機能があります。
@@ -222,7 +222,7 @@ var_dump($paginator->getPageItemCache());
     </section>
 
     <section xml:id="zend.paginator.advanced.aggregator"><info><title>Zend_Paginator_AdapterAggregate インターフェイス</title></info>
-        
+
 
         <para>
             作成するアプリケーションによっては、「内部のデータ構造は既存のアダプタと同じだけれども

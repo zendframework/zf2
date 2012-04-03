@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.message"><info><title>Zend_Mime_Message</title></info>
-    
+
 
     <section xml:id="zend.mime.message.introduction"><info><title>简介</title></info>
-      
+
 
       <para><code>Zend_Mime_Message</code>表示一个包含一个或多个段（段以<link linkend="zend.mime.part"><code>Zend_Mime_Part</code></link>对象表示）的符合MIME标准的消息。
       在<code>Zend_Mime_Message</code>中，符合MIME标准的多段消息由<code>Zend_Mime_Part</code>对象产生。
@@ -15,14 +15,14 @@
     </section>
 
     <section xml:id="zend.mime.message.instantiation"><info><title>实例化</title></info>
-        
+
         <para>
             <code>Zend_Mime_Message</code>没有构造函数。
         </para>
     </section>
 
     <section xml:id="zend.mime.message.addparts"><info><title>增加MIME消息段</title></info>
-        
+
 
         <para>
             <code>Zend_Mime_Message</code>对象通过调用<code>addPart($part)</code>方法，
@@ -42,7 +42,7 @@
     </section>
 
     <section xml:id="zend.mime.message.bondary"><info><title>分界线处理</title></info>
-        
+
         <para>
           <code>Zend_Mime_Message</code>通常创建和使用自身的<code>Zend_Mime</code>对象来产生MINE分界线。
           如果你想自己定义分界线或想更改<code>Zend_Mime_Message</code>自身的<code>Zend_Mime</code>对象的缺省的行为，
@@ -53,7 +53,7 @@
    </section>
 
     <section xml:id="zend.mime.message.parse"><info><title>解析字符串，创建Zend_Mime_Message对象（实验性的）</title></info>
-        
+
 
         <para>给定一个字符串形式的符合MIME标准的消息，可以重构出<code>Zend_Mime_Message</code>对象。
         <code>Zend_Mime_Message</code>有一个静态的工厂方法，解析字符串，返回<code>Zend_Mime_Message</code>对象。</para>

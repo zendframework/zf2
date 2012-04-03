@@ -21,8 +21,8 @@
 
 namespace ZendTest\Mail;
 
-use Zend\Mail\Headers,
-    Zend\Mail\Header;
+use Zend\Mail\Headers;
+use Zend\Mail\Header;
 
 /**
  * @category   Zend

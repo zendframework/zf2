@@ -90,7 +90,7 @@ class HelperBrokerController extends \Zend\Controller\Action
 
     /**
      * Test function for testLoadingHelperOnlyInitializesOnce
-     * 
+     *
      * @return void
      */
     public function test()

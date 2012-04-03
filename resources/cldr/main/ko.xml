@@ -1021,7 +1021,7 @@
 						<era type="0">불기</era>
 					</eraAbbr>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>G y년 M월 d일 EEEE</pattern>
@@ -1043,7 +1043,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d일</dateFormatItem>
 						<dateFormatItem id="Ed">d일 (E)</dateFormatItem>
@@ -1435,7 +1435,7 @@
 				</fields>
 			</calendar>
 			<calendar type="japanese">
-				<eras> 
+				<eras>
 					<eraAbbr>
 						<era type="0">다이카</era>
 						<era type="1">하쿠치</era>
@@ -1675,7 +1675,7 @@
 						<era type="235">헤이세이</era>
 					</eraAbbr>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>G y년 M월 d일 EEEE</pattern>
@@ -1697,7 +1697,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d일</dateFormatItem>
 						<dateFormatItem id="Ed">d일 (E)</dateFormatItem>
@@ -1743,7 +1743,7 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>G y년 M월 d일 EEEE</pattern> 
+							<pattern>G y년 M월 d일 EEEE</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
@@ -1762,7 +1762,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d일</dateFormatItem>
 						<dateFormatItem id="Ed">d일 (E)</dateFormatItem>

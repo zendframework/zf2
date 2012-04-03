@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-form"><info><title>Create A Form</title></info>
-    
+
 
     <para>
         For our guestbook to be useful, we need a form for submitting new entries.
@@ -153,7 +153,7 @@ echo $this->form;
 ]]></programlisting>
 
     <note><info><title>Better Looking Forms</title></info>
-        
+
 
         <para>
             No one will be waxing poetic about the beauty of this form anytime soon. No matter -
@@ -167,7 +167,7 @@ echo $this->form;
     </note>
 
     <note><info><title>Checkpoint</title></info>
-        
+
 
         <para>
             Now browse to "http://localhost/guestbook/sign". You should see the following in your

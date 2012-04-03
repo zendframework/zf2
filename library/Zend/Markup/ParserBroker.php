@@ -39,8 +39,8 @@ class ParserBroker extends PluginBroker
 
     /**
      * Determine if we have a valid parser
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return true
      * @throws Exception
      */

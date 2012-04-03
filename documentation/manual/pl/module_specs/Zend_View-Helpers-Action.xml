@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.action"><info><title>Helper Action</title></info>
-    
+
 
     <para>
         Helper <code>Action</code> pozwala skryptom widoku na uruchomienie
@@ -24,7 +24,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.action.usage"><info><title>Proste użycia helpera Action</title></info>
-        
+
 
         <para>
             Przykładem może być kontroler <code>CommentController</code>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.calendar"><info><title>Google Kalender verwenden</title></info>
-    
+
 
     <para>
         Die <classname>Zend_Gdata_Calendar</classname> Klasse kann verwendet werden um Events im
@@ -13,7 +13,7 @@
     </para>
 
     <section xml:id="zend.gdata.calendar.connecting"><info><title>Zum Kalender Service verbinden</title></info>
-        
+
 
         <para>
             Die Google Kalender <acronym>API</acronym> basiert, wie alle GData
@@ -31,7 +31,7 @@
         </para>
 
         <section xml:id="zend.gdata.calendar.connecting.authentication"><info><title>Authentifizierung</title></info>
-            
+
 
             <para>
                 Die Google Kalender <acronym>API</acronym> erlaubt den Zugriff auf beide,
@@ -85,7 +85,7 @@
         </section>
 
         <section xml:id="zend.gdata.calendar.connecting.service"><info><title>Eine Service Instanz erstellen</title></info>
-            
+
 
             <para>
                 Um mit dem Google Kalender zu interagieren, bietet diese Bibliothek die
@@ -238,7 +238,7 @@ $service = new Zend_Gdata_Calendar();
     </section>
 
     <section xml:id="zend.gdata.calendar_retrieval"><info><title>Eine Kalender Liste empfangen</title></info>
-        
+
 
         <para>
             Der Kalender Service unterstützt den Empfang einer Liste von Kalendern für den
@@ -288,7 +288,7 @@ echo "</ul>";
     </section>
 
     <section xml:id="zend.gdata.event_retrieval"><info><title>Events erhalten</title></info>
-        
+
 
         <para>
             Wie die Liste der Kalender können auch die Events empfangen werden durch Verwendung der
@@ -300,7 +300,7 @@ echo "</ul>";
         </para>
 
         <section xml:id="zend.gdata.event_retrieval.queries"><info><title>Abfragen</title></info>
-            
+
 
             <para>
                 Wenn Events mit der Kalender <acronym>API</acronym> empfangen werden, werden
@@ -351,7 +351,7 @@ echo "</ul>";
         </section>
 
         <section xml:id="zend.gdata.event_retrieval.start_time"><info><title>Events in der Reihenfolge Ihres Startzeitpunktes erhalten</title></info>
-            
+
 
             <para>
                 Das folgende Beispiel zeigt die Verwendung der
@@ -400,7 +400,7 @@ echo "</ul>";
         </section>
 
         <section xml:id="zend.gdata.event_retrieval.date_range"><info><title>Events in einem speziellen Datumsbereich empfangen</title></info>
-            
+
 
             <para>
                 Um alle Events in einem gewünschten Bereich auszugeben, zum Beispiel vom 1. Dezember
@@ -424,7 +424,7 @@ $query->setStartMax('2006-12-16');
         </section>
 
         <section xml:id="zend.gdata.event_retrieval.fulltext"><info><title>Events durch eine Volltext Abfrage erhalten</title></info>
-            
+
 
             <para>
                 Um alle Events auszugeben welche ein spezielles Wort, zum Beispiel "Hundefutter"
@@ -438,7 +438,7 @@ $query->setQuery("Hundefutter");
         </section>
 
         <section xml:id="zend.gdata.event_retrieval.individual"><info><title>Individuelle Events erhalten</title></info>
-            
+
 
             <para>
                 Individuelle Events können empfangen werden indem deren Event ID als Teil der
@@ -483,10 +483,10 @@ try {
     </section>
 
     <section xml:id="zend.gdata.calendar.creating_events"><info><title>Events erstellen</title></info>
-        
+
 
         <section xml:id="zend.gdata.calendar.creating_events.single"><info><title>Ein einmal vorkommendes Event erstellen</title></info>
-            
+
 
             <para>
                 Events werden einem Kalender hinzugefügt indem eine Instanz von
@@ -624,7 +624,7 @@ $newEvent = $service->insertEvent($event);
         </section>
 
         <section xml:id="zend.gdata.calendar.creating_events.schedulers_reminders"><info><title>Event Planungen und Erinnerungen</title></info>
-            
+
 
             <para>
                 Die Startzeit und Dauer eines Events werden durch die Werte seiner
@@ -689,7 +689,7 @@ $when->reminders = array($reminder);
         </section>
 
         <section xml:id="zend.gdata.calendar.creating_events.recurring"><info><title>Wiederkehrende Events erstellen</title></info>
-            
+
 
             <para>
                 Wiederkehrende Events werden auf dem gleichen Weg erstellt wie einmal stattfindende
@@ -746,7 +746,7 @@ $newEvent = $service->insertEvent($event);
         </section>
 
         <section xml:id="zend.gdata.calendar.creating_events.quickadd"><info><title>QuickAdd verwenden</title></info>
-            
+
 
             <para>
                 QuickAdd ist ein Feature das es erlaubt Events zu erstellen indem ein frei
@@ -776,7 +776,7 @@ $newEvent = $service->insertEvent($event);
     </section>
 
     <section xml:id="zend.gdata.calendar.modifying_events"><info><title>Events bearbeiten</title></info>
-        
+
 
         <para>
             Sobald eine Instanz eines Events erstellt wurde, können die Attribute des Events lokal
@@ -811,7 +811,7 @@ try {
     </section>
 
     <section xml:id="zend.gdata.calendar.deleting_events"><info><title>Events löschen</title></info>
-        
+
 
         <para>
             Kalender Events können entweder durch den Aufruf der <methodname>delete()</methodname>
@@ -841,7 +841,7 @@ $service->delete($event->getEditLink()->href);
     </section>
 
     <section xml:id="zend.gdata.calendar.comments"><info><title>Auf Event Kommentare zugreifen</title></info>
-        
+
 
         <para>
             Den die komplette Event Ansicht verwendet wird, werden Kommentare nicht direkt innerhalb

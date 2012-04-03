@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages"><info><title>画面</title></info>
-    
+
 
     <para>
         <classname>Zend_Navigation</classname>は２種類の画面タイプを入手可能にします。

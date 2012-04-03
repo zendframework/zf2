@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.pages"><info><title>Arbeiten mit Seiten</title></info>
-    
+
 
     <section xml:id="zend.pdf.pages.creation"><info><title>Erstellen von Seiten</title></info>
-        
+
 
         <para>
             Die Seiten in einem <acronym>PDF</acronym> Dokument werden durch
@@ -60,7 +60,7 @@
         </para>
 
         <example xml:id="zend.pdf.pages.example-1"><info><title>Verwaltung von PDF Dokumentseiten</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...
@@ -81,7 +81,7 @@ unset($pdf->pages[$id]);
     </section>
 
     <section xml:id="zend.pdf.pages.cloning"><info><title>Klonen von Seiten</title></info>
-        
+
 
         <para>
             Bestehende <acronym>PDF</acronym> Seiten können durch das Erstellen eines neuen
@@ -90,7 +90,7 @@ unset($pdf->pages[$id]);
         </para>
 
         <example xml:id="zend.pdf.pages.example-2"><info><title>Klonen bestehender Seiten</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 ...

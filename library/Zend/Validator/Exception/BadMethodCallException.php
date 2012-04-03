@@ -2,7 +2,7 @@
 
 namespace Zend\Validator\Exception;
 
-class BadMethodCallException 
+class BadMethodCallException
     extends \BadMethodCallException
     implements \Zend\Validator\Exception
 {

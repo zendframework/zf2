@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.static"><info><title>Zend_Controller_Router_Route_Static</title></info>
-    
+
 
     <para>
         הדוגמאות למעלה משתמשות כולן בניתוב דינאמי -- נתבים יכולים להכיל תבניות שניתן להתאים מולן.
@@ -22,7 +22,7 @@ $router->addRoute('login', $route);
     </para>
 
     <note xml:id="zend.controller.router.routes.static.warning"><info><title>אזהרה: נתבים סטטיים חייבים להכיל את כל הפרמטרים הדרושים</title></info>
-        
+
 
         <para>
             מאחר ונתב סטטי לא מעביר שום פרמטר מהקישור לאובייקט המבוקש, חובה להעביר את כל הפרמטרים הדרושים לניתוב הבקשה כברירת מחדל בניתוב עצמו.

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.akismet"><info><title>Zend_Service_Akismet</title></info>
-    
+
 
     <section xml:id="zend.service.akismet.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Akismet</classname> provides a client for the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://akismet.com/development/api/">Akismet <acronym>API</acronym></link>.
@@ -33,7 +33,7 @@
     </section>
 
     <section xml:id="zend.service.akismet.verifykey"><info><title>Verify an API key</title></info>
-        
+
 
         <para>
             <methodname>Zend_Service_Akismet::verifyKey($key)</methodname> is used to
@@ -67,7 +67,7 @@ if ($akismet->verifyKey($apiKey) {
     </section>
 
     <section xml:id="zend.service.akismet.isspam"><info><title>Check for spam</title></info>
-        
+
 
         <para>
             <methodname>Zend_Service_Akismet::isSpam($data)</methodname> is used to
@@ -174,7 +174,7 @@ if ($akismet->verifyKey($apiKey) {
         </para>
 
         <example xml:id="zend.service.akismet.isspam.example-1"><info><title>isSpam() Usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $data = array(
@@ -202,7 +202,7 @@ if ($akismet->isSpam($data)) {
     </section>
 
     <section xml:id="zend.service.akismet.submitspam"><info><title>Submitting known spam</title></info>
-        
+
 
         <para>
             Spam data will occasionally get through the filter. If you discover spam that you feel
@@ -216,7 +216,7 @@ if ($akismet->isSpam($data)) {
         </para>
 
         <example xml:id="zend.service.akismet.submitspam.example-1"><info><title>submitSpam() Usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $data = array(
@@ -239,7 +239,7 @@ $akismet->submitSpam($data));
     </section>
 
     <section xml:id="zend.service.akismet.submitham"><info><title>Submitting false positives (ham)</title></info>
-        
+
 
         <para>
             Data will occasionally be trapped erroneously as spam by Akismet. For this reason,
@@ -257,7 +257,7 @@ $akismet->submitSpam($data));
         </para>
 
         <example xml:id="zend.service.akismet.submitham.example-1"><info><title>submitHam() Usage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $data = array(
@@ -280,7 +280,7 @@ $akismet->submitHam($data));
     </section>
 
     <section xml:id="zend.service.akismet.accessors"><info><title>Zend-specific Methods</title></info>
-        
+
 
         <para>
             While the Akismet <acronym>API</acronym> only specifies four methods,

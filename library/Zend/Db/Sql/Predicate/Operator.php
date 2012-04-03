@@ -61,12 +61,12 @@ class Operator implements PredicateInterface
 
     /**
      * Constructor
-     * 
-     * @param  mixed $left 
-     * @param  string $operator 
-     * @param  mixed $right 
-     * @param  TYPE_IDENTIFIER|TYPE_VALUE $leftType 
-     * @param  TYPE_IDENTIFIER|TYPE_VALUE $rightType 
+     *
+     * @param  mixed $left
+     * @param  string $operator
+     * @param  mixed $right
+     * @param  TYPE_IDENTIFIER|TYPE_VALUE $leftType
+     * @param  TYPE_IDENTIFIER|TYPE_VALUE $rightType
      * @return void
      */
     public function __construct($left = null, $operator = self::OPERATOR_EQUAL_TO, $right = null, $leftType = self::TYPE_IDENTIFIER, $rightType = self::TYPE_VALUE)
@@ -90,8 +90,8 @@ class Operator implements PredicateInterface
 
     /**
      * Set left side of operator
-     * 
-     * @param  scalar $left 
+     *
+     * @param  scalar $left
      * @return Operator
      */
     public function setLeft($left)
@@ -102,7 +102,7 @@ class Operator implements PredicateInterface
 
     /**
      * Get left side of operator
-     * 
+     *
      * @return scalar
      */
     public function getLeft()
@@ -112,7 +112,7 @@ class Operator implements PredicateInterface
 
     /**
      * Set parameter type for left side of operator
-     * 
+     *
      * @param  TYPE_IDENTIFIER|TYPE_VALUE $type
      * @return Operator
      */
@@ -132,7 +132,7 @@ class Operator implements PredicateInterface
 
     /**
      * Get parameter type on left side of operator
-     * 
+     *
      * @return string
      */
     public function getLeftType()
@@ -142,8 +142,8 @@ class Operator implements PredicateInterface
 
     /**
      * Set operator string
-     * 
-     * @param  string $operator 
+     *
+     * @param  string $operator
      * @return Operator
      */
     public function setOperator($operator)
@@ -154,7 +154,7 @@ class Operator implements PredicateInterface
 
     /**
      * Get operator string
-     * 
+     *
      * @return string
      */
     public function getOperator()
@@ -164,8 +164,8 @@ class Operator implements PredicateInterface
 
     /**
      * Set right side of operator
-     * 
-     * @param  scalar $value 
+     *
+     * @param  scalar $value
      * @return Operator
      */
     public function setRight($value)
@@ -176,7 +176,7 @@ class Operator implements PredicateInterface
 
     /**
      * Get right side of operator
-     * 
+     *
      * @return scalar
      */
     public function getRight()
@@ -186,7 +186,7 @@ class Operator implements PredicateInterface
 
     /**
      * Set parameter type for right side of operator
-     * 
+     *
      * @param  TYPE_IDENTIFIER|TYPE_VALUE $type
      * @return Operator
      */
@@ -206,7 +206,7 @@ class Operator implements PredicateInterface
 
     /**
      * Get parameter type on right side of operator
-     * 
+     *
      * @return string
      */
     public function getRightType()
@@ -216,14 +216,14 @@ class Operator implements PredicateInterface
 
     /**
      * Get predicate parts for where statement
-     * 
+     *
      * @return array
      */
     public function getExpressionData()
     {
         return array(array(
-            '%s ' . $this->operator . ' %s', 
-            array($this->left, $this->right), 
+            '%s ' . $this->operator . ' %s',
+            array($this->left, $this->right),
             array($this->leftType, $this->rightType)
         ));
     }

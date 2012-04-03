@@ -1037,7 +1037,7 @@
 		<dateRangePattern>{0} – {1}</dateRangePattern>
 		<calendars>
 			<calendar type="buddhist">
-				<eras> 
+				<eras>
 					<eraNames>
 						<era type="0">ère bouddhiste</era>
 					</eraNames>
@@ -1049,12 +1049,12 @@
 					</eraNarrow>
 				</eras>
 				<dateFormats>
-					<dateFormatLength type="full"> 
+					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d MMMM y G</pattern>
 						</dateFormat>
 					</dateFormatLength>
-					<dateFormatLength type="long"> 
+					<dateFormatLength type="long">
 						<dateFormat>
 							<pattern>d MMMM y G</pattern>
 						</dateFormat>
@@ -1070,7 +1070,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E d</dateFormatItem>
@@ -1864,7 +1864,7 @@
 						<alias source="locale" path="../eraAbbr"/>
 					</eraNarrow>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d MMMM y G</pattern>
@@ -1886,7 +1886,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E d</dateFormatItem>
@@ -1921,7 +1921,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d MMMM y G</pattern>
@@ -1943,7 +1943,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E d</dateFormatItem>
@@ -1978,7 +1978,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="roc">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d MMMM y G</pattern>
@@ -2000,7 +2000,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E d</dateFormatItem>

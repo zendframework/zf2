@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.rest.client"><info><title>Zend_Rest_Client</title></info>
-    
+
 
     <section xml:id="zend.rest.client.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_Rest_Client</classname> の使用法は、
@@ -14,7 +14,7 @@
         </para>
 
         <example xml:id="zend.rest.client.introduction.example-1"><info><title>基本的な REST リクエスト</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**
@@ -27,7 +27,7 @@ echo $client->sayHello('Davey', 'Day')->get(); // "Hello Davey, Good Day"
         </example>
 
         <note><info><title>コール方法の違い</title></info>
-            
+
 
             <para>
                 <classname>Zend_Rest_Client</classname> は、
@@ -47,7 +47,7 @@ echo $client->get();
     </section>
 
     <section xml:id="zend.rest.client.return"><info><title>レスポンス</title></info>
-        
+
 
         <para>
             <classname>Zend_Rest_Client</classname> を使用して行ったリクエストは、すべて
@@ -62,7 +62,7 @@ echo $client->get();
         </para>
 
         <example xml:id="zend.rest.client.return.example-1"><info><title>レスポンスステータス</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $result = $client->sayHello('Davey', 'Day')->get();
@@ -95,7 +95,7 @@ if ($result->isSuccess()) {
         </para>
 
         <example xml:id="zend.rest.client.return.example-2"><info><title>Technorati の Rest サービスの使用</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $technorati = new Zend_Rest_Client('http://api.technorati.com/bloginfo');
@@ -107,7 +107,7 @@ echo $result->firstname() .' '. $result->lastname();
         </example>
 
         <example xml:id="zend.rest.client.return.example-3"><info><title>Technorati からのレスポンスの例</title></info>
-            
+
 
             <programlisting language="xml"><![CDATA[
 <?xml version="1.0" encoding="utf-8"?>
@@ -153,7 +153,7 @@ echo $result->firstname() .' '. $result->lastname();
         </para>
 
         <note><info><title>複数の要素</title></info>
-            
+
 
             <para>
                 名前でアクセスしているときにもし複数の項目が見つかったら、
@@ -164,7 +164,7 @@ echo $result->firstname() .' '. $result->lastname();
     </section>
 
     <section xml:id="zend.rest.client.args"><info><title>リクエストの引数</title></info>
-        
+
 
         <para>
             <classname>Zend_Rest_Server</classname> ベースのサービスにリクエストを送るのではない場合は、
@@ -179,7 +179,7 @@ echo $result->firstname() .' '. $result->lastname();
         </para>
 
         <example xml:id="zend.rest.client.args.example-1"><info><title>リクエストの引数の設定</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $client = new Zend_Rest_Client('http://example.org/rest');
@@ -208,7 +208,7 @@ $client->arg('value1')->arg2('value2')->get();
         </para>
 
         <warning><info><title>Zend_Rest_Client の厳格性</title></info>
-            
+
 
             <para>
                 受け取る引数について厳格な REST サービスでは、

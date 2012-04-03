@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.advanced"><info><title>Avançado</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.advanced.format_migration"><info><title>A partir da versão 1.6, manipulando as transformações no formato de índice</title></info>
-        
+
 
         <para>
             O componente <classname>Zend_Search_Lucene</classname> trabalha com os formatos de
@@ -80,7 +80,7 @@
         </para>
 
         <note><info><title>Importante!</title></info>
-            
+
 
             <para>
                 Uma vez que o índice é convertido para a versão superior não pode ser convertido de
@@ -92,7 +92,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.advanced.static"><info><title>Usando o índice como propriedade estática</title></info>
-        
+
 
         <para>
             The <classname>Zend_Search_Lucene</classname> object uses the destructor method to

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.introduction"><info><title>導入</title></info>
 
-    
+
 
     <para>
         <classname>Zend_View</classname> は、モデル - ビュー - コントローラ パターンにおける
@@ -31,7 +31,7 @@
 
     <section xml:id="zend.view.introduction.controller"><info><title>コントローラスクリプト</title></info>
 
-        
+
 
         <para>
             単純な例として、本の一覧を扱うコントローラがあることにしましょう。
@@ -69,7 +69,7 @@ echo $view->render('booklist.php');
 
     <section xml:id="zend.view.introduction.view"><info><title>ビュースクリプト</title></info>
 
-        
+
 
         <para>
             次に必要なのは、関連付けるビュースクリプト "booklist.php" です。
@@ -116,7 +116,7 @@ echo $view->render('booklist.php');
     </section>
 
     <section xml:id="zend.view.introduction.options"><info><title>オプション</title></info>
-        
+
 
         <para>
             <classname>Zend_View</classname> のオプションを設定すると、
@@ -185,7 +185,7 @@ base/path/
     </section>
 
     <section xml:id="zend.view.introduction.shortTags"><info><title>ビュースクリプトでの短いタグ</title></info>
-        
+
 
         <para>
             我々が用意する例では、<acronym>PHP</acronym> の長いタグ
@@ -250,7 +250,7 @@ $view->setUseStreamWrapper(true);
         </itemizedlist>
 
         <warning><info><title>ビューストリームラッパーによるパフォーマンスの低下</title></info>
-            
+
 
             <para>
                 ストリームラッパーを使用すると、アプリケーションのパフォーマンスは
@@ -265,7 +265,7 @@ $view->setUseStreamWrapper(true);
     </section>
 
     <section xml:id="zend.view.introduction.accessors"><info><title>ユーティリティメソッド</title></info>
-        
+
 
         <para>
             通常は、<methodname>assign()</methodname> と <methodname>render()</methodname>、

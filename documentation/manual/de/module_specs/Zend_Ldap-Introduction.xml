@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_Ldap</classname> ist eine Klasse, mit der <acronym>LDAP</acronym>
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.ldap.introduction.theory-of-operations"><info><title>Theorie der Verwendung</title></info>
-        
+
 
         <para>
             Diese Komponente besteht aus der Hauptklasse <classname>Zend_Ldap</classname> welche
@@ -94,7 +94,7 @@ echo "$acctname\n";
         </para>
 
         <section xml:id="zend.ldap.introduction.theory-of-operations.automatic-username-canonicalization"><info><title>Automatische Kanonisierung des Benutzernamens beim Binden</title></info>
-            
+
 
             <para>
                 Wenn <code>bind()</code> mit einem nicht-DN Benutzernamen aufgerufen wird
@@ -146,7 +146,7 @@ echo "$acctname\n";
         </section>
 
         <section xml:id="zend.ldap.introduction.theory-of-operations.account-name-canonicalization"><info><title>Kanonisierung des Account Namens</title></info>
-            
+
 
             <para>
                 Die Optionen <emphasis>accountDomainName</emphasis> und
@@ -158,7 +158,7 @@ echo "$acctname\n";
             </para>
 
             <table xml:id="zend.ldap.using.theory-of-operation.account-name-canonicalization.table"><info><title>Optionen für accountCanonicalForm</title></info>
-                
+
 
                 <tgroup cols="3">
                     <thead>
@@ -218,7 +218,7 @@ echo "$acctname\n";
         </section>
 
         <section xml:id="zend.ldap.introduction.theory-of-operations.multi-domain-failover"><info><title>Multi-Domain Authentifizierung und Failover</title></info>
-            
+
 
             <para>
                 Die Komponente <classname>Zend_Ldap</classname> macht von sich aus keinen Versuch

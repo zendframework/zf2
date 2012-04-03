@@ -155,7 +155,7 @@ class Gmp implements BigIntegerCapable
     }
 
     /**
-     * @param  string $operand 
+     * @param  string $operand
      * @return integer
      */
     public function binaryToInteger($operand)
@@ -170,7 +170,7 @@ class Gmp implements BigIntegerCapable
     }
 
     /**
-     * @param  string|integer $operand 
+     * @param  string|integer $operand
      * @return string
      */
     public function integerToBinary($operand)
@@ -186,7 +186,7 @@ class Gmp implements BigIntegerCapable
     }
 
     /**
-     * @param  string $operand 
+     * @param  string $operand
      * @return string
      */
     public function hexToDecimal($operand)

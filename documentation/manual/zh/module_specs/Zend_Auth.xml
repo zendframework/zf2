@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.introduction"><info><title>简介</title></info>
 
-    
+
 
     <para>
         Zend_Auth 为认证（authentication）和一些通用用例情景的具体认证适配器提供了一个API。
@@ -19,7 +19,7 @@
 
     <section xml:id="zend.auth.introduction.adapters"><info><title>适配器</title></info>
 
-        
+
 
         <para>
             Zend_Auth适配器被用来依靠特定的认证服务（例如LDAP、RDBMS或基于文件的存储）来认证。不同的适配器可能有不同的选项和行为，但有些基本的事情在认证适配器中是通用的。例如，接受认证证书（包括声称身份）、依靠认证服务执行查询、返回结果在Zend_Auth适配器中是通用的。
@@ -66,7 +66,7 @@ class MyAuthAdapter implements Zend_Auth_Adapter_Interface
 
     <section xml:id="zend.auth.introduction.results"><info><title>结果</title></info>
 
-        
+
 
         <para>
             为了表示一个认证尝试的结果，Zend_Auth适配器返回一个带有<code>authenticate()</code>的<code>Zend_Auth_Result</code>的实例。适配器基于结构组成<code>Zend_Auth_Result</code>对象，下面四个方法提供了一组基本的用户面临的通用Zend_Auth适配器结果的操作：
@@ -141,7 +141,7 @@ switch ($result->getCode()) {
 
     <section xml:id="zend.auth.introduction.persistence"><info><title>身份的持久（Persistence）</title></info>
 
-        
+
 
         <para>
             实质上，认证一个包含认证证书的请求很有用，但是维护已认证的身份并在每次请求时不需要出示认证证书也同样很重要。
@@ -153,7 +153,7 @@ switch ($result->getCode()) {
 
         <section xml:id="zend.auth.introduction.persistence.default"><info><title>在PHP Session 中的缺省持久（Persistence）</title></info>
 
-            
+
 
             <para>
                  缺省地，<code>Zend_Auth</code>从使用PHP session成功的认证尝试中提供身份的持久存储。基于一个成功的认证尝试，<code>Zend_Auth::authenticate()</code>通过把认证结果放入持久存储中来保存身份。除非另有配置，<code>Zend_Auth</code> 使用名称为<code>Zend_Auth_Storage_Session</code> 的存储类，这个类使用<link linkend="zend.session">Zend_Session</link>。通过实现<code>Zend_Auth_Storage_Interface</code>给<code>Zend_Auth::setStorage()</code>提供一个对象，一个定制的类可以被替代使用。
@@ -167,7 +167,7 @@ switch ($result->getCode()) {
 
             <example xml:id="zend.auth.introduction.persistence.default.example"><info><title>修改 Session 名字空间</title></info>
 
-                
+
 
                 <para>
                     <code>Zend_Auth_Storage_Session</code>使用<code>'Zend_Auth'</code>的seesion名字空间。通过给<code>Zend_Auth_Storage_Session</code>的构造器传递不同的值，这个名字空间可以被替换，并且这个值被从内部传递给<code>Zend_Session_Namespace</code>的构造器。这应该发生在认证尝试之前，因为<code>Zend_Auth::authenticate()</code>执行身份的自动存储。
@@ -197,7 +197,7 @@ $result = $auth->authenticate($authAdapter);
 
         <section xml:id="zend.auth.introduction.persistence.custom"><info><title>实现订制存储</title></info>
 
-            
+
 
             <para>
                有时候开发者需要使用不同的身份持久行为，而不是<code>Zend_Auth_Storage_Session</code>提供的。对于这样的案例开发者可以简单地实现<code>Zend_Auth_Storage_Interface</code>并给<code>Zend_Auth::setStorage()</code>提供一个类的实例。
@@ -205,7 +205,7 @@ $result = $auth->authenticate($authAdapter);
 
             <example xml:id="zend.auth.introduction.persistence.custom.example"><info><title>使用定制存储类</title></info>
 
-                
+
 
                 <para>
                    为了使用不同于<code>Zend_Auth_Storage_Session</code>的身份之久存储类，开发者可实现<code>Zend_Auth_Storage_Interface</code>：
@@ -304,7 +304,7 @@ $result = Zend_Auth::getInstance()->authenticate($authAdapter);
 
     <section xml:id="zend.auth.introduction.using"><info><title>使用Zend_Auth</title></info>
 
-        
+
 
         <para>
             这里提供了两种方法使用Zend_Auth适配器：

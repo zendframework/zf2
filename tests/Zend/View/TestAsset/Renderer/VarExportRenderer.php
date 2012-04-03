@@ -21,9 +21,9 @@
 
 namespace ZendTest\View\TestAsset\Renderer;
 
-use Zend\View\Model,
-    Zend\View\Renderer,
-    Zend\View\Resolver;
+use Zend\View\Model;
+use Zend\View\Renderer;
+use Zend\View\Resolver;
 
 /**
  * @category   Zend

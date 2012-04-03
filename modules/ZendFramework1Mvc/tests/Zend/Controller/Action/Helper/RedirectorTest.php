@@ -21,9 +21,9 @@
 
 namespace ZendTest\Controller\Action\Helper;
 
-use Zend\Controller,
-    Zend\Controller\Action,
-    Zend\Controller\Router\Route;
+use Zend\Controller;
+use Zend\Controller\Action;
+use Zend\Controller\Router\Route;
 
 /**
  * Test class for Zend_Controller_Action_Helper_Redirector.

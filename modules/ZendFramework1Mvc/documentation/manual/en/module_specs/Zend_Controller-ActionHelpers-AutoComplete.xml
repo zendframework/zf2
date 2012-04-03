@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.autocomplete"><info><title>AutoComplete</title></info>
-    
+
 
     <para>
         Many <acronym>AJAX</acronym> javascript libraries offer functionality for providing
@@ -116,7 +116,7 @@ class FooController extends Zend_Controller_Action
     </para>
 
     <section xml:id="zend.controller.actionhelpers.autocomplete.dojo"><info><title>AutoCompletion with Dojo</title></info>
-        
+
 
         <para>
             Dojo does not have an AutoCompletion widget per se, but has two
@@ -138,7 +138,7 @@ $this->_helper->autoCompleteDojo($data);
 ]]></programlisting>
 
         <example xml:id="zend.controller.actionhelpers.autocomplete.dojo.example1"><info><title>AutoCompletion with Dojo Using Zend MVC</title></info>
-            
+
 
             <para>
                 AutoCompletion with Dojo via the Zend <acronym>MVC</acronym> requires several
@@ -331,7 +331,7 @@ dojo.require("custom.TestNameReadStore");
     </section>
 
     <section xml:id="zend.controller.actionhelpers.autocomplete.scriptaculous"><info><title>AutoCompletion with Scriptaculous</title></info>
-        
+
 
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wiki.script.aculo.us/scriptaculous/show/Ajax.Autocompleter">Scriptaculous</link>

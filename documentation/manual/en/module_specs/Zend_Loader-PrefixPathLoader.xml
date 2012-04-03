@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.prefix-path-loader"><info><title>The PrefixPathLoader</title></info>
-    
+
 
     <section xml:id="zend.loader.prefix-path-loader.intro"><info><title>Overview</title></info>
-        
+
 
         <para>
             Zend Framework's 1.X series introduced a plugin methodology surrounding associations of
@@ -18,7 +18,7 @@
             more paths, and multiple prefix/path maps may be provided. To resolve a plugin name, the
             prefixes are searched as a stack (i.e., last in, first out, or LIFO), and each path
             associated with the prefix is also searched as a stack. As soon as a file is found
-            matching the plugin name, the class will be returned. 
+            matching the plugin name, the class will be returned.
         </para>
 
         <para>
@@ -27,7 +27,7 @@
             attempt to autoload a plugin before scanning the filesystem. This allows you to benefit
             from your autoloader and/or an opcode cache. Second, it aggregates the class name and
             class file associated with each discovered plugin. You can then retrieve this
-            information and cache it for later seeding a <link linkend="zend.loader.class-map-autoloader">ClassMapAutoloader</link> and 
+            information and cache it for later seeding a <link linkend="zend.loader.class-map-autoloader">ClassMapAutoloader</link> and
             <link linkend="zend.loader.plugin-class-loader">PluginClassLoader</link>.
         </para>
 
@@ -38,7 +38,7 @@
         </para>
 
         <note><info><title>Case Sensitivity</title></info>
-            
+
 
             <para>
                 Unlike the <link linkend="zend.loader.plugin-class-loader">PluginClassLoader</link>,
@@ -49,7 +49,7 @@
         </note>
 
         <note><info><title>Preference is for Namespaces</title></info>
-            
+
 
             <para>
                 Unlike the Zend Framework 1 variant, the <classname>PrefixPathLoader</classname>
@@ -61,7 +61,7 @@
     </section>
 
     <section xml:id="zend.loader.prefix-path-loader.quick-start"><info><title>Quick Start</title></info>
-        
+
 
         <para>
             The <classname>PrefixPathLoader</classname> invariably requires some configuration -- it
@@ -103,10 +103,10 @@ $plugin = new $class();
     </section>
 
     <section xml:id="zend.loader.prefix-path-loader.options"><info><title>Configuration Options</title></info>
-        
+
 
         <variablelist><info><title>PrefixPathLoader Options</title></info>
-            
+
 
             <varlistentry>
                 <term>$options</term>
@@ -124,7 +124,7 @@ $plugin = new $class();
     </section>
 
     <section xml:id="zend.loader.prefix-path-loader.methods"><info><title>Available Methods</title></info>
-        
+
 
         <refentry xml:id="zend.loader.standard-autoloader.methods.constructor">
             <refnamediv>
@@ -142,7 +142,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>__construct()</title></info>
-                
+
 
                 <para>
                     Instantiates and initializes a <classname>PrefixPathLoader</classname> instance.
@@ -174,7 +174,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>addStaticPaths()</title></info>
-                
+
 
                 <para>
                     Expects an array or <interfacename>Traversable</interfacename> object compatible
@@ -202,7 +202,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>setOptions()</title></info>
-                
+
 
                 <para>
                     Proxies to <link linkend="zend.loader.prefix-path-loader.methods.add-prefix-paths">addPrefixPaths()</link>.
@@ -226,7 +226,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>addPrefixPath()</title></info>
-                
+
 
                 <para>
                     Use this method to map a single filesystem path to a given namespace or vendor
@@ -260,7 +260,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>addPrefixPaths()</title></info>
-                
+
 
                 <para>
                     This method expects an array or <interfacename>Traversable</interfacename>
@@ -310,7 +310,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>getPaths()</title></info>
-                
+
 
                 <para>
                     Use this method to obtain the prefix/paths map. If no <varname>$prefix</varname>
@@ -346,7 +346,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>clearPaths()</title></info>
-                
+
 
                 <para>
                     If no <varname>$prefix</varname> is provided, all prefix/path pairs are removed.
@@ -373,7 +373,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>removePrefixPath()</title></info>
-                
+
 
                 <para>
                     Removes a single path from a given prefix.
@@ -397,7 +397,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>isLoaded()</title></info>
-                
+
 
                 <para>
                     Use this method to determine if the given plugin has been resolved to a class
@@ -425,7 +425,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>getClassName()</title></info>
-                
+
 
                 <para>
                     Given a plugin name, this method will attempt to return the associated class
@@ -452,7 +452,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>load()</title></info>
-                
+
 
                 <para>
                     Given a plugin name, the <methodname>load()</methodname> method will loop
@@ -485,7 +485,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>getPluginMap()</title></info>
-                
+
 
                 <para>
                     Returns an array of resolved plugin name/class name pairs. This value may be
@@ -507,7 +507,7 @@ $plugin = new $class();
             </refsynopsisdiv>
 
             <refsection><info><title>getClassMap()</title></info>
-                
+
 
                 <para>
                     Returns an array of resolved class name/file name pairs. This value may be used
@@ -518,10 +518,10 @@ $plugin = new $class();
     </section>
 
     <section xml:id="zend.loader.prefix-path-loader.examples"><info><title>Examples</title></info>
-        
+
 
         <example xml:id="zend.loader.prefix-path-loader.examples.multiple-paths"><info><title>Using multiple paths for the same prefix</title></info>
-            
+
 
             <para>
                 Sometimes you may have code containing the same namespace or vendor prefix in two
@@ -580,7 +580,7 @@ $foobar = $loader->load('foobar'); // Foo\Foobar from vendor/Foo/Baz.php
         </example>
 
         <example xml:id="zend.loader.prefix-path-loader.examples.optimizing"><info><title>Prototyping with PrefixPathLoader</title></info>
-            
+
 
             <para>
                 <classname>PrefixPathLoader</classname> is quite useful for prototyping
@@ -636,7 +636,7 @@ file_put_contents(APPLICATION_PATH . '/.classmap.php', $content);
 use Zend\Cache\Cache;
 
 $cache = Cache::factory(
-    'Core', 'File', 
+    'Core', 'File',
     array('lifetime' => null, 'automatic_serialization' => true),
     array('cache_dir' => APPLICATION_PATH . '/../cache/classmaps')
 );

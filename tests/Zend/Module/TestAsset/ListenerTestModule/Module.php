@@ -2,8 +2,8 @@
 
 namespace ListenerTestModule;
 
-use Zend\Module\Consumer\AutoloaderProvider,
-    Zend\Module\Consumer\LocatorRegistered;
+use Zend\Module\Consumer\AutoloaderProvider;
+use Zend\Module\Consumer\LocatorRegistered;
 
 class Module implements AutoloaderProvider, LocatorRegistered
 {

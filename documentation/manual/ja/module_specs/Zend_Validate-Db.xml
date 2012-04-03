@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.Db"><info><title>Db_RecordExists および Db_NoRecordExists</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Db_RecordExists</classname> および
@@ -11,7 +11,7 @@
 
     <!-- TODO : to be translated -->
     <section xml:id="zend.validate.set.db.options"><info><title>Supported options for Zend_Validate_Db_*</title></info>
-        
+
 
         <para>
             The following options are supported for
@@ -58,7 +58,7 @@
     </section>
 
     <section xml:id="zend.validate.db.basic-usage"><info><title>基本的な使用法</title></info>
-        
+
 
         <para>
             このバリデータの基本的な使用例です。
@@ -115,7 +115,7 @@ if ($validator->isValid($username)) {
     </section>
 
     <section xml:id="zend.validate.db.excluding-records"><info><title>レコードの除外</title></info>
-        
+
 
         <para>
             <classname>Zend_Validate_Db_RecordExists</classname> および
@@ -198,7 +198,7 @@ if ($validator->isValid($username)) {
     </section>
 
     <section xml:id="zend.validate.db.database-adapters"><info><title>データベースアダプタ</title></info>
-        
+
 
         <para>
             アダプタを指定することもできます。
@@ -219,7 +219,7 @@ $validator = new Zend_Validate_Db_RecordExists(
     </section>
 
     <section xml:id="zend.validate.db.database-schemas"><info><title>データベーススキーマ</title></info>
-        
+
 
         <para>
             データベース内のスキーマを

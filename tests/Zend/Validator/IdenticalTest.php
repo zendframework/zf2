@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Validator;
-use Zend\Validator,
-    ReflectionClass;
+use Zend\Validator;
+use ReflectionClass;
 
 /** Zend_Validator_Identical */
 
@@ -130,16 +130,16 @@ class IdenticalTest extends \PHPUnit_Framework_TestCase
         $validator->setStrict(true);
         $this->assertFalse($validator->isValid(array('token' => '123')));
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = new Validator\Identical();
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -148,16 +148,16 @@ class IdenticalTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = new Validator\Identical();
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

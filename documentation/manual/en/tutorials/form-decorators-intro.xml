@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.form.decorators.intro"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <link linkend="zend.form">Zend_Form</link> utilizes the <emphasis>decorator</emphasis>

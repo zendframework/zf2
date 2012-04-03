@@ -36,9 +36,9 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $_feedSamplePath = null;
-    
+
     protected $_expectedCats = array();
-    
+
     protected $_expectedCatsDc = array();
 
     public function setup()
@@ -86,12 +86,12 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
             )
         );
     }
-    
+
     public function teardown()
     {
         Date\Date::setOptions($this->_options);
     }
-    
+
     public function testReaderImportOfAtomEntryDocumentReturnsEntryClass()
     {
         $object = Reader\Reader::importString(
@@ -215,7 +215,7 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $entry->getEnclosure());
     }
-    
+
     /**
      * TEXT
      * @group ZFRATOMCONTENT
@@ -227,7 +227,7 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals('Entry Content &amp;', $entry->getContent());
     }
-    
+
     /**
      * HTML Escaped
      * @group ZFRATOMCONTENT
@@ -239,7 +239,7 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals('<p>Entry Content &amp;</p>', $entry->getContent());
     }
-    
+
     /**
      * HTML CDATA Escaped
      * @group ZFRATOMCONTENT
@@ -251,7 +251,7 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals('<p>Entry Content &amp;</p>', $entry->getContent());
     }
-    
+
     /**
      * XHTML
      * @group ZFRATOMCONTENT
@@ -287,7 +287,7 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals('http://www.example.com/entry/comments', $entry->getCommentLink());
     }
-    
+
     /**
      * Get category data
      * @group ZFR002
@@ -300,5 +300,5 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCats, (array) $entry->getCategories());
         $this->assertEquals(array('topic1','Cat & Dog'), array_values($entry->getCategories()->getValues()));
     }
-    
+
 }

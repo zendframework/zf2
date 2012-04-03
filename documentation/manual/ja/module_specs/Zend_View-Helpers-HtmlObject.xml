@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.object"><info><title>HTML オブジェクトヘルパー</title></info>
-    
+
 
     <para>
         <acronym>HTML</acronym> の <emphasis>&lt;object&gt;</emphasis> 要素は、
@@ -47,7 +47,7 @@
 
     <example xml:id="zend.view.helpers.initial.object.flash"><info><title>Flash ヘルパー</title></info>
 
-        
+
 
         <para>
             このヘルパーを使うと、Flash をページの中に簡単に埋め込めるようになります。
@@ -79,7 +79,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.object.object"><info><title>追加属性を渡すことによるオブジェクトのカスタマイズ</title></info>
-        
+
 
         <para>
             オブジェクトヘルパーの最初の引数は常に必須です。

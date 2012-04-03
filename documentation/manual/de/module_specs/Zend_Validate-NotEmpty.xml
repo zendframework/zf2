@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.notempty"><info><title>NotEmpty</title></info>
-    
+
 
     <para>
         Dieser Prüfer erlaubt es zu prüfen ob ein angegebener Wert nicht leer ist. Das ist oft
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.validate.set.notempty.options"><info><title>Unterstützte Optionen für Zend_Validate_NotEmpty</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Validate_NotEmpty</classname>
@@ -28,7 +28,7 @@
     </section>
 
     <section xml:id="zend.validate.set.notempty.default"><info><title>Standardverhalten für Zend_Validate_NotEmpty</title></info>
-        
+
 
         <para>
             Standardmäßig arbeitet diese Prüfung anders als man es laut <acronym>PHP</acronym>'s
@@ -45,7 +45,7 @@ $result = $valid->isValid($value);
 ]]></programlisting>
 
         <note><info><title>Unterschiedliches Standardverhalten zu PHP</title></info>
-            
+
 
             <para>
                 Ohne Angabe einer Konfiguration ist das Verhalten von
@@ -56,7 +56,7 @@ $result = $valid->isValid($value);
     </section>
 
     <section xml:id="zend.validate.set.notempty.types"><info><title>Ändern des Verhaltens für Zend_Validate_NotEmpty</title></info>
-        
+
 
         <para>
             Einige Projekte haben andere Ansichten davon was als "leerer" Wert angesehen wird: ein

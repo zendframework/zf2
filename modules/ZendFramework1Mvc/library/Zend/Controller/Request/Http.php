@@ -20,8 +20,8 @@
 
 namespace Zend\Controller\Request;
 
-use Zend\Controller,
-    Zend\Uri;
+use Zend\Controller;
+use Zend\Uri;
 
 /**
  * Zend_Controller_Request_Http
@@ -617,16 +617,16 @@ class Http extends AbstractRequest
             }
 
             if (null !== $baseUrl
-                && ((!empty($baseUrl) && 0 === strpos($requestUri, $baseUrl)) 
+                && ((!empty($baseUrl) && 0 === strpos($requestUri, $baseUrl))
                     || empty($baseUrl))
                     && false === ($pathInfo = substr($requestUri, strlen($baseUrl)))
-            ){ 
-                // If substr() returns false then PATH_INFO is set to an empty string 
+            ){
+                // If substr() returns false then PATH_INFO is set to an empty string
                 $pathInfo = '';
-            } elseif (null === $baseUrl 
+            } elseif (null === $baseUrl
                     || (!empty($baseUrl) && false === strpos($requestUri, $baseUrl))
-            ) { 
-                $pathInfo = $requestUri; 
+            ) {
+                $pathInfo = $requestUri;
             }
         }
 

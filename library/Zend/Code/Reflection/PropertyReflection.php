@@ -20,8 +20,8 @@
 
 namespace Zend\Code\Reflection;
 
-use ReflectionProperty as PhpReflectionProperty,
-    Zend\Code\Reflection;
+use ReflectionProperty as PhpReflectionProperty;
+use Zend\Code\Reflection;
 
 /**
  * @todo       implement line numbers

@@ -2,10 +2,10 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Scanner,
-    Zend\Code\NameInformation,
-    Zend\Code\Exception,
-    Zend\Code\Annotation;
+use Zend\Code\Scanner;
+use Zend\Code\NameInformation;
+use Zend\Code\Exception;
+use Zend\Code\Annotation;
 
 class MethodScanner implements Scanner
 {
@@ -29,28 +29,28 @@ class MethodScanner implements Scanner
     protected $tokens       = array();
     protected $nameInformation = null;
     protected $infos        = array();
-    
+
     public function __construct(array $methodTokens, NameInformation $nameInformation = null)
     {
         $this->tokens = $methodTokens;
         $this->nameInformation = $nameInformation;
     }
-    
+
     public function setClass($class)
     {
         $this->class = $class;
     }
-    
+
     public function setScannerClass(ClassScanner $scannerClass)
     {
         $this->scannerClass = $scannerClass;
     }
-    
+
     public function getClassScanner()
     {
         return $this->scannerClass;
     }
-    
+
     public function getName()
     {
         $this->scan();
@@ -92,42 +92,42 @@ class MethodScanner implements Scanner
         $this->scan();
         return $this->isFinal;
     }
-    
+
     public function isAbstract()
     {
         $this->scan();
         return $this->isAbstract;
     }
-    
+
     public function isPublic()
     {
         $this->scan();
         return $this->isPublic;
     }
-    
+
     public function isProtected()
     {
         $this->scan();
         return $this->isProtected;
     }
-    
+
     public function isPrivate()
     {
         $this->scan();
         return $this->isPrivate;
     }
-    
+
     public function isStatic()
     {
         $this->scan();
         return $this->isStatic;
     }
-    
+
     public function getNumberOfParameters()
     {
         return count($this->getParameters());
     }
-    
+
     public function getParameters($returnScanner = false)
     {
         $this->scan();
@@ -147,7 +147,7 @@ class MethodScanner implements Scanner
         }
         return $return;
     }
-    
+
     public function getParameter($parameterNameOrInfoIndex)
     {
         $this->scan();
@@ -191,7 +191,7 @@ class MethodScanner implements Scanner
     {
         // @todo
     }
-    
+
     public function __toString()
     {
         $this->scan();
@@ -316,7 +316,7 @@ class MethodScanner implements Scanner
                     if ($tokenType === T_STRING && $parenCount === 0) {
                         $this->name = $tokenContent;
                     }
-                    
+
                     if ($parenCount === 1) {
                         if (!isset($infos[$infoIndex])) {
                             $MACRO_INFO_START();

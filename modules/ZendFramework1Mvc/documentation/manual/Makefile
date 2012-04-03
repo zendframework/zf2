@@ -21,7 +21,7 @@ DOCBOOK_XSL=http://framework.zend.com/docbook-xsl/htmlhelp/htmlhelp.xsl
 
 all: html
 
-html: 
+html:
 	@for lang in ./$(LANG) ; \
 	do \
 	    [ -d $$lang ] || continue ; \

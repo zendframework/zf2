@@ -937,23 +937,23 @@
 			<territory type="ZZ">Nepoznata ili nevažeća oblast</territory>
 		</territories>
 		<variants>
-			
+
 			<alias source="sr_Latn"/>
 		</variants>
 		<keys>
-			
+
 			<alias source="sr_Latn"/>
 		</keys>
 		<types>
-			
+
 			<alias source="sr_Latn"/>
 		</types>
 		<measurementSystemNames>
-			
+
 			<alias source="sr_Latn"/>
 		</measurementSystemNames>
 		<codePatterns>
-			
+
 			<codePattern type="language">Jezik: {0}</codePattern>
 			<codePattern type="script">Skript: {0}</codePattern>
 			<codePattern type="territory">Region: {0}</codePattern>
@@ -1136,7 +1136,7 @@
 					</availableFormats>
 				</dateTimeFormats>
 				<fields>
-					
+
 					<alias source="sr_Latn"/>
 				</fields>
 			</calendar>
@@ -5549,11 +5549,11 @@
 		</currencies>
 	</numbers>
 	<units>
-		
+
 		<alias source="sr_Latn"/>
 	</units>
 	<listPatterns>
-		
+
 		<alias source="sr_Latn"/>
 	</listPatterns>
 	<posix>

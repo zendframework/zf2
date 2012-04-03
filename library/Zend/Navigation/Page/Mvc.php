@@ -21,9 +21,9 @@
 
 namespace Zend\Navigation\Page;
 
-use Zend\Mvc\Router\RouteMatch,
-    Zend\Navigation\Exception,
-    Zend\View\Helper\Url as UrlHelper;
+use Zend\Mvc\Router\RouteMatch;
+use Zend\Navigation\Exception;
+use Zend\View\Helper\Url as UrlHelper;
 
 /**
  * Represents a page that is defined using controller, action, route

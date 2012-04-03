@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.row"><info><title>Zend_Db_Table_Row</title></info>
 
-    
+
 
     <section xml:id="zend.db.table.row.introduction"><info><title>Introducción</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Db_Table_Row</classname> is a class that contains an
@@ -23,7 +23,7 @@
 
     <section xml:id="zend.db.table.row.read"><info><title>Fetching a Row</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Db_Table_Abstract</classname> provides methods
@@ -35,7 +35,7 @@
 
         <example xml:id="zend.db.table.row.read.example"><info><title>Example of fetching a row</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -50,7 +50,7 @@ $row = $bugs->fetchRow($bugs->select()->where('bug_id = ?', 1));
 
         <example xml:id="zend.db.table.row.read.example-rowset"><info><title>Example of reading a row in a rowset</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -62,7 +62,7 @@ $row = $rowset->current();
 
         <section xml:id="zend.db.table.row.read.get"><info><title>Reading column values from a row</title></info>
 
-            
+
 
             <para>
                 <classname>Zend_Db_Table_Row_Abstract</classname> provides
@@ -71,7 +71,7 @@ $row = $rowset->current();
 
             <example xml:id="zend.db.table.row.read.get.example"><info><title>Example of reading a column in a row</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -101,7 +101,7 @@ echo $row->bug_description;
 
         <section xml:id="zend.db.table.row.read.to-array"><info><title>Retrieving Row Data as an Array</title></info>
 
-            
+
 
             <para> You can access the row's data as an array using the
                     <methodname>toArray()</methodname> method of the Row object.
@@ -110,7 +110,7 @@ echo $row->bug_description;
 
             <example xml:id="zend.db.table.row.read.to-array.example"><info><title>Example of using the toArray() method</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -137,7 +137,7 @@ foreach ($rowArray as $column => $value) {
 
         <section xml:id="zend.db.table.row.read.relationships"><info><title>Fetching data from related tables</title></info>
 
-            
+
 
             <para> The <classname>Zend_Db_Table_Row_Abstract</classname> class
                 provides methods for fetching rows and rowsets from related
@@ -150,11 +150,11 @@ foreach ($rowArray as $column => $value) {
 
     <section xml:id="zend.db.table.row.write"><info><title>Writing rows to the database</title></info>
 
-        
+
 
         <section xml:id="zend.db.table.row.write.set"><info><title>Changing column values in a row</title></info>
 
-            
+
 
             <para>You can set individual column values using column accessors,
                 similar to how the columns are read as object properties in the
@@ -167,7 +167,7 @@ foreach ($rowArray as $column => $value) {
 
             <example xml:id="zend.db.table.row.write.set.example"><info><title>Example of changing a column in a row</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -186,7 +186,7 @@ $row->save();
 
         <section xml:id="zend.db.table.row.write.insert"><info><title>Inserting a new row</title></info>
 
-            
+
 
             <para> You can create a new row for a given table with the
                     <methodname>createRow()</methodname> method of the table
@@ -197,7 +197,7 @@ $row->save();
 
             <example xml:id="zend.db.table.row.write.insert.example"><info><title>Example of creating a new row for a table</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -219,7 +219,7 @@ $newRow->save();
 
             <example xml:id="zend.db.table.row.write.insert.example2"><info><title>Example of populating a new row for a table</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $data = array(
@@ -251,7 +251,7 @@ $newRow->save();
 
         <section xml:id="zend.db.table.row.write.set-from-array"><info><title>Changing values in multiple columns</title></info>
 
-            
+
 
             <para>
                 <classname>Zend_Db_Table_Row_Abstract</classname> provides the
@@ -264,7 +264,7 @@ $newRow->save();
             <example xml:id="zend.db.table.row.write.set-from-array.example"><info><title>Example of using setFromArray() to set values in a new
                     Row</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -289,7 +289,7 @@ $newRow->save();
 
         <section xml:id="zend.db.table.row.write.delete"><info><title>Deleting a row</title></info>
 
-            
+
 
             <para> You can call the <methodname>delete()</methodname> method on
                 a Row object. This deletes rows in the database matching the
@@ -297,7 +297,7 @@ $newRow->save();
 
             <example xml:id="zend.db.table.row.write.delete.example"><info><title>Example of deleting a row</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -319,7 +319,7 @@ $row->delete();
 
     <section xml:id="zend.db.table.row.serialize"><info><title>Serializing and unserializing rows</title></info>
 
-        
+
 
         <para> It is often convenient to save the contents of a database row to
             be used later. <emphasis>Serialization</emphasis> is the name for
@@ -330,7 +330,7 @@ $row->delete();
 
         <section xml:id="zend.db.table.row.serialize.serializing"><info><title>Serializing a Row</title></info>
 
-            
+
 
             <para> Simply use <acronym>PHP</acronym> 's
                     <methodname>serialize()</methodname> function to create a
@@ -339,7 +339,7 @@ $row->delete();
 
             <example xml:id="zend.db.table.row.serialize.serializing.example"><info><title>Example of serializing a row</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -357,7 +357,7 @@ $serializedRow = serialize($row);
 
         <section xml:id="zend.db.table.row.serialize.unserializing"><info><title>Unserializing Row Data</title></info>
 
-            
+
 
             <para> Use PHP's <methodname>unserialize()</methodname> function to
                 restore a string containing a byte-stream representation of an
@@ -371,7 +371,7 @@ $serializedRow = serialize($row);
 
             <example xml:id="zend.db.table.row.serialize.unserializing.example"><info><title>Example of unserializing a serialized row</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $rowClone = unserialize($serializedRow);
@@ -384,7 +384,7 @@ echo $rowClone->bug_description;
 
             <note><info><title>Why do Rows unserialize in a disconnected state?</title></info>
 
-                
+
 
                 <para>A serialized object is a string that is readable to anyone
                     who possesses it. It could be a security risk to store
@@ -403,7 +403,7 @@ echo $rowClone->bug_description;
 
         <section xml:id="zend.db.table.row.serialize.set-table"><info><title>Reactivating a Row as Live Data</title></info>
 
-            
+
 
             <para> You can reactivate a disconnected Row, using the
                     <methodname>setTable()</methodname> method. The argument to
@@ -416,7 +416,7 @@ echo $rowClone->bug_description;
 
             <example xml:id="zend.db.table.row.serialize.set-table.example"><info><title>Example of reactivating a row</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $rowClone = unserialize($serializedRow);
@@ -440,7 +440,7 @@ $rowClone->save();
 
     <section xml:id="zend.db.table.row.extending"><info><title>Extending the Row class</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Db_Table_Row</classname> is the default concrete
@@ -454,7 +454,7 @@ $rowClone->save();
 
         <example xml:id="zend.db.table.row.extending.example"><info><title>Specifying a custom Row class</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 class MyRow extends Zend_Db_Table_Row_Abstract
@@ -479,7 +479,7 @@ $bugs = new Bugs(array('rowClass' => 'MyRow'));
 
         <section xml:id="zend.db.table.row.extending.overriding"><info><title>Row initialization</title></info>
 
-            
+
 
             <para> If application-specific logic needs to be initialized when a
                 row is constructed, you can select to move your tasks to the
@@ -488,7 +488,7 @@ $bugs = new Bugs(array('rowClass' => 'MyRow'));
                 over the <methodname>__construct</methodname> method if you do
                 not need to alter the metadata in any programmatic way. <example xml:id="zend.db.table.row.init.usage.example"><info><title>Example usage of init() method</title></info>
 
-                    
+
 
                     <programlisting language="php"><![CDATA[
 class MyApplicationRow extends Zend_Db_Table_Row_Abstract
@@ -510,7 +510,7 @@ class MyApplicationRow extends Zend_Db_Table_Row_Abstract
         <section xml:id="zend.db.table.row.extending.insert-update"><info><title>Defining Custom Logic for Insert, Update, and Delete in
                 Zend_Db_Table_Row</title></info>
 
-            
+
 
             <para> The Row class calls protected methods
                     <methodname>_insert()</methodname> ,
@@ -536,7 +536,7 @@ class MyApplicationRow extends Zend_Db_Table_Row_Abstract
 
             <example xml:id="zend.db.table.row.extending.overriding-example1"><info><title>Example of custom logic in a Row class</title></info>
 
-                
+
 
                 <para>The custom logic may not apply in all cases of operations
                     on the respective Table. You can provide custom logic on
@@ -577,7 +577,7 @@ if ($loggingEnabled) {
             <example xml:id="zend.db.table.row.extending.overriding-example2"><info><title>Example of a Row class that logs insert data for multiple
                     tables</title></info>
 
-                
+
 
                 <para>The custom logic may be common to multiple tables. Instead
                     of implementing the same custom logic in every one of your
@@ -620,7 +620,7 @@ class Products extends Zend_Db_Table_Abstract
 
         <section xml:id="zend.db.table.row.extending.inflection"><info><title>Define Inflection in Zend_Db_Table_Row</title></info>
 
-            
+
 
             <para> Some people prefer that the table class name match a table
                 name in the <acronym>RDBMS</acronym> by using a string
@@ -639,7 +639,7 @@ class Products extends Zend_Db_Table_Abstract
 
             <example xml:id="zend.db.table.row.extending.inflection.example"><info><title>Example of defining an inflection transformation</title></info>
 
-                
+
 
                 <para> This allows you to use an inflected version of the column
                     name in the accessors. The Row class uses the

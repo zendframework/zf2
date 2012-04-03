@@ -159,7 +159,7 @@ class Db extends AbstractResource
 
     /**
      * Set the default metadata cache
-     * 
+     *
      * @param string|Zend_Cache_Core $cache
      * @return Zend_Application_Resource_Db
      */

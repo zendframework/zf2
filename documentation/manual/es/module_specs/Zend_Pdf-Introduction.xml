@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.introduction"><info><title>Introducción</title></info>
     <!-- @todo review and revise upon completion of refactoring -->
-    
+
     <para>
         El componente
         <classname>Zend_Pdf</classname>

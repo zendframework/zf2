@@ -75,9 +75,9 @@ foreach ($movieLister as $movie) {
 ]]></programlisting>
 
     <para>
-        Se stai facendo come il codice sopra in ogni controller o vista dove 
+        Se stai facendo come il codice sopra in ogni controller o vista dove
         vuoi listare i video, non solo è ripetitivo e noioso da scrivere, ma
-        anche non mantenibile se per esempio vuoi scambiare una di queste 
+        anche non mantenibile se per esempio vuoi scambiare una di queste
         dipendenze su larga scala.
     </para>
 
@@ -107,9 +107,9 @@ foreach ($movieLister as $movie) {
     <para>
         Nell'esempio precedente, otteniamo l'istanza di default di Zend\Di\Di.
         Significa che Zend\Di\Di è costruita da una DefinitionList con una
-        RuntimeDefinition (utilizzando Reflection) e con una istanza vuota del 
+        RuntimeDefinition (utilizzando Reflection) e con una istanza vuota del
         manager e nessuna configurazione.
-        Qui vediamo il costruttore di Zend\Di\Di: 
+        Qui vediamo il costruttore di Zend\Di\Di:
     </para>
 
 
@@ -127,17 +127,17 @@ foreach ($movieLister as $movie) {
 
     <para>
         Significa che quando $di->get() è invocato sarà consultata la RuntimeDefinition.
-        Questa utilizza la reflection per capire la struttura del codice. Finchè 
+        Questa utilizza la reflection per capire la struttura del codice. Finchè
         è nota la struttura del codice può collegare le dipendenze insieme ed ecco come
         può legare gli oggetti per te.
-        Zend\Di\Definition\RuntimeDefinition utilizzerà i nomi dei parametri nei metodi 
+        Zend\Di\Definition\RuntimeDefinition utilizzerà i nomi dei parametri nei metodi
         come nomi del parametro della classe.
-        Questo è come l'username e la password sono mappati come primo e secondo parametro, 
+        Questo è come l'username e la password sono mappati come primo e secondo parametro,
         rispettivamente, del costrutture che li utilizza.
     </para>
 
     <para>
-        Se vuoi passare l'username e la password durante l'invocazione, questo si 
+        Se vuoi passare l'username e la password durante l'invocazione, questo si
         realizza passandoli come secondo argomento della get():
     </para>
 
@@ -156,15 +156,15 @@ foreach ($movieLister as $movie) {
 
     <para>
         E' importante sottolineare che quando usi i parametri durante l'invocazione,
-        i nomi dei parametri saranno applicati ad ogni classe  che accetta un 
+        i nomi dei parametri saranno applicati ad ogni classe  che accetta un
         parametro con lo stesso nome.
     </para>
 
     <para>
         Chiamando $di->get(), questa istanza di MovieLister sarà automaticamente condivisa.
-        Questi significa che chiamate successive alla get() risponderanno la stessa 
+        Questi significa che chiamate successive alla get() risponderanno la stessa
         istanza come nella precedente chiamata. Se desideri avere istanze completamente
-        diverse di MovieLister, puoi utilizzare $di->newInstance().                
+        diverse di MovieLister, puoi utilizzare $di->newInstance().
 
     </para>
 

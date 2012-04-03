@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.multiuser.sessions"><info><title>Managing User Sessions In ZF</title></info>
-    
+
 
     <section xml:id="learning.multiuser.sessions.intro"><info><title>Introduction to Sessions</title></info>
-        
+
 
         <para>
             The success of the web is deeply rooted in the protocol that drives the web:
@@ -31,7 +31,7 @@
     </section>
 
     <section xml:id="learning.multiuser.sessions.basic-usage"><info><title>Basic Usage of Zend_Session</title></info>
-        
+
 
         <para>
             The <classname>Zend_Session</classname> component is both a session manager as well as
@@ -110,7 +110,7 @@ if ($mysession->counter > 1999) {
     </section>
 
     <section xml:id="learning.multiuser.sessions.advanced-usage"><info><title>Advanced Usage of Zend_Session</title></info>
-        
+
 
         <para>
             Additionally, if you wanted to use the DbTable

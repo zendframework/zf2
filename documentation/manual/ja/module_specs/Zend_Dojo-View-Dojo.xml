@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view.dojo"><info><title>dojo() ビューヘルパー</title></info>
-    
+
 
     <para>
         <methodname>dojo()</methodname> ビューヘルパーは
@@ -25,7 +25,7 @@
     </para>
 
     <example xml:id="zend.dojo.view.dojo.usage"><info><title>dojo() ビューヘルパーの使用例</title></info>
-        
+
 
         <para>
             この例では、ローカルパスの Dojo を使うことを想定しています。
@@ -110,7 +110,7 @@ $this->dojo()->enable()
     </example>
 
     <note><info><title>UTF-8 encoding used by default</title></info>
-        
+
 
         <para>
             By default, Zend Framework uses <acronym>UTF-8</acronym> as its default encoding, and,
@@ -132,7 +132,7 @@ $this->dojo()->enable()
     </note>
 
     <section xml:id="zend.dojo.view.dojo.declarative"><info><title>プログラム的および宣言的な Dojo 使用法</title></info>
-        
+
 
         <para>
             Dojo の機能の多くは、<emphasis>宣言的 (declarative)</emphasis>
@@ -174,7 +174,7 @@ $this->dojo()->enable()
         </para>
 
         <example xml:id="zend.dojo.view.dojo.declarative.usage"><info><title>宣言的、あるいはプログラム的な Dojo の使用法の指定</title></info>
-            
+
 
             <para>
                 宣言的な使用法を指定するには、静的メソッド
@@ -208,7 +208,7 @@ Zend_Dojo_View_Helper_Dojo::setUseProgrammatic(-1);
     </section>
 
     <section xml:id="zend.dojo.view.dojo.themes"><info><title>テーマ</title></info>
-        
+
 
         <para>
             Dojo では、dijits (widgets) 用のテーマを作成できます。
@@ -237,7 +237,7 @@ $view->dojo()->addStylesheetModule('dijit.themes.tundra');
     </section>
 
     <section xml:id="zend.dojo.view.dojo.layers"><info><title>レイヤーの使用 (カスタムビルド)</title></info>
-        
+
 
         <para>
             デフォルトでは、<command>dojo.require</command> ステートメントを使用すると
@@ -297,7 +297,7 @@ $view->dojo()->addLayer('/js/foo/foo.js');
     </section>
 
     <section xml:id="zend.dojo.view.dojo.methods"><info><title>使用できるメソッド</title></info>
-        
+
 
         <para>
             <methodname>dojo()</methodname> ビューヘルパーは常に、

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.adapters.xml"><info><title>Zend_Config_Xml</title></info>
-    
+
     <para>
         <classname>Zend_Config_Xml</classname> дает разработчикам возможность
         хранить конфигурационные данные в простом формате <acronym>XML</acronym> и читать их
@@ -16,7 +16,7 @@
         раздел с этим атрибутом.
     </para>
     <note><info><title>Тип возвращаемых данных</title></info>
-        
+
         <para>
             Конфигурационные данные, прочитанные в <classname>Zend_Config_Xml</classname>,
             всегда возвращаются как строки. Приведение данных из строк к требуемым
@@ -24,7 +24,7 @@
         </para>
     </note>
     <example xml:id="zend.config.adapters.xml.example.using"><info><title>Использование Zend_Config_Xml</title></info>
-        
+
         <para>
             Данный пример демонстрирует основы использования <classname>Zend_Config_Xml</classname>
             для загрузки конфигурационных данных из файла <acronym>XML</acronym>. В этом примере
@@ -76,7 +76,7 @@ echo $config->database->params->dbname; // выведет "dbname"
 ]]></programlisting>
     </example>
     <example xml:id="zend.config.adapters.xml.example.attributes"><info><title>Использование тегов в <classname>Zend_Config_Xml</classname></title></info>
-        
+
         <para>
             <classname>Zend_Config_Xml</classname> также поддерживает два дополнительных способа
             определения узлов в конфигурации. В обоих способах используются
@@ -139,7 +139,7 @@ echo $config->database->params->dbname; // выведет "dbname"
 ]]></programlisting>
     </example>
     <note><info><title>Передача строки с XML</title></info>
-        
+
         <para>
             <classname>Zend_Config_Xml</classname> также может загружать
             <acronym>XML</acronym> непосредственно из строки, которая может быть получена,

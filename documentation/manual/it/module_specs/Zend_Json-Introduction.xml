@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.introduction"><info><title>Introduzione</title></info>
-    
+
     <para>
         <code>Zend_Json</code> fornisce dei metodi di supporto per serializzare codice PHP in JSON e viceversa.
         Per maggiori informazioni su JSON è possibile <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.json.org/">visitare il sito del progetto JSON</link>.

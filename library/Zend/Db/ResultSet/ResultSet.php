@@ -21,11 +21,11 @@
 
 namespace Zend\Db\ResultSet;
 
-use ArrayIterator,
-    ArrayObject,
-    Countable,
-    Iterator,
-    IteratorAggregate;
+use ArrayIterator;
+use ArrayObject;
+use Countable;
+use Iterator;
+use IteratorAggregate;
 
 /**
  * @category   Zend
@@ -41,7 +41,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Allowed return types
-     * 
+     *
      * @var array
      */
     protected $allowedReturnTypes = array(
@@ -56,7 +56,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Return type to use when returning an object from the set
-     * 
+     *
      * @var ResultSet::TYPE_OBJECT|ResultSet::TYPE_ARRAY
      */
     protected $returnType = self::TYPE_OBJECT;
@@ -78,8 +78,8 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Constructor
-     * 
-     * @param  null|RowObjectInterface $rowObjectPrototype 
+     *
+     * @param  null|RowObjectInterface $rowObjectPrototype
      * @return void
      */
     public function __construct(RowObjectInterface $rowObjectPrototype = null)
@@ -89,8 +89,8 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Set the row object prototype
-     * 
-     * @param  RowObjectInterface $rowObjectPrototype 
+     *
+     * @param  RowObjectInterface $rowObjectPrototype
      * @return ResultSet
      */
     public function setRowObjectPrototype(RowObjectInterface $rowObjectPrototype)
@@ -101,7 +101,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Get the row object prototype
-     * 
+     *
      * @return RowObjectInterface
      */
     public function getRowObjectPrototype()
@@ -111,8 +111,8 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Set the return type to use when returning objects from the set
-     * 
-     * @param  string $returnType 
+     *
+     * @param  string $returnType
      * @return ResultSet
      */
     public function setReturnType($returnType)
@@ -126,7 +126,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Get the return type to use when returning objects from the set
-     * 
+     *
      * @return string
      */
     public function getReturnType()
@@ -136,8 +136,8 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Set the data source for the result set
-     * 
-     * @param  Iterator|IteratorAggregate $dataSource 
+     *
+     * @param  Iterator|IteratorAggregate $dataSource
      * @return ResultSet
      * @throws Exception\InvalidArgumentException
      */
@@ -162,7 +162,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Get the data source used to create the result set
-     * 
+     *
      * @return null|Iterator
      */
     public function getDataSource()
@@ -172,7 +172,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Retrieve count of fields in individual rows of the result set
-     * 
+     *
      * @return int
      */
     public function getFieldCount()
@@ -202,10 +202,10 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
         $this->fieldCount = count($row);
         return $this->fieldCount;
     }
-    
+
     /**
      * Iterator: move pointer to next item
-     * 
+     *
      * @return void
      */
     public function next()
@@ -215,17 +215,17 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Iterator: retrieve current key
-     * 
+     *
      * @return mixed
      */
     public function key()
     {
         return $this->dataSource->key();
     }
-    
+
     /**
      * Iterator: get current item
-     * 
+     *
      * @return array|RowObjectInterface
      */
     public function current()
@@ -240,10 +240,10 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
             return $data;
         }
     }
-    
+
     /**
      * Iterator: is pointer valid?
-     * 
+     *
      * @return bool
      */
     public function valid()
@@ -253,7 +253,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Iterator: rewind
-     * 
+     *
      * @return void
      */
     public function rewind()
@@ -263,7 +263,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Countable: return count of rows
-     * 
+     *
      * @return int
      */
     public function count()
@@ -277,7 +277,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
     /**
      * Cast result set to array of arrays
-     * 
+     *
      * @return array
      * @throws Exception\RuntimeException if any row is not castable to an array
      */

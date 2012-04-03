@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.regex"><info><title>Zend_Controller_Router_Route_Regex</title></info>
-    
+
 
     <para>
         除了缺省的和静态的路由类型外，正则表达式路由类型也可用。这个路由比其它路由更强更灵活，只是稍微有点复杂。同时，它应该比标准路由快。

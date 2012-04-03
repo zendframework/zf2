@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.flashmessenger"><info><title>FlashMessenger</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.flashmessenger.introduction"><info><title>Wprowadzenie</title></info>
-        
+
         <para>
             Klasa pomocnicza <code>FlashMessenger</code> pozwala na przekazywanie
             komunikatów, które użytkownik może zobaczyć przy następnym żądaniu.
@@ -21,7 +21,7 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.flashmessenger.basicusage"><info><title>Przykład prostego użycia</title></info>
-        
+
         <para>
             Poniższy przykład  pokazuje użycie klasy pomocniczej FlashMessenger
             w najprostszy możliwy sposób. Gdy wywołana jest akcja

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.quickstart"><info><title>Zend_Controller 快速入门</title></info>
-    
+
 
     <section xml:id="zend.controller.quickstart.introduction"><info><title>简介</title></info>
-        
+
         <para>
 
         <code>Zend_Controller</code>是Zend Framework的MVC体系的核心部份。MVC指<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Model-view-controller">Model-View-Controller</link>，是一个用于分离应用逻辑和表现逻辑的设计模式。<code>Zend_Controller_Front</code>实现了<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.martinfowler.com/eaaCatalog/frontController.html">Front Controller</link>设计模式，所有的请求都通过front controller(前端控制器)并分发(dispatch)到不同的控制器来处理，分发的过程基于请求的URL。
@@ -16,14 +16,14 @@
     </section>
 
     <section xml:id="zend.controller.quickstart.go"><info><title>入门</title></info>
-        
+
 
         <para>
             如果你想深入了解控制器，请认真看下面几节内容，如果你只是想快速地把系统搭建起来，看这一节。
         </para>
 
         <section xml:id="zend.controller.quickstart.go.directory"><info><title>文件系统的组织结构</title></info>
-            
+
 
             <para>
                 首先你要规划好自己的文件结构布局，典型的结构是这样的：
@@ -49,7 +49,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.docroot"><info><title>设置文件根目录</title></info>
-            
+
 
             <para>
                 将你的WEB服务器文件根目录指向上面文件布局中的<code>html</code>目录。
@@ -57,7 +57,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.rewrite"><info><title>创建URL重写规则</title></info>
-            
+
 
             <para>
                 创建<code>html/.htaccess</code>，编辑其内容为：
@@ -82,7 +82,7 @@ RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
         </section>
 
         <section xml:id="zend.controller.quickstart.go.bootstrap"><info><title>创建你的bootstrap文件</title></info>
-            
+
 
             <para>
             (所谓Bootstrap，就相当于一小段引导程序或者入口程序，在ZF中，通常即指index.php，因为我们所有的请求都是从index.php进入的。--Haohappy注)
@@ -101,7 +101,7 @@ Zend_Controller_Front::run('/path/to/app/controllers');
         </section>
 
         <section xml:id="zend.controller.quickstart.go.controller"><info><title>创建默认的控制器（Action Controller）</title></info>
-            
+
 
             <para>
 
@@ -143,7 +143,7 @@ class IndexController extends Zend_Controller_Action
         </section>
 
         <section xml:id="zend.controller.quickstart.go.view"><info><title>创建你的视图脚本</title></info>
-            
+
 
             <para>
                 之前说过，视图脚本（即模板文件）放在<code>application/views/scripts/</code>目录下，而默认的模板是<code>application/views/scripts/index/index.phtml</code>。我们来创建这个文件，加入一些HTML代码：
@@ -167,7 +167,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.errorhandler"><info><title>创建你自己的错误控制器</title></info>
-            
+
 
             <para>
                 默认情况下，<link linkend="zend.controller.plugins.standard.errorhandler">“错误处理器”插件</link> 是已经被注册的。这个插件要求存在一个用于处理错误的控制器。它假设存在一个<code>ErrorController</code>，并且其中有一个名为<code>errorAction</code>的Action：
@@ -206,7 +206,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.finish"><info><title>访问站点！</title></info>
-            
+
 
             <para>
                 创建好了你的第一个控制器和模板，你现在可以打开浏览器来访问看看了！　假设<code>example.com</code>是你的站点域名，那么下面的URL都会带你访问你刚才创建的页面：

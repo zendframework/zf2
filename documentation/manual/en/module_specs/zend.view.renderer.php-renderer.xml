@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xmlns="http://docbook.org/ns/docbook" version="5.0" 
+<section xmlns="http://docbook.org/ns/docbook" version="5.0"
     xml:id="zend.view.renderer.php-renderer">
     <info><title>The PhpRenderer</title></info>
 
@@ -25,7 +25,7 @@
             Basic usage consists of instantiating or otherwise obtaining an instance of the
             <classname>PhpRenderer</classname>, providing it with a resolver which will resolve
             templates to PHP view scripts, and then calling its <methodname>render()</methodname>
-            method. 
+            method.
         </para>
 
         <para>
@@ -203,7 +203,7 @@ $renderer->render($model);
 
         <para>
             Now, let's render something.  As a simple example, let us say you have a list of book
-            data. 
+            data.
         </para>
 
         <programlisting language="php"><![CDATA[
@@ -250,10 +250,10 @@ class BookController extends ActionController
         // Assume $data is the list of books from the previous example
         $model = new ViewModel(array('books' => $data));
 
-        // Optionally specify a template; if we don't, by default it will be 
+        // Optionally specify a template; if we don't, by default it will be
         // auto-determined based on the controller name and this action. In
-        // this example, the template would resolve to "book/list", and thus 
-        // the file "book/list.phtml"; the following overrides that to set 
+        // this example, the template would resolve to "book/list", and thus
+        // the file "book/list.phtml"; the following overrides that to set
         // the template to "booklist", and thus the file "booklist.phtml"
         // (note the lack of directory preceding the filename).
         $model->setTemplate('booklist');
@@ -373,7 +373,7 @@ $renderer->render($model);
                     </para>
                 </listitem>
             </varlistentry>
-            
+
             <varlistentry xml:id="zend.view.renderer.php-renderer.options.filter-chain">
                 <term>filters</term>
 
@@ -435,7 +435,7 @@ $renderer->render($model);
 
     <section xml:id="zend.view.renderer.php-renderer.methods">
         <info><title>Additional Methods</title></info>
-        
+
         <para>
             Typically, you'll only ever access variables and <link
                 linkend="zend.view.helpers">helpers</link> within your view scripts or when
@@ -456,9 +456,9 @@ $renderer->render($model);
                     </methodsynopsis>
 
                     <para>
-                        Render a template/view model. 
+                        Render a template/view model.
                     </para>
-                        
+
                     <para>
                         If <varname>$nameOrModel</varname> is a string, it is assumed to be a
                         template name. That template will be resolved using the current resolver,
@@ -535,7 +535,7 @@ $renderer->render($model);
                     </para>
                 </listitem>
             </varlistentry>
-            
+
             <varlistentry xml:id="zend.view.renderer.php-renderer.methods.add-template">
                 <term>addTemplate</term>
 

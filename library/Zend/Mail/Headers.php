@@ -21,12 +21,12 @@
 
 namespace Zend\Mail;
 
-use ArrayIterator,
-    Iterator,
-    Countable,
-    Traversable,
-    Zend\Loader\PluginClassLoader,
-    Zend\Loader\PluginClassLocator;
+use ArrayIterator;
+use Iterator;
+use Countable;
+use Traversable;
+use Zend\Loader\PluginClassLoader;
+use Zend\Loader\PluginClassLocator;
 
 /**
  * Basic mail headers collection functionality
@@ -58,7 +58,7 @@ class Headers implements Iterator, Countable
 
     /**
      * Header encoding; defaults to ASCII
-     * 
+     *
      * @var string
      */
     protected $encoding = 'ASCII';
@@ -158,8 +158,8 @@ class Headers implements Iterator, Countable
 
     /**
      * Set the header encoding
-     * 
-     * @param  string $encoding 
+     *
+     * @param  string $encoding
      * @return Headers
      */
     public function setEncoding($encoding)
@@ -173,7 +173,7 @@ class Headers implements Iterator, Countable
 
     /**
      * Get the header encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -261,7 +261,7 @@ class Headers implements Iterator, Countable
 
     /**
      * Add a Header to this container, for raw values @see addHeaderLine() and addHeaders()
-     * 
+     *
      * @param  Header $header
      * @return Headers
      */
@@ -296,7 +296,7 @@ class Headers implements Iterator, Countable
      * Clear all headers
      *
      * Removes all headers from queue
-     * 
+     *
      * @return Headers
      */
     public function clearHeaders()
@@ -307,7 +307,7 @@ class Headers implements Iterator, Countable
 
     /**
      * Get all headers of a certain name/type
-     * 
+     *
      * @param  string $name
      * @return false|Header|ArrayIterator
      */
@@ -346,7 +346,7 @@ class Headers implements Iterator, Countable
 
     /**
      * Test for existence of a type of header
-     * 
+     *
      * @param  string $name
      * @return bool
      */
@@ -523,8 +523,8 @@ class Headers implements Iterator, Countable
 
     /**
      * Normalize a field name
-     * 
-     * @param  string $fieldName 
+     *
+     * @param  string $fieldName
      * @return string
      */
     protected function normalizeFieldName($fieldName)

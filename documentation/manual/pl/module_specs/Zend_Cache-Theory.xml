@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.theory"><info><title>Teoria buforowania</title></info>
-    
+
     <para>
         Są trzy kluczowe składniki w <classname>Zend_Cache</classname>. Pierwszym jest unikalny
         identyfikator (łańcuch znakow) który jest używany do identyfikowania
@@ -13,8 +13,8 @@
         zwracała  wartość false gdy bufor jest nieaktualny, jeśli jest to
         sensowne dla danego frontendu. To pozwala użytkownikom na ominięcie bloków
         kodu, które chcą buforować, zawierając je w wyrażenie <emphasis>if(){ ... }</emphasis>
-        gdzie warunkiem jest metoda <classname>Zend_Cache</classname>. Na końcu 
-        takich bloków musisz zapisać to co wygenerowałeś (np. za pomocą metody 
+        gdzie warunkiem jest metoda <classname>Zend_Cache</classname>. Na końcu
+        takich bloków musisz zapisać to co wygenerowałeś (np. za pomocą metody
         <methodname>Zend_Cache_Core::save()</methodname>).
     </para>
     <note><para>
@@ -32,7 +32,7 @@
         pobierze rekord z bufora.
     </para></note>
     <section xml:id="zend.cache.factory"><info><title>Metoda fabryki Zend_Cache</title></info>
-        
+
         <para>
             Dobrym sposobem utworzenia użytecznej instancji frontendu
             <classname>Zend_Cache</classname> jest ten pokazany w poniższym przykładzie:
@@ -52,9 +52,9 @@ $backendOptions = array([...]);
 
 // Tworzymy instancję klasy Zend_Cache
 // (oczywiście dwa ostatnie argumenty są opcjonalne)
-$cache = Zend_Cache::factory($frontendName, 
-                             $backendName, 
-                             $frontendOptions, 
+$cache = Zend_Cache::factory($frontendName,
+                             $backendName,
+                             $frontendOptions,
                              $backendOptions);
 ]]></programlisting>
         <para>
@@ -70,7 +70,7 @@ $cache = Zend_Cache::factory($frontendName,
     </section>
 
     <section xml:id="zend.cache.tags"><info><title>Nadawanie etykiet rekordom</title></info>
-        
+
         <para>
             Etykiety są sposobem kategoryzowania rekordów bufora. Kiedy zapisujesz bufor
             za pomocą metody <methodname>save()</methodname>, możesz ustawić tablicę etykiet, które
@@ -88,7 +88,7 @@ $cache->save($huge_data, 'myUniqueID', array('tagA', 'tagB', 'tagC'));
         </para></note>
     </section>
     <section xml:id="zend.cache.clean"><info><title>Czyszczenie bufora</title></info>
-        
+
         <para>
             Aby usunąć/unieważnić rekord bufora o określonym id, możesz użyć
             metody <methodname>remove()</methodname>:
@@ -113,7 +113,7 @@ $cache->clean(Zend_Cache::CLEANING_MODE_OLD);
         </para>
         <programlisting language="php"><![CDATA[
 $cache->clean(
-    Zend_Cache::CLEANING_MODE_MATCHING_TAG, 
+    Zend_Cache::CLEANING_MODE_MATCHING_TAG,
     array('tagA', 'tagC')
 );
 ]]></programlisting>

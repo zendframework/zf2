@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.notempty"><info><title>NotEmpty</title></info>
-    
+
 
     <para>
         Ce validateur permet de déterminer si une valeur est non vide. C'est utile lorsque vous travaillez
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.validate.set.notempty.options"><info><title>Options supportées par Zend_Validate_NotEmpty</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par
@@ -28,7 +28,7 @@
     </section>
 
     <section xml:id="zend.validate.set.notempty.default"><info><title>Comportement par défaut de Zend_Validate_NotEmpty</title></info>
-        
+
 
         <para>
             Par défaut, ce validateur fonctionne différement de la fonction
@@ -44,7 +44,7 @@ $result = $valid->isValid($value);
 ]]></programlisting>
 
         <note><info><title>Le comportement par défaut diffère de PHP</title></info>
-            
+
 
             <para>
                 Sans configuration ajoutée, <classname>Zend_Validate_NotEmpty</classname> diffère
@@ -54,7 +54,7 @@ $result = $valid->isValid($value);
     </section>
 
     <section xml:id="zend.validate.set.notempty.types"><info><title>Changer le comportement de Zend_Validate_NotEmpty</title></info>
-        
+
 
         <para>
             Certains projets ont des opinions différentes sur ce qui peut être considéré comme 'vide'.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.gbase"><info><title>Using Google Base</title></info>
-    
+
 
     <para>
         The Google Base data <acronym>API</acronym> is designed to enable developers to do two
@@ -35,7 +35,7 @@
     </para>
 
     <section xml:id="zend.gdata.gbase.connect"><info><title>Connect To The Base Service</title></info>
-        
+
 
         <para>
             The Google Base <acronym>API</acronym>, like all GData <acronym>API</acronym>s, is based
@@ -53,7 +53,7 @@
         </para>
 
         <section xml:id="zend.gdata.gbase.connect.authentication"><info><title>Authentication</title></info>
-            
+
 
             <para>
                 The Google Base <acronym>API</acronym> allows access to both public and private base
@@ -94,7 +94,7 @@
         </section>
 
         <section xml:id="zend.gdata.gbase.connect.service"><info><title>Create A Service Instance</title></info>
-            
+
 
             <para>
                 In order to interact with Google Base, this library provides the
@@ -237,7 +237,7 @@ $service = new Zend_Gdata_Gbase();
     </section>
 
     <section xml:id="zend.gdata.gbase.retrieve"><info><title>Retrieve Items</title></info>
-        
+
 
         <para>
             You can query customer items feed or snippets feed to retrieve items. It involves two
@@ -245,7 +245,7 @@ $service = new Zend_Gdata_Gbase();
         </para>
 
         <section xml:id="zend.gdata.gbase.retrieve.query"><info><title>Send a Structured Query</title></info>
-            
+
 
             <para>
                 You can send a structured query to retrieve items from your own customer items feed
@@ -262,7 +262,7 @@ $service = new Zend_Gdata_Gbase();
             </para>
 
             <section xml:id="zend.gdata.gbase.retrieve.query.customeritems"><info><title>Query Customer Items Feed</title></info>
-                
+
 
                 <para>
                     To execute a query against the customer items feed, invoke
@@ -287,7 +287,7 @@ $feed = $service->getGbaseItemFeed($query);
             </section>
 
             <section xml:id="zend.gdata.gbase.retrieve.query.snippets"><info><title>Query Snippets Feed</title></info>
-                
+
 
                 <para>
                     To execute a query against the public snippets feed, invoke
@@ -313,7 +313,7 @@ $feed = $service->getGbaseSnippetFeed($query);
         </section>
 
         <section xml:id="zend.gdata.gbase.retrieve.iterate"><info><title>Iterate through the Items</title></info>
-            
+
 
             <para>
                 Google Base items can contain item-specific attributes such as
@@ -354,7 +354,7 @@ foreach ($feed->entries as $entry) {
     </section>
 
     <section xml:id="zend.gdata.gbase.crud"><info><title>Insert, Update, and Delete Customer Items</title></info>
-        
+
 
         <para>
             A customer/owner can access his own Customer Items feed to insert, update, or delete
@@ -368,7 +368,7 @@ foreach ($feed->entries as $entry) {
         </para>
 
         <section xml:id="zend.gdata.gbase.crud.insert"><info><title>Insert an Item</title></info>
-            
+
 
             <para>
                 Items can be added by using the <methodname>insertGbaseItem()</methodname> method
@@ -411,7 +411,7 @@ $createdEntry = $service->insertGbaseItem($newEntry, $dryRun);
         </section>
 
         <section xml:id="zend.gdata.gbase.crud.modify"><info><title>Modify an Item</title></info>
-            
+
 
             <para>
                 You can update each attribute element of an item as you iterate through them:
@@ -470,7 +470,7 @@ $entry->save($dryRun);
         </section>
 
         <section xml:id="zend.gdata.gbase.crud.delete"><info><title>Delete an Item</title></info>
-            
+
 
             <para>
                 You can remove an item by calling <methodname>deleteGbaseItem()</methodname> method:

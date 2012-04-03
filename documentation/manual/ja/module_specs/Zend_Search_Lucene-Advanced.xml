@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.advanced"><info><title>応用</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.advanced.format_migration"><info><title>1.6 以降でサポートするインデックスフォーマット変換</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> コンポーネントは、Java Lucene 1.4-1.9、2.1 そして 2.3
@@ -77,7 +77,7 @@
         </para>
 
         <note><info><title>重要!</title></info>
-            
+
             <para>
                 一度インデックスを上位バージョンに変換してしまうと、
                 元に戻すことはできません。
@@ -89,7 +89,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.advanced.static"><info><title>静的プロパティとしてのインデックスの使用</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> オブジェクトは、

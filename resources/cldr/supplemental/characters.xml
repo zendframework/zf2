@@ -489,6 +489,6 @@
 			<character value = "￣">
 				<substitute>¯</substitute>
 			</character>
-		</character-fallback> 
+		</character-fallback>
 	</characters>
 </supplementalData>

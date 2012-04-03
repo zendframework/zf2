@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.partial"><info><title>Partial Helper</title></info>
-    
+
 
     <para>
         The <classname>Partial</classname> view helper is used to render a specified
@@ -17,7 +17,7 @@
     </para>
 
     <note><info><title>PartialLoop Counter</title></info>
-        
+
 
         <para>
             The <classname>PartialLoop</classname> view helper assigns a variable to the view named
@@ -28,7 +28,7 @@
     </note>
 
     <example xml:id="zend.view.helpers.initial.partial.usage"><info><title>Basic Usage of Partials</title></info>
-        
+
 
         <para>
             Basic usage of partials is to render a template fragment in its own
@@ -66,7 +66,7 @@
     </example>
 
     <note><info><title>What is a model?</title></info>
-        
+
 
         <para>
             A model used with the <classname>Partial</classname> view helper can be
@@ -128,7 +128,7 @@ $view->partialLoop()->setObjectKey('model');
     </note>
 
     <example xml:id="zend.view.helpers.initial.partial.partialloop"><info><title>Using PartialLoop to Render Iterable Models</title></info>
-        
+
 
         <para>
             Typically, you'll want to use partials in a loop, to render the same
@@ -199,7 +199,7 @@ $model = array(
     </example>
 
     <example xml:id="zend.view.helpers.initial.partial.modules"><info><title>Rendering Partials in Other Modules</title></info>
-        
+
 
         <para>
             Sometime a partial will exist in a different module. If you know the

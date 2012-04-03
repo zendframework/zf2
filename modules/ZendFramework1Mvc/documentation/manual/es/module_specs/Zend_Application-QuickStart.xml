@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.quick-start"><info><title>Inicio rápido con Zend_Application</title></info>
-    
+
 
     <para>
         Hay dos caminos para empezar con
@@ -26,7 +26,7 @@
     </para>
 
     <section xml:id="zend.application.quick-start.zend-tool"><info><title>Usando Zend_Tool</title></info>
-        
+
 
         <para>
             La forma más rápida para comenzar a utilizar
@@ -180,7 +180,7 @@ $application->bootstrap()
     </section>
 
     <section xml:id="zend.application.quick-start.manual"><info><title>Añadir Zend_Application a su aplicación</title></info>
-        
+
 
         <para>
             Los fundamentos de
@@ -338,7 +338,7 @@ RewriteRule ^.*$ index.php [NC,L]
 ]]></programlisting>
 
         <note><info><title>Más información sobre mod_rewrite</title></info>
-            
+
 
             <para>
                 Las reglas de reescritura le permitin reescribir el acceso a
@@ -360,7 +360,7 @@ RewriteRule ^.*$ index.php [NC,L]
     </section>
 
     <section xml:id="zend.application.quick-start.resources"><info><title>Agregando y Creando Recursos</title></info>
-        
+
 
         <para>
             Si ha seguido las instrucciones anteriores, entonces su clase de
@@ -492,7 +492,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="zend.application.quick-start.next-steps"><info><title>Próximos pasos con Zend_Application</title></info>
-        
+
 
         <para>
             Con lo anterior debería poder comenzar con

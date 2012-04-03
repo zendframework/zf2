@@ -21,8 +21,8 @@
 
 namespace Zend\Search\Lucene\Search\Highlighter;
 
-use Zend\Search\Lucene\Search\Highlighter,
-    Zend\Search\Lucene\Document;
+use Zend\Search\Lucene\Search\Highlighter;
+use Zend\Search\Lucene\Document;
 
 /**
  * @uses       \Zend\Search\Lucene\Search\Highlighter

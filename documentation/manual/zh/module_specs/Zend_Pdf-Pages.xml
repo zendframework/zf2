@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.pages"><info><title> 文档页面 </title></info>
-    
+
     <section xml:id="zend.pdf.pages.creation"><info><title> 页面生成 </title></info>
-        
+
         <para>
             PDF 文档页面摘要由 <code>Zend_Pdf_Page</code> 类来描绘。
         </para>
@@ -44,7 +44,7 @@
         </para>
 
         <example xml:id="zend.pdf.pages.example-1"><info><title>PDF 文档页面管理 </title></info>
-            
+
             <programlisting role="php"><![CDATA[<?php
     ...
     // Reverse page order
@@ -64,13 +64,13 @@
     </section>
 
     <section xml:id="zend.pdf.pages.cloning"><info><title> 页面克隆 </title></info>
-        
+
         <para>
             通过用页面为参数创建 <code>Zend_Pdf_Page</code> 对象 PDF 页面可以被克隆：
         </para>
 
         <example xml:id="zend.pdf.pages.example-2"><info><title>Cloning existing page.</title></info>
-            
+
             <programlisting role="php"><![CDATA[<?php
     ...
     // Store template page in a separate variable

@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Http;
-use Zend\Http\Header\Cookie,
-    Zend\Http\Header\SetCookie;
+use Zend\Http\Header\Cookie;
+use Zend\Http\Header\SetCookie;
 //use Zend\Uri;
 
 /**

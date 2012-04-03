@@ -20,8 +20,8 @@
 
 namespace Zend\Filter;
 
-use Zend\Loader\Broker,
-    Zend\Stdlib\SplPriorityQueue;
+use Zend\Loader\Broker;
+use Zend\Stdlib\SplPriorityQueue;
 
 /**
  * @uses       Zend\Filter\Exception
@@ -53,7 +53,7 @@ class FilterChain extends AbstractFilter
 
     /**
      * Initialize filter chain
-     * 
+     *
      * @return void
      */
     public function __construct($options = null)
@@ -112,14 +112,14 @@ class FilterChain extends AbstractFilter
      * If $name is null, the broker instance is returned; it will be lazy-loaded
      * if not already present.
      *
-     * If $name is a Broker instance, this broker instance will replace or set 
+     * If $name is a Broker instance, this broker instance will replace or set
      * the internal broker, and the instance will be returned.
      *
-     * If $name is a string, $name and $options will be passed to the broker's 
+     * If $name is a string, $name and $options will be passed to the broker's
      * load() method.
-     * 
-     * @param  null|Broker|string $name 
-     * @param array $options 
+     *
+     * @param  null|Broker|string $name
+     * @param array $options
      * @return Broker|Filter
      */
     public function broker($name = null, $options = array())
@@ -127,7 +127,7 @@ class FilterChain extends AbstractFilter
         if ($name instanceof Broker) {
             $this->broker = $name;
             return $this->broker;
-        } 
+        }
 
         if (null === $this->broker) {
             $this->broker = new FilterBroker();
@@ -142,7 +142,7 @@ class FilterChain extends AbstractFilter
 
     /**
      * Attach a filter to the chain
-     * 
+     *
      * @param  callback|Filter $callback A Filter implementation or valid PHP callback
      * @param  int $priority Priority at which to enqueue filter; defaults to 1000 (higher executes earlier)
      * @return FilterChain
@@ -165,11 +165,11 @@ class FilterChain extends AbstractFilter
     /**
      * Attach a filter to the chain using a short name
      *
-     * Retrieves the filter from the attached plugin broker, and then calls attach() 
+     * Retrieves the filter from the attached plugin broker, and then calls attach()
      * with the retrieved instance.
-     * 
-     * @param  string $name 
-     * @param  mixed $options 
+     *
+     * @param  string $name
+     * @param  mixed $options
      * @param  int $priority Priority at which to enqueue filter; defaults to 1000 (higher executes earlier)
      * @return FilterChain
      */

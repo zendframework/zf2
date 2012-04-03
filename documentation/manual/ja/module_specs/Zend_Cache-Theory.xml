@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.theory"><info><title>キャッシュの仕組み</title></info>
-    
+
 
     <para>
         <classname>Zend_Cache</classname> には、3 つのポイントがあります。まず最初は一意な ID (文字列) で、
@@ -40,7 +40,7 @@
     </note>
 
     <section xml:id="zend.cache.factory"><info><title>Zend_Cache ファクトリメソッド</title></info>
-        
+
 
         <para>
             使用可能な <classname>Zend_Cache</classname> フロントエンドのインスタンスを作成する方法を、
@@ -84,7 +84,7 @@ $cache = Zend_Cache::factory($frontendName,
     </section>
 
     <section xml:id="zend.cache.tags"><info><title>レコードのタグ付け</title></info>
-        
+
 
         <para>
             タグは、キャッシュレコードを分類するための仕組みです。
@@ -107,7 +107,7 @@ $cache->save($huge_data, 'myUniqueID', array('tagA', 'tagB', 'tagC'));
     </section>
 
     <section xml:id="zend.cache.clean"><info><title>キャッシュの削除</title></info>
-        
+
 
         <para>
             特定のキャッシュ ID を削除/無効化するには、<methodname>remove()</methodname>

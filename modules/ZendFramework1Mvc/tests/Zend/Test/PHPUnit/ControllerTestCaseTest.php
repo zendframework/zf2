@@ -20,18 +20,18 @@
  */
 
 namespace ZendTest\Test\PHPUnit;
-use Zend\Application,
-    Zend\Controller,
-    Zend\Controller\Front as FrontController,
-    Zend\Controller\Dispatcher,
-    Zend\Controller\Plugin,
-    Zend\Controller\Request,
-    Zend\Controller\Response,
-    Zend\Controller\Router,
-    Zend\Dom,
-    Zend\Registry,
-    Zend\Session,
-    Zend\Test\PHPUnit\Constraint;
+use Zend\Application;
+use Zend\Controller;
+use Zend\Controller\Front as FrontController;
+use Zend\Controller\Dispatcher;
+use Zend\Controller\Plugin;
+use Zend\Controller\Request;
+use Zend\Controller\Response;
+use Zend\Controller\Router;
+use Zend\Dom;
+use Zend\Registry;
+use Zend\Session;
+use Zend\Test\PHPUnit\Constraint;
 
 /**
  * Test class for Zend_Test_PHPUnit_ControllerTestCase.

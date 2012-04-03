@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.inlinescript"><info><title>InlineScript ヘルパー</title></info>
-    
+
 
     <para>
         <acronym>HTML</acronym> の <emphasis>&lt;script&gt;</emphasis> 要素を使用して、
@@ -16,7 +16,7 @@
     </para>
 
     <note><info><title>HTML Body スクリプトでの InlineScript の使用法</title></info>
-        
+
 
         <para>
             <classname>InlineScript</classname> は、スクリプトを <acronym>HTML</acronym> の

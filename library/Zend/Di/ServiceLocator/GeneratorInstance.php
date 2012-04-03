@@ -24,10 +24,10 @@ class GeneratorInstance
     /**
      * Set class name
      *
-     * In the case of an instance created via a callback, we need to set the 
+     * In the case of an instance created via a callback, we need to set the
      * class name after creating the generator instance.
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return GeneratorInstance
      */
     public function setName($name)

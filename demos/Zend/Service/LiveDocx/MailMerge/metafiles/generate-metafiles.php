@@ -12,7 +12,7 @@ $mailMerge->setUsername(DEMOS_ZEND_SERVICE_LIVEDOCX_USERNAME)
           ->setPassword(DEMOS_ZEND_SERVICE_LIVEDOCX_PASSWORD);
 
 $mailMerge->setLocalTemplate('template.docx');
-            
+
 $mailMerge->setFieldValue('software', 'Magic Graphical Compression Suite v1.9')
           ->setFieldValue('licensee', 'Henry Döner-Meyer')
           ->setFieldValue('company',  'Megasoft Co-operation')

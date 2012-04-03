@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.refining"><info><title>Verfeinern der Zugriffskontrolle</title></info>
-    
+
 
     <section xml:id="zend.acl.refining.precise"><info><title>Präzise Zugangsbeschränkung</title></info>
-        
+
 
         <para>
             Die grundlegende <acronym>ACL</acronym>, wie sie im <link linkend="zend.acl.introduction">vorherigen Kapitel</link> definiert ist, zeigt wie
@@ -126,7 +126,7 @@ echo $acl->isAllowed('administrator', 'announcement', 'archive') ?
     </section>
 
     <section xml:id="zend.acl.refining.removing"><info><title>Zugangsbeschränkungen entfernen</title></info>
-        
+
 
         <para>
             Um eine oder mehrere Zugangsregel von der <acronym>ACL</acronym> zu entfernen,

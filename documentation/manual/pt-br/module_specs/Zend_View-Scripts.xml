@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.scripts"><info><title>Scripts de Visualização</title></info>
-    
+
 
     <para>
         Uma vez que seu controlador tenha atribuido as variáveis e chamado o método
@@ -49,7 +49,7 @@
 ]]></programlisting>
 
     <section xml:id="zend.view.scripts.escaping"><info><title>Escapando a Saída</title></info>
-        
+
 
         <para>
             Uma das tarefas mais importantes a ser executada por scripts de visualização é assegurar
@@ -105,7 +105,7 @@ echo $view->render(...);
     </section>
 
     <section xml:id="zend.view.scripts.templates"><info><title>Usando Sistemas de Template Alternativos</title></info>
-        
+
 
         <para>
             Embora o <acronym>PHP</acronym> em si seja um poderoso sistema de template, muitos
@@ -117,7 +117,7 @@ echo $view->render(...);
         </para>
 
         <section xml:id="zend.view.scripts.templates.scripts"><info><title>Template Systems Using View Scripts</title></info>
-            
+
 
             <para>
                 A view script may be used to instantiate and manipulate a
@@ -175,7 +175,7 @@ if ($this->books) {
         </section>
 
         <section xml:id="zend.view.scripts.templates.interface"><info><title>Template Systems Using Zend_View_Interface</title></info>
-            
+
 
             <para>
                 Some may find it easier to simply provide a

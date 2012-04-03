@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.paginator.advanced"><info><title>Расширенное использование</title></info>
-    
+
 
     <section xml:id="zend.paginator.advanced.adapters"><info><title>Создание собственных адаптеров к источникам данных</title></info>
-        
+
 
         <para>
             Вы можете столкнуться с таким типом источника данных, для которого
@@ -66,7 +66,7 @@ return array_slice($this->_array, $offset, $itemCountPerPage);
     </section>
 
     <section xml:id="zend.paginator.advanced.scrolling-styles"><info><title>Создание своих стилей прокрутки</title></info>
-        
+
 
         <para>
             При создании своего стиля прокрутки реализуйте интерфейс
@@ -117,7 +117,7 @@ Zend_Paginator::addScrollingStylePrefixPath($prefix, $path);
     </section>
 
     <section xml:id="zend.paginator.advanced.caching"><info><title>Возможности кэширования</title></info>
-        
+
 
         <para>
             Можно указать <classname>Zend_Paginator</classname>-у, чтобы он
@@ -227,7 +227,7 @@ var_dump($paginator->getPageItemCache());
     </section>
 
     <section xml:id="zend.paginator.advanced.aggregator"><info><title>Интерфейс Zend_Paginator_AdapterAggregate</title></info>
-        
+
 
         <para>
             В зависимости от разрабатываемого приложения может возникнуть

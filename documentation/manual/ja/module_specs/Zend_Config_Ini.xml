@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.adapters.ini"><info><title>Zend_Config_Ini</title></info>
-    
+
 
     <para>
         <classname>Zend_Config_Ini</classname> は、おなじみの <acronym>INI</acronym>
@@ -16,7 +16,7 @@
     </para>
 
     <note><info><title>INI ファイルのパース</title></info>
-        
+
 
         <para>
             <classname>Zend_Config_Ini</classname> は、<acronym>PHP</acronym> の
@@ -30,7 +30,7 @@
     </note>
 
     <note><info><title>キーの区切り文字</title></info>
-        
+
 
         <para>
             デフォルトでは、キーの区切り文字はピリオド (<emphasis>.</emphasis>) です。
@@ -51,7 +51,7 @@ $config = new Zend_Config_Ini('/path/to/config.ini',
     </note>
 
     <example xml:id="zend.config.adapters.ini.example.using"><info><title>Zend_Config_Ini の使用法</title></info>
-        
+
 
         <para>
             この例は、<classname>Zend_Config_Ini</classname> を使用して
@@ -100,7 +100,7 @@ echo $config->database->params->dbname; // "dbname" と出力します
 
     <note>
     <table xml:id="zend.config.adapters.ini.table"><info><title>Zend_Config_Ini コンストラクタのパラメータ</title></info>
-        
+
         <tgroup cols="2">
             <thead>
                   <row>

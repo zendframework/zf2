@@ -21,9 +21,9 @@
 
 namespace Zend\Cache\Storage;
 
-use stdClass,
-    Zend\Cache\Exception,
-    Zend\EventManager\EventManager;
+use stdClass;
+use Zend\Cache\Exception;
+use Zend\EventManager\EventManager;
 
 /**
  * @category   Zend
@@ -116,8 +116,8 @@ class Capabilities
     protected $_supportedMetadata;
 
     /**
-     * Supports tagging? 
-     * 
+     * Supports tagging?
+     *
      * @var bool
      */
     protected $_tagging;
@@ -550,7 +550,7 @@ class Capabilities
     {
         return $this->setCapability($marker, 'tagging', (bool) $tagging);
     }
-    
+
     /**
      * Get value for tagging
      *

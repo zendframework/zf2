@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.usage"><info><title>Utiliser Zend_Currency</title></info>
-    
+
 
     <section xml:id="zend.currency.usage.generic"><info><title>Utilisation de base</title></info>
-        
+
 
         <para>
             La manière la plus simple consiste à se reposer sur la locale de l'utilisateur. Lorsque vous créez
@@ -12,7 +12,7 @@
         </para>
 
         <example xml:id="zend.currency.usage.generic.example-1"><info><title>Créer une monnaie avec les paramètres du client</title></info>
-            
+
 
             <para>
                 Imaginons un client dont la locale est "en_US" dans son navigateur. Dans ce cas,
@@ -34,7 +34,7 @@ $currency = new Zend_Currency();
         </example>
 
         <note><info><title>La détection automatique par locale ne fonctionne pas toujours</title></info>
-            
+
 
             <para>
                 La détection automatique par locale ne fonctionne pas toujours car
@@ -52,7 +52,7 @@ $currency = new Zend_Currency();
     </section>
 
     <section xml:id="zend.currency.usage.locale"><info><title>Créer une monnaie basée sur une locale</title></info>
-        
+
 
         <para>
             Pour éviter ce genre de problème, précisez manuellement la locale à utiliser.
@@ -90,7 +90,7 @@ $currency = new Zend_Currency();
     </section>
 
     <section xml:id="zend.currency.usage.territory"><info><title>Création de monnaie basée sur un pays</title></info>
-        
+
 
         <para>
             <classname>Zend_Currency</classname> est aussi capable de travailler à partir d'un pays
@@ -105,7 +105,7 @@ $currency = new Zend_Currency('US');
 ]]></programlisting>
 
         <note><info><title>Mettre en majuscule les pays</title></info>
-            
+
 
             <para>
                 Quand vous savez que vous utilisez un pays, vous devez le mettre en majuscule.

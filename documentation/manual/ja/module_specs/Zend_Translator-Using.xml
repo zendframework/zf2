@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.using"><info><title>翻訳アダプタの使用法</title></info>
 
-    
+
 
     <para>
         次は、アダプタをコード内で使用する方法です。
     </para>
 
     <example xml:id="zend.translator.using.example1"><info><title>単一言語の PHP コードの例</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 print "Example\n";
@@ -34,7 +34,7 @@ print "Here is line two\n";
     </para>
 
     <example xml:id="zend.translator.using.example2"><info><title>多言語対応の PHP コードの例</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 $translate = new Zend_Translator(
     array(
@@ -156,7 +156,7 @@ print $translate->_(2) . "\n";
 
     <section xml:id="zend.translator.using.structure"><info><title>翻訳ソースの構造</title></info>
 
-        
+
 
         <para>
             次に行うのは、翻訳したい言語用の翻訳ソースを作成することです。

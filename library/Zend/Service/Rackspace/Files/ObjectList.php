@@ -21,8 +21,8 @@
 
 namespace Zend\Service\Rackspace\Files;
 
-use Zend\Service\Rackspace\Files\Object,
-        Zend\Service\Rackspace\Files as RackspaceFiles;
+use Zend\Service\Rackspace\Files\Object;
+use Zend\Service\Rackspace\Files as RackspaceFiles;
 
 /**
  * List of servers retrived from the GoGrid web service
@@ -54,7 +54,7 @@ class ObjectList implements \Countable, \Iterator, \ArrayAccess
     protected $service;
     /**
      * The container name of the object list
-     * 
+     *
      * @var string
      */
     protected $container;

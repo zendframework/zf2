@@ -20,13 +20,13 @@
 
 namespace Zend\File\Transfer\Adapter;
 
-use Zend\File\Transfer,
-    Zend\File\Transfer\Exception,
-    Zend\Loader\PrefixPathLoader,
-    Zend\Loader\PrefixPathMapper,
-    Zend\Loader\ShortNameLocator,
-    Zend\Validator,
-    Zend\Filter;
+use Zend\File\Transfer;
+use Zend\File\Transfer\Exception;
+use Zend\Loader\PrefixPathLoader;
+use Zend\Loader\PrefixPathMapper;
+use Zend\Loader\ShortNameLocator;
+use Zend\Validator;
+use Zend\Filter;
 
 /**
  * Abstract class for file transfers (Downloads and Uploads)

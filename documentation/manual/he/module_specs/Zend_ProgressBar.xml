@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.introduction"><info><title>Zend_ProgressBar</title></info>
-    
+
 
     <section xml:id="zend.progressbar.whatisit"><info><title>הקדמה</title></info>
-        
+
         <para>
             <code>Zend_ProgressBar</code> הינו רכיב ליצירה ועדכון של בר התקדמות בסביבות עבודה שונות. הוא מכיל חלק מרכזי, אשר מדפיס את ההתקדמות דרך אחד מהמתאמים הנתנים לשימוש.
             בכל עדכון, הוא מקבל ערך אבסולוטי והודעה אופציונלית, ואז קורא למתאם עם הערך המחושב האחוז והזמן שנשאר.
@@ -11,7 +11,7 @@
     </section>
 
     <section xml:id="zend.progressbar.basic"><info><title>שימוש בסיסי ב <code>Zend_Progressbar</code></title></info>
-        
+
         <para>
             <code>Zend_ProgressBar</code> הוא די פשוט בשימוש שלו. כל מה שצריך לעשות זה ליצור אובייקט חדש של <code>Zend_ProgressBar</code>, הגדרת ערך מינימלי וערך מקסימלי, ולבחור בסוג המתאם לשימוש ולהצגת הנתונים.
             אם תרצו לעבד קובץ תצטרכו לעשות משהו כזה:
@@ -41,7 +41,7 @@ $progressBar->finish();
     </section>
 
     <section xml:id="zend.progressbar.persistent"><info><title>התקדמות קבועה</title></info>
-        
+
         <para>
             אם הנך רוצה שבר ההתקדמות יהיה קבוע בכל עמוד ובמספר רב של בקשות, תוכל לתת שם שישמש בתור מזהה יחודי בתור פרמטר רבעי כשהאובייקט נוצר. במקרה הזה, בר ההתקדמות לא ידווח למתאם אשר יצר את האובייקט אלה רק מתי שהמתודות
             <code>update()</code> או <code>finish()</code> יקראו.
@@ -50,7 +50,7 @@ $progressBar->finish();
     </section>
 
     <section xml:id="zend.progressbar.adapters"><info><title>מתאמים סטנדרטיים</title></info>
-        
+
         <para>
             <code>Zend_ProgressBar</code> מגיע עם המתאמים הבאים:
 

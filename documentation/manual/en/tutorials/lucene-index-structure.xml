@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.lucene.index-structure"><info><title>Lucene Index Structure</title></info>
-    
+
 
     <para>
         In order to fully utilize <classname>Zend_Search_Lucene</classname>'s capabilities with

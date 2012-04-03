@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.callback"><info><title>Callback</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Callback</classname> erlaubt es einen Callback anzugeben der
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.set.callback.options"><info><title>Unterstützte Optionen für Zend_Validate_Callback</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Validate_Callback</classname>
@@ -33,7 +33,7 @@
     </section>
 
     <section xml:id="zend.validate.set.callback.basic"><info><title>Grundsätzliche Verwendung</title></info>
-        
+
 
         <para>
             Der einfachste Anwendungsfall besteht darin eine einzelne Funktion zu haben und diese
@@ -64,7 +64,7 @@ if ($valid->isValid($input)) {
     </section>
 
     <section xml:id="zend.validate.set.callback.closure"><info><title>Verwendung mit Closures</title></info>
-        
+
 
         <para>
             <acronym>PHP</acronym> 5.3 führt <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/functions.anonymous">Closures</link> ein,
@@ -89,7 +89,7 @@ if ($valid->isValid($input)) {
     </section>
 
     <section xml:id="zend.validate.set.callback.class"><info><title>Verwendung mit klassenbasierten Callbacks</title></info>
-        
+
 
         <para>
             Natürlich ist es auch möglich eine Klassenmethode als Callback zu verwenden. Angenommen
@@ -172,7 +172,7 @@ if ($valid->isValid($input)) {
     </section>
 
     <section xml:id="zend.validate.set.callback.options2"><info><title>Optionen hinzufügen</title></info>
-        
+
 
         <para>
             <classname>Zend_Validate_Callback</classname> erlaubt auch die Verwendung von Optionen

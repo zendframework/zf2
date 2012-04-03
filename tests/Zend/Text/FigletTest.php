@@ -108,7 +108,7 @@ class FigletTest extends \PHPUnit_Framework_TestCase
     public function testIncorrectEncoding()
     {
         $this->markTestSkipped('Test case not reproducible on all setups');
-        
+
         $this->setExpectedException('Zend\Text\Figlet\Exception\RuntimeException');
         $figlet  = new Figlet\Figlet();
 
@@ -125,7 +125,7 @@ class FigletTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Zend\Text\Figlet\Exception\RuntimeException', 'not found');
         $figlet = new Figlet\Figlet(array('font' => __DIR__ . '/Figlet/NonExistentFont.flf'));
-        
+
     }
 
     public function testInvalidFont()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.adapters.ini"><info><title>Zend_Config_Ini</title></info>
-    
+
     <para>
         <code>Zend_Config_Ini</code> pozwala programistom przechowywać dane
         konfiguracyjne w znanym formacie INI a następnie odczytywać je w aplikacji
@@ -14,7 +14,7 @@
         z której dane mają być dziedziczone.
     </para>
     <note><info><title>parse_ini_file</title></info>
-        
+
         <para>
             <code>Zend_Config_Ini</code> wykorzystuje funkcję PHP <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/parse_ini_file"><code>parse_ini_file()</code></link>.
             Proszę przejrzyj dokumentację tej funkcji aby znać jej specyficzne zachowania,
@@ -24,7 +24,7 @@
         </para>
     </note>
     <note><info><title>Separator kluczy</title></info>
-        
+
         <para>
             Domyślnie separatorem kluczy jest znak kropki (<code>.</code>). Może
             on być jednak zmieniony przez zmianę klucza
@@ -40,7 +40,7 @@ $config = new Zend_Config_Ini('/path/to/config.ini',
         </para>
     </note>
     <example xml:id="zend.config.adapters.ini.example.using"><info><title>Użycie Zend_Config_Ini</title></info>
-        
+
         <para>
             Ten przykład pokazuje podstawowe użycie klasy <code>Zend_Config_Ini</code>
             do ładowania danych konfiguracyjnych z pliku INI. W tym przykładzie
@@ -88,7 +88,7 @@ echo $config->database->params->dbname; // wyświetla "dbname"
     </example>
     <note>
     <table xml:id="zend.config.adapters.ini.table"><info><title>Parametry konstruktora Zend_Config_Ini</title></info>
-        
+
         <tgroup cols="2">
             <thead>
                   <row>

@@ -36,7 +36,7 @@ class Literal implements Route
 {
     /**
      * Route to match
-     * 
+     *
      * @var string
      */
     protected $_route;

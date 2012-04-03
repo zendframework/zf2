@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.wildfire.chapter"><info><title>Zend_Wildfire</title></info>
 
-  
+
 
   <para>
     <classname>Zend_Wildfire</classname> は、<acronym>PHP</acronym> コードと
@@ -19,7 +19,7 @@
     に送る仕組みを提供することです。
   </para>
   <para>
-    
+
     <link linkend="zend.log.writers.firebug"><classname>Zend_Log_Writer_Firebug</classname></link>
     コンポーネントは、 Firebug へのログ出力のために提供されます。通信プロトコルは
     <acronym>HTTP</acronym> リクエストヘッダとレスポンスヘッダを使用し、

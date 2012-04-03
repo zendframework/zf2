@@ -20,8 +20,8 @@
 
 namespace Zend\Mail;
 
-use Traversable,
-    Zend\Mime\Message as MimeMessage;
+use Traversable;
+use Zend\Mime\Message as MimeMessage;
 
 /**
  * @category   Zend
@@ -33,7 +33,7 @@ class Message
 {
     /**
      * Content of the message
-     * 
+     *
      * @var null|string|object
      */
     protected $body;
@@ -47,7 +47,7 @@ class Message
      * Message encoding
      *
      * Used to determine whether or not to encode headers; defaults to ASCII.
-     * 
+     *
      * @var string
      */
     protected $encoding = 'ASCII';
@@ -56,7 +56,7 @@ class Message
      * Is the message valid?
      *
      * If we don't any From addresses, we're invalid, according to RFC2822.
-     * 
+     *
      * @return bool
      */
     public function isValid()
@@ -70,8 +70,8 @@ class Message
 
     /**
      * Set the message encoding
-     * 
-     * @param  string $encoding 
+     *
+     * @param  string $encoding
      * @return Message
      */
     public function setEncoding($encoding)
@@ -83,7 +83,7 @@ class Message
 
     /**
      * Get the message encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -93,8 +93,8 @@ class Message
 
     /**
      * Compose headers
-     * 
-     * @param  Headers $headers 
+     *
+     * @param  Headers $headers
      * @return Message
      */
     public function setHeaders(Headers $headers)
@@ -108,7 +108,7 @@ class Message
      * Access headers collection
      *
      * Lazy-loads if not already attached.
-     * 
+     *
      * @return Headers
      */
     public function headers()
@@ -122,9 +122,9 @@ class Message
 
     /**
      * Set (overwrite) From addresses
-     * 
-     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressList 
-     * @param  string|null $name 
+     *
+     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressList
+     * @param  string|null $name
      * @return Message
      */
     public function setFrom($emailOrAddressList, $name = null)
@@ -135,9 +135,9 @@ class Message
 
     /**
      * Add a "From" address
-     * 
-     * @param  string|Address|array|AddressList|Traversable $emailOrAddressOrList 
-     * @param  string|null $name 
+     *
+     * @param  string|Address|array|AddressList|Traversable $emailOrAddressOrList
+     * @param  string|null $name
      * @return Message
      */
     public function addFrom($emailOrAddressOrList, $name = null)
@@ -149,7 +149,7 @@ class Message
 
     /**
      * Retrieve list of From senders
-     * 
+     *
      * @return AddressList
      */
     public function from()
@@ -159,9 +159,9 @@ class Message
 
     /**
      * Overwrite the address list in the To recipients
-     * 
-     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressList 
-     * @param  null|string $name 
+     *
+     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressList
+     * @param  null|string $name
      * @return Message
      */
     public function setTo($emailOrAddressList, $name = null)
@@ -174,9 +174,9 @@ class Message
      * Add one or more addresses to the To recipients
      *
      * Appends to the list.
-     * 
-     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressOrList 
-     * @param  null|string $name 
+     *
+     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressOrList
+     * @param  null|string $name
      * @return Message
      */
     public function addTo($emailOrAddressOrList, $name = null)
@@ -188,7 +188,7 @@ class Message
 
     /**
      * Access the address list of the To header
-     * 
+     *
      * @return AddressList
      */
     public function to()
@@ -198,9 +198,9 @@ class Message
 
     /**
      * Set (overwrite) CC addresses
-     * 
-     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressList 
-     * @param  string|null $name 
+     *
+     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressList
+     * @param  string|null $name
      * @return Message
      */
     public function setCc($emailOrAddressList, $name = null)
@@ -211,9 +211,9 @@ class Message
 
     /**
      * Add a "Cc" address
-     * 
-     * @param  string|Address|array|AddressList|Traversable $emailOrAddressOrList 
-     * @param  string|null $name 
+     *
+     * @param  string|Address|array|AddressList|Traversable $emailOrAddressOrList
+     * @param  string|null $name
      * @return Message
      */
     public function addCc($emailOrAddressOrList, $name = null)
@@ -225,7 +225,7 @@ class Message
 
     /**
      * Retrieve list of CC recipients
-     * 
+     *
      * @return AddressList
      */
     public function cc()
@@ -235,9 +235,9 @@ class Message
 
     /**
      * Set (overwrite) BCC addresses
-     * 
-     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressList 
-     * @param  string|null $name 
+     *
+     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressList
+     * @param  string|null $name
      * @return Message
      */
     public function setBcc($emailOrAddressList, $name = null)
@@ -248,9 +248,9 @@ class Message
 
     /**
      * Add a "Bcc" address
-     * 
-     * @param  string|Address|array|AddressList|Traversable $emailOrAddressOrList 
-     * @param  string|null $name 
+     *
+     * @param  string|Address|array|AddressList|Traversable $emailOrAddressOrList
+     * @param  string|null $name
      * @return Message
      */
     public function addBcc($emailOrAddressOrList, $name = null)
@@ -262,7 +262,7 @@ class Message
 
     /**
      * Retrieve list of BCC recipients
-     * 
+     *
      * @return AddressList
      */
     public function bcc()
@@ -272,9 +272,9 @@ class Message
 
     /**
      * Overwrite the address list in the Reply-To recipients
-     * 
-     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressList 
-     * @param  null|string $name 
+     *
+     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressList
+     * @param  null|string $name
      * @return Message
      */
     public function setReplyTo($emailOrAddressList, $name = null)
@@ -287,9 +287,9 @@ class Message
      * Add one or more addresses to the Reply-To recipients
      *
      * Appends to the list.
-     * 
-     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressOrList 
-     * @param  null|string $name 
+     *
+     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressOrList
+     * @param  null|string $name
      * @return Message
      */
     public function addReplyTo($emailOrAddressOrList, $name = null)
@@ -301,7 +301,7 @@ class Message
 
     /**
      * Access the address list of the Reply-To header
-     * 
+     *
      * @return AddressList
      */
     public function replyTo()
@@ -310,10 +310,10 @@ class Message
     }
 
     /**
-     * setSender 
-     * 
-     * @param mixed $emailOrAddress 
-     * @param mixed $name 
+     * setSender
+     *
+     * @param mixed $emailOrAddress
+     * @param mixed $name
      * @return void
      */
     public function setSender($emailOrAddress, $name = null)
@@ -325,7 +325,7 @@ class Message
 
     /**
      * Retrieve the sender address, if any
-     * 
+     *
      * @return null|AddressDescription
      */
     public function getSender()
@@ -336,8 +336,8 @@ class Message
 
     /**
      * Set the message subject header value
-     * 
-     * @param  string $subject 
+     *
+     * @param  string $subject
      * @return Message
      */
     public function setSubject($subject)
@@ -355,7 +355,7 @@ class Message
 
     /**
      * Get the message subject header value
-     * 
+     *
      * @return null|string
      */
     public function getSubject()
@@ -370,8 +370,8 @@ class Message
 
     /**
      * Set the message body
-     * 
-     * @param  null|string|MimeMessage|object $body 
+     *
+     * @param  null|string|MimeMessage|object $body
      * @return Message
      */
     public function setBody($body)
@@ -424,7 +424,7 @@ class Message
 
     /**
      * Return the currently set message body
-     * 
+     *
      * @return null|object
      */
     public function getBody()
@@ -434,7 +434,7 @@ class Message
 
     /**
      * Get the string-serialized message body text
-     * 
+     *
      * @return string
      */
     public function getBodyText()
@@ -450,9 +450,9 @@ class Message
      * Retrieve a header by name
      *
      * If not found, instantiates one based on $headerClass.
-     * 
-     * @param  string $headerName 
-     * @param  string $headerClass 
+     *
+     * @param  string $headerName
+     * @param  string $headerClass
      * @return Header
      */
     protected function getHeader($headerName, $headerClass)
@@ -469,8 +469,8 @@ class Message
 
     /**
      * Clear a header by name
-     * 
-     * @param  string $headerName 
+     *
+     * @param  string $headerName
      * @return void
      */
     protected function clearHeaderByName($headerName)
@@ -487,9 +487,9 @@ class Message
      *
      * Used with To, From, Cc, Bcc, and ReplyTo headers. If the header does not
      * exist, instantiates it.
-     * 
-     * @param  string $headerName 
-     * @param  string $headerClass 
+     *
+     * @param  string $headerName
+     * @param  string $headerClass
      * @return AddressList
      */
     protected function getAddressListFromHeader($headerName, $headerClass)
@@ -508,11 +508,11 @@ class Message
      * Update an address list
      *
      * Proxied to this from addFrom, addTo, addCc, addBcc, and addReplyTo.
-     * 
-     * @param  AddressList $addressList 
-     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressOrList 
-     * @param  null|string $name 
-     * @param  string $callingMethod 
+     *
+     * @param  AddressList $addressList
+     * @param  string|AddressDescription|array|AddressList|Traversable $emailOrAddressOrList
+     * @param  null|string $name
+     * @param  string $callingMethod
      * @return void
      */
     protected function updateAddressList(AddressList $addressList, $emailOrAddressOrList, $name, $callingMethod)
@@ -539,7 +539,7 @@ class Message
 
     /**
      * Serialize to string
-     * 
+     *
      * @return string
      */
     public function toString()

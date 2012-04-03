@@ -20,11 +20,11 @@
 
 namespace Zend\Filter;
 
-use Zend\Loader\Broker,
-    Zend\Registry,
-    Zend\Translator\Adapter\AbstractAdapter as TranslationAdapter,
-    Zend\Translator\Translator as Translator,
-    Zend\Validator;
+use Zend\Loader\Broker;
+use Zend\Registry;
+use Zend\Translator\Adapter\AbstractAdapter as TranslationAdapter;
+use Zend\Translator\Translator as Translator;
+use Zend\Validator;
 
 /**
  * @category   Zend

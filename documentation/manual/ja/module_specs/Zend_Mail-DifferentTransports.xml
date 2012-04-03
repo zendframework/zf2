@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.different-transports"><info><title>異なる転送手段の使用</title></info>
-    
+
 
     <para>
         複数のメールをそれぞれ別の接続を使用して送信したい場合は、
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.mail.different-transports.example-1"><info><title>異なる転送手段の使用</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();
@@ -25,7 +25,7 @@ $mail->send();  // もう一度デフォルトを使用します
     </example>
 
     <note><info><title>転送手段の追加</title></info>
-        
+
 
         <para>
             別の転送手段を用意するには、<classname>Zend_Mail_Transport_Interface</classname>

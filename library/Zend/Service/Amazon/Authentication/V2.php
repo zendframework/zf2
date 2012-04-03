@@ -40,7 +40,7 @@ class V2 extends Authentication
      * Signature Encoding Method
      */
     protected $_signatureMethod = 'HmacSHA256';
-    
+
     /**
      * Type of http request
      * @var string
@@ -64,10 +64,10 @@ class V2 extends Authentication
         }
 
         $data = $this->_signParameters($url, $parameters);
-        
+
         return $data;
     }
-    
+
     /**
      * Set http request type to POST or GET
      * @param $method string
@@ -75,7 +75,7 @@ class V2 extends Authentication
     public function setHttpMethod($method = "POST") {
         $this->_httpMethod = strtoupper($method);
     }
-    
+
     /**
      * Get the current http request type
      * @return string

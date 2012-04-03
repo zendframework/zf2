@@ -20,16 +20,16 @@
 
 namespace Zend\Http;
 
-use ArrayIterator,
-    Zend\Config\Config,
-    Zend\Uri\Http,
-    Zend\Http\Header\Cookie,
-    Zend\Http\Header\SetCookie,
-    Zend\Stdlib\Parameters,
-    Zend\Stdlib\ParametersDescription,
-    Zend\Stdlib\Dispatchable,
-    Zend\Stdlib\RequestDescription,
-    Zend\Stdlib\ResponseDescription;
+use ArrayIterator;
+use Zend\Config\Config;
+use Zend\Uri\Http;
+use Zend\Http\Header\Cookie;
+use Zend\Http\Header\SetCookie;
+use Zend\Stdlib\Parameters;
+use Zend\Stdlib\ParametersDescription;
+use Zend\Stdlib\Dispatchable;
+use Zend\Stdlib\RequestDescription;
+use Zend\Stdlib\ResponseDescription;
 
 /**
  * Http client

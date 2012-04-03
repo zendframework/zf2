@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.introduction"><info><title>Введение</title></info>
 
-    
+
 
     <para>
         Компонента <classname>Zend_Filter</classname> предоставляет набор наиболее часто используемых
@@ -13,7 +13,7 @@
 
     <section xml:id="zend.filter.introduction.definition"><info><title>Что есть фильтр?</title></info>
 
-        
+
 
         <para>
             В материальном мире фильтр обычно используется для удаления
@@ -23,7 +23,7 @@
             тип фильтра полезен для веб-приложений - удаление недопустимого
             ввода, лишних пробельных символов и т.д.
         </para>
-    
+
         <para>
             Это базовое определение фильтра может быть расширено включением
             общих преобразований ввода. Часто встречающееся в веб-приложениях
@@ -46,7 +46,7 @@
 
     <section xml:id="zend.filter.introduction.using"><info><title>Основы использования фильтров</title></info>
 
-        
+
 
         <para>
             Такое определение фильтра дает основу для
@@ -54,12 +54,12 @@
             от классов фильтров реализации одного метода с именем
             <code>filter()</code>.
         </para>
-    
+
         <para>
             Ниже приведен пример использования фильтра с двумя вариантами
             входных данных - амперсандом (<code>&amp;</code>) и двойными
             кавычками (<code>"</code>).
-            
+
             <programlisting language="php"><![CDATA[
 $htmlEntities = new Zend_Filter_HtmlEntities();
 
@@ -70,10 +70,10 @@ echo $htmlEntities->filter('"'); // "
     </para>
 
     </section>
-    
+
     <section xml:id="zend.filter.introduction.static"><info><title>Использование статического метода get()</title></info>
 
-        
+
 
         <para>
             Каждый раз загружать нужный класс фильтра и создавать его экземпляр

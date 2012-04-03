@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.common"><info><title>Caractéristiques communes aux pages</title></info>
-    
+
 
     <para>
         Toutes les classes pour des pages doivent étendre <classname>Zend_Navigation_Page</classname>,
@@ -22,7 +22,7 @@
     </para>
 
     <table xml:id="zend.navigation.pages.common.options"><info><title>Options communes aux pages</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>
@@ -171,7 +171,7 @@
     </table>
 
     <note><info><title>Propriétés personnalisées</title></info>
-        
+
         <para>
             Toutes les pages supportent la gestion de propriétés personnalisées, ceci via les méthodes
             magiques <methodname>__set($name, $value)</methodname>, <methodname>__get($name)</methodname>,
@@ -188,7 +188,7 @@
     </note>
 
     <example xml:id="zend.navigation.pages.common.example.customprops"><info><title>Propriétés de pages personnalisées</title></info>
-        
+
 
         <para>
             Cet exemple montre comment les propriétés personnalisées des pages peuvent être utilisées.

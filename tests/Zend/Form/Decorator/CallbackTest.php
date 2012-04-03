@@ -21,8 +21,8 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Decorator\Callback as CallbackDecorator,
-    Zend\Form\Element;
+use Zend\Form\Decorator\Callback as CallbackDecorator;
+use Zend\Form\Element;
 
 /**
  * Test class for Zend_Form_Decorator_Callback

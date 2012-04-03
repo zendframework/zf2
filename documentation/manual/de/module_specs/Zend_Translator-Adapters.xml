@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.adapter"><info><title>Adapter für Zend_Translator</title></info>
-    
+
 
     <para>
         <classname>Zend_Translator</classname> kann unterschiedliche Adapter für die Übersetzung
@@ -9,7 +9,7 @@
     </para>
 
     <table xml:id="zend.translator.adapter.table"><info><title>Adapter für Zend_Translator</title></info>
-        
+
 
         <tgroup cols="3">
             <thead>
@@ -115,7 +115,7 @@
     </table>
 
     <section xml:id="zend.translator.adapter.decision"><info><title>Wie man entscheidet welchen Adapter man benutzen soll</title></info>
-        
+
 
         <para>
             Zuerst muss man die Entscheidung treffen welchen der Adapter man für
@@ -149,7 +149,7 @@
         </note>
 
         <section xml:id="zend.translator.adapter.array"><info><title>Zend_Translator_Adapter_Array</title></info>
-            
+
 
             <para>
                 Der Array-Adapter ist der Adapter, welcher für Programmierer am einfachsten
@@ -167,7 +167,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.csv"><info><title>Zend_Translator_Adapter_Csv</title></info>
-            
+
 
             <para>
                 Der CSV-Adapter ist der Adapter, der am einfachsten für Kunden zu benutzen ist.
@@ -193,7 +193,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.gettext"><info><title>Zend_Translator_Adapter_Gettext</title></info>
-            
+
 
             <para>
                 Der Gettext-Adapter ist der Adapter, der am meisten verwendet wird.
@@ -218,7 +218,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.ini"><info><title>Zend_Translator_Adapter_Ini</title></info>
-            
+
 
             <para>
                 Der <acronym>INI</acronym> Adapter ist ein sehr einfacher Adapter, welcher sogar
@@ -234,7 +234,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.tbx"><info><title>Zend_Translator_Adapter_Tbx</title></info>
-            
+
 
             <para>
                 Der TBX Adapter ist ein Adapter, der von Kunden benutzt wird, die bereits das TBX
@@ -253,7 +253,7 @@
             </para>
 
             <warning><info><title>Rückschritt in PHP 5.3</title></info>
-                
+
 
                 <para>
                     Vor <acronym>PHP</acronym> 5.3 haben <methodname>parse_ini_file()</methodname>
@@ -269,7 +269,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.tmx"><info><title>Zend_Translator_Adapter_Tmx</title></info>
-            
+
 
             <para>
                 Der TMX-Adapter wird meistens benutzt, wenn Kunden
@@ -287,7 +287,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.qt"><info><title>Zend_Translator_Adapter_Qt</title></info>
-            
+
 
             <para>
                 Der Qt-Adapter ist der Adapter für alle Kunden, welche TS-Dateien
@@ -304,7 +304,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.xliff"><info><title>Zend_Translator_Adapter_Xliff</title></info>
-            
+
 
             <para>
                 Der XLIFF Adapter wird meistens von Kunden benutzt,
@@ -323,7 +323,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.xmltm"><info><title>Zend_Translator_Adapter_XmlTm</title></info>
-            
+
 
             <para>
                 Der XmlTm Adapter ist ein Adapter der von Kunden verwendet wird, die das Layout
@@ -341,7 +341,7 @@
     </section>
 
     <section xml:id="zend.translator.adapter.selfwritten"><info><title>Selbst geschriebene Adapter integrieren</title></info>
-        
+
 
         <para>
             <classname>Zend_Translator</classname> erlaubt es, selbst geschriebene Adapterklassen zu
@@ -382,7 +382,7 @@ try {
     </section>
 
     <section xml:id="zend.translator.adapter.caching"><info><title>Alle Adapter beschleunigen</title></info>
-        
+
 
         <para>
             <classname>Zend_Translator</classname> erlaubt intern die Verwendung von

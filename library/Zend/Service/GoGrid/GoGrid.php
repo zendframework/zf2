@@ -41,8 +41,8 @@ abstract class GoGrid
     protected $_apiKey;
     /**
      * GoGrid secret
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $_secret;
     /**
@@ -80,7 +80,7 @@ abstract class GoGrid
     }
     /**
      * get the HttpClient static instance
-     * 
+     *
      * @return Zend\Http\Client
      */
     public function getHttpClient()
@@ -92,8 +92,8 @@ abstract class GoGrid
     }
     /**
      * Set the API secret
-     * 
-     * @param string $secret 
+     *
+     * @param string $secret
      */
     public function setSecret($secret)
     {
@@ -125,8 +125,8 @@ abstract class GoGrid
     }
     /**
      * Get the API version
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getApiVersion()
     {
@@ -154,14 +154,14 @@ abstract class GoGrid
             throw new Exception\InvalidArgumentException("The options must be an array");
         }
         $client = $this->getHttpClient();
-        
+
         $paramGet= array (
             'format'  => self::FORMAT_API,
             'api_key' => $this->_apiKey,
             'sig'     => $this->_computeSignature(),
             'v'       => $this->_apiVersion
         );
-        
+
         if (!empty($options)) {
             $get='';
             foreach ($options as $key=>$value) {
@@ -175,13 +175,13 @@ abstract class GoGrid
             }
         }
         $client->setParameterGet($paramGet);
-        
+
         if (!empty($get)) {
             $client->setUri(self::URL_API . $method.'?'.$get);
         } else {
             $client->setUri(self::URL_API . $method);
         }
-        
+
         $this->_lastResponse = $client->send();
         return json_decode($this->_lastResponse->getBody(), true);
     }
@@ -196,7 +196,7 @@ abstract class GoGrid
     }
     /**
      * Get the last HTTP request
-     * 
+     *
      * @return string
      */
     public function getLastRequest()
@@ -205,7 +205,7 @@ abstract class GoGrid
     }
     /**
      * Get the last error type
-     * 
+     *
      * @return integer
      */
     public function getHttpStatus()

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.advanced"><info><title>高度な使用法</title></info>
 
-    
+
 
     <section xml:id="zend.acl.advanced.storing"><info><title>ACL データの保存による永続性の確保</title></info>
 
-        
+
 
         <para>
         <classname>Zend_Acl</classname> は、特定のバックエンド技術 (たとえばデータベースやキャッシュサーバを使用した
@@ -30,7 +30,7 @@
 
     <section xml:id="zend.acl.advanced.assertions"><info><title>アサーションを使用した条件付き ACL 規則の作成</title></info>
 
-        
+
 
         <para>
         あるリソースに対する特定のロールのアクセス権限が、

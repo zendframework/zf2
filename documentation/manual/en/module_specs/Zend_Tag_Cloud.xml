@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tag.cloud"><info><title>Zend_Tag_Cloud</title></info>
-    
+
 
     <para>
         <classname>Zend_Tag_Cloud</classname> is the rendering part of
@@ -76,7 +76,7 @@
     </itemizedlist>
 
     <example xml:id="zend.tag.cloud.example.using"><info><title>Using Zend_Tag_Cloud</title></info>
-        
+
 
         <para>
             This example illustrates a basic example of how to create a tag
@@ -107,7 +107,7 @@ echo $cloud;
     </example>
 
     <section xml:id="zend.tag.cloud.decorators"><info><title>Decorators</title></info>
-        
+
 
         <para>
             <classname>Zend_Tag_Cloud</classname> requires two types of decorators to be
@@ -120,7 +120,7 @@ echo $cloud;
         </para>
 
         <section xml:id="zend.tag.cloud.decorators.htmltag"><info><title>HTML Tag decorator</title></info>
-            
+
 
             <para>
                 The <acronym>HTML</acronym> tag decorator will by default render every tag in an
@@ -129,7 +129,7 @@ echo $cloud;
             </para>
 
             <note><info><title>URL parameter</title></info>
-                
+
 
                 <para>
                     As the <acronym>HTML</acronym> tag decorator always surounds the tag title with
@@ -190,7 +190,7 @@ echo $cloud;
         </section>
 
         <section xml:id="zend.tag.cloud.decorators.htmlcloud"><info><title>HTML Cloud decorator</title></info>
-            
+
 
             <para>
                 The <acronym>HTML</acronym> cloud decorator will suround the <acronym>HTML</acronym>

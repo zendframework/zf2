@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.types"><info><title>計測値の型</title></info>
 
-    
+
 
     <para>
         サポートするすべての計測値の型の一覧を以下にまとめます。
@@ -9,7 +9,7 @@
     </para>
 
     <table xml:id="zend.measure.types.table-1"><info><title>計測値の型の一覧</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>
@@ -259,7 +259,7 @@
 
     <section xml:id="zend.measure.types.binary"><info><title>Zend_Measure_Binary のヒント</title></info>
 
-        
+
 
         <para>
             よく使われるバイナリの規約では、キロ、メガ、ギガ
@@ -284,7 +284,7 @@
 
     <section xml:id="zend.measure.types.decimal"><info><title>Zend_Measure_Number のヒント</title></info>
 
-        
+
 
         <para>
             いちばんよく知られている形式は、十進法です。
@@ -297,7 +297,7 @@
 
     <section xml:id="zend.measure.types.roman"><info><title>ローマ数字</title></info>
 
-        
+
 
         <para>
             ローマ数字では 4000 以上の数字もサポートしています。

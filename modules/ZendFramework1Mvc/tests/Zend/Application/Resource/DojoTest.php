@@ -21,11 +21,11 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application\Resource\Dojo as DojoResource,
-    Zend\Application,
-    Zend\Controller\Front as FrontController,
-    Zend\Dojo\View\Helper\Dojo\Container as DojoContainer;
+use Zend\Loader\Autoloader;
+use Zend\Application\Resource\Dojo as DojoResource;
+use Zend\Application;
+use Zend\Controller\Front as FrontController;
+use Zend\Dojo\View\Helper\Dojo\Container as DojoContainer;
 
 /**
  * @category   Zend

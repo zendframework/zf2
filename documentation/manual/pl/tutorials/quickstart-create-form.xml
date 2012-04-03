@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-form"><info><title>Tworzenie formularza</title></info>
-    
+
 
     <para>
         Aby aplikacja księgi gości była użyteczna należy umieścić w niej formularz
@@ -8,7 +8,7 @@
     </para>
 
     <para>
-        W pierwszej kolejności należy utworzyć klasę formularza. Można to osiągnąć 
+        W pierwszej kolejności należy utworzyć klasę formularza. Można to osiągnąć
         poprzez polecenie:
     </para>
 
@@ -20,7 +20,7 @@ Updating project profile '.zfproject.xml'
 
     <para>
         Powyższe polecenie utworzy katalog <filename>application/forms/</filename>
-        zawierający plik <filename>Guestbook.php</filename>. Należy umieścić w 
+        zawierający plik <filename>Guestbook.php</filename>. Należy umieścić w
         nim następującą treść:
     </para>
 
@@ -79,16 +79,16 @@ class Application_Form_Guestbook extends Zend_Form
 ]]></programlisting>
 
     <para>
-        Powyższy formularz definiuje pięć elementów: pole adresu e-mail, pole 
-        komentarza, pole <acronym>CAPTCHA</acronym> dla zabezpieczenia przed spamem, 
+        Powyższy formularz definiuje pięć elementów: pole adresu e-mail, pole
+        komentarza, pole <acronym>CAPTCHA</acronym> dla zabezpieczenia przed spamem,
         przycisk wysłania komentarza oraz żeton bezpieczeństwa (przed <acronym>CSRF</acronym>).
     </para>
 
     <para>
-        Następnie należy zdefiniować nową akcję <methodname>signAction()</methodname> 
-        w kontrolerze <classname>GuestbookController</classname>, która będzie 
-        odpowiedzialna za odbiór danych wysłanych przez formularz. Aby utworzyć 
-        nową akcję oraz związany z nią skrypt widoku należy uruchomić następujące 
+        Następnie należy zdefiniować nową akcję <methodname>signAction()</methodname>
+        w kontrolerze <classname>GuestbookController</classname>, która będzie
+        odpowiedzialna za odbiór danych wysłanych przez formularz. Aby utworzyć
+        nową akcję oraz związany z nią skrypt widoku należy uruchomić następujące
         polecenie:
     </para>
 
@@ -159,7 +159,7 @@ echo $this->form;
 ]]></programlisting>
 
     <note><info><title>Lepszy wygląd formularzy</title></info>
-        
+
 
         <para>
             Tak powstały formularz nie stanowi wzoru piękna, ale należy pamiętać, iż wygląd
@@ -169,16 +169,16 @@ echo $this->form;
 
         <para>
             Dodatkowo przydatny może się okazać
-            <link linkend="learning.form.decorators.intro">samouczek tworzenia 
+            <link linkend="learning.form.decorators.intro">samouczek tworzenia
             dekoratorów formularzy</link>.
         </para>
     </note>
 
     <note><info><title>Punkt kontrolny</title></info>
-        
+
 
         <para>
-            Po wejściu pod adres "http://localhost/guestbook/sign" powinien się 
+            Po wejściu pod adres "http://localhost/guestbook/sign" powinien się
             pokazać formularz księgi gości:
         </para>
 

@@ -20,9 +20,9 @@
  */
 
 namespace ZendTest\Service\GoGrid;
-use Zend\Service\GoGrid\Job,
-        Zend\Service\GoGrid\ObjectList,
-        Zend\Http\Client\Adapter\Test as HttpTest;
+use Zend\Service\GoGrid\Job;
+use Zend\Service\GoGrid\ObjectList;
+use Zend\Http\Client\Adapter\Test as HttpTest;
 
 /**
  * Test helper
@@ -112,7 +112,7 @@ class JobOfflineTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(count($joblist),2);
         $this->assertEquals($joblist->getStatus(),'success');
-        
+
         $job= $joblist[0];
         $this->assertEquals($job->getAttribute('id'), '583288');
         $this->assertEquals($job->getAttribute('owner'),'enrico@zend.com');

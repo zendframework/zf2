@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.lucene.queries"><info><title>Requêtes supportées</title></info>
-    
+
 
     <para>
         <classname>Zend_Search_Lucene</classname> et Lucene Java supportent un langage de requête
@@ -21,7 +21,7 @@
     </para>
 
     <example xml:id="learning.lucene.queries.keyword"><info><title>Effectuer une requête pour un mot seul</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 hello
@@ -33,7 +33,7 @@ hello
     </example>
 
     <note><info><title>Champ de recherche par défaut</title></info>
-        
+
 
         <para>
             Note importante ! Lucene Java recherche uniquement dans les champs de "contenu" par
@@ -44,7 +44,7 @@ hello
     </note>
 
     <example xml:id="learning.lucene.queries.multiple-words"><info><title>Effectuer une recherche de mots multiples</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 hello dolly
@@ -57,7 +57,7 @@ hello dolly
     </example>
 
     <example xml:id="learning.lucene.queries.required-words"><info><title>Mots requis dans une requête</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 +hello dolly
@@ -69,7 +69,7 @@ hello dolly
     </example>
 
     <example xml:id="learning.lucene.queries.prohibited-words"><info><title>Interdire des mots dans les documents recherchés</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 +hello -dolly
@@ -83,7 +83,7 @@ hello dolly
     </example>
 
     <example xml:id="learning.lucene.queries.phrases"><info><title>Rechercher des phrases</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 "hello dolly"
@@ -96,7 +96,7 @@ hello dolly
     </example>
 
     <example xml:id="learning.lucene.queries.fields"><info><title>Effectuer des recherches dans des champs en particulier</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 title:"The Right Way" AND text:go
@@ -110,7 +110,7 @@ title:"The Right Way" AND text:go
 
     <example xml:id="learning.lucene.queries.fields-and-document"><info><title>Effectuer des recherches dans des champs en particulier aussi bien que dans le
         document complet</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 title:"The Right Way" AND  go
@@ -124,7 +124,7 @@ title:"The Right Way" AND  go
 
     <example xml:id="learning.lucene.queries.fields-and-document-alt"><info><title>Effectuer des recherches dans des champs en particulier aussi bien que dans le
         document complet (Alternatif)</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 title:Do it right
@@ -138,7 +138,7 @@ title:Do it right
     </example>
 
     <example xml:id="learning.lucene.queries.wildcard-question"><info><title>Faire des requêtes avec le joker "?"</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 te?t
@@ -151,7 +151,7 @@ te?t
     </example>
 
     <example xml:id="learning.lucene.queries.wildcard-asterisk"><info><title>Faire des requêtes avec le joker  "*"</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 test*
@@ -164,7 +164,7 @@ test*
     </example>
 
     <example xml:id="learning.lucene.queries.range-inclusive"><info><title>Rechercher une gamme inclusive de termes</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 mod_date:[20020101 TO 20030101]
@@ -176,7 +176,7 @@ mod_date:[20020101 TO 20030101]
     </example>
 
     <example xml:id="learning.lucene.queries.range-exclusive"><info><title>Rechercher une gamme exclusive de termes</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 title:{Aida to Carmen}
@@ -188,7 +188,7 @@ title:{Aida to Carmen}
     </example>
 
     <example xml:id="learning.lucene.queries.fuzzy"><info><title>Recherches floues</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 roam~
@@ -200,7 +200,7 @@ roam~
     </example>
 
     <example xml:id="learning.lucene.queries.boolean"><info><title>Recherches booléennes</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 (framework OR library) AND php
@@ -219,7 +219,7 @@ roam~
     </para>
 
     <example xml:id="learning.lucene.queries.combining"><info><title>Combinaison d'analyse et de construction de requêtes</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $userQuery = Zend_Search_Lucene_Search_QueryParser::parse($queryStr);

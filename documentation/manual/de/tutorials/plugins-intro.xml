@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.plugins.intro"><info><title>Einführung</title></info>
-    
+
 
     <para>
         Zend Framework verwendet sehr stark Plugin Architekturen. Plugins erlauben eine einfache

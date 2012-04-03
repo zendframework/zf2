@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.rest.client"><info><title>Zend_Rest_Client</title></info>
-    
+
 
     <section xml:id="zend.rest.client.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             Die Verwendung von <classname>Zend_Rest_Client</classname> ist sehr ähnlich der
@@ -14,7 +14,7 @@
         </para>
 
         <example xml:id="zend.rest.client.introduction.example-1"><info><title>Eine Basis REST Anfrage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**
@@ -27,7 +27,7 @@ echo $client->sayHello('Davey', 'Day')->get(); // "Servus Davey, guten Tag"
         </example>
 
         <note><info><title>Unterschiede im Aufruf</title></info>
-            
+
 
             <para>
                 <classname>Zend_Rest_Client</classname> versucht, dass die entfernten Methoden, so
@@ -46,7 +46,7 @@ echo $client->get();
     </section>
 
     <section xml:id="zend.rest.client.return"><info><title>Antworten</title></info>
-        
+
 
         <para>
             Alle Anfragen die über <classname>Zend_Rest_Client</classname> gemacht wurden,
@@ -61,7 +61,7 @@ echo $client->get();
         </para>
 
         <example xml:id="zend.rest.client.return.example-1"><info><title>Antwort Status</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $result = $client->sayHello('Davey', 'Tag')->get();
@@ -94,7 +94,7 @@ if ($result->isSuccess()) {
         </para>
 
         <example xml:id="zend.rest.client.return.example-2"><info><title>Technorati's REST Service verwenden</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $technorati = new Zend_Rest_Client('http://api.technorati.com/bloginfo');
@@ -106,7 +106,7 @@ echo $result->firstname() .' '. $result->lastname();
         </example>
 
         <example xml:id="zend.rest.client.return.example-3"><info><title>Beispiel Technorati Antwort</title></info>
-            
+
 
             <programlisting language="xml"><![CDATA[
 <?xml version="1.0" encoding="utf-8"?>
@@ -151,7 +151,7 @@ echo $result->firstname() .' '. $result->lastname();
         </para>
 
         <note><info><title>Mehrere Elemente</title></info>
-            
+
 
             <para>
                 Wenn beim Zugriff, über einen Namen, mehrere Elemente mit demselben Namen gefunden
@@ -162,7 +162,7 @@ echo $result->firstname() .' '. $result->lastname();
     </section>
 
     <section xml:id="zend.rest.client.args"><info><title>Anfrage Argumente</title></info>
-        
+
 
         <para>
             Wenn man eine Anfrage an einen Server sendet, welcher nicht auf
@@ -177,7 +177,7 @@ echo $result->firstname() .' '. $result->lastname();
         </para>
 
         <example xml:id="zend.rest.client.args.example-1"><info><title>Anfrage Argumente setzen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $client = new Zend_Rest_Client('http://example.org/rest');
@@ -205,7 +205,7 @@ $client->arg('value1')->arg2('value2')->get();
         </para>
 
         <warning><info><title>Striktheit von Zend_Rest_Client</title></info>
-            
+
 
             <para>
                 Jeder REST Service der strikt in seinen Argumenten ist, die er empfängt, wird wegen

@@ -21,8 +21,8 @@
 
 namespace Zend\Controller;
 
-use Zend\Controller\Request\AbstractRequest,
-    Zend\Controller\Response\AbstractResponse;
+use Zend\Controller\Request\AbstractRequest;
+use Zend\Controller\Response\AbstractResponse;
 
 /**
  * @category   Zend

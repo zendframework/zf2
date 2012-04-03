@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.slideshare"><info><title>Zend_Service_SlideShare</title></info>
-    
+
 
     <para>
         Le composant <classname>Zend_Service_SlideShare</classname> est utilisé dans
@@ -11,7 +11,7 @@
     </para>
 
     <section xml:id="zend.service.slideshare.basicusage"><info><title>Démarrage avec <classname>Zend_Service_SlideShare</classname></title></info>
-        
+
 
         <para>
             Pour utiliser <classname>Zend_Service_SlideShare</classname>, vous devez créer au
@@ -35,7 +35,7 @@ $ss = new Zend_Service_SlideShare('APIKEY',
     </section>
 
     <section xml:id="zend.service.slideshare.slideshowobj"><info><title>L'objet SlideShow</title></info>
-        
+
 
         <para>
             Chaque diaporama issu de <classname>Zend_Service_SlideShare</classname> est
@@ -199,7 +199,7 @@ class Zend_Service_SlideShare_SlideShow {
     </section>
 
     <section xml:id="zend.service.slideshare.getslideshow"><info><title>Récupérer un diaporama simplement</title></info>
-        
+
 
         <para>
             La manière la plus simple d'utiliser
@@ -225,7 +225,7 @@ print "Nombre de diapositives : {$slideshow->getNumViews()}<br/>\n";
     </section>
 
     <section xml:id="zend.service.slideshare.getslideshowlist"><info><title>Récupérer des groupes de diaporamas</title></info>
-        
+
 
         <para>
             Si vous ne connaissez pas l'ID spécifique d'un diaporama vous intéressant, il est
@@ -287,7 +287,7 @@ foreach($ss_user as $slideshow) {
     </section>
 
     <section xml:id="zend.service.slideshare.caching"><info><title>Politique de cache de <classname>Zend_Service_SlideShare</classname></title></info>
-        
+
 
         <para>
             Par défaut, <classname>Zend_Service_SlideShare</classname> va mettre en cache
@@ -320,7 +320,7 @@ $ss_user = $ss->getSlideShowsByUser('username', $starting_offset, $limit);
     </section>
 
     <section xml:id="zend.service.slideshare.httpclient"><info><title>Changer le comportement du client HTTP</title></info>
-        
+
 
         <para>
             Si pour une raison quelconque vous souhaitez changer le comportement de l'objet

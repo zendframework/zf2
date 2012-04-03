@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.writers.mail"><info><title>Email への書き込み</title></info>
-    
+
 
     <para>
         <classname>Zend_Log_Writer_Mail</classname> は、
@@ -61,7 +61,7 @@ $log->error('unable to connect to database');
     </para>
 
     <section xml:id="zend.log.writers.mail.layoutusage"><info><title>Zend_Layout の使用法</title></info>
-        
+
 
         <para>
             <classname>Zend_Layout</classname> のインスタンスを使用して、
@@ -115,7 +115,7 @@ $log->error('unable to connect to database');
     </section>
 
     <section xml:id="zend.log.writers.mail.dynamicsubjectline"><info><title>件名でのエラーの概要</title></info>
-        
+
 
         <para>
             <methodname>setSubjectPrependText()</methodname> メソッドを
@@ -131,7 +131,7 @@ $log->error('unable to connect to database');
     </section>
 
     <section xml:id="zend.log.writers.mail.caveats"><info><title>警告</title></info>
-        
+
 
         <para>
             ログエントリをメールでおくるのは危険なこともあります。

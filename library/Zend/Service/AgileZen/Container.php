@@ -21,10 +21,10 @@
 
 namespace Zend\Service\AgileZen;
 
-use ArrayAccess,
-    Countable,
-    Iterator,
-    Traversable;
+use ArrayAccess;
+use Countable;
+use Iterator;
+use Traversable;
 
 /**
  * @category   Zend
@@ -52,25 +52,25 @@ class Container implements Countable, Iterator, ArrayAccess
 
     /**
      * Project id
-     * 
-     * @var integer 
+     *
+     * @var integer
      */
     protected $projectId;
 
     /**
      * Namespace prefix for Resources
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $namespacePrefix = 'Zend\Service\AgileZen\Resources';
 
     /**
      * Constructor
-     * 
-     * @param  AgileZen $service 
-     * @param  array|Traversable $list 
-     * @param  string $resource 
-     * @param  null|int|string $projectId 
+     *
+     * @param  AgileZen $service
+     * @param  array|Traversable $list
+     * @param  string $resource
+     * @param  null|int|string $projectId
      * @return void
      */
     public function __construct(AgileZen $service, $list, $resource, $projectId = null)

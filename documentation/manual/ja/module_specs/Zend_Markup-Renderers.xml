@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.markup.renderers"><info><title>Zend_Markup レンダラー</title></info>
-    
- 
+
+
     <para>
         <classname>Zend_Markup</classname> には現在ひとつのレンダラー、
         <acronym>HTML</acronym> レンダラーが同梱されています。
     </para>
- 
+
     <section xml:id="zend.markup.renderers.add"><info><title>自作のタグの追加</title></info>
-        
- 
+
+
         <para>
             自作のタグを追加することによって、<classname>Zend_Markup</classname> レンダラーに
             自作の機能の追加できます。 タグ構造とともに、
             あなたが望むいかなる機能も追加ができます。
             簡潔なタグから複雑なタグ構造まで。 'foo' タグでの単純な例:
         </para>
- 
+
         <programlisting language="php"><![CDATA[
 // Zend_Markup_Parser_BbCode をパーサーとして、
 // Zend_Markup_Renderer_Html のインスタンスを生成します。
 $bbcode = Zend_Markup::factory('Bbcode');
- 
+
 // これは単純な 'foo' タグが作成されるでしょう
 // 第一引数は自身のタグ名を定義します。
 // 第二引数はタグの定数で定義された整数を引数に取ります。
@@ -36,7 +36,7 @@ $bbcode->addTag(
         'group' => 'inline'
     )
 );
- 
+
 // これは 'my -bar-tag-baz-' と出力されるでしょう。
 echo $bbcode->render('my [foo]tag[/foo]');
 ]]></programlisting>
@@ -56,7 +56,7 @@ echo $bbcode->render('my [foo]tag[/foo]');
         </para>
 
         <section xml:id="zend.markup.renderers.add.callback"><info><title>Add a callback tag</title></info>
-            
+
 
             <para>
                 By adding a callback tag, you can do a lot more then just a
@@ -114,10 +114,10 @@ echo $bbcode->render('my [upper]tag[/upper]');
     </section>
 
     <section xml:id="zend.markup.renderers.list"><info><title>タグ一覧</title></info>
-        
+
 
         <table xml:id="zend.markup.renderers.list.tags"><info><title>タグ一覧</title></info>
-            
+
 
             <tgroup cols="2" align="left" colsep="1" rowsep="1">
                 <thead>

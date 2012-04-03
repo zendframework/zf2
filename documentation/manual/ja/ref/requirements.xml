@@ -3,11 +3,11 @@
 
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="requirements"><info><title>Zend Framework のシステム要件</title></info>
 
-    
+
 
     <section xml:id="requirements.introduction"><info><title>導入</title></info>
 
-        
+
 
         <para>
             Zend Framework を使用するには、<acronym>PHP</acronym> 5 のインタプリタおよび
@@ -26,7 +26,7 @@
 
         <section xml:id="requirements.version"><info><title>PHP のバージョン</title></info>
 
-            
+
 
             <para>
                 Zend では最新版の <acronym>PHP</acronym> を使うことを推奨します。
@@ -43,7 +43,7 @@
 
         <section xml:id="requirements.extensions"><info><title>PHP の拡張モジュール</title></info>
 
-            
+
 
             <para>
                 以下の表は、<acronym>PHP</acronym> に含まれる拡張モジュールと
@@ -69,7 +69,7 @@
 
         <section xml:id="requirements.zendcomponents"><info><title>Zend Framework のコンポーネント</title></info>
 
-            
+
 
             <para>
                 以下の表は、Zend Framework の各コンポーネントについて、
@@ -95,7 +95,7 @@
 
         <section xml:id="requirements.dependencies"><info><title>Zend Framework の依存性</title></info>
 
-            
+
 
             <para>
                 以下の表は、Zend Framework の各コンポーネントについて、

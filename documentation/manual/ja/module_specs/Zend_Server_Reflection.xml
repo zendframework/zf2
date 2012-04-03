@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.server.reflection"><info><title>Zend_Server_Reflection</title></info>
-    
+
 
     <section xml:id="zend.server.reflection.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_Server_Reflection</classname> は、サーバクラス群で
@@ -18,7 +18,7 @@
         </para>
     </section>
     <section xml:id="zend.server.reflection.usage"><info><title>使用法</title></info>
-        
+
 
         <para>
             基本的な使用法は簡単です。

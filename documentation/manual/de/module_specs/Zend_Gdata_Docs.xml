@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.docs"><info><title>Verwenden der Google Dokumente Listen Daten API</title></info>
-    
+
 
     <para>
         Die Google Dokumente Listen Daten <acronym>API</acronym> erlaubt es Client Anwendungen
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="zend.gdata.docs.listdocuments"><info><title>Eine Liste von Dokumenten erhalten</title></info>
-        
+
 
         <para>
             Man kann eine Liste von den Google Dokumenten für einen bestimmten Benutzer erhalten
@@ -42,7 +42,7 @@ $feed = $docs->getDocumentListFeed();
     </section>
 
     <section xml:id="zend.gdata.docs.creating"><info><title>Ein Dokument hochladen</title></info>
-        
+
 
         <para>
             Man kann ein neues Google Dokument erstellen indem ein Wortverarbeitungs Dokument, eine
@@ -108,7 +108,7 @@ function uploadDocument($docs, $html, $originalFileName,
     </section>
 
     <section xml:id="zend.gdata.docs.queries"><info><title>Den Dokumenten Feed durchsuchen</title></info>
-        
+
 
         <para>
             Die Dokumenten Liste kann durchsucht werden indem einer der
@@ -122,7 +122,7 @@ function uploadDocument($docs, $html, $originalFileName,
         </para>
 
         <section xml:id="zend.gdata.docs.listwpdocuments"><info><title>Eine Liste von Wortverarbeitungs Dokumenten erhalten</title></info>
-            
+
 
             <para>
                 Ein Feed der alle Dokumente eines speziellen Typs enthält kann auch angefragt
@@ -137,7 +137,7 @@ $feed = $docs->getDocumentListFeed(
         </section>
 
         <section xml:id="zend.gdata.docs.listspreadsheets"><info><title>Eine Liste von Tabellenkalkulationen erhalten</title></info>
-            
+
 
             <para>
                 Um eine Liste aller eigenen Google Tabellenkalkulationen zu erhalten kann die
@@ -151,7 +151,7 @@ $feed = $docs->getDocumentListFeed(
         </section>
 
         <section xml:id="zend.gdata.docs.textquery"><info><title>Eine Textabfrage durchführen</title></info>
-            
+
 
             <para>
                 Der Inhalt von Dokumenten kann durch Verwendung von

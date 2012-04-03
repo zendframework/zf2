@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.migration"><info><title>עדכון מגרסאות קודמות</title></info>
 
-    
+
 
     <para>
         ה API של <code>Zend_Translator</code> השתנה מדי פעם.
@@ -9,9 +9,9 @@
     </para>
 
     <section xml:id="zend.translator.migration.fromonesixtooneseven"><info><title>עדכון מגרסא 1.6 ל 1.7 ומעלה</title></info>
-        
+
         <section xml:id="zend.translator.migration.fromonesixtooneseven.languages"><info><title>הגדרת שפות</title></info>
-            
+
 
             <para>
                 כשנעשה שימוש בזיהוי אוטומטי של שפות, או הגדרת שפות ידנית ישירות אל <code>Zend_Translator</code> יכול להיות ששמתה לב להערה שנזרקה על שפות שלא נוספו או שפות ריקות.
@@ -33,7 +33,7 @@
             </para>
 
             <example xml:id="zend.translator.migration.fromonesixtooneseven.example"><info><title>הגדרת שפות ללא קבלת הערות</title></info>
-                
+
 
                 <para>
                     נניח ויש לנו תמיכה בשפה אנגלית והמשתמש מבקש תמיכה בשפה הצרפתית שהיא לא נתמכת במערכת שלנו.

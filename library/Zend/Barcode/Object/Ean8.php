@@ -21,8 +21,8 @@
 
 namespace Zend\Barcode\Object;
 
-use Zend\Barcode\Object\Exception,
-    Zend\Validator\Barcode as BarcodeValidator;
+use Zend\Barcode\Object\Exception;
+use Zend\Validator\Barcode as BarcodeValidator;
 
 /**
  * Class for generate Ean8 barcode

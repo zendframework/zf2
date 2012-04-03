@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.object"><info><title>HTML 对象助手</title></info>
-    
+
 
     <para>
         HTML <code>&lt;object&gt;</code> 元素在网页里用于嵌入媒体如 Flash 或 QuickTime。
@@ -44,7 +44,7 @@
 
     <example xml:id="zend.view.helpers.initial.object.flash"><info><title>Flash 助手</title></info>
 
-        
+
 
         <para>
             使用助手嵌入 Flash 到你的页面相当简单。唯一需要的参数是资源 URI。
@@ -71,7 +71,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.object.object"><info><title> 通过传递另外的参数来定制对象 </title></info>
-        
+
 
         <para>
             对象助手里的第一个参数总是必需的，它是你想嵌入的资源的 URI。

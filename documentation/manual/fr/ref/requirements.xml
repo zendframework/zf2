@@ -2,10 +2,10 @@
 
 
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="requirements"><info><title>Configuration système requise par Zend Framework</title></info>
-    
+
 
     <section xml:id="requirements.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Zend Framework requière un interpréteur PHP5 avec un serveur Web configuré pour
@@ -24,7 +24,7 @@
         </para>
 
         <section xml:id="requirements.version"><info><title>Version de PHP requise</title></info>
-            
+
 
             <para>
                 Zend recommande la version la plus récente de PHP pour des questions de
@@ -39,7 +39,7 @@
         </section>
 
         <section xml:id="requirements.extensions"><info><title>Extensions PHP</title></info>
-            
+
 
             <para>
                 Ci-dessous, la table recense toutes les extensions typiquement trouvées dans
@@ -63,7 +63,7 @@
         </section>
 
         <section xml:id="requirements.zendcomponents"><info><title>Les composants de Zend Framework</title></info>
-            
+
 
             <para>
                 Ci-dessous vous trouverez un tableau qui liste tous les composants disponibles
@@ -86,7 +86,7 @@
         </section>
 
         <section xml:id="requirements.dependencies"><info><title>Dépendances internes de Zend Framework</title></info>
-            
+
 
             <para>
                 Ci-dessous vous trouverez un tableau listant les composants de Zend Framework

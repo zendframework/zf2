@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.queue.framework"><info><title>フレームワーク</title></info>
-    
+
 
     <para>
         <classname>Zend_Queue</classname>は、
@@ -62,7 +62,7 @@ foreach ($messages as $i => $message) {
     </para>
 
     <section xml:id="zend.queue.framework.basics"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname>は、
@@ -83,7 +83,7 @@ foreach ($messages as $i => $message) {
     </section>
 
     <section xml:id="zend.queue.framework.support"><info><title>アダプタの間の互換性</title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname>によってサポートされる待ち行列サービスは、

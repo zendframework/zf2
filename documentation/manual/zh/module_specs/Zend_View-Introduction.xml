@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.introduction"><info><title>简介</title></info>
-    
+
 
     <para>
         <code>Zend_View</code>是用来在MVC模式中处理View（视图）部份的一个类。也就是说它用来使视图部份的代码与Model及controller部分分离。它提供了helper,output filter,variable escaping等几个功能组件。
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="zend.view.introduction.controller"><info><title>控制器脚本</title></info>
-        
+
 
         <para>
             下面是一个简单的例子。假设你有一个书籍清单，想把它打印出来。控制器代码可能看起来是这样的：
@@ -38,7 +38,7 @@ $data = array(
     )
 );
 
-//传递数据给Zend_View类的实例　
+//传递数据给Zend_View类的实例
 Zend_Loader::loadClass('Zend_View');
 $view = new Zend_View();
 $view->books = $data;
@@ -51,7 +51,7 @@ echo $view->render('booklist.php');
 
     <section xml:id="zend.view.introduction.view"><info><title>视图脚本</title></info>
 
-        
+
 
         <para>
             现在我们看看相关的视图代码"booklist.php"。这是一段普通的代码，但是有一点特别：它是在<code>Zend_View</code>实例的内部运行的，所以$this指向的是<code>Zend_View</code>实例和类方法。(controller传递给<code>Zend_View</code>实例的变量是public的)。一段非常基本的视图代码看起来是这样的：
@@ -89,7 +89,7 @@ echo $view->render('booklist.php');
     </section>
 
     <section xml:id="zend.view.introduction.options"><info><title>选项</title></info>
-        
+
 
         <para>
             <code>Zend_View</code>有若干选项来配置视图脚本的运行。
@@ -132,7 +132,7 @@ base/path/
     </section>
 
     <section xml:id="zend.view.introduction.accessors"><info><title>实用访问器</title></info>
-        
+
 
         <para>
             一般来说，你只需要调用<code>assign()</code>、<code>render()</code>或其中之一来设置/添加过滤器、助手类、和脚本路径。然而，如果希望扩展<code>Zend_View</code>或需要访问它的内部，有许多访问器（Accessor）可用：

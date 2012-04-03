@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.usage"><info><title>Een gebruiksvoorbeeld voor de Zend_Pdf module</title></info>
-    
+
     <para>
     Deze sectie geeft een voorbeeld van het gebruik van de Zend_Pdf module.
     </para>
@@ -13,7 +13,7 @@
     </para>
 
     <example><info><title>Zend_Pdf module voorbeeld</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 /**
  * @package Zend_Pdf

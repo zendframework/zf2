@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.examples"><info><title>Exemples</title></info>
-    
+
 
     <para>
         La classe de bootstrap elle-même sera typiquement minimaliste ; souvent, elle s'agira

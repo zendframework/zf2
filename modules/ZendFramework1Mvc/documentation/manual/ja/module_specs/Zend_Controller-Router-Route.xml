@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.standard"><info><title>Zend_Controller_Router_Route</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Router_Route</classname> はフレームワークの標準のルートです。
@@ -39,7 +39,7 @@ $router->addRoute('user', $route);
     </para>
 
     <note><info><title>文字の使用法</title></info>
-        
+
 
         <para>
             現在の実装では、(スラッシュ以外の)
@@ -101,7 +101,7 @@ $router->addRoute('default', $route);
 ]]></programlisting>
 
     <section xml:id="zend.controller.router.routes.standard.variable-defaults"><info><title>変数のデフォルト</title></info>
-        
+
 
         <para>
             ルートで使用するすべての変数についてデフォルト値を指定できます。
@@ -156,7 +156,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.variable-requirements"><info><title>変数の制約</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Router_Route</classname> のコンストラクタの
@@ -187,7 +187,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.translated-segments"><info><title>翻訳済みセグメント</title></info>
-        
+
 
         <para>
             標準のルートは、翻訳済みセグメントをサポートします。この機能を使用するには、
@@ -263,7 +263,7 @@ $router->addRoute('archive', $route);
         </para>
 
         <note><info><title>メッセージ ID と分割された言語ファイル</title></info>
-            
+
 
             <para>
                 ルートの中で使いたいメッセージ ID が、

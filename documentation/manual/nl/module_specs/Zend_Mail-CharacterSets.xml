@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.character-sets"><info><title>Character Sets</title></info>
-    
+
     <para>
         <code>Zend_Mail</code> controleert niet of de berichtdelen de juiste karakterset hebben. Wanneer
         <code>Zend_Mail</code> word geïnstantieerd mag er een charset voor het bericht zelf worden opgegeven.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.controllers"><info><title>Controller Skripte</title></info>
-    
+
 
     <para>
         Der Controller ist der Ort, wo du <classname>Zend_View</classname> instanziieren und
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.view.controllers.assign"><info><title>Variablen übergeben</title></info>
-        
+
 
         <para>
             Dein Controller Skript sollte notwendige Variablen an den View übergeben, bevor es die
@@ -71,7 +71,7 @@ $view->assign('c', "Sea");
     </section>
 
     <section xml:id="zend.view.controllers.render"><info><title>Verarbeitung eines View Skripts</title></info>
-        
+
 
         <para>
             Sobald du alle notwendigen Variablen übergeben hast, sollte der Controller dem
@@ -91,7 +91,7 @@ echo $view->render('someView.php');
     </section>
 
     <section xml:id="zend.view.controllers.script-paths"><info><title>Pfade für View Skripte</title></info>
-        
+
 
         <para>
             Standardmäßig erwartet <classname>Zend_View</classname>, dass deine View Skripte im
@@ -137,7 +137,7 @@ $view->addScriptPath('/path/to/custom/');
 ]]></programlisting>
 
         <note><info><title>Benutze nie Eingaben des Benutzers um den Skriptpfad zu setzen</title></info>
-            
+
 
             <para>
                 <classname>Zend_View</classname> verwendet Skriptpfade um Viewskripte zu eruieren

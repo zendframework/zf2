@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.filters"><info><title>フィルタ</title></info>
-    
+
 
     <para>
         フィルタオブジェクトは、ログに書き出されるメッセージをブロックします。
     </para>
 
     <section xml:id="zend.log.filters.all-writers"><info><title>すべてのライターに対するフィルタリング</title></info>
-        
+
 
         <para>
             すべてのライターの前にフィルタをかけるには、任意の数のフィルタを
@@ -37,7 +37,7 @@ $logger->emerg('緊急メッセージ');
     </section>
 
     <section xml:id="zend.log.filters.single-writer"><info><title>ライターのインスタンスに対するフィルタリング</title></info>
-        
+
 
         <para>
             特定のライターインスタンスに対してだけフィルタをかけるには、ライターの

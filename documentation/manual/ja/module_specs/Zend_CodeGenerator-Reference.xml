@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.codegenerator.reference"><info><title>Zend_CodeGenerator リファレンス</title></info>
-    
+
 
     <section xml:id="zend.codegenerator.reference.abstracts"><info><title>抽象クラスとインターフェース</title></info>
-        
+
 
         <section xml:id="zend.codegenerator.reference.abstracts.abstract"><info><title>Zend_CodeGenerator_Abstract</title></info>
-            
+
 
             <para>
                 すべての CodeGenerator クラスが継承する基底のクラスは、
@@ -33,7 +33,7 @@ abstract class Zend_CodeGenerator_Abstract
                 （それは、具体的に拡張するクラスを実装するために空のままにされます）
                 それから <methodname>setOptions()</methodname> に <varname>$options</varname> パラメータを渡し、
                 最後に <methodname>_prepare()</methodname> を呼び出します。
-                （<!-- TODO -->again, 
+                （<!-- TODO -->again,
                 クラスの拡張によって実装されます。）
             </para>
 
@@ -56,7 +56,7 @@ abstract class Zend_CodeGenerator_Abstract
         </section>
 
         <section xml:id="zend.codegenerator.reference.abstracts.php-abstract"><info><title>Zend_CodeGenerator_Php_Abstract</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_Abstract</classname> は
@@ -79,7 +79,7 @@ abstract class Zend_CodeGenerator_Php_Abstract
         </section>
 
         <section xml:id="zend.codegenerator.reference.abstracts.php-member-abstract"><info><title>Zend_CodeGenerator_Php_Member_Abstract</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_Member_Abstract</classname> は
@@ -107,10 +107,10 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract
     </section>
 
     <section xml:id="zend.codegenerator.reference.concrete"><info><title>CodeGenerator クラスを確立</title></info>
-        
+
 
         <section xml:id="zend.codegenerator.reference.concrete.php-body"><info><title>Zend_CodeGenerator_Php_Body</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_Body</classname> は、
@@ -120,7 +120,7 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract
             </para>
 
             <para>
-            
+
                 そのクラスの <acronym>API</acronym> は下記の通りです。:
             </para>
 
@@ -135,7 +135,7 @@ class Zend_CodeGenerator_Php_Body extends Zend_CodeGenerator_Php_Abstract
         </section>
 
         <section xml:id="zend.codegenerator.reference.concrete.php-class"><info><title>Zend_CodeGenerator_Php_Class</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_Class</classname> は、
@@ -200,7 +200,7 @@ class Zend_CodeGenerator_Php_Class extends Zend_CodeGenerator_Php_Abstract
         </section>
 
         <section xml:id="zend.codegenerator.reference.concrete.php-docblock"><info><title>Zend_CodeGenerator_Php_Docblock</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_Docblock</classname> は、
@@ -238,7 +238,7 @@ class Zend_CodeGenerator_Php_Docblock extends Zend_CodeGenerator_Php_Abstract
         </section>
 
         <section xml:id="zend.codegenerator.reference.concrete.php-docblock-tag"><info><title>Zend_CodeGenerator_Php_Docblock_Tag</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_Docblock_Tag</classname> は、
@@ -267,7 +267,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag
         </section>
 
         <section xml:id="zend.codegenerator.reference.concrete.php-docblock-tag-param"><info><title>Zend_CodeGenerator_Php_DocBlock_Tag_Param</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_DocBlock_Tag_Param</classname> は
@@ -299,7 +299,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Param
         </section>
 
         <section xml:id="zend.codegenerator.reference.concrete.php-docblock-tag-return"><info><title>Zend_CodeGenerator_Php_DocBlock_Tag_Return</title></info>
-            
+
 
             <para>
                 param docblock <!-- TODO -->tag variant のように、
@@ -327,7 +327,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Param
         </section>
 
         <section xml:id="zend.codegenerator.reference.concrete.php-file"><info><title>Zend_CodeGenerator_Php_File</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_File</classname> は、
@@ -375,7 +375,7 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
         </section>
 
         <section xml:id="zend.codegenerator.reference.concrete.php-member-container"><info><title>Zend_CodeGenerator_Php_Member_Container</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_Member_Container</classname> は、
@@ -396,7 +396,7 @@ class Zend_CodeGenerator_Php_Member_Container extends ArrayObject
         </section>
 
         <section xml:id="zend.codegenerator.reference.concrete.php-method"><info><title>Zend_CodeGenerator_Php_Method</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_Method</classname> は、
@@ -438,7 +438,7 @@ class Zend_CodeGenerator_Php_Method
         </section>
 
         <section xml:id="zend.codegenerator.reference.concrete.php-parameter"><info><title>Zend_CodeGenerator_Php_Parameter</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_Parameter</classname> は、
@@ -498,7 +498,7 @@ $parameter->setDefaultValue(
         </section>
 
         <section xml:id="zend.codegenerator.reference.concrete.php-property"><info><title>Zend_CodeGenerator_Php_Property</title></info>
-            
+
 
             <para>
                 <classname>Zend_CodeGenerator_Php_Property</classname> はクラスのプロパティを記述します。

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers"><info><title>View Helpers</title></info>
 
-    
+
 
     <para>
         In je view scripts is het dikwijls nodig een aantal complexe
@@ -25,7 +25,7 @@
 
     <section xml:id="zend.view.helpers.initial"><info><title>Initiële Helpers</title></info>
 
-        
+
 
         <para>
             Zend_View komt met een set van initiële helper klassen die
@@ -156,7 +156,7 @@
 
     <section xml:id="zend.view.helpers.paths"><info><title>Helper Paden</title></info>
 
-        
+
 
         <para>
             Zoals met view scripts kan de controller een stapel van paden
@@ -197,7 +197,7 @@ $view->addHelperPath('/ander/pad/naar/helpers');
 
     <section xml:id="zend.view.helpers.custom"><info><title>Je eigen Helpers schrijven</title></info>
 
-        
+
 
         <para>
             Je eigen helpers schrijven is gemakkelijk. Volg gewoon deze regels:

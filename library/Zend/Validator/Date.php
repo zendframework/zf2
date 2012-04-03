@@ -20,12 +20,12 @@
 
 namespace Zend\Validator;
 
-use Traversable,
-    Zend\Date as ZendDate,
-    Zend\Locale\Format,
-    Zend\Locale\Locale,
-    Zend\Registry,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Date as ZendDate;
+use Zend\Locale\Format;
+use Zend\Locale\Locale;
+use Zend\Registry;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @category   Zend
@@ -104,7 +104,7 @@ class Date extends AbstractValidator
         if (array_key_exists('locale', $options)) {
             $this->setLocale($options['locale']);
         }
-        
+
         parent::__construct($options);
     }
 
@@ -162,10 +162,10 @@ class Date extends AbstractValidator
      */
     public function isValid($value)
     {
-        if (!is_string($value) 
-            && !is_int($value) 
-            && !is_float($value) 
-            && !is_array($value) 
+        if (!is_string($value)
+            && !is_int($value)
+            && !is_float($value)
+            && !is_array($value)
             && !($value instanceof ZendDate\Date)
         ) {
             $this->error(self::INVALID);
@@ -174,9 +174,9 @@ class Date extends AbstractValidator
 
         $this->setValue($value);
 
-        if (($this->format !== null) 
+        if (($this->format !== null)
             || ($this->locale !== null)
-            || is_array($value) 
+            || is_array($value)
             || $value instanceof ZendDate\Date
         ) {
             if (!ZendDate\Date::isDate($value, $this->format, $this->locale)) {
@@ -220,8 +220,8 @@ class Date extends AbstractValidator
                 'format_type' => 'iso',
                 'fix_date'    => false,
             ));
-            if (isset($parsed['year']) 
-                && ((strpos(strtoupper($this->format), 'YY') !== false) 
+            if (isset($parsed['year'])
+                && ((strpos(strtoupper($this->format), 'YY') !== false)
                     && (strpos(strtoupper($this->format), 'YYYY') === false))
             ) {
                 $parsed['year'] = ZendDate\Date::getFullYear($parsed['year']);
@@ -231,7 +231,7 @@ class Date extends AbstractValidator
             return false;
         }
 
-        if (((strpos($this->format, 'Y') !== false) || (strpos($this->format, 'y') !== false)) 
+        if (((strpos($this->format, 'Y') !== false) || (strpos($this->format, 'y') !== false))
             && (!isset($parsed['year']))
         ) {
             // Year expected but not found
@@ -248,7 +248,7 @@ class Date extends AbstractValidator
             return false;
         }
 
-        if (((strpos($this->format, 'H') !== false) || (strpos($this->format, 'h') !== false)) 
+        if (((strpos($this->format, 'H') !== false) || (strpos($this->format, 'h') !== false))
             && (!isset($parsed['hour']))
         ) {
             // Hour expected but not found

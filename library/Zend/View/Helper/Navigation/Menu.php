@@ -21,11 +21,11 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use RecursiveIteratorIterator,
-    Zend\Navigation\Container,
-    Zend\Navigation\Page\AbstractPage,
-    Zend\View,
-    Zend\View\Exception;
+use RecursiveIteratorIterator;
+use Zend\Navigation\Container;
+use Zend\Navigation\Page\AbstractPage;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Helper for rendering menus from navigation containers
@@ -166,9 +166,9 @@ class Menu extends AbstractHelper
      * Sets which partial view script to use for rendering menu
      *
      * @param  string|array $partial partial view script or null. If an array is
-     *                               given, it is expected to contain two 
-     *                               values; the partial view script to use, 
-     *                               and the module where the script can be 
+     *                               given, it is expected to contain two
+     *                               values; the partial view script to use,
+     *                               and the module where the script can be
      *                               found.
      * @return Menu  fluent interface, returns self
      */
@@ -471,10 +471,10 @@ class Menu extends AbstractHelper
      * Available $options:
      *
      *
-     * @param  Container $container [optional] container to create menu from. 
-     *                              Default is to use the container retrieved 
+     * @param  Container $container [optional] container to create menu from.
+     *                              Default is to use the container retrieved
      *                              from {@link getContainer()}.
-     * @param  array     $options   [optional] options for controlling rendering 
+     * @param  array     $options   [optional] options for controlling rendering
      * @return string    rendered menu
      */
     public function renderMenu(Container $container = null,
@@ -555,15 +555,15 @@ class Menu extends AbstractHelper
      * as-is, and will be available in the partial script as 'container', e.g.
      * <code>echo 'Number of pages: ', count($this->container);</code>.
      *
-     * @param  Container     $container [optional] container to pass to view 
-     *                                  script. Default is to use the container 
+     * @param  Container     $container [optional] container to pass to view
+     *                                  script. Default is to use the container
      *                                  registered in the helper.
-     * @param  string|array  $partial   [optional] partial view script to use. 
-     *                                  Default is to use the partial 
-     *                                  registered in the helper. If an array 
-     *                                  is given, it is expected to contain two 
-     *                                  values; the partial view script to use, 
-     *                                  and the module where the script can be 
+     * @param  string|array  $partial   [optional] partial view script to use.
+     *                                  Default is to use the partial
+     *                                  registered in the helper. If an array
+     *                                  is given, it is expected to contain two
+     *                                  values; the partial view script to use,
+     *                                  and the module where the script can be
      *                                  found.
      * @return string                   helper output
      * @throws Exception\RuntimeException if no partial provided
@@ -621,8 +621,8 @@ class Menu extends AbstractHelper
      * @see renderPartial()
      * @see renderMenu()
      *
-     * @param  Container $container [optional] container to render. Default is 
-     *                              to render the container registered in the 
+     * @param  Container $container [optional] container to render. Default is
+     *                              to render the container registered in the
      *                              helper.
      * @return string               helper output
      */

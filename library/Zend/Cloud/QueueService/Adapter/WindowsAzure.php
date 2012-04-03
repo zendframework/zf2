@@ -22,9 +22,9 @@
  */
 namespace Zend\Cloud\QueueService\Adapter;
 
-use Zend\Cloud\QueueService\Exception,
-    Zend\Service\WindowsAzure\Storage\Queue,
-    Zend\Config\Config;
+use Zend\Cloud\QueueService\Exception;
+use Zend\Service\WindowsAzure\Storage\Queue;
+use Zend\Config\Config;
 
 /**
  * WindowsAzure adapter for simple queue service.

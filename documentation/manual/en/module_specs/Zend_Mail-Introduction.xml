@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.introduction"><info><title>Introduction</title></info>
-    
+
 
     <section xml:id="zend.mail.introduction.getting-started"><info><title>Getting started</title></info>
-        
+
 
         <para>
             <classname>Zend_Mail</classname> provides generalized functionality to compose and send
@@ -14,7 +14,7 @@
         </para>
 
         <example xml:id="zend.mail.introduction.example-1"><info><title>Simple E-Mail with Zend_Mail</title></info>
-            
+
 
             <para>
                 A simple e-mail consists of some recipients, a subject, a body and a sender. To send
@@ -33,7 +33,7 @@ $mail->send();
         </example>
 
         <note><info><title>Minimum definitions</title></info>
-            
+
 
             <para>
                 In order to send an e-mail with <classname>Zend_Mail</classname> you have to specify
@@ -73,7 +73,7 @@ $mail->setBodyText('This is the text of the mail.')
     </section>
 
     <section xml:id="zend.mail.introduction.sendmail"><info><title>Configuring the default sendmail transport</title></info>
-        
+
 
         <para>
             The default transport for a <classname>Zend_Mail</classname> instance is
@@ -89,7 +89,7 @@ $mail->setBodyText('This is the text of the mail.')
         <example xml:id="zend.mail.introduction.sendmail.example-1"><info><title>
                 Passing additional parameters to the Zend_Mail_Transport_Sendmail transport
             </title></info>
-            
+
 
             <para>
                 This example shows how to change the Return-Path of the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/mail"><methodname>mail()</methodname></link> function.
@@ -109,7 +109,7 @@ $mail->send();
         </example>
 
         <note><info><title>Safe mode restrictions</title></info>
-            
+
 
             <para>
                 The optional additional parameters will be cause the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/mail"><methodname>mail()</methodname></link> function to
@@ -118,7 +118,7 @@ $mail->send();
         </note>
 
         <warning><info><title>Sendmail Transport and Windows</title></info>
-            
+
 
             <para>
                 As the <acronym>PHP</acronym> manual states the <methodname>mail()</methodname>

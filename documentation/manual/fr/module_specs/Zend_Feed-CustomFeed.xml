@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.custom-feed"><info><title>Classes personnalisées pour les flux et entrées</title></info>
-    
+
 
     <para>
         Pour finir, vous pouvez étendre les classes de <classname>Zend_Feed</classname> si
@@ -19,7 +19,7 @@
             Étendre la classe représentant les entrées Atom pour ajouter la gestion d'un
             espace de noms personnalisé
         </title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 /**

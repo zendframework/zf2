@@ -3,7 +3,7 @@
 
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="requirements"><info><title>Kebutuhan Zend Framework</title></info>
 
-    
+
 
     <para>
         Zend Framework membutuhkan PHP 5 dengan web server yang terkonfigurasi untuk menjalankan
@@ -20,7 +20,7 @@
 
     <section xml:id="requirements.version"><info><title>Versi PHP</title></info>
 
-        
+
 
         <para>
             Zend merekomendasikan PHP 5.2.4 atau yang lebih baru dengan pertimbangan keamanan dan performansi,
@@ -36,7 +36,7 @@
 
     <section xml:id="requirements.extensions"><info><title>PHP Extensions</title></info>
 
-        
+
 
         <para>
             Anda akan melihat di table berikut daftar extension PHP yang biasanya
@@ -57,7 +57,7 @@
         </para>
 
         <table frame="all" xml:id="requirements.extensions.table-1"><info><title>Extension PHP yang Digunakan Komponen Zend Framework</title></info>
-            
+
             <tgroup cols="3">
                 <!-- <colspec colwidth='1in'/>
                 <colspec colwidth='1in'/>
@@ -615,7 +615,7 @@
 
     <section xml:id="requirements.zendcomponents"><info><title>Komponen Zend Framework</title></info>
 
-        
+
 
         <para>
             Berikut adalah daftar komponen Zend Framework dan extension PHP yang dibutuhkan.
@@ -635,7 +635,7 @@
         </para>
 
         <table frame="all" xml:id="requirements.zendcomponents.table-1"><info><title>Komponen Zend Framework dan extension PHP yang digunakan</title></info>
-            
+
             <tgroup cols="4">
                 <!-- <colspec colwidth='3in'/>
                 <colspec colwidth='1in'/>
@@ -1172,7 +1172,7 @@
 
     <section xml:id="requirements.dependencies"><info><title>Kebergantungan Zend Framework</title></info>
 
-        
+
 
         <para>
             Berikut adalah daftar komponen Zend Framework dan kebergantungannya terhadap
@@ -1198,7 +1198,7 @@
         </note>
 
         <table frame="all" xml:id="requirements.dependencies.table-1"><info><title>Komponen Zend Framework dan Kebergantungannya Dengan Komponen Lain</title></info>
-            
+
             <tgroup cols="3">
                 <colspec colwidth="2in"/>
                 <colspec colwidth="1in"/>

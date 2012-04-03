@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.db"><info><title>Zend_Application_Resource_Db</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Db</classname>は、
@@ -36,14 +36,14 @@
 
         <listitem>
             <para>
-                <emphasis><property>defaultMetadataCache</property></emphasis>: the name of the cache 
+                <emphasis><property>defaultMetadataCache</property></emphasis>: the name of the cache
                 template or an instance of Zend_Cache_Core to use as metadata cache for Zend_Db_Table.
             </para>
         </listitem>
     </itemizedlist>
 
     <example xml:id="zend.application.available-resources.db.configExample"><info><title>DBアダプタ・リソース構成サンプル</title></info>
-        
+
 
         <para>
             下記は、DBリソースを初期化するために使える<acronym>INI</acronym>構成サンプルです。
@@ -65,7 +65,7 @@ resources.db.defaultMetadataCache = "database"
     </example>
 
     <note><info><title>アダプタのインスタンスを取得する</title></info>
-        
+
 
         <para>
             このリソースでインスタンス化されるアダプタを

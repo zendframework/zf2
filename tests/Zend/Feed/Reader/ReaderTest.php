@@ -164,7 +164,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
             $this->fail($e->getMessage());
         }
     }
-    
+
     /**
      * @group ZF-8328
      * @expectedException Zend_Feed_Exception
@@ -237,7 +237,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $links = Reader\Reader::findFeedLinks('http://www.example.com');
         $this->assertEquals(0, count($links));
     }
-    
+
     /**
      * @group ZF-8327
      */
@@ -257,7 +257,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals('http://feeds.feedburner.com/jonnyken/infoblog', $links->rss);
     }
-    
+
     /**
      * @group ZF-8330
      */
@@ -277,7 +277,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals('http://meiobit.com/rss.xml', $links->rss);
     }
-    
+
     /**
      * @group ZF-8330
      */

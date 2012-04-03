@@ -21,11 +21,11 @@
 
 namespace ZendTest\Serializer;
 
-use Zend\Serializer\Serializer,
-    Zend\Serializer\AdapterBroker,
-    Zend\Serializer\Adapter,
-    Zend\Loader\Broker,
-    Zend\Loader\PluginBroker;
+use Zend\Serializer\Serializer;
+use Zend\Serializer\AdapterBroker;
+use Zend\Serializer\Adapter;
+use Zend\Loader\Broker;
+use Zend\Loader\PluginBroker;
 
 /**
  * @category   Zend
@@ -75,7 +75,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Loader\Exception\RuntimeException', 'locate class');
         Serializer::factory('unknown');
     }
-    
+
     public function testFactoryOnADummyClassAdapter()
     {
         $this->setExpectedException('Zend\\Serializer\\Exception','must implement Zend\\Serializer\\Adapter');

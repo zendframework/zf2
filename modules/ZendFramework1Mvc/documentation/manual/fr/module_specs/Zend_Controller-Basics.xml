@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.basics"><info><title>Fondations de Zend_Controller</title></info>
-    
+
 
     <para>
         Le système <classname>Zend_Controller</classname> est conçu pour être léger,
@@ -112,7 +112,7 @@
                 comme <code>foo</code> et l'action comme <code>bar</code>.
             </para>
             <note><info><title>Conventions de nommage (casse)</title></info>
-                
+
                 <para>
                     Puisque les humains sont notoirement incompatibles avec le respect des
                     majuscules et des minuscules quand ils tapent des liens, Zend Framework

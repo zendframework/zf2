@@ -21,10 +21,10 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\Controller,
-    Zend\Controller\Request,
-    Zend\Controller\Response,
-    Zend\View\Helper;
+use Zend\Controller;
+use Zend\Controller\Request;
+use Zend\Controller\Response;
+use Zend\View\Helper;
 
 /**
  * Test class for Zend_View_Helper_Action.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.additional-headers"><info><title>Zusätzliche Kopfzeilen</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> bietet verschiedene Methode um zusätzliche Mail Header zu
@@ -35,7 +35,7 @@
     </para>
 
     <note><info><title>Return-Path</title></info>
-        
+
 
         <para>
             Wenn man den Return-Path in eigenen Mail setzen will, sollte man unter <link linkend="zend.mail.introduction.sendmail">Konfiguration des Sendmail
@@ -52,7 +52,7 @@
     </para>
 
     <example xml:id="zend.mail.additional-headers.example-1"><info><title>Eine E-Mail Kopfzeile hinzufügen</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();

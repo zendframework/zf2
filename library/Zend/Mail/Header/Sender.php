@@ -21,9 +21,9 @@
 
 namespace Zend\Mail\Header;
 
-use Zend\Mail\Address,
-    Zend\Mail\AddressDescription,
-    Zend\Mail\Header;
+use Zend\Mail\Address;
+use Zend\Mail\AddressDescription;
+use Zend\Mail\Header;
 
 /**
  * @category   Zend

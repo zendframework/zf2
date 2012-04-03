@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.create"><info><title> 生成和加载 PDF 文档 </title></info>
-    
+
     <para>
        <code>Zend_Pdf</code> 类描绘 PDF 文档自己和提供文档一级的功能。
     </para>
@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.pdf.create.example-1"><info><title> 生成新的或加载 PDF 文档 </title></info>
-        
+
         <programlisting role="php"><![CDATA[
 ...
 // Create new PDF document.
@@ -44,7 +44,7 @@ $pdf3 = Zend_Pdf::parse($pdfString);
     </para>
 
     <example xml:id="zend.pdf.create.example-2"><info><title> 请求 PDF 文档的指定版本 </title></info>
-        
+
         <programlisting role="php"><![CDATA[
 ...
 // Load PDF previouse revision of the document.

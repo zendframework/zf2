@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.overview"><info><title>概述</title></info>
-    
+
 
     <para>
       <code>Zend_Log</code> 是一个通用日志组件.
@@ -31,7 +31,7 @@
     </para>
 
     <section xml:id="zend.log.overview.creating-a-logger"><info><title>创建Log</title></info>
-      
+
       <para>
         如要启动日志纪录,实例化一个Writer并把它传递给Log实例:
         <programlisting role="php"><![CDATA[
@@ -59,7 +59,7 @@ $logger = new Zend_Log($writer);
     </section>
 
     <section xml:id="zend.log.overview.logging-messages"><info><title>日志消息</title></info>
-      
+
 
       <para>
         要纪录消息,调用Log实例的<code>log()</code>方法,并向其传递消息和消息等级.
@@ -88,7 +88,7 @@ $logger->emerg('Emergency message');
   </section>
 
   <section xml:id="zend.log.overview.destroying-a-logger"><info><title>销毁Log</title></info>
-    
+
     <para>
 
       如果Log对象不再需要,设置包含Log实例的变量为<code>null</code>即可销毁它.
@@ -104,7 +104,7 @@ $logger = null;
   </section>
 
   <section xml:id="zend.log.overview.builtin-priorities"><info><title>使用内建的消息等级</title></info>
-    
+
     <para>
       <code>Zend_Log</code> 类定义了下面的消息等级:
 
@@ -139,7 +139,7 @@ DEBUG   = 7;  // Debug: 小时消息
   </section>
 
   <section xml:id="zend.log.overview.user-defined-priorities"><info><title>添加用户定义的日志等级</title></info>
-    
+
 
     <para>
       用户定义的消息等级可以在运行时通过Log对象的<code>addPriority()</code>方法添加:
@@ -163,7 +163,7 @@ $logger->foo('Foo Message');
   </section>
 
   <section xml:id="zend.log.overview.understanding-fields"><info><title>理解日志事件</title></info>
-    
+
 
     <para>
       当你调用<code>log()</code>方法或它们的快捷方式时,日志事件即被创建.这是一个简单的关联数组,

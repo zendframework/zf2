@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.query-api"><info><title>API de construction de requêtes</title></info>
-    
+
     <para>
         En plus du parsage automatique d'une requête en chaîne de caractères, il est également possible de construire
         cette requête à l'aide de l'<acronym>API</acronym> de requête.
@@ -13,7 +13,7 @@ $query = Zend_Search_Lucene_Search_QueryParser::parse($queryString);
 ]]></programlisting>
     </para>
     <section xml:id="zend.search.lucene.queries.exceptions"><info><title>Les Exceptions du parseur de requêtes</title></info>
-        
+
         <para>
         Le parseur de requêtes peut générer deux types d'exceptions :
         <itemizedlist>
@@ -53,7 +53,7 @@ try {
         </para>
     </section>
     <section xml:id="zend.search.lucene.queries.term-query"><info><title>Requête sur un terme</title></info>
-        
+
         <para>
             Les requêtes de termes peuvent être utilisées pour une recherche
             sur un seul terme.
@@ -85,7 +85,7 @@ $hits  = $index->find($query);
         </para>
     </section>
     <section xml:id="zend.search.lucene.queries.multiterm-query"><info><title>Requête multi-termes</title></info>
-        
+
         <para>
             Les requêtes multi-termes peuvent être utilisées pour chercher sur une
             collection de termes.
@@ -193,7 +193,7 @@ $hits  = $index->find($query);
         </para>
     </section>
     <section xml:id="zend.search.lucene.queries.boolean-query"><info><title>Requête booléene</title></info>
-        
+
         <para>
             Les requêtes booléenes permettent de construire une requête qui utilise d'autres requêtes
             et des opérateurs booléens.
@@ -320,7 +320,7 @@ word1 AND (word2 AND word3 AND NOT word4) OR word5
         </para>
     </section>
     <section xml:id="zend.search.lucene.queries.wildcard"><info><title>Requête Joker (wildcard)</title></info>
-        
+
         <para>
             Les requêtes Joker peuvent être utilisées pour chercher des documents contenant
             des chaînes de caractères qui correspondent aux modèles (pattern) spécifiés.
@@ -357,7 +357,7 @@ $hits  = $index->find($query);
         </para>
     </section>
     <section xml:id="zend.search.lucene.queries.fuzzy"><info><title>Requête floue (fuzzy query)</title></info>
-        
+
         <para>
             Les requêtes floues peuvent être utilisées pour chercher des documents contenant
             des chaînes de caractères qui correspondent à des termes similaires au terme cherché.
@@ -407,7 +407,7 @@ $hits  = $index->find($query);
         </para>
     </section>
     <section xml:id="zend.search.lucene.queries.phrase-query"><info><title>Requête de phrase</title></info>
-        
+
         <para>
             Les requêtes de phrase peuvent être utilisées pour chercher une phrase dans des documents.
         </para>
@@ -570,7 +570,7 @@ $hits2 = $index->find($query);
 ]]></programlisting>
     </section>
     <section xml:id="zend.search.lucene.queries.range"><info><title>Requête d'intervalle</title></info>
-        
+
         <para>
             Les <link linkend="zend.search.lucene.query-language.range">requêtes d'intervalle</link> sont dédiées à la recherche de termes dans un intervalle spécifié.
         </para>

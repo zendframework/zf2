@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.constants"><info><title>日付関数全般用の定数</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Date</classname> のメソッドでパラメータ <varname>$parts</varname>
@@ -12,7 +12,7 @@
 
     <section xml:id="zend.date.constants.using"><info><title>定数の使用</title></info>
 
-        
+
 
         <para>
             たとえば、定数<constant>Zend_Date::HOUR</constant> の使用法は次のようになります。
@@ -28,7 +28,7 @@
         </para>
 
         <table xml:id="zend.date.constants.using.table"><info><title>Zend_Date::HOUR を使用した操作</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -101,7 +101,7 @@
 
     <section xml:id="zend.date.constants.list"><info><title>全定数の一覧</title></info>
 
-        
+
 
         <para>
             日付/時刻の各要素に対応する定数が <classname>Zend_Date</classname> で定義されています。
@@ -109,7 +109,7 @@
         </para>
 
         <table xml:id="zend.date.constants.list.table-1"><info><title>日に関する定数</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -192,7 +192,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-2"><info><title>週に関する定数</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -215,7 +215,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-3"><info><title>月に関する定数</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -271,7 +271,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-4"><info><title>年に関する定数</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -320,7 +320,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-5"><info><title>時間に関する定数</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -408,7 +408,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-6"><info><title>タイムゾーンに関する定数</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -465,7 +465,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-7"><info><title>日付フォーマットに関する定数 (タイムゾーンを含むフォーマット)</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -576,7 +576,7 @@
         </para>
 
         <table xml:id="zend.date.constants.list.table-8"><info><title>日付および時刻フォーマットに関する定数 (ロケールによって変化する書式)</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -714,7 +714,7 @@
 
     <section xml:id="zend.date.constants.selfdefinedformats"><info><title>ISO 書式指定子を使用して自分で定義する出力フォーマット</title></info>
 
-        
+
 
         <para>
             上で示したもの意外の日付書式が必要な場合は、以下に示す
@@ -734,7 +734,7 @@
         </para>
 
         <example xml:id="zend.date.constants.selfdefinedformats.example-1"><info><title>ISO 書式を使用した独自書式</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');
 $date = new Zend_Date(1234567890, false, $locale);
@@ -743,7 +743,7 @@ print $date->toString("'Era:GGGG='GGGG, ' Date:yy.MMMM.dd'yy.MMMM.dd");
         </example>
 
         <table xml:id="zend.date.constants.selfdefinedformats.table"><info><title>ISO 8601 日付出力に関する定数</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -1167,7 +1167,7 @@ print $date->toString("'Era:GGGG='GGGG, ' Date:yy.MMMM.dd'yy.MMMM.dd");
 
     <section xml:id="zend.date.constants.phpformats"><info><title>PHP の date() 関数の書式指定子を使用して自分で定義する出力フォーマット</title></info>
 
-        
+
 
         <para>
             もし <acronym>PHP</acronym> の日付書式指定子のほうが <acronym>ISO</acronym> 書式指定子よりなじみがあるのなら、
@@ -1184,7 +1184,7 @@ print $date->toString("'Era:GGGG='GGGG, ' Date:yy.MMMM.dd'yy.MMMM.dd");
         </para>
 
         <example xml:id="zend.date.constants.phpformats.example-1"><info><title>PHP の指定子を使用した独自書式</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');
 Zend_Date::setOptions(array('format_type' => 'php'));
@@ -1198,7 +1198,7 @@ print $date->toString("'Format:D M j G:i:s T Y='D M j G:i:s T Y");
         </example>
 
         <important><info><title>PHP の日付書式と定数の使用について</title></info>
-            
+
 
             <para>
                 <classname>Zend_Date</classname> の定数は
@@ -1221,7 +1221,7 @@ print $date->toString("'Format:D M j G:i:s T Y='D M j G:i:s T Y");
         </para>
 
         <table xml:id="zend.date.constants.phpformats.table"><info><title>PHP の日付出力用の定数</title></info>
-            
+
             <tgroup cols="5">
                 <thead>
                     <row>

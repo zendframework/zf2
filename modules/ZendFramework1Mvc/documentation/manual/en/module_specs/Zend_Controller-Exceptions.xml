@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.exceptions"><info><title>MVC Exceptions</title></info>
-    
+
 
     <section xml:id="zend.controller.exceptions.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             The <acronym>MVC</acronym> components in Zend Framework utilize a Front Controller,
@@ -24,7 +24,7 @@
     </section>
 
     <section xml:id="zend.controller.exceptions.handling"><info><title>Handling Exceptions</title></info>
-        
+
 
         <para>
             Several mechanisms are built in to the <acronym>MVC</acronym> components already to
@@ -138,7 +138,7 @@ if ($response->isException()) {
     </section>
 
     <section xml:id="zend.controller.exceptions.internal"><info><title>MVC Exceptions You May Encounter</title></info>
-        
+
 
         <para>
             The various <acronym>MVC</acronym> components -- request, router, dispatcher, action

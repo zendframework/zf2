@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-layout"><info><title>Créer une layout</title></info>
-    
+
 
     <para>
         Vous avez remarqué que les scripts de vue dans les sections précédentes étaient des
@@ -215,7 +215,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </para>
 
     <note><info><title>Checkpoint</title></info>
-        
+
 
         <para>
             Allez maintenant sur "http://localhost" et regarder le code source rendu. Vous devriez

@@ -21,8 +21,8 @@
 
 namespace Zend\Form\Decorator;
 
-use Zend\Form,
-    Zend\View\Renderer as View;
+use Zend\Form;
+use Zend\View\Renderer as View;
 
 /**
  * Zend_Form_Decorator_FormErrors

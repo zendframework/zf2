@@ -20,9 +20,9 @@
 
 namespace Zend\Filter;
 
-use Zend\Config\Config,
-    Zend\Locale\Locale as ZendLocale,
-    Zend\Registry;
+use Zend\Config\Config;
+use Zend\Locale\Locale as ZendLocale;
+use Zend\Registry;
 
 /**
  * @uses       Zend\Filter\AbstractFilter

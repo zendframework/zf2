@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.oauth.introduction.getting-started"><info><title>Getting Started</title></info>
-    
+
 
     <para>
         With the OAuth protocol explained, let's show a simple example of it with

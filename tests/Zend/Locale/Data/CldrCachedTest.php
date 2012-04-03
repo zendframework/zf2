@@ -21,12 +21,12 @@
 
 namespace ZendTest\Locale\Data;
 
-use Zend\Locale\Data\Cldr,
-    Zend\Locale\Exception\InvalidArgumentException,
-    Zend\Locale\Locale,
-    Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter as CacheAdapter,
-    ZendTest\Locale\Data\CldrTest;
+use Zend\Locale\Data\Cldr;
+use Zend\Locale\Exception\InvalidArgumentException;
+use Zend\Locale\Locale;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use ZendTest\Locale\Data\CldrTest;
 
 /**
  * @category   Zend
@@ -37,7 +37,7 @@ use Zend\Locale\Data\Cldr,
  * @group      Zend_Locale
  */
 class CldrCachedTest extends CldrTest {
-    
+
     private $_cache = null;
 
     public function setUp()
@@ -72,9 +72,9 @@ class CldrCachedTest extends CldrTest {
     {
         $this->_cache->clear(CacheAdapter::MATCH_ALL);
         $this->_removeRecursive($this->_cacheDir);
-    }    
-    
-    
+    }
+
+
     protected function _removeRecursive($dir)
     {
         if (file_exists($dir)) {

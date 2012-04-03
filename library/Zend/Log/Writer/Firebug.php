@@ -21,9 +21,9 @@
 
 namespace Zend\Log\Writer;
 
-use Zend\Log\Logger,
-    Zend\Log\Formatter,
-    Zend\Wildfire\Plugin\FirePhp;
+use Zend\Log\Logger;
+use Zend\Log\Formatter;
+use Zend\Wildfire\Plugin\FirePhp;
 
 /**
  * Writes log messages to the Firebug Console via FirePHP.

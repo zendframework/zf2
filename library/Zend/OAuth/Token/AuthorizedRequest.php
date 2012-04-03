@@ -19,8 +19,8 @@
  */
 
 namespace Zend\OAuth\Token;
-use Zend\OAuth\Http,
-    Zend\OAuth\Exception as OAuthException;
+use Zend\OAuth\Http;
+use Zend\OAuth\Exception as OAuthException;
 
 /**
  * @uses       Zend\OAuth\Http\Utility
@@ -62,7 +62,7 @@ class AuthorizedRequest extends AbstractToken
 
     /**
      * Retrieve token data
-     * 
+     *
      * @return array
      */
     public function getData()
@@ -72,7 +72,7 @@ class AuthorizedRequest extends AbstractToken
 
     /**
      * Indicate if token is valid
-     * 
+     *
      * @return bool
      */
     public function isValid()
@@ -87,7 +87,7 @@ class AuthorizedRequest extends AbstractToken
 
     /**
      * Parse string data into array
-     * 
+     *
      * @return array
      */
     protected function _parseData()

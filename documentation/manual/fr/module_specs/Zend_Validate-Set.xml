@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set"><info><title>Classes de validation standard</title></info>
-    
+
 
     <para>
         Zend Framework est fourni avec un jeu de classes de validation standard, qui sont
@@ -19,7 +19,7 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Validate-CreditCard.xml"/>
 
     <section xml:id="zend.validate.set.ccnum"><info><title>Ccnum</title></info>
-        
+
 
         <note>
             <para>

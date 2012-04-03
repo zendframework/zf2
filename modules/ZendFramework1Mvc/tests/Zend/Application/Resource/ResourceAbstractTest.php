@@ -21,9 +21,9 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application\Application,
-    ZendTest\Application\TestAsset\ZfAppBootstrap;
+use Zend\Loader\Autoloader;
+use Zend\Application\Application;
+use ZendTest\Application\TestAsset\ZfAppBootstrap;
 
 require_once __DIR__ . '/../TestAsset/resources/Foo.php';
 

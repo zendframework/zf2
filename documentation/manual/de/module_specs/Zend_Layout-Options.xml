@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.options"><info><title>Zend_Layout Konfigurations Optionen</title></info>
-    
+
 
     <para>
         <classname>Zend_Layout</classname> hat eine Variation an Konfigurations Optionen. Diese
@@ -95,7 +95,7 @@
     </itemizedlist>
 
     <note><info><title>HelferKlasse und PluginKlasse müssen an startMvc() übergeben werden</title></info>
-        
+
 
         <para>
             Damit die <property>helperClass</property> und <property>pluginClass</property>
@@ -105,7 +105,7 @@
     </note>
 
     <section xml:id="zend.layout.options.examples"><info><title>Beispiele</title></info>
-        
+
 
         <para>
             Die folgenden Beispiele nehmen das folgende <varname>$options</varname> Array und
@@ -131,7 +131,7 @@ $config = new Zend_Config_Ini('/path/to/layout.ini', 'layout');
 ]]></programlisting>
 
         <example xml:id="zend.layout.options.examples.constructor"><info><title>Optionen an den Konstruktor oder startMvc() übergeben</title></info>
-            
+
 
             <para>
                 Beide, der Konstruktor und die statische <methodname>startMvc()</methodname> Methode
@@ -173,7 +173,7 @@ $layout = Zend_Layout::startMvc($config);
         </example>
 
         <example xml:id="zend.layout.options.examples.setoptionsconfig"><info><title>setOption() und setConfig() verwenden</title></info>
-            
+
 
             <para>
                 Machmal ist es notwendig das <classname>Zend_Layout</classname> Objekt zu
@@ -199,7 +199,7 @@ $layout->setConfig($options);
         </example>
 
         <example xml:id="zend.layout.options.examples.accessors"><info><title>Zugriffsmethoden verwenden</title></info>
-            
+
 
             <para>
                 Letztendlich kann die <classname>Zend_Layout</classname> Instanz auch über

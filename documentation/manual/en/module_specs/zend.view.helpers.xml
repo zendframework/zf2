@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xmlns="http://docbook.org/ns/docbook" version="5.0" 
+<section xmlns="http://docbook.org/ns/docbook" version="5.0"
     xml:id="zend.view.helpers">
     <info><title>View Helpers</title></info>
 
@@ -10,7 +10,7 @@
     </para>
 
     <para>
-        A helper is simply a class that implements the interface <classname>Zend\View\Helper</classname>. 
+        A helper is simply a class that implements the interface <classname>Zend\View\Helper</classname>.
         <classname>Helper</classname> simply defines two methods,
         <methodname>setView()</methodname>, which accepts a
         <classname>Zend\View\Renderer</classname> instance/implementation, and
@@ -34,14 +34,14 @@
 $broker = $view->getBroker();
 $helper = $broker->load('lowercase');
 
-// Retrieve the helper instance, via the method "plugin", 
+// Retrieve the helper instance, via the method "plugin",
 // which proxies to the plugin broker:
 $helper = $view->plugin('lowercase');
 
 // If the helper does not define __invoke(), the following also retrieves it:
 $helper = $view->lowercase();
 
-// If the helper DOES define __invoke, you can call the helper 
+// If the helper DOES define __invoke, you can call the helper
 // as if it is a method:
 $filtered = $view->lowercase('some value');
 ]]></programlisting>
@@ -51,7 +51,7 @@ $filtered = $view->lowercase('some value');
         overloading to retrieve and/or invoke helpers directly, offering a convenience API for end
         users.
     </para>
-        
+
     <para>
         A large number of helpers are provided in the standard distribution of Zend Framework.  You
         can also register helpers by adding them to the <link
@@ -346,7 +346,7 @@ echo $this->formCheckbox('foo',
         </para>
 
         <programlisting language="php"><![CDATA[
-// Inside this view script, $this refers to the Zend\View\Renderer\PhpRenderer 
+// Inside this view script, $this refers to the Zend\View\Renderer\PhpRenderer
 // instance rendering the view script.
 //
 // Say that you have already assigned a series of select options under

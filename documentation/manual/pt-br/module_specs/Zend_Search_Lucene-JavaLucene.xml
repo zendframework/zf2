@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.java-lucene"><info><title>Interoperando com Java Lucene</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.index-creation.file-formats"><info><title>Formatos de Arquivo</title></info>
-        
+
 
         <para>
             Os formatos de arquivos de índice do <classname>Zend_Search_Lucene</classname> são
@@ -23,7 +23,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.index-directory"><info><title>Diretório Índice</title></info>
-        
+
 
         <para>
             Após a criação do índice, o diretório índice conterá alguns arquivos:
@@ -53,7 +53,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.java-lucene.source-code"><info><title>Código Fonte Java</title></info>
-        
+
 
         <para>
             O programa Java abaixo oferece um exemplo de como indexar um arquivo usando Java Lucene:

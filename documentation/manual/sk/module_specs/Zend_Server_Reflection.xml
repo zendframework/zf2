@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.server.reflection"><info><title>Zend_Server_Reflection</title></info>
-    
+
 
     <section xml:id="zend.server.reflection.introduction"><info><title>Úvod</title></info>
-        
+
 
         <para>
             Zend_Server_Reflection poskytuje štandardný mechanizmus pre zisťovanie
@@ -19,7 +19,7 @@
         </para>
     </section>
     <section xml:id="zend.server.reflection.usage"><info><title>Použitie</title></info>
-        
+
 
         <para>
             Základné použitie je jednoduché:

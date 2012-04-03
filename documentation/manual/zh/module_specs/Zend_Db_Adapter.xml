@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.adapter"><info><title>Zend_Db_Adapter</title></info>
 
-    
+
 
     <section xml:id="zend.db.adapter.introduction"><info><title>简介 </title></info>
 
-        
+
 
         <para>
             <code>Zend_Db_Adapter</code>是zendfrmaeword的数据库抽象层api.
@@ -53,7 +53,7 @@ $db = Zend_Db::factory('PDO_SQLITE', $params);
 
     <section xml:id="zend.db.adapter.quoting"><info><title>添加引号防止数据库攻击</title></info>
 
-        
+
 
         <para>
             你应该处理将在sql语句中使用的条件值；这对于防止sql语句攻击是很有好处的。
@@ -104,7 +104,7 @@ $where = $db->quoteInto('id IN(?)', array(1, 2, 3));
 
     <section xml:id="zend.db.adapter.查询"><info><title>直接查询</title></info>
 
-        
+
 
         <para>
             一旦你得到了一个<code>Zend_Db_Adapter</code> 实例, 你可以直接
@@ -171,7 +171,7 @@ $rows = $stmt->fetchAll();
 
     <section xml:id="zend.db.adapter.事务处理"><info><title>事务处理</title></info>
 
-        
+
 
         <para>
             默认情况下，PDO(因此 <code> Zend_Db_Adapter</code> 也是)是采用自动commit模式。
@@ -202,7 +202,7 @@ try {
 
     <section xml:id="zend.db.adapter.insert"><info><title>插入数据行</title></info>
 
-        
+
 
         <para>
             为了方便起见，你可以使用 <code> insert()</code>方法将要插入的数据绑定并创建
@@ -243,7 +243,7 @@ $last_insert_id = $db->lastInsertId();
 
     <section xml:id="zend.db.adapter.update"><info><title>更新数据行</title></info>
 
-        
+
 
         <para>
             为了方便起见，你可以使用 <code>update() </code>方法确定需要update的数据并且创建一个
@@ -283,7 +283,7 @@ $rows_affected = $db->update($table, $set, $where);
 
     <section xml:id="zend.db.adapter.delete"><info><title>删除数据行</title></info>
 
-        
+
 
         <para>
             为了方便起见，你可以使用 <code>delete() </code>方法创建一个delete语句；你
@@ -313,7 +313,7 @@ $rows_affected = $db->delete($table, $where);
 
     <section xml:id="zend.db.adapter.fetch"><info><title>取回查询结果</title></info>
 
-        
+
 
         <para>
             尽管你可以使用<code>query()</code>方法直接对数据库进行操作，但是通常情况

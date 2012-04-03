@@ -21,10 +21,10 @@
 
 namespace Zend\Controller\Action\Helper;
 
-use Zend\Config,
-    Zend\Controller\Action,
-    Zend\Controller\Front as FrontController,
-    Zend\View;
+use Zend\Config;
+use Zend\Controller\Action;
+use Zend\Controller\Front as FrontController;
+use Zend\View;
 
 /**
  * Simplify context switching based on requested format
@@ -1339,7 +1339,7 @@ class ContextSwitch extends AbstractHelper
      * Retrieve broker
      *
      * Hack for now, until this can be refactored. Ensures a broker.
-     * 
+     *
      * @return Broker
      */
     public function getBroker()

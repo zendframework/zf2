@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.slideshare"><info><title>Zend_Service_SlideShare</title></info>
-    
+
 
     <para>
         Die <classname>Zend_Service_SlideShare</classname> wird verwendet um mit dem
@@ -11,7 +11,7 @@
     </para>
 
     <section xml:id="zend.service.slideshare.basicusage"><info><title>Mit Zend_Service_SlideShare beginnen</title></info>
-        
+
 
         <para>
             Um die <classname>Zend_Service_SlideShare</classname> Komponente zu verwenden muß zuerst
@@ -39,7 +39,7 @@ $ss = new Zend_Service_SlideShare('APIKEY',
     </section>
 
     <section xml:id="zend.service.slideshare.slideshowobj"><info><title>Das SlideShow Objekt</title></info>
-        
+
 
         <para>
             Alle Slideshows in der <classname>Zend_Service_SlideShare</classname> werden
@@ -204,7 +204,7 @@ class Zend_Service_SlideShare_SlideShow {
     </section>
 
     <section xml:id="zend.service.slideshare.getslideshow"><info><title>Empfangen einer einzelnen Slideshow</title></info>
-        
+
 
         <para>
             Die einfachste Verwendung der <classname>Zend_Service_SlideShare</classname> Komponente
@@ -231,7 +231,7 @@ print "Anzahl an Besuchen: {$slideshow->getNumViews()}<br/>\n";
     </section>
 
     <section xml:id="zend.service.slideshare.getslideshowlist"><info><title>Empfangen von Gruppen von Slideshows</title></info>
-        
+
 
         <para>
             Wenn die spezielle ID einer Slideshow die einen interessiert und die man empfangen will
@@ -307,7 +307,7 @@ foreach($ss_user as $slideshow) {
     </section>
 
     <section xml:id="zend.service.slideshare.caching"><info><title>Zend_Service_SlideShare Caching Policy</title></info>
-        
+
 
         <para>
             Standardmäßig cached <classname>Zend_Service_SlideShare</classname> jede Anfrage an den
@@ -339,7 +339,7 @@ $ss_user = $ss->getSlideShowsByUser('username', $starting_offset, $limit);
     </section>
 
     <section xml:id="zend.service.slideshare.httpclient"><info><title>Das Verhalten des HTTP Clients ändern</title></info>
-        
+
 
         <para>
             Wenn das Verhalten des <acronym>HTTP</acronym> Clients, aus welchen Gründen auch immer,

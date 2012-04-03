@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.introduction"><info><title>導入</title></info>
-    
+
 
     <para>
         <classname>Zend_Acl</classname> は、軽量で柔軟なアクセス制御リスト (<acronym>ACL</acronym>)
@@ -41,7 +41,7 @@
     </para>
 
     <section xml:id="zend.acl.introduction.resources"><info><title>リソース</title></info>
-        
+
         <para>
             <classname>Zend_Acl</classname> では、リソースを作成するのは簡単です。<classname>Zend_Acl</classname> の
             <classname>Zend_Acl_Resource_Interface</classname> に、
@@ -79,7 +79,7 @@
     </section>
 
     <section xml:id="zend.acl.introduction.roles"><info><title>ロール</title></info>
-        
+
         <para>
             リソースと同様、ロールを作成するのも簡単です。Zend_Acl の
             <classname>Zend_Acl_Role_Interface</classname> に、
@@ -108,7 +108,7 @@
             がそれをどう解決するかを示すものです。
         </para>
         <example xml:id="zend.acl.introduction.roles.example.multiple_inheritance"><info><title>ロールの多重継承</title></info>
-            
+
             <para>
                 以下のコードでは、基本となる三つのロール "guest"、"member"
                 および "admin" を定義しています。他のロールはこれらを継承することになります。
@@ -168,7 +168,7 @@ echo $acl->isAllowed('someUser', 'someResource') ? 'allowed' : 'denied';
     </section>
 
     <section xml:id="zend.acl.introduction.creating"><info><title>アクセス制御リストの作成</title></info>
-        
+
 
         <para>
             アクセス制御リスト (<acronym>ACL</acronym>) を使用して、物理的あるいは仮想的なオブジェクトの組み合わせを
@@ -192,7 +192,7 @@ $acl = new Zend_Acl();
     </section>
 
     <section xml:id="zend.acl.introduction.role_registry"><info><title>ロールの登録</title></info>
-        
+
 
         <para>
             コンテンツ管理システムでは、ほとんどすべての場面で権限階層の管理が必要となります。
@@ -210,7 +210,7 @@ $acl = new Zend_Acl();
         </para>
 
         <table xml:id="zend.acl.introduction.role_registry.table.example_cms_access_controls"><info><title>サンプル CMS 用のアクセス制御</title></info>
-          
+
           <tgroup cols="3">
             <thead>
               <row>
@@ -276,7 +276,7 @@ $acl->addRole(new Zend_Acl_Role('administrator'));
     </section>
 
     <section xml:id="zend.acl.introduction.defining"><info><title>アクセス制御の定義</title></info>
-        
+
 
         <para>
             <acronym>ACL</acronym> に適切なロールが含まれた状態になりました。これで、リソースに対して
@@ -336,7 +336,7 @@ $acl->allow('administrator');
     </section>
 
     <section xml:id="zend.acl.introduction.querying"><info><title>ACL への問い合わせ</title></info>
-        
+
 
         <para>
             これで、柔軟な <acronym>ACL</acronym> が作成できました。これにより、

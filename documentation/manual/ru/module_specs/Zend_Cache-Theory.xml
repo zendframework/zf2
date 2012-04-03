@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.theory"><info><title>Теория кэширования</title></info>
-    
+
     <para>
         Есть три ключевых понятия в <classname>Zend_Cache</classname>. Первое — уникальный
         идентификатор (строка), который служит для идентификации записей кэша.
@@ -32,7 +32,7 @@
         то бэкэнд автоматически извлечет запись из кэша.
     </para></note>
     <section xml:id="zend.cache.factory"><info><title>Фабричный метод Zend_Cache</title></info>
-        
+
         <para>
             Корректным способом создания рабочего экземпляра
             фронтэнда <classname>Zend_Cache</classname> является код показанный в
@@ -72,7 +72,7 @@ $cache = Zend_Cache::factory($frontendName,
     </section>
 
     <section xml:id="zend.cache.tags"><info><title>Добавление тегов к записям</title></info>
-        
+
         <para>
             Теги являются средством категоризации записей кэша. Когда вы
             производите сохранение в кэш методом <methodname>save()</methodname>, то можете
@@ -92,7 +92,7 @@ $cache->save($huge_data, 'myUniqueID', array('tagA', 'tagB', 'tagC'));
         </note>
     </section>
     <section xml:id="zend.cache.clean"><info><title>Очистка кэша</title></info>
-        
+
         <para>
             Для того, чтобы удалить или сделать недействительной запись с
             определенным идентификатором, вы можете использовать метод

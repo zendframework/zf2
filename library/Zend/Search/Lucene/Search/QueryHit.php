@@ -70,7 +70,7 @@ class QueryHit
     {
         $this->_index = $index;
     }
-    
+
     /**
      * Magic method for checking the existence of a field
      *
@@ -81,7 +81,7 @@ class QueryHit
     {
         return isset($this->getDocument()->$offset);
     }
-    
+
 
     /**
      * Convenience function for getting fields from the document

@@ -2,7 +2,7 @@
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.info"><info><title>Informations du document et métadonnées</title></info>
     <!-- @todo review and revise upon completion of refactoring -->
 
-    
+
 
     <para>
         Un document <acronym>PDF</acronym> peut inclure des informations générales comme le titre du document,

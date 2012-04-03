@@ -20,8 +20,8 @@
 
 namespace Zend\Validator;
 
-use Traversable,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @uses       \Zend\Validator\AbstractValidator
@@ -84,7 +84,7 @@ class Identical extends AbstractValidator
         } elseif (null !== $token) {
             $this->setToken($token);
         }
-        
+
         parent::__construct(is_array($token) ? $token : null);
     }
 

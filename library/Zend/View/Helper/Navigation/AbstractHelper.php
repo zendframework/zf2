@@ -21,14 +21,14 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use RecursiveIteratorIterator,
-    Zend\Acl,
-    Zend\Navigation,
-    Zend\Navigation\Page\AbstractPage,
-    Zend\Registry,
-    Zend\Translator,
-    Zend\View,
-    Zend\View\Exception;
+use RecursiveIteratorIterator;
+use Zend\Acl;
+use Zend\Navigation;
+use Zend\Navigation\Page\AbstractPage;
+use Zend\Registry;
+use Zend\Translator;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Base class for navigational helpers
@@ -179,7 +179,7 @@ abstract class AbstractHelper extends View\Helper\HtmlElement implements Helper
     /**
      * Sets the minimum depth a page must have to be included when rendering
      *
-     * @param  int $minDepth [optional] minimum depth. Default is null, which 
+     * @param  int $minDepth [optional] minimum depth. Default is null, which
      *                       sets no minimum depth.
      * @return AbstractHelper fluent interface, returns self
      */
@@ -209,7 +209,7 @@ abstract class AbstractHelper extends View\Helper\HtmlElement implements Helper
     /**
      * Sets the maximum depth a page can have to be included when rendering
      *
-     * @param  int $maxDepth [optional] maximum depth. Default is null, which 
+     * @param  int $maxDepth [optional] maximum depth. Default is null, which
      *                       sets no maximum depth.
      * @return AbstractHelper fluent interface, returns self
      */
@@ -261,9 +261,9 @@ abstract class AbstractHelper extends View\Helper\HtmlElement implements Helper
      *
      * Implements {@link Helper::setTranslator()}.
      *
-     * @param  mixed $translator [optional] translator.  Expects an object of 
+     * @param  mixed $translator [optional] translator.  Expects an object of
      *                           type {@link Translator\Adapter\AbstractAdapter}
-     *                           or {@link Translator\Translator}, or null. 
+     *                           or {@link Translator\Translator}, or null.
      *                           Default is null, which sets no translator.
      * @return AbstractHelper  fluent interface, returns self
      */
@@ -333,8 +333,8 @@ abstract class AbstractHelper extends View\Helper\HtmlElement implements Helper
      *
      * Implements {@link Helper::setRole()}.
      *
-     * @param  mixed $role [optional] role to set. Expects a string, an 
-     *                     instance of type {@link Acl\Role}, or null. Default 
+     * @param  mixed $role [optional] role to set. Expects a string, an
+     *                     instance of type {@link Acl\Role}, or null. Default
      *                     is null, which will set no role.
      * @return AbstractHelper  fluent interface, returns self
      * @throws Exception\InvalidArgumentException if $role is invalid
@@ -347,7 +347,7 @@ abstract class AbstractHelper extends View\Helper\HtmlElement implements Helper
             $this->role = $role;
         } else {
             throw new Exception\InvalidArgumentException(sprintf(
-                '$role must be a string, null, or an instance of ' 
+                '$role must be a string, null, or an instance of '
                 .  'Zend_Acl_Role_Interface; %s given',
                 gettype($role)
             ));
@@ -426,7 +426,7 @@ abstract class AbstractHelper extends View\Helper\HtmlElement implements Helper
      *
      * Implements {@link Helper::setUseTranslator()}.
      *
-     * @param  bool $useTranslator [optional] whether translator should be used. 
+     * @param  bool $useTranslator [optional] whether translator should be used.
      *                             Default is true.
      * @return AbstractHelper  fluent interface, returns self
      */
@@ -662,8 +662,8 @@ abstract class AbstractHelper extends View\Helper\HtmlElement implements Helper
      *   will not be accepted if it is the descendant of a non-accepted page.
      *
      * @param  AbstractPage $page      page to check
-     * @param  bool         $recursive [optional] if true, page will not be 
-     *                                 accepted if it is the descendant of a 
+     * @param  bool         $recursive [optional] if true, page will not be
+     *                                 accepted if it is the descendant of a
      *                                 page that is not accepted. Default is true.
      * @return bool                    whether page should be accepted
      */
@@ -793,16 +793,16 @@ abstract class AbstractHelper extends View\Helper\HtmlElement implements Helper
      * Sets default ACL role(s) to use when iterating pages if not explicitly
      * set later with {@link setRole()}
      *
-     * @param  mixed $role [optional] role to set. Expects null, string, or an 
-     *                     instance of {@link Acl\Role}. Default is null, which 
+     * @param  mixed $role [optional] role to set. Expects null, string, or an
+     *                     instance of {@link Acl\Role}. Default is null, which
      *                     sets no default role.
      * @return void
      * @throws Exception\InvalidArgumentException if role is invalid
      */
     public static function setDefaultRole($role = null)
     {
-        if (null === $role 
-            || is_string($role) 
+        if (null === $role
+            || is_string($role)
             || $role instanceof Acl\Role
         ) {
             self::$defaultRole = $role;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.writers.syslog"><info><title>Writing to the System Log</title></info>
-    
+
 
     <para>
         <classname>Zend_Log_Writer_Syslog</classname> writes log entries to the

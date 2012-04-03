@@ -21,10 +21,10 @@
 
 namespace ZendTest\Cloud\Infrastructure;
 
-use Zend\Config\Config,
-    Zend\Cloud\Infrastructure\Factory as CloudFactory,
-    ZendTest\Cloud\Infrastructure\Adapter\Ec2OfflineTest,
-    ZendTest\Cloud\Infrastructure\Adapter\RackspaceOfflineTest;
+use Zend\Config\Config;
+use Zend\Cloud\Infrastructure\Factory as CloudFactory;
+use ZendTest\Cloud\Infrastructure\Adapter\Ec2OfflineTest;
+use ZendTest\Cloud\Infrastructure\Adapter\RackspaceOfflineTest;
 
 // Call Zend\Cloud\Infrastructure\FactoryTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
@@ -66,7 +66,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                       );
 
         $this->assertEquals('Zend\Cloud\Infrastructure\Adapter\Ec2', get_class($Ec2Adapter));
-        
+
         // Rackspace adapter
         $rackspaceAdapter = CloudFactory::getAdapter(
                                 new Config(RackspaceOfflineTest::getConfigArray(),true)

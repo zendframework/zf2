@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.version.reading"><info><title>Obtendo a Versão do Zend Framework</title></info>
-    
+
 
     <para>
         <classname>Zend_Version</classname> fornece a constante de classe
@@ -18,7 +18,7 @@
     </para>
 
     <example xml:id="zend.version.reading.example"><info><title>Exemplo do método compareVersion()</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // retorna -1, 0 ou 1
@@ -32,7 +32,7 @@ $cmp = Zend_Version::compareVersion('2.0.0');
     </para>
 
     <example xml:id="zend.version.latest.example"><info><title>Exemplo do método getLatest()</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // retorna 1.11.0 (ou uma versão posterior)

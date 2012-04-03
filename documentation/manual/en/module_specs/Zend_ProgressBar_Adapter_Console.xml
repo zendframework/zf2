@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.adapter.console"><info><title>Zend_ProgressBar_Adapter_Console</title></info>
-    
+
 
     <para>
         <classname>Zend_ProgressBar_Adapter_Console</classname> is a text-based adapter
@@ -13,7 +13,7 @@
     </para>
 
     <note><info><title>Automatic console width recognition</title></info>
-        
+
 
         <para>
             <code>shell_exec</code> is required for this feature to work on

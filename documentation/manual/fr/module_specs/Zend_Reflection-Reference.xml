@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.reflection.reference"><info><title>Réference de Zend_Reflection</title></info>
-    
+
 
     <para>
         Les classes de <classname>Zend_Reflection</classname> reprennent l'API de <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/reflection">la Reflection <acronym>PHP</acronym></link> - mais avec une différence
@@ -38,7 +38,7 @@
     </para>
 
     <section xml:id="zend.reflection.reference.docblock"><info><title>Zend_Reflection_Docblock</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Docblock</classname> est le coeur de la valeur ajoutée par
@@ -104,7 +104,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.docblock-tag"><info><title>Zend_Reflection_Docblock_Tag</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Docblock_Tag</classname> propose la réflexion pour un tag
@@ -134,7 +134,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.docblock-tag-param"><info><title>Zend_Reflection_Docblock_Tag_Param</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Docblock_Tag_Param</classname> est une version spéciale de
@@ -161,7 +161,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.docblock-tag-return"><info><title>Zend_Reflection_Docblock_Tag_Return</title></info>
-        
+
 
         <para>
             Comme <classname>Zend_Reflection_Docblock_Tag_Param</classname>,
@@ -179,7 +179,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.file"><info><title>Zend_Reflection_File</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_File</classname> propose l'introspection de fichiers <acronym>PHP</acronym>. Grâce à
@@ -251,7 +251,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.class"><info><title>Zend_Reflection_Class</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Class</classname> étend <code>ReflectionClass</code>, et propose
@@ -318,7 +318,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.extension"><info><title>Zend_Reflection_Extension</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Extension</classname> étend <code>ReflectionExtension</code> et
@@ -346,7 +346,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.function"><info><title>Zend_Reflection_Function</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Function</classname> ajoute une méthode pour retrouver le type de
@@ -380,7 +380,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.method"><info><title>Zend_Reflection_Method</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Method</classname> reprend l'API de
@@ -398,7 +398,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.parameter"><info><title>Zend_Reflection_Parameter</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Parameter</classname> ajoute une méthode pour retrouver le type
@@ -438,7 +438,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.property"><info><title>Zend_Reflection_Property</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Property</classname> surcharge une seule méthode afin de pouvoir

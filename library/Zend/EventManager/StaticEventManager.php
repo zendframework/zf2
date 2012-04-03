@@ -45,7 +45,7 @@ class StaticEventManager implements StaticEventCollection
 
     /**
      * Singleton
-     * 
+     *
      * @return void
      */
     protected function __construct()
@@ -63,7 +63,7 @@ class StaticEventManager implements StaticEventCollection
 
     /**
      * Retrieve instance
-     * 
+     *
      * @return StaticEventManager
      */
     public static function getInstance()
@@ -76,7 +76,7 @@ class StaticEventManager implements StaticEventCollection
 
     /**
      * Reset the singleton instance
-     * 
+     *
      * @return void
      */
     public static function resetInstance()
@@ -87,8 +87,8 @@ class StaticEventManager implements StaticEventCollection
     /**
      * Attach a listener to an event
      *
-     * Allows attaching a callback to an event offerred by one or more 
-     * identifying components. As an example, the following connects to the 
+     * Allows attaching a callback to an event offerred by one or more
+     * identifying components. As an example, the following connects to the
      * "getAll" event of both an AbstractResource and EntityResource:
      *
      * <code>
@@ -106,9 +106,9 @@ class StaticEventManager implements StaticEventCollection
      *     }
      * );
      * </code>
-     * 
+     *
      * @param  string|array $id Identifier(s) for event emitting component(s)
-     * @param  string $event 
+     * @param  string $event
      * @param  callback $callback PHP Callback
      * @param  int $priority Priority at which listener should execute
      * @return void
@@ -126,9 +126,9 @@ class StaticEventManager implements StaticEventCollection
 
     /**
      * Detach a listener from an event offered by a given resource
-     * 
+     *
      * @param  string|int $id
-     * @param  CallbackHandler $listener 
+     * @param  CallbackHandler $listener
      * @return bool Returns true if event and listener found, and unsubscribed; returns false if either event or listener not found
      */
     public function detach($id, CallbackHandler $listener)
@@ -141,7 +141,7 @@ class StaticEventManager implements StaticEventCollection
 
     /**
      * Retrieve all registered events for a given resource
-     * 
+     *
      * @param  string|int $id
      * @return array
      */
@@ -155,9 +155,9 @@ class StaticEventManager implements StaticEventCollection
 
     /**
      * Retrieve all listeners for a given identifier and event
-     * 
+     *
      * @param  string|int $id
-     * @param  string|int $event 
+     * @param  string|int $event
      * @return false|\Zend\Stdlib\PriorityQueue
      */
     public function getListeners($id, $event)
@@ -170,9 +170,9 @@ class StaticEventManager implements StaticEventCollection
 
     /**
      * Clear all listeners for a given identifier, optionally for a specific event
-     * 
-     * @param  string|int $id 
-     * @param  null|string $event 
+     *
+     * @param  string|int $id
+     * @param  null|string $event
      * @return bool
      */
     public function clearListeners($id, $event = null)

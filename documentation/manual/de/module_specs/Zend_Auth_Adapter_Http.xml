@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.http"><info><title>HTTP Authentication Adapter</title></info>
-    
+
 
     <section xml:id="zend.auth.adapter.http.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Http</classname> bietet die am meisten entsprechende
@@ -77,7 +77,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.design_overview"><info><title>Design Übersicht</title></info>
-        
+
 
         <para>
             Dieser Adapter besteht aus zwei Sub-Komponenten, die <acronym>HTTP</acronym>
@@ -92,7 +92,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.configuration_options"><info><title>Konfigurations Optionen</title></info>
-        
+
 
         <para>
             Die <classname>Zend_Auth_Adapter_Http</classname> Klasse benötigt ein Konfigurations
@@ -101,7 +101,7 @@
         </para>
 
         <table xml:id="zend.auth.adapter.configuration_options.table"><info><title>Konfigurations Optionen</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>
@@ -192,7 +192,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.http.resolvers"><info><title>Auflöser</title></info>
-        
+
 
         <para>
             Der Job des Auflösers ist es einen Benutzernamen und einen Bereich, und gibt eine Art
@@ -209,7 +209,7 @@
         </para>
 
         <section xml:id="zend.auth.adapter.http.resolvers.file"><info><title>Datei Auflöser</title></info>
-            
+
 
             <para>
                 Der Datei Auflöser ist eine sehr einfache Klasse. Sie hat eine einzelne Eigenschaft
@@ -259,7 +259,7 @@ $resolver->setFile($path);
     </section>
 
     <section xml:id="zend.auth.adapter.http.basic_usage"><info><title>Grundsätzliche Verwendung</title></info>
-        
+
 
         <para>
             Zuerst muß ein Array mit den benötigen Konfigurationswerten gesetzt werden:

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.request"><info><title>The Request Object</title></info>
-    
+
 
     <section xml:id="zend.controller.request.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             The request object is a simple value object that is passed between
@@ -75,10 +75,10 @@
     </section>
 
     <section xml:id="zend.controller.request.http"><info><title>HTTP Requests</title></info>
-        
+
 
         <section xml:id="zend.controller.request.http.dataacess"><info><title>Accessing Request Data</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> encapsulates access to
@@ -93,7 +93,7 @@
             </para>
 
             <note><info><title>Superglobal Data</title></info>
-                
+
 
                 <para>
                     When accessing superglobal data through
@@ -117,7 +117,7 @@
             </para>
 
             <note><info><title>GET and POST Data</title></info>
-                
+
 
                 <para>
                     Be cautious when accessing data from the request object as
@@ -128,7 +128,7 @@
             </note>
 
             <note><info><title>Retrieving the Raw POST Data</title></info>
-                
+
 
                 <para>
                     As of 1.5.0, you can also retrieve the raw post data via the
@@ -152,7 +152,7 @@
             </para>
 
             <note><info><title>getParam() Retrieves More than User Parameters</title></info>
-                
+
 
                 <para>
                     In order to do some of its work, <methodname>getParam()</methodname> actually
@@ -181,7 +181,7 @@
             </note>
 
             <note><info><title>Apache Quirks</title></info>
-                
+
 
                 <para>
                     If you are using Apache's 404 handler to pass incoming
@@ -209,7 +209,7 @@ $front->setRequest($request);
         </section>
 
         <section xml:id="zend.controller.request.http.baseurl"><info><title>Base Url and Subdirectories</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> allows
@@ -232,7 +232,7 @@ $front->setRequest($request);
             </para>
 
             <note><info><title>URL Detection is Case Sensitive</title></info>
-                
+
 
                 <para>
                     Automatic base <acronym>URL</acronym> detection is case sensitive, so make sure
@@ -266,7 +266,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.method"><info><title>Determining the Request Method</title></info>
-            
+
 
             <para>
                 <methodname>getMethod()</methodname> allows you to determine the
@@ -292,7 +292,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.ajax"><info><title>Detecting AJAX Requests</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> has a rudimentary
@@ -327,7 +327,7 @@ $response   = $controller->dispatch();
     </section>
 
     <section xml:id="zend.controller.request.subclassing"><info><title>Subclassing the Request Object</title></info>
-        
+
 
         <para>
             The base request class used for all request objects is the abstract

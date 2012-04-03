@@ -21,8 +21,8 @@
 
 namespace Zend\Controller\Plugin;
 
-use Zend\Controller\Request,
-    Zend\Loader\Broker;
+use Zend\Controller\Request;
+use Zend\Loader\Broker;
 
 /**
  * @category   Zend
@@ -35,7 +35,7 @@ abstract class AbstractPlugin
 {
     /**
      * Helper Broker instance
-     * 
+     *
      * @var \Zend\Loader\Broker
      */
     protected $broker;
@@ -52,8 +52,8 @@ abstract class AbstractPlugin
 
     /**
      * Set the action helper broker instance
-     * 
-     * @param  null|Broker $broker 
+     *
+     * @param  null|Broker $broker
      * @return AbstractPlugin
      */
     public function setHelperBroker(Broker $broker = null)
@@ -64,7 +64,7 @@ abstract class AbstractPlugin
 
     /**
      * Get the action helper broker instance
-     * 
+     *
      * @return null|Broker
      */
     public function getHelperBroker()

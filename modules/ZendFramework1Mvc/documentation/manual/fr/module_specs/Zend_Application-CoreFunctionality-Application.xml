@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.application"><info><title>Zend_Application</title></info>
-    
+
 
     <para>
         <classname>Zend_Application</classname> est la classe de base du composant
@@ -18,7 +18,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.application.api.options"><info><title>Zend_Application options</title></info>
-        
+
         <tgroup cols="2">
             <thead>
                 <row>
@@ -65,7 +65,7 @@
     </table>
 
     <note><info><title>Noms des options</title></info>
-        
+
 
         <para>
             Notez que les noms des options ne sont pas sensibles à la casse.
@@ -73,7 +73,7 @@
     </note>
 
     <table xml:id="zend.application.core-functionality.application.api.table"><info><title>Méthodes dans Zend_Application</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>

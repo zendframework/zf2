@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.savehandler.dbtable"><info><title>Zend_Session_SaveHandler_DbTable</title></info>
-    
+
 
     <para>
         <classname>Zend_Session_SaveHandler_DbTable</classname> の基本セットアップには、少なくとも
@@ -13,7 +13,7 @@
     </para>
 
     <example xml:id="zend.session.savehandler.dbtable.basic"><info><title>基本的な設定</title></info>
-            
+
 
             <programlisting language="SQL"><![CDATA[
 CREATE TABLE `session` (
@@ -62,7 +62,7 @@ Zend_Session::start();
     </para>
 
     <example xml:id="zend.session.savehandler.dbtable.multi-column-key"><info><title>複数カラムの主キーの使用</title></info>
-        
+
 
         <programlisting language="SQL"><![CDATA[
 CREATE TABLE `session` (

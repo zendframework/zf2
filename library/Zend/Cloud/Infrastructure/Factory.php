@@ -12,12 +12,12 @@
  */
 namespace Zend\Cloud\Infrastructure;
 
-use Zend\Cloud\AbstractFactory,
-    Zend\Cloud\Exception\InvalidArgumentException;
+use Zend\Cloud\AbstractFactory;
+use Zend\Cloud\Exception\InvalidArgumentException;
 
 /**
  * Factory for infrastructure adapters
- * 
+ *
  * @package    Zend\Cloud
  * @subpackage Infrastructure
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)

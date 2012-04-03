@@ -21,11 +21,11 @@
 
 namespace ZendTest\Amf;
 
-use Zend\Amf\Parser,
-    Zend\Amf\Value\Messaging,
-    Zend\Amf\Value,
-    Zend\Date,
-    Zend\Locale\Locale;
+use Zend\Amf\Parser;
+use Zend\Amf\Value\Messaging;
+use Zend\Amf\Value;
+use Zend\Date;
+use Zend\Locale\Locale;
 
 /**
  * Test case for Zend_Amf_Response

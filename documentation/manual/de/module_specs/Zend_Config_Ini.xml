@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.adapters.ini"><info><title>Zend_Config_Ini</title></info>
-    
+
 
     <para>
         <classname>Zend_Config_Ini</classname> ermöglicht es Entwicklern, Konfigurations-Daten in
@@ -15,7 +15,7 @@
     </para>
 
     <note><info><title>Die Ini Datei parsen</title></info>
-        
+
 
         <para>
             <classname>Zend_Config_Ini</classname> verwendet die <acronym>PHP</acronym> Funktion
@@ -28,7 +28,7 @@
     </note>
 
     <note><info><title>Schlüssel Trenner</title></info>
-        
+
 
         <para>
             Standardmäßig ist das Schlüssel Trennzeichen der Punkt (<emphasis>.</emphasis>). Dies
@@ -47,7 +47,7 @@ $config = new Zend_Config_Ini('/path/to/config.ini',
     </note>
 
     <example xml:id="zend.config.adapters.ini.example.using"><info><title>Zend_Config_Ini benutzen</title></info>
-        
+
 
         <para>
             Dieses Beispiel zeigt die grundlegende Nutzung von
@@ -97,7 +97,7 @@ echo $config->database->params->dbname; // Ausgabe "dbname"
 
     <note>
         <table xml:id="zend.config.adapters.ini.table"><info><title>Zend_Config_Ini Kontruktor Parameter</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>

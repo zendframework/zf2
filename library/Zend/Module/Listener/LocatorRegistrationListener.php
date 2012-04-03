@@ -2,13 +2,13 @@
 
 namespace Zend\Module\Listener;
 
-use Zend\EventManager\StaticEventManager,
-    Zend\Di\InstanceManager,
-    Zend\EventManager\Event,
-    Zend\Module\ModuleEvent,
-    Zend\Module\Consumer\LocatorRegistered,
-    Zend\EventManager\EventCollection,
-    Zend\EventManager\ListenerAggregate;
+use Zend\EventManager\StaticEventManager;
+use Zend\Di\InstanceManager;
+use Zend\EventManager\Event;
+use Zend\Module\ModuleEvent;
+use Zend\Module\Consumer\LocatorRegistered;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\ListenerAggregate;
 
 class LocatorRegistrationListener extends AbstractListener implements ListenerAggregate
 {
@@ -23,12 +23,12 @@ class LocatorRegistrationListener extends AbstractListener implements ListenerAg
     protected $listeners = array();
 
     /**
-     * loadModule 
+     * loadModule
      *
-     * Check each loaded module to see if it implements LocatorRegistered. If it 
+     * Check each loaded module to see if it implements LocatorRegistered. If it
      * does, we add it to an internal array for later.
-     * 
-     * @param ModuleEvent $e 
+     *
+     * @param ModuleEvent $e
      * @return void
      */
     public function loadModule(ModuleEvent $e)
@@ -40,11 +40,11 @@ class LocatorRegistrationListener extends AbstractListener implements ListenerAg
     }
 
     /**
-     * loadModulesPost 
+     * loadModulesPost
      *
-     * Once all the modules are loaded, loop 
-     * 
-     * @param Event $e 
+     * Once all the modules are loaded, loop
+     *
+     * @param Event $e
      * @return void
      */
     public function loadModulesPost(Event $e)
@@ -71,14 +71,14 @@ class LocatorRegistrationListener extends AbstractListener implements ListenerAg
     }
 
     /**
-     * Bootstrap listener 
+     * Bootstrap listener
      *
-     * This is ran during the MVC bootstrap event because it requires access to 
+     * This is ran during the MVC bootstrap event because it requires access to
      * the DI container.
      *
-     * @TODO: Check the application / locator / etc a bit better to make sure 
+     * @TODO: Check the application / locator / etc a bit better to make sure
      * the env looks how we're expecting it to?
-     * @param Event $e 
+     * @param Event $e
      * @return void
      */
     public function onBootstrap(Event $e)

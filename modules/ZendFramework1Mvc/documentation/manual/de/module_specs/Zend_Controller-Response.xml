@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.response"><info><title>Das Response Objekt</title></info>
-    
+
 
     <section xml:id="zend.controller.response.usage"><info><title>Verwendung</title></info>
-        
+
 
         <para>
             Das Response Objekt ist das logische Gegenstück zum <link linkend="zend.controller.request">Request Objekt</link>. Sein Zweck ist es,
@@ -132,7 +132,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.response.headers"><info><title>Header manipulieren</title></info>
-        
+
 
         <para>
             Wie vorher besprochen, ist einer der Aspekte der Antwort Objekt Aufgaben das Sammeln und
@@ -235,7 +235,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.response.namedsegments"><info><title>Benannte Segmente</title></info>
-        
+
 
         <para>
             Das Antwort Objekt unterstützt "benannte Segmente". Das erlaubt es den Inhalt des Bodys
@@ -375,7 +375,7 @@ array(
     </section>
 
     <section xml:id="zend.controller.response.exceptions"><info><title>Auf Ausnahmen im Antwort Objekt testen</title></info>
-        
+
 
         <para>
             Wie vorher beschrieben werden Ausnahmen standardmäßig wärend des Dispatchens gefangen
@@ -467,7 +467,7 @@ array(
     </section>
 
     <section xml:id="zend.controller.response.subclassing"><info><title>Erben vom Antwort Objekt</title></info>
-        
+
 
         <para>
             Der Zweck des Antwort Objekts ist es Header und Inhalte von den verschiedenen Aktionen

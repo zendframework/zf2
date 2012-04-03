@@ -42,10 +42,10 @@ class Zend_Service_WindowsAzure_TableEntityQueryTest extends PHPUnit_Framework_T
         $target = new Zend_Service_WindowsAzure_Storage_TableEntityQuery();
         $target->select()
                ->from('MyTable');
-               
+
         $this->assertEquals('MyTable()', $target->__toString());
     }
-    
+
     /**
      * Test partition key query
      */
@@ -55,10 +55,10 @@ class Zend_Service_WindowsAzure_TableEntityQueryTest extends PHPUnit_Framework_T
         $target->select()
                ->from('MyTable')
                ->wherePartitionKey('test');
-               
+
         $this->assertEquals('MyTable(PartitionKey=\'test\')', $target->__toString());
     }
-    
+
     /**
      * Test row key query
      */
@@ -68,10 +68,10 @@ class Zend_Service_WindowsAzure_TableEntityQueryTest extends PHPUnit_Framework_T
         $target->select()
                ->from('MyTable')
                ->whereRowKey('test');
-               
+
         $this->assertEquals('MyTable(RowKey=\'test\')', $target->__toString());
     }
-    
+
     /**
      * Test identifier query
      */
@@ -82,10 +82,10 @@ class Zend_Service_WindowsAzure_TableEntityQueryTest extends PHPUnit_Framework_T
                ->from('MyTable')
                ->wherePartitionKey('test')
                ->whereRowKey('123');
-               
+
         $this->assertEquals('MyTable(PartitionKey=\'test\', RowKey=\'123\')', $target->__toString());
     }
-    
+
     /**
      * Test top records query
      */
@@ -95,10 +95,10 @@ class Zend_Service_WindowsAzure_TableEntityQueryTest extends PHPUnit_Framework_T
         $target->select()
                ->from('MyTable')
                ->top(10);
-               
+
         $this->assertEquals('MyTable()?$top=10', $target->__toString());
     }
-    
+
     /**
      * Test order by query
      */
@@ -108,10 +108,10 @@ class Zend_Service_WindowsAzure_TableEntityQueryTest extends PHPUnit_Framework_T
         $target->select()
                ->from('MyTable')
                ->orderBy('Name', 'asc');
-               
+
         $this->assertEquals('MyTable()?$orderby=Name asc', $target->__toString());
     }
-    
+
     /**
      * Test order by multiple query
      */
@@ -122,10 +122,10 @@ class Zend_Service_WindowsAzure_TableEntityQueryTest extends PHPUnit_Framework_T
                ->from('MyTable')
                ->orderBy('Name', 'asc')
                ->orderBy('Visible', 'desc');
-               
+
         $this->assertEquals('MyTable()?$orderby=Name asc,Visible desc', $target->__toString());
     }
-    
+
     /**
      * Test where query
      */
@@ -135,10 +135,10 @@ class Zend_Service_WindowsAzure_TableEntityQueryTest extends PHPUnit_Framework_T
         $target->select()
                ->from('MyTable')
                ->where('Name eq ?', 'Maarten');
-               
+
         $this->assertEquals('MyTable()?$filter=Name eq \'Maarten\'', $target->__toString());
     }
-    
+
     /**
      * Test where array query
      */
@@ -148,10 +148,10 @@ class Zend_Service_WindowsAzure_TableEntityQueryTest extends PHPUnit_Framework_T
         $target->select()
                ->from('MyTable')
                ->where('Name eq ? or Name eq ?', array('Maarten', 'Vijay'));
-               
+
         $this->assertEquals('MyTable()?$filter=Name eq \'Maarten\' or Name eq \'Vijay\'', $target->__toString());
     }
-    
+
     /**
      * Test where multiple query
      */
@@ -162,7 +162,7 @@ class Zend_Service_WindowsAzure_TableEntityQueryTest extends PHPUnit_Framework_T
                ->from('MyTable')
                ->where('Name eq ?', 'Maarten')
                ->andWhere('Visible eq true');
-               
+
         $this->assertEquals('MyTable()?$filter=Name eq \'Maarten\' and Visible eq true', $target->__toString());
     }
 }

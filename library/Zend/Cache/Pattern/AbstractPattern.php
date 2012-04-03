@@ -21,9 +21,9 @@
 
 namespace Zend\Cache\Pattern;
 
-use Zend\Cache\Exception,
-    Zend\Cache\Pattern,
-    Traversable;
+use Zend\Cache\Exception;
+use Zend\Cache\Pattern;
+use Traversable;
 
 /**
  * @category   Zend

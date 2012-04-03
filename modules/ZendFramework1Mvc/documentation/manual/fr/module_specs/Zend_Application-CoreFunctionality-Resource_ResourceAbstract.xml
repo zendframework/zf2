@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.resource-resourceabstract"><info><title>Zend_Application_Resource_ResourceAbstract</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_ResourceAbstract</classname> est une classe abstaite
@@ -14,7 +14,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.resource-resourceabstract.api"><info><title>Méthodes de Zend_Application_Resource_ResourceAbstract</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>
@@ -89,7 +89,7 @@
     </table>
 
     <section xml:id="zend.application.core-functionality.resource-resourceabstract.names"><info><title>Noms des resources</title></info>
-        
+
 
         <para>
             Lorque vous enregistrez des plugins de ressources, il existe alors 3 manières d'y faire

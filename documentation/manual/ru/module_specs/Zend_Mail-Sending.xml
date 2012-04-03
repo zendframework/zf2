@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.sending"><info><title>Отправка через SMTP</title></info>
-    
+
     <para>
         Если требуется отправить сообщение электронной почты через SMTP,
         то прежде чем будет вызван метод <methodname>send()</methodname>,
@@ -10,7 +10,7 @@
         в текущем скрипте будет использоваться SMTP:
     </para>
     <example xml:id="zend.mail.sending.example-1"><info><title>Отправка сообщений через SMTP</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 $tr = new Zend_Mail_Transport_Smtp('mail.example.com');
 Zend_Mail::setDefaultTransport($tr);

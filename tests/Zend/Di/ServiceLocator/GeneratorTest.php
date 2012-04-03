@@ -1,11 +1,11 @@
 <?php
 namespace ZendTest\Di\ServiceLocator;
 
-use Zend\Di\Di,
-    Zend\Di\Configuration,
-    Zend\Di\ServiceLocator\Generator as ContainerGenerator,
-    Zend\Di\Definition\BuilderDefinition as Definition,
-    Zend\Di\Definition\Builder,
+use Zend\Di\Di;
+use Zend\Di\Configuration;
+use Zend\Di\ServiceLocator\Generator as ContainerGenerator;
+use Zend\Di\Definition\BuilderDefinition as Definition;
+use Zend\Di\Definition\Builder,
     PHPUnit_Framework_TestCase as TestCase;
 
 class GeneratorTest extends TestCase
@@ -164,11 +164,11 @@ class GeneratorTest extends TestCase
         }
         $expected = array(
             'composed',
-            'ZendTest\Di\TestAsset\ComposedClass', 
+            'ZendTest\Di\TestAsset\ComposedClass',
             'inspect',
-            'ZendTest\Di\TestAsset\InspectedClass', 
+            'ZendTest\Di\TestAsset\InspectedClass',
             'struct',
-            'ZendTest\Di\TestAsset\Struct', 
+            'ZendTest\Di\TestAsset\Struct',
         );
         $this->assertEquals(count($expected), count($services), var_export($services, 1));
         foreach ($expected as $service) {
@@ -206,7 +206,7 @@ class GeneratorTest extends TestCase
         $expected = array(
             'get',
             'getZendTestDiTestAssetComposedClass',
-            'getComposed', 
+            'getComposed',
             'getZendTestDiTestAssetInspectedClass',
             'getInspect',
             'getZendTestDiTestAssetStruct',

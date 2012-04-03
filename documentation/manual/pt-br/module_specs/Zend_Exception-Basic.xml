@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.basic"><info><title>Uso básico</title></info>
-    
+
 
     <para>
         <classname>Zend_Exception</classname> é a classe base para todas as exceções
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.exception.catchall.example"><info><title>Tratando todas as exceções do Zend Framework</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 try {
@@ -21,7 +21,7 @@ try {
     </example>
 
     <example xml:id="zend.exception.catchcomponent.example"><info><title>Tratando as excepções lançadas por um componente específico do Zend Framework</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 try {

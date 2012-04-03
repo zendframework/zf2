@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.strikeiron.advanced-uses"><info><title>Zend_Service_StrikeIron: 応用編</title></info>
-    
+
 
     <para>
       このセクションでは、<classname>Zend_Service_StrikeIron</classname>
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.service.strikeiron.advanced-uses.services-by-wsdl"><info><title>WSDL によるサービスの使用</title></info>
-      
+
 
       <para>
         StrikeIron のサービスの中には <acronym>PHP</acronym> のラッパークラスが存在するものもあります。
@@ -62,7 +62,7 @@ echo $result->listingName;
     </section>
 
     <section xml:id="zend.service.strikeiron.viewing-soap-transactions"><info><title>SOAP トランザクションの表示</title></info>
-      
+
 
       <para>
         StrikeIron との通信は、すべて <acronym>SOAP</acronym> 拡張モジュールを用いて行います。

@@ -21,10 +21,10 @@
 
 namespace ZendTest\Navigation;
 
-use Zend\Navigation\AbstractPage,
-    Zend\Navigation\Page,
-    Zend\Navigation,
-    Zend\Config;
+use Zend\Navigation\AbstractPage;
+use Zend\Navigation\Page;
+use Zend\Navigation;
+use Zend\Config;
 
 /**
  * Tests the class Zend_Navigation_Page
@@ -174,12 +174,12 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'uri'                => '#',
             'fragment' => 'foo',
         ));
-        
+
         $this->assertEquals('foo', $page->getFragment());
-        
+
         $page->setFragment('bar');
         $this->assertEquals('bar', $page->getFragment());
-        
+
         $invalids = array(42, (object) null);
         foreach ($invalids as $invalid) {
             try {
@@ -718,7 +718,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
 
         /**
          * ZF-10146
-         * 
+         *
          * @link http://framework.zend.com/issues/browse/ZF-10146
          */
         $page->setVisible('False');

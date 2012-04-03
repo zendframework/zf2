@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.clientlogin"><info><title>Authentifizieren mit ClientLogin</title></info>
-    
+
 
     <para>
         Der ClientLogin Mechanismus erlaubt es <acronym>PHP</acronym> Anwendungen zu schreiben die
@@ -29,7 +29,7 @@
     </para>
 
     <section xml:id="zend.gdata.clientlogin.login"><info><title>Erstellen eines ClientLogin autentifizierten Http Clienten</title></info>
-        
+
 
         <para>
             Der Prozess der Erstellung eines autentifizierten <acronym>HTTP</acronym> Clients durch
@@ -98,7 +98,7 @@ $cal = new Zend_Gdata_Calendar($client);
     </section>
 
     <section xml:id="zend.gdata.clientlogin.terminating"><info><title>Den über ClientLogin authentifizierten Http Client beenden</title></info>
-        
+
 
         <para>
             Es gibt keine Methode um ClientLogin Authentifizierungen zu verwerfen da es eine AuthSub

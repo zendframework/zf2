@@ -21,11 +21,11 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Decorator\FormDecorator,
-    Zend\Form\DisplayGroup,
-    Zend\Form\Form,
-    Zend\Loader\PrefixPathLoader,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Decorator\FormDecorator;
+use Zend\Form\DisplayGroup;
+use Zend\Form\Form;
+use Zend\Loader\PrefixPathLoader;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Decorator_Form

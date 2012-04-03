@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.queue.custom"><info><title>Zend_Queueのカスタマイズ</title></info>
-    
+
 
     <section xml:id="zend.queue.custom.adapter"><info><title>独自のアダプタ作成</title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname>は、
@@ -79,7 +79,7 @@ $queue = new Zend_Queue('DbForUpdate', $config); // Custom_DbForUpdate をロー
     </section>
 
     <section xml:id="zend.queue.custom.message"><info><title>独自のメッセージクラスを作成</title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname>は、独自のメッセージクラスも扱います。
@@ -101,7 +101,7 @@ class Zend_Queue_Message
     </section>
 
     <section xml:id="zend.queue.custom-iterator"><info><title>独自のメッセージ・イテレータクラスを作成</title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname>は、独自のメッセージ・イテレータ・クラスも扱います。
@@ -118,7 +118,7 @@ class Zend_Queue_Message
     </section>
 
     <section xml:id="zend.queue.custom.queue"><info><title>独自の待ち行列クラスを作成</title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname>は上書きすることも簡単にできます。

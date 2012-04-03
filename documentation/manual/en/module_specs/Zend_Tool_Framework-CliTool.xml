@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.clitool"><info><title>Using the CLI Tool</title></info>
-    
+
 
     <para>
         The <acronym>CLI</acronym>, or command line tool (internally known as the console tool),
@@ -13,7 +13,7 @@
     </para>
 
     <section xml:id="zend.tool.framework.clitool.setup-general"><info><title>Setting up the CLI tool</title></info>
-        
+
 
         <para>
             To issue tooling requests via the command line client, you first
@@ -72,7 +72,7 @@
     </section>
 
     <section xml:id="zend.tool.framework.clitool.setup-starnix"><info><title>Setting up the CLI tool on Unix-like Systems</title></info>
-        
+
 
         <para>
             The most common setup in the *nix environment, is to copy the
@@ -159,7 +159,7 @@ ln -s /home/username/lib/ZendFramework/bin/zf.sh /home/username/bin/zf
     </section>
 
     <section xml:id="zend.tool.framework.clitool.setup-windows"><info><title>Setting up the CLI tool on Windows</title></info>
-        
+
 
         <para>
             The most common setup in the Windows Win32 environment, is to copy
@@ -231,7 +231,7 @@ C:\WAMP\PHP\bin
     </section>
 
     <section xml:id="zend.tool.framework.clitool.setup-othernotes"><info><title>Other Setup Considerations</title></info>
-        
+
 
         <para>
             If for some reason you do not want Zend Framework library inside
@@ -258,7 +258,7 @@ C:\WAMP\PHP\bin
     </section>
 
     <section xml:id="zend.tool.framework.clitool.continuing"><info><title>Where To Go Next?</title></info>
-        
+
 
         <para>
             At this point, you should be set up to start initiating some more

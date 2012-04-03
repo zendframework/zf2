@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.i18n"><info><title> Zend_Form 的国际化 </title></info>
-    
+
 
     <para>
         开发者日益需要制作网站内容支持多种语言和地区。Zend_Form 把这样的任务变得简单并利用 <link linkend="zend.translator">Zend_Translator</link> 和 <link linkend="zend.validate">Zend_Validate</link> 来完成。
@@ -11,7 +11,7 @@
     </para>
 
     <note><info><title> 可以对每个元素关闭翻译 </title></info>
-        
+
 
         <para>
             你可以通过调用 <code>setDisableTranslator($flag)</code> 方法或传递 <code>disableTranslator</code> 选项给对象来对任何表单、元素、显示组或子表单关闭翻译。当你想有选择地对独立的元素或一组元素关闭翻译，这个很有用。
@@ -19,7 +19,7 @@
     </note>
 
     <section xml:id="zend.form.i18n.initialization"><info><title> 在表单中初始化 I18n </title></info>
-        
+
 
         <para>
             要在表单中初始化 I18n，你需要或者 <code>Zend_Translator</code> 对象或者 <code>Zend_Translator_Adapter</code> 对象，详细请见 <code>Zend_Translator</code> 文档。一旦你有一个翻译对象，你将有若干选项：
@@ -83,7 +83,7 @@ $element->setTranslator($translate);
     </section>
 
     <section xml:id="zend.form.i18n.standard"><info><title> 标准 I18n 目标 </title></info>
-        
+
 
         <para>
             既然你已经附加了翻译对象，那么到底什么是缺省翻译？

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.advanced"><info><title>Advanced Usage of Zend_Json</title></info>
-    
+
 
     <section xml:id="zend.json.advanced.objects1"><info><title>JSON Objects</title></info>
-        
+
 
         <para>
             When encoding <acronym>PHP</acronym> objects as <acronym>JSON</acronym>, all public
@@ -53,7 +53,7 @@ $phpNative = Zend_Json::decode($encodedValue, Zend_Json::TYPE_OBJECT);
     </section>
 
     <section xml:id="zend.json.advanced.objects2"><info><title>Encoding PHP objects</title></info>
-        
+
 
         <para>
             If you are encoding <acronym>PHP</acronym> objects by default the encoding mechanism
@@ -65,7 +65,7 @@ $phpNative = Zend_Json::decode($encodedValue, Zend_Json::TYPE_OBJECT);
     </section>
 
     <section xml:id="zend.json.advanced.internal"><info><title>Internal Encoder/Decoder</title></info>
-        
+
 
         <para>
             <classname>Zend_Json</classname> has two different modes depending if ext/json is
@@ -88,7 +88,7 @@ Zend_Json::$useBuiltinEncoderDecoder = true:
     </section>
 
     <section xml:id="zend.json.advanced.expr"><info><title>JSON Expressions</title></info>
-        
+
 
         <para>
             Javascript makes heavy use of anonymnous function callbacks, which can be saved

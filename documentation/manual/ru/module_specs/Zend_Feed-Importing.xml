@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.importing"><info><title>Импортирование лент с помощью Zend_Feed</title></info>
-    
+
     <para>
         <code>Zend_Feed</code> позволяет легко получать ленты.
         Если вам известен URI ленты, то просто используйте метод
@@ -39,7 +39,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
 
     <section xml:id="zend.feed.importing.custom"><info><title>Создание собственных лент</title></info>
 
-        
+
 
         <para>
             <code>Zend_Feed</code> позволяет разработчикам легко создавать
@@ -54,7 +54,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
 
         <section xml:id="zend.feed.importing.custom.importarray"><info><title>Импортирование массива</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 // Импортирование ленты из массива
@@ -216,7 +216,7 @@ array(
 
         <section xml:id="zend.feed.importing.custom.importbuilder"><info><title>Импортирование из специального источника данных</title></info>
 
-            
+
 
             <para>
                 Вы можете создать экземпляр Zeed_Feed из любого источника
@@ -269,7 +269,7 @@ $rssFeedFromArray =
 
         <section xml:id="zend.feed.importing.custom.dump"><info><title>Дапм содержимого ленты</title></info>
 
-            
+
 
             <para>
                 Для того, чтобы произвести дамп экземпляра

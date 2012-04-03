@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.standard"><info><title>Zend_Controller_Router_Route</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Router_Route</classname>
@@ -60,7 +60,7 @@ $router->addRoute('user', $route);
     </para>
 
     <note><info><title>Uso de Caracteres</title></info>
-        
+
         <para>
             La implementación actual le permite utilizar cualquier carácter
             (salvo una barra) como un
@@ -148,7 +148,7 @@ $router->addRoute('default', $route);
 ]]></programlisting>
 
     <section xml:id="zend.controller.router.routes.standard.variable-defaults"><info><title>Variables por Defecto</title></info>
-        
+
 
         <para>
             Cada variable en la ruta puede tener una valor por defecto y para
@@ -220,7 +220,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.variable-requirements"><info><title>Requerimientos para Variables</title></info>
-        
+
 
         <para>
             Podemos agregar un tercer parámetro al constructor
@@ -260,7 +260,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.translated-segments"><info><title>Segmentos Traducidos</title></info>
-        
+
 
         <para>
             El standard de ruta brinda apoyo a la traducción de segmentos.
@@ -349,7 +349,7 @@ $router->addRoute('archive', $route);
         </para>
 
         <note><info><title>IDs de Mensajes y Archivos de Lenguajes Separados</title></info>
-            
+
             <para>
                 Ocasionalmente un ID de mensaje que quiere usar en una de sus
                 rutas ya se utiliza en

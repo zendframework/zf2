@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.pubsubhubbub.introduction"><info><title>Zend_Feed_Pubsubhubbub</title></info>
-    
+
 
     <para>
         <classname>Zend_Feed_Pubsubhubbub</classname> ist eine Implementation der PubSubHubbub Core
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.feed.pubsubhubbub.what.is.pubsubhubbub"><info><title>Was ist Pubsubhubbub?</title></info>
-        
+
 
         <para>
             Pubsubhubbub ist ein offenes, einfaches Web-skalierbares Pubsub Protokoll. Der normale
@@ -54,7 +54,7 @@
     </section>
 
     <section xml:id="zend.feed.pubsubhubbub.architecture"><info><title>Architektur</title></info>
-        
+
 
         <para>
             <classname>Zend_Feed_Pubsubhubbub</classname> implementiert zwei Seiten der Pubsubhubbub
@@ -102,7 +102,7 @@
     </section>
 
     <section xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.publisher"><info><title>Zend_Feed_Pubsubhubbub_Publisher</title></info>
-        
+
 
         <para>
             In Pubsubhubbub ist der Publizist der Teilnehmer welcher einen lebenden Feed
@@ -200,7 +200,7 @@ if (!$publisher->isSuccess()) {
     </section>
 
     <section xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.subscriber"><info><title>Zend_Feed_Pubsubhubbub_Subscriber</title></info>
-        
+
 
         <para>
             In Pubsubhubbub ist der Abonnent ein Teilnehmer welcher Aktualisierungen zu irgendeinem
@@ -251,7 +251,7 @@ if (!$publisher->isSuccess()) {
         </important>
 
         <section xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.subscriber.subscribing.and.unsubscribing"><info><title>Abonnieren und Abos löschen</title></info>
-            
+
 
             <para>
                 <classname>Zend_Feed_Pubsubhubbub_Subscriber</classname> implementiert einen
@@ -342,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `subscription` (
             </para>
 
             <table xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.subscriber.subscribing.and.unsubscribing.table"><info><title>Anfrageparameter beim Abonnieren</title></info>
-                
+
 
                 <tgroup cols="3">
                     <thead>
@@ -535,7 +535,7 @@ CREATE TABLE IF NOT EXISTS `subscription` (
         </section>
 
         <section xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.subscriber.handling.hub.callbacks"><info><title>Callbacks von Abonnenten behandeln</title></info>
-            
+
 
             <para>
                 Wann auch immer eine Aboanfrage oder eine Anfrage auf Löschen eines Abos gemacht
@@ -613,7 +613,7 @@ if ($callback->hasFeedUpdate()) {
         </section>
 
         <section xml:id="zend.feed.pubsubhubbub.zend.feed.pubsubhubbub.subscriber.setting.up.and.using.a.callback.url.route"><info><title>Eine Callback URL Route einstellen und verwenden</title></info>
-            
+
 
             <para>
                 Wie vorher erwähnt empfängt die Klasse

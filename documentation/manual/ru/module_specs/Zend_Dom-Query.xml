@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dom.query"><info><title>Zend_Dom_Query</title></info>
-    
+
 
     <para>
         <code>Zend_Dom_Query</code> предоставляет механизмы для запросов к
@@ -26,7 +26,7 @@
     </para>
 
     <section xml:id="zend.dom.query.operation"><info><title>Теория работы</title></info>
-        
+
 
         <para>
             Для того, чтобы использовать <code>Zend_Dom_Query</code>,
@@ -173,7 +173,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.dom.query.methods"><info><title>Доступные методы</title></info>
-        
+
 
         <para>
             Семейство классов <code>Zend_Dom_Query</code> имеет следующие
@@ -181,7 +181,7 @@ foreach ($results as $result) {
         </para>
 
         <section xml:id="zend.dom.query.methods.zenddomquery"><info><title>Zend_Dom_Query</title></info>
-            
+
 
             <para>
                 В классе <code>Zend_Dom_Query</code> доступны следующие методы:
@@ -239,7 +239,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.dom.query.methods.zenddomqueryresult"><info><title>Zend_Dom_Query_Result</title></info>
-            
+
 
             <para>
                 Как было упомянуто ранее, <code>Zend_Dom_Query_Result</code>

@@ -21,8 +21,8 @@
 
 namespace Zend\Config\Reader;
 
-use Zend\Config\Reader,
-    Zend\Config\Exception;
+use Zend\Config\Reader;
+use Zend\Config\Exception;
 
 /**
  * XML config reader.
@@ -95,7 +95,7 @@ class Ini implements Reader
         );
         $ini = parse_ini_file($filename, true);
         restore_error_handler();
-        
+
         return $this->process($ini);
     }
 
@@ -123,7 +123,7 @@ class Ini implements Reader
         );
         $ini = parse_ini_string($string, true);
         restore_error_handler();
-        
+
         return $this->process($ini);
     }
 

@@ -21,10 +21,10 @@
 
 namespace ZendTest\Application\Module;
 
-use Zend\Application\Module\Bootstrap as ModuleBootstrap,
-    Zend\Loader\ResourceAutoloader,
-    Zend\Application\Application,
-    Zend\Controller\Front as FrontController,
+use Zend\Application\Module\Bootstrap as ModuleBootstrap;
+use Zend\Loader\ResourceAutoloader;
+use Zend\Application\Application;
+use Zend\Controller\Front as FrontController,
     ZendTest\Application\TestAsset\ZfModule_Bootstrap;
 
 require_once __DIR__ . '/../TestAsset/ZfModuleBootstrap.php';

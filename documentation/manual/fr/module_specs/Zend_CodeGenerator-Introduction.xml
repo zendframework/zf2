@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.codegenerator.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_CodeGenerator</classname> est un outils permettant de générer du code
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.codegenerator.introduction.theory"><info><title>Théorie</title></info>
-        
+
 
         <para>
             Dans la plupart des cas, vous créerez une instance du générateur de code, et vous

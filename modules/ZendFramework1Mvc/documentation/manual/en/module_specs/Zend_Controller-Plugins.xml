@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins"><info><title>Plugins</title></info>
-    
+
 
     <section xml:id="zend.controller.plugins.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             The controller architecture includes a plugin system that allows
@@ -77,7 +77,7 @@
     </section>
 
     <section xml:id="zend.controller.plugins.writing"><info><title>Writing Plugins</title></info>
-        
+
 
         <para>
             In order to write a plugin class, simply include and extend the
@@ -108,7 +108,7 @@ class MyPlugin extends Zend_Controller_Plugin_Abstract
     </section>
 
     <section xml:id="zend.controller.plugins.using"><info><title>Using Plugins</title></info>
-        
+
 
         <para>
             Plugin classes are registered with
@@ -191,7 +191,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.manipulating"><info><title>Retrieving and Manipulating Plugins</title></info>
-        
+
 
         <para>
             On occasion, you may need to unregister or retrieve a plugin. The
@@ -227,7 +227,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.standard"><info><title>Plugins Included in the Standard Distribution</title></info>
-        
+
 
         <para>
             Zend Framework includes a plugin for error handling in its standard

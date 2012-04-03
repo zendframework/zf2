@@ -21,9 +21,9 @@
 
 namespace ZendTest\Validator;
 
-use ReflectionClass,
-    Zend\Registry,
-    Zend\Validator;
+use ReflectionClass;
+use Zend\Registry;
+use Zend\Validator;
 
 /**
  * @category   Zend
@@ -92,16 +92,16 @@ class IbanTest extends \PHPUnit_Framework_TestCase
         $validator = new Validator\Iban(false);
         $this->assertTrue($validator->isValid('AT611904300234573201'));
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = new Validator\Iban();
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -110,16 +110,16 @@ class IbanTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = new Validator\Iban();
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

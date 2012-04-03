@@ -20,11 +20,11 @@
 
 namespace Zend\Validator\File;
 
-use Traversable,
-    Zend\Loader,
-    Zend\Stdlib\ArrayUtils,
-    Zend\Validator\AbstractValidator,
-    Zend\Validator\Exception;
+use Traversable;
+use Zend\Loader;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Validator\AbstractValidator;
+use Zend\Validator\Exception;
 
 /**
  * Validator for the mime type of a file
@@ -135,7 +135,7 @@ class MimeType extends AbstractValidator
             unset($options['mimeType']);
         }
 
-        // Handle cases where mimetypes are interspersed with options, or 
+        // Handle cases where mimetypes are interspersed with options, or
         // options are simply an array of mime types
         foreach (array_keys($options) as $key) {
             if (!is_int($key)) {
@@ -423,7 +423,7 @@ class MimeType extends AbstractValidator
                 if(array_key_exists('name', $file)) {
                     $file = $file['name'];
                 }
-            } 
+            }
 
             if (is_string($file)) {
                 $this->value = basename($file);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.quick-start"><info><title>Zend_Application démarrage rapide</title></info>
-    
+
 
     <para>
         Il existe deux manières d'aborder
@@ -17,7 +17,7 @@
     </para>
 
     <section xml:id="zend.application.quick-start.zend-tool"><info><title>Utiliser Zend_Tool</title></info>
-        
+
 
         <para>
             La manière la plus rapide d'utiliser <classname>Zend_Application</classname> est
@@ -154,7 +154,7 @@ $application->bootstrap()
     </section>
 
     <section xml:id="zend.application.quick-start.manual"><info><title>Ajouter Zend_Application à votre existant</title></info>
-        
+
 
         <para>
             Les bases de <classname>Zend_Application</classname> sont très simples :
@@ -273,7 +273,7 @@ RewriteRule ^.*$ index.php [NC,L]
 ]]></programlisting>
 
         <note><info><title>Apprenez mod_rewrite</title></info>
-            
+
 
             <para>
                 Les règles de réécriture ci-dessus autorisent l'accès à tout fichier existant
@@ -290,7 +290,7 @@ RewriteRule ^.*$ index.php [NC,L]
     </section>
 
     <section xml:id="zend.application.quick-start.resources"><info><title>Ajouter et créer des ressources</title></info>
-        
+
 
         <para>
             Si vous avez suivi les instructions jusqu'à maintenant, alors votre classe de
@@ -399,7 +399,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="zend.application.quick-start.next-steps"><info><title>Aller plus loin avec Zend_Application</title></info>
-        
+
 
         <para>
             Nous vennons de voir comment configurer de manière basique

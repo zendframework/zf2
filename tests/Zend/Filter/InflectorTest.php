@@ -21,10 +21,10 @@
 
 namespace ZendTest\Filter;
 
-use Zend\Filter\Inflector as InflectorFilter,
-    Zend\Filter\FilterBroker,
-    Zend\Loader\Broker,
-    Zend\Loader\PluginBroker;
+use Zend\Filter\Inflector as InflectorFilter;
+use Zend\Filter\FilterBroker;
+use Zend\Loader\Broker;
+use Zend\Loader\PluginBroker;
 
 /**
  * Test class for Zend_Filter_Inflector.

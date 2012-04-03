@@ -2,8 +2,8 @@
 
 namespace ZendTest\View\TestAsset;
 
-use Zend\View\Renderer,
-    Zend\View\Helper;
+use Zend\View\Renderer;
+use Zend\View\Helper;
 
 class Uninvokable implements Helper
 {

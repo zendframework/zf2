@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.advanced"><info><title>Zend_Layout 高级用法</title></info>
-    
+
 
     <para>
         <code>Zend_Layout</code> 有无数用例提供给愿意修改它以适应不同的视图实现、文件系统布局及更多的高级开发者。
@@ -29,7 +29,7 @@
     </itemizedlist>
 
     <section xml:id="zend.layout.advanced.view"><info><title>定制视图对象</title></info>
-        
+
 
         <para>
             <code>Zend_Layout</code> 允许任何实现 <code>Zend_View_Interface</code> 的类或者扩展 <code>Zend_View_Abstract</code> 来解析布局脚本。简单地把定制的视图对象当作参数传递给 constructor/<code>startMvc()</code>，或者用<code>setView()</code> 访问器来设置它：
@@ -41,7 +41,7 @@ $layout->setView($view);
 ?>]]></programlisting>
 
         <note><info><title>不是所有的 Zend_View 实现都等同</title></info>
-            
+
 
             <para>
                 虽然<code>Zend_Layout</code>允许使用任何实现<code>Zend_View_Interface</code>的类，如果它们不能使用各种<code>Zend_View</code>助手，也可能遇到问题，特别是布局和<link linkend="zend.view.helpers.initial.placeholder">占位符</link>助手。这是因为<code>Zend_Layout</code>通过它自己和<link linkend="zend.view.helpers.initial.placeholder">占位符</link>在可用的对象里设置变量。
@@ -63,7 +63,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.plugin"><info><title>定制前端控制器插件</title></info>
-        
+
 
         <para>
             当和MVC组件一起使用，<code>Zend_Layout</code>注册一个前端控制器插件，这个插件把解析布局做为在退出派遣循环之前的最后一个动作。在大多数情况下，缺省的插件适用，但如果你象写你自己的，可以通过传递<code>pluginClass</code>选项给<code>startMvc()</code>方法来指定插件类的名称去加载。
@@ -79,7 +79,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.helper"><info><title>定制动作助手</title></info>
-        
+
 
         <para>
             当和MVC组件一起使用，<code>Zend_Layout</code>用助手经纪注册一个动作控制器助手。缺省助手，<code>Zend_Layout_Controller_Action_Helper_Layout</code>，扮作一个哑代理给布局对象实例自己，并应该适合大多数用例。
@@ -91,7 +91,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.inflector"><info><title>定制布局脚本路径解析（Resolution）：使用变形器（Inflector）</title></info>
-        
+
 
         <para>
             为翻译布局名到布局脚本路径，<code>Zend_Layout</code> 用 <code>Zend_Filter_Inflector</code>来建立一个过滤链。缺省地，它遵循'StringToLower'（字符变小写）来使用规则'CamelCaseToDash'（驼峰变短横线）和加后缀'phtml'来转换名字到路径。如下几个例子所示：
@@ -112,7 +112,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
         </para>
 
         <example xml:id="zend.layout.advanced.inflector.accessors"><info><title>使用Zend_Layout访问器来修改变形器(inflector)</title></info>
-            
+
 
             <para>
                 缺省的<code>Zend_Layout</code>变形器对目标和脚本后缀使用静态地址(references)，并拥有访问器来设置这些值。
@@ -128,7 +128,7 @@ $layout->setViewSuffix('php');
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.directmodification"><info><title>Zend_Layout 变形器的直接修改 </title></info>
-            
+
 
             <para>
                 变形器有目标和一个或多个规则。缺省目标和<code>Zend_Layout</code>一起使用是':script.:suffix'；':script'是被传递的已注册的布局名称，':suffix'是变形器的静态规则。
@@ -146,7 +146,7 @@ $layout->getInflector()->setTarget('layouts/:script.:suffix')
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.custom"><info><title>定制变形器（inflectors）</title></info>
-            
+
 
             <para>
                 在大多数情况下，修改已存在的变形器已经足够。然而，你可能想有一个在多个地方使用的变形器，并带有不同的对象和类型。<code>Zend_Layout</code>支持它。
@@ -163,7 +163,7 @@ $layout->setInflector($inflector);
         </example>
 
         <note><info><title>变形（Inflection）可以被禁止 </title></info>
-            
+
 
             <para>
                 在<code>Zend_Layout</code>对象种用访问器可以禁止和允许变形。这对想指定绝对路径给布局视图脚本来说很有用，或者知道指定布局脚本不需要变形的机制，简单地使用<code>enableInflection()</code> 和 <code>disableInflection()</code> 方法。

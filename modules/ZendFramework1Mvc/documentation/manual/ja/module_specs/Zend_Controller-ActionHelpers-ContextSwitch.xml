@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.contextswitch"><info><title>ContextSwitch および AjaxContext</title></info>
-    
+
 
     <para>
         <emphasis>ContextSwitch</emphasis> アクションヘルパーは、
@@ -139,7 +139,7 @@ class NewsController extends Zend_Controller_Action
     </para>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.contexts"><info><title>デフォルトで使用できるコンテキスト</title></info>
-        
+
 
         <para>
             <emphasis>ContextSwitch</emphasis> ヘルパーで
@@ -181,7 +181,7 @@ $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.custom"><info><title>独自のコンテキストの作成</title></info>
-        
+
 
         <para>
             デフォルトのコンテキストだけでは対応しきれないこともあるでしょう。
@@ -291,7 +291,7 @@ $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.actions"><info><title>アクションごとのコンテキストの設定</title></info>
-        
+
 
         <para>
             使用するコンテキストの設定には 2 通りの方法があります。
@@ -449,7 +449,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.initcontext"><info><title>コンテキストスイッチの初期化</title></info>
-        
+
 
         <para>
             コンテキストスイッチを初期化するには、アクションコントローラで
@@ -480,7 +480,7 @@ $contextSwitch->initContext('xml');
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.misc"><info><title>追加機能</title></info>
-        
+
 
         <para>
             さまざまなメソッドを使用することで、
@@ -695,7 +695,7 @@ $contextSwitch->initContext();
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.ajaxcontext"><info><title>AjaxContext の機能</title></info>
-        
+
 
         <para>
             <emphasis>AjaxContext</emphasis> ヘルパーは
@@ -728,7 +728,7 @@ $contextSwitch->initContext();
         </para>
 
         <example xml:id="zend.controller.actionhelpers.contextswitch.ajaxcontext.example"><info><title>Ajax リクエストに対してアクションに応答させる</title></info>
-            
+
 
             <para>
                 この例では、アクション 'view'、'form' および 'process'

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.standardDecorators"><info><title>Décorateurs standards fournis avec Zend Framework</title></info>
-    
+
 
     <para>
         <classname>Zend_Form</classname> est livré avec plusieurs décorateurs standards. Pour
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.form.standardDecorators.callback"><info><title><classname>Zend_Form_Decorator_Callback</classname></title></info>
-        
+
 
         <para>
             Le décorateur Callback peut exécuter une fonction de rappel pour rendre du
@@ -44,7 +44,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.captcha"><info><title><classname>Zend_Form_Decorator_Captcha</classname></title></info>
-        
+
 
         <para>
             Le décorateur Captcha est à utiliser avec <link linkend="zend.form.standardElements.captcha">l'élément de formulaire CAPTCHA</link>. Il
@@ -61,7 +61,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.description"><info><title><classname>Zend_Form_Decorator_Description</classname></title></info>
-        
+
 
         <para>
             Le décorateur Description peut être utilisé pour afficher la description affectée
@@ -87,7 +87,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.dtDdWrapper"><info><title><classname>Zend_Form_Decorator_DtDdWrapper</classname></title></info>
-        
+
 
         <para>
             Les décorateurs par défaut utilisent des listes de définition
@@ -114,7 +114,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.errors"><info><title><classname>Zend_Form_Decorator_Errors</classname></title></info>
-        
+
 
         <para>
             Les erreurs des éléments possèdent leur propre décorateur : 'Errors'. Celui-ci
@@ -126,7 +126,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.fieldset"><info><title><classname>Zend_Form_Decorator_Fieldset</classname></title></info>
-        
+
 
         <para>
             Les groupes d'affichage et les sous-formulaires rendent leur contenu dans des
@@ -139,7 +139,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.file"><info><title><classname>Zend_Form_Decorator_File</classname></title></info>
-        
+
 
         <para>
             Les éléments de type "File" (upload de fichiers) ont une notation spéciale lorsque
@@ -151,7 +151,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.form"><info><title><classname>Zend_Form_Decorator_Form</classname></title></info>
-        
+
 
         <para>
             Les objets <classname>Zend_Form</classname> ont en général besoin de rendre une
@@ -163,7 +163,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.formElements"><info><title><classname>Zend_Form_Decorator_FormElements</classname></title></info>
-        
+
 
         <para>
             Les formulaires, groupes d'affichage et sous-formulaires sont des collections
@@ -174,7 +174,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.formErrors"><info><title><classname>Zend_Form_Decorator_FormErrors</classname></title></info>
-        
+
 
         <para>
             Certains développeurs ou designers préfèrent regrouper tous les messages d'erreur
@@ -261,7 +261,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.htmlTag"><info><title><classname>Zend_Form_Decorator_HtmlTag</classname></title></info>
-        
+
 
         <para>
             Le décorateur HtmlTag vous permet d'utiliser une balise HTML pour décorer votre
@@ -273,7 +273,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.image"><info><title><classname>Zend_Form_Decorator_Image</classname></title></info>
-        
+
 
         <para>
             Le décorateur Image vous permet de créer un tag HTML d'image (<code>&lt;input
@@ -296,7 +296,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.label"><info><title><classname>Zend_Form_Decorator_Label</classname></title></info>
-        
+
 
         <para>
             Les éléments de formulaire possèdent en général un label, et le décorateur du même
@@ -362,7 +362,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.prepareElements"><info><title><classname>Zend_Form_Decorator_PrepareElements</classname></title></info>
-        
+
 
         <para>
             Les formulaires, les groupes d'affichage et les sous-formulaires sont des
@@ -382,7 +382,7 @@ $form->setDecorators(array(
     </section>
 
     <section xml:id="zend.form.standardDecorators.viewHelper"><info><title><classname>Zend_Form_Decorator_ViewHelper</classname></title></info>
-        
+
 
         <para>
             Beaucoup d'éléments utilisent les aides de <classname>Zend_View</classname> pour
@@ -403,7 +403,7 @@ $form->setDecorators(array(
     </section>
 
     <section xml:id="zend.form.standardDecorators.viewScript"><info><title><classname>Zend_Form_Decorator_ViewScript</classname></title></info>
-        
+
 
         <para>
             Quelques fois, vous pouvez avoir besoin d'un script de vue pour afficher vos
@@ -474,7 +474,7 @@ $element->setDecorators(array(array('ViewScript',
 ]]></programlisting>
 
         <note><info><title>Remplacer le contenu avec un script de vue</title></info>
-            
+
 
             <para>
                 Le contenu n'est pas remplacé par défaut, vous pouvez le demander en

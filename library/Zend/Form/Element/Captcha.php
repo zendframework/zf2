@@ -21,10 +21,10 @@
 
 namespace Zend\Form\Element;
 
-use ReflectionClass,
-    Zend\Captcha\Adapter as CaptchaAdapter,
-    Zend\View\Renderer as View,
-    Zend\Loader\PrefixPathLoader as PluginLoader;
+use ReflectionClass;
+use Zend\Captcha\Adapter as CaptchaAdapter;
+use Zend\View\Renderer as View;
+use Zend\Loader\PrefixPathLoader as PluginLoader;
 
 /**
  * Generic captcha element

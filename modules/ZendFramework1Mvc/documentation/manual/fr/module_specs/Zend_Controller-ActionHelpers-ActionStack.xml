@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.actionstack"><info><title>ActionStack</title></info>
-    
+
 
     <para>
         L'aide <emphasis>ActionStack</emphasis> vous permet d'empiler les requêtes dans le plugin de
@@ -12,7 +12,7 @@
     </para>
 
     <note><info><title>Invoquer l'aide ActionStack initialise le plugin ActionStack</title></info>
-        
+
         <para>
             L'appel de l'aide <emphasis>ActionStack</emphasis> enregistre implicitement le plugin
             <emphasis>ActionStack</emphasis> - ce qui veut dire que vous n'avez pas besoin
@@ -22,7 +22,7 @@
     </note>
 
     <example xml:id="zend.controller.actionhelpers.actionstack.simple"><info><title>Ajouter une tâche en utilisant une action, un contrôleur et un module</title></info>
-        
+
 
         <para>
             Souvent, il est plus simple de spécifier l'action, le contrôleur et le module (et
@@ -53,7 +53,7 @@ class FooController extends Zend_Controller_Action
     </example>
 
     <example xml:id="zend.controller.actionhelpers.actionstack.simple2"><info><title>Ajouter une tâche en utilisant un objet de requête</title></info>
-        
+
 
         <para>
             Parfois la nature <acronym>OO</acronym> d'un objet de requête a plus de sens ;

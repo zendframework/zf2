@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="doc-standard"><info><title>Zend Framework ドキュメント標準</title></info>
-    
+
 
     <section xml:id="doc-standard.overview"><info><title>概要</title></info>
-        
+
 
         <section xml:id="doc-standard.overview.scope"><info><title>スコープ</title></info>
-            
+
 
             <para>
                 <!-- TODO : to be translated -->
@@ -34,10 +34,10 @@
     </section>
 
     <section xml:id="doc-standard.file-formatting"><info><title>ドキュメントファイル形式</title></info>
-        
+
 
         <section xml:id="doc-standard.file-formatting.xml-tags"><info><title>XML タグ</title></info>
-            
+
 
             <para>
                 Each manual file must include the following <acronym>XML</acronym> declarations at
@@ -63,7 +63,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.max-line-length"><info><title>行の最大長</title></info>
-            
+
 
             <para>
                 The maximum line length, including tags, attributes, and indentation, is not to
@@ -73,7 +73,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.indentation"><info><title>インデント</title></info>
-            
+
 
             <para>Indentation should consist of 4 spaces. Tabs are not allowed.</para>
 
@@ -117,7 +117,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.line-termination"><info><title>行の終端</title></info>
-            
+
 
             <para>
                 Line termination follows the Unix text file convention. Lines must end with a
@@ -133,7 +133,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.empty-tags"><info><title>空のタグ</title></info>
-            
+
 
             <para>
                 空のタグは認められません。タグは全てテキストまたは子供タグを含まなければいけません。
@@ -151,10 +151,10 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.whitespace"><info><title>ドキュメント内での空白の利用</title></info>
-            
+
 
             <section xml:id="doc-standard.file-formatting.whitespace.trailing"><info><title>タグ内での空白</title></info>
-                
+
 
                 <para>
                     <!-- TODO : to be translated -->
@@ -209,7 +209,7 @@ This is the class <classname>Zend_Class</classname>
             </section>
 
             <section xml:id="doc-standard.file-formatting.whitespace.multiple-line-breaks"><info><title>複数行の切断</title></info>
-                
+
 
                 <para>
                     複数行内での、またはタグの間での切断は認められません。
@@ -241,7 +241,7 @@ This is the class <classname>Zend_Class</classname>
             </section>
 
             <section xml:id="doc-standard.file-formatting.whitespace.tag-separation"><info><title>タグの間の分離</title></info>
-                
+
 
                 <para>
                     読みやすくするために、同じレベルのタグは空行で分離しなければいけません。
@@ -304,7 +304,7 @@ This is the class <classname>Zend_Class</classname>
         </section>
 
         <section xml:id="doc-standard.file-formatting.program-listing"><info><title>プログラム・リスティング</title></info>
-            
+
 
             <para>
                 The opening <emphasis>&lt;programlisting&gt;</emphasis> tag must indicate the
@@ -416,7 +416,7 @@ $render = "xxx";
             </para>
 
             <note><info><title>ショートタグを決して使わないで下さい</title></info>
-                
+
 
                 <para>
                     Short tags (e.g., "&lt;?", "&lt;?=") should never be used within
@@ -426,10 +426,10 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.file-formatting.inline-tags"><info><title>特殊なインラインタグの注意</title></info>
-            
+
 
             <section xml:id="doc-standard.file-formatting.inline-tags.classname"><info><title>classname</title></info>
-                
+
 
                 <para>
                     The tag <emphasis>&lt;classname&gt;</emphasis> must be used each time a class
@@ -446,7 +446,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.varname"><info><title>varname</title></info>
-                
+
 
                 <para>
                     Variables must be wrapped in the <emphasis>&lt;varname&gt;</emphasis> tag.
@@ -463,7 +463,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.methodname"><info><title>methodname</title></info>
-                
+
 
                 <para>
                     Methods must be wrapped in the <emphasis>&lt;methodname&gt;</emphasis> tag.
@@ -482,7 +482,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.constant"><info><title>constant</title></info>
-                
+
 
                 <para>
                     Use the <emphasis>&lt;constant&gt;</emphasis> tag when denoting constants.
@@ -500,7 +500,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.filename"><info><title>filename</title></info>
-                
+
 
                 <para>
                     Filenames and paths must be wrapped in the
@@ -516,7 +516,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.command"><info><title>command</title></info>
-                
+
 
                 <para>
                     Commands, shell scripts, and program calls must be wrapped in the
@@ -532,7 +532,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.code"><info><title>code</title></info>
-                
+
 
                 <para>
                     Usage of the <emphasis>&lt;code&gt;</emphasis> tag is discouraged, in favor of
@@ -542,10 +542,10 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.file-formatting.block-tags"><info><title>特殊なブロックタグの注意</title></info>
-            
+
 
             <section xml:id="doc-standard.file-formatting.block-tags.title"><info><title>title</title></info>
-                
+
 
                 <para>
                     <emphasis>&lt;title&gt;</emphasis> タグで他のタグを保持してはいけません。
@@ -563,10 +563,10 @@ $render = "xxx";
     </section>
 
     <section xml:id="doc-standard.recommendations"><info><title>推奨事項</title></info>
-        
+
 
         <section xml:id="doc-standard.recommendations.editors"><info><title>自動でフォーマットしないエディタを使ってください</title></info>
-            
+
 
             <para>
                 ドキュメンテーションを編集するために、
@@ -587,7 +587,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.images"><info><title>イメージを使ってください</title></info>
-            
+
 
             <para>
                 Good images and diagrams can improve readability and comprehension. Use them
@@ -598,7 +598,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.examples"><info><title>ケースの例を使ってください</title></info>
-            
+
 
             <para>
                 Look for good use cases submitted by the community, especially those posted in
@@ -613,7 +613,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.phpdoc"><info><title>phpdocの内容を繰り返すことを避けてください</title></info>
-            
+
 
             <para>
                 The manual is intended to be a reference guide for end-user usage. Replicating
@@ -625,7 +625,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.links"><info><title>リンクを使ってください</title></info>
-            
+
 
             <para>
                 ドキュメントを繰り返す代わりに、

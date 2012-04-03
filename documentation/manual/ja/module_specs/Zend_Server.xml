@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.server.introduction"><info><title>導入</title></info>
-    
+
     <para>
         <classname>Zend_Server</classname> 系のクラス群は、さまざまなサーバクラスの機能を提供します。
         たとえば

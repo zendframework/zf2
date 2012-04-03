@@ -2,8 +2,8 @@
 
 namespace ZendTest\Mvc\TestAsset;
 
-use Zend\Di\Locator as LocatorDefinition,
-    Zend\Di\Exception\ClassNotFoundException;
+use Zend\Di\Locator as LocatorDefinition;
+use Zend\Di\Exception\ClassNotFoundException;
 
 /**
  * Dummy locator used to test handling of locator objects by Application

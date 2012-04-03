@@ -4,7 +4,7 @@
 	<version number="$Revision: 4467 $" />
 	<generation date="$Date: 2009-12-14 21:19:06 -0600 (Mon, 14 Dec 2009) $" />
 	<dayPeriodRuleSet>
-		<dayPeriodRules locales="root">  
+		<dayPeriodRules locales="root">
 			<dayPeriodRule type="am" from="0:00" before="12:00" />
 			<dayPeriodRule type="pm" from="12:00" before="24:00" />
 		</dayPeriodRules>
@@ -13,7 +13,7 @@
 			<dayPeriodRule type="noon" at="12:00" />
 			<dayPeriodRule type="pm" after="12:00" before="24:00" />
 		</dayPeriodRules>
-		<dayPeriodRules locales="de nl hr da"> 
+		<dayPeriodRules locales="de nl hr da">
 			<dayPeriodRule type="earlyMorning" from="0:00" before="9:00" />
 			<dayPeriodRule type="morning" from="9:00" before="12:00" />
 			<dayPeriodRule type="noon" at="12:00" />
@@ -29,7 +29,7 @@
 			<dayPeriodRule type="afternoon" from="13:00" before="18:00" />
 			<dayPeriodRule type="night" from="18:00" before="24:00" />
 		</dayPeriodRules>
-		<dayPeriodRules locales="pt fr"> 
+		<dayPeriodRules locales="pt fr">
 			<dayPeriodRule type="morning" from="00:00" before="12:00" />
 			<dayPeriodRule type="noon" at="12:00" />
 			<dayPeriodRule type="afternoon" after="12:00" before="19:00" />

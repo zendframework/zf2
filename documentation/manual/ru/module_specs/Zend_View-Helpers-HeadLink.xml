@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headlink"><info><title>Помощник HeadLink</title></info>
-    
+
 
     <para>
         HTML-элемент <code>&lt;link&gt;</code> все чаще используется для
@@ -71,7 +71,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.headlink.basicusage"><info><title>Использование помощника HeadLink</title></info>
-        
+
 
         <para>
             Вы можете указывать <code>headLink</code> в любой момент времени.

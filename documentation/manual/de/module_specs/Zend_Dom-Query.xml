@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dom.query"><info><title>Zend_Dom_Query</title></info>
-    
+
 
     <para>
         <classname>Zend_Dom_Query</classname> bietet einen Mechanismus für die Abfrage von
@@ -22,7 +22,7 @@
     </para>
 
     <section xml:id="zend.dom.query.operation"><info><title>Theorie der Anwendung</title></info>
-        
+
 
         <para>
             Um <classname>Zend_Dom_Query</classname> zu verwenden muß ein
@@ -170,7 +170,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.dom.query.methods"><info><title>Vorhandene Methoden</title></info>
-        
+
 
         <para>
             Die <classname>Zend_Dom_Query</classname> Familie an Klassen enthält die folgenden
@@ -178,7 +178,7 @@ foreach ($results as $result) {
         </para>
 
         <section xml:id="zend.dom.query.methods.zenddomquery"><info><title>Zend_Dom_Query</title></info>
-            
+
 
             <para>
                 Die folgenden Methoden sind in <classname>Zend_Dom_Query</classname> vorhanden:
@@ -247,7 +247,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.dom.query.methods.zenddomqueryresult"><info><title>Zend_Dom_Query_Result</title></info>
-            
+
 
             <para>
                 Wie vorher erwähnt, implementiert <classname>Zend_Dom_Query_Result</classname>

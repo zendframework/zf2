@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.http"><info><title>Adaptateur d'authentification HTTP</title></info>
-    
+
 
     <section xml:id="zend.auth.adapter.http.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Http</classname> fournit une implémentation des
@@ -64,7 +64,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.design_overview"><info><title>Fonctionnement</title></info>
-        
+
 
         <para>
             Cette adaptateur utilise 2 sous-composants, la classe d'authentification
@@ -78,7 +78,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.configuration_options"><info><title>Options de configuration</title></info>
-        
+
 
         <para>
             La classe <classname>Zend_Auth_Adapter_Http</classname> requière un tableau de
@@ -87,7 +87,7 @@
         </para>
 
         <table xml:id="zend.auth.adapter.configuration_options.table"><info><title>Liste des options de configuration</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>
@@ -165,7 +165,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.http.resolvers"><info><title>Résolveurs</title></info>
-        
+
 
         <para>
             Le travail du résolveur consiste à récupérer un nom d'utilisateur
@@ -184,7 +184,7 @@
         </para>
 
         <section xml:id="zend.auth.adapter.http.resolvers.file"><info><title>Résolveur fichiers</title></info>
-            
+
 
             <para>
                 Cette classe est très simple. Son constructeur ne prend qu'un paramètre qui
@@ -233,7 +233,7 @@ $resolver->setFile($path);
     </section>
 
     <section xml:id="zend.auth.adapter.http.basic_usage"><info><title>Usage général :</title></info>
-        
+
 
         <para>
             Tout d'abord, créez un tableau de configuration avec les options requises :

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.autoloading.resources"><info><title>Auto-chargement de resources</title></info>
-    
+
 
     <para>
         En développant des applications, il est souvent difficile de regrouper certaines classes
@@ -95,7 +95,7 @@ $guestbook = new Foo_Model_Guestbook();
 ]]></programlisting>
 
     <note><info><title>Autoload de ressource Module</title></info>
-        
+
 
         <para>
             La couche <acronym>MVC</acronym> de Zend Framework encourage l'utilisation de

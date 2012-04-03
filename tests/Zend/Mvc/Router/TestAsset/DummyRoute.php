@@ -21,9 +21,9 @@
 
 namespace ZendTest\Mvc\Router\TestAsset;
 
-use Zend\Mvc\Router\Route,
-    Zend\Mvc\Router\RouteMatch,
-    Zend\Stdlib\RequestDescription as Request;
+use Zend\Mvc\Router\Route;
+use Zend\Mvc\Router\RouteMatch;
+use Zend\Stdlib\RequestDescription as Request;
 
 /**
  * Dummy route.
@@ -63,8 +63,8 @@ class DummyRoute implements Route
 
     /**
      * factory(): defined by Route interface
-     * 
-     * @param  array|Traversable $options 
+     *
+     * @param  array|Traversable $options
      * @return DummyRoute
      */
     public static function factory($options = array())

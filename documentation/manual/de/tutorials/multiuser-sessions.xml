@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.multiuser.sessions"><info><title>User Session im Zend Framework managen</title></info>
-    
+
 
     <section xml:id="learning.multiuser.sessions.intro"><info><title>Einführung in Sessions</title></info>
-        
+
 
         <para>
             Der Erfolg des Webs ist tief verwurzelt im Protokoll welches das Web antreibt:
@@ -32,7 +32,7 @@
     </section>
 
     <section xml:id="learning.multiuser.sessions.basic-usage"><info><title>Grundsätzliche Verwendung von Zend_Session</title></info>
-        
+
 
         <para>
             Die Komponente <classname>Zend_Session</classname> ist sowohl ein Session Manager als
@@ -116,7 +116,7 @@ if ($mysession->counter > 1999) {
     </section>
 
     <section xml:id="learning.multiuser.sessions.advanced-usage"><info><title>Gehobenere Verwendung von Zend_Session</title></info>
-        
+
 
         <para>
             Wenn man zusätzlich den DbTable Speicher Handler für <classname>Zend_Session</classname>

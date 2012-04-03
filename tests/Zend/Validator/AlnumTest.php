@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Validator;
-use Zend\Validator,
-    ReflectionClass;
+use Zend\Validator;
+use ReflectionClass;
 
 /**
  * Test helper
@@ -163,16 +163,16 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->_validator->isValid(1));
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -181,16 +181,16 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

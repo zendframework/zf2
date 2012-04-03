@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Code\Generator;
-use Zend\Code\Generator\PropertyGenerator,
-    Zend\Code\Generator\PropertyValueGenerator;
+use Zend\Code\Generator\PropertyGenerator;
+use Zend\Code\Generator\PropertyValueGenerator;
 
 /**
  * @category   Zend
@@ -129,7 +129,7 @@ EOS;
 
         $targetSource = $property->generate();
         $targetSource = str_replace("\r", '', $targetSource);
-            
+
         $this->assertEquals($expectedSource, $targetSource);
     }
 

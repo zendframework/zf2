@@ -142,7 +142,7 @@ class Client extends \Zend\Http\Client
     protected function _prepareBody()
     {
         if($this->_streamingRequest) {
-            $this->setHeaders(array('Content-Length' => 
+            $this->setHeaders(array('Content-Length' =>
                 $this->raw_post_data->getTotalSize()));
             return $this->raw_post_data;
         }
@@ -216,7 +216,7 @@ class Client extends \Zend\Http\Client
         $this->prepareOAuth();
         return parent::send($request);
     }
-    
+
     /**
      * Performs OAuth preparation on the request before sending.
      *

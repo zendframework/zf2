@@ -21,12 +21,12 @@
 
 namespace Zend\Log\Writer;
 
-use Zend\Log\Factory,
-    Zend\Log\Writer,
-    Zend\Log\Filter,
-    Zend\Log\Formatter,
-    Zend\Log\Exception,
-    Zend\Config\Config;
+use Zend\Log\Factory;
+use Zend\Log\Writer;
+use Zend\Log\Filter;
+use Zend\Log\Formatter;
+use Zend\Log\Exception;
+use Zend\Config\Config;
 
 /**
  * @uses       \Zend\Log\Exception\InvalidArgumentException

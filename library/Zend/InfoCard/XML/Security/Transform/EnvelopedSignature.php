@@ -21,8 +21,8 @@
 
 namespace Zend\InfoCard\XML\Security\Transform;
 
-use Zend\InfoCard\XML\Security\Transform,
-    Zend\InfoCard\XML\Security\Exception;
+use Zend\InfoCard\XML\Security\Transform;
+use Zend\InfoCard\XML\Security\Exception;
 
 /**
  * A object implementing the EnvelopedSignature XML Transform

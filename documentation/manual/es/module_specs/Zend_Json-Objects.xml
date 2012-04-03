@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.advanced"><info><title>Uso Avanzado de Zend_Json</title></info>
-    
+
 
     <section xml:id="zend.json.advanced.objects1"><info><title>Objetos JSON</title></info>
-        
+
         <para> Cuando se codifican objetos <acronym>PHP</acronym> como
                 <acronym>JSON</acronym> , todas las propiedades públicas de ese
             objeto serán codificadas en un objeto <acronym>JSON</acronym> . </para>
@@ -42,7 +42,7 @@ $phpNative = Zend_Json::decode($encodedValue, Zend_Json::TYPE_OBJECT);
     </section>
 
     <section xml:id="zend.json.advanced.objects2"><info><title>Codificando Objetos PHP</title></info>
-        
+
 
         <para> Si se codifican objetos <acronym>PHP</acronym> por defecto, el
             mecanismo de codificación sólo tiene acceso a las propiedades
@@ -54,7 +54,7 @@ $phpNative = Zend_Json::decode($encodedValue, Zend_Json::TYPE_OBJECT);
     </section>
 
     <section xml:id="zend.json.advanced.internal"><info><title>Codificador/Decodificador Interno</title></info>
-        
+
 
         <para> Zend_Json tiene dos modos diferentes dependiendo de si ext/json
             está habilitada o no en su instalación <acronym>PHP</acronym> . Si
@@ -78,7 +78,7 @@ Zend_Json::$useBuiltinEncoderDecoder = true:
     </section>
 
     <section xml:id="zend.json.advanced.expr"><info><title>Expresiones JSON</title></info>
-        
+
 
         <para> Javascript hace uso intenso de las funciones anónimas de llamadas
             de retorno, que pueden guardarse en variables del objeto

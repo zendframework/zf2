@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.value"><info><title>Wie viel Währung habe ich?</title></info>
-    
+
 
     <para>
         Wenn man mit Währungen arbeitet will man normalerweise eine Menge an Geld darstellen. Und
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.currency.value.money"><info><title>Arbeiten mit Währungswerten</title></info>
-        
+
 
         <para>
             Der Wert einer Währung, auch als Geld bekannt, welchen man verwenden will kann durch
@@ -52,7 +52,7 @@ print $currency->setValue(2000); // Könnte '$ 2.000' zurückgeben
     </section>
 
     <section xml:id="zend.currency.value.precision"><info><title>Verwendung von Genauigkeit bei Währungen</title></info>
-        
+
 
         <para>
             Wenn man mit Währungen arbeitet muss man möglicherweise auch eine Genauigkeit verwenden.

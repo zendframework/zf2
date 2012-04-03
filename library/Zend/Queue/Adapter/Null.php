@@ -20,9 +20,9 @@
  */
 
 namespace Zend\Queue\Adapter;
-use Zend\Queue\Queue,
-    Zend\Queue\Message,
-    Zend\Queue\Exception as QueueException;
+use Zend\Queue\Queue;
+use Zend\Queue\Message;
+use Zend\Queue\Exception as QueueException;
 
 
 /**

@@ -20,8 +20,8 @@
  */
 
 namespace Zend\Log\Formatter;
-use \Zend\Log\Factory,
-    \Zend\Log\Formatter;
+use \Zend\Log\Factory;
+use \Zend\Log\Formatter;
 
 /**
  * @uses       \Zend\Log\Factory

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router"><info><title>Стандартный маршрутизатор</title></info>
-    
+
     <section xml:id="zend.controller.router.introduction"><info><title>Введение</title></info>
-        
+
         <para>
             <classname>Zend_Controller_Router_Rewrite</classname> является стандартным
             маршрутизатором фреймворка. Маршрутизация - это процесс принятия
@@ -59,7 +59,7 @@ RewriteRule ^[\w/\%]*(?:\.(?!(?:js|ico|gif|jpg|png|css|html)$)[\w\%]*$)? /index.
 ]]></programlisting>
 
         <note><info><title>IIS Isapi_Rewrite</title></info>
-            
+
             <para>
                 Если используется IIS, то <varname>$_SERVER['REQUEST_URI']</varname>
                 не будет определен, либо будет установлен как пустая
@@ -118,7 +118,7 @@ url.rewrite-once = (
     </section>
 
     <section xml:id="zend.controller.router.usage"><info><title>Использование маршрутизатора</title></info>
-        
+
 
         <para>
             Для того, чтобы правильно использовать маршрутизатор, вы должны
@@ -140,7 +140,7 @@ $router->addRoute(
     </section>
 
     <section xml:id="zend.controller.router.basic"><info><title>Базовые операции Rewrite Router</title></info>
-        
+
 
         <para>
             Сущностью RewriteRouter (перезаписывающий маршрутизатор) является
@@ -234,7 +234,7 @@ $router->addRoute('user',
         </para>
 
         <note><info><title>Обратный порядок сопоставления</title></info>
-            
+
             <para>
                 Маршруты сопоставляются в обратном порядке, поэтому
                 удостоверьтесь, что наиболее общие маршруты определены
@@ -243,7 +243,7 @@ $router->addRoute('user',
         </note>
 
         <note><info><title>Возвращаемые значения</title></info>
-            
+
             <para>
                 Значения, возвращаемые при маршрутизации, получаются из
                 параметров URL или определенных пользователем значений по
@@ -262,7 +262,7 @@ $router->addRoute('user',
         </para>
 
         <note><info><title>Специальные переменные</title></info>
-            
+
             <para>
                 Имена этих переменных могут быть другими, если вы измените их
                 через методы <code>setControllerKey</code> и
@@ -273,7 +273,7 @@ $router->addRoute('user',
     </section>
 
     <section xml:id="zend.controller.router.default-routes"><info><title>Маршруты, используемые по умолчанию</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Router_Rewrite</classname> изначально
@@ -359,7 +359,7 @@ $router->removeDefaultRoutes();
     </section>
 
     <section xml:id="zend.controller.router.rewritebase"><info><title>Базовый URL и поддиректории</title></info>
-        
+
 
         <para>
             RewriteRouter может использоваться в поддиректориях (например,
@@ -384,7 +384,7 @@ $request->setBaseUrl('/~user/application-root/');
     </section>
 
     <section xml:id="zend.controller.router.global.parameters"><info><title>Глобальные параметры</title></info>
-        
+
 
         <para>
             Используя метод <code>setGlobalParam</code>, вы можете устанавливать
@@ -401,7 +401,7 @@ $router->setGlobalParam('lang', 'en');
     </section>
 
     <section xml:id="zend.controller.router.routes"><info><title>Типы маршрутов</title></info>
-        
+
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route.xml">
             <xi:fallback><xi:include href="../../en/module_specs/Zend_Controller-Router-Route.xml"/></xi:fallback>
         </xi:include>
@@ -420,7 +420,7 @@ $router->setGlobalParam('lang', 'en');
     </section>
 
     <section xml:id="zend.controller.router.add-config"><info><title>Использование Zend_Config вместе с RewriteRouter</title></info>
-        
+
 
         <para>
             Иногда может быть более удобным обновлять конфигурационный файл
@@ -485,7 +485,7 @@ $router->addConfig($config, 'routes');
     </section>
 
     <section xml:id="zend.controller.router.subclassing"><info><title>Создание подклассов маршрутизатора</title></info>
-        
+
 
         <para>
             Стандартный RewriteRouter создан с тем, чтобы предоставлять полный

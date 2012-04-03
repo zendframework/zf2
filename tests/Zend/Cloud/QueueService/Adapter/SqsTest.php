@@ -26,9 +26,9 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
     define("PHPUnit_MAIN_METHOD", "Zend\Cloud\QueueService\Adapter\SqsTest::main");
 }
 
-use ZendTest\Cloud\QueueService\TestCase,
-    Zend\Cloud\QueueService\Adapter\Sqs,
-    Zend\Config\Config;
+use ZendTest\Cloud\QueueService\TestCase;
+use Zend\Cloud\QueueService\Adapter\Sqs;
+use Zend\Config\Config;
 
 /**
  * @category   Zend
@@ -46,7 +46,7 @@ class SqsTest extends TestCase
      * @var int
      */
     protected $_waitPeriod = 10;
-    
+
     protected $_clientType = 'Zend\Service\Amazon\Sqs';
 
     /**

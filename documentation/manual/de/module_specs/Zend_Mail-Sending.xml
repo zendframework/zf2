@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.sending"><info><title>Versand über SMTP</title></info>
-    
+
 
     <para>
         Um eine E-Mail über SMTP zu versenden, muss <classname>Zend_Mail_Transport_Smtp</classname>
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.mail.sending.example-1"><info><title>E-Mail Versand über SMTP</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $tr = new Zend_Mail_Transport_Smtp('mail.example.com');

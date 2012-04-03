@@ -21,11 +21,11 @@
 
 namespace ZendTest\Locale\Data;
 
-use Zend\Locale\Data\Cldr,
-    Zend\Locale\Exception\InvalidArgumentException,
-    Zend\Locale\Locale,
-    Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Locale\Data\Cldr;
+use Zend\Locale\Exception\InvalidArgumentException;
+use Zend\Locale\Locale;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
 
 /**
  * @category   Zend
@@ -51,8 +51,8 @@ class CldrTest extends \PHPUnit_Framework_TestCase
     {
         $this->_cache->clear(CacheAdapter::MATCH_ALL);
     }
-    
-    
+
+
     /**
      * test for reading with standard locale
      * expected array
@@ -71,8 +71,8 @@ class CldrTest extends \PHPUnit_Framework_TestCase
         $locale = new Locale('de');
         $this->assertTrue(is_array(Cldr::getDisplayLanguage($locale)));
     }
-    
-    
+
+
     /**
      * test for reading without type
      * expected empty array
@@ -108,7 +108,7 @@ class CldrTest extends \PHPUnit_Framework_TestCase
         $value = Cldr::getDisplayLanguage('de', false, 'de');
         $this->assertEquals('Deutsch', $value);
     }
-    
+
     /**
      * test for reading the territorylist in different
      * languages

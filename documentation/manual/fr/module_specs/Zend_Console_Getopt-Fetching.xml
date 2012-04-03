@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.console.getopt.fetching"><info><title>Extraire les options et les arguments</title></info>
-    
+
 
     <para>
         Après avoir déclaré les options que l'objet <classname>Zend_Console_Getopt</classname> doit
@@ -19,7 +19,7 @@
     </para>
 
     <section xml:id="zend.console.getopt.fetching.exceptions"><info><title>Manipuler les exceptions Getopt</title></info>
-        
+
 
         <para>
             Si l'utilisateur a donné des options invalides sur la ligne de commande, la
@@ -36,7 +36,7 @@
         </para>
 
         <example xml:id="zend.console.getopt.fetching.exceptions.example"><info><title>Récupérer une exception Getopt</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 try {
@@ -68,7 +68,7 @@ try {
     </section>
 
     <section xml:id="zend.console.getopt.fetching.byname"><info><title>Extraire les options par nom</title></info>
-        
+
 
         <para>
             Vous pouvez employer la méthode <methodname>getOption()</methodname> pour connaître la
@@ -79,7 +79,7 @@ try {
         </para>
 
         <example xml:id="zend.console.getopt.fetching.byname.example.setoption"><info><title>Utiliser getOption()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
@@ -96,7 +96,7 @@ $p_parameter = $opts->getOption('p');
         </para>
 
         <example xml:id="zend.console.getopt.fetching.byname.example.magic"><info><title>Utiliser les méthodes magiques __get() et __isset()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
@@ -114,7 +114,7 @@ $p_parameter = $opts->p; // null si non fourni
     </section>
 
     <section xml:id="zend.console.getopt.fetching.reporting"><info><title>Extraire les options</title></info>
-        
+
 
         <para>
             Il y a plusieurs méthodes pour extraire l'ensemble complet des options fournies
@@ -163,7 +163,7 @@ $p_parameter = $opts->p; // null si non fourni
     </section>
 
     <section xml:id="zend.console.getopt.fetching.remainingargs"><info><title>Extraction des arguments sans option</title></info>
-        
+
 
         <para>
             Après que les arguments d'option et ainsi que les paramètres de la ligne de
@@ -174,7 +174,7 @@ $p_parameter = $opts->p; // null si non fourni
         </para>
 
         <example xml:id="zend.console.getopt.fetching.remainingargs.example"><info><title>Utiliser getRemainingArgs()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');

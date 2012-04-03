@@ -26,7 +26,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * 
+ *
  * @property string  $Container       Container name
  * @property string  $Name            Name
  * @property string  $Etag            Etag
@@ -43,14 +43,14 @@ class Zend_Service_WindowsAzure_Storage_BlobInstance
 {
     /**
      * Data
-     * 
+     *
      * @var array
      */
     protected $_data = null;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param string  $containerName   Container name
      * @param string  $name            Name
      * @param string  $etag            Etag
@@ -63,8 +63,8 @@ class Zend_Service_WindowsAzure_Storage_BlobInstance
      * @param boolean $isPrefix        Is Prefix?
      * @param array   $metadata        Key/value pairs of meta data
      */
-    public function __construct($containerName, $name, $etag, $lastModified, $url = '', $size = 0, $contentType = '', $contentEncoding = '', $contentLanguage = '', $isPrefix = false, $metadata = array()) 
-    {	        
+    public function __construct($containerName, $name, $etag, $lastModified, $url = '', $size = 0, $contentType = '', $contentEncoding = '', $contentLanguage = '', $isPrefix = false, $metadata = array())
+    {
         $this->_data = array(
             'container'        => $containerName,
             'name'             => $name,
@@ -79,10 +79,10 @@ class Zend_Service_WindowsAzure_Storage_BlobInstance
             'metadata'         => $metadata
         );
     }
-    
+
     /**
      * Magic overload for setting properties
-     * 
+     *
      * @param string $name     Name of the property
      * @param string $value    Value to set
      */
@@ -97,7 +97,7 @@ class Zend_Service_WindowsAzure_Storage_BlobInstance
 
     /**
      * Magic overload for getting properties
-     * 
+     *
      * @param string $name     Name of the property
      */
     public function __get($name) {

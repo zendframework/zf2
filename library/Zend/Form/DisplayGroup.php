@@ -20,14 +20,14 @@
 
 namespace Zend\Form;
 
-use Traversable,
-    Zend\Loader\PluginLoader,
-    Zend\Loader\PrefixPathMapper,
-    Zend\Config\Config,
-    Zend\Stdlib\ArrayUtils,
-    Zend\Translator,
-    Zend\View\Renderer\PhpRenderer,
-    Zend\View\Renderer as View;
+use Traversable;
+use Zend\Loader\PluginLoader;
+use Zend\Loader\PrefixPathMapper;
+use Zend\Config\Config;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Translator;
+use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Renderer as View;
 
 /**
  * Zend_Form_DisplayGroup

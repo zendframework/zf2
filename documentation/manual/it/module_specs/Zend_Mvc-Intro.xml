@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
+<section
     xmlns="http://docbook.org/ns/docbook" version="5.0"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xml:id="zend.mvc.intro">
@@ -20,7 +20,7 @@
     <listitem>
       <para>
         <classname>Zend\Di</classname>, nello specifico la sua
-        interfaccia <classname>Locator</classname>, comunque  
+        interfaccia <classname>Locator</classname>, comunque
         il Dependency Injection Container (DiC).
       </para>
     </listitem>
@@ -33,7 +33,7 @@
 
     <listitem>
       <para>
-        <classname>Zend\Http</classname>, nello specifico la richiesta 
+        <classname>Zend\Http</classname>, nello specifico la richiesta
         e la risposta, che sono usate con:
       </para>
     </listitem>
@@ -53,8 +53,8 @@
   <itemizedlist>
     <listitem>
       <para>
-        <classname>Zend\Mvc\Router</classname> contiene le classi per 
-        gestire il routing delle richieste (l'atto di consegnare una 
+        <classname>Zend\Mvc\Router</classname> contiene le classi per
+        gestire il routing delle richieste (l'atto di consegnare una
         richiesta  ad un controller o un oggetto eseguibile (dispatchable))
       </para>
     </listitem>
@@ -72,16 +72,16 @@
       <para>
         <classname>Zend\Mvc\Controller</classname>, un insieme di classi
         "controller" astratte che hanno delle responsabilità di base come
-        il legare eventi, eseguire azioni, etc. 
+        il legare eventi, eseguire azioni, etc.
       </para>
     </listitem>
   </itemizedlist>
 
   <para>
-    La porta di ingresso (gateway) per lo MVC è l'oggetto 
-    <classname>Zend\Mvc\Application</classname> (riferito semplicemente con 
+    La porta di ingresso (gateway) per lo MVC è l'oggetto
+    <classname>Zend\Mvc\Application</classname> (riferito semplicemente con
     il nome della sua classe da qui in avanti <classname>Application</classname>).
-    La sua principale responsabilità è quella <emphasis>instradare</emphasis> le 
+    La sua principale responsabilità è quella <emphasis>instradare</emphasis> le
     richieste e di ricevere ed <emphasis>eseguire</emphasis> il controller
     richiesto. Una volta compiuto questo compito, ritorna una risposta che può
     essere <emphasis>inviata</emphasis>.
@@ -107,7 +107,7 @@ application_root/
 </literallayout>
 
     <para>
-        Il file <filename>public/index.php</filename> esegue il lavoro 
+        Il file <filename>public/index.php</filename> esegue il lavoro
         di base come la configurazione primaria e la configurazione della
         <classname>Application</classname>.
         Quando compiuto avvia (<methodname>run()</methodname>) l'
@@ -129,7 +129,7 @@ application_root/
         Questa potrebbe includere Zend Framework, librerie costruite
         dalla nostra aziend oppure librerie da altri progetti di parti
         terze. Librerie e module posizionati in <filename>vendor</filename>
-        non dovrebero essere modificate direttamente nel progetto 
+        non dovrebero essere modificate direttamente nel progetto
         in quanto sono gestite esternamente.
     </para>
 
@@ -153,7 +153,7 @@ application_root/
         incluse funzionalità MVC, librerie, view scripts e/o assetti pubblici
         come immagini, CSS, JavaScript. Una delle richieste -- e anche questo
         è opzionale -- è che un module lavora con un namespace PHP e che questo
-        contiene una class <classname>Module</classname> in questo namespace. 
+        contiene una class <classname>Module</classname> in questo namespace.
         Questa classe allora sarà utilizzata da <classname>Zend\Module\Manager</classname>
         in modo da poter elaborare un certo numero di task.
     </para>
@@ -188,7 +188,7 @@ module_root/
 </literallayout>
 
     <para>
-        Finchè un module lavora come namespace, la directory radice 
+        Finchè un module lavora come namespace, la directory radice
         dovrebbe essere quel namespace. Tipicamente questo namespace
         includerà anche un prefisso di chi lo realizza (vendor name).
         Per esempio se realizziamo un module che realizzi alcune funzionalità
@@ -213,12 +213,12 @@ class Module
     <para>
         Di default se è definito un <methodname>init()</methodname>, questo
         sarà invocat da un listener <classname>Zend\Module\Manager</classname>
-        quando questo caricherà la classe del module e passa un istanza del 
+        quando questo caricherà la classe del module e passa un istanza del
         manager. Questo ti permette di realizzare task di configurazione
         per il listener degli eventi specifici del modulo. Il metodo
         <methodname>init()</methodname> è chiamato <emphasis>sempre</emphasis>
         per ogni richiesta e dovrebbe essere utilizzato <emphasis>solo</emphasis>
-        per eseguire task molto leggeri come registrari eventi per i listener. 
+        per eseguire task molto leggeri come registrari eventi per i listener.
     </para>
 
     <para>
@@ -231,7 +231,7 @@ class Module
         <para>
             <filename>autoload_classmap.php</filename> dovrebbe ritornare
             un array che è una mappatura (classmap) di classi, in pratica
-            coppie di nome/filename (con i nomi di file risolti con la 
+            coppie di nome/filename (con i nomi di file risolti con la
             costante magica <varname>__DIR__</varname>).
         </para>
       </listitem>
@@ -239,9 +239,9 @@ class Module
       <listitem>
         <para>
             <filename>autoload_function.php</filename> dovrebbe ritornare
-            un call PHP che può essere passato alla funzione 
+            un call PHP che può essere passato alla funzione
             <methodname>spl_autoload_register()</methodname>. Tipicamente
-            questo callback utilizza la "map" ritornata da 
+            questo callback utilizza la "map" ritornata da
             <filename>autoload_filemap.php</filename>.
         </para>
       </listitem>
@@ -249,8 +249,8 @@ class Module
       <listitem>
         <para>
             <filename>autoload_register.php</filename> dovrebbe registrare
-            un callback PHP (tipicamente che viene ritornato da 
-            <filename>autoload_function.php</filename> con 
+            un callback PHP (tipicamente che viene ritornato da
+            <filename>autoload_function.php</filename> con
             <methodname>spl_autoload_register()</methodname>).
         </para>
       </listitem>
@@ -258,7 +258,7 @@ class Module
 
     <para>
         Il concetto di questi tre file è di fornire un meccanismo
-        di defuault per l'autoloading delle classi contenute in un 
+        di defuault per l'autoloading delle classi contenute in un
         modulo, realizzando in modo semplice un metodo per lavorare
         con un modulo senza richiedere <classname>Zend\Module</classname>
         (es. esternamente da un applicazione ZF2).
@@ -267,9 +267,9 @@ class Module
     <para>
         La directory <filename>config</filename> dovrebbe contenere
         qualunque configurazione specifica del modulo. Questi file
-        posso essere in qualunque formato gestito da 
+        posso essere in qualunque formato gestito da
         <classname>Zend\Config</classname>. Raccomandiamo di chiamare
-        la configurazione principale "module.format" e per le 
+        la configurazione principale "module.format" e per le
         configurazioni basate in PHP "module.config.php". Tipicamente
         creerai configurazioni per il router allo stesso modo che
         per il dependency injector (iniettore delle dipendenze).
@@ -280,7 +280,7 @@ class Module
         <link xlink:href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">directory con struttura PSR-0 compatibile</link>
         con il codice sorgente del tuo modulo. Tipicamente avrai almeno
         una sottodirectory chiamata con il namespace del tuo modulo,
-        comunque puoi "traghettare" il tuo codice con namespace 
+        comunque puoi "traghettare" il tuo codice con namespace
         multipli se lo desideri.
     </para>
 
@@ -288,8 +288,8 @@ class Module
         La directory <filename>tests</filename> dovrebbe contenere
         le tue unit tests. Tipicamente queste saranno scritte utilizzando
         <link xlink:href="http://phpunit.de">PHPUnit</link>, e conterranno
-        artefatti collegati con le loro configurazioni (es. 
-        <filename>phpunit.xml</filename>, bootstrap.php). 
+        artefatti collegati con le loro configurazioni (es.
+        <filename>phpunit.xml</filename>, bootstrap.php).
     </para>
 
     <para>
@@ -300,7 +300,7 @@ class Module
     </para>
 
     <para>
-        La directory <filename>views</filename> contiene le viste (view scripts) 
+        La directory <filename>views</filename> contiene le viste (view scripts)
         collegati con i tuoi controller.
     </para>
   </section>
@@ -309,12 +309,12 @@ class Module
     <info><title>Bootstrap di una Application</title></info>
 
     <para>
-        Una <classname>Application</classname> è composta da molti oggetti, 
-        ma in particolare interessano allo sviluppatore il Router ed il 
-        Locator. Questi hanno sempre bisogno di essere configurati ed 
-        iniettati per avviare una <classname>Application</classname>. Il 
+        Una <classname>Application</classname> è composta da molti oggetti,
+        ma in particolare interessano allo sviluppatore il Router ed il
+        Locator. Questi hanno sempre bisogno di essere configurati ed
+        iniettati per avviare una <classname>Application</classname>. Il
         bootstrap consiste nel configurare ed iniettare il router, così
-        come il locator. 
+        come il locator.
     </para>
 
     <para>
@@ -322,19 +322,19 @@ class Module
         <classname>Zend\Mvc\Bootstrap</classname>. Questa classe accetta
         una istanza di <classname>Zend\Config\Config</classname> al suo
         costruttore, una volta che avete una istanza potete chiamare
-        il metodo <methodname>bootstrap()</methodname> passandogli 
+        il metodo <methodname>bootstrap()</methodname> passandogli
         la <classname>Application</classname>. Questa configurerà il tuo
-        locator (utilizzando <classname>Zend\Di\Di</classname> di default) 
-        ed il tuo router (utilizzando 
-        <classname>Zend\Mvc\Router\Http\TreeRouteStack</classname> di default). 
+        locator (utilizzando <classname>Zend\Di\Di</classname> di default)
+        ed il tuo router (utilizzando
+        <classname>Zend\Mvc\Router\Http\TreeRouteStack</classname> di default).
     </para>
 
     <para>
         Una volta assolti questi due compiti, sarà invocato l'evento
         "bootstrap" che è collegato all'istanza <classname>EventManager</classname>.
         Questo permette ai tuoi moduli di collegari listeners e questi possono
-        realizzare dei bootstrap specifici per il tuo modulo (che potrebbero 
-        includere la registrazione delle ACL, configurare le cache oppure i 
+        realizzare dei bootstrap specifici per il tuo modulo (che potrebbero
+        includere la registrazione delle ACL, configurare le cache oppure i
         listener per i log, etc.).
     </para>
 
@@ -360,7 +360,7 @@ $response->send();
 ]]></programlisting>
 
     <para>
-        Il metodo <methodname>run()</methodname> esegue tipicamente 
+        Il metodo <methodname>run()</methodname> esegue tipicamente
         quattro cose:
     </para>
 
@@ -369,7 +369,7 @@ $response->send();
         <para>
             Elabora l'oggetto <classname>Request</classname>, controllando
             che questo sia completamente configurato sul sistema su cui
-            si sta lavorando (questo include l'iniezione degli heder, 
+            si sta lavorando (questo include l'iniezione degli heder,
             query, parametri POST e molto altro).
         </para>
       </listitem>
@@ -402,7 +402,7 @@ $response->send();
 
     <para>
         Noterai che hai un sacco di controllo sul tuo workflow. Utilizzando
-        il sistema di priorità dell'EventManager puoi intercettare 
+        il sistema di priorità dell'EventManager puoi intercettare
         gli eventi "route" e "dispatch" in ogni dove durante l'esecuzione,
         pemettendoti di veicolare i workflow della tua applicazione
         secondo i tuoi bisogni.
@@ -413,7 +413,7 @@ $response->send();
     <info><title>Bootstrap di una applicazione modulare</title></info>
 
     <para>
-        Mentre l'approccio visto funzione bene, da dove viene la 
+        Mentre l'approccio visto funzione bene, da dove viene la
         configurazione? Quando costruiamo una applicazione modulare
         le informazioni nascono proprio dai moduli. Come possiamo
         prendere queste informazioni e aggregarle fra di loro?
@@ -421,7 +421,7 @@ $response->send();
 
     <para>
         La risposta è tramite <classname>Zend\Module\Manager</classname>.
-        Questo componente ti permette di specificare dove esistono i 
+        Questo componente ti permette di specificare dove esistono i
         moduli, allora localizzerà tutti i moduli e li inizializzerà.
         Se la classe <classname>Module</classname> di un modulo ha il
         suo <methodname>getConfig()</methodname>, questo risponderà
@@ -452,7 +452,7 @@ return array(
     'modules' => array(
         /* ... */
     ),
-    'module_listener_options' => array( 
+    'module_listener_options' => array(
         'module_paths' => array(
             './module',
             './vendor',
@@ -467,7 +467,7 @@ return array(
       </para>
 
       <para>
-        Ora con il nostro <filename>public/index.php</filename> 
+        Ora con il nostro <filename>public/index.php</filename>
         possiamo configurare il <classname>DefaultListenerAggregate</classname>:
       </para>
 
@@ -495,9 +495,9 @@ $moduleManager->events()->attachAggregate($defaultListeners);
       <para>
         Ogni classe <classname>Module</classname> ha la sua configurazione
         e la <classname>Application</classname> dovrebbe conoscere come è
-        presente tramite il metodo <methodname>getConfig()</methodname>. 
+        presente tramite il metodo <methodname>getConfig()</methodname>.
         Questo metodo deve ritornare un array oppure un oggetto di tipo
-        <classname>Traversable</classname> come un 
+        <classname>Traversable</classname> come un
         <classname>Zend\Config\Config</classname>. Un esempio:
       </para>
 
@@ -519,16 +519,16 @@ class Module
     <info><title>Conclusioni</title></info>
 
     <para>
-        Il layer ZF2 è incredibilmente flessibile, offrendo un punto 
+        Il layer ZF2 è incredibilmente flessibile, offrendo un punto
         di ingresso semplice per creare infrastrutture modulari, così
         come fornire l'abilità di realizzare workflow personali della
         nostra applicazione tramite il sistema EventManager.
-        Il Bootstrap, largamente lasciato allo sviluppatore, è 
-      Bootstrapping, while largely left to the developer, is lineare e 
+        Il Bootstrap, largamente lasciato allo sviluppatore, è
+      Bootstrapping, while largely left to the developer, is lineare e
       permette una semplice metodologia per configurare l'applicazione
       e realizzare diverse strade e servizi in gioco. Il module manager
       è leggero e con un approccio semplice forzando una architettura
-      modulare che incoraggia una pulita separazioni dei concetti ed 
+      modulare che incoraggia una pulita separazioni dei concetti ed
       il riutilizzo del codice.
     </para>
   </section>

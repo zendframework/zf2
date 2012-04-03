@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-authentication"><info><title>SMTP Authentificatie</title></info>
-    
+
     <para>
         Verschillende SMTP authentificatiemethodes kunnen later eventueel worden toegevoegd, maar zijn
         momenteel niet ondersteund.

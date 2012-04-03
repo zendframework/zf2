@@ -53,5 +53,5 @@ class Allow implements HeaderDescription
     {
         return 'Allow: ' . $this->getFieldValue();
     }
-    
+
 }

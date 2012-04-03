@@ -20,9 +20,9 @@
 
 namespace Zend\Paginator;
 
-use Zend\Controller\Front as FrontController,
-    Zend\View,
-    Zend\Json\Json;
+use Zend\Controller\Front as FrontController;
+use Zend\View;
+use Zend\Json\Json;
 
 /**
  * @category   Zend
@@ -204,8 +204,8 @@ class Paginator implements \Countable, \IteratorAggregate
 
     /**
      * Set the adapter broker
-     * 
-     * @param  Broker $broker 
+     *
+     * @param  Broker $broker
      * @return void
      */
     public static function setAdapterBroker($broker)

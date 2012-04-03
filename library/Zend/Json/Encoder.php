@@ -20,8 +20,8 @@
 
 namespace Zend\Json;
 
-use Zend\Json\Exception\RecursionException,
-    Zend\Json\Exception\InvalidArgumentException;
+use Zend\Json\Exception\RecursionException;
+use Zend\Json\Exception\InvalidArgumentException;
 
 /**
  * Encode PHP constructs to JSON
@@ -163,7 +163,7 @@ class Encoder
         }
 
         $className = get_class($value);
-        return '{"__className":' 
+        return '{"__className":'
             . $this->_encodeString($className)
             . $props . '}';
     }

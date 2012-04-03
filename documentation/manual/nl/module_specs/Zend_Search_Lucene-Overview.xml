@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.overview"><info><title>Overzicht</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.introduction"><info><title>Inleiding</title></info>
-        
+
         <para>
             Zend Search_Lucene is een algemene tekst search engine die volledig in PHP 5 is geschreven.
             Omdat het zijn indexbestanden op het bestandssysteem schrijft en geen database server nodig
@@ -37,7 +37,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.documents-and-fields"><info><title>Document en Veld Objecten</title></info>
-        
+
             <para>
                 Zend_Search_Lucene beschouwt documenten als eenheden voor de indexering. Een document wordt dan
                 opgedeeld in benoemde velden en velden hebben inhoud waarop kan gezocht worden.
@@ -96,7 +96,7 @@ $doc->addField(Zend_Search_Lucene_Field::UnStored('contents',
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.understanding-field-types"><info><title>Veld Types Begrijpen</title></info>
-        
+
         <itemizedlist>
             <listitem>
                 <para>
@@ -126,7 +126,7 @@ $doc->addField(Zend_Search_Lucene_Field::UnStored('contents',
                </para>
 
                 <table><info><title>Zend_Search_Lucene_Field Types</title></info>
-                    
+
                     <tgroup cols="4">
                         <thead>
                             <row>

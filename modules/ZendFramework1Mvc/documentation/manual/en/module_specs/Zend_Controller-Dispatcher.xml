@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.dispatcher"><info><title>The Dispatcher</title></info>
-    
+
 
     <section xml:id="zend.controller.dispatcher.overview"><info><title>Overview</title></info>
-        
+
 
         <para>
             Dispatching is the process of taking the request object,
@@ -22,7 +22,7 @@
         </para>
 
         <note><info><title>Default Module</title></info>
-            
+
 
             <para>
                 When creating modular applications, you may find that you want
@@ -97,7 +97,7 @@ public function bazAction()
     </section>
 
     <section xml:id="zend.controller.dispatcher.subclassing"><info><title>Subclassing the Dispatcher</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Front</classname> will first call the router to

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form.examples"><info><title>Dojo Formular Beispiele</title></info>
-    
+
 
     <example xml:id="zend.dojo.form.examples.dojoform"><info><title>Zend_Dojo_Form verwenden</title></info>
-        
+
 
         <para>
             Der einfachste Weg um Dojo mit <classname>Zend_Form</classname> zu verwenden besteht
@@ -351,7 +351,7 @@ class My_Form_Test extends Zend_Dojo_Form
     </example>
 
     <example xml:id="zend.dojo.form.examples.decorating"><info><title>Ein existierendes Formular verändern um Dojo zu verwenden</title></info>
-        
+
 
         <para>
             Ein bestehendes Formular kann verändert werden damit es auch Dojo verwendet, indem die

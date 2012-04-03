@@ -39,8 +39,8 @@ class ValidatorBroker extends PluginSpecBroker
 
     /**
      * Determine if we have a valid validator
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return true
      * @throws Exception
      */

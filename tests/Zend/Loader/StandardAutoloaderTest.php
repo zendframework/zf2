@@ -22,8 +22,8 @@
 
 namespace ZendTest\Loader;
 
-use Zend\Loader\StandardAutoloader,
-    Zend\Loader\Exception\InvalidArgumentException;
+use Zend\Loader\StandardAutoloader;
+use Zend\Loader\Exception\InvalidArgumentException;
 
 /**
  * @category   Zend

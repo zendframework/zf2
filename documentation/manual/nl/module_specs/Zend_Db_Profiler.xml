@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.profiler"><info><title>Zend_Db_Profiler</title></info>
 
-    
+
 
     <section xml:id="zend.db.profiler.introduction"><info><title>Inleiding</title></info>
 
-        
+
 
         <para>
             <code>Zend_Db_Profiler</code> kan worden geactiveerd om queries te profileren.
@@ -44,7 +44,7 @@ $db->getProfiler()->setEnabled(true);
 
     <section xml:id="zend.db.profiler.using"><info><title>De Profiler Gebruiken</title></info>
 
-        
+
 
         <para>
             De profiler kan op eender welk moment worden aangeroepen
@@ -156,7 +156,7 @@ echo "Langste query: \n" . $longestQuery . "\n";
 
     <section xml:id="zend.db.profiler.advanced"><info><title>Geavanceerd Profiler Gebruik</title></info>
 
-        
+
 
         <para>
             Bovenop query inspectie staat de profiler je ook toe de queries die worden
@@ -165,7 +165,7 @@ echo "Langste query: \n" . $longestQuery . "\n";
         </para>
 
         <section xml:id="zend.db.profiler.advanced.filtertime"><info><title>Filteren op afgelopen tijd</title></info>
-            
+
 
             <para>
                 <code>setFilterElapsedSecs()</code> laat je toe om een minimum
@@ -183,7 +183,7 @@ $profiler->setFilterElapsedSecs(null);
         </section>
 
         <section xml:id="zend.db.profiler.advanced.filtertype"><info><title>Filteren per type query</title></info>
-            
+
 
             <para>
                 <code>setFilterQueryType()</code> laat je toe welk type queries moeten worden
@@ -260,7 +260,7 @@ $profiler->setFilterQueryType(null);
         </section>
 
         <section xml:id="zend.db.profiler.advanced.getbytype"><info><title>Profielen per type query verkrijgen</title></info>
-            
+
 
             <para>
                 Het gebruik van <code>setFilterQueryType()</code> kan het aantal gegenereerde profielen

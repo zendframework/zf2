@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.dispatcher"><info><title>Le distributeur</title></info>
-    
+
 
     <section xml:id="zend.controller.dispatcher.overview"><info><title>Vue d'ensemble</title></info>
-        
+
 
         <para>
             La distribution est le processus de récupération de l'objet requête,
@@ -19,7 +19,7 @@
         </para>
 
         <note><info><title>Le module "Default"</title></info>
-            
+
             <para>
                 Quand vous créez des applications modulaires, vous pouvez constater que vous
                 voulez aussi que votre module par défaut ait son espace de noms (dans la
@@ -91,7 +91,7 @@ public function bazAction()
     </section>
 
     <section xml:id="zend.controller.dispatcher.subclassing"><info><title>Sous-classer le distributeur</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Front</classname> appelle en premier le routeur pour

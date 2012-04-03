@@ -21,9 +21,9 @@
 
 namespace ZendTest\Log\Filter;
 
-use \Zend\Log\Logger,
-    \Zend\Log\Filter\Message,
-    \Zend\Config\Config;
+use \Zend\Log\Logger;
+use \Zend\Log\Filter\Message;
+use \Zend\Config\Config;
 
 /**
  * @category   Zend

@@ -21,8 +21,8 @@
 
 namespace Zend\Navigation\Page;
 
-use Zend\Navigation\Exception,
-    Zend\Controller\Front as FrontController;
+use Zend\Navigation\Exception;
+use Zend\Controller\Front as FrontController;
 
 /**
  * Represents a page that is defined using module, controller, action, route

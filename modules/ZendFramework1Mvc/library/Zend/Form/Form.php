@@ -19,15 +19,15 @@
  */
 
 namespace Zend\Form;
-use Zend\Config\Config,
-    Zend\Controller\Front as FrontController,
-    Zend\Registry,
-    Zend\Loader\PrefixPathLoader,
-    Zend\Loader\PrefixPathMapper,
-    Zend\Loader,
-    Zend\Json\Json,
-    Zend\View\Renderer as View,
-    Zend\Translator;
+use Zend\Config\Config;
+use Zend\Controller\Front as FrontController;
+use Zend\Registry;
+use Zend\Loader\PrefixPathLoader;
+use Zend\Loader\PrefixPathMapper;
+use Zend\Loader;
+use Zend\Json\Json;
+use Zend\View\Renderer as View;
+use Zend\Translator;
 
 /**
  * Zend_Form
@@ -2229,7 +2229,7 @@ class Form implements \Iterator, \Countable, \Zend\Validator\Validator
         }
         $context = $data;
         foreach ($this->getElements() as $key => $element) {
-            if (null !== $translator 
+            if (null !== $translator
                 && $this->hasTranslator()
                 && !$element->hasTranslator()
             ) {

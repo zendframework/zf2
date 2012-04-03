@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2.zones"><info><title>Zend_Service_Amazon_Ec2: Regions and Availability Zones</title></info>
-    
+
 
     <para>
         Amazon EC2 provides the ability to place instances in different regions
@@ -14,7 +14,7 @@
     </para>
 
     <section xml:id="zend.service.amazon.ec2.zones.regions"><info><title>Amazon EC2 Regions</title></info>
-        
+
 
         <para>
             Amazon EC2 provides multiple regions so you can launch Amazon EC2
@@ -31,7 +31,7 @@
         </para>
 
         <example xml:id="zend.service.amazon.ec2.zones.regions.example"><info><title>Viewing the available regions</title></info>
-            
+
 
             <para>
                 <code>describe</code> is used to find out which regions your account has access to.
@@ -54,7 +54,7 @@ foreach($regions as $region) {
     </section>
 
     <section xml:id="zend.service.amazon.ec2.zones.availability"><info><title>Amazon EC2 Availability Zones</title></info>
-        
+
 
         <para>
             When you launch an instance, you can optionally specify an Availability
@@ -69,7 +69,7 @@ foreach($regions as $region) {
         </para>
 
         <example xml:id="zend.service.amazon.ec2.zones.availability.example"><info><title>Viewing the available zones</title></info>
-            
+
 
             <para>
                 <code>describe</code> is used to find out which what the status is of each

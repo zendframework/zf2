@@ -21,10 +21,10 @@
 
 namespace ZendTest\Dojo\Form\Element;
 
-use Zend\Dojo\Form\Element\DateTextBox as DateTextBoxElement,
-    Zend\Dojo\View\Helper\Dojo as DojoHelper,
-    Zend\Registry,
-    Zend\View;
+use Zend\Dojo\Form\Element\DateTextBox as DateTextBoxElement;
+use Zend\Dojo\View\Helper\Dojo as DojoHelper;
+use Zend\Registry;
+use Zend\View;
 
 /**
  * Test class for Zend_Dojo_Form_Element_DateTextBox.
@@ -167,7 +167,7 @@ class DateTextBoxTest extends \PHPUnit_Framework_TestCase
     {
         $this->element->setValue('2011-05-10');
         $html = $this->element->render();
-        
+
         $this->assertSame('2011-05-10', $this->element->getValue());
         $this->assertContains('value="2011-05-10"', $html);
     }

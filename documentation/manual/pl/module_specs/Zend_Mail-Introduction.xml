@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.introduction"><info><title>Wprowadzenie</title></info>
 
-    
+
 
     <section xml:id="zend.mail.introduction.getting-started"><info><title>Getting started</title></info>
 
-        
+
 
         <para>
             <code>Zend_Mail</code> zapewnia możliwość tworzenia i wysyłania tekstowych
@@ -16,7 +16,7 @@
         </para>
 
         <example xml:id="zend.mail.introduction.example-1"><info><title>Wysyłanie prostego e-maila za pomocą Zend_Mail</title></info>
-            
+
             <para>
                 Prosty e-mail składa się z odbiorców, z tematu, treści i z nadawcy.
                 Aby wysłać taki e-mail używając <code>Zend_Mail_Transport_Sendmail</code>
@@ -35,7 +35,7 @@ $mail->send();
         </example>
 
         <note><info><title>Minimalne definicje</title></info>
-            
+
             <para>
                 Aby wysłać e-mail za pomocą <code>Zend_Mail</code> musisz określić chociaż
                 jednego odbiorcę, nadawcę (np., za pomocą <code>setFrom()</code>), i treść
@@ -72,7 +72,7 @@ $mail->setBodyText('This is the text of the mail.')
 
     <section xml:id="zend.mail.introduction.sendmail"><info><title>Configuring the default sendmail transport</title></info>
 
-        
+
 
         <para>
             The default transport for a <code>Zend_Mail</code> instance is <code>Zend_Mail_Transport_Sendmail</code>.
@@ -85,7 +85,7 @@ $mail->setBodyText('This is the text of the mail.')
 
         <example xml:id="zend.mail.introduction.sendmail.example-1"><info><title>Passing additional parameters to the Zend_Mail_Transport_Sendmail transport</title></info>
 
-            
+
 
             <para>
                 This example shows how to change the Return-Path of the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/mail"><code>mail()</code></link>
@@ -108,7 +108,7 @@ $mail->send();
         </example>
 
         <note><info><title>Safe mode restrictions</title></info>
-            
+
             <para>
                 The optional additional parameters will be cause the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/mail"><code>mail()</code></link> function to fail
                 if PHP is running in safe mode.

@@ -21,13 +21,13 @@
 
 namespace ZendTest\Tag\Cloud;
 
-use Zend\Tag,
-    Zend\Tag\Cloud,
-    Zend\Tag\Cloud\DecoratorBroker,
-    Zend\Loader\Broker,
-    Zend\Loader\PluginBroker,
-    Zend\Tag\Exception\InvalidArgumentException,
-    ZendTest\Tag\Cloud\TestAsset;
+use Zend\Tag;
+use Zend\Tag\Cloud;
+use Zend\Tag\Cloud\DecoratorBroker;
+use Zend\Loader\Broker;
+use Zend\Loader\PluginBroker;
+use Zend\Tag\Exception\InvalidArgumentException;
+use ZendTest\Tag\Cloud\TestAsset;
 
 /**
  * @category   Zend

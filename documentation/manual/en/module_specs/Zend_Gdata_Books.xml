@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.books"><info><title>Using the Book Search Data API</title></info>
-    
+
 
     <para>
         The Google Book Search Data <acronym>API</acronym> allows client applications to view
@@ -24,7 +24,7 @@
     </para>
 
     <section xml:id="zend.gdata.books.authentication"><info><title>Authenticating to the Book Search service</title></info>
-        
+
 
         <para>
             You can access both public and private feeds using the Book Search
@@ -39,7 +39,7 @@
     </section>
 
     <section xml:id="zend.gdata.books.searching_for_books"><info><title>Searching for books</title></info>
-        
+
 
         <para>
             The Book Search Data <acronym>API</acronym> provides a number of feeds that list
@@ -154,7 +154,7 @@ http://www.google.com/books/feeds/volumes?q=keyword&min-viewability=partial
         </para>
 
         <section xml:id="zend.gdata.books.partner_restrict"><info><title>Partner Co-Branded Search</title></info>
-            
+
 
             <para>
                 Google Book Search provides <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://books.google.com/support/partner/bin/answer.py?hl=en&amp;answer=65113">Co-Branded
@@ -201,10 +201,10 @@ $query =
     </section>
 
     <section xml:id="zend.gdata.books.community_features"><info><title>Using community features</title></info>
-        
+
 
         <section xml:id="zend.gdata.books.adding_ratings"><info><title>Adding a rating</title></info>
-            
+
 
             <para>
                 A user can add a rating to a book. Book Search uses a 1-5
@@ -227,7 +227,7 @@ $books->insertVolume($entry, Zend_Gdata_Books::MY_ANNOTATION_FEED_URI);
         </section>
 
         <section xml:id="zend.gdata.books.reviews"><info><title>Reviews</title></info>
-            
+
 
             <para>
                 In addition to ratings, authenticated users can submit reviews or
@@ -236,7 +236,7 @@ $books->insertVolume($entry, Zend_Gdata_Books::MY_ANNOTATION_FEED_URI);
             </para>
 
             <section xml:id="zend.gdata.books.adding_review"><info><title>Adding a review</title></info>
-                
+
 
                 <para>
                     To add a review, add a <classname>Review</classname> object to a
@@ -256,7 +256,7 @@ $books->insertVolume($entry, $annotationUrl);
             </section>
 
             <section xml:id="zend.gdata.books.editing_review"><info><title>Editing a review</title></info>
-                
+
 
                 <para>
                     To update an existing review, first you retrieve the
@@ -276,7 +276,7 @@ $books->updateVolume($entry, $entryUrl);
         </section>
 
         <section xml:id="zend.gdata.books.labels"><info><title>Labels</title></info>
-            
+
 
             <para>
                 You can use the Book Search Data <acronym>API</acronym> to label volumes with
@@ -286,7 +286,7 @@ $books->updateVolume($entry, $entryUrl);
             </para>
 
             <section xml:id="zend.gdata.books.submitting_labels"><info><title>Submitting a set of labels</title></info>
-                
+
 
                 <para>
                     To submit labels, add a <classname>Category</classname> object
@@ -306,7 +306,7 @@ $books->insertVolume($entry, Zend_Gdata_Books::MY_ANNOTATION_FEED_URI);
         </section>
 
         <section xml:id="zend.gdata.books.retrieving_annotations"><info><title>Retrieving annotations: reviews, ratings, and labels</title></info>
-            
+
 
             <para>
                 You can use the Book Search Data <acronym>API</acronym> to retrieve annotations
@@ -342,7 +342,7 @@ foreach ($feed as $entry) {
         </section>
 
         <section xml:id="zend.gdata.books.deleting_annotations"><info><title>Deleting Annotations</title></info>
-            
+
 
             <para>
                 If you retrieved an annotation entry containing ratings,
@@ -357,7 +357,7 @@ $books->deleteVolume($entry);
     </section>
 
     <section xml:id="zend.gdata.books.sharing_with_my_library"><info><title>Book collections and My Library</title></info>
-        
+
 
         <para>
             Google Book Search provides a number of user-specific
@@ -373,7 +373,7 @@ $books->deleteVolume($entry);
         </para>
 
         <section xml:id="zend.gdata.books.retrieving_books_in_library"><info><title>Retrieving books in a user's library</title></info>
-            
+
 
             <para>
                 The following sections describe how to retrieve a list
@@ -386,7 +386,7 @@ $books->deleteVolume($entry);
             </para>
 
             <section xml:id="zend.gdata.books.retrieving_all_books_in_library"><info><title>Retrieving all books in a user's library</title></info>
-                
+
 
                 <para>
                     To retrieve the user's books, send a query to the
@@ -407,7 +407,7 @@ $feed = $books->getUserLibraryFeed();
             </section>
 
             <section xml:id="zend.gdata.books.retrieving_books_in_library_with_query"><info><title>Searching for books in a user's library</title></info>
-                
+
 
                 <para>
                     Just as you can <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#zend.gdata.books.searching_for_books">search across all books</link>,
@@ -448,7 +448,7 @@ $feed = $books->getVolumeFeed($query);
         </section>
 
         <section xml:id="zend.gdata.books.updating_library"><info><title>Updating books in a user's library</title></info>
-            
+
 
             <para>
                 You can use the Book Search Data <acronym>API</acronym> to add a book to, or remove
@@ -458,7 +458,7 @@ $feed = $books->getVolumeFeed($query);
             </para>
 
             <section xml:id="zend.gdata.books.library_book_add"><info><title>Adding a book to a library</title></info>
-                
+
 
                 <para>
                     After authenticating, you can add books to the current user's library.
@@ -496,7 +496,7 @@ $books->insertVolume(
             </section>
 
             <section xml:id="zend.gdata.books.library_book_remove"><info><title>Removing a book from a library</title></info>
-                
+
 
                 <para>
                     To remove a book from a user's library, call

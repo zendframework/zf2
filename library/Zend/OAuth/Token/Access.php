@@ -20,9 +20,9 @@
 
 namespace Zend\OAuth\Token;
 
-use Zend\OAuth\Config,
-    Zend\OAuth,
-    Zend\Uri;
+use Zend\OAuth\Config;
+use Zend\OAuth;
+use Zend\Uri;
 
 /**
  * @category   Zend
@@ -34,11 +34,11 @@ class Access extends AbstractToken
 {
     /**
      * Cast to HTTP header
-     * 
-     * @param  string $url 
-     * @param  \Zend\OAuth\Config $config 
-     * @param  null|array $customParams 
-     * @param  null|string $realm 
+     *
+     * @param  string $url
+     * @param  \Zend\OAuth\Config $config
+     * @param  null|array $customParams
+     * @param  null|string $realm
      * @return string
      */
     public function toHeader(
@@ -58,10 +58,10 @@ class Access extends AbstractToken
 
     /**
      * Cast to HTTP query string
-     * 
-     * @param  mixed $url 
-     * @param  Zend\OAuth\Config $config 
-     * @param  null|array $params 
+     *
+     * @param  mixed $url
+     * @param  Zend\OAuth\Config $config
+     * @param  null|array $params
      * @return string
      */
     public function toQueryString($url, Config $config, array $params = null)
@@ -80,11 +80,11 @@ class Access extends AbstractToken
 
     /**
      * Get OAuth client
-     * 
-     * @param  array $oauthOptions 
-     * @param  null|string $uri 
-     * @param  null|array|Zend\Config\Config $config 
-     * @param  bool $excludeCustomParamsFromHeader 
+     *
+     * @param  array $oauthOptions
+     * @param  null|string $uri
+     * @param  null|array|Zend\Config\Config $config
+     * @param  bool $excludeCustomParamsFromHeader
      * @return Zend\OAuth\Client
      */
     public function getHttpClient(array $oauthOptions, $uri = null, $config = null, $excludeCustomParamsFromHeader = true)

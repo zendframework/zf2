@@ -74,8 +74,8 @@ abstract class AbstractHelper
 
     /**
      * Set action helper broker
-     * 
-     * @param  Broker $broker 
+     *
+     * @param  Broker $broker
      * @return AbstractHelper
      */
     public function setBroker(Broker $broker)
@@ -86,7 +86,7 @@ abstract class AbstractHelper
 
     /**
      * Get action helper broker instance
-     * 
+     *
      * @return null|Broker
      */
     public function getBroker()

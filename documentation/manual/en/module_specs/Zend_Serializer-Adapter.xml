@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.serializer.adapter"><info><title>Zend_Serializer_Adapter</title></info>
-    
+
 
     <para>
         <classname>Zend_Serializer</classname> adapters create a bridge for different methods of
@@ -22,7 +22,7 @@
     </para>
 
     <section xml:id="zend.serializer.adapter.phpserialize"><info><title>Zend_Serializer_Adapter_PhpSerialize</title></info>
-        
+
 
         <para>
             This adapter uses the built-in <methodname>un/serialize</methodname>
@@ -35,7 +35,7 @@
     </section>
 
     <section xml:id="zend.serializer.adapter.igbinary"><info><title>Zend_Serializer_Adapter_IgBinary</title></info>
-        
+
 
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://opensource.dynamoid.com">Igbinary</link> is Open Source Software
@@ -57,7 +57,7 @@
     </section>
 
     <section xml:id="zend.serializer.adapter.wddx"><info><title>Zend_Serializer_Adapter_Wddx</title></info>
-        
+
 
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wikipedia.org/wiki/WDDX">WDDX</link> (Web Distributed Data eXchange)
@@ -83,7 +83,7 @@
         </para>
 
         <table xml:id="zend.serializer.adapter.wddx.table.options"><info><title>Zend_Serializer_Adapter_Wddx Options</title></info>
-            
+
 
             <tgroup cols="4">
                  <thead>
@@ -108,7 +108,7 @@
     </section>
 
     <section xml:id="zend.serializer.adapter.json"><info><title>Zend_Serializer_Adapter_Json</title></info>
-        
+
 
         <para>
             The <acronym>JSON</acronym> adapter provides a bridge to the
@@ -121,7 +121,7 @@
         </para>
 
         <table xml:id="zend.serializer.adapter.json.table.options"><info><title>Zend_Serializer_Adapter_Json Options</title></info>
-            
+
 
             <tgroup cols="4">
                  <thead>
@@ -169,7 +169,7 @@
     </section>
 
     <section xml:id="zend.serializer.adapter.amf03"><info><title>Zend_Serializer_Adapter_Amf 0 and 3</title></info>
-        
+
 
         <para>
             The <acronym>AMF</acronym> adapters, <classname>Zend_Serializer_Adapter_Amf0</classname>
@@ -184,7 +184,7 @@
     </section>
 
     <section xml:id="zend.serializer.adapter.pythonpickle"><info><title>Zend_Serializer_Adapter_PythonPickle</title></info>
-        
+
 
         <para>
             This adapter converts <acronym>PHP</acronym> types to a <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://docs.python.org/library/pickle.html">Python Pickle</link> string
@@ -197,7 +197,7 @@
         </para>
 
         <table xml:id="zend.serializer.adapter.pythonpickle.table.options"><info><title>Zend_Serializer_Adapter_PythonPickle Options</title></info>
-            
+
 
             <tgroup cols="4">
                  <thead>
@@ -229,7 +229,7 @@
         </para>
 
         <table xml:id="zend.serializer.adapter.pythonpickle.table.php2python"><info><title>Datatype merging (PHP to Python)</title></info>
-            
+
 
             <tgroup cols="2">
                  <thead>
@@ -288,7 +288,7 @@
         </para>
 
         <table xml:id="zend.serializer.adapter.pythonpickle.table.python2php"><info><title>Datatype merging (Python to PHP)</title></info>
-            
+
 
             <tgroup cols="2">
                  <thead>
@@ -368,7 +368,7 @@
     </section>
 
     <section xml:id="zend.serializer.adapter.phpcode"><info><title>Zend_Serializer_Adapter_PhpCode</title></info>
-        
+
 
         <para>
             This adapter generates a parsable <acronym>PHP</acronym> code representation using
@@ -381,7 +381,7 @@
         </para>
 
         <warning><info><title>Unserializing objects</title></info>
-            
+
 
             <para>
                 Objects will be serialized using the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/manual/language.oop5.magic.php#language.oop5.magic.set-state">__set_state</link>
@@ -391,7 +391,7 @@
         </warning>
 
         <warning><info><title>Uses eval()</title></info>
-            
+
 
             <para>
                 The <classname>PhpCode</classname> adapter utilizes <methodname>eval()</methodname>

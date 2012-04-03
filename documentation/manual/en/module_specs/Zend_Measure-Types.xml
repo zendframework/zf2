@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.types"><info><title>Types of measurements</title></info>
-    
+
 
     <para>
         All supported measurement types are listed below, each with an example of the standard usage
@@ -8,7 +8,7 @@
     </para>
 
     <table xml:id="zend.measure.types.table-1"><info><title>List of measurement types</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>
@@ -341,7 +341,7 @@
     </table>
 
     <section xml:id="zend.measure.types.binary"><info><title>Hints for Zend_Measure_Binary</title></info>
-        
+
 
         <para>
             Some popular binary conventions, include terms like kilo-, mega-, giga, etc. in normal
@@ -362,7 +362,7 @@
     </section>
 
     <section xml:id="zend.measure.types.decimal"><info><title>Hints for Zend_Measure_Number</title></info>
-        
+
 
         <para>
             The best known number format is the decimal system. Additionally this class supports the
@@ -373,7 +373,7 @@
     </section>
 
     <section xml:id="zend.measure.types.roman"><info><title>Roman numbers</title></info>
-        
+
 
         <para>
             For the roman number system digits greater 4000 are supported. In reality these digits

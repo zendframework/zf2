@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.mime"><info><title>Zend_Mime</title></info>
-    
+
 
     <section xml:id="zend.mime.mime.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime</classname> is a support class for handling multipart
@@ -15,7 +15,7 @@
     </section>
 
     <section xml:id="zend.mime.mime.static"><info><title>Static Methods and Constants</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime</classname> provides a simple set of static helper methods to work
@@ -149,7 +149,7 @@
     </section>
 
     <section xml:id="zend.mime.mime.instantiation"><info><title>Instantiating Zend_Mime</title></info>
-        
+
 
         <para>
             When Instantiating a <classname>Zend_Mime</classname> Object, a <acronym>MIME</acronym>
