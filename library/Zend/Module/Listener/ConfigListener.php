@@ -230,7 +230,7 @@ class ConfigListener extends AbstractListener
     protected function mergeGlobPath($globPath)
     {
         // @TODO Use GlobIterator
-        $config = ConfigFactory::fromFiles(glob($globPath, GLOB_BRACE));
+        $config = ConfigFactory::fromFiles(glob($globPath));
         $this->mergeTraversableConfig($config);
         if ($this->getOptions()->getConfigCacheEnabled()) {
             $this->updateCache();
