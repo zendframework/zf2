@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
+<section
     xmlns="http://docbook.org/ns/docbook" version="5.0"
     xml:id="zend.mvc.routing">
   <info><title>Routing</title></info>
@@ -8,7 +8,7 @@
   <para>Il Routing è l'atto di far corrispondere ad una richiesta un preciso controller.</para>
 
   <para>Tipicamente, il routing esaminerà la richiesta URI e si occuperà
-    di fare il "match" dell'URI path sulle regole configurate. Se il set di 
+    di fare il "match" dell'URI path sulle regole configurate. Se il set di
     regole combacia allora un controller sarà eseguito.
     Il routing può essere utilizzato per altre porzioni della richiesta URI
     o dell'ambiente -- Per esempio: lo schema o l'host, i parametri della
@@ -57,7 +57,7 @@ class RouteMatch
 ]]></programlisting>
 
   <para>
-    Tipicamente quando una <classname>Route</classname> corrisponde, 
+    Tipicamente quando una <classname>Route</classname> corrisponde,
     questa definisce uno o più parametri. Questi sono passati ad un
     <classname>RouteMatch</classname>, altri oggetti possono
     chiedere a <classname>RouteMatch</classname> i suoi valori.
@@ -73,7 +73,7 @@ $entity = $resource->get($id);
 
   <para>
     Spesso avrai tante "route" che vorrai controllare. Per facilitare
-    questa operazione puoi utilizzare un aggregatore di "route", 
+    questa operazione puoi utilizzare un aggregatore di "route",
     tipicamente implementando <classname>RouteStack</classname>:
   </para>
 
@@ -95,7 +95,7 @@ interface RouteStack extends Route
     Zend Framework concede due implementazione di questa interfaccia:
     <classname>SimpleRouteStack</classname>, <classname>TreeRoueStack</classname>.
     In ognuna, registri le "route" una alla volta utilizzando il metodo
-    <methodname>addRoute()</methodname>, o in "bulk" usando 
+    <methodname>addRoute()</methodname>, o in "bulk" usando
     <methodname>addRoutes()</methodname>.
   </para>
 
@@ -140,12 +140,12 @@ $router->addRoutes(array(
       <info><title>SimpleRouteStack</title></info>
 
       <para>
-        Questo router semplicemente raccoglie le "route" individuali e 
+        Questo router semplicemente raccoglie le "route" individuali e
         ne fornisce la logica di confronto in uno step e cicla attraverso
         questi element nell'ordine LIFO finchè un confronto non è positivo.
-        Per questo, "route" positive molto spesso dovrebbero essere 
+        Per questo, "route" positive molto spesso dovrebbero essere
         regisdtrate per ultime e le "route" meno frequenti per prime.
-        In aggiunta, bisognerebbe essere sicuri che le "route" che 
+        In aggiunta, bisognerebbe essere sicuri che le "route" che
         potenzialmente sovrascrivono le "route" già registrate siano
         le più specifiche possibili (es. registrate per ultime). In alternativa
         puoi fornire una priorità con un terzo parametro al metodo
@@ -159,7 +159,7 @@ $router->addRoutes(array(
       <info><title>TreeRouteStack</title></info>
 
       <para>
-        <classname>Zend\Mvc\Router\Http\TreeRouteStack</classname> fornisce 
+        <classname>Zend\Mvc\Router\Http\TreeRouteStack</classname> fornisce
         l'attitudine di registrare alberi di "route", e utilizzerà un
         algoritmo B-tree (albero bilanciato [n.d.t.]) per confrontare
         le strade. Così puoi registrare una singola "route" con molte
@@ -167,7 +167,7 @@ $router->addRoutes(array(
       </para>
 
       <para>
-        Una <classname>TreeRouteStack</classname> consiste in una delle 
+        Una <classname>TreeRouteStack</classname> consiste in una delle
         seguenti configurazioni:
       </para>
 
@@ -181,8 +181,8 @@ $router->addRoutes(array(
 
         <listitem>
           <para>
-            Un opzionale "route_broker", che è 
-            <classname>Zend\Mvc\Router\RouteBroker</classname> che può 
+            Un opzionale "route_broker", che è
+            <classname>Zend\Mvc\Router\RouteBroker</classname> che può
             caricare in modo debole le strade (lazy-loading).
           </para>
         </listitem>
@@ -197,9 +197,9 @@ $router->addRoutes(array(
         <listitem>
           <para>
             Un array opzionale "child_routes" che contiene le strade
-            addizionali che partona dalla "route" base (es. costruite 
+            addizionali che partona dalla "route" base (es. costruite
             da questa). Ogni route "figlio" può essere a sua volta una
-            <classname>TreeRouteStack</classname> se lo desideri, 
+            <classname>TreeRouteStack</classname> se lo desideri,
             infatti la "route" <classname>Part</classname> lavora esattamente
             in questo modo.
           </para>
@@ -262,8 +262,8 @@ $router->addRoutes(array(
 
       <para>
         Per ogni segmento hostname gestito puoi fornirne un obbligo.
-        Per esempio, se il segmento "subdomain" deve iniziare 
-        con "fw"  e contenere esattamente due cifre, la seguente 
+        Per esempio, se il segmento "subdomain" deve iniziare
+        con "fw"  e contenere esattamente due cifre, la seguente
         strada deve essere fornita:
       </para>
 
@@ -277,11 +277,11 @@ $route = Hostname::factory(array(
 ]]></programlisting>
 
       <para>
-        Nel precedente esempio solo la chiave "submodule" sarà 
+        Nel precedente esempio solo la chiave "submodule" sarà
         ritornata nel <classname>RouteMatch</classname>. Se vuoi
-        puoi fornire altre informazioni di base per il confronto, o 
-        se vuoi dei valori di default di ritorno per "subdomain" 
-        hai bisogno di fornirli. 
+        puoi fornire altre informazioni di base per il confronto, o
+        se vuoi dei valori di default di ritorno per "subdomain"
+        hai bisogno di fornirli.
       </para>
 
       <programlisting language="php"><![CDATA[
@@ -308,7 +308,7 @@ $route = Hostname::factory(array(
 
       <para>
         La <classname>Literal</classname> è stata fatta per confrontare
-        esattamente il segmento URI. La configurazione infatti è solo 
+        esattamente il segmento URI. La configurazione infatti è solo
         la strada che vuoi confrontare, parametri di default o parametri
         che vuoi in ritorno sul "match".
       </para>
@@ -333,14 +333,14 @@ $route = Literal::factory(array(
       <info><title>Zend\Mvc\Router\Http\Part</title></info>
 
       <para>
-        Una "route" <classname>Part</classname> permette di 
+        Una "route" <classname>Part</classname> permette di
         percorrere l'albero delle possibili strade basandosi su un
         segmento dell'URI path. Questa attualmente estende il
         <classname>TreeRouteStack</classname>.
       </para>
 
       <para>
-        "Route" <classname>Part</classname> è difficile da descrivere, ne 
+        "Route" <classname>Part</classname> è difficile da descrivere, ne
         facciamo un esempio qui.
       </para>
 
@@ -453,15 +453,15 @@ $route = Part::factory(array(
       <para>
         Una "route" <classname>Regex</classname> utilizza una espressione
         regolare per confrontare un path URI. Qualunque espressione
-        regolare è permessa; la nostra raccomandazione è di usare 
+        regolare è permessa; la nostra raccomandazione è di usare
         i nomi da catturare di ogni valore che si vuole in ritorno
-        <classname>RouteMatch</classname>. 
+        <classname>RouteMatch</classname>.
       </para>
 
       <para>
-        Le "route" basate sulle espressioni regolari sono spesso complesse, 
+        Le "route" basate sulle espressioni regolari sono spesso complesse,
         puoi specificare una "spec" o specifica da usare quando costruisci
-        un URL da una espressione regolare. La specifica è semplicemente 
+        un URL da una espressione regolare. La specifica è semplicemente
         una stringa, i rimpiazzamenti sono identificati utilizzando "%keyname%"
         nella stringa, le chiavi per tutti i valori catturati o parametri
         con il nome sono passati al metodo <methodname>assemble()</methodname>.
@@ -471,7 +471,7 @@ $route = Part::factory(array(
         Come tutte le altre "route", la "route" <classname>Regex</classname>
         può accettare valori di default, ovvero parametri che vengono
         inclusi nella risposta <classname>RouteMatch</classname> quando
-        sono confrontati positivamente. 
+        sono confrontati positivamente.
       </para>
 
       <programlisting language="php"><![CDATA[
@@ -488,10 +488,10 @@ $route = Regex::factory(array(
       <para>
         La precedente si realizza con
         "/blog/001-some-blog_slug-here.html", e ritorna tre
-        oggetti nel <classname>RouteMatch</classname>: un "id", 
+        oggetti nel <classname>RouteMatch</classname>: un "id",
         un controller ed un "format". Quando assembli una URL da questa
         strada, l'id e il "format" dovranno essere passati per
-        riempire la specifica.  
+        riempire la specifica.
       </para>
     </section>
 
@@ -503,7 +503,7 @@ $route = Regex::factory(array(
         schema dello URI e devono essere esatti. Questa "route" e simile alla
         "route" <classname>Literal</classname>, semplicemente prende quello
         che vuoi da confrontare ed i default, ovvero i parametri da ritornare
-        sul confronto. 
+        sul confronto.
       </para>
 
       <programlisting language="php"><![CDATA[
@@ -516,7 +516,7 @@ $route = Scheme::factory(array(
 ]]></programlisting>
 
       <para>
-        La precedente "route" confronta se lo schema "https" 
+        La precedente "route" confronta se lo schema "https"
         è presente, in questo caso sarà ritornata la chiave
         "https" nel <classname>RouteMatch</classname> con un
         valore booleano <varname>true</varname>.
@@ -531,7 +531,7 @@ $route = Scheme::factory(array(
         un qualunque segmento di un URI path. I segmenti sono delineati
         dall'utilizzo della virgola, seguita da un carattere alfanumerico.
         Se un segmento è opzionale dovrà essere inglobato dalle parentesi quadre.
-        Un esempio: "/:foo[/:bar]" si realizza su un "/" seguito dal testo e 
+        Un esempio: "/:foo[/:bar]" si realizza su un "/" seguito dal testo e
         assegnato ad una chiave "foo"; se è presente un successivo carattere
         "/" un qualunque testo successivo sarà assegnato alla chiave "bar".
       </para>
@@ -550,7 +550,7 @@ $route = Scheme::factory(array(
       </para>
 
       <para>
-        Come per le altre "route", puoi indicare dei valori di default 
+        Come per le altre "route", puoi indicare dei valori di default
         da utilizzare. Questi sono particolarmente utili quando hai dei
         segmenti opzionali.
       </para>

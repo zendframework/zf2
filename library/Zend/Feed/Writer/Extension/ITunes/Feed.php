@@ -17,7 +17,7 @@
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
- 
+
 namespace Zend\Feed\Writer\Extension\ITunes;
 
 use Zend\Feed\Writer;
@@ -37,18 +37,18 @@ class Feed
      * @var array
      */
     protected $_data = array();
-    
+
     /**
      * Encoding of all text values
      *
      * @var string
      */
     protected $_encoding = 'UTF-8';
-    
+
     /**
      * Set feed encoding
-     * 
-     * @param  string $enc 
+     *
+     * @param  string $enc
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function setEncoding($enc)
@@ -56,17 +56,17 @@ class Feed
         $this->_encoding = $enc;
         return $this;
     }
-    
+
     /**
      * Get feed encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
     {
         return $this->_encoding;
     }
-    
+
     /**
      * Set a block value of "yes" or "no". You may also set an empty string.
      *
@@ -86,11 +86,11 @@ class Feed
         $this->_data['block'] = $value;
         return $this;
     }
-    
+
     /**
      * Add feed authors
-     * 
-     * @param  array $values 
+     *
+     * @param  array $values
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function addItunesAuthors(array $values)
@@ -100,11 +100,11 @@ class Feed
         }
         return $this;
     }
-    
+
     /**
      * Add feed author
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function addItunesAuthor($value)
@@ -116,14 +116,14 @@ class Feed
         if (!isset($this->_data['authors'])) {
             $this->_data['authors'] = array();
         }
-        $this->_data['authors'][] = $value;   
+        $this->_data['authors'][] = $value;
         return $this;
     }
-    
+
     /**
      * Set feed categories
-     * 
-     * @param  array $values 
+     *
+     * @param  array $values
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function setItunesCategories(array $values)
@@ -150,16 +150,16 @@ class Feed
                         . ' contain a maximum of 255 characters each');
                     }
                     $this->_data['categories'][$key][] = $val;
-                } 
+                }
             }
         }
         return $this;
     }
-    
+
     /**
      * Set feed image (icon)
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function setItunesImage($value)
@@ -176,11 +176,11 @@ class Feed
         $this->_data['image'] = $value;
         return $this;
     }
-    
+
     /**
      * Set feed cumulative duration
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function setItunesDuration($value)
@@ -196,11 +196,11 @@ class Feed
         $this->_data['duration'] = $value;
         return $this;
     }
-    
+
     /**
      * Set "explicit" flag
-     * 
-     * @param  bool $value 
+     *
+     * @param  bool $value
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function setItunesExplicit($value)
@@ -212,11 +212,11 @@ class Feed
         $this->_data['explicit'] = $value;
         return $this;
     }
-    
+
     /**
      * Set feed keywords
-     * 
-     * @param  array $value 
+     *
+     * @param  array $value
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function setItunesKeywords(array $value)
@@ -234,11 +234,11 @@ class Feed
         $this->_data['keywords'] = $value;
         return $this;
     }
-    
+
     /**
      * Set new feed URL
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function setItunesNewFeedUrl($value)
@@ -250,25 +250,25 @@ class Feed
         $this->_data['newFeedUrl'] = $value;
         return $this;
     }
-    
+
     /**
      * Add feed owners
-     * 
-     * @param  array $values 
+     *
+     * @param  array $values
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function addItunesOwners(array $values)
     {
         foreach ($values as $value) {
-            $this->addItunesOwner($value); 
+            $this->addItunesOwner($value);
         }
         return $this;
     }
-    
+
     /**
      * Add feed owner
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function addItunesOwner(array $value)
@@ -289,11 +289,11 @@ class Feed
         $this->_data['owners'][] = $value;
         return $this;
     }
-    
+
     /**
      * Set feed subtitle
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function setItunesSubtitle($value)
@@ -305,11 +305,11 @@ class Feed
         $this->_data['subtitle'] = $value;
         return $this;
     }
-    
+
     /**
      * Set feed summary
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return Zend_Feed_Writer_Extension_ITunes_Feed
      */
     public function setItunesSummary($value)
@@ -321,12 +321,12 @@ class Feed
         $this->_data['summary'] = $value;
         return $this;
     }
-    
+
     /**
      * Overloading: proxy to internal setters
-     * 
-     * @param  string $method 
-     * @param  array $params 
+     *
+     * @param  string $method
+     * @param  array $params
      * @return mixed
      */
     public function __call($method, array $params)

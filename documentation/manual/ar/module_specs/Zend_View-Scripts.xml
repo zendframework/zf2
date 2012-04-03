@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.scripts"><info><title>جزء الـ View</title></info>
 
-    
+
 
     <para>
         بمجرد إنتهاء الـ controller خاصتك من عملية نَسب المتغيرات إلى نسخة Zend_View
@@ -48,7 +48,7 @@
 
     <section xml:id="zend.view.scripts.escaping"><info><title>تجاهل "escaping" المخرجات</title></info>
 
-        
+
 
         <para>
             واحدة من أهم المهام التى يجب تنفيذها فى كود الـ view هى أن تتأكد من أن المخرجات قد تم
@@ -107,7 +107,7 @@ echo $view->render(...);
 
     <section xml:id="zend.view.scripts.templates"><info><title>أنظمة القوالب</title></info>
 
-        
+
 
         <para>
             أيضاً لغة PHP نفسها عبارة عن نظام قوالب قوى, لكن بعض المطورين يرى

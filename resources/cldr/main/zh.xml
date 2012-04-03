@@ -1020,12 +1020,12 @@
 	<dates>
 		<calendars>
 			<calendar type="buddhist">
-				<eras> 
+				<eras>
 					<eraAbbr>
 						<era type="0">佛历</era>
 					</eraAbbr>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>Gy年M月d日EEEE</pattern>
@@ -1048,7 +1048,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d日</dateFormatItem>
 						<dateFormatItem id="EEEd">d日EEE</dateFormatItem>
 						<dateFormatItem id="h">ah时</dateFormatItem>
@@ -1457,7 +1457,7 @@
 				</fields>
 			</calendar>
 			<calendar type="islamic">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>Gy年M月d日EEEE</pattern>
@@ -1479,7 +1479,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d日</dateFormatItem>
 						<dateFormatItem id="Ed">d日E</dateFormatItem>
@@ -1508,7 +1508,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<eras> 
+				<eras>
 					<eraAbbr>
 						<era type="0">大化</era>
 						<era type="1">白雉</era>
@@ -1748,7 +1748,7 @@
 						<era type="235">平成</era>
 					</eraAbbr>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>Gy年M月d日EEEE</pattern>
@@ -1771,7 +1771,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d日</dateFormatItem>
 						<dateFormatItem id="Ed">d日E</dateFormatItem>
 						<dateFormatItem id="h">ah时</dateFormatItem>
@@ -1826,7 +1826,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d日</dateFormatItem>
 						<dateFormatItem id="Ed">d日E</dateFormatItem>
 						<dateFormatItem id="h">ah时</dateFormatItem>

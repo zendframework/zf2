@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.strikeiron"><info><title>Zend_Service_StrikeIron</title></info>
-    
+
 
     <para>
         <classname>Zend_Service_StrikeIron</classname> provides a <acronym>PHP</acronym> 5 client to
@@ -32,7 +32,7 @@
     </para>
 
     <section xml:id="zend.service.strikeiron.overview"><info><title>Overview</title></info>
-        
+
 
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.strikeiron.com">StrikeIron</link>
@@ -104,7 +104,7 @@
     </section>
 
     <section xml:id="zend.service.strikeiron.registering"><info><title>Registering with StrikeIron</title></info>
-        
+
 
         <para>
             Before you can get started with <classname>Zend_Service_StrikeIron</classname>, you must
@@ -130,7 +130,7 @@
     </section>
 
     <section xml:id="zend.service.strikeiron.getting-started"><info><title>Getting Started</title></info>
-        
+
 
         <para>
             Once you have <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://strikeiron.com/Register.aspx">registered</link>
@@ -201,7 +201,7 @@ $taxBasic = $strikeIron->getService(array('class' => 'SalesUseTaxBasic'));
     </section>
 
     <section xml:id="zend.service.strikeiron.making-first-query"><info><title>Making Your First Query</title></info>
-        
+
 
         <para>
             Once you have used the <methodname>getService()</methodname> method to get a client
@@ -250,7 +250,7 @@ echo $rateInfo->GST;
     </section>
 
     <section xml:id="zend.service.strikeiron.examining-results"><info><title>Examining Results</title></info>
-        
+
 
         <para>
             When learning or debugging the StrikeIron services, it's often useful to dump the
@@ -323,7 +323,7 @@ Zend_Service_StrikeIron_Decorator Object
     </section>
 
     <section xml:id="zend.service.strikeiron.handling-errors"><info><title>Handling Errors</title></info>
-        
+
 
         <para>
             The previous examples are naive, i.e. no error handling was shown.
@@ -383,7 +383,7 @@ try {
     </section>
 
     <section xml:id="zend.service.strikeiron.checking-subscription"><info><title>Checking Your Subscription</title></info>
-        
+
 
         <para>
             StrikeIron provides many different services. Some of these are

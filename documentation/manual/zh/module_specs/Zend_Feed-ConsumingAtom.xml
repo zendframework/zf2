@@ -8,7 +8,7 @@
     </para>
 
     <example xml:id="zend.feed.consuming-atom.example.usage"><info><title>Atom Feed的基本用法</title></info>
-        
+
         <para>
             读取一个Atom Feed并打印出每个条目的<code>title</code> 和 <code>summary</code>：
         </para>

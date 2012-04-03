@@ -73,7 +73,7 @@ class TbxTest extends \PHPUnit_Framework_TestCase
             $this->assertContains('failed.tbx', $e->getMessage());
         }
     }
-    
+
     public function testToString()
     {
         $adapter = new Adapter\Tbx(__DIR__ . '/_files/translation_en.tbx', 'fr');

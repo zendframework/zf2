@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.uri.chapter"><info><title>Zend_Uri</title></info>
-  
+
 
   <section xml:id="zend.uri.overview"><info><title>Wstęp</title></info>
-    
+
 
     <para>
       <code>Zend_Uri</code> jest komponentem, który pomaga w manipulowaniu i
@@ -28,7 +28,7 @@
   </section>
 
   <section xml:id="zend.uri.creation"><info><title>Tworzenie nowego URI</title></info>
-    
+
 
     <para>
       <code>Zend_Uri</code> zbuduje nowy URI z szablonu jeśli do metody
@@ -36,7 +36,7 @@
     </para>
 
     <example xml:id="zend.uri.creation.example-1"><info><title>Tworzenie nowego URI za pomocą <code>Zend_Uri::factory()</code></title></info>
-      
+
 
       <programlisting role="php"><![CDATA[
 // Aby utworzyć URI z szablonu, przekaż tylko schemat.
@@ -63,7 +63,7 @@ $uri = Zend_Uri::factory('http');
   </section>
 
   <section xml:id="zend.uri.manipulation"><info><title>Manipulowanie istniejącym URI</title></info>
-    
+
 
     <para>
       Aby manipulować istniejącym URI, przekaż cały URI do
@@ -71,7 +71,7 @@ $uri = Zend_Uri::factory('http');
     </para>
 
     <example xml:id="zend.uri.manipulation.example-1"><info><title>Manipulowanie istniejącym URI za pomocą <code>Zend_Uri::factory()</code></title></info>
-      
+
 
     <programlisting role="php"><![CDATA[
 // Aby manipulować istniejącym URI, przekaż go do metody fabryki.
@@ -92,7 +92,7 @@ $uri = Zend_Uri::factory('http://www.zend.com');
   </section>
 
   <section xml:id="zend.uri.validation"><info><title>Sprawdzanie poprawności URI</title></info>
-    
+
 
     <para>
       Funkcja <code>Zend_Uri::check()</code> może być użyta jeśli potrzebne
@@ -100,7 +100,7 @@ $uri = Zend_Uri::factory('http://www.zend.com');
     </para>
 
     <example xml:id="zend.uri.validation.example-1"><info><title>Sprawdzanie poprawności URI za pomocą <code>Zend_Uri::check()</code></title></info>
-      
+
 
     <programlisting role="php"><![CDATA[
 // Sprawdź czy podany URI ma poprawny format
@@ -119,7 +119,7 @@ $valid = Zend_Uri::check('http://uri.in.question');
   </section>
 
   <section xml:id="zend.uri.instance-methods"><info><title>Wspólne metody instancji</title></info>
-    
+
 
     <para>
       Każda instancja podklasy <code>Zend_Uri</code> (np.
@@ -128,7 +128,7 @@ $valid = Zend_Uri::check('http://uri.in.question');
     </para>
 
     <section xml:id="zend.uri.instance-methods.getscheme"><info><title>Pobieranie schematu URI</title></info>
-      
+
 
       <para>
         Nazwa schematu URI jest częścią URI, która znajduje się przed dwukropkiem. Na przykład
@@ -136,7 +136,7 @@ $valid = Zend_Uri::check('http://uri.in.question');
       </para>
 
       <example xml:id="zend.uri.instance-methods.getscheme.example-1"><info><title>Pobieranie schematu z obiektu <code>Zend_Uri_*</code></title></info>
-        
+
 
         <programlisting role="php"><![CDATA[
 $uri = Zend_Uri::factory('http://www.zend.com');
@@ -154,10 +154,10 @@ $scheme = $uri->getScheme();  // "http"
     </section>
 
     <section xml:id="zend.uri.instance-methods.geturi"><info><title>Pobieranie całego URI</title></info>
-      
+
 
       <example xml:id="zend.uri.instance-methods.geturi.example-1"><info><title>Pobieranie całego URI z obiektu <code>Zend_Uri_*</code></title></info>
-        
+
 
         <programlisting role="php"><![CDATA[
 $uri = Zend_Uri::factory('http://www.zend.com');
@@ -174,7 +174,7 @@ echo $uri->getUri();  // "http://www.zend.com"
     </section>
 
     <section xml:id="zend.uri.instance-methods.valid"><info><title>Sprawdzanie poprawności URI</title></info>
-      
+
 
       <para>
         <code>Zend_Uri::factory()</code> zawsze sprawdzi poprawność przekazanego
@@ -186,7 +186,7 @@ echo $uri->getUri();  // "http://www.zend.com"
       </para>
 
       <example xml:id="zend.uri.instance-methods.valid.example-1"><info><title>Sprawdzanie poprawności obiektu <code>Zend_Uri_*</code></title></info>
-        
+
 
         <programlisting role="php"><![CDATA[
 $uri = Zend_Uri::factory('http://www.zend.com');

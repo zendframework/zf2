@@ -30,7 +30,7 @@ class GenericHeader implements HeaderDescription
 
     /**
      * Constructor
-     * 
+     *
      * @param null|string $fieldName
      * @param null|string $fieldValue
      */
@@ -47,7 +47,7 @@ class GenericHeader implements HeaderDescription
 
     /**
      * Set header field name
-     * 
+     *
      * @param  string $fieldName
      * @return GenericHeader
      */
@@ -81,7 +81,7 @@ class GenericHeader implements HeaderDescription
 
     /**
      * Set header field value
-     * 
+     *
      * @param  string $fieldValue
      * @return GenericHeader
      */
@@ -99,7 +99,7 @@ class GenericHeader implements HeaderDescription
 
     /**
      * Retrieve header field value
-     * 
+     *
      * @return string
      */
     public function getFieldValue()

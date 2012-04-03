@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.creation"><info><title>日付の作成</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Date</classname> は、さまざまな方法で自分自身のインスタンスを作成できます。
@@ -10,7 +10,7 @@
 
     <section xml:id="zend.date.creation.actual"><info><title>実際の日付の作成</title></info>
 
-        
+
 
         <para>
             日付オブジェクトを作成する最も簡単な方法は、実際の日付を作成することです。
@@ -22,7 +22,7 @@
 
         <example xml:id="zend.date.creation.actual.example-1"><info><title>インスタンスによる作成</title></info>
 
-            
+
 
             <para>
                 新しいインスタンスの作成によって日付を作成する場合は、パラメータは何もいりません。
@@ -39,7 +39,7 @@ $date = new Zend_Date();
 
         <example xml:id="zend.date.creation.actual.example-2"><info><title>静的メソッドによる作成</title></info>
 
-            
+
 
             <para>
                 静的メソッドを使用したほうが簡単に日付を作成できるという場合もあるでしょう。
@@ -60,7 +60,7 @@ $date = Zend_Date::now();
 
     <section xml:id="zend.date.creation.database"><info><title>データベースからの日付の作成</title></info>
 
-        
+
 
         <para>
             データベースに日付データが格納されることもよくあります。
@@ -83,7 +83,7 @@ $date = Zend_Date::now();
 
         <example xml:id="zend.date.creation.database.example-1"><info><title>データベースの日付データからの簡単な日付の作成</title></info>
 
-            
+
 
             <para>
                 すべてのデータベースは、
@@ -105,7 +105,7 @@ $date = new Zend_Date($unixtimestamp, Zend_Date::TIMESTAMP);
 
         <example xml:id="zend.date.creation.database.example-2"><info><title>データベースの日付データからの便利な日付作成法</title></info>
 
-            
+
 
             <para>
                 データベースの日付出力は、
@@ -135,7 +135,7 @@ $date = new Zend_Date($datecolumn, Zend_Date::ISO_8601);
 
     <section xml:id="zend.date.creation.array"><info><title>配列からの日付の作成</title></info>
 
-        
+
 
         <para>
             配列から日付を作成することもできます。
@@ -183,7 +183,7 @@ $date = new Zend_Date($datecolumn, Zend_Date::ISO_8601);
 
         <example xml:id="zend.date.creation.array.example"><info><title>配列による日付の作成</title></info>
 
-            
+
 
             <para>
                 通常は、新しい日付インスタンスを作成する際には完全な形式の日付配列を渡します。

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.introduction"><info><title>Zend_Form</title></info>
-    
+
 
     <para>
         <classname>Zend_Form</classname> simplifie la création et la gestion des formulaires

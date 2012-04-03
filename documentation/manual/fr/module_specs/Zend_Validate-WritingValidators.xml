@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.writing_validators"><info><title>Écrire des validateurs</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate</classname> fournit un ensemble de validateurs habituellement
@@ -51,7 +51,7 @@
     </para>
 
     <example xml:id="zend.validate.writing_validators.example.simple"><info><title>Création d'une simple classe de validation</title></info>
-        
+
 
         <para>
             L'exemple suivant démontre comment un validateur personnalisé très simple pourrait
@@ -88,7 +88,7 @@ class MonValidateur_Float extends Zend_Validate_Abstract
     </example>
 
     <example xml:id="zend.validate.writing_validators.example.conditions.dependent"><info><title>Écriture d'une classe de validation ayant des conditions de dépendances</title></info>
-        
+
 
         <para>
             L'exemple suivant démontre un ensemble plus complexe de règles de validation, où
@@ -182,7 +182,7 @@ class MonValidateur_NumericBetween extends Zend_Validate_Abstract
 
     <example xml:id="zend.validate.writing_validators.example.conditions.independent"><info><title>Validation avec des conditions indépendantes, avec raisons multiples
         d'échec</title></info>
-        
+
 
         <para>
             Considérons l'écriture d'une classe de validation pour le contrôle de résistance

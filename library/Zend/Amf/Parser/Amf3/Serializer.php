@@ -72,7 +72,7 @@ class Serializer extends AbstractSerializer
      */
     public function writeTypeMarker(&$data, $markerType = null, $dataByVal = false)
     {
-        // Workaround for PHP5 with E_STRICT enabled complaining about "Only 
+        // Workaround for PHP5 with E_STRICT enabled complaining about "Only
         // variables should be passed by reference"
         if ((null === $data) && ($dataByVal !== false)) {
             $data = &$dataByVal;

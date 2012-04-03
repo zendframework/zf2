@@ -38,7 +38,7 @@ class Server extends GoGridAbstract
     const API_POWER_RESTART      = 'restart';
     /**
      * Get Server List
-     * 
+     *
      * This call will list all the servers in the system.
      *
      * @param array $options
@@ -50,7 +50,7 @@ class Server extends GoGridAbstract
     }
     /**
      * Get Server
-     * 
+     *
      * This call will retrieve one or many server objects from your list of servers
      *
      * @param string|array $server
@@ -68,7 +68,7 @@ class Server extends GoGridAbstract
     }
     /**
      * Add Server
-     * 
+     *
      * This call will add a single server object to your grid.
      * To create an image sandbox pass the optional isSandbox parameter to true.
      * If isSandbox is set to true, the request parameter server.ram is ignored and non-mandatory.
@@ -103,15 +103,15 @@ class Server extends GoGridAbstract
     }
     /**
      * Edit Server
-     * 
+     *
      * This call will edit a single server object in your grid.
      * You can use this call to edit a server's:
      * RAM (Upgrade RAM)
      * Server Type (Change between Web/App Server and Database Server)
-     * Description (Change freeform text description) 
-     * 
+     * Description (Change freeform text description)
+     *
      * @param string|array $server
-     * @return GoGridObjectList 
+     * @return GoGridObjectList
      */
     public function edit($server,$options=array())
     {
@@ -124,7 +124,7 @@ class Server extends GoGridAbstract
     }
     /**
      * Power Server
-     * 
+     *
      * This call will issue a power command to a server object in your grid.
      * Supported power commands are: start, stop, and restart
      *
@@ -175,8 +175,8 @@ class Server extends GoGridAbstract
     }
     /**
      * Delete a server
-     * 
-     * @param string $server 
+     *
+     * @param string $server
      * @return GoGridObjectList
      */
     public function delete($server) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.post_code"><info><title>PostCode</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_PostCode</classname> allows you to determine if a given value is a
@@ -64,7 +64,7 @@ $validator->setFormat('AT-\d{5}');
 ]]></programlisting>
 
     <note><info><title>Conventions for self defined formats</title></info>
-        
+
 
         <para>
             When using self defined formats you should omit the starting (<command>'/^'</command>)
@@ -79,7 +79,7 @@ $validator->setFormat('AT-\d{5}');
     </note>
 
     <section xml:id="zend.validate.set.post_code.constructor"><info><title>Constructor options</title></info>
-        
+
 
         <para>
             At it's most basic, you may pass either a <classname>Zend_Locale</classname> object or a
@@ -107,7 +107,7 @@ $validator = new Zend_Validate_PostCode(array(
     </section>
 
     <section xml:id="zend.validate.set.post_code.options"><info><title>Supported options for Zend_Validate_PostCode</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Validate_PostCode</classname>:

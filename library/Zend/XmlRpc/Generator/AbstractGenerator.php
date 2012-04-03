@@ -50,7 +50,7 @@ abstract class AbstractGenerator implements GeneratorAdapter
 
     /**
      * Initialize internal objects
-     * 
+     *
      * @return void
      */
     abstract protected function _init();
@@ -59,7 +59,7 @@ abstract class AbstractGenerator implements GeneratorAdapter
      * Start XML element
      *
      * Method opens a new XML element with an element name and an optional value
-     * 
+     *
      * @param string $name XML tag name
      * @param string $value Optional value of the XML tag
      * @return Zend_XmlRpc_Generator_Abstract Fluent interface
@@ -91,7 +91,7 @@ abstract class AbstractGenerator implements GeneratorAdapter
 
     /**
      * Return encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -101,8 +101,8 @@ abstract class AbstractGenerator implements GeneratorAdapter
 
     /**
      * Set XML encoding
-     * 
-     * @param  string $encoding 
+     *
+     * @param  string $encoding
      * @return Zend\XmlRpc\Generator\AbstractGenerator
      */
     public function setEncoding($encoding)
@@ -160,7 +160,7 @@ abstract class AbstractGenerator implements GeneratorAdapter
 
     /**
      * End XML element
-     * 
+     *
      * @param string $name
      */
     abstract protected function _closeElement($name);

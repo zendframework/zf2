@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.adapter"><info><title>Zend_Translator适配器</title></info>
 
-    
+
 
     <para>
         Zend_Translator能够处理不同的翻译适配器，每种适配器有它自己的优点和缺点，下面是一个完整的适配器支持列表。
     </para>
 
     <table xml:id="zend.translator.adapter.table"><info><title>Zend_Translator适配器</title></info>
-        
+
         <tgroup cols="3">
             <thead>
                 <row>
@@ -74,7 +74,7 @@
 
     <section xml:id="zend.translator.adapter.decision"><info><title>如何判断使用哪种翻译适配器</title></info>
 
-        
+
 
         <para>
             你应该决定对Zend_Translator使用哪种适配器，常常，外部条件,例如一个项目需求或者客户需求为你决定了使用哪种适配器，但是入你站在决策的位置,下面的提示可能有对你的决定帮助。
@@ -95,7 +95,7 @@
 
         <section xml:id="zend.translator.adapter.array"><info><title>Zend_Translator_Adapter_Array</title></info>
 
-            
+
 
             <para>
                 数组适配器对程序员来说是使用最简单的一种适配器，但是如果你有大量的字符串和许多语言要翻译，你应该考虑其他的适配器。例如，如果你有5000个字符串要翻译，数组适配器对你来说并非最好的选择。
@@ -108,7 +108,7 @@
 
         <section xml:id="zend.translator.adapter.csv"><info><title>Zend_Translator_Adapter_Csv</title></info>
 
-            
+
 
             <para>
                 Csv对于用户是使用上最简单的一种适配器，CSV 文件可以通过标准的文本编辑器读取,但是有些文本编辑器通常不支持utf8字符集。
@@ -121,7 +121,7 @@
 
         <section xml:id="zend.translator.adapter.gettext"><info><title>Zend_Translator_Adapter_Gettext</title></info>
 
-            
+
 
             <para>
                 Gettext适配器是最常用的一种适配器。Gettext是一种由GNU引入的翻译源格式，现在在世界上广泛使用，它不是人可读的，但有几个免费的工具（例如 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://sourceforge.net/projects/poedit/">POEdit</link>），用于读取Gettext数据。Zend_Translator Gettext 适配器并不是使用 PHP 的 gettext 扩展实现的。 你可以在没有安装 PHP 的 gettext 扩展的情况下也能够使用 Gettext 适配器。还有 Zend_Translator 的 Gettext 适配器是线程安全的，而 PHP 的 gettext 扩展当前是非线程安全的。
@@ -133,7 +133,7 @@
         </section>
         <section xml:id="zend.translator.adapter.ini"><info><title>Zend_Translator_Adapter_Ini</title></info>
 
-            
+
 
             <para>
                 Ini 适配器非常简单，客户都可以直接使用。INI 文件可以用标准文本编辑器读出，但文本编辑器一般不支持 utf8 字符集。
@@ -146,7 +146,7 @@
 
         <section xml:id="zend.translator.adapter.tbx"><info><title>Zend_Translator_Adapter_Tbx</title></info>
 
-            
+
 
             <para>
                 Tbx 适配器是给已经为他们的内部翻译系统使用 TBX 格式的客户来使用的。 Tbx 没有标准翻译格式，只是已经翻译的集合和预翻译原文。 当使用这个适配器，你必须确认所需的原文已经翻译。TBX 是基于 XML 文件的格式的全新格式。XML 文件是人类可读的，但是解析的速度却不如 gettext 文件快。
@@ -159,7 +159,7 @@
 
         <section xml:id="zend.translator.adapter.tmx"><info><title>Zend_Translator_Adapter_Tmx</title></info>
 
-            
+
 
             <para>
                 Tmx适配器用于有多个系统,并且那些系统使用同样的源格式的大多数客户,或则翻译源格式必须是不依赖与系统的，TMX 是一种基于 XML 的文件格式,它宣称将成为下一个工业标准， XML 文件是人可读的,但是解析的速度却不如 gettext 文件快。
@@ -172,7 +172,7 @@
 
         <section xml:id="zend.translator.adapter.qt"><info><title>Zend_Translator_Adapter_Qt</title></info>
 
-            
+
 
             <para>
                 Qt 适配器适用于使用 QtLinguist 生成的 TS 文件作为其翻译源的用户。QT 使用 XML 作为基本文件格式。XML 是用户可读的，但是分析速度比不上 gettext 文件。
@@ -185,7 +185,7 @@
 
         <section xml:id="zend.translator.adapter.xliff"><info><title>Zend_Translator_Adapter_Xliff</title></info>
 
-            
+
 
             <para>
                 Xliff适配器被那些想使用XML文件但是没有TMX工具的多数客户使用， XLIFF 也是一种基于XML的文件格式,它是于TMX相关的但是比TMX更简单，他仅支持TMX的部分功能。XML文件是人可读的，但是解析的速度却不如gettext文件快 。
@@ -198,7 +198,7 @@
 
         <section xml:id="zend.translator.adapter.xmltm"><info><title>Zend_Translator_Adapter_XmlTm</title></info>
 
-            
+
 
             <para>
                 XmlTm 适配器为那些做他们自己的布局的客户使用，XmlTm 是允许完全的 html 源包括在翻译源中的文件格式，所以翻译和布局结合在一起。XLIFF 是基于 XML 的文件格式， 和 XLIFF 相关但不容易读。
@@ -213,7 +213,7 @@
 
     <section xml:id="zend.translator.adapter.selfwritten"><info><title> 集成编写自己的适配器 </title></info>
 
-        
+
 
         <para>
             Zend_Translator 允许编写并使用自己的适配器类。并且可以像 Zend_Translator 内置的标准类一样使用。
@@ -242,7 +242,7 @@ try {
 
     <section xml:id="zend.translator.adapter.caching"><info><title> 加速所有的适配器 </title></info>
 
-        
+
 
         <para>
             <code>Zend_Translator</code>  允许内部使用 <code>Zend_Cache</code>  来加速翻译源文件的加载，如果使用很多翻译源文件或很多源文件格式如基于 XML 的文件格式，这非常好使。

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.nirvanix"><info><title>Zend_Service_Nirvanix</title></info>
-    
+
 
     <section xml:id="zend.service.nirvanix.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Nirvanix provides an Internet Media File System (IMFS), an
@@ -21,7 +21,7 @@
     </section>
 
     <section xml:id="zend.service.nirvanix.registering"><info><title>Registering with Nirvanix</title></info>
-        
+
 
         <para>
             Before you can get started with <classname>Zend_Service_Nirvanix</classname>, you must
@@ -37,7 +37,7 @@
     </section>
 
     <section xml:id="zend.service.nirvanix.apiDocumentation"><info><title>API Documentation</title></info>
-        
+
 
         <para>
             Access to the Nirvanix IMFS is available through both <acronym>SOAP</acronym> and a
@@ -60,7 +60,7 @@
     </section>
 
     <section xml:id="zend.service.nirvanix.features"><info><title>Features</title></info>
-        
+
 
         <para>
             Nirvanix's REST service can be used effectively with <acronym>PHP</acronym> using the
@@ -108,7 +108,7 @@
     </section>
 
     <section xml:id="zend.service.nirvanix.storing-your-first"><info><title>Getting Started</title></info>
-        
+
 
         <para>
             Once you have registered with Nirvanix, you're ready to store your first
@@ -159,7 +159,7 @@ $imfs->unlink('/foo.txt');
     </section>
 
     <section xml:id="zend.service.nirvanix.understanding-proxy"><info><title>Understanding the Proxy</title></info>
-        
+
 
         <para>
             In the previous example, we used the <methodname>getService()</methodname> method to
@@ -229,7 +229,7 @@ $result = $imfs->renameFile(array('filePath' => '/path/to/foo.txt',
     </section>
 
     <section xml:id="zend.service.nirvanix.examining-results"><info><title>Examining Results</title></info>
-        
+
 
         <para>
             The Nirvanix REST <acronym>API</acronym> always returns its results in
@@ -284,7 +284,7 @@ Zend_Service_Nirvanix_Response Object
     </section>
 
     <section xml:id="zend.service.nirvanix.handling-errors"><info><title>Handling Errors</title></info>
-        
+
 
         <para>
             When using Nirvanix, it's important to anticipate errors that can be returned

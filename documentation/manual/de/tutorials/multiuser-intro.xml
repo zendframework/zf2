@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.multiuser.intro"><info><title>Erstellung von Multi-User Anwendungen mit Zend Framework</title></info>
-    
+
 
     <section xml:id="learning.multiuser.intro.zf"><info><title>Zend Framework</title></info>
-        
+
 
         <para>
             Als das Originale "Web" erstellt wurde, wurde es dazu designt eine
@@ -42,7 +42,7 @@
         </itemizedlist>
 
         <note><info><title>Konsument vs. Benutzer</title></info>
-            
+
 
             <para>
                 Es ist zu beachten das wir den Ausdruck "Benutzer" statt Person verwenden. Web

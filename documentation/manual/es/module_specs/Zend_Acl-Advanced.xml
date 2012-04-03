@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.advanced"><info><title>Uso Avanzado</title></info>
 
-    
+
 
     <section xml:id="zend.acl.advanced.storing"><info><title>Almacenamiento Permanente de los Datos ACL</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Acl</classname>
@@ -52,7 +52,7 @@
 
     <section xml:id="zend.acl.advanced.assertions"><info><title> Escribiendo reglas condicionales ACL con aserciones </title></info>
 
-        
+
 
         <para>
             A veces, una regla para permitir o negar una función de acceso a un recurso no debería

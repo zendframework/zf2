@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.overview"><info><title>概要</title></info>
-    
+
 
     <para>
       <classname>Zend_Log</classname> は、ログ出力用の汎用コンポーネントです。
@@ -43,7 +43,7 @@
     </para>
 
     <section xml:id="zend.log.overview.creating-a-logger"><info><title>ログの作成</title></info>
-      
+
       <para>
         ログの記録を開始するには、ライターのインスタンスを作成し、
         それをログのインスタンスに渡します。
@@ -77,7 +77,7 @@ $logger = new Zend_Log($writer);
     </section>
 
     <section xml:id="zend.log.overview.logging-messages"><info><title>メッセージの記録</title></info>
-      
+
 
       <para>
         メッセージをログに記録するには、ログのインスタンスの <methodname>log()</methodname>
@@ -110,7 +110,7 @@ $logger->emerg('Emergency message');
   </section>
 
   <section xml:id="zend.log.overview.destroying-a-logger"><info><title>ログの破棄</title></info>
-    
+
     <para>
       ログオブジェクトが不要になったら、ログオブジェクトを指す変数に
       <constant>NULL</constant> を代入してそれを破棄しましょう。これは、
@@ -129,7 +129,7 @@ $logger = null;
   </section>
 
   <section xml:id="zend.log.overview.builtin-priorities"><info><title>組み込みの優先度の使用</title></info>
-    
+
     <para>
       <classname>Zend_Log</classname> クラスでは以下の優先度を定義しています。
     </para>
@@ -170,7 +170,7 @@ DEBUG   = 7;  // デバッグ (Debug): デバッグメッセージ
   </section>
 
   <section xml:id="zend.log.overview.user-defined-priorities"><info><title>ユーザ定義の優先度の追加</title></info>
-    
+
 
     <para>
       ユーザ定義の優先度を実行時に追加するには、ログの
@@ -197,7 +197,7 @@ $logger->foo('Foo Message');
   </section>
 
   <section xml:id="zend.log.overview.understanding-fields"><info><title>ログのイベントについて理解する</title></info>
-    
+
 
     <para>
       <methodname>log()</methodname> メソッドやその仲間をコールした際に、
@@ -241,7 +241,7 @@ $logger->setEventItem('pid', getmypid());
 
     <!-- TODO : to be translated -->
     <section xml:id="zend.log.overview.as-errorHandler"><info><title>Log PHP Errors</title></info>
-        
+
 
         <para>
             <classname>Zend_Log</classname> can also be used to log <acronym>PHP</acronym> errors.  Calling
@@ -252,7 +252,7 @@ $logger->setEventItem('pid', getmypid());
         <table xml:id="zend.log.overview.as-errorHandler.properties.table-1"><info><title>Zend_Log events from PHP errors have the additional fields matching
             <methodname>handler  ( int $errno  , string $errstr  [, string $errfile  [, int $errline  [, array $errcontext  ]]] )</methodname>
             from <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://us3.php.net/manual/en/function.set-error-handler.php">set_error_handler</link></title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>

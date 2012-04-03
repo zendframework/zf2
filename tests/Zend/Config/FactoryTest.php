@@ -39,53 +39,53 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testFromIni()
     {
         $config = Factory::fromFile(__DIR__ . '/TestAssets/Ini/include-base.ini');
-        
+
         $this->assertEquals('bar', $config['base']['foo']);
     }
-    
+
     public function testFromXml()
     {
         $config = Factory::fromFile(__DIR__ . '/TestAssets/Xml/include-base.xml');
-        
+
         $this->assertEquals('bar', $config['base']['foo']);
     }
-    
+
     public function testFromIniFiles()
     {
         $files = array (
             __DIR__ . '/TestAssets/Ini/include-base.ini',
             __DIR__ . '/TestAssets/Ini/include-base2.ini'
         );
-        
+
         $config = Factory::fromFiles($files);
         $this->assertEquals('bar', $config['base']['foo']);
         $this->assertEquals('baz', $config['test']['bar']);
     }
-    
+
     public function testFromXmlFiles()
     {
         $files = array (
             __DIR__ . '/TestAssets/Xml/include-base.xml',
             __DIR__ . '/TestAssets/Xml/include-base2.xml'
         );
-        
+
         $config = Factory::fromFiles($files);
         $this->assertEquals('bar', $config['base']['foo']);
         $this->assertEquals('baz', $config['test']['bar']);
     }
-    
+
     public function testFromPhpFiles()
     {
         $files = array (
             __DIR__ . '/TestAssets/Php/include-base.php',
             __DIR__ . '/TestAssets/Php/include-base2.php'
         );
-        
+
         $config = Factory::fromFiles($files);
         $this->assertEquals('bar', $config['base']['foo']);
         $this->assertEquals('baz', $config['test']['bar']);
     }
-    
+
     public function testFromIniAndXmlAndPhpFiles()
     {
         $files = array (
@@ -93,7 +93,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/TestAssets/Xml/include-base2.xml',
             __DIR__ . '/TestAssets/Php/include-base3.php',
         );
-        
+
         $config = Factory::fromFiles($files);
         $this->assertEquals('bar', $config['base']['foo']);
         $this->assertEquals('baz', $config['test']['bar']);
@@ -105,7 +105,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $files = array (
             __DIR__ . '/TestAssets/Ini/include-base.ini',
         );
-        
+
         $configArray = Factory::fromFile($files[0]);
         $this->assertTrue(is_array($configArray));
 

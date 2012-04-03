@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.reflection.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_Reflection</classname> ist ein Ersatz zu <acronym>PHP</acronym>'s eigener

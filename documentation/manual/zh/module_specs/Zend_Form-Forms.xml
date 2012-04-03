@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.forms"><info><title> 使用 Zend_Form 生成表单 </title></info>
-    
+
 
     <para>
         <code>Zend_Form</code> 类用来聚合表单元素，显示组和子表单。它可以在这些条目中执行下列动作：
@@ -58,7 +58,7 @@ $form = new Zend_Form($config);
     </para>
 
     <section xml:id="zend.form.forms.plugins"><info><title> 插件加载器 </title></info>
-        
+
         <para>
             <code>Zend_Form</code> 利用 <code>Zend_Loader_PluginLoader</code> 使开发者指定替代元素和装饰器的位置。每个表单有和它一起伴随的插件加载器，总访问器用来读取和修改每个表单。
         </para>
@@ -109,7 +109,7 @@ $form = new Zend_Form($config);
     </section>
 
     <section xml:id="zend.form.forms.elements"><info><title> 元素（Elements）</title></info>
-        
+
         <para>
             <code>Zend_Form</code> 提供了若干访问器用来从表单中添加和删除元素。这些可以获得元素对象实例或以工厂模式来为实例化元素对象自己服务。
         </para>
@@ -138,7 +138,7 @@ $form->addElement('text', 'foo', array('label' => 'Foo:'));
 ?>]]></programlisting>
 
         <note><info><title>addElement() 实现 Fluent Interface</title></info>
-            
+
 
             <para>
                 <code>addElement()</code> 实现一个 fluent interface，就是说，它返回 <code>Zend_Form</code> 对象，而不是元素。这样做来允许你把多个 addElement()方法或者其它实现 fluent interface 的表单方法链接起来（所有 Zend_Form 中的设置器（ setters） 都实现这个模式）。
@@ -175,7 +175,7 @@ $username = $form->createElement('text', 'username');
 ?>]]></programlisting>
 
         <section xml:id="zend.form.forms.elements.values"><info><title> 组装和读取数值 </title></info>
-            
+
 
             <para>
                 校验表单之后，你一般需要读取它的数值以便执行其它操作，如更新数据库或通知一个 web 服务。你可以通过 <code>getValues()</code> 来读取所有元素的值，<code>getValue($name)</code> 可以通过名字来读取一个单个的值：
@@ -208,14 +208,14 @@ $form->reset();
         </section>
 
         <section xml:id="zend.form.forms.elements.global"><info><title> 全局操作 </title></info>
-            
+
 
             <para>
                 偶尔，你想用对所有元素进行特定的操作，一般的情形包括需要为所有元素设置插件前缀路径、装饰器和过滤器，如下例：
             </para>
 
             <example xml:id="zend.form.forms.elements.global.allpaths"><info><title> 为所有元素设置前缀路径 </title></info>
-                
+
 
                 <para>
                     可以通过类型来为所有的元素设置前缀路径，或者使用全局前缀，如这些例子：
@@ -239,7 +239,7 @@ $form->addElementPrefixPath('My_Foo_Decorator', 'My/Foo/Decorator', 'decorator')
             </example>
 
             <example xml:id="zend.form.forms.elements.global.decorators"><info><title> 为所有元素设置装饰器（Decorators）</title></info>
-                
+
 
                 <para>
                     你可以为所有元素设置装饰器。<code>setElementDecorators()</code> 接受一个装饰器数组， 就象 <code>setDecorators()</code> 一样，并对每个元素重写（overwrite）先前设置的装饰器。在本例中，我们为 ViewHelper 和一个 Label 设置装饰器：
@@ -254,7 +254,7 @@ $form->setElementDecorators(array(
             </example>
 
             <example xml:id="zend.form.forms.elements.global.decoratorsFilter"><info><title> 为某些元素设置装饰器 </title></info>
-                
+
 
                 <para>
                     你也可以对一个元素的子集设置装饰器，包含和排除都可以。
@@ -302,7 +302,7 @@ $form->setElementDecorators(
             </example>
 
                 <note><info><title> 有些装饰器不适合某些元素 </title></info>
-                    
+
 
                     <para>
                         虽然 <code>setElementDecorators()</code> 可能是个好方案，但有时候不会得到所期望的结果。例如，各种各样的按钮元素（Submit, Button, Reset）。当前使用标签（label）作为按钮（button）的值（value），并只使用 ViewHelper 和 DtDdWrapper 装饰器 －－ 防止解析另外的标签、错误、和提示，上述例子可能重复（duplicate）一些内容（标签）。
@@ -318,7 +318,7 @@ $form->setElementDecorators(
                 </note>
 
             <example xml:id="zend.form.forms.elements.global.filters"><info><title> 为所有元素设置过滤器 </title></info>
-                
+
 
                 <para>
                     大多数情况下，你想对所有元素应用同一个过滤器，一个通常的用法是 <code>修整（trim()）</code> 所有的值：
@@ -331,7 +331,7 @@ $form->setElementFilters(array('StringTrim'));
         </section>
 
         <section xml:id="zend.form.forms.elements.methods"><info><title> 和元素交互使用的方法 </title></info>
-            
+
 
             <para>
                 下面的方法用来和元素交互使用：
@@ -414,7 +414,7 @@ $form->setElementFilters(array('StringTrim'));
     </section>
 
     <section xml:id="zend.form.forms.displaygroups"><info><title> 显示组（Display Groups）</title></info>
-        
+
 
         <para>
             显示组是生成要显示的虚拟元素组的一种方法。所有元素在表单中保持用名字可访问，但是当迭代或解析（rendering）所有表单的时候，任何在显示组中的元素将被一起解析（rendered）。最普通的用例是把（数据库表中的）字段组成一组元素。
@@ -445,7 +445,7 @@ $login = $form->login;
 ?>]]></programlisting>
 
         <note><info><title> 不需要加载缺省的装饰器 </title></info>
-            
+
 
             <para>
                 缺省地，缺省的装饰器在对象初始化过程中加载。你可以在生成显示组的时候通过传递 'disableLoadDefaultDecorators' 选项来关闭（disable）它。
@@ -465,14 +465,14 @@ $form->addDisplayGroup(
         </note>
 
         <section xml:id="zend.form.forms.displaygroups.global"><info><title> 全局操作 </title></info>
-            
+
 
             <para>
                 就像对元素一样，一些操作可能影响所有的显示组，包括设置装饰器和寻找装饰器的插件路径。
             </para>
 
             <example xml:id="zend.form.forms.displaygroups.global.paths"><info><title> 为所有的显示组设置装饰器前缀路径 </title></info>
-                
+
 
                 <para>
                     缺省地，显示组继承表单所使用的任何一个装饰器的路径，然而，如果它们在另外的位置，可以使用这个方法：<code>addDisplayGroupPrefixPath()</code>。
@@ -484,7 +484,7 @@ $form->addDisplayGroupPrefixPath('My_Foo_Decorator', 'My/Foo/Decorator');
             </example>
 
             <example xml:id="zend.form.forms.displaygroups.global.decorators"><info><title> 为所有显示组设置装饰器 </title></info>
-                
+
 
                 <para>
                     你可以为所有的显示组设置装饰器。<code>setDisplayGroupDecorators()</code> 接受一个装饰器数组，就像 <code>setDecorators()</code> 一样，并将在每个显示组重写（overwrite）先前设置的装饰器。在这个例子中，我们给字段（为确保元素被迭代，FormElements 装饰器是必需的）设置装饰器：
@@ -500,7 +500,7 @@ $form->setDisplayGroupDecorators(array(
         </section>
 
         <section xml:id="zend.form.forms.displaygroups.customClasses"><info><title> 使用定制的显示组类 </title></info>
-            
+
 
             <para>
                 缺省地，<code>Zend_Form</code> 为显示组使用 <code>Zend_Form_DisplayGroup</code> 类，你可能需要继承这个类来提供定制的功能。<code>addDisplayGroup()</code> 不允许传递一个具体的实例，但确实允许用 'displayGroupClass' 键来指定一个类来作为它的一个选项：
@@ -534,7 +534,7 @@ $form->setDefaultDisplayGroupClass('My_DisplayGroup');
         </section>
 
         <section xml:id="zend.form.forms.displaygroups.interactionmethods"><info><title> 和显示组交互使用的方法 </title></info>
-            
+
 
             <para>
                 下列方法用来和显示组一起交互使用：
@@ -588,7 +588,7 @@ $form->setDefaultDisplayGroupClass('My_DisplayGroup');
         </section>
 
         <section xml:id="zend.form.forms.displaygroups.methods"><info><title>Zend_Form_DisplayGroup 方法 </title></info>
-            
+
 
             <para>
                 <code>Zend_Form_DisplayGroup</code> 有下列方法，以类来分组：
@@ -713,7 +713,7 @@ $form->setDefaultDisplayGroupClass('My_DisplayGroup');
     </section>
 
     <section xml:id="zend.form.forms.subforms"><info><title> 子表单 </title></info>
-        
+
 
         <para>
             子表单服务于如干目的：
@@ -758,7 +758,7 @@ $subForm = $form->subform;
         </para>
 
         <section xml:id="zend.form.forms.subforms.global"><info><title> 全局操作 </title></info>
-            
+
 
             <para>
                 像元素和显示组一样，有些操作可以影响所有的子表单。然而不像显示组和元素，子表单从主表单对象继承了最多的功能，并且唯一的需要全局执行的操作是为子表单设置装饰器，<code>setSubFormDecorators()</code> 方法来完成此任务。在下一个例子中，我们将为所有作为字段（为确保迭代它的元素，FormElements 装饰器是必需的）的子表单设置装饰器：
@@ -773,7 +773,7 @@ $form->setSubFormDecorators(array(
         </section>
 
         <section xml:id="zend.form.forms.subforms.methods"><info><title> 和子表单交互使用的方法 </title></info>
-            
+
 
             <para>
                 下列方法用来和子表单交互使用：
@@ -816,7 +816,7 @@ $form->setSubFormDecorators(array(
     </section>
 
     <section xml:id="zend.form.forms.metadata"><info><title> 元数据（Metadata）和属性（Attributes）</title></info>
-        
+
 
         <para>
             虽然表单的有效性基本源于它所包含的元素，但它也可以包含其它元数据，如名称（在 HTML 标记语言中经常用作唯一的 ID）、表单动作和方法、许多元素、组、它所包含的子表单和属性元数据（通常用做为表单标签自己设置 HTML 属性）。
@@ -900,7 +900,7 @@ $form->clearAttribs();
     </section>
 
     <section xml:id="zend.form.forms.decorators"><info><title> 装饰器 </title></info>
-        
+
 
         <para>
             为表单生成 markup 通常是一件耗时的任务，特别是如果打算重复使用同一个 markup 来显示校验错误、提交的值等。<code>Zend_Form</code> 的解决办法是<emphasis> 装饰器（decorators）</emphasis>。
@@ -939,7 +939,7 @@ $form->setDecorators(array(
         </para>
 
         <note><info><title> 不需要加载缺省的装饰器 </title></info>
-            
+
 
             <para>
                 缺省地，缺省的装饰器在对象初始化过程中加载。可通过传递 'disableLoadDefaultDecorators' 选项给构造器来关闭（disable）它：
@@ -955,7 +955,7 @@ $form = new Zend_Form(array('disableLoadDefaultDecorators' => true));
         </note>
 
         <note><info><title> 使用同类型的多个装饰器 </title></info>
-            
+
 
             <para>
                 在内部，当读取装饰器时，<code>Zend_Form</code> 使用装饰器的类做为查找机制。结果，可以注册同类型的多个装饰器，后来的装饰器将重些以前的（装饰器）。
@@ -1034,7 +1034,7 @@ $fooBar  = $form->getDecorator('FooBar');
     </section>
 
     <section xml:id="zend.form.forms.validation"><info><title> 校验 </title></info>
-        
+
 
         <para>
             表单的一个基本用例是校验提交的数据。<code>Zend_Form</code> 让你一次性校验整个表单或部分表单，还有对 XmlHttpRequests (AJAX)的自动校验响应。如果提交的数据无效，它有一些方法用来为元素和子表单校验失败而读取各种各样的错误代码和消息。
@@ -1111,7 +1111,7 @@ $messages = $form->getMessages('username');
         </note>
 
         <section xml:id="zend.form.forms.validation.errors"><info><title> 定制错误消息 </title></info>
-            
+
 
             <para>
                 有时，你想定制一条或多条特定的错误消息来替代由附加到元素上的校验器所带的错误消息。
@@ -1165,7 +1165,7 @@ $messages = $form->getMessages('username');
     </section>
 
     <section xml:id="zend.form.forms.methods"><info><title> 方法 </title></info>
-        
+
 
         <para>
             下面是 <code>Zend_Form</code> 的方法大全，按类分组：
@@ -1359,7 +1359,7 @@ $messages = $form->getMessages('username');
     </section>
 
     <section xml:id="zend.form.forms.config"><info><title> 配置 </title></info>
-        
+
 
         <para>
             <code>Zend_Form</code> 可以通过 <code>setOptions()</code> 和 <code>setConfig()</code> （或者通过传递选项或 <code>Zend_Config</code> 对象 ） 进行全面配置。使用这些方法，你可以指定表单元素、显示组、装饰器和元数据。
@@ -1457,7 +1457,7 @@ decorators.form.decorator = "Form"
     </section>
 
     <section xml:id="zend.form.forms.custom"><info><title> 定制表单 </title></info>
-        
+
 
         <para>
             一个使用基于配置的表单的替代方法是继承 <code>Zend_Form</code> 类，有若干优点：

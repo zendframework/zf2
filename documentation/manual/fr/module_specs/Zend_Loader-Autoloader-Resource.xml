@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.autoloader-resource"><info><title>Autoloaders de ressources</title></info>
-    
+
 
     <para>
         Les autoloaders de ressources servent à manipuler du code de librairies dans des
@@ -17,7 +17,7 @@
     </para>
 
     <section xml:id="zend.loader.autoloader-resource.usage"><info><title>Utilisation de l'autoloader de ressources</title></info>
-        
+
 
         <para>Soit la structure de répertoires suivante :</para>
 
@@ -52,7 +52,7 @@ $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
 ]]></programlisting>
 
         <note><info><title>Espace de noms de base</title></info>
-            
+
 
             <para>
                 Dans <classname>Zend_Loader_Autoloader</classname>, vous devez spécifier le
@@ -125,7 +125,7 @@ $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
     </section>
 
     <section xml:id="zend.loader.autoloader-resource.module"><info><title>L'autoloader de ressource Module</title></info>
-        
+
 
         <para>
             Zend Framework fournit une implémentation concrète de
@@ -162,7 +162,7 @@ views/
     </section>
 
     <section xml:id="zend.loader.autoloader-resource.factory"><info><title>Utiliser les autoloaders de ressources comme fabriques d'objets</title></info>
-        
+
 
         <para/>
 
@@ -170,7 +170,7 @@ views/
     </section>
 
     <section xml:id="zend.loader.autoloader-resource.reference"><info><title>Référence de l'autoloader de ressources</title></info>
-        
+
 
         <para/>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.strikeiron"><info><title>Zend_Service_StrikeIron</title></info>
-    
+
 
     <para>
         <classname>Zend_Service_StrikeIron</classname> bietet einen <acronym>PHP</acronym> 5
@@ -34,7 +34,7 @@
     </para>
 
     <section xml:id="zend.service.strikeiron.overview"><info><title>Übersicht</title></info>
-        
+
 
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.strikeiron.com">StrikeIron</link> bietet hunderte von
@@ -106,7 +106,7 @@
     </section>
 
     <section xml:id="zend.service.strikeiron.registering"><info><title>Registrieren mit StrikeIron</title></info>
-        
+
 
         <para>
             Bevor man mit <classname>Zend_Service_StrikeIron</classname> beginnen kann, muß man sich
@@ -131,7 +131,7 @@
     </section>
 
     <section xml:id="zend.service.strikeiron.getting-started"><info><title>Beginnen</title></info>
-        
+
 
         <para>
             Sobald man sich für einen StrikeIron Account
@@ -201,7 +201,7 @@ $taxBasic = $strikeIron->getService(array('class' => 'SalesUseTaxBasic'));
     </section>
 
     <section xml:id="zend.service.strikeiron.making-first-query"><info><title>Die erste Abfrage durchführen</title></info>
-        
+
 
         <para>
             Sobald die <methodname>getService()</methodname> Methode verwendet wurde um einen
@@ -251,7 +251,7 @@ echo $rateInfo->GST;
     </section>
 
     <section xml:id="zend.service.strikeiron.examining-results"><info><title>Ergebnisse betrachten</title></info>
-        
+
 
         <para>
             Wenn man Services von StrikeIron lernt oder versucht fehler zu beheben, ist es oft
@@ -323,7 +323,7 @@ Zend_Service_StrikeIron_Decorator Object
     </section>
 
     <section xml:id="zend.service.strikeiron.handling-errors"><info><title>Fehler handhaben</title></info>
-        
+
 
         <para>
             Die vorigen Beispiel sind naiv, was bedeutet das keine Handhabung von Fehlern gezeigt
@@ -381,7 +381,7 @@ try {
     </section>
 
     <section xml:id="zend.service.strikeiron.checking-subscription"><info><title>Den eigenen Account prüfen</title></info>
-        
+
 
         <para>
             StrikeIron bietet viele verschiedene Services. Einige von Ihnen sind kostenlos, eine

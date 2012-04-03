@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.basics"><info><title>O Básico de Zend_Controller</title></info>
-    
+
 
     <para>
         O sistema <classname>Zend_Controller</classname> é projetado para ser leve, modular, e
@@ -120,7 +120,7 @@
             </para>
 
             <note><info><title>Convenções de Nomenclatura para Maiúsculas e Minúsculas</title></info>
-                
+
 
                 <para>
                     Desde que os seres humanos são notoriamente incapazes de preservar

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.email_address"><info><title>メールアドレス</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_EmailAddress</classname> は、メールアドレスの検証を行います。
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.validate.set.email_address.basic"><info><title>基本的な使用法</title></info>
-        
+
 
         <para>
             基本的な使用法は、以下のようになります。
@@ -36,7 +36,7 @@ if ($validator->isValid($email)) {
     </section>
 
     <section xml:id="zend.validate.set.email_address.options"><info><title>メールアドレス検証のオプション</title></info>
-        
+
 
         <para>
             <classname>Zend_Validate_EmailAddress</classname>は、
@@ -103,7 +103,7 @@ $validator->setOptions(array('domain' => false));
     </section>
 
     <section xml:id="zend.validate.set.email_address.complexlocal"><info><title>複雑なローカルパート</title></info>
-        
+
 
         <para>
             <classname>Zend_Validate_EmailAddress</classname> は、メールアドレスの検証を
@@ -120,7 +120,7 @@ $validator->setOptions(array('domain' => false));
     </section>
 
     <section xml:id="zend.validate.set.email_address.purelocal"><info><title>ローカルパートのみの検証</title></info>
-        
+
 
         <para>
             もしメールアドレスのローカルパートのみをチェックするために
@@ -138,7 +138,7 @@ $validator->setOptions(array('domain' => FALSE));
     </section>
 
     <section xml:id="zend.validate.set.email_address.hostnametype"><info><title>さまざまな形式のホスト名の検証</title></info>
-        
+
 
         <para>
             メールアドレスのホスト名部分の検証は、
@@ -172,7 +172,7 @@ if ($validator->isValid($email)) {
     </section>
 
     <section xml:id="zend.validate.set.email_address.checkacceptance"><info><title>そのホスト名が実際にメールを受け付けるかどうかのチェック</title></info>
-        
+
 
         <para>
             ただ単にメールアドレスが正しい書式であるというだけでは、
@@ -200,7 +200,7 @@ $validator = new Zend_Validate_EmailAddress(
 ]]></programlisting>
 
         <note><info><title>WindowsでのMX のチェック</title></info>
-            
+
 
             <para>
                 Windows 環境の範囲内では、
@@ -243,7 +243,7 @@ $validator = new Zend_Validate_EmailAddress(
 ]]></programlisting>
 
         <warning><info><title>パフォーマンスの警告</title></info>
-            
+
 
             <para>
                 MX チェックを有効にすると、使用されるネットワーク機能のせいで
@@ -254,7 +254,7 @@ $validator = new Zend_Validate_EmailAddress(
         </warning>
 
         <note><info><title>許可されないIPアドレス</title></info>
-            
+
 
             <para>
                 MX 検証は外部のサーバでのみ受け付けられることを注意すべきです。
@@ -266,7 +266,7 @@ $validator = new Zend_Validate_EmailAddress(
     </section>
 
     <section xml:id="zend.validate.set.email_address.validateidn"><info><title>国際化ドメイン名の検証</title></info>
-        
+
 
         <para>
             <classname>Zend_Validate_EmailAddress</classname> は、ドメインの中に国際文字が使われている場合も処理できます。
@@ -291,7 +291,7 @@ $validator->getHostnameValidator()->setValidateIdn(false);
     </section>
 
     <section xml:id="zend.validate.set.email_address.validatetld"><info><title>トップレベルドメインの検証</title></info>
-        
+
 
         <para>
             デフォルトでは、ホスト名の検証は既知の TLD の一覧に基づいて行われます。
@@ -315,7 +315,7 @@ $validator->getHostnameValidator()->setValidateTld(false);
     </section>
 
     <section xml:id="zend.validate.set.email_address.setmessage"><info><title>メッセージの設定</title></info>
-        
+
 
         <para>
             <classname>Zend_Validate_EmailAddress</classname> は、

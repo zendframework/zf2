@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.debug.dumping"><info><title>Zobrazovanie obsahu premenených</title></info>
 
-    
+
 
     <para>
         Statická metóda <code>Zend_Debug::dump()</code> vypíše, alebo vráti informáciu
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.debug.dumping.example"><info><title>Príklad metódy dump() </title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 
 Zend_Debug::dump($var, $label=null, $echo=true)
@@ -47,7 +47,7 @@ Zend_Debug::dump($var, $label=null, $echo=true)
     </para>
 
     <tip><info><title>Ladenie s Zend_Log</title></info>
-        
+
         <para>
             Použitie <code>Zend_Debug::dump()</code> je najlepšie pre okamžité
             použitie počas vývoja aplikácie. Pridanie a odobratie kódu pre zobrazenie

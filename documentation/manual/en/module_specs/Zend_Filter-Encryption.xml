@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.encrypt"><info><title>Encrypt and Decrypt</title></info>
-    
+
 
     <para>
         These filters allow to encrypt and decrypt any given string. Therefor they make use of
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.filter.set.encrypt.options"><info><title>Supported options for Zend_Filter_Encrypt and Zend_Filter_Decrypt</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Filter_Encrypt</classname> and
@@ -134,7 +134,7 @@
     </section>
 
     <section xml:id="zend.filter.set.encrypt.adapterusage"><info><title>Adapter usage</title></info>
-        
+
 
         <para>
             As these two encryption methodologies work completely different, also the usage of the
@@ -171,7 +171,7 @@ $filter->setAdapter('openssl');
     </section>
 
     <section xml:id="zend.filter.set.encrypt.mcrypt"><info><title>Encryption with Mcrypt</title></info>
-        
+
 
         <para>
             When you have installed the <classname>Mcrypt</classname> extension you can use the
@@ -230,7 +230,7 @@ print $encrypted;
     </section>
 
     <section xml:id="zend.filter.set.encrypt.mcryptdecrypt"><info><title>Decryption with Mcrypt</title></info>
-        
+
 
         <para>
             For decrypting content which was previously encrypted with <classname>Mcrypt</classname>
@@ -276,7 +276,7 @@ print $decrypted;
     </section>
 
     <section xml:id="zend.filter.set.encrypt.openssl"><info><title>Encryption with OpenSSL</title></info>
-        
+
 
         <para>
             When you have installed the <classname>OpenSSL</classname> extension you can use the
@@ -367,7 +367,7 @@ print $encrypted;
 ]]></programlisting>
 
         <section xml:id="zend.filter.set.encrypt.openssl.simplified"><info><title>Simplified usage with Openssl</title></info>
-            
+
 
             <para>
                 As seen before, you need to get the envelope key to be able to decrypt the previous
@@ -403,7 +403,7 @@ print $encrypted;
         </section>
 
         <section xml:id="zend.filter.set.encrypt.openssl.compressed"><info><title>Compressing the content</title></info>
-            
+
 
             <para>
                 Based on the original value, the encrypted value can be a very large string. To
@@ -438,7 +438,7 @@ $filter2 = new Zend_Filter_Encrypt(array(
 ]]></programlisting>
 
             <note><info><title>Decryption with same settings</title></info>
-                
+
 
                 <para>
                     When you want to decrypt a value which is additionally compressed, then you
@@ -450,7 +450,7 @@ $filter2 = new Zend_Filter_Encrypt(array(
     </section>
 
     <section xml:id="zend.filter.set.encrypt.openssldecrypt"><info><title>Decryption with OpenSSL</title></info>
-        
+
 
         <para>
             Decryption with <classname>OpenSSL</classname> is as simple as encryption. But you need

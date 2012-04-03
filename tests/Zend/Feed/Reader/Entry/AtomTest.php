@@ -36,9 +36,9 @@ class AtomTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $_feedSamplePath = null;
-    
+
     protected $_expectedCats = array();
-    
+
     protected $_expectedCatsDc = array();
 
     public function setup()
@@ -86,7 +86,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             )
         );
     }
-    
+
     public function teardown()
     {
         Date\Date::setOptions($this->_options);
@@ -325,7 +325,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('Entry Content &amp;', $entry->getContent());
     }
-    
+
     /**
      * HTML Escaped
      * @group ZFRATOMCONTENT
@@ -338,7 +338,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('<p>Entry Content &amp;</p>', $entry->getContent());
     }
-    
+
     /**
      * HTML CDATA Escaped
      * @group ZFRATOMCONTENT
@@ -351,7 +351,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('<p>Entry Content &amp;</p>', $entry->getContent());
     }
-    
+
     /**
      * XHTML
      * @group ZFRATOMCONTENT
@@ -456,13 +456,13 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('http://www.example.com/entry/comments', $entry->getCommentLink());
     }
-    
+
     /**
      * Get category data
      */
-    
+
     // Atom 1.0 (Atom 0.3 never supported categories except via Atom 1.0/Dublin Core extensions)
-    
+
     public function testGetsCategoriesFromAtom10()
     {
         $feed = Reader\Reader::importString(
@@ -472,7 +472,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCats, (array) $entry->getCategories());
         $this->assertEquals(array('topic1','Cat & Dog'), array_values($entry->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromAtom03_Atom10Extension()
     {
         $feed = Reader\Reader::importString(
@@ -482,9 +482,9 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCats, (array) $entry->getCategories());
         $this->assertEquals(array('topic1','Cat & Dog'), array_values($entry->getCategories()->getValues()));
     }
-    
+
     // DC 1.0/1.1 for Atom 0.3
-    
+
     public function testGetsCategoriesFromAtom03_Dc10()
     {
         $feed = Reader\Reader::importString(
@@ -494,7 +494,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsDc, (array) $entry->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($entry->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromAtom03_Dc11()
     {
         $feed = Reader\Reader::importString(
@@ -504,9 +504,9 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_expectedCatsDc, (array) $entry->getCategories());
         $this->assertEquals(array('topic1','topic2'), array_values($entry->getCategories()->getValues()));
     }
-    
+
     // No Categories In Entry
-    
+
     public function testGetsCategoriesFromAtom10_None()
     {
         $feed = Reader\Reader::importString(
@@ -516,7 +516,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), (array) $entry->getCategories());
         $this->assertEquals(array(), array_values($entry->getCategories()->getValues()));
     }
-    
+
     public function testGetsCategoriesFromAtom03_None()
     {
         $feed = Reader\Reader::importString(
@@ -526,5 +526,5 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), (array) $entry->getCategories());
         $this->assertEquals(array(), array_values($entry->getCategories()->getValues()));
     }
-    
+
 }

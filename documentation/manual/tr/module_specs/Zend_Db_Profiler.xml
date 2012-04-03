@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.profiler"><info><title>Zend_Db_Profiler</title></info>
 
-    
+
 
     <section xml:id="zend.db.profiler.introduction"><info><title>Giriş</title></info>
 
-        
+
 
         <para>
         <code>Zend_Db_Profiler</code> sorgularınızın profillenmesine imkan
@@ -125,7 +125,7 @@ $db = Zend_Db::factory('PDO_MYSQL', $params);
 
     <section xml:id="zend.db.profiler.using"><info><title>Profilleyiciyi Kullanma</title></info>
 
-        
+
 
         <para>
        Herhangi bir noktada bağdaştırıcının <code>getProfiler()</code> metodu
@@ -245,7 +245,7 @@ echo "En uzun sorgu: \n" . $longestQuery . "\n";
 
     <section xml:id="zend.db.profiler.advanced"><info><title>İleri Profilleyici Kullanımı</title></info>
 
-        
+
 
         <para>
             Sorgu denetlemeye ek olarak , profilleyici geliştiriciye hangi
@@ -254,7 +254,7 @@ echo "En uzun sorgu: \n" . $longestQuery . "\n";
         </para>
 
         <section xml:id="zend.db.profiler.advanced.filtertime"><info><title>Sorgu için harcanan süreye göre filtreleme</title></info>
-            
+
 
             <para>
         <code>setFilterElapsedSecs()</code>  geliştiriciye sorgunun profillenmesi
@@ -272,7 +272,7 @@ $profiler->setFilterElapsedSecs(null);
         </section>
 
         <section xml:id="zend.db.profiler.advanced.filtertype"><info><title>Sorgu tipine göre filtreleme</title></info>
-            
+
 
             <para>
             <code>setFilterQueryType()</code> geliştiriciye hangi tip sorguların
@@ -348,7 +348,7 @@ $profiler->setFilterQueryType(null);
         </section>
 
         <section xml:id="zend.db.profiler.advanced.getbytype"><info><title>Sorgu tipine göre profillere erişmek</title></info>
-            
+
 
             <para>
         <code>setFilterQueryType()</code> kullanmak oluşturulan profilleri

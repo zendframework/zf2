@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.common"><info><title>Übliche Seiten Features</title></info>
-    
+
 
     <para>
         Alle Seiten Klassen müssen <classname>Zend_Navigation_Page</classname> erweitern, und
@@ -23,7 +23,7 @@
     </para>
 
     <table xml:id="zend.navigation.pages.common.options"><info><title>Übliche Seiten Optionen</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>
@@ -217,7 +217,7 @@
     </table>
 
     <note><info><title>Eigene Eigenschaften</title></info>
-        
+
 
         <para>
             Alle Seiten unterstützen das Setzen und Empfangen von eigenen Eigenschaften durch
@@ -238,7 +238,7 @@
     </note>
 
     <example xml:id="zend.navigation.pages.common.example.customprops"><info><title>Eigene Seiten Eigenschaften</title></info>
-        
+
 
         <para>
             Dieses Beispiel zeigt wie eigene Eigenschaften verwendet werden können.

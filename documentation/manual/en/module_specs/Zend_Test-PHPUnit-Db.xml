@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db"><info><title>Zend_Test_PHPUnit_Db</title></info>
-    
+
 
     <para>
         Coupling of data-access and the domain model often requires the use of a database for

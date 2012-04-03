@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2.elasticip"><info><title>Zend_Service_Amazon_Ec2: Elastic IP Addresses</title></info>
-    
+
 
     <para>
         By default, all Amazon EC2 instances are assigned two IP addresses at
@@ -26,7 +26,7 @@
     </para>
 
     <example xml:id="zend.service.amazon.ec2.elasticip.allocate"><info><title>Allocating a new Elastic IP</title></info>
-        
+
 
         <para>
             <code>allocate</code> will assign your account a new Elastic IP Address.
@@ -46,7 +46,7 @@ print $ip;
     </example>
 
     <example xml:id="zend.service.amazon.ec2.elasticip.describe"><info><title>Describing Allocated Elastic IP Addresses</title></info>
-        
+
 
         <para>
             <code>describe</code> has an optional paramater to describe all
@@ -73,7 +73,7 @@ $ip = $ec2_eip->describe('ip1');
     </example>
 
     <example xml:id="zend.service.amazon.ec2.elasticip.release"><info><title>Releasing Elastic IP</title></info>
-        
+
 
         <para>
             <code>release</code> will release an Elastic IP to Amazon.
@@ -90,7 +90,7 @@ $ec2_eip->release('ipaddress');
     </example>
 
     <example xml:id="zend.service.amazon.ec2.elasticip.associate"><info><title>Associates an Elastic IP to an Instance</title></info>
-        
+
 
         <para>
             <code>associate</code> will assign an Elastic IP to an
@@ -108,7 +108,7 @@ $ec2_eip->associate('instance_id', 'ipaddress');
     </example>
 
     <example xml:id="zend.service.amazon.ec2.elasticip.disassociate"><info><title>Disassociate an Elastic IP from an instance</title></info>
-        
+
 
         <para>
             <code>disassociate</code> will disassociate an Elastic IP from an instance.

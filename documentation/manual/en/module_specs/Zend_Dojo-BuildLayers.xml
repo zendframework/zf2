@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.build-layers"><info><title>Zend_Dojo build layer support</title></info>
-    
+
 
     <section xml:id="zend.dojo.build-layers.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Dojo build layers provide a clean path from development to
@@ -79,7 +79,7 @@ $view->dojo()->registerModulePath('custom', '../custom/')
     </section>
 
     <section xml:id="zend.dojo.build-layers.usage"><info><title>Generating Custom Module Layers with Zend_Dojo_BuildLayer</title></info>
-        
+
 
         <para>
             At its simplest, you simply instantiate
@@ -158,7 +158,7 @@ class App_Plugin_DojoLayer extends Zend_Controller_Plugin_Abstract
 ]]></programlisting>
 
         <note><info><title>Do not generate the layer on every page</title></info>
-            
+
 
             <para>
                 It's tempting to generate the layer script on each and every
@@ -170,7 +170,7 @@ class App_Plugin_DojoLayer extends Zend_Controller_Plugin_Abstract
         </note>
 
         <section xml:id="zend.dojo.build-layers.usage.options"><info><title>BuildLayer options</title></info>
-            
+
 
             <para>
                 The above functionality will suffice for most situations. For
@@ -179,7 +179,7 @@ class App_Plugin_DojoLayer extends Zend_Controller_Plugin_Abstract
             </para>
 
             <section xml:id="zend.dojo.build-layers.usage.options.view"><info><title>Setting the view object</title></info>
-                
+
 
                 <para>
                     While the view object may be passed during instantiation,
@@ -193,7 +193,7 @@ $build->setView($view);
             </section>
 
             <section xml:id="zend.dojo.build-layers.usage.options.layername"><info><title>Setting the layer name</title></info>
-                
+
 
                 <para>
                     While the layer name may be passed during instantiation,
@@ -207,7 +207,7 @@ $build->setLayerName("custom.main");
             </section>
 
             <section xml:id="zend.dojo.build-layers.usage.options.onload"><info><title>Including onLoad events in the generated layer</title></info>
-                
+
 
                 <para>
                     <command>dojo.addOnLoad</command> is a useful utility for
@@ -246,7 +246,7 @@ $build->setConsumeOnLoad(true);
             </section>
 
             <section xml:id="zend.dojo.build-layers.usage.options.javascript"><info><title>Including captured JavaScript in the generated layer</title></info>
-                
+
 
                 <para>
                     The <methodname>dojo()</methodname> view helper includes methods for
@@ -286,7 +286,7 @@ $build->setConsumeJavascript(true);
     </section>
 
     <section xml:id="zend.dojo.build-layers.profiles"><info><title>Generating Build Profiles with Zend_Dojo_BuildLayer</title></info>
-        
+
 
         <para>
             One of the chief benefits of a Dojo module layer is that it
@@ -354,7 +354,7 @@ class App_Plugin_DojoLayer extends Zend_Controller_Plugin_Abstract
         </para>
 
         <section xml:id="zend.dojo.build-layers.profiles.options"><info><title>Build Profile options</title></info>
-            
+
 
             <para>
                 The above functionality will suffice for most situations. The

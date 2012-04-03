@@ -48,13 +48,13 @@ abstract class AbstractWriter implements Writer
         if (empty($filename)) {
             throw new Exception\InvalidArgumentException('No file name specified');
         }
-        
+
         $flags = 0;
 
         if ($exclusiveLock) {
             $flags |= LOCK_EX;
         }
-        
+
         set_error_handler(
             function($error, $message = '', $file = '', $line = 0) use ($filename) {
                 throw new Exception\RuntimeException(sprintf(

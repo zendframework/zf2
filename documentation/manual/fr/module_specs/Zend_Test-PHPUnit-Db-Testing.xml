@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db.testing"><info><title>Utilisation, API et possibilités d'extension</title></info>
-    
+
 
     <para>
         Le Quickstart permet déja de se rendre compte des capacités de tests d'une base de données avec
@@ -9,7 +9,7 @@
     </para>
 
     <note><info><title>Remarque sur les tests de bases de données</title></info>
-        
+
 
         <para>
             Tout comme les TestCase de vos contrôleurs, les tests de bases de données sont efféctués
@@ -27,7 +27,7 @@
     </note>
 
     <section xml:id="zend.test.phpunit.db.testing.testcase"><info><title>La classe Zend_Test_PHPUnit_DatabaseTestCase</title></info>
-        
+
 
         <para>
             La classe <classname>Zend_Test_PHPUnit_DatabaseTestCase</classname> étend
@@ -104,7 +104,7 @@
         </para>
 
         <table xml:id="zend.test.phpunit.db.testing.testcase.api-methods"><info><title>Méthodes de Zend_Test_PHPUnit_DatabaseTestCase</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -184,7 +184,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.db.testing.controllerintegration"><info><title>Intégrer les tests de bases de données avec les tests de contrôleurs</title></info>
-        
+
 
         <para>
             <acronym>PHP</acronym> n'autorise pas l'héritage multiple, donc vous ne pouvez utiliser
@@ -194,7 +194,7 @@
         </para>
 
         <example xml:id="zend.test.phpunit.db.testing.controllerintegration.example"><info><title>Exemple d'intégration d'une base de données</title></info>
-            
+
 
             <para>
                 Cet exemple reprend le test de UserController utilisé dans la documentation de

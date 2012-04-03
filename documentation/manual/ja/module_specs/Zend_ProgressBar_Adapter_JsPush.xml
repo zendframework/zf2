@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.adapter.jspush"><info><title>Zend_ProgressBar_Adapter_JsPush</title></info>
-    
+
     <para>
         <classname>Zend_ProgressBar_Adapter_JsPush</classname> は、
         ブラウザ内のプログレスバーを Javascript の Push で更新するアダプタです。
@@ -74,7 +74,7 @@
         </listitem>
     </itemizedlist>
     <example xml:id="zend.progressbar-adapter.jspush.example"><info><title>クライアント側の基本例</title></info>
-        
+
         <para>
             この例では、JsPush アダプタ用の <acronym>HTML</acronym> および <acronym>CSS</acronym>、JavaScript
             の基本的な設定方法を示します。
@@ -146,7 +146,7 @@ function Zend_ProgressBar_Update(data)
         </itemizedlist>
     </example>
     <note><info><title>更新間隔</title></info>
-        
+
         <para>
             あまり頻繁に更新しすぎないようにしましょう。
             毎回の更新は、少なくとも 1kb の大きさとなるからです。

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.autoloader-resource"><info><title>Resource Autoloaders</title></info>
-    
+
 
     <para>
         Resource autoloaders are intended to manage namespaced library code that
@@ -18,7 +18,7 @@
     </para>
 
     <section xml:id="zend.loader.autoloader-resource.usage"><info><title>Resource autoloader usage</title></info>
-        
+
 
         <para>
             Let's consider the following directory structure:
@@ -57,7 +57,7 @@ $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
 ]]></programlisting>
 
         <note><info><title>Base namespace</title></info>
-            
+
 
             <para>
                 In <classname>Zend_Loader_Autoloader</classname>, you are expected to
@@ -137,7 +137,7 @@ $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
     </section>
 
     <section xml:id="zend.loader.autoloader-resource.module"><info><title>The Module Resource Autoloader</title></info>
-        
+
 
         <para>
             Zend Framework ships with a concrete implementation of
@@ -176,13 +176,13 @@ views/
     </section>
 
     <section xml:id="zend.loader.autoloader-resource.factory"><info><title>Using Resource Autoloaders as Object Factories</title></info>
-        
+
         <para/>
         <!-- @todo -->
     </section>
 
     <section xml:id="zend.loader.autoloader-resource.reference"><info><title>Resource Autoloader Reference</title></info>
-        
+
         <para/>
         <!-- @todo -->
     </section>

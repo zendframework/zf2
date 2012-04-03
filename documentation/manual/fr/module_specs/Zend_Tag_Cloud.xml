@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tag.cloud"><info><title>Zend_Tag_Cloud</title></info>
-    
+
 
     <para>
         <classname>Zend_Tag_Cloud</classname> est la partie qui s'occupe du rendu dans
@@ -69,7 +69,7 @@
     </itemizedlist>
 
     <example xml:id="zend.tag.cloud.example.using"><info><title>Utiliser Zend_Tag_Cloud</title></info>
-        
+
 
         <para>
             Cet exemple illustre les manipulations de base pour créer un nuage de tags,
@@ -97,7 +97,7 @@ echo $cloud;
     </example>
 
     <section xml:id="zend.tag.cloud.decorators"><info><title>Decorateurs</title></info>
-        
+
 
         <para>
             <classname>Zend_Tag_Cloud</classname> a besoin de 2 types de décorateurs afin de
@@ -108,7 +108,7 @@ echo $cloud;
         </para>
 
         <section xml:id="zend.tag.cloud.decorators.htmltag"><info><title>Décorateur HTML</title></info>
-            
+
 
             <para>
                 Le décorateur HTML va rendre chaque tag dans un élément ancré, entouré d'un
@@ -117,7 +117,7 @@ echo $cloud;
             </para>
 
             <note><info><title>Paramètre d'URL</title></info>
-                
+
 
                 <para>
                     Une ancre étant ajoutée à chaque tag, vous devez spécifier une <acronym>URL</acronym> pour
@@ -172,7 +172,7 @@ echo $cloud;
         </section>
 
         <section xml:id="zend.tag.cloud.decorators.htmlcloud"><info><title>Décorateur HTML de nuage</title></info>
-            
+
 
             <para>
                 Le décorateur HTML de nuage va entourer les tags avec une balise ul. Vous

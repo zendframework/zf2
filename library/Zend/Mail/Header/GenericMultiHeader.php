@@ -42,15 +42,15 @@ class GenericMultiHeader implements MultipleHeaderDescription
 
     /**
      * Header encoding
-     * 
+     *
      * @var string
      */
     protected $encoding = 'ASCII';
 
     /**
      * Deserialize from a string
-     * 
-     * @param  string $headerLine 
+     *
+     * @param  string $headerLine
      * @return GenericMultiHeader
      */
     public static function fromString($headerLine)
@@ -74,7 +74,7 @@ class GenericMultiHeader implements MultipleHeaderDescription
 
     /**
      * Constructor
-     * 
+     *
      * @param null|string $fieldName
      * @param null|string $fieldValue
      */
@@ -91,7 +91,7 @@ class GenericMultiHeader implements MultipleHeaderDescription
 
     /**
      * Set header name
-     * 
+     *
      * @param  string $fieldName
      * @return GenericHeader
      */
@@ -125,7 +125,7 @@ class GenericMultiHeader implements MultipleHeaderDescription
 
     /**
      * Set header value
-     * 
+     *
      * @param  string|array $fieldValue
      * @return GenericHeader
      */
@@ -143,7 +143,7 @@ class GenericMultiHeader implements MultipleHeaderDescription
 
     /**
      * Retrieve header value
-     * 
+     *
      * @return string
      */
     public function getFieldValue()
@@ -153,11 +153,11 @@ class GenericMultiHeader implements MultipleHeaderDescription
 
     /**
      * Set header encoding
-     * 
-     * @param  string $encoding 
+     *
+     * @param  string $encoding
      * @return GenericMultiHeader
      */
-    public function setEncoding($encoding) 
+    public function setEncoding($encoding)
     {
         $this->encoding = $encoding;
         return $this;
@@ -165,7 +165,7 @@ class GenericMultiHeader implements MultipleHeaderDescription
 
     /**
      * Get header encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -190,8 +190,8 @@ class GenericMultiHeader implements MultipleHeaderDescription
 
     /**
      * Cast multiple header objectss to a single string header
-     * 
-     * @param  array $headers 
+     *
+     * @param  array $headers
      * @return string
      */
     public function toStringMultipleHeaders(array $headers)

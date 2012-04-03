@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.adding-recipients"><info><title>Ajouter des destinataires</title></info>
-    
+
 
     <para>
         Des destinataires peuvent être ajouter de trois façons :
@@ -37,7 +37,7 @@
     </para>
 
     <note><info><title>Paramètres additionnels</title></info>
-        
+
 
         <para>
             <methodname>addTo()</methodname> et <methodname>addCc()</methodname> acceptent un
@@ -48,7 +48,7 @@
     </note>
 
     <note><info><title>Utilisation optionnelle</title></info>
-        
+
 
         <para>
             Ces trois méthodes peuvent aussi accepter un tableau d'adresses émails plutôt que

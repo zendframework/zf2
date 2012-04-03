@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_View</classname> ist eine Klasse für die Verarbeitung des "View" Teils des
@@ -24,7 +24,7 @@
     </para>
 
     <section xml:id="zend.view.introduction.controller"><info><title>Controller Skript</title></info>
-        
+
 
         <para>
             In einem einfachen Beispiel hat dein Controller Skript eine Liste von Buchdaten, die
@@ -60,7 +60,7 @@ echo $view->render('booklist.php');
     </section>
 
     <section xml:id="zend.view.introduction.view"><info><title>View Skript</title></info>
-        
+
 
         <para>
             Nun benötigen wir das zugehörige View Skript "booklist.php". Dies ist ein
@@ -104,7 +104,7 @@ echo $view->render('booklist.php');
     </section>
 
     <section xml:id="zend.view.introduction.options"><info><title>Optionen</title></info>
-        
+
 
         <para>
             <classname>Zend_View</classname> hat einige Optionen die gesetzt werden können um
@@ -174,7 +174,7 @@ base/path/
     </section>
 
     <section xml:id="zend.view.introduction.shortTags"><info><title>View Skripte mit Short Tags</title></info>
-        
+
 
         <para>
             In unseren Beispielen verwenden wir <acronym>PHP</acronym> Long
@@ -239,7 +239,7 @@ $view->setUseStreamWrapper(true);
         </itemizedlist>
 
         <warning><info><title>View Stream Wrapper verringert die Geschwindigkeit</title></info>
-            
+
 
             <para>
                 Die Verwendung des Stream Wrapper <emphasis>wird</emphasis> die Geschwindigkeit der
@@ -252,7 +252,7 @@ $view->setUseStreamWrapper(true);
     </section>
 
     <section xml:id="zend.view.introduction.accessors"><info><title>Zugriff auf Dienstprogramme</title></info>
-        
+
 
         <para>
             Typischerweise ist es nur notwendig <methodname>assign()</methodname>,

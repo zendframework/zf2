@@ -41,7 +41,7 @@ interface ParameterContainerInterface extends \ArrayAccess, \Countable, \Travers
 
     public function setFromArray(array $data);
     public function merge(array $data);
-    
+
     public function offsetSetErrata($nameOrPosition, $errata);
     public function offsetGetErrata($nameOrPosition);
     public function offsetHasErrata($nameOrPosition);

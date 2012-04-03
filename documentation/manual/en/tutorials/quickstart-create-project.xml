@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-project"><info><title>Create Your Project</title></info>
-    
+
 
     <para>
         In order to create your project, you must first download and extract Zend Framework.
     </para>
 
     <section xml:id="learning.quickstart.create-project.install-zf"><info><title>Install Zend Framework</title></info>
-        
+
 
         <para>
             The easiest way to get Zend Framework along with a complete <acronym>PHP</acronym> stack
@@ -43,10 +43,10 @@
     </section>
 
     <section xml:id="learning.quickstart.create-project.create-project"><info><title>Create Your Project</title></info>
-        
+
 
         <note><info><title>zf Command Line Tool</title></info>
-            
+
 
             <para>
                 In your Zend Framework installation is a <filename>bin/</filename> subdirectory,
@@ -141,7 +141,7 @@ quickstart
     </section>
 
     <section xml:id="learning.quickstart.create-project.bootstrap"><info><title>The Bootstrap</title></info>
-        
+
 
         <para>
             Your <classname>Bootstrap</classname> class defines what resources and components to
@@ -165,7 +165,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="learning.quickstart.create-project.configuration"><info><title>Configuration</title></info>
-        
+
 
         <para>
             While Zend Framework is itself configurationless, you often need to configure your
@@ -212,7 +212,7 @@ phpSettings.display_errors = 1
     </section>
 
     <section xml:id="learning.quickstart.create-project.action-controllers"><info><title>Action Controllers</title></info>
-        
+
 
         <para>
             Your application's <emphasis>action controllers</emphasis> contain your application
@@ -301,7 +301,7 @@ class ErrorController extends Zend_Controller_Action
     </section>
 
     <section xml:id="learning.quickstart.create-project.views"><info><title>Views</title></info>
-        
+
 
         <para>
             Views in Zend Framework are written in plain old <acronym>PHP</acronym>. View scripts
@@ -417,7 +417,7 @@ class ErrorController extends Zend_Controller_Action
     </section>
 
     <section xml:id="learning.quickstart.create-project.vhost"><info><title>Create a virtual host</title></info>
-        
+
 
         <para>
             For purposes of this quick start, we will assume you are using the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://httpd.apache.org/">Apache web server</link>. Zend Framework works
@@ -520,7 +520,7 @@ class ErrorController extends Zend_Controller_Action
     </section>
 
     <section xml:id="learning.quickstart.create-project.checkpoint"><info><title>Checkpoint</title></info>
-        
+
 
         <para>
             At this point, you should be able to fire up your initial Zend Framework application.

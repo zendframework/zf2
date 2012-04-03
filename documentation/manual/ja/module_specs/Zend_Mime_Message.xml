@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.message"><info><title>Zend_Mime_Message</title></info>
-    
+
 
     <section xml:id="zend.mime.message.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime_Message</classname> は <acronym>MIME</acronym> 準拠のメッセージを表すものであり、
@@ -19,7 +19,7 @@
     </section>
 
     <section xml:id="zend.mime.message.instantiation"><info><title>インスタンスの作成</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime_Message</classname>
@@ -28,7 +28,7 @@
     </section>
 
     <section xml:id="zend.mime.message.addparts"><info><title>MIME パートの追加</title></info>
-        
+
 
         <para>
             <link linkend="zend.mime.part"><classname>Zend_Mime_Part</classname></link>
@@ -55,7 +55,7 @@
     </section>
 
     <section xml:id="zend.mime.message.bondary"><info><title>バウンダリの扱い</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime_Message</classname> は、バウンダリを生成するために通常は
@@ -84,7 +84,7 @@
 
     <section xml:id="zend.mime.message.parse"><info><title>文字列をパースすることによる Zend_Mime_Message
         オブジェクトの作成 (実験段階)</title></info>
-        
+
 
         <para>
             <acronym>MIME</acronym> に準拠したメッセージを含む文字列をもとにして、

@@ -33,8 +33,8 @@ interface Broker
 {
     /**
      * Load a plugin and return it
-     * 
-     * @param  string $plugin 
+     *
+     * @param  string $plugin
      * @param  null|array $options Options to pass to the plugin constructor
      * @return object
      */
@@ -42,22 +42,22 @@ interface Broker
 
     /**
      * Retrieve list of all loaded plugins
-     * 
+     *
      * @return array
      */
     public function getPlugins();
 
     /**
      * Whether or not a given plugin has been loaded or registered
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return bool
      */
     public function isLoaded($name);
 
     /**
      * Register a named plugin
-     * 
+     *
      * @param  string $name Name by which plugin will be registered
      * @param  string|object $plugin Plugin class or object
      * @return void
@@ -66,23 +66,23 @@ interface Broker
 
     /**
      * Unregister a named plugin
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return void
      */
     public function unregister($name);
 
     /**
      * Set class loader to use when resolving plugin names to classes
-     * 
-     * @param  ShortNameLocator $loader 
+     *
+     * @param  ShortNameLocator $loader
      * @return void
      */
     public function setClassLoader(ShortNameLocator $loader);
 
     /**
      * Retrieve the plugin class loader
-     * 
+     *
      * @return ShortNameLocator
      */
     public function getClassLoader();

@@ -44,7 +44,7 @@ abstract class AbstractService
     protected $_httpClient = null;
 
     /**
-     * Sets the HTTP client object or client class to use for interacting with 
+     * Sets the HTTP client object or client class to use for interacting with
      * services. If none is set, the default Zend\Http\Client will be used.
      *
      * @param string|Zend\Http\Client $client
@@ -81,8 +81,8 @@ abstract class AbstractService
 
     /**
      * Set HTTP client instance to use with this service instance
-     * 
-     * @param  Zend\Http\Client $client 
+     *
+     * @param  Zend\Http\Client $client
      * @return Zend\Service\AbstractService
      */
     public function setHttpClient(HTTPClient $client)
@@ -95,7 +95,7 @@ abstract class AbstractService
      * Get the HTTP client instance registered with this service instance
      *
      * If none set, will check for a default instance.
-     * 
+     *
      * @return Zend\Http\Client
      */
     public function getHttpClient()

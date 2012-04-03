@@ -1055,7 +1055,7 @@
 		<dateRangePattern>{0}–{1}</dateRangePattern>
 		<calendars>
 			<calendar type="buddhist">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>cccc d. MMMM y G</pattern>
@@ -1078,7 +1078,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">ccc d.</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
@@ -1593,7 +1593,7 @@
 						</monthWidth>
 					</monthContext>
 				</months>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>cccc d. MMMM y G</pattern>
@@ -1615,7 +1615,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">ccc d.</dateFormatItem>
@@ -1648,7 +1648,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>cccc d. MMMM y G</pattern>
@@ -1671,7 +1671,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="Ed">ccc d.</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="hm">h.mm a</dateFormatItem>
@@ -1693,7 +1693,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="roc">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>cccc d. MMMM y G</pattern>
@@ -1716,7 +1716,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="Ed">ccc d.</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="hm">h.mm a</dateFormatItem>

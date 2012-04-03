@@ -111,9 +111,9 @@ abstract class Bootstrap
     /**
      * Get default application namespace
      *
-     * Proxies to {@link getModuleName()}, and returns the current module 
+     * Proxies to {@link getModuleName()}, and returns the current module
      * name
-     * 
+     *
      * @return string
      */
     public function getAppNamespace()

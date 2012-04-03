@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.interactive-features"><info><title>Interaktive Features</title></info>
-    
+
 
     <section xml:id="zend.pdf.pages.interactive-features.destinations"><info><title>Ziele</title></info>
-        
+
 
         <para>
             Ein Ziel definiert eine spezielle Sicht eines Dokuments, bestehend aus den folgenden
@@ -32,7 +32,7 @@
         </para>
 
         <section xml:id="zend.pdf.pages.interactive-features.destinations.types"><info><title>Unterstützte Zieltypen</title></info>
-            
+
 
             <para>
                 Die folgenden Typen werden von der <classname>Zend_Pdf</classname> Komponente
@@ -40,7 +40,7 @@
             </para>
 
             <section xml:id="zend.pdf.pages.interactive-features.destinations.types.zoom"><info><title>Zend_Pdf_Destination_Zoom</title></info>
-                
+
 
                 <para>
                     Zeigt die spezifizierte Seite, mit den Koordinaten (Links, Oben) positioniert
@@ -126,7 +126,7 @@
             </section>
 
             <section xml:id="zend.pdf.pages.interactive-features.destinations.types.fit"><info><title>Zend_Pdf_Destination_Fit</title></info>
-                
+
 
                 <para>
                     Zeigt die spezifizierte Seite an, wobei der Inhalt soweit vergrössert wird,
@@ -149,7 +149,7 @@
             </section>
 
             <section xml:id="zend.pdf.pages.interactive-features.destinations.types.fit-horizontally"><info><title>Zend_Pdf_Destination_FitHorizontally</title></info>
-                
+
 
                 <para>
                     Zeigt die spezifizierte Seite, mit den vertikalen Koordinaten an der oberen Ecke
@@ -200,7 +200,7 @@
             </section>
 
             <section xml:id="zend.pdf.pages.interactive-features.destinations.types.fit-vertically"><info><title>Zend_Pdf_Destination_FitVertically</title></info>
-                
+
 
                 <para>
                     Zeigt die spezifizierte Seite, mit den horizontalen Koordinaten an der oberen
@@ -251,7 +251,7 @@
             </section>
 
             <section xml:id="zend.pdf.pages.interactive-features.destinations.types.fit-rectangle"><info><title>Zend_Pdf_Destination_FitRectangle</title></info>
-                
+
 
                 <para>
                     Zeigt die spezifizierte Seite an, wobei der Inhalt gerade genug vergrössert ist
@@ -350,7 +350,7 @@
             </section>
 
             <section xml:id="zend.pdf.pages.interactive-features.destinations.types.fit-bounding-box"><info><title>Zend_Pdf_Destination_FitBoundingBox</title></info>
-                
+
 
                 <para>
                     Zeigt die spezifizierte Seite an, wobei der Inhalt gerade genug vergrössert ist
@@ -374,7 +374,7 @@
             </section>
 
             <section xml:id="zend.pdf.pages.interactive-features.destinations.types.fit-bounding-box-horizontally"><info><title>Zend_Pdf_Destination_FitBoundingBoxHorizontally</title></info>
-                
+
 
                 <para>
                     Zeigt die spezifizierte Seite, mit den vertikalen Koordinaten an der oberen Ecke
@@ -426,7 +426,7 @@
             </section>
 
             <section xml:id="zend.pdf.pages.interactive-features.destinations.types.fit-bounding-box-vertically"><info><title>Zend_Pdf_Destination_FitBoundingBoxVertically</title></info>
-                
+
 
                 <para>
                     Zeigt die spezifizierte Seite, mit den horizontalen Koordinaten an der oberen
@@ -477,7 +477,7 @@
             </section>
 
             <section xml:id="zend.pdf.pages.interactive-features.destinations.types.named"><info><title>Zend_Pdf_Destination_Named</title></info>
-                
+
 
                 <para>
                     Alle oben aufgeführten Ziele sind "Explizite Ziele".
@@ -513,7 +513,7 @@
         </section>
 
         <section xml:id="zend.pdf.pages.interactive-features.destinations.processing"><info><title>Verarbeitung von Zielen auf Level des Dokuments</title></info>
-            
+
 
             <para>
                 Die Klasse <classname>Zend_Pdf</classname> bietet ein Set von Methoden zur
@@ -575,7 +575,7 @@
             </note>
 
             <example xml:id="zend.pdf.interactive-features.destinations.example-1"><info><title>Beispiel für die Verwendung von Zielen</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $pdf = new Zend_Pdf();
@@ -613,7 +613,7 @@ $pdf->resolveDestination(Zend_Pdf_Destination_Named::create('Page3'));
     </section>
 
     <section xml:id="zend.pdf.pages.interactive-features.actions"><info><title>Aktionen</title></info>
-        
+
 
         <para>
             Statt einfach zu einem Ziel im Dokument zu springen, kann ein Hinweis oder Outline
@@ -623,7 +623,7 @@ $pdf->resolveDestination(Zend_Pdf_Destination_Named::create('Page3'));
         </para>
 
         <section xml:id="zend.pdf.pages.interactive-features.actions.types"><info><title>Unterstützte Typen von Aktionen</title></info>
-            
+
 
             <para>
                 Die folgenden Typen von Aktionen werden beim Laden vom <acronym>PDF</acronym>
@@ -815,7 +815,7 @@ $pdf->resolveDestination(Zend_Pdf_Destination_Named::create('Page3'));
         </section>
 
         <section xml:id="zend.pdf.pages.interactive-features.actions.chaining"><info><title>Verketten von Aktionen</title></info>
-            
+
 
             <para>
                 Aktions Objekte können verkettet werden indem die öffentliche Eigenschaft
@@ -871,7 +871,7 @@ printf("Aktionen im Baum: %d\n", $actionsCount++);
         </section>
 
         <section xml:id="zend.pdf.pages.interactive-features.actions.open-action"><info><title>Dokument Öffnen Aktion</title></info>
-            
+
 
             <para>
                 Eine spezielle Öffnen Aktion kann durch ein Ziel spezifiziert werden das angezeigt
@@ -894,7 +894,7 @@ printf("Aktionen im Baum: %d\n", $actionsCount++);
     </section>
 
     <section xml:id="zend.pdf.pages.interactive-features.outlines"><info><title>Dokument Outline (Bookmarks)</title></info>
-        
+
 
         <para>
             Ein PDF Dokument kann optional ein Dokument Outline am Schirm anzeigen, welcher es dem
@@ -1112,7 +1112,7 @@ $pdf->save($path, true);
     </section>
 
     <section xml:id="zend.pdf.pages.interactive-features.annotations"><info><title>Anhänge</title></info>
-        
+
 
         <para>
             Ein Anhang assoziiert ein Objekt wie eine Notiz, einen Sound, oder einen Film mit einem

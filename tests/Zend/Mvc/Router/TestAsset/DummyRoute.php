@@ -63,8 +63,8 @@ class DummyRoute implements Route
 
     /**
      * factory(): defined by Route interface
-     * 
-     * @param  array|Traversable $options 
+     *
+     * @param  array|Traversable $options
      * @return DummyRoute
      */
     public static function factory($options = array())

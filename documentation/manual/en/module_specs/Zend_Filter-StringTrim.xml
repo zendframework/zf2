@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.stringtrim"><info><title>StringTrim</title></info>
-    
+
 
     <para>
         This filter modifies a given string such that certain characters are removed from the
@@ -8,7 +8,7 @@
     </para>
 
      <section xml:id="zend.filter.set.stringtrim.options"><info><title>Supported options for Zend_Filter_StringTrim</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Filter_StringTrim</classname>:
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.filter.set.stringtrim.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             A basic example of usage is below:
@@ -46,7 +46,7 @@ print $filter->filter(' This is (my) content: ');
     </section>
 
     <section xml:id="zend.filter.set.stringtrim.types"><info><title>Default behaviour for Zend_Filter_StringTrim</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $filter = new Zend_Filter_StringTrim(':');

@@ -66,7 +66,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                       );
 
         $this->assertEquals('Zend\Cloud\Infrastructure\Adapter\Ec2', get_class($Ec2Adapter));
-        
+
         // Rackspace adapter
         $rackspaceAdapter = CloudFactory::getAdapter(
                                 new Config(RackspaceOfflineTest::getConfigArray(),true)

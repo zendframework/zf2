@@ -75,7 +75,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Loader\Exception\RuntimeException', 'locate class');
         Serializer::factory('unknown');
     }
-    
+
     public function testFactoryOnADummyClassAdapter()
     {
         $this->setExpectedException('Zend\\Serializer\\Exception','must implement Zend\\Serializer\\Adapter');

@@ -60,7 +60,7 @@ class AggregateResolver implements Countable, IteratorAggregate, Resolver
      * Constructor
      *
      * Instantiate the internal priority queue
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -70,7 +70,7 @@ class AggregateResolver implements Countable, IteratorAggregate, Resolver
 
     /**
      * Return count of attached resolvers
-     * 
+     *
      * @return void
      */
     public function count()
@@ -80,7 +80,7 @@ class AggregateResolver implements Countable, IteratorAggregate, Resolver
 
     /**
      * IteratorAggregate: return internal iterator
-     * 
+     *
      * @return Traversable
      */
     public function getIterator()
@@ -90,9 +90,9 @@ class AggregateResolver implements Countable, IteratorAggregate, Resolver
 
     /**
      * Attach a resolver
-     * 
-     * @param  Resolver $resolver 
-     * @param  int $priority 
+     *
+     * @param  Resolver $resolver
+     * @param  int $priority
      * @return AggregateResolver
      */
     public function attach(Resolver $resolver, $priority = 1)
@@ -103,9 +103,9 @@ class AggregateResolver implements Countable, IteratorAggregate, Resolver
 
     /**
      * Resolve a template/pattern name to a resource the renderer can consume
-     * 
-     * @param  string $name 
-     * @param  null|Renderer $renderer 
+     *
+     * @param  string $name
+     * @param  null|Renderer $renderer
      * @return false|string
      */
     public function resolve($name, Renderer $renderer = null)
@@ -136,7 +136,7 @@ class AggregateResolver implements Countable, IteratorAggregate, Resolver
 
     /**
      * Return the last successful resolver, if any
-     * 
+     *
      * @return Resolver
      */
     public function getLastSuccessfulResolver()
@@ -146,7 +146,7 @@ class AggregateResolver implements Countable, IteratorAggregate, Resolver
 
     /**
      * Get last lookup failure
-     * 
+     *
      * @return false|string
      */
     public function getLastLookupFailure()

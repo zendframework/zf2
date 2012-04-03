@@ -368,9 +368,9 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * Test to see same usernames with different passwords can not authenticate
-     * when flag is not set. This is the current state of 
+     * when flag is not set. This is the current state of
      * Zend_Auth_Adapter_DbTable (up to ZF 1.10.6)
-     * 
+     *
      * @group   ZF-7289
      */
     public function testEqualUsernamesDifferentPasswordShouldNotAuthenticateWhenFlagIsNotSet()
@@ -380,7 +380,7 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
             'password' => 'my_otherpass',
             'real_name' => 'Test user 2',
         ));
-        
+
         // test if user 1 can authenticate
         $this->_adapter->setIdentity('my_username')
                        ->setCredential('my_password');
@@ -392,7 +392,7 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
     /**
      * Test to see same usernames with different passwords can authenticate when
      * a flag is set
-     * 
+     *
      * @group   ZF-7289
      */
     public function testEqualUsernamesDifferentPasswordShouldAuthenticateWhenFlagIsSet()
@@ -402,7 +402,7 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
             'password' => 'my_otherpass',
             'real_name' => 'Test user 2',
         ));
-        
+
         // test if user 1 can authenticate
         $this->_adapter->setIdentity('my_username')
                        ->setCredential('my_password')
@@ -412,10 +412,10 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
             $result->getMessages()));
         $this->assertTrue($result->isValid());
         $this->assertEquals('my_username', $result->getIdentity());
-        
+
         $this->_adapter = null;
         $this->_setupAuthAdapter();
-        
+
         // test if user 2 can authenticate
         $this->_adapter->setIdentity('my_username')
                        ->setCredential('my_otherpass')

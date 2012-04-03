@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.http.cookies"><info><title>Zend_Http_Cookie und Zend_Http_CookieJar</title></info>
-    
+
 
     <section xml:id="zend.http.cookies.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             Wie erwartet ist <classname>Zend_Http_Cookie</classname> eine Klasse, die einen
@@ -32,7 +32,7 @@
     </section>
 
     <section xml:id="zend.http.cookies.cookie.instantiating"><info><title>Instanzieren von Zend_Http_Cookie Objekten</title></info>
-        
+
 
         <para>
             Es gibt zwei Möglichkeiten ein Cookie Objekt zu erstellen:
@@ -140,7 +140,7 @@
             </itemizedlist>
 
             <example xml:id="zend.http.cookies.cookie.instantiating.example-1"><info><title>Instanzieren eines Zend_Http_Cookie-Objekts</title></info>
-               
+
 
                <programlisting language="php"><![CDATA[
 // Zuerst nutzen wir den Konstruktor. Der Cookie wird in zwei Stunden ablaufen
@@ -182,7 +182,7 @@ $cookie = Zend_Http_Cookie::fromString('foo=bar; secure;',
             Cookie-Header vorgeschrieben ist:
 
             <example xml:id="zend.http.cookies.cookie.instantiating.example-2"><info><title>Transformation eines Zend_Http_Cookie-Objekts zu einem String</title></info>
-               
+
 
                <programlisting language="php"><![CDATA[
 // Erstellt einen neuen Cookie
@@ -206,7 +206,7 @@ echo $cookie;
     </section>
 
     <section xml:id="zend.http.cookies.cookie.accessors"><info><title>Zend_Http_Cookie getter-Methoden</title></info>
-        
+
 
         <para>
             Sobald ein <classname>Zend_Http_Cookie</classname> instanziert wurde, stellt es diverse
@@ -285,7 +285,7 @@ echo $cookie;
 
         <para>
             <example xml:id="zend.http.cookies.cookie.accessors.example-1"><info><title>Nutzen der getter-Methoden von Zend_Http_Cookie</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Zuerst wird der Cookie erstellt
@@ -318,7 +318,7 @@ echo ($cookie->isSessionCookie() ? 'Ja' : 'Nein');
     </section>
 
     <section xml:id="zend.http.cookies.cookie.matching"><info><title>Zend_Http_Cookie: Überprüfen von Szenarien</title></info>
-        
+
 
         <para>
             Die einzige wirkliche Logik in einem <classname>Zend_Http_Cookie</classname> Objekt
@@ -359,7 +359,7 @@ echo ($cookie->isSessionCookie() ? 'Ja' : 'Nein');
             </itemizedlist>
 
             <example xml:id="zend.http.cookies.cookie.matching.example-1"><info><title>Zutreffen von Cookies</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erstellen eines Cookie Objekts - zuerst ein sicherer Cookie ohne Ablaufzeit
@@ -412,7 +412,7 @@ $cookie->match('http://www.example.com/', true, time() + (3 * 3600));
     </section>
 
     <section xml:id="zend.http.cookies.cookiejar"><info><title>Die Zend_Http_CookieJar Klasse: Instanzierung</title></info>
-        
+
 
         <para>
             In den meisten Fällen ist es nicht notwendig, ein
@@ -439,7 +439,7 @@ $cookie->match('http://www.example.com/', true, time() + (3 * 3600));
     </section>
 
     <section xml:id="zend.http.cookies.cookiejar.adding_cookies"><info><title>Hinzufügen von Cookies zu einem Zend_Http_CookieJar Objekt</title></info>
-        
+
 
         <para>
             Normalerweise werden die, durch <acronym>HTTP</acronym> Antworten gesetzen, Cookies vom
@@ -478,7 +478,7 @@ $cookie->match('http://www.example.com/', true, time() + (3 * 3600));
     </section>
 
     <section xml:id="zend.http.cookies.cookiejar.getting_cookies"><info><title>Abrufen der Cookies von einem Zend_Http_CookieJar-Objekts</title></info>
-        
+
 
         <para>
             Wie beim Hinzufügen von Cookies ist es normalerweise nicht notwendig,

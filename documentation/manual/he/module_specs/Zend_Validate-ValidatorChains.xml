@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.validator_chains"><info><title>שרשור פונקציות אימות</title></info>
 
-    
+
 
     <para>
         לפעמים יהיה צורך בלבצע מספר בדיקות ואימותים שונים על אותו ערך בסדר מסויים. הדוגמא הבאה מציגה כיצד לפתור את הבעיה אשר מוצגת <link linkend="zend.validate.introduction">בהקדמה</link>,

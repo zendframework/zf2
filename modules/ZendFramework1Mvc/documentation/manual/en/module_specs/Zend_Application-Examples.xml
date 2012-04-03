@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.examples"><info><title>Examples</title></info>
-    
+
 
     <para>
         The Bootstrap class itself will typically be fairly minimal; often,
@@ -31,7 +31,7 @@ resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
 ]]></programlisting>
 
     <note><info><title>Autoloader namespaces</title></info>
-        
+
 
         <para>
             Because these examples use custom code, we need to register the namespace prefixes for

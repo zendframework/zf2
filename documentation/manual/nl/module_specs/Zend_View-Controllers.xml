@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.controllers"><info><title>Controller Scripts</title></info>
-    
+
 
     <para>
         De controller is waar je Zend_View instantieert en configureert.
@@ -10,7 +10,7 @@
 
     <section xml:id="zend.view.controllers.assign"><info><title>Variabelen toewijzen</title></info>
 
-        
+
 
         <para>
             Je controller script zou de nodige variabelen aan het view moeten
@@ -78,7 +78,7 @@ $view->assign('c', "Zee");
 
     <section xml:id="zend.view.controllers.render"><info><title>Een View Script weergeven</title></info>
 
-        
+
 
         <para>
             Eenmaal je al de nodige variabelen hebt toegewezen zou de controller
@@ -101,7 +101,7 @@ echo $view->render('eenView.php');
 
     <section xml:id="zend.view.controllers.script-paths"><info><title>View Script Paden</title></info>
 
-        
+
 
         <para>
             Standaard verwacht Zend_View dat je view scripts relatief zijn

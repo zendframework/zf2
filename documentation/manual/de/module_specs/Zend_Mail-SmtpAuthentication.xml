@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-authentication"><info><title>SMTP Authentifizierung</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> unterstützt die Verwendung von SMTP Authentifizierung,
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.mail.smtp-authentication.example-1"><info><title>Authentifizierung innerhalb von Zend_Mail_Transport_Smtp einschalten</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $config = array('auth' => 'login',
@@ -31,7 +31,7 @@ $mail->send($transport);
     </example>
 
     <note><info><title>Authentifizierungs Typen</title></info>
-        
+
 
         <para>
             Der Authentifizierungs Typ ist Groß-Kleinschreibungs unempfindlich enthält aber keine

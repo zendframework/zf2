@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.character-sets"><info><title>Character Sets</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> does not check for the correct character set of the mail
@@ -12,7 +12,7 @@
     </para>
 
     <note><info><title>Only in text format</title></info>
-        
+
 
         <para>
             Character sets are only applicable for message parts in text format.
@@ -20,7 +20,7 @@
     </note>
 
     <example xml:id="zend.mail.character-sets.cjk"><info><title>Usage in CJK languages</title></info>
-        
+
 
         <para>
             The following example is how to use <classname>Zend_Mail</classname> in Japanese. This

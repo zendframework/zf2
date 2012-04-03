@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.basics"><info><title>Zend_Controller Basics</title></info>
-    
+
 
     <para>
         The <classname>Zend_Controller</classname> system is designed to be
@@ -131,7 +131,7 @@
             </para>
 
             <note><info><title>Case Naming Conventions</title></info>
-                
+
 
                 <para>
                     Since humans are notoriously inconsistent at

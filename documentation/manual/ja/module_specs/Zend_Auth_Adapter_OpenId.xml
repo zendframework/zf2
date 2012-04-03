@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.openid"><info><title>Open ID 認証</title></info>
 
-    
+
 
     <section xml:id="zend.auth.adapter.openid.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_OpenId</classname>
@@ -41,7 +41,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.openid.specifics"><info><title>仕様</title></info>
-        
+
 
         <para>
             他の <classname>Zend_Auth</classname> アダプタ同様、<classname>Zend_Auth_Adapter_OpenId</classname>

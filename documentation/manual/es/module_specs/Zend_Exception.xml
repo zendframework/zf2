@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.using"><info><title>Uso de Excepciones</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Exception</classname>
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.exception.using.example"><info><title>Capturando una Excepcion</title></info>
-        
+
         <para>
             El siguiente listado de c�digo muestra c�mo capturar una excepci�n
             lanzado en Zend Framework:</para>

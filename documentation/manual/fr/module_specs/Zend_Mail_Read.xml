@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.read"><info><title>Lire des émail</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> peut lire des émail provenant de différents stockages
@@ -11,7 +11,7 @@
     </para>
 
     <table xml:id="zend.mail.read.table-1"><info><title>Vue d'ensemble des fonctionnalités de lecture d'émail</title></info>
-        
+
 
         <tgroup cols="5">
             <thead>
@@ -85,7 +85,7 @@
     </table>
 
     <section xml:id="zend.mail.read-example"><info><title>Exemple simple avec Pop3</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail_Storage_Pop3(array('host'     => 'localhost',
@@ -100,7 +100,7 @@ foreach ($mail as $message) {
     </section>
 
     <section xml:id="zend.mail.read-open-local"><info><title>Ouvrir un stockage local</title></info>
-        
+
 
         <para>
             Mbox et Maildir sont les deux formats supportés pour le stockage local des émail,
@@ -131,7 +131,7 @@ $mail =
     </section>
 
     <section xml:id="zend.mail.read-open-remote"><info><title>Ouvrir un stockage distant</title></info>
-        
+
 
         <para>
             Pour les stockages distants les deux protocoles les plus populaires sont supportés
@@ -190,7 +190,7 @@ $mail = new Zend_Mail_Storage_Pop3(array('host'     => 'exemple.com'
     </section>
 
     <section xml:id="zend.mail.read-fetching"><info><title>Extraire des messages et autres méthodes simples</title></info>
-        
+
 
         <para>
             Dès que vous avez ouvert l'accès, les messages peuvent être extraits. Vous devez
@@ -253,7 +253,7 @@ unset($mail[$messageNum]);
     </section>
 
     <section xml:id="zend.mail.read-message"><info><title>Travailler avec les messages</title></info>
-        
+
 
         <para>
             Après avoir extrait les messages avec <methodname>getMessage()</methodname> vous voulez
@@ -397,7 +397,7 @@ if (!$foundPart) {
     </section>
 
     <section xml:id="zend.mail.read-flags"><info><title>Vérifier les drapeaux ("flags")</title></info>
-        
+
 
         <para>
             Maildir et IMAP supporte l'enregistrement de drapeaux. La classe
@@ -467,7 +467,7 @@ if (!$message->hasFlag('$SpamTeste')) {
     </section>
 
     <section xml:id="zend.mail.read-folders"><info><title>Utiliser les dossiers</title></info>
-        
+
 
         <para>
             Tous les stockages, excepté Pop3, supportent les dossiers, également appelés
@@ -534,7 +534,7 @@ $mail = new Zend_Mail_Storage_Imap(array('host'     => 'example.com',
         </para>
 
         <table xml:id="zend.mail.read-folders.table-1"><info><title>Noms de dossiers</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -615,10 +615,10 @@ $mail->selectFolder($folder);
     </section>
 
     <section xml:id="zend.mail.read-advanced"><info><title>Utilisation avancée</title></info>
-        
+
 
         <section xml:id="zend.mail.read-advanced.noop"><info><title>Utiliser NOOP</title></info>
-            
+
 
             <para>
                 Si vous employez un stockage distant et avez une longue tâche vous pourriez
@@ -640,7 +640,7 @@ foreach ($mail as $message) {
         </section>
 
         <section xml:id="zend.mail.read-advanced.extending"><info><title>Mettre en cache des instances</title></info>
-            
+
 
             <para>
                 <classname>Zend_Mail_Storage_Mbox</classname>,
@@ -682,7 +682,7 @@ $cache->set($cache_id, $mail);
         </section>
 
         <section><info><title>Étendre les classes de protocoles</title></info>
-            
+
 
             <para>
                 Les stockages distants utilisent deux classes :
@@ -782,7 +782,7 @@ $mail = new Example_Mail_Pop3_Knock(
         </section>
 
         <section xml:id="zend.mail.read-advanced.quota"><info><title>Utilisation des Quotas (avant 1.5)</title></info>
-            
+
 
             <para>
                 <classname>Zend_Mail_Storage_Writable_Maildir</classname> supporte les quotas

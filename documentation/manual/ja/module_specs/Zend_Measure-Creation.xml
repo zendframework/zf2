@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.creation"><info><title>計測値の作成</title></info>
 
-    
+
 
     <para>
         計測値を表すオブジェクトを作成する際には、
@@ -22,7 +22,7 @@
 
     <section xml:id="zend.measure.creation.number"><info><title>整数および浮動小数点数からの計測値の作成</title></info>
 
-        
+
 
         <para>
             整数に加えて、浮動小数点数を使用することもできます。しかし、
@@ -33,7 +33,7 @@
         </para>
 
         <example xml:id="zend.measure.creation.number.example-1"><info><title>整数および浮動小数点数を使用しての作成</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $measurement = 1234.7;
 $unit = new Zend_Measure_Length((integer)$measurement,
@@ -51,7 +51,7 @@ echo $unit;
 
     <section xml:id="zend.measure.creation.string"><info><title>文字列からの計測値の作成</title></info>
 
-        
+
 
         <para>
             Zend Framework アプリケーションが入力として受け取って <classname>Zend_Measure_*</classname>
@@ -70,7 +70,7 @@ echo $unit;
         </para>
 
         <example xml:id="zend.measure.creation.string.example-1"><info><title>文字列を使用しての作成</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $mystring = "10010100111010111010100001011011101010001";
 $unit = new Zend_Measure_Number($mystring, Zend_Measure_Number::BINARY);
@@ -83,7 +83,7 @@ echo $unit;
 
     <section xml:id="zend.measure.creation.localized"><info><title>ローカライズされた文字列をもとにした計測値</title></info>
 
-        
+
 
         <para>
             各国固有の記法で文字列を入力した場合は、
@@ -98,7 +98,7 @@ echo $unit;
         </para>
 
         <example xml:id="zend.measure.creation.localized.example-1"><info><title>ローカライズされた文字列</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de');
 $mystring = "1,234.50";

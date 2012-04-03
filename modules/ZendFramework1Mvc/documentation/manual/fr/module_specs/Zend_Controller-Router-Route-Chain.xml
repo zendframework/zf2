@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.chain"><info><title>Zend_Controller_Router_Route_Chain</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Router_Route_Chain</classname> est une route permettant le chainage
@@ -10,7 +10,7 @@
     </para>
 
     <note><info><title>Priorité des paramètres</title></info>
-        
+
         <para>
             En chainant des routes entre elles, les paramètres de la route la plus externe
             (la plus proche) ont une prioprité supérieure aux paramètres des routes les plus
@@ -61,7 +61,7 @@ echo $chainedRoute->assemble();
 ]]></programlisting>
 
     <section xml:id="zend.controller.router.routes.chain.config"><info><title>Chainer des routes via Zend_Config</title></info>
-        
+
 
         <para>
             Pour chainer les route grâce à un fichier de configuration, il faut considérer des paramètres

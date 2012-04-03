@@ -121,8 +121,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Constructor
-     * 
-     * @param  null|string $table 
+     *
+     * @param  null|string $table
      * @param  null|string $schema
      * @return void
      */
@@ -138,8 +138,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Create from clause
-     * 
-     * @param  string $table 
+     *
+     * @param  string $table
      * @param  null|string $schema
      * @return Select
      */
@@ -180,10 +180,10 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Create join clause
-     * 
-     * @param  string $name 
-     * @param  string $on 
-     * @param  string|array $columns 
+     *
+     * @param  string $name
+     * @param  string $on
+     * @param  string|array $columns
      * @param  string $type one of the JOIN_* constants
      * @return Select
      */
@@ -203,8 +203,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Create where clause
-     * 
-     * @param  Where|\Closure|string|array $predicate 
+     *
+     * @param  Where|\Closure|string|array $predicate
      * @param  string $combination One of the OP_* constants from Predicate\PredicateSet
      * @return Select
      */
@@ -473,8 +473,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Variable overloading
      *
      * Proxies to "where" only
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return mixed
      */
     public function __get($name)
@@ -488,10 +488,10 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     }
 
     /**
-     * __clone 
+     * __clone
      *
      * Resets the where object each time the Select is cloned.
-     * 
+     *
      * @return void
      */
     public function __clone() {

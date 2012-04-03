@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.autoloading.design"><info><title>Ziele und Design</title></info>
-    
+
 
     <section xml:id="learning.autoloading.design.naming"><info><title>Konventionen für Klassennamen</title></info>
-        
+
 
         <para>
             Um das Autoloaden im Zend Framework zu verstehen, muss man zuerst die Abhängigkeit
@@ -43,7 +43,7 @@
     </section>
 
     <section xml:id="learning.autoloading.design.autoloader"><info><title>Autoloader Konventionen und Design</title></info>
-        
+
 
         <para>
             Zend Framework's unterstützung für das Autoloaden, welche primär über

@@ -25,7 +25,7 @@ use ArrayAccess;
 /**
  * Representation of an event
  *
- * Encapsulates the target context and parameters passed, and provides some 
+ * Encapsulates the target context and parameters passed, and provides some
  * behavior for interacting with the event manager.
  *
  * @category   Zend
@@ -59,10 +59,10 @@ class Event implements EventDescription
      * Constructor
      *
      * Accept a target and its parameters.
-     * 
+     *
      * @param  string $name Event name
-     * @param  string|object $target 
-     * @param  array|ArrayAccess $params 
+     * @param  string|object $target
+     * @param  array|ArrayAccess $params
      * @return void
      */
     public function __construct($name = null, $target = null, $params = null)
@@ -82,7 +82,7 @@ class Event implements EventDescription
 
     /**
      * Get event name
-     * 
+     *
      * @return string
      */
     public function getName()
@@ -94,7 +94,7 @@ class Event implements EventDescription
      * Get the event target
      *
      * This may be either an object, or the name of a static method.
-     * 
+     *
      * @return string|object
      */
     public function getTarget()
@@ -106,8 +106,8 @@ class Event implements EventDescription
      * Set parameters
      *
      * Overwrites parameters
-     * 
-     * @param  array|ArrayAccess|object $params 
+     *
+     * @param  array|ArrayAccess|object $params
      * @return Event
      */
     public function setParams($params)
@@ -125,7 +125,7 @@ class Event implements EventDescription
 
     /**
      * Get all parameters
-     * 
+     *
      * @return array|object|ArrayAccess
      */
     public function getParams()
@@ -137,9 +137,9 @@ class Event implements EventDescription
      * Get an individual parameter
      *
      * If the parameter does not exist, the $default value will be returned.
-     * 
-     * @param  string|int $name 
-     * @param  mixed $default 
+     *
+     * @param  string|int $name
+     * @param  mixed $default
      * @return mixed
      */
     public function getParam($name, $default = null)
@@ -162,8 +162,8 @@ class Event implements EventDescription
 
     /**
      * Set the event name
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return Event
      */
     public function setName($name)
@@ -174,8 +174,8 @@ class Event implements EventDescription
 
     /**
      * Set the event target/context
-     * 
-     * @param  null|string|object $target 
+     *
+     * @param  null|string|object $target
      * @return Event
      */
     public function setTarget($target)
@@ -186,9 +186,9 @@ class Event implements EventDescription
 
     /**
      * Set an individual parameter to a value
-     * 
-     * @param  string|int $name 
-     * @param  mixed $value 
+     *
+     * @param  string|int $name
+     * @param  mixed $value
      * @return Event
      */
     public function setParam($name, $value)
@@ -205,8 +205,8 @@ class Event implements EventDescription
 
     /**
      * Stop further event propagation
-     * 
-     * @param  bool $flag 
+     *
+     * @param  bool $flag
      * @return void
      */
     public function stopPropagation($flag = true)
@@ -216,7 +216,7 @@ class Event implements EventDescription
 
     /**
      * Is propagation stopped?
-     * 
+     *
      * @return bool
      */
     public function propagationIsStopped()

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.select"><info><title>Zend_Db_Select</title></info>
-    
+
 
     <section xml:id="zend.db.select.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             Das <classname>Zend_Db_Select</classname> Objekt repräsentiert ein
@@ -63,7 +63,7 @@
     </section>
 
     <section xml:id="zend.db.select.creating"><info><title>Erzeugung eines Select Objekts</title></info>
-        
+
 
         <para>
             Die Instanz eines <classname>Zend_Db_Select</classname> Objekts kann mit Hilfe der
@@ -72,7 +72,7 @@
         </para>
 
         <example xml:id="zend.db.select.creating.example-db"><info><title>Beispiel für die Nutzung der select() Methode der Datenbankadapterklasse</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $db = Zend_Db::factory( ...Optionen... );
@@ -86,7 +86,7 @@ $select = $db->select();
         </para>
 
         <example xml:id="zend.db.select.creating.example-new"><info><title>Beispiel für die Erzeugung eines Select Objektes</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $db = Zend_Db::factory( ...Optionen... );
@@ -96,7 +96,7 @@ $select = new Zend_Db_Select($db);
     </section>
 
     <section xml:id="zend.db.select.building"><info><title>Erstellung von Select Anfragen</title></info>
-        
+
 
         <para>
             Wenn die Anfrage erstellt wird können Bedingungen der Anfrage nacheinander hinzugefügt
@@ -105,7 +105,7 @@ $select = new Zend_Db_Select($db);
         </para>
 
         <example xml:id="zend.db.select.building.example"><info><title>Beispiele für die Nutzung der Methoden zum Hinzufügen von Bedingungen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Erzeugung des Zend_Db_Select Objekts
@@ -130,7 +130,7 @@ $select->order( ...Angabe von Sortierkriterien... );
         </para>
 
         <example xml:id="zend.db.select.building.example-fluent"><info><title>Beispiel für die Nutzung der flüssigen Schnittstelle</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $select = $db->select()
@@ -148,7 +148,7 @@ $select = $db->select()
         </para>
 
         <section xml:id="zend.db.select.building.from"><info><title>Hinzufügen eines FROM Abschnitts</title></info>
-            
+
 
             <para>
                 Um die Tabelle für die Anfrage an zu geben wird die <methodname>from()</methodname>
@@ -158,7 +158,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.from.example"><info><title>Beispiel für die from() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erstellen dieser Anfrage:
@@ -181,7 +181,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.from.example-cname"><info><title>Beispiel für das Angeben eines Beziehungsnamens</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -203,7 +203,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.from.example-schema"><info><title>Beispiel für das Angeben eines Schemanamens</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeut diese Anfrage:
@@ -222,7 +222,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.columns"><info><title>Hinzufügen von Spalten</title></info>
-            
+
 
             <para>
                 Im zweiten Argument der <methodname>from()</methodname> Methode kann angegeben
@@ -253,7 +253,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.columns.example"><info><title>Beispiele für das Angeben von Spalten</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -284,7 +284,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.columns-expr"><info><title>Hinzufügen von Spalten mit Expressions</title></info>
-            
+
 
             <para>
                 Spalten in einer <acronym>SQL</acronym> Anfrage sind manchmal Expressions, keine
@@ -312,7 +312,7 @@ $select = $db->select()
             </note>
 
             <example xml:id="zend.db.select.building.columns-expr.example"><info><title>Beispiel für das angeben von Spaltennamen, die Expressions enthalten</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -375,7 +375,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.columns-quoteid.example"><info><title>Beispiel für die Quotierung von Spalten in einer Expression</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt folgende Anfrage und Quotiert dabei einen Spaltennamen
@@ -393,7 +393,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.columns-atomic"><info><title>Spalten zu einer existierenden FROM oder JOIN Tabelle hinzufügen</title></info>
-            
+
 
             <para>
                 Es kann Fälle geben wo es gewünscht ist Spalten zu einer bestehenden
@@ -408,7 +408,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.columns-atomic.example"><info><title>Beispiel für das Hinzufügen von Spalten mit der columns() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Diese Abfrage bauen:
@@ -432,7 +432,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.join"><info><title>Hinzufügen einer weiteren Tabelle zu der Anfrage mit JOIN</title></info>
-            
+
 
             <para>
                 Viele nützliche Anfragen benötigen ein <acronym>JOIN</acronym> um mehrere Spalten
@@ -444,7 +444,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.join.example"><info><title>Beispiel für die join() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -493,7 +493,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.join.example-no-columns"><info><title>Beispiel für das Angeben keiner Spalten</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -651,7 +651,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.joinusing.example"><info><title>Beispiel für die joinUsing() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Abfrage
@@ -702,7 +702,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.where"><info><title>Hinzufügen eines WHERE Abschnitts</title></info>
-            
+
 
             <para>
                 Es können Kriterien die den Ergebnissatz einschränken mit der
@@ -712,7 +712,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.where.example"><info><title>Beispiel für die where() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -745,7 +745,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.where.example-param"><info><title>Beispiel für einen Parameter in der where() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -768,7 +768,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.where.example-array"><info><title>Beispiel eines Array Parameters in der where() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Diese Abrage wird gebaut:
@@ -793,7 +793,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.where.example-and"><info><title>Beispiel für mehrfach Aufruf der where() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -822,7 +822,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.where.example-or"><info><title>Beispiel für die orWhere() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -851,7 +851,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.where.example-parens"><info><title>Beispiel für das Einklammern von Boolean Expressions</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -883,7 +883,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.group"><info><title>Hinzufügen eines GROUP BY Abschnitts</title></info>
-            
+
 
             <para>
                 In <acronym>SQL</acronym> ermöglicht der <command>GROUP BY</command> Abschnitt die
@@ -899,7 +899,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.group.example"><info><title>Beispiel für die group() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -927,7 +927,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.having"><info><title>Hinzufügen eines HAVING Abschnittes</title></info>
-            
+
 
             <para>
                 In <acronym>SQL</acronym> fügt der <constant>HAVING</constant> Abschnitt eine
@@ -953,7 +953,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.having.example"><info><title>Beispiel für die having() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -986,7 +986,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.order"><info><title>Hinzufügen eines ORDER BY Abschnitts</title></info>
-            
+
 
             <para>
                 In <acronym>SQL</acronym> gibt der <acronym>ORDER</acronym> BY Abschnitt eine oder
@@ -1015,7 +1015,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.order.example"><info><title>Beispiel für die order() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -1039,7 +1039,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.limit"><info><title>Hinzufügen eines LIMIT Abschnitts</title></info>
-            
+
 
             <para>
                 Einige <acronym>RDBMS</acronym> Marken erweitern <acronym>SQL</acronym> mit einem
@@ -1060,7 +1060,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.limit.example"><info><title>Beispiel für die limit() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -1103,7 +1103,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.limit.example2"><info><title>Beispiel der limitPage() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erstelle diese Abfrage:
@@ -1120,7 +1120,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.distinct"><info><title>Hinzufügen des DISTINCT Anfragewandlers</title></info>
-            
+
 
             <para>
                 Die <methodname>distinct()</methodname> Methode ermöglicht es
@@ -1129,7 +1129,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.distinct.example"><info><title>Beispiel für die distinct() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -1144,7 +1144,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.for-update"><info><title>Hinzufügen des FOR UPDATE Anfragewandlers</title></info>
-            
+
 
             <para>
                 Die <methodname>forUpdate()</methodname> Methode ermöglicht es
@@ -1153,7 +1153,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.for-update.example"><info><title>Beispiel der forUpdate() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:
@@ -1168,7 +1168,7 @@ $select = $db->select()
         </section>
 
         <section xml:id="zend.db.select.building.union"><info><title>Eine UNION Abfrage erstellen</title></info>
-            
+
 
             <para>
                 Man kann Union Abfragen mit <classname>Zend_Db_Select</classname> erstellen indem
@@ -1181,7 +1181,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.building.union.example"><info><title>Beispiel der union() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $sql1 = $db->select();
@@ -1196,7 +1196,7 @@ $select = $db->select()
     </section>
 
     <section xml:id="zend.db.select.execute"><info><title>Ausführen von SELECT Anfrage</title></info>
-        
+
 
         <para>
             Dieser Abschnitt beschreibt wie Anfragen ausgeführt werden, die durch ein
@@ -1204,7 +1204,7 @@ $select = $db->select()
         </para>
 
         <section xml:id="zend.db.select.execute.query-adapter"><info><title>Ausführen von Select Anfragen aus dem Db Adapter</title></info>
-            
+
 
             <para>
                 Die Anfrage, die durch das <classname>Zend_Db_Select</classname> Objekt
@@ -1221,7 +1221,7 @@ $select = $db->select()
             </para>
 
             <example xml:id="zend.db.select.execute.query-adapter.example"><info><title>Beispiel für die Nutzung der query() Methode des Db Adapters</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $select = $db->select()
@@ -1234,7 +1234,7 @@ $result = $stmt->fetchAll();
         </section>
 
         <section xml:id="zend.db.select.execute.query-select"><info><title>Ausführen von Select Anfragen mit dem objekt</title></info>
-            
+
 
             <para>
                 Als Alternative zur Nutzung der <methodname>query()</methodname> Methode des
@@ -1245,7 +1245,7 @@ $result = $stmt->fetchAll();
             </para>
 
             <example xml:id="zend.db.select.execute.query-select.example"><info><title>Beispiel für die Nutzung der query() Methode des Select Objekts</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $select = $db->select()
@@ -1258,7 +1258,7 @@ $result = $stmt->fetchAll();
         </section>
 
         <section xml:id="zend.db.select.execute.tostring"><info><title>Konvertieren eines Select Objekts in einen SQL String</title></info>
-            
+
 
             <para>
                 Wenn Zugriff zu auf eine String Repräsentante der <acronym>SQL</acronym> Anfrage,
@@ -1267,7 +1267,7 @@ $result = $stmt->fetchAll();
             </para>
 
             <example xml:id="zend.db.select.execute.tostring.example"><info><title>Beispiel für die __toString() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $select = $db->select()
@@ -1284,7 +1284,7 @@ echo "$sql\n";
     </section>
 
     <section xml:id="zend.db.select.other"><info><title>Andere Methoden</title></info>
-        
+
 
         <para>
             Dieser Abschnitt beschreibt andere Methoden der <classname>Zend_Db_Select</classname>
@@ -1293,7 +1293,7 @@ echo "$sql\n";
         </para>
 
         <section xml:id="zend.db.select.other.get-part"><info><title>Abfragen von Teilen des Select Objekts</title></info>
-            
+
 
             <para>
                 Die <methodname>getPart()</methodname> Methode gibt eine Repräsentante eines Teils
@@ -1326,7 +1326,7 @@ echo "$sql\n";
             </para>
 
             <table xml:id="zend.db.select.other.get-part.table"><info><title>Konstanten die von getPart() und reset() verwendet werden</title></info>
-                
+
 
                 <tgroup cols="2">
                     <thead>
@@ -1391,7 +1391,7 @@ echo "$sql\n";
             </table>
 
             <example xml:id="zend.db.select.other.get-part.example"><info><title>Beispiel der getPart() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $select = $db->select()
@@ -1412,7 +1412,7 @@ print_r( $orderData );
         </section>
 
         <section xml:id="zend.db.select.other.reset"><info><title>Zurücksetzen von Teilen des Select Objekts</title></info>
-            
+
 
             <para>
                 Die <methodname>reset()</methodname> Methode ermöglicht es einen angegebenen Teil
@@ -1435,7 +1435,7 @@ print_r( $orderData );
             </para>
 
             <example xml:id="zend.db.select.other.reset.example"><info><title>Beispiel der reset() Methode</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Erzeugt diese Anfrage:

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.introduction"><info><title>Einführung in Zend_Currency</title></info>
-    
+
 
     <para>
         <classname>Zend_Currency</classname> ist Teil der starken Unterstützung für I18n im Zend
@@ -11,7 +11,7 @@
     </para>
 
     <section xml:id="zend.currency.introduction.list"><info><title>Warum sollte man Zend_Currency verwenden?</title></info>
-        
+
 
         <para>
             <classname>Zend_Currency</classname> bietet die folgenden Vorteile:

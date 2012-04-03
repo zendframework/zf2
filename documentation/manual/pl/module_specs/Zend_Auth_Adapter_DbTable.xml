@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.dbtable"><info><title>Uwierzytelnianie w oparciu o tabelę bazy danych</title></info>
-    
+
     <section xml:id="zend.auth.adapter.dbtable.introduction"><info><title>Wprowadzenie</title></info>
-        
+
         <para>
             <classname>Zend_Auth_Adapter_DbTable</classname> zapewnia możliwość
             przeprowadzenia uwierzytelniania w oparciu o dane przechowywane w
@@ -64,7 +64,7 @@
         </itemizedlist>
 
         <example xml:id="zend.auth.adapter.dbtable.introduction.example.basic_usage"><info><title>Podstawowe użycie</title></info>
-            
+
             <para>
                 Jak wyjaśniono we wprowadzeniu, konstruktor klasy
                 <classname>Zend_Auth_Adapter_DbTable</classname> wymaga przekazania mu
@@ -186,7 +186,7 @@ Array
         </example>
     </section>
     <section xml:id="zend.auth.adapter.dbtable.advanced.storing_result_row"><info><title>Zaawansowane użycie: Stałe przechowywanie obiektu DbTable Result</title></info>
-        
+
         <para>
             Domyślnie <classname>Zend_Auth_Adapter_DbTable</classname> po udanym
             uwierzytelnieniu zwraca do obiektu uwierzytelniającego spowrotem
@@ -229,9 +229,9 @@ if ($result->isValid()) {
 ]]></programlisting>
     </section>
     <section xml:id="zend.auth.adapter.dbtable.advanced.advanced_usage"><info><title>Przykład zaawansowanego użycia</title></info>
-        
+
         <para>
-            O ile głównym przeznaczeniem komponentu <classname>Zend_Auth</classname> 
+            O ile głównym przeznaczeniem komponentu <classname>Zend_Auth</classname>
             (i odpowiednio <classname>Zend_Auth_Adapter_DbTable</classname>) jest
             <emphasis>uwierzytelnianie</emphasis> a nie <emphasis>autoryzacja</emphasis>,
             jest kilka problemów które możemy rozwiązać odrobinę przekraczając
@@ -241,8 +241,8 @@ if ($result->isValid()) {
         </para>
 
         <para>
-            Komponent <classname>Zend_Auth_Adapter_DbTable</classname> posiada 
-            pewien wbudowany mechanizm, który może być użyty do dodania dodatkowych 
+            Komponent <classname>Zend_Auth_Adapter_DbTable</classname> posiada
+            pewien wbudowany mechanizm, który może być użyty do dodania dodatkowych
             warunków podczas uwierzytelniania, dzięki czemu można rozwiązać niektóre
             problemy.
         </para>
@@ -320,16 +320,16 @@ $adapter = new Zend_Auth_Adapter_DbTable(
                 Możesz jeszcze zwiększyć bezpieczeństwo używając dodatkowo
                 statycznego fragmentu łańcucha znaków umieszczonego na stałe
                 w kodzie aplikacji. W przypadku, gdy atakujący uzyska dostęp
-                do bazy danych (np. za pomocą ataku <acronym>SQL</acronym> 
-                injection), a nie będzie miał dostępu do kodu źródłowego, 
+                do bazy danych (np. za pomocą ataku <acronym>SQL</acronym>
+                injection), a nie będzie miał dostępu do kodu źródłowego,
                 hasła wciąż będą dla niego nieprzydatne.
             </para>
         </note>
 
         <para>
-            Innym sposobem jest użycie metody <methodname>getDbSelect()</methodname> 
+            Innym sposobem jest użycie metody <methodname>getDbSelect()</methodname>
             klasy <classname>Zend_Auth_Adapter_DbTable</classname> po utworzeniu
-            adaptera. Ta metoda zwróci obiekt klasy <classname>Zend_Db_Select</classname>, 
+            adaptera. Ta metoda zwróci obiekt klasy <classname>Zend_Db_Select</classname>,
             który ma być użyty do przeprowadzenia uwierzytalniania. Ważne jest, że
             ta metoda zawsze zwróci ten sam obiekt, niezależnie od tego czy metoda
             <methodname>authenticate()</methodname> została wywołana czy nie.
@@ -339,13 +339,13 @@ $adapter = new Zend_Auth_Adapter_DbTable(
         </para>
 
         <para>
-            Przykładem sytuacji w której można by użyć metody getDbSelect() 
+            Przykładem sytuacji w której można by użyć metody getDbSelect()
             może być potrzeba sprawdzenia statusu użytkownika, czyli sprawdzenia
             czy konto użytkownika jest aktywne.
         </para>
 
         <programlisting language="php"><![CDATA[
-// Kontynuując poprzedni przykład 
+// Kontynuując poprzedni przykład
 $adapter = new Zend_Auth_Adapter_DbTable(
     $db,
     'users',

@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.intro"><info><title>Zend Framework &amp; wprowadzenie do MVC</title></info>
-    
+
 
     <section xml:id="learning.quickstart.intro.zf"><info><title>Zend Framework</title></info>
-        
+
 
         <para>
             Zend Framework to otwarty, zorientowany obiektowo framework aplikacji webowych
@@ -50,7 +50,7 @@
     </section>
 
     <section xml:id="learning.quickstart.intro.mvc"><info><title>Model-View-Controller</title></info>
-        
+
 
         <para>
             Tak więc, czym dokładnie jest ten będący na ustach wszystkich wzorzec
@@ -72,7 +72,7 @@
         </para>
 
         <note><info><title>Więcej informacji</title></info>
-            
+
 
             <para>
                 Omawiany wzorzec można podzielić na następujące części:

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.normalizedtolocalized"><info><title>NormalizedToLocalized</title></info>
 
-    
+
 
     <para>
         このフィルタはフィルタ<classname>Zend_Filter_LocalizedToNormalized</classname>の逆で、
@@ -63,7 +63,7 @@
 
     <section xml:id="zend.filter.set.normalizedtolocalized.numbers"><info><title>数値のローカライズ</title></info>
 
-        
+
 
         <para>
             整数、フロートまたは実数のようなあらゆる数がローカライズされます。
@@ -141,7 +141,7 @@ $filter->filter(123456.78901);
 
     <section xml:id="zend.filter.set.normalizedtolocalized.dates"><info><title>日時のローカライズ</title></info>
 
-        
+
 
         <para>
             日付や時刻の値を正規化したものもまた、ローカライズできます。

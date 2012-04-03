@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.lucene.pagination"><info><title>Seitendarstellung von Suchergebnissen</title></info>
-    
+
 
     <para>
         Wie <link linkend="learning.lucene.searching.identifiers">vorher erwähnt</link>, verwenden
@@ -16,7 +16,7 @@
     </para>
 
     <example xml:id="learning.lucene.pagination.example"><info><title>Beispiel für die seitendarstellung von Suchergebnissen</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $cacheId = md5($query);

@@ -10,24 +10,24 @@ use Zend\Loader\PluginClassLoader;
 class ParsedClass
 {
     /**
-     * short action1 method description 
+     * short action1 method description
      *
      * Long description for action1
-     * 
-     * @param  string $arg1 
-     * @param  bool $arg2 
-     * @param  null|array $arg3 
+     *
+     * @param  string $arg1
+     * @param  bool $arg2
+     * @param  null|array $arg3
      * @return float
      */
     public function action1($arg1, $arg2, $arg3 = null)
     {}
 
     /**
-     * action2 
+     * action2
      *
      * Long description for action2
-     * 
-     * @param  null|PluginClassLoader $loader 
+     *
+     * @param  null|PluginClassLoader $loader
      * @return ParsedClass
      */
     public function action2(PluginClassLoader $loader = null)
@@ -35,7 +35,7 @@ class ParsedClass
 
     /**
      * A camel-cased method name
-     * 
+     *
      * @return void
      */
     public function camelCasedMethod()
@@ -43,7 +43,7 @@ class ParsedClass
 
     /**
      * A method that the class parser should not aggregate
-     * 
+     *
      * @return void
      */
     protected function shouldNotAggregate()

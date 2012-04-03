@@ -179,7 +179,7 @@ class EditorTest extends \PHPUnit_Framework_TestCase
         $html = $this->helper->__invoke('foo');
         $this->assertRegexp('#<noscript><textarea[^>]*>#', $html, $html);
     }
-    
+
     /**
      * @group ZF-11315
      */

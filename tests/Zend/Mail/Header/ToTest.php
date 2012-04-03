@@ -25,7 +25,7 @@ use PHPUnit_Framework_TestCase as TestCase,
     Zend\Mail\Header\To as ToHeader;
 
 /**
- * This test is primarily to test that AbstractAddressList headers perform 
+ * This test is primarily to test that AbstractAddressList headers perform
  * header folding and MIME encoding properly.
  *
  * @category   Zend

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.assertions"><info><title>Assertions</title></info>
-    
+
 
     <para>
         Assertions are at the heart of Unit Testing; you use them to verify
@@ -12,7 +12,7 @@
     </para>
 
     <section xml:id="zend.test.phpunit.assertions.query"><info><title>CSS Selector Assertions</title></info>
-        
+
 
         <para>
             <acronym>CSS</acronym> selectors are an easy way to verify that certain artifacts are
@@ -108,7 +108,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.assertions.xpath"><info><title>XPath Assertions</title></info>
-        
+
 
         <para>
             Some developers are more familiar with XPath than with <acronym>CSS</acronym>
@@ -183,7 +183,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.assertions.redirect"><info><title>Redirect Assertions</title></info>
-        
+
 
         <para>
             Often an action will redirect. Instead of following the redirect,
@@ -243,7 +243,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.assertions.header"><info><title>Response Header Assertions</title></info>
-        
+
 
         <para>
             In addition to checking for redirect headers, you will often need
@@ -292,7 +292,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.assertions.request"><info><title>Request Assertions</title></info>
-        
+
 
         <para>
             It's often useful to assert against the last run action,

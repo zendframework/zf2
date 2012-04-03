@@ -53,8 +53,8 @@ class Log extends AbstractResource
 
     /**
      * Attach logger
-     * 
-     * @param  \Zend\Log\Logger $log 
+     *
+     * @param  \Zend\Log\Logger $log
      * @return \Zend\Application\Resource\Log
      */
     public function setLog(ZendLog\Logger $log)
@@ -65,7 +65,7 @@ class Log extends AbstractResource
 
     /**
      * Retrieve logger
-     * 
+     *
      * @return \Zend\Log\Logger
      */
     public function getLog()

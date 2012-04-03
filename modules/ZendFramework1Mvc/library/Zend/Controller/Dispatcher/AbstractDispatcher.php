@@ -448,8 +448,8 @@ abstract class AbstractDispatcher implements Dispatcher
 
     /**
      * Set helper broker instance
-     * 
-     * @param  Broker $broker 
+     *
+     * @param  Broker $broker
      * @return AbstractDispatcher
      */
     public function setHelperBroker(Broker $broker = null)

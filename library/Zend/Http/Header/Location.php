@@ -45,5 +45,5 @@ class Location implements HeaderDescription
     {
         return 'Location: ' . $this->getFieldValue();
     }
-    
+
 }

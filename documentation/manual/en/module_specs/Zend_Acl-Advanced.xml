@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.advanced"><info><title>Advanced Usage</title></info>
-    
+
 
     <section xml:id="zend.acl.advanced.storing"><info><title>Storing ACL Data for Persistence</title></info>
-        
+
 
         <para>
             <classname>Zend_Acl</classname> was designed in such a way that it does not require any
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.acl.advanced.assertions"><info><title>Writing Conditional ACL Rules with Assertions</title></info>
-        
+
 
         <para>
             Sometimes a rule for allowing or denying a role access to a resource should not be

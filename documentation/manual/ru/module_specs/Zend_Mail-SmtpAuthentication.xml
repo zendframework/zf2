@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-authentication"><info><title>SMTP-аутентификация</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> поддерживает использование
@@ -13,7 +13,7 @@
     </para>
 
     <example xml:id="zend.mail.smtp-authentication.example-1"><info><title>Включение аутентификации в Zend_Mail_Transport_Smtp</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $config = array('auth' => 'login',
@@ -32,7 +32,7 @@ $mail->send($transport);
     </example>
 
     <note><info><title>Типы аутентификации</title></info>
-        
+
 
         <para>
             Тип аутентификации является регистронезависимым, но не должен

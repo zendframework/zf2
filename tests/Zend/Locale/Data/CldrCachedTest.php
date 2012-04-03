@@ -37,7 +37,7 @@ use ZendTest\Locale\Data\CldrTest;
  * @group      Zend_Locale
  */
 class CldrCachedTest extends CldrTest {
-    
+
     private $_cache = null;
 
     public function setUp()
@@ -72,9 +72,9 @@ class CldrCachedTest extends CldrTest {
     {
         $this->_cache->clear(CacheAdapter::MATCH_ALL);
         $this->_removeRecursive($this->_cacheDir);
-    }    
-    
-    
+    }
+
+
     protected function _removeRecursive($dir)
     {
         if (file_exists($dir)) {

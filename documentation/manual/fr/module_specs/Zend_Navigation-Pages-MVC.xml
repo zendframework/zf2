@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.mvc"><info><title>Zend_Navigation_Page_Mvc</title></info>
-    
+
 
     <para>
         Les pages de type <acronym>MVC</acronym> utilisent des paramètres <acronym>MVC</acronym>
@@ -13,7 +13,7 @@
     </para>
 
     <table xml:id="zend.navigation.pages.mvc.options"><info><title>Options des pages de type MV</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>
@@ -90,7 +90,7 @@
     </note>
 
     <example xml:id="zend.navigation.pages.mvc.example.getHref"><info><title>getHref() génères les URI de la page</title></info>
-        
+
 
         <para>
             Cet exemple montre que les pages de type <acronym>MVC</acronym> utilisent
@@ -123,7 +123,7 @@ $page = new Zend_Navigation_Page_Mvc(array(
     </example>
 
     <example xml:id="zend.navigation.pages.mvc.example.isActive"><info><title>isActive() détermine si la page est active</title></info>
-        
+
 
         <para>
             Cet exemple montre que les pages de type <acronym>MVC</acronym> utilisent l'objet de
@@ -185,7 +185,7 @@ $page->isActive(); // retourne false
     </example>
 
     <example xml:id="zend.navigation.pages.mvc.example.routes"><info><title>Utiliser les routes</title></info>
-        
+
 
         <para>
             Les routes sont utilisables dans les pages de type <acronym>MVC</acronym>. Si une page a une route,

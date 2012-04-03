@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.introduction"><info><title>導入</title></info>
-    
+
     <para>
         <classname>Zend_Service</classname> は、<acronym>SOAP</acronym> や REST
         などのウェブサービスの実装基盤となる抽象クラスです。

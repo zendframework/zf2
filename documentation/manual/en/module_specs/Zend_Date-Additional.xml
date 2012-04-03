@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.additional"><info><title>Working Examples</title></info>
-    
+
 
     <para>
         Within this chapter, we will describe several additional functions which are also available
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.date.additional.checking"><info><title>Checking Dates</title></info>
-        
+
 
         <para>
             Probably most dates you will get as input are strings. But the problem with strings is
@@ -51,7 +51,7 @@
         </para>
 
         <example xml:id="zend.date.additional.checking.example-1"><info><title>Checking Dates</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Checking dates
@@ -82,7 +82,7 @@ if (Zend_Date::isDate($date,'dd MMMM yyyy', 'en')) {
     </section>
 
     <section xml:id="zend.date.additional.sunrise-sunset"><info><title>Sunrise and Sunset</title></info>
-        
+
 
         <para>
             <classname>Zend_Date</classname> has also functions integrated for getting informations
@@ -106,7 +106,7 @@ if (Zend_Date::isDate($date,'dd MMMM yyyy', 'en')) {
         </para>
 
         <example xml:id="zend.date.additional.sunrise-sunset.example-1"><info><title>Getting all Available Cities</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Output the complete list of available cities
@@ -128,7 +128,7 @@ print_r (Zend_Date_Cities::getCityList());
         </para>
 
         <table xml:id="zend.date.additional.sunrise-sunset.table"><info><title>Types of Supported Horizons for Sunset and Sunrise</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>
@@ -178,7 +178,7 @@ print_r (Zend_Date_Cities::getCityList());
         </para>
 
         <example xml:id="zend.date.additional.sunrise-sunset.example-2"><info><title>Getting the Location for a City</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Get the location for a defined city
@@ -204,7 +204,7 @@ $mylocation = array('latitude' => 41.5, 'longitude' => 13.2446);
         </para>
 
         <example xml:id="zend.date.additional.sunrise-sunset.example-3"><info><title>Calculating Sun Information</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Get the location for a defined city
@@ -227,7 +227,7 @@ foreach ($info as $sun) {
     </section>
 
     <section xml:id="zend.date.additional.timezones"><info><title>Time Zones</title></info>
-        
+
 
         <para>
             Time zones are as important as dates themselves. There are several time zones depending
@@ -259,7 +259,7 @@ foreach ($info as $sun) {
         </para>
 
         <example xml:id="zend.date.additional.timezones.example-1"><info><title>Working with Time Zones</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Set a default timezone... this has to be done within the bootstrap
@@ -303,7 +303,7 @@ print $date->getIso();
         </para>
 
         <example xml:id="zend.date.additional.timezones.example-2"><info><title>Multiple Time Zones</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Set a default timezone... this has to be done within the bootstrap

@@ -3,7 +3,7 @@
 
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="requirements"><info><title>Sistem Gereksinimleri</title></info>
 
-    
+
 
     <para>
         Bu kısım Zend Framework'ün gereksinimlerini belgeliyor.
@@ -11,7 +11,7 @@
 
     <section xml:id="requirements.version"><info><title>Gerekli PHP versiyonu</title></info>
 
-        
+
 
         <para>
         Zend Framework PHP 5.1.4 veya yenisini gerektiriyor. Bazı SPL arayüzleri <code>Countable</code>
@@ -33,7 +33,7 @@
 
     <section xml:id="requirements.extensions"><info><title>PHP Eklentileri</title></info>
 
-        
+
 
         <para>
             Aşağıdaki tablo PHP'de tipik olarak bulunan eklentileri listelemektedir ,
@@ -45,7 +45,7 @@
         </para>
 
         <table frame="all" xml:id="requirements.extensions.table-1"><info><title>Zend Framework'de kullanılan PHP eklentileri</title></info>
-            
+
             <tgroup cols="3">
                 <colspec colwidth="1in"/>
                 <colspec colwidth="1in"/>

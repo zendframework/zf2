@@ -68,14 +68,14 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_AbstractSendSms
      * @var array
      */
     private $_specialChars = array(
-        '|', 
-        '^', 
-        '{', 
-        '}', 
-        '[', 
-        ']', 
-        '~', 
-        '\\', 
+        '|',
+        '^',
+        '{',
+        '}',
+        '[',
+        ']',
+        '~',
+        '\\',
         "\n",
         // '€', removed because its counted in utf8 correctly
     );

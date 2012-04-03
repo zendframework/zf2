@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.searching"><info><title>搜索索引</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.searching.query-parser"><info><title>建立查询</title></info>
-        
+
 
         <para>
             有两种方式可以在索引中进行搜索。第一个方式是使用查询分析程序(Query Parser)来从字符串中创建查询。第二个方式通过 Zend_Search_Lucene API 提供了创建自己的查询的可能。
@@ -57,7 +57,7 @@ $index->find($query);
     </section>
 
     <section xml:id="zend.search.lucene.searching.results"><info><title>搜索结果</title></info>
-        
+
         <para>
             搜索结果是一个 Zend_Search_Lucene_Search_QueryHit 对象数组。每一个数组元素具有两个属性：
           <code>$hit-&gt;document</code> 是索引中的文档编号，<code>$hit-&gt;score</code> 是其在搜索结果中的分值。搜索结果是按照分值排序的(最高分的搜索结果位于最前面)。
@@ -124,7 +124,7 @@ foreach ($hits as $hit) {
 
 
     <section xml:id="zend.search.lucene.searching.results-scoring"><info><title>结果评分</title></info>
-        
+
         <para>
             Zend_Search_Lucene 使用和 Java Lucene 一样的评分算法。搜索结果是按照分值进行排序的。分值越大，相应的搜索结果点击排在排位越靠前。
         </para>

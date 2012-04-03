@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.importing"><info><title>Importing Feeds</title></info>
-    
+
 
     <para>
         <classname>Zend_Feed</classname> enables developers to retrieve feeds very easily. If you
@@ -36,7 +36,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
     </para>
 
     <section xml:id="zend.feed.importing.custom"><info><title>Custom feeds</title></info>
-        
+
 
         <para>
             <classname>Zend_Feed</classname> enables developers to create custom feeds very easily.
@@ -48,7 +48,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
         </para>
 
         <section xml:id="zend.feed.importing.custom.importarray"><info><title>Importing a custom array</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // importing a feed from an array
@@ -283,7 +283,7 @@ array(
         </section>
 
         <section xml:id="zend.feed.importing.custom.importbuilder"><info><title>Importing a custom data source</title></info>
-            
+
 
             <para>
                 You can create a <classname>Zeed_Feed</classname> instance from any data source
@@ -329,7 +329,7 @@ $rssFeedFromArray =
         </section>
 
         <section xml:id="zend.feed.importing.custom.dump"><info><title>Dumping the contents of a feed</title></info>
-            
+
 
             <para>
                 To dump the contents of a <classname>Zend_Feed_Abstract</classname> instance, you

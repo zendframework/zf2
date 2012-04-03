@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.lessthan"><info><title>LessThan</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_LessThan</classname> erlaubt es zu prüfen ob ein angegebener Wert
@@ -9,7 +9,7 @@
     </para>
 
     <note><info><title>Zend_Validate_LessThan unterstützt nur die Prüfung von Nummern</title></info>
-        
+
 
         <para>
             Es sollte beachtet werden das <classname>Zend_Validate_LessThan</classname> nur die
@@ -19,7 +19,7 @@
     </note>
 
     <section xml:id="zend.validate.set.lessthan.options"><info><title>Unterstützte Optionen für Zend_Validate_LessThan</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Validate_LessThan</classname>
@@ -36,7 +36,7 @@
     </section>
 
     <section xml:id="zend.validate.set.lessthan.basic"><info><title>Normale Verwendung</title></info>
-        
+
 
         <para>
             Um zu prüfen ob ein angegebener Wert kleiner als eine definierte Grenz ist kann einfach

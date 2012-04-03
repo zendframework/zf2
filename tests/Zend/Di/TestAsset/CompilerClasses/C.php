@@ -6,6 +6,6 @@ class C
 {
     public function setB(B $b)
     {
-        
+
     }
 }

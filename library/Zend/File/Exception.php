@@ -23,7 +23,7 @@ namespace Zend\File;
 
 /**
  * Marker interface for exceptions found in this component
- * 
+ *
  * @package    Zend_File
  * @subpackage Exception
  * @license    New BSD {@link http://framework.zend.com/license/new-bsd}

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.lucene.intro"><info><title>Einführung in Zend_Search_Lucene</title></info>
-    
+
 
     <para>
         Die Komponente <classname>Zend_Search_Lucene</classname> ist dazu gedacht eine sofort
@@ -48,7 +48,7 @@
     </para>
 
     <note><info><title>Verwendung von Analysatoren wärend der Indizierung und Suche</title></info>
-        
+
 
         <para>
             Wichtiger Hinweis! Suchabfragen werden auch durch Verwendung des "aktuellen Analysators"

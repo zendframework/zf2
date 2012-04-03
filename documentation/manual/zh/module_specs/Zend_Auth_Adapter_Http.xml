@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.http"><info><title>HTTP 认证适配器</title></info>
 
-    
+
 
     <section xml:id="zend.auth.adapter.http.introduction"><info><title>简介</title></info>
 
-        
+
 
         <para>
             <code>Zend_Auth_Adapter_Http</code>提供一个大部分符合<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://tools.ietf.org/html/rfc2617">RFC-2617</link>的<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Basic_authentication_scheme">基本</link> 和 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Digest_access_authentication">摘要</link> HTTP 认证。摘要认证是一个认证的方法，它在基本认证的基础上做了改进，不需要在网络上传输明文密码。
@@ -62,7 +62,7 @@
 
     <section xml:id="zend.auth.adapter.design_overview"><info><title>设计回顾</title></info>
 
-        
+
 
         <para>
             这个适配器包括两个子组件，HTTP authentication类本身和所谓的 "Resolvers"。HTTP authentication类封装了实现基本和摘要认证的逻辑。它使用Resolver在数据存储（缺省是文本文件）中查找客户的身份并取出证书。"resolved" 的证书和客户的输入相比较来决定认证是否成功。
@@ -72,12 +72,12 @@
 
     <section xml:id="zend.auth.adapter.configuration_options"><info><title>配置选项</title></info>
 
-        
+
 
         <para>
             <code>Zend_Auth_Adapter_Http</code> 类需要一个配置数组传递给它的构造器。有若干个配置选项有效，其中一些是必需的：
             <table xml:id="zend.auth.adapter.configuration_options.table"><info><title>配置选项</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -137,7 +137,7 @@
 
     <section xml:id="zend.auth.adapter.http.resolvers"><info><title>Resolvers</title></info>
 
-        
+
 
         <para>
             Resolver的作用是接受用户名和领域，并返回证书值。基本认证期望接收用户密码的Base64编码版本。摘要认证期望接收用户的用户名，领域和密码（用冒号分隔）的hash。当前，唯一支持的hash算法是MD5。
@@ -149,7 +149,7 @@
 
         <section xml:id="zend.auth.adapter.http.resolvers.file"><info><title>文件 Resolver</title></info>
 
-            
+
 
             <para>
                 文件resolver是一个非常简单的类。它有一个单个的属性指定一个文件名，它也可以被传递给构造器。它的<code>resolve()</code>方法遍历文本文件，用匹配用户名和领域来搜索一行。文本文件的格式和Apache htpasswd文件类似： <programlisting><![CDATA[
@@ -181,7 +181,7 @@ $resolver->setFile($path);
 
     <section xml:id="zend.auth.adapter.http.basic_usage"><info><title>基本用法</title></info>
 
-        
+
 
         <para>
             首先，建立一个带有必需的配置值得数组：

@@ -70,7 +70,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $route = new Rest\Route($this->_front);
         $this->assertEquals(2, $route->getVersion());
     }
-    
+
     public function test_getInstance_fromINIConfig()
     {
     	$config = new INIConfig(__DIR__ . '/../Controller/_files/routes.ini', 'testing');
@@ -79,7 +79,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     	$route = $router->getRoute('rest');
     	$this->assertInstanceOf('Zend\\Rest\\Route', $route);
     	$this->assertEquals('object', $route->getDefault('controller'));
-    	
+
     	$request = $this->_buildRequest('GET', '/mod/project');
     	$values = $this->_invokeRouteMatch($request, array(), $route);
     	$this->assertEquals('mod', $values['module']);
@@ -91,7 +91,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     	$this->assertEquals('mod', $values['module']);
     	$this->assertEquals('user', $values['controller']);
     	$this->assertEquals('post', $values['action']);
-    	
+
     	$request = $this->_buildRequest('GET', '/other');
     	$values = $this->_invokeRouteMatch($request, array(), $route);
     	$this->assertFalse($values);
@@ -163,7 +163,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(123456789, $values['changedSince']);
         $this->assertEquals('active', $values['status']);
     }
-    
+
     public function test_RESTfulApp_GET_project_byIdentifier()
     {
         $request = $this->_buildRequest('GET', '/project/zendframework');
@@ -189,7 +189,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('get', $values['action']);
         $this->assertEquals('zendframework', $values['id']);
     }
-    
+
     public function test_RESTfulApp_GET_project_byIdentifier_urlencoded()
     {
         $request = $this->_buildRequest('GET', '/project/zend+framework');
@@ -202,7 +202,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('get', $values['action']);
         $this->assertEquals('zend framework', $values['id']);
     }
-    
+
     public function test_RESTfulApp_GET_project_edit()
     {
         $request = $this->_buildRequest('GET', '/project/zendframework/edit');
@@ -461,7 +461,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $request = $this->_buildRequest('POST', '/mod/index');
         $config = array('mod'=>array('user'));
         $values = $this->_invokeRouteMatch($request, $config);
-    
+
         $this->assertFalse($values);
     }
 
@@ -470,7 +470,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $request = $this->_buildRequest('POST', '/mod');
         $config = array('mod'=>array('user'));
         $values = $this->_invokeRouteMatch($request, $config);
-    
+
         $this->assertFalse($values);
     }
 
@@ -525,7 +525,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $url = $route->assemble($params);
         $this->assertEquals('mod/user/index/foo/bar', $url);
     }
-    
+
     public function test_assemble_encode_param_values()
     {
         $route = new Rest\Route($this->_front, array(), array());
@@ -541,7 +541,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $url = $route->assemble($params, false, false);
         $this->assertEquals('mod/user/index/foo/bar is n!ice', $url);
     }
-    
+
     private function _buildRequest($method, $uri)
     {
         $request = new Request();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.quick-start"><info><title>Zend_Application - Быстрый старт</title></info>
-    
+
 
     <para>
         Есть два пути для начала работы с
@@ -20,7 +20,7 @@
     </para>
 
     <section xml:id="zend.application.quick-start.zend-tool"><info><title>Использование вместе с Zend_Tool</title></info>
-        
+
 
         <para>
             Наиболее быстрый способ начать использование
@@ -162,7 +162,7 @@ $application->bootstrap()
     </section>
 
     <section xml:id="zend.application.quick-start.manual"><info><title>Добавление Zend_Application в приложение</title></info>
-        
+
 
         <para>
             Основные положения работы с <classname>Zend_Application</classname>
@@ -276,7 +276,7 @@ $application->bootstrap()
             В Apache вы можете установить ее либо в своем определении
             виртуального хоста, либо в своем файле
             <filename>.htaccess</filename>. Мы рекомендуем использовать
-            следующее содержимое для вашего 
+            следующее содержимое для вашего
             файла <filename>public/.htaccess</filename>:
         </para>
 
@@ -292,7 +292,7 @@ RewriteRule ^.*$ index.php [NC,L]
 ]]></programlisting>
 
         <note><info><title>Узнайте больше о mod_rewrite</title></info>
-            
+
 
             <para>
                 Приведенные выше правила перезаписи позволяют получить
@@ -312,7 +312,7 @@ RewriteRule ^.*$ index.php [NC,L]
     </section>
 
     <section xml:id="zend.application.quick-start.resources"><info><title>Добавление и создание ресурсов</title></info>
-        
+
 
         <para>
             Если вы следовали инструкциям, приведенным выше, то ваш
@@ -428,7 +428,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="zend.application.quick-start.next-steps"><info><title>Следующие шаги с Zend_Application</title></info>
-        
+
 
         <para>
             Все написанное выше должно научить вас основам использования

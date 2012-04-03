@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.output"><info><title>Outputting measurements</title></info>
 
-    
+
 
     <para>
         Measurements can be output in a number of different ways.
@@ -24,13 +24,13 @@
     </para>
 
     <section xml:id="zend.measure.output.auto"><info><title>Automatic output</title></info>
-        
+
 
         <para>
             <classname>Zend_Measure</classname> supports outputting of strings automatically.
 
             <example xml:id="zend.measure.output.auto.example-1"><info><title>Automatic output</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de');
@@ -45,7 +45,7 @@ echo $unit;
         </para>
 
         <note><info><title>Measurement output</title></info>
-            
+
 
             <para>
                 Output can be achieved simply by using
@@ -56,13 +56,13 @@ echo $unit;
     </section>
 
     <section xml:id="zend.measure.output.value"><info><title>Outputting values</title></info>
-        
+
 
         <para>
             The value of a measurement can be output using <methodname>getValue()</methodname>.
 
             <example xml:id="zend.measure.output.value.example-1"><info><title>Output a value</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de');
@@ -84,13 +84,13 @@ echo $unit->getValue();
     </section>
 
     <section xml:id="zend.measure.output.unit"><info><title>Output with unit of measurement</title></info>
-        
+
 
         <para>
             The function <methodname>getType()</methodname> returns the current unit of measurement.
 
             <example xml:id="zend.measure.output.unit.example-1"><info><title>Outputting units</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de');
@@ -106,7 +106,7 @@ echo $unit->getType();
     </section>
 
     <section xml:id="zend.measure.output.localized"><info><title>Output as localized string</title></info>
-        
+
 
         <para>
             Outputting a string in a format common in the users' country is usually desirable. For

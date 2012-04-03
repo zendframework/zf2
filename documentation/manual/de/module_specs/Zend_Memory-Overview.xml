@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.overview"><info><title>Übersicht</title></info>
-    
+
 
     <section xml:id="zend.memory.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             Die <classname>Zend_Memory</classname> Komponente ist dafür gedacht Daten in
@@ -32,7 +32,7 @@
         </para>
 
         <example xml:id="zend.memory.introduction.example-1"><info><title>Verwenden der Zend_Memory Komponente</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Memory::factory()</methodname> instantiiert das Speichermanager
@@ -67,7 +67,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
     </section>
 
     <section xml:id="zend.memory.theory-of-operation"><info><title>Theorie der Verwendung</title></info>
-        
+
 
         <para>
             Die <classname>Zend_Memory</classname> Komponente arbeitet mit den folgenden Konzepten:
@@ -81,7 +81,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
         </para>
 
         <section xml:id="zend.memory.theory-of-operation.manager"><info><title>Memory Manager</title></info>
-            
+
 
             <para>
                 Der Memory Manager erzeugt Memory Objekte (gesperrt oder verschiebbar)
@@ -91,7 +91,7 @@ $loadedFiles[$index3]->value[$charIndex] = '_';
         </section>
 
         <section xml:id="zend.memory.theory-of-operation.container"><info><title>Memory Container</title></info>
-            
+
 
             <para>
                 Der Memory Container hat ein virtuelles oder aktuelles Attribut
@@ -129,7 +129,7 @@ $memObject->value = substr($memObject->value, $start, $length);
         </section>
 
         <section xml:id="zend.memory.theory-of-operation.locked"><info><title>Verschlüsselter Memory</title></info>
-            
+
 
             <para>
                 Verschlüsselte Speicher Objekte werden immer im Speicher gespeichert.
@@ -139,7 +139,7 @@ $memObject->value = substr($memObject->value, $start, $length);
         </section>
 
         <section xml:id="zend.memory.theory-of-operation.movable"><info><title>Verschiebbarer Memory</title></info>
-            
+
 
             <para>
                 Verschiebbare Memory Objekte werden transparent geswappt und geladen von und in das

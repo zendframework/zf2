@@ -26,7 +26,7 @@ use Zend\Loader\PluginBroker;
  * Helper Broker for view instances
  *
  * Used to retrieve helper instances. Injects the view instance registered into
- * returned helper instances. 
+ * returned helper instances.
  *
  * @category   Zend
  * @package    Zend_View
@@ -47,8 +47,8 @@ class HelperBroker extends PluginBroker
 
     /**
      * Set view object
-     * 
-     * @param  Renderer $view 
+     *
+     * @param  Renderer $view
      * @return HelperBroker
      */
     public function setView(Renderer $view)
@@ -59,7 +59,7 @@ class HelperBroker extends PluginBroker
 
     /**
      * Retrieve view instance
-     * 
+     *
      * @return null|Renderer
      */
     public function getView()
@@ -71,9 +71,9 @@ class HelperBroker extends PluginBroker
      * Load a helper
      *
      * Injects the view object into the helper prior to returning it.
-     * 
-     * @param mixed $plugin 
-     * @param array $options 
+     *
+     * @param mixed $plugin
+     * @param array $options
      * @return void
      */
     public function load($plugin, array $options = null)
@@ -87,8 +87,8 @@ class HelperBroker extends PluginBroker
 
     /**
      * Determine if we have a valid helper
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return true
      * @throws Exception\InvalidHelperException
      */

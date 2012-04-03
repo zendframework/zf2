@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.consuming-atom-single-entry"><info><title>Consommer une entrée Atom particulière</title></info>
-    
+
 
     <para>
         Les éléments Atom <code>&lt;entry&gt;</code> sont aussi valides tout seuls.
@@ -16,7 +16,7 @@
     </para>
 
     <example xml:id="zend.feed.consuming-atom-single-entry.example.atom"><info><title>Lire un flux Atom constitué d'une seule entrée</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $flux = new Zend_Feed_Atom('http://atom.exemple.com/flux/1');
@@ -33,7 +33,7 @@ $entree = $flux->current();
     </para>
 
     <example xml:id="zend.feed.consuming-atom-single-entry.example.entryatom"><info><title>Utiliser directement l'objet Zend_Feed_Entry_Atom</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $entree = new Zend_Feed_Entry_Atom('http://atom.exemple.com/flux/1');

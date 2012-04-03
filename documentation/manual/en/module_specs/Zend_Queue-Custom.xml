@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.queue.custom"><info><title>Customizing Zend_Queue</title></info>
-    
+
 
     <section xml:id="zend.queue.custom.adapter"><info><title>Creating your own adapter</title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname> will accept any adapter that
@@ -80,7 +80,7 @@ $queue = new Zend_Queue('DbForUpdate', $config); // loads Custom_DbForUpdate
     </section>
 
     <section xml:id="zend.queue.custom.message"><info><title>Creating your own message class</title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname> will also accept your own message class.
@@ -101,7 +101,7 @@ class Zend_Queue_Message
     </section>
 
     <section xml:id="zend.queue.custom-iterator"><info><title>Creating your own message iterator class</title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname> will also accept your own message
@@ -121,7 +121,7 @@ class Zend_Queue_Message
     </section>
 
     <section xml:id="zend.queue.custom.queue"><info><title>Creating your own queue class </title></info>
-        
+
 
         <para>
             <classname>Zend_Queue</classname> can also be overloaded easily.

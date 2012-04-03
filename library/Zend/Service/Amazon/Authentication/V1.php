@@ -40,7 +40,7 @@ class V1 extends Authentication
      * Signature Encoding Method
      */
     protected $_signatureMethod = 'HmacSHA256';
-    
+
     /**
      * Generate the required attributes for the signature
      * @param string $url
@@ -57,7 +57,7 @@ class V1 extends Authentication
         }
 
         $data = $this->_signParameters($url, $parameters);
-        
+
         return $data;
     }
 
@@ -95,7 +95,7 @@ class V1 extends Authentication
         $hmac = Crypt\Hmac::compute($this->_secretKey, 'SHA1', $data, Crypt\Hmac::BINARY);
 
         $paramaters['Signature'] = base64_encode($hmac);
-        
+
         return $data;
     }
 }

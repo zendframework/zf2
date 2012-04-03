@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.openid.provider"><info><title>Zend_OpenId_Provider</title></info>
-    
+
 
     <para>
         <classname>Zend_OpenId_Provider</classname> can be used to implement OpenID
@@ -11,7 +11,7 @@
     </para>
 
     <section xml:id="zend.openid.provider.start"><info><title>Quick start</title></info>
-        
+
 
         <para>
             The following example includes code for creating a user account
@@ -28,7 +28,7 @@
         </para>
 
         <example xml:id="zend.openid.provider.example-1"><info><title>The Identity</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 <?php
@@ -69,7 +69,7 @@ if (!$server->hasUser(TEST_ID)) {
         </para>
 
         <example xml:id="zend.openid.provider.example-2"><info><title>Simple Identity Provider</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $server = new Zend_OpenId_Provider("example-8-login.php",
@@ -122,7 +122,7 @@ if (is_string($ret)) {
         </note>
 
         <example xml:id="zend.openid.provider.example-3"><info><title>Simple Login Screen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 <?php
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
         </para>
 
         <example xml:id="zend.openid.provider.example-4"><info><title>Simple Trust Screen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 <?php
@@ -245,7 +245,7 @@ is your identity URL.
     </section>
 
     <section xml:id="zend.openid.provider.all"><info><title>Combined Provide Scripts</title></info>
-        
+
 
         <para>
             It is possible to combine all provider functionality in one script. In
@@ -264,7 +264,7 @@ is your identity URL.
         </note>
 
         <example xml:id="zend.openid.provider.example-5"><info><title>Everything Together</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $server = new Zend_OpenId_Provider();
@@ -305,7 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' &&
     </section>
 
     <section xml:id="zend.openid.provider.sreg"><info><title>Simple Registration Extension</title></info>
-        
+
 
         <para>
             Again, the code before the &lt;html&gt; tag is just a trick to demonstrate
@@ -316,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' &&
         </para>
 
         <example xml:id="zend.openid.provider.example-6"><info><title>Identity with Profile</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 <?php
@@ -371,7 +371,7 @@ if (!$server->hasUser(TEST_ID)) {
         </para>
 
         <example xml:id="zend.openid.provider.example-7"><info><title>Provider with SREG</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $server = new Zend_OpenId_Provider();
@@ -404,7 +404,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' &&
     </section>
 
     <section xml:id="zend.openid.provider.else"><info><title>Anything Else?</title></info>
-        
+
 
         <para>
             Building OpenID providers is much less common than building

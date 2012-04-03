@@ -25,8 +25,8 @@ class ClassParser
 
     /**
      * Constructor
-     * 
-     * @param  ReflectionClass $class 
+     *
+     * @param  ReflectionClass $class
      * @return void
      */
     public function __construct(ClassReflection $class)
@@ -36,7 +36,7 @@ class ClassParser
 
     /**
      * Retrieve docbook ID for this class
-     * 
+     *
      * @return string
      */
     public function getId()
@@ -61,7 +61,7 @@ class ClassParser
 
     /**
      * Get class name
-     * 
+     *
      * @return string
      */
     public function getName()
@@ -71,7 +71,7 @@ class ClassParser
 
     /**
      * Retrieve parsed methods for this class
-     * 
+     *
      * @return array Array of ClassMethod objects
      */
     public function getMethods()
@@ -85,7 +85,7 @@ class ClassParser
         foreach ($rMethods as $method) {
             $methods[] = new ClassMethod($method);
         }
-        
+
         $this->methods = $methods;
         return $this->methods;
     }

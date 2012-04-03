@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.locale"><info><title>Zend_Application_Resource_Locale</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Locale</classname> peut être utilisé pour paramétrer
@@ -14,7 +14,7 @@
     </para>
 
     <section xml:id="zend.application.available-resources.locale.auto"><info><title>Autodétection de la locale à utiliser</title></info>
-        
+
 
         <para>
             Sans spécifier d'options pour
@@ -92,7 +92,7 @@
     </section>
 
     <section xml:id="zend.application.available-resources.locale.fallback"><info><title>Autodétection de la locale avec ajout de votre propre valeur par défaut</title></info>
-        
+
 
         <para>
             L'autodétection ci-dessus peut entraîner des problèmes quand la locale ne peut pas être
@@ -103,7 +103,7 @@
         </para>
 
         <example xml:id="zend.application.available-resources.locale.configExampleDetectAndFallback"><info><title>Autodétecter la locale et paramétrer une valeur par défaut</title></info>
-            
+
 
             <para>
                 L'extrait suivant montre comment spécifier sa propre locale utilisée si le client
@@ -119,7 +119,7 @@ resources.locale.default = "fr_FR"
     </section>
 
     <section xml:id="zend.application.available-resources.locale.forcing"><info><title>Forcer l'utilisation d'une locale</title></info>
-        
+
 
         <para>
             Parfois il peut être pratique de définir la locale qui devra être utilisée. Ceci peut
@@ -132,7 +132,7 @@ resources.locale.default = "fr_FR"
         </para>
 
         <example xml:id="zend.application.available-resources.locale.configExampleFallbackOnly"><info><title>Définition de la locale à utiliser</title></info>
-            
+
 
             <para>
                 L'extrait suivant montre comment spécifier la locale à utiliser pour toute votre

@@ -33,7 +33,7 @@ use Zend\Loader\PluginClassLoader;
 class AdapterLoader extends PluginClassLoader
 {
     /**
-     * @var array Pre-aliased adapters 
+     * @var array Pre-aliased adapters
      */
     protected $plugins = array(
         'amf0'          => 'Zend\Serializer\Adapter\Amf0',

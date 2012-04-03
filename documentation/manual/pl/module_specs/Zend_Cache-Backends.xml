@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.backends"><info><title>Backendy Zend_Cache</title></info>
-    
+
 
     <section xml:id="zend.cache.backends.file"><info><title>Zend_Cache_Backend_File</title></info>
-        
+
         <para>
             Ten backend przechowuje rekordy bufora w plikach (w wybranym katalogu).
         </para>
@@ -11,7 +11,7 @@
             Dostępne opcje to:
         </para>
         <table xml:id="zend.cache.backends.file.table"><info><title>Opcje backendu File</title></info>
-            
+
             <tgroup cols="4">
                  <thead>
                       <row>
@@ -116,7 +116,7 @@
           </table>
     </section>
     <section xml:id="zend.cache.backends.sqlite"><info><title>Zend_Cache_Backend_Sqlite</title></info>
-        
+
         <para>
             Ten backend przechowuje rekordy bufora w bazie SQLite.
         </para>
@@ -124,7 +124,7 @@
             Dostępne opcje to:
         </para>
         <table xml:id="zend.cache.backends.sqlite.table"><info><title>Opcje backendu Sqlite</title></info>
-            
+
             <tgroup cols="4">
                  <thead>
                       <row>
@@ -161,7 +161,7 @@
           </table>
     </section>
     <section xml:id="zend.cache.backends.memcached"><info><title>Zend_Cache_Backend_Memcached</title></info>
-        
+
         <para>
             Ten backend przechowuje rekordy bufora w serwerze memcached. <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.danga.com/memcached/">memcached</link>
             jest systemem buforowania w pamięci rozdzielonej o wysokiej wydajności. Aby użyć tego backendu,
@@ -175,7 +175,7 @@
             Dostępne opcje to:
         </para>
         <table xml:id="zend.cache.backends.memcached.table"><info><title>Opcje backendu Memcached</title></info>
-            
+
             <tgroup cols="4">
                  <thead>
                       <row>
@@ -195,15 +195,15 @@
                                      'status' =&gt; true, 'failure_callback' =&gt; '' ))
                           </entry>
                           <entry>
-                              Tablica serwerów memcached ; każdy serwer memcached jest 
-                              opisany przez asocjacyjną tablicę : 'host' =&gt; (string) : nazwa 
+                              Tablica serwerów memcached ; każdy serwer memcached jest
+                              opisany przez asocjacyjną tablicę : 'host' =&gt; (string) : nazwa
                               serwera memcached, 'port' =&gt; (int) : port serwera memcached,
-                              'persistent' =&gt; (bool) : używać czy nie używać stałych 
-                              połączeń do tego serwera memcached, 'weight' =&gt; (int) : 
-                              waga serwera memcached, 'timeout' =&gt; (int) : timeout 
+                              'persistent' =&gt; (bool) : używać czy nie używać stałych
+                              połączeń do tego serwera memcached, 'weight' =&gt; (int) :
+                              waga serwera memcached, 'timeout' =&gt; (int) : timeout
                               serwera memcached, 'retry_interval' =&gt; (int) : przerwa
-                              między ponowieniami, 'status' =&gt; (bool) : status serwera 
-                              memcached, 'failure_callback' =&gt; (callback) : opcja  
+                              między ponowieniami, 'status' =&gt; (bool) : status serwera
+                              memcached, 'failure_callback' =&gt; (callback) : opcja
                               failure_callback serwera memcached
                           </entry>
                       </row>
@@ -229,7 +229,7 @@
           </table>
     </section>
     <section xml:id="zend.cache.backends.apc"><info><title>Zend_Cache_Backend_Apc</title></info>
-        
+
         <para>
             Ten backend przechowuje rekordy bufora we współdzielonej pamięci za
             pomocą rozszerzenia <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://pecl.php.net/package/APC">APC</link>
@@ -245,7 +245,7 @@
         </para>
     </section>
     <section xml:id="zend.cache.backends.xcache"><info><title>Zend_Cache_Backend_Xcache</title></info>
-        
+
         <para>
             Ten backend przechowuje rekordy buforu we współdzielonej pamięci
             za pomocą rozszerzenia <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://xcache.lighttpd.net/">XCache</link>
@@ -259,7 +259,7 @@
             Dostępne opcje to:
         </para>
         <table xml:id="zend.cache.backends.xcache.table"><info><title>Opcje backendu Xcache</title></info>
-            
+
             <tgroup cols="4">
                  <thead>
                       <row>
@@ -291,7 +291,7 @@
           </table>
     </section>
     <section xml:id="zend.cache.backends.platform"><info><title>Zend_Cache_Backend_ZendPlatform</title></info>
-        
+
         <para>
             Ten backend używa API produktu <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.zend.com/products/platform">Zend Platform</link> do buforowania zawartości. Oczywiście aby użyć tego backendu, musisz mieć zainstalowaną aplikację Zend Platform.
         </para>
@@ -312,23 +312,23 @@ $cache = Zend_Cache::factory('Core', 'Zend Platform');
         </para>
     </section>
     <section xml:id="zend.cache.backends.twolevels"><info><title>Zend_Cache_Backend_TwoLevels</title></info>
-        
+
         <para>
-            Ten backend jest backendem hybrydowym. PRzechowuje on rekordu buforu 
-            w dwóch innych backendach : w szybkim (ale ograniczonym) jak Apc, Memcache... 
+            Ten backend jest backendem hybrydowym. PRzechowuje on rekordu buforu
+            w dwóch innych backendach : w szybkim (ale ograniczonym) jak Apc, Memcache...
             i w wolnym takim jak File, Sqlite...
         </para>
         <para>
-            Ten backend będzie wykorzystywał parametr oznaczający priorytet 
+            Ten backend będzie wykorzystywał parametr oznaczający priorytet
             (podany na poziomie frontendu podczas zapisywania rekordu) oraz
-            parametr oznaczający ilość miejsca do użycia przez szybki backend w 
+            parametr oznaczający ilość miejsca do użycia przez szybki backend w
             celu zoptymalizowania użycia tych dwóch backendów.
         </para>
         <para>
             Dostępne opcje to :
         </para>
         <table xml:id="zend.cache.backends.twolevels.table"><info><title>Opcje backendu TwoLevels</title></info>
-            
+
             <tgroup cols="4">
                  <thead>
                       <row>
@@ -378,7 +378,7 @@ $cache = Zend_Cache::factory('Core', 'Zend Platform');
                           <entry>
                               jeśli ma wartość true, argument slow_backend jest
                               używany jako kompletna nazwa klasy ; jeśli ma wartość
-                              false, argument jest traktowany jako klasa z 
+                              false, argument jest traktowany jako klasa z
                               przedrostkiem "Zend_Cache_Backend_[...]"
                           </entry>
                       </row>
@@ -388,8 +388,8 @@ $cache = Zend_Cache::factory('Core', 'Zend Platform');
                           <entry><constant>FALSE</constant></entry>
                           <entry>
                               jeśli ma wartość true, argument fast_backend argument jest
-                              używany jako kompletna nazwa klasy; jeśli ma wartość 
-                              false, argument jest traktowany jako klasa z 
+                              używany jako kompletna nazwa klasy; jeśli ma wartość
+                              false, argument jest traktowany jako klasa z
                               przedrostkiem "Zend_Cache_Backend_[...]"
                           </entry>
                       </row>
@@ -398,7 +398,7 @@ $cache = Zend_Cache::factory('Core', 'Zend Platform');
                           <entry><type>Boolean</type></entry>
                           <entry><constant>FALSE</constant></entry>
                           <entry>
-                              jeśli ma wartość true, dla wolnego backendu nie 
+                              jeśli ma wartość true, dla wolnego backendu nie
                               będzie wywoływana funkcja require_once
                               (użyteczne tylko dla własnych backendów)
                           </entry>
@@ -408,7 +408,7 @@ $cache = Zend_Cache::factory('Core', 'Zend Platform');
                           <entry><type>Boolean</type></entry>
                           <entry><constant>FALSE</constant></entry>
                           <entry>
-                              jeśli ma wartość true, dla szybkiego backendu nie 
+                              jeśli ma wartość true, dla szybkiego backendu nie
                               będzie wywoływana funkcja require_once
                               (użyteczne tylko dla własnych backendów)
                           </entry>
@@ -418,7 +418,7 @@ $cache = Zend_Cache::factory('Core', 'Zend Platform');
                           <entry><type>Boolean</type></entry>
                           <entry><constant>TRUE</constant></entry>
                           <entry>
-                              jeśli ma wartość true, bufor z szybkiego backendu 
+                              jeśli ma wartość true, bufor z szybkiego backendu
                               zostanie automatycznie odświeżony gdy rekord bufora
                               istnieje
                           </entry>
@@ -428,8 +428,8 @@ $cache = Zend_Cache::factory('Core', 'Zend Platform');
                           <entry><type>Integer</type></entry>
                           <entry>10</entry>
                           <entry>
-                              włącza / ustawia procent wypełnienia szybkiego 
-                              backendu (podczas zapisywania rekordu w buforze,  
+                              włącza / ustawia procent wypełnienia szybkiego
+                              backendu (podczas zapisywania rekordu w buforze,
                               obliczenie procentu wypełnienia raz na x wywołan
                               zapisywania bufora)
                           </entry>
@@ -439,7 +439,7 @@ $cache = Zend_Cache::factory('Core', 'Zend Platform');
           </table>
     </section>
     <section xml:id="zend.cache.backends.zendserver"><info><title>Zend_Cache_Backend_ZendServer_Disk oraz Zend_Cache_Backend_ZendServer_ShMem</title></info>
-        
+
         <para>
             Te backendy przechowują rekordu bufora używając metod buforowania serwera <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.zend.com/en/products/server/downloads-all?zfs=zf_download">Zend
                 Server</link>.

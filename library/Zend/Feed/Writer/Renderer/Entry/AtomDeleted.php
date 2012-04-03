@@ -36,8 +36,8 @@ class AtomDeleted extends Renderer\AbstractRenderer implements Renderer\Renderer
 {
     /**
      * Constructor
-     * 
-     * @param  Zend_Feed_Writer_Deleted $container 
+     *
+     * @param  Zend_Feed_Writer_Deleted $container
      * @return void
      */
     public function __construct (Writer\Deleted $container)
@@ -56,21 +56,21 @@ class AtomDeleted extends Renderer\AbstractRenderer implements Renderer\Renderer
         $this->_dom->formatOutput = true;
         $entry = $this->_dom->createElement('at:deleted-entry');
         $this->_dom->appendChild($entry);
-        
+
         $entry->setAttribute('ref', $this->_container->getReference());
         $entry->setAttribute('when', $this->_container->getWhen()->get(Date\Date::ISO_8601));
-        
+
         $this->_setBy($this->_dom, $entry);
         $this->_setComment($this->_dom, $entry);
-        
+
         return $this;
     }
-    
+
     /**
      * Set tombstone comment
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setComment(\DOMDocument $dom, \DOMElement $root)
@@ -84,12 +84,12 @@ class AtomDeleted extends Renderer\AbstractRenderer implements Renderer\Renderer
         $cdata = $dom->createCDATASection($this->getDataContainer()->getComment());
         $c->appendChild($cdata);
     }
-    
+
     /**
-     * Set entry authors 
-     * 
-     * @param  \DOMDocument $dom 
-     * @param  \DOMElement $root 
+     * Set entry authors
+     *
+     * @param  \DOMDocument $dom
+     * @param  \DOMElement $root
      * @return void
      */
     protected function _setBy(\DOMDocument $dom, \DOMElement $root)
@@ -117,5 +117,5 @@ class AtomDeleted extends Renderer\AbstractRenderer implements Renderer\Renderer
             $uri->appendChild($text);
         }
     }
-    
+
 }

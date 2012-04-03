@@ -19,7 +19,7 @@
  */
 
 /**
- * @fileoverview Provides functions for browsing and searching YouTube 
+ * @fileoverview Provides functions for browsing and searching YouTube
  * data API feeds using a PHP backend powered by the Zend_Gdata component
  * of the Zend Framework.
  */
@@ -68,7 +68,7 @@ ytvbp.VIDEO_PLAYER_DIV = 'videoPlayer';
  */
 ytvbp.MAIN_SEARCH_CONTAINER_DIV = 'mainSearchBox';
 
-/** 
+/**
  * container div id used to hold the search box displayed at the top of
  * the browser after one search has already been performed
  * @type String
@@ -87,7 +87,7 @@ ytvbp.nextPage = 2;
  */
 ytvbp.previousPage = 0;
 
-/** 
+/**
  * the last search term used to query - allows for the navigation
  * buttons to know what string query to perform when clicked
  * @type String
@@ -111,8 +111,8 @@ ytvbp.previousQueryType = 'all';
  * @param {Number} page The 1-based page of results to return.
  */
 ytvbp.listVideos = function(queryType, searchTerm, page) {
-  ytvbp.previousSearchTerm = searchTerm; 
-  ytvbp.previousQueryType = queryType; 
+  ytvbp.previousSearchTerm = searchTerm;
+  ytvbp.previousQueryType = queryType;
   var maxResults = ytvbp.MAX_RESULTS_LIST;
   var startIndex =  (((page - 1) * ytvbp.MAX_RESULTS_LIST) + 1);
   ytvbp.presentFeed(queryType, maxResults, startIndex, searchTerm);
@@ -134,14 +134,14 @@ ytvbp.sendRequest = function(filePath, params, resultDivName) {
   } else {
     var xmlhr = new ActiveXObject('MSXML2.XMLHTTP.3.0');
   }
-        
+
   xmlhr.open('POST', filePath, true);
-  xmlhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+  xmlhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
   xmlhr.onreadystatechange = function() {
     var resultDiv = document.getElementById(resultDivName);
     if (xmlhr.readyState == 1) {
-      resultDiv.innerHTML = '<b>Loading...</b>'; 
+      resultDiv.innerHTML = '<b>Loading...</b>';
     } else if (xmlhr.readyState == 4 && xmlhr.status == 200) {
       if (xmlhr.responseText) {
         resultDiv.innerHTML = xmlhr.responseText;
@@ -172,16 +172,16 @@ ytvbp.presentVideo = function(videoId) {
  * @param {String} searchTerm The search terms to pass to the specified feed
  */
 ytvbp.presentFeed = function(queryType, maxResults, startIndex, searchTerm){
-  var params = 'queryType=' + queryType + 
+  var params = 'queryType=' + queryType +
                '&maxResults=' + maxResults +
-               '&startIndex=' + startIndex + 
+               '&startIndex=' + startIndex +
                '&searchTerm=' + searchTerm;
   var filePath = 'index.php';
   ytvbp.sendRequest(filePath, params, ytvbp.VIDEO_LIST_CONTAINER_DIV);
 }
 
 /**
- * Updates the variables used by the navigation buttons and the 'enabled' 
+ * Updates the variables used by the navigation buttons and the 'enabled'
  * status of the buttons based upon the current page number passed in.
  * @param {Number} page The current page number
  */
@@ -205,9 +205,9 @@ ytvbp.updateNavigation = function(page) {
  * the title bar.
  */
 ytvbp.hideMainSearch = function() {
-  document.getElementById(ytvbp.MAIN_SEARCH_CONTAINER_DIV).style.display = 
+  document.getElementById(ytvbp.MAIN_SEARCH_CONTAINER_DIV).style.display =
       'none';
-  document.getElementById(ytvbp.TOP_SEARCH_CONTAINER_DIV).style.display = 
+  document.getElementById(ytvbp.TOP_SEARCH_CONTAINER_DIV).style.display =
       'inline';
 };
 

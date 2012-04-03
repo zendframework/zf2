@@ -10,10 +10,10 @@ class FileGeneratorRegistry
 	 * @var array[string]\Zend\Code\Generator\FileGenerator $_fileCodeGenerators registry for Zend\Code\Generator\FileGenerator
 	 */
 	static private $_fileCodeGenerators = array();
-	
+
 	/**
 	 * Registry for the Zend_Code package. Zend_Tool uses this
-	 * 
+	 *
 	 * @param FileGenerator $fileCodeGenerator
 	 * @param string $fileName
 	 * @throws RuntimeException

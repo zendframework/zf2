@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.introduction"><info><title>導入</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Translator</classname> は、Zend Framework
@@ -110,7 +110,7 @@
 
     <section xml:id="zend.translator.introduction.adapters"><info><title>多言語対応をはじめよう</title></info>
 
-        
+
 
         <para>
             それでは、多言語対応の作業を始めてみましょう。

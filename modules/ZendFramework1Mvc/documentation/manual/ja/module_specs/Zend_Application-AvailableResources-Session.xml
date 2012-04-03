@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.session"><info><title>Zend_Application_Resource_Session</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Session</classname>
@@ -47,7 +47,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.session.configExample"><info><title>セッション・リソース構成サンプル</title></info>
-        
+
 
         <para>
             下記は、セッション・リソースを設定する方法を示す<acronym>INI</acronym>スニペット・サンプルです。
@@ -74,7 +74,7 @@ resources.session.saveHandler.options.lifetimeColumn = "lifetime"
     </example>
 
     <note><info><title>最初にデータベースを起動してください!</title></info>
-        
+
 
         <para>
             もし<classname>Zend_Session_SaveHandler_DbTable</classname>セッション保存ハンドラを構成しているなら、

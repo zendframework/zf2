@@ -33,36 +33,36 @@
 : ${PHPUNIT_GROUPS:=}
 
 while [ -n "$1" ] ; do
-  case "$1" in 
+  case "$1" in
     -h|--html)
-      PHPUNIT_COVERAGE="--coverage-html $2" 
+      PHPUNIT_COVERAGE="--coverage-html $2"
       shift 2 ;;
 
     -c|--clover)
-      PHPUNIT_COVERAGE="--coverage-clover $2" 
+      PHPUNIT_COVERAGE="--coverage-clover $2"
       shift 2 ;;
 
     ALL|all|MAX|max)
-     PHPUNIT_GROUPS="" 
+     PHPUNIT_GROUPS=""
      break ;;
 
     Akismet|Amazon|Amazon_Ec2|Amazon_S3|Amazon_Sqs|Audioscrobbler|Delicious|Flickr|GoGrid|LiveDocx|Nirvanix|Rackspace|ReCaptcha|Simpy|SlideShare|StrikeIron|Technorati|Twitter|WindowsAzure|Yahoo)
-     PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS,"}Zend_Service_$1" 
+     PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS,"}Zend_Service_$1"
      shift ;;
     Ec2|S3)
      PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS,"}Zend_Service_Amazon_$1"
      shift ;;
 
     Search)
-     PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS,"}Zend_Search_Lucene" 
+     PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS,"}Zend_Search_Lucene"
      shift ;;
 
     Zend*)
-     PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS,"}$1" 
+     PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS,"}$1"
      shift ;;
 
     *)
-     PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS,"}Zend_$1" 
+     PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS,"}Zend_$1"
      shift ;;
   esac
 done

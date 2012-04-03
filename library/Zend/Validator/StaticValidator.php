@@ -37,8 +37,8 @@ class StaticValidator
 
     /**
      * Set plugin broker to use for locating validators
-     * 
-     * @param  Broker|null $broke 
+     *
+     * @param  Broker|null $broke
      * @return void
      */
     public static function setBroker(Broker $broker = null)
@@ -48,7 +48,7 @@ class StaticValidator
 
     /**
      * Get plugin broker for locating validators
-     * 
+     *
      * @return Broker
      */
     public static function getBroker()

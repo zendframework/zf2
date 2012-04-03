@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.http.client"><info><title>Zend_Http_Client - Введение</title></info>
-    
+
 
     <section xml:id="zend.http.client.introduction"><info><title>Введение</title></info>
-        
+
         <para>
             Zend_Http_Client предоставляет простой интерфейс для выполнения
             HTTP-запросов. Zend_Http_Client поддерживает как большинство простых
@@ -34,7 +34,7 @@
             and set later using the setUri() and setConfig() methods.
 -->
             <example><info><title>Инстанцирование объекта Zend_Http_Client<!--Instantiating a Zend_Http_Client object--></title></info>
-                
+
                 <programlisting language="php"><![CDATA[
 <?php
     require_once 'Zend/Http/Client.php';
@@ -55,7 +55,7 @@
         </para>
     </section>
     <section xml:id="zend.http.client.configuration"><info><title>Параметры конфигурации<!--Configuration Parameters--></title></info>
-        
+
         <para>
             Конструктор и метод <code>setConfig()</code> принимают ассоциативный
             массив параметров конфигурации. Установка этих параметров является
@@ -66,7 +66,7 @@
             as they all have default values.
 -->
             <table><info><title>Параметры конфигурации Zend_Http_Client<!--Zend_Http_Client configuration parameters--></title></info>
-                
+
                 <tgroup cols="4">
                     <thead>
                         <row>
@@ -168,7 +168,7 @@
         </para>
     </section>
     <section xml:id="zend.http.client.basic-requests"><info><title>Выполнение базовых HTTP-запросов<!--Performing Basic HTTP Requests--></title></info>
-        
+
         <para>
             Выполнение простых HTTP-запросов с использованием метода
             <code>request()</code> довольно простое, и редко требуется больше
@@ -179,7 +179,7 @@
             request() method, and rarely needs more than three lines of code:
 -->
             <example><info><title>Выполнение простого запроса GET<!--Preforming a Simple GET Request--></title></info>
-                
+
                 <programlisting language="php"><![CDATA[
 <?php
     require_once 'Zend/Http/Client.php';
@@ -219,7 +219,7 @@
             method is GET (see the above example).
 -->
             <example><info><title>Использование методов запроса, отличных от GET<!--Using Request Methods Other Than GET--></title></info>
-                
+
                 <programlisting language="php"><![CDATA[
 <?php
     // Выполнение запроса POST
@@ -234,7 +234,7 @@
     </section>
 
     <section xml:id="zend.http.client.parameters"><info><title>Добавление параметров GET и POST<!--Adding GET and POST parameters--></title></info>
-        
+
         <para>
             Добавление параметров GET в HTTP-запрос довольно простое, это может
             быть сделано посредством определения параметров как часть URL или с
@@ -254,7 +254,7 @@
             be more comfortable when several GET parameters need to be set.
 -->
             <example><info><title>Установка параметров GET<!--Setting GET Parameters--></title></info>
-                
+
                 <programlisting language="php"><![CDATA[
 <?php
     // Установка параметра GET с использованием метода setParameterGet
@@ -286,7 +286,7 @@
             similar to the setParameterGet() method in structure.
 -->
             <example><info><title>Установка параметров POST<!--Setting POST Parameters--></title></info>
-                
+
                 <programlisting language="php"><![CDATA[
 <?php
     // Установка параметра POST
@@ -318,7 +318,7 @@
     </section>
 
     <section xml:id="zend.http.client.accessing_last"><info><title>Получение последних запроса и ответа<!--Accessing Last Request and Response--></title></info>
-        
+
         <para>
             Zend_Http_Client предоставляет методы для получения последнего
             отправленного запроса и последнего ответа, полученного через

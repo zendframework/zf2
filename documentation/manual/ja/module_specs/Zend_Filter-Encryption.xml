@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.encrypt"><info><title>Encrypt</title></info>
-    
+
 
     <para>
         このフィルタは、指定した設定で任意の文字列を暗号化します。
@@ -44,7 +44,7 @@ $filter->setAdapter('openssl');
     </note>
 
     <section xml:id="zend.filter.set.encrypt.mcrypt"><info><title>Mcrypt での暗号化</title></info>
-        
+
 
         <para>
             <classname>Mcrypt</classname> 拡張モジュールをインストールすると、
@@ -177,7 +177,7 @@ print $encrypted;
     </section>
 
     <section xml:id="zend.filter.set.encrypt.openssl"><info><title>OpenSSL での暗号化</title></info>
-        
+
 
         <para>
             <classname>OpenSSL</classname> 拡張モジュールをインストールすると、
@@ -306,7 +306,7 @@ print $encrypted;
 
         <!-- TODO : to be translated -->
         <section xml:id="zend.filter.set.encrypt.openssl.simplified"><info><title>Simplified usage with Openssl</title></info>
-            
+
 
             <para>
                 As seen before, you need to get the envelope key to be able to decrypt the previous
@@ -342,7 +342,7 @@ print $encrypted;
         </section>
 
         <section xml:id="zend.filter.set.encrypt.openssl.compressed"><info><title>Compressing the content</title></info>
-            
+
 
             <para>
                 Based on the original value, the encrypted value can be a very large string. To
@@ -377,7 +377,7 @@ $filter2 = new Zend_Filter_Encrypt(array(
 ]]></programlisting>
 
             <note><info><title>Decryption with same settings</title></info>
-                
+
 
                 <para>
                     When you want to decrypt a value which is additionally compressed, then you

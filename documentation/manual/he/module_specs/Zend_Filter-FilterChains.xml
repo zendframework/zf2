@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.filter_chains"><info><title>שרשור פילטרים</title></info>
 
-    
+
 
     <para>
         לעיתים קרובות יהיה צורך בשימוש בכמה פילטרים על ערך כלשהו בסדר כלשהו. לדוגמא טופס התחברות מאפשר הזנת שם משתמש שצריך להיות באותיות בלבד וכל האותיות צריכות להיות קטנות.

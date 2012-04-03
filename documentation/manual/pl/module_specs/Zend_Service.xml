@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.introduction"><info><title>Wprowadzenie</title></info>
-    
+
     <para>
         <code>Zend_Service</code> jest klasą abstrakcyjną, która zapewnia
         wsparcie dla implementacji web serwisów, takich jak SOAP albo REST.

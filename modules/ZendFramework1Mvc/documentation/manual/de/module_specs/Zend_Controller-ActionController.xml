@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.action"><info><title>Action Controller</title></info>
-    
+
 
     <section xml:id="zend.controller.action.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Action</classname> ist eine abstrakte Klasse die verwendet
@@ -57,7 +57,7 @@ class FooController extends Zend_Controller_Action
         </para>
 
         <note><info><title>Standardverhalten</title></info>
-            
+
 
             <para>
                 Standardmäßig aktiviert der <link linkend="zend.controller.front">Front
@@ -125,7 +125,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.initialization"><info><title>Objekt Initialisierung</title></info>
-        
+
 
         <para>
             Wärend man immer den Konstruktor des Aktion Controller's überschreiben kann ist das
@@ -161,7 +161,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.prepostdispatch"><info><title>Pre- und Post-Dispatch Hooks</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Action</classname> spezifiziert zwei Methoden die aufgerufen
@@ -175,7 +175,7 @@ class FooController extends Zend_Controller_Action
         </para>
 
         <note><info><title>Verwendung von of init() vs. preDispatch()</title></info>
-            
+
 
             <para>
                 In der <link linkend="zend.controller.action.initialization">vorigen Sektion</link>
@@ -211,7 +211,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.accessors"><info><title>Zugriffe</title></info>
-        
+
 
         <para>
             Eine Anzahl von Objekten und Variablen werden im Objekt registriert, und jede hat
@@ -294,10 +294,10 @@ if ($this->_hasParam('id') {
     </section>
 
     <section xml:id="zend.controller.action.viewintegration"><info><title>View Integration</title></info>
-        
+
 
         <note xml:id="zend.controller.action.viewintegration.viewrenderer"><info><title>Standard View Integration über den ViewRenderer</title></info>
-            
+
 
             <para>
                 Der Inhalt dieses Kapitel ist nur gültig wenn man den <link linkend="zend.controller.actionhelpers.viewrenderer">ViewRenderer</link>
@@ -316,7 +316,7 @@ if ($this->_hasParam('id') {
         </para>
 
         <section xml:id="zend.controller.action.viewintegration.initview"><info><title>View Initialisierung</title></info>
-            
+
 
             <para>
                 <methodname>initView()</methodname> initialisiert das View Objekt.
@@ -358,7 +358,7 @@ applicationOrModule/
         </section>
 
         <section xml:id="zend.controller.action.viewintegration.render"><info><title>Rendern von Views</title></info>
-            
+
 
             <para>
                 <methodname>render()</methodname> hat die folgende Signatur:
@@ -437,7 +437,7 @@ class MyController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.utilmethods"><info><title>Nützliche Methoden</title></info>
-        
+
 
         <para>
             Neben den Zugriffs- und View Integrationsmethoden, hat
@@ -517,7 +517,7 @@ class MyController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.subclassing"><info><title>Erweitern des Aktion Controllers</title></info>
-        
+
 
         <para>
             Vom Design her muß <classname>Zend_Controller_Action</classname> erweitert werden um
@@ -534,7 +534,7 @@ class MyController extends Zend_Controller_Action
         </para>
 
         <example xml:id="zend.controller.action.subclassing.example-call"><info><title>Behandeln nicht-vorhandener Aktionen</title></info>
-            
+
 
             <para>
                 Wenn eine Anfrage an einen Controller durchgeführt wird die eine undefinierte

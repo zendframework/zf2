@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.advanced"><info><title>Fortgeschrittene Verwendung von Zend_Json</title></info>
-    
+
 
     <section xml:id="zend.json.advanced.objects1"><info><title>JSON Objekte</title></info>
-        
+
 
         <para>
             Bei der Kodierung von <acronym>PHP</acronym> Objekten nach <acronym>JSON</acronym>
@@ -56,7 +56,7 @@ $phpNative = Zend_Json::decode($encodedValue, Zend_Json::TYPE_OBJECT);
     </section>
 
     <section xml:id="zend.json.advanced.objects2"><info><title>Kodierung von PHP Objekten</title></info>
-        
+
 
         <para>
             Wenn man <acronym>PHP</acronym> Objekte kodiert, kann der Kodierungsmechanismus
@@ -68,7 +68,7 @@ $phpNative = Zend_Json::decode($encodedValue, Zend_Json::TYPE_OBJECT);
     </section>
 
     <section xml:id="zend.json.advanced.internal"><info><title>Interner Encoder/Decoder</title></info>
-        
+
 
         <para>
             <classname>Zend_Json</classname> hat zwei unterschiedliche Modi abhängig davon ob
@@ -92,7 +92,7 @@ Zend_Json::$useBuiltinEncoderDecoder = true:
     </section>
 
     <section xml:id="zend.json.advanced.expr"><info><title>JSON Ausdrücke</title></info>
-        
+
 
         <para>
             Javascript macht häufige Verwendung von anonymen Funktions-Callbacks, welche in

@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.multiuser.intro"><info><title>Fabrique une application Multi-Utilisateurs avec Zend Framework</title></info>
-    
+
 
     <section xml:id="learning.multiuser.intro.zf"><info><title>Zend Framework</title></info>
-        
+
 
         <para>
             Lorsque le web a été crée, il s'agissait d'un média permettant de consulter des
@@ -46,7 +46,7 @@
         </itemizedlist>
 
         <note><info><title>Client contre Utilisateur</title></info>
-            
+
 
             <para>
                 Nous utilisons le terme "client" et pas utilisateur. Les applications web deviennent

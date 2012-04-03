@@ -33,7 +33,7 @@ use Zend\Loader\PluginClassLoader;
 class ValidatorLoader extends PluginClassLoader
 {
     /**
-     * @var array Pre-aliased filter 
+     * @var array Pre-aliased filter
      */
     protected $plugins = array(
         'alnum'                        => 'Zend\Validator\Alnum',

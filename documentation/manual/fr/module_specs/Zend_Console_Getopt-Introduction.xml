@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.console.getopt.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         La classe <classname>Zend_Console_Getopt</classname> aide les applications lancées en ligne
@@ -101,7 +101,7 @@
     </para>
 
     <note><info><title>Getopt n'est pas une application framework</title></info>
-        
+
 
         <para>
             <classname>Zend_Console_Getopt</classname> <emphasis>n'interprète

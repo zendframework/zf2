@@ -93,10 +93,10 @@ class IsbnTest extends \PHPUnit_Framework_TestCase
     public function testSeparator()
     {
         $validator = new Validator\Isbn();
-    
+
         $validator->setSeparator('-');
         $this->assertTrue($validator->getSeparator() == '-');
-        
+
         $validator->setSeparator(' ');
         $this->assertTrue($validator->getSeparator() == ' ');
 
@@ -106,7 +106,7 @@ class IsbnTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'Invalid ISBN separator');
         $validator->setSeparator('X');
     }
-        
+
 
     /**
      * Ensures that __construct() works as expected
@@ -231,16 +231,16 @@ class IsbnTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($validator->isValid((float) 1.2345));
         $this->assertFalse($validator->isValid((object) 'Test'));
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = new Validator\Isbn();
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -249,16 +249,16 @@ class IsbnTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = new Validator\Isbn();
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

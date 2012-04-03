@@ -163,7 +163,7 @@ class Encoder
         }
 
         $className = get_class($value);
-        return '{"__className":' 
+        return '{"__className":'
             . $this->_encodeString($className)
             . $props . '}';
     }

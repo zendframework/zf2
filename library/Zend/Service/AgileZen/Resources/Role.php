@@ -36,44 +36,44 @@ class Role extends Entity
 {
     /**
      * Name
-     * 
+     *
      * @var string
      */
     protected $name;
 
     /**
      * Service
-     * 
-     * @var AgileZen 
+     *
+     * @var AgileZen
      */
     protected $service;
 
     /**
      * Role access
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $access;
 
     /**
      * Members
-     * 
+     *
      * @var Container
      */
     protected $members;
 
     /**
      * Project Id
-     * 
-     * @var integer 
+     *
+     * @var integer
      */
     protected $projectId;
 
     /**
      * Constructor
-     * 
+     *
      * @param AgileZen $service
-     * @param array $data 
+     * @param array $data
      */
     public function __construct(AgileZen $service, array $data)
     {
@@ -87,21 +87,21 @@ class Role extends Entity
         $this->name = $data['name'];
         if (isset($data['access'])) {
             $this->access = $data['access'];
-        }    
+        }
 
         if (!empty($data['members'])) {
             $this->members = new Container($service, $data['members'], 'user');
-        }    
+        }
 
         $this->service   = $service;
         $this->projectId = $data['projectId'];
-        
+
         parent::__construct($data['id']);
     }
     /**
      * Get name of the project
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getName()
     {
@@ -110,8 +110,8 @@ class Role extends Entity
 
     /**
      * Get the role access
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getAccess()
     {
@@ -120,8 +120,8 @@ class Role extends Entity
 
     /**
      * Get the members
-     * 
-     * @return Container 
+     *
+     * @return Container
      */
     public function getMembers()
     {
@@ -130,8 +130,8 @@ class Role extends Entity
 
     /**
      * Get the project's Id
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getProjectId()
     {

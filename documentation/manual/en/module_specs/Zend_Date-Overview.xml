@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.overview"><info><title>Zend_Date API Overview</title></info>
-    
+
 
     <para>
         While the <classname>Zend_Date</classname> <acronym>API</acronym> remains simplistic and
@@ -9,10 +9,10 @@
     </para>
 
     <section xml:id="zend.date.options"><info><title>Zend_Date Options</title></info>
-        
+
 
         <section xml:id="zend.date.options.formattype"><info><title>Selecting the Date Format Type</title></info>
-            
+
 
             <para>
                 Several methods use date format strings, in a way similar to
@@ -31,7 +31,7 @@
         </section>
 
         <section xml:id="zend.date.options.fixdst"><info><title>DST and Date Math</title></info>
-            
+
 
             <para>
                 When dates are manipulated, sometimes they cross over a <acronym>DST</acronym>
@@ -70,7 +70,7 @@
         </section>
 
         <section xml:id="zend.date.options.extendmonth"><info><title>Month Calculations</title></info>
-            
+
 
             <para>
                 When adding or substracting months from an existing date, the resulting value for
@@ -95,7 +95,7 @@
         </section>
 
         <section xml:id="zend.date.options.cache"><info><title>Speed up Date Localization and Normalization with Zend_Cache</title></info>
-            
+
 
             <para>
                 You can speed up <classname>Zend_Date</classname> by using an
@@ -109,7 +109,7 @@
         </section>
 
         <section xml:id="zend.date.options.timesync"><info><title>Receiving Syncronised Timestamps with Zend_TimeSync</title></info>
-            
+
 
             <para>
                 Normally the clocks from servers and computers differ from each other.
@@ -125,7 +125,7 @@
     </section>
 
     <section xml:id="zend.date.values"><info><title>Working with Date Values</title></info>
-        
+
 
         <para>
             Once input has been normalized via the creation of a <classname>Zend_Date</classname>
@@ -163,7 +163,7 @@
         </para>
 
         <example xml:id="zend.date.values.example-1"><info><title>User-Specified Input Date Format</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $date1 = new Zend_Date('Feb 31, 2007', null, 'en_US');
@@ -218,7 +218,7 @@ $date = new Zend_Date('31.Feb.2007');
     </section>
 
     <section xml:id="id.date.basic"><info><title>Basic Zend_Date Operations Common to Many Date Parts</title></info>
-        
+
 
         <para>
             The methods <methodname>add()</methodname>, <methodname>sub()</methodname>,
@@ -237,7 +237,7 @@ $date = new Zend_Date('31.Feb.2007');
         </para>
 
         <example xml:id="zend.date.basic.example-1"><info><title>Operating on Parts of Dates</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $date = new Zend_Date(); // $date's timestamp === time()
@@ -269,10 +269,10 @@ print $date;
         </para>
 
         <section xml:id="id.date.basic.parts"><info><title>List of Date Parts</title></info>
-            
+
 
             <table xml:id="id.date.basic.parts.table"><info><title>Date Parts</title></info>
-                
+
 
                 <tgroup cols="2">
                     <thead>
@@ -474,7 +474,7 @@ print $date;
         </section>
 
         <section xml:id="id.date.basic.operations"><info><title>List of Date Operations</title></info>
-            
+
 
             <para>
                 The basic operations below can be used instead of the convenience operations for
@@ -484,7 +484,7 @@ print $date;
             </para>
 
             <table xml:id="id.date.basic.operations.table"><info><title>Basic Operations</title></info>
-                
+
 
                 <tgroup cols="2">
                     <thead>
@@ -513,7 +513,7 @@ print $date;
                                 </para>
 
                                 <note><info><title>Behaviour of get()</title></info>
-                                    
+
 
                                     <para>
                                         Unlike <methodname>get()</methodname>, the other
@@ -619,7 +619,7 @@ print $date;
     </section>
 
     <section xml:id="zend.date.others.comparison"><info><title>Comparing Dates</title></info>
-        
+
 
         <para>
             The following basic operations do not have corresponding convenience methods for the
@@ -627,7 +627,7 @@ print $date;
         </para>
 
         <table xml:id="zend.date.others.comparison.table"><info><title>Date Comparison Methods</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -778,7 +778,7 @@ print $date;
     </section>
 
     <section xml:id="zend.date.others.gettingparts"><info><title>Getting Dates and Date Parts</title></info>
-        
+
 
         <para>
             Several methods support retrieving values related to a <classname>Zend_Date</classname>
@@ -786,7 +786,7 @@ print $date;
         </para>
 
         <table xml:id="zend.date.others.gettingparts.table"><info><title>Date Output Methods</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -940,7 +940,7 @@ print $date;
                             </para>
 
                             <note><info><title>Limitation of toValue()</title></info>
-                                
+
 
                                 <para>
                                     This method calls <link linkend="id.date.basic.operations"><methodname>get()</methodname></link>
@@ -997,7 +997,7 @@ print $date;
     </section>
 
     <section xml:id="zend.date.others.fractions"><info><title>Working with Fractions of Seconds</title></info>
-        
+
 
         <para>
             Several methods support retrieving values related to a <classname>Zend_Date</classname>
@@ -1005,7 +1005,7 @@ print $date;
         </para>
 
         <table xml:id="zend.date.others.fractions.table"><info><title>Date Output Methods</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -1041,7 +1041,7 @@ print $date;
     </section>
 
     <section xml:id="zend.date.other.sun"><info><title>Sunrise / Sunset</title></info>
-        
+
 
         <para>
             Three methods provide access to geographically localized information about the Sun,
@@ -1049,7 +1049,7 @@ print $date;
         </para>
 
         <table xml:id="zend.date.other.sun.table"><info><title>Miscellaneous Methods</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>

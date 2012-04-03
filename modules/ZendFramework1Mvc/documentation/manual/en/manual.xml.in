@@ -79,7 +79,7 @@
         </chapter>
 
         <chapter xml:id="zend.controller"><info><title>Zend_Controller</title></info>
-            
+
             <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="module_specs/Zend_Controller-QuickStart.xml" parse="xml">
                 <xi:fallback>
                     <xi:include href="../en/module_specs/Zend_Controller-QuickStart.xml" parse="xml"/>
@@ -143,7 +143,7 @@
         </chapter>
 
         <chapter xml:id="zend.test"><info><title>Zend_Test</title></info>
-            
+
             <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="module_specs/Zend_Test.xml" parse="xml">
                 <xi:fallback>
                     <xi:include href="../en/module_specs/Zend_Test.xml" parse="xml"/>

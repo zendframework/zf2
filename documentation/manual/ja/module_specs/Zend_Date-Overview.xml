@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.overview"><info><title>Zend_Date API の概要</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Date</classname> の <acronym>API</acronym> はシンプルで統一性がありますが、
@@ -10,10 +10,10 @@
     </para>
 
     <section xml:id="zend.date.options"><info><title>Zend_Date のオプション</title></info>
-        
+
 
         <section xml:id="zend.date.options.formattype"><info><title>日付の書式の型の選択</title></info>
-            
+
 
             <para>
                 いくつかのメソッドでは、<acronym>PHP</acronym> の <methodname>date()</methodname> 関数と似た形式の日付書式文字列を使用します。
@@ -31,7 +31,7 @@
         </section>
 
         <section xml:id="zend.date.options.fixdst"><info><title>夏時間と月</title></info>
-            
+
 
             <para>
                 日付を処理する際には、夏時間の適用前後をまたがってしまうこともあります。
@@ -67,7 +67,7 @@
         </section>
 
         <section xml:id="zend.date.options.extendmonth"><info><title>月の計算</title></info>
-            
+
 
             <para>
                 ある日付に対して月を足したり引いたりすると、
@@ -91,7 +91,7 @@
         </section>
 
         <section xml:id="zend.date.options.cache"><info><title>日付の地域化や正規化の、Zend_Cache による高速化</title></info>
-            
+
 
             <para>
                 <classname>Zend_Date</classname> を高速に動作させるには <classname>Zend_Cache</classname>
@@ -106,7 +106,7 @@
         </section>
 
         <section xml:id="zend.date.options.timesync"><info><title>Zend_TimeSync による同期したタイムスタンプの取得</title></info>
-            
+
 
             <para>
                 通常は、サーバやコンピュータの時刻はそれぞれ異なります。
@@ -122,7 +122,7 @@
     </section>
 
     <section xml:id="zend.date.values"><info><title>日付の値の操作</title></info>
-        
+
 
         <para>
             <classname>Zend_Date</classname> オブジェクトの作成によって入力が正規化されると、
@@ -163,7 +163,7 @@
         </para>
 
         <example xml:id="zend.date.values.example-1"><info><title>ユーザ定義の入力日付書式</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $date1 = new Zend_Date('Feb 31, 2007', null, 'en_US');
 echo $date1, "\n"; // 出力は "Mar 3, 2007 12:00:00 AM" となります
@@ -221,7 +221,7 @@ $date = new Zend_Date('31.Feb.2007');
     </section>
 
     <section xml:id="id.date.basic"><info><title>多くの日付要素で共通に使用できる、Zend_Date の基本操作</title></info>
-        
+
 
         <para>
             メソッド <methodname>add()</methodname>, <methodname>sub()</methodname>,
@@ -245,7 +245,7 @@ $date = new Zend_Date('31.Feb.2007');
         </para>
 
         <example xml:id="zend.date.basic.example-1"><info><title>日付要素の操作</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $date = new Zend_Date(); // $date のタイムスタンプは time() の返す値と等しくなります
 
@@ -282,10 +282,10 @@ print $date;
 
         <section xml:id="id.date.basic.parts"><info><title>日付要素の一覧</title></info>
 
-            
+
 
             <table xml:id="id.date.basic.parts.table"><info><title>日付要素</title></info>
-                
+
                 <tgroup cols="2">
                     <thead>
                         <row>
@@ -441,7 +441,7 @@ print $date;
         </section>
 
         <section xml:id="id.date.basic.operations"><info><title>日付操作の一覧</title></info>
-            
+
 
             <para>
                 便利なメソッド群ではなく以下の基本操作を使用する場合には、
@@ -450,7 +450,7 @@ print $date;
             </para>
 
             <table xml:id="id.date.basic.operations.table"><info><title>基本操作</title></info>
-                
+
                 <tgroup cols="2">
                     <thead>
                         <row>
@@ -558,7 +558,7 @@ print $date;
     </section>
 
     <section xml:id="zend.date.others.comparison"><info><title>日付の比較</title></info>
-        
+
 
         <para>
             以下の基本操作については、
@@ -567,7 +567,7 @@ print $date;
         </para>
 
         <table xml:id="zend.date.others.comparison.table"><info><title>日付の比較用メソッド</title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>
@@ -691,14 +691,14 @@ print $date;
     </section>
 
     <section xml:id="zend.date.others.gettingparts"><info><title>日付および日付要素の取得</title></info>
-        
+
 
         <para>
             <classname>Zend_Date</classname> インスタンスに関する情報の取得をサポートするメソッド群について説明します。
         </para>
 
         <table xml:id="zend.date.others.gettingparts.table"><info><title>日付出力用のメソッド</title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>
@@ -862,14 +862,14 @@ print $date;
     </section>
 
     <section xml:id="zend.date.others.fractions"><info><title>一秒未満の単位の扱い</title></info>
-        
+
 
         <para>
             <classname>Zend_Date</classname> インスタンスに関する情報の取得をサポートするメソッド群について説明します。
         </para>
 
         <table xml:id="zend.date.others.fractions.table"><info><title>日付の出力用メソッド</title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>
@@ -900,7 +900,7 @@ print $date;
     </section>
 
     <section xml:id="zend.date.other.sun"><info><title>日の出 / 日の入り</title></info>
-        
+
 
         <para>
             これらの三つのメソッドにより、各地域に特化した太陽の情報を取得できます。
@@ -908,7 +908,7 @@ print $date;
         </para>
 
         <table xml:id="zend.date.other.sun.table"><info><title>雑多なメソッド</title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.save"><info><title> 保存修改到 PDF 文档 </title></info>
-    
+
     <para>
         有两个方法来保存修改到 PDF 文档：<code>Zend_Pdf::save()</code> 和 <code>Zend_Pdf::render()</code>。
     </para>
@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.pdf.save.example-1"><info><title>Save PDF document.</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 ...
 // Load PDF document.

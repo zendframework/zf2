@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.authsub"><info><title>Authentifizierung mit AuthSub</title></info>
-    
+
 
     <para>
         Der AuthSub Mechanismum erlaubt es Web Anwendungen zu schreiben die einen authentifizierten
@@ -29,7 +29,7 @@
     </para>
 
     <note><info><title>Registrierte Anwendungen</title></info>
-        
+
 
         <para>
             <classname>Zend_Gdata</classname> unterstützt aktuell die Verwendung von sicheren Tokens
@@ -39,7 +39,7 @@
     </note>
 
     <section xml:id="zend.gdata.authsub.login"><info><title>Einen AuthSub authentifizierten Http Clienten erstellen</title></info>
-        
+
 
         <para>
             Die <acronym>PHP</acronym> Anwendung sollte einen Hyperlink zur Google
@@ -105,7 +105,7 @@ $cal = new Zend_Gdata_Calendar($client);
     </section>
 
     <section xml:id="zend.gdata.authsub.logout"><info><title>Beenden der AuthSub Authentifizierung</title></info>
-        
+
 
         <para>
             Um den authentifizierten Status eines gegebenen Status zu beenden, kann die statische
@@ -129,7 +129,7 @@ if (isset($_GET['logout'])) {
 ]]></programlisting>
 
         <note><info><title>Sicherheitshinweise</title></info>
-            
+
 
             <para>
                 Das Vermeiden der <varname>$php_self</varname> Variable im obigen Beispiel ist eine

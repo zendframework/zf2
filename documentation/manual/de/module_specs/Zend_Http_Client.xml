@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.http.client"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_Http_Client</classname> stellt eine einfache Schnittstelle für das
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="zend.http.client.usage"><info><title>Zend_Http_Client verwenden</title></info>
-        
+
 
         <para>
             Der Klassenkonstruktor akzeptiert optional eine URL als seinen ersten Parameter (kann
@@ -25,7 +25,7 @@
             setConfig() Methoden gesetzt werden.
 
             <example xml:id="zend.http.client.introduction.example-1"><info><title>Ein Zend_Http_Client Objekt instanzieren</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $client = new Zend_Http_Client('http://example.org', array(
@@ -61,7 +61,7 @@ $client->setConfig($config);
     </section>
 
     <section xml:id="zend.http.client.configuration"><info><title>Konfigurationsparameter</title></info>
-        
+
 
         <para>
             Der Konstruktor und die setConfig() Methode akzeptieren ein assoziatives Array mit
@@ -69,7 +69,7 @@ $client->setConfig($config);
             dieser Parameter ist optional, da alle einen Standardwert haben.
 
             <table xml:id="zend.http.client.configuration.table"><info><title>Zend_Http_Client Konfigurationsparameter</title></info>
-                
+
 
                 <tgroup cols="4">
                     <thead>
@@ -207,7 +207,7 @@ $client->setConfig($config);
     </section>
 
     <section xml:id="zend.http.client.basic-requests"><info><title>Durchführen von einfachen HTTP Anfragen</title></info>
-        
+
 
         <para>
             Das Durchführen von einfachen <acronym>HTTP</acronym> Anfragen kann sehr leicht durch
@@ -215,7 +215,7 @@ $client->setConfig($config);
             Codezeilen:
 
             <example xml:id="zend.http.client.basic-requests.example-1"><info><title>Durchführen einer einfache GET Anfrage</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $client = new Zend_Http_Client('http://example.org');
@@ -246,7 +246,7 @@ $response = $client->request();
             Standardmethode <constant>GET</constant> verwendet (siehe obiges Beispiel).
 
             <example xml:id="zend.http.client.basic-requests.example-2"><info><title>Andere Anfragemethoden als GET verwenden</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Durchführen einer POST Anfrage
@@ -261,7 +261,7 @@ $response = $client->request();
     </section>
 
     <section xml:id="zend.http.client.parameters"><info><title>Hinzufügen von GET und POST Parametern</title></info>
-        
+
 
         <para>
             Das Hinzufügen von <constant>GET</constant> Parametern zu einer <acronym>HTTP</acronym>
@@ -274,7 +274,7 @@ $response = $client->request();
             mehreren <constant>GET</constant> Parametern komfortabler sein kann.
 
             <example xml:id="zend.http.client.parameters.example-1"><info><title>Setzen von GET Parametern</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Setzen eines GET Parameter mit der setParameterGet Methode
@@ -301,7 +301,7 @@ $client->setParameterGet(array(
             werden, die vom Aufbau der setParameterGet() Methode ähnlich ist..
 
             <example xml:id="zend.http.client.parameters.example-2"><info><title>Setzen von POST Parametern</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Setzen eines POST Parameters
@@ -324,7 +324,7 @@ $client->setParameterPost(array(
     </section>
 
     <section xml:id="zend.http.client.accessing_last"><info><title>Zugriff auf die Letzte Anfrage und Antwort</title></info>
-        
+
 
         <para>
             <classname>Zend_Http_Client</classname> bietet Methoden um Zugriff auf die letzte

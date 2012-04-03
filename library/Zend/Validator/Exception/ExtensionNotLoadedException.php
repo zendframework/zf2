@@ -6,5 +6,5 @@ class ExtensionNotLoadedException
     extends \RuntimeException
     implements \Zend\Validator\Exception
 {
-    
+
 }

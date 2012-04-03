@@ -42,7 +42,7 @@ class IniTest extends AbstractWriterTestCase
         $this->writer = new IniWriter();
     }
 
-   
+
 
     public function testNoSection()
     {

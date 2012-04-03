@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.server.introduction"><info><title>Введение</title></info>
-    
+
     <para>
         Семейство классов <code>Zend_Server</code> предоставляет набор
         функциональных возможностей для различных серверных классов, в которые

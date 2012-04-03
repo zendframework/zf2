@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.sending"><info><title>Posielanie cez SMTP</title></info>
-    
+
     <para>
         Pre posielanie e-mailov cez SMTP je potrebné vytvoriť <code>Zend_Mail_Transport_Smtp</code>
         a registrovať s <code>Zend_Mail</code> pred zavolaním metódy <code>send()</code>.
@@ -8,7 +8,7 @@
         používať SMTP.
     </para>
     <example><info><title>Posielanie cez SMTP</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Mail/Transport/Smtp.php';
 $tr = new Zend_Mail_Transport_Smtp('mail.example.com');

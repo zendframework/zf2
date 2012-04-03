@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.importing"><info><title>Importazione di feed</title></info>
 
-    
+
 
     <para>
         <code>Zend_Feed</code> consente agli sviluppatori di recuperare i feed con facilità.
@@ -32,7 +32,7 @@ $feedDaPHP = Zend_Feed::importString($stringaFeed);
 
     <section xml:id="zend.feed.importing.custom"><info><title>Feed personalizzati</title></info>
 
-        
+
 
         <para>
             <code>Zend_Feed</code> consente agli sviluppatori di creare facilmente i propri feed.
@@ -42,7 +42,7 @@ $feedDaPHP = Zend_Feed::importString($stringaFeed);
 
         <section xml:id="zend.feed.importing.custom.importarray"><info><title>Importazione di un array personalizzato</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 // importazione di un feed da un array
@@ -191,7 +191,7 @@ array(
 
         <section xml:id="zend.feed.importing.custom.importbuilder"><info><title>Importazione di una sorgente di dati personalizzata</title></info>
 
-            
+
 
             <para>
                 E' possibile creare un'istanza di <code>Zend_Feed</code> da una qualsiasi sorgente di dati che implementa <code>Zend_Feed_Builder_Interface</code>.
@@ -227,7 +227,7 @@ $feedRssDaArray = Zend_Feed::importArray(new Zend_Feed_Builder($array), 'rss');
 
         <section xml:id="zend.feed.importing.custom.dump"><info><title>Stampa del contenuto di un feed</title></info>
 
-            
+
 
             <para>
                 Per stampare il contenuto di un'istanza di <code>Zend_Feed_Abstract</code> è possibile utilizzare i metodi <code>send()</code> o <code>saveXml()</code>.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.gapps"><info><title>Google Apps Provisioning の使用法</title></info>
-    
+
 
     <para>
         Google Apps はドメイン管理者向けのサービスで、Google の提供する
@@ -27,7 +27,7 @@
     </para>
 
     <note><info><title>認証</title></info>
-        
+
         <para>
             Provisioning <acronym>API</acronym> は AuthSub による認証をサポートしておらず、
             匿名でのアクセスはできません。すべての <acronym>HTTP</acronym> 接続は
@@ -36,7 +36,7 @@
     </note>
 
     <section xml:id="zend.gdata.gapps.domain"><info><title>現在のドメインの設定</title></info>
-        
+
 
         <para>
             Provisioning <acronym>API</acronym> を使用するには、
@@ -46,7 +46,7 @@
         </para>
 
         <section xml:id="zend.gdata.gapps.domain.service"><info><title>サービスクラスへのドメインの設定</title></info>
-            
+
 
             <para>
                 リクエスト対象のドメインをサービスクラスに設定するには、
@@ -63,7 +63,7 @@ $gdata = new Zend_Gdata_Gapps($client, $domain);
         </section>
 
         <section xml:id="zend.gdata.gapps.domain.query"><info><title>クエリクラスへのドメインの設定</title></info>
-            
+
 
             <para>
                 リクエスト対象のドメインをクエリクラスに設定する方法は、
@@ -96,7 +96,7 @@ $query = $gdata->newUserQuery($arg);
     </section>
 
     <section xml:id="zend.gdata.gapps.users"><info><title>ユーザの操作</title></info>
-        
+
 
         <para>
             Google Apps がホストするドメイン上のユーザアカウントは、
@@ -107,7 +107,7 @@ $query = $gdata->newUserQuery($arg);
         </para>
 
         <section xml:id="zend.gdata.gapps.users.creating"><info><title>ユーザアカウントの作成</title></info>
-            
+
 
             <para>
                 ユーザアカウントを作成するには、
@@ -145,7 +145,7 @@ $user = $gdata->insertUser($user);
         </section>
 
         <section xml:id="zend.gdata.gapps.users.retrieving"><info><title>ユーザアカウントの取得</title></info>
-            
+
 
             <para>
                 各ユーザアカウントを取得するには
@@ -202,7 +202,7 @@ echo '規約に同意した？: ' .
         </section>
 
         <section xml:id="zend.gdata.gapps.users.retrievingAll"><info><title>ドメイン内のすべてのユーザの取得</title></info>
-            
+
 
             <para>
                 ドメイン内のすべてのユーザを取得するには、
@@ -245,7 +245,7 @@ foreach ($feed as $user) {
         </section>
 
         <section xml:id="zend.gdata.gapps.users.updating"><info><title>ユーザアカウントの更新</title></info>
-            
+
 
             <para>
                 ユーザアカウントを更新するいちばん簡単な方法は、
@@ -263,7 +263,7 @@ $user = $user->save();
 ]]></programlisting>
 
             <section xml:id="zend.gdata.gapps.users.updating.resettingPassword"><info><title>ユーザのパスワードのリセット</title></info>
-                
+
 
                 <para>
                     ユーザのパスワードをリセットして新しい値を設定するには、
@@ -285,7 +285,7 @@ $user = $user->save();
             </section>
 
             <section xml:id="zend.gdata.gapps.users.updating.forcingPasswordChange"><info><title>ユーザに強制的にパスワードを変更させる</title></info>
-                
+
 
                 <para>
                     次にログインしたときに強制的にパスワードを変更させるようにするには、
@@ -308,7 +308,7 @@ $user = $user->save();
             </section>
 
             <section xml:id="zend.gdata.gapps.users.updating.suspendingAccount"><info><title>ユーザアカウントの凍結</title></info>
-                
+
 
                 <para>
                     ユーザのログインを制限したいがアカウント自体は残しておきたいという場合は、
@@ -344,7 +344,7 @@ $user = $user->save();
             </section>
 
             <section xml:id="zend.gdata.gapps.users.updating.grantingAdminRights"><info><title>管理者権限の付与</title></info>
-                
+
 
                 <para>
                     ユーザに対してドメインの管理者権限を付与するには、プロパティ
@@ -369,7 +369,7 @@ $user = $user->save();
         </section>
 
         <section xml:id="zend.gdata.gapps.users.deleting"><info><title>ユーザアカウントの削除</title></info>
-            
+
 
             <para>
                 ユーザアカウントを削除するには、単純に UserEntry
@@ -395,7 +395,7 @@ $gdata->deleteUser('foo');
     </section>
 
     <section xml:id="zend.gdata.gapps.nicknames"><info><title>ニックネームの操作</title></info>
-        
+
 
         <para>
             ニックネームは、既存のユーザのメールアドレスのエイリアスとなります。
@@ -411,7 +411,7 @@ $gdata->deleteUser('foo');
         </para>
 
         <section xml:id="zend.gdata.gapps.nicknames.creating"><info><title>ニックネームの作成</title></info>
-            
+
 
             <para>
                 ニックネームを作成するには
@@ -439,7 +439,7 @@ $nickname = $gdata->insertNickname($nickname);
         </section>
 
         <section xml:id="zend.gdata.gapps.nicknames.retrieving"><info><title>ニックネームの取得</title></info>
-            
+
 
             <para>
                 ニックネームを取得するには
@@ -482,7 +482,7 @@ echo '所有者: ' . $nickname->login->username . "\n";
         </section>
 
         <section xml:id="zend.gdata.gapps.nicknames.retrievingUser"><info><title>あるユーザのすべてのニックネームの取得</title></info>
-            
+
 
             <para>
                 指定したユーザのすべてのニックネームを取得するには、
@@ -522,7 +522,7 @@ foreach ($feed as $nickname) {
         </section>
 
         <section xml:id="zend.gdata.gapps.nicknames.retrievingAll"><info><title>ドメイン内のすべてのニックネームの取得</title></info>
-            
+
             <para>
                 フィード内のすべてのニックネームを取得するには、
                 <methodname>retrieveAllNicknames()</methodname> メソッドをコールします。
@@ -559,7 +559,7 @@ foreach ($feed as $nickname) {
         </section>
 
         <section xml:id="zend.gdata.gapps.nicknames.deleting"><info><title>ニックネームの削除</title></info>
-            
+
 
             <para>
                 ニックネームを削除するには、単純に NicknameEntry
@@ -585,7 +585,7 @@ $gdata->deleteNickname('bar');
     </section>
 
     <section xml:id="zend.gdata.gapps.groups"><info><title>Interacting with groups</title></info>
-        
+
 
         <para>
             Google Groups allows people to post messages like an email list. Google
@@ -603,7 +603,7 @@ $gdata->deleteNickname('bar');
         </para>
 
         <section xml:id="zend.gdata.gapps.groups.creating"><info><title>Creating a group</title></info>
-            
+
 
             <para>
                 Groups can be created by calling the
@@ -616,7 +616,7 @@ $gdata->createGroup('friends', 'The Friends Group');
 
             <para>
                 Groups can also be created by instantiating
-                GroupEntry, providing a group id and name for the group, 
+                GroupEntry, providing a group id and name for the group,
                 then calling <methodname>insertGroup()</methodname> on a service
                 object to upload the entry to the server.
             </para>
@@ -638,7 +638,7 @@ $group = $gdata->insertGroup($group);
         </section>
 
         <section xml:id="zend.gdata.gapps.groups.retrieveGroup"><info><title>Retrieving an individual group</title></info>
-            
+
 
             <para>
                 To retrieve an individual group, call the
@@ -655,7 +655,7 @@ foreach ($entry->property as $p) {
 ]]></programlisting>
 
             <para>
-                This will create a <classname>Zend_Gdata_Gapps_GroupEntry</classname> 
+                This will create a <classname>Zend_Gdata_Gapps_GroupEntry</classname>
                 object which holds the properties about the group.
             </para>
 
@@ -679,7 +679,7 @@ foreach ($entry->property as $p) {
         </section>
 
         <section xml:id="zend.gdata.gapps.groups.retrievingAll"><info><title>Retrieving all groups in a domain</title></info>
-            
+
 
             <para>
                 To retrieve all groups in a domain, call the convenience
@@ -699,7 +699,7 @@ foreach ($feed->entry as $entry) {
 ]]></programlisting>
 
             <para>
-                This will create a <classname>Zend_Gdata_Gapps_GroupFeed</classname> 
+                This will create a <classname>Zend_Gdata_Gapps_GroupFeed</classname>
                 object which holds each group on the domain.
             </para>
 
@@ -722,7 +722,7 @@ foreach ($feed->entry as $entry) {
         </section>
 
         <section xml:id="zend.gdata.gapps.groups.deleting"><info><title>Deleting a group</title></info>
-            
+
 
             <para>
                 To delete a group, call the deleteGroup() convenience method:
@@ -734,7 +734,7 @@ $gdata->deleteGroup('friends');
         </section>
 
         <section xml:id="zend.gdata.gapps.groups.updating"><info><title>Updating a group</title></info>
-            
+
 
             <para>
                 Groups can be updated by calling the
@@ -754,7 +754,7 @@ $gdata->updateGroup('group-id-here', 'Group Name Here');
         </section>
 
         <section xml:id="zend.gdata.gapps.groups.retrieve"><info><title>Retrieving all groups to which a person is a member</title></info>
-            
+
 
             <para>
                 To retrieve all groups to which a particular person is a
@@ -803,17 +803,17 @@ foreach ($feed->entry as $entry) {
     </section>
 
     <section xml:id="zend.gdata.gapps.groupMembers"><info><title>Interacting with group members</title></info>
-        
+
 
         <para>
             Each member subscribed to a group is represented by an
-            instance of <classname>Zend_Gdata_Gapps_MemberEntry</classname>. 
+            instance of <classname>Zend_Gdata_Gapps_MemberEntry</classname>.
             Through this class, individual recipients can be added and removed
             from groups.
         </para>
 
         <section xml:id="zend.gdata.gapps.groupMembers.adding"><info><title>Adding a member to a group</title></info>
-            
+
 
             <para>
                 To add a member to a group, simply call the
@@ -826,7 +826,7 @@ $gdata->addMemberToGroup('bar@somewhere.com', 'friends');
         </section>
 
         <section xml:id="zend.gdata.gapps.groupMembers.check"><info><title>Check to see if member belongs to group</title></info>
-            
+
 
             <para>
                 To check to see if member belongs to group, simply call the
@@ -845,7 +845,7 @@ var_dump($isMember);
         </section>
 
         <section xml:id="zend.gdata.gapps.groupMembers.removing"><info><title>Removing a member from a group</title></info>
-            
+
 
             <para>
                 To remove a member from a group, call the
@@ -859,7 +859,7 @@ $gdata->removeMemberFromGroup('baz', 'friends');
         </section>
 
         <section xml:id="zend.gdata.gapps.groupMembers.retrieving"><info><title>Retrieving the list of members to a group</title></info>
-            
+
 
             <para>
                 The convenience method <methodname>retrieveAllMembers()</methodname>
@@ -878,8 +878,8 @@ foreach ($feed as $member) {
 ]]></programlisting>
 
             <para>
-                Alternatively, construct a new MemberQuery, set its groupId 
-                property to match the desired group id, and call 
+                Alternatively, construct a new MemberQuery, set its groupId
+                property to match the desired group id, and call
                 <methodname>getMemberFeed()</methodname> on a service object.
             </para>
 
@@ -904,17 +904,17 @@ foreach ($feed as $member) {
     </section>
 
     <section xml:id="zend.gdata.gapps.groupOwners"><info><title>Interacting with group owners</title></info>
-        
+
 
         <para>
             Each owner associated with a group is represented by an
-            instance of <classname>Zend_Gdata_Gapps_OwnerEntry</classname>. 
-            Through this class, individual owners can be added and removed 
+            instance of <classname>Zend_Gdata_Gapps_OwnerEntry</classname>.
+            Through this class, individual owners can be added and removed
             from groups.
         </para>
 
         <section xml:id="zend.gdata.gapps.groupOwners.adding"><info><title>Adding an owner to a group</title></info>
-            
+
 
             <para>
                 To add an owner to a group, simply call the
@@ -927,7 +927,7 @@ $gdata->addOwnerToGroup('bar@somewhere.com', 'friends');
         </section>
 
         <section xml:id="zend.gdata.gapps.groupOwners.retrieving"><info><title>Retrieving the list of the owner of a group</title></info>
-            
+
 
             <para>
                 The convenience method <methodname>retrieveGroupOwners()</methodname>
@@ -946,8 +946,8 @@ foreach ($feed as $owner) {
 ]]></programlisting>
 
             <para>
-                Alternatively, construct a new OwnerQuery, set its groupId 
-                property to match the desired group id, and call 
+                Alternatively, construct a new OwnerQuery, set its groupId
+                property to match the desired group id, and call
                 <methodname>getOwnerFeed()</methodname> on a service object.
             </para>
 
@@ -971,10 +971,10 @@ foreach ($feed as $owner) {
         </section>
 
         <section xml:id="zend.gdata.gapps.groupOwners.check"><info><title>Check to see if an email is the owner of a group</title></info>
-            
+
 
             <para>
-                To check to see if an email is the owner of a group, simply call 
+                To check to see if an email is the owner of a group, simply call
                 the <methodname>isOwner()</methodname> convenience method:
             </para>
 
@@ -990,7 +990,7 @@ var_dump($isOwner);
         </section>
 
         <section xml:id="zend.gdata.gapps.groupOwners.removing"><info><title>Removing an owner from a group</title></info>
-            
+
 
             <para>
                 To remove an owner from a group, call the
@@ -1005,7 +1005,7 @@ $gdata->removeOwnerFromGroup('baz@somewhere.com', 'friends');
     </section>
 
     <section xml:id="zend.gdata.gapps.emailLists"><info><title>メーリングリストの操作</title></info>
-        
+
 
         <para>
             メーリングリストは、複数のユーザのメールアドレスを
@@ -1020,7 +1020,7 @@ $gdata->removeOwnerFromGroup('baz@somewhere.com', 'friends');
         </para>
 
         <section xml:id="zend.gdata.gapps.emailLists.creating"><info><title>メーリングリストの作成</title></info>
-            
+
 
             <para>
                 メーリングリストを作成するには
@@ -1047,7 +1047,7 @@ $list = $gdata->insertEmailList($list);
         </section>
 
         <section xml:id="zend.gdata.gapps.emailList.retrieve"><info><title>あるアカウントが購読しているすべてのメーリングリストの取得</title></info>
-            
+
 
             <para>
                 特定の参加者が購読しているすべてのメーリングリストを取得するには
@@ -1087,7 +1087,7 @@ foreach ($feed as $list) {
         </section>
 
         <section xml:id="zend.gdata.gapps.emailLists.retrievingAll"><info><title>ドメイン内のすべてのメーリングリストの取得</title></info>
-            
+
 
             <para>
                 ドメイン内のすべてのメーリングリストを取得するには
@@ -1123,7 +1123,7 @@ foreach ($feed as $list) {
         </section>
 
         <section xml:id="zend.gdata.gapps.emailList.deleting"><info><title>メーリングリストの削除</title></info>
-            
+
 
             <para>
                 メーリングリストを削除するには
@@ -1139,7 +1139,7 @@ $gdata->deleteEmailList('friends');
     </section>
 
     <section xml:id="zend.gdata.gapps.emailListRecipients"><info><title>メーリングリストの参加者の操作</title></info>
-        
+
 
         <para>
             メーリングリストの各参加者は、
@@ -1149,7 +1149,7 @@ $gdata->deleteEmailList('friends');
         </para>
 
         <section xml:id="zend.gdata.gapps.emailListRecipients.adding"><info><title>メーリングリストへの参加者の追加</title></info>
-            
+
 
             <para>
                 メーリングリストにメンバーを追加するには
@@ -1163,7 +1163,7 @@ $gdata->addRecipientToEmailList('bar@somewhere.com', 'friends');
         </section>
 
         <section xml:id="zend.gdata.gapps.emailListRecipients.retrieving"><info><title>メーリングリストの参加者一覧の取得</title></info>
-            
+
 
             <para>
                 <methodname>retrieveAllRecipients()</methodname>
@@ -1203,7 +1203,7 @@ foreach ($feed as $recipient) {
         </section>
 
         <section xml:id="zend.gdata.gapps.emailListRecipients.removing"><info><title>ある参加者のメーリングリストからの削除</title></info>
-            
+
 
             <para>
                 メーリングリストからメンバーを削除するには
@@ -1219,7 +1219,7 @@ $gdata->removeRecipientFromEmailList('baz@somewhere.com', 'friends');
     </section>
 
     <section xml:id="zend.gdata.gapps.exceptions"><info><title>エラー処理</title></info>
-        
+
 
         <para>
             <classname>Zend_Gdata</classname> が標準でスローする例外に加えて、

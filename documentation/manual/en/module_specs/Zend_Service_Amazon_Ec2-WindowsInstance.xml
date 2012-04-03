@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2.windows.instance"><info><title>Zend_Service_Amazon_Ec2: Windows Instances</title></info>
-    
+
 
     <para>
         Using Amazon EC2 instances running Windows is similar to using instances
@@ -99,10 +99,10 @@
     </itemizedlist>
 
     <section xml:id="zend.service.amazon.ec2.windows.instance.operations"><info><title>Windows Instances Usage</title></info>
-        
+
 
         <example xml:id="zend.service.amazon.ec2.windows.instance.operations.bundle"><info><title>Bundles an Amazon EC2 instance running Windows</title></info>
-            
+
 
             <para>
                 <methodname>bundle()</methodname> has three require paramters and one optional
@@ -148,7 +148,7 @@ $return = $ec2_instance->bundle('instanceId', 's3Bucket', 's3Prefix');
         </example>
 
         <example xml:id="zend.service.amazon.ec2.windows.instance.operations.describe"><info><title>Describes current bundling tasks</title></info>
-            
+
 
             <para>
                 <methodname>describeBundle()</methodname> Describes current bundling tasks
@@ -168,7 +168,7 @@ $return = $ec2_instance->describeBundle('bundleId');
         </example>
 
         <example xml:id="zend.service.amazon.ec2.windows.instance.operations.cancel"><info><title>Cancels an Amazon EC2 bundling operation</title></info>
-            
+
 
             <para>
                 <methodname>cancelBundle()</methodname> Cancels an Amazon EC2 bundling operation

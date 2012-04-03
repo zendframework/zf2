@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set"><info><title>Standard Prüfklassen</title></info>
-    
+
 
     <para>
         Zend Framework kommt mit einem Standardset von Prüfklassen, welche fertig zur Verwendung
@@ -17,7 +17,7 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Validate-CreditCard.xml"/>
 
     <section xml:id="zend.validate.set.ccnum"><info><title>Ccnum</title></info>
-        
+
 
         <note>
             <para>

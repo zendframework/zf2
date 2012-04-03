@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.wsdl"><info><title>WSDL Zugriffsmethoden</title></info>
-    
+
 
     <note>
         <para>
@@ -19,7 +19,7 @@
     </note>
 
     <section xml:id="zend.soap.wsdl.constructor"><info><title>Zend_Soap_Wsdl Konstruktor</title></info>
-        
+
 
         <para>
             Der <classname>Zend_Soap_Wsdl</classname> Konstruktor nimmt drei Parameter:
@@ -55,7 +55,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.addmessage"><info><title>Die addMessage() Methode</title></info>
-        
+
 
         <para>
             Die <methodname>addMessage($name, $parts)</methodname> Methode fügt eine neue
@@ -115,7 +115,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_port_type"><info><title>Die addPortType() Methode</title></info>
-        
+
 
         <para>
             Die <methodname>addPortType($name)</methodname> Methode fügt neue Port Typen zu einem
@@ -133,7 +133,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_port_operation"><info><title>Die addPortOperation() Methode</title></info>
-        
+
 
         <para>
             Die <code>addPortOperation($portType, $name, $input = false, $output = false, $fault =
@@ -183,7 +183,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_binding"><info><title>Die addBinding() Methode</title></info>
-        
+
 
         <para>
             Die <methodname>addBinding($name, $portType)</methodname> Methode fügt neue Bindungen in
@@ -209,7 +209,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_binding_operation"><info><title>Die addBindingOperation() Methode</title></info>
-        
+
 
         <para>
             Die <code>addBindingOperation($binding, $name, $input = false, $output = false, $fault =
@@ -238,7 +238,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_soap_binding"><info><title>Die addSoapBinding() Methode</title></info>
-        
+
 
         <para>
             Die <code>addSoapBinding($binding, $style = 'document', $transport =
@@ -260,7 +260,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_soap_operation"><info><title>Die addSoapOperation() Methode</title></info>
-        
+
 
         <para>
             Die <methodname>addSoapOperation($binding, $soap_action)</methodname> Methode fügt einen
@@ -290,7 +290,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_service"><info><title>Die addService() Methode</title></info>
-        
+
 
         <para>
             Die <methodname>addService($name, $port_name, $binding, $location)</methodname> Methode
@@ -359,7 +359,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.types"><info><title>Typ Entsprechung</title></info>
-        
+
 
         <para>
             Die <classname>Zend_Soap</classname> WSDL Implementation der Zugriffsmethoden verwendet
@@ -436,7 +436,7 @@
         </para>
 
         <section xml:id="zend.soap.wsdl.types.retrieve"><info><title>Empfangen von Typ Informationen</title></info>
-            
+
 
             <para>
                 Die <methodname>getType($type)</methodname> Methode kann verwendet werden um ein
@@ -460,7 +460,7 @@ $soapMyClassType = $wsdl->getType('MyClass');
         </section>
 
         <section xml:id="zend.soap.wsdl.types.add_complex"><info><title>Hinzufügen komplexer Typ Informationen</title></info>
-            
+
 
             <para>
                 Die <methodname>addComplexType($type)</methodname> Methode wird verwendet um
@@ -571,7 +571,7 @@ $soapMyClassType = $wsdl->getType('MyClass');
     </section>
 
     <section xml:id="zend.soap.wsdl.add_documentation"><info><title>Die addDocumentation() Methode</title></info>
-        
+
 
         <para>
             Die <methodname>addDocumentation($input_node, $documentation)</methodname> Methode fügt
@@ -590,7 +590,7 @@ $soapMyClassType = $wsdl->getType('MyClass');
     </section>
 
     <section xml:id="zend.soap.wsdl.retrieve"><info><title>Das endgültige WSDL Dokument erhalten</title></info>
-        
+
 
         <para>
             Die <methodname>toXML()</methodname>, <methodname>toDomDocument()</methodname> und

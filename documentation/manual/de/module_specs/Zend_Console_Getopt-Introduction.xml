@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.console.getopt.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         Die <classname>Zend_Console_Getopt</classname> Klasse hilft Kommandozeilen Anwendungen
@@ -107,7 +107,7 @@
     </para>
 
     <note><info><title>Getopt ist kein Framework für eine Anwendung</title></info>
-        
+
 
         <para>
             <classname>Zend_Console_Getopt</classname> kann <emphasis>nicht</emphasis>

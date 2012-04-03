@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.value"><info><title>How much is my currency?</title></info>
-    
+
 
     <para>
         When you are working with currencies then you normally want to display an amount of
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.currency.value.money"><info><title>Working with currency values</title></info>
-        
+
 
         <para>
             The currency value, a.k.a. the money, you want to use can easily be set by using the
@@ -52,7 +52,7 @@ print $currency->setValue(2000); // Could return '$ 2.000'
     </section>
 
     <section xml:id="zend.currency.value.precision"><info><title>Using precision on currencies</title></info>
-        
+
 
         <para>
             When working with currencies they you probably also have to handle precision.

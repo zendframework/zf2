@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.openid.consumer"><info><title>Zend_OpenId_Consumer の基本</title></info>
-    
+
     <para>
         <classname>Zend_OpenId_Consumer</classname> を使用して、
         ウェブサイト上の OpenID 認証スキーマを実装します。
     </para>
 
     <section xml:id="zend.openid.consumer.authentication"><info><title>OpenID Authentication</title></info>
-        
+
         <para>
             サイト開発者の視点で見ると、OpenID
             の認証手続きは次の三段階となります。
@@ -47,7 +47,7 @@
         </para>
 
         <example xml:id="zend.openid.consumer.example-1"><info><title>シンプルな OpenID ログインフォーム</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 <html><body>
 <form method="post" action="example-1_2.php"><fieldset>
@@ -71,7 +71,7 @@
         </para>
 
         <example xml:id="zend.openid.consumer.example-1_2"><info><title>認証リクエストのハンドラ</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $consumer = new Zend_OpenId_Consumer();
 if (!$consumer->login($_POST['openid_identifier'], 'example-1_3.php')) {
@@ -118,7 +118,7 @@ if (!$consumer->login($_POST['openid_identifier'], 'example-1_3.php')) {
         </para>
 
         <example xml:id="zend.openid.consumer.example-1_3"><info><title>認証の応答の検証</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $consumer = new Zend_OpenId_Consumer();
 if ($consumer->verify($_GET, $id)) {
@@ -140,7 +140,7 @@ if ($consumer->verify($_GET, $id)) {
     </section>
 
     <section xml:id="zend.openid.consumer.combine"><info><title>すべての処理をひとつのページにまとめる</title></info>
-        
+
         <para>
             次の例は、これらの三段階をひとつにまとめたものです。
             それ以外に特別な付加機能はありません。
@@ -152,7 +152,7 @@ if ($consumer->verify($_GET, $id)) {
         </para>
 
         <example xml:id="zend.openid.consumer.example-2"><info><title>完全な OpenID ログインスクリプト</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 <?php
 $status = "";
@@ -203,7 +203,7 @@ if (isset($_POST['openid_action']) &&
     </section>
 
     <section xml:id="zend.openid.consumer.realm"><info><title>コンシューマレルム</title></info>
-        
+
         <para>
             OpenID 対応のサイトがプロバイダへの認証リクエストを通過すると、
             自分自身をレルム <acronym>URL</acronym> で識別するようになります。
@@ -227,7 +227,7 @@ if (isset($_POST['openid_action']) &&
         </para>
 
         <example xml:id="zend.openid.consumer.example-3_2"><info><title>指定したレルムへの認証リクエスト</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $consumer = new Zend_OpenId_Consumer();
 if (!$consumer->login($_POST['openid_identifier'],
@@ -245,7 +245,7 @@ if (!$consumer->login($_POST['openid_identifier'],
     </section>
 
     <section xml:id="zend.openid.consumer.check"><info><title>即時確認</title></info>
-        
+
         <para>
             場合によっては、信頼済み OpenID
             サーバにそのユーザがログインしているかどうかを
@@ -260,7 +260,7 @@ if (!$consumer->login($_POST['openid_identifier'],
         </para>
 
         <example xml:id="zend.openid.consumer.example-4"><info><title>対話形式でない即時確認</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $consumer = new Zend_OpenId_Consumer();
 if (!$consumer->check($_POST['openid_identifier'], 'example-4_3.php')) {
@@ -276,7 +276,7 @@ if (!$consumer->check($_POST['openid_identifier'], 'example-4_3.php')) {
     </section>
 
     <section xml:id="zend.openid.consumer.storage"><info><title>Zend_OpenId_Consumer_Storage</title></info>
-        
+
         <para>
             OpenID の認証手続きは三段階に分かれており、
             それぞれで別々の <acronym>HTTP</acronym> リクエストを使用します。
@@ -309,7 +309,7 @@ if (!$consumer->check($_POST['openid_identifier'], 'example-4_3.php')) {
         </para>
 
         <example xml:id="zend.openid.consumer.example-5"><info><title>データベースストレージ</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 class DbStorage extends Zend_OpenId_Consumer_Storage
 {
@@ -520,7 +520,7 @@ $consumer = new Zend_OpenId_Consumer($storage);
     </section>
 
     <section xml:id="zend.openid.consumer.sreg"><info><title>Simple Registration Extension</title></info>
-        
+
         <para>
             認証に加えて、OpenID は軽量なプロファイル交換のためにも使用できます。
             この機能は OpenID 認証の仕様ではカバーされておらず、
@@ -609,7 +609,7 @@ $consumer = new Zend_OpenId_Consumer($storage);
         </para>
 
         <example xml:id="zend.openid.consumer.example-6_2"><info><title>Simple Registration Extension のリクエストの送信</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $sreg = new Zend_OpenId_Extension_Sreg(array(
     'nickname'=>true,
@@ -644,7 +644,7 @@ if (!$consumer->login($_POST['openid_identifier'],
         </para>
 
         <example xml:id="zend.openid.consumer.example-6_3"><info><title>Simple Registration Extension の応答内容の検証</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $sreg = new Zend_OpenId_Extension_Sreg(array(
     'nickname'=>true,
@@ -697,7 +697,7 @@ if ($consumer->verify($_GET, $id, $sreg)) {
     </section>
 
     <section xml:id="zend.openid.consumer.auth"><info><title>Zend_Auth との統合</title></info>
-        
+
         <para>
             Zend Framework には、ユーザ認証用のクラスが用意されています。
             そう、<classname>Zend_Auth</classname> のことです。
@@ -716,7 +716,7 @@ if ($consumer->verify($_GET, $id, $sreg)) {
         </para>
 
         <example xml:id="zend.openid.consumer.example-7"><info><title>OpenID 用の Zend_Auth アダプタ</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 <?php
 class OpenIdAdapter implements Zend_Auth_Adapter_Interface {
@@ -794,7 +794,7 @@ if ((isset($_POST['openid_action']) &&
     </section>
 
     <section xml:id="zend.openid.consumer.mvc"><info><title>Zend_Controller との統合</title></info>
-        
+
         <para>
             最後に、Model-View-Controller
             アプリケーションへの組み込みについて簡単に説明しておきます。

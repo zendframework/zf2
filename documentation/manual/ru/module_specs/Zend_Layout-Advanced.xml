@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.advanced"><info><title>Использование Zend_Layout для опытных разработчиков</title></info>
-    
+
 
     <para>
         Имеются различные варианты использования <code>Zend_Layout</code> для
@@ -46,7 +46,7 @@
     </itemizedlist>
 
     <section xml:id="zend.layout.advanced.view"><info><title>Собственные объекты вида</title></info>
-        
+
 
         <para>
             <code>Zend_Layout</code> позволяет использовать любые классы,
@@ -63,7 +63,7 @@ $layout->setView($view);
 ?>]]></programlisting>
 
         <note><info><title>Не все реализации Zend_View одинаковы</title></info>
-            
+
 
             <para>
                 Хотя <code>Zend_Layout</code> позволяет использовать любые
@@ -98,7 +98,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.plugin"><info><title>Собственные плагины фронт-контроллера</title></info>
-        
+
 
         <para>
             Если используются компоненты MVC, <code>Zend_Layout</code>
@@ -124,7 +124,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.helper"><info><title>Собственные помощники действий</title></info>
-        
+
 
         <para>
             При использовании с компонентами MVC <code>Zend_Layout</code>
@@ -145,7 +145,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.inflector"><info><title>Собственное определение пути к скрипту макета: использование инфлектора</title></info>
-        
+
 
         <para>
             <code>Zend_Layout</code> использует
@@ -175,7 +175,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
         </para>
 
         <example xml:id="zend.layout.advanced.inflector.accessors"><info><title>Использование аксессоров Zend_Layout для модификации инфлектора</title></info>
-            
+
 
             <para>
                 Используемый по умолчанию инфлектор <code>Zend_Layout</code>
@@ -193,7 +193,7 @@ $layout->setViewSuffix('php');
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.directmodification"><info><title>Непосредственное изменение инфлектора Zend_Layout</title></info>
-            
+
 
             <para>
                 Инфлекторы имеют шаблон и одно или более правил. По умолчанию с
@@ -218,7 +218,7 @@ $layout->getInflector()->setTarget('layouts/:script.:suffix')
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.custom"><info><title>Собственные инфлекторы</title></info>
-            
+
 
             <para>
                 В большинстве случаев модификации существующего инфлектора будет
@@ -238,7 +238,7 @@ $layout->setInflector($inflector);
         </example>
 
         <note><info><title>Инфлекция может быть отключена</title></info>
-            
+
 
             <para>
                 Инфлекция может быть отключена или включена с использованием

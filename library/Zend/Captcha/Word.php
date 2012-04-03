@@ -93,10 +93,10 @@ abstract class Word extends AbstractAdapter
      * @var integer
      */
     protected $_timeout = 300;
-    
+
     /**
      * Should generate() keep session or create a new one?
-     * 
+     *
      * @var boolean
      */
     protected $_keepSession = false;
@@ -219,11 +219,11 @@ abstract class Word extends AbstractAdapter
 
     /**
      * Sets if session should be preserved on generate()
-     * 
+     *
      * @param $keepSession Should session be kept on generate()?
      * @return \Zend\Captcha\Word
      */
-    public function setKeepSession($keepSession) 
+    public function setKeepSession($keepSession)
     {
         $this->_keepSession = $keepSession;
         return $this;
@@ -231,7 +231,7 @@ abstract class Word extends AbstractAdapter
 
     /**
      * Numbers should be included in the pattern?
-     * 
+     *
      * @return bool
      */
     public function getUseNumbers()
@@ -241,7 +241,7 @@ abstract class Word extends AbstractAdapter
 
     /**
      * Set if numbers should be included in the pattern
-     * 
+     *
      * @param $_useNumbers numbers should be included in the pattern?
      * @return Zend_Captcha_Word
      */
@@ -347,7 +347,7 @@ abstract class Word extends AbstractAdapter
     public function generate()
     {
         if(!$this->_keepSession) {
-            $this->_session = null;   
+            $this->_session = null;
         }
         $id = $this->_generateRandomId();
         $this->_setId($id);

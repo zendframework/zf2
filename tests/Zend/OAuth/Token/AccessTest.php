@@ -49,7 +49,7 @@ class AccessTest extends \PHPUnit_Framework_TestCase
         $response = new HTTPResponse;
         $response->setContent($body)
                  ->setStatusCode(200);
-        
+
         $token = new AccessToken($response);
         $this->assertEquals('jZaee4GF52O3lUb9', $token->getToken());
     }
@@ -60,7 +60,7 @@ class AccessTest extends \PHPUnit_Framework_TestCase
         $response = new HTTPResponse;
         $response->setContent($body)
                  ->setStatusCode(200);
-                 
+
         $token = new AccessToken($response);
         $this->assertEquals('J4Ms4n8sxjYc0A8K0KOQFCTL0EwUQTri', $token->getTokenSecret());
     }
@@ -71,7 +71,7 @@ class AccessTest extends \PHPUnit_Framework_TestCase
         $response = new HTTPResponse;
         $response->setContent($body)
                  ->setStatusCode(200);
-                 
+
         $token = new AccessToken($response);
         $this->assertEquals('J4Ms4n8sxjYc0A8K0KOQFCTL0EwUQTri', $token->oauth_token_secret);
     }
@@ -100,7 +100,7 @@ class AccessTest extends \PHPUnit_Framework_TestCase
         $response = new HTTPResponse;
         $response->setContent($body)
                  ->setStatusCode(200);
-                 
+
         $token = new AccessToken($response);
         $this->assertFalse($token->isValid());
     }
@@ -111,12 +111,12 @@ class AccessTest extends \PHPUnit_Framework_TestCase
         $response = new HTTPResponse;
         $response->setContent($body)
                  ->setStatusCode(200);
-                 
+
         $token = new AccessToken($response);
         $this->assertTrue($token->isValid());
     }
 
-    public function testToHeaderReturnsValidHeaderString() 
+    public function testToHeaderReturnsValidHeaderString()
     {
         $token = new AccessToken(null, new HTTPUtility90244);
         $value = $token->toHeader(
@@ -149,6 +149,6 @@ class Config90244 extends \Zend\OAuth\Config\StandardConfig
     public function getToken(){$token = new AccessToken;
         $token->setToken('abcde');
         return $token;}
-    public function getRequestMethod() 
+    public function getRequestMethod()
     {return 'POST';}
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.multiple-emails"><info><title>Wysyłanie wielu maili podczas jednego połączenia SMTP</title></info>
-    
+
 
     <para>
         Domyślnie, połączenie SMTP jest tworzone jeden raz i używane przez cały czas
@@ -11,7 +11,7 @@
 
     <example xml:id="zend.mail.multiple-emails.example-1"><info><title>Wysyłanie wielu maili podczas jednego połączenia SMTP</title></info>
 
-        
+
 
         <programlisting role="php"><![CDATA[
 // Tworzenie transportu
@@ -42,7 +42,7 @@ for ($i = 0; $i > 5; $i++) {
 
     <example xml:id="zend.mail.multiple-emails.example-2"><info><title>Ręczna obsługa połączenia</title></info>
 
-        
+
 
         <programlisting role="php"><![CDATA[
 // Tworzenie transportu

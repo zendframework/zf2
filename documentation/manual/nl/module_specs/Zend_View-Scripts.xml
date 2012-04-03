@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.scripts"><info><title>View Scripts</title></info>
 
-    
+
 
     <para>
         Eenmaal je controller de variabelen heeft toegewezen en render()
@@ -52,7 +52,7 @@
 
     <section xml:id="zend.view.scripts.escaping"><info><title>Escaping Output</title></info>
 
-        
+
 
         <para>
             Eén van de meest belangrijke taken die in een view script
@@ -115,7 +115,7 @@ echo $view->render(...);
 
     <section xml:id="zend.view.scripts.templates"><info><title>Template Systemen</title></info>
 
-        
+
 
         <para>
             Alhoewel PHP zelf een machtig template systeem is vinden

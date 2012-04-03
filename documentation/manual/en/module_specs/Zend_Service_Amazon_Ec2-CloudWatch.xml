@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2.cloudwatch"><info><title>Zend_Service_Amazon_Ec2: CloudWatch Monitoring</title></info>
-    
+
 
     <para>
         Amazon CloudWatch is an easy-to-use web service that provides
@@ -11,10 +11,10 @@
     </para>
 
     <section xml:id="zend.service.amazon.ec2.cloudwatch.usage"><info><title>CloudWatch Usage</title></info>
-        
+
 
         <example xml:id="zend.service.amazon.ec2.cloudwatch.usage.list"><info><title>Listing Aviable Metrics</title></info>
-            
+
 
             <para>
                 <methodname>listMetrics()</methodname> returns a list of up to 500 valid metrics for
@@ -29,7 +29,7 @@ $return = $ec2_ebs->listMetrics();
         </example>
 
         <example xml:id="zend.service.amazon.ec2.cloudwatch.usage.getmetricstatistics"><info><title>Return Statistics for a given metric</title></info>
-            
+
 
             <para>
                 <methodname>getMetricStatistics()</methodname> Returns data for one or more

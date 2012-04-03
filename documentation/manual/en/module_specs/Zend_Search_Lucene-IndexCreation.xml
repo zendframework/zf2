@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.index-creation"><info><title>Building Indexes</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.index-creation.creating"><info><title>Creating a New Index</title></info>
-        
+
 
         <para>
             Index creation and updating capabilities are implemented within the
@@ -39,7 +39,7 @@ $index->addDocument($doc);
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.updating"><info><title>Updating Index</title></info>
-        
+
 
         <para>
             The same procedure is used to update an existing index. The only difference
@@ -63,7 +63,7 @@ $index->addDocument($doc);
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.document-updating"><info><title>Updating Documents</title></info>
-        
+
 
         <para>
             The Lucene index file format doesn't support document updating.
@@ -85,7 +85,7 @@ foreach ($hits as $hit) {
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.counting"><info><title>Retrieving Index Size</title></info>
-        
+
 
         <para>
             There are two methods to retrieve the size of an index in
@@ -129,7 +129,7 @@ for ($count = 0; $count < $index->maxDoc(); $count++) {
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.optimization"><info><title>Index optimization</title></info>
-        
+
 
         <para>
             A Lucene index consists of many segments. Each segment is a completely independent set
@@ -182,7 +182,7 @@ $index->optimize();
         </para>
 
         <section xml:id="zend.search.lucene.index-creation.optimization.maxbuffereddocs"><info><title>MaxBufferedDocs auto-optimization option</title></info>
-            
+
 
             <para>
                 <emphasis>MaxBufferedDocs</emphasis> is a minimal number of documents required
@@ -201,7 +201,7 @@ $index->optimize();
         </section>
 
         <section xml:id="zend.search.lucene.index-creation.optimization.maxmergedocs"><info><title>MaxMergeDocs auto-optimization option</title></info>
-            
+
 
             <para>
                 <emphasis>MaxMergeDocs</emphasis> is a largest number of documents ever merged by
@@ -222,7 +222,7 @@ $index->optimize();
         </section>
 
         <section xml:id="zend.search.lucene.index-creation.optimization.mergefactor"><info><title>MergeFactor auto-optimization option</title></info>
-            
+
 
             <para>
                 <emphasis>MergeFactor</emphasis> determines how often segment indices are merged by
@@ -278,7 +278,7 @@ $index->optimize();
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.permissions"><info><title>Permissions</title></info>
-        
+
 
         <para>
             By default, index files are available for reading and writing by everyone.
@@ -301,10 +301,10 @@ Zend_Search_Lucene_Storage_Directory_Filesystem::setDefaultFilePermissions(0660)
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.limitations"><info><title>Limitations</title></info>
-        
+
 
         <section xml:id="zend.search.lucene.index-creation.limitations.index-size"><info><title>Index size</title></info>
-            
+
 
             <para>
                 Index size is limited by 2GB for 32-bit platforms.
@@ -316,7 +316,7 @@ Zend_Search_Lucene_Storage_Directory_Filesystem::setDefaultFilePermissions(0660)
         </section>
 
         <section xml:id="zend.search.lucene.index-creation.limitations.filesystems"><info><title>Supported Filesystems</title></info>
-            
+
 
             <para>
                 <classname>Zend_Search_Lucene</classname> uses <methodname>flock()</methodname> to

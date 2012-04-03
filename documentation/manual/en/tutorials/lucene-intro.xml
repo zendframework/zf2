@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.lucene.intro"><info><title>Zend_Search_Lucene Introduction</title></info>
-    
+
 
     <para>
         The <classname>Zend_Search_Lucene</classname> component is intended to provide a
@@ -46,7 +46,7 @@
     </para>
 
     <note><info><title>Using analyzers during indexing and searching</title></info>
-        
+
 
         <para>
             Important note! Search queries are also tokenized using the "current analyzer", so the

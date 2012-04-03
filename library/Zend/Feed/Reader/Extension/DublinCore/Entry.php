@@ -96,7 +96,7 @@ class Entry extends Extension\AbstractEntry
 
         return $this->_data['authors'];
     }
-    
+
     /**
      * Get categories (subjects under DC)
      *
@@ -107,13 +107,13 @@ class Entry extends Extension\AbstractEntry
         if (array_key_exists('categories', $this->_data)) {
             return $this->_data['categories'];
         }
-        
+
         $list = $this->_xpath->evaluate($this->getXpathPrefix() . '//dc11:subject');
 
         if (!$list->length) {
             $list = $this->_xpath->evaluate($this->getXpathPrefix() . '//dc10:subject');
         }
-        
+
         if ($list->length) {
             $categoryCollection = new Collection\Category;
             foreach ($list as $category) {
@@ -126,11 +126,11 @@ class Entry extends Extension\AbstractEntry
         } else {
             $categoryCollection = new Collection\Category;
         }
-        
+
         $this->_data['categories'] = $categoryCollection;
-        return $this->_data['categories'];  
+        return $this->_data['categories'];
     }
-    
+
 
     /**
      * Get the entry content

@@ -38,7 +38,7 @@
 
         <note>
             <title>Many methods throw exceptions</title>
-            
+
             <para>
                 Because many caching methods can throw exceptions, you need to catch them manually
                 or you can use the plug-in
@@ -46,7 +46,7 @@
                 catch them and redirect exceptions into a log file using the option
                 "exception_callback".
             </para>
-            
+
         </note>
 
     </section>
@@ -59,7 +59,7 @@
         <para>
             Caching adapters can either be created from the provided
             <classname>Zend\Cache\StorageFactory</classname> factory, or by simply
-            instantiating one of the <classname>Zend\Cache\Storage\Adapter\*</classname>classes. 
+            instantiating one of the <classname>Zend\Cache\Storage\Adapter\*</classname>classes.
         </para>
 
         <para>

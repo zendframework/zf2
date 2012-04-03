@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.queue.example"><info><title>Beispiel der Verwendung</title></info>
-    
+
 
     <para>
         Das beiliegende Beispiel von <classname>Zend_Queue</classname> zeigt eine Vielzahl von

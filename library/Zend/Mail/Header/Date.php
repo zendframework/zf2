@@ -40,15 +40,15 @@ class Date implements Header
 
     /**
      * Header encoding
-     * 
+     *
      * @var string
      */
     protected $encoding = 'ASCII';
 
     /**
      * Factory: create header object from string
-     * 
-     * @param  string $headerLine 
+     *
+     * @param  string $headerLine
      * @return Date
      * @throws Exception\InvalidArgumentException
      */
@@ -63,13 +63,13 @@ class Date implements Header
 
         $header = new static();
         $header->value= $value;
-        
+
         return $header;
     }
 
     /**
-     * Get the header name 
-     * 
+     * Get the header name
+     *
      * @return string
      */
     public function getFieldName()
@@ -79,7 +79,7 @@ class Date implements Header
 
     /**
      * Get the header value
-     * 
+     *
      * @return string
      */
     public function getFieldValue()
@@ -89,11 +89,11 @@ class Date implements Header
 
     /**
      * Set header encoding
-     * 
-     * @param  string $encoding 
+     *
+     * @param  string $encoding
      * @return AbstractAddressList
      */
-    public function setEncoding($encoding) 
+    public function setEncoding($encoding)
     {
         $this->encoding = $encoding;
         return $this;
@@ -101,7 +101,7 @@ class Date implements Header
 
     /**
      * Get header encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -111,7 +111,7 @@ class Date implements Header
 
     /**
      * Serialize header to string
-     * 
+     *
      * @return string
      */
     public function toString()

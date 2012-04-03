@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.calculation"><info><title>Rechnen mit Währungen</title></info>
-    
+
 
     <para>
         Wenn man mit Währungen arbeitet muss man manchmal mit Ihnen kalkulieren.

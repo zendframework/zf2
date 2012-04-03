@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.twitter"><info><title>Zend_Service_Twitter</title></info>
-    
+
     <section xml:id="zend.service.twitter.introduction"><info><title>Introduction</title></info>
-        
+
         <para>
             <classname>Zend_Service_Twitter</classname> fournit un client pour
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://apiwiki.twitter.com/Twitter-API-Documentation">l'<acronym>API</acronym>
@@ -68,7 +68,7 @@
         </itemizedlist>
     </section>
     <section xml:id="zend.service.twitter.authentication"><info><title>Authentification</title></info>
-        
+
         <para>
             A l'exception de la récupération du fil public, <classname>Zend_Service_Twitter</classname>
             nécessite une authentification pour fonctionner.
@@ -77,7 +77,7 @@
             ainsi que votre mot de passe pour vous connecter à Twitter.
         </para>
         <example xml:id="zend.service.twitter.authentication.example"><info><title>Créer la classe Twitter</title></info>
-            
+
             <para>
                 L'exemple de code suivant décrit comment créer le service Twitter, lui passer
                 vos nom d'utilisateur et mot de passe et vérifier qu'ils sont corrects.
@@ -100,7 +100,7 @@ $response = $twitter->account->verifyCredentials();
         </example>
     </section>
     <section xml:id="zend.service.twitter.account"><info><title>Account Methods</title></info>
-        
+
         <itemizedlist>
             <listitem>
                 <para>
@@ -108,7 +108,7 @@ $response = $twitter->account->verifyCredentials();
                     credentials are valid with minimal overhead.
                 </para>
                 <example xml:id="zend.service.twitter.account.verifycredentails"><info><title>Verifying credentials</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->account->verifyCredentials();
@@ -121,7 +121,7 @@ $response   = $twitter->account->verifyCredentials();
                     client-facing applications.
                 </para>
                 <example xml:id="zend.service.twitter.account.endsession"><info><title>Sessions ending</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->account->endSession();
@@ -135,7 +135,7 @@ $response   = $twitter->account->endSession();
                     before the <acronym>API</acronym> limit is reached for the current hour.
                 </para>
                 <example xml:id="zend.service.twitter.account.ratelimitstatus"><info><title>Rating limit status</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->account->rateLimitStatus();
@@ -145,7 +145,7 @@ $response   = $twitter->account->rateLimitStatus();
         </itemizedlist>
     </section>
     <section xml:id="zend.service.twitter.status"><info><title>Status Methods</title></info>
-        
+
         <itemizedlist>
             <listitem>
                 <para>
@@ -154,7 +154,7 @@ $response   = $twitter->account->rateLimitStatus();
                     by Twitter for 60 seconds.
                 </para>
                 <example xml:id="zend.service.twitter.status.publictimeline"><info><title>Retrieving public timeline</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->status->publicTimeline();
@@ -167,7 +167,7 @@ $response   = $twitter->status->publicTimeline();
                     posted by the authenticating user and that user's friends.
                 </para>
                 <example xml:id="zend.service.twitter.status.friendstimeline"><info><title>Retrieving friends timeline</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->status->friendsTimeline();
@@ -197,7 +197,7 @@ $response   = $twitter->status->friendsTimeline();
                     posted from the authenticating user.
                 </para>
                 <example xml:id="zend.service.twitter.status.usertimeline"><info><title>Retrieving user timeline</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->status->userTimeline();
@@ -239,7 +239,7 @@ $response   = $twitter->status->userTimeline();
                     <code>id</code> parameter below. The status' author will be returned inline.
                 </para>
                 <example xml:id="zend.service.twitter.status.show"><info><title>Showing user status</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->status->show(1234);
@@ -253,7 +253,7 @@ $response   = $twitter->status->show(1234);
                     to Twitter.
                 </para>
                 <example xml:id="zend.service.twitter.status.update"><info><title>Updating user status</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->status->update('My Great Tweet');
@@ -278,7 +278,7 @@ $response   = $twitter->status->update('My Great Tweet');
                     updates prefixed with @username) for the authenticating user.
                 </para>
                 <example xml:id="zend.service.twitter.status.replies"><info><title>Showing user replies</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->status->replies();
@@ -314,7 +314,7 @@ $response   = $twitter->status->replies();
                     required <code>id</code> parameter.
                 </para>
                 <example xml:id="zend.service.twitter.status.destroy"><info><title>Deleting user status</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->status->destroy(12345);
@@ -324,7 +324,7 @@ $response   = $twitter->status->destroy(12345);
         </itemizedlist>
     </section>
      <section xml:id="zend.service.twitter.user"><info><title>User Methods</title></info>
-        
+
         <itemizedlist>
             <listitem>
                 <para>
@@ -332,7 +332,7 @@ $response   = $twitter->status->destroy(12345);
                     user's friends who have most recently updated, each with current status inline.
                 </para>
                 <example xml:id="zend.service.twitter.user.friends"><info><title>Retrieving user friends</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->user->friends();
@@ -368,7 +368,7 @@ $response   = $twitter->user->friends();
                     followers, each with current status inline.
                 </para>
                 <example xml:id="zend.service.twitter.user.followers"><info><title>Retrieving user followers</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->user->followers();
@@ -399,7 +399,7 @@ $response   = $twitter->user->followers();
                     parameter below.
                 </para>
                 <example xml:id="zend.service.twitter.user.show"><info><title>Showing user informations</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->user->show('myfriend');
@@ -409,7 +409,7 @@ $response   = $twitter->user->show('myfriend');
         </itemizedlist>
     </section>
     <section xml:id="zend.service.twitter.directmessage"><info><title>Direct Message Methods</title></info>
-        
+
         <itemizedlist>
             <listitem>
                 <para>
@@ -417,7 +417,7 @@ $response   = $twitter->user->show('myfriend');
                     messages sent to the authenticating user.
                 </para>
                 <example xml:id="zend.service.twitter.directmessage.messages"><info><title>Retrieving recent direct messages received</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->directMessage->messages();
@@ -453,7 +453,7 @@ $response   = $twitter->directMessage->messages();
                     messages sent by the authenticating user.
                 </para>
                 <example xml:id="zend.service.twitter.directmessage.sent"><info><title>Retrieving recent direct messages sent</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->directMessage->sent();
@@ -489,7 +489,7 @@ $response   = $twitter->directMessage->sent();
                     from the authenticating user. Requires both the user and text parameters below.
                 </para>
                 <example xml:id="zend.service.twitter.directmessage.new"><info><title>Sending direct message</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->directMessage->new('myfriend', 'mymessage');
@@ -503,7 +503,7 @@ $response   = $twitter->directMessage->new('myfriend', 'mymessage');
                     recipient of the specified direct message.
                 </para>
                 <example xml:id="zend.service.twitter.directmessage.destroy"><info><title>Deleting direct message</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->directMessage->destroy(123548);
@@ -513,7 +513,7 @@ $response   = $twitter->directMessage->destroy(123548);
         </itemizedlist>
     </section>
     <section xml:id="zend.service.twitter.friendship"><info><title>Friendship Methods</title></info>
-        
+
         <itemizedlist>
             <listitem>
                 <para>
@@ -521,7 +521,7 @@ $response   = $twitter->directMessage->destroy(123548);
                     <code>id</code> parameter with the authenticating user.
                 </para>
                 <example xml:id="zend.service.twitter.friendship.create"><info><title>Creating friend</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->friendship->create('mynewfriend');
@@ -534,7 +534,7 @@ $response   = $twitter->friendship->create('mynewfriend');
                     specified in the <code>id</code> parameter and the authenticating user.
                 </para>
                 <example xml:id="zend.service.twitter.friendship.destroy"><info><title>Deleting friend</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->friendship->destroy('myoldfriend');
@@ -547,7 +547,7 @@ $response   = $twitter->friendship->destroy('myoldfriend');
                     user specified in the <code>id</code> parameter and the authenticating user.
                 </para>
                 <example xml:id="zend.service.twitter.friendship.exists"><info><title>Checking friend existence</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->friendship->exists('myfriend');
@@ -557,7 +557,7 @@ $response   = $twitter->friendship->exists('myfriend');
         </itemizedlist>
     </section>
     <section xml:id="zend.service.twitter.favorite"><info><title>Favorite Methods</title></info>
-        
+
         <itemizedlist>
             <listitem>
                 <para>
@@ -566,7 +566,7 @@ $response   = $twitter->friendship->exists('myfriend');
                     <code>id</code> parameter.
                 </para>
                 <example xml:id="zend.service.twitter.favorite.favorites"><info><title>Retrieving favorites</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->favorite->favorites();
@@ -596,7 +596,7 @@ $response   = $twitter->favorite->favorites();
                     <code>id</code> parameter as the authenticating user.
                 </para>
                 <example xml:id="zend.service.twitter.favorite.create"><info><title>Creating favorites</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->favorite->create(12351);
@@ -609,7 +609,7 @@ $response   = $twitter->favorite->create(12351);
                     <code>id</code> parameter as the authenticating user.
                 </para>
                 <example xml:id="zend.service.twitter.favorite.destroy"><info><title>Deleting favorites</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->favorite->destroy(12351);
@@ -619,7 +619,7 @@ $response   = $twitter->favorite->destroy(12351);
         </itemizedlist>
     </section>
     <section xml:id="zend.service.twitter.block"><info><title>Block Methods</title></info>
-        
+
         <itemizedlist>
             <listitem>
                 <para>
@@ -628,7 +628,7 @@ $response   = $twitter->favorite->destroy(12351);
                     block does exists.
                 </para>
                 <example xml:id="zend.service.twitter.block.exists"><info><title>Checking if block exists</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 // returns true or false
@@ -659,7 +659,7 @@ $response2 = $twitter->block->exists('blockeduser', true);
                     format when successful.
                 </para>
                 <example xml:id="zend.service.twitter.block.create"><info><title>Blocking a user</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->block->create('usertoblock);
@@ -673,7 +673,7 @@ $response   = $twitter->block->create('usertoblock);
                     user in the requested format when successful.
                 </para>
                 <example xml:id="zend.service.twitter.block.destroy"><info><title>Removing a block</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter    = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 $response   = $twitter->block->destroy('blockeduser');
@@ -686,7 +686,7 @@ $response   = $twitter->block->destroy('blockeduser');
                     authenticating user is blocking.
                 </para>
                 <example xml:id="zend.service.twitter.block.blocking"><info><title>Who are you blocking</title></info>
-                    
+
                     <programlisting language="php"><![CDATA[
 $twitter = new Zend_Service_Twitter('myusername', 'mysecretpassword');
 // return the full user list from the first page

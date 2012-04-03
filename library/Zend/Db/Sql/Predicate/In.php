@@ -36,9 +36,9 @@ class In implements PredicateInterface
 
     /**
      * Constructor
-     * 
-     * @param  null|string $identifier 
-     * @param  array $valueSet 
+     *
+     * @param  null|string $identifier
+     * @param  array $valueSet
      * @return void
      */
     public function __construct($identifier = null, array $valueSet = array())
@@ -53,8 +53,8 @@ class In implements PredicateInterface
 
     /**
      * Set identifier for comparison
-     * 
-     * @param  string $identifier 
+     *
+     * @param  string $identifier
      * @return In
      */
     public function setIdentifier($identifier)
@@ -65,7 +65,7 @@ class In implements PredicateInterface
 
     /**
      * Get identifier of comparison
-     * 
+     *
      * @return null|string
      */
     public function getIdentifier()
@@ -75,8 +75,8 @@ class In implements PredicateInterface
 
     /**
      * Set set of values for IN comparison
-     * 
-     * @param  array $valueSet 
+     *
+     * @param  array $valueSet
      * @return In
      */
     public function setValueSet(array $valueSet)
@@ -92,8 +92,8 @@ class In implements PredicateInterface
 
     /**
      * Set specification string to use in forming SQL predicate
-     * 
-     * @param  string $specification 
+     *
+     * @param  string $specification
      * @return In
      */
     public function setSpecification($specification)
@@ -104,7 +104,7 @@ class In implements PredicateInterface
 
     /**
      * Get specification string to use in forming SQL predicate
-     * 
+     *
      * @return string
      */
     public function getSpecification()

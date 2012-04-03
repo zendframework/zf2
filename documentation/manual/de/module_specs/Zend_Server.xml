@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.server.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         Die <classname>Zend_Server</classname> Klassenfamilie stellt Funktionalitäten für die

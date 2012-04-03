@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.uri"><info><title>Zend_Navigation_Page_Uri</title></info>
-    
+
 
     <para>
         Pages of type <classname>Zend_Navigation_Page_Uri</classname> can be
@@ -25,7 +25,7 @@
     </note>
 
     <table xml:id="zend.navigation.pages.uri.options"><info><title>URI page options</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>

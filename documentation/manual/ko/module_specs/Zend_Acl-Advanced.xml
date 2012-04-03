@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.advanced"><info><title>고급 사용법</title></info>
 
-    
+
 
     <section xml:id="zend.acl.advanced.storing"><info><title>ACL 데이터의 보존에 의한 영속성의 확보</title></info>
 
-        
+
 
         <para>
         Zend_Acl는 ACL 데이터의 보존을 위해 데이타베이스나 캐쉬 서버와 같은 어떠한 특별한 백엔드 기술도 요구하지 않게 설계되었습니다. 전적으로 PHP 구현만으로 커스터마이즈된 관리툴에서 상대적으로 쉽고 유연성을 가진 Zend_Acl을 작성할 수 있습니다. 다양한 상황들에 부딪히다 보면, ACL의 인터액티브한 관리를 필요로 하므로, end_Acl는 어플리케이션의 접근 제어와 그에 대한 설정 및 질의를 할 수 있는 메소드를 제공합니다.
@@ -19,7 +19,7 @@
 
     <section xml:id="zend.acl.advanced.assertions"><info><title>검증을 통한 조건부 ACL 규칙의 작성</title></info>
 
-        
+
 
         <para>
         때때로 어떤 자원에 접근하는 롤의 허가나 거절을 위한 규칙은 절대적인 것이 아니라 다양한 기준에

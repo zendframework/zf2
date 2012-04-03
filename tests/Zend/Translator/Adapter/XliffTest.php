@@ -66,7 +66,7 @@ class XliffTest extends \PHPUnit_Framework_TestCase
         $adapter = new Adapter\Xliff(__DIR__ . '/_files/translation_en.xliff', 'en');
         $this->assertEquals('Xliff', $adapter->toString());
     }
-    
+
     /**
      * @group ZF-12012
      */

@@ -41,9 +41,9 @@ class Amf0 extends AbstractAdapter
 {
     /**
      * Serialize a PHP value to AMF0 format
-     * 
-     * @param  mixed $value 
-     * @param  array $opts 
+     *
+     * @param  mixed $value
+     * @param  array $opts
      * @return string
      * @throws Zend\Serializer\Exception
      */
@@ -61,9 +61,9 @@ class Amf0 extends AbstractAdapter
 
     /**
      * Unserialize an AMF0 value to PHP
-     * 
-     * @param  mixed $value 
-     * @param  array $opts 
+     *
+     * @param  mixed $value
+     * @param  array $opts
      * @return void
      * @throws Zend\Serializer\Exception
      */

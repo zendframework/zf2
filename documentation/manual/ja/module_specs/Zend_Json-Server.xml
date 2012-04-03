@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.server"><info><title>Zend_Json_Server - JSON-RPCサーバー</title></info>
-    
+
 
     <para>
         <classname>Zend_Json_Server</classname>は<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://groups.google.com/group/json-rpc/">JSON-RPC</link>
@@ -51,7 +51,7 @@
     </para>
 
     <example xml:id="zend.json.server.usage"><info><title>Zend_Json_Server利用方法</title></info>
-        
+
 
         <para>
             最初に、JSON-RPCサーバーによって公開したいクラスを定義しましょう。
@@ -192,7 +192,7 @@ $server->handle();
     </example>
 
     <section xml:id="zend.json.server.details"><info><title>高度な詳細</title></info>
-        
+
 
         <para>
             <classname>Zend_Json_Server</classname>の機能の大半が
@@ -201,7 +201,7 @@ $server->handle();
         </para>
 
         <section xml:id="zend.json.server.details.zendjsonserver"><info><title>Zend_Json_Server</title></info>
-            
+
 
             <para>
                 <classname>Zend_Json_Server</classname>は、
@@ -243,7 +243,7 @@ $server->handle();
                         $response)</code>:
                     サーバーのために使用するためのレスポンスオブジェクトを設定します。
                 </para></listitem>
-                <listitem><para><methodname>getResponse()</methodname>: 
+                <listitem><para><methodname>getResponse()</methodname>:
                     サーバーで使われるレスポンスオブジェクトを取得します。
                 </para></listitem>
                 <listitem><para><methodname>setAutoEmitResponse($flag)</methodname>:
@@ -261,7 +261,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonserverrequest"><info><title>Zend_Json_Server_Request</title></info>
-            
+
 
             <para>
                 JSON-RPCのリクエスト環境は、
@@ -340,7 +340,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonserverresponse"><info><title>Zend_Json_Server_Response</title></info>
-            
+
 
             <para>
                 JSON-RPCレスポンス・ペイロードは、
@@ -408,7 +408,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonservererror"><info><title>Zend_Json_Server_Error</title></info>
-            
+
 
             <para>
                 JSON-RPCには、エラー状況を報告するために、特別なフォーマットがあります。
@@ -462,7 +462,7 @@ $server->handle();
         </section>
 
         <section xml:id="zend.json.server.details.zendjsonserversmd"><info><title>Zend_Json_Server_Smd</title></info>
-            
+
 
             <para>
                 SMDは、サービス・マッピング記述、

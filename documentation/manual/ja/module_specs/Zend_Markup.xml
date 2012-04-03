@@ -2,14 +2,14 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.markup.introduction"><info><title>導入</title></info>
-    
- 
+
+
     <para>
         <classname>Zend_Markup</classname> コンポーネントは BBcode や Textile の
         ような軽量マークアップ言語のテキストパースならびにレンダリングのための
         拡張方法を提供します。 Zend Framework 1.10 から利用できます。
     </para>
- 
+
     <para>
         <classname>Zend_Markup</classname> は <classname>Zend_Markup_Renderer_Abstract</classname>
         を拡張したレンダラーのインスタンスを生成するファクトリーメソッドを使用します。

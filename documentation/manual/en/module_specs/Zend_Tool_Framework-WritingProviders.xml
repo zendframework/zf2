@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.writing-providers"><info><title>Creating Providers to use with Zend_Tool_Framework</title></info>
-    
+
 
     <para>
         In general, a provider, on its own, is nothing more than the shell for a
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.tool.framework.writing-providers.loading"><info><title>How Zend_Tool finds your Providers</title></info>
-        
+
 
         <para>
             By default <classname>Zend_Tool</classname> uses the IncludePathLoader to find all
@@ -67,7 +67,7 @@
         </note>
 
         <example xml:id="zend.tool.framework.writing-providers.loading.example"><info><title>Exposing Your Providers with a Manifest</title></info>
-            
+
 
             <para>
                 You can expose your providers to <classname>Zend_Tool</classname> by offering a
@@ -96,7 +96,7 @@ class My_Component_Manifest
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.basic"><info><title>Basic Instructions for Creating Providers</title></info>
-        
+
 
         <para>
             As an example, if a developer wants to add the capability of showing
@@ -134,7 +134,7 @@ Hello from my provider!
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.response"><info><title>The response object</title></info>
-        
+
 
         <para>
             As discussed in the architecture section <classname>Zend_Tool</classname> allows to hook
@@ -165,10 +165,10 @@ class My_Component_HelloProvider
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.advanced"><info><title>Advanced Development Information</title></info>
-        
+
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.variables"><info><title>Passing Variables to a Provider</title></info>
-            
+
 
             <para>
                 The above "Hello World" example is great for simple commands, but
@@ -210,7 +210,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.prompt"><info><title>Prompt the User for Input</title></info>
-            
+
 
             <para>
                 There are cases when the workflow of your provider requires
@@ -242,7 +242,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.pretendable"><info><title>Pretending to execute a Provider Action</title></info>
-            
+
 
             <para>
                 Another interesting feature you might wish to implement is
@@ -290,7 +290,7 @@ I would say hello Ralph.
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.verbosedebug"><info><title>Verbose and Debug modes</title></info>
-            
+
 
             <para>
                 You can also run your provider actions in "verbose" or "debug" modes.
@@ -317,7 +317,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.configstorage"><info><title>Accessing User Config and Storage</title></info>
-            
+
 
             <para>
                 Using the Enviroment variable <property>ZF_CONFIG_FILE</property> or the

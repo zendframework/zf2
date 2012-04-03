@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.filter_chains"><info><title>フィルタチェイン</title></info>
 
-    
+
 
     <para>
         ひとつの値に対して、複数のフィルタを指定した順に適用しなければならないことがよくあります。
@@ -34,7 +34,7 @@ $username = $filterChain->filter($_POST['username']);
 
     <!-- TODO : to be translated -->
     <section xml:id="zend.filter.filter_chains.order"><info><title>Changing filter chain order</title></info>
-        
+
 
         <para>
             Since 1.10, the <classname>Zend_Filter</classname> chain also

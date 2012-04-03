@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.relationships"><info><title>Zend_Db_Table Relationships</title></info>
 
-    
+
 
     <section xml:id="zend.db.table.relationships.introduction"><info><title>Introduction</title></info>
 
-        
+
 
         <para>
             Tables have relationships to each other in a relational database. An entity in one
@@ -24,7 +24,7 @@
 
     <section xml:id="zend.db.table.relationships.defining"><info><title>Defining Relationships</title></info>
 
-        
+
 
         <para>
             Define classes for each of your tables, extending the abstract class
@@ -274,7 +274,7 @@ class BugsProducts extends Zend_Db_Table_Abstract
 
     <section xml:id="zend.db.table.relationships.fetching.dependent"><info><title>Fetching a Dependent Rowset</title></info>
 
-        
+
 
         <para>
             If you have a Row object as the result of a query on a parent table, you can fetch
@@ -309,7 +309,7 @@ $row->findDependentRowset($table, [$rule]);
 
         <example xml:id="zend.db.table.relationships.fetching.dependent.example"><info><title>Fetching a Dependent Rowset</title></info>
 
-            
+
 
             <para>
                 This example shows getting a Row object from the table
@@ -353,7 +353,7 @@ $bugsReportedByUser = $user1234->findDependentRowset('Bugs');
 
         <example xml:id="zend.db.table.relationships.fetching.dependent.example-by"><info><title>Fetching a Dependent Rowset By a Specific Rule</title></info>
 
-            
+
 
             <para>
                 This example shows getting a Row object from the table
@@ -387,7 +387,7 @@ $bugsAssignedToUser = $user1234->findDependentRowset('Bugs', 'Engineer');
 
             <example xml:id="zend.db.table.relationships.fetching.dependent.example-by-select"><info><title>Fetching a Dependent Rowset using a Zend_Db_Table_Select</title></info>
 
-                
+
 
                 <para>
                     This example shows getting a Row object from the table
@@ -466,7 +466,7 @@ $bugsAssignedToUser = $user1234->findDependentRowset('Bugs',
 
         <example xml:id="zend.db.table.relationships.fetching.dependent.example-magic"><info><title>Fetching Dependent Rowsets using the Magic Method</title></info>
 
-            
+
 
             <para>
                 This example shows finding dependent Rowsets equivalent to those in the previous
@@ -492,7 +492,7 @@ $bugsAssignedTo = $user1234->findBugsByEngineer();
 
     <section xml:id="zend.db.table.relationships.fetching.parent"><info><title>Fetching a Parent Row</title></info>
 
-        
+
 
         <para>
             If you have a Row object as the result of a query on a dependent table, you can fetch
@@ -519,7 +519,7 @@ $row->findParentRow($table, [$rule]);
 
         <example xml:id="zend.db.table.relationships.fetching.parent.example"><info><title>Fetching the Parent Row</title></info>
 
-            
+
 
             <para>
                 This example shows getting a Row object from the table
@@ -562,7 +562,7 @@ $reporter = $bug1->findParentRow('Accounts');
 
         <example xml:id="zend.db.table.relationships.fetching.parent.example-by"><info><title>Fetching a Parent Row By a Specific Rule</title></info>
 
-            
+
 
             <para>
                 This example shows getting a Row object from the table
@@ -629,7 +629,7 @@ $engineer = $bug1->findParentRow('Accounts', 'Engineer');
 
         <example xml:id="zend.db.table.relationships.fetching.parent.example-magic"><info><title>Fetching the Parent Row using the Magic Method</title></info>
 
-            
+
 
             <para>
                 This example shows finding parent Rows equivalent to those in the previous
@@ -655,7 +655,7 @@ $engineer = $bug1->findParentAccountsByEngineer();
 
     <section xml:id="zend.db.table.relationships.fetching.many-to-many"><info><title>Fetching a Rowset via a Many-to-many Relationship</title></info>
 
-        
+
 
         <para>
             If you have a Row object as the result of a query on one table in a many-to-many
@@ -712,7 +712,7 @@ $row->findManyToManyRowset($table,
 
         <example xml:id="zend.db.table.relationships.fetching.many-to-many.example"><info><title>Fetching a Rowset with the Many-to-many Method</title></info>
 
-            
+
 
             <para>
                 This example shows getting a Row object from the origin table
@@ -793,7 +793,7 @@ $productsRowset = $bug1234->findManyToManyRowset('Products',
 
         <example xml:id="zend.db.table.relationships.fetching.many-to-many.example-by"><info><title>Fetching a Rowset with the Many-to-many Method By a Specific Rule</title></info>
 
-            
+
 
             <para>
                 This example shows geting a Row object from the origin table
@@ -877,7 +877,7 @@ $productsRowset = $bug1234->findManyToManyRowset('Products',
 
         <example xml:id="zend.db.table.relationships.fetching.many-to-many.example-magic"><info><title>Fetching Rowsets using the Magic Many-to-many Method</title></info>
 
-            
+
 
             <para>
                 This example shows finding rows in the destination table of a many-to-many
@@ -902,11 +902,11 @@ $products = $bug1234->findProductsViaBugsProductsByBug();
 
     <section xml:id="zend.db.table.relationships.cascading"><info><title>Cascading Write Operations</title></info>
 
-        
+
 
         <note><info><title>Declare DRI in the database:</title></info>
 
-            
+
 
             <para>
                 Declaring cascading operations in
@@ -968,7 +968,7 @@ $products = $bug1234->findProductsViaBugsProductsByBug();
 
         <example xml:id="zend.db.table.relationships.cascading.example-delete"><info><title>Example of a Cascading Delete</title></info>
 
-            
+
 
             <para>
                 This example shows deleting a row in the
@@ -1033,7 +1033,7 @@ $product1234->delete();
 
         <example xml:id="zend.db.table.relationships.cascading.example-declaration"><info><title>Example Declaration of Cascading Operations</title></info>
 
-            
+
 
             <para>
                 In the example below, rows in the
@@ -1082,7 +1082,7 @@ class BugsProducts extends Zend_Db_Table_Abstract
 
         <section xml:id="zend.db.table.relationships.cascading.notes"><info><title>Notes Regarding Cascading Operations</title></info>
 
-            
+
 
             <para>
                 <emphasis>

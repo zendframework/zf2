@@ -167,9 +167,9 @@ class Stream
     /**
      * Read from the stream
      *
-     * http://bugs.php.net/21641 - stream_read() is always passed PHP's 
-     * internal read buffer size (8192) no matter what is passed as $count 
-     * parameter to fread(). 
+     * http://bugs.php.net/21641 - stream_read() is always passed PHP's
+     * internal read buffer size (8192) no matter what is passed as $count
+     * parameter to fread().
      *
      * @param  integer $count
      * @return string

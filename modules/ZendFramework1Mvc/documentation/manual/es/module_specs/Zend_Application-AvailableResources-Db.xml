@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.db"><info><title>Zend_Application_Resource_Db</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Db</classname>
@@ -53,7 +53,7 @@
     </itemizedlist>
 
     <example xml:id="zend.application.available-resources.db.configExample"><info><title>Muestra de la Configuracion de Recursos del Adaptador DB (Base de Datos) </title></info>
-        
+
         <para>
             A continuación, un ejemplo de configuración
             <acronym>INI</acronym>
@@ -73,7 +73,7 @@ resources.db.isDefaultTableAdapter = true
     </example>
 
     <note><info><title>Recuperando la Instancia del Adaptador</title></info>
-        
+
 
         <para>Si decide no hacer la instanciación del adaptador con este recurso por defecto del
             adaptador de tabla, ¿cómo puede recuperar la instancia del adaptador?</para>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-model"><info><title>Ein Modell und eine Datenbank Tabelle erstellen</title></info>
-    
+
 
     <para>
         Bevor wir anfangen nehmen wie etwas an: Wo werden diese Klassen leben, und wie werden wir
@@ -731,7 +731,7 @@ Guestbook Einträge: <br />
 ]]></programlisting>
 
     <note><info><title>Checkpoint</title></info>
-        
+
 
         <para>
             Jetzt gehen wir auf "http://localhost/guestbook". Man sollte das folgende im Browser
@@ -744,7 +744,7 @@ Guestbook Einträge: <br />
     </note>
 
     <note><info><title>Das Datenlade Skript verwenden</title></info>
-        
+
 
         <para>
             Das Datenlade Skript welches in diesem Kapitel beschrieben wird

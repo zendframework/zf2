@@ -53,11 +53,11 @@ class Statement implements StatementInterface
 
     /**
      * Parameter container
-     * 
-     * @var ParameterContainerInterface 
+     *
+     * @var ParameterContainerInterface
      */
     protected $parameterContainer = null;
-    
+
     /**
      * @var \mysqli_stmt
      */
@@ -65,16 +65,16 @@ class Statement implements StatementInterface
 
     /**
      * Is prepared
-     * 
-     * @var boolean 
+     *
+     * @var boolean
      */
     protected $isPrepared = false;
 
     /**
      * Set driver
-     * 
+     *
      * @param  Mysqli $driver
-     * @return Statement 
+     * @return Statement
      */
     public function setDriver(Mysqli $driver)
     {
@@ -83,9 +83,9 @@ class Statement implements StatementInterface
     }
     /**
      * Initialize
-     * 
+     *
      * @param  \mysqli $mysqli
-     * @return Statement 
+     * @return Statement
      */
     public function initialize(\mysqli $mysqli)
     {
@@ -94,9 +94,9 @@ class Statement implements StatementInterface
     }
     /**
      * Set sql
-     * 
+     *
      * @param  string $sql
-     * @return Statement 
+     * @return Statement
      */
     public function setSql($sql)
     {
@@ -105,8 +105,8 @@ class Statement implements StatementInterface
     }
     /**
      * Set Parameter container
-     * 
-     * @param ParameterContainerInterface $parameterContainer 
+     *
+     * @param ParameterContainerInterface $parameterContainer
      */
     public function setParameterContainer(ParameterContainerInterface $parameterContainer)
     {
@@ -114,8 +114,8 @@ class Statement implements StatementInterface
     }
     /**
      * Get resource
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function getResource()
     {
@@ -123,9 +123,9 @@ class Statement implements StatementInterface
     }
     /**
      * Set resource
-     * 
+     *
      * @param  \mysqli_stmt $mysqliStatement
-     * @return Statement 
+     * @return Statement
      */
     public function setResource(\mysqli_stmt $mysqliStatement)
     {
@@ -135,8 +135,8 @@ class Statement implements StatementInterface
     }
     /**
      * Get sql
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getSQL()
     {
@@ -184,9 +184,9 @@ class Statement implements StatementInterface
 
     /**
      * Execute
-     * 
+     *
      * @param  ParameterContainer $parameters
-     * @return mixed 
+     * @return mixed
      */
     public function execute($parameters = null)
     {
@@ -205,7 +205,7 @@ class Statement implements StatementInterface
             }
             $this->bindParametersFromContainer($parameters);
         }
-            
+
         if ($this->resource->execute() === false) {
             throw new \RuntimeException($this->resource->error);
         }
@@ -215,8 +215,8 @@ class Statement implements StatementInterface
     }
     /**
      * Bind parameters from container
-     * 
-     * @param ParameterContainerInterface $pContainer 
+     *
+     * @param ParameterContainerInterface $pContainer
      */
     protected function bindParametersFromContainer(ParameterContainerInterface $pContainer)
     {

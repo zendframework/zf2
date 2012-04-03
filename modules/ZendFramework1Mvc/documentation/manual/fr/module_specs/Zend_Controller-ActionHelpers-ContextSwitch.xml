@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.contextswitch"><info><title>ContextSwitch et AjaxContext</title></info>
-    
+
 
     <para>
         L'aide d'action <emphasis>ContextSwitch</emphasis> est destinée à faciliter le retour de
@@ -140,7 +140,7 @@ class NewsController extends Zend_Controller_Action
     </para>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.contexts"><info><title>Contextes inclus par défaut</title></info>
-        
+
 
         <para>
             Par défaut, il existe 2 contextes dans l'aide <emphasis>ContextSwitch</emphasis> :
@@ -180,7 +180,7 @@ $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.custom"><info><title>Créer ses propres contextes</title></info>
-        
+
 
         <para>
             Vous pouvez créer vos propres contextes d'action. Par exemple pour retourner du
@@ -301,7 +301,7 @@ $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.actions"><info><title>Affecter des contextes par action</title></info>
-        
+
 
         <para>
             Il existe deux mécanismes pour créer et affecter des contextes. Vous pouvez créer
@@ -451,7 +451,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.initcontext"><info><title>Initialiser le Context Switch</title></info>
-        
+
 
         <para>
             Pour initialiser la permutation de contextes (contexte switching), vous devez
@@ -480,7 +480,7 @@ $contextSwitch->initContext('xml');
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.misc"><info><title>Fonctionnalités avancées</title></info>
-        
+
 
         <para>
             Voici quelques méthodes qui peuvent être utilisées pour changer le comportement
@@ -658,7 +658,7 @@ $contextSwitch->initContext();
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.ajaxcontext"><info><title>Fonctionnalité AjaxContext</title></info>
-        
+
 
         <para>
             L'aide <emphasis>AjaxContext</emphasis> étend l'aide de permutation de contexte
@@ -689,7 +689,7 @@ $contextSwitch->initContext();
         </para>
 
         <example xml:id="zend.controller.actionhelpers.contextswitch.ajaxcontext.example"><info><title>Autoriser les actions à répondre aux requêtes AJAX</title></info>
-            
+
 
             <para>
                 Dans l'exemple qui suit, nous autorisons les actions "view", "form", et

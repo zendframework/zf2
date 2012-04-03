@@ -3,7 +3,7 @@
 	<identity>
 		<version number="$Revision: 5123 $"/>
 		<generation date="$Date: 2010-10-21 00:06:56 -0500 (Thu, 21 Oct 2010) $"/>
-		<language type="my"/> 
+		<language type="my"/>
 	</identity>
 		<collations validSubLocales="my_MM">
 			<collation type="standard">
@@ -944,8 +944,8 @@
 
 
 
-<reset>ောက်ကျ</reset><i>ောက်ျ</i> 
-<reset>န်နုပ်</reset><i>န်ုပ်</i> 
+<reset>ောက်ကျ</reset><i>ောက်ျ</i>
+<reset>န်နုပ်</reset><i>န်ုပ်</i>
 
 <reset>ေသ္သ</reset><i>ေဿ</i>
 <reset>ိသ္သ</reset><i>ိဿ</i>
@@ -961,10 +961,10 @@
 <reset>အိ</reset><s>၏</s>
 
 
-<reset>လက်ယာ</reset><i>လက်ျာ</i> 
-<reset>သမီ</reset><i>သ္မီ</i> 
-<reset>ထမင်း</reset><i>ထ္မင်း</i> 
-<reset>လက်ဘက်</reset><i>လ္ဘက်</i> 
+<reset>လက်ယာ</reset><i>လက်ျာ</i>
+<reset>သမီ</reset><i>သ္မီ</i>
+<reset>ထမင်း</reset><i>ထ္မင်း</i>
+<reset>လက်ဘက်</reset><i>လ္ဘက်</i>
 				</rules>
 			</collation>
 		</collations>

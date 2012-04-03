@@ -4,7 +4,7 @@
 	<identity>
 		<version number="$Revision: 5060 $"/>
 		<generation date="$Date: 2010-09-12 17:15:40 -0500 (Sun, 12 Sep 2010) $"/>
-		<language type="km" /> 
+		<language type="km" />
 	</identity>
 	<collations  validSubLocales="km_KH">
 		<collation type="standard" >
@@ -132,8 +132,8 @@
                  <t>ឨ</t>
              <reset>អូ</reset>
                  <i>ឩ</i>
-             <reset>អុអ</reset>    
-            
+             <reset>អុអ</reset>
+
                  <i>ឪ</i>
              <reset>អែ</reset>
                  <i>ឯ</i>
@@ -148,7 +148,7 @@
                  <p>ុំ</p>
                  <p>ំ</p>
                  <p>ាំ</p>
-                 <p>ះ</p>   
+                 <p>ះ</p>
             </rules>
           </collation  >
       </collations>

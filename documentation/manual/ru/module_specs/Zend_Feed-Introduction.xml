@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.introduction"><info><title>Введение</title></info>
-    
+
     <para>
         <code>Zend_Feed</code> предназначен для работы с
         лентами RSS и Atom. Он предоставляет естетственный синтаксис
@@ -29,7 +29,7 @@
     </para>
 
     <note><info><title>Внимание</title></info>
-        
+
         <para>
             Многие ленты RSS различаются по набору доступных свойств каналов и
             сообщений. Спецификация RSS предоставляет множество необязательных
@@ -39,7 +39,7 @@
     </note>
 
     <example xml:id="zend.feed.introduction.example.rss"><info><title>Использование Zend_Feed в работе с данными ленты RSS</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 // Извлечение последних новостей Slashdot
 try {

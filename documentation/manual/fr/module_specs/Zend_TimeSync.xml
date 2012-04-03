@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.timesync.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_TimeSync</classname> est capable de recevoir une information
@@ -20,7 +20,7 @@
     </para>
 
     <note><info><title>En tâche de fond</title></info>
-        
+
 
         <para>
             <classname>Zend_TimeSync</classname> ne peut pas changer le temps sur le serveur,
@@ -30,7 +30,7 @@
     </note>
 
     <section xml:id="zend.timesync.introduction.why"><info><title>Pourquoi <classname>Zend_TimeSync</classname> ?</title></info>
-        
+
 
         <para>Pourquoi donc utiliser <classname>Zend_TimeSync</classname> ?</para>
 
@@ -100,7 +100,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.ntp"><info><title>Qu'est ce que NTP ?</title></info>
-        
+
 
         <para>
             Le <code>Network Time Protocol</code> (<emphasis>NTP</emphasis>) est un protocole
@@ -111,7 +111,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.sntp"><info><title>Qu'est ce que SNTP?</title></info>
-        
+
 
         <para>
             Le <code>Simple Network Time Protocol</code> (<emphasis>SNTP</emphasis>) est un
@@ -122,7 +122,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.problematic"><info><title>Problèmes courants d'utilisation</title></info>
-        
+
 
         <para>
             Faites attention avec l'utilisation de <classname>Zend_TimeSync</classname>. Vous
@@ -134,7 +134,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.decision"><info><title>Décider quel serveur de temps utiliser</title></info>
-        
+
 
         <para>
             Décider du serveur de temps à utiliser est assez minutieux. Vous devrez prendre en

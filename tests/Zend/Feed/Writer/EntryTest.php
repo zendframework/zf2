@@ -169,7 +169,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($expected, $entry->getAuthors());
     }
-    
+
     public function testAddsEnclosure()
     {
         $entry = new Writer\Entry;
@@ -185,7 +185,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($expected, $entry->getEnclosure());
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -198,7 +198,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
             'length' => '1337'
         ));
     }
-    
+
     /**
      * @expectedException Zend\Feed\Writer\Exception
      */
@@ -498,7 +498,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     public function testSetsCommentFeedLink()
     {
         $entry = new Writer\Entry;
-        
+
         $entry->setCommentFeedLink(array('uri'=>'http://www.example.com/id/comments', 'type'=>'rdf'));
         $this->assertEquals(array(array('uri'=>'http://www.example.com/id/comments', 'type'=>'rdf')), $entry->getCommentFeedLinks());
     }
@@ -523,7 +523,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
         } catch (Writer\Exception $e) {
         }
     }
-    
+
     public function testSetCommentFeedLinkThrowsExceptionOnInvalidType()
     {
         $entry = new Writer\Entry;

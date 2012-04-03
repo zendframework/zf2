@@ -53,7 +53,7 @@ class Hash extends Xhtml
     /**
      * Static cache of the session names to generated hashes
      *
-     * @var array 
+     * @var array
      */
     protected static $_hashCache;
 

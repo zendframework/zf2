@@ -421,7 +421,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @issue ZF-7722
 	 */
-    public function testCharset() 
+    public function testCharset()
     {
 		$view = new View();
 		$view->plugin('doctype')->__invoke('HTML5');
@@ -441,10 +441,10 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     /**
      * @group ZF-11835
      */
-    public function testConditional() 
+    public function testConditional()
     {
         $html = $this->helper->appendHttpEquiv('foo', 'bar', array('conditional' => 'lt IE 7'))->toString();
-        
+
         $this->assertRegExp("|^<!--\[if lt IE 7\]>|", $html);
         $this->assertRegExp("|<!\[endif\]-->$|", $html);
     }

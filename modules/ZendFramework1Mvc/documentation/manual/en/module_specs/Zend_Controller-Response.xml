@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.response"><info><title>The Response Object</title></info>
-    
+
 
     <section xml:id="zend.controller.response.usage"><info><title>Usage</title></info>
-        
+
 
         <para>
             The response object is the logical counterpart to the <link linkend="zend.controller.request">request object</link>. Its
@@ -132,7 +132,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.response.headers"><info><title>Manipulating Headers</title></info>
-        
+
 
         <para>
             As stated previously, one aspect of the response object's duties is
@@ -236,7 +236,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.response.namedsegments"><info><title>Named Segments</title></info>
-        
+
 
         <para>
             The response object has support for "named segments". This allows
@@ -379,7 +379,7 @@ array(
     </section>
 
     <section xml:id="zend.controller.response.exceptions"><info><title>Testing for Exceptions in the Response Object</title></info>
-        
+
 
         <para>
             As mentioned earlier, by default, exceptions caught during dispatch
@@ -474,7 +474,7 @@ array(
     </section>
 
     <section xml:id="zend.controller.response.subclassing"><info><title>Subclassing the Response Object</title></info>
-        
+
 
         <para>
             The purpose of the response object is to collect headers and content

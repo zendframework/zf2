@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.books"><info><title>Die Buchsuche Daten API verwenden</title></info>
-    
+
 
     <para>
         Die Buchsuche Daten <acronym>API</acronym> von Google erlaubt Client Anwendungen Inhalte
@@ -26,7 +26,7 @@
     </para>
 
     <section xml:id="zend.gdata.books.authentication"><info><title>Beim Buchsuche Service authentifizieren</title></info>
-        
+
 
         <para>
             Man kann sowohl auf öffentliche als auch private Feeds zugreifen indem man
@@ -42,7 +42,7 @@
     </section>
 
     <section xml:id="zend.gdata.books.searching_for_books"><info><title>Nach Büchern suchen</title></info>
-        
+
 
         <para>
             Die Buchsuche Daten <acronym>API</acronym> bietet eine Anzahl an Feeds die Sammlungen
@@ -155,7 +155,7 @@ http://www.google.com/books/feeds/volumes?q=keyword&min-viewability=partial
         </para>
 
         <section xml:id="zend.gdata.books.partner_restrict"><info><title>Partner Co-Branded Suche</title></info>
-            
+
 
             <para>
                 Die Google Buchsuche bietet eine <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://books.google.com/support/partner/bin/answer.py?hl=en&amp;answer=65113">Co-Branded
@@ -203,10 +203,10 @@ $query =
     </section>
 
     <section xml:id="zend.gdata.books.community_features"><info><title>Übliche Features verwenden</title></info>
-        
+
 
         <section xml:id="zend.gdata.books.adding_ratings"><info><title>Eine Bewertung hinzufügen</title></info>
-            
+
 
             <para>
                 Ein Benutzer kann einem Buch eine Bewertung hinzufügen. Die Buchsuche verwendet
@@ -230,7 +230,7 @@ $books->insertVolume($entry, Zend_Gdata_Books::MY_ANNOTATION_FEED_URI);
         </section>
 
         <section xml:id="zend.gdata.books.reviews"><info><title>Reviews</title></info>
-            
+
 
             <para>
                 Zusätzlich zu Bewertungen, können authentifizierte Benutzer Reviews übermitteln
@@ -240,7 +240,7 @@ $books->insertVolume($entry, Zend_Gdata_Books::MY_ANNOTATION_FEED_URI);
             </para>
 
             <section xml:id="zend.gdata.books.adding_review"><info><title>Eine Review hinzufügen</title></info>
-                
+
 
                 <para>
                     Um eine Review hinzuzufügen, muß man ein <classname>Review</classname> Objekt an
@@ -260,7 +260,7 @@ $books->insertVolume($entry, $annotationUrl);
             </section>
 
             <section xml:id="zend.gdata.books.editing_review"><info><title>Eine Review bearbeiten</title></info>
-                
+
 
                 <para>
                     Um eine bestehende Review zu aktualisieren muß man zuerst die Review die
@@ -280,7 +280,7 @@ $books->updateVolume($entry, $entryUrl);
         </section>
 
         <section xml:id="zend.gdata.books.labels"><info><title>Labels</title></info>
-            
+
 
             <para>
                 Die Buchsuche Daten <acronym>API</acronym> kann verwendet werden um Volumes mit
@@ -290,7 +290,7 @@ $books->updateVolume($entry, $entryUrl);
             </para>
 
             <section xml:id="zend.gdata.books.submitting_labels"><info><title>Ein Set von Label übermitteln</title></info>
-                
+
 
                 <para>
                     Um Label zu übermitteln muß ein <classname>Category</classname> Objekt mit dem
@@ -310,7 +310,7 @@ $books->insertVolume($entry, Zend_Gdata_Books::MY_ANNOTATION_FEED_URI);
         </section>
 
         <section xml:id="zend.gdata.books.retrieving_annotations"><info><title>Empfangen von Anmerkungen: Reviews, Bewertungen und Label</title></info>
-            
+
 
             <para>
                 Die Buchsuche Daten <acronym>API</acronym> kann verwendet werden um Anmerkungen zu
@@ -345,7 +345,7 @@ foreach ($feed as $entry) {
         </section>
 
         <section xml:id="zend.gdata.books.deleting_annotations"><info><title>Anmerkungen löschen</title></info>
-            
+
 
             <para>
                 Wenn man einen Anmerkungseintrag empfängt der Bewertungen, Reviews und/oder Label
@@ -360,7 +360,7 @@ $books->deleteVolume($entry);
     </section>
 
     <section xml:id="zend.gdata.books.sharing_with_my_library"><info><title>Büchersammlungen und My Library</title></info>
-        
+
 
         <para>
             Die Google Buchsuche bietet eine Anzahl von Benutzerspezifischen Buchsammlungen,
@@ -376,7 +376,7 @@ $books->deleteVolume($entry);
         </para>
 
         <section xml:id="zend.gdata.books.retrieving_books_in_library"><info><title>Bücher auf der Benutzerbibliothek erhalten</title></info>
-            
+
 
             <para>
                 Die folgenden Kapitel beschreiben wie eine Liste von Büchern von der Bibliothek
@@ -388,7 +388,7 @@ $books->deleteVolume($entry);
             </para>
 
             <section xml:id="zend.gdata.books.retrieving_all_books_in_library"><info><title>Alle Bücher in einer Benutzerbibliothek empfangen</title></info>
-                
+
 
                 <para>
                     Um alle Bücher eines Benutzers zu empfangen muß eine Anfrage an den My Library
@@ -411,7 +411,7 @@ $feed = $books->getUserLibraryFeed();
             </section>
 
             <section xml:id="zend.gdata.books.retrieving_books_in_library_with_query"><info><title>Nach Büchern in einer Benutzerbibliothek suchen</title></info>
-                
+
 
                 <para>
                     Genauso wie man
@@ -452,7 +452,7 @@ $feed = $books->getVolumeFeed($query);
         </section>
 
         <section xml:id="zend.gdata.books.updating_library"><info><title>Bücher in einer Benutzerbibliothek aktualisieren</title></info>
-            
+
 
             <para>
                 Die Buchsuche Daten <acronym>API</acronym> kann dazu verwendet werden um ein Buch
@@ -464,7 +464,7 @@ $feed = $books->getVolumeFeed($query);
             </para>
 
             <section xml:id="zend.gdata.books.library_book_add"><info><title>Ein Buch zu einer Bibliothek hinzufügen</title></info>
-                
+
 
                 <para>
                     Nach der Authentifizierung können Bucher zur aktuellen Benutzerbibliothek
@@ -504,7 +504,7 @@ $books->insertVolume(
             </section>
 
             <section xml:id="zend.gdata.books.library_book_remove"><info><title>Ein Buch von einer Bibliothek entfernen</title></info>
-                
+
 
                 <para>
                     Um ein Buch von einer Benutzerbibliothek zu entfernen, muß

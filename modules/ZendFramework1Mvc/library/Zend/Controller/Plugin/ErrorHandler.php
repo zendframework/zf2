@@ -193,8 +193,8 @@ class ErrorHandler extends AbstractPlugin
 
     /**
      * Route shutdown hook -- check for router exceptions
-     * 
-     * @param \Zend\Controller\Request\AbstractRequest $request 
+     *
+     * @param \Zend\Controller\Request\AbstractRequest $request
      */
     public function routeShutdown(Request\AbstractRequest $request)
     {

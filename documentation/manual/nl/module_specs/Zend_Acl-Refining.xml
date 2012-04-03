@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.refining"><info><title>Verfijning van toegangscontrole</title></info>
 
-    
+
 
     <section xml:id="zend.acl.refining.precise"><info><title>Precieze toegangscontrole</title></info>
 
-        
+
 
         <para>
             De basis ACL zoals gedefineerd in de <link linkend="zend.acl.introduction">vorige sectie</link>
@@ -103,7 +103,7 @@ echo $acl->isAllowed('administrator', 'aankondiging', 'archiveren') ?
 
     <section xml:id="zend.acl.refining.removing"><info><title>Verwijderen van toegangscontrole</title></info>
 
-        
+
 
         <para>
             Om één of meer toegangregels te verwijderen van de ACL, gebruiken we simpelweg de beschikbare

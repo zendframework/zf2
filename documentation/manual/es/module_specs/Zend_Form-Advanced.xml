@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.advanced"><info><title>Uso avanzado de Zend_Form</title></info>
-    
+
 
     <para>
         <classname>Zend_Form</classname> tiene una funcional riqueza, muchas de
@@ -8,7 +8,7 @@
         documentar algunas de las funcionalidades con ejemplos y casos de uso. </para>
 
     <section xml:id="zend.form.advanced.arrayNotation"><info><title>Notación de array</title></info>
-        
+
 
         <para>A muchos desarroladores web experimentados les gusta agrupar
             elementos relacionados de formulario usando notación de array en los
@@ -202,7 +202,7 @@
     </section>
 
     <section xml:id="zend.form.advanced.multiPage"><info><title>Formularios Multi-Página</title></info>
-        
+
 
         <para> Actualmente, los formularios multi-página no están oficialmente
             soportados en <classname>Zend_Form</classname> ; sin embargo, la
@@ -216,7 +216,7 @@
             subformularios esten completos.</para>
 
         <example xml:id="zend.form.advanced.multiPage.registration"><info><title>Ejemplo de formulario de registro</title></info>
-            
+
             <para>Vamos a usar un formulario de registro como ejemplo. Para
                 nuestros propósitos, queremos capturar el nombre del usuario y
                 la contraseña en la primera página, después la información del

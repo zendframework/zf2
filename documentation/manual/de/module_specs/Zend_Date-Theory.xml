@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.definition.theory"><info><title>Theorie der Arbeitsweise</title></info>
-    
+
 
     <para>
         Warum gibt es nur eine Klasse <classname>Zend_Date</classname> für das Arbeiten mit Daten
@@ -26,7 +26,7 @@
     </para>
 
     <section xml:id="zend.date.theory.internals"><info><title>Internes</title></info>
-        
+
 
         <itemizedlist mark="opencircle">
             <listitem>

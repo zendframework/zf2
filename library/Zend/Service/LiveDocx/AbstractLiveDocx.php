@@ -106,7 +106,7 @@ abstract class AbstractLiveDocx
 
     /**
      * Set options. Valid options are username, password and soapClient.
-     * 
+     *
      * @param  $options
      * @throws Exception\InvalidArgumentException
      * @return AbstractLiveDocx
@@ -167,7 +167,7 @@ abstract class AbstractLiveDocx
 
     /**
      * Set username.
-     * 
+     *
      * @return AbstractLiveDocx
      * @since  LiveDocx 1.0
      */
@@ -195,7 +195,7 @@ abstract class AbstractLiveDocx
 
     /**
      * Set password.
-     * 
+     *
      * @return AbstractLiveDocx
      * @since  LiveDocx 1.0
      */
@@ -223,7 +223,7 @@ abstract class AbstractLiveDocx
 
     /**
      * Set WSDL of LiveDocx service.
-     * 
+     *
      * @return AbstractLiveDocx
      * @since  LiveDocx 1.0
      */

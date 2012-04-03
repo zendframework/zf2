@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.custom"><info><title>Créer des pages de type personnalisé</title></info>
-    
+
 
     <para>
         Etendre <classname>Zend_Navigation_Page</classname> ne nécessite pas forcément de réécrire
@@ -17,7 +17,7 @@
     </para>
 
     <example xml:id="zend.navigation.custom.example.simple"><info><title>La page personnalisée la plus simple possible</title></info>
-        
+
 
         <para>
             La seule chose à définir dans une page personnalisée est la méthode
@@ -36,7 +36,7 @@ class My_Simple_Page extends Zend_Navigation_Page
     </example>
 
     <example xml:id="zend.navigation.custom.example.properties"><info><title>Une page personnalisée avec des propriétés</title></info>
-        
+
 
         <para>
             Ajouter des propriétés à vos pages étendues ne nécessite pas de réécrire

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.creation"><info><title>Création d'une mesure</title></info>
-    
+
 
     <para>
         En créant un objet de mesure, les méthodes <classname>Zend_Measure_*</classname>
@@ -14,7 +14,7 @@
     </para>
 
     <section xml:id="zend.measure.creation.number"><info><title>Créer des mesures à partir de nombres entiers et décimaux</title></info>
-        
+
 
         <para>
             En plus des valeurs de données en nombre entier, des nombre décimaux peuvent être
@@ -25,7 +25,7 @@
         </para>
 
         <example xml:id="zend.measure.creation.number.example-1"><info><title>Création de mesure en utilisant des nombres entiers et décimaux</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $mesure = 1234.7;
@@ -42,7 +42,7 @@ echo $unite;
     </section>
 
     <section xml:id="zend.measure.creation.string"><info><title>Créer des mesures à partir de chaînes de caractères</title></info>
-        
+
 
         <para>
             Beaucoup de mesures reçues comme entrée des applications Zend Framework peuvent
@@ -58,7 +58,7 @@ echo $unite;
         </para>
 
         <example xml:id="zend.measure.creation.string.example-1"><info><title>Création de mesure en utilisant des chaînes</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $machaine = "10010100111010111010100001011011101010001";
@@ -70,7 +70,7 @@ echo $unit;
     </section>
 
     <section xml:id="zend.measure.creation.localized"><info><title>Mesures à partir de chaînes localisées</title></info>
-        
+
 
         <para>
             Quand une corde est présentée dans une notation régionalisée, l'interprétation
@@ -84,7 +84,7 @@ echo $unit;
         </para>
 
         <example xml:id="zend.measure.creation.localized.example-1"><info><title>Chaînes localisées</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de');

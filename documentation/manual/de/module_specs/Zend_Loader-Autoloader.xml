@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.autoloader"><info><title>Der Autoloader</title></info>
-    
+
 
     <para>
         <classname>Zend_Loader_Autoloader</classname> ist eine vollständige Autoloader Lösung für
@@ -39,7 +39,7 @@
     </para>
 
     <section xml:id="zend.loader.autoloader.usage"><info><title>Verwenden des Autoloaders</title></info>
-        
+
 
         <para>
             Das erste Mal wenn eine Instanz des Autoloaders empfangen wird, registriert dieser sich
@@ -64,7 +64,7 @@ $autoloader->registerNamespace('My_');
 ]]></programlisting>
 
         <note><info><title>Namespace Präfixe</title></info>
-            
+
 
             <para>
                 Man sollte beachten dass das vorhergehende Beispiel "My_" verwendet und nicht "My".
@@ -130,7 +130,7 @@ $autoloader->setFallbackAutoloader(true);
 ]]></programlisting>
 
         <note><info><title>Klassen von PHP Namespaces laden</title></info>
-            
+
 
             <para>
                 Beginnend mit Version 1.10.0 erlaubt Zend Framework das Laden von Klassen aus
@@ -199,7 +199,7 @@ $autoloader->setFallbackAutoloader(true);
     </section>
 
     <section xml:id="zend.loader.autoloader.zf-version"><info><title>Auswahl einer Zend Framework Version</title></info>
-        
+
 
         <para>
             Typischerweise, verwendet man die Version des Zend Frameworks die mit dem Autoloader,
@@ -353,7 +353,7 @@ autoloaderZfVersion = "latest"
         </para>
 
         <warning><info><title>Implikationen für die Geschwindigkeit</title></info>
-            
+
 
             <para>
                 Für die beste Performance, sollte man dieses Feature entweder nicht verwenden, oder
@@ -366,7 +366,7 @@ autoloaderZfVersion = "latest"
     </section>
 
     <section xml:id="zend.loader.autoloader.interface"><info><title>Das Autoloader Interface</title></info>
-        
+
 
         <para>
             Neben der Möglichkeit eigene Callbacks als Autoloader zu spezifizieren, definiert
@@ -397,7 +397,7 @@ $autoloader->pushAutoloader($foo, 'Foo_');
     </section>
 
     <section xml:id="zend.loader.autoloader.reference"><info><title>Autoloader Referenz</title></info>
-        
+
 
         <para>
             Anbei kann ein Wegweiser für die Methoden gefunden werden die in
@@ -405,7 +405,7 @@ $autoloader->pushAutoloader($foo, 'Foo_');
         </para>
 
         <table xml:id="zend.loader.autoloader.reference.api"><info><title>Zend_Loader_Autoloader Methoden</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>

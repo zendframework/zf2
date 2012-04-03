@@ -4,8 +4,8 @@
 	<identity>
 		<version number="$Revision: 5103 $"/>
 		<generation date="$Date: 2010-10-15 08:52:57 -0500 (Fri, 15 Oct 2010) $"/>
-		<language type="fr"/> 
-		<territory type="CA"/> 
+		<language type="fr"/>
+		<territory type="CA"/>
 	</identity>
 	<collations>
 		<collation type="standard">

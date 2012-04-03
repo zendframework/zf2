@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.localization"><info><title>国際化(i18n)とローカライズ(l10n)</title></info>
-    
+
 
     <para>
         サイトを国際化したり、ローカライズしたりすることはあなたの観客を増やし、
@@ -12,7 +12,7 @@
     </para>
 
     <section xml:id="performance.localization.translationadapter"><info><title>どの翻訳アダプタを使うべきですか？</title></info>
-        
+
 
         <para>
             翻訳アダプタのすべてが同じことを引き起こすとは限りません。
@@ -23,7 +23,7 @@
         </para>
 
         <section xml:id="performance.localization.translationadapter.fastest"><info><title>最速にするためにXML以外の翻訳アダプタを使う</title></info>
-            
+
 
             <para>
                 Zend Frameworkはさまざまな翻訳アダプタとともに出荷されています。
@@ -69,7 +69,7 @@
     </section>
 
     <section xml:id="performance.localization.cache"><info><title>どのようにしたら翻訳やローカライズをもっと速くできますか？</title></info>
-        
+
 
         <para>
             もしかするとビジネス上の理由であなたは<acronym>XML</acronym>ベースの翻訳アダプタに制限されているかもしれません。
@@ -79,7 +79,7 @@
         </para>
 
         <section xml:id="performance.localization.cache.usage"><info><title>翻訳およびローカライズのキャッシュを使う</title></info>
-            
+
 
             <para>
                 <classname>Zend_Translator</classname>と<classname>Zend_Locale</classname>の両方とも

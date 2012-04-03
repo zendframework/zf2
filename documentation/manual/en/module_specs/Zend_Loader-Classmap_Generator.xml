@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.classmap-generator"><info><title>The Class Map Generator utility: bin/classmap_generator.php</title></info>
-    
+
 
     <section xml:id="zend.loader.classmap-generator.intro"><info><title>Overview</title></info>
-        
+
 
         <para>
             The script <filename>bin/classmap_generator.php</filename> can be used to generate class
@@ -19,7 +19,7 @@
     </section>
 
     <section xml:id="zend.loader.classmap-generator.quick-start"><info><title>Quick Start</title></info>
-        
+
 
         <para>
             You may run the script over any directory containing source code. By default, it will
@@ -34,10 +34,10 @@ php classmap_generator.php Some/Directory/
     </section>
 
     <section xml:id="zend.loader.classmap-generator.options"><info><title>Configuration Options</title></info>
-        
+
 
         <variablelist><info><title>Class Map Generator Options</title></info>
-            
+
 
             <varlistentry>
                 <term>--help or -h</term>

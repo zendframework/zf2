@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.savehandler.dbtable"><info><title>Zend_Session_SaveHandler_DbTable</title></info>
-    
+
 
     <para>
         The basic setup for <classname>Zend_Session_SaveHandler_DbTable</classname> must at least
@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.session.savehandler.dbtable.basic"><info><title>Basic Setup</title></info>
-            
+
 
             <programlisting language="SQL"><![CDATA[
 CREATE TABLE `session` (
@@ -63,7 +63,7 @@ Zend_Session::start();
     </para>
 
     <example xml:id="zend.session.savehandler.dbtable.multi-column-key"><info><title>Using a Multi-Column Primary Key</title></info>
-        
+
 
         <programlisting language="SQL"><![CDATA[
 CREATE TABLE `session` (

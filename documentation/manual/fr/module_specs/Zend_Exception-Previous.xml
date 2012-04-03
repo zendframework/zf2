@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.previous"><info><title>Exceptions précédentes</title></info>
-    
+
 
     <para>
         Depuis Zend Framework 1.10, <classname>Zend_Exception</classname> utilise les exceptions PHP 5.3
@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.exception.previous.example"><info><title>Exceptions précedentes</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 try {

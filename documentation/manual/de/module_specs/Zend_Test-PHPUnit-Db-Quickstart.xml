@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db.quickstart"><info><title>Quickstart</title></info>
-    
+
 
     <section xml:id="zend.test.phpunit.db.quickstart.testcase"><info><title>Einen Datenbank TestCase erstellen</title></info>
-        
+
 
         <para>
             Wir schreiben jetzt einige Datenbank Tests für das Bug Datenbank Beispiel in der
@@ -108,7 +108,7 @@ class BugsTest extends Zend_Test_PHPUnit_DatabaseTestCase
     </section>
 
     <section xml:id="zend.test.phpunit.db.quickstart.dataset"><info><title>Einen Seed Datensatz spezifizieren</title></info>
-        
+
 
         <para>
             Im vorhergehenden Setup für den Datenbank Testcase haben wir eine Seed Datei für das
@@ -157,7 +157,7 @@ PRIMARY KEY  (`bug_id`)
     </section>
 
     <section xml:id="zend.test.phpunit.db.quickstart.initial-tests"><info><title>Einige initiale Datenbank Tests</title></info>
-        
+
 
         <para>
             Jetzt, da wie die zwei benötigten Abstrakten Methoden von

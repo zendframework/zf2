@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.modular"><info><title>モジュラーディレクトリ構造の規約の使用</title></info>
-    
+
 
     <section xml:id="zend.controller.modular.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             モジュラーディレクトリ構造の規約 (The Conventional Modular directory structure)
@@ -61,7 +61,7 @@ application/
         </para>
 
         <note><info><title>デフォルトモジュールでは名前空間を使用しない</title></info>
-            
+
 
             <para>
                 デフォルトモジュールでは、コントローラは
@@ -81,7 +81,7 @@ application/
     </section>
 
     <section xml:id="zend.controller.modular.directories"><info><title>モジュールコントローラディレクトリの指定</title></info>
-        
+
 
         <para>
             モジュールを使用するための第一歩となるのが、
@@ -181,7 +181,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.router"><info><title>モジュールへのルーティング</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Router_Rewrite</classname> のデフォルトのルートは
@@ -205,7 +205,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.defaultcontroller"><info><title>モジュールあるいはグローバルのデフォルトコントローラ</title></info>
-        
+
 
         <para>
             デフォルトのルータでは、コントローラが <acronym>URL</acronym> で指定されなかった場合には

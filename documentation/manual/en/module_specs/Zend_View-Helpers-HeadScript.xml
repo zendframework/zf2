@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headscript"><info><title>HeadScript Helper</title></info>
-    
+
 
     <para>
         The <acronym>HTML</acronym> <emphasis>&lt;script&gt;</emphasis> element is used to either
@@ -77,7 +77,7 @@
     </para>
 
     <note><info><title>Setting Conditional Comments</title></info>
-        
+
 
         <para>
             <classname>HeadScript</classname> allows you to wrap the script tag in conditional
@@ -87,7 +87,7 @@
         </para>
 
         <example xml:id="zend.view.helpers.initial.headscript.conditional"><info><title>Headscript With Conditional Comments</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // adding scripts
@@ -133,7 +133,7 @@ $this->headScript()->appendFile(
     </para>
 
     <note><info><title>Use InlineScript for HTML Body Scripts</title></info>
-        
+
 
         <para>
             <classname>HeadScript</classname>'s sibling helper, <link linkend="zend.view.helpers.initial.inlinescript">InlineScript</link>,
@@ -145,7 +145,7 @@ $this->headScript()->appendFile(
     </note>
 
     <note><info><title>Arbitrary Attributes are Disabled by Default</title></info>
-        
+
 
         <para>
             By default, <classname>HeadScript</classname> only will render
@@ -163,7 +163,7 @@ $this->headScript()->setAllowArbitraryAttributes(true);
     </note>
 
     <example xml:id="zend.view.helpers.initial.headscript.basicusage"><info><title>HeadScript Helper Basic Usage</title></info>
-        
+
 
         <para>
             You may specify a new script tag at any time. As noted above, these
@@ -207,7 +207,7 @@ $this->headScript()->prependFile('/js/prototype.js');
     </example>
 
     <example xml:id="zend.view.helpers.initial.headscript.capture"><info><title>Capturing Scripts Using the HeadScript Helper</title></info>
-        
+
 
         <para>
             Sometimes you need to generate client-side scripts programmatically.

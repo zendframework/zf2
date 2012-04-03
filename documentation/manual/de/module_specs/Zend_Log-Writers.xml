@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.writers"><info><title>Writer</title></info>
-    
+
 
     <para>
         Ein Writer ist ein Objekt das von <classname>Zend_Log_Writer_Abstract</classname> abstammt.
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.log.writers.stream"><info><title>In Streams schreiben</title></info>
-        
+
 
         <para>
             <classname>Zend_Log_Writer_Stream</classname> sendet Log Daten in einen
@@ -73,7 +73,7 @@ $logger->info('Informative Nachricht');
     </section>
 
     <section xml:id="zend.log.writers.database"><info><title>In Datenbanken schreiben</title></info>
-        
+
 
         <para>
             <classname>Zend_Log_Writer_Db</classname> schreibt Log Informationen in eine Datenbank
@@ -112,7 +112,7 @@ $logger->info('Informative Nachricht');
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Log-Writers-ZendMonitor.xml"/>
 
     <section xml:id="zend.log.writers.null"><info><title>Einen Writer abstumpfen</title></info>
-        
+
 
         <para>
             <classname>Zend_Log_Writer_Null</classname> ist ein Stumpf der keine Log Daten
@@ -130,7 +130,7 @@ $logger->info('Informative Nachricht');
     </section>
 
     <section xml:id="zend.log.writers.mock"><info><title>Mit der Attrappe testen</title></info>
-        
+
 
         <para>
             <classname>Zend_Log_Writer_Mock</classname> ist ein sehr einfacher Writer der die rohen
@@ -162,7 +162,7 @@ var_dump($mock->events[0]);
     </section>
 
     <section xml:id="zend.log.writers.compositing"><info><title>Gemischte Writer</title></info>
-        
+
 
         <para>
             Es gibt kein gemischtes Writer Objekt. Trotzdem kann eine Log Instanz in jede beliebige

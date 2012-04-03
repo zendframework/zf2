@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.locale.date.datesandtimes"><info><title>Working with Dates and Times</title></info>
-    
+
 
     <para>
         <classname>Zend_Locale_Format</classname> provides several methods for working with dates
@@ -16,7 +16,7 @@
     </para>
 
     <section xml:id="zend.locale.date.normalize"><info><title>Normalizing Dates and Times</title></info>
-        
+
 
         <para>
             The <methodname>getDate()</methodname> method parses strings containing dates in
@@ -38,7 +38,7 @@
         </para>
 
         <table xml:id="zend.locale.date.normalize.table-1"><info><title>Key values for getDate() with option 'fix_date'</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -98,7 +98,7 @@
         </para>
 
         <table xml:id="zend.locale.date.normalize.table-2"><info><title>Return values</title></info>
-            
+
 
             <tgroup cols="5">
                 <thead>
@@ -164,7 +164,7 @@
         </table>
 
         <example xml:id="zend.locale.date.normalize.example-1"><info><title>Normalizing a date</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $dateString = Zend_Locale_Format::getDate('13.04.2006',
@@ -218,7 +218,7 @@ Array
         </para>
 
         <example xml:id="zend.locale.date.normalize.example-2"><info><title>Normalizing a date by locale</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');
@@ -238,7 +238,7 @@ print_r ($date);
         </para>
 
         <example xml:id="zend.locale.date.normalize.example-3"><info><title>Normalizing a date with time</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');
@@ -259,7 +259,7 @@ print_r ($date);
         </para>
 
         <example xml:id="zend.locale.date.normalize.example-4"><info><title>Normalizing a userdefined date</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $date = Zend_Locale_Format::getDate('13200504T551422',
@@ -276,7 +276,7 @@ print_r ($date);
         </para>
 
         <table xml:id="zend.locale.date.normalize.table-3"><info><title>Format definition</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -330,7 +330,7 @@ print_r ($date);
         </para>
 
         <table xml:id="zend.locale.date.normalize.table-4"><info><title>Example formats</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>
@@ -364,7 +364,7 @@ print_r ($date);
         </table>
 
         <note><info><title>Database date format</title></info>
-            
+
 
             <para>
                 To parse a database date value (f.e. MySql or MsSql), use
@@ -380,7 +380,7 @@ print_r ($date);
         </para>
 
         <example xml:id="zend.locale.date.normalize.example-5"><info><title>Automatic correction of input dates</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $date = Zend_Locale_Format::getDate('41.10.20',
@@ -395,7 +395,7 @@ print_r ($date);
     </section>
 
     <section xml:id="zend.locale.date.test"><info><title>Testing Dates</title></info>
-        
+
 
         <para>
             Use <methodname>checkDateFormat($inputString, array('date_format' =&gt; $format,
@@ -409,7 +409,7 @@ print_r ($date);
         </para>
 
         <example xml:id="zend.locale.date.test.example-1"><info><title>Date testing</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');
@@ -428,7 +428,7 @@ if (Zend_Locale_Format::checkDateFormat('13.Apr.2006',
     </section>
 
     <section xml:id="zend.locale.time.normalizing"><info><title>Normalizing a Time</title></info>
-        
+
 
         <para>
             Normally, a time will be returned with a date, if the input contains both. If the proper
@@ -438,7 +438,7 @@ if (Zend_Locale_Format::checkDateFormat('13.Apr.2006',
         </para>
 
         <example xml:id="zend.locale.time.normalizing.example-1"><info><title>Normalize an unknown time</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');
@@ -455,7 +455,7 @@ if (Zend_Locale_Format::getTime('13:44:42',
     </section>
 
     <section xml:id="zend.locale.time.test"><info><title>Testing Times</title></info>
-        
+
 
         <para>
             Use <methodname>checkDateFormat()</methodname> to check if a given string contains a
@@ -464,7 +464,7 @@ if (Zend_Locale_Format::getTime('13:44:42',
         </para>
 
         <example xml:id="zend.locale.time.test.example-1"><info><title>Testing a time</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');

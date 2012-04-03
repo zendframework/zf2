@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db.testing"><info><title>Usage, API and Extensions Points</title></info>
-    
+
 
     <para>
         The Quickstart already gave a good introduction on how database testing can be done using
@@ -10,7 +10,7 @@
     </para>
 
     <note><info><title>Some Remarks on Database Testing</title></info>
-        
+
 
         <para>
             Just as the Controller TestCase is testing an application at an integration level, the
@@ -28,7 +28,7 @@
     </note>
 
     <section xml:id="zend.test.phpunit.db.testing.testcase"><info><title>The Zend_Test_PHPUnit_DatabaseTestCase class</title></info>
-        
+
 
         <para>
             The <classname>Zend_Test_PHPUnit_DatabaseTestCase</classname> class derives from the
@@ -107,7 +107,7 @@
         </para>
 
         <table xml:id="zend.test.phpunit.db.testing.testcase.api-methods"><info><title>Zend_Test_PHPUnit_DatabaseTestCase API Methods</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -188,7 +188,7 @@
     </section>
 
     <section xml:id="zend.test.phpunit.db.testing.controllerintegration"><info><title>Integrating Database Testing with the ControllerTestCase</title></info>
-        
+
 
         <para>
             Because <acronym>PHP</acronym> does not support multiple inheritance it is not possible
@@ -200,7 +200,7 @@
         </para>
 
         <example xml:id="zend.test.phpunit.db.testing.controllerintegration.example"><info><title>Database integration example</title></info>
-            
+
 
             <para>
                 This example extends the User Controller Test from the

@@ -104,7 +104,7 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
                 DbTable::PRIMARY_ASSIGNMENT_SESSION_NAME,
             ),
         ), true);
-        
+
         // $this->markTestSkipped('Skipped until Zend\Db is refactored, this tests assumptions are generally bad, more assertions are needed');
 
         $this->manager = $manager = new TestManager();
@@ -143,7 +143,7 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
         $config['primary'] = array('id');
         $config[DbTable::PRIMARY_ASSIGNMENT]
             = DbTable::PRIMARY_ASSIGNMENT_SESSION_SAVE_PATH;
-            
+
         $this->setExpectedException(
         	'Zend\Session\Exception\RuntimeException',
         	'Value for configuration option \'primaryAssignment\' must have an assignment for the session id (\'sessionId\')'
@@ -184,7 +184,7 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->saveHandlerTableConfig;
         unset($config[DbTable::LIFETIME_COLUMN]);
-        
+
         $this->setExpectedException(
             'Zend\Session\Exception\RuntimeException',
             'Configuration must define \'lifetimeColumn\' which names the session table lifetime column'
@@ -196,7 +196,7 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->saveHandlerTableConfig;
         unset($config[DbTable::DATA_COLUMN]);
-        
+
         $this->setExpectedException(
             'Zend\Session\Exception\RuntimeException',
             'Configuration must define \'dataColumn\' which names the session table data column'
@@ -209,7 +209,7 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
         //different number of args between primary and primaryAssignment
         $config = $this->saveHandlerTableConfig;
         unset($config[DbTable::PRIMARY_ASSIGNMENT]);
-        
+
         $this->setExpectedException(
             'Zend\Session\Exception\RuntimeException'
         );

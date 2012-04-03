@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-secure"><info><title>Zabezpečenie SMTP prenosu</title></info>
-  
+
 
   <para>
   <code>Zend_Mail</code> takisto podporuje použitie TLS alebo SSL na zabezpečnie
@@ -11,7 +11,7 @@
   </para>
 
   <example><info><title>Vytvorene zabezpečného spojenia pomocou Zend_Mail_Transport_Smtp</title></info>
-    
+
 
     <programlisting role="php"><![CDATA[<?php
 

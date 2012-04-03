@@ -63,7 +63,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->query->setDocument($this->getHtml());
     }
 
-    public function handleError($msg, $code = 0) 
+    public function handleError($msg, $code = 0)
     {
         $this->error = $msg;
     }
@@ -213,7 +213,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($errors));
         $this->assertTrue(0 < count($errors));
     }
-    
+
     /**
      * @group ZF-9765
      */
@@ -250,7 +250,7 @@ EOF;
         $doc = new Query($this->getHtml(), 'iso-8859-1');
         $this->assertEquals('iso-8859-1', $doc->getEncoding());
     }
-   
+
     /**
      * @group ZF-3938
      */
@@ -259,7 +259,7 @@ EOF;
         $this->query->setDocument($this->getHtml(), 'iso-8859-1');
         $this->assertEquals('iso-8859-1', $this->query->getEncoding());
     }
-   
+
     /**
      * @group ZF-3938
      */
@@ -273,7 +273,7 @@ EOF;
      * @group ZF-3938
      */
     public function testSpecifyingEncodingSetsEncodingOnDomDocument()
-    {  
+    {
         $this->query->setDocument($this->getHtml(), 'utf-8');
         $test = $this->query->execute('.foo');
         $this->assertInstanceof('\\Zend\\Dom\\NodeList', $test);

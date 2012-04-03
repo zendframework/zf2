@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.read"><info><title>Reading Mail Messages</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> can read mail messages from several local or remote mail
@@ -10,7 +10,7 @@
     </para>
 
     <table xml:id="zend.mail.read.table-1"><info><title>Mail Read Feature Overview</title></info>
-        
+
 
         <tgroup cols="5">
             <thead>
@@ -84,7 +84,7 @@
     </table>
 
     <section xml:id="zend.mail.read-example"><info><title>Simple example using Pop3</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail_Storage_Pop3(array('host'     => 'localhost',
@@ -99,7 +99,7 @@ foreach ($mail as $message) {
     </section>
 
     <section xml:id="zend.mail.read-open-local"><info><title>Opening a local storage</title></info>
-        
+
 
         <para>
             Mbox and Maildir are the two supported formats for local mail storages, both in their
@@ -130,7 +130,7 @@ $mail = new Zend_Mail_Storage_Maildir(array('dirname' =>
     </section>
 
     <section xml:id="zend.mail.read-open-remote"><info><title>Opening a remote storage</title></info>
-        
+
 
         <para>
             For remote storages the two most popular protocols are supported: Pop3 and Imap. Both
@@ -185,7 +185,7 @@ $mail = new Zend_Mail_Storage_Pop3(array('host'     => 'example.com',
     </section>
 
     <section xml:id="zend.mail.read-fetching"><info><title>Fetching messages and simple methods</title></info>
-        
+
 
         <para>
             Messages can be fetched after you've opened the storage . You need the message number,
@@ -243,7 +243,7 @@ unset($mail[$messageNum]);
     </section>
 
     <section xml:id="zend.mail.read-message"><info><title>Working with messages</title></info>
-        
+
 
         <para>
             After you fetch the messages with <methodname>getMessage()</methodname> you want to
@@ -383,7 +383,7 @@ if (!$foundPart) {
     </section>
 
     <section xml:id="zend.mail.read-flags"><info><title>Checking for flags</title></info>
-        
+
 
         <para>
             Maildir and IMAP support storing flags. The class
@@ -451,7 +451,7 @@ if (!$message->hasFlag('$SpamTested')) {
     </section>
 
     <section xml:id="zend.mail.read-folders"><info><title>Using folders</title></info>
-        
+
 
         <para>
             All storages, except Pop3, support folders, also called mailboxes. The interface
@@ -515,7 +515,7 @@ $mail = new Zend_Mail_Storage_Imap(array('host'     => 'example.com',
         </para>
 
         <table xml:id="zend.mail.read-folders.table-1"><info><title>Mail Folder Names</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -594,10 +594,10 @@ $mail->selectFolder($folder);
     </section>
 
     <section xml:id="zend.mail.read-advanced"><info><title>Advanced Use</title></info>
-        
+
 
         <section xml:id="zend.mail.read-advanced.noop"><info><title>Using NOOP</title></info>
-            
+
 
             <para>
                 If you're using a remote storage and have some long tasks you might need to keep
@@ -619,7 +619,7 @@ foreach ($mail as $message) {
         </section>
 
         <section xml:id="zend.mail.read-advanced.caching"><info><title>Caching instances</title></info>
-            
+
 
             <para>
                 <classname>Zend_Mail_Storage_Mbox</classname>,
@@ -659,7 +659,7 @@ $cache->set($cache_id, $mail);
         </section>
 
         <section xml:id="zend.mail.read-advanced.extending"><info><title>Extending Protocol Classes</title></info>
-            
+
 
             <para>
                 Remote storages use two classes:
@@ -753,7 +753,7 @@ $mail = new Example_Mail_Pop3_Knock(array('host'        => 'localhost',
         </section>
 
         <section xml:id="zend.mail.read-advanced.quota"><info><title>Using Quota (since 1.5)</title></info>
-            
+
 
             <para>
                 <classname>Zend_Mail_Storage_Writable_Maildir</classname> has support for Maildir++

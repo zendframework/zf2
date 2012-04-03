@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view.dijit"><info><title>Dijit-Specific 视图助手 </title></info>
-    
+
 
     <para>
         引用一下 Dojo 手册：“Dijit 是基于 dojo 之上的一个小部件系统”，Dijit 有
@@ -111,7 +111,7 @@
     </para>
 
     <example xml:id="zend.dojo.view.dijit.prefixpath"><info><title> 注册 Dojo 视图助手前缀路径 </title></info>
-        
+
 
         <programlisting role="php"><![CDATA[
 $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
@@ -119,7 +119,7 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
     </example>
 
     <section xml:id="zend.dojo.view.dijit.layout"><info><title>Dijit 布局元素 </title></info>
-        
+
 
         <para>
             dijit.layout 元素家族用来生成定制的、可预计的布局。任何关于用法的问题
@@ -303,7 +303,7 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
         </itemizedlist>
 
         <example xml:id="zend.dojo.view.dijit.layout.borderexample"><info><title>BorderContainer 布局 dijit 范例</title></info>
-            
+
 
             <para>
                 BorderContainers, 特别是当和抓取内容耦合时，对复杂的布局效果特别有用。
@@ -346,7 +346,7 @@ echo $view->borderContainer()->captureEnd('masterLayout');
     </section>
 
     <section xml:id="zend.dojo.view.dijit.form"><info><title>Dijit 表单元素 </title></info>
-        
+
 
         <para>
             Dojo 的表单校验和输入 dijit 在 dijit.form 树中。
@@ -522,7 +522,7 @@ echo $view->currencyTextBox(
 ]]></programlisting>
 
                 <note><info><title>Issues with Builds</title></info>
-                    
+
 
                     <para>
                         目前有这些 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://trac.dojotoolkit.org/ticket/7183">

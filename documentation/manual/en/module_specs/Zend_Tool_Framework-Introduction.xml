@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_Tool_Framework</classname> is a framework for exposing common

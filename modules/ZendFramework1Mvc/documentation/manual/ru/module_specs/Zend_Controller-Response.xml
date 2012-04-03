@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.response"><info><title>Объект ответа</title></info>
-    
+
 
     <section xml:id="zend.controller.response.usage"><info><title>Использование</title></info>
-        
+
 
         <para>
             Объект ответа представляет собой логическое продолжение к
@@ -141,7 +141,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.response.headers"><info><title>Управление заголовками</title></info>
-        
+
 
         <para>
             Как было замечено ранее, одной из обязанностей объекта ответа
@@ -252,7 +252,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.response.namedsegments"><info><title>Именованные сегменты</title></info>
-        
+
 
         <para>
             Объект ответа поддерживает именованные сегменты. Это позволяет
@@ -396,7 +396,7 @@ array(
     </section>
 
     <section xml:id="zend.controller.response.exceptions"><info><title>Проверка на исключения в объекте ответа</title></info>
-        
+
 
         <para>
             Как было отмечено ранее, по умолчанию исключения, пойманные во время
@@ -490,7 +490,7 @@ array(
     </section>
 
     <section xml:id="zend.controller.response.subclassing"><info><title>Создание подклассов объекта ответа</title></info>
-        
+
 
         <para>
             Назначением объекта ответа является сбор заголовков и содержимого из

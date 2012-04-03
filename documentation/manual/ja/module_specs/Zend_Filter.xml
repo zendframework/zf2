@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.introduction"><info><title>導入</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Filter</classname> コンポーネントは、データのフィルタリングに必要となる一般的な機能を提供します。
@@ -11,7 +11,7 @@
 
     <section xml:id="zend.filter.introduction.definition"><info><title>フィルタとは?</title></info>
 
-        
+
 
         <para>
             自然界におけるフィルタの典型的な使用法は、
@@ -45,7 +45,7 @@
 
     <section xml:id="zend.filter.introduction.using"><info><title>フィルタの基本的な使用法</title></info>
 
-        
+
 
         <para>
             ここで考えたフィルタについての定義をもとにして
@@ -71,7 +71,7 @@ echo $htmlEntities->filter('"'); // "
 
     <section xml:id="zend.filter.introduction.static"><info><title>静的メソッド staticFilter() の使用法</title></info>
 
-        
+
 
         <para>
             指定したフィルタクラスを読み込んでそのインスタンスを作成するというのが面倒ならば、
@@ -116,7 +116,7 @@ echo Zend_Filter::filterStatic('"',
 
         <section xml:id="zend.filter.introduction.static.namespaces"><info><title>名前空間</title></info>
 
-            
+
 
             <para>
                 自分で定義したフィルタを使う際に、

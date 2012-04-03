@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.api.reference.zend-ldap-dn"><info><title>Zend_Ldap_Dn</title></info>
-    
+
 
     <para>
         <classname>Zend_Ldap_Dn</classname> provides an object-oriented interface to
@@ -46,7 +46,7 @@
     </para>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap-dn.table"><info><title>Zend_Ldap_Dn API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>

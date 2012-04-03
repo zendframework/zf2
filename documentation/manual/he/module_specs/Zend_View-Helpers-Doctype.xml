@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.doctype"><info><title>תוסף עזרה ה Doctype</title></info>
-    
+
 
     <para>
         קוד HTML ו XHTML תקני צריכים להכיל הגדרה של <code>DOCTYPE</code>.
@@ -33,7 +33,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.doctype.basicusage"><info><title>שימוש בסיסי</title></info>
-        
+
 
         <para>
            ניתן להגדיר את אלמנט זה בכל שלב, אך רצוי לעשות זאת בתחילת המערכת, בקובץ ה bootstrap
@@ -57,7 +57,7 @@ $doctypeHelper->doctype('XHTML1_STRICT');
     </example>
 
     <example xml:id="zend.view.helpers.initial.doctype.retrieving"><info><title>קבלת הערך</title></info>
-        
+
 
         <para>
             אם אתה צריך לדעת מהו הערך שהוגדר תוכל לעשות זאת על ידי קריאה למתודה <code>getDoctype()</code> על האובייקט, שמוחזר על ידי שימוש בתוסף.

@@ -6,7 +6,7 @@
 # Date:   2008/6/27 13:05
 
 # Font used for unit testing, should be the default font
-UTFLF="../../../../library/Zend/Text/Figlet/zend-framework.flf" 
+UTFLF="../../../../library/Zend/Text/Figlet/zend-framework.flf"
 
 # GZIP font for .gz test
 rm -f GzippedFont.gz

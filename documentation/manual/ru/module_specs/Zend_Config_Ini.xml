@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.adapters.ini"><info><title>Zend_Config_Ini</title></info>
-    
+
 
     <para>
         <classname>Zend_Config_Ini</classname> дает разработчикам возможность
@@ -18,7 +18,7 @@
     </para>
 
     <note><info><title>Синтаксический разбор INI-файла</title></info>
-        
+
 
         <para>
             <classname>Zend_Config_Ini</classname> использует функцию
@@ -33,7 +33,7 @@
     </note>
 
     <note><info><title>Разделитель ключей</title></info>
-        
+
 
         <para>
             По умолчанию разделителем ключей является символ точки
@@ -53,7 +53,7 @@ $config = new Zend_Config_Ini('/path/to/config.ini',
     </note>
 
     <example xml:id="zend.config.adapters.ini.example.using"><info><title>Использование Zend_Config_Ini</title></info>
-        
+
 
         <para>
             Данный пример демонстрирует использование <classname>Zend_Config_Ini</classname>
@@ -105,7 +105,7 @@ echo $config->database->params->dbname; // выведет "dbname"
 
     <note>
     <table xml:id="zend.config.adapters.ini.table"><info><title>Параметры конструктора Zend_Config_Ini</title></info>
-        
+
         <tgroup cols="2">
             <thead>
                 <row>

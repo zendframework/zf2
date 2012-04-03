@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.types"><info><title>Arten von Maßeinheiten</title></info>
-    
+
 
     <para>
         Alle unterstützten Arten von Maßeinheiten sind anbei aufgelistet, jede mit einem Beispiel
@@ -8,7 +8,7 @@
     </para>
 
     <table xml:id="zend.measure.types.table-1"><info><title>Liste der Arten von Maßeinheiten</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>
@@ -343,7 +343,7 @@
     </table>
 
     <section xml:id="zend.measure.types.binary"><info><title>Hinweise für Zend_Measure_Binary</title></info>
-        
+
 
         <para>
             Einige übliche Binäre Konventionen beinhalten Terme wie Kilo-, Mega-, Giga-, usw. die im
@@ -364,7 +364,7 @@
     </section>
 
     <section xml:id="zend.measure.types.decimal"><info><title>Hinweise für Zend_Measure_Number</title></info>
-        
+
 
         <para>
             Das bekannteste Zahlenformat ist das Dezimalsystem. Zusätzlich unterstützt diese Klasse
@@ -375,7 +375,7 @@
     </section>
 
     <section xml:id="zend.measure.types.roman"><info><title>Römische Zahlen</title></info>
-        
+
 
         <para>
             Für das Römische Zahlensystem werden Ziffern größer als 4000 unterstützt. In

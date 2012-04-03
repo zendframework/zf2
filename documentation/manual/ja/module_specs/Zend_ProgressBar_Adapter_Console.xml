@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.adapter.console"><info><title>Zend_ProgressBar_Adapter_Console</title></info>
-    
+
     <para>
         <classname>Zend_ProgressBar_Adapter_Console</classname> は、
         ターミナル用に使用するテキストベースのアダプタです。
@@ -12,7 +12,7 @@
         また、プログレスバーそのものの形式も設定できます。
     </para>
     <note><info><title>自動的なコンソール幅の認識</title></info>
-        
+
         <para>
             この機能を *nix 系のシステムで使用するには
             <code>shell_exec</code> が必要です。Windows

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.response"><info><title>Objet de réponse</title></info>
-    
+
 
     <section xml:id="zend.controller.response.usage"><info><title>Utilisation</title></info>
-        
+
 
         <para>
             L'objet de réponse équilibre la balance du modèle <acronym>MVC</acronym> avec
@@ -126,7 +126,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.response.headers"><info><title>Manipulation des en-têtes</title></info>
-        
+
 
         <para>
             Comme nous l'avons vu, un des rôles de l'objet de réponse est de gérer les
@@ -210,7 +210,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.response.namedsegments"><info><title>Segments nommés</title></info>
-        
+
 
         <para>
             L'objet de réponse propose une fragmentation par segments. Ceci permet de séparer
@@ -334,7 +334,7 @@ array(
     </section>
 
     <section xml:id="zend.controller.response.exceptions"><info><title>Manipulation des exceptions dans l'objet de réponse</title></info>
-        
+
 
         <para>
             Comme déjà mentionné, par défaut, les exceptions rencontrées durant le processus
@@ -409,7 +409,7 @@ array(
     </section>
 
     <section xml:id="zend.controller.response.subclassing"><info><title>Dériver l'objet de réponse</title></info>
-        
+
 
         <para>
             L'objet de réponse sert à collecter les en-têtes <acronym>HTTP</acronym> de la réponse, ainsi que

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.findFeeds"><info><title>Retrieving Feeds from Web Pages</title></info>
-    
+
 
     <para>
         Web pages often contain <emphasis>&lt;link&gt;</emphasis> tags that refer to feeds with

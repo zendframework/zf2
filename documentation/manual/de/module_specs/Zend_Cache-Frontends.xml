@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.frontends"><info><title>Zend_Cache Frontends</title></info>
-    
+
 
     <section xml:id="zend.cache.frontends.core"><info><title>Zend_Cache_Core</title></info>
-        
+
 
         <section xml:id="zend.cache.frontends.core.introduction"><info><title>Einführung</title></info>
-            
+
 
             <para>
                 <classname>Zend_Cache_Core</classname> ist ein spezielles Frontend, da es der Kern
@@ -24,7 +24,7 @@
         </section>
 
         <section xml:id="zend.cache.frontends.core.options"><info><title>Mögliche Optionen</title></info>
-            
+
 
             <para>
                 Diese Optionen werden der Factory Methode übergeben wie im nachfolgenden Beispiel
@@ -32,7 +32,7 @@
             </para>
 
             <table xml:id="zend.cache.frontends.core.options.table"><info><title>Core Frontend Optionen</title></info>
-                
+
 
                 <tgroup cols="4">
                     <thead>
@@ -153,7 +153,7 @@
         </section>
 
         <section xml:id="zend.cache.core.examples"><info><title>Beispiele</title></info>
-            
+
 
             <para>
                 Ein Beispiel wird ganz am Anfang des Handbuches gegeben.
@@ -274,10 +274,10 @@ if (!($cache->test($id))) {
     </section>
 
     <section xml:id="zend.cache.frontends.output"><info><title>Zend_Cache_Frontend_Output</title></info>
-        
+
 
         <section xml:id="zend.cache.frontends.output.introduction"><info><title>Einführung</title></info>
-            
+
 
             <para>
                 <classname>Zend_Cache_Frontend_Output</classname> ist ein Ausgabe-Empfangendes
@@ -288,7 +288,7 @@ if (!($cache->test($id))) {
         </section>
 
         <section xml:id="zend.cache.frontends.output.options"><info><title>Mögliche Optionen</title></info>
-            
+
 
             <para>
                 Dieses Frontend hat keine bestimmten Optionen zusätzlich zu denen von
@@ -297,7 +297,7 @@ if (!($cache->test($id))) {
         </section>
 
         <section xml:id="zend.cache.frontends.output.examples"><info><title>Beispiele</title></info>
-            
+
 
             <para>
                 Ein Beispiel wird ganz am Anfang des Handbuches gegeben. Hier ist es mit kleinen
@@ -327,10 +327,10 @@ echo 'Hier wird nie gecached ('.time().').';
     </section>
 
     <section xml:id="zend.cache.frontends.function"><info><title>Zend_Cache_Frontend_Function</title></info>
-        
+
 
         <section xml:id="zend.cache.frontends.function.introduction"><info><title>Einführung</title></info>
-            
+
 
             <para>
                 <classname>Zend_Cache_Frontend_Function</classname> cached das Ergebnis von
@@ -341,10 +341,10 @@ echo 'Hier wird nie gecached ('.time().').';
         </section>
 
         <section xml:id="zend.cache.frontends.function.options"><info><title>Mögliche Optionen</title></info>
-            
+
 
             <table xml:id="zend.cache.frontends.function.options.table"><info><title>Cache Frontend Optionen</title></info>
-                
+
 
                 <tgroup cols="4">
                     <thead>
@@ -387,7 +387,7 @@ echo 'Hier wird nie gecached ('.time().').';
         </section>
 
         <section xml:id="zend.cache.frontends.function.examples"><info><title>Beispiele</title></info>
-            
+
 
             <para>
                 Die Verwendung der <methodname>call()</methodname> Funktion ist die gleiche, wie
@@ -422,10 +422,10 @@ $cache->call('veryExpensiveFunc', $params);
     </section>
 
     <section xml:id="zend.cache.frontends.class"><info><title>Zend_Cache_Frontend_Class</title></info>
-        
+
 
         <section xml:id="zend.cache.frontends.class.introduction"><info><title>Einführung</title></info>
-            
+
 
             <para>
                 <classname>Zend_Cache_Frontend_Class</classname> ist unterschiedlich zu
@@ -435,10 +435,10 @@ $cache->call('veryExpensiveFunc', $params);
         </section>
 
         <section xml:id="zend.cache.frontends.class.options"><info><title>Mögliche Optionen</title></info>
-            
+
 
             <table xml:id="zend.cache.frontends.class.options.table"><info><title>Class Frontend Optionen</title></info>
-                
+
 
                 <tgroup cols="4">
                     <thead>
@@ -493,7 +493,7 @@ $cache->call('veryExpensiveFunc', $params);
         </section>
 
         <section xml:id="zend.cache.frontends.class.examples"><info><title>Beispiele</title></info>
-            
+
 
             <para>
                 zum Beispiel, um einen statischen Aufruf zu cachen:
@@ -550,10 +550,10 @@ $res = $cache->foobar2('1', '2');
     </section>
 
     <section xml:id="zend.cache.frontends.file"><info><title>Zend_Cache_Frontend_File</title></info>
-        
+
 
         <section xml:id="zend.cache.frontends.file.introduction"><info><title>Einführung</title></info>
-            
+
 
             <para>
                 <classname>Zend_Cache_Frontend_File</classname> ist ein Frontend angetrieben durch
@@ -575,10 +575,10 @@ $res = $cache->foobar2('1', '2');
         </section>
 
         <section xml:id="zend.cache.frontends.file.options"><info><title>Mögliche Optionen</title></info>
-            
+
 
             <table xml:id="zend.cache.frontends.file.options.table"><info><title>File Frontend Optionen</title></info>
-                
+
 
                 <tgroup cols="4">
                     <thead>
@@ -636,7 +636,7 @@ $res = $cache->foobar2('1', '2');
         </section>
 
         <section xml:id="zend.cache.frontends.file.examples"><info><title>Beispiele</title></info>
-            
+
 
             <para>
                 Die Verwendung dieses Frontends ist die gleiche wie die von
@@ -648,10 +648,10 @@ $res = $cache->foobar2('1', '2');
     </section>
 
     <section xml:id="zend.cache.frontends.page"><info><title>Zend_Cache_Frontend_Page</title></info>
-        
+
 
         <section xml:id="zend.cache.frontends.page.introduction"><info><title>Einführung</title></info>
-            
+
 
             <para>
                 <classname>Zend_Cache_Frontend_Page</classname> ist wie
@@ -694,10 +694,10 @@ $res = $cache->foobar2('1', '2');
         </section>
 
         <section xml:id="zend.cache.frontends.page.options"><info><title>Mögliche Optionen</title></info>
-            
+
 
             <table xml:id="zend.cache.frontends.page.options.table"><info><title>Page Frontend Optionen</title></info>
-                
+
 
                 <tgroup cols="4">
                     <thead>
@@ -915,7 +915,7 @@ $res = $cache->foobar2('1', '2');
         </section>
 
         <section xml:id="zend.cache.frontends.page.examples"><info><title>Beispiele</title></info>
-            
+
 
             <para>
                 Die Verwendung von <classname>Zend_Cache_Frontend_Page</classname> ist wirklich
@@ -992,7 +992,7 @@ $cache->start();
         </section>
 
         <section xml:id="zend.cache.frontends.page.cancel"><info><title>Die spezielle cancel Methode</title></info>
-            
+
 
             <para>
                 Aus Designgründen, kann es in einigen Fällen (zum Beispiel bei Verwendung von nicht
@@ -1019,10 +1019,10 @@ if ($someTest) {
     </section>
 
     <section xml:id="zend.cache.frontends.capture"><info><title>Zend_Cache_Frontend_Capture</title></info>
-        
+
 
         <section xml:id="zend.cache.frontends.capture.introduction"><info><title>Einführung</title></info>
-            
+
 
             <para>
                 <classname>Zend_Cache_Frontend_Capture</classname> ist wie

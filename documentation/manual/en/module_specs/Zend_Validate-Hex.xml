@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.hex"><info><title>Hex</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Hex</classname> allows you to validate if a given value contains
@@ -19,7 +19,7 @@ if ($validator->isValid('123ABC')) {
 ]]></programlisting>
 
     <note><info><title>Invalid characters</title></info>
-        
+
 
         <para>
             All other characters will return false, including whitespace and decimal point. Also
@@ -28,7 +28,7 @@ if ($validator->isValid('123ABC')) {
     </note>
 
     <section xml:id="zend.validate.set.hex.options"><info><title>Supported options for Zend_Validate_Hex</title></info>
-        
+
 
         <para>
             There are no additional options for <classname>Zend_Validate_Hex</classname>:

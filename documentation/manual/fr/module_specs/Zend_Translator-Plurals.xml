@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.plurals"><info><title>Notation des pluriels pour Translation</title></info>
-    
+
 
     <para>
         Depuis Zend Framework 1.9, <classname>Zend_Translator</classname> gère les pluriels.
@@ -26,7 +26,7 @@
     </para>
 
     <section xml:id="zend.translator.plurals.traditional"><info><title>Méthode traditionnelle</title></info>
-        
+
 
         <para>
             Les personnes connaissant gettext vont reconnaitre cette méthodologie. Il existe une seule méthode
@@ -34,7 +34,7 @@
         </para>
 
         <example xml:id="zend.translator.plurals.traditional.example1"><info><title>Exemple avec la méthode traditionnelle</title></info>
-            
+
 
             <para>
                 La méthode <methodname>plural()</methodname> accepte 4 paramètres. Le premier est le messageId au singulier, le second
@@ -60,7 +60,7 @@ $translate->plural('Car', 'Cars', $number);
     </section>
 
     <section xml:id="zend.translator.plurals.modern"><info><title>Méthode moderne de traduction du pluriel</title></info>
-        
+
 
         <para>
             Utilisez la méthode <methodname>translate()</methodname> pour la traduction des pluriels.
@@ -73,7 +73,7 @@ $translate->plural('Car', 'Cars', $number);
         </para>
 
         <example xml:id="zend.translator.plurals.modern.example1"><info><title>Exemple de la méthode moderne de traduction du pluriel</title></info>
-            
+
 
             <para>
                 Pour traduire un pluriel avec la méthode moderne, agissez comme suit:
@@ -96,7 +96,7 @@ $translate->translate(array('Car', 'Cars', $number));
         </para>
 
         <example xml:id="zend.translator.plurals.modern.example2"><info><title>Exemple de la méthode moderne de traduction du pluriel utilisant un langage source différent</title></info>
-            
+
 
             <para>
                 Imaginons que nous voulions utiliser du russe et que le messageId est russe et non anglais.
@@ -129,14 +129,14 @@ $translate->translate(array('Car',
     </section>
 
     <section xml:id="zend.translator.plurals.source"><info><title>Fichiers sources de pluriels</title></info>
-        
+
 
         <para>
             Toutes les sources ne supportent pas les pluriels. Voyez la liste ci-après pour les détails:
         </para>
 
         <table xml:id="zend.translator.plurals.source.supportedadapters"><info><title>Support du pluriel</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -190,7 +190,7 @@ $translate->translate(array('Car',
         </para>
 
         <section xml:id="zend.translator.plurals.source.array"><info><title>Source tableau contenant des pluriels</title></info>
-            
+
 
             <para>
                 Un tableau de traduction contenant des pluriels devrait ressembler à ceci:
@@ -231,7 +231,7 @@ array(
         </section>
 
         <section xml:id="zend.translator.plurals.source.csv"><info><title>Csv et pluriels</title></info>
-            
+
 
             <para>
                 Un fichier csv gérant des pluriels ressemble à ceci:
@@ -250,7 +250,7 @@ array(
         </section>
 
         <section xml:id="zend.translator.plurals.source.gettext"><info><title>Gettext et pluriels</title></info>
-            
+
 
             <para>
                 Gettext supporte nativement les pluriels, les fichiers
@@ -267,7 +267,7 @@ array(
     </section>
 
     <section xml:id="zend.translator.plurals.customrules"><info><title>Custom plural rules</title></info>
-        
+
 
         <para>
             In rare cases it could be useful to be able to define own plural rules. See chinese for
@@ -327,7 +327,7 @@ Zend_Translator_Plural::setPlural('MyPlural', 'zh');
         </para>
 
         <note><info><title>Define custom plurals only when needed</title></info>
-            
+
 
             <para>
                 <classname>Zend_Translator</classname> defines plurals for most known languages.

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.refining"><info><title>Affiner les Contrôles d'Accès</title></info>
-    
+
 
     <section xml:id="zend.acl.refining.precise"><info><title>Mieux définir les Contrôles d'Accès</title></info>
-        
+
 
         <para>
             L'<acronym>ACL</acronym> basique définie dans le
@@ -117,7 +117,7 @@ echo $acl->isAllowed('administrator', 'announcement', 'archive') ?
     </section>
 
     <section xml:id="zend.acl.refining.removing"><info><title>Retirer les Contrôles d'Accès</title></info>
-        
+
 
         <para>
             Pour retirer une ou plusieurs règles des <acronym>ACL</acronym>, utilisez simplement la

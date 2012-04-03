@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.paginator.usage"><info><title>使用法</title></info>
-    
+
 
     <section xml:id="zend.paginator.usage.paginating"><info><title>データコレクションのページ処理</title></info>
-        
+
 
         <para>
             ページ処理を行うには、<classname>Zend_Paginator</classname>
@@ -13,7 +13,7 @@
         </para>
 
         <table xml:id="zend.paginator.usage.paginating.adapters"><info><title>Zend_Paginator 用のアダプタ</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -160,7 +160,7 @@ $this->view->paginator = $paginator;
     </section>
 
     <section xml:id="zend.paginator.usage.dbselect"><info><title>DbSelect および DbTableSelect アダプタ</title></info>
-        
+
         <para>
             大半のアダプタの使用法は非常にわかりやすいものです。
             しかし、データベースアダプタについては、
@@ -220,7 +220,7 @@ $paginator = new Zend_Paginator($adapter);
     </section>
 
     <section xml:id="zend.paginator.rendering"><info><title>ビュースクリプトによるページのレンダリング</title></info>
-        
+
 
         <para>
             ビュースクリプトを使用してページ項目のレンダリング
@@ -290,7 +290,7 @@ $paginator = new Zend_Paginator($adapter);
         </para>
 
         <table xml:id="zend.paginator.usage.rendering.scrolling-styles"><info><title>Zend_Paginator のスクロール形式</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -391,7 +391,7 @@ $smarty->assign('pages', $paginator->getPages());
         </note>
 
         <section xml:id="zend.paginator.usage.rendering.example-controls"><info><title>ページ処理コントロールの例</title></info>
-            
+
 
             <para>
                 次のページ処理コントロールの例が、
@@ -524,7 +524,7 @@ $('paginationControl').observe('change', function() {
         </section>
 
         <section xml:id="zend.paginator.usage.rendering.properties"><info><title>プロパティの一覧</title></info>
-            
+
 
             <para>
                 次のオプションが、ページ処理コントロールのビュー
@@ -532,7 +532,7 @@ $('paginationControl').observe('change', function() {
             </para>
 
             <table xml:id="zend.paginator.usage.rendering.properties.table"><info><title>ビュー partial のプロパティ</title></info>
-                
+
 
                 <tgroup cols="3">
                     <thead>

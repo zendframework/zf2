@@ -116,8 +116,8 @@ class Capabilities
     protected $_supportedMetadata;
 
     /**
-     * Supports tagging? 
-     * 
+     * Supports tagging?
+     *
      * @var bool
      */
     protected $_tagging;
@@ -550,7 +550,7 @@ class Capabilities
     {
         return $this->setCapability($marker, 'tagging', (bool) $tagging);
     }
-    
+
     /**
      * Get value for tagging
      *

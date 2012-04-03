@@ -209,7 +209,7 @@ class Segment implements Route
 
                 case 'parameter':
                     $groupName = '?P<param' . $groupIndex . '>';
-                    
+
                     if (isset($constraints[$part[1]])) {
                         $regex .= '(' . $groupName . $constraints[$part[1]] . ')';
                     } elseif ($part[2] === null) {

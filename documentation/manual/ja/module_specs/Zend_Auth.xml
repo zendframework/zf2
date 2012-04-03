@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.introduction"><info><title>導入</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Auth</classname> は、認証のための <acronym>API</acronym> を提供します。
@@ -34,7 +34,7 @@
 
     <section xml:id="zend.auth.introduction.adapters"><info><title>アダプタ</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Auth</classname> アダプタの使用目的は、
@@ -108,7 +108,7 @@ class MyAuthAdapter implements Zend_Auth_Adapter_Interface
 
     <section xml:id="zend.auth.introduction.results"><info><title>結果</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Auth</classname> アダプタは、<methodname>authenticate()</methodname> の結果として
@@ -199,7 +199,7 @@ switch ($result->getCode()) {
 
     <section xml:id="zend.auth.introduction.persistence"><info><title>ID の永続性</title></info>
 
-        
+
 
         <para>
             認証情報 (パスワードなど) を含む認証を要求するのは便利なものですが、
@@ -216,7 +216,7 @@ switch ($result->getCode()) {
 
         <section xml:id="zend.auth.introduction.persistence.default"><info><title>PHP セッションにおけるデフォルトの持続性</title></info>
 
-            
+
 
             <para>
                  デフォルトでは、<classname>Zend_Auth</classname> は、
@@ -241,7 +241,7 @@ switch ($result->getCode()) {
 
             <example xml:id="zend.auth.introduction.persistence.default.example"><info><title>セッション名前空間の変更</title></info>
 
-                
+
 
                 <para>
                     <classname>Zend_Auth_Storage_Session</classname> は、セッション名前空間として
@@ -274,7 +274,7 @@ $result = $auth->authenticate($authAdapter);
 
         <section xml:id="zend.auth.introduction.persistence.custom"><info><title>独自のストレージの実装</title></info>
 
-            
+
 
             <para>
                 <classname>Zend_Auth_Storage_Session</classname> とは異なる形式で、
@@ -285,7 +285,7 @@ $result = $auth->authenticate($authAdapter);
 
             <example xml:id="zend.auth.introduction.persistence.custom.example"><info><title>独自のストレージクラスの使用法</title></info>
 
-                
+
 
                 <para>
                     ID を持続させるストレージクラスを
@@ -378,7 +378,7 @@ $result = Zend_Auth::getInstance()->authenticate($authAdapter);
 
     <section xml:id="zend.auth.introduction.using"><info><title>使用法</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Auth</classname> の使用法には、次の二通りがあります。

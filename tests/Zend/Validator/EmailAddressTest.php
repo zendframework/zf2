@@ -589,16 +589,16 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         $result = $validator->getMXRecord();
         $this->assertTrue(!empty($result));
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -607,16 +607,16 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 
@@ -658,7 +658,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
     /**
      * @group ZF2-130
      */
-    public function testUseMxRecordsBasicInvalid() { 
+    public function testUseMxRecordsBasicInvalid() {
         $validator = new Validator\EmailAddress(array(
             'useMxCheck'        => true,
             'useDeepMxCheck'    => true

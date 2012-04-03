@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.message"><info><title>Zend_Mime_Message</title></info>
-    
+
 
     <section xml:id="zend.mime.message.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime_Message</classname> represents a <acronym>MIME</acronym> compliant
@@ -19,7 +19,7 @@
     </section>
 
     <section xml:id="zend.mime.message.instantiation"><info><title>Instantiation</title></info>
-        
+
 
         <para>
             There is no explicit constructor for <classname>Zend_Mime_Message</classname>.
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.mime.message.addparts"><info><title>Adding MIME Parts</title></info>
-        
+
 
         <para>
             <link linkend="zend.mime.part"><classname>Zend_Mime_Part</classname></link>
@@ -54,7 +54,7 @@
     </section>
 
     <section xml:id="zend.mime.message.bondary"><info><title>Boundary handling</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime_Message</classname> usually creates and uses its own
@@ -81,7 +81,7 @@
     </section>
 
     <section xml:id="zend.mime.message.parse"><info><title>parsing a string to create a Zend_Mime_Message object (experimental)</title></info>
-        
+
 
         <para>
             A given <acronym>MIME</acronym> compliant message in string form can be used to

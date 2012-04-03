@@ -3,14 +3,14 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set"><info><title>Standardowe klasy filtrów</title></info>
 
-    
+
 
     <para>
         Zend Framework posiada standardowy zestaw gotowych do użycia filtrów..
     </para>
 
     <section xml:id="zend.filter.set.alnum"><info><title>Alnum</title></info>
-        
+
         <para>
             Zwraca łańcuch znaków <code>$value</code>, usuwając wszystkie znaki
             oprócz znaków alfabetu oraz cyfr. Filtr posiada także opcję,
@@ -19,7 +19,7 @@
     </section>
 
     <section xml:id="zend.filter.set.alpha"><info><title>Alpha</title></info>
-        
+
         <para>
             Zwraca łańcuch znaków <code>$value</code>, usuwając wszystkie znaki
             oprócz znaków alfabetu. Filtr posiada także opcję, służącą do
@@ -28,7 +28,7 @@
     </section>
 
     <section xml:id="zend.filter.set.basename"><info><title>BaseName</title></info>
-        
+
         <para>
             Gdy podamy łańcuch znaków zawierający ścieżkę do pliku, to filtr
             zwróci bazową nazwę pliku.
@@ -36,7 +36,7 @@
     </section>
 
     <section xml:id="zend.filter.set.digits"><info><title>Digits</title></info>
-        
+
         <para>
             Zwraca łańcuch znaków <code>$value</code>, usuwając wszystkie znaki
             oprócz cyfr.
@@ -44,14 +44,14 @@
     </section>
 
     <section xml:id="zend.filter.set.dir"><info><title>Dir</title></info>
-        
+
         <para>
             Zwraca nazwę katalogu gdy podamy ścieżkę do pliku lub katalogu.
         </para>
     </section>
 
     <section xml:id="zend.filter.set.htmlentities"><info><title>HtmlEntities</title></info>
-        
+
         <para>
             Zwraca łańcuch znaków <code>$value</code>, zamieniając znaki na ich odpowiadające
             encje HTML, jeśli istnieją.
@@ -59,21 +59,21 @@
     </section>
 
     <section xml:id="zend.filter.set.int"><info><title>Int</title></info>
-        
+
         <para>
             Zwraca wartość całkowitą (int) <code>$value</code>
         </para>
     </section>
 
     <section xml:id="zend.filter.set.stripnewlines"><info><title>StripNewlines</title></info>
-        
+
         <para>
             Zwraca łańcuch znaków <code>$value</code> bez znaków nowej linii.
         </para>
     </section>
 
     <section xml:id="zend.filter.set.realpath"><info><title>RealPath</title></info>
-        
+
         <para>
             Rozwiązauje wszystkie dowiązania symboliczne oraz odniesienia do
             elementów '/./', '/../' oraz '/' w podanej ścieżce i zwraca
@@ -90,21 +90,21 @@
     </section>
 
     <section xml:id="zend.filter.set.stringtolower"><info><title>StringToLower</title></info>
-        
+
         <para>
             Zwraca łańcuch znaków <code>$value</code>, zamieniając wszystkie litery na małe.
         </para>
     </section>
 
     <section xml:id="zend.filter.set.stringtoupper"><info><title>StringToUpper</title></info>
-        
+
         <para>
             Zwraca łańcuch znaków <code>$value</code>, zamieniając wszystkie litery na wielkie.
         </para>
     </section>
 
     <section xml:id="zend.filter.set.stringtrim"><info><title>StringTrim</title></info>
-        
+
         <para>
             Zwraca łańcuch znaków <code>$value</code> usuwając znaki na początku
             oraz na końcu łańcucha.
@@ -112,7 +112,7 @@
     </section>
 
     <section xml:id="zend.filter.set.striptags"><info><title>StripTags</title></info>
-        
+
         <para>
             Filtr zwraca łańcuch znaków z usuniętymi wszystkimi znacznikami
             HTML oraz PHP, z wyjątkiem tych, których wystąpienie zostało

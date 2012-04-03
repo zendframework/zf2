@@ -997,7 +997,7 @@
 						<era type="0">التقويم البوذي</era>
 					</eraAbbr>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE، d MMMM، y G</pattern>
@@ -1020,7 +1020,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E، d</dateFormatItem>
 						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
@@ -1695,7 +1695,7 @@
 						<era type="235">هيسي</era>
 					</eraAbbr>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE، d MMMM، y G</pattern>
@@ -1718,7 +1718,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E، d</dateFormatItem>
 						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
@@ -1767,13 +1767,13 @@
 				</eras>
 			</calendar>
 			<calendar type="roc">
-				<eras> 
+				<eras>
 					<eraAbbr>
 						<era type="0">Before R.O.C.</era>
 						<era type="1">جمهورية الصي</era>
 					</eraAbbr>
 				</eras>
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE، d MMMM، y G</pattern>
@@ -1796,7 +1796,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E، d</dateFormatItem>
 						<dateFormatItem id="Hm">HH:mm</dateFormatItem>

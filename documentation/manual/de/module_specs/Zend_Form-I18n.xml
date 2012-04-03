@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.i18n"><info><title>Internationalisierung von Zend_Form</title></info>
-    
+
 
     <para>
         Immer mehr Entwickler müssen ihren Inhalt für mehere Sprachen und Regionen zur Verfügung
@@ -19,7 +19,7 @@
     </para>
 
     <note><info><title>Die Übersetzung kann für jedes Element einzeln abgeschaltet werden</title></info>
-        
+
 
         <para>
             Übersetzung kann für jedes Formular, Element, Anzeigegruppe, oder Unterformular, durch
@@ -31,7 +31,7 @@
     </note>
 
     <section xml:id="zend.form.i18n.initialization"><info><title>I18n in Formularen initialisieren</title></info>
-        
+
 
         <para>
             Um I18n in Formularen zu initialisieren, muss man entweder ein
@@ -113,7 +113,7 @@ $element->setTranslator($translate);
     </section>
 
     <section xml:id="zend.form.i18n.standard"><info><title>Standard I18n Ziele</title></info>
-        
+
 
         <para>
             Was kann nun standardmäßig übersetzt werden, nachdem ein Übersetzungsobjekt

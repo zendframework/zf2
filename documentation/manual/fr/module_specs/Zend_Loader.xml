@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.load"><info><title>Charger les fichiers et les classes dynamiquement</title></info>
-    
+
 
     <para>
         La classe <classname>Zend_Loader</classname> inclut des méthodes afin de vous aider à
@@ -8,7 +8,7 @@
     </para>
 
     <tip><info><title>Zend_Loader contre require_once()</title></info>
-        
+
 
         <para>
             Les méthodes <classname>Zend_Loader</classname> sont les meilleures à utiliser si
@@ -21,7 +21,7 @@
     </tip>
 
     <section xml:id="zend.loader.load.file"><info><title>Charger des fichiers</title></info>
-        
+
 
         <para>
             La méthode statique <methodname>Zend_Loader::loadFile()</methodname> charge un
@@ -31,7 +31,7 @@
         </para>
 
         <example xml:id="zend.loader.file.example"><info><title>Exemple d'utilisation de la méthode loadFile()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 Zend_Loader::loadFile($filename, $dirs=null, $once=false);
@@ -64,7 +64,7 @@ Zend_Loader::loadFile($filename, $dirs=null, $once=false);
     </section>
 
     <section xml:id="zend.loader.load.class"><info><title>Charger des classes</title></info>
-        
+
 
         <para>
             La méthode statique <methodname>Zend_Loader::loadClass($class, $dirs)</methodname>
@@ -72,7 +72,7 @@ Zend_Loader::loadFile($filename, $dirs=null, $once=false);
         </para>
 
         <example xml:id="zend.loader.load.class.example"><info><title>Exemple d'utilisation de la méthode loadClass()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 Zend_Loader::loadClass('Container_Tree',
@@ -110,7 +110,7 @@ Zend_Loader::loadClass('Container_Tree',
             caractères tiret ("-"), tiret bas ("_"), et point (".").
         </para>
         <note><info><title>Loading Classes from PHP Namespaces</title></info>
-            
+
 
             <para>
                 Starting in version 1.10.0, Zend Framework now allows loading classes from PHP
@@ -177,7 +177,7 @@ Zend_Loader::loadClass('Container_Tree',
     </section>
 
     <section xml:id="zend.loader.load.isreadable"><info><title>Tester si un fichier est lisible</title></info>
-        
+
 
         <para>
             La méthode statique <methodname>Zend_Loader::isReadable($pathname)</methodname>
@@ -186,7 +186,7 @@ Zend_Loader::loadClass('Container_Tree',
         </para>
 
         <example xml:id="zend.loader.load.isreadable.example"><info><title>Exemple d'utilisation de la méthode isReadable()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 if (Zend_Loader::isReadable($filename)) {
@@ -206,7 +206,7 @@ if (Zend_Loader::isReadable($filename)) {
     </section>
 
     <section xml:id="zend.loader.load.autoload"><info><title>Utiliser l'autoloader</title></info>
-        
+
 
         <para>
             La classe Zend_Loader contient une méthode
@@ -219,7 +219,7 @@ if (Zend_Loader::isReadable($filename)) {
         </para>
 
         <example xml:id="zend.loader.load.autoload.example"><info><title>Exemple d'inscription de la méthode de callback autoloader</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 Zend_Loader::registerAutoload();
@@ -241,7 +241,7 @@ Zend_Loader::registerAutoload();
 
         <example xml:id="zend.loader.load.autoload.example-extended"><info><title>Exemple d'inscription de la méthode de callback autoloader d'une classe
             étendue</title></info>
-            
+
 
             <para>
                 A cause de la sémantique de référencement des fonctions statiques en <acronym>PHP</acronym>, vous

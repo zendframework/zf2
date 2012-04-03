@@ -382,7 +382,7 @@ class Feed extends Extension\AbstractFeed
             return $this->_data['hubs'];
         }
         $hubs = array();
-        
+
         $list = $this->_xpath->query($this->getXpathPrefix()
             . '//atom:link[@rel="hub"]/@href');
 
@@ -420,7 +420,7 @@ class Feed extends Extension\AbstractFeed
 
         return $this->_data['title'];
     }
-    
+
     /**
      * Get all categories
      *
@@ -475,7 +475,7 @@ class Feed extends Extension\AbstractFeed
         $emailNode = $element->getElementsByTagName('email');
         $nameNode  = $element->getElementsByTagName('name');
         $uriNode   = $element->getElementsByTagName('uri');
-        
+
         if ($emailNode->length && strlen($emailNode->item(0)->nodeValue) > 0) {
             $author['email'] = $emailNode->item(0)->nodeValue;
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.static"><info><title>Zend_Controller_Router_Route_Static</title></info>
-    
+
 
     <para>
         Во всех примерах выше использовались динамические маршруты - маршруты,
@@ -25,7 +25,7 @@ $router->addRoute('login', $route);
     </para>
 
     <note xml:id="zend.controller.router.routes.static.warning"><info><title>Предупреждение: статические маршруты должны содержать все необходимые значения по умолчанию</title></info>
-        
+
 
         <para>
             Поскольку статический маршрут не передает части URL в качестве

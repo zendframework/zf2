@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.system-providers"><info><title>出荷されたシステムプロバイダー</title></info>
-    
+
 
     <para>
         <classname>Zend_Tool_Project</classname>とともに出荷された、
@@ -16,7 +16,7 @@
     </para>
 
     <section xml:id="zend.tool.framework.system-providers.version"><info><title>バージョンプロバイダー</title></info>
-        
+
 
         <para>
             <command>zf</command>または<classname>Zend_Tool</classname>が動作するために現行設定されている
@@ -30,7 +30,7 @@
     </section>
 
     <section xml:id="zend.tool.framework.system-providers.manifest"><info><title>マニフェストプロバイダー</title></info>
-        
+
 
         <para>
             <classname>Zend_Tool</classname>実行中にどのような "manifest" 情報を利用できるか決定するかもしれないように、

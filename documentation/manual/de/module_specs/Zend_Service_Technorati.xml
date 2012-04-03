@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.technorati"><info><title>Zend_Service_Technorati</title></info>
-    
+
 
     <section xml:id="zend.service.technorati.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Technorati</classname> bietet ein einfaches, intuitives und
@@ -26,7 +26,7 @@
     </section>
 
     <section xml:id="zend.service.technorati.getting-started"><info><title>Anfangen</title></info>
-        
+
 
         <para>
             Technorati benötigt einen gültigen <acronym>API</acronym> Schlüssel zur Verwendung. Um
@@ -36,7 +36,7 @@
         </para>
 
         <note><info><title>API Schlüssel Beschränkungen</title></info>
-            
+
 
             <para>
                 Es können bis zu 500 Technirati <acronym>API</acronym> Aufrufe pro Tag durchgeführt
@@ -52,7 +52,7 @@
     </section>
 
     <section xml:id="zend.service.technorati.making-first-query"><info><title>Die erste Abfrage durchführen</title></info>
-        
+
 
         <para>
             Um eine Abfrage durchzuführen, benötigt man zuerst eine
@@ -62,7 +62,7 @@
         </para>
 
         <example xml:id="zend.service.technorati.making-first-query.example-1"><info><title>Die erste Abfragen senden</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // ein neues Zend_Service_Technorati mit einem gültigen API_KEY erstellen
@@ -79,7 +79,7 @@ $resultSet = $technorati->search('PHP');
         </para>
 
         <example xml:id="zend.service.technorati.making-first-query.example-2"><info><title>Verfeinern der Abfrage</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // ein neues Zend_Service_Technorati mit einem gültigen API_KEY erstellen
@@ -104,7 +104,7 @@ $resultSet = $technorati->search('PHP', $options);
         <example xml:id="zend.service.technorati.making-first-query.example-3"><info><title>
                 Mehrfache Abfragen mit der gleichen Zend_Service_Technorati Instanz senden
             </title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // ein neues Zend_Service_Technorati mit einem gültigen API_KEY erstellen
@@ -120,7 +120,7 @@ $topTags = $technorati->topTags();
     </section>
 
     <section xml:id="zend.service.technorati.consuming-results"><info><title>Ergebnisse verarbeiten</title></info>
-        
+
 
         <para>
             Es kann einer von zwei Typen von Ergebnisobjekten als Antwort auf eine Abfrage empfangen
@@ -138,7 +138,7 @@ $topTags = $technorati->topTags();
         </para>
 
         <example xml:id="zend.service.technorati.consuming-results.example-1"><info><title>Ein Ergebnisset Objekt verarbeiten</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // ein neues Zend_Service_Technorati mit einem gültigen API_KEY erstellen
@@ -163,7 +163,7 @@ foreach ($resultSet as $result) {
         </para>
 
         <example xml:id="zend.service.technorati.consuming-results.example-2"><info><title>Ein spezifisches Ergebnisset Objekt suchen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // ein neues Zend_Service_Technorati mit einem gültigen API_KEY erstellen
@@ -197,7 +197,7 @@ $result = $resultSet->current();
         </para>
 
         <example xml:id="zend.service.technorati.consuming-results.example-3"><info><title>Ein alleinstehendes Ergebnisobjekt verarbeiten</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // ein neues Zend_Service_Technorati mit einem gültigen API_KEY erstellen
@@ -225,7 +225,7 @@ echo "</ol>";
     </section>
 
     <section xml:id="zend.service.technorati.handling-errors"><info><title>Fehler behandeln</title></info>
-        
+
 
         <para>
             Jede <classname>Zend_Service_Technorati</classname> Abfragemethode wirft bei einem
@@ -249,7 +249,7 @@ echo "</ol>";
         </para>
 
         <example xml:id="zend.service.technorati.handling-errors.example-1"><info><title>Eine Abfrageausnahme behandeln</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $technorati = new Zend_Service_Technorati('VALID_API_KEY');
@@ -263,7 +263,7 @@ try {
     </section>
 
     <section xml:id="zend.service.technorati.checking-api-daily-usage"><info><title>Prüfen der täglichen Verwendung des eigenen API Schlüssels</title></info>
-        
+
 
         <para>
             Von Zeit zu Zeit wird man die tägliche Verwendung des <acronym>API</acronym> Schlüssels
@@ -283,7 +283,7 @@ try {
         </para>
 
         <example xml:id="zend.service.technorati.checking-api-daily-usage.example-1"><info><title>Die Information über die tägliche Verwendung des API Schlüssels erhalten</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $technorati = new Zend_Service_Technorati('VALID_API_KEY');
@@ -297,7 +297,7 @@ echo "Tägliche Verwendung: " . $key->getApiQueries() . "/" .
     </section>
 
     <section xml:id="zend.service.technorati.queries"><info><title>Vorhandene Technorati Abfragen</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Technorati</classname> bietet Unterstützung für die folgenden
@@ -355,7 +355,7 @@ echo "Tägliche Verwendung: " . $key->getApiQueries() . "/" .
         </para>
 
         <section xml:id="zend.service.technorati.queries.cosmos"><info><title>Technorati Cosmos</title></info>
-            
+
 
             <para>
                 Eine <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://technorati.com/developers/api/cosmos.html">Cosmos</link>
@@ -367,7 +367,7 @@ echo "Tägliche Verwendung: " . $key->getApiQueries() . "/" .
             </para>
 
             <example xml:id="zend.service.technorati.queries.cosmos.example-1"><info><title>Cosmos Abfrage</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $technorati = new Zend_Service_Technorati('VALID_API_KEY');
@@ -386,7 +386,7 @@ echo "</ol>";
         </section>
 
         <section xml:id="zend.service.technorati.queries.search"><info><title>Technorati Search</title></info>
-            
+
 
             <para>
                 Die <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://technorati.com/developers/api/search.html">Search</link>
@@ -398,7 +398,7 @@ echo "</ol>";
             </para>
 
             <example xml:id="zend.service.technorati.queries.search.example-1"><info><title>Suchabfrage</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $technorati = new Zend_Service_Technorati('VALID_API_KEY');
@@ -417,7 +417,7 @@ echo "</ol>";
         </section>
 
         <section xml:id="zend.service.technorati.queries.tag"><info><title>Technorati Tag</title></info>
-            
+
 
             <para>
                 Die <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://technorati.com/developers/api/tag.html">Tag</link> Abfrage
@@ -429,7 +429,7 @@ echo "</ol>";
             </para>
 
             <example xml:id="zend.service.technorati.queries.tag.example-1"><info><title>Tag Abfrage</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $technorati = new Zend_Service_Technorati('VALID_API_KEY');
@@ -448,7 +448,7 @@ echo "</ol>";
         </section>
 
         <section xml:id="zend.service.technorati.queries.dailycounts"><info><title>Technorati DailyCounts</title></info>
-            
+
 
             <para>
                 Die <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://technorati.com/developers/api/dailycounts.html">DailyCounts</link>
@@ -461,7 +461,7 @@ echo "</ol>";
             </para>
 
             <example xml:id="zend.service.technorati.queries.dailycounts.example-1"><info><title>DailyCounts Abfrage</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $technorati = new Zend_Service_Technorati('VALID_API_KEY');
@@ -477,7 +477,7 @@ echo "</ol>";
         </section>
 
         <section xml:id="zend.service.technorati.queries.toptags"><info><title>Technorati TopTags</title></info>
-            
+
 
             <para>
                 Die <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://technorati.com/developers/api/toptags.html">TopTags</link>
@@ -490,7 +490,7 @@ echo "</ol>";
             </para>
 
             <example xml:id="zend.service.technorati.queries.toptags.example-1"><info><title>TopTags Abfrage</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $technorati = new Zend_Service_Technorati('VALID_API_KEY');
@@ -509,7 +509,7 @@ echo "</ol>";
         </section>
 
         <section xml:id="zend.service.technorati.queries.bloginfo"><info><title>Technorati BlogInfo</title></info>
-            
+
 
             <para>
                 Eine <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://technorati.com/developers/api/bloginfo.html">BlogInfo</link>
@@ -522,7 +522,7 @@ echo "</ol>";
             </para>
 
             <example xml:id="zend.service.technorati.queries.bloginfo.example-1"><info><title>BlogInfo Abfrage</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $technorati = new Zend_Service_Technorati('VALID_API_KEY');
@@ -535,7 +535,7 @@ echo '<h2><a href="' . (string) $result->getWeblog()->getUrl() . '">' .
         </section>
 
         <section xml:id="zend.service.technorati.queries.blogposttags"><info><title>Technorati BlogPostTags</title></info>
-            
+
 
             <para>
                 Eine <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://technorati.com/developers/api/blogposttags.html">BlogPostTags</link>
@@ -548,7 +548,7 @@ echo '<h2><a href="' . (string) $result->getWeblog()->getUrl() . '">' .
             </para>
 
             <example xml:id="zend.service.technorati.queries.blogposttags.example-1"><info><title>BlogPostTags Abfrage</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $technorati = new Zend_Service_Technorati('VALID_API_KEY');
@@ -567,7 +567,7 @@ echo "</ol>";
         </section>
 
         <section xml:id="zend.service.technorati.queries.getinfo"><info><title>Technorati GetInfo</title></info>
-            
+
 
             <para>
                 Eine <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://technorati.com/developers/api/getinfo.html">GetInfo</link>
@@ -579,7 +579,7 @@ echo "</ol>";
             </para>
 
             <example xml:id="zend.service.technorati.queries.getinfo.example-1"><info><title>GetInfo Abfrage</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $technorati = new Zend_Service_Technorati('VALID_API_KEY');
@@ -598,7 +598,7 @@ echo "</ol>";
         </section>
 
         <section xml:id="zend.service.technorati.queries.keyinfo"><info><title>Technorati KeyInfo</title></info>
-            
+
 
             <para>
                 Die KeyInfo Abfrage bietet Informationen über die tägliche Verwendung eines
@@ -612,7 +612,7 @@ echo "</ol>";
     </section>
 
     <section xml:id="zend.service.technorati.classes"><info><title>Zend_Service_Technorati Klassen</title></info>
-        
+
 
         <para>
             Die folgenden Klassen werden von den verschiedenen Technorati Anfragen zurückgegeben.
@@ -743,7 +743,7 @@ echo "</ol>";
         </para>
 
         <section xml:id="zend.service.technorati.classes.resultset"><info><title>Zend_Service_Technorati_ResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_ResultSet</classname> ist das am meisten
@@ -763,7 +763,7 @@ echo "</ol>";
             </para>
 
             <example xml:id="zend.service.technorati.classes.resultset.example-1"><info><title>Über Ergebnisobjekte von einer Ergebnisset Kollektion iterieren</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // eine einfache Abfrage durchlaufen
@@ -781,7 +781,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.cosmosresultset"><info><title>Zend_Service_Technorati_CosmosResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_CosmosResultSet</classname> repräsentiert ein
@@ -796,7 +796,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.searchresultset"><info><title>Zend_Service_Technorati_SearchResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_SearchResultSet</classname> repräsentiert ein
@@ -811,7 +811,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.tagresultset"><info><title>Zend_Service_Technorati_TagResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_TagResultSet</classname> repräsentiert ein
@@ -826,7 +826,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.dailycountsresultset"><info><title>Zend_Service_Technorati_DailyCountsResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_DailyCountsResultSet</classname> repräsentiert
@@ -842,7 +842,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.tagsresultset"><info><title>Zend_Service_Technorati_TagsResultSet</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_TagsResultSet</classname> repräsentiert ein
@@ -857,7 +857,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.result"><info><title>Zend_Service_Technorati_Result</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_Result</classname> ist das wichtigste
@@ -868,7 +868,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.cosmosresult"><info><title>Zend_Service_Technorati_CosmosResult</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_CosmosResult</classname> repräsentiert ein
@@ -885,7 +885,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.searchresult"><info><title>Zend_Service_Technorati_SearchResult</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_SearchResult</classname> repräsentiert ein
@@ -902,7 +902,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.tagresult"><info><title>Zend_Service_Technorati_TagResult</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_TagResult</classname> repräsentiert ein einzelnes
@@ -919,7 +919,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.dailycountsresult"><info><title>Zend_Service_Technorati_DailyCountsResult</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_DailyCountsResult</classname> repräsentiert ein
@@ -936,7 +936,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.tagsresult"><info><title>Zend_Service_Technorati_TagsResult</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_TagsResult</classname> repräsentiert ein
@@ -953,7 +953,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.getinforesult"><info><title>Zend_Service_Technorati_GetInfoResult</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_GetInfoResult</classname> repräsentiert ein
@@ -962,7 +962,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.bloginforesult"><info><title>Zend_Service_Technorati_BlogInfoResult</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_BlogInfoResult</classname> repräsentiert ein
@@ -971,7 +971,7 @@ foreach ($resultSet as $result) {
         </section>
 
         <section xml:id="zend.service.technorati.classes.keyinforesult"><info><title>Zend_Service_Technorati_KeyInfoResult</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Technorati_KeyInfoResult</classname> repräsentiert ein

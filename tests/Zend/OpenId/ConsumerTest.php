@@ -840,7 +840,7 @@ class ConsumerTest extends TestCase
 
     /**
      * testing verify
-     * 
+     *
      */
     public function testVerifyDumb()
     {

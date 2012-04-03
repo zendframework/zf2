@@ -70,13 +70,13 @@ class TokenArrayScanner implements Scanner
         }
         return $namespaces;
     }
-    
+
     public function getUses($namespace = null)
     {
         $this->scan();
         return $this->getUsesNoScan($namespace);
     }
-    
+
     public function getIncludes()
     {
         $this->scan();
@@ -101,9 +101,9 @@ class TokenArrayScanner implements Scanner
     public function getClasses()
     {
         $this->scan();
-        
+
         $return = array();
-        
+
         foreach ($this->infos as $info) {
             if ($info['type'] != 'class') {
                 continue;
@@ -112,7 +112,7 @@ class TokenArrayScanner implements Scanner
         }
         return $return;
     }
-    
+
     /**
      * getClass()
      *
@@ -145,8 +145,8 @@ class TokenArrayScanner implements Scanner
 
         return new ClassScanner(
             array_slice(
-                $this->tokens, 
-                $info['tokenStart'], 
+                $this->tokens,
+                $info['tokenStart'],
                 ($info['tokenEnd'] - $info['tokenStart'] + 1)
             ), // zero indexed array
             new NameInformation($info['namespace'], $info['uses'])
@@ -192,7 +192,7 @@ class TokenArrayScanner implements Scanner
     public function getFunctions()
     {
         $this->scan();
-        
+
         $functions = array();
         foreach ($this->infos as $info) {
             if ($info['type'] == 'function') {
@@ -336,7 +336,7 @@ class TokenArrayScanner implements Scanner
                         if ($tokenType === T_WHITESPACE) {
                             goto SCANNER_NAMESPACE_CONTINUE;
                         }
-                        
+
                         if ($tokenType === T_NS_SEPARATOR || $tokenType === T_STRING) {
                             $infos[$infoIndex]['namespace'] .= $tokenContent;
                         }

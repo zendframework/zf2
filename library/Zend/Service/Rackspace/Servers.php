@@ -48,7 +48,7 @@ class Servers extends Rackspace
     /**
      * Get the list of the servers
      * If $details is true returns detail info
-     * 
+     *
      * @param  boolean $details
      * @return Zend\Service\Rackspace\Servers\ServerList|boolean
      */
@@ -57,12 +57,12 @@ class Servers extends Rackspace
         $url= '/servers';
         if ($details) {
             $url.= '/detail';
-        } 
+        }
         $result= $this->httpCall($this->getManagementUrl().$url,'GET');
         $status= $result->getStatusCode();
         switch ($status) {
-            case '200' : 
-            case '203' : // break intentionally omitted   
+            case '200' :
+            case '203' : // break intentionally omitted
                 $servers= json_decode($result->getBody(),true);
                 return new Servers\ServerList($this,$servers['servers']);
             case '503' :
@@ -83,11 +83,11 @@ class Servers extends Rackspace
     }
     /**
      * Get the specified server
-     * 
-     * @param  string $id 
+     *
+     * @param  string $id
      * @return Zend\Service\Rackspace\Servers\Server
      */
-    public function getServer($id) 
+    public function getServer($id)
     {
         if (empty($id)) {
             throw new Exception\InvalidArgumentException(self::ERROR_PARAM_NO_SERVERID);
@@ -95,8 +95,8 @@ class Servers extends Rackspace
         $result= $this->httpCall($this->getManagementUrl().'/servers/'.rawurlencode($id),'GET');
         $status= $result->getStatusCode();
         switch ($status) {
-            case '200' : 
-            case '203' : // break intentionally omitted   
+            case '200' :
+            case '203' : // break intentionally omitted
                 $server = json_decode($result->getBody(),true);
                 return new Servers\Server($this,$server['server']);
             case '503' :
@@ -120,11 +120,11 @@ class Servers extends Rackspace
     }
     /**
      * Create a new server
-     * 
+     *
      * The required parameters are specified in $data (name, imageId, falvorId)
      * The $files is an associative array with 'serverPath' => 'localPath'
-     * 
-     * @param  array $data 
+     *
+     * @param  array $data
      * @param  array $metadata
      * @param  array $files
      * @return Zend\Service\Rackspace\Servers\Server|boolean
@@ -174,7 +174,7 @@ class Servers extends Rackspace
         $status = $result->getStatusCode();
         switch ($status) {
             case '200' :
-            case '202' : // break intentionally omitted   
+            case '202' : // break intentionally omitted
                 $server = json_decode($result->getBody(),true);
                 return new Servers\Server($this,$server['server']);
             case '503' :
@@ -198,11 +198,11 @@ class Servers extends Rackspace
     }
     /**
      * Change the name or the admin password for a server
-     * 
+     *
      * @param  string $id
      * @param  string $name
      * @param  string $password
-     * @return boolean 
+     * @return boolean
      */
     protected function updateServer($id,$name=null,$password=null)
     {
@@ -223,7 +223,7 @@ class Servers extends Rackspace
                 null,null,json_encode(array('server' => $data)));
         $status = $result->getStatusCode();
         switch ($status) {
-            case '204' : // break intentionally omitted   
+            case '204' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -249,10 +249,10 @@ class Servers extends Rackspace
     }
     /**
      * Change the server's name
-     * 
+     *
      * @param  string $id
      * @param  string $name
-     * @return boolean 
+     * @return boolean
      */
     public function changeServerName($id,$name)
     {
@@ -266,10 +266,10 @@ class Servers extends Rackspace
     }
     /**
      * Change the admin password of the server
-     * 
+     *
      * @param  string $id
      * @param  string $password
-     * @return boolean 
+     * @return boolean
      */
     public function changeServerPassword($id,$password)
     {
@@ -283,9 +283,9 @@ class Servers extends Rackspace
     }
     /**
      * Delete a server
-     * 
+     *
      * @param  string $id
-     * @return boolean 
+     * @return boolean
      */
     public function deleteServer($id)
     {
@@ -295,7 +295,7 @@ class Servers extends Rackspace
         $result = $this->httpCall($this->getManagementUrl().'/servers/'.rawurlencode($id),'DELETE');
         $status = $result->getStatusCode();
         switch ($status) {
-            case '202' : // break intentionally omitted   
+            case '202' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -321,9 +321,9 @@ class Servers extends Rackspace
     }
     /**
      * Get the server's IPs (public and private)
-     * 
+     *
      * @param  string $id
-     * @return array|boolean 
+     * @return array|boolean
      */
     public function getServerIp($id)
     {
@@ -336,7 +336,7 @@ class Servers extends Rackspace
     }
     /**
      * Get the Public IPs of a server
-     * 
+     *
      * @param  string $id
      * @return array|boolean
      */
@@ -350,7 +350,7 @@ class Servers extends Rackspace
     }
     /**
      * Get the Private IPs of a server
-     * 
+     *
      * @param  string $id
      * @return array|boolean
      */
@@ -364,9 +364,9 @@ class Servers extends Rackspace
     }
     /**
      * Share an ip address for a server (id)
-     * 
+     *
      * @param  string $id server
-     * @param  string $ip 
+     * @param  string $ip
      * @param  string $groupId
      * @return boolean
      */
@@ -393,7 +393,7 @@ class Servers extends Rackspace
                 null,null,json_encode(array('shareIp' => $data)));
         $status = $result->getStatusCode();
         switch ($status) {
-            case '202' : // break intentionally omitted   
+            case '202' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -416,10 +416,10 @@ class Servers extends Rackspace
     }
     /**
      * Unshare IP address for a server ($id)
-     * 
+     *
      * @param  string $id
      * @param  string $ip
-     * @return boolean 
+     * @return boolean
      */
     public function unshareIpAddress($id,$ip)
     {
@@ -437,7 +437,7 @@ class Servers extends Rackspace
                 'DELETE');
         $status = $result->getStatusCode();
         switch ($status) {
-            case '202' : // break intentionally omitted   
+            case '202' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -460,12 +460,12 @@ class Servers extends Rackspace
     }
     /**
      * Reboot a server
-     * 
+     *
      * $hard true is the equivalent of power cycling the server
      * $hard false is a graceful shutdown
-     * 
+     *
      * @param  string $id
-     * @param  boolean $hard 
+     * @param  boolean $hard
      * @return boolean
      */
     public function rebootServer($id,$hard=false)
@@ -488,7 +488,7 @@ class Servers extends Rackspace
         $status = $result->getStatusCode();
         switch ($status) {
             case '200' :
-            case '202' : // break intentionally omitted   
+            case '202' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -514,10 +514,10 @@ class Servers extends Rackspace
     }
     /**
      * Rebuild a server
-     * 
+     *
      * The rebuild function removes all data on the server and replaces it with the specified image,
      * serverId and IP addresses will remain the same.
-     * 
+     *
      * @param  string $id
      * @param  string $imageId
      * @return boolean
@@ -539,7 +539,7 @@ class Servers extends Rackspace
                                   'POST', null, null, json_encode($data));
         $status = $result->getStatusCode();
         switch ($status) {
-            case '202' : // break intentionally omitted   
+            case '202' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -565,13 +565,13 @@ class Servers extends Rackspace
     }
     /**
      * Resize a server
-     * 
+     *
      * The resize function converts an existing server to a different flavor, in essence, scaling the
      * server up or down. The original server is saved for a period of time to allow rollback if there
      * is a problem. All resizes should be tested and explicitly confirmed, at which time the original
      * server is removed. All resizes are automatically confirmed after 24 hours if they are not
      * explicitly confirmed or reverted.
-     * 
+     *
      * @param  string $id
      * @param  string $flavorId
      * @return boolean
@@ -593,7 +593,7 @@ class Servers extends Rackspace
                                   'POST', null, null, json_encode($data));
         $status = $result->getStatusCode();
         switch ($status) {
-            case '202' : // break intentionally omitted   
+            case '202' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -622,7 +622,7 @@ class Servers extends Rackspace
     }
     /**
      * Confirm resize of a server
-     * 
+     *
      * During a resize operation, the original server is saved for a period of time to allow roll
      * back if there is a problem. Once the newly resized server is tested and has been confirmed
      * to be functioning properly, use this operation to confirm the resize. After confirmation,
@@ -630,7 +630,7 @@ class Servers extends Rackspace
      * confirmed after 24 hours if they are not explicitly confirmed or reverted.
      *
      * @param  string $id
-     * @return boolean 
+     * @return boolean
      */
     public function confirmResizeServer($id)
     {
@@ -644,7 +644,7 @@ class Servers extends Rackspace
                                   'POST', null, null, json_encode($data));
         $status = $result->getStatusCode();
         switch ($status) {
-            case '204' : // break intentionally omitted   
+            case '204' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -673,7 +673,7 @@ class Servers extends Rackspace
     }
     /**
      * Revert resize of a server
-     * 
+     *
      * During a resize operation, the original server is saved for a period of time to allow for roll
      * back if there is a problem. If you determine there is a problem with a newly resized server,
      * use this operation to revert the resize and roll back to the original server. All resizes are
@@ -681,7 +681,7 @@ class Servers extends Rackspace
      * reverted.
      *
      * @param  string $id
-     * @return boolean 
+     * @return boolean
      */
     public function revertResizeServer($id)
     {
@@ -695,7 +695,7 @@ class Servers extends Rackspace
                                   'POST', null, null, json_encode($data));
         $status = $result->getStatusCode();
         switch ($status) {
-            case '202' : // break intentionally omitted   
+            case '202' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -724,14 +724,14 @@ class Servers extends Rackspace
     }
     /**
      * Get the list of the flavors
-     * 
+     *
      * If $details is true returns detail info
-     * 
+     *
      * @param  boolean $details
      * @return array|boolean
      */
     public function listFlavors($details=false)
-    { 
+    {
         $url= '/flavors';
         if ($details) {
             $url.= '/detail';
@@ -739,8 +739,8 @@ class Servers extends Rackspace
         $result= $this->httpCall($this->getManagementUrl().$url,'GET');
         $status= $result->getStatusCode();
         switch ($status) {
-            case '200' : 
-            case '203' : // break intentionally omitted   
+            case '200' :
+            case '203' : // break intentionally omitted
                 $flavors= json_decode($result->getBody(),true);
                 if (isset($flavors['flavors'])) {
                     return $flavors['flavors'];
@@ -764,7 +764,7 @@ class Servers extends Rackspace
     }
     /**
      * Get the detail of a flavor
-     * 
+     *
      * @param  string $flavorId
      * @return array|boolean
      */
@@ -776,8 +776,8 @@ class Servers extends Rackspace
         $result= $this->httpCall($this->getManagementUrl().'/flavors/'.rawurlencode($flavorId),'GET');
         $status= $result->getStatusCode();
         switch ($status) {
-            case '200' : 
-            case '203' : // break intentionally omitted   
+            case '200' :
+            case '203' : // break intentionally omitted
                 $flavor= json_decode($result->getBody(),true);
                 if (isset($flavor['flavor'])) {
                     return $flavor['flavor'];
@@ -801,21 +801,21 @@ class Servers extends Rackspace
     }
     /**
      * Get the list of the images
-     * 
+     *
      * @param  boolean $details
-     * @return Zend\Service\Rackspace\Servers\ImageList|boolean 
+     * @return Zend\Service\Rackspace\Servers\ImageList|boolean
      */
     public function listImages($details=false)
     {
         $url= '/images';
         if ($details) {
             $url.= '/detail';
-        } 
+        }
         $result= $this->httpCall($this->getManagementUrl().$url,'GET');
         $status= $result->getStatusCode();
         switch ($status) {
-            case '200' : 
-            case '203' : // break intentionally omitted   
+            case '200' :
+            case '203' : // break intentionally omitted
                 $images= json_decode($result->getBody(),true);
                 return new Servers\ImageList($this,$images['images']);
             case '503' :
@@ -836,7 +836,7 @@ class Servers extends Rackspace
     }
     /**
      * Get detail about an image
-     * 
+     *
      * @param  string $id
      * @return Zend\Service\Rackspace\Servers\Image|boolean
      */
@@ -848,8 +848,8 @@ class Servers extends Rackspace
         $result= $this->httpCall($this->getManagementUrl().'/images/'.rawurlencode($id),'GET');
         $status= $result->getStatusCode();
         switch ($status) {
-            case '200' : 
-            case '203' : // break intentionally omitted   
+            case '200' :
+            case '203' : // break intentionally omitted
                 $image= json_decode($result->getBody(),true);
                 return new Servers\Image($this,$image['image']);
             case '503' :
@@ -873,9 +873,9 @@ class Servers extends Rackspace
     }
     /**
      * Create an image for a serverId
-     * 
+     *
      * @param  string $serverId
-     * @param  string $name 
+     * @param  string $name
      * @return Zend\Service\Rackspace\Servers\Image
      */
     public function createImage($serverId,$name)
@@ -896,7 +896,7 @@ class Servers extends Rackspace
                                   null, null, json_encode($data));
         $status = $result->getStatusCode();
         switch ($status) {
-            case '202' : // break intentionally omitted   
+            case '202' : // break intentionally omitted
                 $image= json_decode($result->getBody(),true);
                 return new Servers\Image($this,$image['image']);
             case '503' :
@@ -926,9 +926,9 @@ class Servers extends Rackspace
     }
     /**
      * Delete an image
-     * 
+     *
      * @param  string $id
-     * @return boolean 
+     * @return boolean
      */
     public function deleteImage($id)
     {
@@ -938,7 +938,7 @@ class Servers extends Rackspace
         $result = $this->httpCall($this->getManagementUrl().'/images/'.rawurlencode($id),'DELETE');
         $status = $result->getStatusCode();
         switch ($status) {
-            case '204' : // break intentionally omitted   
+            case '204' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -961,9 +961,9 @@ class Servers extends Rackspace
     }
     /**
      * Get the backup schedule of a server
-     * 
+     *
      * @param  string $id server's Id
-     * @return array|boolean 
+     * @return array|boolean
      */
     public function getBackupSchedule($id)
     {
@@ -974,8 +974,8 @@ class Servers extends Rackspace
                                  'GET');
         $status= $result->getStatusCode();
         switch ($status) {
-            case '200' : 
-            case '203' : // break intentionally omitted   
+            case '200' :
+            case '203' : // break intentionally omitted
                 $backup = json_decode($result->getBody(),true);
                 if (isset($image['backupSchedule'])) {
                     return $image['backupSchedule'];
@@ -1002,11 +1002,11 @@ class Servers extends Rackspace
     }
     /**
      * Change the backup schedule of a server
-     * 
+     *
      * @param  string $id server's Id
      * @param  string $weekly
      * @param  string $daily
-     * @return boolean 
+     * @return boolean
      */
     public function changeBackupSchedule($id,$weekly,$daily)
     {
@@ -1030,7 +1030,7 @@ class Servers extends Rackspace
                                  'POST',null,null,json_encode($data));
         $status= $result->getStatusCode();
         switch ($status) {
-            case '204' : // break intentionally omitted   
+            case '204' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -1056,7 +1056,7 @@ class Servers extends Rackspace
     }
     /**
      * Disable the backup schedule for a server
-     * 
+     *
      * @param  string $id server's Id
      * @return boolean
      */
@@ -1069,7 +1069,7 @@ class Servers extends Rackspace
                                   'DELETE');
         $status = $result->getStatusCode();
         switch ($status) {
-            case '204' : // break intentionally omitted   
+            case '204' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;
@@ -1095,21 +1095,21 @@ class Servers extends Rackspace
     }
     /**
      * Get the list of shared IP groups
-     * 
+     *
      * @param  boolean $details
-     * @return Zend\Service\Rackspace\Servers\SharedIpGroupList|boolean 
+     * @return Zend\Service\Rackspace\Servers\SharedIpGroupList|boolean
      */
     public function listSharedIpGroups($details=false)
     {
         $url= '/shared_ip_groups';
         if ($details) {
             $url.= '/detail';
-        } 
+        }
         $result= $this->httpCall($this->getManagementUrl().$url,'GET');
         $status= $result->getStatusCode();
         switch ($status) {
-            case '200' : 
-            case '203' : // break intentionally omitted   
+            case '200' :
+            case '203' : // break intentionally omitted
                 $groups= json_decode($result->getBody(),true);
                 return new Servers\SharedIpGroupList($this,$groups['sharedIpGroups']);
             case '503' :
@@ -1130,9 +1130,9 @@ class Servers extends Rackspace
     }
     /**
      * Get the shared IP group
-     * 
+     *
      * @param  integer $id
-     * @return Zend\Service\Rackspace\Servers\SharedIpGroup|boolean 
+     * @return Zend\Service\Rackspace\Servers\SharedIpGroup|boolean
      */
     public function getSharedIpGroup($id)
     {
@@ -1142,8 +1142,8 @@ class Servers extends Rackspace
         $result= $this->httpCall($this->getManagementUrl().'/shared_ip_groups/'.rawurlencode($id),'GET');
         $status= $result->getStatusCode();
         switch ($status) {
-            case '200' : 
-            case '203' : // break intentionally omitted   
+            case '200' :
+            case '203' : // break intentionally omitted
                 $group= json_decode($result->getBody(),true);
                 return new Servers\SharedIpGroup($this,$group['sharedIpGroup']);
             case '503' :
@@ -1167,10 +1167,10 @@ class Servers extends Rackspace
     }
     /**
      * Create a shared Ip group
-     * 
+     *
      * @param  string $name
      * @param  string $serverId
-     * @return array|boolean 
+     * @return array|boolean
      */
     public function createSharedIpGroup($name,$serverId)
     {
@@ -1190,7 +1190,7 @@ class Servers extends Rackspace
                                  'POST',null,null,json_encode($data));
         $status= $result->getStatusCode();
         switch ($status) {
-            case '201' : // break intentionally omitted   
+            case '201' : // break intentionally omitted
                 $group = json_decode($result->getBody(),true);
                 return new Servers\SharedIpGroup($this,$group['sharedIpGroup']);
             case '503' :
@@ -1211,8 +1211,8 @@ class Servers extends Rackspace
     }
     /**
      * Delete a Shared Ip Group
-     * 
-     * @param  integer $id 
+     *
+     * @param  integer $id
      * @return boolean
      */
     public function deleteSharedIpGroup($id)
@@ -1223,7 +1223,7 @@ class Servers extends Rackspace
         $result= $this->httpCall($this->getManagementUrl().'/shared_ip_groups/'.rawurlencode($id),'DELETE');
         $status= $result->getStatusCode();
         switch ($status) {
-            case '204' : // break intentionally omitted   
+            case '204' : // break intentionally omitted
                 return true;
             case '503' :
                 $this->errorMsg= self::ERROR_SERVICE_UNAVAILABLE;

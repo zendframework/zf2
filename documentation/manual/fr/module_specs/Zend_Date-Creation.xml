@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.creation"><info><title>Créer des dates</title></info>
-    
+
 
     <para>
         <classname>Zend_Date</classname> permet de créer des instances d'elle même de
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.date.creation.actual"><info><title>Créer la date actuelle</title></info>
-        
+
 
         <para>
             La manière la plus simple de créer la date actuelle est d'utiliser le
@@ -19,7 +19,7 @@
         </para>
 
         <example xml:id="zend.date.creation.actual.example-1"><info><title>Créer une date par instance</title></info>
-            
+
 
             <para>
                 Il n'y a pas de paramètres à passer au constructeur pour récupérer un objet
@@ -33,7 +33,7 @@ $date = new Zend_Date();
         </example>
 
         <example xml:id="zend.date.creation.actual.example-2"><info><title>Créer une date par méthode statique</title></info>
-            
+
 
             <para>
                 La méthode statique <methodname>now()</methodname> a exactement le même effet qu'un
@@ -48,7 +48,7 @@ $date = Zend_Date::now();
     </section>
 
     <section xml:id="zend.date.creation.database"><info><title>Créer une date depuis une base de données</title></info>
-        
+
 
         <para>
             Les bases de données sont souvent utilisées pour stocker des informations de
@@ -71,7 +71,7 @@ $date = Zend_Date::now();
         </para>
 
         <example xml:id="zend.date.creation.database.example-1"><info><title>Création d'une date depuis une base de données</title></info>
-            
+
 
             <para>
                 Toutes les bases de données doivent répondre extrêmement rapidement à leurs
@@ -89,7 +89,7 @@ $date = new Zend_Date($unixtimestamp, Zend_Date::TIMESTAMP);
         </example>
 
         <example xml:id="zend.date.creation.database.example-2"><info><title>Création d'une date depuis une base de données dans un format</title></info>
-            
+
 
             <para>
                 La sortie de chaque base de données est différente même si elles se
@@ -112,7 +112,7 @@ $date = new Zend_Date($datecolumn, Zend_Date::ISO_8601);
     </section>
 
     <section xml:id="zend.date.creation.array"><info><title>Créer des dates depuis un tableau</title></info>
-        
+
 
         <para>
             Créer une date depuis un tableau est fréquent et pratique. Les clés du tableau
@@ -156,7 +156,7 @@ $date = new Zend_Date($datecolumn, Zend_Date::ISO_8601);
         </para>
 
         <example xml:id="zend.date.creation.array.example"><info><title>Créer une date depuis un tableau</title></info>
-            
+
 
             <para>
                 En temps normal on utilisera un tableau avec toutes ses clés. Si une clé est

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins.standard.errorhandler"><info><title>Zend_Controller_Plugin_ErrorHandler</title></info>
-    
+
 
     <para>
         <code>Zend_Controller_Plugin_ErrorHandler</code>提供了一个活动的插件，用来处理从程序抛出的异常，包括那些从缺控制器或动作的来的结果；它是一个列在<link linkend="zend.controller.exceptions">MVC Exceptions section</link>里的方法的一个替代。
@@ -69,7 +69,7 @@
     </para>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.fourohfour"><info><title>使用 ErrorHandler 作为一个 404 处理器（handler）</title></info>
-        
+
 
         <para>
             因为<code>ErrorHandler</code>插件不仅抓取程序错误，而且也抓取在控制器链里的由于缺失控制器类和/或动作方法而产生的错误，它可以用作一个404处理器。这样做，需要让错误控制器检查异常类型。
@@ -187,7 +187,7 @@ public function errorAction()
     </section>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.buffer"><info><title>处理以前呈现的(rendered)输出</title></info>
-        
+
 
         <para>
             如果你在一个请求里派遣多个动作，或者你的动作对<code>render()</code>做多次调用，很可能响应对象已经有存储在它里面的内容。这可以导致呈显期望的内容和错误的内容的混合体。
@@ -204,10 +204,10 @@ $this->getResponse()->clearBody();
     </section>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.examples"><info><title>插件用法示例</title></info>
-        
+
 
         <example xml:id="zend.controller.plugins.standard.errorhandler.examples.example-1"><info><title>Standard usage</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 $front = Zend_Controller_Front::getInstance();
 $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler());
@@ -216,7 +216,7 @@ $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler());
         </example>
 
         <example xml:id="zend.controller.plugins.standard.errorhandler.examples.example-2"><info><title>Setting a different error handler</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 $front = Zend_Controller_Front::getInstance();
 $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array(
@@ -229,7 +229,7 @@ $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array(
         </example>
 
         <example xml:id="zend.controller.plugins.standard.errorhandler.examples.example-3"><info><title>Using accessors</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 $plugin = new Zend_Controller_Plugin_ErrorHandler();
 $plugin->setErrorHandlerModule('mystuff')
@@ -244,7 +244,7 @@ $front->registerPlugin($plugin);
     </section>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.controllerexamples"><info><title>错误控制器示例</title></info>
-        
+
 
         <para>
             为了使用错误处理器插件，你需要错误控制器。下面是个简单的例子。

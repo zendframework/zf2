@@ -141,8 +141,8 @@ class ResourceAutoloader implements SplAutoloader
 
     /**
      * Lookup class path via namespaces
-     * 
-     * @param  string $class 
+     *
+     * @param  string $class
      * @return false|string
      */
     public function getNamespacedClassPath($class)
@@ -194,8 +194,8 @@ class ResourceAutoloader implements SplAutoloader
 
     /**
      * Get class path for class with vendor prefix
-     * 
-     * @param  string $class 
+     *
+     * @param  string $class
      * @return false|string
      */
     public function getPrefixedClassPath($class)
@@ -260,7 +260,7 @@ class ResourceAutoloader implements SplAutoloader
 
     /**
      * Register with spl_autoload registry
-     * 
+     *
      * @return void
      */
     public function register()
@@ -404,9 +404,9 @@ class ResourceAutoloader implements SplAutoloader
 
     /**
      * Add a resource type using PHP namespaces
-     * 
-     * @param  string $type 
-     * @param  string $namespace 
+     *
+     * @param  string $type
+     * @param  string $namespace
      * @return void
      */
     protected function _addNamespaceResource($type, $namespace)
@@ -420,9 +420,9 @@ class ResourceAutoloader implements SplAutoloader
 
     /**
      * Add a resource type using vendor prefix
-     * 
-     * @param  string $type 
-     * @param  string $prefix 
+     *
+     * @param  string $type
+     * @param  string $prefix
      * @return void
      */
     protected function _addPrefixResource($type, $prefix)

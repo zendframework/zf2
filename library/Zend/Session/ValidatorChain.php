@@ -41,8 +41,8 @@ class ValidatorChain extends EventManager
      * Construct the validation chain
      *
      * Retrieves validators from session storage and attaches them.
-     * 
-     * @param  Storage $storage 
+     *
+     * @param  Storage $storage
      * @return void
      */
     public function __construct(Storage $storage)
@@ -59,10 +59,10 @@ class ValidatorChain extends EventManager
 
     /**
      * Attach a listener to the session validator chain
-     * 
+     *
      * @param  string $event
      * @param  callback $callback
-     * @param  int $priority 
+     * @param  int $priority
      * @return Zend\Stdlib\CallbackHandler
      */
     public function attach($event, $callback, $priority = 1)
@@ -89,7 +89,7 @@ class ValidatorChain extends EventManager
 
     /**
      * Retrieve session storage object
-     * 
+     *
      * @return Storage
      */
     public function getStorage()

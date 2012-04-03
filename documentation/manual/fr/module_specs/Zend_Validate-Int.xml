@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.int"><info><title>Int</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Int</classname> valide une valeur envers un entier. Les entiers localisés sont
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.set.int.options"><info><title>Options supportées par Zend_Validate_Int</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par <classname>Zend_Validate_Int</classname>:
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.validate.set.int.basic"><info><title>Validation simple d'entiers</title></info>
-        
+
 
         <para>
             La manière la plus simple de valider un entier est d'utiliser les paramètres systèmes. Lorsqu'aucune
@@ -47,7 +47,7 @@ $validator->isValid('1,234'); // retourne true
     </section>
 
     <section xml:id="zend.validate.set.int.localized"><info><title>Validation d'entiers localisés</title></info>
-        
+
 
         <para>
             Il est parfois nécessaire de valider des entiers localisés. Les entiers sont souvent écrits de

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.adapter.jspush"><info><title>Zend_ProgressBar_Adapter_JsPush</title></info>
-    
+
 
     <para>
         <classname>Zend_ProgressBar_Adapter_JsPush</classname> est un adaptateur qui vous
@@ -79,7 +79,7 @@
     </itemizedlist>
 
     <example xml:id="zend.progressbar-adapter.jspush.example"><info><title>Exemple basique du fonctionnement côté-client</title></info>
-        
+
 
         <para>
             Cet exemple illustre un paramétrage basique du HTML, <acronym>CSS</acronym> et JavaScript pour
@@ -169,7 +169,7 @@ function Zend_ProgressBar_Update(data)
     </example>
 
     <note><info><title>Intervalle de mise à jour</title></info>
-        
+
 
         <para>
             Vous devez faire attention à ne pas envoyer trop de mises à jour, puisque chaque

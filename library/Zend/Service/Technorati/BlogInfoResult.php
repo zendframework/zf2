@@ -113,7 +113,7 @@ class BlogInfoResult
      *
      * @return  \Zend\Uri\Http
      */
-    public function getUrl() 
+    public function getUrl()
     {
         return $this->url;
     }
@@ -123,7 +123,7 @@ class BlogInfoResult
      *
      * @return  Weblog
      */
-    public function getWeblog() 
+    public function getWeblog()
     {
         return $this->weblog;
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_Feed</classname> stellt Funktionalitäten für das Konsumieren von
@@ -29,7 +29,7 @@
     </para>
 
     <note><info><title>Achtung</title></info>
-        
+
 
         <para>
             Viele <acronym>RSS</acronym> Feeds bieten verschiedene Eigenschaften für Kanäle und
@@ -40,7 +40,7 @@
     </note>
 
     <example xml:id="zend.feed.introduction.example.rss"><info><title>Zend_Feed für die Verarbeitung von RSS Feed Daten verwenden</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // hole die neuesten Slashdot Schlagzeilen

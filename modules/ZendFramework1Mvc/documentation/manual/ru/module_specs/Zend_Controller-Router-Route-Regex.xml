@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.regex"><info><title>Zend_Controller_Router_Route_Regex</title></info>
-    
+
 
     <para>
         Кроме описанных ранее типов маршрутов - используемого по умолчанию и

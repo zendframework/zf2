@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.basics"><info><title>Zend_Controller Grundlagen</title></info>
-    
+
 
     <para>
         Das <classname>Zend_Controller</classname> System wurde leichtgewichtig, modular und
@@ -125,7 +125,7 @@
             </para>
 
             <note><info><title>Konventionen von Namens-Schreibweisen</title></info>
-                
+
 
                 <para>
                     Da Menschen grundsätzlich inkonsistent sind im Behandeln und der

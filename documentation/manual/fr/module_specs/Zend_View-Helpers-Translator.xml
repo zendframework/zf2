@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.translator"><info><title>L'aide de vue Translate</title></info>
-    
+
 
     <para>
         Souvent le sites Web sont disponibles en plusieurs langues. Pour traduire le contenu
@@ -47,7 +47,7 @@
     </note>
 
     <example xml:id="zend.view.helpers.initial.translator.registered"><info><title>Instance enregistrée</title></info>
-        
+
 
         <para>
             Pour utiliser une instance enregistrée, créez une instance de
@@ -79,7 +79,7 @@ echo $this->translate('simple');
     </para>
 
     <example xml:id="zend.view.helpers.initial.translator.afterwards"><info><title>A l'intérieur de la vue</title></info>
-        
+
 
         <para>
             Pour utiliser l'interface fluide, créez une instance de
@@ -108,7 +108,7 @@ $this->translate()->setTranslator($adapter)->translate('simple');
     </para>
 
     <example xml:id="zend.view.helpers.initial.translator.directly"><info><title>Utilisation directe</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // notre adaptateur d'exemple
@@ -142,7 +142,7 @@ print $translate->translate('simple');
     </para>
 
     <example xml:id="zend.view.helpers.initial.translator.parameter"><info><title>Paramètres unique</title></info>
-        
+
 
         <para>Pour utiliser un paramètre unique, ajoutez le en fin de méthode :</para>
 
@@ -162,7 +162,7 @@ $this->translate("Today is %1\$s", $date);
     </note>
 
     <example xml:id="zend.view.helpers.initial.translator.parameterlist"><info><title>Liste de paramètres</title></info>
-        
+
 
         <para>Ou utiliser une liste de paramètres et ajoutez les en fin de méthode :</para>
 
@@ -180,7 +180,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s",
     </example>
 
     <example xml:id="zend.view.helpers.initial.translator.parameterarray"><info><title>Tableau de paramètres</title></info>
-        
+
 
         <para>Ou utiliser un tableau de paramètres et ajoutez le en fin de méthode :</para>
 
@@ -201,7 +201,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s", $date);
     </para>
 
     <example xml:id="zend.view.helpers.initial.translator.dynamic"><info><title>Changement dynamique de la locale</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // à l'intérieur de votre vue
@@ -219,7 +219,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s", $date, 'it');
     </para>
 
     <example xml:id="zend.view.helpers.initial.translator.static"><info><title>Changement statique de la locale</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // à l'intérieur de votre vue
@@ -240,7 +240,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s", $date);
     </para>
 
     <example xml:id="zend.view.helpers.initial.translator.getlocale"><info><title>Récupération de la locale courante</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // à l'intérieur de votre vue

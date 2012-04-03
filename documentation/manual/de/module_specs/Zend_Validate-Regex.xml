@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.regex"><info><title>Regex</title></info>
-    
+
 
     <para>
         Diese Prüfung erlaubt es zu prüfen ob ein angegebener String einer definierten Regular
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.set.regex.options"><info><title>Unterstützte Optionen für Zend_Validate_Regex</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Validate_Regex</classname>
@@ -26,7 +26,7 @@
     </section>
 
     <section xml:id="zend.validate.set.regex.basic"><info><title>Prüfen mit Zend_Validate_Regex</title></info>
-        
+
 
         <para>
             Die Prüfung mit Regular Expressions erlaubt es komplizierte Prüfungen durchzuführen,
@@ -51,7 +51,7 @@ $validator->isValid("Pest"); // Gibt false zurück
     </section>
 
     <section xml:id="zend.validate.set.regex.handling"><info><title>Handhabung von Pattern</title></info>
-        
+
 
         <para>
             Es ist auch möglich andere Pattern im Nachhinein zu setzen indem

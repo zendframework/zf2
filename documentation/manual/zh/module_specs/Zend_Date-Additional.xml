@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.additional"><info><title>Working 范例 </title></info>
 
-    
+
 
     <para>
         在本章内，我们将描述若干附加的函数，它们在 <code>Zend_Date</code> 中也有效。
@@ -10,7 +10,7 @@
 
     <section xml:id="zend.date.additional.checking"><info><title> 检查日期 </title></info>
 
-        
+
 
         <para>
             大部分输入的日期可能是字符串，问题是你不能确保这些字符串是真的日期。因此 <code>Zend_Date</code>
@@ -37,7 +37,7 @@
         </para>
 
         <example xml:id="zend.date.additional.checking.example-1"><info><title>检查日期</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 // Checking dates
 $date = '01.03.2000';
@@ -70,7 +70,7 @@ if (Zend_Date::isDate($date,'dd MMMM yyyy', 'en')) {
 
     <section xml:id="zend.date.additional.sunrise-sunset"><info><title>日出和日落</title></info>
 
-        
+
 
         <para>
             <code>Zend_Date</code> 也集成了从太阳获得信息的功能。通常在一个特定的日子里获得日出和日落的时间是有必要的。
@@ -87,7 +87,7 @@ if (Zend_Date::isDate($date,'dd MMMM yyyy', 'en')) {
         </para>
 
         <example xml:id="zend.date.additional.sunrise-sunset.example-1"><info><title> 获得所有可用的城市 </title></info>
-            
+
             <programlisting role="php"><![CDATA[
 // Output the complete list of available cities
 print_r (Zend_Date_Cities::getCityList());
@@ -107,7 +107,7 @@ print_r (Zend_Date_Cities::getCityList());
         </para>
 
         <table xml:id="zend.date.additional.sunrise-sunset.table"><info><title> 日落和日出支持的地平线（horizons）类型 </title></info>
-            
+
             <tgroup cols="3">
                 <thead>
                     <row>
@@ -146,7 +146,7 @@ print_r (Zend_Date_Cities::getCityList());
         </para>
 
         <example xml:id="zend.date.additional.sunrise-sunset.example-2"><info><title>获得一个城市的位置</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 // Get the location for a defined city
 // uses the effective horizon as no horizon is defined
@@ -169,7 +169,7 @@ $mylocation = array('latitude' => 41.5, 'longitude' => 13.2446);
         </para>
 
         <example xml:id="zend.date.additional.sunrise-sunset.example-3"><info><title> 计算太阳信息 </title></info>
-            
+
             <programlisting role="php"><![CDATA[
 // Get the location for a defined city
 $city = Zend_Date_Cities::City('Vienna');
@@ -194,7 +194,7 @@ foreach ($info as $sun) {
 
     <section xml:id="zend.date.additional.timezones"><info><title>时区</title></info>
 
-        
+
 
         <para>
             时区和日期一样重要，根据用户所居住的地方，有若干时区，所以使用日期意味着要正确设置时区。
@@ -214,7 +214,7 @@ foreach ($info as $sun) {
         </para>
 
         <example xml:id="zend.date.additional.timezones.example-1"><info><title> 使用时区 </title></info>
-            
+
             <programlisting role="php"><![CDATA[
 // Set a default timezone... this has to be done within the bootstrap
 // file or php.ini
@@ -253,7 +253,7 @@ print $date->getIso();
         </para>
 
         <example xml:id="zend.date.additional.timezones.example-2"><info><title> 多重时区 </title></info>
-            
+
             <programlisting role="php"><![CDATA[
 // Set a default timezone... this has to be done within the bootstrap
 // file or php.ini.

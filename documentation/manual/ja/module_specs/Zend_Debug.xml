@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.debug.dumping"><info><title>変数の出力</title></info>
 
-    
+
 
     <para>
         静的メソッド <methodname>Zend_Debug::dump()</methodname> は、
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.debug.dumping.example"><info><title>dump() メソッドの例</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 Zend_Debug::dump($var, $label = null, $echo = true);
@@ -48,7 +48,7 @@ Zend_Debug::dump($var, $label = null, $echo = true);
     </para>
 
     <tip><info><title>Zend_Log を使用したデバッグ</title></info>
-        
+
 
         <para>
             <methodname>Zend_Debug::dump()</methodname> は、ソフトウェアの開発中の

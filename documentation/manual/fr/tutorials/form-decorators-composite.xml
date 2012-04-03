@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.form.decorators.composite"><info><title>Créer et rendre des éléments composites</title></info>
-    
+
 
     <para>
         Dans <link linkend="learning.form.decorators.individual">la dernière section</link>, nous
@@ -28,7 +28,7 @@
     </para>
 
     <section xml:id="learning.form.decorators.composite.element"><info><title>L'élément</title></info>
-        
+
 
         <para>
             Les questions à se poser sur le fonctionnement de l'élément sont:
@@ -191,7 +191,7 @@ class My_Form_Element_Date extends Zend_Form_Element_Xhtml
     </section>
 
     <section xml:id="learning.form.decorators.composite.decorator"><info><title>Le décorateur</title></info>
-        
+
 
         <para>
             Toujours en suivant notre exemple, imaginons que nous voulions que notre utilisateur
@@ -359,7 +359,7 @@ $d->setValue(array('year' => '2009', 'month' => '04', 'day' => '20'));
     </section>
 
     <section xml:id="learning.form.decorators.composite.conclusion"><info><title>Conclusion</title></info>
-        
+
 
         <para>
             Nous avons maintenant un élément qui peut rendre de multiples champs de formulaire,

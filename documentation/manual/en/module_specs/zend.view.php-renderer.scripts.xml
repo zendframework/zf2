@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section xmlns="http://docbook.org/ns/docbook" version="5.0" 
+<section xmlns="http://docbook.org/ns/docbook" version="5.0"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xml:id="zend.view.php-renderer.scripts">
     <info><title>PhpRenderer View Scripts</title></info>
@@ -132,7 +132,7 @@ $escaper->setCallback(array('SomeClass', 'methodName'));
 $obj = new SomeClass();
 $escaper->setCallback(array($obj, 'methodName'));
 
-// or use a closure to curry arguments to another function, 
+// or use a closure to curry arguments to another function,
 // or inline an escaping mechanism.
 $escaper->setCallback(function ($value) {
     $value = str_rot13($value);

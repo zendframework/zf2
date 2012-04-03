@@ -115,7 +115,7 @@ class PrefixPathLoaderTest extends \PHPUnit_Framework_TestCase
 
         $expected = array(
             rtrim(realpath(__DIR__ . '/TestAsset'), DIRECTORY_SEPARATOR),
-            rtrim(__DIR__, DIRECTORY_SEPARATOR), 
+            rtrim(__DIR__, DIRECTORY_SEPARATOR),
         );
         $test  = array();
         foreach ($paths as $path) {

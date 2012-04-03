@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.alnum"><info><title>Alnum</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Alnum</classname> allows you to validate if a given value contains
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.validate.set.alnum.options"><info><title>Supported options for Zend_Validate_Alnum</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Validate_Alnum</classname>:
@@ -26,7 +26,7 @@
     </section>
 
     <section xml:id="zend.validate.set.alnum.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             A basic example is the following one:
@@ -43,7 +43,7 @@ if ($validator->isValid('Abcd12')) {
     </section>
 
     <section xml:id="zend.validate.set.alnum.whitespace"><info><title>Using whitespaces</title></info>
-        
+
 
         <para>
             Per default whitespaces are not accepted because they are not part of the alphabet.
@@ -69,7 +69,7 @@ if ($validator->isValid('Abcd and 12')) {
     </section>
 
     <section xml:id="zend.validate.set.alnum.languages"><info><title>Using different languages</title></info>
-        
+
 
         <para>
             When using <classname>Zend_Validate_Alnum</classname> then the language which the user

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.amf.server"><info><title>Zend_Amf_Server</title></info>
-    
+
 
     <para>
         <classname>Zend_Amf_Server</classname> proporciona un servidor al estilo
@@ -11,7 +11,7 @@
         para crear servidores fácil de recordar. </para>
 
     <example xml:id="zend.amf.server.basic"><info><title>Servidor AMF básico</title></info>
-        
+
 
         <para> Asumamos que ha creado la clase <classname>Foo</classname> con
             una variedad de métodos públicos. Usando el siguiente código, puede
@@ -85,7 +85,7 @@ $servidor->addDirectory(dirname(__FILE__) .'/../package/');
 
     <note><info><title>Todos los métodos y las funciones agregadas requieren bloques de
             documentación (docblocks)</title></info>
-        
+
 
         <para> Como todos los demás componentes del servidor en Zend Framework,
             debe documentar los métodos de su clase usando
@@ -128,7 +128,7 @@ class Mundo
     </note>
 
     <section xml:id="zend.amf.server.flex"><info><title>Conectándose al Servidor desde Flex</title></info>
-        
+
 
         <para> Conectarse a <classname>Zend_Amf_Server</classname> desde su
             proyecto Flex es bastante simple; solo necesita apuntar el final del
@@ -256,7 +256,7 @@ myservice.world.hello("Wade");
     </section>
 
     <section xml:id="zend.amf.server.errors"><info><title>Manejo de errores</title></info>
-        
+
 
         <para> Por defecto, todas las excepciones producidas en sus clases o
             funciones adjuntas serán capturados y devueltas como mensajes de
@@ -285,7 +285,7 @@ $server->setProduction(true);
 ]]></programlisting>
 
         <note><info><title>¡Deshabilite el modo de producción racionalmente!</title></info>
-            
+
 
             <para> Sugerimos deshabilitar el modo de producción solo cuando se
                 está en modo de desarrollo. Los mensajes de excepción y los
@@ -309,7 +309,7 @@ $server->setProduction(true);
     </section>
 
     <section xml:id="zend.amf.server.response"><info><title>Respuestas de AMF</title></info>
-        
+
 
         <para> En ocasiones es posible que quiera manipular ligeramente el
             objeto respuesta, es bastante usual querer devolver algunas
@@ -318,7 +318,7 @@ $server->setProduction(true);
             objeto respuesta. </para>
 
         <example xml:id="zend.amf.server.response.messageHeaderExample"><info><title>Agregar cabeceras de mensaje a la respuesta de AMF</title></info>
-            
+
 
             <para>En este ejemplo, añadiremos la cabecera de mensaje
                 (MessageHeader) "foo" con el valor 'bar' a la respuesta antes de
@@ -333,7 +333,7 @@ echo $respuesta;
     </section>
 
     <section xml:id="zend.amf.server.typedobjects"><info><title>Objetos tipados</title></info>
-        
+
 
         <para> Similarmente a <acronym>SOAP</acronym> , <acronym>AMF</acronym>
             permite pasar objetos entre cliente y servidor. Esto le da una gran
@@ -443,11 +443,11 @@ private function getContactHandler(event:ResultEvent):void {
     </section>
 
     <section xml:id="zend.amf.server.resources"><info><title>Recursos</title></info>
-        
+
 
         <para>
- <classname>Zend_Amf</classname>  proporciona herramientas para el mapeo de los tipos 
-        de recursos  devueltos por las clases de servicio en los datos 
+ <classname>Zend_Amf</classname>  proporciona herramientas para el mapeo de los tipos
+        de recursos  devueltos por las clases de servicio en los datos
         de consumo de ActionScript.</para>
 
         <para> In order to handle specific resource type, the user needs to
@@ -503,7 +503,7 @@ class Zend_Amf_Parse_Resource_MysqlResult
     </section>
 
     <section xml:id="zend.amf.server.flash"><info><title>Conectándose al Servidor desde Flash</title></info>
-        
+
 
         <para> La conexión a <classname>Zend_Amf_Server</classname> desde su
             proyecto Flash es ligeramente distinta a la de Flex. Sin embargo una
@@ -633,7 +633,7 @@ private function onFault(fault:Object):void {
     </section>
 
     <section xml:id="zend.amf.server.auth"><info><title>Authentication</title></info>
-        
+
 
         <para>
             <classname>Zend_Amf_Server</classname> allows you to specify

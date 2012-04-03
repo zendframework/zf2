@@ -94,7 +94,7 @@ class DojoFormTest extends \PHPUnit_Framework_TestCase
         $html = $this->helper->__invoke('foo', array('id' => 'bar'));
         $this->assertRegexp('/<form[^>]*(id="bar")/', $html);
     }
-    
+
     public function testShouldNotRenderClosingTagIfContentIsFalse()
     {
         $html = $this->helper->__invoke('foo');

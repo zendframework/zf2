@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.scripts"><info><title>视图脚本</title></info>
 
-    
+
 
     <para>
         Controller完成变量赋值和调用render()之后，Zend_View就会调用视图脚本并在Zend_View的实例内部执行。因此，在你的视图脚本内，$this指向Zend_View的实例。
@@ -37,12 +37,12 @@
 
     <p>There are no books to display.</p>
 
-<?php endif; 
+<?php endif;
     ]]></programlisting>
 
     <section xml:id="zend.view.scripts.escaping"><info><title>转义输出（Escaping Output）</title></info>
 
-        
+
 
         <para>
             View脚本的最重要的工作之一是保证输出的内容是合适的，比如需要避免跨站攻击漏洞(XSS)。除非你已经使用一个函数、类方法或助手类（helper）来转义内容，你需要在输出时对变量进行转义。
@@ -92,14 +92,14 @@ echo $view->render(...);
     </section>
 
     <section xml:id="zend.view.scripts.templates"><info><title>使用模板系统</title></info>
-        
+
 
         <para>
             尽管许多开发者觉得PHP本身就是一个强大的模板系统，但对模板设计师来说，使用PHP标签过于复杂。Zend_View提供了两套机制来同时满足这两种要求，一种是直接通过通过视图脚本，另一种是实现Zend_View_Interface接口。
         </para>
 
         <section xml:id="zend.view.scripts.templates.scripts"><info><title>使用View脚本的模板系统</title></info>
-            
+
 
             <para>
                               View脚本可能要被用来初始化和操作一个其它模板对象的实例，例如PHPLIB风格的模板。这时View脚本可能是这样的：
@@ -155,7 +155,7 @@ if ($this->books) {
         </section>
 
         <section xml:id="zend.view.scripts.templates.interface"><info><title>通过Zend_View_Interface接口使用模板系统</title></info>
-            
+
 
             <para>
 

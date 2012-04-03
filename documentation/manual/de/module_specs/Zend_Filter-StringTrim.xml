@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.stringtrim"><info><title>StringTrim</title></info>
-    
+
 
     <para>
         Dieser Filter verändert einen angegebenen String so dass bestimmte Zeichen vom Anfang und
@@ -8,7 +8,7 @@
     </para>
 
      <section xml:id="zend.filter.set.stringtrim.options"><info><title>Unterstützte Optionen für Zend_Filter_StringTrim</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Filter_StringTrim</classname>
@@ -28,7 +28,7 @@
     </section>
 
     <section xml:id="zend.filter.set.stringtrim.basic"><info><title>Einfache Verwendung</title></info>
-        
+
 
         <para>
             Ein einfaches Beispiel der Verwendung ist nachfolgend zu finden:
@@ -47,7 +47,7 @@ print $filter->filter(' Das ist (mein) Inhalt: ');
     </section>
 
     <section xml:id="zend.filter.set.stringtrim.types"><info><title>Standardverhalten für Zend_Filter_StringTrim</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $filter = new Zend_Filter_StringTrim(':');

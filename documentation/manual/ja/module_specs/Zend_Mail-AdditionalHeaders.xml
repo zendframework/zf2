@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.additional-headers"><info><title>追加のヘッダ</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> は追加のメールヘッダを設定するためのメソッドをいくつか提供します。
@@ -33,7 +33,7 @@
     </para>
 
     <note><info><title>Return-Path</title></info>
-        
+
 
         <para>
             もしメールに Return-Path を設定する場合は、<link linkend="zend.mail.introduction.sendmail">sendmail トランスポートの設定</link>をご覧ください。
@@ -49,7 +49,7 @@
     </para>
 
     <example xml:id="zend.mail.additional-headers.example-1"><info><title>メールヘッダの追加</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();

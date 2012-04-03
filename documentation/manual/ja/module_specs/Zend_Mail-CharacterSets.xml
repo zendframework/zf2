@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.character-sets"><info><title>文字セット</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> はメールの現在の文字セットをチェックしません。
@@ -12,7 +12,7 @@
     </para>
 
     <note><info><title>テキスト形式限定</title></info>
-        
+
 
         <para>
             文字セットが適用されるのは、プレーンテキストのメッセージについてのみです。
@@ -20,7 +20,7 @@
     </note>
 
     <example xml:id="zend.mail.character-sets.cjk"><info><title>CJK 言語での利用</title></info>
-        
+
 
         <para>
             下記の例は日本語での <classname>Zend_Mail</classname> の使い方です。

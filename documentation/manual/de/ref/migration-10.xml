@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.10"><info><title>Zend Framework 1.0</title></info>
-    
+
 
     <para>
         Wenn man von einem älteren Release auf Zend Framework 1.0 oder höher hochrüstet sollte
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="migration.10.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <para>
             Die prinzipiellen Änderungen die durch 1.0.0RC1 angeboten werden sind die Einführung und
@@ -189,7 +189,7 @@ $viewRenderer->setView($view);
     </section>
 
     <section xml:id="migration.10.zend.currency"><info><title>Zend_Currency</title></info>
-        
+
 
         <para>
             Die Erstellung von <classname>Zend_Currency</classname> wurde vereinfacht.

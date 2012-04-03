@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.definition.theory"><info><title>動作原理</title></info>
 
-    
+
 
     <para>
         なぜ Zend Framework で日付や時刻を処理するクラスが
@@ -28,7 +28,7 @@
 
     <section xml:id="zend.date.theory.internals"><info><title>内部構造</title></info>
 
-        
+
 
         <itemizedlist mark="opencircle">
             <listitem>

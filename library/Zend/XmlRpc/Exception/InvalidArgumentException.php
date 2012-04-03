@@ -6,4 +6,3 @@ class InvalidArgumentException
     extends \InvalidArgumentException
     implements \Zend\XmlRpc\Exception
 {}
-    

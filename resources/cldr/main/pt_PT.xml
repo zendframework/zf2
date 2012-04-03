@@ -275,7 +275,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="yQ">QQQ 'de' y G</dateFormatItem>
 						<dateFormatItem id="yQQQ">QQQ 'de' y G</dateFormatItem>
 						<dateFormatItem id="yyQ">QQQ 'de' yy G</dateFormatItem>
@@ -405,7 +405,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="islamic">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d 'de' MMMM 'de' y G</pattern>
@@ -428,7 +428,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="yQ">QQQ 'de' y G</dateFormatItem>
 						<dateFormatItem id="yQQQ">QQQ 'de' y G</dateFormatItem>
 						<dateFormatItem id="yyQ">QQQ 'de' yy G</dateFormatItem>
@@ -436,7 +436,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d 'de' MMMM 'de' y G</pattern>
@@ -459,7 +459,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="yQ">QQQ 'de' y G</dateFormatItem>
 						<dateFormatItem id="yQQQ">QQQ 'de' y G</dateFormatItem>
 						<dateFormatItem id="yyQ">QQQ 'de' yy G</dateFormatItem>
@@ -467,7 +467,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="roc">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d 'de' MMMM 'de' y G</pattern>
@@ -490,7 +490,7 @@
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<availableFormats> 
+					<availableFormats>
 						<dateFormatItem id="yQ">QQQ 'de' y G</dateFormatItem>
 						<dateFormatItem id="yQQQ">QQQ 'de' y G</dateFormatItem>
 						<dateFormatItem id="yyQ">QQQ 'de' yy G</dateFormatItem>

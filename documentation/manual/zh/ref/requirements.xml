@@ -3,7 +3,7 @@
 
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="requirements"><info><title>系统需求</title></info>
 
-    
+
 
     <para>
         这部分描述了 Zend Framework 对系统的需求。
@@ -11,7 +11,7 @@
 
     <section xml:id="requirements.version"><info><title>PHP 版本需求</title></info>
 
-        
+
 
         <para>
             Zend Framework 需要 PHP 5.1.4 或更高版本。例如 <code>Countable</code>
@@ -32,7 +32,7 @@
 
     <section xml:id="requirements.extensions"><info><title>PHP 扩展</title></info>
 
-        
+
 
         <para>
             下面列出了所有 PHP 内建支持的扩展，以及它们在 Zend Framework 中如何应用。
@@ -46,7 +46,7 @@
         </para>
 
         <table frame="all"><info><title>Zend Framework 使用的 PHP 扩展</title></info>
-            
+
             <tgroup cols="3">
                 <colspec colwidth="1in"/>
                 <colspec colwidth="1in"/>
@@ -532,14 +532,14 @@
     </section>
     <section xml:id="requirements.zendcomponents"><info><title>Zend Framework 组件</title></info>
 
-        
+
 
         <para>
             下面的表格列出了所有可用的 Zend Framework 组件，以及其所需的 PHP 扩展。这可以帮助了解哪些扩展对于应用来说是必须的。并不是每个应用都需要所有 Zend Framework 使用到的扩展。
         </para>
 
         <table frame="all" xml:id="requirements.zendcomponents.table-1"><info><title>Zend Framework 组件以及其使用到的 PHP 扩展</title></info>
-            
+
             <tgroup cols="2">
                 <colspec colwidth="2in"/>
                 <colspec colwidth="4in"/>

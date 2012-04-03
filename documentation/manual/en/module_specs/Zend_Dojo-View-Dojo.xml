@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view.dojo"><info><title>dojo() View Helper</title></info>
-    
+
 
     <para>
         The <methodname>dojo()</methodname> view helper is intended to simplify setting up
@@ -30,7 +30,7 @@
     </para>
 
     <example xml:id="zend.dojo.view.dojo.usage"><info><title>dojo() View Helper Usage Example</title></info>
-        
+
 
         <para>
             For this example, let's assume the developer will be using Dojo from
@@ -117,7 +117,7 @@ $this->dojo()->enable()
     </example>
 
     <note><info><title>UTF-8 encoding used by default</title></info>
-        
+
 
         <para>
             By default, Zend Framework uses <acronym>UTF-8</acronym> as its default encoding, and,
@@ -139,7 +139,7 @@ $this->dojo()->enable()
     </note>
 
     <section xml:id="zend.dojo.view.dojo.declarative"><info><title>Programmatic and Declarative Usage of Dojo</title></info>
-        
+
 
         <para>
             Dojo allows both <emphasis>declarative</emphasis> and
@@ -180,7 +180,7 @@ $this->dojo()->enable()
         </para>
 
         <example xml:id="zend.dojo.view.dojo.declarative.usage"><info><title>Specifying Declarative and Programmatic Dojo Usage</title></info>
-            
+
 
             <para>
                 To specify declarative usage, simply call the static
@@ -214,7 +214,7 @@ Zend_Dojo_View_Helper_Dojo::setUseProgrammatic(-1);
     </section>
 
     <section xml:id="zend.dojo.view.dojo.themes"><info><title>Themes</title></info>
-        
+
 
         <para>
             Dojo allows the creation of themes for its dijits (widgets). You may
@@ -245,7 +245,7 @@ $view->dojo()->addStylesheetModule('dijit.themes.tundra');
     </section>
 
     <section xml:id="zend.dojo.view.dojo.layers"><info><title>Using Layers (Custom Builds)</title></info>
-        
+
 
         <para>
             By default, when you use a <command>dojo.require</command> statement, dojo will make a
@@ -307,7 +307,7 @@ $view->dojo()->addLayer('/js/foo/foo.js');
     </section>
 
     <section xml:id="zend.dojo.view.dojo.methods"><info><title>Methods Available</title></info>
-        
+
 
         <para>
             The <methodname>dojo()</methodname> view helper always returns an instance of

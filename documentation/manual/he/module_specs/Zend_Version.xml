@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.version.reading"><info><title>הצגת גרסאת Zend Framework</title></info>
 
-    
+
 
     <para>
         <code>Zend_Version</code> מספקת שימוש בערך קבוע במחלקה
@@ -15,7 +15,7 @@
     </para>
 
     <example xml:id="zend.version.reading.example"><info><title>דוגמא לשימוש במתודת <code>compareVersion()</code></title></info>
-        
+
         <programlisting role="php"><![CDATA[
 // returns -1, 0 or 1
 $cmp = Zend_Version::compareVersion('2.0.0');

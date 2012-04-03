@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.common"><info><title>Common page features</title></info>
-    
+
 
     <para>
         All page classes must extend <classname>Zend_Navigation_Page</classname>,
@@ -23,7 +23,7 @@
     </para>
 
     <table xml:id="zend.navigation.pages.common.options"><info><title>Common page options</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>
@@ -217,7 +217,7 @@
     </table>
 
     <note><info><title>Custom properties</title></info>
-        
+
 
         <para>
             All pages support setting and getting of custom properties by
@@ -238,7 +238,7 @@
     </note>
 
     <example xml:id="zend.navigation.pages.common.example.customprops"><info><title>Custom page properties</title></info>
-        
+
 
         <para>
             This example shows how custom properties can be used.

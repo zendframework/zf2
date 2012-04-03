@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.theory_of_operation"><info><title>動作原理</title></info>
-    
+
 
     <para>
         <classname>Zend_Config</classname> のコンストラクタを通じて、

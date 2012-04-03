@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.queue.adapters"><info><title>Adapters</title></info>
-    
+
 
     <para>
         <classname>Zend_Queue</classname> supports all queues implementing the
@@ -43,7 +43,7 @@
     </itemizedlist>
 
     <note xml:id="zend.queue.adapters.limitations"><info><title>Limitations</title></info>
-        
+
 
         <para>
             Message transaction handling is not supported.
@@ -51,7 +51,7 @@
     </note>
 
     <section xml:id="zend.queue.adapters.configuration"><info><title>Specific Adapters - Configuration settings</title></info>
-        
+
 
         <para>
             If a default setting is indicated then the parameter is optional.
@@ -60,7 +60,7 @@
         </para>
 
         <section xml:id="zend.queue.adapters.configuration.activemq"><info><title>Apache ActiveMQ - Zend_Queue_Adapter_Activemq</title></info>
-            
+
 
             <para>
                 Options listed here are known requirements. Not all
@@ -146,7 +146,7 @@
         </section>
 
         <section xml:id="zend.queue.adapters.configuration.Db"><info><title>Db - Zend_Queue_Adapter_Db</title></info>
-            
+
 
             <para>
                 Driver options are checked for a few required options such
@@ -244,7 +244,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.configuration.memcacheq"><info><title>MemcacheQ - Zend_Queue_Adapter_Memcacheq</title></info>
-            
+
 
             <itemizedlist>
                 <listitem>
@@ -282,7 +282,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.configuration.platformjq"><info><title>Zend Platform Job Queue - Zend_Queue_Adapter_PlatformJobQueue</title></info>
-            
+
 
             <itemizedlist>
                 <listitem>
@@ -310,7 +310,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.configuration.array"><info><title>Array - Zend_Queue_Adapter_Array</title></info>
-            
+
 
             <itemizedlist>
                 <listitem>
@@ -327,12 +327,12 @@ $queue = new Zend_Queue('Db', $options);
     </section>
 
     <section xml:id="zend.queue.adapters.notes"><info><title>Notes for Specific Adapters</title></info>
-        
+
 
         <para>The following adapters have notes:</para>
 
         <section xml:id="zend.queue.adapters.notes.activemq"><info><title>Apache ActiveMQ</title></info>
-            
+
 
             <para>
                 Visibility duration for
@@ -410,7 +410,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.notes.zend_db"><info><title>Zend_Db</title></info>
-            
+
 
             <para>
                 The database <emphasis>CREATE TABLE ( ... )</emphasis> <acronym>SQL</acronym>
@@ -419,7 +419,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.notes.memcacheQ"><info><title>MemcacheQ</title></info>
-            
+
 
             <para>
                 Memcache can be downloaded from <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.danga.com/memcached/">http://www.danga.com/memcached/</link>.
@@ -450,7 +450,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.notes.platformjq"><info><title>Zend Platform Job Queue</title></info>
-            
+
 
             <para>
                 Job Queue is a feature of Zend Platform's Enterprise Solution offering. It is not a
@@ -658,7 +658,7 @@ $queue = new Zend_Queue('Db', $options);
         </section>
 
         <section xml:id="zend.queue.adapters.notes.array"><info><title>Array (local)</title></info>
-            
+
 
             <para>
                 The Array queue is a <acronym>PHP</acronym> <methodname>array()</methodname>

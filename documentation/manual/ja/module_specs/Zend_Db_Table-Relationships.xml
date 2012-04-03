@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.relationships"><info><title>導入</title></info>
 
-    
+
 
     <section xml:id="zend.db.table.relationships.introduction"><info><title>導入</title></info>
 
-        
+
 
         <para>
             リレーショナルデータベースでは、テーブル間の関連
@@ -24,7 +24,7 @@
 
     <section xml:id="zend.db.table.relationships.defining"><info><title>リレーションの定義</title></info>
 
-        
+
 
         <para>
             抽象クラス <classname>Zend_Db_Table_Abstract</classname> を継承して、各テーブル用のクラスを作成します。
@@ -218,7 +218,7 @@ class BugsProducts extends Zend_Db_Table_Abstract
 
     <section xml:id="zend.db.table.relationships.fetching.dependent"><info><title>従属行セットの取得</title></info>
 
-        
+
 
         <para>
             親テーブルに対するクエリの結果を Row オブジェクトとして取得すれば、
@@ -244,7 +244,7 @@ $row->findDependentRowset($table, [$rule]);
 
         <example xml:id="zend.db.table.relationships.fetching.dependent.example"><info><title>従属行セットの取得</title></info>
 
-            
+
 
             <para>
                 この例では、<code>Accounts</code> テーブルから取得した行オブジェクトについて、
@@ -280,7 +280,7 @@ $bugsReportedByUser = $user1234->findDependentRowset('Bugs');
 
         <example xml:id="zend.db.table.relationships.fetching.dependent.example-by"><info><title>ルールを指定することによる従属行セットの取得</title></info>
 
-            
+
 
             <para>
                 この例では、<code>Accounts</code> テーブルから取得した行オブジェクトについて、
@@ -309,7 +309,7 @@ $bugsAssignedToUser = $user1234->findDependentRowset('Bugs', 'Engineer');
 
             <example xml:id="zend.db.table.relationships.fetching.dependent.example-by-select"><info><title>Zend_Db_Table_Select による従属行セットの取得</title></info>
 
-                
+
 
                 <para>
                     この例では <code>Accounts</code> テーブルから行オブジェクトを取得し、
@@ -378,7 +378,7 @@ $bugsAssignedToUser = $user1234->findDependentRowset('Bugs',
 
         <example xml:id="zend.db.table.relationships.fetching.dependent.example-magic"><info><title>マジックメソッドの使用による従属行セットの取得</title></info>
 
-            
+
 
             <para>
                 この例では、先ほどの例と同じ従属行セットを見つける方法を示します。
@@ -404,7 +404,7 @@ $bugsAssignedTo = $user1234->findBugsByEngineer();
 
     <section xml:id="zend.db.table.relationships.fetching.parent"><info><title>親の行の取得</title></info>
 
-        
+
 
         <para>
             従属テーブルに対するクエリの結果を Row オブジェクトとして取得すれば、
@@ -430,7 +430,7 @@ $row->findParentRow($table, [$rule]);
 
         <example xml:id="zend.db.table.relationships.fetching.parent.example"><info><title>親の行の取得</title></info>
 
-            
+
 
             <para>
                 この例では、<code>Bugs</code> テーブルから
@@ -467,7 +467,7 @@ $reporter = $bug1->findParentRow('Accounts');
 
         <example xml:id="zend.db.table.relationships.fetching.parent.example-by"><info><title>ルールを指定することによる親の行の取得</title></info>
 
-            
+
 
             <para>
                 この例では、テーブル <code>Bugs</code> から取得した行オブジェクトについて、
@@ -529,7 +529,7 @@ $engineer = $bug1->findParentRow('Accounts', 'Engineer');
 
         <example xml:id="zend.db.table.relationships.fetching.parent.example-magic"><info><title>マジックメソッドの使用による親の行の取得</title></info>
 
-            
+
 
             <para>
                 この例では、先ほどの例と同じ親の行を見つける方法を示します。
@@ -555,7 +555,7 @@ $engineer = $bug1->findParentAccountsByEngineer();
 
     <section xml:id="zend.db.table.relationships.fetching.many-to-many"><info><title>多対多のリレーションを使用した行セットの取得</title></info>
 
-        
+
 
         <para>
             多対多のリレーションの片方のテーブル (この例では "元テーブル"
@@ -597,7 +597,7 @@ $row->findManyToManyRowset($table,
 
         <example xml:id="zend.db.table.relationships.fetching.many-to-many.example"><info><title>多対多の形式の行セットの取得</title></info>
 
-            
+
 
             <para>
                 この例では、元テーブル <code>Bugs</code>
@@ -653,7 +653,7 @@ $productsRowset = $bug1234->findManyToManyRowset('Products',
 
         <example xml:id="zend.db.table.relationships.fetching.many-to-many.example-by"><info><title>ルールを指定することによる多対多の形式の行セットの取得</title></info>
 
-            
+
 
             <para>
                 この例では、元テーブル <code>Bugs</code>
@@ -726,7 +726,7 @@ $productsRowset = $bug1234->findManyToManyRowset('Products',
 
         <example xml:id="zend.db.table.relationships.fetching.many-to-many.example-magic"><info><title>マジックメソッドの使用による多対多の形式の行セットの取得</title></info>
 
-            
+
 
             <para>
                 この例では、製品からの多対多のリレーションの
@@ -752,11 +752,11 @@ $products = $bug1234->findProductsViaBugsProductsByBug();
 
     <section xml:id="zend.db.table.relationships.cascading"><info><title>書き込み操作の連鎖</title></info>
 
-        
+
 
         <note><info><title>データベースでの DRI の宣言</title></info>
 
-            
+
 
             <para>
                 <classname>Zend_Db_Table</classname> の連鎖操作を宣言するのは、
@@ -795,7 +795,7 @@ $products = $bug1234->findProductsViaBugsProductsByBug();
 
         <example xml:id="zend.db.table.relationships.cascading.example-delete"><info><title>連鎖削除の例</title></info>
 
-            
+
 
             <para>
                 この例では <code>Products</code> テーブルの行を削除します。
@@ -843,7 +843,7 @@ $product1234->delete();
 
         <example xml:id="zend.db.table.relationships.cascading.example-declaration"><info><title>連鎖操作の宣言の例</title></info>
 
-            
+
 
             <para>
                 以下の例では、<code>Products</code>
@@ -882,7 +882,7 @@ class BugsProducts extends Zend_Db_Table_Abstract
 
         <section xml:id="zend.db.table.relationships.cascading.notes"><info><title>連鎖操作に関する注意点</title></info>
 
-            
+
 
             <para>
                 <emphasis><classname>Zend_Db_Table</classname> が実行する連鎖操作はアトミックではありません。</emphasis>

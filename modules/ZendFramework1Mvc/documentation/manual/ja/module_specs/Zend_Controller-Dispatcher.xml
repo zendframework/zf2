@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.dispatcher"><info><title>ディスパッチャ</title></info>
-    
+
 
     <section xml:id="zend.controller.dispatcher.overview"><info><title>概要</title></info>
-        
+
 
         <para>
             ディスパッチ処理は、リクエストオブジェクトである
@@ -20,7 +20,7 @@
         </para>
 
         <note><info><title>デフォルトモジュール</title></info>
-            
+
 
             <para>
                 モジュール構造のアプリケーションを作成する場合に、
@@ -94,7 +94,7 @@ public function bazAction()
     </section>
 
     <section xml:id="zend.controller.dispatcher.subclassing"><info><title>ディスパッチャのサブクラスの作成</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Front</classname> は、

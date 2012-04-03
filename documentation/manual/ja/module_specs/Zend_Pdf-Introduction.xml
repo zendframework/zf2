@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.introduction"><info><title>導入</title></info>
     <!-- @todo review and revise upon completion of refactoring -->
-    
+
     <para>
     <classname>Zend_Pdf</classname> コンポーネントは、<acronym>PDF</acronym> (Portable Document Format)
     操作エンジンです。既存のドキュメントの読み込みや新しいドキュメントの作成、

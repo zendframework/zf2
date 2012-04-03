@@ -67,7 +67,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(false, $this->_response->isValid());
     }
 
-    public function testSetFromHttpResponse() 
+    public function testSetFromHttpResponse()
     {
         $status       = 'false';
         $errorCode    = 'foobar';

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.doctype"><info><title>Doctype ヘルパー</title></info>
-    
+
 
     <para>
         正しい形式の <acronym>HTML</acronym> ドキュメントおよび <acronym>XHTML</acronym> ドキュメントには、
@@ -39,7 +39,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.doctype.basicusage"><info><title>Doctype ヘルパーの基本的な使用法</title></info>
-        
+
 
         <para>
             doctype は、いつでも指定できます。
@@ -64,7 +64,7 @@ $doctypeHelper->doctype('XHTML1_STRICT');
     </example>
 
     <example xml:id="zend.view.helpers.initial.doctype.retrieving"><info><title>Doctype の取得</title></info>
-        
+
 
         <para>
             doctype を知りたくなったら、オブジェクトの

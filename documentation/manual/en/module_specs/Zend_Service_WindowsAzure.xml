@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.windowsazure"><info><title>Zend_Service_WindowsAzure</title></info>
-    
+
 
     <section xml:id="zend.service.windowsazure.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
           Windows Azure is the name for Microsoft's Software + Services platform, an operating
@@ -17,7 +17,7 @@
     </section>
 
     <section xml:id="zend.service.windowsazure.sdk"><info><title>Installing the Windows Azure SDK</title></info>
-        
+
 
         <para>
             There are two development scenario's when working with Windows Azure.
@@ -55,7 +55,7 @@
     </section>
 
     <section xml:id="zend.service.windowsazure.apiDocumentation"><info><title>API Documentation</title></info>
-        
+
 
         <para>
             The <classname>Zend_Service_WindowsAzure</classname> class provides the
@@ -67,7 +67,7 @@
     </section>
 
     <section xml:id="zend.service.windowsazure.features"><info><title>Features</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_WindowsAzure</classname> provides the following functionality:
@@ -97,7 +97,7 @@
     </section>
 
     <section xml:id="zend.service.windowsazure.architecture"><info><title>Architecture</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_WindowsAzure</classname> provides access to Windows Azure's

@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.introduction"><info><title>הקדמה</title></info>
     <!-- @todo review and revise upon completion of refactoring -->
-    
+
     <para>
         רכיב ה <code>Zend_Pdf</code> הינו מנוע תפעול במסמכי PDF.
         רכיב זה יכול לטעון, ליצור, לערוך ולשמור מסמכים.

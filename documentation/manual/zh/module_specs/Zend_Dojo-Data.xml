@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.data"><info><title>Zend_Dojo_Data: dojo.data Envelopes</title></info>
-    
+
 
     <para>
         Dojo 通过它的 dojo.data 组件为 data-enabled 小部件提供数据抽象。
@@ -32,7 +32,7 @@
     </para>
 
     <section xml:id="zend.dojo.data.usage"><info><title>Zend_Dojo_Data 用法</title></info>
-        
+
 
         <para>
             很简单，dojo.data 要求你在每个条目和一组条目（数据）中提供标识符字段的名字。
@@ -40,7 +40,7 @@
         </para>
 
         <example xml:id="zend.dojo.data.usage.constructor"><info><title>通过构造函数初始化 Zend_Dojo_Data</title></info>
-            
+
 
             <programlisting role="php"><![CDATA[
 $data = new Zend_Dojo_Data('id', $items);
@@ -49,7 +49,7 @@ $data = new Zend_Dojo_Data('id', $items);
         </example>
 
         <example xml:id="zend.dojo.data.usage.mutators"><info><title>通过 mutators 初始化 Zend_Dojo_Data</title></info>
-            
+
 
             <programlisting role="php"><![CDATA[
 $data = new Zend_Dojo_Data();
@@ -64,7 +64,7 @@ $data->setIdentifier('id')
         </para>
 
         <example xml:id="zend.dojo.data.usage.append"><info><title>追加数据到 Zend_Dojo_Data</title></info>
-            
+
 
             <programlisting role="php"><![CDATA[
 $data = new Zend_Dojo_Data($identifier, $items);
@@ -76,7 +76,7 @@ $data->addItems($someMoreItems);
         </example>
 
         <note><info><title> 永远使用标识符！</title></info>
-            
+
 
             <para>
                 每个 dojo.data 数据存储要求以元数据来提供标识符列，<code>Zend_Dojo_Data</code> 也一样。
@@ -122,7 +122,7 @@ $data->addItems($someMoreItems);
         </para>
 
         <example xml:id="zend.dojo.data.usage.label"><info><title>在 Zend_Dojo_Data 里指定一个标签字段 </title></info>
-            
+
 
             <programlisting role="php"><![CDATA[
 $data->setLabel('name');
@@ -135,7 +135,7 @@ $data->setLabel('name');
         </para>
 
         <example xml:id="zend.dojo.data.usage.populate"><info><title> 从 JSON 组装 Zend_Dojo_Data </title></info>
-            
+
 
             <programlisting role="php"><![CDATA[
 $data->fromJson($json);
@@ -145,7 +145,7 @@ $data->fromJson($json);
     </section>
 
     <section xml:id="zend.dojo.data.advanced"><info><title>高级用例</title></info>
-        
+
 
         <para>
             除了可以作为可系列化的数据容器，<code>Zend_Dojo_Data</code> 也可以用各种各样的方法处理和疏导（traverse）数据。
@@ -219,7 +219,7 @@ $json = (string) $data; // cast to string == cast to JSON
         ]]></programlisting>
 
         <section xml:id="zend.dojo.data.advanced.methods"><info><title> 可用的方法 </title></info>
-            
+
 
             <para>
                 除了上述实现接口必须的方法外，下列方法也可用。

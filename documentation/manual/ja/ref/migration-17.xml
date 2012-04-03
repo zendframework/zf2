@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.17"><info><title>Zend Framework 1.7</title></info>
-    
+
 
     <para>
         以前のバージョンから Zend Framework 1.7 またはそれ以降に更新する際は、
@@ -8,10 +8,10 @@
     </para>
 
     <section xml:id="migration.17.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <section xml:id="migration.17.zend.controller.dispatcher"><info><title>ディスパッチャインターフェイスの変更</title></info>
-            
+
 
             <para>
                 ユーザからの指摘により、
@@ -34,10 +34,10 @@
     </section>
 
     <section xml:id="migration.17.zend.file.transfer"><info><title>Zend_File_Transfer</title></info>
-        
+
 
         <section xml:id="migration.17.zend.file.transfer.validators"><info><title>フィルタやバリデータを使用する際の変更点</title></info>
-            
+
 
             <para>
                 <classname>Zend_File_Transfer</classname> のバリデータが
@@ -56,7 +56,7 @@
             </para>
 
             <section xml:id="migration.17.zend.file.transfer.validators.rename"><info><title>Rename フィルタ</title></info>
-                
+
 
                 <itemizedlist>
                     <listitem><para>
@@ -75,7 +75,7 @@
                 </itemizedlist>
 
                 <example xml:id="migration.17.zend.file.transfer.validators.rename.example"><info><title>rename フィルタの 1.6 から 1.7 での変更点</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 // 1.6 の例
@@ -94,7 +94,7 @@ $upload->addFilter('Rename',
             </section>
 
             <section xml:id="migration.17.zend.file.transfer.validators.count"><info><title>Count バリデータ</title></info>
-                
+
 
                 <itemizedlist>
                     <listitem><para>
@@ -112,7 +112,7 @@ $upload->addFilter('Rename',
                 </itemizedlist>
 
                 <example xml:id="migration.17.zend.file.transfer.validators.count.example"><info><title>count バリデータの 1.6 から 1.7 での変更点</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 // 1.6 の例
@@ -131,7 +131,7 @@ $upload->addValidator('Count',
             </section>
 
             <section xml:id="migration.17.zend.file.transfer.validators.extension"><info><title>Extension バリデータ</title></info>
-                
+
 
                 <itemizedlist>
                     <listitem><para>
@@ -149,7 +149,7 @@ $upload->addValidator('Count',
                 </itemizedlist>
 
                 <example xml:id="migration.17.zend.file.transfer.validators.extension.example"><info><title>extension バリデータの 1.6 から 1.7 での変更点</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 // 1.6 の例
@@ -168,7 +168,7 @@ $upload->addValidator('Extension',
             </section>
 
             <section xml:id="migration.17.zend.file.transfer.validators.filessize"><info><title>FilesSize バリデータ</title></info>
-                
+
 
                 <itemizedlist>
                     <listitem><para>
@@ -195,7 +195,7 @@ $upload->addValidator('Extension',
                 </para>
 
                 <example xml:id="migration.17.zend.file.transfer.validators.filessize.example"><info><title>filessize バリデータの 1.6 から 1.7 での変更点</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 // 1.6 の例
@@ -221,7 +221,7 @@ $upload->setUseByteSting(true); // set flag
             </section>
 
             <section xml:id="migration.17.zend.file.transfer.validators.hash"><info><title>Hash バリデータ</title></info>
-                
+
 
                 <itemizedlist>
                     <listitem><para>
@@ -239,7 +239,7 @@ $upload->setUseByteSting(true); // set flag
                 </itemizedlist>
 
                 <example xml:id="migration.17.zend.file.transfer.validators.hash.example"><info><title>hash バリデータの 1.6 から 1.7 での変更点</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 // 1.6 の例
@@ -258,7 +258,7 @@ $upload->addValidator('Hash',
             </section>
 
             <section xml:id="migration.17.zend.file.transfer.validators.imagesize"><info><title>ImageSize バリデータ</title></info>
-                
+
 
                 <itemizedlist>
                     <listitem><para>
@@ -278,7 +278,7 @@ $upload->addValidator('Hash',
                 </itemizedlist>
 
                 <example xml:id="migration.17.zend.file.transfer.validators.imagesize.example"><info><title>imagesize バリデータの 1.6 から 1.7 での変更点</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 // 1.6 の例
@@ -299,7 +299,7 @@ $upload->addValidator('ImageSize',
             </section>
 
             <section xml:id="migration.17.zend.file.transfer.validators.size"><info><title>Size バリデータ</title></info>
-                
+
 
                 <itemizedlist>
                     <listitem><para>
@@ -318,7 +318,7 @@ $upload->addValidator('ImageSize',
                 </itemizedlist>
 
                 <example xml:id="migration.17.zend.file.transfer.validators.size.example"><info><title>size バリデータの 1.6 から 1.7 での変更点</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 // 1.6 の例
@@ -340,10 +340,10 @@ $upload->addValidator('Size',
     </section>
 
     <section xml:id="migration.17.zend.locale"><info><title>Zend_Locale</title></info>
-        
+
 
         <section xml:id="migration.17.zend.locale.islocale"><info><title>isLocale() を使う際の変更点</title></info>
-            
+
 
             <para>
                 コーディング規約に従うと、 <methodname>isLocale()</methodname> は boolean
@@ -360,7 +360,7 @@ $upload->addValidator('Size',
             </para>
 
             <example xml:id="migration.17.zend.locale.islocale.example"><info><title>isLocale() を 1.6 用から 1.7 用に変更する方法</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // 1.6 の例
@@ -408,7 +408,7 @@ if (Zend_Locale::isLocale($locale, false)) {
         </section>
 
         <section xml:id="migration.17.zend.locale.islocale.getdefault"><info><title>getDefault() を使用する際の変更</title></info>
-            
+
 
             <para>
                 <methodname>getDefault()</methodname> メソッドの意味が変わりました。
@@ -423,7 +423,7 @@ if (Zend_Locale::isLocale($locale, false)) {
             </para>
 
             <example xml:id="migration.17.zend.locale.islocale.getdefault.example"><info><title>getDefault() を 1.6 用から 1.7 用に変更する方法</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // 1.6 の例
@@ -456,10 +456,10 @@ $locale = Zend_Locale::getOrder(Zend_Locale::BROWSER);
     </section>
 
     <section xml:id="migration.17.zend.translator"><info><title>Zend_Translator</title></info>
-        
+
 
         <section xml:id="migration.17.zend.translator.languages"><info><title>言語の設定</title></info>
-            
+
 
             <para>
                 言語の自動検出を使用したり <classname>Zend_Translator</classname> に手動で言語を設定したりする際に、
@@ -487,7 +487,7 @@ $locale = Zend_Locale::getOrder(Zend_Locale::BROWSER);
             </para>
 
             <example xml:id="migration.17.zend.translator.example"><info><title>notice を取得せずに言語の設定を行う</title></info>
-                
+
 
                 <para>
                     ここでは、'en' に対応しているところにユーザから
@@ -517,7 +517,7 @@ $language = new Zend_Translator('gettext',
     </section>
 
     <section xml:id="migration.17.zend.view"><info><title>Zend_View</title></info>
-        
+
 
         <note>
             <para>
@@ -548,7 +548,7 @@ echo $view->render($_GET['foobar']); // LFI
         </para>
 
         <section xml:id="migration.17.zend.view.disabling"><info><title>render() メソッドにおける LFI 保護機能の無効化</title></info>
-            
+
 
             <para>
                 多くの開発者から「ユーザの入力では<emphasis>ない</emphasis>

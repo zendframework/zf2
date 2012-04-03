@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.using"><info><title>Práce s výjimkami</title></info>
 
-    
+
 
     <para>
         Všechny výjimky vyhozené v Zend Frameworku by měly být odvozeny od
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.exception.using.example"><info><title>Příklad zachycení výjimky</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 try {
     Zend_Loader::loadClass('neexistujicitrida');

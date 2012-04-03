@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.session"><info><title>Zend_Application_Resource_Session</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Session</classname> est utilisé pour configurer
@@ -39,7 +39,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.session.configExample"><info><title>Exemple de ressource session</title></info>
-        
+
 
         <para>
             Voici un fichier <acronym>INI</acronym> permettant de configurer une session via la
@@ -66,7 +66,7 @@ resources.session.saveHandler.options.lifetimeColumn = "lifetime"
     </example>
 
     <note><info><title>Configurez votre base de données avant !</title></info>
-        
+
 
         <para>
             Si vous configurez le gestionnaire

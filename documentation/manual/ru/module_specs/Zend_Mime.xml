@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.mime"><info><title>Zend_Mime</title></info>
-    
+
 
     <section xml:id="zend.mime.mime.introduction"><info><title>Введение</title></info>
-        
+
         <para>
             <classname>Zend_Mime</classname> является вспомогательным классом
             для работы с сообщениями <acronym>MIME</acronym> multipart. Он
@@ -16,9 +16,9 @@
             <acronym>MIME</acronym>.
         </para>
     </section>
-    
+
     <section xml:id="zend.mime.mime.static"><info><title>Статические методы и константы</title></info>
-    
+
         <para>
             <classname>Zend_Mime</classname> предоставляет простой набор
             статических методов для работы с <acronym>MIME</acronym>:
@@ -96,9 +96,9 @@
             </itemizedlist>
         </para>
     </section>
-    
+
     <section xml:id="zend.mime.mime.instantiation"><info><title>Инстанциирование Zend_Mime</title></info>
-        
+
         <para>
             При создании объекта <classname>Zend_Mime</classname>
             сохраняется разделитель <acronym>MIME</acronym>, он будет

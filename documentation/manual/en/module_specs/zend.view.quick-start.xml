@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
-    xmlns="http://docbook.org/ns/docbook" version="5.0" 
+<section
+    xmlns="http://docbook.org/ns/docbook" version="5.0"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xml:id="zend.view.quick-start">
     <info><title>Zend\View Quick Start</title></info>
- 
+
     <section xml:id="zend.view.quick-start.intro">
         <info><title>Overview</title></info>
 
@@ -288,9 +288,9 @@ class BarController extends ActionController
                 event's result. It will also look to see if you returned nothing
                 or null; if so, it will create a view model without any
                 variables attached; this view model also replaces the MVC
-                event's result. 
+                event's result.
             </para>
-                
+
             <para>
                 The second listener checks to see if the MVC event result is a
                 view model, and, if so, if it has a template associated with it.
@@ -421,7 +421,7 @@ class ArticleController extends ActionController
 </div>
 
 <?php // "content/article" template ?>
-    <!-- This is from the $articleView view model, and the "content/article" 
+    <!-- This is from the $articleView view model, and the "content/article"
          template -->
     <article class="twelve columns">
         <?php echo $this->escape('article') ?>
@@ -456,7 +456,7 @@ class ArticleController extends ActionController
             <programlisting language="html"><![CDATA[
 <!-- This is from the $view view model, and the "article/view" template -->
 <div class="sixteen columns content">
-    <!-- This is from the $articleView view model, and the "content/article" 
+    <!-- This is from the $articleView view model, and the "content/article"
          template -->
     <article class="twelve columns">
         Lorem ipsum ....
@@ -486,7 +486,7 @@ class ArticleController extends ActionController
                 isolated from the request/reponse lifecycle of the controller.
             </para>
         </example>
-        
+
         <example xml:id="zend.view.quick-start.usage.layouts">
             <info><title>Dealing with Layouts</title></info>
 
@@ -982,8 +982,8 @@ class AcceptStrategy implements ListenerAggregate
     protected $phpRenderer;
 
     public function __construct(
-        PhpRenderer $phpRenderer, 
-        JsonRenderer $jsonRenderer, 
+        PhpRenderer $phpRenderer,
+        JsonRenderer $jsonRenderer,
         FeedRenderer $feedRenderer
     ) {
         $this->phpRenderer  = $phpRenderer;
@@ -1075,7 +1075,7 @@ class AcceptStrategy implements ListenerAggregate
     }
 }
 ]]></programlisting>
-            
+
             <para>
                 This strategy would be registered just as we demonstrated
                 registering the <classname>JsonStrategy</classname> earlier. You

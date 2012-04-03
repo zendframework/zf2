@@ -204,8 +204,8 @@ class Paginator implements \Countable, \IteratorAggregate
 
     /**
      * Set the adapter broker
-     * 
-     * @param  Broker $broker 
+     *
+     * @param  Broker $broker
      * @return void
      */
     public static function setAdapterBroker($broker)

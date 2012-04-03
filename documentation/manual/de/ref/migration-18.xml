@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.18"><info><title>Zend Framework 1.8</title></info>
-    
+
 
     <para>
         Wenn man von einem älteren Release auf Zend Framework 1.8 oder höher hochrüstet sollte
@@ -8,10 +8,10 @@
     </para>
 
     <section xml:id="migration.18.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <section xml:id="migration.18.zend.controller.router"><info><title>Änderungen der Standard Route</title></info>
-            
+
 
             <para>
                 Da übersetzte Segmente in der neuen Standard Route eingeführt wurden, ist das
@@ -24,10 +24,10 @@
     </section>
 
     <section xml:id="migration.18.zend.locale"><info><title>Zend_Locale</title></info>
-        
+
 
         <section xml:id="migration.18.zend.locale.defaultcaching"><info><title>Standard Caching</title></info>
-            
+
 
             <para>
                 Ab Zend Framework 1.8 wurde ein standardmäßiges Caching hinzugefügt. Der Grund
@@ -44,7 +44,7 @@
             </para>
 
             <example xml:id="migration.18.zend.locale.defaultcaching.example"><info><title>Standardmäßiges Caching abschalten</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 Zend_Locale::disableCache(true);

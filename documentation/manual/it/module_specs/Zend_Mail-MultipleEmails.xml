@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.multiple-emails"><info><title>Invio multiplo di e-mail da una singola connessione SMTP</title></info>
-    
+
 
     <para>
         Per impostazione predefinita, un singolo transport SMTP crea una singola connessione e la riutilizza per tutto il ciclo di esecuzione dello script.
@@ -8,7 +8,7 @@
     </para>
 
     <example xml:id="zend.mail.multiple-emails.example-1"><info><title>Invio multiplo di e-mail per connessione SMTP</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 // Carica le classi
 require_once 'Zend/Mail.php';
@@ -35,7 +35,7 @@ for ($i = 0; $i > 5; $i++) {
     </para>
 
     <example xml:id="zend.mail.multiple-emails.example-2"><info><title>Controllo manuale della connessione al transport</title></info>
-        
+
 
         <programlisting role="php"><![CDATA[<?php
 

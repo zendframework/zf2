@@ -34,18 +34,18 @@ class Result implements \Iterator, ResultInterface
 {
     const MODE_STATEMENT = 'statement';
     const MODE_RESULT = 'result';
-    
+
     /**
      * Mode
-     * 
+     *
      * @var string
      */
     protected $mode = null;
 
     /**
      * Is query result
-     * 
-     * @var boolean 
+     *
+     * @var boolean
      */
     protected $isQueryResult = true;
 
@@ -82,7 +82,7 @@ class Result implements \Iterator, ResultInterface
      * @var bool
      */
     protected $currentData = false;
-    
+
     /**
      *
      * @var array
@@ -91,9 +91,9 @@ class Result implements \Iterator, ResultInterface
 
     /**
      * Initialize
-     * 
+     *
      * @param  mixed $resource
-     * @return Result 
+     * @return Result
      */
     public function initialize($resource)
     {
@@ -107,10 +107,10 @@ class Result implements \Iterator, ResultInterface
         $this->mode = ($this->resource instanceof \mysqli_stmt) ? self::MODE_STATEMENT : self::MODE_RESULT;
         return $this;
     }
-    
+
     /**
      *
-     * @return mixed 
+     * @return mixed
      */
     public function getResource()
     {
@@ -119,8 +119,8 @@ class Result implements \Iterator, ResultInterface
 
     /**
      * Set is query result
-     * 
-     * @param boolean $isQueryResult 
+     *
+     * @param boolean $isQueryResult
      */
     public function setIsQueryResult($isQueryResult)
     {
@@ -129,8 +129,8 @@ class Result implements \Iterator, ResultInterface
 
     /**
      * Is query result
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isQueryResult()
     {
@@ -139,8 +139,8 @@ class Result implements \Iterator, ResultInterface
 
     /**
      * Get affected rows
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getAffectedRows()
     {
@@ -152,15 +152,15 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Current
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function current()
     {
         if ($this->currentComplete) {
             return $this->currentData;
         }
-        
+
         if ($this->mode == self::MODE_STATEMENT) {
             $this->loadDataFromMysqliStatement();
             return $this->currentData;
@@ -169,14 +169,14 @@ class Result implements \Iterator, ResultInterface
             return $this->currentData;
         }
     }
-    
+
     /**
      * Mysqli's binding and returning of statement values
-     * 
-     * Mysqli requires you to bind variables to the extension in order to 
+     *
+     * Mysqli requires you to bind variables to the extension in order to
      * get data out.  These values have to be references:
      * @see http://php.net/manual/en/mysqli-stmt.bind-result.php
-     * 
+     *
      * @throws \RuntimeException
      * @return bool
      */
@@ -197,7 +197,7 @@ class Result implements \Iterator, ResultInterface
             }
             call_user_func_array(array($this->resource, 'bind_result'), $this->statementBindValues['values']);
         }
-        
+
         if (($r = $this->resource->fetch()) === null) {
             return false;
         } elseif ($r === false) {
@@ -215,17 +215,17 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Load from mysqli result
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     protected function loadFromMysqliResult()
     {
         $this->currentData = null;
-        
+
         if (($data = $this->resource->fetch_assoc()) === null) {
             return false;
         }
-        
+
         $this->position++;
         $this->currentData = $data;
         $this->currentComplete = true;
@@ -239,17 +239,17 @@ class Result implements \Iterator, ResultInterface
     public function next()
     {
         $this->currentComplete = false;
-        
+
         if ($this->nextComplete == false) {
             $this->position++;
         }
-        
+
         $this->nextComplete = false;
     }
     /**
      * Key
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function key()
     {
@@ -257,7 +257,7 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Rewind
-     * 
+     *
      */
     public function rewind()
     {
@@ -271,15 +271,15 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Valid
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function valid()
     {
         if ($this->currentComplete) {
             return true;
         }
-        
+
         if ($this->mode == self::MODE_STATEMENT) {
             return $this->loadDataFromMysqliStatement();
         } else {
@@ -288,12 +288,12 @@ class Result implements \Iterator, ResultInterface
     }
     /**
      * Count
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function count()
     {
         return $this->resource->num_rows;
     }
-    
+
 }

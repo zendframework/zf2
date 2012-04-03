@@ -4,7 +4,7 @@
     <para>L'étape suivante est d'utiliser l'adaptateur dans votre code.</para>
 
     <example xml:id="zend.translator.using.example1"><info><title>Exemple de code PHP monolingue</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 print "Exemple\n";
 print "=======\n";

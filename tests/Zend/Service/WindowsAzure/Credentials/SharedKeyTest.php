@@ -45,12 +45,12 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyTest extends PHPUnit_Framew
                               array("x-ms-date" => "Wed, 29 Apr 2009 13:12:47 GMT"),
                               false
                           );
-                          
+
         $this->assertInternalType('array', $signedHeaders);
         $this->assertEquals(2, count($signedHeaders));
         $this->assertEquals("SharedKey devstoreaccount1:ijwRTxfJgqvmfdWPSLCpgxfvHpl6Kbbo/qJTzlI7wUw=", $signedHeaders["Authorization"]);
     }
-    
+
     /**
      * Test signing for devstore with other path
      */
@@ -64,12 +64,12 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyTest extends PHPUnit_Framew
                               array("x-ms-date" => "Wed, 29 Apr 2009 13:12:47 GMT"),
                               false
                           );
-  
+
         $this->assertInternalType('array', $signedHeaders);
         $this->assertEquals(2, count($signedHeaders));
         $this->assertEquals("SharedKey devstoreaccount1:ZLs/nBsEaoyCqHpqcQUfXO5zIHBTMcrzVaIxwQNBL9k=", $signedHeaders["Authorization"]);
     }
-    
+
     /**
      * Test signing for devstore with query string
      */
@@ -83,12 +83,12 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyTest extends PHPUnit_Framew
                               array("x-ms-date" => "Wed, 29 Apr 2009 13:12:47 GMT"),
                               false
                           );
-  
+
         $this->assertInternalType('array', $signedHeaders);
         $this->assertEquals(2, count($signedHeaders));
         $this->assertEquals("SharedKey devstoreaccount1:ijwRTxfJgqvmfdWPSLCpgxfvHpl6Kbbo/qJTzlI7wUw=", $signedHeaders["Authorization"]);
     }
-    
+
     /**
      * Test signing for production with root path
      */
@@ -102,12 +102,12 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyTest extends PHPUnit_Framew
                               array("x-ms-date" => "Wed, 29 Apr 2009 13:12:47 GMT"),
                               false
                           );
-                          
+
         $this->assertInternalType('array', $signedHeaders);
         $this->assertEquals(2, count($signedHeaders));
         $this->assertEquals("SharedKey testing:TEYBENKs+6laykL+zCxlIbUT9v019rtMWECYwgP/OuU=", $signedHeaders["Authorization"]);
     }
-    
+
     /**
      * Test signing for production with other path
      */
@@ -121,12 +121,12 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyTest extends PHPUnit_Framew
                               array("x-ms-date" => "Wed, 29 Apr 2009 13:12:47 GMT"),
                               false
                           );
-  
+
         $this->assertInternalType('array', $signedHeaders);
         $this->assertEquals(2, count($signedHeaders));
         $this->assertEquals("SharedKey testing:d2kcDGCQ603wPuZ3KHbeILtNhIXMXyTNVn2x9d5aF60=", $signedHeaders["Authorization"]);
     }
-    
+
     /**
      * Test signing for production with query string
      */
@@ -140,7 +140,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyTest extends PHPUnit_Framew
                               array("x-ms-date" => "Wed, 29 Apr 2009 13:12:47 GMT"),
                               false
                           );
-  
+
         $this->assertInternalType('array', $signedHeaders);
         $this->assertEquals(2, count($signedHeaders));
         $this->assertEquals("SharedKey testing:TEYBENKs+6laykL+zCxlIbUT9v019rtMWECYwgP/OuU=", $signedHeaders["Authorization"]);

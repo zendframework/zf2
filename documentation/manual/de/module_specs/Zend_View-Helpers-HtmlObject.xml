@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.object"><info><title>HTML Objekt Helfer</title></info>
-    
+
 
     <para>
         Das <acronym>HTML</acronym> <emphasis>&lt;object&gt;</emphasis> Element wird für das
@@ -48,7 +48,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.object.flash"><info><title>Flash Helfer</title></info>
-        
+
 
         <para>
             Die Einbettung von Flash in die eigene Seite mit Hilfe des Helfers ist recht direkt. Das
@@ -79,7 +79,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.object.object"><info><title>Anpassen des Objekts durch die Übergabe von zusätzlichen Argumenten</title></info>
-        
+
 
         <para>
             Das erste Argument des Objekt Helfers wird immer benötigt. Es ist die

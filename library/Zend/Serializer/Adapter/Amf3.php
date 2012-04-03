@@ -41,9 +41,9 @@ class Amf3 extends AbstractAdapter
 {
     /**
      * Serialize a PHP value to AMF3 format
-     * 
-     * @param  mixed $value 
-     * @param  array $opts 
+     *
+     * @param  mixed $value
+     * @param  array $opts
      * @return string
      * @throws Zend\Serializer\Exception
      */
@@ -61,9 +61,9 @@ class Amf3 extends AbstractAdapter
 
     /**
      * Deserialize an AMF3 value to PHP
-     * 
-     * @param  mixed $value 
-     * @param  array $opts 
+     *
+     * @param  mixed $value
+     * @param  array $opts
      * @return string
      * @throws Zend\Serializer\Exception
      */

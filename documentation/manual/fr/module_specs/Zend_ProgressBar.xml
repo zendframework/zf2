@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.introduction"><info><title>Zend_ProgressBar</title></info>
-    
+
 
     <section xml:id="zend.progressbar.whatisit"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> est un composant pour créer et mettre à
@@ -16,7 +16,7 @@
     </section>
 
     <section xml:id="zend.progressbar.basic"><info><title>Utilisation basique de Zend_Progressbar</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> est assez simple d'utilisation. Vous créez
@@ -55,7 +55,7 @@ $progressBar->finish();
     </section>
 
     <section xml:id="zend.progressbar.adapters"><info><title>Adaptateurs standard</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> est fourni avec les deux adaptateurs

@@ -163,7 +163,7 @@ class PostCode extends AbstractValidator
         $this->options['format'] = $format;
         return $this;
     }
-    
+
     /**
      * Returns the actual set service
      *
@@ -220,7 +220,7 @@ class PostCode extends AbstractValidator
                 return false;
             }
         }
-        
+
         $format = $this->getFormat();
         if (!preg_match($format, $value)) {
             $this->error(self::NO_MATCH);

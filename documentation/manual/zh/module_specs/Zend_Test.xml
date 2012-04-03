@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.introduction"><info><title>简介</title></info>
-    
+
 
     <para>
         <classname>Zend_Test</classname> 提供了对 Zend Framework 应用进行单元测试的便利工具。

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.theory_of_operation"><info><title>نظرية العمل</title></info>
-    
+
     <para>
         يتم تمرير بيانات الأعدادات إلى <code>Zend_Config</code> على شكل associative array
         و التى من الممكن ان تكون متعددة الأبعاد, و من أجل دعم تنظيم البيانات من الشكل العام إلى المحدد,
@@ -26,7 +26,7 @@
         يتسبب فى إلقاء exception , و يمكن تغيير هذا السلوك من خلال الـ constuctor و ذلك
         للسماح بتعديل قيم البيانات.
         <note><info><title>لاحظ أن</title></info>
-            
+
             <para>
                 تسمح <code>Zend_Config</code> بعمل تغييرات فى بيانات الـ configuration التى تم تحميلها الى الذاكرة ,
                 و لكنها لا توفر امكانية حفظ هذه البيانات فى اى من وسائط حفظ البيانات , الأدوات التى تقوم بإنشاء و تعديل بيانات الـ

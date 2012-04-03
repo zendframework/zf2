@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.action"><info><title>Action ビューヘルパー</title></info>
-    
+
 
     <para>
         <classname>Action</classname> ビューヘルパーは、
@@ -25,7 +25,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.action.usage"><info><title>Action ビューヘルパーの基本的な使用法</title></info>
-        
+
 
         <para>
             たとえば <classname>CommentController</classname> に

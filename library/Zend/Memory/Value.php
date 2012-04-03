@@ -82,7 +82,7 @@ class Value implements \ArrayAccess,\Countable
 
     /**
      * Countable
-     * 
+     *
      * @return int
      */
     public function count()

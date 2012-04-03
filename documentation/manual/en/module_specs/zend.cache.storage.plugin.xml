@@ -11,7 +11,7 @@
 
         <para>
             Cache storage plugins are objects to add missing functionality or to influence behavior
-            of a storage adapter. 
+            of a storage adapter.
         </para>
 
         <para>
@@ -34,9 +34,9 @@
             Storage plugins can either be created from
             <classname>Zend\Cache\StorageFactory</classname> with the
             <methodname>pluginFactory</methodname>, or by simply instantiating one of the
-            <classname>Zend\Cache\Storage\Plugin\*</classname>classes. 
+            <classname>Zend\Cache\Storage\Plugin\*</classname>classes.
         </para>
-        
+
         <para>
             To make life easier, the <classname>Zend\Cache\StorageFactory</classname> comes with the
             method <methodname>factory</methodname> to create an adapter and all given plugins at
@@ -261,7 +261,7 @@ $cache->addPlugin($plugin);
                                 <methodname>getSerializerOptions</methodname>
                                 <void/>
                             </methodsynopsis>
-                            
+
                             <para>Returns array</para>
                         </listitem>
                     </itemizedlist>

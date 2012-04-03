@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.additional"><info><title>翻訳用の追加機能</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Translator</classname> がサポートする機能は他にもあります。
@@ -10,7 +10,7 @@
 
     <section xml:id="zend.translator.additional.options"><info><title>アダプタのオプション</title></info>
 
-        
+
 
         <para>
             すべてのアダプタで、オプションを使用できます。
@@ -31,7 +31,7 @@
         </para>
 
         <example xml:id="zend.translator..additional.options.example"><info><title>翻訳オプションの使用</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // ':' を、翻訳ソースファイルの区切り文字として指定します
 $translate = new Zend_Translator(
@@ -62,7 +62,7 @@ $translate->addTranslation(
         </para>
 
         <table xml:id="zend.translator.additional.options.alloptions"><info><title>翻訳アダプタのオプション</title></info>
-            
+
             <tgroup cols="4">
                 <thead>
                     <row>
@@ -296,7 +296,7 @@ $translate->addTranslation(
 
     <section xml:id="zend.translator.additional.languages"><info><title>言語の処理</title></info>
 
-        
+
 
         <para>
             複数の言語を使用する場合に便利なメソッドを紹介します。
@@ -335,7 +335,7 @@ $translate->addTranslation(
         </para>
 
         <example xml:id="zend.translator.additional.languages.example"><info><title>アダプタの言語の処理</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // 現在設定されている言語を返します
 $actual = $translate->getLocale();
@@ -359,7 +359,7 @@ if ($translate->isAvailable("fr")) {
 
         <section xml:id="zend.translator.additional.languages.automatic"><info><title>言語の自動処理</title></info>
 
-            
+
 
             <para>
                 新しい翻訳ソースの追加を <methodname>addTranslation()</methodname>
@@ -377,7 +377,7 @@ if ($translate->isAvailable("fr")) {
             </para>
 
             <example xml:id="zend.translator.additional.languages.automatic.example"><info><title>言語の自動検出の動作例</title></info>
-                
+
                 <programlisting language="php"><![CDATA[
 // ブラウザから返される言語設定は次のようなものであると仮定します
 // HTTP_ACCEPT_LANGUAGE = "de_AT=1;fr=1;en_US=0.8";
@@ -476,7 +476,7 @@ $translate->getLocale();
         </section>
 
         <section xml:id="zend.translator.additional.languages.territory"><info><title>Using a country as language</title></info>
-            
+
 
             <para>
                 You can also use a country as locale parameter. This could be useful when you
@@ -503,7 +503,7 @@ $translate = new Zend_Translator(
 ]]></programlisting>
 
             <note><info><title>Always uppercase countries</title></info>
-                
+
 
                 <para>
                     Using this syntax you should always uppercase the input when you know that it's
@@ -524,7 +524,7 @@ $translate = new Zend_Translator(
 
     <section xml:id="zend.translator.additional.detection"><info><title>自動的なソースの検出</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Translator</classname> は、翻訳ソースを自動的に検出できます。
@@ -547,7 +547,7 @@ $translate = new Zend_Translator(
         </para>
 
         <example xml:id="zend.translator.additional.languages.directory.example"><info><title>ディレクトリを指定してソースを探す</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // 以下のようなディレクトリ構造があることを想定しています
 //  /language/
@@ -590,7 +590,7 @@ $translate = new Zend_Translator(
 
         <section xml:id="zend.translator.additional.detection.directory"><info><title>ディレクトリ名からの言語の取得</title></info>
 
-            
+
 
             <para>
                 自動的に言語を検出させる方法のひとつは、
@@ -606,7 +606,7 @@ $translate = new Zend_Translator(
             </para>
 
             <example xml:id="zend.translator.additional.detection.directory.example"><info><title>ディレクトリ名による言語の検出</title></info>
-                
+
                 <programlisting language="php"><![CDATA[
 // 以下のようなディレクトリ構造があることを想定しています
 //  /language/
@@ -650,7 +650,7 @@ $translate = new Zend_Translator(
 
         <section xml:id="zend.translator.additional.detection.filename"><info><title>ファイル名からの言語の取得</title></info>
 
-            
+
 
             <para>
                 言語を自動検出するもうひとつの方法は、特別なファイル名を使用することです。
@@ -661,7 +661,7 @@ $translate = new Zend_Translator(
             </para>
 
             <example xml:id="zend.translator.additional.detection.filename.example"><info><title>ファイル名からの言語の取得</title></info>
-                
+
                 <programlisting language="php"><![CDATA[
 // 以下のようなディレクトリ構造があることを想定しています
 //  /language/
@@ -682,7 +682,7 @@ $translate = new Zend_Translator(
 
             <section xml:id="zend.translator.additional.detection.filename.complete"><info><title>ファイル名全体</title></info>
 
-                
+
 
                 <para>
                     言語名そのものをファイル名にしてしまうのは一番シンプルな方法ですが、
@@ -700,7 +700,7 @@ $translate = new Zend_Translator(
 
             <section xml:id="zend.translator.additional.detection.filename.extension"><info><title>ファイルの拡張子</title></info>
 
-                
+
 
                 <para>
                     もうひとつのシンプルな方法としては、
@@ -719,7 +719,7 @@ $translate = new Zend_Translator(
 
             <section xml:id="zend.translator.additional.detection.filename.token"><info><title>ファイル名の一部</title></info>
 
-                
+
 
                 <para>
                     <classname>Zend_Translator</classname> は、
@@ -768,7 +768,7 @@ $translate = new Zend_Translator(
         </section>
 
         <section xml:id="zend.translator.additional.detection.ignore"><info><title>Ignoring special files and directories</title></info>
-            
+
 
             <para>
                 Sometimes it is useful to exclude files or even directories from being added
@@ -777,7 +777,7 @@ $translate = new Zend_Translator(
             </para>
 
             <section xml:id="zend.translator.additional.detection.ignore.string"><info><title>Ignore a special directory or file</title></info>
-                
+
 
                 <para>
                     Per default <classname>Zend_Translator</classname> is set to ignore all
@@ -813,7 +813,7 @@ $translate = new Zend_Translator(
                 </para>
 
                 <note><info><title>Prevent SVN files from being searched</title></info>
-                    
+
 
                     <para>
                         When you set this option, then the default
@@ -827,7 +827,7 @@ $translate = new Zend_Translator(
             </section>
 
             <section xml:id="zend.translator.additional.detection.ignore.array.files"><info><title>Ignore several directories or files</title></info>
-                
+
 
                 <para>
                     You can also ignore several files and directories. Instead of a string,
@@ -853,7 +853,7 @@ $translate = new Zend_Translator(
             </section>
 
             <section xml:id="zend.translator.additional.detection.ignore.array.names"><info><title>Ignore specific names</title></info>
-                
+
 
                 <para>
                     To ignore files and directories which are not beginning with a defined syntax
@@ -895,7 +895,7 @@ $translate = new Zend_Translator(
     </section>
 
     <section xml:id="zend.translator.additional.rerouting"><info><title>Routing for translations</title></info>
-        
+
 
         <para>
             Not every message ID can be translated. But sometimes is can be useful to output the
@@ -934,7 +934,7 @@ $translate = new Zend_Translator(
     </section>
 
     <section xml:id="zend.translator.additional.combination"><info><title>Combining multiple translation sources</title></info>
-        
+
 
         <para>
             When you are working with multiple translations you may come into a situation where you
@@ -974,7 +974,7 @@ $translate->addTranslation(array('content' => $translate_second));
         </para>
 
         <note><info><title>Memory savings</title></info>
-            
+
 
             <para>
                 As you may have noted the second instance is no longer used as soon as it has been
@@ -1006,7 +1006,7 @@ $translate->addTranslation(
 
     <section xml:id="zend.translator.additional.istranslated"><info><title>翻訳の確認</title></info>
 
-        
+
 
         <para>
             通常は、テキストが翻訳されているかどうかを気にすることはありません。
@@ -1026,7 +1026,7 @@ $translate->addTranslation(
         </para>
 
         <example xml:id="zend.translator.additional.istranslated.example"><info><title>テキストの翻訳が存在するかどうかの確認</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $english = array(
     'message1' => 'Nachricht 1',
@@ -1060,7 +1060,7 @@ if ($translate->isTranslated('message1', false, 'de')) {
 
     <section xml:id="zend.translator.additional.logging"><info><title>見つからなかった翻訳をログに記録する方法</title></info>
 
-        
+
 
         <para>
             大規模なサイトを管理していたり翻訳ファイルを手作業で作ったりしている場合に、
@@ -1076,7 +1076,7 @@ if ($translate->isTranslated('message1', false, 'de')) {
         </para>
 
         <example xml:id="zend.translator.additional.logging.example"><info><title>翻訳のログ出力</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $translate = new Zend_Translator(
     array(
@@ -1135,7 +1135,7 @@ $translate->translate('unknown string');
         </para>
 
         <example xml:id="zend.translator.additional.logging.example2"><info><title>自分で定義したログメッセージ</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $translate = new Zend_Translator(
     array(
@@ -1166,7 +1166,7 @@ $translate->translate('unknown string');
 
     <section xml:id="zend.translator.additional.sourcedata"><info><title>ソースデータへのアクセス</title></info>
 
-        
+
 
         <para>
             時には、翻訳前のソースデータにアクセスしたいこともあるでしょう。
@@ -1214,7 +1214,7 @@ $translate->translate('unknown string');
         </note>
 
         <example xml:id="zend.translator.additional.sourcedata.example"><info><title>アダプタでの言語の処理</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // すべてのメッセージ ID を返します
 $messageIds = $translate->getMessageIds();

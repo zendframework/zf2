@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.constants"><info><title>Constants for General Date Functions</title></info>
-    
+
 
     <para>
         Whenever a <classname>Zend_Date</classname> method has a <varname>$parts</varname>
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.date.constants.using"><info><title>Using Constants</title></info>
-        
+
 
         <para>
             For example, the constant <constant>Zend_Date::HOUR</constant> can be used in the ways
@@ -25,7 +25,7 @@
         </para>
 
         <table xml:id="zend.date.constants.using.table"><info><title>Operations Involving Zend_Date::HOUR</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -106,7 +106,7 @@
     </section>
 
     <section xml:id="zend.date.constants.list"><info><title>List of All Constants</title></info>
-        
+
 
         <para>
             Each part of a date or time has a unique constant in <classname>Zend_Date</classname>.
@@ -114,7 +114,7 @@
         </para>
 
         <table xml:id="zend.date.constants.list.table-1"><info><title>Day Constants</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -219,7 +219,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-2"><info><title>Week Constants</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -243,7 +243,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-3"><info><title>Month Constants</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -310,7 +310,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-4"><info><title>Year Constants</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -371,7 +371,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-5"><info><title>Time Constants</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -465,7 +465,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-6"><info><title>Timezone Constants</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -538,7 +538,7 @@
         </table>
 
         <table xml:id="zend.date.constants.list.table-7"><info><title>Date Format Constants (formats include timezone)</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -664,7 +664,7 @@
         </para>
 
         <table xml:id="zend.date.constants.list.table-8"><info><title>Date and Time Formats (format varies by locale)</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -808,7 +808,7 @@
     </section>
 
     <section xml:id="zend.date.constants.selfdefinedformats"><info><title>Self-Defined OUTPUT Formats with ISO</title></info>
-        
+
 
         <para>
             If you need a date format not shown above, then use a self-defined format composed from
@@ -831,7 +831,7 @@
         </para>
 
         <example xml:id="zend.date.constants.selfdefinedformats.example-1"><info><title>Self-Defined ISO Formats</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');
@@ -841,7 +841,7 @@ print $date->toString("'Era:GGGG='GGGG, ' Date:yy.MMMM.dd'yy.MMMM.dd");
         </example>
 
         <table xml:id="zend.date.constants.selfdefinedformats.table"><info><title>Constants for ISO 8601 Date Output</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -1280,7 +1280,7 @@ print $date->toString("'Era:GGGG='GGGG, ' Date:yy.MMMM.dd'yy.MMMM.dd");
     </section>
 
     <section xml:id="zend.date.constants.phpformats"><info><title>Self-Defined OUTPUT Formats Using PHP's date() Format Specifiers</title></info>
-        
+
 
         <para>
             If you are more comfortable with <acronym>PHP</acronym>'s date format specifier than
@@ -1299,7 +1299,7 @@ print $date->toString("'Era:GGGG='GGGG, ' Date:yy.MMMM.dd'yy.MMMM.dd");
         </para>
 
         <example xml:id="zend.date.constants.phpformats.example-1"><info><title>Self-Defined Formats with PHP Specifier</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de_AT');
@@ -1314,7 +1314,7 @@ print $date->toString("'Format:D M j G:i:s T Y='D M j G:i:s T Y");
         </example>
 
         <important><info><title>PHP Date format and using constants</title></info>
-            
+
 
             <para>
                 It is important to note that <classname>Zend_Date</classname>'s constants are
@@ -1339,7 +1339,7 @@ print $date->toString("'Format:D M j G:i:s T Y='D M j G:i:s T Y");
         </para>
 
         <table xml:id="zend.date.constants.phpformats.table"><info><title>Constants for PHP Date Output</title></info>
-            
+
 
             <tgroup cols="5">
                 <thead>

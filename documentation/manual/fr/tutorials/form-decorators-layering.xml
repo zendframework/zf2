@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.form.decorators.layering"><info><title>Chainer les décorateurs</title></info>
-    
+
 
     <para>
         Si vous avez bien suivi <link linkend="learning.form.decorators.simplest">la section

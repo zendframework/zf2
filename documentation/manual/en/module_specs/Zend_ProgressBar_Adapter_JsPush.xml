@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.adapter.jspush"><info><title>Zend_ProgressBar_Adapter_JsPush</title></info>
-    
+
 
     <para>
         <classname>Zend_ProgressBar_Adapter_JsPush</classname> is an adapter which let's
@@ -84,7 +84,7 @@
     </itemizedlist>
 
     <example xml:id="zend.progressbar-adapter.jspush.example"><info><title>Basic example for the client-side stuff</title></info>
-        
+
 
         <para>
             This example illustrates a basic setup of <acronym>HTML</acronym>,
@@ -174,7 +174,7 @@ function Zend_ProgressBar_Update(data)
     </example>
 
     <note><info><title>Interval of updates</title></info>
-        
+
 
         <para>
             You should take care of not sending too many updates, as every update

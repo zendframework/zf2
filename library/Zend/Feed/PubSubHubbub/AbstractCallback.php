@@ -34,7 +34,7 @@ namespace Zend\Feed\PubSubHubbub;
 abstract class AbstractCallback implements Callback
 {
     /**
-     * An instance of Zend_Feed_Pubsubhubbub_Model_SubscriptionPersistence used 
+     * An instance of Zend_Feed_Pubsubhubbub_Model_SubscriptionPersistence used
      * to background save any verification tokens associated with a subscription
      * or other.
      *

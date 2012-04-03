@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headmeta"><info><title>L'aide de vue HeadMeta</title></info>
-    
+
 
     <para>
         L'élément HTML <code>&lt;meta&gt;</code> est utilisé pour fournir des métadonnées
@@ -93,7 +93,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.headmeta.basicusage"><info><title>Utilisation basique de l'aide HeadMeta</title></info>
-        
+
 
         <para>
             Vous pouvez spécifier une nouvelle métadonnée à n'importe quel moment.

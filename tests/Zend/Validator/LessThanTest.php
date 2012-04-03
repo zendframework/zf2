@@ -106,16 +106,16 @@ class LessThanTest extends \PHPUnit_Framework_TestCase
         $validator = new Validator\LessThan(10);
         $this->assertEquals(false, $validator->getInclusive());
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = new Validator\LessThan(10);
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -124,16 +124,16 @@ class LessThanTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = new Validator\LessThan(10);
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

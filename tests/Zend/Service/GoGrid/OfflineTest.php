@@ -60,11 +60,11 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
         self::$gogrid = new Server('foo','bar');
         self::$httpClientAdapterTest = new \Zend\Http\Client\Adapter\Test();
         self::$gogrid->getHttpClient()->setAdapter(self::$httpClientAdapterTest);
-        
+
         $filename= __DIR__ . '/_files/' . $this->getName() . '.response';
         if (file_exists($filename)) {
-            self::$httpClientAdapterTest->setResponse($this->loadResponse($filename));    
-        }    
+            self::$httpClientAdapterTest->setResponse($this->loadResponse($filename));
+        }
 
     }
 
@@ -78,7 +78,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
     {
         return file_get_contents($name);
     }
-    
+
     /**
      * Ensures that __construct() throws an exception when given an empty key attribute
      *
@@ -116,15 +116,15 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
         self::$gogrid->setApiVersion('1.0');
         $this->assertEquals(self::$gogrid->getApiVersion(),'1.0');
     }
-    
+
     public function testAddServer()
     {
         $result= self::$gogrid->add('test-zf', 'centos5.5_32_base', '512MB', '173.204.195.244');
         $this->assertTrue($result->isSuccess());
     }
-    
-    
-    
+
+
+
     public function testGetServer()
     {
         $result = self::$gogrid->get('test-zf');
@@ -138,7 +138,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($ip['ip'], '173.204.195.244');
         $this->assertEquals($ram['name'], '512MB');
     }
-    
+
     public function testListServer()
     {
         $result = self::$gogrid->getList();
@@ -152,7 +152,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertTrue($found);
     }
-    
+
     public function testEditServer()
     {
         $options = array (
@@ -161,27 +161,27 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
         $result = self::$gogrid->edit('test-zf', $options);
         $this->assertTrue($result->isSuccess());
     }
-    
+
     public function testStopServer()
     {
         $result = self::$gogrid->stop('test-zf');
         $this->assertTrue($result->isSuccess());
-        
+
     }
-    
+
     public function testStartServer()
     {
         $result = self::$gogrid->start('test-zf');
         $this->assertTrue($result->isSuccess());
     }
-    
+
     public function testRestartServer()
     {
         $result = self::$gogrid->restart('test-zf');
         $this->assertTrue($result->isSuccess());
     }
-    
-    
+
+
     public function testDeleteServer()
     {
         $result = self::$gogrid->delete('test-zf');

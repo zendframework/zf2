@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headtitle"><info><title>HeadTitle Helfer</title></info>
-    
+
 
     <para>
         Das <acronym>HTML</acronym> <emphasis>&lt;title&gt;</emphasis> Element wird verwendet um
@@ -31,7 +31,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.headtitle.basicusage"><info><title>Grundsätzliche Verwendung des HeadTitle Helfers</title></info>
-        
+
 
         <para>
             Es kann jederzeit ein Titel Tag spezifiziert werden. Die typische Verwendung besteht

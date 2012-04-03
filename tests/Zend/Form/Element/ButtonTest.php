@@ -118,7 +118,7 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('Button Label', $html, $html);
         $this->assertNotContains('value="', $html);
     }
-    
+
     public function testSetDefaultIgnoredToTrueWhenNotDefined()
     {
         $this->assertTrue($this->element->getIgnore());

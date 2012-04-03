@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.16"><info><title>Zend Framework 1.6</title></info>
-    
+
 
     <para>
         以前のバージョンから Zend Framework 1.6 またはそれ以降に更新する際は、
@@ -8,10 +8,10 @@
     </para>
 
     <section xml:id="migration.16.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <section xml:id="migration.16.zend.controller.dispatcher"><info><title>ディスパッチャインターフェイスの変更</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Front</classname> と
@@ -41,9 +41,9 @@
     </section>
 
     <section xml:id="migration.16.zend.file.transfer"><info><title>Zend_File_Transfer</title></info>
-        
+
         <section xml:id="migration.16.zend.file.transfer.validators"><info><title>バリデータを使う際の変更点</title></info>
-            
+
 
             <para>
                 <classname>Zend_File_Transfer</classname> のバリデータが
@@ -74,7 +74,7 @@
             </para>
 
             <example xml:id="migration.16.zend.file.transfer.example"><info><title>ファイルバリデータを 1.6.1 から 1.6.2 に移行する方法</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // 1.6.1 での例

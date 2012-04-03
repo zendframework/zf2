@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.uri"><info><title>Zend_Navigation_Page_Uri</title></info>
-    
+
 
     <para>
         <classname>Zend_Navigation_Page_Uri</classname>タイプの画面は、
@@ -27,7 +27,7 @@
     </note>
 
     <table xml:id="zend.navigation.pages.uri.options"><info><title>URI画面のオプション</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>

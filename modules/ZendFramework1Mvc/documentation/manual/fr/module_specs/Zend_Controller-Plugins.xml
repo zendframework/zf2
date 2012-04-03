@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins"><info><title>Plugins</title></info>
-    
+
 
     <section xml:id="zend.controller.plugins.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             L'architecture <acronym>MVC</acronym> de Zend Framework propose l'injection de plugins
@@ -80,7 +80,7 @@
     </section>
 
     <section xml:id="zend.controller.plugins.writing"><info><title>Écrire des plugins</title></info>
-        
+
 
         <para>
             Tous les plugins doivent hériter de
@@ -111,7 +111,7 @@ class MyPlugin extends Zend_Controller_Plugin_Abstract
     </section>
 
     <section xml:id="zend.controller.plugins.using"><info><title>Utilisation des plugins</title></info>
-        
+
 
         <para>
             Les plugins sont enregistrés avec
@@ -200,7 +200,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.manipulating"><info><title>Récupération et manipulations des plugins</title></info>
-        
+
 
         <para>
             Il peut arriver que vous ayez besoin de récupérer des plugins, ou d'en supprimer.
@@ -234,7 +234,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.standard"><info><title>Plugins inclus dans Zend Framework</title></info>
-        
+
 
         <para>Zend Framework possède des plugins dans sa distribution :</para>
 

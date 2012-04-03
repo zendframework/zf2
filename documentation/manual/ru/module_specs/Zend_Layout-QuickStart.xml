@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.quickstart"><info><title>Zend_Layout - Быстрый старт</title></info>
-    
+
 
     <para>
         В этом разделе представлены два основных способа использования
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.layout.quickstart.layouts"><info><title>Скрипты макетов</title></info>
-        
+
 
         <para>
             В обоих случаях вам нужно создать скрипт макета.
@@ -90,7 +90,7 @@
     </section>
 
     <section xml:id="zend.layout.quickstart.mvc"><info><title>Использование Zend_Layout с MVC Zend Framework-а</title></info>
-        
+
 
         <para>
             <code>Zend_Controller</code> предлагает богатый набор
@@ -222,7 +222,7 @@ $layout = Zend_Layout::getMvcInstance();
     </section>
 
     <section xml:id="zend.layout.quickstart.standalone"><info><title>Использование Zend_Layout как отдельной компоненты</title></info>
-        
+
 
         <para>
             Как отдельная компонента Zend_Layout не предоставляет столько
@@ -267,7 +267,7 @@ echo $layout->render();
     </section>
 
     <section xml:id="zend.layout.quickstart.example"><info><title>Пример макета</title></info>
-        
+
 
         <para>
             Иногда одна картинка стоит тысячи слов. Ниже показан пример

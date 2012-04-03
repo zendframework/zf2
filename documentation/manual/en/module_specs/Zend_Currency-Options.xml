@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.options"><info><title>Options for currencies</title></info>
-    
+
 
     <para>
         Depending on your needs, several options can be specified at instantiation. All of this

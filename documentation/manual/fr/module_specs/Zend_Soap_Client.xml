@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.client"><info><title>Zend_Soap_Client</title></info>
-    
+
 
     <para>
         <classname>Zend_Soap_Client</classname> est une classe destinée à simplifier
@@ -23,7 +23,7 @@
     </para>
 
     <section xml:id="zend.soap.client.constructor"><info><title>Constructeur de <classname>Zend_Soap_Client</classname></title></info>
-        
+
 
         <para>
             Le constructeur de <classname>Zend_Soap_Client</classname> accepte 2 paramètres:
@@ -41,7 +41,7 @@
         </para>
 
         <note><info><title>Important!</title></info>
-            
+
 
             <para>
                 Si vous utilisez Zend_Soap_Client en mode non WSDL, vous
@@ -164,7 +164,7 @@ $client = new Zend_Soap_Client("some.wsdl",
     </section>
 
     <section xml:id="zend.soap.client.calls"><info><title>Effectuer des requêtes SOAP</title></info>
-        
+
 
         <para>
             Lorsqu'un objet <classname>Zend_Soap_Client</classname> est crée, nous sommes

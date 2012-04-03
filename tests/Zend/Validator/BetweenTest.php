@@ -116,16 +116,16 @@ class BetweenTest extends \PHPUnit_Framework_TestCase
         $validator = new Validator\Between(array('min' => 1, 'max' => 10));
         $this->assertEquals(true, $validator->getInclusive());
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = new Validator\Between(array('min' => 1, 'max' => 10));
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -134,16 +134,16 @@ class BetweenTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = new Validator\Between(array('min' => 1, 'max' => 10));
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

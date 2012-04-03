@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.16"><info><title>Zend Framework 1.6</title></info>
-    
+
 
     <para>
         Wenn man von einem älteren Release auf Zend Framework 1.6 oder höher hochrüstet sollte
@@ -8,10 +8,10 @@
     </para>
 
     <section xml:id="migration.16.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <section xml:id="migration.16.zend.controller.dispatcher"><info><title>Änderungen im Dispatcher Interface</title></info>
-            
+
 
             <para>
                 Benutzer haben uns darauf aufmerksam gemacht das sowohl
@@ -48,10 +48,10 @@
     </section>
 
     <section xml:id="migration.16.zend.file.transfer"><info><title>Zend_File_Transfer</title></info>
-        
+
 
         <section xml:id="migration.16.zend.file.transfer.validators"><info><title>Änderungen bei der Verwendung von Prüfungen</title></info>
-            
+
 
             <para>
                 Wie von Benutzern festgestellt wurde, haben die Prüfungen von
@@ -91,7 +91,7 @@
             </para>
 
             <example xml:id="migration.16.zend.file.transfer.example"><info><title>Wie man eigene Dateiprüfungen von 1.6.1 auf 1.6.2 ändert</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Beispiel für 1.6.1

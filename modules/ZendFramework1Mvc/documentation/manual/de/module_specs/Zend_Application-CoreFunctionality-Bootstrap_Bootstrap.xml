@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.bootstrap-bootstrap"><info><title>Zend_Application_Bootstrap_Bootstrap</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Bootstrap_Bootstrap</classname> ist eine konkrete
@@ -17,7 +17,7 @@
     </para>
 
     <section xml:id="zend.application.core-functionality.bootstrap-bootstrap.autoloading"><info><title>Aktivieren des AutoLoadings für die Anwendung</title></info>
-        
+
 
         <para>
             Zusätzlich bietet diese Bootstrap Implementation die Möglichkeit des "Namespace" oder

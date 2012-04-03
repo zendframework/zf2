@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.objects"><info><title>JSON objekty</title></info>
-    
+
     <para>
         Keď sa serializuje PHP objekt na JSON objekt všetky verejné vlastnosti
         sú zahrnuté vo výslednom objekte.

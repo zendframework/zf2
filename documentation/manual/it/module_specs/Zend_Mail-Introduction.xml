@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.introduction"><info><title>Introduzione</title></info>
-    
+
 
     <section xml:id="zend.mail.introduction.getting-started"><info><title>Come iniziare</title></info>
-        
+
 
         <para>
             <code>Zend_Mail</code> fornisce delle funzionalità generiche per scrivere ed inviare messaggi e-mail sia in formato testuale sia compatibili con lo standard MIME multipart.
@@ -11,7 +11,7 @@
         </para>
 
         <example xml:id="zend.mail.introduction.example-1"><info><title>Semplice e-mail con Zend_Mail</title></info>
-            
+
 
             <para>
                 Una semplice e-mail è composta da alcuni destinatario, un oggetto, un contenuto ed un mittente. Ecco come inviare l'e-mail via <code>Zend_Mail_Transport_Sendmail</code>:
@@ -30,7 +30,7 @@ $mail->send();
         </example>
 
         <note><info><title>Specifiche minime</title></info>
-            
+
             <para>
                 Per poter inviare un'e-mail con <code>Zend_Mail</code> è necessario specificare almeno un destinatario, un mittente (con <code>setFrom()</code>) ed un messaggio (testo e/o HTML).
             </para>
@@ -64,7 +64,7 @@ $mail->setBodyText('Questo è il testo.')
     </section>
 
     <section xml:id="zend.mail.introduction.sendmail"><info><title>Configurazione del transport sendmail predefinito</title></info>
-        
+
 
         <para>
             <code>Zend_Mail_Transport_Sendmail</code> è il transport predefinito per un'istanza di <code>Zend_Mail</code>.
@@ -74,7 +74,7 @@ $mail->setBodyText('Questo è il testo.')
         </para>
 
         <example xml:id="zend.mail.introduction.sendmail.example-1"><info><title>Passaggio di parametri aggiuntivi al transport Zend_Mail_Transport_Sendmail</title></info>
-            
+
             <para>
                 Questo esempio mostra come cambiare l'intestazione Return-Path della funzione <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/mail"><code>mail()</code></link>.
             </para>
@@ -97,7 +97,7 @@ $mail->send();
         </example>
 
         <note><info><title>Restrizioni in Safe mode</title></info>
-            
+
             <para>
                 In caso PHP sia configurato con safe mode attivo, i parametri opzionali aggiuntivi possono impedire il corretto funzionamento di <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/mail"><code>mail()</code></link> e l'invio dell'e-mail.
             </para>

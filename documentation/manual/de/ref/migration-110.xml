@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.110"><info><title>Zend Framework 1.10</title></info>
-    
+
 
     <para>
         Wenn man von einem älteren Release auf Zend Framework 1.10 oder höher hochrüstet sollte
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="migration.110.zend.controller.front"><info><title>Zend_Controller_Front</title></info>
-        
+
 
         <para>
             Ein fehlerhaftes Verhalten wurde behoben, welches aufgetreten ist wenn keine Modell
@@ -51,7 +51,7 @@
     </section>
 
     <section xml:id="migration.110.zend.feed.reader"><info><title>Migrating from 1.9.6 to 1.10 or later</title></info>
-        
+
 
         <para>
             Mit der Einführung von Zend Framework 1.10 wurde die Behandlung für das Empfangen von
@@ -109,7 +109,7 @@ $authors = $feed->getAuthors()->getValues();
     </section>
 
     <section xml:id="migration.110.zend.filter.html-entities"><info><title>Zend_Filter_HtmlEntities</title></info>
-        
+
 
         <para>
             Um zu einem höheren Sicherheitsstandard für die Zeichenkodierung zu kommen, ist der
@@ -131,7 +131,7 @@ $authors = $feed->getAuthors()->getValues();
     </section>
 
     <section xml:id="migration.110.zend.filter.strip-tags"><info><title>Zend_Filter_StripTags</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_StripTags</classname> enthielt in voehergehenden Versionen ein
@@ -148,10 +148,10 @@ $authors = $feed->getAuthors()->getValues();
     </section>
 
     <section xml:id="migration.110.zend.file.transfer"><info><title>Zend_File_Transfer</title></info>
-        
+
 
         <section xml:id="migration.110.zend.file.transfer.files"><info><title>Sicherheitsänderung</title></info>
-            
+
 
             <para>
                 Aus Gründen der Sicherheit speichert <classname>Zend_File_Transfer</classname> nicht
@@ -176,7 +176,7 @@ $authors = $feed->getAuthors()->getValues();
         </section>
 
         <section xml:id="migration.110.zend.file.transfer.count"><info><title>Count Prüfung</title></info>
-            
+
 
             <para>
                 Vor dem Release 1.10 hat die <classname>MimeType</classname> Prüfung eine falsche
@@ -185,7 +185,7 @@ $authors = $feed->getAuthors()->getValues();
             </para>
 
             <table xml:id="migration.110.zend.file.transfer.count.table"><info><title>Geänderte Prüfmeldungen</title></info>
-                
+
 
                 <tgroup cols="4">
                     <thead>
@@ -227,10 +227,10 @@ $authors = $feed->getAuthors()->getValues();
     </section>
 
     <section xml:id="migration.110.zend.translator"><info><title>Zend_Translator</title></info>
-        
+
 
         <section xml:id="migration.110.zend.translator.xliff"><info><title>Xliff Adapter</title></info>
-            
+
 
             <para>
                 In der Vergangenheit hat der Xliff Adapter den Source String als Message Id
@@ -253,10 +253,10 @@ $trans = new Zend_Translator(
     </section>
 
     <section xml:id="migration.110.zend.validate"><info><title>Zend_Validate</title></info>
-        
+
 
         <section xml:id="migration.110.zend.validate.selfwritten"><info><title>Selbst geschriebene Adapter</title></info>
-            
+
 
             <para>
                 Wenn in einer selbst geschriebenen Prüfung ein Fehler gesetzt wird um diesen
@@ -304,7 +304,7 @@ My_Validator extends Zend_Validate_Abstract
         </section>
 
         <section xml:id="migration.110.zend.validate.datevalidator"><info><title>Vereinfachungen im Date Prüfer</title></info>
-            
+
 
             <para>
                 Vor Zend Framework 1.10 wurden 2 identische Nachrichten im Date Prüfer geworfen.
@@ -316,7 +316,7 @@ My_Validator extends Zend_Validate_Abstract
         </section>
 
         <section xml:id="migration.110.zend.validate.barcodevalidator"><info><title>Fehlerbehebungen im Alpha, Alum und Barcode Prüfer</title></info>
-            
+
 
             <para>
                 Vor dem Zend Framework 1.10 waren Nachrichten in den 2 Barcode Adaptern, dem Alpha
@@ -333,7 +333,7 @@ My_Validator extends Zend_Validate_Abstract
             </para>
 
             <table xml:id="migration.110.zend.validate.barcodevalidator.table"><info><title>Vorhandenen Meldungen der Prüfer</title></info>
-                
+
 
                 <tgroup cols="3">
                     <thead>

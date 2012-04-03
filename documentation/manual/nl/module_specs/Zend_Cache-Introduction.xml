@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.introduction"><info><title>Inleiding</title></info>
-    
+
     <para>
         <code>Zend_Cache</code> verstrekt een standaard functie om eender welke data te "cachen".
     </para>
@@ -17,7 +17,7 @@
         uitbreiden: <code>Output</code>, <code>File</code>, <code>Function</code> en <code>Class</code>.
     </para>
     <example><info><title>Een frontend verkrijgen met <code>Zend_Cache::factory()</code></title></info>
-        
+
         <para>
             <code>Zend_Cache::factory()</code> instantieert juiste objecten en bindt ze samen.
             In dit eerste voorbeeld zullen we <code>Core</code> frontend gebruiken, samen met
@@ -72,7 +72,7 @@ print_r($result);
 ?>]]></programlisting>
     </example>
     <example><info><title>Output cachen met de <code>Zend_Cache</code> output frontend</title></info>
-        
+
         <para>
             We markeren secties waarin we output willen cachen door er een beetje conditionele
             logica aan toe te voegen. We zetten de sectie tussen <code>start()</code> en <code>end()</code>

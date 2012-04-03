@@ -13,7 +13,7 @@ class DirectoryScanner implements Scanner
     protected $directories          = array();
     protected $fileScanners         = array();
     protected $classToFileScanner   = null;
-    
+
     public function __construct($directory = null)
     {
         if ($directory) {
@@ -26,7 +26,7 @@ class DirectoryScanner implements Scanner
             }
         }
     }
-    
+
     public function addDirectory($directory)
     {
         if ($directory instanceof DirectoryScanner) {
@@ -45,23 +45,23 @@ class DirectoryScanner implements Scanner
             );
         }
     }
-    
+
     public function addDirectoryScanner(DirectoryScanner $directoryScanner)
     {
         $this->addDirectory($directoryScanner);
     }
-    
+
     public function addFileScanner(FileScanner $fileScanner)
     {
         $this->fileScanners[] = $fileScanner;
     }
-    
+
     protected function scan()
     {
         if ($this->isScanned) {
             return;
         }
-        
+
         // iterate directories creating file scanners
         foreach ($this->directories as $directory) {
             if ($directory instanceof DirectoryScanner) {
@@ -78,10 +78,10 @@ class DirectoryScanner implements Scanner
                 }
             }
         }
-        
+
         $this->isScanned = true;
     }
-    
+
     public function getNamespaces()
     {
     }
@@ -112,7 +112,7 @@ class DirectoryScanner implements Scanner
     public function getClasses($returnDerivedScannerClass = false)
     {
         $this->scan();
-        
+
         if ($this->classToFileScanner === null) {
             $this->createClassToFileScannerCache();
         }
@@ -125,29 +125,29 @@ class DirectoryScanner implements Scanner
             }
             $returnClasses[] = $classScanner;
         }
-        
+
         return $returnClasses;
     }
-    
+
     public function hasClass($class)
     {
         $this->scan();
-        
+
         if ($this->classToFileScanner === null) {
             $this->createClassToFileScannerCache();
         }
-        
+
         return (isset($this->classToFileScanner[$class]));
     }
 
     public function getClass($class, $returnDerivedScannerClass = false)
     {
         $this->scan();
-        
+
         if ($this->classToFileScanner === null) {
             $this->createClassToFileScannerCache();
         }
-        
+
         if (!isset($this->classToFileScanner[$class])) {
             throw new Exception\InvalidArgumentException('Class not found.');
         }
@@ -155,7 +155,7 @@ class DirectoryScanner implements Scanner
         /** @var FileScanner $fs */
         $fs = $this->fileScanners[$this->classToFileScanner[$class]];
         $returnClass = $fs->getClass($class);
-        
+
         if (($returnClass instanceof ClassScanner) && $returnDerivedScannerClass) {
             return new DerivedClassScanner($returnClass, $this);
         }
@@ -168,7 +168,7 @@ class DirectoryScanner implements Scanner
         if ($this->classToFileScanner !== null) {
             return;
         }
-        
+
         $this->classToFileScanner = array();
         /** @var FileScanner $fileScanner */
         foreach ($this->fileScanners as $fsIndex => $fileScanner) {
@@ -178,7 +178,7 @@ class DirectoryScanner implements Scanner
             }
         }
     }
-    
+
     public static function export() {}
-    public function __toString() {} 
+    public function __toString() {}
 }

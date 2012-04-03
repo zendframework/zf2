@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.containers"><info><title>Container</title></info>
-    
+
 
     <para>
         Container haben Methoden für das Hinzufügen, Empfangen, Löschen und Durchlaufen von Seiten.
@@ -11,7 +11,7 @@
     </para>
 
     <section xml:id="zend.navigation.containers.creating"><info><title>Erstellen von Containern</title></info>
-        
+
 
         <para>
             <classname>Zend_Navigation_Container</classname> ist abstrakt, und kann nicht direkt
@@ -29,7 +29,7 @@
         </para>
 
         <example xml:id="zend.navigation.containers.creating.example.array"><info><title>Erstellt einen Container indem ein Array verwendet wird</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /*
@@ -202,7 +202,7 @@ $container = new Zend_Navigation(array(
         </example>
 
         <example xml:id="zend.navigation.containers.creating.example.config"><info><title>Erstellung eines Containers indem ein Config Objekt erstellt wird</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /* INHALT VON /path/to/navigation.xml:
@@ -399,7 +399,7 @@ $container = new Zend_Navigation($config);
     </section>
 
     <section xml:id="zend.navigation.containers.adding"><info><title>Hinzufügen von Seiten</title></info>
-        
+
 
         <para>
             Das Hinzufügen von Seiten in einen Container kann mit den Methoden
@@ -409,7 +409,7 @@ $container = new Zend_Navigation($config);
         </para>
 
         <example xml:id="zend.navigation.containers.adding.example"><info><title>Hinzufügen von Seiten zu einem Container</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Container erstellen
@@ -451,7 +451,7 @@ $container->setPages($pages);
     </section>
 
     <section xml:id="zend.navigation.containers.removing"><info><title>Seiten löschen</title></info>
-        
+
 
         <para>
             Das Löschen von Seiten kann mit <methodname>removePage()</methodname> oder
@@ -462,7 +462,7 @@ $container->setPages($pages);
         </para>
 
         <example xml:id="zend.navigation.containers.removing.example"><info><title>Seiten von einem Container entfernen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $container = new Zend_Navigation(array(
@@ -498,7 +498,7 @@ $container->removePages();      // Entfernt alle Seiten
     </section>
 
     <section xml:id="zend.navigation.containers.finding"><info><title>Seiten finden</title></info>
-        
+
 
         <para>
             Container haben Finder Methoden für das Empfangen von Seiten. Es gibt
@@ -527,7 +527,7 @@ $container->removePages();      // Entfernt alle Seiten
         </para>
 
         <example xml:id="zend.navigation.containers.finding.example"><info><title>Seiten in einem Container finden</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $container = new Zend_Navigation(array(
@@ -613,7 +613,7 @@ $found = $container->findAllByController('index'); // Gibt Seite 2 und 3 zurück
     </section>
 
     <section xml:id="zend.navigation.containers.iterating"><info><title>Container durchsuchen</title></info>
-        
+
 
         <para>
             <classname>Zend_Navigation_Container</classname> implementiert
@@ -624,7 +624,7 @@ $found = $container->findAllByController('index'); // Gibt Seite 2 und 3 zurück
         </para>
 
         <example xml:id="zend.navigation.containers.iterating.example"><info><title>Einen Container durchsuchen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /*
@@ -674,7 +674,7 @@ foreach ($it as $page) {
     </section>
 
     <section xml:id="zend.navigation.containers.other"><info><title>Andere Operationen</title></info>
-        
+
 
         <para>
             Die Methode <methodname>hasPage(Zend_Navigation_Page $page)</methodname> prüft ob der
@@ -689,7 +689,7 @@ foreach ($it as $page) {
         </para>
 
         <example xml:id="zend.navigation.containers.other.example.toarray"><info><title>Einen Container in ein Array konvertieren</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $container = new Zend_Navigation(array(

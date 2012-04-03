@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.10"><info><title>Zend Framework 1.0</title></info>
-    
+
 
     <para>
         When upgrading from a previous release to Zend Framework 1.0 or higher you
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="migration.10.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <para>
             The principal changes introduced in 1.0.0RC1 are the introduction of
@@ -190,7 +190,7 @@ $viewRenderer->setView($view);
     </section>
 
     <section xml:id="migration.10.zend.currency"><info><title>Zend_Currency</title></info>
-        
+
 
         <para>
             Creating an object of <classname>Zend_Currency</classname> has become simpler.

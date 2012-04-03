@@ -3,7 +3,7 @@
 
 <chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="introduction.installation"><info><title>インストール</title></info>
 
-    
+
 
     <para>
         Zend Framework の要件についての詳細な情報は<link linkend="requirements">システム要件</link>

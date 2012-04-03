@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.stringtolower"><info><title>StringToLower</title></info>
-    
+
 
     <para>
         This filter converts any input to be lowercased.
     </para>
 
     <section xml:id="zend.filter.set.stringtolower.options"><info><title>Supported options for Zend_Filter_StringToLower</title></info>
-        
+
 
         <para>
             The following options are supported for
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.filter.set.stringtolower.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             This is a basic example:
@@ -40,7 +40,7 @@ print $filter->filter('SAMPLE');
     </section>
 
     <section xml:id="zend.filter.set.stringtolower.encoding"><info><title>Different encoded strings</title></info>
-        
+
 
         <para>
             Per default it will only handle characters from the actual locale of your
@@ -63,7 +63,7 @@ $filter->setEncoding('ISO-8859-1');
 ]]></programlisting>
 
         <note><info><title>Setting wrong encodings</title></info>
-            
+
 
             <para>
                 Be aware that you will get an exception when you want to set an encoding

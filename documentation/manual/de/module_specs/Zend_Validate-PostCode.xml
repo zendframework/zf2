@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.post_code"><info><title>PostCode</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_PostCode</classname> erlaubt es zu eruieren ob ein angegebener
@@ -67,7 +67,7 @@ $validator->setFormat('AT-\d{5}');
 ]]></programlisting>
 
     <note><info><title>Konventionen für selbst definierte Formate</title></info>
-        
+
 
         <para>
             Wenn selbst definierte Formate verwendet werden sollten die Start-
@@ -83,7 +83,7 @@ $validator->setFormat('AT-\d{5}');
     </note>
 
     <section xml:id="zend.validate.set.post_code.constructor"><info><title>Optionen des Constructors</title></info>
-        
+
 
         <para>
             Grundsätzlich kann man dem Contructor von <classname>Zend_Validate_PostCode</classname>
@@ -112,7 +112,7 @@ $validator = new Zend_Validate_PostCode(array(
     </section>
 
     <section xml:id="zend.validate.set.post_code.options"><info><title>Unterstützte Optionen für Zend_Validate_PostCode</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Validate_PostCode</classname>

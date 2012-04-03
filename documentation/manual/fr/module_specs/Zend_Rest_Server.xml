@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.rest.server"><info><title>Zend_Rest_Server</title></info>
-    
+
 
     <section xml:id="zend.rest.server.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Zend_Rest_Server est prévu comme un serveur supportant l'ensemble des
@@ -12,10 +12,10 @@
     </section>
 
     <section xml:id="zend.rest.server.usage"><info><title>Utilisation d'un serveur REST</title></info>
-        
+
 
         <example xml:id="zend.rest.server.usage.example-1"><info><title>Utilisation basique Zend_Rest_Server - Avec des classes</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $server = new Zend_Rest_Server();
@@ -25,7 +25,7 @@ $server->handle();
         </example>
 
         <example xml:id="zend.rest.server.usage.example-2"><info><title>Utilisation basique Zend_Rest_Server - Avec des fonctions</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**
@@ -48,7 +48,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.args"><info><title>Appelé un service Zend_Rest_Server</title></info>
-        
+
 
         <para>
             Pour appeler un service <classname>Zend_Rest_Server</classname>, vous devez
@@ -59,7 +59,7 @@ $server->handle();
         </para>
 
         <note><info><title>Index numérique</title></info>
-            
+
 
             <para>Les arguments numériques utilisent 1 comme point de départ.</para>
         </note>
@@ -77,7 +77,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.customstatus"><info><title>Envoyer un statut personnalisé</title></info>
-        
+
 
         <para>
             En envoyant des valeurs, pour ajouter un statut personnalisé, vous pouvez envoyer
@@ -85,7 +85,7 @@ $server->handle();
         </para>
 
         <example xml:id="zend.rest.server.customstatus.example-1"><info><title>Renvoyer un statut personnalisé</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**
@@ -108,7 +108,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.customxml"><info><title>Renvoyer une réponse XML personnalisée</title></info>
-        
+
 
         <para>
             Si vous voulez retourner du <acronym>XML</acronym> personnalisé, retournez simplement un objet
@@ -117,7 +117,7 @@ $server->handle();
         </para>
 
         <example xml:id="zend.rest.server.customxml.example-1"><info><title>Renvoyer une réponse XML personnalisée</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**

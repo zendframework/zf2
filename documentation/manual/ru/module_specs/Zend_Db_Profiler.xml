@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.profiler"><info><title>Zend_Db_Profiler</title></info>
 
-    
+
 
     <section xml:id="zend.db.profiler.introduction"><info><title>Введение</title></info>
 
-        
+
 
         <para>
             <code>Zend_Db_Profiler</code> может быть включен
@@ -139,7 +139,7 @@ $db = Zend_Db::factory('PDO_MYSQL', $params);
 
     <section xml:id="zend.db.profiler.using"><info><title>Использование профилировщика</title></info>
 
-        
+
 
         <para>
             Извлечение профилировщика производится в любой момент через
@@ -270,7 +270,7 @@ echo "Longest query: \n" . $longestQuery . "\n";
 
     <section xml:id="zend.db.profiler.advanced"><info><title>Расширенное использование профилировщика</title></info>
 
-        
+
 
         <para>
             Кроме исследования запросов, профилировщик также позволяет
@@ -280,7 +280,7 @@ echo "Longest query: \n" . $longestQuery . "\n";
         </para>
 
         <section xml:id="zend.db.profiler.advanced.filtertime"><info><title>Фильтрация по времени выполнения запроса</title></info>
-            
+
 
             <para>
                 <code>setFilterElapsedSecs()</code> дает возможность
@@ -301,7 +301,7 @@ $profiler->setFilterElapsedSecs(null);
         </section>
 
         <section xml:id="zend.db.profiler.advanced.filtertype"><info><title>Фильтрация по типу запроса</title></info>
-            
+
 
             <para>
                 <code>setFilterQueryType()</code> дает разработчику возможность
@@ -387,7 +387,7 @@ $profiler->setFilterQueryType(null);
         </section>
 
         <section xml:id="zend.db.profiler.advanced.getbytype"><info><title>Получение профилей по типу запроса</title></info>
-            
+
 
             <para>
                 Использование метода <code>setFilterQueryType()</code> может
@@ -420,7 +420,7 @@ $profiles = $profiler->getQueryProfiles(Zend_Db_Profiler::DELETE);
     </section>
 
     <section xml:id="zend.db.profiler.profilers"><info><title>Специализированные профилировщики</title></info>
-        
+
 
         <para>
             Специализированный профилировщик - это объект, который наследует от

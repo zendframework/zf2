@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.06"><info><title>Zend Framework 0.6</title></info>
-    
+
 
     <para>
         以前のバージョンから Zend Framework 0.6 またはそれ以降に更新する際は、
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="migration.06.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <para>
             <acronym>MVC</acronym> コンポーネントの基本的な部分は変わっていません。

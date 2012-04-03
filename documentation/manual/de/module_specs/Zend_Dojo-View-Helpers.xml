@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view.dijit"><info><title>Dijit-Spezifische View Helfer</title></info>
-    
+
 
     <para>
         Aus dem Dojo Handbuch: "Dijit ist ein Widget System das über Dojo gelegt wurde.". Dijit
@@ -161,7 +161,7 @@
     </para>
 
     <example xml:id="zend.dojo.view.dijit.prefixpath"><info><title>Registrierung des Präfix Pfades zu den Dojo Viewhelfern</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
@@ -169,7 +169,7 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
     </example>
 
     <section xml:id="zend.dojo.view.dijit.layout"><info><title>Dijit Layout Elemente</title></info>
-        
+
 
         <para>
             Die Familie der <command>dijit.layout</command> Elemente sind für die Erstellung von
@@ -374,7 +374,7 @@ $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
         </itemizedlist>
 
         <example xml:id="zend.dojo.view.dijit.layout.borderexample"><info><title>Beispiel eines BorderContainer Layout Dijits</title></info>
-            
+
 
             <para>
                 BorderContainers, speziell wenn Sie mit der Fähigkeit gekoppelt werden Inhalte zu
@@ -419,7 +419,7 @@ echo $view->borderContainer()->captureEnd('masterLayout');
     </section>
 
     <section xml:id="zend.dojo.view.dijit.form"><info><title>Dijit Formularelemente</title></info>
-        
+
 
         <para>
             Dojo's Formularprüfung und Eingabe Dijits sind im <command>dijit.form</command> Baum.
@@ -634,7 +634,7 @@ echo $view->currencyTextBox(
 ]]></programlisting>
 
                 <note><info><title>Probleme mit Builds</title></info>
-                    
+
 
                     <para>
                         es gibt aktuell <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://trac.dojotoolkit.org/ticket/7183">bekannte Probleme bei der
@@ -690,7 +690,7 @@ echo $view->editor('foo');
 ]]></programlisting>
 
                 <note><info><title>Das Editor Dijit verwendet standardmäßig div</title></info>
-                    
+
 
                     <para>
                         Das Editor dijit verwendet standardmäßig ein <acronym>HTML</acronym>
@@ -1172,7 +1172,7 @@ echo $view->validationTextBox(
     </section>
 
     <section xml:id="zend.dojo.view.dijit.custom"><info><title>Eigene Dijits</title></info>
-        
+
 
         <para>
             Wenn man viel in Dojo herumtaucht, wird man sehr bald selbst eigene Dijits schreiben,
@@ -1199,7 +1199,7 @@ echo $view->validationTextBox(
         </para>
 
         <example xml:id="zend.dojo.view.dijit.custom.example"><info><title>Verwendung von CustomDijit um ein dojox.layout.ContentPane darzustellen</title></info>
-            
+
 
             <para>
                 <command>dojox.layout.ContentPane</command> ist eine Next-Generation Erweiterung von

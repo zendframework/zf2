@@ -42,7 +42,7 @@ class PluginBroker implements Broker, LocatorAware
      * @var ShortNameLocator Plugin class loader used by this instance
      */
     protected $classLoader;
-    
+
     /**
      * @var boolean Whether plugins should be registered on load
      */
@@ -67,8 +67,8 @@ class PluginBroker implements Broker, LocatorAware
      * Constructor
      *
      * Allow configuration via options; see {@link setOptions()} for details.
-     * 
-     * @param  null|array|Traversable $options 
+     *
+     * @param  null|array|Traversable $options
      * @return void
      */
     public function __construct($options = null)
@@ -80,8 +80,8 @@ class PluginBroker implements Broker, LocatorAware
 
     /**
      * Configure plugin broker
-     * 
-     * @param  array|Traversable $options 
+     *
+     * @param  array|Traversable $options
      * @return PluginBroker
      */
     public function setOptions($options)
@@ -111,7 +111,7 @@ class PluginBroker implements Broker, LocatorAware
                     if ($value instanceof ShortNameLocator) {
                         $this->setClassLoader($value);
                         break;
-                    } 
+                    }
 
                     if (!is_array($value) && !$value instanceof \Traversable) {
                         throw new Exception\RuntimeException(sprintf(
@@ -147,7 +147,7 @@ class PluginBroker implements Broker, LocatorAware
                         ));
                     }
 
-                    // Aggregate plugins; register only after a validator has 
+                    // Aggregate plugins; register only after a validator has
                     // been registered
                     $plugins = $value;
                     break;
@@ -173,8 +173,8 @@ class PluginBroker implements Broker, LocatorAware
 
     /**
      * Load and return a plugin instance
-     * 
-     * @param  string $plugin 
+     *
+     * @param  string $plugin
      * @param  array $options Options to pass to the plugin constructor
      * @return object
      * @throws Exception if plugin not found
@@ -221,13 +221,13 @@ class PluginBroker implements Broker, LocatorAware
         if ($this->getRegisterPluginsOnLoad()) {
             $this->register($pluginName, $instance);
         }
-        
+
         return $instance;
     }
 
     /**
      * Get list of all loaded plugins
-     * 
+     *
      * @return array
      */
     public function getPlugins()
@@ -237,8 +237,8 @@ class PluginBroker implements Broker, LocatorAware
 
     /**
      * Whether or not a given plugin has been loaded
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return bool
      */
     public function isLoaded($name)
@@ -248,9 +248,9 @@ class PluginBroker implements Broker, LocatorAware
 
     /**
      * Register a plugin object by name
-     * 
-     * @param  string $name 
-     * @param  mixed $plugin 
+     *
+     * @param  string $name
+     * @param  mixed $plugin
      * @return PluginBroker
      */
     public function register($name, $plugin)
@@ -269,8 +269,8 @@ class PluginBroker implements Broker, LocatorAware
      * Unregister a named plugin
      *
      * Removes the plugin instance from the registry, if found.
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return bool
      */
     public function unregister($name)
@@ -285,8 +285,8 @@ class PluginBroker implements Broker, LocatorAware
 
     /**
      * Set class loader to use when resolving plugin names to class names
-     * 
-     * @param  ShortNameLocator $loader 
+     *
+     * @param  ShortNameLocator $loader
      * @return PluginBroker
      */
     public function setClassLoader(ShortNameLocator $loader)
@@ -299,7 +299,7 @@ class PluginBroker implements Broker, LocatorAware
      * Retrieve the class loader
      *
      * Lazy-loads an instance of PluginClassLocator if no loader is registered.
-     * 
+     *
      * @return ShortNameLocator
      */
     public function getClassLoader()
@@ -310,10 +310,10 @@ class PluginBroker implements Broker, LocatorAware
         }
         return $this->classLoader;
     }
-    
+
     /**
      * Set if plugins should be registered on load.
-     * 
+     *
      * @param  boolean $flag
      * @return PluginBroker
      */
@@ -325,7 +325,7 @@ class PluginBroker implements Broker, LocatorAware
 
     /**
      * Retrieve if plugins are registered on load.
-     * 
+     *
      * @return boolean
      */
     public function getRegisterPluginsOnLoad()
@@ -335,8 +335,8 @@ class PluginBroker implements Broker, LocatorAware
 
     /**
      * Set plugin validator callback
-     * 
-     * @param  callback $callback 
+     *
+     * @param  callback $callback
      * @return PluginBroker
      */
     public function setValidator($callback)
@@ -350,7 +350,7 @@ class PluginBroker implements Broker, LocatorAware
 
     /**
      * Retrieve plugin validator callback
-     * 
+     *
      * @return null|callback
      */
     public function getValidator()
@@ -361,10 +361,10 @@ class PluginBroker implements Broker, LocatorAware
     /**
      * Determine whether we have a valid plugin
      *
-     * Override this method to implement custom validation logic. Typically, 
+     * Override this method to implement custom validation logic. Typically,
      * throw a custom exception for invalid plugins.
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return bool
      */
     protected function validatePlugin($plugin)
@@ -377,8 +377,8 @@ class PluginBroker implements Broker, LocatorAware
 
     /**
      * Is a value an associative array?
-     * 
-     * @param  mixed $value 
+     *
+     * @param  mixed $value
      * @return bool
      */
     protected function isAssocArray($value)
@@ -391,10 +391,10 @@ class PluginBroker implements Broker, LocatorAware
         }
         return true;
     }
- 
+
     /**
-     * Get locator. 
-     * 
+     * Get locator.
+     *
      * @return Zend\Di\Locator
      */
     public function getLocator()

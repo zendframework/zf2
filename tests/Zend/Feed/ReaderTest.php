@@ -164,7 +164,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
             $this->fail($e->getMessage());
         }
     }
-    
+
     /**
      * @group ZF-8328
      */
@@ -237,7 +237,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $links = Reader\Reader::findFeedLinks('http://www.example.com');
         $this->assertEquals(0, count($links));
     }
-    
+
     /**
      * @group ZF-8327
      */
@@ -257,7 +257,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals('http://feeds.feedburner.com/jonnyken/infoblog', $links->rss);
     }
-    
+
     /**
      * @group ZF-8330
      */
@@ -277,7 +277,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals('http://meiobit.com/rss.xml', $links->rss);
     }
-    
+
     /**
      * @group ZF-8330
      */
@@ -289,7 +289,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
             $response = new \Zend\Http\Response;
             $response->setContent('<!DOCTYPE html><html><head><link rel="alternate" type="application/rss+xml" href="../test.rss"><link rel="alternate" type="application/atom+xml" href="/test.atom"></head><body></body></html>');
             $response->setStatusCode(200);
-            
+
             $testAdapter = new \Zend\Http\Client\Adapter\Test();
             $testAdapter->setResponse($response);
             Reader\Reader::setHttpClient(new \Zend\Http\Client(null, array('adapter' => $testAdapter)));

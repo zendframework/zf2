@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.06"><info><title>Zend Framework 0.6</title></info>
-    
+
 
     <para>
         Lors de la migration d'un version précédente vers Zend Framework 0.6 ou plus récent
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="migration.06.zend.controller"><info><title>Zend_Controller</title></info>
-        
+
 
         <para>
             L'utilisation de base des composants <acronym>MVC</acronym> n'a pas changé ; vous pouvez toujours

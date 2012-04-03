@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.rest.server"><info><title>Zend_Rest_Server</title></info>
-    
+
 
     <section xml:id="zend.rest.server.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Rest_Server</classname> is intended as a fully-featured REST server.
@@ -11,10 +11,10 @@
     </section>
 
     <section xml:id="zend.rest.server.usage"><info><title>REST Server Usage</title></info>
-        
+
 
         <example xml:id="zend.rest.server.usage.example-1"><info><title>Basic Zend_Rest_Server Usage - Classes</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $server = new Zend_Rest_Server();
@@ -24,7 +24,7 @@ $server->handle();
         </example>
 
         <example xml:id="zend.rest.server.usage.example-2"><info><title>Basic Zend_Rest_Server Usage - Functions</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**
@@ -47,7 +47,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.args"><info><title>Calling a Zend_Rest_Server Service</title></info>
-        
+
 
         <para>
             To call a <classname>Zend_Rest_Server</classname> service, you must supply a
@@ -59,7 +59,7 @@ $server->handle();
         </para>
 
         <note><info><title>Numeric index</title></info>
-            
+
 
             <para>
                 Numeric arguments use a 1-based index.
@@ -84,7 +84,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.customstatus"><info><title>Sending A Custom Status</title></info>
-        
+
 
         <para>
             When returning values, to return a custom status, you may return an
@@ -92,7 +92,7 @@ $server->handle();
         </para>
 
         <example xml:id="zend.rest.server.customstatus.example-1"><info><title>Returning Custom Status</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**
@@ -115,7 +115,7 @@ $server->handle();
     </section>
 
     <section xml:id="zend.rest.server.customxml"><info><title>Returning Custom XML Responses</title></info>
-        
+
 
         <para>
             If you wish to return custom <acronym>XML</acronym>, simply return a
@@ -124,7 +124,7 @@ $server->handle();
         </para>
 
         <example xml:id="zend.rest.server.customxml.example-1"><info><title>Return Custom XML</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 /**

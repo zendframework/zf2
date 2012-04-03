@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         Die <classname>Zend_Date</classname> Komponente bietet eine umfangreiche aber einfache
@@ -30,7 +30,7 @@
     </para>
 
     <section xml:id="zend.date.setdefaulttimezone"><info><title>Immer eine Standardzeitzone definieren</title></info>
-        
+
 
         <para>
             Bevor beliebige datumsrelevante Funktionen in <acronym>PHP</acronym> oder dem Zend
@@ -46,7 +46,7 @@
         </para>
 
         <example xml:id="zend.date.setdefaulttimezone.example-1"><info><title>Definieren einer Standardzeitzone</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Zeitzone für die USA, Kalifornien
@@ -75,7 +75,7 @@ date_default_timezone_set('Europe/Berlin');
     </section>
 
     <section xml:id="zend.date.why"><info><title>Warum soll Zend_Date verwendet werden ?</title></info>
-        
+
 
         <para>
             <classname>Zend_Date</classname> erweitert die Möglichkeiten der <acronym>PHP</acronym>

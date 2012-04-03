@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.number"><info><title>Wie sieht die Währung aus?</title></info>
-    
+
 
     <para>
         Wie der Wert einer Währung dargestellt wird hängt hauptsächlich vom verwendeten
@@ -18,7 +18,7 @@
     </para>
 
     <example xml:id="zend.currency.number.example-1"><info><title>Verwendung einer eigenen Schreibweise</title></info>
-        
+
 
         <para>
             Angenommen wir verwenden wieder unsere Währung "Dollar". Aber jetzt wollen wir unsere

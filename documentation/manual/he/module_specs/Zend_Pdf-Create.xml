@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.create"><info><title>יצירת וטעינת קבצי PDF</title></info>
-    
+
     <para>
         מחלקת ה <code>Zend_Pdf</code> מייצגת את מסמכי ה PDF ומספקת פעולת אשר קשורות למסמכים.
     </para>
@@ -16,7 +16,7 @@
     </para>
 
     <example xml:id="zend.pdf.create.example-1"><info><title>יצירת קובץ PDF חדש או טעינה של אחד קיים</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 ...
 // Create a new PDF document
@@ -47,7 +47,7 @@ $pdf3 = Zend_Pdf::parse($pdfString);
     </para>
 
     <example xml:id="zend.pdf.create.example-2"><info><title>קבלת גרסא מסויימת של קובץ PDF</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 ...
 // Load the previous revision of the PDF document

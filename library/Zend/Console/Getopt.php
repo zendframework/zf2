@@ -775,7 +775,7 @@ class Getopt
         } else {
             $realFlag = $this->_ruleMap[$flag];
         }
-        
+
         switch ($this->_rules[$realFlag]['param']) {
             case 'required':
                 if (count($argv) > 0) {
@@ -825,10 +825,10 @@ class Getopt
 
         return $this->_setSingleOptionValue($this->_getoptConfig['numericFlagsOption'], $value);
     }
-    
+
     /**
      * Add relative to options' flag value
-     * 
+     *
      * If options list already has current flag as key
      * and parser should follow cumulative params by configuration,
      * we should to add new param to array, not to overwrite

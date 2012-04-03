@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.input"><info><title>Zend_Filter_Input</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_Input</classname> は宣言型のインターフェイスです。
@@ -96,7 +96,7 @@
 
     <section xml:id="zend.filter.input.declaring"><info><title>フィルタルールおよび検証ルールの宣言</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Filter_Input</classname> のインスタンスを作成する前に、
@@ -208,7 +208,7 @@ $filters = array(
 
     <section xml:id="zend.filter.input.running"><info><title>フィルタおよびバリデータの処理装置の作成</title></info>
 
-        
+
 
         <para>
             フィルタやバリデータの配列を宣言したら、
@@ -259,7 +259,7 @@ $input->setData($newData);
 
     <section xml:id="zend.filter.input.results"><info><title>検証済みのフィールドやその他の結果情報の取得</title></info>
 
-        
+
 
         <para>
             フィルタやバリデータを宣言し、入力処理装置を作成したら、
@@ -270,7 +270,7 @@ $input->setData($newData);
 
         <section xml:id="zend.filter.input.results.isvalid"><info><title>入力が妥当かどうかの問い合わせ</title></info>
 
-            
+
 
             <para>
                 すべての入力データがバリデーションルールを通過すると、
@@ -303,7 +303,7 @@ if ($input->isValid('month')) {
 
         <section xml:id="zend.filter.input.results.reports"><info><title>無効なフィールド、存在しないフィールド、未知のフィールドの取得</title></info>
 
-            
+
 
             <itemizedlist>
                 <listitem>
@@ -430,7 +430,7 @@ $input->setTranslator($translate);
 
         <section xml:id="zend.filter.input.results.escaping"><info><title>有効なフィールドの取得</title></info>
 
-            
+
 
             <para>
                 無効でもなければ存在しないわけでもなく、
@@ -467,7 +467,7 @@ $m = $input->getUnescaped('month'); // エスケープ前
             </note>
 
             <warning><info><title>検証していないフィールドのエスケープ</title></info>
-                
+
 
                 <para>
                     先ほど説明したように、<methodname>getEscaped()</methodname>
@@ -547,7 +547,7 @@ $input->setDefaultEscapeFilter(new Zend_Filter_StringTrim());
 
     <section xml:id="zend.filter.input.metacommands"><info><title>メタコマンドによるフィルタルールやバリデータルールの制御</title></info>
 
-        
+
 
         <para>
             フィールドとフィルタやバリデータの対応を宣言するのに加えて、
@@ -559,7 +559,7 @@ $input->setDefaultEscapeFilter(new Zend_Filter_StringTrim());
 
         <section xml:id="zend.filter.input.metacommands.fields"><info><title>FIELDS メタコマンド</title></info>
 
-            
+
 
             <para>
                 フィルタやバリデータの名前がそれを適用するフィールドの名前と異なる場合は、
@@ -629,7 +629,7 @@ $validators = array(
 
         <section xml:id="zend.filter.input.metacommands.presence"><info><title>PRESENCE メタコマンド</title></info>
 
-            
+
 
             <para>
                 バリデータ配列の各エントリでは、メタコマンド
@@ -661,7 +661,7 @@ $validators = array(
 
         <section xml:id="zend.filter.input.metacommands.default"><info><title>DEFAULT_VALUE メタコマンド</title></info>
 
-            
+
 
             <para>
                 入力データにそのフィールドが存在しない場合に、もしメタコマンド
@@ -714,7 +714,7 @@ echo $input->month; // 1 を出力します
 
         <section xml:id="zend.filter.input.metacommands.allow-empty"><info><title>ALLOW_EMPTY メタコマンド</title></info>
 
-            
+
 
             <para>
                 デフォルトでは、入力データ中にフィールドが存在すれば、
@@ -779,7 +779,7 @@ $input->setOptions($options);
 
         <section xml:id="zend.filter.input.metacommands.break-chain"><info><title>BREAK_CHAIN メタコマンド</title></info>
 
-            
+
 
             <para>
                 デフォルトでは、ひとつのルールに複数のバリデータが登録されている場合は
@@ -848,7 +848,7 @@ $input = new Zend_Filter_Input(null, $validators);
 
         <section xml:id="zend.filter.input.metacommands.messages"><info><title>MESSAGES メタコマンド</title></info>
 
-            
+
 
             <para>
                 ルール内の個々のバリデータのエラーメッセージを指定するには、メタコマンド
@@ -964,7 +964,7 @@ $validators = array(
 
         <section xml:id="zend.filter.input.metacommands.global"><info><title>オプションの使用による、全ルールへのメタコマンドの設定</title></info>
 
-            
+
 
             <para>
                 メタコマンド 'allowEmpty' や 'breakChainOnFailure'、
@@ -1002,7 +1002,7 @@ $input = new Zend_Filter_Input($filters, $validators, $data, $options);
 
     <section xml:id="zend.filter.input.namespaces"><info><title>フィルタクラスへの名前空間の追加</title></info>
 
-        
+
 
         <para>
             デフォルトでは、フィルタやバリデータを文字列で指定した場合は、

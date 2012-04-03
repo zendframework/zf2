@@ -548,17 +548,17 @@ EOT;
      * @dataProvider providerNestingDepthIsHandledProperly
      */
     public function testNestingDepthIsHandledProperlyWhenNestingDepthExceedsMaximum($xmlStringContents)
-    {        
+    {
         Json\Json::$maxRecursionDepthAllowed = 1;
         Json\Json::fromXml($xmlStringContents, true);
     }
-    
+
     /**
      * @group ZF-11385
      * @dataProvider providerNestingDepthIsHandledProperly
      */
     public function testNestingDepthIsHandledProperlyWhenNestingDepthDoesNotExceedMaximum($xmlStringContents)
-    {   
+    {
         try {
             Json\Json::$maxRecursionDepthAllowed = 25;
             $jsonString = Json\Json::fromXml($xmlStringContents, true);
@@ -569,7 +569,7 @@ EOT;
             $this->fail('Zend_Json::fromXml does not implement recursion check properly');
         }
     }
-    
+
     /**
      * XML document provider for ZF-11385 tests
      * @return array
@@ -611,7 +611,7 @@ EOT;
 			<feed_status>D</feed_status>
 		</defaults>
 	</message_type>
-	<execution_time>0.0790269374847</execution_time>	
+	<execution_time>0.0790269374847</execution_time>
 </response>
 EOT;
         return array(array($xmlStringContents));

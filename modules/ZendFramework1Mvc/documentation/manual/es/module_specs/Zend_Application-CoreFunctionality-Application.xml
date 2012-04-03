@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.application"><info><title>Zend_Application</title></info>
-    
+
 
     <para>
         <classname>Zend_Application</classname>
@@ -14,7 +14,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.application.api.options"><info><title>Zend_Application options</title></info>
-        
+
         <tgroup cols="2">
             <thead>
                 <row>
@@ -89,7 +89,7 @@
     </table>
 
     <note><info><title>Option names</title></info>
-        
+
 
         <para>
             Please note that option names are case insensitive.
@@ -106,7 +106,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.application.api.table"><info><title>Métodos de Zend_Application</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>

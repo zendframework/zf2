@@ -191,14 +191,14 @@ class Mock2 implements \Zend\Cache\Backend
     {
         if ($id == '/foo') {return 'verified';}
     }
-    
+
     public function setDirectives($directives) {}
     public function load($id, $doNotTestCacheValidity = false) {}
     public function test($id) {}
     public function save($data, $id, $tags = array(), $specificLifetime = false) {}
     public function remove($id) {}
     public function clean($mode = Cache::CLEANING_MODE_ALL, $tags = array()) {}
-    
+
 }
 class Mock3 extends \Zend\Cache\Frontend\Core
 {
@@ -212,7 +212,7 @@ class Mock4 extends \Zend\Cache\Frontend\Core
 {
     public $res;
     public $ranStart;
-    public function start($id, array $tags = array()) 
+    public function start($id, array $tags = array())
     {
         $this->ranStart = 'verified';
         if ($id == '/foo') {
@@ -224,7 +224,7 @@ class Mock6 extends \Zend\Cache\Frontend\Core
 {
     public $res;
     public $ranStart;
-    public function start($id, array $tags = array()) 
+    public function start($id, array $tags = array())
     {
         $this->ranStart = 'verified';
         if ($id == '/foo' && $tags == array('tag1','tag2')) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headlink"><info><title>L'aide de vue HeadLink</title></info>
-    
+
 
     <para>
         L'élément HTML <code>&lt;link&gt;</code> est de plus en plus employé pour lier
@@ -89,7 +89,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.headlink.basicusage"><info><title>Utilisation basique de l'aide HeadLink</title></info>
-        
+
 
         <para>
             Vous pouvez spécifier un <code>headLink</code> à n'importe quel moment.

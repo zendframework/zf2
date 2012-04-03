@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.advanced"><info><title>Advanced</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.advanced.format_migration"><info><title>Starting from 1.6, handling index format transformations</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> component works with Java Lucene 1.4-1.9, 2.1
@@ -78,7 +78,7 @@
         </para>
 
         <note><info><title>Important!</title></info>
-            
+
 
             <para>
                 Once index is converted to upper version it can't be converted back. So make a
@@ -89,7 +89,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.advanced.static"><info><title>Using the index as static property</title></info>
-        
+
 
         <para>
             The <classname>Zend_Search_Lucene</classname> object uses the destructor method to

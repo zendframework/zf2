@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.nirvanix"><info><title>Zend_Service_Nirvanix</title></info>
-    
+
 
     <section xml:id="zend.service.nirvanix.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             Nirvanix は Internet Media File System (<acronym>IMFS</acronym>)
@@ -22,7 +22,7 @@
     </section>
 
     <section xml:id="zend.service.nirvanix.registering"><info><title>Nirvanix への登録</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Nirvanix</classname> を使う前に、
@@ -40,7 +40,7 @@
     </section>
 
     <section xml:id="zend.service.nirvanix.apiDocumentation"><info><title>API ドキュメント</title></info>
-        
+
 
         <para>
             Nirvanix <acronym>IMFS</acronym> へのアクセス方法には、<acronym>SOAP</acronym> を使用する方法と
@@ -65,7 +65,7 @@
     </section>
 
     <section xml:id="zend.service.nirvanix.features"><info><title>機能</title></info>
-        
+
 
         <para>
             Nirvanix の REST サービスは、<acronym>PHP</acronym> の
@@ -114,7 +114,7 @@
     </section>
 
     <section xml:id="zend.service.nirvanix.storing-your-first"><info><title>さぁはじめましょう</title></info>
-        
+
 
         <para>
             Nirvanix への登録をすませたら、
@@ -169,7 +169,7 @@ $imfs->unlink('/foo.txt');
     </section>
 
     <section xml:id="zend.service.nirvanix.understanding-proxy"><info><title>プロキシについて</title></info>
-        
+
 
         <para>
             先ほどの理恵では、<methodname>getService()</methodname> メソッドを使用して
@@ -243,7 +243,7 @@ $result = $imfs->renameFile(array('filePath' => '/path/to/foo.txt',
     </section>
 
     <section xml:id="zend.service.nirvanix.examining-results"><info><title>結果の吟味</title></info>
-        
+
 
         <para>
             Nirvanix の REST <acronym>API</acronym> は、常に結果を XML で返します。
@@ -301,7 +301,7 @@ Zend_Service_Nirvanix_Response Object
     </section>
 
     <section xml:id="zend.service.nirvanix.handling-errors"><info><title>エラー処理</title></info>
-        
+
 
         <para>
             Nirvanix を使用する際には、

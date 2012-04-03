@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers"><info><title>Action Helpers</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Action Helpers allow developers to inject runtime and/or on-demand
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.initialization"><info><title>Helper Initialization</title></info>
-        
+
 
         <para>
             A helper can be initialized in several different ways, based on
@@ -94,7 +94,7 @@ $this->_helper->FlashMessenger('We did something in the last request');
     </section>
 
     <section xml:id="zend.controller.actionhelper.broker"><info><title>The Helper Broker</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Action_HelperBroker</classname> handles the details
@@ -222,7 +222,7 @@ if (Zend_Controller_Action_HelperBroker::hasHelper('redirector')) {
     </section>
 
     <section xml:id="zend.controller.actionhelper.stockhelpers"><info><title>Built-in Action Helpers</title></info>
-        
+
 
         <para>
             Zend Framework includes several action helpers by default:
@@ -248,7 +248,7 @@ if (Zend_Controller_Action_HelperBroker::hasHelper('redirector')) {
     </section>
 
     <section xml:id="zend.controller.actionhelper.writingyourown"><info><title>Writing Your Own Helpers</title></info>
-        
+
 
         <para>
             Action helpers extend

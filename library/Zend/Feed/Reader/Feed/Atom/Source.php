@@ -51,7 +51,7 @@ class Source extends Feed\Atom
         $this->_data['type'] = $type;
         $this->_registerNamespaces();
         $this->_loadExtensions();
-        
+
         $atomClass = Reader\Reader::getPluginLoader()->getClassName('Atom\\Feed');
         $this->_extensions['Atom\\Feed'] = new $atomClass($this->_domDocument, $this->_data['type'], $this->_xpath);
         $atomClass = Reader\Reader::getPluginLoader()->getClassName('DublinCore\\Feed');
@@ -60,12 +60,12 @@ class Source extends Feed\Atom
             $extension->setXpathPrefix(rtrim($xpathPrefix, '/') . '/atom:source');
         }
     }
-    
+
     /**
      * Since this is not an Entry carrier but a vehicle for Feed metadata, any
      * applicable Entry methods are stubbed out and do nothing.
      */
-     
+
     /**
      * @return void
      */
@@ -75,7 +75,7 @@ class Source extends Feed\Atom
      * @return void
      */
     public function current() {}
-    
+
     /**
      * @return void
      */
@@ -90,12 +90,12 @@ class Source extends Feed\Atom
      * @return void
      */
     public function rewind() {}
-    
+
     /**
      * @return void
      */
     public function valid() {}
-    
+
     /**
      * @return void
      */

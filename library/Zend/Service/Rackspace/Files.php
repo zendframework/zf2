@@ -130,7 +130,7 @@ class Files extends RackspaceAbstract
      * - total count containers
      * - size in bytes of all the containers
      * - total objects in all the containers
-     * 
+     *
      * @return array|boolean
      */
     public function getInfoAccount()
@@ -160,7 +160,7 @@ class Files extends RackspaceAbstract
         }
         $result= $this->httpCall($this->getStorageUrl().'/'.rawurlencode($container),'GET',null,$options);
         if ($result->isSuccess() && ($result->getBody()!=='[]')) {
-            return new Files\ObjectList($this,json_decode($result->getBody(),true),$container);  
+            return new Files\ObjectList($this,json_decode($result->getBody(),true),$container);
         }
         return false;
     }
@@ -272,7 +272,7 @@ class Files extends RackspaceAbstract
     }
     /**
      * Get a container
-     * 
+     *
      * @param string $container
      * @return Container|boolean
      */
@@ -324,7 +324,7 @@ class Files extends RackspaceAbstract
         return false;
     }
     /**
-     * Store a file in a container 
+     * Store a file in a container
      *
      * @param string $container
      * @param string $object
@@ -494,7 +494,7 @@ class Files extends RackspaceAbstract
     /**
      * Set the metadata of a object in a container
      * The old metadata values are replaced with the new one
-     * 
+     *
      * @param string $container
      * @param string $object
      * @param array $metadata

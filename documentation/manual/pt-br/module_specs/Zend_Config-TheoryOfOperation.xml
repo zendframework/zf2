@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.theory_of_operation"><info><title>Teoria de Operação</title></info>
-    
+
 
     <para>
         Dados de configuração são disponibilizados para o construtor

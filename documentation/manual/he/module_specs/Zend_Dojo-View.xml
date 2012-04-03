@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view"><info><title>תוספי עזרה ל Dojo</title></info>
-    
+
 
     <para>
         Zend Framework מספקת את תוספי העזרה הבאים לשימוש ספציפי ב Dojo:
@@ -15,7 +15,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.view.setup"><info><title>שימוש בתוספי עזרה ל Dojo</title></info>
-        
+
 
         <para>
             כדי להשתמש בתוספי העזרה, תצטרכו להגיד לאובייקט התצוגה שלהם איפה הם נמצאים. תוכלו לעשות זאת על ידי:

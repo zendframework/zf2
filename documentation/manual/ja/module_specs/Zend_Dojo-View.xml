@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view"><info><title>Dojo ビューヘルパー</title></info>
-    
+
 
     <para>
         Zend Framework は、次のような Dojo 専用ビューヘルパーを用意しています。
@@ -17,7 +17,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.view.setup"><info><title>Dojo ビューヘルパーの使用法</title></info>
-        
+
 
         <para>
             Dojo ビューヘルパーを使用するには、

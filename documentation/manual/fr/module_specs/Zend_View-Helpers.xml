@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers"><info><title>Aides de vue</title></info>
-    
+
 
     <para>
         Dans vos scripts de vue, il est souvent nécessaire d'effectuer certaines actions
@@ -20,7 +20,7 @@
     </para>
 
     <note><info><title>Surveillez la casse</title></info>
-        
+
 
         <para>
             Les noms des aides sont toujours en notationCamel, c'est-à-dire qu'ils ne
@@ -39,7 +39,7 @@
     </para>
 
     <section xml:id="zend.view.helpers.initial"><info><title>Aides initiales</title></info>
-        
+
 
         <para>
             <classname>Zend_View</classname> fournit avec un jeu initial de classes d'aides,
@@ -401,7 +401,7 @@ array('us' => 'Etats-Unis', 'fr' => 'France', 'de' => 'Allemagne').
     </section>
 
     <section xml:id="zend.view.helpers.paths"><info><title>Chemin des aides</title></info>
-        
+
 
         <para>
             Comme pour les scripts de vue, votre contrôleur peut spécifier une pile de chemins
@@ -451,7 +451,7 @@ $view->addHelperPath('/autre/chemin/vers/des/aides',
     </section>
 
     <section xml:id="zend.view.helpers.custom"><info><title>Écrire des aides personnalisées</title></info>
-        
+
 
         <para>
             Écrire des aides personnalisées est facile, vous devez juste suivre ces règles
@@ -590,7 +590,7 @@ class Ma_View_Helper_ScriptPath
     </section>
 
     <section xml:id="zend.view.helpers.registering-concrete"><info><title>Registering Concrete Helpers</title></info>
-        
+
 
         <para>
             Sometimes it is convenient to instantiate a view helper, and then register it with the
@@ -612,7 +612,7 @@ $view->registerHelper($helper, 'foo');
         </para>
 
         <note><info><title>Helper name should match a method</title></info>
-            
+
 
             <para>
                 The second argument to <methodname>registerHelper()</methodname> is the name of the

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.action"><info><title>Action View Helfer</title></info>
-    
+
 
     <para>
         Der <classname>Action</classname> View Helfer ermöglicht es View Skripten eine gegebene
@@ -23,7 +23,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.action.usage"><info><title>Grundsätzliche Verwendung von Action View Helfern</title></info>
-        
+
 
         <para>
             Als Beispiel, könnte man einen <classname>CommentController</classname> mit einer

@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="coding-standard"><info><title>Стандарт написання PHP коду в Zend Framework</title></info>
-  
+
     <section xml:id="coding-standard.overview"><info><title>Огляд</title></info>
-        
+
 
         <section xml:id="coding-standard.overview.scope"><info><title>Сфера застосування</title></info>
-            
+
 
             <para>
                 Цей документ надає вказівки щодо форматування коду та документації для розробників
-                та команд які роблять свій вклад в розробку Zend Framework. Багато розробників 
-                що використовують Zend Framework також знаходять корисним слідувати 
+                та команд які роблять свій вклад в розробку Zend Framework. Багато розробників
+                що використовують Zend Framework також знаходять корисним слідувати
                 цим стандартам щоб писати свій код у відповідності до всього коду Zend Framework.
                 Варто зазначити що докладено великих зусиль щоб як найбільш повно описати стандарти кодування.
 
                 <note>
                     <para>
-                        Примітка: Sometimes developers consider the establishment of a standard more 
-                        important than what that standard actually suggests at the most detailed 
-                        level of design. Інколи розробники надають впровадженню стандарту важливішого 
-                        значення ніж те, що стандарт дійсно пропонує, на найбільш деталізованому 
-                        рівні розробки. Вказівки в стандартах кодування Zend Framework захоплюють 
+                        Примітка: Sometimes developers consider the establishment of a standard more
+                        important than what that standard actually suggests at the most detailed
+                        level of design. Інколи розробники надають впровадженню стандарту важливішого
+                        значення ніж те, що стандарт дійсно пропонує, на найбільш деталізованому
+                        рівні розробки. Вказівки в стандартах кодування Zend Framework захоплюють
                         практичні підходи що добре себе зарекомендували в проекті розробки Zend Framework.
-                        Дозволяється модифікувати ці стандарти або використовувати їх в незмінному 
-                        стані у відповідності до положень нашої 
+                        Дозволяється модифікувати ці стандарти або використовувати їх в незмінному
+                        стані у відповідності до положень нашої
                         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://framework.zend.com/license">ліцензії</link>.
                     </para>
                 </note>
@@ -50,7 +50,7 @@
         </section>
 
         <section xml:id="coding-standard.overview.goals"><info><title>Цілі</title></info>
-            
+
 
             <para>
                 Дотримання стандартів написання коду є важливим для будь якого проекту,
@@ -62,23 +62,23 @@
     </section>
 
     <section xml:id="coding-standard.php-file-formatting"><info><title>Форматування PHP файлів</title></info>
-        
+
 
         <section xml:id="coding-standard.php-file-formatting.general"><info><title>Загальні положення</title></info>
-            
+
 
             <para>
-                Заборонено ставити закриваючий тег ("?&gt;") для файлів що містять виключно 
+                Заборонено ставити закриваючий тег ("?&gt;") для файлів що містять виключно
                 <acronym>PHP</acronym> код. Закриваючий тег необов'язковий для <acronym>PHP</acronym>,
-                та його відсутність допомагає уникнути випадкового попадання у відповідь сервера 
+                та його відсутність допомагає уникнути випадкового попадання у відповідь сервера
                 пробілу що опинився в кінці файлу.
             </para>
 
             <note>
                 <para>
                 <emphasis>Важливо</emphasis>: Включення додаткового бінарного коду як це дозволено при
-                використанні <code>__HALT_COMPILER()</code> заборонено для всіх <acronym>PHP</acronym> 
-                файлів в проекті Zend framework та похідних файлах. Використання такої можливості 
+                використанні <code>__HALT_COMPILER()</code> заборонено для всіх <acronym>PHP</acronym>
+                файлів в проекті Zend framework та похідних файлах. Використання такої можливості
                 дозволено лише для деяких сценаріїв встановлення.
                 </para>
             </note>
@@ -86,44 +86,44 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.indentation"><info><title>Відступи</title></info>
-            
+
 
             <para>Використовувати відступ в 4 пробіли, без табуляції.</para>
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.max-line-length"><info><title>Максимальна довжина рядка</title></info>
-            
+
 
             <para>
-                Дотримуватися довжини рядка в 80 символів, тобто розробники повинні намагатись тримати 
-                код настільки близько до 80-ої колонки наскільки це практично можливо. 
+                Дотримуватися довжини рядка в 80 символів, тобто розробники повинні намагатись тримати
+                код настільки близько до 80-ої колонки наскільки це практично можливо.
                 Проте, довші рядки дозволені. Максимальна довжина будь-якого рядка <acronym>PHP</acronym> коду
                 не повинна перевищувати 120 символів.
             </para>
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.line-termination"><info><title>Завершення рядків</title></info>
-            
+
 
             <para>
-                Завершення рядка в стандартний спосіб для текстових файлів Unix. Рядки повинні завершуватися 
+                Завершення рядка в стандартний спосіб для текстових файлів Unix. Рядки повинні завершуватися
                 через переведення рядка (LF). Переведення рядка представлено десятковим кодом 10,
                 та шістнадцятковим 0x0A.
             </para>
 
             <para>
-                Примітка: Не використовувати повернення каретки (CR) у відповідності до ОС Apple (0x0D) або 
-                комбінацію повернення каретки - переведення рядка (CRLF) 
+                Примітка: Не використовувати повернення каретки (CR) у відповідності до ОС Apple (0x0D) або
+                комбінацію повернення каретки - переведення рядка (CRLF)
                 що є стандартом для ОС Windows (0x0D, 0x0A).
             </para>
         </section>
     </section>
 
     <section xml:id="coding-standard.naming-conventions"><info><title>Принципи іменування</title></info>
-        
+
 
         <section xml:id="coding-standard.naming-conventions.classes"><info><title>Класи</title></info>
-            
+
 
             <para>
                 Zend Framework standardizes on a class naming convention whereby the names of the
@@ -170,7 +170,7 @@
         </section>
 
         <section xml:id="coding-standard.naming-conventions.abstracts"><info><title>Abstract Classes</title></info>
-            
+
 
             <para>
                 In general, abstract classes follow the same conventions as <link linkend="coding-standard.naming-conventions.classes">classes</link>,
@@ -192,7 +192,7 @@
         </section>
 
         <section xml:id="coding-standard.naming-conventions.interfaces"><info><title>Interfaces</title></info>
-            
+
 
             <para>
                 In general, interfaces follow the same conventions as <link linkend="coding-standard.naming-conventions.classes">classes</link>,
@@ -220,7 +220,7 @@
         </section>
 
         <section xml:id="coding-standard.naming-conventions.filenames"><info><title>Filenames</title></info>
-            
+
 
             <para>
                 For all other files, only alphanumeric characters, underscores, and the dash
@@ -247,7 +247,7 @@ Zend/View/Helper/FormRadio.php
         </section>
 
         <section xml:id="coding-standard.naming-conventions.functions-and-methods"><info><title>Functions and Methods</title></info>
-            
+
 
             <para>
                 Function names may only contain alphanumeric characters. Underscores are not
@@ -299,7 +299,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.variables"><info><title>Variables</title></info>
-            
+
 
             <para>
                 Variable names may only contain alphanumeric characters. Underscores are not
@@ -329,7 +329,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.constants"><info><title>Constants</title></info>
-            
+
 
             <para>
                 Constants may contain both alphanumeric characters and underscores. Numbers are
@@ -355,10 +355,10 @@ widgetFactory()
     </section>
 
     <section xml:id="coding-standard.coding-style"><info><title>Coding Style</title></info>
-        
+
 
         <section xml:id="coding-standard.coding-style.php-code-demarcation"><info><title>PHP Code Demarcation</title></info>
-            
+
 
             <para>
                 <acronym>PHP</acronym> code must always be delimited by the full-form, standard
@@ -378,10 +378,10 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.coding-style.strings"><info><title>Strings</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.strings.literals"><info><title>String Literals</title></info>
-                
+
 
                 <para>
                     When a string is literal (contains no variable substitutions), the apostrophe or
@@ -394,7 +394,7 @@ $a = 'Example String';
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.literals-containing-apostrophes"><info><title>String Literals Containing Apostrophes</title></info>
-                
+
 
                 <para>
                     When a literal string itself contains apostrophes, it is permitted to demarcate
@@ -413,7 +413,7 @@ $sql = "SELECT `id`, `name` from `people` "
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.variable-substitution"><info><title>Variable Substitution</title></info>
-                
+
 
                 <para>
                     Variable substitution is permitted using either of these forms:
@@ -435,7 +435,7 @@ $greeting = "Hello ${name}, welcome back!";
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.string-concatenation"><info><title>String Concatenation</title></info>
-                
+
 
                 <para>
                     Strings must be concatenated using the "." operator. A space must always
@@ -462,10 +462,10 @@ $sql = "SELECT `id`, `name` FROM `people` "
         </section>
 
         <section xml:id="coding-standard.coding-style.arrays"><info><title>Arrays</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.arrays.numerically-indexed"><info><title>Numerically Indexed Arrays</title></info>
-                
+
 
                 <para>Negative numbers are not permitted as indices.</para>
 
@@ -520,7 +520,7 @@ $sampleArray = array(
             </section>
 
             <section xml:id="coding-standard.coding-style.arrays.associative"><info><title>Associative Arrays</title></info>
-                
+
 
                 <para>
                     When declaring associative arrays with the <type>Array</type> construct,
@@ -561,10 +561,10 @@ $sampleArray = array(
         </section>
 
         <section xml:id="coding-standard.coding-style.classes"><info><title>Classes</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.classes.declaration"><info><title>Class Declaration</title></info>
-                
+
 
                 <para>
                     Classes must be named according to Zend Framework's naming conventions.
@@ -649,7 +649,7 @@ class SampleClass
             </section>
 
             <section xml:id="coding-standard.coding-style.classes.member-variables"><info><title>Class Member Variables</title></info>
-                
+
 
                 <para>
                     Member variables must be named according to Zend Framework's variable naming
@@ -672,10 +672,10 @@ class SampleClass
         </section>
 
         <section xml:id="coding-standard.coding-style.functions-and-methods"><info><title>Functions and Methods</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.declaration"><info><title>Function and Method Declaration</title></info>
-                
+
 
                 <para>
                     Functions must be named according to Zend Framework's function naming
@@ -805,7 +805,7 @@ class Foo
             </section>
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.usage"><info><title>Function and Method Usage</title></info>
-                
+
 
                 <para>
                     Function arguments should be separated by a single trailing space after the
@@ -845,10 +845,10 @@ threeArguments(array(
         </section>
 
         <section xml:id="coding-standard.coding-style.control-statements"><info><title>Control Statements</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.control-statements.if-else-elseif"><info><title>If/Else/Elseif</title></info>
-                
+
 
                 <para>
                     Control statements based on the <emphasis>if</emphasis> and
@@ -942,7 +942,7 @@ if (($a == $b)
             </section>
 
             <section xml:id="coding-standards.coding-style.control-statements.switch"><info><title>Switch</title></info>
-                
+
 
                 <para>
                     Control statements written with the "switch" statement must have a single space
@@ -989,10 +989,10 @@ switch ($numPeople) {
         </section>
 
         <section xml:id="coding-standards.inline-documentation"><info><title>Inline Documentation</title></info>
-            
+
 
             <section xml:id="coding-standards.inline-documentation.documentation-format"><info><title>Documentation Format</title></info>
-                
+
 
                 <para>
                     All documentation blocks ("docblocks") must be compatible with the phpDocumentor
@@ -1008,7 +1008,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.files"><info><title>Files</title></info>
-                
+
 
                 <para>
                     Every file that contains <acronym>PHP</acronym> code must have a docblock at
@@ -1053,7 +1053,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.classes"><info><title>Classes</title></info>
-                
+
 
                 <para>
                     Every class must have a docblock that contains these phpDocumentor tags at a
@@ -1098,7 +1098,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.functions"><info><title>Functions</title></info>
-                
+
 
                 <para>
                     Every function, including object methods, must have a docblock that contains at

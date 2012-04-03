@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.using"><info><title>例外の使用法</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Exception</classname> は、
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.exception.using.example"><info><title>例外のキャッチ</title></info>
-        
+
         <para>
             次のコードは、Zend Framework のクラスからスローされた例外をキャッチする方法を示すものです。
         </para>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.action"><info><title>Action Controllers</title></info>
-    
+
 
     <section xml:id="zend.controller.action.introduction"><info><title>Wprowadzenie</title></info>
-        
+
         <para>
             <code>Zend_Controller_Action</code> jest klasą abstrakcyjną, której
             możesz użyć do implementacji kontrolerów akcji, których wraz z
@@ -57,7 +57,7 @@ class FooController extends Zend_Controller_Action
         </para>
 
         <note><info><title>Domyślne zachowanie</title></info>
-            
+
 
             <para>
                 Domyślnie <link linkend="zend.controller.front">kontroler
@@ -126,7 +126,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.initialization"><info><title>Inicjalizacja obiektu</title></info>
-        
+
 
         <para>
             O ile zawsze możesz nadpisać konstruktor kontrolera akcji, nie
@@ -164,7 +164,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.prepostdispatch"><info><title>Metody Pre-Dispatch oraz Post-Dispatch</title></info>
-        
+
 
         <para>
             Klasa <code>Zend_Controller_Action</code> definiuje dwie metody,
@@ -180,7 +180,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.accessors"><info><title>Metody dostępowe</title></info>
-        
+
 
         <para>
             W obiekcie zarejestrowanych jest wiele obiektów oraz zmiennych i
@@ -265,7 +265,7 @@ if ($this->_hasParam('id') {
     </section>
 
     <section xml:id="zend.controller.action.viewintegration"><info><title>Integracja z widokiem</title></info>
-        
+
 
         <para>
             <code>Zend_Controller_Action</code> provides a rudimentary and
@@ -280,7 +280,7 @@ if ($this->_hasParam('id') {
         </para>
 
         <section xml:id="zend.controller.action.viewintegration.initview"><info><title>Inicjowanie obiektu widoku</title></info>
-            
+
 
             <para>
                 Metoda <code>initView()</code> inicjuje obiekt widoku. Metoda
@@ -323,7 +323,7 @@ applicationOrModule/
         </section>
 
         <section xml:id="zend.controller.action.viewintegration.render"><info><title>Renderowanie widoków</title></info>
-            
+
 
             <para>
                 Metoda <code>render()</code> ma taką sygnaturę:
@@ -402,7 +402,7 @@ class MyController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.utilmethods"><info><title>Metody narzędziowe</title></info>
-        
+
 
         <para>
             Oprócz metod dostępowych i metod integracji z widokiem, klasa
@@ -488,7 +488,7 @@ class MyController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.action.subclassing"><info><title>Rozszerzanie klasy kontrolera akcji</title></info>
-        
+
 
         <para>
             By design, <code>Zend_Controller_Action</code> must be subclassed
@@ -505,7 +505,7 @@ class MyController extends Zend_Controller_Action
         </para>
 
         <example xml:id="zend.controller.action.subclassing.example-call"><info><title>Jak obsługiwać nieistniejące akcje</title></info>
-            
+
 
             <para>
                 Jeśli zażądamy nieistniejącej akcji kontrolera, wywołana zostanie

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.flickr"><info><title>Zend_Service_Flickr</title></info>
-    
+
     <section xml:id="zend.service.flickr.introduction"><info><title>Введение</title></info>
-        
+
         <para>
             <code>Zend_Service_Flickr</code> является простым API для
             использования веб-вервиса Flickr. Чтобы использовать
@@ -16,7 +16,7 @@
             для поиска фотографий со словом "php" в тегах.
         </para>
         <example><info><title>Простой поиск фотографий в Flickr</title></info>
-            
+
             <programlisting language="php"><![CDATA[<?php
 require_once 'Zend/Service/Flickr.php';
 
@@ -30,14 +30,14 @@ foreach ($results as $result) {
             ]]></programlisting>
         </example>
         <note><info><title>Опциональный параметр</title></info>
-            
+
             <para>
                 <code>tagSearch()</code> принимает массив опций как второй опциональный параметр.
             </para>
         </note>
     </section>
     <section xml:id="zend.service.flickr.finding-users"><info><title>Поиск фотографий и информации о пользователе Flickr</title></info>
-        
+
         <para>
             <code>Zend_Service_Flickr</code> предоставляет несколько
             способов получения информации о пользователях Flickr:
@@ -66,7 +66,7 @@ foreach ($results as $result) {
             </listitem>
         </itemizedlist>
         <example><info><title>Поиск открытых фотографий пользователя по адресу e-mail</title></info>
-            
+
             <para>
                 В этом примере мы, имея e-mail пользователя Flickr, ищем его
                 открытые фотографии, используя метод <code>userSearch()</code>:
@@ -85,14 +85,14 @@ foreach ($results as $result) {
         </example>
     </section>
     <section xml:id="zend.service.flickr.grouppoolgetphotos"><info><title>Поиск фотографий из пула группы</title></info>
-        
+
         <para>
             <code>Zend_Service_Flickr</code> позволяет извлекать фотографии из
             пула группы (group's pool), используя ID группы. Используйте метод
             <code>groupPoolGetPhotos()</code>:
         </para>
         <example xml:id="zend.service.flickr.grouppoolgetphotos.example-1"><info><title>Извлечение фотографий из пула группы через ID группы</title></info>
-            
+
             <programlisting language="php"><![CDATA[<?php
     require_once 'Zend/Service/Flickr.php';
 
@@ -106,21 +106,21 @@ foreach ($results as $result) {
             ]]></programlisting>
         </example>
         <note><info><title>Опциональный параметр</title></info>
-            
+
             <para>
                 <code>groupPoolGetPhotos()</code> принимает массив опций как  опциональный второй параметр.
             </para>
         </note>
     </section>
     <section xml:id="zend.service.flickr.getimagedetails"><info><title>Извлечение данных по изображению в Flickr</title></info>
-        
+
         <para>
             <code>Zend_Service_Flickr</code> делает быстрым и легким получение
             данных по изображению через его ID. Просто используйте метод
             <code>getImageDetails()</code>, как показано в следующем примере:
         </para>
         <example><info><title>Получение данных по изображению в Flickr</title></info>
-            
+
             <para>
                 Имея ID изображения, легко извлечь информацию об этом
                 изображении:
@@ -138,7 +138,7 @@ echo "<a href=\"$image->clickUri\">Click for Image</a>\n";
         </example>
     </section>
     <section xml:id="zend.service.flickr.classes"><info><title>Классы результатов Zend_Service_Flickr</title></info>
-        
+
         <para>
             Объекты следующих классов возвращаются методами
             <code>tagSearch()</code> и <code>userSearch()</code>:
@@ -161,7 +161,7 @@ echo "<a href=\"$image->clickUri\">Click for Image</a>\n";
             </itemizedlist>
         </para>
         <section xml:id="zend.service.flickr.classes.resultset"><info><title>Zend_Service_Flickr_ResultSet</title></info>
-            
+
             <para>Представляет набор результатов поиска, возвращенных Flickr</para>
             <note>
                 <para>
@@ -171,9 +171,9 @@ echo "<a href=\"$image->clickUri\">Click for Image</a>\n";
                 </para>
             </note>
             <section xml:id="zend.service.flickr.classes.resultset.properties"><info><title>Свойства класса</title></info>
-                
+
                 <table><info><title>Свойства класса Zend_Service_Flickr_ResultSet</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -203,7 +203,7 @@ echo "<a href=\"$image->clickUri\">Click for Image</a>\n";
                 </table>
             </section>
             <section xml:id="zend.service.flickr.classes.resultset.totalResults"><info><title>Zend_Service_Flickr_ResultSet::totalResults()</title></info>
-                
+
                 <para>
                     <methodsynopsis>
                         <type>int</type>
@@ -220,14 +220,14 @@ echo "<a href=\"$image->clickUri\">Click for Image</a>\n";
             </section>
         </section>
         <section xml:id="zend.service.flickr.classes.result"><info><title>Zend_Service_Flickr_Result</title></info>
-            
+
             <para>
                 Отдельный результат запроса к Flickr.
             </para>
             <section xml:id="zend.service.flickr.classes.result.properties"><info><title>Свойства класса</title></info>
-                
+
                 <table><info><title>Свойства класса Zend_Service_Flickr_Result</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -341,14 +341,14 @@ echo "<a href=\"$image->clickUri\">Click for Image</a>\n";
             </section>
         </section>
         <section xml:id="zend.service.flickr.classes.image"><info><title>Zend_Service_Flickr_Image</title></info>
-            
+
             <para>
                 Представляет изображение, возвращенное в результате поиска.
             </para>
             <section xml:id="zend.service.flickr.classes.image.properties"><info><title>Свойства класса</title></info>
-                
+
                 <table><info><title>Свойства класса Zend_Service_Flickr_Image</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>

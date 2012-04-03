@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.filters"><info><title>סינון</title></info>
-    
+
 
     <para>
         סינון רשומות אשר נשמרות בלוג.
     </para>
 
     <section xml:id="zend.log.filters.all-writers"><info><title>סינון כל הרשומות</title></info>
-      
+
 
       <para>
           כדי לסנן לפני כל הכותבים, ניתן להוסיף מספר אינסופי של סינונים לאובייקט לוגינג על ידי שימוש במתודת ה  <code>addFilter()</code>:
@@ -34,7 +34,7 @@ $logger->emerg('Emergency message');
     </section>
 
     <section xml:id="zend.log.filters.single-writer"><info><title>סינון לאובייקט של כתיבה</title></info>
-      
+
 
       <para>
           כדי להוסיף סינון לאובייקט כתיבה ספציפי, השתמשו במתודת <code>addFilter</code> לאותו אובייקט כתיבה:

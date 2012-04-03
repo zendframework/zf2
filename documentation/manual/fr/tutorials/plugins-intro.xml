@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.plugins.intro"><info><title>Introduction</title></info>
-    
+
 
     <para>
         Zend Framework utilise abondamment la notion de plugin. Les plugins permettent à la fois

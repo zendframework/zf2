@@ -62,7 +62,7 @@ class TmxTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Translator\Exception\InvalidFileTypeException');
         $adapter = new Adapter\Tmx(__DIR__ . '/_files/failed.tmx', 'en');
     }
-    
+
     /**
      * @group ZF-12012
      */

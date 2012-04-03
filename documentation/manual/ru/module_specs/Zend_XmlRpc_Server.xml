@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.xmlrpc.server"><info><title>Zend_XmlRpc_Server</title></info>
-    
+
 
     <section xml:id="zend.xmlrpc.server.introduction"><info><title>Введение</title></info>
-        
+
 
         <para>
             <classname>Zend_XmlRpc_Server</classname> задуман как полнофункциональный XML-RPC сервер,
@@ -15,7 +15,7 @@
     </section>
 
     <section xml:id="zend.xmlrpc.server.usage"><info><title>Основы использования</title></info>
-        
+
 
         <para>
             Простой пример использования:
@@ -29,7 +29,7 @@ echo $server->handle();
     </section>
 
     <section xml:id="zend.xmlrpc.server.structure"><info><title>Структура сервера</title></info>
-        
+
 
         <para>
             <classname>Zend_XmlRpc_Server</classname> состоит из множества компонент от собственно
@@ -63,7 +63,7 @@ echo $server->handle();
     </section>
 
     <section xml:id="zend.xmlrpc.server.conventions"><info><title>Соглашения</title></info>
-        
+
         <para>
             <classname>Zend_XmlRpc_Server</classname> позволяет прикреплять функции и
             методы класса - т.н. доступные для диспетчеризации XML-RPC
@@ -149,7 +149,7 @@ function myFunc($val1, $val2, $val3)
     </section>
 
     <section xml:id="zend.xmlrpc.server.namespaces"><info><title>Использование пространств имен</title></info>
-        
+
 
         <para>
             В XML-RPC есть такое понятие, как пространства имен. Они позволяют
@@ -188,7 +188,7 @@ $server->addFunction('somefunc', 'funcs');
     </section>
 
     <section xml:id="zend.xmlrpc.server.request"><info><title>Использование своих объектов запросов</title></info>
-        
+
 
         <para>
             В большинстве случаев вы можете использовать включенный по умолчанию
@@ -206,7 +206,7 @@ $server->addFunction('somefunc', 'funcs');
     </section>
 
     <section xml:id="zend.xmlrpc.server.response"><info><title>Использование своих объектов ответов</title></info>
-        
+
 
         <para>
             Как и в случае объектов запросов, <classname>Zend_XmlRpc_Server</classname> может
@@ -225,7 +225,7 @@ $server->addFunction('somefunc', 'funcs');
     </section>
 
     <section xml:id="zend.xmlrpc.server.fault"><info><title>Обработка исключений через сообщения об ошибке</title></info>
-        
+
 
         <para>
             <classname>Zend_XmlRpc_Server</classname> отлавливает исключения, сгенерированные
@@ -266,7 +266,7 @@ Zend_XmlRpc_Server_Fault::attachFaultException('My_Project_Exception');
     </section>
 
     <section xml:id="zend.xmlrpc.server.caching"><info><title>Кэширование определений сервера между запросами</title></info>
-        
+
         <para>
             Прикрепление большого количества классов к экземпляру XML-RPC
             сервера может отнимать много ресурсов – каждый класс должен
@@ -316,14 +316,14 @@ echo $server->handle();
     </section>
 
     <section xml:id="zend.xmlrpc.server.use"><info><title>Примеры использования</title></info>
-        
+
         <para>
             Здесь приведены несколько примеров использования, демонстрирующих полный
             набор возможностей, доступных разработчикам. Примеры
             построены на основе предоставленных ранее примеров.
         </para>
         <section xml:id="zend.xmlrpc.server.use.case1"><info><title>Основы использования</title></info>
-            
+
 
             <para>
                 В примере ниже прикрепляется функция в качестве
@@ -350,7 +350,7 @@ echo $server->handle();
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case2"><info><title>Прикрепление класса</title></info>
-            
+
 
             <para>
                 Пример ниже иллюстрирует прикрепление открытых методов класса
@@ -367,7 +367,7 @@ echo $server->handle();
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case3"><info><title>Прикрепление нескольких классов с использованием пространств имен</title></info>
-            
+
 
             <para>
                 Пример ниже демонстрирует прикрепление нескольких классов,
@@ -388,7 +388,7 @@ echo $server->handle();
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case4"><info><title>Указание исключений в качестве используемых для ответов с сообщением об ошибке</title></info>
-            
+
 
             <para>
                 Пример ниже позволяет любым наследующим от
@@ -415,7 +415,7 @@ echo $server->handle();
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case5"><info><title>Использование своих объектов запроса</title></info>
-            
+
 
             <para>
                 В примере ниже инстанцируется специальный объект запроса и
@@ -445,7 +445,7 @@ echo $server->handle($request);
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case6"><info><title>Использование своих объектов ответа</title></info>
-            
+
 
             <para>
                 Пример ниже демонстрирует указание специального класса ответа
@@ -479,7 +479,7 @@ echo $server->handle($request);
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case7"><info><title>Кэширование определений сервера между запросами</title></info>
-            
+
 
             <para>
                 Пример ниже демонстрирует кэширование определений сервера между

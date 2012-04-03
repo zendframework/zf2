@@ -52,7 +52,7 @@ class Serializer
      * @return Zend\Serializer\Adapter
      * @throws Zend\Serializer\Exception
      */
-    public static function factory($adapterName, $opts = array()) 
+    public static function factory($adapterName, $opts = array())
     {
         if ($adapterName instanceof Adapter) {
             return $adapterName; // $adapterName is already an adapter object
@@ -66,7 +66,7 @@ class Serializer
      *
      * @return Zend\Loader\Broker
      */
-    public static function getAdapterBroker() 
+    public static function getAdapterBroker()
     {
         if (self::$_adapterBroker === null) {
             self::$_adapterBroker = self::_getDefaultAdapterBroker();
@@ -80,11 +80,11 @@ class Serializer
      * @param  Zend\Loader\Broker $broker
      * @return void
      */
-    public static function setAdapterBroker(Broker $broker) 
+    public static function setAdapterBroker(Broker $broker)
     {
         self::$_adapterBroker = $broker;
     }
-    
+
     /**
      * Resets the internal adapter broker
      *
@@ -95,7 +95,7 @@ class Serializer
         self::$_adapterBroker = self::_getDefaultAdapterBroker();
         return self::$_adapterBroker;
     }
-    
+
     /**
      * Returns a default adapter broker
      *
@@ -113,7 +113,7 @@ class Serializer
      * @param string|Zend\Serializer\Adapter $adapter
      * @param array|Zend\Config\Config $options
      */
-    public static function setDefaultAdapter($adapter, $options = array()) 
+    public static function setDefaultAdapter($adapter, $options = array())
     {
         self::$_defaultAdapter = self::factory($adapter, $options);
     }
@@ -123,7 +123,7 @@ class Serializer
      *
      * @return Zend\Serializer\Adapter
      */
-    public static function getDefaultAdapter() 
+    public static function getDefaultAdapter()
     {
         if (!self::$_defaultAdapter instanceof Adapter) {
             self::setDefaultAdapter(self::$_defaultAdapter);
@@ -139,7 +139,7 @@ class Serializer
      * @return string
      * @throws Zend\Serializer\Exception
      */
-    public static function serialize($value, array $options = array()) 
+    public static function serialize($value, array $options = array())
     {
         if (isset($options['adapter'])) {
             $adapter = self::factory($options['adapter']);
@@ -159,7 +159,7 @@ class Serializer
      * @return mixed
      * @throws Zend\Serializer\Exception
      */
-    public static function unserialize($serialized, array $options = array()) 
+    public static function unserialize($serialized, array $options = array())
     {
         if (isset($options['adapter'])) {
             $adapter = self::factory($options['adapter']);

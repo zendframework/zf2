@@ -7,7 +7,7 @@
     <info><title>Definizioni Zend\Di</title></info>
 
     <para>
-        Le definizioni sono il modo in cui Zend\Di cerca di capire la 
+        Le definizioni sono il modo in cui Zend\Di cerca di capire la
         struttura che deve andare a collegare. Questo significa che se
         tu scrivi in modo non ambiguo, chiaro e conciso, Zend\Di ha ottime
         chance di capire come collegare le cose insieme senza aggiungere
@@ -18,8 +18,8 @@
         <info><title>DefinitionList</title></info>
 
         <para>
-            Le definizioni sono introdotte dall'oggetto Zend\Di\Di tramite 
-            una lista di definizione implementata come Zend\Di\DefinitionList 
+            Le definizioni sono introdotte dall'oggetto Zend\Di\Di tramite
+            una lista di definizione implementata come Zend\Di\DefinitionList
             (SplDoublyLinkedList).
             L'ordine è importante. Le definizioni in cima alla lista saranno
             consultate prima delle definizioni alla fine della lista.
@@ -41,12 +41,12 @@
             DefinitionList è disponbile, ha una Definition\RuntimeDefinition interna.
             La RuntimeDefinition risponderà alle query sulle classi tramite la Reflection
             (riflessione).
-            Queste definizioni Runtime utilizzano una qualunque informazione dentro i 
+            Queste definizioni Runtime utilizzano una qualunque informazione dentro i
             metodi: la loro firma, il nome dei parametri, il tipo di dato dei parametri,
             e i valori di default per stabilire se qualcosa di opzionale o obbligatorio
             quando viene invocato un metodo. Più è esplicito il nome del tuo metodo
             e la sua firma e più sarà semplice per Zend\Di\Definition\RuntimeDefinition
-            stabilire la struttura del tuo codice. 
+            stabilire la struttura del tuo codice.
         </para>
 
         <para>
@@ -63,8 +63,8 @@ public function __construct(IntrospectionStrategy $introspectionStrategy = null,
 }
 ]]></programlisting>
 
-        <para>L'IntrospectionStrategy è un oggetto che determina i ruoli, o le linee 
-            guida, come la RuntimeDefinition cercherà le informazioni sulle tue 
+        <para>L'IntrospectionStrategy è un oggetto che determina i ruoli, o le linee
+            guida, come la RuntimeDefinition cercherà le informazioni sulle tue
             classi.
             Le cose che sa fare:
         </para>
@@ -86,7 +86,7 @@ public function __construct(IntrospectionStrategy $introspectionStrategy = null,
 
             <listitem>
                 <para>
-                    Quali nomi interfaccia rappresentano l'interfaccia di iniezione. Di default, 
+                    Quali nomi interfaccia rappresentano l'interfaccia di iniezione. Di default,
                     il pattern /\w*Aware\w*/ è registrato.
                 </para>
             </listitem>
@@ -106,10 +106,10 @@ public function __construct(AnnotationManager $annotationManager = null)
 
         <para>
             Questo significa che un AnnotationManager non è richiesto, ma se tu vuoi
-            creare uno speciale AnnotationManager con le tue annotazioni, e anche 
-            voler creare uno speciale AnnotationManager con le sue annotazioni e anche 
-            voler estendere la RuntimeDefinition per usare queste speciali Annotations, 
-            questo è il modo per farlo. 
+            creare uno speciale AnnotationManager con le tue annotazioni, e anche
+            voler creare uno speciale AnnotationManager con le sue annotazioni e anche
+            voler estendere la RuntimeDefinition per usare queste speciali Annotations,
+            questo è il modo per farlo.
         </para>
 
         <para>
@@ -119,7 +119,7 @@ public function __construct(AnnotationManager $annotationManager = null)
             differire da quella di un'altra strategia per una altro set di classi.
             Questo può essere ottenuto utilizzando il metodo setExplicitClasses() oppure
             passando una lista di classi come secondo argomento al costruttore del
-            RuntimeDefinition. 
+            RuntimeDefinition.
         </para>
 
     </section>
@@ -136,7 +136,7 @@ public function __construct(AnnotationManager $annotationManager = null)
             riflessione e l'analisi delle annotazioni durante le richieste della tua
             applicazione.
             Utilizzando il compilatore, una definizione può essere creata e scritta su
-            disco per essere utilizzata durante una richiesta di contro al task di 
+            disco per essere utilizzata durante una richiesta di contro al task di
             scansione del codice.
         </para>
 
@@ -187,7 +187,7 @@ protected function setupDi(Application $app)
 
         <para>
             Il codice sopra vuole essere più di qualcosa ma mettere nella tua applicazione o nel
-            bootstrap di un modulo. Questo rappresenta il modo più semplice e performante 
+            bootstrap di un modulo. Questo rappresenta il modo più semplice e performante
             per configurare il tuo DiC da utilizzare.
         </para>
 
@@ -201,8 +201,8 @@ protected function setupDi(Application $app)
         <para>
             L'idea dietro l'utilizzo della ClassDefinition è duplice. Primo, potresti voler sovrascrivere
             qualche informazione dentro alla RuntimeDefinition. Secondo, potresti semplicemente definire
-            la tua classe con un xml, ini o php file descrivendone la struttura. Questa definizione di 
-            classe può essere alimentata tramite il Configuration oppure direttamente istanziando e 
+            la tua classe con un xml, ini o php file descrivendone la struttura. Questa definizione di
+            classe può essere alimentata tramite il Configuration oppure direttamente istanziando e
             registrando un Definition con la DefinitionList.
         </para>
 

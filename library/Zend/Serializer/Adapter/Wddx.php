@@ -48,8 +48,8 @@ class Wddx extends AbstractAdapter
 
     /**
      * Constructor
-     * 
-     * @param  array $opts 
+     *
+     * @param  array $opts
      * @return void
      * @throws Zend\Serializer\Exception if wddx extension not found
      */
@@ -64,9 +64,9 @@ class Wddx extends AbstractAdapter
 
     /**
      * Serialize PHP to WDDX
-     * 
-     * @param  mixed $value 
-     * @param  array $opts 
+     *
+     * @param  mixed $value
+     * @param  array $opts
      * @return string
      * @throws Zend\Serializer\Exception on wddx error
      */
@@ -89,9 +89,9 @@ class Wddx extends AbstractAdapter
 
     /**
      * Unserialize from WDDX to PHP
-     * 
-     * @param  string $wddx 
-     * @param  array $opts 
+     *
+     * @param  string $wddx
+     * @param  array $opts
      * @return mixed
      * @throws Zend\Serializer\Exception on wddx error
      */

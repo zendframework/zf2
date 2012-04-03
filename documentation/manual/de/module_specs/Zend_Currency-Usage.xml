@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.usage"><info><title>Zend_Currency verwenden</title></info>
-    
+
 
     <section xml:id="zend.currency.usage.generic"><info><title>Generelle Verwendung</title></info>
-        
+
 
         <para>
             Der einfachste Anwendungsfall in einer Anwendung ist die Verwendung des Gebietsschemas
@@ -13,7 +13,7 @@
         </para>
 
         <example xml:id="zend.currency.usage.generic.example-1"><info><title>Erstellung einer Währung mit Client Einstellungen</title></info>
-            
+
 
             <para>
                 Angenommen unser Client hat "en_US" als gewünschte Sprache in seinem Browser
@@ -36,7 +36,7 @@ $currency = new Zend_Currency();
         </example>
 
         <note><info><title>Die automatische Erkennung des Gebietsschemas funktioniert nicht immer</title></info>
-            
+
 
             <para>
                 Es ist zu beachten das die automatische Erkennung des Gebietsschemas nicht immer
@@ -57,7 +57,7 @@ $currency = new Zend_Currency();
     </section>
 
     <section xml:id="zend.currency.usage.locale"><info><title>Erstellung einer Währung basierend auf einem Gebietsschema</title></info>
-        
+
 
         <para>
             Um diese Probleme mit dem Client zu vermeiden kann man das gewünschte Gebietsschema
@@ -98,7 +98,7 @@ $currency = new Zend_Currency();
     </section>
 
     <section xml:id="zend.currency.usage.territory"><info><title>Erstellung einer Währung basierend auf einem Land</title></info>
-        
+
 
         <para>
             <classname>Zend_Currency</classname> ist auch in der Lage basierend auf einem
@@ -114,7 +114,7 @@ $currency = new Zend_Currency('US');
 ]]></programlisting>
 
         <note><info><title>Uppercase territories</title></info>
-            
+
 
             <para>
                 When you know that you are using a territory, then you should uppercase it.

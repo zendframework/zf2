@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.barcode.renderers"><info><title>Zend_Barcode Renderers</title></info>
-    
+
 
     <para>
         Renderers have some common options. These options can be set in four ways:
@@ -33,7 +33,7 @@
     </itemizedlist>
 
     <example xml:id="zend.barcode.renderers.configuration"><info><title>Different ways to parameterize a renderer object</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $options = array('topOffset' => 10);
@@ -57,7 +57,7 @@ $renderer->setTopOffset(10);
     </example>
 
     <section xml:id="zend.barcode.renderers.common.options"><info><title>Common Options</title></info>
-        
+
 
         <para>
             In the following list, the values have no unit; we will use the term "unit." For
@@ -69,7 +69,7 @@ $renderer->setTopOffset(10);
         </para>
 
         <table xml:id="zend.barcode.renderers.common.options.table"><info><title>Common Options</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -177,7 +177,7 @@ $renderer->setTopOffset(10);
     </section>
 
     <section xml:id="zend.barcode.renderers.image"><info><title>Zend_Barcode_Renderer_Image</title></info>
-        
+
 
         <para>
             The Image renderer will draw the instruction list of the barcode object in an image
@@ -188,7 +188,7 @@ $renderer->setTopOffset(10);
         <para>Available option are:</para>
 
         <table xml:id="zend.barcode.renderers.image.table"><info><title>Zend_Barcode_Renderer_Image Options</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -238,7 +238,7 @@ $renderer->setTopOffset(10);
     </section>
 
     <section xml:id="zend.barcode.renderers.pdf"><info><title>Zend_Barcode_Renderer_Pdf</title></info>
-        
+
 
         <para>
             The <acronym>PDF</acronym> renderer will draw the instruction list of the barcode

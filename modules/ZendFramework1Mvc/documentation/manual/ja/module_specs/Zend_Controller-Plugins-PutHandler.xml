@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins.standard.puthandler"><info><title>Zend_Controller_Plugin_PutHandler</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Plugin_PutHandler</classname>は、

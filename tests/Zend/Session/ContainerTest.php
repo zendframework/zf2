@@ -69,7 +69,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      * Hack to allow running tests in separate processes
      *
      * @see    http://matthewturland.com/2010/08/19/process-isolation-in-phpunit/
-     * @param  PHPUnit_Framework_TestResult $result 
+     * @param  PHPUnit_Framework_TestResult $result
      * @return void
      */
     public function run(\PHPUnit_Framework_TestResult $result = NULL)
@@ -101,13 +101,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $container = new Container('Zend_Foo', $this->manager);
         $this->assertEquals('Zend_Foo', $container->getName());
     }
-    
+
     public function testUsingNewZF2NamespaceIsValid()
     {
         $container = new Container('Zend\Foo', $this->manager);
         $this->assertEquals('Zend\Foo', $container->getName());
     }
-    
+
     public function testPassingInvalidNameToConstructorRaisesException()
     {
         $tries = array(
@@ -316,7 +316,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $metadata = $storage->getMetadata('Default');
         $this->assertTrue(array_key_exists('EXPIRE_HOPS', $metadata));
         $this->assertEquals(
-            array('hops' => 2, 'ts' => $storage->getRequestAccessTime()), 
+            array('hops' => 2, 'ts' => $storage->getRequestAccessTime()),
             $metadata['EXPIRE_HOPS']
         );
     }
@@ -330,7 +330,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(array_key_exists('EXPIRE_HOPS_KEYS', $metadata));
         $this->assertTrue(array_key_exists('foo', $metadata['EXPIRE_HOPS_KEYS']));
         $this->assertEquals(
-            array('hops' => 2, 'ts' => $storage->getRequestAccessTime()), 
+            array('hops' => 2, 'ts' => $storage->getRequestAccessTime()),
             $metadata['EXPIRE_HOPS_KEYS']['foo']
         );
     }
@@ -349,11 +349,11 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $ts       = $storage->getRequestAccessTime();
         $expected = array(
             'foo' => array(
-                'hops' => 2, 
+                'hops' => 2,
                 'ts'   => $ts,
             ),
             'baz' => array(
-                'hops' => 2, 
+                'hops' => 2,
                 'ts'   => $ts,
             ),
         );

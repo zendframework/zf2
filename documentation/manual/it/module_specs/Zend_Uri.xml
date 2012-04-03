@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.uri.chapter"><info><title>Zend_Uri</title></info>
-    
+
 
     <section xml:id="zend.uri.overview"><info><title>Panoramica</title></info>
-        
+
 
         <para>
             <code>Zend_Uri</code> è un componente che fornisce supporto nella manipolazione e validazione di
@@ -21,14 +21,14 @@
     </section>
 
     <section xml:id="zend.uri.creation"><info><title>Creazione di un nuovo URI</title></info>
-        
+
 
         <para>
             <code>Zend_Uri</code> costruirà un nuovo URI da zero solo se lo schema è passato a <code>Zend_Uri::factory()</code>.
         </para>
 
         <example xml:id="zend.uri.creation.example-1"><info><title>Esempio di creazione di un nuovo URI con <code>Zend_Uri::factory()</code></title></info>
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Uri.php';
@@ -51,14 +51,14 @@ $uri = Zend_Uri::factory('http');
     </section>
 
     <section xml:id="zend.uri.manipulation"><info><title>Manipolazione di un URI esistente</title></info>
-        
+
 
         <para>
             Per manipolare un URI esistente passare l'intero URI a<code>Zend_Uri::factory()</code>.
         </para>
 
         <example xml:id="zend.uri.manipulation.example-1"><info><title>Esempio di manipolazione di un URI esistente con <code>Zend_Uri::factory()</code></title></info>
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Uri.php';
@@ -78,14 +78,14 @@ $uri = Zend_Uri::factory('http://www.zend.com');
     </section>
 
     <section xml:id="zend.uri.validation"><info><title>Validazione di un URI</title></info>
-        
+
 
         <para>
             Si può usare la funzione <code>Zend_Uri::check()</code> se è solo necessario validare un URI esistente.
         </para>
 
         <example xml:id="zend.uri.validation.example-1"><info><title>Esempio di validazione di un URI con <code>Zend_Uri::check()</code></title></info>
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Uri.php';
@@ -103,14 +103,14 @@ $valid = Zend_Uri::check('http://uri.in.questione');
     </section>
 
     <section xml:id="zend.uri.instance-methods"><info><title>Metodi d'istanza in comune</title></info>
-        
+
 
         <para>
             Ogni istanza di una sottoclasse di<code>Zend_Uri</code> (es. <code>Zend_Uri_Http</code>) contiene diversi metodi d'istanza utili per lavorare con ogni tipo di URI.
         </para>
 
         <section xml:id="zend.uri.instance-methods.getscheme"><info><title>Restituzione dello Schema dell'URI</title></info>
-            
+
 
             <para>
                 Lo schema dell'URI è la parte dell'URI che precede i ":" (due punti).
@@ -118,7 +118,7 @@ $valid = Zend_Uri::check('http://uri.in.questione');
             </para>
 
             <example xml:id="zend.uri.instance-methods.getscheme.example-1"><info><title>Esempio di restituzione dello schema di un oggetto <code>Zend_Uri_*</code></title></info>
-                
+
 
                 <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Uri.php';
@@ -136,10 +136,10 @@ $scheme = $uri->getScheme();  // "http"
         </section>
 
         <section xml:id="zend.uri.instance-methods.geturi"><info><title>Restituzione dell'intero URI</title></info>
-            
+
 
             <example xml:id="zend.uri.instance-methods.geturi.example-1"><info><title>Esempio di restituzione dell'intero URI di un oggetto <code>Zend_Uri_*</code></title></info>
-                
+
 
                 <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Uri.php';
@@ -156,7 +156,7 @@ echo $uri->getUri();  // "http://www.zend.com"
         </section>
 
         <section xml:id="zend.uri.instance-methods.valid"><info><title>Validazione dell'URI</title></info>
-            
+
 
             <para>
                 <code>Zend_Uri::factory()</code> esegue sempre una validazione dell'URI passato e non crea una nuova istanza di una sottoclasse di <code>Zend_Uri</code> se l'URI fornito è invalido.
@@ -164,7 +164,7 @@ echo $uri->getUri();  // "http://www.zend.com"
             </para>
 
             <example xml:id="zend.uri.instance-methods.valid.example-1"><info><title>Esempio di validazione di un oggetto <code>Zend_Uri_*</code></title></info>
-                
+
 
                 <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Uri.php';

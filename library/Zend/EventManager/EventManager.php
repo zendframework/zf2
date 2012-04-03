@@ -251,7 +251,7 @@ class EventManager implements EventCollection
      * executed. By default, this value is 1; however, you may set it for any
      * integer value. Higher values have higher priority (i.e., execute first).
      *
-     * You can specify "*" for the event name. In such cases, the listener will 
+     * You can specify "*" for the event name. In such cases, the listener will
      * be triggered for every event.
      *
      * @param  string|array|ListenerAggregate $event An event or array of event names. If a ListenerAggregate, proxies to {@link attachAggregate()}.
@@ -513,9 +513,9 @@ class EventManager implements EventCollection
      * Add listeners to the master queue of listeners
      *
      * Used to inject static listeners and wildcard listeners.
-     * 
-     * @param  PriorityQueue $masterListeners 
-     * @param  PriorityQueue $listeners 
+     *
+     * @param  PriorityQueue $masterListeners
+     * @param  PriorityQueue $listeners
      * @return void
      */
     protected function insertListeners($masterListeners, $listeners)

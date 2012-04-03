@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.sitemap"><info><title>Sitemap Validators</title></info>
-    
+
 
     <para>
         The following validators conform to the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.sitemaps.org/protocol.php">Sitemap <acronym>XML</acronym>
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.sitemap.changefreq"><info><title>Sitemap_Changefreq</title></info>
-        
+
 
         <para>
             Validates whether a string is valid for using as a 'changefreq'
@@ -23,7 +23,7 @@
     </section>
 
     <section xml:id="zend.validate.sitemap.lastmod"><info><title>Sitemap_Lastmod</title></info>
-        
+
 
         <para>
             Validates whether a string is valid for using as a 'lastmod'
@@ -38,7 +38,7 @@
         </para>
 
         <example xml:id="zend.validate.sitemap.lastmod.example"><info><title>Sitemap Lastmod Validator</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_Sitemap_Lastmod();
@@ -58,7 +58,7 @@ $validator->isValid('yesterday'); // false
     </section>
 
     <section xml:id="zend.validate.sitemap.loc"><info><title>Sitemap_Loc</title></info>
-        
+
 
         <para>
             Validates whether a string is valid for using as a 'loc'
@@ -69,7 +69,7 @@ $validator->isValid('yesterday'); // false
     </section>
 
     <section xml:id="zend.validate.sitemap.priority"><info><title>Sitemap_Priority</title></info>
-        
+
 
         <para>
             Validates whether a value is valid for using as a 'priority'
@@ -79,7 +79,7 @@ $validator->isValid('yesterday'); // false
         </para>
 
         <example xml:id="zend.validate.sitemap.priority.example"><info><title>Sitemap Priority Validator</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $validator = new Zend_Validate_Sitemap_Priority();
@@ -99,7 +99,7 @@ $validator->isValid('foo'); // false
     </section>
 
     <section xml:id="zend.validate.set.sitemap.options"><info><title>Supported options for Zend_Validate_Sitemap_*</title></info>
-        
+
 
         <para>
             There are no supported options for any of the Sitemap validators.

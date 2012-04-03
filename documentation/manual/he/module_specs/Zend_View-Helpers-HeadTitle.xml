@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headtitle"><info><title>תוסף העזרה HeadTitle</title></info>
-    
+
 
     <para>
         אלמנט תגית <code>&lt;title&gt;</code> ב HTML נועד להצגת כותרת העמוד שכרגע מוצג.
@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.headtitle.basicusage"><info><title>שימוש בסיסי בתוסף</title></info>
-        
+
 
         <para>
             תוכל להגדיר תג כותרת בכל שלב. שימוש נכון בדרך כלל הוא לשמור כותרת בכל שלב במערכת: אתר, קונטרולר, מתודה ולפעמים גם דברים נוספים.

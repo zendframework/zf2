@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.charset"><info><title>Character Set</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.charset.description"><info><title>UTF-8 and single-byte character set support</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> works with the UTF-8 charset internally. Index
@@ -38,7 +38,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.charset.default_analyzer"><info><title>Default text analyzer</title></info>
-        
+
 
         <para>
             However, the default text analyzer (which is also used within query parser) uses
@@ -58,7 +58,7 @@
         </para>
 
         <note><info><title/></info>
-            
+
             <para>
                 Default analyzer doesn't treats numbers as parts of terms. Use corresponding 'Num'
                 analyzer if you don't want words to be broken by numbers.
@@ -67,7 +67,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.charset.utf_analyzer"><info><title>UTF-8 compatible text analyzers</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> also contains a set of UTF-8 compatible
@@ -87,7 +87,7 @@ Zend_Search_Lucene_Analysis_Analyzer::setDefault(
 ]]></programlisting>
 
         <warning><info><title/></info>
-            
+
             <para>
                 UTF-8 compatible analyzers were improved in Zend Framework 1.5. Early versions of
                 analyzers assumed all non-ascii characters are letters. New analyzers implementation

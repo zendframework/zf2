@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.autoloader"><info><title>L'autoloader</title></info>
-    
+
 
     <para>
         <classname>Zend_Loader_Autoloader</classname> propose une solution intelligente et
@@ -40,7 +40,7 @@
     </para>
 
     <section xml:id="zend.loader.autoloader.usage"><info><title>Utiliser le chargeur automatique (autoloader)</title></info>
-        
+
 
         <para>
             La première fois qu'une instance de l'autoloader est créée, il s'enregistre
@@ -65,7 +65,7 @@ $autoloader->registerNamespace('My_');
 ]]></programlisting>
 
         <note><info><title>Préfixes des espaces de noms</title></info>
-            
+
 
             <para>
                 Notez que l'exemple précédent enregistre "My_" et non "My". Ceci car
@@ -127,7 +127,7 @@ $autoloader->suppressNotFoundWarnings(true);
 $autoloader->setFallbackAutoloader(true);
 ]]></programlisting>
         <note><info><title>Loading Classes from PHP Namespaces</title></info>
-            
+
 
             <para>
                 Starting in version 1.10.0, Zend Framework now allows loading classes from PHP
@@ -194,7 +194,7 @@ $autoloader->setFallbackAutoloader(true);
     </section>
 
     <section xml:id="zend.loader.autoloader.zf-version"><info><title>Selecting a Zend Framework version</title></info>
-        
+
 
         <para>
             Typically, you will use the version of Zend Framework that the autoloader you
@@ -346,7 +346,7 @@ autoloaderZfVersion = "latest"
         </para>
 
         <warning><info><title>Performance implications</title></info>
-            
+
 
             <para>
                 For best performance, either do not use this feature, or specify a specific Zend
@@ -359,7 +359,7 @@ autoloaderZfVersion = "latest"
     </section>
 
     <section xml:id="zend.loader.autoloader.interface"><info><title>L'interface de l'autoloader</title></info>
-        
+
 
         <para>
             Vous pouvez donc ajouter des fonctions de chargement par espace de noms, mais Zend
@@ -389,7 +389,7 @@ $autoloader->pushAutoloader($foo, 'Foo_');
     </section>
 
     <section xml:id="zend.loader.autoloader.reference"><info><title>Référence de l'autoloader</title></info>
-        
+
 
         <para>
             Voici un guide des méthodes de
@@ -397,7 +397,7 @@ $autoloader->pushAutoloader($foo, 'Foo_');
         </para>
 
         <table xml:id="zend.loader.autoloader.reference.api"><info><title>Méthodes de Zend_Loader_Autoloader</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>

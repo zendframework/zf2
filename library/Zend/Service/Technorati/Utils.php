@@ -74,15 +74,15 @@ class Utils
 
         // Validate the URI
         if (!$uri->isValid()) {
-            $caller = function () { 
-                $traces = debug_backtrace(); 
+            $caller = function () {
+                $traces = debug_backtrace();
 
-                if (isset($traces[2])) 
-                { 
-                    return $traces[2]['function']; 
-                } 
+                if (isset($traces[2]))
+                {
+                    return $traces[2]['function'];
+                }
 
-                return null; 
+                return null;
             };
             throw new Exception\RuntimeException(sprintf(
                 '%s (called by %s): invalid URI ("%s") provided',
@@ -122,7 +122,7 @@ class Utils
             restore_error_handler();
             throw new Exception\RuntimeException(sprintf(
                 '%s: "%s" is not a valid Date/Time',
-                __METHOD__, 
+                __METHOD__,
                 (string) $input
             ));
         }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.java-lucene"><info><title>Interoperatie met Java Lucene</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.index-creation.file-formats"><info><title>Bestandsformaten</title></info>
-        
+
         <para>
           Het bestandsformaat van het Zend_Search_Lucene index bestand is binary compatible met Lucene
           versie 1.4 en hoger.
@@ -16,7 +16,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.index-directory"><info><title>Index Map</title></info>
-        
+
 
         <para>
         Na het aanmaken van de index zal de index map verschillende bestanden bevatten:
@@ -44,7 +44,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.java-lucene.source-code"><info><title>Java Broncode</title></info>
-        
+
         <para>
             Het volgende Java programmavoorbeeld geeft een voorbeeld van hoe je een bestand
             indexeert via Java Lucene:
@@ -82,7 +82,7 @@ indexWriter.addDocument(doc);
     </section>
 
     <section xml:id="zend.search.lucene.java-lucene.jar"><info><title>LuceneIndexCreation.jar gebruiken</title></info>
-        
+
 
         <para>
             Om snel te kunnen starten met Zend_Search_Lucene werd een JAR bestand (Java) aangemaakt

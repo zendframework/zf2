@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.quickstart"><info><title>Zend_Form クイックスタート</title></info>
-    
+
 
     <para>
         このクイックスタートガイドでは、<classname>Zend_Form</classname>
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.form.quickstart.create"><info><title>フォームオブジェクトの作成</title></info>
-        
+
 
         <para>
             フォームオブジェクトを作成するのは非常に簡単で、
@@ -56,7 +56,7 @@ $form->setAttrib('id', 'login');
     </section>
 
     <section xml:id="zend.form.quickstart.elements"><info><title>フォームへの要素の追加</title></info>
-        
+
 
         <para>
             要素がなければフォームには何の意味もありません。
@@ -250,7 +250,7 @@ $form->addElement('text', 'username', array(
     </section>
 
     <section xml:id="zend.form.quickstart.render"><info><title>フォームのレンダリング</title></info>
-        
+
 
         <para>
             フォームのレンダリングの方法は簡単です。
@@ -364,7 +364,7 @@ $form->addElement('text', 'username', array('order' => 10));
     </section>
 
     <section xml:id="zend.form.quickstart.validate"><info><title>フォームの妥当性の検証</title></info>
-        
+
 
         <para>
             フォームが送信されたら、
@@ -441,7 +441,7 @@ $values = $form->getValidValues($_POST);
     </section>
 
     <section xml:id="zend.form.quickstart.errorstatus"><info><title>エラー情報の取得</title></info>
-        
+
 
         <para>
             バリデーションに失敗したらどうしたらいいのでしょう?
@@ -472,7 +472,7 @@ if (!$form->isValid($_POST)) {
     </section>
 
     <section xml:id="zend.form.quickstart.puttingtogether"><info><title>まとめ</title></info>
-        
+
 
         <para>
             では、シンプルなログイン画面を作ってみましょう。
@@ -581,7 +581,7 @@ class UserController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.form.quickstart.config"><info><title>Zend_Config オブジェクトの使用法</title></info>
-        
+
 
         <para>
             <classname>Zend_Form</classname> のすべてのクラスは
@@ -640,7 +640,7 @@ $form   = new Zend_Form($config->user->login);
     </section>
 
     <section xml:id="zend.form.quickstart.conclusion"><info><title>結論</title></info>
-        
+
 
         <para>
             ここまで読み進めてこられたみなさんは、

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.advanced"><info><title>Uso Avançado de Zend_Layout</title></info>
-    
+
 
     <para>
         <classname>Zend_Layout</classname> tem um número de casos de uso para o desenvolvedor
@@ -51,7 +51,7 @@
     </itemizedlist>
 
     <section xml:id="zend.layout.advanced.view"><info><title>Objetos View Customizados</title></info>
-        
+
 
         <para>
             <classname>Zend_Layout</classname> permite a você usar qualquer classe
@@ -68,7 +68,7 @@ $layout->setView($view);
 ]]></programlisting>
 
         <note><info><title>Nem todas as implementações de Zend_View são iguais</title></info>
-            
+
 
             <para>
                 Enquanto <classname>Zend_Layout</classname> permite que você use qualquer
@@ -106,7 +106,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.plugin"><info><title>Plugins Front Controller Customizados</title></info>
-        
+
 
         <para>
             Quando o usamos com os componentes <acronym>MVC</acronym>,
@@ -132,7 +132,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.helper"><info><title>Action Helpers Customizados</title></info>
-        
+
 
         <para>
             Quando o usamos com componentes <acronym>MVC</acronym>,
@@ -154,7 +154,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.inflector"><info><title>Resolução de Caminho de Script de Layout Customizada: Usando o Inflector</title></info>
-        
+
 
         <para>
             <classname>Zend_Layout</classname> usa <classname>Zend_Filter_Inflector</classname>
@@ -183,7 +183,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
         </para>
 
         <example xml:id="zend.layout.advanced.inflector.accessors"><info><title>Usando acessores Zend_Layout para modificar o inflector</title></info>
-            
+
 
             <para>
                 O inflector <classname>Zend_Layout</classname> padrão usa referências estáticas
@@ -200,7 +200,7 @@ $layout->setViewSuffix('php');
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.directmodification"><info><title>Modificação direta do inflector Zend_Layout</title></info>
-            
+
 
             <para>
                 Inflectores tem um alvo e uma ou mais regras. O alvo padrão usado com
@@ -223,7 +223,7 @@ $layout->getInflector()->setTarget('layouts/:script.:suffix')
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.custom"><info><title>Inflectores Customizados</title></info>
-            
+
 
             <para>
                 Na maioria dos casos, modificar o inflector existente será suficiente.
@@ -243,7 +243,7 @@ $layout->setInflector($inflector);
         </example>
 
         <note><info><title>Inflexão pode ser desabilitada</title></info>
-            
+
 
             <para>
                 Inflexão pode ser desabilitada e habilitada usando acessores no objeto

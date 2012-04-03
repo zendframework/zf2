@@ -112,7 +112,7 @@ class Css2Xpath
         $expression = preg_replace_callback(
             '|\[([a-z0-9_-]+)~=[\'"]([^\'"]+)[\'"]\]|i',
             function ($matches) {
-                return "[contains(concat(' ', normalize-space(@" . strtolower($matches[1]) . "), ' '), ' " 
+                return "[contains(concat(' ', normalize-space(@" . strtolower($matches[1]) . "), ' '), ' "
                      . $matches[2] . " ')]";
             },
             $expression
@@ -122,7 +122,7 @@ class Css2Xpath
         $expression = preg_replace_callback(
             '|\[([a-z0-9_-]+)\*=[\'"]([^\'"]+)[\'"]\]|i',
             function ($matches) {
-                return "[contains(@" . strtolower($matches[1]) . ", '" 
+                return "[contains(@" . strtolower($matches[1]) . ", '"
                      . $matches[2] . "')]";
             },
             $expression
@@ -130,8 +130,8 @@ class Css2Xpath
 
         // Classes
         $expression = preg_replace(
-            '|\.([a-z][a-z0-9_-]*)|i', 
-            "[contains(concat(' ', normalize-space(@class), ' '), ' \$1 ')]", 
+            '|\.([a-z][a-z0-9_-]*)|i',
+            "[contains(concat(' ', normalize-space(@class), ' '), ' \$1 ')]",
             $expression
         );
 

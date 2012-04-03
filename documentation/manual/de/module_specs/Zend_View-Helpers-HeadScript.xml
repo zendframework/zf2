@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headscript"><info><title>HeadScript Helfer</title></info>
-    
+
 
     <para>
         Das <acronym>HTML</acronym> <emphasis>&lt;script&gt;</emphasis> Element wird verwendet um
@@ -77,7 +77,7 @@
     </para>
 
     <note><info><title>Abhängige Kommentare setzen</title></info>
-        
+
 
         <para>
             <classname>HeadScript</classname> erlaubt es ein Script Tag in abhängige Kommentare zu
@@ -87,7 +87,7 @@
         </para>
 
         <example xml:id="zend.view.helpers.initial.headscript.conditional"><info><title>Headscript mit abhängigen Kommentaren</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Scripte hinzufügen
@@ -131,7 +131,7 @@ $this->headScript()->appendFile(
     </para>
 
     <note><info><title>InlineScript für HTML Body Skripte verwenden</title></info>
-        
+
 
         <para>
             <classname>HeadScript</classname>'s Schwester Helfer,
@@ -144,7 +144,7 @@ $this->headScript()->appendFile(
     </note>
 
     <note><info><title>Andere Attribute werden stanadrdmäßig ausgeschaltet</title></info>
-        
+
 
         <para>
             Standardmäßig wird <classname>HeadScript</classname> nur
@@ -161,7 +161,7 @@ $this->headScript()->setAllowArbitraryAttributes(true);
     </note>
 
     <example xml:id="zend.view.helpers.initial.headscript.basicusage"><info><title>Grundsätzliche Verwendung des HeadScript Helfers</title></info>
-        
+
 
         <para>
             Neue Skript Tags können jederzeit spezifiziert werden. Wie vorher beschrieben können
@@ -206,7 +206,7 @@ $this->headScript()->prependFile('/js/prototype.js');
     </example>
 
     <example xml:id="zend.view.helpers.initial.headscript.capture"><info><title>Skripte einfachen mit Hilfe des HeadScript Helfers</title></info>
-        
+
 
         <para>
             Manchmal mit ein Clientseitiges Skript programmtechnisch erstellt werden. Wärend man

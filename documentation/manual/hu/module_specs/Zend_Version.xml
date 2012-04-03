@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.version.reading"><info><title>A verzió lekérdezése</title></info>
 
-    
+
 
     <para>
         A <classname>Zend_Version</classname> egy osztályállandót nyújt a
@@ -21,7 +21,7 @@
     </para>
 
     <example xml:id="zend.version.reading.example"><info><title>Példa a compareVersion() tagfüggvény használatára</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 // -1-gyel, 0-val vagy +1-gyel tér vissza
 $cmp = Zend_Version::compareVersion('2.0.0');

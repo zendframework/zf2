@@ -289,7 +289,7 @@ class Sqs extends \Zend\Service\Amazon\AbstractAmazon
         if ($result->GetQueueAttributesResult->Attribute === null) {
             throw new Exception\RuntimeException($result->Error->Code);
         }
-        
+
         if(count($result->GetQueueAttributesResult->Attribute) > 1) {
             $attr_result = array();
             foreach($result->GetQueueAttributesResult->Attribute as $attribute) {

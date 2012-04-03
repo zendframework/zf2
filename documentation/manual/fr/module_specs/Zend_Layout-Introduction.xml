@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_Layout</classname> utilise le design pattern Two Step View, ce qui

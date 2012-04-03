@@ -68,9 +68,9 @@ class JsonRenderer implements Renderer, TreeRendererInterface
 
     /**
      * Set the resolver used to map a template name to a resource the renderer may consume.
-     * 
+     *
      * @todo   Determine use case for resolvers when rendering JSON
-     * @param  Resolver $resolver 
+     * @param  Resolver $resolver
      * @return Renderer
      */
     public function setResolver(Resolver $resolver)
@@ -89,7 +89,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
         $this->mergeUnnamedChildren = (bool) $mergeUnnamedChildren;
         return $this;
     }
-    
+
     /**
      * Should we merge unnamed children?
      *
@@ -149,7 +149,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * Can this renderer render trees of view models?
      *
      * Yes.
-     * 
+     *
      * @return true
      */
     public function canRenderTrees()
@@ -159,8 +159,8 @@ class JsonRenderer implements Renderer, TreeRendererInterface
 
     /**
      * Retrieve values from a model and recurse its children to build a data structure
-     * 
-     * @param  Model $model 
+     *
+     * @param  Model $model
      * @return array
      */
     protected function recurseModel(Model $model)
@@ -169,7 +169,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
         if ($values instanceof Traversable) {
             $values = ArrayUtils::iteratorToArray($values);
         }
-        
+
         if (!$model->hasChildren()) {
             return $values;
         }

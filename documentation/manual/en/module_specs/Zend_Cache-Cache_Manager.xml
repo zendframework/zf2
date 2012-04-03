@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.cache.manager"><info><title>The Cache Manager</title></info>
-    
+
 
     <para>
         It's the nature of applications to require a multitude of caches of any

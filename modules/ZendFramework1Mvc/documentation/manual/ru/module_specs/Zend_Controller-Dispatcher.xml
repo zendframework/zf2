@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.dispatcher"><info><title>Диспетчер</title></info>
-    
+
 
     <section xml:id="zend.controller.dispatcher.overview"><info><title>Обзор</title></info>
-        
+
 
         <para>
             Диспетчеризация — это процесс принятия объекта запроса
@@ -22,7 +22,7 @@
         </para>
 
         <note><info><title>Модуль, используемый по умолчанию</title></info>
-            
+
 
             <para>
                 При создании приложения, состоящего из модулей, вы можете
@@ -100,7 +100,7 @@ public function bazAction()
     </section>
 
     <section xml:id="zend.controller.dispatcher.subclassing"><info><title>Создание подклассов диспетчера</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Front</classname> сначала вызывает

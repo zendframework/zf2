@@ -74,7 +74,7 @@ class Cookie extends ArrayObject implements HeaderDescription
         }
 
         $header->exchangeArray($arrayInfo);
-        
+
         return $header;
     }
 
@@ -109,7 +109,7 @@ class Cookie extends ArrayObject implements HeaderDescription
 
         return implode('; ', $nvPairs);
     }
-    
+
     public function toString()
     {
         return 'Cookie: ' . $this->getFieldValue();

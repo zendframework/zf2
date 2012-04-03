@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.introduction"><info><title>介绍</title></info>
-    
+
     <para>
         <code>Zend_Feed</code>提供了处理的 RSS 和 Atom Feed的功能。它提供了一套自然的方法用于
         访问Feed元素、属性、和条目属性。 除此之外<code>Zend_Feed</code>还扩展提供了同样简单的方法
@@ -16,14 +16,14 @@
     </para>
 
     <note><info><title>Be aware</title></info>
-        
+
         <para>
         许多RSS中的channel和item属性是不同的。RSS的规范中提供了许多可选的属性，因此在编写RSS相关应用代码时要充分考虑这点。
         </para>
     </note>
 
     <example><info><title>用Zend_Feed来处理RSS Feed数据</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 <?php
 require_once 'Zend/Feed.php';

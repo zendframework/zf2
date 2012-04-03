@@ -287,7 +287,7 @@
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="module_specs/Zend_Loader-Autoloader-Resource.xml" parse="xml"/>
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="module_specs/Zend_Loader-PluginLoader.xml" parse="xml"/>
     </chapter>
-    
+
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ref/requirements.xml" parse="xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="ref/coding_standard.xml" parse="xml"/>
 

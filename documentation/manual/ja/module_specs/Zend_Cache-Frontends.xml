@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.frontends"><info><title><classname>Zend_Cache</classname> のフロントエンド</title></info>
-    
+
 
     <section xml:id="zend.cache.frontends.core"><info><title>Zend_Cache_Core</title></info>
-        
+
         <section xml:id="zend.cache.frontends.core.introduction"><info><title>導入</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Core</classname> は特別なフロントエンドであり、
                 モジュールのコアに含まれています。これはキャッシュフロントエンドの
@@ -19,12 +19,12 @@
             </para></note>
         </section>
         <section xml:id="zend.cache.frontends.core.options"><info><title>使用可能なオプション</title></info>
-            
+
             <para>
                 これらのオプションを、先の例で示したようにファクトリメソッドに渡します。
             </para>
             <table xml:id="zend.cache.frontends.core.options.table"><info><title>Core フロントエンドのオプション</title></info>
-                
+
                 <tgroup cols="4">
                      <thead>
                           <row>
@@ -129,7 +129,7 @@
         </section>
 
         <section xml:id="zend.cache.core.examples"><info><title>例</title></info>
-            
+
             <para>
                 マニュアルのいちばんはじめのほうに、例を示しています。
             </para>
@@ -242,9 +242,9 @@ if (!($cache->test($id))) {
     </section>
 
     <section xml:id="zend.cache.frontends.output"><info><title>Zend_Cache_Frontend_Output</title></info>
-        
+
         <section xml:id="zend.cache.frontends.output.introduction"><info><title>導入</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Frontend_Output</classname> は、出力を横取りするフロントエンドです。
                 これは <acronym>PHP</acronym> の出力バッファリング処理を使いやすくしたもので、
@@ -253,7 +253,7 @@ if (!($cache->test($id))) {
             </para>
         </section>
         <section xml:id="zend.cache.frontends.output.options"><info><title>使用可能なオプション</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Core</classname> のオプション以外に、
                 このフロントエンドが独自に使用するオプションはありません。
@@ -261,7 +261,7 @@ if (!($cache->test($id))) {
         </section>
 
         <section xml:id="zend.cache.frontends.output.examples"><info><title>例</title></info>
-            
+
             <para>
                 このマニュアルの冒頭に示した例とほとんど同じですが、少しだけ変更を加えています。
             </para>
@@ -287,9 +287,9 @@ echo 'これはキャッシュされません ('.time().').';
     </section>
 
     <section xml:id="zend.cache.frontends.function"><info><title>Zend_Cache_Frontend_Function</title></info>
-        
+
         <section xml:id="zend.cache.frontends.function.introduction"><info><title>導入</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Frontend_Function</classname> は、関数コールの結果をキャッシュします。
                 <methodname>call()</methodname> というメソッドを保持しており、
@@ -297,9 +297,9 @@ echo 'これはキャッシュされません ('.time().').';
             </para>
         </section>
         <section xml:id="zend.cache.frontends.function.options"><info><title>使用可能なオプション</title></info>
-            
+
             <table xml:id="zend.cache.frontends.function.options.table"><info><title>Function フロントエンドのオプション</title></info>
-                
+
                 <tgroup cols="4">
                      <thead>
                           <row>
@@ -340,7 +340,7 @@ echo 'これはキャッシュされません ('.time().').';
         </section>
 
         <section xml:id="zend.cache.frontends.function.examples"><info><title>例</title></info>
-            
+
             <para>
                 <methodname>call()</methodname> 関数の使用法は、<acronym>PHP</acronym> の
                 <methodname>call_user_func_array()</methodname> と同じです。
@@ -366,18 +366,18 @@ $cache->call('veryExpensiveFunc', $params);
     </section>
 
     <section xml:id="zend.cache.frontends.class"><info><title>Zend_Cache_Frontend_Class</title></info>
-        
+
         <section xml:id="zend.cache.frontends.class.introduction"><info><title>導入</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Frontend_Class</classname> は、<classname>Zend_Cache_Frontend_Function</classname>
                 と異なり、オブジェクトおよびスタティックメソッドのコールをキャッシュします。
             </para>
         </section>
         <section xml:id="zend.cache.frontends.class.options"><info><title>使用可能なオプション</title></info>
-            
+
             <table xml:id="zend.cache.frontends.class.options.table"><info><title>Class フロントエンドのオプション</title></info>
-                
+
                 <tgroup cols="4">
                      <thead>
                           <row>
@@ -427,7 +427,7 @@ $cache->call('veryExpensiveFunc', $params);
         </section>
 
         <section xml:id="zend.cache.frontends.class.examples"><info><title>例</title></info>
-            
+
             <para>
                 例えば、スタティックメソッドのコールをキャッシュするには次のようにします。
             </para>
@@ -480,9 +480,9 @@ $result = $cache->foobar2('1', '2');
     </section>
 
     <section xml:id="zend.cache.frontends.file"><info><title>Zend_Cache_Frontend_File</title></info>
-        
+
         <section xml:id="zend.cache.frontends.file.introduction"><info><title>導入</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Frontend_File</classname> は、マスタファイルの
                 「更新時刻」にもとづいて動作するフロントエンドです。
@@ -500,9 +500,9 @@ $result = $cache->foobar2('1', '2');
             </para>
         </section>
         <section xml:id="zend.cache.frontends.file.options"><info><title>使用可能なオプション</title></info>
-            
+
             <table xml:id="zend.cache.frontends.file.options.table"><info><title>File フロントエンドのオプション</title></info>
-                
+
                 <tgroup cols="4">
                      <thead>
                           <row>
@@ -556,7 +556,7 @@ $result = $cache->foobar2('1', '2');
               </table>
         </section>
         <section xml:id="zend.cache.frontends.file.examples"><info><title>例</title></info>
-            
+
             <para>
                 このフロントエンドの使用法は <classname>Zend_Cache_Core</classname> と同じです。
                 そのため、特に例は用意していません。唯一しなければならないことは、
@@ -567,9 +567,9 @@ $result = $cache->foobar2('1', '2');
     </section>
 
     <section xml:id="zend.cache.frontends.page"><info><title>Zend_Cache_Frontend_Page</title></info>
-        
+
         <section xml:id="zend.cache.frontends.page.introduction"><info><title>導入</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Frontend_Page</classname> は <classname>Zend_Cache_Frontend_Output</classname>
                 と似ていますが、ページ全体をキャッシュする目的で設計されています。
@@ -607,9 +607,9 @@ $result = $cache->foobar2('1', '2');
             </note>
         </section>
         <section xml:id="zend.cache.frontends.page.options"><info><title>使用可能なオプション</title></info>
-            
+
             <table xml:id="zend.cache.frontends.page.options.table"><info><title>Page フロントエンドのオプション</title></info>
-                
+
                 <tgroup cols="4">
                      <thead>
                           <row>
@@ -760,7 +760,7 @@ $result = $cache->foobar2('1', '2');
               </table>
         </section>
         <section xml:id="zend.cache.frontends.page.examples"><info><title>例</title></info>
-            
+
             <para>
                 <classname>Zend_Cache_Frontend_Page</classname> の使用法は、きわめて簡単です。
             </para>
@@ -827,7 +827,7 @@ $cache->start();
 ]]></programlisting>
         </section>
         <section xml:id="zend.cache.frontends.page.cancel"><info><title>キャンセル用のメソッド</title></info>
-            
+
             <para>
                 設計上の理由から、場合によっては (<acronym>HTTP</acronym> 200 以外のコードを使用する場合など)
                 現在のキャッシュ処理をキャンセルする必要が生じることもあります。
@@ -851,10 +851,10 @@ if ($someTest) {
     </section>
 
     <section xml:id="zend.cache.frontends.capture"><info><title>Zend_Cache_Frontend_Capture</title></info>
-        
+
 
         <section xml:id="zend.cache.frontends.capture.introduction"><info><title>Introduction</title></info>
-            
+
 
             <para>
                 <classname>Zend_Cache_Frontend_Capture</classname> is like

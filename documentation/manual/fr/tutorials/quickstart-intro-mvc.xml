@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.intro"><info><title>Zend Framework &amp; Introduction MVC</title></info>
-    
+
 
     <section xml:id="learning.quickstart.intro.zf"><info><title>Zend Framework</title></info>
-        
+
 
         <para>
             Zend Framework est un cadre de travail open source orienté objets pour des applications
@@ -45,7 +45,7 @@
     </section>
 
     <section xml:id="learning.quickstart.intro.mvc"><info><title>Model-View-Controller</title></info>
-        
+
 
         <para>
             Qu'est ce que <acronym>MVC</acronym> dont tout le monde parle et pourquoi se pencher
@@ -63,7 +63,7 @@
         </para>
 
         <note><info><title>Plus d'informations</title></info>
-            
+
 
             <para>
                 Cassons le pattern pour voir les pièces individuellement :

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins.standard.errorhandler"><info><title>Zend_Controller_Plugin_ErrorHandler</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Plugin_ErrorHandler</classname>
@@ -94,7 +94,7 @@
     </para>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.fourohfour"><info><title>404 ハンドラとしての ErrorHandler の使用</title></info>
-        
+
 
         <para>
             <emphasis>ErrorHandler</emphasis> プラグインが捕捉するのは、
@@ -230,7 +230,7 @@ public function errorAction()
     </section>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.buffer"><info><title>前回のレンダリング結果の扱い</title></info>
-        
+
 
         <para>
             ひとつのリクエストで複数のアクションにディスパッチする場合、
@@ -253,10 +253,10 @@ $this->getResponse()->clearBody();
     </section>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.examples"><info><title>プラグインの使用例</title></info>
-        
+
 
         <example xml:id="zend.controller.plugins.standard.errorhandler.examples.example-1"><info><title>標準的な使用法</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $front = Zend_Controller_Front::getInstance();
@@ -265,7 +265,7 @@ $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler());
         </example>
 
         <example xml:id="zend.controller.plugins.standard.errorhandler.examples.example-2"><info><title>別のエラーハンドラの設定</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $front = Zend_Controller_Front::getInstance();
@@ -278,7 +278,7 @@ $front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array(
         </example>
 
         <example xml:id="zend.controller.plugins.standard.errorhandler.examples.example-3"><info><title>アクセス用メソッドの使用</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $plugin = new Zend_Controller_Plugin_ErrorHandler();
@@ -293,7 +293,7 @@ $front->registerPlugin($plugin);
     </section>
 
     <section xml:id="zend.controller.plugins.standard.errorhandler.controllerexamples"><info><title>エラーコントローラの例</title></info>
-        
+
 
         <para>
             エラーハンドラプラグインを使用するには、

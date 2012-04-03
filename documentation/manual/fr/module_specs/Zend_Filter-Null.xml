@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.null"><info><title>Null</title></info>
-    
+
 
     <para>
         Ce filtre retournera la valeur <constant>NULL</constant> si des critères précis sont rencontrés.
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.filter.set.null.default"><info><title>Comportement par défaut de Zend_Filter_Null</title></info>
-        
+
 
         <para>
             Par défaut, ce filtre fonctionne comme la fonction <acronym>PHP</acronym>
@@ -37,7 +37,7 @@ $result = $filter->filter($value);
     </section>
 
     <section xml:id="zend.filter.set.null.types"><info><title>Changer le comportement de Zend_Filter_Null</title></info>
-        
+
 
         <para>
             Quelques fois ça ne suffit pas de filtrer en se basant sur <methodname>empty()</methodname>. Ainsi,

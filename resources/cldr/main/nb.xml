@@ -1071,7 +1071,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d.</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d.</dateFormatItem>
@@ -1449,7 +1449,7 @@
 				</fields>
 			</calendar>
 			<calendar type="islamic">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d. MMMM y G</pattern>
@@ -1471,7 +1471,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d.</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d.</dateFormatItem>
@@ -1503,7 +1503,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d. MMMM y G</pattern>
@@ -1525,7 +1525,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d.</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d.</dateFormatItem>
@@ -1557,7 +1557,7 @@
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="roc">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE d. MMMM y G</pattern>
@@ -1579,7 +1579,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d.</dateFormatItem>
 						<dateFormatItem id="EEEd">EEE d.</dateFormatItem>
@@ -1762,7 +1762,7 @@
 			<zone type="Europe/Warsaw">
 				<exemplarCity>Warszawa</exemplarCity>
 			</zone>
-			
+
 			<zone type="Atlantic/Azores">
 				<exemplarCity>Azorene</exemplarCity>
 			</zone>

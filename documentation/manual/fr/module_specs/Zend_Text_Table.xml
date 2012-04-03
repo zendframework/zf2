@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.text.table.introduction"><info><title>Zend_Text_Table</title></info>
-    
+
 
     <para>
         <classname>Zend_Text_Table</classname> est un composant pour créer à la volée des
@@ -12,7 +12,7 @@
     </para>
 
     <note><info><title>Encodage</title></info>
-        
+
 
         <para>
             <classname>Zend_Text_Table</classname> suppose que vos chaînes sont encodés en
@@ -127,7 +127,7 @@
     </para>
 
     <example xml:id="zend.text.table.example.using"><info><title>Utilisation de Zend_Text_Table</title></info>
-        
+
 
         <para>
             Cet exemple illustre un utilisation basique de

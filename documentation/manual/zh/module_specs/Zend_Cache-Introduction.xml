@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.introduction"><info><title>简介</title></info>
-    
+
     <para>
         <code>Zend_Cache</code> 提供了一个缓存任何数据的一般方法.
     </para>
@@ -13,7 +13,7 @@
         <code>Output</code>, <code>File</code>, <code>Function</code> 和 <code>Class</code>.
     </para>
     <example xml:id="zend.cache.introduction.example-1"><info><title>调用 <code>Zend_Cache::factory()</code>取得一个前端</title></info>
-        
+
         <para>
             <code>Zend_Cache::factory()</code> 实例化正确的对象并把他们捆绑到一起.
             在这第一个例子中我们将把 <code>Core</code> 前端和 <code>File</code> 后端一起使用.
@@ -38,14 +38,14 @@ $cache = Zend_Cache::factory('Core',
     </example>
 
     <note><info><title>由多个字组成的前端和后端</title></info>
-        
+
         <para>
             一些前端和后端使用多个字命名,例如'ZendPlatform'.当指定给工厂时,使用字分隔符,比如空格(' '),连字符('-'),或则点('.').
         </para>
     </note>
 
     <example xml:id="zend.cache.introduction.example-2"><info><title>Caching a database query result</title></info>
-        
+
 
         <para>
             现在有了一个前端,可用缓存任何类型的数据了(开了序列化'serialization').例如,能够缓存从昂贵的数据库查询中缓存一个结果.结果被缓存后,不再需要连接到数据库;数据直接在缓存中取回和反序列化.
@@ -78,7 +78,7 @@ print_r($result);
             ]]></programlisting>
     </example>
     <example xml:id="zend.cache.introduction.example-3"><info><title>用<code>Zend_Cache</code> 输出前端缓存输出</title></info>
-        
+
         <para>
         通过加入条件逻辑,我们'mark up'(标记)那些希望缓存输出的段(sections),在<code>start()</code> 和 <code>end()</code>方法间封装这些section(这类似第一个例子,并且是缓存的核心策略).
         </para><para>

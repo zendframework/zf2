@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.custom"><info><title>カスタム・ページ・タイプの作成</title></info>
-    
+
 
     <para>
         <classname>Zend_Navigation_Page</classname>を拡張するとき、
@@ -21,7 +21,7 @@
     </para>
 
     <example xml:id="zend.navigation.custom.example.simple"><info><title>もっとも単純なカスタム・ページ</title></info>
-        
+
 
         <para>
             カスタム・ページ・クラスで実装する必要がある唯一のものは、
@@ -40,7 +40,7 @@ class My_Simple_Page extends Zend_Navigation_Page
     </example>
 
     <example xml:id="zend.navigation.custom.example.properties"><info><title>プロパティ付のカスタム・ページ</title></info>
-        
+
 
         <para>
             拡張したページにプロパティを追加するとき、

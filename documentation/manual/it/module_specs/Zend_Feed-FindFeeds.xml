@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.findFeeds"><info><title>Individuazione e recupero di feed da pagine web</title></info>
-    
+
     <para>
         Le pagine web spesso contengono un tag <code>&lt;link&gt;</code> con riferimento ai feed con contenuti rilevanti per quella particolare pagina.
         <code>Zend_Feed</code> consente di recuperare tutti i feed indicati in una pagina web chiamando semplicemente un metodo:

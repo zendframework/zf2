@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.importing"><info><title>Feeds importeren met Zend_Feed</title></info>
-    
+
     <para>
         <code>Zend_Feed</code> laat ontwikkelaars toe heel gemakkelijk feeds te verkrijgen. Indien je de URI
         van een feed kent, gebruik dan eenvoudigweg de <code>Zend_Feed::import()</code> methode:

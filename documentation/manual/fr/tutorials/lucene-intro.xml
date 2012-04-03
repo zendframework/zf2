@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.lucene.intro"><info><title>Introduction à Zend_Search_Lucene</title></info>
-    
+
     <para>
         Le composant <classname>Zend_Search_Lucene</classname> est prévu pour fournir une
         solution de recherche full-text prête à l'emploi. Il ne nécessite aucunes extensions
@@ -41,7 +41,7 @@
         créez votre propre analyseur si vous avez besoin de changer ce comportement.
     </para>
     <note><info><title>Utilisation des analyseurs durant l'indexation et la recherche</title></info>
-        
+
         <para>
             Note importante !  Les requêtes de recherches sont aussi segmentées en utilisant
             "l'analyseur courant", ainsi le même analyseur doit être défini par défaut durant

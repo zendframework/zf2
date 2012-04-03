@@ -46,7 +46,7 @@ TODO
 
 - Scoped Containers:
 
-  Described here: 
+  Described here:
   http://picocontainer.org/scopes.html
 
   This is something that should be explored when we start using these containers
@@ -54,7 +54,7 @@ TODO
   garbage collection in Java (something we need not worry with in PHP since there
   is no persistent in-memory objects), the interesting use case would be having a
   container cloned from another container that has more or less (a subset) of the
-  definitions available to the Container's newInstance() and get() facilities.  
+  definitions available to the Container's newInstance() and get() facilities.
 
 - Better Strategy Management
 
@@ -99,5 +99,5 @@ TODO
   we'll have to do this on large scan bases.
 
   Benchmark compiler: reflection vs. code scanner
-  
-  
+
+

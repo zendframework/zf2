@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.plugins.conclusion"><info><title>Conclusion</title></info>
-    
+
 
     <para>
         Comprendre le concept des plugins et des chemins de préfixes aide à la compréhension du
@@ -47,7 +47,7 @@
     </para>
 
     <note><info><title>Remarque</title></info>
-        
+
 
         <para>
             Notons que <classname>Zend_Controller_Front</classname> propose un système de plugin

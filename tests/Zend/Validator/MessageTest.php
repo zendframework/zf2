@@ -264,16 +264,16 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $messages = $this->_validator->getMessages();
         $this->assertEquals('variables: %notvar% 4 8 ', current($messages));
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -282,16 +282,16 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

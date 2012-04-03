@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.memory-manager"><info><title>Memory Manager</title></info>
-    
+
 
     <section xml:id="zend.memory.memory-manager.creation"><info><title>Creating a Memory Manager</title></info>
-        
+
 
         <para>
             You can create new a memory manager
@@ -57,7 +57,7 @@ $memoryManager = Zend_Memory::factory('None');
     </section>
 
     <section xml:id="zend.memory.memory-manager.objects-management"><info><title>Managing Memory Objects</title></info>
-        
+
 
         <para>
             This section describes creating and destroying objects in the
@@ -65,7 +65,7 @@ $memoryManager = Zend_Memory::factory('None');
         </para>
 
         <section xml:id="zend.memory.memory-manager.objects-management.movable"><info><title>Creating Movable Objects</title></info>
-            
+
 
             <para>
                 Create movable objects (objects, which may be swapped) using
@@ -84,7 +84,7 @@ $memObject = $memoryManager->create($data);
         </section>
 
         <section xml:id="zend.memory.memory-manager.objects-management.locked"><info><title>Creating Locked Objects</title></info>
-            
+
 
             <para>
                 Create locked objects (objects, which are not swapped) using
@@ -103,7 +103,7 @@ $memObject = $memoryManager->createLocked($data);
         </section>
 
         <section xml:id="zend.memory.memory-manager.objects-management.destruction"><info><title>Destroying Objects</title></info>
-            
+
 
             <para>
                 Memory objects are automatically destroyed and removed from
@@ -143,10 +143,10 @@ function foo()
     </section>
 
     <section xml:id="zend.memory.memory-manager.settings"><info><title>Memory Manager Settings</title></info>
-        
+
 
         <section xml:id="zend.memory.memory-manager.settings.memory-limit"><info><title>Memory Limit</title></info>
-            
+
 
             <para>
                 Memory limit is a number of bytes allowed to be used by loaded
@@ -182,7 +182,7 @@ $memoryManager->setMemoryLimit($newLimit);     // Set memory limit in bytes
         </section>
 
         <section xml:id="zend.memory.memory-manager.settings.min-size"><info><title>MinSize</title></info>
-            
+
 
             <para>
                 MinSize is a minimal size of memory objects, which may be

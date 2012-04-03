@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.queue.example"><info><title>Примеры использования</title></info>
-    
+
 
     <para>
         The below example of <classname>Zend_Queue</classname> shows a variety of
         features, including queue creation, queue retrieval, message retrieval,
         message deletion, and sending messages.
-		
-		Приведённый ниже пример показывает варианты использования 
-		<classname>Zend_Queue</classname>: создание очереди сообщений, 
+
+		Приведённый ниже пример показывает варианты использования
+		<classname>Zend_Queue</classname>: создание очереди сообщений,
 		получение, отправку и удаление сообщений.
     </para>
 

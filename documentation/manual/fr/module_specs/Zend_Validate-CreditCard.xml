@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.creditcard"><info><title>CreditCard</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_CreditCard</classname> permet de valider si une valeur est susceptible
@@ -84,7 +84,7 @@
     </itemizedlist>
 
     <note><info><title>Institutions non valides</title></info>
-        
+
 
         <para>
             <emphasis>Bankcard</emphasis> et <emphasis>Diners Club
@@ -98,7 +98,7 @@
     </note>
 
     <section xml:id="zend.validate.set.creditcard.options"><info><title>Options supportées par  Zend_Validate_CreditCard</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par
@@ -124,7 +124,7 @@
     </section>
 
     <section xml:id="zend.validate.set.creditcard.basic"><info><title>Utilisation classique</title></info>
-        
+
 
         <para>
             Il y a plusieurs institutions qui peuvent être validées par
@@ -147,7 +147,7 @@ if ($valid->isValid($input)) {
     </section>
 
     <section xml:id="zend.validate.set.creditcard.institute"><info><title>Accepter seulement certains types de cartes</title></info>
-        
+
 
         <para>
             Il peut arriver que vous ne vouliez valider que certains types de cartes plutôt que
@@ -194,7 +194,7 @@ $valid = new Zend_Validate_CreditCard(array(
 ]]></programlisting>
 
         <table xml:id="zend.validate.set.creditcard.institute.table"><info><title>Constante représentant les institutions</title></info>
-            
+
             <tgroup cols="5">
                 <thead>
                     <row>
@@ -288,7 +288,7 @@ $valid->setType(array(
 ]]></programlisting>
 
         <note><info><title>Institution par défaut</title></info>
-            
+
 
             <para>
                 Si vous ne précisez pas d'institution à la construction, alors <constant>ALL</constant>
@@ -302,7 +302,7 @@ $valid->setType(array(
     </section>
 
     <section xml:id="zend.validate.set.creditcard.servicecheck"><info><title>Validation par fonction de rappel</title></info>
-        
+
 
         <para>
             Comme déja dit, <classname>Zend_Validate_CreditCard</classname> ne valide que le numéro

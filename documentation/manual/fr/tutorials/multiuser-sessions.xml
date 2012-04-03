@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.multiuser.sessions"><info><title>Gérer les sessions dans ZF</title></info>
-    
+
 
     <section xml:id="learning.multiuser.sessions.intro"><info><title>Introduction aux sessions</title></info>
-        
+
 
         <para>
             Le succès du web est en grande partie dûe aux protocoles qui le supportent: HTTP. HTTP sur
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="learning.multiuser.sessions.basic-usage"><info><title>Utilisation classique de Zend_Session</title></info>
-        
+
 
         <para>
             Le composant Zend_Session est un gestionnaire de session et une API pour stocker des données
@@ -96,7 +96,7 @@ if ($mysession->counter > 1999) {
     </section>
 
     <section xml:id="learning.multiuser.sessions.advanced-usage"><info><title>Utilisation avancée de Zend_Session</title></info>
-        
+
 
         <para>
             Si vous voulez utiliser le gestionnaire de sauvegarde des sessions "DbTable", vous

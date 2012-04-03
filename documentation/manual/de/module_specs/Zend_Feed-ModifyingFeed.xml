@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.modifying-feed"><info><title>Verändern der Feed- und Eintragsstruktur</title></info>
-    
+
 
     <para>
         Die natürliche Syntax von <classname>Zend_Feed</classname> wurde für das Erstellen und
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.feed.modifying-feed.example.modifying"><info><title>Verändern eines bestehenden Feed Eintrags</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $feed = new Zend_Feed_Atom('http://atom.example.com/feed/1');
@@ -47,7 +47,7 @@ echo $entry->saveXML();
     </para>
 
     <example xml:id="zend.feed.modifying-feed.example.creating"><info><title>Erstellen eines Atom Eintrags mit Elementen eines eigenen Namensraumes</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $entry = new Zend_Feed_Entry_Atom();

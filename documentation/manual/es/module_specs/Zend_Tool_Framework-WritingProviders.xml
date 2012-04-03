@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.writing-providers"><info><title>Creando Proveedores para usar con Zend_Tool_Framework</title></info>
-    
+
     <para> In general, a provider, on its own, is nothing more than the shell
         for a developer to bundle up some capabilities they wish to dispatch
         with the command line (or other) clients. It is an analogue to what a
         "controller" is inside of your <acronym>MVC</acronym> application. </para>
 
     <section xml:id="zend.tool.framework.writing-providers.loading"><info><title>How Zend Tool finds your Providers</title></info>
-        
+
 
         <para> By default Zend Tool uses the IncludePathLoader to find all the
             providers that you can run. It recursivly iterates all include path
@@ -54,7 +54,7 @@
         </note>
 
         <example xml:id="zend.tool.framework.writing-providers.loading.example"><info><title>Exposing Your Providers with a Manifest</title></info>
-            
+
 
             <para> You can expose your providers to Zend Tool by offering a
                 manifest with a special filename ending with "Manifest.php". A
@@ -83,7 +83,7 @@ class My_Component_Manifest
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.basic"><info><title>Basic Instructions for Creating Providers</title></info>
-        
+
 
         <para> As an example, if a developer wants to add the capability of
             showing the version of a datafile that his 3rd party component is
@@ -119,7 +119,7 @@ Hello from my provider!
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.response"><info><title>The response object</title></info>
-        
+
 
         <para> As discussed in the architecture section Zend Tool allows to hook
             different clients for using your Zend Tool providers. To keep
@@ -148,10 +148,10 @@ class My_Component_HelloProvider
     </section>
 
     <section xml:id="zend.tool.framework.writing-providers.advanced"><info><title>Advanced Development Information</title></info>
-        
+
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.variables"><info><title>Passing Variables to a Provider</title></info>
-            
+
 
             <para> The above "Hello World" example is great for simple commands,
                 but what about something more advanced? As your scripting and
@@ -189,7 +189,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.prompt"><info><title>Prompt the User for Input</title></info>
-            
+
 
             <para> There are cases when the workflow of your provider requires
                 to prompt the user for input. This can be done by requesting the
@@ -218,7 +218,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.pretendable"><info><title>Pretending to execute a Provider Action</title></info>
-            
+
 
             <para> Another interesting feature you might wish to implement is
                     <emphasis>pretendability</emphasis> . Pretendabilty is the
@@ -261,7 +261,7 @@ I would say hello Ralph.
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.verbosedebug"><info><title>Verbose and Debug modes</title></info>
-            
+
 
             <para> You can also run your provider actions in "verbose" or
                 "debug" modes. The semantics in regard to this actions have to
@@ -286,7 +286,7 @@ class My_Component_HelloProvider
         </section>
 
         <section xml:id="zend.tool.framework.writing-providers.advanced.configstorage"><info><title>Accessing User Config and Storage</title></info>
-            
+
 
             <para> Using the Enviroment variable
                     <property>ZF_CONFIG_FILE</property> or the .zf.ini in your

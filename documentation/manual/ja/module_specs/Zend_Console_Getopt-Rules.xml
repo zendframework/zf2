@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.console.getopt.rules"><info><title>Getopt の規則の宣言</title></info>
-    
+
     <para>
         <classname>Zend_Console_Getopt</classname> クラスのコンストラクタは、
         ひとつから三つの引数を指定します。最初の引数では、
@@ -23,7 +23,7 @@
     </para>
 
     <section xml:id="zend.console.getopt.rules.short"><info><title>短い形式のオプションの宣言</title></info>
-        
+
         <para>
             <classname>Zend_Console_Getopt</classname> は、<acronym>GNU</acronym> Getopt
             と似た形式のコンパクトな構文をサポートしています
@@ -36,7 +36,7 @@
             そのフラグがパラメータを要求することを表します。
         </para>
         <example xml:id="zend.console.getopt.rules.short.example"><info><title>短い形式の構文の使用</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
 ]]></programlisting>
@@ -54,7 +54,7 @@ $opts = new Zend_Console_Getopt('abp:');
     </section>
 
     <section xml:id="zend.console.getopt.rules.long"><info><title>長い形式のオプションの宣言</title></info>
-        
+
         <para>
             より高機能な別の構文もサポートしています。この構文では、
             フラグにエイリアスを設定したりオプションパラメータの型を指定したり、
@@ -97,7 +97,7 @@ $opts = new Zend_Console_Getopt('abp:');
             ユーザに対してプログラムの使用法を説明するものです。
         </para>
         <example xml:id="zend.console.getopt.rules.long.example"><info><title>長い形式の構文の使用</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt(
   array(

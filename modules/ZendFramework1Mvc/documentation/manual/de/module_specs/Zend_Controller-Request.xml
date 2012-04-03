@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.request"><info><title>Das Request Objekt</title></info>
-    
+
 
     <section xml:id="zend.controller.request.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             Das Request Objekt ist eine einfaches Wertobjekt, das zwischen
@@ -72,10 +72,10 @@
     </section>
 
     <section xml:id="zend.controller.request.http"><info><title>HTTP Anfragen</title></info>
-        
+
 
         <section xml:id="zend.controller.request.http.dataacess"><info><title>Auf Request Daten zugreifen</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> kapselt den Zugriff auf
@@ -90,7 +90,7 @@
             </para>
 
             <note><info><title>Superglobale Daten</title></info>
-                
+
 
                 <para>
                     Beim Zugriff auf superglobale Daten über die öffentlichen Eigenschaften von
@@ -114,7 +114,7 @@
             </para>
 
             <note><info><title>GET und POST Daten</title></info>
-                
+
 
                 <para>
                     Vorsicht wenn auf Daten von einem Anfrage Objekt zugegriffen wird da diese in
@@ -125,7 +125,7 @@
             </note>
 
             <note><info><title>Empfangen der rohen POST Daten!</title></info>
-                
+
 
                 <para>
                     Mit 1.5.0 können auch die rohen Post Daten über die
@@ -149,7 +149,7 @@
             </para>
 
             <note><info><title>getParam() empfängt mehr als Benutzer Parameter</title></info>
-                
+
 
                 <para>
                     Um einiges Ihrer Arbeit zu tun, empfängt <methodname>getParam()</methodname>
@@ -176,7 +176,7 @@
             </note>
 
             <note><info><title>Apache Quirks</title></info>
-                
+
 
                 <para>
                     Wenn Apache's 404 Handler verwendet wird um eingehende Anfragen an den Front
@@ -202,7 +202,7 @@ $front->setRequest($request);
         </section>
 
         <section xml:id="zend.controller.request.http.baseurl"><info><title>Basis Url und Unterverzeichnisse</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> erlaubt, dass
@@ -224,7 +224,7 @@ $front->setRequest($request);
             </para>
 
             <note><info><title>URL Erkennung beachtet Groß- und Kleinschreibung</title></info>
-                
+
 
                 <para>
                     Die automatische Erkennung der Basis <acronym>URL</acronym> beachtet die Groß-
@@ -258,7 +258,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.method"><info><title>Erkennen der Anfrage Methode</title></info>
-            
+
 
             <para>
                 <methodname>getMethod()</methodname> erlaubt es die <acronym>HTTP</acronym> Anfrage
@@ -283,7 +283,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.ajax"><info><title>Erkennen von AJAX Anfragen</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> hat eine rudimentäre Methode für
@@ -322,7 +322,7 @@ $response   = $controller->dispatch();
     </section>
 
     <section xml:id="zend.controller.request.subclassing"><info><title>Vererben des Anfrage Objektes</title></info>
-        
+
 
         <para>
             Die Basis Anfrage Klasse die für alle Anfrage Objekte verwendet wird ist die abstrakte

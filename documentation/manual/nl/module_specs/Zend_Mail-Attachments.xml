@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.attachments"><info><title>Bijlagen</title></info>
-    
+
     <para>
         Je kan bestanden aan e-mail bijvoegen door de <code>addAttachment()</code> methode te gebruiken. Het
         standaard gedrag van <code>Zend_Mail</code> neemt aan dat de bijlage een binair object is
@@ -9,7 +9,7 @@
         <code>addAttachment()</code> door te geven:
     </para>
     <example><info><title>E-mails met bijlagen</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 <?php
 require_once 'Zend/Mail.php';

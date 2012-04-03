@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.localizedtonormalized"><info><title>LocalizedToNormalized</title></info>
-    
+
 
     <para>
         Dieser Filter ändert jede angegebene lokalisierte Eingabe in seine normalisierte
@@ -75,7 +75,7 @@
     </note>
 
     <section xml:id="zend.filter.set.localizedtonormalized.numbers"><info><title>Normalisierung von Zahlen</title></info>
-        
+
 
         <para>
             Jede angegebene Zahl wie Integer, Float oder Realzahlen können normalisiert werden.
@@ -137,7 +137,7 @@ $filter->filter('123.456,78901');
     </section>
 
     <section xml:id="zend.filter.set.localizedtonormalized.dates"><info><title>Normalisierung für Datum und Zeit</title></info>
-        
+
 
         <para>
             Eingaben für Datum und Zeitwerte können auch normalisiert werden. Alle angegebenen

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.navigation"><info><title>Navigations Helfer</title></info>
-    
+
 
     <para>
         Die Navigations Helfer werden von
@@ -226,7 +226,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.navigation.proxy.example"><info><title>Aufrufe an den Navigations Container weiterleiten</title></info>
-        
+
 
         <para>
             Navigations View Helfer verwenden die magisch <methodname>__call()</methodname> Methode
@@ -247,7 +247,7 @@ $this->navigation()->addPage(array(
     </example>
 
     <section xml:id="zend.view.helpers.initial.navigation.i18n"><info><title>Übersetzung von Labels und Titeln</title></info>
-        
+
 
         <para>
             Der Navigations Helfer unterstützt die Übersetzung von SeitenLabels und Überschriften.
@@ -279,7 +279,7 @@ $this->navigation()->addPage(array(
     </section>
 
     <section xml:id="zend.view.helpers.initial.navigation.acl"><info><title>Integration mit ACL</title></info>
-        
+
 
         <para>
             Alle navigatorischen View Helfer unterstützen <acronym>ACL</acronym> abgeleitet von der
@@ -310,7 +310,7 @@ $this->navigation()->addPage(array(
     </section>
 
     <section xml:id="zend.view.helpers.initial.navigation.setup"><info><title>Setup der Navigation das in Beispielen verwendet wird</title></info>
-        
+
 
         <para>
             Dieses Beispiel zeigt das Setup eines Navigations Container für eine fiktive Software
@@ -567,7 +567,7 @@ Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole('member');
     </section>
 
     <section xml:id="zend.view.helpers.initial.navigation.breadcrumbs"><info><title>Breadcrumbs Helfer</title></info>
-        
+
 
         <para>
             Breadcrumbs werden verwendet um anzuzeigen wo in einer Sitemap ein Benutzer aktuell
@@ -645,7 +645,7 @@ Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole('member');
        </itemizedlist>
 
         <example xml:id="zend.view.helpers.initial.navigation.breadcrumbs.example1"><info><title>Darstellung von Breadcrumbs</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wie Breadcrumbs mit Standardsettings dargestellt werden.
@@ -665,7 +665,7 @@ Ausgabe:
         </example>
 
         <example xml:id="zend.view.helpers.initial.navigation.breadcrumbs.example2"><info><title>Einrückung spezifizieren</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wie Breadcrumbs mit anfänglicher Einrückung dargestellt
@@ -682,7 +682,7 @@ Ausgabe:
         </example>
 
         <example xml:id="zend.view.helpers.initial.navigation.breadcrumbs.example3"><info><title>Eigene Ausgabe für Breakcrumbs</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wie man eine eigene Breadcrumbs Ausgabe durch die
@@ -719,7 +719,7 @@ Nichts, weil die tiefste aktive Seite nicht auf Level 10 oder tiefer ist.
         </example>
 
         <example xml:id="zend.view.helpers.initial.navigation.breadcrumbs.example4"><info><title>Darstellung von Breadcrumbs mit Verwendung eines partiellen View Skripts</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wir eigene Breakcrumbs durch Verwendung eines partiellen
@@ -764,7 +764,7 @@ Produkte, Foo Server, FAQ
     </section>
 
     <section xml:id="zend.view.helpers.initial.navigation.links"><info><title>Link Helfer</title></info>
-        
+
 
         <para>
             Der Link Helfer wird für die Darstellung von <acronym>HTML</acronym>
@@ -1072,7 +1072,7 @@ Produkte, Foo Server, FAQ
         </itemizedlist>
 
         <example xml:id="zend.view.helpers.initial.navigation.links.example1"><info><title>Beziehungen in Seiten spezifizieren</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wir Beziehungen in Seiten spezifiziert werden können.
@@ -1121,7 +1121,7 @@ $container = new Zend_Navigation(array(
         </example>
 
         <example xml:id="zend.view.helpers.initial.navigation.links.example2"><info><title>Standardmäßige Darstellung von Links</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wie ein Menü von einem Container dargestellt wird, der im
@@ -1146,7 +1146,7 @@ Ausgabe:
         </example>
 
         <example xml:id="zend.view.helpers.initial.navigation.links.example3"><info><title>Spezifizieren welche Beziehungen dargestellt werden sollen</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wie spezifiziert werden kann, welche Beziehungen zu finden
@@ -1198,7 +1198,7 @@ Ausgabe:
     </section>
 
     <section xml:id="zend.view.helpers.initial.navigation.menu"><info><title>Menu Helfer</title></info>
-        
+
 
         <para>
             Der Menu Helfer wird für die Darstellung von Menüs aus Navigations Containern
@@ -1351,7 +1351,7 @@ Ausgabe:
        </itemizedlist>
 
         <example xml:id="zend.view.helpers.initial.navigation.menu.example1"><info><title>Darstellung eines Menüs</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wie ein Menü von einem registrierten/im View Helfer
@@ -1436,7 +1436,7 @@ Ausgabe:
         </example>
 
         <example xml:id="zend.view.helpers.initial.navigation.menu.example2"><info><title>renderMenu() direkt aufrufen</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wie ein Menü dargestellt werden kann das nicht im View
@@ -1469,7 +1469,7 @@ Output:
         </example>
 
         <example xml:id="zend.view.helpers.initial.navigation.menu.example3"><info><title>Das tiefste aktive Menü darstellen</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wie <methodname>renderSubMenu()</methodname> das tiefste
@@ -1517,7 +1517,7 @@ Die Ausgabe ist die gleiche wenn 'FAQ' oder 'Foo Server' aktiv sind:
         </example>
 
         <example xml:id="zend.view.helpers.initial.navigation.menu.example4"><info><title>Darstellung eines Menüs mit maximaler Tiefe</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 <?php
@@ -1569,7 +1569,7 @@ Ausgabe:
         </example>
 
         <example xml:id="zend.view.helpers.initial.navigation.menu.example5"><info><title>Darstellung eines Menüs mit minimaler Tiefe</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 <?php
@@ -1630,7 +1630,7 @@ Ausgabe:
         </example>
 
         <example xml:id="zend.view.helpers.initial.navigation.menu.example6"><info><title>Nur den aktiven Branch eines Menüs darstellen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 <?php
@@ -1667,7 +1667,7 @@ Ausgabe:
         <example xml:id="zend.view.helpers.initial.navigation.menu.example7"><info><title>
                 Nur den aktiven Branch eines Menüs mit minimaler Tiefe darstellen
             </title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 <?php
@@ -1700,7 +1700,7 @@ Ausgabe:
         <example xml:id="zend.view.helpers.initial.navigation.menu.example8"><info><title>
                 Nur den aktiven Branch eines Menüs mit maximaler Tiefe darstellen
             </title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 <?php
@@ -1730,7 +1730,7 @@ Ausgabe:
         <example xml:id="zend.view.helpers.initial.navigation.menu.example9"><info><title>
                 Nur den aktiven Branch eines Menüs mit maximaler Tiefe aber ohne Eltern darstellen
             </title></info>
-            
+
 
             <para>
             </para>
@@ -1759,7 +1759,7 @@ Ausgabe:
         <example xml:id="zend.view.helpers.initial.navigation.menu.example10"><info><title>
                 Darstellen eines eigenen Menüs durch Verwendung eines partiellen View Skripts
             </title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wie ein eigenes Menü, durch Verwendung eines partiellen View
@@ -1799,7 +1799,7 @@ foreach ($this->container as $page) {
     </section>
 
     <section xml:id="zend.view.helpers.initial.navigation.sitemap"><info><title>Sitemap Helfer</title></info>
-        
+
 
         <para>
             Der Sitemap Helfer wird für die Erzeugung von <acronym>XML</acronym> Sitemaps verwendet
@@ -1831,7 +1831,7 @@ foreach ($this->container as $page) {
         </para>
 
         <table xml:id="zend.view.helpers.initial.navigation.sitemap.elements"><info><title>Sitemap XML Elemente</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -1987,7 +1987,7 @@ foreach ($this->container as $page) {
        </itemizedlist>
 
         <example xml:id="zend.view.helpers.initial.navigation.sitemap.example"><info><title>Eine XML Sitemap darstellen</title></info>
-            
+
 
             <para>
                 Dieses Beispiel zeigt wie eine <acronym>XML</acronym> Sitemap, basierend auf dem
@@ -2188,7 +2188,7 @@ echo $this->navigation()
         </example>
 
         <note><info><title>Standardmäßig wird die UTF-8 Kodierung verwendet</title></info>
-            
+
 
             <para>
                 Standardmäßig verwendet Zend Framework <acronym>UTF-8</acronym> als seine
@@ -2212,7 +2212,7 @@ echo $this->navigation()
     </section>
 
     <section xml:id="zend.view.helpers.initial.navigation.navigation"><info><title>Navigation Helfer</title></info>
-        
+
 
         <para>
             Der Navigation Helfer ist ein Proxy Helfer der Aufrufe zu anderen Navigations Helfern

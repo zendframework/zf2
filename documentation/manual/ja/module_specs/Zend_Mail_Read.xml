@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.read"><info><title>メールメッセージの読み込み</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> を使用すると、
@@ -12,7 +12,7 @@
     </para>
 
     <table xml:id="zend.mail.read.table-1"><info><title>メール読み込み機能の概要</title></info>
-        
+
         <tgroup cols="5">
             <thead>
                 <row>
@@ -78,7 +78,7 @@
     </table>
 
     <section xml:id="zend.mail.read-example"><info><title>Pop3 によるシンプルな読み込み例</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail_Storage_Pop3(array('host'     => 'localhost',
@@ -93,7 +93,7 @@ foreach ($mail as $message) {
 
     </section>
     <section xml:id="zend.mail.read-open-local"><info><title>ローカルに保存されたメールのオープン</title></info>
-        
+
 
         <para>
             ローカルのメール保存形式としては、Mbox および Maildir
@@ -123,7 +123,7 @@ $mail = new Zend_Mail_Storage_Maildir(array('dirname' =>
 
     </section>
     <section xml:id="zend.mail.read-open-remote"><info><title>リモートに保存されたメールのオープン</title></info>
-        
+
 
         <para>
             リモートの保存形式としては、もっとも有名なふたつである
@@ -181,7 +181,7 @@ $mail = new Zend_Mail_Storage_Pop3(array('host'     => 'example.com',
 
     </section>
     <section xml:id="zend.mail.read-fetching"><info><title>メッセージの取得およびシンプルなメソッド</title></info>
-        
+
 
         <para>
             ストレージをオープンしたら、メッセージを取得できます。
@@ -240,7 +240,7 @@ unset($mail[$messageNum]);
 
     </section>
     <section xml:id="zend.mail.read-message"><info><title>メッセージの操作</title></info>
-        
+
 
         <para><methodname>getMessage()</methodname> でメッセージを取得したら、
         次にしたくなることは、ヘッダの取得やマルチパートメッセージの各パートの取得などでしょう。
@@ -370,7 +370,7 @@ if (!$foundPart) {
 
     </section>
     <section xml:id="zend.mail.read-flags"><info><title>フラグのチェック</title></info>
-        
+
 
         <para>Maildir および IMAP はフラグの保存をサポートしています。
         <classname>Zend_Mail_Storage</classname> クラスには、maildir や IMAP
@@ -436,7 +436,7 @@ if (!$message->hasFlag('$SpamTested')) {
 
     </section>
     <section xml:id="zend.mail.read-folders"><info><title>フォルダの使用法</title></info>
-        
+
 
         <para>
             Pop3 以外のすべての保存形式は、フォルダをサポートしています。
@@ -503,7 +503,7 @@ $mail = new Zend_Mail_Storage_Imap(array('host'     => 'example.com',
         </para>
 
         <table xml:id="zend.mail.read-folders.table-1"><info><title>Mail フォルダの名前</title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>
@@ -581,10 +581,10 @@ $mail->selectFolder($folder);
 
     </section>
     <section xml:id="zend.mail.read-advanced"><info><title>高度な使用法</title></info>
-        
+
 
         <section xml:id="zend.mail.read-advanced.noop"><info><title>NOOP の使用</title></info>
-            
+
 
             <para>
                 リモートの保存形式を使用しており、何らかの事情で接続をずっと保持し続けたい場合は
@@ -606,7 +606,7 @@ foreach ($mail as $message) {
 
         </section>
         <section xml:id="zend.mail.read-advanced.caching"><info><title>インスタンスのキャッシュ</title></info>
-            
+
 
             <para>
             <classname>Zend_Mail_Storage_Mbox</classname>、<classname>Zend_Mail_Storage_Folder_Mbox</classname>、<classname>Zend_Mail_Storage_Maildir</classname>
@@ -645,7 +645,7 @@ $cache->set($cache_id, $mail);
 
         </section>
         <section xml:id="zend.mail.read-advanced.extending"><info><title>プロトコルクラスの拡張</title></info>
-            
+
 
             <para>
                 リモートの保存形式では、ふたつのクラス <classname>Zend_Mail_Storage_&lt;Name&gt;</classname> および
@@ -741,7 +741,7 @@ $mail = new Example_Mail_Pop3_Knock(array('host'        => 'localhost',
 
         </section>
         <section xml:id="zend.mail.read-advanced.quota"><info><title>容量制限の使用 (1.5 以降)</title></info>
-            
+
 
             <para>
             <classname>Zend_Mail_Storage_Writable_Maildir</classname> は Maildir++

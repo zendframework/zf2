@@ -40,8 +40,8 @@ class StaticAdapterTableGateway extends TableGateway
 
     /**
      * Set static adapter
-     * 
-     * @param Adapter $adapter 
+     *
+     * @param Adapter $adapter
      */
     public static function setStaticAdapter(Adapter $adapter)
     {
@@ -54,8 +54,8 @@ class StaticAdapterTableGateway extends TableGateway
     }
     /**
      * Get static adapter
-     * 
-     * @return type 
+     *
+     * @return type
      */
     public static function getStaticAdapter()
     {
@@ -75,10 +75,10 @@ class StaticAdapterTableGateway extends TableGateway
     }
     /**
      * Constructor
-     * 
+     *
      * @param string $tableName
      * @param string $databaseSchema
-     * @param ResultSet $selectResultPrototype 
+     * @param ResultSet $selectResultPrototype
      */
     public function __construct($tableName, $databaseSchema = null, ResultSet $selectResultPrototype = null)
     {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.advanced_usage"><info><title>高度な使用法</title></info>
 
-    
+
 
     <para>
         基本的な使用法の例で Zend Framework のセッションを完全に使用できますが、
@@ -11,7 +11,7 @@
 
     <section xml:id="zend.session.advanced_usage.starting_a_session"><info><title>セッションの開始</title></info>
 
-        
+
 
         <para>
             すべてのリクエストで <classname>Zend_Session</classname> の機能を使用してセッション管理したい場合は、
@@ -20,7 +20,7 @@
 
         <example xml:id="zend.session.advanced_usage.starting_a_session.example"><info><title>グローバルセッションの開始</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 Zend_Session::start();
@@ -137,7 +137,7 @@ php_value session.auto_start 0
 
     <section xml:id="zend.session.advanced_usage.locking"><info><title>セッション名前空間のロック</title></info>
 
-        
+
 
         <para>
             セッション名前空間をロックし、
@@ -160,7 +160,7 @@ php_value session.auto_start 0
 
         <example xml:id="zend.session.advanced_usage.locking.example.basic"><info><title>セッション名前空間のロック</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $userProfileNamespace = new Zend_Session_Namespace('userProfileNamespace');
@@ -180,7 +180,7 @@ if ($userProfileNamespace->isLocked()) {
 
     <section xml:id="zend.session.advanced_usage.expiration"><info><title>名前空間の有効期限</title></info>
 
-        
+
 
         <para>
             名前空間およびその中の個々のキーについて、その寿命を制限できます。
@@ -193,7 +193,7 @@ if ($userProfileNamespace->isLocked()) {
 
         <example xml:id="zend.session.advanced_usage.expiration.example"><info><title>有効期限切れの例</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $s = new Zend_Session_Namespace('expireAll');
@@ -227,7 +227,7 @@ $s->setExpirationSeconds(60);
 
     <section xml:id="zend.session.advanced_usage.controllers"><info><title>コントローラでのセッションのカプセル化</title></info>
 
-        
+
 
         <para>
             名前空間を使用すると、コントローラによるセッションへのアクセスの際に
@@ -238,7 +238,7 @@ $s->setExpirationSeconds(60);
 
         <example xml:id="zend.session.advanced_usage.controllers.example"><info><title>コントローラでの名前空間つきセッションによる有効期限の管理</title></info>
 
-            
+
 
             <para>
                 次のコードは、質問を表示するコントローラの一部です。
@@ -279,7 +279,7 @@ else {
 
     <section xml:id="zend.session.advanced_usage.single_instance"><info><title>名前空間内あたりのインスタンス数をひとつに絞り込む</title></info>
 
-        
+
 
         <para>
             <link linkend="zend.session.advanced_usage.locking">セッションのロック</link>
@@ -296,7 +296,7 @@ else {
 
         <example xml:id="zend.session.advanced_usage.single_instance.example"><info><title>セッション名前空間へのアクセスを単一のインスタンスに制限する</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 // 名前空間のインスタンスを作成します
@@ -342,7 +342,7 @@ try {
 
     <section xml:id="zend.session.advanced_usage.arrays"><info><title>配列の使用</title></info>
 
-        
+
 
         <para>
             <acronym>PHP</acronym> のマジックメソッドの実装上の理由で、バージョン 5.2.1 より前の <acronym>PHP</acronym>
@@ -352,7 +352,7 @@ try {
 
         <example xml:id="zend.session.advanced_usage.arrays.example.modifying"><info><title>セッション名前空間内での配列データの修正</title></info>
 
-            
+
 
             <para>
                 問題の再現手順は、このようになります。
@@ -371,7 +371,7 @@ echo $sessionNamespace->array['testKey'];
 
         <example xml:id="zend.session.advanced_usage.arrays.example.building_prior"><info><title>セッションに保存する前に配列を作成する</title></info>
 
-            
+
 
             <para>
                 可能なら、先に配列のすべての値を設定してからセッションに格納するようにすればこの問題を回避できます。
@@ -392,7 +392,7 @@ $sessionNamespace->array = array('a', 'b', 'c');
 
         <example xml:id="zend.session.advanced_usage.arrays.example.workaround.reassign"><info><title>回避策: 修正した配列を再度代入する</title></info>
 
-            
+
 
             <para>
                 以下のコードでは、保存されている配列のコピーを作成してそれを修正し、
@@ -421,7 +421,7 @@ echo $sessionNamespace->array['fruit']; // prints "peach"
 
         <example xml:id="zend.session.advanced_usage.arrays.example.workaround.reference"><info><title>回避策: 参照を含む配列を格納する</title></info>
 
-            
+
 
             <para>
                 あるいは、実際の配列への参照を含む配列を格納しておき、
@@ -442,7 +442,7 @@ echo $myNamespace->someArray['foo']; // "bar" と表示されます
 
     <section xml:id="zend.session.advanced_usage.objects"><info><title>セッションでのオブジェクトの使用</title></info>
 
-        
+
 
         <para>
             オブジェクトを <acronym>PHP</acronym> セッション内で持続的に使用したい場合は、
@@ -459,7 +459,7 @@ echo $myNamespace->someArray['foo']; // "bar" と表示されます
 
     <section xml:id="zend.session.advanced_usage.testing"><info><title>ユニットテストでのセッションの使用</title></info>
 
-        
+
 
         <para>
             Zend Framework 自体のテストには PHPUnit を使用しています。
@@ -492,7 +492,7 @@ echo $myNamespace->someArray['foo']; // "bar" と表示されます
 
         <example xml:id="zend.session.advanced_usage.testing.example"><info><title>PHPUnit で Zend_Session を使用したコードをテストする例</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 // testing setExpirationSeconds()

@@ -32,8 +32,8 @@ class Invokable implements Helper
 
     /**
      * Invokable functor
-     * 
-     * @param  string $message 
+     *
+     * @param  string $message
      * @return string
      */
     public function __invoke($message)

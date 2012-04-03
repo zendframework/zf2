@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.query-language"><info><title>Langage de requêtes</title></info>
-    
+
     <para>
         Java Lucene et <classname>Zend_Search_Lucene</classname> fournissent des langages de requêtes plutôt puissants.
     </para>
@@ -12,7 +12,7 @@
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://lucene.apache.org/java/2_3_0/queryparsersyntax.html">ici</link>.
     </para>
     <section xml:id="zend.search.lucene.query-language.terms"><info><title>Termes</title></info>
-        
+
         <para>
             Une requête est décomposée en termes et opérateurs. Il y a 3 types de termes : le termes simples, les
             phrases et les sous-requêtes.
@@ -32,7 +32,7 @@
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.fields"><info><title>Champs</title></info>
-        
+
         <para>
             Lucene supporte les champs de données. Lorsque vous effectuez une recherche, vous pouvez soit
             spécifier un champ, soit utiliser le champ par défaut. Le nom du champ dépend des données indexées
@@ -87,7 +87,7 @@ title:Do it right
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.wildcard"><info><title>Jokers (Wildcards)</title></info>
-        
+
         <para>
             Lucene supporte les recherches avec joker sur un ou plusieurs caractères au sein des termes simples (mais pas
             dans les phrases).
@@ -132,7 +132,7 @@ test*
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.modifiers"><info><title>Modificateurs de termes</title></info>
-        
+
         <para>
             Lucene supporte la modification des termes pour fournir un large panel d'options de recherche.
         </para>
@@ -142,7 +142,7 @@ test*
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.range"><info><title>Recherche par intervalle</title></info>
-        
+
         <para>
             Dans une requêtes par intervalle, le développeur ou l'utilisateur peut rechercher des documents dont la valeur du/des champ(s) se trouve entre
             la borne inférieur et la borne supérieur de l'intervalle. Les requêtes d'intervalle peuvent être inclusives ou exclusives pour les bornes supérieures ou inférieures.
@@ -168,7 +168,7 @@ title:{Aida TO Carmen}
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.fuzzy"><info><title>Recherches floues</title></info>
-        
+
         <para>
             <classname>Zend_Search_Lucene</classname> tout comme Java Lucene supporte les recherches floues basées sur les algorithmes "Levenshtein Distance" ou "Edit Distance".
             Pour effectuer une recherche floue, utilisez le symbole tilde "~" à la fin du mot pour un terme simple. Par exemple
@@ -186,7 +186,7 @@ roam~0.8
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.matched-terms-limitations"><info><title>Limitation des termes correspondants</title></info>
-        
+
         <para>
             Les recherches floues, par intervalle ou par joker peuvent correspondre à trop de termes. Cela peut
             causer d'énormes baisses de performances.
@@ -200,7 +200,7 @@ roam~0.8
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.proximity-search"><info><title>Recherches de proximité</title></info>
-        
+
         <para>
             Lucene permet de trouver des mots dans une phrase qui se trouvent à une certaine distance les uns des autres dans une chaîne.
             Pour effectuer une recherche de proximité, utilisez le symbole tilde "~" à la fin de la phrase. Par exemple pour retrouver
@@ -211,7 +211,7 @@ roam~0.8
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.boosting"><info><title>Booster un terme</title></info>
-        
+
         <para>
             Java Lucene et <classname>Zend_Search_Lucene</classname> fournissent le niveau de pertinence des documents
             basé sur les termes trouvés. Pour booster la pertinence d'un terme, utilisez le symbole circonflexe "^" avec
@@ -239,7 +239,7 @@ PHP^4 framework
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.boolean"><info><title>Opérateurs booléens</title></info>
-        
+
         <para>
             Les opérateurs booléens permettent de combiner des termes avec des opérateurs logiques.
             Lucene supporte AND, "+", OR, NOT et "-" en tant qu'opérateurs booléens.
@@ -259,7 +259,7 @@ PHP^4 framework
             l'opérateur OR. Cela diffère du comportement de Java Lucene.
         </para>
         <section xml:id="zend.search.lucene.query-language.boolean.and"><info><title>AND</title></info>
-            
+
             <para>
                 L'opérateur AND signifie que tous les termes dans le "groupe AND" doivent correspondre à
                 une partie du/des champs cherché(s).
@@ -273,7 +273,7 @@ PHP^4 framework
             </para>
         </section>
         <section xml:id="zend.search.lucene.query-language.boolean.or"><info><title>OR</title></info>
-            
+
             <para>
                 L'opérateur OR divise la requête en plusieurs termes optionnels.
             </para>
@@ -286,7 +286,7 @@ PHP^4 framework
             </para>
         </section>
         <section xml:id="zend.search.lucene.query-language.boolean.not"><info><title>NOT</title></info>
-            
+
             <para>
                 L'opérateur NOT exclut les documents qui contiennent le terme situé après NOT. Mais un "groupe AND"
                 qui contient uniquement des termes précédés de NOT ne retournera aucun résultat au lieu de retourner
@@ -301,13 +301,13 @@ PHP^4 framework
             </para>
         </section>
         <section xml:id="zend.search.lucene.query-language.boolean.other-form"><info><title>Les opérateurs &amp;&amp;, ||, et !</title></info>
-            
+
             <para>
                 &amp;&amp;, ||, et ! peuvent être utilisés à la place de la notation AND, OR, et NOT.
             </para>
         </section>
         <section xml:id="zend.search.lucene.query-language.boolean.plus"><info><title>+</title></info>
-            
+
             <para>
                 L'opérateur "+" ou 'requis' stipule que le terme après le symbole "+" doit correspondre au document.
             </para>
@@ -320,7 +320,7 @@ PHP^4 framework
             </para>
         </section>
         <section xml:id="zend.search.lucene.query-language.boolean.minus"><info><title>-</title></info>
-            
+
             <para>
                 L'opérateur "-" ou 'interdit' exclut les documents qui correspondent au terme suivant le symbole "-".
             </para>
@@ -333,7 +333,7 @@ PHP^4 framework
             </para>
         </section>
         <section xml:id="zend.search.lucene.query-language.boolean.no-operator"><info><title>Pas d'opérateur</title></info>
-            
+
             <para>
                 Si aucun opérateur n'est utilisé, le comportement de la recherche est définit par "l'opérateur
                 booléen par défaut".
@@ -365,7 +365,7 @@ PHP^4 framework
         </section>
     </section>
     <section xml:id="zend.search.lucene.query-language.grouping"><info><title>Groupement</title></info>
-        
+
         <para>
             Java Lucene et <classname>Zend_Search_Lucene</classname> supportent l'usage de parenthèses pour grouper des clauses et former
             des sous-requêtes. Cela peut s'avérer utile si vous voulez contrôler la priorité des opérateurs logiques pour une requête
@@ -377,7 +377,7 @@ PHP^4 framework
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.field-grouping"><info><title>Groupement de champs</title></info>
-        
+
         <para>
             Lucene supporte également l'usage des parenthèses pour grouper plusieurs clauses sur un simple champ.
         </para>
@@ -389,7 +389,7 @@ title:(+return +"pink panther")
         </para>
     </section>
     <section xml:id="zend.search.lucene.query-language.escaping"><info><title>Echappement des caractères spéciaux</title></info>
-        
+
         <para>
             Lucene supporte l'échappement des caractères spéciaux qui sont utilisés dans la syntaxe
             de requête. La liste des caractères spéciaux est la suivante :

@@ -73,7 +73,7 @@ class ObjectCache extends CallbackCache
                 $object->{$property} = $value;
 
                 if (!$classOptions->getObjectCacheMagicProperties()
-                    || property_exists($object, $property) 
+                    || property_exists($object, $property)
                 ) {
                     // no caching if property isn't magic
                     // or caching magic properties is disabled
@@ -107,7 +107,7 @@ class ObjectCache extends CallbackCache
                 array_unshift($args, $property);
 
                 if (!isset($options['callback_key'])) {
-                    if ((isset($options['entity_key']) 
+                    if ((isset($options['entity_key'])
                         && ($entityKey = $options['entity_key']) !== null)
                         || ($entityKey = $classOptions->getObjectKey() !== null)
                     ) {
@@ -130,7 +130,7 @@ class ObjectCache extends CallbackCache
                 }
 
                 if (!isset($options['callback_key'])) {
-                    if ((isset($options['entity_key']) 
+                    if ((isset($options['entity_key'])
                         && ($entityKey = $options['entity_key']) !== null)
                         || ($entityKey = $classOptions->getObjectKey() !== null)
                     ) {
@@ -178,7 +178,7 @@ class ObjectCache extends CallbackCache
         if (!$cache) {
             if ($args) {
                 return call_user_func_array(array($object, $method), $args);
-            } 
+            }
             return $object->{$method}();
         }
 
@@ -314,7 +314,7 @@ class ObjectCache extends CallbackCache
      * @return mixed
      * @see    http://php.net/manual/language.oop5.magic.php#language.oop5.magic.invoke
      */
-    public function __invoke() 
+    public function __invoke()
     {
         return $this->call('__invoke', func_get_args());
     }

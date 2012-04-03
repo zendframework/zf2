@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.uri"><info><title>Zend_Navigation_Page_Uri</title></info>
-    
+
 
     <para>
         Seiten des Typs <classname>Zend_Navigation_Page_Uri</classname> können verwendet werden
@@ -24,7 +24,7 @@
     </note>
 
     <table xml:id="zend.navigation.pages.uri.options"><info><title>URI Seiten Optionen</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>

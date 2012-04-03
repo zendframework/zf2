@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.introduction"><info><title>Введение</title></info>
 
-    
+
 
     <section xml:id="zend.mail.introduction.getting-started"><info><title>Начало работы</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Mail</classname> предоставляет обобщенный
@@ -16,11 +16,11 @@
             (используется по умолчанию) или через
             <classname>Zend_Mail_Transport_Smtp</classname>.
         </para>
-    
+
         <example xml:id="zend.mail.introduction.example-1"><info><title>Простое сообщение электронной почты</title></info>
-    
-            
-    
+
+
+
             <para>
                 Простое сообщение электронной почты состоит из нескольких
                 получателей, заголовка сообщения, тела сообщения и отправителя.
@@ -28,7 +28,7 @@
                 <classname>Zend_Mail_Transport_Sendmail</classname>,
                 сделайте следующее:
             </para>
-    
+
             <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();
 $mail->setBodyText('This is the text of the mail.');
@@ -39,9 +39,9 @@ $mail->send();
 ]]></programlisting>
 
         </example>
-    
+
         <note><info><title>Минимально необходимые определения</title></info>
-            
+
             <para>
                 Для того, чтобы отправить сообщение через
                 <classname>Zend_Mail</classname>, вы должны
@@ -50,7 +50,7 @@ $mail->send();
                 (текстовое и/или в формате HTML).
             </para>
         </note>
-    
+
         <para>
             Для большинства атрибутов сообщений электронной почты есть методы
             "get" для чтения информации, сохраненной в объекте сообщения.
@@ -70,10 +70,10 @@ $mail->send();
         </para>
 
     </section>
-        
+
     <section xml:id="zend.mail.introduction.sendmail"><info><title>Конфигурирование транспорта, используемого по умолчанию</title></info>
 
-        
+
 
         <para>
             Для экземпляра <classname>Zend_Mail</classname> по умолчанию
@@ -93,7 +93,7 @@ $mail->send();
 
         <example xml:id="zend.mail.introduction.sendmail.example-1"><info><title>Передача дополнительных параметров транспорту Zend_Mail_Transport_Sendmail</title></info>
 
-            
+
 
             <para>
                 Этот пример демонстрирует, как изменить заголовок Return-Path
@@ -115,7 +115,7 @@ $mail->send();
         </example>
 
         <note><info><title>Ограничения безопасного режима</title></info>
-            
+
             <para>
                 Применение дополнительных параметров приведет к отказу в
                 выполнении функции
@@ -126,5 +126,5 @@ $mail->send();
         </note>
 
     </section>
-        
+
 </section>

@@ -41,17 +41,17 @@ class Util
                 __METHOD__
             ));
         }
-        
+
         if ($data->namespace && !$data->uses && strlen($value) > 0 && $value{0} != '\\') {
             $value = $data->namespace . '\\' . $value;
             return;
         }
-        
+
         if (!$data->uses || strlen($value) <= 0 || $value{0} == '\\') {
             $value = ltrim($value, '\\');
             return;
         }
-        
+
         if ($data->namespace || $data->uses) {
             $firstPart = $value;
             if (($firstPartEnd = strpos($firstPart, '\\')) !== false)  {

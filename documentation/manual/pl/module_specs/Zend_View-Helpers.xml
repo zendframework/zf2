@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers"><info><title>Klasy helperów</title></info>
 
-    
+
 
     <para>
         W skryptach widoków często potrzebne jest przeprowadzanie złożonych
@@ -23,7 +23,7 @@
     </para>
 
     <note><info><title>Zwróć uwagę na wielkość liter</title></info>
-        
+
         <para>
             Nazwy klas helperów są zawsze w postaci camelCased, czyli nigdy
             nie zaczynają się wielką literą. Nazwa klasy jest w postaci
@@ -32,7 +32,7 @@
     </note>
 
     <note><info><title>Domyślne ścieżki helperów</title></info>
-        
+
 
         <para>
             Domyślna ścieżka helperów zawsze wskazuje na ścieżkę helperów
@@ -54,7 +54,7 @@
     </para>
 
     <section xml:id="zend.view.helpers.initial"><info><title>Wbudowane klasy helperów</title></info>
-        
+
 
         <para>
             <code>Zend_View</code> posiada wbudowany zbiór klas helperów, z
@@ -419,7 +419,7 @@ echo $this->formCheckbox('foo',
 
     <section xml:id="zend.view.helpers.paths"><info><title>Ścieżki klas helperów</title></info>
 
-        
+
 
         <para>
             Tak jak ze skryptami widoków, kontroler może określić stos ścieżek,
@@ -474,7 +474,7 @@ $view->addHelperPath('/other/path/to/helpers', 'Your_View_Helper');
 
     <section xml:id="zend.view.helpers.custom"><info><title>Pisanie własnych klas helperów</title></info>
 
-        
+
 
         <para>
             Pisanie własnych klas helperów jest łatwe; po prostu pisz według

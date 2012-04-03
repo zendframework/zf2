@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.architecture"><info><title>アーキテクチャ</title></info>
-    
+
 
     <section xml:id="zend.tool.framework.architecture.registry"><info><title>レジストリ</title></info>
-        
+
 
         <para>
             <property>include_path</property>のどこからでもプロバイダとマニフェストが由来するかもしれないので、
@@ -64,7 +64,7 @@ interface Zend_Tool_Framework_Registry_EnabledInterface
     </section>
 
     <section xml:id="zend.tool.framework.architecture.providers"><info><title>プロバイダ</title></info>
-        
+
 
         <para>
             <classname>Zend_Tool_Framework_Provider</classname>は、
@@ -108,7 +108,7 @@ abstract class Zend_Tool_Framework_Provider_Abstract
     </section>
 
     <section xml:id="zend.tool.framework.architecture.loaders"><info><title>ローダ</title></info>
-        
+
 
         <para>
             ローダの目的は、<classname>Zend_Tool_Framework_Provider_Interface</classname>か
@@ -175,7 +175,7 @@ class Zend_Tool_Framework_Loader_IncludePathLoader
     </section>
 
     <section xml:id="zend.tool.framework.architecture.manifests"><info><title>マニフェスト</title></info>
-        
+
 
         <para>
             要するに、マニフェストはプロバイダ・リポジトリにどんなさらなるプロバイダでもロードする役割を果たしうるばかりではなく、
@@ -338,7 +338,7 @@ class Zend_Tool_Framework_Manifest_Repository
     </section>
 
     <section xml:id="zend.tool.framework.architecture.clients"><info><title>クライアント</title></info>
-        
+
 
         <para>
             クライアントは、<classname>Zend_Tool_Framework</classname>システムと

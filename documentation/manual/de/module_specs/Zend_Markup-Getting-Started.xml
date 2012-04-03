@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.markup.getting-started"><info><title>Beginnen mit Zend_Markup</title></info>
-    
+
 
     <para>
         Dieser Beginner-Guide für <classname>Zend_Markup</classname> verwendet den BBCode Parser und
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.markup.getting-started.basic-usage"><info><title>Grundsätzliche Verwendung von Zend_Markup</title></info>
-        
+
 
         <para>
             Zuerst instanzieren wir ein <classname>Zend_Markup_Renderer_Html</classname> Objekt
@@ -34,7 +34,7 @@ echo $bbcode->render('[b]bold text[/b] and [i]cursive text[/i]');
     </example>
 
     <example xml:id="zend.markup.getting-started.complicated-example"><info><title>Ein komplizierteres Beispiel von Zend_Markup</title></info>
-        
+
 
         <para>
             Jetzt wollen wir das gleiche wie zuerst machen, aber mit einem komplizierteren
@@ -63,7 +63,7 @@ Sollte etwas wie das folgende ausgeben:
     </example>
 
     <example xml:id="zend.markup.getting-started.incorrect-input"><info><title>Falsche Eingaben bearbeiten</title></info>
-        
+
 
         <para>
             Neben dem einfachen Parsen und Darstellen von Markup wie BBCode, ist

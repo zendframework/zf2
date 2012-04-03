@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.in_array"><info><title>InArray</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Validate_InArray</classname> vous permet de valider qu'une entrée est bien présente
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.validate.set.in_array.options"><info><title>Options supportées par Zend_Validate_InArray</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par
@@ -43,7 +43,7 @@
     </section>
 
     <section xml:id="zend.validate.set.in_array.basic"><info><title>Validation tableau simple</title></info>
-        
+
 
         <para>
             Passez simplement un tableau dans lequel rechercher une valeur:
@@ -88,7 +88,7 @@ if ($validator->isValid('value')) {
     </section>
 
     <section xml:id="zend.validate.set.in_array.strict"><info><title>Validation tableau stricte</title></info>
-        
+
 
         <para>
             Il est possible d'effectuer une validation stricte des données dans le tableau. Par défaut, il n'y aura aucune
@@ -135,7 +135,7 @@ if ($validator->isValid('value')) {
     </section>
 
     <section xml:id="zend.validate.set.in_array.recursive"><info><title>Validation de tableaux récursifs</title></info>
-        
+
 
         <para>
             En plus de la validation type <acronym>PHP</acronym> <methodname>in_array()</methodname>, ce validateur peut
@@ -191,7 +191,7 @@ if ($validator->isValid('value')) {
 ]]></programlisting>
 
          <note><info><title>Réglage par défaut pour la récursivité</title></info>
-            
+
 
              <para>
                 Par défaut, la récursivité n'est pas activée.
@@ -199,7 +199,7 @@ if ($validator->isValid('value')) {
          </note>
 
         <note><info><title>Options pour la "haystack"</title></info>
-            
+
 
             <para>
                 Lorsque vous utilisez les clés <property>haystack</property>,

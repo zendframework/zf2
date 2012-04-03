@@ -18,7 +18,7 @@
  */
 
 /**
- * @fileoverview Provides functions for browsing and searching YouTube 
+ * @fileoverview Provides functions for browsing and searching YouTube
  * data API feeds, as well as performing authentication, syndicated uploads
  * and playlist management using a PHP backend powered by the Zend_Gdata component
  * of Zend Framework.
@@ -73,7 +73,7 @@ ytVideoApp.VIDEO_SEARCH_RESULTS_DIV = 'searchResultsVideoColumn';
  */
 ytVideoApp.VIDEO_PLAYER_DIV = 'videoPlayer';
 
-/** 
+/**
  * container div id used to hold the search box displayed at the top of
  * the browser after one search has already been performed
  * @type String
@@ -85,32 +85,32 @@ ytVideoApp.TOP_SEARCH_CONTAINER_DIV = 'searchBox';
  */
 ytVideoApp.VIDEO_UPLOAD_STATUS = 'detailedUploadStatus';
 
-/** 
+/**
  * container div to hold the form for syndicated upload
  * @type String
  */
 ytVideoApp.SYNDICATED_UPLOAD_DIV = 'syndicatedUploadDiv';
 
-/** 
+/**
  * container div to hold the form to edit video meta-data
  * @type String
  */
 ytVideoApp.VIDEO_DATA_EDIT_DIV = 'editForm';
 
-/** 
+/**
  * containder div to hold authentication link in special cases where auth gets
  * set prior to developer key
  * @type String
  */
 ytVideoApp.AUTHSUB_REQUEST_DIV = 'generateAuthSubLink';
 
-/** 
+/**
  * container div to hold the form for editing video meta-data
  * @type String
  */
 ytVideoApp.VIDEO_META_DATA_EDIT_DIV = 'editVideoMetaDataDiv';
 
-/** 
+/**
  * container div to hold the form for adding a new playlist
  * @type String
  */
@@ -128,7 +128,7 @@ ytVideoApp.nextPage = 2;
  */
 ytVideoApp.previousPage = 0;
 
-/** 
+/**
  * the last search term used to query - allows for the navigation
  * buttons to know what string query to perform when clicked
  * @type String
@@ -152,8 +152,8 @@ ytVideoApp.previousQueryType = 'all';
  * @param {Number} page The 1-based page of results to return.
  */
 ytVideoApp.listVideos = function(op, searchTerm, page) {
-  ytVideoApp.previousSearchTerm = searchTerm; 
-  ytVideoApp.previousQueryType = op; 
+  ytVideoApp.previousSearchTerm = searchTerm;
+  ytVideoApp.previousQueryType = op;
   var maxResults = ytVideoApp.MAX_RESULTS_LIST;
   var startIndex =  (((page - 1) * ytVideoApp.MAX_RESULTS_LIST) + 1);
   ytVideoApp.presentFeed(op, maxResults, startIndex, searchTerm);
@@ -177,12 +177,12 @@ ytVideoApp.sendRequest = function(filePath, params, resultDivName) {
   }
 
   xmlhr.open('POST', filePath);
-  xmlhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+  xmlhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
   xmlhr.onreadystatechange = function() {
     var resultDiv = document.getElementById(resultDivName);
     if (xmlhr.readyState == 1) {
-      resultDiv.innerHTML = '<b>Loading...</b>'; 
+      resultDiv.innerHTML = '<b>Loading...</b>';
     } else if (xmlhr.readyState == 4 && xmlhr.status == 200) {
       if (xmlhr.responseText) {
         resultDiv.innerHTML = xmlhr.responseText;
@@ -208,7 +208,7 @@ ytVideoApp.presentVideo = function(videoId, updateThumbnail) {
 /**
  * Creates a form to enter video meta-data in preparation for syndicated upload.
  */
-ytVideoApp.prepareUploadForm = function() { 
+ytVideoApp.prepareUploadForm = function() {
   var  metaDataForm = ['<br clear="all"><form id="uploadForm" ',
     'onsubmit="ytVideoApp.prepareSyndicatedUpload(',
     'this.videoTitle.value, ',
@@ -245,9 +245,9 @@ ytVideoApp.prepareUploadForm = function() {
   document.getElementById(ytVideoApp.SYNDICATED_UPLOAD_DIV).innerHTML = metaDataForm;
 }
 
-/** 
+/**
  * Uses ytVideoApp.sendRequest to prepare a syndicated upload.
- * 
+ *
  * @param {String} videoTitle The title for new video
  * @param {String} videoDescription The video's description
  * @param {String} videoCategory The category for the video
@@ -263,7 +263,7 @@ ytVideoApp.prepareSyndicatedUpload = function(videoTitle, videoDescription, vide
   ytVideoApp.sendRequest(filePath, params, ytVideoApp.SYNDICATED_UPLOAD_DIV);
 }
 
-/** 
+/**
  * Uses ytVideoApp.sendRequest to create the authSub link.
  */
 ytVideoApp.presentAuthLink = function() {
@@ -273,9 +273,9 @@ ytVideoApp.presentAuthLink = function() {
 }
 
 
-/** 
+/**
  * Uses ytVideoApp.sendRequest to check a videos upload status.
- * 
+ *
  * @param {String} videoId The id of the video to check
  */
 ytVideoApp.checkUploadDetails = function(videoId) {
@@ -286,10 +286,10 @@ ytVideoApp.checkUploadDetails = function(videoId) {
 }
 
 
-/** 
- * Creates an HTML form to edit a video's meta-data, populated with the 
+/**
+ * Creates an HTML form to edit a video's meta-data, populated with the
  * videos current meta-data.
- * 
+ *
  * @param {String} oldVideoTitle The old title of the video
  * @param {String} oldVideoDescription The old description of the video
  * @param {String} oldVideoCategory The old category of the video
@@ -314,7 +314,7 @@ ytVideoApp.presentMetaDataEditForm = function(oldVideoTitle, oldVideoDescription
     oldVideoTitle,
     '"/><br />',
     'Enter a new video description:<br />',
-    '<textarea cols="50" name="newVideoDescription">', 
+    '<textarea cols="50" name="newVideoDescription">',
     oldVideoDescription,
     '</textarea><br />',
     'Select a new category: <select ',
@@ -345,13 +345,13 @@ ytVideoApp.presentMetaDataEditForm = function(oldVideoTitle, oldVideoDescription
     '" /><br />',
     '<input type="submit" value="go">',
     '</form>'].join('');
-  
+
   document.getElementById(ytVideoApp.VIDEO_SEARCH_RESULTS_DIV).innerHTML = editMetaDataForm;
 }
 
-/** 
+/**
  * Uses ytVideoApp.sendRequest to submit updated video meta-data.
- * 
+ *
  * @param {String} newVideoTitle The new title of the video
  * @param {String} newVideoDescription The new description of the video
  * @param {String} newVideoCategory The new category of the video
@@ -412,16 +412,16 @@ ytVideoApp.prepareDeletion = function(videoId) {
  * @param {String} searchTerm The search terms to pass to the specified feed
  */
 ytVideoApp.presentFeed = function(op, maxResults, startIndex, searchTerm){
-  var params = 'operation=' + op + 
+  var params = 'operation=' + op +
                '&maxResults=' + maxResults +
-               '&startIndex=' + startIndex + 
+               '&startIndex=' + startIndex +
                '&searchTerm=' + searchTerm;
   var filePath = 'operations.php';
   ytVideoApp.sendRequest(filePath, params, ytVideoApp.VIDEO_LIST_CONTAINER_DIV);
 };
 
 /**
- * Updates the variables used by the navigation buttons and the 'enabled' 
+ * Updates the variables used by the navigation buttons and the 'enabled'
  * status of the buttons based upon the current page number passed in.
  * @param {Number} page The current page number
  */
@@ -484,7 +484,7 @@ ytVideoApp.prepareCreatePlaylistForm = function() {
     '</textarea><br />',
     '<input type="submit" value="go">',
     '</form>'].join('');
-    
+
   document.getElementById(ytVideoApp.PLAYLIST_ADD_DIV).innerHTML = newPlaylistForm;
 }
 
@@ -509,7 +509,7 @@ ytVideoApp.createNewPlaylist = function(playlistTitle, playlistDescription) {
  * @param {String} playlistTitle The title of the playlist to be deleted
  */
 ytVideoApp.confirmPlaylistDeletion = function(playlistTitle) {
-  var answer =  confirm('Do you really want to delete the playlist titled : ' + 
+  var answer =  confirm('Do you really want to delete the playlist titled : ' +
     playlistTitle + ' ?');
   if (answer) {
     ytVideoApp.deletePlaylist(playlistTitle);
@@ -551,7 +551,7 @@ ytVideoApp.prepareUpdatePlaylistForm = function(oldPlaylistTitle, oldPlaylistDes
     oldPlaylistTitle,
     '" name="oldPlaylistTitle" />',
     '</form>'].join('');
-    
+
   document.getElementById(ytVideoApp.VIDEO_SEARCH_RESULTS_DIV).innerHTML = playlistUpdateForm;
 }
 

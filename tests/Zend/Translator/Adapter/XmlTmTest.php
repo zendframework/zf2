@@ -66,7 +66,7 @@ class XmlTmTest extends \PHPUnit_Framework_TestCase
         $adapter = new Adapter\XmlTm(__DIR__ . '/_files/translation_en.xmltm');
         $this->assertEquals('XmlTm', $adapter->toString());
     }
-    
+
     /**
      * @group ZF-12012
      */

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-form"><info><title>Erstellen eines Formulars</title></info>
-    
+
 
     <para>
         Damit unser Guestbook nützlich ist, benötigen wir ein Formular für die Übermittlung neuer
@@ -159,7 +159,7 @@ echo $this->form;
 ]]></programlisting>
 
     <note><info><title>Besser aussehende Formulare</title></info>
-        
+
 
         <para>
             Keiner wird sich irgendwann poetisch über die Schönheit dieses Formulars auslassen.
@@ -175,7 +175,7 @@ echo $this->form;
     </note>
 
     <note><info><title>Checkpoint</title></info>
-        
+
 
         <para>
             Jetzt gehen wir auf "http://localhost/guestbook/sign". Man sollte das folgende im

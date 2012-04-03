@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.standardDecorators"><info><title>Decoradores de Formulario (Form Decorartors) estándar contenidos en
         Zend Framework</title></info>
-    
+
 
     <para>
         <classname>Zend_Form</classname> se distribuye con distintos decoradores
@@ -10,7 +10,7 @@
             decoradores</link> . </para>
 
     <section xml:id="zend.form.standardDecorators.callback"><info><title>Zend_Form_Decorator_Callback</title></info>
-        
+
 
         <para> El decorador Callback (llamada de retorno) permite ejecutar una
             llamada de retorno para mostrar el contenido. Las llamadas de
@@ -45,7 +45,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.captcha"><info><title>Zend_Form_Decorator_Captcha</title></info>
-        
+
 
         <para> El decorador Captcha se usa junto con el <link linkend="zend.form.standardElements.captcha">elemento de
                 formulario Captcha</link> . Utiliza el método
@@ -60,7 +60,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.description"><info><title>Zend_Form_Decorator_Description</title></info>
-        
+
 
         <para> El decorador Description puede ser usado para mostrar un conjunto
             de descripciones de un elemento <classname>Zend_Form</classname> ,
@@ -88,7 +88,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.dtDdWrapper"><info><title>Zend_Form_Decorator_DtDdWrapper</title></info>
-        
+
 
         <para> Los decoradores por defecto utilizan listas de definición (
                 <methodname>&lt;dl&gt;</methodname> ) para generar
@@ -117,7 +117,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.errors"><info><title>Zend_Form_Decorator_Errors</title></info>
-        
+
 
         <para> Los errores de elemento obtienen su propio decorador con el
             decorador de errores. Este decorador sustituye al view helper
@@ -131,7 +131,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.fieldset"><info><title>Zend_Form_Decorator_Fieldset</title></info>
-        
+
 
         <para> Por defecto, los grupos de visualización y subformularios generan
             sus contenidos dentro de fieldsets, EL decorador Fieldset busca la
@@ -145,7 +145,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.file"><info><title>Zend_Form_Decorator_File</title></info>
-        
+
 
         <para> Los elementos de tipo "File" (upload de ficheros) tienen una
             notación especial cuando se usan múltiples elementos file o
@@ -156,7 +156,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.form"><info><title>Zend_Form_Decorator_Form</title></info>
-        
+
 
         <para> Los objetos <classname>Zend_Form</classname> normalmente
             necesitan generar una etiqueta <acronym>HTML</acronym> "form". El
@@ -167,7 +167,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.formElements"><info><title>Zend_Form_Decorator_FormElements</title></info>
-        
+
 
         <para> Los formularios(forms), grupos de visualización y subformularios
             son colecciones de elementos. Para poder generar estos elementos,
@@ -178,7 +178,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.formErrors"><info><title>Zend_Form_Decorator_FormErrors</title></info>
-        
+
 
         <para> Algunos desarrolladores y diseñadores prefieren agrupar todos los
             mensajes de error en la parte superior del formulario. El decorador
@@ -264,7 +264,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.htmlTag"><info><title>Zend_Form_Decorator_HtmlTag</title></info>
-        
+
 
         <para> El decorador HtmlTag le permite utilizar etiquetas
                 <acronym>HTML</acronym> para decorador el contenido; la etiqueta
@@ -277,7 +277,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.image"><info><title>Zend_Form_Decorator_Image</title></info>
-        
+
 
         <para> El decorador Image le permite crear un input
                 <acronym>HTML</acronym> de tipo image (
@@ -300,7 +300,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.label"><info><title>Zend_Form_Decorator_Label</title></info>
-        
+
 
         <para> Comúnmente, los elementos de formulario tienen etiquetas (labels)
             y se usa el decorador Label para generar esas etiquetas. Utiliza la
@@ -371,7 +371,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.prepareElements"><info><title>Zend_Form_Decorator_PrepareElements</title></info>
-        
+
 
         <para> Formularios, grupos de visualización, y subformularios son
             colecciones de elementos. Al usar el decorador <link linkend="zend.form.standardDecorators.viewScript">ViewScript</link> con un formulario o subformulario, resulta
@@ -390,7 +390,7 @@ $form->setDecorators(array(
     </section>
 
     <section xml:id="zend.form.standardDecorators.viewHelper"><info><title>Zend_Form_Decorator_ViewHelper</title></info>
-        
+
 
         <para> La mayoría de los elementos utiliza helpers
                 <classname>Zend_View</classname> para generar el contenido, y
@@ -410,7 +410,7 @@ $form->setDecorators(array(
     </section>
 
     <section xml:id="zend.form.standardDecorators.viewScript"><info><title>Zend_Form_Decorator_ViewScript</title></info>
-        
+
 
         <para> A veces es necesario usar un view script para crear elementos; De
             esta forma, se puede tener un control preciso sobre los elementos;
@@ -486,7 +486,7 @@ $element->setDecorators(array(array('ViewScript',
 
         <note><info><title>Reemplazar contenido con un script de vista (view
                 script)</title></info>
-            
+
 
             <para> Resulta interesante que el script de vista reemplace el
                 contenido provisto por el decorador -- por ejemplo, si desea

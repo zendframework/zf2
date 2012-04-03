@@ -588,7 +588,7 @@ class Locale
             if (is_array($_SERVER)) {
                 if (array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)) {
                     $httplanguages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-                }   
+                }
             }
         }
 

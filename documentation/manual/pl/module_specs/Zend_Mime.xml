@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.mime"><info><title>Zend_Mime</title></info>
-    
+
 
     <section xml:id="zend.mime.mime.introduction"><info><title>Wprowadzenie</title></info>
-        
+
         <para>
             <code>Zend_Mime</code> jest klasą wspierającą obsługę wielczęściowych
             wiadomości MIME. Jest ona używana przez klasy <link linkend="zend.mail">
@@ -16,7 +16,7 @@
     </section>
 
     <section xml:id="zend.mime.mime.static"><info><title>Metody statyczne i stałe</title></info>
-    
+
     <para>
         <code>Zend_Mime</code> zapewnia zbiór prostych statycznych metod do pracy z MIME:
         <itemizedlist>
@@ -93,7 +93,7 @@
     </section>
 
     <section xml:id="zend.mime.mime.instantiation"><info><title>Tworzenie instancji Zend_Mime</title></info>
-    
+
     <para>
         Kiedy tworzony jest obiekt <code>Zend_Mime</code>, zapisywane jest pole
         rozgraniczające MIME (MIME boundary) i jest ono używane we wszystkich

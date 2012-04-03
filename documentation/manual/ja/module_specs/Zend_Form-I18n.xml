@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.i18n"><info><title>Zend_Form の国際化</title></info>
-    
+
 
     <para>
         作成したコンテンツを複数の言語や地域に対応させるという作業は、
@@ -21,7 +21,7 @@
     </para>
 
     <note><info><title>項目単位での翻訳の無効化</title></info>
-        
+
 
         <para>
             個々のフォームや要素、表示グループ、サブフォームなどの単位で翻訳を無効にするには、
@@ -33,7 +33,7 @@
     </note>
 
     <section xml:id="zend.form.i18n.initialization"><info><title>フォームでの I18n 機能の初期化</title></info>
-        
+
 
         <para>
             フォームの I18n 機能を初期化するには
@@ -112,7 +112,7 @@ $element->setTranslator($translate);
     </section>
 
     <section xml:id="zend.form.i18n.standard"><info><title>標準的な I18N の対象</title></info>
-        
+
 
         <para>
             これで翻訳オブジェクトがアタッチできました。

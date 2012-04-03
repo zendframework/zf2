@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.advanced"><info><title>Zend_Layout の高度な使用法</title></info>
-    
+
 
     <para>
         <classname>Zend_Layout</classname> には、高度な使用法がいろいろあります。
@@ -41,7 +41,7 @@
     </itemizedlist>
 
     <section xml:id="zend.layout.advanced.view"><info><title>ビューオブジェクトのカスタマイズ</title></info>
-        
+
 
         <para>
             <classname>Zend_Layout</classname> では、
@@ -59,7 +59,7 @@ $layout->setView($view);
 ]]></programlisting>
 
         <note><info><title>Zend_View の実装がすべて同じというわけではない</title></info>
-            
+
 
             <para>
                 <classname>Zend_Layout</classname> では
@@ -100,7 +100,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.plugin"><info><title>フロントコントローラプラグインのカスタマイズ</title></info>
-        
+
 
         <para>
             <acronym>MVC</acronym> コンポーネントと組み合わせて使用するときに、
@@ -130,7 +130,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.helper"><info><title>アクションヘルパーのカスタマイズ</title></info>
-        
+
 
         <para>
             <acronym>MVC</acronym> コンポーネントと組み合わせて使用するときに、
@@ -154,7 +154,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
     </section>
 
     <section xml:id="zend.layout.advanced.inflector"><info><title>レイアウトスクリプトのパス解決方法のカスタマイズ: インフレクタの使用法</title></info>
-        
+
 
         <para>
             <classname>Zend_Layout</classname> は、<classname>Zend_Filter_Inflector</classname>
@@ -186,7 +186,7 @@ $layoutVars   = $placeholders->placeholder('Zend_Layout')->getArrayCopy();
         </para>
 
         <example xml:id="zend.layout.advanced.inflector.accessors"><info><title>Zend_Layout のアクセサでインフレクタを変更する</title></info>
-            
+
 
             <para>
                 デフォルトの <classname>Zend_Layout</classname> のインフレクタは、
@@ -204,7 +204,7 @@ $layout->setViewSuffix('php');
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.directmodification"><info><title>Zend_Layout のインフレクタを直接変更する</title></info>
-            
+
 
             <para>
                 インフレクタは、ターゲットと (ひとつあるいは複数の)
@@ -231,7 +231,7 @@ $layout->getInflector()->setTarget('layouts/:script.:suffix')
         </example>
 
         <example xml:id="zend.layout.advanced.inflector.custom"><info><title>インフレクタのカスタマイズ</title></info>
-            
+
 
             <para>
                 ほとんどの場合は、既存のインフレクタを修正するだけで十分でしょう。
@@ -250,7 +250,7 @@ $layout->setInflector($inflector);
         </example>
 
         <note><info><title>インフレクションを無効にできます</title></info>
-            
+
 
             <para>
                 インフレクションを無効にしたり有効にしたりするには、

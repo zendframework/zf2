@@ -24,12 +24,12 @@
  *
  * Usage:
  * --help|-h                    Get usage message
- * --library|-l [ <string> ]    Library to parse; if none provided, assumes 
+ * --library|-l [ <string> ]    Library to parse; if none provided, assumes
  *                              current directory
- * --output|-o [ <string> ]     Where to write autoload file; if not provided, 
+ * --output|-o [ <string> ]     Where to write autoload file; if not provided,
  *                              assumes "autoload_classmap.php" in library directory
  * --append|-a                  Append to autoload file if it exists
- * --overwrite|-w               Whether or not to overwrite existing autoload 
+ * --overwrite|-w               Whether or not to overwrite existing autoload
  *                              file
  */
 
@@ -88,8 +88,8 @@ if (isset($opts->l)) {
         exit(2);
     }
     $path = str_replace('\\', '/', realpath($libraryPath));
-    
-    // If -o has been used, then we need to add the $libraryPath into the relative 
+
+    // If -o has been used, then we need to add the $libraryPath into the relative
     // path that is created in the classmap file.
     if ($opts->o != '') {
         // If both library path and classmap path are absolute, we have to make
@@ -109,7 +109,7 @@ if (isset($opts->l)) {
         if (is_file($libraryPathCompare)) {
             $libraryPathCompare = str_replace('\\', '/', dirname($libraryPathCompare));
         }
-        
+
         if (is_file($classmapPathCompare)) {
             $classmapPathCompare = str_replace('\\', '/', dirname($classmapPathCompare));
         }
@@ -126,7 +126,7 @@ if (isset($opts->l)) {
                 var_dump($libraryPathParts[$index]);
                 var_dump($part);
                 var_dump(1);
-                
+
                 if (isset($libraryPathParts[$index]) && $libraryPathParts[$index] == $part) {
                     continue;
                 }
@@ -163,7 +163,7 @@ if (isset($opts->o)) {
     } elseif (file_exists($output)) {
         if (!$opts->getOption('w') && !$appending) {
             echo "Autoload file already exists at '$output'," . PHP_EOL
-                . "but 'overwrite' flag was not specified; aborting." . PHP_EOL 
+                . "but 'overwrite' flag was not specified; aborting." . PHP_EOL
                 . PHP_EOL
                 . $opts->getUsageMessage();
             exit(2);
@@ -184,7 +184,7 @@ if (!$usingStdout) {
 // Get the ClassFileLocator, and pass it the library path
 $l = new \Zend\File\ClassFileLocator($path);
 
-// Iterate over each element in the path, and create a map of 
+// Iterate over each element in the path, and create a map of
 // classname => filename, where the filename is relative to the library path
 $map    = new \stdClass;
 $strip .= '/';
@@ -216,7 +216,7 @@ if ($appending) {
 
     // Load existing class map file and remove the closing "bracket ");" from it
     $existing = file($output, FILE_IGNORE_NEW_LINES);
-    array_pop($existing); 
+    array_pop($existing);
 
     // Merge
     $content = implode(PHP_EOL, array_merge($existing, $content));

@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.api.reference.zend-ldap-filter"><info><title>Zend_Ldap_Filter</title></info>
-    
+
 
     <table xml:id="zend.ldap.api.reference.zend-filter.table"><info><title>Zend_Ldap_Filter API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>

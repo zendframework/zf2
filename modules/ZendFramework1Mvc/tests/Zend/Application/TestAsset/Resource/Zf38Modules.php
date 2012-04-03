@@ -5,7 +5,7 @@ namespace ZendTest\Application\TestAsset\Resource;
 class Zf38Modules extends \Zend\Application\Resource\Modules
 {
     protected $initTime;
-    
+
     public function init()
     {
         $return = parent::init();
@@ -13,7 +13,7 @@ class Zf38Modules extends \Zend\Application\Resource\Modules
             $this->initTime = \microtime(true);
         return $return;
     }
-    
+
     public function getInitTime()
     {
         return $this->initTime;

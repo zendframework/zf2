@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.json"><info><title>JSON Helper</title></info>
-    
+
 
     <para>
         When creating views that return <acronym>JSON</acronym>, it's important to also set the
@@ -31,7 +31,7 @@ Content-Type: application/json
 ]]></programlisting>
 
     <note><info><title>Keeping layouts and enabling encoding using Zend_Json_Expr</title></info>
-        
+
 
         <para>
             Each method in the <acronym>JSON</acronym> helper accepts a second, optional argument.

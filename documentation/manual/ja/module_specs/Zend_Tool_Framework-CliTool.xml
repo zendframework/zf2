@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.clitool"><info><title>CLIツールの使用</title></info>
-    
+
 
     <para>
         （内部的にコンソール・ツールとして知られる）<acronym>CLI</acronym>またはコマンドライン・ツールは、
@@ -12,7 +12,7 @@
     </para>
 
     <section xml:id="zend.tool.framework.clitool.setup-general"><info><title>CLIツールの設定</title></info>
-        
+
 
         <para>
             コマンド・ライン・クライアントを通じてツーリング・リクエストを出すために、
@@ -68,7 +68,7 @@
     </section>
 
     <section xml:id="zend.tool.framework.clitool.setup-starnix"><info><title>Unixのようなシステム上でCLIツールを設定</title></info>
-        
+
 
         <para>
             *nix環境で最も一般的な準備は、
@@ -152,7 +152,7 @@ ln -s /home/username/lib/ZendFramework/bin/zf.sh /home/username/bin/zf
     </section>
 
     <section xml:id="zend.tool.framework.clitool.setup-windows"><info><title>WindowsでCLIツールを設定</title></info>
-        
+
 
         <para>
             Windows Win32環境で最も一般的な準備は、
@@ -219,7 +219,7 @@ C:\WAMP\PHP\bin
     </section>
 
     <section xml:id="zend.tool.framework.clitool.setup-othernotes"><info><title>設定での他の考慮事項</title></info>
-        
+
 
         <para>
             もし何らかの理由で<property>include_path</property>の中にZend Frameworkライブラリを必要としないならば、
@@ -241,7 +241,7 @@ C:\WAMP\PHP\bin
     </section>
 
     <section xml:id="zend.tool.framework.clitool.continuing"><info><title>次に進むべきところは？</title></info>
-        
+
 
         <para>
             この時点では、よりちょっと「面白い」コマンドの奥義を伝え始めるために準備されなければなりません。

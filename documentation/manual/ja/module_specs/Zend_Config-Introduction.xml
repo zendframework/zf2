@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.introduction"><info><title>導入</title></info>
-    
+
 
     <para>
         <classname>Zend_Config</classname> は、アプリケーションの設定データを
@@ -16,7 +16,7 @@
     </para>
 
     <example xml:id="zend.config.introduction.example.using"><info><title>Zend_Config の使用例</title></info>
-        
+
 
         <para>
             通常は、<link linkend="zend.config.adapters.ini"><classname>Zend_Config_Ini</classname></link>
@@ -76,7 +76,7 @@ $host = $config->database->get('host', 'localhost');
 ]]></programlisting>
 
     <example xml:id="zend.config.introduction.example.file.php"><info><title>Zend_Config における PHP 設定ファイルの使用法</title></info>
-        
+
 
         <para>
             設定ファイルそのものを <acronym>PHP</acronym> で書きたいこともあるでしょう。

@@ -3,7 +3,7 @@
 
 <chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="introduction.overview"><info><title>Descripción general</title></info>
 
-    
+
 
     <para> Zend Framework es un framework de código abierto para desarrollar aplicaciones web y
         servicios web con PHP5. Zend Framework es una implementación que usa código 100% orientado a

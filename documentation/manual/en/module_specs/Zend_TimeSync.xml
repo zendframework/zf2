@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.timesync.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_TimeSync</classname> is able to receive internet or network time from a time
@@ -18,7 +18,7 @@
     </para>
 
     <note><info><title>Background</title></info>
-        
+
 
         <para>
             <classname>Zend_TimeSync</classname> is not able to change the server's time, but it
@@ -28,7 +28,7 @@
     </note>
 
     <section xml:id="zend.timesync.introduction.why"><info><title>Why Zend_TimeSync ?</title></info>
-        
+
 
         <para>
             So why would someone use <classname>Zend_TimeSync</classname> ?
@@ -104,7 +104,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.ntp"><info><title>What is NTP ?</title></info>
-        
+
 
         <para>
             The Network Time Protocol (<emphasis>NTP</emphasis>) is a protocol
@@ -115,7 +115,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.sntp"><info><title>What is SNTP?</title></info>
-        
+
 
         <para>
             The Simple Network Time Protocol (<emphasis>SNTP</emphasis>) is a
@@ -126,7 +126,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.problematic"><info><title>Problematic usage</title></info>
-        
+
 
         <para>
             Be warned that when you are using <classname>Zend_TimeSync</classname> you will have to
@@ -137,7 +137,7 @@
     </section>
 
     <section xml:id="zend.timesync.introduction.decision"><info><title>Decide which server to use</title></info>
-        
+
 
         <para>
             You should select the time server that you want to use very carefully according to the

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form"><info><title>Elementos y Decoradores de Dojo Form</title></info>
-    
+
 
     <para>
         Sobre la base de los ayudantes de vista dijit
@@ -69,7 +69,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.form.enable"><info><title>Habilitando Dojo en sus formularios existentes</title></info>
-        
+
 
         <para>
             "Pero espere", podría decir; "Ya extendí

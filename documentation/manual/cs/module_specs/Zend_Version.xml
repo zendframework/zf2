@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.version.reading"><info><title>Získání informací o verzi Zend Frameworku</title></info>
 
-    
+
 
     <para>
         Hodnotou konstanty <code>Zend_Version::VERSION</code> je
@@ -19,7 +19,7 @@
     </para>
 
    <example xml:id="zend.version.reading.example"><info><title>Příklad využití metody compareVersion()</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 
 // vrací -1, 0, nebo 1

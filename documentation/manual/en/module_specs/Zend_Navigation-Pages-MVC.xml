@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.mvc"><info><title>Zend_Navigation_Page_Mvc</title></info>
-    
+
 
     <para>
         <acronym>MVC</acronym> pages are defined using <acronym>MVC</acronym> parameters known from
@@ -13,7 +13,7 @@
     </para>
 
     <table xml:id="zend.navigation.pages.mvc.options"><info><title>MVC page options</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>
@@ -86,7 +86,7 @@
     </note>
 
     <example xml:id="zend.navigation.pages.mvc.example.getHref"><info><title>getHref() generates the page URI</title></info>
-        
+
 
         <para>
             This example show that <acronym>MVC</acronym> pages use
@@ -119,7 +119,7 @@ $page = new Zend_Navigation_Page_Mvc(array(
     </example>
 
     <example xml:id="zend.navigation.pages.mvc.example.isActive"><info><title>isActive() determines if page is active</title></info>
-        
+
 
         <para>
             This example show that <acronym>MVC</acronym> pages determine whether they are active
@@ -181,7 +181,7 @@ $page->isActive(); // returns false
     </example>
 
     <example xml:id="zend.navigation.pages.mvc.example.routes"><info><title>Using routes</title></info>
-        
+
 
         <para>
             Routes can be used with <acronym>MVC</acronym> pages. If a page has a route, this

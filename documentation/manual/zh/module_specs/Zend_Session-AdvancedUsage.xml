@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.advanced_usage"><info><title>高级用法</title></info>
 
-    
+
 
     <para>
         虽然在基本用法中讲到的利用Zend框架的会话管理的方法是完全可以接受的，但还有些最佳实践需要去考虑。这一节讨论会话处理和示例Zend_Session架构的更高级用法的精彩细节。
@@ -9,7 +9,7 @@
 
     <section xml:id="zend.session.advanced_usage.starting_a_session"><info><title>开启会话</title></info>
 
-        
+
 
         <para>
             如何你希望所有的请求都有个由Zend_Seesion管理的会话，那么请在程序的引导文件中开启它：
@@ -17,7 +17,7 @@
 
         <example xml:id="zend.session.advanced_usage.starting_a_session.example"><info><title>开启全局会话</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Session.php';
@@ -90,7 +90,7 @@ Zend_Session::start();
 
     <section xml:id="zend.session.advanced_usage.locking"><info><title>锁住会话命名空间</title></info>
 
-        
+
 
         <para>
             会话的命名空间可以加锁，以防止意外的变更该命名空间下的会话变量值。使用<code>lock()</code>方法使某命名空间下会话变量为只读，<code>unlock()</code>方法使一个只读的名空间为可读写，<code>isLocked()</code>方法测试某命名空间是否已经被加锁。加锁是短暂的，且只在此页面请求内有效，不会持续到下一个页面请求。给命名空间加锁不会影响到存储在该命名空间下对象的setter方法，但是阻止了命名空间的setter方法的移除或替换对象。也就是说，虽给<code>Zend_Session_Namespace</code>的实例加了锁，但还是不能阻止它处同样引用了命名空间下数据的对它的变更（参见<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.php.net/references">PHP references</link>)。
@@ -98,7 +98,7 @@ Zend_Session::start();
 
         <example xml:id="zend.session.advanced_usage.locking.example.basic"><info><title>锁住会话命名空间</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Session/Namespace.php';
@@ -120,7 +120,7 @@ $userProfileNamespace->unLock();
 
     <section xml:id="zend.session.advanced_usage.expiration"><info><title>命名空间过期</title></info>
 
-        
+
 
         <para>
             对于命名空间和在命名空间中的独立键，它们的寿命都是有限的。在授权后，普通用例包括在请求之间传递临时信息，和通过除去访问潜在的敏感信息来降低一定的安全风险的暴露时有发生。过期可以基于消逝的秒数或者跳步(hop)的个数，对每次初始化命名空间的成功请求，跳步至少发生一次。
@@ -128,7 +128,7 @@ $userProfileNamespace->unLock();
 
         <example xml:id="zend.session.advanced_usage.expiration.example"><info><title>过期的例子</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Session/Namespace.php';
@@ -157,7 +157,7 @@ $s->setExpirationSeconds(60);
 
     <section xml:id="zend.session.advanced_usage.controllers"><info><title>会话封装和控制器</title></info>
 
-        
+
 
         <para>
             命名空间可以被用来分离控制器对会话的访问，以免被污染。例如， 一个认证控制器可以为会议安全请求保持它的会话状态数据与其他控制器分离。
@@ -165,7 +165,7 @@ $s->setExpirationSeconds(60);
 
         <example xml:id="zend.session.advanced_usage.controllers.example"><info><title>带有生命期的控制器命名空间会话</title></info>
 
-            
+
 
             <para>
                 下面的代码，作为显示一个测试问题的控制器的一部分，初始化一个布尔变量来表示是否一个提交的答案应该被接受。在此例中，给用户300秒时间来回答所显示的问题。
@@ -204,7 +204,7 @@ else {
 
     <section xml:id="zend.session.advanced_usage.single_instance"><info><title>防止每个命名空间有多重实例</title></info>
 
-        
+
 
         <para>
             尽管<link linkend="zend.session.advanced_usage.locking">session locking</link>提供了很好的保护来防止意外的命名空间的会话数据的使用，<code>Zend_Session_Namespace</code> 也有能力防止给一个单个的命名空间创建多个实例。
@@ -216,7 +216,7 @@ else {
 
         <example xml:id="zend.session.advanced_usage.single_instance.example"><info><title>限制命名空间访问单一实例</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 require_once 'Zend/Session/Namespace.php';
@@ -251,7 +251,7 @@ try {
 
     <section xml:id="zend.session.advanced_usage.arrays"><info><title>使用数组</title></info>
 
-        
+
 
         <para>
             在PHP 5.2.1 版本之前，因为PHP魔术方法实现的历史，修改在命名空间里的数组是不可以的。如果你只使用PHP 5.2.1 或以后的版本，那么你可以<link linkend="zend.session.advanced_usage.objects">跳到下一章节</link>。
@@ -259,7 +259,7 @@ try {
 
         <example xml:id="zend.session.advanced_usage.arrays.example.modifying"><info><title>修改带有会话命名空间的数组数据</title></info>
 
-            
+
 
             <para>
                 下面来示例问题如何被复制：
@@ -277,7 +277,7 @@ echo $sessionNamespace->array['testKey'];
 
         <example xml:id="zend.session.advanced_usage.arrays.example.building_prior"><info><title>在会话存储之前构造数组</title></info>
 
-            
+
 
             <para>
                 如果可能，通过只在所有期望的数组值被设置后存储数组到一个会话命名空间来完全避免问题的发生。
@@ -297,7 +297,7 @@ $sessionNamespace->array = array('a', 'b', 'c');
 
         <example xml:id="zend.session.advanced_usage.arrays.example.workaround.reassign"><info><title>方案：重新分配一个被修改的数组</title></info>
 
-            
+
 
             <para>
                 在下面的代码中，创建、修改了一个被存储的数组的拷贝，并且重新从被创建的拷贝分配位置、重写原数组。
@@ -326,7 +326,7 @@ echo $sessionNamespace->array['fruit']; // prints "peach"
 
         <example xml:id="zend.session.advanced_usage.arrays.example.workaround.reference"><info><title>方案：存储包括引用的数组</title></info>
 
-            
+
 
             <para>
                 作为选择，存储一个包含引用的数组到期望的数组，然后直接访问它。
@@ -347,7 +347,7 @@ echo $myNamespace->someArray['foo']; // prints "bar"
 
     <section xml:id="zend.session.advanced_usage.objects"><info><title>在对象中使用会话</title></info>
 
-        
+
 
         <para>
             如果你计划在PHP会话中持久对象，要知道它们将为存储被 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.php.net/manual/en/language.oop.serialization.php">系列化</link>。这样，任何在PHP会话中持久的对象在取出时一定会从存储中被去系列化。这意味着开发者必须确保持久对象的类必须在对象从会话存储中被去系列化之前被定义。如果一个非系列化的对象的类没有被定义，那么它就变成一个<code>stdClass</code>的实例。
@@ -357,7 +357,7 @@ echo $myNamespace->someArray['foo']; // prints "bar"
 
     <section xml:id="zend.session.advanced_usage.testing"><info><title>在单元测试中使用会话</title></info>
 
-        
+
 
         <para>
             Zend Framework利用PHPUnit来促进自身代码的测试。大多数开发者在他们的应用程序中，扩展已有的一组单元测试，以覆盖测试他们的代码。在运行单元测试时，如果在结束会话之后使用了写相关的方法，那么会抛出"<emphasis role="strong">当前Zend_Session被标记为只读</emphasis>"的异常。在单元测试中使用Zend_Session需要额外的注意，因为在关闭会话(<code>Zend_Session::writeClose()</code>)，或者摧毁一个会话(<code>Zend_Session::destroy()</code>)之后，不允许再设置或注销任何一个<code>Zend_Session_Namespace</code>的实例的键名了。 这样是由底层PHP的会话机制<code>session_destroy()</code>和<code>session_write_close()</code>所直接引起的，因为它未提供“撤销”机制以便单元测试setup/teardown。
@@ -369,7 +369,7 @@ echo $myNamespace->someArray['foo']; // prints "bar"
 
         <example xml:id="zend.session.advanced_usage.testing.example"><info><title>PHPUnit Testing Code Dependent on Zend_Session</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 // testing setExpirationSeconds()

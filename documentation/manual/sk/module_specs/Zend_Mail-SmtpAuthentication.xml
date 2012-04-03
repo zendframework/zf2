@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-authentication"><info><title>SMTP Autentifikácia</title></info>
-  
+
 
   <para>
   <code>Zend_Mail</code> podporuje použitie SMTP autentifikacie, ktorá môže
@@ -11,7 +11,7 @@
   </para>
 
   <example><info><title>Nastavenie SMTP autentifikácie v Zend_Mail_Transport_Smtp</title></info>
-    
+
 
     <programlisting role="php"><![CDATA[<?php
 
@@ -33,7 +33,7 @@ $mail->send($transport);]]></programlisting>
   </example>
 
   <note><info><title>Druhy autentifikácie</title></info>
-    
+
 
     <para>
     Typy autentifikácie sú nezávislé na veľkosti písmen ale bez interpunkcie. Pre použitie napr.

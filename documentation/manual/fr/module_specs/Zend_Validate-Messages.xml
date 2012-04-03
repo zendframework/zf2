@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.messages"><info><title>Messages de validation</title></info>
-    
+
 
     <para>
         Chaque validateur basé sur <classname>Zend_Validate</classname> propose un ou plusieurs messages
@@ -51,7 +51,7 @@ $validator->setMessage('Entrez une valeur plus petite', Zend_Validate_GreaterTha
     </para>
 
     <section xml:id="zend.validate.messages.pretranslated"><info><title>Utiliser les messages de validations pré-traduits</title></info>
-        
+
 
         <para>
             Zend Framework est livré avec plus de 45 validateurs différents et plus de 200 messages d'échecs.
@@ -61,7 +61,7 @@ $validator->setMessage('Entrez une valeur plus petite', Zend_Validate_GreaterTha
         </para>
 
         <note><info><title>Chemin utilisé</title></info>
-            
+
 
             <para>
                 Les fichiers de ressources sont en dehors du dossier library car les traductions sont sensées
@@ -88,7 +88,7 @@ Zend_Validate_Abstract::setDefaultTranslator($translator);
 ]]></programlisting>
 
         <note><info><title>Adaptateur de traduction utilisé</title></info>
-            
+
 
             <para>
                 L'adaptateur array a été utilisé, ceci pour permettre une modification simple des
@@ -97,7 +97,7 @@ Zend_Validate_Abstract::setDefaultTranslator($translator);
         </note>
 
         <note><info><title>Langues supportées</title></info>
-            
+
 
             <para>
                 Cette caractéristique de pré-traduction est jeune, donc le nombre de langues supportées peut
@@ -112,7 +112,7 @@ Zend_Validate_Abstract::setDefaultTranslator($translator);
     </section>
 
     <section xml:id="zend.validate.messages.limitation"><info><title>Limiter la taille d'un message de validation</title></info>
-        
+
 
         <para>
             Il peut être nécessaire parfois de limiter la taille en caractères des messages d'erreur
@@ -137,7 +137,7 @@ Zend_Validate::setMessageLength(100);
 ]]></programlisting>
 
         <note><info><title>Où ce paramètre est-il utilisé ?</title></info>
-            
+
 
             <para>
                 La taille des messages affecte aussi les messages personnalisés enregistrés, dès

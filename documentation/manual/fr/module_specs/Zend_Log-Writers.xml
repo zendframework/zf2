@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.writers"><info><title>Rédacteurs (Writers)</title></info>
-    
+
 
     <para>
         Un rédacteur est un objet qui hérite de
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.log.writers.stream"><info><title>Écrire vers un flux (stream)</title></info>
-        
+
 
         <para>
             <classname>Zend_Log_Writer_Stream</classname> envoie des données de log à un
@@ -58,7 +58,7 @@ $logger->info("Message d'information");
     </section>
 
     <section xml:id="zend.log.writers.database"><info><title>Écrire dans des bases de données</title></info>
-        
+
 
         <para>
             <classname>Zend_Log_Writer_Db</classname> écrit les informations de log dans une
@@ -98,7 +98,7 @@ $logger->info("Message d'information");
     </xi:include>
 
     <section xml:id="zend.log.writers.null"><info><title>Déraciner les rédacteurs</title></info>
-        
+
 
         <para>
             Le <classname>Zend_Log_Writer_Null</classname> est une souche qui écrit des
@@ -113,7 +113,7 @@ $logger->info("Message d'information");
         </section>
 
         <section xml:id="zend.log.writers.mock"><info><title>Tester avec un simulacre</title></info>
-            
+
 
         <para>
             Le <classname>Zend_Log_Writer_Mock</classname> est un rédacteur très simple qui
@@ -142,7 +142,7 @@ var_dump($mock->events[0]);
     </section>
 
     <section xml:id="zend.log.writers.compositing"><info><title>Additionner les rédacteurs</title></info>
-        
+
 
         <para>
             Il n'y a aucun objet composite de rédacteurs. Cependant, une instance

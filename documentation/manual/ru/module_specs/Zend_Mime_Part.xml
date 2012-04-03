@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.part"><info><title>Zend_Mime_Part</title></info>
-    
+
 
     <section xml:id="zend.mime.part.introduction"><info><title>Введение</title></info>
-    
+
 
     <para>
         Класс <classname>Zend_Mime_Part</classname> представляет отдельную
@@ -18,7 +18,7 @@
     </section>
 
     <section xml:id="zend.mime.part.instantiation"><info><title>Инстанцирование</title></info>
-    
+
 
     <para>
         Экземпляр класса <classname>Zend_Mime_Part</classname> создается с
@@ -43,7 +43,7 @@ public $language;
     </section>
 
     <section xml:id="zend.mime.part.methods"><info><title>Методы для рендеринга строк из объекта части сообщения</title></info>
-        
+
 
         <para>
             <methodname>getContent()</methodname> возвращает содержимое части

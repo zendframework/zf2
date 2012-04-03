@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.barcode.objects.details"><info><title>Beschreibung der ausgelieferten Barcodes</title></info>
-    
+
 
     <para>
         Anbei findet man detailierte Informationen über alle Barcode Typen welche standardmäßig
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.barcode.objects.details.error"><info><title>Zend_Barcode_Object_Error</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="400" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.error.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -24,7 +24,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.code25"><info><title>Zend_Barcode_Object_Code25</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="152" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.code25.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -56,7 +56,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.code25interleaved"><info><title>Zend_Barcode_Object_Code25interleaved</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="101" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.int25.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -92,7 +92,7 @@
         </para>
 
         <table xml:id="zend.barcode.objects.details.code25interleaved.table"><info><title>Optionen für Zend_Barcode_Object_Code25interleaved</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -125,7 +125,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.ean2"><info><title>Zend_Barcode_Object_Ean2</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="41" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.ean2.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -171,7 +171,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.ean5"><info><title>Zend_Barcode_Object_Ean5</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="68" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.ean5.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -217,7 +217,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.ean8"><info><title>Zend_Barcode_Object_Ean8</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="82" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.ean8.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -261,7 +261,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.ean13"><info><title>Zend_Barcode_Object_Ean13</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="113" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.ean13.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -303,7 +303,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.code39"><info><title>Zend_Barcode_Object_Code39</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="275" align="center" valign="middle" fileref="figures/zend.barcode.introduction.example-1.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -343,7 +343,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.identcode"><info><title>Zend_Barcode_Object_Identcode</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="137" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.identcode.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -390,7 +390,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.itf14"><info><title>Zend_Barcode_Object_Itf14</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="155" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.itf14.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -434,7 +434,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.leitcode"><info><title>Zend_Barcode_Object_Leitcode</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="155" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.leitcode.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -480,7 +480,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.planet"><info><title>Zend_Barcode_Object_Planet</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="286" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.planet.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -512,7 +512,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.postnet"><info><title>Zend_Barcode_Object_Postnet</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="286" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.postnet.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -544,7 +544,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.royalmail"><info><title>Zend_Barcode_Object_Royalmail</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="158" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.royalmail.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -579,7 +579,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.upca"><info><title>Zend_Barcode_Object_Upca</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="115" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.upca.png" format="PNG"/></imageobject></inlinemediaobject>
@@ -629,7 +629,7 @@
     </section>
 
     <section xml:id="zend.barcode.objects.details.upce"><info><title>Zend_Barcode_Object_Upce</title></info>
-        
+
 
         <para>
             <inlinemediaobject><imageobject><imagedata width="71" align="center" valign="middle" fileref="figures/zend.barcode.objects.details.upce.png" format="PNG"/></imageobject></inlinemediaobject>

@@ -9,7 +9,7 @@ multipart message
 --crazy-multipart
 Content-type: text/plain
 
-The first part 
+The first part
 is horizontal
 
 --crazy-multipart

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.pages"><info><title>Strony dokumentu.</title></info>
-    
+
     <section xml:id="zend.pdf.pages.creation"><info><title>Tworzenie strony.</title></info>
-        
+
         <para>
             Strona dokumentu PDF jest reprezentowana przez klasę <code>Zend_Pdf_Page</code>.
         </para>
@@ -55,7 +55,7 @@
         </para>
 
         <example xml:id="zend.pdf.pages.example-1"><info><title>Zarządzanie stronami dokumentu PDF.</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 ...
 // Odwróć kolejność stron
@@ -76,14 +76,14 @@ unset($pdf->pages[$id]);
     </section>
 
     <section xml:id="zend.pdf.pages.cloning"><info><title>Klonowanie stron.</title></info>
-        
+
         <para>
             Istniejące strony PDF mogą być klonowane przez tworzenie nowego
             obiektu <code>Zend_Pdf_Page</code> z istniejącą stroną w parametrze.
         </para>
 
         <example xml:id="zend.pdf.pages.example-2"><info><title>Klonowanie istniejącej strony.</title></info>
-            
+
             <programlisting role="php"><![CDATA[
 ...
 // Przechowaj szablon strony w osobnej zmiennej

@@ -1012,7 +1012,7 @@
 	<dates>
 		<calendars>
 			<calendar type="buddhist">
-				<dateFormats> 
+				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>Gy年M月d日EEEE</pattern>
@@ -1034,7 +1034,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d日</dateFormatItem>
 						<dateFormatItem id="Ed">d日(EEE)</dateFormatItem>
@@ -1730,7 +1730,7 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
-				<dateTimeFormats> 
+				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="d">d日</dateFormatItem>
 						<dateFormatItem id="Ed">d日(EEE)</dateFormatItem>

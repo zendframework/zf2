@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.adding-recipients"><info><title>Добавление получателей</title></info>
-    
+
     <para>
         Получатели могут быть добавлены тремя способами:
         <itemizedlist>
@@ -28,7 +28,7 @@
         <methodname>clearRecipients()</methodname> очищает список.
     </para>
     <note><info><title>Дополнительный параметр</title></info>
-        
+
         <para>
             <methodname>addTo()</methodname> и <methodname>addCc()</methodname>
             принимают второй необязательный

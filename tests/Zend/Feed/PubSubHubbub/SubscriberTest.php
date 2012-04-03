@@ -38,9 +38,9 @@ class SubscriberTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $_subscriber = null;
-    
+
     protected $_adapter = null;
-    
+
     protected $_tableGateway = null;
 
     public function setUp()
@@ -331,7 +331,7 @@ class SubscriberTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Feed\PubSubHubbub\Exception');
         $this->_subscriber->getStorage();
     }
-    
+
     protected function _getCleanMock($className) {
         $class = new \ReflectionClass($className);
         $methods = $class->getMethods();

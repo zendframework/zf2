@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.factory"><info><title>Utiliser la fabrique pour créer des logs</title></info>
-    
+
 
     <para>
         En plus de pouvoir instancier les objets directement, il est possible d'utiliser une fabrique,
@@ -96,7 +96,7 @@ $logger = Zend_Log::factory(array(
 
             <listitem>
                 <para>
-                    Le nom "court" d'un formateur à utiliser sur l'objet d'écriture. Voyez 
+                    Le nom "court" d'un formateur à utiliser sur l'objet d'écriture. Voyez
                     "formatterNamespace" pour plus de détails. Exemples: "Simple", "Xml".
                 </para>
             </listitem>
@@ -163,10 +163,10 @@ $logger = Zend_Log::factory(array(
     </para>
 
     <section xml:id="zend.log.factory.writer-options"><info><title>Options pour les objets d'écriture</title></info>
-        
+
 
         <section xml:id="zend.log.factory.writer-options.db"><info><title>Zend_Log_Writer_Db Options</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -203,7 +203,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.firebug"><info><title>Zend_Log_Writer_Firebug Options</title></info>
-            
+
 
             <para>
                 Aucune option n'est acceptée par cet objet d'écriture.
@@ -211,10 +211,10 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.mail"><info><title>Zend_Log_Writer_Mail Options</title></info>
-            
+
 
             <table xml:id="zend.log.factory.writer-options.mail.table"><info><title>Zend_Log_Writer_Mail Options</title></info>
-                
+
 
                 <tgroup cols="4">
                     <thead>
@@ -358,7 +358,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.mock"><info><title>Zend_Log_Writer_Mock Options</title></info>
-            
+
 
             <para>
                 Aucune option n'est acceptée par cet objet d'écriture.
@@ -366,7 +366,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.null"><info><title>Zend_Log_Writer_Null Options</title></info>
-            
+
 
             <para>
                 Aucune option n'est acceptée par cet objet d'écriture.
@@ -374,7 +374,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.stream"><info><title>Zend_Log_Writer_Stream Options</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -400,7 +400,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.syslog"><info><title>Zend_Log_Writer_Syslog Options</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -426,7 +426,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.zendmonitor"><info><title>Zend_Log_Writer_ZendMonitor Options</title></info>
-            
+
 
             <para>
                Aucune option n'est acceptée par cet objet d'écriture.
@@ -435,10 +435,10 @@ $logger = Zend_Log::factory(array(
     </section>
 
     <section xml:id="zend.log.factory.filter-options"><info><title>Options des filtres</title></info>
-        
+
 
         <section xml:id="zend.log.factory.filter-options.message"><info><title>Zend_Log_Filter_Message Options</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -454,7 +454,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.filter-options.priority"><info><title>Zend_Log_Filter_Priority Options</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -481,7 +481,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.filter-options.suppress"><info><title>Zend_Log_Filter_Suppress Options</title></info>
-            
+
 
             <para>
                 Aucune option n'est acceptée par cet objet d'écriture.
@@ -490,7 +490,7 @@ $logger = Zend_Log::factory(array(
     </section>
 
     <section xml:id="zend.log.factory.custom"><info><title>Créer des objets d'écriture et des filtres configurés</title></info>
-        
+
 
         <para>
             SI vous souhaitez créer vos propres objets d'écriture du journal, ou vos propres filtres, il est

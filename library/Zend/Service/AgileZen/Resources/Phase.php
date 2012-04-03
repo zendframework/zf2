@@ -35,44 +35,44 @@ class Phase extends Entity
 {
     /**
      * Name
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $name;
 
     /**
      * Description
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $description;
 
     /**
      * Index
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $index;
 
     /**
      * Service
-     * 
-     * @var AgileZen 
+     *
+     * @var AgileZen
      */
     protected $service;
 
     /**
      * Project Id
-     * 
-     * @var integer 
+     *
+     * @var integer
      */
     protected $projectId;
 
     /**
      * Constructor
-     * 
+     *
      * @param AgileZen $service
-     * @param array $data 
+     * @param array $data
      */
     public function __construct(AgileZen $service, array $data)
     {
@@ -82,20 +82,20 @@ class Phase extends Entity
         if (!array_key_exists('name', $data)) {
              throw new Exception\InvalidArgumentException("You must pass the name of the phase");
         }
-        
+
         $this->name        = $data['name'];
         $this->description = $data['description'];
         $this->index       = $data['index'];
         $this->service     = $service;
         $this->projectId   = $data['projectId'];
-        
+
         parent::__construct($data['id']);
     }
 
     /**
      * Get name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getName()
     {
@@ -104,8 +104,8 @@ class Phase extends Entity
 
     /**
      * Get description
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getDescription()
     {
@@ -114,8 +114,8 @@ class Phase extends Entity
 
     /**
      * Get index
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getIndex()
     {
@@ -124,8 +124,8 @@ class Phase extends Entity
 
     /**
      * Get the project Id
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getProjectId()
     {
@@ -133,10 +133,10 @@ class Phase extends Entity
     }
 
     /**
-     * Get stories 
-     * 
-     * @param  array $params 
-     * @return \Zend\Service\AgileZen\Container 
+     * Get stories
+     *
+     * @param  array $params
+     * @return \Zend\Service\AgileZen\Container
      */
     public function getStories($params=array())
     {

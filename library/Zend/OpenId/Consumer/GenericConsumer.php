@@ -894,7 +894,7 @@ class GenericConsumer
      *
      * @param HttpClient $client HTTP client object to be used
      */
-    public function setHttpClient($client) 
+    public function setHttpClient($client)
     {
         $this->_httpClient = $client;
     }
@@ -904,7 +904,7 @@ class GenericConsumer
      *
      * @return HttpClient
      */
-    public function getHttpClient() 
+    public function getHttpClient()
     {
         return $this->_httpClient;
     }
@@ -914,7 +914,7 @@ class GenericConsumer
      *
      * @param SessionContainer $session HTTP client object to be used
      */
-    public function setSession(SessionContainer $session) 
+    public function setSession(SessionContainer $session)
     {
         $this->_session = $session;
     }
@@ -924,7 +924,7 @@ class GenericConsumer
      *
      * @return Zend\Session\Container
      */
-    public function getSession() 
+    public function getSession()
     {
         return $this->_session;
     }

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_Navigation</classname> ist eine Komponente für das Verwalten von Pointern
@@ -12,14 +12,14 @@
     </para>
 
     <section xml:id="zend.navigation.introduction.concepts"><info><title>Seiten und Container</title></info>
-        
+
 
         <para>
             Es gibt zwei grundsätzliche Konzepte in <classname>Zend_Navigation</classname>:
         </para>
 
         <section xml:id="zend.navigation.introduction.pages"><info><title>Seiten</title></info>
-            
+
 
             <para>
                 Eine Seite (<classname>Zend_Navigation_Page</classname>) ist in
@@ -37,7 +37,7 @@
         </section>
 
         <section xml:id="zend.navigation.introduction.containers"><info><title>Container</title></info>
-            
+
 
             <para>
                 Ein Navigations Container (<classname>Zend_Navigation_Container</classname>) ist
@@ -65,7 +65,7 @@
     </section>
 
     <section xml:id="zend.navigation.introduction.separation"><info><title>Trennung von Daten (Modell) und Darstellung (View)</title></info>
-        
+
 
         <para>
             Klassen im <classname>Zend_Navigation</classname> Namespace handhaben keine Darstellung

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.openid.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_OpenId</classname> ist eine Zend Framework Komponente die eine einfache
@@ -11,7 +11,7 @@
     </para>
 
     <section xml:id="zend.openid.introduction.what"><info><title>Was ist OpenID?</title></info>
-        
+
 
         <para>
             OpenID ist ein Set von Protokollen für Benutzer-zentrierte digitale Identitäts Provider.
@@ -38,7 +38,7 @@
     </section>
 
     <section xml:id="zend.openid.introduction.how"><info><title>Wie funktioniert das ?</title></info>
-        
+
 
         <para>
             Der Zweck der <classname>Zend_OpenId</classname> Komponente ist es das OpenID
@@ -128,7 +128,7 @@
     </section>
 
     <section xml:id="zend.openid.introduction.structure"><info><title>Zend_OpenId Struktur</title></info>
-        
+
 
         <para>
             <classname>Zend_OpenId</classname> besteht aus zwei Unterpaketen. Das erste ist
@@ -157,7 +157,7 @@
     </section>
 
     <section xml:id="zend.openid.introduction.standards"><info><title>Unterstützte OpenId Standards</title></info>
-        
+
 
         <para>
             Die <classname>Zend_OpenId</classname> Komponente unterstützt die folgenden Standards:

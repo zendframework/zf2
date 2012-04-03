@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.factory"><info><title>Using the Factory to Create a Log</title></info>
-    
+
 
     <para>
         In addition to direct instantiation, you may also use the static
@@ -99,7 +99,7 @@ $logger = Zend_Log::factory(array(
             <listitem>
                 <para>
                     The "short" name of a formatter to use with the given log writer; the name of the
-                    formatter minus the leading class prefix/namespace. See the "formatterNamespace" 
+                    formatter minus the leading class prefix/namespace. See the "formatterNamespace"
                     entry below for more details. Examples: "Simple", "Xml".
                 </para>
             </listitem>
@@ -171,10 +171,10 @@ $logger = Zend_Log::factory(array(
     </para>
 
     <section xml:id="zend.log.factory.writer-options"><info><title>Writer Options</title></info>
-        
+
 
         <section xml:id="zend.log.factory.writer-options.db"><info><title>Zend_Log_Writer_Db Options</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -211,7 +211,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.firebug"><info><title>Zend_Log_Writer_Firebug Options</title></info>
-            
+
 
             <para>
                 This log writer takes no options; any provided will be ignored.
@@ -219,10 +219,10 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.mail"><info><title>Zend_Log_Writer_Mail Options</title></info>
-            
+
 
             <table xml:id="zend.log.factory.writer-options.mail.table"><info><title>Zend_Log_Writer_Mail Options</title></info>
-                
+
 
                 <tgroup cols="4">
                     <thead>
@@ -366,7 +366,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.mock"><info><title>Zend_Log_Writer_Mock Options</title></info>
-            
+
 
             <para>
                 This log writer takes no options; any provided will be ignored.
@@ -374,7 +374,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.null"><info><title>Zend_Log_Writer_Null Options</title></info>
-            
+
 
             <para>
                 This log writer takes no options; any provided will be ignored.
@@ -382,7 +382,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.stream"><info><title>Zend_Log_Writer_Stream Options</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -408,7 +408,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.syslog"><info><title>Zend_Log_Writer_Syslog Options</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -434,7 +434,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.zendmonitor"><info><title>Zend_Log_Writer_ZendMonitor Options</title></info>
-            
+
 
             <para>
                 This log writer takes no options; any provided will be ignored.
@@ -443,10 +443,10 @@ $logger = Zend_Log::factory(array(
     </section>
 
     <section xml:id="zend.log.factory.filter-options"><info><title>Filter Options</title></info>
-        
+
 
         <section xml:id="zend.log.factory.filter-options.message"><info><title>Zend_Log_Filter_Message Options</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -462,7 +462,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.filter-options.priority"><info><title>Zend_Log_Filter_Priority Options</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -489,7 +489,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.filter-options.suppress"><info><title>Zend_Log_Writer_Suppress Options</title></info>
-            
+
 
             <para>
                 This log filter takes no options; any provided will be ignored.
@@ -498,7 +498,7 @@ $logger = Zend_Log::factory(array(
     </section>
 
     <section xml:id="zend.log.factory.custom"><info><title>Creating Configurable Writers and Filters</title></info>
-        
+
 
         <para>
             If you find yourself needing to write your own log writers and/or filters, you can make

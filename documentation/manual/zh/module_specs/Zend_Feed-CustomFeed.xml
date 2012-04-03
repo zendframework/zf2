@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.custom-feed"><info><title>自定义Feed和条目类</title></info>
-    
+
 
     <para>
         最后，如果你想提供一个你自己的格式或者想更自动化的定义一个命名空间那么你可以扩展继承<code>Zend_Feed</code>类。
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.feed.custom-feed.example.extending"><info><title>用自定义的命名空间继承Atom条目类</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 /**
  * 自定义的条目类自动地识别feed URI(可选)

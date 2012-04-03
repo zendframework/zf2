@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.calendar"><info><title>Google Calendar の使用法</title></info>
-    
+
     <para>
         <classname>Zend_Gdata_Calendar</classname>
         クラスを使うと、Google Calendar サービスで
@@ -12,7 +12,7 @@
         を参照ください。
     </para>
     <section xml:id="zend.gdata.calendar.connecting"><info><title>Calendar サービスへの接続</title></info>
-        
+
         <para>
             Google Calendar <acronym>API</acronym> は、その他の GData <acronym>API</acronym> と同様に
             Atom Publishing Protocol (APP) を使用しています。これは、<acronym>XML</acronym>
@@ -28,7 +28,7 @@
             サービスのインスタンスをそこにバインドするという手順で行います。
         </para>
         <section xml:id="zend.gdata.calendar.connecting.authentication"><info><title>認証</title></info>
-            
+
             <para>
                 Google Calendar <acronym>API</acronym> を使用すると、公開カレンダーだけでなく
                 プライベートカレンダーのフィードにもアクセスできます。
@@ -85,7 +85,7 @@
             </para>
         </section>
         <section xml:id="zend.gdata.calendar.connecting.service"><info><title>サービスのインスタンスの作成</title></info>
-            
+
             <para>
                 Google Calendar を使用するためのクラスとして、このライブラリでは
                 <classname>Zend_Gdata_Calendar</classname> を用意しています。
@@ -225,7 +225,7 @@ $service = new Zend_Gdata_Calendar();
         </section>
     </section>
     <section xml:id="zend.gdata.calendar_retrieval"><info><title>カレンダーリストの取得</title></info>
-        
+
         <para>
             カレンダーサービスには、
             認証済みのユーザのカレンダーの一覧を取得する機能があります。
@@ -269,7 +269,7 @@ echo "</ul>";
 ]]></programlisting>
     </section>
     <section xml:id="zend.gdata.event_retrieval"><info><title>イベントの取得</title></info>
-        
+
         <para>
             カレンダーリストと同様、イベントも
             <classname>Zend_Gdata_Calendar</classname>
@@ -282,7 +282,7 @@ echo "</ul>";
             先ほどの例と同様の方法で、個々のイベントの情報を取得できます。
         </para>
         <section xml:id="zend.gdata.event_retrieval.queries"><info><title>クエリ</title></info>
-            
+
             <para>
                 Calendar <acronym>API</acronym> でイベントを取得する際には、
                 クエリ <acronym>URL</acronym> を用いてほしいイベントを指定します。
@@ -330,7 +330,7 @@ echo "</ul>";
             </itemizedlist>
         </section>
         <section xml:id="zend.gdata.event_retrieval.start_time"><info><title>開始時刻順によるイベントの取得</title></info>
-            
+
             <para>
                 以下の例は、
                 <classname>Zend_Gdata_Query</classname> を使用して非公開フィードを指定しています。
@@ -380,7 +380,7 @@ echo "</ul>";
             </para>
         </section>
         <section xml:id="zend.gdata.event_retrieval.date_range"><info><title>指定した日付の範囲からのイベントの取得</title></info>
-            
+
             <para>
                 指定した範囲、たとえば 2006 年 12 月 1 日から
                 2006 年 12 月 15 日までのすべてのイベントを表示するには、
@@ -407,7 +407,7 @@ $query->setStartMax('2006-12-16');
             </para>
         </section>
         <section xml:id="zend.gdata.event_retrieval.fulltext"><info><title>全文検索によるイベントの取得</title></info>
-            
+
             <para>
                 指定した単語、たとえば "dogfood"
                 を含むすべてのイベントを表示するには、
@@ -419,7 +419,7 @@ $query->setQuery("dogfood");
 ]]></programlisting>
         </section>
         <section xml:id="zend.gdata.event_retrieval.individual"><info><title>特定のイベントの取得</title></info>
-            
+
             <para>
                 特定のイベントを取得する場合は、そのイベントの ID
                 をクエリで指定します。そして
@@ -461,9 +461,9 @@ try {
         </section>
     </section>
     <section xml:id="zend.gdata.calendar.creating_events"><info><title>イベントの作成</title></info>
-        
+
         <section xml:id="zend.gdata.calendar.creating_events.single"><info><title>一度だけのイベントの作成</title></info>
-            
+
             <para>
                 イベントをカレンダーに追加するには、
                 <classname>Zend_Gdata_EventEntry</classname> のインスタンスを作成して
@@ -591,7 +591,7 @@ $newEvent = $service->insertEvent($event);
 ]]></programlisting>
         </section>
         <section xml:id="zend.gdata.calendar.creating_events.schedulers_reminders"><info><title>イベントのスケジュールおよびリマインダー</title></info>
-            
+
             <para>
                 イベントの開始時刻と期間は <code>when</code> プロパティによって決まります。
                 この中には
@@ -656,7 +656,7 @@ $when->reminders = array($reminder);
 ]]></programlisting>
         </section>
         <section xml:id="zend.gdata.calendar.creating_events.recurring"><info><title>繰り返し発生するイベントの作成</title></info>
-            
+
             <para>
                 繰り返し発生するイベントの作成方法は、
                 一回しか発生しないイベントの場合と同じです。
@@ -706,7 +706,7 @@ $newEvent = $service->insertEvent($event);
 ]]></programlisting>
         </section>
         <section xml:id="zend.gdata.calendar.creating_events.quickadd"><info><title>QuickAdd の使用法</title></info>
-            
+
             <para>
                 QuickAdd とは、自由形式のテキストでイベントを作成する機能のことです。
                 たとえば、"Dinner at Joe's Diner on Thursday" という文字列を指定すると、
@@ -730,7 +730,7 @@ $newEvent = $service->insertEvent($event);
         </section>
     </section>
     <section xml:id="zend.gdata.calendar.modifying_events"><info><title>イベントの変更</title></info>
-        
+
         <para>
             イベントのインスタンスを取得したら、
             新しいイベントを作成する場合と同じようにしてその属性を変更できます。
@@ -760,7 +760,7 @@ try {
 ]]></programlisting>
     </section>
     <section xml:id="zend.gdata.calendar.deleting_events"><info><title>イベントの削除</title></info>
-        
+
         <para>
             カレンダーのイベントを削除する方法には二通りあります。
             ひとつはカレンダーサービスの <methodname>delete()</methodname>
@@ -789,7 +789,7 @@ $service->delete($event->getEditLink()->href);
 ]]></programlisting>
     </section>
     <section xml:id="zend.gdata.calendar.comments"><info><title>イベントのコメントへのアクセス</title></info>
-        
+
         <para>
             full イベントビューでは、コメントはイベントのエントリに保存されません。
             その代わりとして、各イベントにはコメントの <acronym>URL</acronym> が含まれており、

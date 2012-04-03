@@ -26,7 +26,7 @@
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- *   
+ *
  * @property string $MessageId         Message ID
  * @property string $InsertionTime     Insertion time
  * @property string $ExpirationTime    Expiration time
@@ -38,14 +38,14 @@ class Zend_Service_WindowsAzure_Storage_QueueMessage
 {
     /**
      * Data
-     * 
+     *
      * @var array
      */
     protected $_data = null;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param string $messageId         Message ID
      * @param string $insertionTime     Insertion time
      * @param string $expirationTime    Expiration time
@@ -53,7 +53,7 @@ class Zend_Service_WindowsAzure_Storage_QueueMessage
      * @param string $timeNextVisible   Next time the message is visible in the queue
      * @param string $messageText       Message text
      */
-    public function __construct($messageId, $insertionTime, $expirationTime, $popReceipt, $timeNextVisible, $messageText) 
+    public function __construct($messageId, $insertionTime, $expirationTime, $popReceipt, $timeNextVisible, $messageText)
     {
         $this->_data = array(
             'messageid'       => $messageId,
@@ -64,10 +64,10 @@ class Zend_Service_WindowsAzure_Storage_QueueMessage
             'messagetext'     => $messageText
         );
     }
-    
+
     /**
      * Magic overload for setting properties
-     * 
+     *
      * @param string $name     Name of the property
      * @param string $value    Value to set
      */
@@ -82,7 +82,7 @@ class Zend_Service_WindowsAzure_Storage_QueueMessage
 
     /**
      * Magic overload for getting properties
-     * 
+     *
      * @param string $name     Name of the property
      */
     public function __get($name) {

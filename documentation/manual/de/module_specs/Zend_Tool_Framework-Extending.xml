@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.extending"><info><title>Extending and Configuring Zend_Tool_Framework</title></info>
-    
+
 
     <section xml:id="zend.tool.framework.console-client"><info><title>Anpassen des Zend_Tool Konsolen Clients</title></info>
-        
+
 
         <para>
             Mit Zend Framework 1.9 erlaubt es <classname>Zend_Tool_Framework</classname> Entwicklern
@@ -32,7 +32,7 @@
         </para>
 
         <section xml:id="zend.tool.framework.console-client.home-directory"><info><title>Das Home Verzeichnis</title></info>
-            
+
 
             <para>
                 Bevor der Konsolen Client beginnen kann nach einer <classname>Zend_Tool</classname>
@@ -66,7 +66,7 @@
         </section>
 
         <section xml:id="zend.tool.framework.console-client.local-storage"><info><title>Lokaler Speicher</title></info>
-            
+
 
             <para>
                 Sobald das Home Verzeichnis gefunden werden kann, kann
@@ -98,7 +98,7 @@
         </section>
 
         <section xml:id="zend.tool.framework.console-client.configuration-file"><info><title>Benutzer Konfiguration</title></info>
-            
+
 
             <para>
                 Wie beim lokalen Speicher kann <classname>Zend_Tool_Framework</classname>'s
@@ -145,7 +145,7 @@
         </section>
 
         <section xml:id="zend.tool.framework.console-client.configuration-content"><info><title>Inhalt der Benutzer Konfigurationsdatei</title></info>
-            
+
 
             <para>
                 Die Konfigurationdatei sollte als <classname>Zend_Config</classname>

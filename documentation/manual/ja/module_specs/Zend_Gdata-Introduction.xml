@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.introduction"><info><title>導入</title></info>
-    
+
     <para>
         Google Data <acronym>API</acronym> は、Google のオンラインサービスに対するプログラマ向けのインターフェイスです。
         Google data Protocol は
@@ -96,7 +96,7 @@
     </para>
 
     <note><info><title>サポートしていないサービス</title></info>
-        
+
         <para>
             <classname>Zend_Gdata</classname> には、これら以外の Google のサービス
             (例えば検索、Gmail、翻訳、マップなど)
@@ -106,7 +106,7 @@
     </note>
 
     <section xml:id="zend.gdata.introduction.structure"><info><title>Zend_Gdata の構造</title></info>
-        
+
         <para>
             <classname>Zend_Gata</classname> は、いくつかの型のクラスを組み合わせたものです。
             <itemizedlist>
@@ -188,7 +188,7 @@
     </section>
 
     <section xml:id="zend.gdata.introduction.services"><info><title>Google サービスの使用法</title></info>
-        
+
         <para>
             Google データサービスは、Atom Publishing Protocol (APP)
             および Atom syndication format に基づいたサービスです。
@@ -209,7 +209,7 @@
     </section>
 
     <section xml:id="zend.gdata.introduction.magicfactory"><info><title>Zend_Gdata クラスのインスタンスの取得</title></info>
-        
+
         <para>
             Zend Framework の命名規約では、すべてのクラスは
             その存在位置のディレクトリ構造に基づいた名前をつける必要があります。
@@ -256,7 +256,7 @@ $entry->cell = $cell;
     </section>
 
     <section xml:id="zend.gdata.introduction.authentication"><info><title>Google Data クライアント認証</title></info>
-        
+
         <para>
             ほとんどの Google Data サービスは、
             個人データへのアクセスやデータの保存、削除の前に
@@ -276,7 +276,7 @@ $entry->cell = $cell;
     </section>
 
     <section xml:id="zend.gdata.introduction.dependencies"><info><title>依存性</title></info>
-        
+
         <para>
             <classname>Zend_Gdata</classname> は
             <link linkend="zend.http.client">Zend_Http_Client</link>
@@ -295,7 +295,7 @@ $entry->cell = $cell;
     </section>
 
     <section xml:id="zend.gdata.introduction.creation"><info><title>新しい Gdata クライアントの作成</title></info>
-        
+
 
         <para>
             <classname>Zend_Gdata_App</classname> クラス、<classname>Zend_Gdata</classname> クラス、
@@ -346,7 +346,7 @@ $gdata->setMinorProtocolVersion(null);
     </section>
 
     <section xml:id="zend.gdata.introduction.parameters"><info><title>共通のクエリパラメータ</title></info>
-        
+
 
         <para>
             パラメータを指定することで、<classname>Zend_Gdata</classname>
@@ -486,7 +486,7 @@ $gdata->resetParameters();      // すべてのパラメータを消去します
     </section>
 
     <section xml:id="zend.gdata.introduction.getfeed"><info><title>フィードの取得</title></info>
-        
+
 
         <para>
             <methodname>getFeed()</methodname> を使用して、指定した <acronym>URI</acronym> からフィードを取得します。
@@ -511,7 +511,7 @@ $feed = $gdata->getFeed($query);
     </section>
 
     <section xml:id="zend.gdata.introduction.paging"><info><title>複数ページのフィードの扱い方</title></info>
-        
+
 
         <para>
             多くのエントリが含まれるフィードを取得した場合、
@@ -559,7 +559,7 @@ $feed = $gdata->retrieveAllEntriesForFeed($gdata->getFeed($query));
     </section>
 
     <section xml:id="zend.gdata.introduction.usefeedentry"><info><title>フィードやエントリ内のデータの操作</title></info>
-        
+
 
         <para>
             フィードを取得したら、次はそのデータを読み込んだり
@@ -585,7 +585,7 @@ foreach ($feed as $entry) {
     </section>
 
     <section xml:id="zend.gdata.introduction.updateentry"><info><title>エントリの更新</title></info>
-        
+
 
         <para>
             エントリを取得したら、それを更新してサーバに保存できます。以下に例を示します。
@@ -611,7 +611,7 @@ foreach ($feed as $entry) {
     </section>
 
     <section xml:id="zend.gdata.introduction.post"><info><title>Google サーバへのエントリの送信</title></info>
-        
+
 
         <para>
             <classname>Zend_Gdata</classname> オブジェクトの関数 <methodname>insertEntry()</methodname>
@@ -660,7 +660,7 @@ echo 'この結果のエントリの <id> は、' . $entryResult->id->text;
     </section>
 
     <section xml:id="zend.gdata.introduction.delete"><info><title>Google サーバからのデータの削除</title></info>
-        
+
 
         <para>
             方法 1: <classname>Zend_Gdata</classname> オブジェクトの関数 <methodname>delete()</methodname>

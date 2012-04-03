@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.global_session_management"><info><title>グローバルセッションの管理</title></info>
 
-    
+
 
     <para>
         セッションのデフォルトの挙動を変更するには、<classname>Zend_Session</classname>
@@ -17,7 +17,7 @@
 
     <section xml:id="zend.session.global_session_management.configuration_options"><info><title>設定オプション</title></info>
 
-        
+
 
         <para>
             セッション名前空間が要求されると、事前に
@@ -42,7 +42,7 @@
 
         <example xml:id="zend.session.global_session_management.setoptions.example"><info><title>Zend_Config による Zend_Session の設定</title></info>
 
-            
+
 
             <para>
                 このコンポーネントを
@@ -135,7 +135,7 @@ Zend_Session::setOptions($config->toArray());
                         に例外をスローします。
                     </para>
                     <note><info><title>セキュリティリスク</title></info>
-                        
+
                         <para>
                             そのパスが他のアプリケーションから読み取り可能になっていると、
                             セッションハイジャックの可能性が生じます。また、
@@ -178,7 +178,7 @@ Zend_Session::setOptions($config->toArray());
                         な値を開発者側で指定する必要があります。
                     </para>
                     <note><info><title>セキュリティリスク</title></info>
-                        
+
                         <para>
                             <code>php.ini</code> での <code>session.name</code> の設定が同じ
                             (たとえばデフォルトの "PHPSESSID") で、同一ドメインに複数の
@@ -194,7 +194,7 @@ Zend_Session::setOptions($config->toArray());
                         以下で説明するセキュリティリスクを回避するため、
                         このオプションはデフォルトのままにしておいてください。
                         <note><info><title>セキュリティリスク</title></info>
-                            
+
                             <para>
                                 もしこの設定を無効にすると、攻撃者は簡単に犠牲者のセッション
                                 ID を盗めるようになります。攻撃者のウェブサイトへから、たとえば
@@ -215,7 +215,7 @@ Zend_Session::setOptions($config->toArray());
 
     <section xml:id="zend.session.global_session_management.headers_sent"><info><title>Error: Headers Already Sent</title></info>
 
-        
+
 
         <para>
             "Cannot modify header information - headers already sent"
@@ -279,7 +279,7 @@ Zend_Session::setOptions($config->toArray());
 
     <section xml:id="zend.session.global_session_management.session_identifiers"><info><title>セッション識別子</title></info>
 
-        
+
 
         <para>
             導入: Zend Framework でセッションを用いる際の最も推奨される方法は、
@@ -347,7 +347,7 @@ Zend_Session::setOptions($config->toArray());
 
         <section xml:id="zend.session.global_session_management.session_identifiers.hijacking_and_fixation"><info><title>セッションハイジャックおよびセッション固定化</title></info>
 
-            
+
 
             <para>
                 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Cross_site_scripting">
@@ -435,7 +435,7 @@ Zend_Session::setOptions($config->toArray());
 
             <example xml:id="zend.session.global_session_management.session_identifiers.hijacking_and_fixation.example"><info><title>セッション固定化</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $defaultNamespace = new Zend_Session_Namespace();
@@ -454,7 +454,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.rememberme"><info><title>rememberMe(integer $seconds)</title></info>
 
-        
+
 
         <para>
             通常は、セッションが終わるのはユーザエージェントが終了したとき、
@@ -475,7 +475,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.forgetme"><info><title>forgetMe()</title></info>
 
-        
+
 
         <para>
             この関数は <methodname>rememberMe()</methodname> を補完するものです。
@@ -487,7 +487,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.sessionexists"><info><title>sessionExists()</title></info>
 
-        
+
 
         <para>
             このメソッドを使用して、現在のユーザエージェント/リクエスト
@@ -501,7 +501,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.destroy"><info><title>destroy(bool $remove_cookie = true, bool $readonly = true)</title></info>
 
-        
+
 
         <para>
             <methodname>Zend_Session::destroy()</methodname> は、
@@ -531,7 +531,7 @@ if (!isset($defaultNamespace->initialized)) {
         </para>
 
         <note><info><title>例外/エラー</title></info>
-            
+
             <para>
                 デフォルトでは <code>$readonly</code> が有効になっています。
                 そのため、セッションデータへの書き込みを含む操作を行うと、
@@ -543,7 +543,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.stop"><info><title>stop()</title></info>
 
-        
+
 
         <para>
             このメソッドは、単に <classname>Zend_Session</classname> のフラグを切り替え、
@@ -562,7 +562,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.writeclose"><info><title>writeClose($readonly = true)</title></info>
 
-        
+
 
         <para>
             セッションを終了して内容を書き込んだ後に、
@@ -574,7 +574,7 @@ if (!isset($defaultNamespace->initialized)) {
         </para>
 
         <note><info><title>例外/エラー</title></info>
-            
+
             <para>
                 デフォルトでは <code>$readonly</code> が有効になっています。
                 そのため、セッションデータへの書き込みを含む操作を行うと、
@@ -591,7 +591,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.expiresessioncookie"><info><title><code>expireSessionCookie()</code></title></info>
 
-        
+
 
         <para>
             このメソッドは、有効期限切れのセッション ID クッキーを送信し、
@@ -603,7 +603,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.savehandler"><info><title>setSaveHandler(Zend_Session_SaveHandler_Interface $interface)</title></info>
 
-        
+
 
         <para>
             ほとんどの開発者にとっては、デフォルトの保存ハンドラで十分でしょう。
@@ -617,7 +617,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.namespaceisset"><info><title>namespaceIsset($namespace)</title></info>
 
-        
+
 
         <para>
             このメソッドを使用して、セッション名前空間が存在するかどうかを調べます。
@@ -625,7 +625,7 @@ if (!isset($defaultNamespace->initialized)) {
         </para>
 
         <note><info><title>例外/エラー</title></info>
-            
+
             <para>
                 <classname>Zend_Session</classname> が読み取り可能に設定されていない場合
                 (<classname>Zend_Session</classname> が開始される前など)
@@ -637,7 +637,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.namespaceunset"><info><title>namespaceUnset($namespace)</title></info>
 
-        
+
 
         <para>
             <methodname>Zend_Session::namespaceUnset($namespace)</methodname> を使用すると、
@@ -655,7 +655,7 @@ if (!isset($defaultNamespace->initialized)) {
         </para>
 
         <note><info><title>例外/エラー</title></info>
-            
+
             <para>
                 名前空間が読み取り可能に設定されていない場合
                 (<methodname>destroy()</methodname> の後など)
@@ -667,7 +667,7 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.namespaceget"><info><title>namespaceGet($namespace)</title></info>
 
-        
+
 
         <para>
             非推奨: <classname>Zend_Session_Namespace</classname> の <methodname>getIterator()</methodname>
@@ -680,7 +680,7 @@ if (!isset($defaultNamespace->initialized)) {
         </para>
 
         <note><info><title>例外/エラー</title></info>
-            
+
             <para>
                 <classname>Zend_Session</classname> が読み取り可能に設定されていない場合
                 (<classname>Zend_Session</classname> が開始される前など)
@@ -692,14 +692,14 @@ if (!isset($defaultNamespace->initialized)) {
 
     <section xml:id="zend.session.global_session_management.getiterator"><info><title>getIterator()</title></info>
 
-        
+
 
         <para>
             <methodname>getIterator()</methodname> を使用して、全名前空間の名前を含む配列を取得します。
         </para>
 
         <note><info><title>例外/エラー</title></info>
-            
+
             <para>
                 <classname>Zend_Session</classname> が読み取り可能に設定されていない場合
                 (<classname>Zend_Session</classname> が開始される前など)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.console.getopt.fetching"><info><title>Fetching Options and Arguments</title></info>
-    
+
 
     <para>
         After you have declared the options that the
@@ -20,7 +20,7 @@
     </para>
 
     <section xml:id="zend.console.getopt.fetching.exceptions"><info><title>Handling Getopt Exceptions</title></info>
-        
+
 
         <para>
             If the user gave any invalid options on the command-line,
@@ -36,7 +36,7 @@
         </para>
 
         <example xml:id="zend.console.getopt.fetching.exceptions.example"><info><title>Catching Getopt Exceptions</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 try {
@@ -77,7 +77,7 @@ try {
     </section>
 
     <section xml:id="zend.console.getopt.fetching.byname"><info><title>Fetching Options by Name</title></info>
-        
+
 
         <para>
             You can use the <methodname>getOption()</methodname> method to query the value
@@ -88,7 +88,7 @@ try {
         </para>
 
         <example xml:id="zend.console.getopt.fetching.byname.example.setoption"><info><title>Using getOption()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
@@ -105,7 +105,7 @@ $p_parameter = $opts->getOption('p');
         </para>
 
         <example xml:id="zend.console.getopt.fetching.byname.example.magic"><info><title>Using __get() and __isset() Magic Methods</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');
@@ -123,7 +123,7 @@ $p_parameter = $opts->p; // null if not set
     </section>
 
     <section xml:id="zend.console.getopt.fetching.reporting"><info><title>Reporting Options</title></info>
-        
+
 
         <para>
             There are several methods to report the full set of
@@ -174,7 +174,7 @@ $p_parameter = $opts->p; // null if not set
     </section>
 
     <section xml:id="zend.console.getopt.fetching.remainingargs"><info><title>Fetching Non-option Arguments</title></info>
-        
+
 
         <para>
             After option arguments and their parameters have been
@@ -185,7 +185,7 @@ $p_parameter = $opts->p; // null if not set
         </para>
 
         <example xml:id="zend.console.getopt.fetching.remainingargs.example"><info><title>Using getRemainingArgs()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $opts = new Zend_Console_Getopt('abp:');

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.autoloading.resources"><info><title>Automatisches Laden von Ressourcen</title></info>
-    
+
 
     <para>
         Oft ist es kompliziert, wenn eine Anwendung entwickelt wird, Klassen in den 1:1
@@ -89,7 +89,7 @@ $guestbook = new Foo_Model_Guestbook();
 ]]></programlisting>
 
     <note><info><title>Modul Ressource Autoloading</title></info>
-        
+
 
         <para>
             Zend Framework's <acronym>MVC</acronym> Layer empfiehlt die Verwendung von "Modulen",

@@ -45,12 +45,12 @@ class MasterSlaveTableGateway extends TableGateway
 
     /**
      * Constructor
-     * 
+     *
      * @param string $tableName
      * @param Adapter $masterAdapter
      * @param Adapter $slaveAdapter
      * @param type $databaseSchema
-     * @param ResultSet $selectResultPrototype 
+     * @param ResultSet $selectResultPrototype
      */
     public function __construct($tableName, Adapter $masterAdapter, Adapter $slaveAdapter, $databaseSchema = null, ResultSet $selectResultPrototype = null)
     {
@@ -63,9 +63,9 @@ class MasterSlaveTableGateway extends TableGateway
 
     /**
      * Select
-     * 
+     *
      * @param  string $where
-     * @return type 
+     * @return type
      */
     public function select($where)
     {
@@ -74,9 +74,9 @@ class MasterSlaveTableGateway extends TableGateway
     }
     /**
      * Insert
-     * 
+     *
      * @param  string $set
-     * @return type 
+     * @return type
      */
     public function insert($set)
     {
@@ -85,10 +85,10 @@ class MasterSlaveTableGateway extends TableGateway
     }
     /**
      * Update
-     * 
+     *
      * @param  string $set
      * @param  string $where
-     * @return type 
+     * @return type
      */
     public function update($set, $where)
     {
@@ -97,9 +97,9 @@ class MasterSlaveTableGateway extends TableGateway
     }
     /**
      * Delete
-     * 
+     *
      * @param  string $where
-     * @return type 
+     * @return type
      */
     public function delete($where)
     {

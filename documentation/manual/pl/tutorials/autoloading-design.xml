@@ -2,14 +2,14 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.autoloading.design"><info><title>Cele i budowa</title></info>
-    
+
 
     <section xml:id="learning.autoloading.design.naming"><info><title>Konwencja nazewnictwa klas</title></info>
-        
+
 
         <para>
             Aby zrozumieć autoloader w Zend Framework, należy najpierw zrozumieć połączenie
-            pomiędzy nazwami klas a ich plikami. 
+            pomiędzy nazwami klas a ich plikami.
         </para>
 
         <para>
@@ -38,13 +38,13 @@
         </para>
 
         <para>
-            Zend Framework podąża za tymi wskazówkami wewnętrznie ale nasze standardy zachęcają 
+            Zend Framework podąża za tymi wskazówkami wewnętrznie ale nasze standardy zachęcają
             do ich stosowania także w kodzie aplikacji, innych bibliotek itp.
         </para>
     </section>
 
     <section xml:id="learning.autoloading.design.autoloader"><info><title>Konwencja nazewnictwa i budowa autoloadera</title></info>
-        
+
 
         <para>
             Obsługa autoloadera w Zend Framework udostępniona głównie poprzez
@@ -69,7 +69,7 @@
                     lista respektowanych prefiksów przestrzeni nazw jest zmienna, autoloader
                     powinien zachować swoją funkcjonalność w taki sposób, żeby możliwe było
                     użycie każdego prefiksu przestrzeni nazw. Trzeba zwrócić uwagę na fakt, iż
-                    takie zachowanie nie jest zalecane i może prowadzić do 
+                    takie zachowanie nie jest zalecane i może prowadzić do
                     niepotrzebnego wydłużenia procesu wyszukania pliku.
                 </para>
             </listitem>
@@ -87,7 +87,7 @@
 
             <listitem>
                 <para>
-                    <emphasis>Umożliwienie skonfigurowania własnych funkcji oferujących 
+                    <emphasis>Umożliwienie skonfigurowania własnych funkcji oferujących
                     funkcjonalność autoloadera</emphasis>.
                     Część deweloperów nie będzie chciała używać
                     <methodname>Zend_Loader::loadClass()</methodname> jednocześnie nie rezygnując
@@ -104,7 +104,7 @@
                     Celem tego założenia jest pozwolenie na określenie przez dewelopera dodatkowych
                     funkcji oferujących funkcjonalność autoloadera - np. dla funkcje ładujące
                     zasoby dla klas, które nie mają relacji 1:1 z plikami - aby były zarejestrowane
-                    przed lub po domyślnym mechanizmie autoloadera Zend Framework. 
+                    przed lub po domyślnym mechanizmie autoloadera Zend Framework.
                 </para>
             </listitem>
         </itemizedlist>

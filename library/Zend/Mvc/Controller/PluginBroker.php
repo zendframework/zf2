@@ -42,7 +42,7 @@ class PluginBroker extends PluginBrokerBase
     /**
      * Load a plugin
      *
-     * Injects the controller object into the plugin prior to returning it, if 
+     * Injects the controller object into the plugin prior to returning it, if
      * available, and if the plugin supports it.
      *
      * @param  mixed $plugin

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.bootstrap-resourcebootstrapper"><info><title>Zend_Application_Bootstrap_ResourceBootstrapper</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Bootstrap_ResourceBootstrapper</classname> is an
@@ -18,7 +18,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.bootstrap-resourcebootstrapper.methods-table"><info><title>Zend_Application_Bootstrap_ResourceBootstrapper Interface</title></info>
-        
+
 
         <tgroup cols="4">
             <thead>

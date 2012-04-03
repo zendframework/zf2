@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.previous"><info><title>Previous Exceptions (前の例外)</title></info>
-    
+
 
     <para>
         Zend Framework 1.10 から、 <classname>Zend_Exception</classname> は <acronym>PHP</acronym> 5.3 がサポートする
@@ -15,7 +15,7 @@
     </para>
 
     <example xml:id="zend.exception.previous.example"><info><title>Previous exceptions (前の例外)</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 try {

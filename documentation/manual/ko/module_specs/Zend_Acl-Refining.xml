@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.refining"><info><title>접근 제어의 정련(精鍊)</title></info>
 
-    
+
 
     <section xml:id="zend.acl.refining.precise"><info><title>정확한 접근 제어</title></info>
 
-        
+
 
         <para>
         <link linkend="zend.acl.introduction">이전 장</link>에서 정의한 기본적인 ACL에서는, 다양한
@@ -99,7 +99,7 @@ echo $acl->isAllowed('administrator', 'announcement', 'archive') ?
 
     <section xml:id="zend.acl.refining.removing"><info><title>접근 제어의 삭제</title></info>
 
-        
+
 
         <para>
         ACL로부터 하나 또는 복수의 접근 규칙을 삭제하려면, <code>removeAllow()</code> 또는 <code>removeDeny()</code> 메소드를 사용합니다. <code>allow()</code> 및 <code>deny()</code>와 같이, null값을 지정하면 모든 롤이나 자원, 권한을 나타내게 됩니다:

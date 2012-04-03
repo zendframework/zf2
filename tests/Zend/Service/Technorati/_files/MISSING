@@ -6,7 +6,7 @@ Please, write me at weppos@weppos.net if you have one of the following XML respo
 == Cosmos ==
 
  * Highligh = 1 returned an highlighted result within <excerpt> tag
- 
+
 == Search ==
 
  * `Search` error response cannot be created because due to a Technorati bug

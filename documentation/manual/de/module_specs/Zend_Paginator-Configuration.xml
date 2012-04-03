@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.paginator.configuration"><info><title>Konfiguration</title></info>
-    
+
 
     <para>
         <classname>Zend_Paginator</classname> hat verschiedene Konfigurationsmethoden die aufgerufen
@@ -10,7 +10,7 @@
     </para>
 
     <table xml:id="zend.paginator.configuration.table"><info><title>Konfigurationsmethoden für Zend_Paginator</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>

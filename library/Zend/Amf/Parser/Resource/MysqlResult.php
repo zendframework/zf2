@@ -49,7 +49,7 @@ class MysqlResult
      * @param resource $resource
      * @return array
      */
-    public function parse($resource) 
+    public function parse($resource)
     {
         $result   = array();
         $fieldcnt = mysql_num_fields($resource);

@@ -20,11 +20,11 @@
  */
 
 /**
- * @see Zend_Service_WindowsAzure_Storage_Blob 
+ * @see Zend_Service_WindowsAzure_Storage_Blob
  */
 
 /**
- * @see Zend_Service_WindowsAzure_Credentials_SharedAccessSignature 
+ * @see Zend_Service_WindowsAzure_Credentials_SharedAccessSignature
  */
 
 /**
@@ -126,7 +126,7 @@ class Zend_Service_WindowsAzure_BlobStorageSharedAccessTest extends PHPUnit_Fram
             $sharedAccessUrl = $administrativeStorageClient->generateSharedAccessUrl(
                 $containerName,
                 '',
-            	'c', 
+            	'c',
             	'w',
             	$administrativeStorageClient->isoDate(time() - 500),
             	$administrativeStorageClient->isoDate(time() + 3000)
@@ -173,7 +173,7 @@ class Zend_Service_WindowsAzure_BlobStorageSharedAccessTest extends PHPUnit_Fram
             $sharedAccessUrl1 = $administrativeStorageClient->generateSharedAccessUrl(
                 $containerName,
                 '',
-            	'c', 
+            	'c',
             	'w',
             	$administrativeStorageClient->isoDate(time() - 500),
             	$administrativeStorageClient->isoDate(time() + 3000)

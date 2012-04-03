@@ -37,32 +37,32 @@ class ReferentialConstraint
 
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $uniqueConstraintCatalogName = null;
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $uniqueConstraintSchemaName = null;
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $uniqueConstraintName = null;
     /**
      *
-     * @var type 
+     * @var type
      */
     protected $matchOption = null;
     /**
      *
-     * @var type 
+     * @var type
      */
     protected $updateRule = null;
     /**
      *
-     * @var type 
+     * @var type
      */
     protected $deleteRule = null;
 
@@ -71,29 +71,29 @@ class ReferentialConstraint
     {
         return $this->catalogName;
     }
-    
+
     public function setCatalogName($catalogName)
     {
         $this->catalogName = $catalogName;
         return $this;
     }
-    
+
     public function getSchemaName()
     {
         return $this->schemaName;
     }
-    
+
     public function setSchemaName($schemaName)
     {
         $this->schemaName = $schemaName;
         return $this;
     }
     */
-    
+
     /**
      * Get unique constraint catalog name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getUniqueConstraintCatalogName()
     {
@@ -101,9 +101,9 @@ class ReferentialConstraint
     }
     /**
      * Set unique constraint catalog name
-     * 
+     *
      * @param  string $uniqueConstraintCatalogName
-     * @return ReferentialConstraint 
+     * @return ReferentialConstraint
      */
     public function setUniqueConstraintCatalogName($uniqueConstraintCatalogName)
     {
@@ -112,8 +112,8 @@ class ReferentialConstraint
     }
     /**
      * Get unique constraint schema name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getUniqueConstraintSchemaName()
     {
@@ -121,9 +121,9 @@ class ReferentialConstraint
     }
     /**
      * Set unique constraint schema name
-     * 
+     *
      * @param  string $uniqueConstraintSchemaName
-     * @return ReferentialConstraint 
+     * @return ReferentialConstraint
      */
     public function setUniqueConstraintSchemaName($uniqueConstraintSchemaName)
     {
@@ -132,8 +132,8 @@ class ReferentialConstraint
     }
     /**
      * Get unique constraint name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getUniqueConstraintName()
     {
@@ -141,9 +141,9 @@ class ReferentialConstraint
     }
     /**
      * Set unique constraint name
-     * 
+     *
      * @param  string $uniqueConstraintName
-     * @return ReferentialConstraint 
+     * @return ReferentialConstraint
      */
     public function setUniqueConstraintName($uniqueConstraintName)
     {
@@ -152,8 +152,8 @@ class ReferentialConstraint
     }
     /**
      * Get match option
-     * 
-     * @return type 
+     *
+     * @return type
      */
     public function getMatchOption()
     {
@@ -161,9 +161,9 @@ class ReferentialConstraint
     }
     /**
      * Set match option
-     * 
+     *
      * @param  type $matchOption
-     * @return ReferentialConstraint 
+     * @return ReferentialConstraint
      */
     public function setMatchOption($matchOption)
     {
@@ -172,8 +172,8 @@ class ReferentialConstraint
     }
     /**
      * Get update rule
-     * 
-     * @return type 
+     *
+     * @return type
      */
     public function getUpdateRule()
     {
@@ -181,9 +181,9 @@ class ReferentialConstraint
     }
     /**
      * Set update rule
-     * 
+     *
      * @param  type $updateRule
-     * @return ReferentialConstraint 
+     * @return ReferentialConstraint
      */
     public function setUpdateRule($updateRule)
     {
@@ -192,8 +192,8 @@ class ReferentialConstraint
     }
     /**
      * Get delete rule
-     * 
-     * @return type 
+     *
+     * @return type
      */
     public function getDeleteRule()
     {
@@ -201,14 +201,14 @@ class ReferentialConstraint
     }
     /**
      * Set delete rule
-     * 
+     *
      * @param  type $deleteRule
-     * @return ReferentialConstraint 
+     * @return ReferentialConstraint
      */
     public function setDeleteRule($deleteRule)
     {
         $this->deleteRule = $deleteRule;
         return $this;
     }
-    
+
 }

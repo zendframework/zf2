@@ -75,7 +75,7 @@ class FeedSet extends ArrayObject
             ));
         }
     }
-    
+
     /**
      *  Attempt to turn a relative URI into an absolute URI
      */
@@ -98,7 +98,7 @@ class FeedSet extends ArrayObject
         }
         return $link;
     }
-    
+
     /**
      *  Canonicalize relative path
      */

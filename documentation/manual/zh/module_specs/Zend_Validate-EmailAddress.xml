@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.email_addresses"><info><title> Email 地址</title></info>
 
-    
+
 
     <para>
         <code>Zend_Validate_EmailAddress</code>允许你校验一个email地址。首先校验器把email地址分成local-part和@hostname并试图按照email地址和主机名的规范来匹配它。

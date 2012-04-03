@@ -460,16 +460,16 @@ class HostnameTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($validator->isValid('tàrø.si'));
         $this->assertFalse($validator->isValid('رات.si'));
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -478,16 +478,16 @@ class HostnameTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

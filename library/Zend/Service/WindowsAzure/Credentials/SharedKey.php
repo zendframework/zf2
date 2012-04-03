@@ -26,7 +26,7 @@
  * @package    Zend_Service_WindowsAzure
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 class Zend_Service_WindowsAzure_Credentials_SharedKey
     extends Zend_Service_WindowsAzure_Credentials_AbstractCredentials
 {
@@ -45,7 +45,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKey
 	) {
 	    return $requestUrl;
 	}
-	
+
 	/**
 	 * Sign request headers with credentials
 	 *
@@ -76,10 +76,10 @@ class Zend_Service_WindowsAzure_Credentials_SharedKey
 
 		// Determine query
 		$queryString = $this->_prepareQueryStringForSigning($queryString);
-	
+
 		// Canonicalized headers
 		$canonicalizedHeaders = array();
-		
+
 		// Request date
 		$requestDate = '';
 		if (isset($headers[Zend_Service_WindowsAzure_Credentials_AbstractCredentials::PREFIX_STORAGE_HEADER . 'date'])) {
@@ -88,7 +88,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKey
 		    $requestDate = gmdate('D, d M Y H:i:s', time()) . ' GMT'; // RFC 1123
 		    $canonicalizedHeaders[] = Zend_Service_WindowsAzure_Credentials_AbstractCredentials::PREFIX_STORAGE_HEADER . 'date:' . $requestDate;
 		}
-		
+
 		// Build canonicalized headers
 		if ($headers !== null) {
 			foreach ($headers as $header => $value) {
@@ -114,7 +114,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKey
 		    $canonicalizedResource .= $queryString;
 		}
 
-		// Create string to sign   
+		// Create string to sign
 		$stringToSign   = array();
 		$stringToSign[] = strtoupper($httpVerb); 	// VERB
     	$stringToSign[] = "";						// Content-MD5
@@ -122,11 +122,11 @@ class Zend_Service_WindowsAzure_Credentials_SharedKey
     	$stringToSign[] = "";
         // Date already in $canonicalizedHeaders
     	// $stringToSign[] = self::PREFIX_STORAGE_HEADER . 'date:' . $requestDate; // Date
-    	
+
     	if (!$forTableStorage && count($canonicalizedHeaders) > 0) {
     		$stringToSign[] = implode("\n", $canonicalizedHeaders); // Canonicalized headers
     	}
-    		
+
     	$stringToSign[] = $canonicalizedResource;		 			// Canonicalized resource
     	$stringToSign   = implode("\n", $stringToSign);
     	$signString     = base64_encode(hash_hmac('sha256', $stringToSign, $this->_accountKey, true));
@@ -134,7 +134,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKey
     	// Sign request
     	$headers[Zend_Service_WindowsAzure_Credentials_AbstractCredentials::PREFIX_STORAGE_HEADER . 'date'] = $requestDate;
     	$headers['Authorization'] = 'SharedKey ' . $this->_accountName . ':' . $signString;
-    	
+
     	// Return headers
     	return $headers;
 	}

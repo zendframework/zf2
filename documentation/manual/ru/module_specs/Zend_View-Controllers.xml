@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.controllers"><info><title>Скрипты контроллеров</title></info>
-    
+
 
     <para>
         В контроллере вы создаете и конфигурируете экземпляр
@@ -11,7 +11,7 @@
 
     <section xml:id="zend.view.controllers.assign"><info><title>Установка переменных</title></info>
 
-        
+
 
         <para>
             Ваш скрипт контроллера должен установить
@@ -78,7 +78,7 @@ $view->assign('c', "Sea");
 
     <section xml:id="zend.view.controllers.render"><info><title>Выполнение скрипта вида</title></info>
 
-        
+
 
         <para>
             После того, как вы определили все необходимые переменные, контроллер
@@ -103,7 +103,7 @@ echo $view->render('someView.php');
 
     <section xml:id="zend.view.controllers.script-paths"><info><title>Пути к скриптам вида</title></info>
 
-        
+
 
         <para>
             По умолчанию <classname>Zend_View</classname> ищет скрипты
@@ -154,7 +154,7 @@ $view->addScriptPath('/path/to/custom/');
 
         <note><info><title>Никогда не используйте пользовательский ввод при установке
             путей к скриптам вида</title></info>
-            
+
 
             <para>
                 <classname>Zend_View</classname> использует пути к скриптам для поиска

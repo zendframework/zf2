@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.modular"><info><title>Utilisation de conventions de dossiers modulaires</title></info>
-    
+
 
     <section xml:id="zend.controller.modular.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Les conventions de dossiers vous permettent de séparer les différentes
@@ -58,7 +58,7 @@ application/
         </para>
 
         <note><info><title>Pas de namespace pour le module par défaut</title></info>
-            
+
             <para>
                 Notez que dans le module par défaut, les contrôleurs n'ont pas besoin d'être
                 préfixés par le nom du module ("Default_"). Ils sont simplement distribués tels
@@ -70,7 +70,7 @@ application/
     </section>
 
     <section xml:id="zend.controller.modular.directories"><info><title>Spécification des dossiers de modules</title></info>
-        
+
 
         <para>
             La première chose à faire est d'indiquer au contrôleur frontal où se trouvent les
@@ -164,7 +164,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.router"><info><title>Routage des modules</title></info>
-        
+
 
         <para>
             La route par défaut, <classname>Zend_Controller_Router_Rewrite</classname> est un
@@ -189,7 +189,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.defaultcontroller"><info><title>Module ou contrôleur Default global</title></info>
-        
+
 
         <para>
             Dans le routeur par défaut, si aucun contrôleur n'est indiqué dans l'URL, un

@@ -69,9 +69,9 @@ class Filter implements Processor
 
     /**
      * Process
-     * 
+     *
      * @param  Config $config
-     * @return Config 
+     * @return Config
      */
     public function process(Config $config)
     {

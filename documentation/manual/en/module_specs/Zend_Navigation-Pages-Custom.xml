@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.custom"><info><title>Creating custom page types</title></info>
-    
+
 
     <para>
         When extending <classname>Zend_Navigation_Page</classname>, there is
@@ -20,7 +20,7 @@
     </para>
 
     <example xml:id="zend.navigation.custom.example.simple"><info><title>The most simple custom page</title></info>
-        
+
 
         <para>
             The only thing a custom page class needs to implement is the
@@ -39,7 +39,7 @@ class My_Simple_Page extends Zend_Navigation_Page
     </example>
 
     <example xml:id="zend.navigation.custom.example.properties"><info><title>A custom page with properties</title></info>
-        
+
 
         <para>
             When adding properties to an extended page, there is no need

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.overview"><info><title>Overview</title></info>
-    
+
 
     <para>
         <classname>Zend_Log</classname> is a component for general purpose logging.
@@ -45,7 +45,7 @@
     </para>
 
     <section xml:id="zend.log.overview.creating-a-logger"><info><title>Creating a Log</title></info>
-        
+
 
         <para>
             To get started logging, instantiate a Writer and then pass it to a Log instance:
@@ -80,7 +80,7 @@ $logger = new Zend_Log($writer);
     </section>
 
     <section xml:id="zend.log.overview.logging-messages"><info><title>Logging Messages</title></info>
-        
+
 
         <para>
             To log a message, call the <methodname>log()</methodname> method of a Log instance
@@ -113,7 +113,7 @@ $logger->emerg('Emergency message');
     </section>
 
     <section xml:id="zend.log.overview.destroying-a-logger"><info><title>Destroying a Log</title></info>
-        
+
 
         <para>
             If the Log object is no longer needed, set the variable containing it to
@@ -133,7 +133,7 @@ $logger = null;
     </section>
 
     <section xml:id="zend.log.overview.builtin-priorities"><info><title>Using Built-in Priorities</title></info>
-        
+
 
         <para>
             The <classname>Zend_Log</classname> class defines the following priorities:
@@ -175,7 +175,7 @@ DEBUG   = 7;  // Debug: debug messages
     </section>
 
     <section xml:id="zend.log.overview.user-defined-priorities"><info><title>Adding User-defined Priorities</title></info>
-        
+
 
         <para>
             User-defined priorities can be added at runtime using the Log's
@@ -202,7 +202,7 @@ $logger->foo('Foo Message');
     </section>
 
     <section xml:id="zend.log.overview.understanding-fields"><info><title>Understanding Log Events</title></info>
-        
+
 
         <para>
             When you call the <methodname>log()</methodname> method or one of its shortcuts, a
@@ -247,7 +247,7 @@ $logger->setEventItem('pid', getmypid());
     </section>
 
     <section xml:id="zend.log.overview.as-errorHandler"><info><title>Log PHP Errors</title></info>
-        
+
 
         <para>
             <classname>Zend_Log</classname> can also be used to log <acronym>PHP</acronym> errors.
@@ -261,7 +261,7 @@ $logger->setEventItem('pid', getmypid());
                 <methodname>handler  ( int $errno  , string $errstr  [, string $errfile  [, int
                     $errline  [, array $errcontext  ]]] )</methodname> from <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://us3.php.net/manual/en/function.set-error-handler.php">set_error_handler</link>
             </title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins"><info><title>Plugins</title></info>
-    
+
 
     <section xml:id="zend.controller.plugins.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             Die Controller Architektur beinhaltet ein Pluginsystem, das den Aufruf von Anwendercode
@@ -76,7 +76,7 @@
     </section>
 
     <section xml:id="zend.controller.plugins.writing"><info><title>Plugins schreiben</title></info>
-        
+
 
         <para>
             Um eine Plugin Klasse zu schreiben, bindet man einfach die abstrakte Klasse
@@ -107,7 +107,7 @@ class MyPlugin extends Zend_Controller_Plugin_Abstract
     </section>
 
     <section xml:id="zend.controller.plugins.using"><info><title>Plugins verwenden</title></info>
-        
+
 
         <para>
             Plugin Klassen werden mit
@@ -189,7 +189,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.manipulating"><info><title>Empfangen und Manipulieren von Plugins</title></info>
-        
+
 
         <para>
             Fallweise kann es notwendig sein ein Plugin zu entfernen oder empfangen. Die folgenden
@@ -224,7 +224,7 @@ $front->dispatch();
     </section>
 
     <section xml:id="zend.controller.plugins.standard"><info><title>Plugins die in der Standard Distribution enthalten sind</title></info>
-        
+
 
         <para>
             Zend Framework enthält ein Plugin für die Fehlerbehandlung in der Standard Distribution.

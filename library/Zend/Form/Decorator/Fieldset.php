@@ -58,7 +58,7 @@ class Fieldset extends AbstractDecorator
      * @var string
      */
     protected $_placement = null;
-    
+
     /**
      * Get option
      *
@@ -70,7 +70,7 @@ class Fieldset extends AbstractDecorator
         if (null !== $this->_element) {
             $this->getOptions();
         }
-        
+
         return parent::getOption($key);
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.consuming-atom-single-entry"><info><title>Pobieranie pojedynczego wpisu kanału Atom</title></info>
-    
+
 
     <para>
         Pojedyncze elementy <code>&lt;entry&gt;</code> kanału Atom są same w sobie
@@ -16,7 +16,7 @@
     </para>
 
     <example xml:id="zend.feed.consuming-atom-single-entry.example.atom"><info><title>Odczytywanie pojedynczego wpisu kanału Atom</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 $feed = new Zend_Feed_Atom('http://atom.example.com/feed/1');
 echo 'Kanał zawiera: ' . $feed->count() . ' wspisów.';
@@ -32,7 +32,7 @@ $entry = $feed->current();
     </para>
 
     <example xml:id="zend.feed.consuming-atom-single-entry.example.entryatom"><info><title>Bezpośrednie użycie obiektu wpisu dla pojedynczego wpisu kanału Atom</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 $entry = new Zend_Feed_Entry_Atom('http://atom.example.com/feed/1');
 echo $entry->title();

@@ -157,6 +157,6 @@ class ReCaptchaTest extends \PHPUnit_Framework_TestCase
     public function testUsesReCaptchaSpecificDecorator()
     {
         $captcha = new \Zend\Captcha\ReCaptcha;
-        $this->assertEquals('Captcha\ReCaptcha', $captcha->getDecorator());   
+        $this->assertEquals('Captcha\ReCaptcha', $captcha->getDecorator());
     }
 }

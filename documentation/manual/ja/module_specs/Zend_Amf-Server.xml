@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.amf.server"><info><title>Zend_Amf_Server</title></info>
-    
+
 
     <para>
         <classname>Zend_Amf_Server</classname> は <acronym>RPC</acronym> スタイルのサーバで、
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.amf.server.basic"><info><title>基本的な AMF サーバ</title></info>
-        
+
 
         <para>
             さまざまな public メソッドを持つクラス <classname>Foo</classname>
@@ -85,7 +85,7 @@ $server->addDirectory(dirname(__FILE__) .'/../package/');
     </example>
 
     <note><info><title>アタッチされるすべてのメソッドや関数には docblock が必要</title></info>
-        
+
 
         <para>
             Zend Framework の他のサーバコンポーネント群と同様、クラスのメソッドには
@@ -131,7 +131,7 @@ class World
     </note>
 
     <section xml:id="zend.amf.server.flex"><info><title>サーバへの Flex からの接続</title></info>
-        
+
 
         <para>
             <classname>Zend_Amf_Server</classname> に Flex プロジェクトから接続するのはきわめて簡単です。
@@ -272,7 +272,7 @@ myservice.world.hello("Wade");
     </section>
 
     <section xml:id="zend.amf.server.errors"><info><title>エラー処理</title></info>
-        
+
 
         <para>
             デフォルトでは、アタッチしたクラスや関数からスローされた例外はすべて捕捉され、
@@ -305,7 +305,7 @@ $server->setProduction(true);
 ]]></programlisting>
 
         <note><info><title>production モードの無効化は慎重に!</title></info>
-            
+
 
             <para>
                 production モードを無効にするのは、開発時のみにすることを推奨します。
@@ -327,7 +327,7 @@ $server->setProduction(true);
     </section>
 
     <section xml:id="zend.amf.server.response"><info><title>AMF レスポンス</title></info>
-        
+
 
         <para>
             レスポンスオブジェクトを操作したくなることもあるかもしれません。
@@ -336,7 +336,7 @@ $server->setProduction(true);
         </para>
 
         <example xml:id="zend.amf.server.response.messageHeaderExample"><info><title>AMF レスポンスへのメッセージヘッダの追加</title></info>
-            
+
 
             <para>
                 この例では、'foo' という MessageHeader に値
@@ -352,7 +352,7 @@ echo $response;
     </section>
 
     <section xml:id="zend.amf.server.typedobjects"><info><title>型付きオブジェクト</title></info>
-        
+
 
         <para>
             <acronym>SOAP</acronym> と同様、
@@ -471,7 +471,7 @@ private function getContactHandler(event:ResultEvent):void {
     </section>
 
     <section xml:id="zend.amf.server.resources"><info><title>リソース</title></info>
-        
+
 
         <para>
             <classname>Zend_Amf</classname> には、サービスクラスが返すリソース型を
@@ -540,7 +540,7 @@ class Zend_Amf_Parse_Resource_MysqlResult
     </section>
 
     <section xml:id="zend.amf.server.flash"><info><title>サーバへの Flash からの接続</title></info>
-        
+
 
         <para>
             <classname>Zend_Amf_Server</classname> に Flash プロジェクトから接続する方法は、
@@ -693,7 +693,7 @@ private function onFault(fault:Object):void {
     </section>
 
     <section xml:id="zend.amf.server.auth"><info><title>認証</title></info>
-        
+
 
         <para>
             <classname>Zend_Amf_Server</classname> では、認証と認可のフックを指定して

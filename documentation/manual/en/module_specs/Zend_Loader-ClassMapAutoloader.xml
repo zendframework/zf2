@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.class-map-autoloader"><info><title>The ClassMapAutoloader</title></info>
-    
+
 
     <section xml:id="zend.loader.class-map-autoloader.intro"><info><title>Overview</title></info>
-        
+
 
         <para>
             The <classname>ClassMapAutoloader</classname> is designed with performance in mind. The
@@ -29,7 +29,7 @@
     </section>
 
     <section xml:id="zend.loader.class-map-autoloader.quick-start"><info><title>Quick Start</title></info>
-        
+
 
         <para>
             The first step is to generate a class map file. You may run this over any directory
@@ -70,14 +70,14 @@ $loader->register();
     </section>
 
     <section xml:id="zend.loader.class-map-autoloader.options"><info><title>Configuration Options</title></info>
-        
+
 
         <para>
             The <classname>ClassMapAutoloader</classname> defines the following options.
         </para>
 
         <variablelist><info><title>ClassMapAutoloader Options</title></info>
-            
+
 
             <varlistentry>
                 <term>$options</term>
@@ -110,7 +110,7 @@ $config = array(
     </section>
 
     <section xml:id="zend.loader.class-map-autoloader.methods"><info><title>Available Methods</title></info>
-        
+
 
         <refentry xml:id="zend.loader.class-map-autoloader.methods.constructor">
             <refnamediv>
@@ -128,7 +128,7 @@ $config = array(
             </refsynopsisdiv>
 
             <refsection><info><title>Constructor</title></info>
-                
+
 
                 <para>
                     Used during instantiation of the object. Optionally, pass options, which may be
@@ -154,7 +154,7 @@ $config = array(
             </refsynopsisdiv>
 
             <refsection><info><title>setOptions()</title></info>
-                
+
 
                 <para>
                     Configures the state of the autoloader, including registering class maps.
@@ -180,12 +180,12 @@ $config = array(
             </refsynopsisdiv>
 
             <refsection><info><title>registerAutoloadMap()</title></info>
-                
+
 
                 <para>
                     Registers a class map with the autoloader. <varname>$map</varname> may be either
                     a string referencing a PHP script that returns a class map, or an array defining
-                    a class map. 
+                    a class map.
                 </para>
 
                 <para>
@@ -212,7 +212,7 @@ $config = array(
             </refsynopsisdiv>
 
             <refsection><info><title>registerAutoloadMaps()</title></info>
-                
+
 
                 <para>
                     Register multiple class maps with the autoloader. Expects either an array or
@@ -235,7 +235,7 @@ $config = array(
             </refsynopsisdiv>
 
             <refsection><info><title>getAutoloadMap()</title></info>
-                
+
 
                 <para>
                     Retrieves the state of the current class map; the return value is simply an
@@ -260,7 +260,7 @@ $config = array(
             </refsynopsisdiv>
 
             <refsection><info><title>autoload()</title></info>
-                
+
 
                 <para>
                     Attempts to load the class specified. Returns a boolean
@@ -283,7 +283,7 @@ $config = array(
             </refsynopsisdiv>
 
             <refsection><info><title>register()</title></info>
-                
+
 
                 <para>
                     Registers the <methodname>autoload()</methodname> method of the current instance
@@ -294,10 +294,10 @@ $config = array(
     </section>
 
     <section xml:id="zend.loader.class-map-autoloader.examples"><info><title>Examples</title></info>
-        
+
 
         <example xml:id="zend.loader.class-map-autoloader.examples.configuration"><info><title>Using configuration to seed ClassMapAutoloader</title></info>
-            
+
 
             <para>
                 Often, you will want to configure your <classname>ClassMapAutoloader</classname>.
@@ -316,7 +316,7 @@ APPLICATION_PATH . '/../library/.classmap.php', // file-based class map
     ),
 );
 ]]></programlisting>
-            
+
             <para>
                 An eqivalent INI style configuration might look like this:
             </para>

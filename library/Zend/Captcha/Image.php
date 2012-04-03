@@ -630,10 +630,10 @@ class Image extends Word
             }
         }
 
-        return '<img width="' . $this->getWidth() 
-            . '" height="' . $this->getHeight() 
+        return '<img width="' . $this->getWidth()
+            . '" height="' . $this->getHeight()
             . '" alt="' . $this->getImgAlt()
-            . '" src="' . $this->getImgUrl() . $this->getId() . $this->getSuffix() . '"' 
+            . '" src="' . $this->getImgUrl() . $this->getId() . $this->getSuffix() . '"'
             . $endTag;
     }
 }

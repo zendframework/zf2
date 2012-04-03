@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.iban"><info><title>Iban</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Iban</classname> prüft ob ein angegebener Wert eine
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.validate.set.iban.options"><info><title>Unterstützte Optionen für Zend_Validate_Iban</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Validate_Iban</classname> unterstützt:
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.validate.set.iban.basic"><info><title>IBAN Prüfung</title></info>
-        
+
 
         <para>
             <acronym>IBAN</acronym> Nummern sind immer in Bezug zu einem Land. Dies bedeutet dass
@@ -38,7 +38,7 @@
         </para>
 
         <section xml:id="zend.validate.set.iban.basic.application"><info><title>Anwendungsweites Gebietsschema</title></info>
-            
+
 
             <para>
                 Wir können das Anwendungsweite Gebietsschema verwenden. Dass bedeutet, wenn keine
@@ -62,7 +62,7 @@ if ($validator->isValid('AT611904300234573201')) {
 ]]></programlisting>
 
             <note><info><title>Anwendungsweites Gebietsschema</title></info>
-                
+
 
                 <para>
                     Natürlich funktioniert dies nur wenn das Anwendungsweite Gebietsschema in der
@@ -76,7 +76,7 @@ if ($validator->isValid('AT611904300234573201')) {
         </section>
 
         <section xml:id="zend.validate.set.iban.basic.false"><info><title>Unscharfe IBAN Prüfung</title></info>
-            
+
 
             <para>
                 Manchmal ist es nützlich, nur zu prüfen ob der angegebene Wert eine
@@ -104,7 +104,7 @@ if ($validator->isValid('AT611904300234573201')) {
         </section>
 
         <section xml:id="zend.validate.set.iban.basic.aware"><info><title>Gebietsschema verwendende IBAN Prüfung</title></info>
-            
+
 
             <para>
                 Um gegen ein definiertes Land zu prüfen muss man nur das gewünschte Gebietsschema
@@ -123,7 +123,7 @@ if ($validator->isValid('AT611904300234573201')) {
 ]]></programlisting>
 
             <note><info><title>Vollständig qualifizierte Gebietsschemas verwenden</title></info>
-                
+
 
                 <para>
                     Man muss ein vollständig qualifiziertes Gebietsschema verwenden. Andernfalls

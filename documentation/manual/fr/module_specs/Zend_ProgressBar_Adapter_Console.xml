@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.adapter.console"><info><title>Zend_ProgressBar_Adapter_Console</title></info>
-    
+
 
     <para>
         <classname>Zend_ProgressBar_Adapter_Console</classname> est un adaptateur de type
@@ -13,7 +13,7 @@
     </para>
 
     <note><info><title>Reconnaissance automatique de la largeur de la console</title></info>
-        
+
 
         <para>
             <code>shell_exec</code> est nécessaire pour que ceci fonctionne sur les systèmes

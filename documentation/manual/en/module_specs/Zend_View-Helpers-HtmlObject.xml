@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.object"><info><title>HTML Object Helpers</title></info>
-    
+
 
     <para>
         The <acronym>HTML</acronym> <emphasis>
@@ -49,7 +49,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.object.flash"><info><title>Flash helper</title></info>
-        
+
 
         <para>
             Embedding Flash in your page using the helper is pretty straight-forward.
@@ -81,7 +81,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.object.object"><info><title>Customizing the object by passing additional arguments</title></info>
-        
+
 
         <para>
             The first argument in the object helpers is always required. It is

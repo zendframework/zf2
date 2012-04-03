@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.cachemanager"><info><title>Zend_Application_Resource_Cachemanager</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Cachemanager</classname> may be
@@ -15,7 +15,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.cachemanager.configExample"><info><title>Sample Cachemanager resource configuration</title></info>
-        
+
 
         <para>
             Below is a sample <acronym>INI</acronym> file showing how

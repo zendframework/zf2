@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="doc-standard"><info><title>Zend Framework Dokumentations Standard</title></info>
-    
+
 
     <section xml:id="doc-standard.overview"><info><title>Übersicht</title></info>
-        
+
 
         <section xml:id="doc-standard.overview.scope"><info><title>Ziele</title></info>
-            
+
 
             <para>
                 Dieses Dokument bietet Richtlinien für die Erstellung der End-Benutzer
@@ -35,10 +35,10 @@
     </section>
 
     <section xml:id="doc-standard.file-formatting"><info><title>Formatierung von Dokumentationsdateien</title></info>
-        
+
 
         <section xml:id="doc-standard.file-formatting.xml-tags"><info><title>XML Tags</title></info>
-            
+
 
             <para>
                 Jede Datei des Manuals muß die folgenden <acronym>XML</acronym> Deklarationen am
@@ -64,7 +64,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.max-line-length"><info><title>Maximale Zeilenlänge</title></info>
-            
+
 
             <para>
                 Die maximale Zeilenlänge, inklusive Tags, Attribute und Einrückungen, darf 100
@@ -75,7 +75,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.indentation"><info><title>Einrückung</title></info>
-            
+
 
             <para>
                 Eine Einrückung sollte aus 4 Leerzeichen bestehen. Tabulatoren sind nicht erlaubt.
@@ -123,7 +123,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.line-termination"><info><title>Zeilen Begrenzung</title></info>
-            
+
 
             <para>
                 Die Zeilen Begrenzung folgt der Unix Textdatei Konvention. Zeilen müssen mit einem
@@ -140,7 +140,7 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.empty-tags"><info><title>Leere Tags</title></info>
-            
+
 
             <para>
                 Leere Tags sind nicht erlaubt; alle Tags müssen Text oder Untertags enthalten.
@@ -158,10 +158,10 @@
         </section>
 
         <section xml:id="doc-standard.file-formatting.whitespace"><info><title>Verwendung von Leerzeichen in Dokumenten</title></info>
-            
+
 
             <section xml:id="doc-standard.file-formatting.whitespace.trailing"><info><title>Leerzeichen in Tags</title></info>
-                
+
 
                 <para>
                     Öffnende Block Tags sollten direkt nach Ihnen keine Leerzeichen haben sondern
@@ -215,7 +215,7 @@ Das ist die Klasse <classname>Zend_Class</classname>
             </section>
 
             <section xml:id="doc-standard.file-formatting.whitespace.multiple-line-breaks"><info><title>Mehrere Zeilenumbrüche</title></info>
-                
+
 
                 <para>
                     Mehrere Zeilenumbrüche innerhalb oder auch zwischen Tags sind nicht erlaubt.
@@ -247,7 +247,7 @@ Das ist die Klasse <classname>Zend_Class</classname>
             </section>
 
             <section xml:id="doc-standard.file-formatting.whitespace.tag-separation"><info><title>Trennung zwischen Tags</title></info>
-                
+
 
                 <para>
                     Tags auf dem gleichen Level müssen durch eine leere Zeile getrennt sein um die
@@ -310,7 +310,7 @@ Das ist die Klasse <classname>Zend_Class</classname>
         </section>
 
         <section xml:id="doc-standard.file-formatting.program-listing"><info><title>Programm Auflistungen</title></info>
-            
+
 
             <para>
                 Das öffnende <emphasis>&lt;programlisting&gt;</emphasis> Tag muss das richtige
@@ -425,7 +425,7 @@ $render = "xxx";
             </para>
 
             <note><info><title>Niemals Short Tags verwenden</title></info>
-                
+
 
                 <para>
                     Short Tags (z.B., "&lt;?", "&lt;?=") sollten niemals innerhalb von
@@ -435,10 +435,10 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.file-formatting.inline-tags"><info><title>Notizen zu speziellen Inline Tags</title></info>
-            
+
 
             <section xml:id="doc-standard.file-formatting.inline-tags.classname"><info><title>classname</title></info>
-                
+
 
                 <para>
                     Das Tag <emphasis>&lt;classname&gt;</emphasis> muß jedesmal verwendet werden
@@ -455,7 +455,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.varname"><info><title>varname</title></info>
-                
+
 
                 <para>
                     Variablen müssen im <emphasis>&lt;varname&gt;</emphasis> Tag eingehüllt sein.
@@ -473,7 +473,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.methodname"><info><title>methodname</title></info>
-                
+
 
                 <para>
                     Methoden müssen innerhalb des <emphasis>&lt;methodname&gt;</emphasis> Tags
@@ -493,7 +493,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.constant"><info><title>constant</title></info>
-                
+
 
                 <para>
                     Das <emphasis>&lt;constant&gt;</emphasis> Tag ist zu verwenden wenn Konstanten
@@ -511,7 +511,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.filename"><info><title>filename</title></info>
-                
+
 
                 <para>
                     Dateinamen und Pfade müssen im <emphasis>&lt;filename&gt;</emphasis> Tag
@@ -526,7 +526,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.command"><info><title>command</title></info>
-                
+
 
                 <para>
                     Commands, Shell Skripte, und Programmaufrufe müssen im
@@ -542,7 +542,7 @@ $render = "xxx";
             </section>
 
             <section xml:id="doc-standard.file-formatting.inline-tags.code"><info><title>code</title></info>
-                
+
 
                 <para>
                     Die Verwendung des <emphasis>&lt;code&gt;</emphasis> Tags ist nicht erlaubt.
@@ -553,10 +553,10 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.file-formatting.block-tags"><info><title>Notizen zu speziellen Block Tags</title></info>
-            
+
 
             <section xml:id="doc-standard.file-formatting.block-tags.title"><info><title>title</title></info>
-                
+
 
                 <para>
                     Das <emphasis>&lt;title&gt;</emphasis> Tag darf keine anderen Tags enthalten.
@@ -574,10 +574,10 @@ $render = "xxx";
     </section>
 
     <section xml:id="doc-standard.recommendations"><info><title>Empfehlungen</title></info>
-        
+
 
         <section xml:id="doc-standard.recommendations.editors"><info><title>Editoren ohne Autoformatierung verwenden</title></info>
-            
+
 
             <para>
                 Für die Bearbeitung der Dokumentation sollten typischerweise keine formale
@@ -597,7 +597,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.images"><info><title>Verwendung von Bildern</title></info>
-            
+
 
             <para>
                 Gute Bilder und Diagramme können die Lesbarkeit und Gemeinsamkeit erhöhen. Sie
@@ -608,7 +608,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.examples"><info><title>Gute Fallbeispiele</title></info>
-            
+
 
             <para>
                 Man sollte nach guten Fallbeispielen sehen die von der Community verbreitet werden.
@@ -624,7 +624,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.phpdoc"><info><title>Vermeide die Wiederholung von phpdoc Inhalten</title></info>
-            
+
 
             <para>
                 Das Handbuch ist dazu gedacht ein Referenzhandbuch für die Verwendung durch
@@ -638,7 +638,7 @@ $render = "xxx";
         </section>
 
         <section xml:id="doc-standard.recommendations.links"><info><title>Verwendung von Links</title></info>
-            
+
 
             <para>
                 Links sollten zu anderen Sektionen des Handbuchs oder externen Quellen verweisen

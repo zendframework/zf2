@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.feed.consuming-atom.example.usage"><info><title>Основы использования ленты Atom</title></info>
-        
+
         <para>
             Чтение ленты Atom, вывод <code>title</code> и <code>summary</code>
             для каждого сообщения:

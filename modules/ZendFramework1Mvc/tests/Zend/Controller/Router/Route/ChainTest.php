@@ -596,7 +596,7 @@ class ChainTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $res['controller']);
         $this->assertEquals('bar', $res['action']);
     }
-    
+
     protected function _getRouter()
     {
         $router = new Router\Rewrite();

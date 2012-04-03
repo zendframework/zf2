@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.paginator.control"><info><title>Seitenkontrolle und ScrollingStyles</title></info>
-    
+
 
     <para>
         Die Darstellung von Elementen für eine Bildschirmseite ist ein guter Start. In den Code

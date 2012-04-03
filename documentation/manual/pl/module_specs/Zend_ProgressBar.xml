@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.progressbar.introduction"><info><title>Zend_ProgressBar</title></info>
-    
+
 
     <section xml:id="zend.progressbar.whatisit"><info><title>Wprowadzenie</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> to komponent służący do tworzenia i
@@ -17,7 +17,7 @@
     </section>
 
     <section xml:id="zend.progressbar.basic"><info><title>Podstawowe użycie Zend_Progressbar</title></info>
-        
+
 
         <para>
             <classname>Zend_ProgressBar</classname> jest komponentem łatwym w użyciu. Należy,
@@ -52,12 +52,12 @@ $progressBar->finish();
             można również wywoływać bez argumentów. Powoduje to przeliczenie czasu do końca
             wykonywanej akcji i wysłanie go do adaptera. Ten sposób może być przydatny gdy nie
             ma konkretnych danych do wysłania adapterowi ale niezbędna jest aktualizacja
-            paska postępu. 
+            paska postępu.
         </para>
     </section>
 
     <section xml:id="zend.progressbar.persistent"><info><title>Postęp utrwalony (persistent progress)</title></info>
-        
+
 
         <para>
             Jeśli zajdzie potrzeba utrzymania paska postępu przez wiele żądań, można w tym celu
@@ -73,7 +73,7 @@ $progressBar->finish();
     </section>
 
     <section xml:id="zend.progressbar.adapters"><info><title>Standardowe adaptery</title></info>
-        
+
 
         <para>
             Standardowo <classname>Zend_ProgressBar</classname> ma do dyspozycji następujące

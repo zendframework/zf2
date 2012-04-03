@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.load"><info><title>ファイルやクラスの動的な読み込み</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Loader</classname> クラスは、ファイルを動的に読み込むためのメソッドを提供します。
     </para>
 
     <tip><info><title>Zend_Loader 対 require_once()</title></info>
-        
+
         <para>
             <classname>Zend_Loader</classname> のメソッドは、読み込みたいファイルの名前が変化する場合に便利です。
             たとえば、ユーザの入力やメソッドの引数などのパラメータに基づいたファイル名を使用する場合などです。
@@ -20,7 +20,7 @@
 
     <section xml:id="zend.loader.load.file"><info><title>ファイルの読み込み</title></info>
 
-        
+
 
         <para>
             静的メソッド <methodname>Zend_Loader::loadFile()</methodname>
@@ -33,7 +33,7 @@
         </para>
 
         <example xml:id="zend.loader.load.file.example"><info><title>loadFile() メソッドの例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Loader::loadFile($filename, $dirs=null, $once=false);
 ]]></programlisting>
@@ -68,7 +68,7 @@ Zend_Loader::loadFile($filename, $dirs=null, $once=false);
 
     <section xml:id="zend.loader.load.class"><info><title>クラスの読み込み</title></info>
 
-        
+
 
         <para>
             静的メソッド <methodname>Zend_Loader::loadClass($class, $dirs)</methodname>
@@ -76,7 +76,7 @@ Zend_Loader::loadFile($filename, $dirs=null, $once=false);
         </para>
 
         <example xml:id="zend.loader.load.class.example"><info><title>loadClass() メソッドの例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Loader::loadClass('Container_Tree',
     array(
@@ -114,7 +114,7 @@ Zend_Loader::loadClass('Container_Tree',
         </para>
 
         <note><info><title>Loading Classes from PHP Namespaces</title></info>
-            
+
 
             <para>
                 Starting in version 1.10.0, Zend Framework now allows loading classes from <acronym>PHP</acronym>
@@ -182,7 +182,7 @@ Zend_Loader::loadClass('Container_Tree',
 
     <section xml:id="zend.loader.load.isreadable"><info><title>ファイルが読み込み可能かどうかの確認</title></info>
 
-        
+
 
         <para>
             静的メソッド <methodname>Zend_Loader::isReadable($pathname)</methodname>
@@ -191,7 +191,7 @@ Zend_Loader::loadClass('Container_Tree',
         </para>
 
         <example xml:id="zend.loader.load.isreadable.example"><info><title>isReadable() メソッドの例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 if (Zend_Loader::isReadable($filename)) {
     // $filename で何かをします
@@ -213,7 +213,7 @@ if (Zend_Loader::isReadable($filename)) {
 
     <section xml:id="zend.loader.load.autoload"><info><title>Autoloader の使用法</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Loader</classname> クラスには、<acronym>PHP</acronym> の SPL
@@ -226,7 +226,7 @@ if (Zend_Loader::isReadable($filename)) {
         </para>
 
         <example xml:id="zend.loader.load.autoload.example"><info><title>自動ローダー用コールバックメソッドの登録例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Loader::registerAutoload();
 ]]></programlisting>
@@ -246,7 +246,7 @@ Zend_Loader::registerAutoload();
         </para>
 
         <example xml:id="zend.loader.load.autoload.example-extended"><info><title>autoload コールバックメソッドを継承クラスから登録する例</title></info>
-            
+
             <para>
                 <acronym>PHP</acronym> における静的関数の参照の方法上、
                 <methodname>loadClass()</methodname> と <methodname>autoload()</methodname>

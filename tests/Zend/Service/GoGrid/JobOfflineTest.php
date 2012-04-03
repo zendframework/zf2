@@ -112,7 +112,7 @@ class JobOfflineTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(count($joblist),2);
         $this->assertEquals($joblist->getStatus(),'success');
-        
+
         $job= $joblist[0];
         $this->assertEquals($job->getAttribute('id'), '583288');
         $this->assertEquals($job->getAttribute('owner'),'enrico@zend.com');

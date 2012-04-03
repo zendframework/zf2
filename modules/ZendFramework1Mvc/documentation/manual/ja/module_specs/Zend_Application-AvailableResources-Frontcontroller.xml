@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.frontcontroller"><info><title>Zend_Application_Resource_Frontcontroller</title></info>
-    
+
 
     <para>
         おそらく、あなたが<classname>Zend_Application</classname>でロードする
@@ -108,7 +108,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.frontcontroller.configExample"><info><title>フロントコントローラ・リソース構成サンプル</title></info>
-        
+
 
         <para>
             下記は、フロントコントローラ・リソースを設定する方法を示す<acronym>INI</acronym>スニペット・サンプルです。
@@ -137,7 +137,7 @@ resources.frontController.actionHelperPaths.HELPER_Prefix = "My/Helper/Path"
     </example>
 
     <example xml:id="zend.application.available-resources.frontcontroller.propertyExample"><info><title>ブートストラップでフロントコントローラを取得</title></info>
-        
+
 
         <para>
             一旦フロントコントローラ・リソースが初期化されたら、

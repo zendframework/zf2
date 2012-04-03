@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.introduction"><info><title>Introducción</title></info>
 
-    
+
 
     <para>
         El componente
@@ -55,7 +55,7 @@
 
     <section xml:id="zend.date.setdefaulttimezone"><info><title>Asigne Siempre una Zona Horaria por Defecto</title></info>
 
-        
+
 
         <para>
             Antes de utilizar funciones relacionadas con fechas en
@@ -87,7 +87,7 @@
             </link>
             .
             <example xml:id="zend.date.setdefaulttimezone.example-1"><info><title>Configurando una Zona Horaria por Defecto</title></info>
-                
+
                 <programlisting language="php"><![CDATA[
                 // zona horaria para un estadounidense en California
 date_default_timezone_set('America/Los_Angeles');
@@ -145,7 +145,7 @@ date_default_timezone_set('Europe/Berlin');
 
     <section xml:id="zend.date.why"><info><title>¿Por Qué Usar Zend_Date?</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Date</classname>

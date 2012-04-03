@@ -51,8 +51,8 @@ class CldrTest extends \PHPUnit_Framework_TestCase
     {
         $this->_cache->clear(CacheAdapter::MATCH_ALL);
     }
-    
-    
+
+
     /**
      * test for reading with standard locale
      * expected array
@@ -71,8 +71,8 @@ class CldrTest extends \PHPUnit_Framework_TestCase
         $locale = new Locale('de');
         $this->assertTrue(is_array(Cldr::getDisplayLanguage($locale)));
     }
-    
-    
+
+
     /**
      * test for reading without type
      * expected empty array
@@ -108,7 +108,7 @@ class CldrTest extends \PHPUnit_Framework_TestCase
         $value = Cldr::getDisplayLanguage('de', false, 'de');
         $this->assertEquals('Deutsch', $value);
     }
-    
+
     /**
      * test for reading the territorylist in different
      * languages

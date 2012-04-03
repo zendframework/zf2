@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.validator_chains"><info><title>Chaînes de validation</title></info>
-    
+
 
     <para>
         Souvent, de multiples validations doivent être appliquées à une valeur dans un ordre

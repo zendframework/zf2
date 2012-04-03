@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.memory.memory-manager"><info><title>メモリマネージャ</title></info>
-    
+
 
     <section xml:id="zend.memory.memory-manager.creation"><info><title>メモリマネージャの作成</title></info>
 
-        
+
 
         <para>
             新しいメモリマネージャ
@@ -60,7 +60,7 @@ $memoryManager = Zend_Memory::factory('None');
 
     <section xml:id="zend.memory.memory-manager.objects-management"><info><title>メモリオブジェクトの管理</title></info>
 
-        
+
 
         <para>
             この節では、管理しているメモリ内でのオブジェクトの作成や破棄の方法、
@@ -69,7 +69,7 @@ $memoryManager = Zend_Memory::factory('None');
 
         <section xml:id="zend.memory.memory-manager.objects-management.movable"><info><title>移動可能なオブジェクトの作成</title></info>
 
-            
+
 
             <para>
                 移動可能なオブジェクト (スワップされる可能性のあるオブジェクト)
@@ -91,7 +91,7 @@ $memObject = $memoryManager->create($data);
 
         <section xml:id="zend.memory.memory-manager.objects-management.locked"><info><title>ロックされたオブジェクトの作成</title></info>
 
-            
+
 
             <para>
                 ロックされたオブジェクト (スワップされないオブジェクト)
@@ -112,7 +112,7 @@ $memObject = $memoryManager->createLocked($data);
 
         <section xml:id="zend.memory.memory-manager.objects-management.destruction"><info><title>オブジェクトの破棄</title></info>
 
-            
+
 
             <para>
                 メモリオブジェクトは、それがスコープの外に出た際に
@@ -156,11 +156,11 @@ function foo()
 
     <section xml:id="zend.memory.memory-manager.settings"><info><title>メモリオブジェクトの設定</title></info>
 
-        
+
 
         <section xml:id="zend.memory.memory-manager.settings.memory-limit"><info><title>メモリの制限</title></info>
 
-            
+
 
             <para>
                 メモリの制限とは、移動可能なオブジェクトを読み込む際に
@@ -198,7 +198,7 @@ $memoryManager->setMemoryLimit($newLimit);     // メモリの制限バイト数
 
         <section xml:id="zend.memory.memory-manager.settings.min-size"><info><title>MinSize</title></info>
 
-            
+
 
             <para>
                 MinSize は、メモリマネージャがスワップの対象とするメモリオブジェクトの最小サイズです。

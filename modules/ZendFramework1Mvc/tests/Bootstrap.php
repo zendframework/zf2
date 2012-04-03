@@ -28,7 +28,7 @@ error_reporting( E_ALL | E_STRICT );
  * Determine the root, library, and tests directories of the framework
  * distribution.
  */
-$zfModLibrary  = realpath(__DIR__ . '/../library'); 
+$zfModLibrary  = realpath(__DIR__ . '/../library');
 $zfModTests    = realpath(__DIR__);
 $zfCoreLibrary = realpath(__DIR__ . '/../../../library');
 
@@ -62,12 +62,12 @@ if (is_readable($zfModTests . '/TestConfiguration.php')) {
     require_once $zfModTests . '/TestConfiguration.php.dist';
 }
 
-if (defined('TESTS_GENERATE_REPORT') 
-    && TESTS_GENERATE_REPORT === true 
+if (defined('TESTS_GENERATE_REPORT')
+    && TESTS_GENERATE_REPORT === true
     && version_compare(PHPUnit_Runner_Version::id(), '3.1.6', '>=')
 ) {
     $codeCoverageFilter = PHP_CodeCoverage_Filter::getInstance();
-        
+
     /*
      * Omit from code coverage reports the contents of the tests directory
      */

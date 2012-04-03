@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.frontcontroller"><info><title>Zend_Application_Resource_Frontcontroller</title></info>
-    
+
 
     <para>
         Probably the most common resource you will load with
@@ -105,7 +105,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.frontcontroller.configExample"><info><title>Sample Front Controller resource configuration</title></info>
-        
+
 
         <para>
             Below is a sample <acronym>INI</acronym> snippet showing how to configure the front
@@ -135,7 +135,7 @@ resources.frontController.actionHelperPaths.HELPER_Prefix = "My/Helper/Path"
     </example>
 
     <example xml:id="zend.application.available-resources.frontcontroller.propertyExample"><info><title>Retrieving the Front Controller in your bootstrap</title></info>
-        
+
 
         <para>
             Once your Front Controller resource has been initialized, you can

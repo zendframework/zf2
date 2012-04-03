@@ -287,7 +287,7 @@ class HelperPriorityStack implements \IteratorAggregate, \ArrayAccess, \Countabl
      * Normalize a helper name
      *
      * Normalize to lowercase, with underscore separated words
-     * 
+     *
      * @param  string $name
      * @return string
      */

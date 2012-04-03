@@ -141,7 +141,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->_client->getHeader('Accept-encoding'), 'gzip,deflate', 'Returned value of header is not as expected');
         $this->assertEquals($this->_client->getHeader('X-Fake-Header'), null, 'Non-existing header should not return a value');
     }
-    
+
     /**
      * Authentication tests
      */
@@ -193,7 +193,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         // Try unsetting the cookies
         $this->_client->clearCookies();
         $cookies = $this->_client->getCookies();
-        
+
         $this->assertTrue(empty($cookies), 'Cookies is expected to be null but it is not');
     }
 
@@ -220,7 +220,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigSetAsArray()
     {
-        
+
         $config = array(
             'timeout'    => 500,
             'someoption' => 'hasvalue'
@@ -242,7 +242,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigSetAsZendConfig()
     {
- 
+
         $config = new \Zend\Config\Config(array(
             'timeout'  => 400,
             'nested'   => array(
@@ -279,7 +279,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigPassToAdapterZF4557()
     {
-        
+
         $adapter = new MockAdapter();
 
         // test that config passes when we set the adapter
@@ -413,9 +413,9 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         $this->_client->send();
 
         $expectedLines = file(__DIR__ . '/_files/ZF7038-multipartarrayrequest.txt');
-        
+
         $gotLines = explode("\n", $this->_client->getLastRawRequest());
-        
+
         $this->assertEquals(count($expectedLines), count($gotLines));
 
         while (($expected = array_shift($expectedLines)) &&
@@ -455,10 +455,10 @@ class StaticTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(filesize($bodyFile), (int) $match[1]);
     }
-    
+
     /**
      * Testing if the connection isn't closed
-     * 
+     *
      * @group ZF-9685
      */
     public function testOpenTempStreamWithValidFileDoesntThrowsException()
@@ -477,10 +477,10 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         // @todo verify link is still active
         return;
     }
-    
+
     /**
      * Testing if the connection can be closed
-     * 
+     *
      * @group ZF-9685
      */
     public function testOpenTempStreamWithBogusFileClosesTheConnection()

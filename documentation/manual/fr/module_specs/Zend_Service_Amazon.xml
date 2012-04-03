@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon"><info><title>Zend_Service_Amazon</title></info>
-    
+
 
     <section xml:id="zend.service.amazon.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Amazon</classname> est une <acronym>API</acronym> simple pour utiliser les
@@ -51,7 +51,7 @@
         </para>
 
         <note><info><title>Attention</title></info>
-            
+
 
             <para>
                 Votre clé "developer <acronym>API</acronym>" et votre clé secret sont liées à votre
@@ -60,7 +60,7 @@
         </note>
 
         <example xml:id="zend.service.amazon.introduction.example.itemsearch"><info><title>Recherche sur Amazon en utilisant l'API traditionnelle</title></info>
-            
+
 
             <para>
                 Dans cet exemple, nous recherchons les livres sur <acronym>PHP</acronym> disponibles chez Amazon
@@ -80,7 +80,7 @@ foreach ($results as $result) {
         </example>
 
         <example xml:id="zend.service.amazon.introduction.example.query_api"><info><title>Recherche sur Amazon en utilisant l'API de requête</title></info>
-            
+
 
             <para>
                 Ici nous cherchons aussi les livres sur <acronym>PHP</acronym> disponibles chez Amazon, mais en
@@ -102,7 +102,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.service.amazon.countrycodes"><info><title>Codes de pays</title></info>
-        
+
 
         <para>
             Par défaut, <classname>Zend_Service_Amazon</classname> se connecte au Web service
@@ -112,7 +112,7 @@ foreach ($results as $result) {
         </para>
 
         <example xml:id="zend.service.amazon.countrycodes.example.country_code"><info><title>Choisir un service Web Amazon d'un pays</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Connexion à Amazon France
@@ -121,7 +121,7 @@ $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'FR', 'AMAZON_SECRET_KEY');
         </example>
 
         <note><info><title>Codes de pays</title></info>
-            
+
 
             <para>
                 Les codes de pays valides sont <code>CA</code>, <code>DE</code>,
@@ -131,7 +131,7 @@ $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'FR', 'AMAZON_SECRET_KEY');
     </section>
 
     <section xml:id="zend.service.amazon.itemlookup"><info><title>Rechercher un produit Amazon spécifique avec son ASIN</title></info>
-        
+
 
         <para>
             La méthode <methodname>itemLookup()</methodname> fournit la possibilité de rechercher un
@@ -139,7 +139,7 @@ $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'FR', 'AMAZON_SECRET_KEY');
         </para>
 
         <example><info><title>Rechercher une produit Amazon spécifique avec son ASIN</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'US', 'AMAZON_SECRET_KEY');
@@ -155,7 +155,7 @@ $item = $amazon->itemLookup('B0000A432X');
         </para>
 
         <note><info><title>Information sur les images</title></info>
-            
+
 
             <para>
                 Pour récupérer les informations d'images pour vos résultats de recherche, vous
@@ -166,7 +166,7 @@ $item = $amazon->itemLookup('B0000A432X');
     </section>
 
     <section xml:id="zend.service.amazon.itemsearch"><info><title>Lancer des recherches de produits sur Amazon</title></info>
-        
+
 
         <para>
             Rechercher des produits basés sur tous les divers critères disponibles sont rendus
@@ -175,7 +175,7 @@ $item = $amazon->itemLookup('B0000A432X');
         </para>
 
         <example xml:id="zend.service.amazon.itemsearch.example.basic"><info><title>Lancer des recherches de produits sur Amazon</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $amazon = new Zend_Service_Amazon('AMAZON_API_KEY', 'US', 'AMAZON_SECRET_KEY');
@@ -188,7 +188,7 @@ foreach ($results as $result) {
         </example>
 
         <example xml:id="zend.service.amazon.itemsearch.example.responsegroup"><info><title>Utilisation de l'option <code>ResponseGroup</code></title></info>
-            
+
 
             <para>
                 L'option <code>ResponseGroup</code> est utilisée pour contrôler les
@@ -226,10 +226,10 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.service.amazon.query"><info><title>Utiliser l'API alternative de requêtes</title></info>
-        
+
 
         <section xml:id="zend.service.amazon.query.introduction"><info><title>Introduction</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Amazon_Query</classname> fournit une <acronym>API</acronym> alternative
@@ -248,7 +248,7 @@ foreach ($results as $result) {
             </para>
 
             <example xml:id="zend.service.amazon.query.introduction.example.basic"><info><title>Rechercher sur Amazon en utilisant l'API alternative de requêtes</title></info>
-                
+
 
                 <para>
                     Dans cet exemple, l'API de requêtes alternative est utilisée comme une
@@ -280,7 +280,7 @@ foreach ($results as $result) {
     </section>
 
     <section xml:id="zend.service.amazon.classes"><info><title>Classes Zend_Service_Amazon</title></info>
-        
+
 
         <para>
             Les classes suivantes sont toutes retournées par <link linkend="zend.service.amazon.itemlookup"><methodname>Zend_Service_Amazon::itemLookup()</methodname></link>
@@ -349,7 +349,7 @@ foreach ($results as $result) {
             </para>
 
         <section xml:id="zend.service.amazon.classes.item"><info><title>Zend_Service_Amazon_Item</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Amazon_Item</classname> est le type de classe utilisé
@@ -359,7 +359,7 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.amazon.classes.item.asxml"><info><title>Zend_Service_Amazon_Item::asXML()</title></info>
-                
+
 
                 <para>
                     <methodsynopsis>
@@ -375,7 +375,7 @@ foreach ($results as $result) {
             </section>
 
             <section xml:id="zend.service.amazon.classes.item.properties"><info><title>Propriétés</title></info>
-                
+
 
                 <para>
                     <classname>Zend_Service_Amazon_Item</classname> a un nombre de propriétés
@@ -383,7 +383,7 @@ foreach ($results as $result) {
                 </para>
 
                 <table xml:id="zend.service.amazon.classes.item.properties.table-1"><info><title>Propriétés de Zend_Service_Amazon_Item</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -508,7 +508,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.amazon.classes.image"><info><title>Zend_Service_Amazon_Image</title></info>
-            
+
 
             <para>
                 <classname>Zend_Service_Amazon_Image</classname> représente une image distante
@@ -516,10 +516,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.amazon.classes.image.properties"><info><title>Propriétés</title></info>
-                
+
 
                 <table xml:id="zend.service.amazon.classes.image.properties.table-1"><info><title>Propriétés de Zend_Service_Amazon_Image</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -560,7 +560,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.amazon.classes.resultset"><info><title>Zend_Service_Amazon_ResultSet</title></info>
-            
+
 
             <para>
                 Des objets <classname>Zend_Service_Amazon_ResultSet</classname> sont retournés
@@ -569,7 +569,7 @@ foreach ($results as $result) {
             </para>
 
             <note><info><title>SeekableIterator</title></info>
-                
+
 
                 <para>
                     Implémente l'itérateur <code>SeekableIterator</code> pour une itération
@@ -579,7 +579,7 @@ foreach ($results as $result) {
             </note>
 
             <section xml:id="zend.service.amazon.classes.resultset.totalresults"><info><title>Zend_Service_Amazon_ResultSet::totalResults()</title></info>
-                
+
 
                 <methodsynopsis>
                     <type>int</type>
@@ -599,7 +599,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.amazon.classes.offerset"><info><title>Zend_Service_Amazon_OfferSet</title></info>
-            
+
 
             <para>
                 Chaque résultat retourné par <link linkend="zend.service.amazon.itemsearch">Zend_Service_Amazon::itemSearch()</link> et
@@ -609,10 +609,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.amazon.classes.offerset.parameters"><info><title>Propriétés</title></info>
-                
+
 
                 <table xml:id="zend.service.amazon.classes.offerset.parameters.table-1"><info><title>Propriétés de Zend_Service_Amazon_OfferSet</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -698,7 +698,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.amazon.classes.offer"><info><title>Zend_Service_Amazon_Offer</title></info>
-            
+
 
             <para>
                 Chaque offre pour un article est retourné sous la forme d'un objet
@@ -706,10 +706,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.amazon.classes.offer.properties"><info><title>Zend_Service_Amazon_Offer Properties</title></info>
-                
+
 
                 <table><info><title>Propriétés de Zend_Service_Amazon_Offer</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -791,7 +791,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.amazon.classes.similarproduct"><info><title>Zend_Service_Amazon_SimilarProduct</title></info>
-            
+
 
             <para>
                 Lors de la recherche d'articles, Amazon retourne aussi une liste de produits
@@ -805,10 +805,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.amazon.classes.similarproduct.properties"><info><title>Propriétés</title></info>
-                
+
 
                 <table xml:id="zend.service.amazon.classes.similarproduct.properties.table-1"><info><title>Propriétés de Zend_Service_Amazon_SimilarProduct</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -843,7 +843,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.amazon.classes.accessories"><info><title>Zend_Service_Amazon_Accessories</title></info>
-            
+
 
             <para>
                 Les accessoires pour un article retourné sont représentés comme un objet
@@ -851,10 +851,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.amazon.classes.accessories.properties"><info><title>Propriétés</title></info>
-                
+
 
                 <table xml:id="zend.service.amazon.classes.accessories.properties.table-1"><info><title>Propriétés de Zend_Service_Amazon_Accessories</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -889,7 +889,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.amazon.classes.customerreview"><info><title>Zend_Service_Amazon_CustomerReview</title></info>
-            
+
 
             <para>
                 Chaque revue de client est retournée sous la forme d'un objet
@@ -897,10 +897,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.amazon.classes.customerreview.properties"><info><title>Propriétés</title></info>
-                
+
 
                 <table xml:id="zend.service.amazon.classes.customerreview.properties.table-1"><info><title>Propriétés de Zend_Service_Amazon_CustomerReview</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -966,7 +966,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.amazon.classes.editorialreview"><info><title>Zend_Service_Amazon_EditorialReview</title></info>
-            
+
 
             <para>
                 Chaque revue éditoriale d'un article est retournée dans un objet
@@ -974,10 +974,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.amazon.classes.editorialreview.properties"><info><title>Propriétés</title></info>
-                
+
 
                 <table xml:id="zend.service.amazon.classes.editorialreview.properties.table-1"><info><title>Propriétés de Zend_Service_Amazon_EditorialReview</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -1012,7 +1012,7 @@ foreach ($results as $result) {
         </section>
 
         <section xml:id="zend.service.amazon.classes.listmania"><info><title>Zend_Service_Amazon_Listmania</title></info>
-            
+
 
             <para>
                 Chaque résultat de liste ListMania est retourné dans un objet
@@ -1020,10 +1020,10 @@ foreach ($results as $result) {
             </para>
 
             <section xml:id="zend.service.amazon.classes.listmania.properties"><info><title>Propriétés</title></info>
-                
+
 
                 <table xml:id="zend.service.amazon.classes.listmania.properties.table-1"><info><title>Propriétés de Zend_Service_Amazon_Listmania</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>

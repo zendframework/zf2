@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.cache.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_Cache</classname> fournit un moyen générique de mettre en cache des
@@ -24,7 +24,7 @@
     </para>
 
     <example xml:id="zend.cache.introduction.example-1"><info><title>Créer un frontend avec Zend_Cache::factory()</title></info>
-        
+
 
         <para>
             <methodname>Zend_Cache::factory()</methodname> instancie les objets corrects et les lie
@@ -52,7 +52,7 @@ $cache = Zend_Cache::factory('Core',
     </example>
 
     <note><info><title>Frontends et Backends constitués de plusieurs mots</title></info>
-        
+
         <para>
             Certains frontends et backends sont nommés en utilisant plusieurs mots, comme
             "ZendPlatform". En les spécifiant à la fabrique, séparez les en utilisant
@@ -61,7 +61,7 @@ $cache = Zend_Cache::factory('Core',
     </note>
 
     <example xml:id="zend.cache.introduction.example-2"><info><title>Mettre en cache un résultat de requête sur une base de données</title></info>
-        
+
 
         <para>
             Maintenant que nous avons un frontend, nous pouvons mettre en cache tout type de
@@ -96,7 +96,7 @@ print_r($result);
     </example>
 
     <example xml:id="zend.cache.introduction.example-3"><info><title>Cache de sortie avec le frontend de sortie Zend_Cache</title></info>
-        
+
 
         <para>
             Nous marquons les sections dans lesquelles nous voulons un cache de sortie en

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.writer"><info><title>Zend_Feed_Writer</title></info>
-    
+
 
     <section xml:id="zend.feed.writer.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Feed_Writer</classname> ist die Bruderkomponente zu
@@ -47,7 +47,7 @@
     </section>
 
     <section xml:id="zend.feed.writer.architecture"><info><title>Architektur</title></info>
-        
+
 
         <para>
             Die Architektur von <classname>Zend_Feed_Writer</classname> ist sehr einfach. Es hat
@@ -111,7 +111,7 @@
     </section>
 
     <section xml:id="zend.feed.writer.getting.started"><info><title>Beginnen</title></info>
-        
+
 
         <para>
             Die Verwendung von <classname>Zend_Feed_Reader</classname> ist so einfach wie das Setzen
@@ -228,7 +228,7 @@ $out = $feed->export('atom');
     </section>
 
     <section xml:id="zend.feed.writer.setting.feed.data.points"><info><title>Die Datenpunkte eines Feeds setzen</title></info>
-        
+
 
         <para>
             Bevor ein Feed dargestellt werden kann, müssen zuerst die dafür notwendigen Daten
@@ -278,7 +278,7 @@ $out = $feed->export('atom');
         </para>
 
         <table><info><title>API Methoden auf Feed Level</title></info>
-            
+
 
             <tgroup cols="2">
                 <tbody>
@@ -547,7 +547,7 @@ $out = $feed->export('atom');
     </section>
 
     <section xml:id="zend.feed.writer.setting.entry.data.points"><info><title>Setzen der Datenpunkte für Einträge</title></info>
-        
+
 
         <para>
             Hier ist eine Zusammenfassung der Kern-<acronym>API</acronym> für Einträge und Elemente.
@@ -565,7 +565,7 @@ $out = $feed->export('atom');
         </para>
 
         <table><info><title>API-Methoden auf Eintragsebene</title></info>
-            
+
 
             <tgroup cols="2">
                 <tbody>

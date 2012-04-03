@@ -116,7 +116,7 @@ class Login extends Smtp
         $this->username = $username;
         return $this;
     }
-    
+
     /**
      * Get username
      *
@@ -138,7 +138,7 @@ class Login extends Smtp
         $this->password = $password;
         return $this;
     }
-    
+
     /**
      * Get password
      *

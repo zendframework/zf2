@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.importing"><info><title>Importowanie kanałów informacyjnych</title></info>
 
-    
+
 
     <para>
         <code>Zend_Feed</code> pozwala programistom bardzo łatwo odbierać wiadomości
@@ -41,7 +41,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
 
     <section xml:id="zend.feed.importing.custom"><info><title>Własne kanały</title></info>
 
-        
+
 
         <para>
             <code>Zend_Feed</code> pozwala programistom na bardzo łatwe
@@ -55,7 +55,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
 
         <section xml:id="zend.feed.importing.custom.importarray"><info><title>Importowanie własnej tablicy</title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[
 // importowanie kanału z tablicy
@@ -212,7 +212,7 @@ array(
 
         <section xml:id="zend.feed.importing.custom.importbuilder"><info><title>Importowanie własnego źródła danych</title></info>
 
-            
+
 
             <para>
                 Możesz utworzyć instancję Zend_Feed z dowolnego źródła danych
@@ -264,7 +264,7 @@ $rssFeedFromArray =
 
         <section xml:id="zend.feed.importing.custom.dump"><info><title>Zrzucanie zawartości kanału</title></info>
 
-            
+
 
             <para>
                 Aby zrzucić zawartość instancji <code>Zend_Feed_Abstract</code>,

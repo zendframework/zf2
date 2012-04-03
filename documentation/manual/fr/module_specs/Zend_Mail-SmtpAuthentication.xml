@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-authentication"><info><title>Authentification SMTP</title></info>
-    
+
 
     <para>
         <classname>Zend_Mail</classname> supporte l'utilisation de l'authentification SMTP,
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.mail.smtp-authentication.example-1"><info><title>Activer l'authentification dans Zend_Mail_Transport_Smtp</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $config = array('auth' => 'login',
@@ -30,7 +30,7 @@ $mail->send($transport);
     </example>
 
     <note><info><title>Type d'authentification</title></info>
-        
+
 
         <para>
             Le type d'authentification est sensible à la casse mais ne contient pas de

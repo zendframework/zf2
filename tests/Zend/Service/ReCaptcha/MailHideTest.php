@@ -38,7 +38,7 @@ class MailHideTest extends \PHPUnit_Framework_TestCase
     protected $privateKey = TESTS_ZEND_SERVICE_RECAPTCHA_MAILHIDE_PRIVATE_KEY;
     protected $mailHide   = null;
 
-    public function setUp() 
+    public function setUp()
     {
         if (!extension_loaded('mcrypt')) {
             $this->markTestSkipped('Zend\Service\ReCaptcha tests skipped due to missing mcrypt extension');
@@ -49,7 +49,7 @@ class MailHideTest extends \PHPUnit_Framework_TestCase
         $this->mailHide = new ReCaptcha\MailHide();
     }
 
-    public function testSetGetPrivateKey() 
+    public function testSetGetPrivateKey()
     {
         $this->mailHide->setPrivateKey($this->privateKey);
         $this->assertSame($this->privateKey, $this->mailHide->getPrivateKey());

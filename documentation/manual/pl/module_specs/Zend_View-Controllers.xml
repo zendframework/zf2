@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.controllers"><info><title>Skrypt kontrolera</title></info>
-    
+
 
     <para>
         Kontroler jest miejscem, w którym tworzysz i konfigurujesz instancję
@@ -10,7 +10,7 @@
 
     <section xml:id="zend.view.controllers.assign"><info><title>Przekazywanie zmiennych</title></info>
 
-        
+
 
         <para>
             Twój skrypt kontrolera powinien przypisać potrzebne zmienne do
@@ -80,7 +80,7 @@ $view->assign('c', "Sea");
 
     <section xml:id="zend.view.controllers.render"><info><title>Wykonywanie skryptu widoku</title></info>
 
-        
+
 
         <para>
             Kiedy już przypisałeś wszystkie zmienne, kontroler powinien przekazać
@@ -103,7 +103,7 @@ echo $view->render('someView.php');
 
     <section xml:id="zend.view.controllers.script-paths"><info><title>Ścieżki skryptu widoku</title></info>
 
-        
+
 
         <para>
             Domyślnie, Zend_View oczekuje, że skrypty widoku są umieszczone

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit"><info><title>Zend_Test_PHPUnit</title></info>
-    
+
 
     <para>
         <code>Zend_Test_PHPUnit</code> מספקת בדיקות למערכת שלכם אשר כוללת בדיקות של כל פעולה ומה היא צריכה לעשות, ומה היא עושה בפועל. הדרך הקלה והטובה ביותר כדי להבין מה זה באמת עושה היא לצפות בדוגמא לשימוש.
     </para>
 
     <example xml:id="zend.test.phpunit.loginexample"><info><title>דוגמא לשימוש ב TestCase</title></info>
-        
+
 
         <para>
             הקוד הבא מציג דוגמא פשוטה לשימוש ב <code>UserController</code> על מנת לוודאות כמה דברים:

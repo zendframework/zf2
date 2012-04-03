@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.charset"><info><title>字符集</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.charset.description"><info><title> UTF-8 和单字节字符集支持</title></info>
-        
+
 
         <para>
             被设计于工作在 UTF-8 字符集下。索引文件在 Java 的"modified UTF-8 encoding"编码下保存文件。Zend_Search_Lucene 内核完全支持它，只有一处例外。

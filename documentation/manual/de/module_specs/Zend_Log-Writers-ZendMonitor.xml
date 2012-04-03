@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.writers.zendmonitor"><info><title>Auf den Zend Server Montior schreiben</title></info>
-    
+
 
     <para>
         <classname>Zend_Log_Writer_ZendMonitor</classname> erlaubt es Events über Zend Server's
@@ -19,7 +19,7 @@
     </para>
 
     <note><info><title>Zend Monitor muss installiert und aktiviert sein</title></info>
-        
+
 
         <para>
             Um diesen Log Writer zu verwenden muss Zend Monitor sowohl installiert als auch
@@ -102,7 +102,7 @@ $log->info('Exception gefunden', array(
     </para>
 
     <note><info><title>Integration mit Zend_Application</title></info>
-        
+
 
         <para>
             Standardmäßig fügen die Kommandos <command>zf.sh</command> und <command>zf.bat</command>

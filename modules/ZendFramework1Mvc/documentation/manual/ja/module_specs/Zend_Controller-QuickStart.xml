@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.quickstart"><info><title>Zend_Controller クイックスタート</title></info>
-    
+
 
     <section xml:id="zend.controller.quickstart.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller</classname> は、Zend Framework の <acronym>MVC</acronym>
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.controller.quickstart.go"><info><title>クイックスタート</title></info>
-        
+
 
         <para>
             より詳しい情報が知りたい場合は、次のセクションを参照ください。
@@ -35,7 +35,7 @@
         </para>
 
         <section xml:id="zend.controller.quickstart.go.directory"><info><title>ファイルシステムレイアウトの作成</title></info>
-            
+
 
             <para>
                 まずはディレクトリ構成を決めましょう。
@@ -61,7 +61,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.docroot"><info><title>ドキュメントルートの設定</title></info>
-            
+
 
             <para>
                 ウェブサーバのドキュメントルートを、先ほどのレイアウト中の
@@ -70,7 +70,7 @@ html/
         </section>
 
         <section xml:id="zend.controller.quickstart.go.rewrite"><info><title>rewrite ルールの作成</title></info>
-            
+
 
             <para>
                 上のレイアウトの <filename>html/.htaccess</filename>
@@ -87,7 +87,7 @@ RewriteRule ^.*$ index.php [NC,L]
 ]]></programlisting>
 
             <note><info><title>mod_rewrite について</title></info>
-                
+
 
                 <para>
                     上のリライトルールは、バーチャルホストのドキュメントルート配下にある
@@ -151,7 +151,7 @@ RewriteRule ^.*$ index.php [NC,L]
         </section>
 
         <section xml:id="zend.controller.quickstart.go.bootstrap"><info><title>起動ファイルの作成</title></info>
-            
+
 
             <para>
                 起動ファイルとはすべてのリクエストの転送先となるファイルのことで、
@@ -170,7 +170,7 @@ Zend_Controller_Front::run('/path/to/app/controllers');
         </section>
 
         <section xml:id="zend.controller.quickstart.go.controller"><info><title>デフォルトのアクションコントローラの作成</title></info>
-            
+
 
             <para>
                 アクションコントローラについて説明する前に、まず
@@ -249,7 +249,7 @@ class IndexController extends Zend_Controller_Action
         </section>
 
         <section xml:id="zend.controller.quickstart.go.view"><info><title>ビュースクリプトの作成</title></info>
-            
+
 
             <para>
                 <link linkend="zend.controller.quickstart.go.controller">
@@ -277,7 +277,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.errorhandler"><info><title>エラーコントローラの作成</title></info>
-            
+
 
             <para>
                 デフォルトで、
@@ -324,7 +324,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         </section>
 
         <section xml:id="zend.controller.quickstart.go.finish"><info><title>実際に見てみましょう!</title></info>
-            
+
 
             <para>
                 ここまでくれば、実際にブラウザでサイトを表示してみることができます。

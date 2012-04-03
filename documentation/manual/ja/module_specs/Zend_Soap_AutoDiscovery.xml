@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.autodiscovery"><info><title>自動検出</title></info>
-    
+
 
     <section xml:id="zend.soap.autodiscovery.introduction"><info><title>自動検出導入</title></info>
-        
+
         <para>
             Zend Frameworkの中で実装される<acronym>SOAP</acronym>機能は、
             すべてのステップをより単純な<acronym>SOAP</acronym>通信のために必要とされるようにすることを目的とします。
@@ -96,7 +96,7 @@ $autodiscover->handle();
         </para>
 
         <note xml:id="zend.soap.autodiscovery.introduction.noserver"><info><title>Zend_Soap_AutodiscoverはSOAPサーバーではありません</title></info>
-            
+
 
             <para>
                 クラス<classname>Zend_Soap_AutoDiscover</classname>が
@@ -132,7 +132,7 @@ if(isset($_GET['wsdl'])) {
     </section>
 
     <section xml:id="zend.soap.autodiscovery.class"><info><title>クラスの自動検出</title></info>
-        
+
 
         <para>
             クラスが<acronym>SOAP</acronym>サーバー機能を提供することに使われるならば、
@@ -185,7 +185,7 @@ $autodiscover->handle();
         </para>
 
         <note><info><title>重要!</title></info>
-            
+
             <para>
                 WSDL自動検出では、パラメータを決定して型を返すために、
                 開発者により提供される<acronym>PHP</acronym> docblockを利用します。
@@ -200,7 +200,7 @@ $autodiscover->handle();
     </section>
 
     <section xml:id="zend.soap.autodiscovery.functions"><info><title>関数の自動検出</title></info>
-        
+
 
         <para>
             関数のセットが<acronym>SOAP</acronym>サーバー機能を提供することに使われるならば、
@@ -255,7 +255,7 @@ $autodiscover->handle();
         </para>
 
         <note><info><title>重要!</title></info>
-            
+
             <para>
                 WSDL自動検出では、パラメータを決定して、型を返すために、
                 開発者により提供される<acronym>PHP</acronym> docblockを利用します。
@@ -270,7 +270,7 @@ $autodiscover->handle();
     </section>
 
     <section xml:id="zend.soap.autodiscovery.datatypes"><info><title>データ型の自動検出</title></info>
-        
+
 
         <para>
             入出力データ型は、以下のマッピングを用いて、ネットワーク・サービス型に変換されます:
@@ -330,7 +330,7 @@ $autodiscover->handle();
     </section>
 
     <section xml:id="zend.soap.autodiscovery.wsdlstyles"><info><title>WSDLバインディングスタイル</title></info>
-        
+
 
         <para>
             WSDLは、異なるトランスポートのメカニズムとスタイルを提供します。

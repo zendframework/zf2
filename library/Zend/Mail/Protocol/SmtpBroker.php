@@ -41,8 +41,8 @@ class SmtpBroker extends PluginBroker
 
     /**
      * Determine if we have a valid extension
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return true
      * @throws Exception\InvalidHelperException
      */

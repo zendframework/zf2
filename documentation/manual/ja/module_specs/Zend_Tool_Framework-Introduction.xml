@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.introduction"><info><title>導入</title></info>
-    
+
 
     <para>
         <classname>Zend_Tool_Framework</classname>は、
@@ -72,14 +72,14 @@
     <itemizedlist>
         <listitem>
             <para>
-                <classname>Zend_Tool_Framework</classname> - 
+                <classname>Zend_Tool_Framework</classname> -
                 ツーリング機能を公開するフレームワーク。
             </para>
         </listitem>
 
         <listitem>
             <para>
-                <emphasis>ツーリングクライアント</emphasis> - 
+                <emphasis>ツーリングクライアント</emphasis> -
                 <classname>Zend_Tool_Framework</classname>に接続したり消費したりする開発ツール。
             </para>
         </listitem>
@@ -101,7 +101,7 @@
 
         <listitem>
             <para>
-                <emphasis>プロバイダー</emphasis> - 
+                <emphasis>プロバイダー</emphasis> -
                 フレームワークがエクスポートするビルトイン機能のサブシステムと集まりです。
             </para>
         </listitem>
@@ -115,7 +115,7 @@
 
         <listitem>
             <para>
-                <classname>Zend_Tool_Project</classname>プロバイダー - 
+                <classname>Zend_Tool_Project</classname>プロバイダー -
                 Zend Frameworkベースのプロジェクトを生成して、
                 維持するための特別なプロバイダーのセットです。
             </para>

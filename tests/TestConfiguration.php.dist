@@ -37,7 +37,7 @@
  *
  *  defined(...) || define(...);
  *
- * This ensures that, when a test is marked to run in a separate process, 
+ * This ensures that, when a test is marked to run in a separate process,
  * PHP will not complain of a constant already being defined.
  */
 
@@ -88,7 +88,7 @@ defined('TESTS_ZEND_CONTROLLER_DISPATCHER_OB') || define('TESTS_ZEND_CONTROLLER_
 /**
  * Zend_Crypt related constantes
  *
- * TESTS_ZEND_CRYPT_OPENSSL_CONF => location of an openssl.cnf file for use 
+ * TESTS_ZEND_CRYPT_OPENSSL_CONF => location of an openssl.cnf file for use
  *     with RSA encryption
  */
 defined('TESTS_ZEND_CRYPT_OPENSSL_CONF') || define('TESTS_ZEND_CRYPT_OPENSSL_CONF', false);

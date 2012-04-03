@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.text.table.introduction"><info><title>Zend_Text_Table</title></info>
-    
+
 
     <para>
         <classname>Zend_Text_Table</classname> は、さまざまなデコレータを使用して
@@ -13,7 +13,7 @@
     </para>
 
     <note><info><title>エンコーディング</title></info>
-        
+
 
         <para>
             <classname>Zend_Text_Table</classname> のデフォルトでは、文字列が
@@ -146,7 +146,7 @@
     </para>
 
     <example xml:id="zend.text.table.example.using"><info><title>Zend_Text_Table の使用例</title></info>
-        
+
 
         <para>
             この例では、<classname>Zend_Text_Table</classname>

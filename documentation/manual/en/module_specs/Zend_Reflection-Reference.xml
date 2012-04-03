@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.reflection.reference"><info><title>Zend_Reflection Reference</title></info>
-    
+
 
     <para>
         The various classes in <classname>Zend_Reflection</classname> mimic the
@@ -40,7 +40,7 @@
     </para>
 
     <section xml:id="zend.reflection.reference.docblock"><info><title>Zend_Reflection_Docblock</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Docblock</classname> is the heart of
@@ -111,7 +111,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.docblock-tag"><info><title>Zend_Reflection_Docblock_Tag</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Docblock_Tag</classname> provides reflection for
@@ -149,7 +149,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.docblock-tag-param"><info><title>Zend_Reflection_Docblock_Tag_Param</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Docblock_Tag_Param</classname> is a specialized
@@ -176,7 +176,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.docblock-tag-return"><info><title>Zend_Reflection_Docblock_Tag_Return</title></info>
-        
+
 
         <para>
             Like <classname>Zend_Reflection_Docblock_Tag_Param</classname>,
@@ -197,7 +197,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.file"><info><title>Zend_Reflection_File</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_File</classname> provides introspection into
@@ -269,7 +269,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.class"><info><title>Zend_Reflection_Class</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Class</classname> extends
@@ -340,7 +340,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.extension"><info><title>Zend_Reflection_Extension</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Extension</classname> extends
@@ -369,7 +369,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.function"><info><title>Zend_Reflection_Function</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Function</classname> adds a method for retrieving
@@ -405,7 +405,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.method"><info><title>Zend_Reflection_Method</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Method</classname> mirrors
@@ -425,7 +425,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.parameter"><info><title>Zend_Reflection_Parameter</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Parameter</classname> adds a method for retrieving
@@ -467,7 +467,7 @@
     </section>
 
     <section xml:id="zend.reflection.reference.property"><info><title>Zend_Reflection_Property</title></info>
-        
+
 
         <para>
             <classname>Zend_Reflection_Property</classname> overrides a single method in

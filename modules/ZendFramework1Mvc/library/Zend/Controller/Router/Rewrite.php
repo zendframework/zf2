@@ -379,7 +379,7 @@ class Rewrite extends AbstractRouter
 
         // Find the matching route
         $routeMatched = false;
-        
+
         foreach (array_reverse($this->_routes) as $name => $route) {
             // TODO: Should be an interface method. Hack for 1.0 BC
             if (method_exists($route, 'isAbstract') && $route->isAbstract()) {
@@ -456,7 +456,7 @@ class Rewrite extends AbstractRouter
             }
         }
 
-        // Use UNION (+) in order to preserve numeric keys 
+        // Use UNION (+) in order to preserve numeric keys
         $params = $userParams + $this->_globalParams;
 
         $route = $this->getRoute($name);

@@ -39,6 +39,6 @@ class IfMatchTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
-    
+
 }
 

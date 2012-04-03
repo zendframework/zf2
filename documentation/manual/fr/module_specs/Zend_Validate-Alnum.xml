@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.alnum"><info><title>Alnum</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Alnum</classname> permet de valider des données contenant des
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.set.alnum.options"><info><title>Options supportées par Zend_Validate_Alnum</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.validate.set.alnum.basic"><info><title>Utilisation de base</title></info>
-        
+
 
         <para>
             Voici un exemple :
@@ -44,7 +44,7 @@ if ($validator->isValid('Abcd12')) {
     </section>
 
     <section xml:id="zend.validate.set.alnum.whitespace"><info><title>Utiliser les espaces</title></info>
-        
+
 
         <para>
             Par défaut les caractères espaces ne sont pas acceptés car il ne font pas partie de
@@ -70,7 +70,7 @@ if ($validator->isValid('Abcd and 12')) {
     </section>
 
     <section xml:id="zend.validate.set.alnum.languages"><info><title>Utiliser des langues différentes</title></info>
-        
+
 
         <para>
             En utilisant <classname>Zend_Validate_Alnum</classname>, la langue que l'utilisateur

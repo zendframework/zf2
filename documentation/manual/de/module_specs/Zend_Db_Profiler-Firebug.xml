@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.profiler.profilers.firebug"><info><title>Profilen mit Firebug</title></info>
-    
+
 
     <para>
         <classname>Zend_Db_Profiler_Firebug</classname> sendet Profilinginformationen an die
@@ -43,7 +43,7 @@
     </itemizedlist>
 
     <example xml:id="zend.db.profiler.profilers.firebug.example.with_front_controller"><info><title>DB Profiling mit Zend_Controller_Front</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // In der Bootstrap Datei
@@ -62,7 +62,7 @@ $db->setProfiler($profiler);
     </example>
 
     <example xml:id="zend.db.profiler.profilers.firebug.example.without_front_controller"><info><title>DB Profiling ohne Zend_Controller_Front</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $profiler = new Zend_Db_Profiler_Firebug('All DB Queries');

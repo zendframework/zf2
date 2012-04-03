@@ -61,7 +61,7 @@ ECS;
 
         $this->assertEquals($expected, $configString);
     }
-    
+
     public function testSectionsToString()
     {
         $config = new Config(array(), true);
@@ -74,9 +74,9 @@ ECS;
         $config->production->database->params->username = 'production';
         $config->production->database->params->password = 'secret';
         $config->production->database->params->dbname = 'dbproduction';
-        
+
         $configString = $this->writer->toString($config);
-        
+
         $expected = <<<ECS
 <?xml version="1.0" encoding="UTF-8"?>
 <zend-config>
@@ -94,7 +94,7 @@ ECS;
 </zend-config>
 
 ECS;
-        
+
         $this->assertEquals($expected, $configString);
     }
 }

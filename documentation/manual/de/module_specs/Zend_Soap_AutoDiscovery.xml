@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.autodiscovery"><info><title>AutoDiscovery</title></info>
-    
+
 
     <section xml:id="zend.soap.autodiscovery.introduction"><info><title>AutoDiscovery Einführung</title></info>
-        
+
 
         <para>
             Die <acronym>SOAP</acronym> Funktionalität die im Zend Framework implementiert ist, ist
@@ -116,7 +116,7 @@ $autodiscover->handle();
         </para>
 
         <note xml:id="zend.soap.autodiscovery.introduction.noserver"><info><title>Zend_Soap_Autodiscover ist kein Soap Server</title></info>
-            
+
 
             <para>
                 Es ist wichtig anzumerken, das die Klasse
@@ -150,7 +150,7 @@ if(isset($_GET['wsdl'])) {
     </section>
 
     <section xml:id="zend.soap.autodiscovery.class"><info><title>Automatische Erkennung von Klassen</title></info>
-        
+
 
         <para>
             Wenn eine Klasse verwendet wird um SOAP Server Funktionalitäten anzubieten, dann sollte
@@ -224,7 +224,7 @@ $autodiscover->handle();
         </para>
 
         <note><info><title>Wichtig!</title></info>
-            
+
 
             <para>
                 WSDL Autodiscovery verwendet <acronym>PHP</acronym> Docblocks die vom Entwickler
@@ -241,7 +241,7 @@ $autodiscover->handle();
     </section>
 
     <section xml:id="zend.soap.autodiscovery.functions"><info><title>Funktionen für Autodiscovery</title></info>
-        
+
 
         <para>
             Wenn ein Set von Funktionen verwendet wird um SOAP Server Funktionalität anzubieten,
@@ -316,7 +316,7 @@ $autodiscover->handle();
         </para>
 
         <note><info><title>Wichtig!</title></info>
-            
+
 
             <para>
                 WSDL Autodiscovery verwendet <acronym>PHP</acronym> Docblocks die vom Entwickler
@@ -333,7 +333,7 @@ $autodiscover->handle();
     </section>
 
     <section xml:id="zend.soap.autodiscovery.datatypes"><info><title>Automatische Erkennung. Datentypen</title></info>
-        
+
 
         <para>
             Eingabe/Ausgabe Datentypen werden in Netzwerk Service Typen konvertiert indem das
@@ -399,7 +399,7 @@ $autodiscover->handle();
     </section>
 
     <section xml:id="zend.soap.autodiscovery.wsdlstyles"><info><title>Stile für das Binden von WSDL</title></info>
-        
+
 
         <para>
             WSDL bietet verschiedene Transport Mechanismen und Stile. Das beeinträchtigt die

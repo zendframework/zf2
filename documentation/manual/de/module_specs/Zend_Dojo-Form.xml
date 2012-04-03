@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form"><info><title>Formular Elemente und Dekoratore für Dojo</title></info>
-    
+
 
     <para>
         Aufbauend auf den <link linkend="zend.dojo.view.dijit">Dijit View Helfern</link> bietet die
@@ -46,7 +46,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.form.enable"><info><title>Aktivieren von Dojo in bestehenden Formularen</title></info>
-        
+
 
         <para>
             "Warte mal,", wird man sagen; "Ich erweitere bereits <classname>Zend_Form</classname>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="project-structure"><info><title>Vorgeschlagene Struktur für die Projekt Struktur von Zend Framework MVC Anwendungen</title></info>
-    
+
 
     <section xml:id="project-structure.overview"><info><title>Übersicht</title></info>
-        
+
 
         <para>
             Viele Entwickler suchen Hilfe für die beste Projekt Struktur für ein Zend Framework
@@ -35,7 +35,7 @@
     </section>
 
     <section xml:id="project-structure.project"><info><title>Vorgeschlagene Verzeichnis Struktur für Projekte</title></info>
-        
+
 
         <programlisting language="text"><![CDATA[
 <project name>/
@@ -252,7 +252,7 @@
     </section>
 
     <section xml:id="project-structure.filesystem"><info><title>Modul Struktur</title></info>
-        
+
 
         <para>
             Die Verzeichnis Struktur für Module sollte jene des
@@ -287,7 +287,7 @@
     </section>
 
     <section xml:id="project-structure.rewrite"><info><title>Leitfaden für die Rewrite Konfiguration</title></info>
-        
+
 
         <para>
             <acronym>URL</acronym> Rewriting ist eine der üblichen Funktionen von
@@ -298,7 +298,7 @@
         </para>
 
         <section xml:id="project-structure.rewrite.apache"><info><title>Apache HTTP Server</title></info>
-            
+
 
             <para>
                 Alle folgenden Beispiel verwenden <property>mod_rewrite</property>, ein offizielles
@@ -311,7 +311,7 @@
             </para>
 
             <section xml:id="project-structure.rewrite.apache.vhost"><info><title>Rewriting innerhalb eines VirtualHost</title></info>
-                
+
 
                 <para>
                     Hier ist eine sehr grundsätzliche Definition eines virtuellen Hosts. Diese
@@ -345,7 +345,7 @@
             </section>
 
             <section xml:id="project-structure.rewrite.apache.htaccess"><info><title>Rewriting innerhalb einer .htaccess Datei</title></info>
-                
+
 
                 <para>
                     Anbei ist eine einfache <filename>.htaccess</filename> Datei welche
@@ -374,7 +374,7 @@ RewriteRule ^.*$ index.php [NC,L]
         </section>
 
         <section xml:id="project-structure.rewrite.iis"><info><title>Microsoft Internet Information Server</title></info>
-            
+
 
             <para>
                 Ab Version 7.0 wird <acronym>IIS</acronym> jetzt mit einer Standardmäßigen Rewrite

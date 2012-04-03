@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.position"><info><title>Wo ist die Währung?</title></info>
-    
+
 
     <para>
         Die Position an welche das Währungssymbol oder der Namen angezeigt werden hängt vom
@@ -10,7 +10,7 @@
     </para>
 
     <table xml:id="zend.currency.position.table-1"><info><title>Vorhadene Positionen für die Währung</title></info>
-        
+
 
         <tgroup cols="2" align="left">
             <thead>
@@ -46,7 +46,7 @@
     </table>
 
     <example xml:id="zend.currency.position.example-1"><info><title>Setzen der Währungsposition</title></info>
-        
+
 
         <para>
             Angenommen der Client hat wieder mal "en_US" als Gebietsschema gesetzt. Wenn keine

@@ -49,7 +49,7 @@ class RuntimeDefinition implements Definition
     {
         $this->introspectionStrategy = $introspectionStrategy;
     }
-    
+
     /**
      * @return IntrospectionStrategy
      */
@@ -74,7 +74,7 @@ class RuntimeDefinition implements Definition
 
     /**
      * Return nothing
-     * 
+     *
      * @return array
      */
     public function getClasses()
@@ -93,7 +93,7 @@ class RuntimeDefinition implements Definition
         if ($this->explicitLookups === true) {
             return (array_key_exists($class, $this->classes));
         }
-        
+
         return class_exists($class) || interface_exists($class);
     }
 

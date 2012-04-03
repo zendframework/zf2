@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.view.placeholders.standard"><info><title>Standard Placeholders</title></info>
-    
+
 
     <para>
         In the <link linkend="learning.view.placeholders.basics">previous section</link>, we learned
@@ -27,7 +27,7 @@
     </para>
 
     <section xml:id="learning.view.placeholders.standard.doctype"><info><title>Setting the DocType</title></info>
-        
+
 
         <para>
             <emphasis>DocType</emphasis> declarations are troublesome to memorize, and often
@@ -147,7 +147,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="learning.view.placeholders.standard.head-title"><info><title>Specifying the Page Title</title></info>
-        
+
 
         <para>
             Often, a site will include the site or business name as part of the page title, and
@@ -228,7 +228,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="learning.view.placeholders.standard.head-link"><info><title>Specifying Stylesheets with HeadLink</title></info>
-        
+
 
         <para>
             Good <acronym>CSS</acronym> developers will often create a general stylesheet for
@@ -313,7 +313,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="learning.view.placeholders.standard.head-script"><info><title>Aggregating Scripts Using HeadScript</title></info>
-        
+
 
         <para>
             Another common tactic to prevent long page load times is to only load JavaScript when
@@ -419,7 +419,7 @@ site = {
 ]]></programlisting>
 
         <note><info><title>InlineScript Variant</title></info>
-            
+
 
             <para>
                 Many browsers will often block display of a page until all scripts and stylesheets

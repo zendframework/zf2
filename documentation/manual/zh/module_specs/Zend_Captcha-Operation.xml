@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.captcha.operation"><info><title>Captcha 操作</title></info>
-    
+
 
     <para>
         所有具体的 CAPTCHA 对象实现

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.request"><info><title>Объект запроса</title></info>
-    
+
     <section xml:id="zend.controller.request.introduction"><info><title>Введение</title></info>
-        
+
         <para>
             Объект запроса - это простой "объект значений"
             (<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.patternsforphp.com/wiki/Value_Object">value
@@ -71,10 +71,10 @@
     </section>
 
     <section xml:id="zend.controller.request.http"><info><title>HTTP-запросы</title></info>
-        
+
 
         <section xml:id="zend.controller.request.http.dataacess"><info><title>Доступ к данным запроса</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> инкапсулирует доступ к
@@ -90,7 +90,7 @@
             </para>
 
             <note><info><title>Суперглобальные данные</title></info>
-                
+
                 <para>
                     Когда получаете доступ к суперглобальным данным через
                     <classname>Zend_Controller_Request_Http</classname> как к публичным
@@ -112,7 +112,7 @@
             </para>
 
             <note><info><title>Данные GET и POST</title></info>
-                
+
                 <para>
                     Будьте осторожны, когда извлекаете данные из объекта
                     запроса, поскольку они совсем не фильтруются. Маршрутизатор
@@ -123,7 +123,7 @@
             </note>
 
             <note><info><title>Извлечение Raw POST данных</title></info>
-                
+
 
                 <para>
                     Начиная с версии 1.5.0 вы можете также извлекать данные POST
@@ -149,7 +149,7 @@
 
             <note><info><title>getParam() извлекает не только пользовательские
                 параметры</title></info>
-                
+
 
                 <para>
                     <code>getParam()</code> извлекает значения из нескольких
@@ -180,7 +180,7 @@
             </note>
 
             <note><info><title>Причуды Apache</title></info>
-                
+
                 <para>
                     Если вы используете обработчик ошибок 404 веб-сервера Apache
                     для передачи приходящих запросов фронт-контроллеру или
@@ -211,7 +211,7 @@ $front->setRequest($request);
         </section>
 
         <section xml:id="zend.controller.request.http.baseurl"><info><title>Базовый URL и поддиректории</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> позволяет использовать
@@ -236,7 +236,7 @@ $front->setRequest($request);
             </para>
 
             <note><info><title>Определение URL чувствительно к регистру</title></info>
-                
+
                 <para>
                     Автоматическое определение базового URL чувствительно к
                     регистру, поэтому убедитесь, что ваш URL соответствует имени
@@ -273,7 +273,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.method"><info><title>Определение HTTP-метода запроса</title></info>
-            
+
 
             <para>
                 <code>getMethod()</code> позволяет определить HTTP-метод
@@ -298,7 +298,7 @@ $response   = $controller->dispatch();
         </section>
 
         <section xml:id="zend.controller.request.http.ajax"><info><title>Определение запросов AJAX</title></info>
-            
+
 
             <para>
                 <classname>Zend_Controller_Request_Http</classname> имеет
@@ -332,7 +332,7 @@ $response   = $controller->dispatch();
     </section>
 
     <section xml:id="zend.controller.request.subclassing"><info><title>Создание подклассов объекта запроса</title></info>
-        
+
 
         <para>
             Базовый класс запроса, используемый для всех объектов запроса, -

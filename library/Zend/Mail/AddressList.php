@@ -33,16 +33,16 @@ class AddressList implements Countable, Iterator
 {
     /**
      * List of Address objects we're managing
-     * 
+     *
      * @var array
      */
     protected $addresses = array();
 
     /**
      * Add an address to the list
-     * 
-     * @param  string|AddressDescription $emailOrAddress 
-     * @param  null|string $name 
+     *
+     * @param  string|AddressDescription $emailOrAddress
+     * @param  null|string $name
      * @return AddressList
      */
     public function add($emailOrAddress, $name = null)
@@ -71,11 +71,11 @@ class AddressList implements Countable, Iterator
     /**
      * Add many addresses at once
      *
-     * If an email key is provided, it will be used as the email, and the value 
-     * as the name. Otherwise, the value is passed as the sole argument to add(), 
+     * If an email key is provided, it will be used as the email, and the value
+     * as the name. Otherwise, the value is passed as the sole argument to add(),
      * and, as such, can be either email strings or AddressDescription objects.
-     * 
-     * @param  array $addresses 
+     *
+     * @param  array $addresses
      * @return AddressList
      */
     public function addMany(array $addresses)
@@ -96,9 +96,9 @@ class AddressList implements Countable, Iterator
     }
 
     /**
-     * Merge another address list into this one 
-     * 
-     * @param  AddressList $addressList 
+     * Merge another address list into this one
+     *
+     * @param  AddressList $addressList
      * @return AddressList
      */
     public function merge(AddressList $addressList)
@@ -111,8 +111,8 @@ class AddressList implements Countable, Iterator
 
     /**
      * Does the email exist in this list?
-     * 
-     * @param  string $email 
+     *
+     * @param  string $email
      * @return bool
      */
     public function has($email)
@@ -123,8 +123,8 @@ class AddressList implements Countable, Iterator
 
     /**
      * Get an address by email
-     * 
-     * @param  string $email 
+     *
+     * @param  string $email
      * @return false|AddressDescription
      */
     public function get($email)
@@ -139,7 +139,7 @@ class AddressList implements Countable, Iterator
 
     /**
      * Delete an address from the list
-     * 
+     *
      * @param  string $email
      * @return bool
      */
@@ -156,7 +156,7 @@ class AddressList implements Countable, Iterator
 
     /**
      * Return count of addresses
-     * 
+     *
      * @return int
      */
     public function count()
@@ -166,7 +166,7 @@ class AddressList implements Countable, Iterator
 
     /**
      * Rewind iterator
-     * 
+     *
      * @return void
      */
     public function rewind()
@@ -176,7 +176,7 @@ class AddressList implements Countable, Iterator
 
     /**
      * Return current item in iteration
-     * 
+     *
      * @return Address
      */
     public function current()
@@ -186,7 +186,7 @@ class AddressList implements Countable, Iterator
 
     /**
      * Return key of current item of iteration
-     * 
+     *
      * @return string
      */
     public function key()
@@ -196,7 +196,7 @@ class AddressList implements Countable, Iterator
 
     /**
      * Move to next item
-     * 
+     *
      * @return void
      */
     public function next()
@@ -206,7 +206,7 @@ class AddressList implements Countable, Iterator
 
     /**
      * Is the current item of iteration valid?
-     * 
+     *
      * @return bool
      */
     public function valid()
@@ -216,10 +216,10 @@ class AddressList implements Countable, Iterator
     }
 
     /**
-     * Create an address object 
-     * 
-     * @param  string $email 
-     * @param  string|null $name 
+     * Create an address object
+     *
+     * @param  string $email
+     * @param  string|null $name
      * @return Address
      */
     protected function createAddress($email, $name)

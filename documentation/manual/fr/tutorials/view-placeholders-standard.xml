@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.view.placeholders.standard"><info><title>Placeholders standards</title></info>
-    
+
 
     <para>
         Dans la <link linkend="learning.view.placeholders.basics">section précédente</link>, nous
@@ -27,7 +27,7 @@
     </para>
 
     <section xml:id="learning.view.placeholders.standard.doctype"><info><title>Changer le DocType</title></info>
-        
+
 
         <para>
             Les déclarations de <acronym>DocType</acronym> sont difficiles à mémoriser et souvent
@@ -148,7 +148,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="learning.view.placeholders.standard.head-title"><info><title>Spécifier le titre de la page</title></info>
-        
+
 
         <para>
             Souvent, le site incluera le nom de la société dans le titre de la page et ajoutera
@@ -228,7 +228,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="learning.view.placeholders.standard.head-link"><info><title>Spécifier des feuilles de style avec HeadLink</title></info>
-        
+
 
         <para>
             Les bons développeurs <acronym>CSS</acronym> créront souvent une feuille de style
@@ -315,7 +315,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="learning.view.placeholders.standard.head-script"><info><title>Aggréger des scripts avec HeadScript</title></info>
-        
+
 
         <para>
             Un autre moyen de ne pas surcharger la page est de ne charger le JavaScript que lorsque
@@ -420,7 +420,7 @@ site = {
 ]]></programlisting>
 
         <note><info><title>Variante InlineScript</title></info>
-            
+
 
             <para>
                 La plupart des navigateur bloquent l'affichage tant que tous les scritps et les feuilles

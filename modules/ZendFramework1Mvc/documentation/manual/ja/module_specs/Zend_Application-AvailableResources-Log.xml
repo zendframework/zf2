@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.log"><info><title>Zend_Application_Resource_Log</title></info>
-    
+
 
     <para>
         任意の数のログ・ライタとともに <classname>Zend_Log</classname>インスタンスを
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.log.configExample"><info><title>ログ・リソース構成サンプル</title></info>
-        
+
 
         <para>
             下記は、ログ・リソースを設定する方法を示す、

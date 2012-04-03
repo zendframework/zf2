@@ -131,7 +131,7 @@ class StringLengthTest extends \PHPUnit_Framework_TestCase
     {
         $max = 1;
         $min = 2;
-        
+
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'The minimum must be less than or equal to the maximum length, but');
         $this->_validator->setMax($max)->setMin($min);
     }
@@ -145,7 +145,7 @@ class StringLengthTest extends \PHPUnit_Framework_TestCase
     {
         $max = 1;
         $min = 2;
-        
+
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'The maximum must be greater than or equal to the minimum length, but ');
         $this->_validator->setMin($min)->setMax($max);
     }
@@ -171,16 +171,16 @@ class StringLengthTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFalse($this->_validator->isValid(array(1 => 1)));
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -189,16 +189,16 @@ class StringLengthTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

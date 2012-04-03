@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db.adapter"><info><title>Using the Database Testing Adapter</title></info>
-    
+
 
     <para>
         There are times when you don't want to test parts of your application with a real database,

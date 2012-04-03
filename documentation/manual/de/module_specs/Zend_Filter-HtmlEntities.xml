@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.htmlentities"><info><title>HtmlEntities</title></info>
-    
+
 
     <para>
         Gibt den String <varname>$value</varname> zurück, wobei Zeichen in Ihre
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.htmlentities.options"><info><title>Unterstützte Optionen für Zend_Filter_HtmlEntities</title></info>
-        
+
 
         <para>
             Die folgenden Optionen werden für <classname>Zend_Filter_HtmlEntities</classname>
@@ -67,7 +67,7 @@
     </section>
 
     <section xml:id="zend.filter.set.htmlentities.basic"><info><title>Einfache Verwendung</title></info>
-        
+
 
         <para>
             Siehe das folgende Beispiel für das Standardverhalten dieses Filters.
@@ -81,7 +81,7 @@ print $filter->filter('<');
     </section>
 
     <section xml:id="zend.filter.set.htmlentities.quotestyle"><info><title>Hochkomma Stil</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_HtmlEntities</classname> erlaubt es den verwendete Hochkomma Stil
@@ -129,7 +129,7 @@ print $filter->filter($input);
     </section>
 
     <section xml:id="zend.filter.set.htmlentities."><info><title>Helfer Methoden</title></info>
-        
+
 
         <para>
             Um die Option <property>quotestyle</property> nach der Instanzierung zu erhalten

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.twitter.search"><info><title>Zend_Service_Twitter_Search</title></info>
-    
+
 
     <section xml:id="zend.service.twitter.search.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Twitter_Search</classname> bietet einen Client für die <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://apiwiki.twitter.com/Search+API+Documentation">Such
@@ -15,7 +15,7 @@
     </section>
 
     <section xml:id="zend.service.twitter.search.trends"><info><title>Twitter Trends</title></info>
-        
+
 
         <para>
             Gibt die Top Zehn Abfragen zurück die aktuell bei Twitter Trend sind. Die Antwort
@@ -55,7 +55,7 @@ foreach($twitterTrends as $trend) {
     </section>
 
     <section xml:id="zend.service.twitter.search.search"><info><title>Suchen in Twitter</title></info>
-        
+
 
         <para>
             Die Verwendung der Suchmethode gibt Tweets zurück die einer speziellen Abfrage
@@ -119,7 +119,7 @@ foreach($twitterTrends as $trend) {
         </itemizedlist>
 
         <example xml:id="zend.service.twitter.search.search.json"><info><title>Suchbeispiel für JSON</title></info>
-            
+
 
             <para>
                 Das folgende Codebeispiel gibt ein Array mit den Suchergebnissen zurück.
@@ -132,7 +132,7 @@ $searchResults = $twitterSearch->search('zend', array('lang' => 'en'));
         </example>
 
         <example xml:id="zend.service.twitter.search.search.atom"><info><title>Suchbeispiel für ATOM</title></info>
-            
+
 
             <para>
                 Das folgende Codebeispiel gibt ein <classname>Zend_Feed_Atom</classname> Objekt
@@ -147,7 +147,7 @@ $searchResults = $twitterSearch->search('zend', array('lang' => 'en'));
     </section>
 
     <section xml:id="zend.service.twitter.search.accessors"><info><title>Zend-Spezifische Zugriffsmethoden</title></info>
-        
+
 
         <para>
             Wärend die Such <acronym>API</acronym> von Twitter nur zwei Methoden spezifiziert, hat

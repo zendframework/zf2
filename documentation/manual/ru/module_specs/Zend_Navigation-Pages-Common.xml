@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages.common"><info><title>Общие функциональные возможности страниц</title></info>
-    
+
 
     <para>
         Все классы страниц должны расширять
@@ -26,7 +26,7 @@
     </para>
 
     <table xml:id="zend.navigation.pages.common.options"><info><title>Общие опции страниц</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>
@@ -209,7 +209,7 @@
     </table>
 
     <note><info><title>Пользовательские свойства</title></info>
-        
+
         <para>
             Все страницы поддерживают установку и получение пользовательских
             свойств путем использования "магических" методов
@@ -234,7 +234,7 @@
     </note>
 
     <example xml:id="zend.navigation.pages.common.example.customprops"><info><title>Пользовательские свойства страницы</title></info>
-        
+
 
         <para>
             Данный пример показывает, как могут использоваться

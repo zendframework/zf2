@@ -237,7 +237,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     public function testSetOutputStreamOpenFail()
     {
         $adapter = new Adapter\Console();
-        
+
         $this->setExpectedException('Zend\ProgressBar\Adapter\Exception\RuntimeException', 'Unable to open stream');
         $adapter->setOutputStream(null);
     }
@@ -283,7 +283,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     public function testSetBarLeftChar()
     {
         $adapter = new Adapter\Console();
-        
+
         $this->setExpectedException('Zend\ProgressBar\Adapter\Exception\InvalidArgumentException','Character may not be empty');
         $adapter->setBarLeftChar(null);
     }
@@ -291,7 +291,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     public function testSetBarRightChar()
     {
         $adapter = new Adapter\Console();
-        
+
         $this->setExpectedException('Zend\ProgressBar\Adapter\Exception\InvalidArgumentException','Character may not be empty');
         $adapter->setBarRightChar(null);
     }
@@ -299,7 +299,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     public function testSetInvalidFinishAction()
     {
         $adapter = new Adapter\Console();
-        
+
         $this->setExpectedException('Zend\ProgressBar\Adapter\Exception\InvalidArgumentException','Invalid finish action specified');
         $adapter->setFinishAction('CUSTOM_FINISH_ACTION');
     }

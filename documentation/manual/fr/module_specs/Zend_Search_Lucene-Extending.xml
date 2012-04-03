@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.extending"><info><title>Extensibilité</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.extending.analysis"><info><title>Analyse de texte</title></info>
-        
+
 
         <para>
             La classe <classname>Zend_Search_Lucene_Analysis_Analyzer</classname> est utilisé par
@@ -56,7 +56,7 @@ $index->addDocument($doc);
             Voici l'exemple d'analyseur personnalisé, qui accepte des mots contenant des chiffres
             comme terme :
             <example xml:id="zend.search.lucene.extending.analysis.example-1"><info><title>Analyseur de texte personnalisé</title></info>
-                
+
                 <programlisting language="php"><![CDATA[
 /**
  * Voici un analyseur de texte qui traite les mots contenant des chiffres comme
@@ -124,7 +124,7 @@ Zend_Search_Lucene_Analysis_Analyzer::setDefault(
     </section>
 
     <section xml:id="zend.search.lucene.extending.filters"><info><title>Filtrage des segments</title></info>
-        
+
 
         <para>
             L'analyseur <classname>Zend_Search_Lucene_Analysis_Analyzer_Common</classname> offre
@@ -215,7 +215,7 @@ Zend_Search_Lucene_Analysis_Analyzer::setDefault($analyzer);
     </section>
 
     <section xml:id="zend.search.lucene.extending.scoring"><info><title>Algorithme de score</title></info>
-        
+
 
         <para>
             Le score d'un document <literal>d</literal> pour une requête <literal>q</literal>
@@ -322,7 +322,7 @@ Zend_Search_Lucene_Search_Similarity::setDefault($mySimilarity);
     </section>
 
     <section xml:id="zend.search.lucene.extending.storage"><info><title>Conteneur de stockage</title></info>
-        
+
 
         <para>
             La classe abstraite <classname>Zend_Search_Lucene_Storage_Directory</classname> définit

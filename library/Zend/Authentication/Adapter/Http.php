@@ -501,7 +501,7 @@ class Http implements AuthenticationAdapter
         }
 
         $password = $this->_basicResolver->resolve($creds[0], $this->_realm);
-        if ($password && 
+        if ($password &&
             $this->_secureStringCompare($password, $creds[1])) {
             $identity = array('username'=>$creds[0], 'realm'=>$this->_realm);
             return new Authentication\Result(Authentication\Result::SUCCESS, $identity);

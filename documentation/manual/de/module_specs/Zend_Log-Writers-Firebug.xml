@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.writers.firebug"><info><title>An Firebug schreiben</title></info>
-    
+
 
     <para>
         <classname>Zend_Log_Writer_Firebug</classname> sendet Logdaten an die
@@ -47,7 +47,7 @@
     </itemizedlist>
 
     <example xml:id="zend.log.writers.firebug.example.with_front_controller"><info><title>Loggen mit Zend_Controller_Front</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // In der Bootstrap Datei platzieren bevor der Frontcontroller ausgeführt wird
@@ -60,7 +60,7 @@ $logger->log('Das ist eine Lognachricht!', Zend_Log::INFO);
     </example>
 
     <example xml:id="zend.log.writers.firebug.example.without_front_controller"><info><title>Loggen ohne Zend_Controller_Front</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $writer = new Zend_Log_Writer_Firebug();
@@ -85,7 +85,7 @@ $response->sendHeaders();
     </example>
 
     <section xml:id="zend.log.writers.firebug.priority-styles"><info><title>Setzen von Stilen für Prioritäten</title></info>
-        
+
 
         <para>
             Eingebaute und Benutzerdefinierte Prioritäten können mit der
@@ -111,7 +111,7 @@ $writer->setDefaultPriorityStyle('TRACE');
             Die unterstützten Stile sind wie folgt:
 
             <table xml:id="zend.log.writers.firebug.priority-styles.table"><info><title>Firebug Logging Stile</title></info>
-                
+
 
                 <tgroup cols="2">
                     <thead>
@@ -173,7 +173,7 @@ $writer->setDefaultPriorityStyle('TRACE');
     </section>
 
     <section xml:id="zend.log.writers.firebug.preparing-data"><info><title>Daten für das Loggen vorbereiten</title></info>
-        
+
 
         <para>
             Wärend jede <acronym>PHP</acronym> Variable mit den eingebauten Prioritäten geloggt
@@ -190,7 +190,7 @@ $writer->setDefaultPriorityStyle('TRACE');
 
     <section xml:id="zend.log.writers.firebug.preparing-data.exception"><info><title>Loggen von Ausnahmen</title></info>
 
-      
+
 
       <para>
           Um eine <classname>Zend_Exception</classname> zu loggen muß einfach das Exceptionobjekt an
@@ -205,7 +205,7 @@ $logger->err($exception);
     </section>
 
     <section xml:id="zend.log.writers.firebug.preparing-data.table"><info><title>Tabellen loggen</title></info>
-      
+
 
       <para>
           Man kann auch Daten loggen und diese in einem Table Stil formatieren. Spalten werden

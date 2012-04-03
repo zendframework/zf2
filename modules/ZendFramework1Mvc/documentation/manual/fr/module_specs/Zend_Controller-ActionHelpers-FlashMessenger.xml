@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.flashmessenger"><info><title>FlashMessenger</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.flashmessenger.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             L'aide <emphasis>FlashMessenger</emphasis> vous permet de fournir les messages dont
@@ -21,7 +21,7 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.flashmessenger.basicusage"><info><title>Exemple d'utilisation basique</title></info>
-        
+
 
         <para>
             L'exemple ci-dessous vous montre l'utilisation du flash messenger dans sa forme

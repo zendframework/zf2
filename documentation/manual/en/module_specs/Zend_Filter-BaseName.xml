@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.basename"><info><title>BaseName</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_BaseName</classname> allows you to filter a string which contains
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.basename.options"><info><title>Supported options for Zend_Filter_BaseName</title></info>
-        
+
 
         <para>
             There are no additional options for <classname>Zend_Filter_BaseName</classname>.
@@ -16,7 +16,7 @@
     </section>
 
     <section xml:id="zend.filter.set.basename.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             A basic example of usage is below:

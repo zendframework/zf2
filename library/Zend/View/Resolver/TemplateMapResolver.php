@@ -47,8 +47,8 @@ class TemplateMapResolver implements IteratorAggregate, Resolver
      * Constructor
      *
      * Instantiate and optionally populate template map.
-     * 
-     * @param  array|Traversable $map 
+     *
+     * @param  array|Traversable $map
      * @return void
      */
     public function __construct($map = array())
@@ -58,7 +58,7 @@ class TemplateMapResolver implements IteratorAggregate, Resolver
 
     /**
      * IteratorAggregate: return internal iterator
-     * 
+     *
      * @return Traversable
      */
     public function getIterator()
@@ -70,8 +70,8 @@ class TemplateMapResolver implements IteratorAggregate, Resolver
      * Set (overwrite) template map
      *
      * Maps should be arrays or Traversable objects with name => path pairs
-     * 
-     * @param  array|Traversable $map 
+     *
+     * @param  array|Traversable $map
      * @return TemplateMapResolver
      */
     public function setMap($map)
@@ -94,9 +94,9 @@ class TemplateMapResolver implements IteratorAggregate, Resolver
 
     /**
      * Add an entry to the map
-     * 
-     * @param  string|array|Traversable $nameOrMap 
-     * @param  null|string $path 
+     *
+     * @param  string|array|Traversable $nameOrMap
+     * @param  null|string $path
      * @return TemplateResolver
      */
     public function add($nameOrMap, $path = null)
@@ -127,8 +127,8 @@ class TemplateMapResolver implements IteratorAggregate, Resolver
 
     /**
      * Merge internal map with provided map
-     * 
-     * @param  array|Traversable $map 
+     *
+     * @param  array|Traversable $map
      * @return TemplateMapResolver
      */
     public function merge($map)
@@ -151,8 +151,8 @@ class TemplateMapResolver implements IteratorAggregate, Resolver
 
     /**
      * Does the resolver contain an entry for the given name?
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return bool
      */
     public function has($name)
@@ -162,8 +162,8 @@ class TemplateMapResolver implements IteratorAggregate, Resolver
 
     /**
      * Retrieve a template path by name
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return false|string
      * @throws Exception\DomainException if no entry exists
      */
@@ -177,7 +177,7 @@ class TemplateMapResolver implements IteratorAggregate, Resolver
 
     /**
      * Retrieve the template map
-     * 
+     *
      * @return array
      */
     public function getMap()
@@ -187,9 +187,9 @@ class TemplateMapResolver implements IteratorAggregate, Resolver
 
     /**
      * Resolve a template/pattern name to a resource the renderer can consume
-     * 
-     * @param  string $name 
-     * @param  null|Renderer $renderer 
+     *
+     * @param  string $name
+     * @param  null|Renderer $renderer
      * @return string
      */
     public function resolve($name, Renderer $renderer = null)

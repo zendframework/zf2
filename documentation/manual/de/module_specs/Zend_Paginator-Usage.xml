@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.paginator.usage"><info><title>Verwendung</title></info>
-    
+
 
     <section xml:id="zend.paginator.usage.paginating"><info><title>Seitendarstellung von Datensammlungen</title></info>
-        
+
 
         <para>
             Um Elemente in Seiten darzustellen muß <classname>Zend_Paginator</classname> einen
@@ -13,7 +13,7 @@
         </para>
 
         <table xml:id="zend.paginator.usage.paginating.adapters"><info><title>Adapter für Zend_Paginator</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -170,7 +170,7 @@ $this->view->paginator = $paginator;
     </section>
 
     <section xml:id="zend.paginator.usage.dbselect"><info><title>Die Adapter DbSelect und DbTableSelect</title></info>
-        
+
 
         <para>
             Die Verwendung der meisten Adapter ist recht zielgerichtet. Trotzdem benötigen die
@@ -230,7 +230,7 @@ $paginator = new Zend_Paginator($adapter);
     </section>
 
     <section xml:id="zend.paginator.rendering"><info><title>Seiten mit View Skripten darstellen</title></info>
-        
+
 
         <para>
             Das View Skript wird verwendet um die Seitenelemente darzustellen (wenn
@@ -294,7 +294,7 @@ $paginator = new Zend_Paginator($adapter);
         </para>
 
         <table xml:id="zend.paginator.usage.rendering.scrolling-styles"><info><title>Scrolling Stile für Zend_Paginator</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -399,7 +399,7 @@ $smarty->assign('pages', $paginator->getPages());
         </note>
 
         <section xml:id="zend.paginator.usage.rendering.example-controls"><info><title>Beispiel der Seitenkontrolle</title></info>
-            
+
 
             <para>
                 Das folgende Beispiel von Seitenkontrollen wird Ihnen hoffentlich helfen um erstmals
@@ -532,14 +532,14 @@ $('paginationControl').observe('change', function() {
         </section>
 
         <section xml:id="zend.paginator.usage.rendering.properties"><info><title>Tabelle von Eigenschaften</title></info>
-            
+
 
             <para>
                 Die folgenden Optionen von für eine Seitenkontrolle bei View Partials vorhanden:
             </para>
 
             <table xml:id="zend.paginator.usage.rendering.properties.table"><info><title>Eigenschaften die bei View Partials vorhanden sind</title></info>
-                
+
 
                 <tgroup cols="3">
                     <thead>

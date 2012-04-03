@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         <classname>Zend_Translator</classname> ist die Lösung des Frameworks für mehrsprachige
@@ -109,7 +109,7 @@
     </itemizedlist>
 
     <section xml:id="zend.translator.introduction.adapters"><info><title>Beginnen wir mit der Mehrsprachigkeit</title></info>
-        
+
 
         <para>
             Beginnen wir mit dem mehrsprachigen Betrieb. Was wir also prinzipiell

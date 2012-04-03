@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.architecture"><info><title>Architektur</title></info>
-    
+
 
     <section xml:id="zend.tool.framework.architecture.registry"><info><title>Registry</title></info>
-        
+
 
         <para>
             Weil Provider und Manifeste von überall im <property>include_path</property> kommen
@@ -67,7 +67,7 @@ interface Zend_Tool_Framework_Registry_EnabledInterface
     </section>
 
     <section xml:id="zend.tool.framework.architecture.providers"><info><title>Provider</title></info>
-        
+
 
         <para>
             <classname>Zend_Tool_Framework_Provider</classname> repräsentiert den funktionalen oder
@@ -109,7 +109,7 @@ abstract class Zend_Tool_Framework_Provider_Abstract
     </section>
 
     <section xml:id="zend.tool.framework.architecture.loaders"><info><title>Loader</title></info>
-        
+
 
         <para>
             Der Zweck eines Loaders ist es Provider und Manifest Datei zu finden die Klassen
@@ -176,7 +176,7 @@ class Zend_Tool_Framework_Loader_IncludePathLoader
     </section>
 
     <section xml:id="zend.tool.framework.architecture.manifests"><info><title>Manifests</title></info>
-        
+
 
         <para>
             Kurz gesagt, sollte ein Manifest spezielle oder eigene Metadaten enthalten, die für
@@ -342,7 +342,7 @@ class Zend_Tool_Framework_Manifest_Repository
     </section>
 
     <section xml:id="zend.tool.framework.architecture.clients"><info><title>Clienten</title></info>
-        
+
 
         <para>
             Clienten sind das Interface welches einen Benutzer oder ein externes Tool in das

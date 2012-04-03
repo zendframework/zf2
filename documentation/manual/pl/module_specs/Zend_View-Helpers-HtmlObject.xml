@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.object"><info><title>Helpery HTML Object</title></info>
-    
+
 
     <para>
         Element HTML <code>&lt;object&gt;</code> używany jest do
@@ -46,7 +46,7 @@
 
     <example xml:id="zend.view.helpers.initial.object.flash"><info><title>Helper Flash</title></info>
 
-        
+
 
         <para>
             Dołączanie plików Flash do twojej strony jest bardzo łatwe. Jedynym
@@ -80,7 +80,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.object.object"><info><title>Konfigurowanie obiektu poprzez przekazanie dodatkowych argumentów</title></info>
-        
+
 
         <para>
             Pierwszy argument w helperze jest zawsze wymagany. Określa on adres

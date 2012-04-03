@@ -58,7 +58,7 @@ class HttpUserAgent implements SessionValidator
     public function isValid()
     {
         $userAgent = isset($_SERVER['HTTP_USER_AGENT'])
-                   ? $_SERVER['HTTP_USER_AGENT'] 
+                   ? $_SERVER['HTTP_USER_AGENT']
                    : null;
 
         return $userAgent === $this->getData();
@@ -66,7 +66,7 @@ class HttpUserAgent implements SessionValidator
 
     /**
      * Retrieve token for validating call
-     * 
+     *
      * @return string
      */
     public function getData()
@@ -76,7 +76,7 @@ class HttpUserAgent implements SessionValidator
 
     /**
      * Return validator name
-     * 
+     *
      * @return string
      */
     public function getName()

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table"><info><title>Zend_Db_Table</title></info>
 
-    
+
 
     <section xml:id="zend.db.table.简介"><info><title>简介</title></info>
 
-        
+
 
         <para>
             Zend_Db_Table 是Zend Framework的表模块.它通过zend_db_adapter连接到
@@ -16,7 +16,7 @@
 
     <section xml:id="zend.db.table.getting-started"><info><title>开始</title></info>
 
-        
+
 
         <para>
             首先需要为抽象类zend_db_table(ares注:该类为抽象类,所以不能直接实例
@@ -60,7 +60,7 @@ $table = new RoundTable();
 
     <section xml:id="zend.db.table.name-and-key"><info><title>表名和主键</title></info>
 
-        
+
 
         <para>
             默认情况下,zend_db_table类会将其类名当作数据库中表名(大小写不同
@@ -117,7 +117,7 @@ class ClassName extends Zend_Db_Table
 
     <section xml:id="zend.db.table.insert"><info><title>插入数据</title></info>
 
-        
+
 
         <para>
             要在表中插入一行新数据,只需要将列名:数据的关联数组作为参数,调
@@ -151,7 +151,7 @@ $id = $table->insert($data);
 
     <section xml:id="zend.db.table.udpate"><info><title>更新数据</title></info>
 
-        
+
 
         <para>
             要修改表中的任意行数据,我们可以设定一个列名:数据的关联数组作为参数,调
@@ -190,7 +190,7 @@ $rows_affected = $table->update($set, $where);
 
     <section xml:id="zend.db.table.delete"><info><title>Deleting Rows</title></info>
 
-        
+
 
         <para>
             要删除表中的数据,我们可以调用delete()方法,同时通过一个where条件
@@ -223,7 +223,7 @@ $rows_affected = $table->delete($where);
 
     <section xml:id="zend.db.table.findbykey"><info><title>根据主键查找数据</title></info>
 
-        
+
 
         <para>
             通过调用find()方法,可以使用主键值轻松地在表中检索数据.假如你只想要查询某
@@ -247,7 +247,7 @@ $rowset = $table->find(array(1, 2, 3));
 
     <section xml:id="zend.db.table.fetchonerow"><info><title>取回一条记录</title></info>
 
-        
+
 
         <para>
             虽然通过主键找到相应数据行是很便利的事情,但是在更多的时候,我们是
@@ -288,7 +288,7 @@ $row = $table->fetchRow($where, $order);
 
     <section xml:id="zend.db.table.fetchmultiple"><info><title>取回多条记录</title></info>
 
-        
+
 
         <para>
             假如需要一次检索多条记录.可以使用fetchAll()方法.和使用fetchRow()方法类
@@ -326,7 +326,7 @@ $rowset = $table->fetchAll($where, $order, $count, $offset);
 
     <section xml:id="zend.db.table.domain-logic"><info><title>Adding Domain Logic</title></info>
 
-        
+
 
         <para>
             作为Zend Framework的表模块,Zend_Db_Table将它自己很好的封装到独特的domain logic下.

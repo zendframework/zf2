@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.windowsazure.storage.blob"><info><title>Zend_Service_WindowsAzure_Storage_Blob</title></info>
-    
+
 
     <para>
         Blob Storage stores sets of binary data. Blob storage offers the following three
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="zend.service.windowsazure.storage.blob.api"><info><title>API Examples</title></info>
-        
+
 
         <para>
             This topic lists some examples of using the
@@ -25,7 +25,7 @@
         </para>
 
         <section xml:id="zend.service.windowsazure.storage.blob.api.create-container"><info><title>Creating a storage container</title></info>
-            
+
 
             <para>
                 Using the following code, a blob storage container can be created on development
@@ -33,7 +33,7 @@
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.blob.api.create-container.example"><info><title>Creating a storage container</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Blob();
@@ -45,7 +45,7 @@ echo 'Container name is: ' . $result->Name;
         </section>
 
         <section xml:id="zend.service.windowsazure.storage.blob.api.delete-container"><info><title>Deleting a storage container</title></info>
-            
+
 
             <para>
                 Using the following code, a blob storage container can be removed from development
@@ -53,7 +53,7 @@ echo 'Container name is: ' . $result->Name;
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.blob.api.delete-container.example"><info><title>Deleting a storage container</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Blob();
@@ -63,7 +63,7 @@ $storageClient->deleteContainer('testcontainer');
         </section>
 
         <section xml:id="zend.service.windowsazure.storage.blob.api.storing-blob"><info><title>Storing a blob</title></info>
-            
+
 
             <para>
                 Using the following code, a blob can be uploaded to a blob storage container on
@@ -71,7 +71,7 @@ $storageClient->deleteContainer('testcontainer');
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.blob.api.storing-blob.example"><info><title>Storing a blob</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Blob();
@@ -87,7 +87,7 @@ echo 'Blob name is: ' . $result->Name;
         </section>
 
         <section xml:id="zend.service.windowsazure.storage.blob.api.copy-blob"><info><title>Copying a blob</title></info>
-            
+
 
             <para>
                 Using the following code, a blob can be copied from inside the storage account. The
@@ -97,7 +97,7 @@ echo 'Blob name is: ' . $result->Name;
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.blob.api.copy-blob.example"><info><title>Copying a blob</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Blob();
@@ -113,7 +113,7 @@ echo 'Copied blob name is: ' . $result->Name;
         </section>
 
         <section xml:id="zend.service.windowsazure.storage.blob.api.download-blob"><info><title>Downloading a blob</title></info>
-            
+
 
             <para>
                 Using the following code, a blob can be downloaded from a blob storage container on
@@ -122,7 +122,7 @@ echo 'Copied blob name is: ' . $result->Name;
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.blob.api.download-blob.example"><info><title>Downloading a blob</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Blob();
@@ -136,7 +136,7 @@ $storageClient->getBlob(
         </section>
 
         <section xml:id="zend.service.windowsazure.storage.blob.api.public-blob"><info><title>Making a blob publicly available</title></info>
-            
+
 
             <para>
                 By default, blob storage containers on Windows Azure are protected from public
@@ -151,7 +151,7 @@ $storageClient->getBlob(
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.blob.api.public-blob.example"><info><title>Making a blob publicly available</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Blob();
@@ -167,7 +167,7 @@ $storageClient->setContainerAcl(
     </section>
 
     <section xml:id="zend.service.windowsazure.storage.blob.root"><info><title>Root container</title></info>
-        
+
 
         <para>
             Windows Azure Blob Storage provides support to work with a "root container".
@@ -184,7 +184,7 @@ $storageClient->setContainerAcl(
     </section>
 
     <section xml:id="zend.service.windowsazure.storage.blob.wrapper"><info><title>Blob storage stream wrapper</title></info>
-        
+
 
         <para>
             The Windows Azure <acronym>SDK</acronym> for <acronym>PHP</acronym> provides support for
@@ -195,7 +195,7 @@ $storageClient->setContainerAcl(
         </para>
 
         <example xml:id="zend.service.windowsazure.storage.blob.wrapper.sample"><info><title>Example usage of blob storage stream wrapper</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $fileHandle = fopen('azure://mycontainer/myfile.txt', 'r');
@@ -213,7 +213,7 @@ fclose($fileHandle);
         </para>
 
         <example xml:id="zend.service.windowsazure.storage.blob.wrapper.register"><info><title>Registering the blob storage stream wrapper</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Blob();
@@ -235,7 +235,7 @@ $storageClient->registerStreamWrapper('blob://');
     </section>
 
     <section xml:id="zend.service.windowsazure.storage.blob.sharedaccesssig"><info><title>Shared Access Signature</title></info>
-        
+
 
         <para>
             Windows Azure Bob Storage provides a feature called "Shared Access Signatures". By
@@ -260,7 +260,7 @@ http://phpstorage.blob.core.windows.net/phpazuretestshared1?st=2009-08-17T09%3A0
         </para>
 
         <section xml:id="zend.service.windowsazure.storage.blob.sharedaccesssig.generate"><info><title>Generating a Shared Access Signature</title></info>
-            
+
 
             <para>
                 When you are the owner of a Windows Azure Bob Storage account, you can create and
@@ -276,7 +276,7 @@ http://phpstorage.blob.core.windows.net/phpazuretestshared1?st=2009-08-17T09%3A0
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.blob.sharedaccesssig.generate-2"><info><title>Generating a Shared Access Signature for a container</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient   = new Zend_Service_WindowsAzure_Storage_Blob();
@@ -298,7 +298,7 @@ $sharedAccessUrl = $storageClient->generateSharedAccessUrl(
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.blob.sharedaccesssig-generate-3"><info><title>Generating a Shared Access Signature for a blob</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient   = new Zend_Service_WindowsAzure_Storage_Blob();
@@ -315,7 +315,7 @@ $sharedAccessUrl = $storageClient->generateSharedAccessUrl(
         </section>
 
         <section xml:id="zend.service.windowsazure.storage.blob.sharedaccesssig.consume"><info><title>Working with Shared Access Signatures from others</title></info>
-            
+
 
             <para>
                 When you receive a Shared Access Signature from someone else, you can use the
@@ -335,7 +335,7 @@ http://phpstorage.blob.core.windows.net/phpazuretestshared1?st=2009-08-17T09%3A0
             </para>
 
             <example xml:id="zend.service.windowsazure.storage.blob.sharedaccesssig.consuming"><info><title>Consuming a Shared Access Signature for a container</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $storageClient = new Zend_Service_WindowsAzure_Storage_Blob(

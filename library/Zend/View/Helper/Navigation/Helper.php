@@ -38,9 +38,9 @@ interface Helper
     /**
      * Sets navigation container the helper should operate on by default
      *
-     * @param  Navigation\Container $container [optional] container to operate 
-     *                                         on. Default is null, which 
-     *                                         indicates that the container 
+     * @param  Navigation\Container $container [optional] container to operate
+     *                                         on. Default is null, which
+     *                                         indicates that the container
      *                                         should be reset.
      * @return Helper fluent interface, returns self
      */
@@ -56,9 +56,9 @@ interface Helper
     /**
      * Sets translator to use in helper
      *
-     * @param  mixed $translator [optional] translator.  Expects an object of 
-     *                           type {@link \Zend\Translator\Adapter} or 
-     *                           {@link \Zend\Translator\Translator}, or null. 
+     * @param  mixed $translator [optional] translator.  Expects an object of
+     *                           type {@link \Zend\Translator\Adapter} or
+     *                           {@link \Zend\Translator\Translator}, or null.
      *                           Default is null.
      * @return Helper  fluent interface, returns self
      */
@@ -90,8 +90,8 @@ interface Helper
     /**
      * Sets ACL role to use when iterating pages
      *
-     * @param  mixed $role [optional] role to set.  Expects a string, an 
-     *                     instance of type {@link Acl\Role}, or null. Default 
+     * @param  mixed $role [optional] role to set.  Expects a string, an
+     *                     instance of type {@link Acl\Role}, or null. Default
      *                     is null.
      * @throws \Zend\View\Exception if $role is invalid
      * @return Helper fluent interface, returns
@@ -190,10 +190,10 @@ interface Helper
     /**
      * Renders helper
      *
-     * @param  Navigation\Container $container [optional] container to render. 
-     *                                         Default is null, which indicates 
-     *                                         that the helper should render 
-     *                                         the container returned by {@link 
+     * @param  Navigation\Container $container [optional] container to render.
+     *                                         Default is null, which indicates
+     *                                         that the helper should render
+     *                                         the container returned by {@link
      *                                         getContainer()}.
      * @return string helper output
      * @throws \Zend\View\Exception if unable to render

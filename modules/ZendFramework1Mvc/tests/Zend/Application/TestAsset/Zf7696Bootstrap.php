@@ -55,7 +55,7 @@ class Zf7696Bootstrap extends \Zend\Application\AbstractBootstrap
         $o->baz = 'Baz';
         return $o;
     }
-    
+
     protected function _initFrontController()
     {
         $front = \Zend\Controller\Front::getInstance();

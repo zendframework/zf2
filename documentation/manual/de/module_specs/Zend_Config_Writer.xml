@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.writer.introduction"><info><title>Zend_Config_Writer</title></info>
-    
+
 
     <para>
         <classname>Zend_Config_Writer</classname> gibt einem die Möglichkeit Configdateien aus
@@ -48,7 +48,7 @@
     </para>
 
     <example xml:id="zend.config.writer.example.using"><info><title>Verwenden von Zend_Config_Writer</title></info>
-        
+
 
         <para>
             Dieses Beispiel zeigt die grundsätzliche Verwendung von
@@ -95,7 +95,7 @@ $writer->write('config.xml', $config);
     </example>
 
     <example xml:id="zend.config.writer.modifying"><info><title>Eine bestehende Config ändern</title></info>
-        
+
 
         <para>
             Dieses Beispiel zeigt wie eine bestehende Config Datei bearbeitet werden kann.
@@ -120,7 +120,7 @@ $writer->write();
     </example>
 
     <note><info><title>Laden einer Config Datei</title></info>
-        
+
 
         <para>
             Beim Laden einer bestehenden Config Datei für eine Änderung ist es sehr wichtig das alle

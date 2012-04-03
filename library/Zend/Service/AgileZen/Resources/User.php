@@ -35,37 +35,37 @@ class User extends Entity
 {
     /**
      * Name
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $name;
 
     /**
      * Username
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $userName;
 
     /**
      * Email
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $email;
 
     /**
      * AgileZen service
-     * 
-     * @var Zend\Service\AgileZen\AgileZen 
+     *
+     * @var Zend\Service\AgileZen\AgileZen
      */
     protected $service;
 
     /**
      * Constructor
-     * 
+     *
      * @param  AgileZen $service
-     * @param  array $data 
+     * @param  array $data
      * @return void
      */
     public function __construct(AgileZen $service, array $data)
@@ -76,19 +76,19 @@ class User extends Entity
         if (!array_key_exists('name', $data)) {
              throw new Exception\InvalidArgumentException("You must pass the name of the user");
         }
-        
+
         $this->name     = $data['name'];
         $this->userName = $data['userName'];
         $this->email    = $data['email'];
         $this->service  = $service;
-        
+
         parent::__construct($data['id']);
     }
 
     /**
      * Get the name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getName()
     {
@@ -97,8 +97,8 @@ class User extends Entity
 
     /**
      * Get the username
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getUserName()
     {
@@ -106,9 +106,9 @@ class User extends Entity
     }
 
     /**
-     * Get the email 
-     * 
-     * @return string 
+     * Get the email
+     *
+     * @return string
      */
     public function getEmail()
     {

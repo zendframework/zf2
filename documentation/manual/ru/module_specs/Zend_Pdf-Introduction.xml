@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.introduction"><info><title>Введение</title></info>
     <!-- @todo review and revise upon completion of refactoring -->
-    
+
     <para>
     Модуль Zend_Pdf является механизмом для работы с PDF (Portable Document
     Format — переносимый формат документов), который написан целиком на PHP 5.

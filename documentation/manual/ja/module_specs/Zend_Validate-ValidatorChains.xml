@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.validator_chains"><info><title>バリデータチェイン</title></info>
 
-    
+
 
     <para>
         ひとつの値に対して、複数のバリデータを指定した順に適用しなければならないことがよくあります。

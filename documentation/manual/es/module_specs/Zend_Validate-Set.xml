@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set"><info><title>Clases de Validación Estándar</title></info>
 
-    
+
 
     <para>Zend Framework viene con un conjunto estándar de clases de validación
         listas para usar.</para>
 
     <section xml:id="zend.validate.set.alnum"><info><title>Alnum</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> contiene caracteres alfanuméricos
             únicamente. Este validador incluye una opción para considerar
@@ -23,7 +23,7 @@
     </note>
 
     <section xml:id="zend.validate.set.alpha"><info><title>Alpha</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> sólo contiene caracteres alfabéticos.
             Este validador incluye una opción para considerar también al espacio
@@ -33,7 +33,7 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Validate-Barcode.xml"/>
 
     <section xml:id="zend.validate.set.between"><info><title>Between</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> está entre los valores límites mínimo
             y máximo. La comparación es inclusiva por defecto (
@@ -47,7 +47,7 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Validate-CreditCard.xml"/>
 
     <section xml:id="zend.validate.set.ccnum"><info><title>Ccnum</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> sigue el algoritmo Luhn (mod-10
             checksum) para tarjetas de crédito. </para>
@@ -61,7 +61,7 @@
     </section>
 
     <section xml:id="zend.validate.set.date"><info><title>Date</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> es una fecha válida en el formato
                 <methodname>YYYY-MM-DD</methodname> (AAAA-MM-DD). Si se usa la
@@ -76,7 +76,7 @@
         <xi:fallback href="../../en/module_specs/Zend_Validate-Db.xml"/>
     </xi:include>
     <section xml:id="zend.validate.set.digits"><info><title>Digits</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> contiene solamente dígitos. </para>
     </section>
@@ -85,7 +85,7 @@
         <xi:fallback href="../../en/module_specs/Zend_Validate-EmailAddress.xml"/>
     </xi:include>
     <section xml:id="zend.validate.set.float"><info><title>Float</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$value</varname> es un valor de punto flotante. Desde
             Zend Framework 1.8 toma en cuenta la localizacion actual del
@@ -95,13 +95,13 @@
     </section>
 
     <section xml:id="zend.validate.set.greater_than"><info><title>GreaterThan</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> es mayor al límite mínimo. </para>
     </section>
 
     <section xml:id="zend.validate.set.hex"><info><title>Hex</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> contiene caracteres hexadecimales (0-9
             y A-F). </para>
@@ -110,7 +110,7 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Validate-Hostname.xml"/>
 
     <section xml:id="zend.validate.set.iban"><info><title>Iban</title></info>
-        
+
         <para> Returns <constant>TRUE</constant> if and only if
                 <varname>$value</varname> contains a valid IBAN (International
             Bank Account Number). IBAN numbers are validated against the country
@@ -153,7 +153,7 @@ if ($validator->isValid($iban)) {
     </section>
 
     <section xml:id="zend.validate.set.in_array"><info><title>InArray</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> se encuentra en un array, y si la
             opción es estricta entonces también verificará el tipo de dato de
@@ -164,7 +164,7 @@ if ($validator->isValid($iban)) {
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Validate-InArray.xml"/>
 
     <section xml:id="zend.validate.set.int"><info><title>Int</title></info>
-        
+
         <para> Returns <constant>TRUE</constant> if and only if
                 <varname>$value</varname> is a valid integer. Since Zend
             Framework 1.8 this validator takes into account the actual locale
@@ -177,7 +177,7 @@ if ($validator->isValid($iban)) {
      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Validate-Isbn.xml"/>
 
     <section xml:id="zend.validate.set.less_than"><info><title>LessThan</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> es menor al límite máximo. </para>
     </section>
@@ -187,7 +187,7 @@ if ($validator->isValid($iban)) {
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Validate-PostCode.xml"/>
 
     <section xml:id="zend.validate.set.regex"><info><title>Regex</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si
                 <varname>$valor</varname> coincide con el patrón de una
             expresión regular. </para>
@@ -200,7 +200,7 @@ if ($validator->isValid($iban)) {
     </xi:include>
 
     <section xml:id="zend.validate.set.string_length"><info><title>StringLength</title></info>
-        
+
         <para> Devuelve <constant>TRUE</constant> si y sólo si la longitud del
             string <varname>$valor</varname> es por lo menos un mínimo y no
             mayor a un máximo (cuando la opción max no es

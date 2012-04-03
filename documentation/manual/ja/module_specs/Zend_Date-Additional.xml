@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.additional"><info><title>動作例</title></info>
-    
+
 
     <para>
         この章では、<classname>Zend_Date</classname> で使用できるその他の関数について説明します。
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.date.additional.checking"><info><title>日付の確認</title></info>
-        
+
 
         <para>
             おそらく、入力として受け取る日付の大半は文字列形式でしょう。
@@ -57,7 +57,7 @@
         </para>
 
         <example xml:id="zend.date.additional.checking.example-1"><info><title>日付の確認</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // 日付を確認します
@@ -88,7 +88,7 @@ if (Zend_Date::isDate($date,'dd MMMM yyyy', 'en')) {
     </section>
 
     <section xml:id="zend.date.additional.sunrise-sunset"><info><title>日の出と日没</title></info>
-        
+
 
         <para>
             <classname>Zend_Date</classname> には、太陽の動きに関する情報を取得するための関数も組み込まれています。
@@ -112,7 +112,7 @@ if (Zend_Date::isDate($date,'dd MMMM yyyy', 'en')) {
         </para>
 
         <example xml:id="zend.date.additional.sunrise-sunset.example-1"><info><title>利用可能な都市の取得</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // 利用可能な都市の一覧を出力します
 print_r (Zend_Date_Cities::getCityList());
@@ -134,7 +134,7 @@ print_r (Zend_Date_Cities::getCityList());
         </para>
 
         <table xml:id="zend.date.additional.sunrise-sunset.table"><info><title>日の出や日没のためにサポートしている水平線の形式</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>
@@ -149,7 +149,7 @@ print_r (Zend_Date_Cities::getCityList());
                     <row>
                         <entry>effective</entry>
                         <entry>標準の水平線</entry>
-                        
+
                         <entry>
                             世界が完全な球体であると仮定します。
                             何も指定しない場合には常にこれを使用します。
@@ -186,7 +186,7 @@ print_r (Zend_Date_Cities::getCityList());
         </para>
 
         <example xml:id="zend.date.additional.sunrise-sunset.example-2"><info><title>都市の位置の取得</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // 定義済みの都市の位置を取得します
@@ -212,7 +212,7 @@ $mylocation = array('latitude' => 41.5, 'longitude' => 13.2446);
         </para>
 
         <example xml:id="zend.date.additional.sunrise-sunset.example-3"><info><title>太陽の情報の算出</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // 定義済みの都市の位置を取得します
 $city = Zend_Date_Cities::city('Vienna');
@@ -234,7 +234,7 @@ foreach ($info as $sun) {
     </section>
 
     <section xml:id="zend.date.additional.timezones"><info><title>タイムゾーン</title></info>
-        
+
 
         <para>
             タイムゾーンは、日付そのものと同じくらい重要です。
@@ -270,7 +270,7 @@ foreach ($info as $sun) {
         </para>
 
         <example xml:id="zend.date.additional.timezones.example-1"><info><title>タイムゾーンの処理</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // デフォルトのタイムゾーンを設定します。
@@ -317,7 +317,7 @@ print $date->getIso();
         </para>
 
         <example xml:id="zend.date.additional.timezones.example-2"><info><title>複数のタイムゾーン</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // デフォルトのタイムゾーンを設定します。

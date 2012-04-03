@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
+<section
     xmlns="http://docbook.org/ns/docbook" version="5.0"
     xml:id="zend.mvc.examples">
   <info><title>Esempi</title></info>
@@ -13,8 +13,8 @@
 
       <para>
         Quando utilizzi <classname>ActionController</classname> oppure
-        <classname>RestfulController</classname> la gli oggetti 
-        richiesta e la risposta sono costruiti direttamente dentro 
+        <classname>RestfulController</classname> la gli oggetti
+        richiesta e la risposta sono costruiti direttamente dentro
         il controller prima dei chiamare il metodo <methodname>dispatch()</methodname>.
         Puoi accedere a queste variabili nei seguenti modi:
       </para>
@@ -30,10 +30,10 @@ $response = $this->response;
 ]]></programlisting>
 
       <para>
-        In aggiunta, il tuo controller implementa 
+        In aggiunta, il tuo controller implementa
         <classname>InjectApplicationEvent</classname> (come anche
-        <classname>ActionController</classname> e  <classname>RestfulController</classname> 
-        fanno) e puoi accedere a questi oggetti dal collegamento 
+        <classname>ActionController</classname> e  <classname>RestfulController</classname>
+        fanno) e puoi accedere a questi oggetti dal collegamento
         con <classname>MvcEvent</classname>
       </para>
 
@@ -60,10 +60,10 @@ $response = $event->getResponse();
       </para>
 
       <para>
-        In aggiunta, il tuo controller implementa 
+        In aggiunta, il tuo controller implementa
         <classname>InjectApplicationEvent</classname> (come anche
-        <classname>ActionController</classname> e  <classname>RestfulController</classname> 
-        fanno) e puoi accedere a questi oggetti dal collegamento 
+        <classname>ActionController</classname> e  <classname>RestfulController</classname>
+        fanno) e puoi accedere a questi oggetti dal collegamento
         con <classname>MvcEvent</classname>
       </para>
       <!-- <para>
@@ -120,7 +120,7 @@ $matches = $event->getRouteMatch();
       </para>
 
       <para>
-        Ogni class <classname>Module</classname> può avere un metodo 
+        Ogni class <classname>Module</classname> può avere un metodo
         <methodname>init()</methodname> opzionale. Tipicamente configurerai
         gli event listener per il tuo modulo qui. Il metodo <methodname>init()</methodname>
         è chiamato per <emphasis>ogni</emphasis> modulo su <emphasis>ogni</emphasis>
@@ -131,14 +131,14 @@ $matches = $event->getRouteMatch();
 
       <para>
         La base della classe <classname>Bootstrap</classname> fornita con il
-        framework ha un <classname>EventManager</classname> associato, un 
+        framework ha un <classname>EventManager</classname> associato, un
         locator e un istanza del router inizializzate, questo innesca l'evento
-        "bootstrap", con i parametri "application" e "modules". 
+        "bootstrap", con i parametri "application" e "modules".
       </para>
 
       <para>
         Quindi, un modo per risolvere i listener specifici per modulo è di mettersi
-        in ascolto per  quell'evento e di registrare i listener in quel momento. Un 
+        in ascolto per  quell'evento e di registrare i listener in quel momento. Un
         esempio:
       </para>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.writing_validators"><info><title>Schreiben von Prüfern</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate</classname> bietet ein Set von standardmäßig benötigten Prüfern,
@@ -52,7 +52,7 @@
     </para>
 
     <example xml:id="zend.validate.writing_validators.example.simple"><info><title>Erstellen einer einfachen Prüfklasse</title></info>
-        
+
 
         <para>
             Das folgende Beispiel demonstriert wie ein sehr einfacher eigener Prüfer geschrieben
@@ -95,7 +95,7 @@ class MyValid_Float extends Zend_Validate_Abstract
     </example>
 
     <example xml:id="zend.validate.writing_validators.example.conditions.dependent"><info><title>Schreiben einer Prüfklasse die abhängige Konditionen besitzt</title></info>
-        
+
 
         <para>
             Das folgende Beispiel demonstriert ein komplexeres Set von Prüfregeln, wobei es
@@ -190,7 +190,7 @@ class MyValid_NumericBetween extends Zend_Validate_Abstract
     </example>
 
     <example xml:id="zend.validate.writing_validators.example.conditions.independent"><info><title>Prüfen mit unabhängigen Konditionen, mehrfache Gründe für Fehler</title></info>
-        
+
 
         <para>
             Angenommen es wird eine Prüfklasse geschrieben für das Erzwingen von Passwortstärke -

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.migration"><info><title>Migration von vorhergehenden Versionen</title></info>
 
-    
+
 
     <para>
         Die <acronym>API</acronym> von <classname>Zend_Validate</classname> wurde von Zeit zu Zeit
@@ -11,9 +11,9 @@
     </para>
 
     <section xml:id="zend.validate.migration.fromoneninetooneten"><info><title>Migration von 1.9 zu 1.10 oder neuer</title></info>
-        
+
         <section xml:id="zend.validate.migration.fromoneninetooneten.selfwritten"><info><title>Selbst geschriebene Adapter</title></info>
-            
+
 
             <para>
                 Wenn in einer selbst geschriebenen Prüfung ein Fehler gesetzt wird um diesen
@@ -61,7 +61,7 @@ My_Validator extends Zend_Validate_Abstract
         </section>
 
         <section xml:id="zend.validate.migration.fromoneninetooneten.datevalidator"><info><title>Vereinfachungen im Date Prüfer</title></info>
-            
+
 
             <para>
                 Vor Zend Framework 1.10 wurden 2 identische Nachrichten im Date Prüfer geworfen.
@@ -73,7 +73,7 @@ My_Validator extends Zend_Validate_Abstract
         </section>
 
         <section xml:id="zend.validate.migration.fromoneninetooneten.barcodevalidator"><info><title>Fehlerbehebungen im Alpha, Alum und Barcode Prüfer</title></info>
-            
+
 
             <para>
                 Vor dem Zend Framework 1.10 waren Nachrichten in den 2 Barcode Adaptern, dem Alpha
@@ -90,7 +90,7 @@ My_Validator extends Zend_Validate_Abstract
             </para>
 
             <table xml:id="zend.validate.migration.fromoneninetooneten.barcodevalidator.table"><info><title>Vorhandenen Meldungen der Prüfer</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>

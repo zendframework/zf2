@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.ldap"><info><title>LDAP Authentication</title></info>
-    
+
 
     <section xml:id="zend.auth.adapter.ldap.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Ldap</classname> supports web application authentication
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.auth.adapter.ldap.usage"><info><title>Usage</title></info>
-        
+
 
         <para>
             To incorporate <classname>Zend_Auth_Adapter_Ldap</classname> authentication into your
@@ -132,7 +132,7 @@ ldap.server2.baseDn = "CN=Users,DC=w,DC=net"
     </section>
 
     <section xml:id="zend.auth.adapter.ldap.api"><info><title>The API</title></info>
-        
+
 
         <para>
             The <classname>Zend_Auth_Adapter_Ldap</classname> constructor accepts three parameters.
@@ -191,7 +191,7 @@ Array
         </para>
 
         <note><info><title>What is a Distinguished Name?</title></info>
-            
+
 
             <para>
                 A DN or "distinguished name" is a string that represents the path to an object
@@ -222,7 +222,7 @@ Array
         </para>
 
         <note><info><title>The Gory Details: What Happens in the Authenticate Method?</title></info>
-            
+
 
             <para>
                 When the <methodname>authenticate()</methodname> method is called, the adapter
@@ -260,7 +260,7 @@ Array
     </section>
 
     <section xml:id="zend.auth.adapter.ldap.server-options"><info><title>Server Options</title></info>
-        
+
 
         <para>
             Each set of server options <emphasis>in the context of
@@ -270,7 +270,7 @@ Array
         </para>
 
         <table xml:id="zend.auth.adapter.ldap.server-options.table"><info><title>Server Options</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -523,7 +523,7 @@ Array
     </section>
 
     <section xml:id="zend.auth.adapter.ldap.debugging"><info><title>Collecting Debugging Messages</title></info>
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Ldap</classname> collects debugging information within its
@@ -533,7 +533,7 @@ Array
         </para>
 
         <table xml:id="zend.auth.adapter.ldap.debugging.table"><info><title>Debugging Messages</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -581,17 +581,17 @@ Array
     </section>
 
     <section xml:id="zend.auth.adapter.ldap.options-common-server-specific"><info><title>Common Options for Specific Servers</title></info>
-        
+
 
         <section xml:id="zend.auth.adapter.ldap.options-common-server-specific.active-directory"><info><title>Options for Active Directory</title></info>
-            
+
 
             <para>
                 For <acronym>ADS</acronym>, the following options are noteworthy:
             </para>
 
             <table xml:id="zend.auth.adapter.ldap.options-common-server-specific.active-directory.table"><info><title>Options for Active Directory</title></info>
-                
+
 
                 <tgroup cols="2">
                     <thead>
@@ -695,7 +695,7 @@ Array
         </section>
 
         <section xml:id="zend.auth.adapter.ldap.options-common-server-specific.openldap"><info><title>Options for OpenLDAP</title></info>
-            
+
 
             <para>
                 For OpenLDAP or a generic <acronym>LDAP</acronym> server using a typical
@@ -703,7 +703,7 @@ Array
             </para>
 
             <table xml:id="zend.auth.adapter.ldap.options-common-server-specific.openldap.table"><info><title>Options for OpenLDAP</title></info>
-                
+
 
                 <tgroup cols="2">
                     <thead>

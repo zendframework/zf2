@@ -184,6 +184,6 @@ class Router
      */
     public function assemble(array $params = null, array $options = null)
     {
-        
+
     }
 }

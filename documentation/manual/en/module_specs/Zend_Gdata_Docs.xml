@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.docs"><info><title>Using Google Documents List Data API</title></info>
-    
+
 
     <para>
         The Google Documents List Data <acronym>API</acronym> allows client applications to
@@ -16,7 +16,7 @@
     </para>
 
     <section xml:id="zend.gdata.docs.listdocuments"><info><title>Get a List of Documents</title></info>
-        
+
 
         <para>
             You can get a list of the Google Documents for a particular user by using
@@ -44,7 +44,7 @@ $feed = $docs->getDocumentListFeed();
     </section>
 
     <section xml:id="zend.gdata.docs.creating"><info><title>Upload a Document</title></info>
-        
+
 
         <para>
             You can create a new Google Document by uploading a word
@@ -105,7 +105,7 @@ function uploadDocument($docs, $html, $originalFileName,
     </section>
 
     <section xml:id="zend.gdata.docs.queries"><info><title>Searching the documents feed</title></info>
-        
+
 
         <para>
             You can search the Document List using some of the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://code.google.com/apis/gdata/reference.html#Queries">standard
@@ -119,7 +119,7 @@ function uploadDocument($docs, $html, $originalFileName,
         </para>
 
         <section xml:id="zend.gdata.docs.listwpdocuments"><info><title>Get a List of Word Processing Documents</title></info>
-            
+
 
             <para>
                 You can also request a feed containing all of your documents of a specific type. For
@@ -134,7 +134,7 @@ $feed = $docs->getDocumentListFeed(
         </section>
 
         <section xml:id="zend.gdata.docs.listspreadsheets"><info><title>Get a List of Spreadsheets</title></info>
-            
+
 
             <para>
                 To request a list of your Google Spreadsheets, use the following category query:
@@ -147,7 +147,7 @@ $feed = $docs->getDocumentListFeed(
         </section>
 
         <section xml:id="zend.gdata.docs.textquery"><info><title>Performing a text query</title></info>
-            
+
 
             <para>
                 You can search the content of documents by using a

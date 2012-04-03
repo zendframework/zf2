@@ -45,7 +45,7 @@ class OracleTest extends \ZendTest\Paginator\Adapter\DbSelectTest
     protected function setUp ()
     {
         $this->markTestSkipped('Will skip until Zend\Db is refactored.');
-        
+
         if (! extension_loaded('oci8')) {
             $this->markTestSkipped('Oci8 extension is not loaded');
         }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db.quickstart"><info><title>Quickstart</title></info>
-    
+
 
     <section xml:id="zend.test.phpunit.db.quickstart.testcase"><info><title>Setup a Database TestCase</title></info>
-        
+
 
         <para>
             We are now writting some database tests for the Bug Database example in the
@@ -104,7 +104,7 @@ class BugsTest extends Zend_Test_PHPUnit_DatabaseTestCase
     </section>
 
     <section xml:id="zend.test.phpunit.db.quickstart.dataset"><info><title>Specify a seed dataset</title></info>
-        
+
 
         <para>
             In the previous setup for the database testcase we have specified a seed file for the
@@ -153,7 +153,7 @@ PRIMARY KEY  (`bug_id`)
     </section>
 
     <section xml:id="zend.test.phpunit.db.quickstart.initial-tests"><info><title>A few initial database tests</title></info>
-        
+
 
         <para>
             Now that we have implemented the two required abstract methods of the

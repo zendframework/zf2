@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.yahoo"><info><title>Zend_Service_Yahoo</title></info>
-    
+
     <section xml:id="zend.service.yahoo.introduction"><info><title>Введение<!--Introduction--></title></info>
-        
+
         <para>
             <code>Zend_Service_Yahoo</code> является простым программным интерфейсом
             (API) для использования многих программных интерфейсов
@@ -25,7 +25,7 @@
         </para>
     </section>
     <section xml:id="zend.service.yahoo.websearch"><info><title>Поиск веб-страниц с помощью Yahoo!<!--Searching the Web with Yahoo!--></title></info>
-        
+
         <para>
             <code>Zend_Service_Yahoo</code> дает возможность поиска веб-страниц
             через Yahoo! с помощью метода <code>webSearch()</code>. Этот метод
@@ -46,7 +46,7 @@
 -->
         </para>
         <example><info><title>Поиск веб-страниц через Yahoo!<!--Searching the Web with Yahoo!--></title></info>
-            
+
             <programlisting><![CDATA[<?php
 require_once 'Zend/Service/Yahoo.php';
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -58,7 +58,7 @@ foreach ($results as $result) {
         </example>
     </section>
     <section xml:id="zend.service.yahoo.imagesearch"><info><title>Поиск изображений через Yahoo!<!--Finding Images with Yahoo!--></title></info>
-        
+
         <para>
             Вы можете искать изображения через Yahoo!, используя метод <code>imageSearch()</code>
             класса <code>Zend_Service_Yahoo</code>. Этот метод принимает строку запроса
@@ -77,7 +77,7 @@ foreach ($results as $result) {
 -->
         </para>
         <example><info><title>Поиск изображений через Yahoo!<!--Finding Images with Yahoo!--></title></info>
-            
+
             <programlisting><![CDATA[<?php
 require_once 'Zend/Service/Yahoo.php';
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -89,7 +89,7 @@ foreach ($results as $result) {
         </example>
     </section>
     <section xml:id="zend.service.yahoo.localsearch"><info><title>Поиск торговых и сервисных предприятий по местонахождению через Yahoo!<!--Finding Local Businesses and Services with Yahoo!--></title></info>
-        
+
         <para>
             Вы можете искать торговые и сервисные службы по местонахождению через Yahoo!,
             используя метод <code>localSearch()</code>. За полной информацией
@@ -102,7 +102,7 @@ foreach ($results as $result) {
 -->
         </para>
         <example><info><title>Поиск торговых и сервисных предприятий по местонахождению через Yahoo!<!--Finding Local Businesses and Services with Yahoo!--></title></info>
-            
+
             <programlisting><![CDATA[<?php
 require_once 'Zend/Service/Yahoo.php';
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -114,7 +114,7 @@ foreach ($results as $result) {
         </example>
     </section>
     <section xml:id="zend.service.yahoo.newssearch"><info><title>Поиск через Yahoo! News<!--Searching Yahoo! News--></title></info>
-        
+
         <para>
             Поиск новостей через Yahoo! News довольно простой —
             используйте метод <code>newsSearch()</code>, как показано в
@@ -127,7 +127,7 @@ foreach ($results as $result) {
 -->
         </para>
         <example><info><title>Поиск через Yahoo! News<!--Searching Yahoo! News--></title></info>
-            
+
             <programlisting><![CDATA[<?php
 require_once 'Zend/Service/Yahoo.php';
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -139,7 +139,7 @@ foreach ($results as $result) {
         </example>
     </section>
     <section xml:id="zend.service.yahoo.classes"><info><title>Классы Zend_Service_Yahoo</title></info>
-        
+
         <para>
             Все следующие классы возвращаются различными средствами поиска Yahoo!.
             Каждое средство поиска возвращает набор результатов определенного типа,
@@ -171,7 +171,7 @@ foreach ($results as $result) {
             </itemizedlist>
         </para>
         <section xml:id="zend.service.yahoo.classes.resultset"><info><title>Zend_Service_Yahoo_ResultSet</title></info>
-            
+
             <para>
                 Каждый из классов, реализующих набор результатов поиска, является
                 наследником базового класса <code>Zend_Service_Yahoo_ResultSet</code>.
@@ -188,7 +188,7 @@ foreach ($results as $result) {
 -->
             </para>
             <section xml:id="zend.service.yahoo.classes.resultset.totalResults"><info><title>Zend_Service_Yahoo_ResultSet::totalResults()</title></info>
-                
+
                 <para>
                     <methodsynopsis>
                         <type>int</type>
@@ -204,9 +204,9 @@ foreach ($results as $result) {
                 </para>
             </section>
             <section xml:id="zend.service.yahoo.classes.resultset.properties"><info><title>Свойства класса</title></info>
-                
+
                 <table><info><title>Свойства класса Zend_Service_Yahoo_ResultSet</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -252,7 +252,7 @@ foreach ($results as $result) {
             </section>
         </section>
         <section xml:id="zend.service.yahoo.classes.webresultset"><info><title>Zend_Service_Yahoo_WebResultSet</title></info>
-            
+
             <para>
                 <code>Zend_Service_Yahoo_WebResultSet</code> представляет
                 набор результатов поиска веб-страниц через Yahoo! Web Search.
@@ -275,7 +275,7 @@ foreach ($results as $result) {
             </para>
         </section>
         <section xml:id="zend.service.yahoo.classes.imageresultset"><info><title>Zend_Service_Yahoo_ImageResultSet</title></info>
-            
+
             <para>
                 <code>Zend_Service_Yahoo_ImageResultSet</code>  представляет
                 набор результатов поиска изображений через Yahoo! Image Search.
@@ -298,7 +298,7 @@ foreach ($results as $result) {
             </para>
         </section>
         <section xml:id="zend.service.yahoo.classes.localresultset"><info><title>Zend_Service_Yahoo_LocalResultSet</title></info>
-            
+
             <para>
                 <code>Zend_Service_Yahoo_ImageResultSet</code> представляет
                 набор результатов поиска торговых и сервисных предприятий
@@ -309,7 +309,7 @@ foreach ($results as $result) {
 -->
             </para>
             <table><info><title>Свойства класса Zend_Service_Yahoo_LocalResultSet</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -346,7 +346,7 @@ foreach ($results as $result) {
             </para>
         </section>
         <section xml:id="zend.service.yahoo.classes.newsresultset"><info><title>Zend_Service_Yahoo_NewsResultSet</title></info>
-            
+
             <para>
                 <code>Zend_Service_Yahoo_ImageResultSet</code> представляет
                 набор результатов поиска новостей
@@ -370,7 +370,7 @@ foreach ($results as $result) {
             </para>
         </section>
         <section xml:id="zend.service.yahoo.classes.result"><info><title>Zend_Service_Yahoo_Result</title></info>
-            
+
             <para>
                 Каждый из отдельных результатов поиска является объектом класса-наследника от
                 базового класса <code>Zend_Service_Yahoo_Result</code>.
@@ -379,9 +379,9 @@ foreach ($results as $result) {
 -->
             </para>
             <section xml:id="zend.service.yahoo.classes.result.properties"><info><title>Свойства класса</title></info>
-                
+
                 <table><info><title>Свойства класса Zend_Service_Yahoo_Result</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -415,7 +415,7 @@ foreach ($results as $result) {
             </section>
          </section>
          <section xml:id="zend.service.yahoo.classes.webresult"><info><title>Zend_Service_Yahoo_WebResult</title></info>
-            
+
             <para>
                 Каждый из результатов поиска веб-страниц является объектом
                 <code>Zend_Service_Yahoo_WebResult</code>.
@@ -424,9 +424,9 @@ foreach ($results as $result) {
 -->
             </para>
             <section xml:id="zend.service.yahoo.classes.webresult.properties"><info><title>Свойства класса</title></info>
-                
+
                 <table><info><title>Свойства класса Zend_Service_Yahoo_WebResult</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -470,7 +470,7 @@ foreach ($results as $result) {
             </section>
          </section>
          <section xml:id="zend.service.yahoo.classes.imageresult"><info><title>Zend_Service_Yahoo_ImageResult</title></info>
-            
+
             <para>
                 Каждый из результатов поиска изображений является объектом
                 <code>Zend_Service_Yahoo_ImageResult</code>.
@@ -479,9 +479,9 @@ foreach ($results as $result) {
 -->
             </para>
             <section xml:id="zend.service.yahoo.classes.imageresult.properties"><info><title>Свойства класса</title></info>
-                
+
                 <table><info><title>Свойства класса Zend_Service_Yahoo_ImageResult</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -535,7 +535,7 @@ foreach ($results as $result) {
             </section>
          </section>
          <section xml:id="zend.service.yahoo.classes.localresult"><info><title>Zend_Service_Yahoo_LocalResult</title></info>
-            
+
             <para>
                 Каждый из результатов поиска торговых и сервисных предприятий
                 является объектом <code>Zend_Service_Yahoo_LocalResult</code>.
@@ -544,9 +544,9 @@ foreach ($results as $result) {
 -->
             </para>
             <section xml:id="zend.service.yahoo.classes.localresult.properties"><info><title>Свойства класса</title></info>
-                
+
                 <table><info><title>Свойства класса Zend_Service_Yahoo_LocalResult</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -610,7 +610,7 @@ foreach ($results as $result) {
             </section>
          </section>
          <section xml:id="zend.service.yahoo.classes.newsresult"><info><title>Zend_Service_Yahoo_NewsResult</title></info>
-            
+
             <para>
                 Каждый отдельный результат News Search возвращается в виде объекта
                 <code>Zend_Service_Yahoo_NewsResult</code>.
@@ -619,9 +619,9 @@ foreach ($results as $result) {
 -->
             </para>
             <section xml:id="zend.service.yahoo.classes.newsresult.properties"><info><title>Свойства класса</title></info>
-                
+
                 <table><info><title>Свойства класса Zend_Service_Yahoo_NewsResult</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>
@@ -675,7 +675,7 @@ foreach ($results as $result) {
             </section>
          </section>
          <section xml:id="zend.service.yahoo.classes.image"><info><title>Zend_Service_Yahoo_Image</title></info>
-            
+
             <para>
                 Все изображения, возвращаемые Yahoo! Image Search и Yahoo! News Search,
                 представляются как объекты <code>Zend_Service_Yahoo_Image</code>.
@@ -685,9 +685,9 @@ foreach ($results as $result) {
 -->
             </para>
             <section xml:id="zend.service.yahoo.classes.image.properties"><info><title>Свойства класса</title></info>
-                
+
                 <table><info><title>Свойства класса Zend_Service_Yahoo_Image</title></info>
-                    
+
                     <tgroup cols="3">
                         <thead>
                             <row>

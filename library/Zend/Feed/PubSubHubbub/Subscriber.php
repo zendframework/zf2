@@ -115,7 +115,7 @@ class Subscriber
      * @var array
      */
     protected $_authentications = array();
-    
+
     /**
      * Tells the Subscriber to append any subscription identifier to the path
      * of the base Callback URL. E.g. an identifier "subkey1" would be added
@@ -379,12 +379,12 @@ class Subscriber
         $this->_hubUrls = array_unique($this->_hubUrls);
         return $this->_hubUrls;
     }
-    
+
     /**
      * Add authentication credentials for a given URL
-     * 
-     * @param  string $url 
-     * @param  array $authentication 
+     *
+     * @param  string $url
+     * @param  array $authentication
      * @return \Zend\Feed\PubSubHubbub\Subscriber\Subscriber
      */
     public function addAuthentication($url, array $authentication)
@@ -397,11 +397,11 @@ class Subscriber
         $this->_authentications[$url] = $authentication;
         return $this;
     }
-    
+
     /**
      * Add authentication credentials for hub URLs
-     * 
-     * @param  array $authentications 
+     *
+     * @param  array $authentications
      * @return \Zend\Feed\PubSubHubbub\Subscriber\Subscriber
      */
     public function addAuthentications(array $authentications)
@@ -411,21 +411,21 @@ class Subscriber
         }
         return $this;
     }
-    
+
     /**
      * Get all hub URL authentication credentials
-     * 
+     *
      * @return array
      */
     public function getAuthentications()
     {
         return $this->_authentications;
     }
-    
+
     /**
      * Set flag indicating whether or not to use a path parameter
-     * 
-     * @param  bool $bool 
+     *
+     * @param  bool $bool
      * @return \Zend\Feed\PubSubHubbub\Subscriber\Subscriber
      */
     public function usePathParameter($bool = true)
@@ -520,7 +520,7 @@ class Subscriber
     }
 
     /**
-     * Gets an instance of Zend\Feed\Pubsubhubbub\Storage\StoragePersistence used 
+     * Gets an instance of Zend\Feed\Pubsubhubbub\Storage\StoragePersistence used
      * to background save any verification tokens associated with a subscription
      * or other.
      *
@@ -721,7 +721,7 @@ class Subscriber
         foreach ($optParams as $name => $value) {
             $params[$name] = $value;
         }
-        
+
         // store subscription to storage
         $now = new Date\Date;
         $expires = null;

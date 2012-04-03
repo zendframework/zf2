@@ -69,8 +69,8 @@ class Escape extends AbstractHelper
 
     /**
      * Set the encoding to use for escape operations
-     * 
-     * @param  string $encoding 
+     *
+     * @param  string $encoding
      * @return Escape
      */
     public function setEncoding($encoding)
@@ -93,7 +93,7 @@ class Escape extends AbstractHelper
 
     /**
      * Get the encoding to use for escape operations
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -103,8 +103,8 @@ class Escape extends AbstractHelper
 
     /**
      * Set a callback to use for escaping
-     * 
-     * @param  callback $callback 
+     *
+     * @param  callback $callback
      * @return Escape
      * @throws Exception\InvalidArgumentException if provided callback is not callable
      */
@@ -120,9 +120,9 @@ class Escape extends AbstractHelper
     /**
      * Get the attached callback
      *
-     * If none defined, creates a closure wrapping htmlspecialchars, providing 
+     * If none defined, creates a closure wrapping htmlspecialchars, providing
      * the currently set encoding.
-     * 
+     *
      * @return callback
      */
     public function getCallback()
@@ -139,8 +139,8 @@ class Escape extends AbstractHelper
 
     /**
      * Invoke this helper: escape a value
-     * 
-     * @param  mixed $value 
+     *
+     * @param  mixed $value
      * @param  int $recurse Expects one of the recursion constants; used to decide whether or not to recurse the given value when escaping
      * @return mixed Given a scalar, a scalar value is returned. Given an object, with the $recurse flag not allowing object recursion, returns a string. Otherwise, returns an array.
      * @throws Exception\InvalidArgumentException

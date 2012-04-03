@@ -9,7 +9,7 @@
 
     <section xml:id="requirements.version"><info><title>Požadovaná verze PHP</title></info>
 
-        
+
 
         <para>
             Zend Framework vyžaduje PHP 5.1.4 nebo vyšší. Některá SPL rozhraní
@@ -33,7 +33,7 @@
 
     <section xml:id="requirements.extensions"><info><title>PHP rozšíření (Extensions)</title></info>
 
-        
+
 
         <para>
             Následující tabulka obsahuje všechna rozšíření běžně použitá v PHP
@@ -50,7 +50,7 @@
         </para>
 
         <table frame="all" xml:id="requirements.extensions.table-1"><info><title>PHP rozšíření použitá v Zend Frameworku</title></info>
-            
+
             <tgroup cols="3">
                 <colspec colwidth="1in"/>
                 <colspec colwidth="1in"/>
@@ -537,7 +537,7 @@
 
     <section xml:id="requirements.zendcomponents"><info><title>Zend Framework komponenty</title></info>
 
-        
+
 
         <para>
             Následující tabulka obsahuje seznam všech komponent Zend Frameworku
@@ -547,7 +547,7 @@
         </para>
 
         <table frame="all" xml:id="requirements.zendcomponents.table-1"><info><title>Zend Framework komponenty a PHP rozšíření která používají</title></info>
-            
+
             <tgroup cols="3">
                 <colspec colwidth="2in"/>
                 <colspec colwidth="4in"/>

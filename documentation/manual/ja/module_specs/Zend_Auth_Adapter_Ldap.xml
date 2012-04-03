@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.ldap"><info><title>LDAP 認証</title></info>
 
-    
+
 
     <section xml:id="zend.auth.adapter.ldap.introduction"><info><title>導入</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Ldap</classname> は、<acronym>LDAP</acronym>
@@ -31,7 +31,7 @@
 
     <section xml:id="zend.auth.adapter.ldap.usage"><info><title>使用法</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Ldap</classname> による認証をアプリケーションに手っ取り早く組み込むには、
@@ -142,7 +142,7 @@ ldap.server2.baseDn = "CN=Users,DC=w,DC=net"
 
     <section xml:id="zend.auth.adapter.ldap.api"><info><title>API</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Ldap</classname> のコンストラクタは、3 つのパラメータを受け取ります。
@@ -203,7 +203,7 @@ Array
         </para>
 
         <note><info><title>Distinguished Name とは?</title></info>
-            
+
             <para>
                 DN ("distinguished name") とは、
                 <acronym>LDAP</acronym> ディレクトリ内のオブジェクトへのパスを表す文字列のことです。
@@ -234,7 +234,7 @@ Array
         </para>
 
         <note><info><title>認証メソッドの中では実際に何が行われているのか?</title></info>
-            
+
             <para>
                 <methodname>authenticate()</methodname> メソッドがコールされると、
                 アダプタは各サーバ設定を順に処理し、内部で管理する
@@ -272,7 +272,7 @@ Array
 
     <section xml:id="zend.auth.adapter.ldap.server-options"><info><title>サーバのオプション</title></info>
 
-        
+
 
         <para>
             <emphasis><classname>Zend_Auth_Adapter_Ldap</classname> のコンテキストにおける</emphasis>
@@ -281,7 +281,7 @@ Array
         </para>
 
         <table xml:id="zend.auth.adapter.ldap.server-options.table"><info><title>サーバのオプション</title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>
@@ -505,7 +505,7 @@ Array
 
     <section xml:id="zend.auth.adapter.ldap.debugging"><info><title>デバッグメッセージの収集</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Auth_Adapter_Ldap</classname> は、<methodname>authenticate()</methodname>
@@ -516,7 +516,7 @@ Array
         </para>
 
         <table xml:id="zend.auth.adapter.ldap.debugging.table"><info><title>デバッグメッセージ</title></info>
-            
+
             <tgroup cols="2">
                 <thead>
                     <row>
@@ -561,18 +561,18 @@ Array
 
     <section xml:id="zend.auth.adapter.ldap.options-common-server-specific"><info><title>サーバ固有の共通オプション</title></info>
 
-        
+
 
         <section xml:id="zend.auth.adapter.ldap.options-common-server-specific.active-directory"><info><title>Active Directory 用のオプション</title></info>
 
-            
+
 
             <para>
                 <acronym>ADS</acronym> 用のオプションとして注目すべきものは次のとおりです。
             </para>
 
             <table xml:id="zend.auth.adapter.ldap.options-common-server-specific.active-directory.table"><info><title>Active Directory 用のオプション</title></info>
-                
+
                 <tgroup cols="2">
                     <thead>
                         <row>
@@ -661,7 +661,7 @@ Array
 
         <section xml:id="zend.auth.adapter.ldap.options-common-server-specific.openldap"><info><title>OpenLDAP 用のオプション</title></info>
 
-            
+
 
             <para>
                 OpenLDAP、あるいは posixAccount 形式のスキーマを用いる一般的な
@@ -669,7 +669,7 @@ Array
             </para>
 
             <table xml:id="zend.auth.adapter.ldap.options-common-server-specific.openldap.table"><info><title>OpenLDAP 用のオプション</title></info>
-                
+
                 <tgroup cols="2">
                     <thead>
                         <row>

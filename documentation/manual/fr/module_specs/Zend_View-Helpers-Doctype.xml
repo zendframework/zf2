@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.doctype"><info><title>L'aide de vue Doctype</title></info>
-    
+
 
     <para>
         Les documents HTML et <acronym>XHTML</acronym> valides doivent inclure une déclaration
@@ -60,7 +60,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.doctype.basicusage"><info><title>Utilisation basique de l'aide Doctype</title></info>
-        
+
 
         <para>
             Vous pouvez spécifier le doctype à n'importe quel moment. Cependant, les aides de
@@ -82,7 +82,7 @@ $doctypeHelper->doctype('XHTML1_STRICT');
     </example>
 
     <example xml:id="zend.view.helpers.initial.doctype.retrieving"><info><title>Récupérer le Doctype</title></info>
-        
+
 
         <para>
             Si vous avez besoin du doctype, vous pouvez le récupérer par l'appel de

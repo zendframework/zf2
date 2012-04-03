@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.html-mails"><info><title>Сообщение в формате HTML</title></info>
-    
+
     <para>
         Для отправки сообщения электронной почты в формате HTML устанавливайте
         тело сообщения через метод <methodname>setBodyHTML()</methodname> вместо
@@ -11,7 +11,7 @@
         <code>multipart/alternative</code>:
     </para>
     <example xml:id="zend.mail.html-mails.example-1"><info><title>Отправка сообщения в формате HTML</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();
 $mail->setBodyText('My Nice Test Text');

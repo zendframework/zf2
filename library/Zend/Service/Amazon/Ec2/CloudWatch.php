@@ -281,7 +281,7 @@ class CloudWatch extends AbstractEc2
                 $options['Dimensions.member.' . $x . '.Value'] = $dimVal;
                 $x++;
             }
-            
+
             unset($options['Dimensions']);
         }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.server"><info><title>Zend_Soap_Server</title></info>
-    
+
 
     <para>
         <classname>Zend_Soap_Server</classname> class is intended to simplify Web Services server
@@ -29,7 +29,7 @@
     </para>
 
     <section xml:id="zend.soap.server.constructor"><info><title>Zend_Soap_Server constructor</title></info>
-        
+
 
         <para>
             <classname>Zend_Soap_Server</classname> constructor should be used a bit differently for
@@ -37,7 +37,7 @@
         </para>
 
         <section xml:id="zend.soap.server.constructor.wsdl_mode"><info><title>Zend_Soap_Server constructor for the WSDL mode</title></info>
-            
+
 
             <para>
                 <classname>Zend_Soap_Server</classname> constructor takes two optional parameters
@@ -121,7 +121,7 @@
         </section>
 
         <section xml:id="zend.soap.server.wsdl_mode"><info><title>Zend_Soap_Server constructor for the non-WSDL mode</title></info>
-            
+
 
             <para>
                 The first constructor parameter <emphasis>must</emphasis> be set to
@@ -193,7 +193,7 @@
     </section>
 
     <section xml:id="zend.soap.server.api_define_methods"><info><title>Methods to define Web Service API</title></info>
-        
+
 
         <para>
             There are two ways to define Web Service <acronym>API</acronym> when your want to give
@@ -242,7 +242,7 @@ $server->handle();
 ]]></programlisting>
 
         <note><info><title>Important!</title></info>
-            
+
 
             <para>
                 You should completely describe each method using method docblock if you plan to
@@ -288,10 +288,10 @@ $server->handle();
     </section>
 
     <section xml:id="zend.soap.server.request_response"><info><title>Request and response objects handling</title></info>
-        
+
 
         <note><info><title>Advanced</title></info>
-            
+
 
             <para>
                 This section describes advanced request/response processing options and may be
@@ -305,7 +305,7 @@ $server->handle();
         </para>
 
         <section xml:id="zend.soap.server.request_response.request"><info><title>Request processing</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Soap_Server::handle()</methodname> method takes request from the
@@ -379,7 +379,7 @@ $request = $server->getLastRequest();
         </section>
 
         <section xml:id="zend.soap.server.request_response.response"><info><title>Response pre-processing</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Soap_Server::handle()</methodname> method automatically emits
@@ -440,7 +440,7 @@ $response = $server->getLastResponse();
         <para>
             Zend SOAP supports this pattern in both AutoDiscovery and in the Server component. You can write
             your service object without knowledge about using this pattern. Use docblock comments to hint the parameter
-            and return types as usual. The <classname>Zend\Soap\Server\DocumentLiteralWrapper</classname> 
+            and return types as usual. The <classname>Zend\Soap\Server\DocumentLiteralWrapper</classname>
             wraps around your service object and converts request and response into normal method calls on your service.
         </para>
 

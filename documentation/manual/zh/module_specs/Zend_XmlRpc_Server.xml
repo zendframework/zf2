@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.xmlrpc.server"><info><title>Zend_XmlRpc_Server</title></info>
-    
+
 
     <section xml:id="zend.xmlrpc.server.introduction"><info><title>介绍</title></info>
-        
+
 
         <para>
             Zend_XmlRpc_Server 依照 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.xmlrpc.com/spec">www.xmlrpc.com 上的规格描述</link>
@@ -13,7 +13,7 @@
     </section>
 
     <section xml:id="zend.xmlrpc.server.usage"><info><title>基本使用</title></info>
-        
+
 
         <para>
             最基本的使用实例：
@@ -30,7 +30,7 @@ echo $server->handle();
     </section>
 
     <section xml:id="zend.xmlrpc.server.structure"><info><title>服务器结构</title></info>
-        
+
 
         <para>
             Zend_XmlRpc_Server 是由各种不同组件组成，包括服务器自身用于接收请求或进行相应的组件，
@@ -58,7 +58,7 @@ echo $server->handle();
     </section>
 
     <section xml:id="zend.xmlrpc.server.conventions"><info><title>转换</title></info>
-        
+
         <para>
             Zend_XmlRpc_Server 允许开发人员附加函数和类方法作为 XML-RPC 方法来调度。通过
             Zend_Server_Reflection 自省所有附加的方法，使用函数和方法的文档部分(docblocks)
@@ -128,7 +128,7 @@ function myFunc($val1, $val2, $val3)
     </section>
 
     <section xml:id="zend.xmlrpc.server.namespaces"><info><title>使用命名空间</title></info>
-        
+
 
         <para>
             XML-RPC 有名字空间的概念；通常，它允许使用“.”分割 XML-RPC 方法到各个命名空间。
@@ -160,7 +160,7 @@ $server->addFunction('somefunc', 'funcs');
     </section>
 
     <section xml:id="zend.xmlrpc.server.request"><info><title>自定义请求对象</title></info>
-        
+
 
         <para>
             多数情况下，只需要使用 Zend_XmlRpc_Server 默认提供的请求类型
@@ -172,7 +172,7 @@ $server->addFunction('somefunc', 'funcs');
     </section>
 
     <section xml:id="zend.xmlrpc.server.response"><info><title>自定义响应对象</title></info>
-        
+
 
         <para>
             和请求对象一样，Zend_XmlRpc_Server 可以返回自定义响应对象；默认情况下，
@@ -188,7 +188,7 @@ $server->addFunction('somefunc', 'funcs');
     </section>
 
     <section xml:id="zend.xmlrpc.server.fault"><info><title>处理错误产生的异常</title></info>
-        
+
 
         <para>
             Zend_XmlRpc_Server 会捕获调度方法产生的一场，同时生成 XML-RPC 失败响应。
@@ -216,7 +216,7 @@ Zend_XmlRpc_Server_Fault::attachFaultException('My_Project_Exception');
     </section>
 
     <section xml:id="zend.xmlrpc.server.caching"><info><title>在请求之间缓存服务器定义</title></info>
-        
+
         <para>
             附加多个类到 XML-RPC 服务器实例可能消耗大量的资源；每一个类必须使用反射
             API 进行自省（通过 Zend_Server_Reflection），生成一个包含有所有可用方法的列表用于服务器调用。
@@ -262,13 +262,13 @@ echo $server->handle();
     </section>
 
     <section xml:id="zend.xmlrpc.server.use"><info><title>使用实例</title></info>
-        
+
         <para>
             下面有一些有用的例子，向开发人员展示了可能用到的各种情况。
             每一个实例都是建立在前一个实例基础上的扩充。
         </para>
         <section xml:id="zend.xmlrpc.server.use.case1"><info><title>基本使用</title></info>
-            
+
 
             <para>
                 下面的例子演示了附加一个函数作为 XML-RPC 的调度方法，并用其处理请求。
@@ -295,7 +295,7 @@ echo $server->handle();
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case2"><info><title>附加一个类</title></info>
-            
+
 
             <para>
                 下面的例子演示了附加一个类的公共方法作为 XML-RPC 的调度方法。
@@ -312,7 +312,7 @@ echo $server->handle();
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case3"><info><title>利用命名空间附加多个类</title></info>
-            
+
 
             <para>
                 下面的例子演示了附加多个类，每个类都有自己的命名空间。
@@ -333,7 +333,7 @@ echo $server->handle();
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case4"><info><title>指定异常作为合法的失败响应</title></info>
-            
+
 
             <para>
                 下面的例子允许任何 Services_Exception 的派生类作为失败响应返回其代码和消息。
@@ -359,7 +359,7 @@ echo $server->handle();
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case5"><info><title>设置自定义请求对象</title></info>
-            
+
 
             <para>
                 下面的例子演示了实例化自定义请求对象并将其传递到服务器进行处理。
@@ -390,7 +390,7 @@ echo $server->handle($request);
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case6"><info><title>设置自定义响应对象</title></info>
-            
+
 
             <para>
                 下面的例子演示了指定自定义类作为响应返回。
@@ -425,7 +425,7 @@ echo $server->handle($request);
         </section>
 
         <section xml:id="zend.xmlrpc.server.use.case7"><info><title>在请求之间缓存服务器定义</title></info>
-            
+
 
             <para>
                 下面的例子演示了在请求之间缓存服务器定义。

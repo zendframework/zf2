@@ -109,7 +109,7 @@ class HTTPTest extends \PHPUnit_Framework_TestCase
 
         $this->_response->clearHeader('Connection');
         $updated_headers  = $this->_response->getHeaders();
-        
+
         $this->assertFalse($original_headers == $updated_headers);
     }
 
@@ -142,7 +142,7 @@ class HTTPTest extends \PHPUnit_Framework_TestCase
 
         $this->_response->clearRawHeader('HTTP/1.0 404 Not Found');
         $updatedHeadersRaw  = $this->_response->getRawHeaders();
-        
+
         $this->assertFalse($originalHeadersRaw == $updatedHeadersRaw);
     }
 

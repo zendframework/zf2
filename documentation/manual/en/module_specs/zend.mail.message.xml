@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section 
-    xmlns="http://docbook.org/ns/docbook" version="5.0" 
+<section
+    xmlns="http://docbook.org/ns/docbook" version="5.0"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xml:id="zend.mail.message">
     <info>
@@ -47,7 +47,7 @@ use Zend\Mail\Message;
 
 $message = new Message();
 ]]></programlisting>
-        
+
         <para>
             Once you have your <classname>Message</classname> instance, you can start adding content
             or headers. Let's set who the mail is from, who it's addressed to, a subject, and some
@@ -60,7 +60,7 @@ $message->addFrom("matthew@zend.com", "Matthew Weier O'Phinney")
         ->setSubject("Sending an email from Zend\Mail!");
 $message->setBody("This is the message body.");
 ]]></programlisting>
-        
+
         <para>
             You can also add recipients to carbon-copy ("Cc:") or blind carbon-copy ("Bcc:").
         </para>
@@ -162,7 +162,7 @@ echo $message->toString();
 
         <programlisting language="php"><![CDATA[
 // Headers
-// Note: this will also grab all headers for which accessors/mutators exist in 
+// Note: this will also grab all headers for which accessors/mutators exist in
 // the Message object itself.
 foreach ($message->headers() as $header) {
     echo $header->toString();

@@ -119,8 +119,8 @@ class Alpha extends AbstractFilter
 
     /**
      * Toggle unicode matching capabilities
-     * 
-     * @param  bool $flag 
+     *
+     * @param  bool $flag
      * @return Alpha
      */
     public function setUnicodeEnabled($flag)
@@ -144,7 +144,7 @@ class Alpha extends AbstractFilter
 
     /**
      * Is this instance unicode enabled?
-     * 
+     *
      * @return bool
      */
     public function isUnicodeEnabled()
@@ -209,7 +209,7 @@ class Alpha extends AbstractFilter
 
     /**
      * Are we unicode capable?
-     * 
+     *
      * @return bool
      */
     protected static function isUnicodeCapable()

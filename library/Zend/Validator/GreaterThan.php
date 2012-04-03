@@ -100,7 +100,7 @@ class GreaterThan extends AbstractValidator
 
         $this->setMin($options['min'])
              ->setInclusive($options['inclusive']);
-             
+
         parent::__construct();
     }
 

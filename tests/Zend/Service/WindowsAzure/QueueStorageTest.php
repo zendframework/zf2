@@ -20,7 +20,7 @@
  */
 
 /**
- * @see Zend_Service_WindowsAzure_Storage_Queue 
+ * @see Zend_Service_WindowsAzure_Storage_Queue
  */
 
 /**

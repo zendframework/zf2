@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.markup.renderers"><info><title>Moteurs de rendu Zend_Markup</title></info>
-    
+
 
     <para>
         <classname>Zend_Markup</classname> est fournie avec un moteur de rendu, le
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.markup.renderers.add"><info><title>Ajouter vos propres markups</title></info>
-        
+
 
         <para>
             En ajoutant vos markups, vous pouvez ajouter vos propres fonctionnalités aux moteurs
@@ -55,7 +55,7 @@ echo $bbcode->render('my [foo]markup[/foo]');
         </para>
 
         <section xml:id="zend.markup.renderers.add.callback"><info><title>Ajout d'un markup de rappel(callback)</title></info>
-            
+
 
             <para>
                 Ajouter des markups de rappel permet de faire bien plus que de simples
@@ -114,10 +114,10 @@ echo $bbcode->render('my [upper]markup[/upper]');
     </section>
 
     <section xml:id="zend.markup.renderers.list"><info><title>Liste de markups</title></info>
-        
+
 
         <table xml:id="zend.markup.renderers.list.tags"><info><title>Liste de markups</title></info>
-            
+
 
             <tgroup cols="2" align="left" colsep="1" rowsep="1">
                 <thead>

@@ -65,7 +65,7 @@ html/index.html: $(MANUAL_XML) $(HTML_XSL)
 
 $(MANUAL_XML): ../en/$(MANUAL_XML).in
 	sed -e 's!@DOCBOOK_DTD@!$(DOCBOOK_DTD)!' $< > $@
-	
+
 $(HTML_XSL): ../en/$(HTML_XSL).in
 	sed -e 's!@DOCBOOK_XSL@!$(DOCBOOK_XSL)!' $< > $@
 
@@ -98,7 +98,7 @@ pdf-print-volume2: pdf-dir $(PDF_XSL) $(MANUAL_PRINT2_XML)
 
 $(MANUAL_PRINT1_XML): ../en/$(MANUAL_PRINT1_XML).in
 	sed -e 's!@DOCBOOK_DTD@!$(DOCBOOK_DTD)!' $< > $@
-	
+
 $(MANUAL_PRINT2_XML): ../en/$(MANUAL_PRINT2_XML).in
 	sed -e 's!@DOCBOOK_DTD@!$(DOCBOOK_DTD)!' $< > $@
 

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="introduction.installation"><info><title>Kurulum</title></info>
-    
+
 
     <para>
         Zend Framework nesneye dayalı PHP 5 ile oluşturuldu ve PHP 5.1.4 veya yenisine ihtiyaç duyar.

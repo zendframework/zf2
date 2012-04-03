@@ -12,7 +12,7 @@
     </para>
 
     <example><info><title>Basisgebruik van een Atom Feed</title></info>
-        
+
         <para>
             Lees een Atom feed en beeld de <code>title</code> en <code>summary</code> van elke entry af:
         </para>

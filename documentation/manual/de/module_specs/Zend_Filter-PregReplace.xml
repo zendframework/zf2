@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.pregreplace"><info><title>PregReplace</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_PregReplace</classname> führt eine Suche durch indem es Reguläre

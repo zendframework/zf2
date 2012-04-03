@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.paginator.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_Paginator</classname> est un composant flexible pour paginer des

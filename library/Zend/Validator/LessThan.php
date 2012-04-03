@@ -102,7 +102,7 @@ class LessThan extends AbstractValidator
 
         $this->setMax($options['max'])
              ->setInclusive($options['inclusive']);
-             
+
         parent::__construct();
     }
 

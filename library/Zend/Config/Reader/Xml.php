@@ -74,7 +74,7 @@ class Xml implements Reader
         }
         $this->reader = new XMLReader();
 
-        $this->reader->open($filename, null, LIBXML_XINCLUDE);   
+        $this->reader->open($filename, null, LIBXML_XINCLUDE);
 
         $this->directory = dirname($filename);
 
@@ -88,7 +88,7 @@ class Xml implements Reader
         );
         $return = $this->process();
         restore_error_handler();
-        
+
         return $return;
     }
 
@@ -105,7 +105,7 @@ class Xml implements Reader
             return array();
         }
         $this->reader = new XMLReader();
-        
+
         $this->reader->xml($string, null, LIBXML_XINCLUDE);
 
         $this->directory = null;
@@ -120,7 +120,7 @@ class Xml implements Reader
         );
         $return = $this->process();
         restore_error_handler();
-        
+
         return $return;
     }
 
@@ -182,7 +182,7 @@ class Xml implements Reader
                 $text .= $this->reader->value;
             }
         }
-        
+
         return $children ?: $text;
     }
 

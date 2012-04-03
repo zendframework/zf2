@@ -1929,7 +1929,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($messages));
         $this->assertEquals('foo', array_shift($messages));
     }
-    
+
     /**
      * @group ZF-9275
      */
@@ -1938,21 +1938,21 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $registryTranslations = array('alphaInvalid' => 'Registry message');
         $registryTranslate = new Translator('ArrayAdapter', $registryTranslations);
         Registry::set('Zend_Translator', $registryTranslate);
-        
+
         $validatorTranslations = array('alphaInvalid' => 'Validator message');
         $validatorTranslate = new Translator('ArrayAdapter', $validatorTranslations);
         AbstractValidator::setDefaultTranslator($validatorTranslate);
-        
+
         $elementTranslations = array('alphaInvalid' => 'Element message');
         $elementTranslate = new Translator('ArrayAdapter', $elementTranslations);
-       
+
         // the default validate translator should beat the registry one
         $this->element->addValidator('Alpha');
         $this->assertFalse($this->element->isValid(123));
         $messages = $this->element->getMessages();
         $this->assertEquals('Validator message', $messages['alphaInvalid']);
     }
-    
+
     /**
      * @group ZF-9275
      */
@@ -1961,14 +1961,14 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $registryTranslations = array('alphaInvalid' => 'Registry message');
         $registryTranslate = new Translator('ArrayAdapter', $registryTranslations);
         Registry::set('Zend_Translator', $registryTranslate);
-        
+
         $validatorTranslations = array('alphaInvalid' => 'Validator message');
         $validatorTranslate = new Translator('ArrayAdapter', $validatorTranslations);
         AbstractValidator::setDefaultTranslator($validatorTranslate);
-        
+
         $elementTranslations = array('alphaInvalid' => 'Element message');
         $elementTranslate = new Translator('ArrayAdapter', $elementTranslations);
-        
+
         $this->element->addValidator('Alpha');
         $this->element->setTranslator($elementTranslate);
         $this->assertFalse($this->element->isValid(123));
@@ -1984,18 +1984,18 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $formTranslations = array('alphaInvalid' => 'Form message');
         $formTranslate = new Translator('ArrayAdapter', $formTranslations);
         Form::setDefaultTranslator($formTranslate);
-        
+
         $validatorTranslations = array('alphaInvalid' => 'Validator message');
         $validatorTranslate = new Translator('ArrayAdapter', $validatorTranslations);
         AbstractValidator::setDefaultTranslator($validatorTranslate);
-        
+
         // the default validate translator should beat the registry one
         $this->element->addValidator('Alpha');
         $this->assertFalse($this->element->isValid(123));
         $messages = $this->element->getMessages();
         $this->assertEquals('Form message', $messages['alphaInvalid']);
     }
-    
+
     /**
      * @group ZF-9275
      */
@@ -2003,10 +2003,10 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     {
         $elementTranslations = array('alphaInvalid' => 'Element message');
         $elementTranslate = new Translator('ArrayAdapter', $elementTranslations);
-        
+
         $validatorTranslations = array('alphaInvalid' => 'Direct validator message');
         $validatorTranslate = new Translator('ArrayAdapter', $validatorTranslations);
-        
+
         $validator = new AlphaValidator();
         $validator->setTranslator($validatorTranslate);
         $this->element->addValidator($validator);

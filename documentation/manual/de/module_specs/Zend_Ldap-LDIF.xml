@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.ldif"><info><title>Serialisieren von LDAP Daten von und zu LDIF</title></info>
-    
+
 
     <section xml:id="zend.ldap.ldif.encode"><info><title>Einen LDAP Eintrag zu LDIF serialisieren</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $data = array(
@@ -65,7 +65,7 @@ title;lang-en: Sales, Director
     </section>
 
     <section xml:id="zend.ldap.ldif.decode"><info><title>Einen LDIF Strin in einen LDAP Eintrag deserialisieren</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $ldif = "dn:: dWlkPXJvZ2FzYXdhcmEsb3U95Za25qWt6YOoLG89QWlyaXVz

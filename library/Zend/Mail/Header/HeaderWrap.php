@@ -37,9 +37,9 @@ abstract class HeaderWrap
 {
     /**
      * Wrap a long header line
-     * 
-     * @param  string $value 
-     * @param  Header $header 
+     *
+     * @param  string $value
+     * @param  Header $header
      * @return string
      */
     public static function wrap($value, Header $header)
@@ -56,8 +56,8 @@ abstract class HeaderWrap
      * Wrap an unstructured header line
      *
      * Wrap at 78 characters or before, based on whitespace.
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return string
      */
     protected static function wrapUnstructuredHeader($value)
@@ -67,9 +67,9 @@ abstract class HeaderWrap
 
     /**
      * Wrap a structured header line
-     * 
-     * @param  string $value 
-     * @param  Header $header 
+     *
+     * @param  string $value
+     * @param  Header $header
      * @return string
      */
     protected static function wrapStructuredHeader($value, Header $header)
@@ -92,12 +92,12 @@ abstract class HeaderWrap
     /**
      * MIME-encode a value
      *
-     * Performs quoted-printable encoding on a value, setting maximum 
-     * line-length to 998. 
-     * 
-     * @param  string $value 
-     * @param  string $encoding 
-     * @param  bool $splitWords Whether or not to split the $value on whitespace 
+     * Performs quoted-printable encoding on a value, setting maximum
+     * line-length to 998.
+     *
+     * @param  string $value
+     * @param  string $encoding
+     * @param  bool $splitWords Whether or not to split the $value on whitespace
      *                          and encode each word separately.
      * @return string
      */

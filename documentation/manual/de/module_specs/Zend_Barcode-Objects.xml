@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.barcode.objects"><info><title>Zend_Barcode Objekte</title></info>
-    
+
 
     <para>
         Barcode Objekte erlauben es Barcodes unabhängig von der Unterstützung eines Renderers zu
@@ -40,7 +40,7 @@
     </itemizedlist>
 
     <example xml:id="zend.barcode.objects.configuration"><info><title>Unterschiedliche Wege ein Barcode Objekt zu parametrisieren</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $options = array('text' => 'ZEND-FRAMEWORK', 'barHeight' => 40);
@@ -65,7 +65,7 @@ $barcode->setText('ZEND-FRAMEWORK')
     </example>
 
     <section xml:id="zend.barcode.objects.common.options"><info><title>Gemeinsame Optionen</title></info>
-        
+
 
         <para>
             In der folgenden Liste haben die Werte keine Einheit; wir werden den Ausdruck "Einheit"
@@ -79,7 +79,7 @@ $barcode->setText('ZEND-FRAMEWORK')
         </para>
 
         <table xml:id="zend.barcode.objects.common.options.table"><info><title>Gemeinsame Optionen</title></info>
-            
+
 
             <tgroup cols="4">
                 <thead>
@@ -259,7 +259,7 @@ $barcode->setText('ZEND-FRAMEWORK')
         </table>
 
         <section xml:id="zend.barcode.objects.common.options.barcodefont"><info><title>Spezieller Fall der statischen setBarcodeFont()</title></info>
-            
+
 
             <para>
                 Man kann eine gemeinsame Schriftart für alle eigenen Objekte setzen indem die
@@ -293,12 +293,12 @@ Zend_Barcode::render(
     </section>
 
     <section xml:id="zend.barcode.objects.common.getters"><info><title>Gemeinsame zusätzliche Getter</title></info>
-        
+
 
         <para/>
 
         <table xml:id="zend.barcode.objects.common.getters.table"><info><title>Gemeinsame Getter</title></info>
-            
+
 
             <tgroup cols="3">
                 <thead>

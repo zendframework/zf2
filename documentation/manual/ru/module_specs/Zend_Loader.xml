@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.load"><info><title>Динамическая загрузка файлов и классов</title></info>
 
-    
+
 
     <para>
         Класс <classname>Zend_Loader</classname> включает в себя методы,
@@ -9,7 +9,7 @@
     </para>
 
     <tip><info><title>Zend_Loader vs. require_once()</title></info>
-        
+
         <para>
             Методы <classname>Zend_Loader</classname> лучше всего использовать,
             когда имя файла для загрузки является переменным - например,
@@ -25,7 +25,7 @@
 
     <section xml:id="zend.loader.load.file"><info><title>Загрузка файлов</title></info>
 
-        
+
 
         <para>
             Статический метод <code>Zend_Loader::loadFile()</code> загружает
@@ -37,7 +37,7 @@
         </para>
 
         <example xml:id="zend.loader.load.file.example"><info><title>Пример использования метода loadFile()</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Loader::loadFile($filename, $dirs=null, $once=false);
 ]]></programlisting>
@@ -73,7 +73,7 @@ Zend_Loader::loadFile($filename, $dirs=null, $once=false);
 
     <section xml:id="zend.loader.load.class"><info><title>Загрузка классов</title></info>
 
-        
+
 
         <para>
             Статический метод <code>Zend_Loader::loadClass($class, $dirs)</code>
@@ -81,7 +81,7 @@ Zend_Loader::loadFile($filename, $dirs=null, $once=false);
         </para>
 
         <example xml:id="zend.loader.load.class.example"><info><title>Пример использования метода loadClass()</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Loader::loadClass('Container_Tree',
     array(
@@ -124,7 +124,7 @@ Zend_Loader::loadClass('Container_Tree',
 
     <section xml:id="zend.loader.load.isreadable"><info><title>Проверка на возможность чтения из файла</title></info>
 
-        
+
 
         <para>
             Статический метод <code>Zend_Loader::isReadable($pathname)</code>
@@ -133,7 +133,7 @@ Zend_Loader::loadClass('Container_Tree',
         </para>
 
         <example xml:id="zend.loader.load.isreadable.example"><info><title>Пример использования метода isReadable()</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 if (Zend_Loader::isReadable($filename)) {
     // делаем что-либо с файлом $filename
@@ -155,7 +155,7 @@ if (Zend_Loader::isReadable($filename)) {
 
     <section xml:id="zend.loader.load.autoload"><info><title>Использование автозагрузчика</title></info>
 
-        
+
 
         <para>
             Класс <classname>Zend_Loader</classname> содержит метод, который
@@ -171,7 +171,7 @@ if (Zend_Loader::isReadable($filename)) {
         </para>
 
         <example xml:id="zend.loader.load.autoload.example"><info><title>Пример регистрации метода автозагрузки</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 Zend_Loader::registerAutoload();
 ]]></programlisting>
@@ -193,7 +193,7 @@ Zend_Loader::registerAutoload();
         </para>
 
         <example xml:id="zend.loader.load.autoload.example-extended"><info><title>Пример регистрации метода автозагрузки из расширенного класса</title></info>
-            
+
             <para>
                 В силу особенностей семантики статических функций в PHP
                 вы должны реализовать код для обоих методов

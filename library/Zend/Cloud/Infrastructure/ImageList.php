@@ -37,7 +37,7 @@ class ImageList implements Countable, Iterator, ArrayAccess
 
     /**
      * The Image adapter (if exists)
-     * 
+     *
      * @var object
      */
     protected $adapter;

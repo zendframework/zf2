@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.rowset"><info><title>Zend_Db_Table_Rowset</title></info>
 
-    
+
 
     <section xml:id="zend.db.table.rowset.introduction"><info><title>Introduction</title></info>
 
-        
+
 
         <para> When you run a query against a Table class using the
                 <methodname>find()</methodname> or
@@ -21,7 +21,7 @@
 
     <section xml:id="zend.db.table.rowset.fetch"><info><title>Fetching a Rowset</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Db_Table_Abstract</classname> provides methods
@@ -32,7 +32,7 @@
 
         <example xml:id="zend.db.table.rowset.fetch.example"><info><title>Example of fetching a rowset</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $bugs   = new Bugs();
@@ -45,7 +45,7 @@ $rowset = $bugs->fetchAll("bug_status = 'NEW'");
 
     <section xml:id="zend.db.table.rowset.rows"><info><title>Retrieving Rows from a Rowset</title></info>
 
-        
+
 
         <para> The Rowset itself is usually less interesting than the Rows that
             it contains. This section illustrates how to get the Rows that
@@ -61,7 +61,7 @@ $rowset = $bugs->fetchAll("bug_status = 'NEW'");
 
         <example xml:id="zend.db.table.rowset.rows.counting.example"><info><title>Counting the Rows in a Rowset</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $rowset   = $bugs->fetchAll("bug_status = 'FIXED'");
@@ -79,7 +79,7 @@ if ($rowCount > 0) {
 
         <example xml:id="zend.db.table.rowset.rows.current.example"><info><title>Reading a Single Row from a Rowset</title></info>
 
-            
+
 
             <para> The simplest way to access a Row from a Rowset is to use the
                     <methodname>current()</methodname> method. This is
@@ -100,7 +100,7 @@ $row    = $rowset->current();
 
         <example xml:id="zend.db.table.rowset.rows.iterate.example"><info><title>Iterating through a Rowset</title></info>
 
-            
+
 
             <para> Objects descending from
                     <classname>Zend_Db_Table_Rowset_Abstract</classname>
@@ -137,7 +137,7 @@ foreach ($rowset as $row) {
 
         <example xml:id="zend.db.table.rowset.rows.seek.example"><info><title>Seeking to a known position into a Rowset</title></info>
 
-            
+
 
             <para>
                 <methodname>SeekableIterator</methodname> allows you to seek to
@@ -201,7 +201,7 @@ $row9->save();
 
     <section xml:id="zend.db.table.rowset.to-array"><info><title>Retrieving a Rowset as an Array</title></info>
 
-        
+
 
         <para> You can access all the data in the Rowset as an array using the
                 <methodname>toArray()</methodname> method of the Rowset object.
@@ -211,7 +211,7 @@ $row9->save();
 
         <example xml:id="zend.db.table.rowset.to-array.example"><info><title>Using toArray()</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $bugs   = new Bugs();
@@ -240,7 +240,7 @@ foreach ($rowsetArray as $rowArray) {
 
     <section xml:id="zend.db.table.rowset.serialize"><info><title>Serializing and Unserializing a Rowset</title></info>
 
-        
+
 
         <para> Objects of type
                 <classname>Zend_Db_Table_Rowset_Abstract</classname> are
@@ -249,7 +249,7 @@ foreach ($rowsetArray as $rowArray) {
 
         <example xml:id="zend.db.table.rowset.serialize.example.serialize"><info><title>Serializing a Rowset</title></info>
 
-            
+
 
             <para> Simply use PHP's <methodname>serialize()</methodname>
                 function to create a string containing a byte-stream
@@ -269,7 +269,7 @@ $serializedRowset = serialize($rowset);
 
         <example xml:id="zend.db.table.rowset.serialize.example.unserialize"><info><title>Unserializing a Serialized Rowset</title></info>
 
-            
+
 
             <para> Use PHP's <methodname>unserialize()</methodname> function to
                 restore a string containing a byte-stream representation of an
@@ -293,7 +293,7 @@ echo $row->bug_description;
         </example>
 
         <note><info><title>Why do Rowsets unserialize in a disconnected state?</title></info>
-            
+
             <para> A serialized object is a string that is readable to anyone
                 who possesses it. It could be a security risk to store
                 parameters such as database account and password in plain,
@@ -317,7 +317,7 @@ echo $row->bug_description;
 
         <example xml:id="zend.db.table.rowset.serialize.example.set-table"><info><title>Reactivating a Rowset as Live Data</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $rowset = unserialize($serializedRowset);
@@ -344,7 +344,7 @@ $row->save();
 
     <section xml:id="zend.db.table.rowset.extending"><info><title>Extending the Rowset class</title></info>
 
-        
+
 
         <para> You can use an alternative concrete class for instances of
             Rowsets by extending
@@ -355,7 +355,7 @@ $row->save();
             object. </para>
 
         <example xml:id="zend.db.table.rowset.extending.example"><info><title>Specifying a custom Rowset class</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 class MyRowset extends Zend_Db_Table_Rowset_Abstract
 {
@@ -383,7 +383,7 @@ $bugs = new Bugs(array('rowsetClass' => 'MyRowset'));
             Rows in the Rowset. </para>
 
         <example xml:id="zend.db.table.rowset.extending.example-aggregate"><info><title>Example of Rowset class with a new method</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 class MyBugsRowset extends Zend_Db_Table_Rowset_Abstract
 {

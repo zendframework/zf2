@@ -130,7 +130,7 @@ class AkismetTest extends \PHPUnit_Framework_TestCase
                   . "\r\n"
                   . "invalid";
         $this->adapter->setResponse($response);
-        
+
         $this->setExpectedException('Zend\Service\Akismet\Exception\InvalidArgumentException', 'Invalid API key');
         $this->akismet->isSpam($this->comment);
     }
@@ -177,7 +177,7 @@ class AkismetTest extends \PHPUnit_Framework_TestCase
                   . "\r\n"
                   . "invalid";
         $this->adapter->setResponse($response);
-        
+
         $this->setExpectedException('Zend\Service\Akismet\Exception\InvalidArgumentException', 'Invalid API key');
         $this->akismet->submitSpam($this->comment);
     }
@@ -194,7 +194,7 @@ class AkismetTest extends \PHPUnit_Framework_TestCase
                   . "\r\n"
                   . "Thanks for making the web a better place.";
         $this->adapter->setResponse($response);
-        
+
         $this->akismet->submitSpam($this->comment);
     }
 
@@ -210,7 +210,7 @@ class AkismetTest extends \PHPUnit_Framework_TestCase
                   . "\r\n"
                   . "Thanks for making the web a better place.";
         $this->adapter->setResponse($response);
-        
+
         $this->akismet->submitHam($this->comment);
     }
 }

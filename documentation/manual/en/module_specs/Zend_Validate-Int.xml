@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.int"><info><title>Int</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Int</classname> validates if a given value is an integer. Also
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.set.int.options"><info><title>Supported options for Zend_Validate_Int</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Validate_Int</classname>:
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.validate.set.int.basic"><info><title>Simple integer validation</title></info>
-        
+
 
         <para>
             The simplest way to validate an integer is by using the system settings. When no option
@@ -47,7 +47,7 @@ $validator->isValid('1,234'); // returns true
     </section>
 
     <section xml:id="zend.validate.set.int.localized"><info><title>Localized integer validation</title></info>
-        
+
 
         <para>
             Often it's useful to be able to validate also localized values. Integer values are often

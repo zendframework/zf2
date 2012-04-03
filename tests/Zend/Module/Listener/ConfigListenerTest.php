@@ -42,7 +42,7 @@ class ConfigListenerTest extends TestCase
     public function tearDown()
     {
         $file = glob($this->tmpdir . DIRECTORY_SEPARATOR . '*');
-        @unlink($file[0]); // change this if there's ever > 1 file 
+        @unlink($file[0]); // change this if there's ever > 1 file
         @rmdir($this->tmpdir);
         // Restore original autoloaders
         AutoloaderFactory::unregisterAutoloaders();
@@ -94,7 +94,7 @@ class ConfigListenerTest extends TestCase
         $modules = $moduleManager->getLoadedModules();
         $this->assertTrue($modules['ListenerTestModule']->getConfigCalled);
 
-        // Now we check to make sure it uses the config and doesn't hit 
+        // Now we check to make sure it uses the config and doesn't hit
         // the module objects getConfig() method(s)
         $moduleManager = new Manager(array('SomeModule', 'ListenerTestModule'));
         $moduleManager->events()->attach('loadModule.resolve', new ModuleResolverListener, 1000);
@@ -116,7 +116,7 @@ class ConfigListenerTest extends TestCase
         $moduleManager->events()->attach('loadModule', $configListener);
         $moduleManager->loadModules();
     }
-    
+
     public function testBadGlobPathTrowsInvalidArgumentException()
     {
         $this->setExpectedException('InvalidArgumentException');

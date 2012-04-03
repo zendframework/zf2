@@ -3,7 +3,7 @@
 
 <chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="introduction.installation"><info><title> Instalación</title></info>
 
-    
+
 
     <para> Véase el apéndice <link linkend="requirements"> requisitos</link> para una lista
         detallada de requisitos para Zend Framework. </para>

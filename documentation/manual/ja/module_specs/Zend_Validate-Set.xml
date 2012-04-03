@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set"><info><title>標準のバリデーションクラス群</title></info>
 
-    
+
 
     <para>
         Zend Framework には、すぐに使える標準のバリデーションクラス群が同梱されています。
@@ -30,7 +30,7 @@
     </xi:include>
 
     <section xml:id="zend.validate.set.ccnum"><info><title>Ccnum</title></info>
-        
+
 
         <note>
             <para>

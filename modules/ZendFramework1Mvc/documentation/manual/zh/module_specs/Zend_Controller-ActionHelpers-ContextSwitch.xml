@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.contextswitch"><info><title>ContextSwitch and AjaxContext</title></info>
-    
+
 
     <para>
         <code>ContextSwitch</code> 动作助手用来使在请求后返回不同的响应格式变得容易。<code>AjaxContext</code> 助手是 <code>ContextSwitch</code> 的特别版本，用来返回响应到 XmlHttpRequests。
@@ -116,7 +116,7 @@ class NewsController extends Zend_Controller_Action
     </para>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.contexts"><info><title> 缺省可用的上下文 </title></info>
-        
+
 
         <para>
             缺省地，<code>ContextSwitch</code> 助手的两个上下文可用：json 和 xml。
@@ -151,7 +151,7 @@ $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.custom"><info><title> 创建定制的上下文 </title></info>
-        
+
 
         <para>
             有时候，缺省的上下文不够用，例如你需要返回 YAML，或系列化 PHP、RSS 或 ATOM feed 等等，<code>ContextSwitch</code> 正是你需要的东西。
@@ -227,7 +227,7 @@ $this->_helper->contextSwitch()->setAutoJsonSerialization(false);
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.actions"><info><title> 为每个动作设置上下文 </title></info>
-        
+
 
         <para>
             有两个设置可用的上下文的机制：或者在控制器里手工创建数组，或者使用在 <code>ContextSwitch</code> 里的方法来装配它们。
@@ -351,7 +351,7 @@ class FooController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.initcontext"><info><title> 初始化上下文开关 </title></info>
-        
+
 
         <para>
             为初始化上下文开关，需要在动作控制器中调用 <code>initContext()</code>：
@@ -379,7 +379,7 @@ $contextSwitch->initContext('xml');
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.misc"><info><title> 另外的功能 </title></info>
-        
+
 
         <para>
             用来改变 <code>ContextSwitch</code> 助手行为的方法包括：
@@ -527,7 +527,7 @@ $contextSwitch->initContext();
     </section>
 
     <section xml:id="zend.controller.actionhelpers.contextswitch.ajaxcontext"><info><title>AjaxContext 函数 </title></info>
-        
+
 
         <para>
             <code>AjaxContext</code> 助手继承 <code>ContextSwitch</code>，所有 <code>ContextSwitch</code> 函数列表对它也有效，只是有些小小的不同。
@@ -546,7 +546,7 @@ $contextSwitch->initContext();
         </para>
 
         <example xml:id="zend.controller.actionhelpers.contextswitch.ajaxcontext.example"><info><title> 允许动作响应 Ajax 的请求 </title></info>
-            
+
 
             <para>
                 在下面的例子中，我们允许对动作 'view'、 'form' 和 'process' 的请求响应 AJAX 的请求。在头两个例子 'view' 和 'form'，返回不更新页面的 HTML 片段；在最后的例子，返回 JSON。

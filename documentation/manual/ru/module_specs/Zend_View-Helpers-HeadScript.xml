@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headscript"><info><title>Помощник HeadScript Helper</title></info>
-    
+
 
     <para>
         HTML-элемент <code>&lt;script&gt;</code> используется для добавления
@@ -44,7 +44,7 @@
     </para>
 
     <note><info><title>Установка условных комментариев</title></info>
-        
+
 
         <para>
             <code>HeadScript</code> поддерживает включение тега в условные
@@ -55,7 +55,7 @@
         </para>
 
         <example xml:id="zend.view.helpers.initial.headscript.conditional"><info><title>Скрипты с условными комментариями</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // добавление скриптов
 $this->headScript()->appendFile(
@@ -99,13 +99,13 @@ $this->headScript()->appendFile(
     </para>
 
     <para>
-        Помощник <code>HeadScript</code> является частной реализацией 
+        Помощник <code>HeadScript</code> является частной реализацией
         <link linkend="zend.view.helpers.initial.placeholder">помощника
             Placeholder</link>.
     </para>
 
     <note><info><title>Используйте InlineScript для скриптов в теле документа</title></info>
-        
+
 
         <para>
             Для добавления скриптов внутри HTML-элемента <code>body</code>
@@ -118,7 +118,7 @@ $this->headScript()->appendFile(
     </note>
 
     <note><info><title>Установка произвольных атрибутов по умолчанию отключена</title></info>
-        
+
 
         <para>
             По умолчанию <code>HeadScript</code> будет генерировать только
@@ -137,7 +137,7 @@ $this->headScript()->setAllowArbitraryAttributes(true);
     </note>
 
     <example xml:id="zend.view.helpers.initial.headscript.basicusage"><info><title>Использование помощника HeadScript</title></info>
-        
+
 
         <para>
             Вы можете указывать скрипты для добавления в документ в любой момент
@@ -185,7 +185,7 @@ $this->headScript()->prependFile('/js/prototype.js');
     </example>
 
     <example xml:id="zend.view.helpers.initial.headscript.capture"><info><title>Составление скриптов с использованием помощника HeadScript</title></info>
-        
+
 
         <para>
             Иногда нужно генерировать скрипты программым способом.

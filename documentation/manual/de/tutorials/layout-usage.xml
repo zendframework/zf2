@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.layout.usage"><info><title>Zend_Layout verwenden</title></info>
-    
+
 
     <para>
         Die grundsätzliche Verwendung von <classname>Zend_Layout</classname> ist recht trivial.
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="learning.layout.usage.configuration"><info><title>Layout Konfiguration</title></info>
-        
+
 
         <para>
             Der empfohlene Ort für Layouts ist im Unterverzeichnis
@@ -47,7 +47,7 @@ resources.layout.layout = "layout"
     </section>
 
     <section xml:id="learning.layout.usage.layout-script"><info><title>Ein Layout Skript erstellen</title></info>
-        
+
 
         <para>
             Jetzt da man die Konfiguration gesetzt hat, muss man sein Layout Skript erstellen.
@@ -87,7 +87,7 @@ resources.layout.layout = "layout"
     </section>
 
     <section xml:id="learning.layout.usage.access"><info><title>Auf das Layout Objekt zugreifen</title></info>
-        
+
 
         <para>
             Manchmal ist ein Direktzugriff auf das Layout Objekt notwendig. Es gibt drei Wege wie
@@ -168,7 +168,7 @@ $layout = $bootstrap->getResource('Layout');
     </section>
 
     <section xml:id="learning.layout.usage.other-operations"><info><title>Andere Operationen</title></info>
-        
+
 
         <para>
             In den meisten Fällen empfängt die obige Konfiguration und das Layout Skript (mit

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="coding-standard"><info><title>Zend Framework PHP Coding Standard</title></info>
-  
+
     <section xml:id="coding-standard.overview"><info><title>Overview</title></info>
-        
+
 
         <section xml:id="coding-standard.overview.scope"><info><title>Scope</title></info>
-            
+
 
             <para>
             본 문서는 젠드 프래임워크를 개발하는 개발자 개인과 팀 혹은 단체에게 가이드라인과 리소스를 제공하는 문서입니다. 본문서에서는 다음의 주제들이 다루어 집니다.:
@@ -30,7 +30,7 @@
         </section>
 
         <section xml:id="coding-standard.overview.goals"><info><title>목표</title></info>
-            
+
 
             <para>
             바람직한 코딩 규약은 어떤 프로젝트에서나 중요한 요소로 작용합니다. 특히 동일 프로젝트를 여러명의 개발자가 동시에 작업할경우 더더욱 중요합니다. 코딩의 표준 규약은 소스 코드 자체의 높은 품질과, 적은 버그 그리고 손쉬운 유지관리에 많은 도움을 줍니다.
@@ -39,10 +39,10 @@
     </section>
 
     <section xml:id="coding-standard.php-file-formatting"><info><title>PHP 파일의 포멧</title></info>
-        
+
 
         <section xml:id="coding-standard.php-file-formatting.general"><info><title>일반 사항</title></info>
-            
+
 
             <para>
             오직 PHP코드만을 포함한 파일에서는, 코드의 맺음 태그("?&gt;")가 절대 허용되지 않습니다. 이는 PHP에 의해서 허용되지 않는 부분입니다. 맺음 태그를 포함하지 않는 것은 공백문자열이 아웃풋된 결과에 삽입되지 않도록 하기 위한 조취입니다.
@@ -54,13 +54,13 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.indentation"><info><title>인덴트</title></info>
-            
+
 
             <para>탭(Tab)이 아닌 4개의 공백문자(space)를 이용해 주십시오.</para>
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.max-line-length"><info><title>최대 허용 라인 줄수</title></info>
-            
+
 
             <para>
                   한줄에 허용되는 글자수는 80글자를 기준으로 삼습니다. 개발자는 가능한한 한줄안에 80컬럼내의 문자가 삽입되도록 해주십시요. 그러나 그 이상의 글자도 가능은 합니다. PHP 코드의 최대 허용 글자수는 120 캐릭터입니다.
@@ -68,7 +68,7 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.line-termination"><info><title>라인 터미네이션(줄바꾸기)</title></info>
-            
+
 
             <para>
             라인 터미네이션(줄바꾸기)은 유닉스 텍스트 파일의 그것과 동일합니다. 라인은 라인피드(LF)로 항상 끝나야 합니다. 라인피드(Linefeeds)는 오디날(ordinal) 10 혹은 16진수로 0x0A로 표현합니다.
@@ -85,10 +85,10 @@
     </section>
 
     <section xml:id="coding-standard.naming-conventions"><info><title>이름 규칙</title></info>
-        
+
 
         <section xml:id="coding-standard.naming-conventions.classes"><info><title>클라스</title></info>
-            
+
 
             <para>
             젠드 프래임워크는 클라스 이름과 그 클래스가 존재하는 디렉토리의 위치가 상호 매칭되는 구조를 가지고 있습니다.젠드 프래임워크의 최상위 디렉토리는 "Zend/"디렉토리이며 모든 클라스들은 이 아래에 계층적으로 위치하게 됩니다.
@@ -123,7 +123,7 @@ Zend_View_Helper
         </section>
 
         <section xml:id="coding-standard.naming-conventions.interfaces"><info><title>인터페이스</title></info>
-            
+
 
             <para>
                 인터페이스 클라스들은 다른 클라스들과 마찬가지의 이름 규칙을 이용합니다. 단 인터페이스들은 그 클라스 이름의 마지막이 "Interface"로 끝나야 합니다. 예:
@@ -136,7 +136,7 @@ Zend_Controller_Dispatcher_Interface
         </section>
 
         <section xml:id="coding-standard.naming-conventions.filenames"><info><title>파일이름</title></info>
-            
+
 
             <para>
                 그 외에 모든 파일들은 알파벳과 밑줄(_) 그리고 대쉬(-)만이 그 이름에 허용됩니다. 공백문자는 허용되지 않습니다.
@@ -158,7 +158,7 @@ Zend/View/Helper/FormRadio.php
         </section>
 
         <section xml:id="coding-standard.naming-conventions.functions-and-methods"><info><title>함수(Function)와 메소드들</title></info>
-            
+
 
             <para>
                 Function의 이름들은 알파벳만이 허용됩니다. 밑줄(_)은 허용되지 않습니다. Function이름에 숫자는 허용이 되나 권장되는 사항은 아닙니다.
@@ -195,7 +195,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.variables"><info><title>변수</title></info>
-            
+
 
             <para>
                 변수명은 오직 알파멧만 허용이 됩니다. 밑줄(_)은 허용되지 않습니다. 변수명에 숫자는 허용이 되지만 권장되지는 않습니다.
@@ -215,7 +215,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.constants"><info><title>상수</title></info>
-            
+
 
             <para>
                 상수의 이름들은 알바벳 캐릭터와 밑줄(_)을 동시에 포함할수 있습니다. 상수의 이름에 숫자는 허용됩니다.
@@ -236,10 +236,10 @@ widgetFactory()
     </section>
 
     <section xml:id="coding-standard.coding-style"><info><title>코딩 스타일</title></info>
-        
+
 
         <section xml:id="coding-standard.coding-style.php-code-demarcation"><info><title>PHP 코드의 구분</title></info>
-            
+
 
             <para>
                 PHP 코드는 항상 완젹한 표준 PHP 테그의 형태로 구분지어져야 합니다:
@@ -255,10 +255,10 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.coding-style.strings"><info><title>문자열</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.strings.literals"><info><title>단순 문자열</title></info>
-                
+
 
                 <para>
                     어떠한 변수도 포함하지 않은 단순 문자열의 경우 단따옴표 혹은 어퍼스트로피를 이용하여 문자열을 구별지어야 합니다:
@@ -270,7 +270,7 @@ $a = 'Example String';
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.literals-containing-apostrophes"><info><title>단따옴표를 포함한 문자열</title></info>
-                
+
 
                 <para>
                     문자열 자체가 어퍼스트로피(단따옴표)를 포함하고 있는 경우, "상따옴표"를 이용하여 구별되어 질수 있습니다. 이는 특히 SQL 구문의 처리시 유용합니다:
@@ -284,7 +284,7 @@ $sql = "SELECT `id`, `name` from `people` WHERE `name`='Fred' OR `name`='Susan'"
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.variable-substitution"><info><title>변수의 치환</title></info>
-                
+
 
                 <para>
                     변수의 치환은 다음 두가지 방법으로 허용됩니다.:
@@ -306,7 +306,7 @@ $greeting = "Hello ${name}, welcome back!";
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.string-concatenation"><info><title>변수의 연결</title></info>
-                
+
 
                 <para>
                     문자변수들은 "." 연산자를 이용하여 상호 연결됩니다. 좀더 편안한 가독을 위해 반드시 공백문자열이 "." 연산자 전후에 위치해야 합니다:
@@ -333,10 +333,10 @@ $sql = "SELECT `id`, `name` FROM `people` "
         </section>
 
         <section xml:id="coding-standard.coding-style.arrays"><info><title>어레이</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.arrays.numerically-indexed"><info><title>산술 인덱스 어레이</title></info>
-                
+
 
                 <para>음수는 인텍스로서 허용되지 않습니다.</para>
 
@@ -368,7 +368,7 @@ $sampleArray = array(1, 2, 3, 'Zend', 'Studio',
             </section>
 
             <section xml:id="coding-standard.coding-style.arrays.associative"><info><title>Associative Arrays</title></info>
-                
+
 
                 <para>
                     When declaring associative arrays with the <code>array</code> construct, it is encouraged
@@ -384,10 +384,10 @@ $sampleArray = array('firstKey'  => 'firstValue',
         </section>
 
         <section xml:id="coding-standard.coding-style.classes"><info><title>Classes</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.classes.declaration"><info><title>Class Declaration</title></info>
-                
+
 
                 <para>
                     Classes must be named by following the naming conventions.
@@ -418,7 +418,7 @@ class SampleClass
             </section>
 
             <section xml:id="coding-standard.coding-style.classes.member-variables"><info><title>클라스 뱀버 변수</title></info>
-                
+
 
                 <para>
                     Member variables must be named by following the variable naming conventions.
@@ -436,10 +436,10 @@ class SampleClass
         </section>
 
         <section xml:id="coding-standard.coding-style.functions-and-methods"><info><title>Functions and Methods</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.declaration"><info><title>Function and Method Declaration</title></info>
-                
+
 
                 <para>
                     Functions must be named by following the naming conventions.
@@ -530,7 +530,7 @@ class Foo
             </section>
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.usage"><info><title>Function과 Method의 사용</title></info>
-                
+
 
                 <para>
                     Function의 인자(arguments)들은 콤파 구분자와 하나의 공백문자로 구분되어 집니다. 다음은 세개의 인자를 가지고 있는 Function의 허용예입니다:
@@ -560,10 +560,10 @@ threeArguments(array(1, 2, 3, 'Zend', 'Studio',
         </section>
 
         <section xml:id="coding-standard.coding-style.control-statements"><info><title>Control Statements</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.control-statements.if-else-elseif"><info><title>If / Else / Elseif</title></info>
-                
+
 
                 <para>
                     Control statements based on the <code>if</code> and <code>elseif</code>
@@ -621,7 +621,7 @@ if ($a != 2) {
             </section>
 
             <section xml:id="coding-standards.coding-style.control-statements.switch"><info><title>Switch</title></info>
-                
+
 
                 <para>
                     Control statements written with the "switch" construct must have a single space before
@@ -661,10 +661,10 @@ switch ($numPeople) {
         </section>
 
         <section xml:id="coding-standards.inline-documentation"><info><title>Inline Documentation</title></info>
-            
+
 
             <section xml:id="coding-standards.inline-documentation.documentation-format"><info><title>Documentation Format</title></info>
-                
+
 
                 <para>
                     All documentation blocks ("docblocks") must be compatible with the phpDocumentor format.
@@ -680,7 +680,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.files"><info><title>Files</title></info>
-                
+
 
                 <para>
                     Every file that contains PHP code must have a header block at the top of the file that
@@ -704,7 +704,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.classes"><info><title>Classes</title></info>
-                
+
 
                 <para>
                     Every class must have a docblock that contains these phpDocumentor tags at a minimum:
@@ -727,7 +727,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.functions"><info><title>Functions</title></info>
-                
+
 
                 <para>
                 Every function, including object methods, must have a docblock that contains at a minimum:

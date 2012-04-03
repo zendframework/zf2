@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.filter_chains"><info><title>过滤器链</title></info>
 
-    
+
 
     <para>
         通常，多个过滤器可以以一个特定的顺序应用到某个值上。例如，登录表单的用户名，应为英文字符且小写。<code>Zend_Filter</code>提供了一个简单的方法，使过滤器可以链接在一起。下面的代码描述了怎样把2个过滤器链接起来且应用到提交上来的用户名值上：

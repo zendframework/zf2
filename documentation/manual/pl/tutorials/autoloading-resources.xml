@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.autoloading.resources"><info><title>Automatyczne ładowanie zasobów</title></info>
-    
+
 
     <para>
         Często, podczas tworzenia aplikacji, zachowanie zalecanego przez Zend Framework standardu
@@ -87,17 +87,17 @@ $guestbook = new Foo_Model_Guestbook();
 ]]></programlisting>
 
     <note><info><title>automatyczne ładowanie zasobu modułu</title></info>
-        
+
 
         <para>
             Implementacja wzorca projektowego <acronym>MVC</acronym> w Zend Framework zachęca do
             używania modułów, które są mini-aplikacjami w ramach tworzonego programu. Moduły
-            przeważnie posiadają wiele typów zasobów a Zend Framework nawet 
+            przeważnie posiadają wiele typów zasobów a Zend Framework nawet
             <link linkend="project-structure.filesystem">zaleca standardową strukturę katalogów
             dla modułu</link>. Autoloader zasobów staje się bardzo przydatny w tym kontekście.
             Przez to, jeśli umieści się plik z klasą bootstrap pochodną do
             <classname>Zend_Application_Module_Bootstrap</classname> to autoloader zostanie
-            domyślnie włączony. Aby uzyskać więcej informacji należy zapoznać się z 
+            domyślnie włączony. Aby uzyskać więcej informacji należy zapoznać się z
             <link linkend="zend.loader.autoloader-resource.module"> dokumentacją
             Zend_Loader_Autoloader_Module</link>.
         </para>

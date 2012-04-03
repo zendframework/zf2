@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.java-lucene"><info><title>Agir avec Lucene Java</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.index-creation.file-formats"><info><title>Formats de fichier</title></info>
-        
+
 
         <para>
             Les formats des fichiers d'index de <classname>Zend_Search_Lucene</classname> sont
@@ -22,7 +22,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.index-creation.index-directory"><info><title>Répertoire Index</title></info>
-        
+
 
         <para>
             Après la création de l'index, le répertoire d'index contiendra plusieurs
@@ -54,7 +54,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.java-lucene.source-code"><info><title>Code source Java</title></info>
-        
+
 
         <para>
             Le programme Java ci-après montre comment indexer un fichier en utilisant Java

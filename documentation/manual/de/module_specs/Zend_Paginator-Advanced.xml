@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.paginator.advanced"><info><title>Advanced usage</title></info>
-    
+
 
     <section xml:id="zend.paginator.advanced.adapters"><info><title>Eigene Adapter für Quelldaten</title></info>
-        
+
 
         <para>
             An irgendeinem Punkt kann es passieren das man auf einen Datentyp stößt der nicht von
@@ -55,7 +55,7 @@ return array_slice($this->_array, $offset, $itemCountPerPage);
     </section>
 
     <section xml:id="zend.paginator.advanced.scrolling-styles"><info><title>Eigene Scrolling Stile</title></info>
-        
+
 
         <para>
             Das Erstellen von eigenen Scrolling Stilen erfordert das man
@@ -102,7 +102,7 @@ Zend_Paginator::addScrollingStylePrefixPath($prefix, $path);
     </section>
 
     <section xml:id="zend.paginator.advanced.caching"><info><title>Caching features</title></info>
-        
+
 
         <para>
             <classname>Zend_Paginator</classname> kann gesagt werden das es die Daten die Ihm
@@ -194,7 +194,7 @@ var_dump($paginator->getPageItemCache());
     </section>
 
     <section xml:id="zend.paginator.advanced.aggregator"><info><title>Zend_Paginator_AdapterAggregate Interface</title></info>
-        
+
 
         <para>
             Abhängig von der Anwendung kann es gewünscht sein Objekte zu Seiten zu verarbeiten,

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.drawing"><info><title>Рисование<!-- Drawing. --></title></info>
-    
+
 
     <section xml:id="zend.pdf.drawing.geometry"><info><title>Геометрия<!-- Geometry.--></title></info>
-        
+
         <para>
         PDF использует ту же самую геометрию, что и PostScript. Она начинается с
         нижнего левого угла страницы и по умолчанию измеряется в пойнтах (1/72 дюйма).
@@ -25,7 +25,7 @@ $height = $pdfPage->getHeight();
     </section>
 
     <section xml:id="zend.pdf.drawing.color"><info><title>Цвета<!-- Colors. --></title></info>
-        
+
         <para>
         PDF имеет мощные возможности для представления цветов. Модуль Zend_Pdf
         поддерживает шкалу серого цвета, цветовые пространства RGB и CMYK.
@@ -57,7 +57,7 @@ $color3 = new Zend_Pdf_Color_CMYK($c, $m, $y, $k);
 
 
     <section xml:id="zend.pdf.drawing.shape-drawing"><info><title>Рисование фигур<!-- Shape Drawing. --></title></info>
-        
+
         <para>
         Все операции прорисовки могут быть выполнены в контексте страницы PDF.
 <!--
@@ -170,7 +170,7 @@ public function drawEllipse($x1, $y1, $x2, $y2, $param5 = null, $param6 = null, 
     </section>
 
     <section xml:id="zend.pdf.drawing.text-drawing"><info><title>Написание текста<!-- Text Drawing.--></title></info>
-        
+
         <para>
         Операции по написанию текста также существуют в контексте страницы PDF.
 <!--
@@ -198,7 +198,7 @@ public function drawText($text, $x, $y );
     </section>
 
     <section xml:id="zend.pdf.drawing.using-fonts"><info><title>Применение шрифтов<!-- Using fonts. --></title></info>
-        
+
         <para>
         Метод <code>Zend_Pdf_Page::drawText()</code> использует текущий шрифт,
         который может быть установлен методом <code>Zend_Pdf_Page::setFont()</code>:
@@ -229,7 +229,7 @@ public function setFont(Zend_Pdf_Font $font, $fontSize);
 -->
         </para>
         <example><info><title>Создание стандартного шрифта<!-- Create standard font.--></title></info>
-            
+
             <programlisting language="php"><![CDATA[<?php
 ...
 // Создание нового шрифта
@@ -295,7 +295,7 @@ $pdfPage->setFont($font, 36);
     </section>
 
     <section xml:id="zend.pdf.drawing.image-drawing"><info><title>Рисование изображений<!-- Image Drawing. --></title></info>
-        
+
         <para>
         Класс предоставляет метод <code>drawImage()</code> для рисования изображений.
 <!--
@@ -324,7 +324,7 @@ public function drawImage(Zend_Pdf_Resource_Image $image, $x1, $y1, $x2, $y2);
 -->
         </para>
         <example><info><title>Рисование изображения<!-- Image drawing.--></title></info>
-            
+
             <programlisting language="php"><![CDATA[<?php
 ...
 // Загрузка изображения
@@ -359,7 +359,7 @@ $pdfPage->drawImage($image, 100, 100, 400, 300);
     </section>
 
     <section xml:id="zend.pdf.drawing.line-drawing-style"><info><title>Стили рисования линий<!-- Line drawing style.--></title></info>
-        
+
         <para>
         Стили рисования линий определяются толщиной линии, цветом линии и шаблоном
         пунктира. Все эти параметры могут быть определены методами класса
@@ -392,7 +392,7 @@ public function setLineDashingPattern($pattern, $phase = 0);
     </section>
 
     <section xml:id="zend.pdf.drawing.fill-style"><info><title>Стиль заполнения<!-- Fill style.--></title></info>
-        
+
         <para>
         Методы <code>Zend_Pdf_Page::drawRectangle()</code>, <code>Zend_Pdf_Page::drawPoligon()</code>,
         <code>Zend_Pdf_Page::drawCircle()</code> и <code>Zend_Pdf_Page::drawEllipse()</code>
@@ -555,7 +555,7 @@ regardless of the directions in which the circles are drawn.
     </section>
 
     <section xml:id="zend.pdf.drawing.rotations"><info><title>Поворот<!-- Rotations. --></title></info>
-        
+
         <para>
         Страница PDF может быть повернута перед применением любых операций рисования.
         Это может быть сделано методом <code>Zend_Pdf_Page::rotate()</code>:
@@ -575,7 +575,7 @@ public function rotate($x, $y, $angle);
     </section>
 
     <section xml:id="zend.pdf.drawing.save-restore"><info><title>Сохранение/восстановление графического состояния<!-- Save/restore graphics state.--></title></info>
-        
+
         <para>
         В любое время графическое состояние страницы (текущий шрифт, размер шрифта,
         цвет линии, цвет заполнения, стиль линии, поворот страницы, область ограничения) может
@@ -612,7 +612,7 @@ public function restoreGS();
     </section>
 
     <section xml:id="zend.pdf.drawing.clipping"><info><title>Ограничение области рисования<!-- Clipping draw area. --></title></info>
-        
+
         <para>
         PDF и модуль Zend_Pdf поддерживают ограничение области рисования.
         Ограничение определяет область страницы, затрагиваемой
@@ -684,7 +684,7 @@ public function clipEllipse($x1, $y1, $x2, $y2, $startAngle = null, $endAngle = 
     </section>
 
     <section xml:id="zend.pdf.drawing.styles"><info><title>Стили<!-- Styles. --></title></info>
-        
+
         <para>
         Класс <code>Zend_Pdf_Style</code> предоставляет набор функциональных
         возможностей для работы со стилями.

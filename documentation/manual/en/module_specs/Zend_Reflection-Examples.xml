@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.reflection.examples"><info><title>Zend_Reflection Examples</title></info>
-    
+
 
     <example xml:id="zend.reflection.examples.file"><info><title>Performing reflection on a file</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $r = new Zend_Reflection_File($filename);
@@ -29,7 +29,7 @@ foreach ($functions as $function) {
     </example>
 
     <example xml:id="zend.reflection.examples.class"><info><title>Performing reflection on a class</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $r = new Zend_Reflection_Class($class);
@@ -47,7 +47,7 @@ $file = $r->getDeclaringFile();
     </example>
 
     <example xml:id="zend.reflection.examples.method"><info><title>Performing reflection on a method</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $r = new Zend_Reflection_Method($class, $name);
@@ -69,7 +69,7 @@ foreach ($r->getParameters() as $key => $param) {
     </example>
 
     <example xml:id="zend.reflection.examples.docblock"><info><title>Performing reflection on a docblock</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $r = new Zend_Reflection_Method($class, $name);

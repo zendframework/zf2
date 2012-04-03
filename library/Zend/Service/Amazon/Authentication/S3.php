@@ -44,9 +44,9 @@ class S3 extends Authentication
         if (! is_array($headers)) {
             $headers = array($headers);
         }
-        
+
         $type = $md5 = $date = '';
-        
+
         // Search for the Content-type, Content-MD5 and Date headers
         foreach ($headers as $key => $val) {
             if (strcasecmp($key, 'content-type') == 0) {
@@ -57,12 +57,12 @@ class S3 extends Authentication
                 $date = $val;
             }
         }
-        
+
         // If we have an x-amz-date header, use that instead of the normal Date
         if (isset($headers['x-amz-date']) && isset($date)) {
             $date = '';
         }
-        
+
         $sig_str = "$method\n$md5\n$type\n$date\n";
 
         // For x-amz- headers, combine like keys, lowercase them, sort them
@@ -84,18 +84,18 @@ class S3 extends Authentication
                 $sig_str .= $key . ':' . implode(',', $val) . "\n";
             }
         }
-        
+
         $sig_str .= '/'.parse_url($path, PHP_URL_PATH);
         if (strpos($path, '?location') !== false) {
             $sig_str .= '?location';
-        } else 
+        } else
             if (strpos($path, '?acl') !== false) {
                 $sig_str .= '?acl';
-            } else 
+            } else
                 if (strpos($path, '?torrent') !== false) {
                     $sig_str .= '?torrent';
                 }
-        
+
         $signature = base64_encode(Crypt\Hmac::compute($this->_secretKey, 'sha1', utf8_encode($sig_str), Crypt\Hmac::BINARY));
         $headers['Authorization'] = 'AWS ' . $this->_accessKey . ':' . $signature;
 

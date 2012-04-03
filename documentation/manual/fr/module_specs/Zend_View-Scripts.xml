@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.scripts"><info><title>Scripts de vue</title></info>
-    
+
 
     <para>
         Une fois que le contrôleur a assigné les variables et appelé <methodname>render()</methodname>,
@@ -50,7 +50,7 @@
 ]]></programlisting>
 
     <section xml:id="zend.view.scripts.escaping"><info><title>Échapper la sortie</title></info>
-        
+
 
         <para>
             Une des tâches les plus importantes à effectuer dans un script de vue est de
@@ -109,7 +109,7 @@ echo $view->render(...);
     </section>
 
     <section xml:id="zend.view.scripts.templates"><info><title>Utiliser des systèmes de gabarit (template) alternatifs</title></info>
-        
+
 
         <para>
             Bien que <acronym>PHP</acronym> lui-même un moteur de gabarit puissant, beaucoup de développeurs
@@ -120,7 +120,7 @@ echo $view->render(...);
         </para>
 
         <section xml:id="zend.view.scripts.templates.scripts"><info><title>Système de gabarit utilisant les scripts de vues</title></info>
-            
+
 
             <para>
                 Un script de vue peut être utilisé pour instancier et manipuler un objet de
@@ -175,7 +175,7 @@ if ($this->livres) {
         </section>
 
         <section xml:id="zend.view.scripts.templates.interface"><info><title>Système de gabarit utilisant Zend_View_Interface</title></info>
-            
+
 
             <para>
                 Certains peuvent trouver plus facile de simplement fournir un moteur de

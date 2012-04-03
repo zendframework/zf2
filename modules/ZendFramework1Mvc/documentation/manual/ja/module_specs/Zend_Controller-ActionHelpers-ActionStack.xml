@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.actionstack"><info><title>ActionStack</title></info>
-    
+
 
     <para>
         <emphasis>ActionStack</emphasis> ヘルパーは、リクエストをフロントコントローラの
@@ -13,7 +13,7 @@
     </para>
 
     <note><info><title>ActionStack ヘルパーを起動すると ActionStack プラグインが初期化される</title></info>
-        
+
 
         <para>
             <emphasis>ActionStack</emphasis> を起動すると、暗黙のうちに
@@ -24,7 +24,7 @@
     </note>
 
     <example xml:id="zend.controller.actionhelpers.actionstack.simple"><info><title>アクション、コントローラおよびモジュール名によるタスクの追加</title></info>
-        
+
 
         <para>
             単純にアクションとコントローラそしてモジュール
@@ -56,7 +56,7 @@ class FooController extends Zend_Controller_Action
     </example>
 
     <example xml:id="zend.controller.actionhelpers.actionstack.simple2"><info><title>リクエストオブジェクトによるタスクの追加</title></info>
-        
+
 
         <para>
             時にはリクエストオブジェクトのオブジェクト指向的な部分が使いたいこともあるでしょう。

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.standard-autoloader"><info><title>The StandardAutoloader</title></info>
-    
+
 
     <section xml:id="zend.loader.standard-autoloader.intro"><info><title>Overview</title></info>
-        
+
 
         <para>
             <classname>Zend\Loader\StandardAutoloader</classname> is designed as a <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://groups.google.com/group/php-standards/web/psr-0-final-proposal">PSR-0</link>-compliant
@@ -13,7 +13,7 @@
         </para>
 
         <programlisting xml:lang="php"><![CDATA[
-$filename = str_replace(array('_', '\\'), DIRECTORY_SEPARATOR, $classname) 
+$filename = str_replace(array('_', '\\'), DIRECTORY_SEPARATOR, $classname)
           . '.php';
 ]]></programlisting>
 
@@ -70,7 +70,7 @@ $filename = str_replace(array('_', '\\'), DIRECTORY_SEPARATOR, $classname)
         </para>
 
         <note><info><title>Vocabulary: Namespaces vs. Vendor Prefixes</title></info>
-            
+
 
             <para>
                 In terms of autloading, a "namespace" corresponds to PHP's own definition of
@@ -94,7 +94,7 @@ $filename = str_replace(array('_', '\\'), DIRECTORY_SEPARATOR, $classname)
     </section>
 
     <section xml:id="zend.loader.standard-autoloader.quick-start"><info><title>Quick Start</title></info>
-        
+
 
         <para>
             Basic use of the <classname>StandardAutoloader</classname> requires simply registering
@@ -109,7 +109,7 @@ $filename = str_replace(array('_', '\\'), DIRECTORY_SEPARATOR, $classname)
         </para>
 
         <example xml:id="zend.loader.standard-autoloader.quick-start.example-manual-configuration"><info><title>Manual Configuration</title></info>
-            
+
 
             <programlisting xml:lang="php"><![CDATA[
 // This example assumes ZF is on your include_path.
@@ -134,7 +134,7 @@ $loader->register();
         </example>
 
         <example xml:id="zend.loader.standard-autoloader.quick-start.example-constructor-configuration"><info><title>Configuration at Instantiation</title></info>
-            
+
 
             <para>
                 The <classname>StandardAutoloader</classname> may also be configured at
@@ -181,14 +181,14 @@ $loader->register();
     </section>
 
     <section xml:id="zend.loader.standard-autoloader.options"><info><title>Configuration Options</title></info>
-        
+
 
         <para>
             The <classname>StandardAutoloader</classname> defines the following options.
         </para>
 
         <variablelist><info><title>StandardAutoloader Options</title></info>
-            
+
 
             <varlistentry>
                 <term>namespaces</term>
@@ -232,7 +232,7 @@ $loader->register();
     </section>
 
     <section xml:id="zend.loader.standard-autoloader.methods"><info><title>Available Methods</title></info>
-        
+
 
         <refentry xml:id="zend.loader.standard-autoloader.methods.constructor">
             <refnamediv>
@@ -250,7 +250,7 @@ $loader->register();
             </refsynopsisdiv>
 
             <refsection><info><title>Constructor</title></info>
-                
+
 
                 <para>
                     Takes an optional <varname>$options</varname> argument. This argument may be an
@@ -276,7 +276,7 @@ $loader->register();
             </refsynopsisdiv>
 
             <refsection><info><title>setOptions()</title></info>
-                
+
 
                 <para>
                     Takes an argument of either an associative array or
@@ -323,7 +323,7 @@ $loader->register();
             </refsynopsisdiv>
 
             <refsection><info><title>setFallbackAutoloader()</title></info>
-                
+
 
                 <para>
                     Takes a boolean flag indicating whether or not to act as a fallback autoloader
@@ -345,7 +345,7 @@ $loader->register();
             </refsynopsisdiv>
 
             <refsection><info><title>isFallbackAutoloader()</title></info>
-                
+
 
                 <para>
                     Indicates whether or not this instance is flagged as a fallback autoloader.
@@ -369,7 +369,7 @@ $loader->register();
             </refsynopsisdiv>
 
             <refsection><info><title>registerNamespace()</title></info>
-                
+
 
                 <para>
                     Register a namespace with the autoloader, pointing it to a specific directory on
@@ -395,7 +395,7 @@ $loader->register();
             </refsynopsisdiv>
 
             <refsection><info><title>registerNamespaces()</title></info>
-                
+
 
                 <para>
                     Accepts either an array or <interfacename>Traversable</interfacename> object. It
@@ -420,7 +420,7 @@ $loader->register();
             </refsynopsisdiv>
 
             <refsection><info><title>registerPrefix()</title></info>
-                
+
 
                 <para>
                     Register a vendor prefix with the autoloader, pointing it to a specific
@@ -447,7 +447,7 @@ $loader->register();
             </refsynopsisdiv>
 
             <refsection><info><title>registerPrefixes()</title></info>
-                
+
 
                 <para>
                     Accepts either an array or <interfacename>Traversable</interfacename> object. It
@@ -472,7 +472,7 @@ $loader->register();
             </refsynopsisdiv>
 
             <refsection><info><title>autoload()</title></info>
-                
+
 
                 <para>
                     Attempts to load the class specified. Returns a boolean
@@ -495,7 +495,7 @@ $loader->register();
             </refsynopsisdiv>
 
             <refsection><info><title>register()</title></info>
-                
+
 
                 <para>
                     Registers the <methodname>autoload()</methodname> method of the current instance
@@ -506,7 +506,7 @@ $loader->register();
     </section>
 
     <section xml:id="zend.loader.standard-autoloader.examples"><info><title>Examples</title></info>
-        
+
 
         <para>
             Please review the <link linkend="zend.loader.standard-autoloader.quick-start">examples

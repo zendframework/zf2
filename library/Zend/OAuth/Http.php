@@ -75,8 +75,8 @@ class Http
      * @return void
      */
     public function __construct(
-        Consumer $consumer, 
-        array $parameters = null, 
+        Consumer $consumer,
+        array $parameters = null,
         Http\Utility $utility = null
     ) {
         $this->_consumer = $consumer;
@@ -228,7 +228,7 @@ class Http
             default:
                 throw new Exception(
                     'Could not retrieve a valid Token response from Token URL:'
-                    . ($response !== null 
+                    . ($response !== null
                         ? PHP_EOL . $response->getBody()
                         : ' No body - check for headers')
                 );

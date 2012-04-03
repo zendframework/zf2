@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.version.reading"><info><title>Citirea versiunii de Zend Framework</title></info>
 
-    
+
 
     <para>
         Constata de clasă <code>Zend_Version::VERSION</code>
@@ -20,7 +20,7 @@
     </para>
 
     <example xml:id="zend.version.reading.example"><info><title>Examplu pentru metoda compareVersion()</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 // returns -1, 0 or 1
 $cmp = Zend_Version::compareVersion('1.0.0');

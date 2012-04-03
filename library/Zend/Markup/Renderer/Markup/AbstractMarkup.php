@@ -142,7 +142,7 @@ abstract class AbstractMarkup implements Markup
 
     /**
      * Filter
-     * 
+     *
      * @param string $value
      *
      * @return string

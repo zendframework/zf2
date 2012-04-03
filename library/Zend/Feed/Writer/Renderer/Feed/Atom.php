@@ -41,8 +41,8 @@ class Atom extends AbstractAtom implements Renderer\Renderer
 {
     /**
      * Constructor
-     * 
-     * @param  Zend_Feed_Writer_Feed $container 
+     *
+     * @param  Zend_Feed_Writer_Feed $container
      * @return void
      */
     public function __construct (Writer\Feed $container)
@@ -52,7 +52,7 @@ class Atom extends AbstractAtom implements Renderer\Renderer
 
     /**
      * Render Atom feed
-     * 
+     *
      * @return Zend_Feed_Writer_Renderer_Feed_Atom
      */
     public function render()
@@ -82,14 +82,14 @@ class Atom extends AbstractAtom implements Renderer\Renderer
         $this->_setCopyright($this->_dom, $root);
         $this->_setCategories($this->_dom, $root);
         $this->_setHubs($this->_dom, $root);
-        
+
         foreach ($this->_extensions as $ext) {
             $ext->setType($this->getType());
             $ext->setRootElement($this->getRootElement());
             $ext->setDOMDocument($this->getDOMDocument(), $root);
             $ext->render();
         }
-        
+
         foreach ($this->_container as $entry) {
             if ($this->getDataContainer()->getEncoding()) {
                 $entry->setEncoding($this->getDataContainer()->getEncoding());

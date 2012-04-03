@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.introduction"><info><title>Bevezetés</title></info>
-    
+
 
     <para>
         A <classname>Zend_Application</classname> egy rendszertöltőt nyújt

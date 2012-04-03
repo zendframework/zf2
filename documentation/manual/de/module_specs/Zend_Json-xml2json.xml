@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.xml2json"><info><title>XML zu JSON Konvertierung</title></info>
-    
+
 
     <para>
         <classname>Zend_Json</classname> bietet eine bequeme Methode für das transformieren von

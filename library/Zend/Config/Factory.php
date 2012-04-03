@@ -24,7 +24,7 @@ use Zend\Stdlib\ArrayUtils;
 
 /**
  * Declared abstract to prevent instantiation
- * 
+ *
  * @category  Zend
  * @package   Zend_Config
  * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
@@ -46,34 +46,34 @@ abstract class Factory
      * Read a config from a file.
      *
      * @param  string  $filename
-     * @param  boolean $returnConfigObject 
+     * @param  boolean $returnConfigObject
      * @return array|Config
      */
     public static function fromFile($filename, $returnConfigObject = false)
     {
         $pathinfo = pathinfo($filename);
-        
+
         if (!isset($pathinfo['extension'])) {
             throw new Exception\RuntimeException(sprintf(
                 'Filename "%s" is missing an extension and cannot be auto-detected',
                 $filename
             ));
         }
-        
+
         $extension = strtolower($pathinfo['extension']);
-       
+
         if ($extension === 'php') {
             if (!is_file($filename) || !is_readable($filename)) {
                 throw new Exception\RuntimeException(sprintf('Filename "%s" is either not a file or not readable', $filename));
             }
-            
+
             $config = include $filename;
         } elseif (isset(self::$readers[$extension])) {
             if (is_string(self::$readers[$extension])) {
                 $classname = __NAMESPACE__ . '\\Reader\\' . self::$readers[$extension];
                 self::$readers[$extension] = new $classname();
             }
-            
+
             $config = self::$readers[$extension]->fromFile($filename);
         } else {
             throw new Exception\RuntimeException(sprintf(
@@ -89,7 +89,7 @@ abstract class Factory
      * Read configuration from multiple files and merge them.
      *
      * @param  array   $files
-     * @param  boolean $returnConfigObject 
+     * @param  boolean $returnConfigObject
      * @return array|Config
      */
     public static function fromFiles(array $files, $returnConfigObject = false)

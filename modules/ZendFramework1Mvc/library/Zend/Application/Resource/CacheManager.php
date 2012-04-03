@@ -58,7 +58,7 @@ class CacheManager extends AbstractResource
     {
         if (null === $this->_manager) {
             $this->_manager = new \Zend\Cache\Manager;
-            
+
             $options = $this->getOptions();
             foreach ($options as $key => $value) {
                 if ($this->_manager->hasCacheTemplate($key)) {
@@ -68,7 +68,7 @@ class CacheManager extends AbstractResource
                 }
             }
         }
-        
+
         return $this->_manager;
     }
 }

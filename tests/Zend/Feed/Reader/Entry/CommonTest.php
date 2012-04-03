@@ -112,7 +112,7 @@ class CommonTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals(null, $entry->getExtension('Foo'));
     }
-    
+
     /**
      * @group ZF-8213
      */
@@ -124,7 +124,7 @@ class CommonTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('UTF-8', $entry->getEncoding());
     }
-    
+
     /**
      * @group ZF-8213
      */

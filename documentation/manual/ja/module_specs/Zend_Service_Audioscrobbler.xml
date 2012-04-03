@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.audioscrobbler"><info><title>Zend_Service_Audioscrobbler</title></info>
 
-    
+
 
     <section xml:id="zend.service.audioscrobbler.introduction"><info><title>導入</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Service_Audioscrobbler</classname> は、Audioscrobbler REST ウェブサービス
@@ -25,7 +25,7 @@
 
     <section xml:id="zend.service.audioscrobbler.users"><info><title>ユーザ (Users)</title></info>
 
-        
+
 
         <para>
             特定のユーザについての情報を取得するには、
@@ -179,7 +179,7 @@
 
         <example xml:id="zend.service.audioscrobbler.users.example.profile_information"><info><title>ユーザのプロファイル情報の取得</title></info>
 
-            
+
 
             <para>
                 この例では、<methodname>setUser()</methodname> メソッドおよび
@@ -202,7 +202,7 @@ print "$profileInfo->realname の情報は "
 
         <example xml:id="zend.service.audioscrobbler.users.example.weekly_artist_chart"><info><title>あるユーザの週間アーティストチャートの取得</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $as = new Zend_Service_Audioscrobbler();
@@ -236,7 +236,7 @@ foreach ($previousWeeklyArtists as $artist) {
 
     <section xml:id="zend.service.audioscrobbler.artists"><info><title>アーティスト (Artists)</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Service_Audioscrobbler</classname> は、<methodname>setArtist()</methodname>
@@ -282,7 +282,7 @@ foreach ($previousWeeklyArtists as $artist) {
 
         <example xml:id="zend.service.audioscrobbler.artists.example.related_artists"><info><title>関連するアーティストの取得</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $as = new Zend_Service_Audioscrobbler();
@@ -302,7 +302,7 @@ foreach ($relatedArtists as $artist) {
 
     <section xml:id="zend.service.audioscrobbler.tracks"><info><title>曲 (Tracks)</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Service_Audioscrobbler</classname> は、<methodname>setTrack()</methodname>
@@ -329,7 +329,7 @@ foreach ($relatedArtists as $artist) {
 
     <section xml:id="zend.service.audioscrobbler.tags"><info><title>タグ (Tags)</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Service_Audioscrobbler</classname> は、<methodname>setTag()</methodname>
@@ -370,7 +370,7 @@ foreach ($relatedArtists as $artist) {
 
     <section xml:id="zend.service.audioscrobbler.groups"><info><title>グループ (Groups)</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Service_Audioscrobbler</classname> は、<methodname>setGroup()</methodname>
@@ -444,7 +444,7 @@ foreach ($relatedArtists as $artist) {
 
     <section xml:id="zend.service.audioscrobbler.forums"><info><title>フォーラム (Forums)</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Service_Audioscrobbler</classname> は、<methodname>setForum()</methodname>

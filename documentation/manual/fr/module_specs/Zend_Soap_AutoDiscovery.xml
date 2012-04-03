@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.autodiscovery"><info><title>Auto découverte</title></info>
-    
+
 
     <section xml:id="zend.soap.autodiscovery.introduction"><info><title>Introduction à l'auto découverte</title></info>
-        
+
 
         <para>
             Les fonctionnalités <acronym>SOAP</acronym> de Zend Framework sont proposées afin de simplifier
@@ -100,7 +100,7 @@ $autodiscover->handle();
         </para>
 
         <note xml:id="zend.soap.autodiscovery.introduction.noserver"><info><title>Zend_Soap_Autodiscover n'est pas un serveur SOAP</title></info>
-            
+
 
             <para>
                 Il est très important de noter, que la classe
@@ -134,7 +134,7 @@ if(isset($_GET['wsdl'])) {
         </section>
 
         <section xml:id="zend.soap.autodiscovery.class"><info><title>Auto découverte de classe</title></info>
-            
+
 
         <para>
             Si une classe est utilisée dans un serveur SOAP, alors celle-ci devrait aussi être
@@ -204,7 +204,7 @@ $autodiscover->handle();
             </para>
 
         <note><info><title>Important !</title></info>
-            
+
 
             <para>
                 L'auto génération du fichier WSDL (avec auto découverte de la classe) utilise
@@ -223,7 +223,7 @@ $autodiscover->handle();
     </section>
 
     <section xml:id="zend.soap.autodiscovery.functions"><info><title>Auto découverte des fonctions</title></info>
-        
+
 
         <para>
             Si des fonctions doivent être utilisées (partagées) via un serveur SOAP, alors
@@ -292,7 +292,7 @@ $autodiscover->handle();
             </para>
 
         <note><info><title>Important!</title></info>
-            
+
 
             <para>
                 L'auto génération du fichier WSDL (avec auto découverte des fonctions) utilise
@@ -311,7 +311,7 @@ $autodiscover->handle();
     </section>
 
     <section xml:id="zend.soap.autodiscovery.datatypes"><info><title>Types de donnée auto découverts</title></info>
-        
+
 
         <para>
             Les types de données d'entrée/sortie sont convertis en types spéciaux pour le
@@ -388,7 +388,7 @@ $autodiscover->handle();
     </section>
 
     <section xml:id="zend.soap.autodiscovery.wsdlstyles"><info><title>Styles de liaisons WSDL</title></info>
-        
+
 
         <para>
             WSDL offre différents mécanismes et styles de transport. Ceci affecte les balises

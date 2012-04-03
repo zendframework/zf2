@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.statement"><info><title>Zend_Db_Statement</title></info>
-    
+
 
     <para>
         Zusätzlich zu den herkömmlichen Methoden wie <methodname>fetchAll()</methodname> und
@@ -16,7 +16,7 @@
     </para>
 
     <section xml:id="zend.db.statement.creating"><info><title>Erzeugung von Statement Objekten</title></info>
-        
+
 
         <para>
             Normalerweise wird ein Statement Objekt von der <methodname>query()</methodname>
@@ -28,7 +28,7 @@
         </para>
 
         <example xml:id="zend.db.statement.creating.example1"><info><title>Erzeugung eines SQL Statement Objekts mit query()</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $stmt = $db->query(
@@ -55,7 +55,7 @@ $stmt = $db->query(
         </para>
 
         <example xml:id="zend.db.statement.creating.example2"><info><title>Nutzung des SQL Statement Konstruktors</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $sql = 'SELECT * FROM bugs WHERE reported_by = ? AND bug_status = ?';
@@ -66,7 +66,7 @@ $stmt = new Zend_Db_Statement_Mysqli($db, $sql);
     </section>
 
     <section xml:id="zend.db.statement.executing"><info><title>Ausführen eines Statements</title></info>
-        
+
 
         <para>
             Ein Statement Objekt muss ausgeführt werden wenn es über den Konstruktor erzeugt wurde,
@@ -82,7 +82,7 @@ $stmt = new Zend_Db_Statement_Mysqli($db, $sql);
         </para>
 
         <example xml:id="zend.db.statement.executing.example1"><info><title>Ausführen eines Statements mit positionierten Parametern</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $sql = 'SELECT * FROM bugs WHERE reported_by = ? AND bug_status = ?';
@@ -101,7 +101,7 @@ $stmt->execute(array('goofy', 'FIXED'));
         </para>
 
         <example xml:id="zend.db.statement.executing.example2"><info><title>Ausführen eines Statements mit benannten Parametern</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $sql = 'SELECT * FROM bugs WHERE ' .
@@ -122,7 +122,7 @@ $stmt->execute(array(':reporter' => 'goofy', ':status' => 'FIXED'));
     </section>
 
     <section xml:id="zend.db.statement.fetching"><info><title>Holen von Ergebnissen eines SELECT Statements</title></info>
-        
+
 
         <para>
             Es können Methoden des Statement Objekts aufgefufen werden um Zeilen von
@@ -137,7 +137,7 @@ $stmt->execute(array(':reporter' => 'goofy', ':status' => 'FIXED'));
         </para>
 
         <section xml:id="zend.db.statement.fetching.fetch"><info><title>Holen einer einzelnen Zeile eines Ergebnissatzes</title></info>
-            
+
 
             <para>
                 Um eine einzelne Zeile eines Ergebnissatzes aubzurufen kann die
@@ -184,7 +184,7 @@ $stmt->execute(array(':reporter' => 'goofy', ':status' => 'FIXED'));
             </para>
 
             <example xml:id="zend.db.statement.fetching.fetch.example"><info><title>Nutzung fetch() in einer Schleife</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $stmt = $db->query('SELECT * FROM bugs');
@@ -202,7 +202,7 @@ while ($row = $stmt->fetch()) {
         </section>
 
         <section xml:id="zend.db.statement.fetching.fetchall"><info><title>Holen eines gesamten Ergebnissatzes</title></info>
-            
+
 
             <para>
                 Um alle Zeilen eines Ergebnissatzes in einem Schritt abzurufen wird die
@@ -215,7 +215,7 @@ while ($row = $stmt->fetch()) {
             </para>
 
             <example xml:id="zend.db.statement.fetching.fetchall.example"><info><title>Nutzung von fetchAll()</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $stmt = $db->query('SELECT * FROM bugs');
@@ -232,7 +232,7 @@ echo $rows[0]['bug_description'];
         </section>
 
         <section xml:id="zend.db.statement.fetching.fetch-mode"><info><title>Ändern des Fetch Modus</title></info>
-            
+
 
             <para>
                 Standardmäßig gibt das Statement Objekt Zeilen des Ergebnissatzes als assoziatives
@@ -249,7 +249,7 @@ echo $rows[0]['bug_description'];
             </para>
 
             <example xml:id="zend.db.statement.fetching.fetch-mode.example"><info><title>Ändern des Fetch-Modus</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $stmt = $db->query('SELECT * FROM bugs');
@@ -268,7 +268,7 @@ echo $rows[0][0];
         </section>
 
         <section xml:id="zend.db.statement.fetching.fetchcolumn"><info><title>Holen einer einzelnen Spalte eines Ergebnissatzes</title></info>
-            
+
 
             <para>
                 <methodname>fetchColumn()</methodname> wird verwendet mm eine einzelne Spalte eines
@@ -288,7 +288,7 @@ echo $rows[0][0];
             </para>
 
             <example xml:id="zend.db.statement.fetching.fetchcolumn.example"><info><title>Nutzung von fetchColumn()</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $stmt = $db->query('SELECT bug_id, bug_description, bug_status FROM bugs');
@@ -303,7 +303,7 @@ $bug_status = $stmt->fetchColumn(2);
         </section>
 
         <section xml:id="zend.db.statement.fetching.fetchobject"><info><title>Holen einer Zeile als Objekt</title></info>
-            
+
 
             <para>
                 Um eine Zeile eines Ergebnissatzes zu holen, die wie ein Objekt strukturiert ist,
@@ -315,7 +315,7 @@ $bug_status = $stmt->fetchColumn(2);
             </para>
 
             <example xml:id="zend.db.statement.fetching.fetchobject.example"><info><title>Nutzung von fetchObject()</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $stmt = $db->query('SELECT bug_id, bug_description, bug_status FROM bugs');

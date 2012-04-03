@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.exception.using"><info><title>Utiliser les exceptions</title></info>
-    
+
 
     <para>
         <classname>Zend_Exception</classname> est la classe de base dont dérivent toutes les
@@ -8,7 +8,7 @@
     </para>
 
     <example xml:id="zend.exception.using.example"><info><title>Récupération d'une exception</title></info>
-        
+
 
         <para>
             Le code suivant montre comment attraper une exception levée par une classe de

@@ -2,7 +2,7 @@
 /**
  * Setup autoloading
  */
-function ZendTest_Autoloader($class) 
+function ZendTest_Autoloader($class)
 {
     $class = ltrim($class, '\\');
 
@@ -19,7 +19,7 @@ function ZendTest_Autoloader($class)
             $file = dirname(__DIR__) . '/library/Zend/';
             break;
         case 'ZendTest':
-            // temporary fix for ZendTest namespace until we can migrate files 
+            // temporary fix for ZendTest namespace until we can migrate files
             // into ZendTest dir
             $file = __DIR__ . '/Zend/';
             break;

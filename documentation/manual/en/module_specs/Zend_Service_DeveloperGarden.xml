@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.developergarden"><info><title>Zend_Service_DeveloperGarden</title></info>
-    
+
 
     <section xml:id="zend.service.developergarden.introduction"><info><title>Introduction to DeveloperGarden</title></info>
-        
+
 
         <para>
             Developer Garden is the name of Deutsche Telekom’s developer community.
@@ -79,7 +79,7 @@
         </para>
 
         <section xml:id="zend.service.developergarden.account"><info><title>Sign Up for an Account</title></info>
-            
+
 
             <para>
                 Before you can start using the DeveloperGarden <acronym>API</acronym>, you first
@@ -89,7 +89,7 @@
         </section>
 
         <section xml:id="zend.service.developergarden.environment"><info><title>The Environment</title></info>
-            
+
 
             <para>
                 With the DeveloperGarden <acronym>API</acronym> you have the possibility to choose
@@ -131,7 +131,7 @@
         </section>
 
         <section xml:id="zend.service.developergarden.config"><info><title>Your configuration</title></info>
-            
+
 
             <para>
                 You can pass to all classes an array of configuration values. Possible values are:
@@ -160,7 +160,7 @@
             </itemizedlist>
 
             <example xml:id="zend.service.developergarden.config.example"><info><title>Configuration Example</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 require_once 'Zend/Service/DeveloperGarden/SendSms.php';
@@ -176,7 +176,7 @@ $service = new Zend_Service_DeveloperGarden_SendSms($config);
     </section>
 
     <section xml:id="zend.service.developergarden.baseuserservice"><info><title>BaseUserService</title></info>
-        
+
 
         <para>
             The class can be used to set and get quota values for the services and to fetch
@@ -189,7 +189,7 @@ $service = new Zend_Service_DeveloperGarden_SendSms($config);
         </para>
 
         <example xml:id="zend.service.developergarden.baseuserservice.getaccountbalance.example"><info><title>Get account balance example</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_BaseUserService($config);
@@ -198,7 +198,7 @@ print_r($service->getAccountBalance());
         </example>
 
         <section xml:id="zend.service.developergarden.baseuserservice.getquotainformation"><info><title>Get quota information</title></info>
-            
+
 
             <para>
                 You can fetch quota informations for a specific service module with the
@@ -206,7 +206,7 @@ print_r($service->getAccountBalance());
             </para>
 
             <example xml:id="zend.service.developergarden.baseuserservice.getquotainformation.example"><info><title>Get quota information example</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_BaseUserService($config);
@@ -264,7 +264,7 @@ echo 'Quota Level: ', $result->getQuotaLevel(), '<br />';
         </section>
 
         <section xml:id="zend.service.developergarden.baseuserservice.changequotainformation"><info><title>Change quota information</title></info>
-            
+
 
             <para>
                 To change the current quota use one of the <methodname>changeQuotaPool</methodname>
@@ -273,7 +273,7 @@ echo 'Quota Level: ', $result->getQuotaLevel(), '<br />';
             </para>
 
             <example xml:id="zend.service.developergarden.baseuserservice.changequotainformation.example"><info><title>Change quota information example</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_BaseUserService($config);
@@ -326,7 +326,7 @@ if (!$result->hasError()) {
     </section>
 
     <section xml:id="zend.service.developergarden.iplocation"><info><title>IP Location</title></info>
-        
+
 
         <para>
             This service allows you to retrieve location information for a given IP address.
@@ -351,7 +351,7 @@ if (!$result->hasError()) {
         </itemizedlist>
 
         <example xml:id="zend.service.developergarden.iplocation.locateip.example"><info><title>Locate a given IP</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_IpLocation($config);
@@ -365,7 +365,7 @@ print_r($service->locateIp($ip));
     </section>
 
     <section xml:id="zend.service.developergarden.localsearch"><info><title>Local Search</title></info>
-        
+
 
         <para>
             The Local Search service provides the location based search machine <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.suchen.de">suchen.de</link> via web service interface. For
@@ -374,7 +374,7 @@ print_r($service->locateIp($ip));
         </para>
 
         <example xml:id="zend.service.developergarden.localsearch.example"><info><title>Locate a Restaurant</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_LocalSearch($config);
@@ -390,7 +390,7 @@ print_r($service->localSearch($search));
     </section>
 
     <section xml:id="zend.service.developergarden.sendsms"><info><title>Send SMS</title></info>
-        
+
 
         <para>
             The Send SMS service is used to send normal and Flash SMS to any number.
@@ -458,7 +458,7 @@ print_r($service->localSearch($search));
         </itemizedlist>
 
         <example xml:id="zend.service.developergarden.sendsms.example"><info><title>Sending an SMS</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_SendSms($config);
@@ -472,7 +472,7 @@ print_r($service->send($sms));]]></programlisting>
     </section>
 
     <section xml:id="zend.service.developergarden.smsvalidation"><info><title>SMS Validation</title></info>
-        
+
 
         <para>
             The SMS Validation service allows the validation of physical phone number to be used
@@ -495,7 +495,7 @@ print_r($service->send($sms));]]></programlisting>
         </para>
 
         <example xml:id="zend.service.developergarden.smsvalidation.request.example"><info><title>Request validation keyword</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_SmsValidation($config);
@@ -504,7 +504,7 @@ print_r($service->sendValidationKeyword('+49-172-123456'));
         </example>
 
         <example xml:id="zend.service.developergarden.smsvalidation.validate.example"><info><title>Validate a number with a keyword</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_SmsValidation($config);
@@ -518,7 +518,7 @@ print_r($service->validate('TheKeyWord', '+49-172-123456'));
     </section>
 
     <section xml:id="zend.service.developergarden.voicecall"><info><title>Voice Call</title></info>
-        
+
 
         <para>
             The Voice Call service can be used to set up a voice connection between two telephone
@@ -558,7 +558,7 @@ print_r($service->validate('TheKeyWord', '+49-172-123456'));
         </itemizedlist>
 
         <example xml:id="zend.service.developergarden.voicecall.call.example"><info><title>Call two numbers</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_VoiceCall($config);
@@ -579,7 +579,7 @@ echo $newCall->getSessionId();
         </para>
 
         <example xml:id="zend.service.developergarden.voicecall.teardown.example"><info><title>Call two numbers, ask for status, and cancel</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $service = new Zend_Service_DeveloperGarden_VoiceCall($config);
@@ -602,7 +602,7 @@ $service->tearDownCall($sessionId);
     </section>
 
     <section xml:id="zend.service.developergarden.conferencecall"><info><title>ConferenceCall</title></info>
-        
+
 
         <para>
             Conference Call allows you to setup and start a phone conference.
@@ -793,7 +793,7 @@ $service->tearDownCall($sessionId);
         </itemizedlist>
 
         <example xml:id="zend.service.developergarden.conferencecall.example"><info><title>Ad-Hoc conference</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $client = new Zend_Service_DeveloperGarden_ConferenceCall($config);
@@ -824,7 +824,7 @@ $client->commitConference($conference->getConferenceId());
     </section>
 
     <section xml:id="zend.service.developergarden.performance"><info><title>Performance and Caching</title></info>
-        
+
 
         <para>
             You can setup various caching options to improve the performance for resolving WSDL and
@@ -836,7 +836,7 @@ $client->commitConference($conference->getConferenceId());
         </para>
 
         <example xml:id="zend.service.developergarden.performance.wsdlcache.example"><info><title>WSDL cache options</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 Zend_Service_DeveloperGarden_SecurityTokenServer_Cache::setWsdlCache(
@@ -882,7 +882,7 @@ Zend_Service_DeveloperGarden_SecurityTokenServer_Cache::setWsdlCache(
         </para>
 
         <example xml:id="zend.service.developergarden.performance.cache.example"><info><title>SecurityTokenServer cache option</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $cache = Zend_Cache::factory('Core', ...);

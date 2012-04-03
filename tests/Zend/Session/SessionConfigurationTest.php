@@ -132,7 +132,7 @@ class SessionConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid gc_probability; must be numeric');
         $this->config->setGcProbability('foobar_bogus');
     }
-    
+
     public function testSettingInvalidGcProbabilityRaisesException2()
     {
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid gc_probability; must be a percentage');
@@ -169,7 +169,7 @@ class SessionConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid gc_divisor; must be numeric');
         $this->config->setGcDivisor('foobar_bogus');
     }
-    
+
     public function testSettingInvalidGcDivisorRaisesException2()
     {
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid gc_divisor; must be a positive integer');
@@ -200,7 +200,7 @@ class SessionConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid gc_maxlifetime; must be numeric');
         $this->config->setGcMaxlifetime('foobar_bogus');
     }
-    
+
     public function testSettingInvalidGcMaxlifetimeRaisesException2()
     {
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid gc_maxlifetime; must be a positive integer');
@@ -264,9 +264,9 @@ class SessionConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid cookie_lifetime; must be numeric');
         $this->config->setCookieLifetime('foobar_bogus');
     }
-    
+
     public function testSettingInvalidCookieLifetimeRaisesException2()
-    {    
+    {
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid cookie_lifetime; must be a positive integer or zero');
         $this->config->setCookieLifetime(-1);
     }
@@ -295,7 +295,7 @@ class SessionConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid cookie path');
         $this->config->setCookiePath(24);
     }
-    
+
     public function testSettingInvalidCookiePathRaisesException2()
     {
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid cookie path');
@@ -338,7 +338,7 @@ class SessionConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid cookie domain: must be a string');
         $this->config->setCookieDomain(24);
     }
-    
+
     public function testSettingInvalidCookieDomainRaisesException2()
     {
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'does not match the expected structure for a DNS hostname');
@@ -515,7 +515,7 @@ class SessionConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid entropy_length; must be numeric');
         $this->config->setEntropyLength('foobar_bogus');
     }
-    
+
     public function testSettingInvalidEntropyLengthRaisesException2()
     {
         $this->setExpectedException('Zend\Session\Exception\InvalidArgumentException', 'Invalid entropy_length; must be a positive integer or zero');

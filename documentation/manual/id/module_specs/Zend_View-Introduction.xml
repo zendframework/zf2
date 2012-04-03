@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.introduction"><info><title>Pendahuluan</title></info>
-    
+
 
     <para>
         Zend_View adalah class yang dapat Anda gunakan untuk bekerja dengan
@@ -29,7 +29,7 @@
     </para>
 
     <section xml:id="zend.view.introduction.controller"><info><title>Controller Script</title></info>
-        
+
 
         <para>
             As a simple example, let us say your controller has a list
@@ -67,7 +67,7 @@ echo $view->render('booklist.php');
 
     <section xml:id="zend.view.introduction.view"><info><title>View Script</title></info>
 
-        
+
 
         <para>
             Now we need the associated view script, "booklist.php".
@@ -113,7 +113,7 @@ echo $view->render('booklist.php');
     </section>
 
     <section xml:id="zend.view.introduction.options"><info><title>Options</title></info>
-        
+
 
         <para>
             <code>Zend_View</code> has several options that may be set to
@@ -175,7 +175,7 @@ base/path/
     </section>
 
     <section xml:id="zend.view.introduction.accessors"><info><title>Utility Accessors</title></info>
-        
+
 
         <para>
             Typically, you'll only ever need to call on <code>assign()</code>,

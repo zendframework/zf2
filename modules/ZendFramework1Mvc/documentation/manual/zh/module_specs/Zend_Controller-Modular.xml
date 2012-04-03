@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.modular"><info><title>使用传统的模块目录结构</title></info>
-    
+
 
     <section xml:id="zend.controller.modular.introduction"><info><title>简介</title></info>
-        
+
         <para>
             传统的模块目录结构允许你把不同的MVC应用程序分离成为独立的单元，并和不同的前端控制器配合再使用。示例一下这样的目录结构：
         </para>
@@ -53,7 +53,7 @@ application/
         </para>
 
         <note><info><title>在缺省模块中不用命名空间前缀</title></info>
-            
+
             <para>
                 注意在缺省模块中，控制器不需要一个命名空间前缀。这样，在上例中，在缺省模块中的控制器不需要'Default_'这样的前缀－－根据它们的基本控制器名'IndexController' 和 'FooController'被简单地派遣。然而，命名空间前缀被用于所有其它模块。
             </para>
@@ -65,7 +65,7 @@ application/
     </section>
 
     <section xml:id="zend.controller.modular.directories"><info><title>指定模块控制器目录</title></info>
-        
+
 
         <para>
             利用模块的第一步是来修改你如何在前端控制器指定控制器目录列表。在基本的MVC系列，传递数组或字符串给<code>setControllerDirectory()</code>，或者传递路径给<code>addControllerDirectory()</code>。当使用模块，你需要稍微修改对这些方法的调用。
@@ -144,7 +144,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.router"><info><title>Routing to modules</title></info>
-        
+
 
         <para>
             在<code>Zend_Controller_Router_Rewrite</code>中缺省的路由是一个<code>Zend_Controller_Router_Route_Module</code>类型的对象。这个路由使用下面路由计划之一：
@@ -161,7 +161,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.defaultcontroller"><info><title>模块或全局缺省控制器</title></info>
-        
+
 
         <para>
             在缺省的路由器中，如果在URL中没有指定控制器，缺省控制器就被使用（<code>IndexController</code>，除非另外要求）。对于模块控制器，如果一个模块被指定但没有控制器，派遣器首先寻找在这个模块路径中的缺省控制器，然后回到在'default'、全局、命名空间中发现的缺省控制器。

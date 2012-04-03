@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.modular"><info><title>Użycie konwencjonalnej modularnej struktury katalogów</title></info>
-    
+
 
     <section xml:id="zend.controller.modular.introduction"><info><title>Wprowadzenie</title></info>
-        
+
         <para>
             Konwencjonalna modularna struktura katalogów pozwala ci na
             oddzielenie różnych aplikacji MVC w osobne jednostki i użycie ich
@@ -60,7 +60,7 @@ application/
         </para>
 
         <note><info><title>Brak przestrzeni nazw w domyślnym module</title></info>
-            
+
             <para>
                 Zauważ, że w domyślnym module nazwa kontrolera nie ma
                 przedrostka defniującego przestrzeń nazw. Dlatego w powyższym
@@ -79,7 +79,7 @@ application/
     </section>
 
     <section xml:id="zend.controller.modular.directories"><info><title>Określanie ścieżek kontrolera modułów</title></info>
-        
+
 
         <para>
             Pierwszym krokiem użycia modułów jest zmodyfikowanie sposobu
@@ -180,7 +180,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.router"><info><title>Dopasowanie tras do modułów</title></info>
-        
+
 
         <para>
             Domyślna trasa w
@@ -205,7 +205,7 @@ $front->addModuleDirectory('/path/to/application/modules');
     </section>
 
     <section xml:id="zend.controller.modular.defaultcontroller"><info><title>Moduł lub globalny domyślny kontroler</title></info>
-        
+
 
         <para>
             W domyślnym routerze jeśli w URL nie został określony kontroler,

@@ -125,8 +125,8 @@ class ValidatorChain implements Validator
 
     /**
      * Invoke chain as command
-     * 
-     * @param  mixed $value 
+     *
+     * @param  mixed $value
      * @return boolean
      */
     public function __invoke($value)

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins.standard.actionstack"><info><title>ActionStack</title></info>
-    
+
 
     <para>
         Le plugin <code>ActionStack</code> vous permet de gérer une pile de requêtes en

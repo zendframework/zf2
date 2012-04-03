@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.introduction"><info><title>הקדמה ל Zend_Currency</title></info>
 
-    
+
 
     <para>
         <code>Zend_Currency</code> היא חלק מהתמיכה החזקה ל i18n במערכת ה Zend Framework. היא מטפלת בכל הנושאים הקשורים למטבעות, תצוגת מטבעות ותצוגת מבנה לכל מטבע.
@@ -12,7 +12,7 @@
 
     <section xml:id="zend.currency.introduction.list"><info><title>למה להשתמש ב <code>Zend_Currency</code>?</title></info>
 
-        
+
 
         <para>
             <code>Zend_Currency</code> מספקת את הדברים הבאים לשימוש חופשי:

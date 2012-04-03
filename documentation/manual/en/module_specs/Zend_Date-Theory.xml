@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.definition.theory"><info><title>Theory of Operation</title></info>
-    
+
 
     <para>
         Why is there only one class <classname>Zend_Date</classname> for handling dates and times in
@@ -24,7 +24,7 @@
     </para>
 
     <section xml:id="zend.date.theory.internals"><info><title>Internals</title></info>
-        
+
 
         <itemizedlist mark="opencircle">
             <listitem>

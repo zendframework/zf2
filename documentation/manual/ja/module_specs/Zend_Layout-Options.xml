@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.options"><info><title>Zend_Layout の設定オプション</title></info>
-    
+
 
     <para>
         <classname>Zend_Layout</classname> にはさまざまな設定オプションがあります。
@@ -94,7 +94,7 @@
     </itemizedlist>
 
     <note><info><title>helperClass と pluginClass は startMvc() で渡す必要がある</title></info>
-        
+
 
         <para>
             <code>helperClass</code> と
@@ -105,7 +105,7 @@
     </note>
 
     <section xml:id="zend.layout.options.examples"><info><title>例</title></info>
-        
+
 
         <para>
             以下の例では、次のような <code>$options</code>
@@ -131,7 +131,7 @@ $config = new Zend_Config_Ini('/path/to/layout.ini', 'layout');
 ]]></programlisting>
 
         <example xml:id="zend.layout.options.examples.constructor"><info><title>オプションをコンストラクタあるいは startMvc() で渡す</title></info>
-            
+
 
             <para>
                 コンストラクタおよび静的メソッド <methodname>startMvc()</methodname>
@@ -174,7 +174,7 @@ $layout = Zend_Layout::startMvc($config);
         </example>
 
         <example xml:id="zend.layout.options.examples.setoptionsconfig"><info><title>setOption() および setConfig() の使用</title></info>
-            
+
 
             <para>
                 時には、インスタンスを作成した後で <classname>Zend_Layout</classname>
@@ -201,7 +201,7 @@ $layout->setConfig($options);
         </example>
 
         <example xml:id="zend.layout.options.examples.accessors"><info><title>アクセサの使用</title></info>
-            
+
 
             <para>
                 最後に、<classname>Zend_Layout</classname>

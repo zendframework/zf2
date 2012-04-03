@@ -57,7 +57,7 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
         Validator\StaticValidator::setBroker(null);
         $this->validator = new Validator\Alpha();
     }
-    
+
     public function tearDown()
     {
         $this->clearRegistry();
@@ -79,7 +79,7 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->_errorOccurred = true;
     }
-    
+
     public function testCanSetGlobalDefaultTranslator()
     {
         set_error_handler(array($this, 'errorHandlerIgnore'));
@@ -113,7 +113,7 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator->setTranslator($translator);
         $this->assertNotSame(Validator\AbstractValidator::getDefaultTranslator(), $this->validator->getTranslator());
     }
-    
+
     public function testMaximumErrorMessageLength()
     {
         $this->assertEquals(-1, Validator\AbstractValidator::getMessageLength());
@@ -151,7 +151,7 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
         Validator\AbstractValidator::setDefaultTranslator($translator);
         $this->assertSame($translator->getAdapter(), Validator\AbstractValidator::getDefaultTranslator());
     }
-    
+
     /* plugin loading */
 
     public function testLazyLoadsValidatorBrokerByDefault()
@@ -175,7 +175,7 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
         Validator\StaticValidator::setBroker(null);
         $this->assertNotSame($broker, Validator\StaticValidator::getBroker());
     }
-    
+
     public function testExecuteValidWithParameters()
     {
         $this->assertTrue(Validator\StaticValidator::execute(5, 'Between', array(1, 10)));

@@ -26,7 +26,7 @@ use Zend\Search\Lucene;
 use Zend\Search\Lucene\Search\Weight;
 use Zend\Search\Lucene\Search\Highlighter;
 use Zend\Search\Lucene\Exception\InvalidArgumentException;
-	
+
 /**
  * A Query that matches documents containing a particular sequence of terms.
  *

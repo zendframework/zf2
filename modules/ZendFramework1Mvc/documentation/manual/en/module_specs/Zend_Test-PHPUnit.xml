@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit"><info><title>Zend_Test_PHPUnit</title></info>
-    
+
 
     <para>
         <classname>Zend_Test_PHPUnit</classname> provides a TestCase for <acronym>MVC</acronym>
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.test.phpunit.loginexample"><info><title>Application Login TestCase example</title></info>
-        
+
 
         <para>
             The following is a simple test case for a

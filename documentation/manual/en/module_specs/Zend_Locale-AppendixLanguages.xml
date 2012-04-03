@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.locale.appendix"><info><title>Supported locales</title></info>
-    
+
 
     <para>
         <classname>Zend_Locale</classname> provides information on several locales. The following
@@ -10,7 +10,7 @@
     </para>
 
     <table xml:id="zend.locale.appendix.table"><info><title>List of all supported languages</title></info>
-        
+
 
         <tgroup cols="3">
             <thead>

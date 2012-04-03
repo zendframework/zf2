@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.quickstart"><info><title>Zend_Form - Быстрый старт</title></info>
-    
+
 
     <para>
         Данное руководство охватывает основы создания форм,
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.form.quickstart.create"><info><title>Создание объекта формы</title></info>
-        
+
 
         <para>
             Объекты форм создаются через простое инстанцирование
@@ -61,7 +61,7 @@ $form->setAttrib('id', 'login');
     </section>
 
     <section xml:id="zend.form.quickstart.elements"><info><title>Добавление элементов в форму</title></info>
-        
+
 
         <para>
             Форма без элементов бесмысленна. <code>Zend_Form</code>
@@ -261,7 +261,7 @@ $form->addElement('text', 'username', array(
     </section>
 
     <section xml:id="zend.form.quickstart.render"><info><title>Визуализация формы</title></info>
-        
+
 
         <para>
             Визуализация формы производится легко. Большинство элементов
@@ -369,7 +369,7 @@ $form->addElement('text', 'username', array('order' => 10));
     </section>
 
     <section xml:id="zend.form.quickstart.validate"><info><title>Проверка корректности данных формы</title></info>
-        
+
 
         <para>
             После того, как получены данные формы, нужно их проверить
@@ -442,7 +442,7 @@ $unfiltered = $form->getUnfilteredValues();
     </section>
 
     <section xml:id="zend.form.quickstart.errorstatus"><info><title>Получение статуса ошибки</title></info>
-        
+
 
         <para>
             А что в том случае, если форма не прошла проверку на корректность?
@@ -475,7 +475,7 @@ if (!$form->isValid($_POST)) {
     </section>
 
     <section xml:id="zend.form.quickstart.puttingtogether"><info><title>Объединяя изложенное</title></info>
-        
+
 
         <para>
             Давайте создадим простую форму для входа на сайт. Для нее будут
@@ -587,7 +587,7 @@ class UserController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.form.quickstart.config"><info><title>Использование объекта Zend_Config</title></info>
-        
+
 
         <para>
             Все классы <code>Zend_Form</code> можно конфигурировать, используя
@@ -643,7 +643,7 @@ $form   = new Zend_Form($config->user->login);
     </section>
 
     <section xml:id="zend.form.quickstart.conclusion"><info><title>Заключение</title></info>
-        
+
 
         <para>
             Надеемся, что благодаря этому небольшому обучающему руководству вы

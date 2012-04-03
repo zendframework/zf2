@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.filter_chains"><info><title>Цепочки фильтров</title></info>
 
-    
+
 
     <para>
         Довольно часто встречается ситуация, когда к одним и тем же данным нужно
@@ -11,7 +11,7 @@
         <classname>Zend_Filter</classname> предоставляет простой метод, через который
         составляется цепочка из фильтров. Следующий код демонстрирует
         создание цепочки из двух фильтров для имени пользователя:
-        
+
         <programlisting language="php"><![CDATA[
 // Создание цепочки фильтров и добавление в нее фильтров
 $filterChain = new Zend_Filter();

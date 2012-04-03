@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router"><info><title>Routeur Standard</title></info>
-    
+
 
     <section xml:id="zend.controller.router.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Router_Rewrite</classname> est le routeur par défaut
@@ -51,7 +51,7 @@ RewriteRule ^[\w/\%]*(?:\.(?!(?:js|ico|gif|jpg|png|css|html)$)[\w\%]*$)? /index.
 ]]></programlisting>
 
         <note><info><title>IIS Isapi_Rewrite</title></info>
-            
+
             <para>
                 Lorsque <acronym>IIS</acronym> est utilisé, <varname>$_SERVER['REQUEST_URI']</varname> n'existera pas
                 ou vaudra une chaîne vide. Dans ce cas,
@@ -106,7 +106,7 @@ url.rewrite-once = (
     </section>
 
     <section xml:id="zend.controller.router.usage"><info><title>Utilisation d'un routeur</title></info>
-        
+
 
         <para>
             Pour utiliser un routeur et le configurer, vous devez le récupérer et ajouter des
@@ -129,7 +129,7 @@ $router->addRoute(
 
     <section xml:id="zend.controller.router.basic"><info><title>Utilisation basique du routeur de réécriture</title></info>
 
-        
+
 
         <para>
             Le coeur de ce routeur repose sur le concept de routes personnalisées. Les routes
@@ -223,7 +223,7 @@ Martel
         </para>
 
         <note><info><title>Pile LIFO</title></info>
-            
+
             <para>
                 Les routes sont analysées dans l'ordre LIFO : dernière fournie, première
                 analysée. Veillez à définir les routes les génériques en premier donc.
@@ -231,7 +231,7 @@ Martel
         </note>
 
         <note><info><title>Paramètres de la requête</title></info>
-            
+
             <para>
                 Les paramètres de la requête proviennent de l'utilisateur, ou des routes
                 définies. Ils seront plus tard accessibles via
@@ -248,7 +248,7 @@ Martel
         </para>
 
         <note><info><title>Valeurs spéciales</title></info>
-            
+
             <para>
                 Le nom de ces valeurs peut être changé dans
                 <classname>Zend_Controller_Request_Http</classname> avec les méthodes
@@ -260,7 +260,7 @@ Martel
 
     <section xml:id="zend.controller.router.default-routes"><info><title>Routes par défaut</title></info>
 
-        
+
 
         <para>
             Zend_Controller_Router_Rewrite possède des routes par défaut qui vont
@@ -337,7 +337,7 @@ $router->removeDefaultRoutes();
     </section>
 
     <section xml:id="zend.controller.router.rewritebase"><info><title>Base URL et sous dossiers</title></info>
-        
+
 
         <para>
             Le routeur de réécriture peut être utilisé dans des sous dossiers (comme
@@ -360,7 +360,7 @@ $request->setBaseUrl('/~user/application-root/');
     </section>
 
     <section xml:id="zend.controller.router.global.parameters"><info><title>Paramètres globaux</title></info>
-        
+
 
         <para>
             Vous pouvez régler des paramètres globaux dans un routeur, qui sont
@@ -376,7 +376,7 @@ $router->setGlobalParam('lang', 'en');
     </section>
 
     <section xml:id="zend.controller.router.routes"><info><title>Types de route</title></info>
-        
+
 
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route.xml"/>
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route-Static.xml"/>
@@ -395,7 +395,7 @@ $router->setGlobalParam('lang', 'en');
     </section>
 
     <section xml:id="zend.controller.router.add-config"><info><title>Utiliser Zend_Config avec le RewriteRouter</title></info>
-        
+
 
         <para>
             Il arrive qu'il soit plus commode d'éditer un fichier de configuration de routes,
@@ -453,7 +453,7 @@ $router->addConfig($config, 'routes');
     </section>
 
     <section xml:id="zend.controller.router.subclassing"><info><title>Dérivation de l'objet Router</title></info>
-        
+
 
         <para>
             Le routeur par défaut, dit de réécriture, devrait suffire dans la majorité des

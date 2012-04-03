@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.xmlrpc.introduction"><info><title>導入</title></info>
-    
+
     <para>
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.xmlrpc.com/">ホームページ</link> によると、
         <acronym>XML-RPC</acronym> とは、"<acronym>XML</acronym> エンコードしたデータを

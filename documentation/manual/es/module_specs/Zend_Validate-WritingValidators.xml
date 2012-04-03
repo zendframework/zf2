@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.writing_validators"><info><title>Escribiendo Validadores</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Validate</classname> provee un conjunto de validadores
@@ -55,7 +55,7 @@
 
     <example xml:id="zend.validate.writing_validators.example.simple"><info><title>Crear una Clase de Validación sencilla</title></info>
 
-        
+
 
         <para> El siguiente ejemplo demuestra cómo podría escribirse un sencillo
             validador personalizado. En este caso las reglas de validación son
@@ -97,7 +97,7 @@ class MyValid_Float extends Zend_Validate_Abstract
     <example xml:id="zend.validate.writing_validators.example.conditions.dependent"><info><title>Escribiendo una Clase de Validación habiendo Condiciones
             Dependientes </title></info>
 
-        
+
         <para> El siguiente ejemplo muestra un conjunto de reglas de validación
             más complejo, donde es necesario que el valor de entrada ser
             numérico y dentro del límite de un rango de valores mínimos y
@@ -191,7 +191,7 @@ class MyValid_NumericBetween extends Zend_Validate_Abstract
     <example xml:id="zend.validate.writing_validators.example.conditions.independent"><info><title>Validación con Condiciones Independientes, Múltiples Razones del
             Fracaso</title></info>
 
-        
+
         <para> Considere escribir una clase de validación y control de
             contraseñas - cuando es necesario que un usuario elija una
             contraseña que cumple determinados criterios para ayudar a tener

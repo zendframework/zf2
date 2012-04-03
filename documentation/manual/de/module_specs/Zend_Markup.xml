@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.markup.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         Die Komponente <classname>Zend_Markup</classname> bietet einen erweiterbaren Weg für das

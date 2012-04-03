@@ -803,7 +803,7 @@ function() {
         $this->assertRegexp('/zendDijits.*?(zend\.custom)/s', $test, 'Generated markup: ' . $test);
     }
 
-    public function testDojoViewHelperContainerAddOptionsPassesOnAllStringOptions() 
+    public function testDojoViewHelperContainerAddOptionsPassesOnAllStringOptions()
     {
         $helper = $this->helper;
         $options = array(
@@ -831,7 +831,7 @@ function() {
         $this->assertTrue($helper->registerDojoStylesheet());
     }
 
-    public function testDojoViewHelperContainerAddOptionsPassesOnAllArrayOptions() 
+    public function testDojoViewHelperContainerAddOptionsPassesOnAllArrayOptions()
     {
         $helper = $this->helper;
         $modulePaths = array('module1' => 'path1', 'module2' => 'path2');
@@ -867,7 +867,7 @@ function() {
         $output = $this->helper->dijitsToJson();
         $this->assertRegexp('#(function\\(\\){alert\\(\'foo\'\\);})#', $output);
     }
-    
+
     public function setupDojo()
     {
         $this->helper->requireModule('dijit.layout.ContentPane')

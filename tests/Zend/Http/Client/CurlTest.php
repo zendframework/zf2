@@ -300,7 +300,7 @@ class CurlTest extends CommonHttpTests
 
         $this->assertTrue(is_resource($adapter->getHandle()));
     }
-    
+
     /**
      * @group ZF-9857
      */

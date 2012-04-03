@@ -81,9 +81,9 @@ class FactoryTest extends PHPUnitTestCase
         $root->appendChild($sessionTok);
         $doc->appendChild($root);
         $body = $doc->saveXML();
-        
+
         $resp = HttpResponse::fromString("HTTP/1.1 200 OK\nContent-type: text/xml;charset=UTF-8\nDate: 0\n\n".$body);
-        
+
         $httptest->setResponse($resp);
         $nirvanixAdapter = Factory::getAdapter($nirvanixConfig);
         $this->assertEquals('Zend\Cloud\StorageService\Adapter\Nirvanix', get_class($nirvanixAdapter));
@@ -127,7 +127,7 @@ class FactoryTest extends PHPUnitTestCase
         $httptest->setResponse($resp);
         $azureAdapter = Factory::getAdapter($azureConfig);
         $this->assertEquals('Zend\Cloud\StorageService\Adapter\WindowsAzure', get_class($azureAdapter));
-         * 
+         *
          */
     }
 

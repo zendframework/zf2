@@ -19,8 +19,8 @@ class Generator
      * Constructor
      *
      * Requires a DependencyInjection manager on which to operate.
-     * 
-     * @param  DependencyInjection $injector 
+     *
+     * @param  DependencyInjection $injector
      * @return void
      */
     public function __construct(Di $injector)
@@ -30,8 +30,8 @@ class Generator
 
     /**
      * Set the class name for the generated service locator container
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return Generator
      */
     public function setContainerClass($name)
@@ -42,8 +42,8 @@ class Generator
 
     /**
      * Set the namespace to use for the generated class file
-     * 
-     * @param  string $namespace 
+     *
+     * @param  string $namespace
      * @return Generator
      */
     public function setNamespace($namespace)
@@ -55,10 +55,10 @@ class Generator
     /**
      * Construct, configure, and return a PHP classfile code generation object
      *
-     * Creates a Zend\CodeGenerator\Php\PhpFile object that has 
+     * Creates a Zend\CodeGenerator\Php\PhpFile object that has
      * created the specified class and service locator methods.
-     * 
-     * @param  null|string $filename 
+     *
+     * @param  null|string $filename
      * @return CodeGen\PhpFile
      */
     public function getCodeGenerator($filename = null)
@@ -75,7 +75,7 @@ class Generator
             $getter = $this->normalizeAlias($name);
             $meta   = $injector->get($name);
             $params = $meta->getParams();
-            
+
             // Build parameter list for instantiation
             foreach ($params as $key => $param) {
                 if (null === $param || is_scalar($param) || is_array($param)) {
@@ -264,11 +264,11 @@ class Generator
     /**
      * Reduces aliases
      *
-     * Takes alias list and reduces it to a 2-dimensional array of 
-     * class names pointing to an array of aliases that resolve to 
+     * Takes alias list and reduces it to a 2-dimensional array of
+     * class names pointing to an array of aliases that resolve to
      * it.
-     * 
-     * @param  array $aliasList 
+     *
+     * @param  array $aliasList
      * @return array
      */
     protected function reduceAliases(array $aliasList)
@@ -291,8 +291,8 @@ class Generator
 
     /**
      * Create a PhpMethod code generation object named after a given alias
-     * 
-     * @param  string $alias 
+     *
+     * @param  string $alias
      * @param  class $class Class to which alias refers
      * @return CodeGen\PhpMethod
      */
@@ -307,8 +307,8 @@ class Generator
 
     /**
      * Normalize an alias to a getter method name
-     * 
-     * @param  string $alias 
+     *
+     * @param  string $alias
      * @return string
      */
     protected function normalizeAlias($alias)

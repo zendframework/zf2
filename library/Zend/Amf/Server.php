@@ -95,7 +95,7 @@ class Server implements ServerDefinition
     protected $_response;
 
     /**
-     * Flag: whether or not to return a response instead of automatically 
+     * Flag: whether or not to return a response instead of automatically
      * emitting it. By default, returns it.
      * @var boolean
      */
@@ -313,8 +313,8 @@ class Server implements ServerDefinition
 
     /**
      * Set broker instance
-     * 
-     * @param  string|Broker $broker 
+     *
+     * @param  string|Broker $broker
      * @return Server
      */
     public function setBroker($broker)

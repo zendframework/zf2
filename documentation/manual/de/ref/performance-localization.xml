@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.localization"><info><title>Internationalisierung (I18n) und Lokalisierung (L10n)</title></info>
-    
+
 
     <para>
         Internationalisierte und Lokalisierte Sites sind ein fantastischer Weg um seine
@@ -13,7 +13,7 @@
     </para>
 
     <section xml:id="performance.localization.translationadapter"><info><title>Welchen Übersetzungsadapter sollte ich verwenden?</title></info>
-        
+
 
         <para>
             Nicht alle Übersetzungadapter sind gleich gemacht. Einige haben mehr Feature als
@@ -23,7 +23,7 @@
         </para>
 
         <section xml:id="performance.localization.translationadapter.fastest"><info><title>Verwende nicht-XML Übersetzungsadapter für die größte Geschwindigkeit</title></info>
-            
+
 
             <para>
                 Zend Framework wird mit einer Vielzahl von Übersetzungsadaptern ausgeliefert. Die
@@ -81,7 +81,7 @@
     </section>
 
     <section xml:id="performance.localization.cache"><info><title>Wie kann ich Übersetzungen und Lokalisierungen sogar noch schneller machen?</title></info>
-        
+
 
         <para>
             Aus Geschäftsgründen kann es möglich sein, das man auf einen
@@ -91,7 +91,7 @@
         </para>
 
         <section xml:id="performance.localization.cache.usage"><info><title>Verwenden von Übersetzungs und Lokalisierungs Caches</title></info>
-            
+
 
             <para>
                 Beide, <classname>Zend_Translator</classname> und <classname>Zend_Locale</classname>

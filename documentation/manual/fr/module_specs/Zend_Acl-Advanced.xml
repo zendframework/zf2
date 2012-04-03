@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.advanced"><info><title>Utilisation avancée</title></info>
-    
+
 
     <section xml:id="zend.acl.advanced.storing"><info><title>Rendre les données ACL persistantes</title></info>
-        
+
 
         <para>
             <classname>Zend_Acl</classname> a été conçu pour ne pas nécessiter de technologie
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.acl.advanced.assertions"><info><title>Écrire des règles ACL conditionnelles avec des assertions</title></info>
-        
+
 
         <para>
             Parfois, une règle pour autoriser ou interdire l'accès d'un rôle à une ressource

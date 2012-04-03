@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view"><info><title>Helpery widoków Dojo</title></info>
-    
+
 
     <para>
         Zend Framework zapewnia dla potrzeb Dojo następujące helpery widoków:
@@ -16,7 +16,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.view.setup"><info><title>Użycie helperów widoków Dojo</title></info>
-        
+
 
         <para>
             Aby użyć helperów widoków Dojo będziesz musiał poinformować

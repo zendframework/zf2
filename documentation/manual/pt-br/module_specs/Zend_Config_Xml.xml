@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.adapters.xml"><info><title>Zend_Config_Xml</title></info>
-    
+
 
     <para>
         <classname>Zend_Config_Xml</classname> permite aos desenvolvedores armazenarem os dados de
@@ -17,7 +17,7 @@
     </para>
 
     <note><info><title>Tipo de Retorno</title></info>
-        
+
 
         <para>
             Os dados de configuração lidos em <classname>Zend_Config_Xml</classname> são sempre
@@ -27,7 +27,7 @@
     </note>
 
     <example xml:id="zend.config.adapters.xml.example.using"><info><title>Usando o Zend_Config_Xml</title></info>
-        
+
 
         <para>
             Este exemplo ilustra uma utilização básica de <classname>Zend_Config_Xml</classname>
@@ -83,7 +83,7 @@ echo $config->database->params->dbname; // prints "dbname"
     </example>
 
     <example xml:id="zend.config.adapters.xml.example.attributes"><info><title>Usando os Atributos de Tag no Zend_Config_Xml</title></info>
-        
+
 
         <para>
             <classname>Zend_Config_Xml</classname> também suporta outras duas maneiras para definir
@@ -147,7 +147,7 @@ echo $config->database->params->dbname; // prints "dbname"
     </example>
 
     <note><info><title>Strings XML</title></info>
-        
+
 
         <para>
             <classname>Zend_Config_Xml</classname> é capaz de carregar uma string
@@ -183,7 +183,7 @@ $config = new Zend_Config_Xml($string, 'staging');
     </note>
 
     <note><info><title>Namespace XML do Zend_Config</title></info>
-        
+
 
         <para>
             <classname>Zend_Config</classname> vem com sua próprio namespace <acronym>XML</acronym>,

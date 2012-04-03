@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.multiuser.authorization"><info><title>Fabriquer un système de gestion d'autorisations avec Zend Framework</title></info>
-    
+
 
     <section xml:id="learning.multiuser.authorization.intro"><info><title>Introduction à l'autorisation</title></info>
-        
+
 
         <para>
             Après qu'un utilisateur se soit authentifié, une application peut proposer différentes
@@ -40,7 +40,7 @@
     </section>
 
     <section xml:id="learning.multiuser.authorization.basic-usage"><info><title>Utilisation de base de Zend_Acl</title></info>
-        
+
 
 <!-- explain the interaction with a User object, how -->
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="coding-standard"><info><title>Zend Framework PHP 標準コーディング規約</title></info>
-    
+
     <section xml:id="coding-standard.overview"><info><title>概要</title></info>
-        
+
 
         <section xml:id="coding-standard.overview.scope"><info><title>対象範囲</title></info>
-            
+
 
             <para>
                 このドキュメントは、Zend Framework に貢献してくださる開発者個人 (あるいはチーム)
@@ -50,7 +50,7 @@
         </section>
 
         <section xml:id="coding-standard.overview.goals"><info><title>目標</title></info>
-            
+
 
             <para>
                 どのような開発プロジェクトであっても、コーディング規約は重要です。
@@ -62,10 +62,10 @@
     </section>
 
     <section xml:id="coding-standard.php-file-formatting"><info><title>PHP ファイルの書式</title></info>
-        
+
 
         <section xml:id="coding-standard.php-file-formatting.general"><info><title>全般</title></info>
-            
+
 
             <para>
                 <acronym>PHP</acronym> コードのみからなるファイルでは、終了タグ ("?&gt;")
@@ -85,13 +85,13 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.indentation"><info><title>字下げ</title></info>
-            
+
 
             <para>字下げは空白 4 文字で行います。タブ文字を使ってはいけません。</para>
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.max-line-length"><info><title>1 行の長さ</title></info>
-            
+
 
             <para>
                 1 行の長さを 80 文字までにすることを目指しましょう。すなわち、
@@ -102,7 +102,7 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.line-termination"><info><title>行末</title></info>
-            
+
 
             <para>
                 行末の扱いは、標準的な Unix テキストファイルの方式にあわせます。
@@ -119,10 +119,10 @@
     </section>
 
     <section xml:id="coding-standard.naming-conventions"><info><title>命名規約</title></info>
-        
+
 
         <section xml:id="coding-standard.naming-conventions.classes"><info><title>クラス</title></info>
-            
+
 
             <para>
                 Zend Framework では、クラスの名前が保存先ディレクトリに直接対応するような
@@ -167,7 +167,7 @@
         </section>
 
         <section xml:id="coding-standard.naming-conventions.abstracts"><info><title>抽象クラス</title></info>
-            
+
 
             <para>
                 一般に、抽象クラスの規約は通常の <link linkend="coding-standard.naming-conventions.classes">クラス</link>
@@ -232,7 +232,7 @@ abstract class RequestAbstract
         </section>
 
         <section xml:id="coding-standard.naming-conventions.interfaces"><info><title>インターフェイス</title></info>
-            
+
 
             <para>
                 一般に、インターフェイスの規約は通常の <link linkend="coding-standard.naming-conventions.classes">クラス</link>
@@ -262,7 +262,7 @@ abstract class RequestAbstract
         </section>
 
         <section xml:id="coding-standard.naming-conventions.filenames"><info><title>ファイル名</title></info>
-            
+
 
             <para>
                 すべてのファイルにおいて、使用可能な文字は英数字・アンダースコア
@@ -290,7 +290,7 @@ Zend/View/Helper/FormRadio.php
         </section>
 
         <section xml:id="coding-standard.naming-conventions.functions-and-methods"><info><title>関数およびメソッド</title></info>
-            
+
 
             <para>
                 関数名に含めることができるのは英数字のみです。
@@ -348,7 +348,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.variables"><info><title>変数</title></info>
-            
+
 
             <para>
                 変数名に含めることができるのは英数字のみです。
@@ -379,7 +379,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.constants"><info><title>定数</title></info>
-            
+
 
             <para>
                 定数名には英数字およびアンダースコアを使用できます。
@@ -405,10 +405,10 @@ widgetFactory()
     </section>
 
     <section xml:id="coding-standard.coding-style"><info><title>コーディングスタイル</title></info>
-        
+
 
         <section xml:id="coding-standard.coding-style.php-code-demarcation"><info><title>PHP コードの境界</title></info>
-            
+
 
             <para>
                 <acronym>PHP</acronym> のコードの区切りには、
@@ -430,10 +430,10 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.coding-style.strings"><info><title>文字列</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.strings.literals"><info><title>文字列リテラル</title></info>
-                
+
 
                 <para>
                     文字列がリテラルである (変数の展開などが含まれない)
@@ -447,7 +447,7 @@ $a = '文字列の例';
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.literals-containing-apostrophes"><info><title>アポストロフィを含む文字列リテラル</title></info>
-                
+
 
                 <para>
                     リテラル文字列自体にアポストロフィが含まれている場合は、
@@ -466,7 +466,7 @@ $sql = "SELECT `id`, `name` from `people` "
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.variable-substitution"><info><title>変数の展開</title></info>
-                
+
 
                 <para>
                     変数の展開を行うには、次のような方法を使用します。
@@ -488,7 +488,7 @@ $greeting = "こんにちは ${name} さん。ようこそ!";
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.string-concatenation"><info><title>文字列の連結</title></info>
-                
+
 
                 <para>
                     文字列の連結には "." 演算子を使用しなければなりません。コードを読みやすくするため、
@@ -515,10 +515,10 @@ $sql = "SELECT `id`, `name` FROM `people` "
         </section>
 
         <section xml:id="coding-standard.coding-style.arrays"><info><title>配列</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.arrays.numerically-indexed"><info><title>数値添字の配列</title></info>
-                
+
 
                 <para>添字として負の数を使用してはいけません。</para>
 
@@ -572,7 +572,7 @@ $sampleArray = array(
             </section>
 
             <section xml:id="coding-standard.coding-style.arrays.associative"><info><title>連想配列</title></info>
-                
+
 
                 <para>
                     連想配列を <type>Array</type> で宣言する場合には、
@@ -610,10 +610,10 @@ $sampleArray = array(
         </section>
 
         <section xml:id="coding-standard.coding-style.classes"><info><title>クラス</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.classes.declaration"><info><title>クラス宣言</title></info>
-                
+
 
                 <para>
                     クラス宣言は、以下の Zend Framework 命名規約に従わなければなりません。
@@ -674,7 +674,7 @@ class SampleClass extends FooAbstract implements BarInterface
                 </para>
 
                 <programlisting language="php"><![CDATA[
-class SampleClass 
+class SampleClass
     extends FooAbstract
     implements BarInterface
 {
@@ -688,7 +688,7 @@ class SampleClass
                 </para>
 
                 <programlisting language="php"><![CDATA[
-class SampleClass 
+class SampleClass
     implements BarInterface,
                BazInterface
 {
@@ -697,7 +697,7 @@ class SampleClass
             </section>
 
             <section xml:id="coding-standard.coding-style.classes.member-variables"><info><title>クラスのメンバ変数</title></info>
-                
+
 
                 <para>
                     メンバ変数は、以下の Zend Framework 変数命名規約に従わなければなりません。
@@ -719,10 +719,10 @@ class SampleClass
         </section>
 
         <section xml:id="coding-standard.coding-style.functions-and-methods"><info><title>関数およびメソッド</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.declaration"><info><title>関数およびメソッドの宣言</title></info>
-                
+
 
                 <para>
                     関数は、以下の Zend Framework 関数命名規約に従わなければなりません。
@@ -850,7 +850,7 @@ class Foo
             </section>
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.usage"><info><title>関数およびメソッドの使用法</title></info>
-                
+
 
                 <para>
                     関数の引数を指定する際は、引数を区切るカンマの後に空白をひとつ入れます。
@@ -891,10 +891,10 @@ threeArguments(array(
         </section>
 
         <section xml:id="coding-standard.coding-style.control-statements"><info><title>制御構造</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.control-statements.if-else-elseif"><info><title>If/Else/Elseif</title></info>
-                
+
 
                 <para>
                     <emphasis>if</emphasis> および <emphasis>elseif</emphasis> 系の制御構造では、
@@ -930,14 +930,14 @@ if ($a != 2) {
                 </para>
 
                 <programlisting language="php"><![CDATA[
-if (($a == $b) 
+if (($a == $b)
     && ($b == $c)
     || (Foo::CONST == $d)
 ) {
     $a = $d;
 }
 ]]></programlisting>
-                
+
                 <para>
                     後者の記法の意図は、
                     後から条件句を追加したり削除したりしたときに問題が起こりにくくすることにあります。
@@ -963,7 +963,7 @@ if ($a != 2) {
     $a = 7;
 }
 
-if (($a == $b) 
+if (($a == $b)
     && ($b == $c)
     || (Foo::CONST == $d)
 ) {
@@ -985,7 +985,7 @@ if (($a == $b)
             </section>
 
             <section xml:id="coding-standards.coding-style.control-statements.switch"><info><title>Switch</title></info>
-                
+
 
                 <para>
                     "switch" を使用した制御文では、
@@ -1030,10 +1030,10 @@ switch ($numPeople) {
         </section>
 
         <section xml:id="coding-standards.inline-documentation"><info><title>インラインドキュメント</title></info>
-            
+
 
             <section xml:id="coding-standards.inline-documentation.documentation-format"><info><title>ドキュメントの書式</title></info>
-                
+
 
                 <para>
                     ドキュメントブロック ("docblocks") は、phpDocumentor
@@ -1052,7 +1052,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.files"><info><title>ファイル</title></info>
-                
+
 
                 <para>
                     <acronym>PHP</acronym> コードを含むすべてのファイルは、最低限これらの
@@ -1097,7 +1097,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.classes"><info><title>クラス</title></info>
-                
+
 
                 <para>
                     各クラスには、最低限これらの phpDocumentor タグを含む
@@ -1141,7 +1141,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.functions"><info><title>関数</title></info>
-                
+
 
                 <para>
                     オブジェクトのメソッドを含めたすべての関数には、

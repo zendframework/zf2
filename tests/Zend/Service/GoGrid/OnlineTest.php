@@ -40,8 +40,8 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     protected static $gogrid;
     /**
      * Server id of testing
-     * 
-     * @var integer 
+     *
+     * @var integer
      */
     protected static $serverId;
     /**
@@ -85,10 +85,10 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         file_put_contents(__DIR__ . '/_files/' . $this->getName() . '.request', self::$gogrid->getLastRequest());
-        file_put_contents(__DIR__ . '/_files/' . $this->getName() . '.response', self::$gogrid->getHttpClient()->getResponse()->toString());        
+        file_put_contents(__DIR__ . '/_files/' . $this->getName() . '.response', self::$gogrid->getHttpClient()->getResponse()->toString());
     }
     */
-    
+
     public function testAddServer()
     {
         $result= self::$gogrid->add(TESTS_ZEND_SERVICE_GOGRID_ONLINE_SERVER_NAME,
@@ -97,9 +97,9 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
                            TESTS_ZEND_SERVICE_GOGRID_ONLINE_SERVER_IP);
         $this->assertTrue($result->isSuccess());
     }
-    
-    
-    
+
+
+
     public function testGetServer()
     {
         $result = self::$gogrid->get(TESTS_ZEND_SERVICE_GOGRID_ONLINE_SERVER_NAME);
@@ -113,7 +113,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($ip['ip'], TESTS_ZEND_SERVICE_GOGRID_ONLINE_SERVER_IP);
         $this->assertEquals($ram['name'], TESTS_ZEND_SERVICE_GOGRID_ONLINE_SERVER_RAM);
     }
-    
+
     public function testListServer()
     {
         $result = self::$gogrid->getList();
@@ -127,7 +127,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertTrue($found);
     }
-    
+
     public function testEditServer()
     {
         $options = array (
@@ -136,27 +136,27 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
         $result = self::$gogrid->edit(TESTS_ZEND_SERVICE_GOGRID_ONLINE_SERVER_NAME, $options);
         $this->assertTrue($result->isSuccess());
     }
-    
+
     public function testStopServer()
     {
         $result = self::$gogrid->stop(TESTS_ZEND_SERVICE_GOGRID_ONLINE_SERVER_NAME);
         $this->assertTrue($result->isSuccess());
-        
+
     }
-    
+
     public function testStartServer()
     {
         $result = self::$gogrid->start(TESTS_ZEND_SERVICE_GOGRID_ONLINE_SERVER_NAME);
         $this->assertTrue($result->isSuccess());
     }
-    
+
     public function testRestartServer()
     {
         $result = self::$gogrid->restart(TESTS_ZEND_SERVICE_GOGRID_ONLINE_SERVER_NAME);
         $this->assertTrue($result->isSuccess());
     }
-    
-    
+
+
     public function testDeleteServer()
     {
         $result = self::$gogrid->delete(TESTS_ZEND_SERVICE_GOGRID_ONLINE_SERVER_NAME);

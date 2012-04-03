@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.authsub"><info><title>Authenticating with AuthSub</title></info>
-    
+
 
     <para>
         The AuthSub mechanism enables you to write web applications
@@ -30,7 +30,7 @@
     </para>
 
     <note><info><title>Registered applications</title></info>
-        
+
 
         <para>
             <classname>Zend_Gdata</classname> currently does not support use of secure tokens,
@@ -40,7 +40,7 @@
     </note>
 
     <section xml:id="zend.gdata.authsub.login"><info><title>Creating an AuthSub authenticated Http Client</title></info>
-        
+
 
         <para>
             Your <acronym>PHP</acronym> application should provide a hyperlink to the
@@ -105,7 +105,7 @@ $cal = new Zend_Gdata_Calendar($client);
     </section>
 
     <section xml:id="zend.gdata.authsub.logout"><info><title>Revoking AuthSub authentication</title></info>
-        
+
 
         <para>
             To terminate the authenticated status of a given token, use the
@@ -130,7 +130,7 @@ if (isset($_GET['logout'])) {
 ]]></programlisting>
 
         <note><info><title>Security notes</title></info>
-            
+
 
             <para>
                 The treatment of the <varname>$php_self</varname> variable in the

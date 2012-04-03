@@ -2,17 +2,17 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.intro"><info><title>Introducción a MVC &amp; ZF</title></info>
-    
+
 
     <section xml:id="learning.quickstart.intro.zf"><info><title>Zend Framework</title></info>
-        
+
 
         <para>
             Zend Framework es un framework de código abierto y orientado a objectos para facilitar
             el desarrollo de aplicaciones web con <acronym>PHP</acronym> 5.
             A menudo es considerado una 'biblioteca de componentes', debido a que estos poseen bajo
             acoplamiento entre sí lo cual permite reutilizarlos con un alto grado de independencia. Proporciona
-            además una sofisticada implementación del patrón Modelo-Vista-Controlador 
+            además una sofisticada implementación del patrón Modelo-Vista-Controlador
             (<acronym>MVC</acronym>) el cual puede
             ser utilizado para fijar la estructura básica de las aplicaciones desarrolladas con el framework.
             Encontrarás la lista completa de los componentes de Zend Framework junto a
@@ -48,7 +48,7 @@
     </section>
 
     <section xml:id="learning.quickstart.intro.mvc"><info><title>Modelo-Vista-Controlador</title></info>
-        
+
 
         <para>
             En resumen ¿qué es exactamente el patrón <acronym>MVC</acronym> del que tanto hablan? ¿y por qué
@@ -64,7 +64,7 @@
         </para>
 
         <note><info><title>Más información</title></info>
-            
+
 
             <para>
                 Profundicemos un poco y veamos cada parte de este patrón por separado:

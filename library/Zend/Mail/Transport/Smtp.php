@@ -87,7 +87,7 @@ class Smtp implements Transport, Pluggable
 
     /**
      * Get options
-     * 
+     *
      * @return SmtpOptions
      */
     public function getOptions()
@@ -113,7 +113,7 @@ class Smtp implements Transport, Pluggable
         $this->broker = $broker;
         return $this;
     }
-    
+
     /**
      * Get broker for loading SMTP protocol connection
      *
@@ -129,9 +129,9 @@ class Smtp implements Transport, Pluggable
 
     /**
      * Return an SMTP connection
-     * 
-     * @param  string $name 
-     * @param  array|null $options 
+     *
+     * @param  string $name
+     * @param  array|null $options
      * @return \Zend\Mail\Protocol\Smtp
      */
     public function plugin($name, array $options = null)
@@ -220,9 +220,9 @@ class Smtp implements Transport, Pluggable
     }
 
     /**
-     * Retrieve email address for envelope FROM 
-     * 
-     * @param  Message $message 
+     * Retrieve email address for envelope FROM
+     *
+     * @param  Message $message
      * @return string
      */
     protected function prepareFromAddress(Message $message)
@@ -247,8 +247,8 @@ class Smtp implements Transport, Pluggable
 
     /**
      * Prepare array of email address recipients
-     * 
-     * @param  Message $message 
+     *
+     * @param  Message $message
      * @return array
      */
     protected function prepareRecipients(Message $message)
@@ -269,8 +269,8 @@ class Smtp implements Transport, Pluggable
 
     /**
      * Prepare header string from message
-     * 
-     * @param  Message $message 
+     *
+     * @param  Message $message
      * @return string
      */
     protected function prepareHeaders(Message $message)
@@ -287,8 +287,8 @@ class Smtp implements Transport, Pluggable
 
     /**
      * Prepare body string from message
-     * 
-     * @param  Message $message 
+     *
+     * @param  Message $message
      * @return string
      */
     protected function prepareBody(Message $message)
@@ -298,7 +298,7 @@ class Smtp implements Transport, Pluggable
 
     /**
      * Lazy load the connection, and pass it helo
-     * 
+     *
      * @return SmtpProtocol
      */
     protected function lazyLoadConnection()

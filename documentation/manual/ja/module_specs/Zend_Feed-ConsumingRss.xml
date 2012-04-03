@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.consuming-rss"><info><title>RSS フィードの使用</title></info>
-    
+
     <para>
         <acronym>RSS</acronym> フィードの読み込みは、フィードの <acronym>URL</acronym> を指定して
         <classname>Zend_Feed_Rss</classname> のインスタンスを作成するのと同じくらい簡単です。

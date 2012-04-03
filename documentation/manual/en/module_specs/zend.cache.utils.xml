@@ -8,19 +8,19 @@
         <info>
             <title>Overview</title>
         </info>
-        
+
         <para>
             The class <classname>Zend\Cache\Utils</classname> is a class that defines a set of
             methods that perform common, often re-used logic needed by the
             <classname>Zend\Cache</classname> component.
         </para>
-        
+
         <para>
             It is a static class and has only static members.
         </para>
-        
+
     </section>
-<!-- 
+<!--
     <section xml:id="zend.cache.utils.quick-start">
         <info>
             <title>Quick Start</title>

@@ -6,5 +6,5 @@ class UnexpectedValueException
     extends \UnexpectedValueException
     implements \Zend\Soap\Exception
 {
-    
+
 }

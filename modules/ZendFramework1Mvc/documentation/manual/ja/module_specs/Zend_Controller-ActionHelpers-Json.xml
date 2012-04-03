@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.json"><info><title>JSON</title></info>
-    
+
 
     <para>
         <acronym>JSON</acronym> レスポンスは、<acronym>AJAX</acronym> リクエストでデータセットを受け取るときの
@@ -77,7 +77,7 @@ class FooController extends Zend_Controller_Action
 ]]></programlisting>
 
     <note><info><title>レイアウトの維持</title></info>
-        
+
 
         <para>
             <acronym>JSON</acronym> レスポンスでレイアウト機能を使用したい場合
@@ -104,7 +104,7 @@ $this->_helper->json($data, array('keepLayouts' => true);
     </note>
 
     <note><info><title>Zend_Json_Expr を使用したエンコードの有効化</title></info>
-        
+
 
         <para>
             <methodname>Zend_Json::encode()</methodname> は、ネイティブ <acronym>JSON</acronym> 式を
@@ -126,7 +126,7 @@ $this->_helper->json($data, array('enableJsonExprFinder' => true);
 
         <programlisting language="php"><![CDATA[
 $this->_helper->json($data, array(
-    'enableJsonExprFinder' => true, 
+    'enableJsonExprFinder' => true,
     'keepLayouts'          => true,
 ));
 ]]></programlisting>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.best-practice"><info><title>Best Practices</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.best-practice.field-names"><info><title>Field names</title></info>
-        
+
 
         <para>
             There are no limitations for field names in <classname>Zend_Search_Lucene</classname>.
@@ -52,7 +52,7 @@ foreach ($hits as $hit) {
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.indexing-performance"><info><title>Indexing performance</title></info>
-        
+
 
         <para>
             Indexing performance is a compromise between used resources, indexing time and index
@@ -269,7 +269,7 @@ $index->optimize();
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.shutting-down"><info><title>Index during Shut Down</title></info>
-        
+
 
         <para>
             The <classname>Zend_Search_Lucene</classname> instance performs some work at exit time
@@ -340,7 +340,7 @@ $index->commit();
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.unique-id"><info><title>Retrieving documents by unique id</title></info>
-        
+
 
         <para>
             It's a common practice to store some unique document id in the index. Examples include
@@ -392,7 +392,7 @@ foreach ($docIds as $id) {
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.memory-usage"><info><title>Memory Usage</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> is a relatively memory-intensive module.
@@ -450,7 +450,7 @@ foreach ($docIds as $id) {
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.encoding"><info><title>Encoding</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> works with UTF-8 strings internally. So all
@@ -548,7 +548,7 @@ $hits = $index->find($queryStr);
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.maintenance"><info><title>Index maintenance</title></info>
-        
+
 
         <para>
             It should be clear that <classname>Zend_Search_Lucene</classname> as well as any other

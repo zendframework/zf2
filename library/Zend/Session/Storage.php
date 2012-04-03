@@ -23,7 +23,7 @@ namespace Zend\Session;
 /**
  * Session storage interface
  *
- * Defines the minimum requirements for handling userland, in-script session 
+ * Defines the minimum requirements for handling userland, in-script session
  * storage (e.g., the $_SESSION superglobal array).
  *
  * @category   Zend

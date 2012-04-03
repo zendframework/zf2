@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.best-practice"><info><title>ベストプラクティス</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.best-practice.field-names"><info><title>フィールド名</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> では、フィールド名に関する制限は特にありません。
@@ -55,7 +55,7 @@ foreach ($hits as $hit) {
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.indexing-performance"><info><title>インデックス作成のパフォーマンス</title></info>
-        
+
 
         <para>
             インデックス作成のパフォーマンスは、
@@ -266,7 +266,7 @@ $index->optimize();
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.shutting-down"><info><title>インデックスの終了時処理</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> オブジェクトは、
@@ -332,7 +332,7 @@ $index->commit();
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.unique-id"><info><title>一意な ID によるドキュメントの取得</title></info>
-        
+
 
         <para>
             ドキュメントの一意な ID、たとえば URL やパス、データベース上の ID
@@ -383,7 +383,7 @@ foreach ($docIds as $id) {
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.memory-usage"><info><title>メモリの使用法</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> は、比較的メモリを消費するモジュールです。
@@ -438,7 +438,7 @@ foreach ($docIds as $id) {
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.encoding"><info><title>エンコーディング</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> は、内部で UTF-8 文字列を使用しています。
@@ -529,7 +529,7 @@ $hits = $index->find($queryStr);
     </section>
 
     <section xml:id="zend.search.lucene.best-practice.maintenance"><info><title>インデックスの保守</title></info>
-        
+
 
         <para>
             まずはっきりさせておくべきなのは、<classname>Zend_Search_Lucene</classname> やその他の

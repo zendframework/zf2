@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.definition"><info><title>Zend_Db_Table_Definition</title></info>
-    
+
 
     <section xml:id="zend.db.table.definition.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Db_Table_Definition</classname> est une classe qui peut être
@@ -14,7 +14,7 @@
     </section>
 
     <section xml:id="zend.db.table.definition.usage"><info><title>Utilisation de base</title></info>
-        
+
 
         <para>
             Les options décrites dans un objet de définition sont les mêmes que celles
@@ -31,7 +31,7 @@
         </para>
 
         <example xml:id="zend.db.table.definition.example1"><info><title>Décrire un modèle de base de données</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $definition = new Zend_Db_Table_Definition(array(
@@ -82,7 +82,7 @@ $definition = new Zend_Db_Table_Definition(array(
         </para>
 
         <example xml:id="zend.db.table.definition.example2"><info><title>Intéragir avec la définition utilisée</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $authorTable = new Zend_Db_Table('author', $definition);
@@ -105,7 +105,7 @@ foreach ($authors as $author) {
     </section>
 
     <section xml:id="zend.db.table.definition.advanced-usage"><info><title>Utilisation avancée</title></info>
-        
+
 
         <para>
             Quelques fois vous voudriez mixer les utilisations, via la définition et
@@ -121,7 +121,7 @@ foreach ($authors as $author) {
         </para>
 
         <example xml:id="zend.db.table.definition.example3"><info><title>Mixer la définition et l'extension concrête</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 class MyBook extends Zend_Db_Table_Abstract

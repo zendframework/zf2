@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.server.introduction"><info><title>הקדמה</title></info>
-    
+
     <para>
         משפחת המחלקות של <code>Zend_Server</code> מאפשרות שימוש במספר מחלקות שרתיות שונות, הכוללות
         <code>Zend_XmlRpc_Server</code>, <code>Zend_Rest_Server</code>,

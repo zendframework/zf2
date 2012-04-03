@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.resource-resourceabstract"><info><title>Zend_Application_Resource_ResourceAbstract</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_ResourceAbstract</classname>は
@@ -15,7 +15,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.resource-resourceabstract.api"><info><title>Zend_Application_Resource_ResourceAbstractメソッド</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>
@@ -93,7 +93,7 @@
     </table>
 
     <section xml:id="zend.application.core-functionality.resource-resourceabstract.names"><info><title>リソース名</title></info>
-        
+
 
         <para>
             プラグイン・リソースを登録するときに起きる問題の一つは、
@@ -104,7 +104,7 @@
 
         <para>
             最初に、プラグインが定義済みのプレフィックス・パスの中で定義されるなら、
-            それらの「短い名前」 ― すなわち、クラス・プレフィックスの後のクラス名の部分 ― 
+            それらの「短い名前」 ― すなわち、クラス・プレフィックスの後のクラス名の部分 ―
             によって単純にそれらを参照するかもしれません。
             例えば、プレフィックス・パス "<classname>Zend_Application_Resource</classname>" がすでに登録されていたら、
             クラス "<classname>Zend_Application_Resource_View</classname>" は単純に "View" として参照されるかもしれません。

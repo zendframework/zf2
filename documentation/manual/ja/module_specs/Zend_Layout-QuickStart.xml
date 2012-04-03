@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.quickstart"><info><title>Zend_Layout クイックスタート</title></info>
-    
+
 
     <para>
         <classname>Zend_Layout</classname> の使用法は大きくふたつに分けられます。
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.layout.quickstart.layouts"><info><title>レイアウトスクリプト</title></info>
-        
+
 
         <para>
             どちらにしても、まずはレイアウトスクリプトを作成しなければなりません。
@@ -87,7 +87,7 @@
     </section>
 
     <section xml:id="zend.layout.quickstart.mvc"><info><title>Zend_Layout を Zend Framework の MVC で使用する方法</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller</classname> には拡張用の機能が豊富に用意されています。
@@ -217,7 +217,7 @@ $layout = Zend_Layout::getMvcInstance();
     </section>
 
     <section xml:id="zend.layout.quickstart.standalone"><info><title>Zend_Layout を単体のコンポーネントとして使用する方法</title></info>
-        
+
 
         <para>
             単体のコンポーネントとして使用した場合は、<classname>Zend_Layout</classname>
@@ -262,7 +262,7 @@ echo $layout->render();
     </section>
 
     <section xml:id="zend.layout.quickstart.example"><info><title>サンプルレイアウト</title></info>
-        
+
 
         <para>
             一枚の絵のほうがが千の言葉よりも雄弁なこともあります。

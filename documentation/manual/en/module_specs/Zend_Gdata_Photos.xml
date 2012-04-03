@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.photos"><info><title>Using Picasa Web Albums</title></info>
-    
+
 
     <para>
         Picasa Web Albums is a service which allows users to maintain albums of
@@ -22,7 +22,7 @@
     </para>
 
     <note><info><title>Authentication</title></info>
-        
+
 
         <para>
             The <acronym>API</acronym> provides authentication via AuthSub (recommended)
@@ -32,7 +32,7 @@
     </note>
 
     <section xml:id="zend.gdata.photos.connecting"><info><title>Connecting To The Service</title></info>
-        
+
 
         <para>
             The Picasa Web Albums <acronym>API</acronym>, like all GData <acronym>API</acronym>s, is
@@ -50,7 +50,7 @@
         </para>
 
         <section xml:id="zend.gdata.photos.connecting.authentication"><info><title>Authentication</title></info>
-            
+
 
             <para>
                 The Google Picasa <acronym>API</acronym> allows access to both public and private
@@ -99,7 +99,7 @@
         </section>
 
         <section xml:id="zend.gdata.photos.connecting.service"><info><title>Creating A Service Instance</title></info>
-            
+
 
             <para>
                 In order to interact with the servers, this library provides the
@@ -241,7 +241,7 @@ $service = new Zend_Gdata_Photos();
     </section>
 
     <section xml:id="zend.gdata.photos.queries"><info><title>Understanding and Constructing Queries</title></info>
-        
+
 
         <para>
             The primary method to request data from the service is by constructing a query. There
@@ -376,7 +376,7 @@ $query->setUser("sample.user");
     </section>
 
     <section xml:id="zend.gdata.photos.retrieval"><info><title>Retrieving Feeds And Entries</title></info>
-        
+
 
         <para>
             The service has functions to retrieve a feed, or individual entries, for users, albums,
@@ -384,7 +384,7 @@ $query->setUser("sample.user");
         </para>
 
         <section xml:id="zend.gdata.photos.user_retrieval"><info><title>Retrieving A User</title></info>
-            
+
 
             <para>
                 The service supports retrieving a user feed and list of the user's content. If the
@@ -448,7 +448,7 @@ try {
         </section>
 
         <section xml:id="zend.gdata.photos.album_retrieval"><info><title>Retrieving An Album</title></info>
-            
+
 
             <para>
                 The service supports retrieving an album feed and a list of the album's content.
@@ -504,7 +504,7 @@ try {
         </section>
 
         <section xml:id="zend.gdata.photos.photo_retrieval"><info><title>Retrieving A Photo</title></info>
-            
+
 
             <para>
                 The service supports retrieving a photo feed and a list of associated comments and
@@ -557,7 +557,7 @@ try {
         </section>
 
         <section xml:id="zend.gdata.photos.comment_retrieval"><info><title>Retrieving A Comment</title></info>
-            
+
 
             <para>
                 The service supports retrieving comments from a feed of a different type. By setting
@@ -596,7 +596,7 @@ try {
         </section>
 
         <section xml:id="zend.gdata.photos.tag_retrieval"><info><title>Retrieving A Tag</title></info>
-            
+
 
             <para>
                 The service supports retrieving tags from a feed of a different type. By setting a
@@ -636,12 +636,12 @@ try {
     </section>
 
     <section xml:id="zend.gdata.photos.creation"><info><title>Creating Entries</title></info>
-        
+
 
         <para>The service has functions to create albums, photos, comments, and tags.</para>
 
         <section xml:id="zend.gdata.photos.album_creation"><info><title>Creating An Album</title></info>
-            
+
 
             <para>The service supports creating a new album for an authenticated user:</para>
 
@@ -658,7 +658,7 @@ $service->insertAlbumEntry($entry);
         </section>
 
         <section xml:id="zend.gdata.photos.photo_creation"><info><title>Creating A Photo</title></info>
-            
+
 
             <para>The service supports creating a new photo for an authenticated user:</para>
 
@@ -687,7 +687,7 @@ $service->insertPhotoEntry($entry, $albumEntry);
         </section>
 
         <section xml:id="zend.gdata.photos.comment_creation"><info><title>Creating A Comment</title></info>
-            
+
 
             <para>The service supports creating a new comment for a photo:</para>
 
@@ -713,7 +713,7 @@ $service->insertCommentEntry($entry, $photoEntry);
         </section>
 
         <section xml:id="zend.gdata.photos.tag_creation"><info><title>Creating A Tag</title></info>
-            
+
 
             <para>The service supports creating a new tag for a photo:</para>
 
@@ -739,12 +739,12 @@ $service->insertTagEntry($entry, $photoEntry);
     </section>
 
     <section xml:id="zend.gdata.photos.deletion"><info><title>Deleting Entries</title></info>
-        
+
 
         <para>The service has functions to delete albums, photos, comments, and tags.</para>
 
         <section xml:id="zend.gdata.photos.album_deletion"><info><title>Deleting An Album</title></info>
-            
+
 
             <para>The service supports deleting an album for an authenticated user:</para>
 
@@ -765,7 +765,7 @@ $service->deleteAlbumEntry($entry, true);
         </section>
 
         <section xml:id="zend.gdata.photos.photo_deletion"><info><title>Deleting A Photo</title></info>
-            
+
 
             <para>The service supports deleting a photo for an authenticated user:</para>
 
@@ -787,7 +787,7 @@ $service->deletePhotoEntry($entry, true);
         </section>
 
         <section xml:id="zend.gdata.photos.comment_deletion"><info><title>Deleting A Comment</title></info>
-            
+
 
             <para>The service supports deleting a comment for an authenticated user:</para>
 
@@ -811,7 +811,7 @@ $service->deleteCommentEntry($entry, true);
         </section>
 
         <section xml:id="zend.gdata.photos.tag_deletion"><info><title>Deleting A Tag</title></info>
-            
+
 
             <para>The service supports deleting a tag for an authenticated user:</para>
 
@@ -842,7 +842,7 @@ $service->deleteTagEntry($tagEntry, true);
         </section>
 
         <section xml:id="zend.gdata.photos.optimistic_concurrenty"><info><title>Optimistic Concurrency (Notes On Deletion)</title></info>
-            
+
 
             <para>
                 GData feeds, including those of the Picasa Web Albums service, implement optimistic

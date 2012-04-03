@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.standardDecorators"><info><title>Zend Framework に同梱されている標準のデコレータ</title></info>
-    
+
 
     <para>
         <classname>Zend_Form</classname> には、標準でいくつかのデコレータが組み込まれています。
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.form.standardDecorators.callback"><info><title>Zend_Form_Decorator_Callback</title></info>
-        
+
 
         <para>
             Callback デコレータは、コンテンツをレンダリングする際に任意のコールバックを実行します。
@@ -48,7 +48,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.captcha"><info><title>Zend_Form_Decorator_Captcha</title></info>
-        
+
 
         <para>
             Captcha デコレータは <link linkend="zend.form.standardElements.captcha">CAPTCHA
@@ -67,7 +67,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.description"><info><title>Zend_Form_Decorator_Description</title></info>
-        
+
 
         <para>
             Description デコレータは
@@ -99,7 +99,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.dtDdWrapper"><info><title>Zend_Form_Decorator_DtDdWrapper</title></info>
-        
+
 
         <para>
             デフォルトのデコレータで、フォームの要素を定義リスト
@@ -127,7 +127,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.errors"><info><title>Zend_Form_Decorator_Errors</title></info>
-        
+
 
         <para>
             要素のエラーを処理するのが Errors デコレータです。
@@ -143,7 +143,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.fieldset"><info><title>Zend_Form_Decorator_Fieldset</title></info>
-        
+
 
         <para>
             グループやサブフォームの内容を、デフォルトで fieldset
@@ -159,7 +159,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.file"><info><title>Zend_Form_Decorator_File</title></info>
-        
+
 
         <para>
             File 要素には特殊な記法があり、
@@ -171,7 +171,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.form"><info><title>Zend_Form_Decorator_Form</title></info>
-        
+
 
         <para>
             <classname>Zend_Form</classname> オブジェクトは HTML の form タグをレンダリングするものです。
@@ -183,7 +183,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.formElements"><info><title>Zend_Form_Decorator_FormElements</title></info>
-        
+
 
         <para>
             フォームや表示グループ、サブフォームはいくつかの要素のコレクションです。
@@ -195,7 +195,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.formErrors"><info><title>Zend_Form_Decorator_FormErrors</title></info>
-        
+
 
         <para>
             開発者やデザイナの中には、
@@ -271,7 +271,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.htmlTag"><info><title>Zend_Form_Decorator_HtmlTag</title></info>
-        
+
 
         <para>
             HtmlTag デコレータは、HTML タグを使ってコンテンツを装飾します。
@@ -284,7 +284,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.image"><info><title>Zend_Form_Decorator_Image</title></info>
-        
+
 
         <para>
             Image デコレータは、HTML の image input
@@ -309,7 +309,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.label"><info><title>Zend_Form_Decorator_Label</title></info>
-        
+
 
         <para>
             フォーム要素には通常ラベルがあります。Label
@@ -376,7 +376,7 @@ class Util
     </section>
 
     <section xml:id="zend.form.standardDecorators.prepareElements"><info><title>Zend_Form_Decorator_PrepareElements</title></info>
-        
+
 
         <para>
             フォーム、表示グループそしてサブフォームは、要素のコレクションです。
@@ -397,7 +397,7 @@ $form->setDecorators(array(
     </section>
 
     <section xml:id="zend.form.standardDecorators.viewHelper"><info><title>Zend_Form_Decorator_ViewHelper</title></info>
-        
+
 
         <para>
             大半の要素のレンダリングには <classname>Zend_View</classname>
@@ -420,7 +420,7 @@ $form->setDecorators(array(
     </section>
 
     <section xml:id="zend.form.standardDecorators.viewScript"><info><title>Zend_Form_Decorator_ViewScript</title></info>
-        
+
 
         <para>
             ビュースクリプトを使用して要素を作成したくなることもあるでしょう。
@@ -498,7 +498,7 @@ $element->setDecorators(array(array('ViewScript',
 ]]></programlisting>
 
         <note><info><title>ビュースクリプトによるコンテンツの置換</title></info>
-            
+
 
             <para>
                 デコレータに渡されたコンテンツをビュースクリプトで置換したいこともあるでしょう。

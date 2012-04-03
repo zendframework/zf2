@@ -44,7 +44,7 @@ class File implements Transport
 
     /**
      * Last file written to
-     * 
+     *
      * @var string
      */
     protected $lastFile;
@@ -100,7 +100,7 @@ class File implements Transport
 
     /**
      * Get the name of the last file written to
-     * 
+     *
      * @return null|string
      */
     public function getLastFile()

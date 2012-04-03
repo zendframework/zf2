@@ -1176,7 +1176,7 @@ class App
             $etag = $data->getEtag();
             if ($etag instanceof Etag) {
                 $etag = $etag->getFieldValue();
-                if (!empty($etag) 
+                if (!empty($etag)
                     && ($allowWeek || (substr($etag, 0, 2) != 'W/'))
                 ) {
                     $result = $etag;

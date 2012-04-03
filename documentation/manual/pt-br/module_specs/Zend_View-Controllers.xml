@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.controllers"><info><title>Scripts Controladores</title></info>
-    
+
 
     <para>
         O controlador é onde você instancia e configura o <classname>Zend_View</classname>. Você
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.view.controllers.assign"><info><title>Atribuindo Variáveis</title></info>
-        
+
 
         <para>
             Seu script controlador deverá atribuir as variáveis necessárias ao visualizador antes de
@@ -71,7 +71,7 @@ $view->assign('c', "Sea");
     </section>
 
     <section xml:id="zend.view.controllers.render"><info><title>Renderizando um Script de Visualização</title></info>
-        
+
 
         <para>
             Uma vez que tenhamos atribuído todas as variáveis necessárias, o controlador irá
@@ -91,7 +91,7 @@ echo $view->render('someView.php');
     </section>
 
     <section xml:id="zend.view.controllers.script-paths"><info><title>Caminhos do Script de Visualização</title></info>
-        
+
 
         <para>
             Por padrão, <classname>Zend_View</classname> espera encontrar os scripts de visualização
@@ -137,7 +137,7 @@ $view->addScriptPath('/path/to/custom/');
 ]]></programlisting>
 
         <note><info><title>Nunca utilize uma entrada do usuário para definir caminhos de script</title></info>
-            
+
 
             <para>
                 <classname>Zend_View</classname> utiliza caminhos de script para pesquisar e

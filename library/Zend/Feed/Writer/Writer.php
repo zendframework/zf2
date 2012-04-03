@@ -61,7 +61,7 @@ class Writer
     const TYPE_RSS_10           = 'rss-10';
     const TYPE_RSS_20           = 'rss-20';
     const TYPE_RSS_ANY          = 'rss';
-    
+
     /**
      * PluginLoader instance used by component
      *
@@ -89,7 +89,7 @@ class Writer
         'entryRenderer' => array(),
         'feedRenderer'  => array(),
     );
-    
+
     /**
      * Set plugin loader for use with Extensions
      *
@@ -268,7 +268,7 @@ class Writer
         self::registerExtension('Threading');
         self::registerExtension('ITunes');
     }
-    
+
     public static function lcfirst($str)
     {
         $str[0] = strtolower($str[0]);

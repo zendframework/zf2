@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.redirector"><info><title>Redirector</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.redirector.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             <emphasis>Redirector</emphasis> ヘルパーは、
@@ -127,10 +127,10 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.redirector.basicusage"><info><title>基本的な使用例</title></info>
-        
+
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-1"><info><title>オプションの設定</title></info>
-            
+
 
             <para>
                 この例ではデフォルトのオプションを少し変更します。
@@ -176,7 +176,7 @@ class SomeController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-2"><info><title>デフォルト設定の使用</title></info>
-            
+
 
             <para>
                 この例ではデフォルト設定を使用しています。
@@ -213,7 +213,7 @@ class AlternativeController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-3"><info><title>goto() での _forward() API の使用</title></info>
-            
+
 
             <para>
                 <methodname>gotoSimple()</methodname> の <acronym>API</acronym> は、
@@ -259,7 +259,7 @@ class ForwardController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.redirector.basicusage.example-4"><info><title>gotoRoute() でのルートアセンブリの使用</title></info>
-            
+
 
             <para>
                 次の例は、<link linkend="zend.controller.router">ルータ</link>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.version.reading"><info><title>Lettura della versione del Framework Zend</title></info>
 
-    
+
 
     <para>
         La costante di classe <code>Zend_Version::VERSION</code> contiene una stringa che identifica il numero di versione corrente del framework Zend. Per esempio, "0.9.0beta".
@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.version.reading.example"><info><title>Esempio del metodo compareVersion()</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 // restituisce -1, 0 o 1
 $cmp = Zend_Version::compareVersion('1.0.0');

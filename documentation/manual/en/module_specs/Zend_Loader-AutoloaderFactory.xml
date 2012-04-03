@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.autoloader-factory"><info><title>The AutoloaderFactory</title></info>
-    
+
 
     <section xml:id="zend.loader.autoloader-factory.intro"><info><title>Overview</title></info>
-        
+
 
         <para>
             Starting with version 2.0, Zend Framework now offers multiple autoloader strategies.
@@ -20,7 +20,7 @@
     </section>
 
     <section xml:id="zend.loader.autoloader-factory.quick-start"><info><title>Quick Start</title></info>
-        
+
 
         <para>
             Configuration may be stored as a PHP array, or in some form of configuration file. As an
@@ -74,10 +74,10 @@ Zend\Loader\AutoloaderFactory::factory($config);
     </section>
 
     <section xml:id="zend.loader.autoloader-factory.options"><info><title>Configuration Options</title></info>
-        
+
 
         <variablelist><info><title>AutoloaderFactory Options</title></info>
-            
+
 
             <varlistentry>
                 <term>$options</term>
@@ -105,7 +105,7 @@ Zend\Loader\AutoloaderFactory::factory($config);
     </section>
 
     <section xml:id="zend.loader.autoloader-factory.methods"><info><title>Available Methods</title></info>
-        
+
 
         <refentry xml:id="zend.loader.autoloader-factory.methods.factory">
             <refnamediv>
@@ -123,7 +123,7 @@ Zend\Loader\AutoloaderFactory::factory($config);
             </refsynopsisdiv>
 
             <refsection><info><title>factory()</title></info>
-                
+
 
                 <para>
                     This method is <emphasis>static</emphasis>, and is used to instantiate
@@ -147,7 +147,7 @@ Zend\Loader\AutoloaderFactory::factory($config);
             </refsynopsisdiv>
 
             <refsection><info><title>getRegisteredAutoloaders()</title></info>
-                
+
 
                 <para>
                     This method is <emphasis>static</emphasis>, and may be used to retrieve a list
@@ -159,7 +159,7 @@ Zend\Loader\AutoloaderFactory::factory($config);
     </section>
 
     <section xml:id="zend.loader.autoloader-factory.examples"><info><title>Examples</title></info>
-        
+
 
         <para>
             Please see the <link linkend="zend.loader.autoloader-factory.quick-start">Quick

@@ -44,14 +44,14 @@ abstract class AbstractToken implements OAuthToken
 
     /**
      * Token parameters
-     * 
+     *
      * @var array
      */
     protected $_params = array();
 
     /**
      * OAuth response object
-     * 
+     *
      * @var \Zend\Http\Response
      */
     protected $_response = null;
@@ -268,11 +268,11 @@ abstract class AbstractToken implements OAuthToken
         }
         return $params;
     }
-    
+
     /**
      * Limit serialisation stored data to the parameters
      */
-    public function __sleep() 
+    public function __sleep()
     {
         return array('_params');
     }
@@ -280,7 +280,7 @@ abstract class AbstractToken implements OAuthToken
     /**
      * After serialisation, re-instantiate a HTTP utility class for use
      */
-    public function __wakeup() 
+    public function __wakeup()
     {
         if ($this->_httpUtility === null) {
             $this->_httpUtility = new HTTPUtility;

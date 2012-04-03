@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.gdata.docs"><info><title>Google Documents List Data API の使用法</title></info>
-    
+
 
     <para>
         Google Documents List Data <acronym>API</acronym> は、
@@ -19,7 +19,7 @@
     </para>
 
     <section xml:id="zend.gdata.docs.listdocuments"><info><title>ドキュメントの一覧の取得</title></info>
-        
+
         <para>
             特定のユーザの Google Documents の一覧を取得するには、docs サービスの
             <methodname>getDocumentListFeed</methodname> メソッドを使用します。
@@ -45,7 +45,7 @@ $feed = $docs->getDocumentListFeed();
     </section>
 
     <section xml:id="zend.gdata.docs.creating"><info><title>ドキュメントのアップロード</title></info>
-        
+
         <para>
             新しい Google Document を作成するには、
             ワープロ文書やスプレッドシート、あるいはプレゼンテーションをアップロードします。
@@ -105,7 +105,7 @@ function uploadDocument($docs, $html, $originalFileName,
     </section>
 
     <section xml:id="zend.gdata.docs.queries"><info><title>ドキュメントのフィードの検索</title></info>
-        
+
         <para>
             ドキュメントの一覧を検索するには、<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://code.google.com/apis/gdata/reference.html#Queries">
             標準的な Google Data <acronym>API</acronym> クエリパラメータ</link> を使用します。
@@ -118,7 +118,7 @@ function uploadDocument($docs, $html, $originalFileName,
         </para>
 
         <section xml:id="zend.gdata.docs.listwpdocuments"><info><title>ワープロ文書の一覧の取得</title></info>
-            
+
             <para>
                 指定した型のすべてのドキュメントを含むフィードを取得することもできます。
                 たとえば、ワープロ文書の一覧を取得するには、
@@ -131,7 +131,7 @@ $feed = $docs->getDocumentListFeed(
         </section>
 
         <section xml:id="zend.gdata.docs.listspreadsheets"><info><title>スプレッドシートの一覧の取得</title></info>
-            
+
             <para>
                 Google Spreadsheets の一覧を取得するには、
                 次のようなカテゴリクエリを使用します。
@@ -143,7 +143,7 @@ $feed = $docs->getDocumentListFeed(
         </section>
 
         <section xml:id="zend.gdata.docs.textquery"><info><title>テキストクエリの実行</title></info>
-            
+
             <para>
                 ドキュメントの中身を検索するには、リクエスト内で
                 <classname>Zend_Gdata_Docs_Query</classname> を使用します。

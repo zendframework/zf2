@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.translator"><info><title>翻訳ヘルパー</title></info>
 
-    
+
 
     <para>
         ウェブサイトを複数言語で提供することもよくあります。
@@ -53,7 +53,7 @@
 
     <example xml:id="zend.view.helpers.initial.translator.registered"><info><title>登録済みのインスタンス</title></info>
 
-        
+
 
         <para>
             登録済みのインスタンスを使用するには、まず <classname>Zend_Translator</classname> あるいは
@@ -87,7 +87,7 @@ echo $this->translate('simple');
 
     <example xml:id="zend.view.helpers.initial.translator.afterwards"><info><title>ビューの中で</title></info>
 
-        
+
 
         <para>
             流れるようなインターフェイスで <classname>Zend_Translator</classname> あるいは
@@ -118,7 +118,7 @@ $this->translate()->setTranslator($adapter)->translate('simple');
 
     <example xml:id="zend.view.helpers.initial.translator.directly"><info><title>直接使用する方法</title></info>
 
-        
+
 
         <programlisting language="php"><![CDATA[
 // サンプルアダプタ
@@ -153,7 +153,7 @@ print $translate->translate('simple'); // これは 'einfach' を返します
 
     <example xml:id="zend.view.helpers.initial.translator.parameter"><info><title>単一のパラメータ</title></info>
 
-        
+
 
         <para>
             単一のパラメータを使用するには、単にそれをメソッドに追加します。
@@ -177,7 +177,7 @@ $this->translate("Today is %1\$s", $date);
 
     <example xml:id="zend.view.helpers.initial.translator.parameterlist"><info><title>パラメータのリスト</title></info>
 
-        
+
 
         <para>
             パラメータのリストを使用して、それをメソッドに追加することもできます。
@@ -199,7 +199,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s",
 
     <example xml:id="zend.view.helpers.initial.translator.parameterarray"><info><title>パラメータの配列</title></info>
 
-        
+
 
         <para>
             パラメータの配列を使用して、それをメソッドに追加することもできます。
@@ -224,7 +224,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s", $date);
 
     <example xml:id="zend.view.helpers.initial.translator.dynamic"><info><title>ロケールの動的な変更</title></info>
 
-        
+
 
         <programlisting language="php"><![CDATA[
 // ビューの中で
@@ -244,7 +244,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s", $date, 'it');
 
     <example xml:id="zend.view.helpers.initial.translator.static"><info><title>ロケールの静的な変更</title></info>
 
-        
+
 
         <programlisting language="php"><![CDATA[
 // ビューの中で
@@ -267,7 +267,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s", $date);
 
     <example xml:id="zend.view.helpers.initial.translator.getlocale"><info><title>現在設定されているロケールの取得</title></info>
 
-        
+
 
         <programlisting language="php"><![CDATA[
 // ビューの中で

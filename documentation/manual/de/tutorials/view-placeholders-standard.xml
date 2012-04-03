@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.view.placeholders.standard"><info><title>Standard Platzhalter</title></info>
-    
+
 
     <para>
         In der <link linkend="learning.view.placeholders.basics">vorherigen Sektion</link>, haben
@@ -28,7 +28,7 @@
     </para>
 
     <section xml:id="learning.view.placeholders.standard.doctype"><info><title>Setzen vom DocType</title></info>
-        
+
 
         <para>
             Die <emphasis>DocType</emphasis> Deklaration ist problematisch zu merken, und oft ist es
@@ -150,7 +150,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="learning.view.placeholders.standard.head-title"><info><title>Den Titel der Seite spezifizieren</title></info>
-        
+
 
         <para>
             Oft will eine Site den Namen der Site oder der Firma als Teil des Seitentitels einfügen,
@@ -234,7 +234,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="learning.view.placeholders.standard.head-link"><info><title>Stylesheets mit HeadLink spezifizieren</title></info>
-        
+
 
         <para>
             Gute <acronym>CSS</acronym> Entwickler erstellen oft ein generisches Stylesheet für
@@ -321,7 +321,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="learning.view.placeholders.standard.head-script"><info><title>Sammeln von Skripten durch Verwendung von HeadScript</title></info>
-        
+
 
         <para>
             Eine andere gemeinsame Taktik um lange Ladezeiten bei Seiten zu verhindern besteht darin
@@ -429,7 +429,7 @@ site = {
 ]]></programlisting>
 
         <note><info><title>InlineScript Variante</title></info>
-            
+
 
             <para>
                 Viele Browser blockieren oft die Anzeige von Seiten bis alle Skripte und Stylesheets

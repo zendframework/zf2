@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.locale.appendix"><info><title>サポートするロケール</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Locale</classname> はロケールについての情報を提供します。
@@ -11,7 +11,7 @@
     </para>
 
     <table xml:id="zend.locale.appendix.table"><info><title>サポートする言語の全一覧</title></info>
-        
+
         <tgroup cols="3">
             <thead>
                 <row>

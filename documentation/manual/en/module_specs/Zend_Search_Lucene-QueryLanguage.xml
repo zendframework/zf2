@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.query-language"><info><title>Query Language</title></info>
-    
+
 
     <para>
         Java Lucene and <classname>Zend_Search_Lucene</classname> provide quite powerful query
@@ -17,7 +17,7 @@
     </para>
 
     <section xml:id="zend.search.lucene.query-language.terms"><info><title>Terms</title></info>
-        
+
 
         <para>
             A query is broken up into terms and operators. There are three types of terms: Single
@@ -43,7 +43,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.query-language.fields"><info><title>Fields</title></info>
-        
+
 
         <para>
             Lucene supports fields of data. When performing a search you can either specify a field,
@@ -116,7 +116,7 @@ title:Do it right
     </section>
 
     <section xml:id="zend.search.lucene.query-language.wildcard"><info><title>Wildcards</title></info>
-        
+
 
         <para>
             Lucene supports single and multiple character wildcard searches within single terms (but
@@ -187,7 +187,7 @@ test*
     </section>
 
     <section xml:id="zend.search.lucene.query-language.modifiers"><info><title>Term Modifiers</title></info>
-        
+
 
         <para>
             Lucene supports modifying query terms to provide a wide range of searching options.
@@ -200,7 +200,7 @@ test*
     </section>
 
     <section xml:id="zend.search.lucene.query-language.range"><info><title>Range Searches</title></info>
-        
+
 
         <para>
             Range queries allow the developer or user to match documents whose field(s) values are
@@ -244,7 +244,7 @@ title:{Aida TO Carmen}
     </section>
 
     <section xml:id="zend.search.lucene.query-language.fuzzy"><info><title>Fuzzy Searches</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> as well as Java Lucene supports fuzzy searches
@@ -273,7 +273,7 @@ roam~0.8
     </section>
 
     <section xml:id="zend.search.lucene.query-language.matched-terms-limitations"><info><title>Matched terms limitation</title></info>
-        
+
 
         <para>
             Wildcard, range and fuzzy search queries may match too many terms. It may cause
@@ -293,7 +293,7 @@ roam~0.8
     </section>
 
     <section xml:id="zend.search.lucene.query-language.proximity-search"><info><title>Proximity Searches</title></info>
-        
+
 
         <para>
             Lucene supports finding words from a phrase that are within a specified word distance in
@@ -308,7 +308,7 @@ roam~0.8
     </section>
 
     <section xml:id="zend.search.lucene.query-language.boosting"><info><title>Boosting a Term</title></info>
-        
+
 
         <para>
             Java Lucene and <classname>Zend_Search_Lucene</classname> provide the relevance level of
@@ -351,7 +351,7 @@ PHP^4 framework
     </section>
 
     <section xml:id="zend.search.lucene.query-language.boolean"><info><title>Boolean Operators</title></info>
-        
+
 
         <para>
             Boolean operators allow terms to be combined through logic operators.
@@ -373,7 +373,7 @@ PHP^4 framework
         </para>
 
         <section xml:id="zend.search.lucene.query-language.boolean.and"><info><title>AND</title></info>
-            
+
 
             <para>
                 The AND operator means that all terms in the "AND group" must match some part of the
@@ -391,7 +391,7 @@ PHP^4 framework
         </section>
 
         <section xml:id="zend.search.lucene.query-language.boolean.or"><info><title>OR</title></info>
-            
+
 
             <para>
                 The OR operator divides the query into several optional terms.
@@ -408,7 +408,7 @@ PHP^4 framework
         </section>
 
         <section xml:id="zend.search.lucene.query-language.boolean.not"><info><title>NOT</title></info>
-            
+
 
             <para>
                 The NOT operator excludes documents that contain the term after NOT. But an "AND
@@ -427,7 +427,7 @@ PHP^4 framework
         </section>
 
         <section xml:id="zend.search.lucene.query-language.boolean.other-form"><info><title>&amp;&amp;, ||, and ! operators</title></info>
-            
+
 
             <para>
                 &amp;&amp;, ||, and ! may be used instead of AND, OR, and NOT notation.
@@ -435,7 +435,7 @@ PHP^4 framework
         </section>
 
         <section xml:id="zend.search.lucene.query-language.boolean.plus"><info><title>+</title></info>
-            
+
 
             <para>
                 The "+" or required operator stipulates that the term after the "+" symbol must
@@ -453,7 +453,7 @@ PHP^4 framework
         </section>
 
         <section xml:id="zend.search.lucene.query-language.boolean.minus"><info><title>-</title></info>
-            
+
 
             <para>
                 The "-" or prohibit operator excludes documents that match the term after the "-"
@@ -471,7 +471,7 @@ PHP^4 framework
         </section>
 
         <section xml:id="zend.search.lucene.query-language.boolean.no-operator"><info><title>No Operator</title></info>
-            
+
 
             <para>
                 If no operator is used, then the search behavior is defined by the "default boolean
@@ -513,7 +513,7 @@ PHP^4 framework
     </section>
 
     <section xml:id="zend.search.lucene.query-language.grouping"><info><title>Grouping</title></info>
-        
+
 
         <para>
             Java Lucene and <classname>Zend_Search_Lucene</classname> support using parentheses to
@@ -531,7 +531,7 @@ PHP^4 framework
     </section>
 
     <section xml:id="zend.search.lucene.query-language.field-grouping"><info><title>Field Grouping</title></info>
-        
+
 
         <para>
             Lucene also supports using parentheses to group multiple clauses to a single field.
@@ -548,7 +548,7 @@ title:(+return +"pink panther")
     </section>
 
     <section xml:id="zend.search.lucene.query-language.escaping"><info><title>Escaping Special Characters</title></info>
-        
+
 
         <para>
             Lucene supports escaping special characters that are used in query syntax. The current

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db"><info><title>Zend_Test_PHPUnit_Db</title></info>
-    
+
 
     <para>
         Couper l'accès aux données au modèle métier requiert souvent l'utilisation d'une base de données

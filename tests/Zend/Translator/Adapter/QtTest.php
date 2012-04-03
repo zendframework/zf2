@@ -69,7 +69,7 @@ class QtTest extends \PHPUnit_Framework_TestCase
             $this->assertContains('failed.ts', $e->getMessage());
         }
     }
-    
+
     public function testToString()
     {
         $adapter = new Adapter\Qt(__DIR__ . '/_files/translation_en.ts');

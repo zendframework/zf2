@@ -60,7 +60,7 @@ Zend_Measure:
 Zend_Memory:
  * "Zend_Memory" prefix now becomes "Zend\Memory" namespace
  * "Zend_Memory" class and "Zend_Memory::factory()" method are removed,
-   "new Zend\Memory\MemoryManager(Zend\Cache\Frontend $cache = null)" has to be used 
+   "new Zend\Memory\MemoryManager(Zend\Cache\Frontend $cache = null)" has to be used
    directly now.
  * "Zend_Memory_Container" prefix now becomes "Zend\Memory\Container" namespace
  * "Zend_Memory_Manager" becomes "Zend\Memory\MemoryManager"
@@ -115,7 +115,7 @@ Zend_Server:
  * "Zend_Server_Reflection_Parameter"   becomes "Zend\Server\Reflection\ReflectionParameter"
  * "Zend_Server_Reflection_ReturnValue" becomes "Zend\Server\Reflection\ReflectionReturnValue"
  * "Zend_Server_Reflection_Function_Abstract" becomes "Zend\Server\Reflection\AbstractFunction"
- 
+
 Zend_Translator
  * "Zend_Translator" prefix now becomes "Zend\Translator" namespace
  * "Zend_Translator" becomes "Zend\Translator\Translator"
@@ -166,15 +166,15 @@ Zend_Barcode
  * "Zend_Barcode" class becomes "Zend\Barcode\Barcode"
  * Barcode classes and renderers become case sensitive
  * "Pdf" barcode renderer becomes "PDF"
- * "Zend_Barcode_Object" return/parameter type is replaced with 
+ * "Zend_Barcode_Object" return/parameter type is replaced with
    "Zend\Barcode\Object\ObjectInterface" interface
-   "Zend\Barcode\Object\AbstractObject implements this interface and can be used 
+   "Zend\Barcode\Object\AbstractObject implements this interface and can be used
    for subclassing
  * Zend\Barcode\Object\ObjectInterface doesn't include static setBarcodeFont() method
    which actually sets "default" font.
- * "Zend_Barcode_Renderer" return/parameter type is replaced with 
+ * "Zend_Barcode_Renderer" return/parameter type is replaced with
    "Zend\Barcode\Renderer\RendererInterface" interface
-   "Zend\Barcode\Renderer\AbstractRenderer implements this interface and can be used 
+   "Zend\Barcode\Renderer\AbstractRenderer implements this interface and can be used
    for subclassing
  * Barcode objects and renderers names are case sensitive now and must start with uppercase character
 
@@ -195,14 +195,14 @@ Zend_Service_Abstract
 
 Zend_Search_Lucene
  * "Zend_Search_Lucene" prefix now becomes "Zend\Search\Lucene" namespace
- * All "Zend\Search\Lucene\Lucene" methods except static create(), open(), 
+ * All "Zend\Search\Lucene\Lucene" methods except static create(), open(),
    setDefault*() and getDefault*() methods are moved into new class "Zend\Search\Lucene\Index"
- * "Zend_Search_Lucene_Analysis_TokenFilter" abstract class becomes 
+ * "Zend_Search_Lucene_Analysis_TokenFilter" abstract class becomes
    "\Zend\Search\Lucene\Analysis\TokenFilter\TokenFilterInterface" interface
  * "Zend_Search_Lucene_Document" class becomes "Zend\Search\Lucene\Document\Document"
  * "Zend_Search_Lucene_Field" class becomes "Zend\Search\Lucene\Document\Field"
  * "Zend_Search_Lucene_Document_Html" class becomes "Zend\Search\Lucene\Document\HTML"
- * "Zend_Search_Lucene_Search_Highlighter_Default" class becomes 
+ * "Zend_Search_Lucene_Search_Highlighter_Default" class becomes
    "\Zend\Search\Lucene\Search\Highlighter\DefaultHighlighter"
 
 Zend_Db

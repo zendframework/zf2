@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.amf.server"><info><title>Zend_Amf_Server</title></info>
-    
+
 
     <para>
         <classname>Zend_Amf_Server</classname> bietet einen <acronym>RPC</acronym>-artigen Server
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.amf.server.basic"><info><title>AMF Server Grundlagen</title></info>
-        
+
 
         <para>
             Angenommen wir haben eine Klasse <classname>Foo</classname> mit einer Anzahl von
@@ -88,7 +88,7 @@ $server->addDirectory(dirname(__FILE__) .'/../package/');
     </example>
 
     <note><info><title>Alle angehängten Methoden und Funktionen benötigen einen Docblock</title></info>
-        
+
 
         <para>
             Wie alle anderen Serverkomponenten im Zend Framework müssen die Klassenmethoden
@@ -134,7 +134,7 @@ class World
     </note>
 
     <section xml:id="zend.amf.server.flex"><info><title>Zum Server von Flex aus verbinden</title></info>
-        
+
 
         <para>
             Zum eigenen <classname>Zend_Amf_Server</classname> von einem Flex Projekt aus zu
@@ -276,7 +276,7 @@ myservice.world.hello("Wade");
     </section>
 
     <section xml:id="zend.amf.server.errors"><info><title>Fehlerbehandlung</title></info>
-        
+
 
         <para>
             Standardmäßig werden alle Exceptions die in den angehängten Klassen oder Funktionen
@@ -310,7 +310,7 @@ $server->setProduction(true);
 ]]></programlisting>
 
         <note><info><title>Der Produktionsmode sollte sparsam deaktiviert werden!</title></info>
-            
+
 
             <para>
                 Wir empfehlen den Produktionsmode nur wärend der Entwicklung auszuschalten.
@@ -333,7 +333,7 @@ $server->setProduction(true);
     </section>
 
     <section xml:id="zend.amf.server.response"><info><title>AMF Antworten</title></info>
-        
+
 
         <para>
             Fallweise ist es gewünscht das Antwortobjekt leicht zu manipulieren, typischerweise um
@@ -342,7 +342,7 @@ $server->setProduction(true);
         </para>
 
         <example xml:id="zend.amf.server.response.messageHeaderExample"><info><title>Nachrichtenheader der AMF Antwort hinzufügen</title></info>
-            
+
 
             <para>
                 In diesem Beispiel fügen wir einen 'foo' Nachrichtenheader mit dem Wert 'bar' zu der
@@ -359,7 +359,7 @@ echo $response;
     </section>
 
     <section xml:id="zend.amf.server.typedobjects"><info><title>Typ Objekte</title></info>
-        
+
 
         <para>
             Ähnlich wie <acronym>SOAP</acronym>, erlaubt es <acronym>AMF</acronym> Objekte zwischen
@@ -480,7 +480,7 @@ private function getContactHandler(event:ResultEvent):void {
     </section>
 
     <section xml:id="zend.amf.server.resources"><info><title>Ressourcen</title></info>
-        
+
 
         <para>
             <classname>Zend_Amf</classname> bietet Tools für das Mappen von Ressource Typen die
@@ -549,7 +549,7 @@ class Zend_Amf_Parse_Resource_MysqlResult
     </section>
 
     <section xml:id="zend.amf.server.flash"><info><title>Von Flash aus auf den Server verbinden</title></info>
-        
+
 
         <para>
             Auf den <classname>Zend_Amf_Server</classname> vom Flash Projekt aus zu verbinden ist
@@ -705,7 +705,7 @@ private function onFault(fault:Object):void {
     </section>
 
     <section xml:id="zend.amf.server.auth"><info><title>Authentication</title></info>
-        
+
 
         <para>
             <classname>Zend_Amf_Server</classname> erlaubt es Authentifizierung und Authorisierungs-

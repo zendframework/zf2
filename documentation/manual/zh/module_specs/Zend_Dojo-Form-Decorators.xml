@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.form.decorators"><info><title>Dijit-Specific 表单装饰器</title></info>
-    
+
 
     <para>
         大多数表单元素可以使用 DijitElement 装饰器，它从元素抓取 dijit 参数，
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="zend.dojo.form.decorators.dijitElement"><info><title>DijitElement 装饰器</title></info>
-        
+
 
         <para>
             就像 <link linkend="zend.form.standardDecorators.viewHelper">视图助手装饰器</link>，
@@ -35,7 +35,7 @@
         </para>
 
         <example xml:id="zend.dojo.form.decorators.dijitElement.usage"><info><title>DijitElement 装饰器用法</title></info>
-            
+
 
             <programlisting role="php"><![CDATA[
 $element->setDecorators(array(
@@ -50,7 +50,7 @@ $element->setDecorators(array(
     </section>
 
     <section xml:id="zend.dojo.form.decorators.dijitForm"><info><title>DijitForm 装饰器</title></info>
-        
+
 
         <para>
             DijitForm 装饰器和 <link linkend="zend.form.standardDecorators.form">表单装饰器
@@ -64,7 +64,7 @@ $element->setDecorators(array(
     </section>
 
     <section xml:id="zend.dojo.form.decorators.dijitContainer"><info><title>DijitContainer-based 装饰器</title></info>
-        
+
 
         <para>
             <code>DijitContainer</code> 装饰器实际上是一个摘要类，其它装饰器都从它派生。它
@@ -88,7 +88,7 @@ $element->setDecorators(array(
         </itemizedlist>
 
         <example xml:id="zend.dojo.form.decorators.dijitContainer.usage"><info><title>DijitContainer 装饰器用法</title></info>
-            
+
 
             <programlisting role="php"><![CDATA[
 // Use a TabContainer for your form:

@@ -2,10 +2,10 @@ HTTP/1.1 404 Not Found
 Date: Fri, 17 Nov 2006 22:22:40 GMT
 Server: Apache
 Content-Length: 272
-Keep-Alive: timeout=15, 
+Keep-Alive: timeout=15,
 	max=100
 Connection: Keep-Alive
-Content-Type: text/html; 
+Content-Type: text/html;
   charset=iso-8859-1
 
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">

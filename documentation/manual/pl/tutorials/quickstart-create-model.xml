@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-model"><info><title>Utworzenie modelu oraz tabeli w bazie danych</title></info>
-    
+
 
     <para>
         Przed rozpoczęciem należy zastanowić się nad następującym zagadnieniem: gdzie tworzone
@@ -14,7 +14,7 @@
 
     <para>
         Klasa <classname>Zend_Controller_Front</classname> umożliwia tworzenie modułów (modules)
-        - odrębnych części, które same w sobie są mini-aplikacjami. W ramach każdego 
+        - odrębnych części, które same w sobie są mini-aplikacjami. W ramach każdego
         modułu odwzorowywana jest taka sama struktura katalogów jaka jest tworzona przez
         narzędzie <command>zf</command> w katalogu głównym aplikacji. Nazwy wszystkich
         klas w jednym module muszą rozpoczynać się od wspólnego prefiksu - nazwy modułu.
@@ -75,9 +75,9 @@ class Application_Model_GuestbookMapper
 ]]></programlisting>
 
     <para>
-        Metody <methodname>__get()</methodname> oraz <methodname>__set()</methodname> 
-        stanowią mechanizmy ułatwiające dostęp do poszczególnych właściwości oraz 
-        pośredniczą w dostępie do innych getterów i setterów. Dzięki nim, można 
+        Metody <methodname>__get()</methodname> oraz <methodname>__set()</methodname>
+        stanowią mechanizmy ułatwiające dostęp do poszczególnych właściwości oraz
+        pośredniczą w dostępie do innych getterów i setterów. Dzięki nim, można
         również upewnić się, że jedynie pożądane właściwości będą dostępne.
     </para>
 
@@ -177,7 +177,7 @@ resources.db.params.dbname = APPLICATION_PATH "/../data/db/guestbook-dev.db"
     <para>
         Należy zauważyć, iż baza (bazy) danych będzie przechowywana w katalogu
         <filename>data/db/</filename>.
-        Te katalogi powinny zostać utworzone i udostępnione wszystkim. W systemach 
+        Te katalogi powinny zostać utworzone i udostępnione wszystkim. W systemach
         unix można tego dokonać następująco:
     </para>
 
@@ -186,7 +186,7 @@ resources.db.params.dbname = APPLICATION_PATH "/../data/db/guestbook-dev.db"
 ]]></programlisting>
 
     <para>
-        W systemach Windows należy utworzyć odpowiednie katalogi w eksploratorze 
+        W systemach Windows należy utworzyć odpowiednie katalogi w eksploratorze
         oraz ustawić uprawnienia w taki sposób aby każdy użytkownik miał prawo zapisu.
     </para>
 
@@ -529,7 +529,7 @@ class Application_Model_GuestbookMapper
 ]]></programlisting>
 
     <para>
-        W obecnym momencie można przystąpić do utworzenia klasy modelu używając 
+        W obecnym momencie można przystąpić do utworzenia klasy modelu używając
         polecenia <command>zf create model</command>:
     </para>
 
@@ -541,7 +541,7 @@ Updating project profile '.zfproject.xml'
 
     <para>
         Nowo utworzoną klasę <acronym>PHP</acronym> można zmodyfikować tak aby
-        ułatwić umieszczanie danych 
+        ułatwić umieszczanie danych
         w modelu poprzez przekazanie tablicy do konstruktora lub do metody
         <methodname>setOptions()</methodname>. Ostatecznie model znajdujący się w
         <filename>application/models/Guestbook.php</filename> powinien wyglądać następująco:
@@ -667,7 +667,7 @@ Updating project profile '.zfproject.xml'
         w pliku <filename>application/controllers/GuestbookController.php</filename> zawierający
         jedną akcję - <methodname>indexAction()</methodname>.
         Na użytek tego kontrolera utworzony zostaje również katalog widoków:
-        <filename>application/views/scripts/guestbook/</filename> zawierający skrypt 
+        <filename>application/views/scripts/guestbook/</filename> zawierający skrypt
         widoku dla akcji index.
     </para>
 
@@ -720,7 +720,7 @@ Guestbook Entries: <br />
 ]]></programlisting>
 
     <note><info><title>Punkt kontrolny</title></info>
-        
+
 
         <para>
             Teraz, po przejściu do "http://localhost/guestbook" powinna się pojawić lista
@@ -733,7 +733,7 @@ Guestbook Entries: <br />
     </note>
 
     <note><info><title>Użycie skryptu ładującego dane</title></info>
-        
+
 
         <para>
             Skrypt ładujący dane pokazany we wcześniejszej części tego rozdziału

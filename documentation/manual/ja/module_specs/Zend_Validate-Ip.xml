@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.ip"><info><title>Ip</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Validate_Ip</classname> は、与えられた値が
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.validate.set.ip.options"><info><title>Supported options for Zend_Validate_Ip</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Validate_Ip</classname>:
@@ -34,7 +34,7 @@
     </section>
 
     <section xml:id="zend.validate.set.ip.basic"><info><title>基本的な使用法</title></info>
-        
+
 
         <para>
             基本的な使用法は、以下のようになります。
@@ -50,7 +50,7 @@ if ($validator->isValid($ip)) {
 ]]></programlisting>
 
         <note><info><title>IP アドレスの検証</title></info>
-            
+
 
             <para>
                 <classname>Zend_Validate_Ip</classname> は IP アドレスだけを検証することを記憶にとどめてください。
@@ -60,7 +60,7 @@ if ($validator->isValid($ip)) {
         </note>
 
         <note><info><title>IPv6 の検証</title></info>
-            
+
 
             <para>
                 <classname>Zend_Validate_Ip</classname> は正規表現で IPv6 アドレスを検証します。
@@ -71,7 +71,7 @@ if ($validator->isValid($ip)) {
     </section>
 
     <section xml:id="zend.validate.set.ip.singletype"><info><title>IPv4 または IPV6 だけを検証</title></info>
-        
+
 
         <para>
             しばしば、サポートされる形式のうちの１つだけを検証するために役立ちます。
@@ -97,7 +97,7 @@ if ($validator->isValid($ip)) {
 ]]></programlisting>
 
         <note><info><title>既定の動作</title></info>
-            
+
 
             <para>
                 <classname>Zend_Validate_Ip</classname> が従う既定の動作は

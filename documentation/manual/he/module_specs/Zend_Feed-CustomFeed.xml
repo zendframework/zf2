@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.custom-feed"><info><title>מחלקות סנדקציה מותאמות אישית</title></info>
-    
+
 
     <para>
         לבסוף, ניתן להרחיב את מחלקות ה <code>Zend_Feed</code> אם תרצה להזין ולספק פורמט מותאם אישית שלך, או להוסיף פונקציונליות מדוייקת יותר לניהול ותפעול של אלמנטים.
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.feed.custom-feed.example.extending"><info><title>הרחבת מחלקת ניהול הסנדקציה של Atom</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 /**
  * The custom entry class automatically knows the feed URI (optional) and

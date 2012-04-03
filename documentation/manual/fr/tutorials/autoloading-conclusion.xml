@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.autoloading.conclusion"><info><title>Conclusion</title></info>
-    
+
 
     <para>
         Zend Framework encourage l'utilisation de l'auto-chargement, et l'initialise même par

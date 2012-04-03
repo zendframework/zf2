@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.multiuser.authorization"><info><title>Erstellung eines Authorisations Systems in Zend Framework</title></info>
-    
+
 
     <section xml:id="learning.multiuser.authorization.intro"><info><title>Einführung in Authorisation</title></info>
-        
+
 
         <para>
             Nachdem ein Benutzer als authentisch identifiziert wurde, kann eine Anwendung mit Ihrem
@@ -43,7 +43,7 @@
     </section>
 
     <section xml:id="learning.multiuser.authorization.basic-usage"><info><title>Grundsätzliche Verwendung von Zend_Acl</title></info>
-        
+
 
 <!-- explain the interaction with a User object, how -->
 

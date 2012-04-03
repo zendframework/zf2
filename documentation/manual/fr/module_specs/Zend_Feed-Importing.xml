@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.importing"><info><title>Importer des flux</title></info>
-    
+
 
     <para>
         <classname>Zend_Feed</classname> permet aux développeurs d'obtenir très facilement
@@ -37,7 +37,7 @@ $fluxAPartirDePHP = Zend_Feed::importString($chaineFlux);
     </para>
 
     <section xml:id="zend.feed.importing.custom"><info><title>Flux personnalisés</title></info>
-        
+
 
         <para>
             <classname>Zend_Feed</classname> permet aux développeurs de créer du flux
@@ -50,7 +50,7 @@ $fluxAPartirDePHP = Zend_Feed::importString($chaineFlux);
         </para>
 
         <section xml:id="zend.feed.importing.custom.importarray"><info><title>Importer un tableau personnalisé</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // on importe un flux atom à partir d'un tableau
@@ -294,7 +294,7 @@ array(
         </section>
 
         <section xml:id="zend.feed.importing.custom.importbuilder"><info><title>Importer une source de données personnalisée</title></info>
-            
+
 
             <para>
                 Vous pouvez créer une instance Zeed_Feed à partir de n'importe quelle source
@@ -343,7 +343,7 @@ $rssFeedFromArray =
         </section>
 
         <section xml:id="zend.feed.importing.custom.dump"><info><title>Décharger le contenu d'un flux</title></info>
-            
+
 
             <para>
                 Pour décharger le contenu d'une instance

@@ -57,9 +57,9 @@ function colorPrint($message, $color) {
     if ($isColor === null) {
         $isColor = (function_exists('posix_isatty'));
     }
-    
+
     list($prefix, $postfix) = array('', '');
-    
+
     if ($isColor) {
         switch ($color) {
             case 'green':
@@ -70,7 +70,7 @@ function colorPrint($message, $color) {
                 break;
         }
     }
-    
+
     echo $prefix . $message . $postfix;
 }
 

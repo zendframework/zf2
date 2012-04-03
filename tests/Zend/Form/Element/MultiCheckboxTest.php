@@ -250,7 +250,7 @@ class MultiCheckboxTest extends \PHPUnit_Framework_TestCase
         $this->element->isValid(array('foo', 'bogus'));
         $html = $this->element->render($this->getView());
     }
- 
+
     /**
      * @group ZF-11402
     */
@@ -268,7 +268,7 @@ class MultiCheckboxTest extends \PHPUnit_Framework_TestCase
 
         $this->element->setAllowEmpty(true);
         $this->assertTrue($this->element->isValid(array()));
- 
+
         // Empty value + AllowEmpty=true = no error messages
         $messages = $this->element->getMessages();
         $this->assertEquals(0, count($messages), 'Received unexpected error message(s)');

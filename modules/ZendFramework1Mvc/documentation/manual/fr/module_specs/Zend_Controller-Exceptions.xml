@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.exceptions"><info><title>Exceptions avec MVC</title></info>
-    
+
 
     <section xml:id="zend.controller.exceptions.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             Les composants <acronym>MVC</acronym> de Zend Framework utilisent un contrôleur frontal, ce qui veut
@@ -23,7 +23,7 @@
     </section>
 
     <section xml:id="zend.controller.exceptions.handling"><info><title>Gestion des exceptions</title></info>
-        
+
 
         <para>
             Plusieurs mécanismes vont vous permettre de traiter les exceptions dans le modèle
@@ -125,7 +125,7 @@ if ($response->isException()) {
     </section>
 
     <section xml:id="zend.controller.exceptions.internal"><info><title>Différents types d'exceptions que vous pouvez rencontrer</title></info>
-        
+
 
         <para>
             Les composants <acronym>MVC</acronym> sont nombreux, - requête, routeur, distributeur, contrôleur,

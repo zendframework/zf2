@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.flashmessenger"><info><title>FlashMessenger</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.flashmessenger.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             Der <emphasis>FlashMessenger</emphasis> Helfer erlaubt es Nachrichten zu übergeben die
@@ -20,7 +20,7 @@
     </section>
 
     <section xml:id="zend.controller.actionhelper.flashmessenger.basicusage"><info><title>Beispiel einer standardmäßigen Verwendung</title></info>
-        
+
 
         <para>
             Das Anwendungsbeispiel von unten zeigt die Verwendung einer Flash Nachricht und Ihre

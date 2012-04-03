@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.introduction"><info><title>導入</title></info>
-    
+
     <para>
         <classname>Zend_Json</classname> は、<acronym>PHP</acronym> のネイティブデータを <acronym>JSON</acronym>
         形式にシリアライズしたり、<acronym>JSON</acronym> のデータを <acronym>PHP</acronym>

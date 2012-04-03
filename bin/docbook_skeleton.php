@@ -23,7 +23,7 @@
 /**
  * Generate Docbook XML skeleton for a given class as a documentation stub.
  *
- * Additionally, it parses all public methods of the class and creates stub 
+ * Additionally, it parses all public methods of the class and creates stub
  * documentation for each in the "Available Methods" section of the class
  * documentation.
  *
@@ -31,7 +31,7 @@
  * --help|-h                Get usage message
  * --class|-c [ <string> ]  Class name for which to provide documentation
  * --output|-o [ <string> ] Where to write generated documentation. By default,
- *                          assumes documentation/manual/en/module_specs, in a 
+ *                          assumes documentation/manual/en/module_specs, in a
  *                          file named after the provided class (in the form of
  *                          "zend.component.class-name.xml")
  */

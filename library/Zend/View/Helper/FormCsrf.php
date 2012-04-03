@@ -24,7 +24,7 @@ namespace Zend\View\Helper;
 use Zend\Form\Element\Hash as HashElement;
 
 /**
- * Helper for rendering CSRF token elements outside of Zend\Form using 
+ * Helper for rendering CSRF token elements outside of Zend\Form using
  * Zend\Form\Element\Hash
  *
  * @package    Zend\View
@@ -40,9 +40,9 @@ class FormCsrf extends AbstractHelper
     protected $hashElements;
 
     /**
-     * __invoke 
-     * 
-     * @param string $name 
+     * __invoke
+     *
+     * @param string $name
      * @return string
      */
     public function __invoke($name = 'csrf')

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.basics"><info><title>Основы Zend_Controller</title></info>
-    
+
 
     <para>
         Система <classname>Zend_Controller</classname> спроектирована быть легковесной,
@@ -142,7 +142,7 @@
                 </para>
 
                 <note><info><title>Соглашения по именованию</title></info>
-                    
+
 
                     <para>
                         Общеизвестно, что в случае ручного набора адресов

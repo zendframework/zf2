@@ -15,7 +15,7 @@ $mailMerge->setUsername(DEMOS_ZEND_SERVICE_LIVEDOCX_USERNAME)
 /*
  * ALTERNATIVE: Specify username and password in constructor
  */
-            
+
 /*
 $mailMerge = new MailMerge(
     array (
@@ -31,7 +31,7 @@ $mailMerge->assign('customer_number', sprintf("#%'10s",  rand(0,1000000000)))
           ->assign('invoice_number',  sprintf("#%'10s",  rand(0,1000000000)))
           ->assign('account_number',  sprintf("#%'10s",  rand(0,1000000000)));
 
-$billData = array (  
+$billData = array (
     'phone'         => '+22 (0)333 444 555',
     'date'          => Date::now()->toString(Date::DATE_LONG),
     'name'          => 'James Henry Brown',
@@ -60,8 +60,8 @@ $billConnections = array(
         'fee'                 => '1.15'
     ),
     array(
-        'connection_number'   => '+11 (0)222 333 443', 
-        'connection_duration' => '00:01:03', 
+        'connection_number'   => '+11 (0)222 333 443',
+        'connection_duration' => '00:01:03',
         'fee'                 => '1.15'
     ),
     array(

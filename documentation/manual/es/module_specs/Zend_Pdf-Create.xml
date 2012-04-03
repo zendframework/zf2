@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.create"><info><title>Creando y Cargando Documentos PDF</title></info>
-    
+
     <para>
         La clase
         <classname>Zend_Pdf</classname>
@@ -34,7 +34,7 @@
     </para>
 
     <example xml:id="zend.pdf.create.example-1"><info><title>Crear un nuevo documento PDF o cargar uno ya esistente</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 ...
 // Crear un nuevo documento PDF
@@ -84,7 +84,7 @@ $pdf3 = Zend_Pdf::parse($pdfString);
     </para>
 
     <example xml:id="zend.pdf.create.example-2"><info><title>Requiriendo Revisiones Específicas de un documento PDF</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 ...
 // Cargar la revisión anterior del documento PDF

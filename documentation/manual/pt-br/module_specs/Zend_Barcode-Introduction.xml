@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.barcode.introduction"><info><title>Introdução</title></info>
-    
+
 
     <para>
         <classname>Zend_Barcode</classname> fornece uma maneira genérica para gerar códigos de

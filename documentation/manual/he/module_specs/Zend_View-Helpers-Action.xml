@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.action"><info><title>תוסף עזרה של פעולה</title></info>
-    
+
 
     <para>
         תוספי עזרת פונקציות מאפשרים לשלוח מתודה של קונטרולר מסויים; התוצאה של בקשת האובייקט מוחזרת ומוצגת במקום המתאים.
@@ -18,7 +18,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.action.usage"><info><title>שימוש בסיסי בתוסף עזרה של פונקציות</title></info>
-        
+
 
         <para>
             בתור דוגמא, נניח ויש לכם קונטרולר בשם <code>CommentController</code> אשר מכיל מתודה בשם <code>listAction()</code> אשר מציגה רשימה של תגובות לבקשה הנוכחית:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.realpath"><info><title>RealPath</title></info>
-    
+
 
     <para>
         This filter will resolve given links and pathnames and returns canonicalized absolute
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.realpath.options"><info><title>Supported options for Zend_Filter_RealPath</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Filter_RealPath</classname>:
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.filter.set.realpath.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             For any given link of pathname its absolute path will be returned.
@@ -52,7 +52,7 @@ $filtered = $filter->filter($path);
     </section>
 
     <section xml:id="zend.filter.set.realpath.exists"><info><title>Non existing paths</title></info>
-        
+
 
        <para>
             Sometimes it is useful to get also paths when they don't exist, f.e. when you want to

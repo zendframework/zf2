@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         Die <classname>Zend_Measure_*</classname> Klassen bieten einen generischen und einfachen Weg
@@ -12,7 +12,7 @@
     </para>
 
     <example xml:id="zend.measure.introduction.example-1"><info><title>Konvertieren von Maßeinheiten</title></info>
-        
+
 
         <para>
             Das folgende einführende Beispiel zeigt die automatische Konvertierung von Einheiten von
@@ -42,7 +42,7 @@ echo $unit->convertTo(Zend_Measure_Length::YARD);
     </para>
 
     <example xml:id="zend.measure.introduction.example-2"><info><title>Die Maßeinheit meter</title></info>
-        
+
 
         <para>
             Der <emphasis>Meter</emphasis> wird für das Abmessen von Längen verwendet und kann in

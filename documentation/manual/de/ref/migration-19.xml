@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="migration.19"><info><title>Zend Framework 1.9</title></info>
-    
+
 
     <para>
         Wenn man von einem Zend Framework Release vor 1.9.0 zu einem beliebigen 1.9 Release
@@ -8,10 +8,10 @@
     </para>
 
     <section xml:id="migration.19.zend.file.transfer"><info><title>Zend_File_Transfer</title></info>
-        
+
 
         <section xml:id="migration.19.zend.file.transfer.mimetype"><info><title>MimeType Prüfung</title></info>
-            
+
 
             <para>
                 Aus Sicherheitsgründen haben wir den standardmäßigen Fallback Mechanismus der
@@ -30,7 +30,7 @@
             </para>
 
             <note><info><title>Sicherheits Hinweis</title></info>
-                
+
 
                 <para>
                     Man sollte beachten, das wenn man sich auf die <acronym>HTTP</acronym> Felder
@@ -41,7 +41,7 @@
             </note>
 
             <example xml:id="migration.19.zend.file.transfer.example"><info><title>Die Verwendung der HTTP Felder erlauben</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Bei der Initiierung
@@ -55,7 +55,7 @@ $valid->enableHeaderCheck();
     </section>
 
     <section xml:id="migration.19.zend.filter"><info><title>Zend_Filter</title></info>
-        
+
 
         <para>
             Vor dem Release 1.9 erlaubte <classname>Zend_Filter</classname> die Verwendung der
@@ -67,12 +67,12 @@ $valid->enableHeaderCheck();
     </section>
 
     <section xml:id="migration.19.zend.http.client"><info><title>Zend_Http_Client</title></info>
-        
+
 
         <section xml:id="migration.19.zend.http.client.fileuploadsarray"><info><title>
                 Änderungen in der internen Speicherung der Information von hochgeladenen Dateien
             </title></info>
-            
+
 
             <para>
                 In Version 1.9 vom Zend Framework gibt es eine Ändernug wie
@@ -89,7 +89,7 @@ $valid->enableHeaderCheck();
             </para>
 
             <example xml:id="migration.19.zend.http.client.fileuploadsarray.example"><info><title>Interne Speicherung der Informationen von hochgeladenen Dateien</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // Zwei Dateien mit dem gleichen Namen des Formularelements als Array hochladen
@@ -139,7 +139,7 @@ $client->setFileUpload('file2.txt',
         <section xml:id="migration.19.zend.http.client.getparamsrecursize"><info><title>
                 Zend_Http_Client::_getParametersRecursive() sollte nicht mehr eingesetzt werden
             </title></info>
-            
+
 
             <para>
                 Beginnend mit Version 1.9, wird die geschützte Methode
@@ -164,10 +164,10 @@ $client->setFileUpload('file2.txt',
     </section>
 
     <section xml:id="migration.19.zend.locale"><info><title>Zend_Locale</title></info>
-        
+
 
         <section xml:id="migration.19.zend.locale.deprecated"><info><title>Abgelaufene Methoden</title></info>
-            
+
 
             <para>
                 Einige spezialisiertere Übersetzungsmethoden stehen nicht mehr zur Verfügung weil
@@ -178,7 +178,7 @@ $client->setFileUpload('file2.txt',
             </para>
 
             <table xml:id="migration.19.zend.locale.deprecated.table-1"><info><title>List der Methodenaufrufe</title></info>
-                
+
 
                 <tgroup cols="2">
                     <thead>
@@ -276,7 +276,7 @@ $client->setFileUpload('file2.txt',
     </section>
 
     <section xml:id="migration.19.zend.view.helper.navigation"><info><title>Zend_View_Helper_Navigation</title></info>
-        
+
 
         <para>
             Vor dem Release 1.9 hat der Menü Helfer
@@ -365,7 +365,7 @@ $container = new Zend_Navigation(array(
     </section>
 
     <section xml:id="migration.19.security"><info><title>Sicherheitsfixes ab 1.9.7</title></info>
-        
+
 
         <para>
             Zusätzlich können Benutzer der Serie 1.9 von anderen Änderungen beginnend in Version
@@ -374,7 +374,7 @@ $container = new Zend_Navigation(array(
         </para>
 
         <section xml:id="migration.19.security.zend.dojo.editor"><info><title>Zend_Dojo_View_Helper_Editor</title></info>
-            
+
 
             <para>
                 Eine kleine Änderung wurde in der Serie 1.9 gemacht um die Standardverwendung des
@@ -401,7 +401,7 @@ $container = new Zend_Navigation(array(
         </section>
 
         <section xml:id="migration.19.security.zend.filter.html-entities"><info><title>Zend_Filter_HtmlEntities</title></info>
-            
+
 
             <para>
                 Um zu einem höheren Sicherheitsstandard für die Zeichenkodierung zu kommen, ist der
@@ -424,7 +424,7 @@ $container = new Zend_Navigation(array(
         </section>
 
         <section xml:id="migration.19.security.zend.filter.strip-tags"><info><title>Zend_Filter_StripTags</title></info>
-            
+
 
             <para>
                 <classname>Zend_Filter_StripTags</classname> enthielt in voehergehenden Versionen

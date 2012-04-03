@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.examples"><info><title>Beispiele</title></info>
-    
+
 
     <para>
         Zu wissen wir man die eigene Infrastruktur für Tests einstellt und wir Behauptungen zu
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.test.phpunit.examples.userController"><info><title>Den UserController testen</title></info>
-        
+
 
         <para>
             Nehmen wir einen standard Task für eine Webseite an: Authentifizierung und Registrierung

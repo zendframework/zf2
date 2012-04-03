@@ -231,7 +231,7 @@ class HtmlTag extends AbstractDecorator
 
     /**
      * Get encoding for use with htmlspecialchars()
-     * 
+     *
      * @return string
      */
     protected function _getEncoding()

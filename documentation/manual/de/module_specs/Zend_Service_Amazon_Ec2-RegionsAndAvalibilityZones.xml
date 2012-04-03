@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2.zones"><info><title>Zend_Service_Amazon_Ec2: Regionen und Availability Zones</title></info>
-    
+
 
     <para>
         Amazon EC2 bietet die Möglichkeit Instanzen in verschiedene Regionen und Avaiability
@@ -13,7 +13,7 @@
     </para>
 
     <section xml:id="zend.service.amazon.ec2.zones.regions"><info><title>Amazon EC2 Regionen</title></info>
-        
+
 
         <para>
              Amazon EC2 bietet viele Regionen so das man Amazon EC2 Instanzen in verschiedenen
@@ -29,7 +29,7 @@
         </para>
 
         <example xml:id="zend.service.amazon.ec2.zones.regions.example"><info><title>Ansehen der vorhendenen Regionen</title></info>
-            
+
 
             <para>
                 <code>describe</code> wird verwendet um herauszufinden zu welcher Region der
@@ -53,7 +53,7 @@ foreach($regions as $region) {
     </section>
 
     <section xml:id="zend.service.amazon.ec2.zones.availability"><info><title>Amazon EC2 Availability Zonen</title></info>
-        
+
 
         <para>
             Wenn man eine Instanz startet, kann man optional eine Availability Zone spezifizieren.
@@ -68,7 +68,7 @@ foreach($regions as $region) {
         </para>
 
         <example xml:id="zend.service.amazon.ec2.zones.availability.example"><info><title>Vorhendene Zonen sehen</title></info>
-            
+
 
             <para>
                 <code>describe</code> wird verwendet um herauszufinden wie der Status jeder

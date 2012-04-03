@@ -34,21 +34,21 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 {
     /**
      * Data
-     * 
+     *
      * @var array
      */
     protected $data = array();
     /**
      * Errata
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $errata = array();
 
     /**
      * Constructor
-     * 
-     * @param array $data 
+     *
+     * @param array $data
      */
     public function __construct(array $data = array())
     {
@@ -59,9 +59,9 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * Offset exists
-     * 
+     *
      * @param  string $nameOrPosition
-     * @return boolean 
+     * @return boolean
      */
     public function offsetExists($nameOrPosition)
     {
@@ -69,9 +69,9 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
     }
     /**
      * Offset get
-     * 
+     *
      * @param  string $nameOrPosition
-     * @return mixed 
+     * @return mixed
      */
     public function offsetGet($nameOrPosition)
     {
@@ -80,10 +80,10 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * Offset set
-     * 
+     *
      * @param string|integer $nameOrPosition
      * @param mixed $value
-     * @param mixed $errata 
+     * @param mixed $errata
      */
     public function offsetSet($nameOrPosition, $value, $errata = null)
     {
@@ -103,9 +103,9 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * Offset unset
-     * 
+     *
      * @param  string $nameOrPosition
-     * @return ParameterContainer 
+     * @return ParameterContainer
      */
     public function offsetUnset($nameOrPosition)
     {
@@ -115,9 +115,9 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * Set from array
-     * 
+     *
      * @param  array $data
-     * @return ParameterContainer 
+     * @return ParameterContainer
      */
     public function setFromArray(Array $data)
     {
@@ -128,9 +128,9 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
     }
     /**
      * Offset set errata
-     * 
+     *
      * @param string|integer $nameOrPosition
-     * @param mixed $errata 
+     * @param mixed $errata
      */
     public function offsetSetErrata($nameOrPosition, $errata)
     {
@@ -139,12 +139,12 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
         }
         $this->errata[$nameOrPosition] = $errata;
     }
-    
+
     /**
      * Offset get errata
-     * 
+     *
      * @param  string|integer $nameOrPosition
-     * @return mixed 
+     * @return mixed
      */
     public function offsetGetErrata($nameOrPosition)
     {
@@ -155,9 +155,9 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
     }
     /**
      * Offset has errata
-     * 
+     *
      * @param  string|integer $nameOrPosition
-     * @return boolean 
+     * @return boolean
      */
     public function offsetHasErrata($nameOrPosition)
     {
@@ -169,8 +169,8 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * Offset unset errata
-     * 
-     * @param string|integer $nameOrPosition 
+     *
+     * @param string|integer $nameOrPosition
      */
     public function offsetUnsetErrata($nameOrPosition)
     {
@@ -182,8 +182,8 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * Get errata iterator
-     * 
-     * @return \ArrayIterator 
+     *
+     * @return \ArrayIterator
      */
     public function getErrataIterator()
     {
@@ -192,8 +192,8 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * toArray
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -202,8 +202,8 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * count
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function count()
     {
@@ -212,8 +212,8 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * Current
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function current()
     {
@@ -222,9 +222,9 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * Next
-     * 
-     * @return mixed 
-     */    
+     *
+     * @return mixed
+     */
     public function next()
     {
         return next($this->data);
@@ -232,8 +232,8 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * Key
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function key()
     {
@@ -242,8 +242,8 @@ class ParameterContainer implements Iterator, ParameterContainerInterface
 
     /**
      * Valid
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function valid()
     {

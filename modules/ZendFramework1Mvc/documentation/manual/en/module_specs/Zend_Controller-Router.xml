@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router"><info><title>The Standard Router</title></info>
-    
+
 
     <section xml:id="zend.controller.router.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Router_Rewrite</classname> is the standard
@@ -56,7 +56,7 @@ RewriteRule ^[\w/\%]*(?:\.(?!(?:js|ico|gif|jpg|png|css|html)$)[\w\%]*$)? /index.
 ]]></programlisting>
 
         <note><info><title>IIS Isapi_Rewrite</title></info>
-            
+
 
             <para>
                 When using <acronym>IIS</acronym>, <varname>$_SERVER['REQUEST_URI']</varname> will
@@ -114,7 +114,7 @@ url.rewrite-once = (
     </section>
 
     <section xml:id="zend.controller.router.usage"><info><title>Using a Router</title></info>
-        
+
 
         <para>
             To properly use the rewrite router you have to instantiate it, add
@@ -136,7 +136,7 @@ $router->addRoute(
     </section>
 
     <section xml:id="zend.controller.router.basic"><info><title>Basic Rewrite Router Operation</title></info>
-        
+
 
         <para>
             The heart of the RewriteRouter is the definition of user defined
@@ -243,7 +243,7 @@ $router->addRoute('user',
         </para>
 
         <note><info><title>Reverse Matching</title></info>
-            
+
 
             <para>
                 Routes are matched in reverse order so make sure your most
@@ -252,7 +252,7 @@ $router->addRoute('user',
         </note>
 
         <note><info><title>Returned Values</title></info>
-            
+
 
             <para>
                 Values returned from routing come from <acronym>URL</acronym> parameters or user
@@ -270,7 +270,7 @@ $router->addRoute('user',
         </para>
 
         <note><info><title>Special Variables</title></info>
-            
+
 
             <para>
                 The names of these special variables may be different if you
@@ -284,7 +284,7 @@ $router->addRoute('user',
     </section>
 
     <section xml:id="zend.controller.router.default-routes"><info><title>Default Routes</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Router_Rewrite</classname> comes preconfigured with a default
@@ -366,7 +366,7 @@ $router->removeDefaultRoutes();
     </section>
 
     <section xml:id="zend.controller.router.rewritebase"><info><title>Base URL and Subdirectories</title></info>
-        
+
 
         <para>
             The rewrite router can be used in subdirectories (e.g.,
@@ -390,7 +390,7 @@ $request->setBaseUrl('/~user/application-root/');
     </section>
 
     <section xml:id="zend.controller.router.global.parameters"><info><title>Global Parameters</title></info>
-        
+
 
         <para>
             You can set global parameters in a router which are automatically
@@ -407,7 +407,7 @@ $router->setGlobalParam('lang', 'en');
     </section>
 
     <section xml:id="zend.controller.router.routes"><info><title>Route Types</title></info>
-        
+
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route.xml"/>
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route-Static.xml"/>
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route-Regex.xml"/>
@@ -417,7 +417,7 @@ $router->setGlobalParam('lang', 'en');
     </section>
 
     <section xml:id="zend.controller.router.add-config"><info><title>Using Zend_Config with the RewriteRouter</title></info>
-        
+
 
         <para>
             Sometimes it is more convenient to update a configuration file with
@@ -481,7 +481,7 @@ $router->addConfig($config, 'routes');
     </section>
 
     <section xml:id="zend.controller.router.subclassing"><info><title>Subclassing the Router</title></info>
-        
+
 
         <para>
             The standard rewrite router should provide most functionality you

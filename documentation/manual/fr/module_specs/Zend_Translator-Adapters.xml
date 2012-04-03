@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.adapter"><info><title>Adaptateurs pour Zend_Translator</title></info>
-    
+
 
     <para>
         <classname>Zend_Translator</classname> peut manipuler différents adaptateurs pour la
@@ -10,7 +10,7 @@
     </para>
 
     <table xml:id="zend.translator.adapter.table"><info><title>Liste des adaptateurs pour Zend_Translator</title></info>
-        
+
 
         <tgroup cols="3">
             <thead>
@@ -96,7 +96,7 @@
     </table>
 
     <section xml:id="zend.translator.adapter.decision"><info><title>Comment décider quel adaptateur de traduction utiliser ?</title></info>
-        
+
 
         <para>
             Vous devrez décider quel adaptateur vous voulez utiliser avec
@@ -126,7 +126,7 @@
         </note>
 
         <section xml:id="zend.translator.adapter.array"><info><title>Zend_Translator_Adapter_Array</title></info>
-            
+
 
             <para>
                 L'adaptateur de type tableau est l'adaptateur qui est le plus simple à
@@ -144,7 +144,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.csv"><info><title>Zend_Translator_Adapter_Csv</title></info>
-            
+
 
             <para>
                 L'adaptateur Csv est l'adaptateur qui est le plus simple à utiliser pour les
@@ -169,7 +169,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.gettext"><info><title>Zend_Translator_Adapter_Gettext</title></info>
-            
+
 
             <para>
                 L'adaptateur Gettext est l'adaptateur qui est utilisé le plus souvent. Gettext
@@ -191,7 +191,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.ini"><info><title>Zend_Translator_Adapter_Ini</title></info>
-            
+
 
             <para>
                 L'adaptateur Ini est un adaptateur qui peut être directement utiliser par les
@@ -206,7 +206,7 @@
             </para>
 
             <warning><info><title>Regression in PHP 5.3</title></info>
-                
+
 
                 <para>
                     Prior to <acronym>PHP</acronym> 5.3, <function>parse_ini_file()</function> and
@@ -221,7 +221,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.tbx"><info><title>Zend_Translator_Adapter_Tbx</title></info>
-            
+
 
             <para>
                 L'adaptateur Tbx est un adaptateur qui sera utilisé par les clients qui
@@ -242,7 +242,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.tmx"><info><title>Zend_Translator_Adapter_Tmx</title></info>
-            
+
 
             <para>
                 L'adaptateur Tmx est l'adaptateur qui sera employé par la plupart des clients
@@ -260,7 +260,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.qt"><info><title>Zend_Translator_Adapter_Qt</title></info>
-            
+
 
             <para>
                 L'adaptateur Qt est destiné à tous les clients qui ont des fichiers TS faits
@@ -276,7 +276,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.xliff"><info><title>Zend_Translator_Adapter_Xliff</title></info>
-            
+
 
             <para>
                 L'adaptateur Xliff est l'adaptateur qui sera employé par la plupart des
@@ -293,7 +293,7 @@
         </section>
 
         <section xml:id="zend.translator.adapter.xmltm"><info><title>Zend_Translator_Adapter_XmlTm</title></info>
-            
+
 
             <para>
                 L'adaptateur XmlTm est l'adaptateur qui sera utilisé par les clients qui font
@@ -312,7 +312,7 @@
     </section>
 
     <section xml:id="zend.translator.adapter.selfwritten"><info><title>Intégrer ses propres adaptateurs</title></info>
-        
+
 
         <para>
             <classname>Zend_Translator</classname> vous permet d'intégrer et d'utiliser vos
@@ -353,7 +353,7 @@ try {
     </section>
 
     <section xml:id="zend.translator.adapter.caching"><info><title>Améliorer les performances de tous les adaptateurs</title></info>
-        
+
 
         <para>
             <classname>Zend_Translator</classname> vous permet d'utiliser en interne

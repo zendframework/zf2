@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.recaptcha"><info><title>Zend_Service_ReCaptcha</title></info>
-    
+
 
     <section xml:id="zend.service.recaptcha.introduction"><info><title>Wprowadzenie</title></info>
-        
+
 
         <para>
             Komponent <code>Zend_Service_ReCaptcha</code> zapewnia klienta dla
@@ -27,7 +27,7 @@
     </section>
 
     <section xml:id="zend.service.recaptcha.simplestuse"><info><title>Najprostsze użycie</title></info>
-        
+
 
         <para>
             Utwórz obiekt klasy <code>Zend_Service_ReCaptcha</code>, przekazując

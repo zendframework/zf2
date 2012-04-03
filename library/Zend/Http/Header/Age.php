@@ -52,5 +52,5 @@ class Age implements HeaderDescription
     {
         return 'Age: ' . $this->getFieldValue();
     }
-    
+
 }

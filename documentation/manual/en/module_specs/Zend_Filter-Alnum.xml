@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.alnum"><info><title>Alnum</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_Alnum</classname> is a filter which returns only alphabetic
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.alnum.options"><info><title>Supported options for Zend_Filter_Alnum</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Filter_Alnum</classname>:
@@ -26,7 +26,7 @@
     </section>
 
     <section xml:id="zend.filter.set.alnum.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             See the following example for the default behaviour of this filter.
@@ -54,7 +54,7 @@ $return = $filter->filter('This is (my) content: 123');
     </section>
 
     <section xml:id="zend.filter.set.alnum.whitespace"><info><title>Allow whitespaces</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_Alnum</classname> can also allow whitespaces. This can be usefull

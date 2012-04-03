@@ -40,7 +40,7 @@ class AutoloaderMultiVersionTest extends \PHPUnit_Framework_TestCase
     {
         return (bool)constant('TESTS_ZEND_LOADER_AUTOLOADER_MULTIVERSION_ENABLED');
     }
-    
+
     public function setUp()
     {
         if (!$this->isEnabled()) {
@@ -76,7 +76,7 @@ class AutoloaderMultiVersionTest extends \PHPUnit_Framework_TestCase
         foreach ($loaders as $loader) {
             spl_autoload_unregister($loader);
         }
-        
+
         foreach ($this->loaders as $loader) {
             spl_autoload_register($loader);
         }

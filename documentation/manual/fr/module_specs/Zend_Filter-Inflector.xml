@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.inflector"><info><title>Zend_Filter_Inflector</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_Inflector</classname> est un outil de conversion de règles
@@ -23,7 +23,7 @@
     <example xml:id="zend.filter.inflector.camel_case_example"><info><title>
             Transformer du texteEncasseMelangée ou du texteCamelCase vers un autre format
         </title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $inflector = new Zend_Filter_Inflector('pages/:page.:suffix');
@@ -43,7 +43,7 @@ $filtered = $inflector->filter(array('page' => $string));
     </example>
 
     <section xml:id="zend.filter.inflector.operation"><info><title>Opération</title></info>
-        
+
 
         <para>
             Un inflecteur a besoin d'une <emphasis>cible</emphasis> et d'une ou plusieurs
@@ -75,7 +75,7 @@ $filtered = $inflector->filter(array('page' => $string));
     </section>
 
     <section xml:id="zend.filter.inflector.paths"><info><title>Créer des chemins vers des filtres alternatifs</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_Inflector</classname> utilise
@@ -117,7 +117,7 @@ $loader->addPrefixPath('Mes_Filtres', 'Mes/Filtres/');
     </section>
 
     <section xml:id="zend.filter.inflector.targets"><info><title>Paramétrer la cible de l'inflecteur</title></info>
-        
+
 
         <para>
             La cible de l'inflecteur est un mot joker (ou un identifiant), précédé du
@@ -192,7 +192,7 @@ class Foo
     </section>
 
     <section xml:id="zend.filter.inflector.rules"><info><title>Règles d'inflexion</title></info>
-        
+
 
         <para>
             Comme dit en introduction, il existe 2 types de règles : statiques et basées sur
@@ -210,7 +210,7 @@ class Foo
         </note>
 
         <section xml:id="zend.filter.inflector.rules.static"><info><title>Règles statiques</title></info>
-            
+
 
             <para>
                 Les règles statiques permettent des remplacements simples. Si vous avez un
@@ -271,7 +271,7 @@ class Foo
         </section>
 
         <section xml:id="zend.filter.inflector.rules.filters"><info><title>Règles non statiques : basées sur des filtres</title></info>
-            
+
 
             <para>
                 Des filtres de type <classname>Zend_Filter</classname> peuvent être utilisés
@@ -330,7 +330,7 @@ $inflector->setFilterRule('script', array(
         </section>
 
         <section xml:id="zend.filter.inflector.rules.multiple"><info><title>Paramétrer plusieurs règles en une seule fois</title></info>
-            
+
 
             <para>
                 En temps normal il est plus pratique de spécifier ses règles (statiques et/ou
@@ -357,7 +357,7 @@ $inflector->setFilterRule('script', array(
             </itemizedlist>
 
             <example xml:id="zend.filter.inflector.rules.multiple.example"><info><title>Paramétrer plusieurs règles en une seule fois</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 // setRules() accepte la même notation :
@@ -375,7 +375,7 @@ $inflector->addRules(array(
     </section>
 
     <section xml:id="zend.filter.inflector.utility"><info><title>Autres méthodes utilitaires</title></info>
-        
+
 
         <para>
             <classname>Zend_Filter_Inflector</classname> possède d'autres méthodes pour
@@ -425,7 +425,7 @@ $inflector->addRules(array(
     </section>
 
     <section xml:id="zend.filter.inflector.config"><info><title>Zend_Config avec Zend_Filter_Inflector</title></info>
-        
+
 
         <para>
             <classname>Zend_Config</classname> peut être utilisé pour spécifier les règles,
@@ -470,7 +470,7 @@ $inflector->addRules(array(
         </itemizedlist>
 
         <example xml:id="zend.filter.inflector.config.example"><info><title>Utiliser Zend_Config avec Zend_Filter_Inflector</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // Par le constructeur :

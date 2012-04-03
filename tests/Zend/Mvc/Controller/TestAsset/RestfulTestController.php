@@ -11,7 +11,7 @@ class RestfulTestController extends RestfulController
 
     /**
      * Return list of resources
-     * 
+     *
      * @return mixed
      */
     public function getList()
@@ -21,8 +21,8 @@ class RestfulTestController extends RestfulController
 
     /**
      * Return single resource
-     * 
-     * @param  mixed $id 
+     *
+     * @param  mixed $id
      * @return mixed
      */
     public function get($id)
@@ -32,8 +32,8 @@ class RestfulTestController extends RestfulController
 
     /**
      * Create a new resource
-     * 
-     * @param  mixed $data 
+     *
+     * @param  mixed $data
      * @return mixed
      */
     public function create($data)
@@ -43,9 +43,9 @@ class RestfulTestController extends RestfulController
 
     /**
      * Update an existing resource
-     * 
-     * @param  mixed $id 
-     * @param  mixed $data 
+     *
+     * @param  mixed $id
+     * @param  mixed $data
      * @return mixed
      */
     public function update($id, $data)
@@ -56,8 +56,8 @@ class RestfulTestController extends RestfulController
 
     /**
      * Delete an existing resource
-     * 
-     * @param  mixed $id 
+     *
+     * @param  mixed $id
      * @return mixed
      */
     public function delete($id)

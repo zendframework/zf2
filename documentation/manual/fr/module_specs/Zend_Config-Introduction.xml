@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_Config</classname> est conçu pour simplifier l'accès et l'utilisation des
@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.config.introduction.example.using"><info><title>Utilisation native de Zend_Config</title></info>
-        
+
 
         <para>
             Normalement on s'attend à ce que les utilisateurs emploient une des classes
@@ -79,7 +79,7 @@ $host = $config->database->get('host', 'localhost');
 ]]></programlisting>
 
     <example xml:id="zend.config.introduction.example.file.php"><info><title>Utilisez Zend_Config avec un fichier de configuration en PHP</title></info>
-        
+
 
         <para>
             Il est souvent souhaitable d'utiliser une fichier de configuration en pur

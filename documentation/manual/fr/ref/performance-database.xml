@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.database"><info><title>Performance de Zend_Db</title></info>
-    
+
 
     <para>
         <classname>Zend_Db</classname> est une couche d'abstraction pour les bases de données,
@@ -15,7 +15,7 @@
             Comment réduire la surcharge introduite par Zend_Db_Table lors de la récupération
             des métadonnées de table ?
         </title></info>
-        
+
 
         <para>
             Dans le but de maintenir une utilisation la plus simple possible, et aussi de
@@ -31,7 +31,7 @@
         </para>
 
         <section xml:id="performance.database.tableMetadata.cache"><info><title>Utiliser le cache des métadonnées</title></info>
-            
+
 
             <para>
                 <classname>Zend_Db_Table</classname> peut optionnellement utiliser
@@ -47,7 +47,7 @@
         </section>
 
         <section xml:id="performance.database.tableMetadata.hardcoding"><info><title>Mettre en dur les métadonnées dans votre définition de table</title></info>
-            
+
 
             <para>
                 A partir de la version 1.7.0, <classname>Zend_Db_Table</classname> fournit aussi
@@ -64,7 +64,7 @@
             Le SQL généré avec Zend_Db_Select n'utilise pas mes index ; comment améliorer
             ceci ?
         </title></info>
-        
+
 
         <para>
             <classname>Zend_Db_Select</classname> est plutôt bon dans son trvail. Cependant si
@@ -73,7 +73,7 @@
         </para>
 
         <section xml:id="performance.database.select.writeyourown"><info><title>Ecrire votre SQL amélioré</title></info>
-            
+
             <para>
                 La seule véritable réponse est d'écrire vous même votre propre
                 <acronym>SQL</acronym> ; <classname>Zend_Db</classname> n'oblige pas

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.character-sets"><info><title>Zestawy znaków</title></info>
-    
+
     <para>
         <code>Zend_Mail</code> nie sprawdza poprawności zestawu znaków poszczególnych
         części wiadomości. Kiedy tworzymy instancję <code>Zend_Mail</code>, możemy
@@ -13,7 +13,7 @@
         z części.
     </para>
     <note><info><title>Tylko w formacie tekstowym</title></info>
-        
+
         <para>
             Zestawy znaków mają jedynie zastosowanie dla części wiadomości które są
             w formacie tekstowym.

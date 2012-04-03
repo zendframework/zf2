@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.smtp-secure"><info><title>אבטחת שליחת SMTP</title></info>
-  
+
 
   <para>
       <code>Zend_Mail</code> מאפשר גם תמיכה בשימוש ב TLS או SSL כדי לאבטח את שליחת וחיבור ה STMP.
@@ -10,7 +10,7 @@
   </para>
 
   <example xml:id="zend.mail.smtp-secure.example-1"><info><title>הפעלת חיבור מאובטח בעזרת  <code>Zend_Mail_Transport_Smtp</code></title></info>
-    
+
 
     <programlisting role="php"><![CDATA[
 $config = array('ssl' => 'tls',

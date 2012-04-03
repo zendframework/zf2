@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.advanced_usage"><info><title>Advanced Usage</title></info>
-    
+
 
     <para>
         While the basic usage examples are a perfectly acceptable way to utilize Zend Framework
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.session.advanced_usage.starting_a_session"><info><title>Starting a Session</title></info>
-        
+
 
         <para>
             If you want all requests to have a session facilitated by
@@ -18,7 +18,7 @@
         </para>
 
         <example xml:id="zend.session.advanced_usage.starting_a_session.example"><info><title>Starting the Global Session</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 Zend_Session::start();
@@ -134,7 +134,7 @@ php_value session.auto_start 0
     </section>
 
     <section xml:id="zend.session.advanced_usage.locking"><info><title>Locking Session Namespaces</title></info>
-        
+
 
         <para>
             Session namespaces can be locked, to prevent further alterations to the data in that
@@ -150,7 +150,7 @@ php_value session.auto_start 0
         </para>
 
         <example xml:id="zend.session.advanced_usage.locking.example.basic"><info><title>Locking Session Namespaces</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $userProfileNamespace = new Zend_Session_Namespace('userProfileNamespace');
@@ -167,7 +167,7 @@ if ($userProfileNamespace->isLocked()) {
     </section>
 
     <section xml:id="zend.session.advanced_usage.expiration"><info><title>Namespace Expiration</title></info>
-        
+
 
         <para>
             Limits can be placed on the longevity of both namespaces and individual keys in
@@ -178,7 +178,7 @@ if ($userProfileNamespace->isLocked()) {
         </para>
 
         <example xml:id="zend.session.advanced_usage.expiration.example"><info><title>Expiration Examples</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $s = new Zend_Session_Namespace('expireAll');
@@ -208,7 +208,7 @@ $s->setExpirationSeconds(60);
     </section>
 
     <section xml:id="zend.session.advanced_usage.controllers"><info><title>Session Encapsulation and Controllers</title></info>
-        
+
 
         <para>
             Namespaces can also be used to separate session access by controllers to protect
@@ -218,7 +218,7 @@ $s->setExpirationSeconds(60);
         </para>
 
         <example xml:id="zend.session.advanced_usage.controllers.example"><info><title>Namespaced Sessions for Controllers with Automatic Expiration</title></info>
-            
+
 
             <para>
                 The following code, as part of a controller that displays a test question, initiates
@@ -259,7 +259,7 @@ else {
     </section>
 
     <section xml:id="zend.session.advanced_usage.single_instance"><info><title>Preventing Multiple Instances per Namespace</title></info>
-        
+
 
         <para>
             Although <link linkend="zend.session.advanced_usage.locking">session locking</link>
@@ -276,7 +276,7 @@ else {
         </para>
 
         <example xml:id="zend.session.advanced_usage.single_instance.example"><info><title>Limiting Session Namespace Access to a Single Instance</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // create an instance of a namespace
@@ -318,7 +318,7 @@ try {
     </section>
 
     <section xml:id="zend.session.advanced_usage.arrays"><info><title>Working with Arrays</title></info>
-        
+
 
         <para>
             Due to the implementation history of <acronym>PHP</acronym> magic methods, modifying an
@@ -328,7 +328,7 @@ try {
         </para>
 
         <example xml:id="zend.session.advanced_usage.arrays.example.modifying"><info><title>Modifying Array Data with a Session Namespace</title></info>
-            
+
 
             <para>
                 The following illustrates how the problem may be reproduced:
@@ -345,7 +345,7 @@ echo $sessionNamespace->array['testKey'];
         </example>
 
         <example xml:id="zend.session.advanced_usage.arrays.example.building_prior"><info><title>Building Arrays Prior to Session Storage</title></info>
-            
+
 
             <para>
                 If possible, avoid the problem altogether by storing arrays into a session namespace
@@ -365,7 +365,7 @@ $sessionNamespace->array = array('a', 'b', 'c');
         </para>
 
         <example xml:id="zend.session.advanced_usage.arrays.example.workaround.reassign"><info><title>Workaround: Reassign a Modified Array</title></info>
-            
+
 
             <para>
                 In the code that follows, a copy of the stored array is created, modified, and
@@ -393,7 +393,7 @@ echo $sessionNamespace->array['fruit']; // prints "peach"
         </example>
 
         <example xml:id="zend.session.advanced_usage.arrays.example.workaround.reference"><info><title>Workaround: store array containing reference</title></info>
-            
+
 
             <para>
                 Alternatively, store an array containing a reference to the desired array, and then
@@ -411,7 +411,7 @@ echo $myNamespace->someArray['foo']; // prints "bar"
     </section>
 
     <section xml:id="zend.session.advanced_usage.objects"><info><title>Using Sessions with Objects</title></info>
-        
+
 
         <para>
             If you plan to persist objects in the <acronym>PHP</acronym> session, know that they
@@ -425,7 +425,7 @@ echo $myNamespace->someArray['foo']; // prints "bar"
     </section>
 
     <section xml:id="zend.session.advanced_usage.testing"><info><title>Using Sessions with Unit Tests</title></info>
-        
+
 
         <para>
             Zend Framework relies on PHPUnit to facilitate testing of itself. Many developers extend
@@ -456,7 +456,7 @@ echo $myNamespace->someArray['foo']; // prints "bar"
         </para>
 
         <example xml:id="zend.session.advanced_usage.testing.example"><info><title>PHPUnit Testing Code Dependent on Zend_Session</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // testing setExpirationSeconds()

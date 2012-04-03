@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.reader"><info><title>Zend_Feed_Reader</title></info>
-    
+
 
     <section xml:id="zend.feed.reader.introduction"><info><title>Introduction</title></info>
-        
+
 
         <para>
             <classname>Zend_Feed_Reader</classname> is a component used to
@@ -65,7 +65,7 @@
     </section>
 
     <section xml:id="zend.feed.reader.import"><info><title>Importing Feeds</title></info>
-        
+
 
         <para>
             Importing a feed with <classname>Zend_Feed_Reader</classname> is not
@@ -152,7 +152,7 @@ $feed  = Zend_Feed_Reader::importFeed($zfeed);
     </section>
 
     <section xml:id="zend.feed.reader.sources"><info><title>Retrieving Underlying Feed and Entry Sources</title></info>
-        
+
 
         <para>
             <classname>Zend_Feed_Reader</classname> does its best not to stick
@@ -243,10 +243,10 @@ $reportErrorsTo = $xpath->evaluate('string('
     </section>
 
     <section xml:id="zend.feed.reader.cache-request"><info><title>Cache Support and Intelligent Requests</title></info>
-        
+
 
         <section xml:id="zend.feed.reader.cache-request.cache"><info><title>Adding Cache Support to Zend_Feed_Reader</title></info>
-            
+
 
             <para>
                 <classname>Zend_Feed_Reader</classname> supports using an
@@ -284,7 +284,7 @@ Zend_Feed_Reader::setCache($cache);
         </section>
 
         <section xml:id="zend.feed.reader.cache-request.http-conditional-get"><info><title>HTTP Conditional GET Support</title></info>
-            
+
 
             <para>
                 The big question often asked when importing a feed frequently, is
@@ -357,7 +357,7 @@ $feed = Zend_Feed_Reader::import(
     </section>
 
     <section xml:id="zend.feed.reader.locate"><info><title>Locating Feed URIs from Websites</title></info>
-        
+
 
         <para>
             These days, many websites are aware that the location of their <acronym>XML</acronym>
@@ -426,7 +426,7 @@ foreach ($links as $link) {
   </section>
 
   <section xml:id="zend.feed.reader.attribute-collections"><info><title>Attribute Collections</title></info>
-        
+
 
         <para>
             In an attempt to simplify return types, with Zend Framework 1.10 return
@@ -506,7 +506,7 @@ $labels = $categories->getValues();
   </section>
 
   <section xml:id="zend.feed.reader.retrieve-info"><info><title>Retrieving Feed Information</title></info>
-        
+
 
         <para>
             Retrieving information from a feed (we'll cover entries and items in the
@@ -564,7 +564,7 @@ $labels = $categories->getValues();
         </para>
 
         <table><info><title>Feed Level API Methods</title></info>
-            
+
 
             <tgroup cols="2">
                 <tbody>
@@ -762,7 +762,7 @@ $labels = $categories->getValues();
         </para>
 
         <table><info><title>Extended Feed Level API Methods</title></info>
-            
+
 
             <tgroup cols="2">
                 <tbody>
@@ -906,7 +906,7 @@ $labels = $categories->getValues();
     </section>
 
     <section xml:id="zend.feed.reader.entry"><info><title>Retrieving Entry/Item Information</title></info>
-        
+
 
         <para>
             Retrieving information for specific entries or items (depending on
@@ -917,7 +917,7 @@ $labels = $categories->getValues();
         </para>
 
         <table><info><title>Entry Level API Methods</title></info>
-            
+
 
             <tgroup cols="2">
                 <tbody>
@@ -1125,7 +1125,7 @@ $labels = $categories->getValues();
         </warning>
 
         <table><info><title>Extended Entry Level API Methods</title></info>
-            
+
 
             <tgroup cols="2">
                 <tbody>
@@ -1215,7 +1215,7 @@ $labels = $categories->getValues();
     </section>
 
     <section xml:id="zend.feed.reader.extending"><info><title>Extending Feed and Entry APIs</title></info>
-        
+
 
         <para>
             Extending <classname>Zend_Feed_Reader</classname> allows you to add
@@ -1255,7 +1255,7 @@ $labels = $categories->getValues();
         </para>
 
         <table><info><title>Core Extensions (pre-registered)</title></info>
-            
+
 
             <tgroup cols="2">
                 <tbody>
@@ -1322,7 +1322,7 @@ $labels = $categories->getValues();
         </para>
 
         <table><info><title>Non-Core Extensions (must register manually)</title></info>
-            
+
 
             <tgroup cols="2">
                 <tbody>
@@ -1395,7 +1395,7 @@ $updatePeriod = $syndication->getUpdatePeriod();
 ]]></programlisting>
 
         <section xml:id="zend.feed.reader.extending.feed"><info><title>Writing Zend_Feed_Reader Extensions</title></info>
-            
+
 
             <para>
                 Inevitably, there will be times when the

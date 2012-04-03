@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.loader.prefix-path-mapper"><info><title>The PrefixPathMapper Interface</title></info>
-    
+
 
     <section xml:id="zend.loader.prefix-path-mapper.intro"><info><title>Overview</title></info>
-        
+
 
         <para>
             One approach to resolving plugin names to class names utilizes prefix/path pairs. In
@@ -17,7 +17,7 @@
     </section>
 
     <section xml:id="zend.loader.prefix-path-mapper.quick-start"><info><title>Quick Start</title></info>
-        
+
 
         <para>
             The <interfacename>PrefixPathMapper</interfacename> provides simply two methods: one for
@@ -36,7 +36,7 @@ interface PrefixPathMapper
     </section>
 
     <section xml:id="zend.loader.prefix-path-mapper.options"><info><title>Configuration Options</title></info>
-        
+
 
         <para>
             This component defines no configuration options, as it is an interface.
@@ -44,7 +44,7 @@ interface PrefixPathMapper
     </section>
 
     <section xml:id="zend.loader.prefix-path-mapper.methods"><info><title>Available Methods</title></info>
-        
+
 
         <refentry xml:id="zend.loader.prefix-path-mapper.methods.add-prefix-path">
             <refnamediv>
@@ -62,7 +62,7 @@ interface PrefixPathMapper
             </refsynopsisdiv>
 
             <refsection><info><title>addPrefixPath()</title></info>
-                
+
 
                 <para>
                     Implement this method to allow registering a prefix/path pair. The prefix may be
@@ -90,7 +90,7 @@ interface PrefixPathMapper
             </refsynopsisdiv>
 
             <refsection><info><title>removePrefixPath()</title></info>
-                
+
 
                 <para>
                     Implement this method to remove a prefix/path association from the internal map.
@@ -101,7 +101,7 @@ interface PrefixPathMapper
     </section>
 
     <section xml:id="zend.loader.prefix-path-mapper.examples"><info><title>Examples</title></info>
-        
+
 
         <para>
             Please see the <link linkend="zend.loader.prefix-path-mapper.quick-start">Quick

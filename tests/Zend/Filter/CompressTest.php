@@ -202,9 +202,9 @@ class CompressTest extends \PHPUnit_Framework_TestCase
         $filter = new CompressFilter();
         $this->assertEquals('Gz', $filter->getAdapterName());
 
-        
+
         $filter->setAdapter('\Zend\Filter\Alnum');
-        
+
         $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'does not implement');
         $adapter = $filter->getAdapter();
     }
@@ -236,7 +236,7 @@ class CompressTest extends \PHPUnit_Framework_TestCase
     public function testInvalidMethod()
     {
         $filter = new CompressFilter();
-        
+
         $this->setExpectedException('\Zend\Filter\Exception\BadMethodCallException', 'Unknown method');
         $filter->invalidMethod();
     }

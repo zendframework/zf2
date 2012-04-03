@@ -45,8 +45,8 @@ class FileOptions extends Options
 
     /**
      * Set path to stored mail files
-     * 
-     * @param  string $path 
+     *
+     * @param  string $path
      * @return FileOptions
      */
     public function setPath($path)
@@ -66,7 +66,7 @@ class FileOptions extends Options
      * Get path
      *
      * If none is set, uses value from sys_get_temp_dir()
-     * 
+     *
      * @return string
      */
     public function getPath()
@@ -79,8 +79,8 @@ class FileOptions extends Options
 
     /**
      * Set callback used to generate a file name
-     * 
-     * @param  Callable $callback 
+     *
+     * @param  Callable $callback
      * @return FileOptions
      */
     public function setCallback($callback)
@@ -98,7 +98,7 @@ class FileOptions extends Options
 
     /**
      * Get callback used to generate a file name
-     * 
+     *
      * @return Callable
      */
     public function getCallback()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.bootstrap-bootstrap"><info><title>Zend_Application_Bootstrap_Bootstrap</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Bootstrap_Bootstrap</classname> is a concrete
@@ -18,7 +18,7 @@
     </para>
 
     <section xml:id="zend.application.core-functionality.bootstrap-bootstrap.autoloading"><info><title>Enabling Application Autoloading</title></info>
-        
+
 
         <para>
             Additionally, this bootstrap implementation provides the ability to specify the

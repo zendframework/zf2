@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.xmlrpc.introduction"><info><title>مقدمة</title></info>
-    
+
     <para>
         XML-RPC عبارة عن " نظام لتنفيذ المهام عن بعد بإستخدام HTTP كوسيلة لنقل البيانات و بإستخدام XML
         كهيئة نقل بيانات , تم تصميم XML-RPC لتكون بسيطة قدر الأمكان, مع امكانية نقل و معالجة و ارجاع اى شكل

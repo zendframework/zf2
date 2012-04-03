@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         Le composant <classname>Zend_Filter</classname> fournit un ensemble de filtres de
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.filter.introduction.definition"><info><title>Qu'est-ce qu'un filtre ?</title></info>
-        
+
 
         <para>
             Généralement parlant, un filtre est utilisé pour supprimer les parties non
@@ -40,7 +40,7 @@
     </section>
 
     <section xml:id="zend.filter.introduction.using"><info><title>Utilisation basique des filtres</title></info>
-        
+
 
         <para>
             Avoir cette définition d'un filtre établie fournit la base pour
@@ -60,7 +60,7 @@ echo $htmlEntities->filter('"'); // "
         </section>
 
         <section xml:id="zend.filter.introduction.static"><info><title>Utilisation de la méthode statique staticFilter()</title></info>
-            
+
 
         <para>
             S'il est peu pratique de charger une classe de filtre donnée et créer une instance

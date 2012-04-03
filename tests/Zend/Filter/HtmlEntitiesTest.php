@@ -187,7 +187,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
     {
         $input  = "A 'single' and " . '"double"';
         $result = "A 'single' and &quot;double&quot;";
-        
+
         $this->_filter->setQuoteStyle(ENT_COMPAT);
         $this->assertEquals($result, $this->_filter->filter($input));
     }

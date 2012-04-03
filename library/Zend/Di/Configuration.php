@@ -7,12 +7,12 @@ use Traversable;
 class Configuration
 {
     protected $data = array();
-    
+
     /**
      * @var Zend\Di\DependencyInjector
      */
     protected $di = null;
-    
+
     public function __construct($data)
     {
         if ($data instanceof Traversable) {
@@ -28,7 +28,7 @@ class Configuration
         }
         $this->data = $data;
     }
-    
+
     public function configure(Di $di)
     {
         if (isset($this->data['definition'])) {
@@ -38,7 +38,7 @@ class Configuration
         if (isset($this->data['instance'])) {
             $this->configureInstance($di, $this->data['instance']);
         }
-        
+
     }
 
     public function configureDefinition(Di $di, $definition)
@@ -101,11 +101,11 @@ class Configuration
         }
 
     }
-    
+
     public function configureInstance(Di $di, $instanceData)
     {
         $im = $di->instanceManager();
-        
+
         foreach ($instanceData as $target => $data) {
             switch (strtolower($target)) {
                 case 'aliases':
@@ -148,5 +148,5 @@ class Configuration
 
     }
 
-    
+
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.searching"><info><title>Searching an Index</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.searching.query_building"><info><title>Building Queries</title></info>
-        
+
 
         <para>
             There are two ways to search the index. The first method uses
@@ -94,7 +94,7 @@ $index->find($query);
         </para>
 
         <section xml:id="zend.search.lucene.searching.query_building.parsing"><info><title>Query Parsing</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Search_Lucene_Search_QueryParser::parse()</methodname> method may
@@ -161,7 +161,7 @@ $userQuery = Zend_Search_Lucene_Search_QueryParser::parse($queryStr);
     </section>
 
     <section xml:id="zend.search.lucene.searching.results"><info><title>Search Results</title></info>
-        
+
 
         <para>
             The search result is an array of
@@ -236,7 +236,7 @@ foreach ($hits as $hit) {
     </section>
 
     <section xml:id="zend.search.lucene.searching.results-limiting"><info><title>Limiting the Result Set</title></info>
-        
+
 
         <para>
             The most computationally expensive part of searching is score calculation. It may take
@@ -271,7 +271,7 @@ Zend_Search_Lucene::setResultSetLimit($newLimit);
     </section>
 
     <section xml:id="zend.search.lucene.searching.results-scoring"><info><title>Results Scoring</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> uses the same scoring algorithms as Java
@@ -306,7 +306,7 @@ foreach ($hits as $hit) {
     </section>
 
     <section xml:id="zend.search.lucene.searching.sorting"><info><title>Search Result Sorting</title></info>
-        
+
 
         <para>
             By default, the search results are ordered by score. The programmer can change this
@@ -365,7 +365,7 @@ $index->find($query, 'name', SORT_STRING, 'quantity', SORT_NUMERIC, SORT_DESC);
     </section>
 
     <section xml:id="zend.search.lucene.searching.highlighting"><info><title>Search Results Highlighting</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> provides two options for search results

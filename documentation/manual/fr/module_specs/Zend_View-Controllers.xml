@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.controllers"><info><title>Scripts de contrôleur</title></info>
-    
+
 
     <para>
         Le contrôleur est l'endroit où vous instanciez et configurez
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.view.controllers.assign"><info><title>Assigner des variables</title></info>
-        
+
 
         <para>
             Votre script de contrôleur devrait assigner les variables nécessaires à la vue
@@ -71,7 +71,7 @@ $view->assign('c', "Cé");
     </section>
 
     <section xml:id="zend.view.controllers.render"><info><title>Effectuer le rendu d'un script de vue</title></info>
-        
+
 
         <para>
             Une fois que vous avez assigné toutes les variables dont vous avez besoin, le
@@ -92,7 +92,7 @@ echo $view->render('uneVue.php');
     </section>
 
     <section xml:id="zend.view.controllers.script-paths"><info><title>Chemin des scripts de vue</title></info>
-        
+
 
         <para>
             Par défaut, <classname>Zend_View</classname> s'attend à ce que vos scripts de vues
@@ -141,7 +141,7 @@ $view->addScriptPath('/chemin/des/vues-personnalisees');
 
         <note><info><title>Ne jamais utiliser une entrée utilisateur pour spécifier les chemins vers les
             scripts de vues</title></info>
-            
+
 
             <para>
                 <classname>Zend_View</classname> utilise des chemins dans lesquels elle

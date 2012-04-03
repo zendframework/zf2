@@ -1,7 +1,7 @@
 <?php
 namespace Zend\Text\Table\Exception;
 
-class OutOfBoundsException 
+class OutOfBoundsException
     extends \OutOfBoundsException
     implements \Zend\Text\Exception
 {

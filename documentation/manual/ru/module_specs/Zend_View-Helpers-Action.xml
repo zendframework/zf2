@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.action"><info><title>Помощник Action</title></info>
-    
+
 
     <para>
         Помощник видов <code>Action</code> позволяет скриптам вида
@@ -27,7 +27,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.action.usage"><info><title>Использование помощника Action</title></info>
-        
+
 
         <para>
             Допустим, вы имеете контроллер

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.autocomplete"><info><title>AutoComplete</title></info>
-    
+
 
     <para>
         许多 AJAX javascript 函数库提供了以潜在地匹配结果的选择列表作为用户类别显示的自动完成。<code>AutoComplete</code> 助手简化返回可接受的响应给这样的方法。
@@ -89,7 +89,7 @@ class FooController extends Zend_Controller_Action
     </para>
 
     <section xml:id="zend.controller.actionhelpers.autocomplete.dojo"><info><title>AutoCompletion with Dojo</title></info>
-        
+
 
         <para>
             Dojo 本身没有 AutoCompletion 小部件，但有两个小部件可以执行 AutoCompletion：ComboBox 和 FilteringSelect。对于这两者，都要求实现 QueryReadStore 的数据存储，关于这话题的更多信息参见 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://dojotoolkit.org/book/dojo-book-0-9/part-3-programmatic-dijit-and-dojo/data-retrieval-dojo-data-0">dojo.data</link> 文档。
@@ -106,7 +106,7 @@ $this->_helper->autoCompleteDojo($data);
         ]]></programlisting>
 
         <example xml:id="zend.controller.actionhelpers.autocomplete.dojo.example1"><info><title>AutoCompletion with Dojo Using Zend MVC</title></info>
-            
+
 
             <para>
                 AutoCompletion with Dojo 通过 Zend MVC 需要若干事项：为你想要 AutoCompletion 的 ComboBox 生成一个表单对象，服务于 AutoCompletion 结果的控制器动作，生成定制的 QueryReadStore 来连接到 AutoCompletion 动作和 javascript 的生成用于在服务器端初始化 AutoCompletion。
@@ -263,7 +263,7 @@ dojo.require("custom.TestNameReadStore");
     </section>
 
     <section xml:id="zend.controller.actionhelpers.autocomplete.scriptaculous"><info><title>AutoCompletion with Scriptaculous</title></info>
-        
+
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wiki.script.aculo.us/scriptaculous/show/Ajax.Autocompleter">Scriptaculous</link> 需要一个特定格式的 HTML 响应。
         </para>

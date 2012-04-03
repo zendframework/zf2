@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.timesync.working"><info><title>Utiliser Zend_TimeSync</title></info>
-    
+
 
     <para>
         <classname>Zend_TimeSync</classname> peut retourner le temps de n'importe quel serveur
@@ -19,7 +19,7 @@
     </note>
 
     <section xml:id="zend.timesync.working.generic"><info><title>Requêter un serveur de temps public</title></info>
-        
+
 
         <para>
             Cette opération est très simple, il suffit de préciser le serveur de temps à
@@ -50,7 +50,7 @@ print $server->getDate()->getIso();
     </section>
 
     <section xml:id="zend.timesync.working.multiple"><info><title>Serveurs de temps multiples</title></info>
-        
+
 
         <para>
             Tous les serveurs de temps ne sont pas disponibles tout le temps, à 100%. Il
@@ -101,7 +101,7 @@ print $server->getDate()->getIso();
     </section>
 
     <section xml:id="zend.timesync.working.protocol"><info><title>Les protocoles des serveurs de temps</title></info>
-        
+
 
         <para>
             La plupart des serveurs publics de temps utilisent le protocole
@@ -131,7 +131,7 @@ print $server->getDate()->getIso();
     </section>
 
     <section xml:id="zend.timesync.working.ports"><info><title>Utiliser les ports pour les serveurs de temps</title></info>
-        
+
 
         <para>
             Comme tous les protocoles, <emphasis>NTP</emphasis> et <emphasis>SNTP</emphasis>
@@ -154,7 +154,7 @@ print $server->getDate()->getIso();
     </section>
 
     <section xml:id="zend.timesync.working.options"><info><title>Options pour les serveurs de temps</title></info>
-        
+
 
         <para>
             Actuellement seule une option est utilisée en interne par
@@ -197,7 +197,7 @@ print "Timeout = " . Zend_TimeSync::getOptions('timeout');
     </section>
 
     <section xml:id="zend.timesync.working.different"><info><title>Utiliser des serveurs de temps différents</title></info>
-        
+
 
         <para>
             Par défaut la requête utilisera le premier serveur défini, et ainsi de suite. Il
@@ -218,7 +218,7 @@ $server = $server->setServer('additional');
     </section>
 
     <section xml:id="zend.timesync.working.informations"><info><title>Informations sur les serveurs de temps</title></info>
-        
+
 
         <para>
             Les serveurs de temps fournissent certes le temps, mais aussi d'autres
@@ -240,7 +240,7 @@ print_r ($server->getInfo());
     </section>
 
     <section xml:id="zend.timesync.working.exceptions"><info><title>Gérer les exceptions</title></info>
-        
+
 
         <para>
             Les exceptions sont collectées pour tous les serveurs et sont retournées en tant

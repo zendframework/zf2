@@ -324,7 +324,7 @@ class Curl implements HttpAdapter, Stream
                 $curlMethod = CURLOPT_CUSTOMREQUEST;
                 $curlValue = "TRACE";
                 break;
-            
+
             case 'HEAD' :
                 $curlMethod = CURLOPT_CUSTOMREQUEST;
                 $curlValue = "HEAD";

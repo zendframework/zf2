@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headscript"><info><title>HeadScript ヘルパー</title></info>
-    
+
 
     <para>
         HTML の <code>&lt;script&gt;</code> 要素を使用して、
@@ -42,7 +42,7 @@
     </para>
 
     <note><info><title>条件コメントの設定</title></info>
-        
+
 
         <para>
             <code>HeadScript</code> では、script タグを条件コメントで囲むことができます。
@@ -52,7 +52,7 @@
         </para>
 
         <example xml:id="zend.view.helpers.initial.headscript.conditional"><info><title>Headscript で条件コメントを使う例</title></info>
-            
+
             <programlisting language="php"><![CDATA[
 // スクリプトを追加します
 $this->headScript()->appendFile(
@@ -100,7 +100,7 @@ $this->headScript()->appendFile(
     </para>
 
     <note><info><title>HTML Body スクリプトでの InlineScript の使用</title></info>
-        
+
 
         <para>
             HTML の <code>body</code> 部にスクリプトを埋め込みたい場合は、
@@ -113,7 +113,7 @@ $this->headScript()->appendFile(
     </note>
 
     <note><info><title>すべての属性はデフォルトで無効</title></info>
-        
+
 
         <para>
             デフォルトでは、<code>HeadScript</code> がレンダリングする
@@ -133,7 +133,7 @@ $this->headScript()->setAllowArbitraryAttributes(true);
     </note>
 
     <example xml:id="zend.view.helpers.initial.headscript.basicusage"><info><title>HeadScript ヘルパーの基本的な使用法</title></info>
-        
+
 
         <para>
             上で説明したように、新しい script タグを、好きなときに指定できます。
@@ -178,7 +178,7 @@ $this->headScript()->prependFile('/js/prototype.js');
     </example>
 
     <example xml:id="zend.view.helpers.initial.headscript.capture"><info><title>HeadScript ヘルパーによるスクリプトのキャプチャ</title></info>
-        
+
 
         <para>
             時にはクライアント側のスクリプトをプログラムで生成しなければならないこともあるでしょう。

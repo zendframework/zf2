@@ -46,7 +46,7 @@ class SqsTest extends TestCase
      * @var int
      */
     protected $_waitPeriod = 10;
-    
+
     protected $_clientType = 'Zend\Service\Amazon\Sqs';
 
     /**

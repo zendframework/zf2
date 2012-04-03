@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.view"><info><title>Darstellen der View</title></info>
-    
+
 
     <para>
         Wenn man den <acronym>MVC</acronym> Layer vom Zend Framework verwendet, sind die Chancen
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="performance.view.pluginloader"><info><title>Wie kann ich die Auflösung von View Helfern schneller machen?</title></info>
-        
+
 
         <para>
             Die meisten <classname>Zend_View</classname> "Methoden" werden in Wirklichkeit durch
@@ -42,7 +42,7 @@
         </para>
 
         <section xml:id="performance.view.pluginloader.cache"><info><title>Verwenden des PluginLoader Include-File Caches</title></info>
-            
+
 
             <para>
                 Die einfachste, billigste Lösung ist die gleiche für die <link linkend="performance.classloading.pluginloader">generelle PluginLoader
@@ -54,7 +54,7 @@
         </section>
 
         <section xml:id="performance.view.pluginloader.extend"><info><title>Erweitern von Zend_View um oft verwendet Helfermethoden anzubieten</title></info>
-            
+
 
             <para>
                 Eine andere Lösung für jene welche die Geschwindigkeit sogar noch mehr steigern
@@ -119,7 +119,7 @@ class My_View extends Zend_View
     </section>
 
     <section xml:id="performance.view.partial"><info><title>Wie kann ich partielle View schneller machen?</title></info>
-        
+
 
         <para>
             Jene die Partielle sehr oft verwenden und die Ihre Anwendungen profilieren werden oft
@@ -129,7 +129,7 @@ class My_View extends Zend_View
         </para>
 
         <section xml:id="performance.view.partial.render"><info><title>Verwende partial() nur wenn es wirklich notwendig ist</title></info>
-            
+
 
             <para>
                 Der <methodname>partial()</methodname> View Helfer akzeptiert drei Argumente:
@@ -181,7 +181,7 @@ class My_View extends Zend_View
     </section>
 
     <section xml:id="performance.view.action"><info><title>Wie kann ich Aufrufe zu action() vom View Helfers schneller machen?</title></info>
-        
+
 
         <para>
             Version 1.5.0 führte die <methodname>action()</methodname> des View Helfers ein, welche
@@ -199,7 +199,7 @@ class My_View extends Zend_View
         </para>
 
         <section xml:id="performance.view.action.actionstack"><info><title>Verwende den ActionStack wenn möglich</title></info>
-            
+
 
             <para>
                 Zur selben Zeit die der <methodname>action()</methodname> View Helfer eingeführt,
@@ -269,7 +269,7 @@ class LoginPlugin extends Zend_Controller_Plugin_Abstract
         </section>
 
         <section xml:id="performance.view.action.model"><info><title>Helfer bevorzugen die das Modell vor action() abfragen</title></info>
-            
+
 
             <para>
                 In den meisten Fällen ist die Verwendung von <methodname>action()</methodname>

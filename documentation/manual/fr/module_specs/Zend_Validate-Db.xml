@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.Db"><info><title>Db_RecordExists et Db_NoRecordExists</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Db_RecordExists</classname> et
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.validate.set.db.options"><info><title>Options supportées par Zend_Validate_Db_*</title></info>
-        
+
 
         <para>
             Les options suivantes sont supportées par
@@ -56,7 +56,7 @@
     </section>
 
     <section xml:id="zend.validate.db.basic-usage"><info><title>Utilisation de base</title></info>
-        
+
 
         <para>
             Voici un exemple basique:
@@ -101,7 +101,7 @@ if ($validator->isValid($username)) {
     </section>
 
     <section xml:id="zend.validate.db.excluding-records"><info><title>Exclure des enregistrement</title></info>
-        
+
 
         <para>
             <classname>Zend_Validate_Db_RecordExists</classname> et
@@ -175,7 +175,7 @@ if ($validator->isValid($username)) {
     </section>
 
     <section xml:id="zend.validate.db.database-adapters"><info><title>Adaptateurs de base de données</title></info>
-        
+
 
         <para>
             Un adaptateur spécifique peut être passé au validateur. Dans le cas contraire,
@@ -188,7 +188,7 @@ $validator = new Zend_Validate_Db_RecordExists('users', 'id', null, $dbAdapter);
     </section>
 
     <section xml:id="zend.validate.db.database-schemas"><info><title>Nom des bases de données</title></info>
-        
+
 
         <para>
             Vous pouvez spécifier un nom de base de données (schéma) pour l'adaptateur

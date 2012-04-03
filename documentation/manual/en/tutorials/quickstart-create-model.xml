@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.quickstart.create-model"><info><title>Create a Model and Database Table</title></info>
-    
+
 
     <para>
         Before we get started, let's consider something: where will these classes live, and how will
@@ -712,7 +712,7 @@ Guestbook Entries: <br />
 ]]></programlisting>
 
     <note><info><title>Checkpoint</title></info>
-        
+
 
         <para>
             Now browse to "http://localhost/guestbook". You should see the following in your
@@ -725,7 +725,7 @@ Guestbook Entries: <br />
     </note>
 
     <note><info><title>Using the data loader script</title></info>
-        
+
 
         <para>
             The data loader script introduced in this section

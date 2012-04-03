@@ -181,7 +181,7 @@ class Translator extends AbstractHelper
     /**
      * Returns the set locale for translations
      *
-     * @throws ViewException 
+     * @throws ViewException
      * @return string|Locale
      * @throws Exception\RuntimeException When no Translation instance was set
      */

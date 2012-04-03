@@ -245,7 +245,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $myDate = new Date\Date('1234567890', Date\Date::TIMESTAMP);
         $this->assertTrue($myDate->equals($writer->getDateModified()));
     }
-    
+
     /**
      * @group ZF-12023
      */
@@ -267,7 +267,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $myDate = new Date\Date('123', Date\Date::TIMESTAMP);
         $this->assertTrue($myDate->equals($writer->getDateModified()));
     }
-    
+
     public function testSetDateModifiedUsesZendDateObject()
     {
         $writer = new Writer\Feed;
@@ -334,7 +334,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $myDate = new Date\Date('123456789', Date\Date::TIMESTAMP);
         $this->assertTrue($myDate->equals($writer->getLastBuildDate()));
     }
-    
+
     /**
      * @group ZF-11610
      */
@@ -345,7 +345,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $myDate = new Date\Date('123', Date\Date::TIMESTAMP);
         $this->assertTrue($myDate->equals($writer->getLastBuildDate()));
     }
-    
+
     public function testSetLastBuildDateUsesZendDateObject()
     {
         $writer = new Writer\Feed;
@@ -412,14 +412,14 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $writer->setId('urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6');
         $this->assertEquals('urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6', $writer->getId());
     }
-    
+
     public function testSetsIdAcceptsSimpleTagUri()
     {
         $writer = new Writer\Feed;
         $writer->setId('tag:example.org,2010:/foo/bar/');
         $this->assertEquals('tag:example.org,2010:/foo/bar/', $writer->getId());
     }
-    
+
     public function testSetsIdAcceptsComplexTagUri()
     {
         $writer = new Writer\Feed;
@@ -715,7 +715,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $writer = new Writer\Feed;
         $this->assertTrue(is_null($writer->getFeedLinks()));
     }
-    
+
     public function testSetsBaseUrl()
     {
         $writer = new Writer\Feed;
@@ -738,14 +738,14 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $writer = new Writer\Feed;
         $this->assertTrue(is_null($writer->getBaseUrl()));
     }
-    
+
     public function testAddsHubUrl()
     {
         $writer = new Writer\Feed;
         $writer->addHub('http://www.example.com/hub');
         $this->assertEquals(array('http://www.example.com/hub'), $writer->getHubs());
     }
-    
+
     public function testAddsManyHubUrls()
     {
         $writer = new Writer\Feed;
@@ -775,14 +775,14 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $entry = $writer->createEntry();
         $this->assertTrue($entry instanceof Writer\Entry);
     }
-    
+
     public function testAddsCategory()
     {
         $writer = new Writer\Feed;
         $writer->addCategory(array('term'=>'cat_dog'));
         $this->assertEquals(array(array('term'=>'cat_dog')), $writer->getCategories());
     }
-    
+
     public function testAddsManyCategories()
     {
         $writer = new Writer\Feed;
@@ -799,7 +799,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         } catch (Writer\Exception $e) {
         }
     }
-    
+
     public function testAddingCategoryWithInvalidUriAsSchemeThrowsException()
     {
         $writer = new Writer\Feed;
@@ -905,7 +905,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
             'width' => '88'
         ), $writer->getImage());
     }
-    
+
     public function testSetsImageDescription()
     {
         $writer = new Writer\Feed;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.findFeeds"><info><title>Obtenir des flux à partir de pages Web</title></info>
-    
+
 
     <para>
         Les pages Web contiennent souvent des balises <code>&lt;link&gt;</code> qui font

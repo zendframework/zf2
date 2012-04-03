@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.ec2.instance"><info><title>Zend_Service_Amazon_Ec2: Instanzen</title></info>
-    
+
 
     <section xml:id="zend.service.amazon.ec2.instance.types"><info><title>Instanz Typen</title></info>
-        
+
 
         <para>
             Amazon EC2 Instanzen werden in zwei Familien gruppiert: Standard und High-CPU. Standard
@@ -26,7 +26,7 @@
         </para>
 
         <note><info><title>Instanz Typen</title></info>
-            
+
 
             <para>
                 Der Instanztyp ist als Konstante im Code definiert. Spalte acht in der Tabelle ist
@@ -35,7 +35,7 @@
         </note>
 
         <table xml:id="zend.service.amazon.ec2.instance.types-table"><info><title>Vorhandene Instanztypen</title></info>
-            
+
 
             <tgroup cols="8">
                 <thead>
@@ -182,14 +182,14 @@
     </section>
 
     <section xml:id="zend.service.amazon.ec2.instance.operations"><info><title>Ausführen von Amazon EC2 Instanzen</title></info>
-        
+
 
         <para>
             Dieses Kapitel beschreibt die Methoden für die Behandlung von Amazon EC2 Instanzen.
         </para>
 
         <example xml:id="zend.service.amazon.ec2.instance.operations.run"><info><title>Starten neuer EC2 Instanzen</title></info>
-            
+
 
             <para>
                 <code>run</code> startetn eine spezifische Anzahl von EC2 Instanzen.
@@ -199,7 +199,7 @@
 
             <para>
                 <table xml:id="zend.service.amazon.ec2.instance.operations.run-table"><info><title>Gültige Optionen für das Starten</title></info>
-                    
+
 
                     <tgroup cols="3">
                         <thead>
@@ -400,7 +400,7 @@ $return = $ec2_instance->run(array('imageId' => 'ami-509320',
         </example>
 
         <example xml:id="zend.service.amazon.ec2.instance.operations.reboot"><info><title>Neu booten von EC2 Instanzen</title></info>
-            
+
 
             <para>
                 <code>reboot</code> bootet eine oder mehrere Instanzen.
@@ -426,7 +426,7 @@ $return = $ec2_instance->reboot('instanceId');
         </example>
 
         <example xml:id="zend.service.amazon.ec2.instance.operations.terminate"><info><title>Beenden von EC2 Instanzen</title></info>
-            
+
 
             <para>
                 <code>terminate</code> führt eine oder mehrere Instanzen herunter. Diese Operation
@@ -447,14 +447,14 @@ $return = $ec2_instance->terminate('instanceId');
         </example>
 
         <note><info><title>Terminierte Instanzen</title></info>
-            
+
             <para>Terminierte Instanzen bleiben nach der Terminierung sichtbar (voraussichtlich
             eine Stunde).</para>
         </note>
     </section>
 
     <section xml:id="zend.service.amazon.ec2.instance.utility"><info><title>Utilities für Amazon Instanzen</title></info>
-        
+
 
         <para>
             In diesem Kapitel erfährt man wie man Informationen über die Ausgabe der Console
@@ -462,7 +462,7 @@ $return = $ec2_instance->terminate('instanceId');
         </para>
 
         <example xml:id="zend.service.amazon.ec2.instance.utility.describe"><info><title>Instanzen beschreiben</title></info>
-            
+
 
             <para>
                 <code>describe</code> gibt Information über die Instanzen zurück die einem
@@ -491,7 +491,7 @@ $return = $ec2_instance->describe('instanceId');
         </example>
 
         <note><info><title>Beendete Instanzen</title></info>
-            
+
 
             <para>
                 Kürzlich beendete Instanzen können in den zurückgegebenen Ergebnissen
@@ -503,7 +503,7 @@ $return = $ec2_instance->describe('instanceId');
         </note>
 
         <example xml:id="zend.service.amazon.ec2.instance.utility.describebyimageid"><info><title>Instanzen anhand der Image Id beschreiben</title></info>
-            
+
 
             <para>
                 <code>describeByImageId</code> ist funktional identisch mit <code>describe</code>
@@ -523,7 +523,7 @@ $return = $ec2_instance->describeByImageId('imageId');
         </example>
 
         <note><info><title>Beendete Instanzen</title></info>
-            
+
 
             <para>
                 Kürzlich beendete Instanzen können in den zurückgegebenen Ergebnissen
@@ -535,7 +535,7 @@ $return = $ec2_instance->describeByImageId('imageId');
         </note>
 
         <example xml:id="zend.service.amazon.ec2.instance.utility.consoleOutput"><info><title>Empfangen von Konsolen-Ausgaben</title></info>
-            
+
 
             <para>
                 <code>consoleOutput</code> empfänge die Ausgabe der Konsole für eine spezifizierte
@@ -562,7 +562,7 @@ $return = $ec2_instance->consoleOutput('instanceId');
         </example>
 
         <example xml:id="zend.service.amazon.ec2.instance.utility.confirmproduct"><info><title>Produktcode an einer Instanz bestätigen</title></info>
-            
+
 
             <para>
                 <code>confirmProduct</code> gibt <constant>TRUE</constant> zurück wenn der
@@ -586,7 +586,7 @@ $return = $ec2_instance->confirmProduct('productCode', 'instanceId');
         </example>
 
         <example xml:id="zend.service.amazon.ec2.instance.utility.monitor"><info><title>Einschalten des CloudWatch Monitorings für Instanzen</title></info>
-            
+
 
             <para>
                 <code>monitor</code> gibt die Liste von Instanzn und deren aktuellen Status vom
@@ -602,7 +602,7 @@ $return = $ec2_instance->monitor('instanceId');
         </example>
 
         <example xml:id="zend.service.amazon.ec2.instance.utility.unmonitor"><info><title>Ausschalten des CloudWatch Monitorings für Instanzen</title></info>
-            
+
 
             <para>
                 <code>monitor</code> gibt die Liste von Instanzn und deren aktuellen Status vom

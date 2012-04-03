@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.headtitle"><info><title>HeadTitle 助手 </title></info>
-    
+
 
     <para>
         HTML <code>&lt;title&gt;</code> 元素用来提供标题给HTML文档。<code>HeadTitle</code> 助手允许用程序生成和存储标题供以后解析和输出。
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.headtitle.basicusage"><info><title>HeadTitle 助手基本用法 </title></info>
-        
+
 
         <para>
             你可以在任何时候指定一个标题标签。一般的用法可以让你在应用程序的每一个层次来设置标题段：站点、控制器、动作和潜在的资源。

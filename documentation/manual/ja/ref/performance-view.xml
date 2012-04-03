@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.view"><info><title>ビューのレンダリング</title></info>
-    
+
 
     <para>
         Zend Frameworkの<acronym>MVC</acronym>レイヤを使うときには、
@@ -17,7 +17,7 @@
     </para>
 
     <section xml:id="performance.view.pluginloader"><info><title>どのようにしたらビューヘルパの解決を速くできますか？</title></info>
-        
+
 
         <para>
             ほとんどの<classname>Zend_View</classname>の "メソッド" は、
@@ -50,7 +50,7 @@
         </para>
 
         <section xml:id="performance.view.pluginloader.cache"><info><title>ファイルキャッシュを含むプラグインローダーを使う</title></info>
-            
+
 
             <para>
                 最も簡単で安く済む方法は
@@ -64,7 +64,7 @@
         </section>
 
         <section xml:id="performance.view.pluginloader.extend"><info><title>よく使われるヘルパメソッドを提供するようにZend_Viewを拡張する</title></info>
-            
+
 
             <para>
                 さらにもっと性能を調整することを探求する他の方法は、
@@ -126,7 +126,7 @@ class My_View extends Zend_View
     </section>
 
     <section xml:id="performance.view.partial"><info><title>どのようにしたらビューを部分的に高速化できますか？</title></info>
-        
+
 
         <para>
             部分的に頻繁に利用したり、アプリケーションのプロファイルを実行したりする人は、
@@ -136,7 +136,7 @@ class My_View extends Zend_View
         </para>
 
         <section xml:id="performance.view.partial.render"><info><title>本当に必要な時だけpartial()を使う</title></info>
-            
+
 
             <para>
                 <methodname>partial()</methodname> ビューヘルパには３つの引数があります:
@@ -185,7 +185,7 @@ class My_View extends Zend_View
     </section>
 
     <section xml:id="performance.view.action"><info><title>どのようにしたらアクションメソッドのビューヘルパの呼び出しを速くできますか？</title></info>
-        
+
 
         <para>
             バージョン1.5.0で <methodname>action()</methodname> ビューヘルパが導入されました。
@@ -203,7 +203,7 @@ class My_View extends Zend_View
         </para>
 
         <section xml:id="performance.view.action.actionstack"><info><title>可能な場合はアクションスタックを使う</title></info>
-            
+
 
             <para>
                 <methodname>action()</methodname> ビューヘルパと同時期に導入されましたが、
@@ -273,7 +273,7 @@ class LoginPlugin extends Zend_Controller_Plugin_Abstract
         </section>
 
         <section xml:id="performance.view.action.model"><info><title>action()を通じてモデルに問い合わせるお好みヘルパ</title></info>
-            
+
 
             <para>
                 ほとんどの場合、<methodname>action()</methodname> を使うのは過剰です。

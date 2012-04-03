@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.router"><info><title>Zend_Application_Resource_Router</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Router</classname> est utilisé pour
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.router.configExample"><info><title>Exemple de configuration du routeur</title></info>
-        
+
 
         <para>
             Voici l'exemple d'un fichier <acronym>INI</acronym> qui configure

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_Navigation</classname> est un composant gérant arbres et menus
@@ -12,14 +12,14 @@
     </para>
 
     <section xml:id="zend.navigation.introduction.concepts"><info><title>Pages et Conteneurs</title></info>
-        
+
 
         <para>
             Deux concepts existent dans <classname>Zend_Navigation</classname>:
         </para>
 
         <section xml:id="zend.navigation.introduction.pages"><info><title>Pages</title></info>
-            
+
             <para>
                 Une page (<classname>Zend_Navigation_Page</classname>) dans
                 <classname>Zend_Navigation</classname> – dans sa forme la plus
@@ -36,7 +36,7 @@
         </section>
 
         <section xml:id="zend.navigation.introduction.containers"><info><title>Conteneurs</title></info>
-            
+
             <para>
                 Un conteneur de navigation
                 (<classname>Zend_Navigation_Container</classname>) est une classe
@@ -65,7 +65,7 @@
     </section>
 
     <section xml:id="zend.navigation.introduction.separation"><info><title>Séparation des données (modèle) et du rendu (vue)</title></info>
-        
+
 
         <para>
             Les classes dans <classname>Zend_Navigation</classname> ne s'occupent

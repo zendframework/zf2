@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.plugins.standard.actionstack"><info><title>ActionStack</title></info>
-    
+
 
     <para>
         <emphasis>ActionStack</emphasis> プラグインは、リクエストをスタックで管理します。

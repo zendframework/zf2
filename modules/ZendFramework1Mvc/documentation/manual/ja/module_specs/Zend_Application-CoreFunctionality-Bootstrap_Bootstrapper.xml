@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.core-functionality.bootstrap-bootstrapper"><info><title>Zend_Application_Bootstrap_Bootstrapper</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Bootstrap_Bootstrapper</classname>は、
@@ -16,7 +16,7 @@
     </para>
 
     <table xml:id="zend.application.core-functionality.bootstrap-bootstrapper.methods-table"><info><title>Zend_Application_Bootstrap_Bootstrapperインタフェース</title></info>
-        
+
         <tgroup cols="4">
             <thead>
                 <row>

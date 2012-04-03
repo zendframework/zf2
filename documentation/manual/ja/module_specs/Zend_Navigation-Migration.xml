@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.migration"><info><title>前バージョンからの移行</title></info>
-    
+
 
     <para>
         この章は、主に<classname>Zend_Navigation</classname>
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.view.navigation.zf7341"><info><title>バージョン 1.9以前からの移行</title></info>
-        
+
 
         <para>
             1.9のリリース以前は、

@@ -35,64 +35,64 @@ class Comment extends Entity
 {
     /**
      * Text
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $text;
 
     /**
      * Create time
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $createTime;
 
     /**
      * Author
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $author;
 
     /**
      * Service
-     * 
-     * @var AgileZen 
+     *
+     * @var AgileZen
      */
     protected $service;
 
     /**
      * Project Id
-     * 
-     * @var integer 
+     *
+     * @var integer
      */
     protected $projectId;
 
     /**
      * Constructor
-     * 
+     *
      * @param AgileZen $service
-     * @param array $data 
+     * @param array $data
      */
     public function __construct(AgileZen $service, array $data)
     {
         if (!array_key_exists('id', $data)) {
              throw new Exception\InvalidArgumentException("You must pass the id of the comment");
         }
-        
+
         $this->text       = $data['text'];
         $this->createTime = $data['createTime'];
         $this->author     = new User($service, $data['author']);
         $this->projectId  = $data['projectId'];
         $this->service    = $service;
-        
+
         parent::__construct($data['id']);
     }
 
     /**
      * Get text
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getText()
     {
@@ -101,8 +101,8 @@ class Comment extends Entity
 
     /**
      * Get create time
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getCreateTime()
     {
@@ -111,8 +111,8 @@ class Comment extends Entity
 
     /**
      * Get author
-     * 
-     * @return User 
+     *
+     * @return User
      */
     public function getAuthor()
     {
@@ -121,8 +121,8 @@ class Comment extends Entity
 
     /**
      * Get the project's Id
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getProjectId()
     {

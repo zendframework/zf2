@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.codegenerator.examples"><info><title>Ejemplos de Zend_CodeGenerator</title></info>
-    
+
 
     <example xml:id="zend.codegenerator.examples.class"><info><title>Generando clases PHP</title></info>
-        
+
 
         <para>El siguiente ejemplo genera una clase vacía con una clase de
             nivel DocBlock.</para>
@@ -49,7 +49,7 @@ class Foo
     </example>
 
     <example xml:id="zend.codegenerator.examples.class-properties"><info><title>Generando clases PHP con propiedades de clase</title></info>
-        
+
 
         <para>Basándonos en el ejemplo anterior, ahora agreguemos propiedades a
             nuestra clase
@@ -119,7 +119,7 @@ class Foo
     </example>
 
     <example xml:id="zend.codegenerator.examples.class-methods"><info><title>Generando clases PHP con métodos de clase</title></info>
-        
+
 
         <para>
             <classname>Zend_CodeGenerator_Php_Class</classname>
@@ -252,7 +252,7 @@ class Foo
     </example>
 
     <example xml:id="zend.codegenerator.examples.file"><info><title>Generando archivos PHP</title></info>
-        
+
 
         <para>
             <classname>Zend_CodeGenerator_Php_File</classname>
@@ -361,7 +361,7 @@ define('APPLICATION_ENV', 'testing');
 
     <example xml:id="zend.codegenerator.examples.reflection-file"><info><title>Sembrando la generación de código para un archivo PHP via
             reflection</title></info>
-        
+
         <para>
             You can add
             <acronym>PHP</acronym>
@@ -384,7 +384,7 @@ file_put_contents($path, $generator->generate());
     </example>
 
     <example xml:id="zend.codegenerator.examples.reflection-class"><info><title>Sembrando la generación de clases PHP via reflection</title></info>
-        
+
         <para>
             You may add code to an existing class. To do so, first use the
             static
@@ -422,7 +422,7 @@ $code = $generator->generate();
     </example>
 
     <example xml:id="zend.codegenerator.examples.reflection-method"><info><title>Sembrando la generación de métodos PHP via reflection</title></info>
-        
+
         <para>
             You may add code to an existing class. To do so, first use the
             static

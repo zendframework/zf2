@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.introduction"><info><title>Introdução</title></info>
-    
+
 
     <para>
         <classname>Zend_View</classname> é uma classe para trabalhar com a parte de visualização do
@@ -26,7 +26,7 @@
     </para>
 
     <section xml:id="zend.view.introduction.controller"><info><title>Script Controlador</title></info>
-        
+
 
         <para>
             Neste exemplo simples, suponhamos que seu controlador tenha uma listagem contendo dados
@@ -62,7 +62,7 @@ echo $view->render('booklist.php');
     </section>
 
     <section xml:id="zend.view.introduction.view"><info><title>Script Visualizador</title></info>
-        
+
 
         <para>
             Agora necessitaremos do script de visualização associado, "booklist.php". Trata-se de um
@@ -107,7 +107,7 @@ echo $view->render('booklist.php');
     </section>
 
     <section xml:id="zend.view.introduction.options"><info><title>Options</title></info>
-        
+
 
         <para>
             <classname>Zend_View</classname> has several options that may be set to
@@ -178,7 +178,7 @@ base/path/
     </section>
 
     <section xml:id="zend.view.introduction.shortTags"><info><title>Short Tags with View Scripts</title></info>
-        
+
 
         <para>
             In our examples, we make use of <acronym>PHP</acronym> long tags:
@@ -241,7 +241,7 @@ $view->setUseStreamWrapper(true);
         </itemizedlist>
 
         <warning><info><title>View Stream Wrapper Degrades Performance</title></info>
-            
+
 
             <para>
                 Usage of the stream wrapper <emphasis>will</emphasis> degrade
@@ -255,7 +255,7 @@ $view->setUseStreamWrapper(true);
     </section>
 
     <section xml:id="zend.view.introduction.accessors"><info><title>Utility Accessors</title></info>
-        
+
 
         <para>
             Typically, you'll only ever need to call on <methodname>assign()</methodname>,

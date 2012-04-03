@@ -138,7 +138,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(SOAP_1_2, $server->getSoapVersion());
         $server->setSoapVersion(SOAP_1_1);
         $this->assertEquals(SOAP_1_1, $server->getSoapVersion());
-        
+
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Invalid soap version specified');
         $server->setSoapVersion('bogus');
     }
@@ -148,7 +148,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $server = new Server();
         $this->assertTrue($server->validateUrn('http://framework.zend.com/'));
         $this->assertTrue($server->validateUrn('urn:soapHandler/GetOpt'));
-        
+
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Invalid URN');
         $server->validateUrn('bogosity');
     }
@@ -160,7 +160,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($server->getActor());
         $server->setActor('http://framework.zend.com/');
         $this->assertEquals('http://framework.zend.com/', $server->getActor());
-        
+
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Invalid URN');
         $server->setActor('bogus');
     }
@@ -181,7 +181,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($server->getUri());
         $server->setUri('http://framework.zend.com/');
         $this->assertEquals('http://framework.zend.com/', $server->getUri());
-        
+
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Invalid URN');
         $server->setUri('bogus');
     }
@@ -206,19 +206,19 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $server->setClassmap($classmap);
         $this->assertTrue($classmap == $server->getClassmap());
     }
-    
+
     public function testSetClassmapThrowsExceptionOnBogusStringParameter()
     {
         $server = new Server();
-        
+
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Classmap must be an array');
         $server->setClassmap('bogus');
     }
-    
+
     public function testSetClassmapThrowsExceptionOnBogusArrayParameter()
     {
         $server = new Server();
-        
+
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Invalid class in class map');
         $server->setClassmap(array('soapTypeName', 'bogusClassName'));
     }
@@ -242,7 +242,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($server->getWSDL());
         $server->setWSDL(__DIR__.'/_files/wsdl_example.wsdl');
         $this->assertEquals(__DIR__.'/_files/wsdl_example.wsdl', $server->getWSDL());
-        
+
         //$this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'foo');
         $server->setWSDL(__DIR__.'/_files/bogus.wsdl');
     }
@@ -278,7 +278,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testAddBogusFunctionAsInteger()
     {
         $server = new Server();
-        
+
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Invalid function specified');
         $server->addFunction(126);
     }
@@ -294,7 +294,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testAddBogusFunctionsAsArray()
     {
         $server = new Server();
-    
+
         $functions = array('\ZendTest\Soap\TestAsset\TestFunc5',
                             'bogus_function',
                             '\ZendTest\Soap\TestAsset\TestFunc6');
@@ -338,7 +338,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $server = new Server();
         $server->setClass('\ZendTest\Soap\TestAsset\ServerTestClass');
-        
+
         $this->setExpectedException(
         	'Zend\Soap\Exception\InvalidArgumentException',
         	'A class has already been registered with this soap server instance'
@@ -382,37 +382,37 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $r = $server->setObject(new TestAsset\ServerTestClass());
         $this->assertSame($server, $r);
     }
-    
+
     /**
      * @group ZF-4366
      */
     public function testSetObjectThrowsExceptionWithBadInput1()
     {
         $server = new Server();
-        
+
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Invalid object argument (integer)');
         $server->setObject(465);
     }
-    
+
     /**
      * @group ZF-4366
      */
     public function testSetObjectThrowsExceptionWithBadInput2()
     {
         $server = new Server();
-        
+
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Invalid object argument (integer)');
         $int = 1;
         $server->setObject($int);
     }
-    
+
     /**
      * @group ZF-4366
      */
     public function testSetObjectThrowsExceptionWithBadInput3()
     {
         $server = new Server();
-        
+
         //$this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'foo');
         $server->setObject(new TestAsset\ServerTestClass());
     }

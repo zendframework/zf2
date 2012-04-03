@@ -21,7 +21,7 @@ read/subscribe to the following resources:
 
 If you are working on new features, or refactoring an existing
 component, please create a proposal. You can do this in on the proposals
-page, http://framework.zend.com/wiki/display/ZFPROP/Home. 
+page, http://framework.zend.com/wiki/display/ZFPROP/Home.
 
 ## RUNNING TESTS
 

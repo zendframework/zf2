@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.objects"><info><title>Oggetti JSON</title></info>
-    
+
     <para>
         Quando un oggetto PHP viene codificato in JSON, tutte le sue proprietà pubbliche sono convertite in un oggetto JSON.
     </para>

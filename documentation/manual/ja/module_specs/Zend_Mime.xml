@@ -2,10 +2,10 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mime.mime"><info><title>Zend_Mime</title></info>
-    
+
 
     <section xml:id="zend.mime.mime.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime</classname> は、マルチパート <acronym>MIME</acronym>
@@ -17,7 +17,7 @@
     </section>
 
     <section xml:id="zend.mime.mime.static"><info><title>静的メソッドおよび定数</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime</classname> は、<acronym>MIME</acronym> を処理するための以下のような静的ヘルパーメソッドを提供しています。
@@ -146,7 +146,7 @@
     </section>
 
     <section xml:id="zend.mime.mime.instatiation"><info><title>Zend_Mime インスタンスの作成</title></info>
-        
+
 
         <para>
             <classname>Zend_Mime</classname> オブジェクトのインスタンスを作成する際に、

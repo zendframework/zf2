@@ -119,7 +119,7 @@ class Rss extends AbstractEntry implements Reader\Entry
         if (array_key_exists('authors', $this->_data)) {
             return $this->_data['authors'];
         }
-        
+
         $authors = array();
         $authors_dc = $this->getExtension('DublinCore')->getAuthors();
         if (!empty($authors_dc)) {
@@ -129,7 +129,7 @@ class Rss extends AbstractEntry implements Reader\Entry
                 );
             }
         }
-        
+
         if ($this->getType() !== Reader\Reader::TYPE_RSS_10
         && $this->getType() !== Reader\Reader::TYPE_RSS_090) {
             $list = $this->_xpath->query($this->_xpathQueryRss . '//author');
@@ -149,7 +149,7 @@ class Rss extends AbstractEntry implements Reader\Entry
                         $data['name'] = $matches[1];
                     }
                     $authors[] = $data;
-                } 
+                }
             }
         }
 
@@ -432,7 +432,7 @@ class Rss extends AbstractEntry implements Reader\Entry
 
         return $this->_data['links'];
     }
-    
+
     /**
      * Get all categories
      *
@@ -463,7 +463,7 @@ class Rss extends AbstractEntry implements Reader\Entry
         } else {
             $categoryCollection = $this->getExtension('DublinCore')->getCategories();
         }
-        
+
         if (count($categoryCollection) == 0) {
             $categoryCollection = $this->getExtension('Atom')->getCategories();
         }

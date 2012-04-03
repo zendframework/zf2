@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.different-transports"><info><title>Verschillende Transporten gebruiken</title></info>
-    
+
     <para>
         In het geval je verschillende e-mails via verschillende verbindingen wil sturen kan je ook het
         transport object direct doorgeven aan <code>send()</code> zonder vooraf een oproep aan
@@ -8,7 +8,7 @@
         transport vervangen voor het huidige <code>send()</code> verzoek:
     </para>
     <example><info><title>Verschillende Transporten gebruiken</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 <?php
 require_once 'Zend/Mail.php';

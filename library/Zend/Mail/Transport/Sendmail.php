@@ -50,7 +50,7 @@ class Sendmail implements Transport
 
     /**
      * Callback to use when sending mail; typically, {@link mailHandler()}
-     * 
+     *
      * @var callable
      */
     protected $callable;
@@ -84,8 +84,8 @@ class Sendmail implements Transport
      * Set sendmail parameters
      *
      * Used to populate the additional_parameters argument to mail()
-     * 
-     * @param  null|string|array|Traversable $parameters 
+     *
+     * @param  null|string|array|Traversable $parameters
      * @return Sendmail
      */
     public function setParameters($parameters)
@@ -117,8 +117,8 @@ class Sendmail implements Transport
      * Set callback to use for mail
      *
      * Primarily for testing purposes, but could be used to curry arguments.
-     * 
-     * @param  callable $callable 
+     *
+     * @param  callable $callable
      * @return Sendmail
      */
     public function setCallable($callable)
@@ -136,8 +136,8 @@ class Sendmail implements Transport
 
     /**
      * Send a message
-     * 
-     * @param  Message $message 
+     *
+     * @param  Message $message
      * @return void
      */
     public function send(Message $message)
@@ -153,8 +153,8 @@ class Sendmail implements Transport
 
     /**
      * Prepare recipients list
-     * 
-     * @param  Message $message 
+     *
+     * @param  Message $message
      * @return string
      */
     protected function prepareRecipients(Message $message)
@@ -187,8 +187,8 @@ class Sendmail implements Transport
 
     /**
      * Prepare the subject line string
-     * 
-     * @param  Message $message 
+     *
+     * @param  Message $message
      * @return string
      */
     protected function prepareSubject(Message $message)
@@ -198,8 +198,8 @@ class Sendmail implements Transport
 
     /**
      * Prepare the body string
-     * 
-     * @param  Message $message 
+     *
+     * @param  Message $message
      * @return string
      */
     protected function prepareBody(Message $message)
@@ -217,7 +217,7 @@ class Sendmail implements Transport
 
     /**
      * Prepare the textual representation of headers
-     * 
+     *
      * @param  Message $message
      * @return string
      */
@@ -244,10 +244,10 @@ class Sendmail implements Transport
     /**
      * Prepare additional_parameters argument
      *
-     * Basically, overrides the MAIL FROM envelope with either the Sender or 
+     * Basically, overrides the MAIL FROM envelope with either the Sender or
      * From address.
-     * 
-     * @param  Message $message 
+     *
+     * @param  Message $message
      * @return string
      */
     protected function prepareParameters(Message $message)
@@ -322,7 +322,7 @@ class Sendmail implements Transport
 
     /**
      * Is this a windows OS?
-     * 
+     *
      * @return bool
      */
     protected function isWindowsOs()

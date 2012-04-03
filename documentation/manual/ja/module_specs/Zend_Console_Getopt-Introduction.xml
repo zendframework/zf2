@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.console.getopt.introduction"><info><title>導入</title></info>
-    
+
     <para>
         <classname>Zend_Console_Getopt</classname> クラスは、
         コマンドラインアプリケーションでのオプションや引数の処理を助けるものです。
@@ -104,7 +104,7 @@
         などがあります。
     </para>
     <note><info><title>Getopt はアプリケーションフレームワークではありません</title></info>
-        
+
         <para>
             <classname>Zend_Console_Getopt</classname> はdoes
             フラグやパラメータの意味を解釈するわけ <emphasis>ではなく</emphasis>、

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.db"><info><title>Zend_Application_Resource_Db</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Db</classname> initialisiert einen
@@ -48,7 +48,7 @@
     </itemizedlist>
 
     <example xml:id="zend.application.available-resources.db.configExample"><info><title>Beispiel der Konfiguration einer DB Adapter Ressource</title></info>
-        
+
 
         <para>
             Anbei ist das Beispiel einer <acronym>INI</acronym> Konfiguration die verwendet werden
@@ -71,7 +71,7 @@ resources.db.defaultMetadataCache = "database"
     </example>
 
     <note><info><title>Empfangen der Adapter Instanz</title></info>
-        
+
 
         <para>
             Wenn man den, mit dieser Ressource initialisierten Adapter, nicht zum

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.translator.introduction"><info><title>Introduction</title></info>
-    
+
 
     <para>
         <classname>Zend_Translator</classname> est la solution de Zend Framework pour des
@@ -106,7 +106,7 @@
     </itemizedlist>
 
     <section xml:id="zend.translator.introduction.adapters"><info><title>Démarrer avec le multi-linguisme</title></info>
-        
+
 
         <para>
             Ce que nous voulons faire c'est traduire les chaînes de caractère générées afin

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.introduction"><info><title>Einleitung</title></info>
-    
+
 
     <para>
         <classname>Zend_Config</classname> wurde entworfen um den Zugriff auf und die Verwendung von
@@ -14,7 +14,7 @@
     </para>
 
     <example xml:id="zend.config.introduction.example.using"><info><title>Zend-Config verwenden</title></info>
-        
+
 
         <para>
             In der Regel geht man davon aus, dass Anwender eine der Adapter-Klassen wie
@@ -74,7 +74,7 @@ $host = $config->database->get('host', 'localhost');
 ]]></programlisting>
 
     <example xml:id="zend.config.introduction.example.file.php"><info><title>Zend_Config mit einer PHP Konfigurationsdatei verwenden</title></info>
-        
+
 
         <para>
             Es ist oft gewünscht eine reine <acronym>PHP</acronym> basierende Konfigurationsdatei

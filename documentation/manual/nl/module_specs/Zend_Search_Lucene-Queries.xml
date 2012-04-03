@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.queries"><info><title>Query Types</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.queries.term-query"><info><title>Term Query</title></info>
-        
+
         <para>
         Term queries zijn bedoeld voor het zoeken met een enkele term.
         </para>
@@ -30,7 +30,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.queries.multiterm-query"><info><title>Multi-Term Query</title></info>
-        
+
         <para>
             Multi term queries zijn bedoeld voor het zoeken op een set met termen.
         </para>
@@ -139,7 +139,7 @@ $hits = $index->find('+word1 author:word2 -word3');
     </section>
 
     <section xml:id="zend.search.lucene.queries.phrase-query"><info><title>Phrase Query</title></info>
-        
+
         <para>
             Phrase Queries zijn bedoeld voor het zoeken op zinnen (uitdrukkingen?).
         </para>

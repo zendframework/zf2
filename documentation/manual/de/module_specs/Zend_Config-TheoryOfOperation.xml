@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.theory_of_operation"><info><title>Theory of Operation</title></info>
-    
+
 
     <para>
         Konfigurations-Daten werden dem <classname>Zend_Config</classname>-Konstruktor als

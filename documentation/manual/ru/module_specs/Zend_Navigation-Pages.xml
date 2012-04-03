@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.navigation.pages"><info><title>Страницы</title></info>
-    
+
 
     <para>
         <classname>Zend_Navigation</classname> поставляется с двумя типами

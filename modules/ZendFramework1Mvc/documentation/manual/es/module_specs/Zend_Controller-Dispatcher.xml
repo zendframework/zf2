@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.dispatcher"><info><title>El Despachador</title></info>
-    
+
 
     <section xml:id="zend.controller.dispatcher.overview"><info><title>Introducción</title></info>
-        
+
 
         <para>
             Despachar es el proceso de tomar el objeto solicitud,
@@ -36,7 +36,7 @@
         </para>
 
         <note><info><title>Módulo por Defecto</title></info>
-            
+
 
             <para>
                 Cuando se crean aplicaciones modulares, puede encontrarse
@@ -130,7 +130,7 @@ public function bazAction()
     </section>
 
     <section xml:id="zend.controller.dispatcher.subclassing"><info><title>Subclaseando el Despachador</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Front</classname>

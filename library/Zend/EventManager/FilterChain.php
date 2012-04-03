@@ -42,7 +42,7 @@ class FilterChain implements Filter
      * Constructor
      *
      * Initializes Filter\FilterIterator in which filters will be aggregated
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -54,7 +54,7 @@ class FilterChain implements Filter
      * Apply the filters
      *
      * Begins iteration of the filters.
-     * 
+     *
      * @param  mixed $context Object under observation
      * @param  mixed $argv Associative array of arguments
      * @return mixed
@@ -77,7 +77,7 @@ class FilterChain implements Filter
 
     /**
      * Connect a filter to the chain
-     * 
+     *
      * @param  callback $callback PHP Callback
      * @param  int $priority Priority in the queue at which to execute; defaults to 1 (higher numbers == higher priority)
      * @return CallbackHandler (to allow later unsubscribe)
@@ -94,8 +94,8 @@ class FilterChain implements Filter
 
     /**
      * Detach a filter from the chain
-     * 
-     * @param  CallbackHandler $filter 
+     *
+     * @param  CallbackHandler $filter
      * @return bool Returns true if filter found and unsubscribed; returns false otherwise
      */
     public function detach(CallbackHandler $filter)
@@ -105,7 +105,7 @@ class FilterChain implements Filter
 
     /**
      * Retrieve all filters
-     * 
+     *
      * @return FilterIterator
      */
     public function getFilters()
@@ -115,7 +115,7 @@ class FilterChain implements Filter
 
     /**
      * Clear all filters
-     * 
+     *
      * @return void
      */
     public function clearFilters()
@@ -126,9 +126,9 @@ class FilterChain implements Filter
     /**
      * Return current responses
      *
-     * Only available while the chain is still being iterated. Returns the 
+     * Only available while the chain is still being iterated. Returns the
      * current ResponseCollection.
-     * 
+     *
      * @return null|ResponseCollection
      */
     public function getResponses()

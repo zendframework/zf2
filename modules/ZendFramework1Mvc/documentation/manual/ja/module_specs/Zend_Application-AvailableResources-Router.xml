@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.available-resources.router"><info><title>Zend_Application_Resource_Router</title></info>
-    
+
 
     <para>
         <classname>Zend_Application_Resource_Router</classname>は、
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.application.available-resources.router.configExample"><info><title>ルータ・リソース構成の例</title></info>
-        
+
 
         <para>
             下記は、ルータ・リソースを設定する方法を示す、

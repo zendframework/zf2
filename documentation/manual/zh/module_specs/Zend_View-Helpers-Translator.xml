@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.translator"><info><title> 翻译助手 </title></info>
 
-    
+
 
     <para>
         通常，网站支持多种语言。使用 <link linkend="zend.translator.introduction">Zend 翻译 </link> 来翻译网站的内容并且 使用 <code> 翻译 </code> 视图助手来在视图里集成 <code>Zend 翻译 </code>。
@@ -42,7 +42,7 @@
 
     <example xml:id="zend.view.helpers.initial.translator.registered"><info><title> 已注册的实例 </title></info>
 
-        
+
 
         <para>
             为使用已注册的实例就是创建一个 <code>Zend_Translator</code> 或者 <code>Zend_Translator_Adapter</code> 的实例并在 <code>Zend_Registry</code> 里用 <code>Zend_Translator</code> 作为它的键。
@@ -66,7 +66,7 @@ echo $this->translate('simple');
 
     <example xml:id="zend.view.helpers.initial.translator.afterwards"><info><title> 在视图里 </title></info>
 
-        
+
 
         <para>
             为了使用 fluent interface ，创建一个 <code>Zend_Translator</code> 或者 <code>Zend_Translator_Adapter</code> 的实例，调用不带参数的助手并调用 <code>setTranslator</code> 方法。
@@ -87,7 +87,7 @@ $this->translate()->setTranslator($adapter)->translate('simple');
 
     <example xml:id="zend.view.helpers.initial.translator.directly"><info><title> 直接用法 </title></info>
 
-        
+
 
         <programlisting role="php"><![CDATA[<?php
 // 我们的例子适配器
@@ -110,7 +110,7 @@ print $translate->translate('simple'); // this returns 'einfach'
 
     <example xml:id="zend.view.helpers.initial.translator.parameter"><info><title> 单个参数 </title></info>
 
-        
+
 
         <para>
             使用单个参数就把它添加到这个方法。
@@ -133,7 +133,7 @@ $this->translate("Today is %1\$s", $date);
 
     <example xml:id="zend.view.helpers.initial.translator.parameterlist"><info><title> 参数列表 </title></info>
 
-        
+
 
         <para>
             使用参数列表并添加给方法。
@@ -152,7 +152,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s", $date, $month, $
 
     <example xml:id="zend.view.helpers.initial.translator.parameterarray"><info><title> 参数数组 </title></info>
 
-        
+
 
         <para>
             使用参数数组并添加到方法。
@@ -173,7 +173,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s", $date);
 
     <example xml:id="zend.view.helpers.initial.translator.dynamic"><info><title> 动态修改地点 （locale）</title></info>
 
-        
+
 
         <programlisting role="php"><![CDATA[<?php
 // 在视图里
@@ -189,7 +189,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s", $date, 'it');
 
     <example xml:id="zend.view.helpers.initial.translator.static"><info><title> 静态修改地点 （locale）</title></info>
 
-        
+
 
         <programlisting role="php"><![CDATA[<?php
 // 在视图里
@@ -210,7 +210,7 @@ $this->translate("Today is %1\$s in %2\$s. Actual time: %3\$s", $date);
 
     <example xml:id="zend.view.helpers.initial.translator.getlocale"><info><title> 获得当前设置的地点 </title></info>
 
-        
+
 
         <programlisting role="php"><![CDATA[<?php
 // 在视图里

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.select"><info><title>Zend_Db_Select</title></info>
 
-    
+
 
     <section xml:id="zend.db.select.introduction"><info><title>Inleiding</title></info>
 
-        
+
 
         <para>
             Zend_Db_Select is een werktuig dat je helpt SQL SELECT verklaringen
@@ -109,7 +109,7 @@ $result = $db->fetchAll($select, $params);
 
     <section xml:id="zend.db.select.fromcols"><info><title>Kolommen FROM een tabel</title></info>
 
-        
+
 
         <para>
             Om kolommen van een bepaalde tabel de selecteren gebruik je de
@@ -140,7 +140,7 @@ $select->from('bar', 'bar.col AS col2');
 
     <section xml:id="zend.db.select.joincols"><info><title>Kolommen van geJOINde tabellen</title></info>
 
-        
+
 
         <para>
             Om kolommen van gejoinde tabellen te selecteren kan je de
@@ -175,7 +175,7 @@ $select->join('bar', 'foo.id = bar.id', '*');
 
     <section xml:id="zend.db.select.where"><info><title>WHERE voorwaarden</title></info>
 
-        
+
 
         <para>
             Om WHERE voorwaarden toe te voegen gebruik je de where() methode.
@@ -221,7 +221,7 @@ $select->orWhere('id IN(?)', array(1, 2, 3);
 
     <section xml:id="zend.db.select.group"><info><title>GROUP BY clausule</title></info>
 
-        
+
 
         <para>
             Om rijen te groeperen gebruik je de group() methode zoveel maal
@@ -254,7 +254,7 @@ $select->group(array('bar', 'baz'));
 
     <section xml:id="zend.db.select.having"><info><title>HAVING voorwaarden</title></info>
 
-        
+
 
         <para>
             Om HAVING voorwaarden aan de selectieregels toe te voegen gebruik
@@ -286,7 +286,7 @@ $select->having('count_id > ?', 1);
 
     <section xml:id="zend.db.select.order"><info><title>ORDER BY clausule</title></info>
 
-        
+
 
         <para>
             Om kolommen te ordenen gebruik je de order() methode zoveel maal als
@@ -318,7 +318,7 @@ $select->order(array('noble_title DESC', 'first_name'));
 
     <section xml:id="zend.db.select.limit"><info><title>LIMIT per Count en Offset</title></info>
 
-        
+
 
         <para>
             Zend_Db_Select ondersteunt een database onafhankelijke LIMIT clausule.
@@ -395,7 +395,7 @@ $select->limit(10, 20);
 
     <section xml:id="zend.db.select.paging"><info><title>LIMIT per Pagina en Count</title></info>
 
-        
+
 
         <para>
             Zend_Db_Select biedt eveneens pagina-gebaseerde limits. Indien

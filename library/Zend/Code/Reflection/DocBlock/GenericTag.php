@@ -106,10 +106,10 @@ class GenericTag implements Tag
     {
         return 'DocBlock Tag [ * @' . $this->name . ' ]' . PHP_EOL;
     }
-    
+
     protected function parse($docblockLine)
     {
         $this->values = explode($this->contentSplitCharacter, $docblockLine);
     }
-    
+
 }

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.ldap.api.reference.zend-ldap"><info><title>Zend_Ldap</title></info>
-    
+
 
     <para>
         <classname>Zend_Ldap</classname> ist das Basisinterface zum <acronym>LDAP</acronym> Server.
@@ -11,7 +11,7 @@
     </para>
 
     <table xml:id="zend.ldap.api.reference.zend-ldap.table"><info><title>Zend_Ldap API</title></info>
-        
+
 
         <tgroup cols="2">
             <thead>
@@ -576,7 +576,7 @@
     </table>
 
     <section xml:id="zend.ldap.api.reference.zend-ldap.zend-ldap-collection"><info><title>Zend_Ldap_Collection</title></info>
-        
+
 
         <para>
             <classname>Zend_Ldap_Collection</classname> implementiert <code>Iterator</code> um
@@ -588,7 +588,7 @@
         </para>
 
         <table xml:id="zend.ldap.api.reference.zend-ldap.zend-ldap-collection.table"><info><title>API für Zend_Ldap_Collection</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>

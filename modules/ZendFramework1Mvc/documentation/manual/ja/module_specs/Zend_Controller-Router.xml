@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router"><info><title>標準のルータ</title></info>
-    
+
 
     <section xml:id="zend.controller.router.introduction"><info><title>導入</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Router_Rewrite</classname> は、標準のルータです。
@@ -54,7 +54,7 @@ RewriteRule ^[\w/\%]*(?:\.(?!(?:js|ico|gif|jpg|png|css|html)$)[\w\%]*$)? /index.
 ]]></programlisting>
 
         <note><info><title>IIS Isapi_Rewrite</title></info>
-            
+
 
             <para>
                 <acronym>IIS</acronym> を使用すると、<varname>$_SERVER['REQUEST_URI']</varname>
@@ -112,7 +112,7 @@ url.rewrite-once = (
     </section>
 
     <section xml:id="zend.controller.router.usage"><info><title>ルータの使用法</title></info>
-        
+
 
         <para>
             Rewrite ルータを適切に使用するには、まずそのインスタンスを作成し、
@@ -134,7 +134,7 @@ $router->addRoute(
     </section>
 
     <section xml:id="zend.controller.router.basic"><info><title>基本的な RewriteRouter の操作法</title></info>
-        
+
 
         <para>
             RewriteRouter で最も重要なのが、ユーザ定義のルーティングです。
@@ -241,7 +241,7 @@ $router->addRoute('user',
         </para>
 
         <note><info><title>定義の順番</title></info>
-            
+
             <para>
                 一番最後にマッチしたルートが適用されるので、
                 汎用的なルートは最初に定義するようにしましょう。
@@ -249,7 +249,7 @@ $router->addRoute('user',
         </note>
 
         <note><info><title>返される値</title></info>
-            
+
             <para>
                 ルーティングの結果返される値は、<acronym>URL</acronym> パラメータあるいは
                 ユーザ定義のルータのデフォルト値です。これらの値は、後ほど
@@ -266,7 +266,7 @@ $router->addRoute('user',
         </para>
 
         <note><info><title>特殊変数</title></info>
-            
+
             <para>
                 これらの特殊変数の名前を変更することもできます。その場合は
                 <classname>Zend_Controller_Request_Http</classname> の
@@ -278,7 +278,7 @@ $router->addRoute('user',
     </section>
 
     <section xml:id="zend.controller.router.default-routes"><info><title>デフォルトのルート</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller_Router_Rewrite</classname> がデフォルトのルートとして設定されています。
@@ -361,7 +361,7 @@ $router->removeDefaultRoutes();
     </section>
 
     <section xml:id="zend.controller.router.rewritebase"><info><title>ベース URL およびサブディレクトリ</title></info>
-        
+
 
         <para>
             Rewrite ルータはサブディレクトリ
@@ -385,7 +385,7 @@ $request->setBaseUrl('/~user/application-root/');
     </section>
 
     <section xml:id="zend.controller.router.global.parameters"><info><title>グローバルパラメータ</title></info>
-        
+
 
         <para>
             グローバルパラメータをルータ内で設定できます。
@@ -403,7 +403,7 @@ $router->setGlobalParam('lang', 'en');
     </section>
 
     <section xml:id="zend.controller.router.routes"><info><title>ルートの型</title></info>
-        
+
 
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route.xml"/>
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Controller-Router-Route-Static.xml"/>
@@ -414,7 +414,7 @@ $router->setGlobalParam('lang', 'en');
     </section>
 
     <section xml:id="zend.controller.router.add-config"><info><title>RewriteRouter での Zend_Config の使用法</title></info>
-        
+
 
         <para>
             新しいルートを追加する際に、
@@ -478,7 +478,7 @@ $router->addConfig($config, 'routes');
     </section>
 
     <section xml:id="zend.controller.router.subclassing"><info><title>ルータのサブクラスの作成</title></info>
-        
+
 
         <para>
             標準の rewrite ルータには、必要となるであろう機能のほとんどが組み込まれています。

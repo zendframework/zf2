@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.different-transports"><info><title>Using Different Transports</title></info>
-    
+
 
     <para>
         In case you want to send different e-mails through different connections, you can also pass
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.mail.different-transports.example-1"><info><title>Using Different Transports</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();
@@ -24,7 +24,7 @@ $mail->send();  // use default again
     </example>
 
     <note><info><title>Additional transports</title></info>
-        
+
 
         <para>
             Additional transports can be written by implementing

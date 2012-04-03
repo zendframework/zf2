@@ -67,7 +67,7 @@ class FactoryTest extends PHPUnitTestCase
                                 );
 
         $this->assertEquals('Zend\Cloud\DocumentService\Adapter\SimpleDb', get_class($simpleDbAdapter));
-        
+
         // Azure adapter
         /*
          * Disable WindowsAzure test

@@ -134,13 +134,13 @@ class PostCodeTest extends \PHPUnit_Framework_TestCase
         $this->_validator->setFormat('\d{1}$/');
         $this->assertEquals('/^\d{1}$/', $this->_validator->getFormat());
     }
-    
+
     public function testSetGetFormatThrowsExceptionOnNullFormat()
     {
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'A postcode-format string has to be given');
-        $this->_validator->setFormat(null);        
+        $this->_validator->setFormat(null);
     }
-    
+
     public function testSetGetFormatThrowsExceptionOnEmptyFormat()
     {
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'A postcode-format string has to be given');
@@ -156,8 +156,8 @@ class PostCodeTest extends \PHPUnit_Framework_TestCase
         $message = $this->_validator->getMessages();
         $this->assertContains('not appear to be a postal code', $message['postcodeNoMatch']);
     }
-    
-    
+
+
      /**
      * Test service class with invalid validation
      *
@@ -169,44 +169,44 @@ class PostCodeTest extends \PHPUnit_Framework_TestCase
             'serviceTrue'   => null,
             'serviceFalse'  => null,
         );
-        
+
         $serviceTrue  = function($value) use ($params) {
             $params->serviceTrue = $value;
             return true;
         };
-        
+
         $serviceFalse = function($value) use ($params) {
             $params->serviceFalse = $value;
             return false;
         };
-        
+
         $this->assertEquals(null, $this->_validator->getService());
-        
-        
+
+
         $this->_validator->setService($serviceTrue);
         $this->assertEquals($this->_validator->getService(), $serviceTrue);
         $this->assertTrue($this->_validator->isValid('2292'));
         $this->assertEquals($params->serviceTrue, '2292');
-        
-        
+
+
         $this->_validator->setService($serviceFalse);
         $this->assertEquals($this->_validator->getService(), $serviceFalse);
         $this->assertFalse($this->_validator->isValid('hello'));
         $this->assertEquals($params->serviceFalse, 'hello');
-        
+
         $message = $this->_validator->getMessages();
         $this->assertContains('not appear to be a postal code', $message['postcodeService']);
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -215,16 +215,16 @@ class PostCodeTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = $this->_validator;
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

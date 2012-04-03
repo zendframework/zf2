@@ -171,7 +171,7 @@ class Part implements RecursiveIterator, MailPart
      *
      * @return int size
      */
-    public function getSize() 
+    public function getSize()
     {
         return strlen($this->getContent());
     }

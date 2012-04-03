@@ -209,7 +209,7 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new Validator\CreditCard();
         $this->assertEquals(null, $validator->getService());
-        
+
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'Invalid callback given');
         $validator->setService(array('ZendTest\Validator\CreditCardTest', 'nocallback'));
     }
@@ -263,16 +263,16 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $message = $validator->getMessages();
         $this->assertContains('not from an allowed institute', current($message));
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = new Validator\CreditCard();
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -281,16 +281,16 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = new Validator\CreditCard();
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

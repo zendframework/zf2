@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.auth.adapter.dbtable"><info><title>Tabla de base de datos de autenticación</title></info>
-    
+
     <section xml:id="zend.auth.adapter.dbtable.introduction"><info><title>Introducción</title></info>
-        
+
         <para>
             <classname>Zend_Auth_Adapter_DbTable</classname>
             proporciona la
@@ -98,7 +98,7 @@
         </itemizedlist>
 
         <example xml:id="zend.auth.adapter.dbtable.introduction.example.basic_usage"><info><title>Uso Básico</title></info>
-            
+
             <para>
                 Como se explicó en la introducción, el constructor
                 <classname>Zend_Auth_Adapter_DbTable</classname>
@@ -230,7 +230,7 @@ Array
     </section>
     <section xml:id="zend.auth.adapter.dbtable.advanced.storing_result_row"><info><title>Advanced Usage: Manteniendo el resultado del Objeto
             DbTable</title></info>
-        
+
         <para>
             Por defecto,
             <classname>Zend_Auth_Adapter_DbTable</classname>
@@ -280,7 +280,7 @@ if ($result->isValid()) {
     </section>
 
     <section xml:id="zend.auth.adapter.dbtable.advanced.advanced_usage"><info><title>Ejemplo de Uso Avanzado</title></info>
-        
+
         <para>
             Si bien el objetivo primordial de
             <classname>Zend_Auth</classname>

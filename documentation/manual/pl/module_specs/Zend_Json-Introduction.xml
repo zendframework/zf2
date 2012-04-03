@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.json.introduction"><info><title>Wprowadzenie</title></info>
-    
+
     <para>
         <code>Zend_Json</code> dostarcza wygodne metody serializowania danych
         PHP do formatu JSON i dekodowania z formatu JSON do PHP. Aby dowiedzieć

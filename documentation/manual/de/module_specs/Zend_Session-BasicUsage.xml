@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.basic_usage"><info><title>Grundsätzliche Verwendung</title></info>
-    
+
 
     <para>
         <classname>Zend_Session_Namespace</classname> Instanzen stellen die primäre
@@ -37,7 +37,7 @@ $myNamespace = new Zend_Session_Namespace('myNamespace');
     </para>
 
     <section xml:id="zend.session.basic_usage.basic_examples"><info><title>Übungs Beispiele</title></info>
-        
+
 
         <para>
             Wenn kein Namensraum bei der Instanziierung von
@@ -51,7 +51,7 @@ $myNamespace = new Zend_Session_Namespace('myNamespace');
         </para>
 
         <example xml:id="zend.session.basic_usage.basic_examples.example.counting_page_views"><info><title>Seitenzugriffe zählen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $defaultNamespace = new Zend_Session_Namespace('Default');
@@ -87,7 +87,7 @@ echo "Seitenzugriffe in dieser Session: ",
         </para>
 
         <example xml:id="zend.session.basic_usage.basic_examples.example.namespaces.new"><info><title>Neuer Weg: Namensräume verhindern Kollisionen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 // In der Zend_Auth Komponente
@@ -108,7 +108,7 @@ $webServiceNamespace->user = "meinwebbenutzername";
         </para>
 
         <example xml:id="zend.session.basic_usage.basic_examples.example.namespaces.old"><info><title>Alter Weg: PHP Session Zugriff</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $_SESSION['Zend_Auth']['user'] = "meinbenutzername";
@@ -118,7 +118,7 @@ $_SESSION['Some_Web_Service']['user'] = "meinwebbenutzername";
     </section>
 
     <section xml:id="zend.session.basic_usage.iteration"><info><title>Session Namensräume wiederholen</title></info>
-        
+
 
         <para>
             <classname>Zend_Session_Namespace</classname> stellt das komplette <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.php.net/~helly/php/ext/spl/interfaceIteratorAggregate.html">IteratorAggregate
@@ -127,7 +127,7 @@ $_SESSION['Some_Web_Service']['user'] = "meinwebbenutzername";
         </para>
 
         <example xml:id="zend.session.basic_usage.iteration.example"><info><title>Session wiederholen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $aNamespace =
@@ -141,7 +141,7 @@ foreach ($aNamespace as $index => $value) {
     </section>
 
     <section xml:id="zend.session.basic_usage.accessors"><info><title>Zugriffsfunktionen für Session Namensräume</title></info>
-        
+
 
         <para>
             <classname>Zend_Session_Namespace</classname> implementiert die <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.php.net/manual/de/language.oop5.overloading.php">magischen
@@ -153,7 +153,7 @@ foreach ($aNamespace as $index => $value) {
         </para>
 
         <example xml:id="zend.session.basic_usage.accessors.example"><info><title>Zugriff auf Session Daten</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $namespace = new Zend_Session_Namespace(); // Standard Namensraum

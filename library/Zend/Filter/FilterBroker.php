@@ -39,8 +39,8 @@ class FilterBroker extends PluginSpecBroker
 
     /**
      * Determine if we have a valid filter
-     * 
-     * @param  mixed $plugin 
+     *
+     * @param  mixed $plugin
      * @return true
      * @throws Exception
      */

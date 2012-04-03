@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.creation"><info><title>Creation of Measurements</title></info>
-    
+
 
     <para>
         When creating a measurement object, <classname>Zend_Measure_*</classname> methods expect the
@@ -13,7 +13,7 @@
     </para>
 
     <section xml:id="zend.measure.creation.number"><info><title>Creating measurements from integers and floats</title></info>
-        
+
 
         <para>
             In addition to integer data values, floating point types may be used, but
@@ -24,7 +24,7 @@
         </para>
 
         <example xml:id="zend.measure.creation.number.example-1"><info><title>Creation using integer and floating values</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $measurement = 1234.7;
@@ -41,7 +41,7 @@ echo $unit;
     </section>
 
     <section xml:id="zend.measure.creation.string"><info><title>Creating measurements from strings</title></info>
-        
+
 
         <para>
             Many measurements received as input to Zend Framework applications can only be passed
@@ -57,7 +57,7 @@ echo $unit;
         </para>
 
         <example xml:id="zend.measure.creation.string.example-1"><info><title>Creation using strings</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $mystring = "10010100111010111010100001011011101010001";
@@ -69,7 +69,7 @@ echo $unit;
     </section>
 
     <section xml:id="zend.measure.creation.localized"><info><title>Measurements from localized strings</title></info>
-        
+
 
         <para>
             When a string is entered in a localized notation, the correct interpretation can not be
@@ -83,7 +83,7 @@ echo $unit;
         </para>
 
         <example xml:id="zend.measure.creation.localized.example-1"><info><title>Localized string</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $locale = new Zend_Locale('de');

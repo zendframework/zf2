@@ -34,8 +34,8 @@ interface Transport
 {
     /**
      * Send a mail message
-     * 
-     * @param  Message $message 
+     *
+     * @param  Message $message
      * @return void
      */
     public function send(Message $message);

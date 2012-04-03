@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.strikeiron"><info><title>Zend_Service_StrikeIron</title></info>
-    
+
 
     <para>
         <classname>Zend_Service_StrikeIron</classname> は、StrikeIron
@@ -20,7 +20,7 @@
     </para>
 
     <section xml:id="zend.service.strikeiron.overview"><info><title>概要</title></info>
-        
+
 
         <para>
           <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.strikeiron.com">StrikeIron</link>
@@ -97,7 +97,7 @@
     </section>
 
     <section xml:id="zend.service.strikeiron.registering"><info><title>StrikeIron への登録</title></info>
-      
+
       <para>
         <classname>Zend_Service_StrikeIron</classname> を使用するには、まず
         StrikeIron 開発者アカウントを取得するために
@@ -124,7 +124,7 @@
     </section>
 
     <section xml:id="zend.service.strikeiron.getting-started"><info><title>では、はじめましょう</title></info>
-      
+
       <para>
         StrikeIron のアカウントを
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://strikeiron.com/Register.aspx">取得</link>
@@ -186,7 +186,7 @@ $taxBasic = $strikeIron->getService(array('class' => 'SalesUseTaxBasic'));
     </section>
 
     <section xml:id="zend.service.strikeiron.making-first-query"><info><title>はじめてのクエリ</title></info>
-      
+
 
       <para>
         <methodname>getService()</methodname> で StrikeIron サービス用のクライアントを取得したら、
@@ -234,7 +234,7 @@ echo $rateInfo->GST;
     </section>
 
     <section xml:id="zend.service.strikeiron.examining-results"><info><title>結果の吟味</title></info>
-      
+
       <para>
         StrikeIron サービスについて学習したりデバッグしたりする際には、
         メソッドから返された内容を出力できると便利です。
@@ -309,7 +309,7 @@ Zend_Service_StrikeIron_Decorator Object
     </section>
 
     <section xml:id="zend.service.strikeiron.handling-errors"><info><title>エラー処理</title></info>
-      
+
       <para>
         先ほどの例はあまりにも無邪気すぎるところがありました。
         エラー処理を一切していなかったのです。
@@ -366,7 +366,7 @@ try {
     </section>
 
     <section xml:id="zend.service.strikeiron.checking-subscription"><info><title>購入内容の確認</title></info>
-      
+
       <para>
         StrikeIron にはさまざまなサービスがあります。
         その中には無料で使えるものもあればお試し版のものもあります。

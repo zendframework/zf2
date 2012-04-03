@@ -91,8 +91,8 @@ class SharedIpGroupList implements \Countable, \Iterator, \ArrayAccess
     }
     /**
      * To Array
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function toArray()
     {

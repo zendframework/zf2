@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.int"><info><title>Int</title></info>
-    
+
 
     <para>
         <classname>Zend_Filter_Int</classname> allows you to transform a sclar value which contains
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.filter.set.int.options"><info><title>Supported options for Zend_Filter_Int</title></info>
-        
+
 
         <para>
             There are no additional options for <classname>Zend_Filter_Int</classname>.
@@ -16,7 +16,7 @@
     </section>
 
     <section xml:id="zend.filter.set.int.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             A basic example of usage is below:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.create"><info><title>Maken en laden van PDF documenten</title></info>
-    
+
     <para>
     De <code>Zend_Pdf</code> klasse stelt het PDF document zelf op en verstrekt functionaliteit op document
     niveau.
@@ -18,7 +18,7 @@
     </para>
 
     <example><info><title>Maak een nieuw of laad een bestaand PDF document</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 ...
 // Maak een nieuw PDF document.
@@ -50,7 +50,7 @@ $pdf3 = Zend_Pdf::parse($pdfString);
     </para>
 
     <example><info><title>Een bepaalde revisie van een document opvragen</title></info>
-        
+
         <programlisting role="php"><![CDATA[<?php
 ...
 // Een vorige revisie van het PDF document opvragen.

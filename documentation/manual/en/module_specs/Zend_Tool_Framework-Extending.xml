@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.extending"><info><title>Extending and Configuring Zend_Tool_Framework</title></info>
-    
+
 
     <section xml:id="zend.tool.framework.console-client"><info><title>Customizing Zend_Tool Console Client</title></info>
-        
+
 
         <para>
             As of Zend Framework 1.9, <classname>Zend_Tool_Framework</classname> allows developers
@@ -30,7 +30,7 @@
         </para>
 
         <section xml:id="zend.tool.framework.console-client.home-directory"><info><title>The Home Directory</title></info>
-            
+
 
             <para>
                 Before the Console Client can start searching for a <classname>Zend_Tool</classname>
@@ -62,7 +62,7 @@
         </section>
 
         <section xml:id="zend.tool.framework.console-client.local-storage"><info><title>Local Storage</title></info>
-            
+
 
             <para>
                 Once a home directory can be located, <classname>Zend_Tool_Framework</classname>'s
@@ -93,7 +93,7 @@
         </section>
 
         <section xml:id="zend.tool.framework.console-client.configuration-file"><info><title>User Configuration</title></info>
-            
+
 
             <para>
                 Like local storage, once a home directory can be located,
@@ -137,7 +137,7 @@
         </section>
 
         <section xml:id="zend.tool.framework.console-client.configuration-content"><info><title>User Configuration File Content</title></info>
-            
+
 
             <para>
                 The configuration file should be structured as a <classname>Zend_Config</classname>

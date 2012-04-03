@@ -39,7 +39,7 @@ use Zend\View\Renderer\PhpRenderer as View;
  */
 class FieldsetTest extends \PHPUnit_Framework_TestCase
 {
- 
+
     /**
      * @var FieldsetDecorator
      */
@@ -199,7 +199,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('<fieldset', $test, $test);
         $this->assertNotContains('helper="', $test);
     }
-    
+
     /**
      * @group ZF2-104
      */
@@ -209,14 +209,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $form->setAction('/foo/bar')
              ->setMethod('post')
              ->setView($this->getView());
-        
+
         $this->decorator->setElement($form);
         $form->setAttrib('class', 'someclass');
-        
+
         $this->assertEquals('someclass', $this->decorator->getOption('class'));
-        
+
         $this->decorator->setOption('class', 'otherclass');
-        
+
         $this->assertEquals('otherclass', $this->decorator->getOption('class'));
     }
 }

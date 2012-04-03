@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.factory"><info><title>Die Factory verwenden um ein Log zu erstellen</title></info>
-    
+
 
     <para>
         Zusätzlich zur direkten Instanzierung kann man auch die statische
@@ -129,10 +129,10 @@ $logger = Zend_Log::factory(array(
     </para>
 
     <section xml:id="zend.log.factory.writer-options"><info><title>Writer Optionen</title></info>
-        
+
 
         <section xml:id="zend.log.factory.writer-options.db"><info><title>Zend_Log_Writer_Db Optionen</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -169,7 +169,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.firebug"><info><title>Zend_Log_Writer_Firebug Optionen</title></info>
-            
+
 
             <para>
                 Dieser Log Writer nimmt keine Optionen; alle übergebenen werden ignoriert.
@@ -177,7 +177,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.mail"><info><title>Zend_Log_Writer_Mail Optionen</title></info>
-            
+
 
             <para>
                 <classname>Zend_Log_Writer_Mail</classname> implementiert aktuell (mit 1.10) keine
@@ -187,7 +187,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.mock"><info><title>Zend_Log_Writer_Mock Optionen</title></info>
-            
+
 
             <para>
                 Dieser Log Writer nimmt keine Optionen; alle übergebenen werden ignoriert.
@@ -195,7 +195,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.null"><info><title>Zend_Log_Writer_Null Optionen</title></info>
-            
+
 
             <para>
                 Dieser Log Writer nimmt keine Optionen; alle übergebenen werden ignoriert.
@@ -203,7 +203,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.stream"><info><title>Zend_Log_Writer_Stream Optionen</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -231,7 +231,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.syslog"><info><title>Zend_Log_Writer_Syslog Optionen</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -257,7 +257,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.writer-options.zendmonitor"><info><title>Zend_Log_Writer_ZendMonitor Optionen</title></info>
-            
+
 
             <para>
                 Dieser Log Writer nimmt keine Optionen; alle übergebenen werden ignoriert.
@@ -266,10 +266,10 @@ $logger = Zend_Log::factory(array(
     </section>
 
     <section xml:id="zend.log.factory.filter-options"><info><title>Filter Optionen</title></info>
-        
+
 
         <section xml:id="zend.log.factory.filter-options.message"><info><title>Zend_Log_Filter_Message Optionen</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -286,7 +286,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.filter-options.priority"><info><title>Zend_Log_Filter_Priority Optionen</title></info>
-            
+
 
             <variablelist>
                 <varlistentry>
@@ -313,7 +313,7 @@ $logger = Zend_Log::factory(array(
         </section>
 
         <section xml:id="zend.log.factory.filter-options.suppress"><info><title>Zend_Log_Writer_Suppress Optionen</title></info>
-            
+
 
             <para>
                 Dieser Log Filter nimmt keine Optionen; alle übergebenen werden ignoriert.
@@ -322,7 +322,7 @@ $logger = Zend_Log::factory(array(
     </section>
 
     <section xml:id="zend.log.factory.custom"><info><title>Erstellen konfigurierbarer Writer und Filter</title></info>
-        
+
 
         <para>
             Wenn man die Notwendigkeit hat eigene Log Writer und/oder Filter zu schreiben kann man

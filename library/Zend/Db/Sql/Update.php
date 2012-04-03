@@ -82,8 +82,8 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Constructor
-     * 
-     * @param  null|string $table 
+     *
+     * @param  null|string $table
      * @param  null|string $schema
      * @return void
      */
@@ -97,8 +97,8 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Specify table for statement
-     * 
-     * @param  string $table 
+     *
+     * @param  string $table
      * @param  null|string $schema
      * @return Update
      */
@@ -113,7 +113,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Set key/value pairs to update
-     * 
+     *
      * @param  array $values Associative array of key values
      * @param  string $flag One of the VALUES_* constants
      * @return Update
@@ -140,8 +140,8 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Create where clause
-     * 
-     * @param  Where|\Closure|string|array $predicate 
+     *
+     * @param  Where|\Closure|string|array $predicate
      * @param  string $combination One of the OP_* constants from Predicate\PredicateSet
      * @return Select
      */
@@ -229,7 +229,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * Get SQL string for statement
-     * 
+     *
      * @param  null|PlatformInterface $platform If null, defaults to Sql92
      * @return string
      */
@@ -263,8 +263,8 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Variable overloading
      *
      * Proxies to "where" only
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return mixed
      */
     public function __get($name)

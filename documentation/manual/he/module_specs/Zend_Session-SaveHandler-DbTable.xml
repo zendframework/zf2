@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.session.savehandler.dbtable"><info><title>Zend_Session_SaveHandler_DbTable</title></info>
-    
+
     <para>
         ההתקנה הבסיסית של Zend_Session_SaveHandler_DbTable חייבת לכלול לפחות 4 עמודות,
         המצויינים בקובץ ההגדרות/אובייקט ההגדרות:
@@ -10,7 +10,7 @@
         data, אשר משמש בתור המידע אשר נשמר בטבלה.
     </para>
     <example xml:id="zend.session.savehandler.dbtable.basic"><info><title>שימוש בסיסי</title></info>
-            
+
             <programlisting role="SQL"><![CDATA[
 CREATE TABLE `session` (
   `id` char(32),
@@ -56,7 +56,7 @@ Zend_Session::start();
         ניתן גם להשתמש בכמה מפתחות ראשיים לכמה עמודות ב Zend_Session_SaveHandler_DbTable.
     </para>
     <example xml:id="zend.session.savehandler.dbtable.multi-column-key"><info><title>שימוש במפתח ראשי לכמה עמודות</title></info>
-        
+
         <programlisting role="SQL"><![CDATA[
 CREATE TABLE `session` (
     `session_id` char(32) NOT NULL,

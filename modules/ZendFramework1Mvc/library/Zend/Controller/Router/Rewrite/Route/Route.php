@@ -36,7 +36,7 @@ interface Route
 {
     /**
      * Create a new route
-     * 
+     *
      * @param  array $options
      * @return void
      */

@@ -44,7 +44,7 @@ class IntrospectionStrategy
     }
 
 
-    
+
     public function setUseAnnotations($useAnnotations)
     {
         $this->useAnnotations = $useAnnotations;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.config.adapters.xml"><info><title>Zend_Config_Xml</title></info>
-    
+
 
     <para>
         <classname>Zend_Config_Xml</classname> permet aux développeurs de stocker des données de
@@ -18,7 +18,7 @@
     </para>
 
     <note><info><title>Type retourné</title></info>
-        
+
         <para>
             Les données de configuration lues grâce à <classname>Zend_Config_Xml</classname> sont
             toujours des chaînes de caractères. La conversion des données à
@@ -28,7 +28,7 @@
     </note>
 
     <example xml:id="zend.config.adapters.xml.example.using"><info><title>Utiliser Zend_Config_Xml</title></info>
-        
+
 
         <para>
             Cet exemple illustre une utilisation de base de <classname>Zend_Config_Xml</classname>
@@ -86,7 +86,7 @@ echo $config->database->params->dbname; // affiche "dbname"
     </example>
 
     <example xml:id="zend.config.adapters.xml.example.attributes"><info><title>Utilisation des attributs de balise avec Zend_Config_Xml</title></info>
-        
+
 
         <para>
             <classname>Zend_Config_Xml</classname> supporte aussi 2 autres manières de définir des
@@ -154,7 +154,7 @@ echo $config->database->params->dbname; // affiche "dbname"
     </example>
 
     <note><info><title>Chaînes de caractères XML</title></info>
-        
+
         <para>
             <classname>Zend_Config_Xml</classname> est capable de charger une chaîne de caractères
             <acronym>XML</acronym> directement, par exemple si elle est issue d'une base de données.
@@ -188,7 +188,7 @@ $config = new Zend_Config_Xml($string, 'staging');
     </note>
 
     <note><info><title>Espace de noms XML de Zend_Config</title></info>
-        
+
 
         <para>
             <classname>Zend_Config</classname> possède son propre espace de noms

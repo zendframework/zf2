@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.table.row"><info><title>Zend_Db_Table_Row</title></info>
 
-    
+
 
     <section xml:id="zend.db.table.row.introduction"><info><title>Введение</title></info>
 
-        
+
 
         <para>
             Zend_Db_Table_Row является классом, содержащим отдельную строку
@@ -24,7 +24,7 @@
 
     <section xml:id="zend.db.table.row.read"><info><title>Извлечение строки</title></info>
 
-        
+
 
         <para>
             Zend_Db_Table_Abstract предоставляет методы <code>find()</code> и
@@ -35,7 +35,7 @@
 
         <example xml:id="zend.db.table.row.read.example"><info><title>Пример извлечения строки</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -53,7 +53,7 @@ $row = $bugs->fetchRow($bugs->select()->where('bug_id = ?', 1));
 
         <example xml:id="zend.db.table.row.read.example-rowset"><info><title>Пример получения строки из набора строк</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -65,7 +65,7 @@ $row = $rowset->current();
         </example>
 
         <section xml:id="zend.db.table.row.read.get"><info><title>Чтение значений столбцов из строки</title></info>
-            
+
 
             <para>
                 Zend_Db_Table_Row_Abstract предоставляет методы-аксессоры,
@@ -75,7 +75,7 @@ $row = $rowset->current();
 
             <example xml:id="zend.db.table.row.read.get.example"><info><title>Пример чтения столбца из строки</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -110,7 +110,7 @@ echo $row->bug_description;
 
         <section xml:id="zend.db.table.row.read.to-array"><info><title>Получение данных строки в виде массива</title></info>
 
-            
+
 
             <para>
                 Вы можете получать данные строки, используя метод
@@ -120,7 +120,7 @@ echo $row->bug_description;
 
             <example xml:id="zend.db.table.row.read.to-array.example"><info><title>Пример использования метода toArray()</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -151,7 +151,7 @@ foreach ($rowArray as $column => $value) {
 
         <section xml:id="zend.db.table.row.read.relationships"><info><title>Извлечение данных из связанных таблиц</title></info>
 
-            
+
 
             <para>
                 Класс Zend_Db_Table_Row_Abstract предоставляет методы для
@@ -166,11 +166,11 @@ foreach ($rowArray as $column => $value) {
 
     <section xml:id="zend.db.table.row.write"><info><title>Редактирование строк в БД</title></info>
 
-        
+
 
         <section xml:id="zend.db.table.row.write.set"><info><title>Изменение значений столбцов в строке</title></info>
 
-            
+
 
             <para>
                 Используя аксессоры столбцов, вы можете устанавливать значения
@@ -187,7 +187,7 @@ foreach ($rowArray as $column => $value) {
 
             <example xml:id="zend.db.table.row.write.set.example"><info><title>Пример изменения значения столбца в строке</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -207,7 +207,7 @@ $row->save();
 
         <section xml:id="zend.db.table.row.write.insert"><info><title>Вставка новой строки</title></info>
 
-            
+
 
             <para>
                 Вы можете создавать новые строки для определенной таблицы с
@@ -219,7 +219,7 @@ $row->save();
 
             <example xml:id="zend.db.table.row.write.insert.example"><info><title>Пример создания новой строки таблицы</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -242,7 +242,7 @@ $newRow->save();
 
             <example xml:id="zend.db.table.row.write.insert.example2"><info><title>Пример заполнения новой строки для таблицы</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $data = array(
@@ -274,7 +274,7 @@ $newRow->save();
 
         <section xml:id="zend.db.table.row.write.set-from-array"><info><title>Изменение значений в нескольких столбцах</title></info>
 
-            
+
 
             <para>
                 Zend_Db_Table_Row_Abstract предоставляет метод
@@ -288,7 +288,7 @@ $newRow->save();
             <example xml:id="zend.db.table.row.write.set-from-array.example"><info><title>Пример использования метода setFromArray() для установки
                 значений в новой строке</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -314,7 +314,7 @@ $newRow->save();
 
         <section xml:id="zend.db.table.row.write.delete"><info><title>Удаление строки</title></info>
 
-            
+
 
             <para>
                 Вы можете использовать метод <code>delete()</code> объекта
@@ -324,7 +324,7 @@ $newRow->save();
 
             <example xml:id="zend.db.table.row.write.delete.example"><info><title>Пример удаления строки</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -348,7 +348,7 @@ $row->delete();
 
     <section xml:id="zend.db.table.row.serialize"><info><title>Сериализация и десериализация строк</title></info>
 
-        
+
 
         <para>
             Часто бывает удобным сохранять содержимое строки БД для последующего
@@ -360,7 +360,7 @@ $row->delete();
 
         <section xml:id="zend.db.table.row.serialize.serializing"><info><title>Сериализация объекта строки</title></info>
 
-            
+
 
             <para>
                 Просто используйте функцию PHP <code>serialize()</code> для
@@ -370,7 +370,7 @@ $row->delete();
 
             <example xml:id="zend.db.table.row.serialize.serializing.example"><info><title>Пример сериализации объекта строки</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $bugs = new Bugs();
@@ -389,7 +389,7 @@ $serializedRow = serialize($row);
 
         <section xml:id="zend.db.table.row.serialize.unserializing"><info><title>Десериализация данных строки</title></info>
 
-            
+
 
             <para>
                 Используйте функцию <code>unserialize()</code> для
@@ -407,7 +407,7 @@ $serializedRow = serialize($row);
 
             <example xml:id="zend.db.table.row.serialize.unserializing.example"><info><title>Пример десериализации объекта строки</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $rowClone = unserialize($serializedRow);
@@ -421,7 +421,7 @@ echo $rowClone->bug_description;
 
             <note><info><title>Почему объекты строки десериализуются без соединения?</title></info>
 
-                
+
 
                 <para>
                     Сериализованный объект является строкой, которая доступна
@@ -445,7 +445,7 @@ echo $rowClone->bug_description;
 
         <section xml:id="zend.db.table.row.serialize.set-table"><info><title>Восстановление соединения для объекта строки</title></info>
 
-            
+
 
             <para>
                 Вы можете восстановить соединение для строки, используя метод
@@ -459,7 +459,7 @@ echo $rowClone->bug_description;
 
             <example xml:id="zend.db.table.row.serialize.set-table.example"><info><title>Пример восстановления соединения для строки</title></info>
 
-                
+
 
                 <programlisting language="php"><![CDATA[
 $rowClone = unserialize($serializedRow);
@@ -483,7 +483,7 @@ $rowClone->save();
 
     <section xml:id="zend.db.table.row.extending"><info><title>Расширение класса строки</title></info>
 
-        
+
 
         <para>
             Zend_Db_Table_Row является используемым по умолчанию классом,
@@ -498,7 +498,7 @@ $rowClone->save();
 
         <example xml:id="zend.db.table.row.extending.example"><info><title>Указание своего класса строки</title></info>
 
-            
+
 
             <programlisting language="php"><![CDATA[
 class MyRow extends Zend_Db_Table_Row_Abstract
@@ -524,7 +524,7 @@ $bugs = new Bugs(array('rowClass' => 'MyRow'));
 
         <section xml:id="zend.db.table.row.extending.overriding"><info><title>Инициализация строки</title></info>
 
-            
+
 
             <para>
                 Если при создании объекта строки требуется выполнять код,
@@ -537,7 +537,7 @@ $bugs = new Bugs(array('rowClass' => 'MyRow'));
 
                 <example xml:id="zend.db.table.row.init.usage.example"><info><title>Пример использования метода init()</title></info>
 
-                    
+
 
                     <programlisting language="php"><![CDATA[
 class MyApplicationRow extends Zend_Db_Table_Row_Abstract
@@ -560,7 +560,7 @@ class MyApplicationRow extends Zend_Db_Table_Row_Abstract
 
         <section xml:id="zend.db.table.row.extending.insert-update"><info><title>Определение собственной логики для добавления, обновления и удаления в Zend_Db_Table_Row</title></info>
 
-            
+
 
             <para>
                 Класс строки вызывает защищенные методы <code>_insert()</code>,
@@ -588,7 +588,7 @@ class MyApplicationRow extends Zend_Db_Table_Row_Abstract
             </para>
 
             <example xml:id="zend.db.table.row.extending.overriding-example1"><info><title>Пример собственной логики в классе строки</title></info>
-                
+
 
                 <para>
                     Собственная логика может применяться не во всех случаях
@@ -632,7 +632,7 @@ if ($loggingEnabled) {
 
             <example xml:id="zend.db.table.row.extending.overriding-example2"><info><title>Пример класса строки, журналирующего добавляемые данные для нескольких таблиц</title></info>
 
-                
+
 
                 <para>
                     Собственная логика может быть общей для нескольких таблиц.
@@ -679,7 +679,7 @@ class Products extends Zend_Db_Table_Abstract
         </section>
 
         <section xml:id="zend.db.table.row.extending.inflection"><info><title>Определение инфлекции в Zend_Db_Table_Row</title></info>
-            
+
 
             <para>
                 Некоторые разработчики предпочитают, чтобы имя класса таблицы
@@ -704,7 +704,7 @@ class Products extends Zend_Db_Table_Abstract
 
             <example xml:id="zend.db.table.row.extending.inflection.example"><info><title>Пример определения инфлекционного преобразования</title></info>
 
-                
+
 
                 <para>
                     Это позволяет использовать в аксессорах преобразованный

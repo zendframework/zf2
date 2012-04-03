@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.viewrenderer"><info><title>ViewRenderer</title></info>
-    
+
 
     <section xml:id="zend.controller.actionhelper.viewrenderer.introduction"><info><title>介绍</title></info>
-        
+
 
         <para>
            视图解析(<code>ViewRenderer</code>)助手为实现下列目标设计：
@@ -94,7 +94,7 @@ $viewRenderer->setView($view)
     </section>
 
     <section xml:id="zend.controller.actionhelper.viewrenderer.api"><info><title>API</title></info>
-        
+
 
         <para>
             大多数使用中，只需要简单的创建 <code>ViewRenderer</code>对象，然后传入到动作助手经纪人。创建实例并注册的最简单方式是使用助手经纪人的<code>getStaticHelper()</code>方法：
@@ -308,7 +308,7 @@ $viewRenderer =
         </itemizedlist>
 
         <note><info><title>缺省查找约定（Conventions）</title></info>
-            
+
 
             <para>
                 <code>视图解析器</code>做了一些路径标准化使视图脚本查找更容易。缺省规则如下：
@@ -415,10 +415,10 @@ $viewRenderer =
     </section>
 
     <section xml:id="zend.controller.actionhelper.viewrenderer.basicusage"><info><title>基础用法示例</title></info>
-        
+
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.basicusage.example-1"><info><title>基本用法</title></info>
-            
+
 
             <para>
                 大多数基础使用中，只需在bootstrap中使用助手经纪人简单的初始化和注册<code>ViewRenderer</code> 助手，然后在动作方法中设置变量。
@@ -463,7 +463,7 @@ class Foo_BarController extends Zend_Controller_Action
         </example>
 
         <note><info><title>命名规则：控制器和动作名中的单词定界符</title></info>
-            
+
             <para>
                 如果控制器或者动作名称由几个单词组成，分发器要求在URL中使用特定的路径和单词定界符分隔。<code>ViewRenderer</code>创建路径时将控制器名称中的任何路径定界符替换成实际的路径定界符('/')，任何单词定界符替换成短线('-')。对动作<code>/foo.bar/baz.bat</code>的调用将分发到<code>FooBarController.php</code>中的<code>FooBarController::bazBatAction()</code>，然后解析<code>foo-bar/baz-bat.phtml</code>；对动作<code>/bar_baz/baz-bat</code>的调用将分发到<code>Bar/BazController.php</code>中的<code>Bar_BazController::bazBatAction()</code>，并解析<code>bar/baz/baz-bat.phtml</code>。
             </para>
@@ -474,7 +474,7 @@ class Foo_BarController extends Zend_Controller_Action
         </note>
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.basicusage.example-2"><info><title>禁用自动解析</title></info>
-            
+
 
             <para>
                 对于某些动作和控制器，可能希望关闭自动解析——例如，如果想发送其他类型的输出（XML,JSON等），或者更简单的不想发送任何东西。有两个选项：关闭所有的自动解析(<code>setNeverRender()</code>)，或者仅仅关闭当前动作的自动解析(<code>setNoRender()</code>)。
@@ -511,7 +511,7 @@ class Bar_BatController extends Zend_Controller_Action
         </note>
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.basicusage.example-3"><info><title>选择另外的视图脚本</title></info>
-            
+
 
             <para>
                 有些情况下需要解析另一个脚本而非以动作命名的脚本。例如，如果你有一个控制器包含增加和编辑两个动作，它们可能都显示相同的'form'视图，尽管拥有不同的值集合(value set)。只需要使用<code>setScriptAction()</code>或者<code>setRender()</code>简单的改变脚本的名称，或者以成员方法的形式调用助手，它将调用<code>setRender()</code>。
@@ -551,7 +551,7 @@ class Foo_BarController extends Zend_Controller_Action
         </example>
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.basicusage.example-4"><info><title>修改注册的视图Modifying the registered view</title></info>
-            
+
 
             <para>
                 如果需要修改视图对象怎么办——例如改变助手路径或者编码？可以在控制器中修改视图对象设定，或者从<code>ViewRenderer</code>中抓取视图对象；两种方式引用的是同一个对象。
@@ -580,10 +580,10 @@ class Foo_BarController extends Zend_Controller_Action
     </section>
 
     <section xml:id="zend.controller.actionhelper.viewrenderer.advancedusage"><info><title>高级用法示例</title></info>
-        
+
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.advancedusage.example-1"><info><title>修改路径规则</title></info>
-            
+
 
             <para>
                 有些情况下，默认的路径规则可能并不适合站点的需要。比如，希望拥有一个单独的模板树供设计人员访问（例如，如果你使用<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://smarty.php.net/">Smarty</link>，这是很典型的情形）。这种情况下，你可能想硬编码视图的基路径规则，为动作视图脚本路径自身创建一套规则。
@@ -612,7 +612,7 @@ Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
         </example>
 
         <example xml:id="zend.controller.actionhelper.viewrenderer.advancedusage.example-2"><info><title>一个动作中解析多个视图脚本</title></info>
-            
+
 
             <para>
                 有时可能需要在一个动作中解析多个视图脚本。这个非常简单，多次调用<code>render()</code>就行了：

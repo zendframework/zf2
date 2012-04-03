@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.layout.usage"><info><title>Utiliser Zend_Layout</title></info>
-    
+
 
     <para>
         L'utilisation classique de <classname>Zend_Layout</classname> est simple. En supposant
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="learning.layout.usage.configuration"><info><title>Layout Configuration</title></info>
-        
+
 
         <para>
             L'endroit recommandé pour stocker les layouts est
@@ -45,7 +45,7 @@ resources.layout.layout = "layout"
     </section>
 
     <section xml:id="learning.layout.usage.layout-script"><info><title>Créer un script de layout</title></info>
-        
+
 
         <para>
             Il convient maintenant de créer un script de layout. D'abord, vérifiez l'existance du
@@ -84,7 +84,7 @@ resources.layout.layout = "layout"
     </section>
 
     <section xml:id="learning.layout.usage.access"><info><title>Accéder à l'objet Layout</title></info>
-        
+
 
         <para>
             Il est probable que vous ayez besoin d'accéder à l'objet instance layout. Cela est
@@ -161,7 +161,7 @@ $layout = $bootstrap->getResource('Layout');
     </section>
 
     <section xml:id="learning.layout.usage.other-operations"><info><title>Autres opérations</title></info>
-        
+
 
         <para>
             Dans la plupart des cas, le script de configuration de layout ci-dessus (avec quelques

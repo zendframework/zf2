@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.view.helpers.initial.placeholder"><info><title>Platzhalter (PlaceHolder) Helfer</title></info>
-    
+
 
     <para>
         Der <classname>Placeholder</classname> View Helfer wird verwendet um Inhalte zwischen View
@@ -10,7 +10,7 @@
     </para>
 
     <example xml:id="zend.view.helpers.initial.placeholder.usage"><info><title>Grundsätzliche Verwendung von Platzhaltern</title></info>
-        
+
 
         <para>
             Die grundsätzliche Verwendung von Platzhaltern ist die persistenz von View Daten. Jeder
@@ -30,7 +30,7 @@
     </example>
 
     <example xml:id="zend.view.helpers.initial.placeholder.aggregation"><info><title>Platzhalter verwenden um Inhalt zu vereinigen</title></info>
-        
+
 
         <para>
             Inhalt über Platzhalter zu vereinigen kann zeitweise auch sehr nützlich sein. Zum
@@ -123,7 +123,7 @@ echo $foo['bar'];
     </example>
 
     <example xml:id="zend.view.helpers.initial.placeholder.capture"><info><title>Verwenden von Platzhaltern um Inhalt zu erfassen</title></info>
-        
+
 
         <para>
             Gelegentlich will man Inhalte für einen Platzhalter in einem View Skript haben die
@@ -201,7 +201,7 @@ foreach ($this->data as $datum): ?>
     </example>
 
     <section xml:id="zend.view.helpers.initial.placeholder.implementations"><info><title>Konkrete Platzhalter Implementationen</title></info>
-        
+
 
         <para>
             Zend Framework kommt mit einer Anzahl an "konkreten" Platzhalter Implementationen. Diese

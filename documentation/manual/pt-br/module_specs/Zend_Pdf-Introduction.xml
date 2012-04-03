@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.pdf.introduction"><info><title>Introdução</title></info>
     <!-- @todo review and revise upon completion of refactoring -->
-    
+
 
     <para>
         O componente <classname>Zend_Pdf</classname> é um motor para manipulação de

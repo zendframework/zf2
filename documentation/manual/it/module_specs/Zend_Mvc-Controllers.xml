@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Reviewed: no -->
-<section 
+<section
     xmlns="http://docbook.org/ns/docbook" version="5.0"
     xml:id="zend.mvc.controllers">
   <info><title>Controller disponibili</title></info>
@@ -27,13 +27,13 @@ class Foo implements Dispatchable
 
   <para>
     Benchè questo pattern sia molto semplice, è probabile che tu non
-    voglia cambiare implementare una logica personalizzata per ogni 
+    voglia cambiare implementare una logica personalizzata per ogni
     controller (in particolare non è usuale per un singolo controller
     implementare diversi tipi di richieste).
   </para>
 
   <para>
-    Lo MVC definisce molte interfacce che, quando sono implementate, 
+    Lo MVC definisce molte interfacce che, quando sono implementate,
     possono fornire ai controller molte capacità addizionali.
   </para>
 
@@ -53,8 +53,8 @@ class Foo implements Dispatchable
       <para>
         Ricorda che <classname>MvcEvent</classname> è composta da una serie
         di oggetti: la <classname>Request</classname> e <classname>Response</classname>,
-        ovvio, ma anche il router, le strate trovate (l'instanza 
-        <classname>RouteMatch</classname>) e potenzialmente anche il "risultato" 
+        ovvio, ma anche il router, le strate trovate (l'instanza
+        <classname>RouteMatch</classname>) e potenzialmente anche il "risultato"
         dell'esecuzione.
       </para>
 
@@ -105,7 +105,7 @@ public function getEvent($event);
       </para>
 
       <para>
-        L'interfaccia <classname>LocatorAware</classname> suggerisce alla 
+        L'interfaccia <classname>LocatorAware</classname> suggerisce alla
         <classname>Application</classname> dovrebbe iniettare la sua
         istanza Locator nel controller (che sia un container DI oppure
         un Service Locator personalizzato). Semplicemente definendo due
@@ -126,12 +126,12 @@ public function getLocator($locator);
       <para>
         Riutilizzare il codice è un obiettivo comune per gli sviluppatori.
         Un altro obiettivo comune è la convenienza. Comunque, questo è spesso
-        difficile da raggiungere in modo pulito e astratto, nei sistemi 
+        difficile da raggiungere in modo pulito e astratto, nei sistemi
         generali.
       </para>
 
       <para>
-        All'interno dei tuoi controller, spesso ti accorgerai che ripeti 
+        All'interno dei tuoi controller, spesso ti accorgerai che ripeti
         operazioni tra un controller ad un altro. Esempi tipici:
       </para>
 
@@ -150,7 +150,7 @@ public function getLocator($locator);
 
         <listitem>
           <para>
-            Impostare e ricevere messaggi flash (messaggi che scadona soli 
+            Impostare e ricevere messaggi flash (messaggi che scadona soli
             sulla sessione)
           </para>
         </listitem>
@@ -165,13 +165,13 @@ public function getLocator($locator);
       <para>
         Per facilitare queste azioni  mentre sono rese sempre disponibli
         ad altre implementazioni del controller, abbiamo creato un
-        implementazione <classname>PluginBroker</classname> per il 
+        implementazione <classname>PluginBroker</classname> per il
         layer del controller, <classname>Zend\Mvc\Controller\PluginBroken</classname>
         costruita sopra alle funzionalità di <classname>Zend\Loader\PluginBroken</classname>.
         Per utilizzarla, semplicemente devi implementare l'interfaccia
-        <classname>Zend\Loader\Pluggable</classname> e configurare il 
+        <classname>Zend\Loader\Pluggable</classname> e configurare il
         tuo codice per usare una implementazione specifica del controller
-        di default:        
+        di default:
       </para>
 
       <programlisting language="php"><![CDATA[
@@ -206,7 +206,7 @@ public function plugin($plugin, array $options = null)
     <para>
         Implementare ognuna delle interfacce precedenti è molto
         ridondante;  non avrete spesso voglia di farlo. Per questo
-        abbiamo sviluppato due controller base astratti e 
+        abbiamo sviluppato due controller base astratti e
         semplicemente puoi estenderli ed essere pronto per partire.
     </para>
 
@@ -219,7 +219,7 @@ public function plugin($plugin, array $options = null)
     <itemizedlist>
       <listitem>
         <para>
-            Un parametro "action" è atteso nell'oggetto 
+            Un parametro "action" è atteso nell'oggetto
             <classname>RouteMatch</classname> composto ed attaccato
             nel <classname>MvcEvent</classname>. Se non ne viene trovato
             nessuno, un <methodname>notFoundAction()</methodname> è invocato.
@@ -232,7 +232,7 @@ public function plugin($plugin, array $options = null)
             camelCased (cammellata) ed appesa alla parola "Action" in modo da
             creare un nome del metodo. Ad esempio "foo" viene mappata a
             "fooAction", "foo-bar" o "foo.bar" oppure "foo_bar" a
-            "fooBarAction". Il controller allora controlla se questo metodo 
+            "fooBarAction". Il controller allora controlla se questo metodo
             esiste. Se non è presente  il metodo<methodname>notFoundAction()</methodname>
             è invocato, altrimenti il metodo scoperto.
         </para>
@@ -241,7 +241,7 @@ public function plugin($plugin, array $options = null)
       <listitem>
         <para>
             I risultati di una esecuzione di una azione sono iniettati dentro
-            la proprietà "result" del <classname>MvcEvent</classname> (attraverso 
+            la proprietà "result" del <classname>MvcEvent</classname> (attraverso
             il metodo <methodname>setResult()</methodname> e disponibile attraverso
             <methodname>getResult()</methodname>).
         </para>
@@ -313,7 +313,7 @@ class BarController extends ActionController
 
       <para>
         In aggiunta è composto da <classname>Zend\EventManager\EventCollection</classname>,
-        esponendo i seguenti metodi 
+        esponendo i seguenti metodi
       </para>
 
       <itemizedlist>
@@ -385,9 +385,9 @@ class BarController extends ActionController
 
       <listitem>
         <para>
-          <emphasis role="strong">POST</emphasis> mappato a 
+          <emphasis role="strong">POST</emphasis> mappato a
           <methodname>create()</methodname>. Questo metodo si aspetta
-          un argomento <varname>$data</varname>, tipicamente nella 
+          un argomento <varname>$data</varname>, tipicamente nella
           variabile array superglobale <varname>$_POST</varname>.
           Il dato dovrebbe esssere una nuova entità e la risposta dovrebbe
           tipicamente rispondere con un header HTTP 201 con l'header
@@ -412,8 +412,8 @@ class BarController extends ActionController
             <emphasis role="strong">DELETE</emphasis> mappa al metodo
             <methodname>delete()</methodname> e richiede che un parametro "id"
             esista nella strada che combacia; il valore passato p un argomento
-            del metodo. Dovrebbe eseguire una cancellazione dell'entità 
-            ottenuta, e, in caso di successo rispondere con un header 200 o 204. 
+            del metodo. Dovrebbe eseguire una cancellazione dell'entità
+            ottenuta, e, in caso di successo rispondere con un header 200 o 204.
         </para>
       </listitem>
     </itemizedlist>
@@ -421,7 +421,7 @@ class BarController extends ActionController
     <para>
         In aggiunta, puoi mappare metodi "action" nel
         <classname>RestfulController</classname>, proprio come si farebbe
-        nell'<classname>ActionController</classname>; questi metodi avranno 
+        nell'<classname>ActionController</classname>; questi metodi avranno
         il suffisso "Action", differenziandosi da metodi RESTful descritti
         precendentemente. Questo ti permette di realizzare azioni come
         per esempio l'invio di form verso diversi metodi RESTful o aggiungere
@@ -463,7 +463,7 @@ class BarController extends ActionController
       </itemizedlist>
 
       <para>
-        In aggiunta, è composto da , 
+        In aggiunta, è composto da ,
         <classname>Zend\EventManager\EventCollection</classname>,
         che espone i seguenti metodi:
       </para>
@@ -485,7 +485,7 @@ class BarController extends ActionController
       </itemizedlist>
 
       <para>
-        Di default, crea un <classname>EventManager</classname> in ascolto 
+        Di default, crea un <classname>EventManager</classname> in ascolto
         sui seguenti contesti:
       </para>
 

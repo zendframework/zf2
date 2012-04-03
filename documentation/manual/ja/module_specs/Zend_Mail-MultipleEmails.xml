@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.multiple-emails"><info><title>SMTP 接続による複数のメールの送信</title></info>
-    
+
 
     <para>
         デフォルトでは、ひとつの SMTP トランスポートが
@@ -22,7 +22,7 @@
 
     <example xml:id="zend.mail.multiple-emails.example-1"><info><title>SMTP 接続による複数のメールの送信</title></info>
 
-        
+
 
         <programlisting language="php"><![CDATA[
 // トランスポートを作成します
@@ -61,7 +61,7 @@ Zend_Mail::clearDefaultReplyTo();
 
     <example xml:id="zend.mail.multiple-emails.example-2"><info><title>トランスポートの接続の手動制御</title></info>
 
-        
+
 
         <programlisting language="php"><![CDATA[
 // トランスポートを作成します

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.standard"><info><title>Zend_Controller_Router_Route</title></info>
-    
+
 
     <para>
         <classname>Zend_Controller_Router_Route</classname> ist die standardmäßige Framework Route.
@@ -40,7 +40,7 @@ $router->addRoute('user', $route);
     </para>
 
     <note><info><title>Zeichen verwenden</title></info>
-        
+
 
         <para>
             Die aktuelle Implementation erlaubt die Verwendung von allen Zeichen (außer einem
@@ -103,7 +103,7 @@ $router->addRoute('default', $route);
 ]]></programlisting>
 
     <section xml:id="zend.controller.router.routes.standard.variable-defaults"><info><title>Variable Standards</title></info>
-        
+
 
         <para>
             Jede Variable im Router kann einen Standardwert haben und das ist für was der zweite
@@ -156,7 +156,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.variable-requirements"><info><title>Variable Anforderungen</title></info>
-        
+
 
         <para>
             Man kann einen dritten Parameter dem <classname>Zend_Controller_Router_Route</classname>
@@ -187,7 +187,7 @@ $router->addRoute('archive', $route);
     </section>
 
     <section xml:id="zend.controller.router.routes.standard.translated-segments"><info><title>Übersetzte Segmente</title></info>
-        
+
 
         <para>
             Die Standardroute unterstützt übersetzte Segmente. Um dieses Feature zu verwenden muß
@@ -263,7 +263,7 @@ $router->addRoute('archive', $route);
         </para>
 
         <note><info><title>Nachrichten IDs und eigene Sprachdateien</title></info>
-            
+
 
             <para>
                 Normalerweise werden Nachrichten IDs die man in einer seiner Routen verwenden will,

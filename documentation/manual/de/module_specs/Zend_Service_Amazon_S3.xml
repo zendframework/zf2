@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.amazon.s3"><info><title>Zend_Service_Amazon_S3</title></info>
-    
+
 
     <section xml:id="zend.service.amazon.s3.introduction"><info><title>Einführung</title></info>
-        
+
 
         <para>
             Amazon S3 bietet ein einfaches Webservice Interface das verwendet werden kann um
@@ -17,7 +17,7 @@
     </section>
 
     <section xml:id="zend.service.amazon.s3.registering"><info><title>Registrierung mit Amazon S3</title></info>
-        
+
 
         <para>
             Bevor man mit <classname>Zend_Service_Amazon_S3</classname> beginnen kann, muß man einen
@@ -32,7 +32,7 @@
     </section>
 
     <section xml:id="zend.service.amazon.s3.apiDocumentation"><info><title>API Dokumentation</title></info>
-        
+
 
         <para>
             Die Klasse <classname>Zend_Service_Amazon_S3</classname> bietet einen
@@ -45,7 +45,7 @@
     </section>
 
     <section xml:id="zend.service.amazon.s3.features"><info><title>Features</title></info>
-        
+
 
         <para>
             <classname>Zend_Service_Amazon_S3</classname> bietet die folgenden Funktionalitäten:
@@ -86,7 +86,7 @@
     </section>
 
     <section xml:id="zend.service.amazon.s3.storing-your-first"><info><title>Beginnen wir</title></info>
-        
+
 
         <para>
             Sobald man sich mit Amazon S3 registriert hat, ist man bereit sein erstes Objekt auf
@@ -102,7 +102,7 @@
         </para>
 
         <example xml:id="zend.service.amazon.s3.storing-your-first.example"><info><title>Beispiel der Verwendung von Zend_Service_Amazon_S3</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 require_once 'Zend/Service/Amazon/S3.php';
@@ -133,7 +133,7 @@ $s3 = new Zend_Service_Amazon_S3();
     </section>
 
     <section xml:id="zend.service.amazon.s3.buckets"><info><title>Bucket Operationen</title></info>
-        
+
 
         <para>
             Alle Objekte im S3 System werden in Buckets gespeichert. Buckets müssen erstellt werden
@@ -172,7 +172,7 @@ $s3 = new Zend_Service_Amazon_S3();
                 <example xml:id="zend.service.amazon.s3.buckets.remove.example"><info><title>
                         Beispiel für das Entfernen eines Buckets in Zend_Service_Amazon_S3
                     </title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 require_once 'Zend/Service/Amazon/S3.php';
@@ -192,7 +192,7 @@ $s3->removeBucket("my-own-bucket");
                 </para>
 
                 <example xml:id="zend.service.amazon.s3.buckets.list.example"><info><title>Beispiel für das Auflisten der Buckets in Zend_Service_Amazon_S3</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 require_once 'Zend/Service/Amazon/S3.php';
@@ -217,7 +217,7 @@ foreach($list as $bucket) {
     </section>
 
     <section xml:id="zend.service.amazon.s3.objects"><info><title>Operationen am Objekt</title></info>
-        
+
 
         <para>
             Das Objekte ist die grundsätzliche Speichereinheit in S3. Objekte speichern nicht
@@ -337,7 +337,7 @@ foreach($list as $bucket) {
                             <example xml:id="zend.service.amazon.s3.objects.public.example"><info><title>
                                     Beispiel für ein öffentliches Objekt in Zend_Service_Amazon_S3
                                 </title></info>
-                                
+
 
                                 <programlisting language="php"><![CDATA[
 require_once 'Zend/Service/Amazon/S3.php';
@@ -426,7 +426,7 @@ echo "Go to http://s3.amazonaws.com/my-own-bucket/Pictures/Me.png to see me!\n";
                 </para>
 
                 <example xml:id="zend.service.amazon.s3.objects.list.example"><info><title>Beispiel für die Auflistung eines Zend_Service_Amazon_S3 Objekts</title></info>
-                    
+
 
                     <programlisting language="php"><![CDATA[
 require_once 'Zend/Service/Amazon/S3.php';
@@ -467,7 +467,7 @@ foreach($list as $name) {
     </section>
 
     <section xml:id="zend.service.amazon.s3.streaming"><info><title>Daten Streamen</title></info>
-        
+
 
         <para>
             Es ist möglich Objekte zu Holen und Setzen wobei keine Stream Daten verwendet werden die
@@ -483,7 +483,7 @@ foreach($list as $name) {
             verwendet werden kann.
 
             <example xml:id="zend.service.amazon.s3.streaming.example1"><info><title>Beispiel für das Streamen von Daten mit Zend_Service_Amazon_S3</title></info>
-                
+
 
                 <programlisting language="php"><![CDATA[
 $response = $amazon->getObjectStream("mybycket/zftest");
@@ -517,7 +517,7 @@ stream_copy_to_stream($response->getStream(), $fp);
     </section>
 
     <section xml:id="zend.service.amazon.s3.streams"><info><title>Stream wrapper</title></info>
-        
+
 
         <para>
             Zusätzlich zum oben beschriebenen Interface unterstützt
@@ -526,7 +526,7 @@ stream_copy_to_stream($response->getStream(), $fp);
         </para>
 
         <example xml:id="zend.service.amazon.s3.streams.example"><info><title>Beispiel für Streams mit Zend_Service_Amazon_S3</title></info>
-            
+
 
              <programlisting language="php"><![CDATA[
 require_once 'Zend/Service/Amazon/S3.php';

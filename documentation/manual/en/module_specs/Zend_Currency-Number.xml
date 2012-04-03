@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.currency.number"><info><title>How does the currency look like?</title></info>
-    
+
 
     <para>
         How the value of a currency will be rendered depends mainly on the used locale. There
@@ -16,7 +16,7 @@
     </para>
 
     <example xml:id="zend.currency.number.example-1"><info><title>Using a custom script</title></info>
-        
+
 
         <para>
             Let's expect that we are again using our "Dollar" currency. But now we want to

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.service.yahoo"><info><title>Zend_Service_Yahoo</title></info>
-    
+
     <section xml:id="zend.service.yahoo.introduction"><info><title>Inleiding</title></info>
-        
+
         <para>
             <code>Zend_Service_Yahoo</code> is een eenvoudige API om veel van de Yahoo! REST APIs te gebruiken.
             <code>Zend_Service_Yahoo</code> laat je toe om Yahoo! Web search, Yahoo! News, Yahoo! Local en Yahoo!
@@ -12,7 +12,7 @@
         </para>
     </section>
     <section xml:id="zend.service.yahoo.websearch"><info><title>Het web doorzoeken met Yahoo!</title></info>
-        
+
         <para>
             <code>Zend_Service_Yahoo</code> laat je toe het web te doorzoeken met Yahoo! door de
             <code>webSearch()</code> methode te gebruiken die een string query parameter aanvaardt, plus een
@@ -23,7 +23,7 @@
             <code>Zend_Service_Yahoo_WebResultSet</code> object terug.
         </para>
         <example><info><title>Het web doorzoeken met Yahoo!</title></info>
-            
+
             <programlisting><![CDATA[<?php
 require_once 'Zend/Service/Yahoo.php';
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -35,7 +35,7 @@ foreach ($results as $result) {
         </example>
     </section>
     <section xml:id="zend.service.yahoo.imagesearch"><info><title>Beelden vinden met Yahoo!</title></info>
-        
+
         <para>
             Je kan beelden zoeken met Yahoo! door <code>Zend_Service_Yahoo</code>'s <code>imageSearch()</code>
             methode te gebruiken. Deze methode aanvaardt een string query parameter en een optionele array van
@@ -46,7 +46,7 @@ foreach ($results as $result) {
             Documentatie</link>.
         </para>
         <example><info><title>Beelden vinden met Yahoo!</title></info>
-            
+
             <programlisting><![CDATA[<?php
 require_once 'Zend/Service/Yahoo.php';
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -58,7 +58,7 @@ foreach ($results as $result) {
         </example>
     </section>
     <section xml:id="zend.service.yahoo.localsearch"><info><title>Plaatselijke bedrijven en diensten vinden met Yahoo!</title></info>
-        
+
         <para>
             Je kan plaatselijke bedrijven en diensten opzoeken met Yahoo! door de <code>localSearch()</code> methode te
             gebruiken. Voor alle details kan je terecht op de
@@ -66,7 +66,7 @@ foreach ($results as $result) {
             Documentatie</link>.
         </para>
         <example><info><title>Plaatselijke bedrijven en diensten vinden met Yahoo!</title></info>
-            
+
             <programlisting><![CDATA[<?php
 require_once 'Zend/Service/Yahoo.php';
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -78,7 +78,7 @@ foreach ($results as $result) {
         </example>
     </section>
     <section xml:id="zend.service.yahoo.newssearch"><info><title>Yahoo! News zoeken</title></info>
-        
+
         <para>
             Yahoo! News zoeken is eenvoudig; gebruik eenvoudigweg de <code>newsSearch()</code> methode zoals in het
             volgende voorbeeld. Voor alle details verwijzen we je door naar de
@@ -86,7 +86,7 @@ foreach ($results as $result) {
             Documentatie</link>.
         </para>
         <example><info><title>Yahoo! News zoeken</title></info>
-            
+
             <programlisting><![CDATA[<?php
 require_once 'Zend/Service/Yahoo.php';
 $yahoo = new Zend_Service_Yahoo("YAHOO_APPLICATION_ID");
@@ -98,7 +98,7 @@ foreach ($results as $result) {
         </example>
     </section>
 <section xml:id="zend.service.yahoo.classes"><info><title>Zend_Service_Yahoo Klassen</title></info>
-    
+
     <para>
         De volgende klassen worden allemaal teruggestuurd door de verschillende Yahoo! zoekopdrachten. Elk zoektype
         stuurt een set resultaten terug die specifiek zijn aan het zoektype. Deze kunnen gemakkelijk worden
@@ -120,7 +120,7 @@ foreach ($results as $result) {
         </itemizedlist>
     </para>
     <section xml:id="zend.service.yahoo.classes.resultset"><info><title>Zend_Service_Yahoo_ResultSet</title></info>
-        
+
         <para>
             Elk van de aan de zoekopdracht specifieke resultaten is uitgebreid vanaf deze basisklasse.
         </para>
@@ -129,7 +129,7 @@ foreach ($results as $result) {
             <link linkend="zend.service.yahoo.classes.result">Zend_Service_Yahoo_Result</link> object terug.
         </para>
         <section xml:id="zend.service.yahoo.classes.resultset.totalResults"><info><title>Zend_Service_Yahoo_ResultSet::totalResults()</title></info>
-            
+
             <para>
                 <methodsynopsis>
                     <type>int</type>
@@ -142,9 +142,9 @@ foreach ($results as $result) {
             </para>
         </section>
         <section xml:id="zend.service.yahoo.classes.resultset.properties"><info><title>Eigenschappen</title></info>
-            
+
             <table><info><title>Zend_Service_Yahoo_ResultSet</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -180,7 +180,7 @@ foreach ($results as $result) {
         </section>
     </section>
     <section xml:id="zend.service.yahoo.classes.webresultset"><info><title>Zend_Service_Yahoo_WebResultSet</title></info>
-        
+
         <para>
             <code>Zend_Service_Yahoo_WebResultSet</code> vertegenwoordigt een Yahoo! Web Search set resultaatsets.
         </para>
@@ -194,7 +194,7 @@ foreach ($results as $result) {
         </para>
     </section>
     <section xml:id="zend.service.yahoo.classes.imageresultset"><info><title>Zend_Service_Yahoo_ImageResultSet</title></info>
-        
+
         <para>
             <code>Zend_Service_Yahoo_ImageResultSet</code> vertegenwoordigt een Yahoo! Image Search set resultaatsets.
         </para>
@@ -208,12 +208,12 @@ foreach ($results as $result) {
         </para>
     </section>
     <section xml:id="zend.service.yahoo.classes.localresultset"><info><title>Zend_Service_Yahoo_LocalResultSet</title></info>
-        
+
         <para>
             <code>Zend_Service_Yahoo_LocalResultSet</code> vertegenwoordigt een Yahoo! Local Search set resultaatsets.
         </para>
         <table><info><title>Zend_Service_Yahoo_LocalResultSet Eigenschappen</title></info>
-            
+
             <tgroup cols="3">
                 <thead>
                     <row>
@@ -242,7 +242,7 @@ foreach ($results as $result) {
         </para>
     </section>
     <section xml:id="zend.service.yahoo.classes.newsresultset"><info><title>Zend_Service_Yahoo_NewsResultSet</title></info>
-        
+
         <para>
             <code>Zend_Service_Yahoo_NewsResultSet</code> vertegenwoordigt een Yahoo! News Search set resultaatsets.
         </para>
@@ -256,14 +256,14 @@ foreach ($results as $result) {
         </para>
     </section>
     <section xml:id="zend.service.yahoo.classes.result"><info><title>Zend_Service_Yahoo_Result</title></info>
-        
+
         <para>
             Elk van de aan de zoekopdracht specifieke resultaten is uitgebreid van deze basis klasse.
         </para>
         <section xml:id="zend.service.yahoo.classes.result.properties"><info><title>Eigenschappen</title></info>
-            
+
             <table><info><title>Zend_Service_Yahoo_Result Eigenschappen</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -297,14 +297,14 @@ foreach ($results as $result) {
         </section>
      </section>
      <section xml:id="zend.service.yahoo.classes.webresult"><info><title>Zend_Service_Yahoo_WebResult</title></info>
-        
+
         <para>
             Elk Web Search resultaat wordt teruggestuurd als een <code>Zend_Service_Yahoo_WebResult</code> object.
         </para>
         <section xml:id="zend.service.yahoo.classes.webresult.properties"><info><title>Eigenschappen</title></info>
-            
+
             <table><info><title>Zend_Service_Yahoo_WebResult Eigenschappen</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -348,14 +348,14 @@ foreach ($results as $result) {
         </section>
      </section>
      <section xml:id="zend.service.yahoo.classes.imageresult"><info><title>Zend_Service_Yahoo_ImageResult</title></info>
-        
+
         <para>
             Elk Image Search resultaat wordt teruggestuurd als een <code>Zend_Service_Yahoo_ImageResult</code> object.
         </para>
         <section xml:id="zend.service.yahoo.classes.imageresult.properties"><info><title>Eigenschappen</title></info>
-            
+
             <table><info><title>Zend_Service_Yahoo_ImageResult Eigenschappen</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -409,14 +409,14 @@ foreach ($results as $result) {
         </section>
      </section>
      <section xml:id="zend.service.yahoo.classes.localresult"><info><title>Zend_Service_Yahoo_LocalResult</title></info>
-        
+
         <para>
             Elk Local Search resultaat wordt teruggestuurd als een <code>Zend_Service_Yahoo_LocalResult</code> object.
         </para>
         <section xml:id="zend.service.yahoo.classes.localresult.properties"><info><title>Eigenschappen</title></info>
-            
+
             <table><info><title>Zend_Service_Yahoo_LocalResult Eigenschappen</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -480,14 +480,14 @@ foreach ($results as $result) {
         </section>
      </section>
      <section xml:id="zend.service.yahoo.classes.newsresult"><info><title>Zend_Service_Yahoo_NewsResult</title></info>
-        
+
         <para>
             Elk News Search resultaat wordt teruggestuurd als een <code>Zend_Service_Yahoo_NewsResult</code> object.
         </para>
         <section xml:id="zend.service.yahoo.classes.newsresult.properties"><info><title>Eigenschappen</title></info>
-            
+
             <table><info><title>Zend_Service_Yahoo_NewsResult Eigenschappen</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>
@@ -541,15 +541,15 @@ foreach ($results as $result) {
         </section>
      </section>
      <section xml:id="zend.service.yahoo.classes.image"><info><title>Zend_Service_Yahoo_Image</title></info>
-        
+
         <para>
             Alle beelden die door de Yahoo! Image Search of de Yahoo! News Search worden teruggestuurd
             worden voorgesteld als <code>Zend_Service_Yahoo_Image</code> objecten
         </para>
         <section xml:id="zend.service.yahoo.classes.image.properties"><info><title>Eigenschappen</title></info>
-            
+
             <table><info><title>Zend_Service_Yahoo_Image Eigenschappen</title></info>
-                
+
                 <tgroup cols="3">
                     <thead>
                         <row>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.multiple-emails"><info><title> 通过一个SMTP连接发送多个邮 </title></info>
-    
+
 
     <para>
         在缺省状态下，单个的 SMTP 传送器创建一个单个的连接并在整个脚本执行的生命周期重用，你可以这个 SMTP 连接发送多个邮件。每次投递之前发出一个 RSET 命令确保正确的 SMTP 握手被跟随。
@@ -8,7 +8,7 @@
 
     <example xml:id="zend.mail.multiple-emails.example-1"><info><title> 通过一个SMTP连接发送多个邮件 </title></info>
 
-        
+
 
         <programlisting role="php"><![CDATA[<?php
 // Load classes
@@ -37,7 +37,7 @@ for ($i = 0; $i > 5; $i++) {
 
     <example xml:id="zend.mail.multiple-emails.example-2"><info><title> 手工控制传送器连接 </title></info>
 
-        
+
 
         <programlisting role="php"><![CDATA[<?php
 

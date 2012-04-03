@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.server"><info><title>Zend_Soap_Server</title></info>
-    
+
 
     <para>
         <classname>Zend_Soap_Server</classname>クラスは、
@@ -33,14 +33,14 @@
     </para>
 
     <section xml:id="zend.soap.server.constructor"><info><title>Zend_Soap_Serverコンストラクタ</title></info>
-        
+
         <para>
             <classname>Zend_Soap_Server</classname>コンストラクタは、
             WSDLモードと非WSDLモードとでは少し使い方が違います。
         </para>
 
         <section xml:id="zend.soap.server.constructor.wsdl_mode"><info><title>WSDLモードのためのZend_Soap_Serverコンストラクタ</title></info>
-            
+
             <para>
                 WSDLモードで動作する場合、<classname>Zend_Soap_Server</classname>コンストラクタは２つの引数を受け取ります:
                 <orderedlist>
@@ -105,7 +105,7 @@
         </section>
 
         <section xml:id="zend.soap.server.wsdl_mode"><info><title>非WSDLモードのためのZend_Soap_Serverコンストラクタ</title></info>
-            
+
             <para>
                 非WSDLモードで<classname>Zend_Soap_Server</classname>機能を使うつもりなら、
                 最初のコンストラクタ・パラメータは<constant>NULL</constant>に設定し<emphasis>なければなりません</emphasis>。
@@ -162,7 +162,7 @@
     </section>
 
     <section xml:id="zend.soap.server.api_define_methods"><info><title>ウェブ・サービスAPIを定義するメソッド</title></info>
-        
+
 
         <para>
             <acronym>SOAP</acronym>を通して<acronym>PHP</acronym>コードにアクセスすることを許可したいときに、
@@ -208,7 +208,7 @@ $server->setObject(new MyClass());
 $server->handle();
 ]]></programlisting>
             <note><info><title>重要</title></info>
-                
+
                 <para>
                     対応するウェブサービスWSDLを準備するautodiscover機能を使うつもりならば、
                     メソッドdocblockを使って各々のメソッドを完全に記述しなければなりません。
@@ -252,9 +252,9 @@ $server->handle();
     </section>
 
     <section xml:id="zend.soap.server.request_response"><info><title>リクエストおよびレスポンスオブジェクトの操作</title></info>
-        
+
         <note><info><title>高度な利用</title></info>
-            
+
             <para>
                 このセクションではリクエスト/レスポンス処理の高度なオプションを説明します。
                 スキップされるかもしれません。
@@ -267,7 +267,7 @@ $server->handle();
         </para>
 
         <section xml:id="zend.soap.server.request_response.request"><info><title>リクエスト処理</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Soap_Server::handle()</methodname>メソッドは、
@@ -334,7 +334,7 @@ $request = $server->getLastRequest();
         </section>
 
         <section xml:id="zend.soap.server.request_response.response"><info><title>レスポンスの事前処理</title></info>
-            
+
 
             <para>
                 <methodname>Zend_Soap_Server::handle()</methodname>メソッドは、出力ストリームに生成されたレスポンスを自動的に送ります。

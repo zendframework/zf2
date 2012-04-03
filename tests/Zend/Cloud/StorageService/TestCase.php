@@ -48,7 +48,7 @@ abstract class TestCase extends PHPUnitTestCase
     protected $_dummyNamePrefix = 'TestItem';
 
     protected $_dummyDataPrefix = 'TestData';
-    
+
     protected $_clientType = 'stdClass';
 
     /**

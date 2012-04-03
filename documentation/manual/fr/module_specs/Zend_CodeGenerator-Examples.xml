@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.codegenerator.examples"><info><title>Exemples Zend_CodeGenerator</title></info>
-    
+
 
     <example xml:id="zend.codegenerator.examples.class"><info><title>Génération de classes PHP</title></info>
-        
+
 
         <para>
             L'exemple suivant génère le code d'une classe avec son bloc de commentaires PHPDoc.
@@ -50,7 +50,7 @@ class Foo
     </example>
 
     <example xml:id="zend.codegenerator.examples.class-properties"><info><title>Générer des classes PHP avec des attributs de classe</title></info>
-        
+
 
         <para>
             Suivant l'exemple précédant, nous ajoutons maintenant des attributs à la
@@ -121,7 +121,7 @@ class Foo
     </example>
 
     <example xml:id="zend.codegenerator.examples.class-methods"><info><title>Générer des classes PHP avec des méthodes</title></info>
-        
+
 
         <para>
             <classname>Zend_CodeGenerator_Php_Class</classname> vous permet d'attacher des
@@ -250,7 +250,7 @@ class Foo
     </example>
 
     <example xml:id="zend.codegenerator.examples.file"><info><title>Générer des fichiers PHP</title></info>
-        
+
 
         <para>
             <classname>Zend_CodeGenerator_Php_File</classname> sert à générer le contenu de
@@ -347,7 +347,7 @@ define('APPLICATION_ENV', 'testing');
     </example>
 
     <example xml:id="zend.codegenerator.examples.reflection-file"><info><title>Ajouter du code à un fichier PHP existant en utilisant la réflexion</title></info>
-        
+
 
         <para>
             Vous pouvez ajouter du code <acronym>PHP</acronym> à n'importe quel fichier
@@ -365,7 +365,7 @@ file_put_contents($path, $generator->generate());
     </example>
 
     <example xml:id="zend.codegenerator.examples.reflection-class"><info><title>Ajouter du code à une classe PHP existante en utilisant la réflexion</title></info>
-        
+
 
         <para>
             Vous pouvez aussi ajouter du code à une classe existante.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.form.advanced"><info><title>Advanced Zend_Form Usage</title></info>
-    
+
 
     <para>
         <classname>Zend_Form</classname> has a wealth of functionality, much of it aimed
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.form.advanced.arrayNotation"><info><title>Array Notation</title></info>
-        
+
 
         <para>
             Many experienced web developers like to group related form elements
@@ -209,7 +209,7 @@
     </section>
 
     <section xml:id="zend.form.advanced.multiPage"><info><title>Multi-Page Forms</title></info>
-        
+
 
         <para>
             Currently, Multi-Page forms are not officially supported in
@@ -225,7 +225,7 @@
         </para>
 
         <example xml:id="zend.form.advanced.multiPage.registration"><info><title>Registration Form Example</title></info>
-            
+
 
             <para>
                 Let's use a registration form as an example. For our purposes,

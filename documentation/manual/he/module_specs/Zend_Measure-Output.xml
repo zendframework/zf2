@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.measure.output"><info><title>הדפסת מדידות</title></info>
 
-    
+
 
     <para>
         ניתן להדפיס את המדידות במספר דרכים.
@@ -29,12 +29,12 @@
 
     <section xml:id="zend.measure.output.auto"><info><title>הדפסה אוטומטית</title></info>
 
-        
+
 
         <para>
             <code>Zend_Measure</code> תומך בהדפסת הנתונים אוטומטית.
             <example xml:id="zend.measure.output.auto.example-1"><info><title>הדפסה אוטומטית</title></info>
-                
+
                 <programlisting role="php"><![CDATA[
 $locale = new Zend_Locale('de');
 $mystring = "1.234.567,89 Meter";
@@ -49,7 +49,7 @@ echo $unit;
         </para>
 
         <note><info><title>הדפסת מדידה</title></info>
-            
+
             <para>
                 ניתן להציג את ערך המדידה בעזרת שימוש פשוט בפונקציות
                 <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/echo"><code>echo</code>
@@ -65,14 +65,14 @@ echo $unit;
 
     <section xml:id="zend.measure.output.value"><info><title>הדפסת ערכים</title></info>
 
-        
+
 
         <para>
 
 
            ערך המדידה ניתן להדפסה על ידי קריאה ל  <code>getValue()</code>.
             <example xml:id="zend.measure.output.value.example-1"><info><title>הדפסת ערך</title></info>
-                
+
                 <programlisting role="php"><![CDATA[
 $locale = new Zend_Locale('de');
 $mystring = "1.234.567,89 Meter";
@@ -94,12 +94,12 @@ echo $unit->getValue();
 
     <section xml:id="zend.measure.output.unit"><info><title>הדפסה עם יחידת המדידה</title></info>
 
-        
+
 
         <para>
             הפונקציה <code>getType()</code> מחזירה את יחידת המדידה הנוכחית.
             <example xml:id="zend.measure.output.unit.example-1"><info><title>הדפסה עם יחידת המדידה</title></info>
-                
+
                 <programlisting role="php"><![CDATA[
 $locale = new Zend_Locale('de');
 $mystring = "1.234.567,89";
@@ -117,7 +117,7 @@ echo $unit->getType();
 
     <section xml:id="zend.measure.output.localized"><info><title>הדפסה בתור סטרינג מקומי</title></info>
 
-        
+
 
         <para>
             הדפסת הסטרינג בפורמט מקומי של המשתמש אשר צופה היא לעיתים הדרך המועדפת. לדוגמא, המדידה "1234567.8" תוצג בתור "1.234.567,8" בגרמניה.

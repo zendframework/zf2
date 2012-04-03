@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.test.phpunit.db.adapter"><info><title>Utiliser l'adaptateur de tests</title></info>
-    
+
 
     <para>
         Il peut être nécessaire quelques fois de vouloir tester l'application, mais sans base de données

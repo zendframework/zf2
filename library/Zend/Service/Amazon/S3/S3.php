@@ -295,7 +295,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
 
         return $objects;
     }
-    
+
     /**
      * List the objects and common prefixes in a bucket.
      *
@@ -341,7 +341,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             'prefixes' => $prefixes
         );
     }
-    
+
     /**
      * Make sure the object name is valid
      *

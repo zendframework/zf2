@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         Die <classname>Zend_Filter</classname> Komponente bietet ein Set von normalerweise benötigen
@@ -10,7 +10,7 @@
     </para>
 
     <section xml:id="zend.filter.introduction.definition"><info><title>Was ist ein Filter?</title></info>
-        
+
 
         <para>
             In der physikalischen Welt wird ein Filter typischerweise für das entfernen von
@@ -43,7 +43,7 @@
     </section>
 
     <section xml:id="zend.filter.introduction.using"><info><title>Normale Verwendung von Filtern</title></info>
-        
+
 
         <para>
             Diese Filterdefinition bekanntgegeben zu haben bietet die Grundlage für
@@ -67,7 +67,7 @@ echo $htmlEntities->filter('"'); // "
     </section>
 
     <section xml:id="zend.filter.introduction.static"><info><title>Verwenden der statischen staticFilter() Methode</title></info>
-        
+
 
         <para>
             Wenn es unbequem ist einen gegebene Filterklasse zu Laden und eine Instanz des Filters
@@ -110,7 +110,7 @@ echo Zend_Filter::filterStatic('"',
         </para>
 
         <section xml:id="zend.filter.introduction.static.namespaces"><info><title>Namespaces</title></info>
-            
+
 
             <para>
                 Wenn man mit selbst definierten Filtern arbeitet, dann kann man an
@@ -184,7 +184,7 @@ echo Zend_Filter::filterStatic('"', 'OtherFilter', array($parameters));
     </section>
 
     <section xml:id="zend.filter.introduction.caveats"><info><title>Doppelt filtern</title></info>
-        
+
 
         <para>
             Wenn zwei Filter nacheinander verwendet werden muss man bedenken dass es oft nicht

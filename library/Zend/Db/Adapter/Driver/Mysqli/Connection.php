@@ -38,11 +38,11 @@ class Connection implements ConnectionInterface
     protected $driver = null;
     /**
      * Connection paramters
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $connectionParameters = array();
-    
+
     /**
      * @var \mysqli
      */
@@ -50,15 +50,15 @@ class Connection implements ConnectionInterface
 
     /**
      * In transcaction
-     * 
+     *
      * @var boolean
      */
-    protected $inTransaction = false;    
+    protected $inTransaction = false;
 
     /**
      * Constructor
-     * 
-     * @param mysqli $connectionInfo 
+     *
+     * @param mysqli $connectionInfo
      */
     public function __construct($connectionInfo = null)
     {
@@ -78,12 +78,12 @@ class Connection implements ConnectionInterface
         $this->driver = $driver;
         return $this;
     }
-    
+
     /**
      * Set connection parameters
-     * 
+     *
      * @param  array $connectionParameters
-     * @return Connection 
+     * @return Connection
      */
     public function setConnectionParameters(array $connectionParameters)
     {
@@ -93,8 +93,8 @@ class Connection implements ConnectionInterface
 
     /**
      * Get connection parameters
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function getConnectionParameters()
     {
@@ -102,18 +102,18 @@ class Connection implements ConnectionInterface
     }
     /**
      * Get default catalog
-     * 
-     * @return null 
+     *
+     * @return null
      */
     public function getDefaultCatalog()
     {
         return null;
     }
-    
+
     /**
      * Get default schema
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getDefaultSchema()
     {
@@ -129,9 +129,9 @@ class Connection implements ConnectionInterface
 
     /**
      * Set resource
-     * 
+     *
      * @param  mysqli $resource
-     * @return Connection 
+     * @return Connection
      */
     public function setResource(mysqli $resource)
     {
@@ -141,7 +141,7 @@ class Connection implements ConnectionInterface
 
     /**
      * Get resource
-     * 
+     *
      * @return \mysqli
      */
     public function getResource()
@@ -151,8 +151,8 @@ class Connection implements ConnectionInterface
     }
     /**
      * Connect
-     * 
-     * @return null 
+     *
+     * @return null
      */
     public function connect()
     {
@@ -191,17 +191,17 @@ class Connection implements ConnectionInterface
         }
 
     }
-    
+
     /**
      * Is connected
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isConnected()
     {
         return ($this->resource instanceof \Mysqli);
     }
-    
+
     /**
      * Disconnect
      */
@@ -212,7 +212,7 @@ class Connection implements ConnectionInterface
         }
         unset($this->resource);
     }
-    
+
     /**
      * Begin transaction
      */
@@ -221,7 +221,7 @@ class Connection implements ConnectionInterface
         $this->resource->autocommit(false);
         $this->inTransaction = true;
     }
-    
+
     /**
      * Commit
      */
@@ -230,36 +230,36 @@ class Connection implements ConnectionInterface
         if (!$this->resource) {
             $this->connect();
         }
-        
+
         $this->resource->commit();
-        
+
         $this->inTransaction = false;
     }
-    
+
     /**
      * Rollback
-     * 
-     * @return Connection 
+     *
+     * @return Connection
      */
     public function rollback()
     {
         if (!$this->resource) {
             throw new \Exception('Must be connected before you can rollback.');
         }
-        
+
         if (!$this->inTransaction) {
             throw new \Exception('Must call commit() before you can rollback.');
         }
-        
+
         $this->resource->rollback();
         return $this;
     }
-    
+
     /**
      * Execute
-     * 
+     *
      * @param  string $sql
-     * @return Result 
+     * @return Result
      */
     public function execute($sql)
     {
@@ -279,12 +279,11 @@ class Connection implements ConnectionInterface
     }
     /**
      * Get last generated id
-     * 
-     * @return integer 
+     *
+     * @return integer
      */
     public function getLastGeneratedId()
     {
         return $this->resource->insert_id;
     }
 }
-    

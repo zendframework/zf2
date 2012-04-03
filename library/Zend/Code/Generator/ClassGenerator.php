@@ -157,7 +157,7 @@ class ClassGenerator extends AbstractGenerator
      * @configkey docblock       string        The docblock information
      * @configkey flags          int           Flags, one of ClassGenerator::FLAG_ABSTRACT ClassGenerator::FLAG_FINAL
      * @configkey extendedclass  string        Class which this class is extending
-     * @configkey implementedinterfaces 
+     * @configkey implementedinterfaces
      * @configkey properties
      * @configkey methods
      *
@@ -301,7 +301,7 @@ class ClassGenerator extends AbstractGenerator
     {
         return $this->containingFileGenerator;
     }
-    
+
     /**
      * setDocblock() Set the docblock
      *
@@ -326,7 +326,7 @@ class ClassGenerator extends AbstractGenerator
         return $this;
     }
 
-    
+
     /**
      * getDocblock()
      *
@@ -477,7 +477,7 @@ class ClassGenerator extends AbstractGenerator
         //} elseif (!$property instanceof PropertyGenerator) {
         //    throw new Exception\InvalidArgumentException('setProperty() expects either a string or an instance of Zend\Code\Generator\PropertyGenerator');
         //}
-        
+
         $propertyName = $property->getName();
 
         if (isset($this->properties[$propertyName])) {

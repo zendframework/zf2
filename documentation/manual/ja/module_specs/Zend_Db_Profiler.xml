@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.profiler"><info><title>Zend_Db_Profiler</title></info>
 
-    
+
 
     <section xml:id="zend.db.profiler.introduction"><info><title>導入</title></info>
 
-        
+
 
         <para>
             <classname>Zend_Db_Profiler</classname> を使用すると、クエリの情報を取得できます。
@@ -134,7 +134,7 @@ $db = Zend_Db::factory('PDO_MYSQL', $params);
 
     <section xml:id="zend.db.profiler.using"><info><title>プロファイラの使用</title></info>
 
-        
+
 
         <para>
             好きなところでアダプタの
@@ -271,7 +271,7 @@ echo "一番時間のかかっているクエリ: \n" . $longestQuery . "\n";
 
     <section xml:id="zend.db.profiler.advanced"><info><title>プロファイラの高度な使用法</title></info>
 
-        
+
 
         <para>
             単にクエリを調べるだけでなく、どのクエリを調べるのかという
@@ -280,7 +280,7 @@ echo "一番時間のかかっているクエリ: \n" . $longestQuery . "\n";
         </para>
 
         <section xml:id="zend.db.profiler.advanced.filtertime"><info><title>クエリの実行所要時間による絞り込み</title></info>
-            
+
 
             <para>
                 <methodname>setFilterElapsedSecs()</methodname> は、クエリの情報を取得する条件として
@@ -298,7 +298,7 @@ $profiler->setFilterElapsedSecs(null);
         </section>
 
         <section xml:id="zend.db.profiler.advanced.filtertype"><info><title>クエリの形式による絞り込み</title></info>
-            
+
 
             <para>
                 <methodname>setFilterQueryType()</methodname> は、クエリの情報を取得する条件として
@@ -385,7 +385,7 @@ $profiler->setFilterQueryType(null);
         </section>
 
         <section xml:id="zend.db.profiler.advanced.getbytype"><info><title>クエリの型を指定することによる情報の取得</title></info>
-            
+
 
             <para>
                 <methodname>setFilterQueryType()</methodname> を使用すると、
@@ -417,7 +417,7 @@ $profiles = $profiler->getQueryProfiles(Zend_Db_Profiler::DELETE);
     </section>
 
     <section xml:id="zend.db.profiler.profilers"><info><title>特化型のプロファイラ</title></info>
-        
+
 
         <para>
             特化型のプロファイラは <classname>Zend_Db_Profiler</classname>

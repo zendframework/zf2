@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.framework.system-providers"><info><title>Mitgelieferte System Provider</title></info>
-    
+
 
     <para>
         Zusätzlich zu den nützlicheren Projekt basierten Providern die mit
@@ -15,7 +15,7 @@
     </para>
 
     <section xml:id="zend.tool.framework.system-providers.version"><info><title>Der Version Provider</title></info>
-        
+
 
         <para>
             Der Version Provider ist enthalten, sodas man feststellen kann mit welcher Version vom
@@ -28,7 +28,7 @@
     </section>
 
     <section xml:id="zend.tool.framework.system-providers.manifest"><info><title>Der Manifest Provider</title></info>
-        
+
 
         <para>
             Der Manifest Provider ist enthalten, sodas man feststellen kann welche Art von

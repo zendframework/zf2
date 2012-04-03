@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appendix xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="coding-standard"><info><title>Standardy kodowania Zend Framework</title></info>
-  
+
     <section xml:id="coding-standard.overview"><info><title>Wstęp</title></info>
-        
+
 
         <section xml:id="coding-standard.overview.scope"><info><title>Zakres</title></info>
-            
+
 
             <para>
                 Ten dokument określa wytyczne dla programistów i zespołów
@@ -48,7 +48,7 @@
         </section>
 
         <section xml:id="coding-standard.overview.goals"><info><title>Cele</title></info>
-            
+
 
             <para>
                 Standardy kodowania są ważne w każdym projekcie
@@ -61,10 +61,10 @@
     </section>
 
     <section xml:id="coding-standard.php-file-formatting"><info><title>Formatowanie plików PHP</title></info>
-        
+
 
         <section xml:id="coding-standard.php-file-formatting.general"><info><title>Ogólnie</title></info>
-            
+
 
             <para>
                 Dla plików zawierających tylko kod PHP użycie znacznika
@@ -83,13 +83,13 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.indentation"><info><title>Wcięcie</title></info>
-            
+
 
             <para>Wcięcia powinny składać się z 4 spacji. Znaki tabulatora są niedozwolone.</para>
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.max-line-length"><info><title>Maksymalna długość linii</title></info>
-            
+
 
             <para>
                 Zalecana maksymalna długość linii wynosi 80 znaków, czyli
@@ -101,7 +101,7 @@
         </section>
 
         <section xml:id="coding-standard.php-file-formatting.line-termination"><info><title>Zakończenia linii</title></info>
-            
+
 
             <para>
                 Linie powinny być zakończone w standardowy sposób systemu Unix
@@ -120,10 +120,10 @@
     </section>
 
     <section xml:id="coding-standard.naming-conventions"><info><title>Konwencje nazewnictwa</title></info>
-        
+
 
         <section xml:id="coding-standard.naming-conventions.classes"><info><title>Klasy</title></info>
-            
+
 
             <para>
                 Zend Framework używa takiej konwencji nazewnictwa, w której
@@ -171,7 +171,7 @@
         </section>
 
         <section xml:id="coding-standard.naming-conventions.filenames"><info><title>Nazwy plików</title></info>
-            
+
 
             <para>
                 W nazwach innych plików dozwolone jest użycie jedynie znaków
@@ -200,7 +200,7 @@ Zend/View/Helper/FormRadio.php
         </section>
 
         <section xml:id="coding-standard.naming-conventions.functions-and-methods"><info><title>Funkcje i metody</title></info>
-            
+
 
             <para>
                 Nazwy funkcji mogą zawierać tylko znaki alfanumeryczne. Znaki
@@ -259,7 +259,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.variables"><info><title>Zmienne</title></info>
-            
+
 
             <para>
                 Nazwy zmiennych mogą zawierać tylko znaki alfanumeryczne. Znaki
@@ -293,7 +293,7 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.naming-conventions.constants"><info><title>Stałe</title></info>
-            
+
 
             <para>
                 Nazwy stałych mogą zawierać znaki alfanumeryczne oraz znaki
@@ -321,10 +321,10 @@ widgetFactory()
     </section>
 
     <section xml:id="coding-standard.coding-style"><info><title>Styl kodowania</title></info>
-        
+
 
         <section xml:id="coding-standard.coding-style.php-code-demarcation"><info><title>Odgraniczanie kodu PHP</title></info>
-            
+
 
             <para>
                 Kod PHP musi być zawsze odgraniczony za pomocą pełnych,
@@ -347,10 +347,10 @@ widgetFactory()
         </section>
 
         <section xml:id="coding-standard.coding-style.strings"><info><title>Łańcuchy znaków</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.strings.literals"><info><title>Proste łańcuchy znaków</title></info>
-                
+
 
                 <para>
                     Kiedy łańcuch znaków jest prosty (nie zawiera podstawienia
@@ -365,7 +365,7 @@ $a = 'Example String';
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.literals-containing-apostrophes"><info><title>Proste łańcuchy znaków zawierające apostrofy</title></info>
-                
+
 
                 <para>
                     Kiedy prosty łańcuch znaków zawiera wewnątrz apostrofy,
@@ -383,7 +383,7 @@ $sql = "SELECT `id`, `name` from `people` WHERE `name`='Fred' OR `name`='Susan'"
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.variable-substitution"><info><title>Podstawienia zmiennych</title></info>
-                
+
 
                 <para>
                     Podstawienia zmiennych są dozwolone na dwa sposoby:
@@ -407,7 +407,7 @@ $greeting = "Hello ${name}, welcome back!";
             </section>
 
             <section xml:id="coding-standard.coding-style.strings.string-concatenation"><info><title>Łączenie łańcuchów znaków</title></info>
-                
+
 
                 <para>
                     Łańcuchy znaków mogą być łączone za pomocą operatora ".".
@@ -437,10 +437,10 @@ $sql = "SELECT `id`, `name` FROM `people` "
         </section>
 
         <section xml:id="coding-standard.coding-style.arrays"><info><title>Tablice</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.arrays.numerically-indexed"><info><title>Tablice indeksowane numerycznie</title></info>
-                
+
 
                 <para>Niedozwolone jest użycie ujemnych liczb jako indeksów tabel.</para>
 
@@ -477,7 +477,7 @@ $sampleArray = array(1, 2, 3, 'Zend', 'Studio',
             </section>
 
             <section xml:id="coding-standard.coding-style.arrays.associative"><info><title>Tablice asocjacyjne</title></info>
-                
+
 
                 <para>
                     Kiedy deklarujesz tablice asocjacyjne za pomocą konstrukcji
@@ -496,10 +496,10 @@ $sampleArray = array('firstKey'  => 'firstValue',
         </section>
 
         <section xml:id="coding-standard.coding-style.classes"><info><title>Klasy</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.classes.declaration"><info><title>Deklaracja klas</title></info>
-                
+
 
                 <para>
                     Klasy powinny być nazywane zgodnie z konwencjami Zend Framework.
@@ -535,7 +535,7 @@ class SampleClass
             </section>
 
             <section xml:id="coding-standard.coding-style.classes.member-variables"><info><title>Zmienne klas</title></info>
-                
+
 
                 <para>
                     Zmienne klas powinny być nazywane zgodnie z poniższymi konwencjami.
@@ -557,10 +557,10 @@ class SampleClass
         </section>
 
         <section xml:id="coding-standard.coding-style.functions-and-methods"><info><title>Funkcje i metody</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.declaration"><info><title>Deklaracja funkcji oraz metod</title></info>
-                
+
 
                 <para>
                     Funkcje powinny być nazywane zgodnie z poniższymi konwencjami.
@@ -662,7 +662,7 @@ class Foo
             </section>
 
             <section xml:id="coding-standard.coding-style.functions-and-methods.usage"><info><title>Użycie funkcji oraz metod</title></info>
-                
+
 
                 <para>
                     Argumenty funkcji powinny być oddzielone jednym znakiem
@@ -700,10 +700,10 @@ threeArguments(array(1, 2, 3, 'Zend', 'Studio',
         </section>
 
         <section xml:id="coding-standard.coding-style.control-statements"><info><title>Instrukcje kontrolne</title></info>
-            
+
 
             <section xml:id="coding-standard.coding-style.control-statements.if-else-elseif"><info><title>If/Else/Elseif</title></info>
-                
+
 
                 <para>
                     Wyrażenia kontrolne oparte o konstrukcje <code>if</code>
@@ -768,7 +768,7 @@ if ($a != 2) {
             </section>
 
             <section xml:id="coding-standards.coding-style.control-statements.switch"><info><title>Instrukcja Switch</title></info>
-                
+
 
                 <para>
                     Instrukcje kontrolne umieszczone wewnątrz instrukcji "switch"
@@ -805,9 +805,9 @@ switch ($numPeople) {
                 	<emphasis>UWAGA:</emphasis> W niektórych przypadkach przydatne
                 	jest zapisanie jednej klauzuli <code>case</code>, po której
                 	sterowanie powinno przejść do następnej klauzuli <code>case</code>
-                	poprzez nie umieszczanie polecenia <code>break</code> lub 
+                	poprzez nie umieszczanie polecenia <code>break</code> lub
                 	<code>return</code> w wyjściowym <code>case</code>.
-                	Aby odróżnić takie sytuacje od niezamierzonych błędów, 
+                	Aby odróżnić takie sytuacje od niezamierzonych błędów,
                 	wszystkie instrukcje <code>case</code> których intencjonalnie
                 	pozbawiono <code>break</code> lub <code>return</code> muszą
                 	zawierać komentarz: "// break intentionally omitted".
@@ -816,10 +816,10 @@ switch ($numPeople) {
         </section>
 
         <section xml:id="coding-standards.inline-documentation"><info><title>Dokumentacja</title></info>
-            
+
 
             <section xml:id="coding-standards.inline-documentation.documentation-format"><info><title>Format dokumentacji</title></info>
-                
+
 
                 <para>
                     Wszystkie bloki dokumentacji muszą być kompatybilne z
@@ -838,7 +838,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.files"><info><title>Pliki</title></info>
-                
+
 
                 <para>
                     Każdy plik zawierający kod PHP musi na samym początku
@@ -864,7 +864,7 @@ switch ($numPeople) {
             </section>
 
             <section xml:id="coding-standards.inline-documentation.classes"><info><title>Klasy</title></info>
-                
+
 
                 <para>
                     Każda klasa musi posiadać blok dokumentacji zawierający
@@ -883,13 +883,13 @@ switch ($numPeople) {
  * @since      Class available since Release 1.5.0
  * @deprecated Class deprecated in Release 2.0.0
  */
- 
+
                     ]]></programlisting>
                 </para>
             </section>
 
             <section xml:id="coding-standards.inline-documentation.functions"><info><title>Funkcje</title></info>
-                
+
 
                 <para>
                     Każda funkcja, a także metoda obiektu, musi posiadać blok

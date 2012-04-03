@@ -36,7 +36,7 @@ use Zend\Date;
  */
 class Subscription extends AbstractModel implements SubscriptionPersistence
 {
-    
+
     /**
      * Save subscription to RDMBS
      *
@@ -54,7 +54,7 @@ class Subscription extends AbstractModel implements SubscriptionPersistence
         if ($result && (0 < count($result))) {
             $data['created_time'] = $result->current()->created_time;
             $now = new Date\Date;
-            if (array_key_exists('lease_seconds', $data) 
+            if (array_key_exists('lease_seconds', $data)
                 && $data['lease_seconds']
             ) {
                 $data['expiration_time'] = $now->add($data['lease_seconds'], Date\Date::SECOND)
@@ -70,11 +70,11 @@ class Subscription extends AbstractModel implements SubscriptionPersistence
         $this->_db->insert($data);
         return true;
     }
-    
+
     /**
      * Get subscription by ID/key
-     * 
-     * @param  string $key 
+     *
+     * @param  string $key
      * @return array
      */
     public function getSubscription($key)
@@ -92,8 +92,8 @@ class Subscription extends AbstractModel implements SubscriptionPersistence
 
     /**
      * Determine if a subscription matching the key exists
-     * 
-     * @param  string $key 
+     *
+     * @param  string $key
      * @return bool
      */
     public function hasSubscription($key)

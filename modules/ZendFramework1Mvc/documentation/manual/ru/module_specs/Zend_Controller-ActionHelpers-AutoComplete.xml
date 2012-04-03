@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.actionhelpers.autocomplete"><info><title>AutoComplete</title></info>
-    
+
 
     <para>
         Многие JavaScript-библиотеки для AJAX предоставляют функционал для
@@ -120,7 +120,7 @@ class FooController extends Zend_Controller_Action
     </para>
 
     <section xml:id="zend.controller.actionhelpers.autocomplete.dojo"><info><title>Автодополнение c Dojo</title></info>
-        
+
 
         <para>
             В Dojo нет собственно виджета для автодополнения, но есть два
@@ -142,7 +142,7 @@ $this->_helper->autoCompleteDojo($data);
 ]]></programlisting>
 
         <example xml:id="zend.controller.actionhelpers.autocomplete.dojo.example1"><info><title>Автодополнение с Dojo и Zend MVC</title></info>
-            
+
 
             <para>
                 Автодополнение с Dojo через Zend MVC требует реализации
@@ -336,7 +336,7 @@ dojo.require("custom.TestNameReadStore");
     </section>
 
     <section xml:id="zend.controller.actionhelpers.autocomplete.scriptaculous"><info><title>Автодополнение с Scriptaculous</title></info>
-        
+
         <para>
             <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wiki.script.aculo.us/scriptaculous/show/Ajax.Autocompleter">Scriptaculous</link>
             ожидает HTML-ответ в определенном формате.

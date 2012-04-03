@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.db.adapter"><info><title>Zend_Db_Adapter</title></info>
 
-    
+
 
     <section xml:id="zend.db.adapter.introduction"><info><title>Inleiding</title></info>
 
-        
+
 
         <para>
             <code>Zend_Db_Adapter</code> is de database API abstractielaag voor het Zend
@@ -55,7 +55,7 @@ $db = Zend_Db::factory('PDO_SQLITE', $params);
 
     <section xml:id="zend.db.adapter.quoting"><info><title>Quoting tegen SQL Injectie</title></info>
 
-        
+
 
         <para>
             Je moet altijd waarden quoten die gebruikt moeten worden in een
@@ -111,7 +111,7 @@ $where = $db->quoteInto('id IN(?)', array(1, 2, 3));
 
     <section xml:id="zend.db.adapter.queries"><info><title>Directe Queries</title></info>
 
-        
+
 
         <para>
             Eenmaal je een <code>Zend_Db_Adapter</code> instantie hebt, kan je queries
@@ -181,7 +181,7 @@ $rows = $stmt->fetchAll();
 
     <section xml:id="zend.db.adapter.transactions"><info><title>Transacties</title></info>
 
-        
+
 
         <para>
             Standaard is PDO (en dus ook <code>Zend_Db_Adapter</code>) in "auto-commit" mode.
@@ -214,7 +214,7 @@ try {
 
     <section xml:id="zend.db.adapter.insert"><info><title>Rijen Invoegen</title></info>
 
-        
+
 
         <para>
             Voor jouw gemak kan je de <code>insert()</code> methode gebruiken om
@@ -259,7 +259,7 @@ $last_insert_id = $db->lastInsertId();
 
     <section xml:id="zend.db.adapter.update"><info><title>Rijen updaten</title></info>
 
-        
+
 
         <para>
             Voor jouw gemak kan je de <code>update()</code> methode gebruiken om een
@@ -302,7 +302,7 @@ $rows_affected = $db->update($table, $set, $where);
 
     <section xml:id="zend.db.adapter.delete"><info><title>Rijen Verwijderen</title></info>
 
-        
+
 
         <para>
             Voor jouw gemak kan je de <code>delete()</code> methode gebruiken om
@@ -334,7 +334,7 @@ $rows_affected = $db->delete($table, $where);
 
     <section xml:id="zend.db.adapter.fetch"><info><title>Rijen Halen</title></info>
 
-        
+
 
         <para>
             Alhoewel je de database direct kan ondervragen met de <code>query</code>

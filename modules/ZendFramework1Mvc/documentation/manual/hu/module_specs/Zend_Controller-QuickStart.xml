@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.quickstart"><info><title>Zend_Controller gyorstalpaló</title></info>
-    
+
     <section xml:id="zend.controller.quickstart.introduction"><info><title>Bevezetés</title></info>
-        
+
         <para>
             A
             <code>Zend_Controller</code>
@@ -21,12 +21,12 @@
         </para>
     </section>
     <section xml:id="zend.controller.quickstart.go"><info><title>Gyorstalpaló</title></info>
-        
+
         <para>
             Ha bővebb információra van szükséged, lásd a következő fejezeteket. Ha csak gyorsan meg akarsz lenni és indulni, olvass tovább.
         </para>
         <section xml:id="zend.controller.quickstart.go.directory"><info><title>Az állományaid elrendezése</title></info>
-            
+
             <para>
                 Az első lépés, hogy elrendezd az állományaid. A jellemző elrendezés a következő:
             </para>
@@ -47,7 +47,7 @@ html/
             ]]></programlisting>
         </section>
         <section xml:id="zend.controller.quickstart.go.docroot"><info><title>A gyökérkönyvtárad beállítása</title></info>
-            
+
             <para>
                 A webkiszolgálódban állítsd a gyökérkönyvtárad a fenti elrendezés
                 <code>html/</code>
@@ -55,7 +55,7 @@ html/
             </para>
         </section>
         <section xml:id="zend.controller.quickstart.go.rewrite"><info><title>Készítsd el az átírási szabályaid</title></info>
-            
+
             <para>
                 Szerkeszd a fenti <code>html/.htaccess</code> állományt, hogy a következőképpen fessen:
             </para>
@@ -75,7 +75,7 @@ RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
             </note>
         </section>
         <section xml:id="zend.controller.quickstart.go.bootstrap"><info><title>Készítsd el a rendszertöltő állományod</title></info>
-            
+
             <para>
                 A rendszertöltő állomány az az oldal, amin az összes kérés át van vezetve – a
                 <code>html/index.php</code>,
@@ -93,7 +93,7 @@ Zend_Controller_Front::run('/eléresi/út/a/vezérlőkhöz');
             </para>
         </section>
         <section xml:id="zend.controller.quickstart.go.controller"><info><title>Készítsd el az alapértelmezett műveletvezérlőd</title></info>
-            
+
             <para>
                 Mielőtt a műveletvezérlőket tárgyalnánk, először meg kell értened, hogyan vannak a kérések irányítva a Zend Frameworkben. Alapból egy URL elérési út első része egy vezérlőre, a második pedig egy műveletre van leképezve. Például a
                 <code>http://framework.zend.com/roadmap/components</code>
@@ -177,7 +177,7 @@ class IndexController extends Zend_Controller_Action
             </para>
         </section>
         <section xml:id="zend.controller.quickstart.go.view"><info><title>Készítsd el a nézet szkripted</title></info>
-            
+
             <para>
                 Ahogy azt az
                 <link linkend="zend.controller.quickstart.go.controller">előző részben</link>
@@ -208,7 +208,7 @@ class IndexController extends Zend_Controller_Action
             ]]></programlisting>
         </section>
         <section xml:id="zend.controller.quickstart.go.errorhandler"><info><title>Készítsd el a hibakezelő vezérlőd</title></info>
-            
+
             <para>
                 Alapbeállítás szerint a
                 <link linkend="zend.controller.plugins.standard.errorhandler">hibakezelő bővítmény</link>
@@ -259,7 +259,7 @@ class ErrorController extends Zend_Controller_Action
             ]]></programlisting>
         </section>
         <section xml:id="zend.controller.quickstart.go.finish"><info><title>Nézd meg az oldalt!</title></info>
-            
+
             <para>
                 Első vezérlőddel és nézeteddel felszerelkezve most beizzíthatod a böngésződ és az oldalra navigálhatsz. Feltételezve, hogy a tartományneved
                 <code>valami.hu</code>,

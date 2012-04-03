@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.exceptions"><info><title>Wyjątki MVC</title></info>
-    
+
 
     <section xml:id="zend.controller.exceptions.introduction"><info><title>Wprowadzenie</title></info>
-        
+
 
         <para>
             Komponenty MVC w Zend Framework używają kontrolera frontowego, co
@@ -25,7 +25,7 @@
     </section>
 
     <section xml:id="zend.controller.exceptions.handling"><info><title>W jaki sposób możesz obsługiwać wyjątki?</title></info>
-        
+
 
         <para>
             Obecnie w komponentach MVC wbudowanych jest kilka mechanizmów
@@ -141,7 +141,7 @@ if ($response->isException()) {
     </section>
 
     <section xml:id="zend.controller.exceptions.internal"><info><title>Wyjątki MVC które możesz napotkać</title></info>
-        
+
 
         <para>
             Różne komponenty MVC -- obiekt żądania, router, obiekt uruchamiający,

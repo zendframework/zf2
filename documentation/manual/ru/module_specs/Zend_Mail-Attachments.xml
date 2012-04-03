@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.attachments"><info><title>Вложения</title></info>
-    
+
     <para>
         Файлы могут быть прикреплены к сообщению электронной почты с
         использованием метода <methodname>addAttachment()</methodname>.
@@ -11,7 +11,7 @@
         параметров методу <code>addAttachment()</code>.
     </para>
     <example xml:id="zend.mail.attachments.example-1"><info><title>Почтовые сообщения со вложениями</title></info>
-        
+
         <programlisting language="php"><![CDATA[
 $mail = new Zend_Mail();
 // Формирование сообщения...

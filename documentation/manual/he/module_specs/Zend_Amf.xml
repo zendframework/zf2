@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.amf.introduction"><info><title>הקדמה</title></info>
-    
+
 
     <para>
         <code>Zend_Amf</code>  מאפשר תמיכה בשימוש ב <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Action_Message_Format">Action

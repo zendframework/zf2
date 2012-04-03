@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.introduction"><info><title>Pengenalan</title></info>
-    
+
 
     <para>
         Zend_Acl menyediakan implementasi access control list (ACL) untuk manajemen hak akses (privilege).
@@ -37,7 +37,7 @@
     </para>
 
     <section xml:id="zend.acl.introduction.resources"><info><title>Tentang Resource</title></info>
-        
+
         <para>
             Membuat sebuah resource di Zend_Acl sangat mudah. Zend_Acl menyediakan interface
             <code>Zend_Acl_Resource_Interface</code> untuk memfasilitasi pembuatan resource dalam sebuah aplikasi.
@@ -70,7 +70,7 @@
     </section>
 
     <section xml:id="zend.acl.introduction.roles"><info><title>Tentang Role</title></info>
-        
+
         <para>
             Sebagaimana resource, membuat sebuah role juga sangat mudah. Semua role mesti mengimplementasikan
             <code>Zend_Acl_Role_Interface</code>. Interface ini berisi sebuah method, <code>getRoleId()</code>.
@@ -92,7 +92,7 @@
             menimbulkan kondisi ambiguitas dan bagaimana Zend_Acl memecahkannya.
         </para>
         <example xml:id="zend.acl.introduction.roles.example.multiple_inheritance"><info><title>Multiple Inheritance di antara Role</title></info>
-            
+
             <para>
                 Kode berikut mendefinisikan tiga role dasar - "<code>guest</code>", "<code>member</code>", dan
                 "<code>admin</code>". Kemudian role dengan nama
@@ -150,7 +150,7 @@ echo $acl->isAllowed('someUser', 'someResource') ? 'allowed' : 'denied';
     </section>
 
     <section xml:id="zend.acl.introduction.creating"><info><title>Membuat Access Control List (ACL)</title></info>
-        
+
 
         <para>
             Sebuah ACL dapat merepresentasikan objek apa saja, baik fisik maupun virtual.
@@ -173,7 +173,7 @@ $acl = new Zend_Acl();
     </section>
 
     <section xml:id="zend.acl.introduction.role_registry"><info><title>Mendaftarkan Role</title></info>
-        
+
 
         <para>
             CMS hampir selalu membutuhkan hirarki perizinan yang menentukan kemampuan user untuk menambah, mengubah atau
@@ -189,7 +189,7 @@ $acl = new Zend_Acl();
         </para>
 
         <table xml:id="zend.acl.introduction.role_registry.table.example_cms_access_controls"><info><title>Access Control untuk Contoh CMS</title></info>
-          
+
           <tgroup cols="3">
             <thead>
               <row>
@@ -256,7 +256,7 @@ $acl->addRole(new Zend_Acl_Role('administrator'));
     </section>
 
     <section xml:id="zend.acl.introduction.defining"><info><title>Mendefinisikan Access Control</title></info>
-        
+
 
         <para>
             Sekarang di dalam ACL sudah ada role-role, berikutnya kita dapat menentukan bagaimana aturan akses tiap role
@@ -316,7 +316,7 @@ $acl->allow('administrator');
     </section>
 
     <section xml:id="zend.acl.introduction.querying"><info><title>Mengambil (Query) Aturan ACL</title></info>
-        
+
 
         <para>
             Sekarang kita sudah memiliki ACL yang fleksibel yang dapat digunakan untuk menentukan apakah

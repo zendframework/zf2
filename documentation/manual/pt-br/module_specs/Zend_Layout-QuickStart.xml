@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.layout.quickstart"><info><title>Guia Rápido Zend_Layout</title></info>
-    
+
 
     <para>
         Há dois casos de uso primários para <classname>Zend_Layout</classname>: com o
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.layout.quickstart.layouts"><info><title>Scripts de Layout</title></info>
-        
+
 
         <para>
             Em ambos os casos, entretanto, você precisará criar um script de layout.
@@ -83,7 +83,7 @@
     </section>
 
     <section xml:id="zend.layout.quickstart.mvc"><info><title>Usando Zend_Layout com o MVC do Zend Framework</title></info>
-        
+
 
         <para>
             <classname>Zend_Controller</classname> oferece um rico conjunto de funcionalidades
@@ -202,7 +202,7 @@ $layout = Zend_Layout::getMvcInstance();
     </section>
 
     <section xml:id="zend.layout.quickstart.standalone"><info><title>Usando Zend_Layout como um Componente</title></info>
-        
+
 
         <para>
             Como um componente autônomo, <classname>Zend_Layout</classname> não oferece tantas
@@ -249,7 +249,7 @@ echo $layout->render();
     </section>
 
     <section xml:id="zend.layout.quickstart.example"><info><title>Exemplo de Layout</title></info>
-        
+
 
         <para>
             Algumas vezes uma imagem vale mais que mil palavras. A seguir temos

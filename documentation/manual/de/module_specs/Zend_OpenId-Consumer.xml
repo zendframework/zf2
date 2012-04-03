@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.openid.consumer"><info><title>Zend_OpenId_Consumer Grundlagen</title></info>
-    
+
 
     <para>
         <classname>Zend_OpenId_Consumer</classname> kann verwendet werden um OpenID
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.openid.consumer.authentication"><info><title>OpenID Authentifikation</title></info>
-        
+
 
         <para>
             Aus der Sicht eines Website Entwicklers, geschieht die Authentifikation von OpenID in
@@ -43,7 +43,7 @@
         </para>
 
         <example xml:id="zend.openid.consumer.example-1"><info><title>Das einfache OpenID Login Formular</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 <html><body>
@@ -66,7 +66,7 @@
         </para>
 
         <example xml:id="zend.openid.consumer.example-1_2"><info><title>Der Authentifizierungs Anfrage Handler</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $consumer = new Zend_OpenId_Consumer();
@@ -113,7 +113,7 @@ if (!$consumer->login($_POST['openid_identifier'], 'example-1_3.php')) {
         </para>
 
         <example xml:id="zend.openid.consumer.example-1_3"><info><title>Der Authentifizierungs Antwort Prüfer</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $consumer = new Zend_OpenId_Consumer();
@@ -136,7 +136,7 @@ if ($consumer->verify($_GET, $id)) {
     </section>
 
     <section xml:id="zend.openid.consumer.combine"><info><title>Alle Schritte in einer Seite kombinieren</title></info>
-        
+
 
         <para>
             Das folgende Beispiel kombiniert alle drei Schritte in einem Skript. Es bietet keine
@@ -148,7 +148,7 @@ if ($consumer->verify($_GET, $id)) {
         </para>
 
         <example xml:id="zend.openid.consumer.example-2"><info><title>Das komplette Skript für ein OpenID Login</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $status = "";
@@ -197,7 +197,7 @@ if (isset($_POST['openid_action']) &&
     </section>
 
     <section xml:id="zend.openid.consumer.realm"><info><title>Konsumenten Bereiche</title></info>
-        
+
 
         <para>
             Wenn eine OpenID-aktivierte Site eine Authentifikations Anfrage an einen Provider
@@ -223,7 +223,7 @@ if (isset($_POST['openid_action']) &&
         </para>
 
         <example xml:id="zend.openid.consumer.example-3_2"><info><title>Authentifizierungs Anfrage für spezielle Bereiche</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $consumer = new Zend_OpenId_Consumer();
@@ -242,7 +242,7 @@ if (!$consumer->login($_POST['openid_identifier'],
     </section>
 
     <section xml:id="zend.openid.consumer.check"><info><title>Sofortige Prüfung</title></info>
-        
+
 
         <para>
             In einigen Fällen muß eine Anwendung nur prüfen ob ein Benutzer bereits auf einem
@@ -256,7 +256,7 @@ if (!$consumer->login($_POST['openid_identifier'],
         </para>
 
         <example xml:id="zend.openid.consumer.example-4"><info><title>Sofortige Prüfung ohne Interaktion</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $consumer = new Zend_OpenId_Consumer();
@@ -273,7 +273,7 @@ if (!$consumer->check($_POST['openid_identifier'], 'example-4_3.php')) {
     </section>
 
     <section xml:id="zend.openid.consumer.storage"><info><title>Zend_OpenId_Consumer_Storage</title></info>
-        
+
 
         <para>
             Es gibt drei Schritte beim Authentifizierungs Prozess von OpenID, und jeder wird durch
@@ -307,7 +307,7 @@ if (!$consumer->check($_POST['openid_identifier'], 'example-4_3.php')) {
         </para>
 
         <example xml:id="zend.openid.consumer.example-5"><info><title>Datenbank Speicher</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 class DbStorage extends Zend_OpenId_Consumer_Storage
@@ -519,7 +519,7 @@ $consumer = new Zend_OpenId_Consumer($storage);
     </section>
 
     <section xml:id="zend.openid.consumer.sreg"><info><title>Einfache Registrations Erweiterung</title></info>
-        
+
 
         <para>
             Zusätzlich zur Authentifikation kann OpenID Standard für einen leichtgewichtigen
@@ -614,7 +614,7 @@ $consumer = new Zend_OpenId_Consumer($storage);
         </para>
 
         <example xml:id="zend.openid.consumer.example-6_2"><info><title>Anfragen mit einer einfachen Registrations Erweiterung senden</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $sreg = new Zend_OpenId_Extension_Sreg(array(
@@ -651,7 +651,7 @@ if (!$consumer->login($_POST['openid_identifier'],
         </para>
 
         <example xml:id="zend.openid.consumer.example-6_3"><info><title>Antworten mit einer einfachen Registierungs Erweiterung prüfen</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 $sreg = new Zend_OpenId_Extension_Sreg(array(
@@ -704,7 +704,7 @@ if ($consumer->verify($_GET, $id, $sreg)) {
     </section>
 
     <section xml:id="zend.openid.consumer.auth"><info><title>Integration mit Zend_Auth</title></info>
-        
+
 
         <para>
             Zend Framework bietet eine spezielle Klasse für die Unterstützung von Benutzer
@@ -723,7 +723,7 @@ if ($consumer->verify($_GET, $id, $sreg)) {
         </para>
 
         <example xml:id="zend.openid.consumer.example-7"><info><title>Zend_Auth Adapter für OpenID</title></info>
-            
+
 
             <programlisting language="php"><![CDATA[
 class OpenIdAdapter implements Zend_Auth_Adapter_Interface {
@@ -799,7 +799,7 @@ if ((isset($_POST['openid_action']) &&
     </section>
 
     <section xml:id="zend.openid.consumer.mvc"><info><title>Integration mit Zend_Controller</title></info>
-        
+
 
         <para>
             Zuletzt ein paar Worte über die Integration in Model-View-Controller Anwendungen: Solche

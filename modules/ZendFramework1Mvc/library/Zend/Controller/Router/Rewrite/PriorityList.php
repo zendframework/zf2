@@ -43,7 +43,7 @@ class PriorityList implements \Iterator, \Countable
 
     /**
      * Serial assigned to routes to preserve LIFO
-     * 
+     *
      * @var integer
      */
     protected $_serial = 0;

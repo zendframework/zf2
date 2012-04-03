@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.application.theory-of-operation"><info><title>Теоретические основы работы с Zend_Application</title></info>
-    
+
 
     <para>
         Получение сконфигурированного <acronym>MVC</acronym>-приложения,
@@ -141,7 +141,7 @@
     </para>
 
     <section xml:id="zend.application.theory-of-operation.bootstrap"><info><title>Начальная загрузка</title></info>
-        
+
 
         <para>
             Второй областью отвественности компоненты
@@ -186,7 +186,7 @@ interface Zend_Application_Bootstrap_Bootstrapper
         </para>
 
         <section xml:id="zend.application.theory-of-operation.bootstrap.resource-methods"><info><title>Методы ресурсов</title></info>
-            
+
 
             <para>
                 <classname>Zend_Application_Bootstrap_BootstrapAbstract</classname>
@@ -263,7 +263,7 @@ $bootstrap->bootstrap();
         </section>
 
         <section xml:id="zend.application.theory-of-operation.bootstrap.resource-plugins"><info><title>Загрузки, использующие плагины ресурсов</title></info>
-            
+
 
             <para>
                 Для того, чтобы вы могли сделать свои загрузки более пригодными
@@ -404,7 +404,7 @@ $bootstrap->bootstrap();
         </section>
 
         <section xml:id="zend.application.theory-of-operation.bootstrap.registry"><info><title>Реестр ресурсов</title></info>
-            
+
 
             <para>
                 Большинство, если не все, методы и плагины ресурсов
@@ -505,7 +505,7 @@ class FooController extends Zend_Controller_Action
         </section>
 
         <section xml:id="zend.application.theory-of-operation.bootstrap.dependency-tracking"><info><title>Отслеживание зависимостей</title></info>
-            
+
 
             <para>
                 Кроме выполнения методов и плагинов ресурсов,
@@ -569,7 +569,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     </section>
 
     <section xml:id="zend.application.theory-of-operation.resources"><info><title>Плагины ресурсов</title></info>
-        
+
 
         <para>
             <link linkend="zend.application.theory-of-operation.bootstrap.resource-plugins">Как

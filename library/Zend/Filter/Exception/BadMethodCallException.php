@@ -2,7 +2,7 @@
 
 namespace Zend\Filter\Exception;
 
-class BadMethodCallException 
+class BadMethodCallException
     extends \BadMethodCallException
     implements \Zend\Filter\Exception
 {

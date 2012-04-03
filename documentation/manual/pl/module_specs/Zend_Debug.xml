@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.debug.dumping"><info><title>Wyświetlanie informacji o zmiennych</title></info>
 
-    
+
 
     <para>
         Statyczna metoda <code>Zend_Debug::dump()</code> wyświetla lub zwraca
@@ -11,7 +11,7 @@
     </para>
 
     <example xml:id="zend.debug.dumping.example"><info><title>Przykład użycia metody dump()</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 Zend_Debug::dump($var, $label=null, $echo=true);
 
@@ -49,7 +49,7 @@ Zend_Debug::dump($var, $label=null, $echo=true);
     </para>
 
     <tip><info><title>Usuwanie błędów za pomocą Zend_Log</title></info>
-        
+
         <para>
             Użycie metody <code>Zend_Debug::dump()</code> jest najlepsze do
             doraźnego usuwania błędów podczas tworzenia oprogramowania.

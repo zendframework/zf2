@@ -161,7 +161,7 @@ class SubmitTest extends \PHPUnit_Framework_TestCase
         $submit = new SubmitElement('foo', 'label');
         $submit->setTranslator($translate);
         $submit->setValue($translations['label']);
-        
+
         $this->assertTrue($submit->isChecked());
 
         $submit->setValue('label');
@@ -196,12 +196,12 @@ class SubmitTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('bar', $html);
         $this->assertNotContains('baz', $html);
     }
-    
+
     public function testSetDefaultIgnoredToTrueWhenNotDefined()
     {
         $this->assertTrue($this->element->getIgnore());
     }
-    
+
     /**
      * Prove the fluent interface on Zend_Form_Element_Submit::loadDefaultDecorators
      *

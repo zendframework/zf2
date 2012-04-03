@@ -38,12 +38,12 @@ class AbstractModel
      * @var \Zend\Db\Table\Table
      */
     protected $_db = null;
- 
+
     /**
      * Constructor
-     * 
-     * @param  array $data 
-     * @param  \Zend\Db\Table\AbstractTable $tableGateway 
+     *
+     * @param  array $data
+     * @param  \Zend\Db\Table\AbstractTable $tableGateway
      * @return void
      */
     public function __construct(TableGateway\TableGatewayInterface $tableGateway = null)

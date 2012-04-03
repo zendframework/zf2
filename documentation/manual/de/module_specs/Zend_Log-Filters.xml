@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.filters"><info><title>Filter</title></info>
-    
+
 
     <para>
         Ein Filter Objekt blockiert eine Nachricht damit diese nicht in das Log geschrieben wird.
     </para>
 
     <section xml:id="zend.log.filters.all-writers"><info><title>Filter für alle Writer</title></info>
-        
+
 
         <para>
             Um vor allen Writern zu filtern, kann eine beliebige Anzahl von Filtern zu einem Log
@@ -38,7 +38,7 @@ $logger->emerg('Notfall Nachricht');
     </section>
 
     <section xml:id="zend.log.filters.single-writer"><info><title>Filtern für eine Writer Instanz</title></info>
-        
+
 
         <para>
             Um nur auf eine definierte Writer Instanz zu filtern, muß die

@@ -210,16 +210,16 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
         $validator = new RecordExistsValidator('users', 'field1', 'id != 1');
         $this->assertTrue($validator->isValid('value3'));
     }
-    
+
     public function testEqualsMessageTemplates()
     {
         $validator = new RecordExistsValidator('users', 'field1');
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageTemplates')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageTemplates');
         $property->setAccessible(true);
 
@@ -228,16 +228,16 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
             $validator->getOption('messageTemplates')
         );
     }
-    
+
     public function testEqualsMessageVariables()
     {
         $validator = new RecordExistsValidator('users', 'field1');
         $reflection = new ReflectionClass($validator);
-        
+
         if(!$reflection->hasProperty('_messageVariables')) {
             return;
         }
-        
+
         $property = $reflection->getProperty('_messageVariables');
         $property->setAccessible(true);
 

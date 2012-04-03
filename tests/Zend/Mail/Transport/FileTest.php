@@ -45,7 +45,7 @@ class FileTest extends TestCase
         } else {
             $this->cleanup($this->tempDir);
         }
-        
+
         $fileOptions = new FileOptions(array(
             'path' => $this->tempDir,
         ));

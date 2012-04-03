@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.acl.refining"><info><title>精细的访问控制</title></info>
 
-    
+
 
     <section xml:id="zend.acl.refining.precise"><info><title>精细的访问控制</title></info>
 
-        
+
 
         <para>
             在<link linkend="zend.acl.introduction">前一章节</link>中定义的基本的 ACL 显示如何在整个 ACL (所有的 resources )允许各种各样的权限。然而在实践中，访问控制趋向于拥有例外和可变程度的复杂性。Zend_Acl 允许你直截了当并灵活地完成这些精细准确的控制。
@@ -112,7 +112,7 @@ echo $acl->isAllowed('administrator', 'announcement', 'archive') ?
 
     <section xml:id="zend.acl.refining.removing"><info><title>除去访问控制</title></info>
 
-        
+
 
         <para>
             要从 ACL 中除去一个或多个访问规则，只要简单地用 <code>removeAllow()</code> 或 <code>removeDeny()</code> 方法即可。如果提供一个<code>null</code>参数值给 <code>allow()</code> 和 <code>deny()</code> 方法，则访问规则将应用到所有的角色，资源和/或权限上。

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.debug.dumping"><info><title>Stampa delle variabili</title></info>
 
-    
+
 
     <para>
         Il metodo statico <code>Zend_Debug::dump()</code> stampa o restituisce le informazioni su una espressione.
@@ -9,7 +9,7 @@
     </para>
 
     <example xml:id="zend.debug.dumping.example"><info><title>Esempio del metodo dump()</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 
 Zend_Debug::dump($var, $label=null, $echo=true);
@@ -41,7 +41,7 @@ Zend_Debug::dump($var, $label=null, $echo=true);
     </para>
 
     <tip><info><title>Debug con Zend_Log</title></info>
-        
+
         <para>
             L'utilizzo di <code>Zend_Debug::dump()</code> è conveniente per il debug specifico durante lo sviluppo del software.
             E' possibile inserire o rimuovere rapidamente il codice necessario per stampare una variabile.

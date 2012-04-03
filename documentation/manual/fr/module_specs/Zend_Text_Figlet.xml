@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.text.figlet"><info><title>Zend_Text_Figlet</title></info>
-    
+
 
     <para>
         <classname>Zend_Text_Figlet</classname> est un composant qui permet aux développeurs
@@ -12,7 +12,7 @@
     </para>
 
     <note><info><title>Polices compressée</title></info>
-        
+
 
         <para>
             <classname>Zend_Text_Figlet</classname> supporte les polices compressées en gzip.
@@ -24,7 +24,7 @@
     </note>
 
     <note><info><title>Encodage</title></info>
-        
+
 
         <para>
             <classname>Zend_Text_Figlet</classname> considère que vos chaînes sont encodées en
@@ -102,7 +102,7 @@
         </para>
 
     <example xml:id="zend.text.figlet.example.using"><info><title>Utilisation Zend_Text_Figlet</title></info>
-        
+
 
         <para>
             Cet exemple illustre une utilisation basique de

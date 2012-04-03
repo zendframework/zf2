@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.oauth.introduction.security-architecture"><info><title>Security Architecture</title></info>
-    
+
 
     <para>
         OAuth was designed specifically to operate over an insecure <acronym>HTTP</acronym>

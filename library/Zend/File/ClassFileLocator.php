@@ -11,7 +11,7 @@ use RecursiveIteratorIterator;
 
 /**
  * Locate files containing PHP classes, interfaces, or abstracts
- * 
+ *
  * @package    Zend_File
  * @license    New BSD {@link http://framework.zend.com/license/new-bsd}
  */
@@ -19,11 +19,11 @@ class ClassFileLocator extends FilterIterator
 {
     /**
      * Create an instance of the locator iterator
-     * 
-     * Expects either a directory, or a DirectoryIterator (or its recursive variant) 
+     *
+     * Expects either a directory, or a DirectoryIterator (or its recursive variant)
      * instance.
-     * 
-     * @param  string|DirectoryIterator $dirOrIterator 
+     *
+     * @param  string|DirectoryIterator $dirOrIterator
      * @return void
      */
     public function __construct($dirOrIterator = '.')
@@ -51,14 +51,14 @@ class ClassFileLocator extends FilterIterator
 
     /**
      * Filter for files containing PHP classes, interfaces, or abstracts
-     * 
+     *
      * @return bool
      */
     public function accept()
     {
         $file = $this->getInnerIterator()->current();
 
-        // If we somehow have something other than an SplFileInfo object, just 
+        // If we somehow have something other than an SplFileInfo object, just
         // return false
         if (!$file instanceof \SplFileInfo) {
             return false;
@@ -138,7 +138,7 @@ class ClassFileLocator extends FilterIterator
                         }
                     } while (empty($class) && $i < $count);
 
-                    // If a classname was found, set it in the object, and 
+                    // If a classname was found, set it in the object, and
                     // return boolean true (found)
                     if (!empty($class)) {
                         $file->classname = $class;

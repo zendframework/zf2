@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.writing_validators"><info><title>编写校验器</title></info>
 
-    
+
 
     <para>
         尽管提供了一组通用的校验器，但不可避免地，开发者还将为他们特定的需求来编写定制的校验器。编写定制的校验器的任务将在本节描述。
@@ -25,7 +25,7 @@
 
     <example xml:id="zend.validate.writing_validators.example.simple"><info><title>创建简单校验类</title></info>
 
-        
+
 
         <para>
             下面的例子演示如何编写一个非常简单的定制的校验器。在这个例子中，校验规则简单，输入值必须是浮点数值。
@@ -60,7 +60,7 @@ class MyValid_Float extends Zend_Validate_Abstract
 
     <example xml:id="zend.validate.writing_validators.example.conditions.dependent"><info><title>编写有独立条件的校验类</title></info>
 
-        
+
 
         <para>
             下面的例子演示一组稍微复杂的校验规则，要求输入值是数字并有最小值和最大值的范围。由于下面确切的原因之一，输入值校验失败：
@@ -139,7 +139,7 @@ class MyValid_NumericBetween extends Zend_Validate_Abstract
 
     <example xml:id="zend.validate.writing_validators.example.conditions.independent"><info><title>带有独立条件、多重失败原因的校验</title></info>
 
-        
+
 
         <para>
            考虑编写一个为密码加强强度的校验类－当用户被要求为帮助使用户账户安全而选择符合一定条件的密码。让我们假设口令安全条件加强那个密码：

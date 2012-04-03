@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.log.formatters"><info><title>Formatters</title></info>
-  
+
   <para>
     Formatter是一个负责取得一个描述日志事件的<code>event</code>数组并输出一个格式化的日志行的对象.
   </para>
@@ -11,7 +11,7 @@
   </para>
 
   <section xml:id="zend.log.formatters.simple"><info><title>简单格式化</title></info>
-    
+
     <para>
       <code>Zend_Log_Formatter_Simple</code> 是默认的.当未指定任何formatter时使用.
       默认的配置等同于下面的配置:
@@ -45,7 +45,7 @@ $logger->info('there');
   </section>
 
   <section xml:id="zend.log.formatters.xml"><info><title>格式化到XML</title></info>
-    
+
     <para>
     <code>Zend_Log_Formatter_Xml</code>格式化日志数据到XML字符串中.
     默认,它自动地纪录在事件数据数组中的所有项.

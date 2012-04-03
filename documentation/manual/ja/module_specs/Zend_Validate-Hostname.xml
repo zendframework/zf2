@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.hostname"><info><title>ホスト名</title></info>
 
-    
+
 
     <para>
         <classname>Zend_Validate_Hostname</classname> は、ホスト名が仕様を満たしているかどうかの検証を行います。
@@ -12,12 +12,12 @@
     </para>
 
     <section xml:id="zend.validate.set.hostname.options"><info><title>Supported options for Zend_Validate_Hostname</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Validate_Hostname</classname>:
         </para>
- 
+
         <itemizedlist>
             <listitem>
                 <para>
@@ -53,7 +53,7 @@
     </section>
 
     <section xml:id="zend.validate.set.hostname.basic"><info><title>基本的な使用法</title></info>
-        
+
 
         <para>
            基本的な使用法は、以下のようになります。
@@ -80,7 +80,7 @@ if ($validator->isValid($hostname)) {
     </section>
 
     <section xml:id="zend.validate.set.hostname.types"><info><title>さまざまな形式のホスト名を検証</title></info>
-        
+
 
         <para>
             IP アドレスやローカルホスト名、あるいはその両方を正しいホスト名として認めたいこともあるでしょう。
@@ -121,7 +121,7 @@ $validator = new Zend_Validate_Hostname(Zend_Validate_Hostname::ALLOW_DNS | Zend
     </section>
 
     <section xml:id="zend.validate.set.hostname.idn"><info><title>国際化ドメイン名を検証</title></info>
-        
+
 
         <para>
             国別コードトップレベルドメイン (Country Code Top Level Domains: ccTLDs)
@@ -132,7 +132,7 @@ $validator = new Zend_Validate_Hostname(Zend_Validate_Hostname::ALLOW_DNS | Zend
         </para>
 
         <note><info><title>IDN ドメイン</title></info>
-            
+
 
             <para>
                 これまでに、50以上の ccTLD が <acronym>IDN</acronym> ドメインをサポートします。
@@ -173,7 +173,7 @@ $validator =
         </para>
 
         <note><info><title>IDN 検証</title></info>
-            
+
 
             <para>
                 <acronym>IDN</acronym> の検証は、 <acronym>DNS</acronym> ホスト名の検証を有効にしている場合にのみ行われることに注意しましょう。
@@ -182,7 +182,7 @@ $validator =
     </section>
 
     <section xml:id="zend.validate.set.hostname.tld"><info><title>トップレベルドメインを検証</title></info>
-        
+
 
         <para>
             デフォルトでは、ホスト名の検証は既知の <acronym>TLD</acronym> の一覧に基づいて行われます。
@@ -209,7 +209,7 @@ $validator =
         </para>
 
         <note><info><title>TLD 検証</title></info>
-            
+
 
             <para>
                 <acronym>TLD</acronym> の検証は、 <acronym>DNS</acronym> ホスト名の検証を有効にしている場合にのみ行われることに注意しましょう。

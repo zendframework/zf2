@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.filter.set.callback"><info><title>Callback</title></info>
-    
+
 
     <para>
         This filter allows you to use own methods in conjunction with
@@ -9,7 +9,7 @@
     </para>
 
     <section xml:id="zend.filter.set.callback.options"><info><title>Supported options for Zend_Filter_Callback</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Filter_Callback</classname>:
@@ -33,7 +33,7 @@
     </section>
 
     <section xml:id="zend.filter.set.callback.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             The usage of this filter is quite simple. Let's expect we want to create a filter which
@@ -71,7 +71,7 @@ print $filter->filter('Hello!');
         </para>
 
         <note><info><title>Possible exceptions</title></info>
-            
+
 
             <para>
                 You should note that defining a callback method which can not be called will raise
@@ -81,7 +81,7 @@ print $filter->filter('Hello!');
     </section>
 
     <section xml:id="zend.filter.set.callback.parameters"><info><title>Default parameters within a callback</title></info>
-        
+
 
         <para>
             It is also possible to define default parameters, which are given to the called method

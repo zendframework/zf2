@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.importing"><info><title> 导入Feeds </title></info>
 
-    
+
 
     <para>
         <code>Zend_Feed</code> 能让开发者轻松获得 Feeds 。如果你知道 Feeds 的URI，用<code>Zend_Feed::import()</code>方法就可以非常容易的获得它:
@@ -29,7 +29,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
 
     <section xml:id="zend.feed.importing.custom"><info><title> 定制 feeds </title></info>
 
-        
+
 
         <para>
             <code>Zend_Feed</code> 能让开发者轻松创建定制 feeds，只需要创建一个数组用 Zend_Feed 导入它。这个数组可以用 <code>Zend_Feed::importArray()</code> 或 <code>Zend_Feed::importBuilder()</code> 导入。最后数组用定制的实现了 <code>Zend_Feed_Builder_Interface</code> 数据源来处理。
@@ -37,7 +37,7 @@ $feedFromPHP = Zend_Feed::importString($feedString);
 
         <section xml:id="zend.feed.importing.custom.importarray"><info><title> 导入定制的数组 </title></info>
 
-            
+
 
             <programlisting role="php"><![CDATA[<?php
 // 从数组导入 feed
@@ -186,7 +186,7 @@ array(
 
         <section xml:id="zend.feed.importing.custom.importbuilder"><info><title> 导入定制的数据源 </title></info>
 
-            
+
 
             <para>
                 你可以从任何实现 <code>Zend_Feed_Builder_Interface</code> 的数据源创建 Zeed_Feed 实例，只需要实现 <code>getHeader()</code> 和 <code>getEntries()</code> 方法来和 <code>Zend_Feed::importBuilder()</code> 一起使用你的对象。作为一个简单的参考实现，你可以使用 <code>Zend_Feed_Builder</code> 它在构造器里带有一个数组，执行一些校验，然后可以在 <code>importBuilder()</code> 方法中使用。<code>getHeader()</code> 方法必须返回 <code>Zend_Feed_Builder_Header</code> 的实例， <code>getEntries()</code> 必须返回 <code>Zend_Feed_Builder_Entry</code> 实例的数组。
@@ -217,7 +217,7 @@ $rssFeedFromArray = Zend_Feed::importArray(new Zend_Feed_Builder($array), 'rss')
 
         <section xml:id="zend.feed.importing.custom.dump"><info><title> Dumping feed 内容 </title></info>
 
-            
+
 
             <para>
                 为了 dump <code>Zend_Feed_Abstract</code> 实例的内容，使用 <code>send()</code> 或 <code>saveXml()</code> 方法。

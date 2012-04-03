@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.soap.wsdl"><info><title>WSDL</title></info>
-    
+
 
     <note>
         <para>
@@ -18,7 +18,7 @@
     </note>
 
     <section xml:id="zend.soap.wsdl.constructor"><info><title>Constructeur Zend_Soap_Wsdl</title></info>
-        
+
 
         <para>
             Le constructeur de <classname>Zend_Soap_Wsdl</classname> prend 3 paramètres :
@@ -46,7 +46,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.addmessage"><info><title>addMessage()</title></info>
-        
+
 
         <para>
             <methodname>addMessage($name, $parts)</methodname> ajoute un message de description au
@@ -103,7 +103,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_port_type"><info><title><methodname>addPortType()</methodname></title></info>
-        
+
 
         <para>
             <methodname>addPortType($name)</methodname> ajoute un nouveau type de portage au document WSDL
@@ -122,7 +122,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_port_operation"><info><title><methodname>addPortOperation()</methodname></title></info>
-        
+
 
         <para>
             <code>addPortOperation($portType, $name, $input = false, $output = false, $fault =
@@ -169,7 +169,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_binding"><info><title><methodname>addBinding()</methodname></title></info>
-        
+
 
         <para>
             <methodname>addBinding($name, $portType)</methodname> ajoute de nouvelles correspondances
@@ -195,7 +195,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_binding_operation"><info><title><methodname>addBindingOperation()</methodname></title></info>
-        
+
 
         <para>
             <code>addBindingOperation($binding, $name, $input = false, $output = false, $fault
@@ -223,7 +223,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_soap_binding"><info><title><methodname>addSoapBinding()</methodname></title></info>
-        
+
 
         <para>
             <code>addSoapBinding($binding, $style = 'document', $transport =
@@ -245,7 +245,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_soap_operation"><info><title><methodname>addSoapOperation()</methodname></title></info>
-        
+
 
         <para>
             <methodname>addSoapOperation($binding, $soap_action)</methodname> ajoute une opération <acronym>SOAP</acronym>
@@ -274,7 +274,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.add_service"><info><title><methodname>addService()</methodname></title></info>
-        
+
 
         <para>
             <methodname>addService($name, $port_name, $binding, $location)</methodname> ajoute un élément
@@ -333,7 +333,7 @@
     </section>
 
     <section xml:id="zend.soap.wsdl.types"><info><title>Correspondance de type</title></info>
-        
+
 
         <para>
             Le WSDL de Zend_Soap utilise les correspondances suivantes pour faire correspondre
@@ -401,7 +401,7 @@
         </para>
 
         <section xml:id="zend.soap.wsdl.types.retrieve"><info><title>Récupérer des infos sur les types</title></info>
-            
+
 
             <para>
                 <methodname>getType($type)</methodname> peut être utilisée pour récupérer la
@@ -422,7 +422,7 @@ $soapMyClassType = $wsdl->getType('MyClass');
             </section>
 
             <section xml:id="zend.soap.wsdl.types.add_complex"><info><title>Ajouter des infos sur les types complexes</title></info>
-                
+
 
             <para>
                 <methodname>addComplexType($type)</methodname> est utilisée pour ajouter des types
@@ -535,7 +535,7 @@ $soapMyClassType = $wsdl->getType('MyClass');
     </section>
 
     <section xml:id="zend.soap.wsdl.add_documentation"><info><title><methodname>addDocumentation()</methodname></title></info>
-        
+
 
         <para>
             <methodname>addDocumentation($input_node, $documentation)</methodname> ajoute de la
@@ -555,7 +555,7 @@ $soapMyClassType = $wsdl->getType('MyClass');
     </section>
 
     <section xml:id="zend.soap.wsdl.retrieve"><info><title>Récupérer un document WSDL finalisé</title></info>
-        
+
 
         <para>
             <methodname>toXML()</methodname>, <methodname>toDomDocument()</methodname> et <code>dump($filename =

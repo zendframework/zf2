@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.infocard.basics"><info><title>導入</title></info>
-    
+
 
     <para>
         <classname>Zend_InfoCard</classname> コンポーネントは、
@@ -20,7 +20,7 @@
     </para>
 
     <section xml:id="zend.infocard.basics.theory"><info><title>基本的な使用法</title></info>
-        
+
 
         <para>
             <classname>Zend_InfoCard</classname> の使用法は、
@@ -74,7 +74,7 @@
     </section>
 
     <section xml:id="zend.infocard.basics.auth"><info><title>Zend_Auth の部品としての使用法</title></info>
-        
+
 
         <para>
             このコンポーネントを <classname>Zend_Auth</classname>
@@ -162,7 +162,7 @@ if (isset($_POST['xmlToken'])) {
     </section>
 
     <section xml:id="zend.infocard.basics.standalone"><info><title>Zend_InfoCard コンポーネント単体での使用法</title></info>
-        
+
 
         <para>
             <classname>Zend_InfoCard</classname> コンポーネントを、
@@ -222,7 +222,7 @@ if (isset($_POST['xmlToken'])) {
     </section>
 
     <section xml:id="zend.infocard.basics.claims"><info><title>Claims オブジェクトの使用法</title></info>
-        
+
 
         <para>
             <classname>Zend_InfoCard</classname> の使用方法
@@ -265,7 +265,7 @@ if (isset($_POST['xmlToken'])) {
     </section>
 
     <section xml:id="zend.infocard.basics.attaching"><info><title>既存のアカウントへの情報カードの添付</title></info>
-        
+
 
         <para>
             既存の認証システムに情報カードのサポートを追加することもできます。
@@ -333,7 +333,7 @@ public function submitinfocardAction()
     </section>
 
     <section xml:id="zend.infocard.basics.adapters"><info><title>Zend_InfoCard アダプタの作成</title></info>
-        
+
 
         <para>
             <classname>Zend_InfoCard</classname> コンポーネントは、

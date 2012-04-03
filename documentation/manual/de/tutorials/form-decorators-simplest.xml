@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.form.decorators.simplest"><info><title>Decorator Grundlagen</title></info>
-    
+
 
     <section xml:id="learning.form.decorators.simplest.decorator-overview"><info><title>Übersicht über das Decorator Pattern</title></info>
-        
+
 
         <para>
             Am Beginn behandeln wir einige Hintergründe des <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Decorator_pattern">Decorator Design
@@ -155,7 +155,7 @@ class TextPerson
     </section>
 
     <section xml:id="learning.form.decorators.simplest.first-decorator"><info><title>Den ersten Decorator erstellen</title></info>
-        
+
 
         <para>
             <classname>Zend_Form</classname> Decorators implementieren alle ein gemeinsames

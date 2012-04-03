@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.identical"><info><title>Identical</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_Identical</classname> allows you to validate if a given value is
@@ -8,7 +8,7 @@
     </para>
 
     <section xml:id="zend.validate.set.identical.options"><info><title>Supported options for Zend_Validate_Identical</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Validate_Identical</classname>:
@@ -32,7 +32,7 @@
     </section>
 
     <section xml:id="zend.validate.set.identical.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             To validate if two values are identical you need to set the origin value as haystack.
@@ -59,7 +59,7 @@ if ($valid->isValid($value) {
     </section>
 
     <section xml:id="zend.validate.set.identical.types"><info><title>Identical objects</title></info>
-        
+
 
         <para>
             Of course <classname>Zend_Validate_Identical</classname> can not only validate strings,
@@ -77,7 +77,7 @@ if ($valid->isValid($input)) {
 ]]></programlisting>
 
         <note><info><title>Type comparison</title></info>
-            
+
 
             <para>
                 You should be aware that also the type of a variable is used for validation.
@@ -89,7 +89,7 @@ if ($valid->isValid($input)) {
     </section>
 
     <section xml:id="zend.validate.set.identical.formelements"><info><title>Form elements</title></info>
-        
+
 
         <para>
             <classname>Zend_Validate_Identical</classname> supports also the comparison of form
@@ -115,7 +115,7 @@ $form->addElement('password', 'elementTwo', array(
     </section>
 
     <section xml:id="zend.validate.set.identical.strict"><info><title>Strict validation</title></info>
-        
+
 
         <para>
             As mentioned before <classname>Zend_Validate_Identical</classname> validates tokens
@@ -146,7 +146,7 @@ if ($valid->isValid($input)) {
     </section>
 
     <section xml:id="zend.validate.set.identical.configuration"><info><title>Configuration</title></info>
-        
+
 
         <para>
             As all other validators also <classname>Zend_Validate_Identical</classname> supports

@@ -38,8 +38,8 @@ class AuthenticationService
 
     /**
      * Constructor
-     * 
-     * @param  Storage $storage 
+     *
+     * @param  Storage $storage
      * @return void
      */
     public function __construct(Storage $storage = null)

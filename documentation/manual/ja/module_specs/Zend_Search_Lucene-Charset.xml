@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.search.lucene.charset"><info><title>文字セット</title></info>
-    
+
 
     <section xml:id="zend.search.lucene.charset.description"><info><title>UTF-8 およびシングルバイト文字セットのサポート</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> は、内部的には UTF-8 文字セットで動作します。
@@ -37,7 +37,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.charset.default_analyzer"><info><title>デフォルトのテキスト解析器</title></info>
-        
+
         <para>
             しかし、デフォルトのテキスト解析器
             (クエリパーサの中でもこれが用いられます) は、
@@ -60,7 +60,7 @@
         </para>
 
         <note><info><title/></info>
-            
+
             <para>
                 デフォルトの解析器は、数字は単語の一部として扱いません。
                 数字で単語を分断されたくない場合は、'Num' 解析器を使用しましょう。
@@ -69,7 +69,7 @@
     </section>
 
     <section xml:id="zend.search.lucene.charset.utf_analyzer"><info><title>UTF-8 互換のテキスト解析器</title></info>
-        
+
 
         <para>
             <classname>Zend_Search_Lucene</classname> には、
@@ -90,7 +90,7 @@ Zend_Search_Lucene_Analysis_Analyzer::setDefault(
         </para>
 
         <warning><info><title/></info>
-            
+
             <para>
                 UTF-8 互換の解析器は Zend Framework 1.5 で改良されました。
                 以前のバージョンの解析器は非アスキーキャラクタをすべて文字とみなしていましたが、

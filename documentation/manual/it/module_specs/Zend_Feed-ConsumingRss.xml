@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.consuming-rss"><info><title>Lettura di un feed RSS</title></info>
-    
+
 
     <para>
         Leggere un feed RSS è tanto semplice quanto creare un'istanza di un nuovo oggetto <code>Zend_Feed_Rss</code> con l'URL del feed:

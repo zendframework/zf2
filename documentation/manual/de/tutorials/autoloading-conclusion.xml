@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="learning.autoloading.conclusion"><info><title>Zusammenfassung</title></info>
-    
+
 
     <para>
         Zend Framework empfiehlt die Verwendung von Autoloading, und initialisiert es standardmäßig

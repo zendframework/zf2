@@ -457,12 +457,12 @@ class File extends Xhtml
         if (!$this->_validated) {
             $disabled = $this->isValueDisabled();
             $this->setValueDisabled(false);
-            
+
             if (!$this->isValid($this->getName())) {
                 $this->setValueDisabled($disabled);
                 return false;
             }
-            
+
             $this->setValueDisabled($disabled);
         }
 

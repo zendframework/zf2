@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.feed.custom-feed"><info><title>Własne klasy kanału i wpisu</title></info>
-    
+
 
     <para>
         Ostatecznie możesz rozszerzyć klasę <code>Zend_Feed</code> jeśli chcesz
@@ -16,7 +16,7 @@
     </para>
 
     <example xml:id="zend.feed.custom-feed.example.extending"><info><title>Rozszerzanie klasy wpisu Atom z własnymi przestrzeniami nazw</title></info>
-        
+
         <programlisting role="php"><![CDATA[
 /**
  * Własna klasa wpisu może automatycznie nadawać adres URI (opcjonalnie)

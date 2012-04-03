@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.dojo.view"><info><title>Ayudantes de Dojo View</title></info>
-    
+
 
     <para>Zend Framework provee los siguientes ayudantes específicos de Dojo:</para>
 
@@ -19,7 +19,7 @@
     </itemizedlist>
 
     <example xml:id="zend.dojo.view.setup"><info><title>Usando los Ayudantes de Dojo View</title></info>
-        
+
 
         <para>
             Para utilizar los ayudantes de vista de Dojo, necesitará decirle a un objeto vista

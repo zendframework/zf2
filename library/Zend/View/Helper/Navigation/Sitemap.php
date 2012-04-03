@@ -439,8 +439,8 @@ class Sitemap extends AbstractHelper
      *
      * Implements {@link Helper::render()}.
      *
-     * @param  Container $container [optional] container to render. Default is 
-     *                              to render the container registered in the 
+     * @param  Container $container [optional] container to render. Default is
+     *                              to render the container registered in the
      *                              helper.
      * @return string               helper output
      */

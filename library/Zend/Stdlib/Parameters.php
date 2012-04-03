@@ -11,8 +11,8 @@ class Parameters extends ArrayObject implements ParametersDescription
      *
      * Enforces that we have an array, and enforces parameter access to array
      * elements.
-     * 
-     * @param  array $values 
+     *
+     * @param  array $values
      * @return void
      */
     public function __construct(array $values = null)
@@ -25,8 +25,8 @@ class Parameters extends ArrayObject implements ParametersDescription
 
     /**
      * Populate from native PHP array
-     * 
-     * @param  array $values 
+     *
+     * @param  array $values
      * @return void
      */
     public function fromArray(array $values)
@@ -36,8 +36,8 @@ class Parameters extends ArrayObject implements ParametersDescription
 
     /**
      * Populate from query string
-     * 
-     * @param  string $string 
+     *
+     * @param  string $string
      * @return void
      */
     public function fromString($string)
@@ -49,7 +49,7 @@ class Parameters extends ArrayObject implements ParametersDescription
 
     /**
      * Serialize to native PHP array
-     * 
+     *
      * @return array
      */
     public function toArray()
@@ -59,7 +59,7 @@ class Parameters extends ArrayObject implements ParametersDescription
 
     /**
      * Serialize to query string
-     * 
+     *
      * @return string
      */
     public function toString()
@@ -71,8 +71,8 @@ class Parameters extends ArrayObject implements ParametersDescription
      * Retrieve by key
      *
      * Returns null if the key does not exist.
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return mixed
      */
     public function offsetGet($name)
@@ -82,7 +82,7 @@ class Parameters extends ArrayObject implements ParametersDescription
         }
         return null;
     }
-    
+
     /**
      * @param string $name
      * @param mixed $default optional default value
@@ -95,7 +95,7 @@ class Parameters extends ArrayObject implements ParametersDescription
         }
         return $default;
     }
-    
+
     /**
      * @param string $name
      * @param mixed $value

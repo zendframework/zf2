@@ -40,17 +40,17 @@ class Helper
      * LiveDocx registration URL
      */
     const REGISTRATION_URL = 'https://www.livedocx.com/user/account_registration.aspx';
-        
+
     /**
      * Line length in characters (used to wrap long lines)
      */
     const LINE_LENGTH = 80;
-    
+
     /**
      * Default locale
      */
     const LOCALE = 'en_US';
-    
+
 
     /**
      * Return filename of configuration file (path + file)
@@ -76,7 +76,7 @@ class Helper
      * Return true, if configuration file exists and constants
      * DEMOS_ZEND_SERVICE_LIVEDOCX_USERNAME and
      * DEMOS_ZEND_SERVICE_LIVEDOCX_PASSWORD have been set.
-     *  
+     *
      * @return boolean
      */
     public static function credentialsAvailable()
@@ -93,14 +93,14 @@ class Helper
                     $ret = true;
                 }
         }
-        
+
         return $ret;
-    } 
-    
+    }
+
     /**
      * Return instructions on how to register to use LiveDocx service and enter
      * username and password into configuration file.
-     * 
+     *
      * @return string
      */
     public static function credentialsHowTo()
@@ -128,10 +128,10 @@ class Helper
         $ret .=                                                                               PHP_EOL;
         $ret .= sprintf('6. Rerun this demonstration application.%s',                         PHP_EOL);
         $ret .=                                                                               PHP_EOL;
-        
+
         return $ret;
     }
-    
+
     /**
      * Decorator to format return value of list methods
      *
@@ -141,9 +141,9 @@ class Helper
     public static function listDecorator($result)
     {
         $ret = '';
-        
+
         $date = new Date();
-        
+
         if (count($result) > 0) {
             foreach ($result as $record) {
                 $date->set($record['createTime']);
@@ -157,12 +157,12 @@ class Helper
                 $ret .= PHP_EOL;
             }
         }
-        
+
         unset($date);
-        
+
         return $ret;
     }
-    
+
     /**
      * Decorator to format array
      *

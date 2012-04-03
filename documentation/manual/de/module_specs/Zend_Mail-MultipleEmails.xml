@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.mail.multiple-emails"><info><title>Versand von mehreren E-Mails über eine SMTP Verbindung</title></info>
-    
+
 
     <para>
         Standardmäßig erstellt ein einzelner SMTP Transport eine einzelne Verbindung und verwendet
@@ -20,7 +20,7 @@
     </para>
 
     <example xml:id="zend.mail.multiple-emails.example-1"><info><title>Versand von mehreren E-Mails über eine SMTP Verbindung</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // Transport erstellen
@@ -58,7 +58,7 @@ Zend_Mail::clearDefaultReplyTo();
     </para>
 
     <example xml:id="zend.mail.multiple-emails.example-2"><info><title>Die Transportverbindung manuell kontrollieren</title></info>
-        
+
 
         <programlisting language="php"><![CDATA[
 // Transport erstellen

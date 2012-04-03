@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.messages"><info><title>Prüfungsmeldungen</title></info>
-    
+
 
     <para>
         Jede Prüfung die auf <classname>Zend_Validate</classname> basiert, bietet im Fall einer
@@ -58,7 +58,7 @@ $validator->setMessage(
     </para>
 
     <section xml:id="zend.validate.messages.pretranslated"><info><title>Verwendung vor-übersetzter Prüfungsmeldungen</title></info>
-        
+
 
         <para>
             Zend Framework wird mit mehr als 45 unterschiedlichen Prüfern und mehr als 200
@@ -70,7 +70,7 @@ $validator->setMessage(
         </para>
 
         <note><info><title>Verwendeter Pfad</title></info>
-            
+
 
             <para>
                 Die Ressource Dateien liegen ausserhalb des Bibliothekspfads weil alle Übersetzungen
@@ -97,7 +97,7 @@ Zend_Validate_Abstract::setDefaultTranslator($translator);
 ]]></programlisting>
 
         <note><info><title>Verwendeter Übersetzungsadapter</title></info>
-            
+
 
             <para>
                 Als Übersetzungsadapter hat Zend Framework den Array Adapter ausgewählt. Er ist
@@ -106,7 +106,7 @@ Zend_Validate_Abstract::setDefaultTranslator($translator);
         </note>
 
         <note><info><title>Unterstützte Sprachen</title></info>
-            
+
 
             <para>
                 Dieses Feature ist sehr jung, und deshalb ist die Anzahl der unterstützten Sprachen
@@ -123,7 +123,7 @@ Zend_Validate_Abstract::setDefaultTranslator($translator);
     </section>
 
     <section xml:id="zend.validate.messages.limitation"><info><title>Begrenzen der Größe einer Prüfungsmeldung</title></info>
-        
+
 
         <para>
             Manchmal ist es notwendig die maximale Größe die eine Prüfungsmeldung haben kann zu
@@ -153,7 +153,7 @@ Zend_Validate::setMessageLength(100);
 ]]></programlisting>
 
         <note><info><title>Wo wird dieser Parameter verwendet?</title></info>
-            
+
 
             <para>
                 Die gesetzte Länge der Nachrichten wird für alle Prüfungen verwendet, sogar für

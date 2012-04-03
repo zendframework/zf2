@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="performance.database"><info><title>Zend_Db שימוש נכון למיטב הביצועים</title></info>
-    
+
 
     <para>
         <code>Zend_Db</code> הינה בסיס שכבות למחלקות אשר מטפלות במסדי נתונים, ונועדה
@@ -13,7 +13,7 @@
 
     <section xml:id="performance.database.tableMetadata"><info><title>אין ניתן להפחית את כמות המשאבים שצורכת המחלקה של Zend_Db_Table
                בזמן שליפת נתונים אודות טבלה/טבלאות?</title></info>
-        
+
 
         <para>
             כדי לייעל ולפשט את השימוש כמה שניתן, ועדיין לתמוך בתרשים מסד הנתונים גם כשהוא משתנה תוך כדי פיתוח,
@@ -27,7 +27,7 @@
         </para>
 
         <section xml:id="performance.database.tableMetadata.cache"><info><title>שימוש במטמון אודות הנתונים של המסד</title></info>
-            
+
 
             <para>
                 <code>Zend_Db_Table</code> יכולה להשתמש ב <code>Zend_Cache</code> כדי לשמור את הנתונים אודות התרשים של מסד הנתונים שנשלף במטמון.
@@ -41,7 +41,7 @@
         </section>
 
         <section xml:id="performance.database.tableMetadata.hardcoding"><info><title>כתיבה ידנית של המידע אודות הטבלה בהגדרות של אותה טבלה</title></info>
-            
+
 
             <para>
                 מאז גרסא 1.7.0, <code>Zend_Db_Table</code> מאפשר תמיכה ב <link linkend="zend.db.table.metadata.caching.hardcoding">כתיבה ידנית של המידע אודות הטבלה בהגדרות של אותה טבלה</link>.
@@ -51,7 +51,7 @@
     </section>
 
     <section xml:id="performance.database.select"><info><title>פקודות SQL אשר נוצרו בעזרת Zend_Db_Select לא משתמשות באינדקסים של הטבלה; כיצד ניתן לשפר זאת?</title></info>
-        
+
 
         <para>
             <code>Zend_Db_Select</code> בהחלט עושה עבודה טובה במה שהוא אמור לעשות.
@@ -59,7 +59,7 @@
         </para>
 
         <section xml:id="performance.database.select.writeyourown"><info><title>כתבו את פונקציות השליפה כנגד מסד הנתונים בעצמכם</title></info>
-            
+
 
             <para>
                 התשובה האמיתית היחידה היא כתיבת פונקציות שליפת הנתונים שלכם בעצמכם;

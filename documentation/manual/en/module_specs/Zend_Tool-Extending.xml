@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.tool.extending"><info><title>Extending Zend_Tool</title></info>
-    
+
 
     <section xml:id="zend.tool.extending.overview"><info><title>Overview of Zend_Tool</title></info>
-        
+
 
         <para>
             <classname>Zend_Tool_Framework</classname> is a framework for exposing common
@@ -26,10 +26,10 @@
     </section>
 
     <section xml:id="zend.tool.extending.zend-tool-framework"><info><title>Zend_Tool_Framework Extensions</title></info>
-        
+
 
         <section xml:id="zend.tool.extending.zend-tool-framework.architecture"><info><title>Overall Architecture</title></info>
-            
+
 
             <para>
                 <classname>Zend_Tool_Framework</classname> provides the following:
@@ -143,7 +143,7 @@
         </section>
 
         <section xml:id="zend.tool.extending.zend-tool-framework.cli-client"><info><title>Understanding the CLI Client</title></info>
-            
+
 
             <para>
                 The <acronym>CLI</acronym>, or command line tool (internally known as the console
@@ -156,7 +156,7 @@
             </para>
 
             <section xml:id="zend.tool.extending.zend-tool-framework.cli-client.setup-general"><info><title>Setting up the CLI tool</title></info>
-                
+
 
                 <para>
                     To issue tooling requests via the command line client, you first
@@ -215,7 +215,7 @@
             </section>
 
             <section xml:id="zend.tool.extending.zend-tool-framework.cli-client.setup-starnix"><info><title>Setting up the CLI tool on Unix-like Systems</title></info>
-                
+
 
                 <para>
                     The most common setup in the *nix environment, is to copy the
@@ -305,7 +305,7 @@ ln -s /home/username/lib/ZendFramework/bin/zf.sh /home/username/bin/zf
             </section>
 
             <section xml:id="zend.tool.extending.zend-tool-framework.cli-client.setup-windows"><info><title>Setting up the CLI tool on Windows</title></info>
-                
+
 
                 <para>
                     The most common setup in the Windows Win32 environment, is to copy
@@ -379,7 +379,7 @@ C:\WAMP\PHP\bin
             </section>
 
             <section xml:id="zend.tool.extending.zend-tool-framework.cli-client.setup-othernotes"><info><title>Other Setup Considerations</title></info>
-                
+
 
                 <para>
                     If for some reason you do not want Zend Framework library inside
@@ -407,7 +407,7 @@ C:\WAMP\PHP\bin
         </section>
 
         <section xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests"><info><title>Creating Providers</title></info>
-            
+
 
             <para>
                 In general, a provider, on its own, is nothing more than the shell for a
@@ -417,7 +417,7 @@ C:\WAMP\PHP\bin
             </para>
 
             <section xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests.loading"><info><title>How Zend_Tool finds your Providers</title></info>
-                
+
 
                 <para>
                     By default <classname>Zend_Tool</classname> uses the BasicLoader to find all
@@ -472,7 +472,7 @@ C:\WAMP\PHP\bin
                 </note>
 
                 <example xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests.loading.example"><info><title>Exposing Your Providers with a Manifest</title></info>
-                    
+
 
                     <para>
                         You can expose your providers to <classname>Zend_Tool</classname> by
@@ -501,7 +501,7 @@ class My_Component_Manifest
             </section>
 
             <section xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests.basic"><info><title>Basic Instructions for Creating Providers</title></info>
-                
+
 
                 <para>
                     As an example, if a developer wants to add the capability of showing
@@ -539,7 +539,7 @@ Hello from my provider!
             </section>
 
             <section xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests.response"><info><title>The response object</title></info>
-                
+
 
                 <para>
                     As discussed in the architecture section <classname>Zend_Tool</classname> allows
@@ -571,10 +571,10 @@ class My_Component_HelloProvider
             </section>
 
             <section xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests.advanced"><info><title>Advanced Development Information</title></info>
-                
+
 
                 <section xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests.advanced.variables"><info><title>Passing Variables to a Provider</title></info>
-                    
+
 
                     <para>
                         The above "Hello World" example is great for simple commands, but
@@ -616,7 +616,7 @@ class My_Component_HelloProvider
                 </section>
 
                 <section xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests.advanced.prompt"><info><title>Prompt the User for Input</title></info>
-                    
+
 
                     <para>
                         There are cases when the workflow of your provider requires
@@ -648,7 +648,7 @@ class My_Component_HelloProvider
                 </section>
 
                 <section xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests.advanced.pretendable"><info><title>Pretending to execute a Provider Action</title></info>
-                    
+
 
                     <para>
                         Another interesting feature you might wish to implement is
@@ -696,7 +696,7 @@ I would say hello Ralph.
                 </section>
 
                 <section xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests.advanced.verbosedebug"><info><title>Verbose and Debug modes</title></info>
-                    
+
 
                     <para>
                         You can also run your provider actions in "verbose" or "debug" modes.
@@ -723,7 +723,7 @@ class My_Component_HelloProvider
                 </section>
 
                 <section xml:id="zend.tool.extending.zend-tool-framework.providers-and-manifests.advanced.configstorage"><info><title>Accessing User Config and Storage</title></info>
-                    
+
 
                     <para>
                         Using the Enviroment variable <property>ZF_CONFIG_FILE</property> or the
@@ -806,7 +806,7 @@ class Zend_Tool_Framework_Client_Storage
     </section>
 
     <section xml:id="zend.tool.extending.zend-tool-project"><info><title>Zend_Tool_Project Extensions</title></info>
-        
+
 
         <para>
             <classname>Zend_Tool_Project</classname> exposes a rich set of functionality and
@@ -815,7 +815,7 @@ class Zend_Tool_Framework_Client_Storage
         </para>
 
         <section xml:id="zend.tool.extending.zend-tool-project.architecture"><info><title>Overall Architecture</title></info>
-            
+
 
             <para>
                 This same concept applies to Zend Framework projects. In Zend Framework projects,
@@ -846,7 +846,7 @@ class Zend_Tool_Framework_Client_Storage
 
 
         <section xml:id="zend.tool.extending.zend-tool-project.providers"><info><title>Creating Providers</title></info>
-            
+
 
             <para>
                 Project specific providers are created in the same fashion as plain framework

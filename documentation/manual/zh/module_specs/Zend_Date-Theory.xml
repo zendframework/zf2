@@ -3,7 +3,7 @@
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.date.definition.theory"><info><title> 操作理论 </title></info>
 
-    
+
 
     <para>
         为什么在 Zend Framework 中只有一个 <code>Zend_Date</code> 类来处理日期和时间？
@@ -15,7 +15,7 @@
 
     <section xml:id="zend.date.theory.internals"><info><title> 内部（Internals）</title></info>
 
-        
+
 
         <para>
             <itemizedlist mark="opencircle">

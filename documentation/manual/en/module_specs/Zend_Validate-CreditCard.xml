@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.validate.set.creditcard"><info><title>CreditCard</title></info>
-    
+
 
     <para>
         <classname>Zend_Validate_CreditCard</classname> allows you to validate if a given value
@@ -85,7 +85,7 @@
     </itemizedlist>
 
     <note><info><title>Invalid institutes</title></info>
-        
+
 
         <para>
             The institutes <emphasis>Bankcard</emphasis> and <emphasis>Diners Club
@@ -99,7 +99,7 @@
     </note>
 
     <section xml:id="zend.validate.set.creditcard.options"><info><title>Supported options for Zend_Validate_CreditCard</title></info>
-        
+
 
         <para>
             The following options are supported for <classname>Zend_Validate_CreditCard</classname>:
@@ -123,7 +123,7 @@
     </section>
 
     <section xml:id="zend.validate.set.creditcard.basic"><info><title>Basic usage</title></info>
-        
+
 
         <para>
             There are several credit card institutes which can be validated by
@@ -146,7 +146,7 @@ if ($valid->isValid($input)) {
     </section>
 
     <section xml:id="zend.validate.set.creditcard.institute"><info><title>Accepting defined credit cards</title></info>
-        
+
 
         <para>
             Sometimes it is necessary to accept only defined credit card institutes instead of all;
@@ -194,7 +194,7 @@ $valid = new Zend_Validate_CreditCard(array(
 ]]></programlisting>
 
         <table xml:id="zend.validate.set.creditcard.institute.table"><info><title>Constants for credit card institutes</title></info>
-            
+
 
             <tgroup cols="2">
                 <thead>
@@ -288,7 +288,7 @@ $valid->setType(array(
 ]]></programlisting>
 
         <note><info><title>Default institute</title></info>
-            
+
 
             <para>
                 When no institute is given at initiation then <constant>ALL</constant> will be
@@ -303,7 +303,7 @@ $valid->setType(array(
     </section>
 
     <section xml:id="zend.validate.set.creditcard.servicecheck"><info><title>Validation by using foreign APIs</title></info>
-        
+
 
         <para>
             As said before <classname>Zend_Validate_CreditCard</classname> will only validate

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.controller.router.routes.rest"><info><title>Zend_Rest_Route</title></info>
-    
+
 
     <para>
         <classname>Zend_Rest</classname>コンポーネントは、
@@ -12,7 +12,7 @@
     </para>
 
     <table frame="all"><info><title>Zend_Rest_Route Behavior</title></info>
-        
+
 
         <tgroup cols="3" align="left" colsep="1" rowsep="1">
             <colspec colname="method"/>
@@ -70,7 +70,7 @@
     </table>
 
     <section xml:id="zend.rest.route_usage"><info><title>Zend_Rest_Route 利用法</title></info>
-        
+
 
     <para>
         <classname>Zend_Rest_Route</classname>をアプリケーション全てで有効にするには、
@@ -119,7 +119,7 @@ $front->getRouter()->addRoute('rest', $restRoute);
 
     <!-- TODO : to be translated -->
     <section xml:id="zend.rest.route_config"><info><title>Zend_Rest_Route with Zend_Config_Ini</title></info>
-        
+
 
     <para>
         To use <classname>Zend_Rest_Route</classname> from an <acronym>INI</acronym> config file, use a route type
@@ -154,7 +154,7 @@ $router->addConfig($config, 'routes');
     </section>
 
     <section xml:id="zend.rest.controller"><info><title>Zend_Rest_Controller</title></info>
-        
+
 
         <para>
             <classname>Zend_Rest_Route</classname>を使う

@@ -2,7 +2,7 @@
 
 
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.rest.introduction"><info><title>Einführung</title></info>
-    
+
 
     <para>
         REST Web Services verwenden ein service-spezifisches <acronym>XML</acronym> Format. Dieser
