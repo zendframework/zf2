@@ -21,8 +21,8 @@
 
 namespace Zend\Mail\Storage\Message;
 
-use Zend\Mail\Storage\MailMessage,
-    Zend\Mail\Storage\Part\File as FilePart;
+use Zend\Mail\Storage\MailMessage;
+use Zend\Mail\Storage\Part\File as FilePart;
 
 /**
  * @category   Zend

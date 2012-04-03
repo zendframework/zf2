@@ -21,15 +21,15 @@
 
 namespace ZendTest\Form;
 
-use Zend\Form\Form,
-    Zend\Form\DisplayGroup,
-    Zend\Form\Decorator,
-    Zend\Form\Element,
-    Zend\Config\Config,
-    Zend\Loader\PrefixPathLoader as PluginLoader,
-    Zend\Registry,
-    Zend\Translator\Translator,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Form;
+use Zend\Form\DisplayGroup;
+use Zend\Form\Decorator;
+use Zend\Form\Element;
+use Zend\Config\Config;
+use Zend\Loader\PrefixPathLoader as PluginLoader;
+use Zend\Registry;
+use Zend\Translator\Translator;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * @category   Zend

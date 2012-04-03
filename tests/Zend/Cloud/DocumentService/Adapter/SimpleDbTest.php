@@ -21,11 +21,11 @@
 
 namespace ZendTest\Cloud\DocumentService\Adapter;
 
-use ZendTest\Cloud\DocumentService\TestCase,
-    Zend\Cloud\DocumentService\Adapter\SimpleDb as AdapterSimpleDb,
-    Zend\Cloud\DocumentService\Document,
-    Zend\Cloud\DocumentService\Factory,
-    Zend\Config;
+use ZendTest\Cloud\DocumentService\TestCase;
+use Zend\Cloud\DocumentService\Adapter\SimpleDb as AdapterSimpleDb;
+use Zend\Cloud\DocumentService\Document;
+use Zend\Cloud\DocumentService\Factory;
+use Zend\Config;
 
 // Call ZendTest\Cloud\DocumentService\Adapter\SimpleDbTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {

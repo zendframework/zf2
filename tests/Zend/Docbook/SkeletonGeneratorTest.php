@@ -2,8 +2,8 @@
 
 namespace ZendTest\Docbook;
 
-use DOMDocument,
-    DOMXPath,
+use DOMDocument;
+use DOMXPath,
     PHPUnit_Framework_TestCase as TestCase,
     Zend\Docbook\ClassParser,
     Zend\Docbook\SkeletonGenerator,

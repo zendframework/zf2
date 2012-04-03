@@ -21,10 +21,10 @@
 
 namespace Zend\Mvc\Router\Http;
 
-use Traversable,
-    Zend\Stdlib\ArrayUtils,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Mvc\Router\Exception;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Stdlib\RequestDescription as Request;
+use Zend\Mvc\Router\Exception;
 
 /**
  * Segment route.

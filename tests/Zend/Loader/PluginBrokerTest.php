@@ -21,9 +21,9 @@
 
 namespace ZendTest\Loader;
 
-use stdClass,
-    Zend\Loader\PluginBroker,
-    Zend\Loader\PluginClassLoader;
+use stdClass;
+use Zend\Loader\PluginBroker;
+use Zend\Loader\PluginClassLoader;
 
 /**
  * @category   Zend

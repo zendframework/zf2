@@ -21,9 +21,9 @@
 
 namespace Zend\Service\Amazon\SimpleDb;
 
-use Zend\Crypt,
-    Zend\Http,
-    Zend\Uri;
+use Zend\Crypt;
+use Zend\Http;
+use Zend\Uri;
 
 /**
  * @category   Zend

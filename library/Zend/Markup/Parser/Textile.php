@@ -21,8 +21,8 @@
 
 namespace Zend\Markup\Parser;
 
-use Zend\Markup\Parser,
-    Zend\Markup;
+use Zend\Markup\Parser;
+use Zend\Markup;
 
 /**
  * @uses       \Zend\Markup\Parser\Exception

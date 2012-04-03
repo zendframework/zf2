@@ -21,10 +21,10 @@
 
 namespace Zend\Markup\Renderer\Markup;
 
-use Zend\Markup\Renderer\Markup,
-    Zend\Markup\Renderer\AbstractRenderer,
-    Zend\Filter\Filter,
-    Zend\Filter\FilterChain;
+use Zend\Markup\Renderer\Markup;
+use Zend\Markup\Renderer\AbstractRenderer;
+use Zend\Filter\Filter;
+use Zend\Filter\FilterChain;
 
 /**
  * Abstract markup

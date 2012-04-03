@@ -21,10 +21,10 @@
  */
 
 namespace Zend\Http\Client\Adapter;
-use Zend\Http\Client\Adapter as HttpAdapter,
-    Zend\Http\Client\Adapter\Exception as AdapterException,
-    Zend\Http\Client,
-    Zend\Http\Request;
+use Zend\Http\Client\Adapter as HttpAdapter;
+use Zend\Http\Client\Adapter\Exception as AdapterException;
+use Zend\Http\Client;
+use Zend\Http\Request;
 
 /**
  * An adapter class for Zend\Http\Client based on the curl extension.

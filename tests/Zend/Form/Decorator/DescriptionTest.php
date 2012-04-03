@@ -21,10 +21,10 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Decorator\Description as DescriptionDecorator,
-    Zend\Form\Element,
-    Zend\Translator\Translator,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Decorator\Description as DescriptionDecorator;
+use Zend\Form\Element;
+use Zend\Translator\Translator;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Decorator_Description

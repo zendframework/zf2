@@ -21,9 +21,9 @@
 
 namespace ZendTest\Controller\Action\Helper;
 
-use Zend\Json,
-    Zend\Controller\Front as FrontController,
-    Zend\Layout;
+use Zend\Json;
+use Zend\Controller\Front as FrontController;
+use Zend\Layout;
 
 
 /**

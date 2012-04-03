@@ -21,10 +21,10 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application,
-    Zend\Application\Resource\Router as RouterResource,
-    Zend\Controller\Front as FrontController;
+use Zend\Loader\Autoloader;
+use Zend\Application;
+use Zend\Application\Resource\Router as RouterResource;
+use Zend\Controller\Front as FrontController;
 
 /**
  * @category   Zend

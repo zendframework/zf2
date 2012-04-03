@@ -20,8 +20,8 @@
 
 namespace Zend\Code\Reflection;
 
-use ReflectionParameter,
-    Zend\Code\Reflection;
+use ReflectionParameter;
+use Zend\Code\Reflection;
 
 /**
  * @uses       ReflectionParameter

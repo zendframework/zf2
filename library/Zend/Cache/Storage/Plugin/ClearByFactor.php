@@ -21,11 +21,11 @@
 
 namespace Zend\Cache\Storage\Plugin;
 
-use Traversable,
-    Zend\EventManager\EventCollection,
-    Zend\Cache\Exception,
-    Zend\Cache\Storage\Adapter,
-    Zend\Cache\Storage\PostEvent;
+use Traversable;
+use Zend\EventManager\EventCollection;
+use Zend\Cache\Exception;
+use Zend\Cache\Storage\Adapter;
+use Zend\Cache\Storage\PostEvent;
 
 /**
  * @category   Zend

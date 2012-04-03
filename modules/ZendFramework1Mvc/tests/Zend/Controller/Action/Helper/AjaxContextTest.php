@@ -21,8 +21,8 @@
 
 namespace ZendTest\Controller\Action\Helper;
 
-use Zend\Controller\Front as FrontController,
-    Zend\Layout;
+use Zend\Controller\Front as FrontController;
+use Zend\Layout;
 
 /**
  * Test class for Zend_Controller_Action_Helper_AjaxContext.

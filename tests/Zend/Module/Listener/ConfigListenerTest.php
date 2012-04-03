@@ -2,8 +2,8 @@
 
 namespace ZendTest\Module\Listener;
 
-use ArrayObject,
-    InvalidArgumentException,
+use ArrayObject;
+use InvalidArgumentException,
     PHPUnit_Framework_TestCase as TestCase,
     Zend\Loader\AutoloaderFactory,
     Zend\Loader\ModuleAutoloader,

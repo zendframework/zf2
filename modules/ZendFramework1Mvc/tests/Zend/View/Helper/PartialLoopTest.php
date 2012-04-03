@@ -21,11 +21,11 @@
 
 namespace ZendTest\View\Helper;
 
-use ArrayObject,
-    Iterator,
-    Zend\Controller\Front as FrontController,
-    Zend\View\PhpRenderer as View,
-    Zend\View\Helper\PartialLoop;
+use ArrayObject;
+use Iterator;
+use Zend\Controller\Front as FrontController;
+use Zend\View\PhpRenderer as View;
+use Zend\View\Helper\PartialLoop;
 
 /**
  * Test class for Zend_View_Helper_PartialLoop.

@@ -19,9 +19,9 @@
  */
 
 namespace Zend\Filter\Encrypt;
-use Zend\Filter\Exception,
-    Zend\Filter\Compress,
-    Zend\Filter\Decompress;
+use Zend\Filter\Exception;
+use Zend\Filter\Compress;
+use Zend\Filter\Decompress;
 
 /**
  * Encryption adapter for mcrypt

@@ -20,9 +20,9 @@
 
 namespace Zend\Currency;
 
-use Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Locale,
-    Zend\Locale\Data\Cldr;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Locale;
+use Zend\Locale\Data\Cldr;
 
 /**
  * Class for handling currency notations

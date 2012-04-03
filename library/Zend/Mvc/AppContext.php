@@ -2,10 +2,10 @@
 
 namespace Zend\Mvc;
 
-use Zend\Di\Locator,
-    Zend\EventManager\EventCollection,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response;
+use Zend\Di\Locator;
+use Zend\EventManager\EventCollection;
+use Zend\Stdlib\RequestDescription as Request;
+use Zend\Stdlib\ResponseDescription as Response;
 
 interface AppContext
 {

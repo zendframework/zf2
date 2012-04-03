@@ -21,8 +21,8 @@
 
 namespace Zend\Db\Metadata;
 
-use Zend\Db\Adapter\Adapter,
-    Zend\Db\Adapter\Driver;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\Adapter\Driver;
 
 /**
  * @category   Zend

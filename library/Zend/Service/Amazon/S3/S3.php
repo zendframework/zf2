@@ -21,10 +21,10 @@
 
 namespace Zend\Service\Amazon\S3;
 
-use Zend\Crypt,
-    Zend\Service\Amazon,
-    Zend\Service\Amazon\S3\Exception,
-    Zend\Uri;
+use Zend\Crypt;
+use Zend\Service\Amazon;
+use Zend\Service\Amazon\S3\Exception;
+use Zend\Uri;
 
 /**
  * Amazon S3 PHP connection class

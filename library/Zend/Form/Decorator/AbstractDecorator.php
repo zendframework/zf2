@@ -20,9 +20,9 @@
 
 namespace Zend\Form\Decorator;
 
-use Zend\Form\Decorator,
-    Zend\Config\Config,
-    Zend\Form;
+use Zend\Form\Decorator;
+use Zend\Config\Config;
+use Zend\Form;
 
 /**
  * Zend_Form_Decorator_Abstract

@@ -21,10 +21,10 @@
 
 namespace Zend\Log\Formatter;
 
-use Zend\Log\Formatter,
-    Zend\Config\Config,
-    DOMDocument,
-    DOMElement;
+use Zend\Log\Formatter;
+use Zend\Config\Config;
+use DOMDocument;
+use DOMElement;
 
 /**
  * @uses       DOMDocument

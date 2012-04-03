@@ -21,11 +21,11 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application,
-    Zend\Application\Resource\Translator as TranslateResource,
-    Zend\Translator\Translator,
-    Zend\Registry;
+use Zend\Loader\Autoloader;
+use Zend\Application;
+use Zend\Application\Resource\Translator as TranslateResource;
+use Zend\Translator\Translator;
+use Zend\Registry;
 
 /**
  * @category   Zend

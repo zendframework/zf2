@@ -20,9 +20,9 @@
 
 namespace Zend\Paginator;
 
-use Zend\Controller\Front as FrontController,
-    Zend\View,
-    Zend\Json\Json;
+use Zend\Controller\Front as FrontController;
+use Zend\View;
+use Zend\Json\Json;
 
 /**
  * @category   Zend

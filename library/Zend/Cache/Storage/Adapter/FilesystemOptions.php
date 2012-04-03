@@ -21,8 +21,8 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use Zend\Cache\Exception,
-    Zend\Cache\Utils;
+use Zend\Cache\Exception;
+use Zend\Cache\Utils;
 
 /**
  * These are options specific to the Filesystem adapter

@@ -19,12 +19,12 @@
  */
 
 namespace Zend\Form;
-use Zend\Loader\PluginLoader,
-    Zend\Loader\PrefixPathMapper,
-    Zend\Config\Config,
-    Zend\Controller\Front as FrontController,
-    Zend\Translator,
-    Zend\View\Renderer as View;
+use Zend\Loader\PluginLoader;
+use Zend\Loader\PrefixPathMapper;
+use Zend\Config\Config;
+use Zend\Controller\Front as FrontController;
+use Zend\Translator;
+use Zend\View\Renderer as View;
 
 /**
  * Zend_Form_DisplayGroup

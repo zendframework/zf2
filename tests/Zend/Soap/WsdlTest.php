@@ -20,10 +20,10 @@
  */
 
 namespace ZendTest\Soap;
-use Zend\Soap\Wsdl,
-    Zend\Soap\WsdlException,
-    Zend\Soap\Wsdl\Strategy,
-    Zend\Soap\Wsdl\ComplexTypeStrategy;
+use Zend\Soap\Wsdl;
+use Zend\Soap\WsdlException;
+use Zend\Soap\Wsdl\Strategy;
+use Zend\Soap\Wsdl\ComplexTypeStrategy;
 
 /**
  * Test cases for Zend_Soap_Wsdl

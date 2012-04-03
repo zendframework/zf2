@@ -20,13 +20,13 @@
 
 namespace Zend\Form\Element;
 
-use Zend\Form\Element\Exception,
-    Zend\Form\Form,
-    Zend\Form\Decorator\FileDecorator,
-    Zend\Loader\PrefixPathLoader,
-    Zend\Loader\PrefixPathMapper,
-    Zend\View\Renderer as View,
-    Zend\File\Transfer\Adapter\AbstractAdapter as AbstractFileAdapter;
+use Zend\Form\Element\Exception;
+use Zend\Form\Form;
+use Zend\Form\Decorator\FileDecorator;
+use Zend\Loader\PrefixPathLoader;
+use Zend\Loader\PrefixPathMapper;
+use Zend\View\Renderer as View;
+use Zend\File\Transfer\Adapter\AbstractAdapter as AbstractFileAdapter;
 
 /**
  * Zend_Form_Element

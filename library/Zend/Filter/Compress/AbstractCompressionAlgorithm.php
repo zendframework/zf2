@@ -20,8 +20,8 @@
 
 namespace Zend\Filter\Compress;
 
-use Traversable,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Abstract compression adapter

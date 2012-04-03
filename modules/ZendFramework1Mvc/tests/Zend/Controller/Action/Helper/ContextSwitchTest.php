@@ -21,12 +21,12 @@
 
 namespace ZendTest\Controller\Action\Helper;
 
-use Zend\Layout,
-    Zend\Controller\Action\Helper,
-    Zend\Controller\Action,
-    Zend\Controller,
-    Zend\Config,
-    Zend\Json\Json;
+use Zend\Layout;
+use Zend\Controller\Action\Helper;
+use Zend\Controller\Action;
+use Zend\Controller;
+use Zend\Config;
+use Zend\Json\Json;
 
 /**
  * Test class for Zend_Controller_Action_Helper_ContextSwitch.

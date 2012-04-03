@@ -22,10 +22,10 @@
  */
 namespace Zend\Cloud\DocumentService\Adapter;
 
-use Zend\Cloud\DocumentService\Adapter,
-    Zend\Cloud\DocumentService\Document,
-    Zend\Cloud\DocumentService\DocumentSet,
-    Zend\Cloud\DocumentService\Query;
+use Zend\Cloud\DocumentService\Adapter;
+use Zend\Cloud\DocumentService\Document;
+use Zend\Cloud\DocumentService\DocumentSet;
+use Zend\Cloud\DocumentService\Query;
 
 /**
  * Abstract document service adapter

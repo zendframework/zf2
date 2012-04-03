@@ -21,8 +21,8 @@
 
 namespace Zend\Mail\Transport;
 
-use Zend\Mail\Exception,
-    Zend\Stdlib\Options;
+use Zend\Mail\Exception;
+use Zend\Stdlib\Options;
 
 /**
  * @category   Zend

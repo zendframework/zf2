@@ -21,9 +21,9 @@
 
 namespace Zend\Dojo\View\Helper;
 
-use Zend\Json\Json,
-    Zend\View\Renderer as View,
-    Zend\View\Helper\HtmlElement;
+use Zend\Json\Json;
+use Zend\View\Renderer as View;
+use Zend\View\Helper\HtmlElement;
 
 /**
  * Dojo dijit base class

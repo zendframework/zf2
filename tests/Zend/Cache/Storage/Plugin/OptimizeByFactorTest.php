@@ -1,10 +1,10 @@
 <?php
 
 namespace ZendTest\Cache\Storage\Plugin;
-use Zend\Cache,
-    Zend\Cache\Storage\PostEvent,
-    ZendTest\Cache\Storage\TestAsset\MockAdapter,
-    ArrayObject;
+use Zend\Cache;
+use Zend\Cache\Storage\PostEvent;
+use ZendTest\Cache\Storage\TestAsset\MockAdapter;
+use ArrayObject;
 
 class OptimizeByFactorTest extends CommonPluginTest
 {

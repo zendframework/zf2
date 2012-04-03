@@ -20,11 +20,11 @@
  */
 
 namespace Zend\Amf\Parser\Amf3;
-use Zend\Amf\Parser\AbstractSerializer,
-    Zend\Amf,
-    Zend\Amf\Parser,
-    Zend\Amf\Value,
-    Zend\Date;
+use Zend\Amf\Parser\AbstractSerializer;
+use Zend\Amf;
+use Zend\Amf\Parser;
+use Zend\Amf\Value;
+use Zend\Date;
 
 /**
  * Detect PHP object type and convert it to a corresponding AMF3 object type

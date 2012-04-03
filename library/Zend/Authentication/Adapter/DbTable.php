@@ -20,13 +20,13 @@
  */
 
 namespace Zend\Authentication\Adapter;
-use Zend\Authentication\Adapter as AuthenticationAdapter,
-    Zend\Authentication\Result as AuthenticationResult,
-    Zend\Db\Db,
-    Zend\Db\Adapter\AbstractAdapter as AbstractDBAdapter,
-    Zend\Db\Expr as DBExpr,
-    Zend\Db\Select as DBSelect,
-    Zend\Db\Table\AbstractTable;
+use Zend\Authentication\Adapter as AuthenticationAdapter;
+use Zend\Authentication\Result as AuthenticationResult;
+use Zend\Db\Db;
+use Zend\Db\Adapter\AbstractAdapter as AbstractDBAdapter;
+use Zend\Db\Expr as DBExpr;
+use Zend\Db\Select as DBSelect;
+use Zend\Db\Table\AbstractTable;
 
 /**
  * @uses       Zend\Authentication\Adapter\Exception

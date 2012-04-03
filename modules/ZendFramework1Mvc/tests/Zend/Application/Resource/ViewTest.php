@@ -21,12 +21,12 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    ZendTest\Application\TestAsset\ZfAppBootstrap,
-    Zend\Application\Application,
-    Zend\Application\Resource\View as ViewResource,
-    Zend\Controller\Front as FrontController,
-    Zend\View\Renderer;
+use Zend\Loader\Autoloader;
+use ZendTest\Application\TestAsset\ZfAppBootstrap;
+use Zend\Application\Application;
+use Zend\Application\Resource\View as ViewResource;
+use Zend\Controller\Front as FrontController;
+use Zend\View\Renderer;
 
 /**
  * @category   Zend

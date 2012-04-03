@@ -21,14 +21,14 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use RecursiveIteratorIterator,
-    Zend\Acl,
-    Zend\Navigation,
-    Zend\Navigation\Page\AbstractPage,
-    Zend\Registry,
-    Zend\Translator,
-    Zend\View,
-    Zend\View\Exception;
+use RecursiveIteratorIterator;
+use Zend\Acl;
+use Zend\Navigation;
+use Zend\Navigation\Page\AbstractPage;
+use Zend\Registry;
+use Zend\Translator;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Base class for navigational helpers

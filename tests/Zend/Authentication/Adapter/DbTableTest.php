@@ -21,11 +21,11 @@
 
 namespace ZendTest\Authentication\Adapter;
 
-use Zend\Authentication\Adapter,
-    Zend\Authentication,
-    Zend\Db\Db,
-    Zend\Db\Adapter\Pdo\Sqlite as SQLiteAdapter,
-    Zend\Db\Select as DBSelect;
+use Zend\Authentication\Adapter;
+use Zend\Authentication;
+use Zend\Db\Db;
+use Zend\Db\Adapter\Pdo\Sqlite as SQLiteAdapter;
+use Zend\Db\Select as DBSelect;
 
 /**
  * @category   Zend

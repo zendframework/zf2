@@ -21,11 +21,11 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject,
-    Zend\Cache\Exception,
-    Zend\Cache\Storage\Adapter,
-    Zend\Cache\Storage\Event,
-    Zend\Stdlib\Options;
+use ArrayObject;
+use Zend\Cache\Exception;
+use Zend\Cache\Storage\Adapter;
+use Zend\Cache\Storage\Event;
+use Zend\Stdlib\Options;
 
 /**
  * Unless otherwise marked, all options in this class affect all adapters.

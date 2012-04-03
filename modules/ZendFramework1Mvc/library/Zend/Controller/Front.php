@@ -19,8 +19,8 @@
  */
 
 namespace Zend\Controller;
-use Zend,
-    Zend\Loader\Broker;
+use Zend;
+use Zend\Loader\Broker;
 
 /**
  * @category   Zend

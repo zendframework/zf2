@@ -20,8 +20,8 @@
 
 namespace Zend\Translator\Adapter;
 
-use Zend\Translator\Adapter\AbstractAdapter,
-    Zend\Translator\Exception\InvalidArgumentException;
+use Zend\Translator\Adapter\AbstractAdapter;
+use Zend\Translator\Exception\InvalidArgumentException;
 
 /**
  * @uses       \Zend\Locale\Locale

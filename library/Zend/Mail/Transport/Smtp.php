@@ -21,15 +21,15 @@
 
 namespace Zend\Mail\Transport;
 
-use Zend\Loader\Pluggable,
-    Zend\Mail\AddressDescription,
-    Zend\Mail\Headers,
-    Zend\Mail\Message,
-    Zend\Mail\Transport,
-    Zend\Mail\Protocol,
-    Zend\Mail\Protocol\AbstractProtocol,
-    Zend\Mail\Protocol\Smtp as SmtpProtocol,
-    Zend\Mail\Protocol\SmtpBroker;
+use Zend\Loader\Pluggable;
+use Zend\Mail\AddressDescription;
+use Zend\Mail\Headers;
+use Zend\Mail\Message;
+use Zend\Mail\Transport;
+use Zend\Mail\Protocol;
+use Zend\Mail\Protocol\AbstractProtocol;
+use Zend\Mail\Protocol\Smtp as SmtpProtocol;
+use Zend\Mail\Protocol\SmtpBroker;
 
 /**
  * SMTP connection object

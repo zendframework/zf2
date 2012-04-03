@@ -21,14 +21,14 @@
 
 namespace Zend\Mail\Transport;
 
-use Traversable,
-    Zend\Mail\AddressDescription,
-    Zend\Mail\AddressList,
-    Zend\Mail\Exception,
-    Zend\Mail\Header,
-    Zend\Mail\Headers,
-    Zend\Mail\Message,
-    Zend\Mail\Transport;
+use Traversable;
+use Zend\Mail\AddressDescription;
+use Zend\Mail\AddressList;
+use Zend\Mail\Exception;
+use Zend\Mail\Header;
+use Zend\Mail\Headers;
+use Zend\Mail\Message;
+use Zend\Mail\Transport;
 
 /**
  * Class for sending email via the PHP internal mail() function

@@ -21,8 +21,8 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use Zend\Cache\Utils,
-    Zend\Cache\Exception;
+use Zend\Cache\Utils;
+use Zend\Cache\Exception;
 
 /**
  * These are options specific to the APC adapter

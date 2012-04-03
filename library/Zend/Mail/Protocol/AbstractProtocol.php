@@ -22,8 +22,8 @@
 
 namespace Zend\Mail\Protocol;
 
-use Zend\Validator\Hostname as HostnameValidator,
-    Zend\Validator;
+use Zend\Validator\Hostname as HostnameValidator;
+use Zend\Validator;
 
 /**
  * Zend_Mail_Protocol_Abstract

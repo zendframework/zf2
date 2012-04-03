@@ -12,8 +12,8 @@
  */
 namespace Zend\Cloud\Infrastructure;
 
-use Zend\Cloud\AbstractFactory,
-    Zend\Cloud\Exception\InvalidArgumentException;
+use Zend\Cloud\AbstractFactory;
+use Zend\Cloud\Exception\InvalidArgumentException;
 
 /**
  * Factory for infrastructure adapters

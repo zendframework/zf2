@@ -2,14 +2,13 @@
 
 namespace Zend\Di\Definition;
 
-use Zend\Code\Scanner\DerivedClassScanner,
-    Zend\Code\Scanner\AggregateDirectoryScanner,
-    Zend\Code\Scanner\DirectoryScanner,
-    
-    Zend\Di\Definition\Annotation,
-    Zend\Code\Annotation\AnnotationManager,
-    Zend\Code\Reflection,
-    Zend\Code\Annotation\AnnotationCollection;
+use Zend\Code\Scanner\DerivedClassScanner;
+use Zend\Code\Scanner\AggregateDirectoryScanner;
+use Zend\Code\Scanner\DirectoryScanner;
+use Zend\Di\Definition\Annotation;
+use Zend\Code\Annotation\AnnotationManager;
+use Zend\Code\Reflection;
+use Zend\Code\Annotation\AnnotationCollection;
 
 class CompilerDefinition implements Definition
 {

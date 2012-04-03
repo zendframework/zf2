@@ -21,8 +21,8 @@
 
 namespace ZendTest\XmlRpc;
 
-use Zend\XmlRpc\Value,
-    Zend\XmlRpc;
+use Zend\XmlRpc\Value;
+use Zend\XmlRpc;
 
 /**
  * Test case for Zend_XmlRpc_Fault

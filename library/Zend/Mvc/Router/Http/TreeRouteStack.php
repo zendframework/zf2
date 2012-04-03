@@ -21,14 +21,14 @@
 
 namespace Zend\Mvc\Router\Http;
 
-use Zend\Mvc\Router\Exception,
-    Traversable,
-    Zend\Stdlib\ArrayUtils,
-    Zend\Mvc\Router\SimpleRouteStack,
-    Zend\Mvc\Router\Route as BaseRoute,
-    Zend\Mvc\Router\Http\Route,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Uri\Http as HttpUri;
+use Zend\Mvc\Router\Exception;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Mvc\Router\SimpleRouteStack;
+use Zend\Mvc\Router\Route as BaseRoute;
+use Zend\Mvc\Router\Http\Route;
+use Zend\Stdlib\RequestDescription as Request;
+use Zend\Uri\Http as HttpUri;
 
 /**
  * Tree search implementation.

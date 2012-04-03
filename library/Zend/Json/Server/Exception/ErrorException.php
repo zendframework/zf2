@@ -21,8 +21,8 @@
 
 namespace Zend\Json\Server\Exception;
 
-use BadMethodCallException,
-    Zend\Json\Server\Exception;
+use BadMethodCallException;
+use Zend\Json\Server\Exception;
 
 /**
  * Thrown by Zend\Json\Server\Client when an JSON-RPC fault response is returned.

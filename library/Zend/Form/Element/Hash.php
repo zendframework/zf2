@@ -21,8 +21,8 @@
 
 namespace Zend\Form\Element;
 
-use Zend\Session\Container as SessionContainer,
-    Zend\View\Renderer as View;
+use Zend\Session\Container as SessionContainer;
+use Zend\View\Renderer as View;
 
 /**
  * CSRF form protection

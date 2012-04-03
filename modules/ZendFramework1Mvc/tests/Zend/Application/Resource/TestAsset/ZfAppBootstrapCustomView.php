@@ -21,8 +21,8 @@
 
 namespace ZendTest\Application\Resource\TestAsset;
 
-use Zend\Application\Bootstrap,
-    Zend\View\PhpRenderer;
+use Zend\Application\Bootstrap;
+use Zend\View\PhpRenderer;
 
 /**
  * @category   Zend

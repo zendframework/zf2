@@ -20,11 +20,11 @@
 
 namespace Zend\Config\Writer;
 
-use Zend\Config\Writer,
-    Zend\Config\Exception,
-    Zend\Config\Config,
-    Zend\Stdlib\ArrayUtils,
-    Traversable;
+use Zend\Config\Writer;
+use Zend\Config\Exception;
+use Zend\Config\Config;
+use Zend\Stdlib\ArrayUtils;
+use Traversable;
 
 /**
  * @category   Zend

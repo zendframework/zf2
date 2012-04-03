@@ -21,8 +21,8 @@
 
 namespace ZendTest\Captcha;
 
-use Zend\View\Renderer\PhpRenderer as View,
-    Zend\Captcha\Image;
+use Zend\View\Renderer\PhpRenderer as View;
+use Zend\Captcha\Image;
 
 /**
  * @category   Zend

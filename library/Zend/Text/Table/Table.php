@@ -20,8 +20,8 @@
 
 namespace Zend\Text\Table;
 
-use Zend\Config,
-    Zend\Loader\PrefixPathLoader;
+use Zend\Config;
+use Zend\Loader\PrefixPathLoader;
 
 /**
  * Zend_Text_Table enables developers to create tables out of characters

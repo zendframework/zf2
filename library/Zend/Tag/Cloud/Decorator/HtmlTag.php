@@ -21,8 +21,8 @@
 
 namespace Zend\Tag\Cloud\Decorator;
 
-use Zend\Tag\Cloud\Decorator\Exception\InvalidArgumentException,
-    Zend\Tag\ItemList;
+use Zend\Tag\Cloud\Decorator\Exception\InvalidArgumentException;
+use Zend\Tag\ItemList;
 
 /**
  * Simple HTML decorator for tags

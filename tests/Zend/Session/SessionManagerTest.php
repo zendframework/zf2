@@ -22,9 +22,9 @@
 
 namespace ZendTest\Session;
 
-use Zend\Session\SessionManager,
-    Zend\Session,
-    Zend\Registry;
+use Zend\Session\SessionManager;
+use Zend\Session;
+use Zend\Registry;
 
 /**
  * @category   Zend

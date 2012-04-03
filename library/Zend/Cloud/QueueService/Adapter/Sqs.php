@@ -22,9 +22,9 @@
  */
 namespace Zend\Cloud\QueueService\Adapter;
 
-use Zend\Service\Amazon\Sqs\Sqs as AmazonSqs,
-    Zend\Cloud\QueueService\Message,
-    Zend\Cloud\QueueService\Exception;
+use Zend\Service\Amazon\Sqs\Sqs as AmazonSqs;
+use Zend\Cloud\QueueService\Message;
+use Zend\Cloud\QueueService\Exception;
 
 /**
  * SQS adapter for simple queue service.

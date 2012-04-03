@@ -21,10 +21,10 @@
 
 namespace Zend\Amf\Parser\Amf0;
 
-use Zend\Amf\Parser\AbstractSerializer,
-    Zend\Amf\Parser,
-    Zend\Amf,
-    Zend\Date;
+use Zend\Amf\Parser\AbstractSerializer;
+use Zend\Amf\Parser;
+use Zend\Amf;
+use Zend\Date;
 
 /**
  * Serializer PHP misc types back to there corresponding AMF0 Type Marker.

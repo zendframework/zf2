@@ -21,9 +21,9 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\Registry,
-    Zend\View\Renderer\PhpRenderer as View,
-    Zend\View\Helper\FormText as FormTextHelper;
+use Zend\Registry;
+use Zend\View\Renderer\PhpRenderer as View;
+use Zend\View\Helper\FormText as FormTextHelper;
 
 /**
  * Zend_View_Helper_FormTextTest

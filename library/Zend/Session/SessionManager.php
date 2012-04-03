@@ -20,8 +20,8 @@
 
 namespace Zend\Session;
 
-use Zend\Validator\Alnum as AlnumValidator,
-    Zend\EventManager\EventCollection;
+use Zend\Validator\Alnum as AlnumValidator;
+use Zend\EventManager\EventCollection;
 
 /**
  * Session Manager implementation utilizing ext/session

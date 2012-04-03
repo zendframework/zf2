@@ -21,9 +21,9 @@
 
 namespace ZendTest\Validator;
 
-use ReflectionClass,
-    Zend\Registry,
-    Zend\Validator;
+use ReflectionClass;
+use Zend\Registry;
+use Zend\Validator;
 
 /**
  * @category   Zend

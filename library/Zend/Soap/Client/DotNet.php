@@ -21,8 +21,8 @@
 
 namespace Zend\Soap\Client;
 
-use Zend\Soap\Client as SOAPClient,
-    Zend\Soap\Exception;
+use Zend\Soap\Client as SOAPClient;
+use Zend\Soap\Exception;
 
 /**
  * .NET SOAP client

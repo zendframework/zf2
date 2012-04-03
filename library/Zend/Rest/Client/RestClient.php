@@ -21,8 +21,8 @@
 
 namespace Zend\Rest\Client;
 
-use Zend\Http\Client as HttpClient,
-    Zend\Uri;
+use Zend\Http\Client as HttpClient;
+use Zend\Uri;
 
 /**
  * @category   Zend

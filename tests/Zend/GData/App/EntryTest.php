@@ -21,13 +21,13 @@
 
 namespace ZendTest\GData\App;
 
-use Zend\GData,
-    Zend\GData\App,
-    Zend\GData\App\Extension,
-    Zend\Http,
-    Zend\Http\Header\Etag,
-    Zend\URI,
-    ZendTest\GData\TestAsset;
+use Zend\GData;
+use Zend\GData\App;
+use Zend\GData\App\Extension;
+use Zend\Http;
+use Zend\Http\Header\Etag;
+use Zend\URI;
+use ZendTest\GData\TestAsset;
 
 /**
  * @category   Zend

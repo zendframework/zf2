@@ -21,9 +21,9 @@
 
 namespace ZendTest\Cloud\StorageService\Adapter;
 
-use ZendTest\Cloud\StorageService\TestCase,
-    Zend\Cloud\StorageService\Adapter\FileSystem,
-    Zend\Config\Config;
+use ZendTest\Cloud\StorageService\TestCase;
+use Zend\Cloud\StorageService\Adapter\FileSystem;
+use Zend\Config\Config;
 
 // Call ZendTest\Cloud\StorageService\Adapter\FileSystemTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {

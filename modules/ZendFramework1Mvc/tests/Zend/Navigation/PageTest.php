@@ -21,10 +21,10 @@
 
 namespace ZendTest\Navigation;
 
-use Zend\Navigation\AbstractPage,
-    Zend\Navigation\Page,
-    Zend\Navigation,
-    Zend\Config;
+use Zend\Navigation\AbstractPage;
+use Zend\Navigation\Page;
+use Zend\Navigation;
+use Zend\Config;
 
 /**
  * Tests the class Zend_Navigation_Page

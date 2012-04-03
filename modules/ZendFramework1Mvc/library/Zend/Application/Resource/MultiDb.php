@@ -21,8 +21,8 @@
 
 namespace Zend\Application\Resource;
 
-use Zend\Db\Adapter,
-    Zend\Application\ResourceException;
+use Zend\Db\Adapter;
+use Zend\Application\ResourceException;
 
 /**
  * Database resource for multiple database setups

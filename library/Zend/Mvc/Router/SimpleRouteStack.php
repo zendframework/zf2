@@ -20,11 +20,11 @@
 
 namespace Zend\Mvc\Router;
 
-use ArrayAccess,
-    ArrayIterator,
-    Traversable,
-    Zend\Stdlib\ArrayUtils,
-    Zend\Stdlib\RequestDescription as Request;
+use ArrayAccess;
+use ArrayIterator;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Stdlib\RequestDescription as Request;
 
 /**
  * Simple route stack implementation.

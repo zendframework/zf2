@@ -21,8 +21,8 @@
 
 namespace Zend\Mail\Storage;
 
-use RecursiveIterator,
-    Zend\Mime;
+use RecursiveIterator;
+use Zend\Mime;
 
 /**
  * @category   Zend

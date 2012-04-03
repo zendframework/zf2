@@ -21,8 +21,8 @@
 
 namespace Zend\Db\TableGateway;
 
-use Zend\Db\Adapter\Adapter,
-    Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\ResultSet\ResultSet;
 
 /**
  * @category   Zend

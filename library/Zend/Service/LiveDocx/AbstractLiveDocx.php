@@ -21,8 +21,8 @@
 
 namespace Zend\Service\LiveDocx;
 
-use Zend\Config\Config,
-    Zend\Soap\Client as SoapClient;
+use Zend\Config\Config;
+use Zend\Soap\Client as SoapClient;
 
 /**
  * @category   Zend

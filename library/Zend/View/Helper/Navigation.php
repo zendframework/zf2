@@ -21,12 +21,12 @@
 
 namespace Zend\View\Helper;
 
-use Zend\Loader\ShortNameLocator,
-    Zend\Loader\PluginClassLoader,
-    Zend\Navigation\Container,
-    Zend\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper,
-    Zend\View\Helper\Navigation\Helper as NavigationHelper,
-    Zend\View\Exception;
+use Zend\Loader\ShortNameLocator;
+use Zend\Loader\PluginClassLoader;
+use Zend\Navigation\Container;
+use Zend\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper;
+use Zend\View\Helper\Navigation\Helper as NavigationHelper;
+use Zend\View\Exception;
 
 /**
  * Proxy helper for retrieving navigational helpers and forwarding calls

@@ -20,11 +20,11 @@
 
 namespace Zend\Barcode;
 
-use Traversable,
-    Zend,
-    Zend\Loader\Broker,
-    Zend\Loader\ShortNameLocator,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend;
+use Zend\Loader\Broker;
+use Zend\Loader\ShortNameLocator;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Class for generate Barcode

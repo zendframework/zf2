@@ -21,10 +21,10 @@
 
 namespace Zend\Mail\Storage\Folder;
 
-use Zend\Mail\Storage\MailFolder,
-    Zend\Mail\Storage\Folder,
-    Zend\Mail\Storage\Exception,
-    Zend\Mail\Storage;
+use Zend\Mail\Storage\MailFolder;
+use Zend\Mail\Storage\Folder;
+use Zend\Mail\Storage\Exception;
+use Zend\Mail\Storage;
 
 /**
  * @uses       \Zend\Mail\Storage\Exception

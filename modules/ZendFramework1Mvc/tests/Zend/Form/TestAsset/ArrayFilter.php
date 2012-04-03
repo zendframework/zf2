@@ -2,9 +2,9 @@
 
 namespace ZendTest\Form\TestAsset;
 
-use Zend\Filter\Filter,
-    Zend\Form\Element,
-    Zend\Form\Form;
+use Zend\Filter\Filter;
+use Zend\Form\Element;
+use Zend\Form\Form;
 
 class ArrayFilter implements Filter
 {

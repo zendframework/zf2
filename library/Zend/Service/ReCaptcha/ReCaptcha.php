@@ -21,9 +21,9 @@
 
 namespace Zend\Service\ReCaptcha;
 
-use Zend\Config\Config,
-    Zend\Http\Request,
-    Zend\Service\AbstractService;
+use Zend\Config\Config;
+use Zend\Http\Request;
+use Zend\Service\AbstractService;
 
 /**
  * Zend_Service_ReCaptcha

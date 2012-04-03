@@ -21,10 +21,10 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application\Resource\Log as LogResource,
-    Zend\Application,
-    Zend\Controller\Front as FrontController;
+use Zend\Loader\Autoloader;
+use Zend\Application\Resource\Log as LogResource;
+use Zend\Application;
+use Zend\Controller\Front as FrontController;
 
 /**
  * @category   Zend

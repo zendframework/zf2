@@ -20,12 +20,12 @@
 
 namespace Zend\EventManager;
 
-use Zend\Stdlib\CallbackHandler,
-    Zend\Stdlib\Exception\InvalidCallbackException,
-    Zend\Stdlib\PriorityQueue,
-    ArrayObject,
-    SplPriorityQueue,
-    Traversable;
+use Zend\Stdlib\CallbackHandler;
+use Zend\Stdlib\Exception\InvalidCallbackException;
+use Zend\Stdlib\PriorityQueue;
+use ArrayObject;
+use SplPriorityQueue;
+use Traversable;
 
 /**
  * Event manager: notification system

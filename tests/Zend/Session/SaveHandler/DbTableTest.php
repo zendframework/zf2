@@ -21,14 +21,14 @@
 
 namespace ZendTest\Session\SaveHandler;
 
-use Zend\Session\SaveHandler\DbTable,
-    Zend\Session\Exception as SaveHandlerException,
-    Zend\Session\Manager,
-    Zend\Db\Db,
-    Zend\Db\Adapter\AbstractAdapter,
-    Zend\Db\Table\AbstractTable,
-    Zend\Config\Config,
-    ZendTest\Session\TestAsset\TestManager;
+use Zend\Session\SaveHandler\DbTable;
+use Zend\Session\Exception as SaveHandlerException;
+use Zend\Session\Manager;
+use Zend\Db\Db;
+use Zend\Db\Adapter\AbstractAdapter;
+use Zend\Db\Table\AbstractTable;
+use Zend\Config\Config;
+use ZendTest\Session\TestAsset\TestManager;
 
 /**
  * Unit testing for DbTable include all tests for

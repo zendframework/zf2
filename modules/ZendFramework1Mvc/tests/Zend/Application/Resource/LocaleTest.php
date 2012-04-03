@@ -21,10 +21,10 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application\Resource\Locale as LocaleResource,
-    Zend\Application,
-    Zend\Registry;
+use Zend\Loader\Autoloader;
+use Zend\Application\Resource\Locale as LocaleResource;
+use Zend\Application;
+use Zend\Registry;
 
 /**
  * @category   Zend

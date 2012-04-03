@@ -20,9 +20,9 @@
  */
 
 namespace Zend\Amf\Parser\Amf3;
-use Zend\Amf\Parser\AbstractDeserializer,
-    Zend\Amf,
-    Zend\Amf\Parse;
+use Zend\Amf\Parser\AbstractDeserializer;
+use Zend\Amf;
+use Zend\Amf\Parse;
 
 /**
  * Read an AMF3 input stream and convert it into PHP data types.

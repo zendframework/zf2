@@ -21,15 +21,15 @@
 
 namespace ZendTest\Controller\Action\Helper;
 
-use Zend\Controller\Action\Exception as ActionException,
-    Zend\Controller\Action\Helper\AbstractAutoComplete,
-    Zend\Controller\Action\Helper\AutoCompleteDojo,
-    Zend\Controller\Action\Helper\AutoCompleteScriptaculous,
-    Zend\Controller\Front as FrontController,
-    Zend\Controller\Request\Http as HTTPRequest,
-    Zend\Controller\Response\Cli as CLIResponse,
-    Zend\Layout\Layout,
-    Zend\Json\Json;
+use Zend\Controller\Action\Exception as ActionException;
+use Zend\Controller\Action\Helper\AbstractAutoComplete;
+use Zend\Controller\Action\Helper\AutoCompleteDojo;
+use Zend\Controller\Action\Helper\AutoCompleteScriptaculous;
+use Zend\Controller\Front as FrontController;
+use Zend\Controller\Request\Http as HTTPRequest;
+use Zend\Controller\Response\Cli as CLIResponse;
+use Zend\Layout\Layout;
+use Zend\Json\Json;
 
 
 /**

@@ -21,9 +21,9 @@
 
 namespace ZendTest\Loader;
 
-use Zend\Loader\PrefixPathLoader,
-    Zend\Stdlib\ArrayStack,
-    SplStack;
+use Zend\Loader\PrefixPathLoader;
+use Zend\Stdlib\ArrayStack;
+use SplStack;
 
 /**
  * @category   Zend

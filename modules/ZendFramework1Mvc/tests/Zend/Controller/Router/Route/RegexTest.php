@@ -21,8 +21,8 @@
 
 namespace ZendTest\Controller\Router\Route;
 
-use Zend\Config\Config,
-    Zend\Controller\Router\Route;
+use Zend\Config\Config;
+use Zend\Controller\Router\Route;
 
 /**
  * @category   Zend

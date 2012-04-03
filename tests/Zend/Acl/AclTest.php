@@ -21,9 +21,9 @@
 
 namespace ZendTest\Acl;
 
-use Zend\Acl,
-    Zend\Acl\Role,
-    Zend\Acl\Resource;
+use Zend\Acl;
+use Zend\Acl\Role;
+use Zend\Acl\Resource;
 
 /**
  * @category   Zend

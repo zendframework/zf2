@@ -21,10 +21,10 @@
 
 namespace Zend\Db\Adapter\Driver\Pdo;
 
-use Zend\Db\Adapter\Driver\StatementInterface,
-    Zend\Db\Adapter\ParameterContainerInterface,
-    Zend\Db\Adapter\ParameterContainer,
-    Zend\Db\Adapter\Exception;
+use Zend\Db\Adapter\Driver\StatementInterface;
+use Zend\Db\Adapter\ParameterContainerInterface;
+use Zend\Db\Adapter\ParameterContainer;
+use Zend\Db\Adapter\Exception;
 
 /**
  * @category   Zend

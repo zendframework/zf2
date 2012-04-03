@@ -21,9 +21,9 @@
 
 namespace Zend\Locale\Data;
 
-use Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Locale\Locale,
-    Zend\Locale\Exception\InvalidArgumentException;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Locale\Locale;
+use Zend\Locale\Exception\InvalidArgumentException;
 
 /**
  * Locale data reader, handles the CLDR

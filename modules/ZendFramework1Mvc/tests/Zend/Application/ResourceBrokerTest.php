@@ -21,10 +21,10 @@
 
 namespace ZendTest\Application;
 
-use Zend\Application\ResourceBroker,
-    Zend\Application\ResourceLoader,
-    Zend\Application\Application,
-    Zend\Application\Bootstrap;
+use Zend\Application\ResourceBroker;
+use Zend\Application\ResourceLoader;
+use Zend\Application\Application;
+use Zend\Application\Bootstrap;
 
 /**
  * @category   Zend

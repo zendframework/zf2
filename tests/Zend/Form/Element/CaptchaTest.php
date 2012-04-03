@@ -21,11 +21,11 @@
 
 namespace ZendTest\Form\Element;
 
-use Zend\Form\Element\Captcha as CaptchaElement,
-    Zend\Form\Form,
-    Zend\Captcha\Dumb as DumbCaptcha,
-    Zend\Captcha\ReCaptcha,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Element\Captcha as CaptchaElement;
+use Zend\Form\Form;
+use Zend\Captcha\Dumb as DumbCaptcha;
+use Zend\Captcha\ReCaptcha;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * @category   Zend

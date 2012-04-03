@@ -2,10 +2,10 @@
 // @todo refactor to use new Definition interface
 namespace Zend\Di\ServiceLocator;
 
-use Zend\Di\Di,
-    Zend\CodeGenerator\Php as CodeGen,
-    Zend\Di\DependencyInjection,
-    Zend\Di\Exception;
+use Zend\Di\Di;
+use Zend\CodeGenerator\Php as CodeGen;
+use Zend\Di\DependencyInjection;
+use Zend\Di\Exception;
 
 class Generator
 {

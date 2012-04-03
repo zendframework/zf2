@@ -2,9 +2,9 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Scanner\DirectoryScanner,
-    Zend\Code\Scanner\ClassScanner,
-    Zend\Code\Exception;
+use Zend\Code\Scanner\DirectoryScanner;
+use Zend\Code\Scanner\ClassScanner;
+use Zend\Code\Exception;
 
 class DerivedClassScanner extends ClassScanner
 {

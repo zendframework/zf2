@@ -20,9 +20,9 @@
  */
 
 namespace Zend\Amf\Parser\Amf0;
-use Zend\Amf\Parser\AbstractDeserializer,
-    Zend\Amf,
-    Zend\Amf\Parser\Exception as ParserException;
+use Zend\Amf\Parser\AbstractDeserializer;
+use Zend\Amf;
+use Zend\Amf\Parser\Exception as ParserException;
 
 /**
  * Read an AMF0 input stream and convert it into PHP data types

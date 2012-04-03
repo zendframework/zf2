@@ -21,11 +21,11 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application\Application,
-    Zend\Application\Resource\Db as DbResource,
-    Zend\Application\Resource\CacheManager as CacheManagerResource,
-    ZendTest\Application\TestAsset\ZfAppBootstrap;
+use Zend\Loader\Autoloader;
+use Zend\Application\Application;
+use Zend\Application\Resource\Db as DbResource;
+use Zend\Application\Resource\CacheManager as CacheManagerResource;
+use ZendTest\Application\TestAsset\ZfAppBootstrap;
 
 /**
  * @category   Zend

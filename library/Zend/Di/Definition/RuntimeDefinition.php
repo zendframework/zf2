@@ -2,10 +2,10 @@
 
 namespace Zend\Di\Definition;
 
-use Zend\Di\Definition\Annotation,
-    Zend\Code\Annotation\AnnotationManager,
-    Zend\Code\Annotation\AnnotationCollection,
-    Zend\Code\Reflection;
+use Zend\Di\Definition\Annotation;
+use Zend\Code\Annotation\AnnotationManager;
+use Zend\Code\Annotation\AnnotationCollection;
+use Zend\Code\Reflection;
 
 class RuntimeDefinition implements Definition
 {

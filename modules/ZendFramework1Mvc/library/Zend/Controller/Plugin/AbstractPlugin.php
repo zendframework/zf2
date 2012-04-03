@@ -21,8 +21,8 @@
 
 namespace Zend\Controller\Plugin;
 
-use Zend\Controller\Request,
-    Zend\Loader\Broker;
+use Zend\Controller\Request;
+use Zend\Loader\Broker;
 
 /**
  * @category   Zend

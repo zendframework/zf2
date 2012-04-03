@@ -20,8 +20,8 @@
  */
 
 namespace Zend\Controller\Action\Helper;
-use Zend\Session,
-    Zend\Stdlib\SplQueue;
+use Zend\Session;
+use Zend\Stdlib\SplQueue;
 
 /**
  * Flash Messenger - implement session-based messages

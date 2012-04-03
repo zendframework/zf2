@@ -20,12 +20,12 @@
 
 namespace Zend\Validator;
 
-use Traversable,
-    Zend\Date as ZendDate,
-    Zend\Locale\Format,
-    Zend\Locale\Locale,
-    Zend\Registry,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Date as ZendDate;
+use Zend\Locale\Format;
+use Zend\Locale\Locale;
+use Zend\Registry;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @category   Zend

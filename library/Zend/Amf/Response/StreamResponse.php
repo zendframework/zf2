@@ -20,10 +20,10 @@
 
 namespace Zend\Amf\Response;
 
-use Zend\Amf\Response as AMFResponse,
-    Zend\Amf\Parser,
-    Zend\Amf\Parser\Amf0,
-    Zend\Amf;
+use Zend\Amf\Response as AMFResponse;
+use Zend\Amf\Parser;
+use Zend\Amf\Parser\Amf0;
+use Zend\Amf;
 
 /**
  * Handles converting the PHP object ready for response back into AMF

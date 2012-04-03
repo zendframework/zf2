@@ -20,9 +20,9 @@
  */
 
 namespace ZendTest\Validator;
-use Zend\Validator,
-    Zend\Locale,
-    ReflectionClass;
+use Zend\Validator;
+use Zend\Locale;
+use ReflectionClass;
 
 /**
  * Test helper

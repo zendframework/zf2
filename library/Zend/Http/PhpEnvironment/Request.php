@@ -2,11 +2,11 @@
 
 namespace Zend\Http\PhpEnvironment;
 
-use Zend\Http\Request as HttpRequest,
-    Zend\Uri\Http as HttpUri,
-    Zend\Http\Header\Cookie,
-    Zend\Stdlib\Parameters,
-    Zend\Stdlib\ParametersDescription;
+use Zend\Http\Request as HttpRequest;
+use Zend\Uri\Http as HttpUri;
+use Zend\Http\Header\Cookie;
+use Zend\Stdlib\Parameters;
+use Zend\Stdlib\ParametersDescription;
 
 class Request extends HttpRequest
 {

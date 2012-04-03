@@ -21,11 +21,11 @@
 
 namespace Zend\Dojo\View\Helper\Dojo;
 
-use Zend\Dojo\View\Exception,
-    Zend\Dojo\View\Helper\Dojo as DojoHelper,
-    Zend\Config\Config,
-    Zend\View\Renderer as View,
-    Zend\Json\Json;
+use Zend\Dojo\View\Exception;
+use Zend\Dojo\View\Helper\Dojo as DojoHelper;
+use Zend\Config\Config;
+use Zend\View\Renderer as View;
+use Zend\Json\Json;
 
 /**
  * Container for  Dojo View Helper

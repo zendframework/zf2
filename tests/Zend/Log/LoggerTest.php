@@ -24,9 +24,9 @@ namespace ZendTest\Log;
 require_once __DIR__ . '/TestAsset/NotExtendedWriterAbstract.php';
 require_once __DIR__ . '/TestAsset/NotImplementsFilterInterface.php';
 
-use ZendTest\Log\TestAsset\MockFormatter,
-    \Zend\Log\Logger,
-    \Zend\Log;
+use ZendTest\Log\TestAsset\MockFormatter;
+use \Zend\Log\Logger;
+use \Zend\Log;
 
 /**
  * @category   Zend

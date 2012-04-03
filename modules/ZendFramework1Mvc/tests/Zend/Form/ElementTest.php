@@ -23,19 +23,19 @@ namespace ZendTest\Form;
 
 require_once __DIR__ . '/TestAsset/decorators/TableRow.php';
 
-use Zend\Form\Element,
-    Zend\Form\Element\Exception as ElementException,
-    Zend\Form\Form,
-    Zend\Config\Config,
-    Zend\Controller\Front as FrontController,
-    Zend\Json\Json,
-    Zend\Loader\PrefixPathLoader,
-    Zend\Loader\PrefixPathMapper,
-    Zend\Registry,
-    Zend\Translator\Translator,
-    Zend\Validator\AbstractValidator,
-    Zend\Validator\Alpha as AlphaValidator,
-    Zend\View\PhpRenderer;
+use Zend\Form\Element;
+use Zend\Form\Element\Exception as ElementException;
+use Zend\Form\Form;
+use Zend\Config\Config;
+use Zend\Controller\Front as FrontController;
+use Zend\Json\Json;
+use Zend\Loader\PrefixPathLoader;
+use Zend\Loader\PrefixPathMapper;
+use Zend\Registry;
+use Zend\Translator\Translator;
+use Zend\Validator\AbstractValidator;
+use Zend\Validator\Alpha as AlphaValidator;
+use Zend\View\PhpRenderer;
 
 /**
  * @category   Zend

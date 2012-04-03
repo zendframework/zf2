@@ -21,10 +21,10 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use Zend\Navigation\Container,
-    Zend\Navigation\Page\AbstractPage,
-    Zend\View,
-    Zend\View\Exception;
+use Zend\Navigation\Container;
+use Zend\Navigation\Page\AbstractPage;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Helper for printing breadcrumbs

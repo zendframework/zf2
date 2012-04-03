@@ -2,9 +2,9 @@
 
 namespace Zend\Docbook;
 
-use ReflectionMethod,
-    Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter,
-    Zend\Code\Reflection\ClassReflection;
+use ReflectionMethod;
+use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
+use Zend\Code\Reflection\ClassReflection;
 
 class ClassParser
 {

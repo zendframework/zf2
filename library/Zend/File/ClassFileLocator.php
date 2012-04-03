@@ -3,11 +3,11 @@
 namespace Zend\File;
 
 // import SPL classes/interfaces into local scope
-use DirectoryIterator,
-    FilterIterator,
-    RecursiveIterator,
-    RecursiveDirectoryIterator,
-    RecursiveIteratorIterator;
+use DirectoryIterator;
+use FilterIterator;
+use RecursiveIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 /**
  * Locate files containing PHP classes, interfaces, or abstracts

@@ -23,11 +23,11 @@ namespace ZendTest\Application;
 
 require_once __DIR__ . '/TestAsset/Zf7696Bootstrap.php';
 
-use Zend\Loader\ResourceAutoloader,
-    Zend\Registry,
-    Zend\Application,
-    Zend\Application\ResourceBroker,
-    Zend\Application\Resource\AbstractResource;
+use Zend\Loader\ResourceAutoloader;
+use Zend\Registry;
+use Zend\Application;
+use Zend\Application\ResourceBroker;
+use Zend\Application\Resource\AbstractResource;
 
 /**
  * @category   Zend

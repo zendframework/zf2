@@ -20,9 +20,9 @@
 
 namespace Zend\EventManager;
 
-use Zend\Stdlib\CallbackHandler,
-    Zend\Stdlib\PriorityQueue,
-    ArrayObject;
+use Zend\Stdlib\CallbackHandler;
+use Zend\Stdlib\PriorityQueue;
+use ArrayObject;
 
 /**
  * Event manager: notification system

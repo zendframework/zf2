@@ -22,10 +22,10 @@
 
 namespace ZendTest\Cloud\DocumentService\Adapter;
 
-use ZendTest\Cloud\DocumentService\TestCase,
-    Zend\Cloud\DocumentService\Factory,
-    Zend\Cloud\DocumentService\Adapter\WindowsAzure,
-    Zend\Config\Config;
+use ZendTest\Cloud\DocumentService\TestCase;
+use Zend\Cloud\DocumentService\Factory;
+use Zend\Cloud\DocumentService\Adapter\WindowsAzure;
+use Zend\Config\Config;
         
 // Call Zend\Cloud\Document\Adapter\WindowsAzureTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {

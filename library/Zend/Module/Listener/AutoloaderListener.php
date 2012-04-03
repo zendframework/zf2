@@ -2,9 +2,9 @@
 
 namespace Zend\Module\Listener;
 
-use Zend\Loader\AutoloaderFactory,
-    Zend\Module\Consumer\AutoloaderProvider,
-    Zend\Module\ModuleEvent;
+use Zend\Loader\AutoloaderFactory;
+use Zend\Module\Consumer\AutoloaderProvider;
+use Zend\Module\ModuleEvent;
 
 class AutoloaderListener extends AbstractListener
 {

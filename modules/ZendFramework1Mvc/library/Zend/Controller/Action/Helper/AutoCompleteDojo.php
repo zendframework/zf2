@@ -20,9 +20,9 @@
  */
 
 namespace Zend\Controller\Action\Helper;
-use Zend\Controller\Front as FrontController,
-    Zend\Dojo\Data as DojoData,
-    Zend\Layout\Layout;
+use Zend\Controller\Front as FrontController;
+use Zend\Dojo\Data as DojoData;
+use Zend\Layout\Layout;
 
 /**
  * Create and send Dojo-compatible autocompletion lists

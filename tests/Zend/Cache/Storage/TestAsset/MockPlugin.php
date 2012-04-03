@@ -2,10 +2,10 @@
 
 namespace ZendTest\Cache\Storage\TestAsset;
 
-use Zend\Cache\Storage\Plugin,
-    Zend\Cache\Storage\Plugin\AbstractPlugin,
-    Zend\EventManager\EventCollection,
-    Zend\EventManager\Event;
+use Zend\Cache\Storage\Plugin;
+use Zend\Cache\Storage\Plugin\AbstractPlugin;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\Event;
 
 class MockPlugin extends AbstractPlugin
 {

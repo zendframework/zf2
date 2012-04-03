@@ -2,13 +2,13 @@
 
 namespace Zend\Module\Listener;
 
-use Zend\EventManager\StaticEventManager,
-    Zend\Di\InstanceManager,
-    Zend\EventManager\Event,
-    Zend\Module\ModuleEvent,
-    Zend\Module\Consumer\LocatorRegistered,
-    Zend\EventManager\EventCollection,
-    Zend\EventManager\ListenerAggregate;
+use Zend\EventManager\StaticEventManager;
+use Zend\Di\InstanceManager;
+use Zend\EventManager\Event;
+use Zend\Module\ModuleEvent;
+use Zend\Module\Consumer\LocatorRegistered;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\ListenerAggregate;
 
 class LocatorRegistrationListener extends AbstractListener implements ListenerAggregate
 {

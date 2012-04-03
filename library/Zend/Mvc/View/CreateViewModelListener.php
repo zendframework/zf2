@@ -21,11 +21,11 @@
 
 namespace Zend\Mvc\View;
 
-use Zend\EventManager\EventCollection as Events,
-    Zend\EventManager\ListenerAggregate,
-    Zend\Mvc\MvcEvent,
-    Zend\Stdlib\ArrayUtils,
-    Zend\View\Model\ViewModel;
+use Zend\EventManager\EventCollection as Events;
+use Zend\EventManager\ListenerAggregate;
+use Zend\Mvc\MvcEvent;
+use Zend\Stdlib\ArrayUtils;
+use Zend\View\Model\ViewModel;
 
 class CreateViewModelListener implements ListenerAggregate
 {

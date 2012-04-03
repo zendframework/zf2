@@ -20,8 +20,8 @@
 
 namespace Zend\Controller\Request;
 
-use Zend\Controller,
-    Zend\Uri;
+use Zend\Controller;
+use Zend\Uri;
 
 /**
  * Zend_Controller_Request_Http

@@ -21,9 +21,9 @@
 
 namespace ZendTest\Validator\Db;
 
-use Zend\Db\Table\AbstractTable,
-    Zend\Validator\Db\RecordExists as RecordExistsValidator,
-    ReflectionClass;
+use Zend\Db\Table\AbstractTable;
+use Zend\Validator\Db\RecordExists as RecordExistsValidator;
+use ReflectionClass;
 
 /**
  * @category   Zend

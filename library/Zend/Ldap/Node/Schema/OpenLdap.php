@@ -21,8 +21,8 @@
 
 namespace Zend\Ldap\Node\Schema;
 
-use Zend\Ldap\Node\Schema,
-    Zend\Ldap;
+use Zend\Ldap\Node\Schema;
+use Zend\Ldap;
 
 /**
  * Zend_Ldap_Node_Schema_OpenLDAP provides a simple data-container for the Schema node of

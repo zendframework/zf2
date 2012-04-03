@@ -21,9 +21,9 @@
 
 namespace Zend\Mail\Storage;
 
-use Zend\Mail\Protocol,
-    Zend\Mail,
-    Zend\Mime;
+use Zend\Mail\Protocol;
+use Zend\Mail;
+use Zend\Mime;
 
 /**
  * @category   Zend

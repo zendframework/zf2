@@ -21,10 +21,10 @@
 
 namespace ZendTest\Navigation\Page;
 
-use Zend\Controller\Front as FrontController,
-    Zend\Controller\Request,
-    Zend\Navigation\Page,
-    Zend\Navigation;
+use Zend\Controller\Front as FrontController;
+use Zend\Controller\Request;
+use Zend\Navigation\Page;
+use Zend\Navigation;
 
 /**
  * Tests the class Zend_Navigation_Page_Mvc

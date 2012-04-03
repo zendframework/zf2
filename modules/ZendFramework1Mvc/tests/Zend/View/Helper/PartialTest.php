@@ -21,8 +21,8 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\Controller,
-    Zend\View\PhpRenderer as View;
+use Zend\Controller;
+use Zend\View\PhpRenderer as View;
 
 
 /**

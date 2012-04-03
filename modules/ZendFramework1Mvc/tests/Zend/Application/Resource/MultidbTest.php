@@ -21,11 +21,11 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Application\Resource\MultiDb as MultidbResource,
-    Zend\Application,
-    Zend\Controller\Front as FrontController,
-    Zend\Db\Table\Table as DBTable,
-    Zend\Cache\Cache;
+use Zend\Application\Resource\MultiDb as MultidbResource;
+use Zend\Application;
+use Zend\Controller\Front as FrontController;
+use Zend\Db\Table\Table as DBTable;
+use Zend\Cache\Cache;
 
 /**
  * @category   Zend

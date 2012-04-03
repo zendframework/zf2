@@ -2,8 +2,8 @@
 
 namespace Zend\Module\Listener;
 
-use Zend\Stdlib\Options,
-    Traversable;
+use Zend\Stdlib\Options;
+use Traversable;
 
 class ListenerOptions extends Options
 {

@@ -21,9 +21,9 @@
 
 namespace Zend\Captcha;
 
-use Zend\Captcha\Exception,
-    Zend\Loader\Pluggable,
-    Zend\View\Renderer;
+use Zend\Captcha\Exception;
+use Zend\Loader\Pluggable;
+use Zend\View\Renderer;
 
 /**
  * Image-based captcha element

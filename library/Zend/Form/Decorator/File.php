@@ -21,10 +21,10 @@
 
 namespace Zend\Form\Decorator;
 
-use Zend\File\Transfer\Adapter,
-    Zend\Loader\Pluggable,
-    Zend\Form\Element,
-    Zend\View\Renderer;
+use Zend\File\Transfer\Adapter;
+use Zend\Loader\Pluggable;
+use Zend\Form\Element;
+use Zend\View\Renderer;
 
 /**
  * Zend_Form_Decorator_File

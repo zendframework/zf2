@@ -21,8 +21,8 @@
 
 namespace ZendTest\Dojo\Form;
 
-use Zend\Dojo\Form\Form as DojoForm,
-    Zend\View;
+use Zend\Dojo\Form\Form as DojoForm;
+use Zend\View;
 
 /**
  * Test class for Zend_Dojo_Form and Zend_Dojo_Form_DisplayGroup

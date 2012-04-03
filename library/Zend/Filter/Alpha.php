@@ -20,10 +20,10 @@
 
 namespace Zend\Filter;
 
-use Traversable,
-    Zend\Locale\Locale as ZendLocale,
-    Zend\Registry,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Locale\Locale as ZendLocale;
+use Zend\Registry;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @uses       Zend\Filter\AbstractFilter

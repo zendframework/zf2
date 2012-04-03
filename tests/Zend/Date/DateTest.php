@@ -21,13 +21,13 @@
 
 namespace ZendTest\Date;
 
-use Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Date\Date,
-    Zend\Date\Cities,
-    Zend\Locale\Locale,
-    Zend\TimeSync\TimeSync,
-    Zend\Registry;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Date\Date;
+use Zend\Date\Cities;
+use Zend\Locale\Locale;
+use Zend\TimeSync\TimeSync;
+use Zend\Registry;
 
 /**
  * These const values control some testing behavior.

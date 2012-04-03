@@ -21,13 +21,13 @@
 
 namespace ZendTest\Paginator;
 
-use Zend\Paginator,
-    Zend\Controller\Front as FrontController,
-    Zend\View\Helper,
-    Zend\View,
-    Zend\Config,
-    Zend\Paginator\Adapter,
-    Zend\Paginator\Exception;
+use Zend\Paginator;
+use Zend\Controller\Front as FrontController;
+use Zend\View\Helper;
+use Zend\View;
+use Zend\Config;
+use Zend\Paginator\Adapter;
+use Zend\Paginator\Exception;
 
 
 /**

@@ -21,8 +21,8 @@
 
 namespace Zend\Mail\Header;
 
-use Zend\Mail\AddressList,
-    Zend\Mail\Header;
+use Zend\Mail\AddressList;
+use Zend\Mail\Header;
 
 /**
  * Base class for headers composing address lists (to, from, cc, bcc, reply-to)

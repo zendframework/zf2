@@ -27,10 +27,10 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
     define("PHPUnit_MAIN_METHOD", "Zend_Cloud_QueueService_Adapter_WindowsAzureTest::main");
 }
 
-use ZendTest\Cloud\QueueService\TestCase,
-    Zend\Cloud\QueueService\Adapter\WindowsAzure,
-    Zend\Config\Config,
-    Zend\Cloud\QueueService\Factory;
+use ZendTest\Cloud\QueueService\TestCase;
+use Zend\Cloud\QueueService\Adapter\WindowsAzure;
+use Zend\Config\Config;
+use Zend\Cloud\QueueService\Factory;
 
 /**
  * @category   Zend

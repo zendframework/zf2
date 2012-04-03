@@ -21,11 +21,11 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use RecursiveIteratorIterator,
-    Zend\Navigation\Container,
-    Zend\Navigation\Page\AbstractPage,
-    Zend\View,
-    Zend\View\Exception;
+use RecursiveIteratorIterator;
+use Zend\Navigation\Container;
+use Zend\Navigation\Page\AbstractPage;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Helper for rendering menus from navigation containers

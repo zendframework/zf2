@@ -20,10 +20,10 @@
  */
 
 namespace Zend\Wildfire\Channel;
-use Zend\Wildfire,
-    Zend\Wildfire\Protocol,
-    Zend\Controller,
-    Zend\Controller\Request\Http as HttpRequest;
+use Zend\Wildfire;
+use Zend\Wildfire\Protocol;
+use Zend\Controller;
+use Zend\Controller\Request\Http as HttpRequest;
 
 /**
  * Implements communication via HTTP request and response headers for Wildfire Protocols.

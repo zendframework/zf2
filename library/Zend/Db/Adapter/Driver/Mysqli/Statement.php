@@ -21,10 +21,10 @@
 
 namespace Zend\Db\Adapter\Driver\Mysqli;
 
-use Zend\Db\Adapter\Driver\StatementInterface,
-    Zend\Db\Adapter\Exception,
-    Zend\Db\Adapter\ParameterContainer,
-    Zend\Db\Adapter\ParameterContainerInterface;
+use Zend\Db\Adapter\Driver\StatementInterface;
+use Zend\Db\Adapter\Exception;
+use Zend\Db\Adapter\ParameterContainer;
+use Zend\Db\Adapter\ParameterContainerInterface;
 
 /**
  * @category   Zend

@@ -21,9 +21,9 @@
 
 namespace ZendTest\Log\Writer;
 
-use ZendTest\Log\TestAsset\ConcreteWriter,
-    Zend\Log\Formatter\Simple as SimpleFormatter,
-    Zend\Log\Filter\Message as MessageFilter;
+use ZendTest\Log\TestAsset\ConcreteWriter;
+use Zend\Log\Formatter\Simple as SimpleFormatter;
+use Zend\Log\Filter\Message as MessageFilter;
 
 /**
  * @category   Zend

@@ -21,10 +21,10 @@
 
 namespace ZendTest\Application;
 
-use Zend\Application,
-    Zend\Controller\Front as FrontController,
-    Zend\Controller\Request\HttpTestCase as HttpRequestTestCase,
-    Zend\Controller\Response\HttpTestCase as HttpResponseTestCase;
+use Zend\Application;
+use Zend\Controller\Front as FrontController;
+use Zend\Controller\Request\HttpTestCase as HttpRequestTestCase;
+use Zend\Controller\Response\HttpTestCase as HttpResponseTestCase;
 
 /**
  * @category   Zend

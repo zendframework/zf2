@@ -21,8 +21,8 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Exception,
-    stdClass;
+use Zend\Code\Exception;
+use stdClass;
 
 /**
  * Shared utility methods used by scanners

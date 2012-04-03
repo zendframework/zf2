@@ -20,11 +20,11 @@
 
 namespace Zend\Code\Reflection;
 
-use ReflectionMethod as PhpReflectionMethod,
-    Zend\Code\Reflection,
-    Zend\Code\Annotation,
-    Zend\Code\Scanner\CachingFileScanner,
-    Zend\Code\Scanner\AnnotationScanner;
+use ReflectionMethod as PhpReflectionMethod;
+use Zend\Code\Reflection;
+use Zend\Code\Annotation;
+use Zend\Code\Scanner\CachingFileScanner;
+use Zend\Code\Scanner\AnnotationScanner;
 
 /**
  * @uses       ReflectionMethod

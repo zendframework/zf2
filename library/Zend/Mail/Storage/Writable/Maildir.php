@@ -21,13 +21,13 @@
 
 namespace Zend\Mail\Storage\Writable;
 
-use Zend\Mail\Storage,
-    Zend\Mail\Storage\Exception,
-    Zend\Mail\Exception as MailException,
-    Zend\Mail\Storage\Folder,
-    Zend\Mail\Storage\Folder\Maildir as MaildirFolder,
-    Zend\Mail\Storage\Maildir as MaildirStorage,
-    Zend\Mail\Storage\Writable;
+use Zend\Mail\Storage;
+use Zend\Mail\Storage\Exception;
+use Zend\Mail\Exception as MailException;
+use Zend\Mail\Storage\Folder;
+use Zend\Mail\Storage\Folder\Maildir as MaildirFolder;
+use Zend\Mail\Storage\Maildir as MaildirStorage;
+use Zend\Mail\Storage\Writable;
 
 /**
  * @uses       RecursiveIteratorIterator

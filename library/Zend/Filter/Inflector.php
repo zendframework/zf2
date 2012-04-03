@@ -20,8 +20,8 @@
 
 namespace Zend\Filter;
 
-use Zend\Config,
-    Zend\Loader\Broker;
+use Zend\Config;
+use Zend\Loader\Broker;
 
 /**
  * Filter chain for string inflection

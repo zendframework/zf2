@@ -1,13 +1,13 @@
 <?php
 namespace Zend\Mvc;
 
-use Zend\Di\Configuration as DiConfiguration,
-    Zend\Di\Di,
-    Zend\Config\Config,
-    Zend\EventManager\EventCollection as Events,
-    Zend\EventManager\EventManager,
-    Zend\EventManager\StaticEventManager,
-    Zend\Mvc\Router\Http\TreeRouteStack as Router;
+use Zend\Di\Configuration as DiConfiguration;
+use Zend\Di\Di;
+use Zend\Config\Config;
+use Zend\EventManager\EventCollection as Events;
+use Zend\EventManager\EventManager;
+use Zend\EventManager\StaticEventManager;
+use Zend\Mvc\Router\Http\TreeRouteStack as Router;
 
 class Bootstrap implements Bootstrapper
 {

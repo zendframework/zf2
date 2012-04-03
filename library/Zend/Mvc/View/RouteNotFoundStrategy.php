@@ -21,13 +21,13 @@
 
 namespace Zend\Mvc\View;
 
-use Zend\EventManager\EventCollection,
-    Zend\EventManager\ListenerAggregate,
-    Zend\Http\Response as HttpResponse,
-    Zend\Mvc\Application,
-    Zend\Mvc\MvcEvent,
-    Zend\Stdlib\ResponseDescription as Response,
-    Zend\View\Model as ViewModel;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\ListenerAggregate;
+use Zend\Http\Response as HttpResponse;
+use Zend\Mvc\Application;
+use Zend\Mvc\MvcEvent;
+use Zend\Stdlib\ResponseDescription as Response;
+use Zend\View\Model as ViewModel;
 
 /**
  * @category   Zend

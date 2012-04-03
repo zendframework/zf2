@@ -20,8 +20,8 @@
 
 namespace Zend\Uri;
 
-use Zend\Validator\Validator,
-    Zend\Validator\EmailAddress as EmailValidator;
+use Zend\Validator\Validator;
+use Zend\Validator\EmailAddress as EmailValidator;
 
 /**
  * "Mailto" URI handler

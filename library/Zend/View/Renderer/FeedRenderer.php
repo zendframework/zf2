@@ -21,10 +21,10 @@
 
 namespace Zend\View\Renderer;
 
-use Zend\View\Exception,
-    Zend\View\Model,
-    Zend\View\Renderer,
-    Zend\View\Resolver;
+use Zend\View\Exception;
+use Zend\View\Model;
+use Zend\View\Renderer;
+use Zend\View\Resolver;
 
 /**
  * Interface class for Zend_View compatible template engine implementations

@@ -2,8 +2,8 @@
 
 namespace ZendTest\Application\TestAsset;
 
-use Zend\Session\SaveHandler,
-    Zend\Session\Manager;
+use Zend\Session\SaveHandler;
+use Zend\Session\Manager;
 
 class SessionHandlerMock1 implements SaveHandler
 {

@@ -21,8 +21,8 @@
 
 namespace Zend\Application\Resource;
 
-use Zend\Registry,
-    Zend\Translator\Translator as Translate;
+use Zend\Registry;
+use Zend\Translator\Translator as Translate;
 
 /**
  * Resource for setting translation options

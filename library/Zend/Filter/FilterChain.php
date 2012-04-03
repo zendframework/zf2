@@ -20,8 +20,8 @@
 
 namespace Zend\Filter;
 
-use Zend\Loader\Broker,
-    Zend\Stdlib\SplPriorityQueue;
+use Zend\Loader\Broker;
+use Zend\Stdlib\SplPriorityQueue;
 
 /**
  * @uses       Zend\Filter\Exception

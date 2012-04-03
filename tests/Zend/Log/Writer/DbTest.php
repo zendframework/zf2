@@ -21,9 +21,9 @@
 
 namespace ZendTest\Log\Writer;
 
-use ZendTest\Log\TestAsset\MockDbAdapter,
-    \Zend\Log\Writer\Db as DbWriter,
-    \Zend\Log\Logger;
+use ZendTest\Log\TestAsset\MockDbAdapter;
+use \Zend\Log\Writer\Db as DbWriter;
+use \Zend\Log\Logger;
 
 /**
  * @category   Zend

@@ -21,8 +21,8 @@
 
 namespace Zend\Pdf\Color;
 
-use Zend\Pdf\Color,
-    Zend\Pdf\InternalType;
+use Zend\Pdf\Color;
+use Zend\Pdf\InternalType;
 
 /**
  * CMYK color implementation

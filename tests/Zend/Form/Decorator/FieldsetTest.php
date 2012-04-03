@@ -21,11 +21,11 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Decorator\Fieldset as FieldsetDecorator,
-    Zend\Form\Element,
-    Zend\Form\Form,
-    Zend\Form\SubForm,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Decorator\Fieldset as FieldsetDecorator;
+use Zend\Form\Element;
+use Zend\Form\Form;
+use Zend\Form\SubForm;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Decorator_Fieldset

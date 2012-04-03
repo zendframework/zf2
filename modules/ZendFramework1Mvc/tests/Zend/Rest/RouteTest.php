@@ -21,12 +21,12 @@
 
 namespace ZendTest\Rest;
 
-use Zend\Rest,
-    Zend\Config\Ini as INIConfig,
-    Zend\Controller\Front as FrontController,
-    Zend\Controller\Request\HttpTestCase as Request,
-    Zend\Controller\Router\Rewrite as RewriteRouter,
-    Zend\Controller\Router\Route\Route;
+use Zend\Rest;
+use Zend\Config\Ini as INIConfig;
+use Zend\Controller\Front as FrontController;
+use Zend\Controller\Request\HttpTestCase as Request;
+use Zend\Controller\Router\Rewrite as RewriteRouter;
+use Zend\Controller\Router\Route\Route;
 
 /**
  * @category   Zend

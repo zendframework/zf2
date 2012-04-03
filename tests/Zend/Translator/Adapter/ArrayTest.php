@@ -21,11 +21,11 @@
 
 namespace ZendTest\Translator\Adapter;
 
-use Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Locale,
-    Zend\Translator,
-    Zend\Translator\Adapter;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Locale;
+use Zend\Translator;
+use Zend\Translator\Adapter;
 
 /**
  * @category   Zend

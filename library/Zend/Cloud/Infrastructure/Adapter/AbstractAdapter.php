@@ -22,8 +22,8 @@
  */
 namespace Zend\Cloud\Infrastructure\Adapter;
 
-use Zend\Cloud\Infrastructure\Adapter,
-    Zend\Cloud\Infrastructure\Instance;
+use Zend\Cloud\Infrastructure\Adapter;
+use Zend\Cloud\Infrastructure\Instance;
 
 /**
  * Abstract infrastructure service adapter

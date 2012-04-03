@@ -21,9 +21,9 @@
 
 namespace Zend\Log\Writer;
 
-use Zend\Log\Formatter,
-    Zend\Log\Exception,
-    Zend\Db\Adapter\AbstractAdapter as DbAdapter;
+use Zend\Log\Formatter;
+use Zend\Log\Exception;
+use Zend\Db\Adapter\AbstractAdapter as DbAdapter;
 
 /**
  * @uses       \Zend\Log\Exception\InvalidArgumentException

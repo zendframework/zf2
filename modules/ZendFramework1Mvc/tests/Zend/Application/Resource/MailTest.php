@@ -21,12 +21,12 @@
 
 namespace ZendTest\Application\Resource;
 
-use Zend\Loader\Autoloader,
-    Zend\Application\Resource\Mail as MailResource,
-    Zend\Application,
-    Zend\Controller\Front as FrontController,
-    Zend\Mail\Mail,
-    ZendTest\Application\Resource\TestAsset\CustomMailTranSPorT;
+use Zend\Loader\Autoloader;
+use Zend\Application\Resource\Mail as MailResource;
+use Zend\Application;
+use Zend\Controller\Front as FrontController;
+use Zend\Mail\Mail;
+use ZendTest\Application\Resource\TestAsset\CustomMailTranSPorT;
 
 /**
  * @category   Zend

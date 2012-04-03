@@ -2,8 +2,8 @@
 
 namespace ZendTest\Code\TestAsset {
 
-    use Foo\Bar,
-        A\B\C as X;
+    use Foo\Bar;
+use A\B\C as X;
 
     class Baz {
         public function __construct(Bar\Boo $boo, Bam $bam)

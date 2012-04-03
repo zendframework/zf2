@@ -21,10 +21,10 @@
 
 namespace Zend\Controller\Dispatcher;
 
-use Zend\Controller\Dispatcher,
-    Zend\Controller\Front as FrontController,
-    Zend\Controller\Response\AbstractResponse,
-    Zend\Loader\Broker;
+use Zend\Controller\Dispatcher;
+use Zend\Controller\Front as FrontController;
+use Zend\Controller\Response\AbstractResponse;
+use Zend\Loader\Broker;
 
 /**
  * @uses       \Zend\Controller\Dispatcher\Exception

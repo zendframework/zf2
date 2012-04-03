@@ -21,11 +21,11 @@
 
 namespace ZendTest\Controller;
 
-use Zend\Controller,
-    Zend\Controller\Front as FrontController,
-    Zend\Controller\Request,
-    Zend\Controller\Response,
-    Zend\Controller\Action\Helper;
+use Zend\Controller;
+use Zend\Controller\Front as FrontController;
+use Zend\Controller\Request;
+use Zend\Controller\Response;
+use Zend\Controller\Action\Helper;
 
 /**
  * @category   Zend

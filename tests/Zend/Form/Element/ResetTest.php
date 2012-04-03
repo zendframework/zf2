@@ -21,13 +21,13 @@
 
 namespace ZendTest\Form\Element;
 
-use Zend\Form\Element\Reset as ResetElement,
-    Zend\Form\Element\Submit as SubmitElement,
-    Zend\Form\Element\Xhtml as XhtmlElement,
-    Zend\Form\Element,
-    Zend\Form\Decorator,
-    Zend\Translator\Translator,
-    Zend\View\View;
+use Zend\Form\Element\Reset as ResetElement;
+use Zend\Form\Element\Submit as SubmitElement;
+use Zend\Form\Element\Xhtml as XhtmlElement;
+use Zend\Form\Element;
+use Zend\Form\Decorator;
+use Zend\Translator\Translator;
+use Zend\View\View;
 
 /**
  * Test class for Zend_Form_Element_Reset

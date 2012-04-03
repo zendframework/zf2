@@ -2,8 +2,8 @@
 
 namespace ZendTest\Http;
 
-use Zend\Http\Client,
-    Zend\Http\Header\SetCookie;
+use Zend\Http\Client;
+use Zend\Http\Header\SetCookie;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {

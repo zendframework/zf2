@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Cache;
-use Zend\Cache,
-    Zend\Loader\Broker;
+use Zend\Cache;
+use Zend\Loader\Broker;
 
 /**
  * @category   Zend

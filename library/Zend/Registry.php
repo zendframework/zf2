@@ -20,8 +20,8 @@
 
 namespace Zend;
 
-use ArrayObject,
-    RuntimeException;
+use ArrayObject;
+use RuntimeException;
 
 /**
  * Generic storage class helps to manage global data.

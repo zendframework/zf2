@@ -21,14 +21,14 @@
 
 namespace ZendTest\Form\Element;
 
-use Zend\Form\Element\Multiselect as MultiselectElement,
-    Zend\Form\Element\Multi as MultiElement,
-    Zend\Form\Element\Xhtml as XhtmlElement,
-    Zend\Form\Element,
-    Zend\Form\Decorator,
-    Zend\Config\Factory as ConfigFactory,
-    Zend\Translator\Translator,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Element\Multiselect as MultiselectElement;
+use Zend\Form\Element\Multi as MultiElement;
+use Zend\Form\Element\Xhtml as XhtmlElement;
+use Zend\Form\Element;
+use Zend\Form\Decorator;
+use Zend\Config\Factory as ConfigFactory;
+use Zend\Translator\Translator;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Element_Multiselect

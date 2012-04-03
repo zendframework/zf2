@@ -21,9 +21,9 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
-use Zend\Registry,
-    Zend\Navigation\Navigation,
-    Zend\View\Exception;
+use Zend\Registry;
+use Zend\Navigation\Navigation;
+use Zend\View\Exception;
 
 /**
  * Tests Zend_View_Helper_Navigation_Breadcrumbs

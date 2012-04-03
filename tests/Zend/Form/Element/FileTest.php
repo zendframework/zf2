@@ -21,17 +21,17 @@
 
 namespace ZendTest\Form\Element;
 
-use Zend\Form\Element\File as FileElement,
-    Zend\Form\Element\Xhtml as XhtmlElement,
-    Zend\Form\Element,
-    Zend\Form\Form,
-    Zend\Form\Decorator,
-    Zend\Form\SubForm,
-    Zend\Loader\PrefixPathLoader,
-    Zend\Loader\PrefixPathMapper,
-    Zend\Registry,
-    Zend\Translator\Translator,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Element\File as FileElement;
+use Zend\Form\Element\Xhtml as XhtmlElement;
+use Zend\Form\Element;
+use Zend\Form\Form;
+use Zend\Form\Decorator;
+use Zend\Form\SubForm;
+use Zend\Loader\PrefixPathLoader;
+use Zend\Loader\PrefixPathMapper;
+use Zend\Registry;
+use Zend\Translator\Translator;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Element_File

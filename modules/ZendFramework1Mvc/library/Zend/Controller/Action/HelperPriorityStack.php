@@ -21,8 +21,8 @@
 
 namespace Zend\Controller\Action;
 
-use ArrayObject,
-    Zend\Controller\Action;
+use ArrayObject;
+use Zend\Controller\Action;
 
 /**
  * @uses       \Zend\Controller\Action\Exception

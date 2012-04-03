@@ -2,14 +2,14 @@
 
 namespace Zend\Module\Listener;
 
-use ArrayAccess,
-    Traversable,
-    Zend\Config\Config,
-    Zend\Config\Factory as ConfigFactory,
-    Zend\Module\ModuleEvent,
-    Zend\Stdlib\ArrayUtils,
-    Zend\EventManager\EventCollection,
-    Zend\EventManager\ListenerAggregate;
+use ArrayAccess;
+use Traversable;
+use Zend\Config\Config;
+use Zend\Config\Factory as ConfigFactory;
+use Zend\Module\ModuleEvent;
+use Zend\Stdlib\ArrayUtils;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\ListenerAggregate;
 
 class ConfigListener extends AbstractListener
     implements ConfigMerger, ListenerAggregate

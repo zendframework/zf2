@@ -20,12 +20,12 @@
 
 namespace Zend\Date;
 
-use Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Locale\Data\Cldr,
-    Zend\Locale\Format,
-    Zend\Locale\Locale,
-    Zend\Locale\Math,
-    Zend\TimeSync;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Locale\Data\Cldr;
+use Zend\Locale\Format;
+use Zend\Locale\Locale;
+use Zend\Locale\Math;
+use Zend\TimeSync;
 
 /**
  * @category  Zend

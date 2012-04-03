@@ -21,8 +21,8 @@
 
 namespace ZendTest\Loader;
 
-use Zend\Loader\ResourceAutoloader,
-    Zend\Config\Config;
+use Zend\Loader\ResourceAutoloader;
+use Zend\Config\Config;
 
 /**
  * @category   Zend

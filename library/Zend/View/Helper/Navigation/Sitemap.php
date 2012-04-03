@@ -21,13 +21,13 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use DOMDocument,
-    RecursiveIteratorIterator,
-    Zend\Navigation\Page\AbstractPage,
-    Zend\Navigation\Container,
-    Zend\Uri,
-    Zend\View,
-    Zend\View\Exception;
+use DOMDocument;
+use RecursiveIteratorIterator;
+use Zend\Navigation\Page\AbstractPage;
+use Zend\Navigation\Container;
+use Zend\Uri;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Helper for printing sitemaps

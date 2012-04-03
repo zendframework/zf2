@@ -21,10 +21,10 @@
 
 namespace ZendTest\Validator\Db;
 
-use Zend\Db\Table\AbstractTable,
-    Zend\Validator\Db\RecordExists as RecordExistsValidator,
-    Zend\Validator\Db\NoRecordExists as NoRecordExistsValidator,
-    ReflectionClass;
+use Zend\Db\Table\AbstractTable;
+use Zend\Validator\Db\RecordExists as RecordExistsValidator;
+use Zend\Validator\Db\NoRecordExists as NoRecordExistsValidator;
+use ReflectionClass;
 
 
 /**

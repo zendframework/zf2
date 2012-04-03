@@ -21,11 +21,11 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Decorator\Label as LabelDecorator,
-    Zend\Form\Decorator\AbstractDecorator,
-    Zend\Form\Element,
-    Zend\Translator\Translator,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Decorator\Label as LabelDecorator;
+use Zend\Form\Decorator\AbstractDecorator;
+use Zend\Form\Element;
+use Zend\Translator\Translator;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Decorator_Label

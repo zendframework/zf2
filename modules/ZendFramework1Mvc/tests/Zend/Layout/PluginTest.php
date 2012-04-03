@@ -21,11 +21,11 @@
 
 namespace ZendTest\Layout;
 
-use Zend\Controller,
-    Zend\Layout,
-    Zend\Layout\Controller\Plugin,
-    Zend\Controller\Request,
-    Zend\Controller\Response;
+use Zend\Controller;
+use Zend\Layout;
+use Zend\Layout\Controller\Plugin;
+use Zend\Controller\Request;
+use Zend\Controller\Response;
 
 /**
  * Test class for Zend_Layout_Controller_Plugin_Layout

@@ -20,9 +20,9 @@
 
 namespace Zend\Session\Storage;
 
-use ArrayObject,
-    Zend\Session\Storage as Storable,
-    Zend\Session\Exception;
+use ArrayObject;
+use Zend\Session\Storage as Storable;
+use Zend\Session\Exception;
 
 /**
  * Array session storage

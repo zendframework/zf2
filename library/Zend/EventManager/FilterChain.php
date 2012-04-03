@@ -20,8 +20,8 @@
 
 namespace Zend\EventManager;
 
-use Zend\Stdlib\CallbackHandler,
-    Zend\Stdlib\Exception\InvalidCallbackException;
+use Zend\Stdlib\CallbackHandler;
+use Zend\Stdlib\Exception\InvalidCallbackException;
 
 /**
  * FilterChain: intercepting filter manager

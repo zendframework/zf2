@@ -21,11 +21,11 @@
 
 namespace ZendTest\File\Transfer\Adapter;
 
-use Zend\Loader\PrefixPathLoader,
-    Zend\Loader\ShortNameLocator,
-    Zend\Validator\File,
-    Zend\Filter,
-    Zend\File\Transfer;
+use Zend\Loader\PrefixPathLoader;
+use Zend\Loader\ShortNameLocator;
+use Zend\Validator\File;
+use Zend\Filter;
+use Zend\File\Transfer;
 
 /**
  * Test class for Zend_File_Transfer_Adapter_Abstract

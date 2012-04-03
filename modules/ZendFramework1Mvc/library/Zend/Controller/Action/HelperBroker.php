@@ -21,8 +21,8 @@
 
 namespace Zend\Controller\Action;
 
-use Zend\Controller\Action,
-    Zend\Loader\PluginSpecBroker;
+use Zend\Controller\Action;
+use Zend\Loader\PluginSpecBroker;
 
 /**
  * @uses       \Zend\Controller\Action\Exception

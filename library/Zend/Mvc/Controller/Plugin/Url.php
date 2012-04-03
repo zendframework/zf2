@@ -2,10 +2,10 @@
 
 namespace Zend\Mvc\Controller\Plugin;
 
-use Zend\Mvc\InjectApplicationEvent,
-    Zend\Mvc\Exception,
-    Zend\Mvc\MvcEvent,
-    Zend\Mvc\Router\RouteStack;
+use Zend\Mvc\InjectApplicationEvent;
+use Zend\Mvc\Exception;
+use Zend\Mvc\MvcEvent;
+use Zend\Mvc\Router\RouteStack;
 
 class Url extends AbstractPlugin
 {

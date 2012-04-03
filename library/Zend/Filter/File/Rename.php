@@ -19,8 +19,8 @@
  */
 
 namespace Zend\Filter\File;
-use Zend\Filter,
-    Zend\Filter\Exception;
+use Zend\Filter;
+use Zend\Filter\Exception;
 
 /**
  * @uses       Zend\Filter\Exception

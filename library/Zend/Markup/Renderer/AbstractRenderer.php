@@ -20,11 +20,11 @@
  */
 
 namespace Zend\Markup\Renderer;
-use Zend\Markup\Token,
-    Zend\Markup\TokenList,
-    Zend\Markup\Parser,
-    Zend\Markup\Renderer\Markup,
-    Zend\Config\Config;
+use Zend\Markup\Token;
+use Zend\Markup\TokenList;
+use Zend\Markup\Parser;
+use Zend\Markup\Renderer\Markup;
+use Zend\Config\Config;
 
 /**
  * Defines the basic rendering functionality

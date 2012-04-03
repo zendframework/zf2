@@ -21,8 +21,8 @@
 
 namespace Zend\Captcha;
 
-use Traversable,
-    Zend\Config\Config;
+use Traversable;
+use Zend\Config\Config;
 
 /**
  * Base class for Captcha adapters

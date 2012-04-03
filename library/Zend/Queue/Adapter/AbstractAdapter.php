@@ -21,10 +21,10 @@
 
 namespace Zend\Queue\Adapter;
 
-use Zend\Queue\Adapter,
-    Zend\Queue\Queue,
-    Zend\Queue\Exception as QueueException,
-    Zend\Config\Config;
+use Zend\Queue\Adapter;
+use Zend\Queue\Queue;
+use Zend\Queue\Exception as QueueException;
+use Zend\Config\Config;
 
 /**
  * Class for connecting to queues performing common operations.

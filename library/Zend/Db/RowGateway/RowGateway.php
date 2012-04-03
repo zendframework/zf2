@@ -21,10 +21,10 @@
 
 namespace Zend\Db\RowGateway;
 
-use Zend\Db\Adapter\Adapter,
-    Zend\Db\ResultSet\Row,
-    Zend\Db\ResultSet\RowObjectInterface,
-    Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\ResultSet\Row;
+use Zend\Db\ResultSet\RowObjectInterface;
+use Zend\Db\TableGateway\TableGateway;
 
 /**
  * @category   Zend

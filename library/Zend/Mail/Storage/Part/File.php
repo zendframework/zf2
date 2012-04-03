@@ -21,8 +21,8 @@
 
 namespace Zend\Mail\Storage\Part;
 
-use Zend\Mail\Storage\Part,
-    Zend\Mime;
+use Zend\Mail\Storage\Part;
+use Zend\Mime;
 
 /**
  * @category   Zend

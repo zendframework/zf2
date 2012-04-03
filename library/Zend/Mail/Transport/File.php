@@ -21,8 +21,8 @@
 
 namespace Zend\Mail\Transport;
 
-use Zend\Mail\Message,
-    Zend\Mail\Transport;
+use Zend\Mail\Message;
+use Zend\Mail\Transport;
 
 /**
  * File transport

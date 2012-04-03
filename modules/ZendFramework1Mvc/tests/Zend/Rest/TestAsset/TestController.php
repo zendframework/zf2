@@ -2,9 +2,9 @@
 
 namespace ZendTest\Rest\TestAsset;
 
-use Zend\Controller\Request\AbstractRequest,
-    Zend\Controller\Response\AbstractResponse,
-    Zend\Rest\Controller as RESTController;
+use Zend\Controller\Request\AbstractRequest;
+use Zend\Controller\Response\AbstractResponse;
+use Zend\Rest\Controller as RESTController;
 
 class TestController extends RESTController
 {

@@ -21,11 +21,11 @@
 
 namespace ZendTest\Locale;
 
-use Zend\Locale\Locale,
-    Zend\Locale\Exception\InvalidArgumentException,
-    Zend\Locale\Exception\UnexpectedValueException,
-    Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Locale\Locale;
+use Zend\Locale\Exception\InvalidArgumentException;
+use Zend\Locale\Exception\UnexpectedValueException;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
 
 /**
  * @category   Zend

@@ -20,8 +20,8 @@
 
 namespace Zend\Log;
 
-use ReflectionClass,
-    Zend\Config\Config;
+use ReflectionClass;
+use Zend\Config\Config;
 
 /**
  * @category   Zend

@@ -22,10 +22,10 @@
 
 namespace ZendTest\Session;
 
-use Zend\Session\Container,
-    Zend\Session\Configuration\StandardConfiguration,
-    Zend\Session\Manager,
-    Zend\Session;
+use Zend\Session\Container;
+use Zend\Session\Configuration\StandardConfiguration;
+use Zend\Session\Manager;
+use Zend\Session;
 
 /**
  * @category   Zend

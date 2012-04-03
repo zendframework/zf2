@@ -21,9 +21,9 @@
 
 namespace Zend\Cache\Storage;
 
-use stdClass,
-    Zend\Cache\Exception,
-    Zend\EventManager\EventManager;
+use stdClass;
+use Zend\Cache\Exception;
+use Zend\EventManager\EventManager;
 
 /**
  * @category   Zend

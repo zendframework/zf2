@@ -21,12 +21,12 @@
 
 namespace Zend\View\Resolver;
 
-use Countable,
-    IteratorAggregate,
-    Zend\Stdlib\PriorityQueue,
-    Zend\View\Exception,
-    Zend\View\Renderer,
-    Zend\View\Resolver;
+use Countable;
+use IteratorAggregate;
+use Zend\Stdlib\PriorityQueue;
+use Zend\View\Exception;
+use Zend\View\Renderer;
+use Zend\View\Resolver;
 
 /**
  * @category   Zend

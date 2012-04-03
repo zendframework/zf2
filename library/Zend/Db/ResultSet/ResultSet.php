@@ -21,11 +21,11 @@
 
 namespace Zend\Db\ResultSet;
 
-use ArrayIterator,
-    ArrayObject,
-    Countable,
-    Iterator,
-    IteratorAggregate;
+use ArrayIterator;
+use ArrayObject;
+use Countable;
+use Iterator;
+use IteratorAggregate;
 
 /**
  * @category   Zend

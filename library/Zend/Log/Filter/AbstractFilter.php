@@ -21,10 +21,10 @@
 
 namespace Zend\Log\Filter;
 
-use Zend\Log\Factory,
-    Zend\Log\Filter,
-    Zend\Log\Exception,
-    Zend\Config\Config;
+use Zend\Log\Factory;
+use Zend\Log\Filter;
+use Zend\Log\Exception;
+use Zend\Config\Config;
 
 /**
  * @uses       \Zend\Log\Exception\InvalidArgumentException

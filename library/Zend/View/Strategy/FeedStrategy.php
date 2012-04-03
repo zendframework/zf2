@@ -21,14 +21,14 @@
 
 namespace Zend\View\Strategy;
 
-use Zend\EventManager\EventCollection,
-    Zend\EventManager\ListenerAggregate,
-    Zend\Feed\Writer\Feed,
-    Zend\Http\Request as HttpRequest,
-    Zend\Http\Response as HttpResponse,
-    Zend\View\Model,
-    Zend\View\Renderer\FeedRenderer,
-    Zend\View\ViewEvent;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\ListenerAggregate;
+use Zend\Feed\Writer\Feed;
+use Zend\Http\Request as HttpRequest;
+use Zend\Http\Response as HttpResponse;
+use Zend\View\Model;
+use Zend\View\Renderer\FeedRenderer;
+use Zend\View\ViewEvent;
 
 /**
  * @category   Zend

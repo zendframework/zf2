@@ -20,8 +20,8 @@
  
 namespace Zend\Feed\Reader\Feed;
 
-use Zend\Feed\Reader,
-    Zend\Feed\Reader\Exception;
+use Zend\Feed\Reader;
+use Zend\Feed\Reader\Exception;
 
 /**
 * @uses \Zend\Feed\Exception

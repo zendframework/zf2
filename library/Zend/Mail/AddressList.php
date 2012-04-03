@@ -20,8 +20,8 @@
 
 namespace Zend\Mail;
 
-use Countable,
-    Iterator;
+use Countable;
+use Iterator;
 
 /**
  * @category   Zend

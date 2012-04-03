@@ -21,11 +21,11 @@
 
 namespace Zend\Service\SlideShare;
 
-use SimpleXMLElement,
-    Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter as CacheAdapter,
-    Zend\Http,
-    Zend\Http\Client;
+use SimpleXMLElement;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter as CacheAdapter;
+use Zend\Http;
+use Zend\Http\Client;
 
 /**
  * The Zend\Service\SlideShare component is used to interface with the

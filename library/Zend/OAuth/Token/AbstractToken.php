@@ -19,10 +19,10 @@
  */
 
 namespace Zend\OAuth\Token;
-use Zend\Http\Response as HTTPResponse,
-    Zend\OAuth\Token as OAuthToken,
-    Zend\OAuth\Http\Utility as HTTPUtility,
-    Zend\OAuth\Exception as OAuthException;
+use Zend\Http\Response as HTTPResponse;
+use Zend\OAuth\Token as OAuthToken;
+use Zend\OAuth\Http\Utility as HTTPUtility;
+use Zend\OAuth\Exception as OAuthException;
 
 /**
  * @uses       Zend\Http\Response

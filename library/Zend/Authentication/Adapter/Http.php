@@ -21,11 +21,11 @@
 
 namespace Zend\Authentication\Adapter;
 
-use Zend\Authentication\Adapter as AuthenticationAdapter,
-    Zend\Authentication,
-    Zend\Http\Request as HTTPRequest,
-    Zend\Http\Response as HTTPResponse,
-    Zend\Uri\UriFactory;
+use Zend\Authentication\Adapter as AuthenticationAdapter;
+use Zend\Authentication;
+use Zend\Http\Request as HTTPRequest;
+use Zend\Http\Response as HTTPResponse;
+use Zend\Uri\UriFactory;
 
 /**
  * HTTP Authentication Adapter

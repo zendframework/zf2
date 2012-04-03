@@ -3,9 +3,9 @@
 
 namespace Zend\Http\PhpEnvironment;
 
-use Zend\Http\Header\MultipleHeaderDescription,
-    Zend\Http\Response as HttpResponse,
-    Zend\Stdlib\Parameters;
+use Zend\Http\Header\MultipleHeaderDescription;
+use Zend\Http\Response as HttpResponse;
+use Zend\Stdlib\Parameters;
 
 class Response extends HttpResponse
 {

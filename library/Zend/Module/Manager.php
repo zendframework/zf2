@@ -2,9 +2,9 @@
 
 namespace Zend\Module;
 
-use Traversable,
-    Zend\EventManager\EventCollection,
-    Zend\EventManager\EventManager;
+use Traversable;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\EventManager;
 
 class Manager implements ModuleHandler
 {

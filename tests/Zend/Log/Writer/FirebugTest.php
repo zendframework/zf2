@@ -21,13 +21,13 @@
 
 namespace ZendTest\Log\Writer;
 
-use Zend\Log\Writer\Firebug as FirebugWriter,
-    Zend\Log\Logger,
-    Zend\Wildfire\Channel,
-    Zend\Wildfire\Plugin\FirePhp,
-    ZendTest\Log\TestAsset\FirePhpHeader,
-    ZendTest\Log\TestAsset\MockHttpResponse,
-    ZendTest\Log\TestAsset\CustomFirebugFormatter;
+use Zend\Log\Writer\Firebug as FirebugWriter;
+use Zend\Log\Logger;
+use Zend\Wildfire\Channel;
+use Zend\Wildfire\Plugin\FirePhp;
+use ZendTest\Log\TestAsset\FirePhpHeader;
+use ZendTest\Log\TestAsset\MockHttpResponse;
+use ZendTest\Log\TestAsset\CustomFirebugFormatter;
 
 /**
  * @category   Zend

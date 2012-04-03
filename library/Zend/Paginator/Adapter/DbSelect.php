@@ -20,10 +20,10 @@
 
 namespace Zend\Paginator\Adapter;
 
-use Zend\Db\Select,
-    Zend\Db,
-    Zend\Paginator\Adapter,
-    Zend\Paginator\Adapter\Exception;
+use Zend\Db\Select;
+use Zend\Db;
+use Zend\Paginator\Adapter;
+use Zend\Paginator\Adapter\Exception;
 
 /**
  * @uses       \Zend\Db\Db

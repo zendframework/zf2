@@ -20,10 +20,10 @@
 
 namespace Zend\Feed\Writer\Renderer\Entry;
 
-use Zend\Date,
-    Zend\Feed\Writer,
-    Zend\Feed\Writer\Renderer,
-    Zend\Uri;
+use Zend\Date;
+use Zend\Feed\Writer;
+use Zend\Feed\Writer\Renderer;
+use Zend\Uri;
 
 /**
 * @category Zend

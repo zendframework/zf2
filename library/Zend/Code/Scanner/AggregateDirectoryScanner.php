@@ -2,10 +2,10 @@
 
 namespace Zend\Code\Scanner;
 
-use Zend\Code\Scanner,
-    Zend\Code\Scanner\DirectoryScanner,
-    Zend\Code\Scanner\TokenArrayScanner,
-    Zend\Code\Exception;
+use Zend\Code\Scanner;
+use Zend\Code\Scanner\DirectoryScanner;
+use Zend\Code\Scanner\TokenArrayScanner;
+use Zend\Code\Exception;
 
 class AggregateDirectoryScanner extends DirectoryScanner
 {

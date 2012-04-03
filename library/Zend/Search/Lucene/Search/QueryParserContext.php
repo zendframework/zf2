@@ -21,9 +21,9 @@
 
 namespace Zend\Search\Lucene\Search;
 
-use Zend\Search\Lucene,
-	Zend\Search\Lucene\Exception\UnexpectedValueException,
-	Zend\Search\Lucene\Search\Exception\QueryParserException;
+use Zend\Search\Lucene;
+use Zend\Search\Lucene\Exception\UnexpectedValueException;
+use Zend\Search\Lucene\Search\Exception\QueryParserException;
 
 /**
  * @uses       \Zend\Search\Lucene\Exception\UnexpectedValueException

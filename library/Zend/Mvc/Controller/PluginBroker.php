@@ -2,8 +2,8 @@
 
 namespace Zend\Mvc\Controller;
 
-use Zend\Loader\PluginBroker as PluginBrokerBase,
-    Zend\Stdlib\Dispatchable;
+use Zend\Loader\PluginBroker as PluginBrokerBase;
+use Zend\Stdlib\Dispatchable;
 
 class PluginBroker extends PluginBrokerBase
 {

@@ -20,8 +20,8 @@
 
 namespace Zend\Mail;
 
-use Traversable,
-    Zend\Mime\Message as MimeMessage;
+use Traversable;
+use Zend\Mime\Message as MimeMessage;
 
 /**
  * @category   Zend

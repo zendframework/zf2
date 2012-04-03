@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Validator;
-use Zend\Validator,
-    ReflectionClass;
+use Zend\Validator;
+use ReflectionClass;
 
 /**
  * @category   Zend

@@ -20,14 +20,14 @@
 
 namespace Zend\Validator\Db;
 
-use Traversable,
-    Zend\Config\Config,
-    Zend\Db\Adapter\AbstractAdapter as AbstractDBAdapter,
-    Zend\Db\Db,
-    Zend\Db\Select as DBSelect,
-    Zend\Db\Table\AbstractTable as AbstractTable,
-    Zend\Validator\AbstractValidator,
-    Zend\Validator\Exception;
+use Traversable;
+use Zend\Config\Config;
+use Zend\Db\Adapter\AbstractAdapter as AbstractDBAdapter;
+use Zend\Db\Db;
+use Zend\Db\Select as DBSelect;
+use Zend\Db\Table\AbstractTable as AbstractTable;
+use Zend\Validator\AbstractValidator;
+use Zend\Validator\Exception;
 
 /**
  * Class for Database record validation

@@ -21,12 +21,12 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use APCIterator,
-    ArrayObject,
-    stdClass,
-    Traversable,
-    Zend\Cache\Exception,
-    Zend\Cache\Storage\Capabilities;
+use APCIterator;
+use ArrayObject;
+use stdClass;
+use Traversable;
+use Zend\Cache\Exception;
+use Zend\Cache\Storage\Capabilities;
 
 /**
  * @package    Zend_Cache

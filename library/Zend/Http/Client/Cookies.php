@@ -20,10 +20,10 @@
 
 namespace Zend\Http\Client;
 
-use Zend\Stdlib\ParametersDescription,
-    Zend\Uri,
-    Zend\Http\Header\Cookie,
-    Zend\Http\Response;
+use Zend\Stdlib\ParametersDescription;
+use Zend\Uri;
+use Zend\Http\Header\Cookie;
+use Zend\Http\Response;
 
 /**
  * A Cookies object is designed to contain and maintain HTTP cookies, and should

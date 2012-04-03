@@ -21,8 +21,8 @@
 
 namespace Zend\View\Helper;
 
-use Zend\View\Exception,
-    Zend\View\Model;
+use Zend\View\Exception;
+use Zend\View\Model;
 
 /**
  * Helper for rendering child view models

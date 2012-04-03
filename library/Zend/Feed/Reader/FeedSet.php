@@ -20,8 +20,8 @@
 
 namespace Zend\Feed\Reader;
 
-use ArrayObject,
-    Zend\Uri;
+use ArrayObject;
+use Zend\Uri;
 
 /**
 * @category Zend

@@ -23,17 +23,17 @@ namespace ZendTest\Form;
 
 require_once __DIR__ . '/TestAsset/decorators/TableRow.php';
 
-use Zend\Form\Form,
-    Zend\Form\SubForm,
-    Zend\Registry,
-    Zend\Config\Config,
-    Zend\Config\Factory as ConfigFactory,
-    Zend\Loader\PrefixPathLoader,
-    Zend\Loader\PrefixPathMapper,
-    Zend\Json\Json,
-    Zend\Translator\Translator,
-    Zend\Validator\Validator,
-    Zend\View;
+use Zend\Form\Form;
+use Zend\Form\SubForm;
+use Zend\Registry;
+use Zend\Config\Config;
+use Zend\Config\Factory as ConfigFactory;
+use Zend\Loader\PrefixPathLoader;
+use Zend\Loader\PrefixPathMapper;
+use Zend\Json\Json;
+use Zend\Translator\Translator;
+use Zend\Validator\Validator;
+use Zend\View;
 
 /**
  * @category   Zend

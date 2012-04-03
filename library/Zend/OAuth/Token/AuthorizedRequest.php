@@ -19,8 +19,8 @@
  */
 
 namespace Zend\OAuth\Token;
-use Zend\OAuth\Http,
-    Zend\OAuth\Exception as OAuthException;
+use Zend\OAuth\Http;
+use Zend\OAuth\Exception as OAuthException;
 
 /**
  * @uses       Zend\OAuth\Http\Utility

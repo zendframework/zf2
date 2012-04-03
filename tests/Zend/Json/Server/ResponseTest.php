@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Json\Server;
-use Zend\Json\Server,
-    Zend\Json;
+use Zend\Json\Server;
+use Zend\Json;
 
 /**
  * Test class for Zend_JSON_Server_Response

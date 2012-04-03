@@ -22,11 +22,11 @@
 namespace ZendTest\Filter
 {
 
-use Zend\Filter\InputFilter,
-    Zend\Filter,
-    Zend\Validator,
-    Zend\Loader\PluginBroker,
-    Zend\Translator;
+use Zend\Filter\InputFilter;
+use Zend\Filter;
+use Zend\Validator;
+use Zend\Loader\PluginBroker;
+use Zend\Translator;
 
 /**
  * @category   Zend

@@ -21,8 +21,8 @@
 
 namespace Zend\Cache\Storage;
 
-use Zend\Cache\Exception,
-    Zend\Loader\PluginBroker;
+use Zend\Cache\Exception;
+use Zend\Loader\PluginBroker;
 
 /**
  * Broker for cache storage adapter instances

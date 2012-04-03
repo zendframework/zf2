@@ -21,10 +21,10 @@
 
 namespace Zend\Controller\Action\Helper;
 
-use Zend\Config,
-    Zend\Controller\Action,
-    Zend\Controller\Front as FrontController,
-    Zend\View;
+use Zend\Config;
+use Zend\Controller\Action;
+use Zend\Controller\Front as FrontController;
+use Zend\View;
 
 /**
  * Simplify context switching based on requested format

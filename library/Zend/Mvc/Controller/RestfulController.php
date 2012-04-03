@@ -2,21 +2,21 @@
 
 namespace Zend\Mvc\Controller;
 
-use Zend\Di\Locator,
-    Zend\EventManager\EventCollection,
-    Zend\EventManager\EventDescription as Event,
-    Zend\EventManager\EventManager,
-    Zend\Http\Request as HttpRequest,
-    Zend\Http\PhpEnvironment\Response as HttpResponse,
-    Zend\Loader\Broker,
-    Zend\Loader\Pluggable,
-    Zend\Stdlib\Dispatchable,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response,
-    Zend\Mvc\Exception,
-    Zend\Mvc\InjectApplicationEvent,
-    Zend\Mvc\LocatorAware,
-    Zend\Mvc\MvcEvent;
+use Zend\Di\Locator;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\EventDescription as Event;
+use Zend\EventManager\EventManager;
+use Zend\Http\Request as HttpRequest;
+use Zend\Http\PhpEnvironment\Response as HttpResponse;
+use Zend\Loader\Broker;
+use Zend\Loader\Pluggable;
+use Zend\Stdlib\Dispatchable;
+use Zend\Stdlib\RequestDescription as Request;
+use Zend\Stdlib\ResponseDescription as Response;
+use Zend\Mvc\Exception;
+use Zend\Mvc\InjectApplicationEvent;
+use Zend\Mvc\LocatorAware;
+use Zend\Mvc\MvcEvent;
 
 /**
  * Abstract RESTful controller

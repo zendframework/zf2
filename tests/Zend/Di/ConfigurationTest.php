@@ -2,9 +2,9 @@
 
 namespace ZendTest\Di;
 
-use Zend\Di\Configuration,
-    Zend\Di\Di,
-    Zend\Config\Factory as ConfigFactory,
+use Zend\Di\Configuration;
+use Zend\Di\Di;
+use Zend\Config\Factory as ConfigFactory,
     PHPUnit_Framework_TestCase as TestCase;
 
 class ConfigurationTest extends TestCase

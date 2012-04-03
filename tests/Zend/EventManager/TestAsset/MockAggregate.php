@@ -21,8 +21,8 @@
 
 namespace ZendTest\EventManager\TestAsset;
 
-use Zend\EventManager\EventCollection,
-    Zend\EventManager\ListenerAggregate;
+use Zend\EventManager\EventCollection;
+use Zend\EventManager\ListenerAggregate;
 
 /**
  * @category   Zend

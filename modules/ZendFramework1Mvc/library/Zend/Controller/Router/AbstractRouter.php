@@ -21,8 +21,8 @@
 
 namespace Zend\Controller\Router;
 
-use Zend\Controller\Router,
-    Zend\Controller\Front as FrontController;
+use Zend\Controller\Router;
+use Zend\Controller\Front as FrontController;
 
 /**
  * Simple first implementation of a router, to be replaced

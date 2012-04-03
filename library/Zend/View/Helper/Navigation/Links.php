@@ -21,11 +21,11 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use RecursiveIteratorIterator,
-    Zend\Navigation,
-    Zend\Navigation\Page\AbstractPage,
-    Zend\View,
-    Zend\View\Exception;
+use RecursiveIteratorIterator;
+use Zend\Navigation;
+use Zend\Navigation\Page\AbstractPage;
+use Zend\View;
+use Zend\View\Exception;
 
 /**
  * Helper for printing <link> elements

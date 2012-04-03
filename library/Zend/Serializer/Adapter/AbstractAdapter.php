@@ -21,8 +21,8 @@
 
 namespace Zend\Serializer\Adapter;
 
-use Zend\Serializer\Adapter as SerializationAdapter,
-    Zend\Serializer\Exception\InvalidArgumentException;
+use Zend\Serializer\Adapter as SerializationAdapter;
+use Zend\Serializer\Exception\InvalidArgumentException;
 
 /**
  * @uses       \Zend\Serializer\Adapter

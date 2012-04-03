@@ -2,11 +2,11 @@
 
 namespace Zend\Http;
 
-use Zend\Stdlib\RequestDescription,
-    Zend\Stdlib\Message,
-    Zend\Stdlib\ParametersDescription,
-    Zend\Stdlib\Parameters,
-    Zend\Uri\Http as HttpUri;
+use Zend\Stdlib\RequestDescription;
+use Zend\Stdlib\Message;
+use Zend\Stdlib\ParametersDescription;
+use Zend\Stdlib\Parameters;
+use Zend\Uri\Http as HttpUri;
 
 class Request extends Message implements RequestDescription
 {

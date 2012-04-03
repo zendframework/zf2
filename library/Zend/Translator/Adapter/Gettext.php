@@ -20,10 +20,10 @@
 
 namespace Zend\Translator\Adapter;
 
-use Zend\Translator\Adapter\AbstractAdapter,
-    Zend\Translator,
-    Zend\Translator\Exception\InvalidArgumentException,
-    Zend\Translator\Exception\InvalidFileTypeException;
+use Zend\Translator\Adapter\AbstractAdapter;
+use Zend\Translator;
+use Zend\Translator\Exception\InvalidArgumentException;
+use Zend\Translator\Exception\InvalidFileTypeException;
 
 /**
  * @uses       \Zend\Locale\Locale

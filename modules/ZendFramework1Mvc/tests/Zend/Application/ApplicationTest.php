@@ -21,9 +21,9 @@
 
 namespace ZendTest\Application;
 
-use Zend\Application,
-    Zend\Config\Ini as IniConfig,
-    Zend\Loader\StandardAutoloader;
+use Zend\Application;
+use Zend\Config\Ini as IniConfig;
+use Zend\Loader\StandardAutoloader;
 
 /**
  * @category   Zend

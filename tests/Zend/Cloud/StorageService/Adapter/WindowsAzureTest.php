@@ -21,9 +21,9 @@
 
 namespace ZendTest\Cloud\StorageService\Adapter;
 
-use ZendTest\Cloud\StorageService\TestCase,
-    Zend\Cloud\StorageService\Adapter\WindowsAzure,
-    Zend\Config\Config;
+use ZendTest\Cloud\StorageService\TestCase;
+use Zend\Cloud\StorageService\Adapter\WindowsAzure;
+use Zend\Config\Config;
 
 // Call ZendTest\Cloud\StorageService\Adapter\WindowsAzureTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {

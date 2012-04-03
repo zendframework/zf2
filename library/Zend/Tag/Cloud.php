@@ -21,9 +21,9 @@
 
 namespace Zend\Tag;
 
-use Zend\Config,
-    Zend\Tag\Exception\InvalidArgumentException,
-    Zend\Loader\Broker;
+use Zend\Config;
+use Zend\Tag\Exception\InvalidArgumentException;
+use Zend\Loader\Broker;
 
 /**
  * @category   Zend

@@ -21,15 +21,15 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject,
-    Memcached as MemcachedResource,
-    MemcachedException,
-    stdClass,
-    Traversable,
-    Zend\Cache\Exception,
-    Zend\Cache\Storage\Event,
-    Zend\Cache\Storage\CallbackEvent,
-    Zend\Cache\Storage\Capabilities;
+use ArrayObject;
+use Memcached as MemcachedResource;
+use MemcachedException;
+use stdClass;
+use Traversable;
+use Zend\Cache\Exception;
+use Zend\Cache\Storage\Event;
+use Zend\Cache\Storage\CallbackEvent;
+use Zend\Cache\Storage\Capabilities;
 
 /**
  * @package    Zend_Cache

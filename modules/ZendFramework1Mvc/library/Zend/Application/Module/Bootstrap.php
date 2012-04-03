@@ -21,9 +21,9 @@
 
 namespace Zend\Application\Module;
 
-use Zend\Application\Bootstrap as ApplicationBootstrap,
-    Zend\Loader\Broker,
-    Zend\Loader\LazyLoadingBroker;
+use Zend\Application\Bootstrap as ApplicationBootstrap;
+use Zend\Loader\Broker;
+use Zend\Loader\LazyLoadingBroker;
 
 /**
  * Base bootstrap class for modules

@@ -20,9 +20,9 @@
 
 namespace Zend\Session\SaveHandler;
 
-use Zend\Session\SaveHandler as Savable,
-    Zend\Cache\Storage\Adapter as StorageAdapter,
-    Zend\Session\Exception;
+use Zend\Session\SaveHandler as Savable;
+use Zend\Cache\Storage\Adapter as StorageAdapter;
+use Zend\Session\Exception;
 
 /**
  * Cache session save handler

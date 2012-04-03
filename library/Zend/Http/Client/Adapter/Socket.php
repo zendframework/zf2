@@ -20,9 +20,9 @@
  */
 
 namespace Zend\Http\Client\Adapter;
-use Zend\Http\Client\Adapter as HttpAdapter,
-    Zend\Http\Client\Adapter\Exception as AdapterException,
-    Zend\Http\Response;
+use Zend\Http\Client\Adapter as HttpAdapter;
+use Zend\Http\Client\Adapter\Exception as AdapterException;
+use Zend\Http\Response;
 
 /**
  * A sockets based (stream\socket\client) adapter class for Zend\Http\Client. Can be used

@@ -20,9 +20,9 @@
 
 namespace Zend\OAuth\Config;
 
-use Zend\OAuth\Config as OAuthConfig,
-    Zend\OAuth,
-    Zend\Uri;
+use Zend\OAuth\Config as OAuthConfig;
+use Zend\OAuth;
+use Zend\Uri;
 
 /**
  * @category   Zend

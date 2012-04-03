@@ -20,9 +20,9 @@
  */
 
 namespace ZendTest\Cache\Storage\Adapter;
-use Zend\Cache\Storage\Adapter,
-    Zend\Cache,
-    Zend\Stdlib\ErrorHandler;
+use Zend\Cache\Storage\Adapter;
+use Zend\Cache;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * PHPUnit test case

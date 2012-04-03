@@ -21,10 +21,10 @@
 
 namespace Zend\Db\Adapter\Driver\Pdo;
 
-use Zend\Db\Adapter\Driver\ResultInterface,
-    Iterator,
-    PDO as PDOResource,
-    PDOStatement;
+use Zend\Db\Adapter\Driver\ResultInterface;
+use Iterator;
+use PDO as PDOResource;
+use PDOStatement;
 
 /**
  * @category   Zend

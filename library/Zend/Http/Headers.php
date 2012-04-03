@@ -2,10 +2,10 @@
 
 namespace Zend\Http;
 
-use Zend\Loader\PluginClassLoader,
-    Zend\Loader\PluginClassLocator,
-    Iterator,
-    Countable;
+use Zend\Loader\PluginClassLoader;
+use Zend\Loader\PluginClassLocator;
+use Iterator;
+use Countable;
 
 /**
  * Basic HTTP headers collection functionality

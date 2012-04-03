@@ -21,9 +21,9 @@
 
 namespace Zend\Application\Resource;
 
-use Zend\Application\ResourceException,
-    Zend\Session\SessionManager,
-    Zend\Session\SaveHandler;
+use Zend\Application\ResourceException;
+use Zend\Session\SessionManager;
+use Zend\Session\SaveHandler;
 
 /**
  * Resource for setting session options

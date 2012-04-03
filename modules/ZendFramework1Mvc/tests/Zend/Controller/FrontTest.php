@@ -21,10 +21,10 @@
 
 namespace ZendTest\Controller;
 
-use Zend\Controller,
-    Zend\Controller\Request,
-    Zend\Controller\Response,
-    Zend\Controller\Router;
+use Zend\Controller;
+use Zend\Controller\Request;
+use Zend\Controller\Response;
+use Zend\Controller\Router;
 
 /**
  * @category   Zend

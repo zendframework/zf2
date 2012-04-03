@@ -21,15 +21,15 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject,
-    GlobIterator,
-    stdClass,
-    Exception as BaseException,
-    Zend\Cache\Exception,
-    Zend\Cache\Storage,
-    Zend\Cache\Storage\Capabilities,
-    Zend\Cache\Utils,
-    Zend\Stdlib\ErrorHandler;
+use ArrayObject;
+use GlobIterator;
+use stdClass;
+use Exception as BaseException;
+use Zend\Cache\Exception;
+use Zend\Cache\Storage;
+use Zend\Cache\Storage\Capabilities;
+use Zend\Cache\Utils;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @category   Zend

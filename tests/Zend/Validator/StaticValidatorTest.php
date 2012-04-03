@@ -21,11 +21,11 @@
 
 namespace ZendTest\Validator;
 
-use Zend\Validator,
-    Zend\Validator\ValidatorBroker,
-    Zend\Loader\Broker,
-    Zend\Loader\PluginBroker,
-    Zend\Translator;
+use Zend\Validator;
+use Zend\Validator\ValidatorBroker;
+use Zend\Loader\Broker;
+use Zend\Loader\PluginBroker;
+use Zend\Translator;
 
 /**
  * @category   Zend

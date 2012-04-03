@@ -20,9 +20,9 @@
 
 namespace Zend\Validator\File;
 
-use Zend\Loader,
-    Zend\Validator,
-    Zend\Validator\Exception;
+use Zend\Loader;
+use Zend\Validator;
+use Zend\Validator\Exception;
 
 /**
  * Validator for the hash of given files

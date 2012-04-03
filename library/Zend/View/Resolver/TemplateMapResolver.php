@@ -21,13 +21,13 @@
 
 namespace Zend\View\Resolver;
 
-use ArrayIterator,
-    IteratorAggregate,
-    Traversable,
-    Zend\Stdlib\ArrayUtils,
-    Zend\View\Exception,
-    Zend\View\Renderer,
-    Zend\View\Resolver;
+use ArrayIterator;
+use IteratorAggregate;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
+use Zend\View\Exception;
+use Zend\View\Renderer;
+use Zend\View\Resolver;
 
 /**
  * @category   Zend

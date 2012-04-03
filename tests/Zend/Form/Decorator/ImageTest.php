@@ -21,11 +21,11 @@
 
 namespace ZendTest\Form\Decorator;
 
-use Zend\Form\Decorator\Image as ImageDecorator,
-    Zend\Form\Decorator\AbstractDecorator,
-    Zend\Form\Element,
-    Zend\Form\Element\Image as ImageElement,
-    Zend\View\Renderer\PhpRenderer as View;
+use Zend\Form\Decorator\Image as ImageDecorator;
+use Zend\Form\Decorator\AbstractDecorator;
+use Zend\Form\Element;
+use Zend\Form\Element\Image as ImageElement;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend_Form_Decorator_Image
