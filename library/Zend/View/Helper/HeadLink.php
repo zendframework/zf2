@@ -303,7 +303,7 @@ class HeadLink extends Placeholder\Container\Standalone
             && !empty($attributes['conditionalStylesheet'])
             && is_string($attributes['conditionalStylesheet']))
         {
-            $link = '<!--[if ' . $attributes['conditionalStylesheet'] . ']> ' . $link . '<![endif]-->';
+            $link = '<!-- [if ' . $attributes['conditionalStylesheet'] . ']> ' . $link . '<![endif]-->';
         }
 
         return $link;
