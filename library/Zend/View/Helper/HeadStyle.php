@@ -371,7 +371,7 @@ class HeadStyle extends Placeholder\Container\Standalone
               . '</style>';
 
         if (null == $escapeStart && null == $escapeEnd) {
-            $html = '<!--[if ' . $item->attributes['conditional'] . ']> ' . $html . '<![endif]-->';
+            $html = '<!-- [if ' . $item->attributes['conditional'] . ']> ' . $html . '<![endif]-->';
         }
 
         return $html;
