@@ -169,12 +169,6 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->dropTable();
     }
 
-    ############################################################################
-    #
-    # TableGateway
-    #
-    ############################################################################
-
     /**
      * @covers Zend\Db\TableGateway\TableGateway::getAdapter
      */
@@ -282,12 +276,6 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($row, $message);
     }
 
-    ############################################################################
-    #
-    # Class constructor
-    #
-    ############################################################################
-
     /**
      * @covers Zend\Db\TableGateway\TableGateway::__construct
      * @covers Zend\Session\SaveHandler\TableGateway::__construct
@@ -381,12 +369,6 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Zend\Session\SaveHandler\TableGateway', $saveHandler);
     }
 
-    ############################################################################
-    #
-    # Data
-    #
-    ############################################################################
-
     /**
      * @covers Zend\Db\TableGateway\TableGateway::__construct
      * @covers Zend\Session\SaveHandler\TableGateway::__construct
@@ -453,12 +435,6 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Zend\Session\SaveHandler\TableGateway', $saveHandler);
         $this->assertSame($this->saveHandlerOptions['dataColumn'], $saveHandler->getDataColumn());
     }
-
-    ############################################################################
-    #
-    # Session lifetime
-    #
-    ############################################################################
 
     /**
      * @covers Zend\Db\TableGateway\TableGateway::__construct
@@ -749,12 +725,6 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($saveHandler->isSessionExpired());
     }
 
-    ############################################################################
-    #
-    # Primary key
-    #
-    ############################################################################
-
     /**
      * @covers Zend\Db\TableGateway\TableGateway::__construct
      * @covers Zend\Session\SaveHandler\TableGateway::__construct
@@ -847,12 +817,6 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Zend\Session\SaveHandler\TableGateway', $saveHandler);
     }
 
-    ############################################################################
-    #
-    # Table name
-    #
-    ############################################################################
-
     /**
      * @covers Zend\Db\TableGateway\TableGateway::__construct
      * @covers Zend\Session\SaveHandler\TableGateway::__construct
@@ -920,12 +884,6 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->saveHandlerOptions['tableName'], $saveHandler->getTableName());
     }
 
-    ############################################################################
-    #
-    # Timestamp
-    #
-    ############################################################################
-
     /**
      * @covers Zend\Db\TableGateway\TableGateway::__construct
      * @covers Zend\Session\SaveHandler\TableGateway::__construct
@@ -992,12 +950,6 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Zend\Session\SaveHandler\TableGateway', $saveHandler);
         $this->assertSame($this->saveHandlerOptions['timestampColumn'], $saveHandler->getTimestampColumn());
     }
-
-    ############################################################################
-    #
-    # Class functionality
-    #
-    ############################################################################
 
     /**
      * @covers Zend\Db\TableGateway\TableGateway::__construct

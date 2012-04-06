@@ -103,12 +103,6 @@ class TableGateway extends BaseTableGateway implements Savable
      */
     protected $timestampColumn = 'timestamp';
 
-    ############################################################################
-    #
-    # Class constructor
-    #
-    ############################################################################
-
     /**
      * Constructor
      *
@@ -143,14 +137,6 @@ class TableGateway extends BaseTableGateway implements Savable
      *
      * @param  Adapter            $adapter The database adapter
      * @param  Configuration      OPTIONAL User provided configuration
-     *
-     * @uses setTableName()
-     * @uses setPrimary()
-     * @uses setTimestampColumn()
-     * @uses setDataColumn()
-     * @uses setLifetime()
-     * @uses setup()
-     *
      * @throws \Zend\Session\Exception\InvalidArgumentException
      */
     public function __construct(Adapter $adapter, Configuration $configuration = null)
@@ -194,9 +180,6 @@ class TableGateway extends BaseTableGateway implements Savable
     /**
      * Setup required settings
      *
-     * @uses getLifetime()
-     * @uses resetLifetime()
-     *
      * @return Zend\Session\SaveHandler\TableGateway
      */
     public function setup()
@@ -209,12 +192,6 @@ class TableGateway extends BaseTableGateway implements Savable
 
         return $this;
     }
-
-    ############################################################################
-    #
-    # Class helper methods
-    #
-    ############################################################################
 
     /**
      * Get table data column
@@ -268,9 +245,6 @@ class TableGateway extends BaseTableGateway implements Savable
      * (integer) ini_get('session.gc_maxlifetime')
      *
      * @see $lifetime
-     *
-     * @uses setLifetime()
-     *
      * @return Zend\Session\SaveHandler\TableGateway
      */
     public function resetLifetime()
@@ -407,10 +381,6 @@ class TableGateway extends BaseTableGateway implements Savable
      * Check to see if the session is expired
      *
      * @see $row
-     *
-     * @uses getLifetime()
-     * @uses getTimestampColumn()
-     *
      * @return boolean Returns true if the session is expired.
      */
     public function isSessionExpired()
@@ -444,10 +414,6 @@ class TableGateway extends BaseTableGateway implements Savable
      *
      * @see $rowset
      * @see $row
-     *
-     * @uses getPrimary()
-     * @uses select()
-     *
      * @param string $id The session id
      * @return Zend\Session\SaveHandler\TableGateway
      */
@@ -474,12 +440,6 @@ class TableGateway extends BaseTableGateway implements Savable
         return $this->sessionSavePath;
     }
 
-    ############################################################################
-    #
-    # Session methods
-    #
-    ############################################################################
-
     /**
      * Close session
      *
@@ -494,9 +454,6 @@ class TableGateway extends BaseTableGateway implements Savable
      * Destroy session
      *
      * @see \Zend\Db\Sql\Where
-     *
-     * @uses delete()
-     * @uses getPrimary()
      *
      * @param string $id
      * @return boolean
@@ -517,10 +474,6 @@ class TableGateway extends BaseTableGateway implements Savable
      * Garbage Collection
      *
      * @see \Zend\Db\Sql\Where
-     *
-     * @uses delete()
-     * @uses getLifetime()
-     * @uses getTimestampColumn()
      *
      * @todo Is it okay for this method to return false?
      *
@@ -569,12 +522,6 @@ class TableGateway extends BaseTableGateway implements Savable
      * Return an empty string if the session was destroyed.
      *
      * @see $row
-     *
-     * @uses destroy()
-     * @uses getDataColumn()
-     * @uses isSessionExpired()
-     * @uses setSessionRow()
-     *
      * @param string $id The session id
      * @return string
      */
@@ -603,12 +550,6 @@ class TableGateway extends BaseTableGateway implements Savable
      * Write session data
      *
      * @see $row
-     *
-     * @uses insert()
-     * @uses getDataColumn()
-     * @uses getPrimary()
-     * @uses getTimestampColumn()
-     * @uses update()
      *
      * @param string $id   The session id
      * @param string $data The session data
