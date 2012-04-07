@@ -104,9 +104,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     protected $where = null;
 
     /**
-     * @var null|string
+     * @var array
      */
-    protected $order = null;
+    protected $order = array();
 
     /**
      * @var int|null
@@ -235,17 +235,29 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     }
 
     /**
-     * $order can be an array of:
+     * $order can be an array or string of order clauses:
+     * e.g:
+     *  $order = 'id DESC';
+     * or
+     *  $order = array('name ASC', 'id DESC');
+     * 
      *
-     * @todo
-     *
-     *
-     * @param string|array $order
+     * @param string|array\Expression $order
      * @return Select
      */
     public function order($order)
     {
-        $this->order = $order;
+        if (is_string($order)) {
+            $order = explode(',', $order);
+        } 
+
+        if ($order instanceof Expression) {
+            $this->order[] = $order;
+        } else {
+            foreach ($order as $item) {
+                $this->order[] = trim($item);
+            }
+        }
         return $this;
     }
 
@@ -375,14 +387,25 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $sql .= ' ' . sprintf($this->specifications[self::SPECIFICATION_WHERE], $whereParts['sql']);
         }
 
-        if (is_string($this->order) && $this->order != '') {
-            $sql .= $this->applySpecification(self::SPECIFICATION_ORDER, $this->order);
+        // process order
+        if (count($this->order)) {
+            $order = array();
+            foreach ($this->order as $item) {
+                if ($item instanceof Expression) {
+                    $orderParts = $this->processExpression($item, $platform, $adapter->getDriver(), 'orderby');
+                    if (count($orderParts['parameters']) > 0) {
+                        $parameterContainer->merge($orderParts['parameters']);
+                    }
+                    $order[] = $orderParts['sql'];
+                } else {
+                    $order[] = $platform->quoteIdentifierInFragment($item, array('ASC', 'DESC', 'asc', 'desc', 'Asc', 'Desc'));
+                }
+            }
+            $sql .= ' ' . sprintf($this->specifications[self::SPECIFICATION_ORDER], implode(', ', $order));
         }
 
         // @todo Order and Fetch/Limit in prepare for Sql object
-        $order = null;
         $limit = null;
-
         $sql .= (isset($limit)) ? sprintf($this->specifications[self::SPECIFICATION_FETCH], $limit) : '';
 
         $statement->setSql($sql);
@@ -469,9 +492,21 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $sql .= ' ' . sprintf($this->specifications[self::SPECIFICATION_WHERE], $whereParts['sql']);
         }
 
-        // process order & limit
-        // @todo this is too basic, but good for now
-        //$sql .= (isset($this->order)) ? sprintf($this->specifications[self::SPECIFICATION_ORDER], $this->order) : '';
+        // process order
+        if (count($this->order)) {
+            $order = array();
+            foreach ($this->order as $item) {
+                if ($item instanceof Expression) {
+                    $orderParts = $this->processExpression($item, $platform, null, 'orderby');
+                    $order[] = $orderParts['sql'];
+                } else {
+                    $order[] = $platform->quoteIdentifierInFragment($item, array('ASC', 'DESC', 'asc', 'desc', 'Asc', 'Desc'));
+                }
+            }
+            $sql .= ' ' . sprintf($this->specifications[self::SPECIFICATION_ORDER], implode(', ', $order));
+        }
+
+        // @todo process limit
         //$sql .= (isset($this->limit)) ? sprintf($this->specifications[self::SPECIFICATION_FETCH], $this->limit) : '';
 
         return $sql;

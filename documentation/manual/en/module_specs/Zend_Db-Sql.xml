@@ -72,6 +72,7 @@ class Zend\Db\Sql\Select
     public function columns(array $columns);
     public function join($name, $on, $columns = self::SQL_WILDCARD, $type = self::JOIN_INNER);
     public function where($predicate, $combination = Predicate\PredicateSet::OP_AND);
+    public function order($order);
 
     // methods to generate statement and/or sql
     public function prepareStatement(Adapter $adapter, StatementInterface $statement);
@@ -268,7 +269,8 @@ use Zend\Db\Sql\Select,
 $select = new Select;
 $select->from('artist')
     ->join('album', 'artist.id = album.artist_id')
-    ->where->like('artist.name', 'Foo%');
+    ->where->like('artist.name', 'Foo%')
+    ->order('name ASC');
 
 // create a statement to use
 $statment = $adapter->createStatement();

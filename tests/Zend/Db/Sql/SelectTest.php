@@ -327,6 +327,19 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select13->from('foo')->join('zac', 'm = n', array('BAR' => 'bar', 'BAZ' => 'baz'));
         $sql13 = 'SELECT "foo".*, "zac"."bar" AS "BAR", "zac"."baz" AS "BAZ" FROM "foo" INNER JOIN "zac" ON "m" = "n"';
 
+        // order
+        $select14 = new Select;
+        $select14->from('foo');
+        $select14->order('c1 desc, c2 DESC, c3 Desc');
+        $select14->order('c4 asc, c5 ASC, c6 Asc');
+        $sql14 = 'SELECT "foo".* FROM "foo" ORDER BY "c1" desc, "c2" DESC, "c3" Desc, "c4" asc, "c5" ASC, "c6" Asc';
+
+        $select15 = new Select;
+        $select15->from('foo');
+        $select15->order(new Expression('CASE "acolumn" WHEN ? THEN bcolumn ELSE ccolumn END', array('bar')));
+        $sql15 = 'SELECT "foo".* FROM "foo" ORDER BY CASE "acolumn" WHEN ? THEN bcolumn ELSE ccolumn END';
+        $params15 = array('bar');
+
         return array(
             array($select0, $sql0),
             array($select1, $sql1),
@@ -341,7 +354,9 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select10, $sql10),
             array($select11, $sql11),
             array($select12, $sql12, $params12),
-            array($select13, $sql13)
+            array($select13, $sql13),
+            array($select14, $sql14),
+            array($select15, $sql15, $params15),
         );
     }
 
@@ -366,6 +381,9 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
         $data[12][1] = 'SELECT "foo".* FROM "foo" WHERE x = \'5\'';
         unset($data[12][2]); // remove parameters
+
+        $data[15][1] = 'SELECT "foo".* FROM "foo" ORDER BY CASE "acolumn" WHEN \'bar\' THEN bcolumn ELSE ccolumn END';
+        unset($data[15][2]); // remove parameters
 
         return $data;
     }
@@ -392,5 +410,26 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(0, $select->where->count());
         $this->assertEquals(1, $select1->where->count());
+    }
+
+    /**
+     * @testdox unit test: Test order() 
+     * @covers Zend\Db\Sql\Select::order
+     */
+    public function testOrder()
+    {
+        $select = new Select;
+        $select->order('id DESC');
+        $this->assertEquals(array('id DESC'), $select->getRawState('order'));
+
+        $select = new Select;
+        $select->order('id DESC')
+               ->order('name ASC, age DESC');
+        $this->assertEquals(array('id DESC', 'name ASC', 'age DESC'), $select->getRawState('order'));
+
+        $select = new Select;
+        $select->order(array('name ASC', 'age DESC'));
+        $this->assertEquals(array('name ASC', 'age DESC'), $select->getRawState('order'));
+
     }
 }
