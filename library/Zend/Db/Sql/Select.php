@@ -389,7 +389,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $sql .= ' ' . sprintf($this->specifications[self::SPECIFICATION_WHERE], $whereParts['sql']);
         }
 
-        // process order
+        // process order & limit
+        $orderString = '';
         if (count($this->order)) {
             $order = array();
             foreach ($this->order as $item) {
@@ -403,12 +404,12 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                     $order[] = $platform->quoteIdentifierInFragment($item, array('ASC', 'DESC', 'asc', 'desc', 'Asc', 'Desc'));
                 }
             }
-            $sql .= ' ' . sprintf($this->specifications[self::SPECIFICATION_ORDER], implode(', ', $order));
+
+            $orderString = sprintf($this->specifications[self::SPECIFICATION_ORDER], implode(', ', $order));
         }
 
-        // @todo Order and Fetch/Limit in prepare for Sql object
-        $limit = null;
-        $sql .= (isset($limit)) ? sprintf($this->specifications[self::SPECIFICATION_FETCH], $limit) : '';
+        $sql = $platform->limitSql($sql, $orderString, $this->fetchNumber, $this->fetchOffset);
+        
 
         $statement->setSql($sql);
     }
@@ -494,7 +495,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $sql .= ' ' . sprintf($this->specifications[self::SPECIFICATION_WHERE], $whereParts['sql']);
         }
 
-        // process order
+        // process order & limit
+        $orderString = '';
         if (count($this->order)) {
             $order = array();
             foreach ($this->order as $item) {
@@ -505,11 +507,11 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                     $order[] = $platform->quoteIdentifierInFragment($item, array('ASC', 'DESC', 'asc', 'desc', 'Asc', 'Desc'));
                 }
             }
-            $sql .= ' ' . sprintf($this->specifications[self::SPECIFICATION_ORDER], implode(', ', $order));
+
+            $orderString = sprintf($this->specifications[self::SPECIFICATION_ORDER], implode(', ', $order));
         }
 
-        // @todo process limit
-        //$sql .= (isset($this->limit)) ? sprintf($this->specifications[self::SPECIFICATION_FETCH], $this->limit) : '';
+        $sql = $platform->limitSql($sql, $orderString, $this->fetchNumber, $this->fetchOffset);
 
         return $sql;
     }

@@ -340,6 +340,18 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sql15 = 'SELECT "foo".* FROM "foo" ORDER BY CASE "acolumn" WHEN ? THEN bcolumn ELSE ccolumn END';
         $params15 = array('bar');
 
+        // fetch
+        $select16 = new Select;
+        $select16->from('foo');
+        $select16->fetch(10, 5);
+        $sql16 = 'SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY (SELECT 0)) AS "zend_db_sql_select_rownumber", "foo".* FROM "foo") AS "zend_db_sql_select_table" WHERE "zend_db_sql_select_rownumber" BETWEEN 6 AND 15';
+
+        $select17 = new Select;
+        $select17->from('foo');
+        $select17->order('id');
+        $select17->fetch(10, 5);
+        $sql17 = 'SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY "id") AS "zend_db_sql_select_rownumber", "foo".* FROM "foo") AS "zend_db_sql_select_table" WHERE "zend_db_sql_select_rownumber" BETWEEN 6 AND 15';
+        
         return array(
             array($select0, $sql0),
             array($select1, $sql1),
@@ -357,6 +369,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select13, $sql13),
             array($select14, $sql14),
             array($select15, $sql15, $params15),
+            array($select16, $sql16),
+            array($select17, $sql17),
         );
     }
 
