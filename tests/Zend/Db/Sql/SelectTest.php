@@ -419,7 +419,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     public function testOrder()
     {
         $select = new Select;
-        $select->order('id DESC');
+        $return = $select->order('id DESC');
+        $this->assertSame($select, $return);
         $this->assertEquals(array('id DESC'), $select->getRawState('order'));
 
         $select = new Select;
