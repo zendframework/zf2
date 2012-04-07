@@ -73,6 +73,7 @@ class Zend\Db\Sql\Select
     public function join($name, $on, $columns = self::SQL_WILDCARD, $type = self::JOIN_INNER);
     public function where($predicate, $combination = Predicate\PredicateSet::OP_AND);
     public function order($order);
+    public function fetch($number, $offset);
 
     // methods to generate statement and/or sql
     public function prepareStatement(Adapter $adapter, StatementInterface $statement);
@@ -270,7 +271,8 @@ $select = new Select;
 $select->from('artist')
     ->join('album', 'artist.id = album.artist_id')
     ->where->like('artist.name', 'Foo%')
-    ->order('name ASC');
+    ->order('name ASC')
+    ->fetch(10, 10); // limit to items 11 through 20 only
 
 // create a statement to use
 $statment = $adapter->createStatement();
