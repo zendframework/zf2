@@ -433,4 +433,16 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('name ASC', 'age DESC'), $select->getRawState('order'));
 
     }
+
+    /**
+     * @testdox unit test: Test fetch()
+     * @covers Zend\Db\Sql\Select::fetch
+     */
+    public function testFetch()
+    {
+        $select = new Select;
+        $return = $select->fetch(10, 5);
+        $this->assertSame($select, $return);
+        $this->assertEquals(array(10, 5), $select->getRawState('fetch'));
+    }    
 }

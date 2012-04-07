@@ -265,6 +265,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     {
         $this->fetchNumber = $number;
         $this->fetchOffset = $offset;
+
+        return $this;
     }
 
     public function setSpecification($index, $specification)
