@@ -136,34 +136,6 @@ class Mysql implements PlatformInterface
             if ($offset) {
                 $sql .= ' OFFSET ' . $offset;
             }
-
-
-        }
-        if ($number == 0) {
-            // no limit required, so just add the order's SQL to the main SQL
-        } else {
-            // limit
-            if (!$orderSql) {
-                $orderSql = 'ORDER BY (SELECT 0)';
-            }
-
-            // remove SELECT from start of $sql as we are going to insert an additional statement
-            $sql = preg_replace('/^SELECT\s/', '', $sql);
-
-            // Build up a SELECT that uses the ROW_NUMBER() window function with
-            // a sub-SELECT for the actual query we're running
-            $sql = 'SELECT * FROM (SELECT ROW_NUMBER() OVER (' . $orderSql 
-                . ') AS ' . $this->quoteIdentifier('zend_db_sql_select_rownumber')
-                . ', ' . $sql . ') AS ' . $this->quoteIdentifier('zend_db_sql_select_table')
-                . ' WHERE ' . $this->quoteIdentifier('zend_db_sql_select_rownumber');
-
-            if ($offset) {
-                $from = $offset + 1;
-                $to = $offset + $number;
-                $sql .= ' BETWEEN ' . $from . ' AND ' . $to;
-            } else {
-                $sql .= ' <= ' . $number;
-            }
         }
 
         return trim($sql);
