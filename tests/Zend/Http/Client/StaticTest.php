@@ -528,6 +528,15 @@ class StaticTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group ZF-11598
+     */
+    public function testGetAdapterAfterConstructor()
+    {
+        $client = new HTTPClient(null, array('adapter' => 'Zend\Http\Client\Adapter\Test'));
+        $this->assertTrue($client->getAdapter() instanceof \Zend\Http\Client\Adapter\Test);
+    }
+
+    /**
      * Data providers
      */
 
