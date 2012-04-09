@@ -287,4 +287,19 @@ class FilesystemTest extends CommonAdapterTest
         $expectedAtime = fileatime($meta['filespec'] . '.dat');
         $this->assertEquals($expectedAtime, $meta['atime']);
     }
+
+    public function testSetItemWithSerializer()
+    {
+        $key = 'test';
+        $value = array(
+            'a' => 'foo',
+            'b' => 'bar',
+        );
+        $storage = $this->getMock('Zend\Cache\Storage\Adapter\Filesystem', array('putFileContent'));
+        $storage->addPlugin(new \Zend\Cache\Storage\Plugin\Serializer());
+        $storage->expects($this->once())
+                       ->method('putFileContent')
+                       ->with($this->stringEndsWith('zfcache-test.dat'), serialize($value));
+        $storage->setItem($key, $value);
+    }
 }
