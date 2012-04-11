@@ -28,11 +28,6 @@ class ConfigListener extends AbstractListener
     protected $mergedConfig;
 
     /**
-     * @var Config
-     */
-    protected $mergedConfigObject;
-
-    /**
      * @var bool
      */
     protected $skipConfig = false;
@@ -51,10 +46,11 @@ class ConfigListener extends AbstractListener
     public function __construct(ListenerOptions $options = null)
     {
         parent::__construct($options);
-        $this->mergedConfig = new Config(array(), true);
         if ($this->hasCachedConfig()) {
             $this->skipConfig = true;
             $this->setMergedConfig($this->getCachedConfig());
+        } else {
+            $this->mergedConfig = new Config(array(), true);
         }
     }
 
@@ -156,21 +152,7 @@ class ConfigListener extends AbstractListener
      */
     public function getMergedConfig($returnConfigAsObject = true)
     {
-        if ($returnConfigAsObject) {
-            return $this->mergedConfig;
-        }
-        return $this->mergedConfig->toArray();
-        /*
-        return $this->mergedConfig;
-        if ($returnConfigAsObject === true) {
-            if ($this->mergedConfigObject === null) {
-                $this->mergedConfigObject = new Config($this->mergedConfig);
-            }
-            return $this->mergedConfigObject;
-        } else {
-            return $this->mergedConfig;
-        }
-        */
+        return $returnConfigAsObject ? $this->mergedConfig : $this->mergedConfig->toArray();
     }
 
     /**
@@ -182,7 +164,6 @@ class ConfigListener extends AbstractListener
     public function setMergedConfig(array $config)
     {
         $this->mergedConfig = new Config($config, true);
-        $this->mergedConfigObject = null;
         return $this;
     }
 
@@ -286,11 +267,11 @@ class ConfigListener extends AbstractListener
      */
     protected function mergePath($path)
     {
-        if($path['type']==self::STATIC_PATH) {
-    	    $config = ConfigFactory::fromFile($path['path']);
-    	} else if($path['type']==self::GLOB_PATH) {
+        if (self::STATIC_PATH == $path['type']) {
+    	    $config = ConfigFactory::fromFile($path['path'], true);
+    	} else if(self::GLOB_PATH == $path['type']) {
     	    // @TODO Use GlobIterator
-    	    $config = ConfigFactory::fromFiles(glob($path['path'], GLOB_BRACE));
+    	    $config = ConfigFactory::fromFiles(glob($path['path'], GLOB_BRACE), true);
     	} else {
     	    throw new Exception\InvalidArgumentException(
                 sprintf('Invalid path passed to %::%s(). Path must be '
@@ -298,7 +279,7 @@ class ConfigListener extends AbstractListener
                 __CLASS__, __METHOD__, $path['type'])
             );
     	}
-        $this->mergeTraversableConfig($config);
+        $this->mergedConfig->merge($config);
         if ($this->getOptions()->getConfigCacheEnabled()) {
             $this->updateCache();
         }
@@ -322,7 +303,7 @@ class ConfigListener extends AbstractListener
             } catch (Exception\InvalidArgumentException $e) {
                 // Throw a more descriptive exception
                 throw new Exception\InvalidArgumentException(
-                    sprintf('getConfig() method of %s must be an array, '
+                    sprintf('getConfig() method of %s must return an array, '
                     . 'implement the \Traversable interface, or be an '
                     . 'instance of Zend\Config\Config. %s given.',
                     get_class($module), gettype($config))
@@ -344,6 +325,7 @@ class ConfigListener extends AbstractListener
     {
         if ($config instanceof Config) {
             $this->mergedConfig->merge($config);
+            return;
         }
         if ($config instanceof Traversable) {
             $config = ArrayUtils::iteratorToArray($config);
