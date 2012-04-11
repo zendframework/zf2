@@ -16,21 +16,16 @@ class ConfigListener extends AbstractListener
 {
 	const STATIC_PATH = 'static_path';
 	const GLOB_PATH = 'glob_path';
-	
+
     /**
      * @var array
      */
     protected $listeners = array();
 
     /**
-     * @var array
-     */
-    protected $mergedConfig = array();
-
-    /**
      * @var Config
      */
-    protected $mergedConfigObject;
+    protected $mergedConfig;
 
     /**
      * @var bool
@@ -54,13 +49,15 @@ class ConfigListener extends AbstractListener
         if ($this->hasCachedConfig()) {
             $this->skipConfig = true;
             $this->setMergedConfig($this->getCachedConfig());
+        } else {
+            $this->mergedConfig = new Config(array(), true);
         }
     }
 
     /**
-     * __invoke proxy to loadModule for easier attaching 
-     * 
-     * @param ModuleEvent $e 
+     * __invoke proxy to loadModule for easier attaching
+     *
+     * @param ModuleEvent $e
      * @return ConfigListener
      */
     public function __invoke(ModuleEvent $e)
@@ -83,9 +80,9 @@ class ConfigListener extends AbstractListener
     }
 
     /**
-     * Pass self to the ModuleEvent object early so everyone has access. 
-     * 
-     * @param ModuleEvent $e 
+     * Pass self to the ModuleEvent object early so everyone has access.
+     *
+     * @param ModuleEvent $e
      * @return ConfigListener
      */
     public function loadModulesPre(ModuleEvent $e)
@@ -95,9 +92,9 @@ class ConfigListener extends AbstractListener
     }
 
     /**
-     * Merge the config for each module 
-     * 
-     * @param ModuleEvent $e 
+     * Merge the config for each module
+     *
+     * @param ModuleEvent $e
      * @return ConfigListener
      */
     public function loadModule(ModuleEvent $e)
@@ -117,7 +114,7 @@ class ConfigListener extends AbstractListener
      *
      * This should really only be called by the module manager.
      *
-     * @param ModuleEvent $e 
+     * @param ModuleEvent $e
      * @return ConfigListener
      */
     public function loadModulesPost(ModuleEvent $e)
@@ -155,14 +152,7 @@ class ConfigListener extends AbstractListener
      */
     public function getMergedConfig($returnConfigAsObject = true)
     {
-        if ($returnConfigAsObject === true) {
-            if ($this->mergedConfigObject === null) {
-                $this->mergedConfigObject = new Config($this->mergedConfig);
-            }
-            return $this->mergedConfigObject;
-        } else {
-            return $this->mergedConfig;
-        }
+        return $returnConfigAsObject ? $this->mergedConfig : $this->mergedConfig->toArray();
     }
 
     /**
@@ -173,8 +163,7 @@ class ConfigListener extends AbstractListener
      */
     public function setMergedConfig(array $config)
     {
-        $this->mergedConfig = $config;
-        $this->mergedConfigObject = null;
+        $this->mergedConfig = new Config($config, true);
         return $this;
     }
 
@@ -207,7 +196,7 @@ class ConfigListener extends AbstractListener
         $this->addConfigPaths($globPaths, self::GLOB_PATH);
         return $this;
     }
-    
+
     /**
      * Add a glob path of config files to merge after loading modules
      *
@@ -231,7 +220,7 @@ class ConfigListener extends AbstractListener
     	$this->addConfigPaths($staticPaths, self::STATIC_PATH);
         return $this;
     }
-    
+
     /**
      * Add a static path of config files to merge after loading modules
      *
@@ -243,7 +232,7 @@ class ConfigListener extends AbstractListener
     	$this->addConfigPath($staticPath, self::STATIC_PATH);
         return $this;
     }
-    
+
     /**
      * Add an array of paths of config files to merge after loading modules
      *
@@ -278,11 +267,11 @@ class ConfigListener extends AbstractListener
      */
     protected function mergePath($path)
     {
-        if($path['type']==self::STATIC_PATH) {
-    	    $config = ConfigFactory::fromFile($path['path']);
-    	} else if($path['type']==self::GLOB_PATH) {
+        if (self::STATIC_PATH == $path['type']) {
+    	    $config = ConfigFactory::fromFile($path['path'], true);
+    	} else if(self::GLOB_PATH == $path['type']) {
     	    // @TODO Use GlobIterator
-    	    $config = ConfigFactory::fromFiles(glob($path['path'], GLOB_BRACE));
+    	    $config = ConfigFactory::fromFiles(glob($path['path'], GLOB_BRACE), true);
     	} else {
     	    throw new Exception\InvalidArgumentException(
                 sprintf('Invalid path passed to %::%s(). Path must be '
@@ -290,7 +279,7 @@ class ConfigListener extends AbstractListener
                 __CLASS__, __METHOD__, $path['type'])
             );
     	}
-        $this->mergeTraversableConfig($config);
+        $this->mergedConfig->merge($config);
         if ($this->getOptions()->getConfigCacheEnabled()) {
             $this->updateCache();
         }
@@ -314,7 +303,7 @@ class ConfigListener extends AbstractListener
             } catch (Exception\InvalidArgumentException $e) {
                 // Throw a more descriptive exception
                 throw new Exception\InvalidArgumentException(
-                    sprintf('getConfig() method of %s must be an array, '
+                    sprintf('getConfig() method of %s must return an array, '
                     . 'implement the \Traversable interface, or be an '
                     . 'instance of Zend\Config\Config. %s given.',
                     get_class($module), gettype($config))
@@ -334,6 +323,10 @@ class ConfigListener extends AbstractListener
      */
     protected function mergeTraversableConfig($config)
     {
+        if ($config instanceof Config) {
+            $this->mergedConfig->merge($config);
+            return;
+        }
         if ($config instanceof Traversable) {
             $config = ArrayUtils::iteratorToArray($config);
         }
@@ -344,7 +337,7 @@ class ConfigListener extends AbstractListener
                 . 'instance of Zend\Config\Config. %s given.', gettype($config))
             );
         }
-        $this->setMergedConfig(array_replace_recursive($this->mergedConfig, $config));
+        $this->mergedConfig->merge(new Config($config));
     }
 
     /**
