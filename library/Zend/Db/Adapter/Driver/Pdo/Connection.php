@@ -203,8 +203,8 @@ class Connection implements ConnectionInterface
                     $dsn .= $database;
                     break;
                 default:
-                    $dsn .= (isset($hostname)) ? 'hostname=' . $hostname : '';
-                    $dsn .= (isset($database)) ? 'dbname=' . $database : '';
+                    $dsn .= (isset($hostname)) ? 'hostname=' . $hostname . ';' : '';
+                    $dsn .= (isset($database)) ? 'dbname=' . $database . ';' : '';
             }
         } elseif (!isset($dsn)) {
             throw new \Exception('A dsn was not provided or could not be constructed from your parameters');
