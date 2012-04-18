@@ -181,6 +181,17 @@ class Di implements DependencyInjection
             }
         } elseif (is_callable($instantiator, false)) {
             $instance = $this->createInstanceViaCallback($instantiator, $params, $alias);
+			if (is_array($instantiator)) {
+                $callbackClass = (is_object($instantiator[0])) ? get_class($instantiator[0]) : $instantiator[0];
+                $callbackMethod = $instantiator[1];
+            } elseif (is_string($instantiator) && strpos($instantiator, '::') !== false) {
+                list($callbackClass, $callbackMethod) = explode('::', $instantiator, 2);
+            } else {
+                throw new Exception\RuntimeException('Invalid callback type provided to ' . __METHOD__);
+            }
+            if($class === $callbackClass && array_key_exists($callbackMethod, $injectionMethods)) {
+                unset($injectionMethods[$callbackMethod]);
+            }
         } else {
             if (is_array($instantiator)) {
                 $msg = sprintf(
