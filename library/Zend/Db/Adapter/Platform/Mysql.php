@@ -115,4 +115,29 @@ class Mysql implements PlatformInterface
         }
         return implode('', $parts);
     }
+
+    /**
+     * Given a SQL statement, complete it with limit and order by clauses as 
+     * required.
+     * 
+     * @param string $sql 
+     * @param string $orderSql 
+     * @param int    $number 
+     * @param int    $offset 
+     * 
+     * @return string
+     */
+    public function limitSql($sql, $orderSql, $number, $offset)
+    {
+        $sql = $sql . ' ' . $orderSql;
+
+        if ($number) {
+            $sql .= 'LIMIT ' . $number;
+            if ($offset) {
+                $sql .= ' OFFSET ' . $offset;
+            }
+        }
+
+        return trim($sql);
+    }    
 }

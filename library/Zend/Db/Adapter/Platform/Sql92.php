@@ -115,4 +115,50 @@ class Sql92 implements PlatformInterface
         }
         return implode('', $parts);
     }
+
+    /**
+     * Given a SQL statement, complete it with limit and order by clauses as 
+     * required.
+     * 
+     * @param string $sql 
+     * @param string $orderSql 
+     * @param int    $number 
+     * @param int    $offset 
+     * 
+     * @return string
+     */
+    public function limitSql($sql, $orderSql, $number, $offset)
+    {
+        if ($number == 0) {
+            // no limit required, so just add the order's SQL to the main SQL
+            $sql = $sql . ' ' . $orderSql;
+        } else {
+            // We need to limit the results, so use the ROW_NUMBER() window function
+
+            if (!$orderSql) {
+                // We need an order by statement
+                $orderSql = 'ORDER BY (SELECT 0)';
+            }
+
+            // Remove SELECT from start of $sql as we are going to insert an additional statement
+            $sql = preg_replace('/^SELECT\s/', '', $sql);
+
+            // Build up a SELECT that uses the ROW_NUMBER() window function with
+            // a sub-SELECT for the actual query we're running
+            $sql = 'SELECT * FROM (SELECT ROW_NUMBER() OVER (' . $orderSql 
+                . ') AS ' . $this->quoteIdentifier('zend_db_sql_select_rownumber')
+                . ', ' . $sql . ') AS ' . $this->quoteIdentifier('zend_db_sql_select_table')
+                . ' WHERE ' . $this->quoteIdentifier('zend_db_sql_select_rownumber');
+
+            if ($offset) {
+                $from = $offset + 1;
+                $to = $offset + $number;
+                $sql .= ' BETWEEN ' . $from . ' AND ' . $to;
+            } else {
+                $sql .= ' <= ' . $number;
+            }
+        }
+
+        return trim($sql);
+    }
 }
