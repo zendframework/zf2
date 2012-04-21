@@ -2,7 +2,7 @@
 
 namespace Zend\Module\Listener;
 
-interface ConfigMerger
+interface ConfigMergerInterface
 {
     /**
      * getMergedConfig
@@ -16,7 +16,7 @@ interface ConfigMerger
      * setMergedConfig
      *
      * @param array $config
-     * @return ConfigMerger
+     * @return ConfigMergerInterface
      */
     public function setMergedConfig(array $config);
 }

@@ -78,9 +78,9 @@ class Module
         <programlisting language="php"><![CDATA[
 namespace MyModule;
 
-use Zend\Module\Consumer\AutoloaderProvider;
+use Zend\Module\Consumer\AutoloaderProviderInterface;
 
-class Module implements AutoloaderProvider
+class Module implements AutoloaderProviderInterface
 {
     public function getAutoloaderConfig()
     {

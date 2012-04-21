@@ -15,7 +15,7 @@ class DefaultListenerAggregate extends AbstractListener
     protected $listeners = array();
 
     /**
-     * @var ConfigMerger
+     * @var ConfigMergerInterface
      */
     protected $configListener;
 
@@ -65,11 +65,11 @@ class DefaultListenerAggregate extends AbstractListener
     /**
      * Get the config merger.
      *
-     * @return ConfigMerger
+     * @return ConfigMergerInterface
      */
     public function getConfigListener()
     {
-        if (!$this->configListener instanceof ConfigMerger) {
+        if (!$this->configListener instanceof ConfigMergerInterface) {
             $this->setConfigListener(new ConfigListener($this->getOptions()));
         }
         return $this->configListener;
@@ -78,10 +78,10 @@ class DefaultListenerAggregate extends AbstractListener
     /**
      * Set the config merger to use.
      *
-     * @param ConfigMerger $configListener
+     * @param ConfigMergerInterface $configListener
      * @return DefaultListenerAggregate
      */
-    public function setConfigListener(ConfigMerger $configListener)
+    public function setConfigListener(ConfigMergerInterface $configListener)
     {
         $this->configListener = $configListener;
         return $this;

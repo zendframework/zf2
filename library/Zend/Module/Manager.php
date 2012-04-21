@@ -6,7 +6,7 @@ use Traversable,
     Zend\EventManager\EventCollection,
     Zend\EventManager\EventManager;
 
-class Manager implements ModuleHandler
+class Manager implements ManagerInterface
 {
     /**
      * @var array An array of Module classes of loaded modules
@@ -155,7 +155,7 @@ class Manager implements ModuleHandler
      * Set an array or Traversable of module names that this module manager should load.
      *
      * @param mixed $modules array or Traversable of module names
-     * @return ModuleHandler
+     * @return ModuleHandlerInterface
      */
     public function setModules($modules)
     {
