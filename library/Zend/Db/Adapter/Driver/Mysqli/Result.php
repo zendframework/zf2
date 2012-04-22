@@ -105,6 +105,11 @@ class Result implements \Iterator, ResultInterface
 
         $this->resource = $resource;
         $this->mode = ($this->resource instanceof \mysqli_stmt) ? self::MODE_STATEMENT : self::MODE_RESULT;
+        
+        if ($this->mode == self::MODE_STATEMENT) {
+        	// must be stored, otherwise fetched resulting rows are lost
+        	$this->resource->store_result();
+        }
         return $this;
     }
     
@@ -263,11 +268,7 @@ class Result implements \Iterator, ResultInterface
     {
         $this->currentComplete = false;
         $this->position = 0;
-        if ($this->resource instanceof \mysqli_stmt) {
-            //$this->resource->reset();
-        } else {
-            $this->resource->data_seek(0); // works for both mysqli_result & mysqli_stmt
-        }
+        $this->resource->data_seek(0);
     }
     /**
      * Valid
