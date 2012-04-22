@@ -271,7 +271,9 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
         if ($this->count !== null) {
             return $this->count;
         }
-        $this->count = count($this->dataSource);
+        foreach ($this as $row) {
+            ++$this->count;
+        }
         return $this->count;
     }
 
