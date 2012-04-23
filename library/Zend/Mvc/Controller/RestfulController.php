@@ -11,9 +11,9 @@ use Zend\Di\Locator,
     Zend\Http\PhpEnvironment\Response as HttpResponse,
     Zend\Loader\Broker,
     Zend\Loader\Pluggable,
-    Zend\Stdlib\Dispatchable,
-    Zend\Stdlib\RequestDescription as Request,
-    Zend\Stdlib\ResponseDescription as Response,
+    Zend\Stdlib\DispatchableInterface as Dispatchable,
+    Zend\Stdlib\RequestInterface as Request,
+    Zend\Stdlib\ResponseInterface as Response,
     Zend\Mvc\Exception,
     Zend\Mvc\InjectApplicationEvent,
     Zend\Mvc\LocatorAware,
@@ -24,11 +24,35 @@ use Zend\Di\Locator,
  */
 abstract class RestfulController implements Dispatchable, EventManagerAware, InjectApplicationEvent, LocatorAware, Pluggable
 {
+    /**
+     * @var Broker
+     */
     protected $broker;
+
+    /**
+     * @var Request
+     */
     protected $request;
+
+    /**
+     * @var Response
+     */
     protected $response;
+
+    /**
+     * @var Event
+     */
     protected $event;
+
+    /**
+     * @var EventCollection
+     */
     protected $events;
+
+    /**
+     * @var Locator
+     */
+    protected $locator;
 
     /**
      * Return list of resources
@@ -216,7 +240,7 @@ abstract class RestfulController implements Dispatchable, EventManagerAware, Inj
      * Set the event manager instance used by this context
      *
      * @param  EventCollection $events
-     * @return AppContext
+     * @return RestfulController
      */
     public function setEventManager(EventCollection $events)
     {
@@ -235,7 +259,7 @@ abstract class RestfulController implements Dispatchable, EventManagerAware, Inj
     {
         if (!$this->events) {
             $this->setEventManager(new EventManager(array(
-                'Zend\Stdlib\Dispatchable',
+                'Zend\Stdlib\DispatchableInterface',
                 __CLASS__,
                 get_called_class(),
             )));
