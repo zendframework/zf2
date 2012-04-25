@@ -329,7 +329,13 @@ class Application implements AppContext
         }
 
         $routeMatch     = $e->getRouteMatch();
-        $controllerName = $routeMatch->getParam('controller', 'not-found');
+        $namespaceName  = $routeMatch->getParam('namespace');
+        $controllerName = $routeMatch->getParam('controller');
+        if ($controllerName) {
+            if ($namespaceName) $controllerName = $namespaceName . '_' . $controllerName;
+        } else {
+            $controllerName = 'not-found';
+        }
         $events         = $this->events();
 
         try {
