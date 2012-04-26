@@ -25,12 +25,15 @@ use Zend\Di\Configuration;
 
 
 /**
- * Class for handling currency notations
+ * Class for handling dumping of dependency injection parameters (recursively)
  *
  * @category  Zend
  * @package   Zend_Di
  * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @todo doesn't handle multiple injections/subsequent method calls for now! Check
+ * all call_user_func issued by Zend\Di\Di!
  */
 class Dumper
 {
@@ -58,6 +61,23 @@ class Dumper
         return array_unique(array_merge($classes, $aliases));
     }
 
+    /**
+     * @return Di
+     * @todo maybe not needed
+     */
+    public function getDi()
+    {
+        return $this->di;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllInjectedDefinitions()
+    {
+        return $this->getInjectedDefinitions($this->getInitialInstanceDefinitions());
+    }
+
     // @todo lots of code duplication in here!
     // @todo return a list of injected definitions in form
     // array(
@@ -69,22 +89,37 @@ class Dumper
     //     ),  // true if it is a definition and requires recursive checking
     //     'otherMethod' => ...
     // )
+
+    /**
+     * @param string|array $name name or names of the instances to get
+     *
+     * @return array
+     */
     public function getInjectedDefinitions($name)
     {
+        $names = (array) $name;
         $visited = array();
 
-        return $this->doGetInjectedDefinitions($name, $visited);
+        foreach ($names as $name) {
+            $this->doGetInjectedDefinitions($name, $visited);
+        }
+
+        return $visited;
     }
 
+    /**
+     * @param string|array $name name or names of the instances to get
+     * @param array $visited the array where discovered instance definitions will be stored
+     *
+     * @return mixed success of the operation
+     */
     protected function doGetInjectedDefinitions($name, array &$visited)
     {
         $injectedDefinitions = array();
 
         if (isset($visited[$name])) {
-            return array();
+            return $visited[$name];
         }
-
-        $visited[$name] = true;
 
         $definitions      = $this->di->definitions();
         $instanceManager = $this->di->instanceManager();
@@ -101,6 +136,7 @@ class Dumper
 
         if (!$definitions->hasClass($class)) {
             // @todo return empty array instead (can't compile?) ?
+            return $visited[$name] = false;
             $aliasMsg = ($alias) ? '(specified by alias ' . $alias . ') ' : '';
             throw new \Zend\Di\Exception\ClassNotFoundException(
                 'Class ' . $aliasMsg . $class . ' could not be located in provided definitions.'
@@ -126,7 +162,9 @@ class Dumper
                 unset($injectionMethods['__construct']);
             }
         } elseif (is_callable($instantiator, false)) {
-            throw new \BadMethodCallException('unsupported?');
+            if(!is_array($instantiator) && !is_string($instantiator)) {
+                throw new \BadMethodCallException('unsupported?');
+            }
             // @todo $instance = $this->createInstanceViaCallback($instantiator, $params, $alias);
         } else {
             if (is_array($instantiator)) {
@@ -174,7 +212,8 @@ class Dumper
                 $objectsToInject = $methodsToCall = array();
                 foreach ($instanceConfiguration['injections'] as $injectName => $injectValue) {
                     if (is_int($injectName) && is_string($injectValue)) {
-                        $objectsToInject[] = $this->get($injectValue, $params);
+                        $objectsToInject[] = $injectValue;
+                        // $objectsToInject[] = $this->get($injectValue, $params);
                     } elseif (is_string($injectName) && is_array($injectValue)) {
                         if (is_string(key($injectValue))) {
                             $methodsToCall[] = array('method' => $injectName, 'args' => $injectValue);
@@ -184,7 +223,8 @@ class Dumper
                             }
                         }
                     } elseif (is_object($injectValue)) {
-                        $objectsToInject[] = $injectValue;
+                        throw new \BadMethodCallException('unsupported?');
+                        // $objectsToInject[] = $injectValue;
                     } elseif (is_int($injectName) && is_array($injectValue)) {
                         // @todo must find method name somehow
                         throw new \Zend\Di\Exception\RuntimeException(
@@ -200,9 +240,10 @@ class Dumper
                             $methodParams = $definitions->getMethodParameters($class, $injectionMethod);
                             if ($methodParams) {
                                 foreach ($methodParams as $methodParam) {
+                                    $objectsToInject = is_object($objectsToInject) ? get_class($objectsToInject) : $objectToInject;
                                     if (
-                                        get_class($objectToInject) == $methodParam[1] ||
-                                        $this->isSubclassOf(get_class($objectToInject), $methodParam[1])
+                                        $objectToInject === $methodParam[1]
+                                        || $this->isSubclassOf($objectToInject, $methodParam[1])
                                     ) {
                                         // @todo restore $params used inside resolveMethodParameters?
                                         $callParams = $this->resolveMethodParameters($class, $injectionMethod,
@@ -214,7 +255,8 @@ class Dumper
                                         );
                                          * */
                                         if ($callParams) {
-                                            var_dump($injectionMethod, $callParams);
+                                            $injectedDefinitions[$injectionMethod] = $callParams;
+                                            //var_dump($injectionMethod, $callParams);
                                         }
                                         /*if ($callParams) {
                                             call_user_func_array(array($instance, $injectionMethod), $callParams);
@@ -238,7 +280,22 @@ class Dumper
         }
 
         array_pop($this->instanceContext);
-        return $injectedDefinitions;
+
+        $visited[$name] = $injectedDefinitions;
+
+        foreach ($visited[$name] as $method => $injections) {
+            if (is_array($injections)) {
+                foreach ($injections as $injectionName) {
+                    // @todo check scalar $injectionName here!
+                    if (is_string($injectionName) && !isset($visited[$injectionName])) {
+                        $this->doGetInjectedDefinitions($injectionName, $visited);
+                    }
+                }
+            }
+        }
+
+        //return $visited[$name];
+        return $visited;
     }
 
     protected function getConstructorParams($class, array $params, $alias)
@@ -408,7 +465,9 @@ class Dumper
                         $computedParams['value'][$fqParamPos] = $iConfigCurValue();
                     } else {
                         // @todo can't handle?
-                        throw new \BadMethodCallException('unsupported?');
+                        if( is_object($iConfigCurValue)) {
+                            throw new \BadMethodCallException('unsupported?');
+                        }
                         $computedParams['value'][$fqParamPos] = $iConfigCurValue;
                     }
                     unset($iConfigCurValue);
