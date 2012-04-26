@@ -118,9 +118,9 @@ class Compiler
             $params = array();
             // Build parameter list for instantiation
             foreach ($instantiationParams as $key => $param) {
-                if(is_string($param)) {
+                /*if(is_string($param)) {
                     $params[$key] = sprintf('$this->%s()', $this->normalizeAlias($param['type']));
-                }
+                }*/
                 // @todo other param types (scalars, closures, references?)
                 // @todo all existing types are defined here, all the rest should probably be scalar
                 // @todo (check if $definitions[$name] !== false)
@@ -212,7 +212,7 @@ class Compiler
                 // Create method parameter representation
                 foreach ($methodParams as $key => $param) {
                     if(is_string($param)) {
-                        $params[$key] = sprintf('$this->%s()', $this->normalizeAlias($param['type']));
+                        $params[$key] = sprintf('$this->%s()', $this->normalizeAlias($param));
                     }
                     /**
                     if (!isset($param['type'])) $param['type'] = NULL;
