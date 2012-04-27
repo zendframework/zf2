@@ -33,7 +33,8 @@ use ArrayObject,
     Zend\Cache\Storage\PostEvent,
     Zend\Cache\Storage\Plugin,
     Zend\EventManager\EventCollection,
-    Zend\EventManager\EventManager;
+    Zend\EventManager\EventManager,
+    Zend\EventManager\EventManagerAware;
 
 /**
  * @category   Zend
@@ -42,7 +43,7 @@ use ArrayObject,
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class AbstractAdapter implements Adapter
+abstract class AbstractAdapter implements Adapter, EventManagerAware
 {
     /**
      * The used EventManager if any
@@ -411,7 +412,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalGetItem($key, $options);
+            $result = $this->internalGetItem($args['key'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -473,7 +474,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalGetItems($keys, $options);
+            $result = $this->internalGetItems($args['keys'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -548,7 +549,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalHasItem($key, $options);
+            $result = $this->internalHasItem($args['key'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -616,7 +617,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalHasItems($keys, $options);
+            $result = $this->internalHasItems($args['keys'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -685,7 +686,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalGetMetadata($key, $options);
+            $result = $this->internalGetMetadata($args['key'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -758,7 +759,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalGetMetadatas($keys, $options);
+            $result = $this->internalGetMetadatas($args['keys'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -843,7 +844,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalSetItem($key, $value, $options);
+            $result = $this->internalSetItem($args['key'], $args['value'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -908,7 +909,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalSetItems($keyValuePairs, $options);
+            $result = $this->internalSetItems($args['keyValuePairs'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -981,7 +982,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalAddItem($key, $value, $options);
+            $result = $this->internalAddItem($args['key'], $args['value'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1052,7 +1053,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalAddItems($keyValuePairs, $options);
+            $result = $this->internalAddItems($args['keyValuePairs'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1125,7 +1126,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalReplaceItem($key, $value, $options);
+            $result = $this->internalReplaceItem($args['key'], $args['value'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1197,7 +1198,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalReplaceItems($keyValuePairs, $options);
+            $result = $this->internalReplaceItems($args['keyValuePairs'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1262,6 +1263,7 @@ abstract class AbstractAdapter implements Adapter
         $this->normalizeOptions($options);
         $this->normalizeKey($key);
         $args = new ArrayObject(array(
+            'token'   => & $token,
             'key'     => & $key,
             'value'   => & $value,
             'options' => & $options,
@@ -1273,7 +1275,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalCheckAndSetItem($token, $key, $value, $options);
+            $result = $this->internalCheckAndSetItem($args['token'], $args['key'], $args['value'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1347,7 +1349,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalTouchItem($key, $options);
+            $result = $this->internalTouchItem($args['key'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1428,7 +1430,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalTouchItems($keys, $options);
+            $result = $this->internalTouchItems($args['keys'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1495,7 +1497,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalRemoveItem($key, $options);
+            $result = $this->internalRemoveItem($args['key'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1555,7 +1557,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalRemoveItems($keys, $options);
+            $result = $this->internalRemoveItems($args['keys'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1638,7 +1640,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalIncrementItem($key, $value, $options);
+            $result = $this->internalIncrementItem($args['key'], $args['value'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1710,7 +1712,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internatIncrementItems($keyValuePairs, $options);
+            $result = $this->internalIncrementItems($args['keyValuePairs'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1733,11 +1735,11 @@ abstract class AbstractAdapter implements Adapter
      * @return boolean
      * @throws Exception
      */
-    protected function internatIncrementItems(array & $normalizedKeyValuePairs, array & $normalizedOptions)
+    protected function internalIncrementItems(array & $normalizedKeyValuePairs, array & $normalizedOptions)
     {
         $ret = true;
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
-            $ret = ($this->incrementItem($normalizedKey, $value, $normalizedOptions) !== false) && $ret;
+            $ret = ($this->internalIncrementItem($normalizedKey, $value, $normalizedOptions) !== false) && $ret;
         }
         return $ret;
     }
@@ -1783,7 +1785,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalDecrementItem($key, $value, $options);
+            $result = $this->internalDecrementItem($args['key'], $args['value'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1855,7 +1857,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internatDecrementItems($keyValuePairs, $options);
+            $result = $this->internalDecrementItems($args['keyValuePairs'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -1878,7 +1880,7 @@ abstract class AbstractAdapter implements Adapter
      * @return boolean
      * @throws Exception
      */
-    protected function internatDecrementItems(array & $normalizedKeyValuePairs, array & $normalizedOptions)
+    protected function internalDecrementItems(array & $normalizedKeyValuePairs, array & $normalizedOptions)
     {
         $ret = true;
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
@@ -1938,7 +1940,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalGetDelayed($keys, $options);
+            $result = $this->internalGetDelayed($args['keys'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -2035,7 +2037,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalFind($mode, $options);
+            $result = $this->internalFind($args['mode'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -2240,7 +2242,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalClear($mode, $options);
+            $result = $this->internalClear($args['mode'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -2309,7 +2311,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalClearByNamespace($mode, $options);
+            $result = $this->internalClearByNamespace($args['mode'], $args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -2361,7 +2363,9 @@ abstract class AbstractAdapter implements Adapter
             return false;
         }
 
-        $args = new ArrayObject();
+        $args = new ArrayObject(array(
+            'options' => & $options
+        ));
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -2369,7 +2373,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalOptimize();
+            $result = $this->internalOptimize($args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
@@ -2457,7 +2461,7 @@ abstract class AbstractAdapter implements Adapter
                 return $eventRs->last();
             }
 
-            $result = $this->internalGetCapacity($options);
+            $result = $this->internalGetCapacity($args['options']);
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $e);
