@@ -53,6 +53,14 @@ class Dumper
         $this->di = $di;
     }
 
+    /**
+     * @return \Zend\Di\DefinitionList
+     */
+    public function getDefinitions()
+    {
+        return $this->di->definitions();
+    }
+
     public function getInitialInstanceDefinitions()
     {
         $im = $this->di->instanceManager();
@@ -60,6 +68,7 @@ class Dumper
         $aliases = array_keys($im->getAliases());
         return array_unique(array_merge($classes, $aliases));
     }
+
 
     /**
      * @return Di

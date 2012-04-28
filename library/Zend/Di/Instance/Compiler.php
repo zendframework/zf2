@@ -34,7 +34,7 @@ class Compiler
 {
     protected $containerClass = 'ApplicationContext';
 
-    protected $definitions = array();
+    protected $definitions;
 
     protected $instances = array();
 
@@ -51,9 +51,8 @@ class Compiler
     public function __construct(Dumper $dumper)
     {
         $this->instances = $dumper->getAllInjectedDefinitions();
-        $this->definitions = isset($data['definition']) ? $data['definition'] : array();
         $this->aliases = $dumper->getAliases();
-        //$this->instances = isset($data['instance']) ? $data['instance'] : array();
+        $this->definitions = $dumper->getDefinitions();
     }
 
     /**
@@ -92,33 +91,26 @@ class Compiler
     public function getCodeGenerator($filename = null)
     {
         $indent         = '    ';
-        $instances      = $this->instances;
-        //$aliases        = isset($instances['alias']) ? $instances['alias'] : array();
-        $aliases        = array();
         $caseStatements = array();
         $getters        = array();
-        $definitions    = $this->definitions;
-        $definitions    = $this->instances;
+        $instances    = $this->instances;
 
-        foreach ($definitions as $name => $data) {
+        foreach ($instances as $name => $data) {
             if (!$data) {
                 continue;
             }
             $getter = $this->normalizeAlias($name);
 
-            //$instantiator = isset($data['instantiator']['name']) ? $data['instantiator']['name'] : '__construct';
-            //$instantiationParams = isset($data['instantiator']['parameters']) ? $data['instantiator']['parameters'] : array();
             $instantiationParams = isset($data['__construct']) ? $data['__construct'] : array();
             unset($data['__construct']);
 
-            //$methods = isset($data['methods']) ? $data['methods'] : array();
             $methods = $data;
 
             $injectionParams = array();
             foreach ($methods as $method => $params) {
                 $injectionParams[$method] = $params;
             }
-            $params = array();
+            //$params = array();
             // Build parameter list for instantiation
             foreach ($instantiationParams as $key => $param) {
                 /*if(is_string($param)) {
@@ -201,9 +193,32 @@ class Compiler
                 }*/
             } else {
                 // Normal instantiation
-                $className = '\\' . ltrim($this->reduceAlias($name), '\\');
-                $creation = sprintf('$object = new %s(%s);', $className, implode(', ', $params));
+                $className = $this->reduceAlias($name);
+                $className = '\\' . ltrim($className, '\\');
+                $instantiator = $this->definitions->getInstantiator($name);
+
+                $param = '';
+                $it = new \CachingIterator(new \ArrayIterator($params));
+                foreach ($it as $value) {
+                    if (is_string($value)) {
+                        $param .= sprintf('$this->%s()', $this->normalizeAlias($value));
+                    } else {
+                        $param .= var_export($value, 1);
+                    }
+                    if ($it->hasNext()) {
+                        $param .= ', ';
+                    }
+                }
+                if ($this->instances && $instantiator == '__construct') {
+                    $creation = sprintf('$object = new %s(%s);', $className, $param);
+                } else if ($instances && is_array($instantiator) && is_callable($instantiator)) {
+                    $creation = sprintf('$object = ' . $instantiator[0] . '::' . $instantiator[1] . '(%s);', $param);
+                }
             }
+                // Normal instantiation
+                //$className = '\\' . ltrim($this->reduceAlias($name), '\\');
+                //$creation = sprintf('$object = new %s(%s);', $className, implode(', ', $params));
+            //}
 
             $params = array();
             // Create method call code
@@ -216,7 +231,10 @@ class Compiler
                 foreach ($methodParams as $key => $param) {
                     if(is_string($param)) {
                         $params[$key] = sprintf('$this->%s()', $this->normalizeAlias($param));
+                    } else {
+                        $params[$key] .= var_export($value, 1);
                     }
+                    //$creation = sprintf('$object = new %s(%s);', $className, $param);
                     /**
                     if (!isset($param['type'])) $param['type'] = NULL;
                     if (!isset($param['name'])) $param['name'] = NULL;
@@ -258,6 +276,7 @@ class Compiler
                 }
 
                 $methods .= sprintf("\$object->%s(%s);\n", $methodName, implode(', ', $params));
+                $params = array();
             }
 
             $storage = '';
@@ -280,19 +299,9 @@ class Compiler
                 ->setBody($getterBody);
             $getters[] = $getterDef;
 
-            // Get cases for case statements
-            $cases = array($name);
-            foreach ($aliases as $alias => $classAlias) {
-                if ($name == $classAlias) {
-                    $cases = array_merge(array($alias), $cases);
-                }
-            }
-
             // Build case statement and store
             $statement = '';
-            foreach ($cases as $value) {
-                $statement .= sprintf("%scase '%s':\n", $indent, $value);
-            }
+            $statement .= sprintf("%scase '%s':\n", $indent, $name);
             $statement .= sprintf("%sreturn \$this->%s();\n", str_repeat($indent, 2), $getter);
 
             $caseStatements[] = $statement;
@@ -324,20 +333,12 @@ class Compiler
         ));
         $get->setBody($switch);
 
-        // Create getters for aliases
-        $aliasMethods = array();
-
-        foreach ($aliases as $alias => $class) {
-            $aliasMethods[] = $this->getCodeGenMethodFromAlias($alias, $class);
-        }
-
         // Create class code generation object
         $container = new CodeGen\ClassGenerator();
         $container->setName($this->containerClass)
             ->setExtendedClass('ServiceLocator')
             ->setMethod($get)
-            ->setMethods($getters)
-            ->setMethods($aliasMethods);
+            ->setMethods($getters);
 
         // Create PHP file code generation object
         $classFile = new CodeGen\FileGenerator();
