@@ -209,7 +209,7 @@ class Compiler
                         $param .= ', ';
                     }
                 }
-                if ($this->instances && $instantiator == '__construct') {
+                if ($this->instances && $instantiator == '__construct' || false === $instantiator) {
                     $creation = sprintf('$object = new %s(%s);', $className, $param);
                 } else if ($instances && is_array($instantiator) && is_callable($instantiator)) {
                     $creation = sprintf('$object = ' . $instantiator[0] . '::' . $instantiator[1] . '(%s);', $param);
