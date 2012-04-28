@@ -78,6 +78,11 @@ class Dumper
         return $this->getInjectedDefinitions($this->getInitialInstanceDefinitions());
     }
 
+    public function getAliases()
+    {
+        return $this->di->instanceManager()->getAliases();
+    }
+
     // @todo lots of code duplication in here!
     // @todo return a list of injected definitions in form
     // array(

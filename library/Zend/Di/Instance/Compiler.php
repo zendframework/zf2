@@ -40,6 +40,8 @@ class Compiler
 
     protected $namespace;
 
+    protected $aliases;
+
     /**
      * Constructor
      *
@@ -50,6 +52,7 @@ class Compiler
     {
         $this->instances = $dumper->getAllInjectedDefinitions();
         $this->definitions = isset($data['definition']) ? $data['definition'] : array();
+        $this->aliases = $dumper->getAliases();
         //$this->instances = isset($data['instance']) ? $data['instance'] : array();
     }
 
@@ -198,7 +201,7 @@ class Compiler
                 }*/
             } else {
                 // Normal instantiation
-                $className = '\\' . ltrim($name, '\\');
+                $className = '\\' . ltrim($this->reduceAlias($name), '\\');
                 $creation = sprintf('$object = new %s(%s);', $className, implode(', ', $params));
             }
 
@@ -340,6 +343,7 @@ class Compiler
         $classFile = new CodeGen\FileGenerator();
         //$classFile->setUse('Humus\Di\ServiceLocator');
         $classFile->setClass($container);
+        $classFile->setUse('Zend\Di\ServiceLocator');
 
         if (null !== $this->namespace) {
             $classFile->setNamespace($this->namespace);
@@ -353,32 +357,17 @@ class Compiler
     }
 
     /**
-     * Reduces aliases
+     * Reduce aliases
      *
-     * Takes alias list and reduces it to a 2-dimensional array of
-     * class names pointing to an array of aliases that resolve to
-     * it.
-     *
-     * @param  array $aliasList
-     * @return array
+     * @param  string $name
+     * @return string
      */
-    protected function reduceAliases(array $aliasList)
+    protected function reduceAlias($name)
     {
-        $reduced = array();
-        $aliases = array_keys($aliasList);
-        foreach ($aliasList as $alias => $service)
-        {
-            if (in_array($service, $aliases)) {
-                do {
-                    $service = $aliasList[$service];
-                } while (in_array($service, $aliases));
-            }
-            if (!isset($reduced[$service])) {
-                $reduced[$service] = array();
-            }
-            $reduced[$service][] = $alias;
+        if (isset($this->aliases[$name])) {
+            return $this->aliases[$name];
         }
-        return $reduced;
+        return $name;
     }
 
     /**
