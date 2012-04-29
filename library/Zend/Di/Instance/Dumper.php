@@ -29,6 +29,8 @@ use Zend\Di\Di;
  * @package   Zend_Di
  * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @todo add FQCN to dumps (for aliases)
  */
 class Dumper
 {
