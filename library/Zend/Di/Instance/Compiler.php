@@ -175,16 +175,10 @@ class Compiler
                 $methodParams = $methodData['parameters'];
 
                 // Create method parameter representation
-                foreach ($methodParams as $param) {
-                    if(Dumper::REFERENCE === $param['type']) {
-                        $params[] = sprintf('$this->%s()', $this->normalizeAlias($param['value']));
-                    } else {
-                        $params[] = var_export($param['value'], 1);
-                    }
-                }
+                $params = $this->buildParams($methodParams);
 
+                // @todo this actually fixes injections with no params, but that should be handled at DIC/dumper level
                 if(count($params)) {
-                    // @todo this actually fixes injections with no params, but that should be handled at DIC/dumper level
                     $methods .= sprintf("\$object->%s(%s);\n", $methodName, implode(', ', $params));
                 }
             }
@@ -294,25 +288,9 @@ class Compiler
     protected function reduceAlias($name)
     {
         if (isset($this->aliases[$name])) {
-            return $this->aliases[$name];
+            return $this->reduceAlias($this->aliases[$name]);
         }
         return $name;
-    }
-
-    /**
-     * Create a PhpMethod code generation object named after a given alias
-     *
-     * @param  string $alias
-     * @param  class $class Class to which alias refers
-     * @return Generator\PhpMethod
-     */
-    protected function getCodeGenMethodFromAlias($alias, $class)
-    {
-        $alias = $this->normalizeAlias($alias);
-        $method = new Generator\MethodGenerator();
-        $method->setName($alias)
-            ->setBody(sprintf('return $this->get(\'%s\');', $class));
-        return $method;
     }
 
     /**
@@ -341,7 +319,7 @@ class Compiler
 
         foreach ($params as $parameter) {
             if (Dumper::REFERENCE === $parameter['type']) {
-                $normalizedParameters[] = sprintf('$this->%s()', $this->normalizeAlias($parameter['value']));
+                $normalizedParameters[] = sprintf('$this->get(%s)', var_export($parameter['value'], true));
             } else {
                 $normalizedParameters[] = var_export($parameter['value'], true);
             }
