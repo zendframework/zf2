@@ -37,11 +37,6 @@ class Compiler
     protected $containerClass = 'ApplicationContext';
 
     /**
-     * @var Definition
-     */
-    protected $definitions;
-
-    /**
      * @var array
      */
     protected $instances = array();
@@ -68,7 +63,6 @@ class Compiler
         $this->instances = $dumper->getAllInjectedDefinitions();
         // @todo remove following as the code generator should not know about Di
         $this->aliases = $di->instanceManager()->getAliases();
-        $this->definitions = $di->definitions();
     }
 
     /**
