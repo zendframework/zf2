@@ -275,10 +275,15 @@ class Dumper
                             $methodParams = $definitions->getMethodParameters($class, $injectionMethod);
                             if ($methodParams) {
                                 foreach ($methodParams as $methodParam) {
-                                    // $objectsToInject = is_object($objectsToInject) ? get_class($objectsToInject) : $objectToInject;
+                                    $objectToInjectClass = $instanceManager->hasAlias($objectToInject)
+                                        ? $instanceManager->getClassFromAlias($objectToInject)
+                                        : $objectToInject;
                                     if (
-                                        $objectToInject === $methodParam[1]
-                                        || $this->isSubclassOf($objectToInject, $methodParam[1])
+                                        class_exists($objectToInjectClass)
+                                        && (
+                                            $objectToInjectClass === $methodParam[1]
+                                            || $this->isSubclassOf($objectToInjectClass, $methodParam[1])
+                                        )
                                     ) {
                                         $callParams = $this->resolveMethodParameters(
                                             $class,
