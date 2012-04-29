@@ -243,16 +243,13 @@ class Dumper
                 $objectsToInject = $methodsToCall = array();
                 foreach ($instanceConfiguration['injections'] as $injectName => $injectValue) {
                     if (is_int($injectName) && is_string($injectValue)) {
-                        // @todo use a reference parameter here
                         $objectsToInject[] = $injectValue;
                         // $objectsToInject[] = $this->get($injectValue, $params);
                     } elseif (is_string($injectName) && is_array($injectValue)) {
                         if (is_string(key($injectValue))) {
-                            // @todo use a reference parameter here
                             $methodsToCall[] = array('method' => $injectName, 'args' => $injectValue);
                         } else {
                             foreach ($injectValue as $methodCallArgs) {
-                                // @todo use a reference parameter here
                                 $methodsToCall[] = array('method' => $injectName, 'args' => $methodCallArgs);
                             }
                         }
@@ -280,7 +277,6 @@ class Dumper
                                         $objectToInject === $methodParam[1]
                                         || $this->isSubclassOf($objectToInject, $methodParam[1])
                                     ) {
-                                        // @todo restore $params used inside resolveMethodParameters?
                                         $callParams = $this->resolveMethodParameters(
                                             $class,
                                             $injectionMethod,
@@ -386,7 +382,7 @@ class Dumper
      * @param bool $isInstantiator
      * @param string $alias
      * @param bool $methodIsRequired
-     * @return array
+     * @return array an array of ordered parameters
      */
     protected function resolveMethodParameters($class, $method, array $callTimeUserParams, $isInstantiator, $alias, $methodIsRequired)
     {
@@ -454,22 +450,24 @@ class Dumper
                     if ($im->hasAlias($callTimeCurValue)) {
                         // was an alias provided?
                         $computedParams['required'][$fqParamPos] = array(
-                            $callTimeUserParams[$name],
+                            // @todo check if scalar of reference here?
+                            new Dumper\ReferenceParameter($callTimeUserParams[$name]),
                             $im->getClassFromAlias($callTimeCurValue)
                         );
                     } elseif ($this->di->definitions()->hasClass($callTimeUserParams[$name])) {
                         // was a known class provided?
                         $computedParams['required'][$fqParamPos] = array(
-                            $callTimeCurValue,
+                            new Dumper\ReferenceParameter($callTimeCurValue),
                             $callTimeCurValue
                         );
                     } else {
                         // must be a value
-                        $computedParams['value'][$fqParamPos] = $callTimeCurValue;
+                        $computedParams['value'][$fqParamPos] = new Dumper\ScalarParameter($callTimeCurValue);
                     }
                 } else {
                     // int, float, null, object, etc
-                    $computedParams['value'][$fqParamPos] = $callTimeCurValue;
+                    // @todo scalar param
+                    $computedParams['value'][$fqParamPos] = new Dumper\ScalarParameter($callTimeCurValue);
                 }
                 unset($callTimeCurValue);
                 continue;
@@ -498,13 +496,13 @@ class Dumper
                         is_string($iConfigCurValue)
                         && $type === false
                     ) {
-                        $computedParams['value'][$fqParamPos] = $iConfigCurValue;
+                        $computedParams['value'][$fqParamPos] = new Dumper\ScalarParameter($iConfigCurValue);
                     } elseif (
                         is_string($iConfigCurValue)
                         && isset($aliases[$iConfigCurValue])
                     ) {
                         $computedParams['required'][$fqParamPos] = array(
-                            $iConfig[$thisIndex]['parameters'][$name],
+                            new Dumper\ReferenceParameter($iConfig[$thisIndex]['parameters'][$name]),
                             $im->getClassFromAlias($iConfigCurValue)
                         );
                     } elseif (
@@ -512,7 +510,7 @@ class Dumper
                         && $this->di->definitions()->hasClass($iConfigCurValue)
                     ) {
                         $computedParams['required'][$fqParamPos] = array(
-                            $iConfigCurValue,
+                            new Dumper\ReferenceParameter($iConfigCurValue),
                             $iConfigCurValue
                         );
                     } elseif (
@@ -531,7 +529,7 @@ class Dumper
                                 . get_class($iConfigCurValue) . '" provided'
                             );
                         }
-                        $computedParams['value'][$fqParamPos] = $iConfigCurValue;
+                        $computedParams['value'][$fqParamPos] = new Dumper\ScalarParameter($iConfigCurValue);
                     }
                     unset($iConfigCurValue);
                     continue 2;
@@ -545,14 +543,21 @@ class Dumper
             if ($alias && $im->hasTypePreferences($alias)) {
                 $pInstances = $im->getTypePreferences($alias);
                 foreach ($pInstances as $pInstance) {
-                    if (is_object($pInstance)) {
-                        $computedParams['value'][$fqParamPos] = $pInstance;
+
+                    /*if (is_object($pInstance)) {
+                        // @todo scalar param - injection should be a reference!
+                        throw new \BadMethodCallException('Not implemented yet');
+                        // $computedParams['value'][$fqParamPos] = new Dumper\ReferenceParameter($pInstance);
                         continue 2;
-                    }
-                    $pInstanceClass = ($im->hasAlias($pInstance)) ?
-                        $im->getClassFromAlias($pInstance) : $pInstance;
+                    }*/
+
+                    $pInstance = is_object($pInstance) ? get_class($pInstance) : $pInstance;
+                    $pInstanceClass = ($im->hasAlias($pInstance)) ? $im->getClassFromAlias($pInstance) : $pInstance;
                     if ($pInstanceClass === $type || $this->isSubclassOf($pInstanceClass, $type)) {
-                        $computedParams['required'][$fqParamPos] = array($pInstance, $pInstanceClass);
+                        $computedParams['required'][$fqParamPos] = array(
+                            new Dumper\ReferenceParameter($pInstance),
+                            $pInstanceClass
+                        );
                         continue 2;
                     }
                 }
@@ -562,19 +567,21 @@ class Dumper
             if ($type && $im->hasTypePreferences($type)) {
                 $pInstances = $im->getTypePreferences($type);
                 foreach ($pInstances as $pInstance) {
-                    /*
-                    if (is_object($pInstance)) {
-                        // @todo can't handle?
-                        $computedParams['value'][$fqParamPos] = $pInstance;
+
+                    /*if (is_object($pInstance)) {
+                        // @todo scalar param - injection should be a reference!
+                        throw new \BadMethodCallException('Not implemented yet');
+                        //$computedParams['value'][$fqParamPos] = new Dumper\ScalarParameter($pInstance);
                         continue 2;
-                    }
-                    */
-                    // @todo enforcing alias from object if possible
+                    }*/
+
                     $pInstance = is_object($pInstance) ? get_class($pInstance) : $pInstance;
-                    $pInstanceClass = ($im->hasAlias($pInstance)) ?
-                        $im->getClassFromAlias($pInstance) : $pInstance;
+                    $pInstanceClass = ($im->hasAlias($pInstance)) ?  $im->getClassFromAlias($pInstance) : $pInstance;
                     if ($pInstanceClass === $type || $this->isSubclassOf($pInstanceClass, $type)) {
-                        $computedParams['required'][$fqParamPos] = array($pInstance, $pInstanceClass);
+                        $computedParams['required'][$fqParamPos] = array(
+                            new Dumper\ReferenceParameter($pInstance),
+                            $pInstanceClass
+                        );
                         continue 2;
                     }
                 }
@@ -585,7 +592,10 @@ class Dumper
             }
 
             if ($type && $isRequired && $methodIsRequired) {
-                $computedParams['required'][$fqParamPos] = array($type, $type);
+                $computedParams['required'][$fqParamPos] = array(
+                    new Dumper\ReferenceParameter($type),
+                    $type
+                );
             }
 
         }
@@ -597,8 +607,8 @@ class Dumper
             if (isset($computedParams['value'][$fqParamPos])) {
 
                 // if there is a value supplied, use it
-                // $resolvedParams[$index] = $computedParams['value'][$fqParamPos];
-                $resolvedParams[$index] = new Dumper\ScalarParameter($computedParams['value'][$fqParamPos]);
+                //$resolvedParams[$index] = $computedParams['value'][$fqParamPos];
+                $resolvedParams[$index] = $computedParams['value'][$fqParamPos];
 
             } elseif (isset($computedParams['required'][$fqParamPos])) {
 
@@ -609,9 +619,10 @@ class Dumper
                     );
                 }
                 array_push($this->currentDependencies, $class);
-                $resolvedParams[$index] = new Dumper\ReferenceParameter($computedParams['required'][$fqParamPos][0]);
-                // @todo do following distinction while compiling?
-                /*$dConfig = $im->getConfiguration($computedParams['required'][$fqParamPos][0]);
+                $resolvedParams[$index] = $computedParams['required'][$fqParamPos][0];
+
+                /* @todo do following distinction while compiling?
+                $dConfig = $im->getConfiguration($computedParams['required'][$fqParamPos][0]);
                 if ($dConfig['shared'] === false) {
                     //$resolvedParams[$index] = $computedParams['required'][$fqParamPos][0];
                     $resolvedParams[$index] = new Dumper\ReferenceParameter($computedParams['required'][$fqParamPos][0]);
@@ -645,7 +656,7 @@ class Dumper
             $index++;
         }
 
-        return $resolvedParams; // return ordered list of parameters
+        return $resolvedParams;
     }
 
     /**
