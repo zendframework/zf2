@@ -20,6 +20,10 @@
 
 namespace Zend\Di\Instance\Dumper;
 
+use Zend\Di\Instance\Dumper;
+
+
+
 /**
  * Represents a reference parameter that should be fetched recursively from the DIC
  *
@@ -49,5 +53,19 @@ class ReferenceParameter
     public function getReferenceId()
     {
         return $this->referenceId;
+    }
+
+    /**
+     * @todo different logic is required to convert this to an array. Maybe the dumper is better
+     * suited for the task
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'type' => Dumper::REFERENCE,
+            'value' => $this->referenceId,
+        );
     }
 }

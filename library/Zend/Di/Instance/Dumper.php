@@ -32,6 +32,9 @@ use Zend\Di\Di;
  */
 class Dumper
 {
+    const REFERENCE = 0;
+    const SCALAR    = 1;
+
     /**
      * @var Di
      */
@@ -324,22 +327,24 @@ class Dumper
 
         $visited[$name] = $injectedDefinitions;
 
-        foreach ($injectedDefinitions['instantiator']['parameters'] as $parameter) {
+        // recursively discover dependencies and convert generatedReference and Scalar parameters to array
+        foreach ($injectedDefinitions['instantiator']['parameters'] as $key => $parameter) {
             if ($parameter instanceof Dumper\ReferenceParameter) {
                 /* @var $parameter Dumper\ReferenceParameter */
                 $this->doGetInjectedDefinitions($parameter->getReferenceId(), $visited);
             }
+            $visited[$name]['instantiator']['parameters'][$key] = $parameter->toArray();
         }
-        foreach ($injectedDefinitions['injections'] as $methodCall) {
-            foreach ($methodCall['parameters'] as $parameter) {
+        foreach ($injectedDefinitions['injections'] as $method => $methodCall) {
+            foreach ($methodCall['parameters'] as $key => $parameter) {
                 if ($parameter instanceof Dumper\ReferenceParameter) {
                     /* @var $parameter Dumper\ReferenceParameter */
                     $this->doGetInjectedDefinitions($parameter->getReferenceId(), $visited);
                 }
+                $visited[$name]['injections'][$method]['parameters'][$key] = $parameter->toArray();
             }
         }
 
-        //return $visited[$name];
         return $visited;
     }
 
@@ -650,7 +655,6 @@ class Dumper
 
             } else {
                 $resolvedParams[$index] = new Dumper\ScalarParameter(null);
-                //$resolvedParams[$index] = null;
             }
 
             $index++;

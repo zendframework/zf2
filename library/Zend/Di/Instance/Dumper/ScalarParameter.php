@@ -20,6 +20,8 @@
 
 namespace Zend\Di\Instance\Dumper;
 
+use Zend\Di\Instance\Dumper;
+
 
 
 /**
@@ -57,5 +59,19 @@ class ScalarParameter
     public function getReferenceId()
     {
         return $this->value;
+    }
+
+    /**
+     * @todo different logic is required to convert this to an array. Maybe the dumper is better
+     * suited for the task
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'type' => Dumper::SCALAR,
+            'value' => $this->value,
+        );
     }
 }
