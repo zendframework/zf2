@@ -39,6 +39,7 @@ class ScalarParameter
 
     /**
      * @param mixed $value a non-object value to be injected
+     * @throws InvalidArgumentException
      */
     public function __construct($value)
     {
