@@ -152,6 +152,7 @@ class Compiler
                 }
             } else {
                 $className = $this->reduceAlias($name);
+                $className = '\\' . rtrim($className, '\\');
 
                 if (count($instantiatorParams)) {
                     $creation = sprintf('$object = new %s(%s);', $className, implode(', ', $instantiatorParams));
