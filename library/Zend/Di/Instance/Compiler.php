@@ -20,7 +20,9 @@
 
 namespace Zend\Di\Instance;
 
-use Zend\Code\Generator as CodeGen;
+use Zend\Di\Di;
+use Zend\Di\Definition\Definition;
+use Zend\Code\Generator;
 
 /**
  * Class for generating service locators from Di instances
@@ -34,25 +36,39 @@ class Compiler
 {
     protected $containerClass = 'ApplicationContext';
 
+    /**
+     * @var Definition
+     */
     protected $definitions;
 
+    /**
+     * @var array
+     */
     protected $instances = array();
 
+    /**
+     * @var string
+     */
     protected $namespace;
 
+    /**
+     * @var array
+     */
     protected $aliases;
 
     /**
      * Constructor
      *
-     * @param  array $data
-     * @return void
+     * @param Dumper $dumper
+     * @param Di $di @deprecated
      */
-    public function __construct(Dumper $dumper)
+    public function __construct(Dumper $dumper, Di $di)
     {
+        // @todo should use the dumped data directly probably
         $this->instances = $dumper->getAllInjectedDefinitions();
-        $this->aliases = $dumper->getAliases();
-        $this->definitions = $dumper->getDefinitions();
+        // @todo remove following as the code generator should not know about Di
+        $this->aliases = $di->instanceManager()->getAliases();
+        $this->definitions = $di->definitions();
     }
 
     /**
@@ -86,197 +102,91 @@ class Compiler
      * created the specified class and service locator methods.
      *
      * @param  null|string $filename
-     * @return CodeGen\PhpFile
+     * @return Generator\PhpFile
      */
     public function getCodeGenerator($filename = null)
     {
         $indent         = '    ';
         $caseStatements = array();
         $getters        = array();
-        $instances    = $this->instances;
+        $instances      = $this->instances;
 
         foreach ($instances as $name => $data) {
-            if (!$data) {
-                continue;
-            }
-            $getter = $this->normalizeAlias($name);
-
-            $instantiationParams = isset($data['__construct']) ? $data['__construct'] : array();
-            unset($data['__construct']);
-
-            $methods = $data;
-
-            $injectionParams = array();
-            foreach ($methods as $method => $params) {
-                $injectionParams[$method] = $params;
-            }
-            //$params = array();
-            // Build parameter list for instantiation
-            foreach ($instantiationParams as $key => $param) {
-                /*if(is_string($param)) {
-                    $params[$key] = sprintf('$this->%s()', $this->normalizeAlias($param['type']));
-                }*/
-                // @todo other param types (scalars, closures, references?)
-                // @todo all existing types are defined here, all the rest should probably be scalar
-                // @todo (check if $definitions[$name] !== false)
-                /**
-                if (null === $param['type'] ||
-                    in_array($param['type'], array('string', 'array', 'integer', 'boolean'))
-                ) {
-                    $type = $param['type'];
-                    $param = isset($instances[$name]['parameters'][$param['name']]) ?
-                        $instances[$name]['parameters'][$param['name']] : NULL;
-                    switch (strtolower($type)) {
-                        case 'integer':
-                            $param = (int) $param;
-                            break;
-                        case 'boolean':
-                            $param = (bool) $param;
-                            break;
-                    }
-                    $string = preg_replace( '/\\\{2,}/', '\\', var_export($param, 1));
-
-                    if (strstr($string, '::__set_state(')) {
-                        throw new \RuntimeException(
-                            'Arguments in definitions may not contain objects'
-                        );
-                    }
-                    $params[$key] = $string;
-                } elseif (isset($param['type']) && $param['type'] == '$this') {
-                    $params[$key] = '$this';
-                } elseif (isset($param['type'])) {
-                    $params[$key] = sprintf('$this->%s()', $this->normalizeAlias($param['type']));
-                } else {
-                    $message = sprintf(
-                        'Unable to use object arguments when building containers. Encountered with "%s", '
-                            . 'parameter of type "%s"', $name, get_class($param));
-                    throw new \RuntimeException($message);
-                }
-                 */
-            }
 
             // Create instantiation code
-            //$constructor = $instantiator;
-            // @todo callbacks?
-            $constructor = '__construct';
-            if ('__construct' != $constructor) {
-                // @todo check this part
-                throw new \RuntimeException('unsupported');
+            // @todo move to own method
+            $getter = $this->normalizeAlias($name);
+            $constructor = $data['instantiator']['name'];
+            $constructor = $constructor ?: '__construct';
+            $instantiatorParams = $this->buildParams($data['instantiator']['parameters']);
+
+            if ('__construct' !== $constructor) {
                 // Constructor callback
-                /*if (is_callable($constructor)) {
+                if (is_callable($constructor)) {
                     $callback = $constructor;
+
                     if (is_array($callback)) {
                         $class = (is_object($callback[0])) ? get_class($callback[0]) : $callback[0];
                         $method = $callback[1];
                     } elseif (is_string($callback) && strpos($callback, '::') !== false) {
                         list($class, $method) = explode('::', $callback, 2);
                     }
-                    $callback = var_export(array($class, $method), 1);
-                    if (count($params)) {
-                        $creation = sprintf('$object = call_user_func(%s, %s);', $callback, implode(', ', $params));
+
+                    $callback = var_export(array($class, $method), true);
+
+                    if (count($instantiatorParams)) {
+                        $creation = sprintf('$object = call_user_func(%s, %s);', $callback, implode(', ', $instantiatorParams));
                     } else {
                         $creation = sprintf('$object = call_user_func(%s);', $callback);
                     }
                 } else if (is_string($constructor) && strpos($constructor, '->') !== false) {
                     list($class, $method) = explode('->', $constructor, 2);
+
                     if (!class_exists($class)) {
                         throw new \InvalidArgumentException('No class found: ' . $class);
                     }
+
                     $factoryGetter = $this->normalizeAlias($class);
-                    if (count($params)) {
-                        $creation = sprintf('$object = $this->' . $factoryGetter . '()->%s(%s);', $method, implode(', ', $params));
+
+                    if (count($instantiatorParams)) {
+                        $creation = sprintf('$object = $this->' . $factoryGetter . '()->%s(%s);', $method, implode(', ', $instantiatorParams));
                     } else {
                         $creation = sprintf('$object = $this->' . $factoryGetter . '()->%s();', $method);
                     }
                 } else {
-                    throw new \InvalidArgumentException('Invalid constructor supplied for class: ' . $name);
-                }*/
-            } else {
-                // Normal instantiation
-                $className = $this->reduceAlias($name);
-                $className = '\\' . ltrim($className, '\\');
-                $instantiator = $this->definitions->getInstantiator($name);
-
-                $param = '';
-                $it = new \CachingIterator(new \ArrayIterator($params));
-                foreach ($it as $value) {
-                    if (is_string($value)) {
-                        $param .= sprintf('$this->%s()', $this->normalizeAlias($value));
-                    } else {
-                        $param .= var_export($value, 1);
-                    }
-                    if ($it->hasNext()) {
-                        $param .= ', ';
-                    }
+                    throw new \InvalidArgumentException('Invalid instantiator supplied for class: ' . $name);
                 }
-                if ($this->instances && $instantiator == '__construct' || false === $instantiator) {
-                    $creation = sprintf('$object = new %s(%s);', $className, $param);
-                } else if ($instances && is_array($instantiator) && is_callable($instantiator)) {
-                    $creation = sprintf('$object = ' . $instantiator[0] . '::' . $instantiator[1] . '(%s);', $param);
+            } else {
+                $className = $this->reduceAlias($name);
+
+                if (count($instantiatorParams)) {
+                    $creation = sprintf('$object = new %s(%s);', $className, implode(', ', $instantiatorParams));
+                } else {
+                    $creation = sprintf('$object = new %s();', $className);
                 }
             }
-                // Normal instantiation
-                //$className = '\\' . ltrim($this->reduceAlias($name), '\\');
-                //$creation = sprintf('$object = new %s(%s);', $className, implode(', ', $params));
-            //}
 
-            $params = array();
             // Create method call code
             $methods = '';
-            foreach ($injectionParams as $key => $methodData) {
-                $methodName   = $key;
-                $methodParams = $methodData;
+
+            foreach ($data['injections'] as $methodData) {
+                $params = array();
+                $methodName   = $methodData['name'];
+                $methodParams = $methodData['parameters'];
 
                 // Create method parameter representation
-                foreach ($methodParams as $key => $param) {
-                    if(is_string($param)) {
-                        $params[$key] = sprintf('$this->%s()', $this->normalizeAlias($param));
+                foreach ($methodParams as $param) {
+                    if(Dumper::REFERENCE === $param['type']) {
+                        $params[] = sprintf('$this->%s()', $this->normalizeAlias($param['value']));
                     } else {
-                        $params[$key] .= var_export($value, 1);
+                        $params[] = var_export($param['value'], 1);
                     }
-                    //$creation = sprintf('$object = new %s(%s);', $className, $param);
-                    /**
-                    if (!isset($param['type'])) $param['type'] = NULL;
-                    if (!isset($param['name'])) $param['name'] = NULL;
-                    if (null === $param['type'] ||
-                        in_array($param['type'], array('string', 'array', 'integer', 'boolean'))
-                    ) {
-                        $type = $param['type'];
-                        $param = isset($instances[$name]['parameters'][$param['name']]) ?
-                            $instances[$name]['parameters'][$param['name']] : NULL;
-                        switch (strtolower($type)) {
-                            case 'integer':
-                                $param = (int) $param;
-                                break;
-                            case 'boolean':
-                                $param = (bool) $param;
-                                break;
-                        }
-
-                        $string = preg_replace('/\\\{2,}/', '\\', var_export($param, 1));
-                        if (strstr($string, '::__set_state(')) {
-                            throw new \RuntimeException(
-                                'Arguments in definitions may not contain objects'
-                            );
-                        }
-                        $params[$key] = $string;
-                    } elseif (isset($param['type']) && $param['type'] == '$this') {
-                        $params[$key] = '$this';
-                    } elseif (isset($param['type'])) {
-                        $params[$key] = sprintf(
-                            '$this->%s()', $this->normalizeAlias($param['type'])
-                        );
-                    } else {
-                        $message = sprintf(
-                            'Unable to use object arguments when building containers. '
-                                . 'Encountered with "%s", parameter of type "%s"', $name,
-                            get_class($param));
-                        throw new \RuntimeException($message);
-                    }*/
                 }
 
-                $methods .= sprintf("\$object->%s(%s);\n", $methodName, implode(', ', $params));
-                $params = array();
+                if(count($params)) {
+                    // @todo this actually fixes injections with no params, but that should be handled at DIC/dumper level
+                    $methods .= sprintf("\$object->%s(%s);\n", $methodName, implode(', ', $params));
+                }
             }
 
             $storage = '';
@@ -294,8 +204,9 @@ class Compiler
             // End getter body
             $getterBody .= "return \$object;\n";
 
-            $getterDef = new CodeGen\MethodGenerator();
-            $getterDef->setName($getter)
+            $getterDef = new Generator\MethodGenerator();
+            $getterDef
+                ->setName($getter)
                 ->setBody($getterBody);
             $getters[] = $getterDef;
 
@@ -308,43 +219,60 @@ class Compiler
         }
 
         // Build switch statement
-        $switch  = sprintf(
+        $switch = sprintf(
+            "if (count(%s)) {\n%sreturn parent::newInstance(%s, %s, %s);\n}",
+            '$params',
+            $indent,
+            '$name',
+            '$params',
+            '$isShared'
+        );
+        $switch .= sprintf(
             "switch (%s) {\n%s\n", '$name', implode("\n", $caseStatements)
         );
         $switch .= sprintf(
-            "%sdefault:\n%sreturn parent::get(%s, %s);\n", $indent, str_repeat($indent, 2), '$name', '$params'
+            "%sdefault:\n%sreturn parent::newInstance(%s, %s);\n", $indent, str_repeat($indent, 2), '$name', '$params'
         );
         $switch .= "}\n\n";
 
-        // Build get() method
-        $nameParam   = new CodeGen\ParameterGenerator();
+        // Build newInstance() method
+        $nameParam   = new Generator\ParameterGenerator();
         $nameParam->setName('name');
-        $nameParam->setDefaultValue(array());
-        $paramsParam = new CodeGen\ParameterGenerator();
-        $paramsParam->setName('params')
+
+        $paramsParam = new Generator\ParameterGenerator();
+        $paramsParam
+            ->setName('params')
             ->setType('array')
             ->setDefaultValue(array());
 
-        $get = new CodeGen\MethodGenerator();
-        $get->setName('get');
-        $get->setParameters(array(
-            $nameParam,
-            $paramsParam,
-        ));
-        $get->setBody($switch);
+        $isSharedParam = new Generator\ParameterGenerator();
+        $isSharedParam
+            ->setName('isShared')
+            ->setDefaultValue(true);
+
+        $get = new Generator\MethodGenerator();
+        $get
+            ->setName('newInstance')
+            ->setParameters(array(
+                $nameParam,
+                $paramsParam,
+                $isSharedParam,
+            ))
+            ->setBody($switch);
 
         // Create class code generation object
-        $container = new CodeGen\ClassGenerator();
-        $container->setName($this->containerClass)
-            ->setExtendedClass('ServiceLocator')
+        $container = new Generator\ClassGenerator();
+        $container
+            ->setName($this->containerClass)
+            ->setExtendedClass('Di')
             ->setMethod($get)
             ->setMethods($getters);
 
         // Create PHP file code generation object
-        $classFile = new CodeGen\FileGenerator();
-        //$classFile->setUse('Humus\Di\ServiceLocator');
+        $classFile = new Generator\FileGenerator();
+
         $classFile->setClass($container);
-        $classFile->setUse('Zend\Di\ServiceLocator');
+        $classFile->setUse('Zend\Di\Di');
 
         if (null !== $this->namespace) {
             $classFile->setNamespace($this->namespace);
@@ -376,12 +304,12 @@ class Compiler
      *
      * @param  string $alias
      * @param  class $class Class to which alias refers
-     * @return CodeGen\PhpMethod
+     * @return Generator\PhpMethod
      */
     protected function getCodeGenMethodFromAlias($alias, $class)
     {
         $alias = $this->normalizeAlias($alias);
-        $method = new CodeGen\MethodGenerator();
+        $method = new Generator\MethodGenerator();
         $method->setName($alias)
             ->setBody(sprintf('return $this->get(\'%s\');', $class));
         return $method;
@@ -398,5 +326,27 @@ class Compiler
         $normalized = preg_replace('/[^a-zA-Z0-9]/', ' ', $alias);
         $normalized = 'get' . str_replace(' ', '', ucwords($normalized));
         return $normalized;
+    }
+
+    /**
+     * Generates parameter strings to be used as injections, replacing reference parameters with their respective
+     * getters
+     *
+     * @param array $params
+     * @return array
+     */
+    protected function buildParams(array $params)
+    {
+        $normalizedParameters = array();
+
+        foreach ($params as $parameter) {
+            if (Dumper::REFERENCE === $parameter['type']) {
+                $normalizedParameters[] = sprintf('$this->%s()', $this->normalizeAlias($parameter['value']));
+            } else {
+                $normalizedParameters[] = var_export($parameter['value'], true);
+            }
+        }
+
+        return $normalizedParameters;
     }
 }
