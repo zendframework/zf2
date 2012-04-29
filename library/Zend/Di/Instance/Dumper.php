@@ -31,9 +31,6 @@ use Zend\Di\Configuration;
  * @package   Zend_Di
  * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- *
- * @todo doesn't handle multiple injections/subsequent method calls for now! Check
- * all call_user_func issued by Zend\Di\Di!
  */
 class Dumper
 {
@@ -42,41 +39,35 @@ class Dumper
      */
     protected $di;
 
-    // @todo eventually remove to reduce code duplication
+    /**
+     * @var string
+     */
     protected $instanceContext = array();
 
-    // @todo eventually remove to reduce code duplication
+    /**
+     * All the class dependencies [source][dependency]
+     *
+     * @var array
+     */
     protected $currentDependencies = array();
 
+    /**
+     * @param Di $di
+     */
     public function __construct(Di $di)
     {
         $this->di = $di;
     }
 
     /**
-     * @return \Zend\Di\DefinitionList
+     * @return array
      */
-    public function getDefinitions()
-    {
-        return $this->di->definitions();
-    }
-
     public function getInitialInstanceDefinitions()
     {
         $im = $this->di->instanceManager();
         $classes = $im->getClasses();
         $aliases = array_keys($im->getAliases());
         return array_unique(array_merge($classes, $aliases));
-    }
-
-
-    /**
-     * @return Di
-     * @todo maybe not needed
-     */
-    public function getDi()
-    {
-        return $this->di;
     }
 
     /**
@@ -86,23 +77,6 @@ class Dumper
     {
         return $this->getInjectedDefinitions($this->getInitialInstanceDefinitions());
     }
-
-    public function getAliases()
-    {
-        return $this->di->instanceManager()->getAliases();
-    }
-
-    // @todo lots of code duplication in here!
-    // @todo return a list of injected definitions in form
-    // array(
-    //     'methodName' => array(
-    //         'param_1' => false, // false if it is not another dependency
-    //         'param_2' => array(
-    //              // *recursion*
-    //          ),
-    //     ),  // true if it is a definition and requires recursive checking
-    //     'otherMethod' => ...
-    // )
 
     /**
      * @param string|array $name name or names of the instances to get
@@ -129,7 +103,13 @@ class Dumper
      */
     protected function doGetInjectedDefinitions($name, array &$visited)
     {
-        $injectedDefinitions = array();
+        $injectedDefinitions = array(
+            'instantiator' => array(
+                'name' => null,
+                'parameters' => array(),
+            ),
+            'injections' => array(),
+        );
 
         if (isset($visited[$name])) {
             return $visited[$name];
@@ -149,8 +129,7 @@ class Dumper
         array_push($this->instanceContext, array('NEW', $class, $alias));
 
         if (!$definitions->hasClass($class)) {
-            // @todo return empty array instead (can't compile?) ?
-            return $visited[$name] = false;
+            return false; // @todo remove this return when committing
             $aliasMsg = ($alias) ? '(specified by alias ' . $alias . ') ' : '';
             throw new \Zend\Di\Exception\ClassNotFoundException(
                 'Class ' . $aliasMsg . $class . ' could not be located in provided definitions.'
@@ -165,21 +144,42 @@ class Dumper
             $supertypeInjectionMethods[$supertype] = $definitions->getMethods($supertype);
         }
 
-        // @todo checking NULL instantiator (bug? not sure for now)
-        // @todo what if no constructor? :P
         if ('__construct' === $instantiator || null === $instantiator) {
             // $params forced to array() as we don't compile definitions for newInstanceWithParams
-            $injectedDefinitions['__construct'] = $this->getConstructorParams($class, array(), $alias);
+            $constructorParameters = $this->resolveMethodParameters(
+                $class,
+                '__construct',
+                array(),
+                true,
+                $alias,
+                true
+            );
 
-            //$instance = $this->createInstanceViaConstructor($class, $params, $alias);
+            if ($constructorParameters) {
+                $injectedDefinitions['instantiator']['parameters'] = $constructorParameters;
+            }
+
             if (array_key_exists('__construct', $injectionMethods)) {
                 unset($injectionMethods['__construct']);
             }
         } elseif (is_callable($instantiator, false)) {
-            if(!is_array($instantiator) && !is_string($instantiator)) {
-                throw new \BadMethodCallException('unsupported?');
+            if (!is_array($instantiator) && !is_string($instantiator)) {
+                throw new Dumper\InvalidArgumentException(
+                    'Unsupported: Callable instantiator must be a string or an array, "'
+                    . gettype($instantiator) . '" provided'
+                );
             }
-            // @todo $instance = $this->createInstanceViaCallback($instantiator, $params, $alias);
+
+            $injectedDefinitions['instantiator']['name'] = $instantiator;
+            $callbackParams = $this->getCallbackParams(
+                $instantiator,
+                array(),
+                $alias
+            );
+
+            if ($callbackParams) {
+                $injectedDefinitions['instantiator']['parameters'] = $callbackParams;
+            }
         } else {
             if (is_array($instantiator)) {
                 $msg = sprintf(
@@ -194,27 +194,47 @@ class Dumper
                     $name
                 );
             }
-            throw new \RuntimeException($msg);
+            throw new Dumper\InvalidArgumentException($msg);
         }
 
         if ($injectionMethods || $supertypeInjectionMethods) {
             foreach ($injectionMethods as $injectionMethod => $methodIsRequired) {
                 if ($injectionMethod !== '__construct') {
                     // $params forced to array() as we don't compile definitions for newInstanceWithParams
-                    $injection = $this->getInjectionMethodsForInstance($injectionMethod, array(), $alias, $methodIsRequired, $class);
-                    // @todo what if the $injection is actually something that casts to false?
-                    if($injection) {
-                        $injectedDefinitions[$injectionMethod] = $injection;
+                    $injection = $this->resolveMethodParameters(
+                        $class,
+                        $injectionMethod,
+                        array(),
+                        false,
+                        $alias,
+                        $methodIsRequired
+                    );
+                    if ($injection) {
+                        $injectedDefinitions['injections'][] = array(
+                            'name' => $injectionMethod,
+                            'parameters' => $injection,
+                        );
                     }
                 }
             }
             foreach ($supertypeInjectionMethods as $supertype => $supertypeInjectionMethod) {
                 foreach ($supertypeInjectionMethod as $injectionMethod => $methodIsRequired) {
+
                     if ($injectionMethod !== '__construct') {
-                        $injection = $this->getInjectionMethodsForInstance($injectionMethod, array(), $alias, $methodIsRequired, $supertype);
-                        // @todo what if the $injection is actually something that casts to false?
-                        if($injection) {
-                            $injectedDefinitions[$injectionMethod] = $injection;
+                        // $params forced to array() as we don't compile definitions for newInstanceWithParams
+                        $injection = $this->resolveMethodParameters(
+                            $supertype,
+                            $injectionMethod,
+                            array(),
+                            false,
+                            $alias,
+                            $methodIsRequired
+                        );
+                        if ($injection) {
+                            $injectedDefinitions['injections'][] = array(
+                                'name' => $injectionMethod,
+                                'parameters' => $injection,
+                            );
                         }
                     }
                 }
@@ -226,24 +246,28 @@ class Dumper
                 $objectsToInject = $methodsToCall = array();
                 foreach ($instanceConfiguration['injections'] as $injectName => $injectValue) {
                     if (is_int($injectName) && is_string($injectValue)) {
+                        // @todo use a reference parameter here
                         $objectsToInject[] = $injectValue;
                         // $objectsToInject[] = $this->get($injectValue, $params);
                     } elseif (is_string($injectName) && is_array($injectValue)) {
                         if (is_string(key($injectValue))) {
+                            // @todo use a reference parameter here
                             $methodsToCall[] = array('method' => $injectName, 'args' => $injectValue);
                         } else {
                             foreach ($injectValue as $methodCallArgs) {
+                                // @todo use a reference parameter here
                                 $methodsToCall[] = array('method' => $injectName, 'args' => $methodCallArgs);
                             }
                         }
                     } elseif (is_object($injectValue)) {
-                        throw new \BadMethodCallException('unsupported?');
-                        // $objectsToInject[] = $injectValue;
+                        throw new Dumper\InvalidArgumentException(
+                            'Unsupported: directly injecting object instances is not supported, instance of "'
+                            . get_class($injectValue) . '" provided'
+                        );
                     } elseif (is_int($injectName) && is_array($injectValue)) {
-                        // @todo must find method name somehow
                         throw new \Zend\Di\Exception\RuntimeException(
                             'An injection was provided with a keyed index and an array of data, try using'
-                                . ' the name of a particular method as a key for your injection data.'
+                            . ' the name of a particular method as a key for your injection data.'
                         );
                     }
                 }
@@ -254,27 +278,26 @@ class Dumper
                             $methodParams = $definitions->getMethodParameters($class, $injectionMethod);
                             if ($methodParams) {
                                 foreach ($methodParams as $methodParam) {
-                                    $objectsToInject = is_object($objectsToInject) ? get_class($objectsToInject) : $objectToInject;
+                                    // $objectsToInject = is_object($objectsToInject) ? get_class($objectsToInject) : $objectToInject;
                                     if (
                                         $objectToInject === $methodParam[1]
                                         || $this->isSubclassOf($objectToInject, $methodParam[1])
                                     ) {
                                         // @todo restore $params used inside resolveMethodParameters?
-                                        $callParams = $this->resolveMethodParameters($class, $injectionMethod,
-                                            array($methodParam[0] => $objectToInject), false, $alias, true
+                                        $callParams = $this->resolveMethodParameters(
+                                            $class,
+                                            $injectionMethod,
+                                            array($methodParam[0] => $objectToInject),
+                                            false,
+                                            $alias,
+                                            true
                                         );
-                                        /**
-                                        $callParams = $this->resolveMethodParameters(get_class($instance), $injectionMethod,
-                                            array($methodParam[0] => $objectToInject), false, $alias, true
-                                        );
-                                         * */
                                         if ($callParams) {
-                                            $injectedDefinitions[$injectionMethod] = $callParams;
-                                            //var_dump($injectionMethod, $callParams);
+                                            $injectedDefinitions['injections'][] = array(
+                                                'name' => $injectionMethod,
+                                                'parameters' => $callParams,
+                                            );
                                         }
-                                        /*if ($callParams) {
-                                            call_user_func_array(array($instance, $injectionMethod), $callParams);
-                                        }*/
                                         continue 3;
                                     }
                                 }
@@ -284,10 +307,21 @@ class Dumper
                 }
                 if ($methodsToCall) {
                     foreach ($methodsToCall as $methodInfo) {
-                        $callParams = $this->resolveMethodParameters(get_class($instance), $methodInfo['method'],
-                            $methodInfo['args'], false, $alias, true
+                        $callParams = $this->resolveMethodParameters(
+                            $class,
+                            $methodInfo['method'],
+                            $methodInfo['args'],
+                            false,
+                            $alias,
+                            true
                         );
-                        call_user_func_array(array($instance, $methodInfo['method']), $callParams);
+
+                        if ($callParams) {
+                            $injectedDefinitions['injections'][] = array(
+                                'name' => $methodInfo['method'],
+                                'parameters' => $callParams,
+                            );
+                        }
                     }
                 }
             }
@@ -297,13 +331,17 @@ class Dumper
 
         $visited[$name] = $injectedDefinitions;
 
-        foreach ($visited[$name] as $method => $injections) {
-            if (is_array($injections)) {
-                foreach ($injections as $injectionName) {
-                    // @todo check scalar $injectionName here!
-                    if (is_string($injectionName) && !isset($visited[$injectionName])) {
-                        $this->doGetInjectedDefinitions($injectionName, $visited);
-                    }
+        foreach ($injectedDefinitions['instantiator']['parameters'] as $parameter) {
+            if ($parameter instanceof Dumper\ReferenceParameter) {
+                /* @var $parameter Dumper\ReferenceParameter */
+                $this->doGetInjectedDefinitions($parameter->getReferenceId(), $visited);
+            }
+        }
+        foreach ($injectedDefinitions['injections'] as $methodCall) {
+            foreach ($methodCall['parameters'] as $parameter) {
+                if ($parameter instanceof Dumper\ReferenceParameter) {
+                    /* @var $parameter Dumper\ReferenceParameter */
+                    $this->doGetInjectedDefinitions($parameter->getReferenceId(), $visited);
                 }
             }
         }
@@ -312,33 +350,35 @@ class Dumper
         return $visited;
     }
 
-    protected function getConstructorParams($class, array $params, $alias)
-    {
-        if ($this->di->definitions()->hasMethod($class, '__construct')) {
-            return $this->resolveMethodParameters($class, '__construct', $params, true, $alias, true);
-        }
-        return null;
-    }
-
     /**
-     * This parameter will handle any injection methods and resolution of
-     * dependencies for such methods
+     * Get parameters for the defined callback
      *
-     * @param object $object
-     * @param string $method
+     * @param callback $callback
      * @param array $params
      * @param string $alias
+     * @return object
+     * @throws Dumper\InvalidArgumentException
      */
-    protected function getInjectionMethodsForInstance($method, $params, $alias, $methodIsRequired, $methodClass)
+    protected function getCallbackParams($callback, $params, $alias)
     {
-        // @todo make sure to resolve the supertypes for both the object & definition
-        return $this->resolveMethodParameters($methodClass, $method, $params, false, $alias, $methodIsRequired);
-        /*$callParameters = $this->resolveMethodParameters($methodClass, $method, $params, false, $alias, $methodIsRequired);
-        if ($callParameters == false) {
-            return;
-        } */
-    }
+        if (!is_callable($callback)) {
+            throw new Dumper\InvalidArgumentException('An invalid constructor callback was provided');
+        }
 
+        if (is_array($callback)) {
+            $class = (is_object($callback[0])) ? get_class($callback[0]) : $callback[0];
+            $method = $callback[1];
+        } elseif (is_string($callback) && strpos($callback, '::') !== false) {
+            list($class, $method) = explode('::', $callback, 2);
+        } else {
+            throw new Dumper\InvalidArgumentException('Invalid callback type provided to ' . __METHOD__);
+        }
+
+        if ($this->di->definitions()->hasMethod($class, $method)) {
+            return $this->resolveMethodParameters($class, $method, $params, true, $alias, true);
+        }
+        return array();
+    }
 
     /**
      * Resolve parameters referencing other services
@@ -348,6 +388,7 @@ class Dumper
      * @param array $callTimeUserParams
      * @param bool $isInstantiator
      * @param string $alias
+     * @param bool $methodIsRequired
      * @return array
      */
     protected function resolveMethodParameters($class, $method, array $callTimeUserParams, $isInstantiator, $alias, $methodIsRequired)
