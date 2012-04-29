@@ -21,8 +21,6 @@
 namespace Zend\Di\Instance;
 
 use Zend\Di\Di;
-use Zend\Di\Configuration;
-
 
 /**
  * Class for handling dumping of dependency injection parameters (recursively)
@@ -129,7 +127,6 @@ class Dumper
         array_push($this->instanceContext, array('NEW', $class, $alias));
 
         if (!$definitions->hasClass($class)) {
-            return false; // @todo remove this return when committing
             $aliasMsg = ($alias) ? '(specified by alias ' . $alias . ') ' : '';
             throw new \Zend\Di\Exception\ClassNotFoundException(
                 'Class ' . $aliasMsg . $class . ' could not be located in provided definitions.'
@@ -497,31 +494,42 @@ class Dumper
                         $iConfigCurValue =& $iConfig[$thisIndex]['parameters'][$name];
                     }
 
-                    if (is_string($iConfigCurValue)
-                        && $type === false) {
+                    if (
+                        is_string($iConfigCurValue)
+                        && $type === false
+                    ) {
                         $computedParams['value'][$fqParamPos] = $iConfigCurValue;
-                    } elseif (is_string($iConfigCurValue)
-                        && isset($aliases[$iConfigCurValue])) {
+                    } elseif (
+                        is_string($iConfigCurValue)
+                        && isset($aliases[$iConfigCurValue])
+                    ) {
                         $computedParams['required'][$fqParamPos] = array(
                             $iConfig[$thisIndex]['parameters'][$name],
                             $im->getClassFromAlias($iConfigCurValue)
                         );
-                    } elseif (is_string($iConfigCurValue)
-                        && $this->di->definitions()->hasClass($iConfigCurValue)) {
+                    } elseif (
+                        is_string($iConfigCurValue)
+                        && $this->di->definitions()->hasClass($iConfigCurValue)
+                    ) {
                         $computedParams['required'][$fqParamPos] = array(
                             $iConfigCurValue,
                             $iConfigCurValue
                         );
-                    } elseif (is_object($iConfigCurValue)
+                    } elseif (
+                        is_object($iConfigCurValue)
                         && $iConfigCurValue instanceof \Closure
-                        && $type !== 'Closure') {
-                        // @todo can't handle?
-                        throw new \BadMethodCallException('unsupported?');
-                        $computedParams['value'][$fqParamPos] = $iConfigCurValue();
+                        && $type !== 'Closure'
+                    ) {
+                        throw new Dumper\InvalidArgumentException(
+                            'Unsupported: cannot use instances as method parameters, instance of "'
+                            . get_class($iConfigCurValue) . '" provided'
+                        );
                     } else {
-                        // @todo can't handle?
                         if( is_object($iConfigCurValue)) {
-                            throw new \BadMethodCallException('unsupported?');
+                            throw new Dumper\InvalidArgumentException(
+                                'Unsupported: cannot use instances as method parameters, instance of "'
+                                . get_class($iConfigCurValue) . '" provided'
+                            );
                         }
                         $computedParams['value'][$fqParamPos] = $iConfigCurValue;
                     }
@@ -589,7 +597,8 @@ class Dumper
             if (isset($computedParams['value'][$fqParamPos])) {
 
                 // if there is a value supplied, use it
-                $resolvedParams[$index] = $computedParams['value'][$fqParamPos];
+                // $resolvedParams[$index] = $computedParams['value'][$fqParamPos];
+                $resolvedParams[$index] = new Dumper\ScalarParameter($computedParams['value'][$fqParamPos]);
 
             } elseif (isset($computedParams['required'][$fqParamPos])) {
 
@@ -600,15 +609,18 @@ class Dumper
                     );
                 }
                 array_push($this->currentDependencies, $class);
-                $dConfig = $im->getConfiguration($computedParams['required'][$fqParamPos][0]);
-                // @todo do that distinction in compiling stuff?
+                $resolvedParams[$index] = new Dumper\ReferenceParameter($computedParams['required'][$fqParamPos][0]);
+                // @todo do following distinction while compiling?
+                /*$dConfig = $im->getConfiguration($computedParams['required'][$fqParamPos][0]);
                 if ($dConfig['shared'] === false) {
-                    $resolvedParams[$index] = $computedParams['required'][$fqParamPos][0];
+                    //$resolvedParams[$index] = $computedParams['required'][$fqParamPos][0];
+                    $resolvedParams[$index] = new Dumper\ReferenceParameter($computedParams['required'][$fqParamPos][0]);
                     //$resolvedParams[$index] = $this->newInstance($computedParams['required'][$fqParamPos][0], $callTimeUserParams, false);
                 } else {
-                    $resolvedParams[$index] = $computedParams['required'][$fqParamPos][0];
+                    //$resolvedParams[$index] = $computedParams['required'][$fqParamPos][0];
+                    $resolvedParams[$index] = new Dumper\ReferenceParameter($computedParams['required'][$fqParamPos][0]);
                     //$resolvedParams[$index] = $this->get($computedParams['required'][$fqParamPos][0], $callTimeUserParams);
-                }
+                }*/
 
                 array_pop($this->currentDependencies);
 
@@ -626,7 +638,8 @@ class Dumper
                 }
 
             } else {
-                $resolvedParams[$index] = null;
+                $resolvedParams[$index] = new Dumper\ScalarParameter(null);
+                //$resolvedParams[$index] = null;
             }
 
             $index++;
