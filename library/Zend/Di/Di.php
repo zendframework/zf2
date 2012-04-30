@@ -207,15 +207,44 @@ class Di implements DependencyInjection
         }
 
         if ($injectionMethods || $supertypeInjectionMethods) {
+            $handledInjections = array();
             foreach ($injectionMethods as $injectionMethod => $methodIsRequired) {
                 if ($injectionMethod !== '__construct') {
-                    $this->handleInjectionMethodForInstance($instance, $injectionMethod, $params, $alias, $methodIsRequired);
+                    $injectionResult = $this->handleInjectionMethodForInstance(
+                        $instance,
+                        $injectionMethod,
+                        $params,
+                        $alias,
+                        $methodIsRequired,
+                        $class,
+                        $handledInjections
+                    );
+                    if ($injectionResult) {
+                        if (!isset($handledInjections[$injectionMethod])) {
+                            $handledInjections[$injectionMethod] = array();
+                        }
+                        $handledInjections[$injectionMethod][] = $injectionResult;
+                    }
                 }
             }
             foreach ($supertypeInjectionMethods as $supertype => $supertypeInjectionMethod) {
                 foreach ($supertypeInjectionMethod as $injectionMethod => $methodIsRequired) {
                     if ($injectionMethod !== '__construct') {
-                        $this->handleInjectionMethodForInstance($instance, $injectionMethod, $params, $alias, $methodIsRequired, $supertype);
+                        $injectionResult = $this->handleInjectionMethodForInstance(
+                            $instance,
+                            $injectionMethod,
+                            $params,
+                            $alias,
+                            $methodIsRequired,
+                            $supertype,
+                            $handledInjections
+                        );
+                        if ($injectionResult) {
+                            if (!isset($handledInjections[$injectionMethod])) {
+                                $handledInjections[$injectionMethod] = array();
+                            }
+                            $handledInjections[$injectionMethod][] = $injectionResult;
+                        }
                     }
                 }
             }
@@ -379,17 +408,32 @@ class Di implements DependencyInjection
      * @param string $method
      * @param array $params
      * @param string $alias
+     * @return array|null the generated parameters or null if no method will be called
      */
-    protected function handleInjectionMethodForInstance($instance, $method, $params, $alias, $methodIsRequired, $methodClass = null)
+    protected function handleInjectionMethodForInstance($instance, $method, $params, $alias, $methodIsRequired, $methodClass = null, $handledInjections = array())
     {
+        var_dump($methodClass);
         $methodClass = ($methodClass) ?: get_class($instance);
         // @todo make sure to resolve the supertypes for both the object & definition
         $callParameters = $this->resolveMethodParameters($methodClass, $method, $params, false, $alias, $methodIsRequired);
         if ($callParameters == false) {
             return;
         }
+        if (isset($handledInjections[$method])) {
+            var_dump($handledInjections[$method]);
+            foreach ($handledInjections[$method] as $handledCallParameters) {
+                foreach ($handledCallParameters as $key => $handledCallParameter) {
+                    //var_dump($key);
+                    if ($callParameters[$key] !== $handledCallParameter) {
+                        continue;
+                    }
+                    return; // if a call with the same parameters is found, return without invoking the method
+                }
+            }
+        }
         if ($callParameters !== array_fill(0, count($callParameters), null)) {
             call_user_func_array(array($instance, $method), $callParameters);
+            return $callParameters;
         }
     }
 
