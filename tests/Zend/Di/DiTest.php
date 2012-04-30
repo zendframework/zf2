@@ -634,4 +634,25 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $this->assertNotSame($movie->lister, $venue->lister);
         $this->assertSame($movie->lister->sharedLister, $venue->lister->sharedLister);
     }
+
+    /**
+     * @group SetterInjection
+     * @group SupertypeResolution
+     */
+    public function testSetterInjectionWillNotDuplicateInjectionsForSupertypeDefinition()
+    {
+        $di = new Di();
+        $di->configure(new Configuration(array(
+            'instance' => array(
+                'ZendTest\Di\TestAsset\SetterInjection\DuplicateInjection' => array(
+                    'parameters' => array(
+                        'a' => 'ZendTest\Di\TestAsset\SetterInjection\A',
+                    ),
+                ),
+            ),
+        )));
+
+        $c = $di->get('ZendTest\Di\TestAsset\SetterInjection\DuplicateInjection');
+        $this->assertSame(1, $c->getInjectionsCount());
+    }
 }
