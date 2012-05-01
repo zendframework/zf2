@@ -8,15 +8,16 @@ namespace ZendTest\Di\TestAsset\SetterInjection;
 class DuplicateInjectionParent
 {
     /**
-     * @var int
+     * @var array
      */
-    protected $injectionsCount = 0;
+    public $injections = array();
 
     /**
-     * @param A $a
+     * @param string $a
+     * @return void
      */
-    public function setA(A $a) {
-        $this->injectionsCount += 1;
+    public function setA($a) {
+        $this->injections[] = $a;
     }
 
     /**
@@ -24,6 +25,6 @@ class DuplicateInjectionParent
      */
     public function getInjectionsCount()
     {
-        return $this->injectionsCount;
+        return count($this->injections);
     }
 }

@@ -8,10 +8,10 @@ namespace ZendTest\Di\TestAsset\SetterInjection;
 class DuplicateInjection extends DuplicateInjectionParent
 {
     /**
-     * @param \ZendTest\Di\TestAsset\SetterInjection\A $a
+     * @param string $a
      * @return void
      */
-    public function setA(A $a) {
+    public function setA($a) {
         parent::setA($a);
     }
 }
