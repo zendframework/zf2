@@ -207,16 +207,18 @@ class Di implements DependencyInjection
         }
 
         if ($injectionMethods || $supertypeInjectionMethods) {
-            foreach ($injectionMethods as $injectionMethod => $methodIsRequired) {
-                if ($injectionMethod !== '__construct') {
-                    $this->handleInjectionMethodForInstance($instance, $injectionMethod, $params, $alias, $methodIsRequired);
-                }
-            }
-            foreach ($supertypeInjectionMethods as $supertype => $supertypeInjectionMethod) {
+            // supertype injections should be handled before as overrides may happen later
+            // @todo verify the effective order of supertypes. This array_reverse should be removed and order guaranteed
+            foreach (array_reverse($supertypeInjectionMethods) as $supertype => $supertypeInjectionMethod) {
                 foreach ($supertypeInjectionMethod as $injectionMethod => $methodIsRequired) {
                     if ($injectionMethod !== '__construct') {
                         $this->handleInjectionMethodForInstance($instance, $injectionMethod, $params, $alias, $methodIsRequired, $supertype);
                     }
+                }
+            }
+            foreach ($injectionMethods as $injectionMethod => $methodIsRequired) {
+                if ($injectionMethod !== '__construct'){
+                    $this->handleInjectionMethodForInstance($instance, $injectionMethod, $params, $alias, $methodIsRequired);
                 }
             }
 

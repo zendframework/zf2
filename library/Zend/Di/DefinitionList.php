@@ -16,7 +16,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
             $this->push($definition);
         }
     }
-    
+
     public function addDefinition(Definition\Definition $definition, $addToBackOfList = true)
     {
         if ($addToBackOfList) {
@@ -81,7 +81,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         }
         return $classes;
     }
-    
+
     public function hasClass($class)
     {
         /** @var $definition Definition\Definition */
@@ -92,7 +92,8 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         }
         return false;
     }
-    
+
+    // @todo sorting of supertypes should be guaranteed
     public function getClassSupertypes($class)
     {
         $supertypes = array();
@@ -103,7 +104,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         // @todo remove duplicates?
         return $supertypes;
     }
-    
+
     public function getInstantiator($class)
     {
         /** @var $definition Definition\Definition */
@@ -119,7 +120,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         }
         return false;
     }
-    
+
     public function hasMethods($class)
     {
         /** @var $definition Definition\Definition */
@@ -134,7 +135,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         }
         return false;
     }
-    
+
     public function hasMethod($class, $method)
     {
         /** @var $definition Definition\Definition */
@@ -149,7 +150,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         }
         return false;
     }
-    
+
     public function getMethods($class)
     {
         /** @var $definition Definition\Definition */
@@ -182,5 +183,5 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
         }
         return array();
     }
-    
+
 }
