@@ -14,7 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Acl
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. 
+ *   (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +30,8 @@ namespace Zend\Acl;
  * @uses       Zend\Acl\Role
  * @category   Zend
  * @package    Zend_Acl
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. 
+ *   (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Assertion
@@ -37,8 +39,10 @@ interface Assertion
     /**
      * Returns true if and only if the assertion conditions are met
      *
-     * This method is passed the ACL, Role, Resource, and privilege to which the authorization query applies. If the
-     * $role, $resource, or $privilege parameters are null, it means that the query applies to all Roles, Resources, or
+     * This method is passed the ACL, Role, Resource, and privilege to which 
+     * the authorization query applies. If the
+     * $role, $resource, or $privilege parameters are null, it means that the 
+     * query applies to all Roles, Resources, or
      * privileges, respectively.
      *
      * @param  Zend\Acl\Acl      $acl
@@ -47,5 +51,8 @@ interface Assertion
      * @param  string            $privilege
      * @return boolean
      */
-    public function assert(Acl $acl, Role $role = null, Resource $resource = null, $privilege = null);
+     public function assert(
+          Acl $acl, Role $role = null, 
+          Resource $resource = null, $privilege = null
+     );
 }

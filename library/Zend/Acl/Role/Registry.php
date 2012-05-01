@@ -14,7 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Acl
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. 
+ *  (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +34,8 @@ use Zend\Acl,
  * @uses       Zend\Acl\Role\Exception
  * @category   Zend
  * @package    Zend_Acl
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. 
+ *   (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Registry
@@ -48,16 +50,17 @@ class Registry
     /**
      * Adds a Role having an identifier unique to the registry
      *
-     * The $parents parameter may be a reference to, or the string identifier for,
-     * a Role existing in the registry, or $parents may be passed as an array of
-     * these - mixing string identifiers and objects is ok - to indicate the Roles
-     * from which the newly added Role will directly inherit.
+     * The $parents parameter may be a reference to, or the string identifier 
+     * for, a Role existing in the registry, or $parents may be passed as an 
+     * array of these - mixing string identifiers and objects is ok - to 
+     * indicate the Roles from which the newly added Role will directly inherit.
      *
-     * In order to resolve potential ambiguities with conflicting rules inherited
-     * from different parents, the most recently added parent takes precedence over
-     * parents that were previously added. In other words, the first parent added
-     * will have the least priority, and the last parent added will have the
-     * highest priority.
+     * In order to resolve potential ambiguities with conflicting rules 
+     * inherited
+     * from different parents, the most recently added parent takes precedence 
+     * over parents that were previously added. In other words, the first  
+     * parent added will have the least priority, and the last parent added  
+     * will have the highest priority.
      *
      * @param  Zend\Acl\Role              $role
      * @param  Zend\Acl\Role|string|array $parents
@@ -69,7 +72,9 @@ class Registry
         $roleId = $role->getRoleId();
 
         if ($this->has($roleId)) {
-            throw new Acl\Exception\InvalidArgumentException("Role id '$roleId' already exists in the registry");
+            throw new Acl\Exception\InvalidArgumentException(
+                "Role id '$roleId' already exists in the registry"
+            );
         }
 
         $roleParents = array();
@@ -87,7 +92,9 @@ class Registry
                     }
                     $roleParent = $this->get($roleParentId);
                 } catch (Exception $e) {
-                    throw new Acl\Exception\InvalidArgumentException("Parent Role id '$roleParentId' does not exist", 0, $e);
+                    throw new Acl\Exception\InvalidArgumentException(
+                        "Parent Role id '$roleParentId' does not exist", 0, $e
+                    );
                 }
                 $roleParents[$roleParentId] = $roleParent;
                 $this->_roles[$roleParentId]['children'][$roleId] = $role;
@@ -121,7 +128,9 @@ class Registry
         }
 
         if (!$this->has($role)) {
-            throw new Acl\Exception\InvalidArgumentException("Role '$roleId' not found");
+            throw new Acl\Exception\InvalidArgumentException(
+                "Role '$roleId' not found"
+            );
         }
 
         return $this->_roles[$roleId]['instance'];
@@ -149,10 +158,10 @@ class Registry
     /**
      * Returns an array of an existing Role's parents
      *
-     * The array keys are the identifiers of the parent Roles, and the values are
-     * the parent Role instances. The parent Roles are ordered in this array by
-     * ascending priority. The highest priority parent Role, last in the array,
-     * corresponds with the parent Role most recently added.
+     * The array keys are the identifiers of the parent Roles, and the values 
+     * are the parent Role instances. The parent Roles are ordered in this  
+     * array by ascending priority. The highest priority parent Role, last in  
+     * the array, corresponds with the parent Role most recently added.
      *
      * If the Role does not have any parents, then an empty array is returned.
      *
@@ -188,7 +197,9 @@ class Registry
             $roleId    = $this->get($role)->getRoleId();
             $inheritId = $this->get($inherit)->getRoleId();
         } catch (Exception $e) {
-            throw new Acl\Exception\InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+            throw new Acl\Exception\InvalidArgumentException(
+                $e->getMessage(), $e->getCode(), $e
+            );
         }
 
         $inherits = isset($this->_roles[$roleId]['parents'][$inheritId]);
@@ -220,7 +231,9 @@ class Registry
         try {
             $roleId = $this->get($role)->getRoleId();
         } catch (Exception $e) {
-            throw new Acl\Exception\InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+            throw new Acl\Exception\InvalidArgumentException(
+                $e->getMessage(), $e->getCode(), $e
+            );
         }
 
         foreach ($this->_roles[$roleId]['children'] as $childId => $child) {
