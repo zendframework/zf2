@@ -124,7 +124,7 @@ class Proxy extends Socket
 
         // Add Proxy-Authorization header
         if ($this->config['proxy_user'] && ! isset($headers['proxy-authorization'])) {
-            $headers['proxy-authorization'] = Client::encodeAuthHeader(
+            $headers['proxy-authorization'] = $this->encodeAuthHeader(
                 $this->config['proxy_user'], $this->config['proxy_pass'], $this->config['proxy_auth']
             );
         }
@@ -174,6 +174,27 @@ class Proxy extends Socket
         }
         
         return $request;
+    }
+
+    protected function encodeAuthHeader($user, $password, $type = self::AUTH_BASIC)
+    {
+        $authHeader = null;
+
+        switch ($type) {
+            case Client::AUTH_BASIC:
+                // In basic authentication, the user name cannot contain ":"
+                if (strpos($user, ':') !== false) {
+                    throw new Client\Exception\InvalidArgumentException("The user name cannot contain ':' in 'Basic' HTTP authentication");
+                }
+
+                $authHeader = 'Basic ' . base64_encode($user . ':' . $password);
+                break;
+
+            default:
+                throw new Client\Exception\InvalidArgumentException("Not a supported HTTP authentication type: '$type'");
+        }
+
+        return $authHeader;
     }
 
     /**
