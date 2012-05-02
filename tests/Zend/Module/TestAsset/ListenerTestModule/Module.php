@@ -2,10 +2,10 @@
 
 namespace ListenerTestModule;
 
-use Zend\Module\Consumer\AutoloaderProvider,
-    Zend\Module\Consumer\LocatorRegistered;
+use Zend\Module\Consumer\AutoloaderProviderInterface,
+    Zend\Module\Consumer\LocatorRegisteredInterface;
 
-class Module implements AutoloaderProvider, LocatorRegistered
+class Module implements AutoloaderProviderInterface, LocatorRegisteredInterface
 {
     public $initCalled = false;
     public $getConfigCalled = false;

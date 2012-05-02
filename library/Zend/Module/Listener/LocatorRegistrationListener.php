@@ -6,7 +6,7 @@ use Zend\EventManager\StaticEventManager,
     Zend\Di\InstanceManager,
     Zend\EventManager\Event,
     Zend\Module\ModuleEvent,
-    Zend\Module\Consumer\LocatorRegistered,
+    Zend\Module\Consumer\LocatorRegisteredInterface,
     Zend\EventManager\EventCollection,
     Zend\EventManager\ListenerAggregate;
 
@@ -25,7 +25,7 @@ class LocatorRegistrationListener extends AbstractListener implements ListenerAg
     /**
      * loadModule 
      *
-     * Check each loaded module to see if it implements LocatorRegistered. If it 
+     * Check each loaded module to see if it implements LocatorRegisteredInterface. If it
      * does, we add it to an internal array for later.
      * 
      * @param ModuleEvent $e 
@@ -33,7 +33,7 @@ class LocatorRegistrationListener extends AbstractListener implements ListenerAg
      */
     public function loadModule(ModuleEvent $e)
     {
-        if (!$e->getModule() instanceof LocatorRegistered) {
+        if (!$e->getModule() instanceof LocatorRegisteredInterface) {
             return;
         }
         $this->modules[] = $e->getModule();

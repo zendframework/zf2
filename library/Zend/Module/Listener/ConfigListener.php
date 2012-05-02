@@ -12,7 +12,7 @@ use ArrayAccess,
     Zend\EventManager\ListenerAggregate;
 
 class ConfigListener extends AbstractListener
-    implements ConfigMerger, ListenerAggregate
+    implements ConfigMergerInterface, ListenerAggregate
 {
 	const STATIC_PATH = 'static_path';
 	const GLOB_PATH = 'glob_path';

@@ -3,7 +3,7 @@
 namespace Zend\Module\Consumer;
 
 /**
- * LocatorRegistered 
+ * LocatorRegisteredInterface
  *
  * By implementing this interface in a Module class, the instance of the Module 
  * class will be automatically injected into any DI-configured object which has 
@@ -11,4 +11,4 @@ namespace Zend\Module\Consumer;
  * name. Implementing this interface obviously does not require adding any 
  * methods to your class.
  */
-interface LocatorRegistered {}
+interface LocatorRegisteredInterface {}

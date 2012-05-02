@@ -196,9 +196,9 @@ return array(
     <programlisting language="php"><![CDATA[
 namespace <your module name here>;
 
-use Zend\Module\Consumer\AutoloaderProvider;
+use Zend\Module\Consumer\AutoloaderProviderInterface;
 
-class Module implements AutoloaderProvider
+class Module implements AutoloaderProviderInterface
 {
     public function getAutoloaderConfig()
     {

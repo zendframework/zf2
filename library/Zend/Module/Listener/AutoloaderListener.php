@@ -3,7 +3,7 @@
 namespace Zend\Module\Listener;
 
 use Zend\Loader\AutoloaderFactory,
-    Zend\Module\Consumer\AutoloaderProvider,
+    Zend\Module\Consumer\AutoloaderProviderInterface,
     Zend\Module\ModuleEvent;
 
 class AutoloaderListener extends AbstractListener
@@ -16,7 +16,7 @@ class AutoloaderListener extends AbstractListener
     public function __invoke(ModuleEvent $e)
     {
         $module = $e->getModule();
-        if (!$module instanceof AutoloaderProvider) {
+        if (!$module instanceof AutoloaderProviderInterface) {
             return;
         }
         $autoloaderConfig = $module->getAutoloaderConfig();

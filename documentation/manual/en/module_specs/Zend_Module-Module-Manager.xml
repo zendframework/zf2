@@ -165,7 +165,7 @@
                 <listitem>
                     <para>
                         This listener checks each module to see if it has implemented the
-                        <classname>Zend\Module\Consumer\AutoloaderProvider</classname> interface. If
+                        <classname>Zend\Module\Consumer\AutoloaderProviderInterface</classname> interface. If
                         so, it calls the <methodname>getAutoloaderConfig()</methodname> method on
                         the module class and passes the returned array to
                         <classname>Zend\Loader\AutoloaderFactory</classname>.

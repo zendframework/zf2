@@ -2,7 +2,7 @@
 
 namespace Zend\Module\Consumer;
 
-interface AutoloaderProvider
+interface AutoloaderProviderInterface
 {
     /**
      * Return an array for passing to Zend\Loader\AutoloaderFactory.

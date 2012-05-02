@@ -4,12 +4,12 @@ namespace Zend\Module;
 
 use Zend\EventManager\EventManagerAware;
 
-interface ModuleHandler extends EventManagerAware
+interface ManagerInterface extends EventManagerAware
 {
     /**
      * Load the provided modules.
      *
-     * @return ModuleHandler
+     * @return ModuleHandlerInterface
      */
     public function loadModules();
 
@@ -40,7 +40,7 @@ interface ModuleHandler extends EventManagerAware
      * Set an array or Traversable of module names that this module manager should load.
      *
      * @param mixed $modules array or Traversable of module names
-     * @return ModuleHandler
+     * @return ModuleHandlerInterface
      */
     public function setModules($modules);
 

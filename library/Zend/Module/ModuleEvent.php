@@ -3,7 +3,7 @@
 namespace Zend\Module;
 
 use Zend\EventManager\Event,
-    Zend\Module\Listener\ConfigMerger;
+    Zend\Module\Listener\ConfigMergerInterface;
 
 /**
  * Custom event for use with module manager
@@ -74,7 +74,7 @@ class ModuleEvent extends Event
     /**
      * Get the config listner
      *
-     * @return null|ConfigMerger
+     * @return null|ConfigMergerInterface
      */
     public function getConfigListener()
     {
@@ -84,14 +84,14 @@ class ModuleEvent extends Event
     /**
      * Set module object to compose in this event
      *
-     * @param  ConfigMerger $listener
+     * @param  ConfigMergerInterface $listener
      * @return ModuleEvent
      */
     public function setConfigListener($configListener)
     {
-        if (!$configListener instanceof ConfigMerger) {
+        if (!$configListener instanceof ConfigMergerInterface) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s::%s() expects an object implementing Zend\Module\Listener\ConfigMerger as an argument; %s provided'
+                '%s::%s() expects an object implementing Zend\Module\Listener\ConfigMergerInterface as an argument; %s provided'
                 ,__CLASS__, __METHOD__, gettype($configListener)
             ));
         }
