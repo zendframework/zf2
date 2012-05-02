@@ -125,8 +125,25 @@ class Mvc extends AbstractPage
                 if (null !== $this->getRoute()
                     && $this->routeMatch->getMatchedRouteName() === $this->getRoute()
                 ) {
-                    $this->active = true;
-                    return true;
+
+                    if(empty($this->params)) {
+                        $this->active = true;
+                        return true;
+                    }
+
+                    $paramsMatch = false;
+                    foreach($this->params as $param => $value) {
+                        if($reqParams[$param] == $value){
+                            $paramsMatch = true;
+                        } else {
+                            $paramsMatch = false;
+                        }
+                    }
+
+                    if($paramsMatch) {
+                        $this->active = true;
+                        return true;
+                    }
                 }
             }
 
