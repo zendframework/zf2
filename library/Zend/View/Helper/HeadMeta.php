@@ -43,7 +43,7 @@ class HeadMeta extends Placeholder\Container\Standalone
      * Types of attributes
      * @var array
      */
-    protected $_typeKeys     = array('name', 'http-equiv', 'charset');
+    protected $_typeKeys     = array('name', 'http-equiv', 'charset', 'property', 'itemprop');
     protected $_requiredKeys = array('content');
     protected $_modifierKeys = array('lang', 'scheme');
 
@@ -109,6 +109,10 @@ class HeadMeta extends Placeholder\Container\Standalone
                 return 'name';
             case 'HttpEquiv':
                 return 'http-equiv';
+            case 'Property':
+            	return 'property';
+            case 'ItemProp':
+            	return 'itemprop';    
             default:
                 throw new Exception\DomainException(sprintf(
                     'Invalid type "%s" passed to _normalizeType',
@@ -125,10 +129,22 @@ class HeadMeta extends Placeholder\Container\Standalone
      * - offsetGetName($index, $keyValue, $content, $modifers = array())
      * - prependName($keyValue, $content, $modifiers = array())
      * - setName($keyValue, $content, $modifiers = array())
+     * 
      * - appendHttpEquiv($keyValue, $content, $modifiers = array())
      * - offsetGetHttpEquiv($index, $keyValue, $content, $modifers = array())
      * - prependHttpEquiv($keyValue, $content, $modifiers = array())
      * - setHttpEquiv($keyValue, $content, $modifiers = array())
+     * 
+     * - appendProperty($keyValue, $content, $modifiers = array())
+     * - offsetGetProperty($index, $keyValue, $content, $modifers = array())
+     * - prependProperty($keyValue, $content, $modifiers = array())
+     * - setProperty($keyValue, $content, $modifiers = array())
+     * 
+     * - appendItemProp($keyValue, $content, $modifiers = array())
+     * - offsetGetItemProp($index, $keyValue, $content, $modifers = array())
+     * - prependItemProp($keyValue, $content, $modifiers = array())
+     * - setItemProp($keyValue, $content, $modifiers = array())  
+     * 
      *
      * @param  string $method
      * @param  array $args
@@ -137,7 +153,7 @@ class HeadMeta extends Placeholder\Container\Standalone
      */
     public function __call($method, $args)
     {
-        if (preg_match('/^(?P<action>set|(pre|ap)pend|offsetSet)(?P<type>Name|HttpEquiv)$/', $method, $matches)) {
+        if (preg_match('/^(?P<action>set|(pre|ap)pend|offsetSet)(?P<type>Name|HttpEquiv|Property|ItemProp)$/', $method, $matches)) {
             $action = $matches['action'];
             $type   = $this->_normalizeType($matches['type']);
             $argc   = count($args);
