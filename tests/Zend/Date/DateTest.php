@@ -5234,7 +5234,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
         }
 
         $cache = CacheFactory::adapterFactory('memory', array('memory_limit' => 0));
-        Date\Date::setOptions(array('cache' => $cache));
+        Date::setOptions(array('cache' => $cache));
     }
 
     public function testIsDate()

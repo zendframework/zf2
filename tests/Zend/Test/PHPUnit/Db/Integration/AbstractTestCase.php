@@ -21,7 +21,7 @@
 
 namespace ZendTest\Test\PHPUnit\Db\Integration;
 use Zend\Test\PHPUnit\Db\DataSet;
-use Zend\Db\Table;
+use Zend\Db\TableGateway;
 
 /**
  * @category   Zend
@@ -116,14 +116,14 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
     }
 }
 
-class TableFoo extends Table\AbstractTable
+class TableFoo extends TableGateway\AbstractTableGateway
 {
     protected $_name = "foo";
 
     protected $_primary = "id";
 }
 
-class TableBar extends Table\AbstractTable
+class TableBar extends TableGateway\AbstractTableGateway
 {
     protected $_name = "bar";
 

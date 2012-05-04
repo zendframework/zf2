@@ -22,8 +22,8 @@
 namespace Zend\Wildfire\Channel;
 use Zend\Wildfire,
     Zend\Wildfire\Protocol,
-    Zend\Controller,
-    Zend\Controller\Request\Http as HttpRequest;
+    Zend\Mvc\Controller,
+    Zend\Mvc\Controller\Request\Http as HttpRequest;
 
 /**
  * Implements communication via HTTP request and response headers for Wildfire Protocols.

@@ -24,7 +24,7 @@ use Zend\Config\Config as Configuration,
     Zend\Session\SaveHandler as Savable,
     Zend\Session\Container,
     Zend\Session\Exception,
-    Zend\Db\Table\AbstractTable,
+    Zend\Db\TableGateway\AbstractTableGateway,
     Zend\Db\Table\AbstractRow;
 
 /**
@@ -37,7 +37,7 @@ use Zend\Config\Config as Configuration,
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class DbTable
-    extends AbstractTable
+    extends AbstractTableGateway
     implements Savable
 {
     const NAME = 'name';

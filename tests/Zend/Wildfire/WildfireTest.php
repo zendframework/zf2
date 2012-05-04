@@ -1027,7 +1027,7 @@ class HttpHeadersChannel extends Channel\HttpHeaders
 {
 }
 
-class Request extends \Zend\Controller\Request\HttpTestCase
+class Request extends \Zend\Http\Request
 {
 
     protected $_enabled = false;
@@ -1057,7 +1057,7 @@ class Request extends \Zend\Controller\Request\HttpTestCase
 }
 
 
-class Response extends \Zend\Controller\Response\HttpTestCase
+class Response extends \Zend\Http\Response
 {
 
     public function getHeadersForTesting()
