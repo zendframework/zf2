@@ -205,4 +205,14 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $registry->bar = "baz";
         $this->assertEquals('baz', Registry::get('bar'));
     }
+    
+    public function testLazyLoadedGets()
+    {
+        $registry = Registry::getInstance();
+        $registry->set('test', function() {
+            return 'test!';
+        });
+        
+        $this->assertEquals('test!', $registry->get('test'));
+    }
 }

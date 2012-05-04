@@ -146,7 +146,13 @@ class Registry extends ArrayObject
             throw new RuntimeException("No entry is registered for key '$index'");
         }
 
-        return $instance->offsetGet($index);
+        $result = $instance->offsetGet($index);
+        if (is_callable($result)) {
+            $result = call_user_func($result);
+            $instance->offsetSet($index, $result);
+        }
+        
+        return $result;
     }
 
     /**
