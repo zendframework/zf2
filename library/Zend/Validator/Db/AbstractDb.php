@@ -96,8 +96,8 @@ abstract class AbstractDb extends AbstractValidator
      * 'table'   => The database table to validate against
      * 'schema'  => The schema keys
      * 'field'   => The field to check for a match
+     * 'adapter' => The database adapter to use
      * 'exclude' => An optional where clause or field/value pair to exclude from the query
-     * 'adapter' => An optional database adapter to use
      *
      * @param array|Traversable|DbSelect $options Options to use for this validator
      * @throws \Zend\Validator\Exception\InvalidArgumentException
@@ -117,12 +117,13 @@ abstract class AbstractDb extends AbstractValidator
             $options       = func_get_args();
             $temp['table'] = array_shift($options);
             $temp['field'] = array_shift($options);
-            if (!empty($options)) {
-                $temp['exclude'] = array_shift($options);
-            }
 
             if (!empty($options)) {
                 $temp['adapter'] = array_shift($options);
+            }
+
+            if (!empty($options)) {
+                $temp['exclude'] = array_shift($options);
             }
 
             $options = $temp;
@@ -136,8 +137,8 @@ abstract class AbstractDb extends AbstractValidator
             throw new Exception\InvalidArgumentException('Field option missing!');
         }
 
-        if (array_key_exists('adapter', $options)) {
-            $this->setAdapter($options['adapter']);
+        if (!array_key_exists('adapter', $options)) {
+            throw new Exception\InvalidArgumentException('No database adapter present!');
         }
 
         if (array_key_exists('exclude', $options)) {
@@ -145,6 +146,7 @@ abstract class AbstractDb extends AbstractValidator
         }
 
         $this->setField($options['field']);
+        $this->setAdapter($options['adapter']);
         if (array_key_exists('table', $options)) {
             $this->setTable($options['table']);
         }
@@ -157,18 +159,10 @@ abstract class AbstractDb extends AbstractValidator
     /**
      * Returns the set adapter
      *
-     * @throws \Zend\Validator\Exception\RuntimeException When no database adapter is defined
      * @return DbAdapter
      */
     public function getAdapter()
     {
-        /*
-         * Check for an adapter being defined. If not, throw an exception.
-         */
-        if (null === $this->_adapter) {
-            throw new Exception\RuntimeException('No database adapter present');
-        }
-
         return $this->_adapter;
     }
 

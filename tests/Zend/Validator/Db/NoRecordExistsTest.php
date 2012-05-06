@@ -196,11 +196,11 @@ class NoRecordExistsTest extends \PHPUnit_Framework_TestCase
      */
     public function testThrowsExceptionWithNoAdapter()
     {
+        $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException',
+                                    'No database adapter present');
         $validator = new NoRecordExists(array('table'   => 'users',
                                               'field'   => 'field1',
                                               'exclude' => 'id != 1'));
-        $this->setExpectedException('Zend\Validator\Exception\RuntimeException',
-                                    'No database adapter present');
         $validator->isValid('nosuchvalue');
     }
 
@@ -234,8 +234,9 @@ class NoRecordExistsTest extends \PHPUnit_Framework_TestCase
 
     public function testEqualsMessageTemplates()
     {
-        $validator  = new NoRecordExists(array('table' => 'users',
-                                               'field' => 'field1'));
+        $validator  = new NoRecordExists(array('table'  => 'users',
+                                               'field'  => 'field1',
+                                               'adapter' => $this->getMockNoResult()));
         $reflection = new ReflectionClass($validator);
 
         if (!$reflection->hasProperty('_messageTemplates')) {
@@ -253,8 +254,9 @@ class NoRecordExistsTest extends \PHPUnit_Framework_TestCase
 
     public function testEqualsMessageVariables()
     {
-        $validator  = new NoRecordExists(array('table' => 'users',
-                                               'field' => 'field1'));
+        $validator  = new NoRecordExists(array('table'  => 'users',
+                                               'field'  => 'field1',
+                                               'adapter' => $this->getMockNoResult()));
         $reflection = new ReflectionClass($validator);
 
         if (!$reflection->hasProperty('_messageVariables')) {
