@@ -137,7 +137,7 @@ abstract class AbstractDb extends AbstractValidator
             throw new Exception\InvalidArgumentException('Field option missing!');
         }
 
-        if (!array_key_exists('adapter', $options)) {
+        if ( !array_key_exists('adapter', $options) || !$options['adapter'] instanceof DbAdapter ) {
             throw new Exception\InvalidArgumentException('No database adapter present!');
         }
 
