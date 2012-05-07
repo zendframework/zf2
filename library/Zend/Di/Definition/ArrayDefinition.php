@@ -38,7 +38,21 @@ class ArrayDefinition implements Definition
         
         return $this->dataArray[$class]['supertypes'];
     }
-    
+
+    /**
+     * classHasSupertype function.
+     * 
+     * @access public
+     * @param string $class
+     * @param string $supertype
+     * @return bool
+     */
+    public function classHasSupertype($class, $supertype)
+    {
+        $supertypes = $this->getClassSupertypes($class);
+        return in_array($supertype, $supertypes);
+    }
+
     public function getInstantiator($class)
     {
         if (!isset($this->dataArray[$class])) {

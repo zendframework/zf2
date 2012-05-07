@@ -132,6 +132,20 @@ class BuilderDefinition implements Definition
         return $class->getSuperTypes();
     }
     
+    /**
+     * classHasSupertype function.
+     * 
+     * @access public
+     * @param string $class
+     * @param string $supertype
+     * @return bool
+     */
+    public function classHasSupertype($class, $supertype)
+    {
+        $supertypes = $this->getClassSupertypes($class);
+        return in_array($supertype, $supertypes);
+    }
+    
     public function getInstantiator($class)
     {
         $class = $this->getClass($class);

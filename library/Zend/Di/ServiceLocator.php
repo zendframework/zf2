@@ -59,9 +59,10 @@ class ServiceLocator implements ServiceLocation
      * 
      * @param  string $name 
      * @param  array $params 
+     * @param  Assertion|null $assertion
      * @return mixed
      */
-    public function get($name, array $params = array())
+    public function get($name, array $params = array(), Assertion $assertion = null)
     {
         if (!isset($this->services[$name])) {
             if (!isset($this->map[$name])) {

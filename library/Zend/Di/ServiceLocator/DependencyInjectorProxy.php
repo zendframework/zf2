@@ -3,6 +3,7 @@
 namespace Zend\Di\ServiceLocator;
 
 use Zend\Di\Di,
+	Zend\Di\Assertion,
     Zend\Di\Exception;
 
 class DependencyInjectorProxy extends Di
@@ -32,23 +33,34 @@ class DependencyInjectorProxy extends Di
      *
      * @param  string $name
      * @param  array $params
+     * @param  Assertion|null $assertion Asserts the type of object to be returned
      * @return GeneratorInstance
      */
-    public function get($name, array $params = array())
+    public function get($name, array $params = array(), Assertion $assertion = null)
     {
         $im = $this->instanceManager();
+        $instance = null;
 
         if ($params) {
             $fastHash = $im->hasSharedInstanceWithParameters($name, $params, true);
             if ($fastHash) {
-                return $im->getSharedInstanceWithParameters(null, array(), $fastHash);
+                $instance = $im->getSharedInstanceWithParameters(null, array(), $fastHash);
             }
         } else {
             if ($im->hasSharedInstance($name, $params)) {
-                return $im->getSharedInstance($name, $params);
+                $instance = $im->getSharedInstance($name, $params);
             }
         }
-        return $this->newInstance($name, $params);
+        
+        if ($instance === null) {
+            $instance = $this->newInstance($name, $params, $assertion);
+        } else if ($assertion instanceof Assertion) {
+            if (!$assertion->assert($instance, $this->definitions())) {
+                throw new Exception\AssertionFailedException($assertion);
+            }
+        }        
+        
+		return $instance;
     }
 
     /**
@@ -125,10 +137,11 @@ class DependencyInjectorProxy extends Di
      *
      * @param  string $name
      * @param  array $params
-     * @param  bool $isShared
+     * @param  Assertion|null $assertion Asserts the type of object to be returned
+     * @param  bool $isShared if true, allows the new object to be shared through the instanceManager
      * @return GeneratorInstance
      */
-    public function newInstance($name, array $params = array(), $isShared = true)
+    public function newInstance($name, array $params = array(), Assertion $assertion = null, $isShared = true);
     {
         $definition      = $this->definitions();
         $instanceManager = $this->instanceManager();
@@ -146,6 +159,13 @@ class DependencyInjectorProxy extends Di
             throw new Exception\ClassNotFoundException(
                 'Class ' . $aliasMsg . $class . ' could not be located in provided definitions.'
             );
+        }
+
+        if ($assertion instanceof Assertion) {
+            // Make sure the class is the one we want before it's initialized
+            if (!$assertion->assert($class, $definition)) {
+                throw new Exception\AssertionFailedException($assertion);
+            }
         }
 
         $instantiator     = $definition->getInstantiator($class);

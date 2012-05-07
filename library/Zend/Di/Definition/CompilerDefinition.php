@@ -416,6 +416,20 @@ class CompilerDefinition implements Definition
     }
 
     /**
+     * classHasSupertype function.
+     * 
+     * @access public
+     * @param string $class
+     * @param string $supertype
+     * @return bool
+     */
+    public function classHasSupertype($class, $supertype)
+    {
+        $supertypes = $this->getClassSupertypes($class);
+        return in_array($supertype, $supertypes);
+    }
+
+    /**
      * Get the instantiator
      *
      * @param string $class
