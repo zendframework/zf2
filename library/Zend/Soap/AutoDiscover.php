@@ -256,7 +256,7 @@ class AutoDiscover
      */
     public function setWsdlClass($wsdlClass)
     {
-        if (!is_string($wsdlClass) && !is_subclass_of($wsdlClass, 'Zend\Soap\Wsdl')) {
+        if (!is_string($wsdlClass) || !is_subclass_of($wsdlClass, 'Zend\Soap\Wsdl')) {
             throw new Exception\InvalidArgumentException(
                 'No \Zend\Soap\Wsdl subclass given to Zend\Soap\AutoDiscover::setWsdlClass as string.'
             );
