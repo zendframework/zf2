@@ -51,10 +51,10 @@ abstract class AbstractListener
     /**
      * Set options.
      *
-     * @param  $options the value to be set
+     * @param ListenerOptions $options the value to be set
      * @return AbstractListener
      */
-    public function setOptions($options)
+    public function setOptions(ListenerOptions $options)
     {
         $this->options = $options;
         return $this;
