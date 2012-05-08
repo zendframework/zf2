@@ -31,9 +31,8 @@ use ArrayObject,
     Zend\Cache\Storage\ExceptionEvent,
     Zend\Cache\Storage\PostEvent,
     Zend\Cache\Storage\Plugin,
-    Zend\EventManager\EventCollection,
     Zend\EventManager\EventManager,
-    Zend\EventManager\EventManagerAware;
+    Zend\EventManager\EventsCapableInterface;
 
 /**
  * @category   Zend
@@ -42,12 +41,12 @@ use ArrayObject,
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class AbstractAdapter implements AdapterInterface, EventManagerAware
+abstract class AbstractAdapter implements AdapterInterface, EventsCapableInterface
 {
     /**
      * The used EventManager if any
      *
-     * @var null|EventManager
+     * @var null|EventCollection
      */
     protected $events = null;
 
@@ -222,29 +221,14 @@ abstract class AbstractAdapter implements AdapterInterface, EventManagerAware
     /* Event/Plugin handling */
 
     /**
-     * Set event manager instance
-     *
-     * @param  EventCollection $events
-     * @return AbstractAdapter
-     */
-    public function setEventManager(EventCollection $events)
-    {
-        $this->events = $events;
-        return $this;
-    }
-
-    /**
      * Get the event manager
      *
-     * @return EventManager
+     * @return EventCollection
      */
     public function events()
     {
         if ($this->events === null) {
-            $this->setEventManager(new EventManager(array(
-                __CLASS__,
-                get_called_class(),
-            )));
+            $this->events = new EventManager(array(__CLASS__, get_called_class()));
         }
         return $this->events;
     }
@@ -324,10 +308,11 @@ abstract class AbstractAdapter implements AdapterInterface, EventManagerAware
      * Register a plugin
      *
      * @param  Plugin\PluginInterface $plugin
+     * @param  int                    $priority
      * @return AbstractAdapter Fluent interface
      * @throws Exception\LogicException
      */
-    public function addPlugin(Plugin\PluginInterface $plugin)
+    public function addPlugin(Plugin\PluginInterface $plugin, $priority = 1)
     {
         $registry = $this->getPluginRegistry();
         if ($registry->contains($plugin)) {
@@ -337,7 +322,7 @@ abstract class AbstractAdapter implements AdapterInterface, EventManagerAware
             ));
         }
 
-        $plugin->attach($this->events());
+        $plugin->attach($this->events(), $priority);
         $registry->attach($plugin);
 
         return $this;
@@ -2431,7 +2416,7 @@ abstract class AbstractAdapter implements AdapterInterface, EventManagerAware
     {
         if ($this->capabilities === null) {
             $this->capabilityMarker = new stdClass();
-            $this->capabilities     = new Capabilities($this->capabilityMarker);
+            $this->capabilities     = new Capabilities($this, $this->capabilityMarker);
         }
         return $this->capabilities;
     }

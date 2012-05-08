@@ -2,13 +2,13 @@
 
 namespace Zend\Mvc\Controller\Plugin;
 
-use Zend\Di\Locator,
-    Zend\Mvc\InjectApplicationEvent,
+use Zend\Di\LocatorInterface,
+    Zend\Mvc\InjectApplicationEventInterface,
     Zend\Mvc\Exception,
-    Zend\Mvc\LocatorAware,
+    Zend\Mvc\LocatorAwareInterface,
     Zend\Mvc\MvcEvent,
     Zend\Mvc\Router\RouteMatch,
-    Zend\Stdlib\Dispatchable;
+    Zend\Stdlib\DispatchableInterface as Dispatchable;
 
 class Forward extends AbstractPlugin
 {
@@ -29,7 +29,7 @@ class Forward extends AbstractPlugin
      * @param  string $name Controller name; either a class name or an alias used in the DI container or service locator
      * @param  null|array $params Parameters with which to seed a custom RouteMatch object for the new controller
      * @return mixed
-     * @throws Exception\DomainException if composed controller does not define InjectApplicationEvent
+     * @throws Exception\DomainException if composed controller does not define InjectApplicationEventInterface
      *         or Locator aware; or if the discovered controller is not dispatchable
      */
     public function dispatch($name, array $params = null)
@@ -39,12 +39,12 @@ class Forward extends AbstractPlugin
 
         $controller = $locator->get($name);
         if (!$controller instanceof Dispatchable) {
-            throw new Exception\DomainException('Can only forward to Dispatchable classes; class of type ' . get_class($controller) . ' received');
+            throw new Exception\DomainException('Can only forward to DispatchableInterface classes; class of type ' . get_class($controller) . ' received');
         }
-        if ($controller instanceof InjectApplicationEvent) {
+        if ($controller instanceof InjectApplicationEventInterface) {
             $controller->setEvent($event);
         }
-        if ($controller instanceof LocatorAware) {
+        if ($controller instanceof LocatorAwareInterface) {
             $controller->setLocator($locator);
         }
 
@@ -75,7 +75,7 @@ class Forward extends AbstractPlugin
     /**
      * Get the locator
      * 
-     * @return Locator
+     * @return LocatorInterface
      * @throws Exception\DomainException if unable to find locator
      */
     protected function getLocator()
@@ -86,11 +86,11 @@ class Forward extends AbstractPlugin
 
         $controller = $this->getController();
 
-        if (!$controller instanceof LocatorAware) {
-            throw new Exception\DomainException('Forward plugin requires controller implements LocatorAware');
+        if (!$controller instanceof LocatorAwareInterface) {
+            throw new Exception\DomainException('Forward plugin requires controller implements LocatorAwareInterface');
         }
         $locator = $controller->getLocator();
-        if (!$locator instanceof Locator) {
+        if (!$locator instanceof LocatorInterface) {
             throw new Exception\DomainException('Forward plugin requires controller composes Locator');
         }
         $this->locator = $locator;
@@ -110,8 +110,8 @@ class Forward extends AbstractPlugin
         }
 
         $controller = $this->getController();
-        if (!$controller instanceof InjectApplicationEvent) {
-            throw new Exception\DomainException('Redirect plugin requires a controller that implements InjectApplicationEvent');
+        if (!$controller instanceof InjectApplicationEventInterface) {
+            throw new Exception\DomainException('Redirect plugin requires a controller that implements InjectApplicationEventInterface');
         }
 
         $event = $controller->getEvent();

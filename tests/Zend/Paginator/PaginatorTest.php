@@ -521,18 +521,18 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testGeneratesViewIfNonexistent()
     {
-        $this->assertInstanceOf('Zend\View\Renderer', $this->_paginator->getView());
+        $this->assertInstanceOf('Zend\\View\\Renderer\\RendererInterface', $this->_paginator->getView());
     }
 
     public function testGetsAndSetsView()
     {
         $this->_paginator->setView(new View\Renderer\PhpRenderer());
-        $this->assertInstanceOf('Zend\View\Renderer', $this->_paginator->getView());
+        $this->assertInstanceOf('Zend\\View\\Renderer\\RendererInterface', $this->_paginator->getView());
     }
 
     public function testRenders()
     {
-        $this->setExpectedException('Zend\View\Exception', 'view partial');
+        $this->setExpectedException('Zend\\View\\Exception\\ExceptionInterface', 'view partial');
         $this->_paginator->render(new View\Renderer\PhpRenderer());
     }
 
@@ -778,7 +778,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidDataInConstructor_ThrowsException()
     {
-        $this->setExpectedException('Zend\Paginator\Exception');
+        $this->setExpectedException('Zend\Paginator\Exception\ExceptionInterface');
 
         new Paginator\Paginator(array());
     }
@@ -804,7 +804,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class TestArrayAggregate implements Paginator\AdapterAggregate
+class TestArrayAggregate implements Paginator\AdapterAggregateInterface
 {
     public function getPaginatorAdapter()
     {
