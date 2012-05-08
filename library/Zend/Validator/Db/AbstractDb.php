@@ -23,6 +23,7 @@ namespace Zend\Validator\Db;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Db\Adapter\Adapter as DbAdapter;
+use Zend\Db\Adapter\Driver\DriverInterface as DbDriverInterface;
 use Zend\Db\Sql\Select as DbSelect;
 use Zend\Validator\AbstractValidator;
 use Zend\Validator\Exception;
@@ -115,7 +116,13 @@ abstract class AbstractDb extends AbstractValidator
             $options = ArrayUtils::iteratorToArray($options);
         } else if (func_num_args() > 1) {
             $options       = func_get_args();
-            $temp['table'] = array_shift($options);
+            $firstArgument = array_shift($options);
+            if (is_array($firstArgument)) {
+                $temp = ArrayUtils::iteratorToArray($firstArgument);
+            } else {
+                $temp['table'] = $firstArgument;
+            }
+
             $temp['field'] = array_shift($options);
 
             if (!empty($options)) {
@@ -302,7 +309,7 @@ abstract class AbstractDb extends AbstractValidator
             );
 
             // Support both named and positional parameters
-            if ('named' == $driver->getPrepareType()) {
+            if (DbDriverInterface::PARAMETERIZATION_NAMED == $driver->getPrepareType()) {
                 $select->where(
                     $platform->quoteIdentifier($this->_field, true) . ' = :value'
                 );
