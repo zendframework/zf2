@@ -71,13 +71,13 @@ class Operator implements PredicateInterface
      */
     public function __construct($left = null, $operator = self::OPERATOR_EQUAL_TO, $right = null, $leftType = self::TYPE_IDENTIFIER, $rightType = self::TYPE_VALUE)
     {
-        if ($left) {
+        if (null !== $left) {
             $this->setLeft($left);
         }
         if ($operator) {
             $this->setOperator($operator);
         }
-        if ($right) {
+        if (null !== $right) {
             $this->setRight($right);
         }
         if ($leftType) {
@@ -222,7 +222,7 @@ class Operator implements PredicateInterface
     public function getExpressionData()
     {
         return array(array(
-            '%s ' . $this->operator . ' %s', 
+            (is_int($this->left)? '%d ':'%s ') . $this->operator . (is_int($this->right)? ' %d':' %s'), 
             array($this->left, $this->right), 
             array($this->leftType, $this->rightType)
         ));
