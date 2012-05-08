@@ -248,19 +248,14 @@ class Di implements DependencyInjectionInterface
                 if ($objectsToInject) {
                     foreach ($objectsToInject as $objectToInject) {
                         foreach ($injectionMethods as $injectionMethod => $methodIsRequired) {
-                            $methodParams = $definitions->getMethodParameters($class, $injectionMethod);
-                            if ($methodParams) {
-                                foreach ($methodParams as $methodParam) {
-                                    if (get_class($objectToInject) == $methodParam[1] ||
-                                        $this->isSubclassOf(get_class($objectToInject), $methodParam[1])) {
-                                        $callParams = $this->resolveMethodParameters(get_class($instance), $injectionMethod,
-                                            array($methodParam[0] => $objectToInject), false, $alias, true
-                                        );
-                                        if ($callParams) {
-                                            call_user_func_array(array($instance, $injectionMethod), $callParams);
-                                        }
-                                        continue 3;
-                                    }
+                            if ($this->handleObjectInjectionForInstance($instance, $objectToInject, $class, $injectionMethod, $alias)) {
+                                continue 2;
+                            }
+                        }
+                        foreach ($supertypeInjectionMethods as $supertype => $supertypeInjectionMethod) {
+                            foreach ($supertypeInjectionMethod as $injectionMethod => $methodIsRequired) {
+                                if ($this->handleObjectInjectionForInstance($instance, $objectToInject, $supertype, $injectionMethod, $alias)) {
+                                    continue 2;
                                 }
                             }
                         }
@@ -391,6 +386,35 @@ class Di implements DependencyInjectionInterface
         if ($callParameters !== array_fill(0, count($callParameters), null)) {
             call_user_func_array(array($instance, $method), $callParameters);
         }
+    }
+
+    /**
+     * This method is a helper for newInstance to handle "objectsToInject
+     *
+     * @param object $instance
+     * @param object $objectToInject
+     * @param string $class
+     * @param string $injectionMethod
+     * @param string $alias
+     */
+    protected function handleObjectInjectionForInstance($instance, $objectToInject, $class, $injectionMethod, $alias)
+    {
+        $methodParams = $this->definitions->getMethodParameters($class, $injectionMethod);
+        if ($methodParams) {
+            foreach ($methodParams as $methodParam) {
+                if (get_class($objectToInject) == $methodParam[1] ||
+                    $this->isSubclassOf(get_class($objectToInject), $methodParam[1])) {
+                    $callParams = $this->resolveMethodParameters($class, $injectionMethod,
+                        array($methodParam[0] => $objectToInject), false, $alias, true
+                    );
+                    if ($callParams) {
+                        call_user_func_array(array($instance, $injectionMethod), $callParams);
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
