@@ -625,9 +625,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
         $client->setMethod($method);
 
         if (is_array($params)) {
-            foreach ($params as $name=>$value) {
-                $client->setParameterGet($name, $value);
-            }
+        	$client->setParameterGet($params);
          }
 
          if (($method == 'PUT') && ($data !== null)) {
