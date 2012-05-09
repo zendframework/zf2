@@ -24,7 +24,6 @@ namespace Zend\Dojo\Form;
 /**
  * Dijit-enabled SubForm
  *
- * @uses       \Zend\Form\SubForm
  * @package    Zend_Dojo
  * @subpackage Form
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
@@ -76,7 +75,7 @@ class SubForm extends \Zend\Form\SubForm
     /**
      * Get view
      *
-     * @return \Zend\View\Renderer
+     * @return \Zend\View\Renderer\RendererInterface
      */
     public function getView()
     {

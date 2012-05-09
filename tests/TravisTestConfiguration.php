@@ -53,7 +53,7 @@ defined('TESTS_ZEND_OB_ENABLED') || define('TESTS_ZEND_OB_ENABLED', false);
 /**
  * Zend\Auth\Adapter\DbTable tests
  */
-defined('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED') || define('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED', false);
+defined('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED') || define('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED', true);
 defined('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_DATABASE') || define('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_DATABASE', ':memory:');
 
 /**
@@ -94,7 +94,7 @@ defined('TESTS_ZEND_CONFIG_READER_YAML_CALLBACK') || define('TESTS_ZEND_CONFIG_R
 defined('TESTS_ZEND_CONTROLLER_DISPATCHER_OB') || define('TESTS_ZEND_CONTROLLER_DISPATCHER_OB', false);
 
 /**
- * Zend\Crypt related constantes
+ * Zend\Crypt related constants
  *
  * TESTS_ZEND_CRYPT_OPENSSL_CONF => location of an openssl.cnf file for use
  *     with RSA encryption
@@ -255,7 +255,7 @@ defined('TESTS_ZEND_GDATA_SPREADSHEETS_WORKSHEETID') || define('TESTS_ZEND_GDATA
 defined('TESTS_ZEND_GDATA_CALENDAR_ONLINE_ENABLED') || define('TESTS_ZEND_GDATA_CALENDAR_ONLINE_ENABLED', false);
 
 /*
- * This is the fully-qualified domain name for a domiain hosted using
+ * This is the fully-qualified domain name for a domain hosted using
  * Google Apps. This domain must be registered with Google Apps and
  * have API access enabled. This should be a TEST domain only.
  */
@@ -263,11 +263,6 @@ defined('TESTS_ZEND_GDATA_GAPPS_ONLINE_ENABLED') || define('TESTS_ZEND_GDATA_GAP
 defined('TESTS_ZEND_GDATA_GAPPS_DOMAIN') || define('TESTS_ZEND_GDATA_GAPPS_DOMAIN', 'example.com.invalid');
 defined('TESTS_ZEND_GDATA_GAPPS_EMAIL') || define('TESTS_ZEND_GDATA_GAPPS_EMAIL', 'example@example.com');
 defined('TESTS_ZEND_GDATA_GAPPS_PASSWORD') || define('TESTS_ZEND_GDATA_GAPPS_PASSWORD', 'password');
-
-/*
- * This is the ONLINE_ENABLED property for Google Base.
- */
-defined('TESTS_ZEND_GDATA_GBASE_ONLINE_ENABLED') || define('TESTS_ZEND_GDATA_GBASE_ONLINE_ENABLED', false);
 
 /*
  * This indicates that online tests for the Books Search data API
@@ -307,12 +302,6 @@ defined('TESTS_ZEND_GDATA_DOCS_ONLINE_ENABLED') || define('TESTS_ZEND_GDATA_DOCS
  * be performed.
  */
 defined('TESTS_ZEND_GDATA_PHOTOS_ONLINE_ENABLED') || define('TESTS_ZEND_GDATA_PHOTOS_ONLINE_ENABLED', false);
-
-/*
- * This indicates that online tests for the Google Health API should
- * be performed.
- */
-defined('TESTS_ZEND_GDATA_HEALTH_ONLINE_ENABLED') || define('TESTS_ZEND_GDATA_HEALTH_ONLINE_ENABLED', false);
 
 /**
  * Zend\Http\Client tests

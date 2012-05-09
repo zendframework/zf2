@@ -23,13 +23,7 @@ namespace Zend\Http;
 use ArrayIterator,
     Zend\Config\Config,
     Zend\Uri\Http,
-    Zend\Http\Header\Cookie,
-    Zend\Http\Header\SetCookie,
-    Zend\Stdlib\Parameters,
-    Zend\Stdlib\ParametersDescription,
-    Zend\Stdlib\Dispatchable,
-    Zend\Stdlib\RequestDescription,
-    Zend\Stdlib\ResponseDescription;
+    Zend\Stdlib;
 
 /**
  * Http client
@@ -39,7 +33,7 @@ use ArrayIterator,
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Client implements Dispatchable
+class Client implements Stdlib\DispatchableInterface
 {
     /**
      * @const string Supported HTTP Authentication methods
@@ -195,7 +189,7 @@ class Client implements Dispatchable
      *
      * @param  Client\Adapter|string $adapter
      * @return Client
-     * @throws \Zend\Http\Client\Exception
+     * @throws Client\Exception\InvalidArgumentException
      */
     public function setAdapter($adapter)
     {
@@ -311,7 +305,7 @@ class Client implements Dispatchable
     /**
      * Set Uri (to the request)
      *
-     * @param string|\Zend\Uri\Http $uri
+     * @param string|Http $uri
      * @return Client
      */
     public function setUri($uri)
@@ -393,7 +387,7 @@ class Client implements Dispatchable
     /**
      * Get the encoding type
      *
-     * @return type
+     * @return string
      */
     public function getEncType()
     {
@@ -449,12 +443,12 @@ class Client implements Dispatchable
     /**
      * Get the cookie Id (name+domain+path)
      *
-     * @param  SetCookie|Cookie $cookie
+     * @param  Header\SetCookie|Header\Cookie $cookie
      * @return string|boolean
      */
     protected function getCookieId($cookie)
     {
-        if (($cookie instanceof SetCookie) || ($cookie instanceof Cookie)) {
+        if (($cookie instanceof Header\SetCookie) || ($cookie instanceof Header\Cookie)) {
             return $cookie->getName() . $cookie->getDomain() . $cookie->getPath();
         }
         return false;
@@ -463,7 +457,7 @@ class Client implements Dispatchable
     /**
      * Add a cookie
      *
-     * @param array|ArrayIterator|SetCookie|string $cookie
+     * @param array|ArrayIterator|Header\SetCookie|string $cookie
      * @param string  $value
      * @param string  $version
      * @param string  $maxAge
@@ -478,16 +472,16 @@ class Client implements Dispatchable
     {
         if (is_array($cookie) || $cookie instanceof ArrayIterator) {
             foreach ($cookie as $setCookie) {
-                if ($setCookie instanceof SetCookie) {
+                if ($setCookie instanceof Header\SetCookie) {
                     $this->cookies[$this->getCookieId($setCookie)] = $setCookie;
                 } else {
                     throw new Exception\InvalidArgumentException('The cookie parameter is not a valid Set-Cookie type');
                 }
             }
-        } elseif ($cookie instanceof SetCookie) {
+        } elseif ($cookie instanceof Header\SetCookie) {
             $this->cookies[$this->getCookieId($cookie)] = $cookie;
         } elseif (is_string($cookie) && $value !== null) {
-            $setCookie = new SetCookie($cookie, $value, $version, $maxAge, $domain, $expire, $path, $secure, $httponly);
+            $setCookie = new Header\SetCookie($cookie, $value, $version, $maxAge, $domain, $expire, $path, $secure, $httponly);
             $this->cookies[$this->getCookieId($setCookie)] = $setCookie;
         } else {
             throw new Exception\InvalidArgumentException('Invalid parameter type passed as Cookie');
@@ -734,11 +728,11 @@ class Client implements Dispatchable
     /**
      * Dispatch
      *
-     * @param RequestDescription $request
-     * @param ResponseDescription $response
-     * @return ResponseDescription
+     * @param Stdlib\RequestInterface $request
+     * @param Stdlib\ResponseInterface $response
+     * @return Stdlib\ResponseInterface
      */
-    public function dispatch(RequestDescription $request, ResponseDescription $response = null)
+    public function dispatch(Stdlib\RequestInterface $request, Stdlib\ResponseInterface $response = null)
     {
         $response = $this->send($request);
         return $response;
@@ -789,7 +783,7 @@ class Client implements Dispatchable
                         $newUri .= '?' . $queryString;
                     }
 
-                    $uri = new \Zend\Uri\Http($newUri);
+                    $uri = new Http($newUri);
                 }
             }
             // If we have no ports, set the defaults
@@ -982,7 +976,7 @@ class Client implements Dispatchable
      * @param   string $uri
      * @param   string $domain
      * @param   boolean $secure
-     * @return  Cookie|boolean
+     * @return  Header\Cookie|boolean
      */
     protected function prepareCookies($domain, $path, $secure)
     {
@@ -1002,7 +996,7 @@ class Client implements Dispatchable
             }
         }
 
-        $cookies = Cookie::fromSetCookieArray($validCookies);
+        $cookies = Header\Cookie::fromSetCookieArray($validCookies);
         $cookies->setEncodeValue($this->config['encodecookies']);
 
         return $cookies;
@@ -1077,7 +1071,7 @@ class Client implements Dispatchable
                 $fstat = fstat($body);
                 $headers['Content-Length'] = $fstat['size'];
             } else {
-                $headers['Content-Length'] = static::strlen($body);
+                $headers['Content-Length'] = strlen($body);
             }
         }
 
@@ -1156,7 +1150,7 @@ class Client implements Dispatchable
      *
      * This method will try to detect the MIME type of a file. If the fileinfo
      * extension is available, it will be used. If not, the mime_magic
-     * extension which is deprected but is still available in many PHP setups
+     * extension which is deprecated but is still available in many PHP setups
      * will be tried.
      *
      * If neither extension is available, the default application/octet-stream
@@ -1204,7 +1198,7 @@ class Client implements Dispatchable
     public function encodeFormData($boundary, $name, $value, $filename = null, $headers = array())
     {
         $ret = "--{$boundary}\r\n" .
-            'Content-Disposition: form-data; name="' . $name .'"';
+            'Content-Disposition: form-data; name="' . $name . '"';
 
         if ($filename) {
             $ret .= '; filename="' . $filename . '"';
@@ -1215,7 +1209,6 @@ class Client implements Dispatchable
             $ret .= "{$hname}: {$hvalue}\r\n";
         }
         $ret .= "\r\n";
-
         $ret .= "{$value}\r\n";
 
         return $ret;
@@ -1297,21 +1290,5 @@ class Client implements Dispatchable
             $uri, $this->config['httpversion'], $headers, $body);
 
         return $this->adapter->read();
-    }
-
-    /**
-     * Returns length of binary string in bytes
-     *
-     * @param string $str
-     * @return int the string length
-     */
-    static public function strlen($str)
-    {
-        if (function_exists('mb_internal_encoding') &&
-            (((int)ini_get('mbstring.func_overload')) & 2)) {
-            return mb_strlen($str, '8bit');
-        } else {
-            return strlen($str);
-        }
     }
 }

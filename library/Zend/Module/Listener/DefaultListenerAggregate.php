@@ -1,13 +1,26 @@
 <?php
-
+/**
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Module
+ */
 namespace Zend\Module\Listener;
 
-use Zend\EventManager\ListenerAggregate,
-    Zend\EventManager\EventCollection,
+use Zend\EventManager\EventManagerInterface,
+    Zend\EventManager\ListenerAggregateInterface,
     Zend\Loader\ModuleAutoloader;
 
-class DefaultListenerAggregate extends AbstractListener
-    implements ListenerAggregate
+/**
+ * Default listener aggregate
+ * 
+ * @category   Zend
+ * @package    Zend_Module
+ * @subpackage Listener
+ */
+class DefaultListenerAggregate extends AbstractListener implements ListenerAggregateInterface
 {
     /**
      * @var array
@@ -22,10 +35,10 @@ class DefaultListenerAggregate extends AbstractListener
     /**
      * Attach one or more listeners
      *
-     * @param EventCollection $events
+     * @param EventManagerInterface $events
      * @return DefaultListenerAggregate
      */
-    public function attach(EventCollection $events)
+    public function attach(EventManagerInterface $events)
     {
         $options = $this->getOptions();
         $configListener = $this->getConfigListener();
@@ -36,6 +49,7 @@ class DefaultListenerAggregate extends AbstractListener
         $this->listeners[] = $events->attach('loadModule.resolve', new ModuleResolverListener, 1000);
         $this->listeners[] = $events->attach('loadModule', new AutoloaderListener($options), 2000);
         $this->listeners[] = $events->attach('loadModule', new InitTrigger($options), 1000);
+        $this->listeners[] = $events->attach('loadModule', new OnBootstrapListener($options), 1000);
         $this->listeners[] = $events->attachAggregate($locatorRegistrationListener);
         $this->listeners[] = $events->attachAggregate($configListener);
 
@@ -45,10 +59,10 @@ class DefaultListenerAggregate extends AbstractListener
     /**
      * Detach all previously attached listeners
      *
-     * @param EventCollection $events
+     * @param EventManagerInterface $events
      * @return DefaultListenerAggregate
      */
-    public function detach(EventCollection $events)
+    public function detach(EventManagerInterface $events)
     {
         foreach ($this->listeners as $key => $listener) {
             if ($listener instanceof ListenerAggregate) {
