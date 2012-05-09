@@ -621,17 +621,8 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
 
         $client->resetParameters();
         $client->setUri($endpoint);
-        $client->setAuth(false);
-        // Work around buglet in HTTP client - it doesn't clean headers
-        // Remove when ZHC is fixed
-        $client->setHeaders(array('Content-MD5'              => null,
-                                  'Expect'                   => null,
-                                  'Range'                    => null,
-                                  'x-amz-acl'                => null,
-                                  'x-amz-copy-source'        => null,
-                                  'x-amz-metadata-directive' => null));
-
         $client->setHeaders($headers);
+        $client->setMethod($method);
 
         if (is_array($params)) {
             foreach ($params as $name=>$value) {
@@ -645,11 +636,12 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
              }
              $client->setRawData($data, $headers['Content-type']);
          }
+         
          do {
             $retry = false;
 
-            $response = $client->request($method);
-            $response_code = $response->getStatus();
+            $response = $client->send();
+            $response_code = $response->getStatusCode();
 
             // Some 5xx errors are expected, so retry automatically
             if ($response_code >= 500 && $response_code < 600 && $retry_count <= 5) {
