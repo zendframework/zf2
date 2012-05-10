@@ -53,6 +53,11 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
      */
     protected $_accessKey;
 
+    /**
+     * @var \Zend\Http\Response Response of last request
+     */
+    protected $_lastResponse = null;
+    
 
     /**
      * Set the keys to use when accessing SQS.
@@ -110,5 +115,16 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
     protected function _getSecretKey()
     {
         return $this->_secretKey;
+    }
+    
+    /**
+     * Method to get the Response object of the last call to the service,
+     * null if no call was done or no response was obtained
+     *
+     * @return \Zend\Http\Response
+     */
+    public function getLastResponse()
+    {
+        return $this->_lastResponse;
     }
 }
