@@ -120,7 +120,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" must be between 3 and 255 characters long");
         }
 
-        if (preg_match('/[^a-z0-9\._-]/', $bucket)) {
+        if (preg_match('/[^a-zA-Z0-9\._-]/', $bucket)) {
             throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" contains invalid characters");
         }
 
@@ -608,7 +608,8 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
      */
     public function _makeRequest($method, $path='', $params=null, $headers=array(), $data=null)
     {
-        $retry_count = 0;
+        $retry_count         = 0;
+        $this->_lastResponse = null;
 
         if (!is_array($headers)) {
             $headers = array($headers);
@@ -678,9 +679,9 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
         }
 
         do {
-            $retry         = false;
-            $response      = $client->send();
-            $response_code = $response->getStatusCode();
+            $retry                = false;
+            $this->_lastResponse  = $client->send();
+            $response_code        = $this->_lastResponse->getStatusCode();
 
             // Some 5xx errors are expected, so retry automatically
             if ($response_code >= 500 && $response_code < 600 && $retry_count <= 5) {
@@ -695,7 +696,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             }
         } while ($retry);
 
-        return $response;
+        return $this->_lastResponse;
     }
 
     /**
