@@ -109,23 +109,95 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
 
     /**
      * Verify if the bucket name is valid
+     * For reference: http://docs.amazonwebservices.com/AmazonS3/latest/dev/BucketRestrictions.html
      *
      * @param string $bucket
      * @return boolean
      */
-    public function _validBucketName($bucket)
+    public function _validBucketName($bucket, $location = null)
     {
+        if (empty($location))
+            $location = ''; //US Standard region code is an empty string 
+        
+        if ($location == '') {
+            //US Standard Region
+            $maxLen = 255;
+            
+            //Capital letters, dashes and underscores allowed
+            $pregExpression = '/[^a-zA-Z0-9\._-]/';
+            
+            //Label can be an IP address
+            $isIpAddress = false;
+            
+            //Label can be empty or starting with dashes
+            $labelError = false;
+            
+        } else {
+            //More restricted rules apply
+            $maxLen = 63;
+            
+            //No Capital letters or underscores
+            $pregExpression = '/[^a-z0-9\.-]/';
+            
+            //Cannot be an IP address
+            $isIpAddress = preg_match('/(\d){1,3}\.(\d){1,3}\.(\d){1,3}\.(\d){1,3}/', $bucket);
+            
+            //Labels must not be empty and should start and end with letter or number
+            $labelError = false; 
+            $labels     = explode('.', $bucket);           
+            foreach ($labels as $label) {
+                if (empty($label)) {
+                    $labelError = true; 
+                    break;
+                }
+                
+                if ($label[0] == '-' || $label[strlen($label)-1] == '-') {
+                    $labelError = true;
+                    break;
+                }
+            }
+        }
+        
+        /*
+         * 
+         * certain US General limits can be accepted only with SOAP API calls
+         * @TODO implement soap api calls  
+         * 
+         */
+        if ($location == '' ) { //To be removed if SOAP API calls are implemented
+            $pregExpression = '/[^a-z0-9\.-]/';
+    
+            //Labels must not be empty and should start and end with letter or number
+            $labelError = false;
+            $labels     = explode('.', $bucket);
+            foreach ($labels as $label) {
+                if (empty($label)) {
+                    $labelError = true;
+                    break;
+                }
+            
+                if ($label[0] == '-' || $label[strlen($label)-1] == '-') {
+                    $labelError = true;
+                    break;
+                }
+            }
+        }        
+        
         $len = strlen($bucket);
-        if ($len < 3 || $len > 255) {
+        if ($len < 3 || $len > $maxLen) {
             throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" must be between 3 and 255 characters long");
         }
 
-        if (preg_match('/[^a-zA-Z0-9\._-]/', $bucket)) {
+        if (preg_match($pregExpression, $bucket)) {
             throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" contains invalid characters");
         }
 
-        if (preg_match('/(\d){1,3}\.(\d){1,3}\.(\d){1,3}\.(\d){1,3}/', $bucket)) {
+        if ($isIpAddress) {
             throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" cannot be an IP address");
+        }
+        
+        if ($labelError) {
+            throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" labels must start and end with a letter or a number");
         }
         return true;
     }
@@ -655,7 +727,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             $hasContentType = true;
             $client->setRawBody($data);
         }
-
+        
         $client->setUri($endpoint);
         $client->setMethod($method);
         
@@ -671,13 +743,6 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             $client->setParameterGet($params);
         }
         
-        if (($method == 'PUT') && ($data !== null)) {
-            if (!isset($headers['Content-type'])) {
-                $headers['Content-type'] = self::getMimeType($path);
-            }
-            $client->setRawBody($data);
-        }
-
         do {
             $retry                = false;
             $this->_lastResponse  = $client->send();
@@ -755,7 +820,13 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             }
         }
 
-        $sig_str .= '/'.parse_url($path, PHP_URL_PATH);
+        //US General bucket names must always be lowercased for the signature
+        $urlPath = parse_url($path, PHP_URL_PATH);
+        $urlPathParts = explode('/', $urlPath);
+        if (!empty($urlPathParts[0]))
+            $urlPathParts[0] = strtolower($urlPathParts[0]);
+        
+        $sig_str .= '/'.implode('/', $urlPathParts);
         if (strpos($path, '?location') !== false) {
             $sig_str .= '?location';
         }
@@ -768,7 +839,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
 
         $signature = base64_encode(Crypt\Hmac::compute($this->_getSecretKey(), 'sha1', utf8_encode($sig_str), Crypt\Hmac::BINARY));
         $headers['Authorization'] = 'AWS '.$this->_getAccessKey().':'.$signature;
-
+        
         return $headers;
     }
 
