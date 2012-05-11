@@ -28,7 +28,6 @@ namespace Zend\InfoCard\Cipher\Symmetric;
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface AES256CBC
+interface AES128CBCInterface extends AES256CBCInterface
 {
-    public function decrypt($encryptedData, $decryptionKey, $iv_length = null);
 }

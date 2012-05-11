@@ -14,21 +14,26 @@
  *
  * @category   Zend
  * @package    Zend_InfoCard
- * @subpackage Zend_InfoCard_Xml_Security
+ * @subpackage Zend_InfoCard_Xml
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\InfoCard\XML\Security;
+namespace Zend\InfoCard\XML\KeyInfo;
 
 /**
- * @uses       \Zend\InfoCard\XML\Exception
  * @category   Zend
  * @package    Zend_InfoCard
- * @subpackage Zend_InfoCard_Xml_Security
+ * @subpackage Zend_InfoCard_Xml
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception extends \Zend\InfoCard\XML\Exception
+interface KeyInfoInterface
 {
+    /**
+     * Return an object representing a KeyInfo data type
+     *
+     * @return KeyInfoInterface
+     */
+    public function getKeyInfo();
 }

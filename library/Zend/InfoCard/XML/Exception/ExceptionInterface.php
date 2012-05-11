@@ -19,7 +19,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\InfoCard\XML;
+namespace Zend\InfoCard\XML\Exception;
+
+use Zend\InfoCard\Exception\ExceptionInterface as Exception;
 
 /**
  * @category   Zend
@@ -28,12 +30,6 @@ namespace Zend\InfoCard\XML;
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface KeyInfo
+interface ExceptionInterface extends Exception
 {
-    /**
-     * Return an object representing a KeyInfo data type
-     *
-     * @return \Zend\InfoCard\XML\KeyInfo
-     */
-    public function getKeyInfo();
 }
