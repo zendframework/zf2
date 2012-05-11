@@ -20,8 +20,9 @@
 
 namespace Zend\Http;
 
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
 use ArrayIterator,
-    Zend\Config\Config,
     Zend\Uri\Http,
     Zend\Stdlib;
 
@@ -108,7 +109,7 @@ class Client implements Stdlib\DispatchableInterface
     protected $redirectCounter = 0;
 
     /**
-     * Configuration array, set using the constructor or using ::setConfig()
+     * Configuration array, set using the constructor or using ::setOptions()
      *
      * @var array
      */
@@ -140,42 +141,42 @@ class Client implements Stdlib\DispatchableInterface
      * Constructor
      *
      * @param string $uri
-     * @param array  $config
+     * @param array|Traversable $options
      */
-    public function __construct($uri = null, $config = null)
+    public function __construct($uri = null, $options = null)
     {
         if ($uri !== null) {
             $this->setUri($uri);
         }
-        if ($config !== null) {
-            $this->setConfig($config);
+        if ($options !== null) {
+            $this->setOptions($options);
         }
     }
 
     /**
      * Set configuration parameters for this HTTP client
      *
-     * @param  Config|array $config
+     * @param  array|Traversable $options
      * @return Client
-     * @throws Client\Exception
+     * @throws Client\Exception\InvalidArgumentException
      */
-    public function setConfig($config = array())
+    public function setOptions($options = array())
     {
-        if ($config instanceof Config) {
-            $config = $config->toArray();
-
-        } elseif (!is_array($config)) {
-            throw new Exception\InvalidArgumentException('Config parameter is not valid');
+        if ($options instanceof Traversable) {
+            $options = ArrayUtils::iteratorToArray($options);
+        }
+        if (!is_array($options)) {
+            throw new Client\Exception\InvalidArgumentException('Config parameter is not valid');
         }
 
         /** Config Key Normalization */
-        foreach ($config as $k => $v) {
+        foreach ($options as $k => $v) {
             $this->config[str_replace(array('-', '_', ' ', '.'), '', strtolower($k))] = $v; // replace w/ normalized
         }
 
         // Pass configuration options to the adapter if it exists
-        if ($this->adapter instanceof Client\Adapter) {
-            $this->adapter->setConfig($config);
+        if ($this->adapter instanceof Client\Adapter\AdapterInterface) {
+            $this->adapter->setOptions($options);
         }
 
         return $this;
@@ -187,7 +188,7 @@ class Client implements Stdlib\DispatchableInterface
      * While this method is not called more than one for a client, it is
      * seperated from ->request() to preserve logic and readability
      *
-     * @param  Client\Adapter|string $adapter
+     * @param  Client\Adapter\AdapterInterface|string $adapter
      * @return Client
      * @throws Client\Exception\InvalidArgumentException
      */
@@ -200,21 +201,21 @@ class Client implements Stdlib\DispatchableInterface
             $adapter = new $adapter;
         }
 
-        if (! $adapter instanceof Client\Adapter) {
+        if (! $adapter instanceof Client\Adapter\AdapterInterface) {
             throw new Client\Exception\InvalidArgumentException('Passed adapter is not a HTTP connection adapter');
         }
 
         $this->adapter = $adapter;
         $config = $this->config;
         unset($config['adapter']);
-        $this->adapter->setConfig($config);
+        $this->adapter->setOptions($config);
         return $this;
     }
 
     /**
      * Load the connection adapter
      *
-     * @return \Zend\Http\Client\Adapter $adapter
+     * @return Client\Adapter\AdapterInterface $adapter
      */
     public function getAdapter()
     {
@@ -579,7 +580,7 @@ class Client implements Stdlib\DispatchableInterface
      */
     public function setStream($streamfile = true)
     {
-        $this->setConfig(array("outputstream" => $streamfile));
+        $this->setOptions(array("outputstream" => $streamfile));
         return $this;
     }
 
@@ -610,7 +611,7 @@ class Client implements Stdlib\DispatchableInterface
         }
 
         if (false === ($fp = @fopen($this->streamName, "w+b"))) {
-            if ($this->adapter instanceof Client\Adapter) {
+            if ($this->adapter instanceof Client\Adapter\AdapterInterface) {
                 $this->adapter->close();
             }
             throw new Exception\RuntimeException("Could not open temp file {$this->streamName}");
@@ -743,6 +744,7 @@ class Client implements Stdlib\DispatchableInterface
      *
      * @param  Request $request
      * @return Response
+     * @throws Exception\RuntimeException
      */
     public function send(Request $request = null)
     {
@@ -809,7 +811,7 @@ class Client implements Stdlib\DispatchableInterface
             }
 
             // check that adapter supports streaming before using it
-            if (is_resource($body) && !($this->adapter instanceof Client\Adapter\Stream)) {
+            if (is_resource($body) && !($this->adapter instanceof Client\Adapter\StreamInterface)) {
                 throw new Client\Exception\RuntimeException('Adapter does not support streaming');
             }
 
@@ -931,7 +933,7 @@ class Client implements Stdlib\DispatchableInterface
      * @param  string $ctype Content type to use (if $data is set and $ctype is
      *                null, will be application/octet-stream)
      * @return Client
-     * @throws Exception
+     * @throws Exception\RuntimeException
      */
     public function setFileUpload($filename, $formname, $data = null, $ctype = null)
     {
@@ -1088,7 +1090,7 @@ class Client implements Stdlib\DispatchableInterface
      * Prepare the request body (for PATCH, POST and PUT requests)
      *
      * @return string
-     * @throws \Zend\Http\Client\Exception
+     * @throws \Zend\Http\Client\Exception\RuntimeException
      */
     protected function prepareBody()
     {
@@ -1137,7 +1139,7 @@ class Client implements Stdlib\DispatchableInterface
                 // Encode body as application/x-www-form-urlencoded
                 $body = http_build_query($this->getRequest()->post()->toArray());
             } else {
-                throw new Exception\RuntimeException("Cannot handle content type '{$this->encType}' automatically");
+                throw new Client\Exception\RuntimeException("Cannot handle content type '{$this->encType}' automatically");
             }
         }
 
@@ -1277,7 +1279,7 @@ class Client implements Stdlib\DispatchableInterface
         $this->adapter->connect($uri->getHost(), $uri->getPort(), $secure);
 
         if ($this->config['outputstream']) {
-            if ($this->adapter instanceof Client\Adapter\Stream) {
+            if ($this->adapter instanceof Client\Adapter\StreamInterface) {
                 $stream = $this->openTempStream();
                 $this->adapter->setOutputStream($stream);
             } else {

@@ -234,14 +234,14 @@ class Zend_Service_WindowsAzure_Storage
 	    	if(!isset($credentials[1])) {
 	    	    $credentials[1] = '';
 	    	}
-	    	$this->_httpClientChannel->setConfig(array(
+	    	$this->_httpClientChannel->setOptions(array(
 				'proxy_host' => $this->_proxyUrl,
 	    		'proxy_port' => $this->_proxyPort,
 	    		'proxy_user' => $credentials[0],
 	    		'proxy_pass' => $credentials[1],
 	    	));
 	    } else {
-			$this->_httpClientChannel->setConfig(array(
+			$this->_httpClientChannel->setOptions(array(
 				'proxy_host' => '',
 	    		'proxy_port' => 8080,
 	    		'proxy_user' => '',
@@ -355,7 +355,7 @@ class Zend_Service_WindowsAzure_Storage
 		$this->_httpClientChannel->resetParameters(true);
 		$this->_httpClientChannel->setUri($requestUrl);
 		$this->_httpClientChannel->setHeaders($requestHeaders);
-		$this->_httpClientChannel->setRawData($rawData);
+		$this->_httpClientChannel->setRawBody($rawData);
 		
 		// Execute request
 		$response = $this->_retryPolicy->execute(
