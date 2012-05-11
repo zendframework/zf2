@@ -60,6 +60,16 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
         $ret = $this->serviceManager->setInvokableClass('foo', 'bar');
         $this->assertSame($this->serviceManager, $ret);
     }
+    
+    /**
+     * @covers Zend\ServiceManager\Configuration::configureServiceManager
+     */
+    public function testConfigureWithInvokableClass()
+    {
+        $config = new Configuration(array('invokables' => array('foo' => 'ZendTest\ServiceManager\TestAsset\Foo')));
+        $serviceManager = new ServiceManager($config);
+        $this->assertEquals(get_class($serviceManager->get('foo')), 'ZendTest\ServiceManager\TestAsset\Foo');
+    }
 
     /**
      * @covers Zend\ServiceManager\ServiceManager::setFactory
@@ -89,6 +99,17 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
 
         $ret = $this->serviceManager->addAbstractFactory(new TestAsset\FooAbstractFactory());
         $this->assertSame($this->serviceManager, $ret);
+    }
+    
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::has
+     */
+    public function testAddAbstractStringFactory()
+    {
+        $config = new Configuration(array('abstract_factories' => array('ZendTest\ServiceManager\TestAsset\FooAbstractFactory')));
+        $serviceManager = new ServiceManager($config);
+        $serviceManager->setFactory('foo', 'ZendTest\ServiceManager\TestAsset\FooFactory');
+        $this->assertSame(get_class($serviceManager->get('unknowObject')), 'ZendTest\ServiceManager\TestAsset\Foo');
     }
 
     /**
