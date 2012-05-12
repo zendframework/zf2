@@ -364,7 +364,7 @@ class DiffieHellman
      */
     protected function _generatePrivateKey()
     {
-        $rand = $this->_math->rand($this->getGenerator(), $this->getPrime());
+        $rand = $this->_math->randBytes(strlen($this->getPrime()), true);
         return $rand;
     }
 

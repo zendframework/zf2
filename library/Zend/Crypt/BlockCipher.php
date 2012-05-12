@@ -248,7 +248,7 @@ class BlockCipher
         }
         $keySize = $this->cipher->getKeySize();
         // generate a random salt (IV)
-        $this->cipher->setSalt(Math::randBytes($this->cipher->getSaltSize()));
+        $this->cipher->setSalt(Math::randBytes($this->cipher->getSaltSize(), true));
         // generate the encryption key and the HMAC key for the authentication
         $hash = Pbkdf2::calc(self::KEY_DERIV_HMAC, 
                              $this->getKey(),

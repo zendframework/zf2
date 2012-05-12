@@ -37,10 +37,6 @@ class Math extends BigInteger
      */
     public static function randBytes($length, $strong=false)
     {
-        if ($strong) throw new Exception\RuntimeException(
-                    'This PHP environment doesn\'t support secure random number generation. ' .
-                    'Please consider to install the OpenSSL and/or Mcrypt extensions'
-                );
         if ($length <= 0) {
             return false;
         }
@@ -54,7 +50,7 @@ class Math extends BigInteger
         if (extension_loaded('mcrypt')) {
             $rand ^=  mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
         }
-        if (@is_readable('/dev/urandom')) {
+        if (file_exists('/dev/urandom')) {
             $dev = fopen('/dev/urandom', 'r');
             $rand ^= fread($dev, $length);
             fclose($dev);

@@ -54,7 +54,7 @@ class Bcrypt implements PasswordInterface
     public function create($password)
     {
         if (empty($this->salt)) {
-            $salt = Math::randBytes(self::MIN_SALT_SIZE);
+            $salt = Math::randBytes(self::MIN_SALT_SIZE, true);
         } else {
             $salt = $this->salt;
         }
