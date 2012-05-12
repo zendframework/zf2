@@ -219,7 +219,8 @@ class Result implements \Iterator, ResultInterface
             
             $this->isNumberOfRowsFinal           = true;
             $this->currentData                   = false;
-            $this->dataBuffer[$this->position]   = false; 
+            $this->dataBuffer[$this->position]   = false;
+            $this->resource->close(); //Free resources 
             return false;
             
         } elseif ($r === false) {
@@ -256,7 +257,8 @@ class Result implements \Iterator, ResultInterface
         
         if (($data = $this->resource->fetch_assoc()) === null) {
             $this->isNumberOfRowsFinal = true;
-            $this->currentData = false;
+            $this->currentData         = false;
+            $this->resource->free(); //Free resources
             return false;
         }
         
