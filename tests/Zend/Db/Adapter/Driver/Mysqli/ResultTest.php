@@ -8,6 +8,7 @@ namespace ZendTest\Db\Adapter\Driver\Mysqli;
  */
 
 use Zend\Db\Adapter\Driver\Mysqli\Result,
+    Zend\Db\ResultSet\ResultSet,
     Zend\Db\ResultSet\Row;
 
 class ResultTest extends \PHPUnit_Framework_TestCase
@@ -66,6 +67,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox unit test: Test testIterator() will check the Iterator interface compliance
+     * @covers Zend\Db\Adapter\Mysqli\Result::initialize()
      * @covers Zend\Db\ResultSet\ResultSet::setDataSource()
      * @covers Zend\Db\ResultSet\ResultSet::rewind()
      * @covers Zend\Db\ResultSet\ResultSet::current()
@@ -78,8 +80,12 @@ class ResultTest extends \PHPUnit_Framework_TestCase
     {
 
     	$mockMysqli = clone $this->mockMysqliStmt;
-    	$resultSet  = new ResultSet();    	 
-    	$resultSet->setDataSource();
+    	
+    	$result     = new Result();
+    	$result->initialize($mockMysqli, null);
+    	
+    	$resultSet  = new ResultSet();
+    	$resultSet->setDataSource($result);
     	 
     	$resultSet->rewind(); //1
     	$this->assertTrue($resultSet->valid());
