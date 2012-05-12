@@ -144,7 +144,7 @@ abstract class AbstractEc2 extends Amazon\AbstractAmazon
             $request = $this->getHttpClient();
             $request->resetParameters();
 
-            $request->setConfig(array(
+            $request->setOptions(array(
                 'timeout' => $this->_httpTimeout
             ));
 
@@ -155,7 +155,7 @@ abstract class AbstractEc2 extends Amazon\AbstractAmazon
             $httpResponse = $request->send();
 
 
-        } catch (\Zend\Http\Client\Exception $zhce) {
+        } catch (\Zend\Http\Client\Exception\ExceptionInterface $zhce) {
             $message = 'Error in request to AWS service: ' . $zhce->getMessage();
             throw new Exception\RuntimeException($message, $zhce->getCode(), $zhce);
         }

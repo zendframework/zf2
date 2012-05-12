@@ -20,6 +20,8 @@
 
 namespace Zend\OAuth;
 
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
 use Zend\Http\Client as HttpClient;
 use Zend\Http\Request as HttpRequest;
 
@@ -43,7 +45,7 @@ class Client extends HttpClient
      * of abstraction is unnecessary and doesn't let me escape the accessors
      * and mutators anyway!
      *
-     * @var Zend\OAuth\Config
+     * @var Config\StandardConfig
      */
     protected $_config = null;
 
@@ -59,20 +61,19 @@ class Client extends HttpClient
      * Constructor; creates a new HTTP Client instance which itself is
      * just a typical Zend_HTTP_Client subclass with some OAuth icing to
      * assist in automating OAuth parameter generation, addition and
-     * cryptographioc signing of requests.
+     * cryptographic signing of requests.
      *
-     * @param  array $oauthOptions
+     * @param  array|Traversable $oauthOptions
      * @param  string $uri
-     * @param  array|\Zend\Config\Config $config
-     * @return void
+     * @param  array|Traversable $options
      */
     public function __construct($oauthOptions, $uri = null, $config = null)
     {
         parent::__construct($uri, $config);
         $this->_config = new Config\StandardConfig;
         if ($oauthOptions !== null) {
-            if ($oauthOptions instanceof \Zend\Config\Config) {
-                $oauthOptions = $oauthOptions->toArray();
+            if ($oauthOptions instanceof Traversable) {
+                $oauthOptions = ArrayUtils::iteratorToArray($oauthOptions);
             }
             $this->_config->setOptions($oauthOptions);
         }
@@ -81,7 +82,7 @@ class Client extends HttpClient
     /**
      * Return the current connection adapter
      *
-     * @return Zend\Http\Client\Adapter|string $adapter
+     * @return \Zend\Http\Client\Adapter\AdapterInterface|string $adapter
      */
     public function getAdapter()
     {
@@ -91,7 +92,7 @@ class Client extends HttpClient
    /**
      * Load the connection adapter
      *
-     * @param Zend\Http\Client\Adapter $adapter
+     * @param \Zend\Http\Client\Adapter\AdapterInterface $adapter
      * @return void
      */
     public function setAdapter($adapter)
@@ -133,7 +134,7 @@ class Client extends HttpClient
      * Prepare the request body (for POST and PUT requests)
      *
      * @return string
-     * @throws Zend\Http\Client\Exception
+     * @throws \Zend\Http\Client\Exception\RuntimeException
      */
     protected function _prepareBody()
     {
@@ -143,7 +144,7 @@ class Client extends HttpClient
             return $this->raw_post_data;
         }
         else {
-            return parent::_prepareBody();
+            return parent::prepareBody();
         }
     }
 
