@@ -62,11 +62,6 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
     protected $returnType = self::TYPE_OBJECT;
 
     /**
-     * @var null|int
-     */
-    protected $count;
-
-    /**
      * @var Iterator|IteratorAggregate
      */
     protected $dataSource = null;
@@ -268,11 +263,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
      */
     public function count()
     {
-        if ($this->count !== null) {
-            return $this->count;
-        }
-        $this->count = count($this->dataSource);
-        return $this->count;
+        return $this->dataSource->count();
     }
 
     /**
