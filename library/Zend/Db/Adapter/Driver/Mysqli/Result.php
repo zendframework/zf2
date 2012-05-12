@@ -55,6 +55,11 @@ class Result implements \Iterator, ResultInterface
     protected $resource = null;
 
     /**
+     * @var boolean
+     */
+    protected $isResultStored = false;
+    
+    /**
      * Cursor position
      * @var int
      */
@@ -64,24 +69,25 @@ class Result implements \Iterator, ResultInterface
      * Number of known rows
      * @var int
      */
-    protected $numberOfRows = -1;
+    protected $numberOfRows = 0;
 
     /**
-     * Is the current() operation already complete for this pointer position?
-     * @var bool
+     * Dataset has been looped, or store_result() has been called
+     * @var boolean
      */
-    protected $currentComplete = false;
-
+    protected $isNumberOfRowsFinal = false;
+    
     /**
      *
-     * @var bool
+     * @var null|false|array
      */
-    protected $nextComplete = false;
+    protected $currentData = null;
+    
     /**
-     *
-     * @var bool
+     * Stores data not available anumore on mysqli
+     * @var array
      */
-    protected $currentData = false;
+    protected $dataBuffer = array();
     
     /**
      *
@@ -156,6 +162,7 @@ class Result implements \Iterator, ResultInterface
             return $this->resource->num_rows;
         }
     }
+    
     /**
      * Current
      * 
@@ -163,17 +170,16 @@ class Result implements \Iterator, ResultInterface
      */
     public function current()
     {
-        if ($this->currentComplete) {
-            return $this->currentData;
+        if (is_null($this->currentData)) {
+            //Load current row
+            if ($this->mode == self::MODE_STATEMENT) {
+                $this->loadDataFromMysqliStatement();
+            } else {
+                $this->loadFromMysqliResult();
+            }
         }
         
-        if ($this->mode == self::MODE_STATEMENT) {
-            $this->loadDataFromMysqliStatement();
-            return $this->currentData;
-        } else {
-            $this->loadFromMysqliResult();
-            return $this->currentData;
-        }
+        return $this->currentData;
     }
     
     /**
@@ -188,7 +194,12 @@ class Result implements \Iterator, ResultInterface
      */
     protected function loadDataFromMysqliStatement()
     {
-        $data = null;
+
+        if (isset($this->dataBuffer[$this->position])) {
+            $this->currentData  =  $this->dataBuffer[$this->position];
+            return $this->dataBuffer[$this->position];
+        }
+        
         // build the default reference based bind strutcure, if it does not already exist
         if ($this->statementBindValues['keys'] === null) {
             $this->statementBindValues['keys'] = array();
@@ -205,7 +216,12 @@ class Result implements \Iterator, ResultInterface
         }
         
         if (($r = $this->resource->fetch()) === null) {
+            
+            $this->isNumberOfRowsFinal           = true;
+            $this->currentData                   = false;
+            $this->dataBuffer[$this->position]   = false; 
             return false;
+            
         } elseif ($r === false) {
             throw new \RuntimeException($this->resource->error);
         }
@@ -214,11 +230,17 @@ class Result implements \Iterator, ResultInterface
         for ($i = 0; $i < count($this->statementBindValues['keys']); $i++) {
             $this->currentData[$this->statementBindValues['keys'][$i]] = $this->statementBindValues['values'][$i];
         }
-        $this->currentComplete = true;
-        $this->nextComplete = true;
-        $this->position++;
+
+        $this->dataBuffer[$this->position] = $this->currentData; 
+        
+        //Data buffering prevents from double counting
+        if (!$this->isNumberOfRowsFinal) {
+            $this->numberOfRows++;
+        }
+        
         return true;
     }
+    
     /**
      * Load from mysqli result
      * 
@@ -226,32 +248,47 @@ class Result implements \Iterator, ResultInterface
      */
     protected function loadFromMysqliResult()
     {
-        $this->currentData = null;
+
+        if (isset($this->dataBuffer[$this->position])) {
+            $this->currentData  =  $this->dataBuffer[$this->position];
+            return $this->dataBuffer[$this->position];
+        }
         
         if (($data = $this->resource->fetch_assoc()) === null) {
+            $this->isNumberOfRowsFinal = true;
+            $this->currentData = false;
             return false;
         }
         
-        $this->position++;
-        $this->currentData = $data;
-        $this->currentComplete = true;
-        $this->nextComplete = true;
-        $this->position++;
+        $this->currentData                 = $data;
+        $this->dataBuffer[$this->position] = $this->currentData;
+        
+        //Data buffering prevents from double counting
+        if (!$this->isNumberOfRowsFinal) {
+            $this->numberOfRows++;
+        }
+        
         return true;
     }
+    
     /**
      * Next
      */
     public function next()
     {
-        $this->currentComplete = false;
-        
-        if ($this->nextComplete == false) {
-            $this->position++;
+        if (is_null($this->currentData)) {
+            //Called first, or called 2+ next() in sequence. Need to advance the pointer of mysqli
+            $this->current();
         }
         
-        $this->nextComplete = false;
+        //If false do nothing, rows are finished and it cannot advance
+        if (!is_null($this->currentData) && $this->currentData !== false) {
+            $this->currentData = null;
+            $this->position ++;
+        }
+ 
     }
+    
     /**
      * Key
      * 
@@ -261,20 +298,32 @@ class Result implements \Iterator, ResultInterface
     {
         return $this->position;
     }
+    
     /**
      * Rewind
      * 
      */
     public function rewind()
     {
-        $this->currentComplete = false;
+        if ($this->position == 0)
+            return;
+        
+        /* 
+        //Buffering makes this useless, and it didn't work unless results are stored as first step!
+        if ($this->resource instanceof \mysqli_stmt && !$this->isResultStored) {
+            $this->resource->store_result(); //Required for data_seek to work
+            $this->isResultStored = true;
+        }    
+        
+        //Works with \mysqli_result only if the results are buffered
+        $this->resource->data_seek(0);
+
+        */
+        
         $this->position = 0;
-        if ($this->resource instanceof \mysqli_stmt) {
-            //$this->resource->reset();
-        } else {
-            $this->resource->data_seek(0); // works for both mysqli_result & mysqli_stmt
-        }
+        $this->currentData = null;
     }
+    
     /**
      * Valid
      * 
@@ -282,16 +331,13 @@ class Result implements \Iterator, ResultInterface
      */
     public function valid()
     {
-        if ($this->currentComplete) {
-            return true;
-        }
+        if (is_null($this->currentData))
+            $this->current();
         
-        if ($this->mode == self::MODE_STATEMENT) {
-            return $this->loadDataFromMysqliStatement();
-        } else {
-            return $this->loadFromMysqliResult();
-        }
+        return !empty($this->currentData);
+        
     }
+    
     /**
      * Count
      * 
@@ -299,9 +345,24 @@ class Result implements \Iterator, ResultInterface
      */
     public function count()
     {
-        return $this->resource->num_rows;
+        //If results are not stored, number of rows is zero
+        if (!$this->isNumberOfRowsFinal) {
+            if ($this->resource instanceof \mysqli_stmt && !$this->isResultStored) {
+                $this->resource->store_result();
+                $this->isResultStored = true;
+            }
+            $this->numberOfRows += $this->resource->num_rows;
+            $this->isNumberOfRowsFinal = true;
+        }
+        
+        return $this->numberOfRows;
     }
 
+    /**
+     * Generated Value
+     *
+     * @return mixed
+     */
     public function getGeneratedValue()
     {
         return $this->generatedValue;
