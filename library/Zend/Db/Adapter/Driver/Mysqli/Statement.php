@@ -206,7 +206,7 @@ class Statement implements StatementInterface
         }
             
         if ($this->resource->execute() === false) {
-            throw new \RuntimeException($this->resource->error);
+            throw new \RuntimeException($this->resource->error, $this->resource->errno);
         }
 
         $result = $this->driver->createResult($this->resource);
