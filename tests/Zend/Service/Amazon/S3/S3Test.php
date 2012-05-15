@@ -50,6 +50,13 @@ class S3Test extends \PHPUnit_Framework_TestCase
     protected $httpClient;
 
     /**
+     * Uri Http stub
+     *
+     * @var \Zend\Uri\Http
+     */
+    protected $uriHttp;
+    
+    /**
      * Http Response stub
      *
      * @var \Zend\Http\Response
@@ -70,11 +77,15 @@ class S3Test extends \PHPUnit_Framework_TestCase
         $this->httpClient = $this->getMockBuilder('Zend\Http\Client')->getMock();
         // Create a stub for Http response for be used later.
         $this->httpResponse = $this->getMockBuilder('Zend\Http\Response')->getMock();
-
+        // Create a stub for Uri\Http for later.
+        $this->uriHttp = $this->getMockBuilder('Zend\Uri\Http')->getMock();
+        
         // Create a S3 instance
         $this->amazon  = new S3($accessKey, $secretKey);
         // Inject the stub into the application.
         $this->amazon->setHttpClient($this->httpClient);
+        // Inject the stub into the application.
+        $this->amazon->setEndpoint($this->uriHttp);
     }
 
     /**
@@ -121,5 +132,71 @@ BODY;
         $buckets = $this->amazon->getBuckets();
 
         $this->assertEquals($expected, $buckets);
+    }
+    
+    /**
+     * Test create bucket
+     *
+     * @return void
+     */
+    public function testCreateBuckets()
+    {
+        
+        //Valid bucket name
+        $bucket   = 'iamavalidbucket';
+        $location = null;
+        $this->amazon->setRequestDate("Tue, 15 May 2012 15:18:31 +0000");
+        
+        /**
+         * Check of request inside _makeRequest
+         * 
+         */
+        $this->uriHttp->expects($this->once())
+            ->method('getHost')
+            ->with()
+            ->will($this->returnValue('s3.amazonaws.com'));
+         
+        $this->uriHttp->expects($this->once())
+            ->method('setHost')
+            ->with('iamavalidbucket.s3.amazonaws.com');
+
+        $this->uriHttp->expects($this->once())
+            ->method('setPath')
+            ->with('/');
+                 
+        $this->httpClient->expects($this->once())
+             ->method('setUri')
+            ->with($this->uriHttp);  
+        
+        $this->httpClient->expects($this->once())
+            ->method('setMethod')
+            ->with('PUT');
+        
+        $this->httpClient->expects($this->once())
+            ->method('setHeaders')
+            ->with(array(
+                    "Date"          => "Tue, 15 May 2012 15:18:31 +0000",
+                    "Content-Type"  => "application/xml",
+                    "Authorization" => "AWS AKIAIDCZ2WXN6NNB7YZA:Y+T4nZxI1wBi1Yn1BMnOK9CDiOM=",
+                    ));
+         
+        /**
+         * Fake response inside _makeRequest
+         *
+         */           
+        // Http Response results
+        $this->httpResponse->expects($this->any())
+              ->method('getStatusCode')
+              ->will($this->returnValue(200));
+            
+        // Expects to be called only once the method send() then return a Http Response.
+        $this->httpClient->expects($this->once())
+            ->method('send')
+            ->will($this->returnValue($this->httpResponse));
+
+        $response = $this->amazon->createBucket($bucket, $location);
+    
+        $this->assertTrue($response);
+        
     }
 }
