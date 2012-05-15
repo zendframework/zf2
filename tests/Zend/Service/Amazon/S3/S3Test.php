@@ -145,6 +145,7 @@ BODY;
         //Valid bucket name
         $bucket   = 'iamavalidbucket';
         $location = null;
+        $this->amazon->setKeys('AKIAIDCZ2WXN6NNB7YZA','sagA0Lge8R+ifORcyb6Z/qVbmtimFCUczvh51Jq8'); //Fake keys
         $this->amazon->setRequestDate("Tue, 15 May 2012 15:18:31 +0000");
         
         /**
