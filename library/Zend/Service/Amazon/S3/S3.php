@@ -687,7 +687,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             $headers = array($headers);
         }
 
-        $headers['Date'] = gmdate(DATE_RFC1123, time());
+        $headers['Date'] = $this->getRequestDate();  //Helps with testing the signature
 
         if(is_resource($data) && $method != 'PUT') {
             throw new Exception\InvalidArgumentException("Only PUT request supports stream data");

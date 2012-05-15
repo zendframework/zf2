@@ -54,6 +54,13 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
     protected $_accessKey;
 
     /**
+     * Request date - useful for testing services with signature
+     * 
+     * @var int|string|null Request date - useful for testing services with signature
+     */
+    protected $_requestDate = null;
+    
+    /**
      * @var \Zend\Http\Response Response of last request
      */
     protected $_lastResponse = null;
@@ -71,6 +78,18 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
         self::$_defaultAccessKey = $accessKey;
         self::$_defaultSecretKey = $secretKey;
     }
+    
+    /**
+     * Set the RFC1123 request date - useful for testing the services with signature
+     *
+     * @param null|int|string $date
+     * @return void
+     */
+    public function setRequestDate($date)
+    {
+        $this->_requestDate = $date;
+    }
+    
 
     /**
      * Create Amazon client.
@@ -126,5 +145,26 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
     public function getLastResponse()
     {
         return $this->_lastResponse;
+    }
+    
+
+    /**
+     * Method to get the request date - returns gmdate(DATE_RFC1123, time())
+     * 
+     *     "Tue, 15 May 2012 15:18:31 +0000"
+     *     
+     * Unless setRequestDate was set (as when testing the service)
+     *
+     * @return string
+     */
+    public function getRequestDate()
+    {
+        if(is_null($this->_requestDate))
+            $this->_requestDate = time();
+        
+        if(is_numeric($this->_requestDate))
+            $this->_requestDate = gmdate(DATE_RFC1123, $this->_requestDate); 
+        
+        return $this->_requestDate;
     }
 }
