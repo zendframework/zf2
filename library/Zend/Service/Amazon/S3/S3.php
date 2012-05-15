@@ -210,7 +210,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
      */
     public function createBucket($bucket, $location = null)
     {
-        $this->_validBucketName($bucket);
+        $this->_validBucketName($bucket, $location);
 
         if($location) {
             $data = '<CreateBucketConfiguration><LocationConstraint>'.$location.'</LocationConstraint></CreateBucketConfiguration>';
