@@ -21,6 +21,8 @@
 
 namespace Zend\Db\Adapter\Exception;
 
+use Zend\Db\Exception;
+
 /**
  * @category   Zend
  * @package    Zend_Db
@@ -29,6 +31,7 @@ namespace Zend\Db\Adapter\Exception;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class InvalidQueryException
-    extends \UnexpectedValueException
+    extends Exception\UnexpectedValueException
+    implements ExceptionInterface
 {
 }
