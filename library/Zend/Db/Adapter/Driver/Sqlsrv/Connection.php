@@ -186,7 +186,7 @@ class Connection implements ConnectionInterface
         $this->resource = sqlsrv_connect($serverName, $params);
 
         if (!$this->resource) {
-            $prevErrorException = new ErrorException(sqlsrv_errors());
+            $prevErrorException = new Exception\ErrorException(sqlsrv_errors());
             throw new \Exception('Connect Error', null, $prevErrorException);
         }
 

@@ -21,7 +21,7 @@
 
 namespace Zend\Db\ResultSet\Exception;
 
-use Zend\Db\ResultSet\Exception;
+use Zend\Db\Exception;
 
 /**
  * @category   Zend
@@ -31,6 +31,6 @@ use Zend\Db\ResultSet\Exception;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class InvalidArgumentException 
-    extends \InvalidArgumentException 
-    implements Exception
+    extends Exception\InvalidArgumentException
+    implements ExceptionInterface
 {}
