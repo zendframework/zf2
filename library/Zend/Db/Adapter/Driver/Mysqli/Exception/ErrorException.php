@@ -14,23 +14,24 @@
  *
  * @category   Zend
  * @package    Zend_Db
- * @subpackage ResultSet
+ * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Db\ResultSet\Exception;
 
-use Zend\Db\Exception;
+namespace Zend\Db\Adapter\Driver\Mysqli\Exception;
 
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage ResultSet
+ * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class RuntimeException 
-    extends Exception\RuntimeException
+class ErrorException
+    extends \Exception
     implements ExceptionInterface
-{}
+{
+
+}

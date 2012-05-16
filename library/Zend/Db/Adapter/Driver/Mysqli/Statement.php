@@ -22,6 +22,7 @@
 namespace Zend\Db\Adapter\Driver\Mysqli;
 
 use Zend\Db\Adapter\Driver\StatementInterface,
+    Zend\Db\Adapter\Driver\Mysqli\Exception\ErrorException,
     Zend\Db\Adapter\Exception,
     Zend\Db\Adapter\ParameterContainer;
 
