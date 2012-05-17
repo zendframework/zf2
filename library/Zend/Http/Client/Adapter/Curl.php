@@ -372,7 +372,9 @@ class Curl implements HttpAdapter, StreamInterface
         }
 
         // set additional headers
-        $headers['Accept'] = '';
+        if (!isset($headers['Accept'])) {
+            $headers['Accept'] = '';
+        }
         $curlHeaders = array();
         foreach ($headers as $key => $value) {
             $curlHeaders[] = $key . ': ' . $value;
