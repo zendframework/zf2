@@ -21,7 +21,9 @@
 
 namespace Zend\View\Helper;
 
-use Zend\Loader\ShortNameLocator,
+use Zend\Di\Locator,
+    Zend\Mvc\LocatorAware,
+    Zend\Loader\ShortNameLocator,
     Zend\Loader\PluginClassLoader,
     Zend\Navigation\Container,
     Zend\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper,
@@ -37,7 +39,7 @@ use Zend\Loader\ShortNameLocator,
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Navigation extends AbstractNavigationHelper
+class Navigation extends AbstractNavigationHelper implements LocatorAware
 {
     /**
      * View helper namespace
@@ -50,6 +52,11 @@ class Navigation extends AbstractNavigationHelper
      * @var ShortNameLocator
      */
     protected $loader;
+
+    /**
+     * @var \Zend\Di\Locator
+     */
+    protected $locator;
 
     /**
      * Default proxy to use in {@link render()}
@@ -94,14 +101,45 @@ class Navigation extends AbstractNavigationHelper
      * @return \Zend\View\Helper\Navigation           fluent interface, returns
      *                                               self
      */
-    public function __invoke(Container $container = null)
+    public function __invoke($container = null)
     {
-        if (null !== $container) {
+        if (is_string($container)) {
+            $this->setContainer($this->getLocator()->get($container));
+        } else if ($container instanceof Container) {
             $this->setContainer($container);
+        } else if (null !== $container) {
+            throw new \Zend\View\Exception\InvalidArgumentException(
+                'A string or instance of \Zend\Navigation\Container is expected'
+            );
         }
 
         return $this;
     }
+
+    /**
+     * Set the locator.
+     *
+     * @implement \Zend\Mvc\LocatorAware
+     * @param \Zend\Di\Locator $locator
+     * @return Navigation
+     */
+    public function setLocator(Locator $locator)
+    {
+        $this->locator = $locator;
+        return $this;
+    }
+
+    /**
+     * Get the locator.
+     *
+     * @implement \Zend\Mvc\LocatorAware
+     * @return \Zend\Di\Locator
+     */
+    public function getLocator()
+    {
+        return $this->locator;
+    }
+
 
     /**
      * Magic overload: Proxy to other navigation helpers or the container
@@ -132,7 +170,12 @@ class Navigation extends AbstractNavigationHelper
     {
         // check if call should proxy to another helper
         $helper = $this->findHelper($method, false);
+
         if ($helper) {
+            if ($helper instanceof LocatorAware) {
+                $helper->setLocator($this->getLocator());
+            }
+
             return call_user_func_array($helper, $arguments);
         }
 

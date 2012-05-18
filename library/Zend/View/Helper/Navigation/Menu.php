@@ -22,6 +22,8 @@
 namespace Zend\View\Helper\Navigation;
 
 use RecursiveIteratorIterator,
+    Zend\Di\Locator,
+    Zend\Mvc\LocatorAware,
     Zend\Navigation\Container,
     Zend\Navigation\Page\AbstractPage,
     Zend\View,
@@ -36,7 +38,7 @@ use RecursiveIteratorIterator,
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Menu extends AbstractHelper
+class Menu extends AbstractHelper implements LocatorAware
 {
     /**
      * CSS class to use for the ul element
@@ -44,6 +46,11 @@ class Menu extends AbstractHelper
      * @var string
      */
     protected $ulClass = 'navigation';
+
+    /**
+     * @var \Zend\Di\Locator
+     */
+    protected $locator;
 
     /**
      * Whether only active branch should be rendered
@@ -73,16 +80,46 @@ class Menu extends AbstractHelper
      * @param  Container $container [optional] container to operate on
      * @return Menu      fluent interface, returns self
      */
-    public function __invoke(Container $container = null)
+    public function __invoke($container = null)
     {
-        if (null !== $container) {
+        if (is_string($container)) {
+            $this->setContainer($this->getLocator()->get($container));
+        } else if ($container instanceof Container) {
             $this->setContainer($container);
+        } else if (null !== $container) {
+            throw new \Zend\View\Exception\InvalidArgumentException(
+                'A string or instance of \Zend\Navigation\Container is expected'
+            );
         }
 
         return $this;
     }
 
     // Accessors:
+
+    /**
+     * Set the locator.
+     *
+     * @implement \Zend\Mvc\LocatorAware
+     * @param \Zend\Di\Locator $locator
+     * @return Navigation
+     */
+    public function setLocator(Locator $locator)
+    {
+        $this->locator = $locator;
+        return $this;
+    }
+
+    /**
+     * Get the locator.
+     *
+     * @implement \Zend\Mvc\LocatorAware
+     * @return \Zend\Di\Locator
+     */
+    public function getLocator()
+    {
+        return $this->locator;
+    }
 
     /**
      * Sets CSS class to use for the first 'ul' element when rendering
