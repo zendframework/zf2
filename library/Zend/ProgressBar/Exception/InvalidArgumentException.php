@@ -13,21 +13,23 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Wildfire
+ * @package    Zend_ProgressBar
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Wildfire\Channel;
+namespace Zend\ProgressBar\Exception;
 
 /**
+ * Exception for Zend_Progressbar component.
+ *
  * @category   Zend
- * @package    Zend_Wildfire
+ * @package    Zend_ProgressBar
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception extends \Zend\Wildfire\Exception
-{
-}
-
+class InvalidArgumentException
+    extends \InvalidArgumentException
+    implements ExceptionInterface
+{}

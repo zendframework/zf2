@@ -13,38 +13,23 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Amf
- * @subpackage Parser
+ * @package    Zend_Wildfire
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Amf\Parser;
+namespace Zend\Wildfire\Exception;
 
 /**
- * Interface for all AMF serializers.
+ * Exception for Zend_Wildfire component.
  *
- * @package    Zend_Amf
- * @subpackage Parser
+ * @category   Zend
+ * @package    Zend_Wildfire
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Serializer
-{
-    /**
-     * Constructor
-     *
-     * @param  Zend\Amf\Parser\OutputStream $stream
-     * @return void
-     */
-    public function __construct(OutputStream $stream);
-
-    /**
-     * Find the PHP object type and convert it into an AMF object type
-     *
-     * @param  mixed $content
-     * @param  int $markerType
-     * @return void
-     */
-    public function writeTypeMarker(&$content, $markerType = null);
-}
+class UnexpectedValueException
+    extends \UnexpectedValueException
+    implements ExceptionInterface
+{}

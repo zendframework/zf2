@@ -13,23 +13,21 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Server
- * @subpackage Zend_Server_Reflection
+ * @package    Zend_ProgressBar
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Server\Reflection;
+namespace Zend\ProgressBar\Exception;
 
 /**
- * Zend_Server_Reflection exceptions
+ * Exception for Zend_Progressbar component.
  *
  * @category   Zend
- * @package    Zend_Server
- * @subpackage Zend_Server_Reflection
+ * @package    Zend_ProgressBar
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception extends \Zend\Server\Exception
-{
-}
+class RuntimeException extends \RuntimeException implements ExceptionInterface
+{}

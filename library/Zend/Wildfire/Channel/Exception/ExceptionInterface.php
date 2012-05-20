@@ -13,19 +13,21 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Rest
+ * @package    Zend_Wildfire
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Rest;
+namespace Zend\Wildfire\Channel\Exception;
+
+use Zend\Wildfire\Exception\ExceptionInterface as Exception;
 
 /**
  * @category   Zend
- * @package    Zend_Rest
+ * @package    Zend_Wildfire
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception
+interface ExceptionInterface extends Exception
 {}
-

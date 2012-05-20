@@ -13,22 +13,22 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Rest
- * @subpackage Client
+ * @package    Zend_Barcode
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Rest\Client;
+namespace Zend\Barcode\Exception;
 
 /**
- * Zend_Rest_Server_Exception
+ * Exception for Zend_Barcode component.
  *
- * @package    Zend_Rest
- * @subpackage Client
+ * @category   Zend
+ * @package    Zend_Barcode
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception extends \Zend\Rest\Exception
-{}
-
+class RuntimeException extends \RuntimeException implements ExceptionInterface
+{
+}

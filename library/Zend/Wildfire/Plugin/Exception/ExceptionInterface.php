@@ -19,7 +19,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Wildfire\Plugin;
+namespace Zend\Wildfire\Plugin\Exception;
+
+use Zend\Wildfire\Exception\ExceptionInterface as Exception;
 
 /**
  * @category   Zend
@@ -27,7 +29,5 @@ namespace Zend\Wildfire\Plugin;
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception extends \Zend\Wildfire\Exception
-{
-}
-
+interface ExceptionInterface extends Exception
+{}
