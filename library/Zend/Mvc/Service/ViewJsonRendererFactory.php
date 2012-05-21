@@ -13,38 +13,37 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
+ * @package    Zend_Mvc
+ * @subpackage Service
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Foo;
+namespace Zend\Mvc\Service;
+
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\View\Renderer\JsonRenderer;
 
 /**
  * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
+ * @package    Zend_Mvc
+ * @subpackage Service
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class BazController extends \Zend\Controller\Action
+class ViewJsonRendererFactory implements FactoryInterface
 {
-
-    public function barOneAction()
+    /**
+     * Create and return the JSON view renderer
+     *
+     * @param  ServiceLocatorInterface $serviceLocator 
+     * @return JsonStrategy
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        // this is for testActionCalledWithinActionResetsResponseState
+        $jsonRenderer = new JsonRenderer();
+        return $jsonRenderer;
     }
-
-    public function barTwoAction()
-    {
-        // this is for testActionCalledWithinActionResetsResponseState
-    }
-
-    public function barThreeAction()
-    {
-        // this is for testActionCalledWithinActionResetsResponseState
-    }
-
 }
 

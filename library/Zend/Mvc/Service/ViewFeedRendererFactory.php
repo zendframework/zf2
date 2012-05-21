@@ -13,39 +13,37 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
+ * @package    Zend_Mvc
+ * @subpackage Service
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
+namespace Zend\Mvc\Service;
+
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\View\Renderer\FeedRenderer;
 
 /**
  * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
+ * @package    Zend_Mvc
+ * @subpackage Service
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ActionFooController extends \Zend\Controller\Action
+class ViewFeedRendererFactory implements FactoryInterface
 {
-    public function barAction()
+    /**
+     * Create and return the feed view renderer
+     *
+     * @param  ServiceLocatorInterface $serviceLocator 
+     * @return FeedStrategy
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
-    }
-
-    public function bazAction()
-    {
-        $this->view->message = $this->_getParam('bat', 'BOGUS');
-    }
-
-    public function forwardAction()
-    {
-        $this->_forward('bar');
-    }
-
-    public function redirectAction()
-    {
-        $this->broker('redirector')->setExit(false);
-        $this->_redirect('/foo/bar');
+        $feedRenderer = new FeedRenderer();
+        return $feedRenderer;
     }
 }
+
