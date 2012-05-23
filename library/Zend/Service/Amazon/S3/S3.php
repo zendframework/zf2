@@ -114,91 +114,49 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
      * @param string $bucket
      * @return boolean
      */
-    public function _validBucketName($bucket, $location = null)
+    public function _validBucketName($bucket)
     {
-        if (empty($location))
-            $location = ''; //US Standard region code is an empty string 
-        
-        if ($location == '') {
-            //US Standard Region
-            $maxLen = 255;
-            
-            //Capital letters, dashes and underscores allowed
-            $pregExpression = '/[^a-zA-Z0-9\._-]/';
-            
-            //Label can be an IP address
-            $isIpAddress = false;
-            
-            //Label can be empty or starting with dashes
-            $labelError = false;
-            
-        } else {
-            //More restricted rules apply
-            $maxLen = 63;
-            
-            //No Capital letters or underscores
-            $pregExpression = '/[^a-z0-9\.-]/';
-            
-            //Cannot be an IP address
-            $isIpAddress = preg_match('/(\d){1,3}\.(\d){1,3}\.(\d){1,3}\.(\d){1,3}/', $bucket);
-            
-            //Labels must not be empty and should start and end with letter or number
-            $labelError = false; 
-            $labels     = explode('.', $bucket);           
-            foreach ($labels as $label) {
-                if (empty($label)) {
-                    $labelError = true; 
-                    break;
-                }
-                
-                if ($label[0] == '-' || $label[strlen($label)-1] == '-') {
-                    $labelError = true;
-                    break;
-                }
+    	
+        //Labels must not be empty and should start and end with letter or number (no dashes)
+        $labelEmpty = false;
+        $labelDash  = false;
+        $labels     = explode('.', $bucket);
+        foreach ($labels as $label) {
+            if (empty($label)) {
+                $labelEmpty = true;
+                break;
             }
-        }
-        
-        /*
-         * 
-         * certain US General limits can be accepted only with SOAP API calls
-         * @TODO implement soap api calls  
-         * 
-         */
-        if ($location == '' ) { //To be removed if SOAP API calls are implemented
-            $pregExpression = '/[^a-z0-9\.-]/';
-    
-            //Labels must not be empty and should start and end with letter or number
-            $labelError = false;
-            $labels     = explode('.', $bucket);
-            foreach ($labels as $label) {
-                if (empty($label)) {
-                    $labelError = true;
-                    break;
-                }
-            
-                if ($label[0] == '-' || $label[strlen($label)-1] == '-') {
-                    $labelError = true;
-                    break;
-                }
+
+            if ($label[0] == '-' || $label[strlen($label)-1] == '-') {
+                $labelDash = true;
+                break;
             }
-        }        
-        
-        $len = strlen($bucket);
-        if ($len < 3 || $len > $maxLen) {
-            throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" must be between 3 and 255 characters long");
         }
 
-        if (preg_match($pregExpression, $bucket)) {
+        //Label name length
+        $len = strlen($bucket);
+        if ($len < 3 || $len > 63) {
+            throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" must be between 3 and 63 characters long");
+        }
+
+        //No Capital letters or underscores
+        if (preg_match('/[^a-z0-9\.-]/', $bucket)) {
             throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" contains invalid characters");
         }
 
-        if ($isIpAddress) {
+        //IP Address
+        if (preg_match('/(\d){1,3}\.(\d){1,3}\.(\d){1,3}\.(\d){1,3}/', $bucket)) {
             throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" cannot be an IP address");
         }
-        
-        if ($labelError) {
-            throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" labels must start and end with a letter or a number");
+
+        if ($labelEmpty) {
+        	throw new Exception\InvalidArgumentException("Bucket labels in \"$bucket\" must not be empty");
         }
+        
+        if ($labelDash) {
+            throw new Exception\InvalidArgumentException("Bucket labels in \"$bucket\" must start and end with a letter or a number");
+        }
+        
         return true;
     }
 

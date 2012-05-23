@@ -70,6 +70,10 @@ class S3Test extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+    	error_reporting('E_ALL');
+    	ini_set('display_errors',true);
+    	
+    	
         $accessKey = 'accessKey';
         $secretKey = 'secretKey';
 
@@ -79,6 +83,11 @@ class S3Test extends \PHPUnit_Framework_TestCase
         $this->httpResponse = $this->getMockBuilder('Zend\Http\Response')->getMock();
         // Create a stub for Uri\Http for later.
         $this->uriHttp = $this->getMockBuilder('Zend\Uri\Http')->getMock();
+        
+        $this->uriHttp->expects($this->any())
+                      ->method('isValid')
+                      ->will($this->returnValue(true));
+        
         
         // Create a S3 instance
         $this->amazon  = new S3($accessKey, $secretKey);
@@ -141,11 +150,13 @@ BODY;
      */
     public function testCreateBuckets()
     {
-        
+    	error_reporting('E_ALL');
+    	ini_set('display_errors',true);
+    	 
         //Valid bucket name
         $bucket   = 'iamavalidbucket';
         $location = null;
-        $this->amazon->setKeys('AKIAIDCZ2WXN6NNB7YZA','sagA0Lge8R+ifORcyb6Z/qVbmtimFCUczvh51Jq8'); //Fake keys
+        $this->amazon->setCurrentKeys('AKIAIDCZ2WXN6NNB7YZA','sagA0Lge8R+ifORcyb6Z/qVbmtimFCUczvh51Jq8'); //Fake keys
         $this->amazon->setRequestDate("Tue, 15 May 2012 15:18:31 +0000");
         
         /**
@@ -200,4 +211,51 @@ BODY;
         $this->assertTrue($response);
         
     }
+    
+   
+    public function testValidBucketName()
+    {
+   
+    	$this->assertTrue($this->amazon->_validBucketName('iam.avalid.1bucket-name.endingwithnumber9'));    	
+    }
+
+    public function testBucketNameShort()
+    {
+    	$this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+    	$this->amazon->_validBucketName('ia');
+    }
+    
+    public function testBucketNameLong()
+    {
+    	$this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+    	$this->amazon->_validBucketName('iam.aninvalid.bucketname.because.iam.way.tooooooooooooooooo.long');
+    }
+    
+
+    public function testBucketNameCapitalLetter()
+    {
+    	$this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+    	$this->amazon->_validBucketName('iam.anInvalid.bucketname');
+    }
+
+    public function testBucketNameIpAddress()
+    {
+    	$this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+    	$this->amazon->_validBucketName('1.0.255.90');
+    }
+    
+    
+    
+    public function testBucketNameLabelEmtpy()
+    {
+    	$this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+    	$this->amazon->_validBucketName('iam.aninvalid..empty.bucketname');
+    }
+    
+    public function testBucketNameLabelDash()
+    {
+    	$this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+    	$this->amazon->_validBucketName('iam.aninvalid.-bucketname');
+    }
+     	
 }

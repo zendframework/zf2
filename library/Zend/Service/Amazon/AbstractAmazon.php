@@ -75,9 +75,23 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
      */
     public static function setKeys($accessKey, $secretKey)
     {
-        self::$_defaultAccessKey = $accessKey;
+    	self::$_defaultAccessKey = $accessKey;
         self::$_defaultSecretKey = $secretKey;
     }
+    
+    /**
+     * Set the keys to use when accessing SQS.
+     *
+     * @param  string $access_key       Set the current Access Key
+     * @param  string $secret_key       Set the current Secret Key
+     * @return void
+     */
+    public function setCurrentKeys($accessKey, $secretKey)
+    {
+    	$this->_accessKey = $accessKey;
+    	$this->_secretKey = $secretKey;
+    }
+    
     
     /**
      * Set the RFC1123 request date - useful for testing the services with signature
