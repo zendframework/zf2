@@ -114,9 +114,9 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
      * @param string $bucket
      * @return boolean
      */
-    public function _validBucketName($bucket)
+    public function _validBucketName($bucket, $location = null)
     {
-    	
+        
         //Labels must not be empty and should start and end with letter or number (no dashes)
         $labelEmpty = false;
         $labelDash  = false;
@@ -150,7 +150,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
         }
 
         if ($labelEmpty) {
-        	throw new Exception\InvalidArgumentException("Bucket labels in \"$bucket\" must not be empty");
+            throw new Exception\InvalidArgumentException("Bucket labels in \"$bucket\" must not be empty");
         }
         
         if ($labelDash) {
