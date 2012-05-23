@@ -111,4 +111,39 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
     {
         return $this->_secretKey;
     }
+    
+    
+    /**
+     * Method to get the pesudo-ISO8601 request date
+     * 
+     *          "2012-05-15T20:58:54.000Z"
+     *          
+     * Unless setRequestDate was set (as when testing the service)
+     * 
+     * @return string
+     */
+    public function getRequestIsoDate()
+    {
+        if(!empty($this->_requestDate)) {
+            $date = $this->_requestDate;
+        } else {
+            $date = null;
+        }
+        
+        if(!is_object($date)) {
+            
+            $date = new Date();
+            
+        } elseif(!empty($date->preserve)) {
+            
+            $this->_requestDate = null;
+            
+        }
+        
+        //DateTimeZone UTC
+        
+        return $date->get('Y-m-d\TH:i:s.000\Z'); //DATE_ISO8601 is not compatible with S3
+        
+        
+    }    
 }
