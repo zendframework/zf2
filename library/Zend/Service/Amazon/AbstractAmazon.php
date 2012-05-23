@@ -21,6 +21,8 @@
 
 namespace Zend\Service\Amazon;
 
+use \Zend\Date\Date;
+
 /**
  * Abstract Amazon class that handles the credentials for any of the Web Services that
  * Amazon offers
@@ -65,6 +67,10 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
      */
     protected $_lastResponse = null;
     
+    /**
+     * @var string attribute for preserving the date object
+     */
+    const DATE_PRESERVE_KEY = 'preserve';
 
     /**
      * Set the keys to use when accessing SQS.
@@ -95,12 +101,23 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
     
     /**
      * Set the RFC1123 request date - useful for testing the services with signature
-     *
-     * @param null|int|string $date
+     * If preserve is set, the specific object is kept for further requests
+     * 
+     * @param null|\Zend\Date\Date $date
+     * @param null|boolean         $preserve if the set date must be kept for further requests
      * @return void
      */
-    public function setRequestDate($date)
+    public function setRequestDate($date, $preserve = null)
     {
+        
+        if (!$date instanceof Date && !is_null($date)) {
+            throw new Exception\InvalidArgumentException("First argument must be instance of \\Zend\\Date or null");
+        }
+        
+        if ($date instanceof Date && !is_null($preserve)) {
+                $date->DATE_PRESERVE_KEY = (boolean) $preserve;
+        }
+        
         $this->_requestDate = $date;
     }
     
@@ -114,14 +131,14 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
      */
     public function __construct($accessKey=null, $secretKey=null)
     {
-        if(!$accessKey) {
+        if (!$accessKey) {
             $accessKey = self::$_defaultAccessKey;
         }
-        if(!$secretKey) {
+        if (!$secretKey) {
             $secretKey = self::$_defaultSecretKey;
         }
 
-        if(!$accessKey || !$secretKey) {
+        if (!$accessKey || !$secretKey) {
             throw new Exception\InvalidArgumentException("AWS keys were not supplied");
         }
         $this->_accessKey = $accessKey;
@@ -173,12 +190,20 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
      */
     public function getRequestDate()
     {
-        if(is_null($this->_requestDate))
-            $this->_requestDate = time();
         
-        if(is_numeric($this->_requestDate))
-            $this->_requestDate = gmdate(DATE_RFC1123, $this->_requestDate); 
+        if (!is_object($this->_requestDate)) {
+            
+            $date = new Date();
+            
+        } else {
+            
+            $date = $this->_requestDate;
+            
+            if (empty($date->preserve)) {
+                $this->_requestDate = null;
+            }
+        }
         
-        return $this->_requestDate;
+        return $date->get(Date::RFC_1123);
     }
 }
