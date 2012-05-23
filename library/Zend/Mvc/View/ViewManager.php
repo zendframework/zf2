@@ -178,6 +178,9 @@ class ViewManager implements ListenerAggregateInterface
         $map = array();
         if (isset($this->config['helper_map'])) {
             $map = $this->config['helper_map'];
+            if ($map instanceof Traversable) {
+                $map = ArrayUtils::iteratorToArray($map);
+            }
         }
         if (!in_array('Zend\Form\View\HelperLoader', $map)) {
             array_unshift($map, 'Zend\Form\View\HelperLoader');
