@@ -30,15 +30,13 @@ class OnBootstrapListener extends AbstractListener
     public function __invoke(ModuleEvent $e)
     {
         $module = $e->getModule();
-        if (!$module instanceof BootstrapListenerInterface
-            && !method_exists($module, 'onBootstrap')
+        if ($module instanceof BootstrapListenerInterface
+            || method_exists($module, 'onBootstrap')
         ) {
-            return;
+            $moduleManager = $e->getTarget();
+            $events        = $moduleManager->events();
+            $sharedEvents  = $events->getSharedManager();
+            $sharedEvents->attach('application', 'bootstrap', array($module, 'onBootstrap'));
         }
-
-        $moduleManager = $e->getTarget();
-        $events        = $moduleManager->events();
-        $sharedEvents  = $events->getSharedManager();
-        $sharedEvents->attach('application', 'bootstrap', array($module, 'onBootstrap'));
     }
 }
