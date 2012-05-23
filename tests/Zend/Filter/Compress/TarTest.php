@@ -126,8 +126,8 @@ class TarTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files'
                             . DIRECTORY_SEPARATOR . 'compressed.tar', $content);
 
-        $content = $filter->decompress($content);
-        $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR, $content);
+        $this->assertTrue($filter->decompress($content));
+
         $content = file_get_contents(dirname(__DIR__) . '/_files/zipextracted.txt');
         $this->assertEquals('compress me', $content);
     }
@@ -208,8 +208,8 @@ class TarTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files'
                             . DIRECTORY_SEPARATOR . 'compressed.tar', $content);
 
-        $content = $filter->decompress($content);
-        $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR, $content);
+        $this->assertTrue($filter->decompress($content));
+
         $content = file_get_contents(dirname(__DIR__) . '/_files/zipextracted.txt');
         $this->assertEquals('compress me', $content);
     }
