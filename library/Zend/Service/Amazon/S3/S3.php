@@ -114,7 +114,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
      * @param string $bucket
      * @return boolean
      */
-    public function _validBucketName($bucket, $location = null)
+    public function _validBucketName($bucket)
     {
         
         //Labels must not be empty and should start and end with letter or number (no dashes)
@@ -168,7 +168,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
      */
     public function createBucket($bucket, $location = null)
     {
-        $this->_validBucketName($bucket, $location);
+        $this->_validBucketName($bucket);
 
         if($location) {
             $data = '<CreateBucketConfiguration><LocationConstraint>'.$location.'</LocationConstraint></CreateBucketConfiguration>';

@@ -75,7 +75,7 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
      */
     public static function setKeys($accessKey, $secretKey)
     {
-    	self::$_defaultAccessKey = $accessKey;
+        self::$_defaultAccessKey = $accessKey;
         self::$_defaultSecretKey = $secretKey;
     }
     
@@ -88,8 +88,8 @@ abstract class AbstractAmazon extends \Zend\Service\AbstractService
      */
     public function setCurrentKeys($accessKey, $secretKey)
     {
-    	$this->_accessKey = $accessKey;
-    	$this->_secretKey = $secretKey;
+        $this->_accessKey = $accessKey;
+        $this->_secretKey = $secretKey;
     }
     
     
