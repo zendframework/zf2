@@ -24,6 +24,7 @@ namespace Zend\Mvc\Service;
 use Zend\ServiceManager\ConfigurationInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @category   Zend
@@ -112,23 +113,23 @@ class ServiceManagerConfiguration implements ConfigurationInterface
     public function __construct(array $configuration = array())
     {
         if (isset($configuration['services'])) {
-            $this->services = array_merge($this->services, $configuration['services']);
+            $this->services = ArrayUtils::merge($this->services, $configuration['services']);
         }
 
         if (isset($configuration['factories'])) {
-            $this->factories = array_merge($this->factories, $configuration['factories']);
+            $this->factories = ArrayUtils::merge($this->factories, $configuration['factories']);
         }
 
         if (isset($configuration['abstract_factories'])) {
-            $this->abstractFactories = array_merge($this->abstractFactories, $configuration['abstract_factories']);
+            $this->abstractFactories = ArrayUtils::merge($this->abstractFactories, $configuration['abstract_factories']);
         }
 
         if (isset($configuration['aliases'])) {
-            $this->aliases = array_merge($this->aliases, $configuration['aliases']);
+            $this->aliases = ArrayUtils::merge($this->aliases, $configuration['aliases']);
         }
 
         if (isset($configuration['shared'])) {
-            $this->shared = array_merge($this->shared, $configuration['shared']);
+            $this->shared = ArrayUtils::merge($this->shared, $configuration['shared']);
         }
 
     }
