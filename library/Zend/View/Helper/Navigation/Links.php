@@ -104,7 +104,7 @@ class Links extends AbstractHelper
      *
      * @see _findRoot()
      *
-     * @var Navigation\Container
+     * @var Navigation\AbstractContainer
      */
     protected $root;
 
@@ -112,10 +112,10 @@ class Links extends AbstractHelper
      * View helper entry point:
      * Retrieves helper and optionally sets container to operate on
      *
-     * @param  Navigation\Container $container [optional] container to operate on
+     * @param  Navigation\AbstractContainer $container [optional] container to operate on
      * @return Links     fluent interface, returns self
      */
-    public function __invoke(Navigation\Container $container = null)
+    public function __invoke(Navigation\AbstractContainer $container = null)
     {
         if (null !== $container) {
             $this->setContainer($container);
@@ -613,7 +613,7 @@ class Links extends AbstractHelper
      * to the render method.
      *
      * @param  AbstractPage $page  page to find root for
-     * @return Navigation\Container   the root container of the given page
+     * @return Navigation\AbstractContainer   the root container of the given page
      */
     protected function findRoot(AbstractPage $page)
     {
@@ -648,7 +648,7 @@ class Links extends AbstractHelper
         if ($mixed instanceof AbstractPage) {
             // value is a page instance; return directly
             return $mixed;
-        } elseif ($mixed instanceof Navigation\Container) {
+        } elseif ($mixed instanceof Navigation\AbstractContainer) {
             // value is a container; return pages in it
             $pages = array();
             foreach ($mixed as $page) {
@@ -740,13 +740,13 @@ class Links extends AbstractHelper
      *
      * Implements {@link HelperInterface::render()}.
      *
-     * @param  Navigation\Container $container [optional] container to render. 
+     * @param  Navigation\AbstractContainer $container [optional] container to render.
      *                                         Default is to render the 
      *                                         container registered in the 
      *                                         helper.
      * @return string                          helper output
      */
-    public function render(Navigation\Container $container = null)
+    public function render(Navigation\AbstractContainer $container = null)
     {
         if (null === $container) {
             $container = $this->getContainer();
