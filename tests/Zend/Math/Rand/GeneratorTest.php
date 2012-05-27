@@ -90,7 +90,7 @@ class MathTest extends \PHPUnit_Framework_TestCase
 
     public function testGetString()
     {
-        for ($length = 1; $length < 129; $length++) {
+        for ($length = 1; $length < 65; $length++) {
             $rand = Rng::getString($length, '0123456789abcdef');
             $this->assertEquals(strlen($rand), $length);
             $this->assertTrue(preg_match('#^[0-9a-f]+$#', $rand) === 1);
@@ -105,5 +105,4 @@ class MathTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue(preg_match('#^[0-9a-zA-Z+/]+$#', $rand) === 1);
         }
     }
-
 }
