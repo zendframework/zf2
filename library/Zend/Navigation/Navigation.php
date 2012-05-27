@@ -30,7 +30,7 @@ use Traversable;
  * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Navigation extends Container
+class Navigation extends AbstractContainer
 {
     /**
      * Creates a new navigation container
@@ -42,8 +42,7 @@ class Navigation extends Container
     {
         if ($pages && (!is_array($pages) && !$pages instanceof Traversable)) {
             throw new Exception\InvalidArgumentException(
-                'Invalid argument: $pages must be an array, an '
-                . 'instance of Traversable, or null'
+                'Invalid argument: $pages must be an array, an instance of Traversable, or null'
             );
         }
 

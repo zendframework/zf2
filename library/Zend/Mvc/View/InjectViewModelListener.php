@@ -94,6 +94,8 @@ class InjectViewModelListener implements ListenerAggregateInterface
             return;
         }
 
+        $e->setViewModel($result);
+        return;
         $model->addChild($result);
     }
 }

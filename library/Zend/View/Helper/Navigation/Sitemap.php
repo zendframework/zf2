@@ -24,7 +24,7 @@ namespace Zend\View\Helper\Navigation;
 use DOMDocument,
     RecursiveIteratorIterator,
     Zend\Navigation\Page\AbstractPage,
-    Zend\Navigation\Container,
+    Zend\Navigation\AbstractContainer,
     Zend\Uri,
     Zend\View,
     Zend\View\Exception;
@@ -95,10 +95,10 @@ class Sitemap extends AbstractHelper
      * View helper entry point:
      * Retrieves helper and optionally sets container to operate on
      *
-     * @param  Container $container  [optional] container to operate on
+     * @param  AbstractContainer $container  [optional] container to operate on
      * @return Sitemap   fluent interface, returns self
      */
-    public function __invoke(Container $container = null)
+    public function __invoke(AbstractContainer $container = null)
     {
         if (null !== $container) {
             $this->setContainer($container);
@@ -297,7 +297,7 @@ class Sitemap extends AbstractHelper
     /**
      * Returns a DOMDocument containing the Sitemap XML for the given container
      *
-     * @param  Container                 $container  [optional] container to get
+     * @param  AbstractContainer                 $container  [optional] container to get
      *                                               breadcrumbs from, defaults
      *                                               to what is registered in the
      *                                               helper
@@ -310,7 +310,7 @@ class Sitemap extends AbstractHelper
      *                                               validators are used and the
      *                                               loc element fails validation
      */
-    public function getDomSitemap(Container $container = null)
+    public function getDomSitemap(AbstractContainer $container = null)
     {
         if (null === $container) {
             $container = $this->getContainer();
@@ -439,12 +439,12 @@ class Sitemap extends AbstractHelper
      *
      * Implements {@link HelperInterface::render()}.
      *
-     * @param  Container $container [optional] container to render. Default is 
+     * @param  AbstractContainer $container [optional] container to render. Default is
      *                              to render the container registered in the 
      *                              helper.
      * @return string               helper output
      */
-    public function render(Container $container = null)
+    public function render(AbstractContainer $container = null)
     {
         $dom = $this->getDomSitemap($container);
 
