@@ -187,8 +187,10 @@ class Figlet
      *
      * @param  string $text     Text to convert to a figlet text
      * @param  string $encoding Encoding of the input string
-     * @throws Exception\InvalidArgumentException When $text is not a string
      * @return string
+     * @throws Exception\InvalidArgumentException When $text is not a string
+     * @throws Exception\UnexpectedValueException When $text is not encoded
+     *                                            as $encoding
      */
     public function render($text, $encoding = 'UTF-8')
     {
@@ -215,7 +217,7 @@ class Figlet
         $textLength     = @iconv_strlen($text, 'UTF-8');
 
         if ($textLength === false) {
-            throw new Exception\InvalidArgumentException('$text is not encoded with ' . $encoding);
+            throw new Exception\UnexpectedValueException('$text is not encoded with ' . $encoding);
         }
 
         for ($charNum = 0; $charNum < $textLength; $charNum++) {

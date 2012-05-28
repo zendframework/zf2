@@ -65,9 +65,9 @@ class FigletOptions extends Options
 
     protected $direction = self::DIRECTION_LTR;
 
-    protected $align = self::ALIGN_LEFT;
+    protected $align = null;
 
-    protected $smushMode = self::SM_KERN;
+    protected $smushMode = 0;
 
     /**
      * Override font file smush layout
@@ -87,7 +87,7 @@ class FigletOptions extends Options
     {
         if (!is_string($font) && ! $font instanceof Font) {
             throw new Exception\InvalidArgumentException(
-                'Parameter should be path to font file ot instance of Zend\Text\Figlet\Font'
+                'Parameter should be path to font file or instance of Zend\Text\Figlet\Font'
             );
         }
 
@@ -149,25 +149,51 @@ class FigletOptions extends Options
         return $this->outputWidth;
     }
 
-    public function setDirection($dir)
+    /**
+     * Set print direction
+     *
+     * @param int $direction
+     * @return FigletOptions
+     */
+    public function setDirection($direction)
     {
-        $this->direction = min(self::DIRECTION_RTL, max(self::DIRECTION_LTR, (int) $dir));
+        $this->direction = min(self::DIRECTION_RTL, max(self::DIRECTION_LTR, (int) $direction));
         return $this;
     }
 
+    /**
+     * Get print direction
+     *
+     * @return int
+     */
     public function getDirection()
     {
         return $this->direction;
     }
 
+    /**
+     * Set text alignment
+     *
+     * @param int $align
+     * @return FigletOptions
+     */
     public function setAlign($align)
     {
         $this->align = min(self::ALIGN_RIGHT, max(self::ALIGN_LEFT, (int) $align));
         return $this;
     }
 
+    /**
+     * Get text alignment
+     *
+     * @return int
+     */
     public function getAlign()
     {
+        // if not set, set alignment based on direction
+        if ($this->align === null) {
+            $this->align = 2 * $this->direction;
+        }
         return $this->align;
     }
 
@@ -183,7 +209,7 @@ class FigletOptions extends Options
     public function setSmushMode($smushMode)
     {
         $smushMode = (int) $smushMode;
-        $fontSmush = $this->font->getParam('full_layout');
+        $fontSmush = $this->getFont()->getParam('full_layout');
         $userSmush = 0;
 
         if ($smushMode < -1) {
