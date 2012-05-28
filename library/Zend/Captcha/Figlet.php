@@ -22,6 +22,8 @@
 namespace Zend\Captcha;
 
 use Zend\Text\Figlet\Figlet as FigletManager;
+use Zend\Text\Figlet\FigletOptions;
+use Traversable;
 
 /**
  * Captcha based on figlet text rendering service
@@ -52,7 +54,20 @@ class Figlet extends Word
     public function __construct($options = null)
     {
         parent::__construct($options);
-        $this->figlet = new FigletManager($options);
+
+        // setup Figlet instance
+        $figletOptions = null;
+        if (is_array($options) || $options instanceof Traversable) {
+            $figletOptions      = new FigletOptions();
+            $figletOptionsArray = $figletOptions->toArray();
+            foreach ($options as $name => $value) {
+                if (isset($figletOptionsArray[$name])) {
+                    $figletOptionsArray[$name] = $value;
+                }
+            }
+            $figletOptions = new FigletOptions($figletOptionsArray);
+        }
+        $this->figlet = new FigletManager($figletOptions);
     }
 
     /**
