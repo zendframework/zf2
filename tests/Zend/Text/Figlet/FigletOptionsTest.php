@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Text
+ * @package    Zend_Text_Figlet
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -26,7 +26,7 @@ use Zend\Text\Figlet\FigletOptions;
 
 /**
  * @category   Zend
- * @package    Zend_Text
+ * @package    Zend_Text_Figlet
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License

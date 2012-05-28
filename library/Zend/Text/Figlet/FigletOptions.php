@@ -13,7 +13,7 @@ namespace Zend\Text\Figlet;
 use Zend\Stdlib\Options;
 
 /**
- * Options for Zend\Text\Figlet
+ * Options for Zend\Text\Figlet\Figlet
  *
  * @category  Zend
  * @package   Zend_Text_Figlet
@@ -30,7 +30,7 @@ class FigletOptions extends Options
     const ALIGN_RIGHT  = 2;
 
     /**
-     * Print direction
+     * Text direction
      */
     const DIRECTION_LTR = 0;
     const DIRECTION_RTL = 1;
@@ -55,29 +55,57 @@ class FigletOptions extends Options
     const SMO_FORCE = 2;
 
     /**
+     * Current FIGlet font
+     *
      * @var Font
      */
     protected $font = null;
 
+    /**
+     * Output width. default to 80
+     *
+     * @var int
+     */
     protected $outputWidth = 80;
 
+    /**
+     * Whether to handle paragraphs in text
+     *
+     * @var bool
+     */
     protected $handleParagraphs = false;
 
+    /**
+     * Text direction, default is left-to-right
+     *
+     * @var int
+     */
     protected $direction = self::DIRECTION_LTR;
 
+    /**
+     * Text alignment
+     *
+     * @var null
+     */
     protected $align = null;
 
+    /**
+     * Smush mode
+     *
+     * @var int
+     */
     protected $smushMode = 0;
 
     /**
-     * Override font file smush layout
+     * Whether to override font defined smush mode
      *
      * @var integer
      */
     protected $smushOverride = self::SMO_NO;
 
     /**
-     * Set a font to use
+     * Set a font to use. Parameter should be path to font file
+     * or instance of Zend\Text\Figlet\Font
      *
      * @param  Font|string
      * @return Figlet
@@ -101,7 +129,7 @@ class FigletOptions extends Options
     }
 
     /**
-     * get FIGlet font
+     * Get loaded FIGlet font
      *
      * @return Font
      */
@@ -117,7 +145,7 @@ class FigletOptions extends Options
     /**
      * Set handling of paragraphs
      *
-     * @param  boolean $handleParagraphs Wether to handle paragraphs or not
+     * @param  boolean $handleParagraphs Whether to handle paragraphs or not
      * @return FigletOptions
      */
     public function setHandleParagraphs($handleParagraphs)
@@ -134,8 +162,8 @@ class FigletOptions extends Options
     /**
      * Set the output width
      *
-     * @param  integer $outputWidth Output with which should be used for word
-     *                              wrapping and justification
+     * @param  integer $outputWidth Output with to be used for word wrapping
+     *                              and alignment
      * @return FigletOptions
      */
     public function setOutputWidth($outputWidth)
@@ -144,13 +172,18 @@ class FigletOptions extends Options
         return $this;
     }
 
+    /**
+     * Get current output width
+     *
+     * @return int
+     */
     public function getOutputWidth()
     {
         return $this->outputWidth;
     }
 
     /**
-     * Set print direction
+     * Set text direction
      *
      * @param int $direction
      * @return FigletOptions
@@ -162,7 +195,7 @@ class FigletOptions extends Options
     }
 
     /**
-     * Get print direction
+     * Get text direction
      *
      * @return int
      */
@@ -238,6 +271,8 @@ class FigletOptions extends Options
     }
 
     /**
+     * Get smush mode
+     *
      * @return int
      */
     public function getSmushMode()
@@ -266,5 +301,4 @@ class FigletOptions extends Options
     {
         return $this->smushOverride;
     }
-
 }

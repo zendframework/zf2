@@ -15,6 +15,7 @@ use Zend\Stdlib\ArrayUtils;
 
 /**
  * Zend\Text\Figlet is a ZF implementation of FIGlet
+ * @link http://www.figlet.org
  *
  * @category  Zend
  * @package   Zend_Text_Figlet
@@ -142,10 +143,8 @@ class Figlet
     protected $output;
 
     /**
-     * Instantiate the FIGlet with a specific font. If no font is given, the
-     * standard font is used. You can also supply multiple options via
-     * the $options variable, which can either be an array or an instance of
-     * Zend_Config.
+     * Instantiate the FIGlet with a specific options. If no options is given,
+     * standard options are used. That includes standard ZF font.
      *
      * @param FigletOptions $options Options for the output
      */
@@ -310,7 +309,7 @@ class Figlet
     }
 
     /**
-     * Init all variables before rendering
+     * Init variables before rendering
      */
     protected function init()
     {

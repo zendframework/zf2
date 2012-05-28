@@ -22,14 +22,29 @@ namespace Zend\Text\Figlet;
 class Font
 {
     /**
-     * Magic font file number
+     * FIGlet font file signature
      */
     const SIGNATURE = 'flf2';
 
+
+    /**
+     * Signature of the font file
+     * @var string
+     */
     protected $signature;
 
+    /**
+     * Hard blank character
+     *
+     * @var string
+     */
     protected $hardBlank;
 
+    /**
+     * Font parameters parsed from font header.
+     *
+     * @var array
+     */
     protected $params = array(
         'height' => null,
         'baseline' => null,
@@ -41,8 +56,18 @@ class Font
         'codetag_count' => null,
     );
 
+    /**
+     * Font comments
+     *
+     * @var string
+     */
     protected $comments;
 
+    /**
+     * Font character data. Array containing all characters of the current font.
+     *
+     * @var array
+     */
     protected $characterData = array();
 
     /**
@@ -89,7 +114,7 @@ class Font
      * Get single font parameter
      *
      * @param string $name
-     * @return integer
+     * @return int
      * @throws Exception\InvalidArgumentException
      */
     public function getParam($name)
@@ -112,7 +137,7 @@ class Font
     }
 
     /**
-     * Get hardblank value
+     * Get hard blank character
      *
      * @return string
      */
@@ -154,19 +179,9 @@ class Font
         return $this->fromString($contents);
     }
 
-
-
     /**
-     *
-     *
-     *           flf2a$ 6 5 20 15 3 0 143 229
-     *             |  | | | |  |  | |  |   |
-     *            /  /  | | |  |  | |  |   \
-     *   Signature  /  /  | |  |  | |   \   Codetag_Count
-     *     Hardblank  /  /  |  |  |  \   Full_Layout
-     *          Height  /   |  |   \  Print_Direction
-     *          Baseline   /    \   Comment_Lines
-     *           Max_Length      Old_Layout
+     * Load font from string.
+     * Parse header, comments and character data.
      *
      * @param string $string
      * @return Font
@@ -238,7 +253,7 @@ class Font
     }
 
     /**
-     * Parse line data for characters
+     * Parse line array for characters
      *
      * @param array $lines
      * @return bool|null
