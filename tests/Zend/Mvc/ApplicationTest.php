@@ -542,6 +542,7 @@ class ApplicationTest extends TestCase
     
     public function testRegisterViewHelpWithViewManager()
     {
+        $lastConfig = $this->serviceManager->get('Configuration');
         $config = new Config(array(
             'view_manager' => array(
                 'helper_map' => array(
@@ -554,8 +555,11 @@ class ApplicationTest extends TestCase
         $this->application->bootstrap();
         $viewManager = $this->serviceManager->get('ViewManager');
         $helperLoader = $viewManager->getHelperLoader();
+        
         $this->assertTrue($helperLoader->isLoaded('alias_helper_link'));
         $this->assertEquals('Zend\View\Helper\HeadLink', $helperLoader->load('alias_helper_link'));
+        
         $this->serviceManager->setInvokableClass('ViewManager', 'ZendTest\Mvc\TestAsset\MockViewManager');
+        $this->serviceManager->setInvokableClass('Configuration', $lastConfig);
     }
 }
