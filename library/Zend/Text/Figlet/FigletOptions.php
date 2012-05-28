@@ -104,6 +104,24 @@ class FigletOptions extends Options
     protected $smushOverride = self::SMO_NO;
 
     /**
+     * Get options as array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'align'             => $this->getAlign(),
+            'direction'         => $this->direction,
+            'font'              => $this->getFont(),
+            'handle_paragraphs' => $this->handleParagraphs,
+            'output_width'      => $this->outputWidth,
+            'smush_override'    => $this->getSmushOverride(),
+            'smush_mode'        => $this->getSmushMode(),
+        );
+    }
+
+    /**
      * Set a font to use. Parameter should be path to font file
      * or instance of Zend\Text\Figlet\Font
      *
