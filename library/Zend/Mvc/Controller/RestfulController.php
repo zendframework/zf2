@@ -77,7 +77,7 @@ abstract class RestfulController implements
     protected $event;
 
     /**
-     * @var EventCollection
+     * @var EventManagerInterface
      */
     protected $events;
 
@@ -148,11 +148,12 @@ abstract class RestfulController implements
      * @param  Request $request
      * @param  null|Response $response
      * @return mixed|Response
+     * @throws Exception\InvalidArgumentException
      */
     public function dispatch(Request $request, Response $response = null)
     {
         if (!$request instanceof HttpRequest) {
-            throw new \InvalidArgumentException('Expected an HTTP request');
+            throw new Exception\InvalidArgumentException('Expected an HTTP request');
         }
         $this->request = $request;
         if (!$response) {
@@ -279,7 +280,7 @@ abstract class RestfulController implements
         $events->setIdentifiers(array(
             'Zend\Stdlib\DispatchableInterface',
             __CLASS__,
-            get_class($this)
+            get_called_class()
         ));
         $this->events = $events;
         $this->attachDefaultListeners();
@@ -374,6 +375,7 @@ abstract class RestfulController implements
      *
      * @param  string|Broker $broker Plugin broker to load plugins
      * @return Zend\Loader\Pluggable
+     * @throws Exception\InvalidArgumentException
      */
     public function setBroker($broker)
     {
@@ -390,7 +392,7 @@ abstract class RestfulController implements
     /**
      * Get plugin instance
      *
-     * @param  string     $plugin  Name of plugin to return
+     * @param  string     $name    Name of plugin to return
      * @param  null|array $options Options to pass to plugin constructor (if not already instantiated)
      * @return mixed
      */
