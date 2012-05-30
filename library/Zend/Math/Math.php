@@ -40,31 +40,27 @@ class Math extends BigInteger
         if ($length <= 0) {
             return false;
         }
-        $rand = '';
         if (extension_loaded('openssl')) {
             $rand = openssl_random_pseudo_bytes($length, $secure);
-            if (!$secure) {
-                $rand = '';
+            if ($secure === true) {
+                return $rand;
             }
         }
         if (extension_loaded('mcrypt')) {
-            $rand ^= mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
-        }
-        if (file_exists('/dev/urandom')) {
-            $dev = fopen('/dev/urandom', 'r');
-            $rand ^= fread($dev, $length);
-            fclose($dev);
-        }
-        if (empty($rand)) {
-            if ($strong) {
-                throw new Exception\RuntimeException(
-                    'This PHP environment doesn\'t support secure random number generation. ' .
-                        'Please consider to install the OpenSSL and/or Mcrypt extensions'
-                );
+            $rand = mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
+            if ($rand !== false) {
+                return $rand;
             }
-            for ($i = 0; $i < $length; $i++) {
-                $rand .= chr(mt_rand(0, 255));
-            }
+        }
+        if ($strong) {
+            throw new Exception\RuntimeException(
+                'This PHP environment doesn\'t support secure random number generation. ' .
+                'Please consider to install the OpenSSL and/or Mcrypt extensions'
+            );
+        }
+        $rand = '';
+        for ($i = 0; $i < $length; $i++) {
+            $rand .= chr(mt_rand(0, 255));
         }
         return $rand;
     }
