@@ -30,7 +30,12 @@
 
 : ${BASEDIR:=$(dirname $0)}
 : ${PHPUNIT:="phpunit"}
-: ${PHPUNIT_OPTS:="-c $BASEDIR/phpunit.xml.dist"}
+: ${PHPUNIT_CONF:="$BASEDIR/phpunit.xml.dist"}
+if [ -e "$BASEDIR/phpunit.xml" ]
+then
+  PHPUNIT_CONF="$BASEDIR/phpunit.xml"
+fi
+: ${PHPUNIT_OPTS:="-c $PHPUNIT_CONF"}
 : ${PHPUNIT_GROUPS:=""}
 : ${RUN_AS_GROUPS:=false}
 : ${RESULT:=0}
@@ -54,9 +59,22 @@ while [ -n "$1" ] ; do
       then
         PHPUNIT_GROUPS=""
       else
+        # Add every component present in /library/
         for i in $(ls -d ${BASEDIR}/../library/Zend/*/)
         do
           PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS "}${BASEDIR}/Zend/$(basename $i)"
+        done
+
+        # Add individual test files present in /tests/Zend
+        for i in $(ls ${BASEDIR}/Zend/*Test.php)
+        do
+          PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS "}${BASEDIR}/Zend/$(basename $i)"
+        done
+
+        # Exclude files/directories excluded in phpunit.xml.dist or phpunit.xml (if available)
+        for i in $(grep "<exclude>.*</exclude>" $PHPUNIT_CONF | sed 's#.*<exclude>./Zend/\(.*\)</exclude>.*#\1#')
+        do
+          PHPUNIT_GROUPS=${PHPUNIT_GROUPS//${BASEDIR}\/Zend\/${i}/}
         done
       fi
       break ;;
@@ -86,18 +104,18 @@ done
 set -x
 if ${RUN_AS_GROUPS:=true}
 then
-    ${PHPUNIT} ${PHPUNIT_OPTS} ${PHPUNIT_COVERAGE} ${PHPUNIT_DB} \
-        ${PHPUNIT_GROUPS:+--group $PHPUNIT_GROUPS}
-    RESULT=$?
+  ${PHPUNIT} ${PHPUNIT_OPTS} ${PHPUNIT_COVERAGE} ${PHPUNIT_DB} \
+    ${PHPUNIT_GROUPS:+--group $PHPUNIT_GROUPS}
+  RESULT=$?
 else
-    # Replace commas with spaces and underscores with slashes
-    PHPUNIT_GROUPS=${PHPUNIT_GROUPS//,/ }
-    PHPUNIT_GROUPS=${PHPUNIT_GROUPS//_//}
-    for i in ${PHPUNIT_GROUPS}
-    do
-        ${PHPUNIT} ${PHPUNIT_OPTS} ${PHPUNIT_COVERAGE} ${PHPUNIT_DB} $i
-        RESULT=$(($RESULT || $?))
-    done
+  # Replace commas with spaces and underscores with slashes
+  PHPUNIT_GROUPS=${PHPUNIT_GROUPS//,/ }
+  PHPUNIT_GROUPS=${PHPUNIT_GROUPS//_/\/}
+  for i in ${PHPUNIT_GROUPS}
+  do
+    ${PHPUNIT} ${PHPUNIT_OPTS} ${PHPUNIT_COVERAGE} ${PHPUNIT_DB} $i
+    RESULT=$(($RESULT || $?))
+  done
 fi
 
 exit $RESULT
