@@ -490,4 +490,48 @@ class HeadScript extends Placeholder\Container\Standalone
         $data->source     = $content;
         return $data;
     }
+    
+    /**
+     * Returns an array of allowed optional attributes
+     * @return 	array 	Optional allowed attributes for script tag
+     */
+    public function getOptionalAttributes()
+    {
+    	return $this->_optionalAttributes;
+    }
+    
+    /**
+     * Set optional attributes for script tag as an array
+     * @param 	array 	$arrOptionalAttributes  	Optional allowed attributes for script tag
+     * @return  \Zend\View\Helper\HeadScript
+     */
+    public function setOptionalAttributes($arrOptionalAttributes)
+    {
+    	$this->_optionalAttributes = $arrOptionalAttributes;
+    	return $this;
+    }
+    
+    /**
+     * Add an optional attribute
+     * @param 	string	$strAttribute	Optional attribute
+     * @return 	\Zend\View\Helper\HeadScript
+     */
+    public function addOptionalAttribute($strAttribute)
+    {
+    	if(!in_array($strAttribute, $this->_optionalAttributes))
+    		$this->_optionalAttributes[] = $strAttribute;
+    	return $this;
+    }
+    
+    /**
+     * remove an optional attribute
+     * @param	string	$strAttribute	Optional attribute
+     * @return \Zend\View\Helper\HeadScript
+     */
+    public function removeOptionalAttribute($strAttribute)
+    {
+    	$this->_optionalAttributes = array_diff($this->_optionalAttributes, array($strAttribute));
+    	return $this;
+    }
+    
 }

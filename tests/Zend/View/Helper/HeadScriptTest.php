@@ -430,5 +430,56 @@ document.write(bar.strlen());');
 
         $this->assertEquals($expected, $test);
     }
+    
+    /**
+     * @feature/viewhelper-headscript-handle-optional-attributes
+     */
+    public function testGetOptionalAttribues()
+    {
+    	$arrOptionalAttributes = $this->helper->__invoke()->getOptionalAttributes();
+    	$this->assertTrue(is_array($arrOptionalAttributes));
+    }
+    
+    /**
+     * @feature/viewhelper-headscript-handle-optional-attributes
+     */
+    public function testSetOptionalAttributes()
+    {
+    	$arrOptionalAttributes = array(
+    		'clapton',
+    		'is',
+    		'god'	
+    	);
+    	$this->helper->__invoke()->setOptionalAttributes($arrOptionalAttributes);
+    	$arrReturnedOptionalAttributes = $this->helper->__invoke()->getOptionalAttributes();
+    	$this->assertTrue(is_array($arrReturnedOptionalAttributes));
+    	$this->assertCount(3, $arrReturnedOptionalAttributes);
+    }
+    
+    /**
+     * @feature/viewhelper-headscript-handle-optional-attributes
+     */
+    public function testAddOptionalAttribute()
+    {
+    	$strNewOptionalAttribute = 'wheels-of-fire';
+    	$this->helper->__invoke()->addOptionalAttribute($strNewOptionalAttribute);
+    	$arrReturnedOptionalAttributes = $this->helper->__invoke()->getOptionalAttributes();
+    	$this->assertTrue(is_array($arrReturnedOptionalAttributes));
+    	$this->assertCount(5, $arrReturnedOptionalAttributes);
+    	$this->assertContains($strNewOptionalAttribute, $arrReturnedOptionalAttributes);
+    }
+    
+    /**
+     * @feature/viewhelper-headscript-handle-optional-attributes
+     */
+    public function testRemoveOptionalAttribute()
+    {
+    	$strAttributeToRemove = 'charset';
+    	$this->helper->__invoke()->removeOptionalAttribute($strAttributeToRemove);
+    	$arrReturnedOptionalAttributes = $this->helper->__invoke()->getOptionalAttributes();
+    	$this->assertTrue(is_array($arrReturnedOptionalAttributes));
+    	$this->assertCount(3, $arrReturnedOptionalAttributes);
+    	$this->assertNotContains($strAttributeToRemove, $arrReturnedOptionalAttributes);
+    }
 }
 
