@@ -62,7 +62,7 @@ while [ -n "$1" ] ; do
         # Add every component present in /library/
         for i in $(ls -d ${BASEDIR}/../library/Zend/*/)
         do
-          PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS "}${BASEDIR}/Zend/$(basename $i)"
+          PHPUNIT_GROUPS="${PHPUNIT_GROUPS:+"$PHPUNIT_GROUPS "}${BASEDIR}/Zend/$(basename $i)/"
         done
 
         # Add individual test files present in /tests/Zend

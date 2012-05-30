@@ -2,13 +2,13 @@
     <testsuites>
         <testsuite name="Zend Framework Test Suite">
             <directory>./Zend</directory>
-            <exclude>./Zend/Amf</exclude>
-            <exclude>./Zend/Date</exclude>
-            <exclude>./Zend/Dojo</exclude>
-            <exclude>./Zend/Queue</exclude>
-            <exclude>./Zend/Service</exclude>
-            <exclude>./Zend/Test</exclude>
-            <exclude>./Zend/Wildfire</exclude>
+            <exclude>./Zend/Amf/</exclude>
+            <exclude>./Zend/Date/</exclude>
+            <exclude>./Zend/Dojo/</exclude>
+            <exclude>./Zend/Queue/</exclude>
+            <exclude>./Zend/Service/</exclude>
+            <exclude>./Zend/Test/</exclude>
+            <exclude>./Zend/Wildfire/</exclude>
         </testsuite>
     </testsuites>
 
