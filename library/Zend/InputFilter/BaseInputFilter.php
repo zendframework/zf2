@@ -152,45 +152,21 @@ class BaseInputFilter implements InputFilterInterface
         foreach ($inputs as $name) {
             $input = $this->inputs[$name];
 
-            if (!isset($this->data[$name])) {
-                // Not sure how to handle input filters in this case
-                if ($input instanceof InputFilterInterface) {
-                    if (!$input->isValid()) {
-                        $this->invalidInputs[$name] = $input;
-                        $valid = false;
-                        continue;
-                    }
-                    $this->validInputs[$name] = $input;
-                    continue;
-                }
-
-                // no matching value in data
+            if (!isset($this->data[$name]) or ($this->data[$name] == "")) {
                 // - test if input is required
-                // - test if input allows empty
                 if (!$input->isRequired()) {
                     $this->validInputs[$name] = $input;
                     continue;
                 }
-
+                // - test if input allows empty
                 if ($input->allowEmpty()) {
                     $this->validInputs[$name] = $input;
                     continue;
                 }
-
-                // How do we mark the input as invalid in this case?
-                // (for purposes of a validation error message)
-
-                // Mark validation as having failed
-                $this->invalidInputs[$name] = $input;
-                $valid = false;
-                if ($input->breakOnFailure()) {
-                    // We failed validation, and this input is marked to
-                    // break on failure
-                    return false;
-                }
-                continue;
+                // make sure we have a value (empty) for validation
+                $this->data[$name] = "";
             }
-
+            
             $value = $this->data[$name];
             if ($input instanceof InputFilterInterface) {
                 if (!$input->isValid()) {
