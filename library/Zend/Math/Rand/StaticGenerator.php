@@ -1,9 +1,23 @@
 <?php
-
+/**
+* Zend Framework (http://framework.zend.com/)
+*
+* @link http://github.com/zendframework/zf2 for the canonical source repository
+* @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+* @license http://framework.zend.com/license/new-bsd New BSD License
+* @package Zend_Math
+*/
 namespace Zend\Math\Rand;
 
-use Zend\Math\Rand\Generator;
-
+/**
+ * Random Number Generator (RNG)
+ *
+ * @category   Zend
+ * @package    Zend_Math
+ * @subpackage Rand
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
 class StaticGenerator
 {
     /**
@@ -27,8 +41,7 @@ class StaticGenerator
     /**
      * Generate random string of bytes of specified length
      *
-     * @static
-     * @param $length
+     * @param int $length
      * @return string
      */
     public static function getBytes($length)
@@ -37,7 +50,8 @@ class StaticGenerator
     }
 
     /**
-     * @static
+     * Generate random boolean
+     *
      * @return bool
      */
     public static function getBoolean()
@@ -46,7 +60,9 @@ class StaticGenerator
     }
 
     /**
-     * @static
+     * Generate a random integer within given range.
+     * Uses 0..PHP_INT_MAX if no range is given.
+     *
      * @param int $min
      * @param int $max
      * @return int
@@ -57,7 +73,8 @@ class StaticGenerator
     }
 
     /**
-     * @static
+     * Generate random float (0..1)
+     *
      * @return float
      */
     public static function getFloat()
@@ -66,7 +83,11 @@ class StaticGenerator
     }
 
     /**
-     * @static
+     * Generate a random string of specified length.
+     *
+     * Use supplied character list for generating the new string.
+     * If no list provided - use Base 64 alphabet.
+     *
      * @param int $length
      * @param string|null $charlist
      * @return string
@@ -75,5 +96,4 @@ class StaticGenerator
     {
         return static::getInstance()->getString($length, $charlist);
     }
-
 }

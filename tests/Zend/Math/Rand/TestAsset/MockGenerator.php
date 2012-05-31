@@ -8,17 +8,15 @@ class MockGenerator extends Rand\Generator
 {
     public function __construct($algo = 'sha512')
     {
-        // init entropy sources
         $this->initSources();
 
-        // create randomness pool
         $this->pool = '';
         $numSources = count($this->sources);
         $length     = (int) ceil(self::POOL_SIZE / $numSources);
 
         $i = 0;
         while (strlen($this->pool) < self::POOL_SIZE) {
-            /* @var $source Closure */
+            /* @var Closure $source */
             $source = $this->sources[$i];
             if ($s = $source($length)) {
                 $this->pool .= $s;

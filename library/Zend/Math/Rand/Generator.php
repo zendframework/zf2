@@ -1,26 +1,52 @@
 <?php
+/**
+* Zend Framework (http://framework.zend.com/)
+*
+* @link http://github.com/zendframework/zf2 for the canonical source repository
+* @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+* @license http://framework.zend.com/license/new-bsd New BSD License
+* @package Zend_Math
+*/
 
 namespace Zend\Math\Rand;
 
-use Zend\Math\Rand\Exception;
-
+/**
+ * Random Number Generator (RNG)
+ *
+ * @category   Zend
+ * @package    Zend_Math
+ * @subpackage Rand
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
 class Generator
 {
+    /**
+     * Size of randomness pool
+     */
     const POOL_SIZE          = 320;
+
+    /**
+     * Number of writes before mixing
+     */
     const WRITES_BEFORE_MIX  = 16;
 
     /**
+     * Entropy sources
+     *
      * @var array
      */
     protected $sources = array();
 
     /**
+     * Randomness pool
+     *
      * @var string
      */
     protected $pool;
 
     /**
-     * Randomness pool cursor position
+     * Current position of the pool cursor
      *
      * @var int
      */
@@ -28,12 +54,22 @@ class Generator
 
     /**
      * Pool writes counter
+     *
      * @var int
      */
     protected $poolWriteCount = 0;
 
     /**
+     * Pool mixing hashing algorithm
+     *
+     * @var string
+     */
+    protected $hashAlgo = 'sha512';
+
+    /**
      * Constructor
+     * Init entropy sources, create and fill the pool with initial random data,
+     * define hash algorithm for mixing function
      */
     public function __construct()
     {
@@ -47,7 +83,7 @@ class Generator
 
         $i = 0;
         while (strlen($this->pool) < self::POOL_SIZE) {
-            /* @var $source Closure */
+            /* @var Closure $source */
             $source = $this->sources[$i];
             if ($s = $source($length)) {
                 $this->pool .= $s;
@@ -57,7 +93,7 @@ class Generator
 
         $this->pool = substr($this->pool, 0, self::POOL_SIZE);
 
-        // define mixing hash algorithm
+        // randomly select mixing hash algorithm
         $this->hashAlgo = (mt_rand(0, 1) === 0) ? 'whirlpool' : 'sha512';
     }
 
@@ -66,12 +102,12 @@ class Generator
      *
      * @param int $length
      * @return string
-     * @throws Exception\InvalidArgumentException
+     * @throws Exception\DomainException
      */
     public function getBytes($length)
     {
         if ($length < 1 || $length > self::POOL_SIZE) {
-            throw new Exception\InvalidArgumentException(
+            throw new Exception\DomainException(
                 'Length should be between 1 and ' . self::POOL_SIZE
             );
         }
@@ -79,12 +115,14 @@ class Generator
         // collect entropy, and write to pool
         $size = (int) ceil($length / count($this->sources));
 
-        /* @var $source Closure */
+        /* @var Closure $source */
         foreach ($this->sources as $source) {
             if ($s = $source($size)) {
                 $this->writeToPool($s);
             }
         }
+
+        $this->pool = substr($this->pool, 0, self::POOL_SIZE);
 
         // read to buffer
         $rand = $this->readFromPool($length);
@@ -93,7 +131,7 @@ class Generator
         $this->pool = ~$this->pool;
         $this->mix();
 
-        // read to buffer
+        // XOR to buffer
         $rand ^= $this->readFromPool($length);
 
         return $rand;
@@ -107,28 +145,31 @@ class Generator
     public function getBoolean()
     {
         $byte = $this->getBytes(1);
-        return (ord($byte) + 1) % 2 ? true : false;
+        return (boolean) ((ord($byte) + 1) % 2);
     }
 
     /**
      * Generate a random integer within given range.
      * Uses 0..PHP_INT_MAX if no range is given
      *
-     * @param int $min
-     * @param int $max
+     * @param int $min The lowest value to return (default: 0)
+     * @param int $max The highest value to return (default: PHP_INT_MAX)
      * @return int
-     * @throws Exception\InvalidArgumentException
+     * @throws Exception\DomainException
      */
     public function getInteger($min = 0, $max = PHP_INT_MAX)
     {
-        $tmp = (int) max($max, $min);
-        $min = (int) min($max, $min);
-        $max = $tmp;
+        if ($min > $max) {
+            throw new Exception\DomainException(
+                'The min parameter must be lower than max parameter'
+            );
+        }
+
         $range = $max - $min;
         if ($range == 0) {
             return $max;
         } elseif ($range > PHP_INT_MAX || is_float($range)) {
-            throw new Exception\InvalidArgumentException('The supplied range is too big to generate');
+            throw new Exception\DomainException('The supplied range is too big to generate');
         }
 
         return (int) ($min + round($this->getFloat() * $range));
@@ -143,12 +184,12 @@ class Generator
     {
         /**
         * PHP uses double precision floating-point format (64-bit)
-        * 52-bits of significand precision, which is 6.5 bytes
+        * 52-bits of significand precision
         * we need to gather 7 bytes, and throw the last 4-bits away
         */
         $bytes = $this->getBytes(7);
-        $bytes[6] = $bytes[6] & chr(0x0f);
-        $bytes .= chr(0);
+        $bytes[6] = $bytes[6] & chr(0x0f); // clear bits
+        $bytes .= chr(0); // set 8th byte as NULL byte
 
         // unpack two unsigned long (32-bit) = 64-bits = 7 bytes + the NULL byte
         list(, $a, $b) = unpack('V2', $bytes);
@@ -157,12 +198,11 @@ class Generator
         return (float) ($a / pow(2.0, 52) + $b / pow(2.0, 20));
     }
 
-
     /**
      * Generate a random string of specified length.
      *
-     * Use supplied character list for generating the new string,
-     * or use Base 64 list if no character list provided.
+     * Use supplied character list for generating the new string.
+     * If no list provided - use Base 64 character set.
      *
      * @param int $length
      * @param null|string $charlist
@@ -178,27 +218,27 @@ class Generator
             return str_repeat($charlist, $length);
         } else if (empty($charlist)) {
             $numBytes = ceil($length * 0.75);
-            $bytes = $this->getBytes($numBytes);
+            $bytes    = $this->getBytes($numBytes);
             return substr(rtrim(base64_encode($bytes), '='), 0, $length);
         }
 
         $numBytes = ceil($length * ((log($listLen, 2) + 1) / 8));
-        $bytes = $this->getBytes($numBytes);
+        $bytes    = $this->getBytes($numBytes);
 
         // convert to destination base
         $srcBase = 256;
         $dstBase = $listLen;
 
-        $src = array_map('ord', str_split($bytes));
+        $src   = array_map('ord', str_split($bytes));
         $count = count($src);
-        $dst = array();
+        $dst   = array();
         while ($count) {
             $itMax = $count;
-            $rem = $count = $i = 0;
+            $rem   = $count = $i = 0;
             while ($i < $itMax) {
                 $dividend = $src[$i++] + $rem * $srcBase;
-                $rem = $dividend % $dstBase;
-                $res = ($dividend - $rem) / $dstBase;
+                $rem      = $dividend % $dstBase;
+                $res      = ($dividend - $rem) / $dstBase;
                 if ($count || $res) {
                     $src[$count++] = $res;
                 }
@@ -224,46 +264,53 @@ class Generator
         }
         // mcrypt extension
         if (extension_loaded('mcrypt')) {
-            $this->sources[] = function ($length) {
-                return mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
-            };
+            // PHP bug #55169
+            // @link https://bugs.php.net/bug.php?id=55169
+            if (strtoupper(substr(\PHP_OS, 0, 3)) !== 'WIN' || version_compare(\PHP_VERSION, '5.3.7') >= 0) {
+                $this->sources[] = function ($length) {
+                    $rand = mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
+                    if ($rand !== false && strlen($rand) === $length) {
+                        return $rand;
+                    }
+                    return false;
+                };
+            }
         }
-        // urandom device
+        // /dev/urandom
         if (is_readable('/dev/urandom')) {
             $this->sources[] = function ($length) {
-                $dev = fopen('/dev/urandom', 'rb');
+                $dev  = @fopen('/dev/urandom', 'rb');
                 $rand = fread($dev, $length);
                 fclose($dev);
-
                 return $rand;
             };
         }
         // mt_rand()
         $this->sources[] = function ($length) {
-            $result = '';
+            $rand = '';
             for ($i = 0; $i < $length; $i++) {
-                $result .= chr((mt_rand() ^ mt_rand()) % 256);
+                $rand .= chr((mt_rand() ^ mt_rand()) % 256);
             }
-            return $result;
+            return $rand;
         };
         // rand()
         $this->sources[] = function ($length) {
-            $pid = getmypid();
-            $result = '';
+            $seed = rand() ^ memory_get_usage();
+            $rand = '';
             for ($i = 0; $i < $length; $i++) {
-                $result .= chr((rand() ^ $pid) % 256);
+                $rand .= chr((rand() ^ $seed) % 256);
             }
-            return $result;
+            return $rand;
         };
-        // lcg
+        // LCG
         $this->sources[] = function ($length) {
-            $p1 = fmod(1000000 * lcg_value(), 0x7fffffff);
-            $result = '';
+            $seed = fmod(time() * getmypid(), 0x7FFFFFFF);
+            $rand = '';
             for ($i = 0; $i < $length; $i++) {
-                $p2 = fmod(1000000 * lcg_value(), 0x7fffffff);
-                $result .= chr(($p1 ^ $p2) % 256);
+                $p = fmod(1000000 * lcg_value(), 0x7FFFFFFF);
+                $rand .= chr(($seed ^ $p) % 256);
             }
-            return $result;
+            return $rand;
         };
 
         shuffle($this->sources);
@@ -281,7 +328,7 @@ class Generator
             $this->pool[$this->poolCursorPos] =
                 chr((ord($this->pool[$this->poolCursorPos]) + ord($bytes[$i])) % 256);
             $this->movePoolCursor();
-            ++$this->poolWriteCount;
+            $this->poolWriteCount++;
         }
         if ($this->poolWriteCount >= self::WRITES_BEFORE_MIX) {
             $this->poolWriteCount = 0;
@@ -339,5 +386,4 @@ class Generator
             $this->pool = substr_replace($this->pool, $block, $start, $blockSize);
         }
     }
-
 }

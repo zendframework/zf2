@@ -32,7 +32,7 @@ use ZendTest\Math\Rand\TestAsset\MockGenerator as MockRng;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Math
  */
-class MathTest extends \PHPUnit_Framework_TestCase
+class GeneratorTest extends \PHPUnit_Framework_TestCase
 {
     protected $mockBytes = array(
         'af08a55994f2c60deeada9855e1007300c9812fc0f6c92314a75cbbfa1390dfa',
@@ -45,12 +45,6 @@ class MathTest extends \PHPUnit_Framework_TestCase
         'b68eb6a0e21e2ea2be66429ddc1c65f2b93f3312522063dfec7eb6514dd9d2b2',
         '614cc7d80b0b4a1369835b6a8c3d78f0f40e575ce24696c23f1d4d689098f2c5',
         'a248c6edfd34e35f0beb26138188f71788ab12aebcf83e7051674acf3ab66c0f',
-        '739febb656ef727eedc1c2cc549314e35715286a9f40177ae994a91da0e15f49',
-        'c0ddca8c76e1eee2aa330308ecde14085f51aced9ac71a27f8ba4ffefab820e6',
-        'f53fbcce6dcc6ad2ee71e817922ee45bbeaee5c068e42d8e51b6a01d061be64a',
-        'e25c1a43e2055793b7d4e7e5e543bcaf4b84226c9d4759442352526401cff473',
-        '5eeefdea0158e07d2dfcbee379f5c3c6761828d5bdd8a73de0cc025299e78cfe',
-        'ec26791e69ddde32fb55d21241b9da5f816d4ce7678cb2a571575a3422506981',
     );
 
     public function testMockGetBytes()
@@ -61,18 +55,67 @@ class MathTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testMockGetBoolean()
+    {
+        $rng = new MockRng();
+        $this->assertTrue($rng->getBoolean() === false);
+    }
+
+    public function testMockGetLargeInteger()
+    {
+        $rng = new MockRng();
+        if (PHP_INT_SIZE > 4) {
+            $bits = 55;
+            $expected = 26954756327520936;
+        } else {
+            $bits = 30;
+            $expected = 803313314;
+        }
+
+        $int = $rng->getInteger(0, (int) pow(2, $bits));
+        $this->assertEquals($expected, $int);
+    }
+
+    public function testMockGetFloat()
+    {
+        $rng = new MockRng();
+        if (PHP_INT_SIZE > 4) {
+            $expected = 0.74814477744936;
+        } else {
+            $expected = 0.74814382377504;
+        }
+
+        $float = $rng->getFloat();
+        $this->assertEquals($expected, $float);
+    }
+
+    public function testMockGetString()
+    {
+        $rng = new MockRng();
+        $this->assertEquals('4948686628312547279701143550809217843364251093928536187337149389',
+                            $rng->getString(64, '0123456789'));
+    }
+
     public function testGetBytes()
     {
-        for ($length = 1; $length < 64; $length++) {
+        for ($length = 1; $length < 320; $length++) {
             $rand = Rng::getBytes($length);
             $this->assertTrue(!empty($rand));
             $this->assertEquals(strlen($rand), $length);
         }
     }
 
+    public function testGetBoolean()
+    {
+        for ($i = 0; $i < 100; $i++) {
+            $rand = Rng::getBoolean();
+            $this->assertTrue(is_bool($rand));
+        }
+    }
+
     public function testGetInteger()
     {
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $min = mt_rand(1, 10000);
             $max = $min + mt_rand(1, 10000);
             $rand = Rng::getInteger($min, $max);
@@ -82,7 +125,15 @@ class MathTest extends \PHPUnit_Framework_TestCase
 
     public function testGetFloat()
     {
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 100; $i++) {
+            $rand = Rng::getFloat();
+            $this->assertTrue(($rand >= 0) && ($rand <= 1));
+        }
+    }
+
+    public function testGetFloat32Bit()
+    {
+        for ($i = 0; $i < 100; $i++) {
             $rand = Rng::getFloat();
             $this->assertTrue(($rand >= 0) && ($rand <= 1));
         }
@@ -90,7 +141,7 @@ class MathTest extends \PHPUnit_Framework_TestCase
 
     public function testGetString()
     {
-        for ($length = 1; $length < 65; $length++) {
+        for ($length = 1; $length < 320; $length++) {
             $rand = Rng::getString($length, '0123456789abcdef');
             $this->assertEquals(strlen($rand), $length);
             $this->assertTrue(preg_match('#^[0-9a-f]+$#', $rand) === 1);
@@ -99,7 +150,7 @@ class MathTest extends \PHPUnit_Framework_TestCase
 
     public function testGetStringBase64()
     {
-        for ($length = 1; $length < 65; $length++) {
+        for ($length = 1; $length < 320; $length++) {
             $rand = Rng::getString($length);
             $this->assertEquals(strlen($rand), $length);
             $this->assertTrue(preg_match('#^[0-9a-zA-Z+/]+$#', $rand) === 1);
