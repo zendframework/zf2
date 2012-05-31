@@ -101,7 +101,6 @@ while [ -n "$1" ] ; do
   esac
 done
 
-set -x
 if ${RUN_AS_GROUPS:=true}
 then
   ${PHPUNIT} ${PHPUNIT_OPTS} ${PHPUNIT_COVERAGE} ${PHPUNIT_DB} \
@@ -113,6 +112,7 @@ else
   PHPUNIT_GROUPS=${PHPUNIT_GROUPS//_/\/}
   for i in ${PHPUNIT_GROUPS}
   do
+    echo "$i:"
     ${PHPUNIT} ${PHPUNIT_OPTS} ${PHPUNIT_COVERAGE} ${PHPUNIT_DB} $i
     RESULT=$(($RESULT || $?))
   done
