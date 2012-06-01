@@ -105,6 +105,14 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testBytesSizeFail()
+    {
+        $this->setExpectedException(
+          'Zend\Math\Rand\Exception\DomainException', 'should be between 1 and 320'
+        );
+        $rand = Rng::getBytes(330);
+    }
+
     public function testGetBoolean()
     {
         for ($i = 0; $i < 100; $i++) {
@@ -123,15 +131,15 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetFloat()
+    public function testIntegerRangeFail()
     {
-        for ($i = 0; $i < 100; $i++) {
-            $rand = Rng::getFloat();
-            $this->assertTrue(($rand >= 0) && ($rand <= 1));
-        }
+        $this->setExpectedException(
+          'Zend\Math\Rand\Exception\DomainException', 'min parameter must be lower'
+        );
+        $rand = Rng::getInteger(100, 0);
     }
 
-    public function testGetFloat32Bit()
+    public function testGetFloat()
     {
         for ($i = 0; $i < 100; $i++) {
             $rand = Rng::getFloat();
@@ -141,7 +149,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetString()
     {
-        for ($length = 1; $length < 320; $length++) {
+        for ($length = 1; $length < 330; $length++) {
             $rand = Rng::getString($length, '0123456789abcdef');
             $this->assertEquals(strlen($rand), $length);
             $this->assertTrue(preg_match('#^[0-9a-f]+$#', $rand) === 1);
@@ -150,7 +158,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetStringBase64()
     {
-        for ($length = 1; $length < 320; $length++) {
+        for ($length = 1; $length < 330; $length++) {
             $rand = Rng::getString($length);
             $this->assertEquals(strlen($rand), $length);
             $this->assertTrue(preg_match('#^[0-9a-zA-Z+/]+$#', $rand) === 1);

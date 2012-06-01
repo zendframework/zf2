@@ -60,7 +60,7 @@ class Generator
     protected $poolWriteCount = 0;
 
     /**
-     * Hashing algorithms for mixing
+     * Hashing algorithms and their respective digest sizes
      *
      * @var string
      */
@@ -286,7 +286,7 @@ class Generator
         if (extension_loaded('mcrypt')) {
             // PHP bug #55169
             // @link https://bugs.php.net/bug.php?id=55169
-            if (strtoupper(substr(\PHP_OS, 0, 3)) !== 'WIN' || version_compare(\PHP_VERSION, '5.3.7') >= 0) {
+            if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' || version_compare(PHP_VERSION, '5.3.7') >= 0) {
                 $this->sources[] = function ($length) {
                     $rand = mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
                     if ($rand !== false && strlen($rand) === $length) {
