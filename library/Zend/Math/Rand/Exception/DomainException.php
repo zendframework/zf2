@@ -20,7 +20,7 @@ namespace Zend\Math\Rand\Exception;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class DomainException
-    extends RuntimeException
+    extends \DomainException
     implements ExceptionInterface
 {
 }

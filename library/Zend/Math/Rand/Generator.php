@@ -60,11 +60,22 @@ class Generator
     protected $poolWriteCount = 0;
 
     /**
-     * Pool mixing hashing algorithm
+     * Hashing algorithms for mixing
      *
      * @var string
      */
-    protected $hashAlgo = 'sha512';
+    protected $hashAlgos = array(
+        'sha512'    => 64,
+        'whirlpool' => 64,
+        'ripemd160' => 20
+    );
+
+    /**
+     * Current mixing hash algorithm
+     *
+     * @var string
+     */
+    protected $mixingHashAlgo;
 
     /**
      * Constructor
@@ -90,11 +101,10 @@ class Generator
             }
             $i = (++$i % $numSources);
         }
-
         $this->pool = substr($this->pool, 0, self::POOL_SIZE);
 
         // randomly select mixing hash algorithm
-        $this->hashAlgo = (mt_rand(0, 1) === 0) ? 'whirlpool' : 'sha512';
+        $this->mixingHashAlgo  = array_rand($this->hashAlgos);
     }
 
     /**
@@ -122,12 +132,10 @@ class Generator
             }
         }
 
-        $this->pool = substr($this->pool, 0, self::POOL_SIZE);
-
         // read to buffer
         $rand = $this->readFromPool($length);
 
-        // invert and mix pool
+        // invert and mix the pool
         $this->pool = ~$this->pool;
         $this->mix();
 
@@ -223,7 +231,19 @@ class Generator
         }
 
         $numBytes = ceil($length * ((log($listLen, 2) + 1) / 8));
-        $bytes    = $this->getBytes($numBytes);
+
+        // allow string length greater than pool size
+        if ($numBytes > self::POOL_SIZE) {
+            $num = floor($numBytes / self::POOL_SIZE);
+            $rem = $numBytes % self::POOL_SIZE;
+            $bytes = '';
+            for ($i = 0; $i < $num; $i++) {
+                $bytes .= $this->getBytes(self::POOL_SIZE);
+            }
+            $bytes .= $this->getBytes($rem);
+        }  else {
+            $bytes = $this->getBytes($numBytes);
+        }
 
         // convert to destination base
         $srcBase = 256;
@@ -307,8 +327,8 @@ class Generator
             $seed = fmod(time() * getmypid(), 0x7FFFFFFF);
             $rand = '';
             for ($i = 0; $i < $length; $i++) {
-                $p = fmod(1000000 * lcg_value(), 0x7FFFFFFF);
-                $rand .= chr(($seed ^ $p) % 256);
+                $r = fmod(1000000 * lcg_value(), 0x7FFFFFFF);
+                $rand .= chr(($r ^ $seed) % 256);
             }
             return $rand;
         };
@@ -317,7 +337,7 @@ class Generator
     }
 
     /**
-     * Write bytes to pool
+     * Write bytes to pool using mod 256 addition
      *
      * @param string $bytes
      */
@@ -331,8 +351,8 @@ class Generator
             $this->poolWriteCount++;
         }
         if ($this->poolWriteCount >= self::WRITES_BEFORE_MIX) {
-            $this->poolWriteCount = 0;
             $this->mix();
+            $this->poolWriteCount = 0;
         }
     }
 
@@ -369,20 +389,12 @@ class Generator
      */
     protected function mix()
     {
-        $blockSize = 64;
-
-        // this should not happen because pool has fixed size
-        $r = self::POOL_SIZE % $blockSize;
-        if ($r !== 0) {
-            $this->pool = str_pad($this->pool, ($blockSize - $r), chr(0));
-        }
-
+        $blockSize = $this->hashAlgos[$this->mixingHashAlgo];
         $numBlocks = self::POOL_SIZE / $blockSize;
-
         for ($i = 0; $i < $numBlocks; $i++) {
-            $start = $i * $blockSize;
-            $block = substr($this->pool, $start, $blockSize);
-            $block ^= hash($this->hashAlgo, $this->pool, true);
+            $start      = $i * $blockSize;
+            $block      = substr($this->pool, $start, $blockSize);
+            $block     ^= hash($this->mixingHashAlgo, $this->pool, true);
             $this->pool = substr_replace($this->pool, $block, $start, $blockSize);
         }
     }
