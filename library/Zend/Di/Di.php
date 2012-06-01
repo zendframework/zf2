@@ -459,12 +459,13 @@ class Di implements DependencyInjectionInterface
 
         foreach ($injectionMethodParameters as $fqParamPos => $info) {
             list($name, $type, $isRequired) = $info;
-
+			
             $fqParamName = substr_replace($fqParamPos, ':' . $info[0], strrpos($fqParamPos, ':'));
 
+						
+			
             // PRIORITY 1 - consult user provided parameters
             if (isset($callTimeUserParams[$fqParamPos]) || isset($callTimeUserParams[$name])) {
-
                 if (isset($callTimeUserParams[$fqParamPos])) {
                     $callTimeCurValue =& $callTimeUserParams[$fqParamPos];
                 } elseif (isset($callTimeUserParams[$fqParamName])) {
