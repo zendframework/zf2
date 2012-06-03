@@ -270,7 +270,7 @@ class PluginBroker implements Broker, ServiceLocatorAwareInterface
     {
         $locator = $this->getServiceLocator();
         if ($locator) {
-            $instance->setServiceLocator($this->locator);
+            $instance->setServiceLocator($locator);
         }
     }
 
