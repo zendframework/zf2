@@ -101,12 +101,11 @@ class FeedStrategy implements ListenerAggregateInterface
 
         if ($model instanceof Model\FeedModel) {
             // FeedModel found, depending on the model's feed we set the 
-			// rendering type:
-			$feed = $model->getFeed();
-			if ( $feed !== null )
-			{
-				$this->renderer->setFeedType( $feed->getType() );
-			}
+            // rendering type:
+            $feed = $model->getFeed();
+            if ( $feed !== null ) {
+                $this->renderer->setFeedType( $feed->getType() );
+            }
             return $this->renderer;
         }
 
