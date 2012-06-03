@@ -290,4 +290,16 @@ class PluginBrokerTest extends \PHPUnit_Framework_TestCase
         $test = $this->broker->load('foo');
         $this->assertSame($plugin, $test);
     }
+
+    public function testBrokerInjectsLocatorToLocatorAwareInstance()
+    {
+        $locator = new TestAsset\ServiceLocator();
+        $this->broker->setServiceLocator($locator);
+
+        $loader = $this->broker->getClassLoader();
+        $loader->registerPlugin('sample', 'ZendTest\Loader\TestAsset\SampleLocatorAwarePlugin');
+
+        $test = $this->broker->load('sample');
+        $this->assertSame($locator, $test->getServiceLocator());
+    }
 }

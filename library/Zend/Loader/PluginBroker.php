@@ -62,7 +62,7 @@ class PluginBroker implements Broker, ServiceLocatorAwareInterface
     protected $validator;
 
     /**
-     * @var Zend\Di\LocatorInterface
+     * @var \Zend\ServiceManager\ServiceManager
      */
     protected $locator;
 
@@ -252,8 +252,26 @@ class PluginBroker implements Broker, ServiceLocatorAwareInterface
         if ($this->getRegisterPluginsOnLoad()) {
             $this->register($pluginName, $instance);
         }
-        
+
+        if ($instance instanceof ServiceLocatorAwareInterface) {
+            $this->injectServiceLocator($instance);
+        }
+
         return $instance;
+    }
+
+    /**
+     * Injects this broker's ServiceLocator instance into the passed
+     * ServiceLocatorAwareInterface
+     *
+     * @param ServiceLocatorAwareInterface $instance
+     */
+    public function injectServiceLocator(ServiceLocatorAwareInterface $instance)
+    {
+        $locator = $this->getServiceLocator();
+        if ($locator) {
+            $instance->setServiceLocator($this->locator);
+        }
     }
 
     /**
