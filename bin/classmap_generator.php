@@ -63,7 +63,7 @@ $rules = array(
 try {
     $opts = new Zend\Console\Getopt($rules);
     $opts->parse();
-} catch (Zend\Console\Getopt\Exception $e) {
+} catch (Zend\Console\Exception\ExceptionInterface $e) {
     echo $e->getUsageMessage();
     exit(2);
 }
