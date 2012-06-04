@@ -46,6 +46,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             $routeMatch  = $application->getMvcEvent()->getRouteMatch();
             $pages       = $this->getPagesFromConfig($configuration['navigation'][$this->getName()]);
 
+            $urlHelper->setRouteMatch($routeMatch);
             $this->pages = $this->injectComponents($pages, $routeMatch, $urlHelper);
         }
         return $this->pages;
