@@ -640,4 +640,19 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $b = $di->get('b_alias');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\SetterInjection\A', $b->a);
     }
+	
+	public function testDiWillInjectClassnameAsString() 
+	{
+		$di = new Di;
+
+	    $classDef = new Definition\ClassDefinition('ZendTest\Di\TestAsset\SetterInjection\BwithoutTypeHint');
+        $classDef->addMethod('setA', true);
+        $classDef->addMethodParameter('setA', 'a', array('type' => false, 'required' => true));
+		$di->definitions()->addDefinition($classDef, false);
+		
+		$b = new TestAsset\SetterInjection\BwithoutTypeHint;
+        $di->injectDependencies($b, array('a' => 'ZendTest\Di\TestAsset\SetterInjection\A'));
+		
+		$this->assertSame($b->a,'ZendTest\Di\TestAsset\SetterInjection\A');
+	}
 }
