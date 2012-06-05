@@ -289,13 +289,14 @@ class Di implements DependencyInjectionInterface
                     if ($objectsToInject) {
                         foreach ($objectsToInject as $objectToInject) {
                             foreach ($injectionMethods as $injectionMethod => $methodIsRequired) {
-                                $methodParams = $definitions->getMethodParameters($instanceClass, $injectionMethod);
-                                if ($methodParams) {
-                                    foreach ($methodParams as $methodParam) {
-                                        if (get_class($objectToInject) == $methodParam[1] || $this->isSubclassOf(get_class($objectToInject), $methodParam[1])) {
-                                            $this->resolveAndCallInjectionMethodForInstance($instance, $injectionMethod, array($methodParam[0] => $objectToInject), $instanceAlias, true, get_class($instance));
-                                            continue 3;
-                                        }
+                                if ($this->handleObjectInjectionForInstance($instance, $objectToInject, $instanceClass, $injectionMethod, $instanceAlias)) {
+                                    continue 2;
+                                }
+                            }
+                            foreach ($supertypeInjectionMethods as $supertype => $supertypeInjectionMethod) {
+                                foreach ($supertypeInjectionMethod as $injectionMethod => $methodIsRequired) {
+                                    if ($this->handleObjectInjectionForInstance($instance, $objectToInject, $supertype, $injectionMethod, $instanceAlias)) {
+                                        continue 2;
                                     }
                                 }
                             }
@@ -309,6 +310,20 @@ class Di implements DependencyInjectionInterface
                 }
             }
         }
+    }
+
+    protected function handleObjectInjectionForInstance($instance, $objectToInject, $injectionMethodClass, $injectionMethod, $instanceAlias)
+    {
+        $methodParams = $this->definitions->getMethodParameters($injectionMethodClass, $injectionMethod);
+        if ($methodParams) {
+            foreach ($methodParams as $methodParam) {
+                if (get_class($objectToInject) == $methodParam[1] || $this->isSubclassOf(get_class($objectToInject), $methodParam[1])) {
+                    $this->resolveAndCallInjectionMethodForInstance($instance, $injectionMethod, array($methodParam[0] => $objectToInject), $instanceAlias, true, $injectionMethodClass);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
