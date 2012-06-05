@@ -109,24 +109,54 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
 
     /**
      * Verify if the bucket name is valid
+     * For reference: http://docs.amazonwebservices.com/AmazonS3/latest/dev/BucketRestrictions.html
      *
      * @param string $bucket
      * @return boolean
      */
     public function _validBucketName($bucket)
     {
-        $len = strlen($bucket);
-        if ($len < 3 || $len > 255) {
-            throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" must be between 3 and 255 characters long");
+        
+        //Labels must not be empty and should start and end with letter or number (no dashes)
+        $labelEmpty = false;
+        $labelDash  = false;
+        $labels     = explode('.', $bucket);
+        foreach ($labels as $label) {
+            if (empty($label)) {
+                $labelEmpty = true;
+                break;
+            }
+
+            if ($label[0] == '-' || $label[strlen($label)-1] == '-') {
+                $labelDash = true;
+                break;
+            }
         }
 
-        if (preg_match('/[^a-z0-9\._-]/', $bucket)) {
+        //Label name length
+        $len = strlen($bucket);
+        if ($len < 3 || $len > 63) {
+            throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" must be between 3 and 63 characters long");
+        }
+
+        //No Capital letters or underscores
+        if (preg_match('/[^a-z0-9\.-]/', $bucket)) {
             throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" contains invalid characters");
         }
 
+        //IP Address
         if (preg_match('/(\d){1,3}\.(\d){1,3}\.(\d){1,3}\.(\d){1,3}/', $bucket)) {
             throw new Exception\InvalidArgumentException("Bucket name \"$bucket\" cannot be an IP address");
         }
+
+        if ($labelEmpty) {
+            throw new Exception\InvalidArgumentException("Bucket labels in \"$bucket\" must not be empty");
+        }
+        
+        if ($labelDash) {
+            throw new Exception\InvalidArgumentException("Bucket labels in \"$bucket\" must start and end with a letter or a number");
+        }
+        
         return true;
     }
 
@@ -608,13 +638,14 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
      */
     public function _makeRequest($method, $path='', $params=null, $headers=array(), $data=null)
     {
-        $retry_count = 0;
+        $retry_count         = 0;
+        $this->_lastResponse = null;
 
         if (!is_array($headers)) {
             $headers = array($headers);
         }
 
-        $headers['Date'] = gmdate(DATE_RFC1123, time());
+        $headers['Date'] = $this->getRequestDate();  //Helps with testing the signature
 
         if(is_resource($data) && $method != 'PUT') {
             throw new Exception\InvalidArgumentException("Only PUT request supports stream data");
@@ -654,7 +685,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             $hasContentType = true;
             $client->setRawBody($data);
         }
-
+        
         $client->setUri($endpoint);
         $client->setMethod($method);
         
@@ -670,17 +701,10 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             $client->setParameterGet($params);
         }
         
-        if (($method == 'PUT') && ($data !== null)) {
-            if (!isset($headers['Content-type'])) {
-                $headers['Content-type'] = self::getMimeType($path);
-            }
-            $client->setRawBody($data);
-        }
-
         do {
-            $retry         = false;
-            $response      = $client->send();
-            $response_code = $response->getStatusCode();
+            $retry                = false;
+            $this->_lastResponse  = $client->send();
+            $response_code        = $this->_lastResponse->getStatusCode();
 
             // Some 5xx errors are expected, so retry automatically
             if ($response_code >= 500 && $response_code < 600 && $retry_count <= 5) {
@@ -695,7 +719,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             }
         } while ($retry);
 
-        return $response;
+        return $this->_lastResponse;
     }
 
     /**
@@ -754,7 +778,13 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
             }
         }
 
-        $sig_str .= '/'.parse_url($path, PHP_URL_PATH);
+        //US General bucket names must always be lowercased for the signature
+        $urlPath = parse_url($path, PHP_URL_PATH);
+        $urlPathParts = explode('/', $urlPath);
+        if (!empty($urlPathParts[0]))
+            $urlPathParts[0] = strtolower($urlPathParts[0]);
+        
+        $sig_str .= '/'.implode('/', $urlPathParts);
         if (strpos($path, '?location') !== false) {
             $sig_str .= '?location';
         }
@@ -767,7 +797,7 @@ class S3 extends \Zend\Service\Amazon\AbstractAmazon
 
         $signature = base64_encode(Hmac::compute($this->_getSecretKey(), 'sha1', utf8_encode($sig_str), Hmac::BINARY));
         $headers['Authorization'] = 'AWS '.$this->_getAccessKey().':'.$signature;
-
+        
         return $headers;
     }
 

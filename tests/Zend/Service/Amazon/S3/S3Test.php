@@ -22,6 +22,7 @@
 namespace ZendTest\Service\Amazon\S3;
 
 use Zend\Service\Amazon\S3\S3;
+use Zend\Date\Date;
 
 /**
  * @category   Zend
@@ -50,6 +51,13 @@ class S3Test extends \PHPUnit_Framework_TestCase
     protected $httpClient;
 
     /**
+     * Uri Http stub
+     *
+     * @var \Zend\Uri\Http
+     */
+    protected $uriHttp;
+    
+    /**
      * Http Response stub
      *
      * @var \Zend\Http\Response
@@ -63,6 +71,7 @@ class S3Test extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        
         $accessKey = 'accessKey';
         $secretKey = 'secretKey';
 
@@ -70,11 +79,20 @@ class S3Test extends \PHPUnit_Framework_TestCase
         $this->httpClient = $this->getMockBuilder('Zend\Http\Client')->getMock();
         // Create a stub for Http response for be used later.
         $this->httpResponse = $this->getMockBuilder('Zend\Http\Response')->getMock();
-
+        // Create a stub for Uri\Http for later.
+        $this->uriHttp = $this->getMockBuilder('Zend\Uri\Http')->getMock();
+        
+        $this->uriHttp->expects($this->any())
+                      ->method('isValid')
+                      ->will($this->returnValue(true));
+        
+        
         // Create a S3 instance
         $this->amazon  = new S3($accessKey, $secretKey);
         // Inject the stub into the application.
         $this->amazon->setHttpClient($this->httpClient);
+        // Inject the stub into the application.
+        $this->amazon->setEndpoint($this->uriHttp);
     }
 
     /**
@@ -122,4 +140,153 @@ BODY;
 
         $this->assertEquals($expected, $buckets);
     }
+    
+    /**
+     * Test create bucket
+     *
+     * @return void
+     */
+    public function testCreateBuckets()
+    {         
+        //Valid bucket name
+        $bucket   = 'iamavalidbucket';
+        $location = '';
+        $requestDate = new Date();
+        $requestDate->set('Tue, 15 May 2012 15:18:31 +0000', Date::RFC_1123);
+        
+        $this->amazon->setRequestDate($requestDate);
+        $this->amazon->setCurrentKeys('AKIAIDCZ2WXN6NNB7YZA', 'sagA0Lge8R+ifORcyb6Z/qVbmtimFCUczvh51Jq8'); //Fake keys
+        
+        /**
+         * Check of request inside _makeRequest
+         * 
+         */
+        $this->uriHttp->expects($this->once())
+            ->method('getHost')
+            ->with()
+            ->will($this->returnValue('s3.amazonaws.com'));
+         
+        $this->uriHttp->expects($this->once())
+            ->method('setHost')
+            ->with('iamavalidbucket.s3.amazonaws.com');
+
+        $this->uriHttp->expects($this->once())
+            ->method('setPath')
+            ->with('/');
+                 
+        $this->httpClient->expects($this->once())
+             ->method('setUri')
+            ->with($this->uriHttp);  
+        
+        $this->httpClient->expects($this->once())
+            ->method('setMethod')
+            ->with('PUT');
+        
+        $this->httpClient->expects($this->once())
+            ->method('setHeaders')
+            ->with(array(
+                    "Date"          => "Tue, 15 May 2012 15:18:31 +0000",
+                    "Content-Type"  => "application/xml",
+                    "Authorization" => "AWS AKIAIDCZ2WXN6NNB7YZA:Y+T4nZxI1wBi1Yn1BMnOK9CDiOM=",
+                    ));
+         
+        /**
+         * Fake response inside _makeRequest
+         *
+         */           
+        // Http Response results
+        $this->httpResponse->expects($this->any())
+              ->method('getStatusCode')
+              ->will($this->returnValue(200));
+            
+        // Expects to be called only once the method send() then return a Http Response.
+        $this->httpClient->expects($this->once())
+            ->method('send')
+            ->will($this->returnValue($this->httpResponse));
+
+        $response = $this->amazon->createBucket($bucket, $location);
+    
+        $this->assertTrue($response);
+        
+    }
+
+    
+    /**
+     * Test valid bucket name
+     *
+     * @return void
+     */
+    public function testValidBucketName()
+    {
+   
+        $this->assertTrue($this->amazon->_validBucketName('iam.avalid.1bucket-name.endingwithnumber9'));        
+    }
+
+    /**
+     * Test invalid bucket name (name too short)
+     *
+     * @return void
+     */
+    public function testBucketNameShort()
+    {
+        $this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+        $this->amazon->_validBucketName('ia');
+    }
+    
+    /**
+     * Test invalid bucket name (name too long)
+     *
+     * @return void
+     */
+    public function testBucketNameLong()
+    {
+        $this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+        $this->amazon->_validBucketName('iam.aninvalid.bucketname.because.iam.way.tooooooooooooooooo.long');
+    }
+    
+
+    /**
+     * Test invalid bucket name (capital letters)
+     *
+     * @return void
+     */
+    public function testBucketNameCapitalLetter()
+    {
+        $this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+        $this->amazon->_validBucketName('iam.anInvalid.bucketname');
+    }
+
+    /**
+     * Test invalid bucket name (ip address)
+     *
+     * @return void
+     */
+    public function testBucketNameIpAddress()
+    {
+        $this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+        $this->amazon->_validBucketName('1.0.255.90');
+    }
+    
+    /**
+     * Test invalid bucket name (empty label)
+     *
+     * @return void
+     */
+    public function testBucketNameLabelEmtpy()
+    {
+        $this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+        $this->amazon->_validBucketName('iam.aninvalid..empty.bucketname');
+    }
+    
+    /**
+     * Test invalid bucket name (label starting with dash)
+     *
+     * @return void
+     */
+    public function testBucketNameLabelDash()
+    {
+        $this->setExpectedException('\Zend\Service\Amazon\S3\Exception\InvalidArgumentException');
+        $this->amazon->_validBucketName('iam.aninvalid.-bucketname');
+    }
+    
 }
