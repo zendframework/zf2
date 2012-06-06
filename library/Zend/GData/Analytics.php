@@ -51,7 +51,7 @@ class Analytics extends Gdata
         $this->registerPackage('Zend\Gdata\Analytics');
         $this->registerPackage('Zend\Gdata\Analytics\Extension');
         parent::__construct($client, $applicationId);
-        $this->_httpClient->setParameterPost('service', self::AUTH_SERVICE_NAME);
+        $this->_httpClient->setParameterPost(array('service' => self::AUTH_SERVICE_NAME));
     }
 
     /**
@@ -88,8 +88,8 @@ class Analytics extends Gdata
      * 
      * @return Zend_Gdata_Analytics_DataQuery
      */
-    public function newDataQuery($profileId=null)
+    public function newDataQuery()
     {
-    	return new \Zend\Gdata\Analytics\DataQuery($profileId);
+    	return new \Zend\Gdata\Analytics\DataQuery();
     }
 }
