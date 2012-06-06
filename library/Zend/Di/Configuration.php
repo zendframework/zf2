@@ -58,9 +58,9 @@ class Configuration
                     if (isset($definitionData['enabled']) && !$definitionData['enabled']) {
                         // Remove runtime from definition list if not enabled
                         $definitions = array();
-                        foreach ($di->definitions() as $definition) {
-                            if (!$definition instanceof \Zend\Di\Definition\RuntimeDefinition) {
-                                $definitions[] = $definition;
+                        foreach ($di->definitions() as $currentDefinition) {
+                            if (!$currentDefinition instanceof \Zend\Di\Definition\RuntimeDefinition) {
+                                $definitions[] = $currentDefinition;
                             }
                         }
                         $definitions = new DefinitionList($definitions);
