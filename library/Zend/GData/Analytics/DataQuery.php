@@ -328,13 +328,20 @@ class DataQuery extends \Zend\GData\Query
     }
     
     /**
-     * @deprecated
-     * @param string $value
+     * @return array
+     */
+    public function getFilters()
+    {
+        return $this->_filters;
+    }
+    
+    /**
      * @return Zend\Gdata\Analytics\DataQuery
      */
-    public function setFilter($value)
+    public function clearFilters()
     {
-        return $this->addFilter($value);
+        $this->_filters = array();
+        return $this;
     }
     
     /**

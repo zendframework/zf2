@@ -34,7 +34,8 @@ use Zend\GData\Analytics;
  */
 class AccountFeedTest extends \PHPUnit_Framework_TestCase
 {
-
+    public $accountFeed;
+    
     public function setUp()
     {
         $this->accountFeed = new Analytics\AccountFeed(
@@ -45,9 +46,15 @@ class AccountFeedTest extends \PHPUnit_Framework_TestCase
     
     public function testAccountFeed()
     {
-        $this->assertEquals($this->accountFeed->count(), 3);
+        $this->assertTrue($this->accountFeed->count() == 3);
         foreach ($this->accountFeed->entries as $entry) {
             $this->assertTrue($entry instanceof Analytics\AccountEntry);
         }
+    }
+    
+    public function testSpecificAccountEntry()
+    {
+        $profileId = $this->accountFeed[2]->profileId;
+        $this->assertEquals("$profileId", 11380025);
     }
 }
