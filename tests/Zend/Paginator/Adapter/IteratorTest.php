@@ -86,14 +86,6 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(101, $this->_adapter->count());
     }
 
-    public function testThrowsExceptionIfNotCountable()
-    {
-        $iterator = new \LimitIterator(new \ArrayIterator(range(1, 101)));
-
-        $this->setExpectedException('Zend\Paginator\Adapter\Exception\InvalidArgumentException', 'Iterator must implement Countable');
-        new Adapter\Iterator($iterator);
-    }
-
     /**
      * @group ZF-4151
      */
