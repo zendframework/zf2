@@ -305,8 +305,21 @@ class Smtp implements TransportInterface, Pluggable
     {
         $headers = new Headers();
         foreach ($message->headers() as $header) {
-            if ('Bcc' == $header->getFieldName()) {
-                continue;
+            switch ($header->getFieldName()) {
+                case 'To':
+                    if (0 == $header->getAddressList()->count()) {
+                        continue 2;
+                    }
+                    break;
+                case 'Cc':
+                    if (0 == $header->getAddressList()->count()) {
+                        continue 2;
+                    }
+                    break;
+                case 'Bcc':
+                    continue 2;
+                    // break omitted
+                default:
             }
             $headers->addHeader($header);
         }
