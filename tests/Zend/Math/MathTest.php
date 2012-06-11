@@ -35,7 +35,7 @@ class MathTest extends \PHPUnit_Framework_TestCase
 {
     public function testRandBytes()
     {
-        for ($length=1; $length<64; $length++) {
+        for ($length=1; $length<4096; $length++) {
             $rand = Math::randBytes($length);
             $this->assertTrue(!empty($rand));
             $this->assertEquals(strlen($rand), $length);
@@ -44,9 +44,9 @@ class MathTest extends \PHPUnit_Framework_TestCase
        
     public function testRand()
     {
-        for ($i=0; $i<100; $i++) {
-            $min = mt_rand(1,10000);
-            $max = $min + mt_rand(1,10000);
+        for ($i=0; $i<10000; $i++) {
+            $min = mt_rand(0,10000);
+            $max = $min + mt_rand(0,10000);
             $rand = Math::rand($min, $max);
             $this->assertTrue(($rand >= $min) && ($rand <= $max));
         }

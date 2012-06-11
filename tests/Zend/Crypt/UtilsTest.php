@@ -13,21 +13,34 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Loader
+ * @package    Zend_Crypt
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
+namespace ZendTest\Crypt;
+
+use Zend\Crypt\Utils;
+
 /**
- * Empty class that is used in unit testing by ZendTest::testLoadClassValid()
- *
+ * Outside the Internal Function tests, tests do not distinguish between hash and mhash
+ * when available. All tests use Hashing algorithms both extensions implement.
+ */
+
+/**
  * @category   Zend
- * @package    Zend_Loader
+ * @package    Zend_Crypt
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_Crypt
  */
-class Class1_Subclass2
+class UtilsTest extends \PHPUnit_Framework_TestCase
 {
+    public function testCompareStringsBasic()
+    {
+        $this->assertTrue(Utils::compareStrings('test', 'test'));
+        $this->assertFalse(Utils::compareStrings('test', 'Test'));
+    }
 }

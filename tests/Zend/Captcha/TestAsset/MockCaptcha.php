@@ -13,18 +13,59 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Loader
- * @subpackage UnitTests
+ * @package    Zend_Captcha
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
+namespace ZendTest\Captcha\TestAsset;
+
+use Zend\Captcha\AdapterInterface;
+
 /**
- * Empty file that is used in unit testing by ZendTest::testLoadClassNonexistent()
- *
  * @category   Zend
- * @package    Zend_Loader
- * @subpackage UnitTests
+ * @package    Zend_Captcha
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
+class MockCaptcha implements AdapterInterface
+{
+    public $name;
+    public $options = array();
+
+    public function __construct($options = null)
+    {
+        $this->options = $options;
+    }
+
+    public function generate()
+    {
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getHelperName()
+    {
+        return 'doctype';
+    }
+
+    public function isValid($value)
+    {
+        return true;
+    }
+
+    public function getMessages()
+    {
+        return array();
+    }
+}
