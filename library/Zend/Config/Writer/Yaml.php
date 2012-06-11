@@ -33,15 +33,17 @@ class Yaml extends AbstractWriter
     /**
      * Yaml encoder callback
      * 
-     * @var callable
+     * @var callback
      */
     protected $yamlEncoder;
+
     /**
      * Constructor
      * 
-     * @param callable $yamlDecoder 
+     * @param callback|string $yamlDecoder
      */
-    public function __construct($yamlEncoder=null) {
+    public function __construct($yamlEncoder = null)
+    {
         if (!empty($yamlEncoder)) {
             $this->setYamlEncoder($yamlEncoder);
         } else {
@@ -50,20 +52,23 @@ class Yaml extends AbstractWriter
             }
         }
     }
+
     /**
      * Get callback for decoding YAML
      *
-     * @return callable
+     * @return callback
      */
     public function getYamlEncoder()
     {
         return $this->yamlEncoder;
     }
+
     /**
      * Set callback for decoding YAML
      *
-     * @param  callable $yamlEncoder the decoder to set
+     * @param  callback $yamlEncoder the decoder to set
      * @return Yaml
+     * @throws \Zend\Config\Exception\InvalidArgumentException
      */
     public function setYamlEncoder($yamlEncoder)
     {
@@ -73,11 +78,13 @@ class Yaml extends AbstractWriter
         $this->yamlEncoder = $yamlEncoder;
         return $this;
     }
+
     /**
      * processConfig(): defined by AbstractWriter.
      *
      * @param  array $config
      * @return string
+     * @throws \Zend\Config\Exception\RuntimeException
      */
     public function processConfig(array $config)
     {

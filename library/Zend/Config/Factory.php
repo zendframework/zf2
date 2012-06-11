@@ -21,6 +21,7 @@
 namespace Zend\Config;
 
 use Zend\Stdlib\ArrayUtils;
+use Zend\Loader\Broker;
 
 /**
  * Declared abstract to prevent instantiation
@@ -34,13 +35,22 @@ abstract class Factory
 {
     /**
      * Readers used for config files.
+     * array key is extension, array value is reader plugin name
+     * @see Zend\Config\ReaderLoader::$plugins
      *
      * @var array
      */
     protected static $readers = array(
-        'ini' => 'Ini',
-        'xml' => 'Xml'
+        'ini'  => 'ini',
+        'xml'  => 'xml',
+        'json' => 'json',
+        'yaml' => 'yaml',
     );
+
+    /**
+     * @var Broker
+     */
+    protected static $readerBroker = null;
 
     /**
      * Read a config from a file.
@@ -48,6 +58,7 @@ abstract class Factory
      * @param  string  $filename
      * @param  boolean $returnConfigObject 
      * @return array|Config
+     * @throws Exception\RuntimeException
      */
     public static function fromFile($filename, $returnConfigObject = false)
     {
@@ -63,18 +74,20 @@ abstract class Factory
         $extension = strtolower($pathinfo['extension']);
        
         if ($extension === 'php') {
-            if (!is_file($filename) || !is_readable($filename)) {
-                throw new Exception\RuntimeException(sprintf('Filename "%s" is either not a file or not readable', $filename));
+            if (!is_readable($filename)) {
+                throw new Exception\RuntimeException("File '{$filename}' doesn't exist or not readable");
             }
             
             $config = include $filename;
         } elseif (isset(self::$readers[$extension])) {
-            if (is_string(self::$readers[$extension])) {
-                $classname = __NAMESPACE__ . '\\Reader\\' . self::$readers[$extension];
-                self::$readers[$extension] = new $classname();
+            $plugin = self::$readers[$extension];
+            if (!$plugin instanceof Reader\ReaderInterface) {
+                $plugin = static::getReaderBroker()->load($plugin);
+                self::$readers[$extension] = $plugin;
             }
-            
-            $config = self::$readers[$extension]->fromFile($filename);
+
+            /** @var Reader\ReaderInterface $plugin  */
+            $config = $plugin->fromFile($filename);
         } else {
             throw new Exception\RuntimeException(sprintf(
                 'Unsupported config file extension: .%s',
@@ -101,5 +114,59 @@ abstract class Factory
         }
 
         return ($returnConfigObject) ? new Config($config) : $config;
+    }
+
+    /**
+     * Set config reader for file extension
+     *
+     * @param string $extension
+     * @param string|Reader\ReaderInterface $reader
+     * @throws Exception\InvalidArgumentException
+     */
+    public static function registerExtension($extension, $reader)
+    {
+        $extension = strtolower($extension);
+
+        if (!is_string($reader) && !$reader instanceof Reader\ReaderInterface) {
+            throw new Exception\InvalidArgumentException(
+                'Reader should be plugin name or instance of Zend\Config\Reader\ReaderInterface'
+            );
+        }
+
+        self::$readers[$extension] = $reader;
+    }
+
+    /**
+     * Get config reader broker
+     *
+     * @return Broker
+     */
+    public static function getReaderBroker()
+    {
+        if (self::$readerBroker === null) {
+            self::$readerBroker = new ReaderBroker();
+        }
+        return self::$readerBroker;
+    }
+
+    /**
+     * Change config reader broker
+     *
+     * @param  Broker $broker
+     * @return void
+     */
+    public static function setReaderBroker(Broker $broker)
+    {
+        self::$readerBroker = $broker;
+    }
+
+    /**
+     * Resets internal config reader broker
+     *
+     * @return void
+     */
+    public static function resetReaderBroker()
+    {
+        self::$readerBroker = null;
     }
 }

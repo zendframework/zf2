@@ -76,12 +76,14 @@ class Ini implements ReaderInterface
      * @see    ReaderInterface::fromFile()
      * @param  string $filename
      * @return array
+     * @throws \Zend\Config\Exception\RuntimeException
      */
     public function fromFile($filename)
     {
-        if (!file_exists($filename)) {
-            throw new Exception\RuntimeException("The file $filename doesn't exists.");
+        if (!is_readable($filename)) {
+            throw new Exception\RuntimeException("File '{$filename}' doesn't exist or not readable");
         }
+
         $this->directory = dirname($filename);
 
         set_error_handler(

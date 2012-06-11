@@ -21,11 +21,12 @@
 
 namespace Zend\Config\Reader;
 
-use Zend\Config\Exception,
-    Zend\Json\Json as JsonFormat;
+use Zend\Config\Exception;
+use Zend\Json\Json as JsonFormat;
+use Zend\Json\Exception as JsonException;
 
 /**
- * Json config reader.
+ * JSON config reader.
  *
  * @category   Zend
  * @package    Zend_Config
@@ -41,24 +42,26 @@ class Json implements ReaderInterface
      * @var string
      */
     protected $directory;
+
     /**
      * fromFile(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromFile()
      * @param  string $filename
      * @return array
+     * @throws \Zend\Config\Exception\RuntimeException
      */
     public function fromFile($filename)
     {
-        if (!file_exists($filename)) {
-            throw new Exception\RuntimeException("The file $filename doesn't exists.");
+        if (!is_readable($filename)) {
+            throw new Exception\RuntimeException("File '{$filename}' doesn't exist or not readable");
         }
         
         $this->directory = dirname($filename);
         
         try {
             $config = JsonFormat::decode(file_get_contents($filename), JsonFormat::TYPE_ARRAY);
-        } catch (\Zend\Json\Exception\RuntimeException $e) {
+        } catch (JsonException\RuntimeException $e) {
             throw new Exception\RuntimeException($e->getMessage());
         }    
         
@@ -69,38 +72,43 @@ class Json implements ReaderInterface
      * fromString(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromString()
-     * @param  string $string
-     * @return array
+     * @param string $string
+     * @return array|bool
+     * @throws \Zend\Config\Exception\RuntimeException
      */
     public function fromString($string)
     {
         if (empty($string)) {
             return array();
         }
+
         $this->directory = null;
         
         try {
             $config = JsonFormat::decode($string, JsonFormat::TYPE_ARRAY);
-        } catch (\Zend\Json\Exception\RuntimeException $e) {
+        } catch (JsonException\RuntimeException $e) {
             throw new Exception\RuntimeException($e->getMessage());
         }    
         
         return $this->process($config);
     }
+
     /**
      * Process the array for @include
      * 
      * @param  array $data
-     * @return array 
+     * @return array
+     * @throws \Zend\Config\Exception\RuntimeException
      */
-    protected function process(array $data) {
+    protected function process(array $data)
+    {
         foreach ($data as $key => $value) {
             if (is_array($value)) {
                 $data[$key] = $this->process($value);
             }
-            if (trim($key)==='@include') {
+            if (trim($key) === '@include') {
                 if ($this->directory === null) {
-                    throw new Exception\RuntimeException('Cannot process @include statement for a json string');
+                    throw new Exception\RuntimeException('Cannot process @include statement for a JSON string');
                 }
                 $reader = clone $this;
                 unset($data[$key]);

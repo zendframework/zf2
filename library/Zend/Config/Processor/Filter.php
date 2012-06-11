@@ -20,11 +20,11 @@
 
 namespace Zend\Config\Processor;
 
-use Zend\Config\Config,
-    Zend\Config\Exception,
-    Zend\Filter\FilterInterface as ZendFilter,
-    Traversable,
-    ArrayObject;
+use Zend\Config\Config;
+use Zend\Config\Exception;
+use Zend\Filter\FilterInterface as ZendFilter;
+use Traversable;
+use ArrayObject;
 
 /**
  * @category   Zend
@@ -69,7 +69,8 @@ class Filter implements ProcessorInterface
      * Process
      * 
      * @param  Config $config
-     * @return Config 
+     * @return Config
+     * @throws \Zend\Config\Exception\InvalidArgumentException
      */
     public function process(Config $config)
     {

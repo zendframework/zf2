@@ -12,33 +12,33 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Config
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Config\Writer;
+namespace Zend\Config;
+
+use Zend\Loader\PluginClassLoader;
 
 /**
+ * Plugin Class Loader implementation for config readers.
+ *
  * @category   Zend
- * @package    Zend_Config
+ * @package    Zend_Serializer
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class PhpArray extends AbstractWriter
+class ReaderLoader extends PluginClassLoader
 {
     /**
-     * processConfig(): defined by AbstractWriter.
-     *
-     * @param  array $config
-     * @return string
+     * @var array Pre-aliased config readers
      */
-    public function processConfig(array $config)
-    {
-        $arrayString = "<?php\n"
-                     . "return " . var_export($config, true) . ";\n";
-
-        return $arrayString;
-    }
+    protected $plugins = array(
+        'ini'  => 'Zend\Config\Reader\Ini',
+        'json' => 'Zend\Config\Reader\Json',
+        'xml'  => 'Zend\Config\Reader\Xml',
+        'yaml' => 'Zend\Config\Reader\Yaml',
+    );
 }
