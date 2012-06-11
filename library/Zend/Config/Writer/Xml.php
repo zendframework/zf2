@@ -20,8 +20,8 @@
 
 namespace Zend\Config\Writer;
 
-use Zend\Config\Exception,
-    XMLWriter;
+use Zend\Config\Exception;
+use XMLWriter;
 
 /**
  * @category   Zend
@@ -68,6 +68,7 @@ class Xml extends AbstractWriter
      * @param  array     $config
      * @param  XMLWriter $writer
      * @return void
+     * @throws \Zend\Config\Exception\RuntimeException
      */
     protected function addBranch($branchName, array $config, XMLWriter $writer)
     {

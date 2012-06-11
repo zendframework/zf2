@@ -20,12 +20,12 @@
 
 namespace Zend\Config\Processor;
 
-use Zend\Config\Config,
-    Zend\Config\Exception\InvalidArgumentException,
-    Zend\Translator\Translator as ZendTranslator,
-    Zend\Locale\Locale,
-    Traversable,
-    ArrayObject;
+use Zend\Config\Config;
+use Zend\Config\Exception\InvalidArgumentException;
+use Zend\Translator\Translator as ZendTranslator;
+use Zend\Locale\Locale;
+use Traversable;
+use ArrayObject;
 
 /**
  * @category   Zend
@@ -51,7 +51,6 @@ class Translator implements ProcessorInterface
      *
      * @param  ZendTranslator $translator
      * @param  Locale|string|null $locale
-     * @return ZendTranslator
      */
     public function __construct(ZendTranslator $translator, $locale = null)
     {

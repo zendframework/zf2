@@ -35,23 +35,26 @@ use Zend\Config\Exception;
 class Yaml implements ReaderInterface
 {
     /**
-     * Directory of the JSON file
+     * Directory of the YAML file
      * 
      * @var string
      */
     protected $directory;
+
     /**
      * Yaml decoder callback
      * 
-     * @var callable
+     * @var callback
      */
     protected $yamlDecoder;
+
     /**
      * Constructor
      * 
-     * @param callable $yamlDecoder 
+     * @param callback $yamlDecoder
      */
-    public function __construct($yamlDecoder=null) {
+    public function __construct($yamlDecoder = null)
+    {
         if (!empty($yamlDecoder)) {
             $this->setYamlDecoder($yamlDecoder);
         } else {
@@ -60,20 +63,13 @@ class Yaml implements ReaderInterface
             }
         }
     }
-    /**
-     * Get callback for decoding YAML
-     *
-     * @return callable
-     */
-    public function getYamlDecoder()
-    {
-        return $this->yamlDecoder;
-    }
+
     /**
      * Set callback for decoding YAML
      *
-     * @param  callable $yamlDecoder the decoder to set
+     * @param  string|\Closure $yamlDecoder the decoder to set
      * @return Yaml
+     * @throws \Zend\Config\Exception\InvalidArgumentException
      */
     public function setYamlDecoder($yamlDecoder)
     {
@@ -83,18 +79,31 @@ class Yaml implements ReaderInterface
         $this->yamlDecoder = $yamlDecoder;
         return $this;
     }
+
+    /**
+     * Get callback for decoding YAML
+     *
+     * @return callback
+     */
+    public function getYamlDecoder()
+    {
+        return $this->yamlDecoder;
+    }
+
     /**
      * fromFile(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromFile()
      * @param  string $filename
      * @return array
+     * @throws \Zend\Config\Exception\RuntimeException
      */
     public function fromFile($filename)
     {
-        if (!file_exists($filename)) {
-            throw new Exception\RuntimeException("The file $filename doesn't exists.");
+        if (!is_readable($filename)) {
+            throw new Exception\RuntimeException("File '{$filename}' doesn't exist or not readable");
         }
+
         if (null === $this->getYamlDecoder()) {
              throw new Exception\RuntimeException("You didn't specify a Yaml callback decoder");
         }
@@ -113,8 +122,9 @@ class Yaml implements ReaderInterface
      * fromString(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromString()
-     * @param  string $string
+     * @param string $string
      * @return array
+     * @throws \Zend\Config\Exception\RuntimeException
      */
     public function fromString($string)
     {
@@ -134,18 +144,21 @@ class Yaml implements ReaderInterface
         
         return $this->process($config);
     }
+
     /**
      * Process the array for @include
-     * 
-     * @param  array $data
-     * @return array 
+     *
+     * @param array $data
+     * @return array
+     * @throws \Zend\Config\Exception\RuntimeException
      */
-    protected function process(array $data) {
+    protected function process(array $data)
+    {
         foreach ($data as $key => $value) {
             if (is_array($value)) {
                 $data[$key] = $this->process($value);
             }
-            if (trim($key)==='@include') {
+            if (trim($key) === '@include') {
                 if ($this->directory === null) {
                     throw new Exception\RuntimeException('Cannot process @include statement for a json string');
                 }

@@ -21,8 +21,8 @@
 
 namespace Zend\Config\Reader;
 
-use XMLReader,
-    Zend\Config\Exception;
+use XMLReader;
+use Zend\Config\Exception;
 
 /**
  * XML config reader.
@@ -55,7 +55,9 @@ class Xml implements ReaderInterface
      * @var array
      */
     protected $textNodes = array(
-        XMLReader::TEXT, XMLReader::CDATA, XMLReader::WHITESPACE,
+        XMLReader::TEXT,
+        XMLReader::CDATA,
+        XMLReader::WHITESPACE,
         XMLReader::SIGNIFICANT_WHITESPACE
     );
 
@@ -68,12 +70,12 @@ class Xml implements ReaderInterface
      */
     public function fromFile($filename)
     {
-        if (!file_exists($filename)) {
-            throw new Exception\RuntimeException("The file $filename doesn't exists.");
+        if (!is_readable($filename)) {
+            throw new Exception\RuntimeException("File '{$filename}' doesn't exist or not readable");
         }
-        $this->reader = new XMLReader();
 
-        $this->reader->open($filename, null, LIBXML_XINCLUDE);   
+        $this->reader = new XMLReader();
+        $this->reader->open($filename, null, LIBXML_XINCLUDE);
 
         $this->directory = dirname($filename);
 

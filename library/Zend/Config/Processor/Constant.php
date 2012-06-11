@@ -20,10 +20,10 @@
 
 namespace Zend\Config\Processor;
 
-use Zend\Config\Config,
-    Zend\Config\Exception\InvalidArgumentException,
-    Traversable,
-    ArrayObject;
+use Zend\Config\Config;
+use Zend\Config\Exception\InvalidArgumentException;
+use Traversable;
+use ArrayObject;
 
 /**
  * @category   Zend
@@ -101,5 +101,4 @@ class Constant extends Token implements ProcessorInterface
     {
         return $this->tokens;
     }
-
 }

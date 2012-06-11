@@ -48,7 +48,7 @@ class Ini extends AbstractWriter
     /**
      * Set nest separator.
      *
-     * @param  stirng $separator
+     * @param  string $separator
      * @return self
      */
     public function setNestSeparator($separator)
@@ -128,6 +128,7 @@ class Ini extends AbstractWriter
      * Add a branch to an INI string recursively.
      *
      * @param  array $config
+     * @param  array $parents
      * @return string
      */
     protected function addBranch(array $config, $parents = array())
@@ -153,8 +154,9 @@ class Ini extends AbstractWriter
     /**
      * Prepare a value for INI.
      *
-     * @param  mixed $value
+     * @param mixed $value
      * @return string
+     * @throws \Zend\Config\Exception\RuntimeException
      */
     protected function prepareValue($value)
     {

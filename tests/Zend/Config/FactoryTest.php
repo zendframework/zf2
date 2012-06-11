@@ -130,5 +130,21 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('RuntimeException');
         $config = Factory::fromFile(__DIR__ . '/TestAssets/bad.ext');
     }
+
+    public function testFactoryCanRegisterCustomReaderForExtension()
+    {
+        $broker = Factory::getReaderBroker();
+        $broker->register('dummy', new Reader\TestAssets\DummyReader());
+
+        Factory::registerExtension('dum', 'dummy');
+
+        $configObject = Factory::fromFile(__DIR__ . '/TestAssets/dummy.dum', true);
+        $this->assertInstanceOf('Zend\Config\Config', $configObject);
+
+        $this->assertEquals($configObject['one'], 1);
+        $this->assertEquals($configObject['two'], 2);
+        $this->assertEquals($configObject['three'], 3);
+    }
+
 }
 

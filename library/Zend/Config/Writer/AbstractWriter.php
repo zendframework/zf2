@@ -20,10 +20,10 @@
 
 namespace Zend\Config\Writer;
 
-use Zend\Config\Exception,
-    Zend\Config\Config,
-    Zend\Stdlib\ArrayUtils,
-    Traversable;
+use Zend\Config\Exception;
+use Zend\Config\Config;
+use Zend\Stdlib\ArrayUtils;
+use Traversable;
 
 /**
  * @category   Zend
@@ -41,6 +41,8 @@ abstract class AbstractWriter implements WriterInterface
      * @param  mixed   $config
      * @param  boolean $exclusiveLock
      * @return void
+     * @throws \Zend\Config\Exception\RuntimeException
+     * @throws \Zend\Config\Exception\InvalidArgumentException
      */
     public function toFile($filename, $config, $exclusiveLock = true)
     {
@@ -49,7 +51,6 @@ abstract class AbstractWriter implements WriterInterface
         }
         
         $flags = 0;
-
         if ($exclusiveLock) {
             $flags |= LOCK_EX;
         }
@@ -62,7 +63,7 @@ abstract class AbstractWriter implements WriterInterface
                 ), $error);
             }, E_WARNING
         );
-        file_put_contents($filename, $this->toString($config), $exclusiveLock);
+        file_put_contents($filename, $this->toString($config), $flags);
         restore_error_handler();
     }
 
@@ -71,7 +72,8 @@ abstract class AbstractWriter implements WriterInterface
      *
      * @see    WriterInterface::toString()
      * @param  mixed   $config
-     * @return void
+     * @return string
+     * @throws \Zend\Config\Exception\InvalidArgumentException
      */
     public function toString($config)
     {
@@ -85,8 +87,7 @@ abstract class AbstractWriter implements WriterInterface
     }
 
     /**
-     * Process an array configuration.
-     *
+     * @param array $config
      * @return string
      */
     abstract protected function processConfig(array $config);
