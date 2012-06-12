@@ -10,8 +10,7 @@
 
 namespace Zend\Config\Writer;
 
-use Zend\Config\Exception\InvalidArgumentException;
-use Zend\Config\Exception\RuntimeException;
+use Zend\Config\Exception;
 use Zend\Config\Config;
 use Zend\Stdlib\ArrayUtils;
 use Traversable;
@@ -32,13 +31,13 @@ abstract class AbstractWriter implements WriterInterface
      * @param  mixed   $config
      * @param  boolean $exclusiveLock
      * @return void
-     * @throws RuntimeException
-     * @throws InvalidArgumentException
+     * @throws Exception\RuntimeException
+     * @throws Exception\InvalidArgumentException
      */
     public function toFile($filename, $config, $exclusiveLock = true)
     {
         if (empty($filename)) {
-            throw new InvalidArgumentException('No file name specified');
+            throw new Exception\InvalidArgumentException('No file name specified');
         }
         
         $flags = 0;
@@ -48,7 +47,7 @@ abstract class AbstractWriter implements WriterInterface
         
         set_error_handler(
             function($error, $message = '', $file = '', $line = 0) use ($filename) {
-                throw new RuntimeException(sprintf(
+                throw new Exception\RuntimeException(sprintf(
                     'Error writing to "%s": %s',
                     $filename, $message
                 ), $error);
@@ -64,14 +63,14 @@ abstract class AbstractWriter implements WriterInterface
      * @see    WriterInterface::toString()
      * @param  mixed   $config
      * @return string
-     * @throws InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function toString($config)
     {
         if ($config instanceof Traversable) {
             $config = ArrayUtils::iteratorToArray($config);
         } elseif (!is_array($config)) {
-            throw new InvalidArgumentException(__METHOD__ . ' expects an array or Traversable config');
+            throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable config');
         }
 
         return $this->processConfig($config);

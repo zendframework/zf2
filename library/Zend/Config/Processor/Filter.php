@@ -11,7 +11,7 @@
 namespace Zend\Config\Processor;
 
 use Zend\Config\Config;
-use Zend\Config\Exception\InvalidArgumentException;
+use Zend\Config\Exception;
 use Zend\Filter\FilterInterface as ZendFilter;
 use Traversable;
 use ArrayObject;
@@ -60,12 +60,12 @@ class Filter implements ProcessorInterface
      * 
      * @param  Config $config
      * @return Config
-     * @throws InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function process(Config $config)
     {
         if ($config->isReadOnly()) {
-            throw new InvalidArgumentException('Cannot parse config because it is read-only');
+            throw new Exception\InvalidArgumentException('Cannot parse config because it is read-only');
         }
 
         /**

@@ -10,7 +10,7 @@
 
 namespace Zend\Config\Writer;
 
-use Zend\Config\Exception\RuntimeException;
+use Zend\Config\Exception;
 
 /**
  * @category   Zend
@@ -146,7 +146,7 @@ class Ini extends AbstractWriter
      *
      * @param  mixed $value
      * @return string
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     protected function prepareValue($value)
     {
@@ -157,7 +157,7 @@ class Ini extends AbstractWriter
         } elseif (false === strpos($value, '"')) {
             return '"' . $value .  '"';
         } else {
-            throw new RuntimeException('Value can not contain double quotes');
+            throw new Exception\RuntimeException('Value can not contain double quotes');
         }
     }
 

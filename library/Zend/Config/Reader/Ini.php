@@ -10,7 +10,7 @@
 
 namespace Zend\Config\Reader;
 
-use Zend\Config\Exception\RuntimeException;
+use Zend\Config\Exception;
 
 /**
  * XML config reader.
@@ -65,7 +65,7 @@ class Ini implements ReaderInterface
      * @see    ReaderInterface::fromFile()
      * @param  string $filename
      * @return array
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function fromFile($filename)
     {
@@ -80,7 +80,7 @@ class Ini implements ReaderInterface
 
         set_error_handler(
             function($error, $message = '', $file = '', $line = 0) use ($filename) {
-                throw new RuntimeException(sprintf(
+                throw new Exception\RuntimeException(sprintf(
                     'Error reading INI file "%s": %s',
                     $filename, $message
                 ), $error);
@@ -103,7 +103,7 @@ class Ini implements ReaderInterface
     /**
      * @param  string $string
      * @return array|bool
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function fromString($string)
     {
@@ -114,7 +114,7 @@ class Ini implements ReaderInterface
 
         set_error_handler(
             function($error, $message = '', $file = '', $line = 0) {
-                throw new RuntimeException(sprintf(
+                throw new Exception\RuntimeException(sprintf(
                     'Error reading INI string: %s',
                     $message
                 ), $error);
@@ -171,7 +171,7 @@ class Ini implements ReaderInterface
      * @param  string $value
      * @param  array  $config
      * @return array
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     protected function processKey($key, $value, array &$config)
     {
@@ -179,7 +179,7 @@ class Ini implements ReaderInterface
             $pieces = explode($this->nestSeparator, $key, 2);
 
             if (!strlen($pieces[0]) || !strlen($pieces[1])) {
-                throw new RuntimeException(sprintf('Invalid key "%s"', $key));
+                throw new Exception\RuntimeException(sprintf('Invalid key "%s"', $key));
             } elseif (!isset($config[$pieces[0]])) {
                 if ($pieces[0] === '0' && !empty($config)) {
                     $config = array($pieces[0] => $config);
@@ -187,7 +187,7 @@ class Ini implements ReaderInterface
                     $config[$pieces[0]] = array();
                 }
             } elseif (!is_array($config[$pieces[0]])) {
-                throw new RuntimeException(sprintf(
+                throw new Exception\RuntimeException(sprintf(
                     'Cannot create sub-key for "%s", as key already exists', $pieces[0]
                 ));
             }
@@ -196,7 +196,7 @@ class Ini implements ReaderInterface
         } else {
             if ($key === '@include') {
                 if ($this->directory === null) {
-                    throw new RuntimeException('Cannot process @include statement for a string config');
+                    throw new Exception\RuntimeException('Cannot process @include statement for a string config');
                 }
 
                 $reader  = clone $this;

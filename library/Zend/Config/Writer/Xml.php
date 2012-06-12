@@ -10,7 +10,7 @@
 
 namespace Zend\Config\Writer;
 
-use Zend\Config\Exception\RuntimeException;
+use Zend\Config\Exception;
 use XMLWriter;
 
 /**
@@ -58,7 +58,7 @@ class Xml extends AbstractWriter
      * @param  array     $config
      * @param  XMLWriter $writer
      * @return void
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     protected function addBranch($branchName, array $config, XMLWriter $writer)
     {
@@ -73,7 +73,7 @@ class Xml extends AbstractWriter
                     $branchType = 'string';
                 }
             } else if ($branchType !== (is_numeric($key) ? 'numeric' : 'string')) {
-                throw new RuntimeException('Mixing of string and numeric keys is not allowed');
+                throw new Exception\RuntimeException('Mixing of string and numeric keys is not allowed');
             }
 
             if ($branchType === 'numeric') {

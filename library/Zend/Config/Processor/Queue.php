@@ -12,7 +12,7 @@ namespace Zend\Config\Processor;
 
 use Zend\Config\Config;
 use Zend\Stdlib\PriorityQueue;
-use Zend\Config\Exception\InvalidArgumentException;
+use Zend\Config\Exception;
 
 /**
  * @category   Zend
@@ -32,7 +32,7 @@ class Queue extends PriorityQueue implements ProcessorInterface
     public function process(Config $config)
     {
         if ($config->isReadOnly()) {
-            throw new InvalidArgumentException('Cannot parse config because it is read-only');
+            throw new Exception\InvalidArgumentException('Cannot parse config because it is read-only');
         }
 
         foreach ($this as $parser) {

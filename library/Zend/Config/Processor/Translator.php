@@ -11,7 +11,7 @@
 namespace Zend\Config\Processor;
 
 use Zend\Config\Config;
-use Zend\Config\Exception\InvalidArgumentException;
+use Zend\Config\Exception;
 use Zend\Translator\Translator as ZendTranslator;
 use Zend\Locale\Locale;
 use Traversable;
@@ -85,12 +85,12 @@ class Translator implements ProcessorInterface
      *
      * @param Config $config
      * @return Config
-     * @throws InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function process(Config $config)
     {
         if ($config->isReadOnly()) {
-            throw new InvalidArgumentException('Cannot parse config because it is read-only');
+            throw new Exception\InvalidArgumentException('Cannot parse config because it is read-only');
         }
 
         /**

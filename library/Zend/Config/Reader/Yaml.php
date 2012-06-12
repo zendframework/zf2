@@ -10,8 +10,7 @@
 
 namespace Zend\Config\Reader;
 
-use Zend\Config\Exception\InvalidArgumentException;
-use Zend\Config\Exception\RuntimeException;
+use Zend\Config\Exception;
 
 /**
  * YAML config reader.
@@ -59,12 +58,12 @@ class Yaml implements ReaderInterface
      *
      * @param  string|callback|\Closure $yamlDecoder the decoder to set
      * @return Yaml
-     * @throws InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function setYamlDecoder($yamlDecoder)
     {
         if (!is_callable($yamlDecoder)) {
-            throw new InvalidArgumentException('Invalid parameter to setYamlDecoder() - must be callable');
+            throw new Exception\InvalidArgumentException('Invalid parameter to setYamlDecoder() - must be callable');
         }
         $this->yamlDecoder = $yamlDecoder;
         return $this;
@@ -86,7 +85,7 @@ class Yaml implements ReaderInterface
      * @see    ReaderInterface::fromFile()
      * @param  string $filename
      * @return array
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function fromFile($filename)
     {
@@ -98,14 +97,14 @@ class Yaml implements ReaderInterface
         }
 
         if (null === $this->getYamlDecoder()) {
-             throw new RuntimeException("You didn't specify a Yaml callback decoder");
+             throw new Exception\RuntimeException("You didn't specify a Yaml callback decoder");
         }
         
         $this->directory = dirname($filename);
         
         $config = call_user_func($this->getYamlDecoder(), file_get_contents($filename));
         if (null === $config) {
-            throw new RuntimeException("Error parsing YAML data");
+            throw new Exception\RuntimeException("Error parsing YAML data");
         }  
         
         return $this->process($config);
@@ -117,12 +116,12 @@ class Yaml implements ReaderInterface
      * @see    ReaderInterface::fromString()
      * @param  string $string
      * @return array|bool
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function fromString($string)
     {
         if (null === $this->getYamlDecoder()) {
-             throw new RuntimeException("You didn't specify a Yaml callback decoder");
+             throw new Exception\RuntimeException("You didn't specify a Yaml callback decoder");
         }
         if (empty($string)) {
             return array();
@@ -132,7 +131,7 @@ class Yaml implements ReaderInterface
         
         $config = call_user_func($this->getYamlDecoder(), $string);
         if (null === $config) {
-            throw new RuntimeException("Error parsing YAML data");
+            throw new Exception\RuntimeException("Error parsing YAML data");
         }   
         
         return $this->process($config);
@@ -143,7 +142,7 @@ class Yaml implements ReaderInterface
      *
      * @param  array $data
      * @return array
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     protected function process(array $data)
     {
@@ -153,7 +152,7 @@ class Yaml implements ReaderInterface
             }
             if (trim($key) === '@include') {
                 if ($this->directory === null) {
-                    throw new RuntimeException('Cannot process @include statement for a json string');
+                    throw new Exception\RuntimeException('Cannot process @include statement for a json string');
                 }
                 $reader = clone $this;
                 unset($data[$key]);
