@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EN-Revision: TBD -->
+<!-- Reviewed: no -->
+<sect1 id="zend.gdata.analytics">
+    <title>Verwenden der Google Analytics API</title>
+
+    <para>
+        Die Google Analytics <acronym>API</acronym> erlaubt es Client-Anwendungen 
+        Daten aus Google Analytics Konten abzufragen.
+    </para>
+
+    <para>
+        Siehe <ulink
+            url="http://code.google.com/apis/analytics/docs/gdata/v2/gdataOverview.html">http://code.google.com/apis/analytics/docs/gdata/v2/gdataOverview.html</ulink>
+        für weitere Informationen über die Google Analytics <acronym>API</acronym>.
+    </para>
+
+    <sect2 id="zend.gdata.analytics">
+        <title>Account-Daten abfragen</title>
+
+        <para>
+           Der Account-Feed gibt eine Übersicht über alle Konten und deren Properties.  
+        </para>
+
+        <programlisting language="php"><![CDATA[
+$service = \Zend\Gdata\Analytics::AUTH_SERVICE_NAME;
+$client = \Zend\Gdata\ClientLogin::getHttpClient($email, $password, $service);
+$analytics = new \Zend\Gdata\Analytics($client);  
+$accounts = $analytics->getAccountFeed();
+
+foreach ($accounts as $account) {  
+  echo "\n{$account->title}\n";
+}
+]]></programlisting>
+
+        <para>
+            Die Rückgabe der Method <command>$analytics->getAccountFeed()</command>, ein Objekt
+            der Klasse <classname>Zend\Gdata\Analytics\AccountFeed</classname>, beinhaltet eine
+            Liste von <classname>Zend\Gdata\Analytics\AccountEntry</classname> Objekten. Diese
+            Objekte bilden die jeweiligen Properties innerhalb des Accounts ab.
+        </para>
+    </sect2>
+
+    <sect2 id="zend.gdata.analytics.datafeed">
+        <title>Statistische Daten abfragen</title>
+
+        <para>
+            Neben dem Account-Feed besteht auch die Möglichkeit, die statistischen Daten der 
+            einzelnen Accounts abzufragen. Hierfür steht eine vereinfacht Abfrage-Syntax zur
+            Verfügung, welche das Erstellen der URL-Abfragen vereinfacht. Hierbei stehen die
+            von Google bereitgestellten <ulink url="http://code.google.com/intl/de-CH/apis/analytics/docs/gdata/dimsmets/dimsmets.html">Metriken
+            bzw. Dimensionen</ulink> zur Verfügung. Mit diesen und einer Anzahl an <ulink url="http://code.google.com/intl/de-CH/apis/analytics/docs/gdata/v2/gdataReferenceDataFeed.html#filters">
+            Filtern</ulink> können neben <ulink url="http://code.google.com/intl/de-CH/apis/analytics/docs/gdata/gdataCommonQueries.html">gewöhnlichen
+            Werten</ulink> auch komplexre Resultate abgefrage werden.
+        </para>
+
+        <programlisting language="php"><![CDATA[
+$query = $service->newDataQuery()->setProfileId($profileId)  
+  ->addMetric(\Zend\Gdata\Analytics\DataQuery::METRIC_BOUNCES)   
+  ->addMetric(\Zend\Gdata\Analytics\DataQuery::METRIC_VISITS) 
+  ->addDimension(\Zend\Gdata\Analytics\DataQuery::DIMENSION_MEDIUM)  
+  ->addDimension(\Zend\Gdata\Analytics\DataQuery::DIMENSION_SOURCE)  
+  ->addFilter("ga:browser==Firefox")  
+  ->setStartDate('2011-05-01')   
+  ->setEndDate('2011-05-31')   
+  ->addSort(\Zend\Gdata\Analytics\DataQuery::METRIC_VISITS, true)  
+  ->addSort(\Zend\Gdata\Analytics\DataQuery::METRIC_BOUNCES, false)  
+  ->setMaxResults(50); 
+  
+$result = $analytics->getDataFeed($query);
+foreach($result as $row){  
+  echo $row->getMetric('ga:visits')."\t";  
+  echo $row->getValue('ga:bounces')."\n";  
+}
+]]></programlisting>
+    </sect2>
+</sect1>

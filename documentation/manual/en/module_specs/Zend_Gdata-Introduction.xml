@@ -71,6 +71,13 @@
                     provides an online photo sharing application.
                 </para>
             </listitem>
+			
+            <listitem>
+                <para>
+                    <link linkend="zend.gdata.analytics">Google Analytics</link>
+                    is a visitor statistics application.
+                </para>
+            </listitem>
 
             <listitem>
                 <para>

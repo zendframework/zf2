@@ -70,6 +70,13 @@
                     Photo Sharing Anwendung.
                 </para>
             </listitem>
+			
+            <listitem>
+                <para>
+                    <link linkend="zend.gdata.analytics">Google Analytics</link>
+                    bietet eine Besucher-Analyse Anwendung.
+                </para>
+            </listitem>
 
             <listitem>
                 <para>
