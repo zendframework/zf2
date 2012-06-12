@@ -1,30 +1,20 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Config
- * @subpackage Reader
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Config
  */
 
 namespace Zend\Config\Reader;
 
-use Zend\Config\Exception;
+use Zend\Config\Exception\InvalidArgumentException;
+use Zend\Config\Exception\RuntimeException;
 
 /**
- * Yaml config reader.
+ * YAML config reader.
  *
  * @category   Zend
  * @package    Zend_Config
@@ -42,7 +32,7 @@ class Yaml implements ReaderInterface
     protected $directory;
 
     /**
-     * Yaml decoder callback
+     * YAML decoder callback
      * 
      * @var callback
      */
@@ -55,7 +45,7 @@ class Yaml implements ReaderInterface
      */
     public function __construct($yamlDecoder = null)
     {
-        if (!empty($yamlDecoder)) {
+        if ($yamlDecoder !== null) {
             $this->setYamlDecoder($yamlDecoder);
         } else {
             if (function_exists('yaml_parse')) {
@@ -67,14 +57,14 @@ class Yaml implements ReaderInterface
     /**
      * Set callback for decoding YAML
      *
-     * @param  string|\Closure $yamlDecoder the decoder to set
+     * @param  string|callback|\Closure $yamlDecoder the decoder to set
      * @return Yaml
-     * @throws \Zend\Config\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setYamlDecoder($yamlDecoder)
     {
         if (!is_callable($yamlDecoder)) {
-            throw new Exception\InvalidArgumentException('Invalid parameter to setYamlDecoder() - must be callable');
+            throw new InvalidArgumentException('Invalid parameter to setYamlDecoder() - must be callable');
         }
         $this->yamlDecoder = $yamlDecoder;
         return $this;
@@ -96,23 +86,26 @@ class Yaml implements ReaderInterface
      * @see    ReaderInterface::fromFile()
      * @param  string $filename
      * @return array
-     * @throws \Zend\Config\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function fromFile($filename)
     {
         if (!is_readable($filename)) {
-            throw new Exception\RuntimeException("File '{$filename}' doesn't exist or not readable");
+            throw new Exception\RuntimeException(sprintf(
+                "File '%s' doesn't exist or not readable",
+                $filename
+            ));
         }
 
         if (null === $this->getYamlDecoder()) {
-             throw new Exception\RuntimeException("You didn't specify a Yaml callback decoder");
+             throw new RuntimeException("You didn't specify a Yaml callback decoder");
         }
         
         $this->directory = dirname($filename);
         
         $config = call_user_func($this->getYamlDecoder(), file_get_contents($filename));
         if (null === $config) {
-            throw new Exception\RuntimeException("Error parsing YAML data");
+            throw new RuntimeException("Error parsing YAML data");
         }  
         
         return $this->process($config);
@@ -122,14 +115,14 @@ class Yaml implements ReaderInterface
      * fromString(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromString()
-     * @param string $string
-     * @return array
-     * @throws \Zend\Config\Exception\RuntimeException
+     * @param  string $string
+     * @return array|bool
+     * @throws RuntimeException
      */
     public function fromString($string)
     {
         if (null === $this->getYamlDecoder()) {
-             throw new Exception\RuntimeException("You didn't specify a Yaml callback decoder");
+             throw new RuntimeException("You didn't specify a Yaml callback decoder");
         }
         if (empty($string)) {
             return array();
@@ -139,7 +132,7 @@ class Yaml implements ReaderInterface
         
         $config = call_user_func($this->getYamlDecoder(), $string);
         if (null === $config) {
-            throw new Exception\RuntimeException("Error parsing YAML data");
+            throw new RuntimeException("Error parsing YAML data");
         }   
         
         return $this->process($config);
@@ -148,9 +141,9 @@ class Yaml implements ReaderInterface
     /**
      * Process the array for @include
      *
-     * @param array $data
+     * @param  array $data
      * @return array
-     * @throws \Zend\Config\Exception\RuntimeException
+     * @throws RuntimeException
      */
     protected function process(array $data)
     {
@@ -160,7 +153,7 @@ class Yaml implements ReaderInterface
             }
             if (trim($key) === '@include') {
                 if ($this->directory === null) {
-                    throw new Exception\RuntimeException('Cannot process @include statement for a json string');
+                    throw new RuntimeException('Cannot process @include statement for a json string');
                 }
                 $reader = clone $this;
                 unset($data[$key]);

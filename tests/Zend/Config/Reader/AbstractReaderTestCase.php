@@ -50,7 +50,7 @@ abstract class AbstractReaderTestCase extends TestCase
     public function testMissingFile()
     {
         $filename = $this->getTestAssetPath('no-file');
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException', "doesn't exist");
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException', "doesn't exist or not readable");
         $config = $this->reader->fromFile($filename); 
     }
     

@@ -1,26 +1,16 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Config
  */
 
 namespace Zend\Config\Writer;
 
-use Zend\Config\Exception;
+use Zend\Config\Exception\RuntimeException;
 use XMLWriter;
 
 /**
@@ -68,7 +58,7 @@ class Xml extends AbstractWriter
      * @param  array     $config
      * @param  XMLWriter $writer
      * @return void
-     * @throws \Zend\Config\Exception\RuntimeException
+     * @throws RuntimeException
      */
     protected function addBranch($branchName, array $config, XMLWriter $writer)
     {
@@ -83,7 +73,7 @@ class Xml extends AbstractWriter
                     $branchType = 'string';
                 }
             } else if ($branchType !== (is_numeric($key) ? 'numeric' : 'string')) {
-                throw new Exception\RuntimeException('Mixing of string and numeric keys is not allowed');
+                throw new RuntimeException('Mixing of string and numeric keys is not allowed');
             }
 
             if ($branchType === 'numeric') {
