@@ -1,27 +1,16 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Config
- * @subpackage Reader
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Config
  */
 
 namespace Zend\Config\Reader;
 
-use Zend\Config\Exception;
+use Zend\Config\Exception\RuntimeException;
 use Zend\Json\Json as JsonFormat;
 use Zend\Json\Exception as JsonException;
 
@@ -54,7 +43,10 @@ class Json implements ReaderInterface
     public function fromFile($filename)
     {
         if (!is_readable($filename)) {
-            throw new Exception\RuntimeException("File '{$filename}' doesn't exist or not readable");
+            throw new Exception\RuntimeException(sprintf(
+                "File '%s' doesn't exist or not readable",
+                $filename
+            ));
         }
         
         $this->directory = dirname($filename);
@@ -62,7 +54,7 @@ class Json implements ReaderInterface
         try {
             $config = JsonFormat::decode(file_get_contents($filename), JsonFormat::TYPE_ARRAY);
         } catch (JsonException\RuntimeException $e) {
-            throw new Exception\RuntimeException($e->getMessage());
+            throw new RuntimeException($e->getMessage());
         }    
         
         return $this->process($config);
@@ -72,9 +64,9 @@ class Json implements ReaderInterface
      * fromString(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromString()
-     * @param string $string
+     * @param  string $string
      * @return array|bool
-     * @throws \Zend\Config\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function fromString($string)
     {
@@ -87,7 +79,7 @@ class Json implements ReaderInterface
         try {
             $config = JsonFormat::decode($string, JsonFormat::TYPE_ARRAY);
         } catch (JsonException\RuntimeException $e) {
-            throw new Exception\RuntimeException($e->getMessage());
+            throw new RuntimeException($e->getMessage());
         }    
         
         return $this->process($config);
@@ -98,7 +90,7 @@ class Json implements ReaderInterface
      * 
      * @param  array $data
      * @return array
-     * @throws \Zend\Config\Exception\RuntimeException
+     * @throws RuntimeException
      */
     protected function process(array $data)
     {
@@ -108,7 +100,7 @@ class Json implements ReaderInterface
             }
             if (trim($key) === '@include') {
                 if ($this->directory === null) {
-                    throw new Exception\RuntimeException('Cannot process @include statement for a JSON string');
+                    throw new RuntimeException('Cannot process @include statement for a JSON string');
                 }
                 $reader = clone $this;
                 unset($data[$key]);

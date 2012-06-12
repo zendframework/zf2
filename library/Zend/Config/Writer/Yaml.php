@@ -1,26 +1,17 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Config
  */
 
 namespace Zend\Config\Writer;
 
-use Zend\Config\Exception;
+use Zend\Config\Exception\InvalidArgumentException;
+use Zend\Config\Exception\RuntimeException;
 
 /**
  * @category   Zend
@@ -31,7 +22,7 @@ use Zend\Config\Exception;
 class Yaml extends AbstractWriter
 {
     /**
-     * Yaml encoder callback
+     * YAML encoder callback
      * 
      * @var callback
      */
@@ -40,15 +31,15 @@ class Yaml extends AbstractWriter
     /**
      * Constructor
      * 
-     * @param callback|string $yamlDecoder
+     * @param callback|string|null $yamlEncoder
      */
     public function __construct($yamlEncoder = null)
     {
-        if (!empty($yamlEncoder)) {
+        if ($yamlEncoder !== null) {
             $this->setYamlEncoder($yamlEncoder);
         } else {
-            if (function_exists('yaml_parse')) {
-                $this->setYamlEncoder('yaml_parse');
+            if (function_exists('yaml_emit')) {
+                $this->setYamlEncoder('yaml_emit');
             }
         }
     }
@@ -68,12 +59,12 @@ class Yaml extends AbstractWriter
      *
      * @param  callback $yamlEncoder the decoder to set
      * @return Yaml
-     * @throws \Zend\Config\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setYamlEncoder($yamlEncoder)
     {
         if (!is_callable($yamlEncoder)) {
-            throw new Exception\InvalidArgumentException('Invalid parameter to setYamlEncoder() - must be callable');
+            throw new InvalidArgumentException('Invalid parameter to setYamlEncoder() - must be callable');
         }
         $this->yamlEncoder = $yamlEncoder;
         return $this;
@@ -84,17 +75,17 @@ class Yaml extends AbstractWriter
      *
      * @param  array $config
      * @return string
-     * @throws \Zend\Config\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function processConfig(array $config)
     {
         if (null === $this->getYamlEncoder()) {
-             throw new Exception\RuntimeException("You didn't specify a Yaml callback encoder");
+             throw new RuntimeException("You didn't specify a Yaml callback encoder");
         }
         
         $config = call_user_func($this->getYamlEncoder(), $config);
         if (null === $config) {
-            throw new Exception\RuntimeException("Error generating YAML data");
+            throw new RuntimeException("Error generating YAML data");
         }
         
         return $config;

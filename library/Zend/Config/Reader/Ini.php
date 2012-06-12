@@ -1,27 +1,16 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Config
- * @subpackage Reader
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Config
  */
 
 namespace Zend\Config\Reader;
 
-use Zend\Config\Exception;
+use Zend\Config\Exception\RuntimeException;
 
 /**
  * XML config reader.
@@ -76,19 +65,22 @@ class Ini implements ReaderInterface
      * @see    ReaderInterface::fromFile()
      * @param  string $filename
      * @return array
-     * @throws \Zend\Config\Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function fromFile($filename)
     {
         if (!is_readable($filename)) {
-            throw new Exception\RuntimeException("File '{$filename}' doesn't exist or not readable");
+            throw new Exception\RuntimeException(sprintf(
+                "File '%s' doesn't exist or not readable",
+                $filename
+            ));
         }
 
         $this->directory = dirname($filename);
 
         set_error_handler(
             function($error, $message = '', $file = '', $line = 0) use ($filename) {
-                throw new Exception\RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'Error reading INI file "%s": %s',
                     $filename, $message
                 ), $error);
@@ -107,6 +99,12 @@ class Ini implements ReaderInterface
      * @param  string $string
      * @return array
      */
+
+    /**
+     * @param  string $string
+     * @return array|bool
+     * @throws RuntimeException
+     */
     public function fromString($string)
     {
         if (empty($string)) {
@@ -116,7 +114,7 @@ class Ini implements ReaderInterface
 
         set_error_handler(
             function($error, $message = '', $file = '', $line = 0) {
-                throw new Exception\RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'Error reading INI string: %s',
                     $message
                 ), $error);
@@ -173,6 +171,7 @@ class Ini implements ReaderInterface
      * @param  string $value
      * @param  array  $config
      * @return array
+     * @throws RuntimeException
      */
     protected function processKey($key, $value, array &$config)
     {
@@ -180,7 +179,7 @@ class Ini implements ReaderInterface
             $pieces = explode($this->nestSeparator, $key, 2);
 
             if (!strlen($pieces[0]) || !strlen($pieces[1])) {
-                throw new Exception\RuntimeException(sprintf('Invalid key "%s"', $key));
+                throw new RuntimeException(sprintf('Invalid key "%s"', $key));
             } elseif (!isset($config[$pieces[0]])) {
                 if ($pieces[0] === '0' && !empty($config)) {
                     $config = array($pieces[0] => $config);
@@ -188,14 +187,16 @@ class Ini implements ReaderInterface
                     $config[$pieces[0]] = array();
                 }
             } elseif (!is_array($config[$pieces[0]])) {
-                throw new Exception\RuntimeException(sprintf('Cannot create sub-key for "%s", as key already exists', $pieces[0]));
+                throw new RuntimeException(sprintf(
+                    'Cannot create sub-key for "%s", as key already exists', $pieces[0]
+                ));
             }
 
             $this->processKey($pieces[1], $value, $config[$pieces[0]]);
         } else {
             if ($key === '@include') {
                 if ($this->directory === null) {
-                    throw new Exception\RuntimeException('Cannot process @include statement for a string config');
+                    throw new RuntimeException('Cannot process @include statement for a string config');
                 }
 
                 $reader  = clone $this;
