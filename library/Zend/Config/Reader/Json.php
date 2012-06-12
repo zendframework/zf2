@@ -10,7 +10,7 @@
 
 namespace Zend\Config\Reader;
 
-use Zend\Config\Exception\RuntimeException;
+use Zend\Config\Exception;
 use Zend\Json\Json as JsonFormat;
 use Zend\Json\Exception as JsonException;
 
@@ -38,7 +38,7 @@ class Json implements ReaderInterface
      * @see    ReaderInterface::fromFile()
      * @param  string $filename
      * @return array
-     * @throws \Zend\Config\Exception\RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function fromFile($filename)
     {
@@ -54,7 +54,7 @@ class Json implements ReaderInterface
         try {
             $config = JsonFormat::decode(file_get_contents($filename), JsonFormat::TYPE_ARRAY);
         } catch (JsonException\RuntimeException $e) {
-            throw new RuntimeException($e->getMessage());
+            throw new Exception\RuntimeException($e->getMessage());
         }    
         
         return $this->process($config);
@@ -66,7 +66,7 @@ class Json implements ReaderInterface
      * @see    ReaderInterface::fromString()
      * @param  string $string
      * @return array|bool
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function fromString($string)
     {
@@ -79,7 +79,7 @@ class Json implements ReaderInterface
         try {
             $config = JsonFormat::decode($string, JsonFormat::TYPE_ARRAY);
         } catch (JsonException\RuntimeException $e) {
-            throw new RuntimeException($e->getMessage());
+            throw new Exception\RuntimeException($e->getMessage());
         }    
         
         return $this->process($config);
@@ -90,7 +90,7 @@ class Json implements ReaderInterface
      * 
      * @param  array $data
      * @return array
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     protected function process(array $data)
     {
@@ -100,7 +100,7 @@ class Json implements ReaderInterface
             }
             if (trim($key) === '@include') {
                 if ($this->directory === null) {
-                    throw new RuntimeException('Cannot process @include statement for a JSON string');
+                    throw new Exception\RuntimeException('Cannot process @include statement for a JSON string');
                 }
                 $reader = clone $this;
                 unset($data[$key]);

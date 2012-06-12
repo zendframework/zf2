@@ -10,8 +10,7 @@
 
 namespace Zend\Config\Writer;
 
-use Zend\Config\Exception\InvalidArgumentException;
-use Zend\Config\Exception\RuntimeException;
+use Zend\Config\Exception;
 
 /**
  * @category   Zend
@@ -59,12 +58,12 @@ class Yaml extends AbstractWriter
      *
      * @param  callback $yamlEncoder the decoder to set
      * @return Yaml
-     * @throws InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function setYamlEncoder($yamlEncoder)
     {
         if (!is_callable($yamlEncoder)) {
-            throw new InvalidArgumentException('Invalid parameter to setYamlEncoder() - must be callable');
+            throw new Exception\InvalidArgumentException('Invalid parameter to setYamlEncoder() - must be callable');
         }
         $this->yamlEncoder = $yamlEncoder;
         return $this;
@@ -75,17 +74,17 @@ class Yaml extends AbstractWriter
      *
      * @param  array $config
      * @return string
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function processConfig(array $config)
     {
         if (null === $this->getYamlEncoder()) {
-             throw new RuntimeException("You didn't specify a Yaml callback encoder");
+             throw new Exception\RuntimeException("You didn't specify a Yaml callback encoder");
         }
         
         $config = call_user_func($this->getYamlEncoder(), $config);
         if (null === $config) {
-            throw new RuntimeException("Error generating YAML data");
+            throw new Exception\RuntimeException("Error generating YAML data");
         }
         
         return $config;

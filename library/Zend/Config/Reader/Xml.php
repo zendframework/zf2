@@ -11,7 +11,7 @@
 namespace Zend\Config\Reader;
 
 use XMLReader;
-use Zend\Config\Exception\RuntimeException;
+use Zend\Config\Exception;
 
 /**
  * XML config reader.
@@ -56,7 +56,7 @@ class Xml implements ReaderInterface
      * @see    ReaderInterface::fromFile()
      * @param  string $filename
      * @return array
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function fromFile($filename)
     {
@@ -74,7 +74,7 @@ class Xml implements ReaderInterface
 
         set_error_handler(
             function($error, $message = '', $file = '', $line = 0) use ($filename) {
-                throw new RuntimeException(sprintf(
+                throw new Exception\RuntimeException(sprintf(
                     'Error reading XML file "%s": %s',
                     $filename, $message
                 ), $error);
@@ -92,7 +92,7 @@ class Xml implements ReaderInterface
      * @see    ReaderInterface::fromString()
      * @param  string $string
      * @return array|bool
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function fromString($string)
     {
@@ -107,7 +107,7 @@ class Xml implements ReaderInterface
 
         set_error_handler(
             function($error, $message = '', $file = '', $line = 0) {
-                throw new RuntimeException(sprintf(
+                throw new Exception\RuntimeException(sprintf(
                     'Error reading XML string: %s',
                     $message
                 ), $error);

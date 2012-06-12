@@ -11,7 +11,7 @@
 namespace Zend\Config\Processor;
 
 use Zend\Config\Config;
-use Zend\Config\Exception\InvalidArgumentException;
+use Zend\Config\Exception;
 use Traversable;
 use ArrayObject;
 
@@ -114,7 +114,7 @@ class Token implements ProcessorInterface
      *
      * @param  array|Config|ArrayObject|Traversable   $tokens  Associative array of TOKEN => value
      *                                                         to replace it with
-     * @throws InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function setTokens($tokens)
     {
@@ -128,7 +128,7 @@ class Token implements ProcessorInterface
                 $this->tokens[$key] = $val;
             }
         } else {
-            throw new InvalidArgumentException('Cannot use ' . gettype($tokens) . ' as token registry.');
+            throw new Exception\InvalidArgumentException('Cannot use ' . gettype($tokens) . ' as token registry.');
         }
 
         // reset map
@@ -150,12 +150,12 @@ class Token implements ProcessorInterface
      *
      * @param  string $token
      * @param  mixed $value
-     * @throws InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function addToken($token, $value)
     {
         if (!is_scalar($token)) {
-            throw new InvalidArgumentException('Cannot use ' . gettype($token) . ' as token name.');
+            throw new Exception\InvalidArgumentException('Cannot use ' . gettype($token) . ' as token name.');
         }
         $this->tokens[$token] = $value;
 
@@ -199,7 +199,7 @@ class Token implements ProcessorInterface
     public function process(Config $config)
     {
         if ($config->isReadOnly()) {
-            throw new InvalidArgumentException('Cannot parse config because it is read-only');
+            throw new Exception\InvalidArgumentException('Cannot parse config because it is read-only');
         }
 
         if ($this->map === null) {
