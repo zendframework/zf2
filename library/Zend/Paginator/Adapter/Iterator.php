@@ -10,6 +10,7 @@
 
 namespace Zend\Paginator\Adapter;
 
+use Countable;
 use Zend\Paginator;
 
 /**
@@ -37,17 +38,12 @@ class Iterator implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param  \Iterator $iterator Iterator to paginate
-     * @throws \Zend\Paginator\Adapter\Exception\InvalidArgumentException
+     * @param  Countable $iterator Iterator to paginate
      */
-    public function __construct(\Iterator $iterator)
+    public function __construct(Countable $iterator)
     {
-        if (!$iterator instanceof \Countable) {
-            throw new Exception\InvalidArgumentException('Iterator must implement Countable');
-        }
-
         $this->_iterator = $iterator;
-        $this->_count = count($iterator);
+        $this->_count    = count($iterator);
     }
 
     /**
