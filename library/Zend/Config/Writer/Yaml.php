@@ -15,22 +15,21 @@ use Zend\Config\Exception;
 /**
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @subpackage Writer
  */
 class Yaml extends AbstractWriter
 {
     /**
      * YAML encoder callback
      * 
-     * @var callback
+     * @var callable
      */
     protected $yamlEncoder;
 
     /**
      * Constructor
      * 
-     * @param callback|string|null $yamlEncoder
+     * @param callable|string|null $yamlEncoder
      */
     public function __construct($yamlEncoder = null)
     {
@@ -46,7 +45,7 @@ class Yaml extends AbstractWriter
     /**
      * Get callback for decoding YAML
      *
-     * @return callback
+     * @return callable
      */
     public function getYamlEncoder()
     {
@@ -56,7 +55,7 @@ class Yaml extends AbstractWriter
     /**
      * Set callback for decoding YAML
      *
-     * @param  callback $yamlEncoder the decoder to set
+     * @param  callable $yamlEncoder the decoder to set
      * @return Yaml
      * @throws Exception\InvalidArgumentException
      */
