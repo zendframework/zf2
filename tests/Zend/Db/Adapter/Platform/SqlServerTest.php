@@ -85,5 +85,6 @@ class SqlServerTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('[foo].[bar]', $this->platform->quoteIdentifierInFragment('foo.bar'));
         $this->assertEquals('[foo] as [bar]', $this->platform->quoteIdentifierInFragment('foo as bar'));
+        $this->assertEquals('[id] = :id', $this->platform->quoteIdentifierInFragment('id = :id', array('=')));
     }
 }
