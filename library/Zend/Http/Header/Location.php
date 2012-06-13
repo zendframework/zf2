@@ -22,6 +22,8 @@ class Location implements HeaderInterface
         if (strtolower($name) !== 'location') {
             throw new Exception\InvalidArgumentException('Invalid header line for Location string: "' . $name . '"');
         }
+        // removed anchor after redirect for validate host
+        $value = preg_replace('/#.*?$/', '', $value);
 
         if (!Uri::validateHost($value)) {
             throw new Exception\InvalidArgumentException('Invalid URI value for Location: "' . $value . '"');
