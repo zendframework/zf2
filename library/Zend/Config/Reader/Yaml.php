@@ -18,8 +18,6 @@ use Zend\Config\Exception;
  * @category   Zend
  * @package    Zend_Config
  * @subpackage Reader
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Yaml implements ReaderInterface
 {
@@ -33,14 +31,14 @@ class Yaml implements ReaderInterface
     /**
      * YAML decoder callback
      * 
-     * @var callback
+     * @var callable
      */
     protected $yamlDecoder;
 
     /**
      * Constructor
      * 
-     * @param callback $yamlDecoder
+     * @param callable $yamlDecoder
      */
     public function __construct($yamlDecoder = null)
     {
@@ -56,7 +54,7 @@ class Yaml implements ReaderInterface
     /**
      * Set callback for decoding YAML
      *
-     * @param  string|callback|\Closure $yamlDecoder the decoder to set
+     * @param  string|callable $yamlDecoder the decoder to set
      * @return Yaml
      * @throws Exception\InvalidArgumentException
      */
@@ -72,7 +70,7 @@ class Yaml implements ReaderInterface
     /**
      * Get callback for decoding YAML
      *
-     * @return callback
+     * @return callable
      */
     public function getYamlDecoder()
     {
