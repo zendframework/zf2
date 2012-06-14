@@ -40,6 +40,18 @@ class HydratingResultSet extends ResultSet
     }
 
     /**
+     * Set the row object prototype
+     * 
+     * @param  object $rowObjectPrototype 
+     * @return ResultSet
+     */
+    public function setRowObjectPrototype($rowObjectPrototype)
+    {
+        $this->rowObjectPrototype = $rowObjectPrototype;
+        return $this;
+    }
+
+    /**
      * Set the hydrator to use for each row object
      *
      * @param HydratorInterface $rowObjectHydrator
