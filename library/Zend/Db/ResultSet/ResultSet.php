@@ -15,8 +15,6 @@ use ArrayObject;
 use Countable;
 use Iterator;
 use IteratorAggregate;
-use Zend\Stdlib\Hydrator\HydratorInterface;
-use Zend\Stdlib\Hydrator\ArraySerializable;
 
 /**
  * @category   Zend
@@ -39,14 +37,9 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
     );
 
     /**
-     * @var object
+     * @var RowObjectInterface
      */
     protected $rowObjectPrototype = null;
-
-    /**
-     * @var HydratorInterface
-     */
-    protected $rowObjectHydrator = null;
 
     /**
      * Return type to use when returning an object from the set
@@ -73,23 +66,21 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
     /**
      * Constructor
      * 
-     * @param  null|object $rowObjectPrototype 
-     * @param  null|HydratorInterface $rowObjectHydrator 
+     * @param  null|RowObjectInterface $rowObjectPrototype 
      * @return void
      */
-    public function __construct($rowObjectPrototype = null, HydratorInterface $rowObjectHydrator = null)
+    public function __construct(RowObjectInterface $rowObjectPrototype = null)
     {
         $this->setRowObjectPrototype(($rowObjectPrototype) ?: new Row);
-        $this->setRowObjectHydrator(($rowObjectHydrator) ?: new ArraySerializable);
     }
 
     /**
      * Set the row object prototype
      * 
-     * @param  object $rowObjectPrototype 
+     * @param  RowObjectInterface $rowObjectPrototype 
      * @return ResultSet
      */
-    public function setRowObjectPrototype($rowObjectPrototype)
+    public function setRowObjectPrototype(RowObjectInterface $rowObjectPrototype)
     {
         $this->rowObjectPrototype = $rowObjectPrototype;
         return $this;
@@ -103,27 +94,6 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
     public function getRowObjectPrototype()
     {
         return $this->rowObjectPrototype;
-    }
-
-    /**
-     * Set the hydrator to use for each row object
-     *
-     * @param HydratorInterface $rowObjectHydrator
-     */
-    public function setRowObjectHydrator(HydratorInterface $rowObjectHydrator)
-    {
-        $this->rowObjectHydrator = $rowObjectHydrator;
-        return $this;
-    }
-
-    /**
-     * Get the hydrator to use for each row object
-     *
-     * @return rowObjectHydrator
-     */
-    public function getRowObjectHydrator()
-    {
-        return $this->rowObjectHydrator;
     }
 
     /**
@@ -251,7 +221,8 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
 
         if ($this->returnType === self::TYPE_OBJECT && is_array($data)) {
             $row = clone $this->rowObjectPrototype;
-            return $this->getRowObjectHydrator()->hydrate($data, $row);
+            $row->populate($data);
+            return $row;
         } else {
             return $data;
         }
