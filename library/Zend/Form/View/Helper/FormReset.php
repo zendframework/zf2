@@ -13,21 +13,47 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Mail
- * @subpackage Header
+ * @package    Zend_Form
+ * @subpackage View
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Mail\Header;
+namespace Zend\Form\View\Helper;
+
+use Zend\Form\ElementInterface;
 
 /**
  * @category   Zend
- * @package    Zend_Mail
+ * @package    Zend_Form
+ * @subpackage View
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface MultipleHeadersInterface extends HeaderInterface
+class FormReset extends FormInput
 {
-    public function toStringMultipleHeaders(array $headers);
+    /**
+     * Attributes valid for the input tag type="reset"
+     *
+     * @var array
+     */
+    protected $validTagAttributes = array(
+        'name'           => true,
+        'autofocus'      => true,
+        'disabled'       => true,
+        'form'           => true,
+        'type'           => true,
+        'value'          => true,
+    );
+
+    /**
+     * Determine input type to use
+     *
+     * @param  ElementInterface $element
+     * @return string
+     */
+    protected function getType(ElementInterface $element)
+    {
+        return 'reset';
+    }
 }

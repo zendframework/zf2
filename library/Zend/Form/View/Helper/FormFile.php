@@ -13,35 +13,50 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Mvc
- * @subpackage Controller
+ * @package    Zend_Form
+ * @subpackage View
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Mvc\Controller;
+namespace Zend\Form\View\Helper;
 
-use Zend\Loader\PluginClassLoader;
+use Zend\Form\ElementInterface;
 
 /**
  * @category   Zend
- * @package    Zend_Mvc
- * @subpackage Controller
+ * @package    Zend_Form
+ * @subpackage View
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class PluginLoader extends PluginClassLoader
+class FormFile extends FormInput
 {
     /**
-     * @var array Pre-aliased plugins
+     * Attributes valid for the input tag type="file"
+     *
+     * @var array
      */
-    protected $plugins = array(
-        'flash_messenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-        'flashmessenger'  => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-        'forward'         => 'Zend\Mvc\Controller\Plugin\Forward',
-        'layout'          => 'Zend\Mvc\Controller\Plugin\Layout',
-        'params'          => 'Zend\Mvc\Controller\Plugin\Params',
-        'redirect'        => 'Zend\Mvc\Controller\Plugin\Redirect',
-        'url'             => 'Zend\Mvc\Controller\Plugin\Url',
+    protected $validTagAttributes = array(
+        'name'           => true,
+        'accept'         => true,
+        'autofocus'      => true,
+        'disabled'       => true,
+        'form'           => true,
+        'multiple'       => true,
+        'required'       => true,
+        'type'           => true,
+        'value'          => true,
     );
+
+    /**
+     * Determine input type to use
+     *
+     * @param  ElementInterface $element
+     * @return string
+     */
+    protected function getType(ElementInterface $element)
+    {
+        return 'file';
+    }
 }
