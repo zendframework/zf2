@@ -69,7 +69,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
      * @param  null|RowObjectInterface $rowObjectPrototype 
      * @return void
      */
-    public function __construct(RowObjectInterface $rowObjectPrototype = null)
+    public function __construct($rowObjectPrototype = null)
     {
         $this->setRowObjectPrototype(($rowObjectPrototype) ?: new Row);
     }
@@ -80,7 +80,7 @@ class ResultSet implements Countable, Iterator /*, ResultSetInterface */
      * @param  RowObjectInterface $rowObjectPrototype 
      * @return ResultSet
      */
-    public function setRowObjectPrototype(RowObjectInterface $rowObjectPrototype)
+    public function setRowObjectPrototype($rowObjectPrototype)
     {
         $this->rowObjectPrototype = $rowObjectPrototype;
         return $this;
