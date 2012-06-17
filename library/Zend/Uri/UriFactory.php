@@ -22,7 +22,7 @@ namespace Zend\Uri;
  * @category  Zend
  * @package   Zend_Uri
  */
-abstract class Factory
+abstract class UriFactory
 {
     /**
      * Registered scheme-specific classes
