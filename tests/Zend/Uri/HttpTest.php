@@ -112,7 +112,7 @@ class HttpTest extends TestCase
     }
 
     /**
-     * Test that validateScheme returns false for schemes not valid for use
+     * Test that isValidScheme returns false for schemes not valid for use
      * with the HTTP class
      *
      * @param string $scheme
@@ -120,7 +120,7 @@ class HttpTest extends TestCase
      */
     public function testValidateSchemeInvalid($scheme)
     {
-        $this->assertFalse(HttpUri::validateScheme($scheme));
+        $this->assertFalse(HttpUri::isValidScheme($scheme));
     }
 
     /**

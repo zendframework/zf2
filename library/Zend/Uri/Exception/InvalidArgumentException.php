@@ -10,6 +10,11 @@
 
 namespace Zend\Uri\Exception;
 
+/**
+ * @category   Zend
+ * @package    Zend_Uri
+ * @subpackage Exception
+ */
 class InvalidArgumentException
     extends \InvalidArgumentException
     implements ExceptionInterface

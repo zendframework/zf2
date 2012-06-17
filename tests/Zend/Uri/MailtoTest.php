@@ -111,7 +111,7 @@ class MailtoTest extends TestCase
     }
 
     /**
-     * Test that validateScheme returns false for schemes not valid for use
+     * Test that isValidScheme returns false for schemes not valid for use
      * with the Mailto class
      *
      * @param string $scheme
@@ -119,14 +119,14 @@ class MailtoTest extends TestCase
      */
     public function testValidateSchemeInvalid($scheme)
     {
-        $this->assertFalse(MailtoUri::validateScheme($scheme));
+        $this->assertFalse(MailtoUri::isValidScheme($scheme));
     }
 
     public function testCapturesQueryString()
     {
         $uri = new MailtoUri('mailto:foo@example.com?Subject=Testing%20Subjects');
         $this->assertEquals('Subject=Testing%20Subjects', $uri->getQuery());
-        $this->assertEquals(array('Subject' => 'Testing Subjects'), $uri->getQueryAsArray());
+        $this->assertEquals(array('Subject' => 'Testing Subjects'), $uri->query()->toArray());
     }
 
     public function testUserInfoIsNull()
@@ -167,7 +167,7 @@ class MailtoTest extends TestCase
             'host'      => $uri->getHost(),
             'port'      => $uri->getPort(),
             'path'      => $uri->getPath(),
-            'query'     => $uri->getQueryAsArray(),
+            'query'     => $uri->query()->toArray(),
             'fragment'  => $uri->getFragment(),
         );
         $this->assertFalse($uri->isValid(), var_export($parts, 1));
