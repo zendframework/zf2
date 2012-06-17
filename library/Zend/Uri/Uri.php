@@ -671,7 +671,7 @@ class Uri
      */
     public function setPort($port)
     {
-        $this->port = $port;
+        $this->port = (integer) $port;
         return $this;
     }
 
@@ -897,18 +897,8 @@ class Uri
      */
     public static function isValidPort($port)
     {
-        if ($port === 0) {
-            return false;
-        }
-
-        if ($port) {
-            $port = (int) $port;
-            if ($port < 1 || $port > 0xFFFF) {
-                return false;
-            }
-        }
-
-        return true;
+        $port = (int) $port;
+        return ($port >= 1 && $port <= 0xFFFF);
     }
 
     /**

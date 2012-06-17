@@ -44,7 +44,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     public $httpEntrySample;
     /** @var \Zend\GData\App */
     public $entry;
-    /** @var \Zend\Http\Client\Adapter\AdapterInterface */
+    /** @var \ZendTest\GData\TestAsset\MockHttpClient */
     public $adapter;
     /** @var \Zend\GData\HttpClient */
     public $client;
@@ -292,6 +292,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
         $uri = 'http://example.net:8080/foo/bar';
         $uriObject = new Uri\Http($uri);
         $uriObject->setPort('8080');
+
         $this->adapter->setResponse($this->httpEntrySample);
         $entry = $this->service->newEntry();
         $newEntry = $entry->save($uri);
@@ -422,9 +423,10 @@ class EntryTest extends \PHPUnit_Framework_TestCase
         $this->adapter->setResponse($this->httpEntrySample);
         $entry = $this->service->newEntry();
         $entry->link = array(new Extension\Link(
-                'http://www.example.com',
-                'edit',
-                'application/atom+xml'));
+            'http://www.example.com',
+            'edit',
+            'application/atom+xml'
+        ));
         $entry->setEtag($etag);
         $newEntry = $entry->reload($uriOverride);
         $requestUri = $this->adapter->popRequest()->uri;

@@ -626,12 +626,15 @@ class App
 
         // Set the params for the new request to be performed
         $this->_httpClient->setHeaders($headers);
+        $this->_httpClient->setUri($uri);
+
+        /*
         $uriObj = Uri\UriFactory::factory($uri);
         preg_match("/^(.*?)(\?.*)?$/", $uri, $matches);
         $this->_httpClient->setUri($matches[1]);
         $queryArray = $uriObj->query()->toArray();
         $this->_httpClient->setParameterGet($queryArray);
-
+        */
 
         $this->_httpClient->setOptions(array('maxredirects' => 0));
 
