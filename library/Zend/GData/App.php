@@ -629,7 +629,7 @@ class App
         $uriObj = Uri\UriFactory::factory($uri);
         preg_match("/^(.*?)(\?.*)?$/", $uri, $matches);
         $this->_httpClient->setUri($matches[1]);
-        $queryArray = $uriObj->getQueryAsArray();
+        $queryArray = $uriObj->query()->toArray();
         $this->_httpClient->setParameterGet($queryArray);
 
 
