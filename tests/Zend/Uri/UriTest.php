@@ -1099,7 +1099,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
     static public function validPortProvider()
     {
         return array(
-            array(null),
             array(1),
             array(0xffff),
             array(80),

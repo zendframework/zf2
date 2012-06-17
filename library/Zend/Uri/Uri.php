@@ -638,10 +638,7 @@ class Uri
      */
     public function setHost($host)
     {
-        if (($host !== '')
-            && ($host !== null)
-            && !self::isValidHost($host, $this->validHostTypes)
-        ) {
+        if (($host !== '') && ($host !== null) && !self::isValidHost($host, $this->validHostTypes)) {
             throw new Exception\InvalidUriPartException(sprintf(
                 'Host "%s" is not valid or is not accepted by %s',
                 $host,
@@ -668,10 +665,17 @@ class Uri
      *
      * @param  integer $port
      * @return Uri
+     * @throws Exception\InvalidUriPartException
      */
     public function setPort($port)
     {
-        $this->port = (integer) $port;
+        if (($port !== null) && !self::isValidPort($port)) {
+            throw new Exception\InvalidUriPartException(sprintf(
+                'Port "%s" is not valid port',
+                $port
+            ), Exception\InvalidUriPartException::INVALID_PORT);
+        }
+        $this->port = (int) $port;
         return $this;
     }
 
