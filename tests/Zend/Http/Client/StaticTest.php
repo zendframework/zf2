@@ -593,8 +593,9 @@ class MockClient extends HTTPClient
         'keepalive'       => false,
         'storeresponse'   => true,
         'strict'          => true,
-        'outputstream'   => false,
+        'outputstream'    => false,
         'encodecookies'   => true,
+        'rfc3986strict'   => false
     );
 }
 

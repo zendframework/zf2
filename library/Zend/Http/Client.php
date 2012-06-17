@@ -765,34 +765,6 @@ class Client implements Stdlib\DispatchableInterface
             // uri
             $uri = $this->getUri();
 
-            // query
-            $query = $this->getRequest()->query();
-
-            if (!empty($query)) {
-                $queryArray = $query->toArray();
-
-                if (!empty($queryArray)) {
-                    $newUri = $uri->toString();
-                    $queryString = http_build_query($query);
-
-                    if ($this->config['rfc3986strict']) {
-                        $queryString = str_replace('+', '%20', $queryString);
-                    }
-
-                    if (strpos($newUri, '?') !== false) {
-                        $newUri .= '&' . $queryString;
-                    } else {
-                        $newUri .= '?' . $queryString;
-                    }
-
-                    $uri = new Http($newUri);
-                }
-            }
-            // If we have no ports, set the defaults
-            if (!$uri->getPort()) {
-                $uri->setPort($uri->getScheme() == 'https' ? 443 : 80);
-            }
-
             // method
             $method = $this->getRequest()->getMethod();
 
