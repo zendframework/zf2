@@ -1242,10 +1242,7 @@ class Uri
      */
     protected static function normalizePort($port, $scheme = null)
     {
-        if ($scheme
-            && isset(static::$defaultPorts[$scheme])
-            && ($port == static::$defaultPorts[$scheme])
-        ) {
+        if ($scheme && isset(static::$defaultPorts[$scheme]) && ($port == static::$defaultPorts[$scheme])) {
             return null;
         }
 
