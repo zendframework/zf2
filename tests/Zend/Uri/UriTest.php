@@ -23,6 +23,7 @@
 namespace ZendTest\Uri;
 
 use Zend\Uri\Uri;
+use Zend\Stdlib\Parameters;
 
 /**
  * @category   Zend
@@ -241,12 +242,59 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test that we can get query as Zend\Stdlib\Parameters container
+     */
+    public function testGetQueryParameters()
+    {
+        $uri = new Uri('http://example.com/foo/?test=a&var[]=1&var[]=2');
+        $this->assertInstanceOf('Zend\Stdlib\Parameters', $uri->query());
+        $this->assertEquals('a', $uri->query()->get('test'));
+
+        $exp = array(
+            'test' => 'a',
+            'var'  => array(1, 2),
+        );
+        $this->assertEquals($exp, $uri->query()->toArray());
+    }
+
+    /**
+     * Test that updating queryParams will result in correct query string
+     */
+    public function testSetQueryParamsUpdatesQuery()
+    {
+        $uri = new Uri('/foo');
+        $uri->query()->set('what', 'true');
+        $this->assertEquals('what=true', $uri->getQuery());
+
+        $queryParams = new Parameters(array('one' => 1, 'two' => 2));
+        $uri->setQueryParams($queryParams);
+        $this->assertEquals('one=1&two=2', $uri->getQuery());
+    }
+
+    /**
+     * Test that updating query string will result in correct query parameters container
+     */
+    public function testSetQueryUpdatesQueryParams()
+    {
+        $uri = new Uri('/foo');
+        $uri->setQuery('var[]=1&var[]=2&some[thing]=3&non-param');
+
+        $exp = array(
+            'var'  => array(1, 2),
+            'some' => array('thing' => 3),
+            'non-param' => null
+        );
+
+        $this->assertEquals($exp, $uri->query()->toArray());
+    }
+
+    /**
      * @group ZF-1480
      */
-    public function testGetQueryAsArrayReturnsCorrectArray()
+    public function testGettingQueryAsArrayReturnsCorrectArray()
     {
-        $url = new Uri('http://example.com/foo/?test=a&var[]=1&var[]=2&some[thing]=3');
-        $this->assertEquals('test=a&var[]=1&var[]=2&some[thing]=3', $url->getQuery());
+        $uri = new Uri('http://example.com/foo/?test=a&var[]=1&var[]=2&some[thing]=3');
+        $this->assertEquals('test=a&var[]=1&var[]=2&some[thing]=3', $uri->getQuery());
 
         $exp = array(
             'test' => 'a',
@@ -254,7 +302,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
             'some' => array('thing' => 3)
         );
 
-        $this->assertEquals($exp, $url->query()->toArray());
+        $this->assertEquals($exp, $uri->query()->toArray());
     }
 
     /**
