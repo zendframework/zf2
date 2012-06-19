@@ -111,19 +111,36 @@ abstract class JsonRpcController extends ActionController
     } 
     
     /**
-     * Will process an RPC method call.
+     * Will process an RPC method call. Errors are caught and returned
+     * to the client.
      * 
      * @param type $request
      * @return \Zend\View\Model\JsonModel
      * @throws \Exception
      */
     public function handle($request){
+        
         $content = json_decode($request->getContent(), true);
         $method = $content['method'];
         $rpcMethods = $this->registerRpcMethods();
-        if(!in_array($method, $rpcMethods)){
-            throw new \Exception('Method not '.$method.' found');
-        }        
-        return new JsonModel(call_user_func_array(array($this, $method), $content['params']));       
+        $error = null;
+        
+        if(in_array($method, $rpcMethods)){      
+            try {
+                $result = call_user_func_array(array($this, $method), $content['params']);
+            } catch (\Exception $e){
+                $result = null;
+                $error = $e->getMessage();
+            }
+        } else {
+            $result = null;
+            $error = 'Method '.$method.' not found';          
+        }
+        
+        return new JsonModel(array(
+            'id' => $content['id'],
+            'result' => $result,
+            'error' => $error
+        ));
     }   
 }
