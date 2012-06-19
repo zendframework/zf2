@@ -25,6 +25,7 @@ use Zend\Mvc\Controller\ActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\Json\Server\Server;
 use Zend\View\Model\JsonModel;
+use Zend\Stdlib\RequestInterface as Request;
 
 /**
  * Abstract controller for Json based RPC
@@ -56,9 +57,9 @@ abstract class JsonRpcController extends ActionController
      * @return mixed
      * @throws Exception\DomainException
      */
-    public function execute(MvcEvent $e)
+    public function execute(MvcEvent $event)
     {
-        $routeMatch = $e->getRouteMatch();
+        $routeMatch = $event->getRouteMatch();
         if (!$routeMatch) {
             /**
              * @todo Determine requirements for when route match is missing.
@@ -67,7 +68,7 @@ abstract class JsonRpcController extends ActionController
             throw new Exception\DomainException('Missing route matches; unsure how to retrieve action');
         }
 
-        $request = $e->getRequest();
+        $request = $event->getRequest();
 
         switch (strtolower($request->getMethod())) {
             case 'get':
@@ -85,7 +86,7 @@ abstract class JsonRpcController extends ActionController
         // Emit post-dispatch signal, passing:
         // - return from method, request, response
         // If a listener returns a response object, return it immediately
-        $e->setResult($return);
+        $event->setResult($return);
         return $return;
     }
 
@@ -114,11 +115,10 @@ abstract class JsonRpcController extends ActionController
      * Will process an RPC method call. Errors are caught and returned
      * to the client.
      * 
-     * @param type $request
+     * @param \Zend\Stdlib\RequestInterface $request
      * @return \Zend\View\Model\JsonModel
-     * @throws \Exception
      */
-    public function handle($request){
+    public function handle(Request $request){
         
         $content = json_decode($request->getContent(), true);
         $method = $content['method'];
