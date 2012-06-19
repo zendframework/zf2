@@ -10,7 +10,7 @@
             <link linkend="zend.acl.introduction">previous section</link> shows how various
             privileges may be allowed upon the entire <acronym>ACL</acronym> (all resources). In
             practice, however, access controls tend to have exceptions and varying degrees of
-            complexity. <classname>Zend\Acl</classname> allows to you accomplish these refinements
+            complexity. <classname>Zend\Acl\Acl</classname> allows to you accomplish these refinements
             in a straightforward and flexible manner.
         </para>
 
@@ -37,7 +37,13 @@
 
         <programlisting language="php"><![CDATA[
 // The new marketing group inherits permissions from staff
-$acl->addRole(new Zend\Acl\GenericRole('marketing'), 'staff');
+use Zend\Acl\Acl,
+    Zend\Acl\Role\GenericRole as Role,
+    Zend\Acl\Resource\GenericResource as Resource;
+
+$acl = new Acl();
+    
+$acl->addRole(new Role('marketing'), 'staff');
 ]]></programlisting>
 
         <para>
@@ -49,16 +55,16 @@ $acl->addRole(new Zend\Acl\GenericRole('marketing'), 'staff');
 // Create Resources for the rules
 
 // newsletter
-$acl->addResource(new Zend\Acl\GenericResource('newsletter'));
+$acl->addResource(new Resource('newsletter'));
 
 // news
-$acl->addResource(new Zend\Acl\GenericResource('news'));
+$acl->addResource(new Resource('news'));
 
 // latest news
-$acl->addResource(new Zend\Acl\GenericResource('latest'), 'news');
+$acl->addResource(new Resource('latest'), 'news');
 
 // announcement news
-$acl->addResource(new Zend\Acl\GenericResource('announcement'), 'news');
+$acl->addResource(new Resource('announcement'), 'news');
 ]]></programlisting>
 
         <para>

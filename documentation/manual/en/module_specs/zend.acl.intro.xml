@@ -3,7 +3,7 @@
     
 
     <para>
-        <classname>Zend\Acl</classname> provides a lightweight and flexible access control list
+        The <classname>Zend\Acl</classname> component provides a lightweight and flexible access control list
         (<acronym>ACL</acronym>) implementation for privileges management. In general, an
         application may utilize such <acronym>ACL</acronym>'s to control access to certain
         protected objects by other requesting objects.
@@ -40,23 +40,22 @@
         Through the specification and use of an <acronym>ACL</acronym>, an application may control
         how roles are granted access to resources.
     </para>
-
+    
     <section xml:id="zend.acl.introduction.resources"><title>Resources</title>
         
 
         <para>
-            Creating a resource in <classname>Zend\Acl</classname> is very simple.
-            <classname>Zend\Acl</classname> provides the resource interface,
-            <classname>Zend\Acl\Resource\ResourceInterface</classname>, to facilitate creating resources in
+            Creating a resource using <classname>Zend\Acl\Acl</classname> is very simple.
+            A resource interface <classname>Zend\Acl\Resource\ResourceInterface</classname> is provided to facilitate creating resources in
             an application. A class need only implement this interface, which consists of a single
-            method, <methodname>getResourceId()</methodname>, for <classname>Zend\Acl</classname> to
-            recognize the object as a resource. Additionally,
-            <classname>Zend\Acl\GenericResource</classname> is provided by <classname>Zend\Acl</classname>
-            as a basic resource implementation for developers to extend as needed.
+            method, <methodname>getResourceId()</methodname>, for <classname>Zend\Acl\Acl</classname> 
+            to recognize the object as a resource. Additionally, 
+            <classname>Zend\Acl\Resource\GenericResource</classname> is provided as a basic resource implementation 
+            for developers to extend as needed.
         </para>
 
         <para>
-            <classname>Zend\Acl</classname> provides a tree structure to which multiple resources
+            <classname>Zend\Acl\Acl</classname> provides a tree structure to which multiple resources
             can be added. Since resources are stored in such a tree structure, they can be
             organized from the general (toward the tree root) to the specific (toward the tree
             leaves). Queries on a specific resource will automatically search the resource's
@@ -64,13 +63,13 @@
             rules. For example, if a default rule is to be applied to each building in a city, one
             would simply assign the rule to the city, instead of assigning the same rule to each
             building. Some buildings may require exceptions to such a rule, however, and this can
-            be achieved in <classname>Zend\Acl</classname> by assigning such exception rules to
+            be achieved in <classname>Zend\Acl\Acl</classname> by assigning such exception rules to
             each building that requires such an exception. A resource may inherit from only one
             parent resource, though this parent resource can have its own parent resource, etc.
         </para>
 
         <para>
-            <classname>Zend\Acl</classname> also supports privileges on resources (e.g., "create",
+            <classname>Zend\Acl\Acl</classname> also supports privileges on resources (e.g., "create",
             "read", "update", "delete"), so the developer can assign rules that affect all
             privileges or specific privileges on one or more resources.
         </para>
@@ -83,12 +82,12 @@
             As with resources, creating a role is also very simple. All roles must implement
             <classname>Zend\Acl\Role\RoleInterface</classname>. This interface consists of a single
             method, <methodname>getRoleId()</methodname>, Additionally,
-            <classname>Zend\Acl\GenericRole</classname> is provided by <classname>Zend\Acl</classname> as
+            <classname>Zend\Acl\Role\GenericRole</classname> is provided by the <classname>Zend\Acl</classname> component as
             a basic role implementation for developers to extend as needed.
         </para>
 
         <para>
-            In <classname>Zend\Acl</classname>, a role may inherit from one or more roles. This is
+            In <classname>Zend\Acl\Acl</classname>, a role may inherit from one or more roles. This is
             to support inheritance of rules among roles. For example, a user role, such as "sally",
             may belong to one or more parent roles, such as "editor" and "administrator". The
             developer can assign rules to "editor" and "administrator" separately, and "sally"
@@ -98,7 +97,7 @@
         <para>
             Though the ability to inherit from multiple roles is very useful, multiple inheritance
             also introduces some degree of complexity. The following example illustrates the
-            ambiguity condition and how <classname>Zend\Acl</classname> solves it.
+            ambiguity condition and how <classname>Zend\Acl\Acl</classname> solves it.
         </para>
 
         <example xml:id="zend.acl.introduction.roles.example.multiple_inheritance"><title>Multiple Inheritance among Roles</title>
@@ -110,23 +109,27 @@
                 inherit. Then, a role identified by "someUser" is established and
                 inherits from the three other roles. The order in which these roles appear in the
                 <varname>$parents</varname> array is important. When necessary,
-                <classname>Zend\Acl</classname> searches for access rules defined not only for the
+                <classname>Zend\Acl\Acl</classname> searches for access rules defined not only for the
                 queried role (herein, "someUser"), but also upon the roles from which
                 the queried role inherits (herein, "guest", "member", and
                 "admin"):
             </para>
 volgende testen!
             <programlisting language="php"><![CDATA[
-$acl = new Zend\Acl();
+use Zend\Acl\Acl,
+    Zend\Acl\Role\GenericRole as Role,
+    Zend\Acl\Resource\GenericResource as Resource;
 
-$acl->addRole(new Zend\Acl\GenericRole('guest'))
-    ->addRole(new Zend\Acl\GenericRole('member'))
-    ->addRole(new Zend\Acl\GenericRole('admin'));
+$acl = new Acl();
+
+$acl->addRole(new Role('guest'))
+    ->addRole(new Role('member'))
+    ->addRole(new Role('admin'));
 
 $parents = array('guest', 'member', 'admin');
-$acl->addRole(new Zend\Acl\GenericRole('someUser'), $parents);
+$acl->addRole(new Role('someUser'), $parents);
 
-$acl->add(new Zend\Acl\GenericResource('someResource'));
+$acl->add(new Resource('someResource'));
 
 $acl->deny('guest', 'someResource');
 $acl->allow('member', 'someResource');
@@ -136,15 +139,15 @@ echo $acl->isAllowed('someUser', 'someResource') ? 'allowed' : 'denied';
 
             <para>
                 Since there is no rule specifically defined for the "someUser" role and
-                "someResource", <classname>Zend\Acl</classname> must search for rules that may be
+                "someResource", <classname>Zend\Acl\Acl</classname> must search for rules that may be
                 defined for roles that "someUser" inherits. First, the "admin" role is visited, and
                 there is no access rule defined for it. Next, the "member" role is visited, and
-                <classname>Zend\Acl</classname> finds that there is a rule specifying that "member"
+                <classname>Zend\Acl\Acl</classname> finds that there is a rule specifying that "member"
                 is allowed access to "someResource".
             </para>
 
             <para>
-                If <classname>Zend\Acl</classname> were to continue examining the rules defined for
+                If <classname>Zend\Acl\Acl</classname> were to continue examining the rules defined for
                 other parent roles, however, it would find that "guest" is denied access to
                 "someResource". This fact introduces an ambiguity because now
                 "someUser" is both denied and allowed access to "someResource", by reason of having
@@ -152,7 +155,7 @@ echo $acl->isAllowed('someUser', 'someResource') ? 'allowed' : 'denied';
             </para>
 
             <para>
-                <classname>Zend\Acl</classname> resolves this ambiguity by completing a query when
+                <classname>Zend\Acl\Acl</classname> resolves this ambiguity by completing a query when
                 it finds the first rule that is directly applicable to the query. In this case,
                 since the "member" role is examined before the "guest" role, the example code would
                 print "allowed".
@@ -180,12 +183,13 @@ echo $acl->isAllowed('someUser', 'someResource') ? 'allowed' : 'denied';
         </para>
 
         <programlisting language="php"><![CDATA[
-$acl = new Zend\Acl();
+use Zend\Acl\Acl;
+$acl = new Acl();
 ]]></programlisting>
 
         <note>
             <para>
-                Until a developer specifies an "allow" rule, <classname>Zend\Acl</classname> denies
+                Until a developer specifies an "allow" rule, <classname>Zend\Acl\Acl</classname> denies
                 access to every privilege upon every resource by every role.
             </para>
         </note>
@@ -248,32 +252,36 @@ $acl = new Zend\Acl();
         </table>
 
         <para>
-            For this example, <classname>Zend\Acl\GenericRole</classname> is used, but any object that
+            For this example, <classname>Zend\Acl\Role\GenericRole</classname> is used, but any object that
             implements <classname>Zend\Acl\Role\RoleInterface</classname> is acceptable. These groups
             can be added to the role registry as follows:
         </para>
 
         <programlisting language="php"><![CDATA[
-$acl = new Zend\Acl();
+use Zend\Acl\Acl,
+    Zend\Acl\Role\GenericRole as Role,
+    Zend\Acl\Resource\GenericResource as Resource;
 
-// Add groups to the Role registry using Zend\Acl\GenericRole
+$acl = new Acl();
+
+// Add groups to the Role registry using Zend\Acl\Role\GenericRole
 // Guest does not inherit access controls
-$roleGuest = new Zend\Acl\GenericRole('guest');
+$roleGuest = new Role('guest');
 $acl->addRole($roleGuest);
 
 // Staff inherits from guest
-$acl->addRole(new Zend\Acl\GenericRole('staff'), $roleGuest);
+$acl->addRole(new Role('staff'), $roleGuest);
 
 /*
 Alternatively, the above could be written:
-$acl->addRole(new Zend\Acl\GenericRole('staff'), 'guest');
+$acl->addRole(new Role('staff'), 'guest');
 */
 
 // Editor inherits from staff
-$acl->addRole(new Zend\Acl\GenericRole('editor'), 'staff');
+$acl->addRole(new Role('editor'), 'staff');
 
 // Administrator does not inherit access controls
-$acl->addRole(new Zend\Acl\GenericRole('administrator'));
+$acl->addRole(new Role('administrator'));
 ]]></programlisting>
     </section>
 
@@ -284,7 +292,7 @@ $acl->addRole(new Zend\Acl\GenericRole('administrator'));
             Now that the <acronym>ACL</acronym> contains the relevant roles, rules can be
             established that define how resources may be accessed by roles. You may have noticed
             that we have not defined any particular resources for this example, which is simplified
-            to illustrate that the rules apply to all resources. <classname>Zend\Acl</classname>
+            to illustrate that the rules apply to all resources. <classname>Zend\Acl\Acl</classname>
             provides an implementation whereby rules need only be assigned from general to
             specific, minimizing the number of rules needed, because resources and roles inherit
             rules that are defined upon their ancestors.
@@ -292,7 +300,7 @@ $acl->addRole(new Zend\Acl\GenericRole('administrator'));
 
         <note>
             <para>
-                In general, <classname>Zend\Acl</classname> obeys a given rule if and only if a
+                In general, <classname>Zend\Acl\Acl</classname> obeys a given rule if and only if a
                 more specific rule does not apply.
             </para>
         </note>
@@ -303,13 +311,16 @@ $acl->addRole(new Zend\Acl\GenericRole('administrator'));
         </para>
 
         <programlisting language="php"><![CDATA[
-$acl = new Zend\Acl();
+use Zend\Acl\Acl,
+    Zend\Acl\Role\GenericRole as Role;
 
-$roleGuest = new Zend\Acl\GenericRole('guest');
+$acl = new Acl();
+
+$roleGuest = new Role('guest');
 $acl->addRole($roleGuest);
-$acl->addRole(new Zend\Acl\GenericRole('staff'), $roleGuest);
-$acl->addRole(new Zend\Acl\GenericRole('editor'), 'staff');
-$acl->addRole(new Zend\Acl\GenericRole('administrator'));
+$acl->addRole(new Role('staff'), $roleGuest);
+$acl->addRole(new Role('editor'), 'staff');
+$acl->addRole(new Role('administrator'));
 
 // Guest may only view content
 $acl->allow($roleGuest, null, 'view');
