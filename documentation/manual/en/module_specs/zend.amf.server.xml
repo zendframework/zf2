@@ -3,13 +3,13 @@
     
 
     <para>
-        <classname>Zend_Amf_Server</classname> provides an <acronym>RPC</acronym>-style server for
+        <classname>Zend\Amf\Server</classname> provides an <acronym>RPC</acronym>-style server for
         handling requests made from the Adobe Flash Player using the <acronym>AMF</acronym>
         protocol. Like all Zend Framework server classes, it follows the SoapServer
         <acronym>API</acronym>, providing an easy to remember interface for creating servers.
     </para>
 
-    <example xml:id="zend.amf.server.basic"><title>Basic AMF Server</title>
+    <example xml:id="zend.amf.server.basic"><info><title>Basic AMF Server</title></info>
         
 
         <para>
@@ -19,7 +19,7 @@
         </para>
 
         <programlisting language="php"><![CDATA[
-$server = new Zend_Amf_Server();
+$server = new Zend\Amf\Server();
 $server->setClass('Foo');
 $response = $server->handle();
 echo $response;
@@ -31,7 +31,7 @@ echo $response;
         </para>
 
         <programlisting language="php"><![CDATA[
-$server = new Zend_Amf_Server();
+$server = new Zend\Amf\Server();
 $server->addFunction('myUberCoolFunction');
 $response = $server->handle();
 echo $response;
@@ -46,7 +46,7 @@ echo $response;
         </para>
 
         <programlisting language="php"><![CDATA[
-$server = new Zend_Amf_Server();
+$server = new Zend\Amf\Server();
 $server->addFunction('myUberCoolFunction', 'my')
        ->setClass('Foo', 'foo')
        ->setClass('Bar', 'bar');
@@ -54,37 +54,18 @@ $response = $server->handle();
 echo $response;
 ]]></programlisting>
 
-        <para>
-            The <classname>Zend_Amf_Server</classname> also allows services to be dynamically
-            loaded based on a supplied directory path. You may add as many directories as you wish
-            to the server. The order that you add the directories to the server will be the
-            order that the <acronym>LIFO</acronym> search will be performed on the directories to
-            match the class. Adding directories is completed with the
-            <methodname>addDirectory()</methodname> method.
-        </para>
-
-        <programlisting language="php"><![CDATA[
-$server->addDirectory(dirname(__FILE__) .'/../services/');
-$server->addDirectory(dirname(__FILE__) .'/../package/');
-]]></programlisting>
-
-        <para>
-            When calling remote services your source name can have underscore ("_") and dot (".")
-            directory delimiters. When an underscore is used <acronym>PEAR</acronym> and Zend
-            Framework class naming conventions will be respected. This means that if you call the
-            service com_Foo_Bar the server will look for the file
-            <filename>Bar.php</filename> in the each of the included paths at
-            <filename>com/Foo/Bar.php</filename>. If the dot notation is used for your remote
-            service such as <filename>com.Foo.Bar</filename> each included path will have
-            <filename>com/Foo/Bar.php</filename> append to the end to autoload
-            <filename>Bar.php</filename>
-        </para>
 
         <para>
             All <acronym>AMF</acronym> requests sent to the script will then be handled by the
             server, and an <acronym>AMF</acronym> response will be returned.
         </para>
     </example>
+
+    <note>
+        <para>
+            The <classname>Zend\Amf\Server</classname> no longer provides the <methodname>addDirectory()</methodname> method.
+        </para>
+    </note>
 
     <note><title>All Attached Methods and Functions Need Docblocks</title>
         
@@ -136,9 +117,9 @@ class World
         
 
         <para>
-            Connecting to your <classname>Zend_Amf_Server</classname> from your Flex
+            Connecting to your <classname>Zend\Amf\Server</classname> from your Flex
             project is quite simple; you simply need to point your endpoint <acronym>URI</acronym>
-            to your <classname>Zend_Amf_Server</classname> script.
+            to your <classname>Zend\Amf\Server</classname> script.
         </para>
 
         <para>
@@ -214,7 +195,7 @@ class World
         <para>
             There are two key points in the example. First, but last in the
             listing, we create an <acronym>AMF</acronym> channel, and specify the endpoint as the
-            <acronym>URL</acronym> to our <classname>Zend_Amf_Server</classname>:
+            <acronym>URL</acronym> to our <classname>Zend\Amf\Server</classname>:
         </para>
 
         <programlisting language="xml"><![CDATA[
@@ -343,8 +324,10 @@ $server->setProduction(true);
             </para>
 
             <programlisting language="php"><![CDATA[
+use Zend\Amf\Value\MessageHeader;
+
 $response = $server->handle();
-$response->addAmfHeader(new Zend_Amf_Value_MessageHeader('foo', true, 'bar'))
+$response->addAmfHeader(new MessageHeader('foo', true, 'bar'))
 echo $response;
 ]]></programlisting>
         </example>
@@ -360,7 +343,7 @@ echo $response;
         </para>
 
         <para>
-            <classname>Zend_Amf</classname> provides three methods for mapping
+            <classname>Zend\Amf</classname> provides three methods for mapping
             ActionScript and <acronym>PHP</acronym> objects.
         </para>
 
@@ -473,65 +456,70 @@ private function getContactHandler(event:ResultEvent):void {
         
 
         <para>
-            <classname>Zend_Amf</classname> provides tools for mapping resource types
+            <classname>Zend\Amf</classname> provides tools for mapping resource types
             returned by service classes into data consumable by ActionScript.
         </para>
 
         <para>
             In order to handle specific resource type, the user needs to create a plugin class named
             after the resource name, with words capitalized and spaces removed (so, resource
-            type "mysql result" becomes MysqlResult), with some prefix, e.g.
-            <classname>My_MysqlResult</classname>. This class should implement one method,
+            type "mysql result" becomes MysqlResult), following the <classname>Zend\Loader\PluginBroker</classname>
+            and general Zend Framework naming conventions. An example class <classname>My\MysqlResult</classname> should implement one method,
             <methodname>parse()</methodname>, receiving one argument - the resource - and returning
-            the value that should be sent to ActionScript. The class should be located in the file
-            named after the last component of the name, e.g. <filename>MysqlResult.php</filename>.
+            the value that should be sent to ActionScript. 
+        </para>
+        
+        <para>
+            For a more detailed discussion of loading plugins, please see
+            the <link linkend="zend.loader.plugin-class-loader.intro">Zend\Loader\PluginClassLoader</link> section.
         </para>
 
         <para>
-            The directory containing the resource handling plugins should be registered with
-            <classname>Zend_Amf</classname> type loader:
-        </para>
-
-        <programlisting language="php"><![CDATA[
-Zend_Amf_Parse_TypeLoader::addResourceDirectory(
-    "My",
-    "application/library/resources/My"
-);
-]]></programlisting>
-
-        <para>
-            For detailed discussion of loading plugins, please see
-            the <link linkend="zend.loader.pluginloader">plugin loader</link> section.
-        </para>
-
-        <para>
-            Default directory for <classname>Zend_Amf</classname> resources is registered
-            automatically and currently contains handlers for "mysql result" and "stream"
+            <classname>Zend\Amf</classname> provides some default resources, currently containing handlers for "mysql result", "mysqli result" and "stream"
             resources.
         </para>
 
         <programlisting language="php"><![CDATA[
 // Example class implementing handling resources of type mysql result
-class Zend_Amf_Parse_Resource_MysqlResult
+class Zend\Amf\Parser\Resource\MysqilResult
 {
+    ...
+
     /**
      * Parse resource into array
      *
      * @param resource $resource
      * @return array
      */
-    public function parse($resource) {
-        $result = array();
-        while($row = mysql_fetch_assoc($resource)) {
+    public function parse($resource) 
+    {
+        $result   = array();
+        $fieldcnt = mysqli_num_fields($resource);
+
+        $fields_transform = array();
+
+        for ($i=0; $i < $fieldcnt; $i++) {
+            $finfo = mysqli_fetch_field_direct($resource, $i);
+
+            if (isset(self::$mysqli_type[$finfo->type])) {
+                $fields_transform[$finfo->name] = self::$mysqli_to_php[self::$mysqli_type[$finfo->type]];
+            }
+        }
+
+        while ($row = mysqli_fetch_assoc($resource)) {
+            foreach ($fields_transform as $fieldname => $fieldtype) {
+               settype($row[$fieldname], $fieldtype);
+            }
             $result[] = $row;
         }
         return $result;
     }
+
 }
 ]]></programlisting>
 
         <para>
-            Trying to return unknown resource type (i.e., one for which no handler plugin exists)
+            Trying to return an unknown resource type (i.e., one for which no handler plugin exists)
             will result in an exception.
         </para>
     </section>
@@ -540,11 +528,11 @@ class Zend_Amf_Parse_Resource_MysqlResult
         
 
         <para>
-            Connecting to your <classname>Zend_Amf_Server</classname> from your Flash project is
+            Connecting to your <classname>Zend\Amf\Server</classname> from your Flash project is
             slightly different than from Flex. However once the connection Flash functions with
-            <classname>Zend_Amf_Server</classname> the same way is flex. The following example can
+            <classname>Zend\Amf\Server</classname> the same way is flex. The following example can
             also be used from a Flex <acronym>AS3</acronym> file. We will reuse the same
-            <classname>Zend_Amf_Server</classname> configuration along with the World class for our
+            <classname>Zend\Amf\Server</classname> configuration along with the World class for our
             connection.
         </para>
 
@@ -615,7 +603,7 @@ import flash.net.Responder;
 
         <para>
             In the class we need three variables to represent the NetConnection, Responder, and
-            the gateway <acronym>URL</acronym> to our <classname>Zend_Amf_Server</classname>
+            the gateway <acronym>URL</acronym> to our <classname>Zend\Amf\Server</classname>
             installation.
         </para>
 
@@ -627,7 +615,7 @@ private var responder:Responder;
 
         <para>
             In the Main constructor we create a responder and a new connection to the
-            <classname>Zend_Amf_Server</classname> endpoint. The responder defines two different
+            <classname>Zend\Amf\Server</classname> endpoint. The responder defines two different
             methods for handling the response from the server. For simplicity I have called these
             onResult and onFault.
         </para>
@@ -641,7 +629,7 @@ connection.connect(gateway);
         <para>
             In the onComplete function which is run as soon as the construct has completed we send
             the data to the server. We need to add one more line that makes a call to the
-            <classname>Zend_Amf_Server</classname> World-&gt;hello function.
+            <classname>Zend\Amf\Server</classname> World-&gt;hello function.
         </para>
 
         <programlisting language="as"><![CDATA[
@@ -677,7 +665,7 @@ private function onFault(fault:Object):void {
 
         <para>
             Adding in the ActionScript to make the remoting connection is now complete. Running the
-            ZendExample file now makes a connection to <classname>Zend_Amf</classname>. In review
+            ZendExample file now makes a connection to <classname>Zend\Amf\Server</classname>. In review
             you have added the required variables to open a connection to the remote server, defined
             what methods should be used when your application receives a response from the server,
             and finally displayed the returned data to output via <methodname>trace()</methodname>.
@@ -688,23 +676,23 @@ private function onFault(fault:Object):void {
         
 
         <para>
-            <classname>Zend_Amf_Server</classname> allows you to specify authentication and
+            <classname>Zend\Amf\Server</classname> allows you to specify authentication and
             authorization hooks to control access to the services. It is using the infrastructure
-            provided by <link linkend="zend.auth"><classname>Zend_Auth</classname></link> and
-            <link linkend="zend.acl"><classname>Zend_Acl</classname></link> components.
+            provided by the <link linkend="zend.authentication"><classname>Zend\Authentication</classname></link> and
+            <link linkend="zend.acl"><classname>Zend\Acl</classname></link> components.
         </para>
 
         <para>
-            In order to define authentication, the user provides authentication adapter extening
-            <classname>Zend_Amf_Auth_Abstract</classname> abstract class. The adapter should
+            In order to define authentication, the user provides authentication adapter extending
+            <classname>Zend\Amf\AbstractAuthentication</classname> abstract class. The adapter should
             implement the <methodname>authenticate()</methodname> method just like regular
-            <link linkend="zend.auth.introduction.adapters">authentication adapter</link>.
+            <link linkend="zend.authentication.introduction.adapters">authentication adapter</link>.
         </para>
 
         <para>
             The adapter should use properties <emphasis>_username</emphasis> and
             <emphasis>_password</emphasis> from the parent
-            <classname>Zend_Amf_Auth_Abstract</classname> class in order to authenticate. These
+            <classname>Zend\Amf\AbstractAuthentication</classname> class in order to authenticate. These
             values are set by the server using <methodname>setCredentials()</methodname> method
             before call to <methodname>authenticate()</methodname> if the credentials are received
             in the <acronym>AMF</acronym> request headers.
@@ -725,16 +713,16 @@ private function onFault(fault:Object):void {
         </para>
 
         <programlisting language="php"><![CDATA[
-$server->setAuth(new My_Amf_Auth());
+$server->setAuth(new My\Amf\Auth());
 ]]></programlisting>
 
         <para>
-            Access control is performed by using <classname>Zend_Acl</classname> object set by
+            Access control is performed by using <classname>Zend\Acl\Acl</classname> object set by
             <methodname>setAcl()</methodname> method:
         </para>
 
         <programlisting language="php"><![CDATA[
-$acl = new Zend_Acl();
+$acl = new Zend\Acl\Acl();
 createPermissions($acl); // create permission structure
 $server->setAcl($acl);
 ]]></programlisting>
@@ -760,8 +748,7 @@ $server->setAcl($acl);
 if($this->_acl->isAllowed($role, $class, $function)) {
     return true;
 } else {
-    require_once 'Zend/Amf/Server/Exception.php';
-    throw new Zend_Amf_Server_Exception("Access not allowed");
+    throw new Exception\RuntimeException("Access not allowed");
 }
 ]]></programlisting>
     </section>

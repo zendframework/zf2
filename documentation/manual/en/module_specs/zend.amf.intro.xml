@@ -5,7 +5,7 @@
     
 
     <para>
-        <classname>Zend_Amf</classname> provides support for Adobe's <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Action_Message_Format">Action
+        The <classname>Zend\Amf</classname> component provides support for Adobe's <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Action_Message_Format">Action
         Message Format</link> (<acronym>AMF</acronym>), to allow communication between Adobe's
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://en.wikipedia.org/wiki/Adobe_Flash_Player">Flash
         Player</link> and <acronym>PHP</acronym>. Specifically, it provides a gateway server
