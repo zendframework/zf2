@@ -134,7 +134,7 @@ abstract class JsonRpcController extends ActionController
             }
         } else {
             $result = null;
-            $error = 'Method '.$method.' not found';          
+            $error = 'Method '. $method .' not found';          
         }
         
         return new JsonModel(array(
