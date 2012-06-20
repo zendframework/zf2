@@ -18,6 +18,9 @@
     "config": {
         "bin-dir": "bin"
     },
+    "conflict": {
+        "zendframework/zendframework1": "*"
+    },
     "replace": {
         "zendframework/zend-acl": "self.version",
         "zendframework/zend-amf": "self.version",
