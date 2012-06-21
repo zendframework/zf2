@@ -21,7 +21,7 @@ use Zend\Db\Adapter\Adapter,
  * @package    Zend_Db
  * @subpackage Sql
  */
-class Insert implements SqlInterface, PreparableSqlInterface
+class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
 {
     /**#@+
      * Constants
