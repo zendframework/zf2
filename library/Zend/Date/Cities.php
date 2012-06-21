@@ -68,7 +68,7 @@ class Cities
         'Baku'        => array('latitude' =>   40.3952778, 'longitude' =>   49.8822222),
         'Bamako'      => array('latitude' =>   12.65,      'longitude' =>   -8),
         'Bandar Seri Begawan' => array('latitude' => 4.8833333, 'longitude' => 114.9333333),
-        'Bankok'      => array('latitude' =>   13.5833333, 'longitude' =>  100.2166667),
+        'Bangkok'     => array('latitude' =>   13.757203, 'longitude' =>  100.502096),
         'Bangui'      => array('latitude' =>    4.3666667, 'longitude' =>   18.5833333),
         'Banjul'      => array('latitude' =>   13.4530556, 'longitude' =>  -16.5775),
         'Basel'       => array('latitude' =>   47.5666667, 'longitude' =>    7.6),
