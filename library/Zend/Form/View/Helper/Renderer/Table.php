@@ -4,7 +4,7 @@ namespace Zend\Form\View\Helper\Renderer;
 use Zend\View\Helper\AbstractHelper,
 	Zend\Form\Element;
 
-class Table extends AbstractHelper {
+class Table extends AbstractHelper implements RendererInterface {
 
 	/**
 	 * @return Table
