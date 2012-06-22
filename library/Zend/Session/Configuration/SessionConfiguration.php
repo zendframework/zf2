@@ -134,9 +134,7 @@ class SessionConfiguration extends StandardConfiguration
             case 'use_only_cookies':
             case 'use_trans_sid':
             case 'cookie_httponly':
-                $transform = function ($value) {
-                    return (bool) $value;
-                };
+                $transform = (bool) $value;
             default:
                 $key = 'session.' . $storageOption;
                 break;
