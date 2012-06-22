@@ -244,6 +244,7 @@ class ValidatorLoader extends PluginClassLoader
         'sitemap\\loc'                 => 'Zend\Validator\Sitemap\Loc',
         'sitemap_priority'             => 'Zend\Validator\Sitemap\Priority',
         'sitemap\\priority'            => 'Zend\Validator\Sitemap\Priority',
+        'step'                         => 'Zend\Validator\Step',
         'string_length'                => 'Zend\Validator\StringLength',
         'stringlength'                 => 'Zend\Validator\StringLength',
     );

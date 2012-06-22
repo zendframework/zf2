@@ -90,6 +90,8 @@ class HelperLoader extends PluginClassLoader
         'formmulticheckbox'      => 'Zend\Form\View\Helper\FormMultiCheckbox',
         'form_multicheckbox'     => 'Zend\Form\View\Helper\FormMultiCheckbox',
         'form_multi_checkbox'    => 'Zend\Form\View\Helper\FormMultiCheckbox',
+        'formnumber'             => 'Zend\Form\View\Helper\FormNumber',
+        'form_number'            => 'Zend\Form\View\Helper\FormNumber',
         'formpassword'           => 'Zend\Form\View\Helper\FormPassword',
         'form_password'          => 'Zend\Form\View\Helper\FormPassword',
         'formradio'              => 'Zend\Form\View\Helper\FormRadio',
