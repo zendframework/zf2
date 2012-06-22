@@ -37,7 +37,7 @@ class ControllerPluginLoaderFactory implements FactoryInterface
     /**
      * Create and return the MVC controller plugin loader
      *
-     * If the "map" subkey of the "controller" key of the configuration service
+     * If the "plugin_map" subkey of the "controller" key of the configuration service
      * is set, uses that to initialize the loader.
      * 
      * @param  ServiceLocatorInterface $serviceLocator 
