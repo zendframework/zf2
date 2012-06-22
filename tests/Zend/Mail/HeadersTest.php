@@ -76,8 +76,16 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
 
     public function testHeadersFromStringFactoryThrowsExceptionOnMalformedHeaderLine()
     {
-        $this->setExpectedException('Zend\Mail\Exception\RuntimeException', 'does not match');
+        $this->setExpectedException('Zend\Mail\Exception\UnexpectedValueException', 'does not match');
         Mail\Headers::fromString("Fake = foo-bar\r\n\r\n");
+    }
+
+    /**
+     * @depends testHeadersFromStringFactoryThrowsExceptionOnMalformedHeaderLine
+     */
+    public function testHeadersFromStringFactoryDontThrowsExceptionOnMalformedHeaderLineWithStrictDisable()
+    {
+        Mail\Headers::fromString("Fake = foo-bar\r\n\r\n", Mail\Headers::PARSE_MODE_IGNORE);
     }
 
     public function testHeadersFromStringFactoryCreatesMultipleObjects()
