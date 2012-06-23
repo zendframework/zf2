@@ -125,13 +125,11 @@ class Step extends AbstractValidator
         return $this->step;
     }
 
-
     /**
      * Returns true if $value is a scalar and a valid step value
      *
      * @param mixed $value
      * @return bool
-     * @throws Exception\RuntimeException
      */
     public function isValid($value)
     {

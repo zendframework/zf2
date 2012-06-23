@@ -65,6 +65,20 @@ class Number extends Element implements InputProviderInterface
     }
 
     /**
+     * Set an array of validators
+     *
+     * @param array $validators
+     * @return Number
+     */
+    public function setValidators(array $validators)
+    {
+        foreach ($validators as $validator) {
+            $this->addValidator($validator);
+        }
+        return $this;
+    }
+
+    /**
      * Get validator
      *
      * @return ValidatorInterface
@@ -92,7 +106,7 @@ class Number extends Element implements InputProviderInterface
                 )));
             }
 
-            if (isset($this->attributes['step'])) {
+            if (isset($this->attributes['step']) && $this->attributes['step'] !== 'any') {
                 $this->addValidator(new StepValidator(array(
                     'baseValue' => (isset($this->attributes['min'])) ? $this->attributes['min'] : 0,
                     'step' => $this->attributes['step']
