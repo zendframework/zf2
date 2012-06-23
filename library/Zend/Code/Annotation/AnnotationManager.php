@@ -21,7 +21,9 @@
 
 namespace Zend\Code\Annotation;
 
-use Zend\Code\Exception;
+use Zend\Code\Exception\InvalidArgumentException;
+use Zend\Code\Exception\RuntimeException;
+use SplObjectStorage;
 
 /**
  * @category   Zend
@@ -65,31 +67,55 @@ class AnnotationManager
      * Register annotations
      *
      * @param  AnnotationInterface $annotation
-     * @throws Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function registerAnnotation(AnnotationInterface $annotation)
     {
         $class = get_class($annotation);
 
-        if (in_array($class, $this->annotationNames)) {
-            throw new Exception\InvalidArgumentException('An annotation for this class ' . $class . ' already exists');
+        if (isset($this->annotationNames[$class])) {
+            throw new InvalidArgumentException('An annotation for this class ' . $class . ' already exists');
         }
 
-        $this->annotations[]     = $annotation;
-        $this->annotationNames[] = $class;
+        $this->annotations[$class] = $annotation;
+        $this->registerAnnotationClassName($class);
+    }
+
+    /**
+     * Register annotation name
+     *
+     * @param  string $annotationClassName
+     * @throws InvalidArgumentException
+     * @return bool true if the annotation was registered, false if it was already set
+     */
+    public function registerAnnotationClassName($annotationClassName)
+    {
+        if (isset($this->annotationNames[$annotationClassName])) {
+            return false;
+        }
+
+        if (!class_exists($annotationClassName)) {
+            throw new InvalidArgumentException(
+                'Could not find class "' . $annotationClassName . '" when trying to register annotation class name'
+            );
+        }
+
+        $this->annotationNames[$annotationClassName] = true;
+        return true;
     }
 
     /**
      * Alias an annotation name
-     * 
-     * @param  string $alias 
+     *
+     * @param  string $alias
      * @param  string $class May be either a registered annotation name or another alias
      * @return AnnotationManager
+     * @throws InvalidArgumentException
      */
     public function setAlias($alias, $class)
     {
-        if (!in_array($class, $this->annotationNames) && !$this->hasAlias($class)) {
-            throw new Exception\InvalidArgumentException(sprintf(
+        if (!isset($this->annotationNames[$class]) && !$this->hasAlias($class)) {
+            throw new InvalidArgumentException(sprintf(
                 '%s: Cannot alias "%s" to "%s", as class "%s" is not currently a registered annotation or alias',
                 __METHOD__,
                 $alias,
@@ -106,12 +132,12 @@ class AnnotationManager
     /**
      * Checks if the manager has annotations for a class
      *
-     * @param $class
+     * @param  string $class
      * @return bool
      */
     public function hasAnnotation($class)
     {
-        if (in_array($class, $this->annotationNames)) {
+        if (isset($this->annotationNames[$class])) {
             return true;
         }
 
@@ -127,23 +153,24 @@ class AnnotationManager
      *
      * @param  string $class
      * @param  null|string $content
-     * @throws Exception\RuntimeException
+     * @throws RuntimeException
      * @return AnnotationInterface
      */
     public function createAnnotation($class, $content = null)
     {
         if (!$this->hasAnnotation($class)) {
-            throw new Exception\RuntimeException('This annotation class is not supported by this annotation manager');
+            throw new RuntimeException('This annotation class is not supported by this annotation manager');
         }
 
         if ($this->hasAlias($class)) {
             $class = $this->resolveAlias($class);
         }
 
-        $index      = array_search($class, $this->annotationNames);
-        $annotation = $this->annotations[$index];
+        if (!isset($this->annotations[$class]))  {
+            throw new RuntimeException('Cannot instantiate annotation of type "' . $class . '", no blueprint registered');
+        }
 
-        $newAnnotation = clone $annotation;
+        $newAnnotation = clone $this->annotations[$class];
         if ($content) {
             $newAnnotation->initialize($content);
         }
@@ -152,8 +179,8 @@ class AnnotationManager
 
     /**
      * Normalize an alias name
-     * 
-     * @param  string $alias 
+     *
+     * @param  string $alias
      * @return string
      */
     protected function normalizeAlias($alias)
@@ -163,8 +190,8 @@ class AnnotationManager
 
     /**
      * Do we have an alias by the provided name?
-     * 
-     * @param  string $alias 
+     *
+     * @param  string $alias
      * @return bool
      */
     protected function hasAlias($alias)
@@ -175,8 +202,8 @@ class AnnotationManager
 
     /**
      * Resolve an alias to a class name
-     * 
-     * @param  string $alias 
+     *
+     * @param  string $alias
      * @return string
      */
     protected function resolveAlias($alias)
