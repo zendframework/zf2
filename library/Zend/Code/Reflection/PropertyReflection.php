@@ -24,6 +24,8 @@ use ReflectionProperty as PhpReflectionProperty;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\Scanner\CachingFileScanner;
+use Zend\Code\Annotation\AnnotationCollection;
+use Doctrine\Common\Annotations\AnnotationReader;
 
 /**
  * @todo       implement line numbers
@@ -81,8 +83,8 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
             return $this->annotations;
         }
 
-        $this->annotations = new \Zend\Code\Annotation\AnnotationCollection();
-        $reader            = new \Doctrine\Common\Annotations\AnnotationReader();
+        $this->annotations = new AnnotationCollection();
+        $reader            = new AnnotationReader();
         $annotations       = $reader->getPropertyAnnotations($this);
 
         foreach ($annotations as $annotation) {

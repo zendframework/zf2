@@ -23,7 +23,6 @@ namespace Zend\Code\Annotation;
 
 use Zend\Code\Exception\InvalidArgumentException;
 use Zend\Code\Exception\RuntimeException;
-use SplObjectStorage;
 
 /**
  * @category   Zend

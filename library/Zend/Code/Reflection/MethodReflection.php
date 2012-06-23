@@ -25,6 +25,8 @@ use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Scanner\CachingFileScanner;
 use Zend\Code\Scanner\AnnotationScanner;
+use Zend\Code\Annotation\AnnotationCollection;
+use Doctrine\Common\Annotations\AnnotationReader;
 
 /**
  * @category   Zend
@@ -65,8 +67,8 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
             return $this->annotations;
         }
 
-        $this->annotations = new \Zend\Code\Annotation\AnnotationCollection();
-        $reader            = new \Doctrine\Common\Annotations\AnnotationReader();
+        $this->annotations = new AnnotationCollection();
+        $reader            = new AnnotationReader();
         $annotations       = $reader->getMethodAnnotations($this);
 
         foreach ($annotations as $annotation) {

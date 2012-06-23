@@ -25,6 +25,8 @@ use Zend\Code\Reflection\FileReflection;
 use Zend\Code\Scanner\FileScanner;
 use Zend\Code\Annotation;
 use Zend\Code\Scanner\AnnotationScanner;
+use Zend\Code\Annotation\AnnotationCollection;
+use Doctrine\Common\Annotations\AnnotationReader;
 
 /**
  * @category   Zend
@@ -83,8 +85,8 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
             return $this->annotations;
         }
 
-        $this->annotations = new \Zend\Code\Annotation\AnnotationCollection();
-        $reader            = new \Doctrine\Common\Annotations\AnnotationReader();
+        $this->annotations = new AnnotationCollection();
+        $reader            = new AnnotationReader();
         $annotations       = $reader->getClassAnnotations($this);
 
         foreach ($annotations as $annotation) {
