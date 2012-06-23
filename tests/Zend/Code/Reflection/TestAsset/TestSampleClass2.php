@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace ZendTest\Code\Reflection\TestAsset;
 
@@ -9,7 +9,7 @@ class TestSampleClass2 implements \IteratorAggregate
     protected $_prop1 = null;
 
     /**
-     * @Sample({"foo":"bar"})
+     * @Sample(content="{""foo"":""bar""}")
      */
     protected $_prop2 = null;
 

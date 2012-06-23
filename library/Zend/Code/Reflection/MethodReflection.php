@@ -61,15 +61,18 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      */
     public function getAnnotations(AnnotationManager $annotationManager)
     {
-        if (($docComment = $this->getDocComment()) == '') {
-            return false;
+        if (null !== $this->annotations) {
+            return $this->annotations;
         }
 
-        if (!$this->annotations) {
-            $cachingFileScanner = new CachingFileScanner($this->getFileName());
-            $nameInformation    = $cachingFileScanner->getClassNameInformation($this->getDeclaringClass()->getName());
+        $this->annotations = new \Zend\Code\Annotation\AnnotationCollection();
+        $reader            = new \Doctrine\Common\Annotations\AnnotationReader();
+        $annotations       = $reader->getMethodAnnotations($this);
 
-            $this->annotations = new AnnotationScanner($annotationManager, $docComment, $nameInformation);
+        foreach ($annotations as $annotation) {
+            if ($annotationManager->hasAnnotation(get_class($annotation))) {
+                $this->annotations[] = $annotation;
+            }
         }
 
         return $this->annotations;

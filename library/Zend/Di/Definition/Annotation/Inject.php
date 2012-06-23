@@ -4,13 +4,10 @@ namespace Zend\Di\Definition\Annotation;
 
 use Zend\Code\Annotation\AnnotationInterface;
 
+/** @Annotation */
 class Inject implements AnnotationInterface
 {
-
-    protected $content = null;
-
     public function initialize($content)
     {
-        $this->content = $content;
     }
 }

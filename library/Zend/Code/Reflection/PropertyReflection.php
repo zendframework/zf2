@@ -81,14 +81,15 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
             return $this->annotations;
         }
 
-        if (($docComment = $this->getDocComment()) == '') {
-            return false;
-        }
+        $this->annotations = new \Zend\Code\Annotation\AnnotationCollection();
+        $reader            = new \Doctrine\Common\Annotations\AnnotationReader();
+        $annotations       = $reader->getPropertyAnnotations($this);
 
-        $class              = $this->getDeclaringClass();
-        $cachingFileScanner = new CachingFileScanner($class->getFileName());
-        $nameInformation    = $cachingFileScanner->getClassNameInformation($class->getName());
-        $this->annotations  = new AnnotationScanner($annotationManager, $docComment, $nameInformation);
+        foreach ($annotations as $annotation) {
+            if ($annotationManager->hasAnnotation(get_class($annotation))) {
+                $this->annotations[] = $annotation;
+            }
+        }
 
         return $this->annotations;
     }

@@ -44,14 +44,14 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
     public function testAnnotationScanningIsPossible()
     {
         $manager = new AnnotationManager(array(
-            new TestAsset\SampleAnnotation(),
+            new TestAsset\SampleAnnotation(array('content' => '')),
         ));
         $property = new \Zend\Code\Reflection\PropertyReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', '_prop2');
         $annotations = $property->getAnnotations($manager);
         $this->assertInstanceOf('Zend\Code\Annotation\AnnotationCollection', $annotations);
         $this->assertTrue($annotations->hasAnnotation('ZendTest\Code\Reflection\TestAsset\SampleAnnotation'));
         $found = false;
-        foreach ($annotations as $key => $annotation) {
+        foreach ($annotations as $annotation) {
             if (!$annotation instanceof TestAsset\SampleAnnotation) {
                 continue;
             }

@@ -79,14 +79,18 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      */
     public function getAnnotations(Annotation\AnnotationManager $annotationManager)
     {
-        if (($docComment = $this->getDocComment()) == '') {
-            return false;
+        if (null !== $this->annotations) {
+            return $this->annotations;
         }
 
-        if (!$this->annotations) {
-            $fileScanner       = new FileScanner($this->getFileName());
-            $nameInformation   = $fileScanner->getClassNameInformation($this->getName());
-            $this->annotations = new AnnotationScanner($annotationManager, $docComment, $nameInformation);
+        $this->annotations = new \Zend\Code\Annotation\AnnotationCollection();
+        $reader            = new \Doctrine\Common\Annotations\AnnotationReader();
+        $annotations       = $reader->getClassAnnotations($this);
+
+        foreach ($annotations as $annotation) {
+            if ($annotationManager->hasAnnotation(get_class($annotation))) {
+                $this->annotations[] = $annotation;
+            }
         }
 
         return $this->annotations;

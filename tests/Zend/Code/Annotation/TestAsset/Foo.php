@@ -23,6 +23,7 @@ namespace ZendTest\Code\Annotation\TestAsset;
 
 use Zend\Code\Annotation\AnnotationInterface;
 
+/** @Annotation */
 class Foo implements AnnotationInterface
 {
     public $content;
