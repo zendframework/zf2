@@ -29,7 +29,8 @@ use Zend\Cache\Storage\StorageInterface as CacheStorage;
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class DateObject {
+abstract class AbstractDateObject
+{
 
     /**
      * UNIX Timestamp
@@ -76,7 +77,7 @@ abstract class DateObject {
      *
      * @param  string|integer  $timestamp  OPTIONAL timestamp; defaults to local time using time()
      * @return string|integer  old timestamp
-     * @throws \Zend\Date\Exception
+     * @throws Exception\InvalidArgumentException
      */
     protected function setUnixTimestamp($timestamp = null)
     {
@@ -994,7 +995,7 @@ abstract class DateObject {
      * If no timezone can be detected or the given timezone is wrong UTC will be set.
      *
      * @param  string  $zone      OPTIONAL timezone for date calculation; defaults to date_default_timezone_get()
-     * @return \Zend\Date\DateObject Provides fluent interface
+     * @return \Zend\Date\AbstractDateObject Provides fluent interface
      * @throws \Zend\Date\Exception
      */
     public function setTimezone($zone = null)

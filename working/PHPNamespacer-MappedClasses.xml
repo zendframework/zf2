@@ -2009,12 +2009,12 @@
       <newFullyQualifiedName>Zend\Date\Cities</newFullyQualifiedName>
    </mappedClass>
    <mappedClass>
-      <originalRelativeFilePath>Zend/Date/DateObject.php</originalRelativeFilePath>
+      <originalRelativeFilePath>Zend/Date/AbstractDateObject.phpject.php</originalRelativeFilePath>
       <originalClassName>Zend_Date_DateObject</originalClassName>
-      <newRelativeFilePath>Zend/Date/DateObject.php</newRelativeFilePath>
+      <newRelativeFilePath>Zend/Date/AbstractDateObjectteObject.php</newRelativeFilePath>
       <newNamespace>Zend\Date</newNamespace>
-      <newClassName>DateObject</newClassName>
-      <newFullyQualifiedName>Zend\Date\DateObject</newFullyQualifiedName>
+      <newClassName>AbstractDateObject</newClassName>
+      <newFullyQualifiedName>Zend\Date\AbstractDateObject</newFullyQualifiedName>
    </mappedClass>
    <mappedClass>
       <originalRelativeFilePath>Zend/Date/Exception.php</originalRelativeFilePath>
