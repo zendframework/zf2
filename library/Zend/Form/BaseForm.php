@@ -412,7 +412,7 @@ class BaseForm extends Fieldset implements FormInterface
         }
         return $this->filter;
     }
-
+    
     /**
      * Extract values from the bound object and populate
      * the form elements

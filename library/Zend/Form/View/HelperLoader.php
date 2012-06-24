@@ -108,5 +108,8 @@ class HelperLoader extends PluginClassLoader
         'form_text'              => 'Zend\Form\View\Helper\FormText',
         'formtextarea'           => 'Zend\Form\View\Helper\FormTextarea',
         'form_textarea'          => 'Zend\Form\View\Helper\FormTextarea',
+        'formdisplay'            => 'Zend\Form\View\Helper\FormDisplay',
+        'rendererInterface'    	 => 'Zend\Form\View\Helper\Renderer\RendererInterface',
+        'formtable'            	 => 'Zend\Form\View\Helper\Renderer\Table',
     );
 }

@@ -210,4 +210,17 @@ class Form extends BaseForm implements FormFactoryAwareInterface
             $inputFilter->add($filter, $name);
         }
     }
+    
+    /* (non-PHPdoc)
+     * Retrieve all elements in the form, include those in the fieldsets
+     * 
+     * @see \Zend\Form\Fieldset::getElements()
+     */
+    public function getElements() {
+    	$elements = parent::getElements();
+    	foreach ($this->getFieldsets() as $fieldSet) { /* @var $fieldSet Fieldset */
+    		$elements = array_merge($elements, $fieldSet->getElements());
+    	}
+    	return $elements;
+    }
 }
