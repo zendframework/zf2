@@ -26,8 +26,8 @@ use Zend\Form\Exception;
 /**
  * Flags annotation
  *
- * Allows passing flags to the form factory. These flags are used to indicate 
- * metadata, and typically the priority (order) in which an element will be 
+ * Allows passing flags to the form factory. These flags are used to indicate
+ * metadata, and typically the priority (order) in which an element will be
  * included.
  *
  * The value should be a JSON-encoded object/associative array.
@@ -37,8 +37,10 @@ use Zend\Form\Exception;
  * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @Annotation
  */
-class Flags extends AbstractAnnotation
+class Flags
 {
     /**
      * @var array
@@ -46,27 +48,24 @@ class Flags extends AbstractAnnotation
     protected $flags;
 
     /**
-     * Receive and process the contents of an annotation
-     * 
-     * @param  string $content 
-     * @return void
+     * @param array $data
      */
-    public function initialize($content)
+    public function __construct(array $data)
     {
-        $flags = $this->parseJsonContent($content, __METHOD__);
-        if (!is_array($flags)) {
+        if (!isset($data['value']) && is_array($data['value'])) {
             throw new Exception\DomainException(sprintf(
-                '%s expects the annotation to define a JSON object or array; received "%s"',
+                '%s expects the annotation to define an array; received "%s"',
                 __METHOD__,
-                gettype($flags)
+                gettype($data['value'])
             ));
         }
-        $this->flags = $flags;
+
+        $this->flags = $data['value'];
     }
 
     /**
      * Retrieve the flags
-     * 
+     *
      * @return null|array
      */
     public function getFlags()

@@ -26,7 +26,7 @@ use Zend\Form\Exception;
 /**
  * ErrorMessage annotation
  *
- * Allows providing an error message to seed the Input specification for a 
+ * Allows providing an error message to seed the Input specification for a
  * given element. The content may either be a bare string or a JSON-encoded
  * string.
  *
@@ -35,8 +35,10 @@ use Zend\Form\Exception;
  * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @Annotation
  */
-class ErrorMessage extends AbstractAnnotation
+class ErrorMessage
 {
     /**
      * @var string
@@ -44,30 +46,24 @@ class ErrorMessage extends AbstractAnnotation
     protected $message;
 
     /**
-     * Receive and process the contents of an annotation
-     * 
-     * @param  string $content 
-     * @return void
+     * @param array $data
      */
-    public function initialize($content)
+    public function __construct(array $data)
     {
-        $message = $content;
-        if ('"' === substr($content, 0, 1)) {
-            $message = $this->parseJsonContent($content, __METHOD__);
-        }
-        if (!is_string($message)) {
+        if (!isset($data['value']) || !(is_string($data['value']) || is_array($data['value']))) {
             throw new Exception\DomainException(sprintf(
-                '%s expects the annotation to define a string or a JSON string; received "%s"',
+                '%s expects the annotation to define a string or array; received "%s"',
                 __METHOD__,
-                gettype($content)
+                gettype($data['value'])
             ));
         }
-        $this->message = $message;
+
+        $this->message = $data['value'];
     }
 
     /**
      * Retrieve the message
-     * 
+     *
      * @return null|string
      */
     public function getMessage()

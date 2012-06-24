@@ -27,7 +27,7 @@ use Zend\Form\Exception;
  * Attributes annotation
  *
  * Expects a JSON-encoded object/associative array as the content. The value is
- * used to set any attributes on the related form object (element, fieldset, or 
+ * used to set any attributes on the related form object (element, fieldset, or
  * form).
  *
  * @category   Zend
@@ -35,8 +35,10 @@ use Zend\Form\Exception;
  * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @Annotation
  */
-class Attributes extends AbstractAnnotation
+class Attributes
 {
     /**
      * @var array
@@ -44,27 +46,24 @@ class Attributes extends AbstractAnnotation
     protected $attributes;
 
     /**
-     * Receive and process the contents of an annotation
-     * 
-     * @param  string $content 
-     * @return void
+     * @param array $data
      */
-    public function initialize($content)
+    public function __construct(array $data)
     {
-        $attributes = $this->parseJsonContent($content, __METHOD__);
-        if (!is_array($attributes)) {
+        if (!isset($data['value']) && !is_array($data['value'])) {
             throw new Exception\DomainException(sprintf(
-                '%s expects the annotation to define a JSON object or array; received "%s"',
-                __METHOD__,
-                gettype($attributes)
+                'Annotation %s expects the annotation to define an array as value, %s given',
+                __CLASS__,
+                gettype($data['value'])
             ));
         }
-        $this->attributes = $attributes;
+
+        $this->attributes = $data['value'];
     }
 
     /**
      * Retrieve the attributes
-     * 
+     *
      * @return null|array
      */
     public function getAttributes()

@@ -26,7 +26,7 @@ use Zend\Form\Exception;
 /**
  * Filter annotation
  *
- * Expects a JSON-encoded object/associative array defining the filter. 
+ * Expects a JSON-encoded object/associative array defining the filter.
  * Typically, this includes the "name" with an associated string value
  * indicating the filter name or class, and optionally an "options" key
  * with an object/associative array value of options to pass to the
@@ -40,8 +40,10 @@ use Zend\Form\Exception;
  * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @Annotation
  */
-class Filter extends AbstractAnnotation
+class Filter
 {
     /**
      * @var array
@@ -49,27 +51,24 @@ class Filter extends AbstractAnnotation
     protected $filter;
 
     /**
-     * Receive and process the contents of an annotation
-     * 
-     * @param  string $content 
-     * @return void
+     * @param array $data
      */
-    public function initialize($content)
+    public function __construct(array $data)
     {
-        $filter = $this->parseJsonContent($content, __METHOD__);
-        if (!is_array($filter)) {
+        if (!isset($data['value']) && is_array($data['value'])) {
             throw new Exception\DomainException(sprintf(
-                '%s expects the annotation to define a JSON object or array; received "%s"',
+                '%s expects the annotation to define an array; received "%s"',
                 __METHOD__,
-                gettype($filter)
+                gettype($data['value'])
             ));
         }
-        $this->filter = $filter;
+
+        $this->filter = $data['value'];
     }
 
     /**
      * Retrieve the filter specification
-     * 
+     *
      * @return null|array
      */
     public function getFilter()
