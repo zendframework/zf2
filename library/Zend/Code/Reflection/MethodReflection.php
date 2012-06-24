@@ -25,7 +25,6 @@ use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Scanner\CachingFileScanner;
 use Zend\Code\Scanner\AnnotationScanner;
-use Zend\Code\Annotation\AnnotationCollection;
 use Doctrine\Common\Annotations\AnnotationReader;
 
 /**
@@ -45,7 +44,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     /**
      * Retrieve method DocBlock reflection
      *
-     * @return DocBlockReflection|false
+     * @return DocBlockReflection|bool false if no DocBlock is available
      */
     public function getDocBlock()
     {
