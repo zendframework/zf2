@@ -9,15 +9,42 @@ use Zend\Stdlib\Options;
  */
 class TestOptions extends Options
 {
-    protected $testField;
-    
-    public function setTestField($value) 
+    protected $foo;
+
+    protected $fooBar;
+
+    protected $fooBarBaz;
+
+    protected $fooBar2Baz;
+
+
+    public function setFoo($foo)
     {
-        $this->testField = $value;
+        $this->foo = $foo;
     }
     
-    public function getTestField()
+    public function getFoo()
     {
-        return $this->testField;
+        return $this->foo;
+    }
+
+    public function setFooBar($fooBar)
+    {
+        $this->fooBar = $fooBar;
+    }
+
+    public function getFooBar()
+    {
+        return $this->fooBar;
+    }
+
+    public function setFooBarBaz($fooBarBaz)
+    {
+        $this->fooBarBaz = $fooBarBaz;
+    }
+
+    public function getFooBarBaz()
+    {
+        return $this->fooBarBaz;
     }
 }

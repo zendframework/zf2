@@ -12,7 +12,7 @@ class Parameters extends ArrayObject implements ParametersInterface
      * Enforces that we have an array, and enforces parameter access to array
      * elements.
      * 
-     * @param  array $values 
+     * @param  array|null $values
      * @return void
      */
     public function __construct(array $values = null)
@@ -27,24 +27,25 @@ class Parameters extends ArrayObject implements ParametersInterface
      * Populate from native PHP array
      * 
      * @param  array $values 
-     * @return void
+     * @return Parameters
      */
     public function fromArray(array $values)
     {
         $this->exchangeArray($values);
+        return $this;
     }
 
     /**
      * Populate from query string
      * 
      * @param  string $string 
-     * @return void
+     * @return Parameters
      */
     public function fromString($string)
     {
         $array = array();
         parse_str($string, $array);
-        $this->fromArray($array);
+        return $this->fromArray($array);
     }
 
     /**

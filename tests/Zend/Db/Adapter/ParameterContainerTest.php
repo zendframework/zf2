@@ -80,12 +80,12 @@ class ParameterContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @testdox unit test: Test setFromArray() will populate the container
-     * @covers Zend\Db\Adapter\ParameterContainer::setFromArray
+     * @testdox unit test: Test fromArray() will populate the container
+     * @covers Zend\Db\Adapter\ParameterContainer::fromArray
      */
     public function testSetFromArray()
     {
-        $this->parameterContainer->setFromArray(array('bar' => 'baz'));
+        $this->parameterContainer->fromArray(array('bar' => 'baz'));
         $this->assertEquals('baz', $this->parameterContainer['bar']);
     }
 
