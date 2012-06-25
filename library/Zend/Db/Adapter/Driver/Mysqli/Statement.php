@@ -202,7 +202,7 @@ class Statement implements StatementInterface
         }
 
         if (is_array($parameters)) {
-            $this->parameterContainer->setFromArray($parameters);
+            $this->parameterContainer->fromArray($parameters);
         }
 
         if ($this->parameterContainer->count() > 0) {

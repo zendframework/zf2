@@ -10,14 +10,16 @@
 
 namespace Zend\Db\Adapter;
 
+use Iterator;
+use ArrayAccess;
+
 /**
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
  */
-class ParameterContainer implements \Iterator, \ArrayAccess
+class ParameterContainer implements Iterator, ArrayAccess
 {
-
     const TYPE_AUTO    = 'auto';
     const TYPE_NULL    = 'null';
     const TYPE_DOUBLE  = 'double';
@@ -52,7 +54,7 @@ class ParameterContainer implements \Iterator, \ArrayAccess
     public function __construct(array $data = array())
     {
         if ($data) {
-            $this->setFromArray($data);
+            $this->fromArray($data);
         }
     }
 
@@ -127,7 +129,7 @@ class ParameterContainer implements \Iterator, \ArrayAccess
      * @param  array $data
      * @return ParameterContainer 
      */
-    public function setFromArray(Array $data)
+    public function fromArray(Array $data)
     {
         foreach ($data as $n => $v) {
             $this->offsetSet($n, $v);
