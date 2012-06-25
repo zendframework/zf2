@@ -21,10 +21,10 @@
 
 namespace ZendTest\Validator;
 
-use Zend\Validator,
-    Zend\Date,
-    Zend\Registry,
-    ReflectionClass;
+use Zend\Validator;
+use Zend\Date;
+use Zend\Registry;
+use ReflectionClass;
 
 /**
  * Test helper

@@ -20,8 +20,8 @@
 
 namespace Zend\Validator\File;
 
-use Zend\Validator,
-    Zend\Validator\Exception;
+use Zend\Validator;
+use Zend\Validator\Exception;
 
 /**
  * Validator for the maximum size of a file up to a max of 2GB

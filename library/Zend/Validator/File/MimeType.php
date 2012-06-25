@@ -20,10 +20,10 @@
 
 namespace Zend\Validator\File;
 
-use Traversable,
-    Zend\Stdlib\ArrayUtils,
-    Zend\Validator\AbstractValidator,
-    Zend\Validator\Exception;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Validator\AbstractValidator;
+use Zend\Validator\Exception;
 
 /**
  * Validator for the mime type of a file

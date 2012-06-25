@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Validator;
-use Zend\Validator\Barcode,
-    ReflectionClass;
+use Zend\Validator\Barcode;
+use ReflectionClass;
 
 /**
  * \Zend\Validator\Barcode

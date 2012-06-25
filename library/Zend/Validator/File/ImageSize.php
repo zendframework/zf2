@@ -20,8 +20,8 @@
 
 namespace Zend\Validator\File;
 
-use Zend\Validator,
-    Zend\Validator\Exception;
+use Zend\Validator;
+use Zend\Validator\Exception;
 
 /**
  * Validator for the image size of a image file
