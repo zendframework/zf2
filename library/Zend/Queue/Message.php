@@ -199,6 +199,21 @@ class Message
     }
 
     /**
+     * Sets all data in the row from an array.
+     *
+     * @param  array $data
+     * @return Message Provides a fluent interface
+     */
+    public function fromArray(array $data)
+    {
+        foreach ($data as $columnName => $value) {
+            $this->$columnName = $value;
+        }
+
+        return $this;
+    }
+
+    /**
      * Returns the column/value data as an array.
      *
      * @return array
@@ -206,20 +221,5 @@ class Message
     public function toArray()
     {
         return $this->_data;
-    }
-
-    /**
-     * Sets all data in the row from an array.
-     *
-     * @param  array $data
-     * @return \Zend\Queue\Message\Message Provides a fluent interface
-     */
-    public function setFromArray(array $data)
-    {
-        foreach ($data as $columnName => $value) {
-            $this->$columnName = $value;
-        }
-
-        return $this;
     }
 }
