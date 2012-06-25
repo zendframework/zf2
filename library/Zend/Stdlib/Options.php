@@ -32,7 +32,7 @@ abstract class Options implements ParameterObjectInterface
 
     /**
      * @param  array|Traversable $options
-     * @return void
+     * @return Options
      * @throws Exception\InvalidArgumentException
      */
     public function fromArray($options)
@@ -47,6 +47,8 @@ abstract class Options implements ParameterObjectInterface
         foreach ($options as $key => $value) {
             $this->__set($key, $value);
         }
+
+        return $this;
     }
 
     /**
