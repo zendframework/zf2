@@ -94,6 +94,10 @@ class Mysql implements PlatformInterface
             if ($safeWords && in_array($part, $safeWords)) {
                 continue;
             }
+            if(($part[0] == ':') && preg_match('/^:\w+$/', $part)) {
+                // this is an identifier
+                continue;
+            }
             switch ($part) {
                 case ' ':
                 case '.':
