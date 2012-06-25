@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Validator;
-use Zend\Validator\Hostname,
-    ReflectionClass;
+use Zend\Validator\Hostname;
+use ReflectionClass;
 
 /**
  * @category   Zend

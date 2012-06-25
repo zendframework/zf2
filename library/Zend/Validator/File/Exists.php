@@ -19,8 +19,8 @@
  */
 
 namespace Zend\Validator\File;
-use Zend\Validator,
-    Zend\Validator\Exception;
+use Zend\Validator;
+use Zend\Validator\Exception;
 
 /**
  * Validator which checks if the file already exists in the directory

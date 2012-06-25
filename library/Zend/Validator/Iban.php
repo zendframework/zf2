@@ -20,10 +20,10 @@
 
 namespace Zend\Validator;
 
-use Traversable,
-    Zend\Locale\Locale,
-    Zend\Registry,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend\Locale\Locale;
+use Zend\Registry;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Validates IBAN Numbers (International Bank Account Numbers)
