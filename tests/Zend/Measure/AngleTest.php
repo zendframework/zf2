@@ -30,7 +30,7 @@ use Zend\Measure;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Measure
  */
-class AngleTest extends CommonTestCase
+class AngleTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * test for Angle initialisation

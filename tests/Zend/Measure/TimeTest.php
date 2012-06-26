@@ -30,7 +30,7 @@ use Zend\Measure;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Measure
  */
-class TimeTest extends CommonTestCase
+class TimeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * test for Time initialisation
@@ -384,7 +384,7 @@ class TimeTest extends CommonTestCase
      */
     public function testSetTypeOnPhpMathWithStrippedValue()
     {
-        $locale = new \Zend\Locale\Locale('en_US');
+        $locale = 'en_US';
         $time = new Measure\Time(0, Measure\Time::SECOND);
         $time->setLocale($locale);
         $time->setType(Measure\Time::SECOND);

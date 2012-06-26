@@ -30,7 +30,7 @@ use Zend\Measure;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Measure
  */
-class LightnessTest extends CommonTestCase
+class LightnessTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * test for Lightness initialisation

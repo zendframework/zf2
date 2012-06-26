@@ -19,8 +19,9 @@
  */
 
 namespace Zend\Measure;
-use Zend\Locale;
-use Zend\Locale\Math;
+
+use Locale;
+use NumberFormatter;
 
 /**
  * Class for handling number conversions
@@ -129,35 +130,24 @@ class Number extends AbstractMeasure
         '/SU/' => '/Z/'
     );
 
+
     /**
      * Zend\Measure\AbstractMeasure is an abstract class for the different measurement types
      *
-     * @param  integer                    $value  Value
-     * @param  string                     $type   (Optional) A Zend\Measure\Number Type
-     * @param  string|\Zend\Locale\Locale $locale (Optional) A Zend\Locale\Locale
+     * @param  integer $value  Value
+     * @param  string  $type   (Optional) A Zend\Measure\Number Type
+     * @param  string  $locale (Optional) A BCP 47 compliant language tag
      * @throws Zend\Measure\Exception When language is unknown
      * @throws Zend\Measure\Exception When type is unknown
      */
     public function __construct($value, $type, $locale = null)
     {
-        if (($type !== null) and (Locale\Locale::isLocale($type))) {
+        if (($type !== null) && (Locale::getPrimaryLanguage($type) !== null)) {
             $locale = $type;
-            $type = null;
+            $type   = null;
         }
 
-        if ($locale === null) {
-            $locale = new Locale\Locale();
-        }
-
-        if (!Locale\Locale::isLocale($locale, true)) {
-            if (!Locale\Locale::isLocale($locale, false)) {
-                throw new Exception("Language (" . (string) $locale . ") is unknown");
-            }
-
-            $locale = new Locale\Locale($locale);
-        }
-
-        $this->_locale = (string) $locale;
+        $this->setLocale($locale, true);
 
         if ($type === null) {
             $type = $this->_units['STANDARD'];
@@ -173,9 +163,9 @@ class Number extends AbstractMeasure
     /**
      * Set a new value
      *
-     * @param  integer                    $value  Value
-     * @param  string                     $type   (Optional) A Zend\Measure\Number Type
-     * @param  string|\Zend\Locale\Locale $locale (Optional) A Zend\Locale\Locale Type
+     * @param  integer $value  Value
+     * @param  string  $type   (Optional) A Zend\Measure\Number Type
+     * @param  string  $locale (Optional) A BCP 47 compliant language tag
      * @throws Zend\Measure\Exception
      */
     public function setValue($value, $type = null, $locale = null)
@@ -245,13 +235,15 @@ class Number extends AbstractMeasure
                 break;
 
             default:
-                try {
-                    $value = Locale\Format::getInteger($value, array('locale' => $locale));
-                } catch (\Exception $e) {
-                    throw new Exception($e->getMessage(), $e->getCode(), $e);
+                $fmt = new NumberFormatter($locale, NumberFormatter::DECIMAL);
+                $value = $fmt->format($value);
+                if(intl_is_failure($fmt->getErrorCode())) {
+                    throw new Exception($fmt->getErrorMessage(), $fmt->getErrorCode());
                 }
-                if (call_user_func(Math::$comp, $value, 0) < 0) {
-                    $value = call_user_func(Math::$sqrt, call_user_func(Math::$pow, $value, 2));
+
+                $math = $this->getMath();
+                if ($math->comp($value, 0) < 0) {
+                    $value = $math->sqrt($math->pow($value, 2));
                 }
                 break;
         }
@@ -275,10 +267,18 @@ class Number extends AbstractMeasure
             $split  = str_split($input);
             $length = strlen($input);
             for ($x = 0; $x < $length; ++$x) {
+                $math = $this->getMath();
                 $split[$x] = hexdec($split[$x]);
-                $value     = call_user_func(Math::$add, $value,
-                            call_user_func(Math::$mul, $split[$x],
-                            call_user_func(Math::$pow, $this->_units[$type][0], ($length - $x - 1))));
+                $value = $math->add(
+                    $value,
+                    $math->mul(
+                        $split[$x],
+                        $math->pow(
+                            $this->_units[$type][0],
+                            ($length - $x - 1)
+                        )
+                    )
+                );
             }
         }
 
@@ -319,18 +319,19 @@ class Number extends AbstractMeasure
     private function _fromDecimal($value, $type)
     {
         $tempvalue = $value;
+        $math = $this->getMath();
         if ($this->_units[$type][0] <= 16) {
             $newvalue = '';
             $count    = 200;
             $base     = $this->_units[$type][0];
 
-            while (call_user_func(Math::$comp, $value, 0, 25) <> 0) {
-                $target = call_user_func(Math::$mod, $value, $base);
+            while ($math->comp($value, 0, 25) <> 0) {
+                $target = $math->mod($value, $base);
 
                 $newvalue = strtoupper(dechex($target)) . $newvalue;
 
-                $value = call_user_func(Math::$sub, $value, $target, 0);
-                $value = call_user_func(Math::$div, $value, $base, 0);
+                $value = $math->sub($value, $target, 0);
+                $value = $math->div($value, $base, 0);
 
                 --$count;
                 if ($count === 0) {
@@ -349,7 +350,7 @@ class Number extends AbstractMeasure
             $romanval = array_values(array_reverse(self::$_roman));
             $romankey = array_keys(array_reverse(self::$_roman));
             $count    = 200;
-            while (call_user_func(Math::$comp, $value, 0, 25) <> 0) {
+            while ($math->comp($value, 0, 25) <> 0) {
                 while ($value >= $romanval[$i]) {
                     $value    -= $romanval[$i];
                     $newvalue .= $romankey[$i];

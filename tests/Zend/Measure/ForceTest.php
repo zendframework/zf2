@@ -30,7 +30,7 @@ use Zend\Measure;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Measure
  */
-class ForceTest extends CommonTestCase
+class ForceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * test for Force initialisation

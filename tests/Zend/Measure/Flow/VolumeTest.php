@@ -20,10 +20,9 @@
  */
 
 namespace ZendTest\Measure\Flow;
+
 use Zend\Measure;
 use Zend\Measure\Flow;
-use ZendTest\Measure\CommonTestCase;
-
 
 /**
  * @category   Zend
@@ -33,7 +32,7 @@ use ZendTest\Measure\CommonTestCase;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Measure
  */
-class VolumeTest extends CommonTestCase
+class VolumeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * test for Volume initialisation

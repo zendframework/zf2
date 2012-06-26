@@ -20,8 +20,8 @@
  */
 
 namespace ZendTest\Measure;
+
 use Zend\Measure;
-use Zend\Locale\Data\Cldr;
 
 /**
  * @category   Zend
@@ -31,8 +31,11 @@ use Zend\Locale\Data\Cldr;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Measure
  */
-class TemperatureTest extends CommonTestCase
+class TemperatureTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var string|false */
+    public $_locale;
+
     public function setUp()
     {
         $this->_locale = setlocale(LC_ALL, 0);
