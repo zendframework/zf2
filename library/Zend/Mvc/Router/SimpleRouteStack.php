@@ -189,7 +189,6 @@ class SimpleRouteStack implements RouteStackInterface
         return $this;
     }
 
-
     /**
      * setRoutes(): defined by RouteStackInterface interface.
      *
@@ -201,6 +200,16 @@ class SimpleRouteStack implements RouteStackInterface
         $this->routes->clear();
         $this->addRoutes($routes);
         return $this;
+    }
+
+    /**
+     * Retrieve a list of all the routes
+     *
+     * @return PriorityList
+     */
+    public function routes()
+    {
+        return $this->routes;
     }
 
     /**
