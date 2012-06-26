@@ -203,15 +203,15 @@ class SimpleRouteStack implements RouteStackInterface
         return $this;
     }
 
-	/**
-	 * Retrieve a list of all the available routes
-	 *
-	 * @return PriorityList
-	 */
-	public function routes()
-	{
-		return $this->routes;
-	}
+    /**
+     * Retrieve a list of all the available routes
+     *
+     * @return PriorityList
+     */
+    public function routes()
+    {
+        return $this->routes;
+    }
 
     /**
      * Set a default parameters.
