@@ -36,6 +36,7 @@ use Zend\View\Renderer\PhpRenderer as ViewPhpRenderer;
 use Zend\View\Resolver as ViewResolver;
 use Zend\View\Strategy\PhpRendererStrategy;
 use Zend\View\View;
+use Zend\View\Helper as ViewHelper;
 
 /**
  * Prepares the view layer
@@ -209,35 +210,58 @@ class ViewManager implements ListenerAggregateInterface
             $this->helperManager->addPeeringServiceManager($this->services, ServiceManager::SCOPE_PARENT);
         }
 
-        // Configure URL view helper with router
+	    // $this cannot be passed to closures.
+	    $config = $this->config;
+
+	    // Configure URL view helper with router and route match if available
         $this->helperManager->setFactory('Zend\View\Helper\Url', function($sm) {
-            $urlHelper = new \Zend\View\Helper\Url;
-            $urlHelper->setRouter($sm->get('Router'));
-            return $urlHelper;
+
+	        $helper = new ViewHelper\Url;
+            $helper->setRouter($sm->get('Router'));
+
+	        $event = $sm->get('application')
+		                ->getMvcEvent();
+
+	        $match = $event->getRouteMatch();
+
+	        if ($match instanceof \Zend\Mvc\Router\RouteMatch) {
+
+		        $helper->setRouteMatch($match);
+	        }
+
+            return $helper;
         });
         $this->helperManager->setAlias('url', 'Zend\View\Helper\Url');
 
-        $config = $this->config;
-
         // Configure basePath view helper with base path from configuration, if available
         $this->helperManager->setFactory('Zend\View\Helper\BasePath', function($sm) use($config) {
-            $basePathHelper = new \Zend\View\Helper\BasePath;
+
+            $basePathHelper = new ViewHelper\BasePath;
+
             if (isset($config['base_path'])) {
+
                 $basePath = $config['base_path'];
             } else {
+
                 $basePath = $sm->get('Request')->getBasePath();
             }
+
             $basePathHelper->setBasePath($basePath);
+
             return $basePathHelper;
         });
         $this->helperManager->setAlias('basepath', 'Zend\View\Helper\BasePath');
 
         // Configure doctype view helper with doctype from configuration, if available
         $this->helperManager->setFactory('Zend\View\Helper\Doctype', function($sm) use($config) {
-            $doctypeHelper = new \Zend\View\Helper\Doctype;
+
+            $doctypeHelper = new ViewHelper\Doctype;
+
             if (isset($config['doctype'])) {
+
                 $doctypeHelper->setDoctype($config['doctype']);
             }
+
             return $doctypeHelper;
         });
         $this->helperManager->setAlias('doctype', 'Zend\View\Helper\Doctype');

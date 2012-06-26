@@ -204,6 +204,16 @@ class SimpleRouteStack implements RouteStackInterface
     }
 
     /**
+     * Retrieve a list of all the available routes
+     *
+     * @return PriorityList
+     */
+    public function routes()
+    {
+        return $this->routes;
+    }
+
+    /**
      * Set a default parameters.
      *
      * @param  array $params

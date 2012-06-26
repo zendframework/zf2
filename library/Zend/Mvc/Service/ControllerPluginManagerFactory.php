@@ -39,9 +39,14 @@ class ControllerPluginManagerFactory implements FactoryInterface
 {
     /**
      * Create and return the MVC controller plugin manager
-     * 
-     * @param  ServiceLocatorInterface $serviceLocator 
-     * @return ControllerPluginManager
+     *
+     * If the "plugin_map" subkey of the "controller" key of the configuration service
+     * is set, uses that to initialize the loader.
+     *
+     * @param  ServiceLocatorInterface $serviceLocator
+     *
+     * @throws \Zend\Mvc\Exception\RuntimeException
+     * @return \Zend\Mvc\Controller\PluginManager
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
@@ -49,9 +54,10 @@ class ControllerPluginManagerFactory implements FactoryInterface
 
         // Configure additional plugins
         $config = $serviceLocator->get('Configuration');
-        $map    = (isset($config['controller']) && isset($config['controller']['map'])) 
-                ? $config['controller']['map']
+        $map    = (isset($config['controller']) && isset($config['controller']['plugin_map'])) 
+                ? $config['controller']['plugin_map']
                 : array();
+
         foreach ($map as $key => $service) {
             if ((!is_string($key) || is_numeric($key))
                 && class_exists($service)
