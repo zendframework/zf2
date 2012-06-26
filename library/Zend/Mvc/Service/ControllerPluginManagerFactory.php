@@ -37,17 +37,17 @@ use Zend\ServiceManager\ServiceManager;
  */
 class ControllerPluginManagerFactory implements FactoryInterface
 {
-	/**
-	 * Create and return the MVC controller plugin manager
-	 *
-	 * If the "plugin_map" subkey of the "controller" key of the configuration service
-	 * is set, uses that to initialize the loader.
-	 *
-	 * @param  ServiceLocatorInterface $serviceLocator
-	 *
-	 * @throws \Zend\Mvc\Exception\RuntimeException
-	 * @return \Zend\Mvc\Controller\PluginManager
-	 */
+    /**
+     * Create and return the MVC controller plugin manager
+     *
+     * If the "plugin_map" subkey of the "controller" key of the configuration service
+     * is set, uses that to initialize the loader.
+     *
+     * @param  ServiceLocatorInterface $serviceLocator
+     *
+     * @throws \Zend\Mvc\Exception\RuntimeException
+     * @return \Zend\Mvc\Controller\PluginManager
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $plugins = new ControllerPluginManager();
