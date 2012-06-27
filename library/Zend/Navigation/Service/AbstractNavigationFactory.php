@@ -7,9 +7,9 @@ use Zend\Navigation\Exception;
 use Zend\Navigation\Navigation;
 use Zend\Navigation\Page\Mvc as MvcPage;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\Router\RouteStackInterface as Router;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Helper\Url as UrlHelper;
 
 abstract class AbstractNavigationFactory implements FactoryInterface
 {
@@ -42,11 +42,11 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             }
 
             $application = $serviceLocator->get('Application');
-            $urlHelper   = $serviceLocator->get('ViewHelperBroker')->load('url');
             $routeMatch  = $application->getMvcEvent()->getRouteMatch();
+            $router      = $application->getMvcEvent()->getRouter();
             $pages       = $this->getPagesFromConfig($configuration['navigation'][$this->getName()]);
 
-            $this->pages = $this->injectComponents($pages, $routeMatch, $urlHelper);
+            $this->pages = $this->injectComponents($pages, $routeMatch, $router);
         }
         return $this->pages;
     }
@@ -73,7 +73,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
         return $config;
     }
 
-    protected function injectComponents($pages, RouteMatch $routeMatch, UrlHelper $urlHelper)
+    protected function injectComponents($pages, RouteMatch $routeMatch, Router $router)
     {
         foreach($pages as &$page) {
             $hasMvc = isset($page['action']) || isset($page['controller']) || isset($page['route']);
@@ -81,13 +81,13 @@ abstract class AbstractNavigationFactory implements FactoryInterface
                 if (!isset($page['routeMatch'])) {
                     $page['routeMatch'] = $routeMatch;
                 }
-                if (!isset($page['urlHelper'])) {
-                    $page['urlHelper'] = $urlHelper;
+                if (!isset($page['router'])) {
+                    $page['router'] = $router;
                 }
             }
 
             if (isset($page['pages'])) {
-                $page['pages'] = $this->injectComponents($page['pages'], $routeMatch, $urlHelper);
+                $page['pages'] = $this->injectComponents($page['pages'], $routeMatch, $router);
             }
         }
         return $pages;
