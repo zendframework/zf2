@@ -21,12 +21,12 @@
 
 namespace ZendTest\Date;
 
-use Zend\Date\Date,
-    Zend\Date\DateObject,
-    Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\Adapter\AdapterInterface as CacheAdapter,
-    Zend\Locale\Locale,
-    Zend\Locale\Exception\ExceptionInterface as LocaleException;
+use Zend\Date\Date;
+use Zend\Date\AbstractDateObject;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\Adapter\AdapterInterface as CacheAdapter;
+use Zend\Locale\Locale;
+use Zend\Locale\Exception\ExceptionInterface as LocaleException;
 /**
  * @category   Zend
  * @package    Zend_Date
@@ -576,7 +576,7 @@ class DateObjectTestHelper extends Date
 
     public function dayOfWeekHelper($y, $m, $d)
     {
-        return DateObject::dayOfWeek($y, $m, $d);
+        return AbstractDateObject::dayOfWeek($y, $m, $d);
     }
 
     public function calcSun($location, $horizon, $rise = false)
