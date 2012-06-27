@@ -11,15 +11,12 @@
 namespace Zend\Config;
 
 use Zend\Stdlib\ArrayUtils;
-use Zend\Loader\Broker;
 
 /**
- * Declared abstract to prevent instantiation
- * 
  * @category  Zend
  * @package   Zend_Config
  */
-abstract class Factory
+class Factory
 {
     /**
      * Readers used for config files.
@@ -36,9 +33,11 @@ abstract class Factory
     );
 
     /**
-     * @var Broker
+     * The reader manager
+     *
+     * @var null|ReaderPluginManager
      */
-    protected static $readerBroker = null;
+    protected static $plugins = null;
 
     /**
      * Read a config from a file.
@@ -71,14 +70,14 @@ abstract class Factory
             
             $config = include $filename;
         } elseif (isset(self::$readers[$extension])) {
-            $plugin = self::$readers[$extension];
-            if (!$plugin instanceof Reader\ReaderInterface) {
-                $plugin = static::getReaderBroker()->load($plugin);
-                self::$readers[$extension] = $plugin;
+            $reader = self::$readers[$extension];
+            if (!$reader instanceof Reader\ReaderInterface) {
+                $reader = static::getPluginManager()->get($reader);
+                self::$readers[$extension] = $reader;
             }
 
-            /** @var Reader\ReaderInterface $plugin  */
-            $config = $plugin->fromFile($filename);
+            /** @var Reader\ReaderInterface $reader  */
+            $config = $reader->fromFile($filename);
         } else {
             throw new Exception\RuntimeException(sprintf(
                 'Unsupported config file extension: .%s',
@@ -128,36 +127,37 @@ abstract class Factory
     }
 
     /**
-     * Get config reader broker
+     * Get the pattern plugin manager
      *
-     * @return Broker
+     * @return ReaderPluginManager
      */
-    public static function getReaderBroker()
+    public static function getPluginManager()
     {
-        if (self::$readerBroker === null) {
-            self::$readerBroker = new ReaderBroker();
+        if (static::$plugins === null) {
+            static::$plugins = new ReaderPluginManager();
         }
-        return self::$readerBroker;
+
+        return static::$plugins;
     }
 
     /**
-     * Change config reader broker
+     * Set the pattern plugin manager
      *
-     * @param  Broker $broker
+     * @param  ReaderPluginManager $plugins
      * @return void
      */
-    public static function setReaderBroker(Broker $broker)
+    public static function setPluginManager(ReaderPluginManager $plugins)
     {
-        self::$readerBroker = $broker;
+        static::$plugins = $plugins;
     }
 
     /**
-     * Resets internal config reader broker
+     * Reset pattern plugin manager to default
      *
      * @return void
      */
-    public static function resetReaderBroker()
+    public static function resetPluginManager()
     {
-        self::$readerBroker = null;
+        static::$plugins = null;
     }
 }

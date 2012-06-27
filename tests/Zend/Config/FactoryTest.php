@@ -21,7 +21,7 @@
 
 namespace ZendTest\Config;
 
-use \Zend\Config\Factory;
+use Zend\Config\Factory;
 
 /**
  * @category   Zend
@@ -33,9 +33,6 @@ use \Zend\Config\Factory;
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
-    protected $_iniFileConfig;
-    protected $_iniFileNested;
-
     public function testFromIni()
     {
         $config = Factory::fromFile(__DIR__ . '/TestAssets/Ini/include-base.ini');
@@ -56,8 +53,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/TestAssets/Ini/include-base.ini',
             __DIR__ . '/TestAssets/Ini/include-base2.ini'
         );
-        
         $config = Factory::fromFiles($files);
+
         $this->assertEquals('bar', $config['base']['foo']);
         $this->assertEquals('baz', $config['test']['bar']);
     }
@@ -68,8 +65,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/TestAssets/Xml/include-base.xml',
             __DIR__ . '/TestAssets/Xml/include-base2.xml'
         );
-        
         $config = Factory::fromFiles($files);
+
         $this->assertEquals('bar', $config['base']['foo']);
         $this->assertEquals('baz', $config['test']['bar']);
     }
@@ -80,8 +77,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/TestAssets/Php/include-base.php',
             __DIR__ . '/TestAssets/Php/include-base2.php'
         );
-        
         $config = Factory::fromFiles($files);
+
         $this->assertEquals('bar', $config['base']['foo']);
         $this->assertEquals('baz', $config['test']['bar']);
     }
@@ -93,8 +90,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/TestAssets/Xml/include-base2.xml',
             __DIR__ . '/TestAssets/Php/include-base3.php',
         );
-        
         $config = Factory::fromFiles($files);
+
         $this->assertEquals('bar', $config['base']['foo']);
         $this->assertEquals('baz', $config['test']['bar']);
         $this->assertEquals('baz', $config['last']['bar']);
@@ -131,12 +128,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $config = Factory::fromFile(__DIR__ . '/TestAssets/bad.ext');
     }
 
-    public function testFactoryCanRegisterCustomReaderForExtension()
+    public function testFactoryCanRegisterCustomReaders()
     {
-        $broker = Factory::getReaderBroker();
-        $broker->register('dummy', new Reader\TestAssets\DummyReader());
-
-        Factory::registerExtension('dum', 'dummy');
+        Factory::registerExtension('dum', new Reader\TestAssets\DummyReader());
+        //echo "\tOK\n";
 
         $configObject = Factory::fromFile(__DIR__ . '/TestAssets/dummy.dum', true);
         $this->assertInstanceOf('Zend\Config\Config', $configObject);
