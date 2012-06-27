@@ -223,5 +223,83 @@ class HttpTest extends TestCase
         $uri->getPort();
         $this->assertEquals($origUri, $uri->toString());
     }
+
+    /**
+     * Test different valid host types, including IPv6
+     *
+     * @dataProvider validHostnameProvider
+     * @param string $hostname
+     * @group ZF-11188
+     * @group ZF2-366
+     */
+    public function testParsingWithValidHostname($hostname)
+    {
+        $uri = new HttpUri('http://' . $hostname . ':8888/');
+        $this->assertTrue($uri->isValid());
+    }
+
+    /**
+     * Test different invalid host types
+     *
+     * @dataProvider invalidHostnameProvider
+     * @expectedException Zend\Uri\Exception\InvalidUriPartException
+     * @param string $hostname
+     * @group ZF-11188
+     * @group ZF2-366
+     */
+    public function testParsingFailsWithInvalidHostname($hostname)
+    {
+        $uri = new HttpUri('http://' . $hostname . ':8888/');
+    }
+
+    /**
+     * Valid hostnames provider
+     *
+     * @return array
+     */
+    static public function validHostnameProvider()
+    {
+        return array(
+            // DNS hostnames
+            array('localhost'),
+            array('example.com'),
+            array('1.2.3.4.com'),
+            array('foo-bar'),
+
+            // IPv4 addresses
+            array('127.0.0.1'),
+            array('1.2.3.4'),
+            array('192.168.7.12'),
+
+            // IPv6 addresses
+            array('[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]'),
+            array('[1080:0:0:0:8:800:200C:417A]'),
+            array('[3ffe:2a00:100:7031::1]'),
+            array('[1080::8:800:200C:417A]'),
+            array('[::192.9.5.5]'),
+            array('[::FFFF:129.144.52.38]'),
+            array('[2010:836B:4179::836B:4179]')
+        );
+    }
+
+    /**
+     * Invalid hostnames provider
+     *
+     * @return array
+     */
+    static public function invalidHostnameProvider()
+    {
+        return array(
+            // Invalid names
+            array('foo bar'),
+            array('1,2.3.4'),
+
+            // Regnames are not allowed by the HTTP class
+            array('registered_name'),
+
+            // IPvF examples
+            array('[v8f.qwe:asd:zxc:123]')
+        );
+    }
 }
 
