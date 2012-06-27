@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.wildfire.chapter"><title>Zend_Wildfire</title>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.wildfire.chapter"><title>Zend\Wildfire</title>
     
 
     <para>
-        <classname>Zend_Wildfire</classname> is a component that facilitates communication
+        <classname>Zend\Wildfire</classname> is a component that facilitates communication
         between <acronym>PHP</acronym> code and
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.wildfirehq.org/">Wildfire</link> client components.
     </para>
@@ -19,7 +19,7 @@
     </para>
 
     <para>
-        The <link linkend="zend.log.writers.firebug"><classname>Zend_Log_Writer_Firebug</classname></link>
+        The <link linkend="zend.log.writers.firebug"><classname>Zend\Log\Writer\Firebug</classname></link>
         component is provided for the purpose of logging to Firebug, and a communication protocol
         has been developed that uses <acronym>HTTP</acronym> request and response headers to send
         data between the server and client components. It is great for logging intelligence data to
@@ -29,7 +29,7 @@
     </para>
 
     <para>
-        There is also a <link linkend="zend.db.profiler.profilers.firebug"><classname>Zend_Db_Profiler_Firebug</classname></link>
+        There is also a <link linkend="zend.db.profiler.profilers.firebug"><classname>Zend\Db\Profiler\Firebug</classname></link>
         component to log database profiling information to Firebug.
     </para>
 </section>

@@ -3,14 +3,14 @@
     
 
     <para>
-        <classname>Zend_Version</classname> provides a class constant
-        <constant>Zend_Version::VERSION</constant> that contains a string
+        <classname>Zend\Version</classname> provides a class constant
+        <constant>Zend\Version::VERSION</constant> that contains a string
         identifying the version number of your Zend Framework installation.
-        <constant>Zend_Version::VERSION</constant> might contain "1.7.4", for example.
+        <constant>Zend\Version::VERSION</constant> might contain "2.0.0", for example.
     </para>
 
     <para>
-        The static method <methodname>Zend_Version::compareVersion($version)</methodname>
+        The static method <methodname>Zend\Version::compareVersion($version)</methodname>
         is based on the <acronym>PHP</acronym> function <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://php.net/version_compare"><methodname>version_compare()</methodname></link>.
         This method returns -1 if the specified version
         is older than the installed Zend Framework version, 0 if they are the same
@@ -23,12 +23,12 @@
 
         <programlisting language="php"><![CDATA[
 // returns -1, 0 or 1
-$cmp = Zend_Version::compareVersion('2.0.0');
+$cmp = Zend\Version::compareVersion('2.0.0');
 ]]></programlisting>
     </example>
 
     <para>
-        The static method <methodname>Zend_Version::getLatest()</methodname> provides the version
+        The static method <methodname>Zend\Version::getLatest()</methodname> provides the version
         number of the last stable release available for download on the site
         <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://framework.zend.com/download/latest">Zend Framework</link>.
     </para>
@@ -37,8 +37,8 @@ $cmp = Zend_Version::compareVersion('2.0.0');
         
 
         <programlisting language="php"><![CDATA[
-// returns 1.11.0 (or a later version)
-echo Zend_Version::getLatest();
+// returns 2.0.0 (or a later version)
+echo Zend\Version::getLatest();
 ]]></programlisting>
     </example>
 </section>
