@@ -1,35 +1,24 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Config
  */
 
 namespace Zend\Config\Processor;
 
-use Zend\Config\Config,
-    Zend\Config\Exception,
-    Traversable,
-    ArrayObject;
+use Zend\Config\Config;
+use Zend\Config\Exception;
+use Traversable;
+use ArrayObject;
 
 /**
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @subpackage Processor
  */
 class Token implements ProcessorInterface
 {
@@ -65,12 +54,12 @@ class Token implements ProcessorInterface
      * Token Processor walks through a Config structure and replaces all
      * occurences of tokens with supplied values.
      *
-     * @param  array|\Zend\Config\Config|ArrayObject|\Traversable   $tokens  Associative array of TOKEN => value
-     *                                                                      to replace it with
-     * @param string $prefix
-     * @param string $suffix
+     * @param  array|Config|ArrayObject|Traversable   $tokens  Associative array of TOKEN => value
+     *                                                         to replace it with
+     * @param    string $prefix
+     * @param    string $suffix
      * @internal param array $options
-     * @return \Zend\Config\Processor\Token
+     * @return   Token
      */
     public function __construct($tokens = array(), $prefix = '', $suffix = '')
     {
@@ -96,7 +85,7 @@ class Token implements ProcessorInterface
     }
 
     /**
-     * @param string $prefix
+     * @param  string $prefix
      * @return mixed
      */
     public function setPrefix($prefix)
@@ -108,7 +97,7 @@ class Token implements ProcessorInterface
     }
 
     /**
-     * @param string $suffix
+     * @param  string $suffix
      * @return string
      */
     public function setSuffix($suffix)
@@ -122,9 +111,9 @@ class Token implements ProcessorInterface
     /**
      * Set token registry.
      *
-     * @param  array|\Zend\Config\Config|\ArrayObject|\Traversable   $tokens  Associative array of TOKEN => value
-     *                                                                      to replace it with
-     * @throws \Zend\Config\Exception\InvalidArgumentException
+     * @param  array|Config|ArrayObject|Traversable   $tokens  Associative array of TOKEN => value
+     *                                                         to replace it with
+     * @throws Exception\InvalidArgumentException
      */
     public function setTokens($tokens)
     {
@@ -147,6 +136,7 @@ class Token implements ProcessorInterface
 
     /**
      * Get current token registry.
+     *
      * @return array
      */
     public function getTokens()
@@ -157,9 +147,9 @@ class Token implements ProcessorInterface
     /**
      * Add new token.
      *
-     * @param $token
-     * @param $value
-     * @throws \Zend\Config\Exception\InvalidArgumentException
+     * @param  string $token
+     * @param  mixed $value
+     * @throws Exception\InvalidArgumentException
      */
     public function addToken($token, $value)
     {
@@ -175,13 +165,12 @@ class Token implements ProcessorInterface
     /**
      * Add new token.
      *
-     * @param $token
-     * @param $value
-     * @throws \Zend\Config\Exception\InvalidArgumentException
+     * @param string $token
+     * @param mixed $value
      */
     public function setToken($token, $value)
     {
-        return $this->addToken($token, $value);
+        $this->addToken($token, $value);
     }
 
     /**
@@ -204,6 +193,7 @@ class Token implements ProcessorInterface
      *
      * @param  Config $config
      * @return Config
+     * @throws InvalidArgumentException
      */
     public function process(Config $config)
     {

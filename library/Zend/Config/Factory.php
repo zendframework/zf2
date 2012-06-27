@@ -1,21 +1,11 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category  Zend
- * @package   Zend_Config
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
  * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Config
  */
 
 namespace Zend\Config;
@@ -23,24 +13,31 @@ namespace Zend\Config;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * Declared abstract to prevent instantiation
- * 
  * @category  Zend
  * @package   Zend_Config
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Factory
+class Factory
 {
     /**
      * Readers used for config files.
+     * array key is extension, array value is reader plugin name
+     * @see Zend\Config\ReaderLoader::$plugins
      *
      * @var array
      */
     protected static $readers = array(
-        'ini' => 'Ini',
-        'xml' => 'Xml'
+        'ini'  => 'ini',
+        'xml'  => 'xml',
+        'json' => 'json',
+        'yaml' => 'yaml',
     );
+
+    /**
+     * The reader manager
+     *
+     * @var null|ReaderPluginManager
+     */
+    protected static $plugins = null;
 
     /**
      * Read a config from a file.
@@ -48,6 +45,7 @@ abstract class Factory
      * @param  string  $filename
      * @param  boolean $returnConfigObject 
      * @return array|Config
+     * @throws Exception\RuntimeException
      */
     public static function fromFile($filename, $returnConfigObject = false)
     {
@@ -63,18 +61,23 @@ abstract class Factory
         $extension = strtolower($pathinfo['extension']);
        
         if ($extension === 'php') {
-            if (!is_file($filename) || !is_readable($filename)) {
-                throw new Exception\RuntimeException(sprintf('Filename "%s" is either not a file or not readable', $filename));
+            if (!is_readable($filename)) {
+                throw new Exception\RuntimeException(sprintf(
+                    "File '%s' doesn't exist or not readable",
+                    $filename
+                ));
             }
             
             $config = include $filename;
         } elseif (isset(self::$readers[$extension])) {
-            if (is_string(self::$readers[$extension])) {
-                $classname = __NAMESPACE__ . '\\Reader\\' . self::$readers[$extension];
-                self::$readers[$extension] = new $classname();
+            $reader = self::$readers[$extension];
+            if (!$reader instanceof Reader\ReaderInterface) {
+                $reader = static::getPluginManager()->get($reader);
+                self::$readers[$extension] = $reader;
             }
-            
-            $config = self::$readers[$extension]->fromFile($filename);
+
+            /** @var Reader\ReaderInterface $reader  */
+            $config = $reader->fromFile($filename);
         } else {
             throw new Exception\RuntimeException(sprintf(
                 'Unsupported config file extension: .%s',
@@ -101,5 +104,60 @@ abstract class Factory
         }
 
         return ($returnConfigObject) ? new Config($config) : $config;
+    }
+
+    /**
+     * Set config reader for file extension
+     *
+     * @param string $extension
+     * @param string|Reader\ReaderInterface $reader
+     * @throws Exception\InvalidArgumentException
+     */
+    public static function registerExtension($extension, $reader)
+    {
+        $extension = strtolower($extension);
+
+        if (!is_string($reader) && !$reader instanceof Reader\ReaderInterface) {
+            throw new Exception\InvalidArgumentException(
+                'Reader should be plugin name or instance of Zend\Config\Reader\ReaderInterface'
+            );
+        }
+
+        self::$readers[$extension] = $reader;
+    }
+
+    /**
+     * Get the pattern plugin manager
+     *
+     * @return ReaderPluginManager
+     */
+    public static function getPluginManager()
+    {
+        if (static::$plugins === null) {
+            static::$plugins = new ReaderPluginManager();
+        }
+
+        return static::$plugins;
+    }
+
+    /**
+     * Set the pattern plugin manager
+     *
+     * @param  ReaderPluginManager $plugins
+     * @return void
+     */
+    public static function setPluginManager(ReaderPluginManager $plugins)
+    {
+        static::$plugins = $plugins;
+    }
+
+    /**
+     * Reset pattern plugin manager to default
+     *
+     * @return void
+     */
+    public static function resetPluginManager()
+    {
+        static::$plugins = null;
     }
 }
