@@ -131,7 +131,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testFactoryCanRegisterCustomReaders()
     {
         Factory::registerExtension('dum', new Reader\TestAssets\DummyReader());
-        //echo "\tOK\n";
 
         $configObject = Factory::fromFile(__DIR__ . '/TestAssets/dummy.dum', true);
         $this->assertInstanceOf('Zend\Config\Config', $configObject);
