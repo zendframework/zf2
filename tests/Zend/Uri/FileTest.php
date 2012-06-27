@@ -139,7 +139,7 @@ class FileTest extends TestCase
     }
 
     /**
-     * Test that validateScheme returns false for schemes not valid for use
+     * Test that isValidScheme returns false for schemes not valid for use
      * with the File class
      *
      * @param string $scheme
@@ -147,7 +147,7 @@ class FileTest extends TestCase
      */
     public function testValidateSchemeInvalid($scheme)
     {
-        $this->assertFalse(FileUri::validateScheme($scheme));
+        $this->assertFalse(FileUri::isValidScheme($scheme));
     }
 
     /**
@@ -162,7 +162,7 @@ class FileTest extends TestCase
             'host'      => $uri->getHost(),
             'port'      => $uri->getPort(),
             'path'      => $uri->getPath(),
-            'query'     => $uri->getQueryAsArray(),
+            'query'     => $uri->query()->toArray(),
             'fragment'  => $uri->getFragment(),
         );
         $this->assertFalse($uri->isValid(), var_export($parts, 1));
@@ -180,7 +180,7 @@ class FileTest extends TestCase
             'host'      => $uri->getHost(),
             'port'      => $uri->getPort(),
             'path'      => $uri->getPath(),
-            'query'     => $uri->getQueryAsArray(),
+            'query'     => $uri->query()->toArray(),
             'fragment'  => $uri->getFragment(),
         );
         $this->assertTrue($uri->isValid(), var_export($parts, 1));

@@ -246,30 +246,29 @@ class Request extends Message implements RequestInterface
     }
 
     /**
-     * Provide an alternate Parameter Container implementation for query parameters in this object, (this is NOT the
-     * primary API for value setting, for that see query())
+     * Provide an alternate Parameter Container implementation for query parameters in this object.
+     * Proxies to Zend\Uri\Http
      *
-     * @param \Zend\Stdlib\ParametersInterface $query
+     * @see    Zend\Uri\Uri::setQueryParams()
+     * @param  ParametersInterface $query
      * @return Request
      */
     public function setQuery(ParametersInterface $query)
     {
-        $this->queryParams = $query;
+        $this->uri()->setQueryParams($query);
         return $this;
     }
 
     /**
-     * Return the parameter container responsible for query parameters
+     * Return the parameter container responsible for query parameters.
+     * Proxies to Zend\Uri\Http
      *
-     * @return \Zend\Stdlib\ParametersInterface
+     * @see    Zend\Uri\Uri::query()
+     * @return ParametersInterface
      */
     public function query()
     {
-        if ($this->queryParams === null) {
-            $this->queryParams = new Parameters();
-        }
-
-        return $this->queryParams;
+        return $this->uri()->query();
     }
 
     /**
@@ -279,7 +278,7 @@ class Request extends Message implements RequestInterface
      * @param \Zend\Stdlib\ParametersInterface $post
      * @return Request
      */
-    public function setPost(ParametersInterface $post)
+   public function setPost(ParametersInterface $post)
     {
         $this->postParams = $post;
         return $this;

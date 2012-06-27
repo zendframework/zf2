@@ -10,8 +10,8 @@
 
 namespace Zend\Uri;
 
-use Zend\Validator\ValidatorInterface,
-    Zend\Validator\EmailAddress as EmailValidator;
+use Zend\Validator\ValidatorInterface;
+use Zend\Validator\EmailAddress as EmailValidator;
 
 /**
  * "Mailto" URI handler
@@ -20,8 +20,6 @@ use Zend\Validator\ValidatorInterface,
  *
  * @category  Zend
  * @package   Zend_Uri
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Mailto extends Uri
 {
@@ -56,7 +54,9 @@ class Mailto extends Uri
             return false;
         }
 
+        /** @var ValidatorInterface $validator  */
         $validator = $this->getValidator();
+
         return $validator->isValid($this->path);
     }
 
@@ -88,7 +88,7 @@ class Mailto extends Uri
     /**
      * Set validator to use when validating email address
      *
-     * @param  Validator $validator
+     * @param  ValidatorInterface $validator
      * @return Mailto
      */
     public function setValidator(ValidatorInterface $validator)
@@ -103,7 +103,7 @@ class Mailto extends Uri
      * If none is currently set, an EmailValidator instance with default options
      * will be used.
      *
-     * @return Validator
+     * @return ValidatorInterface
      */
     public function getValidator()
     {

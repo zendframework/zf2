@@ -332,8 +332,8 @@ class ConsumerTest extends TestCase
                            $http->getLastRawRequest() );
 
         // Test POST request with parameters
-        $this->assertSame( "ok\n", $consumer->httpRequest(self::SERVER . 'test.php', 'POST', array('a'=>'b','c'=>'d')) );
-        $this->assertSame( "POST /test.php HTTP/1.1\r\n" .
+        $this->assertSame("ok\n", $consumer->httpRequest(self::SERVER . 'test.php', 'POST', array('a'=>'b','c'=>'d')));
+        $this->assertSame("POST /test.php HTTP/1.1\r\n" .
                            "Host: www.myopenid.com\r\n" .
                            "Connection: close\r\n" .
                            "Accept-encoding: gzip, deflate\r\n" .
@@ -341,16 +341,7 @@ class ConsumerTest extends TestCase
                            "Content-Type: application/x-www-form-urlencoded\r\n" .
                            "Content-Length: 7\r\n\r\n" .
                            "a=b&c=d",
-                           $http->getLastRawRequest() );
-
-        // Test GET parameters combination
-        $this->assertSame( "ok\n", $consumer->httpRequest(self::SERVER . 'test.php?a=b', 'GET', array('c'=>'x y')) );
-        $this->assertSame( "GET /test.php?a=b&c=x+y HTTP/1.1\r\n" .
-                           "Host: www.myopenid.com\r\n" .
-                           "Connection: close\r\n" .
-                           "Accept-encoding: gzip, deflate\r\n" .
-                           "User-Agent: Zend_OpenId\r\n\r\n",
-                           $http->getLastRawRequest() );
+                           $http->getLastRawRequest());
 
         // Test GET and POST parameters combination
         $this->assertSame( "ok\n", $consumer->httpRequest(self::SERVER . 'test.php?a=b', 'POST', array('c'=>'x y')) );

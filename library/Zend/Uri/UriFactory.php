@@ -10,8 +10,6 @@
 
 namespace Zend\Uri;
 
-use Zend\Uri\Uri;
-
 /**
  * URI Factory Class
  *
@@ -19,13 +17,10 @@ use Zend\Uri\Uri;
  * different URI subclass depending on the input URI scheme. New scheme-specific
  * classes can be registered using the registerScheme() method.
  *
- * Note that this class contains only static methods and should not be
- * instanciated
+ * Note that this class contains only static methods and should not be instantiated
  *
  * @category  Zend
  * @package   Zend_Uri
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class UriFactory
 {
@@ -42,24 +37,12 @@ abstract class UriFactory
     );
 
     /**
-     * Register a scheme-specific class to be used
-     *
-     * @param string $scheme
-     * @param string $class
-     */
-    static public function registerScheme($scheme, $class)
-    {
-        $scheme = strtolower($scheme);
-        static::$schemeClasses[$scheme] = $class;
-    }
-
-    /**
      * Create a URI from a string
      *
      * @param  string $uriString
      * @param  string $defaultScheme
      * @throws Exception\InvalidArgumentException
-     * @return \Zend\Uri\Uri
+     * @return Uri
      */
     static public function factory($uriString, $defaultScheme = null)
     {
@@ -78,7 +61,7 @@ abstract class UriFactory
 
         if ($scheme && isset(static::$schemeClasses[$scheme])) {
             $class = static::$schemeClasses[$scheme];
-            $uri = new $class($uri);
+            $uri   = new $class($uri);
             if (! $uri instanceof Uri) {
                 throw new Exception\InvalidArgumentException(sprintf(
                     'class "%s" registered for scheme "%s" is not a subclass of Zend\Uri\Uri',
@@ -89,5 +72,17 @@ abstract class UriFactory
         }
 
         return $uri;
+    }
+
+    /**
+     * Register a scheme-specific class to be used
+     *
+     * @param string $scheme
+     * @param string $class
+     */
+    static public function registerScheme($scheme, $class)
+    {
+        $scheme = strtolower($scheme);
+        static::$schemeClasses[$scheme] = $class;
     }
 }

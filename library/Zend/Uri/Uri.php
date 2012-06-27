@@ -11,6 +11,8 @@
 namespace Zend\Uri;
 
 use Zend\Validator;
+use Zend\Stdlib\ParametersInterface;
+use Zend\Stdlib\Parameters;
 
 /**
  * Generic URI handler
@@ -84,6 +86,11 @@ class Uri
      * @var string
      */
     protected $query;
+
+    /**
+     * @var ParametersInterface
+     */
+    protected $queryParams;
 
     /**
      * URI fragment
@@ -176,7 +183,7 @@ class Uri
             return true;
         }
 
-        if (! ($this->query || $this->fragment)) {
+        if (! ($this->getQuery() || $this->fragment)) {
             // No host, path, query or fragment - this is not a valid URI
             return false;
         }
@@ -203,7 +210,7 @@ class Uri
             return true;
         }
 
-        if (! ($this->query || $this->fragment)) {
+        if (! ($this->getQuery() || $this->fragment)) {
             // No host, path, query or fragment - this is not a valid URI
             return false;
         }
@@ -328,11 +335,11 @@ class Uri
 
         if ($this->path) {
             $uri .= self::encodePath($this->path);
-        } elseif ($this->host && ($this->query || $this->fragment)) {
+        } elseif ($this->host && ($this->getQuery() || $this->fragment)) {
             $uri .= '/';
         }
 
-        if ($this->query) {
+        if ($this->getQuery()) {
             $uri .= "?" . self::encodeQueryFragment($this->query);
         }
 
@@ -341,6 +348,20 @@ class Uri
         }
 
         return $uri;
+    }
+
+    /**
+     * Magic method to convert the URI to a string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        try {
+            return $this->toString();
+        } catch (Exception\InvalidArgumentException $e) {
+            return '';
+        }
     }
 
     /**
@@ -374,7 +395,7 @@ class Uri
             $this->path = static::normalizePath($this->path);
         }
 
-        if ($this->query) {
+        if ($this->getQuery()) {
             $this->query = static::normalizeQuery($this->query);
         }
 
@@ -538,94 +559,6 @@ class Uri
     }
 
     /**
-     * Get the scheme part of the URI
-     *
-     * @return string|null
-     */
-    public function getScheme()
-    {
-        return $this->scheme;
-    }
-
-    /**
-     * Get the User-info (usually user:password) part
-     *
-     * @return string|null
-     */
-    public function getUserInfo()
-    {
-        return $this->userInfo;
-    }
-
-    /**
-     * Get the URI host
-     *
-     * @return string|null
-     */
-    public function getHost()
-    {
-        return $this->host;
-    }
-
-    /**
-     * Get the URI port
-     *
-     * @return integer|null
-     */
-    public function getPort()
-    {
-        return $this->port;
-    }
-
-    /**
-     * Get the URI path
-     *
-     * @return string|null
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * Get the URI query
-     *
-     * @return string|null
-     */
-    public function getQuery()
-    {
-        return $this->query;
-    }
-
-    /**
-     * Return the query string as an associative array of key => value pairs
-     *
-     * This is an extension to RFC-3986 but is quite useful when working with
-     * most common URI types
-     *
-     * @return array
-     */
-    public function getQueryAsArray()
-    {
-        $query = array();
-        if ($this->query) {
-            parse_str($this->query, $query);
-        }
-
-        return $query;
-    }
-
-    /**
-     * Get the URI fragment
-     *
-     * @return string|null
-     */
-    public function getFragment()
-    {
-        return $this->fragment;
-    }
-
-    /**
      * Set the URI scheme
      *
      * If the scheme is not valid according to the generic scheme syntax or
@@ -634,7 +567,7 @@ class Uri
      * will be thrown.
      *
      * You can check if a scheme is valid before setting it using the
-     * validateScheme() method.
+     * isValidScheme() method.
      *
      * @param  string $scheme
      * @throws Exception\InvalidUriPartException
@@ -642,7 +575,7 @@ class Uri
      */
     public function setScheme($scheme)
     {
-        if (($scheme !== null) && (!self::validateScheme($scheme))) {
+        if (($scheme !== null) && (!self::isValidScheme($scheme))) {
             throw new Exception\InvalidUriPartException(sprintf(
                 'Scheme "%s" is not valid or is not accepted by %s',
                 $scheme,
@@ -652,6 +585,16 @@ class Uri
 
         $this->scheme = $scheme;
         return $this;
+    }
+
+    /**
+     * Get the scheme part of the URI
+     *
+     * @return string|null
+     */
+    public function getScheme()
+    {
+        return $this->scheme;
     }
 
     /**
@@ -667,10 +610,20 @@ class Uri
     }
 
     /**
+     * Get the User-info (usually user:password) part
+     *
+     * @return string|null
+     */
+    public function getUserInfo()
+    {
+        return $this->userInfo;
+    }
+
+    /**
      * Set the URI host
      *
      * Note that the generic syntax for URIs allows using host names which
-     * are not neceserily IPv4 addresses or valid DNS host names. For example,
+     * are not necessarily IPv4 addresses or valid DNS host names. For example,
      * IPv6 addresses are allowed as well, and also an abstract "registered name"
      * which may be any name composed of a valid set of characters, including,
      * for example, tilda (~) and underscore (_) which are not allowed in DNS
@@ -686,10 +639,7 @@ class Uri
      */
     public function setHost($host)
     {
-        if (($host !== '')
-            && ($host !== null)
-            && !self::validateHost($host, $this->validHostTypes)
-        ) {
+        if (($host !== '') && ($host !== null) && !self::isValidHost($host, $this->validHostTypes)) {
             throw new Exception\InvalidUriPartException(sprintf(
                 'Host "%s" is not valid or is not accepted by %s',
                 $host,
@@ -702,15 +652,42 @@ class Uri
     }
 
     /**
+     * Get the URI host
+     *
+     * @return string|null
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
      * Set the port part of the URI
      *
      * @param  integer $port
      * @return Uri
+     * @throws Exception\InvalidUriPartException
      */
     public function setPort($port)
     {
-        $this->port = $port;
+        if (($port !== null) && !self::isValidPort($port)) {
+            throw new Exception\InvalidUriPartException(sprintf(
+                'Port "%s" is not valid port',
+                $port
+            ), Exception\InvalidUriPartException::INVALID_PORT);
+        }
+        $this->port = (int) $port;
         return $this;
+    }
+
+    /**
+     * Get the URI port
+     *
+     * @return integer|null
+     */
+    public function getPort()
+    {
+        return $this->port;
     }
 
     /**
@@ -726,6 +703,16 @@ class Uri
     }
 
     /**
+     * Get the URI path
+     *
+     * @return string|null
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
      * Set the query string
      *
      * If an array is provided, will encode this array of parameters into a
@@ -738,13 +725,72 @@ class Uri
     public function setQuery($query)
     {
         if (is_array($query)) {
-            // We replace the + used for spaces by http_build_query with the
-            // more standard %20.
-            $query = str_replace('+', '%20', http_build_query($query));
+            $this->query()->fromArray($query);
+            $this->updateQueryFromQueryParams();
+            return $this;
         }
 
-        $this->query = $query;
+        $this->query = (string) $query;
+
+        if ($this->queryParams !== null) {
+            $this->queryParams->fromString($this->query);
+        }
+
         return $this;
+    }
+
+    /**
+     * Get the URI query
+     *
+     * @return string|null
+     */
+    public function getQuery()
+    {
+        if ($this->queryParams !== null) {
+            $this->updateQueryFromQueryParams();
+        }
+        return $this->query;
+    }
+
+    /**
+     * Provide an alternate Parameters container implementation for query parameters
+     *
+     * @param  ParametersInterface $params
+     * @return Uri
+     */
+    public function setQueryParams(ParametersInterface $params)
+    {
+        $this->queryParams = $params;
+        $this->updateQueryFromQueryParams();
+        return $this;
+    }
+
+    /**
+     * Return the parameter container responsible for query parameters.
+     * Useful for most common URI types
+     *
+     * @return Parameters
+     */
+    public function query()
+    {
+        if ($this->queryParams === null) {
+            $this->queryParams = new Parameters();
+            // update from query string
+            if ($this->query) {
+                $this->queryParams->fromString($this->query);
+            }
+        }
+        return $this->queryParams;
+    }
+
+    /**
+     * Check whether this URI has query
+     *
+     * @return bool
+     */
+    public function hasQuery()
+    {
+        return ($this->query || $this->queryParams !== null);
     }
 
     /**
@@ -760,17 +806,13 @@ class Uri
     }
 
     /**
-     * Magic method to convert the URI to a string
+     * Get the URI fragment
      *
-     * @return string
+     * @return string|null
      */
-    public function __toString()
+    public function getFragment()
     {
-        try {
-            return $this->toString();
-        } catch (\Exception $e) {
-            return '';
-        }
+        return $this->fragment;
     }
 
     /**
@@ -787,7 +829,7 @@ class Uri
      * @param  string $scheme
      * @return boolean
      */
-    public static function validateScheme($scheme)
+    public static function isValidScheme($scheme)
     {
         if (!empty(static::$validSchemes)
             && !in_array(strtolower($scheme), static::$validSchemes)
@@ -804,7 +846,7 @@ class Uri
      * @param  string $userInfo
      * @return boolean
      */
-    public static function validateUserInfo($userInfo)
+    public static function isValidUserInfo($userInfo)
     {
         $regex = '/^(?:[' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . ':]+|%[A-Fa-f0-9]{2})*$/';
         return (boolean) preg_match($regex, $userInfo);
@@ -827,7 +869,7 @@ class Uri
      * @param  integer $allowed bitmask of allowed host types
      * @return boolean
      */
-    public static function validateHost($host, $allowed = self::HOST_ALL)
+    public static function isValidHost($host, $allowed = self::HOST_ALL)
     {
         if ($allowed & self::HOST_REGNAME) {
             if (static::isValidRegName($host)) {
@@ -858,20 +900,10 @@ class Uri
      * @param  integer $port
      * @return boolean
      */
-    public static function validatePort($port)
+    public static function isValidPort($port)
     {
-        if ($port === 0) {
-            return false;
-        }
-
-        if ($port) {
-            $port = (int) $port;
-            if ($port < 1 || $port > 0xffff) {
-                return false;
-            }
-        }
-
-        return true;
+        $port = (int) $port;
+        return ($port >= 1 && $port <= 0xFFFF);
     }
 
     /**
@@ -880,7 +912,7 @@ class Uri
      * @param  string $path
      * @return boolean
      */
-    public static function validatePath($path)
+    public static function isValidPath($path)
     {
         $pchar   = '(?:[' . self::CHAR_UNRESERVED . ':@&=\+\$,]+|%[A-Fa-f0-9]{2})*';
         $segment = $pchar . "(?:;{$pchar})*";
@@ -900,7 +932,7 @@ class Uri
      * @param  string $input
      * @return boolean
      */
-    public static function validateQueryFragment($input)
+    public static function isValidQueryFragment($input)
     {
         $regex = '/^(?:[' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . ':@\/\?]+|%[A-Fa-f0-9]{2})*$/';
         return (boolean) preg_match($regex, $input);
@@ -938,6 +970,7 @@ class Uri
      *
      * @param  string $path
      * @return string
+     * @throws Exception\InvalidArgumentException
      */
     public static function encodePath($path)
     {
@@ -1092,6 +1125,16 @@ class Uri
     }
 
     /**
+     * Update query with values from Parameters container
+     * Replace the + used for spaces by http_build_query PHP < 5.4 with %20
+     * according to RFC 3986
+     */
+    protected function updateQueryFromQueryParams()
+    {
+        $this->query = str_replace('+', '%20', $this->queryParams->toString());
+    }
+
+    /**
      * Check if a host name is a valid IP address, depending on allowed IP address types
      *
      * @param  string  $host
@@ -1200,10 +1243,7 @@ class Uri
      */
     protected static function normalizePort($port, $scheme = null)
     {
-        if ($scheme
-            && isset(static::$defaultPorts[$scheme])
-            && ($port == static::$defaultPorts[$scheme])
-        ) {
+        if ($scheme && isset(static::$defaultPorts[$scheme]) && ($port == static::$defaultPorts[$scheme])) {
             return null;
         }
 

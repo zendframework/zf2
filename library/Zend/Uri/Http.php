@@ -15,8 +15,6 @@ namespace Zend\Uri;
  *
  * @category  Zend
  * @package   Zend_Uri
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Http extends Uri
 {
@@ -131,9 +129,9 @@ class Http extends Uri
      * @param  integer $allowed
      * @return boolean
      */
-    public static function validateHost($host, $allowed = self::HOST_DNSORIPV4)
+    public static function isValidHost($host, $allowed = self::HOST_DNSORIPV4)
     {
-        return parent::validateHost($host, $allowed);
+        return parent::isValidHost($host, $allowed);
     }
 
     /**
@@ -174,7 +172,7 @@ class Http extends Uri
     public function getPort()
     {
         if (empty($this->port)) {
-            if (array_key_exists($this->scheme, self::$defaultPorts)) {
+            if (isset(self::$defaultPorts[$this->scheme])) {
                 return self::$defaultPorts[$this->scheme];
             }
         }

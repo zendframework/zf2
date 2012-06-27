@@ -23,6 +23,7 @@
 namespace ZendTest\Uri;
 
 use Zend\Uri\Uri;
+use Zend\Stdlib\Parameters;
 
 /**
  * @category   Zend
@@ -241,12 +242,59 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test that we can get query as Zend\Stdlib\Parameters container
+     */
+    public function testGetQueryParameters()
+    {
+        $uri = new Uri('http://example.com/foo/?test=a&var[]=1&var[]=2');
+        $this->assertInstanceOf('Zend\Stdlib\Parameters', $uri->query());
+        $this->assertEquals('a', $uri->query()->get('test'));
+
+        $exp = array(
+            'test' => 'a',
+            'var'  => array(1, 2),
+        );
+        $this->assertEquals($exp, $uri->query()->toArray());
+    }
+
+    /**
+     * Test that updating queryParams will result in correct query string
+     */
+    public function testSetQueryParamsUpdatesQuery()
+    {
+        $uri = new Uri('/foo');
+        $uri->query()->set('what', 'true');
+        $this->assertEquals('what=true', $uri->getQuery());
+
+        $queryParams = new Parameters(array('one' => 1, 'two' => 2));
+        $uri->setQueryParams($queryParams);
+        $this->assertEquals('one=1&two=2', $uri->getQuery());
+    }
+
+    /**
+     * Test that updating query string will result in correct query parameters container
+     */
+    public function testSetQueryUpdatesQueryParams()
+    {
+        $uri = new Uri('/foo');
+        $uri->setQuery('var[]=1&var[]=2&some[thing]=3&non-param');
+
+        $exp = array(
+            'var'  => array(1, 2),
+            'some' => array('thing' => 3),
+            'non-param' => null
+        );
+
+        $this->assertEquals($exp, $uri->query()->toArray());
+    }
+
+    /**
      * @group ZF-1480
      */
-    public function testGetQueryAsArrayReturnsCorrectArray()
+    public function testGettingQueryAsArrayReturnsCorrectArray()
     {
-        $url = new Uri('http://example.com/foo/?test=a&var[]=1&var[]=2&some[thing]=3');
-        $this->assertEquals('test=a&var[]=1&var[]=2&some[thing]=3', $url->getQuery());
+        $uri = new Uri('http://example.com/foo/?test=a&var[]=1&var[]=2&some[thing]=3');
+        $this->assertEquals('test=a&var[]=1&var[]=2&some[thing]=3', $uri->getQuery());
 
         $exp = array(
             'test' => 'a',
@@ -254,7 +302,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
             'some' => array('thing' => 3)
         );
 
-        $this->assertEquals($exp, $url->getQueryAsArray());
+        $this->assertEquals($exp, $uri->query()->toArray());
     }
 
     /**
@@ -420,69 +468,69 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Check that valid schemes are valid according to validateScheme()
+     * Check that valid schemes are valid according to isValidScheme()
      *
      * @param string $scheme
      * @dataProvider validSchemeProvider
      */
     public function testValidateSchemeValid($scheme)
     {
-        $this->assertTrue(Uri::validateScheme($scheme));
+        $this->assertTrue(Uri::isValidScheme($scheme));
     }
 
     /**
-     * Check that invalid schemes are invalid according to validateScheme()
+     * Check that invalid schemes are invalid according to isValidScheme()
      *
      * @param string $scheme
      * @dataProvider invalidSchemeProvider
      */
     public function testValidateSchemeInvalid($scheme)
     {
-        $this->assertFalse(Uri::validateScheme($scheme));
+        $this->assertFalse(Uri::isValidScheme($scheme));
     }
 
     /**
-     * Check that valid hosts are valid according to validateHost()
+     * Check that valid hosts are valid according to isValidHost()
      *
      * @param string $host
      * @dataProvider validHostProvider
      */
     public function testValidateHostValid($host)
     {
-        $this->assertTrue(Uri::validateHost($host));
+        $this->assertTrue(Uri::isValidHost($host));
     }
 
     /**
-     * Check that invalid hosts are invalid according to validateHost()
+     * Check that invalid hosts are invalid according to isValidHost()
      *
      * @param string $host
      * @dataProvider invalidHostProvider
      */
     public function testValiteHostInvalid($host)
     {
-        $this->assertFalse(Uri::validateHost($host));
+        $this->assertFalse(Uri::isValidHost($host));
     }
 
     /**
-     * Check that valid paths are valid according to validatePath()
+     * Check that valid paths are valid according to isValidPath()
      *
      * @param string $path
      * @dataProvider validPathProvider
      */
     public function testValidatePathValid($path)
     {
-        $this->assertTrue(Uri::validatePath($path));
+        $this->assertTrue(Uri::isValidPath($path));
     }
 
     /**
-     * Check that invalid paths are invalid according to validatePath()
+     * Check that invalid paths are invalid according to isValidPath()
      *
      * @param string $path
      * @dataProvider invalidPathProvider
      */
     public function testValidatePathInvalid($path)
     {
-        $this->assertFalse(Uri::validatePath($path));
+        $this->assertFalse(Uri::isValidPath($path));
     }
 
     /**
@@ -516,7 +564,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidQueryFragment($input)
     {
-        $this->assertTrue(Uri::validateQueryFragment($input));
+        $this->assertTrue(Uri::isValidQueryFragment($input));
     }
 
     /**
@@ -527,7 +575,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidQueryFragment($input, $exp)
     {
-        $this->assertFalse(Uri::validateQueryFragment($input));
+        $this->assertFalse(Uri::isValidQueryFragment($input));
     }
 
     /**
@@ -558,18 +606,18 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that valid userInfo input is validated by validateUserInfo
+     * Test that valid userInfo input is validated by isValidUserInfo
      *
      * @param string $userInfo
      * @dataProvider validUserInfoProvider
      */
     public function testValidateUserInfoValid($userInfo)
     {
-        $this->assertTrue(Uri::validateUserInfo($userInfo));
+        $this->assertTrue(Uri::isValidUserInfo($userInfo));
     }
 
     /**
-     * Test that invalid userInfo input is not accepted by validateUserInfo
+     * Test that invalid userInfo input is not accepted by isValidUserInfo
      *
      * @param string $userInfo
      * @param string $exp
@@ -577,7 +625,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateUserInfoInvalid($userInfo, $exp)
     {
-        $this->assertFalse(Uri::validateUserInfo($userInfo));
+        $this->assertFalse(Uri::isValidUserInfo($userInfo));
     }
 
     /**
@@ -604,25 +652,25 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that validatePort works for valid ports
+     * Test that isValidPort works for valid ports
      *
      * @param mixed $port
      * @dataProvider validPortProvider
      */
     public function testValidatePortValid($port)
     {
-        $this->assertTrue(Uri::validatePort($port));
+        $this->assertTrue(Uri::isValidPort($port));
     }
 
     /**
-     * Test that validatePort works for invalid ports
+     * Test that isValidPort works for invalid ports
      *
      * @param mixed $port
      * @dataProvider invalidPortProvider
      */
     public function testValidatePortInvalid($port)
     {
-        $this->assertFalse(Uri::validatePort($port));
+        $this->assertFalse(Uri::isValidPort($port));
     }
 
     /**
@@ -1051,7 +1099,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
     static public function validPortProvider()
     {
         return array(
-            array(null),
             array(1),
             array(0xffff),
             array(80),
