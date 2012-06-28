@@ -21,10 +21,10 @@
 
 namespace ZendTest\Currency;
 
-use Zend\Cache\StorageFactory as CacheFactory,
-    Zend\Cache\Storage\StorageInterface as CacheStorage,
-    Zend\Currency,
-    Zend\Locale;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Cache\Storage\StorageInterface as CacheStorage;
+use Zend\Currency;
+use Zend\Locale;
 
 /**
  * @category   Zend
