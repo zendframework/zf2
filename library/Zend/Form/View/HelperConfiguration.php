@@ -65,6 +65,8 @@ class HelperConfiguration implements ConfigurationInterface
         'formradio'              => 'Zend\Form\View\Helper\FormRadio',
         'formreset'              => 'Zend\Form\View\Helper\FormReset',
         'form_reset'             => 'Zend\Form\View\Helper\FormReset',
+        'formrow'                => 'Zend\Form\View\Helper\FormRow',
+        'form_row'               => 'Zend\Form\View\Helper\FormRow',
         'formsearch'             => 'Zend\Form\View\Helper\FormSearch',
         'formselect'             => 'Zend\Form\View\Helper\FormSelect',
         'formsubmit'             => 'Zend\Form\View\Helper\FormSubmit',
