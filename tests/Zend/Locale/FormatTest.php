@@ -21,10 +21,10 @@
 
 namespace ZendTest\Locale;
 
-use \Zend\Locale\Format,
-    \Zend\Locale\Exception\InvalidArgumentException,
-    \Zend\Locale\Locale,
-    \Zend\Locale\Data\Cldr;
+use \Zend\Locale\Format;
+use \Zend\Locale\Exception\InvalidArgumentException;
+use \Zend\Locale\Locale;
+use \Zend\Locale\Data\Cldr;
 
 /**
  * @category   Zend

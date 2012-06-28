@@ -21,10 +21,10 @@
 
 namespace Zend\Locale\Data;
 
-use Zend\Cache\Storage\StorageInterface as CacheStorage,
-    Zend\Locale\Locale,
-    Zend\Locale\Exception\InvalidArgumentException,
-    Zend\Locale\Exception\UnsupportedMethodException;
+use Zend\Cache\Storage\StorageInterface as CacheStorage;
+use Zend\Locale\Locale;
+use Zend\Locale\Exception\InvalidArgumentException;
+use Zend\Locale\Exception\UnsupportedMethodException;
 
 /**
  * Locale data reader, handles the CLDR
