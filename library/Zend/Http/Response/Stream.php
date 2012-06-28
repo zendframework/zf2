@@ -21,8 +21,8 @@
 
 namespace Zend\Http\Response;
 
-use Zend\Http\Response,
-    Zend\Http\Exception;
+use Zend\Http\Response;
+use Zend\Http\Exception;
 
 
 /**

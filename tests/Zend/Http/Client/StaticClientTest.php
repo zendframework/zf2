@@ -1,8 +1,8 @@
 <?php
 namespace ZendTest\Http\Client;
 
-use Zend\Http\ClientStatic as HTTPClient,
-    Zend\Http\Client;
+use Zend\Http\ClientStatic as HTTPClient;
+use Zend\Http\Client;
 
 
 /**
