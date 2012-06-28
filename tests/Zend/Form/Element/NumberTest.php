@@ -27,34 +27,29 @@ use Zend\Form\Factory;
 
 class NumberTest extends TestCase
 {
-    public function testCanInjectValidator()
-    {
-        $element   = new NumberElement();
-        $validator = $this->getMock('Zend\Validator\ValidatorInterface');
-        $element->addValidator($validator);
-        $this->assertSame(array($validator), $element->getValidators());
-    }
-
     public function testCanInjectMultipleValidators()
     {
         $element   = new NumberElement();
+        $validators = array();
         $firstValidator = $this->getMock('Zend\Validator\ValidatorInterface');
         $secondValidator = $this->getMock('Zend\Validator\ValidatorInterface');
-        $element->addValidator($firstValidator);
-        $element->addValidator($secondValidator);
+        $validators[] = $firstValidator;
+        $validators[] = $secondValidator;
+        $element->setValidators($validators);
         $this->assertSame(array($firstValidator, $secondValidator), $element->getValidators());
     }
 
     public function testProvidesInputSpecificationThatIncludesValidator()
     {
         $element = new NumberElement();
-        $validator = $this->getMock('Zend\Validator\ValidatorInterface');
-        $element->addValidator($validator);
+        $firstValidator = $this->getMock('Zend\Validator\ValidatorInterface');
+        $validators[] = $firstValidator;
+        $element->setValidators($validators);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
         $test = array_shift($inputSpec['validators']);
-        $this->assertSame($validator, $test);
+        $this->assertSame($firstValidator, $test);
     }
 }

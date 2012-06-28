@@ -53,18 +53,6 @@ class Number extends Element implements InputProviderInterface
     protected $validators;
 
     /**
-     * Add a validator
-     *
-     * @param  ValidatorInterface $validator
-     * @return Number
-     */
-    public function addValidator(ValidatorInterface $validator)
-    {
-        $this->validators[] = $validator;
-        return $this;
-    }
-
-    /**
      * Set an array of validators
      *
      * @param array $validators
@@ -72,9 +60,7 @@ class Number extends Element implements InputProviderInterface
      */
     public function setValidators(array $validators)
     {
-        foreach ($validators as $validator) {
-            $this->addValidator($validator);
-        }
+        $this->validators = $validators;
         return $this;
     }
 
@@ -86,7 +72,8 @@ class Number extends Element implements InputProviderInterface
     public function getValidators()
     {
         if (null === $this->validators) {
-            $this->addValidator(new NumberValidator());
+            $validators = array();
+            $validators[] = new NumberValidator();
 
             $inclusive = true;
             if (!empty($this->attributes['inclusive'])) {
@@ -94,24 +81,26 @@ class Number extends Element implements InputProviderInterface
             }
 
             if (isset($this->attributes['min'])) {
-                $this->addValidator(new GreaterThanValidator(array(
+                $validators[] = new GreaterThanValidator(array(
                     'min' => $this->attributes['min'],
                     'inclusive' => $inclusive
-                )));
+                ));
             }
             if (isset($this->attributes['max'])) {
-                $this->addValidator(new LessThanValidator(array(
+                $validators[] = new LessThanValidator(array(
                     'max' => $this->attributes['max'],
                     'inclusive' => $inclusive
-                )));
+                ));
             }
 
             if (isset($this->attributes['step']) && $this->attributes['step'] !== 'any') {
-                $this->addValidator(new StepValidator(array(
+                $validators[] = new StepValidator(array(
                     'baseValue' => (isset($this->attributes['min'])) ? $this->attributes['min'] : 0,
                     'step' => $this->attributes['step']
-                )));
+                ));
             }
+
+            $this->setValidators($validators);
         }
 
         return $this->validators;
