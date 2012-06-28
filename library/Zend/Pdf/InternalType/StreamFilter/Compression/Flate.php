@@ -21,8 +21,8 @@
 
 namespace Zend\Pdf\InternalType\StreamFilter\Compression;
 
-use Zend\Pdf\Exception,
-    Zend\Pdf;
+use Zend\Pdf\Exception;
+use Zend\Pdf;
 
 /**
  * Flate stream filter

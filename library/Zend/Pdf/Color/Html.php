@@ -21,8 +21,8 @@
 
 namespace Zend\Pdf\Color;
 
-use Zend\Pdf\Exception,
-    Zend\Pdf;
+use Zend\Pdf\Exception;
+use Zend\Pdf;
 
 /**
  * HTML color implementation
