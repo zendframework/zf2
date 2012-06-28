@@ -21,8 +21,8 @@
 
 namespace ZendTest\OpenId;
 
-use Zend\OpenId\OpenId,
-    Zend\OpenId\Extension;
+use Zend\OpenId\OpenId;
+use Zend\OpenId\Extension;
 
 
 /**
