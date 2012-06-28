@@ -9,9 +9,9 @@
 
 namespace Zend\Cloud\Infrastructure;
 
-use Countable,
-    Iterator,
-    ArrayAccess;
+use Countable;
+use Iterator;
+use ArrayAccess;
 
 /**
  * List of instances
