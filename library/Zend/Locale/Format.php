@@ -21,8 +21,8 @@
 
 namespace Zend\Locale;
 
-use Zend\Cache\Storage\StorageInterface as CacheStorage,
-    Zend\Locale\Data\Cldr;
+use Zend\Cache\Storage\StorageInterface as CacheStorage;
+use Zend\Locale\Data\Cldr;
 
 /**
  * @category   Zend
