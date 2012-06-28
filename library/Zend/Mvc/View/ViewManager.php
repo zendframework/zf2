@@ -37,6 +37,7 @@ use Zend\View\Resolver as ViewResolver;
 use Zend\View\Strategy\PhpRendererStrategy;
 use Zend\View\View;
 use Zend\View\Helper as ViewHelper;
+use Zend\Mvc\Router\RouteMatch;
 
 /**
  * Prepares the view layer
@@ -219,7 +220,7 @@ class ViewManager implements ListenerAggregateInterface
                         ->getMvcEvent()
                         ->getRouteMatch();
 
-            if ($match instanceof \Zend\Mvc\Router\RouteMatch) {
+            if ($match instanceof RouteMatch) {
 
                 $helper->setRouteMatch($match);
             }
