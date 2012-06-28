@@ -20,14 +20,14 @@
 
 namespace Zend\File\Transfer\Adapter;
 
-use Zend\File\Transfer,
-    Zend\File\Transfer\Exception,
-    Zend\Filter,
-    Zend\Filter\Exception as FilterException,
-    Zend\Loader,
-    Zend\Translator,
-    Zend\Translator\Adapter as AdapterTranslator,
-    Zend\Validator;
+use Zend\File\Transfer;
+use Zend\File\Transfer\Exception;
+use Zend\Filter;
+use Zend\Filter\Exception as FilterException;
+use Zend\Loader;
+use Zend\Translator;
+use Zend\Translator\Adapter as AdapterTranslator;
+use Zend\Validator;
 
 /**
  * Abstract class for file transfers (Downloads and Uploads)
