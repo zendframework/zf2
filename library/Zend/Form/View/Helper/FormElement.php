@@ -56,6 +56,16 @@ class FormElement extends BaseAbstractHelper
             return $helper($element);
         }
 
+        if ($element instanceof Element\Range) {
+            $helper = $renderer->plugin('form_range');
+            return $helper($element);
+        }
+
+        if ($element instanceof Element\Number) {
+            $helper = $renderer->plugin('form_number');
+            return $helper($element);
+        }
+
         if ($element instanceof Element\Csrf) {
             $helper = $renderer->plugin('form_input');
             return $helper($element);

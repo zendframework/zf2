@@ -153,6 +153,14 @@ class FormElementTest extends TestCase
         $this->assertRegexp('#<input[^>]*(value="' . $hash . '")#', $markup);
     }
 
+    public function testRendersNumberAsExpected()
+    {
+        $element   = new Element\Number('foo');
+        $markup    = $this->helper->render($element);
+
+        $this->assertContains('<input type="number"', $markup);
+    }
+
     public function testRendersTextareaAsExpected()
     {
         $element = new Element('foo');
