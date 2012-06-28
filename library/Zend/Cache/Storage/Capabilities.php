@@ -21,10 +21,10 @@
 
 namespace Zend\Cache\Storage;
 
-use ArrayObject,
-    stdClass,
-    Zend\Cache\Exception,
-    Zend\EventManager\EventsCapableInterface;
+use ArrayObject;
+use stdClass;
+use Zend\Cache\Exception;
+use Zend\EventManager\EventsCapableInterface;
 
 /**
  * @category   Zend

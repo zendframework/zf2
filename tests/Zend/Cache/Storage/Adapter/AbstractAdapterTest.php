@@ -21,8 +21,8 @@
 
 namespace ZendTest\Cache\Storage\Adapter;
 
-use Zend\Cache,
-    Zend\Cache\Exception;
+use Zend\Cache;
+use Zend\Cache\Exception;
 
 /**
  * @category   Zend
