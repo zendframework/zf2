@@ -41,7 +41,7 @@ class GreaterThan extends AbstractValidator
      */
     protected $messageTemplates = array(
         self::NOT_GREATER => "'%value%' is not greater than '%min%'",
-        self::NOT_GREATER_INCLUSIVE => "'%value' is not greater or equal than '%min%'"
+        self::NOT_GREATER_INCLUSIVE => "'%value%' is not greater or equal than '%min%'"
     );
 
     /**

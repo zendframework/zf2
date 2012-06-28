@@ -47,5 +47,7 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="zend.validator.postCode.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="zend.validator.regex.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="zend.validator.sitemap.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="zend.validator.step.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="zend.validator.stringLength.xml"/>
+
 </section>
