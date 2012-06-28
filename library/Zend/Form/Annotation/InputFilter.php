@@ -26,8 +26,8 @@ use Zend\Form\Exception;
 /**
  * InputFilter annotation
  *
- * Use this annotation to specify a specific input filter class to use with the 
- * form. The value should be a bare string or a JSON-encoded string indicating 
+ * Use this annotation to specify a specific input filter class to use with the
+ * form. The value should be a bare string or a JSON-encoded string indicating
  * the fully qualified class name of the input filter to use.
  *
  * @category   Zend
@@ -35,8 +35,10 @@ use Zend\Form\Exception;
  * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @Annotation
  */
-class InputFilter extends AbstractAnnotation
+class InputFilter
 {
     /**
      * @var string
@@ -44,34 +46,24 @@ class InputFilter extends AbstractAnnotation
     protected $inputFilter;
 
     /**
-     * Receive and process the contents of an annotation
-     * 
-     * @param  string $content 
-     * @return void
+     * @param array $data
      */
-    public function initialize($content)
+    public function __construct(array $data)
     {
-        $inputFilter = $content;
-
-        if ('"' === substr($inputFilter, 0, 1)) {
-            // Look for unescaped NS, and escape them so the parser knows what to do
-            $inputFilter = preg_replace('#(\\\\)(?!\\\\)#', '$1$1', $inputFilter);
-            $inputFilter = $this->parseJsonContent($inputFilter, __METHOD__);
-        }
-
-        if (!is_string($inputFilter)) {
+        if (!isset($data['value']) && !is_string($data['value'])) {
             throw new Exception\DomainException(sprintf(
-                '%s expects the annotation to define a string or a JSON string; received "%s"',
+                '%s expects the annotation to define a string; received "%s"',
                 __METHOD__,
-                gettype($inputFilter)
+                gettype($data['value'])
             ));
         }
-        $this->inputFilter = $inputFilter;
+
+        $this->inputFilter = $data['value'];
     }
 
     /**
      * Retrieve the input filter class
-     * 
+     *
      * @return null|string
      */
     public function getInputFilter()

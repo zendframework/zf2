@@ -26,9 +26,9 @@ use Zend\Form\Exception;
 /**
  * ComposedObject annotation
  *
- * Use this annotation to specify another object with annotations to parse 
- * which you can then add to the form as a fieldset. The value should be a bare 
- * string or a JSON-encoded string indicating the fully qualified class name of 
+ * Use this annotation to specify another object with annotations to parse
+ * which you can then add to the form as a fieldset. The value should be a bare
+ * string or a JSON-encoded string indicating the fully qualified class name of
  * the composed object to use.
  *
  * @category   Zend
@@ -36,8 +36,10 @@ use Zend\Form\Exception;
  * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @Annotation
  */
-class ComposedObject extends AbstractAnnotation
+class ComposedObject
 {
     /**
      * @var string
@@ -45,30 +47,24 @@ class ComposedObject extends AbstractAnnotation
     protected $composedObject;
 
     /**
-     * Receive and process the contents of an annotation
-     * 
-     * @param  string $content 
-     * @return void
+     * @param array $data
      */
-    public function initialize($content)
+    public function __construct(array $data)
     {
-        $input = $content;
-        if ('"' === substr($content, 0, 1)) {
-            $input = $this->parseJsonContent($content, __METHOD__);
-        }
-        if (!is_string($input)) {
+        if (!isset($data['value']) && !is_string($data['value'])) {
             throw new Exception\DomainException(sprintf(
-                '%s expects the annotation to define a string or a JSON string; received "%s"',
+                '%s expects the annotation to define a string; received "%s"',
                 __METHOD__,
-                gettype($input)
+                gettype($data['value'])
             ));
         }
-        $this->composedObject = $input;
+
+        $this->composedObject = $data['value'];
     }
 
     /**
      * Retrieve the composed object classname
-     * 
+     *
      * @return null|string
      */
     public function getComposedObject()

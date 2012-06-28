@@ -26,7 +26,7 @@ use Zend\Form\Exception;
 /**
  * Type annotation
  *
- * Use this annotation to specify the specific \Zend\Form class to use when 
+ * Use this annotation to specify the specific \Zend\Form class to use when
  * building the form, fieldset, or element. The value should be a bare string
  * or JSON-encoded string, and represent a fully qualified classname.
  *
@@ -35,8 +35,10 @@ use Zend\Form\Exception;
  * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @Annotation
  */
-class Type extends AbstractAnnotation
+class Type
 {
     /**
      * @var string
@@ -44,30 +46,24 @@ class Type extends AbstractAnnotation
     protected $type;
 
     /**
-     * Receive and process the contents of an annotation
-     * 
-     * @param  string $content 
-     * @return void
+     * @param array $data
      */
-    public function initialize($content)
+    public function __construct(array $data)
     {
-        $type = $content;
-        if ('"' === substr($content, 0, 1)) {
-            $type = $this->parseJsonContent($content, __METHOD__);
-        }
-        if (!is_string($type)) {
+        if (!isset($data['value']) && !is_string($data['value'])) {
             throw new Exception\DomainException(sprintf(
-                '%s expects the annotation to define a string or a JSON string; received "%s"',
+                '%s expects the annotation to define a string; received "%s"',
                 __METHOD__,
-                gettype($type)
+                gettype($data['value'])
             ));
         }
-        $this->type = $type;
+
+        $this->type = $data['value'];
     }
 
     /**
      * Retrieve the class type
-     * 
+     *
      * @return null|string
      */
     public function getType()

@@ -97,7 +97,7 @@ class ClassReflectionTest extends \PHPUnit_Framework_TestCase
     protected \$_prop1 = null;
 
     /**
-     * @Sample({"foo":"bar"})
+     * @Sample(content="{""foo"":""bar""}")
      */
     protected \$_prop2 = null;
 

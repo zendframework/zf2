@@ -29,8 +29,8 @@ use Zend\Json\Json;
 /**
  * Base annotation for use with form annotation builder.
  *
- * Provides a stub for initialize(), allowing for "presence only" annotations 
- * (i.e., annotations that define behavior simply by being present). 
+ * Provides a stub for initialize(), allowing for "presence only" annotations
+ * (i.e., annotations that define behavior simply by being present).
  * Additionally, provides a method for parsing the contents of an annotation
  * if provided as a JSON entity.
  *
@@ -39,13 +39,16 @@ use Zend\Json\Json;
  * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @Annotation
  */
 abstract class AbstractAnnotation implements AnnotationInterface
 {
+
     /**
      * Basic annotation; presence only is required
-     * 
-     * @param  mixed $content 
+     *
+     * @param  mixed $content
      * @return void
      */
     public function initialize($content)
@@ -54,8 +57,8 @@ abstract class AbstractAnnotation implements AnnotationInterface
 
     /**
      * Parse and return JSON content
-     * 
-     * @param  string $content 
+     *
+     * @param  string $content
      * @return mixed
      * @throws JsonException
      */

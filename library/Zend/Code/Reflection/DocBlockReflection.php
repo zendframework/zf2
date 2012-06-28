@@ -22,7 +22,6 @@ namespace Zend\Code\Reflection;
 
 use Reflector;
 use Zend\Code\Scanner\DocBlockScanner;
-use Zend\Code\Annotation\AnnotationManager;
 
 /**
  * @category   Zend

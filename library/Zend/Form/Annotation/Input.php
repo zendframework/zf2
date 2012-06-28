@@ -27,7 +27,7 @@ use Zend\Form\Exception;
  * Input annotation
  *
  * Use this annotation to specify a specific input class to use with an element.
- * The value should be a bare string or a JSON-encoded string indicating the 
+ * The value should be a bare string or a JSON-encoded string indicating the
  * fully qualified class name of the input to use.
  *
  * @category   Zend
@@ -35,8 +35,10 @@ use Zend\Form\Exception;
  * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @Annotation
  */
-class Input extends AbstractAnnotation
+class Input
 {
     /**
      * @var string
@@ -44,30 +46,24 @@ class Input extends AbstractAnnotation
     protected $input;
 
     /**
-     * Receive and process the contents of an annotation
-     * 
-     * @param  string $content 
-     * @return void
+     * @param array $data
      */
-    public function initialize($content)
+    public function __construct(array $data)
     {
-        $input = $content;
-        if ('"' === substr($content, 0, 1)) {
-            $input = $this->parseJsonContent($content, __METHOD__);
-        }
-        if (!is_string($input)) {
+        if (!isset($data['value']) && !is_string($data['value'])) {
             throw new Exception\DomainException(sprintf(
-                '%s expects the annotation to define a string or a JSON string; received "%s"',
+                '%s expects the annotation to define a string; received "%s"',
                 __METHOD__,
-                gettype($input)
+                gettype($data['value'])
             ));
         }
-        $this->input = $input;
+
+        $this->input = $data['value'];
     }
 
     /**
      * Retrieve the input class
-     * 
+     *
      * @return null|string
      */
     public function getInput()

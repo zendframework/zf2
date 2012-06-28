@@ -35,8 +35,10 @@ use Zend\Form\Exception;
  * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @Annotation
  */
-class Name extends AbstractAnnotation
+class Name
 {
     /**
      * @var string
@@ -44,30 +46,24 @@ class Name extends AbstractAnnotation
     protected $name;
 
     /**
-     * Receive and process the contents of an annotation
-     * 
-     * @param  string $content 
-     * @return void
+     * @param array $data
      */
-    public function initialize($content)
+    public function __construct(array $data)
     {
-        $name = $content;
-        if ('"' === substr($content, 0, 1)) {
-            $name = $this->parseJsonContent($content, __METHOD__);
-        }
-        if (!is_string($name)) {
+        if (!isset($data['value']) && !is_string($data['value'])) {
             throw new Exception\DomainException(sprintf(
-                '%s expects the annotation to define a string or a JSON string; received "%s"',
+                '%s expects the annotation to define a string; received "%s"',
                 __METHOD__,
-                gettype($name)
+                gettype($data['value'])
             ));
         }
-        $this->name = $name;
+
+        $this->name = $data['value'];
     }
 
     /**
      * Retrieve the name
-     * 
+     *
      * @return null|string
      */
     public function getName()

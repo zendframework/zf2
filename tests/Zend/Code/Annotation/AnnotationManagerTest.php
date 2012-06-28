@@ -26,6 +26,11 @@ use Zend\Code\Annotation;
 
 class AnnotationManagerTest extends TestCase
 {
+    /**
+     * @var \Zend\Code\Annotation\AnnotationManager
+     */
+    protected $manager;
+
     public function setUp()
     {
         $this->manager = new Annotation\AnnotationManager();
@@ -78,5 +83,13 @@ class AnnotationManagerTest extends TestCase
         $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\Bar', $test);
         $this->assertNotSame($bar, $test);
         $this->assertEquals('test content', $test->content);
+    }
+
+    public function testAllowsRegisteringClassNames()
+    {
+        $this->manager->registerAnnotationClassName(__NAMESPACE__ . '\TestAsset\Bar');
+        $this->assertTrue($this->manager->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
+        $this->setExpectedException('Zend\Code\Exception\RuntimeException');
+        $this->manager->createAnnotation(__NAMESPACE__ . '\TestAsset\Bar');
     }
 }

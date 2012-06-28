@@ -25,6 +25,7 @@ use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Scanner\CachingFileScanner;
 use Zend\Code\Scanner\AnnotationScanner;
+use Doctrine\Common\Annotations\AnnotationReader;
 
 /**
  * @category   Zend
@@ -43,7 +44,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     /**
      * Retrieve method DocBlock reflection
      *
-     * @return DocBlockReflection|false
+     * @return DocBlockReflection|bool false if no DocBlock is available
      */
     public function getDocBlock()
     {
@@ -61,15 +62,18 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
      */
     public function getAnnotations(AnnotationManager $annotationManager)
     {
-        if (($docComment = $this->getDocComment()) == '') {
-            return false;
+        if (null !== $this->annotations) {
+            return $this->annotations;
         }
 
-        if (!$this->annotations) {
-            $cachingFileScanner = new CachingFileScanner($this->getFileName());
-            $nameInformation    = $cachingFileScanner->getClassNameInformation($this->getDeclaringClass()->getName());
+        $this->annotations = new AnnotationCollection();
+        $reader            = new AnnotationReader();
+        $annotations       = $reader->getMethodAnnotations($this);
 
-            $this->annotations = new AnnotationScanner($annotationManager, $docComment, $nameInformation);
+        foreach ($annotations as $annotation) {
+            if ($annotationManager->hasAnnotation(get_class($annotation))) {
+                $this->annotations[] = $annotation;
+            }
         }
 
         return $this->annotations;

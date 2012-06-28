@@ -25,6 +25,8 @@ use Zend\Code\Reflection\FileReflection;
 use Zend\Code\Scanner\FileScanner;
 use Zend\Code\Annotation;
 use Zend\Code\Scanner\AnnotationScanner;
+use Zend\Code\Annotation\AnnotationCollection;
+use Doctrine\Common\Annotations\AnnotationReader;
 
 /**
  * @category   Zend
@@ -79,14 +81,18 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      */
     public function getAnnotations(Annotation\AnnotationManager $annotationManager)
     {
-        if (($docComment = $this->getDocComment()) == '') {
-            return false;
+        if (null !== $this->annotations) {
+            return $this->annotations;
         }
 
-        if (!$this->annotations) {
-            $fileScanner       = new FileScanner($this->getFileName());
-            $nameInformation   = $fileScanner->getClassNameInformation($this->getName());
-            $this->annotations = new AnnotationScanner($annotationManager, $docComment, $nameInformation);
+        $this->annotations = new AnnotationCollection();
+        $reader            = new AnnotationReader();
+        $annotations       = $reader->getClassAnnotations($this);
+
+        foreach ($annotations as $annotation) {
+            if ($annotationManager->hasAnnotation(get_class($annotation))) {
+                $this->annotations[] = $annotation;
+            }
         }
 
         return $this->annotations;
