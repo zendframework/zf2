@@ -21,12 +21,12 @@
 
 namespace ZendTest\File\Transfer\Adapter;
 
-use Zend\File,
-    Zend\Filter,
-    Zend\Filter\Word,
-    Zend\Loader,
-    Zend\Validator,
-    Zend\Validator\File as FileValidator;
+use Zend\File;
+use Zend\Filter;
+use Zend\Filter\Word;
+use Zend\Loader;
+use Zend\Validator;
+use Zend\Validator\File as FileValidator;
 
 /**
  * Test class for Zend\File\Transfer\Adapter\AbstractAdapter
