@@ -8,12 +8,13 @@
  * @package   Zend_Db
  */
 
-namespace Zend\Db\ResultSet;
+namespace Zend\Db\Exception;
 
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage ResultSet
+ * @subpackage Adapter
  */
-interface Exception
-{}
+class RuntimeException extends \RuntimeException implements ExceptionInterface
+{
+}

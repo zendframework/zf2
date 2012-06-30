@@ -17,5 +17,4 @@ namespace Zend\Db\Adapter\Exception;
  */
 class ErrorException extends \Exception implements ExceptionInterface
 {
-
 }

@@ -10,10 +10,10 @@
 
 namespace Zend\Db\Adapter\Driver\Pdo;
 
-use Zend\Db\Adapter\Driver\DriverInterface,
-    Zend\Db\Adapter\Driver\Feature\DriverFeatureInterface,
-    Zend\Db\Adapter\Driver\Feature\AbstractFeature,
-    Zend\Db\Adapter\Exception;
+use Zend\Db\Adapter\Driver\DriverInterface;
+use Zend\Db\Adapter\Driver\Feature\DriverFeatureInterface;
+use Zend\Db\Adapter\Driver\Feature\AbstractFeature;
+use Zend\Db\Adapter\Exception;
 
 /**
  * @category   Zend
@@ -176,6 +176,9 @@ class Pdo implements DriverInterface, DriverFeatureInterface
 
     /**
      * Check environment
+     *
+     * @return void
+     * @throws Exception\RuntimeException
      */
     public function checkEnvironment()
     {

@@ -33,6 +33,8 @@ class Expression implements ExpressionInterface
     protected $types = array();
 
     /**
+     * Constructor
+     *
      * @param string $expression
      * @param string|array $parameters
      * @param array $types
@@ -51,7 +53,9 @@ class Expression implements ExpressionInterface
     }
 
     /**
-     * @param $expression
+     * Set expression
+     *
+     * @param string $expression
      * @return Expression
      * @throws Exception\InvalidArgumentException
      */
@@ -65,6 +69,8 @@ class Expression implements ExpressionInterface
     }
 
     /**
+     * Get expression
+     *
      * @return string
      */
     public function getExpression()
@@ -112,8 +118,10 @@ class Expression implements ExpressionInterface
     }
 
     /**
+     * Get expression data
+     *
      * @return array
-     * @throws \RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function getExpressionData()
     {

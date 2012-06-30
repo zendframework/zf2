@@ -17,7 +17,14 @@ namespace Zend\Db\Sql\Predicate;
  */
 class In implements PredicateInterface
 {
+    /**
+     * @var string
+     */
     protected $identifier;
+
+    /**
+     * @var array
+     */
     protected $valueSet;
 
     /**
@@ -25,7 +32,6 @@ class In implements PredicateInterface
      * 
      * @param  null|string $identifier 
      * @param  array $valueSet 
-     * @return void
      */
     public function __construct($identifier = null, array $valueSet = array())
     {
@@ -71,6 +77,11 @@ class In implements PredicateInterface
         return $this;
     }
 
+    /**
+     * Get value set
+     *
+     * @return array
+     */
     public function getValueSet()
     {
         return $this->valueSet;

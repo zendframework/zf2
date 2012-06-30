@@ -20,6 +20,11 @@ class Platform extends AbstractPlatform
      */
     protected $adapter = null;
 
+    /**
+     * Constructor
+     *
+     * @param Adapter $adapter
+     */
     public function __construct(Adapter $adapter)
     {
         $this->adapter = $adapter;

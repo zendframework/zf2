@@ -10,12 +10,18 @@
 
 namespace Zend\Db\Adapter;
 
+use ArrayAccess;
+use ArrayIterator;
+use Iterator;
+
 /**
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
  */
-class ParameterContainer implements \Iterator, \ArrayAccess
+class ParameterContainer implements
+    Iterator,
+    ArrayAccess
 {
 
     const TYPE_AUTO    = 'auto';
@@ -153,7 +159,8 @@ class ParameterContainer implements \Iterator, \ArrayAccess
      * Offset get errata
      * 
      * @param  string|integer $name
-     * @return mixed 
+     * @return mixed
+     * @throws Exception\InvalidArgumentException
      */
     public function offsetGetErrata($name)
     {
@@ -184,6 +191,7 @@ class ParameterContainer implements \Iterator, \ArrayAccess
      * Offset unset errata
      * 
      * @param string|integer $name
+     * @throws Exception\InvalidArgumentException
      */
     public function offsetUnsetErrata($name)
     {
@@ -199,11 +207,11 @@ class ParameterContainer implements \Iterator, \ArrayAccess
     /**
      * Get errata iterator
      * 
-     * @return \ArrayIterator 
+     * @return ArrayIterator
      */
     public function getErrataIterator()
     {
-        return new \ArrayIterator($this->errata);
+        return new ArrayIterator($this->errata);
     }
 
     /**

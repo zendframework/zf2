@@ -10,8 +10,8 @@
 
 namespace Zend\Db\Sql;
 
-use Zend\Db\Adapter\Adapter,
-    Zend\Db\Adapter\Driver\StatementInterface;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\Adapter\Driver\StatementInterface;
 
 /**
  * @category   Zend
@@ -22,9 +22,10 @@ interface PreparableSqlInterface
 {
 
     /**
-     * @abstract
+     * Prepare statement
+     *
      * @param Adapter $adapter
-     * @return StatementInterface
+     * @param StatementInterface $statement
      */
     public function prepareStatement(Adapter $adapter, StatementInterface $statement);
 }

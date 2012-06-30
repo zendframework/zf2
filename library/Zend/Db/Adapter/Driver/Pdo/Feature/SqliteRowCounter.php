@@ -10,8 +10,8 @@
 
 namespace Zend\Db\Adapter\Driver\Pdo\Feature;
 
-use Zend\Db\Adapter\Driver\Feature\AbstractFeature,
-    Zend\Db\Adapter\Driver\Pdo;
+use Zend\Db\Adapter\Driver\Feature\AbstractFeature;
+use Zend\Db\Adapter\Driver\Pdo;
 
 /**
  * SqliteRowCounter
@@ -32,7 +32,7 @@ class SqliteRowCounter extends AbstractFeature
     }
 
     /**
-     * @param \Zend\Db\Adapter\Driver\Pdo\Statement $statement
+     * @param Pdo\Statement $statement
      */
     public function getCountForStatement(Pdo\Statement $statement)
     {

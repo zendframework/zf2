@@ -10,8 +10,8 @@
 
 namespace Zend\Db\Adapter\Driver\Mysqli;
 
-use Zend\Db\Adapter\Driver\DriverInterface,
-    Zend\Db\Adapter\Exception;
+use Zend\Db\Adapter\Driver\DriverInterface;
+use Zend\Db\Adapter\Exception;
 
 /**
  * @category   Zend
@@ -44,6 +44,8 @@ class Mysqli implements DriverInterface
     );
 
     /**
+     * Constructor
+     *
      * @param array|Connection|\mysqli $connection
      * @param null|Statement $statementPrototype
      * @param null|Result $resultPrototype

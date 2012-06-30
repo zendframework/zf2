@@ -9,11 +9,11 @@
  */
 namespace Zend\Db\Sql;
 
-use Zend\Db\Adapter\Adapter,
-    Zend\Db\Adapter\Driver\StatementInterface,
-    Zend\Db\Adapter\Platform\PlatformInterface,
-    Zend\Db\Adapter\Platform\Sql92 as AdapterSql92Platform,
-    Zend\Db\Adapter\ParameterContainer;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\Adapter\Driver\StatementInterface;
+use Zend\Db\Adapter\Platform\PlatformInterface;
+use Zend\Db\Adapter\Platform\Sql92 as AdapterSql92Platform;
+use Zend\Db\Adapter\ParameterContainer;
 
 /**
  * @category   Zend
@@ -136,7 +136,6 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Constructor
      * 
      * @param  null|string $table
-     * @return void
      */
     public function __construct($table = null)
     {
@@ -155,11 +154,12 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  string|array|TableIdentifier $table
      * @param  null|string $schema
      * @return Select
+     * @throws Exception\InvalidArgumentException
      */
     public function from($table)
     {
         if ($this->tableReadOnly) {
-            throw new \InvalidArgumentException('Since this object was created with a table and/or schema in the constructor, it is read only.');
+            throw new Exception\InvalidArgumentException('Since this object was created with a table and/or schema in the constructor, it is read only.');
         }
 
         if (!is_string($table) && !is_array($table) && !$table instanceof TableIdentifier) {
@@ -643,6 +643,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * 
      * @param  string $name 
      * @return mixed
+     * @throws Exception\InvalidArgumentException
      */
     public function __get($name)
     {

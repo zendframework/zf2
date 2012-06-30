@@ -32,6 +32,8 @@ class FeatureSet
     protected $magicSpecifications = array();
 
     /**
+     * Constructor
+     *
      * @param array $features
      */
     public function __construct(array $features = array())
@@ -41,6 +43,12 @@ class FeatureSet
         }
     }
 
+    /**
+     * Set row gateway
+     *
+     * @param AbstractRowGateway $rowGateway
+     * @return FeatureSet
+     */
     public function setRowGateway(AbstractRowGateway $rowGateway)
     {
         $this->rowGateway = $rowGateway;
@@ -50,6 +58,12 @@ class FeatureSet
         return $this;
     }
 
+    /**
+     * Get feature by class name
+     *
+     * @param string $featureClassName
+     * @return bool|AbstractFeature
+     */
     public function getFeatureByClassName($featureClassName)
     {
         $feature = false;
@@ -62,6 +76,12 @@ class FeatureSet
         return $feature;
     }
 
+    /**
+     * Add features
+     *
+     * @param array $features
+     * @return FeatureSet
+     */
     public function addFeatures(array $features)
     {
         foreach ($features as $feature) {
@@ -70,6 +90,12 @@ class FeatureSet
         return $this;
     }
 
+    /**
+     * Add feature
+     *
+     * @param AbstractFeature $feature
+     * @return FeatureSet
+     */
     public function addFeature(AbstractFeature $feature)
     {
         $this->features[] = $feature;

@@ -17,5 +17,11 @@ namespace Zend\Db\Adapter;
  */
 interface AdapterAwareInterface
 {
+    /**
+     * Set db adapter
+     *
+     * @param Adapter $adapter
+     * @return mixed
+     */
     public function setDbAdapter(Adapter $adapter);
 }

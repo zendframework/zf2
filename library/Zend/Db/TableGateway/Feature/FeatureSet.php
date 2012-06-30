@@ -35,6 +35,12 @@ class FeatureSet
         }
     }
 
+    /**
+     * Set table gateway
+     *
+     * @param AbstractTableGateway $tableGateway
+     * @return FeatureSet
+     */
     public function setTableGateway(AbstractTableGateway $tableGateway)
     {
         $this->tableGateway = $tableGateway;
@@ -44,6 +50,12 @@ class FeatureSet
         return $this;
     }
 
+    /**
+     * Get feature by class name
+     *
+     * @param $featureClassName
+     * @return bool|AbstractFeature
+     */
     public function getFeatureByClassName($featureClassName)
     {
         $feature = false;
@@ -56,6 +68,12 @@ class FeatureSet
         return $feature;
     }
 
+    /**
+     * Add features
+     *
+     * @param array $features
+     * @return FeatureSet
+     */
     public function addFeatures(array $features)
     {
         foreach ($features as $feature) {
@@ -64,6 +82,12 @@ class FeatureSet
         return $this;
     }
 
+    /**
+     * Add feature
+     *
+     * @param AbstractFeature $feature
+     * @return FeatureSet
+     */
     public function addFeature(AbstractFeature $feature)
     {
         $this->features[] = $feature;

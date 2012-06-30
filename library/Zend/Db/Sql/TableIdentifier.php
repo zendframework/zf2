@@ -32,6 +32,8 @@ class TableIdentifier
     protected $alias;
 
     /**
+     * Constructor
+     *
      * @param string $table
      * @param string $schema
      */

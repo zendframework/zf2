@@ -21,8 +21,8 @@
 
 namespace ZendTest\Db\ResultSet;
 
-use ArrayObject,
-    ArrayIterator,
+use ArrayObject;
+use ArrayIterator,
     PHPUnit_Framework_TestCase as TestCase,
     SplStack,
     stdClass,

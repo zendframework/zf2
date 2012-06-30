@@ -61,6 +61,8 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
 
     /**
      * initialize()
+     *
+     * @throws Exception\RuntimeException
      */
     public function initialize()
     {
@@ -134,6 +136,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
      * Save
      *
      * @return integer
+     * @throws Exception\RuntimeException
      */
     public function save()
     {
