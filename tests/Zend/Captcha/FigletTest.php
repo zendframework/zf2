@@ -55,6 +55,19 @@ class FigletTest extends CommonWordTest
         ));
     }
 
+    public function testFigletExtraOptions()
+    {
+        $captcha = new FigletCaptcha(array(
+            'align' => 1,
+            'output_width' => 50,
+        ));
+
+        $captcha->getFiglet()->getOptions()->getOutputWidth();
+
+        $this->assertEquals(50, $captcha->getFiglet()->getOptions()->getOutputWidth());
+        $this->assertEquals(1, $captcha->getFiglet()->getOptions()->getAlign());
+    }
+
     public function testTimeoutPopulatedByDefault()
     {
         $ttl = $this->captcha->getTimeout();
@@ -194,7 +207,7 @@ class FigletTest extends CommonWordTest
     public function testSetSessionWorks()
     {
         if (headers_sent($file, $line)) {
-            $this->markTestSkipped("Cannot use sessions because headers already sent");
+            $this->markTestSkipped("Cannot use sessions because headers already sent {$file}:{$line}");
         }
         $session = new SessionContainer('captcha');
         $this->captcha->setSession($session);
