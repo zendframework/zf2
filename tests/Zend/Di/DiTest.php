@@ -641,6 +641,9 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('ZendTest\Di\TestAsset\SetterInjection\A', $b->a);
     }
     
+    /**
+     * @group SetterInjection 
+     */
     public function testDiWillInjectScalarDependenciesForAlias()
     {
         $di = new Di;
