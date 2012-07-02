@@ -85,4 +85,202 @@ class ClientOptions extends AbstractOptions
      * @var bool
      */
     protected $rfc3986Strict = false;
+
+    /**
+     * @param $adapter
+     * @return ClientOptions
+     */
+    public function setAdapter($adapter)
+    {
+        $this->adapter = (string)$adapter;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
+     * @param $encodeCookies
+     * @return ClientOptions
+     */
+    public function setEncodeCookies($encodeCookies)
+    {
+        $this->encodeCookies = (boolean)$encodeCookies;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getEncodeCookies()
+    {
+        return $this->encodeCookies;
+    }
+
+    /**
+     * @param $httpVersion
+     * @return ClientOptions
+     */
+    public function setHttpVersion($httpVersion)
+    {
+        $this->httpVersion = (string)$httpVersion;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHttpVersion()
+    {
+        return $this->httpVersion;
+    }
+
+    /**
+     * @param $keepAlive
+     * @return ClientOptions
+     */
+    public function setKeepAlive($keepAlive)
+    {
+        $this->keepAlive = (boolean)$keepAlive;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getKeepAlive()
+    {
+        return $this->keepAlive;
+    }
+
+    /**
+     * @param $maxRedirects
+     * @return ClientOptions
+     */
+    public function setMaxRedirects($maxRedirects)
+    {
+        $this->maxRedirects = (int)$maxRedirects;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxRedirects()
+    {
+        return $this->maxRedirects;
+    }
+
+    /**
+     * @param $outputStream
+     * @return ClientOptions
+     */
+    public function setOutputStream($outputStream)
+    {
+        $this->outputStream = $outputStream;
+        return $this;
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getOutputStream()
+    {
+        return $this->outputStream;
+    }
+
+    /**
+     * @param $rfc3986Strict
+     * @return ClientOptions
+     */
+    public function setRfc3986Strict($rfc3986Strict)
+    {
+        $this->rfc3986Strict = (boolean)$rfc3986Strict;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getRfc3986Strict()
+    {
+        return $this->rfc3986Strict;
+    }
+
+    /**
+     * @param $storeResponse
+     * @return ClientOptions
+     */
+    public function setStoreResponse($storeResponse)
+    {
+        $this->storeResponse = (boolean)$storeResponse;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getStoreResponse()
+    {
+        return $this->storeResponse;
+    }
+
+    /**
+     * @param $strictRedirects
+     * @return ClientOptions
+     */
+    public function setStrictRedirects($strictRedirects)
+    {
+        $this->strictRedirects = (boolean)$strictRedirects;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getStrictRedirects()
+    {
+        return $this->strictRedirects;
+    }
+
+    /**
+     * @param $timeout
+     * @return ClientOptions
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = (int)$timeout;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimeout()
+    {
+        return $this->timeout;
+    }
+
+    /**
+     * @param $userAgent
+     * @return ClientOptions
+     */
+    public function setUserAgent($userAgent)
+    {
+        $this->userAgent = (string)$userAgent;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->userAgent;
+    }
 }
