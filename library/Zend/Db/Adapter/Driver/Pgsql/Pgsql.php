@@ -1,14 +1,14 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Db
- */
+    /**
+     * Zend Framework (http://framework.zend.com/)
+     *
+     * @link      http://github.com/zendframework/zf2 for the canonical source repository
+     * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+     * @license   http://framework.zend.com/license/new-bsd New BSD License
+     * @package   Zend_Db
+     */
 
-namespace Zend\Db\Adapter\Driver\Mysqli;
+namespace Zend\Db\Adapter\Driver\Pgsql;
 
 use Zend\Db\Adapter\Driver\DriverInterface,
     Zend\Db\Adapter\Exception;
@@ -18,7 +18,7 @@ use Zend\Db\Adapter\Driver\DriverInterface,
  * @package    Zend_Db
  * @subpackage Adapter
  */
-class Mysqli implements DriverInterface
+class Pgsql implements DriverInterface
 {
 
     /**
@@ -44,90 +44,72 @@ class Mysqli implements DriverInterface
     );
 
     /**
-     * @param array|Connection|\mysqli $connection
+     * @param array|Connection|resource $connection
      * @param null|Statement $statementPrototype
      * @param null|Result $resultPrototype
      */
-    public function __construct($connection, Statement $statementPrototype = null, Result $resultPrototype = null, $options = array())
+    public function __construct($connection, Statement $statementPrototype = null, Result $resultPrototype = null, $options = null)
     {
         if (!$connection instanceof Connection) {
             $connection = new Connection($connection);
         }
 
-        $options = array_intersect_key(array_merge($this->options, $options), $this->options);
+        if (!$connection instanceof Connection) {
+            throw new Exception\InvalidArgumentException('$connection must be an array of parameters or a Pdo\Connection object');
+        }
 
         $this->registerConnection($connection);
-        $this->registerStatementPrototype(($statementPrototype) ?: new Statement($options['buffer_results']));
+        $this->registerStatementPrototype(($statementPrototype) ?: new Statement());
         $this->registerResultPrototype(($resultPrototype) ?: new Result());
     }
 
     /**
-     * Register connection
-     * 
-     * @param  Connection $connection
-     * @return Mysqli 
+     * @param Connection $connection
+     * @return Pgsql
      */
     public function registerConnection(Connection $connection)
     {
         $this->connection = $connection;
-        $this->connection->setDriver($this); // needs access to driver to createStatement()
+        $this->connection->setDriver($this);
         return $this;
     }
 
     /**
-     * Register statement prototype
-     * 
-     * @param Statement $statementPrototype 
+     * @param Statement $statement
+     * @return Pgsql
      */
-    public function registerStatementPrototype(Statement $statementPrototype)
+    public function registerStatementPrototype(Statement $statement)
     {
-        $this->statementPrototype = $statementPrototype;
+        $this->statementPrototype = $statement;
         $this->statementPrototype->setDriver($this); // needs access to driver to createResult()
+        return $this;
     }
 
     /**
-     * @return null|Statement
+     * @param Result $result
+     * @return Pgsql
      */
-    public function getStatementPrototype()
+    public function registerResultPrototype(Result $result)
     {
-        return $this->statementPrototype;
+        $this->resultPrototype = $result;
+        return $this;
     }
 
     /**
-     * Register result prototype
-     * 
-     * @param Result $resultPrototype 
-     */
-    public function registerResultPrototype(Result $resultPrototype)
-    {
-        $this->resultPrototype = $resultPrototype;
-    }
-
-    /**
-     * @return null|Result
-     */
-    public function getResultPrototype()
-    {
-        return $this->resultPrototype;
-    }
-
-    /**
-     * Get database platform name
-     * 
-     * @param  string $nameFormat
-     * @return string 
+     * @param string $nameFormat
+     * @return string
      */
     public function getDatabasePlatformName($nameFormat = self::NAME_FORMAT_CAMELCASE)
     {
         if ($nameFormat == self::NAME_FORMAT_CAMELCASE) {
-            return 'Mysql';
+            return 'Postgresql';
         } else {
-            return 'MySQL';
+            return 'PostgreSQL';
         }
     }
 
     /**
-     * Check environment
+     * @return bool
      */
     public function checkEnvironment()
     {
@@ -145,32 +127,37 @@ class Mysqli implements DriverInterface
     }
 
     /**
-     * @param string $sql
-     * @return Statement
+     * @return StatementInterface
      */
     public function createStatement($sqlOrResource = null)
     {
+        /*
         if (is_resource($sqlOrResource) && !in_array($sqlOrResource, $this->resources, true)) {
             $this->resources[] = $sqlOrResource;
         }
+        */
 
         $statement = clone $this->statementPrototype;
         if (is_string($sqlOrResource)) {
             $statement->setSql($sqlOrResource);
-        } elseif ($sqlOrResource instanceof \mysqli_stmt) {
+        }
+
+        /* elseif ($sqlOrResource instanceof \mysqli_stmt) {
             $statement->setResource($sqlOrResource);
         }
+        */
+
         $statement->initialize($this->connection->getResource());
         return $statement;
     }
 
     /**
-     * @return Result
+     * @return ResultInterface
      */
-    public function createResult($resource, $isBuffered = null)
+    public function createResult($resource)
     {
         $result = clone $this->resultPrototype;
-        $result->initialize($resource, $this->connection->getLastGeneratedValue(), $isBuffered);
+        $result->initialize($resource, $this->connection->getLastGeneratedValue());
         return $result;
     }
 
@@ -188,7 +175,7 @@ class Mysqli implements DriverInterface
      */
     public function formatParameterName($name, $type = null)
     {
-        return '?';
+        return '$#';
     }
 
     /**
@@ -196,7 +183,6 @@ class Mysqli implements DriverInterface
      */
     public function getLastGeneratedValue()
     {
-        return $this->getConnection()->getLastGeneratedValue();
+        return $this->connection->getLastGeneratedValue();
     }
-
 }
