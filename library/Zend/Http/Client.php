@@ -22,9 +22,10 @@ namespace Zend\Http;
 
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
-use ArrayIterator,
-    Zend\Uri\Http,
-    Zend\Stdlib;
+use ArrayIterator;
+use Zend\Uri\Http;
+use Zend\Stdlib;
+use Zend\Http\Client\ClientOptions;
 
 /**
  * Http client
@@ -109,23 +110,11 @@ class Client implements Stdlib\DispatchableInterface
     protected $redirectCounter = 0;
 
     /**
-     * Configuration array, set using the constructor or using ::setOptions()
+     * Configuration options, set using the constructor or using ::setOptions()
      *
-     * @var array
+     * @var ClientOptions
      */
-    protected $config = array(
-        'maxredirects'    => 5,
-        'strictredirects' => false,
-        'useragent'       => 'Zend\Http\Client',
-        'timeout'         => 10,
-        'adapter'         => 'Zend\Http\Client\Adapter\Socket',
-        'httpversion'     => Request::VERSION_11,
-        'storeresponse'   => true,
-        'keepalive'       => false,
-        'outputstream'    => false,
-        'encodecookies'   => true,
-        'rfc3986strict'   => false
-    );
+    public $options;
 
     /**
      * Fileinfo magic database resource
@@ -156,12 +145,16 @@ class Client implements Stdlib\DispatchableInterface
     /**
      * Set configuration parameters for this HTTP client
      *
-     * @param  array|Traversable $options
+     * @param  ClientOptions|array|Traversable $options
      * @return Client
      * @throws Client\Exception\InvalidArgumentException
      */
     public function setOptions($options = array())
     {
+        if($options instanceof ClientOptions) {
+            $this->options = $options;
+            return $this;
+        }
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
         }
@@ -169,10 +162,7 @@ class Client implements Stdlib\DispatchableInterface
             throw new Client\Exception\InvalidArgumentException('Config parameter is not valid');
         }
 
-        /** Config Key Normalization */
-        foreach ($options as $k => $v) {
-            $this->config[str_replace(array('-', '_', ' ', '.'), '', strtolower($k))] = $v; // replace w/ normalized
-        }
+        $this->options = new ClientOptions($options);
 
         // Pass configuration options to the adapter if it exists
         if ($this->adapter instanceof Client\Adapter\AdapterInterface) {
@@ -206,7 +196,7 @@ class Client implements Stdlib\DispatchableInterface
         }
 
         $this->adapter = $adapter;
-        $config = $this->config;
+        $config = $this->options->toArray();
         unset($config['adapter']);
         $this->adapter->setOptions($config);
         return $this;
@@ -590,7 +580,7 @@ class Client implements Stdlib\DispatchableInterface
      */
     public function getStream()
     {
-        return $this->config["outputstream"];
+        return $this->options->getOutputStream();
     }
 
     /**
@@ -600,12 +590,13 @@ class Client implements Stdlib\DispatchableInterface
      */
     protected function openTempStream()
     {
-        $this->streamName = $this->config['outputstream'];
+        $this->streamName = $this->getStream();
 
         if (!is_string($this->streamName)) {
             // If name is not given, create temp name
+            /** @todo This had extra config options that didn't exist, is this correct? */
             $this->streamName = tempnam(
-                isset($this->config['streamtmpdir']) ? $this->config['streamtmpdir'] : sys_get_temp_dir(),
+                sys_get_temp_dir(),
                 'Zend\Http\Client'
             );
         }
@@ -757,7 +748,7 @@ class Client implements Stdlib\DispatchableInterface
 
         // Make sure the adapter is loaded
         if ($this->adapter == null) {
-            $this->setAdapter($this->config['adapter']);
+            $this->setAdapter($this->options->getAdapter());
         }
 
         // Send the first request. If redirected, continue.
@@ -775,7 +766,7 @@ class Client implements Stdlib\DispatchableInterface
                     $newUri = $uri->toString();
                     $queryString = http_build_query($query);
 
-                    if ($this->config['rfc3986strict']) {
+                    if ($this->options->getRfc3986Strict()) {
                         $queryString = str_replace('+', '%20', $queryString);
                     }
 
@@ -823,13 +814,13 @@ class Client implements Stdlib\DispatchableInterface
                 throw new Exception\RuntimeException('Unable to read response, or response is empty');
             }
 
-            if ($this->config['storeresponse']) {
+            if ($this->options->getStoreResponse()) {
                 $this->lastRawResponse = $response;
             } else {
                 $this->lastRawResponse = null;
             }
 
-            if ($this->config['outputstream']) {
+            if ($this->getStream()) {
                 $stream = $this->getStream();
                 if (!is_resource($stream) && is_string($stream)) {
                     $stream = fopen($stream, 'r');
@@ -846,7 +837,7 @@ class Client implements Stdlib\DispatchableInterface
                 $this->adapter->setOutputStream(null);
                 $response = Response\Stream::fromStream($response, $stream);
                 $response->setStreamName($this->streamName);
-                if (!is_string($this->config['outputstream'])) {
+                if (!is_string($this->getStream())) {
                     // we used temp name, will need to clean up
                     $response->setCleanup(true);
                 }
@@ -870,7 +861,7 @@ class Client implements Stdlib\DispatchableInterface
                 // Check whether we send the exact same request again, or drop the parameters
                 // and send a GET request
                 if ($response->getStatusCode() == 303 ||
-                   ((! $this->config['strictredirects']) && ($response->getStatusCode() == 302 ||
+                   ((! $this->options->getStrictRedirects()) && ($response->getStatusCode() == 302 ||
                        $response->getStatusCode() == 301))) {
 
                     $this->resetParameters();
@@ -909,7 +900,7 @@ class Client implements Stdlib\DispatchableInterface
                 break;
             }
 
-        } while ($this->redirectCounter < $this->config['maxredirects']);
+        } while ($this->redirectCounter < $this->options->getMaxRedirects());
 
         $this->response = $response;
         return $response;
@@ -999,7 +990,7 @@ class Client implements Stdlib\DispatchableInterface
         }
 
         $cookies = Header\Cookie::fromSetCookieArray($validCookies);
-        $cookies->setEncodeValue($this->config['encodecookies']);
+        $cookies->setEncodeValue($this->options->getEncodeCookies());
 
         return $cookies;
     }
@@ -1014,7 +1005,7 @@ class Client implements Stdlib\DispatchableInterface
         $headers = array();
 
         // Set the host header
-        if ($this->config['httpversion'] == Request::VERSION_11) {
+        if ($this->options->getHttpVersion() == Request::VERSION_11) {
             $host = $uri->getHost();
             // If the port is not default, add it
             if (!(($uri->getScheme() == 'http' && $uri->getPort() == 80) ||
@@ -1027,7 +1018,7 @@ class Client implements Stdlib\DispatchableInterface
 
         // Set the connection header
         if (!$this->getRequest()->getHeaders()->has('Connection')) {
-            if (!$this->config['keepalive']) {
+            if (!$this->options->getKeepAlive()) {
                 $headers['Connection'] = 'close';
             }
         }
@@ -1044,8 +1035,8 @@ class Client implements Stdlib\DispatchableInterface
 
 
         // Set the user agent header
-        if (!$this->getRequest()->getHeaders()->has('User-Agent') && isset($this->config['useragent'])) {
-            $headers['User-Agent'] = $this->config['useragent'];
+        if (!$this->getRequest()->getHeaders()->has('User-Agent') && $this->options->getUserAgent()) {
+            $headers['User-Agent'] = $this->options->getUserAgent();
         }
 
         // Set HTTP authentication if needed
@@ -1278,7 +1269,7 @@ class Client implements Stdlib\DispatchableInterface
         // Open the connection, send the request and read the response
         $this->adapter->connect($uri->getHost(), $uri->getPort(), $secure);
 
-        if ($this->config['outputstream']) {
+        if ($this->getStream()) {
             if ($this->adapter instanceof Client\Adapter\StreamInterface) {
                 $stream = $this->openTempStream();
                 $this->adapter->setOutputStream($stream);
@@ -1289,7 +1280,7 @@ class Client implements Stdlib\DispatchableInterface
 
         // HTTP connection
         $this->lastRawRequest = $this->adapter->write($method,
-            $uri, $this->config['httpversion'], $headers, $body);
+            $uri, $this->options->getHttpVersion(), $headers, $body);
 
         return $this->adapter->read();
     }
