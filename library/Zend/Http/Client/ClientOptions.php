@@ -15,8 +15,15 @@ class ClientOptions extends AbstractOptions
 
     /**
      * Whether to strictly follow the RFC when redirecting
-     * 
+     *
      * @var bool
      */
     protected $strictRedirects = false;
+
+    /**
+     * User agent identifier string sent in request headers
+     *
+     * @var string
+     */
+    protected $userAgent = 'Zend\Http\Client';
 }
