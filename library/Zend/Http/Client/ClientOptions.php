@@ -12,4 +12,11 @@ class ClientOptions extends AbstractOptions
      * @var int
      */
     protected $maxRedirects = 5;
+
+    /**
+     * Whether to strictly follow the RFC when redirecting
+     * 
+     * @var bool
+     */
+    protected $strictRedirects = false;
 }
