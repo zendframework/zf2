@@ -45,13 +45,11 @@ class LazyDiAbstractFactory implements AbstractFactoryInterface
      */
     protected function initialize(ServiceLocatorInterface $serviceLocator)
     {
-        if (null !== $this->wrappedDiAbstractFactory) {
-            return;
+        if (null === $this->wrappedDiAbstractFactory) {
+            /* @var $di \Zend\Di\Di */
+            $di = $serviceLocator->get('Di');
+            $this->wrappedDiAbstractFactory = new DiAbstractServiceFactory($di, DiAbstractServiceFactory::USE_SL_BEFORE_DI);
         }
-
-        /* @var $di \Zend\Di\Di */
-        $di = $serviceLocator->get('Di');
-        $this->wrappedDiAbstractFactory = new DiAbstractServiceFactory($di, DiAbstractServiceFactory::USE_SL_BEFORE_DI);
     }
 
     /**
