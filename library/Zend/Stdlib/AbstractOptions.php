@@ -73,8 +73,8 @@ abstract class AbstractOptions implements ParameterObjectInterface
         if (!method_exists($this, $setter)) {
             throw new Exception\BadMethodCallException(
                 'The option "' . $key . '" does not '
-                . 'have a matching ' . $setter . ' setter method '
-                . 'which must be defined'
+                    . 'have a matching ' . $setter . ' setter method '
+                    . 'which must be defined'
             );
         }
         return $setter;
@@ -93,8 +93,8 @@ abstract class AbstractOptions implements ParameterObjectInterface
         if (!method_exists($this, $getter)) {
             throw new Exception\BadMethodCallException(
                 'The option "' . $key . '" does not '
-                . 'have a matching ' . $getter . ' getter method '
-                . 'which must be defined'
+                    . 'have a matching ' . $getter . ' getter method '
+                    . 'which must be defined'
             );
         }
         return $getter;
@@ -143,7 +143,7 @@ abstract class AbstractOptions implements ParameterObjectInterface
     {
         try {
             $this->__set($key, null);
-        } catch(\InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             throw new Exception\InvalidArgumentException(
                 'The class property $' . $key . ' cannot be unset as'
                     . ' NULL is an invalid value for it',
@@ -151,5 +151,19 @@ abstract class AbstractOptions implements ParameterObjectInterface
                 $e
             );
         }
+    }
+
+    /**
+     * Converts object to array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $return = array();
+        foreach ($this as $key => $val) {
+            $return[strtolower($key)] = $val;
+        }
+        return $return;
     }
 }
