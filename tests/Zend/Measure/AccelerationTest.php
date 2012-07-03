@@ -41,19 +41,19 @@ class AccelerationTest extends \PHPUnit_Framework_TestCase
     public function testAccelerationInit()
     {
         $value = new Measure\Acceleration('100',Measure\Acceleration::STANDARD,'de');
-        $this->assertTrue($value instanceof Measure\Acceleration,'Zend\Measure\Acceleration Object not returned');
+        $this->assertInstanceOf('Zend\Measure\Acceleration', $value);
         $this->assertEquals(100, $value->getValue(), 'Zend\Measure\Acceleration value expected to be a positive integer');
+
         // no type
-        $value = new Measure\Acceleration('100','de');
-        $this->assertTrue($value instanceof Measure\Acceleration,'Zend\Measure\Acceleration Object not returned');
+        $value = new Measure\Acceleration('100', null, 'de');
+        $this->assertInstanceOf('Zend\Measure\Acceleration', $value);
+
         // unknown type
-        try {
-            $value = new Measure\Acceleration('100','Acceleration::UNKNOWN','de');
-            $this->fail('Exception expected because of unknown type');
-        } catch (Measure\Exception $e) {
-            // success
-        }
+        $this->setExpectedException('Zend\Measure\Exception', 'is unknown');
+        $value = new Measure\Acceleration('100','Acceleration::UNKNOWN','de');
+
         // no value
+        $this->setExpectedException('Zend\Measure\Exception', 'is unknown');
         try {
             $value = new Measure\Acceleration('novalue',Measure\Acceleration::STANDARD,'de');
             $this->fail('Exception expected because of empty value');

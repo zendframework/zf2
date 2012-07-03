@@ -39,7 +39,7 @@ class AngleTest extends \PHPUnit_Framework_TestCase
     public function testAngleInit()
     {
         $value = new Measure\Angle('100',Measure\Angle::STANDARD,'de');
-        $this->assertTrue($value instanceof Measure\Angle,'Zend\Measure\Angle Object not returned');
+        $this->assertInstanceOf('Zend\Measure\Angle', $value);
     }
 
 

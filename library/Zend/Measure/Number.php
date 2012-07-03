@@ -130,48 +130,18 @@ class Number extends AbstractMeasure
         '/SU/' => '/Z/'
     );
 
-
-    /**
-     * Zend\Measure\AbstractMeasure is an abstract class for the different measurement types
-     *
-     * @param  integer $value  Value
-     * @param  string  $type   (Optional) A Zend\Measure\Number Type
-     * @param  string  $locale (Optional) A BCP 47 compliant language tag
-     * @throws Zend\Measure\Exception When language is unknown
-     * @throws Zend\Measure\Exception When type is unknown
-     */
-    public function __construct($value, $type, $locale = null)
-    {
-        if (($type !== null) && (Locale::getPrimaryLanguage($type) !== null)) {
-            $locale = $type;
-            $type   = null;
-        }
-
-        $this->setLocale($locale, true);
-
-        if ($type === null) {
-            $type = $this->_units['STANDARD'];
-        }
-
-        if (isset($this->_units[$type]) === false) {
-            throw new Exception("Type ($type) is unknown");
-        }
-
-        $this->setValue($value, $type, $this->_locale);
-    }
-
     /**
      * Set a new value
      *
      * @param  integer $value  Value
      * @param  string  $type   (Optional) A Zend\Measure\Number Type
      * @param  string  $locale (Optional) A BCP 47 compliant language tag
-     * @throws Zend\Measure\Exception
+     * @throws Exception
      */
     public function setValue($value, $type = null, $locale = null)
     {
-        if (empty($locale)) {
-            $locale = $this->_locale;
+        if ($locale === null) {
+            $locale = $this->locale;
         }
 
         if (empty($this->_units[$type])) {
@@ -314,7 +284,7 @@ class Number extends AbstractMeasure
      * @param  integer $value Input string
      * @param  string  $type  Type to convert to
      * @return string
-     * @throws Zend\Measure\Exception When more than 200 digits are calculated
+     * @throws Exception When more than 200 digits are calculated
      */
     private function _fromDecimal($value, $type)
     {
@@ -378,7 +348,7 @@ class Number extends AbstractMeasure
      * Set a new type, and convert the value
      *
      * @param  string $type New type to set
-     * @throws Zend\Measure\Exception When a unknown type is given
+     * @throws Exception When a unknown type is given
      * @return void
      */
     public function setType($type)
@@ -398,8 +368,9 @@ class Number extends AbstractMeasure
      * Alias function for setType returning the converted unit
      * Default is 0 as this class only handles numbers without precision
      *
-     * @param  string  $type  Type to convert to
-     * @param  integer $round (Optional) Precision to add, will always be 0
+     * @param  string  $type   Type to convert to
+     * @param  integer $round  (Optional) Precision to add, will always be 0
+     * @param  string  $locale (Optional) A BCP 47 compliant language tag
      * @return string
      */
     public function convertTo($type, $round = 0, $locale = null)

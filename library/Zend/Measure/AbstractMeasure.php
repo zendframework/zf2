@@ -52,9 +52,9 @@ abstract class AbstractMeasure
     /**
      * Locale identifier
      *
-     * @var string $_locale
+     * @var string
      */
-    protected $_locale = null;
+    protected $locale = null;
 
     /**
      * Unit types for this measurement
@@ -65,22 +65,15 @@ abstract class AbstractMeasure
     protected $math;
 
     /**
-     * Zend\Measure\MeasureAbstract is an abstract class for the different measurement types
+     * MeasureAbstract is an abstract class for the different measurement types
      *
      * @param  mixed  $value  Value as string, integer, real or float
-     * @param  string $type   OPTIONAL a measure type f.e. Zend\Measure\Length::METER
+     * @param  string $type   OPTIONAL a measure type f.e. Length::METER
      * @param  string $locale OPTIONAL a BCP 47 compliant language tag
-     * @throws Zend\Measure\Exception
+     * @throws Exception
      */
     public function __construct($value, $type = null, $locale = null)
     {
-        if (($type !== null) && (Locale::getPrimaryLanguage($type) !== null)) {
-            $locale = $type;
-            $type = null;
-        }
-
-        $this->setLocale($locale, true);
-
         if ($type === null) {
             $type = $this->_units['STANDARD'];
         }
@@ -89,7 +82,8 @@ abstract class AbstractMeasure
             throw new Exception("Type ($type) is unknown");
         }
 
-        $this->setValue($value, $type, $this->_locale);
+        $this->setLocale($locale);
+        $this->setValue($value, $type, $this->locale);
     }
 
     /**
@@ -122,29 +116,25 @@ abstract class AbstractMeasure
      */
     public function getLocale()
     {
-        return $this->_locale;
+        return $this->locale;
     }
 
     /**
      * Sets a new locale for the value representation
      *
      * @param  string  $locale (Optional) A BCP 47 compliant language tag
-     * @param  boolean $check  False, check but don't set; True, set the new locale
-     * @return Zend\Measure\AbstractMeasure
+     * @return AbstractMeasure
      */
-    public function setLocale($locale = null, $check = false)
+    public function setLocale($locale = null)
     {
         if (null === $locale) {
-            $locale = Locale::getPrimaryLanguage(Locale::getDefault());
+            $this->locale = Locale::getDefault();
         } else {
-            $locale = Locale::getPrimaryLanguage($locale);
-            if (null === $locale) {
-                throw new Exception('Language (' . (string)$locale . ') is unknown');
-            }
+            $this->locale = $locale;
         }
 
-        if (!$check) {
-            $this->_locale = (string) $locale;
+        if (null === $this->locale) {
+            throw new Exception('Language (' . (string)$locale . ') is unknown');
         }
         return $this;
     }
@@ -166,7 +156,7 @@ abstract class AbstractMeasure
         }
 
         if ($locale !== null) {
-            $this->setLocale($locale, true);
+            $this->setLocale($locale);
             $fmt = new NumberFormatter($locale, NumberFormatter::DECIMAL);
             return $fmt->format($return);
         }
@@ -180,22 +170,17 @@ abstract class AbstractMeasure
      * @param  integer|string $value   Value as string, integer, real or float
      * @param  string         $type    OPTIONAL A measure type f.e. Zend_Measure_Length::METER
      * @param  string         $locale  OPTIONAL A BCP 47 compliant language tag
-     * @throws Zend\Measure\Exception
-     * @return Zend\Measure\AbstractMeasure
+     * @throws Exception
+     * @return AbstractMeasure
      */
     public function setValue($value, $type = null, $locale = null)
     {
-        if (($type !== null) && (Locale::getPrimaryLanguage($type) !== null)) {
-            $locale = $type;
-            $type = null;
-        }
-
-        if ($locale !== null) {
-            $this->setLocale($locale, true);
-        }
-
         if ($type === null) {
             $type = $this->_units['STANDARD'];
+        }
+
+        if ($locale === null) {
+            $type = $this->locale;
         }
 
         if (empty($this->_units[$type])) {
@@ -216,7 +201,7 @@ abstract class AbstractMeasure
     /**
      * Returns the original type
      *
-     * @return type
+     * @return string
      */
     public function getType()
     {
@@ -227,8 +212,8 @@ abstract class AbstractMeasure
      * Set a new type, and convert the value
      *
      * @param  string $type New type to set
-     * @throws Zend\Measure\Exception
-     * @return Zend\Measure\AbstractMeasure
+     * @throws Exception
+     * @return AbstractMeasure
      */
     public function setType($type)
     {
@@ -298,16 +283,12 @@ abstract class AbstractMeasure
     /**
      * Compare if the value and type is equal
      *
-     * @param  Zend\Measure\AbstractMeasure $object object to compare
+     * @param  AbstractMeasure $object object to compare
      * @return boolean
      */
     public function equals($object)
     {
-        if ((string) $object == $this->toString()) {
-            return true;
-        }
-
-        return false;
+        return ((string) $object == $this->toString());
     }
 
     /**
@@ -320,7 +301,7 @@ abstract class AbstractMeasure
     public function toString($round = -1, $locale = null)
     {
         if ($locale === null) {
-            $locale = $this->_locale;
+            $locale = $this->locale;
         }
 
         return $this->getValue($round, $locale) . ' ' . $this->_units[$this->getType()][1];
@@ -363,8 +344,8 @@ abstract class AbstractMeasure
     /**
      * Adds an unit to another one
      *
-     * @param  Zend\Measure\AbstractMeasure $object object of same unit type
-     * @return Zend\Measure\AbstractMeasure
+     * @param  AbstractMeasure $object object of same unit type
+     * @return AbstractMeasure
      */
     public function add($object)
     {
@@ -377,10 +358,10 @@ abstract class AbstractMeasure
     }
 
     /**
-     * Substracts an unit from another one
+     * Subtracts an unit from another one
      *
-     * @param  Zend\Measure\AbstractMeasure $object object of same unit type
-     * @return Zend\Measure\AbstractMeasure
+     * @param  AbstractMeasure $object object of same unit type
+     * @return AbstractMeasure
      */
     public function sub($object)
     {
@@ -395,7 +376,7 @@ abstract class AbstractMeasure
     /**
      * Compares two units
      *
-     * @param  Zend\Measure\AbstractMeasure $object object of same unit type
+     * @param  AbstractMeasure $object object of same unit type
      * @return boolean
      */
     public function compare($object)
