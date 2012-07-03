@@ -23,6 +23,7 @@ namespace Zend\I18n\View\Helper;
 
 use DateTime;
 use IntlDateFormatter;
+use Locale;
 use Zend\View\Helper\AbstractHelper;
 use Zend\I18n\Exception;
 
@@ -38,6 +39,20 @@ use Zend\I18n\Exception;
 class DateFormat extends AbstractHelper
 {
     /**
+     * Locale to use instead of the default.
+     *
+     * @var string
+     */
+    protected $locale;
+
+    /**
+     * Timezone to use.
+     *
+     * @var string
+     */
+    protected $timezone;
+
+    /**
      * Formatter instances.
      *
      * @var array
@@ -45,43 +60,90 @@ class DateFormat extends AbstractHelper
     protected $formatters = array();
 
     /**
-     * Add a formatter.
+     * Set timezone to use instead of the default.
      *
-     * @param  string            $name
-     * @param  IntlDateFormatter $formatter
-     * @return DateFormat
+     * @param string $timezone
      */
-    public function addFormatter($name, IntlDateFormatter $formatter)
+    public function setTimezone($timezone)
     {
-        $this->formatters[$name] = $formatter;
-        return $this;
+        $this->timezone = (string) $timezone;
+
+        foreach ($this->formatters as $formatter) {
+            $formatter->setTimeZoneId($this->timezone);
+        }
+    }
+
+    /**
+     * Get the timezone to use.
+     *
+     * @return string|null
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
+    }
+
+    /**
+     * Set locale to use instead of the default.
+     *
+     * @param string $locale
+     */
+    public function setlocale($locale)
+    {
+        $this->locale = (string) $locale;
+    }
+
+    /**
+     * Get the locale to use.
+     *
+     * @return string|null
+     */
+    public function getlocale()
+    {
+        if ($this->locale === null) {
+            $this->locale = Locale::getDefault();
+        }
+
+        return $this->locale;
     }
 
     /**
      * Format a date.
      *
      * @param  DateTime|integer|array $date
-     * @param  string                 $formatterName
+     * @param  integer                $dateType
+     * @param  integer                $timeType
+     * @param  string                 $locale
      * @return string
      * @throws Exception\RuntimeException
      */
-    public function __invoke($date, $formatterName)
-    {
-        if (!isset($this->formatters[$formatterName])) {
-            throw new Exception\RuntimeException(sprintf(
-                'No formatter with name %s found',
-                $formatterName
-            ));
+    public function __invoke(
+        $date,
+        $dateType = IntlDateFormatter::NONE,
+        $timeType = IntlDateFormatter::NONE,
+        $locale   = null
+    ) {
+        if ($locale === null) {
+            $locale = $this->getlocale();
+        }
+
+        $timezone    = $this->getTimezone();
+        $formatterId = md5($dateType . "\0" . $timeType . "\0" . $locale);
+
+        if (!isset($this->formatters[$formatterId])) {
+            $this->formatters[$formatterId] = new IntlDateFormatter(
+                $locale,
+                $dateType,
+                $timeType,
+                $timezone
+            );
         }
 
         // DateTime support for IntlDateFormatter::format() was only added in 5.3.4
-        if ($date instanceof DateTime
-            && version_compare(PHP_VERSION, '5.3.4', '<'))
-        {
+        if ($date instanceof DateTime && version_compare(PHP_VERSION, '5.3.4', '<')) {
             $date = $date->getTimestamp();
         }
 
-        return $this->formatters[$formatterName]
-                    ->format($date);
+        return $this->formatters[$formatterId]->format($date);
     }
 }
