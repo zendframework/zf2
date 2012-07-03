@@ -79,7 +79,7 @@ class Ec2OfflineTest extends \PHPUnit_Framework_TestCase
         $adapter= $this->infrastructure->getAdapter();
         
         $client = new HttpClient(null, array(
-            'adapter' => $this->httpClientAdapterTest
+            'adapter' => 'Zend\Http\Client\Adapter\Test'
         ));
         
         call_user_func(array($adapter,'setHttpClient'),$client);
