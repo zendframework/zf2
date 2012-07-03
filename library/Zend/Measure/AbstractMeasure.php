@@ -19,8 +19,11 @@
  */
 
 namespace Zend\Measure;
-use Zend\Locale;
-use Zend\Locale\Math;
+
+use Locale;
+use NumberFormatter;
+use Zend\Math\BigInteger\Adapter\AdapterInterface as BigIntegerAdapter;
+use Zend\Math\BigInteger\BigInteger;
 
 /**
  * Abstract class for all measurements
@@ -49,31 +52,28 @@ abstract class AbstractMeasure
     /**
      * Locale identifier
      *
-     * @var string $_locale
+     * @var string
      */
-    protected $_locale = null;
+    protected $locale = null;
 
     /**
      * Unit types for this measurement
      */
     protected $_units = array();
 
+    /** @var BigIntegerAdapter */
+    protected $math;
+
     /**
-     * Zend\Measure\MeasureAbstract is an abstract class for the different measurement types
+     * MeasureAbstract is an abstract class for the different measurement types
      *
-     * @param  mixed               $value  Value as string, integer, real or float
-     * @param  string              $type   OPTIONAL a measure type f.e. Zend\Measure\Length::METER
-     * @param  \Zend\Locale\Locale $locale OPTIONAL a Zend\Zend\Locale Type
-     * @throws Zend\Measure\Exception
+     * @param  mixed  $value  Value as string, integer, real or float
+     * @param  string $type   OPTIONAL a measure type f.e. Length::METER
+     * @param  string $locale OPTIONAL a BCP 47 compliant language tag
+     * @throws Exception
      */
     public function __construct($value, $type = null, $locale = null)
     {
-        if (($type !== null) and (Locale\Locale::isLocale($type))) {
-            $locale = $type;
-            $type = null;
-        }
-
-        $this->setLocale($locale);
         if ($type === null) {
             $type = $this->_units['STANDARD'];
         }
@@ -82,7 +82,31 @@ abstract class AbstractMeasure
             throw new Exception("Type ($type) is unknown");
         }
 
-        $this->setValue($value, $type, $this->_locale);
+        $this->setLocale($locale);
+        $this->setValue($value, $type, $this->locale);
+    }
+
+    /**
+     * @param BigIntegerAdapter $math
+     */
+    public function setMath(BigIntegerAdapter $math)
+    {
+        $this->math = $math;
+    }
+
+    /**
+     * If not Adapter is present then create a new one from the BigInteger
+     * factory.
+     *
+     * @return BigIntegerAdapter
+     */
+    public function getMath()
+    {
+        if (null === $this->math) {
+            $this->math = BigInteger::factory();
+        }
+
+        return $this->math;
     }
 
     /**
@@ -92,32 +116,25 @@ abstract class AbstractMeasure
      */
     public function getLocale()
     {
-        return $this->_locale;
+        return $this->locale;
     }
 
     /**
      * Sets a new locale for the value representation
      *
-     * @param string|\Zend\Locale\Locale $locale (Optional) New locale to set
-     * @param boolean                    $check  False, check but don't set; True, set the new locale
-     * @return Zend\Measure\AbstractMeasure
+     * @param  string  $locale (Optional) A BCP 47 compliant language tag
+     * @return AbstractMeasure
      */
-    public function setLocale($locale = null, $check = false)
+    public function setLocale($locale = null)
     {
-        if ($locale === null) {
-            $locale = new Locale\Locale();
+        if (null === $locale) {
+            $this->locale = Locale::getDefault();
+        } else {
+            $this->locale = $locale;
         }
 
-        if (!Locale\Locale::isLocale($locale, true)) {
-            if (!Locale\Locale::isLocale($locale, false)) {
-                throw new Exception("Language (" . (string) $locale . ") is unknown");
-            }
-
-            $locale = new Locale\Locale($locale);
-        }
-
-        if (!$check) {
-            $this->_locale = (string) $locale;
+        if (null === $this->locale) {
+            throw new Exception('Language (' . (string)$locale . ') is unknown');
         }
         return $this;
     }
@@ -125,9 +142,9 @@ abstract class AbstractMeasure
     /**
      * Returns the internal value
      *
-     * @param integer                    $round  (Optional) Rounds the value to an given precision,
-     *                                                      Default is -1 which returns without rounding
-     * @param string|\Zend\Locale\Locale $locale (Optional) Locale for number representation
+     * @param integer $round  (Optional) Rounds the value to an given precision,
+     *                                   Default is -1 which returns without rounding
+     * @param  string $locale (Optional) A BCP 47 compliant language tag
      * @return integer|string
      */
     public function getValue($round = -1, $locale = null)
@@ -135,12 +152,13 @@ abstract class AbstractMeasure
         if ($round < 0) {
             $return = $this->_value;
         } else {
-            $return = Math::round($this->_value, $round);
+            $return = $this->getMath()->round($this->_value, $round);
         }
 
         if ($locale !== null) {
-            $this->setLocale($locale, true);
-            return Locale\Format::toNumber($return, array('locale' => $locale));
+            $this->setLocale($locale);
+            $fmt = new NumberFormatter($locale, NumberFormatter::DECIMAL);
+            return $fmt->format($return);
         }
 
         return $return;
@@ -149,36 +167,30 @@ abstract class AbstractMeasure
     /**
      * Set a new value
      *
-     * @param  integer|string              $value   Value as string, integer, real or float
-     * @param  string                      $type    OPTIONAL A measure type f.e. Zend_Measure_Length::METER
-     * @param  string|\Zend\Locale\Locale  $locale  OPTIONAL Locale for parsing numbers
-     * @throws Zend\Measure\Exception
-     * @return Zend\Measure\AbstractMeasure
+     * @param  integer|string $value   Value as string, integer, real or float
+     * @param  string         $type    OPTIONAL A measure type f.e. Zend_Measure_Length::METER
+     * @param  string         $locale  OPTIONAL A BCP 47 compliant language tag
+     * @throws Exception
+     * @return AbstractMeasure
      */
     public function setValue($value, $type = null, $locale = null)
     {
-        if (($type !== null) and (Locale\Locale::isLocale($type))) {
-            $locale = $type;
-            $type = null;
+        if ($type === null) {
+            $type = $this->_units['STANDARD'];
         }
 
         if ($locale === null) {
-            $locale = $this->_locale;
-        }
-
-        $this->setLocale($locale, true);
-        if ($type === null) {
-            $type = $this->_units['STANDARD'];
+            $type = $this->locale;
         }
 
         if (empty($this->_units[$type])) {
             throw new Exception("Type ($type) is unknown");
         }
 
-        try {
-            $value = Locale\Format::getNumber($value, array('locale' => $locale));
-        } catch(\Exception $e) {
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
+        $fmt = new NumberFormatter($locale, NumberFormatter::DECIMAL);
+        $value = $fmt->format($value);
+        if(intl_is_failure($fmt->getErrorCode())) {
+            throw new Exception($fmt->getErrorMessage(), $fmt->getErrorCode());
         }
 
         $this->_value = $value;
@@ -189,7 +201,7 @@ abstract class AbstractMeasure
     /**
      * Returns the original type
      *
-     * @return type
+     * @return string
      */
     public function getType()
     {
@@ -200,8 +212,8 @@ abstract class AbstractMeasure
      * Set a new type, and convert the value
      *
      * @param  string $type New type to set
-     * @throws Zend\Measure\Exception
-     * @return Zend\Measure\AbstractMeasure
+     * @throws Exception
+     * @return AbstractMeasure
      */
     public function setType($type)
     {
@@ -214,27 +226,28 @@ abstract class AbstractMeasure
         } else {
             // Convert to standard value
             $value = $this->_value;
+            $math = $this->getMath();
             if (is_array($this->_units[$this->getType()][0])) {
                 foreach ($this->_units[$this->getType()][0] as $key => $found) {
                     switch ($key) {
                         case "/":
                             if ($found != 0) {
-                                $value = call_user_func(Math::$div, $value, $found, 25);
+                                $value = $math->div($value, $found, 25);
                             }
                             break;
                         case "+":
-                            $value = call_user_func(Math::$add, $value, $found, 25);
+                            $value = $math->add($value, $found, 25);
                             break;
                         case "-":
-                            $value = call_user_func(Math::$sub, $value, $found, 25);
+                            $value = $math->sub($value, $found, 25);
                             break;
                         default:
-                            $value = call_user_func(Math::$mul, $value, $found, 25);
+                            $value = $math->mul($value, $found, 25);
                             break;
                     }
                 }
             } else {
-                $value = call_user_func(Math::$mul, $value, $this->_units[$this->getType()][0], 25);
+                $value = $math->mul($value, $this->_units[$this->getType()][0], 25);
             }
 
             // Convert to expected value
@@ -242,23 +255,23 @@ abstract class AbstractMeasure
                 foreach (array_reverse($this->_units[$type][0]) as $key => $found) {
                     switch ($key) {
                         case "/":
-                            $value = call_user_func(Math::$mul, $value, $found, 25);
+                            $value = $math->mul($value, $found, 25);
                             break;
                         case "+":
-                            $value = call_user_func(Math::$sub, $value, $found, 25);
+                            $value = $math->sub($value, $found, 25);
                             break;
                         case "-":
-                            $value = call_user_func(Math::$add, $value, $found, 25);
+                            $value = $math->add($value, $found, 25);
                             break;
                         default:
                             if ($found != 0) {
-                                $value = call_user_func(Math::$div, $value, $found, 25);
+                                $value = $math->div($value, $found, 25);
                             }
                             break;
                     }
                 }
             } else {
-                $value = call_user_func(Math::$div, $value, $this->_units[$type][0], 25);
+                $value = $math->div($value, $this->_units[$type][0], 25);
             }
 
             $this->_value = $this->roundToPrecision($value);
@@ -270,29 +283,25 @@ abstract class AbstractMeasure
     /**
      * Compare if the value and type is equal
      *
-     * @param  Zend\Measure\AbstractMeasure $object object to compare
+     * @param  AbstractMeasure $object object to compare
      * @return boolean
      */
     public function equals($object)
     {
-        if ((string) $object == $this->toString()) {
-            return true;
-        }
-
-        return false;
+        return ((string) $object == $this->toString());
     }
 
     /**
      * Returns a string representation
      *
-     * @param  integer                    $round  (Optional) Runds the value to an given exception
-     * @param  string|\Zend\Locale\Locale $locale (Optional) Locale to set for the number
+     * @param  integer $round  (Optional) Rounds the value to an given exception
+     * @param  string  $locale (Optional) A BCP 47 compliant language tag
      * @return string
      */
     public function toString($round = -1, $locale = null)
     {
         if ($locale === null) {
-            $locale = $this->_locale;
+            $locale = $this->locale;
         }
 
         return $this->getValue($round, $locale) . ' ' . $this->_units[$this->getType()][1];
@@ -321,9 +330,9 @@ abstract class AbstractMeasure
     /**
      * Alias function for setType returning the converted unit
      *
-     * @param  string                     $type   Constant Type
-     * @param  integer                    $round  (Optional) Rounds the value to a given precision
-     * @param  string|\Zend\Locale\Locale $locale (Optional) Locale to set for the number
+     * @param  string  $type   Constant Type
+     * @param  integer $round  (Optional) Rounds the value to a given precision
+     * @param  string  $locale (Optional) A BCP 47 compliant language tag
      * @return string
      */
     public function convertTo($type, $round = 2, $locale = null)
@@ -335,28 +344,30 @@ abstract class AbstractMeasure
     /**
      * Adds an unit to another one
      *
-     * @param  Zend\Measure\AbstractMeasure $object object of same unit type
-     * @return Zend\Measure\AbstractMeasure
+     * @param  AbstractMeasure $object object of same unit type
+     * @return AbstractMeasure
      */
     public function add($object)
     {
+        $math = $this->getMath();
         $object->setType($this->getType());
-        $value  = call_user_func(Math::$add, $this->getValue(-1), $object->getValue(-1), 25);
+        $value  = $math->add($this->getValue(-1), $object->getValue(-1), 25);
 
         $this->_value = $this->roundToPrecision($value);
         return $this;
     }
 
     /**
-     * Substracts an unit from another one
+     * Subtracts an unit from another one
      *
-     * @param  Zend\Measure\AbstractMeasure $object object of same unit type
-     * @return Zend\Measure\AbstractMeasure
+     * @param  AbstractMeasure $object object of same unit type
+     * @return AbstractMeasure
      */
     public function sub($object)
     {
+        $math = $this->getMath();
         $object->setType($this->getType());
-        $value  = call_user_func(Math::$sub, $this->getValue(-1), $object->getValue(-1), 25);
+        $value  = $math->sub($this->getValue(-1), $object->getValue(-1), 25);
 
         $this->_value = $this->roundToPrecision($value);
         return $this;
@@ -365,7 +376,7 @@ abstract class AbstractMeasure
     /**
      * Compares two units
      *
-     * @param  Zend\Measure\AbstractMeasure $object object of same unit type
+     * @param  AbstractMeasure $object object of same unit type
      * @return boolean
      */
     public function compare($object)
@@ -399,6 +410,6 @@ abstract class AbstractMeasure
             }
         }
 
-        return Math::round($value, $length);
+        return $this->getMath()->round($value, $length);
     }
 }

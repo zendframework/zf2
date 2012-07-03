@@ -20,12 +20,8 @@
  */
 
 namespace ZendTest\Measure;
-use Zend\Measure;
-use Zend\Locale;
 
-/**
- * PHPUnit test case
- */
+use Zend\Measure;
 
 /**
  * @category   Zend
@@ -35,7 +31,7 @@ use Zend\Locale;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Measure
  */
-class AccelerationTest extends CommonTestCase
+class AccelerationTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -45,19 +41,19 @@ class AccelerationTest extends CommonTestCase
     public function testAccelerationInit()
     {
         $value = new Measure\Acceleration('100',Measure\Acceleration::STANDARD,'de');
-        $this->assertTrue($value instanceof Measure\Acceleration,'Zend\Measure\Acceleration Object not returned');
+        $this->assertInstanceOf('Zend\Measure\Acceleration', $value);
         $this->assertEquals(100, $value->getValue(), 'Zend\Measure\Acceleration value expected to be a positive integer');
+
         // no type
-        $value = new Measure\Acceleration('100','de');
-        $this->assertTrue($value instanceof Measure\Acceleration,'Zend\Measure\Acceleration Object not returned');
+        $value = new Measure\Acceleration('100', null, 'de');
+        $this->assertInstanceOf('Zend\Measure\Acceleration', $value);
+
         // unknown type
-        try {
-            $value = new Measure\Acceleration('100','Acceleration::UNKNOWN','de');
-            $this->fail('Exception expected because of unknown type');
-        } catch (Measure\Exception $e) {
-            // success
-        }
+        $this->setExpectedException('Zend\Measure\Exception', 'is unknown');
+        $value = new Measure\Acceleration('100','Acceleration::UNKNOWN','de');
+
         // no value
+        $this->setExpectedException('Zend\Measure\Exception', 'is unknown');
         try {
             $value = new Measure\Acceleration('novalue',Measure\Acceleration::STANDARD,'de');
             $this->fail('Exception expected because of empty value');
@@ -76,7 +72,7 @@ class AccelerationTest extends CommonTestCase
         $this->assertEquals(100, $value->getValue(),'Zend\Measure\Acceleration value expected');
 
         // negative value
-        $locale = new Locale\Locale('de');
+        $locale = 'de';
         $value = new Measure\Acceleration('-100',Measure\Acceleration::STANDARD,$locale);
         $this->assertEquals(-100, $value->getValue(), 'Zend\Measure\Acceleration value expected to be a negative integer');
         // seperated value
@@ -117,7 +113,7 @@ class AccelerationTest extends CommonTestCase
         $value->setValue('200',Measure\Acceleration::STANDARD,'de');
         $this->assertEquals(200, $value->getValue(), 'Zend\Measure\Acceleration value expected to be a positive integer');
 
-        $locale = new Locale\Locale('de_AT');
+        $locale = 'de_AT';
         $value->setValue('200',$locale);
         $this->assertEquals(200, $value->getValue(), 'Zend\Measure\Acceleration value expected to be a positive integer');
         $value->setValue('200','de');

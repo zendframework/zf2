@@ -30,7 +30,7 @@ use Zend\Measure;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Measure
  */
-class AngleTest extends CommonTestCase
+class AngleTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * test for Angle initialisation
@@ -39,7 +39,7 @@ class AngleTest extends CommonTestCase
     public function testAngleInit()
     {
         $value = new Measure\Angle('100',Measure\Angle::STANDARD,'de');
-        $this->assertTrue($value instanceof Measure\Angle,'Zend\Measure\Angle Object not returned');
+        $this->assertInstanceOf('Zend\Measure\Angle', $value);
     }
 
 

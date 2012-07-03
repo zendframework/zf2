@@ -30,7 +30,7 @@ use Zend\Measure;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Measure
  */
-class DensityTest extends CommonTestCase
+class DensityTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * test for Density initialisation
