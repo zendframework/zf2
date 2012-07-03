@@ -116,8 +116,10 @@ class SqliteMetadata extends AbstractSource
 
     protected function loadConstraintData($table, $schema)
     {
-        parent::loadConstraintData($table, $schema);
-        return;
+        if (isset($this->data['sqlite_loaded_tables'][$schema][$table])) {
+            return;
+        }
+
         $this->loadColumnData($table, $schema);
         $primaryKey = array();
 
@@ -190,6 +192,42 @@ class SqliteMetadata extends AbstractSource
             $constraints[] = $constraint;
         }
 
+        // convert to current storage format
+        $this->prepareDataHierarchy('constraint_names', $schema);
+        $this->prepareDataHierarchy('constraint_keys', $schema);
+        $this->prepareDataHierarchy('constraint_references', $schema);
+        $this->prepareDataHierarchy('sqlite_loaded_tables', $schema, $table);
+
+        $this->data['sqlite_loaded_tables'][$schema][$table] = true; // So it knows which table it's loaded
+
+        foreach ($constraints as $constraint) {
+            $this->data['constraint_names'][$schema][] = array(
+                'table_name'      => $table,
+                'constraint_name' => $constraint['constraint_name'],
+                'constraint_type' => $constraint['constraint_type'],
+            );
+            foreach ($constraint['columns'] as $ord => $column) {
+                $this->data['constraint_keys'][$schema][] = array(
+                    'table_name'       => $table,
+                    'constraint_name'  => $constraint['constraint_name'],
+                    'column_name'      => $column,
+                    'ordinal_position' => $ord + 1,
+                );
+            }
+            if ('FOREIGN KEY' == $constraint['constraint_type']) {
+                foreach ($constraint['referenced_columns'] as $ord => $column) {
+                    $this->data['constraint_references'][$schema][] = array(
+                        'table_name'       => $table,
+                        'constraint_name'  => $constraint['constraint_name'],
+                        'update_rule'  => $constraint['update_rule'],
+                        'delete_rule'  => $constraint['delete_rule'],
+                        'referenced_table_schema'  => $schema,
+                        'referenced_table_name'  => $constraint['referenced_table'],
+                        'referenced_column_name'  => $column,
+                    );
+                }
+            }
+        }
     }
 
     protected function loadTriggerData($schema)
