@@ -213,7 +213,7 @@ class Number extends AbstractMeasure
 
                 $math = $this->getMath();
                 if ($math->comp($value, 0) < 0) {
-                    $value = $math->sqrt($math->pow($value, 2));
+                    $value = $math->abs($value);
                 }
                 break;
         }
