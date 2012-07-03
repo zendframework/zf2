@@ -41,7 +41,7 @@ abstract class AbstractUnicode extends AbstractFilter
         if ($encoding !== null) {
             if (!function_exists('mb_strtolower')) {
                 throw new Exception\ExtensionNotLoadedException(
-                    get_called_class() . ' requires mbstring extension to be loaded'
+                    get_class() . ' requires mbstring extension to be loaded'
                 );
             }
 
