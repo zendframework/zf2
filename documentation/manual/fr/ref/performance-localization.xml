@@ -109,15 +109,15 @@
             <itemizedlist>
                 <listitem>
                     <para>
-                        <link linkend="zend.translator.adapter.caching">Mise en cache pour
-                        <classname>Zend_Translator</classname></link>
+                        Mise en cache pour
+                        <classname>Zend_Translator</classname>
                     </para>
                 </listitem>
 
                 <listitem>
                     <para>
-                        <link linkend="zend.locale.cache">Mise en cache pour
-                        <classname>Zend_Locale</classname></link>
+                        Mise en cache pour
+                        <classname>Zend_Locale</classname>
                     </para>
                 </listitem>
             </itemizedlist>

@@ -96,15 +96,15 @@
             <itemizedlist>
                 <listitem>
                     <para>
-                        <link linkend="zend.translator.adapter.caching"><classname>Zend_Translator</classname>
-                            アダプタキャッシング</link>
+                        <classname>Zend_Translator</classname>
+                            アダプタキャッシング
                     </para>
                 </listitem>
 
                 <listitem>
                     <para>
-                        <link linkend="zend.locale.cache"><classname>Zend_Locale</classname>
-                            キャッシング</link>
+                        <classname>Zend_Locale</classname>
+                            キャッシング
                     </para>
                 </listitem>
             </itemizedlist>

@@ -24,7 +24,7 @@
 
         <para>
             <classname>Zend_TimeSync</classname> ne peut pas changer le temps sur le serveur,
-            mais il peut en revanche retourner un objet <link linkend="zend.date.introduction">Zend_Date</link> de différence de temps, pour
+            mais il peut en revanche retourner un objet Zend_Date de différence de temps, pour
             travailler avec.
         </para>
     </note>

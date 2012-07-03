@@ -5,14 +5,14 @@
     <para>
         De plus en plus de développeurs ont besoin de fournir des applications multilingues.
         <classname>Zend_Form</classname> propose des moyens simples dans ce but, et gère cette
-        responsabilité en tandem avec <link linkend="zend.translator">Zend_Translator</link> et <link linkend="zend.validate">Zend_Validate</link>.
+        responsabilité en tandem avec Zend_Translator et <link linkend="zend.validate">Zend_Validate</link>.
     </para>
 
     <para>
         Par défaut, aucune internationalisation (i18n) n'est effectuée. Pour l'activer dans
         <classname>Zend_Form</classname>, vous devrez instancier un objet
         <classname>Zend_Translator</classname> avec un adaptateur et l'attacher à
-        <classname>Zend_Form</classname> et/ou <classname>Zend_Validate</classname>. Voyez la <link linkend="zend.translator">documentation de Zend_Translator</link> pour plus d'informations sur
+        <classname>Zend_Form</classname> et/ou <classname>Zend_Validate</classname>. Voyez la documentation de Zend_Translator pour plus d'informations sur
         la création de son objet et de ses adaptateurs.
     </para>
 

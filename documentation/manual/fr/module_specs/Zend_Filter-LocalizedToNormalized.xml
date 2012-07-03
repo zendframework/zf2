@@ -118,8 +118,8 @@ $filter->filter('123.456,78');
         </itemizedlist>
 
         <para>
-            Pour plus de détails à ce sujet, voyez le chapitre <link linkend="zend.locale.parsing">
-            Zend_Locale</link>.
+            Pour plus de détails à ce sujet, voyez le chapitre 
+            Zend_Locale.
         </para>
 
         <para>

@@ -103,7 +103,7 @@ $filter->filter(123456.78);
 
         <para>
             Für Details darüber, wie diese Optionen verwendet werden, sollte man in der
-            <link linkend="zend.locale.parsing">Kapitel Zend_Locale</link> sehen.
+            Kapitel Zend_Locale sehen.
         </para>
 
         <para>

@@ -5,7 +5,7 @@
     <para>
         Immer mehr Entwickler müssen ihren Inhalt für mehere Sprachen und Regionen zur Verfügung
         stellen. <classname>Zend_Form</classname> versucht so einen Arbeitsschritt so einfach wie
-        möglich zu machen und verwendet Funktionalitäten sowohl in <link linkend="zend.translator">Zend_Translator</link>, als auch in <link linkend="zend.validate">Zend_Validate</link> um das zu tun.
+        möglich zu machen und verwendet Funktionalitäten sowohl in Zend_Translator, als auch in <link linkend="zend.validate">Zend_Validate</link> um das zu tun.
     </para>
 
     <para>
@@ -15,7 +15,7 @@
         werden, und es mit <classname>Zend_Form</classname> und/oder
         <classname>Zend_Validate</classname> verbunden werden. Für weitere Informationen darüber,
         wie ein Übersetzungsobjekt und Übersetzungsdateien erstellt werden, sehen Sie bite in die
-        <link linkend="zend.translator">Dokumentation zu Zend_Translator</link>.
+        Dokumentation zu Zend_Translator.
     </para>
 
     <note><info><title>Die Übersetzung kann für jedes Element einzeln abgeschaltet werden</title></info>

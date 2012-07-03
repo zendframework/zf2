@@ -45,7 +45,7 @@ print $server->getDate()->getIso();
 
         <para>
             Pour plus de détails sur les objets <classname>Zend_Date</classname> et leurs
-            méthodes, voyez la documentation de <link linkend="zend.date.introduction">Zend_Date</link>.
+            méthodes, voyez la documentation de Zend_Date.
         </para>
     </section>
 
