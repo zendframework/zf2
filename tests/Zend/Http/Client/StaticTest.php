@@ -224,12 +224,11 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         
         $config = array(
             'timeout'    => 500,
-            'someoption' => 'hasvalue'
         );
 
         $this->_client->setOptions($config);
 
-        $hasConfig = $this->_client->config;
+        $hasConfig = $this->_client->options->toArray();
 
         foreach($config as $k => $v) {
             $this->assertEquals($v, $hasConfig[$k]);
@@ -244,18 +243,17 @@ class StaticTest extends \PHPUnit_Framework_TestCase
     public function testConfigSetAsZendConfig()
     {
  
-        $config = new \Zend\Config\Config(array(
+        $config = new \Zend\Http\Client\ClientOptions(array(
             'timeout'  => 400,
-            'nested'   => array(
-                'item' => 'value',
-            )
+            'useragent' => 'Zend\Unit\Tests'
         ));
 
         $this->_client->setOptions($config);
 
-        $hasConfig = $this->_client->config;
-        $this->assertEquals($config->timeout, $hasConfig['timeout']);
-        $this->assertEquals($config->nested->item, $hasConfig['nested']['item']);
+        $hasConfig = $this->_client->options;
+        $this->assertEquals($config->getTimeout(), $hasConfig->getTimeout());
+        $this->assertEquals($config->getUserAgent(), $hasConfig->getUserAgent());
+        $this->assertEquals($config->getHttpVersion(), $hasConfig->getHttpVersion());
     }
 
     /**
@@ -284,15 +282,15 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         $adapter = new MockAdapter();
 
         // test that config passes when we set the adapter
-        $this->_client->setOptions(array('param' => 'value1'));
+        $this->_client->options->setHttpVersion(\Zend\Http\Request::VERSION_10);
         $this->_client->setAdapter($adapter);
         $adapterCfg = $adapter->config;
-        $this->assertEquals('value1', $adapterCfg['param']);
+        $this->assertEquals(\Zend\Http\Request::VERSION_10, $adapterCfg['httpversion']);
 
         // test that adapter config value changes when we set client config
-        $this->_client->setOptions(array('param' => 'value2'));
+        $this->_client->options->setHttpVersion(\Zend\Http\Request::VERSION_10);
         $adapterCfg = $adapter->config;
-        $this->assertEquals('value2', $adapterCfg['param']);
+        $this->assertEquals(\Zend\Http\Request::VERSION_10, $adapterCfg['httpversion']);
     }
 
     /**
@@ -607,19 +605,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
 
 class MockClient extends HTTPClient
 {
-    public $config = array(
-        'maxredirects'    => 5,
-        'strictredirects' => false,
-        'useragent'       => 'Zend_Http_Client',
-        'timeout'         => 10,
-        'adapter'         => 'Zend\\Http\\Client\\Adapter\\Socket',
-        'httpversion'     => Request::VERSION_11,
-        'keepalive'       => false,
-        'storeresponse'   => true,
-        'strict'          => true,
-        'outputstream'   => false,
-        'encodecookies'   => true,
-    );
+
 }
 
 class MockAdapter extends \Zend\Http\Client\Adapter\Test

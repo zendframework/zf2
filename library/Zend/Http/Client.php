@@ -132,7 +132,7 @@ class Client implements Stdlib\DispatchableInterface
      * @param string $uri
      * @param array|Traversable $options
      */
-    public function __construct($uri = null, $options = null)
+    public function __construct($uri = null, $options = array())
     {
         if ($uri !== null) {
             $this->setUri($uri);
