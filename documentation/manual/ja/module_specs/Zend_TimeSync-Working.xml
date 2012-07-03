@@ -47,7 +47,7 @@ print $server->getDate()->getIso();
 
         <para>
             <classname>Zend_Date</classname> やそのメソッドについての詳細は
-            <link linkend="zend.date.introduction"><classname>Zend_Date</classname></link>
+            <classname>Zend_Date</classname>
             を参照ください。
         </para>
 

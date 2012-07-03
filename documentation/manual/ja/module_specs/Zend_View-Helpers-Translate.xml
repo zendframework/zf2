@@ -6,7 +6,7 @@
     <para>
         ウェブサイトを複数言語で提供することもよくあります。
         サイト上のコンテンツを翻訳するには、
-        <link linkend="zend.translator.introduction">Zend_Translator</link>
+        Zend_Translator
         を使用します。 <classname>Zend_Translator</classname> をビューと統合するために使用するのが
         <emphasis>Translator</emphasis> ビューヘルパーです。
     </para>

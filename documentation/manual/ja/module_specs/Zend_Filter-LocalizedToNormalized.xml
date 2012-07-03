@@ -128,7 +128,7 @@ $filter->filter('123.456,78');
 
         <para>
             それらのオプションの利用法について詳しくは、
-            <link linkend="zend.locale.parsing">Zend_Locale</link>
+            Zend_Locale
             をご覧下さい。
         </para>
 

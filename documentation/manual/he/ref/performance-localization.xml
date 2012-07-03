@@ -77,15 +77,15 @@
             <itemizedlist>
                 <listitem>
                     <para>
-                        <link linkend="zend.translator.adapter.caching"><code>Zend_Translator</code>
-                            מתאם מטמון</link>
+                        <code>Zend_Translator</code>
+                            מתאם מטמון
                     </para>
                 </listitem>
 
                 <listitem>
                     <para>
-                        <link linkend="zend.locale.cache"><code>Zend_Locale</code>
-                            מטמון</link>
+                        <code>Zend_Locale</code>
+                            מטמון
                     </para>
                 </listitem>
             </itemizedlist>

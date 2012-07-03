@@ -69,7 +69,7 @@
             validada de acuerdo a lo establecido para ese locale. Además, si se
             establece la opción <methodname>format</methodname> ese formato se
             utiliza para la validación. Para más detalles acerca de los
-            parámetros opcionales ver en: <link linkend="zend.date.others.comparison.table">Zend_Date::isDate()</link> . </para>
+            parámetros opcionales ver en: Zend_Date::isDate() . </para>
     </section>
 
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Zend_Validate-Db.xml">

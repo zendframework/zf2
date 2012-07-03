@@ -145,7 +145,7 @@ $filter->filter('123.456,78');
             You can also control how your normalized number has to look like. Therefor you can give
             all options which are also used by <classname>Zend_Locale_Format</classname>. For
             details about available options take a look into this
-            <link linkend="zend.locale.parsing">Zend_Locale chapter</link>.
+            Zend_Locale chapter.
         </para>
 
         <para>
@@ -231,7 +231,7 @@ $filter->filter(123456.78);
             You can also control how your localized number has to look like. Therefor you can give
             all options which are also used by <classname>Zend_Locale_Format</classname>. For
             details about how these options are used take a look into this
-            <link linkend="zend.locale.parsing">Zend_Locale chapter</link>.
+            Zend_Locale chapter.
         </para>
 
         <para>

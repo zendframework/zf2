@@ -27,7 +27,7 @@
         <para>
             <classname>Zend_TimeSync</classname> はサーバの時刻を変更することはできません。
             しかし、実際の時刻とサーバの時刻との差を表す
-            <link linkend="zend.date.introduction">Zend_Date</link> のインスタンスを返します。
+            Zend_Date のインスタンスを返します。
         </para>
 
     </note>

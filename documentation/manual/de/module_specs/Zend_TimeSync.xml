@@ -23,7 +23,7 @@
 
         <para>
             <classname>Zend_TimeSync</classname> ist nicht fähig die Zeit des Servers zu ändern,
-            jedoch gibt es eine Instanz von <link linkend="zend.date.introduction">Zend_Date</link>
+            jedoch gibt es eine Instanz von Zend_Date
             zurück, mit der der Unterschied zur Serverzeit verarbeitet werden kann.
         </para>
     </note>

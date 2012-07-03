@@ -6,7 +6,7 @@
         作成したコンテンツを複数の言語や地域に対応させるという作業は、
         日増しに重要になってきています。
         <classname>Zend_Form</classname> はそんな作業も簡単にできるように作られており、
-        <link linkend="zend.translator">Zend_Translator</link> と <link linkend="zend.validate">Zend_Validate</link>
+        Zend_Translator と <link linkend="zend.validate">Zend_Validate</link>
         の機能を使うことで国際化を実現できます。
     </para>
 
@@ -16,8 +16,8 @@
         <classname>Zend_Translator</classname> のインスタンスを作成し、それを
         <classname>Zend_Form</classname> や <classname>Zend_Validate</classname>
         にアタッチしなければなりません。翻訳オブジェクトや翻訳ファイルの作成方法についての詳細は
-        <link linkend="zend.translator">Zend_Translator
-        のドキュメント</link> を参照ください。
+        Zend_Translator
+        のドキュメント を参照ください。
     </para>
 
     <note><info><title>項目単位での翻訳の無効化</title></info>

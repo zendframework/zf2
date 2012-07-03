@@ -66,7 +66,7 @@
             w formacie <code>YYYY-MM-DD</code>. Jeśli podano opcjonalny parametr <code>locale</code> wtedy data będzie
             sprawdzana zgodnie z podaną lokalizacją. Dodatkowo jeśli podano opcjonalny parametr <code>format</code> będzie
             on podstawą do sprawdzenia poprawności daty. Sprawdź
-            <link linkend="zend.date.others.comparison.table">Zend_Date::isDate()</link> aby uzyskać szczegóły opcjonalnych
+            Zend_Date::isDate() aby uzyskać szczegóły opcjonalnych
             parametrów.
         </para>
     </section>

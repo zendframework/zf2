@@ -112,8 +112,8 @@ $filter->filter(123456.78);
         </itemizedlist>
 
         <para>
-            Pour plus de détails sur ces options, voyez le <link linkend="zend.locale.parsing"> chapitre sur
-            Zend_Locale </link>.
+            Pour plus de détails sur ces options, voyez le  chapitre sur
+            Zend_Locale .
         </para>
 
         <para>

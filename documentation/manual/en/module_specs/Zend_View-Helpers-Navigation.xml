@@ -55,7 +55,7 @@
         All built-in helpers extend
         <classname>Zend_View_Helper_Navigation_HelperAbstract</classname>, which
         adds integration with <link linkend="zend.acl">ACL</link> and
-        <link linkend="zend.translator">translation</link>. The abstract class
+        translation. The abstract class
         implements the interface
         <classname>Zend_View_Helper_Navigation_Helper</classname>, which
         defines the following methods:

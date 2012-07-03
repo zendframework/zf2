@@ -47,7 +47,7 @@
     <section xml:id="zend.validate.set.date"><info><title>日期</title></info>
         
         <para>
-            当<code>$value</code>是一个格式为<code>YYYY-MM-DD</code>的有效日期，返回<code>true</code> 。如果<code>locale</code> 选项被设置那么日期将根据locale来校验，如果<code>format</code> 选项被设置成这个格式用来校验。关于选项参数的细节参见<link linkend="zend.date.others.comparison.table">Zend_Date::isDate()</link>。
+            当<code>$value</code>是一个格式为<code>YYYY-MM-DD</code>的有效日期，返回<code>true</code> 。如果<code>locale</code> 选项被设置那么日期将根据locale来校验，如果<code>format</code> 选项被设置成这个格式用来校验。关于选项参数的细节参见Zend_Date::isDate()。
         </para>
     </section>
 

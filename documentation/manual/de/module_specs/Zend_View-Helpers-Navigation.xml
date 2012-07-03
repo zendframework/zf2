@@ -56,7 +56,7 @@
     <para>
         Alle eingebauten Helfer erweitern
         <classname>Zend_View_Helper_Navigation_HelperAbstract</classname>, welches die Integration
-        von <link linkend="zend.acl">ACL</link> und <link linkend="zend.translator">Übersetzung</link> hinzufügt. Die abstrakte Klasse
+        von <link linkend="zend.acl">ACL</link> und Übersetzung hinzufügt. Die abstrakte Klasse
         implementiert das Interface <classname>Zend_View_Helper_Navigation_Helper</classname>
         welches die folgenden Methoden definiert:
     </para>
