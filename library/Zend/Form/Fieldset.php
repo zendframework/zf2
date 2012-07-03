@@ -154,7 +154,7 @@ class Fieldset extends Element implements FieldsetInterface
         }
 
         $name = $elementOrFieldset->getName();
-        if ((null === $name || '' === $name) 
+        if ((null === $name || '' === $name)
             && (!array_key_exists('name', $flags) || $flags['name'] === '')
         ) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -405,28 +405,6 @@ class Fieldset extends Element implements FieldsetInterface
     }
 
     /**
-     * Make a deep clone of the object
-     *
-     * @return void
-     */
-    public function __clone()
-    {
-        $this->iterator = new PriorityQueue();
-
-        foreach ($this->byName as $key => $value) {
-            $value = clone $value;
-            $this->byName[$key] = $value;
-            $this->iterator->insert($value);
-
-            if ($value instanceof FieldsetInterface) {
-                $this->fieldsets[$key] = $value;
-            } elseif ($value instanceof ElementInterface) {
-                $this->elements[$key] = $value;
-            }
-        }
-    }
-
-    /**
      * Set the object used by the hydrator
      *
      * @param $object
@@ -519,5 +497,32 @@ class Fieldset extends Element implements FieldsetInterface
     public function useAsBaseFieldset()
     {
         return $this->useAsBaseFieldset;
+    }
+
+    /**
+     * Make a deep clone of a fieldset
+     *
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->iterator = new PriorityQueue();
+
+        foreach ($this->byName as $key => $value) {
+            $value = clone $value;
+            $this->byName[$key] = $value;
+            $this->iterator->insert($value);
+
+            if ($value instanceof FieldsetInterface) {
+                $this->fieldsets[$key] = $value;
+            } elseif ($value instanceof ElementInterface) {
+                $this->elements[$key] = $value;
+            }
+        }
+
+        // Also make a deep copy of the object in case it's used within a collection
+        if (is_object($this->object)) {
+            $this->object = clone $this->object;
+        }
     }
 }
