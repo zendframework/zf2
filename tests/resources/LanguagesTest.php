@@ -19,8 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-use Zend\Locale\Locale;
-
 /**
  * @category   Zend
  * @package    Zend_resources
@@ -33,7 +31,6 @@ class resources_LanguagesTest extends PHPUnit_Framework_TestCase
 {
 
     protected $_langDir      = null;
-    protected $_languages    = array();
     protected $_translations = array();
 
     public function setUp()
@@ -56,9 +53,6 @@ class resources_LanguagesTest extends PHPUnit_Framework_TestCase
                 continue;
             }
 
-            // add all languages for testIsLocale
-            $this->_languages[] = $fname;
-
             // include Zend_Validate translation tables
             $translationFile = $entry->getPathname() . DIRECTORY_SEPARATOR . 'Zend_Validate.php';
             if (file_exists($translationFile)) {
@@ -68,18 +62,6 @@ class resources_LanguagesTest extends PHPUnit_Framework_TestCase
                 }
 
                 $this->_translations[$fname] = $translation;
-            }
-        }
-    }
-
-    /**
-     * Tests if the given language is really a language
-     */
-    public function testIsLocale()
-    {
-        foreach ($this->_languages as $lang) {
-            if (!Locale::isLocale($lang, true)) {
-                $this->fail("Language directory '{$lang}' not a valid locale");
             }
         }
     }
