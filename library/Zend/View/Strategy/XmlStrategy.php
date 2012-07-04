@@ -99,7 +99,7 @@ class XmlStrategy implements ListenerAggregateInterface
         $model = $e->getModel();
 
         if ($model instanceof Model\XmlModel) {
-            // JsonModel found
+            // XmlModel found
             return $this->renderer;
         }
 
@@ -115,8 +115,8 @@ class XmlStrategy implements ListenerAggregateInterface
      */
     public function injectResponse(ViewEvent $e)
     {
-        $renderer = $e->getRenderer();
-        if ($renderer !== $this->renderer) {
+        $model = $e->getModel();
+        if (! $model instanceof Model\XmlModel) {
             // Discovered renderer is not ours; do nothing
             return;
         }
@@ -127,14 +127,7 @@ class XmlStrategy implements ListenerAggregateInterface
             return;
         }
 
-        $model = $e->getModel();
-
-        $charset = ';';
-
-        if ($model instanceof Model\XmlModel) {
-
-            $charset .= ' charset=' . $model->getEncoding() . ';';
-        }
+        $charset = '; charset=' . $model->getEncoding() . ';';
 
         // Populate response
         $response = $e->getResponse();
