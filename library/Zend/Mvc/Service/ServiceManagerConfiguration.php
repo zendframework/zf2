@@ -67,6 +67,7 @@ class ServiceManagerConfiguration implements ConfigurationInterface
         'ViewHelperManager'       => 'Zend\Mvc\Service\ViewHelperManagerFactory',
         'ViewFeedRenderer'        => 'Zend\Mvc\Service\ViewFeedRendererFactory',
         'ViewFeedStrategy'        => 'Zend\Mvc\Service\ViewFeedStrategyFactory',
+        'ViewXmlStrategy'         => 'Zend\Mvc\Service\ViewXmlStrategyFactory',
         'ViewJsonRenderer'        => 'Zend\Mvc\Service\ViewJsonRendererFactory',
         'ViewJsonStrategy'        => 'Zend\Mvc\Service\ViewJsonStrategyFactory',
     );
