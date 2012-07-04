@@ -238,7 +238,7 @@ class FormMultiCheckbox extends FormInput
         $rendered = $this->renderOptions($element, $options, $selectedOptions, $attributes);
 
         // Render hidden element
-        $useHiddenElement = $element->useHiddenElement()
+        $useHiddenElement = $element instanceof MultiCheckbox && $element->useHiddenElement()
             ? $element->useHiddenElement()
             : $this->useHiddenElement;
 
