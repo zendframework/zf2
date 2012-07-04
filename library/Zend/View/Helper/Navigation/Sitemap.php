@@ -92,6 +92,13 @@ class Sitemap extends AbstractHelper
     protected $serverUrl;
 
     /**
+     * List of urls in the sitemap
+     *
+     * @var array
+     */
+    protected $urls = array();
+
+    /**
      * Helper entry point
      *
      * @param  string|AbstractContainer $container container to operate on
@@ -288,7 +295,13 @@ class Sitemap extends AbstractHelper
                             . (empty($curDoc) ? '' : '/') . $href;
         }
 
-        return $this->xmlEscape($url);
+        if (! in_array($url, $this->urls)) {
+
+            $this->urls[] = $url;
+            return $this->xmlEscape($url);
+        }
+
+        return null;
     }
 
     /**
@@ -353,6 +366,7 @@ class Sitemap extends AbstractHelper
             // get absolute url from page
             if (!$url = $this->url($page)) {
                 // skip page if it has no url (rare case)
+                // or already is in the sitemap
                 continue;
             }
 
@@ -437,7 +451,7 @@ class Sitemap extends AbstractHelper
      * Implements {@link HelperInterface::render()}.
      *
      * @param  link|AbstractContainer $container [optional] container to render. Default is
-     *                              to render the container registered in the 
+     *                              to render the container registered in the
      *                              helper.
      * @return string               helper output
      */
