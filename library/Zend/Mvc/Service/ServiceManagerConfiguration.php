@@ -76,7 +76,9 @@ class ServiceManagerConfiguration implements ConfigurationInterface
      *
      * @var array
      */
-    protected $abstractFactories = array();
+    protected $abstractFactories = array(
+        'LazyDiAbstractFactory' => 'Zend\Mvc\Service\LazyDiAbstractFactory',
+    );
 
     /**
      * Aliases
