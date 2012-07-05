@@ -69,6 +69,7 @@ class FormInput extends AbstractHelper
         'type'           => true,
         'value'          => true,
         'width'          => true,
+	'rel'		 => true,
     );
 
     /**
