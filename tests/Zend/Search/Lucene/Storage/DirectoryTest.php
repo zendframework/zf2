@@ -34,6 +34,9 @@ use Zend\Search\Lucene\Storage\File;
  */
 class DirectoryTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @group slow
+     */
     public function testFilesystem()
     {
         $tempPath = __DIR__ . '/_tempFiles/_files';

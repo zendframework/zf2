@@ -36,6 +36,7 @@ class StreamTest extends \PHPUnit_Framework_TestCase
     /**
      * Sets up this test case
      *
+     * @group slow
      * @return void
      */
     public function setUp()

@@ -222,6 +222,9 @@ class MboxTest extends \PHPUnit_Framework_TestCase
         $mail->seek(INF);
     }
 
+    /**
+     * @group slow
+     */
     public function testSleepWake()
     {
         $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));

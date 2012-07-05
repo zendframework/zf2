@@ -127,6 +127,9 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->captcha->getExpiration(), 3600);
     }
 
+    /**
+     * @group slow
+     */
     public function testCaptchaImageCleanup()
     {
         $this->captcha->generate();
@@ -141,6 +144,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group slow
      * @group ZF-10006
      */
     public function testCaptchaImageCleanupOnlyCaptchaFilesIdentifiedByTheirSuffix()

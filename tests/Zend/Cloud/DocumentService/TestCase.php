@@ -80,6 +80,9 @@ abstract class TestCase extends PHPUnitTestCase
     	$this->assertTrue(is_a($this->_commonDocument->getClient(), $this->_clientType));
     }
 
+    /**
+     * @group slow
+     */
     public function testCreateCollection()
     {
         $name = $this->_collectionName("testCreate");
@@ -96,6 +99,9 @@ abstract class TestCase extends PHPUnitTestCase
         $this->_commonDocument->deleteCollection($name);
     }
 
+    /**
+     * @group slow
+     */
     public function testDeleteCollection()
     {
         $name = $this->_collectionName("testDC");
@@ -114,6 +120,9 @@ abstract class TestCase extends PHPUnitTestCase
         $this->assertNotContains($name, $collections, "New collection not in the list");
     }
 
+    /**
+     * @group slow
+     */
     public function testListCollections()
     {
         $this->_commonDocument->createCollection($this->_collectionName("test3"));
@@ -129,6 +138,9 @@ abstract class TestCase extends PHPUnitTestCase
         $this->_commonDocument->deleteCollection($this->_collectionName("test4"));
     }
 
+    /**
+     * @group slow
+     */
     public function testInsertDocument()
     {
         $data = $this->_getDocumentData();
@@ -148,6 +160,9 @@ abstract class TestCase extends PHPUnitTestCase
         $this->_commonDocument->deleteCollection($name);
     }
 
+    /**
+     * @group slow
+     */
     public function testDeleteDocument()
     {
         $data = $this->_getDocumentData();
@@ -175,6 +190,9 @@ abstract class TestCase extends PHPUnitTestCase
         $this->_commonDocument->deleteCollection($name);
     }
 
+    /**
+     * @group slow
+     */
     public function testReplaceDocument()
     {
         $data = $this->_getDocumentData();
@@ -199,6 +217,9 @@ abstract class TestCase extends PHPUnitTestCase
         $this->_commonDocument->deleteCollection($name);
     }
 
+    /**
+     * @group slow
+     */
     public function testUpdateDocumentIDFields()
     {
         $data = $this->_getDocumentData();
@@ -219,6 +240,9 @@ abstract class TestCase extends PHPUnitTestCase
          $this->_commonDocument->deleteCollection($name);
     }
 
+    /**
+     * @group slow
+     */
     public function testUpdateDocumentIDDoc()
     {
         $data = $this->_getDocumentData();
@@ -239,6 +263,9 @@ abstract class TestCase extends PHPUnitTestCase
          $this->_commonDocument->deleteCollection($name);
     }
 
+    /**
+     * @group slow
+     */
     public function testUpdateDocumentDoc()
     {
         $data = $this->_getDocumentData();

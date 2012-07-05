@@ -90,6 +90,10 @@ abstract class TestCase extends PHPUnitTestCase
         }
     }
 
+    /**
+     * @group slow
+     * @throws \Zend\Cloud\QueueService\Exception\ExceptionInterface
+     */
     public function testDeleteQueue()
     {
         try {
@@ -115,6 +119,9 @@ abstract class TestCase extends PHPUnitTestCase
         }
     }
 
+    /**
+     * @group slow
+     */
     public function testListQueues()
     {
         try {
@@ -161,6 +168,9 @@ abstract class TestCase extends PHPUnitTestCase
         }
     }
 
+    /**
+     * @group slow
+     */
     public function testStoresAndFetchesQueueMetadata()
     {
         try {
@@ -181,6 +191,9 @@ abstract class TestCase extends PHPUnitTestCase
         }
     }
 
+    /**
+     * @group slow
+     */
     public function testSendMessage()
     {
         try {
@@ -203,6 +216,9 @@ abstract class TestCase extends PHPUnitTestCase
         }
     }
 
+    /**
+     * @group slow
+     */
     public function testReceiveMessages()
     {
         $queueURL = null;
@@ -263,6 +279,9 @@ abstract class TestCase extends PHPUnitTestCase
         }
     }
 
+    /**
+     * @group slow
+     */
     public function testDeleteMessage()
     {
         try {
@@ -298,6 +317,9 @@ abstract class TestCase extends PHPUnitTestCase
         }
     }
 
+    /**
+     * @group slow
+     */
     public function testPeekMessages()
     {
         try {

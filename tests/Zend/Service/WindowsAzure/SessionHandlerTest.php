@@ -188,6 +188,8 @@ class SessionHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test gc
+     *
+     * @group slow
      */
     public function testGc()
     {

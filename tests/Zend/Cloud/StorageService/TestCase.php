@@ -334,6 +334,7 @@ abstract class TestCase extends PHPUnitTestCase
 	/**
      * Test list items
      *
+     * @group slow
      * @return void
      */
     public function testListItems()
