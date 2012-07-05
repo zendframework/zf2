@@ -61,7 +61,7 @@ class Uri extends AbstractValidator
     /**
      * Sets default option values for this instance
      *
-     * @param array|\Traversable $options
+     * @param array|Traversable $options
      */
     public function __construct($options = array())
     {
@@ -177,8 +177,7 @@ class Uri extends AbstractValidator
             $uriHandler->parse($value);
             if ($uriHandler->isValid()) {
                 // It will either be a valid absolute or relative URI
-                if (($this->allowRelative && $this->allowAbsolute)
-                    || ($this->allowAbsolute && $uriHandler->isAbsolute())
+                if (($this->allowAbsolute && $uriHandler->isAbsolute())
                     || ($this->allowRelative && $uriHandler->isValidRelative())
                 ) {
                     return true;
