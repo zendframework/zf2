@@ -96,6 +96,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up the test case
      *
+     * @group slow
      * @return void
      */
     public function setUp()

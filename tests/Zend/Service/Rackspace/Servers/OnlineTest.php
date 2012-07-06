@@ -111,6 +111,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     /**
      * Sets up this test case
      *
+     * @group slow
      * @return void
      */
     public function setUp()
@@ -121,7 +122,8 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     
     /**
      * Wait n seconds for status change
-     * 
+     *
+     * @group slow
      * @param string  $status 
      * @param integer $timeout
      * @return boolean

@@ -184,7 +184,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     /**
      * testing getAssociation
-     *
+     * @group slow
      */
     public function testGetAssociationExpiratin()
     {
@@ -201,7 +201,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     /**
      * testing getAssociationByHandle
-     *
+     * @group slow
      */
     public function testGetAssociationByHandleExpiration()
     {
@@ -253,7 +253,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     /**
      * testing getDiscoveryInfo
-     *
+     * @group slow
      */
     public function testGetDiscoveryInfoExpiration()
     {
@@ -270,7 +270,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     /**
      * testing isUniqueNonce
-     *
+     * @group slow
      */
     public function testIsUniqueNonce()
     {

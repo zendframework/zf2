@@ -84,6 +84,7 @@ class PrivateDataTest extends \PHPUnit_Framework_TestCase
 
     /**
      *
+     * @group slow
      * @return void
      */
     public function testTagsAndBundles()
@@ -136,7 +137,7 @@ class PrivateDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *
+     * @group slow
      * @return void
      */
     public function _testAddDeletePost()

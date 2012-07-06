@@ -175,6 +175,9 @@ class GDataOnlineTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @group slow
+     */
     public function testMediaUpload()
     {
         // the standard sevice for GData testing is Blogger, due to the strong

@@ -194,6 +194,7 @@ class SocketTest extends CommonHttpTests
     /**
      * Test that we get the right exception after a socket timeout
      *
+     * @group slow
      * @link http://framework.zend.com/issues/browse/ZF-7309
      */
     public function testExceptionOnReadTimeout()

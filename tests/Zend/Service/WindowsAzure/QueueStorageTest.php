@@ -159,6 +159,7 @@ class QueueStorageTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test put message
+     * @group slow
      */
     public function testPutMessage()
     {
@@ -176,6 +177,7 @@ class QueueStorageTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test get messages
+     * @group slow
      */
     public function testGetMessages()
     {
@@ -200,6 +202,7 @@ class QueueStorageTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test peek messages
+     * @group slow
      */
     public function testPeekMessages()
     {
@@ -222,6 +225,7 @@ class QueueStorageTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test clear messages
+     * @group slow
      */
     public function testClearMessages()
     {
@@ -248,6 +252,7 @@ class QueueStorageTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test delete message
+     * @group slow
      */
     public function testDeleteMessage()
     {

@@ -114,7 +114,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     /**
      * testing getAssociation
-     *
+     * @group slow
      */
     public function testGetAssociationExpiratin()
     {

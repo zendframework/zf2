@@ -54,6 +54,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     /**
      * Sets up this test case
      *
+     * @group slow
      * @return void
      */
     public function setUp()
@@ -226,6 +227,9 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_amazon->getInfo($this->_bucket."/zftest"));
     }
 
+    /**
+     * @group slow
+     */
     public function testRemoveBucket()
     {
         $this->_amazon->createBucket($this->_bucket);

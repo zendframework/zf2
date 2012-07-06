@@ -6,6 +6,7 @@ php:
   - 5.4
 
 before_install:
+ - cp tests/phpunit.xml.travis tests/phpunit.xml
  - cp tests/TestConfiguration.php.travis tests/TestConfiguration.php
  - curl -s http://getcomposer.org/installer | php
  - php composer.phar install --dev

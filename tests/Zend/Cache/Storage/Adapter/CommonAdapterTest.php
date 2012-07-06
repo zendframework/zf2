@@ -230,6 +230,9 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_storage->hasItem('key'));
     }
 
+    /**
+     * @group slow
+     */
     public function testHasItemReturnsFalseOnExpiredItem()
     {
         $capabilities = $this->_storage->getCapabilities();
@@ -293,6 +296,9 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($success);
     }
 
+    /**
+     * @group slow
+     */
     public function testGetItemReturnsNullOnExpiredItem()
     {
         $capabilities = $this->_storage->getCapabilities();
@@ -312,6 +318,9 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->_storage->getItem('key'));
     }
 
+    /**
+     * @group slow
+     */
     public function testGetItemReturnsNullIfNonReadable()
     {
         $this->_options->setReadable(false);
@@ -530,6 +539,9 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @group slow
+     */
     public function testSetAndGetExpiredItem()
     {
         $capabilities = $this->_storage->getCapabilities();
@@ -557,6 +569,9 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @group slow
+     */
     public function testSetAndGetExpiredItems()
     {
         $capabilities = $this->_storage->getCapabilities();
@@ -806,6 +821,9 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(10, $this->_storage->getItem('key'));
     }
 
+    /**
+     * @group slow
+     */
     public function testTouchItem()
     {
         $capabilities = $this->_storage->getCapabilities();
@@ -953,6 +971,9 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_storage->hasItem('key2'));
     }
 
+    /**
+     * @group slow
+     */
     public function testClearExpired()
     {
         if ( !($this->_storage instanceof ClearExpiredInterface) ) {
