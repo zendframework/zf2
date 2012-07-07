@@ -136,7 +136,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
                 }),
             ),
             'filters' => array(
-                array('name' => 'strip_tags', 'options' => array('allowTags' => 'img', 'allowAttribs' => 'id'), 'priority' => 10100),
+                array('name' => 'strip_tags', 'options' => array('allow_tags' => 'img', 'allow_attribs' => 'id'), 'priority' => 10100),
             ),
         );
     }

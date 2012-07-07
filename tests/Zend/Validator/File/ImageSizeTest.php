@@ -41,14 +41,14 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
     public function testBasic()
     {
         $valuesExpected = array(
-            array(array('minWidth' => 0,   'minHeight' => 10,  'maxWidth' => 1000, 'maxHeight' => 2000), true),
-            array(array('minWidth' => 0,   'minHeight' => 0,   'maxWidth' => 200,  'maxHeight' => 200), true),
-            array(array('minWidth' => 150, 'minHeight' => 150, 'maxWidth' => 200,  'maxHeight' => 200), false),
-            array(array('minWidth' => 80,  'minHeight' => 0,   'maxWidth' => 80,   'maxHeight' => 200), true),
-            array(array('minWidth' => 0,   'minHeight' => 0,   'maxWidth' => 60,   'maxHeight' => 200), false),
-            array(array('minWidth' => 90,  'minHeight' => 0,   'maxWidth' => 200,  'maxHeight' => 200), false),
-            array(array('minWidth' => 0,   'minHeight' => 0,   'maxWidth' => 200,  'maxHeight' => 80), false),
-            array(array('minWidth' => 0,   'minHeight' => 110, 'maxWidth' => 200,  'maxHeight' => 140), false)
+            array(array('min_width' => 0,   'min_height' => 10,  'max_width' => 1000, 'max_height' => 2000), true),
+            array(array('min_width' => 0,   'min_height' => 0,   'max_width' => 200,  'max_height' => 200), true),
+            array(array('min_width' => 150, 'min_height' => 150, 'max_width' => 200,  'max_height' => 200), false),
+            array(array('min_width' => 80,  'min_height' => 0,   'max_width' => 80,   'max_height' => 200), true),
+            array(array('min_width' => 0,   'min_height' => 0,   'max_width' => 60,   'max_height' => 200), false),
+            array(array('min_width' => 90,  'min_height' => 0,   'max_width' => 200,  'max_height' => 200), false),
+            array(array('min_width' => 0,   'min_height' => 0,   'max_width' => 200,  'max_height' => 80), false),
+            array(array('min_width' => 0,   'min_height' => 110, 'max_width' => 200,  'max_height' => 140), false)
         );
 
         foreach ($valuesExpected as $element) {
@@ -60,18 +60,18 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
             );
         }
 
-        $validator = new File\ImageSize(array('minWidth' => 0, 'minHeight' => 10, 'maxWidth' => 1000, 'maxHeight' => 2000));
+        $validator = new File\ImageSize(array('min_width' => 0, 'min_height' => 10, 'max_width' => 1000, 'max_height' => 2000));
         $this->assertEquals(false, $validator->isValid(__DIR__ . '/_files/nofile.jpg'));
         $failures = $validator->getMessages();
         $this->assertContains('is not readable', $failures['fileImageSizeNotReadable']);
 
         $file['name'] = 'TestName';
-        $validator = new File\ImageSize(array('minWidth' => 0, 'minHeight' => 10, 'maxWidth' => 1000, 'maxHeight' => 2000));
+        $validator = new File\ImageSize(array('min_width' => 0, 'min_height' => 10, 'max_width' => 1000, 'max_height' => 2000));
         $this->assertEquals(false, $validator->isValid(__DIR__ . '/_files/nofile.jpg', $file));
         $failures = $validator->getMessages();
         $this->assertContains('TestName', $failures['fileImageSizeNotReadable']);
 
-        $validator = new File\ImageSize(array('minWidth' => 0, 'minHeight' => 10, 'maxWidth' => 1000, 'maxHeight' => 2000));
+        $validator = new File\ImageSize(array('min_width' => 0, 'min_height' => 10, 'max_width' => 1000, 'max_height' => 2000));
         $this->assertEquals(false, $validator->isValid(__DIR__ . '/_files/badpicture.jpg'));
         $failures = $validator->getMessages();
         $this->assertContains('could not be detected', $failures['fileImageSizeNotDetected']);
@@ -84,11 +84,11 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetImageMin()
     {
-        $validator = new File\ImageSize(array('minWidth' => 1, 'minHeight' => 10, 'maxWidth' => 100, 'maxHeight' => 1000));
-        $this->assertEquals(array('minWidth' => 1, 'minHeight' => 10), $validator->getImageMin());
+        $validator = new File\ImageSize(array('min_width' => 1, 'min_height' => 10, 'max_width' => 100, 'max_height' => 1000));
+        $this->assertEquals(array('min_width' => 1, 'min_height' => 10), $validator->getImageMin());
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'greater than or equal');
-        $validator = new File\ImageSize(array('minWidth' => 1000, 'minHeight' => 100, 'maxWidth' => 10, 'maxHeight' => 1));
+        $validator = new File\ImageSize(array('min_width' => 1000, 'min_height' => 100, 'max_width' => 10, 'max_height' => 1));
     }
 
     /**
@@ -98,15 +98,15 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetImageMin()
     {
-        $validator = new File\ImageSize(array('minWidth' => 100, 'minHeight' => 1000, 'maxWidth' => 10000, 'maxHeight' => 100000));
-        $validator->setImageMin(array('minWidth' => 10, 'minHeight' => 10));
-        $this->assertEquals(array('minWidth' => 10, 'minHeight' => 10), $validator->getImageMin());
+        $validator = new File\ImageSize(array('min_width' => 100, 'min_height' => 1000, 'max_width' => 10000, 'max_height' => 100000));
+        $validator->setImageMin(array('min_width' => 10, 'min_height' => 10));
+        $this->assertEquals(array('min_width' => 10, 'min_height' => 10), $validator->getImageMin());
 
-        $validator->setImageMin(array('minWidth' => 9, 'minHeight' => 100));
-        $this->assertEquals(array('minWidth' => 9, 'minHeight' => 100), $validator->getImageMin());
+        $validator->setImageMin(array('min_width' => 9, 'min_height' => 100));
+        $this->assertEquals(array('min_width' => 9, 'min_height' => 100), $validator->getImageMin());
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'less than or equal');
-        $validator->setImageMin(array('minWidth' => 20000, 'minHeight' => 20000));
+        $validator->setImageMin(array('min_width' => 20000, 'min_height' => 20000));
     }
 
     /**
@@ -116,11 +116,11 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetImageMax()
     {
-        $validator = new File\ImageSize(array('minWidth' => 10, 'minHeight' => 100, 'maxWidth' => 1000, 'maxHeight' => 10000));
-        $this->assertEquals(array('maxWidth' => 1000, 'maxHeight' => 10000), $validator->getImageMax());
+        $validator = new File\ImageSize(array('min_width' => 10, 'min_height' => 100, 'max_width' => 1000, 'max_height' => 10000));
+        $this->assertEquals(array('max_width' => 1000, 'max_height' => 10000), $validator->getImageMax());
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'greater than or equal');
-        $validator = new File\ImageSize(array('minWidth' => 10000, 'minHeight' => 1000, 'maxWidth' => 100, 'maxHeight' => 10));
+        $validator = new File\ImageSize(array('min_width' => 10000, 'min_height' => 1000, 'max_width' => 100, 'max_height' => 10));
     }
 
     /**
@@ -130,21 +130,21 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetImageMax()
     {
-        $validator = new File\ImageSize(array('minWidth' => 10, 'minHeight' => 100, 'maxWidth' => 1000, 'maxHeight' => 10000));
-        $validator->setImageMax(array('maxWidth' => 100, 'maxHeight' => 100));
-        $this->assertEquals(array('maxWidth' => 100, 'maxHeight' => 100), $validator->getImageMax());
+        $validator = new File\ImageSize(array('min_width' => 10, 'min_height' => 100, 'max_width' => 1000, 'max_height' => 10000));
+        $validator->setImageMax(array('max_width' => 100, 'max_height' => 100));
+        $this->assertEquals(array('max_width' => 100, 'max_height' => 100), $validator->getImageMax());
 
-        $validator->setImageMax(array('maxWidth' => 110, 'maxHeight' => 1000));
-        $this->assertEquals(array('maxWidth' => 110, 'maxHeight' => 1000), $validator->getImageMax());
+        $validator->setImageMax(array('max_width' => 110, 'max_height' => 1000));
+        $this->assertEquals(array('max_width' => 110, 'max_height' => 1000), $validator->getImageMax());
 
-        $validator->setImageMax(array('maxHeight' => 1100));
-        $this->assertEquals(array('maxWidth' => 110, 'maxHeight' => 1100), $validator->getImageMax());
+        $validator->setImageMax(array('max_height' => 1100));
+        $this->assertEquals(array('max_width' => 110, 'max_height' => 1100), $validator->getImageMax());
 
-        $validator->setImageMax(array('maxWidth' => 120));
-        $this->assertEquals(array('maxWidth' => 120, 'maxHeight' => 1100), $validator->getImageMax());
+        $validator->setImageMax(array('max_width' => 120));
+        $this->assertEquals(array('max_width' => 120, 'max_height' => 1100), $validator->getImageMax());
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'greater than or equal');
-        $validator->setImageMax(array('maxWidth' => 10000, 'maxHeight' => 1));
+        $validator->setImageMax(array('max_width' => 10000, 'max_height' => 1));
     }
 
     /**
@@ -154,8 +154,8 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetImageWidth()
     {
-        $validator = new File\ImageSize(array('minWidth' => 1, 'minHeight' => 10, 'maxWidth' => 100, 'maxHeight' => 1000));
-        $this->assertEquals(array('minWidth' => 1, 'maxWidth' => 100), $validator->getImageWidth());
+        $validator = new File\ImageSize(array('min_width' => 1, 'min_height' => 10, 'max_width' => 100, 'max_height' => 1000));
+        $this->assertEquals(array('min_width' => 1, 'max_width' => 100), $validator->getImageWidth());
     }
 
     /**
@@ -165,12 +165,12 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetImageWidth()
     {
-        $validator = new File\ImageSize(array('minWidth' => 100, 'minHeight' => 1000, 'maxWidth' => 10000, 'maxHeight' => 100000));
-        $validator->setImageWidth(array('minWidth' => 2000, 'maxWidth' => 2200));
-        $this->assertEquals(array('minWidth' => 2000, 'maxWidth' => 2200), $validator->getImageWidth());
+        $validator = new File\ImageSize(array('min_width' => 100, 'min_height' => 1000, 'max_width' => 10000, 'max_height' => 100000));
+        $validator->setImageWidth(array('min_width' => 2000, 'max_width' => 2200));
+        $this->assertEquals(array('min_width' => 2000, 'max_width' => 2200), $validator->getImageWidth());
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'less than or equal');
-        $validator->setImageWidth(array('minWidth' => 20000, 'maxWidth' => 200));
+        $validator->setImageWidth(array('min_width' => 20000, 'max_width' => 200));
     }
 
     /**
@@ -180,8 +180,8 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetImageHeight()
     {
-        $validator = new File\ImageSize(array('minWidth' => 1, 'minHeight' => 10, 'maxWidth' => 100, 'maxHeight' => 1000));
-        $this->assertEquals(array('minHeight' => 10, 'maxHeight' => 1000), $validator->getImageHeight());
+        $validator = new File\ImageSize(array('min_width' => 1, 'min_height' => 10, 'max_width' => 100, 'max_height' => 1000));
+        $this->assertEquals(array('min_height' => 10, 'max_height' => 1000), $validator->getImageHeight());
     }
 
     /**
@@ -191,12 +191,12 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetImageHeight()
     {
-        $validator = new File\ImageSize(array('minWidth' => 100, 'minHeight' => 1000, 'maxWidth' => 10000, 'maxHeight' => 100000));
-        $validator->setImageHeight(array('minHeight' => 2000, 'maxHeight' => 2200));
-        $this->assertEquals(array('minHeight' => 2000, 'maxHeight' => 2200), $validator->getImageHeight());
+        $validator = new File\ImageSize(array('min_width' => 100, 'min_height' => 1000, 'max_width' => 10000, 'max_height' => 100000));
+        $validator->setImageHeight(array('min_height' => 2000, 'max_height' => 2200));
+        $this->assertEquals(array('min_height' => 2000, 'max_height' => 2200), $validator->getImageHeight());
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'less than or equal');
-        $validator->setImageHeight(array('minHeight' => 20000, 'maxHeight' => 200));
+        $validator->setImageHeight(array('min_height' => 20000, 'max_height' => 200));
     }
 
     /**
@@ -204,7 +204,7 @@ class ImageSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testZF11258()
     {
-        $validator = new File\ImageSize(array('minWidth' => 100, 'minHeight' => 1000, 'maxWidth' => 10000, 'maxHeight' => 100000));
+        $validator = new File\ImageSize(array('min_width' => 100, 'min_height' => 1000, 'max_width' => 10000, 'max_height' => 100000));
         $this->assertFalse($validator->isValid(__DIR__ . '/_files/nofile.mo'));
         $this->assertTrue(array_key_exists('fileImageSizeNotReadable', $validator->getMessages()));
         $this->assertContains("'nofile.mo'", current($validator->getMessages()));

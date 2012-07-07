@@ -55,10 +55,10 @@ class IpTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator = new Ip();
         $this->options   = array(
-            'allowipv4'      => false,
-            'allowipv6'      => false,
-            'allowipvfuture' => false,
-            'allowliteral' => false,
+            'allow_ipv4'      => false,
+            'allow_ipv6'      => false,
+            'allow_ipv_future' => false,
+            'allow_literal' => false,
         );
     }
 
@@ -85,7 +85,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
 
     public function testOnlyIpv4()
     {
-        $this->options['allowipv4'] = true;
+        $this->options['allow_ipv4'] = true;
         $this->validator->setOptions($this->options);
         $this->assertTrue($this->validator->isValid('1.2.3.4'));
         $this->assertFalse($this->validator->isValid('a:b:c:d:e::1.2.3.4'));
@@ -94,7 +94,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
 
     public function testOnlyIpv6()
     {
-        $this->options['allowipv6'] = true;
+        $this->options['allow_ipv6'] = true;
         $this->validator->setOptions($this->options);
         $this->assertFalse($this->validator->isValid('1.2.3.4'));
         $this->assertTrue($this->validator->isValid('a:b:c:d:e::1.2.3.4'));
@@ -103,7 +103,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
 
     public function testOnlyIpvfuture()
     {
-        $this->options['allowipvfuture'] = true;
+        $this->options['allow_ipv_future'] = true;
         $this->validator->setOptions($this->options);
         $this->assertFalse($this->validator->isValid('1.2.3.4'));
         $this->assertFalse($this->validator->isValid('a:b:c:d:e::1.2.3.4'));
@@ -113,10 +113,10 @@ class IpTest extends \PHPUnit_Framework_TestCase
     public function testLiteral()
     {
         $this->options   = array(
-            'allowipv4'      => true,
-            'allowipv6'      => true,
-            'allowipvfuture' => true,
-            'allowliteral'   => true,
+            'allow_ipv4'       => true,
+            'allow_ipv6'       => true,
+            'allow_ipv_future' => true,
+            'allow_literal'    => true,
         );
         $this->validator->setOptions($this->options);
 
@@ -137,7 +137,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
      */
     public function testVersionsAllowedIpvfuture()
     {
-        $this->options['allowipvfuture'] = true;
+        $this->options['allow_ipv_future'] = true;
         $this->validator->setOptions($this->options);
         $this->assertTrue($this->validator->isValid('v1.A', 'IPvFuture: Version 1 disallowed'));
         $this->assertTrue($this->validator->isValid('vD.A', 'IPvFuture: Version D disallowed'));
@@ -379,7 +379,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
     public function testEqualsMessageTemplates()
     {
         $validator = $this->validator;
-        $this->assertAttributeEquals($validator->getOption('messageTemplates'),
+        $this->assertAttributeEquals($validator->getOption('message_templates'),
                                      'messageTemplates', $validator);
     }
 }

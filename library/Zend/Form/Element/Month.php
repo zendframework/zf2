@@ -70,7 +70,7 @@ class Month extends DateTime
 
         return new DateStepValidator(array(
             'format'       => "Y-m",
-            'baseValue'    => $baseValue,
+            'base_value'    => $baseValue,
             'step' => new \DateInterval("P{$stepValue}M"),
         ));
     }

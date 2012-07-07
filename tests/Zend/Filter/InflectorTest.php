@@ -313,8 +313,8 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     {
         $options = array(
             'target' => '$controller/$action.$suffix',
-            'throwTargetExceptionsOn' => true,
-            'targetReplacementIdentifier' => '$',
+            'throw_target_exceptions_on' => true,
+            'target_replacement_identifier' => '$',
             'rules' => array(
                 ':controller' => array(
                     'rule1' => 'Word\\CamelCaseToUnderscore',
@@ -326,7 +326,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
                 ),
                 'suffix' => 'php'
             ),
-            'filterPrefixPath' => array(
+            'filter_prefix_path' => array(
                 'Zend\\View\\Filter' => 'Zend/View/Filter/',
                 'Foo\\Filter'        => 'foo/filters/'
             ),
@@ -348,7 +348,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Zend\Filter\FilterPluginManager', $broker);
         $this->assertTrue($inflector->isThrowTargetExceptionsOn());
-        $this->assertEquals($options['targetReplacementIdentifier'], $inflector->getTargetReplacementIdentifier());
+        $this->assertEquals($options['target_replacement_identifier'], $inflector->getTargetReplacementIdentifier());
 
         $rules = $inflector->getRules();
         foreach (array_values($options['rules'][':controller']) as $key => $rule) {

@@ -75,14 +75,14 @@ class Bz2Test extends \PHPUnit_Framework_TestCase
     public function testBz2GetSetOptions()
     {
         $filter = new Bz2Compression();
-        $this->assertEquals(array('blocksize' => 4, 'archive' => null), $filter->getOptions());
+        $this->assertEquals(array('block_size' => 4, 'archive' => null), $filter->getOptions());
 
-        $this->assertEquals(4, $filter->getOptions('blocksize'));
+        $this->assertEquals(4, $filter->getOptions('block_size'));
 
         $this->assertNull($filter->getOptions('nooption'));
 
-        $filter->setOptions(array('blocksize' => 6));
-        $this->assertEquals(6, $filter->getOptions('blocksize'));
+        $filter->setOptions(array('block_size' => 6));
+        $this->assertEquals(6, $filter->getOptions('block_size'));
 
         $filter->setOptions(array('archive' => 'test.txt'));
         $this->assertEquals('test.txt', $filter->getOptions('archive'));
@@ -98,8 +98,8 @@ class Bz2Test extends \PHPUnit_Framework_TestCase
      */
     public function testBz2GetSetOptionsInConstructor()
     {
-        $filter2= new Bz2Compression(array('blocksize' => 8));
-        $this->assertEquals(array('blocksize' => 8, 'archive' => null), $filter2->getOptions());
+        $filter2= new Bz2Compression(array('block_size' => 8));
+        $this->assertEquals(array('block_size' => 8, 'archive' => null), $filter2->getOptions());
     }
 
     /**
@@ -112,7 +112,7 @@ class Bz2Test extends \PHPUnit_Framework_TestCase
         $filter = new Bz2Compression();
         $this->assertEquals(4, $filter->getBlocksize());
         $filter->setBlocksize(6);
-        $this->assertEquals(6, $filter->getOptions('blocksize'));
+        $this->assertEquals(6, $filter->getOptions('block_size'));
 
         $this->setExpectedException('Zend\Filter\Exception\InvalidArgumentException', 'must be between');
         $filter->setBlocksize(15);

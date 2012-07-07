@@ -256,7 +256,7 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
     public function testEqualsMessageTemplates()
     {
         $validator  = new RecordExists('users', 'field1');
-        $this->assertAttributeEquals($validator->getOption('messageTemplates'),
+        $this->assertAttributeEquals($validator->getOption('message_templates'),
                                      'messageTemplates', $validator);
     }
 }

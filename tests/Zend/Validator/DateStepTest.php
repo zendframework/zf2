@@ -106,7 +106,7 @@ class DateStepTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new Validator\DateStep(array(
             'format'       => $format,
-            'baseValue'    => $baseValue,
+            'base_value'    => $baseValue,
             'step' => new DateInterval($interval),
         ));
 
@@ -123,6 +123,6 @@ class DateStepTest extends \PHPUnit_Framework_TestCase
     {
         $validator  = new Validator\DateStep(array());
         $this->assertObjectHasAttribute('messageTemplates', $validator);
-        $this->assertAttributeEquals($validator->getOption('messageTemplates'), 'messageTemplates', $validator);
+        $this->assertAttributeEquals($validator->getOption('message_templates'), 'messageTemplates', $validator);
     }
 }

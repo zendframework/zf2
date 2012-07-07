@@ -33,10 +33,10 @@ abstract class AbstractAdapter implements AdapterInterface
      * @var array
      */
     protected $options = array(
-        'length'     => null,   // Allowed barcode lengths, integer, array, string
-        'characters' => null,   // Allowed barcode characters
-        'checksum'   => null,   // Callback to checksum function
-        'useChecksum' => true,  // Is a checksum value included?, boolean
+        'length'       => null,   // Allowed barcode lengths, integer, array, string
+        'characters'   => null,   // Allowed barcode characters
+        'checksum'     => null,   // Callback to checksum function
+        'use_checksum' => true,  // Is a checksum value included?, boolean
     );
 
     /**
@@ -178,10 +178,10 @@ abstract class AbstractAdapter implements AdapterInterface
     public function useChecksum($check = null)
     {
         if ($check === null) {
-            return $this->options['useChecksum'];
+            return $this->options['use_checksum'];
         }
 
-        $this->options['useChecksum'] = (boolean) $check;
+        $this->options['use_checksum'] = (boolean) $check;
         return $this;
     }
 

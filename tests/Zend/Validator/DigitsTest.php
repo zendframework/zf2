@@ -113,7 +113,7 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
     public function testEqualsMessageTemplates()
     {
         $validator = $this->validator;
-        $this->assertAttributeEquals($validator->getOption('messageTemplates'),
+        $this->assertAttributeEquals($validator->getOption('message_templates'),
                                      'messageTemplates', $validator);
     }
 }

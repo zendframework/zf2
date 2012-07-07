@@ -69,25 +69,25 @@ class Uri extends AbstractValidator
             $options = iterator_to_array($options);
         } elseif (!is_array($options)) {
             $options = func_get_args();
-            $temp['uriHandler'] = array_shift($options);
+            $temp['uri_handler'] = array_shift($options);
             if (!empty($options)) {
-                $temp['allowRelative'] = array_shift($options);
+                $temp['allow_relative'] = array_shift($options);
             }
             if (!empty($options)) {
-                $temp['allowAbsolute'] = array_shift($options);
+                $temp['allow_absolute'] = array_shift($options);
             }
 
             $options = $temp;
         }
 
-        if (isset($options['uriHandler'])) {
-            $this->setUriHandler($options['uriHandler']);
+        if (isset($options['uri_handler'])) {
+            $this->setUriHandler($options['uri_handler']);
         }
-        if (isset($options['allowRelative'])) {
-            $this->setAllowRelative($options['allowRelative']);
+        if (isset($options['allow_relative'])) {
+            $this->setAllowRelative($options['allow_relative']);
         }
-        if (isset($options['allowAbsolute'])) {
-            $this->setAllowAbsolute($options['allowAbsolute']);
+        if (isset($options['allow_absolute'])) {
+            $this->setAllowAbsolute($options['allow_absolute']);
         }
 
         parent::__construct($options);

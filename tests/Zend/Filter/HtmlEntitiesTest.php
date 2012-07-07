@@ -152,7 +152,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigObject()
     {
-        $options = array('quotestyle' => 5, 'encoding' => 'ISO-8859-1');
+        $options = array('quote_style' => 5, 'encoding' => 'ISO-8859-1');
         $config  = new \Zend\Config\Config($options);
 
         $filter = new HtmlEntitiesFilter(

@@ -92,7 +92,7 @@ class StepTest extends \PHPUnit_Framework_TestCase
         );
 
         $validator = new Validator\Step(array(
-            'baseValue' => 0.1,
+            'base_value' => 0.1,
             'step'      => 2
         ));
 
@@ -116,7 +116,7 @@ class StepTest extends \PHPUnit_Framework_TestCase
         );
 
         $validator = new Validator\Step(array(
-            'baseValue' => 0,
+            'base_value' => 0,
             'step'      => 2.1
         ));
 
@@ -157,7 +157,7 @@ class StepTest extends \PHPUnit_Framework_TestCase
     public function testEqualsMessageTemplates()
     {
         $validator = new Validator\Step();
-        $this->assertAttributeEquals($validator->getOption('messageTemplates'),
+        $this->assertAttributeEquals($validator->getOption('message_templates'),
                                      'messageTemplates', $validator);
     }
 }

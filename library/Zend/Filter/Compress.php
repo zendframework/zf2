@@ -80,9 +80,9 @@ class Compress extends AbstractFilter
 
         foreach ($options as $key => $value) {
             if ($key == 'options') {
-                $key = 'adapterOptions';
+                $key = 'adapter_options';
             }
-            $method = 'set' . ucfirst($key);
+            $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
             if (method_exists($this, $method)) {
                 $this->$method($value);
             }

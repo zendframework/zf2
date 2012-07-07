@@ -71,9 +71,9 @@ class Size extends AbstractValidator
      * @var array
      */
     protected $options = array(
-        'min'           => null, // Minimum file size, if null there is no minimum
-        'max'           => null, // Maximum file size, if null there is no maximum
-        'useByteString' => true, // Use byte string?
+        'min'             => null, // Minimum file size, if null there is no minimum
+        'max'             => null, // Maximum file size, if null there is no maximum
+        'use_byte_string' => true, // Use byte string?
     );
 
     /**
@@ -98,7 +98,7 @@ class Size extends AbstractValidator
             array_shift($argv);
             $options['max'] = array_shift($argv);
             if (!empty($argv)) {
-                $options['useByteString'] = array_shift($argv);
+                $options['use_byte_string'] = array_shift($argv);
             }
         }
 
@@ -113,7 +113,7 @@ class Size extends AbstractValidator
      */
     public function useByteString($byteString = true)
     {
-        $this->options['useByteString'] = (bool) $byteString;
+        $this->options['use_byte_string'] = (bool) $byteString;
         return $this;
     }
 
@@ -124,7 +124,7 @@ class Size extends AbstractValidator
      */
     public function getByteString()
     {
-        return $this->options['useByteString'];
+        return $this->options['use_byte_string'];
     }
 
     /**

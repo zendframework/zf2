@@ -309,10 +309,10 @@ class Hostname extends AbstractValidator
      * @var array
      */
     protected $options = array(
-        'allow'       => self::ALLOW_DNS, // Allow these hostnames
-        'useIdnCheck' => true,  // Check IDN domains
-        'useTldCheck' => true,  // Check TLD elements
-        'ipValidator' => null,  // IP validator to use
+        'allow'         => self::ALLOW_DNS, // Allow these hostnames
+        'use_idn_check' => true,  // Check IDN domains
+        'use_tld_check' => true,  // Check TLD elements
+        'ip_validator'  => null,  // IP validator to use
     );
 
     /**
@@ -330,22 +330,22 @@ class Hostname extends AbstractValidator
             $options = func_get_args();
             $temp['allow'] = array_shift($options);
             if (!empty($options)) {
-                $temp['useIdnCheck'] = array_shift($options);
+                $temp['use_idn_check'] = array_shift($options);
             }
 
             if (!empty($options)) {
-                $temp['useTldCheck'] = array_shift($options);
+                $temp['use_tld_check'] = array_shift($options);
             }
 
             if (!empty($options)) {
-                $temp['ipValidator'] = array_shift($options);
+                $temp['ip_validator'] = array_shift($options);
             }
 
             $options = $temp;
         }
 
-        if (!array_key_exists('ipValidator', $options)) {
-            $options['ipValidator'] = null;
+        if (!array_key_exists('ip_validator', $options)) {
+            $options['ip_validator'] = null;
         }
 
         parent::__construct($options);
@@ -358,7 +358,7 @@ class Hostname extends AbstractValidator
      */
     public function getIpValidator()
     {
-        return $this->options['ipValidator'];
+        return $this->options['ip_validator'];
     }
 
     /**
@@ -371,7 +371,7 @@ class Hostname extends AbstractValidator
             $ipValidator = new Ip();
         }
 
-        $this->options['ipValidator'] = $ipValidator;
+        $this->options['ip_validator'] = $ipValidator;
         return $this;
     }
 
@@ -404,7 +404,7 @@ class Hostname extends AbstractValidator
      */
     public function getIdnCheck()
     {
-        return $this->options['useIdnCheck'];
+        return $this->options['use_idn_check'];
     }
 
     /**
@@ -417,7 +417,7 @@ class Hostname extends AbstractValidator
      */
     public function useIdnCheck ($useIdnCheck)
     {
-        $this->options['useIdnCheck'] = (bool) $useIdnCheck;
+        $this->options['use_idn_check'] = (bool) $useIdnCheck;
         return $this;
     }
 
@@ -428,7 +428,7 @@ class Hostname extends AbstractValidator
      */
     public function getTldCheck()
     {
-        return $this->options['useTldCheck'];
+        return $this->options['use_tld_check'];
     }
 
     /**
@@ -441,7 +441,7 @@ class Hostname extends AbstractValidator
      */
     public function useTldCheck ($useTldCheck)
     {
-        $this->options['useTldCheck'] = (bool) $useTldCheck;
+        $this->options['use_tld_check'] = (bool) $useTldCheck;
         return $this;
     }
 

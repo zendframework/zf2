@@ -54,8 +54,8 @@ class Callback extends AbstractValidator
      * @var mixed
      */
     protected $options = array(
-        'callback'         => null,     // Callback in a call_user_func format, string || array
-        'callbackOptions'  => array(),  // Options for the callback
+        'callback'          => null,     // Callback in a call_user_func format, string || array
+        'callback_options'  => array(),  // Options for the callback
     );
 
     /**
@@ -106,7 +106,7 @@ class Callback extends AbstractValidator
      */
     public function getCallbackOptions()
     {
-        return $this->options['callbackOptions'];
+        return $this->options['callback_options'];
     }
 
     /**
@@ -117,7 +117,7 @@ class Callback extends AbstractValidator
      */
     public function setCallbackOptions($options)
     {
-        $this->options['callbackOptions'] = (array) $options;
+        $this->options['callback_options'] = (array) $options;
         return $this;
     }
 

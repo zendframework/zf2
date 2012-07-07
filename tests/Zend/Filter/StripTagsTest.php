@@ -518,8 +518,8 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new StripTagsFilter(
             array(
-                'allowTags' => 'img',
-                'allowAttribs' => array('width', 'height', 'src')
+                'allow_tags' => 'img',
+                'allow_attribs' => array('width', 'height', 'src')
             )
         );
 
