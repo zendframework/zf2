@@ -21,8 +21,8 @@
 
 namespace ZendTest\Serializer\Adapter;
 
-use Zend\Serializer,
-    Zend\Serializer\Exception\ExtensionNotLoadedException;
+use Zend\Serializer;
+use Zend\Serializer\Exception\ExtensionNotLoadedException;
 
 /**
  * @category   Zend
