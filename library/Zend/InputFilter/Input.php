@@ -154,12 +154,13 @@ class Input implements InputInterface
         $this->setErrorMessage($input->getErrorMessage());
         $this->setName($input->getName());
         $this->setRequired($input->isRequired());
+        $this->setValue($input->getValue());
 
         $filterChain = $input->getFilterChain();
-        $this->getFilterChain()->merge($filterChain);
+        $this->setFilterChain($this->getFilterChain()->merge($filterChain));
 
         $validatorChain = $input->getValidatorChain();
-        $this->getValidatorChain()->merge($validatorChain);
+        $this->setValidatorChain($this->getValidatorChain()->merge($validatorChain));
     }
 
     public function isValid($context = null)
