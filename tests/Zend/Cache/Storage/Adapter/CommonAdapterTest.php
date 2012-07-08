@@ -21,19 +21,17 @@
 
 namespace ZendTest\Cache\Storage\Adapter;
 
+use Zend\Cache\Storage\IterableInterface;
+use Zend\Cache\Storage\IteratorInterface;
+use Zend\Cache\Storage\StorageInterface;
+use Zend\Cache\Storage\ClearExpiredInterface;
+use Zend\Cache\Storage\ClearByNamespaceInterface;
+use Zend\Cache\Storage\ClearByPrefixInterface;
+use Zend\Cache\Storage\FlushableInterface;
+use Zend\Cache\Storage\OptimizableInterface;
+use Zend\Cache\Storage\TaggableInterface;
 use Zend\Http\Header\Expires;
-
-use Zend\Cache\Storage\IterableInterface,
-    Zend\Cache\Storage\IteratorInterface,
-    Zend\Cache\Storage\StorageInterface,
-    Zend\Cache\Storage\ClearExpiredInterface,
-    Zend\Cache\Storage\ClearByNamespaceInterface,
-    Zend\Cache\Storage\ClearByPrefixInterface,
-    Zend\Cache\Storage\FlushableInterface,
-    Zend\Cache\Storage\OptimizableInterface,
-    Zend\Cache\Storage\TagableInterface,
-    Zend\Cache,
-    Zend\Stdlib\ErrorHandler;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * PHPUnit test case
@@ -1009,8 +1007,8 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testTagable()
     {
-        if ( !($this->_storage instanceof TagableInterface) ) {
-            $this->markTestSkipped("Storage doesn't implement TagableInterface");
+        if ( !($this->_storage instanceof TaggableInterface) ) {
+            $this->markTestSkipped("Storage doesn't implement TaggableInterface");
         }
 
         $this->assertSame(array(), $this->_storage->setItems(array(

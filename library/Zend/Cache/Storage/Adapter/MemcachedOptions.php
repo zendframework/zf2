@@ -21,9 +21,9 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use Memcached as MemcachedResource,
-    Zend\Cache\Exception,
-    Zend\Validator\Hostname;
+use Memcached as MemcachedResource;
+use Zend\Cache\Exception;
+use Zend\Validator\Hostname;
 
 /**
  * These are options specific to the APC adapter

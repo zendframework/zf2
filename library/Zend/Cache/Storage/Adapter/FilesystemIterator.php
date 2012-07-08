@@ -21,9 +21,9 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use GlobIterator,
-    Zend\Cache\Storage\IterableInterface,
-    Zend\Cache\Storage\IteratorInterface;
+use GlobIterator;
+use Zend\Cache\Storage\IterableInterface;
+use Zend\Cache\Storage\IteratorInterface;
 
 /**
  * @category   Zend
