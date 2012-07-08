@@ -21,9 +21,9 @@
 
 namespace ZendTest\Rest;
 
-use Zend\Rest\Client,
-    Zend\Uri,
-    Zend\Http\Response;
+use Zend\Rest\Client;
+use Zend\Uri;
+use Zend\Http\Response;
 
 /**
  * Test cases for RESTClient
