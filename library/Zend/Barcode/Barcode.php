@@ -20,9 +20,9 @@
 
 namespace Zend\Barcode;
 
-use Traversable,
-    Zend,
-    Zend\Stdlib\ArrayUtils;
+use Traversable;
+use Zend;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Class for generate Barcode
