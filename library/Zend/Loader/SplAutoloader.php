@@ -20,7 +20,7 @@
 
 namespace Zend\Loader;
 
-if (interface_exists('Zend\Loader\SplAutoloader')) return;
+if (interface_exists('Zend\Loader\SplAutoloader')) return 1;
 
 /**
  * Defines an interface for classes that may register with the spl_autoload 
