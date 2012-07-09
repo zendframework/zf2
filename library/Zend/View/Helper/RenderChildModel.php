@@ -73,7 +73,7 @@ class RenderChildModel extends AbstractHelper
     {
         if ($child instanceof Model) {
             $model = $child;
-            $this->current = $model = $this->getCurrent();
+            $this->current = $this->getCurrent();
         } else {
             $model = $this->findChild($child);
         }
