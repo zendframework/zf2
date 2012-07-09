@@ -10,11 +10,13 @@
 
 namespace Zend\Db\Adapter\Exception;
 
+use Zend\Db\Exception;
+
 /**
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
  */
-class InvalidQueryException extends \UnexpectedValueException implements ExceptionInterface
+class InvalidQueryException extends Exception\UnexpectedValueException implements ExceptionInterface
 {
 }

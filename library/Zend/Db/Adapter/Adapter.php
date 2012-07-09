@@ -68,7 +68,7 @@ class Adapter
     /**
      * @param Driver\DriverInterface|array $driver
      * @param Platform\PlatformInterface $platform
-     * @param ResultSet\ResultSet $queryResultPrototype
+     * @param ResultSet\ResultSetInterface $queryResultPrototype
      */
     public function __construct($driver, Platform\PlatformInterface $platform = null, ResultSet\ResultSetInterface $queryResultPrototype = null)
     {
@@ -94,8 +94,8 @@ class Adapter
     /**
      * getDriver()
      * 
-     * @throws Exception
      * @return Driver\DriverInterface
+     * @throws Exception\RuntimeException
      */
     public function getDriver()
     {
@@ -108,7 +108,7 @@ class Adapter
     /**
      * @param string $queryMode
      * @return Adapter
-     * @throws \InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function setQueryMode($queryMode)
     {
@@ -145,7 +145,8 @@ class Adapter
      *
      * @param string $sql
      * @param string|array $parametersOrQueryMode
-     * @return Driver\StatementInterface|ResultSet\ResultSet
+     * @return Driver\StatementInterface|ResultSet\ResultSetInterface
+     * @throws Exception\InvalidArgumentException
      */
     public function query($sql, $parametersOrQueryMode = self::QUERY_MODE_PREPARE)
     {
@@ -219,6 +220,7 @@ class Adapter
     /**
      * @param $name
      * @return Driver\DriverInterface|Platform\PlatformInterface
+     * @throws Exception\InvalidArgumentException
      */
     public function __get($name)
     {
@@ -236,7 +238,7 @@ class Adapter
     /**
      * @param array $parameters
      * @return Driver\DriverInterface
-     * @throws \InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     protected function createDriverFromParameters(array $parameters)
     {

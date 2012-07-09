@@ -11,9 +11,9 @@
 
 namespace Zend\Db\TableGateway\Feature\EventFeature;
 
-use Zend\EventManager\EventManagerInterface,
-    Zend\EventManager\EventInterface,
-    Zend\Db\TableGateway\AbstractTableGateway;
+use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\EventInterface;
+use Zend\Db\TableGateway\AbstractTableGateway;
 
 /**
  * @category   Zend
@@ -61,7 +61,7 @@ class TableGatewayEvent implements EventInterface
     /**
      * Get parameters passed to the event
      *
-     * @return array|ArrayAccess
+     * @return array|\ArrayAccess
      */
     public function getParams()
     {

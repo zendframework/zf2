@@ -10,13 +10,17 @@
 
 namespace Zend\Db\Sql\Platform;
 
-use Zend\Db\Sql\PreparableSqlInterface,
-    Zend\Db\Sql\SqlInterface,
-    Zend\Db\Adapter\Adapter,
-    Zend\Db\Adapter\Driver\StatementInterface,
-    Zend\Db\Adapter\Platform\PlatformInterface;
+use Zend\Db\Sql\Exception;
+use Zend\Db\Sql\PreparableSqlInterface;
+use Zend\Db\Sql\SqlInterface;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\Adapter\Driver\StatementInterface;
+use Zend\Db\Adapter\Platform\PlatformInterface;
 
-class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInterface, SqlInterface
+class AbstractPlatform implements
+    PlatformDecoratorInterface,
+    PreparableSqlInterface,
+    SqlInterface
 {
     /**
      * @var object

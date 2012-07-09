@@ -10,6 +10,8 @@
 
 namespace Zend\Db\Sql\Predicate;
 
+use Zend\Db\Sql\Exception;
+
 /**
  * @property Predicate $and
  * @property Predicate $or
@@ -55,12 +57,12 @@ class Predicate extends PredicateSet
      * Indicate end of nested predicate
      *
      * @return Predicate
-     * @throws \RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function unnest()
     {
         if ($this->unnest == null) {
-            throw new \RuntimeException('Not nested');
+            throw new Exception\RuntimeException('Not nested');
         }
         $unnset       = $this->unnest;
         $this->unnest = null;

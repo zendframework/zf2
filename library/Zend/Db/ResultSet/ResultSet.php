@@ -48,7 +48,6 @@ class ResultSet extends AbstractResultSet
      * Constructor
      * 
      * @param  null|ArrayObject $arrayObjectPrototype
-     * @return void
      */
     public function __construct($returnType = self::TYPE_ARRAYOBJECT, $arrayObjectPrototype = null)
     {
@@ -63,6 +62,7 @@ class ResultSet extends AbstractResultSet
      * 
      * @param  ArrayObject $arrayObjectPrototype
      * @return ResultSet
+     * @throws Exception\InvalidArgumentException
      */
     public function setArrayObjectPrototype($arrayObjectPrototype)
     {

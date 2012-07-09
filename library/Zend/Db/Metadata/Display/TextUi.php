@@ -10,6 +10,8 @@
 
 namespace Zend\Db\Metadata\Display;
 
+use Zend\Db\Metadata\Metadata;
+
 /**
  * @category   Zend
  * @package    Zend_Db
@@ -27,10 +29,10 @@ class TextUi
     /**
      * Render
      * 
-     * @param  \Zend\Db\Metadata\Metadata $metadata
+     * @param  Metadata $metadata
      * @return string 
      */
-    public function render(\Zend\Db\Metadata\Metadata $metadata)
+    public function render(Metadata $metadata)
     {
         $output = '';
         $output .= $this->renderTables($metadata->getTables());

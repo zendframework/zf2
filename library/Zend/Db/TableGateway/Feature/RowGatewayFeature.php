@@ -23,6 +23,12 @@ class RowGatewayFeature extends AbstractFeature
         $this->constructorArguments = func_get_args();
     }
 
+    /**
+     * Post initialize
+     *
+     * @return void
+     * @throws Exception\RuntimeException
+     */
     public function postInitialize()
     {
         $args = $this->constructorArguments;

@@ -10,9 +10,9 @@
 
 namespace Zend\Db\ResultSet;
 
+use ArrayObject;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 use Zend\Stdlib\Hydrator\ArraySerializable;
-use ArrayObject;
 
 /**
  * @category   Zend
@@ -36,7 +36,6 @@ class HydratingResultSet extends AbstractResultSet
      *
      * @param  null|HydratorInterface $hydrator
      * @param  null|object $objectPrototype
-     * @return void
      */
     public function __construct(HydratorInterface $hydrator = null, $objectPrototype = null)
     {
@@ -49,6 +48,7 @@ class HydratingResultSet extends AbstractResultSet
      *
      * @param  object $objectPrototype
      * @return ResultSet
+     * @throws Exception\InvalidArgumentException
      */
     public function setObjectPrototype($objectPrototype)
     {
