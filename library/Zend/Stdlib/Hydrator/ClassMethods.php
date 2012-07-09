@@ -42,7 +42,7 @@ class ClassMethods implements HydratorInterface
      * Define if extract values will use camel case or name with underscore
      * @param boolean $underscoreSeparatedKeys 
      */
-    public function __construct($underscoreSeparatedKeys = true)
+    public function __construct($underscoreSeparatedKeys = false)
     {
         $this->underscoreSeparatedKeys = $underscoreSeparatedKeys;
     }
@@ -85,23 +85,10 @@ class ClassMethods implements HydratorInterface
                     $attribute = preg_replace_callback('/([A-Z])/', $transform, $attribute);
                 }
 
-                $result = $object->$method();
-
-                // Recursively extract if object contains itself other objects or arrays of objects
-                if (is_object($result)) {
-                    $result = $this->extract($result);
-                } elseif (is_array($result)) {
-                    foreach ($result as $key => $value) {
-                        if (is_object($value)) {
-                            $result[$key] = $this->extract($value);
-                        }
-                    }
-                }
-
-                $attributes[$attribute] = $result;
+                $attributes[$attribute] = $object->$method();
             }
         }
-        
+
         return $attributes;
     }
 

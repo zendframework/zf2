@@ -14,24 +14,35 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @subpackage Element
+ * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Form\Element;
+namespace Zend\Form\Annotation;
+
+use Zend\Form\Exception\UnexpectedValueException;
 
 /**
- * @category   Zend
+ * Object annotation
+ *
+ * Use this annotation to specify an object to use as the bound object of a form or fieldset
+ *
+ * @Annotation
  * @package    Zend_Form
- * @subpackage Element
+ * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class MultiCheckbox extends Checkbox
+class Object extends AbstractStringAnnotation
 {
     /**
-     * @var bool
+     * Retrieve the object
+     *
+     * @return null|string
      */
-    protected $useHiddenElement = false;
+    public function getObject()
+    {
+        return $this->value;
+    }
 }

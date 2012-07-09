@@ -14,24 +14,35 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @subpackage Element
+ * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Form\Element;
+namespace Zend\Form\Annotation;
 
 /**
- * @category   Zend
+ * ValidationGroup annotation
+ *
+ * Allows passing validation group to the form
+ *
+ * The value should be an associative array.
+ *
+ * @Annotation
  * @package    Zend_Form
- * @subpackage Element
+ * @subpackage Annotation
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class MultiCheckbox extends Checkbox
+class ValidationGroup extends AbstractArrayAnnotation
 {
     /**
-     * @var bool
+     * Retrieve the options
+     *
+     * @return null|array
      */
-    protected $useHiddenElement = false;
+    public function getValidationGroup()
+    {
+        return $this->value;
+    }
 }

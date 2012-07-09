@@ -562,10 +562,6 @@ class Form extends Fieldset implements FormInterface
             }
 
             $name = $element->getName();
-            if ($inputFilter->has($name)) {
-                // if we already have an input by this name, use it
-                continue;
-            }
 
             // Create an input based on the specification returned from the element
             $spec  = $element->getInputSpecification();
@@ -614,29 +610,15 @@ class Form extends Fieldset implements FormInterface
     /**
      * Extract values from the bound object and populate
      * the form elements
-     * 
+     *
      * @return void
      */
     protected function extract()
     {
-        if (!is_object($this->object)) {
-            return;
-        }
-        $hydrator = $this->getHydrator();
-        if (!$hydrator instanceof Hydrator\HydratorInterface) {
-            return;
-        }
-
-        $values = $hydrator->extract($this->object);
-        if (!is_array($values)) {
-            // Do nothing if the hydrator returned a non-array
-            return;
-        }
-
         if (null !== $this->baseFieldset) {
-            $this->baseFieldset->populateValues($values);
+            $this->baseFieldset->extract();
         } else {
-            $this->populateValues($values);
+            parent::extract();
         }
     }
 }
