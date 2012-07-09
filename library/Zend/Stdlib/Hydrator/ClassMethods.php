@@ -42,7 +42,7 @@ class ClassMethods implements HydratorInterface
      * Define if extract values will use camel case or name with underscore
      * @param boolean $underscoreSeparatedKeys 
      */
-    public function __construct($underscoreSeparatedKeys = true)
+    public function __construct($underscoreSeparatedKeys = false)
     {
         $this->underscoreSeparatedKeys = $underscoreSeparatedKeys;
     }
