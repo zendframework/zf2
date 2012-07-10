@@ -82,7 +82,7 @@ abstract class AbstractCompressionAlgorithm implements CompressionAlgorithmInter
     public function setOptions(array $options)
     {
         foreach ($options as $key => $option) {
-            $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+            $method = 'set' . str_replace(' ', '', str_replace('_', ' ', $key));
             if (method_exists($this, $method)) {
                 $this->$method($option);
             }

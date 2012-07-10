@@ -82,7 +82,7 @@ class Compress extends AbstractFilter
             if ($key == 'options') {
                 $key = 'adapter_options';
             }
-            $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+            $method = 'set' . str_replace(' ', '', str_replace('_', ' ', $key));
             if (method_exists($this, $method)) {
                 $this->$method($value);
             }

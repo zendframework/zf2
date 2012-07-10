@@ -141,7 +141,7 @@ abstract class AbstractValidator implements ValidatorInterface
         }
 
         foreach ($options as $name => $option) {
-            $name = str_replace(' ', '', ucwords(str_replace('_', ' ', $name)));
+            $name = str_replace(' ', '', str_replace('_', ' ', $name));
             $fname = 'set' . ucfirst($name);
             $fname2 = 'is' . ucfirst($name);
             if (($name != 'setOptions') && method_exists($this, $name)) {
