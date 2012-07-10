@@ -336,6 +336,7 @@ class Form extends Fieldset implements FormInterface
                     __METHOD__
                 ));
             }
+
             $data = $hydrator->extract($this->object);
             if (!is_array($data)) {
                 throw new Exception\DomainException(sprintf(
@@ -610,6 +611,7 @@ class Form extends Fieldset implements FormInterface
         if (!is_object($this->object)) {
             return;
         }
+
         $hydrator = $this->getHydrator();
         if (!$hydrator instanceof Hydrator\HydratorInterface) {
             return;

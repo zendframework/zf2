@@ -491,7 +491,7 @@ class Fieldset extends Element implements FieldsetInterface
                     $subElement = $element->get($subName);
 
                     if ($subElement instanceof FieldsetInterface) {
-                        $collection[] = $subElement->bindValues($subValue); $subElement->bindValues($subValue);
+                        $collection[] = $subElement->bindValues($subValue);
                     } else {
                         $collection[] = $subValue;
                     }
