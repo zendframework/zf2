@@ -73,7 +73,7 @@ class Number extends Element implements InputProviderInterface
 
         if (isset($this->attributes['step']) && $this->attributes['step'] !== 'any') {
             $validators[] = new StepValidator(array(
-                'baseValue' => (isset($this->attributes['min'])) ? $this->attributes['min'] : 0,
+                'base_value' => (isset($this->attributes['min'])) ? $this->attributes['min'] : 0,
                 'step' => $this->attributes['step']
             ));
         }

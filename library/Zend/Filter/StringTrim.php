@@ -23,7 +23,7 @@ class StringTrim extends AbstractFilter
      * @var array
      */
     protected $options = array(
-        'charlist' => null,
+        'char_list' => null,
     );
 
     /**
@@ -55,7 +55,7 @@ class StringTrim extends AbstractFilter
         if (empty($charList)) {
             $charList = null;
         }
-        $this->options['charlist'] = $charList;
+        $this->options['char_list'] = $charList;
         return $this;
     }
 
@@ -66,7 +66,7 @@ class StringTrim extends AbstractFilter
      */
     public function getCharList()
     {
-        return $this->options['charlist'];
+        return $this->options['char_list'];
     }
 
     /**
@@ -84,11 +84,11 @@ class StringTrim extends AbstractFilter
             return $value;
         }
 
-        if (null === $this->options['charlist']) {
+        if (null === $this->options['char_list']) {
             return $this->unicodeTrim((string) $value);
         }
 
-        return $this->unicodeTrim((string) $value, $this->options['charlist']);
+        return $this->unicodeTrim((string) $value, $this->options['char_list']);
     }
 
     /**

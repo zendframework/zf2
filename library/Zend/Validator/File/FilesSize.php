@@ -72,7 +72,7 @@ class FilesSize extends Size
             array_shift($argv);
             $options['max'] = array_shift($argv);
             if (!empty($argv)) {
-                $options['useByteString'] = array_shift($argv);
+                $options['use_byte_string'] = array_shift($argv);
             }
         }
 

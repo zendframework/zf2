@@ -70,21 +70,21 @@ class EmailAddress extends AbstractValidator
      * Internal options array
      */
     protected $options = array(
-        'useMxCheck'        => false,
-        'useDeepMxCheck'    => false,
-        'useDomainCheck'    => true,
-        'allow'             => Hostname::ALLOW_DNS,
-        'hostnameValidator' => null,
+        'use_mx_check'       => false,
+        'use_deep_mx_check'  => false,
+        'use_domain_check'   => true,
+        'allow'              => Hostname::ALLOW_DNS,
+        'hostname_validator' => null,
     );
 
     /**
      * Instantiates hostname validator for local use
      *
      * The following additional option keys are supported:
-     * 'hostnameValidator' => A hostname validator, see Zend\Validator\Hostname
-     * 'allow'             => Options for the hostname validator, see Zend\Validator\Hostname::ALLOW_*
-     * 'useMxCheck'        => If MX check should be enabled, boolean
-     * 'useDeepMxCheck'    => If a deep MX check should be done, boolean
+     * 'hostname_validator' => A hostname validator, see Zend\Validator\Hostname
+     * 'allow'              => Options for the hostname validator, see Zend\Validator\Hostname::ALLOW_*
+     * 'use_mx_check'       => If MX check should be enabled, boolean
+     * 'use_deep_mx_check'  => If a deep MX check should be done, boolean
      *
      * @param array|\Traversable $options OPTIONAL
      */
@@ -94,18 +94,18 @@ class EmailAddress extends AbstractValidator
             $options = func_get_args();
             $temp['allow'] = array_shift($options);
             if (!empty($options)) {
-                $temp['useMxCheck'] = array_shift($options);
+                $temp['use_mx_check'] = array_shift($options);
             }
 
             if (!empty($options)) {
-                $temp['hostnameValidator'] = array_shift($options);
+                $temp['hostname_validator'] = array_shift($options);
             }
 
             $options = $temp;
         }
 
-        if (!array_key_exists('hostnameValidator', $options)) {
-            $options['hostnameValidator'] = null;
+        if (!array_key_exists('hostname_validator', $options)) {
+            $options['hostname_validator'] = null;
         }
 
         parent::__construct($options);
@@ -122,13 +122,13 @@ class EmailAddress extends AbstractValidator
     public function setMessage($messageString, $messageKey = null)
     {
         if ($messageKey === null) {
-            $this->options['hostnameValidator']->setMessage($messageString);
+            $this->options['hostname_validator']->setMessage($messageString);
             parent::setMessage($messageString);
             return $this;
         }
 
         if (!isset($this->messageTemplates[$messageKey])) {
-            $this->options['hostnameValidator']->setMessage($messageString, $messageKey);
+            $this->options['hostname_validator']->setMessage($messageString, $messageKey);
         } else {
             parent::setMessage($messageString, $messageKey);
         }
@@ -143,7 +143,7 @@ class EmailAddress extends AbstractValidator
      */
     public function getHostnameValidator()
     {
-        return $this->options['hostnameValidator'];
+        return $this->options['hostname_validator'];
     }
 
     /**
@@ -156,7 +156,7 @@ class EmailAddress extends AbstractValidator
             $hostnameValidator = new Hostname($this->getAllow());
         }
 
-        $this->options['hostnameValidator'] = $hostnameValidator;
+        $this->options['hostname_validator'] = $hostnameValidator;
         return $this;
     }
 
@@ -179,8 +179,8 @@ class EmailAddress extends AbstractValidator
     public function setAllow($allow)
     {
         $this->options['allow'] = $allow;
-        if ($this->options['hostnameValidator'] !== null) {
-            $this->options['hostnameValidator']->setAllow($allow);
+        if ($this->options['hostname_validator'] !== null) {
+            $this->options['hostname_validator']->setAllow($allow);
         }
 
         return $this;
@@ -203,7 +203,7 @@ class EmailAddress extends AbstractValidator
      */
     public function getMxCheck()
     {
-        return $this->options['useMxCheck'];
+        return $this->options['use_mx_check'];
     }
 
     /**
@@ -216,7 +216,7 @@ class EmailAddress extends AbstractValidator
      */
     public function useMxCheck($mx)
     {
-        $this->options['useMxCheck'] = (bool) $mx;
+        $this->options['use_mx_check'] = (bool) $mx;
         return $this;
     }
 
@@ -227,7 +227,7 @@ class EmailAddress extends AbstractValidator
      */
     public function getDeepMxCheck()
     {
-        return $this->options['useDeepMxCheck'];
+        return $this->options['use_deep_mx_check'];
     }
 
     /**
@@ -238,7 +238,7 @@ class EmailAddress extends AbstractValidator
      */
     public function useDeepMxCheck($deep)
     {
-        $this->options['useDeepMxCheck'] = (bool) $deep;
+        $this->options['use_deep_mx_check'] = (bool) $deep;
         return $this;
     }
 
@@ -249,7 +249,7 @@ class EmailAddress extends AbstractValidator
      */
     public function getDomainCheck()
     {
-        return $this->options['useDomainCheck'];
+        return $this->options['use_domain_check'];
     }
 
     /**
@@ -261,7 +261,7 @@ class EmailAddress extends AbstractValidator
      */
     public function useDomainCheck($domain = true)
     {
-        $this->options['useDomainCheck'] = (boolean) $domain;
+        $this->options['use_domain_check'] = (boolean) $domain;
         return $this;
     }
 
@@ -376,7 +376,7 @@ class EmailAddress extends AbstractValidator
 
         if (!$result) {
             $this->error(self::INVALID_MX_RECORD);
-        } elseif ($this->options['useDeepMxCheck']) {
+        } elseif ($this->options['use_deep_mx_check']) {
             $validAddress = false;
             $reserved     = true;
             foreach ($this->mxRecord as $hostname => $weight) {
@@ -422,7 +422,7 @@ class EmailAddress extends AbstractValidator
             foreach ($this->getHostnameValidator()->getMessages() as $code => $message) {
                 $this->abstractOptions['messages'][$code] = $message;
             }
-        } elseif ($this->options['useMxCheck']) {
+        } elseif ($this->options['use_mx_check']) {
             // MX check on hostname
             $hostname = $this->validateMXRecords();
         }
@@ -482,7 +482,7 @@ class EmailAddress extends AbstractValidator
         }
 
         // Match hostname part
-        if ($this->options['useDomainCheck']) {
+        if ($this->options['use_domain_check']) {
             $hostname = $this->validateHostnamePart();
         }
 
@@ -490,7 +490,7 @@ class EmailAddress extends AbstractValidator
 
         // If both parts valid, return true
         if ($local && $length) {
-            if (($this->options['useDomainCheck'] && $hostname) || !$this->options['useDomainCheck']) {
+            if (($this->options['use_domain_check'] && $hostname) || !$this->options['use_domain_check']) {
                 return true;
             }
         }

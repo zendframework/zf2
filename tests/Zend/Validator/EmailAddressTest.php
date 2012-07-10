@@ -446,14 +446,14 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
         $options   = $validator->getOptions();
 
         $this->assertEquals(Hostname::ALLOW_DNS, $options['allow']);
-        $this->assertFalse($options['useMxCheck']);
+        $this->assertFalse($options['use_mx_check']);
 
         try {
             $validator = new EmailAddress(Hostname::ALLOW_ALL, true, new Hostname(Hostname::ALLOW_ALL));
             $options   = $validator->getOptions();
 
             $this->assertEquals(Hostname::ALLOW_ALL, $options['allow']);
-            $this->assertTrue($options['useMxCheck']);
+            $this->assertTrue($options['use_mx_check']);
             set_error_handler($handler);
         } catch (\Zend\Validator\Exception\InvalidArgumentException $e) {
             $this->markTestSkipped('MX not available on this system');
@@ -561,7 +561,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Testing MX records has been disabled');
         }
 
-        $validator = new EmailAddress(array('useMxCheck' => true, 'allow' => Hostname::ALLOW_ALL));
+        $validator = new EmailAddress(array('use_mx_check' => true, 'allow' => Hostname::ALLOW_ALL));
 
         if (!$validator->isMxSupported()) {
             $this->markTestSkipped('Testing MX records is not supported with this configuration');
@@ -576,14 +576,14 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
     public function testEqualsMessageTemplates()
     {
         $validator = $this->validator;
-        $this->assertAttributeEquals($validator->getOption('messageTemplates'),
+        $this->assertAttributeEquals($validator->getOption('message_templates'),
                                      'messageTemplates', $validator);
     }
 
     public function testEqualsMessageVariables()
     {
         $validator = $this->validator;
-        $this->assertAttributeEquals($validator->getOption('messageVariables'),
+        $this->assertAttributeEquals($validator->getOption('message_variables'),
                                      'messageVariables', $validator);
     }
 
@@ -596,8 +596,8 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Testing MX records has been disabled');
         }
         $validator = new EmailAddress(array(
-            'useMxCheck'        => true,
-            'useDeepMxCheck'    => true
+            'use_mx_check'        => true,
+            'use_deep_mx_check'    => true
         ));
 
         $emailAddresses = array(
@@ -625,8 +625,8 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
     public function testUseMxRecordsBasicInvalid()
     {
         $validator = new EmailAddress(array(
-            'useMxCheck'        => true,
-            'useDeepMxCheck'    => true
+            'use_mx_check'        => true,
+            'use_deep_mx_check'    => true
         ));
 
         $emailAddresses = array(

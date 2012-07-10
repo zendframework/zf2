@@ -47,10 +47,10 @@ class ImageSize extends AbstractValidator
      * @var array Error message template variables
      */
     protected $messageVariables = array(
-        'minwidth'  => array('options' => 'minWidth'),
-        'maxwidth'  => array('options' => 'maxWidth'),
-        'minheight' => array('options' => 'minHeight'),
-        'maxheight' => array('options' => 'maxHeight'),
+        'minwidth'  => array('options' => 'min_width'),
+        'maxwidth'  => array('options' => 'max_width'),
+        'minheight' => array('options' => 'min_height'),
+        'maxheight' => array('options' => 'max_height'),
         'width'     => 'width',
         'height'    => 'height'
     );
@@ -75,10 +75,10 @@ class ImageSize extends AbstractValidator
      * @var array
      */
     protected $options = array(
-        'minWidth'  => null,  // Minimum image width
-        'maxWidth'  => null,  // Maximum image width
-        'minHeight' => null,  // Minimum image height
-        'maxHeight' => null,  // Maximum image height
+        'min_width'  => null,  // Minimum image width
+        'max_width'  => null,  // Maximum image width
+        'min_height' => null,  // Minimum image height
+        'max_height' => null,  // Maximum image height
     );
 
     /**
@@ -96,16 +96,16 @@ class ImageSize extends AbstractValidator
     {
         if (1 < func_num_args()) {
             if (!is_array($options)) {
-                $options = array('minWidth' => $options);
+                $options = array('min_width' => $options);
             }
 
             $argv = func_get_args();
             array_shift($argv);
-            $options['minHeight'] = array_shift($argv);
+            $options['min_height'] = array_shift($argv);
             if (!empty($argv)) {
-                $options['maxWidth'] = array_shift($argv);
+                $options['max_width'] = array_shift($argv);
                 if (!empty($argv)) {
-                    $options['maxHeight'] = array_shift($argv);
+                    $options['max_height'] = array_shift($argv);
                 }
             }
         }
@@ -120,7 +120,7 @@ class ImageSize extends AbstractValidator
      */
     public function getMinWidth()
     {
-        return $this->options['minWidth'];
+        return $this->options['min_width'];
     }
 
     /**
@@ -137,7 +137,7 @@ class ImageSize extends AbstractValidator
                 . " maximum image width, but {$minWidth} > {$this->getMaxWidth()}");
         }
 
-        $this->options['minWidth']  = (int) $minWidth;
+        $this->options['min_width']  = (int) $minWidth;
         return $this;
     }
 
@@ -148,7 +148,7 @@ class ImageSize extends AbstractValidator
      */
     public function getMaxWidth()
     {
-        return $this->options['maxWidth'];
+        return $this->options['max_width'];
     }
 
     /**
@@ -165,7 +165,7 @@ class ImageSize extends AbstractValidator
                 . "minimum image width, but {$maxWidth} < {$this->getMinWidth()}");
         }
 
-        $this->options['maxWidth']  = (int) $maxWidth;
+        $this->options['max_width']  = (int) $maxWidth;
         return $this;
     }
 
@@ -176,7 +176,7 @@ class ImageSize extends AbstractValidator
      */
     public function getMinHeight()
     {
-        return $this->options['minHeight'];
+        return $this->options['min_height'];
     }
 
     /**
@@ -193,7 +193,7 @@ class ImageSize extends AbstractValidator
                 . " maximum image height, but {$minHeight} > {$this->getMaxHeight()}");
         }
 
-        $this->options['minHeight']  = (int) $minHeight;
+        $this->options['min_height']  = (int) $minHeight;
         return $this;
     }
 
@@ -204,7 +204,7 @@ class ImageSize extends AbstractValidator
      */
     public function getMaxHeight()
     {
-        return $this->options['maxHeight'];
+        return $this->options['max_height'];
     }
 
     /**
@@ -221,7 +221,7 @@ class ImageSize extends AbstractValidator
                 . "minimum image height, but {$maxHeight} < {$this->getMinHeight()}");
         }
 
-        $this->options['maxHeight']  = (int) $maxHeight;
+        $this->options['max_height']  = (int) $maxHeight;
         return $this;
     }
 
@@ -232,7 +232,7 @@ class ImageSize extends AbstractValidator
      */
     public function getImageMin()
     {
-        return array('minWidth' => $this->getMinWidth(), 'minHeight' => $this->getMinHeight());
+        return array('min_width' => $this->getMinWidth(), 'min_height' => $this->getMinHeight());
     }
 
     /**
@@ -242,7 +242,7 @@ class ImageSize extends AbstractValidator
      */
     public function getImageMax()
     {
-        return array('maxWidth' => $this->getMaxWidth(), 'maxHeight' => $this->getMaxHeight());
+        return array('max_width' => $this->getMaxWidth(), 'max_height' => $this->getMaxHeight());
     }
 
     /**
@@ -252,7 +252,7 @@ class ImageSize extends AbstractValidator
      */
     public function getImageWidth()
     {
-        return array('minWidth' => $this->getMinWidth(), 'maxWidth' => $this->getMaxWidth());
+        return array('min_width' => $this->getMinWidth(), 'max_width' => $this->getMaxWidth());
     }
 
     /**
@@ -262,7 +262,7 @@ class ImageSize extends AbstractValidator
      */
     public function getImageHeight()
     {
-        return array('minHeight' => $this->getMinHeight(), 'maxHeight' => $this->getMaxHeight());
+        return array('min_height' => $this->getMinHeight(), 'max_height' => $this->getMaxHeight());
     }
 
     /**

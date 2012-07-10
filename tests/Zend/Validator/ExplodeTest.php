@@ -74,14 +74,14 @@ class ExplodeTest extends \PHPUnit_Framework_TestCase
     public function testEqualsMessageTemplates()
     {
         $validator = new Explode(array());
-        $this->assertAttributeEquals($validator->getOption('messageTemplates'),
+        $this->assertAttributeEquals($validator->getOption('message_templates'),
                                      'messageTemplates', $validator);
     }
 
     public function testEqualsMessageVariables()
     {
         $validator = new Explode(array());
-        $this->assertAttributeEquals($validator->getOption('messageVariables'),
+        $this->assertAttributeEquals($validator->getOption('message_variables'),
                                      'messageVariables', $validator);
     }
 }

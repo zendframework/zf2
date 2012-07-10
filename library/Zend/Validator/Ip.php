@@ -36,10 +36,10 @@ class Ip extends AbstractValidator
      * @var array
      */
     protected $options = array(
-        'allowipv4'      => true, // Enable IPv4 Validation
-        'allowipv6'      => true, // Enable IPv6 Validation
-        'allowipvfuture' => false, // Enable IPvFuture Validation
-        'allowliteral'   => true, // Enable IPs in literal format (only IPv6 and IPvFuture)
+        'allow_ipv4'       => true, // Enable IPv4 Validation
+        'allow_ipv6'       => true, // Enable IPv6 Validation
+        'allow_ipv_future' => false, // Enable IPvFuture Validation
+        'allow_literal'    => true, // Enable IPs in literal format (only IPv6 and IPvFuture)
     );
 
     /**
@@ -53,11 +53,83 @@ class Ip extends AbstractValidator
     {
         parent::setOptions($options);
 
-        if (!$this->options['allowipv4'] && !$this->options['allowipv6'] && !$this->options['allowipvfuture']) {
+        if (!$this->options['allow_ipv4'] && !$this->options['allow_ipv6'] && !$this->options['allow_ipv_future']) {
             throw new Exception\InvalidArgumentException('Nothing to validate. Check your options');
         }
 
         return $this;
+    }
+
+    /**
+     * @param $allowIpv4
+     * @return Ip
+     */
+    public function setAllowIpv4($allowIpv4)
+    {
+        $this->options['allow_ipv4'] = (bool)$allowIpv4;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAllowIpv4()
+    {
+        return $this->options['allow_ipv4'];
+    }
+
+    /**
+     * @param $allowIpv6
+     * @return Ip
+     */
+    public function setAllowIpv6($allowIpv6)
+    {
+        $this->options['allow_ipv6'] = (bool)$allowIpv6;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAllowIpv6()
+    {
+        return $this->options['allow_ipv6'];
+    }
+
+    /**
+     * @param $allowIpvFuture
+     * @return Ip
+     */
+    public function setAllowIpvFuture($allowIpvFuture)
+    {
+        $this->options['allow_ipv_future'] = (bool)$allowIpvFuture;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAllowIpvFuture()
+    {
+        return $this->options['allow_ipv_future'];
+    }
+
+    /**
+     * @param $allowLiteral
+     * @return Ip
+     */
+    public function setAllowLiteral($allowLiteral)
+    {
+        $this->options['allow_literal'] = (bool)$allowLiteral;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAllowLiteral()
+    {
+        return $this->options['allow_literal'];
     }
 
     /**
@@ -75,18 +147,18 @@ class Ip extends AbstractValidator
 
         $this->setValue($value);
 
-        if ($this->options['allowipv4'] && $this->validateIPv4($value)) {
+        if ($this->options['allow_ipv4'] && $this->validateIPv4($value)) {
             return true;
         } else {
-            if ((bool) $this->options['allowliteral']) {
+            if ((bool) $this->options['allow_literal']) {
                 static $regex = '/^\[(.*)\]$/';
                 if ((bool) preg_match($regex, $value, $matches)) {
                     $value = $matches[1];
                 }
             }
 
-            if (($this->options['allowipv6'] && $this->validateIPv6($value)) ||
-                ($this->options['allowipvfuture'] && $this->validateIPvFuture($value))
+            if (($this->options['allow_ipv6'] && $this->validateIPv6($value)) ||
+                ($this->options['allow_ipv_future'] && $this->validateIPvFuture($value))
             ) {
                 return true;
             }

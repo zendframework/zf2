@@ -140,6 +140,6 @@ class UriTest extends \PHPUnit_Framework_TestCase
     {
         $validator = $this->validator;
         $this->assertObjectHasAttribute('messageTemplates', $validator);
-        $this->assertAttributeEquals($validator->getOption('messageTemplates'), 'messageTemplates', $validator);
+        $this->assertAttributeEquals($validator->getOption('message_templates'), 'messageTemplates', $validator);
     }
 }

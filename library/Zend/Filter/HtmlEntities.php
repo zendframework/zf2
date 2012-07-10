@@ -52,7 +52,7 @@ class HtmlEntities extends AbstractFilter
         }
         if (!is_array($options)) {
             $options = func_get_args();
-            $temp['quotestyle'] = array_shift($options);
+            $temp['quote_style'] = array_shift($options);
             if (!empty($options)) {
                 $temp['charset'] = array_shift($options);
             }
@@ -60,8 +60,8 @@ class HtmlEntities extends AbstractFilter
             $options = $temp;
         }
 
-        if (!isset($options['quotestyle'])) {
-            $options['quotestyle'] = ENT_COMPAT;
+        if (!isset($options['quote_style'])) {
+            $options['quote_style'] = ENT_COMPAT;
         }
 
         if (!isset($options['encoding'])) {
@@ -71,13 +71,13 @@ class HtmlEntities extends AbstractFilter
             $options['encoding'] = $options['charset'];
         }
 
-        if (!isset($options['doublequote'])) {
-            $options['doublequote'] = true;
+        if (!isset($options['double_quote'])) {
+            $options['double_quote'] = true;
         }
 
-        $this->setQuoteStyle($options['quotestyle']);
+        $this->setQuoteStyle($options['quote_style']);
         $this->setEncoding($options['encoding']);
-        $this->setDoubleQuote($options['doublequote']);
+        $this->setDoubleQuote($options['double_quote']);
     }
 
     /**

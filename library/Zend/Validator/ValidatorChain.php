@@ -100,8 +100,8 @@ class ValidatorChain implements
     public function addValidator(ValidatorInterface $validator, $breakChainOnFailure = false)
     {
         $this->validators[] = array(
-            'instance'            => $validator,
-            'breakChainOnFailure' => (boolean)$breakChainOnFailure
+            'instance'               => $validator,
+            'break_chain_on_failure' => (boolean)$breakChainOnFailure
         );
         return $this;
     }
@@ -120,8 +120,8 @@ class ValidatorChain implements
     {
         array_unshift($this->validators,
                       array(
-                           'instance'            => $validator,
-                           'breakChainOnFailure' => (boolean)$breakChainOnFailure
+                           'instance'               => $validator,
+                           'break_chain_on_failure' => (boolean)$breakChainOnFailure
                       )
         );
         return $this;
@@ -178,7 +178,7 @@ class ValidatorChain implements
             $result         = false;
             $messages       = $validator->getMessages();
             $this->messages = array_merge($this->messages, $messages);
-            if ($element['breakChainOnFailure']) {
+            if ($element['break_chain_on_failure']) {
                 break;
             }
         }

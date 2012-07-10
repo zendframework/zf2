@@ -57,27 +57,27 @@ class StripTags extends AbstractFilter
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
         }
-        if ((!is_array($options)) || (is_array($options) && !array_key_exists('allowTags', $options) &&
-            !array_key_exists('allowAttribs', $options) && !array_key_exists('allowComments', $options))) {
+        if ((!is_array($options)) || (is_array($options) && !array_key_exists('allow_tags', $options) &&
+            !array_key_exists('allow_attribs', $options) && !array_key_exists('allow_comments', $options))) {
             $options = func_get_args();
-            $temp['allowTags'] = array_shift($options);
+            $temp['allow_tags'] = array_shift($options);
             if (!empty($options)) {
-                $temp['allowAttribs'] = array_shift($options);
+                $temp['allow_attribs'] = array_shift($options);
             }
 
             if (!empty($options)) {
-                $temp['allowComments'] = array_shift($options);
+                $temp['allow_comments'] = array_shift($options);
             }
 
             $options = $temp;
         }
 
-        if (array_key_exists('allowTags', $options)) {
-            $this->setTagsAllowed($options['allowTags']);
+        if (array_key_exists('allow_tags', $options)) {
+            $this->setTagsAllowed($options['allow_tags']);
         }
 
-        if (array_key_exists('allowAttribs', $options)) {
-            $this->setAttributesAllowed($options['allowAttribs']);
+        if (array_key_exists('allow_attribs', $options)) {
+            $this->setAttributesAllowed($options['allow_attribs']);
         }
     }
 

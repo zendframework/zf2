@@ -102,7 +102,7 @@ class DateTime extends Element implements InputProviderInterface
 
         return new DateStepValidator(array(
             'format'       => PhpDateTime::ISO8601,
-            'baseValue'    => $baseValue,
+            'base_value'    => $baseValue,
             'step' => new DateInterval("PT{$stepValue}M"),
         ));
     }

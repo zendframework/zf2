@@ -57,7 +57,7 @@ class Date extends DateTime
 
         return new DateStepValidator(array(
             'format'    => 'Y-m-d',
-            'baseValue' => $baseValue,
+            'base_value' => $baseValue,
             'step'      => new \DateInterval("P{$stepValue}D"),
         ));
     }

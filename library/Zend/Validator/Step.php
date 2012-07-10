@@ -50,7 +50,7 @@ class Step extends AbstractValidator
             $options = iterator_to_array($options);
         } elseif (!is_array($options)) {
             $options = func_get_args();
-            $temp['baseValue'] = array_shift($options);
+            $temp['base_value'] = array_shift($options);
             if (!empty($options)) {
                 $temp['step'] = array_shift($options);
             }
@@ -58,8 +58,8 @@ class Step extends AbstractValidator
             $options = $temp;
         }
 
-        if (isset($options['baseValue'])) {
-            $this->setBaseValue($options['baseValue']);
+        if (isset($options['base_value'])) {
+            $this->setBaseValue($options['base_value']);
         }
         if (isset($options['step'])) {
             $this->setStep($options['step']);

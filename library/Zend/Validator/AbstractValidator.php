@@ -43,12 +43,12 @@ abstract class AbstractValidator implements ValidatorInterface
     protected static $messageLength = -1;
 
     protected $abstractOptions = array(
-        'messages'           => array(),  // Array of validation failure messages
-        'messageTemplates'   => array(),  // Array of validation failure message templates
-        'messageVariables'   => array(),  // Array of additional variables available for validation failure messages
-        'translator'         => null,     // Translation object to used -> Zend\I18n\Translator\Translator
-        'translatorDisabled' => false,    // Is translation disabled?
-        'valueObscured'      => false,    // Flag indicating whether or not value should be obfuscated in error messages
+        'messages'            => array(),  // Array of validation failure messages
+        'message_templates'   => array(),  // Array of validation failure message templates
+        'message_variables'   => array(),  // Array of additional variables available for validation failure messages
+        'translator'          => null,     // Translation object to used -> Zend\I18n\Translator\Translator
+        'translator_disabled' => false,    // Is translation disabled?
+        'value_obscured'      => false,    // Flag indicating whether or not value should be obfuscated in error messages
     );
 
     /**
@@ -69,11 +69,11 @@ abstract class AbstractValidator implements ValidatorInterface
         }
 
         if (isset($this->messageTemplates)) {
-            $this->abstractOptions['messageTemplates'] = $this->messageTemplates;
+            $this->abstractOptions['message_templates'] = $this->messageTemplates;
         }
 
         if (isset($this->messageVariables)) {
-            $this->abstractOptions['messageVariables'] = $this->messageVariables;
+            $this->abstractOptions['message_variables'] = $this->messageVariables;
         }
 
         if (is_array($options)) {
@@ -129,6 +129,7 @@ abstract class AbstractValidator implements ValidatorInterface
         }
 
         foreach ($options as $name => $option) {
+            $name = str_replace(' ', '', str_replace('_', ' ', $name));
             $fname = 'set' . ucfirst($name);
             $fname2 = 'is' . ucfirst($name);
             if (($name != 'setOptions') && method_exists($this, $name)) {
@@ -175,7 +176,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function getMessageVariables()
     {
-        return array_keys($this->abstractOptions['messageVariables']);
+        return array_keys($this->abstractOptions['message_variables']);
     }
 
     /**
@@ -185,7 +186,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function getMessageTemplates()
     {
-        return $this->abstractOptions['messageTemplates'];
+        return $this->abstractOptions['message_templates'];
     }
 
     /**
@@ -199,18 +200,18 @@ abstract class AbstractValidator implements ValidatorInterface
     public function setMessage($messageString, $messageKey = null)
     {
         if ($messageKey === null) {
-            $keys = array_keys($this->abstractOptions['messageTemplates']);
+            $keys = array_keys($this->abstractOptions['message_templates']);
             foreach($keys as $key) {
                 $this->setMessage($messageString, $key);
             }
             return $this;
         }
 
-        if (!isset($this->abstractOptions['messageTemplates'][$messageKey])) {
+        if (!isset($this->abstractOptions['message_templates'][$messageKey])) {
             throw new InvalidArgumentException("No message template exists for key '$messageKey'");
         }
 
-        $this->abstractOptions['messageTemplates'][$messageKey] = $messageString;
+        $this->abstractOptions['message_templates'][$messageKey] = $messageString;
         return $this;
     }
 
@@ -243,8 +244,8 @@ abstract class AbstractValidator implements ValidatorInterface
             return $this->value;
         }
 
-        if (array_key_exists($property, $this->abstractOptions['messageVariables'])) {
-            $result = $this->abstractOptions['messageVariables'][$property];
+        if (array_key_exists($property, $this->abstractOptions['message_variables'])) {
+            $result = $this->abstractOptions['message_variables'][$property];
             if (is_array($result)) {
                 $result = $this->{key($result)}[current($result)];
             } else {
@@ -280,11 +281,11 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     protected function createMessage($messageKey, $value)
     {
-        if (!isset($this->abstractOptions['messageTemplates'][$messageKey])) {
+        if (!isset($this->abstractOptions['message_templates'][$messageKey])) {
             return null;
         }
 
-        $message = $this->abstractOptions['messageTemplates'][$messageKey];
+        $message = $this->abstractOptions['message_templates'][$messageKey];
 
         $message = $this->translateMessage($messageKey, $message);
 
@@ -303,7 +304,7 @@ abstract class AbstractValidator implements ValidatorInterface
         }
 
         $message = str_replace('%value%', (string) $value, $message);
-        foreach ($this->abstractOptions['messageVariables'] as $ident => $property) {
+        foreach ($this->abstractOptions['message_variables'] as $ident => $property) {
             if (is_array($property)) {
                 $value = $this->{key($property)}[current($property)];
                 if (is_array($value)) {
@@ -331,7 +332,7 @@ abstract class AbstractValidator implements ValidatorInterface
     protected function error($messageKey, $value = null)
     {
         if ($messageKey === null) {
-            $keys = array_keys($this->abstractOptions['messageTemplates']);
+            $keys = array_keys($this->abstractOptions['message_templates']);
             $messageKey = current($keys);
         }
 
@@ -372,7 +373,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function setValueObscured($flag)
     {
-        $this->abstractOptions['valueObscured'] = (bool) $flag;
+        $this->abstractOptions['value_obscured'] = (bool) $flag;
         return $this;
     }
 
@@ -384,7 +385,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function isValueObscured()
     {
-        return $this->abstractOptions['valueObscured'];
+        return $this->abstractOptions['value_obscured'];
     }
 
     /**
@@ -468,7 +469,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function setTranslatorDisabled($flag)
     {
-        $this->abstractOptions['translatorDisabled'] = (bool) $flag;
+        $this->abstractOptions['translator_disabled'] = (bool) $flag;
         return $this;
     }
 
@@ -479,7 +480,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function isTranslatorDisabled()
     {
-        return $this->abstractOptions['translatorDisabled'];
+        return $this->abstractOptions['translator_disabled'];
     }
 
     /**

@@ -69,11 +69,11 @@ class Inflector extends AbstractFilter
             }
 
             if (!empty($options)) {
-                $temp['throwTargetExceptionsOn'] = array_shift($options);
+                $temp['throw_target_exceptions_on'] = array_shift($options);
             }
 
             if (!empty($options)) {
-                $temp['targetReplacementIdentifier'] = array_shift($options);
+                $temp['target_replacement_identifier'] = array_shift($options);
             }
 
             $options = $temp;
@@ -121,19 +121,19 @@ class Inflector extends AbstractFilter
         }
 
         // Set plugin manager
-        if (array_key_exists('pluginManager', $options)) {
-            if (is_scalar($options['pluginManager']) && class_exists($options['pluginManager'])) {
-                $options['pluginManager'] = new $options['pluginManager'];
+        if (array_key_exists('plugin_manager', $options)) {
+            if (is_scalar($options['plugin_manager']) && class_exists($options['plugin_manager'])) {
+                $options['plugin_manager'] = new $options['plugin_manager'];
             }
-            $this->setPluginManager($options['pluginManager']);
+            $this->setPluginManager($options['plugin_manager']);
         }
 
-        if (array_key_exists('throwTargetExceptionsOn', $options)) {
-            $this->setThrowTargetExceptionsOn($options['throwTargetExceptionsOn']);
+        if (array_key_exists('throw_target_exceptions_on', $options)) {
+            $this->setThrowTargetExceptionsOn($options['throw_target_exceptions_on']);
         }
 
-        if (array_key_exists('targetReplacementIdentifier', $options)) {
-            $this->setTargetReplacementIdentifier($options['targetReplacementIdentifier']);
+        if (array_key_exists('target_replacement_identifier', $options)) {
+            $this->setTargetReplacementIdentifier($options['target_replacement_identifier']);
         }
 
         if (array_key_exists('target', $options)) {

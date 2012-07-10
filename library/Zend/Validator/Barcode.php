@@ -40,10 +40,10 @@ class Barcode extends AbstractValidator
     );
 
     protected $options = array(
-        'adapter'     => null,  // Barcode adapter Zend\Validator\Barcode\AbstractAdapter
-        'options'     => null,  // Options for this adapter
-        'length'      => null,
-        'useChecksum' => null,
+        'adapter'      => null,  // Barcode adapter Zend\Validator\Barcode\AbstractAdapter
+        'options'      => null,  // Options for this adapter
+        'length'       => null,
+        'use_checksum' => null,
     );
 
     /**
