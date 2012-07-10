@@ -69,7 +69,7 @@ class CollectionTest extends TestCase
 
     public function testCanValidateFormWithCollectionWithoutTemplate()
     {
-        $this->form->setData(array(
+        $data = array(
             'colors' => array(
                 '#ffffff',
                 '#ffffff'
@@ -88,9 +88,12 @@ class CollectionTest extends TestCase
                     )
                 )
             )
-        ));
+        );
+
+        $this->form->setData($data);
 
         $this->assertEquals(true, $this->form->isValid());
+        $this->assertEquals($data, $this->form->getData());
     }
 
     public function testCanValidateFormWithCollectionWithTemplate()
