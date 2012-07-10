@@ -11,6 +11,7 @@
 namespace Zend\Form;
 
 use Traversable;
+use Zend\I18n\Translator\Translator;
 use Zend\Stdlib\ArrayUtils;
 
 /**
@@ -38,6 +39,31 @@ class Element implements ElementInterface
      * @var array Validation error messages
      */
     protected $messages = array();
+
+    /**
+     * Default translation object for all element labels
+     * and default validators.
+     * @var Translator
+     */
+    protected static $defaultTranslator;
+
+    /**
+     * Translation object to use for label/validator translation
+     * @var Translator
+     */
+    protected $translator;
+
+    /**
+     * Translation text domain to use for translations
+     * @var string
+     */
+    protected $translatorTextDomain = 'default';
+
+    /**
+     * Is translation disabled?
+     * @var boolean
+     */
+    protected $translatorDisabled = false;
 
 
     /**
@@ -103,6 +129,16 @@ class Element implements ElementInterface
 
         if (isset($options['label_attributes'])) {
             $this->setLabelAttributes($options['label_attributes']);
+        }
+
+        if (isset($options['translator'])) {
+            $this->setTranslator($options['translator']);
+        }
+        if (isset($options['translator_text_domain'])) {
+            $this->setTranslatorTextDomain($options['translator_text_domain']);
+        }
+        if (isset($options['translator_disabled'])) {
+            $this->setTranslatorDisabled($options['translator_disabled']);
         }
 
         return $this;
@@ -212,7 +248,14 @@ class Element implements ElementInterface
      */
     public function getLabel()
     {
-        return $this->label;
+        $translator = $this->getTranslator();
+        if (!$translator) {
+            return $this->label;
+        }
+
+        return $translator->translate(
+            $this->label, $this->getTranslatorTextDomain()
+        );
     }
 
     /**
@@ -268,5 +311,120 @@ class Element implements ElementInterface
     public function getMessages()
     {
         return $this->messages;
+    }
+
+    /**
+     * Set translation object
+     *
+     * @param  Translator|null $translator
+     * @return Element
+     */
+    public function setTranslator(Translator $translator = null)
+    {
+        $this->translator = $translator;
+        return $this;
+    }
+
+    /**
+     * Return translation object
+     *
+     * @return Translator|null
+     */
+    public function getTranslator()
+    {
+        if ($this->isTranslatorDisabled()) {
+            return null;
+        }
+
+        if (null === $this->translator) {
+            return self::getDefaultTranslator();
+        }
+
+        return $this->translator;
+    }
+
+    /**
+     * Does this validator have its own specific translator?
+     *
+     * @return bool
+     */
+    public function hasTranslator()
+    {
+        return (bool)$this->translator;
+    }
+
+    /**
+     * Set translation text domain
+     *
+     * @param  string $textDomain
+     * @return Element
+     */
+    public function setTranslatorTextDomain($textDomain = 'default')
+    {
+        $this->translatorTextDomain = $textDomain;
+        return $this;
+    }
+
+    /**
+     * Return the translation text domain
+     *
+     * @return string
+     */
+    public function getTranslatorTextDomain()
+    {
+        return $this->translatorTextDomain;
+    }
+
+    /**
+     * Set default translation object for all validate objects
+     *
+     * @param  Translator|null $translator
+     * @return void
+     */
+    public static function setDefaultTranslator(Translator $translator = null)
+    {
+        self::$defaultTranslator = $translator;
+    }
+
+    /**
+     * Get default translation object for all validate objects
+     *
+     * @return Translator|null
+     */
+    public static function getDefaultTranslator()
+    {
+        return self::$defaultTranslator;
+    }
+
+    /**
+     * Is there a default translation object set?
+     *
+     * @return boolean
+     */
+    public static function hasDefaultTranslator()
+    {
+        return (bool) self::$defaultTranslator;
+    }
+
+    /**
+     * Indicate whether or not translation should be disabled
+     *
+     * @param  bool $flag
+     * @return Element
+     */
+    public function setTranslatorDisabled($flag)
+    {
+        $this->translatorDisabled = (bool) $flag;
+        return $this;
+    }
+
+    /**
+     * Is translation disabled?
+     *
+     * @return bool
+     */
+    public function isTranslatorDisabled()
+    {
+        return $this->translatorDisabled;
     }
 }
