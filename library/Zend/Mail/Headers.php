@@ -34,6 +34,23 @@ class Headers implements Countable, Iterator
     const FOLDING = "\r\n ";
 
     /**
+     * Enable strict mode when parse raw values to headers.
+     * This means that the function stops when an error in the header format is found.
+     *
+     * @see PARSE_MODE_IGNORE
+     * @var boolean
+     */
+    const PARSE_MODE_STRICT = true;
+
+    /**
+     * Try to ignore errors in the header format when parse raw values to headers.
+     *
+     * @see PARSE_MODE_STRICT
+     * @var boolean
+     */
+    const PARSE_MODE_IGNORE = false;
+
+    /**
      * @var \Zend\Loader\PluginClassLoader
      */
     protected $pluginClassLoader = null;
@@ -64,10 +81,13 @@ class Headers implements Countable, Iterator
      *
      * @param  string $string
      * @param  string $EOL EOL string; defaults to {@link EOL}
-     * @throws Exception\RuntimeException
+     * @param  bool   $parseMode Specify the parse mode. Default {@link PARSE_MODE_STRICT}
      * @return Headers
+     * @throws Exception\UnexpectedValueException when a line does not match header format and PARSE_MODE_STRICT is enable
+     * @see PARSE_MODE_STRICT
+     * @see PARSE_MODE_IGNORE
      */
-    public static function fromString($string, $EOL = self::EOL)
+    public static function fromString($string, $EOL = self::EOL, $parseMode = self::PARSE_MODE_STRICT)
     {
         $headers     = new static();
         $currentLine = '';
@@ -87,10 +107,10 @@ class Headers implements Countable, Iterator
             } elseif (preg_match('/^\s*$/', $line)) {
                 // empty line indicates end of headers
                 break;
-            } else {
+            } elseif (self::PARSE_MODE_STRICT === $parseMode) {
                 // Line does not match header format!
-                throw new Exception\RuntimeException(sprintf(
-                    'Line "%s"does not match header format!',
+                throw new Exception\UnexpectedValueException(sprintf(
+                    'Line "%s"does not match header format',
                     $line
                 ));
             }
@@ -114,7 +134,7 @@ class Headers implements Countable, Iterator
     }
 
     /**
-     * Return an instance of a PluginClassLocator, lazyload and inject map if necessary
+     * Return an instance of a PluginClassLocator, lazy load and inject map if necessary
      *
      * @return PluginClassLocator
      */
@@ -154,7 +174,15 @@ class Headers implements Countable, Iterator
     /**
      * Add many headers at once
      *
-     * Expects an array (or Traversable object) of type/value pairs.
+     * Expects an array (or Traversable object) of type/value pairs with the following formats:
+     *
+     *       Type           |      Value
+     * - Key(int)          => HeaderLine(string)
+     * - Key(int)          => Value(array){FieldValue}
+     * - Key(int)          => Value(array){FieldName, FieldValue}
+     * - Key(int)          => Value(string)
+     * - Key(int)          => HeaderInterface
+     * - FieldName(string) => FieldValue(string)
      *
      * @param  array|Traversable $headers
      * @throws Exception\InvalidArgumentException
