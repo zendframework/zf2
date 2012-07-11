@@ -18,7 +18,7 @@ if (class_exists('Zend\Loader\AutoloaderFactory')) return;
  * @category   Zend
  * @package    Zend_Loader
  */
-abstract class AutoloaderFactory
+class AutoloaderFactory
 {
     const STANDARD_AUTOLOADER = 'Zend\Loader\StandardAutoloader';
 

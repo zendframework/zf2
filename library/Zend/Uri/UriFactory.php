@@ -25,7 +25,7 @@ use Zend\Uri\Uri;
  * @category  Zend
  * @package   Zend_Uri
  */
-abstract class UriFactory
+class UriFactory
 {
     /**
      * Registered scheme-specific classes

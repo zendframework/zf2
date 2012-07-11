@@ -17,7 +17,7 @@ use Zend\Stdlib\ArrayUtils;
  * @category   Zend
  * @package    Zend_Captcha
  */
-abstract class Factory
+class Factory
 {
     /**
      * @var array Known captcha types
@@ -79,8 +79,9 @@ abstract class Factory
 
         if (!$captcha instanceof AdapterInterface) {
             throw new Exception\DomainException(sprintf(
-                '%s expects the "class" attribute to resolve to a valid Zend\Captcha\AdapterInterface instance; received "%s"',
+                '%s expects the "class" attribute to resolve to a valid %s\AdapterInterface instance; received "%s"',
                 __METHOD__,
+                __NAMESPACE__,
                 $class
             ));
         }

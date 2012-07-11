@@ -17,13 +17,14 @@ use Traversable;
  * @package    Zend_Feed
  * @subpackage Writer
  */
-abstract class FeedFactory
+class FeedFactory
 {
     /**
      * Create and return a Feed based on data provided.
      * 
-     * @param  array|\Traversable $data
+     * @param  array|Traversable $data
      * @return Feed
+     * @throws Exception\InvalidArgumentException
      */
     public static function factory($data)
     {
@@ -89,6 +90,7 @@ abstract class FeedFactory
      * @param  array|Traversable $entries 
      * @param  Feed $feed 
      * @return void
+     * @throws Exception\InvalidArgumentException
      */
     protected static function createEntries($entries, Feed $feed)
     {
