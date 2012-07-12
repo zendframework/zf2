@@ -694,7 +694,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -750,7 +750,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -817,7 +817,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -879,7 +879,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -945,7 +945,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -1008,7 +1008,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -1077,7 +1077,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -1144,7 +1144,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -1208,7 +1208,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -1371,7 +1371,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -1441,7 +1441,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -1508,7 +1508,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
@@ -1578,7 +1578,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             }
 
             if ($ttl !== null) {
-                $temp = $this->getOptions->getTtl();
+                $temp = $this->getOptions()->getTtl();
                 $this->getOptions()->setTtl($ttl);
             }
 
