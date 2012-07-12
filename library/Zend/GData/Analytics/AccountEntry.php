@@ -26,7 +26,7 @@ class AccountEntry extends GData\Entry
     protected $_currency;
     protected $_timezone;
     protected $_tableId;
-	protected $_profileName;
+    protected $_profileName;
     protected $_goal;
 
     /**
@@ -45,8 +45,6 @@ class AccountEntry extends GData\Entry
     protected function takeChildFromDOM($child)
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
-        var_dump($absoluteNodeName);
-        var_dump($this->lookupNamespace('ga') . ':' . 'goal');
         switch ($absoluteNodeName){
             case $this->lookupNamespace('analytics') . ':' . 'property';
                 $property = new Extension\Property();
@@ -58,13 +56,13 @@ class AccountEntry extends GData\Entry
                 $tableId->transferFromDOM($child);
                 $this->_tableId = $tableId;
                 break;
-        	case $this->lookupNamespace('ga') . ':' . 'goal';
-	            $goal = new Extension\Goal();
-	            $goal->transferFromDOM($child);
-	            $this->_goal = $goal;
+            case $this->lookupNamespace('ga') . ':' . 'goal';
+                $goal = new Extension\Goal();
+                $goal->transferFromDOM($child);
+                $this->_goal = $goal;
                 break;
-        	default:
-            	parent::takeChildFromDOM($child);
+            default:
+                parent::takeChildFromDOM($child);
                 break;
         }
     }
