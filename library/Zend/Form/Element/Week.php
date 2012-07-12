@@ -49,8 +49,10 @@ class Week extends DateTime
      */
     protected function getStepValidator()
     {
-        $stepValue = (isset($this->attributes['step'])) ?: 1; // Weeks
-        $baseValue = (isset($this->attributes['min']))  ?: '1970-W01';
+        $stepValue = (isset($this->attributes['step']))
+                     ? $this->attributes['step'] : 1; // Weeks
+        $baseValue = (isset($this->attributes['min']))
+                     ? $this->attributes['min'] : '1970-W01';
 
         return new DateStepValidator(array(
             'format'    => 'Y-\WW',

@@ -94,8 +94,10 @@ class DateTime extends Element implements InputProviderInterface
      */
     protected function getStepValidator()
     {
-        $stepValue = (isset($this->attributes['step'])) ?: 1; // Minutes
-        $baseValue = (isset($this->attributes['min']))  ?: '1970-01-01T00:00:00Z';
+        $stepValue = (isset($this->attributes['step']))
+                     ? $this->attributes['step'] : 1; // Minutes
+        $baseValue = (isset($this->attributes['min']))
+                     ? $this->attributes['min'] : '1970-01-01T00:00:00Z';
 
         return new DateStepValidator(array(
             'format'    => PhpDateTime::ISO8601,
