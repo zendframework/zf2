@@ -97,10 +97,11 @@ interface StorageInterface
      *
      * @param  string $key
      * @param  mixed  $value
+     * @param  int    $specificTtl
      * @return boolean
      * @throws \Zend\Cache\Exception\ExceptionInterface
      */
-    public function setItem($key, $value);
+    public function setItem($key, $value, $specificTtl = null);
 
     /**
      * Store multiple items.

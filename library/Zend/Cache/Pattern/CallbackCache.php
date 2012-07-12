@@ -42,10 +42,11 @@ class CallbackCache extends AbstractPattern
      *
      * @param  callback   $callback  A valid callback
      * @param  array      $args      Callback arguments
+     * @param  int        $ttl       Optional specific TTL
      * @return mixed Result
      * @throws Exception
      */
-    public function call($callback, array $args = array())
+    public function call($callback, array $args = array(), $ttl = null)
     {
         $options = $this->getOptions();
         $storage = $options->getStorage();
@@ -88,7 +89,7 @@ class CallbackCache extends AbstractPattern
             $data = array($ret);
         }
 
-        $storage->setItem($key, $data);
+        $storage->setItem($key, $data, $ttl);
 
         return $ret;
     }

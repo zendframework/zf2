@@ -42,10 +42,11 @@ class ClassCache extends CallbackCache
      *
      * @param  string $method  Method name to call
      * @param  array  $args    Method arguments
+     * @param  int    $ttl
      * @return mixed
      * @throws Exception
      */
-    public function call($method, array $args = array())
+    public function call($method, array $args = array(), $ttl = null)
     {
         $options   = $this->getOptions();
         $classname = $options->getClass();
@@ -67,7 +68,7 @@ class ClassCache extends CallbackCache
             }
         }
 
-        return parent::call($callback, $args);
+        return parent::call($callback, $args, $ttl);
     }
 
     /**

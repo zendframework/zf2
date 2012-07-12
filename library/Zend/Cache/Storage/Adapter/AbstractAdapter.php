@@ -667,6 +667,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      *
      * @param  string $key
      * @param  mixed  $value
+     * @param  int    $ttl
      * @return boolean
      * @throws Exception\ExceptionInterface
      *
@@ -674,7 +675,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers setItem.post(PostEvent)
      * @triggers setItem.exception(ExceptionEvent)
      */
-    public function setItem($key, $value)
+    public function setItem($key, $value, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return false;
@@ -692,7 +693,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalSetItem($args['key'], $args['value']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = false;
@@ -721,7 +732,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers setItems.post(PostEvent)
      * @triggers setItems.exception(ExceptionEvent)
      */
-    public function setItems(array $keyValuePairs)
+    public function setItems(array $keyValuePairs, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return array_keys($keyValuePairs);
@@ -738,7 +749,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalSetItems($args['keyValuePairs']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = array_keys($keyValuePairs);
@@ -777,7 +798,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers addItem.post(PostEvent)
      * @triggers addItem.exception(ExceptionEvent)
      */
-    public function addItem($key, $value)
+    public function addItem($key, $value, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return false;
@@ -795,7 +816,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalAddItem($args['key'], $args['value']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = false;
@@ -830,7 +861,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers addItems.post(PostEvent)
      * @triggers addItems.exception(ExceptionEvent)
      */
-    public function addItems(array $keyValuePairs)
+    public function addItems(array $keyValuePairs, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return array_keys($keyValuePairs);
@@ -847,7 +878,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalAddItems($args['keyValuePairs']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = array_keys($keyValuePairs);
@@ -885,7 +926,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers replaceItem.post(PostEvent)
      * @triggers replaceItem.exception(ExceptionEvent)
      */
-    public function replaceItem($key, $value)
+    public function replaceItem($key, $value, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return false;
@@ -903,7 +944,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalReplaceItem($args['key'], $args['value']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = false;
@@ -939,7 +990,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers replaceItems.post(PostEvent)
      * @triggers replaceItems.exception(ExceptionEvent)
      */
-    public function replaceItems(array $keyValuePairs)
+    public function replaceItems(array $keyValuePairs, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return array_keys($keyValuePairs);
@@ -956,7 +1007,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalReplaceItems($args['keyValuePairs']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = array_keys($keyValuePairs);
@@ -996,7 +1057,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @see    getItem()
      * @see    setItem()
      */
-    public function checkAndSetItem($token, $key, $value)
+    public function checkAndSetItem($token, $key, $value, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return false;
@@ -1015,7 +1076,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalCheckAndSetItem($args['token'], $args['key'], $args['value']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = false;
@@ -1055,7 +1126,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers touchItem.post(PostEvent)
      * @triggers touchItem.exception(ExceptionEvent)
      */
-    public function touchItem($key)
+    public function touchItem($key, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return false;
@@ -1072,7 +1143,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalTouchItem($args['key']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = false;
@@ -1109,7 +1190,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers touchItems.post(PostEvent)
      * @triggers touchItems.exception(ExceptionEvent)
      */
-    public function touchItems(array $keys)
+    public function touchItems(array $keys, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return $keys;
@@ -1126,7 +1207,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalTouchItems($args['keys']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             return $this->triggerException(__FUNCTION__, $args, $keys, $e);
@@ -1261,7 +1352,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers incrementItem.post(PostEvent)
      * @triggers incrementItem.exception(ExceptionEvent)
      */
-    public function incrementItem($key, $value)
+    public function incrementItem($key, $value, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return false;
@@ -1279,7 +1370,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalIncrementItem($args['key'], $args['value']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = false;
@@ -1322,7 +1423,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers incrementItems.post(PostEvent)
      * @triggers incrementItems.exception(ExceptionEvent)
      */
-    public function incrementItems(array $keyValuePairs)
+    public function incrementItems(array $keyValuePairs, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return array();
@@ -1339,7 +1440,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalIncrementItems($args['keyValuePairs']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = array();
@@ -1378,7 +1489,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers decrementItem.post(PostEvent)
      * @triggers decrementItem.exception(ExceptionEvent)
      */
-    public function decrementItem($key, $value)
+    public function decrementItem($key, $value, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return false;
@@ -1396,7 +1507,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalDecrementItem($args['key'], $args['value']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = false;
@@ -1439,7 +1560,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers incrementItems.post(PostEvent)
      * @triggers incrementItems.exception(ExceptionEvent)
      */
-    public function decrementItems(array $keyValuePairs)
+    public function decrementItems(array $keyValuePairs, $ttl = null)
     {
         if (!$this->getOptions()->getWritable()) {
             return array();
@@ -1456,7 +1577,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
                 return $eventRs->last();
             }
 
+            if ($ttl !== null) {
+                $temp = $this->getOptions()->getTtl();
+                $this->getOptions()->setTtl($ttl);
+            }
+
             $result = $this->internalDecrementItems($args['keyValuePairs']);
+
+            if ($ttl !== null) {
+                $this->getOptions()->setTtl($temp);
+            }
+
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
             $result = array();
