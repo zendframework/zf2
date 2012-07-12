@@ -38,11 +38,8 @@ class DateTimeLocal extends DateTime
      */
     protected function getStepValidator()
     {
-        $stepValue = (isset($this->attributes['step']))
-                     ? $this->attributes['step'] : 1; // Minutes
-
-        $baseValue = (isset($this->attributes['min']))
-                     ? $this->attributes['min'] : '1970-01-01T00:00:00';
+        $stepValue = (isset($this->attributes['step'])) ?: 1; // Minutes
+        $baseValue = (isset($this->attributes['min']))  ?: '1970-01-01T00:00:00';
 
         return new DateStepValidator(array(
             'format'    => \DateTime::ISO8601,

@@ -112,9 +112,9 @@ class Csrf extends Element implements InputProviderInterface, ElementPrepareAwar
     public function getInputSpecification()
     {
         return array(
-            'name' => $this->getName(),
+            'name'     => $this->getName(),
             'required' => true,
-            'filters' => array(
+            'filters'  => array(
                 array('name' => 'Zend\Filter\StringTrim'),
             ),
             'validators' => array(

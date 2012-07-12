@@ -59,9 +59,9 @@ class Color extends Element implements InputProviderInterface
     public function getInputSpecification()
     {
         return array(
-            'name' => $this->getName(),
+            'name'     => $this->getName(),
             'required' => true,
-            'filters' => array(
+            'filters'  => array(
                 array('name' => 'Zend\Filter\StringTrim'),
                 array('name' => 'Zend\Filter\StringToLower'),
             ),

@@ -32,7 +32,7 @@ class Captcha extends Element implements InputProviderInterface
      * Accepted options for Captcha:
      * - captcha: a valid Zend\Captcha\AdapterInterface
      *
-     * @param array|\Traversable $options
+     * @param  array|\Traversable $options
      * @return Captcha
      */
     public function setOptions($options)
@@ -88,9 +88,9 @@ class Captcha extends Element implements InputProviderInterface
     public function getInputSpecification()
     {
         $spec = array(
-            'name' => $this->getName(),
+            'name'     => $this->getName(),
             'required' => true,
-            'filters' => array(
+            'filters'  => array(
                 array('name' => 'Zend\Filter\StringTrim'),
             ),
         );

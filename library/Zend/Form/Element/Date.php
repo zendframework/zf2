@@ -49,11 +49,8 @@ class Date extends DateTime
      */
     protected function getStepValidator()
     {
-        $stepValue = (isset($this->attributes['step']))
-                     ? $this->attributes['step'] : 1; // Days
-
-        $baseValue = (isset($this->attributes['min']))
-                     ? $this->attributes['min'] : '1970-01-01';
+        $stepValue = (isset($this->attributes['step'])) ?: 1; // Days
+        $baseValue = (isset($this->attributes['min']))  ?: '1970-01-01';
 
         return new DateStepValidator(array(
             'format'    => 'Y-m-d',
