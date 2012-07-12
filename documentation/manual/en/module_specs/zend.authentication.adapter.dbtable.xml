@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="zend.authentication.adapter.dbtable"><title>Database Table Authentication</title>
-    
+
 
     <section xml:id="zend.authentication.adapter.dbtable.introduction"><title>Introduction</title>
-        
+
 
         <para>
             <classname>Zend\Authentication\Adapter\DbTable</classname> provides the ability to
@@ -67,7 +67,7 @@
         </itemizedlist>
 
         <example xml:id="zend.authentication.adapter.dbtable.introduction.example.basic_usage"><title>Basic Usage</title>
-            
+
 
             <para>
                 As explained in the introduction, the
@@ -192,7 +192,7 @@ Array
     </section>
 
     <section xml:id="zend.authentication.adapter.dbtable.advanced.storing_result_row"><title>Advanced Usage: Persisting a DbTable Result Object</title>
-        
+
 
         <para>
             By default, <classname>Zend\Authentication\Adapter\DbTable</classname> returns the
@@ -236,7 +236,7 @@ if ($result->isValid()) {
     </section>
 
     <section xml:id="zend.authentication.adapter.dbtable.advanced.advanced_usage"><title>Advanced Usage By Example</title>
-        
+
 
         <para>
             While the primary purpose of the <classname>Zend\Authentication</classname> component (and consequently
@@ -313,7 +313,7 @@ $adapter = new AuthAdapter($db,
                            'username',
                            'password',
                            "MD5(CONCAT('"
-                                . Zend\Registry::get('staticSalt')
+                                . $saltString
                                 . "', ?, password_salt))"
                           );
 ]]></programlisting>
