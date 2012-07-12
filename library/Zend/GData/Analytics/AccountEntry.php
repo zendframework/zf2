@@ -26,6 +26,8 @@ class AccountEntry extends GData\Entry
     protected $_currency;
     protected $_timezone;
     protected $_tableId;
+	protected $_profileName;
+    protected $_goal;
 
     /**
      * @see Zend_Gdata_Entry::__construct()
@@ -43,19 +45,26 @@ class AccountEntry extends GData\Entry
     protected function takeChildFromDOM($child)
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
+        var_dump($absoluteNodeName);
+        var_dump($this->lookupNamespace('ga') . ':' . 'goal');
         switch ($absoluteNodeName){
-            case $this->lookupNamespace('ga') . ':' . 'property';
+            case $this->lookupNamespace('analytics') . ':' . 'property';
                 $property = new Extension\Property();
                 $property->transferFromDOM($child);
                 $this->{$property->getName()} = $property;
                 break;
-            case $this->lookupNamespace('ga') . ':' . 'tableId';
+            case $this->lookupNamespace('analytics') . ':' . 'tableId';
                 $tableId = new Extension\TableId();
                 $tableId->transferFromDOM($child);
                 $this->_tableId = $tableId;
                 break;
-            default:
-                parent::takeChildFromDOM($child);
+        	case $this->lookupNamespace('ga') . ':' . 'goal';
+	            $goal = new Extension\Goal();
+	            $goal->transferFromDOM($child);
+	            $this->_goal = $goal;
+                break;
+        	default:
+            	parent::takeChildFromDOM($child);
                 break;
         }
     }
