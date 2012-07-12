@@ -51,7 +51,6 @@ class Date extends DateTime
     {
         $stepValue = (isset($this->attributes['step']))
                      ? $this->attributes['step'] : 1; // Days
-
         $baseValue = (isset($this->attributes['min']))
                      ? $this->attributes['min'] : '1970-01-01';
 

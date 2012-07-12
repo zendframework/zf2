@@ -51,7 +51,6 @@ class Month extends DateTime
     {
         $stepValue = (isset($this->attributes['step']))
                      ? $this->attributes['step'] : 1; // Months
-
         $baseValue = (isset($this->attributes['min']))
                      ? $this->attributes['min'] : '1970-01';
 

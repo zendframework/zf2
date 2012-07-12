@@ -76,8 +76,8 @@ class Select extends Element
     public function getInputSpecification()
     {
         $spec = array(
-            'name' => $this->getName(),
-            'required' => true,
+            'name'       => $this->getName(),
+            'required'   => true,
             'validators' => array(
                 $this->getValidator()
             )

@@ -96,7 +96,6 @@ class DateTime extends Element implements InputProviderInterface
     {
         $stepValue = (isset($this->attributes['step']))
                      ? $this->attributes['step'] : 1; // Minutes
-
         $baseValue = (isset($this->attributes['min']))
                      ? $this->attributes['min'] : '1970-01-01T00:00:00Z';
 
@@ -117,9 +116,9 @@ class DateTime extends Element implements InputProviderInterface
     public function getInputSpecification()
     {
         return array(
-            'name' => $this->getName(),
+            'name'     => $this->getName(),
             'required' => true,
-            'filters' => array(
+            'filters'  => array(
                 array('name' => 'Zend\Filter\StringTrim'),
             ),
             'validators' => $this->getValidators(),

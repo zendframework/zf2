@@ -83,7 +83,7 @@ class Collection extends Fieldset
      * - should_create_template: if set to true, a template is generated (inside a <span>)
      * - template_placeholder: placeholder used in the data template
      *
-     * @param array|\Traversable $options
+     * @param  array|\Traversable $options
      * @return Collection
      */
     public function setOptions($options)
@@ -130,7 +130,6 @@ class Collection extends Fieldset
 
         // Can't do anything with empty data
         if (empty($data)) {
-
             return;
         }
 
@@ -166,7 +165,7 @@ class Collection extends Fieldset
     /**
      * Bind values to the object
      *
-     * @param array $values
+     * @param  array $values
      * @return array|mixed|void
      */
     public function bindValues(array $values = array())
@@ -188,7 +187,7 @@ class Collection extends Fieldset
     /**
      * Set the initial count of target element
      *
-     * @param $count
+     * @param  $count
      * @return Collection
      */
     public function setCount($count)
@@ -210,7 +209,7 @@ class Collection extends Fieldset
     /**
      * Set the target element
      *
-     * @param ElementInterface|array|Traversable $elementOrFieldset
+     * @param  ElementInterface|array|Traversable $elementOrFieldset
      * @return Collection
      * @throws \Zend\Form\Exception\InvalidArgumentException
      */
@@ -250,12 +249,12 @@ class Collection extends Fieldset
     /**
      * Get allow add
      *
-     * @param bool $allowAdd
+     * @param  bool $allowAdd
      * @return Collection
      */
     public function setAllowAdd($allowAdd)
     {
-        $this->allowAdd = (bool)$allowAdd;
+        $this->allowAdd = (bool) $allowAdd;
         return $this;
     }
 
@@ -272,12 +271,12 @@ class Collection extends Fieldset
     /**
      * If set to true, a template prototype is automatically added to the form to ease the creation of dynamic elements through JavaScript
      *
-     * @param bool $shouldCreateTemplate
+     * @param  bool $shouldCreateTemplate
      * @return Collection
      */
     public function setShouldCreateTemplate($shouldCreateTemplate)
     {
-        $this->shouldCreateTemplate = (bool)$shouldCreateTemplate;
+        $this->shouldCreateTemplate = (bool) $shouldCreateTemplate;
 
         return $this;
     }
@@ -334,7 +333,7 @@ class Collection extends Fieldset
     /**
      * Prepare the collection by adding a dummy template element if the user want one
      *
-     * @param Form $form
+     * @param  Form $form
      * @return mixed|void
      */
     public function prepareElement(Form $form)
