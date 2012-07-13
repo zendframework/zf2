@@ -45,12 +45,12 @@ class DataEntry extends GData\Entry
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-            case $this->lookupNamespace('ga') . ':' . 'dimension';
+            case $this->lookupNamespace('analytics') . ':' . 'dimension';
                 $dimension = new Extension\Dimension();
                 $dimension->transferFromDOM($child);
                 $this->_dimensions[] = $dimension;
                 break;
-            case $this->lookupNamespace('ga') . ':' . 'metric';
+            case $this->lookupNamespace('analytics') . ':' . 'metric';
                 $metric = new Extension\Metric();
                 $metric->transferFromDOM($child);
                 $this->_metrics[] = $metric;
