@@ -22,16 +22,15 @@ class Goal extends GData\Extension
     protected $_rootNamespace = 'ga';
     protected $_rootElement = 'goal';
 
-    /**
-     * Constructs a new Zend_Gdata_Calendar_Extension_Timezone object.
-     * @param string $value (optional) The text content of the element.
-     */
-    public function __construct($value = null)
+    public function __construct()
     {
         $this->registerAllNamespaces(GData\Analytics::$namespaces);
         parent::__construct();
     }
     
+    /**
+     * @return string
+     */
     public function __toString()
     {
         $attribs = $this->getExtensionAttributes();

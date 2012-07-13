@@ -17,11 +17,11 @@ namespace Zend\GData;
  */
 class Analytics extends GData
 {
-	const AUTH_SERVICE_NAME = 'analytics';
-	const ANALYTICS_FEED_URI = 'https://www.googleapis.com/analytics/v2.4/data'; 
-	const ANALYTICS_ACCOUNT_FEED_URI = 'https://www.googleapis.com/analytics/v2.4/management/accounts';
+    const AUTH_SERVICE_NAME = 'analytics';
+    const ANALYTICS_FEED_URI = 'https://www.googleapis.com/analytics/v2.4/data'; 
+    const ANALYTICS_ACCOUNT_FEED_URI = 'https://www.googleapis.com/analytics/v2.4/management/accounts';
 
-	public static $namespaces = array(
+    public static $namespaces = array(
         array('analytics', 'http://schemas.google.com/analytics/2009', 1, 0),
         array('ga', 'http://schemas.google.com/ga/2009', 1, 0)
     );
@@ -33,7 +33,7 @@ class Analytics extends GData
      * @param string $applicationId The identity of the app in the form of
      *          Company-AppName-Version
      */
-    public function __construct($client = null, $applicationId = 'MyCompany-MyApp-1.0')
+    public function __construct(Client $client = null, $applicationId = 'MyCompany-MyApp-1.0')
     {
         $this->registerPackage('Zend\Gdata\Analytics');
         $this->registerPackage('Zend\Gdata\Analytics\Extension');
@@ -44,15 +44,13 @@ class Analytics extends GData
     /**
      * Retrieve account feed object
      *
-     * @param mixed $location
+     * @param mixed $uri
      * @return Analytics\AccountFeed
      */
-    public function getAccountFeed($location = self::ANALYTICS_ACCOUNT_FEED_URI)
+    public function getAccountFeed($uri = self::ANALYTICS_ACCOUNT_FEED_URI)
     {
-    	if ($location instanceof Query) {
-            $uri = $location->getQueryUrl();
-        } else {
-            $uri = $location;
+        if ($uri instanceof Query) {
+            $uri = $uri->getQueryUrl();
         }
         return parent::getFeed($uri, 'Zend\GData\Analytics\AccountFeed');
     }
@@ -60,15 +58,13 @@ class Analytics extends GData
     /**
      * Retrieve data feed object
      *
-     * @param mixed $location
+     * @param mixed $uri
      * @return Analytics\DataFeed
      */
-    public function getDataFeed($location = self::ANALYTICS_FEED_URI)
+    public function getDataFeed($uri = self::ANALYTICS_FEED_URI)
     {
-        if ($location instanceof Query) {
-            $uri = $location->getQueryUrl();
-        } else {
-            $uri = $location;
+        if ($uri instanceof Query) {
+            $uri = $uri->getQueryUrl();
         }
         return parent::getFeed($uri, 'Zend\GData\Analytics\DataFeed');
     }
@@ -90,6 +86,6 @@ class Analytics extends GData
      */
     public function newAccountQuery()
     {
-    	return new Analytics\AccountQuery();
+        return new Analytics\AccountQuery();
     }
 }
