@@ -10,6 +10,8 @@
 
 namespace Zend\GData;
 
+use Zend\Http\Client;
+
 /**
  * @category   Zend
  * @package    Zend_Gdata
@@ -44,7 +46,7 @@ class Analytics extends GData
     /**
      * Retrieve account feed object
      *
-     * @param mixed $uri
+     * @param string|\Zend\Uri\Uri $uri
      * @return Analytics\AccountFeed
      */
     public function getAccountFeed($uri = self::ANALYTICS_ACCOUNT_FEED_URI)
@@ -58,7 +60,7 @@ class Analytics extends GData
     /**
      * Retrieve data feed object
      *
-     * @param mixed $uri
+     * @param string|\Zend\Uri\Uri $uri
      * @return Analytics\DataFeed
      */
     public function getDataFeed($uri = self::ANALYTICS_FEED_URI)

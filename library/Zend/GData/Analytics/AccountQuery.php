@@ -63,6 +63,14 @@ class AccountQuery extends GData\Query
     }
     
     /**
+     * @return string
+     */
+    public function getAccountId()
+    {
+        return $this->_accountId;
+    }
+
+    /**
      * @param string $webpropertyId
      * @return AccountQuery
      */
@@ -73,6 +81,14 @@ class AccountQuery extends GData\Query
     }
     
     /**
+     * @return string
+     */
+    public function getWebpropertyId()
+    {
+        return $this->_webpropertyId;
+    }
+    
+    /**
      * @param string $profileId
      * @return AccountQuery
      */
@@ -80,6 +96,14 @@ class AccountQuery extends GData\Query
     {
         $this->_profileId = $profileId;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfileId()
+    {
+        return $this->_profileId;
     }
     
     /**
