@@ -47,8 +47,9 @@ class ViewXmlStrategyFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $phpRenderer = $serviceLocator->get('ViewRenderer');
-        $xmlStrategy = new XmlStrategy($phpRenderer);
+        $renderer = $serviceLocator->get('ViewXmlRenderer');
+
+        $xmlStrategy = new XmlStrategy($renderer);
 
         return $xmlStrategy;
     }

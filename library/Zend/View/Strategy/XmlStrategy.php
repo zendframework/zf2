@@ -26,7 +26,7 @@ use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Http\Request as HttpRequest;
 use Zend\Http\Response as HttpResponse;
 use Zend\View\Model;
-use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Renderer\XmlRenderer;
 use Zend\View\ViewEvent;
 
 /**
@@ -44,17 +44,18 @@ class XmlStrategy implements ListenerAggregateInterface
     protected $listeners = array();
 
     /**
-     * @var PhpRenderer
+     * @var \Zend\View\Renderer\XmlRenderer
      */
     protected $renderer;
 
     /**
      * Constructor
      *
-     * @param  PhpRenderer $renderer
-     * @return void
+     * @param \Zend\View\Renderer\XmlRenderer $renderer
+     *
+     * @return \Zend\View\Strategy\XmlStrategy
      */
-    public function __construct(PhpRenderer $renderer)
+    public function __construct(XmlRenderer $renderer)
     {
         $this->renderer = $renderer;
     }
@@ -115,15 +116,20 @@ class XmlStrategy implements ListenerAggregateInterface
      */
     public function injectResponse(ViewEvent $e)
     {
+        // Get the current model
         $model = $e->getModel();
+
         if (! $model instanceof Model\XmlModel) {
+
             // Discovered renderer is not ours; do nothing
             return;
         }
 
+        // Retrieve the result
         $result = $e->getResult();
-        if (!is_string($result)) {
-            // We don't have a string, and thus, no JSON
+
+        if (! is_string($result)) {
+            // We don't have a string, and thus, no XML
             return;
         }
 

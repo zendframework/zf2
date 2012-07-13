@@ -64,6 +64,7 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
 
         // Configure URL view helper with router
         $plugins->setFactory('url', function($sm) use($serviceLocator) {
+
             $helper = new ViewHelper\Url;
             $helper->setRouter($serviceLocator->get('Router'));
 
