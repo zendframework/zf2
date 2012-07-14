@@ -20,11 +20,11 @@ use Zend\GData;
 class DataEntry extends GData\Entry
 {
     /**
-     * @var Extension\Dimension
+     * @var Extension\Dimension[]
      */
     protected $_dimensions = array();
     /**
-     * @var Extension\Metric
+     * @var Extension\Metric[]
      */
     protected $_metrics = array();
 
