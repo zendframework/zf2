@@ -27,7 +27,7 @@ class AccountFeedTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->accountFeed = @new AccountFeed(
+        $this->accountFeed = new AccountFeed(
             file_get_contents(dirname(__FILE__) . '/_files/TestAccountFeed.xml')
         );
     }
