@@ -36,6 +36,11 @@ class JsonStrategy implements ListenerAggregateInterface
     protected $renderer;
 
     /**
+     * @var double
+     */
+    protected $matchPriority = 0;
+
+    /**
      * Constructor
      *
      * @param  JsonRenderer $renderer
@@ -44,6 +49,16 @@ class JsonStrategy implements ListenerAggregateInterface
     public function __construct(JsonRenderer $renderer)
     {
         $this->renderer = $renderer;
+    }
+
+    /**
+     * Retrieve the composed renderer
+     *
+     * @return PhpRenderer
+     */
+    public function getRenderer()
+    {
+        return $this->renderer;
     }
 
     /**
@@ -75,6 +90,16 @@ class JsonStrategy implements ListenerAggregateInterface
     }
 
     /**
+     * The match priority, normally a double between 0 and 1
+     *
+     * @return double
+     */
+    public function getMatchPriority()
+    {
+        return $this->matchPriority;
+    }
+
+    /**
      * Detect if we should use the JsonRenderer based on model type and/or
      * Accept header
      *
@@ -87,7 +112,8 @@ class JsonStrategy implements ListenerAggregateInterface
 
         if ($model instanceof Model\JsonModel) {
             // JsonModel found
-            return $this->renderer;
+            $this->matchPriority = 1;
+            return $this;
         }
 
         $request = $e->getRequest();
@@ -106,10 +132,11 @@ class JsonStrategy implements ListenerAggregateInterface
         if (($match = $accept->match('application/json, application/javascript')) == false) {
             return;
         }
+        $this->matchPriority = $match->getPriority();
 
         if ($match->getFormat() == 'json') {
             // application/json Accept header found
-            return $this->renderer;
+            return $this;
         }
 
         // application/javascript Accept header found
@@ -117,7 +144,7 @@ class JsonStrategy implements ListenerAggregateInterface
             $this->renderer->setJsonpCallback($callback);
         }
 
-        return $this->renderer;
+        return $this;
     }
 
     /**

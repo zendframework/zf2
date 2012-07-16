@@ -37,6 +37,11 @@ class FeedStrategy implements ListenerAggregateInterface
     protected $renderer;
 
     /**
+     * @var double
+     */
+    protected $matchPriority = 0;
+
+    /**
      * Constructor
      *
      * @param  FeedRenderer $renderer
@@ -45,6 +50,16 @@ class FeedStrategy implements ListenerAggregateInterface
     public function __construct(FeedRenderer $renderer)
     {
         $this->renderer = $renderer;
+    }
+
+    /**
+     * Retrieve the composed renderer
+     *
+     * @return PhpRenderer
+     */
+    public function getRenderer()
+    {
+        return $this->renderer;
     }
 
     /**
@@ -76,6 +91,16 @@ class FeedStrategy implements ListenerAggregateInterface
     }
 
     /**
+     * The match priority, normally a double between 0 and 1
+     *
+     * @return double
+     */
+    public function getMatchPriority()
+    {
+        return $this->matchPriority;
+    }
+
+    /**
      * Detect if we should use the FeedRenderer based on model type and/or
      * Accept header
      *
@@ -88,7 +113,8 @@ class FeedStrategy implements ListenerAggregateInterface
 
         if ($model instanceof Model\FeedModel) {
             // FeedModel found
-            return $this->renderer;
+            $this->matchPriority = 1;
+            return $this;
         }
 
         $request = $e->getRequest();
@@ -106,15 +132,16 @@ class FeedStrategy implements ListenerAggregateInterface
         if (($match = $accept->match('application/rss+xml, application/atom+xml')) == false) {
             return;
         }
+        $this->matchPriority = $match->getPriority();
 
         if ($match->getTypeString() == 'application/rss+xml') {
             $this->renderer->setFeedType('rss');
-            return $this->renderer;
+            return $this;
         }
 
         if ($match->getTypeString() == 'application/atom+xml') {
             $this->renderer->setFeedType('atom');
-            return $this->renderer;
+            return $this;
         }
 
     }

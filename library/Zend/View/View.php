@@ -175,10 +175,22 @@ class View implements EventManagerAwareInterface
         $event   = $this->getEvent();
         $event->setModel($model);
         $events  = $this->getEventManager();
-        $results = $events->trigger(ViewEvent::EVENT_RENDERER, $event, function($result) {
-            return ($result instanceof Renderer);
-        });
-        $renderer = $results->last();
+        $results = $events->trigger(ViewEvent::EVENT_RENDERER, $event);
+        $selectedStrategy = null;
+        while (!$results->isEmpty()) {
+            $strategy = $results->pop();
+            if (!is_null($strategy)) {
+                if (is_null($selectedStrategy)) {
+                    $selectedStrategy = $strategy;
+                } elseif ($strategy->getMatchPriority() > $selectedStrategy->getMatchPriority()) {
+                     $selectedStrategy = $strategy;
+                }
+            }
+        }
+        $renderer = null;
+        if (!is_null($selectedStrategy)) {
+            $renderer = $selectedStrategy->getRenderer();
+        }
         if (!$renderer instanceof Renderer) {
             throw new Exception\RuntimeException(sprintf(
                 '%s: no renderer selected!',

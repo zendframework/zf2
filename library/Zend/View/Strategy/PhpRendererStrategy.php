@@ -42,6 +42,11 @@ class PhpRendererStrategy implements ListenerAggregateInterface
     protected $renderer;
 
     /**
+     * @var double
+     */
+    protected $matchPriority = 0;
+
+    /**
      * Constructor
      *
      * @param  PhpRenderer $renderer
@@ -113,6 +118,16 @@ class PhpRendererStrategy implements ListenerAggregateInterface
     }
 
     /**
+     * The match priority, normally a double between 0 and 1
+     *
+     * @return double
+     */
+    public function getMatchPriority()
+    {
+        return $this->matchPriority;
+    }
+
+    /**
      * Select the PhpRenderer; typically, this will be registered last or at
      * low priority.
      *
@@ -121,7 +136,24 @@ class PhpRendererStrategy implements ListenerAggregateInterface
      */
     public function selectRenderer(ViewEvent $e)
     {
-        return $this->renderer;
+        $request = $e->getRequest();
+        if (!$request instanceof HttpRequest) {
+            // Not an HTTP request; cannot autodetermine
+            return;
+        }
+
+        $headers = $request->getHeaders();
+        if (!$headers->has('accept')) {
+            return;
+        }
+
+        $accept  = $headers->get('accept');
+        if (($match = $accept->match('*/*')) == false) {
+            return;
+        }
+        $this->matchPriority = $match->getPriority();
+
+        return $this;
     }
 
     /**
