@@ -18,17 +18,22 @@ use Zend\Text\Table;
 /*
  * Convert a file from DocBook to reStructuredText format
  * 
- * Note: this script has been created to convert the Zend Framework
- * documentation. We have not tested it with other docBook file formats.
+ * Note: In order to convert the ZF2 documentation you have to use
+ * the normalize parameter to convert the output file name and the
+ * internal links using the ZF2 convention
  * 
  * Usage:
  * --help|-h        Get usage message
  * --docbook|-d     Docbook file to convert
  * --output|-o      Output file in reStructuredText format; By default,
- *                  assumes <docbook>.rst
+ *                  assumes <docbook>.rst if normalize is not specified,
+ *                  otherwise the output file name is normalized with the
+ *                  ZF2 standard file name
+ * --normalize|-n   Normalize the output file name and the internal links
+ *                  with the ZF2 convention
  */
-echo "DocBook to reStructuredText conversion for ZF documentation\n";
-echo "-----------------------------------------------------------\n";
+echo "DocBook to reStructuredText conversion\n";
+echo "--------------------------------------\n";
 
 $libPath = getenv('LIB_PATH') ? getenv('LIB_PATH') : __DIR__ . '/../library';
 if (!is_dir($libPath)) {
@@ -49,7 +54,8 @@ $loader->register();
 $rules = array(
     'help|h'      => 'Get usage message',
     'docbook|d-s' => 'Docbook file to convert',
-    'output|o-s'  => 'Output file in reStructuredText format; By default assumes <docbook>.rst"',
+    'output|o-s'  => 'Output file in reStructuredText format; By default assumes <docbook>.rst',
+    'normalize|n' => 'Normalize the output file name and the internal links using the ZF2 convention'
 );
 
 try {
@@ -71,13 +77,18 @@ if (!file_exists($docbook)) {
     exit(2);
 }
 
+$normalize = !(null == $opts->getOption('n'));
+
 $rstFile = $opts->getOption('o');
 if (empty($rstFile)) {
     $rstFile = $docbook;
-    if ('.xml' === substr($rstFile, -4)) {
-        $rstFile = substr($rstFile, 0, strlen($docbook)-4);
-    }
-    $rstFile .= '.rst';
+    if ($normalize) {
+        $rstFile = dirname($docbook) . '/' . RstConvert::xmlFileNameToRst(basename($rstFile));        
+    } elseif ('.xml' === substr($rstFile, -4)) {
+        $rstFile = substr($rstFile, 0, strlen($docbook)-4) . '.rst';
+    } else {
+        $rstFile .= '.rst';
+    }    
 }
 
 // Load the docbook file (input)
@@ -96,8 +107,8 @@ $xsl->load($xsltFile);
 
 $proc = new \XSLTProcessor;
 $proc->registerPHPFunctions();
+$proc->setParameter('','normalize',(int) $normalize);
 $proc->importStyleSheet($xsl);
-
 echo "Writing to $rstFile\n";
 
 $output = $proc->transformToXml($xml);
