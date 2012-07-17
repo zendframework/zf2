@@ -114,10 +114,10 @@ class JsonStrategy implements ListenerAggregateInterface
 
         // application/javascript Accept header found
         if (false != ($callback = $request->getQuery()->get('callback'))) {
-            $this->renderer->setJsonpCallback($callback);
+            return $this->renderer->setJsonpCallback($callback);
         }
 
-        return $this->renderer;
+        return;
     }
 
     /**
