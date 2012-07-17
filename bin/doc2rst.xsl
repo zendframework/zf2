@@ -111,7 +111,14 @@
 
 <!-- include -->
 <xsl:template match="//xi:include">
-.. include:: <xsl:value-of select="php:function('ZendBin\RstConvert::xmlFileNameToRst', string(@href))" />
+    <xsl:choose>
+        <xsl:when test="$normalize = 1">
+ .. include:: <xsl:value-of select="php:function('ZendBin\RstConvert::xmlFileNameToRst', string(@href))" />
+        </xsl:when>
+        <xsl:otherwise>
+.. include:: <xsl:value-of select="@href" />
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
 <!--

@@ -18,17 +18,19 @@ use Zend\Text\Table;
 /*
  * Convert a file from DocBook to reStructuredText format
  * 
- * Note: this script has been created to convert the Zend Framework
- * documentation. We have not tested it with other docBook file formats.
+ * Note: to convert the ZF documentation you have to use the
+ * --normalize parameter. This parameter will convert the file name and
+ * the internal links of the document using the ZF naming convention.
  * 
  * Usage:
  * --help|-h        Get usage message
  * --docbook|-d     Docbook file to convert
- * --output|-o      Output file in reStructuredText format; By default,
- *                  assumes <docbook>.rst
+ * --output|-o      Output file, by default assumes <docbook>.rst
+ * --normalize|-n   Normalize the file name and the internal links using
+ *                  the ZF naming convention
  */
-echo "DocBook to reStructuredText conversion for ZF documentation\n";
-echo "-----------------------------------------------------------\n";
+echo "DocBook to reStructuredText conversion\n";
+echo "--------------------------------------\n";
 
 $libPath = getenv('LIB_PATH') ? getenv('LIB_PATH') : __DIR__ . '/../library';
 if (!is_dir($libPath)) {
@@ -49,7 +51,9 @@ $loader->register();
 $rules = array(
     'help|h'      => 'Get usage message',
     'docbook|d-s' => 'Docbook file to convert',
-    'output|o-s'  => 'Output file in reStructuredText format; By default assumes <docbook>.rst"',
+    'output|o-s'  => 'Output file, by default assumes <docbook>.rst',
+    'normalize|n' => 'Normalize the file name and the internal links using ' .
+                     'the ZF naming convention'
 );
 
 try {
@@ -71,13 +75,21 @@ if (!file_exists($docbook)) {
     exit(2);
 }
 
+$normalize = (null !== $opts->getOption('n'));
+
 $rstFile = $opts->getOption('o');
 if (empty($rstFile)) {
-    $rstFile = $docbook;
+    $rstFile = basename($docbook);
     if ('.xml' === substr($rstFile, -4)) {
         $rstFile = substr($rstFile, 0, strlen($docbook)-4);
     }
-    $rstFile .= '.rst';
+    if ($normalize) {
+        $rstFile = RstConvert::xmlFileNameToRst($rstFile);
+    }
+    if ('.rst' !== substr($rstFile, -4)) {
+        $rstFile .= '.rst';
+    }
+    $rstFile = dirname($docbook) . DIRECTORY_SEPARATOR . $rstFile;
 }
 
 // Load the docbook file (input)
@@ -96,6 +108,7 @@ $xsl->load($xsltFile);
 
 $proc = new \XSLTProcessor;
 $proc->registerPHPFunctions();
+$proc->setParameter('','normalize',(int) $normalize);
 $proc->importStyleSheet($xsl);
 
 echo "Writing to $rstFile\n";
@@ -427,8 +440,7 @@ class RstConvert
     }
 
     /**
-     * Convert an XML file name to the RST ZF2 standard naming convention
-     * For instance, Zend_Config-XmlIntro.xml become zend.config.xml-intro.rst
+     * Change the image file name to the ../images folder
      *
      * @param  string $href
      * @return string
