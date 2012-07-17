@@ -53,6 +53,6 @@ class Dumb extends AbstractWord
      */
     public function getHelperName()
     {
-        return 'captcha/dumb';
+        return 'captchaDumb';
     }
 }

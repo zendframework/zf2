@@ -285,7 +285,7 @@ class PartTest extends TestCase
     {
         $children = new ArrayObject(array(
             'create' => array(
-                'type'    => 'Literal',
+                'type'    => 'literal',
                 'options' => array(
                     'route' => 'create',
                     'defaults' => array(

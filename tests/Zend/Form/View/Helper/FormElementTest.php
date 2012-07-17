@@ -63,8 +63,8 @@ class FormElementTest extends TestCase
             array('tel'),
             array('email'),
             array('url'),
-            array('datetime'),
-            array('datetime-local'),
+            array('dateTime'),
+            array('dateTimeLocal'),
             array('month'),
             array('week'),
             array('time'),
@@ -97,7 +97,7 @@ class FormElementTest extends TestCase
     {
         return array(
             array('radio', 'input', 'type="radio"'),
-            array('multi_checkbox', 'input', 'type="checkbox"'),
+            array('multiCheckbox', 'input', 'type="checkbox"'),
             array('select', 'option', '<select'),
         );
     }

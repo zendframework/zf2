@@ -69,7 +69,7 @@ class SitemapTest extends AbstractTest
         parent::setUp();
 
         $this->_helper->setFormatOutput(true);
-        $this->_helper->getView()->plugin('basepath')->setBasePath('');
+        $this->_helper->getView()->plugin('basePath')->setBasePath('');
     }
 
     protected function tearDown()

@@ -180,10 +180,10 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetsAndSetsDefaultScrollingStyle()
     {
-        $this->assertEquals(Paginator\Paginator::getDefaultScrollingStyle(), 'Sliding');
+        $this->assertEquals(Paginator\Paginator::getDefaultScrollingStyle(), 'sliding');
         Paginator\Paginator::setDefaultScrollingStyle('Scrolling');
         $this->assertEquals(Paginator\Paginator::getDefaultScrollingStyle(), 'Scrolling');
-        Paginator\Paginator::setDefaultScrollingStyle('Sliding');
+        Paginator\Paginator::setDefaultScrollingStyle('sliding');
     }
 
     public function testHasCorrectCountAfterInit()

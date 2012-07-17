@@ -242,6 +242,6 @@ class ReCaptcha extends AbstractAdapter
      */
     public function getHelperName()
     {
-        return "captcha/recaptcha";
+        return "captchaReCaptcha";
     }
 }

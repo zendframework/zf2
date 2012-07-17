@@ -61,6 +61,7 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
         $self = $this;
         $this->addInitializer(function ($instance) use ($self) {
             if ($instance instanceof ServiceManagerAwareInterface) {
+                /* @var $instance ServiceManagerAwareInterface */
                 $instance->setServiceManager($self);
             }
         });
@@ -121,6 +122,7 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
         if ($service) {
             $this->validatePlugin($service);
         }
+
         parent::setService($name, $service, $shared);
         return $this;
     }
@@ -134,6 +136,7 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
+
         return $this;
     }
 
@@ -153,21 +156,21 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
      * Overrides parent implementation by passing $creationOptions to the
      * constructor, if non-null.
      *
-     * @param  string $canonicalName
-     * @param  string $requestedName
+     * @param  string $name
      * @return null|\stdClass
      * @throws Exception\ServiceNotCreatedException If resolved class does not exist
      */
-    protected function createFromInvokable($canonicalName, $requestedName)
+    protected function createFromInvokable($name)
     {
-        $invokable = $this->invokableClasses[$canonicalName];
+        $invokable = $this->invokableClasses[$name];
+
         if (!class_exists($invokable)) {
             throw new Exception\ServiceNotCreatedException(sprintf(
                 '%s: failed retrieving "%s%s" via invokable class "%s"; class does not exist',
                 __METHOD__,
-                $canonicalName,
-                ($requestedName ? '(alias: ' . $requestedName . ')' : ''),
-                $canonicalName
+                $name,
+                ($name ? '(alias: ' . $name . ')' : ''),
+                $name
             ));
         }
 
@@ -196,12 +199,15 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
         if (is_subclass_of($className, $type)) {
             return true;
         }
+
         if (version_compare(PHP_VERSION, '5.3.7', '>=')) {
             return false;
         }
+
         if (!interface_exists($type)) {
             return false;
         }
+
         $r = new ReflectionClass($className);
         return $r->implementsInterface($type);
     }

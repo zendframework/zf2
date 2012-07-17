@@ -30,7 +30,7 @@ class Serializer
      *
      * @var string|Adapter
      */
-    protected static $_defaultAdapter = 'PhpSerialize';
+    protected static $_defaultAdapter = 'phpSerialize';
 
     /**
      * Create a serializer adapter instance.

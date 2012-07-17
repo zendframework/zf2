@@ -98,10 +98,10 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
     public function testUsesDefaultScrollingStyleIfNoneSupplied()
     {
         // First we'll make sure the base case works
-        $output = $this->_viewHelper->__invoke($this->_paginator, 'All', 'testPagination.phtml');
+        $output = $this->_viewHelper->__invoke($this->_paginator, 'all', 'testPagination.phtml');
         $this->assertContains('page count (11) equals pages in range (11)', $output, $output);
 
-        Paginator\Paginator::setDefaultScrollingStyle('All');
+        Paginator\Paginator::setDefaultScrollingStyle('all');
         $output = $this->_viewHelper->__invoke($this->_paginator, null, 'testPagination.phtml');
         $this->assertContains('page count (11) equals pages in range (11)', $output, $output);
 

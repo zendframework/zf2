@@ -255,10 +255,10 @@ class FactoryTest extends TestCase
                     'required'   => false,
                     'validators' => array(
                         array(
-                            'name' => 'not_empty',
+                            'name' => 'notEmpty',
                         ),
                         array(
-                            'name' => 'string_length',
+                            'name' => 'stringLength',
                             'options' => array(
                                 'min' => 3,
                                 'max' => 5,
@@ -270,10 +270,10 @@ class FactoryTest extends TestCase
                     'allow_empty' => true,
                     'filters'     => array(
                         array(
-                            'name' => 'string_trim',
+                            'name' => 'stringTrim',
                         ),
                         array(
-                            'name' => 'string_to_lower',
+                            'name' => 'stringToLower',
                             'options' => array(
                                 'encoding' => 'ISO-8859-1',
                             ),

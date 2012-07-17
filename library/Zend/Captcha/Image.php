@@ -621,6 +621,6 @@ class Image extends AbstractWord
      */
     public function getHelperName()
     {
-        return 'captcha/image';
+        return 'captchaImage';
     }
 }

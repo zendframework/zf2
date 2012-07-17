@@ -83,7 +83,7 @@ class ElasticTest extends \PHPUnit_Framework_TestCase
     public function testGetsNextAndPreviousPageForFirstPage()
     {
         $this->_paginator->setCurrentPageNumber(1);
-        $pages = $this->_paginator->getPages('Elastic');
+        $pages = $this->_paginator->getPages('elastic');
 
         $this->assertEquals(2, $pages->next);
     }
@@ -91,7 +91,7 @@ class ElasticTest extends \PHPUnit_Framework_TestCase
     public function testGetsNextAndPreviousPageForSecondPage()
     {
         $this->_paginator->setCurrentPageNumber(2);
-        $pages = $this->_paginator->getPages('Elastic');
+        $pages = $this->_paginator->getPages('elastic');
         $this->assertEquals(1, $pages->previous);
         $this->assertEquals(3, $pages->next);
     }
@@ -99,7 +99,7 @@ class ElasticTest extends \PHPUnit_Framework_TestCase
     public function testGetsNextAndPreviousPageForMiddlePage()
     {
         $this->_paginator->setCurrentPageNumber(10);
-        $pages = $this->_paginator->getPages('Elastic');
+        $pages = $this->_paginator->getPages('elastic');
         $this->assertEquals(9, $pages->previous);
         $this->assertEquals(11, $pages->next);
     }
@@ -107,7 +107,7 @@ class ElasticTest extends \PHPUnit_Framework_TestCase
     public function testGetsNextAndPreviousPageForSecondLastPage()
     {
         $this->_paginator->setCurrentPageNumber(20);
-        $pages = $this->_paginator->getPages('Elastic');
+        $pages = $this->_paginator->getPages('elastic');
         $this->assertEquals(19, $pages->previous);
         $this->assertEquals(21, $pages->next);
     }
@@ -115,7 +115,7 @@ class ElasticTest extends \PHPUnit_Framework_TestCase
     public function testGetsNextAndPreviousPageForLastPage()
     {
         $this->_paginator->setCurrentPageNumber(21);
-        $pages = $this->_paginator->getPages('Elastic');
+        $pages = $this->_paginator->getPages('elastic');
         $this->assertEquals(20, $pages->previous);
     }
 
@@ -123,7 +123,7 @@ class ElasticTest extends \PHPUnit_Framework_TestCase
     {
         $this->_paginator->setPageRange(3);
         $this->_paginator->setCurrentPageNumber(21);
-        $pages = $this->_paginator->getPages('Elastic');
+        $pages = $this->_paginator->getPages('elastic');
         $this->assertEquals(3, count($pages->pagesInRange));
     }
 
@@ -131,7 +131,7 @@ class ElasticTest extends \PHPUnit_Framework_TestCase
     {
         $this->_paginator->setPageRange(3);
         $this->_paginator->setCurrentPageNumber(20);
-        $pages = $this->_paginator->getPages('Elastic');
+        $pages = $this->_paginator->getPages('elastic');
         $this->assertEquals(4, count($pages->pagesInRange));
     }
 
@@ -139,7 +139,7 @@ class ElasticTest extends \PHPUnit_Framework_TestCase
     {
         $this->_paginator->setPageRange(3);
         $this->_paginator->setCurrentPageNumber(19);
-        $pages = $this->_paginator->getPages('Elastic');
+        $pages = $this->_paginator->getPages('elastic');
         $this->assertEquals(5, count($pages->pagesInRange));
     }
 }

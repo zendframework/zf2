@@ -23,7 +23,7 @@ class CircularDependencyAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return true;
     }
@@ -31,7 +31,7 @@ class CircularDependencyAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         if ($serviceLocator->has($name)) {
             return $serviceLocator->get($name);

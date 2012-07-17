@@ -70,6 +70,6 @@ class Figlet extends AbstractWord
      */
     public function getHelperName()
     {
-        return 'captcha/figlet';
+        return 'captchaFiglet';
     }
 }

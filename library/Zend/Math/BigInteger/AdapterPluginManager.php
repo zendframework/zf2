@@ -31,8 +31,8 @@ class AdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
-        'bcmath' => 'Zend\Math\BigInteger\Adapter\Bcmath',
-        'gmp'    => 'Zend\Math\BigInteger\Adapter\Gmp',
+        'Bcmath' => 'Zend\Math\BigInteger\Adapter\Bcmath',
+        'Gmp'    => 'Zend\Math\BigInteger\Adapter\Gmp',
     );
 
     /**

@@ -31,42 +31,42 @@ class HelperPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
-        // basepath, doctype, and url are set up as factories in the ViewHelperManagerFactory.
-        // basepath and url are not very useful without their factories, however the doctype
+        // basePath, doctype, and url are set up as factories in the ViewHelperManagerFactory.
+        // base{ath and url are not very useful without their factories, however the doctype
         // helper works fine as an invokable. The factory for doctype simply checks for the
         // config value from the merged config.
         'doctype'             => 'Zend\View\Helper\Doctype', // overridden by a factory in ViewHelperManagerFactory
-        'basepath'            => 'Zend\View\Helper\BasePath',
+        'basePath'            => 'Zend\View\Helper\BasePath',
         'url'                 => 'Zend\View\Helper\Url',
         'cycle'               => 'Zend\View\Helper\Cycle',
-        'declarevars'         => 'Zend\View\Helper\DeclareVars',
-        'escapehtml'          => 'Zend\View\Helper\EscapeHtml',
-        'escapehtmlattr'      => 'Zend\View\Helper\EscapeHtmlAttr',
-        'escapejs'            => 'Zend\View\Helper\EscapeJs',
-        'escapecss'           => 'Zend\View\Helper\EscapeCss',
-        'escapeurl'           => 'Zend\View\Helper\EscapeUrl',
+        'declareVars'         => 'Zend\View\Helper\DeclareVars',
+        'escapeHtml'          => 'Zend\View\Helper\EscapeHtml',
+        'escapeHtmlAttr'      => 'Zend\View\Helper\EscapeHtmlAttr',
+        'escapeJs'            => 'Zend\View\Helper\EscapeJs',
+        'escapeCss'           => 'Zend\View\Helper\EscapeCss',
+        'escapeUrl'           => 'Zend\View\Helper\EscapeUrl',
         'gravatar'            => 'Zend\View\Helper\Gravatar',
-        'headlink'            => 'Zend\View\Helper\HeadLink',
-        'headmeta'            => 'Zend\View\Helper\HeadMeta',
-        'headscript'          => 'Zend\View\Helper\HeadScript',
-        'headstyle'           => 'Zend\View\Helper\HeadStyle',
-        'headtitle'           => 'Zend\View\Helper\HeadTitle',
-        'htmlflash'           => 'Zend\View\Helper\HtmlFlash',
-        'htmllist'            => 'Zend\View\Helper\HtmlList',
-        'htmlobject'          => 'Zend\View\Helper\HtmlObject',
-        'htmlpage'            => 'Zend\View\Helper\HtmlPage',
-        'htmlquicktime'       => 'Zend\View\Helper\HtmlQuicktime',
-        'inlinescript'        => 'Zend\View\Helper\InlineScript',
+        'headLink'            => 'Zend\View\Helper\HeadLink',
+        'headMeta'            => 'Zend\View\Helper\HeadMeta',
+        'headScript'          => 'Zend\View\Helper\HeadScript',
+        'headStyle'           => 'Zend\View\Helper\HeadStyle',
+        'headTitle'           => 'Zend\View\Helper\HeadTitle',
+        'htmlFlash'           => 'Zend\View\Helper\HtmlFlash',
+        'htmlList'            => 'Zend\View\Helper\HtmlList',
+        'htmlObject'          => 'Zend\View\Helper\HtmlObject',
+        'htmlPage'            => 'Zend\View\Helper\HtmlPage',
+        'htmlQuicktime'       => 'Zend\View\Helper\HtmlQuicktime',
+        'inlineScript'        => 'Zend\View\Helper\InlineScript',
         'json'                => 'Zend\View\Helper\Json',
         'layout'              => 'Zend\View\Helper\Layout',
-        'paginationcontrol'   => 'Zend\View\Helper\PaginationControl',
-        'partialloop'         => 'Zend\View\Helper\PartialLoop',
+        'paginationControl'   => 'Zend\View\Helper\PaginationControl',
+        'partialLoop'         => 'Zend\View\Helper\PartialLoop',
         'partial'             => 'Zend\View\Helper\Partial',
         'placeholder'         => 'Zend\View\Helper\Placeholder',
-        'renderchildmodel'    => 'Zend\View\Helper\RenderChildModel',
-        'rendertoplaceholder' => 'Zend\View\Helper\RenderToPlaceholder',
-        'serverurl'           => 'Zend\View\Helper\ServerUrl',
-        'viewmodel'           => 'Zend\View\Helper\ViewModel',
+        'renderChildModel'    => 'Zend\View\Helper\RenderChildModel',
+        'renderToPlaceholder' => 'Zend\View\Helper\RenderToPlaceholder',
+        'serverUrl'           => 'Zend\View\Helper\ServerUrl',
+        'viewModel'           => 'Zend\View\Helper\ViewModel',
     );
 
     /**

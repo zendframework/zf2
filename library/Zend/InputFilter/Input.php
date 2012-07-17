@@ -175,7 +175,7 @@ class Input implements InputInterface
             return;
         }
         $chain = $this->getValidatorChain();
-        $chain->prependByName('NotEmpty', array(), true);
+        $chain->prependByName('notEmpty', array(), true);
         $this->notEmptyValidator = true;
     }
 }

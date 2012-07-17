@@ -165,19 +165,19 @@ class TreeRouteStackTest extends TestCase
         $stack->addRoute(
             'foo',
             array(
-                'type' => 'Hostname',
+                'type' => 'hostname',
                 'options' => array(
                     'route' => 'example.com',
                 ),
                 'child_routes' => array(
                     'index' => array(
-                        'type' => 'Literal',
+                        'type' => 'literal',
                         'options' => array(
                             'route' => '/',
                         ),
                         'child_routes' => array(
                             'query' => array(
-                                'type' => 'Query',
+                                'type' => 'query',
                             ),
                         ),
                     ),
@@ -197,13 +197,13 @@ class TreeRouteStackTest extends TestCase
         $stack->addRoute(
             'index',
             array(
-                'type' => 'Literal',
+                'type' => 'literal',
                 'options' => array(
                     'route' => '/',
                 ),
                 'child_routes' => array(
                     'query' => array(
-                        'type' => 'Query',
+                        'type' => 'query',
                     ),
                 ),
             )
@@ -286,7 +286,7 @@ class TreeRouteStackTest extends TestCase
         $stack = new TreeRouteStack();
         $stack->addRoutes(array(
             'foo' => array(
-                'type' => 'Literal',
+                'type' => 'literal',
                 'priority' => 1000,
                 'options' => array(
                     'route' => '/foo',
@@ -297,7 +297,7 @@ class TreeRouteStackTest extends TestCase
                 'may_terminate' => true,
                 'child_routes' => array(
                     'bar' => array(
-                        'type' => 'Literal',
+                        'type' => 'literal',
                         'options' => array(
                             'route' => '/bar',
                             'defaults' => array(
