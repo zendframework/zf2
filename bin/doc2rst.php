@@ -79,17 +79,15 @@ $normalize = (null !== $opts->getOption('n'));
 
 $rstFile = $opts->getOption('o');
 if (empty($rstFile)) {
-    $rstFile = basename($docbook);
-    if ('.xml' === substr($rstFile, -4)) {
-        $rstFile = substr($rstFile, 0, strlen($docbook)-4);
-    }
+    $pathinfo = pathinfo($docbook);
+    $rstFile  = $pathinfo['filename'];
     if ($normalize) {
         $rstFile = RstConvert::xmlFileNameToRst($rstFile);
     }
     if ('.rst' !== substr($rstFile, -4)) {
         $rstFile .= '.rst';
     }
-    $rstFile = dirname($docbook) . DIRECTORY_SEPARATOR . $rstFile;
+    $rstFile = $pathinfo['dirname'] . DIRECTORY_SEPARATOR . $rstFile;
 }
 
 // Load the docbook file (input)
