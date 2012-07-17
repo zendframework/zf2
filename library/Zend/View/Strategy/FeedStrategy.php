@@ -55,7 +55,7 @@ class FeedStrategy implements ListenerAggregateInterface
     /**
      * Retrieve the composed renderer
      *
-     * @return PhpRenderer
+     * @return FeedRenderer
      */
     public function getRenderer()
     {

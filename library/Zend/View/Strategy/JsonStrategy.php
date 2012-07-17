@@ -54,7 +54,7 @@ class JsonStrategy implements ListenerAggregateInterface
     /**
      * Retrieve the composed renderer
      *
-     * @return PhpRenderer
+     * @return JsonRenderer
      */
     public function getRenderer()
     {
