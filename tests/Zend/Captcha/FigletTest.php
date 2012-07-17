@@ -132,7 +132,7 @@ class FigletTest extends CommonWordTest
 
     public function testUsesFigletCaptchaHelperByDefault()
     {
-        $this->assertEquals('captcha/figlet', $this->captcha->getHelperName());
+        $this->assertEquals('captchaFiglet', $this->captcha->getHelperName());
     }
 
     public function testCaptchaShouldBeConfigurableViaTraversableObject()

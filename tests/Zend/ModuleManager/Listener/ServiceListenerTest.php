@@ -67,7 +67,7 @@ class ServiceListenerTest extends TestCase
     public function getServiceConfiguration()
     {
         return array(
-            'invokables' => array(__CLASS__ => __CLASS__),
+            'invokables' => array('zendtestmodulemanagerlistenerservicelistenertest' => __CLASS__),
             'factories' => array(
                 'foo' => function($sm) { },
             ),
@@ -90,12 +90,12 @@ class ServiceListenerTest extends TestCase
         foreach ($this->getServiceConfiguration() as $prop => $expected) {
             if ($prop == 'invokables') {
                 $prop = 'invokableClasses';
-                foreach ($expected as $key => $value) {
+                /*foreach ($expected as $key => $value) {
                     $normalized = strtolower($key);
                     $normalized = str_replace(array('\\', '_'), '', $normalized);
                     unset($expected[$key]);
                     $expected[$normalized] = $value;
-                }
+                }*/
             }
             if ($prop == 'abstract_factories') {
                 $prop = 'abstractFactories';

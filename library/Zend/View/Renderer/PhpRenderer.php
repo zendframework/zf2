@@ -416,7 +416,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
             unset($options);
 
             // Give view model awareness via ViewModel helper
-            $helper = $this->plugin('view_model');
+            $helper = $this->plugin('viewModel');
             $helper->setCurrent($model);
 
             $values = $model->getVariables();

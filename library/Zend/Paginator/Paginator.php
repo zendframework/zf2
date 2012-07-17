@@ -65,7 +65,7 @@ class Paginator implements Countable, IteratorAggregate
      *
      * @var string
      */
-    protected static $_defaultScrollingStyle = 'Sliding';
+    protected static $_defaultScrollingStyle = 'sliding';
 
     /**
      * Default item count per page
@@ -325,7 +325,7 @@ class Paginator implements Countable, IteratorAggregate
      *
      * @param  string $scrollingStyle
      */
-    public static function setDefaultScrollingStyle($scrollingStyle = 'Sliding')
+    public static function setDefaultScrollingStyle($scrollingStyle = 'sliding')
     {
         self::$_defaultScrollingStyle = $scrollingStyle;
     }

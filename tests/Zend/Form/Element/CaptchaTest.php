@@ -37,7 +37,7 @@ class CaptchaTest extends TestCase
 
         // by array
         $captcha = array(
-            'class'   => 'dumb',
+            'class'   => 'captchaDumb',
             'options' => array(
                 'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
             )
@@ -47,7 +47,7 @@ class CaptchaTest extends TestCase
 
         // by traversable
         $captcha = new ArrayObject(array(
-            'class'   => 'dumb',
+            'class'   => 'captchaDumb',
             'options' => array(
                     'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
             )
@@ -74,7 +74,7 @@ class CaptchaTest extends TestCase
             'name'       => 'foo',
             'options'    => array(
                 'captcha' => array(
-                    'class'   => 'dumb',
+                    'class'   => 'captchaDumb',
                     'options' => array(
                         'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
                     )

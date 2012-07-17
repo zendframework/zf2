@@ -60,14 +60,14 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
 
     public function testAllowsConnectingViaClassShortName()
     {
-        if (!function_exists('mb_strtolower')) {
+        if (!function_exists('mbStrtolower')) {
             $this->markTestSkipped('mbstring required');
         }
 
         $chain = new FilterChain();
-        $chain->attachByName('string_trim', null, 100)
-              ->attachByName('strip_tags')
-              ->attachByName('string_to_lower', array('encoding' => 'utf-8'), 900);
+        $chain->attachByName('stringTrim', null, 100)
+              ->attachByName('stripTags')
+              ->attachByName('stringToLower', array('encoding' => 'utf-8'), 900);
         $value = '<a name="foo"> ABC </a>';
         $valueExpected = 'abc';
         $this->assertEquals($valueExpected, $chain->filter($value));
@@ -123,7 +123,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
                 }),
             ),
             'filters' => array(
-                array('name' => 'strip_tags', 'options' => array('allowTags' => 'img', 'allowAttribs' => 'id'), 'priority' => 10100),
+                array('name' => 'stripTags', 'options' => array('allowTags' => 'img', 'allowAttribs' => 'id'), 'priority' => 10100),
             ),
         );
     }

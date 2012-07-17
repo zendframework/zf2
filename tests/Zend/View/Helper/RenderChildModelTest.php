@@ -37,8 +37,8 @@ class RenderChildModelTest extends TestCase
         $renderer->setCanRenderTrees(true);
         $renderer->setResolver($this->resolver);
 
-        $this->viewModelHelper = $renderer->plugin('view_model');
-        $this->helper          = $renderer->plugin('render_child_model');
+        $this->viewModelHelper = $renderer->plugin('viewModel');
+        $this->helper          = $renderer->plugin('renderChildModel');
 
         $this->parent = new ViewModel();
         $this->parent->setTemplate('layout');

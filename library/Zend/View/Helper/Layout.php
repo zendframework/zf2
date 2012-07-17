@@ -95,7 +95,7 @@ class Layout extends AbstractHelper
             return $this->viewModelHelper;
         }
         $view = $this->getView();
-        $this->viewModelHelper = $view->plugin('view_model');
+        $this->viewModelHelper = $view->plugin('viewModel');
         return $this->viewModelHelper;
     }
 }

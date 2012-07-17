@@ -274,7 +274,7 @@ class Sitemap extends AbstractHelper
             $url = (string) $href;
         } else {
             // href is relative to current document; use url helpers
-            $basePathHelper = $this->getView()->plugin('basepath');
+            $basePathHelper = $this->getView()->plugin('basePath');
             $curDoc         = $basePathHelper();
             $curDoc         = ('/' == $curDoc) ? '' : trim($curDoc, '/');
             $url            = rtrim($this->getServerUrl(), '/') . '/'

@@ -325,7 +325,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $model->setTemplate('empty');
 
         $content = $this->renderer->render($model);
-        $helper  = $this->renderer->plugin('view_model');
+        $helper  = $this->renderer->plugin('viewModel');
         $this->assertTrue($helper->hasCurrent());
         $this->assertSame($model, $helper->getCurrent());
     }

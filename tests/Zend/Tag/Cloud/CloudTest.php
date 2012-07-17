@@ -237,10 +237,10 @@ class CloudTest extends \PHPUnit_Framework_TestCase
 
         if ($setDecoratorPluginManager) {
             $decorators = $cloud->getDecoratorPluginManager();
-            $decorators->setInvokableClass('clouddummy',  'ZendTest\Tag\Cloud\TestAsset\CloudDummy');
+            $decorators->setInvokableClass('CloudDummy',  'ZendTest\Tag\Cloud\TestAsset\CloudDummy');
             $decorators->setInvokableClass('clouddummy1', 'ZendTest\Tag\Cloud\TestAsset\CloudDummy1');
             $decorators->setInvokableClass('clouddummy2', 'ZendTest\Tag\Cloud\TestAsset\CloudDummy2');
-            $decorators->setInvokableClass('tagdummy',    'ZendTest\Tag\Cloud\TestAsset\TagDummy');
+            $decorators->setInvokableClass('TagDummy',    'ZendTest\Tag\Cloud\TestAsset\TagDummy');
         }
 
         return $cloud;

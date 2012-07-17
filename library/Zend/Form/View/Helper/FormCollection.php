@@ -154,7 +154,7 @@ class FormCollection extends AbstractHelper
         }
 
         if (method_exists($this->view, 'plugin')) {
-            $this->rowHelper = $this->view->plugin('form_row');
+            $this->rowHelper = $this->view->plugin('formRow');
         }
 
         if (!$this->rowHelper instanceof FormRow) {

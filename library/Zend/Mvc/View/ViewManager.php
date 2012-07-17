@@ -224,7 +224,7 @@ class ViewManager implements ListenerAggregateInterface
         $this->renderer->setResolver($this->getResolver());
 
         $model       = $this->getViewModel();
-        $modelHelper = $this->renderer->plugin('view_model');
+        $modelHelper = $this->renderer->plugin('viewModel');
         $modelHelper->setRoot($model);
 
         $this->services->setService('ViewRenderer', $this->renderer);

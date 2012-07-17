@@ -91,7 +91,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     {
         $rules = $this->inflector->getRules();
         $this->assertEquals(0, count($rules));
-        $this->inflector->setFilterRule('controller', 'PregReplace');
+        $this->inflector->setFilterRule('controller', 'pregReplace');
         $rules = $this->inflector->getRules('controller');
         $this->assertEquals(1, count($rules));
         $filter = $rules[0];
@@ -115,7 +115,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     {
         $rules = $this->inflector->getRules();
         $this->assertEquals(0, count($rules));
-        $this->inflector->setFilterRule('controller', array('PregReplace', 'Alpha'));
+        $this->inflector->setFilterRule('controller', array('pregReplace', 'alpha'));
         $rules = $this->inflector->getRules('controller');
         $this->assertEquals(2, count($rules));
         $this->assertTrue($rules[0] instanceof \Zend\Filter\FilterInterface);
@@ -126,10 +126,10 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     {
         $rules = $this->inflector->getRules();
         $this->assertEquals(0, count($rules));
-        $this->inflector->setFilterRule('controller', 'PregReplace');
+        $this->inflector->setFilterRule('controller', 'pregReplace');
         $rules = $this->inflector->getRules('controller');
         $this->assertEquals(1, count($rules));
-        $this->inflector->addFilterRule('controller', 'Alpha');
+        $this->inflector->addFilterRule('controller', 'alpha');
         $rules = $this->inflector->getRules('controller');
         $this->assertEquals(2, count($rules));
     }
@@ -173,7 +173,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
         $rules = $this->inflector->getRules();
         $this->assertEquals(0, count($rules));
         $this->inflector->addRules(array(
-            ':controller' => array('PregReplace', 'Alpha'),
+            ':controller' => array('pregReplace', 'alpha'),
             'suffix'      => 'phtml',
         ));
         $rules = $this->inflector->getRules();
@@ -188,7 +188,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
         $rules = $this->inflector->getRules();
         $this->assertEquals(1, count($rules));
         $this->inflector->setRules(array(
-            ':controller' => array('PregReplace', 'Alpha'),
+            ':controller' => array('pregReplace', 'alpha'),
             'suffix'      => 'phtml',
         ));
         $rules = $this->inflector->getRules();
@@ -199,7 +199,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRule()
     {
-        $this->inflector->setFilterRule(':controller', array('Alpha', 'StringToLower'));
+        $this->inflector->setFilterRule(':controller', array('alpha', 'stringToLower'));
         $this->assertTrue($this->inflector->getRule('controller', 1) instanceof \Zend\Filter\StringToLower);
         $this->assertFalse($this->inflector->getRule('controller', 2));
     }
@@ -208,8 +208,8 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     {
         $this->inflector->setTarget(':controller/:action.:suffix')
              ->addRules(array(
-                 ':controller' => array('Word\\CamelCaseToDash'),
-                 ':action'     => array('Word\\CamelCaseToDash'),
+                 ':controller' => array('wordCamelCaseToDash'),
+                 ':action'     => array('wordCamelCaseToDash'),
                  'suffix'      => 'phtml'
              ));
         $filter = $this->inflector;
@@ -232,8 +232,8 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
         $inflector = new InflectorFilter(
             '?=##controller/?=##action.?=##suffix',
             array(
-                 ':controller' => array('Word\\CamelCaseToDash'),
-                 ':action'     => array('Word\\CamelCaseToDash'),
+                 ':controller' => array('wordCamelCaseToDash'),
+                 ':action'     => array('wordCamelCaseToDash'),
                  'suffix'      => 'phtml'
                  ),
             null,
@@ -267,8 +267,8 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
         $inflector = new InflectorFilter(
             '?=##controller/?=##action.?=##suffix',
             array(
-                 ':controller' => array('Word\\CamelCaseToDash'),
-                 ':action'     => array('Word\\CamelCaseToDash'),
+                 ':controller' => array('wordCamelCaseToDash'),
+                 ':action'     => array('wordCamelCaseToDash'),
                  'suffix'      => 'phtml'
                  ),
             true,
@@ -284,8 +284,8 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
         $inflector = new InflectorFilter(
             'e:\path\to\:controller\:action.:suffix',
             array(
-                 ':controller' => array('Word\\CamelCaseToDash', 'StringToLower'),
-                 ':action'     => array('Word\\CamelCaseToDash'),
+                 ':controller' => array('wordCamelCaseToDash', 'stringToLower'),
+                 ':action'     => array('wordCamelCaseToDash'),
                  'suffix'      => 'phtml'
                 ),
             true,
@@ -304,12 +304,12 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
             'targetReplacementIdentifier' => '$',
             'rules' => array(
                 ':controller' => array(
-                    'rule1' => 'Word\\CamelCaseToUnderscore',
-                    'rule2' => 'StringToLower',
+                    'rule1' => 'wordCamelCaseToUnderscore',
+                    'rule2' => 'stringToLower',
                 ),
                 ':action' => array(
-                    'rule1' => 'Word\\CamelCaseToDash',
-                    'rule2' => 'StringToUpper',
+                    'rule1' => 'wordCamelCaseToDash',
+                    'rule2' => 'stringToUpper',
                 ),
                 'suffix' => 'php'
             ),
@@ -374,8 +374,8 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
         $inflector = new InflectorFilter(
             ':moduleDir' . DIRECTORY_SEPARATOR . ':controller' . DIRECTORY_SEPARATOR . ':action.:suffix',
             array(
-                ':controller' => array('Word\\CamelCaseToDash', 'StringToLower'),
-                ':action'     => array('Word\\CamelCaseToDash'),
+                ':controller' => array('wordCamelCaseToDash', 'stringToLower'),
+                ':action'     => array('wordCamelCaseToDash'),
                 'suffix'      => 'phtml'
                 ),
             true,
@@ -420,15 +420,15 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     {
         $rules = $this->inflector->getRules();
         $this->assertEquals(0, count($rules));
-        $this->inflector->setFilterRule('controller', 'PregReplace');
+        $this->inflector->setFilterRule('controller', 'pregReplace');
         $rules = $this->inflector->getRules('controller');
         $this->assertEquals(1, count($rules));
-        $this->inflector->addFilterRule('controller', array('Alpha', 'StringToLower'));
+        $this->inflector->addFilterRule('controller', array('alpha', 'stringToLower'));
         $rules = $this->inflector->getRules('controller');
         $this->assertEquals(3, count($rules));
-        $this->_context = 'StringToLower';
+        $this->_context = 'stringToLower';
         $this->inflector->setStaticRuleReference('context' , $this->_context);
-        $this->inflector->addFilterRule('controller', array('Alpha', 'StringToLower'));
+        $this->inflector->addFilterRule('controller', array('alpha', 'stringToLower'));
         $rules = $this->inflector->getRules('controller');
         $this->assertEquals(5, count($rules));
     }

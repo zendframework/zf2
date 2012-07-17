@@ -15,13 +15,14 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class FooAbstractFactory implements AbstractFactoryInterface
 {
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         if ($name == 'foo') {
             return true;
         }
     }
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return new Foo;
     }

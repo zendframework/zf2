@@ -32,11 +32,11 @@ class AdapterPluginManager extends AbstractPluginManager
     protected $invokableClasses = array(
         'amf0'         => 'Zend\Serializer\Adapter\Amf0',
         'amf3'         => 'Zend\Serializer\Adapter\Amf3',
-        'igbinary'     => 'Zend\Serializer\Adapter\IgBinary',
+        'igBinary'     => 'Zend\Serializer\Adapter\IgBinary',
         'json'         => 'Zend\Serializer\Adapter\Json',
-        'phpcode'      => 'Zend\Serializer\Adapter\PhpCode',
-        'phpserialize' => 'Zend\Serializer\Adapter\PhpSerialize',
-        'pythonpickle' => 'Zend\Serializer\Adapter\PythonPickle',
+        'phpCode'      => 'Zend\Serializer\Adapter\PhpCode',
+        'phpSerialize' => 'Zend\Serializer\Adapter\PhpSerialize',
+        'pythonPickle' => 'Zend\Serializer\Adapter\PythonPickle',
         'wddx'         => 'Zend\Serializer\Adapter\Wddx',
     );
 

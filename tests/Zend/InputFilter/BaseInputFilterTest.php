@@ -60,17 +60,17 @@ class BaseInputFilterTest extends TestCase
         $filter = new InputFilter();
 
         $foo = new Input();
-        $foo->getFilterChain()->attachByName('stringtrim')
+        $foo->getFilterChain()->attachByName('stringTrim')
                               ->attachByName('alpha');
         $foo->getValidatorChain()->addValidator(new Validator\StringLength(3, 6));
 
         $bar = new Input();
-        $bar->getFilterChain()->attachByName('stringtrim');
+        $bar->getFilterChain()->attachByName('stringTrim');
         $bar->getValidatorChain()->addValidator(new Validator\Digits());
 
         $baz = new Input();
         $baz->setRequired(false);
-        $baz->getFilterChain()->attachByName('stringtrim');
+        $baz->getFilterChain()->attachByName('stringTrim');
         $baz->getValidatorChain()->addValidator(new Validator\StringLength(1, 6));
 
         $filter->add($foo, 'foo')
@@ -86,17 +86,17 @@ class BaseInputFilterTest extends TestCase
         $filter = new InputFilter();
 
         $foo = new Input();
-        $foo->getFilterChain()->attachByName('stringtrim')
+        $foo->getFilterChain()->attachByName('stringTrim')
                               ->attachByName('alpha');
         $foo->getValidatorChain()->addValidator(new Validator\StringLength(3, 6));
 
         $bar = new Input();
-        $bar->getFilterChain()->attachByName('stringtrim');
+        $bar->getFilterChain()->attachByName('stringTrim');
         $bar->getValidatorChain()->addValidator(new Validator\Digits());
 
         $baz = new Input();
         $baz->setRequired(false);
-        $baz->getFilterChain()->attachByName('stringtrim');
+        $baz->getFilterChain()->attachByName('stringTrim');
         $baz->getValidatorChain()->addValidator(new Validator\StringLength(1, 6));
 
         $filter->add($foo, 'foo')

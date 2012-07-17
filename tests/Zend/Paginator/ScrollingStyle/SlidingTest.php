@@ -83,7 +83,7 @@ class SlidingTest extends \PHPUnit_Framework_TestCase
     public function testGetsNextAndPreviousPageForFirstPage()
     {
         $this->_paginator->setCurrentPageNumber(1);
-        $pages = $this->_paginator->getPages('Sliding');
+        $pages = $this->_paginator->getPages('sliding');
 
         $this->assertEquals(2, $pages->next);
     }
@@ -91,7 +91,7 @@ class SlidingTest extends \PHPUnit_Framework_TestCase
     public function testGetsNextAndPreviousPageForSecondPage()
     {
         $this->_paginator->setCurrentPageNumber(2);
-        $pages = $this->_paginator->getPages('Sliding');
+        $pages = $this->_paginator->getPages('sliding');
         $this->assertEquals(1, $pages->previous);
         $this->assertEquals(3, $pages->next);
     }
@@ -99,7 +99,7 @@ class SlidingTest extends \PHPUnit_Framework_TestCase
     public function testGetsNextAndPreviousPageForMiddlePage()
     {
         $this->_paginator->setCurrentPageNumber(6);
-        $pages = $this->_paginator->getPages('Sliding');
+        $pages = $this->_paginator->getPages('sliding');
         $this->assertEquals(5, $pages->previous);
         $this->assertEquals(7, $pages->next);
     }
@@ -107,7 +107,7 @@ class SlidingTest extends \PHPUnit_Framework_TestCase
     public function testGetsNextAndPreviousPageForSecondLastPage()
     {
         $this->_paginator->setCurrentPageNumber(10);
-        $pages = $this->_paginator->getPages('Sliding');
+        $pages = $this->_paginator->getPages('sliding');
         $this->assertEquals(9, $pages->previous);
         $this->assertEquals(11, $pages->next);
     }
@@ -115,7 +115,7 @@ class SlidingTest extends \PHPUnit_Framework_TestCase
     public function testGetsNextAndPreviousPageForLastPage()
     {
         $this->_paginator->setCurrentPageNumber(11);
-        $pages = $this->_paginator->getPages('Sliding');
+        $pages = $this->_paginator->getPages('sliding');
         $this->assertEquals(10, $pages->previous);
     }
 

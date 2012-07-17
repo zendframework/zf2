@@ -404,6 +404,6 @@ abstract class AbstractWord extends AbstractAdapter
      */
     public function getHelperName()
     {
-        return 'captcha/word';
+        return 'captchaWord';
     }
 }

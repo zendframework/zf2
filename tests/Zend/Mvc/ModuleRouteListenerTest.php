@@ -35,7 +35,7 @@ class ModuleRouteListenerTest extends TestCase
     public function testRouteReturningModuleNamespaceInRouteMatchTriggersControllerRename()
     {
         $this->router->addRoute('foo', array(
-            'type' => 'Literal',
+            'type' => 'literal',
             'options' => array(
                 'route'    => '/foo',
                 'defaults' => array(
@@ -59,7 +59,7 @@ class ModuleRouteListenerTest extends TestCase
     public function testRouteNotReturningModuleNamespaceInRouteMatchLeavesControllerUntouched()
     {
         $this->router->addRoute('foo', array(
-            'type' => 'Literal',
+            'type' => 'literal',
             'options' => array(
                 'route'    => '/foo',
                 'defaults' => array(
@@ -84,7 +84,7 @@ class ModuleRouteListenerTest extends TestCase
         $this->events->attach($moduleListener);
 
         $this->router->addRoute('foo', array(
-            'type' => 'Literal',
+            'type' => 'literal',
             'options' => array(
                 'route'    => '/foo',
                 'defaults' => array(

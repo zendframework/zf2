@@ -285,7 +285,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
         }
 
         if (method_exists($this->view, 'plugin')) {
-            $this->escapeHtmlHelper = $this->view->plugin('escapehtml');
+            $this->escapeHtmlHelper = $this->view->plugin('escapeHtml');
         }
 
         if (!$this->escapeHtmlHelper instanceof EscapeHtml) {
@@ -307,7 +307,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
         }
 
         if (method_exists($this->view, 'plugin')) {
-            $this->escapeHtmlAttrHelper = $this->view->plugin('escapehtmlattr');
+            $this->escapeHtmlAttrHelper = $this->view->plugin('escapeHtmlAttr');
         }
 
         if (!$this->escapeHtmlAttrHelper instanceof EscapeHtmlAttr) {

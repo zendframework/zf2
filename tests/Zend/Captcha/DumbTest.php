@@ -41,7 +41,7 @@ class DumbTest extends CommonWordTest
 
     public function testUsesCaptchaDumbAsHelper()
     {
-        $this->assertEquals('captcha/dumb', $this->captcha->getHelperName());
+        $this->assertEquals('captchaDumb', $this->captcha->getHelperName());
     }
 
     public function testGeneratePopulatesId()

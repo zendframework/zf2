@@ -24,10 +24,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testFactory()
     {
         $parsers = Markup\Markup::getParserPluginManager();
-        $parsers->setInvokableClass('mockparser', 'ZendTest\Markup\TestAsset\Parser\MockParser');
+        $parsers->setInvokableClass('MockParser', 'ZendTest\Markup\TestAsset\Parser\MockParser');
 
         $renderers = Markup\Markup::getRendererPluginManager();
-        $renderers->setInvokableClass('mockrenderer', 'ZendTest\Markup\TestAsset\Renderer\MockRenderer');
+        $renderers->setInvokableClass('MockRenderer', 'ZendTest\Markup\TestAsset\Renderer\MockRenderer');
 
         $renderer = Markup\Markup::factory('MockParser', 'MockRenderer');
 
