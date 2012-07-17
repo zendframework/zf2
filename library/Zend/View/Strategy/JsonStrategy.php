@@ -117,7 +117,6 @@ class JsonStrategy implements ListenerAggregateInterface
             $this->renderer->setJsonpCallback($callback);
         }
 
-        return $this->renderer;
     }
 
     /**
