@@ -148,7 +148,7 @@ class PhpRendererStrategy implements StrategyInterface, ListenerAggregateInterfa
         }
 
         $accept  = $headers->get('accept');
-        if (($match = $accept->match('*/*')) == false) {
+        if (($match = $accept->match('foo')) == false) {
             return $this;
         }
         $this->matchPriority = $match->getPriority();
