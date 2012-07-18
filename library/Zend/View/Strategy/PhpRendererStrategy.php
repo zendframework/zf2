@@ -98,7 +98,7 @@ class PhpRendererStrategy implements StrategyInterface, ListenerAggregateInterfa
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
+        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'resolveStrategyPriority'), $priority);
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
     }
 
@@ -134,7 +134,7 @@ class PhpRendererStrategy implements StrategyInterface, ListenerAggregateInterfa
      * @param  ViewEvent $e
      * @return PhpRenderer
      */
-    public function selectRenderer(ViewEvent $e)
+    public function resolveStrategyPriority(ViewEvent $e)
     {
         $request = $e->getRequest();
         if (!$request instanceof HttpRequest) {

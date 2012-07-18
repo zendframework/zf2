@@ -70,7 +70,7 @@ class JsonStrategy implements StrategyInterface, ListenerAggregateInterface
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
+        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'resolveStrategyPriority'), $priority);
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
     }
 
@@ -106,7 +106,7 @@ class JsonStrategy implements StrategyInterface, ListenerAggregateInterface
      * @param  ViewEvent $e
      * @return null|JsonRenderer
      */
-    public function selectRenderer(ViewEvent $e)
+    public function resolveStrategyPriority(ViewEvent $e)
     {
         $model = $e->getModel();
 

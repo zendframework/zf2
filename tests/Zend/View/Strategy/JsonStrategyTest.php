@@ -37,46 +37,60 @@ class JsonStrategyTest extends TestCase
         $this->response = new HttpResponse();
     }
 
-    public function testJsonModelSelectsJsonStrategy()
+    public function testJsonModelHasMatchPriorityOne()
     {
         $this->event->setModel(new JsonModel());
-        $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
+        $result = $this->strategy->resolveStrategyPriority($this->event);
+        $this->assertSame($this->renderer, $result->getRenderer());
+        $this->assertEquals(1, $result->getMatchPriority());
     }
 
-    public function testJsonAcceptHeaderSelectsJsonStrategy()
+    public function testJsonAcceptHeaderHasMatchPriorityOne()
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/json');
         $this->event->setRequest($request);
-        $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
+        $result = $this->strategy->resolveStrategyPriority($this->event);
+        $this->assertSame($this->renderer, $result->getRenderer());
+        $this->assertEquals(1, $result->getMatchPriority());
     }
 
-    public function testJavascriptAcceptHeaderSelectsJsonStrategy()
+    public function testJavascriptAcceptHeaderHasMatchPriorityOne()
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/javascript');
         $this->event->setRequest($request);
-        $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
-        $this->assertFalse($result->hasJsonpCallback());
+        $result = $this->strategy->resolveStrategyPriority($this->event);
+        $this->assertSame($this->renderer, $result->getRenderer());
+        $this->assertFalse($result->getRenderer()->hasJsonpCallback());
+        $this->assertEquals(1, $result->getMatchPriority());
     }
 
-    public function testJavascriptAcceptHeaderSelectsJsonStrategyAndSetsJsonpCallback()
+    public function testJavascriptAcceptHeaderHasMatchPriorityOneAndSetsJsonpCallback()
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/javascript');
         $request->setQuery(new Parameters(array('callback' => 'foo')));
         $this->event->setRequest($request);
-        $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
-        $this->assertTrue($result->hasJsonpCallback());
+        $result = $this->strategy->resolveStrategyPriority($this->event);
+        $this->assertSame($this->renderer, $result->getRenderer());
+        $this->assertTrue($result->getRenderer()->hasJsonpCallback());
+        $this->assertEquals(1, $result->getMatchPriority());
+    }
+
+    public function testJsonAcceptHeaderWithPriority()
+    {
+        $request = new HttpRequest();
+        $request->getHeaders()->addHeaderLine('Accept', 'application/json;q=0.5');
+        $this->event->setRequest($request);
+        $result = $this->strategy->resolveStrategyPriority($this->event);
+        $this->assertSame($this->renderer, $result->getRenderer());
+        $this->assertEquals(0.5, $result->getMatchPriority());
     }
 
     public function testLackOfJsonModelOrAcceptHeaderDoesNotSelectJsonStrategy()
     {
-        $result = $this->strategy->selectRenderer($this->event);
+        $result = $this->strategy->resolveStrategyPriority($this->event);
         $this->assertNotSame($this->renderer, $result);
         $this->assertNull($result);
     }
@@ -152,7 +166,7 @@ class JsonStrategyTest extends TestCase
         $this->event->setModel($model);
         $this->event->setRequest($request);
 
-        $this->assertNull($this->strategy->selectRenderer($this->event));
+        $this->assertNull($this->strategy->resolveStrategyPriority($this->event));
     }
 
     public function testAttachesListenersAtExpectedPriorities()
@@ -160,7 +174,7 @@ class JsonStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (array('renderer' => 'resolveStrategyPriority', 'response' => 'injectResponse') as $event => $method) {
             $listeners        = $events->getListeners($event);
             $expectedCallback = array($this->strategy, $method);
             $expectedPriority = 1;
@@ -183,7 +197,7 @@ class JsonStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy, 1000);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (array('renderer' => 'resolveStrategyPriority', 'response' => 'injectResponse') as $event => $method) {
             $listeners        = $events->getListeners($event);
             $expectedCallback = array($this->strategy, $method);
             $expectedPriority = 1000;
