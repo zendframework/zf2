@@ -24,7 +24,7 @@ use Zend\View\ViewEvent;
  * @package    Zend_View
  * @subpackage Strategy
  */
-class FeedStrategy implements ListenerAggregateInterface
+class FeedStrategy implements StrategyInterface, ListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]

@@ -22,7 +22,7 @@ use Zend\View\ViewEvent;
  * @package    Zend_View
  * @subpackage Strategy
  */
-class PhpRendererStrategy implements ListenerAggregateInterface
+class PhpRendererStrategy implements StrategyInterface, ListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]

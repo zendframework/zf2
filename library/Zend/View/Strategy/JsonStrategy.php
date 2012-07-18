@@ -23,7 +23,7 @@ use Zend\View\ViewEvent;
  * @package    Zend_View
  * @subpackage Strategy
  */
-class JsonStrategy implements ListenerAggregateInterface
+class JsonStrategy implements StrategyInterface, ListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
