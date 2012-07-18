@@ -139,17 +139,17 @@ class PhpRendererStrategy implements StrategyInterface, ListenerAggregateInterfa
         $request = $e->getRequest();
         if (!$request instanceof HttpRequest) {
             // Not an HTTP request; cannot autodetermine
-            return;
+            return $this;
         }
 
         $headers = $request->getHeaders();
         if (!$headers->has('accept')) {
-            return;
+            return $this;
         }
 
         $accept  = $headers->get('accept');
         if (($match = $accept->match('*/*')) == false) {
-            return;
+            return $this;
         }
         $this->matchPriority = $match->getPriority();
 
