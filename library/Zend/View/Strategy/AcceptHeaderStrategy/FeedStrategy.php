@@ -50,8 +50,14 @@ class FeedStrategy
         return $acceptHeader->getPrioritized();
     }
 
-    public function getRenderer(ViewEvent $e, AcceptFieldValuePart $match)
+    public function getRenderer(ViewEvent $e, AcceptFieldValuePart $match = null)
     {
+        if ($e->getModel() instanceof Model\FeedModel) {
+            return $this->renderer;
+        } elseif (is_null($match)) {
+            return;
+        }
+
         if ($match->getTypeString() == 'application/rss+xml') {
             $this->renderer->setFeedType('rss');
         }

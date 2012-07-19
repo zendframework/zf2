@@ -49,8 +49,14 @@ class JsonStrategy
         return $acceptHeader->getPrioritized();
     }
 
-    public function getRenderer(ViewEvent $e, AcceptFieldValuePart $match)
+    public function getRenderer(ViewEvent $e, AcceptFieldValuePart $match = null)
     {
+        if ($e->getModel() instanceof Model\JsonModel) {
+            return $this->renderer;
+        } elseif (is_null($match)) {
+            return;
+        }
+
         if ('javascript' == $match->getFormat()) {
             // only check for callback for javascript format
             $request = $e->getRequest();
