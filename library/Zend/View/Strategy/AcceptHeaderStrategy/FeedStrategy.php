@@ -50,6 +50,19 @@ class FeedStrategy
         return $acceptHeader->getPrioritized();
     }
 
+    public function getRenderer(ViewEvent $e, AcceptFieldValuePart $match)
+    {
+        if ($match->getTypeString() == 'application/rss+xml') {
+            $this->renderer->setFeedType('rss');
+        }
+
+        if ($match->getTypeString() == 'application/atom+xml') {
+            $this->renderer->setFeedType('atom');
+        }
+
+        return $this->renderer;
+    }
+
     /**
      * Inject the response with the feed payload and appropriate Content-Type header
      *

@@ -49,6 +49,22 @@ class JsonStrategy
         return $acceptHeader->getPrioritized();
     }
 
+    public function getRenderer(ViewEvent $e, AcceptFieldValuePart $match)
+    {
+        if ('javascript' == $match->getFormat()) {
+            // only check for callback for javascript format
+            $request = $e->getRequest();
+            if ($request instanceof HttpRequest) {
+                // only can check for callback if HttpRequest
+                if (false != ($callback = $request->getQuery()->get('callback'))) {
+                    $this->renderer->setJsonpCallback($callback);
+                }
+            }
+        }
+
+        return $this->renderer;
+    }
+
     /**
      * Inject the response with the JSON payload and appropriate Content-Type header
      *
