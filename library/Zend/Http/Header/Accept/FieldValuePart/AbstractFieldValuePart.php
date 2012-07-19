@@ -28,12 +28,27 @@ abstract class AbstractFieldValuePart
     private $internalValues;
 
     /**
+     * Whether or not this part was involved in a match
+     */
+    private $matched = false;
+
+    /**
      *
      * @param object $internalValues
      */
     public function __construct($internalValues)
     {
         $this->internalValues = $internalValues;
+    }
+
+    public function setMatched($matched = true)
+    {
+        $this->matched = (bool) $matched;
+    }
+
+    public function getMatched()
+    {
+        return $this->matched;
     }
 
     /**
