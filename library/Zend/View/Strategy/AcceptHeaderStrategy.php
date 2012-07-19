@@ -37,9 +37,11 @@ class AcceptHeaderStrategy implements StrategyAggregateInterface, ListenerAggreg
     protected $acceptHeaderStrategies = array();
 
     /**
-     * @var RendererInterface
+     * The chosen strategy
+     *
+     * @var AcceptHeaderStrategyInterface
      */
-    protected $renderer;
+    protected $strategy;
 
     /**
      * Add a strategy to the array of Accept Header strategies
@@ -103,8 +105,8 @@ class AcceptHeaderStrategy implements StrategyAggregateInterface, ListenerAggreg
 
             // Check if the accept strategy can return early using just the ViewEvent
             if (false != ($renderer = $acceptStrategy->getRenderer($e))) {
-                $this->renderer = $renderer;
-                return $this->renderer;
+                $this->strategy = $acceptStrategy;
+                return $renderer;
             }
 
             foreach($acceptStrategy->getFieldValueParts() as $fieldValuePart) {
@@ -118,11 +120,11 @@ class AcceptHeaderStrategy implements StrategyAggregateInterface, ListenerAggreg
             return;
         }
 
-        $acceptStrategy = $this->acceptHeaderStrategies[$match->getMatchId()];
+        $this->strategy = $this->acceptHeaderStrategies[$match->getMatchId()];
 
         //need to send the matched content type to the strategy in case it needs to setup the renderer
-        $this->renderer = $acceptStrategy->getRenderer($e, $match);
-        return $this->renderer;
+        $renderer = $this->strategy->getRenderer($e, $match);
+        return $renderer;
     }
 
     /**
@@ -133,10 +135,10 @@ class AcceptHeaderStrategy implements StrategyAggregateInterface, ListenerAggreg
      */
     public function injectResponse(ViewEvent $e)
     {
-        if (is_null($this->renderer)) {
+        if (is_null($this->strategy)) {
             return;
         }
-        // we need the matched strategy to do it's inject response routine
-        die(__FUNCTION__);
+
+        return $this->strategy->injectResponse($e);
     }
 }
