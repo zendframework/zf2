@@ -101,7 +101,7 @@ class AcceptHeaderStrategy implements StrategyAggregateInterface, ListenerAggreg
         $fieldValueParts = array(); // Iterator that allows for equally named keys
         foreach($this->acceptHeaderStrategies as $key => $acceptStrategy) {
             foreach($acceptStrategy->getFieldValueParts() as $fieldValuePart) {
-                //todo array_walk ftw
+                $fieldValuePart->setMatchId($key);
                 $fieldValueParts[] = $fieldValuePart;
             }
         }
@@ -111,10 +111,11 @@ class AcceptHeaderStrategy implements StrategyAggregateInterface, ListenerAggreg
             return;
         }
 
-        //need to send the matched content type to the strategy in case it needs to setup the renderer
-        $this->renderer = $match->getMatchedFieldValuePartId()->getRenderer($e, $match);
-        return $this;
+        $acceptStrategy = $this->acceptHeaderStrategies[$match->getMatchId()];
 
+        //need to send the matched content type to the strategy in case it needs to setup the renderer
+        $this->renderer = $acceptStrategy->getRenderer($e, $match);
+        return $this;
     }
 
     /**

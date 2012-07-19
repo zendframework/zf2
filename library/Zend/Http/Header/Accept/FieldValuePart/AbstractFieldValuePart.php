@@ -28,9 +28,14 @@ abstract class AbstractFieldValuePart
     private $internalValues;
 
     /**
-     * Whether or not this part was involved in a match
+     * This is used to label a FieldValuePart.
+     *
+     * Can be used as a label going into a match
+     * or to label a FieldValuePart coming out of a match
+     *
+     * @var mixed
      */
-    private $matched = false;
+    private $matchId;
 
     /**
      *
@@ -41,14 +46,14 @@ abstract class AbstractFieldValuePart
         $this->internalValues = $internalValues;
     }
 
-    public function setMatched($matched = true)
+    public function setMatchId($matchId)
     {
-        $this->matched = (bool) $matched;
+        $this->matchId = $matchId;
     }
 
-    public function getMatched()
+    public function getMatchId()
     {
-        return $this->matched;
+        return $this->matchId;
     }
 
     /**
