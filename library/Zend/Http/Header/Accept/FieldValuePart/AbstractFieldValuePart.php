@@ -28,12 +28,32 @@ abstract class AbstractFieldValuePart
     private $internalValues;
 
     /**
+     * This is used to label a FieldValuePart.
+     *
+     * Can be used as a label going into a match
+     * or to label a FieldValuePart coming out of a match
+     *
+     * @var mixed
+     */
+    private $matchId;
+
+    /**
      *
      * @param object $internalValues
      */
     public function __construct($internalValues)
     {
         $this->internalValues = $internalValues;
+    }
+
+    public function setMatchId($matchId)
+    {
+        $this->matchId = $matchId;
+    }
+
+    public function getMatchId()
+    {
+        return $this->matchId;
     }
 
     /**

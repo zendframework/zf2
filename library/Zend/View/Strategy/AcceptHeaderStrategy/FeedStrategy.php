@@ -8,11 +8,13 @@
  * @package   Zend_View
  */
 
-namespace Zend\View\Strategy;
+namespace Zend\View\Strategy\AcceptHeaderStrategy;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Feed\Writer\Feed;
+use Zend\Http\Header\Accept;
+use Zend\Http\Header\Accept\FieldValuePart\AcceptFieldValuePart;
 use Zend\Http\Request as HttpRequest;
 use Zend\Http\Response as HttpResponse;
 use Zend\View\Model;
@@ -24,13 +26,8 @@ use Zend\View\ViewEvent;
  * @package    Zend_View
  * @subpackage Strategy
  */
-class FeedStrategy implements ListenerAggregateInterface
+class FeedStrategy
 {
-    /**
-     * @var \Zend\Stdlib\CallbackHandler[]
-     */
-    protected $listeners = array();
-
     /**
      * @var FeedRenderer
      */
@@ -47,76 +44,29 @@ class FeedStrategy implements ListenerAggregateInterface
         $this->renderer = $renderer;
     }
 
-    /**
-     * Attach the aggregate to the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @param  int $priority
-     * @return void
-     */
-    public function attach(EventManagerInterface $events, $priority = 1)
+    public function getFieldValueParts()
     {
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
+        $acceptHeader = Accept::fromString('application/rss+xml,application/atom+xml');
+        return $acceptHeader->getPrioritized();
     }
 
-    /**
-     * Detach aggregate listeners from the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function detach(EventManagerInterface $events)
+    public function getRenderer(ViewEvent $e, AcceptFieldValuePart $match = null)
     {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
-    }
-
-    /**
-     * Detect if we should use the FeedRenderer based on model type and/or
-     * Accept header
-     *
-     * @param  ViewEvent $e
-     * @return null|FeedRenderer
-     */
-    public function selectRenderer(ViewEvent $e)
-    {
-        $model = $e->getModel();
-
-        if ($model instanceof Model\FeedModel) {
-            // FeedModel found
+        if ($e->getModel() instanceof Model\FeedModel) {
             return $this->renderer;
-        }
-
-        $request = $e->getRequest();
-        if (!$request instanceof HttpRequest) {
-            // Not an HTTP request; cannot autodetermine
-            return;
-        }
-
-        $headers = $request->getHeaders();
-        if (!$headers->has('accept')) {
-            return;
-        }
-
-        $accept  = $headers->get('accept');
-        if (($match = $accept->match('application/rss+xml, application/atom+xml')) == false) {
+        } elseif (is_null($match)) {
             return;
         }
 
         if ($match->getTypeString() == 'application/rss+xml') {
             $this->renderer->setFeedType('rss');
-            return $this->renderer;
         }
 
         if ($match->getTypeString() == 'application/atom+xml') {
             $this->renderer->setFeedType('atom');
-            return $this->renderer;
         }
 
+        return $this->renderer;
     }
 
     /**

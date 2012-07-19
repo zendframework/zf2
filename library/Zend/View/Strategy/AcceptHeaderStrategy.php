@@ -15,7 +15,8 @@ use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Http\Request as HttpRequest;
 use Zend\Http\Response as HttpResponse;
 use Zend\View\Model;
-use Zend\View\Renderer\JsonRenderer;
+use Zend\View\Renderer\RendererInterface;
+use Zend\View\Strategy\AcceptHeaderStrategy\AcceptHeaderStrategyInterface;
 use Zend\View\ViewEvent;
 
 /**
@@ -23,7 +24,7 @@ use Zend\View\ViewEvent;
  * @package    Zend_View
  * @subpackage Strategy
  */
-class JsonStrategy implements ListenerAggregateInterface
+class AcceptHeaderStrategy implements StrategyAggregateInterface, ListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
@@ -31,19 +32,25 @@ class JsonStrategy implements ListenerAggregateInterface
     protected $listeners = array();
 
     /**
-     * @var JsonRenderer
+     * @var AcceptHeaderStrategyInterface[]
      */
-    protected $renderer;
+    protected $acceptHeaderStrategies = array();
 
     /**
-     * Constructor
+     * The chosen strategy
      *
-     * @param  JsonRenderer $renderer
-     * @return void
+     * @var AcceptHeaderStrategyInterface
      */
-    public function __construct(JsonRenderer $renderer)
+    protected $strategy;
+
+    /**
+     * Add a strategy to the array of Accept Header strategies
+     *
+     * @param mixed $strategy
+     */
+    public function addStrategy($strategy)
     {
-        $this->renderer = $renderer;
+        $this->acceptHeaderStrategies[] = $strategy;
     }
 
     /**
@@ -75,21 +82,13 @@ class JsonStrategy implements ListenerAggregateInterface
     }
 
     /**
-     * Detect if we should use the JsonRenderer based on model type and/or
-     * Accept header
+     * Detect if we should use one of the registered AcceptHeader strategies
      *
      * @param  ViewEvent $e
-     * @return null|JsonRenderer
+     * @return null|RendererInterface
      */
     public function selectRenderer(ViewEvent $e)
     {
-        $model = $e->getModel();
-
-        if ($model instanceof Model\JsonModel) {
-            // JsonModel found
-            return $this->renderer;
-        }
-
         $request = $e->getRequest();
         if (!$request instanceof HttpRequest) {
             // Not an HTTP request; cannot autodetermine
@@ -101,53 +100,45 @@ class JsonStrategy implements ListenerAggregateInterface
             return;
         }
 
+        $fieldValueParts = array(); // Iterator that allows for equally named keys
+        foreach($this->acceptHeaderStrategies as $key => $acceptStrategy) {
 
-        $accept  = $headers->get('Accept');
-        if (($match = $accept->match('application/json, application/javascript')) == false) {
+            // Check if the accept strategy can return early using just the ViewEvent
+            if (false != ($renderer = $acceptStrategy->getRenderer($e))) {
+                $this->strategy = $acceptStrategy;
+                return $renderer;
+            }
+
+            foreach($acceptStrategy->getFieldValueParts() as $fieldValuePart) {
+                $fieldValuePart->setMatchId($key);
+                $fieldValueParts[] = $fieldValuePart;
+            }
+        }
+
+        $accept = $headers->get('Accept');
+        if (false == ($match = $accept->match($fieldValueParts))) {
             return;
         }
 
-        if ($match->getFormat() == 'json') {
-            // application/json Accept header found
-            return $this->renderer;
-        }
+        $this->strategy = $this->acceptHeaderStrategies[$match->getMatchId()];
 
-        // application/javascript Accept header found
-        if (false != ($callback = $request->getQuery()->get('callback'))) {
-            $this->renderer->setJsonpCallback($callback);
-        }
-
-        return $this->renderer;
+        //need to send the matched content type to the strategy in case it needs to setup the renderer
+        $renderer = $this->strategy->getRenderer($e, $match);
+        return $renderer;
     }
 
     /**
-     * Inject the response with the JSON payload and appropriate Content-Type header
+     * Inject the response with the feed payload and appropriate Content-Type header
      *
      * @param  ViewEvent $e
      * @return void
      */
     public function injectResponse(ViewEvent $e)
     {
-        $renderer = $e->getRenderer();
-        if ($renderer !== $this->renderer) {
-            // Discovered renderer is not ours; do nothing
+        if (is_null($this->strategy)) {
             return;
         }
 
-        $result   = $e->getResult();
-        if (!is_string($result)) {
-            // We don't have a string, and thus, no JSON
-            return;
-        }
-
-        // Populate response
-        $response = $e->getResponse();
-        $response->setContent($result);
-        $headers = $response->getHeaders();
-        if ($this->renderer->hasJsonpCallback()) {
-            $headers->addHeaderLine('content-type', 'application/javascript');
-        } else {
-            $headers->addHeaderLine('content-type', 'application/json');
-        }
+        return $this->strategy->injectResponse($e);
     }
 }

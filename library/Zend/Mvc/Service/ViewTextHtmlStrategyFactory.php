@@ -12,30 +12,30 @@ namespace Zend\Mvc\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Strategy\AcceptHeaderStrategy\FeedStrategy;
+use Zend\View\Strategy\AcceptHeaderStrategy\TextHtmlStrategy;
 
 /**
  * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */
-class ViewFeedStrategyFactory implements FactoryInterface
+class ViewTextHtmlStrategyFactory implements FactoryInterface
 {
     /**
      * Create and return the JSON view strategy
      *
-     * Retrieves the ViewFeedRenderer service from the service locator, and
-     * injects it into the constructor for the feed strategy.
+     * Retrieves the ViewJsonRenderer service from the service locator, and
+     * injects it into the constructor for the JSON strategy.
      *
      * It then attaches the strategy to the View service, at a priority of 100.
      *
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return FeedStrategy
+     * @return JsonStrategy
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $feedRenderer = $serviceLocator->get('ViewFeedRenderer');
-        $feedStrategy = new FeedStrategy($feedRenderer);
-        return $feedStrategy;
+        $phpRenderer = $serviceLocator->get('ViewRenderer');
+        $textHtmlStrategy = new TextHtmlStrategy($phpRenderer);
+        return $textHtmlStrategy;
     }
 }
