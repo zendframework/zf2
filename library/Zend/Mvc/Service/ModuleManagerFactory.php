@@ -51,6 +51,7 @@ class ModuleManagerFactory implements FactoryInterface
             'ViewFeedStrategy'         => 'Zend\Mvc\Service\ViewFeedStrategyFactory',
             'ViewJsonRenderer'         => 'Zend\Mvc\Service\ViewJsonRendererFactory',
             'ViewJsonStrategy'         => 'Zend\Mvc\Service\ViewJsonStrategyFactory',
+        	'ViewTextHtmlStrategy'     => 'Zend\Mvc\Service\ViewTextHtmlStrategyFactory',
         ),
         'aliases' => array(
             'Config'                            => 'Configuration',
