@@ -26,6 +26,7 @@ use Zend\View\HelperPluginManager as ViewHelperManager;
 use Zend\View\Renderer\PhpRenderer as ViewPhpRenderer;
 use Zend\View\Resolver as ViewResolver;
 use Zend\View\Strategy\PhpRendererStrategy;
+use Zend\View\Strategy\StrategyAggregateInterface;
 use Zend\View\View;
 
 /**
@@ -452,7 +453,13 @@ class ViewManager implements ListenerAggregateInterface
 
         $view = $this->getView();
 
-        foreach ($strategies as $strategy) {
+        foreach ($strategies as $key => $strategy) {
+            $strategyCollection = null;
+            if (is_array($strategy) || $strategy instanceof Traversable) {
+                $strategyCollection = $strategy;
+                $strategy = $key;
+            }
+
             if (!is_string($strategy)) {
                 continue;
             }
@@ -460,6 +467,19 @@ class ViewManager implements ListenerAggregateInterface
             $listener = $this->services->get($strategy);
             if ($listener instanceof ListenerAggregateInterface) {
                 $view->getEventManager()->attach($listener, 100);
+            }
+
+            if ($listener instanceof StrategyAggregateInterface) {
+                if (isset($strategyCollection)) {
+                    foreach ($strategyCollection as $subStrategy) {
+                        if (!is_string($subStrategy)) {
+                            continue;
+                        }
+
+                        $subStrategy = $this->services->get($subStrategy);
+                        $listener->addStrategy($subStrategy);
+                    }
+                }
             }
         }
     }
