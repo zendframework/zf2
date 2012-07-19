@@ -12,14 +12,14 @@ namespace Zend\Mvc\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Strategy\AcceptHeaderStrategy\FeedStrategy;
+use Zend\View\Strategy\AcceptHeaderStrategy;
 
 /**
  * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */
-class ViewFeedStrategyFactory implements FactoryInterface
+class ViewAcceptHeaderStrategyFactory implements FactoryInterface
 {
     /**
      * Create and return the JSON view strategy
@@ -34,8 +34,7 @@ class ViewFeedStrategyFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $feedRenderer = $serviceLocator->get('ViewFeedRenderer');
-        $feedStrategy = new FeedStrategy($feedRenderer);
-        return $feedStrategy;
+        $acceptHeaderStrategy = new AcceptHeaderStrategy();
+        return $acceptHeaderStrategy;
     }
 }

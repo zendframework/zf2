@@ -12,7 +12,7 @@ namespace Zend\Mvc\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Strategy\JsonStrategy;
+use Zend\View\Strategy\AcceptHeaderStrategy\JsonStrategy;
 
 /**
  * @category   Zend
