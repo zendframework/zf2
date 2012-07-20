@@ -60,6 +60,7 @@ class InArray extends AbstractValidator
         if ($this->haystack == null) {
             throw new Exception\RuntimeException('haystack option is mandatory');
         }
+
         return $this->haystack;
     }
 
@@ -72,6 +73,7 @@ class InArray extends AbstractValidator
     public function setHaystack(array $haystack)
     {
         $this->haystack = $haystack;
+
         return $this;
     }
 
@@ -124,33 +126,31 @@ class InArray extends AbstractValidator
      * option is true, then the type of $value is also checked.
      *
      * @param  mixed $value
-     * @throws Exception\RuntimeException If 0 is present in the haystack and strict mode is disabled.
-     * See {@link http://php.net/manual/function.in-array.php#104501}
      * @return boolean
      */
     public function isValid($value)
     {
-        if (!$this->strict && in_array(0, $this->getHaystack(), true)) {
-            // Strings are treated as 0 integer by PHP
-            // ZF2-337 http://php.net/manual/function.in-array.php#104501
-            throw new Exception\RuntimeException('Comparisons with 0 are only possible in strict mode');
+        $this->setValue($value);
+        $valueIsScalar = is_scalar($value);
+
+        $iterator = new RecursiveArrayIterator($this->getHaystack());
+        if ($this->recursive) {
+            $iterator = new RecursiveIteratorIterator($iterator);
         }
 
-        $this->setValue($value);
-        if ($this->getRecursive()) {
-            $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($this->getHaystack()));
-            foreach ($iterator as $element) {
-                if ($this->strict) {
-                    if ($element === $value) {
+        foreach ($iterator as $element) {
+            if ($this->strict) {
+                if ($element === $value) {
+                    return true;
+                }
+            } else {
+                if ($valueIsScalar && is_scalar($element)) {
+                    if (strcmp($element, $value) == 0) {
                         return true;
                     }
                 } elseif ($element == $value) {
                     return true;
                 }
-            }
-        } else {
-            if (in_array($value, $this->getHaystack(), $this->strict)) {
-                return true;
             }
         }
 
