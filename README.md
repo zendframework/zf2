@@ -24,7 +24,10 @@ PLEASE USE AT YOUR OWN RISK.
      option values are unique.
  - Moved Zend\I18n\Validator\Iban to Zend\Validator\Iban
    and replaced the option "locale" with "country_code"
-
+ - Filter
+   - Removed the `Zend\Filter\Encrypt\Mcrypt` in favor of `Zend\Filter\Encrypt\BlockCipher'.
+     The `BlockCipher' adapter works using the `Zend\Crypt\BlockCipher` component and offers
+     a better security compared with Mcrypt because it uses encryption + authentication.
 
 Over *XXX* pull requests for a variety of features and bugfixes were handled
 since beta5!
