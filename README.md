@@ -22,6 +22,10 @@ PLEASE USE AT YOUR OWN RISK.
    - Select-style elements now have options populated as value => label
      pairs instead of label => value pairs. This is done to ensure that
      option values are unique.
+ - Filter
+   - Removed the `Zend\Filter\Encrypt\Mcrypt` in favor of `Zend\Filter\Encrypt\BlockCipher'.
+     The `BlockCipher' adapter works using the `Zend\Crypt\BlockCipher` component and offers
+     a better security compared with Mcrypt because it uses encryption + authentication.
 
 Over *XXX* pull requests for a variety of features and bugfixes were handled
 since beta5!
