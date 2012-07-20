@@ -176,11 +176,6 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
             $this->assertContains('The algorithm', $e->getMessage());
         }
 
-        try {
-            $filter->setEncryption(array('mode' => 'unknown'));
-        } catch (\Zend\Filter\Exception\InvalidArgumentException $e) {
-            $this->assertContains('The mode', $e->getMessage());
-        }
     }
 
     /**
