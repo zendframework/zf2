@@ -66,6 +66,12 @@ class ModuleManager implements ModuleManagerInterface
         }
     }
 
+    /**
+     * loadModules event callback. Preloads all modules and
+     *
+     * @triggers loadModule(ModuleEvent)
+     * @return   void
+     */
     public function onLoadModules()
     {
         if (true === $this->modulesAreLoaded) {
@@ -76,14 +82,24 @@ class ModuleManager implements ModuleManagerInterface
             $this->loadModule($moduleName);
         }
 
+        $event        = $this->getEvent();
+        $eventManager = $this->getEventManager();
+
+        foreach ($this->loadedModules as $name => $module) {
+            $event->setModule($module);
+            $event->setModuleName($name);
+
+            $eventManager->trigger(ModuleEvent::EVENT_LOAD_MODULE, $this, $event);
+        }
+
         $this->modulesAreLoaded = true;
     }
 
     /**
      * Load the provided modules.
      *
-     * @triggers loadModules.pre
-     * @triggers loadModules.post
+     * @triggers loadModules(ModuleEvent)
+     * @triggers loadModules.post(ModuleEvent)
      * @return   ModuleManager
      */
     public function loadModules()
@@ -109,8 +125,8 @@ class ModuleManager implements ModuleManagerInterface
      * Load a specific module by name.
      *
      * @param    string $moduleName
-     * @triggers loadModule.resolve
-     * @triggers loadModule
+     * @triggers loadModule.resolve(ModuleEvent)
+     * @triggers preloadModule(ModuleEvent)
      * @return   mixed Module's Module class
      */
     public function loadModule($moduleName)
@@ -122,9 +138,14 @@ class ModuleManager implements ModuleManagerInterface
         $event = $this->getEvent();
         $event->setModuleName($moduleName);
 
-        $result = $this->getEventManager()->trigger(ModuleEvent::EVENT_LOAD_MODULE_RESOLVE, $this, $event, function ($r) {
-            return (is_object($r));
-        });
+        $result = $this->getEventManager()->trigger(
+            ModuleEvent::EVENT_LOAD_MODULE_RESOLVE,
+            $this,
+            $event,
+            function ($return) {
+                return (is_object($return));
+            }
+        );
 
         $module = $result->last();
 
@@ -134,9 +155,10 @@ class ModuleManager implements ModuleManagerInterface
                 $moduleName
             ));
         }
+
         $event->setModule($module);
 
-        $this->getEventManager()->trigger(ModuleEvent::EVENT_LOAD_MODULE, $this, $event);
+        $this->getEventManager()->trigger(ModuleEvent::EVENT_PRELOAD_MODULE, $this, $event);
         $this->loadedModules[$moduleName] = $module;
         return $module;
     }
