@@ -19,7 +19,7 @@ use Zend\GData;
  */
 class DataQuery extends GData\Query
 {
-    const ANALYTICS_FEED_URI = 'https://www.google.com/analytics/feeds/data';
+    const ANALYTICS_FEED_URI = 'https://www.googleapis.com/analytics/v2.4/data';
 
     /**
      * The default URI used for feeds.

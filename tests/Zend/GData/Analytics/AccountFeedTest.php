@@ -28,17 +28,32 @@ class AccountFeedTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->accountFeed = new AccountFeed(
-            file_get_contents(dirname(__FILE__) . '/_files/TestAccountFeed.xml'),
-            true
+            file_get_contents(dirname(__FILE__) . '/_files/TestAccountFeed.xml')
         );
     }
 
     public function testAccountFeed()
     {
-        $this->assertEquals(3, count($this->accountFeed->entries));
-        $this->assertEquals(3, $this->accountFeed->entries->count());
+        $this->assertEquals(2, count($this->accountFeed->entries));
+
         foreach ($this->accountFeed->entries as $entry) {
             $this->assertInstanceOf('Zend\GData\Analytics\AccountEntry', $entry);
         }
+    }
+    
+    public function testFirstAccountProperties()
+    {
+        $account = $this->accountFeed->entries[0];
+        $this->assertEquals(876543, "{$account->accountId}");
+        $this->assertEquals('foobarbaz', "{$account->accountName}");
+        $this->assertInstanceOf('Zend\GData\App\Extension\Link', $account->link[0]);
+    }
+    
+    public function testSecondAccountProperties()
+    {
+        $account = $this->accountFeed->entries[1];
+        $this->assertEquals(23456789, "{$account->accountId}");
+        $this->assertEquals('brain dump', "{$account->accountName}");
+        $this->assertInstanceOf('Zend\GData\App\Extension\Link', $account->link[0]);
     }
 }
