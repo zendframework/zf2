@@ -72,20 +72,14 @@ class InArrayTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->validator->getStrict());
     }
 
-    public function testGivingOptionsAsArrayAtInitiation()
+    /**
+     * Ensures that getRecursive() returns expected default value
+     *
+     * @return void
+     */
+    public function testGetRecursive()
     {
-        $validator = new InArray(
-            array(
-                 'haystack' => array(1, 'a', 2.3)
-            )
-        );
-        $this->assertTrue($validator->isValid(1));
-        $this->assertTrue($validator->isValid(1.0));
-        $this->assertTrue($validator->isValid('1'));
-        $this->assertTrue($validator->isValid('a'));
-        $this->assertFalse($validator->isValid('A'));
-        $this->assertTrue($validator->isValid(2.3));
-        $this->assertTrue($validator->isValid(2.3e0));
+        $this->assertFalse($this->validator->getRecursive());
     }
 
     public function testSettingANewHaystack()
@@ -101,7 +95,7 @@ class InArrayTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new InArray(
             array(
-                 'haystack' => array('test', 0, 'A'),
+                 'haystack' => array('test', 1, 'A'),
             )
         );
         $validator->setStrict(true);
@@ -109,34 +103,90 @@ class InArrayTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($validator->isValid('b'));
         $this->assertFalse($validator->isValid('a'));
         $this->assertTrue($validator->isValid('A'));
-        $this->assertFalse($validator->isValid('0'));
-        $this->assertTrue($validator->isValid(0));
+        $this->assertFalse($validator->isValid('1'));
+        $this->assertTrue($validator->isValid(1));
+        $this->assertFalse($validator->isValid(0));
     }
 
     /**
-     * @group ZF2-337
+     * Map: <value>, <group>
+     * Group means the value equivalent in non-strict mode.
+     *
+     * @return array Map: <value>, <group>
      */
-    public function testNotSetStrictModeWith0InTheHaystack()
+    public function valueProvider() {
+        return array(
+            array(0, 0),
+            array('0', 0),
+            array(0.0, 0),
+            array('0.0', '0.0'), // Not validate against 0 or 0.0
+            array('0.00', '0.00'), // Not validate against 0 or 0.0
+            array(0.01, 0.01),
+            array('0.01', 0.01),
+            array(1, 1),
+            array('1', 1),
+            array('a', 'a'),
+            array('0a', '0a'), // Not validate against a
+            array('00', '00'), // Not validate against 0
+            array('01', '01'), // Not validate against 1
+            array('1a', '1a'), // Not validate against 1
+        );
+    }
+
+    /**
+     * @return array Return the cartesian product of ValueProvider with itself returning all the possibilities with
+     * haystack and values
+     */
+    public function haystackValueProvider() {
+        $values   = $this->valueProvider();
+        $haystack = $values;
+        $result = array();
+        foreach ($haystack as $element) {
+            foreach ($values as $value) {
+                $result[] = array($element[0], $element[1], $value[0], $value[1]);
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @dataProvider haystackValueProvider
+     *
+     * @group ZF2-337
+     * @group ZF2-411
+     */
+    public function testNonStrictValidation($haystack, $haystackGroup, $value, $valueGroup)
     {
         $validator = new InArray(
             array(
-                 'haystack' => array('test', 0, 'A'),
+                 'haystack' => array($haystack),
             )
         );
-        $this->assertFalse($validator->getStrict());
+        $this->assertEquals(($haystackGroup === $valueGroup), $validator->isValid($value), "Haystack: $haystack; Value: $value");
+    }
 
-        $this->setExpectedException(
-            'Zend\Validator\Exception\RuntimeException',
-            'Comparisons with 0 are only possible in strict mode'
+    /**
+     * @dataProvider haystackValueProvider
+     *
+     * @group ZF2-337
+     * @group ZF2-411
+     */
+    public function testNonStrictValidationRecursive($haystack, $haystackGroup, $value, $valueGroup)
+    {
+        $validator = new InArray(
+            array(
+                 'haystack'  => array(array($haystack)),
+                 'recursive' => true,
+            )
         );
-        $this->assertFalse($validator->isValid('b'));
+        $this->assertEquals(($haystackGroup === $valueGroup), $validator->isValid($value), "Haystack: $haystack; Value: $value");
     }
 
     public function testSettingStrictViaInitiation()
     {
         $validator = new InArray(
             array(
-                 'haystack' => array('test', 0, 'A'),
+                 'haystack' => array('test', 1, 'A'),
                  'strict'   => true,
             )
         );
@@ -169,15 +219,17 @@ class InArrayTest extends \PHPUnit_Framework_TestCase
                  'haystack'  =>
                  array(
                      'firstDimension'  => array('test', 0, 'A'),
-                     'secondDimension' => array('value', 2, 'a'),
+                     array('value', 2, 'a'),
                  ),
                  'recursive' => false,
             )
         );
         $this->assertFalse($validator->isValid('A'));
+        $this->assertTrue($validator->isValid(array('value', 2, 'a')));
 
         $validator->setRecursive(true);
         $this->assertTrue($validator->isValid('A'));
+        $this->assertFalse($validator->isValid(array('value', 2, 'a')));
     }
 
     public function testEqualsMessageTemplates()

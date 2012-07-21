@@ -24,6 +24,9 @@ PLEASE USE AT YOUR OWN RISK.
      option values are unique.
  - Moved Zend\I18n\Validator\Iban to Zend\Validator\Iban
    and replaced the option "locale" with "country_code"
+ - Validator:
+   - [InArray] Support for validate strings against 0 & 0.0 without false positives
+
 
 
 Over *XXX* pull requests for a variety of features and bugfixes were handled
