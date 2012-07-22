@@ -10,19 +10,18 @@
 
 namespace Zend\ModuleManager\Listener;
 
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\ModuleEvent;
+use Zend\ModuleManager\Feature\LoadModuleListenerInterface;
 
 /**
- * Bootstrap listener
+ * Load module listener
  *
  * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */
-class OnBootstrapListener extends AbstractListener
+class OnLoadModuleListener extends AbstractListener
 {
-
     /**
      * @param  ModuleEvent $e
      * @return void
@@ -30,15 +29,15 @@ class OnBootstrapListener extends AbstractListener
     public function __invoke(ModuleEvent $e)
     {
         $module = $e->getModule();
-        if (!$module instanceof BootstrapListenerInterface
-            && !method_exists($module, 'onBootstrap')
+
+        if (!$module instanceof LoadModuleListenerInterface
+            && !method_exists($module, 'onLoadModule')
         ) {
             return;
         }
 
         $moduleManager = $e->getTarget();
         $events        = $moduleManager->getEventManager();
-        $sharedEvents  = $events->getSharedManager();
-        $sharedEvents->attach('application', 'bootstrap', array($module, 'onBootstrap'));
+        $events->attach(ModuleEvent::EVENT_LOAD_MODULE, array($module, 'onLoadModule'));
     }
 }

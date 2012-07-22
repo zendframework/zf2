@@ -10,19 +10,18 @@
 
 namespace Zend\ModuleManager\Listener;
 
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\ModuleEvent;
+use Zend\ModuleManager\Feature\ServiceManagerProviderInterface;
 
 /**
- * Bootstrap listener
+ * Service manager trigger
  *
  * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */
-class OnBootstrapListener extends AbstractListener
+class ServiceManagerTrigger extends AbstractListener
 {
-
     /**
      * @param  ModuleEvent $e
      * @return void
@@ -30,15 +29,18 @@ class OnBootstrapListener extends AbstractListener
     public function __invoke(ModuleEvent $e)
     {
         $module = $e->getModule();
-        if (!$module instanceof BootstrapListenerInterface
-            && !method_exists($module, 'onBootstrap')
+        if (!$module instanceof ServiceManagerProviderInterface
+            && !method_exists($module, 'addServiceManager')
         ) {
             return;
         }
 
-        $moduleManager = $e->getTarget();
-        $events        = $moduleManager->getEventManager();
-        $sharedEvents  = $events->getSharedManager();
-        $sharedEvents->attach('application', 'bootstrap', array($module, 'onBootstrap'));
+        $serviceManager = $e->getParam('ServiceManager');
+
+        if ($serviceManager === null) {
+            throw new Exception\RuntimeException('Unable to access ServiceManager via ModuleEvent.');
+        }
+
+        $module->addServiceManager($serviceManager->get('ServiceListener'));
     }
 }

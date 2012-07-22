@@ -247,6 +247,8 @@ class Application implements
         $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
         $serviceManager = new ServiceManager(new Service\ServiceManagerConfig($smConfig));
         $serviceManager->setService('ApplicationConfig', $configuration);
+        $serviceManager->setFactory('ListenerOptions', 'Zend\Mvc\Service\ListenerOptionsFactory');
+        $serviceManager->setFactory('ServiceListener', 'Zend\Mvc\Service\ServiceListenerFactory');
         $serviceManager->get('ModuleManager')->loadModules();
         return $serviceManager->get('Application')->bootstrap();
     }

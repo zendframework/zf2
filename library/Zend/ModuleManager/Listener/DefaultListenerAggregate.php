@@ -51,7 +51,9 @@ class DefaultListenerAggregate extends AbstractListener implements
 
         // High priority, we assume module autoloading (for FooNamespace\Module classes) should be available before anything else
         $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES, array($moduleAutoloader, 'register'), 9000);
-        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE_RESOLVE, new ModuleResolverListener);
+        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE_RESOLVE, new ModuleResolverListener($options));
+        $this->listeners[] = $events->attach(ModuleEvent::EVENT_PRELOAD_MODULE, new ServiceManagerTrigger($options));
+        $this->listeners[] = $events->attach(ModuleEvent::EVENT_PRELOAD_MODULE, new OnLoadModuleListener($options));
         // High priority, because most other loadModule listeners will assume the module's classes are available via autoloading
         $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, new AutoloaderListener($options), 9000);
         $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, new InitTrigger($options));

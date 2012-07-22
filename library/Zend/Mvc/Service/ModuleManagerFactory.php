@@ -11,7 +11,6 @@
 namespace Zend\Mvc\Service;
 
 use Zend\ModuleManager\Listener\DefaultListenerAggregate;
-use Zend\ModuleManager\Listener\ListenerOptions;
 use Zend\ModuleManager\Listener\ServiceListener;
 use Zend\ModuleManager\ModuleEvent;
 use Zend\ModuleManager\ModuleManager;
@@ -25,42 +24,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class ModuleManagerFactory implements FactoryInterface
 {
-    /**
-     * Default mvc-related service configuration -- can be overridden by modules.
-     *
-     * @var array
-     */
-    protected $defaultServiceConfig = array(
-        'invokables' => array(
-            'DispatchListener' => 'Zend\Mvc\DispatchListener',
-            'Request'          => 'Zend\Http\PhpEnvironment\Request',
-            'Response'         => 'Zend\Http\PhpEnvironment\Response',
-            'RouteListener'    => 'Zend\Mvc\RouteListener',
-            'ViewManager'      => 'Zend\Mvc\View\ViewManager',
-        ),
-        'factories' => array(
-            'Application'             => 'Zend\Mvc\Service\ApplicationFactory',
-            'Config'                  => 'Zend\Mvc\Service\ConfigFactory',
-            'ControllerLoader'        => 'Zend\Mvc\Service\ControllerLoaderFactory',
-            'ControllerPluginManager' => 'Zend\Mvc\Service\ControllerPluginManagerFactory',
-            'DependencyInjector'      => 'Zend\Mvc\Service\DiFactory',
-            'Router'                  => 'Zend\Mvc\Service\RouterFactory',
-            'ViewHelperManager'       => 'Zend\Mvc\Service\ViewHelperManagerFactory',
-            'ViewFeedRenderer'        => 'Zend\Mvc\Service\ViewFeedRendererFactory',
-            'ViewFeedStrategy'        => 'Zend\Mvc\Service\ViewFeedStrategyFactory',
-            'ViewJsonRenderer'        => 'Zend\Mvc\Service\ViewJsonRendererFactory',
-            'ViewJsonStrategy'        => 'Zend\Mvc\Service\ViewJsonStrategyFactory',
-        ),
-        'aliases' => array(
-            'Configuration'                     => 'Config',
-            'ControllerPluginBroker'            => 'ControllerPluginManager',
-            'Di'                                => 'DependencyInjector',
-            'Zend\Di\LocatorInterface'          => 'DependencyInjector',
-            'Zend\Mvc\Controller\PluginBroker'  => 'ControllerPluginBroker',
-            'Zend\Mvc\Controller\PluginManager' => 'ControllerPluginManager',
-        ),
-    );
-
     /**
      * Creates and returns the module manager
      *
@@ -78,20 +41,41 @@ class ModuleManagerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $configuration    = $serviceLocator->get('ApplicationConfig');
-        $listenerOptions  = new ListenerOptions($configuration['module_listener_options']);
+        // The ServiceListener must be requested first,so that the default services can be loaded.
+        $serviceListener  = $serviceLocator->get('ServiceListener');
+        $listenerOptions  = $serviceLocator->get('ListenerOptions');
         $defaultListeners = new DefaultListenerAggregate($listenerOptions);
-        $serviceListener  = new ServiceListener($serviceLocator, $this->defaultServiceConfig);
 
-        $serviceListener->addServiceManager($serviceLocator, 'service_manager', 'Zend\ModuleManager\Feature\ServiceProviderInterface', 'getServiceConfig');
-        $serviceListener->addServiceManager('ControllerLoader', 'controllers', 'Zend\ModuleManager\Feature\ControllerProviderInterface', 'getControllerConfig');
-        $serviceListener->addServiceManager('ControllerPluginManager', 'controller_plugins', 'Zend\ModuleManager\Feature\ControllerPluginProviderInterface', 'getControllerPluginConfig');
-        $serviceListener->addServiceManager('ViewHelperManager', 'view_helpers', 'Zend\ModuleManager\Feature\ViewHelperProviderInterface', 'getViewHelperConfig');
+        $serviceListener->addServiceManager(
+            $serviceLocator,
+            'service_manager',
+            'Zend\ModuleManager\Feature\ServiceProviderInterface',
+            'getServiceConfig'
+        );
+        $serviceListener->addServiceManager(
+            'ControllerLoader',
+            'controllers',
+            'Zend\ModuleManager\Feature\ControllerProviderInterface',
+            'getControllerConfig'
+        );
+        $serviceListener->addServiceManager(
+            'ControllerPluginManager',
+            'controller_plugins',
+            'Zend\ModuleManager\Feature\ControllerPluginProviderInterface',
+            'getControllerPluginConfig'
+        );
+        $serviceListener->addServiceManager(
+            'ViewHelperManager',
+            'view_helpers',
+            'Zend\ModuleManager\Feature\ViewHelperProviderInterface',
+            'getViewHelperConfig'
+        );
 
-        $events        = $serviceLocator->get('EventManager');
+        $events = $serviceLocator->get('EventManager');
         $events->attach($defaultListeners);
         $events->attach($serviceListener);
 
-        $moduleEvent   = new ModuleEvent;
+        $moduleEvent = new ModuleEvent;
         $moduleEvent->setParam('ServiceManager', $serviceLocator);
 
         $moduleManager = new ModuleManager($configuration['modules'], $events);
