@@ -24,7 +24,7 @@ use Zend\View\ViewEvent;
  * @package    Zend_View
  * @subpackage Strategy
  */
-class FeedStrategy implements ListenerAggregateInterface
+class FeedStrategy implements StrategyInterface, ListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
@@ -35,6 +35,11 @@ class FeedStrategy implements ListenerAggregateInterface
      * @var FeedRenderer
      */
     protected $renderer;
+
+    /**
+     * @var double
+     */
+    protected $matchPriority = 0;
 
     /**
      * Constructor
@@ -48,6 +53,16 @@ class FeedStrategy implements ListenerAggregateInterface
     }
 
     /**
+     * Retrieve the composed renderer
+     *
+     * @return FeedRenderer
+     */
+    public function getRenderer()
+    {
+        return $this->renderer;
+    }
+
+    /**
      * Attach the aggregate to the specified event manager
      *
      * @param  EventManagerInterface $events
@@ -56,7 +71,7 @@ class FeedStrategy implements ListenerAggregateInterface
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
+        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'resolveStrategyPriority'), $priority);
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
     }
 
@@ -76,19 +91,30 @@ class FeedStrategy implements ListenerAggregateInterface
     }
 
     /**
+     * The match priority, normally a double between 0 and 1
+     *
+     * @return double
+     */
+    public function getMatchPriority()
+    {
+        return $this->matchPriority;
+    }
+
+    /**
      * Detect if we should use the FeedRenderer based on model type and/or
      * Accept header
      *
      * @param  ViewEvent $e
      * @return null|FeedRenderer
      */
-    public function selectRenderer(ViewEvent $e)
+    public function resolveStrategyPriority(ViewEvent $e)
     {
         $model = $e->getModel();
 
         if ($model instanceof Model\FeedModel) {
             // FeedModel found
-            return $this->renderer;
+            $this->matchPriority = 1;
+            return $this;
         }
 
         $request = $e->getRequest();
@@ -106,15 +132,16 @@ class FeedStrategy implements ListenerAggregateInterface
         if (($match = $accept->match('application/rss+xml, application/atom+xml')) == false) {
             return;
         }
+        $this->matchPriority = $match->getPriority();
 
         if ($match->getTypeString() == 'application/rss+xml') {
             $this->renderer->setFeedType('rss');
-            return $this->renderer;
+            return $this;
         }
 
         if ($match->getTypeString() == 'application/atom+xml') {
             $this->renderer->setFeedType('atom');
-            return $this->renderer;
+            return $this;
         }
 
     }

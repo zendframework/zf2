@@ -40,7 +40,7 @@ class PhpRendererStrategyTest extends TestCase
 
     public function testSelectRendererAlwaysSelectsPhpRenderer()
     {
-        $result = $this->strategy->selectRenderer($this->event);
+        $result = $this->strategy->resolveStrategyPriority($this->event);
         $this->assertSame($this->renderer, $result);
     }
 
@@ -122,7 +122,7 @@ class PhpRendererStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (array('renderer' => 'resolveStrategyPriority', 'response' => 'injectResponse') as $event => $method) {
             $listeners        = $events->getListeners($event);
             $expectedCallback = array($this->strategy, $method);
             $expectedPriority = 1;
@@ -145,7 +145,7 @@ class PhpRendererStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy, 100);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (array('renderer' => 'resolveStrategyPriority', 'response' => 'injectResponse') as $event => $method) {
             $listeners        = $events->getListeners($event);
             $expectedCallback = array($this->strategy, $method);
             $expectedPriority = 100;

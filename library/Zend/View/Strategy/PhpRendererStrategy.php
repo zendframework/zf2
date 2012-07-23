@@ -22,7 +22,7 @@ use Zend\View\ViewEvent;
  * @package    Zend_View
  * @subpackage Strategy
  */
-class PhpRendererStrategy implements ListenerAggregateInterface
+class PhpRendererStrategy implements StrategyInterface, ListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
@@ -40,6 +40,11 @@ class PhpRendererStrategy implements ListenerAggregateInterface
      * @var PhpRenderer
      */
     protected $renderer;
+
+    /**
+     * @var double
+     */
+    protected $matchPriority = 0;
 
     /**
      * Constructor
@@ -93,7 +98,7 @@ class PhpRendererStrategy implements ListenerAggregateInterface
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
+        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'resolveStrategyPriority'), $priority);
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
     }
 
@@ -113,15 +118,42 @@ class PhpRendererStrategy implements ListenerAggregateInterface
     }
 
     /**
+     * The match priority, normally a double between 0 and 1
+     *
+     * @return double
+     */
+    public function getMatchPriority()
+    {
+        return $this->matchPriority;
+    }
+
+    /**
      * Select the PhpRenderer; typically, this will be registered last or at
      * low priority.
      *
      * @param  ViewEvent $e
      * @return PhpRenderer
      */
-    public function selectRenderer(ViewEvent $e)
+    public function resolveStrategyPriority(ViewEvent $e)
     {
-        return $this->renderer;
+        $request = $e->getRequest();
+        if (!$request instanceof HttpRequest) {
+            // Not an HTTP request; cannot autodetermine
+            return $this;
+        }
+
+        $headers = $request->getHeaders();
+        if (!$headers->has('accept')) {
+            return $this;
+        }
+
+        $accept  = $headers->get('accept');
+        if (($match = $accept->match('foo')) == false) {
+            return $this;
+        }
+        $this->matchPriority = $match->getPriority();
+
+        return $this;
     }
 
     /**

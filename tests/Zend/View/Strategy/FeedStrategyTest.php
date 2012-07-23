@@ -37,34 +37,47 @@ class FeedStrategyTest extends TestCase
         $this->response = new HttpResponse();
     }
 
-    public function testFeedModelSelectsFeedStrategy()
+    public function testFeedModelSelectsHasMatchPriorityOne()
     {
         $this->event->setModel(new FeedModel());
-        $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
+        $result = $this->strategy->resolveStrategyPriority($this->event);
+        $this->assertSame($this->renderer, $result->getRenderer());
+        $this->assertEquals(1, $result->getMatchPriority());
     }
 
-    public function testRssAcceptHeaderSelectsFeedStrategy()
+    public function testRssAcceptHeaderHasMatchPriorityOne()
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/rss+xml');
         $this->event->setRequest($request);
-        $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
+        $result = $this->strategy->resolveStrategyPriority($this->event);
+        $this->assertSame($this->renderer, $result->getRenderer());
+        $this->assertEquals(1, $result->getMatchPriority());
     }
 
-    public function testAtomAcceptHeaderSelectsFeedStrategy()
+    public function testAtomAcceptHeaderHasMatchPriorityOne()
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/atom+xml');
         $this->event->setRequest($request);
-        $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
+        $result = $this->strategy->resolveStrategyPriority($this->event);
+        $this->assertSame($this->renderer, $result->getRenderer());
+        $this->assertEquals(1, $result->getMatchPriority());
+    }
+
+    public function testAtomAcceptHeaderWithPriority()
+    {
+        $request = new HttpRequest();
+        $request->getHeaders()->addHeaderLine('Accept', 'application/atom+xml;q=0.5');
+        $this->event->setRequest($request);
+        $result = $this->strategy->resolveStrategyPriority($this->event);
+        $this->assertSame($this->renderer, $result->getRenderer());
+        $this->assertEquals(0.5, $result->getMatchPriority());
     }
 
     public function testLackOfFeedModelOrAcceptHeaderDoesNotSelectFeedStrategy()
     {
-        $result = $this->strategy->selectRenderer($this->event);
+        $result = $this->strategy->resolveStrategyPriority($this->event);
         $this->assertNotSame($this->renderer, $result);
         $this->assertNull($result);
     }
@@ -197,7 +210,7 @@ class FeedStrategyTest extends TestCase
         $request = new HttpRequest();
         $this->event->setModel($model);
         $this->event->setRequest($request);
-        $this->assertNull($this->strategy->selectRenderer($this->event));
+        $this->assertNull($this->strategy->resolveStrategyPriority($this->event));
     }
 
     public function testAttachesListenersAtExpectedPriorities()
@@ -205,7 +218,7 @@ class FeedStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (array('renderer' => 'resolveStrategyPriority', 'response' => 'injectResponse') as $event => $method) {
             $listeners        = $events->getListeners($event);
             $expectedCallback = array($this->strategy, $method);
             $expectedPriority = 1;
@@ -228,7 +241,7 @@ class FeedStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy, 100);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (array('renderer' => 'resolveStrategyPriority', 'response' => 'injectResponse') as $event => $method) {
             $listeners        = $events->getListeners($event);
             $expectedCallback = array($this->strategy, $method);
             $expectedPriority = 100;
