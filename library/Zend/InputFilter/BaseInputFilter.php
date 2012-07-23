@@ -402,15 +402,30 @@ class BaseInputFilter implements InputFilterInterface
                     $this->add(new Input($key));
                 }
             }
+        }
 
-            $input = $this->inputs[$key];
+        foreach (array_keys($this->inputs) as $name) {
+            $input = $this->inputs[$name];
 
-            if ($input instanceof InputFilterInterface) {
-                $input->setData($value);
+            if (!isset($this->data[$name])) {
+                // No value; clear value in this input
+                if ($input instanceof InputFilterInterface) {
+                    $input->setData(array());
+                    continue;
+                }
+
+                $input->setValue(null);
                 continue;
             }
 
-            $input->setValue($value);
+            $input = $this->inputs[$name];
+
+            if ($input instanceof InputFilterInterface) {
+                $input->setData($this->data[$name]);
+                continue;
+            }
+
+            $input->setValue($this->data[$name]);
         }
     }
 }
