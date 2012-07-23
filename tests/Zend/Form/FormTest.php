@@ -169,7 +169,6 @@ class FormTest extends TestCase
         $form->setData(array());
         $form->isValid();
 
-
         $this->assertTrue($form->hasValidated());
     }
 
