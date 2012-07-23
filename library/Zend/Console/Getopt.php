@@ -541,6 +541,14 @@ class Getopt
         return $this->_remainingArgs;
     }
 
+    public function getArguments(){
+        $result = $this->getRemainingArgs();
+        foreach($this->getOptions() as $option){
+            $result[$option] = $this->getOption($option);
+        }
+        return $result;
+    }
+
     /**
      * Return a useful option reference, formatted for display in an
      * error message.
