@@ -13,6 +13,7 @@ namespace Zend\Validator;
 use Traversable;
 use Zend\Session\Container as SessionContainer;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Math\Math;
 
 class Csrf extends AbstractValidator
 {
@@ -286,10 +287,9 @@ class Csrf extends AbstractValidator
             $this->hash = static::$hashCache[$this->getSessionName()];
         } else {
             $this->hash = md5(
-                mt_rand(1,1000000)
-                .  $this->getSalt()
-                .  $this->getName()
-                .  mt_rand(1,1000000)
+                $this->getSalt()
+                . Math::randBytes(32)
+                . $this->getName()
             );
             static::$hashCache[$this->getSessionName()] = $this->hash;
         }
