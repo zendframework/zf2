@@ -199,7 +199,7 @@ class CaptureCache extends AbstractPattern
      * @param  string $output Buffered output
      * @return boolean FALSE means original input is sent to the browser.
      */
-    protected function flush($output)
+    public function flush($output)
     {
         $this->save($output);
 
@@ -219,6 +219,7 @@ class CaptureCache extends AbstractPattern
         $options  = $this->getOptions();
         $path     = $this->pageId2Path($this->pageId);
         $fullPath = $options->getPublicDir() . DIRECTORY_SEPARATOR . $path;
+        $oldUmask = null;
         if (!file_exists($fullPath)) {
             $oldUmask = umask($options->getDirUmask());
             if (!@mkdir($fullPath, 0777, true)) {
