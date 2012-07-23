@@ -498,4 +498,15 @@ class BaseInputFilterTest extends TestCase
         $this->assertArrayHasKey('foo', $messages);
         $this->assertNotEmpty($messages['foo']);
     }
+
+    public function testGetValuesEvenIfNoInputWasSpecified()
+    {
+        $filter = new InputFilter();
+
+        $data = array('foo' => 'bar');
+        $filter->setData($data);
+
+        $this->assertTrue($filter->isValid());
+        $this->assertEquals('bar', $filter->getValue('foo'));
+    }
 }

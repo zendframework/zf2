@@ -145,7 +145,6 @@ class BaseInputFilter implements InputFilterInterface
         $valid               = true;
 
         $inputs = $this->validationGroup ?: array_keys($this->inputs);
-        //var_dump($inputs);
         foreach ($inputs as $name) {
             $input = $this->inputs[$name];
             if (!array_key_exists($name, $this->data) || (is_string($this->data[$name]) && strlen($this->data[$name]) === 0)) {
@@ -394,21 +393,17 @@ class BaseInputFilter implements InputFilterInterface
      */
     protected function populate()
     {
-        foreach (array_keys($this->inputs) as $name) {
-            $input = $this->inputs[$name];
-
-            if (!isset($this->data[$name])) {
-                // No value; clear value in this input
-                if ($input instanceof InputFilterInterface) {
-                    $input->setData(array());
-                    continue;
+        foreach ($this->data as $key => $value) {
+            // If the input does not exist, we construct an empty one
+            if (!isset($this->inputs[$key])) {
+                if (is_array($value)) {
+                    $this->add(new InputFilter($key));
+                } else {
+                    $this->add(new Input($key));
                 }
-
-                $input->setValue(null);
-                continue;
             }
 
-            $value = $this->data[$name];
+            $input = $this->inputs[$key];
 
             if ($input instanceof InputFilterInterface) {
                 $input->setData($value);
