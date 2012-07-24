@@ -17,6 +17,7 @@ use Zend\Http\Response;
 use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\EventManager\StaticEventManager;
 
 class ActionControllerTest extends TestCase
 {
@@ -33,6 +34,8 @@ class ActionControllerTest extends TestCase
         $this->event      = new MvcEvent();
         $this->event->setRouteMatch($this->routeMatch);
         $this->controller->setEvent($this->event);
+
+        StaticEventManager::resetInstance();
     }
 
     public function testDispatchInvokesNotFoundActionWhenNoActionPresentInRouteMatch()
