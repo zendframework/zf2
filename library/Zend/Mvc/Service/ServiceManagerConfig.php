@@ -24,6 +24,13 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 class ServiceManagerConfig implements ConfigInterface
 {
     /**
+     * Services that can be instantiated without factories
+     *
+     * @var array
+     */
+    protected $invokables = array();
+
+    /**
      * Service factories
      *
      * @var array
