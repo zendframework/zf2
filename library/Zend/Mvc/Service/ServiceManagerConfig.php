@@ -24,15 +24,6 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 class ServiceManagerConfig implements ConfigInterface
 {
     /**
-     * Services that can be instantiated without factories
-     *
-     * @var array
-     */
-    protected $invokables = array(
-        'SharedEventManager' => 'Zend\EventManager\SharedEventManager',
-    );
-
-    /**
      * Service factories
      *
      * @var array
@@ -40,6 +31,7 @@ class ServiceManagerConfig implements ConfigInterface
     protected $factories = array(
         'EventManager'  => 'Zend\Mvc\Service\EventManagerFactory',
         'ModuleManager' => 'Zend\Mvc\Service\ModuleManagerFactory',
+        'SharedEventManager' => 'Zend\Mvc\Service\SharedEventManagerFactory'
     );
 
     /**
