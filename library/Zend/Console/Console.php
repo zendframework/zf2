@@ -28,7 +28,7 @@ class Console
     /**
      * A private constructor to prevent initialization of the class.
      */
-    private function __construct()
+    protected function __construct()
     {
     }
 
