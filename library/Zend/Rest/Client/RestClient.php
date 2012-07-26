@@ -124,8 +124,8 @@ class RestClient extends \Zend\Service\AbstractService
      *
      * @param string $path
      * @param array  $query Array of GET parameters
-     * @throws Zend\Http\Client\Exception
-     * @return Zend\Http\Response
+     * @throws \Zend\Http\Client\Exception
+     * @return \Zend\Http\Response
      */
     final public function restGet($path, array $query = array())
     {
@@ -219,8 +219,8 @@ class RestClient extends \Zend\Service\AbstractService
      *
      * @param string $method Method name
      * @param array $args Method args
-     * @return \Zend\Rest\Client\RestClient_Result|\Zend\Rest\Client\RestClient \Zend\Rest\Client\RestClient if using
-     * a remote method, Zend_Rest_Client_Result if using an HTTP request method
+     * @return Result|RestClient RestClient if using a remote method,
+     * Result if using an HTTP request method
      */
     public function __call($method, $args)
     {
