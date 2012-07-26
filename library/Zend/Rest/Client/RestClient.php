@@ -90,8 +90,8 @@ class RestClient extends \Zend\Service\AbstractService
     /**
      * Call a remote REST web service URI and return the Zend_Http_Response object
      *
-     * @param  string $path            The path to append to the URI
-     * @throws Zend\Rest\Client\Exception\UnexpectedValueException
+     * @param  string $path The path to append to the URI
+     * @throws Exception\UnexpectedValueException
      * @return void
      */
     final private function _prepareRest($path)
@@ -114,7 +114,9 @@ class RestClient extends \Zend\Service\AbstractService
          * each time as the Zend\Http\Client instance may be shared with other 
          * Zend\Service\AbstractService subclasses.
          */
-        $this->getHttpClient()->resetParameters()->setUri($this->_uri);
+        $client = $this->getHttpClient();
+        $client->resetParameters();
+        $client->setUri($this->_uri);
     }
 
     /**
@@ -125,12 +127,14 @@ class RestClient extends \Zend\Service\AbstractService
      * @throws Zend\Http\Client\Exception
      * @return Zend\Http\Response
      */
-    final public function restGet($path, array $query = null)
+    final public function restGet($path, array $query = array())
     {
         $this->_prepareRest($path);
         $client = $this->getHttpClient();
         $client->setParameterGet($query);
-        return $client->request('GET');
+        $client->setMethod(\Zend\Http\Request::METHOD_GET);
+        $response = $client->send();
+        return $response;
     }
 
     /**
@@ -148,11 +152,12 @@ class RestClient extends \Zend\Service\AbstractService
     {
         $client = $this->getHttpClient();
         if (is_string($data)) {
-            $client->setRawData($data);
+            $client->setRawBody($data);
         } elseif (is_array($data) || is_object($data)) {
             $client->setParameterPost((array) $data);
         }
-        return $client->request($method);
+        $client->setMethod($method);
+        return $client->send();
     }
 
     /**
@@ -193,7 +198,7 @@ class RestClient extends \Zend\Service\AbstractService
     final public function restDelete($path)
     {
         $this->_prepareRest($path);
-        return $this->getHttpClient()->request('DELETE');
+        return $this->getHttpClient()->setMethod('DELETE')->send();
     }
 
     /**

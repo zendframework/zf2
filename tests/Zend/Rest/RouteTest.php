@@ -107,7 +107,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $values);
         $this->assertTrue(isset($values['module']));
-        $this->assertEquals('default', $values['module']);
+        $this->assertEquals('application', $values['module']);
         $this->assertEquals('index', $values['controller']);
         $this->assertEquals('index', $values['action']);
     }
@@ -122,7 +122,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $values);
         $this->assertTrue(isset($values['module']));
-        $this->assertEquals('default', $values['module']);
+        $this->assertEquals('application', $values['module']);
         $this->assertEquals('user', $values['controller']);
         $this->assertEquals('index', $values['action']);
     }
@@ -134,7 +134,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $values);
         $this->assertTrue(isset($values['module']));
-        $this->assertEquals('default', $values['module']);
+        $this->assertEquals('application', $values['module']);
         $this->assertEquals('user', $values['controller']);
         $this->assertEquals('index', $values['action']);
     }
@@ -146,7 +146,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $values);
         $this->assertTrue(isset($values['module']));
-        $this->assertEquals('default', $values['module']);
+        $this->assertEquals('application', $values['module']);
         $this->assertEquals('user', $values['controller']);
         $this->assertEquals('index', $values['action']);
         $this->assertEquals(123456789, $values['changedSince']);
@@ -160,7 +160,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $values);
         $this->assertTrue(isset($values['module']));
-        $this->assertEquals('default', $values['module']);
+        $this->assertEquals('application', $values['module']);
         $this->assertEquals('user', $values['controller']);
         $this->assertEquals('index', $values['action']);
         $this->assertEquals(123456789, $values['changedSince']);
@@ -174,7 +174,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $values);
         $this->assertTrue(isset($values['module']));
-        $this->assertEquals('default', $values['module']);
+        $this->assertEquals('application', $values['module']);
         $this->assertEquals('project', $values['controller']);
         $this->assertEquals('get', $values['action']);
         $this->assertEquals('zendframework', $values['id']);
@@ -187,7 +187,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $values);
         $this->assertTrue(isset($values['module']));
-        $this->assertEquals('default', $values['module']);
+        $this->assertEquals('application', $values['module']);
         $this->assertEquals('project', $values['controller']);
         $this->assertEquals('get', $values['action']);
         $this->assertEquals('zendframework', $values['id']);
@@ -200,7 +200,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $values);
         $this->assertTrue(isset($values['module']));
-        $this->assertEquals('default', $values['module']);
+        $this->assertEquals('application', $values['module']);
         $this->assertEquals('project', $values['controller']);
         $this->assertEquals('get', $values['action']);
         $this->assertEquals('zend framework', $values['id']);
@@ -213,7 +213,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $values);
         $this->assertTrue(isset($values['module']));
-        $this->assertEquals('default', $values['module']);
+        $this->assertEquals('application', $values['module']);
         $this->assertEquals('project', $values['controller']);
         $this->assertEquals('edit', $values['action']);
         $this->assertEquals('zendframework', $values['id']);
@@ -311,7 +311,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $routedRequest = $router->route($request);
 
-        $this->assertEquals("default", $routedRequest->getParam("module"));
+        $this->assertEquals("application", $routedRequest->getParam("module"));
         $this->assertEquals("user", $routedRequest->getParam("controller"));
         $this->assertEquals("get", $routedRequest->getParam("action"));
         $this->assertEquals("lcrouch", $routedRequest->getParam("id"));
