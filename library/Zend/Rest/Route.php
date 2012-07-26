@@ -28,11 +28,11 @@ namespace Zend\Rest;
  *
  * Request-aware route for RESTful modular routing
  *
- * @uses       Zend_Controller_Dispatcher_Interface
- * @uses       Zend_Controller_Front
- * @uses       Zend_Controller_Request_Abstract
- * @uses       Zend_Controller_Router_Route_Interface
- * @uses       Zend_Controller_Router_Route_Module
+ * @uses       \Zend\Controller\Dispatcher
+ * @uses       \Zend\Controller\Front
+ * @uses       \Zend\Controller\Request\AbstractRequest
+ * @uses       \Zend\Controller\Router\Route
+ * @uses       \Zend\Controller\Router\Route\Module
  * @category   Zend
  * @package    Zend_Rest
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
@@ -53,14 +53,14 @@ class Route extends \Zend\Controller\Router\Route\Module
     protected $_restfulControllers = null;
 
     /**
-     * @var Zend_Controller_Front
+     * @var \Zend\Controller\Front
      */
     protected $_front;
 
     /**
      * Constructor
      *
-     * @param Zend_Controller_Front $front Front Controller object
+     * @param \Zend\Controller\Front $front Front Controller object
      * @param array $defaults Defaults for map variables with keys as variable names
      * @param array $responders Modules or controllers to receive RESTful routes
      */
@@ -80,6 +80,10 @@ class Route extends \Zend\Controller\Router\Route\Module
 
     /**
      * Instantiates route based on passed Zend_Config structure
+     *
+     * @static
+     * @param \Zend\Config\Config $config
+     * @return \Zend\Controller\Router\Route\Module|Route
      */
     public static function getInstance(\Zend\Config\Config $config)
     {
@@ -107,7 +111,8 @@ class Route extends \Zend\Controller\Router\Route\Module
      * setControllerName(), and setActionName() accessors to set those values.
      * Always returns the values as an array.
      *
-     * @param  Zend_Controller_Request_Http $request Request used to match against this routing ruleset
+     * @param  \Zend\Controller\Request\Http $request Request used to match against this routing ruleset
+     * @param bool $partial
      * @return array An array of assigned values or a false on a mismatch
      */
     public function match($request, $partial = false)

@@ -36,7 +36,7 @@ namespace Zend\Rest\Client;
 class Result implements \IteratorAggregate 
 {
     /**
-     * @var SimpleXMLElement
+     * @var \SimpleXMLElement
      */
     protected $_sxml;
 
@@ -77,7 +77,7 @@ class Result implements \IteratorAggregate
      * @param string $errfile
      * @param string $errline
      * @param array  $errcontext
-     * @return true
+     * @return bool
      */
     public function handleXmlErrors($errno, $errstr, $errfile = null, $errline = null, array $errcontext = null)
     {
@@ -88,7 +88,7 @@ class Result implements \IteratorAggregate
     /**
      * Casts a SimpleXMLElement to its appropriate PHP value
      *
-     * @param SimpleXMLElement $value
+     * @param \SimpleXMLElement $value
      * @return mixed
      */
     public function toValue(\SimpleXMLElement $value)
@@ -101,7 +101,7 @@ class Result implements \IteratorAggregate
      * Get Property Overload
      *
      * @param string $name
-     * @return null|SimpleXMLElement|array Null if not found, SimpleXMLElement if only one value found, array of \Zend\Rest\Client\Result objects otherwise
+     * @return null|\SimpleXMLElement|array Null if not found, SimpleXMLElement if only one value found, array of \Zend\Rest\Client\Result objects otherwise
      */
     public function __get($name)
     {
@@ -172,7 +172,7 @@ class Result implements \IteratorAggregate
     /**
      * Implement IteratorAggregate::getIterator()
      *
-     * @return SimpleXMLIterator
+     * @return \SimpleXMLIterator
      */
     public function getIterator()
     {
