@@ -13,7 +13,7 @@ namespace Zend\Console;
 use Zend\Console\Exception\InvalidArgumentException;
 
 /**
- * An static, utility class for interacting with Console environment.
+ * A static, utility class for interacting with Console environment.
  *
  * @category   Zend
  * @package    Zend_Console
@@ -26,7 +26,7 @@ class Console
     protected static $instance;
     
     /**
-     * A private constructor to prevent initialization of the class.
+     * A protected constructor to prevent initialization of the class.
      */
     protected function __construct()
     {
