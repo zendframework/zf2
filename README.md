@@ -150,12 +150,12 @@ latest PHP version whenever possible.
 
 ### INSTALLATION
 
-Please see [INSTALL.md](INSTALL.md).
+Please see [https://github.com/zendframework/zf2/blob/release-2.0.0rc1/INSTALL.mdhttps://github.com/zendframework/zf2/blob/release-2.0.0rc1/README-DEV.md](INSTALL.md).
 
 ### CONTRIBUTING
 
 If you wish to contribute to Zend Framework 2.0, please read both the
-[README-DEV.md](README-DEV.md) and [README-GIT.md](README-GIT.md) file.
+[https://github.com/zendframework/zf2/blob/release-2.0.0rc1/README-DEV.md](README-DEV.md) and [https://github.com/zendframework/zf2/blob/release-2.0.0rc1/README-GIT.md](README-GIT.md) file.
 
 ### QUESTIONS AND FEEDBACK
 
