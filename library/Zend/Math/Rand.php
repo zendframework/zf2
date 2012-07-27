@@ -49,6 +49,16 @@ abstract class Rand
                 }
             }
         }
+		
+        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN' &&
+            is_readable('/dev/urandom') && 
+            ($handler = fopen('/dev/urandom', 'rb'))) {
+                $rand = fread($handler, $length);
+                fclose($handler);
+                return $rand;
+        }
+		
+		
         if ($strong) {
             throw new Exception\RuntimeException(
                 'This PHP environment doesn\'t support secure random number generation. ' .
