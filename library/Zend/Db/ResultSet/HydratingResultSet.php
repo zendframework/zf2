@@ -109,4 +109,19 @@ class HydratingResultSet extends AbstractResultSet
         return $return;
     }
 
+    /**
+     * Cast result set to array of hydrated objects
+     *
+     * @return array
+     * @throws Exception\RuntimeException if any row is not castable to an array
+     */
+    public function toEntityArray()
+    {
+        $return = array();
+        foreach ($this as $row) {
+            $return[] = $row;
+        }
+        return $return;
+    }
+
 }
