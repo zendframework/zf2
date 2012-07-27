@@ -37,14 +37,14 @@ class ConsoleModel extends ViewModel
 
     /**
      * Console output doesn't support containers.
-     * 
+     *
      * @var string
      */
     protected $captureTo = null;
 
     /**
      * Console output should always be terminal.
-     * 
+     *
      * @var bool
      */
     protected $terminate = true;
@@ -75,7 +75,8 @@ class ConsoleModel extends ViewModel
      * @param string  $text
      * @return \Zend\View\Model\ConsoleModel
      */
-    public function setResult($text){
+    public function setResult($text)
+    {
         $this->setVariable(self::RESULT, $text);
         return $this;
     }
@@ -85,7 +86,8 @@ class ConsoleModel extends ViewModel
      *
      * @return mixed
      */
-    public function getResult(){
+    public function getResult()
+    {
         return $this->getVariable(self::RESULT);
     }
 }
