@@ -121,7 +121,6 @@ class Navigation extends AbstractNavigationHelper
                 if ($sm->getServiceLocator()){
                     $sm = $sm->getServiceLocator();
                 }
-                //$helper->setServiceLocator($this->getServiceLocator()->getServiceLocator());
                 $helper->setServiceLocator($sm);
             }
             return call_user_func_array($helper, $arguments);
