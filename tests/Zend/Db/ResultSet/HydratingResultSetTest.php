@@ -72,6 +72,7 @@ class HydratingResultSetTest extends TestCase
             )
         );
     }
+
     public function testObjectPrototypeIsHydratedByHydrator()
     {
         $resultSet = new HydratingResultSet(new ObjectProperty, new StdClass);
