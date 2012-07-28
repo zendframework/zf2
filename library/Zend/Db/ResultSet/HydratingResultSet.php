@@ -21,6 +21,8 @@ use Zend\Stdlib\Hydrator\HydratorInterface;
  */
 class HydratingResultSet extends AbstractResultSet
 {
+    const ARRAY_HYDRATE = true;
+    const ARRAY_RAW     = false;
     /**
      * @var HydratorInterface
      */
@@ -97,31 +99,20 @@ class HydratingResultSet extends AbstractResultSet
     /**
      * Cast result set to array of arrays
      *
+     * @param bool $useHydrator
      * @return array
      * @throws Exception\RuntimeException if any row is not castable to an array
      */
-    public function toArray()
+    public function toArray($useHydrator = self::ARRAY_HYDRATE)
     {
         $return = array();
         foreach ($this as $row) {
-            $return[] = $this->getHydrator()->extract($row);
+            if ($useHydrator === self::ARRAY_RAW) {
+                $return[] = $row;
+            } else {
+                $return[] = $this->getHydrator()->extract($row);
+            }
         }
         return $return;
     }
-
-    /**
-     * Cast result set to array of hydrated objects
-     *
-     * @return array
-     * @throws Exception\RuntimeException if any row is not castable to an array
-     */
-    public function toEntityArray()
-    {
-        $return = array();
-        foreach ($this as $row) {
-            $return[] = $row;
-        }
-        return $return;
-    }
-
 }
