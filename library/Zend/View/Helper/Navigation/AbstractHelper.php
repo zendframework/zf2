@@ -213,7 +213,6 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             if ($sm instanceof ServiceLocatorAwareInterface){
                 $sm = $sm->getServiceLocator();
             }
-            //$container = $this->getServiceLocator()->getServiceLocator()->get($container);
             $container = $sm->get($container);
             return;
         }
