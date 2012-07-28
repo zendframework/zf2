@@ -208,7 +208,13 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
                 ));
             }
 
-            $container = $this->getServiceLocator()->get($container);
+            // get root service locator over plugin manager service locator
+            $sm = $this->getServiceLocator();
+            if ($sm instanceof ServiceLocatorAwareInterface){
+                $sm = $sm->getServiceLocator();
+            }
+            //$container = $this->getServiceLocator()->getServiceLocator()->get($container);
+            $container = $sm->get($container);
             return;
         }
 
