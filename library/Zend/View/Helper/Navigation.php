@@ -83,7 +83,6 @@ class Navigation extends AbstractNavigationHelper
         if (null !== $container) {
             $this->setContainer($container);
         }
-
         return $this;
     }
 
@@ -118,7 +117,11 @@ class Navigation extends AbstractNavigationHelper
         $helper = $this->findHelper($method, false);
         if ($helper) {
             if ($helper instanceof ServiceLocatorAwareInterface && $this->getServiceLocator()) {
-                $helper->setServiceLocator($this->getServiceLocator());
+                $sm = $helper->getServiceLocator();
+                if ($sm->getServiceLocator()){
+                    $sm = $sm->getServiceLocator();
+                }
+                $helper->setServiceLocator($sm);
             }
             return call_user_func_array($helper, $arguments);
         }
