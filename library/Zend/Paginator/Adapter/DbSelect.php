@@ -116,7 +116,9 @@ class DbSelect implements AdapterInterface
 
         $sql        = new Sql\Sql($this->options->dbAdapter);
         $statement  = $sql->prepareStatementForSqlObject($select);
-        return $statement->execute();
+        $result     = $statement->execute();
+        $resultset  = $this->options->getResultSetPrototype()->initialize($result);
+        return $resultset->toArray();
     }
 
     /**

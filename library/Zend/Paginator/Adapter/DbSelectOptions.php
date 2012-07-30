@@ -14,6 +14,8 @@ use ArrayObject;
 use Zend\Stdlib\AbstractOptions;
 use Zend\Db\Adapter\Adapter as DbAdapter;
 use Zend\Db\Sql\Select as SqlSelect;
+use Zend\Db\ResultSet\ResultSetInterface;
+use Zend\Db\ResultSet\ResultSet;
 
 /**
  * Options provider for Zend\Paginator\Adapter\DbSelect
@@ -27,6 +29,8 @@ class DbSelectOptions extends AbstractOptions
     protected $db_adapter;
 
     protected $select_query;
+
+    protected $result_set_prototype;
 
     public function setDbAdapter(DbAdapter $adapter)
     {
@@ -49,4 +53,19 @@ class DbSelectOptions extends AbstractOptions
     {
         return $this->select_query;
     }
+
+    public function setResultSetPrototype($prototype)
+    {
+        $this->result_set_prototype = $prototype;
+        return $this;
+    }
+
+    public function getResultSetPrototype()
+    {
+        if (is_null($this->result_set_prototype)) {
+            $this->result_set_prototype = new ResultSet();
+        }
+        return $this->result_set_prototype;
+    }
+
 }
