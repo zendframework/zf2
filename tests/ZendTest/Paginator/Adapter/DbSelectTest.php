@@ -355,6 +355,47 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group ZF-5956
+     */
+    public function testUnionSelect()
+    {
+        $this->markTestSkipped('Union not fully implemented (ZF2-424)');
+
+        $union = $this->db->select()->union(array(
+            $this->db->select()->from('test')->where('number <= 250'),
+            $this->db->select()->from('test')->where('number > 250')
+        ));
+
+        $adapter = new Adapter\DbSelect(array(
+            'db_adapter'   => $this->db,
+            'select_query' => $union,
+        ), 'dbselect');
+
+        $this->assertEquals(500, $adapter->count());
+    }
+
+    /**
+     * @group ZF-7045
+     */
+    public function testGetCountSelect()
+    {
+        $this->markTestSkipped('Union not fully implemented (ZF2-424)');
+
+        $union = $this->db->select()->union(array(
+            $this->db->select()->from('test')->where('number <= 250'),
+            $this->db->select()->from('test')->where('number > 250')
+        ));
+
+        $adapter = new Adapter\DbSelect(array(
+            'db_adapter'   => $this->db,
+            'select_query' => $union,
+        ), 'dbselect');
+
+        $expected = 'SELECT COUNT(1) AS "zend_paginator_row_count" FROM (SELECT "test".* FROM "test" WHERE (number <= 250) UNION SELECT "test".* FROM "test" WHERE (number > 250)) AS "t"';
+        $this->assertEquals($expected, $adapter->getCountSelect()->getSqlString());
+     }
+
+    /**
      * @group ZF-5295
      */
     public function testMultipleDistinctColumns()
@@ -384,6 +425,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
     public function testSingleDistinctColumn()
     {
         $this->markTestSkipped('Distinct not fully implemented (ZF2-424)');
+
         $select = $this->sql->select()->from('test')
             ->columns(array('testgroup'));
 
@@ -484,6 +526,37 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $adapter->getCountSelect()->getSqlString());
         $this->assertEquals(250, $adapter->count());
+    }
+
+    /**
+     * @group ZF-10704
+     */
+    public function testObjectSelectWithBind()
+    {
+        $this->markTestSkipped('Test in need of updating for ZF2 (See ZF2-424)');
+
+        $select = $this->db->select();
+        $select->from('test')
+               ->columns(array('number'))
+               ->where('number = ?')
+               ->distinct(true)
+               ->bind(array(250));
+
+        $adapter = new Adapter\DbSelect($select);
+        $this->assertEquals(1, $adapter->count());
+
+        $select->reset(Sql\Select::DISTINCT);
+        $select2 = clone $select;
+        $select2->reset(Sql\Select::WHERE)
+                ->where('number = 500');
+
+        $selectUnion = $this->_db
+                           ->select()
+                           ->bind(array(250));
+
+        $selectUnion->union(array($select, $select2));
+        $adapter = new Adapter\DbSelect($selectUnion);
+        $this->assertEquals(2, $adapter->count());
     }
 
 }
