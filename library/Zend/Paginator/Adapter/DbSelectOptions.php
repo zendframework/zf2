@@ -54,7 +54,7 @@ class DbSelectOptions extends AbstractOptions
         return $this->select_query;
     }
 
-    public function setResultSetPrototype($prototype)
+    public function setResultSetPrototype(ResultSetInterface $prototype)
     {
         $this->result_set_prototype = $prototype;
         return $this;
