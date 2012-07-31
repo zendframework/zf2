@@ -207,7 +207,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
               ->order('number ASC')
               ->limit(1000, 0);
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->db,
+            'db_adapter'   => $db,
             'select_query' => $query,
         ), 'dbselect');
 
@@ -293,10 +293,12 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSelectHasAliasedColumns()
     {
+        $this->markTestSkipped('Distinct not fully implemented (ZF2-424)');
+
         $db = $this->db;
 
-        $db->query('DROP TABLE IF EXISTS `sandboxTransaction`');
-        $db->query('DROP TABLE IF EXISTS `sandboxForeign`');
+        $db->query('DROP TABLE IF EXISTS `sandboxTransaction`')->execute();
+        $db->query('DROP TABLE IF EXISTS `sandboxForeign`')->execute();
 
         // A transaction table
         $db->query(
@@ -305,7 +307,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
                 `foreign_id` INT( 1 ) NOT NULL ,
                 `name` TEXT NOT NULL
             ) '
-        );
+        )->execute();
 
         // A foreign table
         $db->query(
@@ -313,38 +315,18 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
                 `id` INTEGER PRIMARY KEY,
                 `name` TEXT NOT NULL
             ) '
-        );
+        )->execute();
 
         // Insert some data
-        $db->insert('sandboxTransaction',
-            array(
-                'foreign_id' => 1,
-                'name' => 'transaction 1 with foreign_id 1',
-            )
-        );
+        $db->query("INSERT INTO `sandboxTransaction` (`foreign_id`,`name`) VALUES ('1','transaction 1 with foreign_id 1');")->execute();
+        $db->query("INSERT INTO `sandboxTransaction` (`foreign_id`,`name`) VALUES ('1','transaction 2 with foreign_id 1');")->execute();
+        $db->query("INSERT INTO `sandboxForeign` (`name`) VALUES ('John Doe');")->execute();
+        $db->query("INSERT INTO `sandboxForeign` (`name`) VALUES ('Jane Smith');")->execute();
 
-        $db->insert('sandboxTransaction',
-            array(
-                'foreign_id' => 1,
-                'name' => 'transaction 2 with foreign_id 1',
-            )
-        );
-
-        $db->insert('sandboxForeign',
-            array(
-                'name' => 'John Doe',
-            )
-        );
-
-        $db->insert('sandboxForeign',
-            array(
-                'name' => 'Jane Smith',
-            )
-        );
-
-        $query = $db->select()->from(array('a'=>'sandboxTransaction'), array())
-                              ->join(array('b'=>'sandboxForeign'), 'a.foreign_id = b.id', array('name'))
-                              ->distinct(true);
+        $query = new Sql\Select();
+        $query->distinct()
+              ->from(array('a'=>'sandboxTransaction'), array())
+              ->join(array('b'=>'sandboxForeign'), 'a.foreign_id = b.id', array('name'));
 
         $adapter = new Adapter\DbSelect(array(
             'db_adapter'   => $this->db,
@@ -498,7 +480,6 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
             'db_adapter'   => $this->db,
             'select_query' => $select,
         ), 'dbselect');
-
 
         $expected = 'SELECT COUNT(1) AS "zend_paginator_row_count" FROM (SELECT "test".* FROM "test" GROUP BY "number" HAVING (number > 250)) AS "t"';
 
