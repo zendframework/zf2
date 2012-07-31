@@ -26,10 +26,19 @@ use Zend\Db\ResultSet\ResultSet;
  */
 class DbSelectOptions extends AbstractOptions
 {
+    /**
+     * @var DbAdapter
+     */
     protected $db_adapter;
 
+    /**
+     * @var SqlSelect
+     */
     protected $select_query;
 
+    /**
+     * @var ResultSet
+     */
     protected $result_set_prototype;
 
     public function setDbAdapter(DbAdapter $adapter)

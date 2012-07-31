@@ -28,27 +28,27 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
     /**
      * @var DbSelect
      */
-    protected $_adapter;
+    protected $adapter;
 
     /**
      * @var Adapter\Adapter
      */
-    protected $_db;
+    protected $db;
 
     /**
      * @var Sql\Sql
      */
-    protected $_sql;
+    protected $sql;
 
     /**
      * @var Sql\Select
      */
-    protected $_query;
+    protected $query;
 
     /**
      * @var \Zend\Db\TableGateway\TableGateway
      */
-    protected $_table;
+    protected $table;
 
     /**
      * Prepares the environment before running a test.
@@ -61,23 +61,23 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
 
         parent::setUp();
 
-        $this->_db = new DbAdapter\Adapter(array(
+        $this->db = new DbAdapter\Adapter(array(
             'driver'   => 'Pdo_Sqlite',
             'database' =>  __DIR__ . '/../_files/test.sqlite',
         ));
 
-        $this->_table = new \ZendTest\Paginator\TestAsset\TestTable('test', $this->_db);
+        $this->table = new \ZendTest\Paginator\TestAsset\TestTable('test', $this->db);
 
-        $this->_query = new Sql\Select;
-        $this->_query->from('test')
+        $this->query = new Sql\Select;
+        $this->query->from('test')
                      ->order('number ASC'); // ZF-3740
                      //->limit(1000, 0); // ZF-3727
 
-        $this->_sql = new Sql\Sql($this->_db);
+        $this->sql = new Sql\Sql($this->db);
 
-        $this->_adapter = new Adapter\DbSelect(array(
-            'select_query' => $this->_query,
-            'db_adapter'   => $this->_db,
+        $this->adapter = new Adapter\DbSelect(array(
+            'select_query' => $this->query,
+            'db_adapter'   => $this->db,
         ), 'dbquery');
     }
     /**
@@ -85,13 +85,13 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->_adapter = null;
+        $this->adapter = null;
         parent::tearDown();
     }
 
     public function testGetsItemsAtOffsetZero()
     {
-        $actual = $this->_adapter->getItems(0, 10);
+        $actual = $this->adapter->getItems(0, 10);
 
         $i = 1;
         foreach ($actual as $item) {
@@ -102,7 +102,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
 
     public function testGetsItemsAtOffsetTen()
     {
-        $actual = $this->_adapter->getItems(10, 10);
+        $actual = $this->adapter->getItems(10, 10);
 
         $i = 11;
         foreach ($actual as $item) {
@@ -113,52 +113,52 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
 
     public function testAcceptsIntegerValueForRowCount()
     {
-        $this->_adapter->setRowCount(101);
-        $this->assertEquals(101, $this->_adapter->count());
+        $this->adapter->setRowCount(101);
+        $this->assertEquals(101, $this->adapter->count());
     }
 
     public function testThrowsExceptionIfInvalidQuerySuppliedForRowCount()
     {
         $this->setExpectedException('Zend\Paginator\Adapter\Exception\InvalidArgumentException', 'Row count column not found');
-        $select = $this->_sql->select();
+        $select = $this->sql->select();
         $select->from('test');
-        $this->_adapter->setRowCount($select);
+        $this->adapter->setRowCount($select);
     }
 
     public function testThrowsExceptionIfInvalidQuerySuppliedForRowCount2()
     {
-        $wrongcolumn = $this->_db->getPlatform()->quoteIdentifier('wrongcolumn');
+        $wrongcolumn = $this->db->getPlatform()->quoteIdentifier('wrongcolumn');
         $expr = new Sql\Expression("COUNT(*) AS $wrongcolumn");
         $query = new Sql\Select;
         $query->from('test');
 
         $this->setExpectedException('Zend\Paginator\Adapter\Exception\InvalidArgumentException', 'Row count column not found');
-        $this->_adapter->setRowCount($query);
+        $this->adapter->setRowCount($query);
     }
 
     public function testAcceptsQueryForRowCount()
     {
-        $row_count_column = $this->_db->getPlatform()->quoteIdentifier(Adapter\DbSelect::ROW_COUNT_COLUMN);
+        $row_count_column = $this->db->getPlatform()->quoteIdentifier(Adapter\DbSelect::ROW_COUNT_COLUMN);
         $expression = new Sql\Expression("COUNT(*) AS $row_count_column");
 
-        $rowCount = clone $this->_query;
+        $rowCount = clone $this->query;
         $rowCount->columns(array($expression));
 
-        $this->_adapter->setRowCount($rowCount);
+        $this->adapter->setRowCount($rowCount);
 
-        $this->assertEquals(500, $this->_adapter->count());
+        $this->assertEquals(500, $this->adapter->count());
     }
 
     public function testThrowsExceptionIfInvalidRowCountValueSupplied()
     {
         $this->setExpectedException('Zend\Paginator\Adapter\Exception\InvalidArgumentException', 'Invalid row count');
-        $this->_adapter->setRowCount('invalid');
+        $this->adapter->setRowCount('invalid');
     }
 
     public function testReturnsCorrectCountWithAutogeneratedQuery()
     {
         $expected = 500;
-        $actual = $this->_adapter->count();
+        $actual = $this->adapter->count();
 
         $this->assertEquals($expected, $actual);
     }
@@ -166,8 +166,8 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
     public function testDbTableSelectDoesNotThrowException()
     {
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
-            'select_query' => $this->_table->getSql()->select(),
+            'db_adapter'   => $this->db,
+            'select_query' => $this->table->getSql()->select(),
         ), 'dbselect');
         $count = $adapter->count();
         $this->assertEquals(500, $count);
@@ -185,7 +185,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
                ->group('number');
 
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $query,
         ), 'dbselect');
 
@@ -207,7 +207,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
               ->order('number ASC')
               ->limit(1000, 0);
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $query,
         ), 'dbselect');
 
@@ -225,7 +225,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
               ->limit(1000, 0)
               ->group('testgroup');
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $query,
         ), 'dbselect');
 
@@ -238,13 +238,15 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testDistinctColumnQueryReturnsCorrectResult()
     {
+        $this->markTestSkipped('Distinct not fully implemented (ZF2-424)');
+
         $query = new Sql\Select;
         $query->from('test')
-//              ->distinct()
+              ->distinct()
               ->order('number ASC')
               ->limit(1000, 0);
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $query,
         ), 'dbselect');
 
@@ -256,11 +258,11 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSelectSpecificColumns()
     {
-        $number = $this->_db->getPlatform()->quoteIdentifier('number');
-        $query = $this->_sql->select()->from('test', array('testgroup', 'number'))
+        $number = $this->db->getPlatform()->quoteIdentifier('number');
+        $query = $this->sql->select()->from('test', array('testgroup', 'number'))
                                      ->where("$number >= ?", '1');
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $query,
         ), 'dbselect');
 
@@ -273,10 +275,12 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSelectDistinctAllUsesRegularCountAll()
     {
-        $query = $this->_sql->select()->from('test');
-                                     //->distinct();
+        $this->markTestSkipped('Distinct not fully implemented (ZF2-424)');
+
+        $query = $this->sql->select()->from('test')
+                                     ->distinct();
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $query,
         ), 'dbselect');
 
@@ -289,7 +293,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSelectHasAliasedColumns()
     {
-        $db = $this->_db;
+        $db = $this->db;
 
         $db->query('DROP TABLE IF EXISTS `sandboxTransaction`');
         $db->query('DROP TABLE IF EXISTS `sandboxForeign`');
@@ -343,7 +347,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
                               ->distinct(true);
 
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $query,
         ), 'dbselect');
 
@@ -355,11 +359,15 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testMultipleDistinctColumns()
     {
-        $select = $this->_sql->select()->from('test', array('testgroup', 'number'));
-//                                      ->distinct(true);
+        $this->markTestSkipped('Distinct not fully implemented (ZF2-424)');
+
+        $expr = new Sql\Expression("DISTINCT testgroup ");
+        $select = new Sql\Select;
+        $select->from('test')
+            ->columns(array($expr, 'testgroup', 'number'));
 
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $select,
         ), 'dbselect');
 
@@ -375,10 +383,12 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSingleDistinctColumn()
     {
-        $select = $this->_sql->select()->from('test', 'testgroup');
+        $this->markTestSkipped('Distinct not fully implemented (ZF2-424)');
+        $select = $this->sql->select()->from('test')
+            ->columns(array('testgroup'));
 
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $select,
         ), 'dbselect');
 
@@ -394,11 +404,13 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testGroupByMultipleColumns()
     {
-        $select = $this->_sql->select()->from('test', 'testgroup')
-                                      ->group(array('number', 'testgroup'));
+        $select = $this->sql->select();
+        $select->from('test')
+               ->columns(array('testgroup'))
+               ->group(array('number', 'testgroup'));
 
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $select,
         ), 'dbselect');
 
@@ -414,11 +426,13 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testGroupBySingleColumn()
     {
-        $select = $this->_sql->select()->from('test', 'testgroup')
-                                      ->group('test.testgroup');
+        $select = $this->sql->select();
+        $select->from('test')
+               ->columns(array('testgroup'))
+               ->group('test.testgroup');
 
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $select,
         ), 'dbselect');
 
@@ -434,12 +448,12 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSelectWithHaving()
     {
-        $select = $this->_sql->select()->from('test')
+        $select = $this->sql->select()->from('test')
                                       ->group('number')
                                       ->having('number > 250');
 
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $select,
         ), 'dbselect');
 
@@ -455,13 +469,13 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testMultipleGroupSelect()
     {
-        $select = $this->_sql->select()->from('test')
+        $select = $this->sql->select()->from('test')
                                       ->group('testgroup')
                                       ->group('number')
                                       ->where('number > 250');
 
         $adapter = new Adapter\DbSelect(array(
-            'db_adapter'   => $this->_db,
+            'db_adapter'   => $this->db,
             'select_query' => $select,
         ), 'dbselect');
 
