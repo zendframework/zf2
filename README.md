@@ -73,12 +73,12 @@ latest PHP version whenever possible.
 
 ### INSTALLATION
 
-Please see [INSTALL.md](INSTALL.md).
+Please see [INSTALL.md](https://github.com/zendframework/zf2/blob/master/INSTALL.md).
 
 ### CONTRIBUTING
 
 If you wish to contribute to Zend Framework 2.0, please read both the
-[README-DEV.md](README-DEV.md) and [README-GIT.md](README-GIT.md) file.
+[README-DEV.md](https://github.com/zendframework/zf2/blob/master/README-DEV.md) and [README-GIT.md](https://github.com/zendframework/zf2/blob/master/README-GIT.md) file.
 
 ### QUESTIONS AND FEEDBACK
 
@@ -101,7 +101,7 @@ the fw-announce mailing list by sending a blank message to
 ### LICENSE
 
 The files in this archive are released under the Zend Framework license.
-You can find a copy of this license in [LICENSE.txt](LICENSE.txt).
+You can find a copy of this license in [LICENSE.txt](https://github.com/zendframework/zf2/blob/master/LICENSE.txt).
 
 ### ACKNOWLEDGEMENTS
 
