@@ -14,7 +14,6 @@ use Zend\Console\AdapterInterface;
 use Zend\Console\ColorInterface;
 use Zend\Console\CharsetInterface;
 use Zend\Console\Exception\BadMethodCallException;
-use Zend\Console\Charset;
 use Zend\Console;
 
 /**
@@ -612,7 +611,7 @@ abstract class AbstractAdapter implements AdapterInterface
         $f = fopen('php://stdin','r');
         $line = stream_get_line($f,2048,"\n");
         fclose($f);
-        return rtrim($line,"\n\r");
+        return $line;
     }
 
     /**
