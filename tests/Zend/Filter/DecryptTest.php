@@ -112,7 +112,7 @@ d/fxzPfuO/bLpADozTAnYT9Hu3wPrQVLeAfCp0ojqH7DYg==
         $filter->setAdapter('BlockCipher');
         $this->assertEquals('BlockCipher', $filter->getAdapter());
 
-        $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'does not implement');
+        $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException');
         $filter->setAdapter('TestAdapter');
     }
 

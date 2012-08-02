@@ -117,7 +117,7 @@ PIDs9E7uuizAKDhRRRvho8BS
         $filter->setAdapter('BlockCipher');
         $this->assertEquals('BlockCipher', $filter->getAdapter());
 
-        $this->setExpectedException('Zend\Filter\Exception\InvalidArgumentException', 'does not implement');
+        $this->setExpectedException('Zend\Filter\Exception\InvalidArgumentException');
         $filter->setAdapter('TestAdapter');
     }
 
