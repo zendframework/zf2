@@ -12,7 +12,6 @@ namespace Zend\Console\Adapter;
 
 use Zend\Console\Charset;
 use Zend\Console\Exception;
-use Zend\Console\ColorInterface as Color;
 
 /**
  * @todo Add GNU readline support
@@ -355,7 +354,7 @@ class Posix extends AbstractAdapter
         $stream = fopen('php://stdin', 'rb');
         do {
             $char = fgetc($stream);
-        } while (strlen($char) !== 1 || ($mask !== null && stristr($mask, $char) === false));
+        } while (!$char || ($mask !== null && !stristr($mask, $char)));
         fclose($stream);
 
         $this->restoreTTYMode();

@@ -11,7 +11,6 @@
 namespace Zend\Console\Prompt;
 
 use ReflectionClass;
-use Zend\Console\Console;
 use Zend\Console\Adapter\AdapterInterface as ConsoleAdapter;
 use Zend\Console\Exception;
 
