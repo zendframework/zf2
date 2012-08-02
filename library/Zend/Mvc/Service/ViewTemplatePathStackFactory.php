@@ -36,8 +36,8 @@ class ViewTemplatePathStackFactory implements FactoryInterface
         $stack = array();
         if (is_array($config) && isset($config['view_manager'])) {
             $config = $config['view_manager'];
-            if (is_array($config) && isset($config['view_template_path_stack'])) {
-                $stack = $config['view_template_path_stack'];
+            if (is_array($config) && isset($config['template_path_stack'])) {
+                $stack = $config['template_path_stack'];
             }
         }
 
