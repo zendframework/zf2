@@ -33,13 +33,8 @@ class ViewXmlRendererFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $renderer = new XmlRenderer();
-        $renderer->setHelperPluginManager($serviceLocator->get('ViewHelperManager'));
 
-        $resolver = new AggregateResolver();
-        $resolver->attach($serviceLocator->get('ViewXmlTemplatePathStack'));
-        $resolver->attach($serviceLocator->get('ViewXmlTemplateMapResolver'));
-
-        $renderer->setResolver($resolver);
+        $renderer->setResolver($serviceLocator->get('ViewXmlResolver'));
         $renderer->setHelperPluginManager($serviceLocator->get('ViewHelperManager'));
 
         return $renderer;

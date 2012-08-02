@@ -19,7 +19,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @package    Zend_Mvc
  * @subpackage Service
  */
-class ViewResolverFactory implements FactoryInterface
+class ViewXmlResolverFactory implements FactoryInterface
 {
     /**
      * Create the aggregate view resolver
