@@ -19,7 +19,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @package    Zend_Mvc
  * @subpackage Service
  */
-class ViewTemplatePathStackFactory implements FactoryInterface
+class ViewXmlTemplatePathStackFactory implements FactoryInterface
 {
     /**
      * Create the template map view resolver
@@ -36,13 +36,15 @@ class ViewTemplatePathStackFactory implements FactoryInterface
         $stack = array();
         if (is_array($config) && isset($config['view_manager'])) {
             $config = $config['view_manager'];
-            if (is_array($config) && isset($config['view_template_path_stack'])) {
-                $stack = $config['view_template_path_stack'];
+            if (is_array($config) && isset($config['xml_template_path_stack'])) {
+                $stack = $config['xml_template_path_stack'];
             }
         }
 
         $templatePathStack = new ViewResolver\TemplatePathStack();
         $templatePathStack->addPaths($stack);
+        $templatePathStack->setDefaultSuffix('xml.php');
+
         return $templatePathStack;
     }
 }

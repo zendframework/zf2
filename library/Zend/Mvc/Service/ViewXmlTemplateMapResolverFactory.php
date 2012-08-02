@@ -19,30 +19,27 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @package    Zend_Mvc
  * @subpackage Service
  */
-class ViewTemplatePathStackFactory implements FactoryInterface
+class ViewXmlTemplateMapResolverFactory implements FactoryInterface
 {
     /**
      * Create the template map view resolver
      *
-     * Creates a Zend\View\Resolver\TemplatePathStack and populates it with the
-     * ['view_manager']['template_path_stack']
+     * Creates a Zend\View\Resolver\AggregateResolver and populates it with the
+     * ['view_manager']['template_map']
      *
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return ViewResolver\TemplatePathStack
+     * @return ViewResolver\TemplateMapResolver
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $config = $serviceLocator->get('Config');
-        $stack = array();
+        $map = array();
         if (is_array($config) && isset($config['view_manager'])) {
             $config = $config['view_manager'];
-            if (is_array($config) && isset($config['view_template_path_stack'])) {
-                $stack = $config['view_template_path_stack'];
+            if (is_array($config) && isset($config['xml_template_map'])) {
+                $map = $config['xml_template_map'];
             }
         }
-
-        $templatePathStack = new ViewResolver\TemplatePathStack();
-        $templatePathStack->addPaths($stack);
-        return $templatePathStack;
+        return new ViewResolver\TemplateMapResolver($map);
     }
 }
