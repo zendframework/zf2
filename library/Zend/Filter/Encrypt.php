@@ -72,7 +72,7 @@ class Encrypt extends AbstractFilter
             $options = array();
         }
 
-        $adapter = '\Zend\Filter\Encrypt\\' . ucfirst($adapter);
+        $adapter = 'Zend\Filter\Encrypt\\' . ucfirst($adapter);
 
         if (!class_exists($adapter)) {
             throw new Exception\InvalidArgumentException(

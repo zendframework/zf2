@@ -118,7 +118,7 @@ PIDs9E7uuizAKDhRRRvho8BS
         $this->assertEquals('BlockCipher', $filter->getAdapter());
 
         $this->setExpectedException('Zend\Filter\Exception\InvalidArgumentException', 'does not implement');
-        $filter->setAdapter('\ZendTest\Filter\TestAdapter2');
+        $filter->setAdapter('TestAdapter');
     }
 
     /**
@@ -134,8 +134,4 @@ PIDs9E7uuizAKDhRRRvho8BS
         $filter = new EncryptFilter();
         $filter->getUnknownMethod();
     }
-}
-
-class TestAdapter2
-{
 }

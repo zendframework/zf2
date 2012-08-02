@@ -113,7 +113,7 @@ d/fxzPfuO/bLpADozTAnYT9Hu3wPrQVLeAfCp0ojqH7DYg==
         $this->assertEquals('BlockCipher', $filter->getAdapter());
 
         $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'does not implement');
-        $filter->setAdapter('\\ZendTest\\Filter\\TestAdapter');
+        $filter->setAdapter('TestAdapter');
     }
 
     /**
@@ -129,8 +129,4 @@ d/fxzPfuO/bLpADozTAnYT9Hu3wPrQVLeAfCp0ojqH7DYg==
         $filter = new DecryptFilter();
         $filter->getUnknownMethod();
     }
-}
-
-class TestAdapter
-{
 }
