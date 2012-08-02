@@ -69,7 +69,7 @@ class CallbackHandler
      * If you have pecl/weakref {@see http://pecl.php.net/weakref} installed,
      * this method provides additional behavior.
      *
-     * If a callback is a function, or an array callback composing an object
+     * If the callback is a function, or an array callback composing an object
      * instance, this method will pass the object to a WeakRef instance prior
      * to registering the callback.
      *
