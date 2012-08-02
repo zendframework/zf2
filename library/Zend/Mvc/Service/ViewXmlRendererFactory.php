@@ -40,6 +40,7 @@ class ViewXmlRendererFactory implements FactoryInterface
         $resolver->attach($serviceLocator->get('ViewXmlTemplateMapResolver'));
 
         $renderer->setResolver($resolver);
+        $renderer->setHelperPluginManager($serviceLocator->get('ViewHelperManager'));
 
         return $renderer;
     }
