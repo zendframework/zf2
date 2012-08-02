@@ -27,5 +27,4 @@ namespace Zend\View\Renderer;
  */
 class XmlRenderer extends PhpRenderer
 {
-
 }
