@@ -20,7 +20,7 @@ abstract class UniDecoder
 {
     /**
      * Transliteration tables.
-     * 
+     *
      * @var array
      */
     protected static $tables = array();
@@ -30,8 +30,8 @@ abstract class UniDecoder
      * to their ASCII equivalents. Note: the resulting string lenght might be greater than the original one,
      * because of how the transliteration works for some international characters.
      *
-     * @param   string  $string               UTF-8 string to decode.
-     * @param   string  $unknownPlaceholder   Character to use in case a character cannot be decoded.
+     * @param  string                             $string             UTF-8 string to decode.
+     * @param  string                             $unknownPlaceholder Character to use in case a character cannot be decoded.
      * @throws Exception\InvalidArgumentException
      * @return string
      */
@@ -50,7 +50,7 @@ abstract class UniDecoder
         }
 
         // Extract all UTF-8 characters
-        if (preg_match_all('#\P{Co}#u', (string)$string, $split) || !isset($split[0])) {
+        if (preg_match_all('#\P{Co}#u', (string) $string, $split) || !isset($split[0])) {
             // Double check if we do not have an empty unicode string
             $split = isset($split[0]) ? $split[0] : array();
         } else {
@@ -66,7 +66,7 @@ abstract class UniDecoder
                 // Could not extract characters from the string - this means it's probably a malformed UTF-8. We will
                 // attempt to split it as ASCII and process ASCII values while truncating or replacing unknown chars
                 // with placeholders.
-                $split = str_split((string)$string);
+                $split = str_split((string) $string);
             }
         }
 
@@ -100,24 +100,24 @@ abstract class UniDecoder
 
             if (isset(self::$tables[$section][$position])) {
                 $return .= self::$tables[$section][$position];
-            }else{
+            } else {
                 $return .= $unknownPlaceholder;
             }
         }
 
         return $return;
     }
-    
+
     /**
      * Determine unicode codepoint from an UTF-8 multibyte character.
      *
-     * @param  string               $char  UTF-8 multibyte character
+     * @param  string          $char UTF-8 multibyte character
      * @return integer|boolean
      */
     protected static function uniOrd($char)
     {
         $h = ord($char[0]);
-        
+
         if ($h <= 0x7f) {
             return $h;
         } elseif ($h < 0xc2) {
@@ -126,17 +126,20 @@ abstract class UniDecoder
             if (!isset($char[1])) {
                 return false; // malformed
             }
+
             return ($h & 0x1f) << 6 | (ord($char[1]) & 0x3f);
         } elseif ($h <= 0xef) {
             if (!isset($char[1]) || !isset($char[2])) {
                 return false; // malformed
             }
+
             return ($h & 0x0f) << 12 | (ord($char[1]) & 0x3f) << 6
                                      | (ord($char[2]) & 0x3f);
         } elseif ($h <= 0xf4) {
             if (!isset($char[1]) || !isset($char[2]) || !isset($char[3])) {
                 return false; // malformed
             }
+
             return ($h & 0x0f) << 18 | (ord($char[1]) & 0x3f) << 12
                                      | (ord($char[2]) & 0x3f) << 6
                                      | (ord($char[3]) & 0x3f);
