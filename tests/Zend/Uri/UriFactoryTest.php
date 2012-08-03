@@ -62,11 +62,11 @@ class UriFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateUriWithFactory($uri, $expectedClass, $defaultScheme = null)
     {
-    	if ($defaultScheme) {
-    		$class = UriFactory::factory($uri, $defaultScheme);
-    	} else {
-	        $class = UriFactory::factory($uri);
-    	}
+        if ($defaultScheme) {
+            $class = UriFactory::factory($uri, $defaultScheme);
+        } else {
+            $class = UriFactory::factory($uri);
+        }
         $this->assertInstanceof($expectedClass, $class);
     }
 
@@ -82,8 +82,8 @@ class UriFactoryTest extends \PHPUnit_Framework_TestCase
             array('https://example.com', 'Zend\Uri\Http'),
             array('mailto://example.com', 'Zend\Uri\Mailto'),
             array('file://example.com', 'Zend\Uri\File'),
-        	array('https:', 'Zend\Uri\Http'),
-        	array('/foo/bar/?test', 'Zend\Uri\File', 'file'),
+            array('https:', 'Zend\Uri\Http'),
+            array('/foo/bar/?test', 'Zend\Uri\File', 'file'),
         );
     }
 

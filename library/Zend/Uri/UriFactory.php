@@ -68,13 +68,13 @@ abstract class UriFactory
 
     /**
      * Create a URI from a string
-     * 
-     * When a relative URI without a scheme is given, this will return an 
-     * URI-object of scheme <var>$defaultScheme</var> 
+     *
+     * When a relative URI without a scheme is given, this will return an
+     * URI-object of scheme <var>$defaultScheme</var>
      *
      * @param  string $uriString     The URI to create an object for
      * @param  string $defaultScheme What scheme to use for relative URIs
-     * 
+     *
      * @throws Exception\InvalidArgumentException
      * @return \Zend\Uri\UriInterface
      */
@@ -93,9 +93,9 @@ abstract class UriFactory
         if (!$scheme && $defaultScheme) {
             $scheme = $defaultScheme;
         }
-        
+
         if (!$scheme) {
-        	throw new Exception\InvalidArgumentException('no scheme has been given');
+            throw new Exception\InvalidArgumentException('no scheme has been given');
         }
 
         if (! isset(static::$schemeClasses[$scheme])) {
@@ -113,7 +113,7 @@ abstract class UriFactory
                 $scheme
             ));
         }
-        
+
         return $uri;
     }
 }
