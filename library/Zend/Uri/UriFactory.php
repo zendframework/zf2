@@ -69,12 +69,16 @@ abstract class UriFactory
     /**
      * Create a URI from a string
      *
-     * @param  string $uriString
-     * @param  string $defaultScheme
+     * When a relative URI without a scheme is given, this will return an
+     * URI-object of scheme <var>$defaultScheme</var>
+     *
+     * @param  string $uriString     The URI to create an object for
+     * @param  string $defaultScheme What scheme to use for relative URIs
+     *
      * @throws Exception\InvalidArgumentException
-     * @return \Zend\Uri\Uri
+     * @return \Zend\Uri\UriInterface
      */
-    public static function factory($uriString, $defaultScheme = null)
+    public static function factory($uriString, $defaultScheme = 'http')
     {
         if (!is_string($uriString)) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -83,28 +87,31 @@ abstract class UriFactory
             ));
         }
 
-        $uri    = new Uri($uriString);
-        $scheme = strtolower($uri->getScheme());
+        $colon  = strpos($uriString, ':');
+        $scheme = substr($uriString, 0, $colon);
+        $scheme = strtolower($scheme);
         if (!$scheme && $defaultScheme) {
             $scheme = $defaultScheme;
         }
 
-        if ($scheme && ! isset(static::$schemeClasses[$scheme])) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                    'no class registered for scheme "%s"',
-                    $scheme
-                ));
+        if (!$scheme) {
+            throw new Exception\InvalidArgumentException('no scheme has been given');
         }
-        if ($scheme && isset(static::$schemeClasses[$scheme])) {
-            $class = static::$schemeClasses[$scheme];
-            $uri = new $class($uri);
-            if (! $uri instanceof UriInterface) {
-                throw new Exception\InvalidArgumentException(sprintf(
-                    'class "%s" registered for scheme "%s" does not implement Zend\Uri\UriInterface',
-                    $class,
-                    $scheme
-                ));
-            }
+
+        if (! isset(static::$schemeClasses[$scheme])) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'no class registered for scheme "%s"',
+                $scheme
+            ));
+        }
+        $class = static::$schemeClasses[$scheme];
+        $uri = new $class($uriString);
+        if (! $uri instanceof UriInterface) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'class "%s" registered for scheme "%s" does not implement Zend\Uri\UriInterface',
+                $class,
+                $scheme
+            ));
         }
 
         return $uri;
