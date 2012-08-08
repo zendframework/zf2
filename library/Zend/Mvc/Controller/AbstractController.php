@@ -203,6 +203,16 @@ abstract class AbstractController implements
     }
 
     /**
+     * Retrieve serviceManager instance
+     *
+     * @return ServiceLocatorInterface
+     */
+    public function getServiceManager()
+    {
+        return $this->serviceManager;
+    }
+
+    /**
      * Get plugin manager
      *
      * @return PluginManager
@@ -220,7 +230,7 @@ abstract class AbstractController implements
      * Set plugin manager
      *
      * @param  string|PluginManager $plugins
-     * @return RestfulController
+     * @return AbstractController
      * @throws Exception\InvalidArgumentException
      */
     public function setPluginManager(PluginManager $plugins)
