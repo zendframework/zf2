@@ -582,7 +582,7 @@ class Fieldset extends Element implements FieldsetInterface
                 }
                 
                 // In case fieldset is not a collection use setter instead of hack
-                if(is_object($object) && $fieldset->object && $object instanceof $fieldset->object)) {
+                elseif(is_object($object) && $fieldset->object && $object instanceof $fieldset->object) {
                     $fieldset->setObject($object);
                     $values[$name] = $fieldset->extract();
                 }
