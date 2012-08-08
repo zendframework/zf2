@@ -45,7 +45,7 @@ use Zend\View\Variables;
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ConsoleRenderer implements Renderer, TreeRendererInterface
+class ConsoleRenderer implements Renderer\TreeRendererInterface
 {
     /**
      * @var Zend\Filter\FilterChain
@@ -68,7 +68,7 @@ class ConsoleRenderer implements Renderer, TreeRendererInterface
         $this->init();
     }
 
-    public function setResolver(Resolver $resolver){}
+    public function setResolver(Resolver\ResolverInterface $resolver){}
 
     /**
      * Return the template engine object
