@@ -96,11 +96,6 @@ class UniDecoderTest extends \PHPUnit_Framework_TestCase
             'Invalid Sequence Identifier inside valid UTF-8 string'
         );
         $this->assertEquals(
-            'zazolcgesla',
-            UniDecoder::decode("zażółć\xa0\xa1gęślą"),
-            'Invalid Sequence Identifier inside valid UTF-8 string'
-        );
-        $this->assertEquals(
             'zazolc(gesla',
             UniDecoder::decode("zażółć\xe2\x28\xa1gęślą"),
             'Invalid 3 Octet Sequence inside valid UTF-8 string'
