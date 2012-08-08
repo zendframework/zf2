@@ -576,7 +576,13 @@ class Fieldset extends Element implements FieldsetInterface
                 // Is the object bound to the fieldset of the same type ? Note that we are using a little hack
                 // here, as in case of collection, we bind array to object instance, and let the collection extract
                 // the data
-                if ($fieldset instanceof Collection || (is_object($object) && $fieldset->object && $object instanceof $fieldset->object)) {
+                if ($fieldset instanceof Collection) { 
+                    $fieldset->object = $object;
+                    $values[$name] = $fieldset->extract();
+                }
+                
+                // In case fieldset is not a collection use setter instead of hack
+                if(is_object($object) && $fieldset->object && $object instanceof $fieldset->object)) {
                     $fieldset->setObject($object);
                     $values[$name] = $fieldset->extract();
                 }
