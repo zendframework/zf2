@@ -125,8 +125,7 @@ class RouteNotFoundStrategy implements ListenerAggregateInterface
         // Try to fetch module manager
         try {
             $mm = $sm->get('ModuleManager');
-
-        } catch (ServiceNotFoundException $e){
+        } catch (ServiceNotFoundException $e) {
             // The application does not have or use module manager, so we cannot use it
             $mm = null;
         }
@@ -137,7 +136,7 @@ class RouteNotFoundStrategy implements ListenerAggregateInterface
             if (!$console instanceof ConsoleAdapter) {
                 throw new ServiceNotFoundException();
             }
-        } catch (ServiceNotFoundException $e){
+        } catch (ServiceNotFoundException $e) {
             // The application does not have console adapter
             throw new RuntimeException('Cannot access Console adapter - is it defined in ServiceManager?');
         }
@@ -145,7 +144,7 @@ class RouteNotFoundStrategy implements ListenerAggregateInterface
         // Try to fetch router
         try {
             $router = $sm->get('Router');
-        } catch (ServiceNotFoundException $e){
+        } catch (ServiceNotFoundException $e) {
             // The application does not have a router
             $router = null;
         }
@@ -231,7 +230,7 @@ class RouteNotFoundStrategy implements ListenerAggregateInterface
 
         if ($moduleManager !== null) {
             foreach ($moduleManager->getLoadedModules(false) as $name => $module) {
-                if (!$module instanceof ConsoleUsageProviderInterface){
+                if (!$module instanceof ConsoleUsageProviderInterface) {
                     continue; // this module does not provide usage info
                 }
 
