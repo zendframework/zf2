@@ -10,14 +10,14 @@
 
 namespace Zend\Loader;
 
-// Grab SplAutoloader interface
-require_once __DIR__ . '/SplAutoloader.php';
+// Grab SplAutoloaderInterface
+require_once __DIR__ . '/SplAutoloaderInterface.php';
 
 use GlobIterator;
 use SplFileInfo;
 use Traversable;
 
-class ModuleAutoloader implements SplAutoloader
+class ModuleAutoloader implements SplAutoloaderInterface
 {
     /**
      * @var array An array of module paths to scan
@@ -86,7 +86,7 @@ class ModuleAutoloader implements SplAutoloader
      * Traversable object.
      *
      * @param  array|Traversable $options
-     * @return SplAutoloader
+     * @return SplAutoloaderInterface
      */
     public function setOptions($options)
     {
