@@ -21,8 +21,8 @@
 
 namespace Zend\Mvc\View\Http;
 
-use Zend\EventManager\EventCollection;
-use Zend\EventManager\ListenerAggregate;
+use Zend\EventManager\EventManagerInterface as Events;
+use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Http\Request as HttpRequest;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\Mvc\Application;
@@ -36,7 +36,7 @@ use Zend\View\Model as ViewModel;
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class InjectRoutematchParamsListener implements ListenerAggregate
+class InjectRoutematchParamsListener implements ListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
@@ -56,7 +56,7 @@ class InjectRoutematchParamsListener implements ListenerAggregate
      * @param  EventCollection $events
      * @return void
      */
-    public function attach(EventCollection $events)
+    public function attach(Events $events)
     {
         $this->listeners[] = $events->attach('dispatch', array($this, 'injectParams'), 90);
     }
@@ -67,7 +67,7 @@ class InjectRoutematchParamsListener implements ListenerAggregate
      * @param  EventCollection $events
      * @return void
      */
-    public function detach(EventCollection $events)
+    public function detach(Events $events)
     {
         foreach ($this->listeners as $index => $listener) {
             if ($events->detach($listener)) {
