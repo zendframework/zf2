@@ -856,11 +856,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testOptimize()
     {
-<<<<<<< HEAD
-        if (($this->_storage instanceof OptimizableInterface) !== true) {
-=======
         if (!($this->_storage instanceof OptimizableInterface)) {
->>>>>>> 311e8ee21597aff1d24cec6167c42e1bf5808cae
             $this->markTestSkipped("Storage doesn't implement OptimizableInterface");
         }
 
@@ -901,11 +897,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testFlush()
     {
-<<<<<<< HEAD
-        if (($this->_storage instanceof FlushableInterface) !== true) {
-=======
         if (!($this->_storage instanceof FlushableInterface)) {
->>>>>>> 311e8ee21597aff1d24cec6167c42e1bf5808cae
             $this->markTestSkipped("Storage doesn't implement OptimizableInterface");
         }
 
@@ -921,11 +913,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testClearByPrefix()
     {
-<<<<<<< HEAD
-        if (($this->_storage instanceof ClearByPrefixInterface) !== true) {
-=======
         if (!($this->_storage instanceof ClearByPrefixInterface)) {
->>>>>>> 311e8ee21597aff1d24cec6167c42e1bf5808cae
             $this->markTestSkipped("Storage doesn't implement ClearByPrefixInterface");
         }
 
