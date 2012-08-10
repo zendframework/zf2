@@ -10,6 +10,8 @@
 
 namespace Zend\View\Helper;
 
+use Zend\View\Exception\InvalidArgumentException;
+
 /**
  * Helper for creating tables
  *
@@ -36,16 +38,16 @@ class HtmlTable extends AbstractHtmlElement
 
         // few basic data checks
         if (count($rowCells) == 0){
-            throw new \InvalidArgumentException('At least one row must be specified');
+            throw new InvalidArgumentException('At least one row must be specified');
         }
         $count = count($rowCells[0]);
         foreach ($rowCells as $rc){
             if ($count != count($rc)){
-                throw new \InvalidArgumentException('Each data row must have the same amount of cells');
+                throw new InvalidArgumentException('Each data row must have the same amount of cells');
             }
         }
         if (count($headerCells) != count($rowCells[0])){
-            throw new \InvalidArgumentException('There must be the same amount of columns in the data array as the header array');
+            throw new InvalidArgumentException('There must be the same amount of columns in the data array as the header array');
         }
 
         if ($escape) {
