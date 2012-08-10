@@ -51,6 +51,7 @@ class HelperPluginManager extends AbstractPluginManager
         'headmeta'            => 'Zend\View\Helper\HeadMeta',
         'headscript'          => 'Zend\View\Helper\HeadScript',
         'headstyle'           => 'Zend\View\Helper\HeadStyle',
+        'htmltable'           => 'Zend\View\Helper\HtmlTable',
         'headtitle'           => 'Zend\View\Helper\HeadTitle',
         'htmlflash'           => 'Zend\View\Helper\HtmlFlash',
         'htmllist'            => 'Zend\View\Helper\HtmlList',
