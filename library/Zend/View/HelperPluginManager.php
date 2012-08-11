@@ -57,6 +57,7 @@ class HelperPluginManager extends AbstractPluginManager
         'htmlobject'          => 'Zend\View\Helper\HtmlObject',
         'htmlpage'            => 'Zend\View\Helper\HtmlPage',
         'htmlquicktime'       => 'Zend\View\Helper\HtmlQuicktime',
+        'htmltable'           => 'Zend\View\Helper\HtmlTable',
         'inlinescript'        => 'Zend\View\Helper\InlineScript',
         'json'                => 'Zend\View\Helper\Json',
         'layout'              => 'Zend\View\Helper\Layout',
