@@ -10,8 +10,8 @@
 
 namespace Zend\Loader;
 
-// Grab SplAutoloader interface
-require_once __DIR__ . '/SplAutoloader.php';
+// Grab SplAutoloaderInterface
+require_once __DIR__ . '/SplAutoloaderInterface.php';
 
 /**
  * Class-map autoloader
@@ -21,7 +21,7 @@ require_once __DIR__ . '/SplAutoloader.php';
  * @category   Zend
  * @package    Zend_Loader
  */
-class ClassMapAutoloader implements SplAutoloader
+class ClassMapAutoloader implements SplAutoloaderInterface
 {
     /**
      * Registry of map files that have already been loaded
