@@ -336,9 +336,10 @@ class ServiceManager implements ServiceLocatorInterface
             ));
         }
 
-        /**
-         * @todo If a service is being overwritten, destroy all previous aliases
-         */
+        // If a service is being overwritten, destroy all previous aliases
+        if(isset($this->instances[$cName])) {
+            $this->removeAlias($cName);
+        }
 
         $this->instances[$cName] = $service;
         $this->shared[$cName]    = (bool) $shared;
@@ -606,6 +607,27 @@ class ServiceManager implements ServiceLocatorInterface
     {
         $alias = $this->canonicalizeName($alias);
         return (isset($this->aliases[$alias]));
+    }
+
+    /**
+     * Remove the given alias
+     *
+     * @param string $nameOrAlias Name or alias
+     * @return ServiceManager
+     */
+    public function removeAlias($nameOrAlias)
+    {
+        $aliasesToRemove = array();
+
+        foreach ($this->aliases as $k => $v) {
+            if ($k == $nameOrAlias || $v == $nameOrAlias || isset($aliasesToRemove[$v])) {
+                $aliasesToRemove[$k] = 1;
+            }
+        }
+
+        $this->aliases = array_diff_key($this->aliases, $aliasesToRemove);
+
+        return $this;
     }
 
     /**
