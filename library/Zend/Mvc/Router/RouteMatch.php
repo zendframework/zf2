@@ -98,7 +98,7 @@ class RouteMatch
         if ($name === null) {
             return $this->getParams();
         }
-        
+
         if (array_key_exists($name, $this->params)) {
             return $this->params[$name];
         }
