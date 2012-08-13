@@ -92,7 +92,7 @@ class Params extends AbstractPlugin
      * @return mixed
      * @throws RuntimeException
      */
-    public function fromRoute($param, $default = null)
+    public function fromRoute($param = null, $default = null)
     {
         $controller = $this->getController();
 
