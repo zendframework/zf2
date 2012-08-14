@@ -53,12 +53,12 @@ latest PHP version whenever possible.
 
 ### INSTALLATION
 
-Please see [INSTALL.md](INSTALL.md).
+Please see [INSTALL.md](zf2/INSTALL.md).
 
 ### CONTRIBUTING
 
 If you wish to contribute to Zend Framework 2.0, please read both the
-[README-DEV.md](README-DEV.md) and [README-GIT.md](README-GIT.md) file.
+[README-DEV.md](zf2/README-DEV.md) and [README-GIT.md](zf2/README-GIT.md) file.
 
 ### QUESTIONS AND FEEDBACK
 
