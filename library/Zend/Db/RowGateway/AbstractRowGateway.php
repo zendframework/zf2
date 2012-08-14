@@ -143,12 +143,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
         }
 
         if (count($this->originalData) > 0 ) {
-// Filter setting primary to zero value so can't test this for null
-// Or filter set's it to empty string
-// Doing it like this follows a bit of the same logic of ZF1
-// Basically you will need to populate the object with data before placing the 
-// changes from the "form" and then you can execute save() if your updating
-// I only need to populate the originalData on Row Change
+
             // UPDATE
             $where = array($this->primaryKeyColumn => $this->originalData[$this->primaryKeyColumn]);
             $data = $this->data;
