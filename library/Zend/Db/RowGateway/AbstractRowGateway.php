@@ -111,10 +111,10 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
      * @param  array $currentData
      * @return RowGateway
      */
-    public function populate(array $rowData, $isOriginal = null)
+    public function populate(array $rowData, $isOriginal = false)
     {
         $this->data = $rowData;
-        if ($isOriginal == true || ($isOriginal == null && empty($this->originalData))) {
+        if ($isOriginal == true) {
             $this->populateOriginalData($rowData);
         }
 
@@ -142,8 +142,13 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
             throw new Exception\RuntimeException('Compound primary keys are currently not supported, but are on the TODO list.');
         }
 
-        if (isset($this->originalData[$this->primaryKeyColumn])) {
-
+        if (count($this->originalData) > 0 ) {
+// Filter setting primary to zero value so can't test this for null
+// Or filter set's it to empty string
+// Doing it like this follows a bit of the same logic of ZF1
+// Basically you will need to populate the object with data before placing the 
+// changes from the "form" and then you can execute save() if your updating
+// I only need to populate the originalData on Row Change
             // UPDATE
             $where = array($this->primaryKeyColumn => $this->originalData[$this->primaryKeyColumn]);
             $data = $this->data;
