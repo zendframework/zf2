@@ -351,7 +351,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             'columns' => $this->columns,
             'table' => $this->table,
             'joins' => $this->joins,
+            'having' => $this->having,
             'where' => $this->where,
+            'group' => $this->group,
             'order' => $this->order,
             'limit' => $this->limit,
             'offset' => $this->offset
