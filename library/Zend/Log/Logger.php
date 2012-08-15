@@ -79,6 +79,14 @@ class Logger implements LoggerInterface
      * @var boolean
      */
     protected static $registeredExceptionHandler = false;
+    
+    /**
+    * The format of the date used for a log entry (ISO 8601 date)
+    * @see http://www.php.net/manual/en/function.date.php
+    * 
+    * @var string
+    */
+    protected $dateTimeFormat = 'c';
 
     /**
      * Constructor
@@ -141,7 +149,29 @@ class Logger implements LoggerInterface
         $this->writerPlugins = $plugins;
         return $this;
     }
+    
+    /**    
+    * Return the format of DateTime
+    * 
+    * @return string
+    */    
+    public function getDateTimeFormat()
+    {
+        return $this->dateTimeFormat;
+    }
 
+    /**
+     *  Set the format of DateTime
+     *  
+     *  @see    http://nl3.php.net/manual/en/function.date.php
+     *  @return Logger
+     *  */
+    public function setDateTimeFormat($format)
+    {
+        $this->dateTimeFormat = (string) $format;
+        return $this;
+    }
+    		
     /**
      * Get writer instance
      *
@@ -243,7 +273,8 @@ class Logger implements LoggerInterface
             throw new Exception\RuntimeException('No log writer specified');
         }
 
-        $timestamp = new DateTime();
+        $date = new DateTime();
+        $timestamp = $date->format($this->getDateTimeFormat());
 
         if (is_array($message)) {
             $message = var_export($message, true);
