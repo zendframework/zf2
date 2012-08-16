@@ -38,10 +38,10 @@ abstract class AbstractHtmlElement extends AbstractHelper
      *
      * @return string
      */
-    public function getOpeningBracket($element, array $classes = array(), array $attribs){
+    public function getOpeningBracket($element, array $classes, array $attribs){
         $str =  '<' . $element;
 
-        if (count($classes) > 0){
+        if ($classes){
             $classes = array_unique($classes);
             $classes = implode(' ', $classes);
             $str .= ' class="' . $classes . '"';
