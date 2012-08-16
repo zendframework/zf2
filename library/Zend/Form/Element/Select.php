@@ -60,7 +60,7 @@ class Select extends Element implements InputProviderInterface
     {
         if (null === $this->validator) {
             $validator = new InArrayValidator(array(
-                'haystack' => (array) $this->getAttribute('options'),
+                'haystack' => array_keys((array) $this->getAttribute('options')),
                 'strict'   => false
             ));
 
