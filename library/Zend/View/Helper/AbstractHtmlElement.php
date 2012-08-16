@@ -30,15 +30,22 @@ abstract class AbstractHtmlElement extends AbstractHelper
     protected $closingBracket = null;
 
     /**
+     * The opening tag and bracket
+     *
+     * @var null
+     */
+    protected $openingBracket = null;
+
+    /**
      * build the opening tag for an element
      *
      * @param string $element the tag name, such as table, ul, div etc
-     * @param array $classes an array of classes, duplicates will be removed
      * @param array $attribs array of attributes
      *
      * @return string
      */
-    public function getOpeningBracket($element, array $attribs){
+    public function getOpeningBracket($element, array $attribs)
+    {
         $str =  '<' . $element;
 
         if ($attribs) {
@@ -47,7 +54,8 @@ abstract class AbstractHtmlElement extends AbstractHelper
         }
 
         $str .= '>';
-        return $str;
+        $this->openingBracket = $str;
+        return $this->openingBracket;
     }
 
     /**
