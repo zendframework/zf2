@@ -72,7 +72,8 @@ abstract class AbstractHtmlElement extends AbstractHelper
      * @param string $element the tag name, such as table, ul, div etc
      * @return string
      */
-    public function getClosingTag($element){
+    public function getClosingTag($element)
+    {
         $this->closingTag = '</' . $element . $this->getClosingBracket();
         return $this->closingTag;
     }
