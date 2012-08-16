@@ -66,6 +66,12 @@ abstract class AbstractHtmlElement extends AbstractHelper
         return $this->openingTag;
     }
 
+    /**
+     * Build the closing tag html for an element
+     *
+     * @param string $element the tag name, such as table, ul, div etc
+     * @return string
+     */
     public function getClosingTag($element){
         $this->closingTag = '</' . $element . $this->getClosingBracket();
         return $this->closingTag;
