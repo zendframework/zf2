@@ -44,11 +44,11 @@ abstract class AbstractHtmlElement extends AbstractHelper
      *
      * @return string
      */
-    public function getOpeningBracket($element, array $attribs)
+    public function getOpeningBracket($element, array $attribs = array())
     {
         $str =  '<' . $element;
 
-        if ($attribs) {
+        if (count($attribs) > 0) {
             $attribs = $this->htmlAttribs($attribs);
             $str .= $attribs;
         }
