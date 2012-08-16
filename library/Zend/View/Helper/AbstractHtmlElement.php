@@ -67,7 +67,7 @@ abstract class AbstractHtmlElement extends AbstractHelper
     }
 
     public function getClosingTag($element){
-        $this->closingTag = '<' . $element . $this->getClosingBracket();
+        $this->closingTag = '</' . $element . $this->getClosingBracket();
         return $this->closingTag;
     }
 
