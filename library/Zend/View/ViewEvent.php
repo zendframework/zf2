@@ -27,6 +27,7 @@ class ViewEvent extends Event
      * View events triggered by eventmanager
      */
     const EVENT_RENDERER = 'renderer';
+    const EVENT_RENDER   = 'render';
     const EVENT_RESPONSE = 'response';
     /**#@-*/
 
