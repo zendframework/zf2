@@ -11,7 +11,6 @@
 namespace ZendTest\Filter;
 
 use Zend\I18n\Filter\SlugUrl as SlugUrlFilter;
-use Locale;
 
 /**
  * @category   Zend
@@ -28,42 +27,41 @@ class SlugUrlTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasic()
     {
-    
+
         $filter = new SlugUrlFilter();
 
         $text      = 'áàâéèêíìîóòôúùûã';
         $expected  = 'aaaeeeiiiooouuua';
-        
-        $this->assertEquals($expected, $filter->filter($text) );
+
+        $this->assertEquals($expected, $filter->filter($text));
     }
 
     public function testReplaceWhiteSpace()
     {
-        
+
         $filter = new SlugUrlFilter(array(
-            'replaceWhiteSpace' => '-' 
+            'replaceWhiteSpace' => '-'
         ));
 
         $text = 'This is my nice text!';
         $expected = 'this-is-my-nice-text';
-        
-        $this->assertEquals($expected, $filter->filter($text) );
+
+        $this->assertEquals($expected, $filter->filter($text));
     }
 
     public function testOnlyAlNumCharacter()
     {
-        
+
         $filter = new SlugUrlFilter(array(
             'onlyAlnum' => true
         ));
 
         $text = '! this is my / text $## ';
         $expected = '-this-is-my-text-';
-       
-        $this->assertEquals($expected, $filter->filter($text) );
-         
-    }
 
+        $this->assertEquals($expected, $filter->filter($text));
+
+    }
 
     public function testOnlyAlNumAndReplaceWhiteSpace()
     {
@@ -75,9 +73,8 @@ class SlugUrlTest extends \PHPUnit_Framework_TestCase
         $text = '!this is my / text$##';
         $expected = 'this+is+my+text';
 
-        $this->assertEquals($expected, $filter->filter($text) );
+        $this->assertEquals($expected, $filter->filter($text));
     }
-
 
     public function testIrrelevantCharsAndOnlyAlNum()
     {
@@ -87,9 +84,10 @@ class SlugUrlTest extends \PHPUnit_Framework_TestCase
         ));
 
         $text = 'Welcome to Zend Framework/zf2 2';
-        $expected = 'welcome-to-zend-framework-zf2-2';//replace backslash by a whitespace
+        //replace backslash by a whitespace
+        $expected = 'welcome-to-zend-framework-zf2-2';
 
-        $this->assertEquals($expected, $filter->filter($text) );
+        $this->assertEquals($expected, $filter->filter($text));
     }
 
     public function testRelevantCharsAndOnlyAlNum()
@@ -98,19 +96,19 @@ class SlugUrlTest extends \PHPUnit_Framework_TestCase
 
         $text = 'The sum of a + a is equal to 2';
 
-        $expected1 = 'the-sum-of-a-a-is-equal-to-2';
-        $this->assertEquals($expected1, $filter->filter($text) );
-        
+        $expectedOne = 'the-sum-of-a-a-is-equal-to-2';
+        $this->assertEquals($expectedOne, $filter->filter($text));
+
         //removes the character space in place of irrelevant
         $filter->setIrrelevantChars('+');
-        $expected2 = 'the-sum-of-a-a-is-equal-to-2';
-        $this->assertEquals($expected2, $filter->filter($text) );
+        $expectedTwo = 'the-sum-of-a-a-is-equal-to-2';
+        $this->assertEquals($expectedTwo, $filter->filter($text));
     }
 
     public function testRemoveGreekCharacters()
     {
         $filter = new SlugUrlFilter();
-        $this->assertEquals('aaaabbbb', $filter->filter('φψξAAAAωϑBBBB') );
+        $this->assertEquals('aaaabbbb', $filter->filter('φψξAAAAωϑBBBB'));
     }
 
 }

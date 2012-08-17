@@ -18,7 +18,7 @@ use \Zend\Filter\StringToLower;
  * @category   Zend
  * @package    Zend_Filter
  */
-class SlugUrl extends AbstractLocale 
+class SlugUrl extends AbstractLocale
 {
     /**
      * Corresponds to the third
@@ -29,27 +29,27 @@ class SlugUrl extends AbstractLocale
 
     /**
      * Replace white space for some chacacter
-     * 
+     *
      * @var string
      */
     protected $replaceWhiteSpace;
 
     /**
      * Allow only Alpha characters and numbers
-     * 
+     *
      * @var boolean
      */
     protected $onlyAlnum;
 
     /**
-     * Sets the characters that are relevant and keeps the text 
+     * Sets the characters that are relevant and keeps the text
      *
      * @var string|array
      */
     protected $relevantChars;
 
    /**
-     * Sets the characters that are relevant and should be 
+     * Sets the characters that are relevant and should be
      * replaced by the value set in "replaceWhiteSpace"
      *
      * @var string|array
@@ -66,11 +66,11 @@ class SlugUrl extends AbstractLocale
     /**
      * Sets filter options
      *
-     * @param  string|array $charset
-     * @param  string|array $replaceWhiteSpace
-     * @param  boolean|array $onlyAlnum
-     * @param  string|array $relevantChars
-     * @param  string|array $irrelevantChars
+     * @param string|array  $charset
+     * @param string|array  $replaceWhiteSpace
+     * @param boolean|array $onlyAlnum
+     * @param string|array  $relevantChars
+     * @param string|array  $irrelevantChars
      *
      * @return void
      */
@@ -87,11 +87,11 @@ class SlugUrl extends AbstractLocale
             if (isset($options[0])) {
                 $temp['charset'] = $options[0];
             }
-            
+
             if (isset($options[1])) {
                 $temp['replaceWhiteSpace'] = $options[1];
             }
-            
+
             if (isset($options[2])) {
                 $temp['onlyAlnum'] = $options[2];
             }
@@ -105,11 +105,11 @@ class SlugUrl extends AbstractLocale
             }
             $options = $temp;
         }
-        
+
         if (!isset($options['encoding'])) {
             $options['encoding'] = 'utf8';
         }
- 
+
         if (isset($options['charset'])) {
             $options['encoding'] = $options['charset'];
         }
@@ -127,7 +127,7 @@ class SlugUrl extends AbstractLocale
         }
 
         if (!isset($options['irrelevantChars'])) {
-            $options['irrelevantChars'] = '\/'; 
+            $options['irrelevantChars'] = '\/';
         }
         $this->setEncoding($options['encoding']);
         $this->setReplaceWhiteSpace($options['replaceWhiteSpace']);
@@ -139,18 +139,19 @@ class SlugUrl extends AbstractLocale
     /**
      * Set "the character" to replace spaces
      *
-     * @param  string $value
-     * 
+     * @param string $value
+     *
      * @return SlugUrl
      */
     public function setReplaceWhiteSpace($value)
     {
         $this->replaceWhiteSpace = $value;
+
         return $this;
     }
 
     /**
-     * Get "the character" to replace spaces 
+     * Get "the character" to replace spaces
      *
      * @return string
      */
@@ -163,20 +164,21 @@ class SlugUrl extends AbstractLocale
      * $value = true  #to consider only alphanumeric characters
      * $value = false #consider any characters
      *
-     * @param  string $value
+     * @param string $value
      *
      * @return SlugUrl
      */
     public function setOnlyAlnum($value)
     {
         $this->onlyAlnum = $value;
+
         return $this;
     }
 
     /**
      * Get onlyAlnum
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOnlyAlnum()
     {
@@ -196,13 +198,14 @@ class SlugUrl extends AbstractLocale
     /**
      * Set encoding
      *
-     * @param  string $value
-     * 
+     * @param string $value
+     *
      * @return SlugUrl
      */
     public function setEncoding($value)
     {
         $this->encoding = (string) $value;
+
         return $this;
     }
 
@@ -219,13 +222,14 @@ class SlugUrl extends AbstractLocale
     /**
      * Set characters
      *
-     * @param  string|array $chars
-     * 
+     * @param string|array $chars
+     *
      * @return SlugUrl
      */
     public function setRelevantChars($chars)
     {
         $this->relevantChars = $chars;
+
         return $this;
     }
 
@@ -240,26 +244,27 @@ class SlugUrl extends AbstractLocale
     }
 
     /**
-     * Set irrelevantes characters arrow irrelevant that the characters 
+     * Set irrelevantes characters arrow irrelevant that the characters
      * need to be replaced by the parameter chosen "replaceWhiteSpace"
      *
-     * @param  string|array $chars
-     * 
+     * @param string|array $chars
+     *
      * @return SlugUrl
      */
     public function setIrrelevantChars($chars)
     {
         $this->irrelevantChars = $chars;
+
         return $this;
     }
 
     /**
      * Returns the result of filtering $value
      *
-     * @param  string $value
-     * 
-     * @throws Exception\ExtensionNotLoadedException 
-     * @return string 
+     * @param string $value
+     *
+     * @throws Exception\ExtensionNotLoadedException
+     * @return string
      */
     public function filter($value)
     {
@@ -279,7 +284,7 @@ class SlugUrl extends AbstractLocale
         $oan = $this->getOnlyAlNum();
         $rlc = $this->getRelevantChars();
         $ilc = $this->getIrrelevantChars();
-       
+
         //Set locale
         setlocale(LC_ALL, "en_US.{$enc}");
 
@@ -292,7 +297,7 @@ class SlugUrl extends AbstractLocale
         if (!empty($ilc)) {
             $filtered  = preg_replace("/[{$irrelevantChars}{$rws}]+/", self::WHITE_SPACE, $filtered);
         }
- 
+
         if (true === $oan) {
             $filtered  = preg_replace("/[^a-zA-Z0-9{$irrelevantChars}{$relevantChars}\\{$rws} ]*/", '', trim($filtered));
         }
@@ -311,4 +316,3 @@ class SlugUrl extends AbstractLocale
         return $filtered;
     }
 }
-?>
