@@ -10,6 +10,8 @@
 
 namespace Zend\View;
 
+use Zend\EventManager\Event;
+use Zend\EventManager\EventInterface;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
@@ -50,6 +52,7 @@ class View implements EventManagerAwareInterface
     public function setRequest(Request $request)
     {
         $this->request = $request;
+
         return $this;
     }
 
@@ -62,6 +65,7 @@ class View implements EventManagerAwareInterface
     public function setResponse(Response $response)
     {
         $this->response = $response;
+
         return $this;
     }
 
@@ -98,6 +102,7 @@ class View implements EventManagerAwareInterface
             get_called_class(),
         ));
         $this->events = $events;
+
         return $this;
     }
 
@@ -113,6 +118,9 @@ class View implements EventManagerAwareInterface
         if (!$this->events instanceof EventManagerInterface) {
             $this->setEventManager(new EventManager());
         }
+
+        $this->attachDefaultListeners($this->events);
+
         return $this->events;
     }
 
@@ -132,6 +140,7 @@ class View implements EventManagerAwareInterface
     public function addRenderingStrategy($callable, $priority = 1)
     {
         $this->getEventManager()->attach(ViewEvent::EVENT_RENDERER, $callable, $priority);
+
         return $this;
     }
 
@@ -153,32 +162,44 @@ class View implements EventManagerAwareInterface
     public function addResponseStrategy($callable, $priority = 1)
     {
         $this->getEventManager()->attach(ViewEvent::EVENT_RESPONSE, $callable, $priority);
+
         return $this;
     }
 
-    /**
-     * Render the provided model.
-     *
-     * Internally, the following workflow is used:
-     *
-     * - Trigger the "renderer" event to select a renderer.
-     * - Call the selected renderer with the provided Model
-     * - Trigger the "response" event
-     *
-     * @triggers renderer(ViewEvent)
-     * @triggers response(ViewEvent)
-     * @param  Model $model
-     * @return void
-     */
-    public function render(Model $model)
+    protected function attachDefaultListeners(EventManager $eventManager)
     {
-        $event   = $this->getEvent();
+        // @todo do via factory? (also avoids instantiating stuff more than once)
+        if (count($eventManager->getListeners(ViewEvent::EVENT_RENDER)) > 0) {
+            return;
+        }
+
+        $that = $this;
+
+        $eventManager->attach(
+            ViewEvent::EVENT_RENDER,
+            function (ViewEvent $event) use ($that) {
+                $result = $event->getResult() . $that->doRender($event, $event->getModel());
+                $event->setResult($result);
+
+                return $result;
+            }
+        );
+    }
+
+    /**
+     * @todo move to own listener class
+     * @todo add custom event class
+     * @todo make inaccessible
+     */
+    public function doRender(ViewEvent $event, Model $model)
+    {
         $event->setModel($model);
         $events  = $this->getEventManager();
         $results = $events->trigger(ViewEvent::EVENT_RENDERER, $event, function($result) {
             return ($result instanceof Renderer);
         });
         $renderer = $results->last();
+
         if (!$renderer instanceof Renderer) {
             throw new Exception\RuntimeException(sprintf(
                 '%s: no renderer selected!',
@@ -205,13 +226,43 @@ class View implements EventManagerAwareInterface
         // If this is a child model, return the rendered content; do not
         // invoke the response strategy.
         $options = $model->getOptions();
-        if (array_key_exists('has_parent', $options) && $options['has_parent']) {
-            return $rendered;
+
+        if (!(array_key_exists('has_parent', $options) && $options['has_parent'])) {
+            $event->setResult($rendered);
+            $events->trigger(ViewEvent::EVENT_RESPONSE, $event);
         }
 
-        $event->setResult($rendered);
+        return $rendered;
+    }
 
-        $events->trigger(ViewEvent::EVENT_RESPONSE, $event);
+    /**
+     * Render the provided model.
+     *
+     * Internally, the following workflow is used:
+     *
+     * - Trigger the "renderer" event to select a renderer.
+     * - Call the selected renderer with the provided Model
+     * - Trigger the "response" event
+     *
+     * @triggers renderer(ViewEvent)
+     * @triggers response(ViewEvent)
+     * @param  Model $model
+     * @return string
+     */
+    public function render(Model $model)
+    {
+        $event = new ViewEvent();
+        $event->setModel($model);
+        $event->setResult('');
+        $result = $this->getEventManager()->trigger(
+            ViewEvent::EVENT_RENDER,
+            $event,
+            function($result) {
+                return is_string($result);
+            }
+        );
+
+        return $result->last();
     }
 
     /**
@@ -250,12 +301,15 @@ class View implements EventManagerAwareInterface
     {
         $event = new ViewEvent();
         $event->setTarget($this);
+
         if (null !== ($request = $this->getRequest())) {
             $event->setRequest($request);
         }
+
         if (null !== ($response = $this->getResponse())) {
             $event->setResponse($response);
         }
+
         return $event;
     }
 }
