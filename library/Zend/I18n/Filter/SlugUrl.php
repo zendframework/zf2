@@ -11,6 +11,8 @@
 namespace Zend\I18n\Filter;
 
 use Traversable;
+use \Zend\Filter\FilterChain;
+use \Zend\Filter\StringToLower;
 
 /**
  * @category   Zend
@@ -113,11 +115,11 @@ class SlugUrl extends AbstractLocale
         }
 
         if (!isset($options['replaceWhiteSpace'])) {
-            $options['replaceWhiteSpace'] = ' ';
+            $options['replaceWhiteSpace'] = '-';
         }
 
         if (!isset($options['onlyAlnum'])) {
-            $options['onlyAlnum'] = false;
+            $options['onlyAlnum'] = true;
         }
 
         if (!isset($options['relevantChars'])) {
@@ -282,7 +284,7 @@ class SlugUrl extends AbstractLocale
         setlocale(LC_ALL, "en_US.{$enc}");
 
         //suppress errors @iconv
-        $filtered = @iconv($enc, 'ASCII//TRANSLIT', $value);
+        $filtered = iconv($enc, 'ASCII//TRANSLIT', $value);
 
         $relevantChars   = (is_array($rlc))? implode('', $rlc) : $rlc;
         $irrelevantChars = (is_array($ilc))? implode('', $ilc) : $ilc;
@@ -300,8 +302,11 @@ class SlugUrl extends AbstractLocale
             $filtered = str_replace(self::WHITE_SPACE, $rws, $filtered);
         }
 
-        //sets the locale option again to avoid conflicts
         $this->setLocale($localeMemento);
+
+        $filterChain = new FilterChain();
+        $filterChain->attach( new StringToLower());
+        $filtered = $filterChain->filter( $filtered );
 
         return $filtered;
     }

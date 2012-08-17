@@ -45,7 +45,7 @@ class SlugUrlTest extends \PHPUnit_Framework_TestCase
         ));
 
         $text = 'This is my nice text!';
-        $expected = 'This-is-my-nice-text!';
+        $expected = 'this-is-my-nice-text';
         
         $this->assertEquals($expected, $filter->filter($text) );
     }
@@ -58,7 +58,7 @@ class SlugUrlTest extends \PHPUnit_Framework_TestCase
         ));
 
         $text = '! this is my / text $## ';
-        $expected = ' this is my text ';
+        $expected = '-this-is-my-text-';
        
         $this->assertEquals($expected, $filter->filter($text) );
          
@@ -69,7 +69,6 @@ class SlugUrlTest extends \PHPUnit_Framework_TestCase
     {
 
         $filter = new SlugUrlFilter(array(
-            'onlyAlnum' => true,
             'replaceWhiteSpace' => '+'
         ));
 
@@ -84,36 +83,34 @@ class SlugUrlTest extends \PHPUnit_Framework_TestCase
     {
 
         $filter = new SlugUrlFilter(array(
-            'onlyAlnum' => true,
             'irrelevantChars' => '\/'
         ));
 
         $text = 'Welcome to Zend Framework/zf2 2';
-        $expected = 'Welcome to Zend Framework zf2 2';//replace backslash by a whitespace
+        $expected = 'welcome-to-zend-framework-zf2-2';//replace backslash by a whitespace
 
         $this->assertEquals($expected, $filter->filter($text) );
     }
 
     public function testRelevantCharsAndOnlyAlNum()
     {
-        $filter = new SlugUrlFilter(array(
-            'onlyAlnum' => true
-        ));
+        $filter = new SlugUrlFilter();
 
         $text = 'The sum of a + a is equal to 2';
 
-        $expected1 = 'The sum of a  a is equal to 2';
+        $expected1 = 'the-sum-of-a-a-is-equal-to-2';
         $this->assertEquals($expected1, $filter->filter($text) );
         
         //removes the character space in place of irrelevant
         $filter->setIrrelevantChars('+');
-        $expected2 = 'The sum of a a is equal to 2';
+        $expected2 = 'the-sum-of-a-a-is-equal-to-2';
         $this->assertEquals($expected2, $filter->filter($text) );
-
-        $filter->setReplaceWhiteSpace('-');
-        $expected3 = 'The-sum-of-a-a-is-equal-to-2';
-        $this->assertEquals($expected3, $filter->filter($text) );
     }
 
+    public function testRemoveGreekCharacters()
+    {
+        $filter = new SlugUrlFilter();
+        $this->assertEquals('aaaabbbb', $filter->filter('φψξAAAAωϑBBBB') );
+    }
 
 }
