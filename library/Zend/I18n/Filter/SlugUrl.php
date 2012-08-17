@@ -121,7 +121,7 @@ class SlugUrl extends AbstractLocale
         }
 
         if (!isset($options['relevantChars'])) {
-            $options['relevantChars'] = '\+';
+            $options['relevantChars'] = false;
         }
 
         if (!isset($options['irrelevantChars'])) {
