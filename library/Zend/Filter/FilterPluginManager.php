@@ -32,6 +32,7 @@ class FilterPluginManager extends AbstractPluginManager
     protected $invokableClasses = array(
         'alnum'                     => 'Zend\I18n\Filter\Alnum',
         'alpha'                     => 'Zend\I18n\Filter\Alpha',
+        'slugurl'                   => 'Zend\I18n\Filter\SlugUrl',
         'basename'                  => 'Zend\Filter\BaseName',
         'boolean'                   => 'Zend\Filter\Boolean',
         'callback'                  => 'Zend\Filter\Callback',
