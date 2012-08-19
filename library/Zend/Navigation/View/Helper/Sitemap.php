@@ -103,19 +103,20 @@ class Sitemap extends AbstractHelper
     /**
      * Sets whether XML output should be formatted
      *
-     * @param  bool $formatOutput [optional] whether output should be formatted. Default is true.
-     * @return Sitemap  fluent interface, returns self
+     * @param  bool    $formatOutput [optional] whether output should be formatted. Default is true.
+     * @return Sitemap fluent interface, returns self
      */
     public function setFormatOutput($formatOutput = true)
     {
         $this->formatOutput = (bool) $formatOutput;
+
         return $this;
     }
 
     /**
      * Returns whether XML output should be formatted
      *
-     * @return bool  whether XML output should be formatted
+     * @return bool whether XML output should be formatted
      */
     public function getFormatOutput()
     {
@@ -125,19 +126,20 @@ class Sitemap extends AbstractHelper
     /**
      * Sets whether the XML declaration should be used in output
      *
-     * @param  bool $useXmlDecl whether XML declaration should be rendered
-     * @return Sitemap  fluent interface, returns self
+     * @param  bool    $useXmlDecl whether XML declaration should be rendered
+     * @return Sitemap fluent interface, returns self
      */
     public function setUseXmlDeclaration($useXmlDecl)
     {
         $this->useXmlDeclaration = (bool) $useXmlDecl;
+
         return $this;
     }
 
     /**
      * Returns whether the XML declaration should be used in output
      *
-     * @return bool  whether the XML declaration should be used in output
+     * @return bool whether the XML declaration should be used in output
      */
     public function getUseXmlDeclaration()
     {
@@ -147,19 +149,20 @@ class Sitemap extends AbstractHelper
     /**
      * Sets whether sitemap should be validated using Zend\Validate\Sitemap_*
      *
-     * @param  bool $useSitemapValidators whether sitemap validators should be used
-     * @return Sitemap  fluent interface, returns self
+     * @param  bool    $useSitemapValidators whether sitemap validators should be used
+     * @return Sitemap fluent interface, returns self
      */
     public function setUseSitemapValidators($useSitemapValidators)
     {
         $this->useSitemapValidators = (bool) $useSitemapValidators;
+
         return $this;
     }
 
     /**
      * Returns whether sitemap should be validated using Zend\Validate\Sitemap_*
      *
-     * @return bool  whether sitemap should be validated using validators
+     * @return bool whether sitemap should be validated using validators
      */
     public function getUseSitemapValidators()
     {
@@ -169,12 +172,13 @@ class Sitemap extends AbstractHelper
     /**
      * Sets whether sitemap should be schema validated when generated
      *
-     * @param  bool $schemaValidation whether sitemap should validated using XSD Schema
+     * @param  bool    $schemaValidation whether sitemap should validated using XSD Schema
      * @return Sitemap
      */
     public function setUseSchemaValidation($schemaValidation)
     {
         $this->useSchemaValidation = (bool) $schemaValidation;
+
         return $this;
     }
 
@@ -193,8 +197,8 @@ class Sitemap extends AbstractHelper
      *
      * E.g. http://www.example.com
      *
-     * @param  string $serverUrl server URL to set (only scheme and host)
-     * @return Sitemap fluent interface, returns self
+     * @param  string                             $serverUrl server URL to set (only scheme and host)
+     * @return Sitemap                            fluent interface, returns self
      * @throws Exception\InvalidArgumentException if invalid server URL
      */
     public function setServerUrl($serverUrl)
@@ -219,7 +223,7 @@ class Sitemap extends AbstractHelper
     /**
      * Returns server URL
      *
-     * @return string  server URL
+     * @return string server URL
      */
     public function getServerUrl()
     {
@@ -236,8 +240,8 @@ class Sitemap extends AbstractHelper
     /**
      * Escapes string for XML usage
      *
-     * @param  string $string  string to escape
-     * @return string          escaped string
+     * @param  string $string string to escape
+     * @return string escaped string
      */
     protected function xmlEscape($string)
     {
@@ -256,7 +260,7 @@ class Sitemap extends AbstractHelper
     /**
      * Returns an escaped absolute URL for the given page
      *
-     * @param  AbstractPage $page  page to get URL from
+     * @param  AbstractPage $page page to get URL from
      * @return string
      */
     public function url(AbstractPage $page)
@@ -285,6 +289,7 @@ class Sitemap extends AbstractHelper
         if (! in_array($url, $this->urls)) {
 
             $this->urls[] = $url;
+
             return $this->xmlEscape($url);
         }
 
@@ -294,13 +299,13 @@ class Sitemap extends AbstractHelper
     /**
      * Returns a DOMDocument containing the Sitemap XML for the given container
      *
-     * @param  AbstractContainer                 $container  [optional] container to get
+     * @param AbstractContainer $container [optional] container to get
      *                                               breadcrumbs from, defaults
      *                                               to what is registered in the
      *                                               helper
-     * @return DOMDocument                           DOM representation of the
+     * @return DOMDocument DOM representation of the
      *                                               container
-     * @throws Exception\RuntimeException            if schema validation is on
+     * @throws Exception\RuntimeException if schema validation is on
      *                                               and the sitemap is invalid
      *                                               according to the sitemap
      *                                               schema, or if sitemap
@@ -440,10 +445,10 @@ class Sitemap extends AbstractHelper
      *
      * Implements {@link HelperInterface::render()}.
      *
-     * @param  link|AbstractContainer $container [optional] container to render. Default is
+     * @param link|AbstractContainer $container [optional] container to render. Default is
      *                              to render the container registered in the
      *                              helper.
-     * @return string               helper output
+     * @return string helper output
      */
     public function render($container = null)
     {

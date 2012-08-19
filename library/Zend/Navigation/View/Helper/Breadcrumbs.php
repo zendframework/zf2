@@ -70,7 +70,7 @@ class Breadcrumbs extends AbstractHelper
     /**
      * Sets breadcrumb separator
      *
-     * @param  string $separator separator string
+     * @param  string      $separator separator string
      * @return Breadcrumbs fluent interface, returns self
      */
     public function setSeparator($separator)
@@ -85,7 +85,7 @@ class Breadcrumbs extends AbstractHelper
     /**
      * Returns breadcrumb separator
      *
-     * @return string  breadcrumb separator
+     * @return string breadcrumb separator
      */
     public function getSeparator()
     {
@@ -95,19 +95,20 @@ class Breadcrumbs extends AbstractHelper
     /**
      * Sets whether last page in breadcrumbs should be hyperlinked
      *
-     * @param  bool $linkLast whether last page should be hyperlinked
+     * @param  bool        $linkLast whether last page should be hyperlinked
      * @return Breadcrumbs fluent interface, returns self
      */
     public function setLinkLast($linkLast)
     {
         $this->linkLast = (bool) $linkLast;
+
         return $this;
     }
 
     /**
      * Returns whether last page in breadcrumbs should be hyperlinked
      *
-     * @return bool  whether last page in breadcrumbs should be hyperlinked
+     * @return bool whether last page in breadcrumbs should be hyperlinked
      */
     public function getLinkLast()
     {
@@ -117,7 +118,7 @@ class Breadcrumbs extends AbstractHelper
     /**
      * Sets which partial view script to use for rendering menu
      *
-     * @param  string|array $partial partial view script or null. If an array is
+     * @param string|array $partial partial view script or null. If an array is
      *                               given, it is expected to contain two
      *                               values; the partial view script to use,
      *                               and the module where the script can be
@@ -149,9 +150,9 @@ class Breadcrumbs extends AbstractHelper
      * Renders breadcrumbs by chaining 'a' elements with the separator
      * registered in the helper
      *
-     * @param  AbstractContainer $container [optional] container to render. Default is
+     * @param AbstractContainer $container [optional] container to render. Default is
      *                              to render the container registered in the helper.
-     * @return string               helper output
+     * @return string helper output
      */
     public function renderStraight($container = null)
     {
@@ -205,17 +206,17 @@ class Breadcrumbs extends AbstractHelper
      * The container will simply be passed on as a model to the view script,
      * so in the script it will be available in <code>$this->container</code>.
      *
-     * @param  AbstractContainer $container [optional] container to pass to view script.
+     * @param AbstractContainer $container [optional] container to pass to view script.
      *                              Default is to use the container registered
      *                              in the helper.
-     * @param  string|array $partial [optional] partial view script to use.
+     * @param string|array $partial [optional] partial view script to use.
      *                               Default is to use the partial registered
      *                               in the helper.  If an array is given, it
      *                               is expected to contain two values; the
      *                               partial view script to use, and the module
      *                               where the script can be found.
-     * @return string               helper output
-     * @throws Exception\RuntimeException if no partial provided
+     * @return string                             helper output
+     * @throws Exception\RuntimeException         if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
      */
     public function renderPartial($container = null, $partial = null)
@@ -268,10 +269,12 @@ class Breadcrumbs extends AbstractHelper
             }
 
             $partialHelper = $this->view->plugin('partial');
+
             return $partialHelper($partial[0], /*$partial[1], */$model);
         }
 
         $partialHelper = $this->view->plugin('partial');
+
         return $partialHelper($partial, $model);
     }
 
@@ -282,18 +285,18 @@ class Breadcrumbs extends AbstractHelper
      *
      * Implements {@link HelperInterface::render()}.
      *
-     * @param  AbstractContainer $container [optional] container to render. Default is
+     * @param AbstractContainer $container [optional] container to render. Default is
      *                              to render the container registered in the helper.
-     * @return string               helper output
+     * @return string helper output
      */
     public function render($container = null)
     {
         $partial = $this->getPartial();
-        
+
         if (null == $container) {
             $container = $this->getContainer();
-        } 
-        
+        }
+
         if ($partial) {
             return $this->renderPartial($container, $partial);
         } else {
@@ -301,4 +304,3 @@ class Breadcrumbs extends AbstractHelper
         }
     }
 }
-

@@ -134,12 +134,13 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Set the service locator.
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return AbstractHelper
      */
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
+
         return $this;
     }
 
@@ -158,14 +159,15 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::setContainer()}.
      *
-     * @param  string|Navigation\AbstractContainer $container [optional] container to operate on.
+     * @param string|Navigation\AbstractContainer $container [optional] container to operate on.
      *                                                        Default is null, meaning container will be reset.
-     * @return AbstractHelper  fluent interface, returns self
+     * @return AbstractHelper fluent interface, returns self
      */
     public function setContainer($container = null)
     {
         $this->parseContainer($container);
         $this->container = $container;
+
         return $this;
     }
 
@@ -177,7 +179,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      * If no container is set, a new container will be instantiated and
      * stored in the helper.
      *
-     * @return Navigation\AbstractContainer  navigation container
+     * @return Navigation\AbstractContainer navigation container
      */
     public function getContainer()
     {
@@ -191,7 +193,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Verifies container and eventually fetches it from service locator if it is a string
      *
-     * @param \Zend\Navigation\AbstractContainer|string|null $container
+     * @param  \Zend\Navigation\AbstractContainer|string|null $container
      * @throws \Zend\View\Exception\InvalidArgumentException
      */
     protected function parseContainer(&$container = null)
@@ -220,6 +222,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
                 $sl = $sl->getServiceLocator();
             }
             $container = $sl->get($container);
+
             return;
         }
 
@@ -234,7 +237,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Sets the minimum depth a page must have to be included when rendering
      *
-     * @param  int $minDepth [optional] minimum depth. Default is null, which
+     * @param int $minDepth [optional] minimum depth. Default is null, which
      *                       sets no minimum depth.
      * @return AbstractHelper fluent interface, returns self
      */
@@ -245,26 +248,28 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         } else {
             $this->minDepth = (int) $minDepth;
         }
+
         return $this;
     }
 
     /**
      * Returns minimum depth a page must have to be included when rendering
      *
-     * @return int|null  minimum depth or null
+     * @return int|null minimum depth or null
      */
     public function getMinDepth()
     {
         if (!is_int($this->minDepth) || $this->minDepth < 0) {
             return 0;
         }
+
         return $this->minDepth;
     }
 
     /**
      * Sets the maximum depth a page can have to be included when rendering
      *
-     * @param  int $maxDepth [optional] maximum depth. Default is null, which
+     * @param int $maxDepth [optional] maximum depth. Default is null, which
      *                       sets no maximum depth.
      * @return AbstractHelper fluent interface, returns self
      */
@@ -275,13 +280,14 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         } else {
             $this->maxDepth = (int) $maxDepth;
         }
+
         return $this;
     }
 
     /**
      * Returns maximum depth a page can have to be included when rendering
      *
-     * @return int|null  maximum depth or null
+     * @return int|null maximum depth or null
      */
     public function getMaxDepth()
     {
@@ -292,12 +298,13 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      * Set the indentation string for using in {@link render()}, optionally a
      * number of spaces to indent with
      *
-     * @param  string|int $indent indentation string or number of spaces
-     * @return AbstractHelper  fluent interface, returns self
+     * @param  string|int     $indent indentation string or number of spaces
+     * @return AbstractHelper fluent interface, returns self
      */
     public function setIndent($indent)
     {
         $this->indent = $this->getWhitespace($indent);
+
         return $this;
     }
 
@@ -316,12 +323,13 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::setAcl()}.
      *
-     * @param  Acl\Acl $acl [optional] ACL object.  Default is null.
-     * @return AbstractHelper  fluent interface, returns self
+     * @param  Acl\Acl        $acl [optional] ACL object.  Default is null.
+     * @return AbstractHelper fluent interface, returns self
      */
     public function setAcl(Acl\Acl $acl = null)
     {
         $this->acl = $acl;
+
         return $this;
     }
 
@@ -331,7 +339,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::getAcl()}.
      *
-     * @return Acl\Acl|null  ACL object or null
+     * @return Acl\Acl|null ACL object or null
      */
     public function getAcl()
     {
@@ -347,10 +355,10 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::setRole()}.
      *
-     * @param  mixed $role [optional] role to set. Expects a string, an
+     * @param mixed $role [optional] role to set. Expects a string, an
      *                     instance of type {@link Acl\Role\RoleInterface}, or null. Default
      *                     is null, which will set no role.
-     * @return AbstractHelper  fluent interface, returns self
+     * @return AbstractHelper                     fluent interface, returns self
      * @throws Exception\InvalidArgumentException if $role is invalid
      */
     public function setRole($role = null)
@@ -376,7 +384,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::getRole()}.
      *
-     * @return string|Acl\Role\RoleInterface|null  role or null
+     * @return string|Acl\Role\RoleInterface|null role or null
      */
     public function getRole()
     {
@@ -392,12 +400,13 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::setUseAcl()}.
      *
-     * @param  bool $useAcl [optional] whether ACL should be used.  Default is true.
-     * @return AbstractHelper  fluent interface, returns self
+     * @param  bool           $useAcl [optional] whether ACL should be used.  Default is true.
+     * @return AbstractHelper fluent interface, returns self
      */
     public function setUseAcl($useAcl = true)
     {
         $this->useAcl = (bool) $useAcl;
+
         return $this;
     }
 
@@ -406,7 +415,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::getUseAcl()}.
      *
-     * @return bool  whether ACL should be used
+     * @return bool whether ACL should be used
      */
     public function getUseAcl()
     {
@@ -426,12 +435,13 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Render invisible items?
      *
-     * @param  bool $renderInvisible [optional] boolean flag
-     * @return AbstractHelper  fluent interface returns self
+     * @param  bool           $renderInvisible [optional] boolean flag
+     * @return AbstractHelper fluent interface returns self
      */
     public function setRenderInvisible($renderInvisible = true)
     {
         $this->renderInvisible = (bool) $renderInvisible;
+
         return $this;
     }
 
@@ -440,10 +450,10 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Magic overload: Proxy calls to the navigation container
      *
-     * @param  string $method             method name in container
-     * @param  array  $arguments          [optional] arguments to pass
-     * @return mixed                      returns what the container returns
-     * @throws Navigation\Exception\ExceptionInterface  if method does not exist in container
+     * @param  string                                  $method    method name in container
+     * @param  array                                   $arguments [optional] arguments to pass
+     * @return mixed                                   returns what the container returns
+     * @throws Navigation\Exception\ExceptionInterface if method does not exist in container
      */
     public function __call($method, array $arguments = array())
     {
@@ -469,6 +479,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         } catch (\Exception $e) {
             $msg = get_class($e) . ': ' . $e->getMessage();
             trigger_error($msg, E_USER_ERROR);
+
             return '';
         }
     }
@@ -478,20 +489,20 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Finds the deepest active page in the given container
      *
-     * @param  Navigation\AbstractContainer $container  container to search
-     * @param  int|null             $minDepth   [optional] minimum depth
+     * @param Navigation\AbstractContainer $container container to search
+     * @param int|null                     $minDepth  [optional] minimum depth
      *                                          required for page to be
      *                                          valid. Default is to use
      *                                          {@link getMinDepth()}. A
      *                                          null value means no minimum
      *                                          depth required.
-     * @param  int|null             $minDepth   [optional] maximum depth
+     * @param int|null $minDepth [optional] maximum depth
      *                                          a page can have to be
      *                                          valid. Default is to use
      *                                          {@link getMaxDepth()}. A
      *                                          null value means no maximum
      *                                          depth required.
-     * @return array                            an associative array with
+     * @return array an associative array with
      *                                          the values 'depth' and
      *                                          'page', or an empty array
      *                                          if not found
@@ -551,7 +562,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::hasContainer()}.
      *
-     * @return bool  whether the helper has a container or not
+     * @return bool whether the helper has a container or not
      */
     public function hasContainer()
     {
@@ -563,7 +574,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::hasAcl()}.
      *
-     * @return bool  whether the helper has a an ACL instance or not
+     * @return bool whether the helper has a an ACL instance or not
      */
     public function hasAcl()
     {
@@ -575,7 +586,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::hasRole()}.
      *
-     * @return bool  whether the helper has a an ACL role or not
+     * @return bool whether the helper has a an ACL role or not
      */
     public function hasRole()
     {
@@ -585,8 +596,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Returns an HTML string containing an 'a' element for the given page
      *
-     * @param  AbstractPage $page  page to generate HTML for
-     * @return string                      HTML string for the given page
+     * @param  AbstractPage $page page to generate HTML for
+     * @return string       HTML string for the given page
      */
     public function htmlify(AbstractPage $page)
     {
@@ -625,9 +636,9 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Sets translator to use in helper
      *
-     * @param  Translator $translator  [optional] translator.
+     * @param Translator $translator [optional] translator.
      *                                 Default is null, which sets no translator.
-     * @param  string     $textDomain  [optional] text domain
+     * @param string $textDomain [optional] text domain
      *                                 Default is null, which skips setTranslatorTextDomain
      * @return AbstractHelper
      */
@@ -637,6 +648,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         if (null !== $textDomain) {
             $this->setTranslatorTextDomain($textDomain);
         }
+
         return $this;
     }
 
@@ -667,13 +679,14 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Sets whether translator is enabled and should be used
      *
-     * @param  bool $enabled [optional] whether translator should be used.
+     * @param bool $enabled [optional] whether translator should be used.
      *                       Default is true.
      * @return AbstractHelper
      */
     public function setTranslatorEnabled($enabled = true)
     {
         $this->translatorEnabled = (bool) $enabled;
+
         return $this;
     }
 
@@ -690,12 +703,13 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Set translation text domain
      *
-     * @param  string $textDomain
+     * @param  string         $textDomain
      * @return AbstractHelper
      */
     public function setTranslatorTextDomain($textDomain = 'default')
     {
         $this->translatorTextDomain = $textDomain;
+
         return $this;
     }
 
@@ -725,11 +739,11 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      * - If page is accepted by the rules above and $recursive is true, the page
      *   will not be accepted if it is the descendant of a non-accepted page.
      *
-     * @param  AbstractPage $page      page to check
-     * @param  bool         $recursive [optional] if true, page will not be
+     * @param AbstractPage $page      page to check
+     * @param bool         $recursive [optional] if true, page will not be
      *                                 accepted if it is the descendant of a
      *                                 page that is not accepted. Default is true.
-     * @return bool                    whether page should be accepted
+     * @return bool whether page should be accepted
      */
     public function accept(AbstractPage $page, $recursive = true)
     {
@@ -763,8 +777,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *   if the ACL allows access to it using the helper's role
      * - If page has no resource or privilege, page is accepted
      *
-     * @param  AbstractPage $page  page to check
-     * @return bool                whether page is accepted by ACL
+     * @param  AbstractPage $page page to check
+     * @return bool         whether page is accepted by ACL
      */
     protected function acceptAcl(AbstractPage $page)
     {
@@ -807,9 +821,9 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Overloads {@link View\Helper\AbstractHtmlElement::htmlAttribs()}.
      *
-     * @param  array $attribs  an array where each key-value pair is converted
+     * @param array $attribs an array where each key-value pair is converted
      *                         to an attribute name and value
-     * @return string          an attribute string
+     * @return string an attribute string
      */
     protected function htmlAttribs($attribs)
     {
@@ -844,7 +858,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Sets default ACL to use if another ACL is not explicitly set
      *
-     * @param  Acl\Acl $acl [optional] ACL object. Default is null, which
+     * @param Acl\Acl $acl [optional] ACL object. Default is null, which
      *                      sets no ACL object.
      * @return void
      */
@@ -857,7 +871,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      * Sets default ACL role(s) to use when iterating pages if not explicitly
      * set later with {@link setRole()}
      *
-     * @param  mixed $role [optional] role to set. Expects null, string, or an
+     * @param mixed $role [optional] role to set. Expects null, string, or an
      *                     instance of {@link Acl\Role\RoleInterface}. Default is null, which
      *                     sets no default role.
      * @return void

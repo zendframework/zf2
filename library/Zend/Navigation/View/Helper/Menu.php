@@ -65,7 +65,7 @@ class Menu extends AbstractHelper
      * Retrieves helper and optionally sets container to operate on
      *
      * @param  AbstractContainer $container [optional] container to operate on
-     * @return Menu      fluent interface, returns self
+     * @return Menu              fluent interface, returns self
      */
     public function __invoke($container = null)
     {
@@ -80,7 +80,7 @@ class Menu extends AbstractHelper
      * Sets CSS class to use for the first 'ul' element when rendering
      *
      * @param  string $ulClass CSS class to set
-     * @return Menu  fluent interface, returns self
+     * @return Menu   fluent interface, returns self
      */
     public function setUlClass($ulClass)
     {
@@ -94,7 +94,7 @@ class Menu extends AbstractHelper
     /**
      * Returns CSS class to use for the first 'ul' element when rendering
      *
-     * @return string  CSS class
+     * @return string CSS class
      */
     public function getUlClass()
     {
@@ -105,11 +105,12 @@ class Menu extends AbstractHelper
      * Sets a flag indicating whether only active branch should be rendered
      *
      * @param  bool $flag [optional] render only active branch. Default is true.
-     * @return Menu  fluent interface, returns self
+     * @return Menu fluent interface, returns self
      */
     public function setOnlyActiveBranch($flag = true)
     {
         $this->onlyActiveBranch = (bool) $flag;
+
         return $this;
     }
 
@@ -119,7 +120,7 @@ class Menu extends AbstractHelper
      * By default, this value is false, meaning the entire menu will be
      * be rendered.
      *
-     * @return bool  whether only active branch should be rendered
+     * @return bool whether only active branch should be rendered
      */
     public function getOnlyActiveBranch()
     {
@@ -129,12 +130,13 @@ class Menu extends AbstractHelper
     /**
      * Sets a flag indicating whether labels should be escaped
      *
-     * @param bool $flag [optional] escape labels. Default is true.
-     * @return Menu  fluent interface, returns self
+     * @param  bool $flag [optional] escape labels. Default is true.
+     * @return Menu fluent interface, returns self
      */
     public function escapeLabels($flag = true)
     {
         $this->escapeLabels = (bool) $flag;
+
         return $this;
     }
 
@@ -143,13 +145,14 @@ class Menu extends AbstractHelper
      *
      * See {@link setOnlyActiveBranch()} for more information.
      *
-     * @param  bool $flag [optional] render parents when rendering active branch.
+     * @param bool $flag [optional] render parents when rendering active branch.
      *                    Default is true.
-     * @return Menu  fluent interface, returns self
+     * @return Menu fluent interface, returns self
      */
     public function setRenderParents($flag = true)
     {
         $this->renderParents = (bool) $flag;
+
         return $this;
     }
 
@@ -159,7 +162,7 @@ class Menu extends AbstractHelper
      *
      * By default, this value is true.
      *
-     * @return bool  whether parents should be rendered
+     * @return bool whether parents should be rendered
      */
     public function getRenderParents()
     {
@@ -169,12 +172,12 @@ class Menu extends AbstractHelper
     /**
      * Sets which partial view script to use for rendering menu
      *
-     * @param  string|array $partial partial view script or null. If an array is
+     * @param string|array $partial partial view script or null. If an array is
      *                               given, it is expected to contain two
      *                               values; the partial view script to use,
      *                               and the module where the script can be
      *                               found.
-     * @return Menu  fluent interface, returns self
+     * @return Menu fluent interface, returns self
      */
     public function setPartial($partial)
     {
@@ -203,9 +206,9 @@ class Menu extends AbstractHelper
      *
      * Overrides {@link AbstractHelper::htmlify()}.
      *
-     * @param  AbstractPage $page   page to generate HTML for
-     * @param bool $escapeLabel     Whether or not to escape the label
-     * @return string               HTML string for the given page
+     * @param  AbstractPage $page        page to generate HTML for
+     * @param  bool         $escapeLabel Whether or not to escape the label
+     * @return string       HTML string for the given page
      */
     public function htmlify(AbstractPage $page, $escapeLabel = true)
     {
@@ -256,8 +259,8 @@ class Menu extends AbstractHelper
     /**
      * Normalizes given render options
      *
-     * @param  array $options  [optional] options to normalize
-     * @return array           normalized options
+     * @param  array $options [optional] options to normalize
+     * @return array normalized options
      */
     protected function normalizeOptions(array $options = array())
     {
@@ -314,13 +317,13 @@ class Menu extends AbstractHelper
      * Renders the deepest active menu within [$minDepth, $maxDepth], (called
      * from {@link renderMenu()})
      *
-     * @param  AbstractContainer         $container  container to render
-     * @param  array                     $active     active page and depth
-     * @param  string                    $ulClass    CSS class for first UL
-     * @param  string                    $indent     initial indentation
-     * @param  int|null                  $minDepth   minimum depth
-     * @param  int|null                  $maxDepth   maximum depth
-     * @return string                                rendered menu
+     * @param  AbstractContainer $container container to render
+     * @param  array             $active    active page and depth
+     * @param  string            $ulClass   CSS class for first UL
+     * @param  string            $indent    initial indentation
+     * @param  int|null          $minDepth  minimum depth
+     * @param  int|null          $maxDepth  maximum depth
+     * @return string            rendered menu
      */
     protected function renderDeepestMenu(AbstractContainer $container,
                                          $ulClass,
@@ -367,12 +370,12 @@ class Menu extends AbstractHelper
     /**
      * Renders a normal menu (called from {@link renderMenu()})
      *
-     * @param  AbstractContainer                 $container   container to render
-     * @param  string                    $ulClass     CSS class for first UL
-     * @param  string                    $indent      initial indentation
-     * @param  int|null                  $minDepth    minimum depth
-     * @param  int|null                  $maxDepth    maximum depth
-     * @param  bool                      $onlyActive  render only active branch?
+     * @param  AbstractContainer $container  container to render
+     * @param  string            $ulClass    CSS class for first UL
+     * @param  string            $indent     initial indentation
+     * @param  int|null          $minDepth   minimum depth
+     * @param  int|null          $maxDepth   maximum depth
+     * @param  bool              $onlyActive render only active branch?
      * @return string
      */
     protected function renderNormalMenu(AbstractContainer $container,
@@ -489,11 +492,11 @@ class Menu extends AbstractHelper
      * Available $options:
      *
      *
-     * @param  AbstractContainer $container [optional] container to create menu from.
+     * @param AbstractContainer $container [optional] container to create menu from.
      *                              Default is to use the container retrieved
      *                              from {@link getContainer()}.
-     * @param  array     $options   [optional] options for controlling rendering
-     * @return string    rendered menu
+     * @param  array  $options [optional] options for controlling rendering
+     * @return string rendered menu
      */
     public function renderMenu($container = null, array $options = array())
     {
@@ -501,7 +504,6 @@ class Menu extends AbstractHelper
         if (null === $container) {
             $container = $this->getContainer();
         }
-
 
         $options = $this->normalizeOptions($options);
 
@@ -540,20 +542,20 @@ class Menu extends AbstractHelper
      * ));
      * </code>
      *
-     * @param  AbstractContainer                 $container  [optional] container to
+     * @param AbstractContainer $container [optional] container to
      *                                               render. Default is to render
      *                                               the container registered in
      *                                               the helper.
-     * @param  string                    $ulClass    [optional] CSS class to
+     * @param string $ulClass [optional] CSS class to
      *                                               use for UL element. Default
      *                                               is to use the value from
      *                                               {@link getUlClass()}.
-     * @param  string|int                $indent     [optional] indentation as
+     * @param string|int $indent [optional] indentation as
      *                                               a string or number of
      *                                               spaces. Default is to use
      *                                               the value retrieved from
      *                                               {@link getIndent()}.
-     * @return string                                rendered content
+     * @return string rendered content
      */
     public function renderSubMenu(AbstractContainer $container = null,
                                   $ulClass = null,
@@ -577,18 +579,18 @@ class Menu extends AbstractHelper
      * as-is, and will be available in the partial script as 'container', e.g.
      * <code>echo 'Number of pages: ', count($this->container);</code>.
      *
-     * @param  AbstractContainer     $container [optional] container to pass to view
+     * @param AbstractContainer $container [optional] container to pass to view
      *                                  script. Default is to use the container
      *                                  registered in the helper.
-     * @param  string|array  $partial   [optional] partial view script to use.
+     * @param string|array $partial [optional] partial view script to use.
      *                                  Default is to use the partial
      *                                  registered in the helper. If an array
      *                                  is given, it is expected to contain two
      *                                  values; the partial view script to use,
      *                                  and the module where the script can be
      *                                  found.
-     * @return string                   helper output
-     * @throws Exception\RuntimeException if no partial provided
+     * @return string                             helper output
+     * @throws Exception\RuntimeException         if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
      */
     public function renderPartial($container = null, $partial = null)
@@ -622,10 +624,12 @@ class Menu extends AbstractHelper
             }
 
             $partialHelper = $this->view->plugin('partial');
+
             return $partialHelper($partial[0], /*$partial[1], */$model);
         }
 
         $partialHelper = $this->view->plugin('partial');
+
         return $partialHelper($partial, $model);
     }
 
@@ -643,10 +647,10 @@ class Menu extends AbstractHelper
      * @see renderPartial()
      * @see renderMenu()
      *
-     * @param  AbstractContainer $container [optional] container to render. Default is
+     * @param AbstractContainer $container [optional] container to render. Default is
      *                              to render the container registered in the
      *                              helper.
-     * @return string               helper output
+     * @return string helper output
      */
     public function render($container = null)
     {
@@ -654,6 +658,7 @@ class Menu extends AbstractHelper
         if ($partial) {
             return $this->renderPartial($container, $partial);
         }
+
         return $this->renderMenu($container);
     }
 }

@@ -122,10 +122,10 @@ class Links extends AbstractHelper
      * $h->findRelFoo($page);     // $h->findRelation($page, 'rel', 'foo');
      * </code>
      *
-     * @param  string $method             method name
-     * @param  array  $arguments          method arguments
+     * @param  string                       $method    method name
+     * @param  array                        $arguments method arguments
      * @return mixed
-     * @throws Exception\ExceptionInterface  if method does not exist in container
+     * @throws Exception\ExceptionInterface if method does not exist in container
      */
     public function __call($method, array $arguments = array())
     {
@@ -166,19 +166,20 @@ class Links extends AbstractHelper
      * Note that custom relations can also be rendered directly using the
      * {@link renderLink()} method.
      *
-     * @param  int $renderFlag render flag
-     * @return Links  fluent interface, returns self
+     * @param  int   $renderFlag render flag
+     * @return Links fluent interface, returns self
      */
     public function setRenderFlag($renderFlag)
     {
         $this->renderFlag = (int) $renderFlag;
+
         return $this;
     }
 
     /**
      * Returns the helper's render flag
      *
-     * @return int  render flag
+     * @return int render flag
      */
     public function getRenderFlag()
     {
@@ -207,8 +208,8 @@ class Links extends AbstractHelper
      * );
      * </code>
      *
-     * @param  AbstractPage $page  page to find links for
-     * @return array related pages
+     * @param  AbstractPage $page page to find links for
+     * @return array        related pages
      */
     public function findAllRelations(AbstractPage $page, $flag = null)
     {
@@ -250,10 +251,10 @@ class Links extends AbstractHelper
      * This method will first look for relations in the page instance, then
      * by searching the root container if nothing was found in the page.
      *
-     * @param  AbstractPage        $page        page to find relations for
-     * @param  string              $rel         relation, "rel" or "rev"
-     * @param  string              $type        link type, e.g. 'start', 'next'
-     * @return AbstractPage|array|null  page(s), or null if not found
+     * @param  AbstractPage              $page page to find relations for
+     * @param  string                    $rel  relation, "rel" or "rev"
+     * @param  string                    $type link type, e.g. 'start', 'next'
+     * @return AbstractPage|array|null   page(s), or null if not found
      * @throws Exception\DomainException if $rel is not "rel" or "rev"
      */
     public function findRelation(AbstractPage $page, $rel, $type)
@@ -276,10 +277,10 @@ class Links extends AbstractHelper
      * Finds relations of given $type for $page by checking if the
      * relation is specified as a property of $page
      *
-     * @param  AbstractPage        $page        page to find relations for
-     * @param  string              $rel         relation, 'rel' or 'rev'
-     * @param  string              $type        link type, e.g. 'start', 'next'
-     * @return AbstractPage|array|null  page(s), or null if not found
+     * @param  AbstractPage            $page page to find relations for
+     * @param  string                  $rel  relation, 'rel' or 'rev'
+     * @param  string                  $type link type, e.g. 'start', 'next'
+     * @return AbstractPage|array|null page(s), or null if not found
      */
     protected function findFromProperty(AbstractPage $page, $rel, $type)
     {
@@ -309,10 +310,10 @@ class Links extends AbstractHelper
      * Finds relations of given $rel=$type for $page by using the helper to
      * search for the relation in the root container
      *
-     * @param  AbstractPage        $page   page to find relations for
-     * @param  string              $rel    relation, 'rel' or 'rev'
-     * @param  string              $type   link type, e.g. 'start', 'next', etc
-     * @return array|null                  array of pages, or null if not found
+     * @param  AbstractPage $page page to find relations for
+     * @param  string       $rel  relation, 'rel' or 'rev'
+     * @param  string       $type link type, e.g. 'start', 'next', etc
+     * @return array|null   array of pages, or null if not found
      */
     protected function findFromSearch(AbstractPage $page, $rel, $type)
     {
@@ -337,8 +338,8 @@ class Links extends AbstractHelper
      * tells search engines which document is considered by the author to be the
      * starting point of the collection.
      *
-     * @param  AbstractPage $page  page to find relation for
-     * @return AbstractPage|null   page or null
+     * @param  AbstractPage      $page page to find relation for
+     * @return AbstractPage|null page or null
      */
     public function searchRelStart(AbstractPage $page)
     {
@@ -364,8 +365,8 @@ class Links extends AbstractHelper
      * agents may choose to preload the "next" document, to reduce the perceived
      * load time.
      *
-     * @param  AbstractPage $page  page to find relation for
-     * @return AbstractPage|null   page(s) or null
+     * @param  AbstractPage      $page page to find relation for
+     * @return AbstractPage|null page(s) or null
      */
     public function searchRelNext(AbstractPage $page)
     {
@@ -397,8 +398,8 @@ class Links extends AbstractHelper
      * Refers to the previous document in an ordered series of documents. Some
      * user agents also support the synonym "Previous".
      *
-     * @param  AbstractPage $page  page to find relation for
-     * @return AbstractPage|null   page or null
+     * @param  AbstractPage      $page page to find relation for
+     * @return AbstractPage|null page or null
      */
     public function searchRelPrev(AbstractPage $page)
     {
@@ -429,8 +430,8 @@ class Links extends AbstractHelper
      * From {@link http://www.w3.org/TR/html4/types.html#type-links}:
      * Refers to a document serving as a chapter in a collection of documents.
      *
-     * @param  AbstractPage $page       page to find relation for
-     * @return AbstractPage|array|null  page(s) or null
+     * @param  AbstractPage            $page page to find relation for
+     * @return AbstractPage|array|null page(s) or null
      */
     public function searchRelChapter(AbstractPage $page)
     {
@@ -471,8 +472,8 @@ class Links extends AbstractHelper
      * From {@link http://www.w3.org/TR/html4/types.html#type-links}:
      * Refers to a document serving as a section in a collection of documents.
      *
-     * @param  AbstractPage $page       page to find relation for
-     * @return AbstractPage|array|null  page(s) or null
+     * @param  AbstractPage            $page page to find relation for
+     * @return AbstractPage|array|null page(s) or null
      */
     public function searchRelSection(AbstractPage $page)
     {
@@ -505,8 +506,8 @@ class Links extends AbstractHelper
      * Refers to a document serving as a subsection in a collection of
      * documents.
      *
-     * @param  AbstractPage $page       page to find relation for
-     * @return AbstractPage|array|null  page(s) or null
+     * @param  AbstractPage            $page page to find relation for
+     * @return AbstractPage|array|null page(s) or null
      */
     public function searchRelSubsection(AbstractPage $page)
     {
@@ -543,8 +544,8 @@ class Links extends AbstractHelper
      * From {@link http://www.w3.org/TR/html4/types.html#type-links}:
      * Refers to a document serving as a section in a collection of documents.
      *
-     * @param  AbstractPage $page  page to find relation for
-     * @return AbstractPage|null   page(s) or null
+     * @param  AbstractPage      $page page to find relation for
+     * @return AbstractPage|null page(s) or null
      */
     public function searchRevSection(AbstractPage $page)
     {
@@ -568,8 +569,8 @@ class Links extends AbstractHelper
      * Refers to a document serving as a subsection in a collection of
      * documents.
      *
-     * @param  AbstractPage $page  page to find relation for
-     * @return AbstractPage|null   page(s) or null
+     * @param  AbstractPage      $page page to find relation for
+     * @return AbstractPage|null page(s) or null
      */
     public function searchRevSubsection(AbstractPage $page)
     {
@@ -600,8 +601,8 @@ class Links extends AbstractHelper
      * makes sure finder methods will not traverse above the container given
      * to the render method.
      *
-     * @param  AbstractPage $page  page to find root for
-     * @return AbstractContainer   the root container of the given page
+     * @param  AbstractPage      $page page to find root for
+     * @return AbstractContainer the root container of the given page
      */
     protected function findRoot(AbstractPage $page)
     {
@@ -626,10 +627,10 @@ class Links extends AbstractHelper
     /**
      * Converts a $mixed value to an array of pages
      *
-     * @param  mixed $mixed             mixed value to get page(s) from
-     * @param  bool  $recursive         whether $value should be looped
+     * @param mixed $mixed     mixed value to get page(s) from
+     * @param bool  $recursive whether $value should be looped
      *                                  if it is an array or a config
-     * @return AbstractPage|array|null  empty if unable to convert
+     * @return AbstractPage|array|null empty if unable to convert
      */
     protected function convertToPages($mixed, $recursive = true)
     {
@@ -642,6 +643,7 @@ class Links extends AbstractHelper
             foreach ($mixed as $page) {
                 $pages[] = $page;
             }
+
             return $pages;
         } elseif ($mixed instanceof Traversable) {
             $mixed = ArrayUtils::iteratorToArray($mixed);
@@ -663,11 +665,13 @@ class Links extends AbstractHelper
                         $pages[] = $value;
                     }
                 }
+
                 return $pages;
             } else {
                 // pass array to factory directly
                 try {
                     $page = AbstractPage::factory($mixed);
+
                     return $page;
                 } catch (\Exception $e) {
                 }
@@ -683,16 +687,16 @@ class Links extends AbstractHelper
     /**
      * Renders the given $page as a link element, with $attrib = $relation
      *
-     * @param  AbstractPage         $page      the page to render the link for
-     * @param  string               $attrib    the attribute to use for $type,
+     * @param AbstractPage $page   the page to render the link for
+     * @param string       $attrib the attribute to use for $type,
      *                                         either 'rel' or 'rev'
-     * @param  string               $relation  relation type, muse be one of;
+     * @param string $relation relation type, muse be one of;
      *                                         alternate, appendix, bookmark,
      *                                         chapter, contents, copyright,
      *                                         glossary, help, home, index, next,
      *                                         prev, section, start, stylesheet,
      *                                         subsection
-     * @return string                          rendered link element
+     * @return string                    rendered link element
      * @throws Exception\DomainException if $attrib is invalid
      */
     public function renderLink(AbstractPage $page, $attrib, $relation)
@@ -732,7 +736,7 @@ class Links extends AbstractHelper
      *                                         Default is to render the
      *                                         container registered in the
      *                                         helper.
-     * @return string                          helper output
+     * @return string helper output
      */
     public function render($container = null)
     {
