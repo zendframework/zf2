@@ -8,7 +8,7 @@
  * @package   Zend_View
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace ZendTest\Navigation\View\Helper;
 
 use Zend\Navigation\Navigation;
 use Zend\Config\Factory as ConfigFactory;
@@ -57,19 +57,19 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     /**
      * View helper
      *
-     * @var Zend\View\Helper\Navigation\AbstractHelper
+     * @var Zend\Navigation\View\Helper\AbstractHelper
      */
     protected $_helper;
 
     /**
-     * The first container in the config file (files/navigation.xml)
+     * The first container in the config file (_files/navigation.xml)
      *
      * @var Zend_Navigation
      */
     protected $_nav1;
 
     /**
-     * The second container in the config file (files/navigation.xml)
+     * The second container in the config file (_files/navigation.xml)
      *
      * @var Navigation\Navigation
      */

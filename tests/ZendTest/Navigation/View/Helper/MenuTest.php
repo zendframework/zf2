@@ -8,7 +8,7 @@
  * @package   Zend_View
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace ZendTest\Navigation\View\Helper;
 
 /**
  * Tests Zend_View_Helper_Navigation_Menu
@@ -26,7 +26,7 @@ class MenuTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Menu';
+    protected $_helperName = 'Zend\Navigation\View\Helper\Menu';
 
     /**
      * View helper
@@ -172,42 +172,6 @@ class MenuTest extends AbstractTest
         $this->_helper->setUlClass('My_Nav');
         $expected = $this->_getExpected('menu/css.html');
         $this->assertEquals($expected, $this->_helper->render($this->_nav2));
-    }
-
-    public function testOptionEscapeLabelsAsTrue()
-    {
-        $options = array(
-            'escapeLabels' => true
-        );
-
-        $container = new \Zend\Navigation\Navigation($this->_nav2->toArray());
-        $container->addPage(array(
-            'label' => 'Badges <span class="badge">1</span>',
-            'uri' => 'badges'
-        ));
-
-        $expected = $this->_getExpected('menu/escapelabels_as_true.html');
-        $actual = $this->_helper->renderMenu($container, $options);
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testOptionEscapeLabelsAsFalse()
-    {
-        $options = array(
-            'escapeLabels' => false
-        );
-
-        $container = new \Zend\Navigation\Navigation($this->_nav2->toArray());
-        $container->addPage(array(
-            'label' => 'Badges <span class="badge">1</span>',
-            'uri' => 'badges'
-        ));
-
-        $expected = $this->_getExpected('menu/escapelabels_as_false.html');
-        $actual = $this->_helper->renderMenu($container, $options);
-
-        $this->assertEquals($expected, $actual);
     }
 
     public function testTranslationUsingZendTranslate()

@@ -8,7 +8,7 @@
  * @package   Zend_View
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace ZendTest\Navigation\View\Helper;
 
 use Zend\Navigation\Navigation;
 use Zend\View\Exception\ExceptionInterface;
@@ -29,12 +29,12 @@ class BreadcrumbsTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Breadcrumbs';
+    protected $_helperName = 'Zend\Navigation\View\Helper\Breadcrumbs';
 
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation\Breadcrumbs
+     * @var \Zend\Navigation\View\Helper\Breadcrumbs
      */
     protected $_helper;
 
