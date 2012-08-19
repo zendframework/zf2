@@ -8,7 +8,7 @@
  * @package   Zend_View
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Zend\Navigation\View\Helper;
 
 use RecursiveIteratorIterator;
 use Traversable;
@@ -721,7 +721,7 @@ class Links extends AbstractHelper
                $this->getClosingBracket();
     }
 
-    // Zend\View\Helper\Navigation\Helper:
+    // Zend\Navigation\View\Helper\Helper:
 
     /**
      * Renders helper

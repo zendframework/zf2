@@ -8,7 +8,7 @@
  * @package   Zend_View
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Zend\Navigation\View\Helper;
 
 use Zend\Navigation\AbstractContainer;
 use Zend\Navigation\Page\AbstractPage;
@@ -60,9 +60,6 @@ class Breadcrumbs extends AbstractHelper
      */
     public function __invoke($container = null)
     {
-        if (is_string($container)) {
-            $container = $this->getServiceLocator()->get($container);
-        }
         if (null !== $container) {
             $this->setContainer($container);
         }
@@ -278,7 +275,7 @@ class Breadcrumbs extends AbstractHelper
         return $partialHelper($partial, $model);
     }
 
-    // Zend\View\Helper\Navigation\Helper:
+    // Zend\Navigation\View\Helper\Helper:
 
     /**
      * Renders helper
@@ -292,6 +289,11 @@ class Breadcrumbs extends AbstractHelper
     public function render($container = null)
     {
         $partial = $this->getPartial();
+        
+        if (null == $container) {
+            $container = $this->getContainer();
+        } 
+        
         if ($partial) {
             return $this->renderPartial($container, $partial);
         } else {
@@ -299,3 +301,4 @@ class Breadcrumbs extends AbstractHelper
         }
     }
 }
+

@@ -8,7 +8,7 @@
  * @package   Zend_View
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Zend\Navigation\View\Helper;
 
 use Zend\I18n\Translator\Translator;
 use Zend\Navigation;

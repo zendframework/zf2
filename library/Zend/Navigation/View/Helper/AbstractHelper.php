@@ -8,7 +8,7 @@
  * @package   Zend_View
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Zend\Navigation\View\Helper;
 
 use RecursiveIteratorIterator;
 use Zend\I18n\Translator\Translator;
@@ -59,7 +59,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     protected $maxDepth;
 
-    /**
+    /**View\Helper\AbstractHtmlElement
      * Indentation string
      *
      * @var string
@@ -820,7 +820,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             }
         }
 
-        return parent::htmlAttribs($attribs);
+        return parent::_htmlAttribs($attribs);
     }
 
     /**

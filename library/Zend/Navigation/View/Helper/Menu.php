@@ -8,7 +8,7 @@
  * @package   Zend_View
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Zend\Navigation\View\Helper;
 
 use RecursiveIteratorIterator;
 use Zend\Navigation\AbstractContainer;
@@ -629,7 +629,7 @@ class Menu extends AbstractHelper
         return $partialHelper($partial, $model);
     }
 
-    // Zend\View\Helper\Navigation\Helper:
+    // Zend\Navigation\View\Helper\Helper:
 
     /**
      * Renders menu
