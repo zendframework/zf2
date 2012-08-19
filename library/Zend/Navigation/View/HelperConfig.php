@@ -24,22 +24,32 @@ use Zend\View\HelperPluginManager;
 class HelperConfig implements ConfigInterface
 {
     /**
+     * @var array Pre-aliased view helpers
+     */
+    protected $invokables = array(
+        'breadcrumbs'       => 'Zend\Navigation\View\Helper\Breadcrumbs',
+        'links'             => 'Zend\Navigation\View\Helper\Links',
+        'menu'              => 'Zend\Navigation\View\Helper\Menu',
+        'sitemap'           => 'Zend\Navigation\View\Helper\Sitemap',
+    );
+
+    /**
      * Configure the provided service manager instance with the configuration
      * in this class.
      *
-     * In addition to using each of the internal properties to configure the
-     * service manager, also adds an initializer to inject ServiceManagerAware
-     * classes with the service manager.
+     * Adds the invokables defined in this class to the SM managing helpers.
      *
      * @param  ServiceManager $serviceManager
      * @return void
      */
     public function configureServiceManager(ServiceManager $serviceManager)
     {
-        $serviceManager->setFactory('navigation', function(HelperPluginManager $pm) {
-            $helper = new \Zend\View\Helper\Navigation;
-            $helper->setServiceLocator($pm->getServiceLocator());
-            return $helper;
-        });
+        foreach ($this->invokables as $name => $invokable) {
+            $serviceManager->setFactory($name, function ($sm) use ($invokable){
+                $service = new $invokable();
+                $service->setServiceLocator($sm);
+                return $service;
+            });
+        }
     }
 }
