@@ -27,6 +27,7 @@ class HelperConfig implements ConfigInterface
      * @var array Pre-aliased view helpers
      */
     protected $invokables = array(
+        'navigation'        => 'Zend\Navigation\View\Helper\Navigation',
         'breadcrumbs'       => 'Zend\Navigation\View\Helper\Breadcrumbs',
         'links'             => 'Zend\Navigation\View\Helper\Links',
         'menu'              => 'Zend\Navigation\View\Helper\Menu',
