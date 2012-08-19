@@ -820,7 +820,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             }
         }
 
-        return parent::_htmlAttribs($attribs);
+        return parent::htmlAttribs($attribs);
     }
 
     /**
