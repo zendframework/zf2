@@ -12,7 +12,6 @@ namespace Zend\Navigation\View;
 
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
 
 /**
  * Service manager configuration for navigation view helpers
@@ -24,21 +23,34 @@ use Zend\View\HelperPluginManager;
 class HelperConfig implements ConfigInterface
 {
     /**
+     * @var array Pre-aliased view helpers
+     */
+    protected $invokables = array(
+        'navigation'        => 'Zend\Navigation\View\Helper\Navigation',
+        'breadcrumbs'       => 'Zend\Navigation\View\Helper\Breadcrumbs',
+        'links'             => 'Zend\Navigation\View\Helper\Links',
+        'menu'              => 'Zend\Navigation\View\Helper\Menu',
+        'sitemap'           => 'Zend\Navigation\View\Helper\Sitemap',
+    );
+
+    /**
      * Configure the provided service manager instance with the configuration
      * in this class.
      *
-     * Simply adds a factory for the navigation helper, and has it inject the helper
-     * with the service locator instance.
+     * Adds the invokables defined in this class to the SM managing helpers.
      *
      * @param  ServiceManager $serviceManager
      * @return void
      */
     public function configureServiceManager(ServiceManager $serviceManager)
     {
-        $serviceManager->setFactory('navigation', function(HelperPluginManager $pm) {
-            $helper = new \Zend\View\Helper\Navigation;
-            $helper->setServiceLocator($pm->getServiceLocator());
-            return $helper;
-        });
+        foreach ($this->invokables as $name => $invokable) {
+            $serviceManager->setFactory($name, function ($sm) use ($invokable) {
+                $service = new $invokable();
+                $service->setServiceLocator($sm);
+
+                return $service;
+            });
+        }
     }
 }

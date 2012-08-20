@@ -8,7 +8,7 @@
  * @package   Zend_View
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace ZendTest\Navigation\View\Helper;
 
 use Zend\Config;
 use Zend\Navigation\Page\AbstractPage;
@@ -17,7 +17,8 @@ use Zend\Permissions\Acl;
 use Zend\Permissions\Acl\Role;
 use Zend\Permissions\Acl\Resource;
 use Zend\View;
-use Zend\View\Helper\Navigation;
+use Zend\Navigation\View\Helper;
+use Zend\Navigation\View\Helper\Links;
 
 /**
  * Tests Zend_View_Helper_Navigation_Links
@@ -35,12 +36,12 @@ class LinksTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Links';
+    protected $_helperName = 'Zend\Navigation\View\Helper\Links';
 
     /**
      * View helper
      *
-     * @var Zend\View\Helper\Navigation\Links
+     * @var Zend\Navigation\View\Helper\Links
      */
     protected $_helper;
 
@@ -606,21 +607,21 @@ class LinksTest extends AbstractTest
     private function _getFlags()
     {
         return array(
-            Navigation\Links::RENDER_ALTERNATE  => 'alternate',
-            Navigation\Links::RENDER_STYLESHEET => 'stylesheet',
-            Navigation\Links::RENDER_START      => 'start',
-            Navigation\Links::RENDER_NEXT       => 'next',
-            Navigation\Links::RENDER_PREV       => 'prev',
-            Navigation\Links::RENDER_CONTENTS   => 'contents',
-            Navigation\Links::RENDER_INDEX      => 'index',
-            Navigation\Links::RENDER_GLOSSARY   => 'glossary',
-            Navigation\Links::RENDER_CHAPTER    => 'chapter',
-            Navigation\Links::RENDER_SECTION    => 'section',
-            Navigation\Links::RENDER_SUBSECTION => 'subsection',
-            Navigation\Links::RENDER_APPENDIX   => 'appendix',
-            Navigation\Links::RENDER_HELP       => 'help',
-            Navigation\Links::RENDER_BOOKMARK   => 'bookmark',
-            Navigation\Links::RENDER_CUSTOM     => 'canonical'
+            Links::RENDER_ALTERNATE  => 'alternate',
+            Links::RENDER_STYLESHEET => 'stylesheet',
+            Links::RENDER_START      => 'start',
+            Links::RENDER_NEXT       => 'next',
+            Links::RENDER_PREV       => 'prev',
+            Links::RENDER_CONTENTS   => 'contents',
+            Links::RENDER_INDEX      => 'index',
+            Links::RENDER_GLOSSARY   => 'glossary',
+            Links::RENDER_CHAPTER    => 'chapter',
+            Links::RENDER_SECTION    => 'section',
+            Links::RENDER_SUBSECTION => 'subsection',
+            Links::RENDER_APPENDIX   => 'appendix',
+            Links::RENDER_HELP       => 'help',
+            Links::RENDER_BOOKMARK   => 'bookmark',
+            Links::RENDER_CUSTOM     => 'canonical'
         );
     }
 
@@ -660,8 +661,8 @@ class LinksTest extends AbstractTest
 
     public function testRenderFlagBitwiseOr()
     {
-        $newFlag = Navigation\Links::RENDER_NEXT |
-                   Navigation\Links::RENDER_PREV;
+        $newFlag = Links::RENDER_NEXT |
+                   Links::RENDER_PREV;
         $this->_helper->setRenderFlag($newFlag);
         $active = $this->_helper->findOneByLabel('Page 1.1');
         $active->active = true;
@@ -678,8 +679,8 @@ class LinksTest extends AbstractTest
     public function testIndenting()
     {
         $active = $this->_helper->findOneByLabel('Page 1.1');
-        $newFlag = Navigation\Links::RENDER_NEXT |
-                   Navigation\Links::RENDER_PREV;
+        $newFlag = Links::RENDER_NEXT |
+                   Links::RENDER_PREV;
         $this->_helper->setRenderFlag($newFlag);
         $this->_helper->setIndent('  ');
         $active->active = true;
@@ -697,7 +698,7 @@ class LinksTest extends AbstractTest
     {
         $this->_helper->setMaxDepth(1);
         $this->_helper->findOneByLabel('Page 2.3.3')->setActive(); // level 2
-        $flag = Navigation\Links::RENDER_NEXT;
+        $flag = Links::RENDER_NEXT;
 
         $expected = '<link rel="next" href="page2/page2_3/page2_3_1" title="Page 2.3.1">';
         $actual = $this->_helper->setRenderFlag($flag)->render();
@@ -709,7 +710,7 @@ class LinksTest extends AbstractTest
     {
         $this->_helper->setMinDepth(2);
         $this->_helper->findOneByLabel('Page 2.3')->setActive(); // level 1
-        $flag = Navigation\Links::RENDER_NEXT;
+        $flag = Links::RENDER_NEXT;
 
         $expected = '';
         $actual = $this->_helper->setRenderFlag($flag)->render();

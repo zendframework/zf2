@@ -8,7 +8,7 @@
  * @package   Zend_View
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Zend\Navigation\View\Helper;
 
 use Zend\View\Exception;
 use Zend\View\HelperPluginManager;
@@ -32,10 +32,10 @@ class PluginManager extends HelperPluginManager
      * @var array
      */
     protected $invokableClasses = array(
-        'breadcrumbs' => 'Zend\View\Helper\Navigation\Breadcrumbs',
-        'links'       => 'Zend\View\Helper\Navigation\Links',
-        'menu'        => 'Zend\View\Helper\Navigation\Menu',
-        'sitemap'     => 'Zend\View\Helper\Navigation\Sitemap',
+        'breadcrumbs' => 'Zend\Navigation\View\Helper\Breadcrumbs',
+        'links'       => 'Zend\Navigation\View\Helper\Links',
+        'menu'        => 'Zend\Navigation\View\Helper\Menu',
+        'sitemap'     => 'Zend\Navigation\View\Helper\Sitemap',
     );
 
     /**
@@ -43,7 +43,7 @@ class PluginManager extends HelperPluginManager
      *
      * Checks that the helper loaded is an instance of AbstractHelper.
      *
-     * @param  mixed $plugin
+     * @param  mixed                              $plugin
      * @return void
      * @throws Exception\InvalidArgumentException if invalid
      */
