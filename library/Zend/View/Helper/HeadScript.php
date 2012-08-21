@@ -171,14 +171,14 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * Overload method access
      *
      * Allows the following method calls:
-     * - appendFile($src, $type = 'text/javascript', $attrs = array())
-     * - offsetSetFile($index, $src, $type = 'text/javascript', $attrs = array())
-     * - prependFile($src, $type = 'text/javascript', $attrs = array())
-     * - setFile($src, $type = 'text/javascript', $attrs = array())
-     * - appendScript($script, $type = 'text/javascript', $attrs = array())
-     * - offsetSetScript($index, $src, $type = 'text/javascript', $attrs = array())
-     * - prependScript($script, $type = 'text/javascript', $attrs = array())
-     * - setScript($script, $type = 'text/javascript', $attrs = array())
+     * - appendFile($src, $type = 'text/javascript', $conditional = '', $attrs = array())
+     * - offsetSetFile($index, $src, $type = 'text/javascript', $conditional = '', $attrs = array())
+     * - prependFile($src, $type = 'text/javascript', $conditional = '', $attrs = array())
+     * - setFile($src, $type = 'text/javascript', $conditional = '', $attrs = array())
+     * - appendScript($script, $type = 'text/javascript', $conditional = '', $attrs = array())
+     * - offsetSetScript($index, $src, $type = 'text/javascript', $conditional = '', $attrs = array())
+     * - prependScript($script, $type = 'text/javascript', $conditional = '', $attrs = array())
+     * - setScript($script, $type = 'text/javascript', $conditional = '', $attrs = array())
      *
      * @param  string $method Method to call
      * @param  array  $args   Arguments of method
@@ -195,10 +195,11 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
                 ));
             }
 
-            $action  = $matches['action'];
-            $mode    = strtolower($matches['mode']);
-            $type    = 'text/javascript';
-            $attrs   = array();
+            $action       = $matches['action'];
+            $mode         = strtolower($matches['mode']);
+            $type         = 'text/javascript';
+            $conditional  = '';
+            $attrs        = array();
 
             if ('offsetSet' == $action) {
                 $index = array_shift($args);
@@ -215,8 +216,14 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
             if (isset($args[1])) {
                 $type = (string) $args[1];
             }
+            if (isset($args[3])) {
+                $attrs = (array) $args[3];
+            }
             if (isset($args[2])) {
-                $attrs = (array) $args[2];
+                $conditional = (string) $args[2];
+            }
+            if (!empty($conditional)) {
+                $attrs['conditional'] = $conditional;
             }
 
             switch ($mode) {
