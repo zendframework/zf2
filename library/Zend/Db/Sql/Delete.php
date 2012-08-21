@@ -107,18 +107,26 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
     {
         if ($predicate instanceof Where) {
             $this->where = $predicate;
-        } elseif ($predicate instanceof \Closure) {
+        } else if ($predicate instanceof \Closure) {
             $predicate($this->where);
         } else {
             if (is_string($predicate)) {
                 $predicate = new Predicate\Expression($predicate);
                 $this->where->addPredicate($predicate, $combination);
-            } elseif (is_array($predicate)) {
+            } else if (is_array($predicate)) {
                 foreach ($predicate as $pkey => $pvalue) {
                     if (is_string($pkey) && strpos($pkey, '?') !== false) {
                         $predicate = new Predicate\Expression($pkey, $pvalue);
-                    } elseif (is_string($pkey)) {
-                        $predicate = new Predicate\Operator($pkey, Predicate\Operator::OP_EQ, $pvalue);
+                    } else if (is_string($pkey)) {
+                        if (is_null($pvalue)) {
+                            $predicate = new Predicate\IsNull($pkey, $pvalue);
+                        } else if (is_array($pvalue)) {
+                            $predicate = new Predicate\In($pkey, $pvalue);
+                        } else {
+                            $predicate = new Predicate\Operator($pkey, Predicate\Operator::OP_EQ, $pvalue);
+                        }
+                    } else if ($pvalue instanceof Predicate\PredicateInterface) {
+                        $predicate = $pvalue;
                     } else {
                         $predicate = new Predicate\Expression($pvalue);
                     }

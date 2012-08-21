@@ -106,7 +106,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
         if (is_string($firstKey)) {
             $this->columns($keys);
             $values = array_values($values);
-        } elseif (is_int($firstKey)) {
+        } else if (is_int($firstKey)) {
             $values = array_values($values);
         }
 
@@ -193,6 +193,8 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
             if ($value instanceof Expression) {
                 $exprData = $this->processExpression($value, $adapterPlatform);
                 $values[] = $exprData->getSql();
+            } else if (is_null($value)) {
+                $values[] = 'NULL';
             } else {
                 $values[] = $adapterPlatform->quoteValue($value);
             }

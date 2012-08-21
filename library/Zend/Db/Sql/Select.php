@@ -236,18 +236,26 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     {
         if ($predicate instanceof Where) {
             $this->where = $predicate;
-        } elseif ($predicate instanceof \Closure) {
+        } else if ($predicate instanceof \Closure) {
             $predicate($this->where);
         } else {
             if (is_string($predicate)) {
                 $predicate = new Predicate\Expression($predicate);
                 $this->where->addPredicate($predicate, $combination);
-            } elseif (is_array($predicate)) {
+            } else if (is_array($predicate)) {
                 foreach ($predicate as $pkey => $pvalue) {
                     if (is_string($pkey) && strpos($pkey, '?') !== false) {
                         $predicate = new Predicate\Expression($pkey, $pvalue);
-                    } elseif (is_string($pkey)) {
-                        $predicate = new Predicate\Operator($pkey, Predicate\Operator::OP_EQ, $pvalue);
+                    } else if (is_string($pkey)) {
+                        if (is_null($pvalue)) {
+                            $predicate = new Predicate\IsNull($pkey, $pvalue);
+                        } else if (is_array($pvalue)) {
+                            $predicate = new Predicate\In($pkey, $pvalue);
+                        } else {
+                            $predicate = new Predicate\Operator($pkey, Predicate\Operator::OP_EQ, $pvalue);
+                        }
+                    } else if ($pvalue instanceof Predicate\PredicateInterface) {
+                        $predicate = $pvalue;
                     } else {
                         $predicate = new Predicate\Expression($pvalue);
                     }
@@ -281,17 +289,17 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     {
         if ($predicate instanceof Having) {
             $this->having = $predicate;
-        } elseif ($predicate instanceof \Closure) {
+        } else if ($predicate instanceof \Closure) {
             $predicate($this->having);
         } else {
             if (is_string($predicate)) {
                 $predicate = new Predicate\Expression($predicate);
                 $this->having->addPredicate($predicate, $combination);
-            } elseif (is_array($predicate)) {
+            } else if (is_array($predicate)) {
                 foreach ($predicate as $pkey => $pvalue) {
                     if (is_string($pkey) && strpos($pkey, '?') !== false) {
                         $predicate = new Predicate\Expression($pkey, $pvalue);
-                    } elseif (is_string($pkey)) {
+                    } else if (is_string($pkey)) {
                         $predicate = new Predicate\Operator($pkey, Predicate\Operator::OP_EQ, $pvalue);
                     } else {
                         $predicate = new Predicate\Expression($pvalue);
@@ -532,7 +540,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             // process As portion
             if (is_string($columnIndexOrAs)) {
                 $columnAs = $platform->quoteIdentifier($columnIndexOrAs);
-            } elseif (stripos($columnName, ' as ') === false) {
+            } else if (stripos($columnName, ' as ') === false) {
                 $columnAs = (is_string($column)) ? $platform->quoteIdentifier($column) : 'Expression' . $expr++;
             }
             $columns[] = (isset($columnAs)) ? array($columnName, $columnAs) : array($columnName);
@@ -559,7 +567,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 }
                 if (is_string($jKey)) {
                     $jColumns[] = $platform->quoteIdentifier($jKey);
-                } elseif ($jColumn !== self::SQL_STAR) {
+                } else if ($jColumn !== self::SQL_STAR) {
                     $jColumns[] = $platform->quoteIdentifier($jColumn);
                 }
                 $columns[] = $jColumns;
