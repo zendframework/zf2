@@ -106,7 +106,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
         if (is_string($firstKey)) {
             $this->columns($keys);
             $values = array_values($values);
-        } elseif (is_int($firstKey)) {
+        } else if (is_int($firstKey)) {
             $values = array_values($values);
         }
 
