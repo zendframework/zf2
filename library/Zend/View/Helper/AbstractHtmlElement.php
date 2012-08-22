@@ -41,14 +41,16 @@ abstract class AbstractHtmlElement extends AbstractHelper
      * Note, no closing bracket is added
      *
      * @param string $element the tag name, such as table, ul, div etc
-     * @param array $attribs From this array, each key-value pair is
-     * converted to an attribute name and value.
+     * @param array  $attribs From this array, each key-value pair is
+     *                        converted to an attribute name and value.
      *
      * @return string
      */
     public function getOpeningTag($element, array $attribs = null)
     {
-        $str =  '<' . $element;
+        $escaper = $this->view->plugin('escapehtml');
+
+        $str = '<' . $escaper($element);
 
         if ($attribs) {
             $attribs = $this->htmlAttribs($attribs);
@@ -94,13 +96,13 @@ abstract class AbstractHtmlElement extends AbstractHelper
      * @access public
      *
      * @param array $attribs From this array, each key-value pair is
-     * converted to an attribute name and value.
+     *                       converted to an attribute name and value.
      *
      * @return string The XHTML for the attributes.
      */
     protected function htmlAttribs($attribs)
     {
-        $xhtml   = '';
+        $xhtml = '';
         $escaper = $this->view->plugin('escapehtml');
         foreach ((array) $attribs as $key => $val) {
             $key = $escaper($key);
@@ -141,6 +143,7 @@ abstract class AbstractHtmlElement extends AbstractHelper
      * Normalize an ID
      *
      * @param  string $value
+     *
      * @return string
      */
     protected function normalizeId($value)
