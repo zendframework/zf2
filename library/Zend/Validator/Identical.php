@@ -131,7 +131,25 @@ class Identical extends AbstractValidator
     {
         $this->setValue($value);
 
-        if (($context !== null) && isset($context) && array_key_exists($this->getToken(), $context)) {
+        $regexMatches = array();
+        $token = null;
+        if (($context !== null) && isset($context) && (preg_match_all('/(.+?)(?:\[)*\b([a-zA-Z]+)/', $this->getToken(), $regexMatches))) { // regex match example: user[name]
+            $firstKey = $regexMatches[1][0];
+            if(array_key_exists($firstKey, $context))
+            {
+                $tmpContext = $context[$firstKey];
+                for($i = 0; $i < count($regexMatches[0]); $i++) {
+                    $secondKey = $regexMatches[2][$i];
+                    // doesnt exists, reset token
+                    if(!array_key_exists($secondKey, $tmpContext)) {
+                        $token = null;
+                        break;
+                    }
+                    else // token = tmpToken
+                        $token = $tmpContext[$secondKey];
+                }
+            }
+        } elseif(($context !== null) && isset($context) && array_key_exists($this->getToken(), $context)) {
             $token = $context[$this->getToken()];
         } else {
             $token = $this->getToken();
