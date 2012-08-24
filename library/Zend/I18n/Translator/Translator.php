@@ -127,7 +127,8 @@ class Translator
                     $pattern['type'],
                     $pattern['base_dir'],
                     $pattern['pattern'],
-                    isset($pattern['text_domain']) ? $pattern['text_domain'] : 'default'
+                    isset($pattern['text_domain']) ? $pattern['text_domain'] : 'default',
+                    isset($pattern['is_file']) ? $pattern['is_file'] : true
                 );
             }
         }
@@ -409,13 +410,15 @@ class Translator
      * @param  string $baseDir
      * @param  string $pattern
      * @param  string $textDomain
+     * @param  boolean $isFile
      * @return Translator
      */
     public function addTranslationPattern(
         $type,
         $baseDir,
         $pattern,
-        $textDomain = 'default'
+        $textDomain = 'default',
+        $isFile = true
     ) {
         if (!isset($this->patterns[$textDomain])) {
             $this->patterns[$textDomain] = array();
@@ -425,6 +428,7 @@ class Translator
             'type'    => $type,
             'baseDir' => rtrim($baseDir, '/'),
             'pattern' => $pattern,
+            'isFile' => $isFile,
         );
 
         return $this;
@@ -457,7 +461,7 @@ class Translator
             foreach ($this->patterns[$textDomain] as $pattern) {
                 $filename = $pattern['baseDir']
                           . '/' . sprintf($pattern['pattern'], $locale);
-                if (is_file($filename)) {
+                if ($pattern['isFile'] === false || is_file($filename)) {
                     $this->messages[$textDomain][$locale] = $this->getPluginManager()
                          ->get($pattern['type'])
                          ->load($filename, $locale);

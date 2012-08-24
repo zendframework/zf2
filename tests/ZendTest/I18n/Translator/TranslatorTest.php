@@ -52,7 +52,7 @@ class TranslatorTest extends TestCase
     {
         $translator = Translator::factory(array(
             'locale' => 'de_DE',
-            'patterns' => array(
+            'translation_patterns' => array(
                 array(
                     'type' => 'phparray',
                     'base_dir' => $this->testFilesDir . '/testarray',
@@ -75,7 +75,7 @@ class TranslatorTest extends TestCase
     {
         $translator = Translator::factory(array(
             'locale' => 'de_DE',
-            'patterns' => array(
+            'translation_patterns' => array(
                 array(
                     'type' => 'phparray',
                     'base_dir' => $this->testFilesDir . '/testarray',
@@ -110,6 +110,31 @@ class TranslatorTest extends TestCase
         $this->translator->addTranslationFile('test', null);
 
         $this->assertEquals('bar', $this->translator->translate('foo'));
+    }
+
+
+    public function testTranslateLoadFromOtherThanFile()
+    {
+        $translator = Translator::factory(array(
+            'locale' => 'es_ES',
+            'translation_patterns' => array(
+                array(
+                    'type' => 'test',
+                    'base_dir' => $this->testFilesDir . '/testarray',
+                    'pattern' => 'translation-%s.php',
+                    'is_file' => false
+                )
+            )
+        ));
+
+        $loader = $this->getMock('\Zend\I18N\Translator\Loader\LoaderInterface', array('load'));
+        $loader->expects($this->once())
+            ->method('load')
+            ->with($this->equalTo($this->testFilesDir . '/testarray/translation-es_ES.php'), $this->equalTo('es_ES'));
+
+        $translator->getPluginManager()->setService('test', $loader);
+
+        $this->assertEquals('foo', $translator->translate('foo'));
     }
 
 
