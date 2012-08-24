@@ -283,6 +283,11 @@ class Translator
         $locale      = ($locale ?: $this->getLocale());
         $translation = $this->getTranslatedMessage($message, $locale, $textDomain);
 
+        //allow use of translate if plurals are present
+        if(is_array($translation)) {
+            return $this->translatePlural($message, $message, 1, $textDomain, $locale);
+        }
+
         if ($translation !== null && $translation !== '') {
             return $translation;
         }

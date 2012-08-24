@@ -161,12 +161,31 @@ class TranslatorTest extends TestCase
             'en_EN'
         );
 
-        $pl0 = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 1);
-        $pl1 = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 2);
-        $pl2 = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 10);
+        $pl0  = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 0);
+        $pl1  = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 1);
+        $pl2  = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 2);
+        $pl10 = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 10);
 
-        $this->assertEquals('Message 5 (en) Plural 0', $pl0);
-        $this->assertEquals('Message 5 (en) Plural 1', $pl1);
-        $this->assertEquals('Message 5 (en) Plural 2', $pl2);
+        $this->assertEquals('Message 5 (en) Plural 0 or not 10', $pl0);
+        $this->assertEquals('Message 5 (en) Plural 1 or Singular', $pl1);
+        $this->assertEquals('Message 5 (en) Plural 0 or not 10', $pl2);
+        $this->assertEquals('Message 5 (en) Plural 10', $pl10);
+    }
+
+    public function testTranslatePluralsAndSingular()
+    {
+        $this->translator->setLocale('en_EN');
+        $this->translator->addTranslationFile(
+            'phparray',
+            $this->testFilesDir . '/translation_en.php',
+            'default',
+            'en_EN'
+        );
+
+        $singular = $this->translator->translate('Message 5');
+        $plural   = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 1);
+
+        $this->assertEquals('Message 5 (en) Plural 1 or Singular', $singular);
+        $this->assertEquals('Message 5 (en) Plural 1 or Singular', $plural);
     }
 }
