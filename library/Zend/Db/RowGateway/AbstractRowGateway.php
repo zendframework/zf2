@@ -100,24 +100,16 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
      * @param  array $currentData
      * @return RowGateway
      */
-<<<<<<< HEAD
+
     public function populate(array $rowData, $rowExistsInDatabase = false)
-=======
-    public function populate(array $rowData, $isOriginal = false)
->>>>>>> 3317b42a84e450a8dce0a4c93c632f4bc6487462
     {
         $this->initialize();
 
         $this->data = $rowData;
-<<<<<<< HEAD
         if ($rowExistsInDatabase == true) {
             $this->processPrimaryKeyData();
         } else {
             $this->primaryKeyData = null;
-=======
-        if ($isOriginal == true) {
-            $this->populateOriginalData($rowData);
->>>>>>> 3317b42a84e450a8dce0a4c93c632f4bc6487462
         }
 
         return $this;
@@ -141,12 +133,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
     {
         $this->initialize();
 
-<<<<<<< HEAD
         if ($this->rowExistsInDatabase()) {
-=======
-        if (count($this->originalData) > 0 ) {
->>>>>>> 3317b42a84e450a8dce0a4c93c632f4bc6487462
-
             if (!array_key_exists($this->primaryKeyColumn, $this->originalData)) {
                 throw new Exception\RuntimeException("No primary key found in originalData");
             }
