@@ -17,4 +17,7 @@
         "ext-intl": "*",
         "zendframework/zend-stdlib": "self.version"
     }
+    "suggest": {
+        "zendframework/Db": "self.version"
+    }
 }
