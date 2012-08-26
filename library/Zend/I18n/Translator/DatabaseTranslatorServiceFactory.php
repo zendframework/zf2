@@ -28,8 +28,12 @@ class DatabaseTranslatorServiceFactory implements FactoryInterface
         // Configure the translator
         $config = $serviceLocator->get('Configuration');
         $trConfig = isset($config['translator']) ? $config['translator'] : array();
-        foreach($trConfig['translation_db'] as &$translation_db) {
-        	$translation_db['dbconnection'] = $serviceLocator->get($translation_db['dbconnection']);
+        if ( isset($trConfig['translation_db']) ) {
+            foreach($trConfig['translation_db'] as &$translation_db) {
+                if ( is_string($translation_db['dbconnection']) ) {
+                    $translation_db['dbconnection'] = $serviceLocator->get($translation_db['dbconnection']);
+                }
+            }
         }
         $translator = Translator::factory($trConfig);
         return $translator;

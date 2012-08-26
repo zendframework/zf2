@@ -62,11 +62,14 @@ class Database implements LoaderInterface
             return $textDomain;
         }
 
-        $localeInformation = reset($localeInformation);
 
-        $textDomain->setPluralRules(
-            PluralRule::fromString($localeInformation['locale_plural_forms'])
-        );
+        $localeInformation = $localeInformation->current();
+
+        if ( !is_null($localeInformation['locale_plural_forms']) ) {
+            $textDomain->setPluralRule = PluralRule::fromString($localeInformation['locale_plural_forms']);
+        }
+
+        $localeInformation = reset($localeInformation);
 
         $select = $sql->select();
         $select->from('message');
@@ -77,7 +80,7 @@ class Database implements LoaderInterface
         ));
         $select->where(array(
             'locale_id'      => $locale,
-            'message_domain' => $filename
+            // 'message_domain' => $textDomain
         ));
 
         $messages = $this->dbAdapter->query(
