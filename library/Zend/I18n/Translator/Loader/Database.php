@@ -51,7 +51,7 @@ class Database implements LoaderInterface
      * load(): defined by LoaderInterface.
      *
      * @see    LoaderInterface::load()
-     * @param  string $db
+     * @param  array $options
      * @param  string $locale
      * @return TextDomain
      * @throws Exception\InvalidArgumentException
@@ -62,7 +62,7 @@ class Database implements LoaderInterface
         $this->locale_table_name = $options['locale_table_name'];
         $this->messages_table_name = $options['messages_table_name'];
 
-        
+
         $textDomain = new TextDomain();
         $sql        = new Sql($this->db);
 
