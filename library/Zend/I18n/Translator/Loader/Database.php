@@ -27,33 +27,51 @@ class Database implements LoaderInterface
 {
 
     /**
-     * Current dbadapter.
+     * Current db.
      *
-     * @var resource
+     * @var Adapter
      */
-    protected $dbAdapter;
+    protected $db;
+
+    /**
+     * locale table name.
+     *
+     * @var string
+     */
+    protected $locale_table_name;
+
+    /**
+     * Messages table name.
+     *
+     * @var string
+     */
+    protected $messages_table_name;
 
     /**
      * load(): defined by LoaderInterface.
      *
      * @see    LoaderInterface::load()
-     * @param  string $dbAdapter
+     * @param  string $db
      * @param  string $locale
      * @return TextDomain
      * @throws Exception\InvalidArgumentException
      */
-    public function load($dbAdapter, $locale)
+    public function load($options, $locale)
     {
-        $this->dbAdapter = $dbAdapter;
+        $this->db = $options['dbconnection'];
+        $this->locale_table_name = $options['locale_table_name'];
+        $this->messages_table_name = $options['messages_table_name'];
+
+        
         $textDomain = new TextDomain();
-        $sql        = new Sql($this->dbAdapter);
+        $sql        = new Sql($this->db);
 
         $select = $sql->select();
-        $select->from('locale');
+        $select->from($this->locale_table_name);
         $select->columns(array('locale_plural_forms'));
         $select->where(array('locale_id' => $locale));
 
-        $localeInformation = $this->dbAdapter->query(
+        $localeInformation = $this->db->query(
             $sql->getSqlStringForSqlObject($select),
             DbAdapter::QUERY_MODE_EXECUTE
         );
@@ -72,7 +90,7 @@ class Database implements LoaderInterface
         $localeInformation = reset($localeInformation);
 
         $select = $sql->select();
-        $select->from('message');
+        $select->from($this->messages_table_name);
         $select->columns(array(
             'message_key',
             'message_translation',
@@ -83,7 +101,7 @@ class Database implements LoaderInterface
             // 'message_domain' => $textDomain
         ));
 
-        $messages = $this->dbAdapter->query(
+        $messages = $this->db->query(
             $sql->getSqlStringForSqlObject($select),
             DbAdapter::QUERY_MODE_EXECUTE
         );

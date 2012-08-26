@@ -133,6 +133,8 @@ class Translator
                 $translator->addTranslationDb(
                     $transdb['type'],
                     $transdb['dbconnection'],
+                    isset($transdb['locale_table_name']) ? $transdb['locale_table_name'] : 'zend_locale',
+                    isset($transdb['messages_table_name']) ? $transdb['messages_table_name'] : 'zend_translate_messages',
                     isset($transdb['text_domain']) ? $transdb['text_domain'] : 'default'
                 );
             }
@@ -419,6 +421,8 @@ class Translator
     public function addTranslationDb(
         $type,
         $dbconnection,
+        $locale_table_name = 'zend_locale',
+        $messages_table_name ='zend_translate_messages',
         $textDomain = 'default',
         $locale = null
     ) {
@@ -429,8 +433,11 @@ class Translator
         }
 
         $this->translationDb[$textDomain][$locale] = array(
-            'type'     => $type,
-            'dbconnection' => $dbconnection,
+            'type'                  => $type,
+            'dbconnection'          => $dbconnection,
+            'locale_table_name'     => $locale_table_name,
+            'messages_table_name'   => $messages_table_name
+
         );
 
         return $this;
@@ -532,7 +539,7 @@ class Translator
             foreach ($this->translationDb[$textDomain] as $transdb) {
                 $this->messages[$textDomain][$locale] = $this->getPluginManager()
                      ->get($transdb['type'])
-                     ->load($transdb['dbconnection'], $locale);
+                     ->load($transdb, $locale);
             }
         }
 
