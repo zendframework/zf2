@@ -48,6 +48,13 @@ class Translator
     protected $patterns = array();
 
     /**
+     * Db connections for loading messages
+     *
+     * @var array
+     */
+    protected $translationDb = array();
+
+    /**
      * Default locale.
      *
      * @var string
@@ -103,6 +110,33 @@ class Translator
             if (count($locales) > 0) {
                 $translator->setFallbackLocale(array_shift($locales));
             }
+        }
+
+        //databases
+        if (isset($options['translation_db'])) {
+            if (!is_array($options['translation_db'])) {
+                throw new Exception\InvalidArgumentException(
+                    '"translation_db" should be an array'
+                );
+            }
+
+            $requiredKeys = array('dbconnection');
+            foreach ($options['translation_db'] as $transdb) {
+                foreach ($requiredKeys as $key) {
+                    if (!isset($transdb[$key])) {
+                        throw new Exception\InvalidArgumentException(
+                            "'{$key}' is missing for translation db options"
+                        );
+                    }
+                }
+
+                $translator->addTranslationDb(
+                    $transdb['type'],
+                    $transdb['dbconnection'],
+                    isset($transdb['text_domain']) ? $transdb['text_domain'] : 'default'
+                );
+            }
+
         }
 
         // patterns
@@ -374,6 +408,35 @@ class Translator
     }
 
     /**
+     * Add a translation db.
+     *
+     * @param  string $type
+     * @param  string $filename
+     * @param  string $textDomain
+     * @param  string $locale
+     * @return Translator
+     */
+    public function addTranslationDb(
+        $type,
+        $dbconnection,
+        $textDomain = 'default',
+        $locale = null
+    ) {
+        $locale = $locale ?: '*';
+
+        if (!isset($this->translationDb[$textDomain])) {
+            $this->translationDb[$textDomain] = array();
+        }
+
+        $this->translationDb[$textDomain][$locale] = array(
+            'type'     => $type,
+            'dbconnection' => $dbconnection,
+        );
+
+        return $this;
+    }
+
+    /**
      * Add a translation file.
      *
      * @param  string $type
@@ -462,6 +525,14 @@ class Translator
                          ->get($pattern['type'])
                          ->load($filename, $locale);
                 }
+            }
+        }
+
+        if(isset($this->translationDb[$textDomain])) {
+            foreach ($this->translationDb[$textDomain] as $transdb) {
+                $this->messages[$textDomain][$locale] = $this->getPluginManager()
+                     ->get($transdb['type'])
+                     ->load($transdb['dbconnection'], $locale);
             }
         }
 
