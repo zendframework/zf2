@@ -721,8 +721,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             return array($adapter->getDriver()->formatParameterName('offset'));
         } else {
             if (!is_int($this->offset)) {
-                throw new Exception\InvalidArgumentException('OFFSET should be given as INTEGER');							
-            }	
+                throw new Exception\InvalidArgumentException('OFFSET should be given as INTEGER');
+            }
             return array($this->offset);
         }
     }
