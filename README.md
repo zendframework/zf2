@@ -4,7 +4,7 @@ Master: [![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?bran
 
 ## RELEASE INFORMATION
 
-*Zend Framework 2.0.0rc5*
+*Zend Framework 2.0.0rc6*
 
 This is the fifth release candidate for 2.0.0. We will be releasing RCs
 on a weekly basis until we feel all critical issues are addressed. At
@@ -13,14 +13,17 @@ recommend testing your production applications against it.
 
 XX August 2012
 
-### UPDATES IN RC5
+### UPDATES IN RC6
 
-- Zend\Form
-  - The FormButton helper now allows translation. However, to make this work, it
-    now requires that the label value is set in the element.
+- Zend\Mvc
+  - Application no longer defines the "application" identifier for its composed
+    EventManager instance. If you had listeners listening on that context,
+    update them to use "Zend\Mvc\Application". See this thread for more details:
 
-Around XX pull requests for a variety of features and bugfixes were handled
-since RC3, as well as almost 30 documentation changes!
+      http://zend-framework-community.634137.n4.nabble.com/Change-to-Zend-Mvc-Application-s-event-identifiers-tp4656517.html
+
+More than XX pull requests for a variety of features and bugfixes were handled
+since RC5, as well as around XX documentation changes!
 
 ### SYSTEM REQUIREMENTS
 
