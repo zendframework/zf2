@@ -712,9 +712,11 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $sql = $driver->formatParameterName('limit');
             $parameterContainer->offsetSet('limit', $this->limit, ParameterContainer::TYPE_INTEGER);
         } else {
-            $sql = $platform->quoteValue($this->limit);
+            if (!is_int($this->limit)) {
+                throw new Exception\InvalidArgumentException('LIMIT should be given as INTEGER');
+            }
+            $sql = $this->limit;
         }
-
         return array($sql);
     }
 
@@ -727,7 +729,10 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $parameterContainer->offsetSet('offset', $this->offset, ParameterContainer::TYPE_INTEGER);
             return array($adapter->getDriver()->formatParameterName('offset'));
         } else {
-            return array($platform->quoteValue($this->offset));
+            if (!is_int($this->offset)) {
+                throw new Exception\InvalidArgumentException('OFFSET should be given as INTEGER');
+            }
+            return array($this->offset);
         }
     }
 
