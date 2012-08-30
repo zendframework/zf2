@@ -4,62 +4,79 @@ Master: [![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?bran
 
 ## RELEASE INFORMATION
 
-*Zend Framework 2.0.0rc4*
+*Zend Framework 2.0.0rc6*
 
-This is the fourth release candidate for 2.0.0. We will be releasing RCs
-on a weekly basis until we feel all critical issues are addressed. At
-this time, we anticipate few API changes before the stable release, and
-recommend testing your production applications against it.
+This is the sixth release candidate for 2.0.0. At this time, we anticipate that
+this will be the final release candidate before issuing a stable release.
+We highly recommend testing your production applications against it.
 
-17 August 2012
+29 August 2012
 
-### UPDATES IN RC4
+### UPDATES IN RC6
 
+- Zend\Config
+  - The INI adapter now allows bracket notation for appending values to an array
+    within INI definitions.
 - Zend\Db
-  - RowGateway:  delete() now works; RowGateway objects now no longer duplicates
-    the content internally leading to a larger than necessary memory footprint.
-  - Adapter for PDO: fixed such that all calls to rowCount() will always be an
-    integer; also fixed disconnect() from unsetting property
-  - Zend\Validator\Db: fixed such that TableIdentifier can be used to promote
-    schema.table identifiers
-  - Sql\Select: added reset() API to reset parts of a Select object, also
-    includes updated constants to refer to the parts by
-  - Sql\Select and others: Added subselect support in Select, In Expression and
-    the processExpression() abstraction for Zend\Db\Sql
-  - Metadata: fixed various incorrect keys when refering to contstraint data in
-    metadata value objects
-- Zend\Filter
-  - StringTrim filter now properly handles unicode whitespace
+  - ResultInterface adds isBuffered() method for checking if the resultset is
+    buffered or not. Allows for more fine grained control of result set
+    buffering, including using the database engine's native buffering.
+  - Insertions with multi-part keys now work properly.
+  - Expression objects may now be passed to the order() method of a Select
+    object.
 - Zend\Form
-  - FieldsetInterface now defines the methods allowObjectBinding() and
-    allowValueBinding().
-  - New interface, FieldsetPrepareAwareInterface. Collection and Fieldset both
-    implement this.
-    - See https://github.com/zendframework/zf2/pull/2184 for details
-  - Select elements now handle options and validation more consistently with
-    other multi-value elements.
+  - You can now omit error messages on elements when rendering via formRow(), by
+    passing a boolean false as the third argument of the helper.
+  - You can now use concrete hydrator instances with the factory.
+  - You may now set the CSRF validator class and/or options to use on the Csrf
+    element
+  - The Select, Radio, and MultiCheckbox elements and view helpers were
+    refactored to move value options into properties, instead of attributes.
+    This makes them more consistent with other elements, and simplifies the
+    interfaces.
+  - Forms now lazy-load an input filter if none has been specified; this should
+    simplify usage for many, and remove the "no input filter attached"
+    exception.
+  - All form helpers for buttons (button, submit, reset) now allow translation.
+  - The formRow() view helper now allows you to set the CSS class used to
+    designate an input with errors.
 - Zend\Http
-  - SSL options are now propagated to all Socket Adapter subclasses
-- Zend\InputFilter
-  - Allows passing ValidatorChain and FilterChain instances to the factory
-- Zend\Log
-  - Fixed xml formatter to not display empty extra information
-- Zend\Loader
-  - SplAutoloader was renamed to SplAutoloaderInterface (consistency issue)
+  - Some browser/web server combingations set SERVER_NAME to the IPv6 address,
+    and enclose it in brackets. The PhpEnvironment\Request object now correctly
+    detects such situations.
+  - The Socket client will only fallback to SSLv3 if the ssltransport
+    configuration key is not set (instead of also allowing SSLv2).
+- Zend\I18n\Translator
+  - Loader\LoaderInterface was splitted into Loader\FileLoaderInterface and
+    Loader\RemoteLoaderInterface. The latter one will be used in ZF 2.1 for
+    a database loader.
+  - Translator::addTranslationPattern() and the option "translation_patterns"
+    were renamed to Translator::addTranslationFilePattern and
+    "translation_file_patterns".
+  - A new method Translator::addRemoteTranslations() was added.
 - Zend\Mvc
-  - params() helper now allows fetching full parameter containers if no
-    arguments are provided to its various methods (consistency issue)
-- Zend\Paginator
-  - The DbSelect adapter now works
-- Zend\View
-  - ViewModel now allows unsetting variables properly
-- Security
-  - Fixed issues in Zend\Dom, Zend\Soap, Zend\Feed, and Zend\XmlRpc with regards
-    to the way libxml2 allows xml entity expansion from DOCTYPE entities when it
-    is provided.
+  - Application no longer defines the "application" identifier for its composed
+    EventManager instance. If you had listeners listening on that context,
+    update them to use "Zend\Mvc\Application". See this thread for more details:
 
-Around 50 pull requests for a variety of features and bugfixes were handled
-since RC3, as well as almost 30 documentation changes!
+      http://zend-framework-community.634137.n4.nabble.com/Change-to-Zend-Mvc-Application-s-event-identifiers-tp4656517.html
+
+  - The redirect plugin's toRoute() method signature is now synced with that of
+    the url plugin's fromRoute() method.
+  - The PRG plugin now allows passing no arguments; if you do so, the currently
+    matched route will be used for the redirect.
+- Zend\Paginator
+  - Removes the factory() and related methods. This was done to be more
+    consistent with other components, and also because the utility was not
+    terribly useful; in most cases, developers needed to configure the adapter
+    up-front anyways.
+- Zend\Stdlib
+  - ClassMethods Hydrator now supports boolean getters prefixed with "is".
+- Zend\Validator
+  - DB validators no longer mix positional and named parameters.
+
+More than 30 pull requests for a variety of features and bugfixes were handled
+since RC5, as well as almost 20 documentation changes!
 
 ### SYSTEM REQUIREMENTS
 
