@@ -136,7 +136,9 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
      */
     public function getClassSupertypes($class)
     {
-        if ($this->class !== $class) return array();
+        if ($this->class !== $class) {
+            return array();
+        }
         return $this->supertypes;
     }
 
@@ -145,7 +147,9 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
      */
     public function getInstantiator($class)
     {
-        if ($this->class !== $class) return null;
+        if ($this->class !== $class) {
+            return null;
+        }
         return $this->instantiator;
     }
 
