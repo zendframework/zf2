@@ -27,4 +27,20 @@ class ClassDefinitionTest extends TestCase
         $definition->addMethod('doBar');
         $this->assertTrue($definition->hasMethods('Foo'));
     }
+    
+    public function testGetClassSupertypes()
+    {
+        $definition = new ClassDefinition('Foo');
+        $definition->setSupertypes(array('superFoo'));
+        $this->assertEquals(array(), $definition->getClassSupertypes('Bar'));
+        $this->assertEquals(array('superFoo'), $definition->getClassSupertypes('Foo'));
+    }
+    
+    public function testGetInstantiator()
+    {
+        $definition = new ClassDefinition('Foo');
+        $definition->setInstantiator('__construct');
+        $this->assertNull($definition->getInstantiator('Bar'));
+        $this->assertEquals('__construct', $definition->getInstantiator('Foo'));
+    }
 }
