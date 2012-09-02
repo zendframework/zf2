@@ -10,8 +10,8 @@
 
 namespace Zend\Loader;
 
-// Grab SplAutoloader interface
-require_once __DIR__ . '/SplAutoloader.php';
+// Grab SplAutoloaderInterface interface
+require_once __DIR__ . '/SplAutoloaderInterface.php';
 
 /**
  * PSR-0 compliant autoloader
@@ -22,7 +22,7 @@ require_once __DIR__ . '/SplAutoloader.php';
  *
  * @package    Zend_Loader
  */
-class StandardAutoloader implements SplAutoloader
+class StandardAutoloader implements SplAutoloaderInterface
 {
     const NS_SEPARATOR     = '\\';
     const PREFIX_SEPARATOR = '_';

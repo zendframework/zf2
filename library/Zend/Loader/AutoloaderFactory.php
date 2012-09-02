@@ -12,7 +12,7 @@ namespace Zend\Loader;
 
 use ReflectionClass;
 
-require_once __DIR__ . '/SplAutoloader.php';
+require_once __DIR__ . '/SplAutoloaderInterface.php';
 
 if (class_exists('Zend\Loader\AutoloaderFactory')) return;
 
@@ -59,7 +59,7 @@ abstract class AutoloaderFactory
      * @return void
      * @throws Exception\InvalidArgumentException for invalid options
      * @throws Exception\InvalidArgumentException for unloadable autoloader classes
-     * @throws Exception\DomainException for autoloader classes not implementing SplAutoloader
+     * @throws Exception\DomainException for autoloader classes not implementing SplAutoloaderInterface
      */
     public static function factory($options = null)
     {
@@ -91,10 +91,10 @@ abstract class AutoloaderFactory
                     );
                 }
 
-                if (!self::isSubclassOf($class, 'Zend\Loader\SplAutoloader')) {
+                if (!self::isSubclassOf($class, 'Zend\Loader\SplAutoloaderInterface')) {
                     require_once 'Exception/InvalidArgumentException.php';
                     throw new Exception\InvalidArgumentException(
-                        sprintf('Autoloader class %s must implement Zend\\Loader\\SplAutoloader', $class)
+                        sprintf('Autoloader class %s must implement Zend\\Loader\\SplAutoloaderInterface', $class)
                     );
                 }
 
@@ -127,7 +127,7 @@ abstract class AutoloaderFactory
      * Retrieves an autoloader by class name
      *
      * @param string $class
-     * @return SplAutoloader
+     * @return SplAutoloaderInterface
      * @throws Exception\InvalidArgumentException for non-registered class
      */
     public static function getRegisteredAutoloader($class)
@@ -178,7 +178,7 @@ abstract class AutoloaderFactory
      * StandardAutoloader. The instance is marked as a fallback autoloader, to
      * allow resolving autoloaders not under the "Zend" namespace.
      *
-     * @return SplAutoloader
+     * @return SplAutoloaderInterface
      */
     protected static function getStandardAutoloader()
     {

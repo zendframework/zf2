@@ -10,7 +10,7 @@
 
 namespace Zend\Loader;
 
-if (interface_exists('Zend\Loader\SplAutoloader')) return;
+if (interface_exists('Zend\Loader\SplAutoloaderInterface')) return;
 
 /**
  * Defines an interface for classes that may register with the spl_autoload
@@ -18,7 +18,7 @@ if (interface_exists('Zend\Loader\SplAutoloader')) return;
  *
  * @package    Zend_Loader
  */
-interface SplAutoloader
+interface SplAutoloaderInterface
 {
     /**
      * Constructor
@@ -36,7 +36,7 @@ interface SplAutoloader
      * Traversable object.
      *
      * @param  array|Traversable $options
-     * @return SplAutoloader
+     * @return SplAutoloaderInterface
      */
     public function setOptions($options);
 
