@@ -1,5 +1,6 @@
 <?php
 /**
+<<<<<<< HEAD
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
@@ -7,6 +8,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Di
  */
+=======
+* Zend Framework (http://framework.zend.com/)
+*
+* @link http://github.com/zendframework/zf2 for the canonical source repository
+* @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+* @license http://framework.zend.com/license/new-bsd New BSD License
+* @package Zend_Di
+*/
+>>>>>>> getClassSupertypes test
 namespace ZendTest\Di\Definition;
 
 use Zend\Di\Definition\ClassDefinition;
@@ -27,4 +37,24 @@ class ClassDefinitionTest extends TestCase
         $definition->addMethod('doBar');
         $this->assertTrue($definition->hasMethods('Foo'));
     }
+<<<<<<< HEAD
 }
+=======
+    
+    public function testGetClassSupertypes()
+    {
+        $definition = new ClassDefinition('Foo');
+        $definition->setSupertypes(array('superFoo'));
+        $this->assertEquals(array(), $definition->getClassSupertypes('Bar'));
+        $this->assertEquals(array('superFoo'), $definition->getClassSupertypes('Foo'));
+    }
+    
+    public function testGetInstantiator()
+    {
+        $definition = new ClassDefinition('Foo');
+        $definition->setInstantiator('__construct');
+        $this->assertNull($definition->getInstantiator('Bar'));
+        $this->assertEquals('__construct', $definition->getInstantiator('Foo'));
+    }
+}
+>>>>>>> getClassSupertypes test
