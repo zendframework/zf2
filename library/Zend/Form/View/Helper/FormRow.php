@@ -89,6 +89,12 @@ class FormRow extends AbstractHelper
         $elementString = $elementHelper->render($element);
 
         if (!empty($label)) {
+            if (null !== ($translator = $this->getTranslator())) {
+                $label = $translator->translate(
+                    $label, $this->getTranslatorTextDomain()
+                );
+            }
+
             $label = $escapeHtmlHelper($label);
             $labelAttributes = $element->getLabelAttributes();
 
