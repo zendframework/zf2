@@ -214,4 +214,81 @@ class ResultSetTest extends TestCase
         $this->resultSet->buffer();
     }
 
+    /**
+     * @group simpleArray
+     */
+    public function testDataSourceSimpleArray()
+    {
+        $dataSource = array(0 => 'zero', 1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six');
+        $this->resultSet->initialize($dataSource);
+
+        $this->resultSet->next();
+        $this->resultSet->next();
+
+        // 2 times next
+        $this->assertSame(2, $this->resultSet->key());
+        $this->assertSame('two', $this->resultSet->current());
+
+        $this->resultSet->next();
+        $this->resultSet->next();
+        // 2 times next again
+        $this->assertSame(4, $this->resultSet->key());
+        $this->assertSame('four', $this->resultSet->current());
+
+        $this->resultSet->next();
+        $this->resultSet->rewind();
+        // resultset rewinded, so key should be 0 again
+        $this->assertSame(0, $this->resultSet->key());
+        $this->assertSame('zero', $this->resultSet->current());
+
+        $this->resultSet->next();
+        /// 1 times next so the key should be 1
+        $this->assertSame(1, $this->resultSet->key());
+        $this->assertSame('one', $this->resultSet->current());
+    }
+
+    /**
+     * @group arrayObject
+     */
+    public function testDataSourceArrayObject()
+    {
+        $dataSource = $this->getArrayDataSource(10);
+        $this->resultSet->initialize($dataSource);
+
+        $this->resultSet->next();
+        $this->resultSet->next();
+
+        // 2 times next
+        $this->assertSame(2, $this->resultSet->key());
+        $this->assertInstanceOf('ArrayObject', $this->resultSet->current());
+        $this->assertSame('title 2', $this->resultSet->current()->title);
+
+        $this->resultSet->next();
+        $this->resultSet->next();
+        // 2 times next again
+        $this->assertSame(4, $this->resultSet->key());
+        $this->assertSame('title 4', $this->resultSet->current()->title);
+
+        $this->resultSet->next();
+        $this->resultSet->rewind();
+        // resultset rewinded, so key should be 0 again
+        $this->assertSame(0, $this->resultSet->key());
+        $this->assertSame('title 0', $this->resultSet->current()->title);
+
+        $this->resultSet->next();
+        /// 1 times next so the key should be 1
+        $this->assertSame(1, $this->resultSet->key());
+        $this->assertSame('title 1', $this->resultSet->current()->title);
+    }
+
+    /**
+     * @group ResultInterfacetest
+     */
+    public function testDataSourceResultInterface()
+    {
+        $this->markTestIncomplete(
+            'Still have to create a good test for ResultInterface'
+        );
+
+    }
 }

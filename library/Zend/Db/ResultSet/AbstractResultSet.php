@@ -50,8 +50,17 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
      */
     protected $fieldCount = null;
 
-    protected $position = null;
+    /**
+     * @var int
+     */
+    protected $position = 0;
 
+    /**
+     * original datasource is an iterator
+     *
+     * @var bool
+     */
+    protected $iterator = false;
     /**
      * Set the data source for the result set
      *
@@ -81,7 +90,9 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
             $this->buffer = -1; // array's are a natural buffer
         } elseif ($dataSource instanceof IteratorAggregate) {
             $this->dataSource = $dataSource->getIterator();
+            $this->iterator = true;
         } elseif ($dataSource instanceof Iterator) {
+            $this->iterator = true;
             $this->dataSource = $dataSource;
         } else {
             throw new Exception\InvalidArgumentException('DataSource provided is not an array, nor does it implement Iterator or IteratorAggregate');
@@ -164,7 +175,18 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
         if ($this->buffer === null) {
             $this->buffer = -2; // implicitly disable buffering from here on
         }
-        $this->dataSource->next();
+
+        // next can also be called without showing the current item, go to the next value
+        if (is_array($this->buffer) && !isset($this->buffer[$this->position])) {
+            $data = $this->dataSource->current();
+            $this->buffer[$this->position] = $data;
+        }
+
+        // if the buffer is not used or the original datasource is an iterator , go to the next datasource
+        if (!isset($this->buffer[$this->position]) || $this->iterator == true) {
+            $this->dataSource->next();
+        }
+
         $this->position++;
     }
 
