@@ -14,7 +14,8 @@
     "target-dir": "Zend/Validator",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zend-stdlib": "self.version"
+        "zendframework/zend-stdlib": "self.version",
+        "zendframework/zend-i18n": "self.version"
     },
     "require-dev": {
         "zendframework/zend-math": "self.version"
