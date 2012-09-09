@@ -30,6 +30,38 @@ abstract class AbstractHtmlElement extends AbstractHelper
     protected $closingBracket = null;
 
     /**
+     * The opening tag html
+     *
+     * @var string
+     */
+    protected $openingTag = null;
+
+    /**
+     * Build the opening tag for an element, e.g. <foo class="bar" id="zar"
+     * Note, no closing bracket is added
+     *
+     * @param string $element the tag name, such as table, ul, div etc
+     * @param array  $attribs From this array, each key-value pair is
+     *                        converted to an attribute name and value.
+     *
+     * @return string
+     */
+    public function getOpeningTag($element, array $attribs = null)
+    {
+        $escaper = $this->view->plugin('escapehtml');
+
+        $str = '<' . $escaper($element);
+
+        if ($attribs) {
+            $attribs = $this->htmlAttribs($attribs);
+            $str .= $attribs;
+        }
+
+        $this->openingTag = $str;
+        return $this->openingTag;
+    }
+
+    /**
      * Get the tag closing bracket
      *
      * @return string
@@ -64,13 +96,13 @@ abstract class AbstractHtmlElement extends AbstractHelper
      * @access public
      *
      * @param array $attribs From this array, each key-value pair is
-     * converted to an attribute name and value.
+     *                       converted to an attribute name and value.
      *
      * @return string The XHTML for the attributes.
      */
     protected function htmlAttribs($attribs)
     {
-        $xhtml   = '';
+        $xhtml = '';
         $escaper = $this->view->plugin('escapehtml');
         foreach ((array) $attribs as $key => $val) {
             $key = $escaper($key);
@@ -111,6 +143,7 @@ abstract class AbstractHtmlElement extends AbstractHelper
      * Normalize an ID
      *
      * @param  string $value
+     *
      * @return string
      */
     protected function normalizeId($value)
