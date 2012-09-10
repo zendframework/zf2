@@ -230,4 +230,19 @@ class ValidatorChain implements
     {
         return $this->isValid($value);
     }
+
+    /**
+     * Prepare validator chain for serialization
+     *
+     * Plugin manager (property 'plugins') cannot
+     * be serialized. On wakeup the property remains unset
+     * and next invokation to getPluginManager() sets
+     * the default plugin manager instance (ValidatorPluginManager).
+     *
+     * @return array
+     */
+    public function __sleep()
+    {
+        return array('validators','messages');
+    }
 }
