@@ -108,13 +108,14 @@ class Stream extends AbstractWriter
      */
     protected function doWrite(array $event)
     {
-        $line = $this->formatter->format($event) . $this->logSeparator;
-
-        ErrorHandler::start(E_WARNING);
-        $result = fwrite($this->stream, $line);
-        $error  = ErrorHandler::stop();
+       	$line = $this->formatter->format($event) . $this->logSeparator;
+       	$result = false;
+        if (is_resource($this->stream))
+        {
+       		$result = @fwrite($this->stream, $line);
+        }
         if (false === $result) {
-            throw new Exception\RuntimeException("Unable to write to stream", 0, $error);
+            throw new Exception\RuntimeException("Unable to write to stream", 0);
         }
     }
 
