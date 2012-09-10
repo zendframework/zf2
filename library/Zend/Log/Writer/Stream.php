@@ -116,11 +116,11 @@ class Stream extends AbstractWriter
         }
         else 
      	{
-        	throw new Exception\RuntimeException("Stream is not a valid ressource");
+        	throw new Exception\RuntimeException("Unable to write, stream is not a valid ressource");
         }
         if (false === $result) {
         	$error = error_get_last();
-            throw new Exception\RuntimeException($error['message'], $error["type"]);
+            throw new Exception\RuntimeException("Unable to write, " . $error['message'], $error["type"]);
         }
     }
 
