@@ -80,6 +80,8 @@ class FormElementTest extends TestCase
             $element = new Element\Radio('foo');
         } elseif ($type === 'checkbox') {
             $element = new Element\Checkbox('foo');
+        } elseif ($type === 'select') {
+            $element = new Element\Select('foo');
         } else {
             $element = new Element('foo');
         }
@@ -108,9 +110,20 @@ class FormElementTest extends TestCase
      */
     public function testRendersMultiElementsAsExpected($type, $inputType, $additionalMarkup)
     {
-        $element = new Element\MultiCheckbox('foo');
+        if ($type === 'radio') {
+            $element = new Element\Radio('foo');
+            $this->assertEquals('radio', $element->getAttribute('type'));
+        } elseif ($type === 'multi_checkbox') {
+            $element = new Element\MultiCheckbox('foo');
+            $this->assertEquals('multi_checkbox', $element->getAttribute('type'));
+        } elseif ($type === 'select') {
+            $element = new Element\Select('foo');
+            $this->assertEquals('select', $element->getAttribute('type'));
+        } else {
+            $element = new Element('foo');
+        }
         $element->setAttribute('type', $type);
-        $element->setAttribute('options', array(
+        $element->setValueOptions(array(
             'value1' => 'option',
             'value2' => 'label',
             'value3' => 'last',
@@ -169,6 +182,16 @@ class FormElementTest extends TestCase
 
         $this->assertContains('<textarea', $markup);
         $this->assertContains('>Initial content<', $markup);
+    }
+
+    public function testRendersButtonAsExpected()
+    {
+        $element = new Element\Button('foo');
+        $element->setLabel('My Button');
+        $markup  = $this->helper->render($element);
+
+        $this->assertContains('<button', $markup);
+        $this->assertContains('>My Button<', $markup);
     }
 
     public function testInvokeWithNoElementChainsHelper()

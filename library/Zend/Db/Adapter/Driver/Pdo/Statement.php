@@ -154,6 +154,7 @@ class Statement implements StatementInterface
 
     /**
      * @param string $sql
+     * @throws Exception\RuntimeException
      */
     public function prepare($sql = null)
     {
@@ -185,6 +186,7 @@ class Statement implements StatementInterface
 
     /**
      * @param mixed $parameters
+     * @throws Exception\InvalidQueryException
      * @return Result
      */
     public function execute($parameters = null)
@@ -224,8 +226,6 @@ class Statement implements StatementInterface
 
     /**
      * Bind parameters from container
-     *
-     * @param ParameterContainer $container
      */
     protected function bindParametersFromContainer()
     {

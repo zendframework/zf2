@@ -11,6 +11,7 @@
 namespace Zend\ProgressBar\Adapter;
 
 use Zend\ProgressBar\Adapter\Exception;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * Zend_ProgressBar_Adapter_Console offers a text-based progressbar for console
@@ -165,21 +166,24 @@ class Console extends AbstractAdapter
      * Set a different output-stream
      *
      * @param  string $resource
+     * @throws Exception\RuntimeException
      * @return \Zend\ProgressBar\Adapter\Console
      */
     public function setOutputStream($resource)
     {
-       $stream = @fopen($resource, 'w');
+        ErrorHandler::start();
+        $stream = fopen($resource, 'w');
+        $error  = ErrorHandler::stop();
 
-       if ($stream === false) {
-            throw new Exception\RuntimeException('Unable to open stream');
-       }
+        if ($stream === false) {
+            throw new Exception\RuntimeException('Unable to open stream', 0, $error);
+        }
 
-       if ($this->outputStream !== null) {
-           fclose($this->outputStream);
-       }
+        if ($this->outputStream !== null) {
+            fclose($this->outputStream);
+        }
 
-       $this->outputStream = $stream;
+        $this->outputStream = $stream;
     }
 
     /**
@@ -220,11 +224,13 @@ class Console extends AbstractAdapter
                 $this->width = 80;
 
                 // Try to determine the width through stty
-                if (preg_match('#\d+ (\d+)#', @shell_exec('stty size'), $match) === 1) {
+                ErrorHandler::start();
+                if (preg_match('#\d+ (\d+)#', shell_exec('stty size'), $match) === 1) {
                     $this->width = (int) $match[1];
-                } elseif (preg_match('#columns = (\d+);#', @shell_exec('stty'), $match) === 1) {
+                } elseif (preg_match('#columns = (\d+);#', shell_exec('stty'), $match) === 1) {
                     $this->width = (int) $match[1];
                 }
+                ErrorHandler::stop();
             }
         } else {
             $this->width = (int) $width;

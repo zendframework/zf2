@@ -72,9 +72,11 @@ class Result implements \Iterator, ResultInterface
 
     /**
      * Initialize
+     *
      * @param mixed $resource
      * @param mixed $generatedValue
      * @param bool|null $isBuffered
+     * @throws Exception\InvalidArgumentException
      * @return Result
      */
     public function initialize($resource, $generatedValue, $isBuffered = null)
@@ -110,6 +112,14 @@ class Result implements \Iterator, ResultInterface
             $this->resource->store_result();
             $this->isBuffered = true;
         }
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function isBuffered()
+    {
+        return $this->isBuffered;
     }
 
     /**
@@ -170,7 +180,7 @@ class Result implements \Iterator, ResultInterface
      * get data out.  These values have to be references:
      * @see http://php.net/manual/en/mysqli-stmt.bind-result.php
      *
-     * @throws \RuntimeException
+     * @throws Exception\RuntimeException
      * @return bool
      */
     protected function loadDataFromMysqliStatement()
@@ -192,7 +202,9 @@ class Result implements \Iterator, ResultInterface
         }
 
         if (($r = $this->resource->fetch()) === null) {
-            $this->resource->close();
+            if (!$this->isBuffered) {
+                $this->resource->close();
+            }
             return false;
         } elseif ($r === false) {
             throw new Exception\RuntimeException($this->resource->error);
@@ -286,6 +298,8 @@ class Result implements \Iterator, ResultInterface
 
     /**
      * Count
+     *
+     * @throws Exception\RuntimeException
      * @return integer
      */
     public function count()

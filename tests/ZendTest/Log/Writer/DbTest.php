@@ -10,11 +10,11 @@
 
 namespace ZendTest\Log\Writer;
 
+use DateTime;
 use ZendTest\Log\TestAsset\MockDbAdapter;
 use ZendTest\Log\TestAsset\MockDbDriver;
 use Zend\Log\Writer\Db as DbWriter;
-use Zend\Log\Logger;
-use Zend\Log\Formatter\Simple as SimpleFormatter;
+use Zend\Log\Formatter\FormatterInterface;
 
 /**
  * @category   Zend
@@ -32,10 +32,27 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->writer = new DbWriter($this->db, $this->tableName);
     }
 
-    public function testFormattingIsNotSupported()
+    public function testNotPassingTableNameToConstructorThrowsException()
     {
-        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException', 'does not support formatting');
-        $this->writer->setFormatter(new SimpleFormatter);
+        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException', 'table name');
+        $writer = new DbWriter($this->db);
+    }
+
+    public function testNotPassingDbToConstructorThrowsException()
+    {
+        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException', 'Adapter');
+        $writer = new DbWriter(array());
+    }
+
+    public function testPassingTableNameAsArgIsOK()
+    {
+        $options = array(
+            'db'    => $this->db,
+            'table' => $this->tableName,
+        );
+        $writer = new DbWriter($options);
+        $this->assertInstanceOf('Zend\Log\Writer\Db', $writer);
+        $this->assertAttributeEquals($this->tableName, 'tableName', $writer);
     }
 
     public function testWriteWithDefaults()
@@ -188,5 +205,37 @@ class DbTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PHPUnit_Framework_Error');
         $this->writer->setFormatter(new \StdClass());
+    }
+
+    public function testWriteDateTimeAsTimestamp()
+    {
+        $date = new DateTime();
+        $event = array('timestamp'=> $date);
+        $this->writer->write($event);
+
+        $this->assertContains('query', array_keys($this->db->calls));
+        $this->assertEquals(1, count($this->db->calls['query']));
+
+        $this->assertEquals(array(array(
+            'timestamp' => $date->format(FormatterInterface::DEFAULT_DATETIME_FORMAT)
+        )), $this->db->calls['execute'][0]);
+    }
+
+    public function testWriteDateTimeAsExtraValue()
+    {
+        $date = new DateTime();
+        $event = array(
+            'extra'=> array(
+                'request_time' => $date
+            )
+        );
+        $this->writer->write($event);
+
+        $this->assertContains('query', array_keys($this->db->calls));
+        $this->assertEquals(1, count($this->db->calls['query']));
+
+        $this->assertEquals(array(array(
+            'extra_request_time' => $date->format(FormatterInterface::DEFAULT_DATETIME_FORMAT)
+        )), $this->db->calls['execute'][0]);
     }
 }

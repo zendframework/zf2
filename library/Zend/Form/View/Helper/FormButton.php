@@ -54,6 +54,8 @@ class FormButton extends FormInput
      * Generate an opening button tag
      *
      * @param  null|array|ElementInterface $attributesOrElement
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\DomainException
      * @return string
      */
     public function openTag($attributesOrElement = null)
@@ -111,24 +113,28 @@ class FormButton extends FormInput
      *
      * @param  ElementInterface $element
      * @param  null|string $buttonContent
+     * @throws Exception\DomainException
      * @return string
      */
     public function render(ElementInterface $element, $buttonContent = null)
     {
         $openTag = $this->openTag($element);
-        $content = false;
+
         if (null === $buttonContent) {
-            $content = $element->getAttribute('label');
-            if (null === $content) {
+            $buttonContent = $element->getLabel();
+            if (null === $buttonContent) {
                 throw new Exception\DomainException(sprintf(
-                    '%s expects either button content as the second argument, or that the element provided has a label attribute; neither found',
+                    '%s expects either button content as the second argument, ' .
+                    'or that the element provided has a label value; neither found',
                     __METHOD__
                 ));
             }
-        }
 
-        if ($content && null === $buttonContent) {
-            $buttonContent = $content;
+            if (null !== ($translator = $this->getTranslator())) {
+                $buttonContent = $translator->translate(
+                    $buttonContent, $this->getTranslatorTextDomain()
+                );
+            }
         }
 
         $escape = $this->getEscapeHtmlHelper();

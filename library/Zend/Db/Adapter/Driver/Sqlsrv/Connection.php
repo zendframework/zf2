@@ -112,6 +112,7 @@ class Connection implements ConnectionInterface
      * Set resource
      *
      * @param  resource $resource
+     * @throws Exception\InvalidArgumentException
      * @return Connection
      */
     public function setResource($resource)
@@ -134,6 +135,7 @@ class Connection implements ConnectionInterface
     /**
      * Connect
      *
+     * @throws Exception\RuntimeException
      * @return null
      */
     public function connect()
@@ -182,6 +184,7 @@ class Connection implements ConnectionInterface
             );
         }
 
+        return $this;
     }
 
     /**
@@ -255,12 +258,17 @@ class Connection implements ConnectionInterface
      * Execute
      *
      * @param  string $sql
+     * @throws Exception\RuntimeException
      * @return mixed
      */
     public function execute($sql)
     {
         if (!$this->isConnected()) {
             $this->connect();
+        }
+
+        if (!$this->driver instanceof Sqlsrv) {
+            throw new Exception\RuntimeException('Connection is missing an instance of Sqlsrv');
         }
 
         $returnValue = sqlsrv_query($this->resource, $sql);
@@ -301,10 +309,14 @@ class Connection implements ConnectionInterface
     /**
      * Get last generated id
      *
+     * @param string $name
      * @return mixed
      */
     public function getLastGeneratedValue($name = null)
     {
+        if (!$this->resource) {
+            $this->connect();
+        }
         $sql = 'SELECT @@IDENTITY as Current_Identity';
         $result = sqlsrv_query($this->resource, $sql);
         $row = sqlsrv_fetch_array($result);

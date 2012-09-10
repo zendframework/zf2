@@ -42,6 +42,15 @@ abstract class AbstractHelper extends BaseAbstractHelper
     );
 
     /**
+     * Translatable attributes
+     *
+     * @var array
+     */
+    protected $translatableAttributes = array(
+        'placeholder' => true
+    );
+
+    /**
      * @var Doctype
      */
     protected $doctypeHelper;
@@ -169,7 +178,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
     /**
      * Set value for character encoding
      *
-     * @param  string encoding
+     * @param  string $encoding
      * @return AbstractHelper
      */
     public function setEncoding($encoding)
@@ -210,6 +219,16 @@ abstract class AbstractHelper extends BaseAbstractHelper
                     continue;
                 }
             }
+
+            //check if attribute is translatable
+            if (isset($this->translatableAttributes[$key]) && !empty($value)) {
+                if (($translator = $this->getTranslator()) !== null) {
+                    $value = $translator->translate(
+                            $value, $this->getTranslatorTextDomain()
+                    );
+                }
+            }
+
             //@TODO Escape event attributes like AbstractHtmlElement view helper does in htmlAttribs ??
             $strings[] = sprintf('%s="%s"', $escape($key), $escape($value));
         }

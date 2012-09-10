@@ -14,6 +14,7 @@ use DOMDocument;
 use RecursiveIteratorIterator;
 use Zend\Navigation\AbstractContainer;
 use Zend\Navigation\Page\AbstractPage;
+use Zend\Stdlib\ErrorHandler;
 use Zend\Uri;
 use Zend\View;
 use Zend\View\Exception;
@@ -89,7 +90,7 @@ class Sitemap extends AbstractHelper
      * Helper entry point
      *
      * @param  string|AbstractContainer $container container to operate on
-     * @return Navigation
+     * @return Sitemap
      */
     public function __invoke($container = null)
     {
@@ -422,11 +423,14 @@ class Sitemap extends AbstractHelper
 
         // validate using schema if specified
         if ($this->getUseSchemaValidation()) {
-            if (!@$dom->schemaValidate(self::SITEMAP_XSD)) {
+            ErrorHandler::start();
+            $test  = $dom->schemaValidate(self::SITEMAP_XSD);
+            $error = ErrorHandler::stop();
+            if (!$test) {
                 throw new Exception\RuntimeException(sprintf(
                     'Sitemap is invalid according to XML Schema at "%s"',
                     self::SITEMAP_XSD
-                ));
+                ), 0, $error);
             }
         }
 
@@ -440,10 +444,10 @@ class Sitemap extends AbstractHelper
      *
      * Implements {@link HelperInterface::render()}.
      *
-     * @param  link|AbstractContainer $container [optional] container to render. Default is
-     *                              to render the container registered in the
-     *                              helper.
-     * @return string               helper output
+     * @param  AbstractContainer $container [optional] container to render. Default is
+     *                           to render the container registered in the
+     *                           helper.
+     * @return string            helper output
      */
     public function render($container = null)
     {

@@ -64,7 +64,6 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Constructor
      *
      * @param  null|string $table
-     * @param  null|string $schema
      */
     public function __construct($table = null)
     {
@@ -78,7 +77,6 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Specify table for statement
      *
      * @param  string $table
-     * @param  null|string $schema
      * @return Update
      */
     public function table($table)
@@ -92,12 +90,13 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param  array $values Associative array of key values
      * @param  string $flag One of the VALUES_* constants
+     * @throws Exception\InvalidArgumentException
      * @return Update
      */
     public function set(array $values, $flag = self::VALUES_SET)
     {
         if ($values == null) {
-            throw new \InvalidArgumentException('set() expects an array of values');
+            throw new Exception\InvalidArgumentException('set() expects an array of values');
         }
 
         if ($flag == self::VALUES_SET) {
@@ -106,7 +105,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
         foreach ($values as $k => $v) {
             if (!is_string($k)) {
-                throw new \Exception('set() expects a string for the value key');
+                throw new Exception\InvalidArgumentException('set() expects a string for the value key');
             }
             $this->set[$k] = $v;
         }
@@ -119,12 +118,13 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param  Where|\Closure|string|array $predicate
      * @param  string $combination One of the OP_* constants from Predicate\PredicateSet
+     * @throws Exception\InvalidArgumentException
      * @return Select
      */
     public function where($predicate, $combination = Predicate\PredicateSet::OP_AND)
     {
         if (is_null($predicate)) {
-            throw new \Zend\Db\Sql\Exception\InvalidArgumentException('Predicate cannot be null');
+            throw new Exception\InvalidArgumentException('Predicate cannot be null');
         }
 
         if ($predicate instanceof Where) {
@@ -133,15 +133,37 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $predicate($this->where);
         } else {
             if (is_string($predicate)) {
+                // String $predicate should be passed as an expression
                 $predicate = new Predicate\Expression($predicate);
                 $this->where->addPredicate($predicate, $combination);
             } elseif (is_array($predicate)) {
+
                 foreach ($predicate as $pkey => $pvalue) {
+                    // loop through predicates
+
                     if (is_string($pkey) && strpos($pkey, '?') !== false) {
+                        // First, process strings that the abstraction replacement character ?
+                        // as an Expression predicate
                         $predicate = new Predicate\Expression($pkey, $pvalue);
+
                     } elseif (is_string($pkey)) {
-                        $predicate = new Predicate\Operator($pkey, Predicate\Operator::OP_EQ, $pvalue);
+                        // Otherwise, if still a string, do something intelligent with the PHP type provided
+
+                        if (is_null($pvalue)) {
+                            // map PHP null to SQL IS NULL expression
+                            $predicate = new Predicate\IsNull($pkey, $pvalue);
+                        } elseif (is_array($pvalue)) {
+                            // if the value is an array, assume IN() is desired
+                            $predicate = new Predicate\In($pkey, $pvalue);
+                        } else {
+                            // otherwise assume that array('foo' => 'bar') means "foo" = 'bar'
+                            $predicate = new Predicate\Operator($pkey, Predicate\Operator::OP_EQ, $pvalue);
+                        }
+                    } elseif ($pvalue instanceof Predicate\PredicateInterface) {
+                        // Predicate type is ok
+                        $predicate = $pvalue;
                     } else {
+                        // must be an array of expressions (with int-indexed array)
                         $predicate = new Predicate\Expression($pvalue);
                     }
                     $this->where->addPredicate($predicate, $combination);
@@ -165,8 +187,8 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Prepare statement
      *
-     * @param \Zend\Db\Adapter\Adapter $adapter
-     * @param \Zend\Db\Adapter\Driver\StatementInterface $statementContainer
+     * @param Adapter $adapter
+     * @param StatementContainerInterface $statementContainer
      * @return void
      */
     public function prepareStatement(Adapter $adapter, StatementContainerInterface $statementContainer)
@@ -227,6 +249,8 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 if ($value instanceof Expression) {
                     $exprData = $this->processExpression($value, $adapterPlatform);
                     $setSql[] = $adapterPlatform->quoteIdentifier($column) . ' = ' . $exprData->getSql();
+                } elseif (is_null($value)) {
+                    $setSql[] = $adapterPlatform->quoteIdentifier($column) . ' = NULL';
                 } else {
                     $setSql[] = $adapterPlatform->quoteIdentifier($column) . ' = ' . $adapterPlatform->quoteValue($value);
                 }

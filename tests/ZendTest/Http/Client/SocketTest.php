@@ -130,7 +130,8 @@ class SocketTest extends CommonHttpTests
 
     public function testGetNewStreamContext()
     {
-        $adapter = new $this->config['adapter'];
+        $adapterClass = $this->config['adapter'];
+        $adapter = new $adapterClass;
         $context = $adapter->getStreamContext();
 
         $this->assertEquals('stream-context', get_resource_type($context));
@@ -138,7 +139,8 @@ class SocketTest extends CommonHttpTests
 
     public function testSetNewStreamContextResource()
     {
-        $adapter = new $this->config['adapter'];
+        $adapterClass = $this->config['adapter'];
+        $adapter = new $adapterClass;
         $context = stream_context_create();
 
         $adapter->setStreamContext($context);
@@ -148,13 +150,15 @@ class SocketTest extends CommonHttpTests
 
     public function testSetNewStreamContextOptions()
     {
-        $adapter = new $this->config['adapter'];
+        $adapterClass = $this->config['adapter'];
+        $adapter = new $adapterClass;
         $options = array(
             'socket' => array(
                 'bindto' => '1.2.3.4:0'
             ),
             'ssl' => array(
-                'verify_peer' => true,
+                'capath'            => null,
+                'verify_peer'       => true,
                 'allow_self_signed' => false
             )
         );
@@ -175,7 +179,8 @@ class SocketTest extends CommonHttpTests
             'Zend\Http\Client\Adapter\Exception\InvalidArgumentException',
             'Expecting either a stream context resource or array');
 
-        $adapter = new $this->config['adapter'];
+        $adapterClass = $this->config['adapter'];
+        $adapter = new $adapterClass;
         $adapter->setStreamContext($invalid);
     }
 
@@ -185,7 +190,8 @@ class SocketTest extends CommonHttpTests
             $this->markTestSkipped();
         }
 
-        $adapter = new $this->config['adapter'];
+        $adapterClass = $this->config['adapter'];
+        $adapter = new $adapterClass;
         $adapter->setStreamContext(array(
             'ssl' => array(
                 'capture_peer_cert' => true,

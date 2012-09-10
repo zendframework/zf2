@@ -11,6 +11,7 @@
 namespace Zend\Form\View\Helper;
 
 use Zend\Form\ElementInterface;
+use Zend\Form\Exception;
 
 /**
  * @category   Zend
@@ -39,9 +40,19 @@ class FormSubmit extends FormInput
     );
 
     /**
+     * Translatable attributes
+     *
+     * @var array
+     */
+    protected $translatableAttributes = array(
+        'value' => true
+    );
+
+    /**
      * Determine input type to use
      *
      * @param  ElementInterface $element
+     * @throws Exception\DomainException
      * @return string
      */
     protected function getType(ElementInterface $element)

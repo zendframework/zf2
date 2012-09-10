@@ -13,6 +13,7 @@ namespace Zend\Validator;
 use Traversable;
 use Zend\Uri\Exception\ExceptionInterface as UriException;
 use Zend\Uri\Uri as UriHandler;
+use Zend\Validator\Exception\InvalidArgumentException;
 
 /**
  * @category   Zend
@@ -82,6 +83,7 @@ class Uri extends AbstractValidator
     }
 
     /**
+     * @throws InvalidArgumentException
      * @return UriHandler
      */
     public function getUriHandler()
@@ -89,16 +91,29 @@ class Uri extends AbstractValidator
         if (null === $this->uriHandler) {
             // Lazy load the base Uri handler
             $this->uriHandler = new UriHandler();
+        } elseif (is_string($this->uriHandler) && class_exists($this->uriHandler)) {
+            // Instantiate string Uri handler that references a class
+            $this->uriHandler = new $this->uriHandler;
         }
+
+        if (! $this->uriHandler instanceof UriHandler) {
+            throw new InvalidArgumentException('URI handler is expected to be a Zend\Uri\Uri object');
+        }
+
         return $this->uriHandler;
     }
 
     /**
      * @param  UriHandler $uriHandler
+     * @throws InvalidArgumentException
      * @return Uri
      */
     public function setUriHandler($uriHandler)
     {
+        if (! is_subclass_of($uriHandler, 'Zend\Uri\Uri')) {
+            throw new InvalidArgumentException('Expecting a subclass name or instance of Zend\Uri\Uri as $uriHandler');
+        }
+
         $this->uriHandler = $uriHandler;
         return $this;
     }
@@ -116,7 +131,7 @@ class Uri extends AbstractValidator
     /**
      * Sets the allowAbsolute option
      *
-     * @param  boolean $allowWhiteSpace
+     * @param  boolean $allowAbsolute
      * @return Uri
      */
     public function setAllowAbsolute($allowAbsolute)

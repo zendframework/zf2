@@ -58,8 +58,16 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->classMethodsCamelCase->getFooBar(), '1');
         $this->assertEquals($this->classMethodsCamelCase->getFooBarBaz(), '2');
+        $this->assertEquals($this->classMethodsCamelCase->getIsFoo(), true);
+        $this->assertEquals($this->classMethodsCamelCase->isBar(), true);
+        $this->assertEquals($this->classMethodsCamelCase->getHasFoo(), true);
+        $this->assertEquals($this->classMethodsCamelCase->hasBar(), true);
         $this->assertEquals($this->classMethodsUnderscore->getFooBar(), '1');
         $this->assertEquals($this->classMethodsUnderscore->getFooBarBaz(), '2');
+        $this->assertEquals($this->classMethodsUnderscore->getIsFoo(), true);
+        $this->assertEquals($this->classMethodsUnderscore->isBar(), true);
+        $this->assertEquals($this->classMethodsUnderscore->getHasFoo(), true);
+        $this->assertEquals($this->classMethodsUnderscore->hasBar(), true);
     }
 
     public function testHydratorReflection()
@@ -87,10 +95,32 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($datas['fooBar'], '1');
         $this->assertTrue(isset($datas['fooBarBaz']));
         $this->assertFalse(isset($datas['foo_bar']));
-        $test = $hydrator->hydrate(array('fooBar' => 'foo', 'fooBarBaz' => 'bar'), $this->classMethodsCamelCase);
+        $this->assertTrue(isset($datas['isFoo']));
+        $this->assertEquals($datas['isFoo'], true);
+        $this->assertTrue(isset($datas['isBar']));
+        $this->assertEquals($datas['isBar'], true);
+        $this->assertTrue(isset($datas['hasFoo']));
+        $this->assertEquals($datas['hasFoo'], true);
+        $this->assertTrue(isset($datas['hasBar']));
+        $this->assertEquals($datas['hasBar'], true);
+        $test = $hydrator->hydrate(
+            array(
+                'fooBar' => 'foo',
+                'fooBarBaz' => 'bar',
+                'isFoo' => false,
+                'isBar' => false,
+                'hasFoo' => false,
+                'hasBar' => false,
+            ),
+            $this->classMethodsCamelCase
+        );
         $this->assertSame($this->classMethodsCamelCase, $test);
         $this->assertEquals($test->getFooBar(), 'foo');
         $this->assertEquals($test->getFooBarBaz(), 'bar');
+        $this->assertEquals($test->getIsFoo(), false);
+        $this->assertEquals($test->isBar(), false);
+        $this->assertEquals($test->getHasFoo(), false);
+        $this->assertEquals($test->hasBar(), false);
     }
 
     public function testHydratorClassMethodsCamelCaseWithSetterMissing()
@@ -115,10 +145,36 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($datas['foo_bar'], '1');
         $this->assertTrue(isset($datas['foo_bar_baz']));
         $this->assertFalse(isset($datas['fooBar']));
-        $test = $hydrator->hydrate(array('foo_bar' => 'foo', 'foo_bar_baz' => 'bar'), $this->classMethodsUnderscore);
+        $this->assertTrue(isset($datas['is_foo']));
+        $this->assertFalse(isset($datas['isFoo']));
+        $this->assertEquals($datas['is_foo'], true);
+        $this->assertTrue(isset($datas['is_bar']));
+        $this->assertFalse(isset($datas['isBar']));
+        $this->assertEquals($datas['is_bar'], true);
+        $this->assertTrue(isset($datas['has_foo']));
+        $this->assertFalse(isset($datas['hasFoo']));
+        $this->assertEquals($datas['has_foo'], true);
+        $this->assertTrue(isset($datas['has_bar']));
+        $this->assertFalse(isset($datas['hasBar']));
+        $this->assertEquals($datas['has_bar'], true);
+        $test = $hydrator->hydrate(
+            array(
+                'foo_bar' => 'foo',
+                'foo_bar_baz' => 'bar',
+                'is_foo' => false,
+                'is_bar' => false,
+                'has_foo' => false,
+                'has_bar' => false,
+            ),
+            $this->classMethodsUnderscore
+        );
         $this->assertSame($this->classMethodsUnderscore, $test);
         $this->assertEquals($test->getFooBar(), 'foo');
         $this->assertEquals($test->getFooBarBaz(), 'bar');
+        $this->assertEquals($test->getIsFoo(), false);
+        $this->assertEquals($test->isBar(), false);
+        $this->assertEquals($test->getHasFoo(), false);
+        $this->assertEquals($test->hasBar(), false);
     }
 
     public function testHydratorClassMethodsIgnoresInvalidValues()

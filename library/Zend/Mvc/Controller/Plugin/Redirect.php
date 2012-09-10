@@ -34,17 +34,27 @@ class Redirect extends AbstractPlugin
      * @param  string $route RouteInterface name
      * @param  array $params Parameters to use in url generation, if any
      * @param  array $options RouteInterface-specific options to use in url generation, if any
+     * @param  bool $reuseMatchedParams Whether to reuse matched parameters
      * @return Response
      * @throws Exception\DomainException if composed controller does not implement InjectApplicationEventInterface, or
      *         router cannot be found in controller event
      */
-    public function toRoute($route, array $params = array(), array $options = array())
+    public function toRoute($route = null, array $params = array(), $options = array(), $reuseMatchedParams = false)
     {
-        $response = $this->getResponse();
-        $router   = $this->getRouter();
+        $controller = $this->getController();
+        if (!$controller || !method_exists($controller, 'plugin')) {
+            throw new Exception\DomainException('Redirect plugin requires a controller that defines the plugin() method');
+        }
 
-        $options['name'] = $route;
-        $url = $router->assemble($params, $options);
+        $response  = $this->getResponse();
+        $urlPlugin = $controller->plugin('url');
+
+        if (is_scalar($options)) {
+            $url = $urlPlugin->fromRoute($route, $params, $options);
+        } else {
+            $url = $urlPlugin->fromRoute($route, $params, $options, $reuseMatchedParams);
+        }
+
         $response->getHeaders()->addHeaderLine('Location', $url);
         $response->setStatusCode(302);
         return $response;
@@ -62,27 +72,6 @@ class Redirect extends AbstractPlugin
         $response->getHeaders()->addHeaderLine('Location', $url);
         $response->setStatusCode(302);
         return $response;
-    }
-
-    /**
-     * Get the router
-     *
-     * @return RouteStackInterface
-     * @throws Exception\DomainException if unable to find router
-     */
-    protected function getRouter()
-    {
-        if ($this->router) {
-            return $this->router;
-        }
-
-        $event  = $this->getEvent();
-        $router = $event->getRouter();
-        if (!$router instanceof RouteStackInterface) {
-            throw new Exception\DomainException('Redirect plugin requires event compose a router');
-        }
-        $this->router = $router;
-        return $this->router;
     }
 
     /**

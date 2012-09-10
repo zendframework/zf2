@@ -12,6 +12,7 @@ namespace Zend\Cache\Pattern;
 
 use Zend\Cache\Exception;
 use Zend\Cache\StorageFactory;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @category   Zend
@@ -43,7 +44,8 @@ class CallbackCache extends AbstractPattern
      * @param  callable   $callback  A valid callback
      * @param  array      $args      Callback arguments
      * @return mixed Result
-     * @throws Exception
+     * @throws Exception\RuntimeException if invalid cached data
+     * @throws \Exception
      */
     public function call($callback, array $args = array())
     {
@@ -99,7 +101,8 @@ class CallbackCache extends AbstractPattern
      * @param  string $function  Function name to call
      * @param  array  $args      Function arguments
      * @return mixed
-     * @throws Exception
+     * @throws Exception\RuntimeException
+     * @throws \Exception
      */
     public function __call($function, array $args)
     {
@@ -113,7 +116,8 @@ class CallbackCache extends AbstractPattern
      * @param  callable   $callback  A valid callback
      * @param  array      $args      Callback arguments
      * @return string
-     * @throws Exception
+     * @throws Exception\RuntimeException
+     * @throws Exception\InvalidArgumentException
      */
     public function generateKey($callback, array $args = array())
     {
@@ -126,8 +130,9 @@ class CallbackCache extends AbstractPattern
      *
      * @param  callable   $callback  A valid callback
      * @param  array      $args      Callback arguments
+     * @throws Exception\RuntimeException if callback not serializable
+     * @throws Exception\InvalidArgumentException if invalid callback
      * @return string
-     * @throws Exception
      */
     protected function generateCallbackKey($callback, array $args)
     {
@@ -145,19 +150,22 @@ class CallbackCache extends AbstractPattern
             $object = $callback[0];
         }
         if (isset($object)) {
+            ErrorHandler::start();
             try {
-                $serializedObject = @serialize($object);
+                $serializedObject = serialize($object);
             } catch (\Exception $e) {
+                ErrorHandler::stop();
                 throw new Exception\RuntimeException(
                     "Can't serialize callback: see previous exception", 0, $e
                 );
             }
+            $error = ErrorHandler::stop();
 
             if (!$serializedObject) {
-                $lastErr = error_get_last();
-                throw new Exception\RuntimeException(
-                    "Can't serialize callback: " . $lastErr['message']
-                );
+                throw new Exception\RuntimeException(sprintf(
+                    'Cannot serialize callback%s',
+                    ($error ? ': ' . $error->getMessage() : '')
+                ), 0, $error);
             }
             $callbackKey.= $serializedObject;
         }
@@ -169,8 +177,8 @@ class CallbackCache extends AbstractPattern
      * Generate a unique key of the argument part.
      *
      * @param  array $args
+     * @throws Exception\RuntimeException
      * @return string
-     * @throws Exception
      */
     protected function generateArgumentsKey(array $args)
     {
@@ -178,19 +186,22 @@ class CallbackCache extends AbstractPattern
             return '';
         }
 
+        ErrorHandler::start();
         try {
-            $serializedArgs = @serialize(array_values($args));
+            $serializedArgs = serialize(array_values($args));
         } catch (\Exception $e) {
+            ErrorHandler::stop();
             throw new Exception\RuntimeException(
                 "Can't serialize arguments: see previous exception"
             , 0, $e);
         }
+        $error = ErrorHandler::stop();
 
         if (!$serializedArgs) {
-            $lastErr = error_get_last();
-            throw new Exception\RuntimeException(
-                "Can't serialize arguments: " . $lastErr['message']
-            );
+            throw new Exception\RuntimeException(sprintf(
+                'Cannot serialize arguments%s',
+                ($error ? ': ' . $error->getMessage() : '')
+            ), 0, $error);
         }
 
         return md5($serializedArgs);

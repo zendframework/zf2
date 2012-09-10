@@ -156,9 +156,6 @@ class Connection implements ConnectionInterface
      */
     public function getResource()
     {
-        if ($this->resource == null) {
-            $this->connect();
-        }
         return $this->resource;
     }
 
@@ -297,7 +294,7 @@ class Connection implements ConnectionInterface
 
     /**
      * @return Connection
-     * @throws \Exception
+     * @throws Exception\RuntimeException
      */
     public function rollback()
     {
@@ -353,7 +350,8 @@ class Connection implements ConnectionInterface
     /**
      * Get last generated id
      *
-     * @return integer
+     * @param string $name
+     * @return integer|null|false
      */
     public function getLastGeneratedValue($name = null)
     {
