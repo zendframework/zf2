@@ -114,8 +114,13 @@ class Stream extends AbstractWriter
         {
        		$result = @fwrite($this->stream, $line);
         }
+        else 
+     	{
+        	throw new Exception\RuntimeException("Stream is not a valid ressource");
+        }
         if (false === $result) {
-            throw new Exception\RuntimeException("Unable to write to stream", 0);
+        	$error = error_get_last();
+            throw new Exception\RuntimeException($error['message'], $error["type"]);
         }
     }
 
