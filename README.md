@@ -52,7 +52,7 @@ latest PHP version whenever possible.
 
 ### INSTALLATION
 
-Please see [INSTALL.md] (https://github.com/zendframework/zf2/edit/master/INSTALL.md).
+Please see [INSTALL.md] (https://github.com/zendframework/zf2/blob/master/INSTALL.md).
 
 ### CONTRIBUTING
 
@@ -80,7 +80,7 @@ the fw-announce mailing list by sending a blank message to
 ### LICENSE
 
 The files in this archive are released under the Zend Framework license.
-You can find a copy of this license in [LICENSE.txt] (https://github.com/zendframework/zf2/edit/master/LICENSE.txt).
+You can find a copy of this license in [LICENSE.txt] (https://github.com/zendframework/zf2/blob/master/LICENSE.txt).
 
 ### ACKNOWLEDGEMENTS
 
