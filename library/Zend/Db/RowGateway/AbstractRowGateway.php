@@ -134,9 +134,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
         $this->initialize();
 
         if ($this->rowExistsInDatabase()) {
-            if (!array_key_exists($this->primaryKeyColumn, $this->originalData)) {
-                throw new Exception\RuntimeException("No primary key found in originalData");
-            }
+
             // UPDATE
 
             $data = $this->data;
