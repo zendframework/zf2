@@ -68,9 +68,10 @@ class ModuleManagerTest extends TestCase
         set_include_path($this->includePath);
     }
 
-    public function testEventManagerIdentifiers()
+    public function testEventManagerIdentifiersAndType()
     {
         $moduleManager = new ModuleManager(array());
+        $this->assertInstanceOf('Zend\EventManager\EventProviderInterface', $moduleManager);
         $identifiers = $moduleManager->getEventManager()->getIdentifiers();
         $expected    = array('Zend\ModuleManager\ModuleManager', 'module_manager');
         $this->assertEquals($expected, array_values($identifiers));
