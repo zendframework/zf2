@@ -10,26 +10,12 @@
 
 namespace Zend\Mvc;
 
-use Zend\EventManager\EventInterface as Event;
+use Zend\EventManager\EventProviderInterface;
 
 /**
  * @category   Zend
  * @package    Zend_Mvc
  */
-interface InjectApplicationEventInterface
+interface InjectApplicationEventInterface extends EventProviderInterface
 {
-    /**
-     * Compose an Event
-     *
-     * @param  Event $event
-     * @return void
-     */
-    public function setEvent(Event $event);
-
-    /**
-     * Retrieve the composed event
-     *
-     * @return Event
-     */
-    public function getEvent();
 }

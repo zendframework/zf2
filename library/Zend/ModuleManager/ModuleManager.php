@@ -13,6 +13,8 @@ namespace Zend\ModuleManager;
 use Traversable;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\EventProviderInterface;
+use Zend\EventManager\EventInterface;
 
 /**
  * Module manager
@@ -20,7 +22,7 @@ use Zend\EventManager\EventManagerInterface;
  * @category Zend
  * @package  Zend_ModuleManager
  */
-class ModuleManager implements ModuleManagerInterface
+class ModuleManager implements ModuleManagerInterface, EventProviderInterface
 {
     /**
      * @var array An array of Module classes of loaded modules
@@ -225,10 +227,10 @@ class ModuleManager implements ModuleManagerInterface
     /**
      * Set the module event
      *
-     * @param  ModuleEvent $event
+     * @param  EventInterface $event
      * @return ModuleManager
      */
-    public function setEvent(ModuleEvent $event)
+    public function setEvent(EventInterface $event)
     {
         $this->event = $event;
         return $this;
