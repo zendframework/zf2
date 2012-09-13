@@ -95,7 +95,6 @@ class Encoder
     }
 
 
-
     /**
      * Encode an object to JSON by encoding each of the public properties
      *
@@ -132,7 +131,7 @@ class Encoder
         $props = '';
 
         if (method_exists($value, 'toJson')) {
-            $props =',' . preg_replace("/^\{(.*)\}$/","\\1",$value->toJson());
+            $props =',' . preg_replace("/^\{(.*)\}$/","\\1", $value->toJson());
         } else {
             if ($value instanceof IteratorAggregate) {
                 $propCollection = $value->getIterator();

@@ -202,9 +202,8 @@ class Json
         $match     = preg_match($pattern, $simpleXmlElementObject, $matchings);
         if ($match) {
             return new Expr($matchings[1]);
-        } else {
-            return (trim(strval($simpleXmlElementObject)));
         }
+        return (trim(strval($simpleXmlElementObject)));
     }
 
     /**
@@ -260,7 +259,7 @@ class Json
         $childArray = array();
         foreach ($children as $child) {
             $childname = $child->getName();
-            $element   = self::_processXml($child,$ignoreXmlAttributes,$recursionDepth + 1);
+            $element   = self::_processXml($child, $ignoreXmlAttributes, $recursionDepth + 1);
             if (array_key_exists($childname, $childArray)) {
                 if (empty($subChild[$childname])) {
                     $childArray[$childname] = array($childArray[$childname]);
