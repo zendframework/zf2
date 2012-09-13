@@ -1,0 +1,380 @@
+<?php
+/**
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_Cache
+ */
+
+namespace Zend\Cache\Storage\Adapter;
+
+use stdClass;
+use Traversable;
+use Zend\Cache\Exception;
+use Zend\Cache\Storage\AvailableSpaceCapableInterface;
+use Zend\Cache\Storage\Capabilities;
+use Zend\Cache\Storage\FlushableInterface;
+use Zend\Cache\Storage\TotalSpaceCapableInterface;
+
+/**
+ * @package    Zend_Cache
+ * @subpackage Zend_Cache_Storage
+ * @subpackage Storage
+ */
+class XCache extends AbstractAdapter implements
+    AvailableSpaceCapableInterface,
+    FlushableInterface,
+    TotalSpaceCapableInterface
+{
+
+    /**
+     * Total space in bytes
+     *
+     * @var int|float
+     */
+    protected $totalSpace;
+
+    /**
+     * Authentication enabled to call admin functions
+     *
+     * @var boolean
+     */
+    protected $adminAuthEnabled;
+
+    /**
+     * Constructor
+     *
+     * @param  null|array|Traversable|ApcOptions $options
+     * @throws Exception\ExceptionInterface
+     */
+    public function __construct($options = null)
+    {
+        if (!extension_loaded('xcache')) {
+            throw new Exception\ExtensionNotLoadedException('Missing ext/xcache');
+        }
+
+        if (PHP_SAPI == 'cli') {
+            throw new Exception\ExtensionNotLoadedException(
+                "ext/xcache isn't available on SAPI 'cli'"
+            );
+        }
+
+        $this->totalSpace = (int)ini_get('xcache.var_size');
+        if ($this->totalSpace <= 0) {
+            throw new Exception\ExtensionNotLoadedException(
+                "ext/xcache is disabled - see 'xcache.var_size'"
+            );
+        }
+
+        $this->adminAuthEnabled = (ini_get('xcache.admin.enable_auth') == 'on');
+
+        parent::__construct($options);
+    }
+
+    /* options */
+
+    /**
+     * Set options.
+     *
+     * @param  array|Traversable|ApcOptions $options
+     * @return XCache
+     * @see    getOptions()
+     */
+    public function setOptions($options)
+    {
+        if (!$options instanceof XCacheOptions) {
+            $options = new XCacheOptions($options);
+        }
+
+        return parent::setOptions($options);
+    }
+
+    /**
+     * Get options.
+     *
+     * @return XCacheOptions
+     * @see    setOptions()
+     */
+    public function getOptions()
+    {
+        if (!$this->options) {
+            $this->setOptions(new XCacheOptions());
+        }
+        return $this->options;
+    }
+
+    /* TotalSpaceCapableInterface */
+
+    /**
+     * Get total space in bytes
+     *
+     * @return int|float
+     */
+    public function getTotalSpace()
+    {
+        return $this->totalSpace;
+    }
+
+    /* AvailableSpaceCapableInterface */
+
+    /**
+     * Get available space in bytes
+     *
+     * @return int|float
+     */
+    public function getAvailableSpace()
+    {
+        $availableSpace = 0;
+
+        $cnt = $this->_callAdminFunc('xcache_count', array(XC_TYPE_VAR));
+        for ($i=0; $i < $cnt; $i++) {
+            $info = $this->_callAdminFunc('xcache_info', array(XC_TYPE_VAR, $i));
+            $availableSpace+= $info['avail'];
+        }
+
+        return $availableSpace;
+    }
+
+    /* FlushableInterface */
+
+    /**
+     * Flush the whole storage
+     *
+     * @return boolean
+     */
+    public function flush()
+    {
+        $cnt = $this->_callAdminFunc('xcache_count', array(XC_TYPE_VAR));
+        for ($i=0; $i < $cnt; $i++) {
+            $this->_callAdminFunc('xcache_clear_cache', array(XC_TYPE_VAR, $i));
+        }
+
+        return true;
+    }
+
+    /* reading */
+
+    /**
+     * Internal method to get an item.
+     *
+     * @param  string  $normalizedKey
+     * @param  boolean $success
+     * @param  mixed   $casToken
+     * @return mixed Data on success, null on failure
+     * @throws Exception\ExceptionInterface
+     */
+    protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
+    {
+        $options     = $this->getOptions();
+        $prefix      = $options->getNamespace() . $options->getNamespaceSeparator();
+        $internalKey = $prefix . $normalizedKey;
+
+        $result  = xcache_get($internalKey);
+        $success = ($result !== null);
+
+        if ($success) {
+            $casToken = $value;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Internal method to test if an item exists.
+     *
+     * @param  string $normalizedKey
+     * @return boolean
+     * @throws Exception\ExceptionInterface
+     */
+    protected function internalHasItem(& $normalizedKey)
+    {
+        $options = $this->getOptions();
+        $prefix  = $options->getNamespace() . $options->getNamespaceSeparator();
+        return xcache_isset($prefix . $normalizedKey);
+    }
+
+    /**
+     * Get metadata of an item.
+     *
+     * @param  string $normalizedKey
+     * @return array|boolean Metadata on success, false on failure
+     * @throws Exception\ExceptionInterface
+     */
+    protected function internalGetMetadata(& $normalizedKey)
+    {
+        $options     = $this->getOptions();
+        $prefix      = $options->getNamespace() . $options->getNamespaceSeparator();
+        $internalKey = $prefix . $normalizedKey;
+
+        if (xcache_isset($internalKey)) {
+            $cnt = $this->_callAdminFunc('xcache_count', array(XC_TYPE_VAR));
+            for ($i=0; $i < $cnt; $i++) {
+                $list = $this->_callAdminFunc('xcache_list', array(XC_TYPE_VAR, $i));
+                foreach ($list['cache_list'] as & $metadata) {
+                    if ($metadata['name'] === $internalKey) {
+                        $this->normalizeMetadata($metadata);
+                        return $metadata;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /* writing */
+
+    /**
+     * Internal method to store an item.
+     *
+     * @param  string $normalizedKey
+     * @param  mixed  $value
+     * @return boolean
+     * @throws Exception\ExceptionInterface
+     */
+    protected function internalSetItem(& $normalizedKey, & $value)
+    {
+        $options     = $this->getOptions();
+        $prefix      = $options->getNamespace() . $options->getNamespaceSeparator();
+        $internalKey = $prefix . $normalizedKey;
+        $ttl         = $options->getTtl();
+
+        if (!xcache_set($internalKey, $value, $ttl)) {
+            $type = is_object($value) ? get_class($value) : gettype($value);
+            throw new Exception\RuntimeException(
+                "xcache_set('{$internalKey}', <{$type}>, {$ttl}) failed"
+            );
+        }
+
+        return true;
+    }
+
+    /**
+     * Internal method to remove an item.
+     *
+     * @param  string $normalizedKey
+     * @return boolean
+     * @throws Exception\ExceptionInterface
+     */
+    protected function internalRemoveItem(& $normalizedKey)
+    {
+        $options     = $this->getOptions();
+        $prefix      = $options->getNamespace() . $options->getNamespaceSeparator();
+        $internalKey = $prefix . $normalizedKey;
+        return xcache_unset($internalKey);
+    }
+
+    /* status */
+
+    /**
+     * Internal method to get capabilities of this adapter
+     *
+     * @return Capabilities
+     */
+    protected function internalGetCapabilities()
+    {
+        if ($this->capabilities === null) {
+            $marker       = new stdClass();
+            $capabilities = new Capabilities(
+                $this,
+                $marker,
+                array(
+                    'supportedDatatypes' => array(
+                        'NULL'     => false,
+                        'boolean'  => true,
+                        'integer'  => true,
+                        'double'   => true,
+                        'string'   => true,
+                        'array'    => true,
+                        'object'   => 'object',
+                        'resource' => false,
+                    ),
+                    'supportedMetadata' => array(
+                        'internal_key',
+                        'size', 'refcount', 'hits',
+                        'ctime', 'atime', 'hvalue',
+                    ),
+                    'minTtl'             => 1,
+                    'maxTtl'             => (int)ini_get('xcache.var_maxttl'),
+                    'staticTtl'          => true,
+                    'ttlPrecision'       => 1,
+                    'useRequestTime'     => true,
+                    'expiredRead'        => false,
+                    'maxKeyLength'       => 5182,
+                    'namespaceIsPrefix'  => true,
+                    'namespaceSeparator' => $this->getOptions()->getNamespaceSeparator(),
+                )
+            );
+
+            // update namespace separator on change option
+            $this->getEventManager()->attach('option', function ($event) use ($capabilities, $marker) {
+                $params = $event->getParams();
+
+                if (isset($params['namespace_separator'])) {
+                    $capabilities->setNamespaceSeparator($marker, $params['namespace_separator']);
+                }
+            });
+
+            $this->capabilities     = $capabilities;
+            $this->capabilityMarker = $marker;
+        }
+
+        return $this->capabilities;
+    }
+
+    /* internal */
+
+    /**
+     * Call admin function using auth
+     *
+     * @param string $func
+     * @param array  $args
+     * @return mixed
+     */
+    protected function _callAdminFunc($func, array $args)
+    {
+        if ($this->adminAuthEnabled) {
+            $options = $this->getOptions();
+            $adminUser = $options->getAdminUser();
+            $adminPass = $options->getAdminPass();
+
+            // backup $_SERVER for reset
+            $backup = array();
+            if (isset($_SERVER['PHP_AUTH_USER'])) {
+                $backup['PHP_AUTH_USER'] = $_SERVER['PHP_AUTH_USER'];
+            }
+            if (isset($_SERVER['PHP_AUTH_PW'])) {
+                $backup['PHP_AUTH_PW'] = $_SERVER['PHP_AUTH_PW'];
+            }
+
+            // set authentication
+            $_SERVER['PHP_AUTH_USER'] = $adminUser;
+            $_SERVER['PHP_AUTH_PW']   = $adminPass;
+            $ret = call_user_func_array($func, $args);
+
+            // reset $_SERVER
+            unset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+            foreach ($backup as $k => $v) {
+                $_SERVER[$k] = $v;
+            }
+
+        } else {
+            $ret = call_user_func_array($func, $args);
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Normalize metadata to work with XCache
+     *
+     * @param  array $metadata
+     */
+    protected function normalizeMetadata(array & $metadata)
+    {
+        $metadata['internal_key'] = &$metadata['name'];
+        unset($metadata['name']);
+    }
+}
