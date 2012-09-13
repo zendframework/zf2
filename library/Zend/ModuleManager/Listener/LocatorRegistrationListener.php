@@ -118,7 +118,7 @@ class LocatorRegistrationListener extends AbstractListener implements
     public function attach(EventManagerInterface $events)
     {
         $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, array($this, 'onLoadModule'));
-        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES, array($this, 'onLoadModulesPost'), -1000);
+        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES_POST, array($this, 'onLoadModulesPost'), -1000);
         return $this;
     }
 
