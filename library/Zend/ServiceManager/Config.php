@@ -49,6 +49,11 @@ class Config implements ConfigInterface
         return (isset($this->config['aliases'])) ? $this->config['aliases'] : array();
     }
 
+    public function getTags()
+    {
+        return (isset($this->config['tags'])) ? $this->config['tags'] : array();
+    }
+
     public function getInitializers()
     {
         return (isset($this->config['initializers'])) ? $this->config['initializers'] : array();
@@ -82,6 +87,10 @@ class Config implements ConfigInterface
 
         foreach ($this->getAliases() as $alias => $nameOrAlias) {
             $serviceManager->setAlias($alias, $nameOrAlias);
+        }
+
+        foreach ($this->getTags() as $tags => $namesOrAliases) {
+            $serviceManager->addTag($tags, $namesOrAliases);
         }
 
         foreach ($this->getInitializers() as $initializer) {
