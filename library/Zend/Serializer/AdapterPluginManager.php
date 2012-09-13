@@ -36,6 +36,7 @@ class AdapterPluginManager extends AbstractPluginManager
         'phpserialize' => 'Zend\Serializer\Adapter\PhpSerialize',
         'pythonpickle' => 'Zend\Serializer\Adapter\PythonPickle',
         'wddx'         => 'Zend\Serializer\Adapter\Wddx',
+        'msgpack'      => 'Zend\Serializer\Adapter\MessagePack',
     );
 
     /**
