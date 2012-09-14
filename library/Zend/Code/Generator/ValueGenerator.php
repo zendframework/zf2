@@ -12,7 +12,7 @@ namespace Zend\Code\Generator;
 
 class ValueGenerator extends AbstractGenerator
 {
-    /**#@+
+    /**
      * Constant values
      */
     const TYPE_AUTO     = 'auto';
