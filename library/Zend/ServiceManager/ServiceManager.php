@@ -439,7 +439,7 @@ class ServiceManager implements ServiceLocatorInterface
      * @param  bool   $instantiate
      * @param  bool   $usePeeringServiceManagers
      * @return array
-     * @throws Exception\InvalidArgumentException
+     * @throws Exception\TagNotFoundException
      */
     public function getTag($name, $instantiate = true, $usePeeringServiceManagers = true)
     {
@@ -447,7 +447,7 @@ class ServiceManager implements ServiceLocatorInterface
         $rName = $name;
 
         if (!isset($this->tags[$cName])) {
-            throw new Exception\ServiceNotFoundException(sprintf(
+            throw new Exception\TagNotFoundException(sprintf(
                 '%s was unable to fetch a tag named %s.',
                 __METHOD__,
                 $rName

@@ -661,6 +661,15 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($serviceManager->hasTag('MoarCowBell'));
     }
 
+    /**
+     * @expectedException Zend\ServiceManager\Exception\TagNotFoundException
+     */
+    public function testTagNotFound()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->getTag('Zend\Test\DoesNotExists');
+    }
+
     public function testGetTagWithoutInstantiating()
     {
         $serviceManager = new ServiceManager();
