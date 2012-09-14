@@ -147,4 +147,17 @@ class StreamWriterTest extends \PHPUnit_Framework_TestCase
         $writer = new StreamWriter($options);
         $this->assertEquals('::', $writer->getLogSeparator());
     }
+    
+    public function testLogInErrorhandler()
+    {
+    	$writer = new StreamWriter('php://memory', 'w+', '::');
+    	set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) use ($writer) {
+    		$writer->write(array('message' => $errstr));
+    		return true;
+    	});
+    	trigger_error('error', E_USER_ERROR);
+    	trigger_error('error', E_USER_ERROR);
+    	// If we reach that point, it means it is effectively our anonymous handler that handled both errors
+    	$this->assertTrue(true);
+    }
 }
