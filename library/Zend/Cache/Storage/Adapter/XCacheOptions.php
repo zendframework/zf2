@@ -96,7 +96,7 @@ class XCacheOptions extends AdapterOptions
      * @param  null|string $adminPass
      * @return XCacheOptions
      */
-    public function setAdminUser($adminPass)
+    public function setAdminPass($adminPass)
     {
         $adminPass = ($adminPass === null) ? null : (string)$adminPass;
         if ($this->adminPass !== $adminPass) {

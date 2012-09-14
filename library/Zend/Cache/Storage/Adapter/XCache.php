@@ -175,7 +175,7 @@ class XCache extends AbstractAdapter implements
         $success = ($result !== null);
 
         if ($success) {
-            $casToken = $value;
+            $casToken = $result;
         }
 
         return $result;
