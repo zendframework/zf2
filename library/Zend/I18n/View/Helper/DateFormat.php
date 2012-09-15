@@ -56,6 +56,7 @@ class DateFormat extends AbstractHelper
     {
         $this->timezone = (string) $timezone;
 
+        /** @var IntlDateFormatter $formatter   */
         foreach ($this->formatters as $formatter) {
             $formatter->setTimeZoneId($this->timezone);
         }
@@ -82,7 +83,7 @@ class DateFormat extends AbstractHelper
      * @param  string $locale
      * @return DateFormat
      */
-    public function setlocale($locale)
+    public function setLocale($locale)
     {
         $this->locale = (string) $locale;
         return $this;
@@ -93,7 +94,7 @@ class DateFormat extends AbstractHelper
      *
      * @return string|null
      */
-    public function getlocale()
+    public function getLocale()
     {
         if ($this->locale === null) {
             $this->locale = Locale::getDefault();
