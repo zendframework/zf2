@@ -266,6 +266,42 @@ class XCache extends AbstractAdapter implements
         return xcache_unset($internalKey);
     }
 
+    /**
+     * Internal method to increment an item.
+     *
+     * @param  string $normalizedKey
+     * @param  int    $value
+     * @return int|boolean The new value on success, false on failure
+     * @throws Exception\ExceptionInterface
+     */
+    protected function internalIncrementItem(& $normalizedKey, & $value)
+    {
+        $options     = $this->getOptions();
+        $prefix      = $options->getNamespace() . $options->getNamespaceSeparator();
+        $internalKey = $prefix . $normalizedKey;
+        $ttl         = $options->getTtl();
+        $value       = (int) $value;
+        return xcache_inc($internalKey, $value, $ttl);
+    }
+
+    /**
+     * Internal method to decrement an item.
+     *
+     * @param  string $normalizedKey
+     * @param  int    $value
+     * @return int|boolean The new value on success, false on failure
+     * @throws Exception\ExceptionInterface
+     */
+    protected function internalDecrementItem(& $normalizedKey, & $value)
+    {
+        $options     = $this->getOptions();
+        $prefix      = $options->getNamespace() . $options->getNamespaceSeparator();
+        $internalKey = $prefix . $normalizedKey;
+        $ttl         = $options->getTtl();
+        $value       = (int) $value;
+        return xcache_dec($internalKey, $value, $ttl);
+    }
+
     /* status */
 
     /**
