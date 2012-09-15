@@ -234,7 +234,11 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $wait = $ttl + $capabilities->getTtlPrecision();
         usleep($wait * 2000000);
 
-        $this->assertFalse($this->_storage->hasItem('key'));
+        if (!$capabilities->getUseRequestTime()) {
+            $this->assertFalse($this->_storage->hasItem('key'));
+        } else {
+            $this->assertTrue($this->_storage->hasItem('key'));
+        }
     }
 
     public function testHasItemNonReadable()
@@ -544,11 +548,13 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $wait = $ttl + $capabilities->getTtlPrecision();
         usleep($wait * 2000000);
 
-        if (!$capabilities->getUseRequestTime()) {
-            $this->assertNull($this->_storage->getItem('key'));
-        } else {
+        if ($capabilities->getUseRequestTime()) {
+            // Can't test much more if the request time will be used
             $this->assertEquals('value', $this->_storage->getItem('key'));
+            return;
         }
+
+        $this->assertNull($this->_storage->getItem('key'));
 
         $this->_options->setTtl(0);
         if ($capabilities->getExpiredRead()) {
