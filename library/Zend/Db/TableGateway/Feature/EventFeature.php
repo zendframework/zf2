@@ -42,10 +42,10 @@ class EventFeature extends AbstractFeature
      * @param EventManagerInterface $eventManager
      * @param EventFeature\TableGatewayEvent $tableGatewayEvent
      */
-    public function __construct(EventManagerInterface $eventManager, EventFeature\TableGatewayEvent $tableGatewayEvent)
+    public function __construct(EventManagerInterface $eventManager, EventFeature\TableGatewayEvent $tableGatewayEvent = null)
     {
         $this->eventManager = $eventManager;
-        $this->event = ($tableGatewayEvent) ?: new EventFeature\TableGatewayEvent();
+        $this->event = ($tableGatewayEvent) ? $tableGatewayEvent : new EventFeature\TableGatewayEvent();
     }
 
     public function preInitialize()
@@ -138,5 +138,15 @@ class EventFeature extends AbstractFeature
         ));
         $this->eventManager->trigger($this->event);
     }
-
+    
+    public function getEventManager()
+    {
+        return $this->eventManager;
+    }
+    
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
+        $this->eventManager = $eventManager;
+        return $this;
+    }
 }
