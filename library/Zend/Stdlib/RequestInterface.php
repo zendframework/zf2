@@ -12,4 +12,13 @@ namespace Zend\Stdlib;
 
 interface RequestInterface extends MessageInterface
 {
+  /**
+  * @return bool
+  */
+  function isGet();
+  
+  /**
+  * @return bool
+  */
+  function isPost();
 }
