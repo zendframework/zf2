@@ -65,8 +65,7 @@ class XCache extends AbstractAdapter implements
             );
         }
 
-        $this->totalSpace = (int)ini_get('xcache.var_size');
-        if ($this->totalSpace <= 0) {
+        if (ini_get('xcache.var_size') <= 0) {
             throw new Exception\ExtensionNotLoadedException(
                 "ext/xcache is disabled - see 'xcache.var_size'"
             );
@@ -118,6 +117,16 @@ class XCache extends AbstractAdapter implements
      */
     public function getTotalSpace()
     {
+        if ($this->totalSpace === null) {
+            $this->totalSpace = 0;
+
+            $cnt = $this->_callAdminFunc('xcache_count', array(XC_TYPE_VAR));
+            for ($i=0; $i < $cnt; $i++) {
+                $info = $this->_callAdminFunc('xcache_info', array(XC_TYPE_VAR, $i));
+                $this->totalSpace+= $info['size'];
+            }
+        }
+
         return $this->totalSpace;
     }
 
