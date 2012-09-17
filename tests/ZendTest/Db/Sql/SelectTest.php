@@ -253,29 +253,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @testdox unit test: Test join() returns same Select object (is chainable)
-     * @covers Zend\Db\Sql\Select::having
-     */
-    public function testHaving()
-    {
-        $select = new Select;
-        $return = $select->having(array('x = ?' => 5));
-        $this->assertSame($select, $return);
-        return $return;
-    }
-
-    /**
-     * @testdox unit test: Test getRawState() returns information populated via having()
-     * @covers Zend\Db\Sql\Select::getRawState
-     * @depends testHaving
-     */
-    public function testGetRawStateViaHaving(Select $select)
-    {
-        $this->assertInstanceOf('Zend\Db\Sql\Having', $select->getRawState('having'));
-    }
-
-    /**
-     * @testdox unit test: Test join() returns same Select object (is chainable)
+     * @testdox unit test: Test group() returns same Select object (is chainable)
      * @covers Zend\Db\Sql\Select::group
      */
     public function testGroup()
@@ -297,6 +275,92 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array('col1', 'col2'),
             $select->getRawState('group')
         );
+    }
+
+    /**
+     * @testdox unit test: Test having() returns same Select object (is chainable)
+     * @covers Zend\Db\Sql\Select::having
+     */
+    public function testHaving()
+    {
+        $select = new Select;
+        $return = $select->having(array('x = ?' => 5));
+        $this->assertSame($select, $return);
+        return $return;
+    }
+
+    /**
+     * @testdox unit test: Test getRawState() returns information populated via having()
+     * @covers Zend\Db\Sql\Select::getRawState
+     * @depends testHaving
+     */
+    public function testGetRawStateViaHaving(Select $select)
+    {
+        $this->assertInstanceOf('Zend\Db\Sql\Having', $select->getRawState('having'));
+    }
+
+    /**
+     * @testdox unit test: Test reset() resets internal stat of Select object, based on input
+     * @covers Zend\Db\Sql\Select::reset
+     */
+    public function testReset()
+    {
+        $select = new Select;
+
+        // table
+        $select->from('foo');
+        $this->assertEquals('foo', $select->getRawState(Select::TABLE));
+        $select->reset(Select::TABLE);
+        $this->assertNull($select->getRawState(Select::TABLE));
+
+        // columns
+        $select->columns(array('foo'));
+        $this->assertEquals(array('foo'), $select->getRawState(Select::COLUMNS));
+        $select->reset(Select::COLUMNS);
+        $this->assertEmpty($select->getRawState(Select::COLUMNS));
+
+        // joins
+        $select->join('foo', 'id = boo');
+        $this->assertEquals(array(array('name' => 'foo', 'on' => 'id = boo', 'columns' => array('*'), 'type' => 'inner')), $select->getRawState(Select::JOINS));
+        $select->reset(Select::JOINS);
+        $this->assertEmpty($select->getRawState(Select::JOINS));
+
+        // where
+        $select->where('foo = bar');
+        $where1 = $select->getRawState(Select::WHERE);
+        $this->assertEquals(1, $where1->count());
+        $select->reset(Select::WHERE);
+        $where2 = $select->getRawState(Select::WHERE);
+        $this->assertEquals(0, $where2->count());
+        $this->assertNotSame($where1, $where2);
+
+        // group
+        $select->group(array('foo'));
+        $this->assertEquals(array('foo'), $select->getRawState(Select::GROUP));
+        $select->reset(Select::GROUP);
+        $this->assertEmpty($select->getRawState(Select::GROUP));
+
+        // having
+        $select->having('foo = bar');
+        $having1 = $select->getRawState(Select::HAVING);
+        $this->assertEquals(1, $having1->count());
+        $select->reset(Select::HAVING);
+        $having2 = $select->getRawState(Select::HAVING);
+        $this->assertEquals(0, $having2->count());
+        $this->assertNotSame($having1, $having2);
+
+        // limit
+        $select->limit(5);
+        $this->assertEquals(5, $select->getRawState(Select::LIMIT));
+        $select->reset(Select::LIMIT);
+        $this->assertNull($select->getRawState(Select::LIMIT));
+
+        // offset
+        $select->offset(10);
+        $this->assertEquals(10, $select->getRawState(Select::OFFSET));
+        $select->reset(Select::OFFSET);
+        $this->assertNull($select->getRawState(Select::OFFSET));
+
     }
 
     /**
@@ -352,9 +416,13 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select = new Select;
         $select1 = clone $select;
         $select1->where('id = foo');
+        $select1->having('id = foo');
 
         $this->assertEquals(0, $select->where->count());
         $this->assertEquals(1, $select1->where->count());
+
+        $this->assertEquals(0, $select->having->count());
+        $this->assertEquals(1, $select1->having->count());
     }
 
     /**
@@ -746,6 +814,17 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             'processOrder'  => array(array(array('isnull("name") DESC'), array('"name"', Select::ORDER_ASCENDING)))
         );
 
+        // join with Expression object in COLUMNS part (ZF2-514)
+        // @co-author Koen Pieters (kpieters)
+        $select35 = new Select;
+        $select35->from('foo')->columns(array())->join('bar', 'm = n', array('thecount' => new Expression("COUNT(*)")));
+        $sqlPrep35 = // same
+        $sqlStr35 = 'SELECT COUNT(*) AS "thecount" FROM "foo" INNER JOIN "bar" ON "m" = "n"';
+        $internalTests35 = array(
+            'processSelect' => array(array(array('COUNT(*)', '"thecount"')), '"foo"'),
+            'processJoins'   => array(array(array('INNER', '"bar"', '"m" = "n"')))
+        );
+
         /**
          * $select = the select object
          * $sqlPrep = the sql as a result of preparation
@@ -790,6 +869,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select32, $sqlPrep32, array(),    $sqlStr32, $internalTests32),
             array($select33, $sqlPrep33, array(),    $sqlStr33, $internalTests33),
             array($select34, $sqlPrep34, array(),    $sqlStr34, $internalTests34),
+            array($select35, $sqlPrep35, array(),    $sqlStr35, $internalTests35),
         );
     }
 

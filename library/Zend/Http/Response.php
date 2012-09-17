@@ -180,7 +180,7 @@ class Response extends AbstractMessage implements ResponseInterface
 
         $response = new static();
 
-        $regex   = '/^HTTP\/(?P<version>1\.[01]) (?P<status>\d{3})(?:[ ]+(?P<reason>.+))?$/';
+        $regex   = '/^HTTP\/(?P<version>1\.[01]) (?P<status>\d{3})(?:[ ]+(?P<reason>.*))?$/';
         $matches = array();
         if (!preg_match($regex, $firstLine, $matches)) {
             throw new Exception\InvalidArgumentException(
@@ -511,8 +511,7 @@ class Response extends AbstractMessage implements ResponseInterface
 
         if ($zlibHeader[1] % 31 == 0) {
             return gzuncompress($body);
-        } else {
-            return gzinflate($body);
         }
+        return gzinflate($body);
     }
 }

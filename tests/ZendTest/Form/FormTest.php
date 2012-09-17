@@ -159,6 +159,14 @@ class FormTest extends TestCase
         $this->assertSame($filter, $this->form->getInputFilter());
     }
 
+    public function testDefaultNonRequiredInputFilterIsSet()
+    {
+        $this->form->add(new Element('foo'));
+        $inputFilter = $this->form->getInputFilter();
+        $fooInput = $inputFilter->get('foo');
+        $this->assertFalse($fooInput->isRequired());
+    }
+
     public function testCallingIsValidRaisesExceptionIfNoDataSet()
     {
         $this->setExpectedException('Zend\Form\Exception\DomainException');
@@ -284,6 +292,23 @@ class FormTest extends TestCase
 
         $data = $this->form->getData();
         $this->assertInternalType('array', $data);
+    }
+
+    /**
+     * @group ZF2-336
+     */
+    public function testCanAddFileEnctypeAttribute()
+    {
+        $this->form->add(array(
+            'name' => 'file_resource',
+            'attributes' => array(
+                'label' => 'This is a file',
+                'type' => 'file',
+            )));
+
+        $enctype = $this->form->getAttribute('enctype');
+        $this->assertNotEmpty($enctype);
+        $this->assertEquals($enctype, 'multipart/form-data');
     }
 
     public function testCallingGetDataReturnsNormalizedDataByDefault()
