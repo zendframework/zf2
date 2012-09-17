@@ -391,7 +391,7 @@ class Filesystem extends AbstractAdapter implements
      */
     public function getTotalSpace()
     {
-        if ($this->totalSpace !== null) {
+        if ($this->totalSpace === null) {
             $path = $this->getOptions()->getCacheDir();
 
             ErrorHandler::start();
@@ -400,6 +400,7 @@ class Filesystem extends AbstractAdapter implements
             if ($total === false) {
                 throw new Exception\RuntimeException("Can't detect total space of '{$path}'", 0, $error);
             }
+            $this->totalSpace = $total;
 
             // clean total space buffer on change cache_dir
             $events     = $this->getEventManager();
@@ -412,7 +413,7 @@ class Filesystem extends AbstractAdapter implements
                     $events->detach($handle);
                 }
             };
-            $handle = $events->attach($callback);
+            $handle = $events->attach('option', $callback);
         }
 
         return $this->totalSpace;
