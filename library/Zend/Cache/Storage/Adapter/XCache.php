@@ -15,6 +15,8 @@ use Traversable;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\AvailableSpaceCapableInterface;
 use Zend\Cache\Storage\Capabilities;
+use Zend\Cache\Storage\ClearByNamespaceInterface;
+use Zend\Cache\Storage\ClearByPrefixInterface;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 
@@ -25,6 +27,8 @@ use Zend\Cache\Storage\TotalSpaceCapableInterface;
  */
 class XCache extends AbstractAdapter implements
     AvailableSpaceCapableInterface,
+    ClearByNamespaceInterface,
+    ClearByPrefixInterface,
     FlushableInterface,
     TotalSpaceCapableInterface
 {
@@ -135,6 +139,39 @@ class XCache extends AbstractAdapter implements
         }
 
         return $availableSpace;
+    }
+
+
+    /* ClearByNamespaceInterface */
+
+    /**
+     * Remove items by given namespace
+     *
+     * @param string $namespace
+     * @return boolean
+     */
+    public function clearByNamespace($namespace)
+    {
+        $options = $this->getOptions();
+        $prefix  = $namespace . $options->getNamespaceSeparator();
+        xcache_unset_by_prefix($prefix);
+        return true;
+    }
+
+    /* ClearByPrefixInterface */
+
+    /**
+     * Remove items matching given prefix
+     *
+     * @param string $prefix
+     * @return boolean
+     */
+    public function clearByPrefix($prefix)
+    {
+        $options = $this->getOptions();
+        $prefix  = $options->getNamespace() . $options->getNamespaceSeparator() . $prefix;
+        xcache_unset_by_prefix($prefix);
+        return true;
     }
 
     /* FlushableInterface */
