@@ -566,4 +566,127 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
         $this->serviceManager->{$method}('response', $service);
         $this->{$assertion}($expected, $this->serviceManager->get('response'));
     }
+
+    public function testRegisteredServicesContainsTags()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->addTag('Zend\Test', 'ItsOver9000');
+
+        $this->assertArrayHasKey('tags', $serviceManager->getRegisteredServices());
+    }
+
+    /**
+     * @depends testRegisteredServicesContainsTags
+     */
+    public function testCanAddTagWithStringServiceName()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->addTag('Zend\Test', 'AllYourBase');
+
+        $services = $serviceManager->getRegisteredServices();
+        $tags     = $services['tags'];
+
+        $this->assertArrayHasKey('zendtest', $tags);
+        $this->assertTrue(in_array('AllYourBase', $tags['zendtest']));
+    }
+
+    /**
+     * @expectedException Zend\ServiceManager\Exception\InvalidArgumentException
+     */
+    public function testCannotAddTagWithInvalidServiceName()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->addTag('Zend\Test', null);
+    }
+
+    /**
+     * @depends testRegisteredServicesContainsTags
+     */
+    public function testCanAddTagWithStringDoesNotOverride()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->addTag('Zend\Test', 'AllYourBase');
+        $serviceManager->addTag('Zend\Test', 'BelongsToUs');
+
+        $services = $serviceManager->getRegisteredServices();
+        $tags     = $services['tags'];
+
+        $this->assertArrayHasKey('zendtest', $tags);
+        $this->assertTrue(in_array('BelongsToUs', $tags['zendtest']));
+    }
+
+    /**
+     * @depends testRegisteredServicesContainsTags
+     */
+    public function testCanAddTagWithArrayServiceNames()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->addTag('Zend\Test', array('For', 'Great', 'Justice'));
+
+        $services = $serviceManager->getRegisteredServices();
+        $tags     = $services['tags'];
+
+        $this->assertArrayHasKey('zendtest', $tags);
+        $this->assertTrue(in_array('For', $tags['zendtest']));
+        $this->assertTrue(in_array('Great', $tags['zendtest']));
+        $this->assertTrue(in_array('Justice', $tags['zendtest']));
+    }
+
+    /**
+     * @depends testRegisteredServicesContainsTags
+     */
+    public function testCanAddTagWithArrayDoesNotOverride()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->addTag('Zend\Test', array('For', 'Great', 'Justice'));
+        $serviceManager->addTag('Zend\Test', array('Flux', 'Capacitor'));
+
+        $services = $serviceManager->getRegisteredServices();
+        $tags     = $services['tags'];
+
+        $this->assertArrayHasKey('zendtest', $tags);
+        $this->assertTrue(in_array('For', $tags['zendtest']));
+        $this->assertTrue(in_array('Great', $tags['zendtest']));
+        $this->assertTrue(in_array('Justice', $tags['zendtest']));
+        $this->assertTrue(in_array('Flux', $tags['zendtest']));
+        $this->assertTrue(in_array('Capacitor', $tags['zendtest']));
+    }
+
+    public function testHasTag()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->addTag('Zend\Test', 'CowBell');
+
+        $this->assertTrue($serviceManager->hasTag('Zend\Test'));
+        $this->assertFalse($serviceManager->hasTag('MoarCowBell'));
+    }
+
+    /**
+     * @expectedException Zend\ServiceManager\Exception\TagNotFoundException
+     */
+    public function testTagNotFound()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->getTag('Zend\Test\DoesNotExists');
+    }
+
+    public function testGetTagWithoutInstantiating()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->addTag('Zend\Test', 'CowBell');
+
+        $this->assertTrue(in_array('CowBell', $serviceManager->getTag('Zend\Test', false)));
+    }
+
+    public function testGetTagAndInstantiating()
+    {
+        $testStdClass   = new \stdClass();
+        $serviceManager = new ServiceManager();
+        $serviceManager->setService('UnitTesto', $testStdClass);
+        $serviceManager->addTag('Zend\Test', 'UnitTesto');
+
+        $tag = $serviceManager->getTag('Zend\Test');
+
+        $this->assertSame(spl_object_hash($testStdClass), spl_object_hash($tag['UnitTesto']));
+    }
 }

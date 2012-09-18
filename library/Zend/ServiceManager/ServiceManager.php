@@ -75,6 +75,11 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * @var array
      */
+    protected $tags = array();
+
+    /**
+     * @var array
+     */
     protected $initializers = array();
 
     /**
@@ -373,6 +378,93 @@ class ServiceManager implements ServiceLocatorInterface
 
         $this->shared[$cName] = (bool) $isShared;
         return $this;
+    }
+
+
+    /**
+     * Adds a tag.
+     *
+     * A tag can contain one or more services/aliases.
+     *
+     * @param  string       $name
+     * @param  string|array $serviceNames
+     * @return ServiceManager
+     * @throws Exception\InvalidArgumentException
+     */
+    public function addTag($name, $serviceNames)
+    {
+        $cName = $this->canonicalizeName($name);
+        $rName = $name;
+
+        if (!isset($this->tags[$cName])) {
+            $this->tags[$cName] = array();
+        }
+
+        if (is_string($serviceNames)) {
+            $this->tags[$cName] = array_merge($this->tags[$cName], array($serviceNames));
+        } elseif (is_array($serviceNames)) {
+            $this->tags[$cName] = array_merge($this->tags[$cName], $serviceNames);
+        } else {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Unable to add tag for %s. The second argument must be an array or string, %s given.',
+                $rName,
+                gettype($serviceNames)
+            ));
+        }
+
+        return $this;
+    }
+
+    /**
+     * Checks if a tag exists.
+     *
+     * @param  string $name
+     * @return bool
+     */
+    public function hasTag($name)
+    {
+        $cName = $this->canonicalizeName($name);
+
+        return isset($this->tags[$cName]);
+    }
+
+    /**
+     * Returns the all services associated with that tag.
+     *
+     * If $instantiate is set to true, the key will be the service name and the
+     * value will be an instance of that service, otherwise it will return a
+     * list containing the service names/aliases.
+     *
+     * @param  string $name
+     * @param  bool   $instantiate
+     * @param  bool   $usePeeringServiceManagers
+     * @return array
+     * @throws Exception\TagNotFoundException
+     */
+    public function getTag($name, $instantiate = true, $usePeeringServiceManagers = true)
+    {
+        $cName = $this->canonicalizeName($name);
+        $rName = $name;
+
+        if (!isset($this->tags[$cName])) {
+            throw new Exception\TagNotFoundException(sprintf(
+                '%s was unable to fetch a tag named %s.',
+                __METHOD__,
+                $rName
+            ));
+        }
+
+        if ($instantiate === true) {
+            $tag = array();
+
+            foreach ($this->tags[$cName] as $service) {
+                $tag[$service] = $this->get($service, $usePeeringServiceManagers);
+            }
+
+            return $tag;
+        }
+
+        return $this->tags[$cName];
     }
 
     /**
@@ -719,6 +811,7 @@ class ServiceManager implements ServiceLocatorInterface
             'factories' => array_keys($this->factories),
             'aliases' => array_keys($this->aliases),
             'instances' => array_keys($this->instances),
+            'tags' => $this->tags,
         );
     }
 

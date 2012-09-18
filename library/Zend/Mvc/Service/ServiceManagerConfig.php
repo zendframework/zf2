@@ -60,6 +60,13 @@ class ServiceManagerConfig implements ConfigInterface
     );
 
     /**
+     * Tags
+     *
+     * @var array
+     */
+    protected $tags = array();
+
+    /**
      * Shared services
      *
      * Services are shared by default; this is primarily to indicate services
@@ -96,6 +103,10 @@ class ServiceManagerConfig implements ConfigInterface
             $this->aliases = array_merge($this->aliases, $configuration['aliases']);
         }
 
+        if (isset($configuration['tags'])) {
+            $this->tags = array_merge($this->tags, $configuration['tags']);
+        }
+
         if (isset($configuration['shared'])) {
             $this->shared = array_merge($this->shared, $configuration['shared']);
         }
@@ -129,6 +140,10 @@ class ServiceManagerConfig implements ConfigInterface
 
         foreach ($this->aliases as $name => $service) {
             $serviceManager->setAlias($name, $service);
+        }
+
+        foreach ($this->tags as $name => $services) {
+            $serviceManager->addTag($name, $services);
         }
 
         foreach ($this->shared as $name => $value) {
