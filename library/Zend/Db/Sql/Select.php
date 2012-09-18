@@ -164,8 +164,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             throw new Exception\InvalidArgumentException('Since this object was created with a table and/or schema in the constructor, it is read only.');
         }
 
-        if (!is_string($table) && !is_array($table) && !$table instanceof TableIdentifier) {
-            throw new Exception\InvalidArgumentException('$table must be a string, array, or an instance of TableIdentifier');
+        if (!is_string($table) && !is_array($table) && !$table instanceof TableIdentifier && !$table instanceof Select) {
+            throw new Exception\InvalidArgumentException('$table must be a string, array, or an instance of TableIdentifier or Select');
         }
 
         if (is_array($table) && (!is_string(key($table)) || count($table) !== 1)) {
