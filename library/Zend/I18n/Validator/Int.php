@@ -60,17 +60,6 @@ class Int extends AbstractValidator
     }
 
     /**
-     * Returns the set locale
-     */
-    public function getLocale()
-    {
-        if (null === $this->locale) {
-            $this->locale = Locale::getDefault();
-        }
-        return $this->locale;
-    }
-
-    /**
      * Sets the locale to use
      *
      * @param  string $locale
@@ -80,6 +69,17 @@ class Int extends AbstractValidator
     {
         $this->locale = $locale;
         return $this;
+    }
+
+    /**
+     * Returns the set locale
+     */
+    public function getLocale()
+    {
+        if (null === $this->locale) {
+            $this->locale = Locale::getDefault();
+        }
+        return $this->locale;
     }
 
     /**

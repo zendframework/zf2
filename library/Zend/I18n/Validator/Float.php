@@ -60,19 +60,6 @@ class Float extends AbstractValidator
     }
 
     /**
-     * Returns the set locale
-     *
-     * @return string
-     */
-    public function getLocale()
-    {
-        if (null === $this->locale) {
-            $this->locale = Locale::getDefault();
-        }
-        return $this->locale;
-    }
-
-    /**
      * Sets the locale to use
      *
      * @param string|null $locale
@@ -84,6 +71,18 @@ class Float extends AbstractValidator
         return $this;
     }
 
+    /**
+     * Returns the set locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        if (null === $this->locale) {
+            $this->locale = Locale::getDefault();
+        }
+        return $this->locale;
+    }
 
     /**
      * Returns true if and only if $value is a floating-point value
