@@ -34,4 +34,11 @@ interface ConfigMergerInterface
      * @return ConfigMergerInterface
      */
     public function setMergedConfig(array $config);
+
+    /**
+     * Whether the config is already cached
+     *
+     * @return bool
+     */
+    public function hasCachedConfig();
 }

@@ -278,6 +278,21 @@ class ConfigListener extends AbstractListener implements
     }
 
     /**
+     * Whether the config is already cached
+     *
+     * @return bool
+     */
+    public function hasCachedConfig()
+    {
+        if (($this->getOptions()->getConfigCacheEnabled())
+            && (file_exists($this->getOptions()->getConfigCacheFile()))
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Add an array of paths of config files to merge after loading modules
      *
      * @param  Traversable|array $paths
@@ -371,19 +386,6 @@ class ConfigListener extends AbstractListener implements
         }
 
         return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function hasCachedConfig()
-    {
-        if (($this->getOptions()->getConfigCacheEnabled())
-            && (file_exists($this->getOptions()->getConfigCacheFile()))
-        ) {
-            return true;
-        }
-        return false;
     }
 
     /**
