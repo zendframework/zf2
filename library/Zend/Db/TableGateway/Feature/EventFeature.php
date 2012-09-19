@@ -45,7 +45,7 @@ class EventFeature extends AbstractFeature implements EventManagerAwareInterface
      */
     public function __construct(EventManagerInterface $eventManager, EventFeature\TableGatewayEvent $tableGatewayEvent = null)
     {
-        $this->eventManager = $eventManager;
+        $this->setEventManager($eventManager);
         $this->event = ($tableGatewayEvent) ?: new EventFeature\TableGatewayEvent();
     }
 
