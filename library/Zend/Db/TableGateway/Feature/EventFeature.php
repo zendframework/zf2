@@ -19,13 +19,14 @@ use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Update;
 use Zend\Db\TableGateway\Exception;
 use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\EventManagerAwareInterface;
 
 /**
  * @category   Zend
  * @package    Zend_Db
  * @subpackage TableGateway
  */
-class EventFeature extends AbstractFeature
+class EventFeature extends AbstractFeature implements EventManagerAwareInterface
 {
 
     /**
@@ -45,7 +46,7 @@ class EventFeature extends AbstractFeature
     public function __construct(EventManagerInterface $eventManager, EventFeature\TableGatewayEvent $tableGatewayEvent = null)
     {
         $this->eventManager = $eventManager;
-        $this->event = ($tableGatewayEvent) ? $tableGatewayEvent : new EventFeature\TableGatewayEvent();
+        $this->event = ($tableGatewayEvent) ?: new EventFeature\TableGatewayEvent();
     }
 
     public function preInitialize()
@@ -146,6 +147,10 @@ class EventFeature extends AbstractFeature
     
     public function setEventManager(EventManagerInterface $eventManager)
     {
+        $eventManager->addIdentifiers(array(
+            __CLASS__,
+            get_class($this),
+        ));
         $this->eventManager = $eventManager;
         return $this;
     }
