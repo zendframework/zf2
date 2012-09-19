@@ -52,7 +52,7 @@ class TranslatorTest extends TestCase
     {
         $translator = Translator::factory(array(
             'locale' => 'de_DE',
-            'patterns' => array(
+            'translation_patterns' => array(
                 array(
                     'type' => 'phparray',
                     'base_dir' => $this->testFilesDir . '/testarray',
@@ -75,7 +75,7 @@ class TranslatorTest extends TestCase
     {
         $translator = Translator::factory(array(
             'locale' => 'de_DE',
-            'patterns' => array(
+            'translation_patterns' => array(
                 array(
                     'type' => 'phparray',
                     'base_dir' => $this->testFilesDir . '/testarray',
@@ -113,6 +113,31 @@ class TranslatorTest extends TestCase
     }
 
 
+    public function testTranslateLoadFromOtherThanFile()
+    {
+        $translator = Translator::factory(array(
+            'locale' => 'es_ES',
+            'translation_patterns' => array(
+                array(
+                    'type' => 'test',
+                    'base_dir' => $this->testFilesDir . '/testarray',
+                    'pattern' => 'translation-%s.php',
+                    'is_file' => false
+                )
+            )
+        ));
+
+        $loader = $this->getMock('\Zend\I18N\Translator\Loader\LoaderInterface', array('load'));
+        $loader->expects($this->once())
+            ->method('load')
+            ->with($this->equalTo($this->testFilesDir . '/testarray/translation-es_ES.php'), $this->equalTo('es_ES'));
+
+        $translator->getPluginManager()->setService('test', $loader);
+
+        $this->assertEquals('foo', $translator->translate('foo'));
+    }
+
+
     public function testTranslateWithCache()
     {
         $cache = \Zend\Cache\StorageFactory::factory(array('adapter' => 'memory'));
@@ -136,12 +161,31 @@ class TranslatorTest extends TestCase
             'en_EN'
         );
 
-        $pl0 = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 1);
-        $pl1 = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 2);
-        $pl2 = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 10);
+        $pl0  = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 0);
+        $pl1  = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 1);
+        $pl2  = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 2);
+        $pl10 = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 10);
 
-        $this->assertEquals('Message 5 (en) Plural 0', $pl0);
-        $this->assertEquals('Message 5 (en) Plural 1', $pl1);
-        $this->assertEquals('Message 5 (en) Plural 2', $pl2);
+        $this->assertEquals('Message 5 (en) Plural 0 or not 10', $pl0);
+        $this->assertEquals('Message 5 (en) Plural 1 or Singular', $pl1);
+        $this->assertEquals('Message 5 (en) Plural 0 or not 10', $pl2);
+        $this->assertEquals('Message 5 (en) Plural 10', $pl10);
+    }
+
+    public function testTranslatePluralsAndSingular()
+    {
+        $this->translator->setLocale('en_EN');
+        $this->translator->addTranslationFile(
+            'phparray',
+            $this->testFilesDir . '/translation_en.php',
+            'default',
+            'en_EN'
+        );
+
+        $singular = $this->translator->translate('Message 5');
+        $plural   = $this->translator->translatePlural('Message 5', 'Message 5 Plural', 1);
+
+        $this->assertEquals('Message 5 (en) Plural 1 or Singular', $singular);
+        $this->assertEquals('Message 5 (en) Plural 1 or Singular', $plural);
     }
 }
