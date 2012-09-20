@@ -308,16 +308,16 @@ class Plural extends AbstractHelper
             case 15:
                 return (($number % 10) == 1 && $number != 11) ? 0 : 1;
             case 16:
-                // Breton is just crazy to write (especially with ternaries). If someone want to do it... ;-) Here are the rules :
-                /**
-                 * n == 1    => 0
-                 * n mod 10 is 1 and n mod 100 not in 11,71,91  => 1;
-                 * mod 10 is 2 and n mod 100 not in 12,72,92  => 2;
-                 * mod 10 in 3..4,9 and n mod 100 not in 10..19,70..79,90..99  => 3;
-                 * n mod 1000000 is 0 and n is not 0  => 4
-                 * everything else  => 5
-                 */
-                throw new Exception\RuntimeException('Breton is not implemented yet');
+                // TODO: optimize this case
+                return (($number == 1)) ? 0
+                    : (1 == (int)substr($number, -1, 1) && !in_array($number, array(11, 71, 91)) ? 1
+                        : (2 === (int)substr($number, -1, 1) && !in_array($number, array(12, 72, 92)) ? 2
+                            : (($tmp = (int)substr($number, -1, 1)) && in_array($tmp, array(3, 4, 9)) && !in_array($number, array(13, 14, 73, 74, 79, 93, 94, 99)) ? 3
+                                : (1000000 === (int)substr($number, -8, 7) ? 4
+                                    : 5 )
+                            )
+                        )
+                    );
             default:
                 return 0;
         }
