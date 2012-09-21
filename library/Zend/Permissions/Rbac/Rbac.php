@@ -28,12 +28,13 @@ class Rbac extends AbstractIterator
     protected $createMissingRoles = false;
 
     /**
-     * @param boolean $createMissingRoles
+     * @param  boolean                     $createMissingRoles
      * @return \Zend\Permissions\Rbac\Rbac
      */
     public function setCreateMissingRoles($createMissingRoles)
     {
         $this->createMissingRoles = $createMissingRoles;
+
         return $this;
     }
 
@@ -48,7 +49,7 @@ class Rbac extends AbstractIterator
     /**
      * Add a child.
      *
-     * @param string|AbstractRole $child
+     * @param  string|AbstractRole                $child
      * @return AbstractRole
      * @throws Exception\InvalidArgumentException
      */
@@ -67,7 +68,7 @@ class Rbac extends AbstractIterator
             if (!is_array($parents)) {
                 $parents = array($parents);
             }
-            foreach($parents as $parent) {
+            foreach ($parents as $parent) {
                 if ($this->createMissingRoles && !$this->hasRole($parent)) {
                     $this->addRole($parent);
                 }
@@ -76,19 +77,21 @@ class Rbac extends AbstractIterator
         }
 
         $this->children[] = $child;
+
         return $this;
     }
 
     /**
      * Is a child with $name registered?
      *
-     * @param \Zend\Permissions\Rbac\AbstractRole|string $objectOrName
+     * @param  \Zend\Permissions\Rbac\AbstractRole|string $objectOrName
      * @return bool
      */
     public function hasRole($objectOrName)
     {
         try {
             $this->getRole($objectOrName);
+
             return true;
         } catch (Exception\InvalidArgumentException $e) {
             return false;
@@ -98,7 +101,7 @@ class Rbac extends AbstractIterator
     /**
      * Get a child.
      *
-     * @param \Zend\Permissions\Rbac\AbstractRole|string $objectOrName
+     * @param  \Zend\Permissions\Rbac\AbstractRole|string $objectOrName
      * @return AbstractRole
      * @throws Exception\InvalidArgumentException
      */
@@ -111,7 +114,7 @@ class Rbac extends AbstractIterator
         }
 
         $it = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::CHILD_FIRST);
-        foreach($it as $leaf) {
+        foreach ($it as $leaf) {
             if ((is_string($objectOrName) && $leaf->getName() == $objectOrName) || $leaf == $objectOrName) {
                 return $leaf;
             }
@@ -126,7 +129,7 @@ class Rbac extends AbstractIterator
     /**
      * Determines if access is granted by checking the role and child roles for permission.
      *
-     * @param string $permission
+     * @param string                                                  $permission
      * @param \Zend\Permissions\Rbac\AssertionInterface|Callable|null $assert
      */
     public function isGranted($role, $permission, $assert = null)
@@ -136,7 +139,7 @@ class Rbac extends AbstractIterator
                 if (!$assert->assert($this)) {
                     return false;
                 }
-            } else if (is_callable($assert)) {
+            } elseif (is_callable($assert)) {
                 if (!$assert($this)) {
                     return false;
                 }
@@ -150,6 +153,7 @@ class Rbac extends AbstractIterator
         if ($this->getRole($role)->hasPermission($permission)) {
             return true;
         }
+
         return false;
     }
 }
