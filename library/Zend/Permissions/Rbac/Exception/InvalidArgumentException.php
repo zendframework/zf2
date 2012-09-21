@@ -13,7 +13,7 @@ namespace Zend\Permissions\Rbac\Exception;
 /**
  * @category   Zend
  * @package    Zend_Permissions
- * @subpackage Acl
+ * @subpackage Rbac
  */
 class InvalidArgumentException extends \InvalidArgumentException implements
     ExceptionInterface
