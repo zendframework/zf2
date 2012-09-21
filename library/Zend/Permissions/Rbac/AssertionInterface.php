@@ -10,8 +10,6 @@
 
 namespace Zend\Permissions\Rbac;
 
-use RecursiveIteratorIterator;
-
 /**
  * @category   Zend
  * @package    Zend_Permissions
@@ -22,7 +20,7 @@ interface AssertionInterface
     /**
      * Assertion method - must return a boolean.
      *
-     * @param Rbac $bac
+     * @param  Rbac    $bac
      * @return boolean
      */
     public function assert(Rbac $rbac);

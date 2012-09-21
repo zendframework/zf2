@@ -53,13 +53,14 @@ abstract class AbstractRole extends AbstractIterator
     public function addPermission($name)
     {
         $this->permissions[$name] = true;
+
         return $this;
     }
 
     /**
      * Checks if a permission exists for this role or any child roles.
      *
-     * @param string $name
+     * @param  string $name
      * @return bool
      */
     public function hasPermission($name)
@@ -69,19 +70,20 @@ abstract class AbstractRole extends AbstractIterator
         }
 
         $it = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::CHILD_FIRST);
-        foreach($it as $leaf) {
+        foreach ($it as $leaf) {
             /** @var AbstractRole $leaf */
             if ($leaf->hasPermission($name)) {
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Add a child.
      *
-     * @param AbstractRole|string $child
+     * @param  AbstractRole|string $child
      * @return Role
      */
     public function addChild($child)
@@ -97,16 +99,18 @@ abstract class AbstractRole extends AbstractIterator
 
         $child->setParent($this);
         $this->children[] = $child;
+
         return $this;
     }
 
     /**
-     * @param AbstractRole $parent
+     * @param  AbstractRole $parent
      * @return AbstractRole
      */
     public function setParent($parent)
     {
         $this->parent = $parent;
+
         return $this;
     }
 
