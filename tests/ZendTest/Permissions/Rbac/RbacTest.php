@@ -19,7 +19,7 @@ use ZendTest\Permissions\Rbac\TestAsset;
  * @subpackage UnitTests
  * @group      Zend_Rbac
  */
-class AclTest extends \PHPUnit_Framework_TestCase
+class RbacTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Zend\Permissions\Rbac\Rbac
