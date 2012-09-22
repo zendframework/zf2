@@ -299,6 +299,7 @@ class SetCookie implements MultipleHeaderInterface
     public function setValue($value)
     {
         $this->value = $value;
+        return $this;
     }
 
     /**
@@ -321,6 +322,7 @@ class SetCookie implements MultipleHeaderInterface
             throw new Exception\InvalidArgumentException('Invalid Version number specified');
         }
         $this->version = $version;
+        return $this;
     }
 
     /**
@@ -345,6 +347,7 @@ class SetCookie implements MultipleHeaderInterface
             throw new Exception\InvalidArgumentException('Invalid Max-Age number specified');
         }
         $this->maxAge = $maxAge;
+        return $this;
     }
 
     /**
@@ -396,6 +399,7 @@ class SetCookie implements MultipleHeaderInterface
     public function setDomain($domain)
     {
         $this->domain = $domain;
+        return $this;
     }
 
     /**
@@ -412,6 +416,7 @@ class SetCookie implements MultipleHeaderInterface
     public function setPath($path)
     {
         $this->path = $path;
+        return $this;
     }
 
     /**
@@ -428,6 +433,7 @@ class SetCookie implements MultipleHeaderInterface
     public function setSecure($secure)
     {
         $this->secure = $secure;
+        return $this;
     }
 
     /**
@@ -444,6 +450,7 @@ class SetCookie implements MultipleHeaderInterface
     public function setHttponly($httponly)
     {
         $this->httponly = $httponly;
+        return $this;
     }
 
     /**
