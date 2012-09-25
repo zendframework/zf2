@@ -105,6 +105,26 @@ class MultiCheckboxTest extends TestCase
         $this->assertTrue($explodeValidator->isValid($valueTests));
     }
 
+    /**
+     * Testing that InArray Validator Haystack is Updated if the Options
+     * are added after the validator is attached
+     *
+     * @dataProvider multiCheckboxOptionsDataProvider
+     */
+    public function testInArrayValidatorHaystakIsUpdated($valueTests, $options)
+    {
+        $element = new MultiCheckboxElement('my-checkbox');
+        $inputSpec = $element->getInputSpecification();
+        $inArrayValidator=$inputSpec['validators'][0]->getValidator();
+
+        $element->setAttributes(array(
+            'options' => $options,
+        ));
+        $haystack=$inArrayValidator->getHaystack();
+        $this->assertCount(count($options), $haystack);
+    }
+
+
     public function testAttributeType()
     {
         $element = new MultiCheckboxElement();
@@ -112,5 +132,16 @@ class MultiCheckboxTest extends TestCase
 
         $this->assertArrayHasKey('type', $attributes);
         $this->assertEquals('multi_checkbox', $attributes['type']);
+    }
+
+    public function testSetOptionsOptions()
+    {
+        $element = new MultiCheckboxElement();
+        $element->setOptions(array(
+                                  'value_options' => array('bar' => 'baz'),
+                                  'options' => array('foo' => 'bar'),
+                             ));
+        $this->assertEquals(array('bar' => 'baz'), $element->getOption('value_options'));
+        $this->assertEquals(array('foo' => 'bar'), $element->getOption('options'));
     }
 }
