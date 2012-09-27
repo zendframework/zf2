@@ -257,7 +257,7 @@ class Ldap implements AdapterInterface
         /* Iterate through each server and try to authenticate the supplied
          * credentials against it.
          */
-        foreach ($this->options as $name => $options) {
+        foreach ($this->options as $options) {
 
             if (!is_array($options)) {
                 throw new Exception\InvalidArgumentException('Adapter options array not an array');
@@ -439,9 +439,9 @@ class Ldap implements AdapterInterface
 
         if ($result === 1) {
             return true;
-        } else {
-            return 'Failed to verify group membership with ' . $group->toString();
         }
+
+        return 'Failed to verify group membership with ' . $group->toString();
     }
 
     /**

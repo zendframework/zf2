@@ -311,6 +311,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
             ) {
                 $enc = $this->view->getEncoding();
             }
+            $escaper = $this->getEscaper($enc);
             foreach ($item->attributes as $key => $value) {
                 if (!in_array($key, $this->optionalAttributes)) {
                     continue;
@@ -333,12 +334,12 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
                         $value = substr($value, 0, -1);
                     }
                 }
-                $attrString .= sprintf(' %s="%s"', $key, htmlspecialchars($value, ENT_COMPAT, $enc));
+                $attrString .= sprintf(' %s="%s"', $key, $escaper->escapeHtmlAttr($value));
             }
         }
 
-        $escapeStart = $indent . '<!--'. PHP_EOL;
-        $escapeEnd = $indent . '-->'. PHP_EOL;
+        $escapeStart = $indent . '<!--' . PHP_EOL;
+        $escapeEnd = $indent . '-->' . PHP_EOL;
         if (isset($item->attributes['conditional'])
             && !empty($item->attributes['conditional'])
             && is_string($item->attributes['conditional'])

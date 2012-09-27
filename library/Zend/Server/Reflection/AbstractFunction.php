@@ -268,7 +268,7 @@ abstract class AbstractFunction
             // Get param types and description
             if (preg_match_all('/@param\s+([^\s]+)/m', $docBlock, $matches)) {
                 $paramTypesTmp = $matches[1];
-                if (preg_match_all('/@param\s+\S+\s+(\$\S+)\s+(.*?)(@|\*\/)/s', $docBlock, $matches)) {
+                if (preg_match_all('/@param\s+\S+\s+(\$\S+)\s+(.*?)(?=@|\*\/)/s', $docBlock, $matches)) {
                     $paramDesc = $matches[2];
                     foreach ($paramDesc as $key => $value) {
                         $value = preg_replace('/\s?\*\s/m', '', $value);
@@ -280,6 +280,16 @@ abstract class AbstractFunction
         } else {
             $helpText = $function->getName();
             $return   = 'void';
+
+            // Try and auto-determine type, based on reflection
+            $paramTypesTmp = array();
+            foreach ($parameters as $i => $param) {
+                $paramType = 'mixed';
+                if ($param->isArray()) {
+                    $paramType = 'array';
+                }
+                $paramTypesTmp[$i] = $paramType;
+            }
         }
 
         // Set method description
@@ -342,7 +352,7 @@ abstract class AbstractFunction
             return call_user_func_array(array($this->reflection, $method), $args);
         }
 
-        throw new Exception\BadMethodCallException('Invalid reflection method ("' .$method. '")');
+        throw new Exception\BadMethodCallException('Invalid reflection method ("' . $method . '")');
     }
 
     /**

@@ -319,7 +319,7 @@ class Client implements Stdlib\DispatchableInterface
     /**
      * Get uri (from the request)
      *
-     * @return Zend\Uri\Http
+     * @return Http
      */
     public function getUri()
     {
@@ -1136,7 +1136,7 @@ class Client implements Stdlib\DispatchableInterface
                 }
 
                 // Encode files
-                foreach ($this->getRequest()->getFiles()->toArray() as $key => $file) {
+                foreach ($this->getRequest()->getFiles()->toArray() as $file) {
                     $fhead = array('Content-Type' => $file['ctype']);
                     $body .= $this->encodeFormData($boundary, $file['formname'], $file['data'], $file['filename'], $fhead);
                 }

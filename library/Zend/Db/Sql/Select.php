@@ -22,6 +22,7 @@ use Zend\Db\Adapter\Platform\Sql92 as AdapterSql92Platform;
  * @subpackage Sql
  *
  * @property Where $where
+ * @property Having $having
  */
 class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 {
@@ -395,6 +396,12 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             case self::WHERE:
                 $this->where = new Where;
                 break;
+            case self::GROUP:
+                $this->group = null;
+                break;
+            case self::HAVING:
+                $this->having = new Having;
+                break;
             case self::LIMIT:
                 $this->limit = null;
                 break;
@@ -612,8 +619,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 ? $platform->quoteIdentifier(current($join['name'])) . ' AS ' . $platform->quoteIdentifier(key($join['name']))
                 : $platform->quoteIdentifier($join['name']);
             // on expression
+            // note: for Expression objects, pass them to processExpression with a prefix specific to each join (used for named parameters)
             $joinSpecArgArray[$j][] = ($join['on'] instanceof ExpressionInterface)
-                ? $this->processExpression($join['on'], $platform, $adapter, $this->processInfo['paramPrefix'] . 'join')
+                ? $this->processExpression($join['on'], $platform, $adapter, $this->processInfo['paramPrefix'] . 'join' . ($j+1) . 'part')
                 : $platform->quoteIdentifierInFragment($join['on'], array('=', 'AND', 'OR', '(', ')', 'BETWEEN')); // on
             if ($joinSpecArgArray[$j][2] instanceof StatementContainerInterface) {
                 if ($parameterContainer) {
@@ -738,8 +746,6 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Variable overloading
      *
-     * Proxies to "where" only
-     *
      * @param  string $name
      * @throws Exception\InvalidArgumentException
      * @return mixed
@@ -749,6 +755,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
         switch (strtolower($name)) {
             case 'where':
                 return $this->where;
+            case 'having':
+                return $this->having;
             default:
                 throw new Exception\InvalidArgumentException('Not a valid magic property for this object');
         }
@@ -763,6 +771,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function __clone()
     {
-        $this->where = clone $this->where;
+        $this->where  = clone $this->where;
+        $this->having = clone $this->having;
     }
 }
