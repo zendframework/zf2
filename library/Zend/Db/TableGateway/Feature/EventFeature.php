@@ -17,7 +17,6 @@ use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Update;
-use Zend\Db\TableGateway\Exception;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventManagerAwareInterface;
 
@@ -40,7 +39,7 @@ class EventFeature extends AbstractFeature implements EventManagerAwareInterface
     protected $event = null;
 
     /**
-     * @param EventManagerInterface $eventManager
+     * @param EventManagerInterface          $eventManager
      * @param EventFeature\TableGatewayEvent $tableGatewayEvent
      */
     public function __construct(EventManagerInterface $eventManager, EventFeature\TableGatewayEvent $tableGatewayEvent = null)
@@ -139,12 +138,12 @@ class EventFeature extends AbstractFeature implements EventManagerAwareInterface
         ));
         $this->eventManager->trigger($this->event);
     }
-    
+
     public function getEventManager()
     {
         return $this->eventManager;
     }
-    
+
     public function setEventManager(EventManagerInterface $eventManager)
     {
         $eventManager->addIdentifiers(array(
@@ -152,6 +151,7 @@ class EventFeature extends AbstractFeature implements EventManagerAwareInterface
             get_class($this),
         ));
         $this->eventManager = $eventManager;
+
         return $this;
     }
 }
