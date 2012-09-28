@@ -36,9 +36,15 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testFrom()
     {
+        $select    = new Select;
+        $subselect = new Select();
+        $select->from($subselect);
+        $this->assertSame($subselect, $select->getRawState(Select::TABLE));
+
         $select = new Select;
         $return = $select->from('foo', 'bar');
         $this->assertSame($select, $return);
+
         return $return;
     }
 
