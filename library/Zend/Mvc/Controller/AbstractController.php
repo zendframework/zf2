@@ -151,6 +151,7 @@ abstract class AbstractController implements
     public function setEventManager(EventManagerInterface $events)
     {
         $events->setIdentifiers(array(
+            '*',
             'Zend\Stdlib\DispatchableInterface',
             __CLASS__,
             get_called_class(),
