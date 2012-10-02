@@ -283,7 +283,7 @@ class ModuleAutoloader implements SplAutoloader
      */
     public function unregister()
     {
-        $test = spl_autoload_unregister(array($this, 'autoload'));
+        spl_autoload_unregister(array($this, 'autoload'));
     }
 
     /**
