@@ -1287,6 +1287,11 @@ class UriTest extends \PHPUnit_Framework_TestCase
             //  RFC 3986 Capitalizing letters in escape sequences.
             array('http://www.example.com/a%c2%b1b', 'http://www.example.com/a%C2%B1b'),
 
+            // RFC 3986 decode only unreserved characters
+            array('http://www.example.com/%41%2d%5a%2e%c3%b6', 'http://www.example.com/A-Z.%C3%B6'),
+
+
+
             // This should be left unchanged, at least for the generic Uri class
             array('http://example.com:80/file?query=bar', 'http://example.com:80/file?query=bar'),
         );
