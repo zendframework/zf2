@@ -26,7 +26,7 @@ class Decompress extends Compress
      * @param  string $value Content to decompress
      * @return string The decompressed content
      */
-    public function __invoke($value)
+    public function filter($value)
     {
         return $this->getAdapter()->decompress($value);
     }

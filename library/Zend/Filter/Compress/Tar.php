@@ -130,16 +130,16 @@ class Tar extends AbstractCompressionAlgorithm
      */
     public function setMode($mode)
     {
-        $mode = ucfirst(strtolower($mode));
-        if (($mode != 'Bz2') && ($mode != 'Gz')) {
+        $mode = strtolower($mode);
+        if (($mode != 'bz2') && ($mode != 'gz')) {
             throw new Exception\InvalidArgumentException("The mode '$mode' is unknown");
         }
 
-        if (($mode == 'Bz2') && (!extension_loaded('bz2'))) {
+        if (($mode == 'bz2') && (!extension_loaded('bz2'))) {
             throw new Exception\ExtensionNotLoadedException('This mode needs the bz2 extension');
         }
 
-        if (($mode == 'Gz') && (!extension_loaded('zlib'))) {
+        if (($mode == 'gz') && (!extension_loaded('zlib'))) {
             throw new Exception\ExtensionNotLoadedException('This mode needs the zlib extension');
         }
 
@@ -207,11 +207,16 @@ class Tar extends AbstractCompressionAlgorithm
     {
         $archive = $this->getArchive();
         if (empty($archive) || !file_exists($archive)) {
-            throw new Exception\RuntimeException('Tar Archive not found');
+            throw new Exception\RuntimeException(sprintf('Tar Archive "%s" not found', $archive));
         }
 
         $archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, realpath($content));
         $archive = new Archive_Tar($archive, $this->getMode());
+        
+        $archive->setErrorHandling(PEAR_ERROR_CALLBACK, function($error) { 
+            throw new Exception\RuntimeException($error->getMessage());
+        });
+        
         $target  = $this->getTarget();
         if (!is_dir($target)) {
             $target = dirname($target) . DIRECTORY_SEPARATOR;
@@ -219,7 +224,7 @@ class Tar extends AbstractCompressionAlgorithm
 
         $result = $archive->extract($target);
         if ($result === false) {
-            throw new Exception\RuntimeException('Error while extracting the Tar archive');
+            throw new Exception\RuntimeException('Unknown Error while extracting the Tar archive');
         }
 
         return $target;
