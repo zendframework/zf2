@@ -158,6 +158,10 @@ class Tar extends AbstractCompressionAlgorithm
     public function compress($content)
     {
         $archive = new Archive_Tar($this->getArchive(), $this->getMode());
+        $archive->setErrorHandling(PEAR_ERROR_CALLBACK, function($error) { 
+            throw new Exception\RuntimeException($error->getMessage());
+        });
+        
         if (!file_exists($content)) {
             $file = $this->getTarget();
             if (is_dir($file)) {
