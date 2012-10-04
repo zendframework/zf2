@@ -199,7 +199,7 @@ class Connection implements ConnectionInterface
      */
     public function disconnect()
     {
-        if ($this->resource instanceof \PDO) {
+        if ($this->resource instanceof \mysqli) {
             $this->resource->close();
         }
         unset($this->resource);
