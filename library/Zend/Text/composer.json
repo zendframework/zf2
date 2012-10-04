@@ -8,12 +8,13 @@
     ],
     "autoload": {
         "psr-0": {
-            "Zend\\Text": ""
+            "Zend\\Text\\": ""
         }
     },
     "target-dir": "Zend/Text",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zend-stdlib": "self.version"
+        "zendframework/zend-stdlib": "self.version",
+        "zendframework/zend-servicemanager": "self.version"
     }
 }
