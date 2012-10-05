@@ -29,7 +29,7 @@ class PatternFactory
     /**
      * Instantiate a cache pattern
      *
-     * @param  string|Pattern\PatternInterface $patternName
+     * @param  string|Pattern\PatternInterface          $patternName
      * @param  array|Traversable|Pattern\PatternOptions $options
      * @return Pattern\PatternInterface
      * @throws Exception\InvalidArgumentException
@@ -52,11 +52,13 @@ class PatternFactory
 
         if ($patternName instanceof Pattern\PatternInterface) {
             $patternName->setOptions($options);
+
             return $patternName;
         }
 
         $pattern = static::getPluginManager()->get($patternName);
         $pattern->setOptions($options);
+
         return $pattern;
     }
 

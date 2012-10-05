@@ -45,9 +45,9 @@ class Confirm extends Char
     /**
      * Ask the user for a single key stroke
      *
-     * @param string    $promptText     The prompt text to display in console
-     * @param string    $yesChar        The "yes" key (defaults to Y)
-     * @param string    $noChar         The "no" key (defaults to N)
+     * @param string $promptText The prompt text to display in console
+     * @param string $yesChar    The "yes" key (defaults to Y)
+     * @param string $noChar     The "no" key (defaults to N)
      */
     public function __construct(
         $promptText = 'Are you sure?',
@@ -75,9 +75,9 @@ class Confirm extends Char
     public function show()
     {
         $response = parent::show() === $this->yesChar;
+
         return $this->lastResponse = $response;
     }
-
 
     /**
      * @param string $noChar

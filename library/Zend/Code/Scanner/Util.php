@@ -33,11 +33,13 @@ class Util
 
         if ($data->namespace && !$data->uses && strlen($value) > 0 && $value{0} != '\\') {
             $value = $data->namespace . '\\' . $value;
+
             return;
         }
 
         if (!$data->uses || strlen($value) <= 0 || $value{0} == '\\') {
             $value = ltrim($value, '\\');
+
             return;
         }
 
@@ -50,10 +52,12 @@ class Util
             }
             if (array_key_exists($firstPart, $data->uses)) {
                 $value = substr_replace($value, $data->uses[$firstPart], 0, $firstPartEnd);
+
                 return;
             }
             if ($data->namespace) {
                 $value = $data->namespace . '\\' . $value;
+
                 return;
             }
         }

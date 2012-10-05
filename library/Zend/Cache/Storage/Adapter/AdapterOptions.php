@@ -79,13 +79,14 @@ class AdapterOptions extends AbstractOptions
     public function setAdapter(StorageInterface $adapter = null)
     {
         $this->adapter = $adapter;
+
         return $this;
     }
 
     /**
      * Set key pattern
      *
-     * @param  null|string $keyPattern
+     * @param  null|string                        $keyPattern
      * @throws Exception\InvalidArgumentException
      * @return AdapterOptions
      */
@@ -127,7 +128,7 @@ class AdapterOptions extends AbstractOptions
     /**
      * Set namespace.
      *
-     * @param  string $namespace
+     * @param  string         $namespace
      * @return AdapterOptions
      */
     public function setNamespace($namespace)
@@ -154,7 +155,7 @@ class AdapterOptions extends AbstractOptions
     /**
      * Enable/Disable reading data from cache.
      *
-     * @param  boolean $readable
+     * @param  boolean         $readable
      * @return AbstractAdapter
      */
     public function setReadable($readable)
@@ -164,6 +165,7 @@ class AdapterOptions extends AbstractOptions
             $this->triggerOptionEvent('readable', $readable);
             $this->readable = $readable;
         }
+
         return $this;
     }
 
@@ -180,7 +182,7 @@ class AdapterOptions extends AbstractOptions
     /**
      * Set time to live.
      *
-     * @param  int|float $ttl
+     * @param  int|float      $ttl
      * @return AdapterOptions
      */
     public function setTtl($ttl)
@@ -190,6 +192,7 @@ class AdapterOptions extends AbstractOptions
             $this->triggerOptionEvent('ttl', $ttl);
             $this->ttl = $ttl;
         }
+
         return $this;
     }
 
@@ -206,7 +209,7 @@ class AdapterOptions extends AbstractOptions
     /**
      * Enable/Disable writing data to cache.
      *
-     * @param  boolean $writable
+     * @param  boolean        $writable
      * @return AdapterOptions
      */
     public function setWritable($writable)
@@ -216,6 +219,7 @@ class AdapterOptions extends AbstractOptions
             $this->triggerOptionEvent('writable', $writable);
             $this->writable = $writable;
         }
+
         return $this;
     }
 
@@ -233,8 +237,8 @@ class AdapterOptions extends AbstractOptions
      * Triggers an option event if this options instance has a connection to
      * an adapter implements EventsCapableInterface.
      *
-     * @param string $optionName
-     * @param mixed  $optionValue
+     * @param  string $optionName
+     * @param  mixed  $optionValue
      * @return void
      */
     protected function triggerOptionEvent($optionName, $optionValue)
@@ -248,7 +252,7 @@ class AdapterOptions extends AbstractOptions
     /**
      * Validates and normalize a TTL.
      *
-     * @param  int|float $ttl
+     * @param  int|float                          $ttl
      * @throws Exception\InvalidArgumentException
      * @return void
      */

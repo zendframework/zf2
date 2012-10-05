@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\AvailableSpaceCapableInterface;
 use Zend\Cache\Storage\ClearByNamespaceInterface;
@@ -71,7 +70,7 @@ class ZendServerDisk extends AbstractZendServer implements
     /**
      * Remove items of given namespace
      *
-     * @param string $namespace
+     * @param  string  $namespace
      * @return boolean
      */
     public function clearByNamespace($namespace)
@@ -99,6 +98,7 @@ class ZendServerDisk extends AbstractZendServer implements
                 throw new Exception\RuntimeException("Can't detect total space of '{$path}'", 0, $error);
             }
         }
+
         return $this->totalSpace;
     }
 
@@ -129,9 +129,9 @@ class ZendServerDisk extends AbstractZendServer implements
     /**
      * Store data into Zend Data Disk Cache
      *
-     * @param  string $internalKey
-     * @param  mixed  $value
-     * @param  int    $ttl
+     * @param  string                     $internalKey
+     * @param  mixed                      $value
+     * @param  int                        $ttl
      * @return void
      * @throws Exception\RuntimeException
      */
@@ -148,20 +148,20 @@ class ZendServerDisk extends AbstractZendServer implements
     /**
      * Fetch a single item from Zend Data Disk Cache
      *
-     * @param  string $internalKey
-     * @return mixed The stored value or FALSE if item wasn't found
+     * @param  string                     $internalKey
+     * @return mixed                      The stored value or FALSE if item wasn't found
      * @throws Exception\RuntimeException
      */
     protected function zdcFetch($internalKey)
     {
-        return zend_disk_cache_fetch((string)$internalKey);
+        return zend_disk_cache_fetch((string) $internalKey);
     }
 
     /**
      * Fetch multiple items from Zend Data Disk Cache
      *
-     * @param  array $internalKeys
-     * @return array All found items
+     * @param  array                      $internalKeys
+     * @return array                      All found items
      * @throws Exception\RuntimeException
      */
     protected function zdcFetchMulti(array $internalKeys)
@@ -170,13 +170,14 @@ class ZendServerDisk extends AbstractZendServer implements
         if ($items === false) {
             throw new Exception\RuntimeException("zend_disk_cache_fetch(<array>) failed");
         }
+
         return $items;
     }
 
     /**
      * Delete data from Zend Data Disk Cache
      *
-     * @param  string $internalKey
+     * @param  string                     $internalKey
      * @return boolean
      * @throws Exception\RuntimeException
      */

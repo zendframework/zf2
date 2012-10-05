@@ -31,10 +31,10 @@ class PostEvent extends Event
      *
      * Accept a target and its parameters.
      *
-     * @param  string           $name
-     * @param  StorageInterface $storage
-     * @param  ArrayObject      $params
-     * @param  mixed            $result
+     * @param string           $name
+     * @param StorageInterface $storage
+     * @param ArrayObject      $params
+     * @param mixed            $result
      */
     public function __construct($name, StorageInterface $storage, ArrayObject $params, & $result)
     {
@@ -45,12 +45,13 @@ class PostEvent extends Event
     /**
      * Set the result/return value
      *
-     * @param  mixed $value
+     * @param  mixed     $value
      * @return PostEvent
      */
     public function setResult(& $value)
     {
         $this->result = & $value;
+
         return $this;
     }
 

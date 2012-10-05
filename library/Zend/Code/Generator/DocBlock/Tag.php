@@ -61,7 +61,7 @@ class Tag extends AbstractGenerator
     /**
      * fromReflection()
      *
-     * @param ReflectionDocBlockTag $reflectionTag
+     * @param  ReflectionDocBlockTag $reflectionTag
      * @return Tag
      */
     public static function fromReflection(ReflectionDocBlockTag $reflectionTag)
@@ -88,12 +88,13 @@ class Tag extends AbstractGenerator
     /**
      * setName()
      *
-     * @param string $name
+     * @param  string $name
      * @return Tag
      */
     public function setName($name)
     {
         $this->name = ltrim($name, '@');
+
         return $this;
     }
 
@@ -110,12 +111,13 @@ class Tag extends AbstractGenerator
     /**
      * setDescription()
      *
-     * @param string $description
+     * @param  string $description
      * @return Tag
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -138,6 +140,7 @@ class Tag extends AbstractGenerator
     {
         $output = '@' . $this->name
             . (($this->description != null) ? ' ' . $this->description : '');
+
         return $output;
     }
 

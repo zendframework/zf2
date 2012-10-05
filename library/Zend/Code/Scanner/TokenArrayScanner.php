@@ -75,6 +75,7 @@ class TokenArrayScanner implements ScannerInterface
                 continue;
             } elseif ($type == T_DOC_COMMENT) {
                 $this->docComment = $value;
+
                 return $this->docComment;
             } else {
                 // Only whitespace is allowed before file docblocks
@@ -93,12 +94,14 @@ class TokenArrayScanner implements ScannerInterface
                 $namespaces[] = $info['namespace'];
             }
         }
+
         return $namespaces;
     }
 
     public function getUses($namespace = null)
     {
         $this->scan();
+
         return $this->getUsesNoScan($namespace);
     }
 
@@ -120,6 +123,7 @@ class TokenArrayScanner implements ScannerInterface
             }
             $return[] = $info['name'];
         }
+
         return $return;
     }
 
@@ -135,6 +139,7 @@ class TokenArrayScanner implements ScannerInterface
             }
             $return[] = $this->getClass($info['name']);
         }
+
         return $return;
     }
 
@@ -143,7 +148,7 @@ class TokenArrayScanner implements ScannerInterface
      *
      * Return the class object from this scanner
      *
-     * @param string|int $name
+     * @param  string|int                                    $name
      * @throws \Zend\Code\Exception\InvalidArgumentException
      * @return ClassScanner
      */
@@ -194,7 +199,6 @@ class TokenArrayScanner implements ScannerInterface
             return false;
         }
 
-
         if (!isset($info)) {
             return null;
         }
@@ -211,6 +215,7 @@ class TokenArrayScanner implements ScannerInterface
                 $functionNames[] = $info['name'];
             }
         }
+
         return $functionNames;
     }
 
@@ -224,6 +229,7 @@ class TokenArrayScanner implements ScannerInterface
                 // @todo $functions[] = new FunctionScanner($info['name']);
             }
         }
+
         return $functions;
     }
 
@@ -277,6 +283,7 @@ class TokenArrayScanner implements ScannerInterface
                 $tokenContent = false;
                 $tokenType    = false;
                 $tokenLine    = false;
+
                 return false;
             }
             if (is_string($tokens[$tokenIndex]) && $tokens[$tokenIndex] === '"') {
@@ -291,14 +298,17 @@ class TokenArrayScanner implements ScannerInterface
                 $tokenType    = null;
                 $tokenContent = $token;
             }
+
             return $tokenIndex;
         };
         $MACRO_TOKEN_LOGICAL_START_INDEX = function() use (&$tokenIndex, &$docCommentIndex) {
             ;
+
             return ($docCommentIndex === false) ? $tokenIndex : $docCommentIndex;
         };
         $MACRO_DOC_COMMENT_START         = function() use (&$tokenIndex, &$docCommentIndex) {
             $docCommentIndex = $tokenIndex;
+
             return $docCommentIndex;
         };
         $MACRO_DOC_COMMENT_VALIDATE      = function() use (&$tokenType, &$docCommentIndex) {
@@ -309,12 +319,14 @@ class TokenArrayScanner implements ScannerInterface
             if ($docCommentIndex !== false && !in_array($tokenType, $validTrailingTokens)) {
                 $docCommentIndex = false;
             }
+
             return $docCommentIndex;
         };
         $MACRO_INFO_ADVANCE              = function() use (&$infoIndex, &$infos, &$tokenIndex, &$tokenLine) {
             $infos[$infoIndex]['tokenEnd'] = $tokenIndex;
             $infos[$infoIndex]['lineEnd']  = $tokenLine;
             $infoIndex++;
+
             return $infoIndex;
         };
 
@@ -445,7 +457,6 @@ class TokenArrayScanner implements ScannerInterface
                 goto SCANNER_USE_TOP;
 
                 SCANNER_USE_END:
-
 
                 $MACRO_INFO_ADVANCE();
                 goto SCANNER_CONTINUE;

@@ -10,11 +10,9 @@
 
 namespace Zend\Cache\Storage\Plugin;
 
-use Traversable;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\ClearExpiredInterface;
 use Zend\Cache\Storage\PostEvent;
-use Zend\Cache\Storage\StorageInterface;
 use Zend\EventManager\EventManagerInterface;
 
 /**
@@ -34,8 +32,8 @@ class ClearExpiredByFactor extends AbstractPlugin
     /**
      * Attach
      *
-     * @param  EventManagerInterface $events
-     * @param  int                   $priority
+     * @param  EventManagerInterface    $events
+     * @param  int                      $priority
      * @return ClearExpiredByFactor
      * @throws Exception\LogicException
      */
@@ -61,7 +59,7 @@ class ClearExpiredByFactor extends AbstractPlugin
     /**
      * Detach
      *
-     * @param  EventManagerInterface $events
+     * @param  EventManagerInterface    $events
      * @return ClearExpiredByFactor
      * @throws Exception\LogicException
      */

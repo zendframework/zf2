@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject;
 use Exception as BaseException;
 use GlobIterator;
 use stdClass;
@@ -24,7 +23,6 @@ use Zend\Cache\Storage\ClearExpiredInterface;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\IterableInterface;
 use Zend\Cache\Storage\OptimizableInterface;
-use Zend\Cache\Storage\StorageInterface;
 use Zend\Cache\Storage\TaggableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 use Zend\Stdlib\ErrorHandler;
@@ -95,6 +93,7 @@ class Filesystem extends AbstractAdapter implements
         if (!$this->options) {
             $this->setOptions(new FilesystemOptions());
         }
+
         return $this->options;
     }
 
@@ -179,7 +178,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Remove items by given namespace
      *
-     * @param string $namespace
+     * @param  string                     $namespace
      * @throws Exception\RuntimeException
      * @return boolean
      */
@@ -211,7 +210,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Remove items matching given prefix
      *
-     * @param string $prefix
+     * @param  string                     $prefix
      * @throws Exception\RuntimeException
      * @return boolean
      */
@@ -244,8 +243,8 @@ class Filesystem extends AbstractAdapter implements
      * Set tags to an item by given key.
      * An empty array will remove all tags.
      *
-     * @param string   $key
-     * @param string[] $tags
+     * @param  string   $key
+     * @param  string[] $tags
      * @return boolean
      */
     public function setTags($key, array $tags)
@@ -259,17 +258,19 @@ class Filesystem extends AbstractAdapter implements
 
         if (!$tags) {
             $this->unlink($filespec . '.tag');
+
             return true;
         }
 
         $this->putFileContent($filespec . '.tag', implode("\n", $tags));
+
         return true;
     }
 
     /**
      * Get tags of an item by given key
      *
-     * @param string $key
+     * @param  string         $key
      * @return string[]|FALSE
      */
     public function getTags($key)
@@ -294,8 +295,8 @@ class Filesystem extends AbstractAdapter implements
      * If $disjunction only one of the given tags must match
      * else all given tags must match.
      *
-     * @param string[] $tags
-     * @param boolean  $disjunction
+     * @param  string[] $tags
+     * @param  boolean  $disjunction
      * @return boolean
      */
     public function clearByTags(array $tags, $disjunction = false)
@@ -351,6 +352,7 @@ class Filesystem extends AbstractAdapter implements
         $path    = $options->getCacheDir()
             . str_repeat(\DIRECTORY_SEPARATOR . $prefix . '*', $options->getDirLevel())
             . \DIRECTORY_SEPARATOR . $prefix . '*.dat';
+
         return new FilesystemIterator($this, $path, $prefix);
     }
 
@@ -372,6 +374,7 @@ class Filesystem extends AbstractAdapter implements
                 $baseOptions->getNamespace() . $baseOptions->getNamespaceSeparator()
             );
         }
+
         return true;
     }
 
@@ -439,10 +442,10 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Get an item.
      *
-     * @param  string  $key
-     * @param  boolean $success
-     * @param  mixed   $casToken
-     * @return mixed Data on success, null on failure
+     * @param  string                       $key
+     * @param  boolean                      $success
+     * @param  mixed                        $casToken
+     * @return mixed                        Data on success, null on failure
      * @throws Exception\ExceptionInterface
      *
      * @triggers getItem.pre(PreEvent)
@@ -469,8 +472,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Get multiple items.
      *
-     * @param  array $keys
-     * @return array Associative array of keys and values
+     * @param  array                        $keys
+     * @return array                        Associative array of keys and values
      * @throws Exception\ExceptionInterface
      *
      * @triggers getItems.pre(PreEvent)
@@ -490,16 +493,17 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Internal method to get an item.
      *
-     * @param  string  $normalizedKey
-     * @param  boolean $success
-     * @param  mixed   $casToken
-     * @return mixed Data on success, null on failure
+     * @param  string                       $normalizedKey
+     * @param  boolean                      $success
+     * @param  mixed                        $casToken
+     * @return mixed                        Data on success, null on failure
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
     {
         if (!$this->internalHasItem($normalizedKey)) {
             $success = false;
+
             return null;
         }
 
@@ -512,6 +516,7 @@ class Filesystem extends AbstractAdapter implements
                 $casToken = filemtime($filespec . '.dat') . filesize($filespec . '.dat');
             }
             $success  = true;
+
             return $data;
 
         } catch (BaseException $e) {
@@ -523,8 +528,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Internal method to get multiple items.
      *
-     * @param  array $normalizedKeys
-     * @return array Associative array of keys and values
+     * @param  array                        $normalizedKeys
+     * @return array                        Associative array of keys and values
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetItems(array & $normalizedKeys)
@@ -566,7 +571,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Test if an item exists.
      *
-     * @param  string $key
+     * @param  string                       $key
      * @return boolean
      * @throws Exception\ExceptionInterface
      *
@@ -587,8 +592,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Test multiple items.
      *
-     * @param  array $keys
-     * @return array Array of found keys
+     * @param  array                        $keys
+     * @return array                        Array of found keys
      * @throws Exception\ExceptionInterface
      *
      * @triggers hasItems.pre(PreEvent)
@@ -608,7 +613,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Internal method to test if an item exists.
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -641,7 +646,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Get metadata
      *
-     * @param string $key
+     * @param  string        $key
      * @return array|boolean Metadata on success, false on failure
      */
     public function getMetadata($key)
@@ -657,8 +662,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Get metadatas
      *
-     * @param array $keys
-     * @param array $options
+     * @param  array $keys
+     * @param  array $options
      * @return array Associative array of keys and metadata
      */
     public function getMetadatas(array $keys, array $options = array())
@@ -674,7 +679,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Get info by key
      *
-     * @param string $normalizedKey
+     * @param  string        $normalizedKey
      * @return array|boolean Metadata on success, false on failure
      */
     protected function internalGetMetadata(& $normalizedKey)
@@ -706,8 +711,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Internal method to get multiple metadata
      *
-     * @param  array $normalizedKeys
-     * @return array Associative array of keys and metadata
+     * @param  array                        $normalizedKeys
+     * @return array                        Associative array of keys and metadata
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetMetadatas(array & $normalizedKeys)
@@ -743,8 +748,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Store an item.
      *
-     * @param  string $key
-     * @param  mixed  $value
+     * @param  string                       $key
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      *
@@ -758,14 +763,15 @@ class Filesystem extends AbstractAdapter implements
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
+
         return parent::setItem($key, $value);
     }
 
     /**
      * Store multiple items.
      *
-     * @param  array $keyValuePairs
-     * @return array Array of not stored keys
+     * @param  array                        $keyValuePairs
+     * @return array                        Array of not stored keys
      * @throws Exception\ExceptionInterface
      *
      * @triggers setItems.pre(PreEvent)
@@ -785,8 +791,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Add an item.
      *
-     * @param  string $key
-     * @param  mixed  $value
+     * @param  string                       $key
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      *
@@ -807,7 +813,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Add multiple items.
      *
-     * @param  array $keyValuePairs
+     * @param  array                        $keyValuePairs
      * @return boolean
      * @throws Exception\ExceptionInterface
      *
@@ -828,8 +834,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Replace an existing item.
      *
-     * @param  string $key
-     * @param  mixed  $value
+     * @param  string                       $key
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      *
@@ -850,7 +856,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Replace multiple existing items.
      *
-     * @param  array $keyValuePairs
+     * @param  array                        $keyValuePairs
      * @return boolean
      * @throws Exception\ExceptionInterface
      *
@@ -871,8 +877,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Internal method to store an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -890,8 +896,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Internal method to store multiple items.
      *
-     * @param  array $normalizedKeyValuePairs
-     * @return array Array of not stored keys
+     * @param  array                        $normalizedKeyValuePairs
+     * @return array                        Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
     protected function internalSetItems(array & $normalizedKeyValuePairs)
@@ -934,9 +940,9 @@ class Filesystem extends AbstractAdapter implements
      * It uses the token received from getItem() to check if the item has
      * changed before overwriting it.
      *
-     * @param  mixed  $token
-     * @param  string $key
-     * @param  mixed  $value
+     * @param  mixed                        $token
+     * @param  string                       $key
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      * @see    getItem()
@@ -955,9 +961,9 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Internal method to set an item only if token matches
      *
-     * @param  mixed  $token
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  mixed                        $token
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      * @see    getItem()
@@ -982,7 +988,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Reset lifetime of an item
      *
-     * @param  string $key
+     * @param  string                       $key
      * @return boolean
      * @throws Exception\ExceptionInterface
      *
@@ -1003,8 +1009,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Reset lifetime of multiple items.
      *
-     * @param  array $keys
-     * @return array Array of not updated keys
+     * @param  array                        $keys
+     * @return array                        Array of not updated keys
      * @throws Exception\ExceptionInterface
      *
      * @triggers touchItems.pre(PreEvent)
@@ -1024,7 +1030,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Internal method to reset lifetime of an item
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -1051,7 +1057,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Remove an item.
      *
-     * @param  string $key
+     * @param  string                       $key
      * @return boolean
      * @throws Exception\ExceptionInterface
      *
@@ -1072,8 +1078,8 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Remove multiple items.
      *
-     * @param  array $keys
-     * @return array Array of not removed keys
+     * @param  array                        $keys
+     * @return array                        Array of not removed keys
      * @throws Exception\ExceptionInterface
      *
      * @triggers removeItems.pre(PreEvent)
@@ -1093,7 +1099,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Internal method to remove an item.
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -1106,6 +1112,7 @@ class Filesystem extends AbstractAdapter implements
             $this->unlink($filespec . '.dat');
             $this->unlink($filespec . '.tag');
         }
+
         return true;
     }
 
@@ -1260,10 +1267,10 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Read info file
      *
-     * @param  string  $file
-     * @param  boolean $nonBlocking Don't block script if file is locked
-     * @param  boolean $wouldblock  The optional argument is set to TRUE if the lock would block
-     * @return array|boolean The info array or false if file wasn't found
+     * @param  string                     $file
+     * @param  boolean                    $nonBlocking Don't block script if file is locked
+     * @param  boolean                    $wouldblock  The optional argument is set to TRUE if the lock would block
+     * @return array|boolean              The info array or false if file wasn't found
      * @throws Exception\RuntimeException
      */
     protected function readInfoFile($file, $nonBlocking = false, & $wouldblock = null)
@@ -1292,9 +1299,9 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Read a complete file
      *
-     * @param  string  $file        File complete path
-     * @param  boolean $nonBlocking Don't block script if file is locked
-     * @param  boolean $wouldblock  The optional argument is set to TRUE if the lock would block
+     * @param  string                     $file        File complete path
+     * @param  boolean                    $nonBlocking Don't block script if file is locked
+     * @param  boolean                    $wouldblock  The optional argument is set to TRUE if the lock would block
      * @return string
      * @throws Exception\RuntimeException
      */
@@ -1320,6 +1327,7 @@ class Filesystem extends AbstractAdapter implements
                 if ($wouldblock) {
                     fclose($fp);
                     ErrorHandler::stop();
+
                     return;
                 }
             } else {
@@ -1359,6 +1367,7 @@ class Filesystem extends AbstractAdapter implements
         }
 
         ErrorHandler::stop();
+
         return $res;
     }
 
@@ -1366,7 +1375,7 @@ class Filesystem extends AbstractAdapter implements
      * Prepares a directory structure for the given file(spec)
      * using the configured directory level.
      *
-     * @param string $file
+     * @param  string                     $file
      * @return void
      * @throws Exception\RuntimeException
      */
@@ -1472,10 +1481,10 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Write content to a file
      *
-     * @param  string  $file        File complete path
-     * @param  string  $data        Data to write
-     * @param  boolean $nonBlocking Don't block script if file is locked
-     * @param  boolean $wouldblock  The optional argument is set to TRUE if the lock would block
+     * @param  string                     $file        File complete path
+     * @param  string                     $data        Data to write
+     * @param  boolean                    $nonBlocking Don't block script if file is locked
+     * @param  boolean                    $wouldblock  The optional argument is set to TRUE if the lock would block
      * @return void
      * @throws Exception\RuntimeException
      */
@@ -1581,7 +1590,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Unlink a file
      *
-     * @param string $file
+     * @param  string $file
      * @return void
      * @throw RuntimeException
      */

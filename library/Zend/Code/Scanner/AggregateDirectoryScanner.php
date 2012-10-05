@@ -41,6 +41,7 @@ class AggregateDirectoryScanner extends DirectoryScanner
                 $classes[$index] = $this->getClass($class, $returnScannerClass, $returnDerivedScannerClass);
             }
         }
+
         return $classes;
     }
 
@@ -72,6 +73,7 @@ class AggregateDirectoryScanner extends DirectoryScanner
         }
 
         $classScanner = $scanner->getClass($class);
+
         return new DerivedClassScanner($classScanner, $this);
     }
 
@@ -86,6 +88,7 @@ class AggregateDirectoryScanner extends DirectoryScanner
                     $functions[] = $info['name'];
                 }
             }
+
             return $functions;
         }
         $scannerClass = new FunctionScanner();

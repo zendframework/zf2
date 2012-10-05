@@ -62,20 +62,21 @@ abstract class AbstractAdapter extends AbstractValidator implements AdapterInter
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string          $name
      * @return AbstractAdapter
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
      * Set single option for the object
      *
-     * @param  string $key
-     * @param  string $value
+     * @param  string          $key
+     * @param  string          $value
      * @return AbstractAdapter
      */
     public function setOption($key, $value)
@@ -94,13 +95,14 @@ abstract class AbstractAdapter extends AbstractValidator implements AdapterInter
             $this->$key = $value;
             $this->options[$key] = $value;
         }
+
         return $this;
     }
 
     /**
      * Set object state from options array
      *
-     * @param  array|Traversable $options
+     * @param  array|Traversable                  $options
      * @throws Exception\InvalidArgumentException
      * @return AbstractAdapter
      */
@@ -113,6 +115,7 @@ abstract class AbstractAdapter extends AbstractValidator implements AdapterInter
         foreach ($options as $key => $value) {
             $this->setOption($key, $value);
         }
+
         return $this;
     }
 

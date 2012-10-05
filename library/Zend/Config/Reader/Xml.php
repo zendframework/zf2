@@ -52,7 +52,7 @@ class Xml implements ReaderInterface
      * fromFile(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromFile()
-     * @param  string $filename
+     * @param  string                     $filename
      * @return array
      * @throws Exception\RuntimeException
      */
@@ -88,7 +88,7 @@ class Xml implements ReaderInterface
      * fromString(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromString()
-     * @param  string $string
+     * @param  string                     $string
      * @return array|bool
      * @throws Exception\RuntimeException
      */

@@ -28,6 +28,7 @@ class NameInformation
     public function setNamespace($namespace)
     {
         $this->namespace = $namespace;
+
         return $this;
     }
 
@@ -45,6 +46,7 @@ class NameInformation
     {
         $this->uses = array();
         $this->addUses($uses);
+
         return $this;
     }
 
@@ -58,6 +60,7 @@ class NameInformation
             }
 
         }
+
         return $this;
     }
 
@@ -108,6 +111,7 @@ class NameInformation
                 return $this->namespace . '\\' . $name;
             }
         }
+
         return $name;
     }
 

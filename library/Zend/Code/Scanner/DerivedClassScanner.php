@@ -107,6 +107,7 @@ class DerivedClassScanner extends ClassScanner
         foreach ($this->parentClassScanners as $pClassScanner) {
             $interfaces = array_merge($interfaces, $pClassScanner->getInterfaces());
         }
+
         return $interfaces;
     }
 
@@ -116,6 +117,7 @@ class DerivedClassScanner extends ClassScanner
         foreach ($this->parentClassScanners as $pClassScanner) {
             $constants = array_merge($constants, $pClassScanner->getConstants());
         }
+
         return $constants;
     }
 
@@ -125,6 +127,7 @@ class DerivedClassScanner extends ClassScanner
         foreach ($this->parentClassScanners as $pClassScanner) {
             $properties = array_merge($properties, $pClassScanner->getProperties($returnScannerProperty));
         }
+
         return $properties;
     }
 
@@ -134,6 +137,7 @@ class DerivedClassScanner extends ClassScanner
         foreach ($this->parentClassScanners as $pClassScanner) {
             $methods = array_merge($methods, $pClassScanner->getMethodNames());
         }
+
         return $methods;
     }
 
@@ -146,6 +150,7 @@ class DerivedClassScanner extends ClassScanner
         foreach ($this->parentClassScanners as $pClassScanner) {
             $methods = array_merge($methods, $pClassScanner->getMethods());
         }
+
         return $methods;
     }
 
@@ -176,6 +181,7 @@ class DerivedClassScanner extends ClassScanner
                 return true;
             }
         }
+
         return false;
     }
 

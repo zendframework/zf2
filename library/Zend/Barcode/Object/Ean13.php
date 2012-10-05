@@ -74,6 +74,7 @@ class Ean13 extends AbstractObject
         $middleCharacter = (5 * $this->barThinWidth) * $this->factor;
         $stopCharacter   = (3 * $this->barThinWidth) * $this->factor;
         $encodedData     = (7 * $this->barThinWidth) * $this->factor * 12;
+
         return $quietZone + $startCharacter + $middleCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -128,6 +129,7 @@ class Ean13 extends AbstractObject
         $barcodeTable[] = array(1 , $this->barThinWidth , 0 , $height);
         $barcodeTable[] = array(0 , $this->barThinWidth , 0 , $height);
         $barcodeTable[] = array(1 , $this->barThinWidth , 0 , $height);
+
         return $barcodeTable;
     }
 

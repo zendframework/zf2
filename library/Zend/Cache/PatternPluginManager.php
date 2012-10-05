@@ -50,7 +50,7 @@ class PatternPluginManager extends AbstractPluginManager
      *
      * Checks that the pattern adapter loaded is an instance of Pattern\PatternInterface.
      *
-     * @param  mixed $plugin
+     * @param  mixed                      $plugin
      * @return void
      * @throws Exception\RuntimeException if invalid
      */

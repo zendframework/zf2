@@ -11,7 +11,6 @@
 namespace Zend\Cache\Storage\Plugin;
 
 use stdClass;
-use Traversable;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\Event;
@@ -40,8 +39,8 @@ class Serializer extends AbstractPlugin
     /**
      * Attach
      *
-     * @param  EventManagerInterface $events
-     * @param  int                   $priority
+     * @param  EventManagerInterface    $events
+     * @param  int                      $priority
      * @return Serializer
      * @throws Exception\LogicException
      */
@@ -92,7 +91,7 @@ class Serializer extends AbstractPlugin
     /**
      * Detach
      *
-     * @param  EventManagerInterface $events
+     * @param  EventManagerInterface    $events
      * @return Serializer
      * @throws Exception\LogicException
      */
@@ -195,6 +194,7 @@ class Serializer extends AbstractPlugin
         }
 
         $event->stopPropagation(true);
+
         return $result;
     }
 
@@ -223,6 +223,7 @@ class Serializer extends AbstractPlugin
         }
 
         $event->stopPropagation(true);
+
         return $keyValuePairs;
     }
 
@@ -249,6 +250,7 @@ class Serializer extends AbstractPlugin
         }
 
         $event->stopPropagation(true);
+
         return $result;
     }
 
@@ -277,6 +279,7 @@ class Serializer extends AbstractPlugin
         }
 
         $event->stopPropagation(true);
+
         return $keyValuePairs;
     }
 

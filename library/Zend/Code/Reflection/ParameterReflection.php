@@ -57,7 +57,7 @@ class ParameterReflection extends ReflectionParameter implements ReflectionInter
     /**
      * Get declaring function reflection object
      *
-     * @param  string $reflectionClass Reflection class to use
+     * @param  string                              $reflectionClass Reflection class to use
      * @return FunctionReflection|MethodReflection
      */
     public function getDeclaringFunction($reflectionClass = null)

@@ -38,7 +38,7 @@ class StorageFactory
      * The storage factory
      * This can instantiate storage adapters and plugins.
      *
-     * @param array|Traversable $cfg
+     * @param  array|Traversable                  $cfg
      * @return Storage\StorageInterface
      * @throws Exception\InvalidArgumentException
      */
@@ -73,7 +73,7 @@ class StorageFactory
             $adapterOptions = array_merge($adapterOptions, $cfg['options']);
         }
 
-        $adapter = static::adapterFactory((string)$adapterName, $adapterOptions);
+        $adapter = static::adapterFactory((string) $adapterName, $adapterOptions);
 
         // add plugins
         if (isset($cfg['plugins'])) {
@@ -156,6 +156,7 @@ class StorageFactory
         if (static::$adapters === null) {
             static::$adapters = new Storage\AdapterPluginManager();
         }
+
         return static::$adapters;
     }
 
@@ -183,8 +184,8 @@ class StorageFactory
     /**
      * Instantiate a storage plugin
      *
-     * @param string|Storage\Plugin\PluginInterface     $pluginName
-     * @param array|Traversable|Storage\Plugin\PluginOptions $options
+     * @param  string|Storage\Plugin\PluginInterface          $pluginName
+     * @param  array|Traversable|Storage\Plugin\PluginOptions $options
      * @return Storage\Plugin\PluginInterface
      * @throws Exception\RuntimeException
      */
@@ -218,6 +219,7 @@ class StorageFactory
         if (static::$plugins === null) {
             static::$plugins = new Storage\PluginManager();
         }
+
         return static::$plugins;
     }
 

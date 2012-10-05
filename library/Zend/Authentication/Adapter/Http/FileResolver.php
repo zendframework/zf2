@@ -31,7 +31,7 @@ class FileResolver implements ResolverInterface
     /**
      * Constructor
      *
-     * @param  string $path Complete filename where the credentials are stored
+     * @param string $path Complete filename where the credentials are stored
      */
     public function __construct($path = '')
     {
@@ -43,8 +43,8 @@ class FileResolver implements ResolverInterface
     /**
      * Set the path to the credentials file
      *
-     * @param  string $path
-     * @return FileResolver Provides a fluent interface
+     * @param  string                             $path
+     * @return FileResolver                       Provides a fluent interface
      * @throws Exception\InvalidArgumentException if path is not readable
      */
     public function setFile($path)
@@ -82,8 +82,8 @@ class FileResolver implements ResolverInterface
      * authentication realm, and the password or hash, each delimited by
      * colons.
      *
-     * @param  string $username Username
-     * @param  string $realm    Authentication Realm
+     * @param  string       $username Username
+     * @param  string       $realm    Authentication Realm
      * @return string|false User's shared secret, if the user is found in the
      *         realm, false otherwise.
      * @throws Exception\ExceptionInterface
@@ -117,11 +117,13 @@ class FileResolver implements ResolverInterface
             if ($line[0] == $username && $line[1] == $realm) {
                 $password = $line[2];
                 fclose($fp);
+
                 return $password;
             }
         }
 
         fclose($fp);
+
         return false;
     }
 }

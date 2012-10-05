@@ -51,7 +51,7 @@ class GenericAnnotationParser implements ParserInterface
      * present, calls {@link AnnotationInterface::initialize()} with the
      * content.
      *
-     * @param  EventInterface $e
+     * @param  EventInterface            $e
      * @return false|AnnotationInterface
      */
     public function onCreateAnnotation(EventInterface $e)
@@ -75,13 +75,14 @@ class GenericAnnotationParser implements ParserInterface
         if ($content) {
             $newAnnotation->initialize($content);
         }
+
         return $newAnnotation;
     }
 
     /**
      * Register annotations
      *
-     * @param  string|AnnotationInterface $annotation String class name of an
+     * @param string|AnnotationInterface $annotation String class name of an
      *         AnnotationInterface implementation, or actual instance
      * @return GenericAnnotationParser
      * @throws Exception\InvalidArgumentException
@@ -116,7 +117,7 @@ class GenericAnnotationParser implements ParserInterface
     /**
      * Register many annotations at once
      *
-     * @param  array|Traversable $annotations
+     * @param  array|Traversable                  $annotations
      * @throws Exception\InvalidArgumentException
      * @return GenericAnnotationParser
      */
@@ -133,6 +134,7 @@ class GenericAnnotationParser implements ParserInterface
         foreach ($annotations as $annotation) {
             $this->registerAnnotation($annotation);
         }
+
         return $this;
     }
 
@@ -158,8 +160,8 @@ class GenericAnnotationParser implements ParserInterface
     /**
      * Alias an annotation name
      *
-     * @param  string $alias
-     * @param  string $class May be either a registered annotation name or another alias
+     * @param  string                             $alias
+     * @param  string                             $class May be either a registered annotation name or another alias
      * @throws Exception\InvalidArgumentException
      * @return GenericAnnotationParser
      */
@@ -177,6 +179,7 @@ class GenericAnnotationParser implements ParserInterface
 
         $alias = $this->normalizeAlias($alias);
         $this->aliases[$alias] = $class;
+
         return $this;
     }
 
@@ -200,6 +203,7 @@ class GenericAnnotationParser implements ParserInterface
     protected function hasAlias($alias)
     {
         $alias = $this->normalizeAlias($alias);
+
         return (isset($this->aliases[$alias]));
     }
 
@@ -215,6 +219,7 @@ class GenericAnnotationParser implements ParserInterface
             $normalized = $this->normalizeAlias($alias);
             $class      = $this->aliases[$normalized];
         } while ($this->hasAlias($class));
+
         return $class;
     }
 }

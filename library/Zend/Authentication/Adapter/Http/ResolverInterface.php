@@ -25,9 +25,9 @@ interface ResolverInterface
     /**
      * Resolve username/realm to password/hash/etc.
      *
-     * @param  string $username Username
-     * @param  string $realm    Authentication Realm
-     * @param  string $password Password (optional)
+     * @param  string             $username Username
+     * @param  string             $realm    Authentication Realm
+     * @param  string             $password Password (optional)
      * @return string|array|false User's shared secret as string if found in realm, or User's identity as array
      *         if resolved, false otherwise.
      */

@@ -71,7 +71,7 @@ class FileReflection implements ReflectionInterface
     /**
      * Constructor
      *
-     * @param string $filename
+     * @param  string                     $filename
      * @throws Exception\RuntimeException
      * @return FileReflection
      */
@@ -154,6 +154,7 @@ class FileReflection implements ReflectionInterface
             return false;
         }
         $instance = new DocBlockReflection($docComment);
+
         return $instance;
     }
 
@@ -172,6 +173,7 @@ class FileReflection implements ReflectionInterface
         if (count($this->namespaces) > 0) {
             return $this->namespaces[0];
         }
+
         return null;
     }
 
@@ -197,6 +199,7 @@ class FileReflection implements ReflectionInterface
             $instance  = new ClassReflection($class);
             $classes[] = $instance;
         }
+
         return $classes;
     }
 
@@ -212,13 +215,14 @@ class FileReflection implements ReflectionInterface
             $instance    = new FunctionReflection($function);
             $functions[] = $instance;
         }
+
         return $functions;
     }
 
     /**
      * Retrieve the reflection class of a given class found in this file
      *
-     * @param  null|string $name
+     * @param  null|string                        $name
      * @return ClassReflection
      * @throws Exception\InvalidArgumentException for invalid class name or invalid reflection class
      */
@@ -303,6 +307,7 @@ class FileReflection implements ReflectionInterface
             } elseif ($type == T_DOC_COMMENT) {
                 $this->docComment = $value;
                 $this->startLine  = $lineNum + substr_count($value, "\n") + 1;
+
                 return;
             } else {
                 // Only whitespace is allowed before file DocBlocks

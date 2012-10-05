@@ -52,7 +52,7 @@ class ParameterGenerator extends AbstractGenerator
     /**
      * fromReflection()
      *
-     * @param ParameterReflection $reflectionParameter
+     * @param  ParameterReflection $reflectionParameter
      * @return ParameterGenerator
      */
     public static function fromReflection(ParameterReflection $reflectionParameter)
@@ -102,12 +102,13 @@ class ParameterGenerator extends AbstractGenerator
     /**
      * setType()
      *
-     * @param string $type
+     * @param  string             $type
      * @return ParameterGenerator
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -124,12 +125,13 @@ class ParameterGenerator extends AbstractGenerator
     /**
      * setName()
      *
-     * @param string $name
+     * @param  string             $name
      * @return ParameterGenerator
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -148,7 +150,7 @@ class ParameterGenerator extends AbstractGenerator
      *
      * Certain variables are difficult to express
      *
-     * @param null|bool|string|int|float|array|ValueGenerator $defaultValue
+     * @param  null|bool|string|int|float|array|ValueGenerator $defaultValue
      * @return ParameterGenerator
      */
     public function setDefaultValue($defaultValue)
@@ -174,12 +176,13 @@ class ParameterGenerator extends AbstractGenerator
     /**
      * setPosition()
      *
-     * @param int $position
+     * @param  int                $position
      * @return ParameterGenerator
      */
     public function setPosition($position)
     {
         $this->position = $position;
+
         return $this;
     }
 
@@ -202,12 +205,13 @@ class ParameterGenerator extends AbstractGenerator
     }
 
     /**
-     * @param bool $passedByReference
+     * @param  bool               $passedByReference
      * @return ParameterGenerator
      */
     public function setPassedByReference($passedByReference)
     {
         $this->passedByReference = $passedByReference;
+
         return $this;
     }
 

@@ -20,7 +20,6 @@ require_once dirname(dirname(dirname(__DIR__))).'/library/Zend/Loader/StandardAu
 $loader = new StandardAutoloader(array('autoregister_zf' => true));
 $loader->register();
 
-
 $rss = Reader::import('http://news.google.com/?output=rss');
 
 foreach ($rss as $item) {

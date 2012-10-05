@@ -44,8 +44,8 @@ class Pdf extends AbstractRenderer
     /**
      * Set a PDF resource to draw the barcode inside
      *
-     * @param PdfDocument $pdf
-     * @param integer     $page
+     * @param  PdfDocument $pdf
+     * @param  integer     $page
      * @return Pdf
      */
     public function setResource(PdfDocument $pdf, $page = 0)
@@ -59,6 +59,7 @@ class Pdf extends AbstractRenderer
                 Page::SIZE_A4
             );
         }
+
         return $this;
     }
 
@@ -101,7 +102,7 @@ class Pdf extends AbstractRenderer
 
     /**
      * Draw a polygon in the rendering resource
-     * @param array $points
+     * @param array   $points
      * @param integer $color
      * @param boolean $filled
      */
@@ -142,13 +143,13 @@ class Pdf extends AbstractRenderer
 
     /**
      * Draw a polygon in the rendering resource
-     * @param string $text
-     * @param float $size
-     * @param array $position
-     * @param string $font
+     * @param string  $text
+     * @param float   $size
+     * @param array   $position
+     * @param string  $font
      * @param integer $color
-     * @param string $alignment
-     * @param float $orientation
+     * @param string  $alignment
+     * @param float   $orientation
      */
     protected function drawText(
         $text,
@@ -197,9 +198,9 @@ class Pdf extends AbstractRenderer
     /**
      * Calculate the width of a string:
      * in case of using alignment parameter in drawText
-     * @param string $text
-     * @param Font $font
-     * @param float $fontSize
+     * @param  string $text
+     * @param  Font   $font
+     * @param  float  $fontSize
      * @return float
      */
     public function widthForStringUsingFontSize($text, $font, $fontSize)
@@ -212,6 +213,7 @@ class Pdf extends AbstractRenderer
         $glyphs = $font->glyphNumbersForCharacters($characters);
         $widths = $font->widthsForGlyphs($glyphs);
         $stringWidth = (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
+
         return $stringWidth;
     }
 }

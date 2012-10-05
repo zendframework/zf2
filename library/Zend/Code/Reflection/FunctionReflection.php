@@ -54,7 +54,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
     /**
      * Get contents of function
      *
-     * @param  bool $includeDocBlock
+     * @param  bool   $includeDocBlock
      * @return string
      */
     public function getContents($includeDocBlock = true)
@@ -84,6 +84,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
             unset($phpReflection);
         }
         unset($phpReflections);
+
         return $zendReflections;
     }
 
@@ -101,6 +102,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
         }
         $tag    = $docBlock->getTag('return');
         $return = DocBlockReflection::factory('@return ' . $tag->getDescription());
+
         return $return;
     }
 

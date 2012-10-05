@@ -50,6 +50,7 @@ class AnnotationManager implements EventManagerAwareInterface
             get_class($this),
         ));
         $this->events = $events;
+
         return $this;
     }
 
@@ -65,6 +66,7 @@ class AnnotationManager implements EventManagerAwareInterface
         if (null === $this->events) {
             $this->setEventManager(new EventManager());
         }
+
         return $this->events;
     }
 
@@ -85,7 +87,7 @@ class AnnotationManager implements EventManagerAwareInterface
     /**
      * Create Annotation
      *
-     * @param  array $annotationData
+     * @param  array           $annotationData
      * @return false|\stdClass
      */
     public function createAnnotation(array $annotationData)
@@ -105,6 +107,7 @@ class AnnotationManager implements EventManagerAwareInterface
                         });
 
         $annotation = $results->last();
+
         return (is_object($annotation) ? $annotation : false);
     }
 }

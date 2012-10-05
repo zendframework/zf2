@@ -93,12 +93,13 @@ class KeyListIterator implements IteratorInterface, Countable
     /**
      * Set iterator mode
      *
-     * @param int $mode
+     * @param  int             $mode
      * @return KeyListIterator Fluent interface
      */
     public function setMode($mode)
     {
         $this->mode = (int) $mode;
+
         return $this;
     }
 

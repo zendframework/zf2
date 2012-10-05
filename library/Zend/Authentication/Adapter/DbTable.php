@@ -105,11 +105,11 @@ class DbTable implements AdapterInterface
     /**
      * __construct() - Sets configuration options
      *
-     * @param  DbAdapter $zendDb
-     * @param  string    $tableName           Optional
-     * @param  string    $identityColumn      Optional
-     * @param  string    $credentialColumn    Optional
-     * @param  string    $credentialTreatment Optional
+     * @param  DbAdapter                            $zendDb
+     * @param  string                               $tableName           Optional
+     * @param  string                               $identityColumn      Optional
+     * @param  string                               $credentialColumn    Optional
+     * @param  string                               $credentialTreatment Optional
      * @return \Zend\Authentication\Adapter\DbTable
      */
     public function __construct(DbAdapter $zendDb, $tableName = null, $identityColumn = null,
@@ -137,36 +137,39 @@ class DbTable implements AdapterInterface
     /**
      * setTableName() - set the table name to be used in the select query
      *
-     * @param  string $tableName
+     * @param  string  $tableName
      * @return DbTable Provides a fluent interface
      */
     public function setTableName($tableName)
     {
         $this->tableName = $tableName;
+
         return $this;
     }
 
     /**
      * setIdentityColumn() - set the column name to be used as the identity column
      *
-     * @param  string $identityColumn
+     * @param  string  $identityColumn
      * @return DbTable Provides a fluent interface
      */
     public function setIdentityColumn($identityColumn)
     {
         $this->identityColumn = $identityColumn;
+
         return $this;
     }
 
     /**
      * setCredentialColumn() - set the column name to be used as the credential column
      *
-     * @param  string $credentialColumn
+     * @param  string  $credentialColumn
      * @return DbTable Provides a fluent interface
      */
     public function setCredentialColumn($credentialColumn)
     {
         $this->credentialColumn = $credentialColumn;
+
         return $this;
     }
 
@@ -184,24 +187,26 @@ class DbTable implements AdapterInterface
      *  'PASSWORD(?)'
      *  'MD5(?)'
      *
-     * @param  string $treatment
+     * @param  string  $treatment
      * @return DbTable Provides a fluent interface
      */
     public function setCredentialTreatment($treatment)
     {
         $this->credentialTreatment = $treatment;
+
         return $this;
     }
 
     /**
      * setIdentity() - set the value to be used as the identity
      *
-     * @param  string $value
+     * @param  string  $value
      * @return DbTable Provides a fluent interface
      */
     public function setIdentity($value)
     {
         $this->identity = $value;
+
         return $this;
     }
 
@@ -209,12 +214,13 @@ class DbTable implements AdapterInterface
      * setCredential() - set the credential value to be used, optionally can specify a treatment
      * to be used, should be supplied in parametrized form, such as 'MD5(?)' or 'PASSWORD(?)'
      *
-     * @param  string $credential
+     * @param  string  $credential
      * @return DbTable Provides a fluent interface
      */
     public function setCredential($credential)
     {
         $this->credential = $credential;
+
         return $this;
     }
 
@@ -224,7 +230,7 @@ class DbTable implements AdapterInterface
      * false) parameters. Default is false.
      *
      * @param  int|bool $flag
-     * @return DbTable Provides a fluent interface
+     * @return DbTable  Provides a fluent interface
      */
     public function setAmbiguityIdentity($flag)
     {
@@ -233,6 +239,7 @@ class DbTable implements AdapterInterface
         } elseif (is_bool($flag)) {
             $this->ambiguityIdentity = $flag;
         }
+
         return $this;
     }
 
@@ -257,14 +264,15 @@ class DbTable implements AdapterInterface
         if ($this->dbSelect == null) {
             $this->dbSelect = new DbSelect();
         }
+
         return $this->dbSelect;
     }
 
     /**
      * getResultRowObject() - Returns the result row as a stdClass object
      *
-     * @param  string|array $returnColumns
-     * @param  string|array $omitColumns
+     * @param  string|array     $returnColumns
+     * @param  string|array     $omitColumns
      * @return stdClass|boolean
      */
     public function getResultRowObject($returnColumns = null, $omitColumns = null)
@@ -278,21 +286,23 @@ class DbTable implements AdapterInterface
         if (null !== $returnColumns) {
 
             $availableColumns = array_keys($this->resultRow);
-            foreach ((array)$returnColumns as $returnColumn) {
+            foreach ((array) $returnColumns as $returnColumn) {
                 if (in_array($returnColumn, $availableColumns)) {
                     $returnObject->{$returnColumn} = $this->resultRow[$returnColumn];
                 }
             }
+
             return $returnObject;
 
         } elseif (null !== $omitColumns) {
 
-            $omitColumns = (array)$omitColumns;
+            $omitColumns = (array) $omitColumns;
             foreach ($this->resultRow as $resultColumn => $resultValue) {
                 if (!in_array($resultColumn, $omitColumns)) {
                     $returnObject->{$resultColumn} = $resultValue;
                 }
             }
+
             return $returnObject;
 
         }
@@ -300,6 +310,7 @@ class DbTable implements AdapterInterface
         foreach ($this->resultRow as $resultColumn => $resultValue) {
             $returnObject->{$resultColumn} = $resultValue;
         }
+
         return $returnObject;
     }
 
@@ -404,7 +415,7 @@ class DbTable implements AdapterInterface
      * _authenticateQuerySelect() - This method accepts a Zend\Db\Sql\Select object and
      * performs a query against the database with that object.
      *
-     * @param  DbSelect $dbSelect
+     * @param  DbSelect                   $dbSelect
      * @throws Exception\RuntimeException when an invalid select object is encountered
      * @return array
      */
@@ -423,6 +434,7 @@ class DbTable implements AdapterInterface
                     . 'for validity.', 0, $e
             );
         }
+
         return $resultIdentities;
     }
 
@@ -430,7 +442,7 @@ class DbTable implements AdapterInterface
      * _authenticateValidateResultSet() - This method attempts to make
      * certain that only one record was returned in the resultset
      *
-     * @param  array $resultIdentities
+     * @param  array                               $resultIdentities
      * @return boolean|\Zend\Authentication\Result
      */
     protected function _authenticateValidateResultSet(array $resultIdentities)
@@ -439,10 +451,12 @@ class DbTable implements AdapterInterface
         if (count($resultIdentities) < 1) {
             $this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND;
             $this->authenticateResultInfo['messages'][] = 'A record with the supplied identity could not be found.';
+
             return $this->_authenticateCreateAuthResult();
         } elseif (count($resultIdentities) > 1 && false === $this->getAmbiguityIdentity()) {
             $this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_IDENTITY_AMBIGUOUS;
             $this->authenticateResultInfo['messages'][] = 'More than one record matches the supplied identity.';
+
             return $this->_authenticateCreateAuthResult();
         }
 
@@ -454,7 +468,7 @@ class DbTable implements AdapterInterface
      * the record in the resultset is indeed a record that matched the
      * identity provided to this adapter.
      *
-     * @param  array $resultIdentity
+     * @param  array                $resultIdentity
      * @return AuthenticationResult
      */
     protected function _authenticateValidateResult($resultIdentity)
@@ -462,6 +476,7 @@ class DbTable implements AdapterInterface
         if ($resultIdentity['zend_auth_credential_match'] != '1') {
             $this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
             $this->authenticateResultInfo['messages'][] = 'Supplied credential is invalid.';
+
             return $this->_authenticateCreateAuthResult();
         }
 
@@ -470,6 +485,7 @@ class DbTable implements AdapterInterface
 
         $this->authenticateResultInfo['code']       = AuthenticationResult::SUCCESS;
         $this->authenticateResultInfo['messages'][] = 'Authentication successful.';
+
         return $this->_authenticateCreateAuthResult();
     }
 

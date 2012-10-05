@@ -33,7 +33,7 @@ class ParamTag extends Tag
     /**
      * fromReflection()
      *
-     * @param ReflectionDocBlockTag $reflectionTagParam
+     * @param  ReflectionDocBlockTag $reflectionTagParam
      * @return ParamTag
      */
     public static function fromReflection(ReflectionDocBlockTag $reflectionTagParam)
@@ -51,12 +51,13 @@ class ParamTag extends Tag
     /**
      * setDatatype()
      *
-     * @param string $datatype
+     * @param  string   $datatype
      * @return ParamTag
      */
     public function setDatatype($datatype)
     {
         $this->datatype = $datatype;
+
         return $this;
     }
 
@@ -73,12 +74,13 @@ class ParamTag extends Tag
     /**
      * setParamName()
      *
-     * @param string $paramName
+     * @param  string   $paramName
      * @return ParamTag
      */
     public function setParamName($paramName)
     {
         $this->paramName = $paramName;
+
         return $this;
     }
 
@@ -103,6 +105,7 @@ class ParamTag extends Tag
             . (($this->datatype != null) ? $this->datatype : 'unknown')
             . (($this->paramName != null) ? ' $' . $this->paramName : '')
             . (($this->description != null) ? ' ' . $this->description : '');
+
         return $output;
     }
 

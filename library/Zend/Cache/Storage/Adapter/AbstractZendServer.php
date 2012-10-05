@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject;
 use stdClass;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
@@ -34,10 +33,10 @@ abstract class AbstractZendServer extends AbstractAdapter
     /**
      * Internal method to get an item.
      *
-     * @param  string  $normalizedKey
-     * @param  boolean $success
-     * @param  mixed   $casToken
-     * @return mixed Data on success, null on failure
+     * @param  string                       $normalizedKey
+     * @param  boolean                      $success
+     * @param  mixed                        $casToken
+     * @return mixed                        Data on success, null on failure
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
@@ -60,8 +59,8 @@ abstract class AbstractZendServer extends AbstractAdapter
     /**
      * Internal method to get multiple items.
      *
-     * @param  array $normalizedKeys
-     * @return array Associative array of keys and values
+     * @param  array                        $normalizedKeys
+     * @return array                        Associative array of keys and values
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetItems(array & $normalizedKeys)
@@ -86,7 +85,7 @@ abstract class AbstractZendServer extends AbstractAdapter
     /**
      * Internal method to test if an item exists.
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -94,14 +93,15 @@ abstract class AbstractZendServer extends AbstractAdapter
     {
 
         $prefix = $this->getOptions()->getNamespace() . self::NAMESPACE_SEPARATOR;
+
         return  ($this->zdcFetch($prefix . $normalizedKey) !== false);
     }
 
     /**
      * Internal method to test multiple items.
      *
-     * @param  array $normalizedKeys
-     * @return array Array of found keys
+     * @param  array                        $normalizedKeys
+     * @return array                        Array of found keys
      * @throws Exception\ExceptionInterface
      */
     protected function internalHasItems(array & $normalizedKeys)
@@ -157,8 +157,8 @@ abstract class AbstractZendServer extends AbstractAdapter
     /**
      * Internal method to store an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -167,19 +167,21 @@ abstract class AbstractZendServer extends AbstractAdapter
         $options = $this->getOptions();
         $internalKey = $options->getNamespace() . self::NAMESPACE_SEPARATOR . $normalizedKey;
         $this->zdcStore($internalKey, $value, $options->getTtl());
+
         return true;
     }
 
     /**
      * Internal method to remove an item.
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
     protected function internalRemoveItem(& $normalizedKey)
     {
         $internalKey = $this->getOptions()->getNamespace() . self::NAMESPACE_SEPARATOR . $normalizedKey;
+
         return $this->zdcDelete($internalKey);
     }
 
@@ -229,9 +231,9 @@ abstract class AbstractZendServer extends AbstractAdapter
     /**
      * Store data into Zend Data Cache (zdc)
      *
-     * @param  string $internalKey
-     * @param  mixed  $value
-     * @param  int    $ttl
+     * @param  string                     $internalKey
+     * @param  mixed                      $value
+     * @param  int                        $ttl
      * @return void
      * @throws Exception\RuntimeException
      */
@@ -240,8 +242,8 @@ abstract class AbstractZendServer extends AbstractAdapter
     /**
      * Fetch a single item from Zend Data Cache (zdc)
      *
-     * @param  string $internalKey
-     * @return mixed The stored value or FALSE if item wasn't found
+     * @param  string                     $internalKey
+     * @return mixed                      The stored value or FALSE if item wasn't found
      * @throws Exception\RuntimeException
      */
     abstract protected function zdcFetch($internalKey);
@@ -249,8 +251,8 @@ abstract class AbstractZendServer extends AbstractAdapter
     /**
      * Fetch multiple items from Zend Data Cache (zdc)
      *
-     * @param  array $internalKeys
-     * @return array All found items
+     * @param  array                      $internalKeys
+     * @return array                      All found items
      * @throws Exception\RuntimeException
      */
     abstract protected function zdcFetchMulti(array $internalKeys);
@@ -258,7 +260,7 @@ abstract class AbstractZendServer extends AbstractAdapter
     /**
      * Delete data from Zend Data Cache (zdc)
      *
-     * @param  string $internalKey
+     * @param  string                     $internalKey
      * @return boolean
      * @throws Exception\RuntimeException
      */

@@ -39,11 +39,11 @@ class ExceptionEvent extends PostEvent
      *
      * Accept a target and its parameters.
      *
-     * @param  string $name
-     * @param  StorageInterface $storage
-     * @param  ArrayObject $params
-     * @param  mixed $result
-     * @param  Exception $exception
+     * @param string           $name
+     * @param StorageInterface $storage
+     * @param ArrayObject      $params
+     * @param mixed            $result
+     * @param Exception        $exception
      */
     public function __construct($name, StorageInterface $storage, ArrayObject $params, & $result, Exception $exception)
     {
@@ -54,12 +54,13 @@ class ExceptionEvent extends PostEvent
     /**
      * Set the exception to be thrown
      *
-     * @param  Exception $exception
+     * @param  Exception      $exception
      * @return ExceptionEvent
      */
     public function setException(Exception $exception)
     {
         $this->exception = $exception;
+
         return $this;
     }
 
@@ -76,12 +77,13 @@ class ExceptionEvent extends PostEvent
     /**
      * Throw the exception or use the result
      *
-     * @param  boolean $flag
+     * @param  boolean        $flag
      * @return ExceptionEvent
      */
     public function setThrowException($flag)
     {
         $this->throwException = (bool) $flag;
+
         return $this;
     }
 

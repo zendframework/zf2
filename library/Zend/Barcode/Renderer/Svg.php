@@ -49,7 +49,7 @@ class Svg extends AbstractRenderer
 
     /**
      * Set height of the result image
-     * @param null|integer $value
+     * @param  null|integer                  $value
      * @throws Exception\OutOfRangeException
      * @return Svg
      */
@@ -61,6 +61,7 @@ class Svg extends AbstractRenderer
             );
         }
         $this->userHeight = intval($value);
+
         return $this;
     }
 
@@ -77,7 +78,7 @@ class Svg extends AbstractRenderer
     /**
      * Set barcode width
      *
-     * @param mixed $value
+     * @param  mixed                         $value
      * @throws Exception\OutOfRangeException
      * @return self
      */
@@ -89,6 +90,7 @@ class Svg extends AbstractRenderer
             );
         }
         $this->userWidth = intval($value);
+
         return $this;
     }
 
@@ -111,6 +113,7 @@ class Svg extends AbstractRenderer
     public function setResource(DOMDocument $svg)
     {
         $this->resource = $svg;
+
         return $this;
     }
 
@@ -175,7 +178,7 @@ class Svg extends AbstractRenderer
      * Append a new DOMElement to the root element
      *
      * @param string $tagName
-     * @param array $attributes
+     * @param array  $attributes
      * @param string $textContent
      */
     protected function appendRootElement($tagName, $attributes = array(), $textContent = null)
@@ -187,9 +190,9 @@ class Svg extends AbstractRenderer
     /**
      * Create DOMElement
      *
-     * @param string $tagName
-     * @param array $attributes
-     * @param string $textContent
+     * @param  string     $tagName
+     * @param  array      $attributes
+     * @param  string     $textContent
      * @return DOMElement
      */
     protected function createElement($tagName, $attributes = array(), $textContent = null)
@@ -201,6 +204,7 @@ class Svg extends AbstractRenderer
         if ($textContent !== null) {
             $element->appendChild(new DOMText((string) $textContent));
         }
+
         return $element;
     }
 
@@ -272,6 +276,7 @@ class Svg extends AbstractRenderer
     {
         parent::draw();
         $this->resource->appendChild($this->rootElement);
+
         return $this->resource;
     }
 
@@ -290,7 +295,7 @@ class Svg extends AbstractRenderer
     /**
      * Draw a polygon in the svg resource
      *
-     * @param array $points
+     * @param array   $points
      * @param integer $color
      * @param boolean $filled
      */
@@ -319,13 +324,13 @@ class Svg extends AbstractRenderer
     /**
      * Draw a polygon in the svg resource
      *
-     * @param string $text
-     * @param float $size
-     * @param array $position
-     * @param string $font
+     * @param string  $text
+     * @param float   $size
+     * @param array   $position
+     * @param string  $font
      * @param integer $color
-     * @param string $alignment
-     * @param float $orientation
+     * @param string  $alignment
+     * @param float   $orientation
      */
     protected function drawText($text, $size, $position, $font, $color, $alignment = 'center', $orientation = 0)
     {

@@ -41,7 +41,7 @@ class RendererPluginManager extends AbstractPluginManager
      * Checks that the barcode parser loaded is an instance
      * of Renderer\AbstractRenderer.
      *
-     * @param  mixed $plugin
+     * @param  mixed                              $plugin
      * @return void
      * @throws Exception\InvalidArgumentException if invalid
      */

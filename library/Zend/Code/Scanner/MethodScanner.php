@@ -61,29 +61,33 @@ class MethodScanner implements ScannerInterface
     public function getName()
     {
         $this->scan();
+
         return $this->name;
     }
 
     public function getLineStart()
     {
         $this->scan();
+
         return $this->lineStart;
     }
 
     public function getLineEnd()
     {
         $this->scan();
+
         return $this->lineEnd;
     }
 
     public function getDocComment()
     {
         $this->scan();
+
         return $this->docComment;
     }
 
     /**
-     * @param  Annotation\AnnotationManager $annotationManager
+     * @param  Annotation\AnnotationManager    $annotationManager
      * @return Annotation\AnnotationCollection
      */
     public function getAnnotations(Annotation\AnnotationManager $annotationManager)
@@ -98,36 +102,42 @@ class MethodScanner implements ScannerInterface
     public function isFinal()
     {
         $this->scan();
+
         return $this->isFinal;
     }
 
     public function isAbstract()
     {
         $this->scan();
+
         return $this->isAbstract;
     }
 
     public function isPublic()
     {
         $this->scan();
+
         return $this->isPublic;
     }
 
     public function isProtected()
     {
         $this->scan();
+
         return $this->isProtected;
     }
 
     public function isPrivate()
     {
         $this->scan();
+
         return $this->isPrivate;
     }
 
     public function isStatic()
     {
         $this->scan();
+
         return $this->isStatic;
     }
 
@@ -153,6 +163,7 @@ class MethodScanner implements ScannerInterface
                 $return[] = $this->getParameter($info['name']);
             }
         }
+
         return $return;
     }
 
@@ -186,12 +197,14 @@ class MethodScanner implements ScannerInterface
         $p->setDeclaringClass($this->class);
         $p->setDeclaringScannerClass($this->scannerClass);
         $p->setPosition($info['position']);
+
         return $p;
     }
 
     public function getBody()
     {
         $this->scan();
+
         return $this->body;
     }
 
@@ -203,6 +216,7 @@ class MethodScanner implements ScannerInterface
     public function __toString()
     {
         $this->scan();
+
         return var_export($this, true);
     }
 
@@ -241,6 +255,7 @@ class MethodScanner implements ScannerInterface
                 $tokenContent = false;
                 $tokenType    = false;
                 $tokenLine    = false;
+
                 return false;
             }
             $token = $tokens[$tokenIndex];
@@ -252,6 +267,7 @@ class MethodScanner implements ScannerInterface
             } else {
                 list($tokenType, $tokenContent, $tokenLine) = $token;
             }
+
             return $tokenIndex;
         };
         $MACRO_INFO_START    = function() use (&$infoIndex, &$infos, &$tokenIndex, &$tokenLine) {
@@ -269,6 +285,7 @@ class MethodScanner implements ScannerInterface
             $infos[$infoIndex]['tokenEnd'] = $tokenIndex;
             $infos[$infoIndex]['lineEnd']  = $tokenLine;
             $infoIndex++;
+
             return $infoIndex;
         };
 
@@ -280,7 +297,6 @@ class MethodScanner implements ScannerInterface
         $MACRO_TOKEN_ADVANCE();
 
         SCANNER_TOP:
-
 
         $this->lineStart = ($this->lineStart) ? : $tokenLine;
 
@@ -390,6 +406,7 @@ class MethodScanner implements ScannerInterface
         SCANNER_END:
 
         $this->isScanned = true;
+
         return;
     }
 

@@ -129,6 +129,7 @@ if (isset($_GET['uploadId'])) {
 
             if (!httpRequest) {
                 alert('Giving up :( Cannot create an XMLHTTP instance');
+
                 return false;
             }
 

@@ -11,7 +11,6 @@
 namespace Zend\Code\Reflection;
 
 use Reflector;
-use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Scanner\DocBlockScanner;
 
 /**
@@ -128,6 +127,7 @@ class DocBlockReflection implements ReflectionInterface
     public function getContents()
     {
         $this->reflect();
+
         return $this->cleanDocComment;
     }
 
@@ -139,6 +139,7 @@ class DocBlockReflection implements ReflectionInterface
     public function getStartLine()
     {
         $this->reflect();
+
         return $this->startLine;
     }
 
@@ -150,6 +151,7 @@ class DocBlockReflection implements ReflectionInterface
     public function getEndLine()
     {
         $this->reflect();
+
         return $this->endLine;
     }
 
@@ -161,6 +163,7 @@ class DocBlockReflection implements ReflectionInterface
     public function getShortDescription()
     {
         $this->reflect();
+
         return $this->shortDescription;
     }
 
@@ -172,6 +175,7 @@ class DocBlockReflection implements ReflectionInterface
     public function getLongDescription()
     {
         $this->reflect();
+
         return $this->longDescription;
     }
 
@@ -189,13 +193,14 @@ class DocBlockReflection implements ReflectionInterface
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Retrieve the given DocBlock tag
      *
-     * @param  string $name
+     * @param  string                          $name
      * @return DocBlock\Tag\TagInterface|false
      */
     public function getTag($name)
@@ -213,8 +218,8 @@ class DocBlockReflection implements ReflectionInterface
     /**
      * Get all DocBlock annotation tags
      *
-     * @param string $filter
-     * @return array Array of \Zend\Code\Reflection\ReflectionDocBlockTag
+     * @param  string $filter
+     * @return array  Array of \Zend\Code\Reflection\ReflectionDocBlockTag
      */
     public function getTags($filter = null)
     {
@@ -229,6 +234,7 @@ class DocBlockReflection implements ReflectionInterface
                 $returnTags[] = $tag;
             }
         }
+
         return $returnTags;
     }
 

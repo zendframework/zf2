@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject;
 use Memcached as MemcachedResource;
 use stdClass;
 use Traversable;
@@ -55,7 +54,7 @@ class Memcached extends AbstractAdapter implements
     {
         if (static::$extMemcachedMajorVersion === null) {
             $v = (string) phpversion('memcached');
-            static::$extMemcachedMajorVersion = ($v !== '') ? (int)$v[0] : 0;
+            static::$extMemcachedMajorVersion = ($v !== '') ? (int) $v[0] : 0;
         }
 
         if (static::$extMemcachedMajorVersion < 1) {
@@ -141,6 +140,7 @@ class Memcached extends AbstractAdapter implements
         if (!$this->options) {
             $this->setOptions(new MemcachedOptions());
         }
+
         return $this->options;
     }
 
@@ -156,6 +156,7 @@ class Memcached extends AbstractAdapter implements
         if (!$this->memcached->flush()) {
             throw $this->getExceptionByResultCode($this->memcached->getResultCode());
         }
+
         return true;
     }
 
@@ -174,6 +175,7 @@ class Memcached extends AbstractAdapter implements
         }
 
         $mem = array_pop($stats);
+
         return $mem['limit_maxbytes'];
     }
 
@@ -192,6 +194,7 @@ class Memcached extends AbstractAdapter implements
         }
 
         $mem = array_pop($stats);
+
         return $mem['limit_maxbytes'] - $mem['bytes'];
     }
 
@@ -200,10 +203,10 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to get an item.
      *
-     * @param  string  $normalizedKey
-     * @param  boolean $success
-     * @param  mixed   $casToken
-     * @return mixed Data on success, null on failure
+     * @param  string                       $normalizedKey
+     * @param  boolean                      $success
+     * @param  mixed                        $casToken
+     * @return mixed                        Data on success, null on failure
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
@@ -232,8 +235,8 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to get multiple items.
      *
-     * @param  array $normalizedKeys
-     * @return array Associative array of keys and values
+     * @param  array                        $normalizedKeys
+     * @return array                        Associative array of keys and values
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetItems(array & $normalizedKeys)
@@ -249,7 +252,7 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to test if an item exists.
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -273,8 +276,8 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to test multiple items.
      *
-     * @param  array $normalizedKeys
-     * @return array Array of found keys
+     * @param  array                        $normalizedKeys
+     * @return array                        Array of found keys
      * @throws Exception\ExceptionInterface
      */
     protected function internalHasItems(array & $normalizedKeys)
@@ -290,8 +293,8 @@ class Memcached extends AbstractAdapter implements
     /**
      * Get metadata of multiple items
      *
-     * @param  array $normalizedKeys
-     * @return array Associative array of keys and metadata
+     * @param  array                        $normalizedKeys
+     * @return array                        Associative array of keys and metadata
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetMetadatas(array & $normalizedKeys)
@@ -313,8 +316,8 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to store an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -331,8 +334,8 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to store multiple items.
      *
-     * @param  array $normalizedKeyValuePairs
-     * @return array Array of not stored keys
+     * @param  array                        $normalizedKeyValuePairs
+     * @return array                        Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
     protected function internalSetItems(array & $normalizedKeyValuePairs)
@@ -348,8 +351,8 @@ class Memcached extends AbstractAdapter implements
     /**
      * Add an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -369,8 +372,8 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to replace an existing item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -390,9 +393,9 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to set an item only if token matches
      *
-     * @param  mixed  $token
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  mixed                        $token
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      * @see    getItem()
@@ -410,14 +413,13 @@ class Memcached extends AbstractAdapter implements
             }
         }
 
-
         return $result;
     }
 
     /**
      * Internal method to remove an item.
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -440,8 +442,8 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to remove multiple items.
      *
-     * @param  array $normalizedKeys
-     * @return array Array of not removed keys
+     * @param  array                        $normalizedKeys
+     * @return array                        Array of not removed keys
      * @throws Exception\ExceptionInterface
      */
     protected function internalRemoveItems(array & $normalizedKeys)
@@ -469,14 +471,14 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to increment an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
-     * @return int|boolean The new value on success, false on failure
+     * @param  string                       $normalizedKey
+     * @param  int                          $value
+     * @return int|boolean                  The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
     protected function internalIncrementItem(& $normalizedKey, & $value)
     {
-        $value    = (int)$value;
+        $value    = (int) $value;
         $newValue = $this->memcached->increment($normalizedKey, $value);
 
         if ($newValue === false) {
@@ -500,14 +502,14 @@ class Memcached extends AbstractAdapter implements
     /**
      * Internal method to decrement an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
-     * @return int|boolean The new value on success, false on failure
+     * @param  string                       $normalizedKey
+     * @param  int                          $value
+     * @return int|boolean                  The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
     protected function internalDecrementItem(& $normalizedKey, & $value)
     {
-        $value    = (int)$value;
+        $value    = (int) $value;
         $newValue = $this->memcached->decrement($normalizedKey, $value);
 
         if ($newValue === false) {
@@ -591,13 +593,14 @@ class Memcached extends AbstractAdapter implements
         if ($ttl > 2592000) {
             return time() + $ttl;
         }
+
         return $ttl;
     }
 
     /**
      * Generate exception based of memcached result code
      *
-     * @param int $code
+     * @param  int                                $code
      * @return Exception\RuntimeException
      * @throws Exception\InvalidArgumentException On success code
      */

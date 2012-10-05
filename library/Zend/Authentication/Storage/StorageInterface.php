@@ -38,7 +38,7 @@ interface StorageInterface
     /**
      * Writes $contents to storage
      *
-     * @param  mixed $contents
+     * @param  mixed                                             $contents
      * @throws \Zend\Authentication\Exception\ExceptionInterface If writing $contents to storage is impossible
      * @return void
      */

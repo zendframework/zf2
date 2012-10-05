@@ -94,11 +94,11 @@ class Barcode
      * If the first argument is of type Traversable, it is assumed to contain
      * all parameters, and the second argument is ignored.
      *
-     * @param  mixed $barcode         String name of barcode class, or Traversable object.
-     * @param  mixed $renderer        String name of renderer class
-     * @param  mixed $barcodeConfig   OPTIONAL; an array or Traversable object with barcode parameters.
-     * @param  mixed $rendererConfig  OPTIONAL; an array or Traversable object with renderer parameters.
-     * @param  boolean $automaticRenderError  OPTIONAL; set the automatic rendering of exception
+     * @param  mixed                        $barcode              String name of barcode class, or Traversable object.
+     * @param  mixed                        $renderer             String name of renderer class
+     * @param  mixed                        $barcodeConfig        OPTIONAL; an array or Traversable object with barcode parameters.
+     * @param  mixed                        $rendererConfig       OPTIONAL; an array or Traversable object with renderer parameters.
+     * @param  boolean                      $automaticRenderError OPTIONAL; set the automatic rendering of exception
      * @return Barcode
      * @throws Exception\ExceptionInterface
      */
@@ -143,14 +143,15 @@ class Barcode
         }
 
         $renderer->setAutomaticRenderError($automaticRenderError);
+
         return $renderer->setBarcode($barcode);
     }
 
     /**
      * Barcode Constructor
      *
-     * @param mixed $barcode        String name of barcode class, or Traversable object, or barcode object.
-     * @param mixed $barcodeConfig  OPTIONAL; an array or Traversable object with barcode parameters.
+     * @param  mixed                              $barcode       String name of barcode class, or Traversable object, or barcode object.
+     * @param  mixed                              $barcodeConfig OPTIONAL; an array or Traversable object with barcode parameters.
      * @throws Exception\InvalidArgumentException
      * @return Object
      */
@@ -203,8 +204,8 @@ class Barcode
     /**
      * Renderer Constructor
      *
-     * @param mixed $renderer           String name of renderer class, or Traversable object.
-     * @param mixed $rendererConfig     OPTIONAL; an array or Traversable object with renderer parameters.
+     * @param  mixed                               $renderer       String name of renderer class, or Traversable object.
+     * @param  mixed                               $rendererConfig OPTIONAL; an array or Traversable object with renderer parameters.
      * @throws Exception\RendererCreationException
      * @return Renderer\RendererInterface
      */
@@ -256,9 +257,9 @@ class Barcode
      * Proxy to renderer render() method
      *
      * @param string | Object\ObjectInterface | array | Traversable $barcode
-     * @param string | Renderer\RendererInterface $renderer
-     * @param array  | Traversable $barcodeConfig
-     * @param array  | Traversable $rendererConfig
+     * @param string | Renderer\RendererInterface                   $renderer
+     * @param array  | Traversable                                  $barcodeConfig
+     * @param array  | Traversable                                  $rendererConfig
      */
     public static function render($barcode,
                                   $renderer,
@@ -271,10 +272,10 @@ class Barcode
     /**
      * Proxy to renderer draw() method
      *
-     * @param string | Object\ObjectInterface | array | Traversable $barcode
-     * @param string | Renderer\RendererInterface $renderer
-     * @param array | Traversable $barcodeConfig
-     * @param array | Traversable $rendererConfig
+     * @param  string | Object\ObjectInterface | array | Traversable $barcode
+     * @param  string | Renderer\RendererInterface                   $renderer
+     * @param  array | Traversable                                   $barcodeConfig
+     * @param  array | Traversable                                   $rendererConfig
      * @return mixed
      */
     public static function draw($barcode,
@@ -288,7 +289,7 @@ class Barcode
     /**
      * Set the default font for new instances of barcode
      *
-     * @param string $font
+     * @param  string $font
      * @return void
      */
     public static function setBarcodeFont($font)

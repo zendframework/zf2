@@ -51,10 +51,10 @@ class Digest implements AdapterInterface
     /**
      * Sets adapter options
      *
-     * @param  mixed $filename
-     * @param  mixed $realm
-     * @param  mixed $username
-     * @param  mixed $password
+     * @param mixed $filename
+     * @param mixed $realm
+     * @param mixed $username
+     * @param mixed $password
      */
     public function __construct($filename = null, $realm = null, $username = null, $password = null)
     {
@@ -80,12 +80,13 @@ class Digest implements AdapterInterface
     /**
      * Sets the filename option value
      *
-     * @param  mixed $filename
+     * @param  mixed  $filename
      * @return Digest Provides a fluent interface
      */
     public function setFilename($filename)
     {
         $this->filename = (string) $filename;
+
         return $this;
     }
 
@@ -102,12 +103,13 @@ class Digest implements AdapterInterface
     /**
      * Sets the realm option value
      *
-     * @param  mixed $realm
+     * @param  mixed  $realm
      * @return Digest Provides a fluent interface
      */
     public function setRealm($realm)
     {
         $this->realm = (string) $realm;
+
         return $this;
     }
 
@@ -124,12 +126,13 @@ class Digest implements AdapterInterface
     /**
      * Sets the username option value
      *
-     * @param  mixed $username
+     * @param  mixed  $username
      * @return Digest Provides a fluent interface
      */
     public function setUsername($username)
     {
         $this->username = (string) $username;
+
         return $this;
     }
 
@@ -146,12 +149,13 @@ class Digest implements AdapterInterface
     /**
      * Sets the password option value
      *
-     * @param  mixed $password
+     * @param  mixed  $password
      * @return Digest Provides a fluent interface
      */
     public function setPassword($password)
     {
         $this->password = (string) $password;
+
         return $this;
     }
 
@@ -201,12 +205,14 @@ class Digest implements AdapterInterface
                     $result['code'] = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
                     $result['messages'][] = 'Password incorrect';
                 }
+
                 return new AuthenticationResult($result['code'], $result['identity'], $result['messages']);
             }
         }
 
         $result['code'] = AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND;
         $result['messages'][] = "Username '$this->username' and realm '$this->realm' combination not found";
+
         return new AuthenticationResult($result['code'], $result['identity'], $result['messages']);
     }
 
@@ -216,8 +222,8 @@ class Digest implements AdapterInterface
      * attempting to iteratively guess the unknown string (e.g. password) being
      * compared against.
      *
-     * @param string $a
-     * @param string $b
+     * @param  string $a
+     * @param  string $b
      * @return bool
      */
     protected function _secureStringCompare($a, $b)
@@ -229,6 +235,7 @@ class Digest implements AdapterInterface
         for ($i = 0; $i < strlen($a); $i++) {
             $result |= ord($a[$i]) ^ ord($b[$i]);
         }
+
         return $result == 0;
     }
 }

@@ -61,6 +61,7 @@ class Postnet extends AbstractObject
         $startCharacter  = (2 * $this->barThinWidth) * $this->factor;
         $stopCharacter   = (1 * $this->barThinWidth) * $this->factor;
         $encodedData     = (10 * $this->barThinWidth) * $this->factor * strlen($this->getText());
+
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -95,6 +96,7 @@ class Postnet extends AbstractObject
 
         // Stop character (1)
         $barcodeTable[] = array(1 , $this->barThinWidth , 0 , 1);
+
         return $barcodeTable;
     }
 
@@ -109,6 +111,7 @@ class Postnet extends AbstractObject
         $this->checkText($text);
         $sum = array_sum(str_split($text));
         $checksum = (10 - ($sum % 10)) % 10;
+
         return $checksum;
     }
 }

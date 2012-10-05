@@ -105,6 +105,7 @@ class Dba extends AbstractAdapter implements
         if (!$this->options) {
             $this->setOptions(new DbaOptions());
         }
+
         return $this->options;
     }
 
@@ -210,7 +211,7 @@ class Dba extends AbstractAdapter implements
     /**
      * Remove items by given namespace
      *
-     * @param string $namespace
+     * @param  string  $namespace
      * @return boolean
      */
     public function clearByNamespace($namespace)
@@ -241,7 +242,7 @@ class Dba extends AbstractAdapter implements
     /**
      * Remove items matching given prefix
      *
-     * @param string $prefix
+     * @param  string  $prefix
      * @return boolean
      */
     public function clearByPrefix($prefix)
@@ -298,6 +299,7 @@ class Dba extends AbstractAdapter implements
         if (!dba_optimize($this->handle)) {
             throw new Exception\RuntimeException('dba_optimize failed');
         }
+
         return true;
     }
 
@@ -306,10 +308,10 @@ class Dba extends AbstractAdapter implements
     /**
      * Internal method to get an item.
      *
-     * @param  string  $normalizedKey
-     * @param  boolean $success
-     * @param  mixed   $casToken
-     * @return mixed Data on success, null on failure
+     * @param  string                       $normalizedKey
+     * @param  boolean                      $success
+     * @param  mixed                        $casToken
+     * @return mixed                        Data on success, null on failure
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
@@ -323,18 +325,20 @@ class Dba extends AbstractAdapter implements
 
         if ($value === false) {
             $success = false;
+
             return null;
         }
 
         $success = true;
         $casToken = $value;
+
         return $value;
     }
 
     /**
      * Internal method to test if an item exists.
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -345,6 +349,7 @@ class Dba extends AbstractAdapter implements
         $internalKey = $prefix . $normalizedKey;
 
         $this->_open();
+
         return dba_exists($internalKey, $this->handle);
     }
 
@@ -353,8 +358,8 @@ class Dba extends AbstractAdapter implements
     /**
      * Internal method to store an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -375,8 +380,8 @@ class Dba extends AbstractAdapter implements
     /**
      * Add an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -408,7 +413,7 @@ class Dba extends AbstractAdapter implements
     /**
      * Internal method to remove an item.
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */

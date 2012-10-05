@@ -61,9 +61,9 @@ class Ldap implements AdapterInterface
     /**
      * Constructor
      *
-     * @param  array  $options  An array of arrays of Zend\Ldap\Ldap options
-     * @param  string $username The username of the account being authenticated
-     * @param  string $password The password of the account being authenticated
+     * @param array  $options  An array of arrays of Zend\Ldap\Ldap options
+     * @param string $username The username of the account being authenticated
+     * @param string $password The password of the account being authenticated
      */
     public function __construct(array $options = array(), $username = null, $password = null)
     {
@@ -91,11 +91,12 @@ class Ldap implements AdapterInterface
      * this adapter.
      *
      * @param  array $options The array of arrays of Zend\Ldap\Ldap options
-     * @return Ldap Provides a fluent interface
+     * @return Ldap  Provides a fluent interface
      */
     public function setOptions($options)
     {
         $this->options = is_array($options) ? $options : array();
+
         return $this;
     }
 
@@ -114,11 +115,12 @@ class Ldap implements AdapterInterface
      * Sets the username for binding
      *
      * @param  string $username The username for binding
-     * @return Ldap Provides a fluent interface
+     * @return Ldap   Provides a fluent interface
      */
     public function setUsername($username)
     {
         $this->username = (string) $username;
+
         return $this;
     }
 
@@ -137,11 +139,12 @@ class Ldap implements AdapterInterface
      * Sets the password for the account
      *
      * @param  string $password The password of the account being authenticated
-     * @return Ldap Provides a fluent interface
+     * @return Ldap   Provides a fluent interface
      */
     public function setPassword($password)
     {
         $this->password = (string) $password;
+
         return $this;
     }
 
@@ -153,7 +156,7 @@ class Ldap implements AdapterInterface
      * Closes ZF-6813
      *
      * @param  string $identity
-     * @return Ldap Provides a fluent interface
+     * @return Ldap   Provides a fluent interface
      */
     public function setIdentity($identity)
     {
@@ -168,7 +171,7 @@ class Ldap implements AdapterInterface
      * Closes ZF-6813
      *
      * @param  string $credential
-     * @return Ldap Provides a fluent interface
+     * @return Ldap   Provides a fluent interface
      */
     public function setCredential($credential)
     {
@@ -193,7 +196,7 @@ class Ldap implements AdapterInterface
      * Set an Ldap connection
      *
      * @param  ZendLdap\Ldap $ldap An existing Ldap object
-     * @return Ldap Provides a fluent interface
+     * @return Ldap          Provides a fluent interface
      */
     public function setLdap(ZendLdap\Ldap $ldap)
     {
@@ -216,6 +219,7 @@ class Ldap implements AdapterInterface
         $name = $options['accountDomainName'];
         if (!$name)
             $name = $options['accountDomainNameShort'];
+
         return $name ? $name : '';
     }
 
@@ -237,6 +241,7 @@ class Ldap implements AdapterInterface
         if (!$username) {
             $code = AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND;
             $messages[0] = 'A username is required';
+
             return new AuthenticationResult($code, '', $messages);
         }
         if (!$password) {
@@ -245,6 +250,7 @@ class Ldap implements AdapterInterface
              */
             $code = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
             $messages[0] = 'A password is required';
+
             return new AuthenticationResult($code, '', $messages);
         }
 
@@ -312,6 +318,7 @@ class Ldap implements AdapterInterface
                         // rebinding with authenticated user
                         $ldap->bind($dn, $password);
                     }
+
                     return new AuthenticationResult(AuthenticationResult::SUCCESS, $canonicalName, $messages);
                 } else {
                     $messages[0] = 'Account is not a member of the specified group';
@@ -367,7 +374,7 @@ class Ldap implements AdapterInterface
      *
      * @param  ZendLdap\Ldap $ldap
      * @param  array         $options
-     * @return array of auth-adapter specific options
+     * @return array         of auth-adapter specific options
      */
     protected function prepareOptions(ZendLdap\Ldap $ldap, array $options)
     {
@@ -386,7 +393,7 @@ class Ldap implements AdapterInterface
                 unset($options[$key]);
                 switch ($key) {
                     case 'groupScope':
-                        $value = (int)$value;
+                        $value = (int) $value;
                         if (in_array($value, array(ZendLdap\Ldap::SEARCH_SCOPE_BASE,
                                 ZendLdap\Ldap::SEARCH_SCOPE_ONE, ZendLdap\Ldap::SEARCH_SCOPE_SUB), true)) {
                            $adapterOptions[$key] = $value;
@@ -403,6 +410,7 @@ class Ldap implements AdapterInterface
             }
         }
         $ldap->setOptions($options);
+
         return $adapterOptions;
     }
 
@@ -450,8 +458,8 @@ class Ldap implements AdapterInterface
      * This resembles the feature {@see Zend\Authentication\Adapter\DbTable::getResultRowObject()}.
      * Closes ZF-6813
      *
-     * @param  array $returnAttribs
-     * @param  array $omitAttribs
+     * @param  array            $returnAttribs
+     * @param  array            $omitAttribs
      * @return stdClass|boolean
      */
     public function getAccountObject(array $returnAttribs = array(), array $omitAttribs = array())
@@ -476,13 +484,14 @@ class Ldap implements AdapterInterface
                 $returnObject->$attr = $value;
             }
         }
+
         return $returnObject;
     }
 
     /**
      * Converts options to string
      *
-     * @param  array $options
+     * @param  array  $options
      * @return string
      */
     private function optionsToString(array $options)
@@ -495,6 +504,7 @@ class Ldap implements AdapterInterface
                 $str .= ',';
             $str .= $key . '=' . $val;
         }
+
         return $str;
     }
 }

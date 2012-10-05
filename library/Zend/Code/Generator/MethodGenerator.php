@@ -99,7 +99,7 @@ class MethodGenerator extends AbstractMemberGenerator
     /**
      * setParameters()
      *
-     * @param array $parameters
+     * @param  array           $parameters
      * @return MethodGenerator
      */
     public function setParameters(array $parameters)
@@ -107,13 +107,14 @@ class MethodGenerator extends AbstractMemberGenerator
         foreach ($parameters as $parameter) {
             $this->setParameter($parameter);
         }
+
         return $this;
     }
 
     /**
      * setParameter()
      *
-     * @param ParameterGenerator|string $parameter
+     * @param  ParameterGenerator|string          $parameter
      * @throws Exception\InvalidArgumentException
      * @return MethodGenerator
      */
@@ -129,6 +130,7 @@ class MethodGenerator extends AbstractMemberGenerator
         $parameterName = $parameter->getName();
 
         $this->parameters[$parameterName] = $parameter;
+
         return $this;
     }
 
@@ -145,12 +147,13 @@ class MethodGenerator extends AbstractMemberGenerator
     /**
      * setBody()
      *
-     * @param string $body
+     * @param  string          $body
      * @return MethodGenerator
      */
     public function setBody($body)
     {
         $this->body = $body;
+
         return $this;
     }
 

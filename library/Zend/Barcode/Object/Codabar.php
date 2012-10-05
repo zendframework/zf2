@@ -49,6 +49,7 @@ class Codabar extends AbstractObject
             }
         }
         $encodedData -= (1 * $this->barThinWidth * $this->factor);
+
         return $quietZone + $encodedData + $quietZone;
     }
 
@@ -74,6 +75,7 @@ class Codabar extends AbstractObject
             }
             $barcodeTable[] = array(0 , $this->barThinWidth);
         }
+
         return $barcodeTable;
     }
 }

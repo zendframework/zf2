@@ -71,6 +71,7 @@ class DocBlockScanner implements ScannerInterface
     public function getShortDescription()
     {
         $this->scan();
+
         return $this->shortDescription;
     }
 
@@ -80,6 +81,7 @@ class DocBlockScanner implements ScannerInterface
     public function getLongDescription()
     {
         $this->scan();
+
         return $this->longDescription;
     }
 
@@ -89,12 +91,14 @@ class DocBlockScanner implements ScannerInterface
     public function getTags()
     {
         $this->scan();
+
         return $this->tags;
     }
 
     public function getAnnotations()
     {
         $this->scan();
+
         return $this->annotations;
     }
 
@@ -181,6 +185,7 @@ class DocBlockScanner implements ScannerInterface
             $streamIndex      = ($streamIndex === null) ? 0 : $streamIndex + $positionsForward;
             if (!isset($stream[$streamIndex])) {
                 $currentChar = false;
+
                 return false;
             }
             $currentChar = $stream[$streamIndex];
@@ -197,6 +202,7 @@ class DocBlockScanner implements ScannerInterface
                     $currentWord = strtok($currentLine, " \n\t\r");
                 }
             }
+
             return $currentChar;
         };
         $MACRO_STREAM_ADVANCE_WORD       = function () use (&$currentWord, &$MACRO_STREAM_ADVANCE_CHAR) {

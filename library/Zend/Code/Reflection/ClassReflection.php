@@ -38,6 +38,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     public function getDeclaringFile()
     {
         $instance = new FileReflection($this->getFileName());
+
         return $instance;
     }
 
@@ -58,11 +59,12 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
         }
 
         $this->docBlock = new DocBlockReflection($this);
+
         return $this->docBlock;
     }
 
     /**
-     * @param  Annotation\AnnotationManager $annotationManager
+     * @param  Annotation\AnnotationManager    $annotationManager
      * @return Annotation\AnnotationCollection
      */
     public function getAnnotations(Annotation\AnnotationManager $annotationManager)
@@ -83,7 +85,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Return the start line of the class
      *
-     * @param bool $includeDocComment
+     * @param  bool $includeDocComment
      * @return int
      */
     public function getStartLine($includeDocComment = false)
@@ -98,7 +100,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Return the contents of the class
      *
-     * @param bool $includeDocBlock
+     * @param  bool   $includeDocBlock
      * @return string
      */
     public function getContents($includeDocBlock = true)
@@ -111,6 +113,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
         // Ensure we get between the open and close braces
         $lines = array_slice($filelines, $startnum, $endnum);
         array_unshift($lines, $filelines[$startnum-1]);
+
         return strstr(implode('', $lines), '{');
     }
 
@@ -129,25 +132,27 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
             unset($phpReflection);
         }
         unset($phpReflections);
+
         return $zendReflections;
     }
 
     /**
      * Return method reflection by name
      *
-     * @param  string $name
+     * @param  string           $name
      * @return MethodReflection
      */
     public function getMethod($name)
     {
         $method = new MethodReflection($this->getName(), parent::getMethod($name)->getName());
+
         return $method;
     }
 
     /**
      * Get reflection objects of all methods
      *
-     * @param  string $filter
+     * @param  string             $filter
      * @return MethodReflection[]
      */
     public function getMethods($filter = -1)
@@ -157,6 +162,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
             $instance  = new MethodReflection($this->getName(), $method->getName());
             $methods[] = $instance;
         }
+
         return $methods;
     }
 
@@ -171,6 +177,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
         if ($phpReflection) {
             $zendReflection = new ClassReflection($phpReflection->getName());
             unset($phpReflection);
+
             return $zendReflection;
         }
 
@@ -180,7 +187,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Return reflection property of this class by name
      *
-     * @param  string $name
+     * @param  string             $name
      * @return PropertyReflection
      */
     public function getProperty($name)
@@ -188,13 +195,14 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
         $phpReflection  = parent::getProperty($name);
         $zendReflection = new PropertyReflection($this->getName(), $phpReflection->getName());
         unset($phpReflection);
+
         return $zendReflection;
     }
 
     /**
      * Return reflection properties of this class
      *
-     * @param  int $filter
+     * @param  int                  $filter
      * @return PropertyReflection[]
      */
     public function getProperties($filter = -1)
