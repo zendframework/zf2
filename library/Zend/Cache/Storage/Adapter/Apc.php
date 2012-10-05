@@ -11,7 +11,6 @@
 namespace Zend\Cache\Storage\Adapter;
 
 use APCIterator as BaseApcIterator;
-use ArrayObject;
 use stdClass;
 use Traversable;
 use Zend\Cache\Exception;
@@ -98,6 +97,7 @@ class Apc extends AbstractAdapter implements
         if (!$this->options) {
             $this->setOptions(new ApcOptions());
         }
+
         return $this->options;
     }
 
@@ -128,6 +128,7 @@ class Apc extends AbstractAdapter implements
     public function getAvailableSpace()
     {
         $smaInfo = apc_sma_info(true);
+
         return $smaInfo['avail_mem'];
     }
 
@@ -145,6 +146,7 @@ class Apc extends AbstractAdapter implements
         $pattern = '/^' . preg_quote($prefix, '/') . '/';
 
         $baseIt = new BaseApcIterator('user', $pattern, 0, 1, \APC_LIST_ACTIVE);
+
         return new ApcIterator($this, $baseIt, $prefix);
     }
 
@@ -165,7 +167,7 @@ class Apc extends AbstractAdapter implements
     /**
      * Remove items by given namespace
      *
-     * @param string $namespace
+     * @param  string  $namespace
      * @return boolean
      */
     public function clearByNamespace($namespace)
@@ -173,6 +175,7 @@ class Apc extends AbstractAdapter implements
         $options = $this->getOptions();
         $prefix  = $namespace . $options->getNamespaceSeparator();
         $pattern = '/^' . preg_quote($prefix, '/') . '+/';
+
         return apc_delete(new BaseApcIterator('user', $pattern, 0, 1, \APC_LIST_ACTIVE));
     }
 
@@ -181,7 +184,7 @@ class Apc extends AbstractAdapter implements
     /**
      * Remove items matching given prefix
      *
-     * @param string $prefix
+     * @param  string  $prefix
      * @return boolean
      */
     public function clearByPrefix($prefix)
@@ -189,6 +192,7 @@ class Apc extends AbstractAdapter implements
         $options = $this->getOptions();
         $prefix  = $options->getNamespace() . $options->getNamespaceSeparator() . $prefix;
         $pattern = '/^' . preg_quote($prefix, '/') . '+/';
+
         return apc_delete(new BaseApcIterator('user', $pattern, 0, 1, \APC_LIST_ACTIVE));
     }
 
@@ -197,10 +201,10 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to get an item.
      *
-     * @param  string  $normalizedKey
-     * @param  boolean $success
-     * @param  mixed   $casToken
-     * @return mixed Data on success, null on failure
+     * @param  string                       $normalizedKey
+     * @param  boolean                      $success
+     * @param  mixed                        $casToken
+     * @return mixed                        Data on success, null on failure
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
@@ -215,14 +219,15 @@ class Apc extends AbstractAdapter implements
         }
 
         $casToken = $result;
+
         return $result;
     }
 
     /**
      * Internal method to get multiple items.
      *
-     * @param  array $normalizedKeys
-     * @return array Associative array of keys and values
+     * @param  array                        $normalizedKeys
+     * @return array                        Associative array of keys and values
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetItems(array & $normalizedKeys)
@@ -250,7 +255,7 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to test if an item exists.
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -258,14 +263,15 @@ class Apc extends AbstractAdapter implements
     {
         $options = $this->getOptions();
         $prefix  = $options->getNamespace() . $options->getNamespaceSeparator();
+
         return apc_exists($prefix . $normalizedKey);
     }
 
     /**
      * Internal method to test multiple items.
      *
-     * @param  array $normalizedKeys
-     * @return array Array of found keys
+     * @param  array                        $normalizedKeys
+     * @return array                        Array of found keys
      * @throws Exception\ExceptionInterface
      */
     protected function internalHasItems(array & $normalizedKeys)
@@ -293,8 +299,8 @@ class Apc extends AbstractAdapter implements
     /**
      * Get metadata of an item.
      *
-     * @param  string $normalizedKey
-     * @return array|boolean Metadata on success, false on failure
+     * @param  string                       $normalizedKey
+     * @return array|boolean                Metadata on success, false on failure
      * @throws Exception\ExceptionInterface
      */
     protected function internalGetMetadata(& $normalizedKey)
@@ -318,6 +324,7 @@ class Apc extends AbstractAdapter implements
         }
 
         $this->normalizeMetadata($metadata);
+
         return $metadata;
     }
 
@@ -364,8 +371,8 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to store an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -389,8 +396,8 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to store multiple items.
      *
-     * @param  array $normalizedKeyValuePairs
-     * @return array Array of not stored keys
+     * @param  array                        $normalizedKeyValuePairs
+     * @return array                        Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
     protected function internalSetItems(array & $normalizedKeyValuePairs)
@@ -419,8 +426,8 @@ class Apc extends AbstractAdapter implements
     /**
      * Add an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -448,8 +455,8 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to add multiple items.
      *
-     * @param  array $normalizedKeyValuePairs
-     * @return array Array of not stored keys
+     * @param  array                        $normalizedKeyValuePairs
+     * @return array                        Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
     protected function internalAddItems(array & $normalizedKeyValuePairs)
@@ -478,8 +485,8 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to replace an existing item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string                       $normalizedKey
+     * @param  mixed                        $value
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -507,7 +514,7 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to remove an item.
      *
-     * @param  string $normalizedKey
+     * @param  string                       $normalizedKey
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -516,14 +523,15 @@ class Apc extends AbstractAdapter implements
         $options     = $this->getOptions();
         $prefix      = $options->getNamespace() . $options->getNamespaceSeparator();
         $internalKey = $prefix . $normalizedKey;
+
         return apc_delete($internalKey);
     }
 
     /**
      * Internal method to remove multiple items.
      *
-     * @param  array $normalizedKeys
-     * @return array Array of not removed keys
+     * @param  array                        $normalizedKeys
+     * @return array                        Array of not removed keys
      * @throws Exception\ExceptionInterface
      */
     protected function internalRemoveItems(array & $normalizedKeys)
@@ -550,9 +558,9 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to increment an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
-     * @return int|boolean The new value on success, false on failure
+     * @param  string                       $normalizedKey
+     * @param  int                          $value
+     * @return int|boolean                  The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
     protected function internalIncrementItem(& $normalizedKey, & $value)
@@ -581,9 +589,9 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to decrement an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
-     * @return int|boolean The new value on success, false on failure
+     * @param  string                       $normalizedKey
+     * @param  int                          $value
+     * @return int|boolean                  The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
     protected function internalDecrementItem(& $normalizedKey, & $value)

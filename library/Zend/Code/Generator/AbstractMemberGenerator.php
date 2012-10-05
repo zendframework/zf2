@@ -57,7 +57,7 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
     /**
      * Set flags
      *
-     * @param int|array $flags
+     * @param  int|array               $flags
      * @return AbstractMemberGenerator
      */
     public function setFlags($flags)
@@ -72,38 +72,40 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
         }
         // check that visibility is one of three
         $this->flags = $flags;
+
         return $this;
     }
 
     /**
      * Add flag
      *
-     * @param int $flag
+     * @param  int                     $flag
      * @return AbstractMemberGenerator
      */
     public function addFlag($flag)
     {
         $this->setFlags($this->flags | $flag);
+
         return $this;
     }
 
     /**
      * Remove flag
      *
-     * @param int $flag
+     * @param  int                     $flag
      * @return AbstractMemberGenerator
      */
     public function removeFlag($flag)
     {
         $this->setFlags($this->flags & ~$flag);
+
         return $this;
     }
-
 
     /**
      * Set the DocBlock
      *
-     * @param DocBlockGenerator|string $docBlock
+     * @param  DocBlockGenerator|string           $docBlock
      * @throws Exception\InvalidArgumentException
      * @return AbstractMemberGenerator
      */
@@ -118,6 +120,7 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
         }
 
         $this->docBlock = $docBlock;
+
         return $this;
     }
 
@@ -134,7 +137,7 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
     /**
      * setAbstract()
      *
-     * @param bool $isAbstract
+     * @param  bool                    $isAbstract
      * @return AbstractMemberGenerator
      */
     public function setAbstract($isAbstract)
@@ -155,7 +158,7 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
     /**
      * setFinal()
      *
-     * @param bool $isFinal
+     * @param  bool                    $isFinal
      * @return AbstractMemberGenerator
      */
     public function setFinal($isFinal)
@@ -176,7 +179,7 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
     /**
      * setStatic()
      *
-     * @param bool $isStatic
+     * @param  bool                    $isStatic
      * @return AbstractMemberGenerator
      */
     public function setStatic($isStatic)
@@ -197,7 +200,7 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
     /**
      * setVisibility()
      *
-     * @param string $visibility
+     * @param  string                  $visibility
      * @return AbstractMemberGenerator
      */
     public function setVisibility($visibility)
@@ -216,6 +219,7 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
                 $this->addFlag(self::FLAG_PRIVATE);
                 break;
         }
+
         return $this;
     }
 
@@ -239,12 +243,13 @@ abstract class AbstractMemberGenerator extends AbstractGenerator
     /**
      * setName()
      *
-     * @param string $name
+     * @param  string                  $name
      * @return AbstractMemberGenerator
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 

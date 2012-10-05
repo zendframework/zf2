@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Plugin;
 
-use Traversable;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\ExceptionEvent;
 use Zend\EventManager\EventManagerInterface;
@@ -31,8 +30,8 @@ class ExceptionHandler extends AbstractPlugin
     /**
      * Attach
      *
-     * @param  EventManagerInterface $events
-     * @param  int                   $priority
+     * @param  EventManagerInterface    $events
+     * @param  int                      $priority
      * @return ExceptionHandler
      * @throws Exception\LogicException
      */
@@ -88,7 +87,7 @@ class ExceptionHandler extends AbstractPlugin
     /**
      * Detach
      *
-     * @param  EventManagerInterface $events
+     * @param  EventManagerInterface    $events
      * @return ExceptionHandler
      * @throws Exception\LogicException
      */

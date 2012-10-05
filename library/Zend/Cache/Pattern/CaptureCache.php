@@ -23,7 +23,7 @@ class CaptureCache extends AbstractPattern
     /**
      * Start the cache
      *
-     * @param  string $pageId  Page identifier
+     * @param  string $pageId Page identifier
      * @return void
      */
     public function start($pageId = null)
@@ -47,8 +47,8 @@ class CaptureCache extends AbstractPattern
     /**
      * Write content to page identity
      *
-     * @param string      $content
-     * @param null|string $pageId
+     * @param  string                   $content
+     * @param  null|string              $pageId
      * @throws Exception\LogicException
      */
     public function set($content, $pageId = null)
@@ -72,7 +72,7 @@ class CaptureCache extends AbstractPattern
     /**
      * Get from cache
      *
-     * @param  null|string $pageId
+     * @param  null|string                $pageId
      * @return bool|string
      * @throws Exception\LogicException
      * @throws Exception\RuntimeException
@@ -101,6 +101,7 @@ class CaptureCache extends AbstractPattern
                     "Failed to read cached pageId '{$pageId}'", 0, $error
                 );
             }
+
             return $content;
         }
     }
@@ -108,7 +109,7 @@ class CaptureCache extends AbstractPattern
     /**
      * Checks if a cache with given id exists
      *
-     * @param  null|string $pageId
+     * @param  null|string              $pageId
      * @throws Exception\LogicException
      * @return boolean
      */
@@ -133,7 +134,7 @@ class CaptureCache extends AbstractPattern
     /**
      * Remove from cache
      *
-     * @param  null|string $pageId
+     * @param  null|string                $pageId
      * @throws Exception\LogicException
      * @throws Exception\RuntimeException
      * @return boolean
@@ -162,6 +163,7 @@ class CaptureCache extends AbstractPattern
                     "Failed to remove cached pageId '{$pageId}'", 0, $err
                 );
             }
+
             return true;
         }
 
@@ -171,7 +173,7 @@ class CaptureCache extends AbstractPattern
     /**
      * Clear cached pages matching glob pattern
      *
-     * @param string $pattern
+     * @param  string                   $pattern
      * @throws Exception\LogicException
      */
     public function clearByGlob($pattern = '**')
@@ -210,7 +212,7 @@ class CaptureCache extends AbstractPattern
     /**
      * Get filename for page id
      *
-     * @param string $pageId
+     * @param  string $pageId
      * @return string
      */
     protected function pageId2Filename($pageId)
@@ -225,7 +227,7 @@ class CaptureCache extends AbstractPattern
     /**
      * Get path for page id
      *
-     * @param string $pageId
+     * @param  string $pageId
      * @return string
      */
     protected function pageId2Path($pageId)
@@ -247,8 +249,8 @@ class CaptureCache extends AbstractPattern
     /**
      * Write content to a file
      *
-     * @param  string  $file File complete path
-     * @param  string  $data Data to write
+     * @param  string                     $file File complete path
+     * @param  string                     $data Data to write
      * @return void
      * @throws Exception\RuntimeException
      */
@@ -289,7 +291,7 @@ class CaptureCache extends AbstractPattern
     /**
      * Creates directory if not already done.
      *
-     * @param string $pathname
+     * @param  string                     $pathname
      * @return void
      * @throws Exception\RuntimeException
      */

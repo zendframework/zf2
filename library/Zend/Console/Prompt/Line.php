@@ -35,9 +35,9 @@ class Line extends AbstractPrompt
     /**
      * Ask the user for an answer (a line of text)
      *
-     * @param string    $promptText     The prompt text to display in console
-     * @param bool      $allowEmpty     Is empty response allowed?
-     * @param int       $maxLength      Maximum response length
+     * @param string $promptText The prompt text to display in console
+     * @param bool   $allowEmpty Is empty response allowed?
+     * @param int    $maxLength  Maximum response length
      */
     public function __construct($promptText = 'Please enter value: ', $allowEmpty = false, $maxLength = 2048)
     {

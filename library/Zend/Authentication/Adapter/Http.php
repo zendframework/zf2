@@ -140,7 +140,7 @@ class Http implements AdapterInterface
     /**
      * Constructor
      *
-     * @param  array $config Configuration settings:
+     * @param array $config Configuration settings:
      *    'accept_schemes' => 'basic'|'digest'|'basic digest'
      *    'realm' => <string>
      *    'digest_domains' => <string> Space-delimited list of URIs
@@ -230,7 +230,7 @@ class Http implements AdapterInterface
      * Setter for the basicResolver property
      *
      * @param  Http\ResolverInterface $resolver
-     * @return Http Provides a fluent interface
+     * @return Http                   Provides a fluent interface
      */
     public function setBasicResolver(Http\ResolverInterface $resolver)
     {
@@ -253,7 +253,7 @@ class Http implements AdapterInterface
      * Setter for the digestResolver property
      *
      * @param  Http\ResolverInterface $resolver
-     * @return Http Provides a fluent interface
+     * @return Http                   Provides a fluent interface
      */
     public function setDigestResolver(Http\ResolverInterface $resolver)
     {
@@ -276,7 +276,7 @@ class Http implements AdapterInterface
      * Setter for the Request object
      *
      * @param  HTTPRequest $request
-     * @return Http Provides a fluent interface
+     * @return Http        Provides a fluent interface
      */
     public function setRequest(HTTPRequest $request)
     {
@@ -299,7 +299,7 @@ class Http implements AdapterInterface
      * Setter for the Response object
      *
      * @param  HTTPResponse $response
-     * @return Http Provides a fluent interface
+     * @return Http         Provides a fluent interface
      */
     public function setResponse(HTTPResponse $response)
     {
@@ -353,6 +353,7 @@ class Http implements AdapterInterface
         // answer with only the selected auth scheme.
         if (!in_array($clientScheme, $this->supportedSchemes)) {
             $this->response->setStatusCode(400);
+
             return new Authentication\Result(
                 Authentication\Result::FAILURE_UNCATEGORIZED,
                 array(),
@@ -408,6 +409,7 @@ class Http implements AdapterInterface
         if (in_array('digest', $this->acceptSchemes)) {
             $headers->addHeaderLine($headerName, $this->_digestHeader());
         }
+
         return new Authentication\Result(
             Authentication\Result::FAILURE_CREDENTIAL_INVALID,
             array(),
@@ -451,7 +453,7 @@ class Http implements AdapterInterface
     /**
      * Basic Authentication
      *
-     * @param  string $header Client's Authorization header
+     * @param  string                       $header Client's Authorization header
      * @throws Exception\ExceptionInterface
      * @return Authentication\Result
      */
@@ -496,6 +498,7 @@ class Http implements AdapterInterface
             && $this->_secureStringCompare($result, $creds[1])
         ) {
             $identity = array('username'=>$creds[0], 'realm'=>$this->realm);
+
             return new Authentication\Result(Authentication\Result::SUCCESS, $identity);
         } elseif (is_array($result)) {
             return new Authentication\Result(Authentication\Result::SUCCESS, $result);
@@ -507,9 +510,9 @@ class Http implements AdapterInterface
     /**
      * Digest Authentication
      *
-     * @param  string $header Client's Authorization header
+     * @param  string                       $header Client's Authorization header
      * @throws Exception\ExceptionInterface
-     * @return Authentication\Result Valid auth result only on successful auth
+     * @return Authentication\Result        Valid auth result only on successful auth
      */
     protected function _digestAuth($header)
     {
@@ -523,6 +526,7 @@ class Http implements AdapterInterface
         $data = $this->_parseDigestAuth($header);
         if ($data === false) {
             $this->response->setStatusCode(400);
+
             return new Authentication\Result(
                 Authentication\Result::FAILURE_UNCATEGORIZED,
                 array(),
@@ -578,7 +582,6 @@ class Http implements AdapterInterface
         // easier
         $ha2 = hash('md5', $a2);
 
-
         // Calculate the server's version of the request-digest. This must
         // match $data['response']. See RFC 2617, section 3.2.2.1
         $message = $data['nonce'] . ':' . $data['nc'] . ':' . $data['cnonce'] . ':' . $data['qop'] . ':' . $ha2;
@@ -588,6 +591,7 @@ class Http implements AdapterInterface
         // a 401 code and exit to prevent access to the protected resource.
         if ($this->_secureStringCompare($digest, $data['response'])) {
             $identity = array('username'=>$data['username'], 'realm'=>$data['realm']);
+
             return new Authentication\Result(Authentication\Result::SUCCESS, $identity);
         }
 
@@ -621,6 +625,7 @@ class Http implements AdapterInterface
             $userAgent = 'Zend_Authenticaion';
         }
         $nonce = hash('md5', $timeout . ':' . $userAgent . ':' . __CLASS__);
+
         return $nonce;
     }
 
@@ -644,7 +649,7 @@ class Http implements AdapterInterface
     /**
      * Parse Digest Authorization header
      *
-     * @param  string $header Client's Authorization: HTTP header
+     * @param  string     $header Client's Authorization: HTTP header
      * @return array|bool Data elements from header, or false if any part of
      *                    the header is invalid
      */
@@ -809,8 +814,8 @@ class Http implements AdapterInterface
      * attempting to iteratively guess the unknown string (e.g. password) being
      * compared against.
      *
-     * @param string $a
-     * @param string $b
+     * @param  string $a
+     * @param  string $b
      * @return bool
      */
     protected function _secureStringCompare($a, $b)
@@ -822,6 +827,7 @@ class Http implements AdapterInterface
         for ($i = 0; $i < strlen($a); $i++) {
             $result |= ord($a[$i]) ^ ord($b[$i]);
         }
+
         return $result == 0;
     }
 }

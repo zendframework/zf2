@@ -59,9 +59,9 @@ class FilesystemIterator implements IteratorInterface
     /**
      * Constructor
      *
-     * @param Filesystem  $storage
-     * @param string      $path
-     * @param string      $prefix
+     * @param Filesystem $storage
+     * @param string     $path
+     * @param string     $prefix
      */
     public function __construct(Filesystem $storage, $path, $prefix)
     {
@@ -94,12 +94,13 @@ class FilesystemIterator implements IteratorInterface
     /**
      * Set iterator mode
      *
-     * @param int $mode
+     * @param  int         $mode
      * @return ApcIterator Fluent interface
      */
     public function setMode($mode)
     {
         $this->mode = (int) $mode;
+
         return $this;
     }
 

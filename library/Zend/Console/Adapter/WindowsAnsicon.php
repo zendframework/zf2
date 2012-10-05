@@ -88,6 +88,7 @@ class WindowsAnsicon extends Posix
         } else {
             $height = AbstractAdapter::getHeight();
         }
+
         return $height;
     }
 
@@ -193,7 +194,7 @@ class WindowsAnsicon extends Posix
     /**
      * Read a single character from the console input
      *
-     * @param  string|null $mask A list of allowed chars
+     * @param  string|null                $mask A list of allowed chars
      * @return string
      * @throws Exception\RuntimeException
      */
@@ -267,7 +268,7 @@ class WindowsAnsicon extends Posix
                     . '[int[]] $mask = '.join(',', $asciiMask).';'
                     . 'do {'
                         . '$key = $Host.UI.RawUI.ReadKey(\'NoEcho,IncludeKeyDown\').VirtualKeyCode;'
-                    . '} while( !($mask -contains $key) );'
+                    . '} while ( !($mask -contains $key) );'
                     . 'write $key;'
                     . '"',
                 $result,

@@ -44,7 +44,7 @@ class GenericTag implements TagInterface
     }
 
     /**
-     * @param string $tagDocBlockLine
+     * @param  string $tagDocBlockLine
      * @return void
      */
     public function initialize($tagDocBlockLine)

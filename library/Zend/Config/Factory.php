@@ -38,12 +38,11 @@ class Factory
         'yaml' => 'yaml',
     );
 
-
     /**
      * Read a config from a file.
      *
-     * @param  string  $filename
-     * @param  boolean $returnConfigObject
+     * @param  string                             $filename
+     * @param  boolean                            $returnConfigObject
      * @return array|Config
      * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
@@ -92,8 +91,8 @@ class Factory
     /**
      * Read configuration from multiple files and merge them.
      *
-     * @param  array   $files
-     * @param  boolean $returnConfigObject
+     * @param  array        $files
+     * @param  boolean      $returnConfigObject
      * @return array|Config
      */
     public static function fromFiles(array $files, $returnConfigObject = false)
@@ -127,14 +126,15 @@ class Factory
         if (static::$readers === null) {
             static::$readers = new ReaderPluginManager();
         }
+
         return static::$readers;
     }
 
     /**
      * Set config reader for file extension
      *
-     * @param  string $extension
-     * @param  string|Reader\ReaderInterface $reader
+     * @param  string                             $extension
+     * @param  string|Reader\ReaderInterface      $reader
      * @throws Exception\InvalidArgumentException
      */
     public static function registerReader($extension, $reader)

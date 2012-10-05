@@ -34,7 +34,7 @@ class Json implements ReaderInterface
      * fromFile(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromFile()
-     * @param  string $filename
+     * @param  string                     $filename
      * @return array
      * @throws Exception\RuntimeException
      */
@@ -62,7 +62,7 @@ class Json implements ReaderInterface
      * fromString(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromString()
-     * @param  string $string
+     * @param  string                     $string
      * @return array|bool
      * @throws Exception\RuntimeException
      */
@@ -86,7 +86,7 @@ class Json implements ReaderInterface
     /**
      * Process the array for @include
      *
-     * @param  array $data
+     * @param  array                      $data
      * @return array
      * @throws Exception\RuntimeException
      */
@@ -105,6 +105,7 @@ class Json implements ReaderInterface
                 $data = array_replace_recursive($data, $reader->fromFile($this->directory . '/' . $value));
             }
         }
+
         return $data;
     }
 }

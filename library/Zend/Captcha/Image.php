@@ -122,7 +122,7 @@ class Image extends AbstractWord
     /**
      * Constructor
      *
-     * @param  array|\Traversable $options
+     * @param  array|\Traversable                    $options
      * @throws Exception\ExtensionNotLoadedException
      */
     public function __construct($options = null)
@@ -265,56 +265,61 @@ class Image extends AbstractWord
     }
 
     /**
-     * @param string $startImage
+     * @param  string $startImage
      * @return Image
      */
     public function setStartImage($startImage)
     {
         $this->startImage = $startImage;
+
         return $this;
     }
 
     /**
-     * @param int $dotNoiseLevel
+     * @param  int   $dotNoiseLevel
      * @return Image
      */
     public function setDotNoiseLevel($dotNoiseLevel)
     {
         $this->dotNoiseLevel = $dotNoiseLevel;
+
         return $this;
     }
 
     /**
-     * @param int $lineNoiseLevel
+     * @param  int   $lineNoiseLevel
      * @return Image
      */
     public function setLineNoiseLevel($lineNoiseLevel)
     {
         $this->lineNoiseLevel = $lineNoiseLevel;
+
         return $this;
     }
 
     /**
      * Set captcha expiration
      *
-     * @param  int $expiration
+     * @param  int   $expiration
      * @return Image
      */
     public function setExpiration($expiration)
     {
         $this->expiration = $expiration;
+
         return $this;
     }
 
     /**
      * Set garbage collection frequency
      *
-     * @param  int $gcFreq
+     * @param  int   $gcFreq
      * @return Image
      */
     public function setGcFreq($gcFreq)
     {
         $this->gcFreq = $gcFreq;
+
         return $this;
     }
 
@@ -327,30 +332,33 @@ class Image extends AbstractWord
     public function setFont($font)
     {
         $this->font = $font;
+
         return $this;
     }
 
     /**
      * Set captcha font size
      *
-     * @param  int $fsize
+     * @param  int   $fsize
      * @return Image
      */
     public function setFontSize($fsize)
     {
         $this->fsize = $fsize;
+
         return $this;
     }
 
     /**
      * Set captcha image height
      *
-     * @param  int $height
+     * @param  int   $height
      * @return Image
      */
     public function setHeight($height)
     {
         $this->height = $height;
+
         return $this;
     }
 
@@ -363,6 +371,7 @@ class Image extends AbstractWord
     public function setImgDir($imgDir)
     {
         $this->imgDir = rtrim($imgDir, "/\\") . '/';
+
         return $this;
     }
 
@@ -375,16 +384,18 @@ class Image extends AbstractWord
     public function setImgUrl($imgUrl)
     {
         $this->imgUrl = rtrim($imgUrl, "/\\") . '/';
+
         return $this;
     }
 
     /**
-     * @param string $imgAlt
+     * @param  string $imgAlt
      * @return Image
      */
     public function setImgAlt($imgAlt)
     {
         $this->imgAlt = $imgAlt;
+
         return $this;
     }
 
@@ -397,18 +408,20 @@ class Image extends AbstractWord
     public function setSuffix($suffix)
     {
         $this->suffix = $suffix;
+
         return $this;
     }
 
     /**
      * Set captcha image width
      *
-     * @param  int $width
+     * @param  int   $width
      * @return Image
      */
     public function setWidth($width)
     {
         $this->width = $width;
+
         return $this;
     }
 
@@ -473,9 +486,9 @@ class Image extends AbstractWord
      * Override this function if you want different image generator
      * Wave transform from http://www.captcha.ru/captchas/multiwave/
      *
-     * @param string $id Captcha ID
-     * @param string $word Captcha word
-     * @throws Exception\NoFontProvidedException if no font was set
+     * @param  string                              $id   Captcha ID
+     * @param  string                              $word Captcha word
+     * @throws Exception\NoFontProvidedException   if no font was set
      * @throws Exception\ImageNotLoadableException if start image cannot be loaded
      */
     protected function generateImage($id, $word)

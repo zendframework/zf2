@@ -122,6 +122,7 @@ if (isset($_GET['progress_key'])) {
 
             if (!httpRequest) {
                 alert('Giving up :( Cannot create an XMLHTTP instance');
+
                 return false;
             }
 

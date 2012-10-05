@@ -28,7 +28,7 @@ class LicenseTag extends Tag
     /**
      * fromReflection()
      *
-     * @param ReflectionDocBlockTag $reflectionTagLicense
+     * @param  ReflectionDocBlockTag $reflectionTagLicense
      * @return LicenseTag
      */
     public static function fromReflection(ReflectionDocBlockTag $reflectionTagLicense)
@@ -45,12 +45,13 @@ class LicenseTag extends Tag
     /**
      * setUrl()
      *
-     * @param string $url
+     * @param  string     $url
      * @return LicenseTag
      */
     public function setUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
 

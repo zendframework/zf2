@@ -38,6 +38,7 @@ class Ean2 extends Ean5
     protected function getParity($i)
     {
         $modulo = $this->getText() % 4;
+
         return $this->parities[$modulo][$i];
     }
 }

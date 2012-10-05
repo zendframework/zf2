@@ -77,6 +77,7 @@ class Royalmail extends AbstractObject
         $startCharacter  = (2 * $this->barThinWidth) * $this->factor;
         $stopCharacter   = (1 * $this->barThinWidth) * $this->factor;
         $encodedData     = (8 * $this->barThinWidth) * $this->factor * strlen($this->getText());
+
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -111,6 +112,7 @@ class Royalmail extends AbstractObject
 
         // Stop character (1)
         $barcodeTable[] = array(1 , $this->barThinWidth , 0 , 1);
+
         return $barcodeTable;
     }
 
@@ -136,6 +138,7 @@ class Royalmail extends AbstractObject
 
         $rowchkvalue = array_keys($this->rows, $rowvalue);
         $colchkvalue = array_keys($this->columns, $colvalue);
+
         return current(array_intersect($rowchkvalue, $colchkvalue));
     }
 }

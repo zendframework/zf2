@@ -40,11 +40,12 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         }
 
         $instance = new DocBlockReflection($this);
+
         return $instance;
     }
 
     /**
-     * @param AnnotationManager $annotationManager
+     * @param  AnnotationManager    $annotationManager
      * @return AnnotationCollection
      */
     public function getAnnotations(AnnotationManager $annotationManager)
@@ -90,6 +91,7 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         $phpReflection  = parent::getDeclaringClass();
         $zendReflection = new ClassReflection($phpReflection->getName());
         unset($phpReflection);
+
         return $zendReflection;
     }
 
@@ -109,13 +111,14 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
             unset($phpReflection);
         }
         unset($phpReflections);
+
         return $zendReflections;
     }
 
     /**
      * Get method contents
      *
-     * @param  bool $includeDocBlock
+     * @param  bool   $includeDocBlock
      * @return string
      */
     public function getContents($includeDocBlock = true)

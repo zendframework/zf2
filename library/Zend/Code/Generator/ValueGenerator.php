@@ -106,12 +106,13 @@ class ValueGenerator extends AbstractGenerator
     /**
      * setValue()
      *
-     * @param mixed $value
+     * @param  mixed          $value
      * @return ValueGenerator
      */
     public function setValue($value)
     {
         $this->value = $value;
+
         return $this;
     }
 
@@ -128,12 +129,13 @@ class ValueGenerator extends AbstractGenerator
     /**
      * setType()
      *
-     * @param string $type
+     * @param  string         $type
      * @return ValueGenerator
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -150,12 +152,13 @@ class ValueGenerator extends AbstractGenerator
     /**
      * setArrayDepth()
      *
-     * @param int $arrayDepth
+     * @param  int            $arrayDepth
      * @return ValueGenerator
      */
     public function setArrayDepth($arrayDepth)
     {
         $this->arrayDepth = $arrayDepth;
+
         return $this;
     }
 
@@ -172,7 +175,7 @@ class ValueGenerator extends AbstractGenerator
     /**
      * _getValidatedType()
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     protected function getValidatedType($type)
@@ -204,7 +207,7 @@ class ValueGenerator extends AbstractGenerator
     /**
      * _getAutoDeterminedType()
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     public function getAutoDeterminedType($value)
@@ -333,8 +336,8 @@ class ValueGenerator extends AbstractGenerator
     /**
      * Quotes value for PHP code.
      *
-     * @param string $input Raw string.
-     * @param bool   $quote Whether add surrounding quotes or not.
+     * @param  string $input Raw string.
+     * @param  bool   $quote Whether add surrounding quotes or not.
      * @return string PHP-ready code.
      */
     public static function escape($input, $quote = true)
@@ -350,12 +353,13 @@ class ValueGenerator extends AbstractGenerator
     }
 
     /**
-     * @param string $outputMode
+     * @param  string         $outputMode
      * @return ValueGenerator
      */
     public function setOutputMode($outputMode)
     {
         $this->outputMode = $outputMode;
+
         return $this;
     }
 

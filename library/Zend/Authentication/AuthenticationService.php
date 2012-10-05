@@ -33,8 +33,8 @@ class AuthenticationService
     /**
      * Constructor
      *
-     * @param  Storage\StorageInterface $storage
-     * @param  Adapter\AdapterInterface $adapter
+     * @param Storage\StorageInterface $storage
+     * @param Adapter\AdapterInterface $adapter
      */
     public function __construct(Storage\StorageInterface $storage = null, Adapter\AdapterInterface $adapter = null)
     {
@@ -62,11 +62,12 @@ class AuthenticationService
      * Sets the authentication adapter
      *
      * @param  Adapter\AdapterInterface $adapter
-     * @return AuthenticationService Provides a fluent interface
+     * @return AuthenticationService    Provides a fluent interface
      */
     public function setAdapter(Adapter\AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
+
         return $this;
     }
 
@@ -90,18 +91,19 @@ class AuthenticationService
      * Sets the persistent storage handler
      *
      * @param  Storage\StorageInterface $storage
-     * @return AuthenticationService Provides a fluent interface
+     * @return AuthenticationService    Provides a fluent interface
      */
     public function setStorage(Storage\StorageInterface $storage)
     {
         $this->storage = $storage;
+
         return $this;
     }
 
     /**
      * Authenticates against the supplied adapter
      *
-     * @param  Adapter\AdapterInterface $adapter
+     * @param  Adapter\AdapterInterface   $adapter
      * @return Result
      * @throws Exception\RuntimeException
      */

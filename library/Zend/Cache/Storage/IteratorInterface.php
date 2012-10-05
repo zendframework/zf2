@@ -42,7 +42,7 @@ interface IteratorInterface extends Iterator
     /**
      * Set iterator mode
      *
-     * @param int $mode Value of IteratorInterface::CURRENT_AS_*
+     * @param  int               $mode Value of IteratorInterface::CURRENT_AS_*
      * @return IteratorInterface Fluent interface
      */
     public function setMode($mode);

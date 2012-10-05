@@ -10,8 +10,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use Zend\Cache\Exception;
-
 /**
  * These are options specific to the APC adapter
  *
@@ -31,7 +29,7 @@ class WinCacheOptions extends AdapterOptions
     /**
      * Set namespace separator
      *
-     * @param  string $namespaceSeparator
+     * @param  string          $namespaceSeparator
      * @return WinCacheOptions
      */
     public function setNamespaceSeparator($namespaceSeparator)
@@ -39,6 +37,7 @@ class WinCacheOptions extends AdapterOptions
         $namespaceSeparator = (string) $namespaceSeparator;
         $this->triggerOptionEvent('namespace_separator', $namespaceSeparator);
         $this->namespaceSeparator = $namespaceSeparator;
+
         return $this;
     }
 

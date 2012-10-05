@@ -30,7 +30,7 @@ interface WriterInterface
     /**
      * Write a config object to a string.
      *
-     * @param  mixed $config
+     * @param  mixed  $config
      * @return string
      */
     public function toString($config);

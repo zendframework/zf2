@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Plugin;
 
-use Traversable;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\OptimizableInterface;
 use Zend\Cache\Storage\PostEvent;
@@ -33,8 +32,8 @@ class OptimizeByFactor extends AbstractPlugin
     /**
      * Attach
      *
-     * @param  EventManagerInterface $events
-     * @param  int                   $priority
+     * @param  EventManagerInterface    $events
+     * @param  int                      $priority
      * @return OptimizeByFactor
      * @throws Exception\LogicException
      */
@@ -58,7 +57,7 @@ class OptimizeByFactor extends AbstractPlugin
     /**
      * Detach
      *
-     * @param  EventManagerInterface $events
+     * @param  EventManagerInterface    $events
      * @return OptimizeByFactor
      * @throws Exception\LogicException
      */

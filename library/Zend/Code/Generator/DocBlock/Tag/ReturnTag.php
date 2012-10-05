@@ -28,7 +28,7 @@ class ReturnTag extends Tag
     /**
      * fromReflection()
      *
-     * @param ReflectionDocBlockTag $reflectionTagReturn
+     * @param  ReflectionDocBlockTag $reflectionTagReturn
      * @return ReturnTag
      */
     public static function fromReflection(ReflectionDocBlockTag $reflectionTagReturn)
@@ -45,12 +45,13 @@ class ReturnTag extends Tag
     /**
      * setDatatype()
      *
-     * @param string $datatype
+     * @param  string    $datatype
      * @return ReturnTag
      */
     public function setDatatype($datatype)
     {
         $this->datatype = $datatype;
+
         return $this;
     }
 
@@ -64,7 +65,6 @@ class ReturnTag extends Tag
         return $this->datatype;
     }
 
-
     /**
      * generate()
      *
@@ -73,6 +73,7 @@ class ReturnTag extends Tag
     public function generate()
     {
         $output = '@return ' . $this->datatype . ' ' . $this->description;
+
         return $output;
     }
 

@@ -43,6 +43,7 @@ class Filter implements ProcessorInterface
     public function setFilter(ZendFilter $filter)
     {
         $this->filter = $filter;
+
         return $this;
     }
 
@@ -57,7 +58,7 @@ class Filter implements ProcessorInterface
     /**
      * Process
      *
-     * @param  Config $config
+     * @param  Config                             $config
      * @return Config
      * @throws Exception\InvalidArgumentException
      */

@@ -151,7 +151,7 @@ class PatternOptions extends AbstractOptions
     /**
      * Constructor
      *
-     * @param  array|Traversable|null $options
+     * @param  array|Traversable|null             $options
      * @return PatternOptions
      * @throws Exception\InvalidArgumentException
      */
@@ -173,12 +173,13 @@ class PatternOptions extends AbstractOptions
      * - ClassCache
      * - ObjectCache
      *
-     * @param  bool $cacheByDefault
+     * @param  bool           $cacheByDefault
      * @return PatternOptions
      */
     public function setCacheByDefault($cacheByDefault)
     {
         $this->cacheByDefault = $cacheByDefault;
+
         return $this;
     }
 
@@ -204,12 +205,13 @@ class PatternOptions extends AbstractOptions
      * - ClassCache
      * - ObjectCache
      *
-     * @param  bool $cacheOutput
+     * @param  bool           $cacheOutput
      * @return PatternOptions
      */
     public function setCacheOutput($cacheOutput)
     {
         $this->cacheOutput = (bool) $cacheOutput;
+
         return $this;
     }
 
@@ -234,7 +236,7 @@ class PatternOptions extends AbstractOptions
      * Used by:
      * - ClassCache
      *
-     * @param  string $class
+     * @param  string                             $class
      * @throws Exception\InvalidArgumentException
      * @return PatternOptions
      */
@@ -244,6 +246,7 @@ class PatternOptions extends AbstractOptions
             throw new Exception\InvalidArgumentException('Invalid classname provided; must be a string');
         }
         $this->class = $class;
+
         return $this;
     }
 
@@ -266,12 +269,13 @@ class PatternOptions extends AbstractOptions
      * Used by:
      * - ClassCache
      *
-     * @param  array $classCacheMethods
+     * @param  array          $classCacheMethods
      * @return PatternOptions
      */
     public function setClassCacheMethods(array $classCacheMethods)
     {
         $this->classCacheMethods = $this->recursiveStrtolower($classCacheMethods);
+
         return $this;
     }
 
@@ -294,12 +298,13 @@ class PatternOptions extends AbstractOptions
      * Used by:
      * - ClassCache
      *
-     * @param  array $classNonCacheMethods
+     * @param  array          $classNonCacheMethods
      * @return PatternOptions
      */
     public function setClassNonCacheMethods(array $classNonCacheMethods)
     {
         $this->classNonCacheMethods = $this->recursiveStrtolower($classNonCacheMethods);
+
         return $this;
     }
 
@@ -319,7 +324,7 @@ class PatternOptions extends AbstractOptions
     /**
      * Set directory permission
      *
-     * @param  false|int $dirPermission
+     * @param  false|int                          $dirPermission
      * @throws Exception\InvalidArgumentException
      * @return PatternOptions
      */
@@ -341,6 +346,7 @@ class PatternOptions extends AbstractOptions
         }
 
         $this->dirPermission = $dirPermission;
+
         return $this;
     }
 
@@ -360,7 +366,7 @@ class PatternOptions extends AbstractOptions
      * Used by:
      * - CaptureCache
      *
-     * @param  false|int $umask
+     * @param  false|int                          $umask
      * @throws Exception\InvalidArgumentException
      * @return PatternOptions
      */
@@ -385,6 +391,7 @@ class PatternOptions extends AbstractOptions
         }
 
         $this->umask = $umask;
+
         return $this;
     }
 
@@ -407,12 +414,13 @@ class PatternOptions extends AbstractOptions
      * Used by:
      * - CaptureCache
      *
-     * @param  bool $fileLocking
+     * @param  bool           $fileLocking
      * @return PatternOptions
      */
     public function setFileLocking($fileLocking)
     {
         $this->fileLocking = (bool) $fileLocking;
+
         return $this;
     }
 
@@ -432,7 +440,7 @@ class PatternOptions extends AbstractOptions
     /**
      * Set file permission
      *
-     * @param  false|int $filePermission
+     * @param  false|int                          $filePermission
      * @throws Exception\InvalidArgumentException
      * @return PatternOptions
      */
@@ -458,6 +466,7 @@ class PatternOptions extends AbstractOptions
         }
 
         $this->filePermission = $filePermission;
+
         return $this;
     }
 
@@ -474,12 +483,13 @@ class PatternOptions extends AbstractOptions
     /**
      * Set value for index filename
      *
-     * @param  string $indexFilename
+     * @param  string         $indexFilename
      * @return PatternOptions
      */
     public function setIndexFilename($indexFilename)
     {
         $this->indexFilename = (string) $indexFilename;
+
         return $this;
     }
 
@@ -496,7 +506,7 @@ class PatternOptions extends AbstractOptions
     /**
      * Set object to cache
      *
-     * @param  mixed $object
+     * @param  mixed                              $object
      * @throws Exception\InvalidArgumentException
      * @return $this
      */
@@ -508,6 +518,7 @@ class PatternOptions extends AbstractOptions
             ));
         }
         $this->object = $object;
+
         return $this;
     }
 
@@ -527,12 +538,13 @@ class PatternOptions extends AbstractOptions
      * Used by:
      * - ObjectCache
      *
-     * @param  bool $objectCacheMagicProperties
+     * @param  bool           $objectCacheMagicProperties
      * @return PatternOptions
      */
     public function setObjectCacheMagicProperties($objectCacheMagicProperties)
     {
         $this->objectCacheMagicProperties = (bool) $objectCacheMagicProperties;
+
         return $this;
     }
 
@@ -552,13 +564,14 @@ class PatternOptions extends AbstractOptions
     /**
      * Set list of object methods for which to cache return values
      *
-     * @param  array $objectCacheMethods
+     * @param  array                              $objectCacheMethods
      * @return PatternOptions
      * @throws Exception\InvalidArgumentException
      */
     public function setObjectCacheMethods(array $objectCacheMethods)
     {
         $this->objectCacheMethods = $this->normalizeObjectMethods($objectCacheMethods);
+
         return $this;
     }
 
@@ -580,7 +593,7 @@ class PatternOptions extends AbstractOptions
      * Used by:
      * - ObjectCache
      *
-     * @param  mixed $objectKey
+     * @param mixed $objectKey
      * @return $this
      */
     public function setObjectKey($objectKey)
@@ -590,6 +603,7 @@ class PatternOptions extends AbstractOptions
         } else {
             $this->objectKey = null;
         }
+
         return $this;
     }
 
@@ -606,19 +620,21 @@ class PatternOptions extends AbstractOptions
         if (!$this->objectKey) {
             return get_class($this->getObject());
         }
+
         return $this->objectKey;
     }
 
     /**
      * Set list of object methods for which NOT to cache return values
      *
-     * @param  array $objectNonCacheMethods
+     * @param  array                              $objectNonCacheMethods
      * @return PatternOptions
      * @throws Exception\InvalidArgumentException
      */
     public function setObjectNonCacheMethods(array $objectNonCacheMethods)
     {
         $this->objectNonCacheMethods = $this->normalizeObjectMethods($objectNonCacheMethods);
+
         return $this;
     }
 
@@ -638,7 +654,7 @@ class PatternOptions extends AbstractOptions
      * Used by:
      * - CaptureCache
      *
-     * @param  string $publicDir
+     * @param  string                             $publicDir
      * @throws Exception\InvalidArgumentException
      * @return PatternOptions
      */
@@ -661,6 +677,7 @@ class PatternOptions extends AbstractOptions
         }
 
         $this->publicDir = rtrim(realpath($publicDir), \DIRECTORY_SEPARATOR);
+
         return $this;
     }
 
@@ -692,6 +709,7 @@ class PatternOptions extends AbstractOptions
     public function setStorage($storage)
     {
         $this->storage = $this->storageFactory($storage);
+
         return $this;
     }
 
@@ -729,7 +747,7 @@ class PatternOptions extends AbstractOptions
      * Recursively casts values to lowercase, then determines if any are in a
      * list of methods not handled, raising an exception if so.
      *
-     * @param  array $methods
+     * @param  array                              $methods
      * @return array
      * @throws Exception\InvalidArgumentException
      */
@@ -742,13 +760,14 @@ class PatternOptions extends AbstractOptions
                 "Magic properties are handled by option 'cache_magic_properties'"
             );
         }
+
         return $methods;
     }
 
     /**
      * Create a storage object from a given specification
      *
-     * @param  array|string|Storage $storage
+     * @param  array|string|Storage               $storage
      * @throws Exception\InvalidArgumentException
      * @return Storage
      */

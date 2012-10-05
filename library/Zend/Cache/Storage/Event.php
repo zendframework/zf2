@@ -25,9 +25,9 @@ class Event extends BaseEvent
      *
      * Accept a storage adapter and its parameters.
      *
-     * @param  string           $name Event name
-     * @param  StorageInterface $storage
-     * @param  ArrayObject      $params
+     * @param string           $name    Event name
+     * @param StorageInterface $storage
+     * @param ArrayObject      $params
      */
     public function __construct($name, StorageInterface $storage, ArrayObject $params)
     {
@@ -56,6 +56,7 @@ class Event extends BaseEvent
     public function setStorage(StorageInterface $storage)
     {
         $this->target = $storage;
+
         return $this;
     }
 

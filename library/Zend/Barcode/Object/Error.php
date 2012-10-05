@@ -20,7 +20,7 @@ class Error extends AbstractObject
 {
     /**
      * All texts are accepted
-     * @param string $value
+     * @param  string  $value
      * @return boolean
      */
     public function validateText($value)
@@ -30,7 +30,7 @@ class Error extends AbstractObject
 
     /**
      * Height is forced
-     * @param bool $recalculate
+     * @param  bool    $recalculate
      * @return integer
      */
     public function getHeight($recalculate = false)
@@ -40,7 +40,7 @@ class Error extends AbstractObject
 
     /**
      * Width is forced
-     * @param bool $recalculate
+     * @param  bool    $recalculate
      * @return integer
      */
     public function getWidth($recalculate = false)
@@ -58,6 +58,7 @@ class Error extends AbstractObject
         $this->instructions = array();
         $this->addText('ERROR:', 10, array(5 , 18), $this->font, 0, 'left');
         $this->addText($this->text, 10, array(5 , 32), $this->font, 0, 'left');
+
         return $this->instructions;
     }
 

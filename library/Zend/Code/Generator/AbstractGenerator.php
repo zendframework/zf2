@@ -43,12 +43,13 @@ abstract class AbstractGenerator implements GeneratorInterface
     /**
      * setSourceDirty()
      *
-     * @param bool $isSourceDirty
+     * @param  bool              $isSourceDirty
      * @return AbstractGenerator
      */
     public function setSourceDirty($isSourceDirty = true)
     {
         $this->isSourceDirty = ($isSourceDirty) ? true : false;
+
         return $this;
     }
 
@@ -65,12 +66,13 @@ abstract class AbstractGenerator implements GeneratorInterface
     /**
      * setIndentation()
      *
-     * @param string|int $indentation
+     * @param  string|int        $indentation
      * @return AbstractGenerator
      */
     public function setIndentation($indentation)
     {
         $this->indentation = $indentation;
+
         return $this;
     }
 
@@ -87,12 +89,13 @@ abstract class AbstractGenerator implements GeneratorInterface
     /**
      * setSourceContent()
      *
-     * @param string $sourceContent
+     * @param  string            $sourceContent
      * @return AbstractGenerator
      */
     public function setSourceContent($sourceContent)
     {
         $this->sourceContent = $sourceContent;
+
         return $this;
     }
 
@@ -109,7 +112,7 @@ abstract class AbstractGenerator implements GeneratorInterface
     /**
      * setOptions()
      *
-     * @param array|Traversable $options
+     * @param  array|Traversable                  $options
      * @throws Exception\InvalidArgumentException
      * @return self
      */

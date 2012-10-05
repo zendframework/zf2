@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\ClearByNamespaceInterface;
 use Zend\Cache\Storage\FlushableInterface;
@@ -61,7 +60,7 @@ class ZendServerShm extends AbstractZendServer implements
     /**
      * Remove items of given namespace
      *
-     * @param string $namespace
+     * @param  string  $namespace
      * @return boolean
      */
     public function clearByNamespace($namespace)
@@ -86,9 +85,9 @@ class ZendServerShm extends AbstractZendServer implements
     /**
      * Store data into Zend Data SHM Cache
      *
-     * @param  string $internalKey
-     * @param  mixed  $value
-     * @param  int    $ttl
+     * @param  string                     $internalKey
+     * @param  mixed                      $value
+     * @param  int                        $ttl
      * @return void
      * @throws Exception\RuntimeException
      */
@@ -105,20 +104,20 @@ class ZendServerShm extends AbstractZendServer implements
     /**
      * Fetch a single item from Zend Data SHM Cache
      *
-     * @param  string $internalKey
-     * @return mixed The stored value or FALSE if item wasn't found
+     * @param  string                     $internalKey
+     * @return mixed                      The stored value or FALSE if item wasn't found
      * @throws Exception\RuntimeException
      */
     protected function zdcFetch($internalKey)
     {
-        return zend_shm_cache_fetch((string)$internalKey);
+        return zend_shm_cache_fetch((string) $internalKey);
     }
 
     /**
      * Fetch multiple items from Zend Data SHM Cache
      *
-     * @param  array $internalKeys
-     * @return array All found items
+     * @param  array                      $internalKeys
+     * @return array                      All found items
      * @throws Exception\RuntimeException
      */
     protected function zdcFetchMulti(array $internalKeys)
@@ -127,13 +126,14 @@ class ZendServerShm extends AbstractZendServer implements
         if ($items === false) {
             throw new Exception\RuntimeException("zend_shm_cache_fetch(<array>) failed");
         }
+
         return $items;
     }
 
     /**
      * Delete data from Zend Data SHM Cache
      *
-     * @param  string $internalKey
+     * @param  string                     $internalKey
      * @return boolean
      * @throws Exception\RuntimeException
      */

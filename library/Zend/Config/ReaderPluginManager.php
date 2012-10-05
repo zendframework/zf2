@@ -34,7 +34,7 @@ class ReaderPluginManager extends AbstractPluginManager
      * Validate the plugin
      * Checks that the reader loaded is an instance of Reader\ReaderInterface.
      *
-     * @param  Reader\ReaderInterface $plugin
+     * @param  Reader\ReaderInterface             $plugin
      * @return void
      * @throws Exception\InvalidArgumentException if invalid
      */

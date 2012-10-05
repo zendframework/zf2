@@ -35,12 +35,13 @@ class Code25interleaved extends Code25
 
     /**
      * Activate/deactivate drawing of bearer bars
-     * @param boolean $value
+     * @param  boolean $value
      * @return Code25
      */
     public function setWithBearerBars($value)
     {
         $this->withBearerBars = (bool) $value;
+
         return $this;
     }
 
@@ -64,6 +65,7 @@ class Code25interleaved extends Code25
         $characterLength = (3 * $this->barThinWidth + 2 * $this->barThickWidth) * $this->factor;
         $encodedData     = strlen($this->getText()) * $characterLength;
         $stopCharacter   = ($this->barThickWidth + 2 * $this->barThinWidth) * $this->factor;
+
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -110,6 +112,7 @@ class Code25interleaved extends Code25
         $barcodeTable[] = array(1 , $this->barThickWidth, 0, 1);
         $barcodeTable[] = array(0 , $this->barThinWidth,  0, 1);
         $barcodeTable[] = array(1 , $this->barThinWidth,  0, 1);
+
         return $barcodeTable;
     }
 

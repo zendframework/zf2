@@ -34,6 +34,7 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
         $phpReflection  = parent::getDeclaringClass();
         $zendReflection = new ClassReflection($phpReflection->getName());
         unset($phpReflection);
+
         return $zendReflection;
     }
 
@@ -56,11 +57,12 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
             return false;
         }
         $r = new DocBlockReflection($docComment);
+
         return $r;
     }
 
     /**
-     * @param AnnotationManager $annotationManager
+     * @param  AnnotationManager    $annotationManager
      * @return AnnotationCollection
      */
     public function getAnnotations(AnnotationManager $annotationManager)

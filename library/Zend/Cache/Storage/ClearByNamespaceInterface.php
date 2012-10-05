@@ -20,7 +20,7 @@ interface ClearByNamespaceInterface
     /**
      * Remove items of given namespace
      *
-     * @param string $namespace
+     * @param  string  $namespace
      * @return boolean
      */
     public function clearByNamespace($namespace);

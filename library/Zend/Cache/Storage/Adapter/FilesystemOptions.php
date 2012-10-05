@@ -106,7 +106,7 @@ class FilesystemOptions extends AdapterOptions
     /**
      * Constructor
      *
-     * @param  array|Traversable|null $options
+     * @param  array|Traversable|null             $options
      * @return FilesystemOptions
      * @throws Exception\InvalidArgumentException
      */
@@ -124,7 +124,7 @@ class FilesystemOptions extends AdapterOptions
     /**
      * Set cache dir
      *
-     * @param  string $cacheDir
+     * @param  string                             $cacheDir
      * @return FilesystemOptions
      * @throws Exception\InvalidArgumentException
      */
@@ -152,6 +152,7 @@ class FilesystemOptions extends AdapterOptions
 
         $this->triggerOptionEvent('cache_dir', $cacheDir);
         $this->cacheDir = $cacheDir;
+
         return $this;
     }
 
@@ -172,7 +173,7 @@ class FilesystemOptions extends AdapterOptions
     /**
      * Set clear stat cache
      *
-     * @param  bool $clearStatCache
+     * @param  bool              $clearStatCache
      * @return FilesystemOptions
      */
     public function setClearStatCache($clearStatCache)
@@ -180,6 +181,7 @@ class FilesystemOptions extends AdapterOptions
         $clearStatCache = (bool) $clearStatCache;
         $this->triggerOptionEvent('clear_stat_cache', $clearStatCache);
         $this->clearStatCache = $clearStatCache;
+
         return $this;
     }
 
@@ -196,7 +198,7 @@ class FilesystemOptions extends AdapterOptions
     /**
      * Set dir level
      *
-     * @param  int $dirLevel
+     * @param  int                                $dirLevel
      * @return FilesystemOptions
      * @throws Exception\InvalidArgumentException
      */
@@ -210,6 +212,7 @@ class FilesystemOptions extends AdapterOptions
         }
         $this->triggerOptionEvent('dir_level', $dirLevel);
         $this->dirLevel = $dirLevel;
+
         return $this;
     }
 
@@ -226,7 +229,7 @@ class FilesystemOptions extends AdapterOptions
     /**
      * Set permission to create directories on unix systems
      *
-     * @param false|string|int $dirPermission FALSE to disable explicit permission or an octal number
+     * @param  false|string|int  $dirPermission FALSE to disable explicit permission or an octal number
      * @return FilesystemOptions
      * @see setUmask
      * @see setFilePermission
@@ -270,7 +273,7 @@ class FilesystemOptions extends AdapterOptions
     /**
      * Set file locking
      *
-     * @param  bool $fileLocking
+     * @param  bool              $fileLocking
      * @return FilesystemOptions
      */
     public function setFileLocking($fileLocking)
@@ -278,6 +281,7 @@ class FilesystemOptions extends AdapterOptions
         $fileLocking = (bool) $fileLocking;
         $this->triggerOptionEvent('file_locking', $fileLocking);
         $this->fileLocking = $fileLocking;
+
         return $this;
     }
 
@@ -294,7 +298,7 @@ class FilesystemOptions extends AdapterOptions
     /**
      * Set permission to create files on unix systems
      *
-     * @param false|string|int $filePermission FALSE to disable explicit permission or an octal number
+     * @param  false|string|int  $filePermission FALSE to disable explicit permission or an octal number
      * @return FilesystemOptions
      * @see setUmask
      * @see setDirPermission
@@ -342,7 +346,7 @@ class FilesystemOptions extends AdapterOptions
     /**
      * Set namespace separator
      *
-     * @param  string $namespaceSeparator
+     * @param  string            $namespaceSeparator
      * @return FilesystemOptions
      */
     public function setNamespaceSeparator($namespaceSeparator)
@@ -350,6 +354,7 @@ class FilesystemOptions extends AdapterOptions
         $namespaceSeparator = (string) $namespaceSeparator;
         $this->triggerOptionEvent('namespace_separator', $namespaceSeparator);
         $this->namespaceSeparator = $namespaceSeparator;
+
         return $this;
     }
 
@@ -366,7 +371,7 @@ class FilesystemOptions extends AdapterOptions
     /**
      * Set no atime
      *
-     * @param  bool $noAtime
+     * @param  bool              $noAtime
      * @return FilesystemOptions
      */
     public function setNoAtime($noAtime)
@@ -374,6 +379,7 @@ class FilesystemOptions extends AdapterOptions
         $noAtime = (bool) $noAtime;
         $this->triggerOptionEvent('no_atime', $noAtime);
         $this->noAtime = $noAtime;
+
         return $this;
     }
 
@@ -390,7 +396,7 @@ class FilesystemOptions extends AdapterOptions
     /**
      * Set no ctime
      *
-     * @param  bool $noCtime
+     * @param  bool              $noCtime
      * @return FilesystemOptions
      */
     public function setNoCtime($noCtime)
@@ -398,6 +404,7 @@ class FilesystemOptions extends AdapterOptions
         $noCtime = (bool) $noCtime;
         $this->triggerOptionEvent('no_ctime', $noCtime);
         $this->noCtime = $noCtime;
+
         return $this;
     }
 
@@ -416,7 +423,7 @@ class FilesystemOptions extends AdapterOptions
      *
      * Note: On multithreaded webservers it's better to explicit set file and dir permission.
      *
-     * @param false|string|int $umask FALSE to disable umask or an octal number
+     * @param  false|string|int  $umask FALSE to disable umask or an octal number
      * @return FilesystemOptions
      * @see setFilePermission
      * @see setDirPermission

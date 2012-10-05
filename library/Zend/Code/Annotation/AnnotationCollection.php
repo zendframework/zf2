@@ -27,6 +27,7 @@ class AnnotationCollection extends ArrayObject
                 return true;
             }
         }
+
         return false;
     }
 }

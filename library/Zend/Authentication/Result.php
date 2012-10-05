@@ -72,9 +72,9 @@ class Result
     /**
      * Sets the result code, identity, and failure messages
      *
-     * @param  int     $code
-     * @param  mixed   $identity
-     * @param  array   $messages
+     * @param int   $code
+     * @param mixed $identity
+     * @param array $messages
      */
     public function __construct($code, $identity, array $messages = array())
     {
@@ -82,7 +82,7 @@ class Result
 
         if ($code < self::FAILURE_UNCATEGORIZED) {
             $code = self::FAILURE;
-        } elseif ($code > self::SUCCESS ) {
+        } elseif ($code > self::SUCCESS) {
             $code = 1;
         }
 

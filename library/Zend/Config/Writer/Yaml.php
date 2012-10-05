@@ -55,7 +55,7 @@ class Yaml extends AbstractWriter
     /**
      * Set callback for decoding YAML
      *
-     * @param  callable $yamlEncoder the decoder to set
+     * @param  callable                           $yamlEncoder the decoder to set
      * @return Yaml
      * @throws Exception\InvalidArgumentException
      */
@@ -65,13 +65,14 @@ class Yaml extends AbstractWriter
             throw new Exception\InvalidArgumentException('Invalid parameter to setYamlEncoder() - must be callable');
         }
         $this->yamlEncoder = $yamlEncoder;
+
         return $this;
     }
 
     /**
      * processConfig(): defined by AbstractWriter.
      *
-     * @param  array $config
+     * @param  array                      $config
      * @return string
      * @throws Exception\RuntimeException
      */

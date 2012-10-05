@@ -63,8 +63,8 @@ class MemcachedOptions extends AdapterOptions
     /**
      * Add Server
      *
-     * @param string $host
-     * @param int $port
+     * @param  string                             $host
+     * @param  int                                $port
      * @return MemcachedOptions
      * @throws Exception\InvalidArgumentException
      */
@@ -86,13 +86,14 @@ class MemcachedOptions extends AdapterOptions
         }
 
         $this->servers[] = array($host, $port);
+
         return $this;
     }
 
     /**
      * Set Servers
      *
-     * @param array $servers list of servers in [] = array($host, $port)
+     * @param  array                              $servers list of servers in [] = array($host, $port)
      * @return MemcachedOptions
      * @throws Exception\InvalidArgumentException
      */
@@ -126,7 +127,7 @@ class MemcachedOptions extends AdapterOptions
     /**
      * Set libmemcached options
      *
-     * @param array $libOptions
+     * @param  array            $libOptions
      * @return MemcachedOptions
      * @link http://php.net/manual/memcached.constants.php
      */
@@ -147,8 +148,8 @@ class MemcachedOptions extends AdapterOptions
     /**
      * Set libmemcached option
      *
-     * @param string|int $key
-     * @param mixed      $value
+     * @param  string|int       $key
+     * @param  mixed            $value
      * @return MemcachedOptions
      * @link http://php.net/manual/memcached.constants.php
      */
@@ -175,7 +176,7 @@ class MemcachedOptions extends AdapterOptions
     /**
      * Get libmemcached option
      *
-     * @param string|int $key
+     * @param  string|int $key
      * @return mixed
      * @link http://php.net/manual/memcached.constants.php
      */
@@ -185,13 +186,14 @@ class MemcachedOptions extends AdapterOptions
         if (isset($this->libOptions[$key])) {
             return $this->libOptions[$key];
         }
+
         return null;
     }
 
     /**
      * Normalize libmemcached option name into it's constant value
      *
-     * @param string|int $key
+     * @param  string|int                         $key
      * @throws Exception\InvalidArgumentException
      */
     protected function normalizeLibOptionKey(& $key)

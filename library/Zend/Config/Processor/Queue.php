@@ -24,7 +24,7 @@ class Queue extends PriorityQueue implements ProcessorInterface
     /**
      * Process the whole config structure with each parser in the queue.
      *
-     * @param  Config $config
+     * @param  Config                             $config
      * @return Config
      * @throws Exception\InvalidArgumentException
      */

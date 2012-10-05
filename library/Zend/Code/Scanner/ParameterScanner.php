@@ -104,7 +104,6 @@ class ParameterScanner
             $this->defaultValue .= (is_string($token)) ? $token : $token[1];
         }
 
-
         SCANNER_CONTINUE:
 
         if (next($this->tokens) === false) {
@@ -159,6 +158,7 @@ class ParameterScanner
     public function getDefaultValue()
     {
         $this->scan();
+
         return $this->defaultValue;
     }
 
@@ -168,6 +168,7 @@ class ParameterScanner
     public function getClass()
     {
         $this->scan();
+
         return $this->class;
     }
 
@@ -177,6 +178,7 @@ class ParameterScanner
     public function getName()
     {
         $this->scan();
+
         return $this->name;
     }
 
@@ -186,6 +188,7 @@ class ParameterScanner
     public function getPosition()
     {
         $this->scan();
+
         return $this->position;
     }
 
@@ -195,6 +198,7 @@ class ParameterScanner
     public function isArray()
     {
         $this->scan();
+
         return $this->isArray;
     }
 
@@ -204,6 +208,7 @@ class ParameterScanner
     public function isDefaultValueAvailable()
     {
         $this->scan();
+
         return $this->isDefaultValueAvailable;
     }
 
@@ -213,6 +218,7 @@ class ParameterScanner
     public function isOptional()
     {
         $this->scan();
+
         return $this->isOptional;
     }
 
@@ -222,8 +228,8 @@ class ParameterScanner
     public function isPassedByReference()
     {
         $this->scan();
+
         return $this->isPassedByReference;
     }
-
 
 }

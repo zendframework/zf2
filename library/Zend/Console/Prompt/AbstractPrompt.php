@@ -93,6 +93,7 @@ abstract class AbstractPrompt implements PromptInterface
 
         $refl     = new ReflectionClass(get_called_class());
         $instance = $refl->newInstanceArgs(func_get_args());
+
         return $instance->show();
     }
 }

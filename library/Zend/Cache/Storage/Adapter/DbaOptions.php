@@ -52,7 +52,7 @@ class DbaOptions extends AdapterOptions
     /**
      * Set namespace separator
      *
-     * @param  string $namespaceSeparator
+     * @param  string     $namespaceSeparator
      * @return DbaOptions
      */
     public function setNamespaceSeparator($namespaceSeparator)
@@ -60,6 +60,7 @@ class DbaOptions extends AdapterOptions
         $namespaceSeparator = (string) $namespaceSeparator;
         $this->triggerOptionEvent('namespace_separator', $namespaceSeparator);
         $this->namespaceSeparator = $namespaceSeparator;
+
         return $this;
     }
 
@@ -76,13 +77,14 @@ class DbaOptions extends AdapterOptions
     /**
      * Set pathname to database file
      *
-     * @param string $pathname
+     * @param  string     $pathname
      * @return DbaOptions
      */
     public function setPathname($pathname)
     {
         $this->pathname = (string) $pathname;
         $this->triggerOptionEvent('pathname', $pathname);
+
         return $this;
     }
 
@@ -99,13 +101,14 @@ class DbaOptions extends AdapterOptions
     /**
      *
      *
-     * @param string $mode
+     * @param  string                                 $mode
      * @return \Zend\Cache\Storage\Adapter\DbaOptions
      */
     public function setMode($mode)
     {
         $this->mode = (string) $mode;
         $this->triggerOptionEvent('mode', $mode);
+
         return $this;
     }
 
@@ -124,6 +127,7 @@ class DbaOptions extends AdapterOptions
 
         $this->triggerOptionEvent('handler', $handler);
         $this->handler = $handler;
+
         return $this;
     }
 

@@ -77,12 +77,13 @@ class PluginOptions extends AbstractOptions
      * Used by:
      * - ClearExpiredByFactor
      *
-     * @param  int $clearingFactor
+     * @param  int           $clearingFactor
      * @return PluginOptions
      */
     public function setClearingFactor($clearingFactor)
     {
         $this->clearingFactor = $this->normalizeFactor($clearingFactor);
+
         return $this;
     }
 
@@ -105,7 +106,7 @@ class PluginOptions extends AbstractOptions
      * Used by:
      * - ExceptionHandler
      *
-     * @param  callable $exceptionCallback
+     * @param  callable                           $exceptionCallback
      * @throws Exception\InvalidArgumentException
      * @return PluginOptions
      */
@@ -115,6 +116,7 @@ class PluginOptions extends AbstractOptions
             throw new Exception\InvalidArgumentException('Not a valid callback');
         }
         $this->exceptionCallback = $exceptionCallback;
+
         return $this;
     }
 
@@ -134,12 +136,13 @@ class PluginOptions extends AbstractOptions
     /**
      * Exit if connection aborted and ignore_user_abort is disabled.
      *
-     * @param boolean $exitOnAbort
+     * @param  boolean       $exitOnAbort
      * @return PluginOptions
      */
     public function setExitOnAbort($exitOnAbort)
     {
         $this->exitOnAbort = (bool) $exitOnAbort;
+
         return $this;
     }
 
@@ -159,12 +162,13 @@ class PluginOptions extends AbstractOptions
      * Used by:
      * - OptimizeByFactor
      *
-     * @param  int $optimizingFactor
+     * @param  int           $optimizingFactor
      * @return PluginOptions
      */
     public function setOptimizingFactor($optimizingFactor)
     {
         $this->optimizingFactor = $this->normalizeFactor($optimizingFactor);
+
         return $this;
     }
 
@@ -187,7 +191,7 @@ class PluginOptions extends AbstractOptions
      * Used by:
      * - Serializer
      *
-     * @param  string|SerializerAdapter $serializer
+     * @param  string|SerializerAdapter           $serializer
      * @throws Exception\InvalidArgumentException
      * @return Serializer
      */
@@ -202,6 +206,7 @@ class PluginOptions extends AbstractOptions
             ));
         }
         $this->serializer = $serializer;
+
         return $this;
     }
 
@@ -225,6 +230,7 @@ class PluginOptions extends AbstractOptions
                 $this->setSerializer(SerializerFactory::factory($this->serializer, $options));
             }
         }
+
         return $this->serializer;
     }
 
@@ -234,12 +240,13 @@ class PluginOptions extends AbstractOptions
      * Used by:
      * - Serializer
      *
-     * @param  mixed $serializerOptions
+     * @param  mixed         $serializerOptions
      * @return PluginOptions
      */
     public function setSerializerOptions($serializerOptions)
     {
         $this->serializerOptions = $serializerOptions;
+
         return $this;
     }
 
@@ -262,12 +269,13 @@ class PluginOptions extends AbstractOptions
      * Used by:
      * - ExceptionHandler
      *
-     * @param  bool $throwExceptions
+     * @param  bool          $throwExceptions
      * @return PluginOptions
      */
     public function setThrowExceptions($throwExceptions)
     {
         $this->throwExceptions = (bool) $throwExceptions;
+
         return $this;
     }
 
@@ -289,7 +297,7 @@ class PluginOptions extends AbstractOptions
      *
      * Cast to int and ensure we have a value greater than zero.
      *
-     * @param  int $factor
+     * @param  int                                $factor
      * @return int
      * @throws Exception\InvalidArgumentException
      */
@@ -301,6 +309,7 @@ class PluginOptions extends AbstractOptions
                 "Invalid factor '{$factor}': must be greater or equal 0"
             );
         }
+
         return $factor;
     }
 }

@@ -20,7 +20,7 @@ interface ClearByPrefixInterface
     /**
      * Remove items matching given prefix
      *
-     * @param string $prefix
+     * @param  string  $prefix
      * @return boolean
      */
     public function clearByPrefix($prefix);

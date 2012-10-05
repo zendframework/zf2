@@ -40,9 +40,9 @@ class Translator implements ProcessorInterface
      * Translator uses the supplied Zend\I18n\Translator\Translator to find
      * and translate language strings in config.
      *
-     * @param  ZendTranslator $translator
-     * @param  string $textDomain
-     * @param  string|null $locale
+     * @param ZendTranslator $translator
+     * @param string         $textDomain
+     * @param string|null    $locale
      */
     public function __construct(ZendTranslator $translator, $textDomain = 'default', $locale = null)
     {
@@ -58,6 +58,7 @@ class Translator implements ProcessorInterface
     public function setTranslator(ZendTranslator $translator)
     {
         $this->translator = $translator;
+
         return $this;
     }
 
@@ -76,6 +77,7 @@ class Translator implements ProcessorInterface
     public function setLocale($locale)
     {
         $this->locale = $locale;
+
         return $this;
     }
 
@@ -88,12 +90,13 @@ class Translator implements ProcessorInterface
     }
 
     /**
-     * @param  string $textDomain
+     * @param  string     $textDomain
      * @return Translator
      */
     public function setTextDomain($textDomain)
     {
         $this->textDomain = $textDomain;
+
         return $this;
     }
 
@@ -108,7 +111,7 @@ class Translator implements ProcessorInterface
     /**
      * Process
      *
-     * @param  Config $config
+     * @param  Config                             $config
      * @return Config
      * @throws Exception\InvalidArgumentException
      */

@@ -34,7 +34,7 @@ class PropertyGenerator extends AbstractMemberGenerator
     /**
      * fromReflection()
      *
-     * @param PropertyReflection $reflectionProperty
+     * @param  PropertyReflection $reflectionProperty
      * @return PropertyGenerator
      */
     public static function fromReflection(PropertyReflection $reflectionProperty)
@@ -84,7 +84,7 @@ class PropertyGenerator extends AbstractMemberGenerator
     /**
      * setConst()
      *
-     * @param bool $const
+     * @param  bool              $const
      * @return PropertyGenerator
      */
     public function setConst($const)
@@ -110,7 +110,7 @@ class PropertyGenerator extends AbstractMemberGenerator
     /**
      * setDefaultValue()
      *
-     * @param PropertyValueGenerator|string|array $defaultValue
+     * @param  PropertyValueGenerator|string|array $defaultValue
      * @return PropertyGenerator
      */
     public function setDefaultValue($defaultValue)
