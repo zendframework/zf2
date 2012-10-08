@@ -17,15 +17,15 @@ use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Update;
-use Zend\Db\TableGateway\Exception;
 use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\EventManagerAwareInterface;
 
 /**
  * @category   Zend
  * @package    Zend_Db
  * @subpackage TableGateway
  */
-class EventFeature extends AbstractFeature
+class EventFeature extends AbstractFeature implements EventManagerAwareInterface
 {
 
     /**
@@ -39,12 +39,12 @@ class EventFeature extends AbstractFeature
     protected $event = null;
 
     /**
-     * @param EventManagerInterface $eventManager
+     * @param EventManagerInterface          $eventManager
      * @param EventFeature\TableGatewayEvent $tableGatewayEvent
      */
-    public function __construct(EventManagerInterface $eventManager, EventFeature\TableGatewayEvent $tableGatewayEvent)
+    public function __construct(EventManagerInterface $eventManager, EventFeature\TableGatewayEvent $tableGatewayEvent = null)
     {
-        $this->eventManager = $eventManager;
+        $this->setEventManager($eventManager);
         $this->event = ($tableGatewayEvent) ?: new EventFeature\TableGatewayEvent();
     }
 
@@ -139,4 +139,19 @@ class EventFeature extends AbstractFeature
         $this->eventManager->trigger($this->event);
     }
 
+    public function getEventManager()
+    {
+        return $this->eventManager;
+    }
+
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
+        $eventManager->addIdentifiers(array(
+            __CLASS__,
+            get_class($this),
+        ));
+        $this->eventManager = $eventManager;
+
+        return $this;
+    }
 }
