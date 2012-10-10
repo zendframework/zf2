@@ -30,7 +30,7 @@ class Menu extends AbstractHelper
      *
      * @var string
      */
-    protected $ulClass = 'navigation';
+    protected $ulClass = 'nav';
 
     /**
      * Whether only active branch should be rendered
