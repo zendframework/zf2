@@ -35,6 +35,12 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
      */
     protected $currentFolder = '';
 
+	/**
+     * IMAP folder delimiter character
+     * @var string
+     */
+	public $delimiter;
+
     /**
      * IMAP flags to constants translation
      * @var array
@@ -163,6 +169,25 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
         return $this->protocol->fetch('RFC822.TEXT', $id);
     }
 
+	   /*
+     * Get raw message
+     *
+     * @param  int               $id   number of message
+     * @param  null|array|string $part path to part or null for message content
+     * @return string raw content
+     * @throws \Zend\Mail\Protocol\Exception\RuntimeException
+     * @throws Exception\RuntimeException
+     */
+    public function getRawMessage($id, $part = null)
+    {
+        if ($part !== null) {
+            // TODO: implement
+            throw new Exception\RuntimeException('not implemented');
+        }
+
+        return $this->protocol->fetch('RFC822', $id);
+    }
+	
     /**
      * create instance with parameters
      * Supported parameters are
@@ -323,6 +348,7 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
             do {
                 if (!$parent || strpos($globalName, $parent) === 0) {
                     $pos = strrpos($globalName, $data['delim']);
+					$this->delimiter = $data['delim'];
                     if ($pos === false) {
                         $localName = $globalName;
                     } else {
@@ -511,4 +537,39 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
             throw new Exception\RuntimeException('cannot set flags, have you tried to set the recent flag or special chars?');
         }
     }
+	    public function subscribe($folder) {
+        try {
+            $response = $this->protocol->requestAndResponse('SUBSCRIBE ', (array) $folder);
+        } catch (Exception $e) {
+            Zend\Debug::dump($e);
+            return false;
+        }
+        return true;
+    }
+	
+	    public function delimiter() {
+        if (!isset($this->delimiter)) {
+            $this->$this->getFolders();
+        }
+        return $this->delimiter;
+    }
+	
+	public function banner() {
+        return $this->protocol->banner;
+    }
+	
+	public function serverId() {
+        try {
+            $response = $this->protocol->requestAndResponse('ID', array('NIL'), true);
+        } catch (Exception $e) {
+            Zend\Debug::dump($e);
+        }
+
+        if (!$response)
+            return false;
+
+        return $response[0];
+    }
+	
+	
 }
