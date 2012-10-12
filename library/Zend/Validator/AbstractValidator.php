@@ -357,7 +357,7 @@ abstract class AbstractValidator implements
      *
      * @return mixed Value to be validated
      */
-    protected function getValue()
+    public function getValue()
     {
         return $this->value;
     }
