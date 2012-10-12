@@ -162,4 +162,12 @@ class StringLengthTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals($validator->getOption('messageVariables'),
                                      'messageVariables', $validator);
     }
+    
+    public function testValueofVariablePasstoValidator()
+    {
+        $validator = $this->validator;
+        $validator->isValid('word');
+        
+        $this->assertEquals('word', $validator->getValue());
+    }
 }
