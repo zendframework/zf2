@@ -10,6 +10,7 @@
 
 namespace Zend\Authentication\Adapter;
 
+use stdClass;
 use Zend\Authentication\Result as AuthenticationResult;
 use Zend\Db\Adapter\Adapter as DbAdapter;
 use Zend\Db\ResultSet\ResultSet;
@@ -272,12 +273,12 @@ class DbTable implements AdapterInterface
             return false;
         }
 
-        $returnObject = new \stdClass();
+        $returnObject = new stdClass();
 
         if (null !== $returnColumns) {
 
             $availableColumns = array_keys($this->resultRow);
-            foreach ((array)$returnColumns as $returnColumn) {
+            foreach ((array) $returnColumns as $returnColumn) {
                 if (in_array($returnColumn, $availableColumns)) {
                     $returnObject->{$returnColumn} = $this->resultRow[$returnColumn];
                 }
@@ -286,7 +287,7 @@ class DbTable implements AdapterInterface
 
         } elseif (null !== $omitColumns) {
 
-            $omitColumns = (array)$omitColumns;
+            $omitColumns = (array) $omitColumns;
             foreach ($this->resultRow as $resultColumn => $resultValue) {
                 if (!in_array($resultColumn, $omitColumns)) {
                     $returnObject->{$resultColumn} = $resultValue;
@@ -294,14 +295,12 @@ class DbTable implements AdapterInterface
             }
             return $returnObject;
 
-        } else {
-
-            foreach ($this->resultRow as $resultColumn => $resultValue) {
-                $returnObject->{$resultColumn} = $resultValue;
-            }
-            return $returnObject;
-
         }
+
+        foreach ($this->resultRow as $resultColumn => $resultValue) {
+            $returnObject->{$resultColumn} = $resultValue;
+        }
+        return $returnObject;
     }
 
     /**

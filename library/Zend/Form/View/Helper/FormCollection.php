@@ -15,6 +15,7 @@ use Zend\Form\Element;
 use Zend\Form\ElementInterface;
 use Zend\Form\Element\Collection as CollectionElement;
 use Zend\Form\FieldsetInterface;
+use Zend\View\Helper\AbstractHelper as BaseAbstractHelper;
 
 /**
  * @category   Zend
@@ -137,7 +138,7 @@ class FormCollection extends AbstractHelper
      */
     public function setShouldWrap($wrap)
     {
-        $this->shouldWrap = (bool)$wrap;
+        $this->shouldWrap = (bool) $wrap;
         return $this;
     }
 
@@ -148,7 +149,7 @@ class FormCollection extends AbstractHelper
      */
     public function shouldWrap()
     {
-        return $this->shouldWrap();
+        return $this->shouldWrap;
     }
 
     /**
@@ -174,9 +175,10 @@ class FormCollection extends AbstractHelper
     }
 
     /**
-     * Retrieve the FormRow helper
+     * Retrieve the element helper.
      *
-     * @return FormRow
+     * @throws RuntimeException
+     * @return AbstractHelper
      */
     protected function getElementHelper()
     {
@@ -188,7 +190,7 @@ class FormCollection extends AbstractHelper
             $this->elementHelper = $this->view->plugin($this->getDefaultElementHelper());
         }
 
-        if (!$this->elementHelper instanceof AbstractHelper) {
+        if (!$this->elementHelper instanceof BaseAbstractHelper) {
             // @todo Ideally the helper should implement an interface.
             throw new RuntimeException('Invalid element helper set in FormCollection. The helper must be an instance of AbstractHelper.');
         }
@@ -197,9 +199,9 @@ class FormCollection extends AbstractHelper
     }
 
     /**
-     * Sets the row helper that should be used by this collection.
+     * Sets the element helper that should be used by this collection.
      *
-     * @param FormRow $rowHelper The row helper to use.
+     * @param AbstractHelper $elementHelper The element helper to use.
      * @return FormCollection
      */
     public function setElementHelper(AbstractHelper $elementHelper)

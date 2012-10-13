@@ -136,7 +136,7 @@ class Container extends ArrayObject
             $manager = self::getDefaultManager();
             if (!$manager instanceof Manager) {
                 throw new Exception\InvalidArgumentException(
-                    'Manager provided is invalid; must implement ManagerInterface interface'
+                    'Manager provided is invalid; must implement ManagerInterface'
                 );
             }
         }
@@ -507,6 +507,7 @@ class Container extends ArrayObject
      *
      * @param  int $hops
      * @param  null|string|array $vars
+     * @throws Exception\InvalidArgumentException
      * @return Container
      */
     public function setExpirationHops($hops, $vars = null)

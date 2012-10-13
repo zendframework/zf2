@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use Memcached as MemcachedResource;
 use Zend\Cache\Exception;
 use Zend\Validator\Hostname;
 
@@ -140,7 +139,7 @@ class MemcachedOptions extends AdapterOptions
         }
 
         $this->triggerOptionEvent('lib_options', $normalizedOptions);
-        $this->libOptions = array_merge($this->libOptions, $normalizedOptions);
+        $this->libOptions = array_diff_key($this->libOptions, $normalizedOptions) + $normalizedOptions;
 
         return $this;
     }
@@ -176,6 +175,7 @@ class MemcachedOptions extends AdapterOptions
     /**
      * Get libmemcached option
      *
+     * @param string|int $key
      * @return mixed
      * @link http://php.net/manual/memcached.constants.php
      */

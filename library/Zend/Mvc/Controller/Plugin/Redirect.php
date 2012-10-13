@@ -14,7 +14,6 @@ use Zend\Http\Response;
 use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteStackInterface;
 
 /**
  * @todo       allow specifying status code as a default, or as an option to methods
@@ -34,6 +33,7 @@ class Redirect extends AbstractPlugin
      * @param  string $route RouteInterface name
      * @param  array $params Parameters to use in url generation, if any
      * @param  array $options RouteInterface-specific options to use in url generation, if any
+     * @param  bool $reuseMatchedParams Whether to reuse matched parameters
      * @return Response
      * @throws Exception\DomainException if composed controller does not implement InjectApplicationEventInterface, or
      *         router cannot be found in controller event

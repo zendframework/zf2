@@ -59,7 +59,7 @@ class SharedEventManager implements SharedEventManagerInterface
      * @param  string $event
      * @param  callable $callback PHP Callback
      * @param  int $priority Priority at which listener should execute
-     * @return CallbackHander|array Either CallbackHandler or array of CallbackHandlers
+     * @return CallbackHandler|array Either CallbackHandler or array of CallbackHandlers
      */
     public function attach($id, $event, $callback, $priority = 1)
     {
@@ -101,6 +101,10 @@ class SharedEventManager implements SharedEventManagerInterface
     public function getEvents($id)
     {
         if (!array_key_exists($id, $this->identifiers)) {
+            //Check if there are any id wildcards listeners
+            if ('*' != $id && array_key_exists('*', $this->identifiers)) {
+                return $this->identifiers['*']->getEvents();
+            }
             return false;
         }
         return $this->identifiers[$id]->getEvents();

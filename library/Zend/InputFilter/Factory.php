@@ -93,6 +93,8 @@ class Factory
      * Factory for input objects
      *
      * @param  array|Traversable $inputSpecification
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\RuntimeException
      * @return InputInterface|InputFilterInterface
      */
     public function createInput($inputSpecification)
@@ -156,6 +158,9 @@ class Factory
                         $input->setRequired(!$value);
                     }
                     break;
+                case 'fallback_value':
+                    $input->setFallbackValue($value);
+                    break;
                 case 'filters':
                     if ($value instanceof FilterChain) {
                         $input->setFilterChain($value);
@@ -197,6 +202,8 @@ class Factory
      * Factory for input filters
      *
      * @param  array|Traversable $inputFilterSpecification
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\RuntimeException
      * @return InputFilterInterface
      */
     public function createInputFilter($inputFilterSpecification)
@@ -228,13 +235,19 @@ class Factory
         if (!$inputFilter instanceof InputFilterInterface) {
             throw new Exception\RuntimeException(sprintf(
                 'InputFilter factory expects the "type" to be a class implementing %s; received "%s"',
-                'Zend\InputFilter\InputFilterInterface',
-                $class
-            ));
+                'Zend\InputFilter\InputFilterInterface', $class));
         }
 
         foreach ($inputFilterSpecification as $key => $value) {
-            $input = $this->createInput($value);
+
+            if (($value instanceof InputInterface)
+                || ($value instanceof InputFilterInterface)
+            ) {
+                $input = $value;
+            } else {
+                $input = $this->createInput($value);
+            }
+
             $inputFilter->add($input, $key);
         }
 

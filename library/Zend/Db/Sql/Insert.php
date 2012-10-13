@@ -92,6 +92,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param  array $values
      * @param  string $flag one of VALUES_MERGE or VALUES_SET; defaults to VALUES_SET
+     * @throws Exception\InvalidArgumentException
      * @return Insert
      */
     public function values(array $values, $flag = self::VALUES_SET)
@@ -104,7 +105,11 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
         $firstKey = current($keys);
 
         if (is_string($firstKey)) {
-            $this->columns($keys);
+            if ($flag == self::VALUES_MERGE) {
+                $this->columns(array_merge($this->columns, $keys));
+            } else {
+                $this->columns($keys);
+            }
             $values = array_values($values);
         } elseif (is_int($firstKey)) {
             $values = array_values($values);
@@ -227,12 +232,13 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Proxies to values and columns
      *
      * @param  string $name
+     * @throws Exception\InvalidArgumentException
      * @return void
      */
     public function __unset($name)
     {
         if (($position = array_search($name, $this->columns)) === false) {
-            throw new \InvalidArgumentException('The key ' . $name . ' was not found in this objects column list');
+            throw new Exception\InvalidArgumentException('The key ' . $name . ' was not found in this objects column list');
         }
 
         unset($this->columns[$position]);
@@ -258,12 +264,13 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Retrieves value by column name
      *
      * @param  string $name
+     * @throws Exception\InvalidArgumentException
      * @return mixed
      */
     public function __get($name)
     {
         if (($position = array_search($name, $this->columns)) === false) {
-            throw new \InvalidArgumentException('The key ' . $name . ' was not found in this objects column list');
+            throw new Exception\InvalidArgumentException('The key ' . $name . ' was not found in this objects column list');
         }
         return $this->values[$position];
     }

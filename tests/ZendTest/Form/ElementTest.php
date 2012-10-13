@@ -12,7 +12,6 @@ namespace ZendTest\Form;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Form\Element;
-use Zend\Form\ElementInterface;
 
 /**
  * @category   Zend
@@ -127,5 +126,54 @@ class ElementTest extends TestCase
         ));
         $option = $element->getOption('custom');
         $this->assertEquals('option', $option);
+    }
+
+    public function testSpecificOptionsSetLabelAttributes()
+    {
+        $element = new Element('foo');
+        $element->setOptions(array(
+                                  'label' => 'foo',
+                                  'label_attributes' => array('bar' => 'baz')
+                             ));
+        $option = $element->getOption('label_attributes');
+        $this->assertEquals(array('bar' => 'baz'), $option);
+    }
+
+    public function testSetOptionsWrongInputRaisesException()
+    {
+        $element = new Element('foo');
+
+        $this->setExpectedException('Zend\Form\Exception\InvalidArgumentException');
+        $element->setOptions(null);
+    }
+
+    public function testSetOptionsIsTraversable()
+    {
+        $element = new Element('foo');
+        $element->setOptions(new \ArrayObject(array('foo' => 'bar')));
+        $this->assertEquals('foo', $element->getName());
+        $this->assertEquals(array('foo' => 'bar'), $element->getOptions());
+    }
+
+    public function testGetOption()
+    {
+        $element = new Element('foo');
+        $this->assertNull($element->getOption('foo'));
+    }
+
+    public function testSetAttributesWrongInputRaisesException()
+    {
+        $element = new Element('foo');
+
+        $this->setExpectedException('Zend\Form\Exception\InvalidArgumentException');
+        $element->setAttributes(null);
+    }
+
+    public function testSetMessagesWrongInputRaisesException()
+    {
+        $element = new Element('foo');
+
+        $this->setExpectedException('Zend\Form\Exception\InvalidArgumentException');
+        $element->setMessages(null);
     }
 }

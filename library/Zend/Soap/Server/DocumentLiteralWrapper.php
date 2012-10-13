@@ -10,7 +10,6 @@
 
 namespace Zend\Soap\Server;
 
-use ReflectionClass;
 use ReflectionObject;
 use Zend\Soap\Exception\BadMethodCallException;
 use Zend\Soap\Exception\UnexpectedValueException;
@@ -118,6 +117,7 @@ class DocumentLiteralWrapper
      *
      * @param string $method
      * @param object $document
+     * @throws UnexpectedValueException
      * @return array
      */
     protected function _parseArguments($method, $document)
@@ -143,7 +143,7 @@ class DocumentLiteralWrapper
 
     protected function _getResultMessage($method, $ret)
     {
-        return array($method.'Result' => $ret);
+        return array($method . 'Result' => $ret);
     }
 
     protected function _assertServiceDelegateHasMethod($method)
@@ -165,4 +165,3 @@ class DocumentLiteralWrapper
         }
     }
 }
-

@@ -70,6 +70,11 @@ class ModuleManager implements ModuleManagerInterface
         }
     }
 
+    /**
+     * Handle the loadModules event
+     *
+     * @return void
+     */
     public function onLoadModules()
     {
         if (true === $this->modulesAreLoaded) {
@@ -86,7 +91,7 @@ class ModuleManager implements ModuleManagerInterface
     /**
      * Load the provided modules.
      *
-     * @triggers loadModules.pre
+     * @triggers loadModules
      * @triggers loadModules.post
      * @return   ModuleManager
      */
@@ -113,6 +118,7 @@ class ModuleManager implements ModuleManagerInterface
      * Load a specific module by name.
      *
      * @param    string $moduleName
+     * @throws   Exception\RuntimeException
      * @triggers loadModule.resolve
      * @triggers loadModule
      * @return   mixed Module's Module class
@@ -192,6 +198,7 @@ class ModuleManager implements ModuleManagerInterface
      * Set an array or Traversable of module names that this module manager should load.
      *
      * @param  mixed $modules array or Traversable of module names
+     * @throws Exception\InvalidArgumentException
      * @return ModuleManager
      */
     public function setModules($modules)

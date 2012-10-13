@@ -11,7 +11,6 @@
 namespace Zend\Filter;
 
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
 
 /**
  * @category   Zend
@@ -50,7 +49,7 @@ class Null extends AbstractFilter
     /**
      * Constructor
      *
-     * @param string|array|Traversable $options OPTIONAL
+     * @param string|array|Traversable $typeOrOptions OPTIONAL
      */
     public function __construct($typeOrOptions = null)
     {

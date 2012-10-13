@@ -8,11 +8,15 @@
     ],
     "autoload": {
         "psr-0": {
-            "Zend\\Debug": ""
+            "Zend\\Debug\\": ""
         }
     },
     "target-dir": "Zend/Debug",
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "zendframework/zend-escaper": "self.version"
+    },
+    "suggest": {
+        "ext/xdebug": "XDebug, for better backtrace output"
     }
 }

@@ -11,7 +11,6 @@
 namespace ZendTest\Cache\Storage\Adapter;
 
 use Zend\Cache;
-use Zend\Cache\Exception;
 
 /**
  * @category   Zend
@@ -77,6 +76,22 @@ class MemcachedTest extends CommonAdapterTest
 
         $memcached = new Cache\Storage\Adapter\Memcached($options);
         $this->assertEquals($memcached->getOptions()->getServers(), $servers);
+    }
+
+    public function testLibOptionsSet()
+    {
+        $options = new Cache\Storage\Adapter\MemcachedOptions();
+
+        $options->setLibOptions(array(
+            'COMPRESSION' => false
+        ));
+
+        $this->assertEquals($options->getLibOption(\Memcached::OPT_COMPRESSION), false);
+
+        $memcached = new Cache\Storage\Adapter\Memcached($options);
+        $this->assertEquals($memcached->getOptions()->getLibOptions(), array(
+            \Memcached::OPT_COMPRESSION => false
+        ));
     }
 
     public function testNoOptionsSetsDefaultServer()

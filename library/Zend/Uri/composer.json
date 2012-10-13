@@ -8,12 +8,13 @@
     ],
     "autoload": {
         "psr-0": {
-            "Zend\\Uri": ""
+            "Zend\\Uri\\": ""
         }
     },
     "target-dir": "Zend/Uri",
     "require": {
         "php": ">=5.3.3",
+        "zendframework/zend-escaper": "self.version",
         "zendframework/zend-validator": "self.version"
     }
 }

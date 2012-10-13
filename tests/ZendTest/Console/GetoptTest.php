@@ -11,7 +11,6 @@
 namespace ZendTest\Console;
 
 use Zend\Console\Getopt;
-use Zend\Console\GetoptException;
 
 /**
  * @category   Zend
@@ -504,7 +503,7 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
         $opts = new Getopt(
             array('foo=s' => 'Option One (string)'),
-            array('--foo='.$fooValue)
+            array('--foo=' . $fooValue)
         );
         $this->assertEquals($fooValue, $opts->foo);
     }

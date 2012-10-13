@@ -10,7 +10,6 @@
 
 namespace Zend\Form;
 
-use IteratorAggregate;
 use Traversable;
 use Zend\Form\Element\Collection;
 use Zend\Form\Exception;
@@ -77,6 +76,13 @@ class Form extends Fieldset implements FormInterface
      * @var bool
      */
     protected $useInputFilterDefaults = true;
+
+    /**
+     * Has the input filter defaults been added already ?
+     *
+     * @var bool
+     */
+    protected $hasAddedInputFilterDefaults = false;
 
     /**
      * Whether or not validation has occurred
@@ -153,26 +159,29 @@ class Form extends Fieldset implements FormInterface
      * available, and prepares any elements and/or fieldsets that require
      * preparation.
      *
-     * @return void
+     * @return Form
      */
     public function prepare()
     {
-        if (!$this->isPrepared) {
-            $this->getInputFilter();
+        if ($this->isPrepared) {
+            return $this;
+        }
 
-            // If the user wants to, elements names can be wrapped by the form's name
-            if ($this->wrapElements()) {
-                $this->prepareElement($this);
-            } else {
-                foreach ($this->getIterator() as $elementOrFieldset) {
-                    if ($elementOrFieldset instanceof ElementPrepareAwareInterface) {
-                        $elementOrFieldset->prepareElement($this);
-                    }
+        $this->getInputFilter();
+
+        // If the user wants to, elements names can be wrapped by the form's name
+        if ($this->wrapElements()) {
+            $this->prepareElement($this);
+        } else {
+            foreach ($this->getIterator() as $elementOrFieldset) {
+                if ($elementOrFieldset instanceof ElementPrepareAwareInterface) {
+                    $elementOrFieldset->prepareElement($this);
                 }
             }
-
-            $this->isPrepared = true;
         }
+
+        $this->isPrepared = true;
+        return $this;
     }
 
     /**
@@ -278,7 +287,14 @@ class Form extends Fieldset implements FormInterface
         }
 
         $data = $this->prepareBindData($data, $this->data);
-        $this->object = parent::bindValues($data);
+
+        // If there is a base fieldset, only hydrate beginning from the base fieldset
+        if ($this->baseFieldset !== null) {
+            $data = $data[$this->baseFieldset->getName()];
+            $this->object = $this->baseFieldset->bindValues($data);
+        } else {
+            $this->object = parent::bindValues($data);
+        }
     }
 
     /**
@@ -483,7 +499,7 @@ class Form extends Fieldset implements FormInterface
         $argv = func_get_args();
         $this->hasValidated = false;
 
-        if (1 < $argc) {
+        if ($argc > 1) {
             $this->validationGroup = $argv;
             return $this;
         }
@@ -552,8 +568,9 @@ class Form extends Fieldset implements FormInterface
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        $this->hasValidated = false;
-        $this->filter       = $inputFilter;
+        $this->hasValidated                = false;
+        $this->hasAddedInputFilterDefaults = false;
+        $this->filter                      = $inputFilter;
         return $this;
     }
 
@@ -577,12 +594,16 @@ class Form extends Fieldset implements FormInterface
             }
         }
 
-        if (null === $this->filter) {
+        if (!isset($this->filter)) {
             $this->filter = new InputFilter();
         }
 
-        if ($this->filter instanceof InputFilterInterface && $this->useInputFilterDefaults()) {
+        if (!$this->hasAddedInputFilterDefaults
+            && $this->filter instanceof InputFilterInterface
+            && $this->useInputFilterDefaults()
+        ) {
             $this->attachInputFilterDefaults($this->filter, $this);
+            $this->hasAddedInputFilterDefaults = true;
         }
 
         return $this->filter;
@@ -622,15 +643,19 @@ class Form extends Fieldset implements FormInterface
         $formFactory  = $this->getFormFactory();
         $inputFactory = $formFactory->getInputFilterFactory();
         foreach ($fieldset->getElements() as $element) {
-            if (!$element instanceof InputProviderInterface) {
-                // only interested in the element if it provides input information
-                continue;
-            }
-
             $name = $element->getName();
 
-            // Create an input based on the specification returned from the element
-            $spec  = $element->getInputSpecification();
+            if (!$element instanceof InputProviderInterface) {
+                if ($inputFilter->has($name)) {
+                    continue;
+                }
+                // Create a new empty default input for this element
+                $spec = array('name' => $name, 'required' => false);
+            } else {
+                // Create an input based on the specification returned from the element
+                $spec  = $element->getInputSpecification();
+            }
+
             $input = $inputFactory->createInput($spec);
             $inputFilter->add($input, $name);
         }

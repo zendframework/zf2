@@ -11,7 +11,6 @@
 namespace Zend\Feed\Reader\Extension\DublinCore;
 
 use DateTime;
-use DOMElement;
 use Zend\Feed\Reader;
 use Zend\Feed\Reader\Collection;
 use Zend\Feed\Reader\Extension;
@@ -25,7 +24,7 @@ class Entry extends Extension\AbstractEntry
     /**
      * Get an author entry
      *
-     * @param DOMElement $element
+     * @param int $index
      * @return string
      */
     public function getAuthor($index = 0)

@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject;
 use stdClass;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
@@ -87,7 +86,6 @@ abstract class AbstractZendServer extends AbstractAdapter
      * Internal method to test if an item exists.
      *
      * @param  string $normalizedKey
-     * @param  array  $normalizedOptions
      * @return boolean
      * @throws Exception\ExceptionInterface
      */
@@ -101,7 +99,7 @@ abstract class AbstractZendServer extends AbstractAdapter
     /**
      * Internal method to test multiple items.
      *
-     * @param  array $keys
+     * @param  array $normalizedKeys
      * @return array Array of found keys
      * @throws Exception\ExceptionInterface
      */

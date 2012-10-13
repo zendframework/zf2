@@ -434,6 +434,7 @@ class Server extends AbstractServer
      * Set the class to use for the response
      *
      * @param  string $class
+     * @throws Server\Exception\InvalidArgumentException if invalid response class
      * @return boolean True if class was set, false if not
      */
     public function setResponseClass($class)
@@ -503,7 +504,7 @@ class Server extends AbstractServer
             return $this->sendArgumentsToAllMethods;
         }
 
-        $this->sendArgumentsToAllMethods = (bool)$flag;
+        $this->sendArgumentsToAllMethods = (bool) $flag;
         return $this;
     }
 

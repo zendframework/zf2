@@ -13,12 +13,22 @@ namespace ZendTest\Db\Sql;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Where;
+use Zend\Db\Sql\Predicate;
 use Zend\Db\Sql\TableIdentifier;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\Sql92;
 
 class SelectTest extends \PHPUnit_Framework_TestCase
 {
+
+    /**
+     * @covers Zend\Db\Sql\Select::__construct
+     */
+    public function testConstruct()
+    {
+        $select = new Select('foo');
+        $this->assertEquals('foo', $select->getRawState('table'));
+    }
 
     /**
      * @testdox unit test: Test from() returns Select object (is chainable)
@@ -253,28 +263,6 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @testdox unit test: Test having() returns same Select object (is chainable)
-     * @covers Zend\Db\Sql\Select::having
-     */
-    public function testHaving()
-    {
-        $select = new Select;
-        $return = $select->having(array('x = ?' => 5));
-        $this->assertSame($select, $return);
-        return $return;
-    }
-
-    /**
-     * @testdox unit test: Test getRawState() returns information populated via having()
-     * @covers Zend\Db\Sql\Select::getRawState
-     * @depends testHaving
-     */
-    public function testGetRawStateViaHaving(Select $select)
-    {
-        $this->assertInstanceOf('Zend\Db\Sql\Having', $select->getRawState('having'));
-    }
-
-    /**
      * @testdox unit test: Test group() returns same Select object (is chainable)
      * @covers Zend\Db\Sql\Select::group
      */
@@ -300,14 +288,102 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @testdox unit test: Test having() returns same Select object (is chainable)
+     * @covers Zend\Db\Sql\Select::having
+     */
+    public function testHaving()
+    {
+        $select = new Select;
+        $return = $select->having(array('x = ?' => 5));
+        $this->assertSame($select, $return);
+        return $return;
+    }
+
+    /**
+     * @testdox unit test: Test getRawState() returns information populated via having()
+     * @covers Zend\Db\Sql\Select::getRawState
+     * @depends testHaving
+     */
+    public function testGetRawStateViaHaving(Select $select)
+    {
+        $this->assertInstanceOf('Zend\Db\Sql\Having', $select->getRawState('having'));
+    }
+
+    /**
+     * @testdox unit test: Test reset() resets internal stat of Select object, based on input
+     * @covers Zend\Db\Sql\Select::reset
+     */
+    public function testReset()
+    {
+        $select = new Select;
+
+        // table
+        $select->from('foo');
+        $this->assertEquals('foo', $select->getRawState(Select::TABLE));
+        $select->reset(Select::TABLE);
+        $this->assertNull($select->getRawState(Select::TABLE));
+
+        // columns
+        $select->columns(array('foo'));
+        $this->assertEquals(array('foo'), $select->getRawState(Select::COLUMNS));
+        $select->reset(Select::COLUMNS);
+        $this->assertEmpty($select->getRawState(Select::COLUMNS));
+
+        // joins
+        $select->join('foo', 'id = boo');
+        $this->assertEquals(array(array('name' => 'foo', 'on' => 'id = boo', 'columns' => array('*'), 'type' => 'inner')), $select->getRawState(Select::JOINS));
+        $select->reset(Select::JOINS);
+        $this->assertEmpty($select->getRawState(Select::JOINS));
+
+        // where
+        $select->where('foo = bar');
+        $where1 = $select->getRawState(Select::WHERE);
+        $this->assertEquals(1, $where1->count());
+        $select->reset(Select::WHERE);
+        $where2 = $select->getRawState(Select::WHERE);
+        $this->assertEquals(0, $where2->count());
+        $this->assertNotSame($where1, $where2);
+
+        // group
+        $select->group(array('foo'));
+        $this->assertEquals(array('foo'), $select->getRawState(Select::GROUP));
+        $select->reset(Select::GROUP);
+        $this->assertEmpty($select->getRawState(Select::GROUP));
+
+        // having
+        $select->having('foo = bar');
+        $having1 = $select->getRawState(Select::HAVING);
+        $this->assertEquals(1, $having1->count());
+        $select->reset(Select::HAVING);
+        $having2 = $select->getRawState(Select::HAVING);
+        $this->assertEquals(0, $having2->count());
+        $this->assertNotSame($having1, $having2);
+
+        // limit
+        $select->limit(5);
+        $this->assertEquals(5, $select->getRawState(Select::LIMIT));
+        $select->reset(Select::LIMIT);
+        $this->assertNull($select->getRawState(Select::LIMIT));
+
+        // offset
+        $select->offset(10);
+        $this->assertEquals(10, $select->getRawState(Select::OFFSET));
+        $select->reset(Select::OFFSET);
+        $this->assertNull($select->getRawState(Select::OFFSET));
+
+    }
+
+    /**
      * @testdox unit test: Test prepareStatement() will produce expected sql and parameters based on a variety of provided arguments [uses data provider]
      * @covers Zend\Db\Sql\Select::prepareStatement
      * @dataProvider providerData
      */
-    public function testPrepareStatement(Select $select, $expectedSqlString, $expectedParameters)
+    public function testPrepareStatement(Select $select, $expectedSqlString, $expectedParameters, $unused1, $unused2, $useNamedParameters = false)
     {
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
-        $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnValue('?'));
+        $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnCallback(
+            function ($name) use ($useNamedParameters) { return (($useNamedParameters) ? ':' . $name : '?'); }
+        ));
         $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
 
         $parameterContainer = new ParameterContainer();
@@ -352,9 +428,13 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select = new Select;
         $select1 = clone $select;
         $select1->where('id = foo');
+        $select1->having('id = foo');
 
         $this->assertEquals(0, $select->where->count());
         $this->assertEquals(1, $select1->where->count());
+
+        $this->assertEquals(0, $select->having->count());
+        $this->assertEquals(1, $select1->having->count());
     }
 
     /**
@@ -757,6 +837,38 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             'processJoins'   => array(array(array('INNER', '"bar"', '"m" = "n"')))
         );
 
+        // multiple joins with expressions
+        // reported by @jdolieslager
+        $select36 = new Select;
+        $select36->from('foo')
+            ->join('tableA', new Predicate\Operator('id', '=', 1))
+            ->join('tableB', new Predicate\Operator('id', '=', 2))
+            ->join('tableC', new Predicate\PredicateSet(array(
+                new Predicate\Operator('id', '=', 3),
+                new Predicate\Operator('number', '>', 20)
+            )));
+        $sqlPrep36 = 'SELECT "foo".*, "tableA".*, "tableB".*, "tableC".* FROM "foo"'
+            . ' INNER JOIN "tableA" ON "id" = :join1part1 INNER JOIN "tableB" ON "id" = :join2part1 '
+            . 'INNER JOIN "tableC" ON "id" = :join3part1 AND "number" > :join3part2';
+        $sqlStr36 = 'SELECT "foo".*, "tableA".*, "tableB".*, "tableC".* FROM "foo" '
+            . 'INNER JOIN "tableA" ON "id" = \'1\' INNER JOIN "tableB" ON "id" = \'2\' '
+            . 'INNER JOIN "tableC" ON "id" = \'3\' AND "number" > \'20\'';
+        $internalTests36 = array();
+        $useNamedParams36 = true;
+
+        /**
+         * @author robertbasic
+         * @link https://github.com/zendframework/zf2/pull/2714
+         */
+        $select37 = new Select;
+        $select37->from('foo')->columns(array('bar'), false);
+        $sqlPrep37 = // same
+        $sqlStr37 = 'SELECT "bar" AS "bar" FROM "foo"';
+        $internalTests37 = array(
+            'processSelect' => array(array(array('"bar"', '"bar"')), '"foo"')
+        );
+
+
         /**
          * $select = the select object
          * $sqlPrep = the sql as a result of preparation
@@ -765,7 +877,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
          * $internalTests what the internal functions should return (safe-guarding extension)
          */
         return array(
-            //    $select    $sqlPrep    $params     $sqlStr    $internalTests
+            //    $select    $sqlPrep    $params     $sqlStr    $internalTests    // use named param
             array($select0,  $sqlPrep0,  array(),    $sqlStr0,  $internalTests0),
             array($select1,  $sqlPrep1,  array(),    $sqlStr1,  $internalTests1),
             array($select2,  $sqlPrep2,  array(),    $sqlStr2,  $internalTests2),
@@ -802,6 +914,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select33, $sqlPrep33, array(),    $sqlStr33, $internalTests33),
             array($select34, $sqlPrep34, array(),    $sqlStr34, $internalTests34),
             array($select35, $sqlPrep35, array(),    $sqlStr35, $internalTests35),
+            array($select36, $sqlPrep36, array(),    $sqlStr36, $internalTests36,  $useNamedParams36),
+            array($select37, $sqlPrep37, array(),    $sqlStr37, $internalTests37),
         );
     }
 

@@ -85,7 +85,7 @@ class Windows extends Virtual
         }
 
         if (count($this->probeResult) && (int) $this->probeResult[1]) {
-            $height = (int)$this->probeResult[1];
+            $height = (int) $this->probeResult[1];
         } else {
             $height = parent::getheight();
         }
@@ -363,7 +363,7 @@ class Windows extends Virtual
     public function readLine($maxLength = 2048)
     {
         $f    = fopen('php://stdin','r');
-        $line = rtrim(fread($f,$maxLength),"\r\n");
+        $line = rtrim(fread($f, $maxLength),"\r\n");
         fclose($f);
 
         return $line;

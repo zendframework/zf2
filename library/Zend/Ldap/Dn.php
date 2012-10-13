@@ -57,9 +57,8 @@ class Dn implements \ArrayAccess
             return self::fromArray($dn, $caseFold);
         } elseif (is_string($dn)) {
             return self::fromString($dn, $caseFold);
-        } else {
-            throw new Exception\LdapException(null, 'Invalid argument type for $dn');
         }
+        throw new Exception\LdapException(null, 'Invalid argument type for $dn');
     }
 
     /**
@@ -141,7 +140,7 @@ class Dn implements \ArrayAccess
      */
     public function getParentDn($levelUp = 1)
     {
-        $levelUp = (int)$levelUp;
+        $levelUp = (int) $levelUp;
         if ($levelUp < 1 || $levelUp >= count($this->dn)) {
             throw new Exception\LdapException(null, 'Cannot retrieve parent DN with given $levelUp');
         }
@@ -162,15 +161,14 @@ class Dn implements \ArrayAccess
     {
         $caseFold = self::sanitizeCaseFold($caseFold, $this->caseFold);
         $this->assertIndex($index);
-        $length = (int)$length;
+        $length = (int) $length;
         if ($length <= 0) {
             $length = 1;
         }
         if ($length === 1) {
             return self::caseFoldRdn($this->dn[$index], $caseFold);
-        } else {
-            return self::caseFoldDn(array_slice($this->dn, $index, $length, false), $caseFold);
         }
+        return self::caseFoldDn(array_slice($this->dn, $index, $length, false), $caseFold);
     }
 
     /**
@@ -200,7 +198,7 @@ class Dn implements \ArrayAccess
     public function remove($index, $length = 1)
     {
         $this->assertIndex($index);
-        $length = (int)$length;
+        $length = (int) $length;
         if ($length <= 0) {
             $length = 1;
         }
@@ -325,9 +323,8 @@ class Dn implements \ArrayAccess
 
         if ($caseFold === self::ATTR_CASEFOLD_NONE) {
             return $this->dn;
-        } else {
-            return self::caseFoldDn($this->dn, $caseFold);
         }
+        return self::caseFoldDn($this->dn, $caseFold);
     }
 
     /**
@@ -384,12 +381,11 @@ class Dn implements \ArrayAccess
      */
     public function offsetExists($offset)
     {
-        $offset = (int)$offset;
+        $offset = (int) $offset;
         if ($offset < 0 || $offset >= count($this->dn)) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**

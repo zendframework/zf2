@@ -12,11 +12,8 @@ namespace Zend\Mvc\Router\Console;
 
 use Traversable;
 use Zend\Mvc\Router\Exception;
-use Zend\Mvc\Router\Console\RouteInterface;
-use Zend\Mvc\Router\RouteInterface as BaseRoute;
 use Zend\Mvc\Router\SimpleRouteStack as BaseSimpleRouteStack;
 use Zend\Stdlib\ArrayUtils;
-use Zend\Stdlib\RequestInterface as Request;
 
 /**
  * Tree search implementation.

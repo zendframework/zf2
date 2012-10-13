@@ -10,6 +10,7 @@
 
 namespace Zend\View\Helper;
 
+use stdClass;
 use Zend\View;
 use Zend\View\Exception;
 
@@ -162,12 +163,11 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * Determine if a value is a valid style tag
      *
      * @param  mixed $value
-     * @param  string $method
      * @return boolean
      */
     protected function isValid($value)
     {
-        if ((!$value instanceof \stdClass)
+        if ((!$value instanceof stdClass)
             || !isset($value->content)
             || !isset($value->attributes))
         {
@@ -251,8 +251,8 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     /**
      * Start capture action
      *
-     * @param  mixed $captureType
-     * @param  string $typeOrAttrs
+     * @param string $type
+     * @param string $attrs
      * @return void
      * @throws Exception\RuntimeException
      */
@@ -301,7 +301,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * @param  string $indent Indentation to use
      * @return string
      */
-    public function itemToString(\stdClass $item, $indent)
+    public function itemToString(stdClass $item, $indent)
     {
         $attrString = '';
         if (!empty($item->attributes)) {
@@ -311,6 +311,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
             ) {
                 $enc = $this->view->getEncoding();
             }
+            $escaper = $this->getEscaper($enc);
             foreach ($item->attributes as $key => $value) {
                 if (!in_array($key, $this->optionalAttributes)) {
                     continue;
@@ -333,12 +334,12 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
                         $value = substr($value, 0, -1);
                     }
                 }
-                $attrString .= sprintf(' %s="%s"', $key, htmlspecialchars($value, ENT_COMPAT, $enc));
+                $attrString .= sprintf(' %s="%s"', $key, $escaper->escapeHtmlAttr($value));
             }
         }
 
-        $escapeStart = $indent . '<!--'. PHP_EOL;
-        $escapeEnd = $indent . '-->'. PHP_EOL;
+        $escapeStart = $indent . '<!--' . PHP_EOL;
+        $escapeEnd = $indent . '-->' . PHP_EOL;
         if (isset($item->attributes['conditional'])
             && !empty($item->attributes['conditional'])
             && is_string($item->attributes['conditional'])
@@ -399,7 +400,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
             $attributes['media'] = implode(',', $attributes['media']);
         }
 
-        $data = new \stdClass();
+        $data = new stdClass();
         $data->content    = $content;
         $data->attributes = $attributes;
 

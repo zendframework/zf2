@@ -183,13 +183,13 @@ class Reader
     }
 
     /**
-     * Import a feed by providing a URL
+     * Import a feed by providing a URI
      *
-     * @param  string $url The URL to the feed
+     * @param  string $uri The URI to the feed
      * @param  string $etag OPTIONAL Last received ETag for this resource
      * @param  string $lastModified OPTIONAL Last-Modified value for this resource
      * @return Reader
-     * @throws Exception\ExceptionInterface
+     * @throws Exception\RuntimeException
      */
     public static function import($uri, $etag = null, $lastModified = null)
     {
@@ -207,10 +207,10 @@ class Reader
             $data = $cache->getItem($cacheId);
             if ($data) {
                 if ($etag === null) {
-                    $etag = $cache->getItem($cacheId.'_etag');
+                    $etag = $cache->getItem($cacheId . '_etag');
                 }
                 if ($lastModified === null) {
-                    $lastModified = $cache->getItem($cacheId.'_lastmodified');;
+                    $lastModified = $cache->getItem($cacheId . '_lastmodified');
                 }
                 if ($etag) {
                     $headers->addHeaderLine('If-None-Match', $etag);
@@ -242,7 +242,7 @@ class Reader
                 return self::importString($data);
             }
             $response = $client->send();
-            if ((int)$response->getStatusCode() !== 200) {
+            if ((int) $response->getStatusCode() !== 200) {
                 throw new Exception\RuntimeException('Feed failed to load, got response code ' . $response->getStatusCode());
             }
             $responseXml = $response->getBody();
@@ -250,7 +250,7 @@ class Reader
             return self::importString($responseXml);
         } else {
             $response = $client->send();
-            if ((int)$response->getStatusCode() !== 200) {
+            if ((int) $response->getStatusCode() !== 200) {
                 throw new Exception\RuntimeException('Feed failed to load, got response code ' . $response->getStatusCode());
             }
             $reader = self::importString($response->getBody());
@@ -264,6 +264,7 @@ class Reader
      *
      * @param  string $string
      * @return Feed\FeedInterface
+     * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
      */
     public static function importString($string)
@@ -372,8 +373,10 @@ class Reader
      * Detect the feed type of the provided feed
      *
      * @param  Feed\AbstractFeed|DOMDocument|string $feed
+     * @param  bool $specOnly
      * @return string
-     * @throws Exception\ExceptionInterface
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\RuntimeException
      */
     public static function detectType($feed, $specOnly = false)
     {

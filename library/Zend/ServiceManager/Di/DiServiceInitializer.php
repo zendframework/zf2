@@ -11,7 +11,6 @@
 namespace Zend\ServiceManager\Di;
 
 use Zend\Di\Di;
-use Zend\Di\Exception\ClassNotFoundException as DiClassNotFoundException;
 use Zend\ServiceManager\Exception;
 use Zend\ServiceManager\InitializerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -34,6 +33,8 @@ class DiServiceInitializer extends Di implements InitializerInterface
     protected $serviceLocator = null;
 
     /**
+     * Constructor
+     *
      * @param \Zend\Di\Di $di
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @param null|DiInstanceManagerProxy $diImProxy
@@ -46,7 +47,11 @@ class DiServiceInitializer extends Di implements InitializerInterface
     }
 
     /**
+     * Initialize
+     *
      * @param $instance
+     * @param ServiceLocatorInterface $serviceLocator
+     * @throws \Exception
      */
     public function initialize($instance, ServiceLocatorInterface $serviceLocator)
     {

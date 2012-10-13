@@ -12,7 +12,6 @@ namespace Zend\Mvc\View\Console;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Console\Response as ConsoleResponse;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface as Response;
@@ -176,7 +175,7 @@ EOT;
 
                 if (is_callable($this->message)) {
                     $callback = $this->message;
-                    $message = (string)$callback($exception, $this->displayExceptions);
+                    $message = (string) $callback($exception, $this->displayExceptions);
                 } elseif ($this->displayExceptions && $exception instanceof \Exception) {
                     /* @var $exception \Exception */
                     $message = str_replace(

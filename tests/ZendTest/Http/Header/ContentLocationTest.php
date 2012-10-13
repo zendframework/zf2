@@ -11,7 +11,6 @@
 namespace ZendTest\Http\Header;
 
 use Zend\Http\Header\ContentLocation;
-use Zend\Uri\Http as HttpUri;
 
 class ContentLocationTest extends \PHPUnit_Framework_TestCase
 {
@@ -62,4 +61,3 @@ class ContentLocationTest extends \PHPUnit_Framework_TestCase
     }
 
 }
-

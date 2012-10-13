@@ -10,7 +10,6 @@
 
 namespace Zend\Memory;
 
-use Zend\Cache\Storage\ClearByNamespaceInterface;
 use Zend\Cache\Storage\ClearByNamespaceInterface as ClearByNamespaceCacheStorage;
 use Zend\Cache\Storage\FlushableInterface as FlushableCacheStorage;
 use Zend\Cache\Storage\StorageInterface as CacheStorage;
@@ -157,7 +156,7 @@ class MemoryManager
                     break;
             }
 
-            $this->memoryLimit = (int)($this->memoryLimit*2/3);
+            $this->memoryLimit = (int) ($this->memoryLimit*2/3);
         } // No limit otherwise
     }
 
@@ -362,7 +361,7 @@ class MemoryManager
     /**
      * Check and swap objects if necessary
      *
-     * @throws Zend_MemoryException
+     * @throws Exception\RuntimeException
      */
     private function _swapCheck()
     {

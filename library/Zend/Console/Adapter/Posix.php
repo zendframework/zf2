@@ -111,15 +111,15 @@ class Posix extends AbstractAdapter
          * Try to read env variable
          */
         if (($result = getenv('COLUMNS')) !== false) {
-            return $width = (int)$result;
+            return $width = (int) $result;
         }
 
         /**
          * Try to read console size from "tput" command
          */
-        $result = exec('tput cols',$output, $return);
+        $result = exec('tput cols', $output, $return);
         if (!$return && is_numeric($result)) {
-            return $width = (int)$result;
+            return $width = (int) $result;
         }
 
         return $width = parent::getWidth();
@@ -145,7 +145,7 @@ class Posix extends AbstractAdapter
         // Try to read console size from "tput" command
         $result = exec('tput lines', $output, $return);
         if (!$return && is_numeric($result)) {
-            return $height = (int)$result;
+            return $height = (int) $result;
         }
 
         return $height = parent::getHeight();
@@ -213,6 +213,7 @@ class Posix extends AbstractAdapter
      * @param  string   $string
      * @param  int      $color
      * @param  null|int $bgColor
+     * @throws Exception\BadMethodCallException
      * @return string
      */
     public function colorize($string, $color = null, $bgColor = null)
@@ -248,6 +249,7 @@ class Posix extends AbstractAdapter
      * Change current drawing color.
      *
      * @param int $color
+     * @throws Exception\BadMethodCallException
      */
     public function setColor($color)
     {
@@ -269,6 +271,7 @@ class Posix extends AbstractAdapter
      * Change current drawing background color
      *
      * @param int $bgColor
+     * @throws Exception\BadMethodCallException
      */
     public function setBgColor($bgColor)
     {

@@ -10,6 +10,7 @@
 
 namespace Zend\View\Helper;
 
+use stdClass;
 use Zend\View;
 use Zend\View\Exception;
 
@@ -80,7 +81,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Normalize type attribute of meta
      *
-     * @param $type type in CamelCase
+     * @param string $type type in CamelCase
      * @return string
      * @throws Exception\DomainException
      */
@@ -171,7 +172,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function setCharset($charset)
     {
-        $item = new \stdClass;
+        $item = new stdClass;
         $item->type = 'charset';
         $item->charset = $charset;
         $item->content = null;
@@ -188,7 +189,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     protected function isValid($item)
     {
-        if ((!$item instanceof \stdClass)
+        if ((!$item instanceof stdClass)
             || !isset($item->type)
             || !isset($item->modifiers))
         {
@@ -307,14 +308,11 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Build meta HTML string
      *
-     * @param  string $type
-     * @param  string $typeValue
-     * @param  string $content
-     * @param  array $modifiers
-     * @return string
+     * @param  stdClass $item
      * @throws Exception\InvalidArgumentException
+     * @return string
      */
-    public function itemToString(\stdClass $item)
+    public function itemToString(stdClass $item)
     {
         if (!in_array($item->type, $this->typeKeys)) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -339,6 +337,12 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
             $modifiersString .= $key . '="' . $this->escape($value) . '" ';
         }
 
+        $modifiersString = rtrim($modifiersString);
+
+        if ('' != $modifiersString) {
+            $modifiersString = ' ' . $modifiersString;
+        }
+
         if (method_exists($this->view, 'plugin')) {
             if ($this->view->plugin('doctype')->isHtml5()
                 && $type == 'charset'
@@ -347,12 +351,12 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
                     ? '<meta %s="%s"/>'
                     : '<meta %s="%s">';
             } elseif ($this->view->plugin('doctype')->isXhtml()) {
-                $tpl = '<meta %s="%s" content="%s" %s/>';
+                $tpl = '<meta %s="%s" content="%s"%s />';
             } else {
-                $tpl = '<meta %s="%s" content="%s" %s>';
+                $tpl = '<meta %s="%s" content="%s"%s>';
             }
         } else {
-            $tpl = '<meta %s="%s" content="%s" %s/>';
+            $tpl = '<meta %s="%s" content="%s"%s />';
         }
 
         $meta = sprintf(
@@ -409,7 +413,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function createData($type, $typeValue, $content, array $modifiers)
     {
-        $data            = new \stdClass;
+        $data            = new stdClass;
         $data->type      = $type;
         $data->$type     = $typeValue;
         $data->content   = $content;

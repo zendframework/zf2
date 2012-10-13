@@ -24,7 +24,6 @@ use Zend\Mvc\Router;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\Mvc\View\Http\ViewManager;
 use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\Uri\UriFactory;
 
 /**
@@ -520,7 +519,7 @@ class ApplicationTest extends TestCase
 
         $this->application->run();
         $this->assertTrue(isset($token->foo));
-        $this->assertEquals('bar',$token->foo);
+        $this->assertEquals('bar', $token->foo);
     }
 
     /**
@@ -543,7 +542,7 @@ class ApplicationTest extends TestCase
 
         $this->application->run();
         $this->assertTrue(isset($token->foo));
-        $this->assertEquals('bar',$token->foo);
+        $this->assertEquals('bar', $token->foo);
     }
 
     public function testApplicationShouldBeEventTargetAtFinishEvent()

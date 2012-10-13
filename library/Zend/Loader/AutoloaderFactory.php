@@ -11,10 +11,13 @@
 namespace Zend\Loader;
 
 use ReflectionClass;
+use Traversable;
 
 require_once __DIR__ . '/SplAutoloader.php';
 
-if (class_exists('Zend\Loader\AutoloaderFactory')) return;
+if (class_exists('Zend\Loader\AutoloaderFactory')) {
+    return;
+}
 
 /**
  * @category   Zend
@@ -74,7 +77,7 @@ abstract class AutoloaderFactory
             return;
         }
 
-        if (!is_array($options) && !($options instanceof \Traversable)) {
+        if (!is_array($options) && !($options instanceof Traversable)) {
             require_once __DIR__ . '/Exception/InvalidArgumentException.php';
             throw new Exception\InvalidArgumentException(
                 'Options provided must be an array or Traversable'
@@ -126,7 +129,7 @@ abstract class AutoloaderFactory
     /**
      * Retrieves an autoloader by class name
      *
-     * @param string $class
+     * @param  string $class
      * @return SplAutoloader
      * @throws Exception\InvalidArgumentException for non-registered class
      */
@@ -203,8 +206,8 @@ abstract class AutoloaderFactory
      * @see https://bugs.php.net/bug.php?id=53727
      * @see https://github.com/zendframework/zf2/pull/1807
      *
-     * @param string $className
-     * @param string $type
+     * @param  string $className
+     * @param  string $type
      * @return bool
      */
     protected static function isSubclassOf($className, $type)

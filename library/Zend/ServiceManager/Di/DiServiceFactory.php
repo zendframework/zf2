@@ -52,6 +52,8 @@ class DiServiceFactory extends Di implements FactoryInterface
     protected $serviceLocator = null;
 
     /**
+     * Constructor
+     *
      * @param \Zend\Di\Di $di
      * @param null|\Zend\Di\InstanceManager $name
      * @param array $parameters
@@ -72,6 +74,8 @@ class DiServiceFactory extends Di implements FactoryInterface
     }
 
     /**
+     * Create service
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return object
      */
@@ -87,7 +91,7 @@ class DiServiceFactory extends Di implements FactoryInterface
      * @param string $name
      * @param array $params
      * @return object
-     * @throws Exception\InvalidServiceNameException
+     * @throws Exception\ServiceNotFoundException
      */
     public function get($name, array $params = array())
     {

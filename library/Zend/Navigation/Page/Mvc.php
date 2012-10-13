@@ -13,7 +13,7 @@ namespace Zend\Navigation\Page;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\RouteStackInterface;
 use Zend\Navigation\Exception;
-use Zend\View\Helper\Url as UrlHelper;
+use Zend\Mvc\ModuleRouteListener;
 
 /**
  * Represents a page that is defined using controller, action, route
@@ -109,6 +109,10 @@ class Mvc extends AbstractPage
             $reqParams = array();
             if ($this->routeMatch instanceof RouteMatch) {
                 $reqParams  = $this->routeMatch->getParams();
+
+                if (isset($reqParams[ModuleRouteListener::ORIGINAL_CONTROLLER])) {
+                    $reqParams['controller'] = $reqParams[ModuleRouteListener::ORIGINAL_CONTROLLER];
+                }
 
                 $myParams   = $this->params;
                 if (null !== $this->controller) {

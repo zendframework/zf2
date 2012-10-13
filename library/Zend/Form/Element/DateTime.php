@@ -18,7 +18,6 @@ use Zend\Validator\Date as DateValidator;
 use Zend\Validator\DateStep as DateStepValidator;
 use Zend\Validator\GreaterThan as GreaterThanValidator;
 use Zend\Validator\LessThan as LessThanValidator;
-use Zend\Validator\ValidatorInterface;
 
 /**
  * @category   Zend
@@ -75,7 +74,7 @@ class DateTime extends Element implements InputProviderInterface
     /**
      * Set value for format
      *
-     * @param  string format
+     * @param  string $format
      * @return DateTime
      */
     public function setFormat($format)

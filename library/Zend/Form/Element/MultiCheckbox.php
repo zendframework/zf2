@@ -10,6 +10,8 @@
 
 namespace Zend\Form\Element;
 
+use Zend\Form\ElementInterface;
+use Zend\Form\Exception\InvalidArgumentException;
 use Zend\Validator\Explode as ExplodeValidator;
 use Zend\Validator\InArray as InArrayValidator;
 use Zend\Validator\ValidatorInterface;
@@ -60,6 +62,13 @@ class MultiCheckbox extends Checkbox
     public function setValueOptions(array $options)
     {
         $this->valueOptions = $options;
+
+        // Update Explode validator haystack
+        if ($this->validator instanceof ExplodeValidator) {
+            $validator = $this->validator->getValidator();
+            $validator->setHaystack($this->getValueOptionsValues());
+        }
+
         return $this;
     }
 
@@ -71,7 +80,7 @@ class MultiCheckbox extends Checkbox
      *
      * @param  array|\Traversable $options
      * @return MultiCheckbox|ElementInterface
-     * @throws Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setOptions($options)
     {
@@ -149,7 +158,7 @@ class MultiCheckbox extends Checkbox
      * Sets the value that should be selected.
      *
      * @param mixed $value The value to set.
-     * @return Element
+     * @return MultiCheckbox
      */
     public function setValue($value)
     {

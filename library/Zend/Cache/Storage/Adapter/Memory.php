@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject;
 use stdClass;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\AvailableSpaceCapableInterface;
@@ -115,7 +114,7 @@ class Memory extends AbstractAdapter implements
     /**
      * Get the storage iterator
      *
-     * @return MemoryIterator
+     * @return KeyListIterator
      */
     public function getIterator()
     {
@@ -346,9 +345,7 @@ class Memory extends AbstractAdapter implements
      * Internal method to test if an item exists.
      *
      * @param  string $normalizedKey
-     * @param  array  $normalizedOptions
      * @return boolean
-     * @throws Exception\ExceptionInterface
      */
     protected function internalHasItem(& $normalizedKey)
     {
@@ -370,9 +367,8 @@ class Memory extends AbstractAdapter implements
     /**
      * Internal method to test multiple items.
      *
-     * @param  array $keys
+     * @param array $normalizedKeys
      * @return array Array of found keys
-     * @throws Exception\ExceptionInterface
      */
     protected function internalHasItems(array & $normalizedKeys)
     {

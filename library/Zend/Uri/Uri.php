@@ -10,6 +10,7 @@
 
 namespace Zend\Uri;
 
+use Zend\Escaper\Escaper;
 use Zend\Validator;
 
 /**
@@ -23,7 +24,7 @@ class Uri implements UriInterface
     /**
      * Character classes defined in RFC-3986
      */
-    const CHAR_UNRESERVED = '\w\-\.~';
+    const CHAR_UNRESERVED = 'a-zA-Z0-9_\-\.~';
     const CHAR_GEN_DELIMS = ':\/\?#\[\]@';
     const CHAR_SUB_DELIMS = '!\$&\'\(\)\*\+,;=';
     const CHAR_RESERVED   = ':\/\?#\[\]@!\$&\'\(\)\*\+,;=';
@@ -126,6 +127,11 @@ class Uri implements UriInterface
     protected static $defaultPorts = array();
 
     /**
+     * @var Escaper
+     */
+    protected static $escaper;
+
+    /**
      * Create a new URI object
      *
      * @param  Uri|string|null $uri
@@ -150,6 +156,31 @@ class Uri implements UriInterface
                 (is_object($uri) ? get_class($uri) : gettype($uri))
             ));
         }
+    }
+
+    /**
+     * Set Escaper instance
+     *
+     * @param  Escaper $escaper
+     */
+    public static function setEscaper(Escaper $escaper)
+    {
+        static::$escaper = $escaper;
+    }
+
+    /**
+     * Retrieve Escaper instance
+     *
+     * Lazy-loads one if none provided
+     *
+     * @return Escaper
+     */
+    public static function getEscaper()
+    {
+        if (null === static::$escaper) {
+            static::setEscaper(new Escaper());
+        }
+        return static::$escaper;
     }
 
     /**
@@ -935,8 +966,9 @@ class Uri implements UriInterface
         }
 
         $regex   = '/(?:[^' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . '%:]|%(?![A-Fa-f0-9]{2}))/';
-        $replace = function($match) {
-            return rawurlencode($match[0]);
+        $escaper = static::getEscaper();
+        $replace = function ($match) use ($escaper) {
+            return $escaper->escapeUrl($match[0]);
         };
 
         return preg_replace_callback($regex, $replace, $userInfo);
@@ -949,6 +981,7 @@ class Uri implements UriInterface
      * part with percent-encoded representation
      *
      * @param  string $path
+     * @throws Exception\InvalidArgumentException
      * @return string
      */
     public static function encodePath($path)
@@ -961,8 +994,9 @@ class Uri implements UriInterface
         }
 
         $regex   = '/(?:[^' . self::CHAR_UNRESERVED . ':@&=\+\$,\/;%]+|%(?![A-Fa-f0-9]{2}))/';
-        $replace = function($match) {
-            return rawurlencode($match[0]);
+        $escaper = static::getEscaper();
+        $replace = function ($match) use ($escaper) {
+            return $escaper->escapeUrl($match[0]);
         };
 
         return preg_replace_callback($regex, $replace, $path);
@@ -989,8 +1023,9 @@ class Uri implements UriInterface
         }
 
         $regex   = '/(?:[^' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . '%:@\/\?]+|%(?![A-Fa-f0-9]{2}))/';
-        $replace = function($match) {
-            return rawurlencode($match[0]);
+        $escaper = static::getEscaper();
+        $replace = function ($match) use ($escaper) {
+            return $escaper->escapeUrl($match[0]);
         };
 
         return preg_replace_callback($regex, $replace, $input);

@@ -14,15 +14,10 @@ use ArrayAccess;
 use Traversable;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Mvc\ApplicationInterface;
 use Zend\Mvc\Exception;
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\View\SendResponseListener;
-use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Stdlib\ArrayUtils;
-use Zend\View\Helper as ViewHelper;
 use Zend\View\HelperPluginManager as ViewHelperManager;
 use Zend\View\Renderer\PhpRenderer as ViewPhpRenderer;
 use Zend\View\Resolver as ViewResolver;
@@ -174,7 +169,7 @@ class ViewManager implements ListenerAggregateInterface
     /**
      * Instantiates and configures the renderer's resolver
      *
-     * @return ViewAggregateResolver
+     * @return ViewResolver\ResolverInterface
      */
     public function getResolver()
     {

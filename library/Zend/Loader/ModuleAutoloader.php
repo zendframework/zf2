@@ -85,7 +85,7 @@ class ModuleAutoloader implements SplAutoloader
      * Traversable object.
      *
      * @param  array|Traversable $options
-     * @return SplAutoloader
+     * @return ModuleAutoloader
      */
     public function setOptions($options)
     {
@@ -161,8 +161,8 @@ class ModuleAutoloader implements SplAutoloader
     /**
      * loadModuleFromDir
      *
-     * @param string $dirPath
-     * @param string $class
+     * @param  string $dirPath
+     * @param  string $class
      * @return  mixed
      *          False [if unable to load $class]
      *          get_class($class) [if $class is successfully loaded]
@@ -184,8 +184,8 @@ class ModuleAutoloader implements SplAutoloader
     /**
      * loadModuleFromPhar
      *
-     * @param string $pharPath
-     * @param string $class
+     * @param  string $pharPath
+     * @param  string $class
      * @return  mixed
      *          False [if unable to load $class]
      *          get_class($class) [if $class is successfully loaded]
@@ -255,14 +255,15 @@ class ModuleAutoloader implements SplAutoloader
      */
     public function unregister()
     {
-        $test = spl_autoload_unregister(array($this, 'autoload'));
+        spl_autoload_unregister(array($this, 'autoload'));
     }
 
     /**
      * registerPaths
      *
-     * @param array|Traversable $paths
-     * @return ModuleLoader
+     * @param  array|Traversable $paths
+     * @throws \InvalidArgumentException
+     * @return ModuleAutoloader
      */
     public function registerPaths($paths)
     {
@@ -288,9 +289,10 @@ class ModuleAutoloader implements SplAutoloader
     /**
      * registerPath
      *
-     * @param string $path
-     * @param string $moduleName
-     * @return ModuleLoader
+     * @param  string $path
+     * @param  bool|string $moduleName
+     * @throws \InvalidArgumentException
+     * @return ModuleAutoloader
      */
     public function registerPath($path, $moduleName = false)
     {
@@ -323,7 +325,7 @@ class ModuleAutoloader implements SplAutoloader
     /**
      * Returns the base module name from the path to a phar
      *
-     * @param string $pharPath
+     * @param  string $pharPath
      * @return string
      */
     protected function pharFileToModuleName($pharPath)
@@ -339,6 +341,7 @@ class ModuleAutoloader implements SplAutoloader
      * Normalize a path for insertion in the stack
      *
      * @param  string $path
+     * @param  bool   $trailingSlash Whether trailing slash should be included
      * @return string
      */
     public static function normalizePath($path, $trailingSlash = true)

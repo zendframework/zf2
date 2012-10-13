@@ -11,7 +11,6 @@
 namespace Zend\Captcha;
 
 use Traversable;
-use Zend\Form\Element;
 use ZendService\ReCaptcha\ReCaptcha as ReCaptchaService;
 
 /**
@@ -198,6 +197,7 @@ class ReCaptcha extends AbstractAdapter
      *
      * @see    \Zend\Validator\ValidatorInterface::isValid()
      * @param  mixed $value
+     * @param  mixed $context
      * @return boolean
      */
     public function isValid($value, $context = null)

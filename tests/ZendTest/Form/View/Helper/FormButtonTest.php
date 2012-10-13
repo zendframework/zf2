@@ -11,7 +11,6 @@
 namespace ZendTest\Form\View\Helper;
 
 use Zend\Form\Element;
-use Zend\Form\Fieldset;
 use Zend\Form\Form;
 use Zend\Form\View\Helper\FormButton as FormButtonHelper;
 
@@ -65,6 +64,13 @@ class FormButtonTest extends CommonTestCase
     {
         $element = new Element();
         $this->setExpectedException('Zend\Form\Exception\DomainException', 'name');
+        $this->helper->openTag($element);
+    }
+
+    public function testOpenTagWithWrongElementRaisesException()
+    {
+        $element = new \arrayObject();
+        $this->setExpectedException('Zend\Form\Exception\InvalidArgumentException', 'ArrayObject');
         $this->helper->openTag($element);
     }
 

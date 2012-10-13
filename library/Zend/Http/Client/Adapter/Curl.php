@@ -125,7 +125,7 @@ class Curl implements HttpAdapter, StreamInterface
         }
 
         if (isset($options['proxyuser']) && isset($options['proxypass'])) {
-            $this->setCurlOption(CURLOPT_PROXYUSERPWD, $options['proxyuser'].":".$options['proxypass']);
+            $this->setCurlOption(CURLOPT_PROXYUSERPWD, $options['proxyuser'] . ":" . $options['proxypass']);
             unset($options['proxyuser'], $options['proxypass']);
         }
 
@@ -204,16 +204,20 @@ class Curl implements HttpAdapter, StreamInterface
             curl_setopt($this->curl, CURLOPT_PORT, intval($port));
         }
 
-        // Set timeout
-        curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, $this->config['timeout']);
+        if (isset($this->config['timeout'])) {
+            // Set timeout
+            curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, $this->config['timeout']);
+        }
 
-        // Set Max redirects
-        curl_setopt($this->curl, CURLOPT_MAXREDIRS, $this->config['maxredirects']);
+        if (isset($this->config['maxredirects'])) {
+            // Set Max redirects
+            curl_setopt($this->curl, CURLOPT_MAXREDIRS, $this->config['maxredirects']);
+        }
 
         if (!$this->curl) {
             $this->close();
 
-            throw new AdapterException\RuntimeException('Unable to Connect to ' .  $host . ':' . $port);
+            throw new AdapterException\RuntimeException('Unable to Connect to ' . $host . ':' . $port);
         }
 
         if ($secure !== false) {
@@ -240,6 +244,7 @@ class Curl implements HttpAdapter, StreamInterface
      * @param  string        $body
      * @return string        $request
      * @throws AdapterException\RuntimeException If connection fails, connected to wrong host, no PUT file defined, unsupported method, or unsupported cURL option
+     * @throws AdapterException\InvalidArgumentException if $method is currently not supported
      */
     public function write($method, $uri, $httpVersion = 1.1, $headers = array(), $body = '')
     {
@@ -394,7 +399,7 @@ class Curl implements HttpAdapter, StreamInterface
 
         // set additional curl options
         if (isset($this->config['curloptions'])) {
-            foreach ((array)$this->config['curloptions'] as $k => $v) {
+            foreach ((array) $this->config['curloptions'] as $k => $v) {
                 if (!in_array($k, $this->invalidOverwritableCurlOptions)) {
                     if (curl_setopt($this->curl, $k, $v) == false) {
                         throw new AdapterException\RuntimeException(sprintf("Unknown or erroreous cURL option '%s' set", $k));

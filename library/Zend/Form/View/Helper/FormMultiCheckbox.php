@@ -10,7 +10,6 @@
 
 namespace Zend\Form\View\Helper;
 
-use Traversable;
 use Zend\Form\ElementInterface;
 use Zend\Form\Element\MultiCheckbox as MultiCheckboxElement;
 use Zend\Form\Exception;
@@ -63,7 +62,8 @@ class FormMultiCheckbox extends FormInput
     /**
      * Set value for labelPosition
      *
-     * @param  mixed labelPosition
+     * @param  mixed $labelPosition
+     * @throws Exception\InvalidArgumentException
      * @return $this
      */
     public function setLabelPosition($labelPosition)
@@ -187,6 +187,8 @@ class FormMultiCheckbox extends FormInput
      * Render a form <input> element from the provided $element
      *
      * @param  ElementInterface $element
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\DomainException
      * @return string
      */
     public function render(ElementInterface $element)
@@ -199,12 +201,6 @@ class FormMultiCheckbox extends FormInput
         }
 
         $name = static::getName($element);
-        if ($name === null || $name === '') {
-            throw new Exception\DomainException(sprintf(
-                '%s requires that the element has an assigned name; none discovered',
-                __METHOD__
-            ));
-        }
 
         $options = $element->getValueOptions();
         if (empty($options)) {
@@ -450,6 +446,13 @@ class FormMultiCheckbox extends FormInput
      */
     protected static function getName(ElementInterface $element)
     {
-        return $element->getName() . '[]';
+        $name = $element->getName();
+        if ($name === null || $name === '') {
+            throw new Exception\DomainException(sprintf(
+                '%s requires that the element has an assigned name; none discovered',
+                __METHOD__
+            ));
+        }
+        return $name . '[]';
     }
 }

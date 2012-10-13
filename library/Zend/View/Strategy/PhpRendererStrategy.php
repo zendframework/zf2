@@ -12,8 +12,6 @@ namespace Zend\View\Strategy;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Http\Request as HttpRequest;
-use Zend\Http\Response as HttpResponse;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
 
@@ -64,7 +62,7 @@ class PhpRendererStrategy implements ListenerAggregateInterface
     /**
      * Set list of possible content placeholders
      *
-     * @param  array contentPlaceholders
+     * @param  array $contentPlaceholders
      * @return PhpRendererStrategy
      */
     public function setContentPlaceholders(array $contentPlaceholders)

@@ -11,7 +11,6 @@
 namespace ZendTest\Form\View\Helper;
 
 use Zend\Form\Element;
-use Zend\Form\Fieldset;
 use Zend\Form\Form;
 use Zend\Form\View\Helper\FormLabel as FormLabelHelper;
 
@@ -32,6 +31,13 @@ class FormLabelTest extends CommonTestCase
     {
         $markup = $this->helper->openTag();
         $this->assertEquals('<label>', $markup);
+    }
+
+    public function testOpenTagWithWrongElementRaisesException()
+    {
+        $element = new \arrayObject();
+        $this->setExpectedException('Zend\Form\Exception\InvalidArgumentException', 'ArrayObject');
+        $this->helper->openTag($element);
     }
 
     public function testPassingArrayToOpenTagRendersAttributes()
@@ -122,6 +128,18 @@ class FormLabelTest extends CommonTestCase
         $markup = $this->helper->__invoke($element, '<input type="text" id="foo" />', FormLabelHelper::APPEND);
         $this->assertContains('"foo" />The value for foo:</label>', $markup);
         $this->assertContains('for="foo"', $markup);
+        $this->assertContains('<label', $markup);
+        $this->assertContains('><input type="text" id="foo" />', $markup);
+    }
+
+    public function testsetLabelAttributes()
+    {
+        $element = new Element('foo');
+        $element->setLabel('The value for foo:');
+        $element->setLabelAttributes(array('id' => 'bar'));
+        $markup = $this->helper->__invoke($element, '<input type="text" id="foo" />', FormLabelHelper::APPEND);
+        $this->assertContains('"foo" />The value for foo:</label>', $markup);
+        $this->assertContains('id="bar" for="foo"', $markup);
         $this->assertContains('<label', $markup);
         $this->assertContains('><input type="text" id="foo" />', $markup);
     }

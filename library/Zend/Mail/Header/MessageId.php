@@ -10,7 +10,6 @@
 
 namespace Zend\Mail\Header;
 
-use Zend\Mail\Headers;
 
 /**
  * @category   Zend
@@ -69,6 +68,7 @@ class MessageId implements HeaderInterface
     /**
      * Set the message id
      *
+     * @param string|null $id
      * @return MessageId
      */
     public function setId($id = null)

@@ -40,6 +40,7 @@ class DateTime extends AbstractScalar
      *
      * @param mixed $value Integer of the unix timestamp or any string that can be parsed
      *                     to a unix timestamp using the PHP strtotime() function
+     * @throws Exception\ValueException if unable to create a DateTime object from $value
      */
     public function __construct($value)
     {
@@ -48,7 +49,7 @@ class DateTime extends AbstractScalar
         if ($value instanceof \DateTime) {
             $this->value = $value->format($this->phpFormatString);
         } elseif (is_numeric($value)) { // The value is numeric, we make sure it is an integer
-            $this->value = date($this->phpFormatString, (int)$value);
+            $this->value = date($this->phpFormatString, (int) $value);
         } else {
             try {
                 $dateTime = new \DateTime($value);

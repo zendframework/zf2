@@ -10,7 +10,6 @@
 
 namespace Zend\ModuleManager\Listener;
 
-use ArrayAccess;
 use Traversable;
 use Zend\Config\Config;
 use Zend\Config\Factory as ConfigFactory;
@@ -166,7 +165,7 @@ class ConfigListener extends AbstractListener implements
 
         // Merge all of the collected configs
         $this->mergedConfig = $this->getOptions()->getExtraConfig() ?: array();
-        foreach ($this->configs as $key => $config) {
+        foreach ($this->configs as $config) {
             $this->mergedConfig = ArrayUtils::merge($this->mergedConfig, $config);
         }
 
@@ -264,7 +263,7 @@ class ConfigListener extends AbstractListener implements
     /**
      * Add a static path of config files to merge after loading modules
      *
-     * @param  string $globPath
+     * @param  string $staticPath
      * @return ConfigListener
      */
     public function addConfigStaticPath($staticPath)
@@ -276,7 +275,9 @@ class ConfigListener extends AbstractListener implements
     /**
      * Add an array of paths of config files to merge after loading modules
      *
-     * @param  mixed $paths
+     * @param  Traversable|array $paths
+     * @param string $type
+     * @throws Exception\InvalidArgumentException
      * @return ConfigListener
      */
     protected function addConfigPaths($paths, $type)
@@ -304,6 +305,7 @@ class ConfigListener extends AbstractListener implements
      *
      * @param  string $path
      * @param  string $type
+     * @throws Exception\InvalidArgumentException
      * @return ConfigListener
      */
     protected function addConfigPath($path, $type)
@@ -318,8 +320,12 @@ class ConfigListener extends AbstractListener implements
         return $this;
     }
 
-
-
+    /**
+     * @param string $key
+     * @param array|Traversable $config
+     * @throws Exception\InvalidArgumentException
+     * @return ConfigListener
+     */
     protected function addConfig($key, $config)
     {
         if ($config instanceof Traversable) {
