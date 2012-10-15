@@ -172,7 +172,7 @@ class ModuleAutoloader implements SplAutoloader
         $file = new SplFileInfo($dirPath . '/Module.php');
         if ($file->isReadable() && $file->isFile()) {
             // Found directory with Module.php in it
-            require_once $file->getRealPath();
+            require $file->getRealPath();
             if (class_exists($class)) {
                 $this->moduleClassMap[$class] = $file->getRealPath();
                 return $class;
@@ -203,7 +203,7 @@ class ModuleAutoloader implements SplAutoloader
         // Phase 0: Check for executable phar with Module class in stub
         if (strpos($fileRealPath, '.phar') !== false) {
             // First see if the stub makes the Module class available
-            require_once $fileRealPath;
+            require $fileRealPath;
             if (class_exists($class)) {
                 $this->moduleClassMap[$class] = $fileRealPath;
                 return $class;
@@ -214,7 +214,7 @@ class ModuleAutoloader implements SplAutoloader
         $moduleClassFile = 'phar://' . $fileRealPath . '/Module.php';
         $moduleFile = new SplFileInfo($moduleClassFile);
         if ($moduleFile->isReadable() && $moduleFile->isFile()) {
-            require_once $moduleClassFile;
+            require $moduleClassFile;
             if (class_exists($class)) {
                 $this->moduleClassMap[$class] = $moduleClassFile;
                 return $class;
@@ -228,7 +228,7 @@ class ModuleAutoloader implements SplAutoloader
         $moduleClassFile = 'phar://' . $fileRealPath . '/' . $pharBaseName  . '/Module.php';
         $moduleFile = new SplFileInfo($moduleClassFile);
         if ($moduleFile->isReadable() && $moduleFile->isFile()) {
-            require_once $moduleClassFile;
+            require $moduleClassFile;
             if (class_exists($class)) {
                 $this->moduleClassMap[$class] = $moduleClassFile;
                 return $class;
