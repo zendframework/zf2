@@ -82,6 +82,10 @@ class Mysql implements PlatformInterface
      */
     public function quoteValue($value)
     {
+        if(is_numeric($value)) {
+        	return $value;
+    	}
+        
         return '\'' . str_replace('\'', '\\' . '\'', $value) . '\'';
     }
 
