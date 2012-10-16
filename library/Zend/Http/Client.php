@@ -773,7 +773,7 @@ class Client implements Stdlib\DispatchableInterface
 
                 if (!empty($queryArray)) {
                     $newUri = $uri->toString();
-                    
+
                     $previousArgSeparator = ini_set('arg_separator.output', '&');
                     $queryString = http_build_query($query);
                     ini_set('arg_separator.output', $previousArgSeparator);
