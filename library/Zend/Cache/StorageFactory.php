@@ -135,12 +135,15 @@ class StorageFactory
         if ($adapterName instanceof Storage\StorageInterface) {
             // $adapterName is already an adapter object
             $adapter = $adapterName;
+            if ($options) {
+                $adapter->setOptions($options);
+            }
         } else {
-            $adapter = static::getAdapterPluginManager()->get($adapterName);
-        }
-
-        if ($options) {
-            $adapter->setOptions($options);
+            if ($options) {
+                $adapter = static::getAdapterPluginManager()->get($adapterName, $options);
+            } else {
+                $adapter = static::getAdapterPluginManager()->get($adapterName);
+            }
         }
 
         return $adapter;
