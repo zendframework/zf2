@@ -1097,7 +1097,7 @@ class Client implements ServerClient
      */
     public function call($method, $params = array())
     {
-        return call_user_func_array(array($this, '__call'), $params);
+        return call_user_func_array(array($this, $method), $params);
     }
 
     /**
