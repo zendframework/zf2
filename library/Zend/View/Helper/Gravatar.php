@@ -297,7 +297,7 @@ class Gravatar extends AbstractHtmlElement
      *
      * @return string
      */
-    protected function getAvatarUrl()
+    public function getAvatarUrl()
     {
         $src = $this->getGravatarUrl()
              . '/'   . md5($this->getEmail())
