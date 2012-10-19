@@ -488,4 +488,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($clientMock, $soap->getSoapClient());
     }
+
+    public function testSoapCallFunc()
+    {
+        $client = new Client(__DIR__ . '/TestAsset/Soap.wsdl');
+
+        // call
+        $this->assertSame(25, $client->call('add_data', array(13,12)));
+        $this->assertSame(1, $client->call('sub_data', array(13,12)));
+
+        // __call
+        $this->assertSame(25, $client->add_data(13,12));
+        $this->assertSame(1, $client->sub_data(13,12));
+    }
 }
