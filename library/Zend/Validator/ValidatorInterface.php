@@ -27,7 +27,7 @@ interface ValidatorInterface
      * @return boolean
      * @throws Exception\RuntimeException If validation of $value is impossible
      */
-    public function isValid($value);
+    public function isValid($value, $context = null);
 
     /**
      * Returns an array of messages that explain why the most recent isValid()

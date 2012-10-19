@@ -48,7 +48,7 @@ class Priority extends AbstractValidator
      * @param  string  $value  value to validate
      * @return boolean
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         if (!is_numeric($value)) {
             $this->error(self::INVALID);

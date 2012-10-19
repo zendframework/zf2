@@ -169,7 +169,7 @@ class InArray extends AbstractValidator
      * See {@link http://php.net/manual/function.in-array.php#104501}
      * @return boolean
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         // we create a copy of the haystack in case we need to modify it
         $haystack = $this->getHaystack();

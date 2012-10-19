@@ -161,7 +161,7 @@ class Between extends AbstractValidator
      * @param  mixed $value
      * @return boolean
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         $this->setValue($value);
 

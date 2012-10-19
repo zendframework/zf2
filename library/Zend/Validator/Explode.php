@@ -120,7 +120,7 @@ class Explode extends AbstractValidator
      * @return boolean
      * @throws Exception\RuntimeException
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         if (!is_string($value) && !is_array($value)) {
             $this->error(self::INVALID);
