@@ -6,25 +6,25 @@ class Soaps
     /**
     * Add Data method
     *
-    * @param  Int $bilpertama
-    * @param  Int $bilkedua
+    * @param  Int $first
+    * @param  Int $second
     * @return Int
     */
-    public function add_data($bilpertama,$bilkedua)
+    public function add_data($first, $second)
     {
-        $return =  $bilpertama + $bilkedua;
+        $return =  $first + $second;
         return $return;
     }
    
     /**
     * Sub Data method
     *
-    * @param  Int $bilketiga
-    * @param  Int $bilkeempat
+    * @param  Int $first
+    * @param  Int $second
     * @return Int
     */
-    public function sub_data($bilketiga, $bilkeempat)
+    public function sub_data($first, $second)
     {
-        return $bilketiga - $bilkeempat;
+        return $first - $second;
     }
 }
