@@ -1,16 +1,68 @@
-<?xml version="1.0"?>
-                <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Soaps"><types><xsd:schema/></types>
-                    <operation name="add_data"><documentation>Add Data method</documentation><input message="tns:add_dataIn"/>
-                        <output message="tns:add_dataOut"/></operation><operation name="sub_data"><documentation>Sub Data method</documentation>
-                        <input message="tns:sub_dataIn"/><output message="tns:sub_dataOut"/></operation><binding name="SoapsBinding" type="tns:SoapsPort">
-                        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/><operation name="add_data"><soap:operation/>
-                        <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input><output>
-                        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output></operation><operation name="sub_data">
-                        <soap:operation/><input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input><output>
-                        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output></operation></binding>
-                        <service name="SoapsService"><port name="SoapsPort" binding="tns:SoapsBinding"><soap:address/></port></service><message name="add_dataIn">
-                        <part name="first" type="xsd:int"/>
-                        <part name="second" type="xsd:int"/></message><message name="add_dataOut">
-                        <part name="return" type="xsd:int"/></message><message name="sub_dataIn"><part name="first" type="xsd:int"/>
-                        <part name="second" type="xsd:int"/></message><message name="sub_dataOut"><part name="return" type="xsd:int"/>
-                        </message></definitions>
+<?xml version="1.0" ?>
+<definitions name="Soaps" targetNamespace="http://localhost/zf20_prj/public/sample-module/soaptest" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/"
+        xmlns:tns="http://samsonasik.my.phpcloud.com/zftest/application/index/index"
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <types>
+    <xsd:schema targetNamespace="http://samsonasik.my.phpcloud.com/zftest/application/index/index"/>
+  </types>
+  <portType name="SoapsPort">
+    <operation name="add_data">
+      <documentation>
+        Add Data method
+      </documentation>
+      <input message="tns:add_dataIn"/>
+      <output message="tns:add_dataOut"/>
+    </operation>
+    <operation name="sub_data">
+      <documentation>
+        Sub Data method
+      </documentation>
+      <input message="tns:sub_dataIn"/>
+      <output message="tns:sub_dataOut"/>
+    </operation>
+  </portType>
+  <binding name="SoapsBinding" type="tns:SoapsPort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="add_data">
+      <soap:operation soapAction="http://samsonasik.my.phpcloud.com/zftest/application/index/index#add_data"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                namespace="http://samsonasik.my.phpcloud.com/zftest/application/index/index" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace="http://samsonasik.my.phpcloud.com/zftest/application/index/index" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="sub_data">
+      <soap:operation soapAction="http://localhost/zf20_prj/public/sample-module/soaptest#sub_data"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                namespace="http://samsonasik.my.phpcloud.com/zftest/application/index/index" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                namespace="http://samsonasik.my.phpcloud.com/zftest/application/index/index" use="encoded"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="SoapsService">
+    <port binding="tns:SoapsBinding" name="SoapsPort">
+      <soap:address location="http://samsonasik.my.phpcloud.com/zftest/application/index/index"/>
+    </port>
+  </service>
+  <message name="add_dataIn">
+    <part name="first" type="xsd:int"/>
+    <part name="second" type="xsd:int"/>
+  </message>
+  <message name="add_dataOut">
+    <part name="return" type="xsd:int"/>
+  </message>
+  <message name="sub_dataIn">
+    <part name="first" type="xsd:int"/>
+    <part name="second" type="xsd:int"/>
+  </message>
+  <message name="sub_dataOut">
+    <part name="return" type="xsd:int"/>
+  </message>
+</definitions>
