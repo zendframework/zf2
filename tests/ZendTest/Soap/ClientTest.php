@@ -491,7 +491,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     
     public function testSoapCallFunc()
     {
-        ini_set("soap.wsdl_cache_enabled", 0); 
         $client = new Client(__DIR__ . '/TestAsset/Soap.wsdl');
         
         // call
