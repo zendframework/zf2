@@ -249,7 +249,7 @@ class CreditCard extends AbstractValidator
      * @param  string $value
      * @return boolean
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         $this->setValue($value);
 

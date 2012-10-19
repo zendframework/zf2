@@ -118,7 +118,7 @@ class Step extends AbstractValidator
      * @param mixed $value
      * @return bool
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         if (!is_numeric($value)) {
             $this->error(self::INVALID);

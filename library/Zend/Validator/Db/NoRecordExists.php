@@ -20,7 +20,7 @@ use Zend\Validator\Exception;
  */
 class NoRecordExists extends AbstractDb
 {
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         /*
          * Check for an adapter being defined. If not, throw an exception.

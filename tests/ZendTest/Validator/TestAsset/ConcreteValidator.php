@@ -20,7 +20,7 @@ class ConcreteValidator extends AbstractValidator
         'fooMessage' => '%value% was passed',
     );
 
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         $this->setValue($value);
         $this->error(self::FOO_MESSAGE);

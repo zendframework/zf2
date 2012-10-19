@@ -94,7 +94,7 @@ class Alnum extends AbstractValidator
      * @param  string $value
      * @return boolean
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         if (!is_string($value) && !is_int($value) && !is_float($value)) {
             $this->error(self::INVALID);

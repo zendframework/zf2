@@ -158,7 +158,7 @@ class NotEmpty extends AbstractValidator
      * @param  string $value
      * @return boolean
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         if ($value !== null && !is_string($value) && !is_int($value) && !is_float($value) &&
             !is_bool($value) && !is_array($value) && !is_object($value)

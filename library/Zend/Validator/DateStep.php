@@ -213,9 +213,9 @@ class DateStep extends Date
      * @return bool
      * @throws Exception\InvalidArgumentException
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
-        parent::isValid($value);
+        parent::isValid($value, $context);
 
         $this->setValue($value);
 

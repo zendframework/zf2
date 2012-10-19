@@ -14,7 +14,7 @@ use Zend\Validator\ValidatorInterface;
 
 class UrlValidator implements ValidatorInterface
 {
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
     }
 

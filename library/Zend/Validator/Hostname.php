@@ -443,7 +443,7 @@ class Hostname extends AbstractValidator
      * @param  string $value
      * @return boolean
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         if (!is_string($value)) {
             $this->error(self::INVALID);
@@ -453,7 +453,7 @@ class Hostname extends AbstractValidator
         $this->setValue($value);
         // Check input against IP address schema
         if (preg_match('/^[0-9a-f:.]*$/i', $value) &&
-            $this->getIpValidator()->setTranslator($this->getTranslator())->isValid($value)) {
+            $this->getIpValidator()->setTranslator($this->getTranslator())->isValid($value, $context)) {
             if (!($this->getAllow() & self::ALLOW_IP)) {
                 $this->error(self::IP_ADDRESS_NOT_ALLOWED);
                 return false;
@@ -478,7 +478,7 @@ class Hostname extends AbstractValidator
 
         // Prevent partial IP V4 addresses (ending '.')
         if ((count($domainParts) == 4) && preg_match('/^[0-9.a-e:.]*$/i', $value) &&
-            $this->getIpValidator()->setTranslator($this->getTranslator())->isValid($value)) {
+            $this->getIpValidator()->setTranslator($this->getTranslator())->isValid($value, $context)) {
             $this->error(self::INVALID_LOCAL_NAME);
         }
 

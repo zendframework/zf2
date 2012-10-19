@@ -46,7 +46,7 @@ class MockCaptcha implements AdapterInterface
         return 'doctype';
     }
 
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
         return true;
     }
