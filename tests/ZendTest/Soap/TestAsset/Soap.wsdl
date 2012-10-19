@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<definitions name="Soaps" targetNamespace="http://localhost/zf20_prj/public/sample-module/soaptest" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/"
+<definitions name="Soaps" targetNamespace="http://samsonasik.my.phpcloud.com/zftest/application/index/index" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/"
         xmlns:tns="http://samsonasik.my.phpcloud.com/zftest/application/index/index"
         xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <types>
