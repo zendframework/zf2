@@ -630,4 +630,30 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         StaticEventManager::resetInstance();
         $this->assertFalse($this->events->getSharedManager());
     }
+
+    public function testSharedListenersAttachedAsAggregateAreTriggered()
+    {
+        $shared = new SharedEventManager();
+        $this->events->setSharedManager($shared);
+        $this->events->setIdentifiers('foo');
+
+        $aggregate = new TestAsset\MockAggregate();
+        $shared->attach('foo', $aggregate);
+
+        $method = new \ReflectionMethod($this->events,'getSharedListeners');
+        $method->setAccessible(true);
+
+        $callbackHandler = $method->invoke($this->events, 'foo.bar');
+        $this->assertTrue($callbackHandler[0] instanceof CallbackHandler);
+
+        $responses = $this->events->trigger('foo.bar', $this, array());
+
+        $this->assertTrue($responses instanceof ResponseCollection);
+        $this->assertEquals('ZendTest\EventManager\TestAsset\MockAggregate::fooBar', $responses->last());
+
+        $responses = $this->events->trigger('foo.baz', $this, array());
+        $this->assertEquals('ZendTest\EventManager\TestAsset\MockAggregate::fooBaz', $responses->last());
+    }
+
+
 }
