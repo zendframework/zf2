@@ -28,6 +28,7 @@ class ModuleEvent extends Event
     CONST EVENT_LOAD_MODULE_RESOLVE = 'loadModule.resolve';
     CONST EVENT_LOAD_MODULE         = 'loadModule';
     CONST EVENT_LOAD_MODULES_POST   = 'loadModules.post';
+    CONST EVENT_LOAD_MODULE_POST    = 'loadModule.post';
 
     /**
      * @var mixed
