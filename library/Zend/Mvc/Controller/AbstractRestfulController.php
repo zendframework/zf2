@@ -150,7 +150,7 @@ abstract class AbstractRestfulController extends AbstractController
                     break;
                 case 'post':
                     $action = 'create';
-                    $return = $this->processPostData($request);
+                    $return = $this->processPostData($request, $routeMatch);
                     break;
                 case 'put':
                     $action = 'update';
@@ -186,7 +186,7 @@ abstract class AbstractRestfulController extends AbstractController
      * @param Request $request
      * @return mixed
      */
-    public function processPostData(Request $request)
+    public function processPostData(Request $request, $routeMatch)
     {
         return $this->create($request->getPost()->toArray());
     }
