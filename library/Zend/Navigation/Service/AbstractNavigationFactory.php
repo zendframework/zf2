@@ -15,7 +15,6 @@ use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\RouteStackInterface as Router;
 use Zend\Navigation\Exception;
 use Zend\Navigation\Navigation;
-use Zend\Navigation\Page\Mvc as MvcPage;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -56,7 +55,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     protected function getPages(ServiceLocatorInterface $serviceLocator)
     {
         if (null === $this->pages) {
-            $configuration = $serviceLocator->get('Configuration');
+            $configuration = $serviceLocator->get('Config');
 
             if (!isset($configuration['navigation'])) {
                 throw new Exception\InvalidArgumentException('Could not find navigation configuration key');

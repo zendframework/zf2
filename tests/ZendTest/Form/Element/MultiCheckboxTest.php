@@ -23,7 +23,6 @@ namespace ZendTest\Form\Element;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Form\Element\MultiCheckbox as MultiCheckboxElement;
-use Zend\Form\Factory;
 
 class MultiCheckboxTest extends TestCase
 {
@@ -104,6 +103,26 @@ class MultiCheckboxTest extends TestCase
         $this->assertInstanceOf('Zend\Validator\Explode', $explodeValidator);
         $this->assertTrue($explodeValidator->isValid($valueTests));
     }
+
+    /**
+     * Testing that InArray Validator Haystack is Updated if the Options
+     * are added after the validator is attached
+     *
+     * @dataProvider multiCheckboxOptionsDataProvider
+     */
+    public function testInArrayValidatorHaystakIsUpdated($valueTests, $options)
+    {
+        $element = new MultiCheckboxElement('my-checkbox');
+        $inputSpec = $element->getInputSpecification();
+        $inArrayValidator=$inputSpec['validators'][0]->getValidator();
+
+        $element->setAttributes(array(
+            'options' => $options,
+        ));
+        $haystack=$inArrayValidator->getHaystack();
+        $this->assertCount(count($options), $haystack);
+    }
+
 
     public function testAttributeType()
     {

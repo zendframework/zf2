@@ -10,7 +10,6 @@
 
 namespace Zend\ModuleManager\Listener;
 
-use ArrayAccess;
 use Traversable;
 use Zend\Config\Config;
 use Zend\Config\Factory as ConfigFactory;
@@ -321,8 +320,12 @@ class ConfigListener extends AbstractListener implements
         return $this;
     }
 
-
-
+    /**
+     * @param string $key
+     * @param array|Traversable $config
+     * @throws Exception\InvalidArgumentException
+     * @return ConfigListener
+     */
     protected function addConfig($key, $config)
     {
         if ($config instanceof Traversable) {

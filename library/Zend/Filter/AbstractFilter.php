@@ -11,7 +11,6 @@
 namespace Zend\Filter;
 
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\ErrorHandler;
 
 /**
@@ -42,7 +41,7 @@ abstract class AbstractFilter implements FilterInterface
         if (static::$hasPcreUnicodeSupport === null) {
             static::$hasPcreUnicodeSupport = false;
             ErrorHandler::start();
-            if (defined('PREG_BAD_UTF8_OFFSET_ERROR') || preg_match('/\pL/u', 'a') == 1) {
+            if (defined('PREG_BAD_UTF8_OFFSET_ERROR') && preg_match('/\pL/u', 'a') == 1) {
                 static::$hasPcreUnicodeSupport = true;
             }
             ErrorHandler::stop();

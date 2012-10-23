@@ -408,6 +408,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             case self::OFFSET:
                 $this->offset = null;
                 break;
+            case self::ORDER:
+                $this->order = null;
+                break;
         }
         return $this;
     }
@@ -533,7 +536,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $fromTable = ($this->prefixColumnsWithTable) ? $table : '';
         }
 
-        $fromTable .= $platform->getIdentifierSeparator();
+        $fromTable .= ($this->prefixColumnsWithTable) ? $platform->getIdentifierSeparator() : '';
 
         // process table columns
         $columns = array();
@@ -619,8 +622,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 ? $platform->quoteIdentifier(current($join['name'])) . ' AS ' . $platform->quoteIdentifier(key($join['name']))
                 : $platform->quoteIdentifier($join['name']);
             // on expression
+            // note: for Expression objects, pass them to processExpression with a prefix specific to each join (used for named parameters)
             $joinSpecArgArray[$j][] = ($join['on'] instanceof ExpressionInterface)
-                ? $this->processExpression($join['on'], $platform, $adapter, $this->processInfo['paramPrefix'] . 'join')
+                ? $this->processExpression($join['on'], $platform, $adapter, $this->processInfo['paramPrefix'] . 'join' . ($j+1) . 'part')
                 : $platform->quoteIdentifierInFragment($join['on'], array('=', 'AND', 'OR', '(', ')', 'BETWEEN')); // on
             if ($joinSpecArgArray[$j][2] instanceof StatementContainerInterface) {
                 if ($parameterContainer) {

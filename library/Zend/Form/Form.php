@@ -10,7 +10,6 @@
 
 namespace Zend\Form;
 
-use IteratorAggregate;
 use Traversable;
 use Zend\Form\Element\Collection;
 use Zend\Form\Exception;
@@ -79,6 +78,13 @@ class Form extends Fieldset implements FormInterface
     protected $useInputFilterDefaults = true;
 
     /**
+     * Has the input filter defaults been added already ?
+     *
+     * @var bool
+     */
+    protected $hasAddedInputFilterDefaults = false;
+
+    /**
      * Whether or not validation has occurred
      *
      * @var bool
@@ -137,12 +143,6 @@ class Form extends Fieldset implements FormInterface
             $elementOrFieldset = $factory->create($elementOrFieldset);
         }
 
-        // check if the element is a file and add enctype attribute if so
-        $type = $elementOrFieldset->getAttribute('type');
-        if (isset($type) && $type === 'file') {
-            $this->attributes['enctype'] = 'multipart/form-data';
-        }
-
         parent::add($elementOrFieldset, $flags);
 
         if ($elementOrFieldset instanceof Fieldset && $elementOrFieldset->useAsBaseFieldset()) {
@@ -159,26 +159,29 @@ class Form extends Fieldset implements FormInterface
      * available, and prepares any elements and/or fieldsets that require
      * preparation.
      *
-     * @return void
+     * @return Form
      */
     public function prepare()
     {
-        if (!$this->isPrepared) {
-            $this->getInputFilter();
+        if ($this->isPrepared) {
+            return $this;
+        }
 
-            // If the user wants to, elements names can be wrapped by the form's name
-            if ($this->wrapElements()) {
-                $this->prepareElement($this);
-            } else {
-                foreach ($this->getIterator() as $elementOrFieldset) {
-                    if ($elementOrFieldset instanceof ElementPrepareAwareInterface) {
-                        $elementOrFieldset->prepareElement($this);
-                    }
+        $this->getInputFilter();
+
+        // If the user wants to, elements names can be wrapped by the form's name
+        if ($this->wrapElements()) {
+            $this->prepareElement($this);
+        } else {
+            foreach ($this->getIterator() as $elementOrFieldset) {
+                if ($elementOrFieldset instanceof ElementPrepareAwareInterface) {
+                    $elementOrFieldset->prepareElement($this);
                 }
             }
-
-            $this->isPrepared = true;
         }
+
+        $this->isPrepared = true;
+        return $this;
     }
 
     /**
@@ -267,7 +270,12 @@ class Form extends Fieldset implements FormInterface
         if (!is_object($this->object)) {
             return;
         }
-        if (!$this->isValid) {
+        if (!$this->hasValidated() && !empty($values)) {
+            $this->setData($values);
+            if (!$this->isValid()) {
+                return;
+            }
+        } elseif (!$this->isValid) {
             return;
         }
 
@@ -284,7 +292,14 @@ class Form extends Fieldset implements FormInterface
         }
 
         $data = $this->prepareBindData($data, $this->data);
-        $this->object = parent::bindValues($data);
+
+        // If there is a base fieldset, only hydrate beginning from the base fieldset
+        if ($this->baseFieldset !== null) {
+            $data = $data[$this->baseFieldset->getName()];
+            $this->object = $this->baseFieldset->bindValues($data);
+        } else {
+            $this->object = parent::bindValues($data);
+        }
     }
 
     /**
@@ -424,6 +439,8 @@ class Form extends Fieldset implements FormInterface
         }
 
         $this->isValid = $result = $filter->isValid();
+        $this->hasValidated = true;
+
         if ($result && $this->bindOnValidate()) {
             $this->bindValues();
         }
@@ -432,7 +449,6 @@ class Form extends Fieldset implements FormInterface
             $this->setMessages($filter->getMessages());
         }
 
-        $this->hasValidated = true;
         return $result;
     }
 
@@ -558,8 +574,9 @@ class Form extends Fieldset implements FormInterface
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        $this->hasValidated = false;
-        $this->filter       = $inputFilter;
+        $this->hasValidated                = false;
+        $this->hasAddedInputFilterDefaults = false;
+        $this->filter                      = $inputFilter;
         return $this;
     }
 
@@ -583,12 +600,16 @@ class Form extends Fieldset implements FormInterface
             }
         }
 
-        if (null === $this->filter) {
+        if (!isset($this->filter)) {
             $this->filter = new InputFilter();
         }
 
-        if ($this->filter instanceof InputFilterInterface && $this->useInputFilterDefaults()) {
+        if (!$this->hasAddedInputFilterDefaults
+            && $this->filter instanceof InputFilterInterface
+            && $this->useInputFilterDefaults()
+        ) {
             $this->attachInputFilterDefaults($this->filter, $this);
+            $this->hasAddedInputFilterDefaults = true;
         }
 
         return $this->filter;

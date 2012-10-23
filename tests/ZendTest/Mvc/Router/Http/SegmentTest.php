@@ -111,6 +111,12 @@ class SegmentTest extends TestCase
                 null,
                 array('foo' => 'bar', 'bar' => 'baz')
             ),
+            'optional-group-within-optional-group-is-ignored' => array(
+                new Segment('/:foo[/:bar[/:baz]]', array(), array('bar' => 'baz', 'baz' => 'bat')),
+                '/bar',
+                null,
+                array('foo' => 'bar', 'bar' => 'baz', 'baz' => 'bat')
+            ),
             'non-standard-delimiter-before-parameter' => array(
                 new Segment('/foo-:bar'),
                 '/foo-baz',
@@ -146,6 +152,12 @@ class SegmentTest extends TestCase
                 '/foo+bar',
                 null,
                 array('foo' => 'foo bar')
+            ),
+            'urlencode-flaws-corrected' => array(
+                new Segment('/:foo'),
+                "/!$&'()*,-.:;=@_~",
+                null,
+                array('foo' => "!$&'()*,-.:;=@_~")
             ),
             'empty-matches-are-replaced-with-defaults' => array(
                 new Segment('/foo[/:bar]/baz-:baz', array(), array('bar' => 'bar')),

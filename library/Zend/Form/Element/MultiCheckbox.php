@@ -62,6 +62,13 @@ class MultiCheckbox extends Checkbox
     public function setValueOptions(array $options)
     {
         $this->valueOptions = $options;
+
+        // Update Explode validator haystack
+        if ($this->validator instanceof ExplodeValidator) {
+            $validator = $this->validator->getValidator();
+            $validator->setHaystack($this->getValueOptionsValues());
+        }
+
         return $this;
     }
 
