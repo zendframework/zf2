@@ -522,6 +522,14 @@ class Figlet
         if ($this->outlineLength !== 0) {
             $this->_appendLine();
         }
+        
+        if (PHP_SAPI !== 'cli' && $result !== '') {
+            ob_start();
+            echo '<pre>';
+            echo $this->output;
+            echo '</pre>';
+            $this->output = ob_get_clean();
+        }
 
         return $this->output;
     }
