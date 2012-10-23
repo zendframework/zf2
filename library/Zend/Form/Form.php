@@ -550,11 +550,18 @@ class Form extends Fieldset implements FormInterface
                 $values = array();
 
                 if (isset($data[$key])) {
+                    /* FIX for when we have excluded a KEY in the collection */
+                    foreach ($data[$key] as $key2 => $value2) {
+                        $values[$key2] = $value;
+                    }
+
+                    /*
                     $count = count($data[$key]);
 
                     for ($i = 0 ; $i != $count ; ++$i) {
                         $values[] = $value;
                     }
+                    */
                 }
 
                 $value = $values;
