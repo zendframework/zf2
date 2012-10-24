@@ -148,7 +148,7 @@ class ModuleManagerTest extends TestCase
     {
         $moduleManager  = new ModuleManager(array());
         $moduleManager->getEventManager()->attachAggregate($this->defaultListeners);
-        
+
         $callback = false;
         $self = $this; // PHP 5.3 doesn't support $this in closure context
         $moduleManager->getEventManager()
@@ -160,9 +160,9 @@ class ModuleManagerTest extends TestCase
                         $self->assertArrayHasKey('BarModule', $modules);
                         $self->assertInstanceOf('BarModule\Module', $modules['BarModule']);
                     });
-                    
+
         $moduleManager->loadModule('BarModule');
-        
+
         $this->assertTrue($callback);
     }
 }
