@@ -143,7 +143,7 @@ class ModuleManagerTest extends TestCase
         $this->assertTrue(isset($config['loaded']));
         $this->assertSame('oh, yeah baby!', $config['loaded']);
     }
-    
+
     public function testLoadModulePostEvent() 
     {
         $moduleManager  = new ModuleManager(array());
@@ -154,7 +154,7 @@ class ModuleManagerTest extends TestCase
         $moduleManager->getEventManager()
                 ->attach(ModuleEvent::EVENT_LOAD_MODULE_POST, function( \Zend\ModuleManager\ModuleEvent $e ) use(&$callback, $self) { 
                         $callback = true;
-                        
+
                         /* Post Event must identify BarModule as being loaded; failure could result in inifinite loops. */
                         $modules = $e->getTarget()->getLoadedModules(true);
                         $self->assertArrayHasKey('BarModule', $modules);
