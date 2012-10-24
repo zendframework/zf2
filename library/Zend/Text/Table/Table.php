@@ -493,6 +493,14 @@ class Table
                 $result .= "\n";
             }
         }
+        
+        if (PHP_SAPI !== 'cli' && $result !== '') {
+            ob_start();
+            echo '<pre>';
+            echo $result;
+            echo '</pre>';
+            $result = ob_get_clean();
+        }
 
         return $result;
     }
