@@ -150,14 +150,15 @@ class ModuleManagerTest extends TestCase
         $moduleManager->getEventManager()->attachAggregate($this->defaultListeners);
         
         $callback = false;
+        $self = $this; // PHP 5.3 doesn't support $this in closure context
         $moduleManager->getEventManager()
-                ->attach(ModuleEvent::EVENT_LOAD_MODULE_POST, function( \Zend\ModuleManager\ModuleEvent $e ) use(&$callback) { 
+                ->attach(ModuleEvent::EVENT_LOAD_MODULE_POST, function( \Zend\ModuleManager\ModuleEvent $e ) use(&$callback, $self) { 
                         $callback = true;
                         
                         /* Post Event must identify BarModule as being loaded; failure could result in inifinite loops. */
                         $modules = $e->getTarget()->getLoadedModules(true);
-                        $this->assertArrayHasKey('BarModule', $modules);
-                        $this->assertInstanceOf('BarModule\Module', $modules['BarModule']);
+                        $self->assertArrayHasKey('BarModule', $modules);
+                        $self->assertInstanceOf('BarModule\Module', $modules['BarModule']);
                     });
                     
         $moduleManager->loadModule('BarModule');
