@@ -204,11 +204,15 @@ class Curl implements HttpAdapter, StreamInterface
             curl_setopt($this->curl, CURLOPT_PORT, intval($port));
         }
 
-        // Set timeout
-        curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, $this->config['timeout']);
+        if (isset($this->config['timeout'])) {
+            // Set timeout
+            curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, $this->config['timeout']);
+        }
 
-        // Set Max redirects
-        curl_setopt($this->curl, CURLOPT_MAXREDIRS, $this->config['maxredirects']);
+        if (isset($this->config['maxredirects'])) {
+            // Set Max redirects
+            curl_setopt($this->curl, CURLOPT_MAXREDIRS, $this->config['maxredirects']);
+        }
 
         if (!$this->curl) {
             $this->close();
@@ -395,7 +399,7 @@ class Curl implements HttpAdapter, StreamInterface
 
         // set additional curl options
         if (isset($this->config['curloptions'])) {
-            foreach ((array)$this->config['curloptions'] as $k => $v) {
+            foreach ((array) $this->config['curloptions'] as $k => $v) {
                 if (!in_array($k, $this->invalidOverwritableCurlOptions)) {
                     if (curl_setopt($this->curl, $k, $v) == false) {
                         throw new AdapterException\RuntimeException(sprintf("Unknown or erroreous cURL option '%s' set", $k));
