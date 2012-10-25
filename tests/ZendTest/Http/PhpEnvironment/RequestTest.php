@@ -204,6 +204,16 @@ class RequestTest extends TestCase
                 '/html/index.php',
                 '/html'
             ),
+            // https://github.com/zendframework/zf2/issues/2811
+            array(
+                array(
+                    'REQUEST_URI'     => '/index.php?redirect=http://www.example.com/bar/baz',
+                    'PHP_SELF'        => '/index.php',
+                    'SCRIPT_FILENAME' => '/var/web/html/index.php',
+                ),
+                '/index.php',
+                '',
+            ),
         );
     }
 
