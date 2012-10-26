@@ -144,7 +144,7 @@ class ModuleManagerTest extends TestCase
         $this->assertSame('oh, yeah baby!', $config['loaded']);
     }
 
-    public function testLoadModulePostEvent() 
+    public function testLoadModulePostEvent()
     {
         $moduleManager  = new ModuleManager(array());
         $moduleManager->getEventManager()->attachAggregate($this->defaultListeners);
@@ -152,7 +152,7 @@ class ModuleManagerTest extends TestCase
         $callback = false;
         $self = $this; // PHP 5.3 doesn't support $this in closure context
         $moduleManager->getEventManager()
-                ->attach(ModuleEvent::EVENT_LOAD_MODULE_POST, function( \Zend\ModuleManager\ModuleEvent $e ) use(&$callback, $self) { 
+                ->attach(ModuleEvent::EVENT_LOAD_MODULE_POST, function( \Zend\ModuleManager\ModuleEvent $e ) use (&$callback, $self) {
                         $callback = true;
 
                         /* Post Event must identify BarModule as being loaded; failure could result in inifinite loops. */

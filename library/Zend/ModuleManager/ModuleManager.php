@@ -59,8 +59,8 @@ class ModuleManager implements ModuleManagerInterface
     /**
      * Constructor
      *
-     * @param  array|Traversable $modules
-     * @param  EventManagerInterface $eventManager
+     * @param array|Traversable     $modules
+     * @param EventManagerInterface $eventManager
      */
     public function __construct($modules, EventManagerInterface $eventManager = null)
     {
@@ -93,7 +93,7 @@ class ModuleManager implements ModuleManagerInterface
      *
      * @triggers loadModules
      * @triggers loadModules.post
-     * @return   ModuleManager
+     * @return ModuleManager
      */
     public function loadModules()
     {
@@ -117,11 +117,11 @@ class ModuleManager implements ModuleManagerInterface
     /**
      * Load a specific module by name.
      *
-     * @param    string $moduleName
-     * @throws   Exception\RuntimeException
+     * @param  string                     $moduleName
+     * @throws Exception\RuntimeException
      * @triggers loadModule.resolve
      * @triggers loadModule
-     * @return   mixed Module's Module class
+     * @return mixed Module's Module class
      */
     public function loadModule($moduleName)
     {
@@ -160,7 +160,7 @@ class ModuleManager implements ModuleManagerInterface
     /**
      * Get an array of the loaded modules.
      *
-     * @param  bool $loadModules If true, load modules if they're not already
+     * @param  bool  $loadModules If true, load modules if they're not already
      * @return array An array of Module objects, keyed by module name
      */
     public function getLoadedModules($loadModules = false)
@@ -168,6 +168,7 @@ class ModuleManager implements ModuleManagerInterface
         if (true === $loadModules) {
             $this->loadModules();
         }
+
         return $this->loadedModules;
     }
 
@@ -182,6 +183,7 @@ class ModuleManager implements ModuleManagerInterface
         if (!isset($this->loadedModules[$moduleName])) {
             return null;
         }
+
         return $this->loadedModules[$moduleName];
     }
 
@@ -198,7 +200,7 @@ class ModuleManager implements ModuleManagerInterface
     /**
      * Set an array or Traversable of module names that this module manager should load.
      *
-     * @param  mixed $modules array or Traversable of module names
+     * @param  mixed                              $modules array or Traversable of module names
      * @throws Exception\InvalidArgumentException
      * @return ModuleManager
      */
@@ -212,6 +214,7 @@ class ModuleManager implements ModuleManagerInterface
                 __CLASS__, __METHOD__
             ));
         }
+
         return $this;
     }
 
@@ -225,18 +228,20 @@ class ModuleManager implements ModuleManagerInterface
         if (!$this->event instanceof ModuleEvent) {
             $this->setEvent(new ModuleEvent);
         }
+
         return $this->event;
     }
 
     /**
      * Set the module event
      *
-     * @param  ModuleEvent $event
+     * @param  ModuleEvent   $event
      * @return ModuleManager
      */
     public function setEvent(ModuleEvent $event)
     {
         $this->event = $event;
+
         return $this;
     }
 
@@ -255,6 +260,7 @@ class ModuleManager implements ModuleManagerInterface
         ));
         $this->events = $events;
         $this->attachDefaultListeners();
+
         return $this;
     }
 
@@ -270,6 +276,7 @@ class ModuleManager implements ModuleManagerInterface
         if (!$this->events instanceof EventManagerInterface) {
             $this->setEventManager(new EventManager());
         }
+
         return $this->events;
     }
 
