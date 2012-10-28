@@ -318,6 +318,49 @@ class TreeRouteStackTest extends TestCase
         $this->assertEquals(1000, $routes->get('foo')->priority);
     }
 
+    public function testChildRoutesWithParentActionDefault()
+    {
+        $request = new PhpRequest();
+        $stack   = new TreeRouteStack();
+        $stack->addRoutes(array(
+            'foo' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route'      => '/foo',
+                    'defaults'   => array(
+                        'controller' => 'foo',
+                        'action'     => 'bar',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'baz' => array(
+                        'type'    => 'Literal',
+                        'options' => array(
+                            'route' => '/baz'
+                        ),
+                        'defaults' => array(
+                            'action' => 'baz'
+                        )
+                    )
+                )
+            )
+        ));
+
+        $this->assertEquals('/foo', $stack->assemble(array(), array('name' => 'foo')));
+        $this->assertEquals('/foo/baz', $stack->assemble(array(), array('name' => 'foo/baz')));
+
+        $request->setUri('/foo');
+        $match = $stack->match($request);
+        $this->assertInstanceOf('Zend\Mvc\Router\Http\RouteMatch', $match);
+        $this->assertEquals('bar', $match->getParam('action'));
+
+        $request->setUri('/foo/baz');
+        $match = $stack->match($request);
+        $this->assertInstanceOf('Zend\Mvc\Router\Http\RouteMatch', $match);
+        $this->assertEquals('baz', $match->getParam('action'));
+    }
+
     public function testFactory()
     {
         $tester = new FactoryTester($this);
