@@ -75,6 +75,13 @@ abstract class AbstractTableGateway implements TableGatewayInterface
     protected $lastInsertValue = null;
 
     /**
+     * sequence
+     *
+     * @var string
+     */
+    protected $sequence = null;
+
+    /**
      * @return bool
      */
     public function isInitialized()
@@ -293,7 +300,7 @@ abstract class AbstractTableGateway implements TableGatewayInterface
 
         $statement = $this->sql->prepareStatementForSqlObject($insert);
         $result = $statement->execute();
-        $this->lastInsertValue = $this->adapter->getDriver()->getConnection()->getLastGeneratedValue();
+        $this->lastInsertValue = $this->adapter->getDriver()->getConnection()->getLastGeneratedValue($this->sequence);
 
         // apply postInsert features
         $this->featureSet->apply('postInsert', array($statement, $result));
@@ -424,6 +431,28 @@ abstract class AbstractTableGateway implements TableGatewayInterface
     public function getLastInsertValue()
     {
         return $this->lastInsertValue;
+    }
+
+    /**
+     * Set the sequence name
+     *
+     * @return string
+     */
+    public function setSequence($sequence)
+    {
+        $this->sequence = $sequence;
+        return $this;
+    }
+
+    /**
+     * Get the sequence name
+     *
+     * @access public
+     * @return string
+     */
+    public function getSequence()
+    {
+        return $this->sequence;
     }
 
     /**
