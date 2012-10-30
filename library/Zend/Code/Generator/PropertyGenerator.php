@@ -120,7 +120,7 @@ class PropertyGenerator extends AbstractMemberGenerator
             && array_key_exists('value', $defaultValue)
             && array_key_exists('type', $defaultValue)
         ) {
-            $defaultValue = new PropertyValueGenerator($defaultValue);
+            $defaultValue = new PropertyValueGenerator($defaultValue['value'], $defaultValue['type']);
         }
 
         if (!($defaultValue instanceof PropertyValueGenerator)) {
