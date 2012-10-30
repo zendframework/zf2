@@ -25,15 +25,14 @@ class PostRedirectGet extends AbstractPlugin
 {
     public function __invoke($redirect = null, $redirectToUrl = false)
     {
-        $controller = $this->getController();
-        $request    = $controller->getRequest();
-        $params     = array();
+        $controller         = $this->getController();
+        $request            = $controller->getRequest();
+        $reuseMatchedParams = null;
 
         if (null === $redirect) {
             $routeMatch = $controller->getEvent()->getRouteMatch();
-
+            $reuseMatchedParams = true;
             $redirect = $routeMatch->getMatchedRouteName();
-            $params   = $routeMatch->getParams();
         }
 
         $container = new Container('prg_post1');
@@ -58,7 +57,7 @@ class PostRedirectGet extends AbstractPlugin
             }
 
             if ($redirectToUrl === false) {
-                $response = $redirector->toRoute($redirect, $params);
+                $response = $redirector->toRoute($redirect, array(), null, $reuseMatchedParams);
                 $response->setStatusCode(303);
                 return $response;
             }
