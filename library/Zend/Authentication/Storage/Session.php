@@ -54,8 +54,8 @@ class Session implements StorageInterface
     /**
      * Sets session storage options and initializes session namespace object
      *
-     * @param  mixed $namespace
-     * @param  mixed $member
+     * @param  mixed          $namespace
+     * @param  mixed          $member
      * @param  SessionManager $manager
      */
     public function __construct($namespace = null, $member = null, SessionManager $manager = null)
@@ -128,5 +128,17 @@ class Session implements StorageInterface
     public function clear()
     {
         unset($this->session->{$this->member});
+    }
+
+    /**
+     * Call session's method
+     *
+     * @param  string $name      Name of the method we want to call.
+     * @param  array  $arguments List of parameters for the method.
+     * @return mixed  Returned results.
+     */
+    public function __call($name, $arguments)
+    {
+        return call_user_func_array(array($this->session, $name), $arguments);
     }
 }
