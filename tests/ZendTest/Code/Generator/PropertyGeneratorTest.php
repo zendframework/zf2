@@ -218,9 +218,10 @@ EOS;
         $codeGenProperty->generate();
     }
 
-    public function testSetDefaultValue(){
+    public function testSetDefaultValue()
+    {
         $propertyGenerator = new PropertyGenerator();
-        foreach($this->dataSetTypeSetValueGenerate() as $data){
+        foreach ($this->dataSetTypeSetValueGenerate() as $data) {
             $defaultValue = array('value' => $data[0], 'type' => $data[1]);
             $propertyGenerator->setDefaultValue($defaultValue);
             $this->assertEquals($data[0], $propertyGenerator->getDefaultValue()->getValue());
