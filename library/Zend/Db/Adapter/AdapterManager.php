@@ -26,13 +26,11 @@ class AdapterManager
     protected $_dbAdapterConfig = array();
 
     /**
-     * 
      * @var ServiceLocatorInterface
      */
     protected $_serviceLocator;
 
     /**
-     *
      * @param array $config
      * @throws \RuntimeException
      */
@@ -50,7 +48,6 @@ class AdapterManager
     }
 
     /**
-     * 
      * @param ServiceLocatorInterface $serviceLocator
      */
     public function setServiceLocator( ServiceLocatorInterface $serviceLocator)
@@ -59,7 +56,6 @@ class AdapterManager
     }
 
     /**
-     * 
      * @return ServiceLocatorInterface
      */
     public function getServiceLocator()
@@ -68,7 +64,6 @@ class AdapterManager
     }
 
     /**
-     * 
      * @param array $config
      * @throws \RuntimeException
      */
@@ -78,7 +73,6 @@ class AdapterManager
     }
 
     /**
-     * 
      * @param string $key
      * @param Adapter $adapter
      * @throws \RuntimeException
@@ -107,7 +101,6 @@ class AdapterManager
     }
 
     /**
-     * 
      * @param string $key
      * @throws \RuntimeException
      * @return Adapter
@@ -129,7 +122,6 @@ class AdapterManager
     }
 
     /**
-     * 
      * @param string $key
      * @throws \RuntimeException
      * @return Adapter
@@ -152,7 +144,6 @@ class AdapterManager
     }
 
     /**
-     * 
      * @param array $config
      * @param ServiceLocatorInterface $serviceLocator
      * @throws InvalidArgumentException
