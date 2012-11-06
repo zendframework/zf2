@@ -33,13 +33,6 @@ abstract class AbstractPrompt implements PromptInterface
     protected $lastResponse;
 
     /**
-     * Show a prompt
-     *
-     * @return void
-     */
-    abstract public function show();
-
-    /**
      * Return last answer to this prompt.
      *
      * @return mixed
