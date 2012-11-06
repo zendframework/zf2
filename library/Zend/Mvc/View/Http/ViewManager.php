@@ -78,6 +78,7 @@ class ViewManager implements ListenerAggregateInterface
     protected $rendererStrategy;
     protected $resolver;
     protected $routeNotFoundStrategy;
+    protected $zendMonitorExceptionStrategy;
     protected $view;
     protected $viewModel;
     /**@-*/
@@ -128,18 +129,20 @@ class ViewManager implements ListenerAggregateInterface
         $this->services = $services;
         $this->event    = $event;
 
-        $routeNotFoundStrategy   = $this->getRouteNotFoundStrategy();
-        $exceptionStrategy       = $this->getExceptionStrategy();
-        $mvcRenderingStrategy    = $this->getMvcRenderingStrategy();
-        $createViewModelListener = new CreateViewModelListener();
-        $injectTemplateListener  = new InjectTemplateListener();
-        $injectViewModelListener = new InjectViewModelListener();
-        $sendResponseListener    = new SendResponseListener();
+        $routeNotFoundStrategy        = $this->getRouteNotFoundStrategy();
+        $exceptionStrategy            = $this->getExceptionStrategy();
+        $zendMonitorExceptionStrategy = $this->getZendMonitorExceptionStrategy();
+        $mvcRenderingStrategy         = $this->getMvcRenderingStrategy();
+        $createViewModelListener      = new CreateViewModelListener();
+        $injectTemplateListener       = new InjectTemplateListener();
+        $injectViewModelListener      = new InjectViewModelListener();
+        $sendResponseListener         = new SendResponseListener();
 
         $this->registerMvcRenderingStrategies($events);
         $this->registerViewStrategies();
 
         $events->attach($routeNotFoundStrategy);
+        $events->attach($zendMonitorExceptionStrategy);
         $events->attach($exceptionStrategy);
         $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($injectViewModelListener, 'injectViewModel'), -100);
         $events->attach($mvcRenderingStrategy);
@@ -370,6 +373,25 @@ class ViewManager implements ListenerAggregateInterface
         $model->setTemplate($this->getLayoutTemplate());
 
         return $this->viewModel;
+    }
+    
+
+    /**
+     * Instantiates and configures the Zend Monitor Exception strategy
+     * @return \Zend\Mvc\View\Http\ZendMonitorExceptionStrategy
+     */
+    public function getZendMonitorExceptionStrategy()
+    {
+        if ($this->zendMonitorExceptionStrategy) {
+            return $this->zendMonitorExceptionStrategy;
+        }
+    
+        $this->zendMonitorExceptionStrategy = new ZendMonitorExceptionStrategy();
+    
+        $this->services->setService('zendMonitorExceptionStrategy', $this->zendMonitorExceptionStrategy);
+        $this->services->setAlias('Zend\Mvc\View\Http\ZendMonitorExceptionStrategy', 'ZendMonitorExceptionStrategy');
+    
+        return $this->zendMonitorExceptionStrategy;
     }
 
     /**
