@@ -12,6 +12,7 @@ namespace Zend\Log\Formatter;
 
 use DateTime;
 use Traversable;
+use Zend\Json\Json;
 
 /**
  * @category   Zend
@@ -82,9 +83,9 @@ class Base implements FormatterInterface
             foreach ($value as $key => $subvalue) {
                 $value[$key] = $this->normalize($subvalue);
             }
-            $value = json_encode($value);
+            $value = Json::encode($value);
         } elseif (is_object($value) && !method_exists($value,'__toString')) {
-            $value = sprintf('object(%s) %s', get_class($value), json_encode($value));
+            $value = sprintf('object(%s) %s', get_class($value), Json::encode($value));
         } elseif (is_resource($value)) {
             $value = sprintf('resource(%s)', get_resource_type($value));
         } elseif (!is_object($value)) {
