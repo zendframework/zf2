@@ -18,7 +18,7 @@ class AdapterManager
     implements ServiceLocatorAwareInterface
 {
     /**
-     * 
+     *
      * @var Adapter[]
      */
     protected $_dbAdapter = array();
@@ -91,7 +91,7 @@ class AdapterManager
     }
 
     /**
-     * 
+     *
      * @param string $key
      * @return bool
      */
