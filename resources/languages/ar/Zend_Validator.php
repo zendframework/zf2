@@ -23,35 +23,35 @@
  * EN-Revision: 25.Jul.2011
  */
 return array(
-    // Zend_Validate_Alnum
+    // Zend\Validator\Alnum
     "Invalid type given. String, integer or float expected" => "خطأ في المدخلة. يجب ادخال أرقام أو حروف فقط",
     "'%value%' contains characters which are non alphabetic and no digits" => "'%value%' تحتوي على رموز ليست حروف أو أرقام",
     "'%value%' is an empty string" => "'%value%' فارغ",
 
-    // Zend_Validate_Alpha
+    // Zend\Validator\Alpha
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال حروف فقط",
     "'%value%' contains non alphabetic characters" => "'%value%' تحتوي على رموز ليست حروف",
     "'%value%' is an empty string" => "'%value%' فارغ",
 
-    // Zend_Validate_Barcode
+    // Zend\Validator\Barcode
     "'%value%' failed checksum validation" => "'%value%' لم يجتز فحص الصحة",
     "'%value%' contains invalid characters" => "'%value%' يحتوي على رموز خاطئة",
     "'%value%' should have a length of %length% characters" => "طول '%value%' يجب أن يكون %length% حرف",
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
 
-    // Zend_Validate_Between
+    // Zend\Validator\Between
     "'%value%' is not between '%min%' and '%max%', inclusively" => "قيمة '%value%' يجب أن تكون بين '%min%' و '%max%'",
     "'%value%' is not strictly between '%min%' and '%max%'" => "قيمة '%value%' ليست بين '%min%' و '%max%'",
 
-    // Zend_Validate_Callback
+    // Zend\Validator\Callback
     "'%value%' is not valid" => "'%value%' خاطئ",
     "An exception has been raised within the callback" => "حصل خطأ داخلي أثناء تنفيذ العملية",
 
-    // Zend_Validate_Ccnum
+    // Zend\Validator\Ccnum
     "'%value%' must contain between 13 and 19 digits" => "'%value%' يجب أن تحتوي على ما بين 13 إلى 19 رقم",
     "Luhn algorithm (mod-10 checksum) failed on '%value%'" => "فشل اختبار Luhn algorithm (mod-10 checksum) على '%value%'",
 
-    // Zend_Validate_CreditCard
+    // Zend\Validator\CreditCard
     "'%value%' seems to contain an invalid checksum" => "'%value%' لم يجتز فحص الصحة",
     "'%value%' must contain only digits" => "'%value%' يجب أن تحتوي على أرقام فقط",
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
@@ -60,21 +60,21 @@ return array(
     "'%value%' seems to be an invalid creditcard number" => "'%value%' ليس رقم بطاقة إئتمان",
     "An exception has been raised while validating '%value%'" => "حصل خطأ أثناء التحقق من صحة '%value%'",
 
-    // Zend_Validate_Date
+    // Zend\Validator\Date
     "Invalid type given. String, integer, array or Zend_Date expected" => "خطأ في المدخلة. يجب ادخال حروف، أرقام، متسلسلات، أو Zend_Date",
     "'%value%' does not appear to be a valid date" => "'%value%' ليس تاريخ صحيح",
     "'%value%' does not fit the date format '%format%'" => "'%value%' لا يطابق شكل التاريخ '%format%'",
 
-    // Zend_Validate_Db_Abstract
+    // Zend\Validator\Db_Abstract
     "No record matching '%value%' was found" => "لم يتم العثور على سجل مطابق لـ '%value%'",
     "A record matching '%value%' was found" => "السجل '%value%' موجود",
 
-    // Zend_Validate_Digits
+    // Zend\Validator\Digits
     "Invalid type given. String, integer or float expected" => "خطأ في المدخلة. يجب ادخال أرقام أو حروف فقط",
     "'%value%' must contain only digits" => "'%value%' يجب أن يحتوي على أرقام فقط",
     "'%value%' is an empty string" => "'%value%' فارغ",
 
-    // Zend_Validate_EmailAddress
+    // Zend\Validator\EmailAddress
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
     "'%value%' is not a valid email address in the basic format local-part@hostname" => "قيمة '%value%' ليست بريد الكتروني صحيح يطابق نمط local-part@hostname",
     "'%hostname%' is not a valid hostname for email address '%value%'" => "قيمة '%hostname%' للبريد الإلكتروني '%value%' ليس صحيح",
@@ -85,42 +85,42 @@ return array(
     "'%localPart%' is not a valid local part for email address '%value%'" => "'%localPart%' ليس بريد الكتروني صحيح لقيمة '%value%'",
     "'%value%' exceeds the allowed length" => "طول '%value%' تعدى الطول المسموح",
 
-    // Zend_Validate_File_Count
+    // Zend\Validator\File_Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "'%count%' ملف/ملفات هو عدد أكبر من العدد المسموح به وهو '%max%'",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "'%count%' ملف/ملفات هو عدد أقل من العدد المطلوب وهو '%min%'",
 
-    // Zend_Validate_File_Crc32
+    // Zend\Validator\File_Crc32
     "File '%value%' does not match the given crc32 hashes" => "لم يطابق تشفير crc32 للملف '%value%' التشفير المعطى",
     "A crc32 hash could not be evaluated for the given file" => "لا يمكن معرفة قيمة تشفير crc32 للملف",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_ExcludeExtension
+    // Zend\Validator\File_ExcludeExtension
     "File '%value%' has a false extension" => "امتداد الملف '%value%' خاطئ",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_ExcludeMimeType
+    // Zend\Validator\File_ExcludeMimeType
     "File '%value%' has a false mimetype of '%type%'" => "الملف '%value%' له نوع خاطئ وهو '%type%'",
     "The mimetype of file '%value%' could not be detected" => "لم يتم التعرف على نوع الملف '%value%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_Exists
+    // Zend\Validator\File_Exists
     "File '%value%' does not exist" => "الملف '%value%' غير موجود",
 
-    // Zend_Validate_File_Extension
+    // Zend\Validator\File_Extension
     "File '%value%' has a false extension" => "صيغة الملف '%value%' خاطئة",
     "File '%value%' is not readable or does not exist" => "'%value%' لا يمكن قراءة محتوى الملف أو أنه غير موجود",
 
-    // Zend_Validate_File_FilesSize
+    // Zend\Validator\File_FilesSize
     "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "'%size%' هو حجم أكبر من الحد الأقصى المسموح به للملفات وهو '%max%'",
     "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "'%size%' هو حجم أصغر من الحد الأدنى المسموح به للملفات وهو '%min%'",
     "One or more files can not be read" => "لا يمكن قراءة محتوى ملف أو أكثر",
 
-    // Zend_Validate_File_Hash
+    // Zend\Validator\File_Hash
     "File '%value%' does not match the given hashes" => "لم يطابق تشفير الملف '%value%' التشفير المعطى",
     "A hash could not be evaluated for the given file" => "لا يمكن معرفة قيمة التشفير للملف",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_ImageSize
+    // Zend\Validator\File_ImageSize
     "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "أكبر عرض مسموح به للصورة '%value%' هو '%maxwidth%' ولكن العرض الحالي هو '%width%'",
     "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "أقل عرض مسموح به للصورة '%value%' هو '%minwidth%' ولكن العرض الحالي هو '%width%'",
     "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "أكبر ارتفاع مسموح به للصورة '%value%' هو '%maxheight%' ولكن الطول الحالي هو '%height%'",
@@ -128,40 +128,40 @@ return array(
     "The size of image '%value%' could not be detected" => "لا يمكن أبعاد الصورة '%value%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_IsCompressed
+    // Zend\Validator\File_IsCompressed
     "File '%value%' is not compressed, '%type%' detected" => "الملف '%value%' ليس ملف مضغوط، بل هو ملف '%type%'",
     "The mimetype of file '%value%' could not be detected" => "لم يتم التعرف على نوع الملف '%value%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_IsImage
+    // Zend\Validator\File_IsImage
     "File '%value%' is no image, '%type%' detected" => "الملف '%value%' ليس صورة، بل هو ملف '%type%'",
     "The mimetype of file '%value%' could not be detected" => "لم يتم التعرف على نوع الملف '%value%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_Md5
+    // Zend\Validator\File_Md5
     "File '%value%' does not match the given md5 hashes" => "لم يطابق تشفير md5 للملف '%value%' التشفير المعطى",
     "A md5 hash could not be evaluated for the given file" => "لا يمكن معرفة قيمة تشفير md5 للملف",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_MimeType
+    // Zend\Validator\File_MimeType
     "File '%value%' has a false mimetype of '%type%'" => "الملف '%value%' له نوع خاطئ وهو '%type%'",
     "The mimetype of file '%value%' could not be detected" => "لم يتم التعرف على نوع الملف '%value%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_NotExists
+    // Zend\Validator\File_NotExists
     "File '%value%' exists" => "الملف '%value%' موجود",
 
-    // Zend_Validate_File_Sha1
+    // Zend\Validator\File_Sha1
     "File '%value%' does not match the given sha1 hashes" => "لم يطابق تشفير sha1 للملف '%value%' التشفير المعطى",
     "A sha1 hash could not be evaluated for the given file" => "لا يمكن معرفة قيمة تشفير sha1 للملف",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_Size
+    // Zend\Validator\File_Size
     "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "حجم الملف '%value%' هو '%size%' وهذا الحجم أكبر من الحد الأقصى المسموح به وهو '%max%'",
     "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "حجم الملف '%value%' هو '%size%' وهذا الحجم أقل من الحد الأدنى المسموح به وهو '%min%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_File_Upload
+    // Zend\Validator\File_Upload
     "File '%value%' exceeds the defined ini size" => "الملف '%value%' تعدى الحجم المسموح به حسب التعريف في ini",
     "File '%value%' exceeds the defined form size" => "الملف '%value%' تعدى الحجم المسموح به حسب التعريف في النموذج",
     "File '%value%' was only partially uploaded" => "الملف '%value%' تم تحميل جزء منه",
@@ -173,23 +173,23 @@ return array(
     "File '%value%' was not found" => "لم يتم العثور على الملف '%value%'",
     "Unknown error while uploading file '%value%'" => "حصل خطأ غير معروف في عملية تحميل الملف '%value%'",
 
-    // Zend_Validate_File_WordCount
+    // Zend\Validator\File_WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "'%count%' كلمات أكثر من العدد الأقصى المسموح به وهو '%max%' كلمات",
     "Too less words, minimum '%min%' are expected but '%count%' were counted" => "'%count%' كلمات أقل من العدد الأدنى المسموح وهو '%min%' كلمات",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend_Validate_Float
+    // Zend\Validator\Float
     "Invalid type given. String, integer or float expected" => "خطأ في المدخلة. يجب ادخال أرقام أو حروف فقط",
     "'%value%' does not appear to be a float" => "'%value%' ليس رقم",
 
-    // Zend_Validate_GreaterThan
+    // Zend\Validator\GreaterThan
     "'%value%' is not greater than '%min%'" => "'%value%' ليس أكبر من '%min%'",
 
-    // Zend_Validate_Hex
+    // Zend\Validator\Hex
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
     "'%value%' has not only hexadecimal digit characters" => "'%value%' يحتوي على حروف أو رموز ليست من النظام الست عشري (hexadecimal)",
 
-    // Zend_Validate_Hostname
+    // Zend\Validator\Hostname
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
     "'%value%' appears to be an IP address, but IP addresses are not allowed" => "قيمة '%value%' تبدو أنها عنوان بروتوكول انترنت (IP) وهذا غير مسموح به",
     "'%value%' appears to be a DNS hostname but cannot match TLD against known list" => "'%value%' هو اسم نظام أسماء المجالات (DNS)، ولكن اسم المجال ذو المستوى العال (TLD) غير معروف",
@@ -202,63 +202,63 @@ return array(
     "'%value%' appears to be a DNS hostname but the given punycode notation cannot be decoded" => "'%value%' هو اسم نظام أسماء المجالات (DNS)،  ولكن الرموز في الاسم لا يمكن تفكيكها وتحويلها لصيغة أبسط",
     "'%value%' does not appear to be a valid URI hostname" => "'%value%' ليس عنوان اسم صحيح لمضيف",
 
-    // Zend_Validate_Iban
+    // Zend\Validator\Iban
     "Unknown country within the IBAN '%value%'" => "لم يتم التعرف على الدولة في الرقم الدولي للحساب البنكي (IBAN) '%value%'",
     "'%value%' has a false IBAN format" => "'%value%' ليس صيفة صحيحة لالرقم الدولي للحساب البنكي (IBAN)",
     "'%value%' has failed the IBAN check" => "'%value%' لم يجتز فحص الرقم الدولي للحساب البنكي (IBAN)",
 
-    // Zend_Validate_Identical
+    // Zend\Validator\Identical
     "The two given tokens do not match" => "الرمزان غير متطابقان",
     "No token was provided to match against" => "لا يوجد رمز للمقارنة به",
 
-    // Zend_Validate_InArray
+    // Zend\Validator\InArray
     "'%value%' was not found in the haystack" => "لم يتم العثور على '%value%' في المتسلسلة",
 
-    // Zend_Validate_Int
+    // Zend\Validator\Int
     "Invalid type given. String or integer expected" => "خطأ في المدخلة. يجب ادخال أرقام",
     "'%value%' does not appear to be an integer" => "'%value%' ليس رقم",
 
-    // Zend_Validate_Ip
+    // Zend\Validator\Ip
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
     "'%value%' does not appear to be a valid IP address" => "'%value%' ليس عنوان بروتوكول انترنت (IP) صحيح",
 
-    // Zend_Validate_Isbn
+    // Zend\Validator\Isbn
     "Invalid type given. String or integer expected" => "خطأ في المدخلة. يجب ادخال أرقام أو حروف",
     "'%value%' is not a valid ISBN number" => "'%value%' ليس قيمة صحيحة لالرقم الدولي الموحد للكتاب (ISBN)",
 
-    // Zend_Validate_LessThan
+    // Zend\Validator\LessThan
     "'%value%' is not less than '%max%'" => "'%value%' ليس أقل من '%max%'",
 
-    // Zend_Validate_NotEmpty
+    // Zend\Validator\NotEmpty
     "Invalid type given. String, integer, float, boolean or array expected" => "خطأ في المدخلة. يجب ادخال أرقام، حروف، صح أو خطأ، أو متسلسلة",
     "Value is required and can't be empty" => "لا يمكن ترك هذا الحقل فارغ",
 
-    // Zend_Validate_PostCode
+    // Zend\Validator\PostCode
     "Invalid type given. String or integer expected" => "خطأ في المدخلة. يجب ادخال أرقام أو حروف",
     "'%value%' does not appear to be a postal code" => "'%value%' ليس رمز بريدي صحيح",
 
-    // Zend_Validate_Regex
+    // Zend\Validator\Regex
     "Invalid type given. String, integer or float expected" => "خطأ في المدخلة. يجب ادخال أرقام أو حروف فقط",
     "'%value%' does not match against pattern '%pattern%'" => "'%value%' لا يطابق النمط '%pattern%'",
     "There was an internal error while using the pattern '%pattern%'" => "حصل خطأ داخلي أثناء استخدام النمط '%pattern%'",
 
-    // Zend_Validate_Sitemap_Changefreq
+    // Zend\Validator\Sitemap_Changefreq
     "'%value%' is not a valid sitemap changefreq" => "'%value%' ليست قيمة صحيحة لوتيرة التغيير لخريطة الموقع",
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
 
-    // Zend_Validate_Sitemap_Lastmod
+    // Zend\Validator\Sitemap_Lastmod
     "'%value%' is not a valid sitemap lastmod" => "'%value%' ليست قيمة صحيحة لتاريخ آخر تعديل لخريطة الموقع",
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
 
-    // Zend_Validate_Sitemap_Loc
+    // Zend\Validator\Sitemap_Loc
     "'%value%' is not a valid sitemap location" => "'%value%' ليس عنوان صحيح لخريطة الموقع",
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
 
-    // Zend_Validate_Sitemap_Priority
+    // Zend\Validator\Sitemap_Priority
     "'%value%' is not a valid sitemap priority" => "'%value%' ليست أولوية صحيحة لعنوان خريطة الموقع",
     "Invalid type given. Numeric string, integer or float expected" => "خطأ في المدخلة. يجب ادخال أرقام أو حروف فقط",
 
-    // Zend_Validate_StringLength
+    // Zend\Validator\StringLength
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
     "'%value%' is less than %min% characters long" => "طول '%value%' يجب أن يكون %min% حرف على الأقل",
     "'%value%' is more than %max% characters long" => "طول '%value%' يجب أن يكون %max% كحد أقصى",
