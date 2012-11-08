@@ -85,42 +85,42 @@ return array(
     "'%localPart%' is not a valid local part for email address '%value%'" => "Sähköpostiosoitteen '%value%' paikallisosa '%localPart%' on virheellinen",
     "'%value%' exceeds the allowed length" => "Osoite '%value%' on liian pitkä",
 
-    // Zend\Validator\File_Count
+    // Zend\Validator\File\Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "Virheellinen määrä tiedostoja, maksimimäärä on '%max%', vastaanotettiin '%count%'",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "Virheellinen määrä tiedostoja, minimimäärä on '%min%', vastaanotettiin '%count%'",
 
-    // Zend\Validator\File_Crc32
+    // Zend\Validator\File\Crc32
     "File '%value%' does not match the given crc32 hashes" => "Tiedoston '%value%' crc32-tarkistusluku ei vastaa annettua",
     "A crc32 hash could not be evaluated for the given file" => "Tarkistuslukua crc32 ei pystytty määrittämään vastaanotetulle tiedostolle",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_ExcludeExtension
+    // Zend\Validator\File\ExcludeExtension
     "File '%value%' has a false extension" => "Tiedostolla '%value%' on virheellinen pääte",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_ExcludeMimeType
+    // Zend\Validator\File\ExcludeMimeType
     "File '%value%' has a false mimetype of '%type%'" => "Tiedoston '%value%' MIME-tyyppi '%type%' on virheellinen",
     "The mimetype of file '%value%' could not be detected" => "Tiedoston '%value%' MIME-tyyppiä ei pystytty todentamaan",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_Exists
+    // Zend\Validator\File\Exists
     "File '%value%' does not exist" => "Tiedostoa '%value%' ei ole olemassa",
 
-    // Zend\Validator\File_Extension
+    // Zend\Validator\File\Extension
     "File '%value%' has a false extension" => "Tiedostolla '%value%' on virheellinen pääte",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_FilesSize
+    // Zend\Validator\File\FilesSize
     "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "Kaikkien tiedostojen yhteenlaskettu koko saa olla maksimissaan '%max%', vastaanotettiin '%size%'",
     "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "Kaikkien tiedostojen yhteenlaskettu koko pitää olla vähintään '%min%', vastaanotettiin '%size%'",
     "One or more files can not be read" => "Yhtä tai useampaa tiedostoa ei voida lukea",
 
-    // Zend\Validator\File_Hash
+    // Zend\Validator\File\Hash
     "File '%value%' does not match the given hashes" => "Tiedoston '%value%' tarkastusluku ei vastaa annettua",
     "A hash could not be evaluated for the given file" => "Tarkistuslukua ei pystytty määrittämään vastaanotetulle tiedostolle",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_ImageSize
+    // Zend\Validator\File\ImageSize
     "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "Kuvan '%value%' maksimileveys on '%maxwidth%', annettu '%width%'",
     "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "Kuvan '%value%' minimileveys on '%minwidth%', annettu '%width%'",
     "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "Kuvan '%value%' maksimikorkeus on '%maxheight%', annettu '%height%'",
@@ -128,40 +128,40 @@ return array(
     "The size of image '%value%' could not be detected" => "Kuvan '%value%' kokoa ei voida todentaa",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_IsCompressed
+    // Zend\Validator\File\IsCompressed
     "File '%value%' is not compressed, '%type%' detected" => "Tiedosto '%value%' ei ole pakattu, vastaanotettiin tyyppiä '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Tiedoston '%value%' MIME-tyyppiä ei pystytty todentamaan",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_IsImage
+    // Zend\Validator\File\IsImage
     "File '%value%' is no image, '%type%' detected" => "Tiedosto '%value%' ei ole kuvatiedosto, vastaanotettiin tyyppiä '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Tiedoston '%value%' MIME-tyyppiä ei pystytty todentamaan",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_Md5
+    // Zend\Validator\File\Md5
     "File '%value%' does not match the given md5 hashes" => "Tiedoston '%value%' tarkistusluku ei vastaa annettua (md5)",
     "A md5 hash could not be evaluated for the given file" => "Tiedostolle ei voitu määrittää md5-tarkistuslukua",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_MimeType
+    // Zend\Validator\File\MimeType
     "File '%value%' has a false mimetype of '%type%'" => "Tiedoston '%value%' MIME-tyyppi '%type%' on virheellinen",
     "The mimetype of file '%value%' could not be detected" => "Tiedoston '%value%' MIME-tyyppiä ei pystytty todentamaan",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_NotExists
+    // Zend\Validator\File\NotExists
     "File '%value%' exists" => "Tiedostoa '%value%' ei ole olemassa",
 
-    // Zend\Validator\File_Sha1
+    // Zend\Validator\File\Sha1
     "File '%value%' does not match the given sha1 hashes" => "Tiedoston '%value%' tarkistusluku ei vastaa annettua (sha1)",
     "A sha1 hash could not be evaluated for the given file" => "Tiedostolle ei voitu määrittää sha1-tarkistuslukua",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
 
-    // Zend\Validator\File_Size
+    // Zend\Validator\File\Size
     "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "Tiedoston '%value%' maksimikoko on '%max%', vastaanotettu '%size%'",
     "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "Tiedoston '%value%' minimikoko on '%min%', vastaanotettu '%size%'",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voidea lukea tai sitä ei ole",
 
-    // Zend\Validator\File_Upload
+    // Zend\Validator\File\Upload
     "File '%value%' exceeds the defined ini size" => "Tiedosto '%value%' ylittää ini-tiedostossa määritellyn tiedostokoon",
     "File '%value%' exceeds the defined form size" => "Tiedosto '%value%' ylittää lomakkeessa määritellyn tiedostokoon",
     "File '%value%' was only partially uploaded" => "Tiedosto '%value%' vastaanotettiin ainoastaan osittain",
@@ -173,7 +173,7 @@ return array(
     "File '%value%' was not found" => "Tiedostoa '%value%' ei löydy",
     "Unknown error while uploading file '%value%'" => "Tiedoston '%value%' lähetyksessä tapahtui tunnistamaton virhe",
 
-    // Zend\Validator\File_WordCount
+    // Zend\Validator\File\WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "Virheellinen määrä sanoja, maksimäärä on '%max%', annettu '%count%'",
     "Too less words, minimum '%min%' are expected but '%count%' were counted" => "Virheellinen määrä sanoja, minimimäärä on '%min%', annettu '%count%'",
     "File '%value%' is not readable or does not exist" => "Tiedostoa '%value%' ei voida lukea tai sitä ei ole",
@@ -241,19 +241,19 @@ return array(
     "'%value%' does not match against pattern '%pattern%'" => "'%value%' ei ole muotoa '%pattern%'",
     "There was an internal error while using the pattern '%pattern%'" => "Sisäinen virhe käytettäessa muotoa '%pattern%'",
 
-    // Zend\Validator\Sitemap_Changefreq
+    // Zend\Validator\Sitemap\Changefreq
     "'%value%' is not a valid sitemap changefreq" => "'%value%' ei ole käypä sivukartan muutosnopeus",
     "Invalid type given. String expected" => "Epäkelpo syöte. Pitäisi olla merkkijono",
 
-    // Zend\Validator\Sitemap_Lastmod
+    // Zend\Validator\Sitemap\Lastmod
     "'%value%' is not a valid sitemap lastmod" => "'%value%' ei ole käypä arvo sivukartan viimeksimuokatuksi arvoksi",
     "Invalid type given. String expected" => "Epäkelpo syöte. Pitäisi olla merkkijono",
 
-    // Zend\Validator\Sitemap_Loc
+    // Zend\Validator\Sitemap\Loc
     "'%value%' is not a valid sitemap location" => "'%value%' ei ole käypä sivukartan sijainti",
     "Invalid type given. String expected" => "Epäkelpo syöte. Pitäisi olla merkkijono",
 
-    // Zend\Validator\Sitemap_Priority
+    // Zend\Validator\Sitemap\Priority
     "'%value%' is not a valid sitemap priority" => "'%value%' ei ole käypä sivukartan prioriteetti",
     "Invalid type given. Numeric string, integer or float expected" => "Epäkelpo syöte. Pitäisi olla kokonaisluku tai liukuluku",
 

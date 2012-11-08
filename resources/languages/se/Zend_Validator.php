@@ -85,42 +85,42 @@ return array(
     "'%localPart%' is not a valid local part for email address '%value%'" => "'%localPart%' är inte en giltig lokal del för e-postadressen '%value%'",
     "'%value%' exceeds the allowed length" => "'%value%' överskrider den tillåtna längden",
 
-    // Zend\Validator\File_Count
+    // Zend\Validator\File\Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "För många filer, maximalt '%max%' är tillåtna men '%count%' är angivna",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "För få filer, minst '%min%' förväntas men '%count%' är angivna",
 
-    // Zend\Validator\File_Crc32
+    // Zend\Validator\File\Crc32
     "File '%value%' does not match the given crc32 hashes" => "Filen '%value%' matchar inte de givna crc32-hasharna",
     "A crc32 hash could not be evaluated for the given file" => "En crc32-hash kunde inte utvärderas för den angivna filen",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_ExcludeExtension
+    // Zend\Validator\File\ExcludeExtension
     "File '%value%' has a false extension" => "Filen '%value%' har en felaktig filändelse",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_ExcludeMimeType
+    // Zend\Validator\File\ExcludeMimeType
     "File '%value%' has a false mimetype of '%type%'" => "Filen '%value%' har mime-typen '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Mime-typen för filen '%value%' kunde inte detekteras",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_Exists
+    // Zend\Validator\File\Exists
     "File '%value%' does not exist" => "Filen '%value%' existerar inte",
 
-    // Zend\Validator\File_Extension
+    // Zend\Validator\File\Extension
     "File '%value%' has a false extension" => "Filen '%value%' har en felaktig filändelse",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_FilesSize
+    // Zend\Validator\File\FilesSize
     "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "Alla filer bör totalt ha en maximal storlek av '%max%' men '%size%' upptäcktes",
     "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "Alla filer bör totalt ha en minimal storlek av '%min%' men '%size%' upptäcktes",
     "One or more files can not be read" => "En eller flera filer kunde inte läsas",
 
-    // Zend\Validator\File_Hash
+    // Zend\Validator\File\Hash
     "File '%value%' does not match the given hashes" => "Filen '%value%' matchar inte de givna hasharna",
     "A hash could not be evaluated for the given file" => "En hash kunde inte utvärderas för den angivna filen",
     "File '%value%' is not readable or does not exist" => "Filebn '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_ImageSize
+    // Zend\Validator\File\ImageSize
     "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "Maximal tillåten bredd för bilden '%value%' är '%maxwidth%' men '%width%' upptäcktes",
     "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "Minimal förväntad bredd för bilden '%value%' är '%minwidth%' men '%width%' upptäcktes",
     "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "Maximal tillåten höjd för '%value%' är '%maxheight%' men '%height%' upptäcktes",
@@ -128,40 +128,40 @@ return array(
     "The size of image '%value%' could not be detected" => "Storleken på bilden '%value%' kunde inte detekteras",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_IsCompressed
+    // Zend\Validator\File\IsCompressed
     "File '%value%' is not compressed, '%type%' detected" => "Filen '%value%' är inte komprimerad, '%type%' upptäcktes",
     "The mimetype of file '%value%' could not be detected" => "Mime-typen för filen '%value%' kunde inte detekteras",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_IsImage
+    // Zend\Validator\File\IsImage
     "File '%value%' is no image, '%type%' detected" => "Filen '%value%' är ingen bild, '%type%' upptäcktes",
     "The mimetype of file '%value%' could not be detected" => "Mime-typen för filen '%value%' kunde inte detekteras",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_Md5
+    // Zend\Validator\File\Md5
     "File '%value%' does not match the given md5 hashes" => "Filen '%value%' matchar inte de givna md5-hasharna",
     "A md5 hash could not be evaluated for the given file" => "En md5-hash kunde inte utvärderas för den angivna filen",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_MimeType
+    // Zend\Validator\File\MimeType
     "File '%value%' has a false mimetype of '%type%'" => "Filen '%value%' har en felaktig mime-typ av '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Mime-typen för filen '%value%' kunde inte detekteras",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_NotExists
+    // Zend\Validator\File\NotExists
     "File '%value%' exists" => "Filen '%value%' existerar",
 
-    // Zend\Validator\File_Sha1
+    // Zend\Validator\File\Sha1
     "File '%value%' does not match the given sha1 hashes" => "Filen '%value%' matchar inte de givna sha1-hasharna",
     "A sha1 hash could not be evaluated for the given file" => "En sha1-hash kunde inte utvärderas för den angivna filen",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_Size
+    // Zend\Validator\File\Size
     "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "Maximal tillåten storlek för filen '%value%' är '%max%' men '%size%' upptäcktes",
     "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "Minimal förväntad storlek för filen '%value%' är '%min%' men '%size%' upptäcktes",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
 
-    // Zend\Validator\File_Upload
+    // Zend\Validator\File\Upload
     "File '%value%' exceeds the defined ini size" => "Filen '%value%' överskrider den definerade ini-storleken",
     "File '%value%' exceeds the defined form size" => "Filen '%value%' överskrider den definerade formulär-storleken",
     "File '%value%' was only partially uploaded" => "Filen '%value%' blev enbart delvis uppladdad",
@@ -173,7 +173,7 @@ return array(
     "File '%value%' was not found" => "Filen '%value%' hittades inte",
     "Unknown error while uploading file '%value%'" => "Okänt fel när filen '%value%' laddades upp",
 
-    // Zend\Validator\File_WordCount
+    // Zend\Validator\File\WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "För många ord, maximalt '%max%' är tillåtna men '%count%' räknades",
     "Too less words, minimum '%min%' are expected but '%count%' were counted" => "För få ord, minimalt '%min%' förväntas men '%count%' räknades",
     "File '%value%' is not readable or does not exist" => "Filen '%value%' är inte läsbar eller existerar inte",
@@ -242,19 +242,19 @@ return array(
     "'%value%' does not match against pattern '%pattern%'" => "'%value%' matchar inte mönstret '%pattern%'",
     "There was an internal error while using the pattern '%pattern%'" => "Det uppstod ett internt serverfel när mönstret '%pattern%' användes",
 
-    // Zend\Validator\Sitemap_Changefreq
+    // Zend\Validator\Sitemap\Changefreq
     "'%value%' is not a valid sitemap changefreq" => "'%value%' är inte en giltig 'changefreq' för sajtkartor",
     "Invalid type given. String expected" => "Ogiltig typ given. Sträng förväntad",
 
-    // Zend\Validator\Sitemap_Lastmod
+    // Zend\Validator\Sitemap\Lastmod
     "'%value%' is not a valid sitemap lastmod" => "'%value%' är inte en giltig 'lastmod' för sajtkartor",
     "Invalid type given. String expected" => "Ogiltig typ given. Sträng förväntad",
 
-    // Zend\Validator\Sitemap_Loc
+    // Zend\Validator\Sitemap\Loc
     "'%value%' is not a valid sitemap location" => "'%value%' är inte en giltig 'location' för sajtkartor",
     "Invalid type given. String expected" => "Ogiltig typ given. Sträng förväntad",
 
-    // Zend\Validator\Sitemap_Priority
+    // Zend\Validator\Sitemap\Priority
     "'%value%' is not a valid sitemap priority" => "'%value%' är inte en giltig 'priority' för sajtkartor",
     "Invalid type given. Numeric string, integer or float expected" => "Ogiltig typ given. Sträng, heltal eller flyttal förväntat",
 

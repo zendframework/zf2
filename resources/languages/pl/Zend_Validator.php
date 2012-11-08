@@ -85,42 +85,42 @@ return array(
     "'%localPart%' is not a valid local part for email address '%value%'" => "'%localPart%' nie jest poprawną nazwą",
     "'%value%' exceeds the allowed length" => "Wartość '%value%' przekroczyła dozwoloną długość",
 
-    // Zend\Validator\File_Count
+    // Zend\Validator\File\Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "Wybrano '%count%' plików. Dopuszczalna liczba plików to '%max%'",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "Wybrano '%count%' plików. Minimalna liczba plików to '%min%'",
 
-    // Zend\Validator\File_Crc32
+    // Zend\Validator\File\Crc32
     "File '%value%' does not match the given crc32 hashes" => "Błędna suma kontrolna pliku '%value%'",
     "A crc32 hash could not be evaluated for the given file" => "Nie można obliczyć sumy kontrolnej dla podanego pliku",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_ExcludeExtension
+    // Zend\Validator\File\ExcludeExtension
     "File '%value%' has a false extension" => "Plik '%value%' ma niepoprawne rozszerzenie",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_ExcludeMimeType
+    // Zend\Validator\File\ExcludeMimeType
     "File '%value%' has a false mimetype of '%type%'" => "Plik '%value%' ma niepoprawny typ MIME '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Nie można wykryć typu MIME dla pliku '%value%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_Exists
+    // Zend\Validator\File\Exists
     "File '%value%' does not exist" => "Plik '%value%' nie istnieje",
 
-    // Zend\Validator\File_Extension
+    // Zend\Validator\File\Extension
     "File '%value%' has a false extension" => "Plik '%value%' ma niepoprawne rozszerzenie",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_FilesSize
+    // Zend\Validator\File\FilesSize
     "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "Wybrane pliki łącznie zajmują '%size%'. Maksymalny łączny rozmiar to '%max%'",
     "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "Wybrane pliki łącznie zajmują '%size%'. Minimalny łączny rozmiar to '%min%'",
     "One or more files can not be read" => "Jeden lub więcej plików nie mogą zostać odczytane",
 
-    // Zend\Validator\File_Hash
+    // Zend\Validator\File\Hash
     "File '%value%' does not match the given hashes" => "Plik '%value%' ma niedopuszczalny hash",
     "A hash could not be evaluated for the given file" => "Nie można obliczyć funkcji haszującej dla podanego pliku",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_ImageSize
+    // Zend\Validator\File\ImageSize
     "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "Plik '%value%' ma szerokość '%width%'. Maksymalna szerokość to '%maxwidth%'",
     "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "Plik '%value%' ma szerokość '%width%'. Minimalna szerokość to '%maxwidth%'",
     "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "Plik '%value%' ma wysokość '%height%'. Maksymalna wysokość to '%maxheight%'",
@@ -128,40 +128,40 @@ return array(
     "The size of image '%value%' could not be detected" => "Nie można określić rozmiaru pliku '%value%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_IsCompressed
+    // Zend\Validator\File\IsCompressed
     "File '%value%' is not compressed, '%type%' detected" => "Plik '%value%' typu '%type%' nie jest skompresowany",
     "The mimetype of file '%value%' could not be detected" => "Nie można wykryć typu MIME dla pliku '%value%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_IsImage
+    // Zend\Validator\File\IsImage
     "File '%value%' is no image, '%type%' detected" => "Plik '%value%' typu '%type%' nie jest obrazem",
     "The mimetype of file '%value%' could not be detected" => "Nie można wykryć typu MIME dla pliku '%value%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_Md5
+    // Zend\Validator\File\Md5
     "File '%value%' does not match the given md5 hashes" => "Plik '%value%' ma niedopuszczalny hash md5",
     "A md5 hash could not be evaluated for the given file" => "Nie można obliczyć funkcji haszującej md5 dla podanego pliku",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_MimeType
+    // Zend\Validator\File\MimeType
     "File '%value%' has a false mimetype of '%type%'" => "Plik '%value%' ma niepoprawny typ MIME '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Nie można wykryć typu MIME dla pliku '%value%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_NotExists
+    // Zend\Validator\File\NotExists
     "File '%value%' exists" => "Plik '%value%' istnieje",
 
-    // Zend\Validator\File_Sha1
+    // Zend\Validator\File\Sha1
     "File '%value%' does not match the given sha1 hashes" => "Plik '%value%' ma niedopuszczalny hash sha1",
     "A sha1 hash could not be evaluated for the given file" => "Nie można obliczyć funkcji haszującej sha1 dla podanego pliku",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_Size
+    // Zend\Validator\File\Size
     "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "Podany plik ma rozmiar '%size%'. Maksymalny rozmiar pliku to '%max%'",
     "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "Podany plik ma rozmiar '%size%'. Minimalny rozmiar pliku to '%min%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend\Validator\File_Upload
+    // Zend\Validator\File\Upload
     "File '%value%' exceeds the defined ini size" => "Rozmiar pliku '%value%' przekroczył zdefiniowaną wartość w ini",
     "File '%value%' exceeds the defined form size" => "Rozmiar pliku '%value%' przekroczył zdefiniowaną wartość w formularzu",
     "File '%value%' was only partially uploaded" => "Plik '%value%' nie został całkowicie wysłany",
@@ -173,7 +173,7 @@ return array(
     "File '%value%' was not found" => "Nie znaleziono pliku '%value%'",
     "Unknown error while uploading file '%value%'" => "Nieznany błąd podczas wysyłania pliku '%value%'",
 
-    // Zend\Validator\File_WordCount
+    // Zend\Validator\File\WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "Podano '%count%' słów. Maksymalna liczba słów to '%max%'",
     "Too less words, minimum '%min%' are expected but '%count%' were counted" => "Podano '%count%' słów. Minimalna liczba słów to '%min%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
@@ -241,19 +241,19 @@ return array(
     "'%value%' does not match against pattern '%pattern%'" => "Wartość '%value%' nie pasuje do wzorca '%pattern%'",
     "There was an internal error while using the pattern '%pattern%'" => "Wystąpił błąd podczas dopasowania wyrażenia '%pattern%'",
 
-    // Zend\Validator\Sitemap_Changefreq
+    // Zend\Validator\Sitemap\Changefreq
     "'%value%' is not a valid sitemap changefreq" => "'%value%' nie jest poprawną wartością changefreq",
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
 
-    // Zend\Validator\Sitemap_Lastmod
+    // Zend\Validator\Sitemap\Lastmod
     "'%value%' is not a valid sitemap lastmod" => "'%value%' nie jest poprawną wartością lastmod",
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
 
-    // Zend\Validator\Sitemap_Loc
+    // Zend\Validator\Sitemap\Loc
     "'%value%' is not a valid sitemap location" => "'%value%' nie jest poprawną lokalizacją mapy strony",
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
 
-    // Zend\Validator\Sitemap_Priority
+    // Zend\Validator\Sitemap\Priority
     "'%value%' is not a valid sitemap priority" => "'%value%' nie jest poprawną wartością priorytetu",
     "Invalid type given. Numeric string, integer or float expected" => "Podana wartość powinna być ciągiem znaków, liczbą całkowitą lub liczbą zmiennoprzecinkową",
 

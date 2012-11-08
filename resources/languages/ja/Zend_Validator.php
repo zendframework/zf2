@@ -85,42 +85,42 @@ return array(
     "'%localPart%' is not a valid local part for email address '%value%'" => "メールアドレス '%value%' 内の '%localPart%' は有効なローカルパートではありません",
     "'%value%' exceeds the allowed length" => "'%value%' は許された長さを超えています",
 
-    // Zend\Validator\File_Count
+    // Zend\Validator\File\Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "ファイル数が多すぎます。最大 '%max%' まで許されていますが、 '%count%' 個指定ました",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "ファイル数が少なすぎます。最小 '%min%' 以上の必要がありますが、 '%count%' 個指定されていません",
 
-    // Zend\Validator\File_Crc32
+    // Zend\Validator\File\Crc32
     "File '%value%' does not match the given crc32 hashes" => "ファイル '%value%' は crc32 ハッシュ値と一致しませんでした",
     "A crc32 hash could not be evaluated for the given file" => "ファイルに crc32 ハッシュ値が見つかりませんでした",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_ExcludeExtension
+    // Zend\Validator\File\ExcludeExtension
     "File '%value%' has a false extension" => "ファイル '%value%' は誤った拡張子です",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_ExcludeMimeType
+    // Zend\Validator\File\ExcludeMimeType
     "File '%value%' has a false mimetype of '%type%'" => "ファイル '%value%' は誤った mimetype '%type%' です",
     "The mimetype of file '%value%' could not be detected" => "ファイル '%value%' の mimetype が見つかりませんでした",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_Exists
+    // Zend\Validator\File\Exists
     "File '%value%' does not exist" => "ファイル '%value%' は存在しません",
 
-    // Zend\Validator\File_Extension
+    // Zend\Validator\File\Extension
     "File '%value%' has a false extension" => "ファイル '%value%' は誤った拡張子です",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_FilesSize
+    // Zend\Validator\File\FilesSize
     "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "全てのファイルの合計は最大 '%max%' より小さい必要があります。しかしファイルサイズは '%size%' でした",
     "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "全てのファイルの合計は最小 '%min%' より大きい必要があります。しかしファイルサイズは '%size%' でした",
     "One or more files can not be read" => "ファイルを読み込めませんでした",
 
-    // Zend\Validator\File_Hash
+    // Zend\Validator\File\Hash
     "File '%value%' does not match the given hashes" => "ファイル '%value%' は設定されたハッシュ値と一致しませんでした",
     "A hash could not be evaluated for the given file" => "渡されたファイルのハッシュ値を評価できませんでした",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_ImageSize
+    // Zend\Validator\File\ImageSize
     "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "画像 '%value%' の横幅は '%width%' でした。横幅は最大 '%maxwidth%' まで許されています",
     "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "画像 '%value%' の横幅は '%width%' でした。横幅は最小 '%minwidth%' 以上である必要があります",
     "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "画像 '%value%' の高さは '%height%' でした。高さは最大 '%maxheight%' まで許されています",
@@ -128,40 +128,40 @@ return array(
     "The size of image '%value%' could not be detected" => "画像 '%value%' の大きさを取得できませんでした",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_IsCompressed
+    // Zend\Validator\File\IsCompressed
     "File '%value%' is not compressed, '%type%' detected" => " '%type%' が見つかりました。ファイル '%value%' は圧縮されていません",
     "The mimetype of file '%value%' could not be detected" => "ファイル '%value%' の Mimetype は見つかりませんでした",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_IsImage
+    // Zend\Validator\File\IsImage
     "File '%value%' is no image, '%type%' detected" => "ファイル '%value%' は画像ではありません。 '%type%' です",
     "The mimetype of file '%value%' could not be detected" => "ファイル '%value%' の Mimetype は見つかりませんでした",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_Md5
+    // Zend\Validator\File\Md5
     "File '%value%' does not match the given md5 hashes" => "ファイル '%value%' は md5 ハッシュ値と一致していません",
     "A md5 hash could not be evaluated for the given file" => "渡されたファイルの md5 ハッシュ値を評価できませんでした",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_MimeType
+    // Zend\Validator\File\MimeType
     "File '%value%' has a false mimetype of '%type%'" => "ファイル '%value%' は誤った MimeType '%type%' です",
     "The mimetype of file '%value%' could not be detected" => "ファイル '%value%' の Mimetype は見つかりませんでした",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_NotExists
+    // Zend\Validator\File\NotExists
     "File '%value%' exists" => "ファイル '%value%' は存在しています",
 
-    // Zend\Validator\File_Sha1
+    // Zend\Validator\File\Sha1
     "File '%value%' does not match the given sha1 hashes" => "ファイル '%value%' は sha1 ハッシュ値と一致していません",
     "A sha1 hash could not be evaluated for the given file" => "渡されたファイルの sha1 ハッシュ値を評価できませんでした",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_Size
+    // Zend\Validator\File\Size
     "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "ファイルサイズは '%size%' です。ファイル '%value%' のサイズは最大 '%max%' まで許されています",
     "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "ファイルサイズは '%size%' です。ファイル '%value%' のサイズは最小 '%min%' 以上必要です",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
 
-    // Zend\Validator\File_Upload
+    // Zend\Validator\File\Upload
     "File '%value%' exceeds the defined ini size" => "ファイル '%value%' は ini で定義されたサイズを超えています",
     "File '%value%' exceeds the defined form size" => "ファイル '%value%' はフォームで定義されたサイズを超えています",
     "File '%value%' was only partially uploaded" => "ファイル '%value%' は一部のみしかアップロードされていません",
@@ -173,7 +173,7 @@ return array(
     "File '%value%' was not found" => "ファイル '%value%' は見つかりませんでした",
     "Unknown error while uploading file '%value%'" => "ファイル '%value%' をアップロード中に未知のエラーが発生しました",
 
-    // Zend\Validator\File_WordCount
+    // Zend\Validator\File\WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "単語数 '%count%' が多過ぎます。最大で '%max%' 個が許されます",
     "Too less words, minimum '%min%' are expected but '%count%' were counted" => "単語数 '%count%' が少な過ぎます。少なくとも '%min%' 個必要です",
     "File '%value%' is not readable or does not exist" => "ファイル '%value%' は読み込めないかもしくは存在しません",
@@ -241,19 +241,19 @@ return array(
     "'%value%' does not match against pattern '%pattern%'" => " '%value%' はパターン '%pattern%' と一致していません",
     "There was an internal error while using the pattern '%pattern%'" => "正規表現パターン '%pattern%' を使用中に内部エラーが発生しました。",
 
-    // Zend\Validator\Sitemap_Changefreq
+    // Zend\Validator\Sitemap\Changefreq
     "'%value%' is not a valid sitemap changefreq" => " '%value%' は正しいサイトマップの更新頻度ではありません",
     "Invalid type given. String expected" => "不正な形式です。文字列が期待されています",
 
-    // Zend\Validator\Sitemap_Lastmod
+    // Zend\Validator\Sitemap\Lastmod
     "'%value%' is not a valid sitemap lastmod" => " '%value%' は正しいサイトマップの最終更新日ではありません",
     "Invalid type given. String expected" => "不正な形式です。文字列が期待されています",
 
-    // Zend\Validator\Sitemap_Loc
+    // Zend\Validator\Sitemap\Loc
     "'%value%' is not a valid sitemap location" => " '%value%' は正しいサイトマップの位置ではありません",
     "Invalid type given. String expected" => "不正な形式です。文字列が期待されています",
 
-    // Zend\Validator\Sitemap_Priority
+    // Zend\Validator\Sitemap\Priority
     "'%value%' is not a valid sitemap priority" => " '%value%' は正しいサイトマップの優先度ではありません",
     "Invalid type given. Numeric string, integer or float expected" => "不正な形式です。数字、整数もしくは小数が期待されています",
 

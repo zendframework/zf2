@@ -85,42 +85,42 @@ return array(
     "'%localPart%' is not a valid local part for email address '%value%'" => "'%localPart%' ni veljaven lokalni del e-pošte '%value%'",
     "'%value%' exceeds the allowed length" => "'%value%' je večje od dovoljene dolžine",
 
-    // Zend\Validator\File_Count
+    // Zend\Validator\File\Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "Preveliko število datotek, dovoljenih je največ '%max%', poslanih je pa '%count%'",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "Premajhno število datotek, najmanj predvidenih je '%min%', poslanih je pa '%count%'",
 
-    // Zend\Validator\File_Crc32
+    // Zend\Validator\File\Crc32
     "File '%value%' does not match the given crc32 hashes" => "Datoteka '%value%' se ne ujema z dano kodo crc32",
     "A crc32 hash could not be evaluated for the given file" => "crc32 kode ni bila moč preveriti za dano datoteko",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni moč brati ali pa ne obstaja",
 
-    // Zend\Validator\File_ExcludeExtension
+    // Zend\Validator\File\ExcludeExtension
     "File '%value%' has a false extension" => "Datoteka '%value%' ima napačno končnico",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni moč brati ali pa ne obstaja",
 
-    // Zend\Validator\File_ExcludeMimeType
+    // Zend\Validator\File\ExcludeMimeType
     "File '%value%' has a false mimetype of '%type%'" => "Datoteka '%value%' ima napačen 'mimetype' vrste '%type%'",
     "The mimetype of file '%value%' could not be detected" => "'Mimetype' datoteke '%value%' ni bilo moč zaznati",
     "File '%value%' is not readable or does not exist" => "Datoteka '%value%' ni bralna ali pa ne obstaja",
 
-    // Zend\Validator\File_Exists
+    // Zend\Validator\File\Exists
     "File '%value%' does not exist" => "Datoteka '%value%' ne obstaja",
 
-    // Zend\Validator\File_Extension
+    // Zend\Validator\File\Extension
     "File '%value%' has a false extension" => "Datoteka '%value%' ima napačno končnico",
     "File '%value%' is not readable or does not exist" => "Datoteka '%value%' ni bralna ali pa ne obstaja",
 
-    // Zend\Validator\File_FilesSize
+    // Zend\Validator\File\FilesSize
     "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "Vse datoteke skupaj bi morale imeti največjo velikost '%max%' vendar zaznano je bilo '%size%'",
     "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "Vse datoteke skupaj bi morale imeti najmanjšo velikost '%min%' vendar zaznano je bilo '%size%'",
     "One or more files can not be read" => "Ene ali več datotek ni mogoče prebrati",
 
-    // Zend\Validator\File_Hash
+    // Zend\Validator\File\Hash
     "File '%value%' does not match the given hashes" => "Datoteka '%value%' se ne ujema z dano kodo",
     "A hash could not be evaluated for the given file" => "Kode ni bilo moč oceniti",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni mogoče brati ali pa ne obstaja",
 
-    // Zend\Validator\File_ImageSize
+    // Zend\Validator\File\ImageSize
     "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "Največja dovoljena širina slike '%value%' bi morala biti '%maxwidth%' vendar zaznano je '%width%'",
     "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "Najmanjša predvidena širina slike '%value%' bi morala biti '%minwidth%' vendar zaznano je '%width%'",
     "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "Največja dovoljena višina slike '%value%' bi morala biti '%maxheight%' vendar zaznano je '%height%'",
@@ -128,40 +128,40 @@ return array(
     "The size of image '%value%' could not be detected" => "Velikost slike '%value%' ni bilo moč zaznati",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni mogoče brati ali pa ne obstaja",
 
-    // Zend\Validator\File_IsCompressed
+    // Zend\Validator\File\IsCompressed
     "File '%value%' is not compressed, '%type%' detected" => "Datoteka '%value%' ni skrčena, '%type%' vrsta zaznana",
     "The mimetype of file '%value%' could not be detected" => "'Mimetype' datoteke '%value%' ni bilo mogoče zaznati",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni mogoče brati ali pa ne obstaja",
 
-    // Zend\Validator\File_IsImage
+    // Zend\Validator\File\IsImage
     "File '%value%' is no image, '%type%' detected" => "Datoteka '%value%' ni slika, '%type%' vrsta zaznana",
     "The mimetype of file '%value%' could not be detected" => "'Mimetype' datoteke '%value%' ni bilo mogoče zaznati",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni mogoče brati ali pa ne obstaja",
 
-    // Zend\Validator\File_Md5
+    // Zend\Validator\File\Md5
     "File '%value%' does not match the given md5 hashes" => "Datoteka '%value%' se ne ujema z dano md5 kodo",
     "A md5 hash could not be evaluated for the given file" => "Kode md5 ni bilo mogoče preveriti za dano datoteko",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni mogoče brati ali pa ne obstaja",
 
-    // Zend\Validator\File_MimeType
+    // Zend\Validator\File\MimeType
     "File '%value%' has a false mimetype of '%type%'" => "Datoteka '%value%' ima nepravilen 'mimetype' vrste '%type%'",
     "The mimetype of file '%value%' could not be detected" => "'Mimetype' datoteke '%value%' ni bilo mogoče zaznati",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni mogoče brati ali pa ne obstaja",
 
-    // Zend\Validator\File_NotExists
+    // Zend\Validator\File\NotExists
     "File '%value%' exists" => "Datoteka '%value%' obstaja",
 
-    // Zend\Validator\File_Sha1
+    // Zend\Validator\File\Sha1
     "File '%value%' does not match the given sha1 hashes" => "Datoteka '%value%' se ne ujema s kodo sha1",
     "A sha1 hash could not be evaluated for the given file" => "Za dano datoteko ni bilo mogoče preveriti kode sha1",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni mogoče prebrati ali pa ne obstaja",
 
-    // Zend\Validator\File_Size
+    // Zend\Validator\File\Size
     "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "Največja dovoljena velikost datoteke '%value%' je '%max%' vendar zaznano je '%size%'",
     "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "Najmanjša predvidena velikost datoteke '%value%' je '%min%' vendar zaznano je '%size%'",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni mogoče brati ali pa ne obstaja",
 
-    // Zend\Validator\File_Upload
+    // Zend\Validator\File\Upload
     "File '%value%' exceeds the defined ini size" => "Datoteka '%value%' presega definirano ini velikost",
     "File '%value%' exceeds the defined form size" => "Datoteka '%value%' presega definirano velikost v formi",
     "File '%value%' was only partially uploaded" => "Datoteka '%value%' je bila dodana samo naložena",
@@ -173,7 +173,7 @@ return array(
     "File '%value%' was not found" => "Datoteka '%value%' ni bila najdena",
     "Unknown error while uploading file '%value%'" => "Neznana napaka pri nalaganju datoteke '%value%'",
 
-    // Zend\Validator\File_WordCount
+    // Zend\Validator\File\WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "Preveč besed, največ '%max%' je dovoljenih vendar preštetih je bilo '%count%'",
     "Too less words, minimum '%min%' are expected but '%count%' were counted" => "Premalo besed, vsaj '%min%' je predvidenih vendar preštetih je bilo '%count%'",
     "File '%value%' is not readable or does not exist" => "Datoteke '%value%' ni mogoče brati ali pa ne obstaja",
@@ -242,19 +242,19 @@ return array(
     "'%value%' does not match against pattern '%pattern%'" => "'%value%' se ne ujema z vzorcem '%pattern%'",
     "There was an internal error while using the pattern '%pattern%'" => "Prišlo je do notranje napake med uporabo vzorca '%pattern%'",
 
-    // Zend\Validator\Sitemap_Changefreq
+    // Zend\Validator\Sitemap\Changefreq
     "'%value%' is not a valid sitemap changefreq" => "'%value%' ni veljavna 'sitemap changefreq' vrednost",
     "Invalid type given. String expected" => "Podan neveljaven tip. Predviden je niz",
 
-    // Zend\Validator\Sitemap_Lastmod
+    // Zend\Validator\Sitemap\Lastmod
     "'%value%' is not a valid sitemap lastmod" => "'%value%' ni veljavna 'sitemap lastmod' vrednost",
     "Invalid type given. String expected" => "Podan neveljaven tip. Predviden je niz",
 
-    // Zend\Validator\Sitemap_Loc
+    // Zend\Validator\Sitemap\Loc
     "'%value%' is not a valid sitemap location" => "'%value%' ni veljavna 'sitemap location' vrednost",
     "Invalid type given. String expected" => "Podan neveljaven tip. Predviden je niz",
 
-    // Zend\Validator\Sitemap_Priority
+    // Zend\Validator\Sitemap\Priority
     "'%value%' is not a valid sitemap priority" => "'%value%' ni veljavna 'sitemap priority' vrednost",
     "Invalid type given. Numeric string, integer or float expected" => "Podan neveljaven tip. Predviden je numerični niz znakov, celo število ali plavajoče število",
 

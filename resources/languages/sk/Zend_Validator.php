@@ -85,42 +85,42 @@ return array(
     "'%localPart%' is not a valid local part for email address '%value%'" => "'%localPart%' nie je platná 'local part' pre e-mailovú adresu '%value%'",
     "'%value%' exceeds the allowed length" => "'%value%' prekročil povolenú dĺžku",
 
-    // Zend\Validator\File_Count
+    // Zend\Validator\File\Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "Príliš veľa súborov. Maximum je '%max%', ale bolo zadaných '%count%'",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "Príliš málo súborov. Minimum je '%min%', ale bol zadaný len '%count%'",
 
-    // Zend\Validator\File_Crc32
+    // Zend\Validator\File\Crc32
     "File '%value%' does not match the given crc32 hashes" => "Súbor '%value%' nezodpovedá zadanému crc32 hashu",
     "A crc32 hash could not be evaluated for the given file" => "Pre zadaný súbor nemohol byť vypočítaný crc32 hash",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_ExcludeExtension
+    // Zend\Validator\File\ExcludeExtension
     "File '%value%' has a false extension" => "Súbor '%value%' má nesprávnu príponu",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_ExcludeMimeType
+    // Zend\Validator\File\ExcludeMimeType
     "File '%value%' has a false mimetype of '%type%'" => "File '%value%' has a false mimetype of '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Mimetyp súboru '%value%' nebolo možné zistiť",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_Exists
+    // Zend\Validator\File\Exists
     "File '%value%' does not exist" => "Súbor '%value%' neexistuje",
 
-    // Zend\Validator\File_Extension
+    // Zend\Validator\File\Extension
     "File '%value%' has a false extension" => "Súbor '%value%' má nesprávnu príponu",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_FilesSize
+    // Zend\Validator\File\FilesSize
     "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "Súčet veľkostí všetkých súborov by mal byť maximálne '%max%', ale je '%size%'",
     "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "Súčet veľkostí všetkých súborov by mal byť najmenej '%min%', ale je '%size%'",
     "One or more files can not be read" => "Jeden, alebo viac súborov nie je možné načítať",
 
-    // Zend\Validator\File_Hash
+    // Zend\Validator\File\Hash
     "File '%value%' does not match the given hashes" => "Súbor '%value%' nezodpovedá danému hashu",
     "A hash could not be evaluated for the given file" => "Hash nemohol byť pre daný súbor vypočítaný",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_ImageSize
+    // Zend\Validator\File\ImageSize
     "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "Maximálna šírka obrázku '%value%' by mala byť '%maxwidth%', ale je '%width%'",
     "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "Minimálna šírka obrázku '%value%' by mala byť '%minwidth%', ale je '%width%'",
     "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "Maximálna výška obrázku '%value%' by mala byť '%maxheight%', ale je '%height%'",
@@ -128,40 +128,40 @@ return array(
     "The size of image '%value%' could not be detected" => "Rozmery obrázku '%value%' nebolo možné zistiť",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_IsCompressed
+    // Zend\Validator\File\IsCompressed
     "File '%value%' is not compressed, '%type%' detected" => "Súbor '%value%' nie je komprimovaný, ale '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Mimetyp súboru '%value%' nebolo možné zisťit",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_IsImage
+    // Zend\Validator\File\IsImage
     "File '%value%' is no image, '%type%' detected" => "Súbor '%value%' nie je obrázok, ale '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Mimetyp súboru '%value%' nebolo možné zistiť",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_Md5
+    // Zend\Validator\File\Md5
     "File '%value%' does not match the given md5 hashes" => "Súbor '%value%' nezodpovedá danému md5 hashu",
     "A md5 hash could not be evaluated for the given file" => "Md5 hash nemohol byť pre daný súbor vypočítaný",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_MimeType
+    // Zend\Validator\File\MimeType
     "File '%value%' has a false mimetype of '%type%'" => "Súbor '%value%' má neplatný mimetyp '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Mimetyp súboru '%value%' nebolo možné zistiť",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_NotExists
+    // Zend\Validator\File\NotExists
     "File '%value%' exists" => "Súbor '%value%' existuje",
 
-    // Zend\Validator\File_Sha1
+    // Zend\Validator\File\Sha1
     "File '%value%' does not match the given sha1 hashes" => "Súbor '%value%' nezodpovedá danému sha1 hashu",
     "A sha1 hash could not be evaluated for the given file" => "Sha1 hash nemohol byť pre daný súbor vypočítaný",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_Size
+    // Zend\Validator\File\Size
     "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "Maximálna povolená veľkosť súboru je '%max%', ale '%value%' má '%size%'",
     "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "Minimálna veľkosť súboru je '%min%', ale '%value%' má '%size%'",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
-    // Zend\Validator\File_Upload
+    // Zend\Validator\File\Upload
     "File '%value%' exceeds the defined ini size" => "Súbor '%value%' prekročil veľkosť definovanú v inom súbore",
     "File '%value%' exceeds the defined form size" => "Súbor '%value%' prekročil veľkosť definovanú vo formulári",
     "File '%value%' was only partially uploaded" => "Súbor '%value%' bol nahraný len čiastočne",
@@ -173,7 +173,7 @@ return array(
     "File '%value%' was not found" => "Súbor '%value%' nebol nájdený",
     "Unknown error while uploading file '%value%'" => "Počas nahrávania súboru '%value%' došlo k chybe",
 
-    // Zend\Validator\File_WordCount
+    // Zend\Validator\File\WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "Príliš veľa slov. Maximálne je ich dovolených '%max%', ale bolo zadaných '%count%'",
     "Too less words, minimum '%min%' are expected but '%count%' were counted" => "Príliš málo slov. Musí ich byť aspoň '%min%', ale bolo zadaných len '%count%'",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
@@ -242,19 +242,19 @@ return array(
     "'%value%' does not match against pattern '%pattern%'" => "'%value%' nezodpovedá šablóne '%pattern%'",
     "There was an internal error while using the pattern '%pattern%'" => "Počas spracovania šablóny '%pattern%' došlo k internej chybe",
 
-    // Zend\Validator\Sitemap_Changefreq
+    // Zend\Validator\Sitemap\Changefreq
     "'%value%' is not a valid sitemap changefreq" => "'%value%' nie je platný 'changefreq' pre sitemapu",
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec",
 
-    // Zend\Validator\Sitemap_Lastmod
+    // Zend\Validator\Sitemap\Lastmod
     "'%value%' is not a valid sitemap lastmod" => "'%value%' nie je platný 'lastmod' pre sitemapu",
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec",
 
-    // Zend\Validator\Sitemap_Loc
+    // Zend\Validator\Sitemap\Loc
     "'%value%' is not a valid sitemap location" => "'%value%' nie je platná 'location' pre sitemapu",
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec",
 
-    // Zend\Validator\Sitemap_Priority
+    // Zend\Validator\Sitemap\Priority
     "'%value%' is not a valid sitemap priority" => "'%value%' nie je platná 'priority' pre sitemapu",
     "Invalid type given. Numeric string, integer or float expected" => "Chybný typ. Bol očakávaný číselný reťazec, celé alebo desatinné číslo",
 

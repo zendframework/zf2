@@ -85,42 +85,42 @@ return array(
     "'%localPart%' is not a valid local part for email address '%value%'" => "'%localPart%' ليس بريد الكتروني صحيح لقيمة '%value%'",
     "'%value%' exceeds the allowed length" => "طول '%value%' تعدى الطول المسموح",
 
-    // Zend\Validator\File_Count
+    // Zend\Validator\File\Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "'%count%' ملف/ملفات هو عدد أكبر من العدد المسموح به وهو '%max%'",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "'%count%' ملف/ملفات هو عدد أقل من العدد المطلوب وهو '%min%'",
 
-    // Zend\Validator\File_Crc32
+    // Zend\Validator\File\Crc32
     "File '%value%' does not match the given crc32 hashes" => "لم يطابق تشفير crc32 للملف '%value%' التشفير المعطى",
     "A crc32 hash could not be evaluated for the given file" => "لا يمكن معرفة قيمة تشفير crc32 للملف",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_ExcludeExtension
+    // Zend\Validator\File\ExcludeExtension
     "File '%value%' has a false extension" => "امتداد الملف '%value%' خاطئ",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_ExcludeMimeType
+    // Zend\Validator\File\ExcludeMimeType
     "File '%value%' has a false mimetype of '%type%'" => "الملف '%value%' له نوع خاطئ وهو '%type%'",
     "The mimetype of file '%value%' could not be detected" => "لم يتم التعرف على نوع الملف '%value%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_Exists
+    // Zend\Validator\File\Exists
     "File '%value%' does not exist" => "الملف '%value%' غير موجود",
 
-    // Zend\Validator\File_Extension
+    // Zend\Validator\File\Extension
     "File '%value%' has a false extension" => "صيغة الملف '%value%' خاطئة",
     "File '%value%' is not readable or does not exist" => "'%value%' لا يمكن قراءة محتوى الملف أو أنه غير موجود",
 
-    // Zend\Validator\File_FilesSize
+    // Zend\Validator\File\FilesSize
     "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "'%size%' هو حجم أكبر من الحد الأقصى المسموح به للملفات وهو '%max%'",
     "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "'%size%' هو حجم أصغر من الحد الأدنى المسموح به للملفات وهو '%min%'",
     "One or more files can not be read" => "لا يمكن قراءة محتوى ملف أو أكثر",
 
-    // Zend\Validator\File_Hash
+    // Zend\Validator\File\Hash
     "File '%value%' does not match the given hashes" => "لم يطابق تشفير الملف '%value%' التشفير المعطى",
     "A hash could not be evaluated for the given file" => "لا يمكن معرفة قيمة التشفير للملف",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_ImageSize
+    // Zend\Validator\File\ImageSize
     "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "أكبر عرض مسموح به للصورة '%value%' هو '%maxwidth%' ولكن العرض الحالي هو '%width%'",
     "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "أقل عرض مسموح به للصورة '%value%' هو '%minwidth%' ولكن العرض الحالي هو '%width%'",
     "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "أكبر ارتفاع مسموح به للصورة '%value%' هو '%maxheight%' ولكن الطول الحالي هو '%height%'",
@@ -128,40 +128,40 @@ return array(
     "The size of image '%value%' could not be detected" => "لا يمكن أبعاد الصورة '%value%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_IsCompressed
+    // Zend\Validator\File\IsCompressed
     "File '%value%' is not compressed, '%type%' detected" => "الملف '%value%' ليس ملف مضغوط، بل هو ملف '%type%'",
     "The mimetype of file '%value%' could not be detected" => "لم يتم التعرف على نوع الملف '%value%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_IsImage
+    // Zend\Validator\File\IsImage
     "File '%value%' is no image, '%type%' detected" => "الملف '%value%' ليس صورة، بل هو ملف '%type%'",
     "The mimetype of file '%value%' could not be detected" => "لم يتم التعرف على نوع الملف '%value%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_Md5
+    // Zend\Validator\File\Md5
     "File '%value%' does not match the given md5 hashes" => "لم يطابق تشفير md5 للملف '%value%' التشفير المعطى",
     "A md5 hash could not be evaluated for the given file" => "لا يمكن معرفة قيمة تشفير md5 للملف",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_MimeType
+    // Zend\Validator\File\MimeType
     "File '%value%' has a false mimetype of '%type%'" => "الملف '%value%' له نوع خاطئ وهو '%type%'",
     "The mimetype of file '%value%' could not be detected" => "لم يتم التعرف على نوع الملف '%value%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_NotExists
+    // Zend\Validator\File\NotExists
     "File '%value%' exists" => "الملف '%value%' موجود",
 
-    // Zend\Validator\File_Sha1
+    // Zend\Validator\File\Sha1
     "File '%value%' does not match the given sha1 hashes" => "لم يطابق تشفير sha1 للملف '%value%' التشفير المعطى",
     "A sha1 hash could not be evaluated for the given file" => "لا يمكن معرفة قيمة تشفير sha1 للملف",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_Size
+    // Zend\Validator\File\Size
     "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "حجم الملف '%value%' هو '%size%' وهذا الحجم أكبر من الحد الأقصى المسموح به وهو '%max%'",
     "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "حجم الملف '%value%' هو '%size%' وهذا الحجم أقل من الحد الأدنى المسموح به وهو '%min%'",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
 
-    // Zend\Validator\File_Upload
+    // Zend\Validator\File\Upload
     "File '%value%' exceeds the defined ini size" => "الملف '%value%' تعدى الحجم المسموح به حسب التعريف في ini",
     "File '%value%' exceeds the defined form size" => "الملف '%value%' تعدى الحجم المسموح به حسب التعريف في النموذج",
     "File '%value%' was only partially uploaded" => "الملف '%value%' تم تحميل جزء منه",
@@ -173,7 +173,7 @@ return array(
     "File '%value%' was not found" => "لم يتم العثور على الملف '%value%'",
     "Unknown error while uploading file '%value%'" => "حصل خطأ غير معروف في عملية تحميل الملف '%value%'",
 
-    // Zend\Validator\File_WordCount
+    // Zend\Validator\File\WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "'%count%' كلمات أكثر من العدد الأقصى المسموح به وهو '%max%' كلمات",
     "Too less words, minimum '%min%' are expected but '%count%' were counted" => "'%count%' كلمات أقل من العدد الأدنى المسموح وهو '%min%' كلمات",
     "File '%value%' is not readable or does not exist" => "الملف '%value%' لا يمكن قراءته أو أنه غير موجود",
@@ -242,19 +242,19 @@ return array(
     "'%value%' does not match against pattern '%pattern%'" => "'%value%' لا يطابق النمط '%pattern%'",
     "There was an internal error while using the pattern '%pattern%'" => "حصل خطأ داخلي أثناء استخدام النمط '%pattern%'",
 
-    // Zend\Validator\Sitemap_Changefreq
+    // Zend\Validator\Sitemap\Changefreq
     "'%value%' is not a valid sitemap changefreq" => "'%value%' ليست قيمة صحيحة لوتيرة التغيير لخريطة الموقع",
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
 
-    // Zend\Validator\Sitemap_Lastmod
+    // Zend\Validator\Sitemap\Lastmod
     "'%value%' is not a valid sitemap lastmod" => "'%value%' ليست قيمة صحيحة لتاريخ آخر تعديل لخريطة الموقع",
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
 
-    // Zend\Validator\Sitemap_Loc
+    // Zend\Validator\Sitemap\Loc
     "'%value%' is not a valid sitemap location" => "'%value%' ليس عنوان صحيح لخريطة الموقع",
     "Invalid type given. String expected" => "خطأ في المدخلة. يجب ادخال نص",
 
-    // Zend\Validator\Sitemap_Priority
+    // Zend\Validator\Sitemap\Priority
     "'%value%' is not a valid sitemap priority" => "'%value%' ليست أولوية صحيحة لعنوان خريطة الموقع",
     "Invalid type given. Numeric string, integer or float expected" => "خطأ في المدخلة. يجب ادخال أرقام أو حروف فقط",
 

@@ -85,42 +85,42 @@ return array(
     "'%localPart%' is not a valid local part for email address '%value%'" => "'%localPart%' неприпустиме ім'я для адреси '%value%'",
     "'%value%' exceeds the allowed length" => "'%value%' перевищує дозволену довжину",
 
-    // Zend\Validator\File_Count
+    // Zend\Validator\File\Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "Занадто багато файлів, дозволено максимум - '%max%', отримано - '%count%'",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "Занадто мало файлів, дозволено мінімум - '%min%', отримано - '%count%'",
 
-    // Zend\Validator\File_Crc32
+    // Zend\Validator\File\Crc32
     "File '%value%' does not match the given crc32 hashes" => "Файл '%value%' не відповідає заданому crc32 хешу",
     "A crc32 hash could not be evaluated for the given file" => "crc32 хеш не може бути обчисленний для цього файлу",
     "File '%value%' could not be found" => "Файл '%value%' не знайдено",
 
-    // Zend\Validator\File_ExcludeExtension
+    // Zend\Validator\File\ExcludeExtension
     "File '%value%' has a false extension" => "Файл '%value%' має неприпустиме розширення",
     "File '%value%' could not be found" => "Файл '%value%' не знайдено",
 
-    // Zend\Validator\File_ExcludeMimeType
+    // Zend\Validator\File\ExcludeMimeType
     "File '%value%' has a false mimetype of '%type%'" => "Файл '%value%' має неприпустимий MIME-тип '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Не вдається визначити MIME-тип файлу '%value%'",
     "File '%value%' can not be read" => "Файл '%value%' неможливо прочитати",
 
-    // Zend\Validator\File_Exists
+    // Zend\Validator\File\Exists
     "File '%value%' does not exist" => "Файл '%value%' не існує",
 
-    // Zend\Validator\File_Extension
+    // Zend\Validator\File\Extension
     "File '%value%' has a false extension" => "Файл '%value%' має неприпустиме розширення",
     "File '%value%' could not be found" => "Файл '%value%' не знайдено",
 
-    // Zend\Validator\File_FilesSize
+    // Zend\Validator\File\FilesSize
     "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "Загальний розмір файлів не повинен перевищувати '%max%', зараз - '%size%'",
     "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "Загальний розмір файлів має бути менше '%min%', зараз - '%size%'",
     "One or more files can not be read" => "Неможливо прочитати один чи декілька файлів",
 
-    // Zend\Validator\File_Hash
+    // Zend\Validator\File\Hash
     "File '%value%' does not match the given hashes" => "Файл '%value%' не відповідає вказаному хешу",
     "A hash could not be evaluated for the given file" => "Не можливо обчислити хеш для вказаного файла",
     "File '%value%' could not be found" => "Файл '%value%' не знайдено",
 
-    // Zend\Validator\File_ImageSize
+    // Zend\Validator\File\ImageSize
     "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "Максимально допустима ширина для зображення '%value%' - '%maxwidth%', зараз - '%width%'",
     "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "Мінімально очікувана ширина для зображення '%value%' - '%minwidth%', зараз - '%width%'",
     "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "Максимально допустима висота для зображення '%value%' - '%maxheight%', зараз - '%height%'",
@@ -128,40 +128,40 @@ return array(
     "The size of image '%value%' could not be detected" => "Неможливо визначити розмір зображення '%value%'",
     "File '%value%' can not be read" => "Файл '%value%' неможливо прочитати",
 
-    // Zend\Validator\File_IsCompressed
+    // Zend\Validator\File\IsCompressed
     "File '%value%' is not compressed, '%type%' detected" => "Файл '%value%' не є стислий. MIME-тип файлу - '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Неможливо визначити MIME-тип файлу '%value%'",
     "File '%value%' can not be read" => "Файл '%value%' неможливо прочитати",
 
-    // Zend\Validator\File_IsImage
+    // Zend\Validator\File\IsImage
     "File '%value%' is no image, '%type%' detected" => "Файл '%value%' не є зображенням. MIME-тип файлу - '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Неможливо визначити MIME-тип файлу '%value%'",
     "File '%value%' can not be read" => "Файл '%value%' неможливо прочитати",
 
-    // Zend\Validator\File_Md5
+    // Zend\Validator\File\Md5
     "File '%value%' does not match the given md5 hashes" => "Файл '%value%' не відповідає вказаному md5 хешу",
     "A md5 hash could not be evaluated for the given file" => "md5 хеш не може бути визначений для вказаного файлу",
     "File '%value%' could not be found" => "Файл '%value%' не знайдено",
 
-    // Zend\Validator\File_MimeType
+    // Zend\Validator\File\MimeType
     "File '%value%' has a false mimetype of '%type%'" => "MIME-тип '%type%' файлу '%value%' неприпустимий",
     "The mimetype of file '%value%' could not be detected" => "Неможливо визначити MIME-тип файлу '%value%'",
     "File '%value%' can not be read" => "Файл '%value%' не можливо прочитати",
 
-    // Zend\Validator\File_NotExists
+    // Zend\Validator\File\NotExists
     "File '%value%' exists" => "Файл '%value%' вже існує",
 
-    // Zend\Validator\File_Sha1
+    // Zend\Validator\File\Sha1
     "File '%value%' does not match the given sha1 hashes" => "Файл '%value%' не відповідає хешу sha1",
     "A sha1 hash could not be evaluated for the given file" => "Неможливо визначити sha1 хеш для вказаного файлу",
     "File '%value%' could not be found" => "Файл '%value%' не знайдено",
 
-    // Zend\Validator\File_Size
+    // Zend\Validator\File\Size
     "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "Максимально дозволений розмір файлу '%value%' - '%max%', зараз - '%size%'",
     "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "Мінімально дозволений розмір файлу '%value%' - '%min%', зараз - '%size%'",
     "File '%value%' could not be found" => "Файл '%value%' не знайдено",
 
-    // Zend\Validator\File_Upload
+    // Zend\Validator\File\Upload
     "File '%value%' exceeds the defined ini size" => "Розмір файлу '%value%' більше ніж дозволений, що вказаний в php.ini",
     "File '%value%' exceeds the defined form size" => "Розмір файлу '%value%' більше ніж дозволений, що вказаний  в формі",
     "File '%value%' was only partially uploaded" => "Файл '%value%' був завантажений тільки частково",
@@ -173,7 +173,7 @@ return array(
     "File '%value%' was not found" => "Файл '%value%' не знайдено",
     "Unknown error while uploading file '%value%'" => "Під час завантаження файлу '%value%' виникла невідома помилка",
 
-    // Zend\Validator\File_WordCount
+    // Zend\Validator\File\WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "Занадто багато слів, дозволено максимум '%max%' слів, зараз - '%count%'",
     "Too less words, minimum '%min%' are expected but '%count%' were counted" => "Занадто мало слів, дозволено мінімум '%min%' слів, зараз - '%count%'",
     "File '%value%' could not be found" => "Файл '%value%' не знайдено",
@@ -239,16 +239,16 @@ return array(
     "Invalid type given, value should be string, integer or float" => "Неприпустимий тип даних, значення повинно бути числом з плаваючою крапкою, рядком чи цілим числом",
     "'%value%' does not match against pattern '%pattern%'" => "'%value%' не відповідає шаблону '%pattern%'",
 
-    // Zend\Validator\Sitemap_Changefreq
+    // Zend\Validator\Sitemap\Changefreq
     "'%value%' is not a valid sitemap changefreq" => "'%value%' неприпустиме значення для sitemap changefreq",
 
-    // Zend\Validator\Sitemap_Lastmod
+    // Zend\Validator\Sitemap\Lastmod
     "'%value%' is not a valid sitemap lastmod" => "'%value%' неприпустиме значення для sitemap lastmod",
 
-    // Zend\Validator\Sitemap_Loc
+    // Zend\Validator\Sitemap\Loc
     "'%value%' is not a valid sitemap location" => "'%value%' неприпустиме значення для sitemap location",
 
-    // Zend\Validator\Sitemap_Priority
+    // Zend\Validator\Sitemap\Priority
     "'%value%' is not a valid sitemap priority" => "'%value%' неприпустиме значення для sitemap priority",
 
     // Zend\Validator\StringLength
