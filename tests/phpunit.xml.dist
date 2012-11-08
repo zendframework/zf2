@@ -3,6 +3,7 @@
         <testsuite name="Zend Framework Test Suite">
             <directory>./ZendTest</directory>
             <exclude>./ZendTest/_files/</exclude>
+            <exclude>./ZendTest/Test/Atoum</exclude>
             <exclude>./ZendTest/AllTests/</exclude>
         </testsuite>
     </testsuites>
