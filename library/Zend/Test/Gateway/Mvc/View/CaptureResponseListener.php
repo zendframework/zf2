@@ -8,7 +8,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Test
  */
-namespace Zend\Test\PHPUnit\Mvc\View;
+namespace Zend\Test\Gateway\Mvc\View;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -18,7 +18,6 @@ use Zend\Stdlib\ResponseInterface as Response;
 /**
  * @category   Zend
  * @package    Zend_Test
- * @subpackage PHPUnit
  */
 class CaptureResponseListener implements ListenerAggregateInterface
 {

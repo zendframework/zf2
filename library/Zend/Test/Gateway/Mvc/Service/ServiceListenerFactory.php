@@ -8,14 +8,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Test
  */
-namespace Zend\Test\PHPUnit\Mvc\Service;
+namespace Zend\Test\Gateway\Mvc\Service;
 
 use Zend\Mvc\Service\ServiceListenerFactory as BaseServiceListenerFactory;
 
 /**
  * @category   Zend
  * @package    Zend_Test
- * @subpackage PHPUnit
  */
 class ServiceListenerFactory extends BaseServiceListenerFactory
 {
@@ -26,7 +25,7 @@ class ServiceListenerFactory extends BaseServiceListenerFactory
             'ViewManager'      => 'Zend\Mvc\View\Http\ViewManager',
         ),
         'factories' => array(
-            'Router'           => 'Zend\Test\PHPUnit\Mvc\Service\RouterFactory',
+            'Router'           => 'Zend\Test\Gateway\Mvc\Service\RouterFactory',
         ),
     );
 

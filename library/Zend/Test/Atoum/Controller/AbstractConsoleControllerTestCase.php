@@ -8,17 +8,18 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Test
  */
-namespace Zend\Test\PHPUnit\Controller;
+namespace Zend\Test\Atoum\Controller;
 
 /**
  * @category   Zend
  * @package    Zend_Test
- * @subpackage PHPUnit
+ * @subpackage Atoum
  */
-class AbstractHttpControllerTestCase extends AbstractControllerTestCase
+class AbstractConsoleControllerTestCase extends AbstractControllerTestCase
 {
-    public function __construct()
+    public function __construct(score $score = null, locale $locale = null, adapter $adapter = null)
     {
-        $this->getSharedService()->setUseConsoleRequest(false);
+        parent::__construct($score, $locale, $adapter);
+        $this->getSharedService()->setUseConsoleRequest(true);
     }
 }

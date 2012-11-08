@@ -8,7 +8,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Test
  */
-namespace Zend\Test\PHPUnit\Mvc\Service;
+namespace Zend\Test\Gateway\Mvc\Service;
 
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\ServiceManager\FactoryInterface;
@@ -17,7 +17,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * @category   Zend
  * @package    Zend_Test
- * @subpackage PHPUnit
  */
 class RouterFactory implements FactoryInterface
 {

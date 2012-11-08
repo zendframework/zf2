@@ -8,17 +8,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Test
  */
-namespace Zend\Test\PHPUnit\Controller;
+namespace Zend\Test\Atoum\Exception;
 
 /**
  * @category   Zend
  * @package    Zend_Test
- * @subpackage PHPUnit
+ * @subpackage Atoum
  */
-class AbstractHttpControllerTestCase extends AbstractControllerTestCase
+class ExpectationFailedException extends \LogicException
 {
-    public function __construct()
-    {
-        $this->getSharedService()->setUseConsoleRequest(false);
-    }
+    
 }

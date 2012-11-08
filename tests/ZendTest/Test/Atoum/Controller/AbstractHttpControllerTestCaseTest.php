@@ -8,7 +8,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Test
  */
-namespace ZendTest\Test\PHPUnit\Controller;
+namespace ZendTest\Test\Atoum\Controller;
 
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
@@ -16,7 +16,7 @@ use Zend\Mvc\Router\Http\RouteMatch;
 use Zend\Stdlib\Parameters;
 use Zend\Stdlib\RequestInterface;
 use Zend\Stdlib\ResponseInterface;
-use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use Zend\Test\Atoum\Controller\AbstractHttpControllerTestCase;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -27,57 +27,61 @@ use Zend\View\Model\ViewModel;
  */
 class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 {
-    public function setUp()
+    public function beforeTestMethod($method)
     {
         $this->setApplicationConfig(
             include __DIR__ . '/../../_files/application.config.php'
         );
-        parent::setUp();
+        parent::beforeTestMethod($method);
     }
 
     public function testUseOfRouter()
     {
-       $this->assertEquals(false, $this->getUseConsoleRequest());
+       $this->boolean($this->getUseConsoleRequest())->isEqualTo(false);
     }
 
     public function testApplicationClass()
     {
-        $applicationClass = get_class($this->getApplication());
-        $this->assertEquals($applicationClass, 'Zend\Mvc\Application');
+        $this->object($this->getApplication())
+                ->isInstanceOf('\Zend\Mvc\Application');
     }
-
+    
     public function testApplicationServiceLocatorClass()
     {
-        $smClass = get_class($this->getApplicationServiceLocator());
-        $this->assertEquals($smClass, 'Zend\ServiceManager\ServiceManager');
+        $this->object($this->getApplicationServiceLocator())
+                ->isInstanceOf('Zend\ServiceManager\ServiceManager');
     }
-
+    
     public function testAssertApplicationRequest()
     {
-        $this->assertEquals(true, $this->getRequest() instanceof RequestInterface);
+        $this->object($this->getRequest())
+                ->isInstanceOf('Zend\Stdlib\RequestInterface');
     }
 
     public function testAssertApplicationResponse()
     {
-        $this->assertEquals(true, $this->getResponse() instanceof ResponseInterface);
+        $this->object($this->getResponse())
+                ->isInstanceOf('Zend\Stdlib\ResponseInterface');
     }
-
+    
     public function testAssertResponseStatusCode()
     {
         $this->dispatch('/tests');
         $this->assertResponseStatusCode(200);
-
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertResponseStatusCode(302);
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertResponseStatusCode(302); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
-
+    
     public function testAssertNotResponseStatusCode()
     {
         $this->dispatch('/tests');
         $this->assertNotResponseStatusCode(302);
-
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotResponseStatusCode(200);
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertNotResponseStatusCode(200); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertModuleName()
@@ -89,8 +93,9 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertModule('Baz');
         $this->assertModule('BAz');
 
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertModule('Application');
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertModule('Application'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertNotModuleName()
@@ -98,10 +103,11 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->dispatch('/tests');
         $this->assertNotModule('Application');
 
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotModule('baz');
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertNotModule('baz'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
-
+    
     public function testAssertControllerClass()
     {
         $this->dispatch('/tests');
@@ -111,8 +117,9 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertControllerClass('Indexcontroller');
         $this->assertControllerClass('indexcontroller');
 
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertControllerClass('Index');
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertControllerClass('Index'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertNotControllerClass()
@@ -120,8 +127,9 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->dispatch('/tests');
         $this->assertNotControllerClass('Index');
 
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotControllerClass('IndexController');
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertNotControllerClass('IndexController'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertControllerName()
@@ -133,8 +141,9 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertControllerName('Baz_index');
         $this->assertControllerName('BAz_index');
 
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertControllerName('baz');
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertControllerName('baz'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertNotControllerName()
@@ -142,8 +151,9 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->dispatch('/tests');
         $this->assertNotControllerName('baz');
 
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotControllerName('baz_index');
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertNotControllerName('baz_index'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertActionName()
@@ -155,8 +165,9 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertActionName('unitTests');
         $this->assertActionName('UnitTests');
 
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertActionName('unit');
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertActionName('unit'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertNotActionName()
@@ -164,8 +175,9 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->dispatch('/tests');
         $this->assertNotActionName('unit');
 
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotActionName('unittests');
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertNotActionName('unittests'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertMatchedRouteName()
@@ -176,18 +188,20 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertMatchedRouteName('myroute');
         $this->assertMatchedRouteName('myRoute');
         $this->assertMatchedRouteName('MyRoute');
-
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertMatchedRouteName('route');
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertMatchedRouteName('route'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertNotMatchedRouteName()
     {
         $this->dispatch('/tests');
         $this->assertNotMatchedRouteName('route');
-
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotMatchedRouteName('myroute');
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertNotMatchedRouteName('myroute'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertQuery()
@@ -195,26 +209,29 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->dispatch('/tests');
         $this->assertQuery('form#myform');
 
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertQuery('form#id');
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertQuery('form#id'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertNotQuery()
     {
         $this->dispatch('/tests');
         $this->assertNotQuery('form#id');
-
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotQuery('form#myform');
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertNotQuery('form#myform'); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertQueryCount()
     {
         $this->dispatch('/tests');
         $this->assertQueryCount('div.top', 3);
-
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertQueryCount('div.top', 2);
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertQueryCount('div.top', 2); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertNotQueryCount()
@@ -222,9 +239,10 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->dispatch('/tests');
         $this->assertNotQueryCount('div.top', 1);
         $this->assertNotQueryCount('div.top', 2);
-
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotQueryCount('div.top', 3);
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertNotQueryCount('div.top', 3); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertQueryCountMin()
@@ -233,9 +251,10 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertQueryCountMin('div.top', 1);
         $this->assertQueryCountMin('div.top', 2);
         $this->assertQueryCountMin('div.top', 3);
-
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertQueryCountMin('div.top', 4);
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertQueryCountMin('div.top', 4); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertQueryCountMax()
@@ -244,9 +263,10 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertQueryCountMax('div.top', 5);
         $this->assertQueryCountMax('div.top', 4);
         $this->assertQueryCountMax('div.top', 3);
-
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertQueryCountMax('div.top', 2);
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertQueryCountMax('div.top', 2); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertQueryWithDynamicQueryParams()
@@ -273,10 +293,10 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
     {
         $this->dispatch('http://my.domain.tld:443');
         $routeMatch = $this->getApplication()->getMvcEvent()->getRouteMatch();
-        $this->assertEquals($routeMatch->getParam('subdomain'), 'my');
-        $this->assertEquals($this->getRequest()->getUri()->getPort(), 443);
+        $this->string($routeMatch->getParam('subdomain'))->isEqualTo('my');
+        $this->integer($this->getRequest()->getUri()->getPort())->isEqualTo(443);
     }
-
+    
     /**
      * Sample tests on MvcEvent
      */
@@ -286,21 +306,21 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
         // get and assert mvc event
         $mvcEvent = $this->getApplication()->getMvcEvent();
-        $this->assertEquals(true, $mvcEvent instanceof MvcEvent);
-        $this->assertEquals($mvcEvent->getApplication(), $this->getApplication());
+        $this->object($mvcEvent)->isInstanceOf('Zend\Mvc\MvcEvent');
+        $this->object($mvcEvent->getApplication())->isEqualTo($this->getApplication());
 
         // get and assert view controller
         $viewModel = $mvcEvent->getResult();
-        $this->assertEquals(true, $viewModel instanceof ViewModel);
-        $this->assertEquals($viewModel->getTemplate(), 'baz/index/unittests');
+        $this->object($viewModel)->isInstanceOf('Zend\View\Model\ViewModel');
+        $this->string($viewModel->getTemplate())->isEqualTo('baz/index/unittests');
 
         // get and assert view manager layout
         $layout = $mvcEvent->getViewModel();
-        $this->assertEquals(true, $layout instanceof ViewModel);
-        $this->assertEquals($layout->getTemplate(), 'layout/layout');
+        $this->object($layout)->isInstanceOf('Zend\View\Model\ViewModel');
+        $this->string($layout->getTemplate())->isEqualTo('layout/layout');
 
         // children layout must be the controller view
-        $this->assertEquals($viewModel, current($layout->getChildren()));
+        $this->object($viewModel)->isEqualTo(current($layout->getChildren()));
     }
 
     /**
@@ -312,15 +332,15 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
         $result = $this->triggerApplicationEvent(MvcEvent::EVENT_ROUTE);
         $routeMatch = $result->last();
-        $this->assertEquals(false, $result->stopped());
-        $this->assertEquals(false, $this->getApplication()->getMvcEvent()->getError());
-        $this->assertEquals(true, $routeMatch instanceof RouteMatch);
-        $this->assertEquals($routeMatch->getParam('controller'), 'baz_index');
+        $this->boolean($result->stopped())->isEqualTo(false);
+        $this->string($this->getApplication()->getMvcEvent()->getError())->isEqualTo('');
+        $this->object($routeMatch)->isInstanceOf('Zend\Mvc\Router\Http\RouteMatch');
+        $this->string($routeMatch->getParam('controller'))->isEqualTo('baz_index');
 
         $result = $this->triggerApplicationEvent(MvcEvent::EVENT_DISPATCH);
         $viewModel = $this->getApplication()->getMvcEvent()->getResult();
-        $this->assertEquals(true, $viewModel instanceof ViewModel);
-        $this->assertEquals($viewModel->getTemplate(), 'baz/index/unittests');
+        $this->object($viewModel)->isInstanceOf('Zend\View\Model\ViewModel');
+        $this->string($viewModel->getTemplate())->isEqualTo('baz/index/unittests');
     }
 
     /**
@@ -330,7 +350,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
     {
         $this->url('/bad-url');
         $result = $this->triggerApplicationEvent(MvcEvent::EVENT_ROUTE);
-        $this->assertEquals(true, $result->stopped());
-        $this->assertEquals(Application::ERROR_ROUTER_NO_MATCH, $this->getApplication()->getMvcEvent()->getError());
+        $this->boolean($result->stopped())->isEqualTo(true);
+        $this->string($this->getApplication()->getMvcEvent()->getError())->isEqualTo(Application::ERROR_ROUTER_NO_MATCH);
     }
 }

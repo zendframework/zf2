@@ -8,22 +8,37 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Test
  */
-namespace Zend\Test\PHPUnit\Controller;
+namespace Zend\Test\Atoum\Controller;
 
-use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_ExpectationFailedException;
+use mageekguy\atoum;
+use Zend\Test\Atoum\Exception\ExpectationFailedException;
 use Zend\Test\Gateway\ControllerTestCaseInterface;
 use Zend\Test\Gateway\SharedService;
 
 /**
  * @category   Zend
  * @package    Zend_Test
- * @subpackage PHPUnit
+ * @subpackage Atoum
  */
-class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements ControllerTestCaseInterface
+class AbstractControllerTestCase extends atoum\test implements ControllerTestCaseInterface
 {
-    
     protected $sharedService;
+    
+    public function __construct(score $score = null, locale $locale = null, adapter $adapter = null)
+    {
+        $namespace = substr(get_class($this), 0, strrpos(get_class($this), '\\'));
+        $class = explode('\\', get_class($this));
+        $className = end($class);
+        $this->setTestNamespace($namespace);
+        spl_autoload_register(function($class) use ($className) {
+            if($class == $className) {
+                eval("namespace{ class $className{}; }");
+                return true;
+            }
+            return false;
+        });
+        parent::__construct($score, $locale, $adapter);
+    }
     
     public function getSharedService()
     {
@@ -40,7 +55,7 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         }
         return parent::__call($name, $arguments);
     }
-    
+
     /**
      * Assert the modules loaded with the module manager
      *
@@ -53,11 +68,11 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $modulesLoaded = $moduleManager->getModules();
         $list = array_diff($modules, $modulesLoaded);
         if($list) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Several modules are not loaded "%s"', implode(', ', $list)
             ));
         }
-        $this->assertEquals(count($list), 0);
+        $this->array($list)->isEmpty();
     }
 
     /**
@@ -72,11 +87,11 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $modulesLoaded = $moduleManager->getModules();
         $list = array_intersect($modules, $modulesLoaded);
         if($list) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Several modules WAS not loaded "%s"', implode(', ', $list)
             ));
         }
-        $this->assertEquals(count($list), 0);
+        $this->array($list)->isEmpty();
     }
 
     /**
@@ -89,20 +104,20 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
     {
         if($this->getUseConsoleRequest()) {
             if(!in_array($code, array(0, 1))) {
-                throw new PHPUnit_Framework_ExpectationFailedException(
+                throw new ExpectationFailedException(
                     'Console status code assert value must be O (valid) or 1 (error)'
                 );
             }
         }
         $match = $this->getResponseStatusCode();
         if($code != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting response code "%s", actual status code is "%s"',
                 $code,
                 $match
             ));
         }
-        $this->assertEquals($code, $match);
+        $this->integer($code)->isEqualTo($match);
     }
 
     /**
@@ -115,21 +130,21 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
     {
         if($this->getUseConsoleRequest()) {
             if(!in_array($code, array(0, 1))) {
-                throw new PHPUnit_Framework_ExpectationFailedException(
+                throw new ExpectationFailedException(
                     'Console status code assert value must be O (valid) or 1 (error)'
                 );
             }
         }
         $match = $this->getResponseStatusCode();
         if($code == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting response code was NOT "%s"',
                 $code
             ));
         }
-        $this->assertNotEquals($code, $match);
+        $this->integer($code)->isNotEqualTo($match);
     }
-    
+
     /**
      * Assert that the application route match used the given module
      *
@@ -143,13 +158,13 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $match = strtolower($match);
         $module = strtolower($module);
         if($module != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting module "%s", actual module is "%s"',
                 $module,
                 $match
             ));
         }
-        $this->assertEquals($module, $match);
+        $this->string($module)->isEqualTo($match);
     }
 
     /**
@@ -165,12 +180,12 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $match = strtolower($match);
         $module = strtolower($module);
         if($module == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting module was NOT "%s"',
                 $module
             ));
         }
-        $this->assertNotEquals($module, $match);
+        $this->string($module)->isNotEqualTo($match);
     }
 
     /**
@@ -186,13 +201,13 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $match = strtolower($match);
         $controller = strtolower($controller);
         if($controller != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting controller class "%s", actual controller class is "%s"',
                 $controller,
                 $match
             ));
         }
-        $this->assertEquals($controller, $match);
+        $this->string($controller)->isEqualTo($match);
     }
 
     /**
@@ -208,12 +223,12 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $match = strtolower($match);
         $controller = strtolower($controller);
         if($controller == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting controller class was NOT "%s"',
                 $controller
             ));
         }
-        $this->assertNotEquals($controller, $match);
+        $this->string($controller)->isNotEqualTo($match);
     }
 
     /**
@@ -229,13 +244,13 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $match = strtolower($match);
         $controller = strtolower($controller);
         if($controller != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting controller name "%s", actual controller is "%s"',
                 $controller,
                 $match
             ));
         }
-        $this->assertEquals($controller, $match);
+        $this->string($controller)->isEqualTo($match);
     }
 
     /**
@@ -251,12 +266,12 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $match = strtolower($match);
         $controller = strtolower($controller);
         if($controller == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting controller name was NOT "%s"',
                 $controller
             ));
         }
-        $this->assertNotEquals($controller, $match);
+        $this->string($controller)->isNotEqualTo($match);
     }
 
     /**
@@ -272,13 +287,13 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $match = strtolower($match);
         $action = strtolower($action);
         if($action != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting action name "%s", actual action is "%s"',
                 $action,
                 $match
             ));
         }
-        $this->assertEquals($action, $match);
+        $this->string($action)->isEqualTo($match);
     }
 
     /**
@@ -294,12 +309,12 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $match = strtolower($match);
         $action = strtolower($action);
         if($action == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting action name was NOT "%s"',
                 $action
             ));
         }
-        $this->assertNotEquals($action, $match);
+        $this->string($action)->isNotEqualTo($match);
     }
 
     /**
@@ -315,13 +330,13 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $match = strtolower($match);
         $route = strtolower($route);
         if($route != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting matched route was "%s", actual route is "%s"',
                 $route,
                 $match
             ));
         }
-        $this->assertEquals($route, $match);
+        $this->string($route)->isEqualTo($match);
     }
 
     /**
@@ -337,11 +352,11 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
         $match = strtolower($match);
         $route = strtolower($route);
         if($route == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting route matched was NOT "%s"', $route
             ));
         }
-        $this->assertNotEquals($route, $match);
+        $this->string($route)->isNotEqualTo($match);
     }
 
     /**
@@ -354,11 +369,11 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
     {
         $match = $this->query($path);
         if(!$match > 0) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting node DENOTED BY %s EXISTS', $path
             ));
         }
-        $this->assertEquals(true, $match > 0);
+        $this->integer($match)->isGreaterThan(0);
     }
 
     /**
@@ -371,11 +386,11 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
     {
         $match = $this->query($path);
         if($match != 0) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting node DENOTED BY %s DOES NOT EXIST', $path
             ));
         }
-        $this->assertEquals(0, $match);
+        $this->integer($match)->isEqualTo(0);
     }
 
     /**
@@ -389,12 +404,12 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
     {
         $match = $this->query($path);
         if($match != $count) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting node DENOTED BY %s OCCURS EXACTLY %d times',
                 $path, $count
             ));
         }
-        $this->assertEquals($match, $count);
+        $this->integer($count)->isEqualTo($match);
     }
 
     /**
@@ -408,12 +423,12 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
     {
         $match = $this->query($path);
         if($match == $count) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting node DENOTED BY %s DOES NOT OCCUR EXACTLY %d times',
                 $path, $count
             ));
         }
-        $this->assertNotEquals($match, $count);
+        $this->integer($count)->isNotEqualTo($match);
     }
 
     /**
@@ -427,12 +442,12 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
     {
         $match = $this->query($path);
         if($match < $count) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting node DENOTED BY %s OCCURS AT LEAST %d times',
                 $path, $count
             ));
         }
-        $this->assertEquals(true, $match >= $count);
+        $this->integer($match)->isGreaterThanOrEqualTo($count);
     }
 
     /**
@@ -446,11 +461,11 @@ class AbstractControllerTestCase extends PHPUnit_Framework_TestCase implements C
     {
         $match = $this->query($path);
         if($match > $count) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                 'Failed asserting node DENOTED BY %s OCCURS AT MOST %d times',
                 $path, $count
             ));
         }
-        $this->assertEquals(true, $match <= $count);
+        $this->integer($match)->isLessThanOrEqualTo($count);
     }
 }

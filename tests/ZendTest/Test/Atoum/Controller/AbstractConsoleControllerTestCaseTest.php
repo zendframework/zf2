@@ -8,9 +8,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Test
  */
-namespace ZendTest\Test\PHPUnit\Controller;
+namespace ZendTest\Test\Atoum\Controller;
 
-use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
+use Zend\Test\Atoum\Controller\AbstractConsoleControllerTestCase;
 
 /**
  * @category   Zend
@@ -20,38 +20,39 @@ use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
  */
 class AbstractConsoleControllerTestCaseTest extends AbstractConsoleControllerTestCase
 {
-    public function setUp()
+    public function beforeTestMethod($method)
     {
         $this->setApplicationConfig(
             include __DIR__ . '/../../_files/application.config.php'
         );
-        parent::setUp();
+        parent::beforeTestMethod($method);
     }
 
     public function testUseOfRouter()
     {
-       $this->assertEquals(true, $this->getUseConsoleRequest());
+        $this->boolean($this->getUseConsoleRequest())->isEqualTo(true);
     }
 
     public function testApplicationClass()
     {
-        $applicationClass = get_class($this->getApplication());
-        $this->assertEquals($applicationClass, 'Zend\Mvc\Application');
+        $this->object($this->getApplication())
+                ->isInstanceOf('\Zend\Mvc\Application');
     }
-
+    
     public function testApplicationServiceLocatorClass()
     {
-        $smClass = get_class($this->getApplicationServiceLocator());
-        $this->assertEquals($smClass, 'Zend\ServiceManager\ServiceManager');
+        $this->object($this->getApplicationServiceLocator())
+                ->isInstanceOf('Zend\ServiceManager\ServiceManager');
     }
-
+    
     public function testAssertResponseStatusCode()
     {
         $this->dispatch('--console');
         $this->assertResponseStatusCode(0);
-
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertResponseStatusCode(1);
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertResponseStatusCode(1); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertNotResponseStatusCode()
@@ -59,21 +60,26 @@ class AbstractConsoleControllerTestCaseTest extends AbstractConsoleControllerTes
         $this->dispatch('--console');
         $this->assertNotResponseStatusCode(1);
 
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotResponseStatusCode(0);
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertNotResponseStatusCode(0); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertResponseStatusCodeWithBadCode()
     {
         $this->dispatch('--console');
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertResponseStatusCode(2);
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertResponseStatusCode(2); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 
     public function testAssertNotResponseStatusCodeWithBadCode()
     {
         $this->dispatch('--console');
-        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotResponseStatusCode(2);
+        
+        $self = $this;
+        $this->exception(function() use ($self) {$self->assertNotResponseStatusCode(2); })
+                ->isInstanceOf('Zend\Test\Atoum\Exception\ExpectationFailedException');
     }
 }
