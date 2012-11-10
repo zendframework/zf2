@@ -111,16 +111,24 @@ class ClassScanner implements ScannerInterface
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Get annotations
      *
      * @return array
      */
     public function getAnnotations()
 =======
+=======
+     * Get annotations
+     *
+>>>>>>> upstream/develop
      * @param  Annotation\AnnotationManager $annotationManager
      * @return Annotation\AnnotationCollection
      */
     public function getAnnotations(Annotation\AnnotationManager $annotationManager)
+<<<<<<< HEAD
+>>>>>>> upstream/develop
+=======
 >>>>>>> upstream/develop
     {
         if (($docComment = $this->getDocComment()) == '') {
@@ -297,7 +305,11 @@ class ClassScanner implements ScannerInterface
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Get property names
+=======
+     * Returns a list of property names
+>>>>>>> upstream/develop
 =======
      * Returns a list of property names
 >>>>>>> upstream/develop
@@ -322,7 +334,11 @@ class ClassScanner implements ScannerInterface
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Get properties
+=======
+     * Returns a list of properties
+>>>>>>> upstream/develop
 =======
      * Returns a list of properties
 >>>>>>> upstream/develop
@@ -346,12 +362,15 @@ class ClassScanner implements ScannerInterface
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     /**
      * Get method names
      *
      * @return array
      */
 =======
+=======
+>>>>>>> upstream/develop
     public function getProperty($propertyNameOrInfoIndex)
     {
         $this->scan();
@@ -387,6 +406,14 @@ class ClassScanner implements ScannerInterface
         return $p;
     }
 
+<<<<<<< HEAD
+>>>>>>> upstream/develop
+=======
+    /**
+     * Get method names
+     *
+     * @return array
+     */
 >>>>>>> upstream/develop
     public function getMethodNames()
     {
