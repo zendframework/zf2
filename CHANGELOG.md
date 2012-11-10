@@ -1,5 +1,6 @@
 # CHANGELOG
 
+<<<<<<< HEAD
 ## 2.0.3:
 
 - 2244: Fix for issue ZF2-503 (https://github.com/zendframework/zf2/issues/2244)
@@ -201,6 +202,13 @@
   ob... (https://github.com/zendframework/zf2/issues/2779)
 - 2782: Issue 2781 (https://github.com/zendframework/zf2/issues/2782)
 
+=======
+## 2.1.0:
+
+- The initializer for ServiceManagerAwareInterface was removed to prevent
+  confusion between ServiceManagerAwareInterface and
+  ServiceLocatorAwareInterface, and to promote using the latter interface.
+>>>>>>> upstream/develop
 
 ## 2.0.2:
 
