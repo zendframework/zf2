@@ -10,6 +10,7 @@
 
 namespace Zend\Code\Scanner;
 
+use Zend\Code\Annotation;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
@@ -109,13 +110,32 @@ class ClassScanner implements ScannerInterface
     }
 
     /**
+<<<<<<< HEAD
+<<<<<<< HEAD
      * Get annotations
      *
      * @return array
      */
     public function getAnnotations()
+=======
+=======
+     * Get annotations
+     *
+>>>>>>> upstream/develop
+     * @param  Annotation\AnnotationManager $annotationManager
+     * @return Annotation\AnnotationCollection
+     */
+    public function getAnnotations(Annotation\AnnotationManager $annotationManager)
+<<<<<<< HEAD
+>>>>>>> upstream/develop
+=======
+>>>>>>> upstream/develop
     {
-        return array();
+        if (($docComment = $this->getDocComment()) == '') {
+            return false;
+        }
+
+        return new AnnotationScanner($annotationManager, $docComment, $this->nameInformation);
     }
 
     /**
@@ -284,7 +304,15 @@ class ClassScanner implements ScannerInterface
     }
 
     /**
+<<<<<<< HEAD
+<<<<<<< HEAD
      * Get property names
+=======
+     * Returns a list of property names
+>>>>>>> upstream/develop
+=======
+     * Returns a list of property names
+>>>>>>> upstream/develop
      *
      * @return array
      */
@@ -305,7 +333,15 @@ class ClassScanner implements ScannerInterface
     }
 
     /**
+<<<<<<< HEAD
+<<<<<<< HEAD
      * Get properties
+=======
+     * Returns a list of properties
+>>>>>>> upstream/develop
+=======
+     * Returns a list of properties
+>>>>>>> upstream/develop
      *
      * @return array
      */
@@ -325,11 +361,60 @@ class ClassScanner implements ScannerInterface
         return $return;
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
     /**
      * Get method names
      *
      * @return array
      */
+=======
+=======
+>>>>>>> upstream/develop
+    public function getProperty($propertyNameOrInfoIndex)
+    {
+        $this->scan();
+
+        if (is_int($propertyNameOrInfoIndex)) {
+            $info = $this->infos[$propertyNameOrInfoIndex];
+            if ($info['type'] != 'property') {
+                throw new Exception\InvalidArgumentException('Index of info offset is not about a property');
+            }
+        } elseif (is_string($propertyNameOrInfoIndex)) {
+            $propertyFound = false;
+            foreach ($this->infos as $info) {
+                if ($info['type'] === 'property' && $info['name'] === $propertyNameOrInfoIndex) {
+                    $propertyFound = true;
+                    break;
+                }
+            }
+            if (!$propertyFound) {
+                return false;
+            }
+        } else {
+            throw new Exception\InvalidArgumentException('Invalid property name of info index type.  Must be of type int or string');
+        }
+        if (!isset($info)) {
+            return false;
+        }
+        $p = new PropertyScanner(
+            array_slice($this->tokens, $info['tokenStart'], $info['tokenEnd'] - $info['tokenStart'] + 1),
+            $this->nameInformation
+        );
+        $p->setClass($this->name);
+        $p->setScannerClass($this);
+        return $p;
+    }
+
+<<<<<<< HEAD
+>>>>>>> upstream/develop
+=======
+    /**
+     * Get method names
+     *
+     * @return array
+     */
+>>>>>>> upstream/develop
     public function getMethodNames()
     {
         $this->scan();

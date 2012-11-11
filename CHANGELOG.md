@@ -1,5 +1,7 @@
 # CHANGELOG
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 ## 2.0.3:
 
 - 2244: Fix for issue ZF2-503 (https://github.com/zendframework/zf2/issues/2244)
@@ -201,6 +203,33 @@
   ob... (https://github.com/zendframework/zf2/issues/2779)
 - 2782: Issue 2781 (https://github.com/zendframework/zf2/issues/2782)
 
+=======
+## 2.1.0:
+
+- The initializer for ServiceManagerAwareInterface was removed to prevent
+  confusion between ServiceManagerAwareInterface and
+  ServiceLocatorAwareInterface, and to promote using the latter interface.
+>>>>>>> upstream/develop
+=======
+## 2.1.0:
+
+- The initializer for ServiceManagerAwareInterface was removed to prevent
+  confusion between ServiceManagerAwareInterface and
+  ServiceLocatorAwareInterface, and to promote using the latter interface.
+- File upload functionality has been rewritten and moved out of Zend\File
+  into Zend\Form and Zend\InputFilter. File elements are now
+  specified and handled with Zend\Form just like any other form element.
+- File upload progress functionality has been moved out of Zend\File into
+  specific classes under Zend\ProgressBar\Upload based on the type of
+  handler (APC, UploadProgress module, and Session progress in PHP 5.4).
+- New form elements under Zend\Form\Element\File for the various upload
+  progress identifiers.
+- New Zend\Filter\File\RenameUpload filter for securely moving uploaded
+  files.
+- New Zend\Mvc\Controller\Plugin\FilePostRedirectGet plugin for file
+  upload forms.
+
+>>>>>>> upstream/develop
 
 ## 2.0.2:
 

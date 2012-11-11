@@ -100,6 +100,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
      * @param  bool  $rowExistsInDatabase
      * @return AbstractRowGateway
      */
+
     public function populate(array $rowData, $rowExistsInDatabase = false)
     {
         $this->initialize();
