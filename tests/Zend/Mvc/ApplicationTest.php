@@ -539,4 +539,24 @@ class ApplicationTest extends TestCase
         $this->application->run();
         $this->assertContains('Zend\Mvc\Application', $response->getContent());
     }
+
+    public function testResponseShouldBeSetToMvcEventEvenIfDispatchEventReturnsIt()
+    {
+        $this->application->bootstrap();
+        $response = new Response();
+        $events   = $this->application->events();
+        $events->clearListeners('route');
+        $events->attach('dispatch', function($e) use ($response) {
+            return $response;
+        }, 100);
+
+        $token = new stdClass;
+        $events->attach('finish', function($e) use ($token) {
+            $token->response = $e->getResponse();
+        });
+
+        $this->application->run();
+        $this->assertTrue(isset($token->response));
+        $this->assertSame($response, $token->response);
+    }
 }
