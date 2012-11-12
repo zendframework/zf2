@@ -464,7 +464,7 @@ class Ldap
             return sprintf("(&(objectClass=user)(sAMAccountName=%s))", $aname);
         }
 
-        return sprintf("(&(objectClass=posixAccount)(uid=%s))", $aname);
+        return sprintf("(&(uid=%s))", $aname);
     }
 
     /**
