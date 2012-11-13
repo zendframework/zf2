@@ -13,6 +13,7 @@ namespace ZendTest\InputFilter;
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
 use Zend\InputFilter\Input;
+use Zend\InputFilter\FileInput;
 use Zend\InputFilter\BaseInputFilter as InputFilter;
 use Zend\Filter;
 use Zend\Validator;
@@ -414,6 +415,65 @@ class BaseInputFilterTest extends TestCase
         $this->assertTrue($filter->isValid());
     }
 
+    public function testValidationSkipsFileInputsMarkedNotRequiredWhenNoFileDataIsPresent()
+    {
+        $filter = new InputFilter();
+
+        $foo   = new FileInput();
+        $foo->getValidatorChain()->addValidator(new Validator\File\Upload());
+        $foo->setRequired(false);
+
+        $filter->add($foo, 'foo');
+
+        $data = array(
+            'foo' => array(
+                'tmp_name' => '/tmp/barfile',
+                'name'     => 'barfile',
+                'type'     => 'text',
+                'size'     => 0,
+                'error'    => 4,  // UPLOAD_ERR_NO_FILE
+            )
+        );
+        $filter->setData($data);
+        $this->assertTrue($filter->isValid());
+
+        // Negative test
+        $foo->setRequired(true);
+        $filter->setData($data);
+        $this->assertFalse($filter->isValid());
+    }
+
+    public function testValidationSkipsFileInputsMarkedNotRequiredWhenNoMultiFileDataIsPresent()
+    {
+        $filter = new InputFilter();
+
+        $explode = new Validator\File\Explode();
+        $explode->setValidator(new Validator\File\Upload());
+
+        $foo   = new FileInput();
+        $foo->getValidatorChain()->addValidator($explode);
+        $foo->setRequired(false);
+
+        $filter->add($foo, 'foo');
+
+        $data = array(
+            'foo' => array(array(
+                'tmp_name' => '/tmp/barfile',
+                'name'     => 'barfile',
+                'type'     => 'text',
+                'size'     => 0,
+                'error'    => 4,  // UPLOAD_ERR_NO_FILE
+            )),
+        );
+        $filter->setData($data);
+        $this->assertTrue($filter->isValid());
+
+        // Negative test
+        $foo->setRequired(true);
+        $filter->setData($data);
+        $this->assertFalse($filter->isValid());
+    }
+
     public function testValidationAllowsEmptyValuesToRequiredInputWhenAllowEmptyFlagIsTrue()
     {
         $filter = new InputFilter();
@@ -508,5 +568,37 @@ class BaseInputFilterTest extends TestCase
         $messages = $filter->getMessages();
         $this->assertArrayHasKey('foo', $messages);
         $this->assertNotEmpty($messages['foo']);
+    }
+
+    public function testValidateUseExplode()
+    {
+        $filter = new InputFilter();
+
+        $input = new Input();
+        $input->setRequired(true);
+
+        $input->getValidatorChain()->addValidator(
+            new \Zend\Validator\Explode(
+                array(
+                    'validator' => new \Zend\Validator\IsInstanceOf(
+                        array(
+                            'className' => 'Zend\InputFilter\Input'
+                        )
+                    )
+                )
+            )
+        );
+
+        $filter->add($input, 'example');
+
+        $data = array(
+            'example' => array(
+                $input
+            )
+        );
+
+        $filter->setData($data);
+        $this->assertTrue($filter->isValid());
+
     }
 }
