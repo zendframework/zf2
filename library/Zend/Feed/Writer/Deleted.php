@@ -14,9 +14,10 @@ use DateTime;
 use Zend\Uri;
 
 /**
-* @category Zend
-* @package Zend_Feed_Writer
-*/
+ * @category   Zend
+ * @package    Zend_Feed
+ * @subpackage Writer
+ */
 class Deleted
 {
 

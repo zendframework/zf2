@@ -15,7 +15,7 @@ use Zend\Paginator\Exception\ExceptionInterface as Exception;
 /**
  * @category   Zend
  * @package    Zend_Paginator
- * @subpackage Adapter
+ * @subpackage Adapter_Exception
  */
 interface ExceptionInterface extends Exception
 {}

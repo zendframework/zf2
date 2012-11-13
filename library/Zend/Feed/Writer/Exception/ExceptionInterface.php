@@ -17,6 +17,7 @@ namespace Zend\Feed\Writer\Exception;
  *
  * @category  Zend
  * @package   Zend_Feed
+ * @subpackage Writer_Exception
  */
 interface ExceptionInterface
 {

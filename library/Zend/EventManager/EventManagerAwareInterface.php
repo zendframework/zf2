@@ -15,7 +15,6 @@ namespace Zend\EventManager;
  *
  * @category   Zend
  * @package    Zend_EventManager
- * @subpackage UnitTest
  */
 interface EventManagerAwareInterface extends EventsCapableInterface
 {

@@ -15,6 +15,7 @@ namespace Zend\Escaper\Exception;
  *
  * @category   Zend
  * @package    Zend_Escaper
+ * @subpackage Exception
  */
 class InvalidArgumentException extends \InvalidArgumentException implements
     ExceptionInterface

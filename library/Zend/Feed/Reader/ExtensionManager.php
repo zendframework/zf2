@@ -19,7 +19,8 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Extension\AbstractFeed.
  *
  * @category   Zend
- * @package    Zend_Feed_Reader
+ * @package    Zend_Feed
+ * @subpackage Reader
  */
 class ExtensionManager extends AbstractPluginManager
 {

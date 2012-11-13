@@ -15,6 +15,7 @@ namespace Zend\Dom\Exception;
  *
  * @category   Zend
  * @package    Zend_Dom
+ * @subpackage Exception
  */
 class RuntimeException extends \RuntimeException implements ExceptionInterface
 {

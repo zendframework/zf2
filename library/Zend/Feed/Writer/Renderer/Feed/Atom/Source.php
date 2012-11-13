@@ -15,7 +15,8 @@ use DOMElement;
 
 /**
  * @category   Zend
- * @package    Zend_Feed_Writer
+ * @package    Zend_Feed
+ * @subpackage Writer_Renderer_Feed_Atom
  */
 class Source extends AbstractAtom implements \Zend\Feed\Writer\Renderer\RendererInterface
 {

@@ -17,6 +17,7 @@ use Zend\XmlRpc\Response as XmlRpcResponse;
  *
  * @category   Zend
  * @package    Zend_XmlRpc
+ * @subpackage Response
  */
 class Http extends XmlRpcResponse
 {

@@ -12,6 +12,11 @@ namespace Zend\XmlRpc\Server\Exception;
 
 use Zend\XmlRpc\Exception;
 
+/**
+ * @category   Zend
+ * @package    Zend_XmlRpc
+ * @subpackage Server_Exception
+ */
 class BadMethodCallException extends Exception\BadMethodCallException implements ExceptionInterface
 {
 }

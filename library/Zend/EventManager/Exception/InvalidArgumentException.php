@@ -15,6 +15,7 @@ namespace Zend\EventManager\Exception;
  *
  * @category   Zend
  * @package    Zend_EventManager
+ * @subpackage Exception
  */
 class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {

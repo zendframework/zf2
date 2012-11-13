@@ -20,6 +20,7 @@ use Zend\Paginator\Paginator;
  * @link       http://www.google.com/search?q=Zend+Framework
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage ScrollingStyle
  */
 class Elastic extends Sliding
 {

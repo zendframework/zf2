@@ -13,8 +13,8 @@ namespace Zend\Dom;
 /**
  * Transform CSS selectors to XPath
  *
+ * @category   Zend
  * @package    Zend_Dom
- * @subpackage Query
  */
 class Css2Xpath
 {

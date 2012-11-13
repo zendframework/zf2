@@ -13,6 +13,9 @@ namespace Zend\XmlRpc\Generator;
 /**
  * Abstract XML generator adapter
  *
+ * @category   Zend
+ * @package    Zend_XmlRpc
+ * @subpackage Generator
  */
 abstract class AbstractGenerator implements GeneratorInterface
 {

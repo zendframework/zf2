@@ -23,6 +23,7 @@ use Zend\XmlRpc\Request as XmlRpcRequest;
  *
  * @category   Zend
  * @package    Zend_XmlRpc
+ * @subpackage Request
  */
 class Http extends XmlRpcRequest
 {

@@ -14,6 +14,7 @@ namespace Zend\Serializer\Exception;
  * @used       InvalidArgumentException
  * @category   Zend
  * @package    Zend_Serializer
+ * @subpackage Exception
  */
 class InvalidArgumentException extends \InvalidArgumentException implements
     ExceptionInterface

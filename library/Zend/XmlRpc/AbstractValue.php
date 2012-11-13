@@ -23,6 +23,7 @@ use Zend\Math\BigInteger;
  * Using this function, users/Zend\XmlRpc\Client object can create the Zend\XmlRpc\Value objects
  * from PHP variables, XML string or by specifying the exact XML-RPC natvie type
  *
+ * @category   Zend
  * @package    Zend_XmlRpc
  */
 abstract class AbstractValue

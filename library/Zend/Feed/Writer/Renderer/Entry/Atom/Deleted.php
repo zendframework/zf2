@@ -16,7 +16,8 @@ use DOMElement;
 
 /**
  * @category   Zend
- * @package    Zend_Feed_Writer
+ * @package    Zend_Feed
+ * @subpackage Writer_Renderer_Entry_Atom
  */
 class Deleted
     extends \Zend\Feed\Writer\Renderer\AbstractRenderer

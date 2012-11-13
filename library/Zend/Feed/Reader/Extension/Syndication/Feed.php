@@ -16,7 +16,8 @@ use Zend\Feed\Reader\Extension;
 
 /**
  * @category   Zend
- * @package    Zend_Feed_Reader
+ * @package    Zend_Feed
+ * @subpackage Reader_Extension_Syndication
  */
 class Feed extends \Zend\Feed\Reader\Extension\AbstractFeed
 {

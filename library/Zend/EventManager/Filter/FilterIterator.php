@@ -21,6 +21,7 @@ use Zend\Stdlib\SplPriorityQueue;
  *
  * @category   Zend
  * @package    Zend_EventManager
+ * @subpackage Filter
  */
 class FilterIterator extends SplPriorityQueue
 {

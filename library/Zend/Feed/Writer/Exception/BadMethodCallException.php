@@ -19,6 +19,7 @@ use Zend\Feed\Exception;
  *
  * @category   Zend
  * @package    Zend_Feed
+ * @subpackage Writer_Exception
  */
 class BadMethodCallException
     extends Exception\BadMethodCallException

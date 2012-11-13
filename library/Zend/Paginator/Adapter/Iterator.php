@@ -15,6 +15,7 @@ use Zend\Paginator;
 /**
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage Adapter
  */
 class Iterator implements AdapterInterface
 {

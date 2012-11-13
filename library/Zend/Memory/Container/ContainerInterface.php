@@ -15,6 +15,7 @@ namespace Zend\Memory\Container;
  *
  * @category   Zend
  * @package    Zend_Memory
+ * @subpackage Container
  */
 interface ContainerInterface
 {

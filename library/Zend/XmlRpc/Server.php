@@ -48,7 +48,6 @@ use Zend\Server\Reflection;
  *
  * @category   Zend
  * @package    Zend_XmlRpc
- * @subpackage Server
  */
 class Server extends AbstractServer
 {

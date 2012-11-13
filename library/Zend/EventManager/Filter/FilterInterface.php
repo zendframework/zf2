@@ -18,6 +18,7 @@ use Zend\Stdlib\CallbackHandler;
  *
  * @category   Zend
  * @package    Zend_EventManager
+ * @subpackage Filter
  */
 interface FilterInterface
 {

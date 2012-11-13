@@ -15,6 +15,7 @@ use Zend\Escaper\Exception;
 /**
  * Context specific methods for use in secure output escaping
  *
+ * @category   Zend
  * @package    Zend_Escaper
  */
 class Escaper

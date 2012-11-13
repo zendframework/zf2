@@ -17,6 +17,7 @@ use Countable;
  *
  * @category   Zend
  * @package    Paginator
+ * @subpackage Adapter
  */
 interface AdapterInterface extends Countable
 {

@@ -15,9 +15,10 @@ use DOMNodeList;
 use Zend\Uri;
 
 /**
-* @category Zend
-* @package Zend_Feed_Reader
-*/
+ * @category   Zend
+ * @package    Zend_Feed
+ * @subpackage Reader
+ */
 class FeedSet extends ArrayObject
 {
 

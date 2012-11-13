@@ -16,7 +16,7 @@ namespace Zend\XmlRpc\Client\Exception;
  *
  * @category   Zend
  * @package    Zend_XmlRpc
- * @subpackage Client
+ * @subpackage Client_Exception
  */
 class HttpException extends RuntimeException
 {

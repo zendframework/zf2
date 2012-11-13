@@ -16,6 +16,7 @@ use DOMXPath;
 /**
  * Query DOM structures based on CSS selectors and/or XPath
  *
+ * @category   Zend
  * @package    Zend_Dom
  */
 class Query

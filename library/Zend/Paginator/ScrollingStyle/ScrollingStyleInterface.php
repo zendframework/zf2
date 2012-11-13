@@ -15,6 +15,7 @@ use Zend\Paginator\Paginator;
 /**
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage ScrollingStyle
  */
 interface ScrollingStyleInterface
 {

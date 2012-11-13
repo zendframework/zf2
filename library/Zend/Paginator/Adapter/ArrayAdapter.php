@@ -12,7 +12,8 @@ namespace Zend\Paginator\Adapter;
 
 /**
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
+ * @subpackage Adapter
  */
 class ArrayAdapter implements AdapterInterface
 {

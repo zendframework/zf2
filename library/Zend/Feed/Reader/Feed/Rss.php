@@ -17,9 +17,10 @@ use Zend\Feed\Reader\Collection;
 use Zend\Feed\Reader\Exception;
 
 /**
-* @category Zend
-* @package Reader
-*/
+ * @category   Zend
+ * @package    Zend_Feed
+ * @subpackage Reader_Feed
+ */
 class Rss extends AbstractFeed
 {
 

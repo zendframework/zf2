@@ -10,6 +10,11 @@
 
 namespace Zend\EventManager\Exception;
 
+/**
+ * @category   Zend
+ * @package    Zend_EventManager
+ * @subpackage Exception
+ */
 class DomainException extends \DomainException implements ExceptionInterface
 {
 }

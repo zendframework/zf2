@@ -15,9 +15,10 @@ use DOMElement;
 use Zend\Feed\Writer\Extension;
 
 /**
-* @category Zend
-* @package Zend_Feed_Writer
-*/
+ * @category   Zend
+ * @package    Zend_Feed
+ * @subpackage Writer_Extension_Threading_Renderer
+ */
 class Entry extends Extension\AbstractRenderer
 {
 

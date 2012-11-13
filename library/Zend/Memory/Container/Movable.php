@@ -20,6 +20,7 @@ use Zend\Memory\Exception;
  *
  * @category   Zend
  * @package    Zend_Memory
+ * @subpackage Container
  */
 class Movable extends AbstractContainer
 {

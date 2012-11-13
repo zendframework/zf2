@@ -13,6 +13,7 @@ namespace Zend\Escaper\Exception;
 /**
  * @category   Zend
  * @package    Zend_Escaper
+ * @subpackage Exception
  */
 interface ExceptionInterface
 {}

@@ -16,9 +16,10 @@ use Zend\Feed\Reader\Collection;
 use Zend\Feed\Reader\Extension;
 
 /**
-* @category Zend
-* @package Zend_Feed_Reader
-*/
+ * @category   Zend
+ * @package    Zend_Feed
+ * @subpackage Reader_Extension_DublinCore
+ */
 class Feed extends Extension\AbstractFeed
 {
     /**

@@ -16,9 +16,10 @@ use Zend\Feed\Reader;
 use Zend\Feed\Reader\Feed;
 
 /**
-* @category Zend
-* @package Reader
-*/
+ * @category   Zend
+ * @package    Zend_Feed
+ * @subpackage Reader_Feed_Atom
+ */
 class Source extends Feed\Atom
 {
 

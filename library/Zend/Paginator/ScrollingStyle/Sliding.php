@@ -21,6 +21,7 @@ use Zend\Paginator\Paginator;
  * @link       http://search.yahoo.com/search?p=Zend+Framework
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage ScrollingStyle
  */
 class Sliding implements ScrollingStyleInterface
 {

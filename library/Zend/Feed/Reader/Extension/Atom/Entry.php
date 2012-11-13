@@ -20,9 +20,10 @@ use Zend\Feed\Reader\Extension;
 use Zend\Uri;
 
 /**
-* @category Zend
-* @package Reader\Reader
-*/
+ * @category   Zend
+ * @package    Zend_Feed
+ * @subpackage Reader_Extension_Atom
+ */
 class Entry extends Extension\AbstractEntry
 {
     /**

@@ -22,6 +22,7 @@ use Zend\XmlRpc\Server\Exception as ServerException;
  *
  * @category   Zend
  * @package    Zend_XmlRpc
+ * @subpackage Request
  */
 class Stdin extends XmlRpcRequest
 {

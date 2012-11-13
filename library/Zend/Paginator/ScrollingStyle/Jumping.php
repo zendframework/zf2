@@ -19,6 +19,7 @@ use Zend\Paginator\Paginator;
  *
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage ScrollingStyle
  */
 class Jumping implements ScrollingStyleInterface
 {

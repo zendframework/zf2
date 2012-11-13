@@ -17,7 +17,6 @@ use Zend\Paginator\Adapter\AdapterInterface;
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @subpackage Adapter
  */
 interface AdapterAggregateInterface
 {

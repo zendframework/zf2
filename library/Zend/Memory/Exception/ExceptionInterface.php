@@ -13,6 +13,7 @@ namespace Zend\Memory\Exception;
 /**
  * @category   Zend
  * @package    Zend_Memory
+ * @subpackage Exception
  */
 interface ExceptionInterface
 {}

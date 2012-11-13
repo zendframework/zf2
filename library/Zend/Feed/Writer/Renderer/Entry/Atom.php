@@ -19,8 +19,9 @@ use Zend\Uri;
 use Zend\Validator;
 
 /**
- * @category Zend
- * @package Zend_Feed_Writer
+ * @category   Zend
+ * @package    Zend_Feed
+ * @subpackage Writer_Renderer_Entry
  */
 class Atom extends Renderer\AbstractRenderer implements Renderer\RendererInterface
 {

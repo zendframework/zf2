@@ -14,9 +14,10 @@ use DOMDocument;
 use DOMElement;
 
 /**
-* @category Zend
-* @package  Zend_Feed_Writer
-*/
+ * @category   Zend
+ * @package    Zend_Feed
+ * @subpackage Writer_Extension
+ */
 interface RendererInterface
 {
     /**

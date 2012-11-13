@@ -20,8 +20,8 @@ use Iterator;
 /**
  * Nodelist for DOM XPath query
  *
+ * @category   Zend
  * @package    Zend_Dom
- * @subpackage Query
  */
 class NodeList implements Iterator, Countable
 {

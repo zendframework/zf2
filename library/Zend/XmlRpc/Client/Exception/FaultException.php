@@ -17,7 +17,7 @@ use Zend\XmlRpc\Exception;
  *
  * @category   Zend
  * @package    Zend_XmlRpc
- * @subpackage Client
+ * @subpackage Client_Exception
  */
 class FaultException extends Exception\BadMethodCallException implements ExceptionInterface
 {
