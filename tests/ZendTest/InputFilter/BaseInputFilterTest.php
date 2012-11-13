@@ -569,4 +569,36 @@ class BaseInputFilterTest extends TestCase
         $this->assertArrayHasKey('foo', $messages);
         $this->assertNotEmpty($messages['foo']);
     }
+
+    public function testValidateUseExplode()
+    {
+        $filter = new InputFilter();
+
+        $input = new Input();
+        $input->setRequired(true);
+
+        $input->getValidatorChain()->addValidator(
+            new \Zend\Validator\Explode(
+                array(
+                    'validator' => new \Zend\Validator\IsInstanceOf(
+                        array(
+                            'className' => 'Zend\InputFilter\Input'
+                        )
+                    )
+                )
+            )
+        );
+
+        $filter->add($input, 'example');
+
+        $data = array(
+            'example' => array(
+                $input
+            )
+        );
+
+        $filter->setData($data);
+        $this->assertTrue($filter->isValid());
+
+    }
 }
