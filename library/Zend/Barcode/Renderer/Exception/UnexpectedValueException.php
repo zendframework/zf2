@@ -17,6 +17,7 @@ use Zend\Barcode\Exception;
  *
  * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Renderer_Exception
  */
 class UnexpectedValueException extends Exception\UnexpectedValueException implements
     ExceptionInterface

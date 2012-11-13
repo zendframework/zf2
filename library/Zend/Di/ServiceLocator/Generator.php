@@ -23,6 +23,7 @@ use Zend\Di\Exception;
  *
  * @category   Zend
  * @package    Zend_Di
+ * @subpackage ServiceLocator
  */
 class Generator
 {

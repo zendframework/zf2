@@ -17,6 +17,7 @@ use Zend\Di\Exception;
  *
  * @category   Zend
  * @package    Zend_Di
+ * @subpackage Definition
  */
 class BuilderDefinition implements DefinitionInterface
 {

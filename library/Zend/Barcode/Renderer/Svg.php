@@ -19,6 +19,7 @@ use DOMText;
  *
  * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Renderer
  */
 class Svg extends AbstractRenderer
 {

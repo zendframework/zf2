@@ -15,7 +15,7 @@ use Zend\Db\Sql\Exception;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Sql
+ * @subpackage Sql_Predicate
  */
 class Operator implements PredicateInterface
 {

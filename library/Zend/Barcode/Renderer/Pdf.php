@@ -20,6 +20,7 @@ use ZendPdf\PdfDocument;
  *
  * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Renderer
  */
 class Pdf extends AbstractRenderer
 {

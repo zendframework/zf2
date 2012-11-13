@@ -20,7 +20,6 @@ use Zend\Math\Rand;
  *
  * @category   Zend
  * @package    Zend_Captcha
- * @subpackage Adapter
  */
 abstract class AbstractWord extends AbstractAdapter
 {

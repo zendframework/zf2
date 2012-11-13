@@ -15,7 +15,7 @@ use Zend\Code\Exception\ExceptionInterface as Exception;
 /**
  * @category   Zend
  * @package    Zend_Code
- * @subpackage Reflection
+ * @subpackage Reflection_Exception
  */
 interface ExceptionInterface extends Exception
 {}

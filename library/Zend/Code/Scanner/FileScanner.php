@@ -13,6 +13,11 @@ namespace Zend\Code\Scanner;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Exception;
 
+/**
+ * @category   Zend
+ * @package    Zend_Code
+ * @subpackage Scanner
+ */
 class FileScanner extends TokenArrayScanner implements ScannerInterface
 {
     /**

@@ -17,7 +17,7 @@ use Zend\Db\Adapter\ParameterContainer;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver_Mysqli
  */
 class Statement implements StatementInterface
 {

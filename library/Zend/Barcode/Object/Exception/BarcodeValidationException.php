@@ -15,6 +15,7 @@ namespace Zend\Barcode\Object\Exception;
  *
  * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object_Exception
  */
 class BarcodeValidationException extends InvalidArgumentException
 {

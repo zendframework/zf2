@@ -20,6 +20,7 @@ use Zend\Math;
  *
  * @category   Zend
  * @package    Zend_Crypt
+ * @subpackage PublicKey
  */
 class DiffieHellman
 {

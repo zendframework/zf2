@@ -17,7 +17,7 @@ use Zend\Db\TableGateway\Exception;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage TableGateway
+ * @subpackage TableGateway_Feature
  */
 class MetadataFeature extends AbstractFeature
 {

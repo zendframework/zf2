@@ -14,6 +14,11 @@ use Zend\Code\Annotation;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+/**
+ * @category   Zend
+ * @package    Zend_Code
+ * @subpackage Scanner
+ */
 class MethodScanner implements ScannerInterface
 {
     protected $isScanned    = false;

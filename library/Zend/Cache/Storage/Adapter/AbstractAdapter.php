@@ -28,7 +28,7 @@ use Zend\EventManager\EventsCapableInterface;
 /**
  * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Adapter
  */
 abstract class AbstractAdapter implements StorageInterface, EventsCapableInterface
 {

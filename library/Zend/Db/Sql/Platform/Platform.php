@@ -12,6 +12,11 @@ namespace Zend\Db\Sql\Platform;
 
 use Zend\Db\Adapter\Adapter;
 
+/**
+ * @category   Zend
+ * @package    Zend_Db
+ * @subpackage Sql_Platform
+ */
 class Platform extends AbstractPlatform
 {
 

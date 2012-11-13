@@ -17,7 +17,7 @@ use Zend\Cache\Exception;
  *
  * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Adapter
  */
 class DbaOptions extends AdapterOptions
 {

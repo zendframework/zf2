@@ -18,6 +18,7 @@ use Zend\Stdlib\ErrorHandler;
  *
  * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Renderer
  */
 class Image extends AbstractRenderer
 {

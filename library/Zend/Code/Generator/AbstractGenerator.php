@@ -14,7 +14,8 @@ use Traversable;
 
 /**
  * @category   Zend
- * @package    Zend_Code_Generator
+ * @package    Zend_Code
+ * @subpackage Generator
  */
 abstract class AbstractGenerator implements GeneratorInterface
 {

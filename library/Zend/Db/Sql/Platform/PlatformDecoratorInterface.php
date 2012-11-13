@@ -10,6 +10,11 @@
 
 namespace Zend\Db\Sql\Platform;
 
+/**
+ * @category   Zend
+ * @package    Zend_Db
+ * @subpackage Sql_Platform
+ */
 interface PlatformDecoratorInterface
 {
     public function setSubject($subject);

@@ -14,7 +14,8 @@ use Zend\Code\Reflection\MethodReflection;
 
 /**
  * @category   Zend
- * @package    Zend_Code_Generator
+ * @package    Zend_Code
+ * @subpackage Generator
  */
 class MethodGenerator extends AbstractMemberGenerator
 {

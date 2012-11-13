@@ -15,6 +15,7 @@ namespace Zend\Barcode\Object;
  *
  * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object
  */
 class Ean13 extends AbstractObject
 {

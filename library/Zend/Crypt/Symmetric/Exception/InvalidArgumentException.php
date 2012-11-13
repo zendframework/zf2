@@ -17,7 +17,7 @@ use Zend\Crypt\Exception;
  *
  * @category   Zend
  * @package    Zend_Crypt
- * @subpackage Exception
+ * @subpackage Symmetric_Exception
  */
 class InvalidArgumentException extends Exception\InvalidArgumentException implements
     ExceptionInterface

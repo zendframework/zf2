@@ -17,7 +17,7 @@ use Zend\Db\Adapter\ParameterContainer;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Pgsql
  */
 class Statement implements StatementInterface
 {

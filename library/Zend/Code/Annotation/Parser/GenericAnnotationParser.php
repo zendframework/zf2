@@ -22,8 +22,9 @@ use Zend\EventManager\EventInterface;
  * will be passed annotation content to their initialize() method, which
  * they are then responsible for parsing.
  *
+ * @category   Zend
  * @package    Zend_Code
- * @subpackage Annotation
+ * @subpackage Annotation_Parser
  */
 class GenericAnnotationParser implements ParserInterface
 {

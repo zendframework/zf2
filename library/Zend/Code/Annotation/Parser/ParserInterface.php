@@ -13,8 +13,9 @@ namespace Zend\Code\Annotation\Parser;
 use Zend\EventManager\EventInterface;
 
 /**
+ * @category   Zend
  * @package    Zend_Code
- * @subpackage Annotation
+ * @subpackage Annotation_Parser
  */
 interface ParserInterface
 {

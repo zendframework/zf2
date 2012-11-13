@@ -19,7 +19,6 @@ use Zend\Text\Figlet\Figlet as FigletManager;
  *
  * @category   Zend
  * @package    Zend_Captcha
- * @subpackage Adapter
  */
 class Figlet extends AbstractWord
 {

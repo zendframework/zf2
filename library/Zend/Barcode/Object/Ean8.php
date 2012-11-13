@@ -17,6 +17,7 @@ use Zend\Validator\Barcode as BarcodeValidator;
  *
  * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object
  */
 class Ean8 extends Ean13
 {

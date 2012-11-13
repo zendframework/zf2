@@ -10,6 +10,11 @@
 
 namespace Zend\Code\Reflection\DocBlock\Tag;
 
+/**
+ * @category   Zend
+ * @package    Zend_Code
+ * @subpackage Reflection_DocBlock_Tag
+ */
 interface TagInterface
 {
     public function getName();

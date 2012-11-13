@@ -14,6 +14,11 @@ use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+/**
+ * @category   Zend
+ * @package    Zend_Code
+ * @subpackage Scanner
+ */
 class TokenArrayScanner implements ScannerInterface
 {
     /**

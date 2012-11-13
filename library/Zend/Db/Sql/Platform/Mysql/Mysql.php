@@ -12,6 +12,11 @@ namespace Zend\Db\Sql\Platform\Mysql;
 
 use Zend\Db\Sql\Platform\AbstractPlatform;
 
+/**
+ * @category   Zend
+ * @package    Zend_Db
+ * @subpackage Sql_Platform_Mysql
+ */
 class Mysql extends AbstractPlatform
 {
 

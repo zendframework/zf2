@@ -15,6 +15,7 @@ namespace Zend\Di\Definition\Builder;
  *
  * @category   Zend
  * @package    Zend_Di
+ * @subpackage Definition_Builder
  */
 class PhpClass
 {

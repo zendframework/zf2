@@ -12,7 +12,8 @@ namespace Zend\Code\Reflection\DocBlock\Tag;
 
 /**
  * @category   Zend
- * @package    Zend_Reflection
+ * @package    Zend_Code
+ * @subpackage Reflection_DocBlock_Tag
  */
 class PropertyTag implements TagInterface
 {

@@ -15,6 +15,7 @@ namespace Zend\Crypt\Key\Derivation;
  *
  * @category   Zend
  * @package    Zend_Crypt
+ * @subpackage Key_Derivation
  */
 class SaltedS2k
 {

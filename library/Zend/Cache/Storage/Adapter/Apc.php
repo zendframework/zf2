@@ -25,7 +25,7 @@ use Zend\Cache\Storage\TotalSpaceCapableInterface;
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Storage
- * @subpackage Storage
+ * @subpackage Storage_Adapter
  */
 class Apc extends AbstractAdapter implements
     AvailableSpaceCapableInterface,

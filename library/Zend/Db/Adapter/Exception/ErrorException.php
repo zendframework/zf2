@@ -15,7 +15,7 @@ use Zend\Db\Exception;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Exception
  */
 class ErrorException extends Exception\ErrorException implements ExceptionInterface
 {

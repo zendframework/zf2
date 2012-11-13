@@ -17,7 +17,7 @@ use Zend\Crypt\Exception;
  *
  * @category   Zend
  * @package    Zend_Crypt
- * @subpackage PublicKey
+ * @subpackage PublicKey_Rsa_Exception
  */
 class RuntimeException
     extends Exception\RuntimeException

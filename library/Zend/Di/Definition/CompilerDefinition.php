@@ -23,6 +23,7 @@ use Zend\Di\Definition\Annotation;
  *
  * @category   Zend
  * @package    Zend_Di
+ * @subpackage Definition
  */
 class CompilerDefinition implements DefinitionInterface
 {

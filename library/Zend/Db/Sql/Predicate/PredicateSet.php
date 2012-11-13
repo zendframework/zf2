@@ -15,7 +15,7 @@ use Countable;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Sql
+ * @subpackage Sql_Predicate
  */
 class PredicateSet implements PredicateInterface, Countable
 {

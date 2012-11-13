@@ -14,7 +14,8 @@ use Zend\Code\Reflection\PropertyReflection;
 
 /**
  * @category   Zend
- * @package    Zend_Code_Generator
+ * @package    Zend_Code
+ * @subpackage Generator
  */
 class PropertyGenerator extends AbstractMemberGenerator
 {

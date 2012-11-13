@@ -31,6 +31,7 @@ use Zend\View\Variables;
  *
  * @category   Zend
  * @package    Zend_View
+ * @subpackage Renderer
  */
 class PhpRenderer implements Renderer, TreeRendererInterface
 {

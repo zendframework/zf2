@@ -15,7 +15,7 @@ use Zend\Db\Exception;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage ResultSet
+ * @subpackage ResultSet_Exception
  */
 class InvalidArgumentException extends Exception\InvalidArgumentException implements ExceptionInterface
 {

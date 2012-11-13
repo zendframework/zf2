@@ -19,6 +19,7 @@ use Zend\Code\Annotation\Parser\GenericAnnotationParser;
  *
  * @category   Zend
  * @package    Zend_Di
+ * @subpackage Definition
  */
 class IntrospectionStrategy
 {

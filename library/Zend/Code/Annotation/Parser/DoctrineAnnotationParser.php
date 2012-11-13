@@ -25,8 +25,9 @@ use Zend\EventManager\EventInterface;
  * are interested in, the raw annotation is passed to the DocParser in order to
  * retrieve the annotation object instance. Otherwise, it is skipped.
  *
+ * @category   Zend
  * @package    Zend_Code
- * @subpackage Annotation
+ * @subpackage Annotation_Parser
  */
 class DoctrineAnnotationParser implements ParserInterface
 {

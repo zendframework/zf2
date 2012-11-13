@@ -17,6 +17,7 @@ use Zend\Di\Di;
  *
  * @category   Zend
  * @package    Zend_Di
+ * @subpackage Display
  */
 class Console
 {

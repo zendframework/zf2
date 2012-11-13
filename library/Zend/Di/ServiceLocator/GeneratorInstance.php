@@ -15,6 +15,7 @@ namespace Zend\Di\ServiceLocator;
  *
  * @category   Zend
  * @package    Zend_Di
+ * @subpackage ServiceLocator
  */
 class GeneratorInstance
 {

@@ -17,6 +17,7 @@ use Zend\Crypt\Hmac;
  *
  * @category   Zend
  * @package    Zend_Crypt
+ * @subpackage Key_Derivation
  */
 class Pbkdf2
 {

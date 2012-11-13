@@ -16,7 +16,7 @@ namespace Zend\Cache\Storage\Adapter;
  *
  * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Adapter
  */
 class WinCacheOptions extends AdapterOptions
 {

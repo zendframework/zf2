@@ -17,6 +17,7 @@ use Zend\View\Exception;
 /**
  * @category   Zend
  * @package    Zend_View
+ * @subpackage Helper
  */
 class PaginationControl extends AbstractHelper
 {

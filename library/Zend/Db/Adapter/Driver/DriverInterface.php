@@ -13,7 +13,7 @@ namespace Zend\Db\Adapter\Driver;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver
  */
 interface DriverInterface
 {

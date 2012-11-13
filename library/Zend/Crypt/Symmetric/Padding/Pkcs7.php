@@ -15,6 +15,7 @@ namespace Zend\Crypt\Symmetric\Padding;
  *
  * @category   Zend
  * @package    Zend_Crypt
+ * @subpackage Symmetric_Padding
  */
 class Pkcs7 implements PaddingInterface
 {

@@ -15,6 +15,7 @@ use DomainException;
 /**
  * @category   Zend
  * @package    Zend_Di
+ * @subpackage Exception
  */
 class MissingPropertyException extends DomainException implements ExceptionInterface
 {

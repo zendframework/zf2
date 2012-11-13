@@ -13,7 +13,7 @@ namespace Zend\Db\Metadata\Object;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Metadata
+ * @subpackage Metadata_Object
  */
 class ColumnObject
 {

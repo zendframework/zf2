@@ -18,7 +18,8 @@ use Zend\Code\Scanner\FileScanner;
 
 /**
  * @category   Zend
- * @package    Zend_Reflection
+ * @package    Zend_Code
+ * @subpackage Reflection
  */
 class ClassReflection extends ReflectionClass implements ReflectionInterface
 {

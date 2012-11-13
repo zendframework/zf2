@@ -24,7 +24,7 @@ use Zend\Cache\Storage\TotalSpaceCapableInterface;
 /**
  * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Adapter
  */
 class Memory extends AbstractAdapter implements
     AvailableSpaceCapableInterface,

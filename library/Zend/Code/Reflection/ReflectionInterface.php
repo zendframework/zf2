@@ -12,6 +12,11 @@ namespace Zend\Code\Reflection;
 
 use Reflector;
 
+/**
+ * @category   Zend
+ * @package    Zend_Code
+ * @subpackage Reflection
+ */
 interface ReflectionInterface extends Reflector
 {
     public function toString();

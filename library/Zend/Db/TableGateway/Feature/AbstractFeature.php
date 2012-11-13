@@ -13,6 +13,11 @@ namespace Zend\Db\TableGateway\Feature;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\TableGateway\Exception;
 
+/**
+ * @category   Zend
+ * @package    Zend_Db
+ * @subpackage TableGateway_Feature
+ */
 abstract class AbstractFeature extends AbstractTableGateway
 {
 

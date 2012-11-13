@@ -15,7 +15,7 @@ use Zend\Code\Exception;
 /**
  * @category   Zend
  * @package    Zend_Code
- * @subpackage Reflection
+ * @subpackage Reflection_Exception
  */
 class BadMethodCallException extends Exception\BadMethodCallException implements
     ExceptionInterface

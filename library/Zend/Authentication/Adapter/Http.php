@@ -22,7 +22,7 @@ use Zend\Uri\UriFactory;
  *
  * @category   Zend
  * @package    Zend_Authentication
- * @subpackage Adapter_Http
+ * @subpackage Adapter
  * @todo       Support auth-int
  * @todo       Track nonces, nonce-count, opaque for replay protection and stale support
  * @todo       Support Authentication-Info header

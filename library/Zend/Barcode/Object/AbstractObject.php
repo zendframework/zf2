@@ -20,6 +20,7 @@ use Zend\Validator\Barcode as BarcodeValidator;
  *
  * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object
  */
 abstract class AbstractObject implements ObjectInterface
 {

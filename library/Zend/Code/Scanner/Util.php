@@ -16,6 +16,7 @@ use Zend\Code\Exception;
 /**
  * Shared utility methods used by scanners
  *
+ * @category   Zend 
  * @package    Zend_Code
  * @subpackage Scanner
  */

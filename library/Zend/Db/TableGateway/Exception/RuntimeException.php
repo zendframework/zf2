@@ -15,7 +15,7 @@ use Zend\Db\Exception;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage TableGateway
+ * @subpackage TableGateway_Exception
  */
 class RuntimeException extends Exception\InvalidArgumentException implements ExceptionInterface
 {

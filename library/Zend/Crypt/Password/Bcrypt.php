@@ -19,6 +19,7 @@ use Zend\Stdlib\ArrayUtils;
  *
  * @category   Zend
  * @package    Zend_Crypt
+ * @subpackage Password
  */
 class Bcrypt implements PasswordInterface
 {

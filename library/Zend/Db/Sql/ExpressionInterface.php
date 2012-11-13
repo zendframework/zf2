@@ -10,6 +10,11 @@
 
 namespace Zend\Db\Sql;
 
+/**
+ * @category   Zend
+ * @package    Zend_Db
+ * @subpackage Sql
+ */
 interface ExpressionInterface
 {
     const TYPE_IDENTIFIER = 'identifier';

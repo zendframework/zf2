@@ -20,7 +20,6 @@ use Zend\Validator\AbstractValidator;
  *
  * @category   Zend
  * @package    Zend_Captcha
- * @subpackage Adapter
  */
 abstract class AbstractAdapter extends AbstractValidator implements AdapterInterface
 {

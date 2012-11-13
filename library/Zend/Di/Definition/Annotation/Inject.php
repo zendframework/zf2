@@ -17,6 +17,7 @@ use Zend\Code\Annotation\AnnotationInterface;
  *
  * @category   Zend
  * @package    Zend_Di
+ * @subpackage Definition_Annotation
  */
 class Inject implements AnnotationInterface
 {

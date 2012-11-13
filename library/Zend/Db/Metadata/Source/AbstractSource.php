@@ -17,7 +17,7 @@ use Zend\Db\Metadata\Object;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Metadata
+ * @subpackage Metadata_Source
  */
 abstract class AbstractSource implements MetadataInterface
 {

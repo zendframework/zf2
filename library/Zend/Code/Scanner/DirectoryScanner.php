@@ -14,6 +14,11 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Zend\Code\Exception;
 
+/**
+ * @category   Zend
+ * @package    Zend_Code
+ * @subpackage Scanner
+ */
 class DirectoryScanner implements ScannerInterface
 {
     /**

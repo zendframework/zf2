@@ -15,7 +15,7 @@ use Zend\Db\Adapter\StatementContainerInterface;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver
  */
 interface StatementInterface extends StatementContainerInterface
 {

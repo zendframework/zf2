@@ -15,7 +15,7 @@ use Zend\Db\Adapter\Adapter;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Metadata
+ * @subpackage Metadata_Source
  */
 class MysqlMetadata extends AbstractSource
 {

@@ -16,7 +16,7 @@ use Zend\EventManager\EventInterface;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage TableGateway
+ * @subpackage TableGateway_Feature_EventFeature
  */
 class TableGatewayEvent implements EventInterface
 {

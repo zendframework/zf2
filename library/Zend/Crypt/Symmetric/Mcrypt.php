@@ -22,6 +22,7 @@ use Zend\Stdlib\ArrayUtils;
  *
  * @category   Zend
  * @package    Zend_Crypt
+ * @subpackage Symmetric
  */
 class Mcrypt implements SymmetricInterface
 {

@@ -13,7 +13,7 @@ namespace Zend\Db\Adapter\Platform;
 /**
  * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Platform
  */
 class Postgresql implements PlatformInterface
 {
