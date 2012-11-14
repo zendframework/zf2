@@ -13,7 +13,6 @@ namespace Zend\Code\Generator\Exception;
 use Zend\Code\Exception\ExceptionInterface as Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Generator_Exception
  */

@@ -13,7 +13,6 @@ namespace Zend\Barcode\Object;
 /**
  * Interface for generate Barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
  */

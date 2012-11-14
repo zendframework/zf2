@@ -15,7 +15,6 @@ use Closure;
 /**
  * Simple service locator implementation capable of using closures to generate instances
  *
- * @category   Zend
  * @package    Zend_Di
  */
 class ServiceLocator implements ServiceLocatorInterface

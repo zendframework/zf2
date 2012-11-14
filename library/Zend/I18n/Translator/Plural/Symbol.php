@@ -21,7 +21,6 @@ use Zend\I18n\Exception;
  * themselves, as they have to be accessed via the appropriate getter and
  * setter methods.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Translator
  */

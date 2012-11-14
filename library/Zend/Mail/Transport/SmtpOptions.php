@@ -14,7 +14,6 @@ use Zend\Mail\Exception;
 use Zend\Stdlib\AbstractOptions;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
  */

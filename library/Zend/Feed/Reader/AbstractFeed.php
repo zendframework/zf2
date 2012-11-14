@@ -15,7 +15,6 @@ use DOMElement;
 use DOMXPath;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Reader
  */

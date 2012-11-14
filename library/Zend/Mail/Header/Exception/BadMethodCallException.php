@@ -13,7 +13,6 @@ namespace Zend\Mail\Header\Exception;
 use Zend\Mail\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Header
  */

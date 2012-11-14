@@ -14,7 +14,6 @@ namespace Zend\Console\Charset;
  * UTF-8 box drawing
  *
  * @link http://en.wikipedia.org/wiki/Box-drawing_characters
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Charset
  */

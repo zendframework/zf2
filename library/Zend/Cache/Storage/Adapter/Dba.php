@@ -24,7 +24,6 @@ use Zend\Cache\Storage\TotalSpaceCapableInterface;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Adapter
  */

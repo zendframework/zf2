@@ -15,7 +15,6 @@ use Zend\Log\Exception;
 use Zend\Validator\ValidatorInterface as ZendValidator;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Filter
  */

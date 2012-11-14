@@ -18,7 +18,6 @@ use Zend\Math;
  * Allows two unassociated parties to establish a joint shared secret key
  * to be used in encrypting subsequent communications.
  *
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage PublicKey
  */

@@ -22,7 +22,6 @@ use Iterator;
  * Implements Countable, Iterator and ArrayAccess
  * to facilitate easy access to the data.
  *
- * @category   Zend
  * @package    Zend_Config
  */
 class Config implements Countable, Iterator, ArrayAccess

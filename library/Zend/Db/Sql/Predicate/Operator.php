@@ -13,7 +13,6 @@ namespace Zend\Db\Sql\Predicate;
 use Zend\Db\Sql\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Sql_Predicate
  */

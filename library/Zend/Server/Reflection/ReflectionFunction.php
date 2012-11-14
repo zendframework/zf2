@@ -13,7 +13,6 @@ namespace Zend\Server\Reflection;
 /**
  * Function Reflection
  *
- * @category   Zend
  * @package    Zend_Server
  * @subpackage Zend_Server_Reflection
  */

@@ -14,7 +14,6 @@ use Zend\Db\RowGateway\AbstractRowGateway;
 use Zend\Db\RowGateway\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage RowGateway_Feature
  */

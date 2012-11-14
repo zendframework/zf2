@@ -16,7 +16,6 @@ use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Sql
  */

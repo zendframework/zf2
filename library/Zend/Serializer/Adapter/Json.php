@@ -14,7 +14,6 @@ use Zend\Json\Json as ZendJson;
 use Zend\Serializer\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
  */

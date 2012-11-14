@@ -17,7 +17,6 @@ use Zend\Mvc\MvcEvent;
 /**
  * Autoloader listener
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */

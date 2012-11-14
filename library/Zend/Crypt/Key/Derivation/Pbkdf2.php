@@ -15,7 +15,6 @@ use Zend\Crypt\Hmac;
 /**
  * PKCS #5 v2.0 standard RFC 2898
  *
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Key_Derivation
  */

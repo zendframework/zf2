@@ -16,7 +16,6 @@ use Zend\Ldap\Exception;
  * This class provides a base implementation for managing schema
  * items like objectClass and attributeType.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
  */

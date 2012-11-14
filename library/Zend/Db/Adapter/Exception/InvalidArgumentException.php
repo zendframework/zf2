@@ -13,7 +13,6 @@ namespace Zend\Db\Adapter\Exception;
 use Zend\Db\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter_Exception
  */

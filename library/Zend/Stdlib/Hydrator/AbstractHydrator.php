@@ -15,7 +15,6 @@ use Zend\Stdlib\Hydrator\StrategyEnabledInterface;
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Stdlib
  * @subpackage Hydrator
  */

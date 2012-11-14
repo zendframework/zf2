@@ -18,7 +18,6 @@ use Zend\Form\FieldsetInterface;
 use Zend\View\Helper\AbstractHelper as BaseAbstractHelper;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage View
  */

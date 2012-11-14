@@ -17,7 +17,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  *
  * Validation checks that we have an Entry, Feed, or Extension\AbstractRenderer.
  *
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Writer
  */

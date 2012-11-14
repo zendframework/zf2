@@ -15,7 +15,6 @@ namespace Zend\Server\Reflection;
  *
  * Decorates a ReflectionParameter to allow setting the parameter type
  *
- * @category   Zend
  * @package    Zend_Server
  * @subpackage Zend_Server_Reflection
  */

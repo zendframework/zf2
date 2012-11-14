@@ -11,7 +11,6 @@
 namespace Zend\Filter;
 
 /**
- * @category   Zend
  * @package    Zend_Filter
  */
 class BaseName extends AbstractFilter

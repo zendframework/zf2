@@ -13,7 +13,6 @@ namespace Zend\Db\RowGateway\Feature;
 use Zend\Db\RowGateway\AbstractRowGateway;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage RowGateway_Feature
  */

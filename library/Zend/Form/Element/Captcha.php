@@ -17,7 +17,6 @@ use Zend\Form\Exception;
 use Zend\InputFilter\InputProviderInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
  */

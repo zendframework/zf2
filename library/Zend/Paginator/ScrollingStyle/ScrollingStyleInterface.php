@@ -13,7 +13,6 @@ namespace Zend\Paginator\ScrollingStyle;
 use Zend\Paginator\Paginator;
 
 /**
- * @category   Zend
  * @package    Zend_Paginator
  * @subpackage ScrollingStyle
  */

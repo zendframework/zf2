@@ -24,7 +24,6 @@ use Zend\EventManager\EventManagerInterface;
  * return an object will halt execution of the event, and that object will be
  * returned as the annotation.
  *
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Annotation
  */

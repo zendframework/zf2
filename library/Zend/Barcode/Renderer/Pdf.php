@@ -18,7 +18,6 @@ use ZendPdf\PdfDocument;
 /**
  * Class for rendering the barcode in PDF resource
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Renderer
  */

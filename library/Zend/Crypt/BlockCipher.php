@@ -19,7 +19,6 @@ use Zend\Math\Rand;
 /**
  * Encrypt using a symmetric cipher then authenticate using HMAC (SHA-256)
  *
- * @category   Zend
  * @package    Zend_Crypt
  */
 class BlockCipher

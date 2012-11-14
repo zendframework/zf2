@@ -13,7 +13,6 @@ namespace Zend\Cache\Pattern;
 use Zend\Cache\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Pattern
  */

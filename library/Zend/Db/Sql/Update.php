@@ -17,7 +17,6 @@ use Zend\Db\Adapter\Platform\PlatformInterface;
 use Zend\Db\Adapter\Platform\Sql92;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Sql
  *

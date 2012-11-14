@@ -13,7 +13,6 @@ namespace Zend\Navigation\Exception;
 /**
  * Navigation out of bounds exception
  *
- * @category   Zend
  * @package    Zend_Navigation
  * @subpackage Exception
  */

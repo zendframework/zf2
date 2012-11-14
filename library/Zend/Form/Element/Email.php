@@ -17,7 +17,6 @@ use Zend\Validator\Explode as ExplodeValidator;
 use Zend\Validator\ValidatorInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
  */

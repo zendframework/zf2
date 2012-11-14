@@ -14,7 +14,6 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\EventManager\EventInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage TableGateway_Feature_EventFeature
  */

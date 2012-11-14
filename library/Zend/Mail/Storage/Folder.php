@@ -13,7 +13,6 @@ namespace Zend\Mail\Storage;
 use RecursiveIterator;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

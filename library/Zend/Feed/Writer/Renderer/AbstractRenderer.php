@@ -15,7 +15,6 @@ use DOMElement;
 use Zend\Feed\Writer;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Writer_Renderer
  */

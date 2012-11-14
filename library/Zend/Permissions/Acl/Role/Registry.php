@@ -13,7 +13,6 @@ namespace Zend\Permissions\Acl\Role;
 use Zend\Permissions\Acl\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Permissions
  * @subpackage Acl
  */

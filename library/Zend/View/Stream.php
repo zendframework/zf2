@@ -23,7 +23,6 @@ namespace Zend\View;
  *     Mike Naberezny (@link http://mikenaberezny.com)
  *     Paul M. Jones  (@link http://paul-m-jones.com)
  *
- * @category   Zend
  * @package    Zend_View
  */
 class Stream

@@ -11,7 +11,6 @@
 namespace Zend\View\Renderer;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Renderer
  */

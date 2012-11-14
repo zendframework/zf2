@@ -14,7 +14,6 @@ use Countable;
 use Iterator;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter_Driver
  */

@@ -14,7 +14,6 @@ use Zend\Cache\Exception;
 use Zend\Cache\Storage\IteratorInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Adapter
  */

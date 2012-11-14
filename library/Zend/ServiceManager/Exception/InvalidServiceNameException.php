@@ -11,7 +11,6 @@
 namespace Zend\ServiceManager\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_ServiceManager
  * @subpackage Exception
  */

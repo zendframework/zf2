@@ -13,7 +13,6 @@ namespace Zend\Server;
 /**
  * Client Interface
  *
- * @category   Zend
  * @package    Zend_Server
  */
 interface Client

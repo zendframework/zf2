@@ -20,7 +20,6 @@ use Zend\Mail\Header\HeaderInterface;
 /**
  * Class for sending email via the PHP internal mail() function
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
  */

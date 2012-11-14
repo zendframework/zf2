@@ -20,7 +20,6 @@ use Zend\View\HelperPluginManager;
  * Navigation\HelperInterface. Additionally, it registers a number of default
  * helpers.
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

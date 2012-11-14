@@ -16,7 +16,6 @@ use Zend\Cache\Storage\StorageInterface as CacheStorage;
 /**
  * Cache session save handler
  *
- * @category   Zend
  * @package    Zend_Session
  * @subpackage SaveHandler
  */

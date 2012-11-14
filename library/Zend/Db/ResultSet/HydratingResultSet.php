@@ -15,7 +15,6 @@ use Zend\Stdlib\Hydrator\ArraySerializable;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage ResultSet
  */

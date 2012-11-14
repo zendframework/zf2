@@ -13,7 +13,6 @@ namespace Zend\Code\Reflection\Exception;
 use Zend\Code\Exception\ExceptionInterface as Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Reflection_Exception
  */

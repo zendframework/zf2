@@ -18,7 +18,6 @@ use Zend\Di\Definition\RuntimeDefinition;
 /**
  * Configures Di instances
  *
- * @category   Zend
  * @package    Zend_Di
  */
 class Config

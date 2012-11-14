@@ -29,7 +29,6 @@ use Zend\Stdlib\ArrayUtils;
  * Parses a class' properties for annotations in order to create a form and
  * input filter definition.
  *
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Annotation
  */

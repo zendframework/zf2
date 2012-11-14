@@ -22,7 +22,6 @@ use Zend\Cache\Storage\TaggableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Adapter
  */

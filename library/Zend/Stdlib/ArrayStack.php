@@ -16,7 +16,6 @@ use ArrayObject;
 /**
  * ArrayObject that acts as a stack with regards to iteration
  *
- * @category   Zend
  * @package    Zend_Stdlib
  */
 class ArrayStack extends ArrayObject

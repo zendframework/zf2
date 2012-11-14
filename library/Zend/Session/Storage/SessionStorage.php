@@ -18,7 +18,6 @@ use ArrayObject;
  * Replaces the $_SESSION superglobal with an ArrayObject that allows for
  * property access, metadata storage, locking, and immutability.
  *
- * @category   Zend
  * @package    Zend_Session
  * @subpackage Storage
  */

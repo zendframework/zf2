@@ -18,7 +18,6 @@ use Zend\I18n\Exception;
  * This plural rule parser is implemented after the article "Top Down Operator
  * Precedence" described in <http://javascript.crockford.com/tdop/tdop.html>.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Translator
  */

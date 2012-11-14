@@ -11,7 +11,6 @@
 namespace Zend\Feed\Writer;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Writer
  */

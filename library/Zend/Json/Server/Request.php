@@ -14,7 +14,6 @@ use Zend\Json;
 
 /**
  * @todo       Revised method regex to allow NS; however, should SMD be revised to strip PHP NS instead when attaching functions?
- * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
  */

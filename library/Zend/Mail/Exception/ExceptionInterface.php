@@ -11,7 +11,6 @@
 namespace Zend\Mail\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  */
 interface ExceptionInterface

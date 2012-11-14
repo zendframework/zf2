@@ -13,7 +13,6 @@ namespace Zend\Crypt\Symmetric\Padding;
 /**
  * PKCS#7 padding
  *
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Symmetric_Padding
  */

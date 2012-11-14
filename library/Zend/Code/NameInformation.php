@@ -11,7 +11,6 @@
 namespace Zend\Code;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  */
 class NameInformation

@@ -17,7 +17,6 @@ use Zend\View\Helper\HelperInterface as BaseHelperInterface;
 /**
  * Interface for navigational helpers
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

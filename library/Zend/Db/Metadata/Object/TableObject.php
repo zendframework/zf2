@@ -11,7 +11,6 @@
 namespace Zend\Db\Metadata\Object;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Metadata_Object
  */

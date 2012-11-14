@@ -13,7 +13,6 @@ namespace Zend\Ldap\Node\Schema\AttributeType;
 /**
  * This class provides a contract for schema attribute-types.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
  */

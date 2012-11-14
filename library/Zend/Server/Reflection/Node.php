@@ -13,7 +13,6 @@ namespace Zend\Server\Reflection;
 /**
  * Node Tree class for Zend_Server reflection operations
  *
- * @category   Zend
  * @package    Zend_Server
  * @subpackage Zend_Server_Reflection
  */

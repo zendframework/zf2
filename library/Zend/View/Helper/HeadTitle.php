@@ -17,7 +17,6 @@ use Zend\View\Exception;
 /**
  * Helper for setting and retrieving title element for HTML head
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

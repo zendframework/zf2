@@ -18,7 +18,6 @@ use Zend\Db\Sql\Platform\PlatformDecoratorInterface;
 use Zend\Db\Sql\Select;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Sql_Platform_SqlServer
  */

@@ -11,7 +11,6 @@
 namespace Zend\Code\Annotation;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Annotation
  */

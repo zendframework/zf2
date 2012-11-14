@@ -14,7 +14,6 @@ use Locale;
 use Traversable;
 
 /**
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Filter
  */

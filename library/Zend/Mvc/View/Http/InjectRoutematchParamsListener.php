@@ -17,7 +17,6 @@ use Zend\Console\Request as ConsoleRequest;
 use Zend\Mvc\MvcEvent;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage View
  */

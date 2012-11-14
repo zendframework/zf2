@@ -11,7 +11,6 @@
 namespace Zend\Crypt\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Exception
  */

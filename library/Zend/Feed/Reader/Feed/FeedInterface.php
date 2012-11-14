@@ -14,7 +14,6 @@ use Countable;
 use Iterator;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Reader_Feed
  */

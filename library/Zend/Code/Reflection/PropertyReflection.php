@@ -17,7 +17,6 @@ use Zend\Code\Scanner\CachingFileScanner;
 
 /**
  * @todo       implement line numbers
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Reflection
  */

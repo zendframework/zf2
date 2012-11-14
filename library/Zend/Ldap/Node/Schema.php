@@ -15,7 +15,6 @@ use Zend\Ldap;
 /**
  * Zend\Ldap\Node\Schema provides a simple data-container for the Schema node.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
  */

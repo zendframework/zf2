@@ -21,7 +21,6 @@ use Zend\View\Resolver\ResolverInterface;
  * mark them as part of the internal implementation, and thus prevent conflict
  * with variables injected into the renderer.
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Renderer
  */

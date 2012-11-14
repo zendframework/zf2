@@ -14,7 +14,6 @@ use Zend\Mail\Headers;
 use Zend\Mail\Storage\Part;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

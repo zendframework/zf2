@@ -13,7 +13,6 @@ namespace Zend\Mime\Exception;
 /**
  * Exception for Zend_Mime component.
  *
- * @category   Zend
  * @package    Zend_Mime
  * @subpackage Exception
  */

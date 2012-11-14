@@ -17,7 +17,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * @todo       How should we deal with required input when data is missing?
  *             should a message be returned? if so, what message?
- * @category   Zend
  * @package    Zend_InputFilter
  */
 class BaseInputFilter implements InputFilterInterface

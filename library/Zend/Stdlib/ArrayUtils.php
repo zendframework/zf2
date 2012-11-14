@@ -17,7 +17,6 @@ use Traversable;
  *
  * Declared abstract, as we have no need for instantiation.
  *
- * @category   Zend
  * @package    Zend_Stdlib
  */
 abstract class ArrayUtils

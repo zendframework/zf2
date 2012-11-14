@@ -15,7 +15,6 @@ use Zend\Cache\Storage\Event;
 use Zend\EventManager\EventManagerInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Plugin
  */

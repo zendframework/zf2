@@ -13,7 +13,6 @@ namespace Zend\Loader\Exception;
 require_once __DIR__ . '/ExceptionInterface.php';
 
 /**
- * @category   Zend
  * @package    Zend_Loader
  * @subpackage Exception
  */

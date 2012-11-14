@@ -16,7 +16,6 @@ use Zend\Stdlib\ErrorHandler;
 /**
  * Zend_Json_Server_Cache: cache Zend_Json_Server server definition and SMD
  *
- * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
  */

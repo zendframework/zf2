@@ -15,7 +15,6 @@ use DateTime;
 use Zend\Feed\PubSubHubbub;
 
 /**
- * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  * @subpackage Entity
  */

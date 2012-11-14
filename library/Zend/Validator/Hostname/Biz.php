@@ -13,7 +13,6 @@ namespace Zend\Validator\Hostname;
 /**
  * Resource file for biz idn validation
  *
- * @category   Zend
  * @package    Zend_Validator
  */
 return array(

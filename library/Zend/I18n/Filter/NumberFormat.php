@@ -16,7 +16,6 @@ use Zend\I18n\Exception;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Filter
  */

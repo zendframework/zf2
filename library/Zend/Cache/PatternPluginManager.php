@@ -19,7 +19,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Pattern\PatternInterface. Additionally, it registers a number of default
  * patterns available.
  *
- * @category   Zend
  * @package    Zend_Cache
  */
 class PatternPluginManager extends AbstractPluginManager

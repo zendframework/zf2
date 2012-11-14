@@ -15,7 +15,6 @@ use RecursiveIteratorIterator;
 use Zend\Code\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Scanner
  */

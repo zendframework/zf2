@@ -14,7 +14,6 @@ use Traversable;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Filter
  */
 class RealPath extends AbstractFilter

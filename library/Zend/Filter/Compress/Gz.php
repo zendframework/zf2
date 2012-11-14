@@ -15,7 +15,6 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for Gzip (ZLib)
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Gz extends AbstractCompressionAlgorithm

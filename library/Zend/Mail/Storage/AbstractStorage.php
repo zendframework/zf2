@@ -15,7 +15,6 @@ use Countable;
 use SeekableIterator;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

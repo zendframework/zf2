@@ -13,7 +13,6 @@ namespace Zend\Validator;
 use Countable;
 
 /**
- * @category   Zend
  * @package    Zend_Validator
  */
 class ValidatorChain implements

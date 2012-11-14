@@ -15,7 +15,6 @@ use Zend\Mail\Protocol;
 use Zend\Mime;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

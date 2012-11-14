@@ -15,7 +15,6 @@ use Zend\Http\Request;
 use Zend\Http\Response;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  */
 interface ApplicationInterface extends EventsCapableInterface

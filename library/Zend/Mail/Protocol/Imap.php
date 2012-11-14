@@ -13,7 +13,6 @@ namespace Zend\Mail\Protocol;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
  */

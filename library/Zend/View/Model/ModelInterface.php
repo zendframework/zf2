@@ -23,7 +23,6 @@ use Traversable;
  *
  * Extends "IteratorAggregate"; should allow iterating over children.
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Model
  */

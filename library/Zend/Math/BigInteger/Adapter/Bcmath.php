@@ -15,7 +15,6 @@ use Zend\Math\BigInteger\Exception;
 /**
  * Bcmath extension adapter
  *
- * @category   Zend
  * @package    Zend_Math
  * @subpackage BigInteger
  */

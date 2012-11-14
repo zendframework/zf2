@@ -14,7 +14,6 @@ use Zend\Filter\FilterChain;
 use Zend\Validator\ValidatorChain;
 
 /**
- * @category   Zend
  * @package    Zend_InputFilter
  */
 interface InputInterface

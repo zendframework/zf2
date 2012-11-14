@@ -19,7 +19,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Symmetric\SymmetricInterface. Additionally, it registers a number of default
  * symmetric adapters available.
  *
- * @category   Zend
  * @package    Zend_Crypt
  */
 class SymmetricPluginManager extends AbstractPluginManager

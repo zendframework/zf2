@@ -13,7 +13,6 @@ namespace Zend\Config\Writer;
 use Zend\Json\Json as JsonFormat;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Writer
  */

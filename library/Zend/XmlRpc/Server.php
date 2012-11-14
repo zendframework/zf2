@@ -46,7 +46,6 @@ use Zend\Server\Reflection;
  * echo $response;
  * </code>
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  */
 class Server extends AbstractServer

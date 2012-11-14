@@ -18,7 +18,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Enforces that SMTP extensions retrieved are instances of Smtp. Additionally,
  * it registers a number of default extensions available.
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
  */

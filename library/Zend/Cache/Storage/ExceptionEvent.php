@@ -14,7 +14,6 @@ use ArrayObject;
 use Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage
  */

@@ -11,7 +11,6 @@
 namespace Zend\Permissions\Acl;
 
 /**
- * @category   Zend
  * @package    Zend_Permissions
  * @subpackage Acl
  */

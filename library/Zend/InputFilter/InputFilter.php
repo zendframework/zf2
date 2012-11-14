@@ -13,7 +13,6 @@ namespace Zend\InputFilter;
 use Traversable;
 
 /**
- * @category   Zend
  * @package    Zend_InputFilter
  */
 class InputFilter extends BaseInputFilter

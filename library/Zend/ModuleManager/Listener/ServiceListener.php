@@ -18,7 +18,6 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */

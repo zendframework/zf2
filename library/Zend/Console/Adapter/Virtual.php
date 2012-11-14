@@ -15,7 +15,6 @@ use Zend\Console\Charset;
 /**
  * Virtual buffer adapter
  *
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Adapter
  */

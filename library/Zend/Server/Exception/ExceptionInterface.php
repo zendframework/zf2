@@ -13,7 +13,6 @@ namespace Zend\Server\Exception;
 /**
  * Zend_Server exceptions
  *
- * @category   Zend
  * @package    Zend_Server
  */
 interface ExceptionInterface

@@ -19,7 +19,6 @@ use Zend\Stdlib\CallbackHandler;
 /**
  * Default listener aggregate
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */

@@ -16,7 +16,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Compresses a given string
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Compress extends AbstractFilter

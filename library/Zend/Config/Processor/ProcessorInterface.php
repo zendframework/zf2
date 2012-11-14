@@ -13,7 +13,6 @@ namespace Zend\Config\Processor;
 use Zend\Config\Config;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Processor
  */

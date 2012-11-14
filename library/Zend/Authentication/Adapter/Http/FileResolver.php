@@ -15,7 +15,6 @@ use Zend\Stdlib\ErrorHandler;
 /**
  * HTTP Authentication File Resolver
  *
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter_Http
  */

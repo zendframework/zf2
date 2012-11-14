@@ -13,7 +13,6 @@ namespace Zend\Mail\Header;
 /**
  * Marker interface for unstructured headers.
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Header
  */

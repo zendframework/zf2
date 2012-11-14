@@ -11,7 +11,6 @@
 namespace Zend\Validator\Barcode;
 
 /**
- * @category   Zend
  * @package    Zend_Validator
  */
 class Ean18 extends AbstractAdapter

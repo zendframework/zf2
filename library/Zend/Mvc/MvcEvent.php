@@ -17,7 +17,6 @@ use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Model\ViewModel;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  */
 class MvcEvent extends Event

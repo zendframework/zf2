@@ -16,7 +16,6 @@ use Zend\View\Resolver\ResolverInterface;
 /**
  * Interface class for Zend_View compatible template engine implementations
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Renderer
  */

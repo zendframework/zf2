@@ -14,7 +14,6 @@ use Zend\Code\Generator\AbstractGenerator;
 use Zend\Code\Reflection\DocBlock\Tag\TagInterface as ReflectionDocBlockTag;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Generator_DocBlock
  */

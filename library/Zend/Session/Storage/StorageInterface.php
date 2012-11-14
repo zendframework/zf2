@@ -21,7 +21,6 @@ use Countable;
  * Defines the minimum requirements for handling userland, in-script session
  * storage (e.g., the $_SESSION superglobal array).
  *
- * @category   Zend
  * @package    Zend_Session
  */
 interface StorageInterface extends Traversable, ArrayAccess, Serializable, Countable

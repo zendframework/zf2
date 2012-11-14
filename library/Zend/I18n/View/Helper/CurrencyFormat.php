@@ -17,7 +17,6 @@ use Zend\View\Helper\AbstractHelper;
 /**
  * View helper for formatting currency.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage View
  */

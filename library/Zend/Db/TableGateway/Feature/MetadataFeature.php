@@ -15,7 +15,6 @@ use Zend\Db\Metadata\MetadataInterface;
 use Zend\Db\TableGateway\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage TableGateway_Feature
  */

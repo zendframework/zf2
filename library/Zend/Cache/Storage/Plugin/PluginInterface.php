@@ -13,7 +13,6 @@ namespace Zend\Cache\Storage\Plugin;
 use Zend\EventManager\ListenerAggregateInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Plugin
  */

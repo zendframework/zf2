@@ -13,7 +13,6 @@ namespace Zend\Soap\Wsdl\ComplexTypeStrategy;
 /**
  * Abstract class for Zend_Soap_Wsdl_Strategy.
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage WSDL
  */

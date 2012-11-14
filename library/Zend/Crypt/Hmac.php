@@ -13,7 +13,6 @@ namespace Zend\Crypt;
 /**
  * PHP implementation of the RFC 2104 Hash based Message Authentication Code
  *
- * @category   Zend
  * @package    Zend_Crypt
  */
 class Hmac

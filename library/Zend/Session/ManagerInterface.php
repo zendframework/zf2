@@ -18,7 +18,6 @@ use Zend\Session\Storage\StorageInterface as Storage;
 /**
  * Session manager interface
  *
- * @category   Zend
  * @package    Zend_Session
  */
 interface ManagerInterface

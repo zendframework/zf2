@@ -15,7 +15,6 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for Bz2
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Bz2 extends AbstractCompressionAlgorithm

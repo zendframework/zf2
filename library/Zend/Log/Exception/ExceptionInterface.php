@@ -11,7 +11,6 @@
 namespace Zend\Log\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  */
 interface ExceptionInterface

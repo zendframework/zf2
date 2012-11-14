@@ -11,7 +11,6 @@
 namespace Zend\Paginator\Exception;
 
 /**
- * @category   Zend
  * @package    Zend\Paginator
  * @subpackage Exception
  */

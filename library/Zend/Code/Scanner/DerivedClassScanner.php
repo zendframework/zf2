@@ -13,7 +13,6 @@ namespace Zend\Code\Scanner;
 use Zend\Code\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Scanner
  */

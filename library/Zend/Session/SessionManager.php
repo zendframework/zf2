@@ -16,7 +16,6 @@ use Zend\Session\SaveHandler\SaveHandlerInterface;
 /**
  * Session ManagerInterface implementation utilizing ext/session
  *
- * @category   Zend
  * @package    Zend_Session
  */
 class SessionManager extends AbstractManager

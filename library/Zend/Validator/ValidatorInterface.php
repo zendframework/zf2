@@ -11,7 +11,6 @@
 namespace Zend\Validator;
 
 /**
- * @category   Zend
  * @package    Zend_Validator
  */
 interface ValidatorInterface

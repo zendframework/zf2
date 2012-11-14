@@ -15,7 +15,6 @@ use Zend\Form\Exception;
 use Zend\Form\View\Helper\AbstractHelper;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage View
  */

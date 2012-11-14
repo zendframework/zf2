@@ -17,7 +17,6 @@ use Zend\Json\Exception\RuntimeException;
 /**
  * Class for encoding to and decoding from JSON.
  *
- * @category   Zend
  * @package    Zend_Json
  */
 class Json

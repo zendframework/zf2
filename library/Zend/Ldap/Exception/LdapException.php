@@ -13,7 +13,6 @@ namespace Zend\Ldap\Exception;
 use Zend\Ldap\Ldap;
 
 /**
- * @category   Zend
  * @package    Zend_Ldap
  */
 class LdapException extends \Exception implements ExceptionInterface

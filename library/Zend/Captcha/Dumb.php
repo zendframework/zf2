@@ -16,7 +16,6 @@ namespace Zend\Captcha;
  * Note that only rendering is necessary for word-based captcha
  *
  * @todo       This likely needs its own validation since it expects the word entered to be the strrev of the word stored.
- * @category   Zend
  * @package    Zend_Captcha
  */
 class Dumb extends AbstractWord

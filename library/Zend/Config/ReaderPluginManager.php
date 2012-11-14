@@ -13,7 +13,6 @@ namespace Zend\Config;
 use Zend\ServiceManager\AbstractPluginManager;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  */
 class ReaderPluginManager extends AbstractPluginManager

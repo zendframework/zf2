@@ -14,7 +14,6 @@ use Zend\Mail;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

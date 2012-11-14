@@ -19,7 +19,6 @@ use Zend\Mvc\ModuleRouteListener;
  * Represents a page that is defined using controller, action, route
  * name and route params to assemble the href
  *
- * @category   Zend
  * @package    Zend_Navigation
  * @subpackage Page
  */

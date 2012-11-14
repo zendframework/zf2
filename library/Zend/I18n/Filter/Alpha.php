@@ -13,7 +13,6 @@ namespace Zend\I18n\Filter;
 use Locale;
 
 /**
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Filter
  */

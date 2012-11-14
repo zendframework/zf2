@@ -11,7 +11,6 @@
 namespace Zend\Math\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Math
  */
 interface ExceptionInterface

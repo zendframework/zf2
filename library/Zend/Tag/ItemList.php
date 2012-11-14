@@ -17,7 +17,6 @@ use Zend\Tag\Exception\InvalidArgumentException;
 use Zend\Tag\Exception\OutOfBoundsException;
 
 /**
- * @category   Zend
  * @package    Zend_Tag
  */
 class ItemList implements Countable, SeekableIterator, ArrayAccess

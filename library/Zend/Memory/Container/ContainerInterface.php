@@ -13,7 +13,6 @@ namespace Zend\Memory\Container;
 /**
  * Memory value container interface
  *
- * @category   Zend
  * @package    Zend_Memory
  * @subpackage Container
  */

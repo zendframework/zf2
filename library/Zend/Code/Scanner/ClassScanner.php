@@ -14,7 +14,6 @@ use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Scanner
  */

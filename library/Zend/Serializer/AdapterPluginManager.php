@@ -19,7 +19,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Adapter\AdapterInterface. Additionally, it registers a number of default
  * adapters available.
  *
- * @category   Zend
  * @package    Zend_Serializer
  */
 class AdapterPluginManager extends AbstractPluginManager

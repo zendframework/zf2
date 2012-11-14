@@ -36,7 +36,6 @@ use Zend\Stdlib\ArrayUtils;
  * The return value of dispatching the controller is placed into the result
  * property of the MvcEvent, and returned.
  *
- * @category   Zend
  * @package    Zend_Mvc
  */
 class DispatchListener implements ListenerAggregateInterface

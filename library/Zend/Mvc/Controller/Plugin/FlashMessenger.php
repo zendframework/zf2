@@ -21,7 +21,6 @@ use Zend\Stdlib\SplQueue;
 /**
  * Flash Messenger - implement session-based messages
  *
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller\Plugin
  */

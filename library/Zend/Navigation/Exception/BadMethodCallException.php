@@ -13,7 +13,6 @@ namespace Zend\Navigation\Exception;
 /**
  * Navigation bad method call exception
  *
- * @category   Zend
  * @package    Zend_Navigation
  * @subpackage Exception
  */

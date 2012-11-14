@@ -15,7 +15,6 @@ use Zend\Code\Annotation\AnnotationInterface;
 /**
  * Annotation for instantiator
  *
- * @category   Zend
  * @package    Zend_Di
  * @subpackage Definition_Annotation
  */

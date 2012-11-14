@@ -11,7 +11,6 @@
 namespace Zend\Stdlib\Hydrator;
 
 /**
- * @category   Zend
  * @package    Zend_Stdlib
  * @subpackage Hydrator
  */

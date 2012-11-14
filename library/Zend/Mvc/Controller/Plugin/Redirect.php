@@ -17,7 +17,6 @@ use Zend\Mvc\MvcEvent;
 
 /**
  * @todo       allow specifying status code as a default, or as an option to methods
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

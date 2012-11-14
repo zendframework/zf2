@@ -12,7 +12,6 @@ namespace Zend\Mail\Header;
 
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Header
  */

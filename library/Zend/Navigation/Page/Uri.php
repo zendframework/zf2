@@ -15,7 +15,6 @@ use Zend\Navigation\Exception;
 /**
  * Represents a page that is defined by specifying a URI
  *
- * @category   Zend
  * @package    Zend_Navigation
  * @subpackage Page
  */

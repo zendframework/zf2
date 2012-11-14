@@ -11,7 +11,6 @@
 namespace Zend\Mvc\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Exception
  */

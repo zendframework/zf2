@@ -13,7 +13,6 @@ namespace Zend\Tag\Cloud\Decorator;
 /**
  * Interface for decorators
  *
- * @category   Zend
  * @package    Zend_Tag
  * @subpackage Cloud
  */

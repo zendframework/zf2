@@ -13,7 +13,6 @@ namespace Zend\Db\Sql\Exception;
 use Zend\Db\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Sql_Exception
  */

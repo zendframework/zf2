@@ -16,7 +16,6 @@ use Zend\Db\RowGateway\RowGatewayInterface;
 use Zend\Db\TableGateway\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage TableGateway_Feature
  */

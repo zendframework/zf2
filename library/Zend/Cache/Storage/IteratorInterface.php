@@ -13,7 +13,6 @@ namespace Zend\Cache\Storage;
 use Iterator;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage
  */

@@ -16,7 +16,6 @@ use Zend\Ldap as ZendLdap;
 use Zend\Ldap\Exception\LdapException;
 
 /**
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter
  */

@@ -18,7 +18,6 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteStackInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

@@ -15,7 +15,6 @@ use Zend\Loader\PluginClassLoader;
 /**
  * Plugin Class Loader implementation for HTTP headers
  *
- * @category   Zend
  * @package    Zend_Http
  */
 class HeaderLoader extends PluginClassLoader

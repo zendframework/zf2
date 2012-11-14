@@ -13,7 +13,6 @@ namespace Zend\EventManager\Exception;
 /**
  * Invalid argument exception
  *
- * @category   Zend
  * @package    Zend_EventManager
  * @subpackage Exception
  */

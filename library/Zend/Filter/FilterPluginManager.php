@@ -19,7 +19,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * FilterInterface. Additionally, it registers a number of default filters
  * available, as well as aliases for them.
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class FilterPluginManager extends AbstractPluginManager

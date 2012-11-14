@@ -15,7 +15,6 @@ use Zend\Stdlib\CallbackHandler;
 /**
  * FilterChain: intercepting filter manager
  *
- * @category   Zend
  * @package    Zend_EventManager
  */
 class FilterChain implements Filter\FilterInterface

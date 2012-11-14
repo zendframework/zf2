@@ -17,7 +17,6 @@ use Zend\Json\Exception\RuntimeException;
 /**
  * Decode JSON encoded string to PHP variable constructs
  *
- * @category   Zend
  * @package    Zend_Json
  */
 class Decoder

@@ -13,7 +13,6 @@ namespace Zend\Server;
 /**
  * Server methods metadata
  *
- * @category   Zend
  * @package    Zend_Server
  */
 class Definition implements \Countable, \Iterator

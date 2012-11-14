@@ -15,7 +15,6 @@ use Zend\Cache\Exception;
 /**
  * These are options specific to the APC adapter
  *
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Adapter
  */

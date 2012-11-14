@@ -14,7 +14,6 @@ use Traversable;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @category   Zend
  * @package    Zend_Tag
  */
 class Item implements TaggableInterface

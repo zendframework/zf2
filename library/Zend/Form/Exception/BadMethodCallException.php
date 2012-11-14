@@ -11,7 +11,6 @@
 namespace Zend\Form\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  */
 class BadMethodCallException

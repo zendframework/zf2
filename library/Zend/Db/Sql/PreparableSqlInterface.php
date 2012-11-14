@@ -14,7 +14,6 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\StatementContainerInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Sql
  */

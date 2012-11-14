@@ -14,7 +14,6 @@ use Reflector;
 use Zend\Code\Scanner\DocBlockScanner;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Reflection
  */

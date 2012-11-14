@@ -13,7 +13,6 @@ namespace Zend\Json\Server\Exception;
 use Zend\Json\Exception\ExceptionInterface as Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
  */

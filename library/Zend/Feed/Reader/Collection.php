@@ -11,7 +11,6 @@
 namespace Zend\Feed\Reader;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Reader
  */

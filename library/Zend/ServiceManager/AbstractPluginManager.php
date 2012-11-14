@@ -20,7 +20,6 @@ namespace Zend\ServiceManager;
  * default to allow registering factories, aliases, and invokables to take
  * the place of those provided by the implementing class.
  *
- * @category   Zend
  * @package    Zend_ServiceManager
  */
 abstract class AbstractPluginManager extends ServiceManager implements ServiceLocatorAwareInterface

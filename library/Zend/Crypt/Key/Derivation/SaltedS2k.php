@@ -13,7 +13,6 @@ namespace Zend\Crypt\Key\Derivation;
 /**
  * Salted S2K key generation (OpenPGP document, RFC 2440)
  *
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Key_Derivation
  */

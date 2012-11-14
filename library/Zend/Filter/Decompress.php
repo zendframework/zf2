@@ -13,7 +13,6 @@ namespace Zend\Filter;
 /**
  * Decompresses a given string
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Decompress extends Compress

@@ -13,7 +13,6 @@ namespace Zend\Console\Prompt;
 use Zend\Console\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Prompt
  */

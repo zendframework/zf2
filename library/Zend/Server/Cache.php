@@ -15,7 +15,6 @@ use Zend\Stdlib\ErrorHandler;
 /**
  * \Zend\Server\Cache: cache server definitions
  *
- * @category   Zend
  * @package    Zend_Server
  */
 class Cache

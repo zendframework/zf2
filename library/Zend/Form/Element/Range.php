@@ -18,7 +18,6 @@ use Zend\Validator\Step as StepValidator;
 use Zend\Validator\ValidatorInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
  */

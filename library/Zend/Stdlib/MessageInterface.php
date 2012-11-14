@@ -11,7 +11,6 @@
 namespace Zend\Stdlib;
 
 /**
- * @category   Zend
  * @package    Zend_Stdlib
  */
 interface MessageInterface

@@ -13,7 +13,6 @@ namespace Zend\View\Helper;
 /**
  * Helper for ordered and unordered lists
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

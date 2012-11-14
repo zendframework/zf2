@@ -16,7 +16,6 @@ namespace Zend\Server\Reflection;
  * Proxies calls to a ReflectionClass object, and decorates getMethods() by
  * creating its own list of {@link Zend_Server_Reflection_Method}s.
  *
- * @category   Zend
  * @package    Zend_Server
  * @subpackage Zend_Server_Reflection
  */

@@ -19,7 +19,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * \Zend\Soap\Client
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage Client
  */

@@ -13,7 +13,6 @@ namespace Zend\File\Transfer\Adapter;
 use Zend\Validator\ValidatorPluginManager as BaseManager;
 
 /**
- * @category   Zend
  * @package    Zend_File_Transfer
  */
 class ValidatorPluginManager extends BaseManager

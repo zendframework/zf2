@@ -16,7 +16,6 @@ use Zend\Config\Exception;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Writer
  */

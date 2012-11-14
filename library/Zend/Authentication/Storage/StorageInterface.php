@@ -11,7 +11,6 @@
 namespace Zend\Authentication\Storage;
 
 /**
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Storage
  */

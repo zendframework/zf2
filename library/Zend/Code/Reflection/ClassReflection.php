@@ -17,7 +17,6 @@ use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\Scanner\FileScanner;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Reflection
  */

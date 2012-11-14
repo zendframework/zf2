@@ -13,7 +13,6 @@ namespace Zend\Di\Definition;
 /**
  * Class definitions based on a given array
  *
- * @category   Zend
  * @package    Zend_Di
  * @subpackage Definition
  */

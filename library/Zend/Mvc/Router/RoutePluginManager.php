@@ -20,7 +20,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * instance. The manager is marked to not share by default, in order to allow
  * multiple route instances of the same type.
  *
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Router
  */

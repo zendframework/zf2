@@ -13,7 +13,6 @@ namespace Zend\XmlRpc\Generator;
 /**
  * DOMDocument based implementation of a XML/RPC generator
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Generator
  */

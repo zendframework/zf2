@@ -23,7 +23,6 @@ use Zend\View\Resolver\ResolverInterface as Resolver;
 /**
  * JSON renderer
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Renderer
  */

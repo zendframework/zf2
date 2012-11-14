@@ -23,7 +23,6 @@ use Zend\Session\Storage\StorageInterface as Storage;
  * Additionally, expiries may be absolute TTLs or measured in "hops", which
  * are based on how many times the key or container were accessed.
  *
- * @category   Zend
  * @package    Zend_Session
  */
 class Container extends ArrayObject

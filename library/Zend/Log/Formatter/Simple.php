@@ -13,7 +13,6 @@ namespace Zend\Log\Formatter;
 use Zend\Log\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
  */

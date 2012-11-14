@@ -13,7 +13,6 @@ namespace Zend\Crypt\Symmetric\Exception;
 use Zend\Crypt\Exception\ExceptionInterface as Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Symmetric_Exception
  */

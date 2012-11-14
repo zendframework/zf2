@@ -15,7 +15,6 @@ use Zend\Ldap;
 /**
  * Zend\Ldap\Node\ChildrenIterator provides an iterator to a collection of children nodes.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Node
  */

@@ -15,7 +15,6 @@ use Zend\Feed\Writer;
 use Zend\Feed\Writer\Renderer;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Writer_Renderer_Feed
  */

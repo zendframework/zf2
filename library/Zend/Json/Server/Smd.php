@@ -14,7 +14,6 @@ use Zend\Json\Server\Exception\InvalidArgumentException;
 use Zend\Json\Server\Exception\RuntimeException;
 
 /**
- * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
  */

@@ -16,7 +16,6 @@ use Zend\Feed\Writer\FeedFactory;
 /**
  * Marker view model for indicating feed data.
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Model
  */

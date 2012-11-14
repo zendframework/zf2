@@ -18,7 +18,6 @@ use Zend\Math\Rand;
  *
  * Generates random word which user should recognise
  *
- * @category   Zend
  * @package    Zend_Captcha
  */
 abstract class AbstractWord extends AbstractAdapter

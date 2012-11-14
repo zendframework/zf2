@@ -18,7 +18,6 @@ use Zend\Ldap\Node;
  * Zend\Ldap\Node\Schema\OpenLDAP provides a simple data-container for the Schema node of
  * an OpenLDAP server.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
  */

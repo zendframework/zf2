@@ -11,7 +11,6 @@
 namespace Zend\Mail\Storage\Folder;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

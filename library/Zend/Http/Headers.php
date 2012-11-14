@@ -21,7 +21,6 @@ use Zend\Loader\PluginClassLocator;
  * Basic HTTP headers collection functionality
  * Handles aggregation of headers
  *
- * @category   Zend
  * @package    Zend_Http
  * @see        http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2
  */

@@ -23,7 +23,6 @@ use Zend\Stdlib\Glob;
 /**
  * Config listener
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */

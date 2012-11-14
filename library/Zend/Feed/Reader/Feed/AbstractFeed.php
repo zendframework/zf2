@@ -17,7 +17,6 @@ use Zend\Feed\Reader;
 use Zend\Feed\Reader\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Reader_Feed
  */

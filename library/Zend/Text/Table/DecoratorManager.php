@@ -19,7 +19,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Decorator\DecoratorInterface. Additionally, it registers a number of default
  * decorators.
  *
- * @category   Zend
  * @package    Zend_View
  */
 class DecoratorManager extends AbstractPluginManager

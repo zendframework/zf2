@@ -16,7 +16,6 @@ use Zend\Stdlib\ErrorHandler;
 /**
  * Class for rendering the barcode as image
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Renderer
  */

@@ -18,7 +18,6 @@ use Zend\Memory\Exception;
  *
  * Movable (may be swapped with specified backend and unloaded).
  *
- * @category   Zend
  * @package    Zend_Memory
  * @subpackage Container
  */

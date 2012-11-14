@@ -11,7 +11,6 @@
 namespace Zend\Filter\Word;
 
 /**
- * @category   Zend
  * @package    Zend_Filter
  */
 class SeparatorToCamelCase extends AbstractSeparator

@@ -14,7 +14,6 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\TableGateway\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage TableGateway_Feature
  */

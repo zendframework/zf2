@@ -13,7 +13,6 @@ namespace Zend\Db\Metadata\Source;
 use Zend\Db\Adapter\Adapter;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Metadata_Source
  */

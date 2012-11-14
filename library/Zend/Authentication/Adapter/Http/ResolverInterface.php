@@ -16,7 +16,6 @@ namespace Zend\Authentication\Adapter\Http;
  * Defines an interface to resolve a username/realm combination into a shared
  * secret usable by HTTP Authentication.
  *
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter_Http
  */

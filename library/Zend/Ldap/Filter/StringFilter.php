@@ -13,7 +13,6 @@ namespace Zend\Ldap\Filter;
 /**
  * Zend\Ldap\Filter\StringFilter provides a simple custom string filter.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
  */

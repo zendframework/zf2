@@ -12,7 +12,6 @@ namespace Zend\Mail\Header;
 
 /**
  * @todo       Add accessors for setting date from DateTime, Zend\Date, or a string
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Header
  */

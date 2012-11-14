@@ -14,7 +14,6 @@ use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Scanner
  */

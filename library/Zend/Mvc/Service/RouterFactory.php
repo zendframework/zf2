@@ -17,7 +17,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Console\Console;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */

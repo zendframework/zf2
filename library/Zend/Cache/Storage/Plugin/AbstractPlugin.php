@@ -11,7 +11,6 @@
 namespace Zend\Cache\Storage\Plugin;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Plugin
  */

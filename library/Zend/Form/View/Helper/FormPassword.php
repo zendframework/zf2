@@ -13,7 +13,6 @@ namespace Zend\Form\View\Helper;
 use Zend\Form\ElementInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage View
  */

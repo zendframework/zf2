@@ -15,7 +15,6 @@ use Zend\Ldap;
 /**
  * Zend\Ldap\Node\Collection provides a collection of nodes.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Node
  */

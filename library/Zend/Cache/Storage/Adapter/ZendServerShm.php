@@ -16,7 +16,6 @@ use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Adapter
  */

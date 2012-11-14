@@ -25,7 +25,6 @@ use Zend\Stdlib\ArrayUtils;
 use Zend\View;
 
 /**
- * @category   Zend
  * @package    Zend_Paginator
  */
 class Paginator implements Countable, IteratorAggregate

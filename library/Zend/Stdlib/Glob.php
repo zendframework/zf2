@@ -13,7 +13,6 @@ namespace Zend\Stdlib;
 /**
  * Wrapper for glob with fallback if GLOB_BRACE is not available.
  *
- * @category   Zend
  * @package    Zend_Stdlib
  */
 abstract class Glob

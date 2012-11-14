@@ -15,7 +15,6 @@ use Zend\Feed\Reader;
 use Zend\Feed\Reader\Extension;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Reader_Extension_Syndication
  */

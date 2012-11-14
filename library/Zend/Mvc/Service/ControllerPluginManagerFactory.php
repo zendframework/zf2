@@ -14,7 +14,6 @@ use Zend\Mvc\Controller\PluginManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */

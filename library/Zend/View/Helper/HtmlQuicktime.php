@@ -11,7 +11,6 @@
 namespace Zend\View\Helper;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

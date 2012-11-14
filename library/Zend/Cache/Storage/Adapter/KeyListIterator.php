@@ -15,7 +15,6 @@ use Zend\Cache\Storage\IteratorInterface;
 use Zend\Cache\Storage\StorageInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Adapter
  */

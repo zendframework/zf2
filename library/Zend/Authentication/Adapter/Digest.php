@@ -14,7 +14,6 @@ use Zend\Authentication\Result as AuthenticationResult;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter
  */

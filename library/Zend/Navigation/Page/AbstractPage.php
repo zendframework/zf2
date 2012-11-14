@@ -19,7 +19,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Base class for Zend\Navigation\Page pages
  *
- * @category   Zend
  * @package    Zend_Navigation
  * @subpackage Page
  */

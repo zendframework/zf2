@@ -17,7 +17,6 @@ use Zend\InputFilter\InputProviderInterface;
 use Zend\Validator\Csrf as CsrfValidator;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
  */

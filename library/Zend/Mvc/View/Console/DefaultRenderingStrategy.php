@@ -19,7 +19,6 @@ use Zend\View\Model\ConsoleModel as ConsoleViewModel;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage View
  */

@@ -13,7 +13,6 @@ namespace Zend\Code\Generator;
 use Zend\Code\Reflection\FileReflection;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Generator
  */

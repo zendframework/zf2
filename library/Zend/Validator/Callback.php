@@ -11,7 +11,6 @@
 namespace Zend\Validator;
 
 /**
- * @category   Zend
  * @package    Zend_Validator
  */
 class Callback extends AbstractValidator

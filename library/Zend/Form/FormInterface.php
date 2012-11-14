@@ -13,7 +13,6 @@ namespace Zend\Form;
 use Zend\InputFilter\InputFilterInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  */
 interface FormInterface extends FieldsetInterface

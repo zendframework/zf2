@@ -13,7 +13,6 @@ namespace Zend\Console\Adapter;
 use Zend\Console\Charset\CharsetInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Adapter
  */

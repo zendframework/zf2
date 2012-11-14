@@ -20,7 +20,6 @@ namespace Zend\Server\Reflection;
  * method invocation arguments, and retrieving the
  * method {@link \Zend\Server\Reflection\Prototype prototypes}.
  *
- * @category   Zend
  * @package    Zend_Server
  * @subpackage Zend_Server_Reflection
  */

@@ -11,7 +11,6 @@
 namespace Zend\Soap\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage AutoDiscover
  */

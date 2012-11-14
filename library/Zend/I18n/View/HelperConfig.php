@@ -16,7 +16,6 @@ use Zend\ServiceManager\ServiceManager;
 /**
  * Service manager configuration for i18n view helpers.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage View
  */

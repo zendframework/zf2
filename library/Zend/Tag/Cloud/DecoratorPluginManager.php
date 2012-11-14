@@ -20,7 +20,6 @@ use Zend\Tag\Exception;
  * Decorator\DecoratorInterface. Additionally, it registers a number of default
  * decorators available.
  *
- * @category   Zend
  * @package    Zend_Tag
  * @subpackage Cloud
  */

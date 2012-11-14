@@ -15,7 +15,6 @@ use Zend\ProgressBar\Exception;
 /**
  * Exception for Zend_Progressbar component.
  *
- * @category   Zend
  * @package    Zend_ProgressBar
  */
 class RuntimeException extends Exception\RuntimeException implements

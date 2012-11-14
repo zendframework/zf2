@@ -15,7 +15,6 @@ use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\Adapter\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter_Driver_Mysqli
  */

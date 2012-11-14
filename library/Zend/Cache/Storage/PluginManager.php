@@ -20,7 +20,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Plugin\PluginInterface. Additionally, it registers a number of default
  * plugins available.
  *
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage
  */

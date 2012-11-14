@@ -22,7 +22,6 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventsCapableInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage TableGateway_Feature
  */

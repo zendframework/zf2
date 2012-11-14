@@ -11,7 +11,6 @@
 namespace Zend\Db\Adapter\Platform;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter_Platform
  */

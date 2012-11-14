@@ -16,7 +16,6 @@ use Zend\Stdlib\AbstractOptions;
 /**
  * Listener options
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */

@@ -17,7 +17,6 @@ use Zend\View\Exception;
 /**
  * Helper for setting and retrieving stylesheets
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

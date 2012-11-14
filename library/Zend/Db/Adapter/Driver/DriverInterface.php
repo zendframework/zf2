@@ -11,7 +11,6 @@
 namespace Zend\Db\Adapter\Driver;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter_Driver
  */

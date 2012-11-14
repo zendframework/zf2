@@ -13,7 +13,6 @@ namespace Zend\Mail\Header;
 use Zend\Mail\Headers;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Header
  */

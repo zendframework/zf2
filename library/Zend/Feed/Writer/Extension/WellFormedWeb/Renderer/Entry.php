@@ -15,7 +15,6 @@ use DOMElement;
 use Zend\Feed\Writer\Extension;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Writer_Extension_WellFormedWeb_Renderer
  */

@@ -13,7 +13,6 @@ namespace Zend\Math;
 /**
  * Pseudorandom number generator (PRNG)
  *
- * @category   Zend
  * @package    Zend_Math
  */
 abstract class Rand

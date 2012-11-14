@@ -13,7 +13,6 @@ namespace Zend\Session\Validator;
 /**
  * Session validator interface
  *
- * @category   Zend
  * @package    Zend_Session
  */
 interface ValidatorInterface

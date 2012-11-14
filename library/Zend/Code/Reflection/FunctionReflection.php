@@ -13,7 +13,6 @@ namespace Zend\Code\Reflection;
 use ReflectionFunction;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Reflection
  */

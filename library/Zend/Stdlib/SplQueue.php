@@ -15,7 +15,6 @@ use Serializable;
 /**
  * Serializable version of SplQueue
  *
- * @category   Zend
  * @package    Zend_Stdlib
  */
 class SplQueue extends \SplQueue implements Serializable

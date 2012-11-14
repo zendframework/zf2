@@ -13,7 +13,6 @@ namespace Zend\Db\TableGateway\Feature;
 use Zend\Db\TableGateway\AbstractTableGateway;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage TableGateway_Feature
  */

@@ -21,7 +21,6 @@ use Zend\Loader\PluginClassLocator;
  *
  * Handles aggregation of headers
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Header
  */

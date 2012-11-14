@@ -15,7 +15,6 @@ use Serializable;
 /**
  * Serializable version of SplStack
  *
- * @category   Zend
  * @package    Zend_Stdlib
  */
 class SplStack extends \SplStack implements Serializable

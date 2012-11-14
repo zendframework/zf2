@@ -21,7 +21,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Zend_Soap_Server
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage Server
  */

@@ -14,7 +14,6 @@ use Zend\View\Helper\HelperInterface;
 use Zend\View\Renderer\RendererInterface as Renderer;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

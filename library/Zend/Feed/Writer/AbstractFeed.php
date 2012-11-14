@@ -15,7 +15,6 @@ use Zend\Uri;
 use Zend\Validator;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Writer
  */

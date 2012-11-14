@@ -15,7 +15,6 @@ use Zend\Validator\Barcode as BarcodeValidator;
 /**
  * Class for generate Ean8 barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
  */

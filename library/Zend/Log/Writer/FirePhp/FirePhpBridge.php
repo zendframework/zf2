@@ -13,7 +13,6 @@ namespace Zend\Log\Writer\FirePhp;
 use FirePHP;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
  */

@@ -15,7 +15,6 @@ use DateTime;
 /**
  * Zend\Ldap\Attribute is a collection of LDAP attribute related functions.
  *
- * @category   Zend
  * @package    Zend_Ldap
  */
 class Attribute

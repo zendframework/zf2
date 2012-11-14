@@ -24,7 +24,6 @@ use Zend\View\Exception;
  *
  * @link http://www.sitemaps.org/protocol.php
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

@@ -11,7 +11,6 @@
 namespace Zend\Config\Processor;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Processor
  */

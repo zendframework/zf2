@@ -15,7 +15,6 @@ use Zend\Db\TableGateway\TableGateway;
 /**
  * DB Table Gateway session save handler
  *
- * @category   Zend
  * @package    Zend_Session
  * @subpackage SaveHandler
  */

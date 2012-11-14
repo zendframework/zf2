@@ -13,7 +13,6 @@ namespace Zend\Validator;
 use Traversable;
 
 /**
- * @category   Zend
  * @package    Zend_Validator
  */
 class Ip extends AbstractValidator

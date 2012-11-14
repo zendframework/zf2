@@ -13,7 +13,6 @@ namespace Zend\Server\Method;
 /**
  * Method parameter metadata
  *
- * @category   Zend
  * @package    Zend_Server
  * @subpackage Zend_Server_Method
  */

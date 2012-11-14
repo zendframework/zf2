@@ -11,7 +11,6 @@
 namespace Zend\I18n\Translator;
 
 /**
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Translator
  */

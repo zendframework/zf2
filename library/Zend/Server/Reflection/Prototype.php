@@ -15,7 +15,6 @@ namespace Zend\Server\Reflection;
  *
  * Contains accessors for the return value and all method arguments.
  *
- * @category   Zend
  * @package    Zend_Server
  * @subpackage Zend_Server_Reflection
  */

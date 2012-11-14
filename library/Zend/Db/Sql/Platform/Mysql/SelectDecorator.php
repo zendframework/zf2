@@ -18,7 +18,6 @@ use Zend\Db\Adapter\StatementContainerInterface;
 use Zend\Db\Sql\Select;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Sql_Platform_Mysql
  */

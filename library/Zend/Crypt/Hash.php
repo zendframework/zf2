@@ -11,7 +11,6 @@
 namespace Zend\Crypt;
 
 /**
- * @category   Zend
  * @package    Zend_Crypt
  */
 class Hash

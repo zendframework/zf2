@@ -16,7 +16,6 @@ use Zend\Filter\Exception;
 /**
  * Decrypts a given file and stores the decrypted file content
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Decrypt extends Filter\Decrypt

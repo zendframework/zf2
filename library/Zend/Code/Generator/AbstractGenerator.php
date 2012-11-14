@@ -13,7 +13,6 @@ namespace Zend\Code\Generator;
 use Traversable;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Generator
  */

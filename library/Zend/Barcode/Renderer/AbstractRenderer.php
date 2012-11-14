@@ -19,7 +19,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Class for rendering the barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Renderer
  */

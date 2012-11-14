@@ -20,7 +20,6 @@ use Zend\Uri\Http;
 /**
  * Http client
  *
- * @category   Zend
  * @package    Zend\Http
  */
 class Client implements Stdlib\DispatchableInterface

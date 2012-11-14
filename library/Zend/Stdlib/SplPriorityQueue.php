@@ -18,7 +18,6 @@ use Serializable;
  * Also, provides predictable heap order for datums added with the same priority
  * (i.e., they will be emitted in the same order they are enqueued).
  *
- * @category   Zend
  * @package    Zend_Stdlib
  */
 class SplPriorityQueue extends \SplPriorityQueue implements Serializable

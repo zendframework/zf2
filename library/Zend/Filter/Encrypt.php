@@ -16,7 +16,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Encrypts a given string
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Encrypt extends AbstractFilter

@@ -15,7 +15,6 @@ use Zend\Log\Exception;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Filter
  */

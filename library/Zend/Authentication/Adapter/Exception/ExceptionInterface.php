@@ -13,7 +13,6 @@ namespace Zend\Authentication\Adapter\Exception;
 use Zend\Authentication\Exception\ExceptionInterface as Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter_Exception
  */

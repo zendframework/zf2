@@ -11,7 +11,6 @@
 namespace Zend\Mail\Address;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Address
  */

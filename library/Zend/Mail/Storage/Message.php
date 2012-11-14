@@ -13,7 +13,6 @@ namespace Zend\Mail\Storage;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  */
 class Message extends Part implements Message\MessageInterface

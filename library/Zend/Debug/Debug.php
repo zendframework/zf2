@@ -15,7 +15,6 @@ use Zend\Escaper\Escaper;
 /**
  * Concrete class for generating debug dumps related to the output source.
  *
- * @category   Zend
  * @package    Zend_Debug
  */
 class Debug

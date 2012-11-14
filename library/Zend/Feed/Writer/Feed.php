@@ -15,7 +15,6 @@ use Iterator;
 use Zend\Feed\Writer\Renderer;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Writer
  */

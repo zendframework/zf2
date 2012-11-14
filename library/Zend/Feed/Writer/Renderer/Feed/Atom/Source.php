@@ -14,7 +14,6 @@ use DOMDocument;
 use DOMElement;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Writer_Renderer_Feed_Atom
  */

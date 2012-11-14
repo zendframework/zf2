@@ -14,7 +14,6 @@ use Zend\Code\Reflection\ParameterReflection;
 
 /**
  *
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Generator
  */

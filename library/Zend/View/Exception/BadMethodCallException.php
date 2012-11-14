@@ -13,7 +13,6 @@ namespace Zend\View\Exception;
 /**
  * Bad method call exception
  *
- * @category   Zend
  * @package    Zend_View
  */
 class BadMethodCallException

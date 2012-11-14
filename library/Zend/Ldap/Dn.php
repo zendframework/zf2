@@ -13,7 +13,6 @@ namespace Zend\Ldap;
 /**
  * Zend\Ldap\Dn provides an API for DN manipulation
  *
- * @category   Zend
  * @package    Zend_Ldap
  */
 class Dn implements \ArrayAccess

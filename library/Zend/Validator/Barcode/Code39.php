@@ -11,7 +11,6 @@
 namespace Zend\Validator\Barcode;
 
 /**
- * @category   Zend
  * @package    Zend_Validator
  */
 class Code39 extends AbstractAdapter

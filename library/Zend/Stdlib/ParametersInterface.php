@@ -20,7 +20,6 @@ use Traversable;
  *     class QueryParams extends ArrayObject implements Parameters {}
  * and have 90% of the functionality
  *
- * @category   Zend
  * @package    Zend_Stdlib
  */
 interface ParametersInterface extends ArrayAccess, Countable, Serializable, Traversable

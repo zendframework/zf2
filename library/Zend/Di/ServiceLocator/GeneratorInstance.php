@@ -13,7 +13,6 @@ namespace Zend\Di\ServiceLocator;
 /**
  * Container for methods and parameters used by by Di to create a particular instance
  *
- * @category   Zend
  * @package    Zend_Di
  * @subpackage ServiceLocator
  */

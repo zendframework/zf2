@@ -13,7 +13,6 @@ namespace Zend\Log\Formatter;
 use DateTime;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
  */

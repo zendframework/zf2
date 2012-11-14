@@ -11,7 +11,6 @@
 namespace Zend\Db\RowGateway;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage RowGateway
  */

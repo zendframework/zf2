@@ -11,7 +11,6 @@
 namespace Zend\Mail\Header;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  */
 interface MultipleHeadersInterface extends HeaderInterface

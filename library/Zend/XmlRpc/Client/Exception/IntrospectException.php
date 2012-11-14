@@ -13,7 +13,6 @@ namespace Zend\XmlRpc\Client\Exception;
 /**
  * Thrown by Zend_XmlRpc_Client_Introspection when any error occurs.
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Client_Exception
  */

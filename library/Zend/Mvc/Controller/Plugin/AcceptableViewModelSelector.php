@@ -24,7 +24,6 @@ use Zend\Mvc\Exception\DomainException;
  * Controller Plugin to assist in selecting an appropriate View Model type based on the
  * User Agent's accept header.
  *
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

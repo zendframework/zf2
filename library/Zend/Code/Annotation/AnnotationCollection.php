@@ -13,7 +13,6 @@ namespace Zend\Code\Annotation;
 use ArrayObject;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Annotation
  */

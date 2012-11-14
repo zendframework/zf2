@@ -18,7 +18,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Validation checks that we have an Extension\AbstractEntry or
  * Extension\AbstractFeed.
  *
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Reader
  */

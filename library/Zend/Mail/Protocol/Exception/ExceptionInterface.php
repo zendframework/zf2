@@ -13,7 +13,6 @@ namespace Zend\Mail\Protocol\Exception;
 use Zend\Mail\Exception\ExceptionInterface as MailException;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  */
 interface ExceptionInterface extends MailException

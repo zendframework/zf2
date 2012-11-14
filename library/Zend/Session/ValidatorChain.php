@@ -17,7 +17,6 @@ use Zend\Session\Validator\ValidatorInterface as Validator;
 /**
  * Validator chain for validating sessions
  *
- * @category   Zend
  * @package    Zend_Session
  */
 class ValidatorChain extends EventManager

@@ -11,7 +11,6 @@
 namespace Zend\Config\Reader;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Reader
  */

@@ -17,7 +17,6 @@ use Zend\Mail\Storage\Folder;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

@@ -11,7 +11,6 @@
 namespace Zend\Form;
 
 /**
- * @category   Zend
  * @package    Zend\Form
  */
 interface ElementPrepareAwareInterface

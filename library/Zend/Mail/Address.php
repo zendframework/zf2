@@ -11,7 +11,6 @@
 namespace Zend\Mail;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  */
 class Address implements Address\AddressInterface

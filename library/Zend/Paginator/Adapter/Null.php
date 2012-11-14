@@ -11,7 +11,6 @@
 namespace Zend\Paginator\Adapter;
 
 /**
- * @category   Zend
  * @package    Zend_Paginator
  * @subpackage Adapter
  */

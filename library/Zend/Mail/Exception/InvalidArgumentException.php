@@ -13,7 +13,6 @@ namespace Zend\Mail\Exception;
 /**
  * Exception for Zend_Mail component.
  *
- * @category   Zend
  * @package    Zend_Mail
  */
 class InvalidArgumentException extends \InvalidArgumentException implements

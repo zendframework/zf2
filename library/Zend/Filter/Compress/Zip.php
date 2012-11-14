@@ -16,7 +16,6 @@ use ZipArchive;
 /**
  * Compression adapter for zip
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Zip extends AbstractCompressionAlgorithm

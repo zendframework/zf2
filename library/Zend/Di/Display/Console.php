@@ -15,7 +15,6 @@ use Zend\Di\Di;
 /**
  * Exporter for class definitions
  *
- * @category   Zend
  * @package    Zend_Di
  * @subpackage Display
  */

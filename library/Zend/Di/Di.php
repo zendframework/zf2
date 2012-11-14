@@ -16,7 +16,6 @@ use ReflectionClass;
 /**
  * Dependency injector that can generate instances using class definitions and configured instance parameters
  *
- * @category   Zend
  * @package    Zend_Di
  */
 class Di implements DependencyInjectionInterface

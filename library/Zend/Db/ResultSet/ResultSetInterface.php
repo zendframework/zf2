@@ -11,7 +11,6 @@
 namespace Zend\Db\ResultSet;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage ResultSet
  */

@@ -13,7 +13,6 @@ namespace Zend\View\Exception;
 /**
  * Invalid helper exception
  *
- * @category   Zend
  * @package    Zend_View
  */
 class InvalidHelperException

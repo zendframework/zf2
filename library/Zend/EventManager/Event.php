@@ -18,7 +18,6 @@ use ArrayAccess;
  * Encapsulates the target context and parameters passed, and provides some
  * behavior for interacting with the event manager.
  *
- * @category   Zend
  * @package    Zend_EventManager
  */
 class Event implements EventInterface

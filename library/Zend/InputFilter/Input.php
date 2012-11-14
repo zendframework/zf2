@@ -15,7 +15,6 @@ use Zend\Validator\ValidatorChain;
 use Zend\Validator\NotEmpty;
 
 /**
- * @category   Zend
  * @package    Zend_InputFilter
  */
 class Input implements InputInterface

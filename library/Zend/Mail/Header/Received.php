@@ -14,7 +14,6 @@ use Zend\Mail\Headers;
 
 /**
  * @todo       Allow setting date from DateTime, Zend\Date, or string
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Header
  */

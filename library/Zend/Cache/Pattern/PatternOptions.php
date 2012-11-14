@@ -17,7 +17,6 @@ use Zend\Cache\Storage\StorageInterface as Storage;
 use Zend\Stdlib\AbstractOptions;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Pattern
  */

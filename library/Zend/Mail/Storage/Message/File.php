@@ -13,7 +13,6 @@ namespace Zend\Mail\Storage\Message;
 use Zend\Mail\Storage\Part;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  */
 class File extends Part\File implements MessageInterface

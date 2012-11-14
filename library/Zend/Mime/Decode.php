@@ -14,7 +14,6 @@ use Zend\Mail\Headers;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Mime
  */
 class Decode

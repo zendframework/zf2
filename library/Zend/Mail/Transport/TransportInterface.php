@@ -15,7 +15,6 @@ use Zend\Mail;
 /**
  * Interface for mail transports
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
  */

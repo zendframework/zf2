@@ -15,7 +15,6 @@ namespace Zend\XmlRpc;
  *
  * Container for accessing an XMLRPC return value and creating the XML response.
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  */
 class Response

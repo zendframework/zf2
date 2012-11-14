@@ -16,7 +16,6 @@ use Zend\ServiceManager\ServiceManager;
 /**
  * Service manager configuration for form view helpers
  *
- * @category   Zend
  * @package    Zend_Form
  * @subpackage View
  */

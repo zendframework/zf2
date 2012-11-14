@@ -15,7 +15,6 @@ use Zend\Json\Json;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Model
  */

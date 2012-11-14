@@ -13,7 +13,6 @@ namespace Zend\Http\Header;
 /**
  * Content-Location Header
  *
- * @category   Zend
  * @package    Zend_Http
  * @subpackage Headers
   */

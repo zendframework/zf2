@@ -13,7 +13,6 @@ namespace Zend\Barcode\Object;
 /**
  * Class for generate Codabar barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
  */

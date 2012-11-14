@@ -18,7 +18,6 @@ use Zend\Server\Method;
 use Zend\Server\Reflection;
 
 /**
- * @category   Zend
  * @package    Zend_Json
  */
 class Server extends AbstractServer

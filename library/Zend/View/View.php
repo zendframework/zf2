@@ -20,7 +20,6 @@ use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Renderer\TreeRendererInterface;
 
 /**
- * @category   Zend
  * @package    Zend_View
  */
 class View implements EventManagerAwareInterface

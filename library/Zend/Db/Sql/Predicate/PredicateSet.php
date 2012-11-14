@@ -13,7 +13,6 @@ namespace Zend\Db\Sql\Predicate;
 use Countable;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Sql_Predicate
  */

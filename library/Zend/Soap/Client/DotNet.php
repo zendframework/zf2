@@ -22,7 +22,6 @@ use Zend\Soap\Exception;
  * Please leave your notes, compatibility issues reports or
  * suggestions in fw-webservices@lists.zend.com or fw-general@lists.com
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage Client
  */

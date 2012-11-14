@@ -15,7 +15,6 @@ use Zend\Json\Json;
 /**
  * Class to store and retrieve the version of Zend Framework.
  *
- * @category   Zend
  * @package    Zend_Version
  */
 final class Version

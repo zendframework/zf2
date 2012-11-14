@@ -11,7 +11,6 @@
 namespace Zend\View\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_View
  */
 interface ExceptionInterface

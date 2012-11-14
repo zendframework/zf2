@@ -16,7 +16,6 @@ use DOMXPath;
 use Zend\Feed\Reader;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Reader_Extension
  */

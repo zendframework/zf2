@@ -16,7 +16,6 @@ use ErrorException;
  * ErrorHandler that can be used to catch internal PHP errors
  * and convert to a ErrorException instance.
  *
- * @category   Zend
  * @package    Zend_Stdlib
  */
 abstract class ErrorHandler

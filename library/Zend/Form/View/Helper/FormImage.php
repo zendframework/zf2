@@ -14,7 +14,6 @@ use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage View
  */

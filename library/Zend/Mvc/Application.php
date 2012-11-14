@@ -45,7 +45,6 @@ use Zend\Stdlib\ResponseInterface;
  * if you wish to setup your own listeners and/or workflow; alternately, you
  * can simply extend the class to override such behavior.
  *
- * @category   Zend
  * @package    Zend_Mvc
  */
 class Application implements

@@ -19,7 +19,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * ScrollingStyle\ScrollingStyleInterface. Additionally, it registers a number
  * of default adapters available.
  *
- * @category   Zend
  * @package    Zend_Paginator
  */
 class ScrollingStylePluginManager extends AbstractPluginManager

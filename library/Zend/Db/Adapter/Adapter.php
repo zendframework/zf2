@@ -13,7 +13,6 @@ namespace Zend\Db\Adapter;
 use Zend\Db\ResultSet;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
  *

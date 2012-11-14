@@ -15,7 +15,6 @@ use Zend\XmlRpc\Exception;
 /**
  * Thrown by Zend_XmlRpc_Client when an XML-RPC fault response is returned.
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Client_Exception
  */

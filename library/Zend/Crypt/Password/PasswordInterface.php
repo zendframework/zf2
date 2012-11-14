@@ -11,7 +11,6 @@
 namespace Zend\Crypt\Password;
 
 /**
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Password
  */

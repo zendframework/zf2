@@ -11,7 +11,6 @@
 namespace Zend\Crypt\Symmetric;
 
 /**
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Symmetric
  */

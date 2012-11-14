@@ -21,7 +21,6 @@ use Zend\Di\Definition\Annotation;
 /**
  * Class definitions based on a set of directories to be scanned
  *
- * @category   Zend
  * @package    Zend_Di
  * @subpackage Definition
  */

@@ -15,7 +15,6 @@ use Zend\Db\Adapter\Driver\StatementInterface;
 use Zend\Db\Adapter\Platform\PlatformInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Sql
  */

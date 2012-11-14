@@ -15,7 +15,6 @@ use Zend\Authentication\Adapter\Exception\ExceptionInterface as Exception;
 /**
  * HTTP Auth Resolver Exception
  *
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter_Http_Exception
  */

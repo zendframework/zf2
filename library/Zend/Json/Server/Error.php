@@ -11,7 +11,6 @@
 namespace Zend\Json\Server;
 
 /**
- * @category   Zend
  * @package    Zend_Json
  */
 class Error

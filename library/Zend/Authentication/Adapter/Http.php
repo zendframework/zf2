@@ -20,7 +20,6 @@ use Zend\Uri\UriFactory;
  *
  * Implements a pretty good chunk of RFC 2617.
  *
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter
  * @todo       Support auth-int

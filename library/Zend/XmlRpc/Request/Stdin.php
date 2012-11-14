@@ -20,7 +20,6 @@ use Zend\XmlRpc\Server\Exception as ServerException;
  * built at construction time using data from STDIN; if no data is available, the
  * request is declared a fault.
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Request
  */

@@ -13,7 +13,6 @@ namespace Zend\Mail\Storage\Part\Exception;
 use Zend\Mail\Storage\Exception\ExceptionInterface as StorageException;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

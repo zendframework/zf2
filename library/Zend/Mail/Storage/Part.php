@@ -16,7 +16,6 @@ use Zend\Mail\Header\HeaderInterface;
 use Zend\Mime;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

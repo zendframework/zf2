@@ -15,7 +15,6 @@ use Zend\View;
 use Zend\View\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

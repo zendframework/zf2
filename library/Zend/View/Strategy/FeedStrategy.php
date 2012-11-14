@@ -19,7 +19,6 @@ use Zend\View\Renderer\FeedRenderer;
 use Zend\View\ViewEvent;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Strategy
  */

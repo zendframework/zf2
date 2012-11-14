@@ -18,7 +18,6 @@ use Zend\Validator\Barcode as BarcodeValidator;
 /**
  * Class for generate Barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
  */

@@ -14,7 +14,6 @@ use Countable;
 use Traversable;
 
 /**
- * @category   Zend
  * @package    Zend_InputFilter
  */
 interface InputFilterInterface extends Countable

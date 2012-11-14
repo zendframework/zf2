@@ -13,7 +13,6 @@ namespace Zend\Barcode\Exception;
 /**
  * Exception for Zend_Barcode component.
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Exception
  */

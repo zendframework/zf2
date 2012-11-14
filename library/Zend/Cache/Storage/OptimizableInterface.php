@@ -11,7 +11,6 @@
 namespace Zend\Cache\Storage;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage
  */

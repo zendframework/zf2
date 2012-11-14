@@ -13,7 +13,6 @@ namespace Zend\Crypt\Key\Derivation\Exception;
 use Zend\Crypt\Exception\ExceptionInterface as Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Key_Derivation_Exception
  */

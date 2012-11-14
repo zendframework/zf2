@@ -11,7 +11,6 @@
 namespace Zend\Console\Charset;
 
 /**
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Charset
  */

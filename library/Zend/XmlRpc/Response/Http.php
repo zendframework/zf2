@@ -15,7 +15,6 @@ use Zend\XmlRpc\Response as XmlRpcResponse;
 /**
  * HTTP response
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Response
  */

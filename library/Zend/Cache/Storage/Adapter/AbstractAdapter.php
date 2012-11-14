@@ -26,7 +26,6 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventsCapableInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Adapter
  */

@@ -17,7 +17,6 @@ use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Resolver\ResolverInterface as Resolver;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Resolver
  */

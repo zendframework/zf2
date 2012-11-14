@@ -13,7 +13,6 @@ namespace Zend\Captcha\Exception;
 /**
  * Exception for Zend_Form component.
  *
- * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Exception
  */

@@ -16,7 +16,6 @@ use Zend\Form\Exception;
 use Zend\Form\View\Helper\FormInput;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage View
  */

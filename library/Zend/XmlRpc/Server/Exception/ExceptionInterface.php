@@ -15,7 +15,6 @@ use Zend\XmlRpc\Exception\ExceptionInterface as Exception;
 /**
  * Zend_XmlRpc_Server_Exception
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Server_Exception
  */

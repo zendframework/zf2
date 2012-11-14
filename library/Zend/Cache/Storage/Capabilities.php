@@ -16,7 +16,6 @@ use Zend\Cache\Exception;
 use Zend\EventManager\EventsCapableInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage
  */

@@ -16,7 +16,6 @@ use Zend\Http\Response as HttpResponse;
 /**
  * HTTP Response for current PHP environment
  *
- * @category   Zend
  * @package    Zend_Http
  */
 class Response extends HttpResponse

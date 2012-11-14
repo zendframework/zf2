@@ -17,7 +17,6 @@ use Zend\XmlRpc\Client as XMLRPCClient;
  * calling XML-RPC namespaced functions like "foo.bar.baz()"
  * as "$remote->foo->bar->baz()".
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Client
  */

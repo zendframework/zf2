@@ -17,7 +17,6 @@ use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\Scanner\CachingFileScanner;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Reflection
  */

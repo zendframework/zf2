@@ -18,7 +18,6 @@ use Zend\Filter\FilterPluginManager as BaseManager;
  * Enforces that filters retrieved are instances of
  * FilterInterface. Additionally, it registers a number of default filters.
  *
- * @category   Zend
  * @package    Zend_File_Transfer
  */
 class FilterPluginManager extends BaseManager

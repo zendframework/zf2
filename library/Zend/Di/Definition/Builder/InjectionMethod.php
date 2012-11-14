@@ -13,7 +13,6 @@ namespace Zend\Di\Definition\Builder;
 /**
  * Definitions for an injection endpoint method
  *
- * @category   Zend
  * @package    Zend_Di
  * @subpackage Definition_Builder
  */

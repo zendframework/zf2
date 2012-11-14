@@ -15,7 +15,6 @@ use Zend\Code\Annotation\AnnotationInterface;
 /**
  * Annotation for injection endpoints for dependencies
  *
- * @category   Zend
  * @package    Zend_Di
  * @subpackage Definition_Annotation
  */

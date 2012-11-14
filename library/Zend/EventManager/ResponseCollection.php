@@ -15,7 +15,6 @@ use SplStack;
 /**
  * Collection of signal handler return values
  *
- * @category   Zend
  * @package    Zend_EventManager
  */
 class ResponseCollection extends SplStack

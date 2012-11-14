@@ -13,7 +13,6 @@ namespace Zend\Filter\Compress;
 /**
  * Compression interface
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 interface CompressionAlgorithmInterface

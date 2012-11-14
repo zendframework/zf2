@@ -13,7 +13,6 @@ namespace Zend\I18n\Translator\Loader;
 /**
  * File loader interface.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Translator
  */

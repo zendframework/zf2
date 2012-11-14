@@ -16,7 +16,6 @@ use Zend\Console\ColorInterface as Color;
 
 /**
  * @todo Add GNU readline support
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Adapter
  * @link http://en.wikipedia.org/wiki/ANSI_escape_code

@@ -19,7 +19,6 @@ use Zend\View\Helper\EscapeHtmlAttr;
 /**
  * Base functionality for all form view helpers
  *
- * @category   Zend
  * @package    Zend_Form
  * @subpackage View
  */

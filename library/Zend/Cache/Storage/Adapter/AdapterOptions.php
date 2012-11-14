@@ -21,7 +21,6 @@ use Zend\Stdlib\ErrorHandler;
 /**
  * Unless otherwise marked, all options in this class affect all adapters.
  *
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Adapter
  */

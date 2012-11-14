@@ -13,7 +13,6 @@ namespace Zend\Feed\Writer;
 use Traversable;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Writer
  */

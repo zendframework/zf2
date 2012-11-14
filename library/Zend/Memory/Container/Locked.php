@@ -15,7 +15,6 @@ namespace Zend\Memory\Container;
  *
  * Locked (always stored in memory).
  *
- * @category   Zend
  * @package    Zend_Memory
  * @subpackage Container
  */

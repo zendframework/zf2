@@ -15,7 +15,6 @@ use Zend\Db\Metadata\MetadataInterface;
 use Zend\Db\Metadata\Object;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Metadata_Source
  */

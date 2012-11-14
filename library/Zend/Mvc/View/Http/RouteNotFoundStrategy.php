@@ -19,7 +19,6 @@ use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage View
  */

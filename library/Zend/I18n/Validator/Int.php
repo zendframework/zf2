@@ -18,7 +18,6 @@ use Zend\Validator\AbstractValidator;
 use Zend\Validator\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Validator
  */

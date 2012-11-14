@@ -11,7 +11,6 @@
 namespace Zend\InputFilter;
 
 /**
- * @category   Zend
  * @package    Zend_InputFilter
  */
 interface InputProviderInterface

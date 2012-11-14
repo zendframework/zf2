@@ -11,7 +11,6 @@
 namespace Zend\Crypt\PublicKey\Rsa;
 
 /**
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage  PublicKey_Rsa
  */

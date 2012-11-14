@@ -13,7 +13,6 @@ namespace Zend\Config\Writer;
 use Zend\Config\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Writer
  */

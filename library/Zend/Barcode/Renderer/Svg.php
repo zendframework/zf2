@@ -17,7 +17,6 @@ use DOMText;
 /**
  * Class for rendering the barcode as svg
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Renderer
  */

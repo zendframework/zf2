@@ -13,7 +13,6 @@ namespace Zend\Db\ResultSet\Exception;
 use Zend\Db\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage ResultSet_Exception
  */

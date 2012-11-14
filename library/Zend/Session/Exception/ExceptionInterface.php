@@ -13,7 +13,6 @@ namespace Zend\Session\Exception;
 /**
  * Zend_Session_Exception
  *
- * @category   Zend
  * @package    Zend_Session
  */
 interface ExceptionInterface

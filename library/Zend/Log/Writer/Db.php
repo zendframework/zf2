@@ -17,7 +17,6 @@ use Zend\Log\Formatter;
 use Zend\Log\Formatter\Db as DbFormatter;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
  */

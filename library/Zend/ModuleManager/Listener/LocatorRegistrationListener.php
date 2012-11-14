@@ -20,7 +20,6 @@ use Zend\Mvc\MvcEvent;
 /**
  * Locator registration listener
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */

@@ -14,7 +14,6 @@ use Zend\Feed\PubSubHubbub;
 use Zend\Uri;
 
 /**
- * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  */
 class Callback extends PubSubHubbub\AbstractCallback

@@ -16,7 +16,6 @@ use Zend\Serializer\Serializer as SerializerFactory;
 use Zend\Stdlib\AbstractOptions;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage_Plugin
  */

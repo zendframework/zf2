@@ -15,7 +15,6 @@ use ReflectionClass;
 /**
  * Abstract Server implementation
  *
- * @category   Zend
  * @package    Zend_Server
  */
 abstract class AbstractServer implements Server

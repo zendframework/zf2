@@ -11,7 +11,6 @@
 namespace Zend\Feed\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  */
 interface ExceptionInterface

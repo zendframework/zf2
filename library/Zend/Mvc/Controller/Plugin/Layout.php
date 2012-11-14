@@ -16,7 +16,6 @@ use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ModelInterface as Model;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

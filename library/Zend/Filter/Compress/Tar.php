@@ -18,7 +18,6 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for Tar
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Tar extends AbstractCompressionAlgorithm

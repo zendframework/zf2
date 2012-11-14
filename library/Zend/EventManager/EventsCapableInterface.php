@@ -13,7 +13,6 @@ namespace Zend\EventManager;
 /**
  * Interface providing events that can be attached, detached and triggered.
  *
- * @category   Zend
  * @package    Zend_EventManager
  */
 interface EventsCapableInterface

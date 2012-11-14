@@ -28,7 +28,6 @@ use Zend\Stdlib\ResponseInterface as Response;
 /**
  * Abstract controller
  *
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

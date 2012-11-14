@@ -14,7 +14,6 @@ use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 
 /**
- * @category   Zend
  * @package    Zend_Stdlib
  */
 interface DispatchableInterface

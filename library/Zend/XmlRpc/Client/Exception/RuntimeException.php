@@ -13,7 +13,6 @@ namespace Zend\XmlRpc\Client\Exception;
 use Zend\XmlRpc\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Client_Exception
  */

@@ -21,7 +21,6 @@ use Zend\Math\BigInteger;
  * @see        Phython3.1/Lib/pickle.py
  * @see        Phython3.1/Modules/_pickle.c
  * @link       http://pickle-js.googlecode.com
- * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
  */

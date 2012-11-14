@@ -20,7 +20,6 @@ use Iterator;
 /**
  * Nodelist for DOM XPath query
  *
- * @category   Zend
  * @package    Zend_Dom
  */
 class NodeList implements Iterator, Countable

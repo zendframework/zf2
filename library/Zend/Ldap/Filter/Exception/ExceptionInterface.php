@@ -13,7 +13,6 @@ namespace Zend\Ldap\Filter\Exception;
 use Zend\Ldap\Exception\ExceptionInterface as MainLdapException;
 
 /**
- * @category   Zend
  * @package    Zend_Ldap
  */
 interface ExceptionInterface extends MainLdapException

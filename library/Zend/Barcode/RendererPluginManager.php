@@ -19,7 +19,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Renderer\AbstractRenderer. Additionally, it registers a number of default
  * barcode renderers.
  *
- * @category   Zend
  * @package    Zend_Barcode
  */
 class RendererPluginManager extends AbstractPluginManager

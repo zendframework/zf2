@@ -14,7 +14,6 @@ use Zend\Validator\InArray as InArrayValidator;
 use Zend\Validator\ValidatorInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
  */

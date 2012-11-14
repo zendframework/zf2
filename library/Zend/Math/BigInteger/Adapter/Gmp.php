@@ -15,7 +15,6 @@ use Zend\Math\BigInteger\Exception;
 /**
  * GMP extension adapter
  *
- * @category   Zend
  * @package    Zend_Math
  * @subpackage BigInteger
  */

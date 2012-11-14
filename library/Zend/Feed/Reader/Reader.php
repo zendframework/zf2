@@ -17,7 +17,6 @@ use Zend\Http;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Feed
  * @subpackage Reader
  */
