@@ -24,10 +24,10 @@ class Barcode extends AbstractValidator
     const INVALID_LENGTH = 'barcodeInvalidLength';
 
     protected $messageTemplates = array(
-        self::FAILED         => "The input failed checksum validation",
-        self::INVALID_CHARS  => "The input contains invalid characters",
-        self::INVALID_LENGTH => "The input should have a length of %length% characters",
-        self::INVALID        => "Invalid type given. String expected",
+        self::FAILED         => "The input failed checksum validation.",
+        self::INVALID_CHARS  => "The input contains invalid characters.",
+        self::INVALID_LENGTH => "The input should have a length of %length% characters.",
+        self::INVALID        => "Invalid type given. String expected.",
     );
 
     /**
