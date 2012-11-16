@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Zend Framework
  *
@@ -23,35 +23,35 @@
  * EN-Revision: 25.Jul.2011
  */
 return array(
-    // Zend_Validate_Alnum
+    // Zend\Validator\Alnum
     "Invalid type given. String, integer or float expected" => "Podana wartość powinna być ciągiem znaków, liczbą całkowitą lub liczbą zmiennoprzecinkową",
     "'%value%' contains characters which are non alphabetic and no digits" => "Wartość '%value%' powinna zawierać znaki z alfabetu lub cyfry",
     "'%value%' is an empty string" => "'%value%' jest pustym ciągiem znaków",
 
-    // Zend_Validate_Alpha
+    // Zend\Validator\Alpha
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
     "'%value%' contains non alphabetic characters" => "'%value%' zawiera znaki spoza alfabetu",
     "'%value%' is an empty string" => "'%value%' jest pustym ciągiem znaków",
 
-    // Zend_Validate_Barcode
+    // Zend\Validator\Barcode
     "'%value%' failed checksum validation" => "Błędna suma kontrolna dla wartości '%value%'",
     "'%value%' contains invalid characters" => "'%value%' zawiera niedozwolone znaki",
     "'%value%' should have a length of %length% characters" => "Wartość '%value%' powinna być długości %length% znaków",
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
 
-    // Zend_Validate_Between
+    // Zend\Validator\Between
     "'%value%' is not between '%min%' and '%max%', inclusively" => "'%value%' nie zawiera się w przedziale od '%min%' do '%max%' włącznie",
     "'%value%' is not strictly between '%min%' and '%max%'" => "'%value%' nie zawiera się w przedziale od '%min%' do '%max%'",
 
-    // Zend_Validate_Callback
+    // Zend\Validator\Callback
     "'%value%' is not valid" => "Wartość '%value%' jest nie poprawna",
     "An exception has been raised within the callback" => "Wystąpił błąd podczas działania funkcji sprawdzającej",
 
-    // Zend_Validate_Ccnum
+    // Zend\Validator\Ccnum
     "'%value%' must contain between 13 and 19 digits" => "'%value%' musi zawierać od 13 do 19 cyfr",
     "Luhn algorithm (mod-10 checksum) failed on '%value%'" => "Błąd podczas wykonywania algorytmu Luhna (mod-10 checksum) dla wartości '%value%'",
 
-    // Zend_Validate_CreditCard
+    // Zend\Validator\CreditCard
     "'%value%' seems to contain an invalid checksum" => "'%value%' zawiera niepoprawną sumę kontrolną",
     "'%value%' must contain only digits" => "Numer karty może zawierać tylko cyfry",
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
@@ -60,21 +60,21 @@ return array(
     "'%value%' seems to be an invalid creditcard number" => "'%value%' jest niepoprawnym numerem karty",
     "An exception has been raised while validating '%value%'" => "Wystąpił błąd podczas sprawdzania numeru karty '%value%'",
 
-    // Zend_Validate_Date
+    // Zend\Validator\Date
     "Invalid type given. String, integer, array or Zend_Date expected" => "Podana wartość powinna być ciągiem znaków, liczbą, tablicą lub obiektem Zend_Date",
     "'%value%' does not appear to be a valid date" => "'%value%' nie jest poprawną datą",
     "'%value%' does not fit the date format '%format%'" => "Data '%value%' nie jest w formacie '%format%'",
 
-    // Zend_Validate_Db_Abstract
+    // Zend\Validator\Db_Abstract
     "No record matching '%value%' was found" => "Nie znaleziono rekordu dla '%value%'",
     "A record matching '%value%' was found" => "Znaleziono rekord dla '%value%'",
 
-    // Zend_Validate_Digits
+    // Zend\Validator\Digits
     "Invalid type given. String, integer or float expected" => "Podana wartość powinna być ciągiem znaków, liczbą całkowitą lub liczbą zmiennoprzecinkową",
     "'%value%' must contain only digits" => "'%value%' może zawierać tylko cyfry",
     "'%value%' is an empty string" => "'%value%' jest pustym ciągiem znaków",
 
-    // Zend_Validate_EmailAddress
+    // Zend\Validator\EmailAddress
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
     "'%value%' is not a valid email address in the basic format local-part@hostname" => "'%value%' nie jest poprawnym adresem email w formacie nazwa@serwer",
     "'%hostname%' is not a valid hostname for email address '%value%'" => "Email '%value%' zawiera niepoprawną nazwę serwera '%hostname%'",
@@ -85,42 +85,42 @@ return array(
     "'%localPart%' is not a valid local part for email address '%value%'" => "'%localPart%' nie jest poprawną nazwą",
     "'%value%' exceeds the allowed length" => "Wartość '%value%' przekroczyła dozwoloną długość",
 
-    // Zend_Validate_File_Count
+    // Zend\Validator\File\Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "Wybrano '%count%' plików. Dopuszczalna liczba plików to '%max%'",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "Wybrano '%count%' plików. Minimalna liczba plików to '%min%'",
 
-    // Zend_Validate_File_Crc32
+    // Zend\Validator\File\Crc32
     "File '%value%' does not match the given crc32 hashes" => "Błędna suma kontrolna pliku '%value%'",
     "A crc32 hash could not be evaluated for the given file" => "Nie można obliczyć sumy kontrolnej dla podanego pliku",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_ExcludeExtension
+    // Zend\Validator\File\ExcludeExtension
     "File '%value%' has a false extension" => "Plik '%value%' ma niepoprawne rozszerzenie",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_ExcludeMimeType
+    // Zend\Validator\File\ExcludeMimeType
     "File '%value%' has a false mimetype of '%type%'" => "Plik '%value%' ma niepoprawny typ MIME '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Nie można wykryć typu MIME dla pliku '%value%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_Exists
+    // Zend\Validator\File\Exists
     "File '%value%' does not exist" => "Plik '%value%' nie istnieje",
 
-    // Zend_Validate_File_Extension
+    // Zend\Validator\File\Extension
     "File '%value%' has a false extension" => "Plik '%value%' ma niepoprawne rozszerzenie",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_FilesSize
+    // Zend\Validator\File\FilesSize
     "All files in sum should have a maximum size of '%max%' but '%size%' were detected" => "Wybrane pliki łącznie zajmują '%size%'. Maksymalny łączny rozmiar to '%max%'",
     "All files in sum should have a minimum size of '%min%' but '%size%' were detected" => "Wybrane pliki łącznie zajmują '%size%'. Minimalny łączny rozmiar to '%min%'",
     "One or more files can not be read" => "Jeden lub więcej plików nie mogą zostać odczytane",
 
-    // Zend_Validate_File_Hash
+    // Zend\Validator\File\Hash
     "File '%value%' does not match the given hashes" => "Plik '%value%' ma niedopuszczalny hash",
     "A hash could not be evaluated for the given file" => "Nie można obliczyć funkcji haszującej dla podanego pliku",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_ImageSize
+    // Zend\Validator\File\ImageSize
     "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected" => "Plik '%value%' ma szerokość '%width%'. Maksymalna szerokość to '%maxwidth%'",
     "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected" => "Plik '%value%' ma szerokość '%width%'. Minimalna szerokość to '%maxwidth%'",
     "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected" => "Plik '%value%' ma wysokość '%height%'. Maksymalna wysokość to '%maxheight%'",
@@ -128,40 +128,40 @@ return array(
     "The size of image '%value%' could not be detected" => "Nie można określić rozmiaru pliku '%value%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_IsCompressed
+    // Zend\Validator\File\IsCompressed
     "File '%value%' is not compressed, '%type%' detected" => "Plik '%value%' typu '%type%' nie jest skompresowany",
     "The mimetype of file '%value%' could not be detected" => "Nie można wykryć typu MIME dla pliku '%value%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_IsImage
+    // Zend\Validator\File\IsImage
     "File '%value%' is no image, '%type%' detected" => "Plik '%value%' typu '%type%' nie jest obrazem",
     "The mimetype of file '%value%' could not be detected" => "Nie można wykryć typu MIME dla pliku '%value%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_Md5
+    // Zend\Validator\File\Md5
     "File '%value%' does not match the given md5 hashes" => "Plik '%value%' ma niedopuszczalny hash md5",
     "A md5 hash could not be evaluated for the given file" => "Nie można obliczyć funkcji haszującej md5 dla podanego pliku",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_MimeType
+    // Zend\Validator\File\MimeType
     "File '%value%' has a false mimetype of '%type%'" => "Plik '%value%' ma niepoprawny typ MIME '%type%'",
     "The mimetype of file '%value%' could not be detected" => "Nie można wykryć typu MIME dla pliku '%value%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_NotExists
+    // Zend\Validator\File\NotExists
     "File '%value%' exists" => "Plik '%value%' istnieje",
 
-    // Zend_Validate_File_Sha1
+    // Zend\Validator\File\Sha1
     "File '%value%' does not match the given sha1 hashes" => "Plik '%value%' ma niedopuszczalny hash sha1",
     "A sha1 hash could not be evaluated for the given file" => "Nie można obliczyć funkcji haszującej sha1 dla podanego pliku",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_Size
+    // Zend\Validator\File\Size
     "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected" => "Podany plik ma rozmiar '%size%'. Maksymalny rozmiar pliku to '%max%'",
     "Minimum expected size for file '%value%' is '%min%' but '%size%' detected" => "Podany plik ma rozmiar '%size%'. Minimalny rozmiar pliku to '%min%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_File_Upload
+    // Zend\Validator\File\Upload
     "File '%value%' exceeds the defined ini size" => "Rozmiar pliku '%value%' przekroczył zdefiniowaną wartość w ini",
     "File '%value%' exceeds the defined form size" => "Rozmiar pliku '%value%' przekroczył zdefiniowaną wartość w formularzu",
     "File '%value%' was only partially uploaded" => "Plik '%value%' nie został całkowicie wysłany",
@@ -173,23 +173,23 @@ return array(
     "File '%value%' was not found" => "Nie znaleziono pliku '%value%'",
     "Unknown error while uploading file '%value%'" => "Nieznany błąd podczas wysyłania pliku '%value%'",
 
-    // Zend_Validate_File_WordCount
+    // Zend\Validator\File\WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "Podano '%count%' słów. Maksymalna liczba słów to '%max%'",
     "Too less words, minimum '%min%' are expected but '%count%' were counted" => "Podano '%count%' słów. Minimalna liczba słów to '%min%'",
     "File '%value%' is not readable or does not exist" => "Plik '%value%' nie istnieje lub nie można go odczytać",
 
-    // Zend_Validate_Float
+    // Zend\Validator\Float
     "Invalid type given. String, integer or float expected" => "Podana wartość powinna być ciągiem znaków, liczbą całkowitą lub liczbą zmiennoprzecinkową",
     "'%value%' does not appear to be a float" => "'%value%' nie jest liczbą zmiennoprzecinkową",
 
-    // Zend_Validate_GreaterThan
+    // Zend\Validator\GreaterThan
     "'%value%' is not greater than '%min%'" => "'%value%' nie jest większe niż '%min%'",
 
-    // Zend_Validate_Hex
+    // Zend\Validator\Hex
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
     "'%value%' has not only hexadecimal digit characters" => "'%value%' nie jest wartością heksadecymalną",
 
-    // Zend_Validate_Hostname
+    // Zend\Validator\Hostname
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
     "'%value%' appears to be an IP address, but IP addresses are not allowed" => "Wartość '%value%' jest adresem IP a nie nazwą hosta",
     "'%value%' appears to be a DNS hostname but cannot match TLD against known list" => "'%value%' zawiera nieznane TLD",
@@ -201,63 +201,63 @@ return array(
     "'%value%' appears to be a local network name but local network names are not allowed" => "'%value%' prawdopodobnie jest nazwą sieci lokalnej. Nazwy sieci lokalnych są niedozwolone",
     "'%value%' appears to be a DNS hostname but the given punycode notation cannot be decoded" => "Nie można zdekodować punycode dla podanej nazwy hosta '%value%'",
 
-    // Zend_Validate_Iban
+    // Zend\Validator\Iban
     "Unknown country within the IBAN '%value%'" => "Niepoprawny kraj w IBAN '%value%'",
     "'%value%' has a false IBAN format" => "Wartość '%value%' nie jest w formacie IBAN",
     "'%value%' has failed the IBAN check" => "Wystąpił błąd podczas sprawdzania IBAN dla '%value%'",
 
-    // Zend_Validate_Identical
+    // Zend\Validator\Identical
     "The two given tokens do not match" => "Podane wartości nie są takie same",
     "No token was provided to match against" => "Nie podano wartości do porównania",
 
-    // Zend_Validate_InArray
+    // Zend\Validator\InArray
     "'%value%' was not found in the haystack" => "Nie znaleziono wartości '%value%'",
 
-    // Zend_Validate_Int
+    // Zend\Validator\Int
     "Invalid type given. String or integer expected" => "Podana wartość powinna być ciągiem znaków lub liczbą całkowitą",
     "'%value%' does not appear to be an integer" => "'%value%' nie jest liczbą",
 
-    // Zend_Validate_Ip
+    // Zend\Validator\Ip
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
     "'%value%' does not appear to be a valid IP address" => "'%value%' nie jest poprawnym adresem IP",
 
-    // Zend_Validate_Isbn
+    // Zend\Validator\Isbn
     "Invalid type given. String or integer expected" => "Podana wartość powinna być ciągiem znaków lub liczbą całkowitą",
     "'%value%' is not a valid ISBN number"  => "'%value%' nie jest poprawnym ISBN",
 
-    // Zend_Validate_LessThan
+    // Zend\Validator\LessThan
     "'%value%' is not less than '%max%'" => "'%value%' nie jest mniejsze niż '%max%'",
 
-    // Zend_Validate_NotEmpty
+    // Zend\Validator\NotEmpty
     "Invalid type given. String, integer, float, boolean or array expected" => "Podana wartość powinna być ciągiem znaków, liczbą całkowitą, liczbą zmiennoprzecinkową, wartością logiczną lub tablicą",
     "Value is required and can't be empty" => "To pole jest wymagane",
 
-    // Zend_Validate_PostCode
+    // Zend\Validator\PostCode
     "Invalid type given. String or integer expected" => "Podana wartość powinna być ciągiem znaków lub liczbą całkowitą",
     "'%value%' does not appear to be a postal code" => "Wartość '%value%' nie jest poprawnym kodem pocztowym",
 
-    // Zend_Validate_Regex
+    // Zend\Validator\Regex
     "Invalid type given. String, integer or float expected" => "Podana wartość powinna być ciągiem znaków, liczbą całkowitą lub liczbą zmiennoprzecinkową",
     "'%value%' does not match against pattern '%pattern%'" => "Wartość '%value%' nie pasuje do wzorca '%pattern%'",
     "There was an internal error while using the pattern '%pattern%'" => "Wystąpił błąd podczas dopasowania wyrażenia '%pattern%'",
 
-    // Zend_Validate_Sitemap_Changefreq
+    // Zend\Validator\Sitemap\Changefreq
     "'%value%' is not a valid sitemap changefreq" => "'%value%' nie jest poprawną wartością changefreq",
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
 
-    // Zend_Validate_Sitemap_Lastmod
+    // Zend\Validator\Sitemap\Lastmod
     "'%value%' is not a valid sitemap lastmod" => "'%value%' nie jest poprawną wartością lastmod",
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
 
-    // Zend_Validate_Sitemap_Loc
+    // Zend\Validator\Sitemap\Loc
     "'%value%' is not a valid sitemap location" => "'%value%' nie jest poprawną lokalizacją mapy strony",
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
 
-    // Zend_Validate_Sitemap_Priority
+    // Zend\Validator\Sitemap\Priority
     "'%value%' is not a valid sitemap priority" => "'%value%' nie jest poprawną wartością priorytetu",
     "Invalid type given. Numeric string, integer or float expected" => "Podana wartość powinna być ciągiem znaków, liczbą całkowitą lub liczbą zmiennoprzecinkową",
 
-    // Zend_Validate_StringLength
+    // Zend\Validator\StringLength
     "Invalid type given. String expected" => "Podana wartość nie jest ciągiem znaków",
     "'%value%' is less than %min% characters long" => "'%value%' zawiera mniej niż %min% znaków",
     "'%value%' is more than %max% characters long" => "'%value%' zawiera więcej niż %max% znaków",

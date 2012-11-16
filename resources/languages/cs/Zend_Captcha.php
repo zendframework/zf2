@@ -28,7 +28,7 @@ return array(
     "Captcha ID field is missing" => "Chybí pole captcha ID",
     "Captcha value is wrong" => "Chybná hodnota catpcha",
 
-    // Zend_Captcha_ReCaptcha
+    // Zend\Captcha\ReCaptcha
     "Missing captcha fields" => "Chybí captcha pole",
     "Failed to validate captcha" => "Captchu se nepodařilo ověřit",
     "Captcha value is wrong: %value%" => "Hodnota captchy není správná: %value%",

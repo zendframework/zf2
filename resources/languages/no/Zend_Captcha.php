@@ -23,12 +23,12 @@
  * EN-Revision: 30.Jul.2011
  */
 return array(
-    // Zend_Captcha_ReCaptcha
+    // Zend\Captcha\ReCaptcha
     "Missing captcha fields" => "Captcha-feltene mangler",
     "Failed to validate captcha" => "Captcha-validering feilet",
     "Captcha value is wrong: %value%" => "Captcha-verdien er feil: %value%",
 
-    // Zend_Captcha_Word
+    // Zend\Captcha\AbstractWord
     "Empty captcha value" => "Mangler Captcha-verdi",
     "Captcha ID field is missing" => "Captcha ID-feltet mangler",
     "Captcha value is wrong" => "Captcha-verdien er feil",
