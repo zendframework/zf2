@@ -28,8 +28,8 @@ class ExcludeExtension extends Extension
      * @var array Error message templates
      */
     protected $messageTemplates = array(
-        self::FALSE_EXTENSION => "File '%value%' has a false extension",
-        self::NOT_FOUND       => "File '%value%' is not readable or does not exist",
+        self::FALSE_EXTENSION => "File '%value%' has a false extension.",
+        self::NOT_FOUND       => "File '%value%' is not readable or does not exist.",
     );
 
     /**

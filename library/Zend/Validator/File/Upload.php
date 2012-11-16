@@ -39,16 +39,16 @@ class Upload extends AbstractValidator
      * @var array Error message templates
      */
     protected $messageTemplates = array(
-        self::INI_SIZE       => "File '%value%' exceeds the defined ini size",
-        self::FORM_SIZE      => "File '%value%' exceeds the defined form size",
-        self::PARTIAL        => "File '%value%' was only partially uploaded",
-        self::NO_FILE        => "File '%value%' was not uploaded",
-        self::NO_TMP_DIR     => "No temporary directory was found for file '%value%'",
-        self::CANT_WRITE     => "File '%value%' can't be written",
-        self::EXTENSION      => "A PHP extension returned an error while uploading the file '%value%'",
-        self::ATTACK         => "File '%value%' was illegally uploaded. This could be a possible attack",
-        self::FILE_NOT_FOUND => "File '%value%' was not found",
-        self::UNKNOWN        => "Unknown error while uploading file '%value%'"
+        self::INI_SIZE       => "File '%value%' exceeds the defined ini size.",
+        self::FORM_SIZE      => "File '%value%' exceeds the defined form size.",
+        self::PARTIAL        => "File '%value%' was only partially uploaded.",
+        self::NO_FILE        => "File '%value%' was not uploaded.",
+        self::NO_TMP_DIR     => "No temporary directory was found for file '%value%'.",
+        self::CANT_WRITE     => "File '%value%' can't be written.",
+        self::EXTENSION      => "A PHP extension returned an error while uploading the file '%value%'.",
+        self::ATTACK         => "File '%value%' was illegally uploaded. This could be a possible attack.",
+        self::FILE_NOT_FOUND => "File '%value%' was not found.",
+        self::UNKNOWN        => "Unknown error while uploading file '%value%'."
     );
 
     protected $options = array(
