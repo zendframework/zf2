@@ -317,6 +317,6 @@ class FormRowTest extends TestCase
         $element->setMessages($validator->getMessages());
 
         $markup = $this->helper->__invoke($element);
-        $this->assertEquals(2,  count(explode("<ul><li>The input does not appear to be a valid date</li></ul>", $markup)));
+        $this->assertEquals(2,  count(explode("<ul><li>The input does not appear to be a valid date.</li></ul>", $markup)));
     }
 }
