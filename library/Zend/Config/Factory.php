@@ -23,7 +23,7 @@ class Factory
      *
      * @var null|ReaderPluginManager
      */
-    public static $readers = null;
+    protected static $readers = null;
 
     /**
      * Registered config file extensions.
