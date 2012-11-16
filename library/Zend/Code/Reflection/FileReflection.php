@@ -13,8 +13,8 @@ namespace Zend\Code\Reflection;
 use Zend\Code\Scanner\CachingFileScanner;
 
 /**
- * @category   Zend
- * @package    Zend_Reflection
+ * @package    Zend_Code
+ * @subpackage Reflection
  */
 class FileReflection implements ReflectionInterface
 {

@@ -17,7 +17,6 @@ use Zend\Soap\Wsdl\ComplexTypeStrategy\ComplexTypeStrategyInterface as ComplexTy
 /**
  * Zend_Soap_Wsdl_Strategy_Composite
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage WSDL
  */

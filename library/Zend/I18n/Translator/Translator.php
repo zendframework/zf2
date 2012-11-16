@@ -22,7 +22,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Translator.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Translator
  */

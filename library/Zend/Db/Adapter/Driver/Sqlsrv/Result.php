@@ -13,9 +13,8 @@ namespace Zend\Db\Adapter\Driver\Sqlsrv;
 use Zend\Db\Adapter\Driver\ResultInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver_Sqlsrv
  */
 class Result implements \Iterator, ResultInterface
 {

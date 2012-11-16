@@ -17,9 +17,7 @@ use Zend\Text\Figlet\Figlet as FigletManager;
  *
  * Note that this engine seems not to like numbers
  *
- * @category   Zend
  * @package    Zend_Captcha
- * @subpackage Adapter
  */
 class Figlet extends AbstractWord
 {

@@ -21,7 +21,6 @@ use WeakRef;
  * primarily to allow for lazy-loading and ensuring availability of default
  * arguments (currying).
  *
- * @category   Zend
  * @package    Zend_Stdlib
  */
 class CallbackHandler

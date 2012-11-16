@@ -13,7 +13,6 @@ namespace Zend\View\Helper;
 use Zend\View\Exception\InvalidArgumentException;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

@@ -19,7 +19,6 @@ use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\Hydrator;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  */
 class Factory

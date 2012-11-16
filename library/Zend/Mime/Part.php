@@ -13,7 +13,6 @@ namespace Zend\Mime;
 /**
  * Class representing a MIME part.
  *
- * @category   Zend
  * @package    Zend_Mime
  */
 class Part

@@ -20,7 +20,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Loader\FileLoaderInterface or Loader\RemoteLoaderInterface. Additionally,
  * it registers a number of default loaders.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Translator
  */

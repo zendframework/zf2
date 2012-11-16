@@ -15,6 +15,10 @@ use Zend\Db\Adapter\StatementContainer;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
 
+/**
+ * @package    Zend_Db
+ * @subpackage Sql
+ */
 abstract class AbstractSql
 {
     /**

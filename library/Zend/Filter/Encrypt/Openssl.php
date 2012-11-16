@@ -19,7 +19,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Encryption adapter for openssl
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Openssl implements EncryptionAlgorithmInterface

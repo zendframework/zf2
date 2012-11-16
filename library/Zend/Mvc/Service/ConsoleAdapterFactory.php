@@ -17,7 +17,6 @@ use Zend\Console\Console;
 use Zend\Console\Adapter\AdapterInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */

@@ -17,7 +17,6 @@ use Zend\Json\Json as JsonFormat;
 /**
  * JSON config reader.
  *
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Reader
  */

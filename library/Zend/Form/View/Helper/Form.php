@@ -15,7 +15,6 @@ use Zend\Form\FormInterface;
 /**
  * View helper for rendering Form objects
  *
- * @category   Zend
  * @package    Zend_Form
  * @subpackage View
  */

@@ -15,7 +15,6 @@ use Zend\Http\PhpEnvironment\Response as PhpResponse;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  * @subpackage Callback
  */

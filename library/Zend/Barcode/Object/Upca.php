@@ -13,8 +13,8 @@ namespace Zend\Barcode\Object;
 /**
  * Class for generate UpcA barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object
  */
 class Upca extends Ean13
 {

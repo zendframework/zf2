@@ -15,7 +15,6 @@ use Zend\Mvc\Exception\RuntimeException;
 use Zend\Mvc\InjectApplicationEventInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

@@ -11,9 +11,8 @@
 namespace Zend\Cache\Storage\Plugin;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Plugin
  */
 abstract class AbstractPlugin implements PluginInterface
 {

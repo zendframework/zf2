@@ -14,7 +14,6 @@ namespace Zend\Json\Server\Exception;
  * Thrown by Zend_Json_Server_Client when an HTTP error occurs during an
  * JSON-RPC method call.
  *
- * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
  */

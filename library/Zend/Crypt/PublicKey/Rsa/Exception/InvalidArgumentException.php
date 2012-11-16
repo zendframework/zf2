@@ -15,9 +15,8 @@ use Zend\Crypt\Exception;
 /**
  * Invalid argument exception
  *
- * @category   Zend
  * @package    Zend_Crypt
- * @subpackage PublicKey
+ * @subpackage PublicKey_Rsa_Exception
  */
 class InvalidArgumentException
     extends Exception\InvalidArgumentException

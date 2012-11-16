@@ -15,7 +15,6 @@ use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Validator
  */
 class ValidatorPluginManager extends AbstractPluginManager

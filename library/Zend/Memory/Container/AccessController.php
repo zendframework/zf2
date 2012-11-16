@@ -22,8 +22,8 @@ namespace Zend\Memory\Container;
  *
  * Class also provides Zend\Memory\Container interface and works as proxy for such cases.
  *
- * @category   Zend
  * @package    Zend_Memory
+ * @subpackage Container
  */
 class AccessController implements ContainerInterface
 {

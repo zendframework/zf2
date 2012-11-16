@@ -18,7 +18,6 @@ use Zend\View\Renderer\JsonRenderer;
 use Zend\View\ViewEvent;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Strategy
  */

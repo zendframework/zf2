@@ -15,7 +15,6 @@ use Traversable;
 /**
  * Plugin class locator interface
  *
- * @category   Zend
  * @package    Zend_Loader
  */
 interface PluginClassLocator extends ShortNameLocator, \IteratorAggregate

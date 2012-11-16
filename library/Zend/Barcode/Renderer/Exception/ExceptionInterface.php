@@ -13,8 +13,8 @@ namespace Zend\Barcode\Renderer\Exception;
 use Zend\Barcode\Exception\ExceptionInterface as BarcodeException;
 
 /**
- * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Renderer_Exception
  */
 interface ExceptionInterface extends BarcodeException
 {

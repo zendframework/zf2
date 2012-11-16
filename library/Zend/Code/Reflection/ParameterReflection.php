@@ -13,8 +13,8 @@ namespace Zend\Code\Reflection;
 use ReflectionParameter;
 
 /**
- * @category   Zend
- * @package    Zend_Reflection
+ * @package    Zend_Code
+ * @subpackage Reflection
  */
 class ParameterReflection extends ReflectionParameter implements ReflectionInterface
 {

@@ -15,7 +15,6 @@ use Zend\Barcode\Object\ObjectInterface;
 /**
  * Class for rendering the barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Renderer
  */

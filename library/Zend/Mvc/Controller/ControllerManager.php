@@ -23,7 +23,6 @@ use Zend\Stdlib\DispatchableInterface;
  *
  * Does not define any controllers by default, but does add a validator.
  *
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

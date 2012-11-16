@@ -17,7 +17,6 @@ use Zend\Mime\Mime;
  * Utility class used for creating wrapped or MIME-encoded versions of header
  * values.
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Header
  */

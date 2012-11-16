@@ -12,6 +12,10 @@ namespace Zend\Authentication\Adapter\Exception;
 
 use Zend\Authentication\Exception;
 
+/**
+ * @package    Zend_Authentication
+ * @subpackage Adapter_Exception
+ */
 class InvalidArgumentException
     extends Exception\InvalidArgumentException
     implements ExceptionInterface

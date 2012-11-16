@@ -14,9 +14,9 @@ use DOMText;
 use Zend\Feed\Reader\Extension;
 
 /**
-* @category Zend
-* @package Zend_Feed_Reader
-*/
+ * @package    Zend_Feed
+ * @subpackage Reader_Extension_Podcast
+ */
 class Feed extends Extension\AbstractFeed
 {
     /**

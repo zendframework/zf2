@@ -11,7 +11,6 @@
 namespace Zend\Serializer\Adapter;
 
 /**
- * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
  */

@@ -17,8 +17,8 @@ use Zend\Di\Exception;
  * Proxy used to analyze how instances are created by a given Di. Overrides Zend\Di\Di to produce artifacts that
  * represent the process used to instantiate a particular instance
  *
- * @category   Zend
  * @package    Zend_Di
+ * @subpackage ServiceLocator
  */
 class DependencyInjectorProxy extends Di
 {

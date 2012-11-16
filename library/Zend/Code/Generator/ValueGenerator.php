@@ -10,6 +10,10 @@
 
 namespace Zend\Code\Generator;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Generator
+ */
 class ValueGenerator extends AbstractGenerator
 {
     /**#@+

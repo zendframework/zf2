@@ -11,7 +11,6 @@
 namespace Zend\Authentication\Adapter;
 
 /**
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter
  */

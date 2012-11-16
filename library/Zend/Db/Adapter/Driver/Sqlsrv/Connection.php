@@ -15,9 +15,8 @@ use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver_Sqlsrv
  */
 class Connection implements ConnectionInterface
 {

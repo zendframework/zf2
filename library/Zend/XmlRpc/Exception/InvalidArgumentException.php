@@ -10,6 +10,10 @@
 
 namespace Zend\XmlRpc\Exception;
 
+/**
+ * @package    Zend_XmlRpc
+ * @subpackage Exception
+ */
 class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {
 }

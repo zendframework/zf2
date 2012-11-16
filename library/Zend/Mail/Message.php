@@ -14,7 +14,6 @@ use Traversable;
 use Zend\Mime;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  */
 class Message

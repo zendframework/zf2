@@ -22,7 +22,6 @@ use Zend\Crypt\Symmetric\Exception as SymmetricException;
 /**
  * Encryption adapter for Zend\Crypt\BlockCipher
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class BlockCipher implements EncryptionAlgorithmInterface

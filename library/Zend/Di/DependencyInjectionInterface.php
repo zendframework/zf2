@@ -11,7 +11,6 @@
 namespace Zend\Di;
 
 /**
- * @category   Zend
  * @package    Zend_Di
  */
 interface DependencyInjectionInterface extends LocatorInterface

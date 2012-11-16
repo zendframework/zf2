@@ -15,7 +15,6 @@ use Zend\Ldap\Converter\Converter;
 /**
  * Zend\Ldap\Filter\AbstractFilter provides a base implementation for filters.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
  */

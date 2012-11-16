@@ -13,7 +13,6 @@ namespace Zend\Serializer\Adapter;
 use Zend\Stdlib\AbstractOptions;
 
 /**
- * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
  */

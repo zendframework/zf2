@@ -22,7 +22,6 @@ use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  */
 class Form extends Fieldset implements FormInterface

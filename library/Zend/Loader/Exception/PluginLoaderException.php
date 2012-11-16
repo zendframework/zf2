@@ -15,7 +15,6 @@ require_once __DIR__ . '/DomainException.php';
 /**
  * Plugin class loader exceptions
  *
- * @category   Zend
  * @package    Zend_Loader
  * @subpackage Exception
  */

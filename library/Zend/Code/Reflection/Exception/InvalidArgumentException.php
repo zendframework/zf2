@@ -13,9 +13,8 @@ namespace Zend\Code\Reflection\Exception;
 use Zend\Code\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Code
- * @subpackage Reflection
+ * @subpackage Reflection_Exception
  */
 class InvalidArgumentException extends Exception\InvalidArgumentException implements
     ExceptionInterface

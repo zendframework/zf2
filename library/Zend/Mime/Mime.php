@@ -13,7 +13,6 @@ namespace Zend\Mime;
 /**
  * Support class for MultiPart Mime Messages
  *
- * @category   Zend
  * @package    Zend_Mime
  */
 class Mime

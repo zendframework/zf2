@@ -13,7 +13,6 @@ namespace Zend\Db\ResultSet;
 use ArrayObject;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage ResultSet
  */

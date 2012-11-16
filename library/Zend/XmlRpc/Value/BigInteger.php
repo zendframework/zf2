@@ -13,7 +13,6 @@ namespace Zend\XmlRpc\Value;
 use Zend\Math\BigInteger\BigInteger as BigIntegerMath;
 
 /**
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
  */

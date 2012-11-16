@@ -19,7 +19,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Object\AbstractObject. Additionally, it registers a number of default
  * barcode parsers.
  *
- * @category   Zend
  * @package    Zend_Barcode
  */
 class ObjectPluginManager extends AbstractPluginManager

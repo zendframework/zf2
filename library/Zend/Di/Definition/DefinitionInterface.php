@@ -11,8 +11,8 @@
 namespace Zend\Di\Definition;
 
 /**
- * @category   Zend
  * @package    Zend_Di
+ * @subpackage Definition
  */
 interface DefinitionInterface
 {

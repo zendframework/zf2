@@ -13,7 +13,6 @@ namespace Zend\ModuleManager\Feature;
 use Zend\Console\Adapter\AdapterInterface;
 
 /**
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Feature
  */

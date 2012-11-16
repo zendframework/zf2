@@ -19,7 +19,6 @@ use Zend\View\Model;
 use Zend\View\Variables as ViewVariables;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Model
  */

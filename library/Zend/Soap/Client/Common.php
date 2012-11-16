@@ -13,7 +13,6 @@ namespace Zend\Soap\Client;
 if (extension_loaded('soap')) {
 
 /**
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage Client
  */

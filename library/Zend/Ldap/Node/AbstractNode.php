@@ -16,7 +16,6 @@ use Zend\Ldap\Exception;
 /**
  * This class provides a base implementation for LDAP nodes
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Node
  */

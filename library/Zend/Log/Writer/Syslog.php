@@ -17,7 +17,6 @@ use Zend\Log\Formatter\Simple as SimpleFormatter;
 /**
  * Writes log messages to syslog
  *
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
  */

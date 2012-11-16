@@ -19,7 +19,6 @@ use Zend\Stdlib\ResponseInterface as Response;
 /**
  * Abstract RESTful controller
  *
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

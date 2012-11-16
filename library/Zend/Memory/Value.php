@@ -19,7 +19,6 @@ use Countable;
  * It's an OO string wrapper.
  * Used to intercept string updates.
  *
- * @category   Zend
  * @package    Zend_Memory
  */
 class Value implements ArrayAccess, Countable

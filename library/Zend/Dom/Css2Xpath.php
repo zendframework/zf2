@@ -14,7 +14,6 @@ namespace Zend\Dom;
  * Transform CSS selectors to XPath
  *
  * @package    Zend_Dom
- * @subpackage Query
  */
 class Css2Xpath
 {

@@ -17,9 +17,8 @@ use Zend\Feed\Exception;
  *
  * Class to represent exceptions that occur during Feed operations.
  *
- * @category   Zend
  * @package    Zend_Feed
- * @subpackage Writer
+ * @subpackage Writer_Exception
  */
 class InvalidArgumentException
     extends Exception\InvalidArgumentException

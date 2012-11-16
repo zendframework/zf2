@@ -13,6 +13,10 @@ namespace Zend\Code\Scanner;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Scanner
+ */
 class ClassScanner implements ScannerInterface
 {
     /**

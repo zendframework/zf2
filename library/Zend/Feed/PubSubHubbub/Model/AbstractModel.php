@@ -14,7 +14,6 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\TableGateway\TableGatewayInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  */
 class AbstractModel

@@ -18,7 +18,6 @@ namespace Zend\EventManager;
  * then be called with the current EventManager instance, allowing the class to
  * wire up one or more listeners.
  *
- * @category   Zend
  * @package    Zend_EventManager
  */
 interface ListenerAggregateInterface

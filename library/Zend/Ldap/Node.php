@@ -15,7 +15,6 @@ use Zend\EventManager\EventManager;
 /**
  * Zend\Ldap\Node provides an object oriented view into a LDAP node.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Node
  */

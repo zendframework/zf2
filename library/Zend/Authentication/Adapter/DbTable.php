@@ -18,7 +18,6 @@ use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Select as DbSelect;
 
 /**
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Adapter
  */

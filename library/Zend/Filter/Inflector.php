@@ -16,7 +16,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Filter chain for string inflection
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Inflector extends AbstractFilter

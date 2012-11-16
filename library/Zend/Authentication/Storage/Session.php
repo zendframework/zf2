@@ -14,7 +14,6 @@ use Zend\Session\Container as SessionContainer;
 use Zend\Session\ManagerInterface as SessionManager;
 
 /**
- * @category   Zend
  * @package    Zend_Authentication
  * @subpackage Storage
  */

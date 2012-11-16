@@ -13,7 +13,6 @@ namespace Zend\View\Exception;
 /**
  * Domain exception
  *
- * @category   Zend
  * @package    Zend_View
  */
 class DomainException

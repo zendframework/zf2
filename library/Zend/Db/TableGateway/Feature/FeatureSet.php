@@ -12,6 +12,10 @@ namespace Zend\Db\TableGateway\Feature;
 
 use Zend\Db\TableGateway\AbstractTableGateway;
 
+/**
+ * @package    Zend_Db
+ * @subpackage TableGateway_Feature
+ */
 class FeatureSet
 {
     const APPLY_HALT = 'halt';

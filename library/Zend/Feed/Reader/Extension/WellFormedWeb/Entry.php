@@ -13,9 +13,9 @@ namespace Zend\Feed\Reader\Extension\WellFormedWeb;
 use Zend\Feed\Reader\Extension;
 
 /**
-* @category Zend
-* @package Zend_Feed_Reader
-*/
+ * @package    Zend_Feed
+ * @subpackage Reader_Extension_WellFormedWeb
+ */
 class Entry extends Extension\AbstractEntry
 {
     /**

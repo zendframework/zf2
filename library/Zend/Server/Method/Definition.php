@@ -15,7 +15,6 @@ use Zend\Server;
 /**
  * Method definition metadata
  *
- * @category   Zend
  * @package    Zend_Server
  * @subpackage Zend_Server_Method
  */

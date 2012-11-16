@@ -16,7 +16,6 @@ use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\TableIdentifier;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage RowGateway
  */

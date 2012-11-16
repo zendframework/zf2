@@ -21,7 +21,6 @@ use Zend\Soap\Server as SOAPServer;
  *
  * Could be used for development or testing purposes.
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage Client
  */

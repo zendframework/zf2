@@ -13,8 +13,8 @@ namespace Zend\Code\Reflection;
 use ReflectionFunction;
 
 /**
- * @category   Zend
- * @package    Zend_Reflection
+ * @package    Zend_Code
+ * @subpackage Reflection
  */
 class FunctionReflection extends ReflectionFunction implements ReflectionInterface
 {

@@ -13,7 +13,6 @@ namespace Zend\Json\Server;
 use Zend\Json\Json;
 
 /**
- * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
  */

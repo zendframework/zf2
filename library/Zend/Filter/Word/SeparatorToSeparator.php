@@ -13,7 +13,6 @@ namespace Zend\Filter\Word;
 use Zend\Filter\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Filter
  */
 class SeparatorToSeparator extends \Zend\Filter\PregReplace

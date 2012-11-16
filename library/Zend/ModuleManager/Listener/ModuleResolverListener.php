@@ -13,7 +13,6 @@ namespace Zend\ModuleManager\Listener;
 /**
  * Module resolver listener
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */

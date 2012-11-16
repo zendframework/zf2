@@ -16,7 +16,6 @@ use Zend\Config\Exception;
 /**
  * XML config reader.
  *
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Reader
  */

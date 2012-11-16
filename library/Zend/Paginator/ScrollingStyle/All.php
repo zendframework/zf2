@@ -17,8 +17,8 @@ use Zend\Paginator\Paginator;
  * Useful when it is necessary to make every page available at
  * once--for example, when using a drop-down menu pagination control.
  *
- * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage ScrollingStyle
  */
 class All implements ScrollingStyleInterface
 {

@@ -13,7 +13,6 @@ namespace Zend\File\Transfer\Exception;
 use Zend\File\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_File_Transfer
  */
 class RuntimeException extends Exception\RuntimeException implements

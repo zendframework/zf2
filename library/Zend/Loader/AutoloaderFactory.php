@@ -20,7 +20,6 @@ if (class_exists('Zend\Loader\AutoloaderFactory')) {
 }
 
 /**
- * @category   Zend
  * @package    Zend_Loader
  */
 abstract class AutoloaderFactory

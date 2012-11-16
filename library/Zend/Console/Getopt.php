@@ -68,8 +68,7 @@ namespace Zend\Console;
  * Example:  'abc:' means options '-a', '-b', and '-c'
  * are legal, and the latter requires a string parameter.
  *
- * @category   Zend
- * @package    Zend_Console_Getopt
+ * @package    Zend_Console
  * @version    Release: @package_version@
  * @since      Class available since Release 0.6.0
  *

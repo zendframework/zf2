@@ -13,7 +13,6 @@ namespace Zend\Crypt;
 /**
  * Tools for cryptography
  *
- * @category   Zend
  * @package    Zend_Crypt
  */
 class Utils

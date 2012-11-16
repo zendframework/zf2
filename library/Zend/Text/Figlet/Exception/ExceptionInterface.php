@@ -13,7 +13,6 @@ namespace Zend\Text\Figlet\Exception;
 use Zend\Text\Exception\ExceptionInterface as Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Text
  */
 interface ExceptionInterface extends Exception

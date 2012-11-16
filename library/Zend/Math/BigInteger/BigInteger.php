@@ -11,7 +11,6 @@
 namespace Zend\Math\BigInteger;
 
 /**
- * @category   Zend
  * @package    Zend_Math
  * @subpackage BigInteger
  */

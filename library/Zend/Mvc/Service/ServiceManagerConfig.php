@@ -18,7 +18,6 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */

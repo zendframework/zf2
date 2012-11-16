@@ -16,7 +16,6 @@ use Zend\Log\Formatter\Simple as SimpleFormatter;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
  */

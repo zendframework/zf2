@@ -15,7 +15,6 @@ use Zend\I18n\Exception;
 /**
  * View helper for translating plural messages.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage View
  */

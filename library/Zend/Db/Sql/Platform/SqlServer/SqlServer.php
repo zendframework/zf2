@@ -12,6 +12,10 @@ namespace Zend\Db\Sql\Platform\SqlServer;
 
 use Zend\Db\Sql\Platform\AbstractPlatform;
 
+/**
+ * @package    Zend_Db
+ * @subpackage Sql_Platform_SqlServer
+ */
 class SqlServer extends AbstractPlatform
 {
 

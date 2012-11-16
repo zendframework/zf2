@@ -11,7 +11,6 @@
 namespace Zend\Db\TableGateway;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage TableGateway
  */

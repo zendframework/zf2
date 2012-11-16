@@ -11,7 +11,8 @@
 namespace Zend\Db\Sql;
 
 /**
- *
+ * @package    Zend_Db
+ * @subpackage Sql
  */
 class TableIdentifier
 {

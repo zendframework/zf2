@@ -17,9 +17,8 @@ namespace Zend\Db\Sql\Predicate;
  * @property Predicate $OR
  * @property Predicate $NEST
  * @property Predicate $UNNEST
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Sql
+ * @subpackage Sql_Predicate
  */
 class Predicate extends PredicateSet
 {

@@ -13,9 +13,8 @@ namespace Zend\Cache\Storage\Adapter;
 /**
  * These are options specific to the APC adapter
  *
- * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Adapter
  */
 class ApcOptions extends AdapterOptions
 {

@@ -15,7 +15,6 @@ use Zend\ModuleManager\Exception\ExceptionInterface as Exception;
 /**
  * Exception interface
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */

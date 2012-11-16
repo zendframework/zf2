@@ -15,7 +15,6 @@ use Zend\Json\Exception;
 /**
  * Thrown by Zend\Json\Server\Client when an JSON-RPC fault response is returned.
  *
- * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
  */

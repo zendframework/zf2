@@ -16,7 +16,6 @@ namespace Zend\Http\Client\Adapter;
  * These classes are used as connectors for Zend_Http_Client, performing the
  * tasks of connecting, writing, reading and closing connection to the server.
  *
- * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
  */

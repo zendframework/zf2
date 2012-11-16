@@ -13,7 +13,6 @@ namespace Zend\Ldap\Filter;
 /**
  * Zend\Ldap\Filter\NotFilter provides a negation filter.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
  */

@@ -12,6 +12,10 @@ namespace Zend\Code\Reflection\DocBlock;
 
 use Zend\Code\Reflection\Exception;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Reflection_DocBlock
+ */
 class TagManager
 {
     const USE_DEFAULT_PROTOTYPES = 'default';

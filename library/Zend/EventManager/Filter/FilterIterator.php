@@ -19,8 +19,8 @@ use Zend\Stdlib\SplPriorityQueue;
  *
  * Allows removal
  *
- * @category   Zend
  * @package    Zend_EventManager
+ * @subpackage Filter
  */
 class FilterIterator extends SplPriorityQueue
 {

@@ -15,9 +15,8 @@ use Zend\Db\Adapter\Driver\DriverInterface;
 use Zend\Db\Adapter\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver_Mysqli
  */
 class Mysqli implements DriverInterface
 {

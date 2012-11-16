@@ -20,7 +20,6 @@ use Zend\Stdlib\PriorityQueue;
  * The assumption is that the SharedEventManager will be injected into EventManager
  * instances, and then queried for additional listeners when triggering an event.
  *
- * @category   Zend
  * @package    Zend_EventManager
  */
 class SharedEventManager implements SharedEventManagerInterface

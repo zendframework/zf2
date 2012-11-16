@@ -15,7 +15,6 @@ namespace Zend\Mail\Protocol;
  *
  * Minimum implementation according to RFC2821: EHLO, MAIL FROM, RCPT TO, DATA, RSET, NOOP, QUIT
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
  */

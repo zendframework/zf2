@@ -14,7 +14,6 @@ use Zend\Http\Client as HttpClient;
 use Zend\Server\Client as ServerClient;
 
 /**
- * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
  */

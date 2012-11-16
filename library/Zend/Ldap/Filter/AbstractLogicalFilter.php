@@ -15,7 +15,6 @@ use Zend\Ldap\Filter\Exception;
 /**
  * Zend\Ldap\Filter\AbstractLogicalFilter provides a base implementation for a grouping filter.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
  */

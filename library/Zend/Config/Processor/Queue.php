@@ -15,7 +15,6 @@ use Zend\Config\Exception;
 use Zend\Stdlib\PriorityQueue;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Processor
  */

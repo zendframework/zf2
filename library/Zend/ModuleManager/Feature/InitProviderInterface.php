@@ -13,7 +13,6 @@ namespace Zend\ModuleManager\Feature;
 use Zend\ModuleManager\ModuleManagerInterface;
 
 /**
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Feature
  */

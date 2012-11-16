@@ -13,8 +13,8 @@ namespace Zend\Barcode\Object;
 /**
  * Class for generate Code39 barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object
  */
 class Code39 extends AbstractObject
 {

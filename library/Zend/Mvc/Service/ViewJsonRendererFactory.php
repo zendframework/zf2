@@ -15,7 +15,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Renderer\JsonRenderer;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */

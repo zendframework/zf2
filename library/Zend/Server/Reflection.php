@@ -16,7 +16,6 @@ use Zend\Server\Reflection\ReflectionFunction;
 /**
  * Reflection for determining method signatures to use with server classes
  *
- * @category   Zend
  * @package    Zend_Server
  */
 class Reflection

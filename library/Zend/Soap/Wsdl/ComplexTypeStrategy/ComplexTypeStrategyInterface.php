@@ -15,7 +15,6 @@ use Zend\Soap\Wsdl;
 /**
  * Interface strategies that generate an XSD-Schema for complex data types in WSDL files.
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage WSDL
  */

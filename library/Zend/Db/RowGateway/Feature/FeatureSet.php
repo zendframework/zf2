@@ -12,6 +12,10 @@ namespace Zend\Db\RowGateway\Feature;
 
 use Zend\Db\RowGateway\AbstractRowGateway;
 
+/**
+ * @package    Zend_Db
+ * @subpackage RowGateway_Feature
+ */
 class FeatureSet
 {
     const APPLY_HALT = 'halt';

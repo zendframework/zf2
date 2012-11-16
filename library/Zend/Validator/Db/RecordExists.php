@@ -15,7 +15,6 @@ use Zend\Validator\Exception;
 /**
  * Confirms a record exists in a table.
  *
- * @category   Zend
  * @package    Zend_Validator
  */
 class RecordExists extends AbstractDb

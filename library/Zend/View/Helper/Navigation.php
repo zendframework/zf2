@@ -19,7 +19,6 @@ use Zend\View\Helper\Navigation\HelperInterface as NavigationHelper;
 /**
  * Proxy helper for retrieving navigational helpers and forwarding calls
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

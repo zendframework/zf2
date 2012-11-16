@@ -14,7 +14,6 @@ use Zend\I18n\Filter\Alnum as AlnumFilter;
 use Zend\Validator\AbstractValidator;
 
 /**
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Validator
  */

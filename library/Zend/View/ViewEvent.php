@@ -18,7 +18,6 @@ use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Renderer\RendererInterface as Renderer;
 
 /**
- * @category   Zend
  * @package    Zend_View
  */
 class ViewEvent extends Event

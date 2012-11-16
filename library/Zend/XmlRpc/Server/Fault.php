@@ -25,7 +25,6 @@ namespace Zend\XmlRpc\Server;
  * To allow method chaining, you may use the {@link getInstance()} factory
  * to instantiate a Zend_XmlRpc_Server_Fault.
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Server
  */

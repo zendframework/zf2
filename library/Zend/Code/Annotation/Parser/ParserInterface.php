@@ -14,7 +14,7 @@ use Zend\EventManager\EventInterface;
 
 /**
  * @package    Zend_Code
- * @subpackage Annotation
+ * @subpackage Annotation_Parser
  */
 interface ParserInterface
 {

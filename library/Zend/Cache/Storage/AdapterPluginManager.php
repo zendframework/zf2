@@ -20,7 +20,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * StorageInterface. Additionally, it registers a number of default
  * adapters available.
  *
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage
  */

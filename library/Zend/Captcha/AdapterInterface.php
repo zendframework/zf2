@@ -17,9 +17,7 @@ use Zend\Validator\ValidatorInterface;
  *
  * Each specific captcha implementation should implement this interface
  *
- * @category   Zend
  * @package    Zend_Captcha
- * @subpackage Adapter
  */
 interface AdapterInterface extends ValidatorInterface
 {

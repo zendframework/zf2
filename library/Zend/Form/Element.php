@@ -14,7 +14,6 @@ use Traversable;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  */
 class Element implements ElementInterface

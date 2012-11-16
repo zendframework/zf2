@@ -17,7 +17,6 @@ use Zend\View\Model\ViewModel;
 /**
  * Basic action controller
  *
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

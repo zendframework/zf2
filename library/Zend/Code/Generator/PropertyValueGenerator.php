@@ -11,8 +11,8 @@
 namespace Zend\Code\Generator;
 
 /**
- * @category   Zend
- * @package    Zend_Code_Generator
+ * @package    Zend_Code
+ * @subpackage Generator
  */
 class PropertyValueGenerator extends ValueGenerator
 {

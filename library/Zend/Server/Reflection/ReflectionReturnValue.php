@@ -15,7 +15,6 @@ namespace Zend\Server\Reflection;
  *
  * Stores the return value type and description
  *
- * @category   Zend
  * @package    Zend_Server
  * @subpackage Zend_Server_Reflection
  */

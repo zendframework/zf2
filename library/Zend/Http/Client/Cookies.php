@@ -33,7 +33,6 @@ use Zend\Uri;
  *
  * @link       http://wp.netscape.com/newsref/std/cookie_spec.html for some specs.
  *
- * @category   Zend
  * @package    Zend\Http\Client
  */
 class Cookies

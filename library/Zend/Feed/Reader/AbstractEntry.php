@@ -15,8 +15,8 @@ use DOMElement;
 use DOMXPath;
 
 /**
- * @category   Zend
- * @package    Zend_Feed_Reader
+ * @package    Zend_Feed
+ * @subpackage Reader
  */
 abstract class AbstractEntry
 {

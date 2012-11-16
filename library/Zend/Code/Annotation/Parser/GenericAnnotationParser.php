@@ -23,7 +23,7 @@ use Zend\EventManager\EventInterface;
  * they are then responsible for parsing.
  *
  * @package    Zend_Code
- * @subpackage Annotation
+ * @subpackage Annotation_Parser
  */
 class GenericAnnotationParser implements ParserInterface
 {

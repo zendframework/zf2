@@ -10,6 +10,10 @@
 
 namespace Zend\Crypt\Symmetric\Padding;
 
+/**
+ * @package    Zend_Crypt
+ * @subpackage Symmetric_Padding
+ */
 interface PaddingInterface
 {
     /**

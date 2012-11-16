@@ -17,7 +17,6 @@ use Zend\Mvc\View\Console\ViewManager as ConsoleViewManager;
 use Zend\Mvc\View\Http\ViewManager as HttpViewManager;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */

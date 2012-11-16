@@ -15,7 +15,6 @@ use Zend\Session\Exception;
 /**
  * Session configuration proxying to session INI options
  *
- * @category   Zend
  * @package    Zend_Session
  * @subpackage Configuration
  */

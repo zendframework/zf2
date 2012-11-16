@@ -17,7 +17,6 @@ namespace Zend\Form\Annotation;
  * element when creating the form specification.
  *
  * @Annotation
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Annotation
  */

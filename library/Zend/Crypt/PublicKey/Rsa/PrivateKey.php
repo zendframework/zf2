@@ -13,9 +13,8 @@ namespace Zend\Crypt\PublicKey\Rsa;
 /**
  * RSA private key
  *
- * @category   Zend
  * @package    Zend_Crypt
- * @subpackage PublicKey
+ * @subpackage  PublicKey_Rsa
  */
 class PrivateKey extends AbstractKey
 {

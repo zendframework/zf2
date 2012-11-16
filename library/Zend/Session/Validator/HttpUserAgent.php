@@ -11,7 +11,6 @@
 namespace Zend\Session\Validator;
 
 /**
- * @category   Zend
  * @package    Zend_Session
  * @subpackage Validator
  */

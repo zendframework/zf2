@@ -21,7 +21,6 @@ use Zend\ServiceManager\ConfigInterface;
  * Helper\HelperInterface. Additionally, it registers a number of default
  * helpers.
  *
- * @category   Zend
  * @package    Zend_View
  */
 class HelperPluginManager extends AbstractPluginManager

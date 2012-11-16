@@ -13,7 +13,6 @@ namespace Zend\Session\Config;
 /**
  * Standard session configuration
  *
- * @category   Zend
  * @package    Zend_Session
  */
 interface ConfigInterface

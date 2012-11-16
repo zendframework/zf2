@@ -14,7 +14,6 @@ use Locale;
 use Zend\Filter\AbstractFilter;
 
 /**
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Filter
  */

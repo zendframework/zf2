@@ -11,7 +11,6 @@
 namespace Zend\Text\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Text
  */
 class InvalidArgumentException

@@ -20,7 +20,6 @@ use Zend\Validator\GreaterThan as GreaterThanValidator;
 use Zend\Validator\LessThan as LessThanValidator;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
  */

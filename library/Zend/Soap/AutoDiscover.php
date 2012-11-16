@@ -21,7 +21,6 @@ use Zend\Uri;
 /**
  * \Zend\Soap\AutoDiscover
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage AutoDiscover
  */

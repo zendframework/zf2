@@ -15,8 +15,8 @@ use Zend\Cache\Storage\ExceptionEvent;
 use Zend\EventManager\EventManagerInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
+ * @subpackage Storage_Plugin
  */
 class ExceptionHandler extends AbstractPlugin
 {

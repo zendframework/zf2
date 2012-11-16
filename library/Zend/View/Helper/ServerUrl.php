@@ -13,7 +13,6 @@ namespace Zend\View\Helper;
 /**
  * Helper for returning the current server URL (optionally with request URI)
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

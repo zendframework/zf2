@@ -18,9 +18,7 @@ use Zend\Validator\AbstractValidator;
  *
  * Provides some utility functionality to build on
  *
- * @category   Zend
  * @package    Zend_Captcha
- * @subpackage Adapter
  */
 abstract class AbstractAdapter extends AbstractValidator implements AdapterInterface
 {

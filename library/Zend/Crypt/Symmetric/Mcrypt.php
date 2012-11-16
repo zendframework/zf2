@@ -20,8 +20,8 @@ use Zend\Stdlib\ArrayUtils;
  * This class doesn't provide authentication and integrity check over the data.
  * PLEASE USE Zend\Crypt\BlockCipher instead!
  *
- * @category   Zend
  * @package    Zend_Crypt
+ * @subpackage Symmetric
  */
 class Mcrypt implements SymmetricInterface
 {

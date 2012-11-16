@@ -11,7 +11,6 @@
 namespace Zend\ModuleManager\Feature;
 
 /**
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Feature
  */

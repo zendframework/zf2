@@ -16,7 +16,6 @@ use Zend\Mail\Headers;
 /**
  * Base class for headers composing address lists (to, from, cc, bcc, reply-to)
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Header
  */

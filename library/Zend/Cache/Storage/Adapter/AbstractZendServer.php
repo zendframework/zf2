@@ -15,9 +15,8 @@ use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Adapter
  */
 abstract class AbstractZendServer extends AbstractAdapter
 {

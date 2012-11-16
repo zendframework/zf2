@@ -22,7 +22,6 @@ use Zend\Stdlib\ArrayUtils;
  * object manually, and then set it as the client's adapter. Then, you can
  * set the expected response using the setResponse() method.
  *
- * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
  */

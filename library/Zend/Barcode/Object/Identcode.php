@@ -13,8 +13,8 @@ namespace Zend\Barcode\Object;
 /**
  * Class for generate Identcode barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object
  */
 class Identcode extends Code25interleaved
 {

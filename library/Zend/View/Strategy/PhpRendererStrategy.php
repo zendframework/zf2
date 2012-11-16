@@ -16,7 +16,6 @@ use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Strategy
  */

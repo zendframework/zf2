@@ -13,7 +13,6 @@ namespace Zend\Ldap\Filter;
 /**
  * Zend\Ldap\Filter\OrFilter provides an 'or' filter.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
  */

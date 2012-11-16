@@ -11,9 +11,9 @@
 namespace Zend\Feed\Writer;
 
 /**
-* @category Zend
-* @package Zend_Feed_Writer
-*/
+ * @package    Zend_Feed
+ * @subpackage Writer
+ */
 class Source extends AbstractFeed
 {
 }

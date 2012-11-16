@@ -19,7 +19,6 @@ namespace Zend\ModuleManager\Feature;
  * name. Implementing this interface obviously does not require adding any
  * methods to your class.
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Feature
  */

@@ -29,7 +29,6 @@ use Zend\Stdlib\ResponseInterface as Response;
 use Zend\Text\Table;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage View
  */

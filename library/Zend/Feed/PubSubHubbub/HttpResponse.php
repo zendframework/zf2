@@ -11,7 +11,6 @@
 namespace Zend\Feed\PubSubHubbub;
 
 /**
- * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  */
 class HttpResponse

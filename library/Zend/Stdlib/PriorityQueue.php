@@ -26,7 +26,6 @@ use Serializable;
  * "inner" iterator in the form of an SplPriorityQueue object for performing
  * the actual iteration.
  *
- * @category   Zend
  * @package    Zend_Stdlib
  */
 class PriorityQueue implements Countable, IteratorAggregate, Serializable

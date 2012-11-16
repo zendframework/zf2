@@ -13,8 +13,8 @@ namespace Zend\Memory\Exception;
 /**
  * Exception for Zend_Memory component.
  *
- * @category   Zend
  * @package    Zend_Memory
+ * @subpackage Exception
  */
 class RuntimeException extends \RuntimeException implements ExceptionInterface
 {

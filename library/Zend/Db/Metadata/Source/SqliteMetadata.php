@@ -14,9 +14,8 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSetInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Metadata
+ * @subpackage Metadata_Source
  */
 class SqliteMetadata extends AbstractSource
 {

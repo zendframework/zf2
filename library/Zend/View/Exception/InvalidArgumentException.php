@@ -13,7 +13,6 @@ namespace Zend\View\Exception;
 /**
  * Invalid argument exception
  *
- * @category   Zend
  * @package    Zend_View
  */
 class InvalidArgumentException

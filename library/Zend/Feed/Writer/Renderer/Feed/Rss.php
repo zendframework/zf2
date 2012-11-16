@@ -19,9 +19,9 @@ use Zend\Uri;
 use Zend\Version\Version;
 
 /**
-* @category Zend
-* @package Zend_Feed_Writer
-*/
+ * @package    Zend_Feed
+ * @subpackage Writer_Renderer_Feed
+ */
 class Rss extends Renderer\AbstractRenderer implements Renderer\RendererInterface
 {
     /**

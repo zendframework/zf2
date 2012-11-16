@@ -11,7 +11,6 @@
 namespace Zend\Feed\Reader\Collection;
 
 /**
- * @category   Zend
  * @package    Zend_Feed_Reader
  */
 abstract class AbstractCollection extends \ArrayObject

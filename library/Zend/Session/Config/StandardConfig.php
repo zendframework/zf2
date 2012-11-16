@@ -18,7 +18,6 @@ use Traversable;
 /**
  * Standard session configuration
  *
- * @category   Zend
  * @package    Zend_Session
  * @subpackage Configuration
  */

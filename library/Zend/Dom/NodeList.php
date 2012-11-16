@@ -21,7 +21,6 @@ use Iterator;
  * Nodelist for DOM XPath query
  *
  * @package    Zend_Dom
- * @subpackage Query
  */
 class NodeList implements Iterator, Countable
 {

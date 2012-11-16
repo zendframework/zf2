@@ -21,7 +21,6 @@ use Zend\Mail\Protocol\Exception as ProtocolException;
  *
  * Loads an instance of Zend\Mail\Protocol\Smtp and forwards smtp transactions
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
  */

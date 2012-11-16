@@ -15,7 +15,6 @@ use Zend\I18n\Exception;
 /**
  * Plural rule evaluator.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Translator
  */

@@ -32,7 +32,6 @@ namespace Zend\Json;
  * // {"integer":9,"string":"test string","function":function() {window.alert("javascript function encoded by Zend_Json")}}
  * </code>
  *
- * @category   Zend
  * @package    Zend_Json
  * @subpackage Expr
  */

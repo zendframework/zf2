@@ -19,7 +19,6 @@ use Zend\View\Exception;
 /**
  * Helper for rendering menus from navigation containers
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

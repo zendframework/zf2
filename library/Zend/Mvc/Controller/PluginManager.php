@@ -21,7 +21,6 @@ use Zend\Stdlib\DispatchableInterface;
  * Registers a number of default plugins, and contains an initializer for
  * injecting plugins with the current controller.
  *
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

@@ -12,6 +12,10 @@ namespace Zend\Code\Annotation;
 
 use ArrayObject;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Annotation
+ */
 class AnnotationCollection extends ArrayObject
 {
     /**

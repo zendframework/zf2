@@ -15,7 +15,6 @@ use Zend\Mail\Protocol\Smtp;
 /**
  * Performs PLAIN authentication
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
  */

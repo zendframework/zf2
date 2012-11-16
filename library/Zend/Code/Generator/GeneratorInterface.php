@@ -10,6 +10,10 @@
 
 namespace Zend\Code\Generator;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Generator
+ */
 interface GeneratorInterface
 {
     public function generate();

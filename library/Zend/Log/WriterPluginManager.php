@@ -13,7 +13,6 @@ namespace Zend\Log;
 use Zend\ServiceManager\AbstractPluginManager;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  */
 class WriterPluginManager extends AbstractPluginManager

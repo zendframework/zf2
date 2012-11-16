@@ -13,9 +13,8 @@ namespace Zend\Db\Adapter\Driver\Sqlsrv\Exception;
 use Zend\Db\Adapter\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver_Sqlsrv_Exception
  */
 class ErrorException extends Exception\ErrorException implements ExceptionInterface
 {

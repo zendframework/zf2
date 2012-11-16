@@ -14,9 +14,8 @@ namespace Zend\XmlRpc\Client\Exception;
  * Thrown by Zend_XmlRpc_Client when an HTTP error occurs during an
  * XML-RPC method call.
  *
- * @category   Zend
  * @package    Zend_XmlRpc
- * @subpackage Client
+ * @subpackage Client_Exception
  */
 class HttpException extends RuntimeException
 {

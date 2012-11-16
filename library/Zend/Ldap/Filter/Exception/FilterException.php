@@ -11,7 +11,6 @@
 namespace Zend\Ldap\Filter\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
  */

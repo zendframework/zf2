@@ -13,8 +13,8 @@ namespace Zend\Barcode\Object;
 /**
  * Class for generate Planet barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object
  */
 class Planet extends Postnet
 {

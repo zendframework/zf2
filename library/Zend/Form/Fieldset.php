@@ -16,7 +16,6 @@ use Zend\Stdlib\Hydrator\HydratorInterface;
 use Zend\Stdlib\PriorityQueue;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  */
 class Fieldset extends Element implements FieldsetInterface

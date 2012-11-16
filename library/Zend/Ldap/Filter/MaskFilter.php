@@ -13,7 +13,6 @@ namespace Zend\Ldap\Filter;
 /**
  * Zend\Ldap\Filter\MaskFilter provides a simple string filter to be used with a mask.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
  */

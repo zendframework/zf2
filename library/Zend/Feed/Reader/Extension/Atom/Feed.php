@@ -18,9 +18,9 @@ use Zend\Feed\Reader\Extension;
 use Zend\Uri;
 
 /**
-* @category Zend
-* @package Reader\Reader
-*/
+ * @package    Zend_Feed
+ * @subpackage Reader_Extension_Atom
+ */
 class Feed extends Extension\AbstractFeed
 {
     /**

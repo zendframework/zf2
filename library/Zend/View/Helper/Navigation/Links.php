@@ -22,7 +22,6 @@ use Zend\View\Exception;
 /**
  * Helper for printing <link> elements
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

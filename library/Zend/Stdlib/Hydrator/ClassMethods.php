@@ -13,7 +13,6 @@ namespace Zend\Stdlib\Hydrator;
 use Zend\Stdlib\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Stdlib
  * @subpackage Hydrator
  */

@@ -20,7 +20,6 @@ use Zend\Form\ElementInterface;
  * the Search state might result in an appearance consistent with the platform's
  * search fields rather than appearing like a regular text field.
  *
- * @category   Zend
  * @package    Zend_Form
  * @subpackage View
  */

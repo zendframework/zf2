@@ -22,7 +22,6 @@ use Zend\Db\Sql\Update;
 use Zend\Db\Sql\Where;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage TableGateway
  *

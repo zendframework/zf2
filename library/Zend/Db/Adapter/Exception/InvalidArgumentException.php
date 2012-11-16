@@ -13,9 +13,8 @@ namespace Zend\Db\Adapter\Exception;
 use Zend\Db\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Exception
  */
 class InvalidArgumentException extends Exception\InvalidArgumentException implements ExceptionInterface
 {

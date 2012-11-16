@@ -13,7 +13,6 @@ namespace Zend\Ldap\Filter;
 /**
  * Zend\Ldap\Filter\AndFilter provides an 'and' filter.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
  */

@@ -20,7 +20,6 @@ use SplFileInfo;
 /**
  * Locate files containing PHP classes, interfaces, abstracts or traits
  *
- * @category   Zend
  * @package    Zend_File
  */
 class ClassFileLocator extends FilterIterator

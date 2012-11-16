@@ -11,7 +11,6 @@
 namespace Zend\Mail\Storage\Writable;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

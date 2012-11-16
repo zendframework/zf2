@@ -19,8 +19,8 @@ use Zend\Paginator\Paginator;
  * the end of the range and the last page in the set.
  *
  * @link       http://search.yahoo.com/search?p=Zend+Framework
- * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage ScrollingStyle
  */
 class Sliding implements ScrollingStyleInterface
 {

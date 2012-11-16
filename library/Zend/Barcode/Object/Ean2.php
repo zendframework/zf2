@@ -13,8 +13,8 @@ namespace Zend\Barcode\Object;
 /**
  * Class for generate Ean2 barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object
  */
 class Ean2 extends Ean5
 {

@@ -11,7 +11,6 @@
 namespace Zend\Config\Writer;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Writer
  */

@@ -13,7 +13,6 @@ namespace Zend\XmlRpc\Server;
 /**
  * XML-RPC system.* methods
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Server
  */

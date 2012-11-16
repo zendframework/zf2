@@ -14,9 +14,9 @@ use DOMDocument;
 use DOMElement;
 
 /**
-* @category Zend
-* @package Zend_Feed_Writer_Entry_Rss
-*/
+ * @package    Zend_Feed
+ * @subpackage Writer_Extension
+ */
 abstract class AbstractRenderer implements RendererInterface
 {
     /**

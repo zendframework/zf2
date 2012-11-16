@@ -16,7 +16,6 @@ use Zend\Stdlib\AbstractOptions;
 /**
  * RSA instance options
  *
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage PublicKey
  */

@@ -11,7 +11,6 @@
 namespace Zend\Captcha\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Exception
  */

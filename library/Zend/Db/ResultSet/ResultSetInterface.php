@@ -10,6 +10,10 @@
 
 namespace Zend\Db\ResultSet;
 
+/**
+ * @package    Zend_Db
+ * @subpackage ResultSet
+ */
 interface ResultSetInterface extends \Traversable, \Countable
 {
     /**

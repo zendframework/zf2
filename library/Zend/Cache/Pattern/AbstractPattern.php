@@ -14,7 +14,6 @@ use Traversable;
 use Zend\Cache\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Pattern
  */

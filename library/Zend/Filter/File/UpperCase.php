@@ -14,7 +14,6 @@ use Zend\Filter\Exception;
 use Zend\Filter\StringToUpper;
 
 /**
- * @category   Zend
  * @package    Zend_Filter
  */
 class UpperCase extends StringToUpper

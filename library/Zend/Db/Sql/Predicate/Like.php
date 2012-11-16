@@ -10,6 +10,10 @@
 
 namespace Zend\Db\Sql\Predicate;
 
+/**
+ * @package    Zend_Db
+ * @subpackage Sql_Predicate
+ */
 class Like implements PredicateInterface
 {
 

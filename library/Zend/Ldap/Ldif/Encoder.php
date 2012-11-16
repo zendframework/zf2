@@ -15,7 +15,6 @@ use Zend\Ldap;
 /**
  * Zend\Ldap\Ldif\Encoder provides methods to encode and decode LDAP data into/from Ldif.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Ldif
  */

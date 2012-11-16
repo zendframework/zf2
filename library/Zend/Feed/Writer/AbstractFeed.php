@@ -15,8 +15,8 @@ use Zend\Uri;
 use Zend\Validator;
 
 /**
- * @category Zend
- * @package Zend_Feed_Writer
+ * @package    Zend_Feed
+ * @subpackage Writer
  */
 class AbstractFeed
 {

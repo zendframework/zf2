@@ -10,6 +10,10 @@
 
 namespace Zend\Code\Scanner;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Scanner
+ */
 class VariableScanner
 {
     // @todo

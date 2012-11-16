@@ -10,6 +10,10 @@
 
 namespace Zend\Code\Annotation;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Annotation
+ */
 interface AnnotationInterface
 {
     /**

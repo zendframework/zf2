@@ -15,7 +15,6 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for Rar
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Rar extends AbstractCompressionAlgorithm

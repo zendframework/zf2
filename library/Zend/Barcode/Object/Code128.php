@@ -13,8 +13,8 @@ namespace Zend\Barcode\Object;
 /**
  * Class for generate Code128 barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object
  */
 class Code128 extends AbstractObject
 {

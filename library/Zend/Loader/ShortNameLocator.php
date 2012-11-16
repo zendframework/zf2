@@ -13,7 +13,6 @@ namespace Zend\Loader;
 /**
  * Short name locator interface
  *
- * @category   Zend
  * @package    Zend_Loader
  */
 interface ShortNameLocator

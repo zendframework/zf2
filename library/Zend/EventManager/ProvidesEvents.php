@@ -15,7 +15,6 @@ use Traversable;
 /**
  * A trait for objects that provide events
  *
- * @category   Zend
  * @package    Zend_EventManager
  */
 trait ProvidesEvents

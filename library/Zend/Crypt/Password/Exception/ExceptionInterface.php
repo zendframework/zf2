@@ -13,8 +13,8 @@ namespace Zend\Crypt\Password\Exception;
 use Zend\Crypt\Exception\ExceptionInterface as Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Crypt
+ * @subpackage Password_Exception
  */
 interface ExceptionInterface extends Exception
 {}

@@ -13,7 +13,6 @@ namespace Zend\Json\Server\Request;
 use Zend\Json\Server\Request as JsonRequest;
 
 /**
- * @category   Zend
  * @package    Zend_Json
  */
 class Http extends JsonRequest

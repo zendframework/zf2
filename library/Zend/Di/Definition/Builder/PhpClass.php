@@ -13,8 +13,8 @@ namespace Zend\Di\Definition\Builder;
 /**
  * Object containing definitions for a single class
  *
- * @category   Zend
  * @package    Zend_Di
+ * @subpackage Definition_Builder
  */
 class PhpClass
 {

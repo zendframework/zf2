@@ -13,7 +13,6 @@ namespace Zend\Math\BigInteger\Exception;
 /**
  * Division by zero exception
  *
- * @category   Zend
  * @package    Zend_Math
  * @subpackage BigInteger
  */

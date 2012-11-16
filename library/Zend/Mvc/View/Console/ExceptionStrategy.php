@@ -18,7 +18,6 @@ use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ConsoleModel;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage View
  */

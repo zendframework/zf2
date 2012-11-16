@@ -10,6 +10,9 @@
 
 namespace Zend\Code;
 
+/**
+ * @package    Zend_Code
+ */
 class NameInformation
 {
     protected $namespace = null;

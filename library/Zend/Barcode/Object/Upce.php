@@ -15,8 +15,8 @@ use Zend\Validator\Barcode as BarcodeValidator;
 /**
  * Class for generate UpcA barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
+ * @subpackage Object
  */
 class Upce extends Ean13
 {

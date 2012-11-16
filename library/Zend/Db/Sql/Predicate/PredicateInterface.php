@@ -12,6 +12,10 @@ namespace Zend\Db\Sql\Predicate;
 
 use Zend\Db\Sql\ExpressionInterface;
 
+/**
+ * @package    Zend_Db
+ * @subpackage Sql_Predicate
+ */
 interface PredicateInterface extends ExpressionInterface
 {
 

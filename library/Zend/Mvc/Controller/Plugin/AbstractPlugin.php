@@ -13,7 +13,6 @@ namespace Zend\Mvc\Controller\Plugin;
 use Zend\Stdlib\DispatchableInterface as Dispatchable;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Controller
  */

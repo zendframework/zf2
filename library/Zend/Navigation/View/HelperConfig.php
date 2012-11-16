@@ -17,7 +17,6 @@ use Zend\View\HelperPluginManager;
 /**
  * Service manager configuration for navigation view helpers
  *
- * @category   Zend
  * @package    Zend_Navigation
  * @subpackage View
  */

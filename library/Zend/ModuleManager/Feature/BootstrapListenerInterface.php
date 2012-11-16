@@ -15,7 +15,6 @@ use Zend\EventManager\EventInterface;
 /**
  * Boostrap listener provider interface
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Feature
  */

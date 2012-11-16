@@ -11,7 +11,6 @@
 namespace Zend\Ldap\Converter\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Ldap
  */
 class ConverterException extends \Exception implements ExceptionInterface

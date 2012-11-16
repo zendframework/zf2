@@ -15,7 +15,6 @@ use ArrayAccess;
 /**
  * Representation of an event
  *
- * @category   Zend
  * @package    Zend_EventManager
  */
 interface EventInterface

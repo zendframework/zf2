@@ -11,7 +11,6 @@
 namespace Zend\Uri\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Uri
  * @subpackage Exception
  */

@@ -10,6 +10,10 @@
 
 namespace Zend\Code\Scanner;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Scanner
+ */
 interface ScannerInterface
 {
     /* public static function export($tokens); */

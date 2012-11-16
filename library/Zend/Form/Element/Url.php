@@ -16,7 +16,6 @@ use Zend\Validator\Uri as UriValidator;
 use Zend\Validator\ValidatorInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
  */

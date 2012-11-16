@@ -13,7 +13,6 @@ namespace Zend\Console\Charset;
 /**
  * Basic (low) ASCII line drawing characters.
  *
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Charset
  */

@@ -14,7 +14,6 @@ use Zend\Filter\Exception;
 use Zend\Filter\StringToLower;
 
 /**
- * @category   Zend
  * @package    Zend_Filter
  */
 class LowerCase extends StringToLower

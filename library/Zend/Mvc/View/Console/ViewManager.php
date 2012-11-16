@@ -18,7 +18,6 @@ use Zend\Mvc\View\SendResponseListener;
 /**
  * Prepares the view layer for console applications
  *
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage View
  */

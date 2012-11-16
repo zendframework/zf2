@@ -14,7 +14,6 @@ use DateTime;
 use Traversable;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
  */

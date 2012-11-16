@@ -14,9 +14,7 @@ use Traversable;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
  */
 class StorageFactory
 {

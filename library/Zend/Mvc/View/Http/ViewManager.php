@@ -46,7 +46,6 @@ use Zend\View\View;
  * - RouteNotFoundStrategy (also aliased to Zend\Mvc\View\Http\RouteNotFoundStrategy and 404Strategy)
  * - ViewModel
  *
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage View
  */

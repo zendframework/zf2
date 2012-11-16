@@ -24,7 +24,6 @@ use Zend\EventManager\ListenerAggregateInterface;
  * discovered via reflection, if no other annotation has provided the name
  * already.
  *
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Annotation
  */

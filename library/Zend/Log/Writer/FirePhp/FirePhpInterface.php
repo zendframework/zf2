@@ -11,7 +11,6 @@
 namespace Zend\Log\Writer\FirePhp;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
  */

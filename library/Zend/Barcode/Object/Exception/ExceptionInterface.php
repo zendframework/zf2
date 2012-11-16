@@ -15,7 +15,6 @@ use Zend\Barcode\Exception\ExceptionInterface as Exception;
 /**
  * Base exception interface for barcode objects
  *
- * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object_Exception
  */

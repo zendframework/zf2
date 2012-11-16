@@ -15,7 +15,6 @@ use Zend\Ldap;
 /**
  * Zend\Ldap\Node\RootDse provides a simple data-container for the RootDse node.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage RootDse
  */

@@ -13,7 +13,6 @@ namespace Zend\Crypt\Exception;
 /**
  * Invalid argument exception
  *
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Exception
  */

@@ -15,9 +15,8 @@ use Zend\XmlRpc\Exception\ExceptionInterface as Exception;
 /**
  * Base class for all Zend_XmlRpc_Client_* exceptions
  *
- * @category   Zend
  * @package    Zend_XmlRpc
- * @subpackage Client
+ * @subpackage Client_Exception
  */
 interface ExceptionInterface extends Exception
 {

@@ -11,7 +11,6 @@
 namespace Zend\Authentication;
 
 /**
- * @category   Zend
  * @package    Zend_Authentication
  */
 class AuthenticationService

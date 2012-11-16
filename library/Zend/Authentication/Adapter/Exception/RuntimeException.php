@@ -13,9 +13,8 @@ namespace Zend\Authentication\Adapter\Exception;
 use Zend\Authentication\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Authentication
- * @subpackage Adapter
+ * @subpackage Adapter_Exception
  */
 class RuntimeException extends Exception\RuntimeException implements
     ExceptionInterface

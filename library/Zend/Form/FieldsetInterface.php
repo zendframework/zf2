@@ -15,7 +15,6 @@ use IteratorAggregate;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  */
 interface FieldsetInterface extends

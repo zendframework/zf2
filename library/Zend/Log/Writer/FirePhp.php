@@ -16,7 +16,6 @@ use Zend\Log\Logger;
 use Zend\Log\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
  */

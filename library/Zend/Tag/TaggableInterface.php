@@ -11,7 +11,6 @@
 namespace Zend\Tag;
 
 /**
- * @category   Zend
  * @package    Zend_Tag
  */
 interface TaggableInterface

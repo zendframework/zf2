@@ -15,7 +15,6 @@ use Zend\Mail\Exception;
 /**
  * Exception for Zend_Mail component.
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

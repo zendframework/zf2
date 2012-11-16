@@ -26,7 +26,7 @@ use Zend\EventManager\EventInterface;
  * retrieve the annotation object instance. Otherwise, it is skipped.
  *
  * @package    Zend_Code
- * @subpackage Annotation
+ * @subpackage Annotation_Parser
  */
 class DoctrineAnnotationParser implements ParserInterface
 {

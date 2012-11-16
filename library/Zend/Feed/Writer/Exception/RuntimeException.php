@@ -12,6 +12,10 @@ namespace Zend\Feed\Writer\Exception;
 
 use Zend\Feed\Exception;
 
+/**
+ * @package    Zend_Feed
+ * @subpackage Writer_Exception
+ */
 class RuntimeException
     extends Exception\RuntimeException
     implements ExceptionInterface

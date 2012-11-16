@@ -19,7 +19,6 @@ use Zend\Session\Exception;
  * Defines an ArrayObject interface for accessing session storage, with options
  * for setting metadata, locking, and marking as isImmutable.
  *
- * @category   Zend
  * @package    Zend_Session
  * @subpackage Storage
  */

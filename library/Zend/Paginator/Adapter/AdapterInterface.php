@@ -15,8 +15,8 @@ use Countable;
 /**
  * Interface for pagination adapters.
  *
- * @category   Zend
  * @package    Paginator
+ * @subpackage Adapter
  */
 interface AdapterInterface extends Countable
 {

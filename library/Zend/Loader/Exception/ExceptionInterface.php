@@ -11,7 +11,6 @@
 namespace Zend\Loader\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Loader
  */
 interface ExceptionInterface

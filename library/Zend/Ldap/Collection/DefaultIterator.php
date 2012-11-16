@@ -18,7 +18,6 @@ use Zend\Stdlib\ErrorHandler;
  * Zend\Ldap\Collection\DefaultIterator is the default collection iterator implementation
  * using ext/ldap
  *
- * @category   Zend
  * @package    Zend_Ldap
  */
 class DefaultIterator implements \Iterator, \Countable

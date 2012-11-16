@@ -17,8 +17,8 @@ use Zend\Di\Definition\Annotation;
 /**
  * Class definitions based on runtime reflection
  *
- * @category   Zend
  * @package    Zend_Di
+ * @subpackage Definition
  */
 class RuntimeDefinition implements DefinitionInterface
 {

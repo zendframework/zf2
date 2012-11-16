@@ -19,7 +19,6 @@ use Zend\View\Helper\AbstractHelper;
 /**
  * View helper for formatting dates.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage View
  */

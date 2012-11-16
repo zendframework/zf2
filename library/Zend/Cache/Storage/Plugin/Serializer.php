@@ -18,9 +18,8 @@ use Zend\Cache\Storage\PostEvent;
 use Zend\EventManager\EventManagerInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Plugin
  */
 class Serializer extends AbstractPlugin
 {

@@ -13,7 +13,6 @@ namespace Zend\Stdlib\Exception;
 /**
  * Bad method call exception
  *
- * @category   Zend
  * @package    Zend_Stdlib
  * @subpackage Exception
  */

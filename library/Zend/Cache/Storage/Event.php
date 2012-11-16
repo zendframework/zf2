@@ -14,7 +14,6 @@ use ArrayObject;
 use Zend\EventManager\Event as BaseEvent;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Storage
  */

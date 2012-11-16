@@ -15,7 +15,6 @@ use Zend\Http\Client;
 /**
  * Http static client
  *
- * @category   Zend
  * @package    Zend\Http
  */
 class ClientStatic

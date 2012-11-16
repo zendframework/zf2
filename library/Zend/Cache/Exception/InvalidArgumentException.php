@@ -11,8 +11,8 @@
 namespace Zend\Cache\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
+ * @subpackage Exception
  */
 class InvalidArgumentException extends \InvalidArgumentException implements
     ExceptionInterface

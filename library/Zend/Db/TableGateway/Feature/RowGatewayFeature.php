@@ -15,6 +15,10 @@ use Zend\Db\RowGateway\RowGateway;
 use Zend\Db\RowGateway\RowGatewayInterface;
 use Zend\Db\TableGateway\Exception;
 
+/**
+ * @package    Zend_Db
+ * @subpackage TableGateway_Feature
+ */
 class RowGatewayFeature extends AbstractFeature
 {
 

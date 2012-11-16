@@ -12,6 +12,10 @@ namespace Zend\Db\Sql\Exception;
 
 use Zend\Db\Exception;
 
+/**
+ * @package    Zend_Db
+ * @subpackage Sql_Exception
+ */
 class InvalidArgumentException extends Exception\InvalidArgumentException implements ExceptionInterface
 {
 }

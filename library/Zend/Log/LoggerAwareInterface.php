@@ -15,7 +15,6 @@ use Zend\Log\LoggerInterface;
 /**
  * Logger aware interface
  *
- * @category   Zend
  * @package    Zend_Log
  */
 interface LoggerAwareInterface

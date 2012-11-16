@@ -20,7 +20,6 @@ use Zend\Session\Storage\StorageInterface as Storage;
  *
  * Defines common constructor logic and getters for Storage and Configuration
  *
- * @category   Zend
  * @package    Zend_Session
  */
 abstract class AbstractManager implements Manager

@@ -13,7 +13,6 @@ namespace Zend\Ldap\Node\Schema\ObjectClass;
 /**
  * This class provides a contract for schema objectClasses.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
  */

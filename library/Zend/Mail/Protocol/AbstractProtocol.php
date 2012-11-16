@@ -15,7 +15,6 @@ use Zend\Validator;
 /**
  * Provides low-level methods for concrete adapters to communicate with a remote mail server and track requests and responses.
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
  * @todo Implement proxy settings

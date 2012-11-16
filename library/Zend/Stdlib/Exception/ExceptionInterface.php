@@ -13,7 +13,6 @@ namespace Zend\Stdlib\Exception;
 /**
  * Exception marker interface
  *
- * @category   Zend
  * @package    Zend_Stdlib
  * @subpackage Exception
  */

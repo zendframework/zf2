@@ -15,7 +15,6 @@ use Zend\Config\Exception;
 use Zend\Filter\FilterInterface as ZendFilter;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Processor
  */

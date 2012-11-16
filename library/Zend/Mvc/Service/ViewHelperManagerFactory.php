@@ -19,7 +19,6 @@ use Zend\View\Helper as ViewHelper;
 use Zend\View\Helper\HelperInterface as ViewHelperInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */

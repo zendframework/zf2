@@ -13,7 +13,6 @@ namespace Zend\XmlRpc\Value;
 use Zend\XmlRpc\AbstractValue;
 
 /**
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
  */

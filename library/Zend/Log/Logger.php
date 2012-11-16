@@ -18,7 +18,6 @@ use Zend\Stdlib\SplPriorityQueue;
 /**
  * Logging messages with a stack of backends
  *
- * @category   Zend
  * @package    Zend_Log
  */
 class Logger implements LoggerInterface

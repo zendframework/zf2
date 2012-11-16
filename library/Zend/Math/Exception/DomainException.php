@@ -13,7 +13,6 @@ namespace Zend\Math\Exception;
 /**
  * Invalid argument exception
  *
- * @category   Zend
  * @package    Zend_Math
  * @subpackage Exception
  */

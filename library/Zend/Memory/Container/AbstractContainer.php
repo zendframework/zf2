@@ -13,8 +13,8 @@ namespace Zend\Memory\Container;
 /**
  * Memory value container
  *
- * @category   Zend
  * @package    Zend_Memory
+ * @subpackage Container
  */
 abstract class AbstractContainer implements ContainerInterface
 {

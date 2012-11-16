@@ -21,7 +21,6 @@ use Zend\Form\Form;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
  */

@@ -22,7 +22,6 @@ use Zend\Stdlib\ErrorHandler;
  * The second is tests/Zend/Validator/HostnameTestForm.php which is designed to be run via HTML
  * to allow users to test entering UTF-8 characters in a form.
  *
- * @category   Zend
  * @package    Zend_Validator
  */
 class Hostname extends AbstractValidator

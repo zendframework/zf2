@@ -17,8 +17,8 @@ use Zend\Code\Scanner\AnnotationScanner;
 use Zend\Code\Scanner\CachingFileScanner;
 
 /**
- * @category   Zend
- * @package    Zend_Reflection
+ * @package    Zend_Code
+ * @subpackage Reflection
  */
 class MethodReflection extends PhpReflectionMethod implements ReflectionInterface
 {

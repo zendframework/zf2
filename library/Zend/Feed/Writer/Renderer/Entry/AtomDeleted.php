@@ -17,9 +17,9 @@ use Zend\Feed\Writer;
 use Zend\Feed\Writer\Renderer;
 
 /**
-* @category Zend
-* @package Zend_Feed_Writer
-*/
+ * @package    Zend_Feed
+ * @subpackage Writer_Renderer_Entry
+ */
 class AtomDeleted extends Renderer\AbstractRenderer implements Renderer\RendererInterface
 {
     /**

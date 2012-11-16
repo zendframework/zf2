@@ -14,7 +14,6 @@ use Zend\Mail;
 use Zend\Mail\Protocol;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
  */

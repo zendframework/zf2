@@ -13,7 +13,6 @@ namespace Zend\Paginator;
 use Iterator;
 
 /**
- * @category   Zend
  * @package    Zend_Paginator
  */
 class SerializableLimitIterator extends \LimitIterator implements \Serializable, \ArrayAccess

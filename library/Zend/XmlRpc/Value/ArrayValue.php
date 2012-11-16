@@ -11,7 +11,6 @@
 namespace Zend\XmlRpc\Value;
 
 /**
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
  */

@@ -19,9 +19,7 @@ use Zend\Stdlib\ErrorHandler;
  *
  * Generates image displaying random word
  *
- * @category   Zend
  * @package    Zend_Captcha
- * @subpackage Adapter
  */
 class Image extends AbstractWord
 {

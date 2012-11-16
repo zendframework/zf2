@@ -18,7 +18,6 @@ use IteratorAggregate;
 use Zend\Db\Adapter\Driver\ResultInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage ResultSet
  */

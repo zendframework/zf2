@@ -13,7 +13,6 @@ namespace Zend\Json\Server\Response;
 use Zend\Json\Server\Response as JsonResponse;
 
 /**
- * @category   Zend
  * @package    Zend_Json
  */
 class Http extends JsonResponse

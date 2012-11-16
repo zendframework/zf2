@@ -19,7 +19,6 @@ use Zend\Stdlib\PriorityQueue;
  * Use the EventManager when you want to create a per-instance notification
  * system for your objects.
  *
- * @category   Zend
  * @package    Zend_EventManager
  */
 class GlobalEventManager

@@ -13,7 +13,6 @@ namespace Zend\Db\Sql;
 use Zend\Db\Adapter\Platform\PlatformInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Sql
  */

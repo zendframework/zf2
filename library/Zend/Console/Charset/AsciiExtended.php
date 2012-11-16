@@ -14,7 +14,6 @@ namespace Zend\Console\Charset;
  * Extended ASCII character set (positions 127+, MS DOS & Windows compatible)
  *
  * @link http://en.wikipedia.org/wiki/Box-drawing_characters
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Charset
  */

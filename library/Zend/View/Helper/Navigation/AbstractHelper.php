@@ -24,7 +24,6 @@ use Zend\View\Exception;
 /**
  * Base class for navigational helpers
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  */

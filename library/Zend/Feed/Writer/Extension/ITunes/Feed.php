@@ -14,9 +14,9 @@ use Zend\Feed\Writer;
 use Zend\Uri;
 
 /**
-* @category Zend
-* @package Zend_Feed_Writer
-*/
+ * @package    Zend_Feed
+ * @subpackage Writer_Extension_ITunes
+ */
 class Feed
 {
     /**

@@ -15,7 +15,6 @@ use Zend\Config\Exception;
 use Zend\I18n\Translator\Translator as ZendTranslator;
 
 /**
- * @category   Zend
  * @package    Zend_Config
  * @subpackage Processor
  */

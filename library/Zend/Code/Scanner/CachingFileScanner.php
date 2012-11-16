@@ -14,6 +14,10 @@ use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Exception;
 use Zend\Code\NameInformation;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Scanner
+ */
 class CachingFileScanner extends FileScanner
 {
     /**

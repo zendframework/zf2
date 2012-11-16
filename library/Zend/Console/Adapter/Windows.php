@@ -14,7 +14,6 @@ use Zend\Console\Charset;
 use Zend\Console\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Adapter
  */

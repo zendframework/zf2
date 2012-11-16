@@ -16,9 +16,8 @@ use Zend\Db\Adapter\Driver\Pdo;
 /**
  * SqliteRowCounter
  *
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver_Pdo_Feature
  */
 class SqliteRowCounter extends AbstractFeature
 {

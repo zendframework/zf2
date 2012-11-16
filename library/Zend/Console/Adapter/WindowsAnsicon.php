@@ -28,7 +28,6 @@ use Zend\Console\Charset;
  * It's best to use non-unicode code page 437, 850, 851, 852 or similar. Run "help mode" for more
  * information on how to change Windows console code page.
  *
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Adapter
  */

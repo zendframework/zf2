@@ -14,9 +14,9 @@ use Zend\Feed\Reader;
 use Zend\Feed\Reader\Extension;
 
 /**
-* @category Zend
-* @package Reader\Reader
-*/
+ * @package    Zend_Feed
+ * @subpackage Reader_Extension_Content
+ */
 class Entry extends Extension\AbstractEntry
 {
 

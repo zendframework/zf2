@@ -14,7 +14,6 @@ use Zend\Filter\Exception;
 use Zend\Filter\PregReplace as PregReplaceFilter;
 
 /**
- * @category   Zend
  * @package    Zend_Filter
  */
 abstract class AbstractSeparator extends PregReplaceFilter

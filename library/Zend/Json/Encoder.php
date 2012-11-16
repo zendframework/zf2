@@ -19,7 +19,6 @@ use Zend\Json\Exception\RecursionException;
 /**
  * Encode PHP constructs to JSON
  *
- * @category   Zend
  * @package    Zend_Json
  */
 class Encoder

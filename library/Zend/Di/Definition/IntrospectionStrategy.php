@@ -17,8 +17,8 @@ use Zend\Code\Annotation\Parser\GenericAnnotationParser;
  * Strategy used to discover methods to be considered as endpoints for dependency injection based on implemented
  * interfaces, annotations and method names
  *
- * @category   Zend
  * @package    Zend_Di
+ * @subpackage Definition
  */
 class IntrospectionStrategy
 {

@@ -11,7 +11,6 @@
 namespace Zend\Ldap\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Ldap
  */
 interface ExceptionInterface

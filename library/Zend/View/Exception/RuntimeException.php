@@ -13,7 +13,6 @@ namespace Zend\View\Exception;
 /**
  * Runtime exception
  *
- * @category   Zend
  * @package    Zend_View
  */
 class RuntimeException

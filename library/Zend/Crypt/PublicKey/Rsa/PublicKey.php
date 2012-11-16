@@ -15,7 +15,7 @@ namespace Zend\Crypt\PublicKey\Rsa;
  *
  * @category    Zend
  * @package     Zend_Crypt
- * @subpackage  PublicKey
+ * @subpackage  PublicKey_Rsa
  */
 class PublicKey extends AbstractKey
 {

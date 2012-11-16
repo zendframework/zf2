@@ -16,7 +16,6 @@ use Zend\I18n\Translator\Plural\Rule as PluralRule;
 /**
  * Text domain.
  *
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Translator
  */

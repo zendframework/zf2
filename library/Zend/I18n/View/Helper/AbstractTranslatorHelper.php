@@ -15,7 +15,6 @@ use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\View\Helper\AbstractHelper;
 
 /**
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage View
  */

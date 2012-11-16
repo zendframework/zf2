@@ -11,7 +11,6 @@
 namespace Zend\Code\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Code
  * @subpackage Exception
  */

@@ -16,7 +16,6 @@ use Zend\Ldap\Node\Schema;
  * Zend\Ldap\Node\Schema\ObjectClass\ActiveDirectory provides access to the objectClass
  * schema information on an Active Directory server.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
  */

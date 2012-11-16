@@ -17,7 +17,6 @@ use Zend\Validator\ValidatorChain;
 use Zend\Validator\ValidatorInterface;
 
 /**
- * @category   Zend
  * @package    Zend_InputFilter
  */
 class Factory

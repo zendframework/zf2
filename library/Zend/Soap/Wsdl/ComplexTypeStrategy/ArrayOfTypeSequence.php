@@ -13,7 +13,6 @@ namespace Zend\Soap\Wsdl\ComplexTypeStrategy;
 /**
  * Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage WSDL
  */

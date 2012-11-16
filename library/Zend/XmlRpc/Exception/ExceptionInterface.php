@@ -11,8 +11,8 @@
 namespace Zend\XmlRpc\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_XmlRpc
+ * @subpackage Exception
  */
 interface ExceptionInterface
 {

@@ -21,8 +21,8 @@ use Zend\XmlRpc\Request as XmlRpcRequest;
  * built at construction time using a raw POST; if no data is available, the
  * request is declared a fault.
  *
- * @category   Zend
  * @package    Zend_XmlRpc
+ * @subpackage Request
  */
 class Http extends XmlRpcRequest
 {

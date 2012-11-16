@@ -16,7 +16,6 @@ use Zend\Stdlib\AbstractOptions;
 /**
  * DbTableGateway Save Handler Options
  *
- * @category   Zend
  * @package    Zend_Session
  * @subpackage SaveHandler
  */

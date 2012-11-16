@@ -23,7 +23,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * MongoDB log writer.
  *
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
  */

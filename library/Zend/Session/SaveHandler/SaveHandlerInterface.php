@@ -13,7 +13,6 @@ namespace Zend\Session\SaveHandler;
 /**
  * SaveHandler Interface
  *
- * @category   Zend
  * @package    Zend_Session
  * @see        http://php.net/session_set_save_handler
  */

@@ -12,6 +12,9 @@ namespace Zend\XmlRpc\Generator;
 
 /**
  * XML generator adapter interface
+ *
+ * @package    Zend_XmlRpc
+ * @subpackage Generator
  */
 interface GeneratorInterface
 {

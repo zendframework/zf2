@@ -13,9 +13,8 @@ namespace Zend\Db\TableGateway\Feature;
 use Zend\Db\Adapter\Adapter;
 
 /**
- * @category   Zend
  * @package    Zend_Db
- * @subpackage TableGateway
+ * @subpackage TableGateway_Feature
  */
 class MasterSlaveFeature extends AbstractFeature
 {

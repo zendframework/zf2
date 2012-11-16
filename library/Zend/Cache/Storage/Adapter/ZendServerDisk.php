@@ -18,9 +18,8 @@ use Zend\Cache\Storage\TotalSpaceCapableInterface;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Adapter
  */
 class ZendServerDisk extends AbstractZendServer implements
     AvailableSpaceCapableInterface,

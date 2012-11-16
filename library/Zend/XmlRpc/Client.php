@@ -17,9 +17,7 @@ use Zend\XmlRpc\AbstractValue;
 /**
  * An XML-RPC client implementation
  *
- * @category   Zend
  * @package    Zend_XmlRpc
- * @subpackage Client
  */
 class Client implements ServerClient
 {

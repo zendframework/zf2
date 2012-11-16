@@ -20,9 +20,7 @@ use ZendService\ReCaptcha\ReCaptcha as ReCaptchaService;
  *
  * @see http://recaptcha.net/apidocs/captcha/
  *
- * @category   Zend
  * @package    Zend_Captcha
- * @subpackage Adapter
  */
 class ReCaptcha extends AbstractAdapter
 {

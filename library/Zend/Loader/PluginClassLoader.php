@@ -17,7 +17,6 @@ use Traversable;
 /**
  * Plugin class locator interface
  *
- * @category   Zend
  * @package    Zend_Loader
  */
 class PluginClassLoader implements PluginClassLocator

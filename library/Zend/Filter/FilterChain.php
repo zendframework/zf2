@@ -14,7 +14,6 @@ use Countable;
 use Zend\Stdlib\PriorityQueue;
 
 /**
- * @category   Zend
  * @package    Zend_Filter
  */
 class FilterChain extends AbstractFilter implements Countable

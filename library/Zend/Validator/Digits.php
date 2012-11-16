@@ -13,7 +13,6 @@ namespace Zend\Validator;
 use Zend\Filter\Digits as DigitsFilter;
 
 /**
- * @category   Zend
  * @package    Zend_Validator
  */
 class Digits extends AbstractValidator

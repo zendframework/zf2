@@ -13,7 +13,6 @@ namespace Zend\Log\Exception;
 /**
  * Invalid argument exception
  *
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Exception
  */

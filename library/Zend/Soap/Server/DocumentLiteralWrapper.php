@@ -67,7 +67,6 @@ use Zend\Soap\Exception\UnexpectedValueException;
  *  $soap->setObject(new \Zend\Soap\Server\DocumentLiteralWrapper($service));
  *  $soap->handle();
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage Server
  */

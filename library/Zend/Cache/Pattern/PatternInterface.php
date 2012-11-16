@@ -11,7 +11,6 @@
 namespace Zend\Cache\Pattern;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Pattern
  */

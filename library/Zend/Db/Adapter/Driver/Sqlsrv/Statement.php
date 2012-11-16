@@ -15,9 +15,8 @@ use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\ParameterContainer;
 
 /**
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver_Sqlsrv
  */
 class Statement implements StatementInterface
 {

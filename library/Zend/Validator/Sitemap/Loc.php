@@ -19,7 +19,6 @@ use Zend\Validator\AbstractValidator;
  * @link       http://www.sitemaps.org/protocol.php Sitemaps XML format
  *
  * @see        Zend\Uri\Uri
- * @category   Zend
  * @package    Zend_Validator
  * @subpackage Sitemap
  */

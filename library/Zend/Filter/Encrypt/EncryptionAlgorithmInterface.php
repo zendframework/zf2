@@ -13,7 +13,6 @@ namespace Zend\Filter\Encrypt;
 /**
  * Encryption interface
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 interface EncryptionAlgorithmInterface

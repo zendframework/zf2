@@ -13,8 +13,8 @@ namespace Zend\Dom\Exception;
 /**
  * Zend_Dom Exceptions
  *
- * @category   Zend
  * @package    Zend_Dom
+ * @subpackage Exception
  */
 interface ExceptionInterface
 {

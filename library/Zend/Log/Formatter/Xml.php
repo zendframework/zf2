@@ -18,7 +18,6 @@ use Zend\Escaper\Escaper;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
  */

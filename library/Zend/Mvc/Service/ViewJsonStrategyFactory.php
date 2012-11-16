@@ -15,7 +15,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Strategy\JsonStrategy;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */

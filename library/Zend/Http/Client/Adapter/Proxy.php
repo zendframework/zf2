@@ -24,7 +24,6 @@ use Zend\Stdlib\ErrorHandler;
  * default Socket adapter, this adapter does not require any special extensions
  * installed.
  *
- * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
  */

@@ -15,7 +15,6 @@ use Zend\Soap\Exception;
 /**
  * ArrayOfTypeComplex strategy
  *
- * @category   Zend
  * @package    Zend_Soap
  * @subpackage WSDL
  */

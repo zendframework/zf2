@@ -19,7 +19,6 @@ use Zend\View\Renderer\RendererInterface as Renderer;
 /**
  * Resolves view scripts based on a stack of paths
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Resolver
  */

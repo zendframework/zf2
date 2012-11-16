@@ -16,7 +16,6 @@ use Zend\Filter\Exception;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * @category   Zend
  * @package    Zend_Filter
  */
 class Rename extends Filter\AbstractFilter

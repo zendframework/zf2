@@ -10,6 +10,10 @@
 
 namespace Zend\Crypt\Password;
 
+/**
+ * @package    Zend_Crypt
+ * @subpackage Password
+ */
 interface PasswordInterface
 {
     /**

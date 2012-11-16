@@ -15,7 +15,6 @@ use Zend\Log\Filter;
 use Zend\Log\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  */
 class FilterPluginManager extends AbstractPluginManager

@@ -10,6 +10,10 @@
 
 namespace Zend\Crypt\Symmetric;
 
+/**
+ * @package    Zend_Crypt
+ * @subpackage Symmetric
+ */
 interface SymmetricInterface
 {
     public function encrypt($data);

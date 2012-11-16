@@ -16,7 +16,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Abstract compression adapter
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 abstract class AbstractCompressionAlgorithm implements CompressionAlgorithmInterface

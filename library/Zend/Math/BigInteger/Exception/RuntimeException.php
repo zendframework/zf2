@@ -15,7 +15,6 @@ use Zend\Math\Exception;
 /**
  * Runtime exception
  *
- * @category   Zend
  * @package    Zend_Math
  * @subpackage BigInteger
  */

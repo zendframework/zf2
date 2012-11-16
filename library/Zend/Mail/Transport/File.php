@@ -17,7 +17,6 @@ use Zend\Mail\Message;
  *
  * Class for saving outgoing emails in filesystem
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
  */

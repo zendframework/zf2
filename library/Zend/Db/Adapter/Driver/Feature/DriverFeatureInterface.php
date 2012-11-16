@@ -11,9 +11,8 @@
 namespace Zend\Db\Adapter\Driver\Feature;
 
 /**
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver_Feature
  */
 interface DriverFeatureInterface
 {

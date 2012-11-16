@@ -21,7 +21,6 @@ use Zend\Stdlib\ErrorHandler;
  * A sockets based (stream\socket\client) adapter class for Zend\Http\Client. Can be used
  * on almost every PHP environment, and does not require any special extensions.
  *
- * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
  */

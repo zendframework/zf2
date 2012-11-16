@@ -19,7 +19,6 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Padding\PaddingInterface. Additionally, it registers a number of default
  * padding adapters available.
  *
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Symmetric
  */

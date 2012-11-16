@@ -13,9 +13,7 @@ namespace Zend\EventManager;
 /**
  * Interface to automate setter injection for an EventManager instance
  *
- * @category   Zend
  * @package    Zend_EventManager
- * @subpackage UnitTest
  */
 interface EventManagerAwareInterface extends EventsCapableInterface
 {

@@ -17,8 +17,8 @@ use Zend\Paginator\Paginator;
  * of the page range, the page range "jumps" to the next section, and
  * the cursor moves back to the beginning of the range.
  *
- * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage ScrollingStyle
  */
 class Jumping implements ScrollingStyleInterface
 {

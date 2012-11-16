@@ -11,7 +11,6 @@
 namespace Zend\Feed\PubSubHubbub\Model;
 
 /**
- * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  * @subpackage Entity
  */

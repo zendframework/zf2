@@ -11,7 +11,6 @@
 namespace Zend\Log\Filter;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  */
 interface FilterInterface

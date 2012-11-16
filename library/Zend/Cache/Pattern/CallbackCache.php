@@ -14,7 +14,6 @@ use Zend\Cache\Exception;
 use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
  * @subpackage Pattern
  */

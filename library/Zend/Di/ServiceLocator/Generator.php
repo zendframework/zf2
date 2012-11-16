@@ -21,8 +21,8 @@ use Zend\Di\Exception;
  * Generator that creates the body of a service locator that can emulate the logic of the given Zend\Di\Di instance
  * without class definitions
  *
- * @category   Zend
  * @package    Zend_Di
+ * @subpackage ServiceLocator
  */
 class Generator
 {

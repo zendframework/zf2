@@ -16,9 +16,8 @@ use Zend\Cache\Exception;
 /**
  * These are options specific to the Filesystem adapter
  *
- * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Adapter
  */
 class FilesystemOptions extends AdapterOptions
 {

@@ -15,7 +15,6 @@ use Zend\Form\Element\MultiCheckbox as MultiCheckboxElement;
 use Zend\Form\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Form
  * @subpackage View
  */

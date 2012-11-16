@@ -13,8 +13,8 @@ namespace Zend\EventManager\Exception;
 /**
  * Invalid callback exception
  *
- * @category   Zend
  * @package    Zend_EventManager
+ * @subpackage Exception
  */
 class InvalidCallbackException extends DomainException implements ExceptionInterface
 {

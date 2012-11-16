@@ -16,7 +16,6 @@ use Zend\Console\Adapter\AdapterInterface as ConsoleAdapter;
 use Zend\Console\Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Console
  * @subpackage Prompt
  */

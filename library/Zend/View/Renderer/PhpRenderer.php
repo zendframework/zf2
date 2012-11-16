@@ -29,8 +29,8 @@ use Zend\View\Variables;
  * mark them as part of the internal implementation, and thus prevent conflict
  * with variables injected into the renderer.
  *
- * @category   Zend
  * @package    Zend_View
+ * @subpackage Renderer
  */
 class PhpRenderer implements Renderer, TreeRendererInterface
 {

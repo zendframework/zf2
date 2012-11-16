@@ -20,7 +20,6 @@ use Zend\Cache\Storage\StorageInterface as CacheStorage;
  * This class encapsulates memory menagement operations, when PHP works
  * in limited memory mode.
  *
- * @category   Zend
  * @package    Zend_Memory
  */
 class MemoryManager

@@ -11,7 +11,6 @@
 namespace Zend\Log\Formatter;
 
 /**
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
  */

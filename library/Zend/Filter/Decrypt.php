@@ -13,7 +13,6 @@ namespace Zend\Filter;
 /**
  * Decrypts a given string
  *
- * @category   Zend
  * @package    Zend_Filter
  */
 class Decrypt extends Encrypt

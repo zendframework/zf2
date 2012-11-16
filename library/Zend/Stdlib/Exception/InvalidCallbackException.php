@@ -13,7 +13,6 @@ namespace Zend\Stdlib\Exception;
 /**
  * Invalid callback exception
  *
- * @category   Zend
  * @package    Zend_Stdlib
  * @subpackage Exception
  */

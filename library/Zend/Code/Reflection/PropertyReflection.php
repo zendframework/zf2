@@ -17,8 +17,8 @@ use Zend\Code\Scanner\CachingFileScanner;
 
 /**
  * @todo       implement line numbers
- * @category   Zend
- * @package    Zend_Reflection
+ * @package    Zend_Code
+ * @subpackage Reflection
  */
 class PropertyReflection extends PhpReflectionProperty implements ReflectionInterface
 {

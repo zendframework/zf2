@@ -15,9 +15,8 @@ use Zend\Cache\Storage\IteratorInterface;
 use Zend\Cache\Storage\StorageInterface;
 
 /**
- * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
+ * @subpackage Storage_Adapter
  */
 class KeyListIterator implements IteratorInterface, Countable
 {

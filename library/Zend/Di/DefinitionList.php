@@ -15,7 +15,6 @@ use SplDoublyLinkedList;
 /**
  * Class definition based on multiple definitions
  *
- * @category   Zend
  * @package    Zend_Di
  */
 class DefinitionList extends SplDoublyLinkedList implements Definition\DefinitionInterface

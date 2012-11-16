@@ -13,9 +13,8 @@ namespace Zend\Crypt\PublicKey\Rsa\Exception;
 use Zend\Crypt\Exception\ExceptionInterface as Exception;
 
 /**
- * @category   Zend
  * @package    Zend_Crypt
- * @subpackage PublicKey
+ * @subpackage PublicKey_Rsa_Exception
  */
 interface ExceptionInterface extends Exception
 {}

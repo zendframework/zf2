@@ -13,7 +13,6 @@ namespace Zend\Ldap;
 /**
  * Zend\Ldap\Collection wraps a list of LDAP entries.
  *
- * @category   Zend
  * @package    Zend_Ldap
  */
 class Collection implements \Iterator, \Countable

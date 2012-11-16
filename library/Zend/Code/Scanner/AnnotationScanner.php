@@ -14,6 +14,10 @@ use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\NameInformation;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Scanner
+ */
 class AnnotationScanner extends AnnotationCollection implements ScannerInterface
 {
     /**

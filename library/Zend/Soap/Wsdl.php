@@ -18,7 +18,6 @@ use Zend\Uri\Uri;
 /**
  * \Zend\Soap\Wsdl
  *
- * @category   Zend
  * @package    Zend_Soap
  */
 class Wsdl

@@ -15,9 +15,7 @@ use Zend\Paginator\Adapter\AdapterInterface;
 /**
  * Interface that aggregates a Zend\Paginator\Adapter\Abstract just like IteratorAggregate does for Iterators.
  *
- * @category   Zend
  * @package    Zend_Paginator
- * @subpackage Adapter
  */
 interface AdapterAggregateInterface
 {

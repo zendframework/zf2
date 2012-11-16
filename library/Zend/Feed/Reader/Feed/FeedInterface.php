@@ -14,9 +14,9 @@ use Countable;
 use Iterator;
 
 /**
-* @category Zend
-* @package Zend_Feed_Reader
-*/
+ * @package    Zend_Feed
+ * @subpackage Reader_Feed
+ */
 interface FeedInterface extends Iterator, Countable
 {
     /**

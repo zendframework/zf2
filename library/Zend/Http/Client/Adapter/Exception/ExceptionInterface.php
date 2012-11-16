@@ -13,7 +13,6 @@ namespace Zend\Http\Client\Adapter\Exception;
 use Zend\Http\Client\Exception\ExceptionInterface as HttpClientException;
 
 /**
- * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
  */

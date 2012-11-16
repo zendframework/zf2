@@ -13,7 +13,6 @@ namespace Zend\XmlRpc\Server;
 /**
  * Zend_XmlRpc_Server_Cache: cache Zend_XmlRpc_Server server definition
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Server
  */

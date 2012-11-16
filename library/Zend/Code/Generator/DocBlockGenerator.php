@@ -13,8 +13,8 @@ namespace Zend\Code\Generator;
 use Zend\Code\Reflection\DocBlockReflection;
 
 /**
- * @category   Zend
- * @package    Zend_Code_Generator
+ * @package    Zend_Code
+ * @subpackage Generator
  */
 class DocBlockGenerator extends AbstractGenerator
 {

@@ -12,6 +12,10 @@ namespace Zend\Code\Scanner;
 
 use Zend\Code\NameInformation;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Scanner
+ */
 class ParameterScanner
 {
     /**

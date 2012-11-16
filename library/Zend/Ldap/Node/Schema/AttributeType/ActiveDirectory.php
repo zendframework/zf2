@@ -16,7 +16,6 @@ use Zend\Ldap\Node\Schema;
  * Zend\Ldap\Node\Schema\AttributeType\ActiveDirectory provides access to the attribute type
  * schema information on an Active Directory server.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Schema
  */

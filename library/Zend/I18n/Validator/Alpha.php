@@ -13,7 +13,6 @@ namespace Zend\I18n\Validator;
 use Zend\I18n\Filter\Alpha as AlphaFilter;
 
 /**
- * @category   Zend
  * @package    Zend_I18n
  * @subpackage Validator
  */

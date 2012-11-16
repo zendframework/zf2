@@ -13,7 +13,6 @@ namespace Zend\Stdlib;
 use Traversable;
 
 /**
- * @category   Zend
  * @package    Zend_Stdlib
  */
 abstract class AbstractOptions implements ParameterObjectInterface

@@ -13,7 +13,6 @@ namespace Zend\XmlRpc\Generator;
 /**
  * XML generator adapter based on XMLWriter
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Generator
  */

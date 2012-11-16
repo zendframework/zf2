@@ -14,7 +14,6 @@ use Zend\EventManager\ListenerAggregateInterface;
 use Zend\ServiceManager\ServiceManager;
 
 /**
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */

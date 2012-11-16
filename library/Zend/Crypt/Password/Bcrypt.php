@@ -17,8 +17,8 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Bcrypt algorithm using crypt() function of PHP
  *
- * @category   Zend
  * @package    Zend_Crypt
+ * @subpackage Password
  */
 class Bcrypt implements PasswordInterface
 {

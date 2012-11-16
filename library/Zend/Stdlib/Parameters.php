@@ -13,7 +13,6 @@ namespace Zend\Stdlib;
 use ArrayObject;
 
 /**
- * @category   Zend
  * @package    Zend_Stdlib
  */
 class Parameters extends ArrayObject implements ParametersInterface

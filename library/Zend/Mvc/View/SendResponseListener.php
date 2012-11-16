@@ -16,7 +16,6 @@ use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface as Response;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage View
  */

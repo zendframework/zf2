@@ -26,7 +26,6 @@ use Zend\Mail\Transport\Exception as TransportException;
  * The email is sent using a Zend\Mail\Transport\TransportInterface object
  * (Sendmail is default).
  *
- * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
  */

@@ -14,8 +14,8 @@ use Zend\Code\Generator\DocBlock\Tag;
 use Zend\Code\Reflection\DocBlock\Tag\TagInterface as ReflectionDocBlockTag;
 
 /**
- * @category   Zend
- * @package    Zend_Code_Generator
+ * @package    Zend_Code
+ * @subpackage Generator_DocBlock_Tag
  */
 class LicenseTag extends Tag
 {

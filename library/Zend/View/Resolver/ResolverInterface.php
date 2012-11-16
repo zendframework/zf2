@@ -13,7 +13,6 @@ namespace Zend\View\Resolver;
 use Zend\View\Renderer\RendererInterface as Renderer;
 
 /**
- * @category   Zend
  * @package    Zend_View
  * @subpackage Resolver
  */

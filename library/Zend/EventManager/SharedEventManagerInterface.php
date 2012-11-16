@@ -16,7 +16,6 @@ use Zend\Stdlib\PriorityQueue;
 /**
  * Interface for shared event listener collections
  *
- * @category   Zend
  * @package    Zend_EventManager
  */
 interface SharedEventManagerInterface

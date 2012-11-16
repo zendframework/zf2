@@ -12,6 +12,10 @@ namespace Zend\Code\Generator;
 
 use Zend\Code\Generator\Exception\RuntimeException;
 
+/**
+ * @package    Zend_Code
+ * @subpackage Generator
+ */
 class FileGeneratorRegistry
 {
     /**

@@ -17,6 +17,10 @@ use Zend\Db\Adapter\Platform\PlatformInterface;
 use Zend\Db\Sql\Platform\PlatformDecoratorInterface;
 use Zend\Db\Sql\Select;
 
+/**
+ * @package    Zend_Db
+ * @subpackage Sql_Platform_SqlServer
+ */
 class SelectDecorator extends Select implements PlatformDecoratorInterface
 {
     /**

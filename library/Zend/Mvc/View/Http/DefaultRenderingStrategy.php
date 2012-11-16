@@ -18,7 +18,6 @@ use Zend\View\Model\ModelInterface as ViewModel;
 use Zend\View\View;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage View
  */

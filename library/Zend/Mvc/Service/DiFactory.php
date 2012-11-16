@@ -18,7 +18,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
 
 /**
- * @category   Zend
  * @package    Zend_Mvc
  * @subpackage Service
  */

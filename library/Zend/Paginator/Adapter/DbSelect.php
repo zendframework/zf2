@@ -18,8 +18,8 @@ use Zend\Db\ResultSet\ResultSetInterface;
 use Zend\Db\ResultSet\ResultSet;
 
 /**
- * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage Adapter
  */
 class DbSelect implements AdapterInterface
 {

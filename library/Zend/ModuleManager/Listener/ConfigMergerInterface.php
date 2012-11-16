@@ -13,7 +13,6 @@ namespace Zend\ModuleManager\Listener;
 /**
  * Config merger interface
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Listener
  */

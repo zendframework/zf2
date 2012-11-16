@@ -14,7 +14,6 @@ use Countable;
 use Iterator;
 
 /**
- * @category   Zend
  * @package    Zend_Mail
  */
 class AddressList implements Countable, Iterator

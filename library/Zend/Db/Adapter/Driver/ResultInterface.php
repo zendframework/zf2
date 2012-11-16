@@ -14,9 +14,8 @@ use Countable;
 use Iterator;
 
 /**
- * @category   Zend
  * @package    Zend_Db
- * @subpackage Adapter
+ * @subpackage Adapter_Driver
  */
 interface ResultInterface extends
     Countable,

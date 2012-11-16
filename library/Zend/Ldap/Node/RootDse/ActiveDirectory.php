@@ -17,7 +17,6 @@ use Zend\Ldap\Node;
  * Zend\Ldap\Node\RootDse\ActiveDirectory provides a simple data-container for
  * the RootDse node of an Active Directory server.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage RootDse
  */

@@ -34,7 +34,6 @@ use Zend\EventManager\EventManagerInterface;
  * work with the annotation values, as well as the element and input specification
  * passed in the event object.
  *
- * @category   Zend
  * @package    Zend_Form
  * @subpackage Annotation
  */

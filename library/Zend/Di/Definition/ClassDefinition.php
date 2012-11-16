@@ -13,8 +13,8 @@ namespace Zend\Di\Definition;
 /**
  * Class definitions for a single class
  *
- * @category   Zend
  * @package    Zend_Di
+ * @subpackage Definition
  */
 class ClassDefinition implements DefinitionInterface, PartialMarker
 {

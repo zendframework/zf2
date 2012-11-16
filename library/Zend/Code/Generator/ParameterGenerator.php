@@ -14,8 +14,8 @@ use Zend\Code\Reflection\ParameterReflection;
 
 /**
  *
- * @category   Zend
- * @package    Zend_Code_Generator
+ * @package    Zend_Code
+ * @subpackage Generator
  */
 class ParameterGenerator extends AbstractGenerator
 {

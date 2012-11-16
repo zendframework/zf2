@@ -13,7 +13,6 @@ namespace Zend\Mail\Header;
 /**
  * Generic class for Headers with multiple occurs in the same message
  *
- * @category   Zend
  * @package    Zend_Mail
  * @subpackage Header
  */

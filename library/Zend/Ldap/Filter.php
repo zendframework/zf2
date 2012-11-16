@@ -13,7 +13,6 @@ namespace Zend\Ldap;
 /**
  * Zend\Ldap\Filter.
  *
- * @category   Zend
  * @package    Zend_Ldap
  * @subpackage Filter
  */

@@ -15,7 +15,6 @@ use Zend\Feed\Reader;
 use Zend\Http;
 
 /**
- * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  */
 class PubSubHubbub

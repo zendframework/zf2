@@ -16,7 +16,6 @@ use Zend\Stdlib\ErrorHandler;
 /**
  * @link       http://www.infoloom.com/gcaconfs/WEB/chicago98/simeonov.HTM
  * @link       http://en.wikipedia.org/wiki/WDDX
- * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
  */

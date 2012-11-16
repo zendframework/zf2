@@ -13,7 +13,6 @@ namespace Zend\ModuleManager\Feature;
 /**
  * Autoloader provider interface
  *
- * @category   Zend
  * @package    Zend_ModuleManager
  * @subpackage Feature
  */

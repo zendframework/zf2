@@ -19,7 +19,6 @@ use Zend\Uri\Http as HttpUri;
 /**
  * HTTP Request for current PHP environment
  *
- * @category   Zend
  * @package    Zend_Http
  */
 class Request extends HttpRequest

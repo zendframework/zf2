@@ -18,7 +18,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Implementation of the RSA public key encryption algorithm.
  *
- * @category   Zend
  * @package    Zend_Crypt
  * @subpackage PublicKey
  */

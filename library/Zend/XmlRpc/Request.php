@@ -21,7 +21,6 @@ namespace Zend\XmlRpc;
  * generated and stored in {@link $fault}; developers may check for it using
  * {@link isFault()} and {@link getFault()}.
  *
- * @category   Zend
  * @package    Zend_XmlRpc
  */
 class Request

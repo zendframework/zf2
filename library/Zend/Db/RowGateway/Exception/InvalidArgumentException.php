@@ -12,6 +12,10 @@ namespace Zend\Db\RowGateway\Exception;
 
 use Zend\Db\Exception;
 
+/**
+ * @package    Zend_Db
+ * @subpackage RowGateway_Exception
+ */
 class InvalidArgumentException extends Exception\InvalidArgumentException implements ExceptionInterface
 {
 }

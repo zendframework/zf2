@@ -17,7 +17,6 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Class for generate Barcode
  *
- * @category   Zend
  * @package    Zend_Barcode
  */
 class Barcode

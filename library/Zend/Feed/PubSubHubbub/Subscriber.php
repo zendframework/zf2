@@ -19,7 +19,6 @@ use Zend\Uri;
 use Zend\Version\Version;
 
 /**
- * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  */
 class Subscriber
