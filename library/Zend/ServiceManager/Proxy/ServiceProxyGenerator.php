@@ -240,12 +240,10 @@ class ServiceProxyGenerator extends ProxyGenerator
             $methods .= $parameterString . ')';
             $methods .= "\n" . '    {' . "\n";
 
-            $methods .= "        if (\$this->__initializer__) {\n"
-                . "            \$cb = \$this->__initializer__;\n"
-                . "            \$cb(\$this, " . var_export($name, true)
-                . ", array(" . implode(', ', $parameters) . "));\n"
-                . "        }\n\n"
-                . '        return $this->__wrappedObject__->' . $name . '(' . $argumentString . ');'
+            $methods .= "\n        \$this->__initializer__ "
+                . "&& \$this->__initializer__->__invoke(\$this, " . var_export($name, true)
+                . ", array(" . implode(', ', $parameters) . "));"
+                . "\n\n        return \$this->__wrappedObject__->" . $name . '(' . $argumentString . ');'
                 . "\n" . '    }' . "\n";
         }
 
