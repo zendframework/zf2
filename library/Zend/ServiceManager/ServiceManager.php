@@ -45,9 +45,18 @@ class ServiceManager implements ServiceLocatorInterface
     protected $invokableClasses = array();
 
     /**
+     * Map of services to be lazy loaded, with keys being the service names
+     *
+     * @var array
+     */
+    protected $lazyServices = array();
+
+    /**
      * @var string|callable|Closure|FactoryInterface[]
      */
-    protected $factories = array();
+    protected $factories = array(
+        'Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory' => 'Zend\ServiceManager\Proxy\ServiceProxyAbstractFactoryFactory'
+    );
 
     /**
      * @var AbstractFactoryInterface[]
@@ -480,14 +489,14 @@ class ServiceManager implements ServiceLocatorInterface
             $cName = $this->canonicalizeName($rName);
         }
 
-        /*if (isset($this->lazyServices[$cName])) {
-            @todo continue
-            /* @var $proxyFactory ServiceProxyAbstractFactory */
-            /*$proxyFactory = $this->getLazyServiceFactory();
-            $proxyFactory->createServiceWithName($this, $cName, $rName);
-
+        if (isset($this->lazyServices[$cName])) {
+            /* @var $proxyFactory \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory */
+            $proxyFactory = $this->get('Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory');
+            $instance = $proxyFactory->createServiceWithName($this, $cName, $rName);
             unset($this->lazyServices[$cName]);
-        }*/
+
+            return $instance;
+        }
 
         if (isset($this->factories[$cName])) {
             $instance = $this->createFromFactory($cName, $rName);
