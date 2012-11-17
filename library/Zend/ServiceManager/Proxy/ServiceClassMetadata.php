@@ -75,7 +75,7 @@ class ServiceClassMetadata implements ClassMetadata
      */
     function hasField($fieldName)
     {
-        return false;
+        return $this->reflectionClass->hasProperty($fieldName);
     }
 
     /**
@@ -107,7 +107,14 @@ class ServiceClassMetadata implements ClassMetadata
      */
     function getFieldNames()
     {
-        return array();
+        $properties = $this->reflectionClass->getProperties();
+        $fields     = array();
+
+        foreach ($properties as $property) {
+            $fields[] = $property->getName();
+        }
+
+        return $fields;
     }
 
     /**

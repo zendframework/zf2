@@ -38,9 +38,9 @@ class ServiceProxyGenerator extends ProxyGenerator
         parent::__construct($proxyDir, $proxyNs);
 
         $this->setPlaceholders(array(
-            '<magicGet>'             => '',
-            '<magicSet>'             => '',
-            '<magicIsset>'           => '',
+            '<magicGet>'             => array($this, 'generateMagicGet'),
+            '<magicSet>'             => array($this, 'generateMagicSet'),
+            '<magicIsset>'           => array($this, 'generateMagicIsset'),
             '<sleepImpl>'            => '',
             '<wakeupImpl>'           => '',
             '<cloneImpl>'            => array($this, 'generateCloneImpl'),
@@ -50,6 +50,69 @@ class ServiceProxyGenerator extends ProxyGenerator
                 . "\n     */"
                 . "\n     public \$__wrappedObject__;",
         ));
+    }
+
+    /**
+     * Generates the magic getter invoked when lazy loaded public properties are requested
+     *
+     * @param  ClassMetadata $class
+     *
+     * @return string
+     */
+    public function generateMagicGet(ClassMetadata $class)
+    {
+        return "    /**"
+            . ($class->getReflectionClass()->hasMethod('__get') ? "\n     * {@inheritDoc}\n     *" : '')
+            . "\n     * @param string \$name"
+            . "\n     */"
+            . "\n    public function __get(\$name)"
+            . "\n    {\n"
+            . "\n        \$this->__initializer__ && \$this->__initializer__->__invoke(\$this, '__get', array(\$name));"
+            . "\n\n        return \$this->__wrappedObject__->\$name;"
+            . "\n    }";
+    }
+
+    /**
+     * Generates the magic setter (currently unused)
+     *
+     * @param  ClassMetadata $class
+     *
+     * @return string
+     */
+    public function generateMagicSet(ClassMetadata $class)
+    {
+        return "    /**"
+            . ($class->getReflectionClass()->hasMethod('__set') ? "\n     * {@inheritDoc}\n     *" : '')
+            . "\n     * @param string \$name"
+            . "\n     * @param mixed  \$value"
+            . "\n     */"
+            . "\n    public function __set(\$name, \$value)"
+            . "\n    {\n"
+            . "\n        \$this->__initializer__ "
+                . "&& \$this->__initializer__->__invoke(\$this, '__set', array(\$name, \$value));"
+            . "\n\n        \$this->__wrappedObject__->\$name = \$value;"
+            . "\n    }";
+    }
+
+    /**
+     * Generates the magic issetter invoked when lazy loaded public properties are checked against isset()
+     *
+     * @param  ClassMetadata $class
+     *
+     * @return string
+     */
+    public function generateMagicIsset(ClassMetadata $class)
+    {
+        return "    /**"
+            . ($class->getReflectionClass()->hasMethod('__isset') ? "\n     * {@inheritDoc}\n     *" : '')
+            . "\n     * @param string \$name"
+            . "\n     */"
+            . "\n    public function __isset(\$name)"
+            . "\n    {\n"
+            . "\n        \$this->__initializer__ "
+            . "&& \$this->__initializer__->__invoke(\$this, '__isset', array(\$name));"
+            . "\n\n        return isset(\$this->__wrappedObject__->\$name);"
+            . "\n    }";
     }
 
     /**
@@ -78,6 +141,9 @@ class ServiceProxyGenerator extends ProxyGenerator
         $methodNames        = array();
         $reflectionMethods  = $class->getReflectionClass()->getMethods(\ReflectionMethod::IS_PUBLIC);
         $excludedMethods    = array(
+            '__get'   => true,
+            '__set'   => true,
+            '__isset' => true,
             '__clone' => true,
         );
 
