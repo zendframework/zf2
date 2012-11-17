@@ -213,7 +213,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Overloading: variable setting
      *
-     * Proxies to values, using VALUES_SET strategy
+     * Proxies to values, using VALUES_MERGE strategy if the variable is not present
      *
      * @param  string $name
      * @param  mixed $value
@@ -221,8 +221,12 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function __set($name, $value)
     {
-        $values = array($name => $value);
-        $this->values($values, self::VALUES_SET);
+        if (($position = array_search($name, $this->columns)) === false) {
+            $values = array($name => $value);
+            $this->values($values, self::VALUES_MERGE);
+        } else {
+            $this->values[$position] = $value;
+        }
         return $this;
     }
 
