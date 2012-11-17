@@ -80,12 +80,12 @@ class ServiceProxyAbstractFactoryTest extends PHPUnit_Framework_TestCase
     {
         $lazyService = new LazyService();
         $sm = $this->getMock('Zend\ServiceManager\ServiceManager');
-        $sm->expects($this->any())->method('create')->with('std-class-service')->will($this->returnValue($lazyService));
+        $sm->expects($this->any())->method('create')->with('lazy-service')->will($this->returnValue($lazyService));
 
         // first code generation - required to avoid fetching an initialized proxy
-        $this->factory->createServiceWithName($sm, 'std-class-service', 'std-class-service');
+        $this->factory->createServiceWithName($sm, 'lazy-service', 'lazy-service');
 
-        $uninitializedProxy = $this->factory->createServiceWithName($sm, 'std-class-service', 'std-class-service');
+        $uninitializedProxy = $this->factory->createServiceWithName($sm, 'lazy-service', 'lazy-service');
         $this->assertInstanceOf('Doctrine\Common\Proxy\Proxy', $uninitializedProxy);
         $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\LazyService', $uninitializedProxy);
         $this->assertFalse($uninitializedProxy->__isInitialized());
@@ -141,5 +141,62 @@ class ServiceProxyAbstractFactoryTest extends PHPUnit_Framework_TestCase
         $mockGenerator = $this->getMock('Zend\ServiceManager\Proxy\ServiceProxyGenerator');
         $this->factory->setProxyGenerator($mockGenerator);
         $this->assertSame($mockGenerator, $this->factory->getProxyGenerator());
+    }
+
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::createServiceWithName
+     */
+    public function testCloneInitializedService()
+    {
+        $lazyService = new LazyService();
+        $lazyService->increment();
+        $sm = $this->getMock('Zend\ServiceManager\ServiceManager');
+        $sm->expects($this->any())->method('create')->with('lazy-service')->will($this->returnValue($lazyService));
+
+        // first code generation - required to avoid fetching an initialized proxy
+        $this->factory->createServiceWithName($sm, 'lazy-service', 'lazy-service');
+
+        $proxy = $this->factory->createServiceWithName($sm, 'lazy-service', 'lazy-service');
+        $proxy->__load();
+
+        $proxy->increment();
+        $this->assertSame($lazyService->count(), $proxy->count());
+
+        $cloned = clone $proxy;
+        $this->assertSame($proxy->count(), $cloned->count());
+        $this->assertNotSame($proxy->__wrappedObject__, $cloned->__wrappedObject__);
+
+        $proxy->increment();
+        $this->assertSame($proxy->count() - 1, $cloned->count());
+
+        $cloned->increment();
+        $this->assertSame($proxy->count(), $cloned->count());
+    }
+
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::createServiceWithName
+     */
+    public function testCloneUninitializedService()
+    {
+        $lazyService = new LazyService();
+        $lazyService->increment();
+        $sm = $this->getMock('Zend\ServiceManager\ServiceManager');
+        $sm->expects($this->any())->method('create')->with('lazy-service')->will($this->returnValue($lazyService));
+
+        // first code generation - required to avoid fetching an initialized proxy
+        $this->factory->createServiceWithName($sm, 'lazy-service', 'lazy-service');
+
+        $proxy = $this->factory->createServiceWithName($sm, 'lazy-service', 'lazy-service');
+        $this->assertFalse($proxy->__isInitialized());
+
+        $cloned = clone $proxy;
+        $this->assertSame($proxy->count(), $cloned->count());
+        $this->assertNotSame($proxy->__wrappedObject__, $cloned->__wrappedObject__);
+
+        $proxy->increment();
+        $this->assertSame($proxy->count() - 1, $cloned->count());
+
+        $cloned->increment();
+        $this->assertSame($proxy->count(), $cloned->count());
     }
 }
