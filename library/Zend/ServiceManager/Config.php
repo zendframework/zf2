@@ -112,6 +112,16 @@ class Config implements ConfigInterface
     }
 
     /**
+     * Get lazy services names
+     *
+     * @return array
+     */
+    public function getLazyServices()
+    {
+        return (isset($this->config['lazy_services'])) ? $this->config['lazy_services'] : array();
+    }
+
+    /**
      * Configure service manager
      *
      * @param ServiceManager $serviceManager
@@ -149,6 +159,10 @@ class Config implements ConfigInterface
 
         foreach ($this->getShared() as $name => $isShared) {
             $serviceManager->setShared($name, $isShared);
+        }
+
+        foreach ($this->getLazyServices() as $name) {
+            $serviceManager->addLazyService($name);
         }
     }
 

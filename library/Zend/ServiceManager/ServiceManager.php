@@ -297,7 +297,7 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function addLazyService($name)
     {
-        $this->lazyServices[$name] = $this->lazyServices[$this->canonicalizeName($name)] = true;
+        $this->lazyServices[$this->canonicalizeName($name)] = true;
 
         return $this;
     }
