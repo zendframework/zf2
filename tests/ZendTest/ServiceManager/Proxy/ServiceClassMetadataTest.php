@@ -13,6 +13,8 @@ namespace ZendTest\ServiceManager\Proxy;
 use Zend\ServiceManager\Proxy\ServiceClassMetadata;
 use PHPUnit_Framework_TestCase;
 
+use ZendTest\ServiceManager\TestAsset\PublicPropertiesLazyService;
+
 /**
  * @author Marco Pivetta <ocramius@gmail.com>
  */
@@ -40,5 +42,21 @@ class ServiceClassMetadataTest extends PHPUnit_Framework_TestCase
         $classMetadata = new ServiceClassMetadata(new \stdClass());
         $this->assertSame('stdClass', $classMetadata->getName());
         $this->assertInstanceOf('ReflectionClass', $classMetadata->getReflectionClass());
+    }
+
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceClassMetadata::getReflectionClass
+     * @covers \Zend\ServiceManager\Proxy\ServiceClassMetadata::getName
+     * @covers \Zend\ServiceManager\Proxy\ServiceClassMetadata::getFieldNames
+     * @covers \Zend\ServiceManager\Proxy\ServiceClassMetadata::hasField
+     */
+    public function testGetFields()
+    {
+        $classMetadata = new ServiceClassMetadata(new PublicPropertiesLazyService());
+        $this->assertSame('ZendTest\ServiceManager\TestAsset\PublicPropertiesLazyService', $classMetadata->getName());
+        $this->assertInstanceOf('ReflectionClass', $classMetadata->getReflectionClass());
+        $this->assertSame(array('checkedProperty'), $classMetadata->getFieldNames());
+        $this->assertTrue($classMetadata->hasField('checkedProperty'));
+        $this->assertFalse($classMetadata->hasField('non_existing'));
     }
 }

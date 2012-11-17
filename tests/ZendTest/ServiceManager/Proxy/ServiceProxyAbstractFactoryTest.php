@@ -17,6 +17,7 @@ use Zend\Cache\Storage\Adapter\Memory;
 use PHPUnit_Framework_TestCase;
 
 use ZendTest\ServiceManager\TestAsset\LazyService;
+use ZendTest\ServiceManager\TestAsset\PublicPropertiesLazyService;
 
 /**
  * @author Marco Pivetta <ocramius@gmail.com>
@@ -198,5 +199,36 @@ class ServiceProxyAbstractFactoryTest extends PHPUnit_Framework_TestCase
 
         $cloned->increment();
         $this->assertSame($proxy->count(), $cloned->count());
+    }
+
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::createServiceWithName
+     */
+    public function testProxyMagicGetterSetterIssetter()
+    {
+        $lazyService = new PublicPropertiesLazyService();
+
+        $sm = $this->getMock('Zend\ServiceManager\ServiceManager');
+        $sm->expects($this->any())->method('create')->with('lazy-service')->will($this->returnValue($lazyService));
+
+        // first code generation - required to avoid fetching an initialized proxy
+        $this->factory->createServiceWithName($sm, 'lazy-service', 'lazy-service');
+
+        $proxy = $this->factory->createServiceWithName($sm, 'lazy-service', 'lazy-service');
+        $this->assertFalse($proxy->__isInitialized());
+
+        // checking `__get`
+        $this->assertSame('checkedPropertyValue', $proxy->checkedProperty);
+        $lazyService->checkedProperty = 'newValue';
+        $this->assertSame('newValue', $proxy->checkedProperty);
+
+        // checking `__set`
+        $proxy->checkedProperty = 'otherValue';
+        $this->assertSame('otherValue', $lazyService->checkedProperty);
+
+        // checking `__isset`
+        $this->assertTrue(isset($proxy->checkedProperty));
+        $lazyService->checkedProperty = null;
+        $this->assertFalse(isset($proxy->checkedProperty));
     }
 }
