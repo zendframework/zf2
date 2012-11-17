@@ -46,6 +46,8 @@ class ServiceProxyAbstractFactory implements AbstractFactoryInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @return Proxy|object
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceName, $requestedName)
     {

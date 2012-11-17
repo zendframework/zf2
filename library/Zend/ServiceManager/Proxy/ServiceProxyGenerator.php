@@ -41,8 +41,8 @@ class ServiceProxyGenerator extends ProxyGenerator
             '<magicGet>'             => array($this, 'generateMagicGet'),
             '<magicSet>'             => array($this, 'generateMagicSet'),
             '<magicIsset>'           => array($this, 'generateMagicIsset'),
-            '<sleepImpl>'            => '',
-            '<wakeupImpl>'           => '',
+            '<sleepImpl>'            => array($this, 'generateSleepImpl'),
+            '<wakeupImpl>'           => array($this, 'generateWakeupImpl'),
             '<cloneImpl>'            => array($this, 'generateCloneImpl'),
             '<methods>'              => array($this, 'generateMethods'),
             '<additionalProperties>' => "\n    /**"
@@ -53,11 +53,7 @@ class ServiceProxyGenerator extends ProxyGenerator
     }
 
     /**
-     * Generates the magic getter invoked when lazy loaded public properties are requested
-     *
-     * @param ClassMetadata $class
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function generateMagicGet(ClassMetadata $class)
     {
@@ -73,11 +69,7 @@ class ServiceProxyGenerator extends ProxyGenerator
     }
 
     /**
-     * Generates the magic setter (currently unused)
-     *
-     * @param ClassMetadata $class
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function generateMagicSet(ClassMetadata $class)
     {
@@ -95,11 +87,7 @@ class ServiceProxyGenerator extends ProxyGenerator
     }
 
     /**
-     * Generates the magic issetter invoked when lazy loaded public properties are checked against isset()
-     *
-     * @param ClassMetadata $class
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function generateMagicIsset(ClassMetadata $class)
     {
@@ -112,6 +100,46 @@ class ServiceProxyGenerator extends ProxyGenerator
             . "\n        \$this->__initializer__ "
             . "&& \$this->__initializer__->__invoke(\$this, '__isset', array(\$name));"
             . "\n\n        return isset(\$this->__wrappedObject__->\$name);"
+            . "\n    }";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function generateSleepImpl(ClassMetadata $class)
+    {
+        return "    /**"
+            . ($class->getReflectionClass()->hasMethod('__sleep') ? "\n     * {@inheritDoc}" : "\n     *")
+            . "\n     */"
+            . "\n    public function __sleep()"
+            . "\n    {\n"
+            . "\n        \$this->__initializer__ "
+            . "&& \$this->__initializer__->__invoke(\$this, '__sleep', array());"
+            . "\n\n        return array('__isInitialized__', '__wrappedObject__');"
+            . "\n    }";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function generateWakeupImpl(ClassMetadata $class)
+    {
+        $unsetProperties = $class->getFieldNames();
+
+        if (empty($unsetProperties)) {
+            return '';
+        }
+
+        foreach ($class->getFieldNames() as $fieldName) {
+            $unsetPublicProperties[] = '$this->' . $fieldName;
+        }
+
+        return "    /**"
+            . ($class->getReflectionClass()->hasMethod('__wakeup') ? "\n     * {@inheritDoc}" : "\n     *")
+            . "\n     */"
+            . "\n    public function __wakeup()"
+            . "\n    {"
+            . "\n        unset(\$this->" . implode(', $this->', $unsetProperties) . ");"
             . "\n    }";
     }
 
@@ -142,10 +170,12 @@ class ServiceProxyGenerator extends ProxyGenerator
         $methodNames        = array();
         $reflectionMethods  = $class->getReflectionClass()->getMethods(\ReflectionMethod::IS_PUBLIC);
         $excludedMethods    = array(
-            '__get'   => true,
-            '__set'   => true,
-            '__isset' => true,
-            '__clone' => true,
+            '__get'    => true,
+            '__set'    => true,
+            '__isset'  => true,
+            '__clone'  => true,
+            '__sleep'  => true,
+            '__wakeup' => true,
         );
 
         foreach ($reflectionMethods as $method) {
