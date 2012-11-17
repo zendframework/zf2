@@ -41,7 +41,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function getName()
+    public function getName()
     {
         return $this->reflectionClass->getName();
     }
@@ -49,7 +49,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function getIdentifier()
+    public function getIdentifier()
     {
         return array();
     }
@@ -57,7 +57,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function getReflectionClass()
+    public function getReflectionClass()
     {
         return $this->reflectionClass;
     }
@@ -65,7 +65,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function isIdentifier($fieldName)
+    public function isIdentifier($fieldName)
     {
         return false;
     }
@@ -73,7 +73,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function hasField($fieldName)
+    public function hasField($fieldName)
     {
         return $this->reflectionClass->hasProperty($fieldName);
     }
@@ -81,7 +81,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function hasAssociation($fieldName)
+    public function hasAssociation($fieldName)
     {
         return false;
     }
@@ -89,7 +89,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function isSingleValuedAssociation($fieldName)
+    public function isSingleValuedAssociation($fieldName)
     {
         throw new Exception\RuntimeException('Not implemented');
     }
@@ -97,7 +97,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function isCollectionValuedAssociation($fieldName)
+    public function isCollectionValuedAssociation($fieldName)
     {
         throw new Exception\RuntimeException('Not implemented');
     }
@@ -105,7 +105,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function getFieldNames()
+    public function getFieldNames()
     {
         $properties = $this->reflectionClass->getProperties();
         $fields     = array();
@@ -120,7 +120,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function getIdentifierFieldNames()
+    public function getIdentifierFieldNames()
     {
         return array();
     }
@@ -128,7 +128,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function getAssociationNames()
+    public function getAssociationNames()
     {
         return array();
     }
@@ -136,7 +136,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function getTypeOfField($fieldName)
+    public function getTypeOfField($fieldName)
     {
         throw new Exception\RuntimeException('Not implemented');
     }
@@ -144,7 +144,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function getAssociationTargetClass($assocName)
+    public function getAssociationTargetClass($assocName)
     {
         throw new Exception\RuntimeException('Not implemented');
     }
@@ -152,7 +152,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function isAssociationInverseSide($assocName)
+    public function isAssociationInverseSide($assocName)
     {
         throw new Exception\RuntimeException('Not implemented');
     }
@@ -160,7 +160,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function getAssociationMappedByTargetField($assocName)
+    public function getAssociationMappedByTargetField($assocName)
     {
         throw new Exception\RuntimeException('Not implemented');
     }
@@ -168,7 +168,7 @@ class ServiceClassMetadata implements ClassMetadata
     /**
      * {@inheritDoc}
      */
-    function getIdentifierValues($object)
+    public function getIdentifierValues($object)
     {
         throw new Exception\RuntimeException('Not implemented');
     }

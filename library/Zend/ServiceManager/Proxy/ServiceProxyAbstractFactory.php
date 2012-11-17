@@ -18,7 +18,6 @@ use Zend\Cache\Storage\StorageInterface;
 
 use Doctrine\Common\Proxy\ProxyGenerator;
 use Doctrine\Common\Proxy\Proxy;
-use Doctrine\Common\Util\ClassUtils;
 
 /**
  * Abstract Service Factory responsible of generating lazy service instances that double

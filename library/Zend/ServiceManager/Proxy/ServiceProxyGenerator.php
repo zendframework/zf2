@@ -55,7 +55,7 @@ class ServiceProxyGenerator extends ProxyGenerator
     /**
      * Generates the magic getter invoked when lazy loaded public properties are requested
      *
-     * @param  ClassMetadata $class
+     * @param ClassMetadata $class
      *
      * @return string
      */
@@ -75,7 +75,7 @@ class ServiceProxyGenerator extends ProxyGenerator
     /**
      * Generates the magic setter (currently unused)
      *
-     * @param  ClassMetadata $class
+     * @param ClassMetadata $class
      *
      * @return string
      */
@@ -97,7 +97,7 @@ class ServiceProxyGenerator extends ProxyGenerator
     /**
      * Generates the magic issetter invoked when lazy loaded public properties are checked against isset()
      *
-     * @param  ClassMetadata $class
+     * @param ClassMetadata $class
      *
      * @return string
      */
@@ -136,7 +136,8 @@ class ServiceProxyGenerator extends ProxyGenerator
     /**
      * {@inheritDoc}
      */
-    public function generateMethods(ClassMetadata $class) {
+    public function generateMethods(ClassMetadata $class)
+    {
         $methods            = '';
         $methodNames        = array();
         $reflectionMethods  = $class->getReflectionClass()->getMethods(\ReflectionMethod::IS_PUBLIC);
@@ -209,7 +210,7 @@ class ServiceProxyGenerator extends ProxyGenerator
             $methods .= $parameterString . ')';
             $methods .= "\n" . '    {' . "\n";
 
-            $methods .= "        if(\$this->__initializer__) {\n"
+            $methods .= "        if (\$this->__initializer__) {\n"
                 . "            \$cb = \$this->__initializer__;\n"
                 . "            \$cb(\$this, " . var_export($name, true)
                 . ", array(" . implode(', ', $parameters) . "));\n"
