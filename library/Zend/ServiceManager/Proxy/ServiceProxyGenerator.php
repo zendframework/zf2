@@ -43,13 +43,31 @@ class ServiceProxyGenerator extends ProxyGenerator
             '<magicIsset>'           => '',
             '<sleepImpl>'            => '',
             '<wakeupImpl>'           => '',
-            '<cloneImpl>'            => '',
+            '<cloneImpl>'            => array($this, 'generateCloneImpl'),
             '<methods>'              => array($this, 'generateMethods'),
             '<additionalProperties>' => "\n    /**"
                 . "\n     * @var object wrapped object to which method calls will be forwarded"
                 . "\n     */"
                 . "\n     public \$__wrappedObject__;",
         ));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function generateCloneImpl(ClassMetadata $class)
+    {
+        $hasClone = $class->getReflectionClass()->hasMethod('__clone');
+
+        return "    /**"
+            . ($hasClone ? "\n     * {@inheritDoc}" : "\n     *")
+            . "\n     */"
+            . "\n    public function __clone()"
+            . "\n    {"
+            . "\n        \$this->__initializer__ && \$this->__initializer__->__invoke(\$this, '__clone', array());"
+            . "\n"
+            . "\n        \$this->__wrappedObject__ = clone \$this->__wrappedObject__;"
+            . "\n    }";
     }
 
     /**
