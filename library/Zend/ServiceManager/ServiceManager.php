@@ -619,7 +619,7 @@ class ServiceManager implements ServiceLocatorInterface
         foreach ($this->abstractFactories as $index => $abstractFactory) {
             // Support string abstract factory class names
             if (is_string($abstractFactory) && class_exists($abstractFactory, true)) {
-                $this->abstractFactories[$index] = $abstractFactory = new $abstractFactory();
+                $this->abstractFactory[$index] = $abstractFactory = new $abstractFactory();
             }
 
             if (
