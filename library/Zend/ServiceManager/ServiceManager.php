@@ -45,6 +45,13 @@ class ServiceManager implements ServiceLocatorInterface
     protected $invokableClasses = array();
 
     /**
+     * Map of services to be lazy loaded, with keys being the service names
+     *
+     * @var array
+     */
+    protected $lazyServices = array();
+
+    /**
      * @var string|callable|Closure|FactoryInterface[]
      */
     protected $factories = array();
@@ -283,6 +290,19 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
+     * Marks a provided service as lazy
+     *
+     * @param  string $name
+     * @return ServiceManager
+     */
+    public function addLazyService($name)
+    {
+        $this->lazyServices[$this->canonicalizeName($name)] = true;
+
+        return $this;
+    }
+
+    /**
      * Add abstract factory
      *
      * @param  AbstractFactoryInterface|string $factory
@@ -449,14 +469,12 @@ class ServiceManager implements ServiceLocatorInterface
         if (!$instance && !is_array($instance)) {
             throw new Exception\ServiceNotFoundException(sprintf(
                 '%s was unable to fetch or create an instance for %s',
-                    __METHOD__,
-                    $name
-                )
-            );
+                __METHOD__,
+                $name
+            ));
         }
 
-        if ($this->shareByDefault() && (!isset($this->shared[$cName]) || $this->shared[$cName] === true)
-        ) {
+        if ($this->shareByDefault() && (!isset($this->shared[$cName]) || $this->shared[$cName] === true)) {
             $this->instances[$cName] = $instance;
         }
 
@@ -482,6 +500,14 @@ class ServiceManager implements ServiceLocatorInterface
             $cName = $this->canonicalizeName($rName);
         }
 
+        if (isset($this->lazyServices[$cName])) {
+            /* @var $proxyFactory \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory */
+            $proxyFactory = $this->get('Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory');
+            unset($this->lazyServices[$cName]);
+            $instance = $proxyFactory->createServiceWithName($this, $cName, $rName);
+
+            return $instance;
+        }
 
         if (isset($this->factories[$cName])) {
             $instance = $this->createFromFactory($cName, $rName);
