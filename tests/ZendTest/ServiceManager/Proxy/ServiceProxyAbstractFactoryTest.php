@@ -231,4 +231,34 @@ class ServiceProxyAbstractFactoryTest extends PHPUnit_Framework_TestCase
         $lazyService->checkedProperty = null;
         $this->assertFalse(isset($proxy->checkedProperty));
     }
+
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::createServiceWithName
+     */
+    public function testSerializeUninitializedProxy()
+    {
+        $lazyService = new PublicPropertiesLazyService();
+        $lazyService->checkedProperty = 'serializedValue';
+
+        $sm = $this->getMock('Zend\ServiceManager\ServiceManager');
+        $sm->expects($this->any())->method('create')->with('lazy-service')->will($this->returnValue($lazyService));
+
+        // first code generation - required to avoid fetching an initialized proxy
+        $this->factory->createServiceWithName($sm, 'lazy-service', 'lazy-service');
+
+        $proxy = $this->factory->createServiceWithName($sm, 'lazy-service', 'lazy-service');
+        $this->assertFalse($proxy->__isInitialized());
+
+        $unserialized = unserialize(serialize($proxy));
+
+        $lazyService->checkedProperty = 'changedValue';
+        $this->assertSame('serializedValue', $unserialized->checkedProperty);
+        $this->assertNotSame($lazyService, $unserialized->__wrappedObject__);
+
+        $proxy->checkedProperty = 'againChangedValue';
+        $this->assertSame('serializedValue', $unserialized->checkedProperty);
+
+        $unserialized->checkedProperty = 'serializedProxyChangedValue';
+        $this->assertSame('againChangedValue', $lazyService->checkedProperty);
+    }
 }
