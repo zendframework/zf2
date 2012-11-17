@@ -449,14 +449,12 @@ class ServiceManager implements ServiceLocatorInterface
         if (!$instance && !is_array($instance)) {
             throw new Exception\ServiceNotFoundException(sprintf(
                 '%s was unable to fetch or create an instance for %s',
-                    __METHOD__,
-                    $name
-                )
-            );
+                __METHOD__,
+                $name
+            ));
         }
 
-        if ($this->shareByDefault() && (!isset($this->shared[$cName]) || $this->shared[$cName] === true)
-        ) {
+        if ($this->shareByDefault() && (!isset($this->shared[$cName]) || $this->shared[$cName] === true)) {
             $this->instances[$cName] = $instance;
         }
 
@@ -482,6 +480,14 @@ class ServiceManager implements ServiceLocatorInterface
             $cName = $this->canonicalizeName($rName);
         }
 
+        /*if (isset($this->lazyServices[$cName])) {
+            @todo continue
+            /* @var $proxyFactory ServiceProxyAbstractFactory */
+            /*$proxyFactory = $this->getLazyServiceFactory();
+            $proxyFactory->createServiceWithName($this, $cName, $rName);
+
+            unset($this->lazyServices[$cName]);
+        }*/
 
         if (isset($this->factories[$cName])) {
             $instance = $this->createFromFactory($cName, $rName);
