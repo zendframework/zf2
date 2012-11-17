@@ -606,6 +606,10 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddLazyService()
     {
+        $this->serviceManager->setFactory(
+            'Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory',
+            'Zend\ServiceManager\Proxy\ServiceProxyAbstractFactoryFactory'
+        );
         $service = $this->getMock('stdClass', array('proxiedMethod'));
         $service->expects($this->once())->method('proxiedMethod');
 

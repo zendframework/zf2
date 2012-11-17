@@ -54,9 +54,7 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * @var string|callable|Closure|FactoryInterface[]
      */
-    protected $factories = array(
-        'zendservicemanagerproxyserviceproxyabstractfactory' => 'Zend\ServiceManager\Proxy\ServiceProxyAbstractFactoryFactory'
-    );
+    protected $factories = array();
 
     /**
      * @var AbstractFactoryInterface[]
