@@ -28,11 +28,17 @@ class ServiceProxyAbstractFactoryTest extends PHPUnit_Framework_TestCase
      */
     protected $factory;
 
+    /**
+     * {@inheritDoc}
+     */
     public function setUp()
     {
         $this->factory = new ServiceProxyAbstractFactory(new Memory());
     }
 
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::canCreateServiceWithName
+     */
     public function testWillNotCreateProxiesFromGenericServiceLocators()
     {
         $sm = new ServiceManager();
@@ -42,6 +48,9 @@ class ServiceProxyAbstractFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->factory->canCreateServiceWithName($sl, 'name', 'name'));
     }
 
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::createServiceWithName
+     */
     public function testCreateServiceWithNameFetchesServiceOnlyWhenProxyDefinitionIsUnknown()
     {
         $service = new \stdClass();
@@ -64,6 +73,9 @@ class ServiceProxyAbstractFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertNull($uninitializedProxy->__wrappedObject__);
     }
 
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::createServiceWithName
+     */
     public function testCanCreateServiceWithNameProducesLazyLoadingService()
     {
         $lazyService = new LazyService();
@@ -86,6 +98,9 @@ class ServiceProxyAbstractFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertSame(2, $lazyService->count());
     }
 
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::createServiceWithName
+     */
     public function testProxyInitializationReferencesOriginalService()
     {
         $service = new \stdClass();
@@ -100,6 +115,9 @@ class ServiceProxyAbstractFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertSame($proxy->__wrappedObject__, $service);
     }
 
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::createServiceWithName
+     */
     public function testProxyGenerationProducesInitializedProxyAtFirstRun()
     {
         $service = $this->getMock('stdClass');
@@ -109,5 +127,19 @@ class ServiceProxyAbstractFactoryTest extends PHPUnit_Framework_TestCase
         $proxy = $this->factory->createServiceWithName($sm, 'std-class-service', 'std-class-service');
         $this->assertTrue($proxy->__isInitialized());
         $this->assertSame($service, $proxy->__wrappedObject__);
+    }
+
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::setProxyGenerator
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory::getProxyGenerator
+     */
+    public function testSetGetProxyGenerator()
+    {
+        $generator = $this->factory->getProxyGenerator();
+        $this->assertInstanceOf('Zend\ServiceManager\Proxy\ServiceProxyGenerator', $generator);
+
+        $mockGenerator = $this->getMock('Zend\ServiceManager\Proxy\ServiceProxyGenerator');
+        $this->factory->setProxyGenerator($mockGenerator);
+        $this->assertSame($mockGenerator, $this->factory->getProxyGenerator());
     }
 }

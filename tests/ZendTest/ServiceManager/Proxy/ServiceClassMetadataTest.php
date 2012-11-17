@@ -18,6 +18,11 @@ use PHPUnit_Framework_TestCase;
  */
 class ServiceClassMetadataTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceClassMetadata::__construct
+     * @covers \Zend\ServiceManager\Proxy\ServiceClassMetadata::getReflectionClass
+     * @covers \Zend\ServiceManager\Proxy\ServiceClassMetadata::getName
+     */
     public function testClassMetadataFromString()
     {
         $classMetadata = new ServiceClassMetadata('stdClass');
@@ -25,6 +30,11 @@ class ServiceClassMetadataTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('ReflectionClass', $classMetadata->getReflectionClass());
     }
 
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceClassMetadata::__construct
+     * @covers \Zend\ServiceManager\Proxy\ServiceClassMetadata::getReflectionClass
+     * @covers \Zend\ServiceManager\Proxy\ServiceClassMetadata::getName
+     */
     public function testClassMetadataFromObject()
     {
         $classMetadata = new ServiceClassMetadata(new \stdClass());

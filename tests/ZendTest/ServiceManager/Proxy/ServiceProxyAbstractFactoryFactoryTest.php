@@ -20,6 +20,9 @@ use PHPUnit_Framework_TestCase;
  */
 class ServiceProxyAbstractFactoryFactoryTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactoryFactory::createService
+     */
     public function testCreateService()
     {
         $factory = new ServiceProxyAbstractFactoryFactory();

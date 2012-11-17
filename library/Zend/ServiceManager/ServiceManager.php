@@ -55,7 +55,7 @@ class ServiceManager implements ServiceLocatorInterface
      * @var string|callable|Closure|FactoryInterface[]
      */
     protected $factories = array(
-        'Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory' => 'Zend\ServiceManager\Proxy\ServiceProxyAbstractFactoryFactory'
+        'zendservicemanagerproxyserviceproxyabstractfactory' => 'Zend\ServiceManager\Proxy\ServiceProxyAbstractFactoryFactory'
     );
 
     /**
@@ -292,6 +292,19 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
+     * Marks a provided service as lazy
+     *
+     * @param  string $name
+     * @return ServiceManager
+     */
+    public function addLazyService($name)
+    {
+        $this->lazyServices[$name] = $this->lazyServices[$this->canonicalizeName($name)] = true;
+
+        return $this;
+    }
+
+    /**
      * Add abstract factory
      *
      * @param  AbstractFactoryInterface|string $factory
@@ -492,8 +505,8 @@ class ServiceManager implements ServiceLocatorInterface
         if (isset($this->lazyServices[$cName])) {
             /* @var $proxyFactory \Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory */
             $proxyFactory = $this->get('Zend\ServiceManager\Proxy\ServiceProxyAbstractFactory');
-            $instance = $proxyFactory->createServiceWithName($this, $cName, $rName);
             unset($this->lazyServices[$cName]);
+            $instance = $proxyFactory->createServiceWithName($this, $cName, $rName);
 
             return $instance;
         }
@@ -606,7 +619,7 @@ class ServiceManager implements ServiceLocatorInterface
         foreach ($this->abstractFactories as $index => $abstractFactory) {
             // Support string abstract factory class names
             if (is_string($abstractFactory) && class_exists($abstractFactory, true)) {
-                $this->abstractFactory[$index] = $abstractFactory = new $abstractFactory();
+                $this->abstractFactories[$index] = $abstractFactory = new $abstractFactory();
             }
 
             if (

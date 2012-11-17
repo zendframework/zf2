@@ -599,4 +599,23 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(true, $this->serviceManager->has('foo/bar'));
         $this->assertEquals(true, $this->serviceManager->has('foo bar'));
     }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::addLazyService
+     * @covers Zend\ServiceManager\ServiceManager::create
+     */
+    public function testAddLazyService()
+    {
+        $service = $this->getMock('stdClass', array('proxiedMethod'));
+        $service->expects($this->once())->method('proxiedMethod');
+
+        $this->serviceManager->setService('Config', array());
+        $this->serviceManager->setFactory('LazyService', function () use ($service) { return $service; });
+        $this->serviceManager->addLazyService('LazyService');
+        $lazyService = $this->serviceManager->create('LazyService');
+
+        $this->assertInstanceOf(get_class($service), $lazyService);
+        $this->assertNotSame($service, $lazyService);
+        $lazyService->proxiedMethod();
+    }
 }
