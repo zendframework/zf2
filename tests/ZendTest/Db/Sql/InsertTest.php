@@ -147,4 +147,15 @@ class InsertTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @link https://github.com/zendframework/zf2/issues/2579
+     */    
+    public function testReplacingValueWithImplicitSet()
+    {
+        $this->insert->foo = 3;
+        $this->insert->foo = 5;
+        
+        $this->assertEquals(array('foo'), $this->readAttribute($this->insert, 'columns'));
+        $this->assertEquals(5, $this->insert->foo);
+    }
 }
