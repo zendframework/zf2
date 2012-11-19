@@ -136,8 +136,8 @@ class Callback extends AbstractValidator
             $args = array_merge($args, $options);
         }
         if (!empty($options) && !empty($context)) {
-            $args[] = $context;
             $args   = array_merge($args, $options);
+            $args[] = $context;
         }
 
         try {
