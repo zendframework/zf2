@@ -71,6 +71,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     {
         $this->response->setError(null);
         $this->assertNull($this->response->getError());
+        $this->assertFalse($this->response->isError());
     }
 
     public function testIdShouldBeNullByDefault()
