@@ -66,6 +66,12 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->response->setError($error);
         $this->assertSame($error, $this->response->getError());
     }
+    
+    public function testErrorAccesorsShouldWorkWithNullInput()
+    {
+        $this->response->setError(null);
+        $this->assertNull($this->response->getError());
+    }
 
     public function testIdShouldBeNullByDefault()
     {
