@@ -97,8 +97,8 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
         $value     = 'bar';
         $context   = array('foo' => 'bar', 'bar' => 'baz');
         $options   = array('baz' => 'bat');
-        $validator = new Callback(function($v, $c, $baz) use ($value, $context, $options) {
-            return (($value == $v) && ($context == $c) && ($options['baz'] == $baz));
+        $validator = new Callback(function($v, $baz, $c) use ($value, $options, $context) {
+            return (($value == $v) && ($options['baz'] == $baz) && ($context == $c));
         });
         $validator->setCallbackOptions($options);
         $this->assertTrue($validator->isValid($value, $context));
