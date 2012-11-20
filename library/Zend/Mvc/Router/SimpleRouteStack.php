@@ -70,9 +70,16 @@ class SimpleRouteStack implements RouteStackInterface
         }
 
         $instance = new static();
-
+        
         if (isset($options['route_plugins'])) {
-            $instance->setRoutePluginManager($options['route_plugins']);
+            if (is_array($options['route_plugins'])) {
+                $rpm = $instance->getRoutePluginManager();
+                foreach($options['route_plugins'] as $name => $class) {
+                    $rpm->setInvokableClass($name, $class);
+                }
+            } else {
+                $instance->setRoutePluginManager($options['route_plugins']);
+            }
         }
 
         if (isset($options['routes'])) {
