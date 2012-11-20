@@ -147,4 +147,29 @@ class InsertTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @group ZF2-551
+     */
+    public function testReplacingValueWithImplicitSet()
+    {
+        $this->insert->foo = 3;
+        $this->insert->foo = 5;
+
+        $this->assertEquals(array('foo'), $this->readAttribute($this->insert, 'columns'));
+        $this->assertEquals(5, $this->insert->foo);
+    }
+
+    /**
+     * @group ZF2-551
+     */
+    public function testSettingValuesWithImplicitSet()
+    {
+        $this->insert->foo = 3;
+        $this->insert->bar = 5;
+
+        $this->assertEquals(array('foo', 'bar'), $this->readAttribute($this->insert, 'columns'));
+        $this->assertEquals(3, $this->insert->foo);
+        $this->assertEquals(5, $this->insert->bar);
+    }
+
 }
