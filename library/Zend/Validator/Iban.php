@@ -34,10 +34,10 @@ class Iban extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = array(
-        self::NOTSUPPORTED     => "Unknown country within the IBAN",
-        self::SEPANOTSUPPORTED => "Countries outside the Single Euro Payments Area (SEPA) are not supported",
-        self::FALSEFORMAT      => "The input has a false IBAN format",
-        self::CHECKFAILED      => "The input has failed the IBAN check",
+        self::NOTSUPPORTED     => "Unknown country within the IBAN.",
+        self::SEPANOTSUPPORTED => "Countries outside the Single Euro Payments Area (SEPA) are not supported.",
+        self::FALSEFORMAT      => "The input has a false IBAN format.",
+        self::CHECKFAILED      => "The input has failed the IBAN check.",
     );
 
     /**

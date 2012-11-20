@@ -36,12 +36,12 @@ class ImageSize extends AbstractValidator
      * @var array Error message template
      */
     protected $messageTemplates = array(
-        self::WIDTH_TOO_BIG    => "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected",
-        self::WIDTH_TOO_SMALL  => "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected",
-        self::HEIGHT_TOO_BIG   => "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected",
-        self::HEIGHT_TOO_SMALL => "Minimum expected height for image '%value%' should be '%minheight%' but '%height%' detected",
-        self::NOT_DETECTED     => "The size of image '%value%' could not be detected",
-        self::NOT_READABLE     => "File '%value%' is not readable or does not exist",
+        self::WIDTH_TOO_BIG    => "Maximum allowed width for image '%value%' should be '%maxwidth%' but '%width%' detected.",
+        self::WIDTH_TOO_SMALL  => "Minimum expected width for image '%value%' should be '%minwidth%' but '%width%' detected.",
+        self::HEIGHT_TOO_BIG   => "Maximum allowed height for image '%value%' should be '%maxheight%' but '%height%' detected.",
+        self::HEIGHT_TOO_SMALL => "Minimum expected height for image '%value%' should be '%minheight%' but '%height%' detected.",
+        self::NOT_DETECTED     => "The size of image '%value%' could not be detected.",
+        self::NOT_READABLE     => "File '%value%' is not readable or does not exist.",
     );
 
     /**

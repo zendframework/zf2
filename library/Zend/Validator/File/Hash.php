@@ -32,9 +32,9 @@ class Hash extends AbstractValidator
      * @var array Error message templates
      */
     protected $messageTemplates = array(
-        self::DOES_NOT_MATCH => "File '%value%' does not match the given hashes",
-        self::NOT_DETECTED   => "A hash could not be evaluated for the given file",
-        self::NOT_FOUND      => "File '%value%' is not readable or does not exist"
+        self::DOES_NOT_MATCH => "File '%value%' does not match the given hashes.",
+        self::NOT_DETECTED   => "A hash could not be evaluated for the given file.",
+        self::NOT_FOUND      => "File '%value%' is not readable or does not exist."
     );
 
     /**

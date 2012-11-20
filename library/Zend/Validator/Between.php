@@ -28,8 +28,8 @@ class Between extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = array(
-        self::NOT_BETWEEN        => "The input is not between '%min%' and '%max%', inclusively",
-        self::NOT_BETWEEN_STRICT => "The input is not strictly between '%min%' and '%max%'"
+        self::NOT_BETWEEN        => "The input is not between '%min%' and '%max%', inclusively.",
+        self::NOT_BETWEEN_STRICT => "The input is not strictly between '%min%' and '%max%'.",
     );
 
     /**

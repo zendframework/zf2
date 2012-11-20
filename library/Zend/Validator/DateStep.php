@@ -29,7 +29,7 @@ class DateStep extends Date
      * @var array
      */
     protected $messageTemplates = array(
-        self::NOT_STEP     => "The input is not a valid step"
+        self::NOT_STEP     => "The input is not a valid step.",
     );
 
     /**

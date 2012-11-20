@@ -30,7 +30,7 @@ class Exists extends AbstractValidator
      * @var array Error message templates
      */
     protected $messageTemplates = array(
-        self::DOES_NOT_EXIST => "File '%value%' does not exist",
+        self::DOES_NOT_EXIST => "File '%value%' does not exist.",
     );
 
     /**

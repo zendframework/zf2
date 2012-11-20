@@ -32,8 +32,8 @@ class Callback extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = array(
-        self::INVALID_VALUE    => "The input is not valid",
-        self::INVALID_CALLBACK => "An exception has been raised within the callback",
+        self::INVALID_VALUE    => "The input is not valid.",
+        self::INVALID_CALLBACK => "An exception has been raised within the callback.",
     );
 
     /**

@@ -166,7 +166,7 @@ class CsrfTest extends \PHPUnit_Framework_TestCase
         $this->validator->isValid('foo');
         $messages = $this->validator->getMessages();
         $this->assertArrayHasKey(Csrf::NOT_SAME, $messages);
-        $this->assertEquals("The form submitted did not originate from the expected site", $messages[Csrf::NOT_SAME]);
+        $this->assertEquals("The form submitted did not originate from the expected site.", $messages[Csrf::NOT_SAME]);
     }
 
     public function testIsValidReturnsTrueWhenValueMatchesHash()

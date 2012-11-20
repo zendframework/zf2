@@ -32,8 +32,8 @@ class Count extends AbstractValidator
      * @var array Error message templates
      */
     protected $messageTemplates = array(
-        self::TOO_MANY => "Too many files, maximum '%max%' are allowed but '%count%' are given",
-        self::TOO_FEW  => "Too few files, minimum '%min%' are expected but '%count%' are given",
+        self::TOO_MANY => "Too many files, maximum '%max%' are allowed but '%count%' are given.",
+        self::TOO_FEW  => "Too few files, minimum '%min%' are expected but '%count%' are given.",
     );
 
     /**

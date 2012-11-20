@@ -33,9 +33,9 @@ class Size extends AbstractValidator
      * @var array Error message templates
      */
     protected $messageTemplates = array(
-        self::TOO_BIG   => "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected",
-        self::TOO_SMALL => "Minimum expected size for file '%value%' is '%min%' but '%size%' detected",
-        self::NOT_FOUND => "File '%value%' is not readable or does not exist",
+        self::TOO_BIG   => "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected.",
+        self::TOO_SMALL => "Minimum expected size for file '%value%' is '%min%' but '%size%' detected.",
+        self::NOT_FOUND => "File '%value%' is not readable or does not exist.",
     );
 
     /**
