@@ -281,6 +281,20 @@ class Connection implements ConnectionInterface
     }
 
     /**
+     * @param string $sql
+     * @return Statement
+     */
+    public function prepare($sql)
+    {
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
+
+        $statement = $this->driver->createStatement($sql);
+        return $statement;
+    }
+
+    /**
      * Get last generated id
      *
      * @param  null $name Ignored
