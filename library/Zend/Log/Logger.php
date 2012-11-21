@@ -467,7 +467,7 @@ class Logger implements LoggerInterface
      * Ends a group in the Firebug Console
      *
      * @return TRUE if the group instruction was added to the response headers or buffered.
-     *//
+     */
     public function groupEnd()
     {
 		Zend_Wildfire_Plugin_FirePhp::groupEnd();
