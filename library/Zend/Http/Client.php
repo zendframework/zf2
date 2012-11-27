@@ -469,11 +469,11 @@ class Client implements Stdlib\DispatchableInterface
                     throw new Exception\InvalidArgumentException('The cookie parameter is not a valid Set-Cookie type');
                 }
             }
-        } elseif ($cookie instanceof Header\SetCookie) {
-            $this->cookies[$this->getCookieId($cookie)] = $cookie;
         } elseif (is_string($cookie) && $value !== null) {
             $setCookie = new Header\SetCookie($cookie, $value, $expire, $path, $domain, $secure, $httponly, $maxAge, $version);
             $this->cookies[$this->getCookieId($setCookie)] = $setCookie;
+        } elseif ($cookie instanceof Header\SetCookie) {
+            $this->cookies[$this->getCookieId($cookie)] = $cookie;
         } else {
             throw new Exception\InvalidArgumentException('Invalid parameter type passed as Cookie');
         }
@@ -855,9 +855,9 @@ class Client implements Stdlib\DispatchableInterface
             }
 
             // Get the cookies from response (if any)
-            $setCookie = $response->getCookie();
-            if (!empty($setCookie)) {
-                $this->addCookie($setCookie);
+            $setCookies = $response->getCookie();
+            if (!empty($setCookies)) {
+                $this->addCookie($setCookies);
             }
 
             // If we got redirected, look for the Location header
@@ -1294,7 +1294,6 @@ class Client implements Stdlib\DispatchableInterface
                 throw new Exception\RuntimeException('Adapter does not support streaming');
             }
         }
-
         // HTTP connection
         $this->lastRawRequest = $this->adapter->write($method,
             $uri, $this->config['httpversion'], $headers, $body);
