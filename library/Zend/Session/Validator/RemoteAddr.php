@@ -102,7 +102,7 @@ class RemoteAddr implements SessionValidator
             // proxy IP address
             if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR']) {
                 $ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-                return trim($ips[0]);
+                return trim(end($ips));
             }
         }
 

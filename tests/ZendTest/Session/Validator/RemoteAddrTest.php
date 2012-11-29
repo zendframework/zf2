@@ -106,7 +106,7 @@ class RemoteAddrTest extends \PHPUnit_Framework_TestCase
     {
         $this->backup();
         $_SERVER['REMOTE_ADDR'] = '0.1.2.3';
-        $_SERVER['HTTP_X_FORWARDED_FOR'] = '2.1.2.3, 1.1.2.3';
+        $_SERVER['HTTP_X_FORWARDED_FOR'] = '1.1.2.3, 2.1.2.3';
         RemoteAddr::setUseProxy(true);
         $validator = new RemoteAddr();
         RemoteAddr::setUseProxy(false);
