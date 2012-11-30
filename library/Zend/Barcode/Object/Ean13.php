@@ -59,7 +59,6 @@ class Ean13 extends AbstractObject
     protected function getDefaultOptions()
     {
         $this->barcodeLength = 13;
-        $this->mandatoryChecksum = true;
         $this->mandatoryQuietZones = true;
     }
 
