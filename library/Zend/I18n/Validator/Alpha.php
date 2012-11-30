@@ -36,9 +36,9 @@ class Alpha extends Alnum
      * @var array
      */
     protected $messageTemplates = array(
-        self::INVALID      => "Invalid type given. String expected",
-        self::NOT_ALPHA    => "The input contains non alphabetic characters",
-        self::STRING_EMPTY => "The input is an empty string"
+        self::INVALID      => "Invalid type given. String expected.",
+        self::NOT_ALPHA    => "The input contains non alphabetic characters.",
+        self::STRING_EMPTY => "The input is an empty string.",
     );
 
     /**

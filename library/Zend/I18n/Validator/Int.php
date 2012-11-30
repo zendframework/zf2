@@ -31,8 +31,8 @@ class Int extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = array(
-        self::INVALID => "Invalid type given. String or integer expected",
-        self::NOT_INT => "The input does not appear to be an integer",
+        self::INVALID => "Invalid type given. String or integer expected.",
+        self::NOT_INT => "The input does not appear to be an integer.",
     );
 
     /**
