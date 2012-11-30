@@ -10,6 +10,8 @@
 
 namespace ZendTest\EventManager;
 
+use Zend\EventManager\ResponseCollection;
+
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
 use Zend\EventManager\EventManager;
@@ -307,4 +309,55 @@ class StaticEventManagerTest extends TestCase
         $manager->trigger('bar', $this, array());
         $this->assertEquals(4, $test->triggered);
     }
+
+
+    public function testCanAttachListenerAggregate()
+    {
+        $staticManager = StaticEventManager::getInstance();
+        $aggregate = new TestAsset\MockAggregate();
+        $staticManager->attachAggregate('foo', $aggregate);
+
+        $events = $staticManager->getEvents('foo');
+        $this->assertCount(2, $events);
+    }
+
+
+    public function testCanAttachListenerAggregateViaAttach()
+    {
+        $staticManager = StaticEventManager::getInstance();
+        $aggregate = new TestAsset\MockAggregate();
+        $staticManager->attach('foo', $aggregate);
+
+        $events = $staticManager->getEvents('foo');
+        $this->assertCount(2, $events);
+    }
+
+    public function testCanDetachListenerAggregate()
+    {
+        $staticManager = StaticEventManager::getInstance();
+        $aggregate = new TestAsset\MockAggregate();
+
+        $staticManager->attachAggregate('foo', $aggregate);
+        $events = $staticManager->getEvents('foo');
+        $this->assertCount(2, $events);
+
+        $staticManager->detachAggregate('foo', $aggregate);
+        $events = $staticManager->getEvents('foo');
+        $this->assertCount(0, $events);
+    }
+
+    public function testCanDetachListenerAggregateViaDetach()
+    {
+        $staticManager = StaticEventManager::getInstance();
+        $aggregate = new TestAsset\MockAggregate();
+
+        $staticManager->attach('foo', $aggregate);
+        $events = $staticManager->getEvents('foo');
+        $this->assertCount(2, $events);
+
+        $staticManager->detach('foo', $aggregate);
+        $events = $staticManager->getEvents('foo');
+        $this->assertCount(0, $events);
+    }
+
 }

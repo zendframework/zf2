@@ -35,7 +35,7 @@ class StaticEventsMock implements SharedEventManagerInterface
      * @param  int $priority Priority at which listener should execute
      * @return void
      */
-    public function attach($id, $event, $callback, $priority = 1)
+    public function attach($id, $event, $callback = null, $priority = 1)
     {
 
     }
@@ -47,7 +47,7 @@ class StaticEventsMock implements SharedEventManagerInterface
      * @param  CallbackHandler $listener
      * @return bool Returns true if event and listener found, and unsubscribed; returns false if either event or listener not found
      */
-    public function detach($id, CallbackHandler $listener)
+    public function detach($id, $listener)
     {
         return true;
     }
