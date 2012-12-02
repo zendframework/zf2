@@ -35,7 +35,7 @@ return array(
 
     // Zend_I18n_Validator_Float
     "Invalid type given. String, integer or float expected." => "Invalid type given. String, integer or float expected.",
-    "The input does not appear to be a float" => "The input does not appear to be a float",
+    "The input does not appear to be a float." => "The input does not appear to be a float.",
 
     // Zend_I18n_Validator_Int
     "Invalid type given. String or integer expected." => "Invalid type given. String or integer expected.",
@@ -43,8 +43,8 @@ return array(
 
     // Zend_I18n_Validator_PostCode
     "Invalid type given. String or integer expected." => "Ongeldig type opgegeven, waarde moet een string of integer zijn",
-    "The input does not appear to be a postal code" => "De input lijkt geen geldige postcode te zijn",
-    "An exception has been raised while validating the input" => "Er is een interne fout opgetreden tijdens het valideren van de input",
+    "The input does not appear to be a postal code." => "De input lijkt geen geldige postcode te zijn",
+    "An exception has been raised while validating the input." => "Er is een interne fout opgetreden tijdens het valideren van de input",
 
     // Zend_Validator_Barcode
     "The input failed checksum validation." => "De input slaagde niet in de checksum validatie",
@@ -67,7 +67,7 @@ return array(
     "The input contains an invalid amount of digits" => "De input bevat een ongeldige hoeveelheid cijfers",
     "The input is not from an allowed institute" => "De input is niet afkomstig van een toegestaan instituut",
     "The input seems to be an invalid creditcard number" => "De input is een ongeldig creditcard nummer",
-    "An exception has been raised while validating the input" => "Er is een interne fout opgetreden tijdens het valideren van de input",
+    "An exception has been raised while validating the input." => "Er is een interne fout opgetreden tijdens het valideren van de input",
 
     // Zend_Validator_Csrf
     "The form submitted did not originate from the expected site" => "Het verzonden formulier kwam niet van de verwachte website",

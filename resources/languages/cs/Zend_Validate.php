@@ -35,7 +35,7 @@ return array(
 
     // Zend_I18n_Validator_Float
     "Invalid type given. String, integer or float expected." => "Chybný typ. Byl očekáván řetězec, celé nebo desetinné číslo",
-    "The input does not appear to be a float" => "Hodnota nevypadá jako desetinné číslo",
+    "The input does not appear to be a float." => "Hodnota nevypadá jako desetinné číslo",
 
     // Zend_I18n_Validator_Int
     "Invalid type given. String or integer expected." => "Chybný typ. Byl očekáván řetězec nebo celé číslo",
@@ -43,8 +43,8 @@ return array(
 
     // Zend_I18n_Validator_PostCode
     "Invalid type given. String or integer expected." => "Chybný typ. Byl očekáván řetězec nebo celé číslo",
-    "The input does not appear to be a postal code" => "Hodnota nevypadá jako PSČ",
-    "An exception has been raised while validating the input" => "Během volání byla vyvolána výjimka",
+    "The input does not appear to be a postal code." => "Hodnota nevypadá jako PSČ",
+    "An exception has been raised while validating the input." => "Během volání byla vyvolána výjimka",
 
     // Zend_Validator_Barcode
     "The input failed checksum validation." => "Hodnota má chybný kontrolní součet",
@@ -67,7 +67,7 @@ return array(
     "The input contains an invalid amount of digits" => "Hodnota obsahuje neplatný počet číslic",
     "The input is not from an allowed institute" => "Hodnota není od povolené společnosti",
     "The input seems to be an invalid creditcard number" => "Hodnota není platné číslo kreditní karty",
-    "An exception has been raised while validating the input" => "Během validace byla vyvolána výjimka",
+    "An exception has been raised while validating the input." => "Během validace byla vyvolána výjimka",
 
     // Zend_Validator_Csrf
     "The form submitted did not originate from the expected site" => "Odeslaný formulář nepochází z předpokládané internetové stránky",

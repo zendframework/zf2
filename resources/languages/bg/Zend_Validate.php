@@ -35,7 +35,7 @@ return array(
 
     // Zend_I18n_Validator_Float
     "Invalid type given. String, integer or float expected." => "Зададен е невалиден тип данни. Очаква се цяло или реално число",
-    "The input does not appear to be a float" => "Не е въведено реално число",
+    "The input does not appear to be a float." => "Не е въведено реално число",
 
     // Zend_I18n_Validator_Int
     "Invalid type given. String or integer expected." => "Зададен е невалиден тип данни. Очаква се цяло число",
@@ -43,8 +43,8 @@ return array(
 
     // Zend_I18n_Validator_PostCode
     "Invalid type given. String or integer expected." => "Зададен е невалиден тип данни. Очаква се стринг или цяло число",
-    "The input does not appear to be a postal code" => "Не е въведен валиден пощенски код",
-    "An exception has been raised while validating the input" => "По време на валидацията беше върнато изключение",
+    "The input does not appear to be a postal code." => "Не е въведен валиден пощенски код",
+    "An exception has been raised while validating the input." => "По време на валидацията беше върнато изключение",
 
     // Zend_Validator_Barcode
     "The input failed checksum validation." => "Въведената стойност не успя на премине валидацията на контролната сума",
@@ -67,7 +67,7 @@ return array(
     "The input contains an invalid amount of digits" => "Въведената стойност съдържа невалиден брой цифри",
     "The input is not from an allowed institute" => "Въведената стойност не е разрешена организация",
     "The input seems to be an invalid creditcard number" => "Въведената стойност не е валиден номер на кредитна карта",
-    "An exception has been raised while validating the input" => "По време на валидацията беше върнато ново изключение",
+    "An exception has been raised while validating the input." => "По време на валидацията беше върнато ново изключение",
 
     // Zend_Validator_Csrf
     "The form submitted did not originate from the expected site" => "Формата не е изпратена от очаквания сайт",

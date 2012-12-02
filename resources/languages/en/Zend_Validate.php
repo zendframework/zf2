@@ -35,7 +35,7 @@ return array(
 
     // Zend_I18n_Validator_Float
     "Invalid type given. String, integer or float expected." => "Invalid type given. String, integer or float expected.",
-    "The input does not appear to be a float" => "The input does not appear to be a float",
+    "The input does not appear to be a float." => "The input does not appear to be a float.",
 
     // Zend_I18n_Validator_Int
     "Invalid type given. String or integer expected." => "Invalid type given. String or integer expected.",
@@ -43,8 +43,8 @@ return array(
 
     // Zend_I18n_Validator_PostCode
     "Invalid type given. String or integer expected." => "Invalid type given. String or integer expected.",
-    "The input does not appear to be a postal code" => "The input does not appear to be a postal code",
-    "An exception has been raised while validating the input" => "An exception has been raised while validating the input",
+    "The input does not appear to be a postal code." => "The input does not appear to be a postal code.",
+    "An exception has been raised while validating the input." => "An exception has been raised while validating the input.",
 
     // Zend_Validator_Barcode
     "The input failed checksum validation." => "The input failed checksum validation.",
@@ -67,7 +67,7 @@ return array(
     "The input contains an invalid amount of digits" => "The input contains an invalid amount of digits",
     "The input is not from an allowed institute" => "The input is not from an allowed institute",
     "The input seems to be an invalid creditcard number" => "The input seems to be an invalid creditcard number",
-    "An exception has been raised while validating the input" => "An exception has been raised while validating the input",
+    "An exception has been raised while validating the input." => "An exception has been raised while validating the input.",
 
     // Zend_Validator_Csrf
     "The form submitted did not originate from the expected site" => "The form submitted did not originate from the expected site",

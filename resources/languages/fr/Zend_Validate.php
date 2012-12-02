@@ -36,7 +36,7 @@ return array(
 
     // Zend_I18n_Validator_Float
     "Invalid type given. String, integer or float expected." => "Type invalide. Chaîne, entier ou flottant attendu",
-    "The input does not appear to be a float" => "L'entrée n'est pas un nombre flottant",
+    "The input does not appear to be a float." => "L'entrée n'est pas un nombre flottant",
 
     // Zend_I18n_Validator_Int
     "Invalid type given. String or integer expected." => "Type invalide. Chaîne ou entier attendu",
@@ -44,8 +44,8 @@ return array(
 
     // Zend_I18n_Validator_PostCode
     "Invalid type given. String or integer expected." => "Type invalid. Chaîne ou entier attendu",
-    "The input does not appear to be a postal code" => "L'entrée ne semble pas être un code postal valide",
-    "An exception has been raised while validating the input" => "Une exception a été levée lors de la validation de l'entrée",
+    "The input does not appear to be a postal code." => "L'entrée ne semble pas être un code postal valide",
+    "An exception has been raised while validating the input." => "Une exception a été levée lors de la validation de l'entrée",
 
     // Zend_Validator_Barcode
     "The input failed checksum validation." => "L'entrée n'a pas passé la validation de la somme de contrôle",
@@ -68,7 +68,7 @@ return array(
     "The input contains an invalid amount of digits" => "L'entrée contient un nombre invalide de chiffres",
     "The input is not from an allowed institute" => "L'entrée ne provient pas d'une institution autorisée",
     "The input seems to be an invalid creditcard number" => "L'entrée semble être un numéro de carte bancaire invalide",
-    "An exception has been raised while validating the input" => "Une exception a été levée lors de la validation de l'entrée",
+    "An exception has been raised while validating the input." => "Une exception a été levée lors de la validation de l'entrée",
 
     // Zend_Validator_Csrf
     "The form submitted did not originate from the expected site" => "Le formulaire ne provient pas du site attendu",

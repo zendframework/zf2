@@ -35,7 +35,7 @@ return array(
 
     // Zend_I18n_Validator_Float
     "Invalid type given. String, integer or float expected." => "Geçersiz tür verildi, Dize, tamsayı ya da ondalık sayı bekleniyor",
-    "The input does not appear to be a float" => "Girdi ondalık bir sayı olarak görünmüyor",
+    "The input does not appear to be a float." => "Girdi ondalık bir sayı olarak görünmüyor",
 
     // Zend_I18n_Validator_Int
     "Invalid type given. String or integer expected." => "Geçersiz tür verildi. Dize veya tamsayı bekleniyor",
@@ -43,8 +43,8 @@ return array(
 
     // Zend_I18n_Validator_PostCode
     "Invalid type given. String or integer expected." => "Geçersiz tür verildi. Dizge veya tamsayı bekleniyor",
-    "The input does not appear to be a postal code" => "Girdi bir posta kodu olarak görünmüyor",
-    "An exception has been raised while validating the input" => "Girdi doğrulanırken bir istisna meydana geldi",
+    "The input does not appear to be a postal code." => "Girdi bir posta kodu olarak görünmüyor",
+    "An exception has been raised while validating the input." => "Girdi doğrulanırken bir istisna meydana geldi",
 
     // Zend_Validator_Barcode
     "The input failed checksum validation." => "Girişin sağlama doğrulaması başarısız oldu",
@@ -67,7 +67,7 @@ return array(
     "The input contains an invalid amount of digits" => "Girdi geçersiz sayıda rakam içeriyor",
     "The input is not from an allowed institute" => "Girdi izin verilen bir kuruluştan değil",
     "The input seems to be an invalid creditcard number" => "Girdi geçersiz bir kredi kartı numarası gibi görünüyor",
-    "An exception has been raised while validating the input" => "Girdi doğrulanırken bir hata meydana geldi",
+    "An exception has been raised while validating the input." => "Girdi doğrulanırken bir hata meydana geldi",
 
     // Zend_Validator_Csrf
     "The form submitted did not originate from the expected site" => "Gönderilen form beklenen site kaynaklı gibi görünmüyor",

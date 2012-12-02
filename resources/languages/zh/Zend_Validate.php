@@ -35,7 +35,7 @@ return array(
 
     // Zend_I18n_Validator_Float
     "Invalid type given. String, integer or float expected." => "请输入与一个整数或小数",
-    "The input does not appear to be a float" => "输入无效，请输入一个小数",
+    "The input does not appear to be a float." => "输入无效，请输入一个小数",
 
     // Zend_I18n_Validator_Int
     "Invalid type given. String or integer expected." => "输入无效，请输入字符或数字",
@@ -43,8 +43,8 @@ return array(
 
     // Zend_I18n_Validator_PostCode
     "Invalid type given. String or integer expected." => "输入无效，请输入一个字符或数字",
-    "The input does not appear to be a postal code" => "无效的邮政编码格式",
-    "An exception has been raised while validating the input" => "验证输入时有异常发生",
+    "The input does not appear to be a postal code." => "无效的邮政编码格式",
+    "An exception has been raised while validating the input." => "验证输入时有异常发生",
 
     // Zend_Validator_Barcode
     "The input failed checksum validation." => "输入的条码无法通过校验",
@@ -67,7 +67,7 @@ return array(
     "The input contains an invalid amount of digits" => "输入的卡号长度有误",
     "The input is not from an allowed institute" => "输入的卡号没有找到对应的发行机构",
     "The input seems to be an invalid creditcard number" => "输入的卡号无法通过校验",
-    "An exception has been raised while validating the input" => "验证输入时有异常发生",
+    "An exception has been raised while validating the input." => "验证输入时有异常发生",
 
     // Zend_Validator_Csrf
     "The form submitted did not originate from the expected site" => "表单提交来源网站未经过许可",

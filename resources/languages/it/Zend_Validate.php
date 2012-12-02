@@ -35,7 +35,7 @@ return array(
 
     // Zend_I18n_Validator_Float
     "Invalid type given. String, integer or float expected." => "Tipo di dato non valido. Era atteso un dato di tipo string, float o integer",
-    "The input does not appear to be a float" => "L'input non sembra essere un dato di tipo float",
+    "The input does not appear to be a float." => "L'input non sembra essere un dato di tipo float",
 
     // Zend_I18n_Validator_Int
     "Invalid type given. String or integer expected." => "Tipo di dato non valido. Era atteso un dato di tipo string o integer",
@@ -43,8 +43,8 @@ return array(
 
     // Zend_I18n_Validator_PostCode
     "Invalid type given. String or integer expected." => "Tipo di dato non valido. Era atteso un dato di tipo string o integer",
-    "The input does not appear to be a postal code" => "L'input non sembra essere un codice postale",
-    "An exception has been raised while validating the input" => "Un'eccezione è stata sollevada durante la validazione dell'input",
+    "The input does not appear to be a postal code." => "L'input non sembra essere un codice postale",
+    "An exception has been raised while validating the input." => "Un'eccezione è stata sollevada durante la validazione dell'input",
 
     // Zend_Validator_Barcode
     "The input failed checksum validation." => "L'input non ha un checksum valido",
@@ -67,7 +67,7 @@ return array(
     "The input contains an invalid amount of digits" => "L'input contiene un numero non valido di cifre",
     "The input is not from an allowed institute" => "L'input proviene da un istituto non supportato",
     "The input seems to be an invalid creditcard number" => "L'input sembra essere un numero di carta di credito non valido",
-    "An exception has been raised while validating the input" => "Un'eccezione è stata sollevada durante la validazione dell'input",
+    "An exception has been raised while validating the input." => "Un'eccezione è stata sollevada durante la validazione dell'input",
 
     // Zend_Validator_Csrf
     "The form submitted did not originate from the expected site" => "La form inviata non ha avuto origine dal luogo previsto",
