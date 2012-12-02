@@ -24,12 +24,12 @@
  */
 return array(
     // Zend_Captcha_AbstractWord
-    "Empty captcha value" => "Hodnota captcha nebyla zadána",
-    "Captcha ID field is missing" => "Chybí pole captcha ID",
-    "Captcha value is wrong" => "Chybná hodnota catpcha",
+    "Empty captcha value." => "Hodnota captcha nebyla zadána",
+    "Captcha ID field is missing." => "Chybí pole captcha ID",
+    "Captcha value is wrong." => "Chybná hodnota catpcha",
 
     // Zend_Captcha_ReCaptcha
-    "Missing captcha fields" => "Chybí captcha pole",
-    "Failed to validate captcha" => "Captchu se nepodařilo ověřit",
-    "Captcha value is wrong: %value%" => "Hodnota captchy není správná: %value%",
+    "Missing captcha fields." => "Chybí captcha pole",
+    "Failed to validate captcha." => "Captchu se nepodařilo ověřit",
+    "Captcha value is wrong: %value%." => "Hodnota captchy není správná: %value%",
 );

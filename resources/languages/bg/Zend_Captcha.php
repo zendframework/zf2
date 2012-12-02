@@ -24,12 +24,12 @@
  */
 return array(
     // Zend_Captcha_ReCaptcha
-    "Missing captcha fields" => "Непопълнена стойност на капча",
-    "Failed to validate captcha" => "Не може да валидира капча",
-    "Captcha value is wrong: %value%" => "Стойността на капча е грешна: %value%",
+    "Missing captcha fields." => "Непопълнена стойност на капча",
+    "Failed to validate captcha." => "Не може да валидира капча",
+    "Captcha value is wrong: %value%." => "Стойността на капча е грешна: %value%",
 
     // Zend_Captcha_Word
-    "Empty captcha value" => "Непопълнена стойност на капча",
-    "Captcha ID field is missing" => "Липсващо капча ID поле",
-    "Captcha value is wrong" => "Стойността на капча е грешна",
+    "Empty captcha value." => "Непопълнена стойност на капча",
+    "Captcha ID field is missing." => "Липсващо капча ID поле",
+    "Captcha value is wrong." => "Стойността на капча е грешна",
 );

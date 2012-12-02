@@ -24,12 +24,12 @@
  */
 return array(
     // Zend_Captcha_ReCaptcha
-    "Missing captcha fields" => "Eksik captcha alanı",
-    "Failed to validate captcha" => "Captcha doğrulaması başarısız oldu",
-    "Captcha value is wrong: %value%" => "Captcha da ki karakterleri yanlış girdiniz: %value%",
+    "Missing captcha fields." => "Eksik captcha alanı",
+    "Failed to validate captcha." => "Captcha doğrulaması başarısız oldu",
+    "Captcha value is wrong: %value%." => "Captcha da ki karakterleri yanlış girdiniz: %value%",
 
     // Zend_Captcha_Word
-    "Empty captcha value" => "Boş captcha boşluğu",
-    "Captcha ID field is missing" => "Captcha kimlik alanı eksik",
-    "Captcha value is wrong" => "Captcha değeri yanlış",
+    "Empty captcha value." => "Boş captcha boşluğu",
+    "Captcha ID field is missing." => "Captcha kimlik alanı eksik",
+    "Captcha value is wrong." => "Captcha değeri yanlış",
 );
