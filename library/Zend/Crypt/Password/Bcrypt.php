@@ -72,7 +72,7 @@ class Bcrypt implements PasswordInterface
      */
     public function create($password)
     {
-        $salt = (empty($this->salt))
+        $salt = empty($this->salt)
               ? Rand::getBytes(self::MIN_SALT_SIZE)
               : $this->salt;
         $salt64 = substr(str_replace('+', '.', base64_encode($salt)), 0, 22);
