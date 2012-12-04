@@ -98,7 +98,7 @@ class ServerUrl extends AbstractHelper
         if (($scheme == 'http' && (null === $port || $port == 80))
             || ($scheme == 'https' && (null === $port || $port == 443))
         ) {
-            $this->host = $host;;
+            $this->host = $host;
             return $this;
         }
 
@@ -180,6 +180,15 @@ class ServerUrl extends AbstractHelper
         }
 
         if (isset($_SERVER['HTTP_HOST']) && !empty($_SERVER['HTTP_HOST'])) {
+            // Detect if the port is set in SERVER_PORT and included in HTTP_HOST
+            if (isset($_SERVER['SERVER_PORT'])) {
+                $portStr = ':' . $_SERVER['SERVER_PORT'];
+                if (substr($_SERVER['HTTP_HOST'], 0-strlen($portStr), strlen($portStr)) == $portStr) {
+                    $this->setHost(substr($_SERVER['HTTP_HOST'], 0, 0-strlen($portStr)));
+                    return;
+                }
+            }
+
             $this->setHost($_SERVER['HTTP_HOST']);
             return;
         }
