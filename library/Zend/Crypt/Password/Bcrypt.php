@@ -73,7 +73,7 @@ class Bcrypt implements PasswordInterface
     public function create($password)
     {
         if (empty($this->salt)) {
-            $salt = Rand::getBytes(self::MIN_SALT_SIZE);
+            $salt = $this->salt = Rand::getBytes(self::MIN_SALT_SIZE);
         } else {
             $salt = $this->salt;
         }
