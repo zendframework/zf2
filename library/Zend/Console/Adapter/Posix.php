@@ -62,7 +62,7 @@ class Posix extends AbstractAdapter
             Color::LIGHT_MAGENTA => '1;35',
             Color::LIGHT_CYAN    => '1;36',
             Color::LIGHT_WHITE   => '1;37',
-            
+
             Color::HEX_000000  => '38;5;16',
             Color::HEX_00005F  => '38;5;17',
             Color::HEX_000087  => '38;5;18',
@@ -325,7 +325,7 @@ class Posix extends AbstractAdapter
             Color::LIGHT_MAGENTA => '45',
             Color::LIGHT_CYAN    => '46',
             Color::LIGHT_WHITE   => '47',
-            
+
             Color::HEX_000000  => '48;5;16',
             Color::HEX_00005F  => '48;5;17',
             Color::HEX_000087  => '48;5;18',

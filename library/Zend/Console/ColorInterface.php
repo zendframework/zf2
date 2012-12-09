@@ -36,7 +36,7 @@ interface ColorInterface
     const LIGHT_MAGENTA = 14;
     const LIGHT_CYAN = 15;
     const LIGHT_WHITE = 16;
-    
+
     const HEX_000000 = 17;
     const HEX_00005F = 18;
     const HEX_000087 = 19;
