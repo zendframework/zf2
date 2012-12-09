@@ -302,7 +302,7 @@ class Posix extends AbstractAdapter
             Color::HEX_D0D0D0    => '38;5;252',
             Color::HEX_DADADA    => '38;5;253',
             Color::HEX_E4E4E4    => '38;5;254',
-            Color::HEX_EEEEEE    => '38;5;255'
+            Color::HEX_EEEEEE    => '38;5;255',
         ),
         'bg' => array(
             Color::NORMAL        => '0;49',
@@ -565,7 +565,7 @@ class Posix extends AbstractAdapter
             Color::HEX_D0D0D0    => '48;5;252',
             Color::HEX_DADADA    => '48;5;253',
             Color::HEX_E4E4E4    => '48;5;254',
-            Color::HEX_EEEEEE    => '48;5;255'
+            Color::HEX_EEEEEE    => '48;5;255',
         ),
     );
 
