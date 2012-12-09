@@ -38,7 +38,6 @@ class Posix extends AbstractAdapter
     /**
      * Map of colors to ANSI codes
      *
-     * @todo implement Xterm 256 colors (http://www.frexx.de/xterm-256-notes/)
      * @var array
      */
     protected static $ansiColorMap = array(
