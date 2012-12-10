@@ -450,4 +450,26 @@ class Logger implements LoggerInterface
         restore_exception_handler();
         static::$registeredExceptionHandler = false;
     }
+    
+    /**
+     * Starts a group in the Firebug Console
+     *
+     * @param string $title The title of the group
+     * @param array $options OPTIONAL Setting 'Collapsed' to true will initialize group collapsed instead of expanded
+     * @return TRUE if the group instruction was added to the response headers or buffered.
+     */
+    public function group($messsage, $options=array())
+    {
+    	Zend_Wildfire_Plugin_FirePhp::group($messsage, $options);
+    }
+
+	 /**
+     * Ends a group in the Firebug Console
+     *
+     * @return TRUE if the group instruction was added to the response headers or buffered.
+     */
+    public function groupEnd()
+    {
+		Zend_Wildfire_Plugin_FirePhp::groupEnd();
+    }
 }
