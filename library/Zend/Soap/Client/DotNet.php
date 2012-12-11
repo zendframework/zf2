@@ -92,7 +92,7 @@ class DotNet extends SOAPClient
     /**
      * Returns the cURL client that is being used.
      *
-     * @return \Zend\Http\Client\Adapter\Curl The cURL client.
+     * @return CurlClient The cURL client.
      */
     public function getCurlClient()
     {
