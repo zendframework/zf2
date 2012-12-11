@@ -173,7 +173,7 @@ class BaseInputFilter implements InputFilterInterface
                         continue;
                     }
                     // - test if input allows empty
-                    if ($input->allowEmpty()) {
+                    if ($input->allowEmpty() &&  array_key_exists($name, $this->data)) {
                         $this->validInputs[$name] = $input;
                         continue;
                     }

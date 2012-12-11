@@ -433,7 +433,7 @@ class BaseInputFilterTest extends TestCase
         $data = array('bar' => 124);
         $filter->setData($data);
 
-        $this->assertTrue($filter->isValid());
+        $this->assertFalse($filter->isValid());
         $this->assertEquals('', $filter->getValue('foo'));
     }
 
