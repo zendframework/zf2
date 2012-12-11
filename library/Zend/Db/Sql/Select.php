@@ -334,21 +334,23 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function order($order)
     {
-        if (is_string($order)) {
-            if (strpos($order, ',') !== false) {
-                $order = preg_split('#,\s+#', $order);
-            } else {
-                $order = (array) $order;
-            }
-        }
-        foreach ($order as $k => $v) {
-            if (is_string($k)) {
-                $this->order[$k] = $v;
-            } else {
-                $this->order[] = $v;
-            }
-        }
-        return $this;
+    	if (is_string($order)) {
+    		if (strpos($order, ',') !== false) {
+    			$order = preg_split('#,\s+#', $order);
+    		} else {
+    			$order = (array) $order;
+    		}
+    	} elseif ($order instanceof Expression){
+    		$order = array($order);
+    	}
+    	foreach ($order as $k => $v) {
+    		if (is_string($k)) {
+    			$this->order[$k] = $v;
+    		} else {
+    			$this->order[] = $v;
+    		}
+    	}
+    	return $this;
     }
 
     /**

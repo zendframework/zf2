@@ -34,6 +34,7 @@ class FormFile extends FormInput
         'required'       => true,
         'type'           => true,
         'value'          => true,
+        'size'           => true,
     );
 
     /**
