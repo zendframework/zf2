@@ -84,7 +84,28 @@ class Ldap
             throw new Exception\LdapException(null, 'LDAP extension not loaded',
                 Exception\LdapException::LDAP_X_EXTENSION_NOT_LOADED);
         }
-        $this->setOptions($options);
+
+        // Supports single and multi domain config syntax
+        if (gettype(current($options)) !== 'array') {
+            $this->setOptions($options);
+        } else {
+            $servers = array_keys($options);
+            shuffle($servers);
+
+            foreach ($servers as $server) {
+                try {
+                    // Check if server is up
+                    $this->setOptions($options[$server]);
+                    $this->bind();
+
+                    return;
+                } catch (LdapException $zle) {
+                    if ($zle->getCode() === Exception\LdapException::LDAP_X_DOMAIN_MISMATCH) {
+                        continue;
+                    }
+                }
+            }
+        }
     }
 
     /**
