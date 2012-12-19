@@ -103,11 +103,13 @@ class MailTest extends \PHPUnit_Framework_TestCase
                 'formatter' => $formatter,
                 'mail'      => $message,
                 'transport' => $transport,
+                'subject_prepend_text' => 'subject prepend',
         ));
 
         $this->assertAttributeEquals($message, 'mail', $writer);
         $this->assertAttributeEquals($transport, 'transport', $writer);
         $this->assertAttributeEquals($formatter, 'formatter', $writer);
+        $this->assertAttributeEquals('subject prepend', 'subjectPrependText', $writer);
 
         $filters = self::readAttribute($writer, 'filters');
         $this->assertCount(1, $filters);
