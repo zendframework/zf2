@@ -302,7 +302,7 @@ abstract class AbstractController implements
      */
     public function layout($template = null)
     {
-    	return $this->plugin('layout', $template);
+    	return $this->plugin('layout', array($template));
     }
     
     /**
