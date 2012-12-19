@@ -10,6 +10,7 @@
 
 namespace Zend\InputFilter;
 
+use ArrayAccess;
 use Traversable;
 use Zend\Filter\FilterChain;
 use Zend\Stdlib\ArrayUtils;
@@ -188,6 +189,13 @@ class Factory
                         ));
                     }
                     $this->populateValidators($input->getValidatorChain(), $value);
+                    break;
+                case 'options':
+                    if ($input instanceof ConfigurableInputInterface &&
+                        (is_array($value) || $value instanceof Traversable || $value instanceof ArrayAccess)
+                    ) {
+                        $input->setOptions($value);
+                    }
                     break;
                 default:
                     // ignore unknown keys
