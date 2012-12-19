@@ -47,6 +47,20 @@ class FactoryTest extends TestCase
         $this->assertSame($validatorChain, $factory->getDefaultValidatorChain());
     }
 
+    public function testFactoryAllowsInjectingCustomOptions()
+    {
+        $factory = new Factory();
+        $input   = $factory->createInput(array(
+            'type'    => 'ZendTest\InputFilter\TestAsset\CustomInputWithOptions',
+            'options' => array(
+                'do_something_funny' => 'barFooBaz'
+            )
+        ));
+
+        $this->assertInstanceOf('ZendTest\InputFilter\TestAsset\CustomInputWithOptions', $input);
+        $this->assertEquals('barFooBaz', $input->getDoSomethingFunny());
+    }
+
     public function testFactoryUsesComposedFilterChainWhenCreatingNewInputObjects()
     {
         $factory       = new Factory();

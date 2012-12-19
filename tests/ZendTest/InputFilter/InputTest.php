@@ -14,6 +14,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\InputFilter\Input;
 use Zend\Filter;
 use Zend\Validator;
+use ZendTest\InputFilter\TestAsset\CustomInputWithOptions;
 
 class InputTest extends TestCase
 {
@@ -239,5 +240,12 @@ class InputTest extends TestCase
 
         $filters = $filterChain->getFilters()->toArray();
         $this->assertInstanceOf('Zend\Filter\StringTrim', $filters[0]);
+    }
+
+    public function testCanSetCustomValueThroughOptions()
+    {
+        $input = new CustomInputWithOptions('foo', array('do_something_funny' => 'fooBarBaz'));
+
+        $this->assertEquals('fooBarBaz', $input->getDoSomethingFunny());
     }
 }

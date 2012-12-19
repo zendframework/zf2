@@ -10,7 +10,9 @@
 
 namespace Zend\InputFilter;
 
+use Traversable;
 use Zend\Filter\FilterChain;
+use Zend\Stdlib\ArrayUtils;
 use Zend\Validator\ValidatorChain;
 use Zend\Validator\NotEmpty;
 
@@ -18,7 +20,7 @@ use Zend\Validator\NotEmpty;
  * @category   Zend
  * @package    Zend_InputFilter
  */
-class Input implements InputInterface
+class Input implements InputInterface, ConfigurableInputInterface
 {
     /**
      * @var boolean
@@ -70,9 +72,19 @@ class Input implements InputInterface
      */
     protected $fallbackValue;
 
-    public function __construct($name = null)
+    /**
+     * @var array
+     */
+    protected $options;
+
+
+    public function __construct($name = null, $options = array())
     {
         $this->name = $name;
+
+        if (!empty($options)) {
+            $this->setOptions($options);
+        }
     }
 
     /**
@@ -329,5 +341,37 @@ class Input implements InputInterface
 
         $chain->prependByName('NotEmpty', array(), true);
         $this->notEmptyValidator = true;
+    }
+
+    /**
+     * Set options for an input
+     *
+     * @param  array $options
+     * @throws Exception\InvalidArgumentException
+     * @return mixed
+     */
+    public function setOptions($options)
+    {
+        if ($options instanceof Traversable) {
+            $options = ArrayUtils::iteratorToArray($options);
+        } elseif (!is_array($options)) {
+            throw new Exception\InvalidArgumentException(
+                'The options parameter must be an array or a Traversable'
+            );
+        }
+
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * Get options for an input
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 }
