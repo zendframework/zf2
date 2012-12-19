@@ -270,7 +270,12 @@ class Form extends Fieldset implements FormInterface
         if (!is_object($this->object)) {
             return;
         }
-        if (!$this->isValid) {
+        if (!$this->hasValidated() && !empty($values)) {
+            $this->setData($values);
+            if (!$this->isValid()) {
+                return;
+            }
+        } elseif (!$this->isValid) {
             return;
         }
 
@@ -351,7 +356,7 @@ class Form extends Fieldset implements FormInterface
      */
     public function bindOnValidate()
     {
-        return (self::BIND_ON_VALIDATE === $this->bindOnValidate);
+        return (static::BIND_ON_VALIDATE === $this->bindOnValidate);
     }
 
     /**
@@ -434,6 +439,8 @@ class Form extends Fieldset implements FormInterface
         }
 
         $this->isValid = $result = $filter->isValid();
+        $this->hasValidated = true;
+
         if ($result && $this->bindOnValidate()) {
             $this->bindValues();
         }
@@ -442,7 +449,6 @@ class Form extends Fieldset implements FormInterface
             $this->setMessages($filter->getMessages());
         }
 
-        $this->hasValidated = true;
         return $result;
     }
 
@@ -546,16 +552,17 @@ class Form extends Fieldset implements FormInterface
                 if (isset($data[$key])) {
                     $count = count($data[$key]);
 
-                    for ($i = 0 ; $i != $count ; ++$i) {
+                    for ($i = 0; $i != $count; ++$i) {
                         $values[] = $value;
                     }
                 }
 
                 $value = $values;
             } else {
-                if (isset($data[$key])) {
-                    $this->prepareValidationGroup($fieldset, $data[$key], $validationGroup[$key]);
+                if (!isset($data[$key])) {
+                    $data[$key] = array();
                 }
+                $this->prepareValidationGroup($fieldset, $data[$key], $validationGroup[$key]);
             }
         }
     }

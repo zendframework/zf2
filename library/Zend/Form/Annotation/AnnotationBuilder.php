@@ -22,6 +22,7 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Form\Exception;
 use Zend\Form\Factory;
+use Zend\Form\FormFactoryAwareInterface;
 use Zend\Stdlib\ArrayUtils;
 
 /**
@@ -32,7 +33,7 @@ use Zend\Stdlib\ArrayUtils;
  * @package    Zend_Form
  * @subpackage Annotation
  */
-class AnnotationBuilder implements EventManagerAwareInterface
+class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareInterface
 {
     /**
      * @var AnnotationManager
@@ -330,7 +331,7 @@ class AnnotationBuilder implements EventManagerAwareInterface
             : 'Zend\Form\Element';
 
         // Compose as a fieldset or an element, based on specification type
-        if (self::isSubclassOf($type, 'Zend\Form\FieldsetInterface')) {
+        if (static::isSubclassOf($type, 'Zend\Form\FieldsetInterface')) {
             if (!isset($formSpec['fieldsets'])) {
                 $formSpec['fieldsets'] = array();
             }

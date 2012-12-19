@@ -23,7 +23,7 @@ final class Version
     /**
      * Zend Framework version identification - see compareVersion()
      */
-    const VERSION = '2.0.3dev';
+    const VERSION = '2.0.6dev';
 
     /**
      * Github Service Identifier for version information is retreived from
@@ -79,32 +79,32 @@ final class Version
      */
     public static function getLatest($service = self::VERSION_SERVICE_GITHUB)
     {
-        if (null === self::$latestVersion) {
-            self::$latestVersion = 'not available';
+        if (null === static::$latestVersion) {
+            static::$latestVersion = 'not available';
             if ($service == self::VERSION_SERVICE_GITHUB) {
                 $url  = 'https://api.github.com/repos/zendframework/zf2/git/refs/tags/release-';
 
                 $apiResponse = Json::decode(file_get_contents($url), Json::TYPE_ARRAY);
 
                 // Simplify the API response into a simple array of version numbers
-                $tags = array_map(function($tag) {
+                $tags = array_map(function ($tag) {
                     return substr($tag['ref'], 18); // Reliable because we're filtering on 'refs/tags/release-'
                 }, $apiResponse);
 
                 // Fetch the latest version number from the array
-                self::$latestVersion = array_reduce($tags, function($a, $b) {
+                static::$latestVersion = array_reduce($tags, function ($a, $b) {
                     return version_compare($a, $b, '>') ? $a : $b;
                 });
             } elseif($service == self::VERSION_SERVICE_ZEND) {
                 $handle = fopen('http://framework.zend.com/api/zf-version?v=2', 'r');
                 if (false !== $handle) {
-                    self::$_latestVersion = stream_get_contents($handle);
+                    static::$latestVersion = stream_get_contents($handle);
                     fclose($handle);
                 }
             }
         }
 
-        return self::$latestVersion;
+        return static::$latestVersion;
     }
 
     /**

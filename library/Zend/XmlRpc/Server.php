@@ -172,8 +172,8 @@ class Server extends AbstractServer
      *
      * @param string|array|callable $function  Valid callback
      * @param string                $namespace Optional namespace prefix
+     * @throws Server\Exception\InvalidArgumentException
      * @return void
-     * @throws \Zend\XmlRpc\Exception\InvalidArgumentException
      */
     public function addFunction($function, $namespace = '')
     {
@@ -439,7 +439,7 @@ class Server extends AbstractServer
      */
     public function setResponseClass($class)
     {
-        if (!class_exists($class) || !self::isSubclassOf($class, 'Zend\XmlRpc\Response')) {
+        if (!class_exists($class) || !static::isSubclassOf($class, 'Zend\XmlRpc\Response')) {
             throw new Server\Exception\InvalidArgumentException('Invalid response class');
 
         }

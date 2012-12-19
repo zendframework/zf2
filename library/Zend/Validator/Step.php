@@ -14,7 +14,7 @@ use Traversable;
 
 /**
  * @category   Zend
- * @package    Zend_Validate
+ * @package    Zend_Validator
  */
 class Step extends AbstractValidator
 {
@@ -98,7 +98,7 @@ class Step extends AbstractValidator
      */
     public function setStep($step)
     {
-        $this->step = $step;
+        $this->step = (float) $step;
         return $this;
     }
 

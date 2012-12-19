@@ -48,14 +48,6 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($im, $di->instanceManager());
     }
 
-    public function testPassingInvalidDefinitionRaisesException()
-    {
-        $di = new Di();
-
-        $this->setExpectedException('PHPUnit_Framework_Error');
-        $di->setDefinitionList(array('foo'));
-    }
-
     public function testGetRetrievesObjectWithMatchingClassDefinition()
     {
         $di = new Di();
@@ -65,12 +57,36 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRetrievesSameInstanceOnSubsequentCalls()
     {
-        $di = new Di();
+        $config = new Config(array(
+            'instance' => array(
+                'ZendTest\Di\TestAsset\BasicClass' => array(
+                    'shared' => true,
+                    ),
+                ),
+        ));
+        $di = new Di(null, null, $config);
         $obj1 = $di->get('ZendTest\Di\TestAsset\BasicClass');
         $obj2 = $di->get('ZendTest\Di\TestAsset\BasicClass');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\BasicClass', $obj1);
         $this->assertInstanceOf('ZendTest\Di\TestAsset\BasicClass', $obj2);
         $this->assertSame($obj1, $obj2);
+    }
+
+    public function testGetRetrievesDifferentInstanceOnSubsequentCallsIfSharingDisabled()
+    {
+        $config = new Config(array(
+            'instance' => array(
+                'ZendTest\Di\TestAsset\BasicClass' => array(
+                    'shared' => false,
+                    ),
+                ),
+        ));
+        $di = new Di(null, null, $config);
+        $obj1 = $di->get('ZendTest\Di\TestAsset\BasicClass');
+        $obj2 = $di->get('ZendTest\Di\TestAsset\BasicClass');
+        $this->assertInstanceOf('ZendTest\Di\TestAsset\BasicClass', $obj1);
+        $this->assertInstanceOf('ZendTest\Di\TestAsset\BasicClass', $obj2);
+        $this->assertNotSame($obj1, $obj2);
     }
 
     public function testGetThrowsExceptionWhenUnknownClassIsUsed()
@@ -693,4 +709,49 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($d->a, 'ZendTest\Di\TestAsset\SetterInjection\A');
     }
 
+    /**
+     * @group ZF2-308
+     */
+    public function testWillNotCallStaticInjectionMethods()
+    {
+        $di = new Di;
+        $di->definitions()->addDefinition(new Definition\RuntimeDefinition(), false);
+        $di->newInstance('ZendTest\Di\TestAsset\SetterInjection\StaticSetter', array('name' => 'testName'));
+
+        $this->assertSame(\ZendTest\Di\TestAsset\SetterInjection\StaticSetter::$name, 'originalName');
+    }
+
+    /**
+     * @group ZF2-142
+     */
+    public function testDiWillInjectDefaultParameters()
+    {
+        $di = new Di;
+
+        $classDef = new Definition\ClassDefinition('ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters');
+        $classDef->addMethod('__construct', true);
+        $classDef->addMethodParameter(
+            '__construct',
+            'a',
+            array('type' => false, 'required' => false, 'default' => null)
+        );
+        $classDef->addMethodParameter(
+            '__construct',
+            'b',
+            array('type' => false, 'required' => false, 'default' => 'defaultConstruct')
+        );
+        $classDef->addMethodParameter(
+            '__construct',
+            'c',
+            array('type' => false, 'required' => false, 'default' => array())
+        );
+
+        $di->definitions()->addDefinition($classDef, false);
+
+        $optionalParams = $di->newInstance('ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters');
+
+        $this->assertSame(null, $optionalParams->a);
+        $this->assertSame('defaultConstruct', $optionalParams->b);
+        $this->assertSame(array(), $optionalParams->c);
+    }
 }

@@ -14,7 +14,7 @@ namespace Zend\Validator\File;
  * Validator for the excluding file extensions
  *
  * @category  Zend
- * @package   Zend_Validate
+ * @package   Zend_Validator
  */
 class ExcludeExtension extends Extension
 {
@@ -59,7 +59,7 @@ class ExcludeExtension extends Extension
 
         $extensions = $this->getExtension();
 
-        if ($this->getCase() and (!in_array($info['extension'], $extensions))) {
+        if ($this->getCase() && (!in_array($info['extension'], $extensions))) {
             return true;
         } elseif (!$this->getCase()) {
             $found = false;

@@ -17,7 +17,7 @@ use Zend\Validator\Exception;
  * Validator which checks if the file already exists in the directory
  *
  * @category  Zend
- * @package   Zend_Validate
+ * @package   Zend_Validator
  */
 class Exists extends AbstractValidator
 {
@@ -145,7 +145,7 @@ class Exists extends AbstractValidator
     public function isValid($value, $file = null)
     {
         $directories = $this->getDirectory(true);
-        if (($file !== null) and (!empty($file['destination']))) {
+        if (($file !== null) && (!empty($file['destination']))) {
             $directories[] = $file['destination'];
         } elseif (!isset($file['name'])) {
             $file['name'] = $value;

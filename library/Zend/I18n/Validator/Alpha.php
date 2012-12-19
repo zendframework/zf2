@@ -14,7 +14,8 @@ use Zend\I18n\Filter\Alpha as AlphaFilter;
 
 /**
  * @category   Zend
- * @package    Zend_Validate
+ * @package    Zend_I18n
+ * @subpackage Validator
  */
 class Alpha extends Alnum
 {
@@ -69,14 +70,14 @@ class Alpha extends Alnum
             return false;
         }
 
-        if (null === self::$filter) {
-            self::$filter = new AlphaFilter();
+        if (null === static::$filter) {
+            static::$filter = new AlphaFilter();
         }
 
-        //self::$filter->setAllowWhiteSpace($this->allowWhiteSpace);
-        self::$filter->setAllowWhiteSpace($this->options['allowWhiteSpace']);
+        //static::$filter->setAllowWhiteSpace($this->allowWhiteSpace);
+        static::$filter->setAllowWhiteSpace($this->options['allowWhiteSpace']);
 
-        if ($value !== self::$filter->filter($value)) {
+        if ($value !== static::$filter->filter($value)) {
             $this->error(self::NOT_ALPHA);
             return false;
         }

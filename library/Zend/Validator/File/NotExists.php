@@ -14,7 +14,7 @@ namespace Zend\Validator\File;
  * Validator which checks if the destination file does not exist
  *
  * @category  Zend
- * @package   Zend_Validate
+ * @package   Zend_Validator
  */
 class NotExists extends Exists
 {
@@ -40,7 +40,7 @@ class NotExists extends Exists
     public function isValid($value, $file = null)
     {
         $directories = $this->getDirectory(true);
-        if (($file !== null) and (!empty($file['destination']))) {
+        if (($file !== null) && (!empty($file['destination']))) {
             $directories[] = $file['destination'];
         } elseif (!isset($file['name'])) {
             $file['name'] = $value;

@@ -19,7 +19,8 @@ use Zend\Validator\Exception;
 
 /**
  * @category   Zend
- * @package    Zend_Validate
+ * @package    Zend_I18n
+ * @subpackage Validator
  */
 class PostCode extends AbstractValidator
 {
@@ -343,8 +344,8 @@ class PostCode extends AbstractValidator
             if ('' === $region) {
                 throw new Exception\InvalidArgumentException("Locale must contain a region");
             }
-            if (isset(self::$postCodeRegex[$region])) {
-                $format = self::$postCodeRegex[$region];
+            if (isset(static::$postCodeRegex[$region])) {
+                $format = static::$postCodeRegex[$region];
             }
         }
         if (null === $format || '' === $format) {

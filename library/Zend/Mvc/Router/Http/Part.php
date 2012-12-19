@@ -22,7 +22,7 @@ use Zend\Stdlib\RequestInterface as Request;
  *
  * @package    Zend_Mvc_Router
  * @subpackage Http
- * @see        http://manuals.rubyonrails.com/read/chapter/65
+ * @see        http://guides.rubyonrails.org/routing.html
  */
 class Part extends TreeRouteStack implements RouteInterface
 {
@@ -139,7 +139,7 @@ class Part extends TreeRouteStack implements RouteInterface
             $uri        = $request->getUri();
             $pathLength = strlen($uri->getPath());
 
-            if ($this->mayTerminate && $nextOffset === $pathLength) {
+            if ($this->mayTerminate && $nextOffset === $pathLength && trim($uri->getQuery()) == "") {
                 return $match;
             }
 

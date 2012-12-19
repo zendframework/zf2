@@ -128,6 +128,7 @@ class Sqlsrv implements DriverInterface
 
     /**
      * @param string|resource $sqlOrResource
+     * @throws Exception\InvalidArgumentException
      * @return Statement
      */
     public function createStatement($sqlOrResource = null)
@@ -140,7 +141,9 @@ class Sqlsrv implements DriverInterface
             }
             $statement->initialize($this->connection->getResource());
         } elseif (is_resource($sqlOrResource)) {
-            $statement->setResource($sqlOrResource);
+            $statement->initialize($sqlOrResource); // will check the resource type
+        } else {
+            throw new Exception\InvalidArgumentException('createStatement() only accepts an SQL string or a Sqlsrv resource');
         }
         return $statement;
     }
