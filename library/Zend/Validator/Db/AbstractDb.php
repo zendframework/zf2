@@ -23,7 +23,7 @@ use Zend\Validator\Exception;
  * Class for Database record validation
  *
  * @category   Zend
- * @package    Zend_Validate
+ * @package    Zend_Validator
  */
 abstract class AbstractDb extends AbstractValidator
 {
@@ -214,7 +214,7 @@ abstract class AbstractDb extends AbstractValidator
      */
     public function setField($field)
     {
-        $this->field = (string)$field;
+        $this->field = (string) $field;
         return $this;
     }
 
@@ -236,7 +236,7 @@ abstract class AbstractDb extends AbstractValidator
      */
     public function setTable($table)
     {
-        $this->table = (string)$table;
+        $this->table = (string) $table;
         return $this;
     }
 

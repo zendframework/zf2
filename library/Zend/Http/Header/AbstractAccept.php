@@ -220,9 +220,11 @@ abstract class AbstractAccept implements HeaderInterface
                             '/', '[', ']', '?', '=', '{', '}',  ' ',  "\t");
 
         $escaped = preg_replace_callback('/[[:cntrl:]"\\\\]/', // escape cntrl, ", \
-                                         function($v) { return '\\' . $v[0]; },
-                                         $value
-                    );
+            function ($v) {
+                return '\\' . $v[0];
+            },
+            $value
+        );
 
         if ($escaped == $value && !array_intersect(str_split($value), $separators)) {
             $value = $key . '=' . $value;
@@ -291,7 +293,7 @@ abstract class AbstractAccept implements HeaderInterface
      * Match a media string against this header
      *
      * @param array|string $matchAgainst
-     * @return array|boolean The matched value or false
+     * @return AcceptFieldValuePart|boolean The matched value or false
      */
     public function match($matchAgainst)
     {
@@ -302,8 +304,10 @@ abstract class AbstractAccept implements HeaderInterface
         foreach ($this->getPrioritized() as $left) {
             foreach ($matchAgainst as $right) {
                 if ($right->type == '*' || $left->type == '*') {
-                    if ($res = $this->matchAcceptParams($left, $right)) {
-                        return $res;
+                    if ($this->matchAcceptParams($left, $right)) {
+                        $left->setMatchedAgainst($right);
+
+                        return $left;
                     }
                 }
 
@@ -313,8 +317,10 @@ abstract class AbstractAccept implements HeaderInterface
                             ($left->format == $right->format ||
                                     $right->format == '*' || $left->format == '*')))
                     {
-                        if ($res = $this->matchAcceptParams($left, $right)) {
-                            return $res;
+                        if ($this->matchAcceptParams($left, $right)) {
+                            $left->setMatchedAgainst($right);
+
+                            return $left;
                         }
                     }
                 }
@@ -401,7 +407,7 @@ abstract class AbstractAccept implements HeaderInterface
      */
     protected function sortFieldValueParts()
     {
-        $sort = function($a, $b) { // If A has higher prio than B, return -1.
+        $sort = function ($a, $b) { // If A has higher prio than B, return -1.
             if ($a->priority > $b->priority) {
                 return -1;
             } elseif ($a->priority < $b->priority) {

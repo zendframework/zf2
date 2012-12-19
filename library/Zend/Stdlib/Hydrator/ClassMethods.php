@@ -52,7 +52,7 @@ class ClassMethods extends AbstractHydrator
             ));
         }
 
-        $transform = function($letters) {
+        $transform = function ($letters) {
             $letter = array_shift($letters);
             return '_' . strtolower($letter);
         };
@@ -97,16 +97,16 @@ class ClassMethods extends AbstractHydrator
             ));
         }
 
-        $transform = function($letters) {
+        $transform = function ($letters) {
             $letter = substr(array_shift($letters), 1, 1);
             return ucfirst($letter);
         };
 
         foreach ($data as $property => $value) {
-            if ($this->underscoreSeparatedKeys) {
-                $property = preg_replace_callback('/(_[a-z])/', $transform, $property);
-            }
             $method = 'set' . ucfirst($property);
+            if ($this->underscoreSeparatedKeys) {
+                $method = preg_replace_callback('/(_[a-z])/', $transform, $method);
+            }
             if (method_exists($object, $method)) {
                 $value = $this->hydrateValue($property, $value);
 

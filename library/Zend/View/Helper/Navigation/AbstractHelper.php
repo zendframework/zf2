@@ -182,7 +182,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     public function getContainer()
     {
         if (null === $this->container) {
-            $this->container = new \Zend\Navigation\Navigation();
+            $this->container = new Navigation\Navigation();
         }
 
         return $this->container;
@@ -191,8 +191,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Verifies container and eventually fetches it from service locator if it is a string
      *
-     * @param \Zend\Navigation\AbstractContainer|string|null $container
-     * @throws \Zend\View\Exception\InvalidArgumentException
+     * @param  Navigation\AbstractContainer|string|null $container
+     * @throws Exception\InvalidArgumentException
      */
     protected function parseContainer(&$container = null)
     {
@@ -212,7 +212,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
              * Load the navigation container from the root service locator
              *
              * The navigation container is probably located in Zend\ServiceManager\ServiceManager
-             * and not in the Zend\View\HelperPluginManager. If the set service locator is a
+             * and not in the View\HelperPluginManager. If the set service locator is a
              * HelperPluginManager, access the navigation container via the main service locator.
              */
             $sl = $this->getServiceLocator();
@@ -335,8 +335,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     public function getAcl()
     {
-        if ($this->acl === null && self::$defaultAcl !== null) {
-            return self::$defaultAcl;
+        if ($this->acl === null && static::$defaultAcl !== null) {
+            return static::$defaultAcl;
         }
 
         return $this->acl;
@@ -380,8 +380,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     public function getRole()
     {
-        if ($this->role === null && self::$defaultRole !== null) {
-            return self::$defaultRole;
+        if ($this->role === null && static::$defaultRole !== null) {
+            return static::$defaultRole;
         }
 
         return $this->role;
@@ -850,7 +850,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     public static function setDefaultAcl(Acl\Acl $acl = null)
     {
-        self::$defaultAcl = $acl;
+        static::$defaultAcl = $acl;
     }
 
     /**
@@ -869,7 +869,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             || is_string($role)
             || $role instanceof Acl\Role\RoleInterface
         ) {
-            self::$defaultRole = $role;
+            static::$defaultRole = $role;
         } else {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$role must be null|string|Zend\Permissions\Role\RoleInterface; received "%s"',

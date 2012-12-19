@@ -20,7 +20,7 @@ use Zend\Stdlib\RequestInterface as Request;
  *
  * @package    Zend_Mvc_Router
  * @subpackage Http
- * @see        http://manuals.rubyonrails.com/read/chapter/65
+ * @see        http://guides.rubyonrails.org/routing.html
  */
 class Regex implements RouteInterface
 {
@@ -131,7 +131,7 @@ class Regex implements RouteInterface
             if (is_numeric($key) || is_int($key) || $value === '') {
                 unset($matches[$key]);
             } else {
-                $matches[$key] = urldecode($value);
+                $matches[$key] = rawurldecode($value);
             }
         }
 
@@ -156,7 +156,7 @@ class Regex implements RouteInterface
             $spec = '%' . $key . '%';
 
             if (strpos($url, $spec) !== false) {
-                $url = str_replace($spec, urlencode($value), $url);
+                $url = str_replace($spec, rawurlencode($value), $url);
 
                 $this->assembledParams[] = $key;
             }

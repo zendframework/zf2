@@ -85,7 +85,7 @@ class SessionManager extends AbstractManager
 
         session_start();
         if (!$this->isValid()) {
-            throw new Exception\RuntimeException('Session failed validation');
+            throw new Exception\RuntimeException('Session validation failed');
         }
         $storage = $this->getStorage();
 
@@ -319,7 +319,7 @@ class SessionManager extends AbstractManager
     public function isValid()
     {
         $validator = $this->getValidatorChain();
-        $responses = $validator->triggerUntil('session.validate', $this, array($this), function($test) {
+        $responses = $validator->triggerUntil('session.validate', $this, array($this), function ($test) {
             return !$test;
         });
         if ($responses->stopped()) {

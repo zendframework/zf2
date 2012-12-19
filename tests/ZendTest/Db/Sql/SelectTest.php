@@ -87,6 +87,17 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @testdox unit test: Test join() exception with bad join
+     * @covers Zend\Db\Sql\Select::join
+     */
+    public function testBadJoin()
+    {
+        $select = new Select;
+        $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException', "expects 'foo' as");
+        $select->join(array('foo'), 'x = y', Select::SQL_STAR, Select::JOIN_INNER);
+    }
+
+    /**
      * @testdox unit test: Test getRawState() returns information populated via join()
      * @covers Zend\Db\Sql\Select::getRawState
      * @depends testJoin
@@ -371,6 +382,11 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select->reset(Select::OFFSET);
         $this->assertNull($select->getRawState(Select::OFFSET));
 
+        // order
+        $select->order('foo asc');
+        $this->assertEquals(array('foo asc'), $select->getRawState(Select::ORDER));
+        $select->reset(Select::ORDER);
+        $this->assertNull($select->getRawState(Select::ORDER));
     }
 
     /**
@@ -441,7 +457,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      * @testdox unit test: Text process*() methods will return proper array when internally called, part of extension API
      * @dataProvider providerData
      * @covers Zend\Db\Sql\Select::processSelect
-     * @covers Zend\Db\Sql\Select::processJoin
+     * @covers Zend\Db\Sql\Select::processJoins
      * @covers Zend\Db\Sql\Select::processWhere
      * @covers Zend\Db\Sql\Select::processGroup
      * @covers Zend\Db\Sql\Select::processHaving

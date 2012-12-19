@@ -710,6 +710,35 @@ class FormTest extends TestCase
         $this->assertEquals('my.form.fieldset', $fieldset->getAttribute('data-js-type'));
     }
 
+    public function testFormAsFieldsetWillBindValuesToObject()
+    {
+        $parentForm        = new Form('parent');
+        $parentFormObject  = new \ArrayObject(array('parentId' => null));
+        $parentFormElement = new Element('parentId');
+        $parentForm->setObject($parentFormObject);
+        $parentForm->add($parentFormElement);
+
+        $childForm        = new Form('child');
+        $childFormObject  = new \ArrayObject(array('childId' => null));
+        $childFormElement = new Element('childId');
+        $childForm->setObject($childFormObject);
+        $childForm->add($childFormElement);
+
+        $parentForm->add($childForm);
+
+        $data = array(
+            'parentId' => 'mpinkston was here',
+            'child' => array(
+                'childId' => 'testing 123'
+            )
+        );
+
+        $parentForm->setData($data);
+        $this->assertTrue($parentForm->isValid());
+        $this->assertEquals($data['parentId'], $parentFormObject['parentId']);
+        $this->assertEquals($data['child']['childId'], $childFormObject['childId']);
+    }
+
     public function testWillUseInputSpecificationFromElementInInputFilterIfNoMatchingInputFound()
     {
         $element = new TestAsset\ElementWithFilter('foo');
@@ -994,6 +1023,34 @@ class FormTest extends TestCase
         ));
         $this->form->setData($dataWithoutCollection);
         $this->assertTrue($this->form->isValid());
+    }
+
+    public function testFieldsetValidationGroupStillPreparedWhenEmptyData()
+    {
+        $emptyData = array();
+
+        $this->populateForm();
+        $this->form->get('foobar')->add(array(
+            'type' => 'Zend\Form\Element\Collection',
+            'name' => 'categories',
+            'options' => array(
+                'count' => 0,
+                'target_element' => array(
+                    'type' => 'ZendTest\Form\TestAsset\CategoryFieldset'
+                )
+            )
+        ));
+
+        $this->form->setValidationGroup(array(
+            'foobar' => array(
+                'categories' => array(
+                    'name'
+                )
+            )
+        ));
+
+        $this->form->setData($emptyData);
+        $this->assertFalse($this->form->isValid());
     }
 
     public function testApplyObjectInputFilterToBaseFieldsetAndApplyValidationGroup()

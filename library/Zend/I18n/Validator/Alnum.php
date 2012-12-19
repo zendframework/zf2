@@ -15,7 +15,8 @@ use Zend\Validator\AbstractValidator;
 
 /**
  * @category   Zend
- * @package    Zend_Validate
+ * @package    Zend_I18n
+ * @subpackage Validator
  */
 class Alnum extends AbstractValidator
 {
@@ -106,13 +107,13 @@ class Alnum extends AbstractValidator
             return false;
         }
 
-        if (null === self::$filter) {
-            self::$filter = new AlnumFilter();
+        if (null === static::$filter) {
+            static::$filter = new AlnumFilter();
         }
 
-        self::$filter->setAllowWhiteSpace($this->options['allowWhiteSpace']);
+        static::$filter->setAllowWhiteSpace($this->options['allowWhiteSpace']);
 
-        if ($value != self::$filter->filter($value)) {
+        if ($value != static::$filter->filter($value)) {
             $this->error(self::NOT_ALNUM);
             return false;
         }

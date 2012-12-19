@@ -20,10 +20,15 @@ use Zend\Stdlib\RequestInterface as Request;
  *
  * @package    Zend_Mvc_Router
  * @subpackage Http
- * @see        http://manuals.rubyonrails.com/read/chapter/65
+ * @see        http://guides.rubyonrails.org/routing.html
  */
 class Segment implements RouteInterface
 {
+    /**
+     * @var array Cache for the encode output
+     */
+    private static $cacheEncode = array();
+
     /**
      * Map of allowed special chars in path segments.
      *
@@ -44,15 +49,15 @@ class Segment implements RouteInterface
         '%28' => "(", // sub-delims
         '%29' => ")", // sub-delims
         '%2A' => "*", // sub-delims
-//      '%2B' => "+", // sub-delims - special value for php/urlencode
+        '%2B' => "+", // sub-delims
         '%2C' => ",", // sub-delims
-//      '%2D' => "-", // unreserved - not touched by urlencode
-//      '%2E' => ".", // unreserved - not touched by urlencode
+//      '%2D' => "-", // unreserved - not touched by rawurlencode
+//      '%2E' => ".", // unreserved - not touched by rawurlencode
         '%3A' => ":", // pchar
         '%3B' => ";", // sub-delims
         '%3D' => "=", // sub-delims
         '%40' => "@", // pchar
-//      '%5F' => "_", // unreserved - not touched by urlencode
+//      '%5F' => "_", // unreserved - not touched by rawurlencode
         '%7E' => "~", // unreserved
     );
 
@@ -408,9 +413,11 @@ class Segment implements RouteInterface
      */
     private function encode($value)
     {
-        $encoded = urlencode($value);
-        $encoded = strtr($encoded, self::$urlencodeCorrectionMap);
-        return $encoded;
+        if (!isset(static::$cacheEncode[$value])) {
+            static::$cacheEncode[$value] = rawurlencode($value);
+            static::$cacheEncode[$value] = strtr(static::$cacheEncode[$value], static::$urlencodeCorrectionMap);
+        }
+        return static::$cacheEncode[$value];
     }
 
     /**
@@ -421,6 +428,6 @@ class Segment implements RouteInterface
      */
     private function decode($value)
     {
-        return urldecode($value);
+        return rawurldecode($value);
     }
 }
