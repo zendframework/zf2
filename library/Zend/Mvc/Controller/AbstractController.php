@@ -275,6 +275,80 @@ abstract class AbstractController implements
     }
 
     /**
+     * Get the flashMessenger plugin
+     *
+     * @return \Zend\Mvc\Controller\Plugin\FlashMessenger
+     */
+    public function flashMessenger()
+    {
+    	return $this->plugin('flashMessenger');
+    }
+    
+    /**
+     * Get the forward plugin
+     *
+     * @return \Zend\Mvc\Controller\Plugin\Forward
+     */
+    public function forward()
+    {
+    	return $this->plugin('forward');
+    }
+    
+    /**
+     * Get the layout plugin
+     *
+     * @param  null|string $template
+     * @return \Zend\Mvc\Controller\Plugin\Layout
+     */
+    public function layout($template = null)
+    {
+    	if($template !== null){
+    		$template = array($template);
+    	}
+    	return $this->plugin('layout', $template);
+    }
+    
+    /**
+     * Get the params plugin
+     *
+     * @return \Zend\Mvc\Controller\Plugin\FlashMessenger
+     */
+    public function params()
+    {
+    	return $this->plugin('params');
+    }
+    
+    /**
+     * Get the PostRedirectGet plugin
+     *
+     * @return \Zend\Mvc\Controller\Plugin\PostRedirectGet
+     */
+    public function postRedirectGet()
+    {
+    	return $this->plugin('postRedirectGet');
+    }
+    
+    /**
+     * Get the Redirect plugin
+     *
+     * @return \Zend\Mvc\Controller\Plugin\Redirect
+     */
+    public function redirect()
+    {
+    	return $this->plugin('redirect');
+    }
+    
+    /**
+     * Get the Url plugin
+     *
+     * @return \Zend\Mvc\Controller\Plugin\Url
+     */
+    public function url()
+    {
+    	return $this->plugin('url');
+    }
+    
+    /**
      * Method overloading: return/call plugins
      *
      * If the plugin is a functor, call it, passing the parameters provided.

@@ -188,8 +188,32 @@ class ActionControllerTest extends TestCase
 
     public function testMethodOverloadingShouldReturnPluginWhenFound()
     {
-        $plugin = $this->controller->url();
-        $this->assertInstanceOf('Zend\Mvc\Controller\Plugin\Url', $plugin);
+        $plugin = $this->controller->prg();
+        $this->assertInstanceOf('Zend\Mvc\Controller\Plugin\PostRedirectGet ', $plugin);
+    }
+    
+    public function testMethodControllerPluginsAreAvailable()
+    {
+    	$plugin = $this->controller->flashMessenger();
+    	$this->assertInstanceOf('Zend\Mvc\Controller\Plugin\FlashMessenger', $plugin);
+    	
+    	$plugin = $this->controller->forward();
+    	$this->assertInstanceOf('Zend\Mvc\Controller\Plugin\Forward', $plugin);
+    	
+    	$plugin = $this->controller->layout();
+    	$this->assertInstanceOf('Zend\Mvc\Controller\Plugin\Layout', $plugin);
+    	
+    	$plugin = $this->controller->params();
+    	$this->assertInstanceOf('Zend\Mvc\Controller\Plugin\Params', $plugin);
+    	
+    	$plugin = $this->controller->postRedirectGet();
+    	$this->assertInstanceOf('Zend\Mvc\Controller\Plugin\PostRedirectGet', $plugin);
+    	
+    	$plugin = $this->controller->redirect();
+    	$this->assertInstanceOf('Zend\Mvc\Controller\Plugin\Redirect', $plugin);
+    	
+    	$plugin = $this->controller->url();
+    	$this->assertInstanceOf('Zend\Mvc\Controller\Plugin\Url', $plugin);
     }
 
     public function testMethodOverloadingShouldInvokePluginAsFunctorIfPossible()
