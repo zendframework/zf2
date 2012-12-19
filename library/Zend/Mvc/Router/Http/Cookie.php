@@ -11,12 +11,12 @@
 namespace Zend\Mvc\Router\Http;
 
 use Traversable;
-use Zend\Mvc\Router\Http\RouteInterface,
-    Zend\Mvc\Router\Http\RouteMatch,
-    Zend\Stdlib\ArrayUtils,
-    Zend\Stdlib\RequestInterface as Request,
-    Zend\Mvc\Router\Exception,
-    Zend\Http\Request as HttpRequest;
+use Zend\Mvc\Router\Http\RouteInterface;
+use Zend\Mvc\Router\Http\RouteMatch;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Stdlib\RequestInterface as Request;
+use Zend\Mvc\Router\Exception;
+use Zend\Http\Request as HttpRequest;
 
 /**
  * Cookie route.
@@ -58,14 +58,14 @@ class Cookie
     /**
      *
      * @param string|array $cookies
-     * @param array $constraints
-     * @param array $defaults
+     * @param array        $constraints
+     * @param array        $defaults
      */
     public function __construct( $cookies,
                                  array $constraints = array( ),
                                  array $defaults = array( ) )
     {
-        $this->cookies     = ( array ) $cookies;
+        $this->cookies     = (array) $cookies;
         $this->defaults    = $defaults;
         $this->constraints = $constraints;
     }
@@ -74,34 +74,27 @@ class Cookie
      * factory(): defined by RouteInterface interface.
      *
      * @see    Route::factory()
-     * @param  array|\Traversable $options
+     * @param  array|\Traversable                                  $options
      * @throws \Zend\Mvc\Router\Exception\InvalidArgumentException
      * @return Cookie
      */
     public static function factory( $options = array( ) )
     {
-
-        if( $options instanceof Traversable )
-        {
+        if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray( $options );
-        }
-        elseif( !is_array( $options ) )
-        {
+        } elseif ( !is_array( $options ) ) {
             throw new Exception\InvalidArgumentException( __METHOD__ . ' expects an array or Traversable set of options' );
         }
 
-        if( !isset( $options[ 'cookies' ] ) )
-        {
-            throw new Exception\InvalidArgumentException( 'Missing "cookies" in options array' );
+        if ( !isset( $options[ 'cookies' ] ) ) {
+            throw new Exception\InvalidArgumentException( 'Missing "cookie" in options array' );
         }
 
-        if( !isset( $options[ 'constraints' ] ) )
-        {
+        if ( !isset( $options[ 'constraints' ] ) ) {
             $options[ 'constraints' ] = array( );
         }
 
-        if( !isset( $options[ 'defaults' ] ) )
-        {
+        if ( !isset( $options[ 'defaults' ] ) ) {
             $options[ 'defaults' ] = array( );
         }
 
@@ -112,8 +105,8 @@ class Cookie
      * assemble(): Defined by RouteInterface interface.
      *
      * @see    Route::assemble()
-     * @param  array $params
-     * @param  array $options
+     * @param  array                              $params
+     * @param  array                              $options
      * @return mixed
      * @throws Exception\InvalidArgumentException
      */
@@ -139,37 +132,39 @@ class Cookie
      * match(): defined by RouteInterface interface.
      *
      * @see    Route::match()
-     * @param  Request $request
+     * @param  Request    $request
      * @return RouteMatch
      */
     public function match( Request $request )
     {
         /* @var $request HttpRequest */
-        if( !method_exists( $request, 'getCookie' ) )
-        {
+        if ( !method_exists( $request, 'getCookie' ) ) {
             return null;
         }
 
         $results = array( );
 
         /* @var $cookie \Zend\Http\Header\Cookie */
-        $incomingCookies = $request->getCookie()->getArrayCopy();
+        //if there's no cookie
+        if ( $request->getCookie() === false) {
+            $incomingCookies = array();
+        } else {
+            $incomingCookies = $request->getCookie()->getArrayCopy();
+        }
 
-        foreach( $this->cookies as $cookie )
-        {
-            if( !array_key_exists( $cookie, $this->constraints ) )
-            {
+        $results = array( );
+
+        foreach ($this->cookies as $cookie) {
+            if ( !array_key_exists( $cookie, $this->constraints ) ) {
                 $this->constraints[ $cookie ] = true;
             }
 
-            if( is_bool( $this->constraints[ $cookie ] ) )
-            {
+            if ( is_bool( $this->constraints[ $cookie ] ) ) {
                 if( $this->constraints[ $cookie ] === true && !array_key_exists( $cookie,
                                                                                  $incomingCookies ) )
                 {
                     return null;
-                }
-                elseif( $this->constraints[ $cookie ] === false && array_key_exists( $cookie,
+                } elseif( $this->constraints[ $cookie ] === false && array_key_exists( $cookie,
                                                                                      $incomingCookies ) )
                 {
                     return null;
@@ -177,25 +172,18 @@ class Cookie
 
                 $results[ $cookie ] = $this->constraints[ $cookie ];
                 continue;
-            }
-            elseif( is_string( $this->constraints[ $cookie ] ) )
-            {
-                if( !array_key_exists( $cookie, $incomingCookies ) )
-                {
+            } elseif ( is_string( $this->constraints[ $cookie ] ) ) {
+                if ( !array_key_exists( $cookie, $incomingCookies ) ) {
                     return null;
                 }
-
 
                 $result = preg_match( $this->constraints[ $cookie ],
                                       $incomingCookies[ $cookie ], $matches );
 
-                if( !$result )
-                {
+                if (!$result) {
                     return null;
                 }
-            }
-            else
-            {
+            } else {
                 return null;
             }
         }
