@@ -297,11 +297,12 @@ abstract class AbstractController implements
     /**
      * Get the layout plugin
      *
+     * @param  null|string $template
      * @return \Zend\Mvc\Controller\Plugin\Layout
      */
-    public function layout()
+    public function layout($template = null)
     {
-    	return $this->plugin('layout');
+    	return $this->plugin('layout', $template);
     }
     
     /**
