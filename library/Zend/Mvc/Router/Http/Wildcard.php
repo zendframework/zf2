@@ -125,7 +125,7 @@ class Wildcard implements RouteInterface
         $matches = array();
         $params  = explode($this->paramDelimiter, $path);
 
-        if (count($params) > 1 && ($params[0] !== '' || end($params) === '')) {
+        if (count($params) > 1 && $params[0] !== '') {
             return null;
         }
 
