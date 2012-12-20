@@ -39,12 +39,6 @@ class WildcardTest extends TestCase
                 5,
                 null
             ),
-            'no-match-with-trailing-slash' => array(
-                new Wildcard(),
-                '/foo/bar/baz/bat/',
-                null,
-                null
-            ),
             'match-overrides-default' => array(
                 new Wildcard('/', '/', array('foo' => 'baz')),
                 '/foo/bat',
