@@ -28,11 +28,11 @@ class Time extends DateTime
         'type' => 'time',
     );
 
-	/**
-	 * The format for this element.
-	 *
-	 * @var string
-	 */
+    /**
+     * The format for this element.
+     *
+     * @var string
+     */
     protected $format = 'H:i:s';
 
     /**
