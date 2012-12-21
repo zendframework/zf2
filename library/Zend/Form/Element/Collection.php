@@ -215,8 +215,10 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
             }
         } else {
             foreach ($this->byName as $name => $element) {
-                $element->setAttribute('value', $data[$name]);
-                unset($data[$name]);
+                if (isset($data[$name])) {
+                    $element->setAttribute('value', $data[$name]);
+                    unset($data[$name]);
+                }
             }
         }
 
