@@ -233,7 +233,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Create where clause
      *
-     * @param  Where|\Closure|string|array $predicate
+     * @param  Where|\Closure|string|array|Predicate\PredicateInterface $predicate
      * @param  string $combination One of the OP_* constants from Predicate\PredicateSet
      * @return Select
      */
@@ -241,6 +241,10 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     {
         if ($predicate instanceof Where) {
             $this->where = $predicate;
+        } elseif ($pvalue instanceof Predicate\PredicateInterface) {
+            // if a predicate is sent "as-is" just accept it
+            // instead of requiring that array($predicate) be passed
+            $this->where->addPredicate($predicate, $combination);
         } elseif ($predicate instanceof \Closure) {
             $predicate($this->where);
         } else {
