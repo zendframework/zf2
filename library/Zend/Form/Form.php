@@ -287,7 +287,7 @@ class Form extends Fieldset implements FormInterface
         }
 
         $filter = $this->getInputFilter();
-
+        $filter->setData($this->data);      //Intialize filter data it's empty when pulled from binded object
         switch ($this->bindAs) {
             case FormInterface::VALUES_RAW:
                 $data = $filter->getRawValues();
