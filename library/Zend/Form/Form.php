@@ -106,6 +106,13 @@ class Form extends Fieldset implements FormInterface
     protected $isPrepared = false;
 
     /**
+     * Prefer form input filter over input filter defaults
+     *
+     * @var bool
+     */
+    protected $preferFormInputFilter = false;
+
+    /**
      * Are the form elements/fieldsets wrapped by the form name ?
      *
      * @var bool
@@ -280,7 +287,7 @@ class Form extends Fieldset implements FormInterface
         }
 
         $filter = $this->getInputFilter();
-
+        $filter->setData($this->data);      //Intialize filter data it's empty when pulled from binded object
         switch ($this->bindAs) {
             case FormInterface::VALUES_RAW:
                 $data = $filter->getRawValues();
@@ -402,6 +409,10 @@ class Form extends Fieldset implements FormInterface
      */
     public function isValid()
     {
+        if ($this->hasValidated) {
+            return $this->isValid;
+        }
+
         $this->isValid = false;
 
         if (!is_array($this->data) && !is_object($this->object)) {
@@ -639,6 +650,28 @@ class Form extends Fieldset implements FormInterface
     }
 
     /**
+     * Set flag indicating whether or not to prefer the form input filter over element and fieldset defaults
+     *
+     * @param  bool $preferFormInputFilter
+     * @return Form
+     */
+    public function setPreferFormInputFilter($preferFormInputFilter)
+    {
+        $this->preferFormInputFilter = (bool) $preferFormInputFilter;
+        return $this;
+    }
+
+    /**
+     * Should we use form input filter over element input filter defaults from elements and fieldsets?
+     *
+     * @return bool
+     */
+    public function getPreferFormInputFilter()
+    {
+        return $this->preferFormInputFilter;
+    }
+
+    /**
      * Attach defaults provided by the elements to the input filter
      *
      * @param  InputFilterInterface $inputFilter
@@ -659,6 +692,10 @@ class Form extends Fieldset implements FormInterface
 
         foreach ($fieldset->getElements() as $element) {
             $name = $element->getName();
+
+            if ($this->preferFormInputFilter && $inputFilter->has($name)) {
+                continue;
+            }
 
             if (!$element instanceof InputProviderInterface) {
                 if ($inputFilter->has($name)) {
