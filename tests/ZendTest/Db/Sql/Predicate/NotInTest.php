@@ -14,7 +14,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Predicate\NotIn;
 
-class InTest extends TestCase
+class NotInTest extends TestCase
 {
 
     public function testEmptyConstructorYieldsNullIdentifierAndValueSet()
