@@ -256,7 +256,7 @@ class ValueGenerator extends AbstractGenerator
                 );
                 foreach ($rii as $curKey => $curValue) {
                     if (!$curValue instanceof ValueGenerator) {
-                        $curValue = new self($curValue);
+                        $curValue = new static($curValue);
                         $rii->getSubIterator()->offsetSet($curKey, $curValue);
                     }
                     $curValue->setArrayDepth($rii->getDepth());
@@ -274,7 +274,7 @@ class ValueGenerator extends AbstractGenerator
                 $output .= ($value ? 'true' : 'false');
                 break;
             case self::TYPE_STRING:
-                $output .= self::escape($value);
+                $output .= static::escape($value);
                 break;
             case self::TYPE_NULL:
                 $output .= 'null';
@@ -306,7 +306,7 @@ class ValueGenerator extends AbstractGenerator
                         $outputParts[] = $partV;
                         $noKeyIndex++;
                     } else {
-                        $outputParts[] = (is_int($n) ? $n : self::escape($n)) . ' => ' . $partV;
+                        $outputParts[] = (is_int($n) ? $n : static::escape($n)) . ' => ' . $partV;
                     }
                 }
                 $padding = ($this->outputMode == self::OUTPUT_MULTIPLE_LINE)
