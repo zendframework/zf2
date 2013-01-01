@@ -351,10 +351,6 @@ class DbTable implements AdapterInterface
             $exception = 'An identity column must be supplied for the DbTable authentication adapter.';
         } elseif ($this->credentialColumn == '') {
             $exception = 'A credential column must be supplied for the DbTable authentication adapter.';
-        } elseif ($this->identity == '') {
-            $exception = 'A value for the identity was not provided prior to authentication with DbTable.';
-        } elseif ($this->credential === null) {
-            $exception = 'A credential value was not provided prior to authentication with DbTable.';
         }
 
         if (null !== $exception) {
