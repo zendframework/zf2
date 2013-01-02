@@ -40,16 +40,6 @@ class Date extends DateTimeElement
     protected $format = 'Y-m-d';
 
     /**
-     * Retrieves a Date Validator configured for a DateTime Input type
-     *
-     * @return \Zend\Validator\ValidatorInterface
-     */
-    protected function getDateValidator()
-    {
-        return new DateValidator(array('format' => 'Y-m-d'));
-    }
-
-    /**
      * Retrieves a DateStep Validator configured for a Date Input type
      *
      * @return \Zend\Validator\ValidatorInterface
@@ -60,10 +50,10 @@ class Date extends DateTimeElement
                      ? $this->attributes['step'] : 1; // Days
 
         $baseValue = (isset($this->attributes['min']))
-                     ? $this->attributes['min'] : '1970-01-01';
+                     ? $this->attributes['min'] : date($this->format, 0);
 
         return new DateStepValidator(array(
-            'format'    => 'Y-m-d',
+            'format'    => $this->format,
             'baseValue' => $baseValue,
             'step'      => new \DateInterval("P{$stepValue}D"),
         ));
