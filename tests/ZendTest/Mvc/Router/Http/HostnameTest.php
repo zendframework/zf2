@@ -66,11 +66,13 @@ class HostnameTest extends TestCase
      * @param        Hostname $route
      * @param        string   $hostname
      * @param        array    $params
+     * @param        string   $port
      */
-    public function testMatching(Hostname $route, $hostname, array $params = null)
+    public function testMatching(Hostname $route, $hostname, array $params = null, $port = null)
     {
         $request = new Request();
         $request->setUri('http://' . $hostname . '/');
+        $request->getUri()->setPort($port);
         $match = $route->match($request);
 
         if ($params === null) {
