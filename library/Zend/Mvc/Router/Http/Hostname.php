@@ -129,7 +129,9 @@ class Hostname implements RouteInterface
         if (count($hostname) !== count($this->route)) {
             return null;
         }
-
+        if(!is_null($this->port) && $uri->getPort() != $this->port) {
+            return null;
+        }
         foreach ($this->route as $index => $routePart) {
             if (preg_match('(^:(?P<name>.+)$)', $routePart, $matches)) {
                 if (isset($this->constraints[$matches['name']]) && !preg_match('(^' . $this->constraints[$matches['name']] . '$)', $hostname[$index])) {
