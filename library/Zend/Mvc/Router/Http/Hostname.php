@@ -53,6 +53,13 @@ class Hostname implements RouteInterface
     protected $assembledParams = array();
 
     /**
+     * Non standard port
+     *
+     * @var string
+     */
+    protected $port = null;
+
+    /**
      * Create a new hostname route.
      *
      * @param  string $route
@@ -61,7 +68,12 @@ class Hostname implements RouteInterface
      */
     public function __construct($route, array $constraints = array(), array $defaults = array())
     {
-        $this->route       = explode('.', $route);
+        if (preg_match('|\:(\d+)$|', $route, $matches )) {
+            $this->route = explode('.',substr($route, 0, -1 * (strlen($matches[1]) + 1)));
+            $this->port = isset($matches[1]) ? $matches[1] : null;
+        } else {
+            $this->route = explode('.', $route);
+        }
         $this->constraints = $constraints;
         $this->defaults    = $defaults;
     }
@@ -109,7 +121,7 @@ class Hostname implements RouteInterface
         if (!method_exists($request, 'getUri')) {
             return null;
         }
-
+        
         $uri      = $request->getUri();
         $hostname = explode('.', $uri->getHost());
         $params   = array();
@@ -165,6 +177,7 @@ class Hostname implements RouteInterface
             }
 
             $options['uri']->setHost(implode('.', $parts));
+            $options['uri']->setPort($this->port); 
         }
 
         // A hostname does not contribute to the path, thus nothing is returned.
