@@ -52,6 +52,12 @@ class HostnameTest extends TestCase
                 '123.example.com',
                 array('foo' => '123')
             ),
+            'non-standard-port' => array(
+                new Hostname('foo.example.com:8080'),
+                'foo.example.com',
+                array(),
+                '8080',
+            ),
         );
     }
 
@@ -83,8 +89,9 @@ class HostnameTest extends TestCase
      * @param        Hostname $route
      * @param        string   $hostname
      * @param        array    $params
+     * @param        string   $port
      */
-    public function testAssembling(Hostname $route, $hostname, array $params = null)
+    public function testAssembling(Hostname $route, $hostname, array $params = null, $port = null)
     {
         if ($params === null) {
             // Data which will not match are not tested for assembling.
@@ -96,6 +103,7 @@ class HostnameTest extends TestCase
 
         $this->assertEquals('', $path);
         $this->assertEquals($hostname, $uri->getHost());
+        $this->assertEquals($port, $uri->getPort());
     }
 
     public function testNoMatchWithoutUriMethod()
