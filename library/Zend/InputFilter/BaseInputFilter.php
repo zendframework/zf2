@@ -41,6 +41,14 @@ class BaseInputFilter implements InputFilterInterface
     }
 
     /**
+     * Get list of input filters
+     * @return array
+     */
+    public function getInputs() {
+        return $this->inputs;
+    }
+
+    /**
      * Add an input to the input filter
      *
      * @param  InputInterface|InputFilterInterface $input
