@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,13 +25,12 @@ use Traversable;
 use Zend\Form\Element;
 use Zend\InputFilter\InputProviderInterface;
 use Zend\Validator\InArray as InArrayValidator;
-use Zend\Validator\ValidatorInterface;
 
 /**
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Checkbox extends Element implements InputProviderInterface
@@ -46,7 +45,7 @@ class Checkbox extends Element implements InputProviderInterface
     );
 
     /**
-     * @var ValidatorInterface
+     * @var \Zend\Validator\ValidatorInterface
      */
     protected $validator;
 
@@ -162,7 +161,7 @@ class Checkbox extends Element implements InputProviderInterface
     /**
      * Get validator
      *
-     * @return ValidatorInterface
+     * @return \Zend\Validator\ValidatorInterface
      */
     protected function getValidator()
     {

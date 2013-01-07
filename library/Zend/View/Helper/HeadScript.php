@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_View
  */
@@ -413,7 +413,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         $type = ($this->autoEscape) ? $this->escape($item->type) : $item->type;
         $html  = '<script type="' . $type . '"' . $attrString . '>';
         if (!empty($item->source)) {
-            $html .= PHP_EOL ;
+            $html .= PHP_EOL;
 
             if ($addScriptEscape) {
                 $html .= $indent . '    ' . $escapeStart . PHP_EOL;

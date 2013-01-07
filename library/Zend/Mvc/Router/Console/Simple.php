@@ -375,7 +375,9 @@ class Simple implements RouteInterface
                 array_unique($options);
 
                 // remove prefix
-                array_walk($options, function(&$val, $key) {$val = ltrim($val, '-');});
+                array_walk($options, function (&$val, $key) {
+                    $val = ltrim($val, '-');
+                });
 
                 // prepare item
                 $item = array(
@@ -416,7 +418,9 @@ class Simple implements RouteInterface
                 array_unique($options);
 
                 // remove prefix
-                array_walk($options, function(&$val, $key) {$val = ltrim($val, '-');});
+                array_walk($options, function (&$val, $key) {
+                    $val = ltrim($val, '-');
+                });
 
                 // prepare item
                 $item = array(
@@ -588,7 +592,7 @@ class Simple implements RouteInterface
              * Look for param
              */
             $value = $param = null;
-            for ($x=0;$x<count($params);$x++) {
+            for ($x = 0, $count = count($params); $x < $count; $x++) {
                 if (preg_match($regex, $params[$x], $m)) {
                     // found param
                     $param = $params[$x];

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Dom
  */
@@ -14,7 +14,6 @@ use Countable;
 use DOMDocument;
 use DOMNodeList;
 use DOMNode;
-use DOMXPath;
 use Iterator;
 
 /**
@@ -25,12 +24,6 @@ use Iterator;
  */
 class NodeList implements Iterator, Countable
 {
-    /**
-     * Number of results
-     * @var int
-     */
-    protected $count;
-
     /**
      * CSS Selector query
      * @var string
@@ -54,11 +47,6 @@ class NodeList implements Iterator, Countable
     protected $position = 0;
 
     /**
-     * @var DOMXPath
-     */
-    protected $xpath;
-
-    /**
      * XPath query
      * @var string
      */
@@ -67,10 +55,10 @@ class NodeList implements Iterator, Countable
     /**
      * Constructor
      *
-     * @param  string $cssQuery
+     * @param  string       $cssQuery
      * @param  string|array $xpathQuery
-     * @param  DOMDocument $document
-     * @param  DOMNodeList $nodeList
+     * @param  DOMDocument  $document
+     * @param  DOMNodeList  $nodeList
      * @return void
      */
     public function  __construct($cssQuery, $xpathQuery, DOMDocument $document, DOMNodeList $nodeList)
@@ -119,6 +107,7 @@ class NodeList implements Iterator, Countable
     public function rewind()
     {
         $this->position = 0;
+
         return $this->nodeList->item(0);
     }
 
@@ -132,6 +121,7 @@ class NodeList implements Iterator, Countable
         if (in_array($this->position, range(0, $this->nodeList->length - 1)) && $this->nodeList->length > 0) {
             return true;
         }
+
         return false;
     }
 
@@ -163,6 +153,7 @@ class NodeList implements Iterator, Countable
     public function next()
     {
         ++$this->position;
+
         return $this->nodeList->item($this->position);
     }
 

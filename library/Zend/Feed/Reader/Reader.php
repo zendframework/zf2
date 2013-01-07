@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Feed
  */
@@ -67,7 +67,7 @@ class Reader
     /**
      * Override HTTP PUT and DELETE request methods?
      *
-     * @var boolean
+     * @var bool
      */
     protected static $httpMethodOverride = false;
 
@@ -153,7 +153,7 @@ class Reader
      * X-Method-Override header will be sent with a value of PUT or
      * DELETE as appropriate.
      *
-     * @param  boolean $override Whether to override PUT and DELETE.
+     * @param  bool $override Whether to override PUT and DELETE.
      * @return void
      */
     public static function setHttpMethodOverride($override = true)
@@ -164,7 +164,7 @@ class Reader
     /**
      * Get the HTTP override state
      *
-     * @return boolean
+     * @return bool
      */
     public static function getHttpMethodOverride()
     {
@@ -551,7 +551,7 @@ class Reader
      * Is a given named Extension registered?
      *
      * @param  string $extensionName
-     * @return boolean
+     * @return bool
      */
     public static function isRegistered($extensionName)
     {

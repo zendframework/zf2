@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Http
  */
@@ -133,7 +133,7 @@ class Cookies extends Headers
      * checking cookie expiry time.
      *
      * @param string|Uri\Uri $uri URI to check against (secure, domain, path)
-     * @param boolean $matchSessionCookies Whether to send session cookies
+     * @param  bool $matchSessionCookies Whether to send session cookies
      * @param int $ret_as Whether to return cookies as objects of \Zend\Http\Header\Cookie or as strings
      * @param int $now Override the current time when checking for expiry time
      * @throws Exception\InvalidArgumentException if invalid URI specified
@@ -214,9 +214,9 @@ class Cookies extends Headers
                     throw new Exception\InvalidArgumentException("Invalid value passed for \$ret_as: {$ret_as}");
                     break;
             }
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -317,7 +317,7 @@ class Cookies extends Headers
      */
     public static function fromResponse(Response $response, $ref_uri)
     {
-        $jar = new self();
+        $jar = new static();
         $jar->addCookiesFromResponse($response, $ref_uri);
         return $jar;
     }

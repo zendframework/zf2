@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Mvc
  */
@@ -16,7 +16,6 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
 use Zend\Http\Request as HttpRequest;
-use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
@@ -103,7 +102,7 @@ abstract class AbstractController implements
           ->setResponse($response)
           ->setTarget($this);
 
-        $result = $this->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH, $e, function($test) {
+        $result = $this->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH, $e, function ($test) {
             return ($test instanceof Response);
         });
 
@@ -252,9 +251,8 @@ abstract class AbstractController implements
     /**
      * Set plugin manager
      *
-     * @param  string|PluginManager $plugins
+     * @param  PluginManager $plugins
      * @return AbstractController
-     * @throws Exception\InvalidArgumentException
      */
     public function setPluginManager(PluginManager $plugins)
     {

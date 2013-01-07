@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Navigation
  */
@@ -48,7 +48,7 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
                 'extra_config'         => array(
                     'service_manager' => array(
                         'factories' => array(
-                            'Config' => function() {
+                            'Config' => function () {
                                 return array(
                                     'navigation' => array(
                                         'file'    => __DIR__ . '/_files/navigation.xml',
@@ -119,7 +119,7 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $this->serviceManager->setFactory('Navigation', 'Zend\Navigation\Service\DefaultNavigationFactory');
         $container = $this->serviceManager->get('Navigation');
 
-        $recursive = function($that, $pages) use (&$recursive) {
+        $recursive = function ($that, $pages) use (&$recursive) {
             foreach ($pages as $page) {
                 if ($page instanceof MvcPage) {
                     $that->assertInstanceOf('Zend\Mvc\Router\RouteStackInterface', $page->getRouter());

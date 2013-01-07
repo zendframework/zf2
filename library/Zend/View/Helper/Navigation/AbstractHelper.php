@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_View
  */
@@ -182,7 +182,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     public function getContainer()
     {
         if (null === $this->container) {
-            $this->container = new \Zend\Navigation\Navigation();
+            $this->container = new Navigation\Navigation();
         }
 
         return $this->container;
@@ -191,8 +191,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Verifies container and eventually fetches it from service locator if it is a string
      *
-     * @param \Zend\Navigation\AbstractContainer|string|null $container
-     * @throws \Zend\View\Exception\InvalidArgumentException
+     * @param  Navigation\AbstractContainer|string|null $container
+     * @throws Exception\InvalidArgumentException
      */
     protected function parseContainer(&$container = null)
     {
@@ -212,7 +212,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
              * Load the navigation container from the root service locator
              *
              * The navigation container is probably located in Zend\ServiceManager\ServiceManager
-             * and not in the Zend\View\HelperPluginManager. If the set service locator is a
+             * and not in the View\HelperPluginManager. If the set service locator is a
              * HelperPluginManager, access the navigation container via the main service locator.
              */
             $sl = $this->getServiceLocator();
@@ -541,9 +541,9 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 
         if ($found) {
             return array('page' => $found, 'depth' => $foundDepth);
-        } else {
-            return array();
         }
+
+        return array();
     }
 
     /**

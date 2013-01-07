@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Feed
  */
@@ -45,7 +45,7 @@ class Entry extends Extension\AbstractEntry
     /**
      * Get an array with feed authors
      *
-     * @return array
+     * @return Collection\Author
      */
     public function getAuthors()
     {
@@ -73,7 +73,7 @@ class Entry extends Extension\AbstractEntry
         }
 
         if (count($authors) == 0) {
-            $authors = null;
+            $authors = new Collection\Author();
         } else {
             $authors = new Collection\Author(
                 Reader\Reader::arrayUnique($authors)

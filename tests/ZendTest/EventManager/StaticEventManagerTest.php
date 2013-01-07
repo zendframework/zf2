@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_EventManager
  */
@@ -144,7 +144,7 @@ class StaticEventManagerTest extends TestCase
     {
         $test     = new stdClass;
         $test->events = array();
-        $callback = function($e) use ($test) {
+        $callback = function ($e) use ($test) {
             $test->events[] = $e->getName();
         };
 
@@ -252,10 +252,10 @@ class StaticEventManagerTest extends TestCase
 
         $test = new \stdClass;
         $test->triggered = 0;
-        $events->attach('foo', 'bar', function($e) use ($test) {
+        $events->attach('foo', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
-        $events->attach('bar', 'bar', function($e) use ($test) {
+        $events->attach('bar', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
         $manager->trigger('bar', $this, array());
@@ -271,11 +271,11 @@ class StaticEventManagerTest extends TestCase
 
         $test = new \stdClass;
         $test->triggered = 0;
-        $events->attach('*', 'bar', function($e) use ($test) {
+        $events->attach('*', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
         //Tests one can have multiple wildcards attached
-        $events->attach('*', 'bar', function($e) use ($test) {
+        $events->attach('*', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
         $manager->trigger('bar', $this, array());
@@ -291,17 +291,17 @@ class StaticEventManagerTest extends TestCase
 
         $test = new \stdClass;
         $test->triggered = 0;
-        $events->attach('foo', 'bar', function($e) use ($test) {
+        $events->attach('foo', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
-        $events->attach('bar', 'bar', function($e) use ($test) {
+        $events->attach('bar', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
-        $events->attach('*', 'bar', function($e) use ($test) {
+        $events->attach('*', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
         //Tests one can have multiple wildcards attached
-        $events->attach('*', 'bar', function($e) use ($test) {
+        $events->attach('*', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
         $manager->trigger('bar', $this, array());

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Filter
  */
@@ -51,7 +51,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
     public function testAllowsConnectingArbitraryCallbacks()
     {
         $chain = new FilterChain();
-        $chain->attach(function($value) {
+        $chain->attach(function ($value) {
             return strtolower($value);
         });
         $value = 'AbC';
@@ -118,7 +118,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
         return array(
             'callbacks' => array(
                 array('callback' => __CLASS__ . '::staticUcaseFilter'),
-                array('priority' => 10000, 'callback' => function($value) {
+                array('priority' => 10000, 'callback' => function ($value) {
                     return trim($value);
                 }),
             ),

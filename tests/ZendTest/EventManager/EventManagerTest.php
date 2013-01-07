@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_EventManager
  */
@@ -277,10 +277,18 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     public function testCanDetachListenerAggregates()
     {
         // setup some other event listeners, to ensure appropriate items are detached
-        $listenerFooBar1 = $this->events->attach('foo.bar', function() { return true; });
-        $listenerFooBar2 = $this->events->attach('foo.bar', function() { return true; });
-        $listenerFooBaz1 = $this->events->attach('foo.baz', function() { return true; });
-        $listenerOther   = $this->events->attach('other', function() { return true; });
+        $listenerFooBar1 = $this->events->attach('foo.bar', function () {
+            return true;
+        });
+        $listenerFooBar2 = $this->events->attach('foo.bar', function () {
+            return true;
+        });
+        $listenerFooBaz1 = $this->events->attach('foo.baz', function () {
+            return true;
+        });
+        $listenerOther   = $this->events->attach('other', function () {
+            return true;
+        });
 
         $aggregate = new TestAsset\MockAggregate();
         $this->events->attachAggregate($aggregate);
@@ -307,10 +315,18 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     public function testCanDetachListenerAggregatesViaDetach()
     {
         // setup some other event listeners, to ensure appropriate items are detached
-        $listenerFooBar1 = $this->events->attach('foo.bar', function() { return true; });
-        $listenerFooBar2 = $this->events->attach('foo.bar', function() { return true; });
-        $listenerFooBaz1 = $this->events->attach('foo.baz', function() { return true; });
-        $listenerOther   = $this->events->attach('other', function() { return true; });
+        $listenerFooBar1 = $this->events->attach('foo.bar', function () {
+            return true;
+        });
+        $listenerFooBar2 = $this->events->attach('foo.bar', function () {
+            return true;
+        });
+        $listenerFooBaz1 = $this->events->attach('foo.baz', function () {
+            return true;
+        });
+        $listenerOther   = $this->events->attach('other', function () {
+            return true;
+        });
 
         $aggregate = new TestAsset\MockAggregate();
         $this->events->attach($aggregate);
@@ -593,7 +609,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     {
         $test     = new stdClass;
         $test->events = array();
-        $callback = function($e) use ($test) {
+        $callback = function ($e) use ($test) {
             $test->events[] = $e->getName();
         };
 
@@ -618,7 +634,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $callbackHandler = $shared->attach(
             'foo',
             'bar',
-            function($e) {
+            function ($e) {
                 return true;
             }
         );

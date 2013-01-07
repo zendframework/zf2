@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Feed
  */
@@ -84,13 +84,15 @@ class Feed extends \Zend\Feed\Reader\Extension\AbstractFeed
         $ticks = 1;
 
         switch ($period) {
-            //intentional fall through
             case 'yearly':
                 $ticks *= 52; //TODO: fix generalisation, how?
+                // no break
             case 'weekly':
                 $ticks *= 7;
+                // no break
             case 'daily':
                 $ticks *= 24;
+                // no break
             case 'hourly':
                 $ticks *= 3600;
                 break;

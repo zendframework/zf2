@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Json
  */
@@ -381,11 +381,11 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testZf461()
     {
-        $item1 = new Item() ;
-        $item2 = new Item() ;
-        $everything = array() ;
-        $everything['allItems'] = array($item1, $item2) ;
-        $everything['currentItem'] = $item1 ;
+        $item1 = new Item();
+        $item2 = new Item();
+        $everything = array();
+        $everything['allItems'] = array($item1, $item2);
+        $everything['currentItem'] = $item1;
 
         // should not fail
         $encoded = Json\Encoder::encode($everything);
@@ -403,11 +403,11 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testZf4053()
     {
-        $item1 = new Item() ;
-        $item2 = new Item() ;
-        $everything = array() ;
-        $everything['allItems'] = array($item1, $item2) ;
-        $everything['currentItem'] = $item1 ;
+        $item1 = new Item();
+        $item2 = new Item();
+        $everything = array();
+        $everything['allItems'] = array($item1, $item2);
+        $everything['currentItem'] = $item1;
 
         $options = array('silenceCyclicalExceptions'=>true);
 

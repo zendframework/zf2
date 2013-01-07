@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Crypt
  */
@@ -25,7 +25,7 @@ class SaltedS2k
         'sha1'       => MHASH_SHA1,
         'sha224'     => MHASH_SHA224,
         'sha256'     => MHASH_SHA256,
-        'sha382'     => MHASH_SHA384,
+        'sha384'     => MHASH_SHA384,
         'sha512'     => MHASH_SHA512,
         'ripemd128'  => MHASH_RIPEMD128,
         'ripemd256'  => MHASH_RIPEMD256,

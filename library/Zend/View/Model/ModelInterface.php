@@ -3,17 +3,15 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_View
  */
 
 namespace Zend\View\Model;
 
-use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Traversable;
 
 /**
  * Interface describing a view model.
@@ -41,7 +39,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Set renderer options/hints en masse
      *
-     * @param  array|Traversable $options
+     * @param  array|\Traversable $options
      * @return ModelInterface
      */
     public function setOptions($options);
@@ -49,7 +47,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Get renderer options/hints
      *
-     * @return array|Traversable
+     * @return array|\Traversable
      */
     public function getOptions();
 
@@ -74,7 +72,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Set view variables en masse
      *
-     * @param  array|ArrayAccess $variables
+     * @param  array|\ArrayAccess $variables
      * @return ModelInterface
      */
     public function setVariables($variables);
@@ -82,7 +80,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Get view variables
      *
-     * @return array|ArrayAccess
+     * @return array|\ArrayAccess
      */
     public function getVariables();
 

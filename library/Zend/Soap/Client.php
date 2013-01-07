@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Soap
  */
@@ -407,7 +407,7 @@ class Client implements ServerClient
      * Check for valid URN
      *
      * @param  string $urn
-     * @return boolean
+     * @return bool
      * @throws Exception\ExceptionInterface on invalid URN
      */
     public function validateUrn($urn)
@@ -622,7 +622,7 @@ class Client implements ServerClient
      */
     public function setProxyPort($proxyPort)
     {
-        $this->proxy_port = (int)$proxyPort;
+        $this->proxy_port = (int) $proxyPort;
 
         $this->soapClient = null;
 
@@ -745,7 +745,7 @@ class Client implements ServerClient
         if ($compressionOptions === null) {
             $this->compression = null;
         } else {
-            $this->compression = (int)$compressionOptions;
+            $this->compression = (int) $compressionOptions;
         }
         $this->soapClient = null;
 
@@ -825,7 +825,7 @@ class Client implements ServerClient
     /**
      * Set the SOAP WSDL Caching Options
      *
-     * @param string|int|boolean|null $caching
+     * @param string|int|bool|null $caching
      * @return Client
      */
     public function setWSDLCache($caching)
@@ -833,7 +833,7 @@ class Client implements ServerClient
         if ($caching === null) {
             $this->cache_wsdl = null;
         } else {
-            $this->cache_wsdl = (int)$caching;
+            $this->cache_wsdl = (int) $caching;
         }
         return $this;
     }
@@ -859,7 +859,7 @@ class Client implements ServerClient
         if ($userAgent === null) {
             $this->user_agent = null;
         } else {
-            $this->user_agent = (string)$userAgent;
+            $this->user_agent = (string) $userAgent;
         }
         return $this;
     }
@@ -1026,7 +1026,7 @@ class Client implements ServerClient
      * Add SOAP input header
      *
      * @param SoapHeader $header
-     * @param boolean $permanent
+     * @param  bool $permanent
      * @return Client
      */
     public function addSoapInputHeader(SoapHeader $header, $permanent = false)

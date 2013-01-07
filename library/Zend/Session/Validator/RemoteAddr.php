@@ -3,13 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Session
  */
 
 namespace Zend\Session\Validator;
 
+use Zend\Http\PhpEnvironment\RemoteAddress;
 use Zend\Session\Validator\ValidatorInterface as SessionValidator;
 
 /**
@@ -37,6 +38,20 @@ class RemoteAddr implements SessionValidator
      * @var bool
      */
     protected static $useProxy = false;
+
+    /**
+     * List of trusted proxy IP addresses
+     *
+     * @var array
+     */
+    protected static $trustedProxies = array();
+
+    /**
+     * HTTP header to introspect for proxies
+     *
+     * @var string
+     */
+    protected static $proxyHeader = 'HTTP_X_FORWARDED_FOR';
 
     /**
      * Constructor
@@ -86,32 +101,39 @@ class RemoteAddr implements SessionValidator
     }
 
     /**
+     * Set list of trusted proxy addresses
+     *
+     * @param  array $trustedProxies
+     * @return void
+     */
+    public static function setTrustedProxies(array $trustedProxies)
+    {
+        static::$trustedProxies = $trustedProxies;
+    }
+
+    /**
+     * Set the header to introspect for proxy IPs
+     *
+     * @param  string $header
+     * @return void
+     */
+    public static function setProxyHeader($header = 'X-Forwarded-For')
+    {
+        static::$proxyHeader = $header;
+    }
+
+    /**
      * Returns client IP address.
      *
      * @return string IP address.
      */
     protected function getIpAddress()
     {
-        if (static::$useProxy) {
-            // proxy IP address
-            if (isset($_SERVER['HTTP_CLIENT_IP']) && $_SERVER['HTTP_CLIENT_IP']) {
-                $ips = explode(',', $_SERVER['HTTP_CLIENT_IP']);
-                return trim($ips[0]);
-            }
-
-            // proxy IP address
-            if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR']) {
-                $ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-                return trim($ips[0]);
-            }
-        }
-
-        // direct IP address
-        if (isset($_SERVER['REMOTE_ADDR'])) {
-            return $_SERVER['REMOTE_ADDR'];
-        }
-
-        return '';
+        $remoteAddress = new RemoteAddress();
+        $remoteAddress->setUseProxy(static::$useProxy);
+        $remoteAddress->setTrustedProxies(static::$trustedProxies);
+        $remoteAddress->setProxyHeader(static::$proxyHeader);
+        return $remoteAddress->getIpAddress();
     }
 
     /**

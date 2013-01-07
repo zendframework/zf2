@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Config
  */
@@ -28,7 +28,7 @@ abstract class AbstractWriter implements WriterInterface
      * @see    WriterInterface::toFile()
      * @param  string  $filename
      * @param  mixed   $config
-     * @param  boolean $exclusiveLock
+     * @param  bool $exclusiveLock
      * @return void
      * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
@@ -45,7 +45,7 @@ abstract class AbstractWriter implements WriterInterface
         }
 
         set_error_handler(
-            function($error, $message = '', $file = '', $line = 0) use ($filename) {
+            function ($error, $message = '', $file = '', $line = 0) use ($filename) {
                 throw new Exception\RuntimeException(sprintf(
                     'Error writing to "%s": %s',
                     $filename, $message

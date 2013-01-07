@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_View
  */
@@ -175,7 +175,7 @@ class View implements EventManagerAwareInterface
         $event   = $this->getEvent();
         $event->setModel($model);
         $events  = $this->getEventManager();
-        $results = $events->trigger(ViewEvent::EVENT_RENDERER, $event, function($result) {
+        $results = $events->trigger(ViewEvent::EVENT_RENDERER, $event, function ($result) {
             return ($result instanceof Renderer);
         });
         $renderer = $results->last();

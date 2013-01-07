@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Form
  */
@@ -16,7 +16,6 @@ use Zend\InputFilter\InputProviderInterface;
 use Zend\Validator\GreaterThan as GreaterThanValidator;
 use Zend\Validator\LessThan as LessThanValidator;
 use Zend\Validator\Step as StepValidator;
-use Zend\Validator\ValidatorInterface;
 
 /**
  * @category   Zend
@@ -42,7 +41,7 @@ class Number extends Element implements InputProviderInterface
     /**
      * Get validator
      *
-     * @return ValidatorInterface[]
+     * @return \Zend\Validator\ValidatorInterface[]
      */
     protected function getValidators()
     {

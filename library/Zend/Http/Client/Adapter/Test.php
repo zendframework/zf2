@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Http
  */
@@ -53,7 +53,7 @@ class Test implements AdapterInterface
     /**
      * Whether or not the next request will fail with an exception
      *
-     * @var boolean
+     * @var bool
      */
     protected $nextRequestWillFail = false;
 
@@ -66,7 +66,7 @@ class Test implements AdapterInterface
     /**
      * Set the nextRequestWillFail flag
      *
-     * @param boolean $flag
+     * @param  bool $flag
      * @return \Zend\Http\Client\Adapter\Test
      */
     public function setNextRequestWillFail($flag)
@@ -105,7 +105,7 @@ class Test implements AdapterInterface
      *
      * @param string  $host
      * @param int     $port
-     * @param boolean $secure
+     * @param  bool $secure
      * @param int     $timeout
      * @throws Exception\RuntimeException
      */

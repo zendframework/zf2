@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Http
  */
@@ -54,7 +54,7 @@ class Proxy extends Socket
     /**
      * Whether HTTPS CONNECT was already negotiated with the proxy or not
      *
-     * @var boolean
+     * @var bool
      */
     protected $negotiated = false;
 
@@ -84,13 +84,15 @@ class Proxy extends Socket
      *
      * @param string  $host
      * @param int     $port
-     * @param boolean $secure
+     * @param  bool $secure
+     * @throws AdapterException\RuntimeException
      */
     public function connect($host, $port = 80, $secure = false)
     {
         // If no proxy is set, fall back to Socket adapter
         if (! $this->config['proxy_host']) {
-            return parent::connect($host, $port, $secure);
+            parent::connect($host, $port, $secure);
+            return;
         }
 
         /* Url might require stream context even if proxy connection doesn't */
@@ -99,7 +101,7 @@ class Proxy extends Socket
         }
 
         // Connect (a non-secure connection) to the proxy server
-        return parent::connect(
+        parent::connect(
             $this->config['proxy_host'],
             $this->config['proxy_port'],
             false

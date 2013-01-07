@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Session
  */
@@ -30,11 +30,17 @@ class RemoteAddrTest extends \PHPUnit_Framework_TestCase
             $_SERVER['HTTP_X_FORWARDED_FOR'],
             $_SERVER['HTTP_CLIENT_IP']
         );
+        RemoteAddr::setUseProxy(false);
+        RemoteAddr::setTrustedProxies(array());
+        RemoteAddr::setProxyHeader();
     }
 
     protected function restore()
     {
         $_SERVER = $this->backup;
+        RemoteAddr::setUseProxy(false);
+        RemoteAddr::setTrustedProxies(array());
+        RemoteAddr::setProxyHeader();
     }
 
     public function testGetData()
@@ -84,7 +90,6 @@ class RemoteAddrTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_X_FORWARDED_FOR'] = '1.1.2.3';
         RemoteAddr::setUseProxy(true);
         $validator = new RemoteAddr();
-        RemoteAddr::setUseProxy(false);
         $this->assertEquals('1.1.2.3', $validator->getData());
         $this->restore();
     }
@@ -97,20 +102,55 @@ class RemoteAddrTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_X_FORWARDED_FOR'] = '2.1.2.3';
         RemoteAddr::setUseProxy(true);
         $validator = new RemoteAddr();
-        RemoteAddr::setUseProxy(false);
         $this->assertEquals('2.1.2.3', $validator->getData());
         $this->restore();
     }
 
-    public function testMultipleHttpXForwardedFor()
+    public function testUsesRightMostAddressWhenMultipleHttpXForwardedForAddressesPresent()
     {
         $this->backup();
         $_SERVER['REMOTE_ADDR'] = '0.1.2.3';
         $_SERVER['HTTP_X_FORWARDED_FOR'] = '2.1.2.3, 1.1.2.3';
         RemoteAddr::setUseProxy(true);
         $validator = new RemoteAddr();
-        RemoteAddr::setUseProxy(false);
+        $this->assertEquals('1.1.2.3', $validator->getData());
+        $this->restore();
+    }
+
+    public function testShouldNotUseClientIpHeaderToTestProxyCapabilitiesByDefault()
+    {
+        $this->backup();
+        $_SERVER['REMOTE_ADDR'] = '0.1.2.3';
+        $_SERVER['HTTP_X_FORWARDED_FOR'] = '2.1.2.3, 1.1.2.3';
+        $_SERVER['HTTP_CLIENT_IP'] = '0.1.2.4';
+        RemoteAddr::setUseProxy(true);
+        $validator = new RemoteAddr();
+        $this->assertEquals('1.1.2.3', $validator->getData());
+        $this->restore();
+    }
+
+    public function testWillOmitTrustedProxyIpsFromXForwardedForMatching()
+    {
+        $this->backup();
+        $_SERVER['REMOTE_ADDR'] = '0.1.2.3';
+        $_SERVER['HTTP_X_FORWARDED_FOR'] = '2.1.2.3, 1.1.2.3';
+        RemoteAddr::setUseProxy(true);
+        RemoteAddr::setTrustedProxies(array('1.1.2.3'));
+        $validator = new RemoteAddr();
         $this->assertEquals('2.1.2.3', $validator->getData());
+        $this->restore();
+    }
+
+    public function testCanSpecifyWhichHeaderToUseStatically()
+    {
+        $this->backup();
+        $_SERVER['REMOTE_ADDR'] = '0.1.2.3';
+        $_SERVER['HTTP_X_FORWARDED_FOR'] = '2.1.2.3, 1.1.2.3';
+        $_SERVER['HTTP_CLIENT_IP'] = '0.1.2.4';
+        RemoteAddr::setUseProxy(true);
+        RemoteAddr::setProxyHeader('Client-Ip');
+        $validator = new RemoteAddr();
+        $this->assertEquals('0.1.2.4', $validator->getData());
         $this->restore();
     }
 }

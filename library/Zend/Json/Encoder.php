@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Json
  */
@@ -27,7 +27,7 @@ class Encoder
     /**
      * Whether or not to check for possible cycling
      *
-     * @var boolean
+     * @var bool
      */
     protected $cycleCheck;
 
@@ -48,7 +48,7 @@ class Encoder
     /**
      * Constructor
      *
-     * @param boolean $cycleCheck Whether or not to check for recursion when encoding
+     * @param  bool $cycleCheck Whether or not to check for recursion when encoding
      * @param array $options Additional options used during encoding
      * @return Encoder
      */
@@ -62,13 +62,13 @@ class Encoder
      * Use the JSON encoding scheme for the value specified
      *
      * @param mixed $value The value to be encoded
-     * @param boolean $cycleCheck Whether or not to check for possible object recursion when encoding
+     * @param  bool $cycleCheck Whether or not to check for possible object recursion when encoding
      * @param array $options Additional options used during encoding
      * @return string  The encoded value
      */
     public static function encode($value, $cycleCheck = false, $options = array())
     {
-        $encoder = new self(($cycleCheck) ? true : false, $options);
+        $encoder = new static(($cycleCheck) ? true : false, $options);
 
         return $encoder->_encodeValue($value);
     }
@@ -162,7 +162,7 @@ class Encoder
      * Determine if an object has been serialized already
      *
      * @param mixed $value
-     * @return boolean
+     * @return bool
      */
     protected function _wasVisited(&$value)
     {
