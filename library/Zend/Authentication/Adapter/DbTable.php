@@ -318,7 +318,7 @@ class DbTable implements AdapterInterface
         
         if(!is_callable($callback)) {
     		throw new \InvalidArgumentException("Password checker must be callable");
-		}
+	}
         
         $this->passwordChecker = $callback;
     }
@@ -488,10 +488,10 @@ class DbTable implements AdapterInterface
     {
         if($this->passwordChecker != null) {
     	    $callback = $this->passwordChecker;	
-            if (!$callback($resultIdentity[$this->credentialColumn], $this->credential)) {
+            if ($callback($resultIdentity[$this->credentialColumn], $this->credential)) {
                 $resultIdentity['zend_auth_credential_match'] = '1';
             }
-		}
+	}
         
         if ($resultIdentity['zend_auth_credential_match'] != '1') {
             $this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
