@@ -26,7 +26,7 @@ class DbTable implements AdapterInterface
 {
 
 
-    const CREDENTIAL_MATCH_COLOMN = 'zend_auth_credential_match';
+    const CREDENTIAL_MATCH_COLUMN = 'zend_auth_credential_match';
 
     /**
      * Database Connection
@@ -457,7 +457,7 @@ class DbTable implements AdapterInterface
                     . $this->zendDb->getPlatform()->quoteIdentifier($this->credentialColumn)
                     . ' = ' . $this->credentialTreatment
                     . ' THEN 1 ELSE 0 END) AS '
-                    . $this->zendDb->getPlatform()->quoteIdentifier(self::CREDENTIAL_MATCH_COLOMN)
+                    . $this->zendDb->getPlatform()->quoteIdentifier(self::CREDENTIAL_MATCH_COLUMN)
             );
 
             $dbSelect->columns(array('*', $credentialExpression));
@@ -534,8 +534,8 @@ class DbTable implements AdapterInterface
             return $this->_authenticateCreateAuthResult();
         }
 
-        if(isset($resultIdentity[self::CREDENTIAL_MATCH_COLOMN])){
-            unset($resultIdentity[self::CREDENTIAL_MATCH_COLOMN]);
+        if(isset($resultIdentity[self::CREDENTIAL_MATCH_COLUMN])){
+            unset($resultIdentity[self::CREDENTIAL_MATCH_COLUMN]);
         }
         $this->resultRow = $resultIdentity;
 
