@@ -14,6 +14,7 @@ use stdClass;
 use Zend\Authentication\Result as AuthenticationResult;
 use Zend\Db\Adapter\Adapter as DbAdapter;
 use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Select as DbSelect;
 
 /**
@@ -23,6 +24,9 @@ use Zend\Db\Sql\Select as DbSelect;
  */
 class DbTable implements AdapterInterface
 {
+
+
+    const CREDENTIAL_MATCH_COLOMN = 'zend_auth_credential_match';
 
     /**
      * Database Connection
@@ -72,6 +76,13 @@ class DbTable implements AdapterInterface
     protected $credential = null;
 
     /**
+     * $credentialTreatment - Treatment applied to the credential, such as MD5() or PASSWORD()
+     *
+     * @var string
+     */
+    protected $credentialTreatment = null;
+
+    /**
      *
      * @var callable
      */
@@ -103,14 +114,15 @@ class DbTable implements AdapterInterface
     /**
      * __construct() - Sets configuration options
      *
-     * @param  DbAdapter $zendDb
-     * @param  string    $tableName           Optional
-     * @param  string    $identityColumn      Optional
-     * @param  string    $credentialColumn    Optional
-     * @param  string    $credentialTreatment Optional
+     * @param  DbAdapter        $zendDb
+     * @param  string           $tableName           Optional
+     * @param  string           $identityColumn      Optional
+     * @param  string           $credentialColumn    Optional
+     * @param  callable|string  $credentialTreatment Optional
      * @return \Zend\Authentication\Adapter\DbTable
+     * @throws Exception\InvalidArgumentException when an invalid treatment or callback is given
      */
-    public function __construct(DbAdapter $zendDb, $tableName = null, $identityColumn = null, $credentialColumn = null, $passwordValidator = null)
+    public function __construct(DbAdapter $zendDb, $tableName = null, $identityColumn = null, $credentialColumn = null, $credentialTreatmentOrCallback = null)
     {
         $this->zendDb = $zendDb;
 
@@ -126,8 +138,19 @@ class DbTable implements AdapterInterface
             $this->setCredentialColumn($credentialColumn);
         }
 
-        if (null !== $passwordValidator) {
-            $this->setCredentialValidatorCallback($passwordValidator);
+        if (null !== $credentialTreatmentOrCallback) {
+            if (is_callable($credentialTreatmentOrCallback)) {
+                $this->setCredentialValidatorCallback($credentialTreatmentOrCallback);
+            } elseif (is_string($credentialTreatmentOrCallback)) {
+                $this->setCredentialTreatment($credentialTreatmentOrCallback);
+            } else {
+                 throw new Exception\InvalidArgumentException(sprintf(
+                    'TreatmentOrCallback must be a valid callback or a string containing at least a questionmark, given %s',
+                     (is_object($credentialTreatmentOrCallback) ? get_class($credentialTreatmentOrCallback) : gettype($credentialTreatmentOrCallback))
+                ));
+            }
+        } else {
+            $this->setCredentialTreatment('?');
         }
     }
 
@@ -168,29 +191,73 @@ class DbTable implements AdapterInterface
     }
 
     /**
+     * setCredentialTreatment() - allows the developer to pass a parametrized string that is
+     * used to transform or treat the input credential data.
      *
-     * @param type $callback
-     * @return \Zend\Authentication\Adapter\DbTable
+     * In many cases, passwords and other sensitive data are encrypted, hashed, encoded,
+     * obscured, or otherwise treated through some function or algorithm. By specifying a
+     * parametrized treatment string with this method, a developer may apply arbitrary SQL
+     * upon input credential data.
+     *
+     * Examples:
+     *
+     *  'PASSWORD(?)'
+     *  'MD5(?)'
+     *
+     * @param  string $treatment
+     * @return DbTable Provides a fluent interface
+     * @throws Exception\InvalidArgumentException when an invalid treatment is given
      */
-    public function setCredentialValidatorCallback($callback)
+    public function setCredentialTreatment($treatment)
     {
-        if (is_callable($callback)) {
-            $this->credentialValidator = $callback;
-        } else {
-            throw new Exception\InvalidArgumentException(sprintf(
-                    'Validator must be a valid callback, given %s', (is_object($callback) ? get_class($callback) : gettype($callback))
-            ));
+        if (strpos($treatment, '?') === false) {
+            throw new Exception\InvalidArgumentException(
+                'Treatment must be a string containing at least a questionmark'
+            );
         }
-
+        $this->credentialTreatment = $treatment;
         return $this;
     }
 
+    /**
+     * setCredentialValidatorCallback() - allows developers to pass a callback function
+     * to validate the credential data
+     *
+     * This callback has precedence over the credential treatment
+     *
+     * @param  callable $callback
+     * @return DbTable Provides a fluent interface
+     * * @throws Exception\InvalidArgumentException when an invalid callback is given
+     */
+    public function setCredentialValidatorCallback($callback)
+    {
+        if (!is_callable($callback)) {
+            throw new Exception\InvalidArgumentException(
+                'Callback must be a valid callback'
+            );
+        }
+        $this->credentialValidator = $callback;
+        return $this;
+    }
+
+
+    /**
+     * getCredentialValidador() - Returns a callback to validate the credential data
+     *
+     * If no validator defined, add a default one which checks the value of self::CREDENTIAL_MATCH_COLOMN
+     *
+     * @return callable
+     */
     public function getCredentialValidador()
     {
         if (null === $this->credentialValidator) {
             $this->setCredentialValidatorCallback(function ($identityResult, $credential) {
-                    return $identityResult[$this->credentialColumn] === $credential;
-                });
+                if (isset($identityResult[self::CREDENTIAL_MATCH_COLOMN])) {
+                    return ($identityResult[self::CREDENTIAL_MATCH_COLOMN] == '1');
+                }
+
+                return false;
+            });
         }
 
         return $this->credentialValidator;
@@ -379,11 +446,22 @@ class DbTable implements AdapterInterface
      */
     protected function _authenticateCreateSelect()
     {
-        // get select
         $dbSelect = clone $this->getDbSelect();
         $dbSelect->from($this->tableName)
-            ->columns(array('*'))
             ->where($this->zendDb->getPlatform()->quoteIdentifier($this->identityColumn) . ' = ?');
+
+        // build credential expression
+        if (empty($this->credentialValidator)) {
+            $credentialExpression = new Expression(
+                    '(CASE WHEN '
+                    . $this->zendDb->getPlatform()->quoteIdentifier($this->credentialColumn)
+                    . ' = ' . $this->credentialTreatment
+                    . ' THEN 1 ELSE 0 END) AS '
+                    . $this->zendDb->getPlatform()->quoteIdentifier(self::CREDENTIAL_MATCH_COLOMN)
+            );
+
+            $dbSelect->columns(array('*', $credentialExpression));
+        }
 
         return $dbSelect;
     }
@@ -401,8 +479,11 @@ class DbTable implements AdapterInterface
         $statement = $this->zendDb->createStatement();
         $dbSelect->prepareStatement($this->zendDb, $statement);
         $resultSet = new ResultSet();
+
+        $params = (!empty($this->credentialTreatment))?array($this->credential, $this->identity):array($this->identity);
+
         try {
-            $resultSet->initialize($statement->execute(array($this->identity)));
+            $resultSet->initialize($statement->execute($params));
             $resultIdentities = $resultSet->toArray();
         } catch (\Exception $e) {
             throw new Exception\RuntimeException(
@@ -423,7 +504,6 @@ class DbTable implements AdapterInterface
      */
     protected function _authenticateValidateResultSet(array $resultIdentities)
     {
-
         if (count($resultIdentities) < 1) {
             $this->authenticateResultInfo['code'] = AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND;
             $this->authenticateResultInfo['messages'][] = 'A record with the supplied identity could not be found.';
@@ -454,6 +534,9 @@ class DbTable implements AdapterInterface
             return $this->_authenticateCreateAuthResult();
         }
 
+        if(isset($resultIdentity[self::CREDENTIAL_MATCH_COLOMN])){
+            unset($resultIdentity[self::CREDENTIAL_MATCH_COLOMN]);
+        }
         $this->resultRow = $resultIdentity;
 
         $this->authenticateResultInfo['code'] = AuthenticationResult::SUCCESS;

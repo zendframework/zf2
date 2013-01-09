@@ -80,19 +80,90 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result->isValid());
     }
 
+    /**
+     * Ensures expected behavior for authentication success
+     */
+    public function testAuthenticateSuccessWithTreatment()
+    {
+        $this->_adapter = new Adapter\DbTable($this->_db, 'users', 'username', 'password', '?');
+        $this->_adapter->setIdentity('my_username');
+        $this->_adapter->setCredential('my_password');
+        $result = $this->_adapter->authenticate();
+        $this->assertTrue($result->isValid());
+    }
 
     /**
      * Ensures expected behavior for authentication success
      */
-    public function testAuthenticateSuccessWithCustomCallback()
+    public function testAuthenticateSuccessWithCallback()
     {
         $this->_adapter = new Adapter\DbTable($this->_db, 'users', 'username', 'password', function($identityResult, $credential){
-            return (sha1($credential) === sha1($identityResult['password']));
+            return true;
         });
         $this->_adapter->setIdentity('my_username');
         $this->_adapter->setCredential('my_password');
         $result = $this->_adapter->authenticate();
         $this->assertTrue($result->isValid());
+    }
+
+
+    /**
+     * Ensures expected behavior for authentication failure
+     */
+    public function testAuthenticateFailureWithTreatment()
+    {
+        $this->_adapter = new Adapter\DbTable($this->_db, 'users', 'username', 'password', 'substr(?,2)');
+        $this->_adapter->setIdentity('my_username');
+        $this->_adapter->setCredential('my_password');
+        $result = $this->_adapter->authenticate();
+        $this->assertFalse($result->isValid());
+    }
+
+
+    /**
+     * Ensures expected behavior for authentication failure
+     */
+    public function testAuthenticateFailureWithCallback()
+    {
+        $this->_adapter = new Adapter\DbTable($this->_db, 'users', 'username', 'password', function($identityResult, $credential){
+            return false;
+        });
+        $this->_adapter->setIdentity('my_username');
+        $this->_adapter->setCredential('my_password');
+        $result = $this->_adapter->authenticate();
+        $this->assertFalse($result->isValid());
+    }
+
+
+    /**
+     * Ensures expected behavior for authentication failure
+     */
+    public function testAuthenticateFailureWithInvalidTreatmentInConstructor()
+    {
+        $this->setExpectedException('Zend\Authentication\Adapter\Exception\InvalidArgumentException',
+            'TreatmentOrCallback must be a valid callback or a string containing at least a questionmark, given array');
+        $this->_adapter = new Adapter\DbTable($this->_db, 'users', 'username', 'password', array( 'foo' => 'bar'));
+    }
+
+    /**
+     * Ensures expected behavior for authentication failure
+     */
+    public function testAuthenticateFailureWithInvalidTreatmentSetter()
+    {
+        $this->setExpectedException('Zend\Authentication\Adapter\Exception\InvalidArgumentException',
+            'Treatment must be a string containing at least a questionmark');
+        $this->_adapter->setCredentialTreatment('string without questionmark');
+    }
+
+
+    /**
+     * Ensures expected behavior for authentication failure
+     */
+    public function testAuthenticateFailureWithInvalidCallbackSetter()
+    {
+        $this->setExpectedException('Zend\Authentication\Adapter\Exception\InvalidArgumentException',
+            'Callback must be a valid callback');
+        $this->_adapter->setCredentialValidatorCallback('this_is_not_a_valid_callback');
     }
 
     /**
