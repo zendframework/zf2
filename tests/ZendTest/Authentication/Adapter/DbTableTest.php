@@ -80,12 +80,15 @@ class DbTableTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result->isValid());
     }
 
+
     /**
      * Ensures expected behavior for authentication success
      */
-    public function testAuthenticateSuccessWithTreatment()
+    public function testAuthenticateSuccessWithCustomCallback()
     {
-        $this->_adapter = new Adapter\DbTable($this->_db, 'users', 'username', 'password', '?');
+        $this->_adapter = new Adapter\DbTable($this->_db, 'users', 'username', 'password', function($identityResult, $credential){
+            return (sha1($credential) === sha1($identityResult['password']));
+        });
         $this->_adapter->setIdentity('my_username');
         $this->_adapter->setCredential('my_password');
         $result = $this->_adapter->authenticate();

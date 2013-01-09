@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -7,14 +8,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Authentication
  */
-
 namespace Zend\Authentication\Adapter;
 
 use stdClass;
 use Zend\Authentication\Result as AuthenticationResult;
 use Zend\Db\Adapter\Adapter as DbAdapter;
 use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Select as DbSelect;
 
 /**
@@ -73,11 +72,10 @@ class DbTable implements AdapterInterface
     protected $credential = null;
 
     /**
-     * $credentialTreatment - Treatment applied to the credential, such as MD5() or PASSWORD()
      *
-     * @var string
+     * @var callable
      */
-    protected $credentialTreatment = null;
+    protected $credentialValidator;
 
     /**
      * $authenticateResultInfo
@@ -112,8 +110,7 @@ class DbTable implements AdapterInterface
      * @param  string    $credentialTreatment Optional
      * @return \Zend\Authentication\Adapter\DbTable
      */
-    public function __construct(DbAdapter $zendDb, $tableName = null, $identityColumn = null,
-                                $credentialColumn = null, $credentialTreatment = null)
+    public function __construct(DbAdapter $zendDb, $tableName = null, $identityColumn = null, $credentialColumn = null, $passwordValidator = null)
     {
         $this->zendDb = $zendDb;
 
@@ -129,8 +126,8 @@ class DbTable implements AdapterInterface
             $this->setCredentialColumn($credentialColumn);
         }
 
-        if (null !== $credentialTreatment) {
-            $this->setCredentialTreatment($credentialTreatment);
+        if (null !== $passwordValidator) {
+            $this->setCredentialValidatorCallback($passwordValidator);
         }
     }
 
@@ -171,26 +168,32 @@ class DbTable implements AdapterInterface
     }
 
     /**
-     * setCredentialTreatment() - allows the developer to pass a parametrized string that is
-     * used to transform or treat the input credential data.
      *
-     * In many cases, passwords and other sensitive data are encrypted, hashed, encoded,
-     * obscured, or otherwise treated through some function or algorithm. By specifying a
-     * parametrized treatment string with this method, a developer may apply arbitrary SQL
-     * upon input credential data.
-     *
-     * Examples:
-     *
-     *  'PASSWORD(?)'
-     *  'MD5(?)'
-     *
-     * @param  string $treatment
-     * @return DbTable Provides a fluent interface
+     * @param type $callback
+     * @return \Zend\Authentication\Adapter\DbTable
      */
-    public function setCredentialTreatment($treatment)
+    public function setCredentialValidatorCallback($callback)
     {
-        $this->credentialTreatment = $treatment;
+        if (is_callable($callback)) {
+            $this->credentialValidator = $callback;
+        } else {
+            throw new Exception\InvalidArgumentException(sprintf(
+                    'Validator must be a valid callback, given %s', (is_object($callback) ? get_class($callback) : gettype($callback))
+            ));
+        }
+
         return $this;
+    }
+
+    public function getCredentialValidador()
+    {
+        if (null === $this->credentialValidator) {
+            $this->setCredentialValidatorCallback(function ($identityResult, $credential) {
+                    return $identityResult[$this->credentialColumn] === $credential;
+                });
+        }
+
+        return $this->credentialValidator;
     }
 
     /**
@@ -284,7 +287,6 @@ class DbTable implements AdapterInterface
                 }
             }
             return $returnObject;
-
         } elseif (null !== $omitColumns) {
 
             $omitColumns = (array) $omitColumns;
@@ -294,7 +296,6 @@ class DbTable implements AdapterInterface
                 }
             }
             return $returnObject;
-
         }
 
         foreach ($this->resultRow as $resultColumn => $resultValue) {
@@ -315,7 +316,7 @@ class DbTable implements AdapterInterface
     public function authenticate()
     {
         $this->_authenticateSetup();
-        $dbSelect         = $this->_authenticateCreateSelect();
+        $dbSelect = $this->_authenticateCreateSelect();
         $resultIdentities = $this->_authenticateQuerySelect($dbSelect);
 
         if (($authResult = $this->_authenticateValidateResultSet($resultIdentities)) instanceof AuthenticationResult) {
@@ -362,7 +363,7 @@ class DbTable implements AdapterInterface
         }
 
         $this->authenticateResultInfo = array(
-            'code'     => AuthenticationResult::FAILURE,
+            'code' => AuthenticationResult::FAILURE,
             'identity' => $this->identity,
             'messages' => array()
         );
@@ -378,24 +379,11 @@ class DbTable implements AdapterInterface
      */
     protected function _authenticateCreateSelect()
     {
-        // build credential expression
-        if (empty($this->credentialTreatment) || (strpos($this->credentialTreatment, '?') === false)) {
-            $this->credentialTreatment = '?';
-        }
-
-        $credentialExpression = new Expression(
-            '(CASE WHEN '
-            . $this->zendDb->getPlatform()->quoteIdentifier($this->credentialColumn)
-            . ' = ' . $this->credentialTreatment
-            . ' THEN 1 ELSE 0 END) AS '
-            . $this->zendDb->getPlatform()->quoteIdentifier('zend_auth_credential_match')
-        );
-
         // get select
         $dbSelect = clone $this->getDbSelect();
         $dbSelect->from($this->tableName)
-                 ->columns(array('*', $credentialExpression))
-                 ->where($this->zendDb->getPlatform()->quoteIdentifier($this->identityColumn) . ' = ?');
+            ->columns(array('*'))
+            ->where($this->zendDb->getPlatform()->quoteIdentifier($this->identityColumn) . ' = ?');
 
         return $dbSelect;
     }
@@ -414,13 +402,13 @@ class DbTable implements AdapterInterface
         $dbSelect->prepareStatement($this->zendDb, $statement);
         $resultSet = new ResultSet();
         try {
-            $resultSet->initialize($statement->execute(array($this->credential, $this->identity)));
+            $resultSet->initialize($statement->execute(array($this->identity)));
             $resultIdentities = $resultSet->toArray();
         } catch (\Exception $e) {
             throw new Exception\RuntimeException(
                 'The supplied parameters to DbTable failed to '
-                    . 'produce a valid sql statement, please check table and column names '
-                    . 'for validity.', 0, $e
+                . 'produce a valid sql statement, please check table and column names '
+                . 'for validity.', 0, $e
             );
         }
         return $resultIdentities;
@@ -437,11 +425,11 @@ class DbTable implements AdapterInterface
     {
 
         if (count($resultIdentities) < 1) {
-            $this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND;
+            $this->authenticateResultInfo['code'] = AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND;
             $this->authenticateResultInfo['messages'][] = 'A record with the supplied identity could not be found.';
             return $this->_authenticateCreateAuthResult();
         } elseif (count($resultIdentities) > 1 && false === $this->getAmbiguityIdentity()) {
-            $this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_IDENTITY_AMBIGUOUS;
+            $this->authenticateResultInfo['code'] = AuthenticationResult::FAILURE_IDENTITY_AMBIGUOUS;
             $this->authenticateResultInfo['messages'][] = 'More than one record matches the supplied identity.';
             return $this->_authenticateCreateAuthResult();
         }
@@ -459,16 +447,16 @@ class DbTable implements AdapterInterface
      */
     protected function _authenticateValidateResult($resultIdentity)
     {
-        if ($resultIdentity['zend_auth_credential_match'] != '1') {
-            $this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
+        $credentialValidator = $this->getCredentialValidador();
+        if (!call_user_func($credentialValidator, $resultIdentity, $this->credential)) {
+            $this->authenticateResultInfo['code'] = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
             $this->authenticateResultInfo['messages'][] = 'Supplied credential is invalid.';
             return $this->_authenticateCreateAuthResult();
         }
 
-        unset($resultIdentity['zend_auth_credential_match']);
         $this->resultRow = $resultIdentity;
 
-        $this->authenticateResultInfo['code']       = AuthenticationResult::SUCCESS;
+        $this->authenticateResultInfo['code'] = AuthenticationResult::SUCCESS;
         $this->authenticateResultInfo['messages'][] = 'Authentication successful.';
         return $this->_authenticateCreateAuthResult();
     }
@@ -482,10 +470,9 @@ class DbTable implements AdapterInterface
     protected function _authenticateCreateAuthResult()
     {
         return new AuthenticationResult(
-            $this->authenticateResultInfo['code'],
-            $this->authenticateResultInfo['identity'],
-            $this->authenticateResultInfo['messages']
+                $this->authenticateResultInfo['code'],
+                $this->authenticateResultInfo['identity'],
+                $this->authenticateResultInfo['messages']
         );
     }
-
 }
