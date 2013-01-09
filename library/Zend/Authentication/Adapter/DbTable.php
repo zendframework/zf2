@@ -252,8 +252,8 @@ class DbTable implements AdapterInterface
     {
         if (null === $this->credentialValidator) {
             $this->setCredentialValidatorCallback(function ($identityResult, $credential) {
-                if (isset($identityResult[Zend\Authentication\AdapterDbTable::CREDENTIAL_MATCH_COLUMN])) {
-                    return ($identityResult[Zend\Authentication\AdapterDbTable::CREDENTIAL_MATCH_CULOMN] == '1');
+                if (isset($identityResult[\Zend\Authentication\Adapter\DbTable::CREDENTIAL_MATCH_COLUMN])) {
+                    return ($identityResult[\Zend\Authentication\Adapter\DbTable::CREDENTIAL_MATCH_COLUMN] == '1');
                 }
 
                 return false;
