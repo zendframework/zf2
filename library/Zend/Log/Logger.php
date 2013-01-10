@@ -450,4 +450,71 @@ class Logger implements LoggerInterface
         restore_exception_handler();
         static::$registeredExceptionHandler = false;
     }
+    
+    /**
+     * Starts a group in the Firebug Console
+     *
+     * @param string $messsage The title of the group
+     * @param array $extras OPTIONAL Setting 'Collapsed' to true will initialize group collapsed instead of expanded
+     * @return TRUE if the group instruction was added to the response headers or buffered.
+     */
+    public function group($messsage, $extras = array())
+    {
+    	// sanity checks
+        if (empty($this->_writers)) {
+            /** @see Zend_Log_Exception */
+            require_once 'Zend/Log/Exception.php';
+            throw new Zend_Log_Exception('No writers were added');
+        }
+
+        // Check to see if any extra information was passed
+        if (!empty($extras)) {
+            $info = array();
+            if (is_array($extras)) {
+                foreach ($extras as $key => $value) {
+                    if (is_string($key)) {
+                        $event[$key] = $value;
+                    } else {
+                        $info[] = $value;
+                    }
+                }
+            }  
+            if (!empty($info)) {
+                $event['info'] = $info;
+            }
+        }
+
+        // abort if rejected by the global filters
+        foreach ($this->_filters as $filter) {
+            if (! $filter->accept($event)) {
+                return;
+            }
+        }
+
+	    // send to each writer
+        foreach ($this->_writers as $writer) {			 
+            $writer->group($messsage, $event);
+        }
+
+    }
+
+	 /**
+     * Ends a group in the Firebug Console
+     *
+     * @return TRUE if the group instruction was added to the response headers or buffered.
+     */
+    public function groupEnd()
+    {
+		// sanity checks
+        if (empty($this->_writers)) {
+            /** @see Zend_Log_Exception */
+            require_once 'Zend/Log/Exception.php';
+            throw new Zend_Log_Exception('No writers were added');
+        }
+
+		// send to each writer
+        foreach ($this->_writers as $writer) {			 
+            $writer->groupEnd();
+        }
+    }
 }
