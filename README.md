@@ -1,17 +1,26 @@
-### Welcome to the *Zend Framework 2.0* Release!
+### Welcome to the *Zend Framework 2.1* Release!
 
 Master: [![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?branch=master)](http://travis-ci.org/zendframework/zf2)
 Develop: [![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?branch=develop)](http://travis-ci.org/zendframework/zf2)
 
 ## RELEASE INFORMATION
 
-*Zend Framework 2.0.6*
+*Zend Framework 2.1.0dev*
 
-This is the sixth maintenance release for the 2.0 series.
+This is the first minor (feature) release for the 2.0 series.
 
-19 Dec 2012
+DD Mmm YYYY
 
-### UPDATES IN 2.0.6
+### UPDATES IN 2.1.0
+
+#### Backwards Compatibility Break: Session Storage
+The default session storage object has changed to an array adapter; this
+is a minimal break in compatibility.  Most developers are not working
+directly with the storage object, but rather a Container, therefore switching
+out the default will not change anything for those developers.
+For those who are using it directly:
+ * Register the old SessionStorage object explicitly, or
+ * Do not utilize object notation for accessing members of the Storage object.
 
 Please see CHANGELOG.md.
 
@@ -26,7 +35,7 @@ Please see INSTALL.md.
 
 ### CONTRIBUTING
 
-If you wish to contribute to Zend Framework 2.0, please read both the
+If you wish to contribute to Zend Framework, please read both the
 CONTRIBUTING.md and README-GIT.md file.
 
 ### QUESTIONS AND FEEDBACK
