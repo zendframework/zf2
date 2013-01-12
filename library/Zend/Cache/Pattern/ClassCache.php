@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Pattern;
 
-use Zend\Cache;
 use Zend\Cache\Exception;
 
 /**

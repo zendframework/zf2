@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use Zend\Cache\Exception;
 use Zend\Session\Container as SessionContainer;
 
 /**

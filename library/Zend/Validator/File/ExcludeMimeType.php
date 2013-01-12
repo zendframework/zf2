@@ -10,7 +10,6 @@
 
 namespace Zend\Validator\File;
 
-use finfo;
 use Zend\Validator\Exception;
 
 /**

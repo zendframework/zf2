@@ -10,8 +10,6 @@
 
 namespace Zend\Filter;
 
-use Traversable;
-
 /**
  * @category   Zend
  * @package    Zend_Filter

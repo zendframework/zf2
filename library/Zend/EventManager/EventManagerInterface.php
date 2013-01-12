@@ -10,7 +10,6 @@
 
 namespace Zend\EventManager;
 
-use Traversable;
 use Zend\Stdlib\CallbackHandler;
 
 /**

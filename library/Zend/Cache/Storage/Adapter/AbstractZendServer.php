@@ -11,7 +11,6 @@
 namespace Zend\Cache\Storage\Adapter;
 
 use stdClass;
-use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
 
 /**

@@ -120,7 +120,7 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
         $updated = $dom->createElement('updated');
         $root->appendChild($updated);
         $text = $dom->createTextNode(
-            $this->getDataContainer()->getDateModified()->format(DateTime::ISO8601)
+            $this->getDataContainer()->getDateModified()->format(Datetime::ISO8601)
         );
         $updated->appendChild($text);
     }

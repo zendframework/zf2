@@ -16,7 +16,6 @@ use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\Console\Response as ConsoleResponse;
 use Zend\View\Model\ConsoleModel as ConsoleViewModel;
-use Zend\View\Model\ModelInterface as ViewModel;
 
 /**
  * @category   Zend

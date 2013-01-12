@@ -11,7 +11,6 @@
 
 namespace Zend\Session\SaveHandler;
 
-use Mongo;
 use MongoDate;
 use Zend\Session\Exception\InvalidArgumentException;
 

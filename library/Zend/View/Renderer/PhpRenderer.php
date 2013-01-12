@@ -11,7 +11,6 @@
 namespace Zend\View\Renderer;
 
 use ArrayAccess;
-use Traversable;
 use Zend\Filter\FilterChain;
 use Zend\View\Exception;
 use Zend\View\HelperPluginManager;

@@ -14,7 +14,6 @@ use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
-use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ModuleManager\ModuleManagerInterface;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;

@@ -11,7 +11,6 @@
 namespace Zend\Feed\Writer\Extension\ITunes;
 
 use Zend\Feed\Writer;
-use Zend\Feed\Writer\Extension;
 
 /**
 * @category Zend
