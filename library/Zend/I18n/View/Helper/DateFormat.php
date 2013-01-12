@@ -13,7 +13,6 @@ namespace Zend\I18n\View\Helper;
 use DateTime;
 use IntlDateFormatter;
 use Locale;
-use Zend\I18n\Exception;
 use Zend\View\Helper\AbstractHelper;
 
 /**

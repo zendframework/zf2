@@ -11,7 +11,6 @@
 namespace Zend\ModuleManager\Listener;
 
 use Zend\EventManager\ListenerAggregateInterface;
-use Zend\ServiceManager\ServiceManager;
 
 /**
  * @category   Zend

@@ -10,9 +10,6 @@
 
 namespace Zend\Cache\Pattern;
 
-use Traversable;
-use Zend\Cache\Exception;
-
 /**
  * @category   Zend
  * @package    Zend_Cache

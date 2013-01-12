@@ -11,7 +11,6 @@
 namespace Zend\I18n\Filter;
 
 use Locale;
-use Traversable;
 
 /**
  * @category   Zend

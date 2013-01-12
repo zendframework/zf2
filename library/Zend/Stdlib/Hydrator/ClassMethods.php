@@ -10,6 +10,8 @@
 
 namespace Zend\Stdlib\Hydrator;
 
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\Exception;
 
 /**

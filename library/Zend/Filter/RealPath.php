@@ -10,7 +10,6 @@
 
 namespace Zend\Filter;
 
-use Traversable;
 use Zend\Stdlib\ErrorHandler;
 
 /**

@@ -12,7 +12,6 @@ namespace Zend\Di\Definition;
 
 use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Reflection;
-use Zend\Di\Definition\Annotation;
 
 /**
  * Class definitions based on runtime reflection

@@ -12,7 +12,6 @@ namespace Zend\Feed\Reader\Extension\Syndication;
 
 use DateTime;
 use Zend\Feed\Reader;
-use Zend\Feed\Reader\Extension;
 
 /**
  * @category   Zend

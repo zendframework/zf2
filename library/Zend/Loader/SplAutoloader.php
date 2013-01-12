@@ -10,8 +10,6 @@
 
 namespace Zend\Loader;
 
-use Traversable;
-
 if (interface_exists('Zend\Loader\SplAutoloader')) return;
 
 /**

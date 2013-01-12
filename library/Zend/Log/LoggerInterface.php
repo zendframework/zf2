@@ -10,8 +10,6 @@
 
 namespace Zend\Log;
 
-use Traversable;
-
 /**
  * @category   Zend
  * @package    Zend_Log

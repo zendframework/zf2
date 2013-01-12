@@ -11,7 +11,6 @@
 namespace Zend\Soap;
 
 use Zend\Server\Reflection;
-use Zend\Server\Reflection\AbstractFunction;
 use Zend\Soap\AutoDiscover\DiscoveryStrategy\DiscoveryStrategyInterface as DiscoveryStrategy;
 use Zend\Soap\AutoDiscover\DiscoveryStrategy\ReflectionDiscovery;
 use Zend\Soap\Wsdl;

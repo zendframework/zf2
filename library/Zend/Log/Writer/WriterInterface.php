@@ -10,9 +10,6 @@
 
 namespace Zend\Log\Writer;
 
-use Zend\Log\Filter\FilterInterface as Filter;
-use Zend\Log\Formatter\FormatterInterface as Formatter;
-
 /**
  * @category   Zend
  * @package    Zend_Log

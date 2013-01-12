@@ -10,7 +10,6 @@
 
 namespace Zend\Captcha;
 
-use Traversable;
 use ZendService\ReCaptcha\ReCaptcha as ReCaptchaService;
 
 /**

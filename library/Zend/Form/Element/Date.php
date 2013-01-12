@@ -10,7 +10,6 @@
 
 namespace Zend\Form\Element;
 
-use Zend\Form\Element;
 use Zend\Form\Element\DateTime as DateTimeElement;
 use Zend\Validator\Date as DateValidator;
 use Zend\Validator\DateStep as DateStepValidator;

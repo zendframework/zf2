@@ -10,7 +10,6 @@
 
 namespace Zend\Cache\Pattern;
 
-use Traversable;
 use Zend\Cache\Exception;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Storage\StorageInterface as Storage;

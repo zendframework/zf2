@@ -12,7 +12,6 @@ namespace Zend\View\Helper\Navigation;
 
 use Zend\Navigation\AbstractContainer;
 use Zend\Navigation\Page\AbstractPage;
-use Zend\View;
 use Zend\View\Exception;
 
 /**

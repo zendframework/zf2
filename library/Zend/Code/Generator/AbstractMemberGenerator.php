@@ -10,7 +10,6 @@
 
 namespace Zend\Code\Generator;
 
-use Zend\Code\Generator;
 use Zend\Code\Generator\Exception;
 
 /**

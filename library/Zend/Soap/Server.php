@@ -14,7 +14,6 @@ use DOMDocument;
 use DOMNode;
 use SimpleXMLElement;
 use SoapFault;
-use stdClass;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 

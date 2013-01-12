@@ -21,7 +21,6 @@
 
 namespace Zend\Form\Element;
 
-use Traversable;
 use Zend\Form\Element;
 use Zend\InputFilter\InputProviderInterface;
 use Zend\Validator\InArray as InArrayValidator;

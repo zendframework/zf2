@@ -10,7 +10,6 @@
 
 namespace Zend\Json\Server\Smd;
 
-use Zend\Json\Server;
 use Zend\Json\Server\Exception\InvalidArgumentException;
 use Zend\Json\Server\Smd;
 

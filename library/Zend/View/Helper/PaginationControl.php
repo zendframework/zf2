@@ -11,7 +11,6 @@
 namespace Zend\View\Helper;
 
 use Zend\Paginator;
-use Zend\View;
 use Zend\View\Exception;
 
 /**
