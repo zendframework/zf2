@@ -11,6 +11,13 @@
 namespace Zend\Stdlib\Hydrator;
 
 use Zend\Stdlib\Exception;
+use Zend\Stdlib\Hydrator\Filter\FilterComposite;
+use Zend\Stdlib\Hydrator\Filter\FilterProviderInterface;
+use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
+use Zend\Stdlib\Hydrator\Filter\GetFilter;
+use Zend\Stdlib\Hydrator\Filter\HasFilter;
+use Zend\Stdlib\Hydrator\Filter\IsFilter;
+use Zend\Stdlib\Hydrator\Filter\NumberOfParameterFilter;
 
 /**
  * @category   Zend
@@ -33,10 +40,15 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     {
         parent::__construct();
         $this->setUnderscoreSeparatedKeys($underscoreSeparatedKeys);
+
+        $this->filterComposite->addFilter("is", new IsFilter());
+        $this->filterComposite->addFilter("has", new HasFilter());
+        $this->filterComposite->addFilter("get", new GetFilter());
+        $this->filterComposite->addFilter("parameter", new NumberOfParameterFilter(), FilterComposite::CONDITION_AND);
     }
 
     /**
-     * @param  array|\Traversable $options
+     * @param  array|\Traversable                 $options
      * @return ClassMethods
      * @throws Exception\InvalidArgumentException
      */
@@ -57,12 +69,13 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     }
 
     /**
-     * @param  boolean $underscoreSeparatedKeys
+     * @param  boolean      $underscoreSeparatedKeys
      * @return ClassMethods
      */
     public function setUnderscoreSeparatedKeys($underscoreSeparatedKeys)
     {
         $this->underscoreSeparatedKeys = $underscoreSeparatedKeys;
+
         return $this;
     }
 
@@ -79,7 +92,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      *
      * Extracts the getter/setter of the given $object.
      *
-     * @param  object $object
+     * @param  object                           $object
      * @return array
      * @throws Exception\BadMethodCallException for a non-object $object
      */
@@ -91,15 +104,30 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
             ));
         }
 
+        $filter = null;
+        if ($object instanceof FilterProviderInterface) {
+            $filter = new FilterComposite(
+                array($object->getFilter()),
+                array(new MethodMatchFilter("getFilter"))
+            );
+        } else {
+            $filter = $this->filterComposite;
+        }
+
         $transform = function ($letters) {
             $letter = array_shift($letters);
+
             return '_' . strtolower($letter);
         };
         $attributes = array();
         $methods = get_class_methods($object);
 
         foreach ($methods as $method) {
-            if (!preg_match('/^(get|has|is)[A-Z]\w*/', $method)) {
+            if (
+                !$filter->filter(
+                    get_class($object) . '::' . $method
+                )
+            ) {
                 continue;
             }
 
@@ -123,8 +151,8 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      *
      * Hydrates an object by getter/setter methods of the object.
      *
-     * @param  array $data
-     * @param  object $object
+     * @param  array                            $data
+     * @param  object                           $object
      * @return object
      * @throws Exception\BadMethodCallException for a non-object $object
      */
@@ -138,6 +166,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 
         $transform = function ($letters) {
             $letter = substr(array_shift($letters), 1, 1);
+
             return ucfirst($letter);
         };
 
@@ -152,6 +181,8 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
                 $object->$method($value);
             }
         }
+
         return $object;
     }
+
 }
