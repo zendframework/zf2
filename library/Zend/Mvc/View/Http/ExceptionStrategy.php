@@ -51,6 +51,7 @@ class ExceptionStrategy implements ListenerAggregateInterface
     public function attach(EventManagerInterface $events)
     {
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'prepareExceptionViewModel'));
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'prepareExceptionViewModel'));
     }
 
     /**
@@ -157,9 +158,15 @@ class ExceptionStrategy implements ListenerAggregateInterface
                 $response = $e->getResponse();
                 if (!$response) {
                     $response = new HttpResponse();
+                    $response->setStatusCode(500);
                     $e->setResponse($response);
+                } else {
+                    $statusCode = $response->getStatusCode();
+                    if ($statusCode === 200) {
+                        $response->setStatusCode(500);
+                    }
                 }
-                $response->setStatusCode(500);
+
                 break;
         }
     }
