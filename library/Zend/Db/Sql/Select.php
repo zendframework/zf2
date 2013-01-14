@@ -395,6 +395,10 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 $this->table = null;
                 break;
             case self::COLUMNS:
+                foreach ($this->joins as $key => $join) {
+                    $join['columns'] = array();
+                    $this->joins[$key] = $join;
+                }
                 $this->columns = array();
                 break;
             case self::JOINS:
