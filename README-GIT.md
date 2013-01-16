@@ -12,8 +12,8 @@ review.
 
 ### Option 1: GitHub
 
- 1. Setup a GitHub account (http://github.com/), if you haven't yet
- 2. Fork the ZF2 repository (http://github.com/zendframework/zf2)
+ 1. Setup a GitHub account (https://github.com/), if you haven't yet
+ 2. Fork the ZF2 repository (https://github.com/zendframework/zf2)
  3. Clone your fork locally and enter it (use your own GitHub username
     in the statement below)
 
@@ -91,7 +91,7 @@ can help catch code style issues before committing. Save it as
  * 
  * Dependecy: PHP-CS-Fixer (https://github.com/fabpot/PHP-CS-Fixer)
  * 
- * @author  Mardix  http://github.com/mardix 
+ * @author  Mardix  https://github.com/mardix 
  * @author  Matthew Weier O'Phinney http://mwop.net/
  * @since   4 Sept 2012
  */
