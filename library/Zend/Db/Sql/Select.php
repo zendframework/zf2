@@ -56,7 +56,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     protected $specifications = array(
         self::SELECT => array(
             'SELECT %3$s %1$s FROM %2$s' => array(
-                array(1 => '%1$s', 2 => '%2$s', 'combinedby' => ', '),
+                array(1 => '%1$s', 2 => '%1$s AS %2$s', 'combinedby' => ', '),
                 null,
                 array(1 => '%1$s')
             )
