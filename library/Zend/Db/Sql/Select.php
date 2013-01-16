@@ -55,7 +55,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     protected $specifications = array(
         self::SELECT => array(
-            'SELECT %3$s %1$s FROM %2$s' => array(
+            'SELECT %3$s%1$s FROM %2$s' => array(
                 array(1 => '%1$s', 2 => '%1$s AS %2$s', 'combinedby' => ', '),
                 null,
                 array(1 => '%1$s')
@@ -626,7 +626,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             }
         }
 
-        $distinct = ($this->distinct) ? 'DISTINCT' : '';
+        $distinct = ($this->distinct) ? 'DISTINCT ' : '';
 
         return array($columns, $table, $distinct);
     }

@@ -494,7 +494,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep0 = // same
         $sqlStr0 = 'SELECT "foo".* FROM "foo"';
         $internalTests0 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"')
+            'processSelect' => array(array(array('"foo".*')), '"foo"', '')
         );
 
         // table as TableIdentifier
@@ -503,7 +503,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep1 = // same
         $sqlStr1 = 'SELECT "bar"."foo".* FROM "bar"."foo"';
         $internalTests1 = array(
-            'processSelect' => array(array(array('"bar"."foo".*')), '"bar"."foo"')
+            'processSelect' => array(array(array('"bar"."foo".*')), '"bar"."foo"', '')
         );
 
         // table with alias
@@ -512,7 +512,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep2 = // same
         $sqlStr2 = 'SELECT "f".* FROM "foo" AS "f"';
         $internalTests2 = array(
-            'processSelect' => array(array(array('"f".*')), '"foo" AS "f"')
+            'processSelect' => array(array(array('"f".*')), '"foo" AS "f"', '')
         );
 
         // table with alias with table as TableIdentifier
@@ -521,7 +521,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep3 = // same
         $sqlStr3 = 'SELECT "f".* FROM "foo" AS "f"';
         $internalTests3 = array(
-            'processSelect' => array(array(array('"f".*')), '"foo" AS "f"')
+            'processSelect' => array(array(array('"f".*')), '"foo" AS "f"', '')
         );
 
         // columns
@@ -530,7 +530,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep4 = // same
         $sqlStr4 = 'SELECT "foo"."bar" AS "bar", "foo"."baz" AS "baz" FROM "foo"';
         $internalTests4 = array(
-            'processSelect' => array(array(array('"foo"."bar"', '"bar"'), array('"foo"."baz"', '"baz"')), '"foo"')
+            'processSelect' => array(array(array('"foo"."bar"', '"bar"'), array('"foo"."baz"', '"baz"')), '"foo"', '')
         );
 
         // columns with AS associative array
@@ -539,7 +539,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep5 = // same
         $sqlStr5 = 'SELECT "foo"."baz" AS "bar" FROM "foo"';
         $internalTests5 = array(
-            'processSelect' => array(array(array('"foo"."baz"', '"bar"')), '"foo"')
+            'processSelect' => array(array(array('"foo"."baz"', '"bar"')), '"foo"', '')
         );
 
         // columns with AS associative array mixed
@@ -548,7 +548,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep6 = // same
         $sqlStr6 = 'SELECT "foo"."baz" AS "bar", "foo"."bam" AS "bam" FROM "foo"';
         $internalTests6 = array(
-            'processSelect' => array(array(array('"foo"."baz"', '"bar"'), array('"foo"."bam"', '"bam"') ), '"foo"')
+            'processSelect' => array(array(array('"foo"."baz"', '"bar"'), array('"foo"."bam"', '"bam"') ), '"foo"', '')
         );
 
         // columns where value is Expression, with AS
@@ -557,7 +557,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep7 = // same
         $sqlStr7 = 'SELECT COUNT(some_column) AS "bar" FROM "foo"';
         $internalTests7 = array(
-            'processSelect' => array(array(array('COUNT(some_column)', '"bar"')), '"foo"')
+            'processSelect' => array(array(array('COUNT(some_column)', '"bar"')), '"foo"', '')
         );
 
         // columns where value is Expression
@@ -566,7 +566,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep8 = // same
         $sqlStr8 = 'SELECT COUNT(some_column) AS bar FROM "foo"';
         $internalTests8 = array(
-            'processSelect' => array(array(array('COUNT(some_column) AS bar')), '"foo"')
+            'processSelect' => array(array(array('COUNT(some_column) AS bar')), '"foo"', '')
         );
 
         // columns where value is Expression with parameters
@@ -584,7 +584,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlStr9 = 'SELECT (COUNT("some_column") + \'5\') AS "bar" FROM "foo"';
         $params9 = array('column1' => 5);
         $internalTests9 = array(
-            'processSelect' => array(array(array('(COUNT("some_column") + ?) AS "bar"')), '"foo"')
+            'processSelect' => array(array(array('(COUNT("some_column") + ?) AS "bar"')), '"foo"', '')
         );
 
         // joins (plain)
@@ -593,7 +593,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep10 = // same
         $sqlStr10 = 'SELECT "foo".*, "zac".* FROM "foo" INNER JOIN "zac" ON "m" = "n"';
         $internalTests10 = array(
-            'processSelect' => array(array(array('"foo".*'), array('"zac".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*'), array('"zac".*')), '"foo"', ''),
             'processJoins'   => array(array(array('INNER', '"zac"', '"m" = "n"')))
         );
 
@@ -603,7 +603,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep11 = // same
         $sqlStr11 = 'SELECT "foo".*, "zac"."bar" AS "bar", "zac"."baz" AS "baz" FROM "foo" INNER JOIN "zac" ON "m" = "n"';
         $internalTests11 = array(
-            'processSelect' => array(array(array('"foo".*'), array('"zac"."bar"', '"bar"'), array('"zac"."baz"', '"baz"')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*'), array('"zac"."bar"', '"bar"'), array('"zac"."baz"', '"baz"')), '"foo"', ''),
             'processJoins'   => array(array(array('INNER', '"zac"', '"m" = "n"')))
         );
 
@@ -613,7 +613,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep12 = // same
         $sqlStr12 = 'SELECT "foo".*, "zac"."bar" AS "bar", "zac"."baz" AS "baz" FROM "foo" OUTER JOIN "zac" ON "m" = "n"';
         $internalTests12 = array(
-            'processSelect' => array(array(array('"foo".*'), array('"zac"."bar"', '"bar"'), array('"zac"."baz"', '"baz"')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*'), array('"zac"."bar"', '"bar"'), array('"zac"."baz"', '"baz"')), '"foo"', ''),
             'processJoins'   => array(array(array('OUTER', '"zac"', '"m" = "n"')))
         );
 
@@ -623,7 +623,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep13 = // same
         $sqlStr13 = 'SELECT "foo".*, "zac"."bar" AS "BAR", "zac"."baz" AS "BAZ" FROM "foo" INNER JOIN "zac" ON "m" = "n"';
         $internalTests13 = array(
-            'processSelect' => array(array(array('"foo".*'), array('"zac"."bar"', '"BAR"'), array('"zac"."baz"', '"BAZ"')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*'), array('"zac"."bar"', '"BAR"'), array('"zac"."baz"', '"BAZ"')), '"foo"', ''),
             'processJoins'   => array(array(array('INNER', '"zac"', '"m" = "n"')))
         );
 
@@ -633,7 +633,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep14 = // same
         $sqlStr14 = 'SELECT "foo".*, "b".* FROM "foo" INNER JOIN "bar" AS "b" ON "b"."foo_id" = "foo"."foo_id"';
         $internalTests14 = array(
-            'processSelect' => array(array(array('"foo".*'), array('"b".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*'), array('"b".*')), '"foo"', ''),
             'processJoins' => array(array(array('INNER', '"bar" AS "b"', '"b"."foo_id" = "foo"."foo_id"')))
         );
 
@@ -643,7 +643,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep15 = // same
         $sqlStr15 = 'SELECT "foo".* FROM "foo" WHERE x = 5';
         $internalTests15 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processWhere'  => array('x = 5')
         );
 
@@ -654,7 +654,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlStr16 = 'SELECT "foo".* FROM "foo" WHERE x = \'5\'';
         $params16 = array('where1' => 5);
         $internalTests16 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processWhere'  => array('x = ?')
         );
 
@@ -664,7 +664,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep17 = // same
         $sqlStr17 = 'SELECT "foo".* FROM "foo" GROUP BY "col1", "col2"';
         $internalTests17 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processGroup'  => array(array('"col1"', '"col2"'))
         );
 
@@ -673,7 +673,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep18 = // same
         $sqlStr18 = 'SELECT "foo".* FROM "foo" GROUP BY "col1", "col2"';
         $internalTests18 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processGroup'  => array(array('"col1"', '"col2"'))
         );
 
@@ -682,7 +682,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep19 = // same
         $sqlStr19 = 'SELECT "foo".* FROM "foo" GROUP BY DAY("col1")';
         $internalTests19 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processGroup'  => array(array('DAY("col1")'))
         );
 
@@ -692,7 +692,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep20 = // same
         $sqlStr20 = 'SELECT "foo".* FROM "foo" HAVING x = 5';
         $internalTests20 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processHaving'  => array('x = 5')
         );
 
@@ -703,7 +703,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlStr21 = 'SELECT "foo".* FROM "foo" HAVING x = \'5\'';
         $params21 = array('having1' => 5);
         $internalTests21 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processHaving'  => array('x = ?')
         );
 
@@ -713,7 +713,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep22 = //
         $sqlStr22 = 'SELECT "foo".* FROM "foo" ORDER BY "c1" ASC';
         $internalTests22 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processOrder'  => array(array(array('"c1"', Select::ORDER_ASCENDING)))
         );
 
@@ -722,7 +722,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep23 = // same
         $sqlStr23 = 'SELECT "foo".* FROM "foo" ORDER BY "c1" ASC, "c2" ASC';
         $internalTests23 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processOrder'  => array(array(array('"c1"', Select::ORDER_ASCENDING), array('"c2"', Select::ORDER_ASCENDING)))
         );
 
@@ -731,7 +731,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep24 = // same
         $sqlStr24 = 'SELECT "foo".* FROM "foo" ORDER BY "c1" DESC, "c2" ASC';
         $internalTests24 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processOrder'  => array(array(array('"c1"', Select::ORDER_DESCENDING), array('"c2"', Select::ORDER_ASCENDING)))
         );
 
@@ -740,7 +740,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep25 = // same
         $sqlStr25 = 'SELECT "foo".* FROM "foo" ORDER BY "c1" ASC, "c2" DESC';
         $internalTests25 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processOrder'  => array(array(array('"c1"', Select::ORDER_ASCENDING), array('"c2"', Select::ORDER_DESCENDING)))
         );
 
@@ -751,7 +751,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlStr26 = 'SELECT "foo".* FROM "foo" LIMIT \'5\'';
         $params26 = array('limit' => 5);
         $internalTests26 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processLimit'  => array('?')
         );
 
@@ -762,7 +762,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlStr27 = 'SELECT "foo".* FROM "foo" LIMIT \'5\' OFFSET \'10\'';
         $params27 = array('limit' => 5, 'offset' => 10);
         $internalTests27 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processLimit'  => array('?'),
             'processOffset' => array('?')
         );
@@ -773,7 +773,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep28 = // same
         $sqlStr28 = 'SELECT "foo".*, "zac".* FROM "foo" INNER JOIN "zac" ON ("m" = "n" AND "c"."x") BETWEEN "x" AND "y"."z"';
         $internalTests28 = array(
-            'processSelect' => array(array(array('"foo".*'), array('"zac".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*'), array('"zac".*')), '"foo"', ''),
             'processJoins'   => array(array(array('INNER', '"zac"', '("m" = "n" AND "c"."x") BETWEEN "x" AND "y"."z"')))
         );
 
@@ -783,7 +783,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep29 = //
         $sqlStr29 = 'SELECT "foo".* FROM "foo" ORDER BY "c1"."d2" ASC';
         $internalTests29 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processOrder'  => array(array(array('"c1"."d2"', Select::ORDER_ASCENDING)))
         );
 
@@ -793,7 +793,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep30 = // same
         $sqlStr30 = 'SELECT "foo".* FROM "foo" GROUP BY "c1"."d2"';
         $internalTests30 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*')), '"foo"', ''),
             'processGroup'  => array(array('"c1"."d2"'))
         );
 
@@ -803,7 +803,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep31 = // same
         $sqlStr31 = 'SELECT "foo".*, "zac".* FROM "foo" INNER JOIN "zac" ON (m = n AND c.x) BETWEEN x AND y.z';
         $internalTests31 = array(
-            'processSelect' => array(array(array('"foo".*'), array('"zac".*')), '"foo"'),
+            'processSelect' => array(array(array('"foo".*'), array('"zac".*')), '"foo"', ''),
             'processJoins'   => array(array(array('INNER', '"zac"', '(m = n AND c.x) BETWEEN x AND y.z')))
         );
 
@@ -814,7 +814,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep32 = 'SELECT "x".* FROM (SELECT "bar".* FROM "bar" WHERE "y" LIKE ?) AS "x"';
         $sqlStr32 = 'SELECT "x".* FROM (SELECT "bar".* FROM "bar" WHERE "y" LIKE \'%Foo%\') AS "x"';
         $internalTests32 = array(
-            'processSelect' => array(array(array('"x".*')), '(SELECT "bar".* FROM "bar" WHERE "y" LIKE ?) AS "x"'),
+            'processSelect' => array(array(array('"x".*')), '(SELECT "bar".* FROM "bar" WHERE "y" LIKE ?) AS "x"', ''),
         );
 
         $select33 = new Select;
@@ -826,7 +826,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep33 = 'SELECT "table".* FROM "table" WHERE "c1" IS NULL AND "c2" IN (?, ?, ?) AND "c3" IS NOT NULL';
         $sqlStr33 = 'SELECT "table".* FROM "table" WHERE "c1" IS NULL AND "c2" IN (\'1\', \'2\', \'3\') AND "c3" IS NOT NULL';
         $internalTests33 = array(
-            'processSelect' => array(array(array('"table".*')), '"table"'),
+            'processSelect' => array(array(array('"table".*')), '"table"', ''),
             'processWhere'  => array('"c1" IS NULL AND "c2" IN (?, ?, ?) AND "c3" IS NOT NULL')
         );
 
@@ -849,7 +849,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep35 = // same
         $sqlStr35 = 'SELECT COUNT(*) AS "thecount" FROM "foo" INNER JOIN "bar" ON "m" = "n"';
         $internalTests35 = array(
-            'processSelect' => array(array(array('COUNT(*)', '"thecount"')), '"foo"'),
+            'processSelect' => array(array(array('COUNT(*)', '"thecount"')), '"foo"', ''),
             'processJoins'   => array(array(array('INNER', '"bar"', '"m" = "n"')))
         );
 
@@ -881,9 +881,18 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $sqlPrep37 = // same
         $sqlStr37 = 'SELECT "bar" AS "bar" FROM "foo"';
         $internalTests37 = array(
-            'processSelect' => array(array(array('"bar"', '"bar"')), '"foo"')
+            'processSelect' => array(array(array('"bar"', '"bar"')), '"foo"', '')
         );
 
+
+        // Distinct select
+        $select38 = new Select;
+        $select38->distinct()->from('foo')->columns(array('bar'), false);
+        $sqlPrep38 = // same
+        $sqlStr38 = 'SELECT DISTINCT "bar" AS "bar" FROM "foo"';
+        $internalTests38 = array(
+            'processSelect' => array(array(array('"bar"', '"bar"')), '"foo"', 'DISTINCT ')
+        );
 
         /**
          * $select = the select object
@@ -932,6 +941,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select35, $sqlPrep35, array(),    $sqlStr35, $internalTests35),
             array($select36, $sqlPrep36, array(),    $sqlStr36, $internalTests36,  $useNamedParams36),
             array($select37, $sqlPrep37, array(),    $sqlStr37, $internalTests37),
+            array($select38, $sqlPrep38, array(),    $sqlStr38, $internalTests38),
         );
     }
 
