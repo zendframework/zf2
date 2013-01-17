@@ -31,6 +31,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @const
      */
     const SELECT = 'select';
+    const DISTINCT = 'distinct';
     const COLUMNS = 'columns';
     const TABLE = 'table';
     const JOINS = 'joins';
@@ -54,9 +55,10 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     protected $specifications = array(
         self::SELECT => array(
-            'SELECT %1$s FROM %2$s' => array(
+            'SELECT %3$s%1$s FROM %2$s' => array(
                 array(1 => '%1$s', 2 => '%1$s AS %2$s', 'combinedby' => ', '),
-                null
+                null,
+                array(1 => '%1$s')
             )
         ),
         self::JOINS  => array(
@@ -89,6 +91,11 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @var bool
      */
     protected $prefixColumnsWithTable = true;
+
+    /**
+     * @var null|bool
+     */
+    protected $distinct = null;
 
     /**
      * @var string|TableIdentifier
@@ -149,6 +156,17 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
         $this->where = new Where;
         $this->having = new Having;
+    }
+
+    /**
+     * Add a distinct operator to the select clause
+     *
+     * @return Select
+     */
+    public function distinct()
+    {
+        $this->distinct = true;
+        return $this;
     }
 
     /**
@@ -389,6 +407,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 }
                 $this->table = null;
                 break;
+            case self::DISTINCT:
+                $this->distinct = null;
+                break;
             case self::COLUMNS:
                 $this->columns = array();
                 break;
@@ -429,15 +450,16 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     public function getRawState($key = null)
     {
         $rawState = array(
-            self::TABLE   => $this->table,
-            self::COLUMNS => $this->columns,
-            self::JOINS   => $this->joins,
-            self::WHERE   => $this->where,
-            self::ORDER   => $this->order,
-            self::GROUP   => $this->group,
-            self::HAVING  => $this->having,
-            self::LIMIT   => $this->limit,
-            self::OFFSET  => $this->offset
+            self::TABLE    => $this->table,
+            self::DISTINCT => $this->distinct,
+            self::COLUMNS  => $this->columns,
+            self::JOINS    => $this->joins,
+            self::WHERE    => $this->where,
+            self::ORDER    => $this->order,
+            self::GROUP    => $this->group,
+            self::HAVING   => $this->having,
+            self::LIMIT    => $this->limit,
+            self::OFFSET   => $this->offset
         );
         return (isset($key) && array_key_exists($key, $rawState)) ? $rawState[$key] : $rawState;
     }
@@ -604,7 +626,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             }
         }
 
-        return array($columns, $table);
+        $distinct = ($this->distinct) ? 'DISTINCT ' : '';
+
+        return array($columns, $table, $distinct);
     }
 
     protected function processJoins(PlatformInterface $platform, Adapter $adapter = null, ParameterContainer $parameterContainer = null)
