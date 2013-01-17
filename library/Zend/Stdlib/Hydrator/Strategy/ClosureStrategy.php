@@ -35,6 +35,22 @@ class ClosureStrategy implements StrategyInterface
      */
     protected $hydrateFunc = null;
     
+    /**
+     * You can describe how your values will extract and hydrate, like this:
+     * $hydrator->addStrategy('categories', new ClosureStrategy(
+     *      function($categories) {
+     *          return $categories->toArray();
+     *      },
+     *      function($values) {
+     *          return (new Categories)->populate($values);
+     *      },
+     *  ));
+     * 
+     * @param callable $extractFunc - anonymous function, that extract values
+     * from object 
+     * @param callable $hydrateFunc - anonymous function, that hydrate values
+     * into object
+     */
     public function __construct($extractFunc = null, $hydrateFunc = null)
     {
         if (isset($extractFunc)) {
