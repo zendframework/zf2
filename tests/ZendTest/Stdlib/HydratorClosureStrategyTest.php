@@ -10,7 +10,6 @@
 
 namespace ZendTest\Stdlib;
 
-use Zend\Stdlib\Hydrator\HydratorInterface;
 use Zend\Stdlib\Hydrator\ObjectProperty;
 use Zend\Stdlib\Hydrator\Strategy\ClosureStrategy;
 
@@ -22,6 +21,7 @@ use Zend\Stdlib\Hydrator\Strategy\ClosureStrategy;
  */
 class HydratorClosureStrategyTest extends \PHPUnit_Framework_TestCase
 {
+    
     /**
      * The hydrator that is used during testing.
      *
@@ -41,7 +41,6 @@ class HydratorClosureStrategyTest extends \PHPUnit_Framework_TestCase
         $this->hydrator->addStrategy('myStrategy', new ClosureStrategy());
 
         $this->assertAttributeCount(1, 'strategies', $this->hydrator);
-        //$this->assertAttributeCount(0, 'strategies', $this->hydrator);
     }
     
     public function testCheckStrategyEmpty()
@@ -77,90 +76,51 @@ class HydratorClosureStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testExtractingObjects()
     {
-        $this->hydrator->addStrategy('entities', new ClosureStrategy());
+        $this->hydrator->addStrategy('field1', new ClosureStrategy(
+            function($value) {
+                return sprintf('%s', $value);
+            },
+            null
+        ));
+        $this->hydrator->addStrategy('field2', new ClosureStrategy(
+            function($value) {
+                return sprintf('hello, %s!', $value);
+            },
+            null
+        ));
         
-        //\Zend\Debug\Debug::dump($this->hydrator->getStrategy('entities'));exit();
+        $entity = new TestAsset\HydratorClosureStrategyEntity(111, 'world');
+        $values = $this->hydrator->extract($entity);
         
-        $entityA = new TestAsset\HydratorClosureStrategy\Container();
-        $entityA->addEntity(new TestAsset\HydratorClosureStrategy\SimpleEntity(111, 'AAA'));
-        $entityA->addEntity(new TestAsset\HydratorClosureStrategy\SimpleEntity(222, 'BBB'));
-        
-        $attributes = $this->hydrator->extract($entityA);
-        \Zend\Debug\Debug::dump($attributes);exit();
-        
-        $this->assertContains(111, $attributes['entities']);
-        $this->assertContains(222, $attributes['entities']);
+        $this->assertEquals(111, $values['field1']);
+        $this->assertEquals('hello, world!', $values['field2']);
     }
     
-//    public function testExtractingObjects()
-//    {
-//        $this->hydrator->addStrategy('entities', new TestAsset\HydratorStrategy());
-//
-//        $entityA = new TestAsset\HydratorStrategyEntityA();
-//        $entityA->addEntity(new TestAsset\HydratorStrategyEntityB(111, 'AAA'));
-//        $entityA->addEntity(new TestAsset\HydratorStrategyEntityB(222, 'BBB'));
-//
-//        $attributes = $this->hydrator->extract($entityA);
-//
-//        $this->assertContains(111, $attributes['entities']);
-//        $this->assertContains(222, $attributes['entities']);
-//    }
-//
-//    public function testHydratingObjects()
-//    {
-//        $this->hydrator->addStrategy('entities', new TestAsset\HydratorStrategy());
-//
-//        $entityA = new TestAsset\HydratorStrategyEntityA();
-//        $entityA->addEntity(new TestAsset\HydratorStrategyEntityB(111, 'AAA'));
-//        $entityA->addEntity(new TestAsset\HydratorStrategyEntityB(222, 'BBB'));
-//
-//        $attributes = $this->hydrator->extract($entityA);
-//        $attributes['entities'][] = 333;
-//
-//        $this->hydrator->hydrate($attributes, $entityA);
-//        $entities = $entityA->getEntities();
-//
-//        $this->assertCount(3, $entities);
-//    }
-//
-//    /**
-//     * @dataProvider underscoreHandlingDataProvider
-//     */
-//    public function testWhenUsingUnderscoreSeparatedKeysHydratorStrategyIsAlwaysConsideredUnderscoreSeparatedToo($underscoreSeparatedKeys, $formFieldKey)
-//    {
-//        $hydrator = new ClassMethods($underscoreSeparatedKeys);
-//
-//        $strategy = $this->getMock('Zend\Stdlib\Hydrator\Strategy\StrategyInterface');
-//
-//        $entity = new TestAsset\ClassMethodsUnderscore();
-//        $value = $entity->getFooBar();
-//
-//        $hydrator->addStrategy($formFieldKey, $strategy);
-//
-//        $strategy
-//            ->expects($this->once())
-//            ->method('extract')
-//            ->with($this->identicalTo($value))
-//            ->will($this->returnValue($value))
-//        ;
-//
-//        $attributes = $hydrator->extract($entity);
-//
-//        $strategy
-//            ->expects($this->once())
-//            ->method('hydrate')
-//            ->with($this->identicalTo($value))
-//            ->will($this->returnValue($value))
-//        ;
-//
-//        $hydrator->hydrate($attributes, $entity);
-//    }
-//
-//    public function underscoreHandlingDataProvider()
-//    {
-//        return array(
-//            array(true, 'foo_bar'),
-//            array(false, 'fooBar'),
-//        );
-//    }
+    public function testHydratingObjects()
+    {
+        $this->hydrator->addStrategy('field2', new ClosureStrategy(
+            null,
+            function($value) {
+                return sprintf('hello, %s!', $value);
+            }
+        ));
+        $this->hydrator->addStrategy('field3', new ClosureStrategy(
+            null,
+            function($value) {
+                return new TestAsset\HydratorClosureStrategyEntity($value, sprintf('111%s', $value));
+            }
+        ));
+            
+        $entity = new TestAsset\HydratorClosureStrategyEntity(111, 'world');
+        
+        $values = $this->hydrator->extract($entity);
+        $values['field3'] = 333;
+
+        $this->assertCount(2, (array)$entity);
+        $this->hydrator->hydrate($values, $entity);
+        $this->assertCount(3, (array)$entity);
+        
+        $this->assertInstanceOf('ZendTest\Stdlib\TestAsset\HydratorClosureStrategyEntity', $entity->field3);
+    }
+    
 }
