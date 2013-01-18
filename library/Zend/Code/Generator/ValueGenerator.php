@@ -256,7 +256,7 @@ class ValueGenerator extends AbstractGenerator
                 );
                 foreach ($rii as $curKey => $curValue) {
                     if (!$curValue instanceof ValueGenerator) {
-                        $curValue = new self($curValue);
+                        $curValue = new static($curValue);
                         $rii->getSubIterator()->offsetSet($curKey, $curValue);
                     }
                     $curValue->setArrayDepth($rii->getDepth());
