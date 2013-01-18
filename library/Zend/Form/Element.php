@@ -33,6 +33,11 @@ class Element implements ElementInterface
      * @var array
      */
     protected $labelAttributes;
+    
+    /**
+     * @var array
+     */
+    protected $fieldsetAttributes;
 
     /**
      * @var array Validation error messages
@@ -114,6 +119,10 @@ class Element implements ElementInterface
             $this->setLabelAttributes($options['label_attributes']);
         }
 
+        if (isset($options['fieldset_attributes'])) {
+        	$this->setFieldsetAttributes($options['fieldset_attributes']);
+        }
+        
         $this->options = $options;
 
         return $this;
@@ -301,6 +310,28 @@ class Element implements ElementInterface
         return $this->labelAttributes;
     }
 
+    /**
+     * Set the attributes to use with the fieldset (radio and multicheckbox)
+     * 
+     * @param array $fieldsetAttributes
+     * @return Element|ElementInterface 
+     */
+    public function setFieldsetAttributes(array $fieldsetAttributes)
+    {
+    	$this->fieldsetAttributes = $fieldsetAttributes;
+    	return $this;
+    }
+    
+    /**
+     * Get the attributes to use with the fieldset (radio and multicheckbox)
+     * 
+     * @return array
+     */
+    public function getFieldsetAttributes()
+    {
+    	return $this->fieldsetAttributes;
+    }
+     
     /**
      * Set a list of messages to report when validation fails
      *

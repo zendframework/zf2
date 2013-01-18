@@ -40,6 +40,11 @@ class FormRow extends AbstractHelper
     protected $labelAttributes;
 
     /**
+     * @var array
+     */
+    protected $fieldsetAttributes;
+    
+    /**
      * @var string
      */
     protected $inputErrorClass = 'input-error';
@@ -107,9 +112,21 @@ class FormRow extends AbstractHelper
             // labels. The semantic way is to group them inside a fieldset
             $type = $element->getAttribute('type');
             if ($type === 'multi_checkbox' || $type === 'radio') {
+            	
+            	$fieldsetAttributes = $element->getFieldsetAttributes();
+            	if (empty($fieldsetAttributes)) {
+            		$fieldsetAttributes = $this->fieldsetAttributes;
+            	}
+            	
+            	if (is_array($fieldsetAttributes)) {
+            		$fieldsetAttributes = ' ' . $this->createAttributesString($fieldsetAttributes);
+            	}
+            	
                 $markup = sprintf(
-                    '<fieldset><legend>%s</legend>%s</fieldset>',
-                    $label,
+                    '<fieldset%s><legend>%s</legend>%s</fieldset>',
+
+                	$fieldsetAttributes,
+                	$label,
                     $elementString);
             } else {
                 if ($element->hasAttribute('id')) {
@@ -253,6 +270,28 @@ class FormRow extends AbstractHelper
         return $this->labelAttributes;
     }
 
+    /**
+     * Set the attributes for the row fieldset
+     *
+     * @param  array $fieldsetAttributes
+     * @return FormRow
+     */
+    public function setFieldsetAttributes($fieldsetAttributes)
+    {
+    	$this->fieldsetAttributes = $fieldsetAttributes;
+    	return $this;
+    }
+    
+    /**
+     * Get the attributes for the row fieldset
+     *
+     * @return array
+     */
+    public function getFieldsetAttributes()
+    {
+    	return $this->fieldsetAttributes;
+    }
+    
     /**
      * Set the class that is added to element that have errors
      *
