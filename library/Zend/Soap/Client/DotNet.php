@@ -20,7 +20,7 @@ use Zend\Soap\Exception;
  *
  * Important! Class is at experimental stage now.
  * Please leave your notes, compatibility issues reports or
- * suggestions in fw-webservices@lists.zend.com or fw-general@lists.com
+ * suggestions in fw-webservices@lists.zend.com or fw-general@lists.zend.com
  *
  * @category   Zend
  * @package    Zend_Soap
