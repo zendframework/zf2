@@ -43,11 +43,7 @@ class LoggerComposite implements LoggerInterface
      */
     public function hasLogger(LoggerInterface $logger)
     {
-        $key = array_search($logger, $this->loggers);
-        if (false === $key) {
-            return false;
-        }
-        return true;
+        return in_array($logger, $this->loggers, true);
     }
 
     /**
@@ -58,7 +54,7 @@ class LoggerComposite implements LoggerInterface
      */
     public function removeLogger(LoggerInterface $logger)
     {
-        $key = array_search($logger, $this->loggers);
+        $key = array_search($logger, $this->loggers, true);
         if (false === $key) {
             return false;
         }
