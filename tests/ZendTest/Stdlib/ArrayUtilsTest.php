@@ -153,6 +153,7 @@ class ArrayUtilsTest extends TestCase
                 array(
                     'baz',
                 ),
+                null,
                 array(
                     0     => 'foo',
                     3     => 'bar',
@@ -171,6 +172,7 @@ class ArrayUtilsTest extends TestCase
                         'baz'
                     )
                 ),
+                null,
                 array(
                     'foo' => array(
                         0 => 'baz',
@@ -187,11 +189,38 @@ class ArrayUtilsTest extends TestCase
                     'foo' => 'baz',
                     'bar' => 'bat'
                 ),
+                null,
                 array(
                     'foo' => 'baz',
                     'bar' => 'bat'
                 )
             ),
+            'remove-key' => array(
+                array(
+                    'foo' => 'bar',
+                    'bar' => 'bat'
+                ),
+                array(
+                    'foo' => '__remove__'
+                ),
+                null,
+                array(
+                    'bar' => 'bat'
+                )
+            ),
+            'remove-key-with-alterate-remove-string' => array(
+                array(
+                    'foo' => 'bar',
+                    'bar' => 'bat'
+                ),
+                array(
+                    'foo' => 'alternate_remove'
+                ),
+                'alternate_remove',
+                array(
+                    'bar' => 'bat'
+                )
+            )
         );
     }
 
@@ -341,9 +370,13 @@ class ArrayUtilsTest extends TestCase
     /**
      * @dataProvider mergeArrays
      */
-    public function testMerge($a, $b, $expected)
+    public function testMerge($a, $b, $remove, $expected)
     {
-        $this->assertEquals($expected, ArrayUtils::merge($a, $b));
+        if (isset($remove)){
+            $this->assertEquals($expected, ArrayUtils::merge($a, $b, $remove));
+        } else {
+            $this->assertEquals($expected, ArrayUtils::merge($a, $b));
+        }
     }
 
     /**
