@@ -226,21 +226,28 @@ abstract class ArrayUtils
      *
      * @param  array $a
      * @param  array $b
+     * @param  string $remove Any array values set to this string in $b will be unset in $a
      * @return array
      */
-    public static function merge(array $a, array $b)
+    public static function merge(array $a, array $b, $remove = '__remove__')
     {
+        $remove = (string) $remove;
+
         foreach ($b as $key => $value) {
             if (array_key_exists($key, $a)) {
                 if (is_int($key)) {
-                    $a[] = $value;
+                    $value != $remove ? $a[] = $value : null;
                 } elseif (is_array($value) && is_array($a[$key])) {
                     $a[$key] = static::merge($a[$key], $value);
                 } else {
-                    $a[$key] = $value;
+                    if ($value == $remove){
+                        unset($a[$key]);
+                    } else {
+                        $a[$key] = $value;
+                    }
                 }
             } else {
-                $a[$key] = $value;
+                $value != $remove ? $a[$key] = $value : null;
             }
         }
 
