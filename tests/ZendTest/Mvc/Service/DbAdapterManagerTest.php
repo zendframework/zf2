@@ -27,8 +27,7 @@ class DbAdapterManagerTest extends TestCase
     public function setUp()
     {
         $this->mockPlatform = $this->getMock('Zend\Db\Adapter\Platform\PlatformInterface');
-        
-        
+
         $this->sampleConfig = array(
             'sqlliteDb'=>array(
                 'driver'=>array(
@@ -55,7 +54,7 @@ class DbAdapterManagerTest extends TestCase
     public function testAddAdapterConfig()
     {
         $dam = new DbAdapterManager();
-        $dam->addDbAdapterConfig( $this->sampleConfig );
+        $dam->addAdapterConfig( $this->sampleConfig );
 
         foreach ( array_keys($this->sampleConfig) as $dbKey ) {
             $this->assertTrue( $dam->hasAdapterConfig($dbKey) );
@@ -65,7 +64,7 @@ class DbAdapterManagerTest extends TestCase
     public function testAddAdapter()
     {
         $dam = new DbAdapterManager();
-        $dam->addDbAdapterConfig( $this->sampleConfig );
+        $dam->addAdapterConfig( $this->sampleConfig );
 
         if (extension_loaded('pdo')) {
             $adapter = $dam->getAdapter('sqlliteDb');
@@ -81,12 +80,12 @@ class DbAdapterManagerTest extends TestCase
     public function testInitDbAdapter()
     {
         $dam = new DbAdapterManager();
-        $dam->addDbAdapterConfig( $this->sampleConfig );
+        $dam->addAdapterConfig( $this->sampleConfig );
 
         if (extension_loaded('pdo')) {
             $adapter = $dam->getAdapter('sqlliteDb');
             $this->assertInstanceOf('Zend\Db\Adapter\Driver\Pdo\Pdo', $adapter->driver);
-            
+
             $this->assertTrue( $dam->hasAdapter('sqlliteDb') );
             unset($adapter);
         }
@@ -103,7 +102,7 @@ class DbAdapterManagerTest extends TestCase
     public function testInitDbAdapterAliase()
     {
         $dam = new DbAdapterManager();
-        $dam->addDbAdapterConfig( $this->sampleConfig );
+        $dam->addAdapterConfig( $this->sampleConfig );
 
         if (extension_loaded('pdo')) {
             $adapter1 = $dam->getAdapter('sqlliteDb');
@@ -122,7 +121,7 @@ class DbAdapterManagerTest extends TestCase
     public function testWrongAliase()
     {
         $dam = new DbAdapterManager();
-        $dam->addDbAdapterConfig( $this->sampleConfig );
+        $dam->addAdapterConfig( $this->sampleConfig );
 
         $dam->getAdapter( 'wrongAliase' );
     }
@@ -133,7 +132,7 @@ class DbAdapterManagerTest extends TestCase
     public function testWrongConfig()
     {
         $dam = new DbAdapterManager();
-        $dam->addDbAdapterConfig( $this->sampleConfig );
+        $dam->addAdapterConfig( $this->sampleConfig );
 
         $dam->getAdapter( 'wrongConfig' );
     }
@@ -144,7 +143,7 @@ class DbAdapterManagerTest extends TestCase
     public function testAdapterDuplicatKey()
     {
         $dam = new DbAdapterManager();
-        $dam->addDbAdapterConfig( $this->sampleConfig );
+        $dam->addAdapterConfig( $this->sampleConfig );
 
         $adapter = $dam->getAdapter('sqlliteDb');
         $dam->getAdapter('sqlliteDb',$adapter);
