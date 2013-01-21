@@ -8,7 +8,7 @@
  * @package   Zend_Db
  */
 
-namespace Zend\Db\Adapter;
+namespace Zend\Mvc\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -18,8 +18,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @package    Zend_Db
  * @subpackage Adapter
  */
-class AdapterManagerFactory
-    implements FactoryInterface
+class DbAdapterManagerFactory implements FactoryInterface
 {
     /**
      * Create db adapter service
@@ -32,7 +31,7 @@ class AdapterManagerFactory
         $configArray = $serviceLocator->get('Config');
 
         $adapterService = new AdapterManager();
-        $adapterService->addDbAdapterConfig($configArray['db']);
+        $adapterService->addDbAdapterConfig($configArray['db_adapter_manager']);
 
         return $adapterService;
     }

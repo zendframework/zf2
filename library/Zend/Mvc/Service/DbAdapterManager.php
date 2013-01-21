@@ -8,14 +8,15 @@
  * @package   Zend_Db
  */
 
-namespace Zend\Db\Adapter;
+namespace Zend\Mvc\Service;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\Db\Adapter\Adapter;
+use Zend\Mvc\Exception\RuntimeException;
+use Zend\Mvc\Exception\InvalidArgumentException;
 
-class AdapterManager
-    implements ServiceLocatorAwareInterface
+class DbAdapterManager implements ServiceLocatorAwareInterface
 {
     /**
      *
@@ -32,15 +33,15 @@ class AdapterManager
 
     /**
      * @param array $config
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
-    public function addDbAdapterConfig (array $configArray)
+    public function addDbAdapterConfig(array $configArray)
     {
-        foreach ( $configArray as $key=>$config) {
+        foreach ($configArray as $key => $config) {
             if ( $this->hasAdapter($key) ) {
-                throw new \RuntimeException(sprintf("adapter with key(%s) is allready registered",$key));
+                throw new RuntimeException(sprintf("adapter with key(%s) is allready registered",$key));
             } elseif ( $this->hasAdapterConfig($key) ) {
-                throw new \RuntimeException(sprintf("adapter config with key(%s) is allready defined",$key));
+                throw new RuntimeException(sprintf("adapter config with key(%s) is allready defined",$key));
             }
 
             $this->_dbAdapterConfig[ $key ] = $config;
@@ -50,7 +51,7 @@ class AdapterManager
     /**
      * @param ServiceLocatorInterface $serviceLocator
      */
-    public function setServiceLocator( ServiceLocatorInterface $serviceLocator)
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->_serviceLocator = $serviceLocator;
     }
@@ -65,9 +66,9 @@ class AdapterManager
 
     /**
      * @param array $config
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
-    public function hasAdapterConfig ($adapterKey)
+    public function hasAdapterConfig($adapterKey)
     {
         return ( isset($this->_dbAdapterConfig[ $adapterKey ]) );
     }
@@ -75,16 +76,16 @@ class AdapterManager
     /**
      * @param string $key
      * @param Adapter $adapter
-     * @throws \RuntimeException
+     * @throws RuntimeException
      * @return boolean
      */
-    public function addAdapter ($key, Adapter $adapter)
+    public function addAdapter($key, Adapter $adapter)
     {
         if ( $this->hasAdapter($key) ) {
             if ( $this->_dbAdapter[$key] === $adapter ) {
                 return true;
             }
-            throw new \RuntimeException(sprintf("adapter key (%s) allready exist",$key));
+            throw new RuntimeException(sprintf("adapter key (%s) allready exist",$key));
         }
 
         $this->_dbAdapter[ $key ] = $adapter;
@@ -95,26 +96,26 @@ class AdapterManager
      * @param string $key
      * @return bool
      */
-    public function hasAdapter ($key)
+    public function hasAdapter($key)
     {
         return ( isset($this->_dbAdapter[$key]) );
     }
 
     /**
      * @param string $key
-     * @throws \RuntimeException
+     * @throws RuntimeException
      * @return Adapter
      */
-    public function getAdapter ($key)
+    public function getAdapter($key)
     {
         if ( !$this->hasAdapter($key) ) {
             if ( !$this->hasAdapterConfig($key) ) {
-                throw new \RuntimeException(sprintf("adapter key (%s) not exist",$key));
+                throw new RuntimeException(sprintf("adapter key (%s) not exist",$key));
             }
 
             $this->initAdapter($key);
             if ( !$this->hasAdapter($key) ) {
-                throw new \RuntimeException(sprintf("adapter cound init for key (%s)",$key));
+                throw new RuntimeException(sprintf("adapter cound init for key (%s)",$key));
             }
         }
 
@@ -123,10 +124,10 @@ class AdapterManager
 
     /**
      * @param string $key
-     * @throws \RuntimeException
+     * @throws RuntimeException
      * @return Adapter
      */
-    protected function initAdapter ($key)
+    protected function initAdapter($key)
     {
         $config = $this->_dbAdapterConfig[ $key ];
 
@@ -135,9 +136,9 @@ class AdapterManager
         } elseif (!is_array($config) ||
                   !array_key_exists('driver', $config)
         ) {
-            throw new \RuntimeException("adapter config on key (%s) is not an valid key or array");
+            throw new RuntimeException("adapter config on key (%s) is not an valid key or array");
         } else {
-            $this->_dbAdapter[ $key ] = $this->factoryAdapter( $config, $this->getServiceLocator() );
+            $this->_dbAdapter[ $key ] = $this->adapterFactory( $config, $this->getServiceLocator() );
         }
 
         return $this->_dbAdapter[ $key ];
@@ -149,7 +150,7 @@ class AdapterManager
      * @throws InvalidArgumentException
      * @return Adapter
      */
-    public function factoryAdapter($config, ServiceLocatorInterface $serviceLocator=null)
+    public function adapterFactory($config, ServiceLocatorInterface $serviceLocator=null)
     {
         if ( $serviceLocator === null ) {
             $serviceLocator = $this->getServiceLocator();
