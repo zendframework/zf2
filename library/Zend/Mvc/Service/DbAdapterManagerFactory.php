@@ -30,8 +30,8 @@ class DbAdapterManagerFactory implements FactoryInterface
     {
         $configArray = $serviceLocator->get('Config');
 
-        $adapterService = new AdapterManager();
-        $adapterService->addDbAdapterConfig($configArray['db_adapter_manager']);
+        $adapterService = new DbAdapterManager();
+        $adapterService->addAdapterConfig($configArray['db_adapter_manager']);
 
         return $adapterService;
     }

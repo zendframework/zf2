@@ -13,8 +13,12 @@ namespace Zend\Mvc\Service;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\Db\Adapter\Adapter;
-use Zend\Mvc\Exception\RuntimeException;
-use Zend\Mvc\Exception\InvalidArgumentException;
+use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterAllreadyRegistered;
+use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterCoundInit;
+use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterNotExist;
+use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterConfigNotVaild;
+
+use Exception;
 
 class DbAdapterManager implements ServiceLocatorAwareInterface
 {
@@ -33,15 +37,15 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
 
     /**
      * @param array $config
-     * @throws RuntimeException
+     * @throws DbAdapterManagerAdapterAllreadyRegistered
      */
-    public function addDbAdapterConfig(array $configArray)
+    public function addAdapterConfig(array $configArray)
     {
         foreach ($configArray as $key => $config) {
             if ( $this->hasAdapter($key) ) {
-                throw new RuntimeException(sprintf("adapter with key(%s) is allready registered",$key));
+                throw new DbAdapterManagerAdapterAllreadyRegistered(sprintf("adapter with key(%s) is allready registered",$key));
             } elseif ( $this->hasAdapterConfig($key) ) {
-                throw new RuntimeException(sprintf("adapter config with key(%s) is allready defined",$key));
+                throw new DbAdapterManagerAdapterAllreadyRegistered(sprintf("adapter config with key(%s) is allready defined",$key));
             }
 
             $this->_dbAdapterConfig[ $key ] = $config;
@@ -66,7 +70,19 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
 
     /**
      * @param array $config
-     * @throws RuntimeException
+     * @throws DbAdapterManagerAdapterNotExist
+     */
+    public function getAdapterConfig($adapterKey)
+    {
+        if ( !$this->hasAdapterConfig($adapterKey) ) {
+            throw new DbAdapterManagerAdapterNotExist(sprintf("adapter config with the key (%s) not exist",$adapterKey));
+        }
+        return $this->_dbAdapterConfig[ $adapterKey ];
+    }
+
+    /**
+     * @param array $config
+     * @return bool
      */
     public function hasAdapterConfig($adapterKey)
     {
@@ -76,8 +92,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
     /**
      * @param string $key
      * @param Adapter $adapter
-     * @throws RuntimeException
-     * @return boolean
+     * @throws DbAdapterManagerAdapterAllreadyRegistered
      */
     public function addAdapter($key, Adapter $adapter)
     {
@@ -85,7 +100,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
             if ( $this->_dbAdapter[$key] === $adapter ) {
                 return true;
             }
-            throw new RuntimeException(sprintf("adapter key (%s) allready exist",$key));
+            throw new DbAdapterManagerAdapterAllreadyRegistered(sprintf("adapter key (%s) allready exist",$key));
         }
 
         $this->_dbAdapter[ $key ] = $adapter;
@@ -103,19 +118,24 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
 
     /**
      * @param string $key
-     * @throws RuntimeException
+     * @throws DbAdapterManagerAdapterNotExist || DbAdapterManagerAdapterCoundInit
      * @return Adapter
      */
     public function getAdapter($key)
     {
         if ( !$this->hasAdapter($key) ) {
             if ( !$this->hasAdapterConfig($key) ) {
-                throw new RuntimeException(sprintf("adapter key (%s) not exist",$key));
+                throw new DbAdapterManagerAdapterNotExist(sprintf("adapter key (%s) not exist",$key));
             }
 
-            $this->initAdapter($key);
+            try {
+                $this->initAdapter($key);
+            } catch (\Exception $exception) {
+                throw new DbAdapterManagerAdapterCoundInit(sprintf("adapter cound init for key (%s)",$key),0,$exception);
+            }
+
             if ( !$this->hasAdapter($key) ) {
-                throw new RuntimeException(sprintf("adapter cound init for key (%s)",$key));
+                throw new DbAdapterManagerAdapterCoundInit(sprintf("adapter cound init for key (%s)",$key));
             }
         }
 
@@ -124,7 +144,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
 
     /**
      * @param string $key
-     * @throws RuntimeException
+     * @throws DbAdapterManagerAdapterConfigNotVaild
      * @return Adapter
      */
     protected function initAdapter($key)
@@ -136,9 +156,18 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
         } elseif (!is_array($config) ||
                   !array_key_exists('driver', $config)
         ) {
-            throw new RuntimeException("adapter config on key (%s) is not an valid key or array");
+            throw new DbAdapterManagerAdapterConfigNotVaild(sprintf("adapter config on key (%s) is not an valid key or array", $key));
         } else {
-            $this->_dbAdapter[ $key ] = $this->adapterFactory( $config, $this->getServiceLocator() );
+            try {
+                $this->_dbAdapter[ $key ] = $this->adapterFactory( $config, $this->getServiceLocator() );
+            } catch (Exception $exception) {
+                if ( $exception instanceof DbAdapterManagerAdapterCoundInit ) {
+                    $previous = $exception->getPrevious();
+                } else {
+                    $previous = $exception;
+                }
+                throw new DbAdapterManagerAdapterCoundInit(sprintf("adapter cound init for key", $key),0,$previous );
+            }
         }
 
         return $this->_dbAdapter[ $key ];
@@ -147,7 +176,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
     /**
      * @param array $config
      * @param ServiceLocatorInterface $serviceLocator
-     * @throws InvalidArgumentException
+     * @throws DbAdapterManagerAdapterConfigNotVaild
      * @return Adapter
      */
     public function adapterFactory($config, ServiceLocatorInterface $serviceLocator=null)
@@ -171,10 +200,10 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
                 }
 
                 if ( !is_object($platform) ) {
-                    throw new InvalidArgumentException("database config['driver'] string is not a confirmed class/service name");
+                    throw new DbAdapterManagerAdapterConfigNotVaild("database config['driver'] string is not a confirmed class/service name");
                 }
             } else {
-                throw new InvalidArgumentException("database config['driver'] must be a array or string of class/service name");
+                throw new DbAdapterManagerAdapterConfigNotVaild("database config['driver'] must be a array or string of class/service name");
             }
         }
 
@@ -202,9 +231,15 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
             $queryResultPrototype = null;
         }
 
-        return new Adapter($driver,
+        try {
+            $adapter = new Adapter($driver,
                            $platform,
                            $queryResultPrototype
                           );
+        } catch (\Exception $exception) {
+            throw new DbAdapterManagerAdapterCoundInit("adapter cound init",0,$exception);
+        }
+        
+        return $adapter;
     }
 }
