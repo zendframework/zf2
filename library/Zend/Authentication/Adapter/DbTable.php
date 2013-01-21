@@ -103,6 +103,12 @@ class DbTable implements AdapterInterface
     protected $ambiguityIdentity = false;
 
     /**
+     * Closure for custom password checker
+     * @val Closure
+     */
+    protected $passwordChecker = null;
+
+    /**
      * __construct() - Sets configuration options
      *
      * @param  DbAdapter $zendDb
@@ -303,6 +309,27 @@ class DbTable implements AdapterInterface
         return $returnObject;
     }
 
+
+    /**
+     * Set the password checker callback
+     * @param Closure $callback
+     */
+    public function setPasswordChecker( $callback ) {
+        
+        if(!is_callable($callback)) {
+    		throw new \InvalidArgumentException("Password checker must be callable");
+	}
+        
+        $this->passwordChecker = $callback;
+    }
+
+    /**
+     * Get the password cehcker closure
+     */
+    public function getPasswordChecker() {
+        return $this->passwordChecker;
+    }
+
     /**
      * This method is called to attempt an authentication. Previous to this
      * call, this adapter would have already been configured with all
@@ -459,6 +486,13 @@ class DbTable implements AdapterInterface
      */
     protected function _authenticateValidateResult($resultIdentity)
     {
+        if($this->passwordChecker != null) {
+    	    $callback = $this->passwordChecker;	
+            if ($callback($resultIdentity[$this->credentialColumn], $this->credential)) {
+                $resultIdentity['zend_auth_credential_match'] = '1';
+            }
+	}
+        
         if ($resultIdentity['zend_auth_credential_match'] != '1') {
             $this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
             $this->authenticateResultInfo['messages'][] = 'Supplied credential is invalid.';
