@@ -151,6 +151,13 @@ class ConfigListener extends AbstractListener implements
         $this->mergedConfig = $this->getOptions()->getExtraConfig() ?: array();
         foreach ($this->configs as $config) {
             $this->mergedConfig = ArrayUtils::merge($this->mergedConfig, $config);
+
+            if (array_key_exists('config_merge_remove_keys', $this->mergedConfig)){
+                $this->configMergeRemoveKeys(
+                    $this->mergedConfig,
+                    array_merge($this->mergedConfig['config_merge_remove_keys'], array('config_merge_remove_keys'))
+                );
+            }
         }
 
         // If enabled, update the config cache
@@ -163,6 +170,21 @@ class ConfigListener extends AbstractListener implements
         }
 
         return $this;
+    }
+
+    protected function configMergeRemoveKeys(array &$array, array $keys){
+
+        foreach ($keys as $key => $value){
+            if (array_key_exists($key, $array)){
+                if (is_array($value)){
+                    $this->configMergeRemoveKeys($array[$key], $value);
+                } else {
+                    unset($array[$key]);
+                }
+            } elseif (array_key_exists($value, $array)){
+                unset($array[$value]);
+            }
+        }
     }
 
     /**

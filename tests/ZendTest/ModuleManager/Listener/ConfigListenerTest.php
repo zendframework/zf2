@@ -370,6 +370,28 @@ class ConfigListenerTest extends TestCase
         $this->assertSame('bar', $mergedConfig['keyed']);
     }
 
+    public function testMergesWithRemoveKeyBehavior()
+    {
+        $configListener = new ConfigListener();
+
+        $moduleManager = $this->moduleManager;
+        $moduleManager->setModules(array('SomeModule'));
+
+        $configListener->addConfigStaticPaths(array(
+            __DIR__ . '/_files/good/mergeRemoveKey1.php',
+            __DIR__ . '/_files/good/mergeRemoveKey2.php',
+        ));
+
+        $moduleManager->getEventManager()->attachAggregate($configListener);
+        $moduleManager->loadModules();
+
+        $mergedConfig = $configListener->getMergedConfig(false);
+        $this->assertSame(array('foo', 'bar'), $mergedConfig['indexed']);
+        $this->assertArrayNotHasKey('keyed', $mergedConfig);
+        $this->assertArrayNotHasKey('key1', $mergedConfig['nested']);
+        $this->assertArrayNotHasKey('config_merge_remove_keys', $mergedConfig);
+    }
+
     public function testConfigListenerFunctionsAsAggregateListener()
     {
         $configListener = new ConfigListener;
