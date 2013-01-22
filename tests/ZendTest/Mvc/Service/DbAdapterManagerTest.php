@@ -13,7 +13,6 @@ namespace ZendTest\Mvc\Service;
 use PHPUnit_Framework_TestCase as TestCase;
 
 use Zend\Mvc\Service\DbAdapterManager;
-use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterAllreadyRegistered;
 
 class DbAdapterManagerTest extends TestCase
 {
@@ -116,7 +115,7 @@ class DbAdapterManagerTest extends TestCase
     }
 
     /**
-     * @expectedException DbAdapterManagerAdapterNotExist
+     * @expectedException Zend\Mvc\Service\Exception\DbAdapterManagerAdapterNotExist
      */
     public function testWrongAliase()
     {
@@ -127,7 +126,7 @@ class DbAdapterManagerTest extends TestCase
     }
 
     /**
-     * @expectedException DbAdapterManagerAdapterCoundInit
+     * @expectedException Zend\Mvc\Service\Exception\DbAdapterManagerAdapterCoundInit
      */
     public function testWrongConfig()
     {
@@ -138,7 +137,7 @@ class DbAdapterManagerTest extends TestCase
     }
 
     /**
-     * @expectedException DbAdapterManagerAdapterAllreadyRegistered
+     * @expectedException Zend\Mvc\Service\Exception\DbAdapterManagerAdapterAllreadyRegistered
      */
     public function testAdapterDuplicatKey()
     {
