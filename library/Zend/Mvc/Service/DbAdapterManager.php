@@ -212,6 +212,45 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
     }
 
     /**
+     * return a driver object from a config
+     *
+     * @param array $config
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return Platform || null
+     */
+    protected function getDriverObjectFromConfig ($config, ServiceLocatorInterface $serviceLocator=null)
+    {
+        if ( !isset($config['driver']) ) {
+            // @todo: throw a error or return null ?
+            goto RETURN_NULL;
+        }
+
+        if ( is_array($config['driver']) || is_object($config['driver']) ) {
+            $driver = $config['driver'];
+        } elseif ( is_string($config['driver']) ) {
+            if( class_exists($config['driver']) ) {
+                $driver = new $config['driver']();
+            } else {
+                $driver = $serviceLocator->get($config['driver']);
+            }
+
+            if ( !is_object($driver) ) {
+                throw new DbAdapterManagerAdapterConfigNotVaild("database config['driver'] string is not a confirmed class/service name");
+            }
+        } else {
+            throw new DbAdapterManagerAdapterConfigNotVaild("database config['driver'] must be a array or string of class/service name");
+        }
+
+        goto RETURN_OBJECT;
+
+        RETURN_NULL:
+            return null;
+
+        RETURN_OBJECT:
+            return $driver;
+    }
+
+    /**
      * @param array $config
      * @param ServiceLocatorInterface $serviceLocator
      * @throws DbAdapterManagerAdapterConfigNotVaild
@@ -227,25 +266,8 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
         $platform             = null;
         $queryResultPrototype = null;
 
-        if ( isset($config['driver']) ) {
-            if ( is_array($config['driver']) ) {
-                $driver = $config['driver'];
-            } elseif ( is_string($config['driver']) ) {
-                if( class_exists($config['driver']) ) {
-                    $driver = new $config['driver']();
-                } else {
-                    $driver = $serviceLocator->get($config['driver']);
-                }
-
-                if ( !is_object($platform) ) {
-                    throw new DbAdapterManagerAdapterConfigNotVaild("database config['driver'] string is not a confirmed class/service name");
-                }
-            } else {
-                throw new DbAdapterManagerAdapterConfigNotVaild("database config['driver'] must be a array or string of class/service name");
-            }
-        }
-
-        $platform = $this->getPlatformObejctFromConfig($config,$serviceLocator);
+        $driver = $this->getDriverObjectFromConfig($config,$serviceLocator);
+        $platform = $this->getPlatformObjectFromConfig($config,$serviceLocator);
 
         if ( isset($config['queryResultPrototype']) ) {
             if( class_exists($config['queryResultPrototype']) ) {
