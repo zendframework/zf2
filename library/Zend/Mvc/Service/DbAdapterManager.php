@@ -10,14 +10,15 @@
 
 namespace Zend\Mvc\Service;
 
+
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\Db\Adapter\Adapter;
+use Zend\Db\Sql\Platform\Platform;
 use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterAllreadyRegistered;
 use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterCoundInit;
 use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterNotExist;
 use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterConfigNotVaild;
-
 use Exception;
 
 class DbAdapterManager implements ServiceLocatorAwareInterface
@@ -174,6 +175,43 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
     }
 
     /**
+     * return a platform object from a config
+     *
+     * @param array $config
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return Platform || null
+     */
+    protected function getPlatformObjectFromConfig ($config, ServiceLocatorInterface $serviceLocator=null)
+    {
+        if ( !isset($config['platform']) ) {
+            goto RETURN_NULL;
+        }
+
+        if ( is_string ($config['platform']) ) {
+            if( class_exists($config['platform']) ) {
+                $platform = new $config['platform']();
+            } else {
+                if ( $serviceLocator === null ) {
+                    $serviceLocator = $this->getServiceLocator();
+                }
+                $platform = $serviceLocator->get($config['platform']);
+            }
+        } else {
+            $platform = $config['platform'];
+        }
+
+        if ( is_object($platform) ) {
+            goto RETURN_OBJECT;
+        }
+
+        RETURN_NULL:
+            return null;
+
+        RETURN_OBJECT:
+            return $platform;
+    }
+
+    /**
      * @param array $config
      * @param ServiceLocatorInterface $serviceLocator
      * @throws DbAdapterManagerAdapterConfigNotVaild
@@ -207,17 +245,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
             }
         }
 
-        if ( isset($config['platform']) ) {
-            if( class_exists($config['platform']) ) {
-                $platform = new $config['platform']();
-            } else {
-                $platform = $serviceLocator->get($config['platform']);
-            }
-        }
-
-        if ( !is_object($platform) ) {
-            $platform = null;
-        }
+        $platform = $this->getPlatformObejctFromConfig($config,$serviceLocator);
 
         if ( isset($config['queryResultPrototype']) ) {
             if( class_exists($config['queryResultPrototype']) ) {
