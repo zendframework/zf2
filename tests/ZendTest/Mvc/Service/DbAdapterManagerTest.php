@@ -42,7 +42,7 @@ class DbAdapterManagerTest extends TestCase
             ),
             'sqlliteDb2'=>'sqlliteDb',
             'sqlliteDb3'=>'sqlliteDb2',
-            'wrongAliase'=>'dev_null',
+            'wrongAlias'=>'dev_null',
             'wrongConfig'=>array(
                 'driver'=>array()
             ),
@@ -98,7 +98,7 @@ class DbAdapterManagerTest extends TestCase
         }
     }
 
-    public function testInitDbAdapterAliase()
+    public function testInitDbAdapterAlias()
     {
         $dam = new DbAdapterManager();
         $dam->addAdapterConfig( $this->sampleConfig );
@@ -115,14 +115,14 @@ class DbAdapterManagerTest extends TestCase
     }
 
     /**
-     * @expectedException Zend\Mvc\Service\Exception\DbAdapterManagerAdapterNotExist
+     * @expectedException Zend\Mvc\Service\Exception\DbAdapterManagerAdapterCoundInit
      */
-    public function testWrongAliase()
+    public function testWrongAlias()
     {
         $dam = new DbAdapterManager();
         $dam->addAdapterConfig( $this->sampleConfig );
 
-        $dam->getAdapter( 'wrongAliase' );
+        $dam->getAdapter( 'wrongAlias' );
     }
 
     /**
