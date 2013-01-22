@@ -156,6 +156,6 @@ class DbAdapterManagerTest extends TestCase
         $dam->addAdapterConfig( $this->sampleConfig );
 
         $adapter = $dam->getAdapter('sqlliteDb');
-        $dam->getAdapter('mysqliDb',$adapter);
+        $dam->addAdapter('mysqliDb',$adapter);
     }
 }
