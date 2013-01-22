@@ -148,7 +148,7 @@ class DbAdapterManagerTest extends TestCase
     }
 
     /**
-     * @expectedException Zend\Mvc\Service\Exception\DbAdapterManagerAdapterAllreadyRegistered
+     * @expectedException Zend\Mvc\Service\Exception\DbAdapterManagerAdapterAlreadyRegistered
      */
     public function testAdapterDuplicatKey()
     {

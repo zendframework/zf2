@@ -15,7 +15,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Platform\Platform;
-use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterAllreadyRegistered;
+use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterAlreadyRegistered;
 use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterCoundInit;
 use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterNotExist;
 use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterConfigNotVaild;
@@ -38,15 +38,15 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
 
     /**
      * @param array $config
-     * @throws DbAdapterManagerAdapterAllreadyRegistered
+     * @throws DbAdapterManagerAdapterAlreadyRegistered
      */
     public function addAdapterConfig(array $configArray)
     {
         foreach ($configArray as $key => $config) {
             if ( $this->hasAdapter($key) ) {
-                throw new DbAdapterManagerAdapterAllreadyRegistered(sprintf("adapter with key(%s) is allready registered",$key));
+                throw new DbAdapterManagerAdapterAlreadyRegistered(sprintf("adapter with key(%s) is allready registered",$key));
             } elseif ( $this->hasAdapterConfig($key) ) {
-                throw new DbAdapterManagerAdapterAllreadyRegistered(sprintf("adapter config with key(%s) is allready defined",$key));
+                throw new DbAdapterManagerAdapterAlreadyRegistered(sprintf("adapter config with key(%s) is allready defined",$key));
             }
 
             $this->_dbAdapterConfig[ $key ] = $config;
@@ -93,7 +93,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
     /**
      * @param string $key
      * @param Adapter $adapter
-     * @throws DbAdapterManagerAdapterAllreadyRegistered
+     * @throws DbAdapterManagerAdapterAlreadyRegistered
      */
     public function addAdapter($key, Adapter $adapter)
     {
@@ -101,7 +101,10 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
             if ( $this->_dbAdapter[$key] === $adapter ) {
                 return true;
             }
-            throw new DbAdapterManagerAdapterAllreadyRegistered(sprintf("adapter key (%s) allready exist",$key));
+            throw new DbAdapterManagerAdapterAlreadyRegistered(sprintf("adapter key (%s) allready exist",$key));
+        }
+        elseif ( $this->hasAdapterConfig($key) ) {
+            throw new DbAdapterManagerAdapterAlreadyRegistered(sprintf("adapter key (%s) allready exist",$key));
         }
 
         $this->_dbAdapter[ $key ] = $adapter;
