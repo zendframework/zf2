@@ -115,6 +115,17 @@ class DbAdapterManagerTest extends TestCase
     }
 
     /**
+     * @expectedException Zend\Mvc\Service\Exception\DbAdapterManagerAdapterNotExist
+     */
+    public function testAdapterNotExist()
+    {
+        $dam = new DbAdapterManager();
+        $dam->addAdapterConfig( $this->sampleConfig );
+
+        $dam->getAdapter( 'dev_null' );
+    }
+
+    /**
      * @expectedException Zend\Mvc\Service\Exception\DbAdapterManagerAdapterCoundInit
      */
     public function testWrongAlias()
