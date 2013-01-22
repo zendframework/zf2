@@ -136,7 +136,7 @@ class Symbol
      */
     public function getNullDenotation()
     {
-        if ($this->nullDenotationGetter === null) {
+        if (null === $this->nullDenotationGetter) {
             throw new Exception\ParseException(sprintf(
                 'Syntax error: %s', $this->id
             ));
@@ -156,7 +156,7 @@ class Symbol
      */
     public function getLeftDenotation($left)
     {
-        if ($this->leftDenotationGetter === null) {
+        if (null === $this->leftDenotationGetter) {
             throw new Exception\ParseException(sprintf(
                 'Unknown operator: %s', $this->id
             ));

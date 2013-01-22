@@ -70,11 +70,11 @@ class Item implements TaggableInterface
 
         $this->setOptions($options);
 
-        if ($this->title === null) {
+        if (null === $this->title) {
             throw new Exception\InvalidArgumentException('Title was not set');
         }
 
-        if ($this->weight === null) {
+        if (null === $this->weight) {
             throw new Exception\InvalidArgumentException('Weight was not set');
         }
     }

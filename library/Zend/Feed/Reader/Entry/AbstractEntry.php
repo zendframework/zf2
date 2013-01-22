@@ -76,9 +76,9 @@ abstract class AbstractEntry
         $this->entry       = $entry;
         $this->entryKey    = $entryKey;
         $this->domDocument = $entry->ownerDocument;
-        if ($type !== null) {
+        if (null !== $type) {
             $this->data['type'] = $type;
-        } elseif ($this->domDocument !== null) {
+        } elseif (null !== $this->domDocument) {
             $this->data['type'] = Reader\Reader::detectType($this->domDocument);
         } else {
             $this->data['type'] = Reader\Reader::TYPE_ANY;

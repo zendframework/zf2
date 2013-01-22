@@ -80,7 +80,7 @@ abstract class AbstractFeed implements Feed\FeedInterface
         $this->domDocument = $domDocument;
         $this->xpath = new DOMXPath($this->domDocument);
 
-        if ($type !== null) {
+        if (null !== $type) {
             $this->data['type'] = $type;
         } else {
             $this->data['type'] = Reader::detectType($this->domDocument);

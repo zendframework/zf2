@@ -68,7 +68,7 @@ class Callback extends PubSubHubbub\AbstractCallback
      */
     public function handle(array $httpGetData = null, $sendResponseNow = false)
     {
-        if ($httpGetData === null) {
+        if (null === $httpGetData) {
             $httpGetData = $_GET;
         }
 
@@ -200,7 +200,7 @@ class Callback extends PubSubHubbub\AbstractCallback
      */
     public function hasFeedUpdate()
     {
-        if ($this->feedUpdate === null) {
+        if (null === $this->feedUpdate) {
             return false;
         }
         return true;

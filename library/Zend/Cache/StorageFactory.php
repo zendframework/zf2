@@ -153,7 +153,7 @@ class StorageFactory
      */
     public static function getAdapterPluginManager()
     {
-        if (static::$adapters === null) {
+        if (null === static::$adapters) {
             static::$adapters = new Storage\AdapterPluginManager();
         }
         return static::$adapters;
@@ -215,7 +215,7 @@ class StorageFactory
      */
     public static function getPluginManager()
     {
-        if (static::$plugins === null) {
+        if (null === static::$plugins) {
             static::$plugins = new Storage\PluginManager();
         }
         return static::$plugins;

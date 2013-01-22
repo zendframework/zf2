@@ -420,7 +420,7 @@ class Socket implements HttpAdapter, StreamInterface
 
             // Close the connection if requested to do so by the server
             $connection = $headers->get('connection');
-            if ($connection && $connection->getFieldValue() == 'close') {
+            if ($connection && 'close' == $connection->getFieldValue()) {
                 $this->close();
             }
             return $response;
@@ -554,7 +554,7 @@ class Socket implements HttpAdapter, StreamInterface
 
         // Close the connection if requested to do so by the server
         $connection = $headers->get('connection');
-        if ($connection && $connection->getFieldValue() == 'close') {
+        if ($connection && 'close' == $connection->getFieldValue()) {
             $this->close();
         }
 

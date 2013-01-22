@@ -163,7 +163,7 @@ abstract class AbstractEntry
     public function getType()
     {
         $type = $this->data['type'];
-        if ($type === null) {
+        if (null === $type) {
             $type = Reader\Reader::detectType($this->getEntryElement(), true);
             $this->setType($type);
         }

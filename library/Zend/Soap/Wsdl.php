@@ -141,7 +141,7 @@ class Wsdl
         $oldUri = $this->uri;
         $this->uri = $uri;
 
-        if ($this->dom !== null) {
+        if (null !== $this->dom) {
             // @todo: This is the worst hack ever, but its needed due to design and non BC issues of WSDL generation
             $xml = $this->dom->saveXML();
             $xml = str_replace($oldUri, $uri, $xml);
@@ -484,7 +484,7 @@ class Wsdl
      */
     public function getSchema()
     {
-        if ($this->schema == null) {
+        if (null === $this->schema) {
             $this->addSchemaTypeSection();
         }
 
@@ -570,7 +570,7 @@ class Wsdl
      */
     public function addSchemaTypeSection()
     {
-        if ($this->schema === null) {
+        if (null === $this->schema) {
             $this->schema = $this->dom->createElement('xsd:schema');
             $this->schema->setAttribute('targetNamespace', $this->uri);
             $types = $this->dom->createElement('types');

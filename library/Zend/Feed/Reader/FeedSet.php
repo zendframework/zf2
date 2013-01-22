@@ -72,7 +72,7 @@ class FeedSet extends ArrayObject
     {
         $linkUri = Uri\UriFactory::factory($link);
         if (!$linkUri->isAbsolute() or !$linkUri->isValid()) {
-            if ($uri !== null) {
+            if (null !== $uri) {
                 $uri = Uri\UriFactory::factory($uri);
 
                 if ($link[0] !== '/') {

@@ -146,7 +146,7 @@ class EventManager implements EventManagerInterface
     {
         if (is_array($identifiers) || $identifiers instanceof Traversable) {
             $this->identifiers = array_unique((array) $identifiers);
-        } elseif ($identifiers !== null) {
+        } elseif (null !== $identifiers) {
             $this->identifiers = array($identifiers);
         }
         return $this;
@@ -162,7 +162,7 @@ class EventManager implements EventManagerInterface
     {
         if (is_array($identifiers) || $identifiers instanceof Traversable) {
             $this->identifiers = array_unique($this->identifiers + (array) $identifiers);
-        } elseif ($identifiers !== null) {
+        } elseif (null !== $identifiers) {
             $this->identifiers = array_unique(array_merge($this->identifiers, array($identifiers)));
         }
         return $this;

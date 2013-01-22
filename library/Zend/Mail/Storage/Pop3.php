@@ -84,7 +84,7 @@ class Pop3 extends AbstractStorage
      */
     public function getRawHeader($id, $part = null, $topLines = 0)
     {
-        if ($part !== null) {
+        if (null !== $part) {
             // TODO: implement
             throw new Exception\RuntimeException('not implemented');
         }
@@ -103,7 +103,7 @@ class Pop3 extends AbstractStorage
      */
     public function getRawContent($id, $part = null)
     {
-        if ($part !== null) {
+        if (null !== $part) {
             // TODO: implement
             throw new Exception\RuntimeException('not implemented');
         }
@@ -253,12 +253,12 @@ class Pop3 extends AbstractStorage
     public function __get($var)
     {
         $result = parent::__get($var);
-        if ($result !== null) {
+        if (null !== $result) {
             return $result;
         }
 
         if (strtolower($var) == 'hastop') {
-            if ($this->protocol->hasTop === null) {
+            if (null === $this->protocol->hasTop) {
                 // need to make a real call, because not all server are honest in their capas
                 try {
                     $this->protocol->top(1, 0, false);

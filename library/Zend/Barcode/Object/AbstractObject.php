@@ -789,7 +789,7 @@ abstract class AbstractObject implements ObjectInterface
      */
     protected function addPolygon(array $points, $color = null, $filled = true)
     {
-        if ($color === null) {
+        if (null === $color) {
             $color = $this->foreColor;
         }
         $this->addInstruction(array(
@@ -819,7 +819,7 @@ abstract class AbstractObject implements ObjectInterface
         $alignment = 'center',
         $orientation = 0
     ) {
-        if ($color === null) {
+        if (null === $color) {
             $color = $this->foreColor;
         }
         $this->addInstruction(array(
@@ -853,7 +853,7 @@ abstract class AbstractObject implements ObjectInterface
      */
     protected function checkText($value = null)
     {
-        if ($value === null) {
+        if (null === $value) {
             $value = $this->text;
         }
         if (!strlen($value)) {
@@ -949,7 +949,7 @@ abstract class AbstractObject implements ObjectInterface
      */
     public function getHeight($recalculate = false)
     {
-        if ($this->height === null || $recalculate) {
+        if (null === $this->height || $recalculate) {
             $this->height =
                 abs($this->calculateHeight() * cos($this->orientation / 180 * pi()))
                 + abs($this->calculateWidth() * sin($this->orientation / 180 * pi()));
@@ -964,7 +964,7 @@ abstract class AbstractObject implements ObjectInterface
      */
     public function getWidth($recalculate = false)
     {
-        if ($this->width === null || $recalculate) {
+        if (null === $this->width || $recalculate) {
             $this->width =
                 abs($this->calculateWidth() * cos($this->orientation / 180 * pi()))
                 + abs($this->calculateHeight() * sin($this->orientation / 180 * pi()));
@@ -980,7 +980,7 @@ abstract class AbstractObject implements ObjectInterface
      */
     public function getOffsetLeft($recalculate = false)
     {
-        if ($this->offsetLeft === null || $recalculate) {
+        if (null === $this->offsetLeft || $recalculate) {
             $this->offsetLeft = - min(array(
                 0 * cos(
                         $this->orientation / 180 * pi()) - 0 * sin(
@@ -1007,7 +1007,7 @@ abstract class AbstractObject implements ObjectInterface
      */
     public function getOffsetTop($recalculate = false)
     {
-        if ($this->offsetTop === null || $recalculate) {
+        if (null === $this->offsetTop || $recalculate) {
             $this->offsetTop = - min(array(
                 0 * cos(
                         $this->orientation / 180 * pi()) + 0 * sin(

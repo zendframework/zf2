@@ -213,11 +213,11 @@ class Filter extends Filter\StringFilter
     private static function createFilterString($attr, $value, $filtertype, $prepend = null, $append = null)
     {
         $str = $attr . $filtertype;
-        if ($prepend !== null) {
+        if (null !== $prepend) {
             $str .= $prepend;
         }
         $str .= static::escapeValue($value);
-        if ($append !== null) {
+        if (null !== $append) {
             $str .= $append;
         }
         return $str;

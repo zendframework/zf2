@@ -238,7 +238,7 @@ class ClassScanner implements ScannerInterface
     public function hasParentClass()
     {
         $this->scan();
-        return ($this->parentClass != null);
+        return (null !== $this->parentClass);
     }
 
     /**
@@ -476,7 +476,7 @@ class ClassScanner implements ScannerInterface
          */
         $MACRO_TOKEN_ADVANCE = function () use (&$tokens, &$tokenIndex, &$token, &$tokenType, &$tokenContent, &$tokenLine) {
             static $lastTokenArray = null;
-            $tokenIndex = ($tokenIndex === null) ? 0 : $tokenIndex + 1;
+            $tokenIndex = (null === $tokenIndex) ? 0 : $tokenIndex + 1;
             if (!isset($tokens[$tokenIndex])) {
                 $token        = false;
                 $tokenContent = false;
@@ -686,7 +686,7 @@ class ClassScanner implements ScannerInterface
                         }
                     }
 
-                    if ($memberContext !== null) {
+                    if (null !== $memberContext) {
                         if (
                             ($memberContext === 'property' && $tokenContent === ';')
                             || ($memberContext === 'method' && $methodBodyStarted && $braceCount === 1)
@@ -699,7 +699,7 @@ class ClassScanner implements ScannerInterface
                     switch ($tokenType) {
 
                         case T_VARIABLE:
-                            if ($memberContext === null) {
+                            if (null === $memberContext) {
                                 $memberContext             = 'property';
                                 $infos[$infoIndex]['type'] = 'property';
                                 $infos[$infoIndex]['name'] = ltrim($tokenContent, '$');

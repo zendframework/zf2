@@ -38,7 +38,7 @@ class NameInformation
 
     public function hasNamespace()
     {
-        return ($this->namespace != null);
+        return (null !== $this->namespace);
     }
 
     public function setUses(array $uses)
@@ -69,7 +69,7 @@ class NameInformation
             $as   = $uses['as'];
         }
         $use = trim($use, '\\');
-        if ($as === null) {
+        if (null === $as) {
             $as                  = trim($use, '\\');
             $nsSeparatorPosition = strrpos($as, '\\');
             if ($nsSeparatorPosition !== false && $nsSeparatorPosition !== 0 && $nsSeparatorPosition != strlen($as)) {
@@ -110,5 +110,4 @@ class NameInformation
         }
         return $name;
     }
-
 }

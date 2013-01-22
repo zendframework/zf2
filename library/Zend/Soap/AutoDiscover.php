@@ -111,15 +111,15 @@ class AutoDiscover
         $this->reflection = new Reflection();
         $this->discoveryStrategy = new ReflectionDiscovery();
 
-        if ($strategy !== null) {
+        if (null !== $strategy) {
             $this->setComplexTypeStrategy($strategy);
         }
 
-        if ($endpointUri !== null) {
+        if (null !== $endpointUri) {
             $this->setUri($endpointUri);
         }
 
-        if ($wsdlClass !== null) {
+        if (null !== $wsdlClass) {
             $this->setWsdlClass($wsdlClass);
         }
     }
@@ -225,7 +225,7 @@ class AutoDiscover
      */
     public function getUri()
     {
-        if ($this->uri === null) {
+        if (null === $this->uri) {
             throw new Exception\RuntimeException("Missing uri. You have to explicitly configure the Endpoint Uri by calling AutoDiscover::setUri().");
         }
         if (is_string($this->uri)) {
@@ -417,7 +417,7 @@ class AutoDiscover
                 $prototype = $tmpPrototype;
             }
         }
-        if ($prototype === null) {
+        if (null === $prototype) {
             throw new Exception\InvalidArgumentException("No prototypes could be found for the '" . $function->getName() . "' function");
         }
 

@@ -224,7 +224,7 @@ class FileReflection implements ReflectionInterface
      */
     public function getClass($name = null)
     {
-        if ($name === null) {
+        if (null === $name) {
             reset($this->classes);
             $selected = current($this->classes);
             $instance = new ClassReflection($selected);

@@ -91,7 +91,7 @@ class ProgressBar
         $this->current = (float) $min;
 
         // See if we have to open a session namespace
-        if ($persistenceNamespace !== null) {
+        if (null !== $persistenceNamespace) {
             $this->persistenceNamespace = new Session\Container($persistenceNamespace);
         }
 
@@ -102,7 +102,7 @@ class ProgressBar
         $this->startTime = time();
 
         // See If a persistenceNamespace exists and handle accordingly
-        if ($this->persistenceNamespace !== null) {
+        if (null !== $this->persistenceNamespace) {
             if (isset($this->persistenceNamespace->isSet)) {
                 $this->startTime  = $this->persistenceNamespace->startTime;
                 $this->current    = $this->persistenceNamespace->current;
@@ -138,17 +138,17 @@ class ProgressBar
     public function update($value = null, $text = null)
     {
         // Update value if given
-        if ($value !== null) {
+        if (null !== $value) {
             $this->current = min($this->max, max($this->min, $value));
         }
 
         // Update text if given
-        if ($text !== null) {
+        if (null !== $text) {
             $this->statusText = $text;
         }
 
         // See if we have to update a namespace
-        if ($this->persistenceNamespace !== null) {
+        if (null !== $this->persistenceNamespace) {
             $this->persistenceNamespace->current    = $this->current;
             $this->persistenceNamespace->statusText = $this->statusText;
         }
@@ -192,7 +192,7 @@ class ProgressBar
      */
     public function finish()
     {
-        if ($this->persistenceNamespace !== null) {
+        if (null !== $this->persistenceNamespace) {
             unset($this->persistenceNamespace->isSet);
         }
 

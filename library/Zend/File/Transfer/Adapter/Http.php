@@ -149,13 +149,13 @@ class Http extends AbstractAdapter
             if (!$content['received']) {
                 $directory   = '';
                 $destination = $this->getDestination($file);
-                if ($destination !== null) {
+                if (null !== $destination) {
                     $directory = $destination . DIRECTORY_SEPARATOR;
                 }
 
                 $filename = $directory . $content['name'];
                 $rename   = $this->getFilter('Rename');
-                if ($rename !== null) {
+                if (null !== $rename) {
                     $tmp = $rename->getNewName($content['tmp_name']);
                     if ($tmp != $content['tmp_name']) {
                         $filename = $tmp;
@@ -181,7 +181,7 @@ class Http extends AbstractAdapter
                     return false;
                 }
 
-                if ($rename !== null) {
+                if (null !== $rename) {
                     $this->files[$file]['destination'] = dirname($filename);
                     $this->files[$file]['name']        = basename($filename);
                 }

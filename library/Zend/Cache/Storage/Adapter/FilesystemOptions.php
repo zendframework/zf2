@@ -130,7 +130,7 @@ class FilesystemOptions extends AdapterOptions
      */
     public function setCacheDir($cacheDir)
     {
-        if ($cacheDir !== null) {
+        if (null !== $cacheDir) {
             if (!is_dir($cacheDir)) {
                 throw new Exception\InvalidArgumentException(
                     "Cache directory '{$cacheDir}' not found or not a directory"
@@ -162,7 +162,7 @@ class FilesystemOptions extends AdapterOptions
      */
     public function getCacheDir()
     {
-        if ($this->cacheDir === null) {
+        if (null === $this->cacheDir) {
             $this->setCacheDir(null);
         }
 

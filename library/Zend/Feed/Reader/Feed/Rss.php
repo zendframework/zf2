@@ -219,7 +219,7 @@ class Rss extends AbstractFeed
                             $date = DateTime::createFromFormat($standard, $dateModified);
                             break;
                         } catch (\Exception $e) {
-                            if ($standard == null) {
+                            if (null === $standard) {
                                 throw new Exception\RuntimeException(
                                     'Could not load date due to unrecognised'
                                     .' format (should follow RFC 822 or 2822):'
@@ -280,7 +280,7 @@ class Rss extends AbstractFeed
                             $date = DateTime::createFromFormat($standard, $lastBuildDateParsed);
                             break;
                         } catch (\Exception $e) {
-                            if ($standard == null) {
+                            if (null === $standard) {
                                 throw new Exception\RuntimeException(
                                     'Could not load date due to unrecognised'
                                     .' format (should follow RFC 822 or 2822):'

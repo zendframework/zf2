@@ -82,7 +82,7 @@ class Extension extends AbstractValidator
             $options = array('extension' => $options);
         }
 
-        if ($case !== null) {
+        if (null !== $case) {
             $options['case'] = $case;
         }
 
@@ -180,7 +180,7 @@ class Extension extends AbstractValidator
      */
     public function isValid($value, $file = null)
     {
-        if ($file === null) {
+        if (null === $file) {
             $file = array('name' => basename($value));
         }
 
@@ -189,7 +189,7 @@ class Extension extends AbstractValidator
             return $this->throwError($file, self::NOT_FOUND);
         }
 
-        if ($file !== null) {
+        if (null !== $file) {
             $info['extension'] = substr($file['name'], strrpos($file['name'], '.') + 1);
         } else {
             $info = pathinfo($value);
@@ -219,7 +219,7 @@ class Extension extends AbstractValidator
      */
     protected function throwError($file, $errorType)
     {
-        if ($file !== null) {
+        if (null !== $file) {
             if (is_array($file)) {
                 if (array_key_exists('name', $file)) {
                     $this->value = $file['name'];

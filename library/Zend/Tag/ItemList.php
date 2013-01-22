@@ -209,7 +209,7 @@ class ItemList implements Countable, SeekableIterator, ArrayAccess
             throw new OutOfBoundsException('Item must implement Zend\Tag\TaggableInterface');
         }
 
-        if ($offset === null) {
+        if (null === $offset) {
             $this->items[] = $item;
         } else {
             $this->items[$offset] = $item;

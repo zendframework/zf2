@@ -238,7 +238,7 @@ class Connection implements ConnectionInterface
      */
     public function getLastGeneratedValue($name = null)
     {
-        if ($name == null) {
+        if (null === $name) {
             return null;
         }
         $result = pg_query($this->resource, 'SELECT CURRVAL(\'' . str_replace('\'', '\\\'', $name) . '\') as "currval"');

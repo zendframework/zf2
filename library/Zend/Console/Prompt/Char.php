@@ -59,19 +59,19 @@ class Char extends AbstractPrompt
         $echo = true
     ) {
 
-        if ($promptText !== null) {
+        if (null !== $promptText) {
             $this->setPromptText($promptText);
         }
 
-        if ($allowEmpty !== null) {
+        if (null !== $allowEmpty) {
             $this->setAllowEmpty($allowEmpty);
         }
 
-        if ($ignoreCase !== null) {
+        if (null !== $ignoreCase) {
             $this->setIgnoreCase($ignoreCase);
         }
 
-        if ($allowedChars !== null) {
+        if (null !== $allowedChars) {
             if ($this->ignoreCase) {
                 $this->setAllowedChars(strtolower($allowedChars));
             } else {
@@ -79,7 +79,7 @@ class Char extends AbstractPrompt
             }
         }
 
-        if ($echo !== null) {
+        if (null !== $echo) {
             $this->setEcho($echo);
         }
     }

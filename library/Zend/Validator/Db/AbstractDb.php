@@ -312,7 +312,7 @@ abstract class AbstractDb extends AbstractValidator
             );
         }
 
-        if ($this->exclude !== null) {
+        if (null !== $this->exclude) {
             if (is_array($this->exclude)) {
                 $select->where->notEqualTo(
                     $this->exclude['field'],

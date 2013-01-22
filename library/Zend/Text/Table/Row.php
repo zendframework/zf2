@@ -47,7 +47,7 @@ class Row
         $colSpan  = null;
         $encoding = null;
 
-        if ($options !== null) {
+        if (null !== $options) {
             extract($options, EXTR_IF_EXISTS);
         }
 
@@ -106,7 +106,7 @@ class Row
      */
     public function getColumnWidths()
     {
-        if ($this->columnWidths === null) {
+        if (null === $this->columnWidths) {
             throw new Exception\UnexpectedValueException('render() must be called before columnWidths can be populated');
         }
 

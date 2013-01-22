@@ -45,7 +45,7 @@ class MetadataFeature extends AbstractFeature
 
     public function postInitialize()
     {
-        if ($this->metadata == null) {
+        if (null === $this->metadata) {
             $this->metadata = new Metadata($this->tableGateway->adapter);
         }
 
@@ -71,7 +71,7 @@ class MetadataFeature extends AbstractFeature
             }
         }
 
-        if ($pkc === null) {
+        if (null === $pkc) {
             throw new Exception\RuntimeException('A primary key for this column could not be found in the metadata.');
         }
 

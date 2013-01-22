@@ -40,7 +40,7 @@ class NotExists extends Exists
     public function isValid($value, $file = null)
     {
         $directories = $this->getDirectory(true);
-        if (($file !== null) && (!empty($file['destination']))) {
+        if ((null !== $file) && (!empty($file['destination']))) {
             $directories[] = $file['destination'];
         } elseif (!isset($file['name'])) {
             $file['name'] = $value;

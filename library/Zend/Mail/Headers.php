@@ -120,7 +120,7 @@ class Headers implements Countable, Iterator
      */
     public function getPluginClassLoader()
     {
-        if ($this->pluginClassLoader === null) {
+        if (null === $this->pluginClassLoader) {
             $this->pluginClassLoader = new Header\HeaderLoader();
         }
         return $this->pluginClassLoader;
@@ -209,7 +209,7 @@ class Headers implements Countable, Iterator
             ));
         }
 
-        if ($fieldValue === null) {
+        if (null === $fieldValue) {
             $this->addHeader(Header\GenericHeader::fromString($headerFieldNameOrLine));
         } elseif (is_array($fieldValue)) {
             foreach ($fieldValue as $i) {

@@ -98,7 +98,7 @@ class JsPush extends AbstractAdapter
      */
     public function finish()
     {
-        if ($this->finishMethodName === null) {
+        if (null === $this->finishMethodName) {
             return;
         }
 

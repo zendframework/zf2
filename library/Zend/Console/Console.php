@@ -52,7 +52,7 @@ abstract class Console
 
         // Create instance
 
-        if ($forceAdapter !== null) {
+        if (null !== $forceAdapter) {
             // Use the supplied adapter class
             if (substr($forceAdapter, 0, 1) == '\\') {
                 $className = $forceAdapter;
@@ -82,7 +82,7 @@ abstract class Console
         static::$instance = new $className();
 
         // Try to use the supplied charset class
-        if ($forceCharset !== null) {
+        if (null !== $forceCharset) {
             if (substr($forceCharset, 0, 1) == '\\') {
                 $className = $forceCharset;
             } elseif (stristr($forceAdapter, '\\')) {

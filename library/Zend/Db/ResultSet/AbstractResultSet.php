@@ -98,7 +98,7 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
     {
         if ($this->buffer === -2) {
             throw new Exception\RuntimeException('Buffering must be enabled before iteration is started');
-        } elseif ($this->buffer === null) {
+        } elseif (null === $this->buffer) {
             $this->buffer = array();
         }
     }
@@ -161,7 +161,7 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
      */
     public function next()
     {
-        if ($this->buffer === null) {
+        if (null === $this->buffer) {
             $this->buffer = -2; // implicitly disable buffering from here on
         }
         $this->dataSource->next();
@@ -185,7 +185,7 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
      */
     public function current()
     {
-        if ($this->buffer === null) {
+        if (null === $this->buffer) {
             $this->buffer = -2; // implicitly disable buffering from here on
         } elseif (is_array($this->buffer) && isset($this->buffer[$this->position])) {
             return $this->buffer[$this->position];
@@ -211,7 +211,7 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
             return $this->dataSource->valid();
         } else {
             $key = key($this->dataSource);
-            return ($key !== null);
+            return (null !== $key);
         }
 
     }
@@ -240,7 +240,7 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
      */
     public function count()
     {
-        if ($this->count !== null) {
+        if (null !== $this->count) {
             return $this->count;
         }
         $this->count = count($this->dataSource);

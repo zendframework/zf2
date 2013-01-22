@@ -258,7 +258,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     protected function isDuplicate($file)
     {
         foreach ($this->getContainer() as $item) {
-            if (($item->source === null)
+            if ((null === $item->source)
                 && array_key_exists('src', $item->attributes)
                 && ($file == $item->attributes['src']))
             {

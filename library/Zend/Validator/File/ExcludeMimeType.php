@@ -35,7 +35,7 @@ class ExcludeMimeType extends MimeType
      */
     public function isValid($value, $file = null)
     {
-        if ($file === null) {
+        if (null === $file) {
             $file = array(
                 'type' => null,
                 'name' => $value,

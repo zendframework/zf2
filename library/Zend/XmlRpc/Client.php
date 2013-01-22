@@ -75,7 +75,7 @@ class Client implements ServerClient
      */
     public function __construct($server, Http\Client $httpClient = null)
     {
-        if ($httpClient === null) {
+        if (null === $httpClient) {
             $this->httpClient = new Http\Client();
         } else {
             $this->httpClient = $httpClient;
@@ -209,7 +209,7 @@ class Client implements ServerClient
 
         $http        = $this->getHttpClient();
         $httpRequest = $http->getRequest();
-        if ($httpRequest->getUriString() === null) {
+        if (null === $httpRequest->getUriString()) {
             $http->setUri($this->serverAddress);
         }
 
@@ -237,7 +237,7 @@ class Client implements ServerClient
             );
         }
 
-        if ($response === null) {
+        if (null === $response) {
             $response = new Response();
         }
 

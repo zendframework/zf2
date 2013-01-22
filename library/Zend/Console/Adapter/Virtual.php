@@ -48,7 +48,7 @@ class Virtual extends AbstractAdapter
         }
 
         // Try to read console size from "mode" command
-        if ($this->modeResult === null) {
+        if (null === $this->modeResult) {
             $this->runProbeCommand();
         }
 
@@ -74,7 +74,7 @@ class Virtual extends AbstractAdapter
         }
 
         // Try to read console size from "mode" command
-        if ($this->modeResult === null) {
+        if (null === $this->modeResult) {
             $this->runProbeCommand();
         }
 
@@ -110,7 +110,7 @@ class Virtual extends AbstractAdapter
     public function isUtf8()
     {
         // Try to read code page info from "mode" command
-        if ($this->modeResult === null) {
+        if (null === $this->modeResult) {
             $this->runProbeCommand();
         }
 
@@ -164,7 +164,7 @@ class Virtual extends AbstractAdapter
      */
     public function getCharset()
     {
-        if ($this->charset === null) {
+        if (null === $this->charset) {
             $this->charset = $this->getDefaultCharset();
         }
 

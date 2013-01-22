@@ -63,7 +63,7 @@ class Publisher
      */
     public function __construct($options = null)
     {
-        if ($options !== null) {
+        if (null !== $options) {
             $this->setOptions($options);
         }
     }
@@ -291,7 +291,7 @@ class Publisher
             throw new Exception\InvalidArgumentException('Invalid parameter "name"'
                 . ' of "' . $name . '" must be a non-empty string');
         }
-        if ($value === null) {
+        if (null === $value) {
             $this->removeParameter($name);
             return $this;
         }

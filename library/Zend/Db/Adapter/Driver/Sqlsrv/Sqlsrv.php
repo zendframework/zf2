@@ -142,7 +142,7 @@ class Sqlsrv implements DriverInterface
             $statement->initialize($this->connection->getResource());
             if (is_string($sqlOrResource)) {
                 $statement->setSql($sqlOrResource);
-            } elseif ($sqlOrResource != null) {
+            } elseif (null !== $sqlOrResource) {
                 throw new Exception\InvalidArgumentException('createStatement() only accepts an SQL string or a Sqlsrv resource');
             }
         }

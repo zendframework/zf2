@@ -115,7 +115,7 @@ class Regex implements RouteInterface
         $uri  = $request->getUri();
         $path = $uri->getPath();
 
-        if ($pathOffset !== null) {
+        if (null !== $pathOffset) {
             $result = preg_match('(\G' . $this->regex . ')', $path, $matches, null, $pathOffset);
         } else {
             $result = preg_match('(^' . $this->regex . '$)', $path, $matches);

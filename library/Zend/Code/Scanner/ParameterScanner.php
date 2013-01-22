@@ -198,7 +198,7 @@ class ParameterScanner
 
         }
 
-        if ($this->name !== null) {
+        if (null !== $this->name) {
             $this->defaultValue .= (is_string($token)) ? $token : $token[1];
         }
 

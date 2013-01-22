@@ -56,7 +56,7 @@ class Maildir extends AbstractStorage
      */
     public function countMessages($flags = null)
     {
-        if ($flags === null) {
+        if (null === $flags) {
             return count($this->files);
         }
 
@@ -115,7 +115,7 @@ class Maildir extends AbstractStorage
      */
     public function getSize($id = null)
     {
-        if ($id !== null) {
+        if (null !== $id) {
             $filedata = $this->_getFileData($id);
             return isset($filedata['size']) ? $filedata['size'] : filesize($filedata['filename']);
         }
@@ -161,7 +161,7 @@ class Maildir extends AbstractStorage
      */
     public function getRawHeader($id, $part = null, $topLines = 0)
     {
-        if ($part !== null) {
+        if (null !== $part) {
             // TODO: implement
             throw new Exception\RuntimeException('not implemented');
         }
@@ -191,7 +191,7 @@ class Maildir extends AbstractStorage
      */
     public function getRawContent($id, $part = null)
     {
-        if ($part !== null) {
+        if (null !== $part) {
             // TODO: implement
             throw new Exception\RuntimeException('not implemented');
         }
@@ -329,7 +329,7 @@ class Maildir extends AbstractStorage
                           'flags'      => $namedFlags,
                           'flaglookup' => array_flip($namedFlags),
                           'filename'   => $dirname . $entry);
-            if ($size !== null) {
+            if (null !== $size) {
                 $data['size'] = (int) $size;
             }
             $this->files[] = $data;

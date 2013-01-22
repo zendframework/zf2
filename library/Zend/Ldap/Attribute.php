@@ -42,13 +42,13 @@ class Attribute
         if (is_array($value) || ($value instanceof \Traversable)) {
             foreach ($value as $v) {
                 $v = static::valueToLdap($v);
-                if ($v !== null) {
+                if (null !== $v) {
                     $valArray[] = $v;
                 }
             }
-        } elseif ($value !== null) {
+        } elseif (null !== $value) {
             $value = static::valueToLdap($value);
-            if ($value !== null) {
+            if (null !== $value) {
                 $valArray[] = $value;
             }
         }
@@ -74,7 +74,7 @@ class Attribute
     public static function getAttribute(array $data, $attribName, $index = null)
     {
         $attribName = strtolower($attribName);
-        if ($index === null) {
+        if (null === $index) {
             if (!isset($data[$attribName])) {
                 return array();
             }
@@ -163,7 +163,7 @@ class Attribute
         $valArray = array();
         foreach ($value as $v) {
             $v = self::valueToLdap($v);
-            if ($v !== null) {
+            if (null !== $v) {
                 $valArray[] = $v;
             }
         }
@@ -219,7 +219,7 @@ class Attribute
         $attribName = null
     )
     {
-        if ($attribName === null) {
+        if (null === $attribName) {
             if ($hashType === self::PASSWORD_UNICODEPWD) {
                 $attribName = 'unicodePwd';
             } else {
@@ -300,13 +300,13 @@ class Attribute
         if (is_array($value) || ($value instanceof \Traversable)) {
             foreach ($value as $v) {
                 $v = static::valueToLdapDateTime($v, $utc);
-                if ($v !== null) {
+                if (null !== $v) {
                     $convertedValues[] = $v;
                 }
             }
-        } elseif ($value !== null) {
+        } elseif (null !== $value) {
             $value = static::valueToLdapDateTime($value, $utc);
-            if ($value !== null) {
+            if (null !== $value) {
                 $convertedValues[] = $value;
             }
         }
@@ -341,13 +341,13 @@ class Attribute
         if (is_array($values)) {
             for ($i = 0; $i < count($values); $i++) {
                 $newVal = static::valueFromLdapDateTime($values[$i]);
-                if ($newVal !== null) {
+                if (null !== $newVal) {
                     $values[$i] = $newVal;
                 }
             }
         } else {
             $newVal = static::valueFromLdapDateTime($values);
-            if ($newVal !== null) {
+            if (null !== $newVal) {
                 $values = $newVal;
             }
         }

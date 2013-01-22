@@ -165,7 +165,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function useChecksum($check = null)
     {
-        if ($check === null) {
+        if (null === $check) {
             return $this->options['useChecksum'];
         }
 

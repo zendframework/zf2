@@ -42,7 +42,7 @@ class Yaml implements ReaderInterface
      */
     public function __construct($yamlDecoder = null)
     {
-        if ($yamlDecoder !== null) {
+        if (null !== $yamlDecoder) {
             $this->setYamlDecoder($yamlDecoder);
         } else {
             if (function_exists('yaml_parse')) {
@@ -151,7 +151,7 @@ class Yaml implements ReaderInterface
                 $data[$key] = $this->process($value);
             }
             if (trim($key) === '@include') {
-                if ($this->directory === null) {
+                if (null === $this->directory) {
                     throw new Exception\RuntimeException('Cannot process @include statement for a json string');
                 }
                 $reader = clone $this;

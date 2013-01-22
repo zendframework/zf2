@@ -144,7 +144,7 @@ class Mbox extends AbstractStorage
      */
     public function getRawHeader($id, $part = null, $topLines = 0)
     {
-        if ($part !== null) {
+        if (null !== $part) {
             // TODO: implement
             throw new Exception\RuntimeException('not implemented');
         }
@@ -164,7 +164,7 @@ class Mbox extends AbstractStorage
      */
     public function getRawContent($id, $part = null)
     {
-        if ($part !== null) {
+        if (null !== $part) {
             // TODO: implement
             throw new Exception\RuntimeException('not implemented');
         }

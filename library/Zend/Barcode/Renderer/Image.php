@@ -198,7 +198,7 @@ class Image extends AbstractRenderer
         $barcodeWidth  = $this->barcode->getWidth(true);
         $barcodeHeight = $this->barcode->getHeight(true);
 
-        if ($this->resource !== null) {
+        if (null !== $this->resource) {
             $foreColor       = $this->barcode->getForeColor();
             $backgroundColor = $this->barcode->getBackgroundColor();
             $this->imageBackgroundColor = imagecolorallocate(
@@ -216,10 +216,10 @@ class Image extends AbstractRenderer
         } else {
             $width = $barcodeWidth;
             $height = $barcodeHeight;
-            if ($this->userWidth && $this->barcode->getType() != 'error') {
+            if ($this->userWidth && 'error' != $this->barcode->getType()) {
                 $width = $this->userWidth;
             }
-            if ($this->userHeight && $this->barcode->getType() != 'error') {
+            if ($this->userHeight && 'error' != $this->barcode->getType()) {
                 $height = $this->userHeight;
             }
 
@@ -269,7 +269,7 @@ class Image extends AbstractRenderer
      */
     protected function checkDimensions()
     {
-        if ($this->resource !== null) {
+        if (null !== $this->resource) {
             if (imagesy($this->resource) < $this->barcode->getHeight(true)) {
                 throw new Exception\RuntimeException(
                     'Barcode is define outside the image (height)'
@@ -287,7 +287,7 @@ class Image extends AbstractRenderer
                 }
             }
         }
-        if ($this->resource !== null) {
+        if (null !== $this->resource) {
             if (imagesx($this->resource) < $this->barcode->getWidth(true)) {
                 throw new Exception\RuntimeException(
                     'Barcode is define outside the image (width)'
@@ -373,7 +373,7 @@ class Image extends AbstractRenderer
                                              ($color & 0x00FF00) >> 8,
                                               $color & 0x0000FF         );
 
-        if ($font == null) {
+        if (null == $font) {
             $font = 3;
         }
         $position[0] += $this->leftOffset;

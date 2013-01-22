@@ -53,7 +53,7 @@ class Null extends AbstractFilter
      */
     public function __construct($typeOrOptions = null)
     {
-        if ($typeOrOptions !== null) {
+        if (null !== $typeOrOptions) {
             if ($typeOrOptions instanceof Traversable) {
                 $typeOrOptions = iterator_to_array($typeOrOptions);
             }

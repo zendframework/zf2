@@ -79,7 +79,7 @@ class MethodGenerator extends AbstractMemberGenerator
     public function __construct($name = null, array $parameters = array(), $flags = self::FLAG_PUBLIC, $body = null,
                                 $docBlock = null)
     {
-        if ($name !== null) {
+        if (null !== $name) {
             $this->setName($name);
         }
         if ($parameters !== array()) {
@@ -88,10 +88,10 @@ class MethodGenerator extends AbstractMemberGenerator
         if ($flags !== self::FLAG_PUBLIC) {
             $this->setFlags($flags);
         }
-        if ($body !== null) {
+        if (null !== $body) {
             $this->setBody($body);
         }
-        if ($docBlock !== null) {
+        if (null !== $docBlock) {
             $this->setDocBlock($docBlock);
         }
     }

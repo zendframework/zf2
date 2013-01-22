@@ -199,10 +199,10 @@ class Mvc extends AbstractPage
         }
 
         switch (true) {
-            case ($this->getRoute() !== null):
+            case (null !== $this->getRoute()):
                 $name = $this->getRoute();
                 break;
-            case ($this->getRouteMatch() !== null):
+            case (null !== $this->getRouteMatch()):
                 $name = $this->getRouteMatch()->getMatchedRouteName();
                 break;
             default:

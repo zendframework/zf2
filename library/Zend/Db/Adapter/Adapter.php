@@ -79,7 +79,7 @@ class Adapter
         $driver->checkEnvironment();
         $this->driver = $driver;
 
-        if ($platform == null) {
+        if (null === $platform) {
             $platform = $this->createPlatformFromDriver($driver);
         }
 
@@ -95,7 +95,7 @@ class Adapter
      */
     public function getDriver()
     {
-        if ($this->driver == null) {
+        if (null === $this->driver) {
             throw new Exception\RuntimeException('Driver has not been set or configured for this adapter.');
         }
         return $this->driver;

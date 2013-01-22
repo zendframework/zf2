@@ -337,7 +337,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     protected function checkBarcodeObject()
     {
-        if ($this->barcode === null) {
+        if (null === $this->barcode) {
             throw new Exception\RuntimeException(
                 'No barcode object provided'
             );

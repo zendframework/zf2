@@ -373,7 +373,7 @@ class Getopt
      */
     public function setOption($configKey, $configValue)
     {
-        if ($configKey !== null) {
+        if (null !== $configKey) {
             $this->getoptConfig[$configKey] = $configValue;
         }
         return $this;

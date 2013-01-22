@@ -80,7 +80,7 @@ class InArray extends AbstractValidator
      */
     public function getHaystack()
     {
-        if ($this->haystack == null) {
+        if (null == $this->haystack) {
             throw new Exception\RuntimeException('haystack option is mandatory');
         }
         return $this->haystack;

@@ -50,7 +50,7 @@ class TextDomain extends ArrayObject
      */
     public function getPluralRule()
     {
-        if ($this->pluralRule === null) {
+        if (null === $this->pluralRule) {
             $this->setPluralRule(PluralRule::fromString('nplurals=2; plural=n==1'));
         }
 

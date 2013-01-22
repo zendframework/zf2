@@ -44,7 +44,7 @@ class WordCount extends Count
      */
     public function isValid($value, $file = null)
     {
-        if ($file === null) {
+        if (null === $file) {
             $file = array('name' => basename($value));
         }
 
@@ -55,11 +55,11 @@ class WordCount extends Count
 
         $content = file_get_contents($value);
         $this->count = str_word_count($content);
-        if (($this->getMax() !== null) && ($this->count > $this->getMax())) {
+        if ((null !== $this->getMax()) && ($this->count > $this->getMax())) {
             return $this->throwError($file, self::TOO_MUCH);
         }
 
-        if (($this->getMin() !== null) && ($this->count < $this->getMin())) {
+        if ((null !== $this->getMin()) && ($this->count < $this->getMin())) {
             return $this->throwError($file, self::TOO_LESS);
         }
 

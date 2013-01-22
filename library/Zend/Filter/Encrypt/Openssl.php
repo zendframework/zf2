@@ -221,7 +221,7 @@ class Openssl implements EncryptionAlgorithmInterface
             $key = array('private' => $key);
         }
 
-        if ($passphrase !== null) {
+        if (null !== $passphrase) {
             $this->setPassphrase($passphrase);
         }
 

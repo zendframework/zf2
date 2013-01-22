@@ -165,7 +165,7 @@ abstract class AbstractDate implements HeaderInterface
      */
     public function date()
     {
-        if ($this->date === null) {
+        if (null === $this->date) {
             $this->date = new DateTime(null, new DateTimeZone('GMT'));
         }
         return $this->date;

@@ -175,7 +175,7 @@ class PythonPickle extends AbstractAdapter
      */
     public function getOptions()
     {
-        if ($this->options === null) {
+        if (null === $this->options) {
             $this->options = new PythonPickleOptions();
         }
         return $this->options;
@@ -215,7 +215,7 @@ class PythonPickle extends AbstractAdapter
      */
     protected function write($value)
     {
-        if ($value === null) {
+        if (null === $value) {
             $this->writeNull();
         } elseif (is_bool($value)) {
             $this->writeBool($value);
@@ -1338,7 +1338,7 @@ class PythonPickle extends AbstractAdapter
 
         $long = 0;
         if ($nbytes > 7) {
-            if ($this->bigIntegerAdapter === null) {
+            if (null === $this->bigIntegerAdapter) {
                 $this->bigIntegerAdapter = BigInteger\BigInteger::getDefaultAdapter();
             }
             if (static::$isLittleEndian === true) {

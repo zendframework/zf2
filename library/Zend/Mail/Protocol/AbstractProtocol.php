@@ -291,7 +291,7 @@ abstract class AbstractProtocol
         }
 
         // Adapters may wish to supply per-commend timeouts according to appropriate RFC
-        if ($timeout !== null) {
+        if (null !== $timeout) {
            stream_set_timeout($this->socket, $timeout);
         }
 

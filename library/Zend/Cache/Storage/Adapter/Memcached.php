@@ -51,7 +51,7 @@ class Memcached extends AbstractAdapter implements
      */
     public function __construct($options = null)
     {
-        if (static::$extMemcachedMajorVersion === null) {
+        if (null === static::$extMemcachedMajorVersion) {
             $v = (string) phpversion('memcached');
             static::$extMemcachedMajorVersion = ($v !== '') ? (int) $v[0] : 0;
         }
@@ -219,7 +219,7 @@ class Memcached extends AbstractAdapter implements
         }
 
         $success = true;
-        if ($result === false || $result === null) {
+        if (false === $result || null === $result) {
             $rsCode = $memc->getResultCode();
             if ($rsCode == MemcachedResource::RES_NOTFOUND) {
                 $result = null;
@@ -262,7 +262,7 @@ class Memcached extends AbstractAdapter implements
     {
         $memc  = $this->getMemcachedResource();
         $value = $memc->get($normalizedKey);
-        if ($value === false || $value === null) {
+        if (false === $value || null === $value) {
             $rsCode = $memc->getResultCode();
             if ($rsCode == MemcachedResource::RES_SUCCESS) {
                 return true;
@@ -555,7 +555,7 @@ class Memcached extends AbstractAdapter implements
      */
     protected function internalGetCapabilities()
     {
-        if ($this->capabilities === null) {
+        if (null === $this->capabilities) {
             $this->capabilityMarker = new stdClass();
             $this->capabilities     = new Capabilities(
                 $this,

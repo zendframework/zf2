@@ -233,11 +233,11 @@ class Request extends AbstractMessage implements RequestInterface
      */
     public function getQuery($name = null, $default = null)
     {
-        if ($this->queryParams === null) {
+        if (null === $this->queryParams) {
             $this->queryParams = new Parameters();
         }
 
-        if ($name === null) {
+        if (null === $name) {
             return $this->queryParams;
         }
 
@@ -266,11 +266,11 @@ class Request extends AbstractMessage implements RequestInterface
      */
     public function getPost($name = null, $default = null)
     {
-        if ($this->postParams === null) {
+        if (null === $this->postParams) {
             $this->postParams = new Parameters();
         }
 
-        if ($name === null) {
+        if (null === $name) {
             return $this->postParams;
         }
 
@@ -310,11 +310,11 @@ class Request extends AbstractMessage implements RequestInterface
      */
     public function getFiles($name = null, $default = null)
     {
-        if ($this->fileParams === null) {
+        if (null === $this->fileParams) {
             $this->fileParams = new Parameters();
         }
 
-        if ($name === null) {
+        if (null === $name) {
             return $this->fileParams;
         }
 
@@ -336,7 +336,7 @@ class Request extends AbstractMessage implements RequestInterface
             $this->headers = (is_string($this->headers)) ? Headers::fromString($this->headers) : new Headers();
         }
 
-        if ($name === null) {
+        if (null === $name) {
             return $this->headers;
         }
 
@@ -460,7 +460,7 @@ class Request extends AbstractMessage implements RequestInterface
     public function isXmlHttpRequest()
     {
         $header = $this->getHeaders()->get('X_REQUESTED_WITH');
-        return false !== $header && $header->getFieldValue() == 'XMLHttpRequest';
+        return false !== $header && 'XMLHttpRequest' == $header->getFieldValue();
     }
 
     /**

@@ -151,7 +151,7 @@ class Size extends AbstractValidator
 
         $min = (integer) $this->fromByteString($min);
         $max = $this->getMax(true);
-        if (($max !== null) && ($min > $max)) {
+        if ((null !== $max) && ($min > $max)) {
             throw new Exception\InvalidArgumentException(
                 'The minimum must be less than or equal to the maximum file'
                 ." size, but $min > $max");
@@ -196,7 +196,7 @@ class Size extends AbstractValidator
 
         $max = (integer) $this->fromByteString($max);
         $min = $this->getMin(true);
-        if (($min !== null) && ($max < $min)) {
+        if ((null !== $min) && ($max < $min)) {
             throw new Exception\InvalidArgumentException(
                 'The maximum must be greater than or equal to the minimum file'
                  ." size, but $max < $min");
@@ -238,7 +238,7 @@ class Size extends AbstractValidator
      */
     public function isValid($value, $file = null)
     {
-        if ($file === null) {
+        if (null === $file) {
             $file = array('name' => basename($value));
         }
 
@@ -256,7 +256,7 @@ class Size extends AbstractValidator
         // Check to see if it's smaller than min size
         $min = $this->getMin(true);
         $max = $this->getMax(true);
-        if (($min !== null) && ($size < $min)) {
+        if ((null !== $min) && ($size < $min)) {
             if ($this->getByteString()) {
                 $this->options['min'] = $this->toByteString($min);
                 $this->size          = $this->toByteString($size);
@@ -269,7 +269,7 @@ class Size extends AbstractValidator
         }
 
         // Check to see if it's larger than max size
-        if (($max !== null) && ($max < $size)) {
+        if ((null !== $max) && ($max < $size)) {
             if ($this->getByteString()) {
                 $this->options['max'] = $this->toByteString($max);
                 $this->size          = $this->toByteString($size);
@@ -364,7 +364,7 @@ class Size extends AbstractValidator
      */
     protected function throwError($file, $errorType)
     {
-        if ($file !== null) {
+        if (null !== $file) {
             if (is_array($file)) {
                 if (array_key_exists('name', $file)) {
                     $this->value = $file['name'];

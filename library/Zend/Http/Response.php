@@ -281,7 +281,7 @@ class Response extends AbstractMessage implements ResponseInterface
      */
     public function getReasonPhrase()
     {
-        if ($this->reasonPhrase == null) {
+        if (null === $this->reasonPhrase) {
             return $this->recommendedReasonPhrases[$this->statusCode];
         }
         return $this->reasonPhrase;

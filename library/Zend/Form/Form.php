@@ -235,7 +235,7 @@ class Form extends Fieldset implements FormInterface
             ));
         }
 
-        if ($this->baseFieldset !== null) {
+        if (null !== $this->baseFieldset) {
             $this->baseFieldset->setObject($object);
         }
 
@@ -254,7 +254,7 @@ class Form extends Fieldset implements FormInterface
      */
     public function setHydrator(HydratorInterface $hydrator)
     {
-        if ($this->baseFieldset !== null) {
+        if (null !== $this->baseFieldset) {
             $this->baseFieldset->setHydrator($hydrator);
         }
 
@@ -296,7 +296,7 @@ class Form extends Fieldset implements FormInterface
         $data = $this->prepareBindData($data, $this->data);
 
         // If there is a base fieldset, only hydrate beginning from the base fieldset
-        if ($this->baseFieldset !== null) {
+        if (null !== $this->baseFieldset) {
             $data = $data[$this->baseFieldset->getName()];
             $this->object = $this->baseFieldset->bindValues($data);
         } else {
@@ -435,7 +435,7 @@ class Form extends Fieldset implements FormInterface
         $filter->setData($this->data);
         $filter->setValidationGroup(InputFilterInterface::VALIDATE_ALL);
 
-        if ($this->validationGroup !== null) {
+        if (null !== $this->validationGroup) {
             $this->prepareValidationGroup($this, $this->data, $this->validationGroup);
             $filter->setValidationGroup($this->validationGroup);
         }

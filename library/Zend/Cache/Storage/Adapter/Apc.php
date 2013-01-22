@@ -109,7 +109,7 @@ class Apc extends AbstractAdapter implements
      */
     public function getTotalSpace()
     {
-        if ($this->totalSpace === null) {
+        if (null === $this->totalSpace) {
             $smaInfo = apc_sma_info(true);
             $this->totalSpace = $smaInfo['num_seg'] * $smaInfo['seg_size'];
         }
@@ -616,7 +616,7 @@ class Apc extends AbstractAdapter implements
      */
     protected function internalGetCapabilities()
     {
-        if ($this->capabilities === null) {
+        if (null === $this->capabilities) {
             $marker       = new stdClass();
             $capabilities = new Capabilities(
                 $this,

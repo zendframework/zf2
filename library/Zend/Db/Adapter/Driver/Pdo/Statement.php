@@ -162,7 +162,7 @@ class Statement implements StatementInterface
             throw new Exception\RuntimeException('This statement has been prepared already');
         }
 
-        if ($sql == null) {
+        if (null === $sql) {
             $sql = $this->sql;
         }
 

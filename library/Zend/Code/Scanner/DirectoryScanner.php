@@ -169,7 +169,7 @@ class DirectoryScanner implements ScannerInterface
     {
         $this->scan();
 
-        if ($this->classToFileScanner === null) {
+        if (null === $this->classToFileScanner) {
             $this->createClassToFileScannerCache();
         }
 
@@ -186,7 +186,7 @@ class DirectoryScanner implements ScannerInterface
     {
         $this->scan();
 
-        if ($this->classToFileScanner === null) {
+        if (null === $this->classToFileScanner) {
             $this->createClassToFileScannerCache();
         }
 
@@ -212,7 +212,7 @@ class DirectoryScanner implements ScannerInterface
     {
         $this->scan();
 
-        if ($this->classToFileScanner === null) {
+        if (null === $this->classToFileScanner) {
             $this->createClassToFileScannerCache();
         }
 
@@ -231,7 +231,7 @@ class DirectoryScanner implements ScannerInterface
     {
         $this->scan();
 
-        if ($this->classToFileScanner === null) {
+        if (null === $this->classToFileScanner) {
             $this->createClassToFileScannerCache();
         }
 
@@ -257,7 +257,7 @@ class DirectoryScanner implements ScannerInterface
      */
     protected function createClassToFileScannerCache()
     {
-        if ($this->classToFileScanner !== null) {
+        if (null !== $this->classToFileScanner) {
             return;
         }
 

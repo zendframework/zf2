@@ -488,7 +488,7 @@ class Feed extends Extension\AbstractFeed
     protected function absolutiseUri($link)
     {
         if (!Uri\UriFactory::factory($link)->isAbsolute()) {
-            if ($this->getBaseUrl() !== null) {
+            if (null !== $this->getBaseUrl()) {
                 $link = $this->getBaseUrl() . $link;
                 if (!Uri\UriFactory::factory($link)->isValid()) {
                     $link = null;

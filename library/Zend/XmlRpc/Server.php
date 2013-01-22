@@ -500,7 +500,7 @@ class Server extends AbstractServer
      */
     public function sendArgumentsToAllMethods($flag = null)
     {
-        if ($flag === null) {
+        if (null === $flag) {
             return $this->sendArgumentsToAllMethods;
         }
 

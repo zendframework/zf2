@@ -76,11 +76,11 @@ class Request
      */
     public function __construct($method = null, $params = null)
     {
-        if ($method !== null) {
+        if (null !== $method) {
             $this->setMethod($method);
         }
 
-        if ($params !== null) {
+        if (null !== $params) {
             $this->setParams($params);
         }
     }

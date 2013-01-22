@@ -343,7 +343,7 @@ abstract class AbstractContainer extends \ArrayObject
      */
     public function toString($indent = null)
     {
-        $indent = ($indent !== null)
+        $indent = (null !== $indent)
                 ? $this->getWhitespace($indent)
                 : $this->getIndent();
 

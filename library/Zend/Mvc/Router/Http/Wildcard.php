@@ -118,7 +118,7 @@ class Wildcard implements RouteInterface
             $path = '';
         }
 
-        if ($pathOffset !== null) {
+        if (null !== $pathOffset) {
             $path = substr($path, $pathOffset);
         }
 

@@ -123,7 +123,7 @@ class Count extends AbstractValidator
         }
 
         $min = (integer) $min;
-        if (($this->getMax() !== null) && ($min > $this->getMax())) {
+        if ((null !== $this->getMax()) && ($min > $this->getMax())) {
             throw new Exception\InvalidArgumentException("The minimum must be less than or equal to the maximum file count, but $min >"
                                             . " {$this->getMax()}");
         }
@@ -160,7 +160,7 @@ class Count extends AbstractValidator
         }
 
         $max = (integer) $max;
-        if (($this->getMin() !== null) && ($max < $this->getMin())) {
+        if ((null !== $this->getMin()) && ($max < $this->getMin())) {
             throw new Exception\InvalidArgumentException("The maximum must be greater than or equal to the minimum file count, but "
                                             . "$max < {$this->getMin()}");
         }
@@ -203,24 +203,24 @@ class Count extends AbstractValidator
      */
     public function isValid($value, $file = null)
     {
-        if (($file !== null) && !array_key_exists('destination', $file)) {
+        if ((null !== $file) && !array_key_exists('destination', $file)) {
             $file['destination'] = dirname($value);
         }
 
-        if (($file !== null) && array_key_exists('tmp_name', $file)) {
+        if ((null !== $file) && array_key_exists('tmp_name', $file)) {
             $value = $file['destination'] . DIRECTORY_SEPARATOR . $file['name'];
         }
 
-        if (($file === null) || !empty($file['tmp_name'])) {
+        if ((null === $file) || !empty($file['tmp_name'])) {
             $this->addFile($value);
         }
 
         $this->count = count($this->files);
-        if (($this->getMax() !== null) && ($this->count > $this->getMax())) {
+        if ((null !== $this->getMax()) && ($this->count > $this->getMax())) {
             return $this->throwError($file, self::TOO_MANY);
         }
 
-        if (($this->getMin() !== null) && ($this->count < $this->getMin())) {
+        if ((null !== $this->getMin()) && ($this->count < $this->getMin())) {
             return $this->throwError($file, self::TOO_FEW);
         }
 
@@ -236,7 +236,7 @@ class Count extends AbstractValidator
      */
     protected function throwError($file, $errorType)
     {
-        if ($file !== null) {
+        if (null !== $file) {
             if (is_array($file)) {
                 if (array_key_exists('name', $file)) {
                     $this->value = $file['name'];

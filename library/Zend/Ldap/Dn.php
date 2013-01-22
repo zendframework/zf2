@@ -569,10 +569,10 @@ class Dn implements \ArrayAccess
                 $ret[] = array($k[$i] => $v[$i]);
             }
         }
-        if ($keys !== null) {
+        if (null !== $keys) {
             $keys = $k;
         }
-        if ($vals !== null) {
+        if (null !== $vals) {
             $vals = $v;
         }
         return $ret;
@@ -662,10 +662,10 @@ class Dn implements \ArrayAccess
             }
         }
 
-        if ($keys !== null) {
+        if (null !== $keys) {
             $keys = $ka;
         }
-        if ($vals !== null) {
+        if (null !== $vals) {
             $vals = $va;
         }
 

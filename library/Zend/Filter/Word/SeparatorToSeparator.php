@@ -101,7 +101,7 @@ class SeparatorToSeparator extends \Zend\Filter\PregReplace
      */
     protected function _separatorToSeparatorFilter($value)
     {
-        if ($this->searchSeparator == null) {
+        if (null === $this->searchSeparator) {
             throw new Exception\RuntimeException('You must provide a search separator for this filter to work.');
         }
 

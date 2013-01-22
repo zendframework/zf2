@@ -142,7 +142,7 @@ class Deleted
      */
     public function setWhen($date = null)
     {
-        if ($date === null) {
+        if (null === $date) {
             $date = new DateTime();
         } elseif (is_int($date)) {
             $date = new DateTime('@' . $date);

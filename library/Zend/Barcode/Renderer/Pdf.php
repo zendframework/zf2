@@ -88,7 +88,7 @@ class Pdf extends AbstractRenderer
      */
     protected function initRenderer()
     {
-        if ($this->resource === null) {
+        if (null === $this->resource) {
             $this->resource = new PdfDocument();
             $this->resource->pages[] = new Page(
                 Page::SIZE_A4

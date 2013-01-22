@@ -81,7 +81,7 @@ abstract class AbstractNode implements \ArrayAccess, \Countable
      */
     public function reload(Ldap\Ldap $ldap = null)
     {
-        if ($ldap !== null) {
+        if (null !== $ldap) {
             $data = $ldap->getEntry($this->_getDn(), array('*', '+'), true);
             $this->loadData($data, true);
         }

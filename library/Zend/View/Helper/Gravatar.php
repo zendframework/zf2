@@ -234,7 +234,7 @@ class Gravatar extends AbstractHtmlElement
      */
     public function setSecure($flag)
     {
-        $this->options['secure'] = ($flag === null) ? null : (bool) $flag;
+        $this->options['secure'] = (null === $flag) ? null : (bool) $flag;
         return $this;
     }
 

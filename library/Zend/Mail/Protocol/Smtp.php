@@ -137,7 +137,7 @@ class Smtp extends AbstractProtocol
                 case 'ssl':
                     $this->transport = 'ssl';
                     $this->secure = 'ssl';
-                    if ($port == null) {
+                    if (null === $port) {
                         $port = 465;
                     }
                     break;
@@ -149,7 +149,7 @@ class Smtp extends AbstractProtocol
         }
 
         // If no port has been specified then check the master PHP ini file. Defaults to 25 if the ini setting is null.
-        if ($port == null) {
+        if (null === $port) {
             if (($port = ini_get('smtp_port')) == '') {
                 $port = 25;
             }

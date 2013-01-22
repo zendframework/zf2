@@ -112,7 +112,7 @@ class Headers implements Countable, Iterator
      */
     public function getPluginClassLoader()
     {
-        if ($this->pluginClassLoader === null) {
+        if (null === $this->pluginClassLoader) {
             $this->pluginClassLoader = new HeaderLoader();
         }
         return $this->pluginClassLoader;
@@ -176,7 +176,7 @@ class Headers implements Countable, Iterator
             $headerName = $matches['name'];
             $headerKey  = static::createKey($matches['name']);
             $line = $headerFieldNameOrLine;
-        } elseif ($fieldValue === null) {
+        } elseif (null === $fieldValue) {
             throw new Exception\InvalidArgumentException('A field name was provided without a field value');
         } else {
             $headerName = $headerFieldNameOrLine;

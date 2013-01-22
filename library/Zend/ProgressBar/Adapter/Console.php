@@ -147,7 +147,7 @@ class Console extends AbstractAdapter
         parent::__construct($options);
 
         // Check if a width was set, else use auto width
-        if ($this->width === null) {
+        if (null === $this->width) {
             $this->setWidth();
         }
     }
@@ -157,7 +157,7 @@ class Console extends AbstractAdapter
      */
     public function __destruct()
     {
-        if ($this->outputStream !== null) {
+        if (null !== $this->outputStream) {
             fclose($this->outputStream);
         }
     }
@@ -179,7 +179,7 @@ class Console extends AbstractAdapter
             throw new Exception\RuntimeException('Unable to open stream', 0, $error);
         }
 
-        if ($this->outputStream !== null) {
+        if (null !== $this->outputStream) {
             fclose($this->outputStream);
         }
 
@@ -193,7 +193,7 @@ class Console extends AbstractAdapter
      */
     public function getOutputStream()
     {
-        if ($this->outputStream === null) {
+        if (null === $this->outputStream) {
             if (!defined('STDOUT')) {
                 $this->outputStream = fopen('php://stdout', 'w');
             } else {

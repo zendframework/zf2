@@ -177,7 +177,7 @@ class Iban extends AbstractValidator
      */
     public function setCountryCode($countryCode = null)
     {
-        if ($countryCode !== null) {
+        if (null !== $countryCode) {
             $countryCode = (string) $countryCode;
 
             if (!isset(static::$ibanRegex[$countryCode])) {
@@ -230,7 +230,7 @@ class Iban extends AbstractValidator
         $this->setValue($value);
 
         $countryCode = $this->getCountryCode();
-        if ($countryCode === null) {
+        if (null === $countryCode) {
             $countryCode = substr($value, 0, 2);
         }
 

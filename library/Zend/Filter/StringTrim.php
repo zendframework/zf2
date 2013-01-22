@@ -32,7 +32,7 @@ class StringTrim extends AbstractFilter
      */
     public function __construct($charlistOrOptions = null)
     {
-        if ($charlistOrOptions !== null) {
+        if (null !== $charlistOrOptions) {
             if (!is_array($charlistOrOptions)
                 && !$charlistOrOptions  instanceof Traversable)
             {

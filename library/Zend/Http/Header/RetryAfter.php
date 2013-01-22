@@ -96,7 +96,7 @@ class RetryAfter extends AbstractDate
      */
     public function getFieldValue()
     {
-        return ($this->date === null) ? $this->deltaSeconds : $this->getDate();
+        return (null === $this->date) ? $this->deltaSeconds : $this->getDate();
     }
 
     /**

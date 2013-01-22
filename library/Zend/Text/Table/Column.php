@@ -65,15 +65,15 @@ class Column
      */
     public function __construct($content = null, $align = null, $colSpan = null, $charset = null)
     {
-        if ($content !== null) {
+        if (null !== $content) {
             $this->setContent($content, $charset);
         }
 
-        if ($align !== null) {
+        if (null !== $align) {
             $this->setAlign($align);
         }
 
-        if ($colSpan !== null) {
+        if (null !== $colSpan) {
             $this->setColSpan($colSpan);
         }
     }
@@ -96,7 +96,7 @@ class Column
             throw new Exception\InvalidArgumentException('$content must be a string');
         }
 
-        if ($charset === null) {
+        if (null === $charset) {
             $inputCharset = Table::getInputCharset();
         } else {
             $inputCharset = strtolower($charset);

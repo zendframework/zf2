@@ -120,7 +120,7 @@ class PostRedirectGet extends AbstractPlugin
             return $response;
         }
 
-        if ($container->post !== null) {
+        if (null !== $container->post) {
             $post = $container->post;
             unset($container->post);
             return $post;

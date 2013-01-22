@@ -145,7 +145,7 @@ class StringLength extends AbstractValidator
      */
     public function setEncoding($encoding = null)
     {
-        if ($encoding !== null) {
+        if (null !== $encoding) {
             $orig   = iconv_get_encoding('internal_encoding');
             $result = iconv_set_encoding('internal_encoding', $encoding);
             if (!$result) {
@@ -174,7 +174,7 @@ class StringLength extends AbstractValidator
         }
 
         $this->setValue($value);
-        if ($this->getEncoding() !== null) {
+        if (null !== $this->getEncoding()) {
             $length = iconv_strlen($value, $this->getEncoding());
         } else {
             $length = iconv_strlen($value);

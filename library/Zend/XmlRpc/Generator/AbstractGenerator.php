@@ -53,7 +53,7 @@ abstract class AbstractGenerator implements GeneratorInterface
     public function openElement($name, $value = null)
     {
         $this->_openElement($name);
-        if ($value !== null) {
+        if (null !== $value) {
             $this->_writeTextData($value);
         }
 

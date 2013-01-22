@@ -74,7 +74,7 @@ class Imap
             $host = 'ssl://' . $host;
         }
 
-        if ($port === null) {
+        if (null === $port) {
             $port = $ssl === 'SSL' ? 993 : 143;
         }
 
@@ -528,7 +528,7 @@ class Imap
     {
         if (is_array($from)) {
             $set = implode(',', $from);
-        } elseif ($to === null) {
+        } elseif (null === $to) {
             $set = (int) $from;
         } elseif ($to === INF) {
             $set = (int) $from . ':*';
@@ -644,7 +644,7 @@ class Imap
 
         $flags = $this->escapeList($flags);
         $set = (int) $from;
-        if ($to != null) {
+        if (null !== $to) {
             $set .= ':' . ($to == INF ? '*' : (int) $to);
         }
 
@@ -680,10 +680,10 @@ class Imap
     {
         $tokens = array();
         $tokens[] = $this->escapeString($folder);
-        if ($flags !== null) {
+        if (null !== $flags) {
             $tokens[] = $this->escapeList($flags);
         }
-        if ($date !== null) {
+        if (null !== $date) {
             $tokens[] = $this->escapeString($date);
         }
         $tokens[] = $this->escapeString($message);
@@ -703,7 +703,7 @@ class Imap
     public function copy($folder, $from, $to = null)
     {
         $set = (int) $from;
-        if ($to != null) {
+        if (null !== $to) {
             $set .= ':' . ($to == INF ? '*' : (int) $to);
         }
 

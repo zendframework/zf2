@@ -135,7 +135,7 @@ class Subscriber
      */
     public function __construct($options = null)
     {
-        if ($options !== null) {
+        if (null !== $options) {
             $this->setOptions($options);
         }
     }
@@ -455,7 +455,7 @@ class Subscriber
             throw new Exception\InvalidArgumentException('Invalid parameter "name"'
                 . ' of "' . $name . '" must be a non-empty string');
         }
-        if ($value === null) {
+        if (null === $value) {
             $this->removeParameter($name);
             return $this;
         }
@@ -533,7 +533,7 @@ class Subscriber
      */
     public function getStorage()
     {
-        if ($this->storage === null) {
+        if (null === $this->storage) {
             throw new Exception\RuntimeException('No storage vehicle '
                 . 'has been set.');
         }
@@ -718,7 +718,7 @@ class Subscriber
             $params['hub.callback'] = rtrim($this->getCallbackUrl(), '/')
                 . '/' . PubSubHubbub::urlencode($key);
         }
-        if ($mode == 'subscribe' && $this->getLeaseSeconds() !== null) {
+        if ($mode == 'subscribe' && null !== $this->getLeaseSeconds()) {
             $params['hub.lease_seconds'] = $this->getLeaseSeconds();
         }
 

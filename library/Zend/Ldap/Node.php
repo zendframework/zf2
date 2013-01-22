@@ -87,7 +87,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
     protected function __construct(Dn $dn, array $data, $fromDataSource, Ldap $ldap = null)
     {
         parent::__construct($dn, $data, $fromDataSource);
-        if ($ldap !== null) {
+        if (null !== $ldap) {
             $this->attachLdap($ldap);
         } else {
             $this->detachLdap();
@@ -125,7 +125,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
      */
     public function getLdap()
     {
-        if ($this->ldap === null) {
+        if (null === $this->ldap) {
             throw new Exception\LdapException(null, 'No LDAP connection specified.',
                 Exception\LdapException::LDAP_OTHER);
         }
@@ -189,7 +189,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
      */
     public function isAttached()
     {
-        return ($this->ldap !== null);
+        return (null !== $this->ldap);
     }
 
     /**
@@ -270,7 +270,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
             throw new Exception\LdapException(null, '$dn is of a wrong data type.');
         }
         $data = $ldap->getEntry($dn, array('*', '+'), true);
-        if ($data === null) {
+        if (null === $data) {
             return null;
         }
         $entry = new static($dn, $data, true, $ldap);
@@ -393,7 +393,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
     {
         if ($this->isNew() || $this->willBeDeleted()) {
             return false;
-        } elseif ($this->newDn !== null) {
+        } elseif (null !== $this->newDn) {
             return ($this->dn != $this->newDn);
         }
 
@@ -417,7 +417,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
      */
     public function update(Ldap $ldap = null)
     {
-        if ($ldap !== null) {
+        if (null !== $ldap) {
             $this->attachLdap($ldap);
         }
         $ldap = $this->getLdap();
@@ -477,7 +477,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
      */
     protected function _getDn()
     {
-        return ($this->newDn === null) ? parent::_getDn() : $this->newDn;
+        return (null === $this->newDn) ? parent::_getDn() : $this->newDn;
     }
 
     /**
@@ -891,7 +891,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
      */
     public function exists(Ldap $ldap = null)
     {
-        if ($ldap !== null) {
+        if (null !== $ldap) {
             $this->attachLdap($ldap);
         }
         $ldap = $this->getLdap();
@@ -910,7 +910,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
      */
     public function reload(Ldap $ldap = null)
     {
-        if ($ldap !== null) {
+        if (null !== $ldap) {
             $this->attachLdap($ldap);
         }
         $ldap = $this->getLdap();
@@ -1033,7 +1033,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
      */
     public function getParent(Ldap $ldap = null)
     {
-        if ($ldap !== null) {
+        if (null !== $ldap) {
             $this->attachLdap($ldap);
         }
         $ldap     = $this->getLdap();

@@ -377,7 +377,7 @@ class FormMultiCheckbox extends FormInput
             return $this;
         }
 
-        if ($labelPosition !== null) {
+        if (null !== $labelPosition) {
             $this->setLabelPosition($labelPosition);
         }
 

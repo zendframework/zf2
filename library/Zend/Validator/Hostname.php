@@ -358,7 +358,7 @@ class Hostname extends AbstractValidator
      */
     public function setIpValidator(Ip $ipValidator = null)
     {
-        if ($ipValidator === null) {
+        if (null === $ipValidator) {
             $ipValidator = new Ip();
         }
 

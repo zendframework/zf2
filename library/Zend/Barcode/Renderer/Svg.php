@@ -131,13 +131,13 @@ class Svg extends AbstractRenderer
 
         $width = $barcodeWidth;
         $height = $barcodeHeight;
-        if ($this->userWidth && $this->barcode->getType() != 'error') {
+        if ($this->userWidth && 'error' != $this->barcode->getType()) {
             $width = $this->userWidth;
         }
-        if ($this->userHeight && $this->barcode->getType() != 'error') {
+        if ($this->userHeight && 'error' != $this->barcode->getType()) {
             $height = $this->userHeight;
         }
-        if ($this->resource === null) {
+        if (null === $this->resource) {
             $this->resource = new DOMDocument('1.0', 'utf-8');
             $this->resource->formatOutput = true;
             $this->rootElement = $this->resource->createElement('svg');
@@ -166,7 +166,7 @@ class Svg extends AbstractRenderer
 
     protected function readRootElement()
     {
-        if ($this->resource !== null) {
+        if (null !== $this->resource) {
             $this->rootElement = $this->resource->documentElement;
         }
     }
@@ -198,7 +198,7 @@ class Svg extends AbstractRenderer
         foreach ($attributes as $k =>$v) {
             $element->setAttribute($k, $v);
         }
-        if ($textContent !== null) {
+        if (null !== $textContent) {
             $element->appendChild(new DOMText((string) $textContent));
         }
         return $element;
@@ -222,7 +222,7 @@ class Svg extends AbstractRenderer
      */
     protected function checkDimensions()
     {
-        if ($this->resource !== null) {
+        if (null !== $this->resource) {
             $this->readRootElement();
             $height = (float) $this->rootElement->getAttribute('height');
             if ($height < $this->barcode->getHeight(true)) {
@@ -242,7 +242,7 @@ class Svg extends AbstractRenderer
                 }
             }
         }
-        if ($this->resource !== null) {
+        if (null !== $this->resource) {
             $this->readRootElement();
             $width = $this->rootElement->getAttribute('width');
             if ($width < $this->barcode->getWidth(true)) {

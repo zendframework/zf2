@@ -131,10 +131,10 @@ class Client implements ServerClient
             throw new Exception\ExtensionNotLoadedException('SOAP extension is not loaded.');
         }
 
-        if ($wsdl !== null) {
+        if (null !== $wsdl) {
             $this->setWSDL($wsdl);
         }
-        if ($options !== null) {
+        if (null !== $options) {
             $this->setOptions($options);
         }
     }
@@ -300,11 +300,11 @@ class Client implements ServerClient
              * breaks some other option
              */
             if (in_array($key, array('user_agent', 'cache_wsdl', 'compression'))) {
-                if ($value === null) {
+                if (null === $value) {
                     unset($options[$key]);
                 }
             } else {
-                if ($value == null) {
+                if (null === $value) {
                     unset($options[$key]);
                 }
             }
@@ -742,7 +742,7 @@ class Client implements ServerClient
      */
     public function setCompressionOptions($compressionOptions)
     {
-        if ($compressionOptions === null) {
+        if (null === $compressionOptions) {
             $this->compression = null;
         } else {
             $this->compression = (int) $compressionOptions;
@@ -830,7 +830,7 @@ class Client implements ServerClient
      */
     public function setWSDLCache($caching)
     {
-        if ($caching === null) {
+        if (null === $caching) {
             $this->cacheWsdl = null;
         } else {
             $this->cacheWsdl = (int) $caching;
@@ -856,7 +856,7 @@ class Client implements ServerClient
      */
     public function setUserAgent($userAgent)
     {
-        if ($userAgent === null) {
+        if (null === $userAgent) {
             $this->userAgent = null;
         } else {
             $this->userAgent = (string) $userAgent;
@@ -881,7 +881,7 @@ class Client implements ServerClient
      */
     public function getLastRequest()
     {
-        if ($this->soapClient !== null) {
+        if (null !== $this->soapClient) {
             return $this->soapClient->__getLastRequest();
         }
 
@@ -895,7 +895,7 @@ class Client implements ServerClient
      */
     public function getLastResponse()
     {
-        if ($this->soapClient !== null) {
+        if (null !== $this->soapClient) {
             return $this->soapClient->__getLastResponse();
         }
 
@@ -909,7 +909,7 @@ class Client implements ServerClient
      */
     public function getLastRequestHeaders()
     {
-        if ($this->soapClient !== null) {
+        if (null !== $this->soapClient) {
             return $this->soapClient->__getLastRequestHeaders();
         }
 
@@ -923,7 +923,7 @@ class Client implements ServerClient
      */
     public function getLastResponseHeaders()
     {
-        if ($this->soapClient !== null) {
+        if (null !== $this->soapClient) {
             return $this->soapClient->__getLastResponseHeaders();
         }
 
@@ -957,7 +957,7 @@ class Client implements ServerClient
     public function _doRequest(Client\Common $client, $request, $location, $action, $version, $oneWay = null)
     {
         // Perform request as is
-        if ($oneWay === null) {
+        if (null === $oneWay) {
             return call_user_func(array($client,'SoapClient::__doRequest'), $request, $location, $action, $version);
         }
         return call_user_func(array($client, 'SoapClient::__doRequest'), $request, $location, $action, $version, $oneWay);
@@ -973,7 +973,7 @@ class Client implements ServerClient
         $wsdl = $this->getWSDL();
         $options = array_merge($this->getOptions(), array('trace' => true));
 
-        if ($wsdl == null) {
+        if (null === $wsdl) {
             if (!isset($options['location'])) {
                 throw new Exception\UnexpectedValueException('\'location\' parameter is required in non-WSDL mode.');
             }
@@ -1159,7 +1159,7 @@ class Client implements ServerClient
      */
     public function getSoapClient()
     {
-        if ($this->soapClient == null) {
+        if (null === $this->soapClient) {
             $this->_initSoapClientObject();
         }
         return $this->soapClient;

@@ -89,7 +89,7 @@ class PaginationControl extends AbstractHelper
      */
     public function __invoke(Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
     {
-        if ($paginator === null) {
+        if (null === $paginator) {
             if (isset($this->view->paginator) and $this->view->paginator !== null and $this->view->paginator instanceof Paginator\Paginator) {
                 $paginator = $this->view->paginator;
             } else {
@@ -97,7 +97,7 @@ class PaginationControl extends AbstractHelper
             }
         }
 
-        if ($partial === null) {
+        if (null === $partial) {
             if (static::$defaultViewPartial === null) {
                 throw new Exception\RuntimeException('No view partial provided and no default set');
             }
@@ -105,13 +105,13 @@ class PaginationControl extends AbstractHelper
             $partial = static::$defaultViewPartial;
         }
 
-        if ($scrollingStyle === null) {
+        if (null === $scrollingStyle) {
             $scrollingStyle = static::$defaultScrollingStyle;
         }
 
         $pages = get_object_vars($paginator->getPages($scrollingStyle));
 
-        if ($params !== null) {
+        if (null !== $params) {
             $pages = array_merge($pages, (array) $params);
         }
 

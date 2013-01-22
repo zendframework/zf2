@@ -47,7 +47,7 @@ class PluginClassLoader implements PluginClassLocator
         }
 
         // Merge in constructor arguments
-        if ($map !== null) {
+        if (null !== $map) {
             $this->registerPlugins($map);
         }
     }

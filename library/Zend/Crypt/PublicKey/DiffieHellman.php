@@ -104,7 +104,7 @@ class DiffieHellman
     {
         $this->setPrime($prime);
         $this->setGenerator($generator);
-        if ($privateKey !== null) {
+        if (null !== $privateKey) {
             $this->setPrivateKey($privateKey, $privateKeyFormat);
         }
 
@@ -199,7 +199,7 @@ class DiffieHellman
      */
     public function getPublicKey($format = self::FORMAT_NUMBER)
     {
-        if ($this->publicKey === null) {
+        if (null === $this->publicKey) {
             throw new Exception\InvalidArgumentException(
                 'A public key has not yet been generated using a prior call to generateKeys()'
             );

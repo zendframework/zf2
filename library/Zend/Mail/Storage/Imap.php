@@ -71,7 +71,7 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
             throw new Exception\RuntimeException('No selected folder to count');
         }
 
-        if ($flags === null) {
+        if (null === $flags) {
             return count($this->protocol->search(array('ALL')));
         }
 
@@ -135,7 +135,7 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
      */
     public function getRawHeader($id, $part = null, $topLines = 0)
     {
-        if ($part !== null) {
+        if (null !== $part) {
             // TODO: implement
             throw new Exception\RuntimeException('not implemented');
         }
@@ -155,7 +155,7 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
      */
     public function getRawContent($id, $part = null)
     {
-        if ($part !== null) {
+        if (null !== $part) {
             // TODO: implement
             throw new Exception\RuntimeException('not implemented');
         }
@@ -394,7 +394,7 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
         // TODO: we assume / as the hierarchy delim - need to get that from the folder class!
         if ($parentFolder instanceof Folder) {
             $folder = $parentFolder->getGlobalName() . '/' . $name;
-        } elseif ($parentFolder != null) {
+        } elseif (null !== $parentFolder) {
             $folder = $parentFolder . '/' . $name;
         } else {
             $folder = $name;
@@ -453,11 +453,11 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
      // not yet * @param string|\Zend\Mail\Message|\Zend\Mime\Message $message message as string or instance of message class
     public function appendMessage($message, $folder = null, $flags = null)
     {
-        if ($folder === null) {
+        if (null === $folder) {
             $folder = $this->currentFolder;
         }
 
-        if ($flags === null) {
+        if (null === $flags) {
             $flags = array(Mail\Storage::FLAG_SEEN);
         }
 

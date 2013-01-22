@@ -87,8 +87,8 @@ class LicenseTag extends Tag
     public function generate()
     {
         $output = '@' . $this->name
-                . (($this->url !== null) ? ' ' . $this->url : '')
-                . (($this->description !== null) ? ' ' . $this->description : '');
+                . ((null !== $this->url) ? ' ' . $this->url : '')
+                . ((null !== $this->description) ? ' ' . $this->description : '');
         return $output;
     }
 }

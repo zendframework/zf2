@@ -93,7 +93,7 @@ class SetCookie implements MultipleHeaderInterface
         /* @var $setCookieProcessor Closure */
         static $setCookieProcessor = null;
 
-        if ($setCookieProcessor === null) {
+        if (null === $setCookieProcessor) {
             $setCookieClass = get_called_class();
             $setCookieProcessor = function ($headerLine) use ($setCookieClass) {
                 $header = new $setCookieClass;
@@ -107,7 +107,7 @@ class SetCookie implements MultipleHeaderInterface
                     }
 
                     // First K=V pair is always the cookie name and value
-                    if ($header->getName() === NULL) {
+                    if (null === $header->getName()) {
                         $header->setName($headerKey);
                         $header->setValue(urldecode($headerValue));
                         continue;
@@ -384,7 +384,7 @@ class SetCookie implements MultipleHeaderInterface
      */
     public function getExpires($inSeconds = false)
     {
-        if ($this->expires == null) {
+        if (null === $this->expires) {
             return;
         }
         if ($inSeconds) {
@@ -467,7 +467,7 @@ class SetCookie implements MultipleHeaderInterface
      */
     public function isExpired($now = null)
     {
-        if ($now === null) {
+        if (null === $now) {
             $now = time();
         }
 
@@ -485,7 +485,7 @@ class SetCookie implements MultipleHeaderInterface
      */
     public function isSessionCookie()
     {
-        return ($this->expires === null);
+        return (null === $this->expires);
     }
 
     public function isValidForRequest($requestDomain, $path, $isSecure = false)

@@ -128,7 +128,7 @@ class Collection implements \Iterator, \Countable
             }
             if (!array_key_exists($this->current, $this->cache)) {
                 $current = $this->iterator->current();
-                if ($current === null) {
+                if (null === $current) {
                     return null;
                 }
                 $this->cache[$this->current] = $this->createEntry($current);

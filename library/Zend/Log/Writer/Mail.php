@@ -176,7 +176,7 @@ class Mail extends AbstractWriter
             return;
         }
 
-        if ($this->subjectPrependText !== null) {
+        if (null !== $this->subjectPrependText) {
             // Tack on the summary of entries per-priority to the subject
             // line and set it on the Zend\Mail object.
             $numEntries = $this->getFormattedNumEntriesPerPriority();

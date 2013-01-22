@@ -87,7 +87,7 @@ class Message
      */
     public function getMime()
     {
-        if ($this->mime === null) {
+        if (null === $this->mime) {
             $this->mime = new Mime();
         }
 

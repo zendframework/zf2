@@ -68,10 +68,10 @@ class Ldap implements AdapterInterface
     public function __construct(array $options = array(), $username = null, $password = null)
     {
         $this->setOptions($options);
-        if ($username !== null) {
+        if (null !== $username) {
             $this->setUsername($username);
         }
-        if ($password !== null) {
+        if (null !== $password) {
             $this->setPassword($password);
         }
     }
@@ -182,7 +182,7 @@ class Ldap implements AdapterInterface
      */
     public function getLdap()
     {
-        if ($this->ldap === null) {
+        if (null === $this->ldap) {
             $this->ldap = new ZendLdap\Ldap();
         }
 
@@ -417,7 +417,7 @@ class Ldap implements AdapterInterface
      */
     protected function checkGroupMembership(ZendLdap\Ldap $ldap, $canonicalName, $dn, array $adapterOptions)
     {
-        if ($adapterOptions['group'] === null) {
+        if (null === $adapterOptions['group']) {
             return true;
         }
 

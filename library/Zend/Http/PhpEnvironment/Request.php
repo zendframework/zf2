@@ -135,7 +135,7 @@ class Request extends HttpRequest
      */
     public function getRequestUri()
     {
-        if ($this->requestUri === null) {
+        if (null === $this->requestUri) {
             $this->requestUri = $this->detectRequestUri();
         }
         return $this->requestUri;
@@ -160,7 +160,7 @@ class Request extends HttpRequest
      */
     public function getBaseUrl()
     {
-        if ($this->baseUrl === null) {
+        if (null === $this->baseUrl) {
             $this->setBaseUrl($this->detectBaseUrl());
         }
         return $this->baseUrl;
@@ -185,7 +185,7 @@ class Request extends HttpRequest
      */
     public function getBasePath()
     {
-        if ($this->basePath === null) {
+        if (null === $this->basePath) {
             $this->setBasePath($this->detectBasePath());
         }
 
@@ -315,11 +315,11 @@ class Request extends HttpRequest
      */
     public function getServer($name = null, $default = null)
     {
-        if ($this->serverParams === null) {
+        if (null === $this->serverParams) {
             $this->serverParams = new Parameters();
         }
 
-        if ($name === null) {
+        if (null === $name) {
             return $this->serverParams;
         }
 
@@ -348,11 +348,11 @@ class Request extends HttpRequest
      */
     public function getEnv($name = null, $default = null)
     {
-        if ($this->envParams === null) {
+        if (null === $this->envParams) {
             $this->envParams = new Parameters();
         }
 
-        if ($name === null) {
+        if (null === $name) {
             return $this->envParams;
         }
 
@@ -416,13 +416,13 @@ class Request extends HttpRequest
 
         // Check this first so IIS will catch.
         $httpXRewriteUrl = $server->get('HTTP_X_REWRITE_URL');
-        if ($httpXRewriteUrl !== null) {
+        if (null !== $httpXRewriteUrl) {
             $requestUri = $httpXRewriteUrl;
         }
 
         // Check for IIS 7.0 or later with ISAPI_Rewrite
         $httpXOriginalUrl = $server->get('HTTP_X_ORIGINAL_URL');
-        if ($httpXOriginalUrl !== null) {
+        if (null !== $httpXOriginalUrl) {
             $requestUri = $httpXOriginalUrl;
         }
 
@@ -440,13 +440,13 @@ class Request extends HttpRequest
             $requestUri = $server->get('REQUEST_URI');
         }
 
-        if ($requestUri !== null) {
+        if (null !== $requestUri) {
             return preg_replace('#^[^/:]+://[^/]+#', '', $requestUri);
         }
 
         // IIS 5.0, PHP as CGI.
         $origPathInfo = $server->get('ORIG_PATH_INFO');
-        if ($origPathInfo !== null) {
+        if (null !== $origPathInfo) {
             $queryString = $server->get('QUERY_STRING', '');
             if ($queryString !== '') {
                 $origPathInfo .= '?' . $queryString;

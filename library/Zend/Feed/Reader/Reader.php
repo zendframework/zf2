@@ -206,10 +206,10 @@ class Reader
         if (static::$httpConditionalGet && $cache) {
             $data = $cache->getItem($cacheId);
             if ($data) {
-                if ($etag === null) {
+                if (null === $etag) {
                     $etag = $cache->getItem($cacheId . '_etag');
                 }
-                if ($lastModified === null) {
+                if (null === $lastModified) {
                     $lastModified = $cache->getItem($cacheId . '_lastmodified');
                 }
                 if ($etag) {

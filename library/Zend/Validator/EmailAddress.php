@@ -117,7 +117,7 @@ class EmailAddress extends AbstractValidator
      */
     public function setMessage($messageString, $messageKey = null)
     {
-        if ($messageKey === null) {
+        if (null === $messageKey) {
             $this->getHostnameValidator()->setMessage($messageString);
             parent::setMessage($messageString);
             return $this;

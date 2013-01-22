@@ -208,7 +208,7 @@ class Token implements ProcessorInterface
             throw new Exception\InvalidArgumentException('Cannot process config because it is read-only');
         }
 
-        if ($this->map === null) {
+        if (null === $this->map) {
             $this->buildMap();
         }
 
@@ -236,7 +236,7 @@ class Token implements ProcessorInterface
      */
     public function processValue($value)
     {
-        if ($this->map === null) {
+        if (null === $this->map) {
             $this->buildMap();
         }
         $keys = array_keys($this->map);

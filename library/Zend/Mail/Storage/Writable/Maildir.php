@@ -112,7 +112,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
     {
         if ($parentFolder instanceof Folder) {
             $folder = $parentFolder->getGlobalName() . $this->delim . $name;
-        } elseif ($parentFolder != null) {
+        } elseif (null !== $parentFolder) {
             $folder = rtrim($parentFolder, $this->delim) . $this->delim . $name;
         } else {
             $folder = $name;
@@ -445,7 +445,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
             throw new StorageException\RuntimeException('storage is over quota!');
         }
 
-        if ($folder === null) {
+        if (null === $folder) {
             $folder = $this->currentFolder;
         }
 
@@ -453,7 +453,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
             $folder = $this->getFolders($folder);
         }
 
-        if ($flags === null) {
+        if (null === $flags) {
             $flags = array(Storage::FLAG_SEEN);
         }
         $info     = $this->_getInfoString($flags);

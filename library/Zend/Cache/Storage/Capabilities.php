@@ -507,7 +507,7 @@ class Capabilities
      */
     protected function getCapability($property, $default = null)
     {
-        if ($this->$property !== null) {
+        if (null !== $this->$property) {
             return $this->$property;
         } elseif ($this->baseCapabilities) {
             $getMethod = 'get' . $property;

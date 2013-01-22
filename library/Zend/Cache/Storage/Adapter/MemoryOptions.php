@@ -62,7 +62,7 @@ class MemoryOptions extends AdapterOptions
      */
     public function getMemoryLimit()
     {
-        if ($this->memoryLimit === null) {
+        if (null === $this->memoryLimit) {
             // By default use half of PHP's memory limit if possible
             $memoryLimit = $this->normalizeMemoryLimit(ini_get('memory_limit'));
             if ($memoryLimit >= 0) {

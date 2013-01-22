@@ -121,7 +121,7 @@ class Client implements ServerClient
         $this->lastRequest = $request;
 
         $httpRequest = $this->httpClient->getRequest();
-        if ($httpRequest->getUriString() === null) {
+        if (null === $httpRequest->getUriString()) {
             $this->httpClient->setUri($this->serverAddress);
         }
 

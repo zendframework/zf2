@@ -100,9 +100,9 @@ class ParamTag extends Tag
     public function generate()
     {
         $output = '@param '
-            . (($this->datatype != null) ? $this->datatype : 'unknown')
-            . (($this->paramName != null) ? ' $' . $this->paramName : '')
-            . (($this->description != null) ? ' ' . $this->description : '');
+            . ((null !== $this->datatype) ? $this->datatype : 'unknown')
+            . ((null !== $this->paramName) ? ' $' . $this->paramName : '')
+            . ((null !== $this->description) ? ' ' . $this->description : '');
         return $output;
     }
 

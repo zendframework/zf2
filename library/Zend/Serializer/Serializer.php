@@ -119,7 +119,7 @@ class Serializer
      */
     public static function serialize($value, $adapter = null, $adapterOptions = null)
     {
-        if ($adapter !== null) {
+        if (null !== $adapter) {
             $adapter = static::factory($adapter, $adapterOptions);
         } else {
             $adapter = static::getDefaultAdapter();
@@ -140,7 +140,7 @@ class Serializer
      */
     public static function unserialize($serialized, $adapter = null, $adapterOptions = null)
     {
-        if ($adapter !== null) {
+        if (null !== $adapter) {
             $adapter = static::factory($adapter, $adapterOptions);
         } else {
             $adapter = static::getDefaultAdapter();

@@ -211,7 +211,7 @@ class Stream extends Response
      */
     public function getBody()
     {
-        if ($this->stream != null) {
+        if (null !== $this->stream) {
             $this->readStream();
         }
         return parent::getBody();

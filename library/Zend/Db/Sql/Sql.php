@@ -36,7 +36,7 @@ class Sql
 
     public function hasTable()
     {
-        return ($this->table != null);
+        return (null !== $this->table);
     }
 
     public function setTable($table)

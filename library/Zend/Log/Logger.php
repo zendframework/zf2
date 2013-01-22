@@ -358,7 +358,7 @@ class Logger implements LoggerInterface
             return false;
         }
 
-        if ($logger === null) {
+        if (null === $logger) {
             throw new Exception\InvalidArgumentException('Invalid Logger specified');
         }
 
@@ -423,7 +423,7 @@ class Logger implements LoggerInterface
             return false;
         }
 
-        if ($logger === null) {
+        if (null === $logger) {
             throw new Exception\InvalidArgumentException('Invalid Logger specified');
         }
 

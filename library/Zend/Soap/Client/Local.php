@@ -72,7 +72,7 @@ class Local extends SOAPClient
 
         if ($response === null || $response === '') {
             $serverResponse = $this->server->getResponse();
-            if ($serverResponse !== null) {
+            if (null !== $serverResponse) {
                 $response = $serverResponse;
             }
         }

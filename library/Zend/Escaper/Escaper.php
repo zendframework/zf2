@@ -102,7 +102,7 @@ class Escaper
      */
     public function __construct($encoding = null)
     {
-        if ($encoding !== null) {
+        if (null !== $encoding) {
             $encoding = (string) $encoding;
             if ($encoding === '') {
                 throw new Exception\InvalidArgumentException(

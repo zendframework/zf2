@@ -95,7 +95,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function set(array $values, $flag = self::VALUES_SET)
     {
-        if ($values == null) {
+        if (null === $values) {
             throw new Exception\InvalidArgumentException('set() expects an array of values');
         }
 

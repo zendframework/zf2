@@ -266,10 +266,10 @@ abstract class AbstractAdapter implements AdapterInterface
 
         // Draw corners
         if ($lineStyle !== static::LINE_NONE) {
-            if ($color !== null) {
+            if (null !== $color) {
                 $this->setColor($color);
             }
-            if ($bgColor !== null) {
+            if (null !== $bgColor) {
                 $this->setBgColor($bgColor);
             }
             if ($lineStyle === static::LINE_SINGLE) {
@@ -493,7 +493,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function getCharset()
     {
-        if ($this->charset === null) {
+        if (null === $this->charset) {
             $this->charset = $this->getDefaultCharset();
         }
 

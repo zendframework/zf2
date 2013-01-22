@@ -65,7 +65,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
         foreach ($this->pages as $hash => $page) {
             $order = $page->getOrder();
-            if ($order === null) {
+            if (null === $order) {
                 $newIndex[$hash] = $index;
                 $index++;
             } else {

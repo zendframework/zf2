@@ -213,7 +213,7 @@ class Ini implements ReaderInterface
             $this->processKey($pieces[1], $value, $config[$pieces[0]]);
         } else {
             if ($key === '@include') {
-                if ($this->directory === null) {
+                if (null === $this->directory) {
                     throw new Exception\RuntimeException('Cannot process @include statement for a string config');
                 }
 

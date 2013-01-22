@@ -757,7 +757,7 @@ class ServiceManager implements ServiceLocatorInterface
                 $e
             );
         }
-        if ($instance === null) {
+        if (null === $instance) {
             throw new Exception\ServiceNotCreatedException('The factory was called but did not return an instance.');
         }
 

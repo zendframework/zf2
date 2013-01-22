@@ -82,7 +82,7 @@ class Upload extends AbstractValidator
      */
     public function getFiles($file = null)
     {
-        if ($file !== null) {
+        if (null !== $file) {
             $return = array();
             foreach ($this->options['files'] as $name => $content) {
                 if ($name === $file) {
@@ -220,7 +220,7 @@ class Upload extends AbstractValidator
      */
     protected function throwError($file, $errorType)
     {
-        if ($file !== null) {
+        if (null !== $file) {
             if (is_array($file)) {
                 if (array_key_exists('name', $file)) {
                     $this->value = $file['name'];

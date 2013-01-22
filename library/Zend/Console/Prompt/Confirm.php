@@ -54,15 +54,15 @@ class Confirm extends Char
         $yesChar = 'y',
         $noChar = 'n'
     ) {
-        if ($promptText !== null) {
+        if (null !== $promptText) {
             $this->setPromptText($promptText);
         }
 
-        if ($yesChar !== null) {
+        if (null !== $yesChar) {
             $this->setYesChar($yesChar);
         }
 
-        if ($noChar !== null) {
+        if (null !== $noChar) {
             $this->setNoChar($noChar);
         }
     }

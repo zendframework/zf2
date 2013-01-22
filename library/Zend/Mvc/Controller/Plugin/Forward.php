@@ -137,7 +137,7 @@ class Forward extends AbstractPlugin
 
 
         // Allow passing parameters to seed the RouteMatch with & copy matched route name
-        if ($params !== null) {
+        if (null !== $params) {
             $routeMatch = new RouteMatch($params);
             $routeMatch->setMatchedRouteName($event->getRouteMatch()->getMatchedRouteName());
             $event->setRouteMatch($routeMatch);
