@@ -98,7 +98,9 @@ class Sender implements HeaderInterface
 
     public function toString()
     {
-        return 'Sender: ' . $this->getFieldValue(HeaderInterface::FORMAT_ENCODED);
+        $name  = $this->getFieldName();
+        $value = $this->getFieldValue(HeaderInterface::FORMAT_ENCODED);
+        return (empty($value)) ? '' : sprintf('%s: %s', $name, $value);
     }
 
     /**
