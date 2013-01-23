@@ -102,8 +102,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
                 return true;
             }
             throw new DbAdapterManagerAdapterAlreadyRegistered(sprintf("adapter key (%s) allready exist",$key));
-        }
-        elseif ( $this->hasAdapterConfig($key) ) {
+        } elseif ( $this->hasAdapterConfig($key) ) {
             throw new DbAdapterManagerAdapterAlreadyRegistered(sprintf("adapter key (%s) allready exist",$key));
         }
 
