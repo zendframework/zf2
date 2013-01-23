@@ -55,11 +55,11 @@ class WordCount extends Count
 
         $content = file_get_contents($value);
         $this->count = str_word_count($content);
-        if ((null !== $this->getMax()) && ($this->count > $this->getMax())) {
+        if (($this->getMax() !== null) && ($this->count > $this->getMax())) {
             return $this->throwError($file, self::TOO_MUCH);
         }
 
-        if ((null !== $this->getMin()) && ($this->count < $this->getMin())) {
+        if (($this->getMin() !== null) && ($this->count < $this->getMin())) {
             return $this->throwError($file, self::TOO_LESS);
         }
 

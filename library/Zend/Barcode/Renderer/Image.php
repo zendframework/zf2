@@ -216,7 +216,7 @@ class Image extends AbstractRenderer
         } else {
             $width = $barcodeWidth;
             $height = $barcodeHeight;
-        if ($this->userWidth && $this->barcode->getType() != 'error') {
+            if ($this->userWidth && $this->barcode->getType() != 'error') {
                 $width = $this->userWidth;
             }
             if ($this->userHeight && $this->barcode->getType() != 'error') {

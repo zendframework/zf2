@@ -123,7 +123,7 @@ class Count extends AbstractValidator
         }
 
         $min = (integer) $min;
-        if ((null !== $this->getMax()) && ($min > $this->getMax())) {
+        if (($this->getMax() !== null) && ($min > $this->getMax())) {
             throw new Exception\InvalidArgumentException("The minimum must be less than or equal to the maximum file count, but $min >"
                                             . " {$this->getMax()}");
         }
@@ -160,7 +160,7 @@ class Count extends AbstractValidator
         }
 
         $max = (integer) $max;
-        if ((null !== $this->getMin()) && ($max < $this->getMin())) {
+        if (($this->getMin() !== null) && ($max < $this->getMin())) {
             throw new Exception\InvalidArgumentException("The maximum must be greater than or equal to the minimum file count, but "
                                             . "$max < {$this->getMin()}");
         }
@@ -216,11 +216,11 @@ class Count extends AbstractValidator
         }
 
         $this->count = count($this->files);
-        if ((null !== $this->getMax()) && ($this->count > $this->getMax())) {
+        if (($this->getMax() !== null) && ($this->count > $this->getMax())) {
             return $this->throwError($file, self::TOO_MANY);
         }
 
-        if ((null !== $this->getMin()) && ($this->count < $this->getMin())) {
+        if (($this->getMin() !== null) && ($this->count < $this->getMin())) {
             return $this->throwError($file, self::TOO_FEW);
         }
 

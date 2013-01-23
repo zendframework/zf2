@@ -460,7 +460,7 @@ class Request extends AbstractMessage implements RequestInterface
     public function isXmlHttpRequest()
     {
         $header = $this->getHeaders()->get('X_REQUESTED_WITH');
-        return false !== $header && 'XMLHttpRequest' == $header->getFieldValue();
+        return false !== $header && $header->getFieldValue() == 'XMLHttpRequest';
     }
 
     /**

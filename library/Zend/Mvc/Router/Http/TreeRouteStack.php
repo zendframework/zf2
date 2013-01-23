@@ -221,8 +221,8 @@ class TreeRouteStack extends SimpleRouteStack
 
         $path = $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
 
-        if ((isset($options['force_canonical']) && $options['force_canonical']) || null !== $uri->getHost()) {
-            if (null === $uri->getScheme()) {
+        if ((isset($options['force_canonical']) && $options['force_canonical']) || $uri->getHost() !== null) {
+            if ($uri->getScheme() === null) {
                 if (null === $this->requestUri) {
                     throw new Exception\RuntimeException('Request URI has not been set');
                 }

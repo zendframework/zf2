@@ -377,7 +377,7 @@ class TokenArrayScanner implements ScannerInterface
                 );
 
                 // start processing with next token
-                if (false === $MACRO_TOKEN_ADVANCE()) {
+                if ($MACRO_TOKEN_ADVANCE() === false) {
                     goto SCANNER_END;
                 }
 
@@ -397,7 +397,7 @@ class TokenArrayScanner implements ScannerInterface
 
                 SCANNER_NAMESPACE_CONTINUE:
 
-                if (false === $MACRO_TOKEN_ADVANCE()) {
+                if ($MACRO_TOKEN_ADVANCE() === false) {
                     goto SCANNER_END;
                 }
                 goto SCANNER_NAMESPACE_TOP;
@@ -426,7 +426,7 @@ class TokenArrayScanner implements ScannerInterface
                 $useAsContext      = false;
 
                 // start processing with next token
-                if (false === $MACRO_TOKEN_ADVANCE()) {
+                if ($MACRO_TOKEN_ADVANCE() === false) {
                     goto SCANNER_END;
                 }
 
@@ -463,7 +463,7 @@ class TokenArrayScanner implements ScannerInterface
 
                 SCANNER_USE_CONTINUE:
 
-                if (false === $MACRO_TOKEN_ADVANCE()) {
+                if ($MACRO_TOKEN_ADVANCE() === false) {
                     goto SCANNER_END;
                 }
                 goto SCANNER_USE_TOP;
@@ -498,7 +498,7 @@ class TokenArrayScanner implements ScannerInterface
                 );
 
                 // start processing with next token
-                if (false === $MACRO_TOKEN_ADVANCE()) {
+                if ($MACRO_TOKEN_ADVANCE() === false) {
                     goto SCANNER_END;
                 }
 
@@ -512,7 +512,7 @@ class TokenArrayScanner implements ScannerInterface
 
                 SCANNER_INCLUDE_CONTINUE:
 
-                if (false === $MACRO_TOKEN_ADVANCE()) {
+                if ($MACRO_TOKEN_ADVANCE() === false) {
                     goto SCANNER_END;
                 }
                 goto SCANNER_INCLUDE_TOP;
@@ -569,7 +569,7 @@ class TokenArrayScanner implements ScannerInterface
 
                 SCANNER_CLASS_CONTINUE:
 
-                if (false === $MACRO_TOKEN_ADVANCE()) {
+                if ($MACRO_TOKEN_ADVANCE() === false) {
                     goto SCANNER_END;
                 }
                 goto SCANNER_CLASS_TOP;
@@ -583,7 +583,7 @@ class TokenArrayScanner implements ScannerInterface
 
         SCANNER_CONTINUE:
 
-        if (false === $MACRO_TOKEN_ADVANCE()) {
+        if ($MACRO_TOKEN_ADVANCE() === false) {
             goto SCANNER_END;
         }
         goto SCANNER_TOP;

@@ -174,7 +174,7 @@ class StringLength extends AbstractValidator
         }
 
         $this->setValue($value);
-        if (null !== $this->getEncoding()) {
+        if ($this->getEncoding() !== null) {
             $length = iconv_strlen($value, $this->getEncoding());
         } else {
             $length = iconv_strlen($value);

@@ -280,7 +280,7 @@ class Config implements Countable, Iterator, ArrayAccess
      */
     public function valid()
     {
-        return (null !== $this->key());
+        return ($this->key() !== null);
     }
 
     /**

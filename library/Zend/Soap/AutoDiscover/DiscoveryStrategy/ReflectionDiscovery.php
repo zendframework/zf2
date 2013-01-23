@@ -41,6 +41,6 @@ class ReflectionDiscovery implements DiscoveryStrategyInterface
 
     public function isFunctionOneWay(AbstractFunction $function, Prototype $prototype)
     {
-        return 'void' == $prototype->getReturnType();
+        return $prototype->getReturnType() == 'void';
     }
 }

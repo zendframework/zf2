@@ -144,7 +144,7 @@ class Proxy extends Socket
         }
 
         // if we are proxying HTTPS, preform CONNECT handshake with the proxy
-        if ('https' == $uri->getScheme() && (! $this->negotiated)) {
+        if ($uri->getScheme() == 'https' && (! $this->negotiated)) {
             $this->connectHandshake($uri->getHost(), $uri->getPort(), $httpVer, $headers);
             $this->negotiated = true;
         }

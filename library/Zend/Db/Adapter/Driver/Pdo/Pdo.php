@@ -132,7 +132,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface
      */
     public function setupDefaultFeatures()
     {
-        if ('sqlite' == $this->connection->getDriverName()) {
+        if ($this->connection->getDriverName() == 'sqlite') {
             $this->addFeature(null, new Feature\SqliteRowCounter);
         }
         return $this;
@@ -232,7 +232,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface
         $rowCount = null;
 
         // special feature, sqlite PDO counter
-        if ('sqlite' == $this->connection->getDriverName()
+        if ($this->connection->getDriverName() == 'sqlite'
             && ($sqliteRowCounter = $this->getFeature('SqliteRowCounter'))
             && $resource->columnCount() > 0) {
             $rowCount = $sqliteRowCounter->getRowCountClosure($context);

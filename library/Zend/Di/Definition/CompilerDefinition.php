@@ -297,7 +297,7 @@ class CompilerDefinition implements DefinitionInterface
 
             // set the class name, if it exists
             $def['parameters'][$methodName][$fqName][] = $actualParamName;
-            $def['parameters'][$methodName][$fqName][] = (null !== $p->getClass()) ? $p->getClass()->getName() : null;
+            $def['parameters'][$methodName][$fqName][] = ($p->getClass() !== null) ? $p->getClass()->getName() : null;
             $def['parameters'][$methodName][$fqName][] = !($optional =$p->isOptional());
             $def['parameters'][$methodName][$fqName][] = $optional && $p->isDefaultValueAvailable() ? $p->getDefaultValue() : null;
         }
@@ -430,7 +430,7 @@ class CompilerDefinition implements DefinitionInterface
 //
 //            // set the class name, if it exists
 //            $def['parameters'][$methodName][$fqName][] = $actualParamName;
-//            $def['parameters'][$methodName][$fqName][] = (null !== $p->getClass()) ? $p->getClass() : null;
+//            $def['parameters'][$methodName][$fqName][] = ($p->getClass() !== null) ? $p->getClass() : null;
 //            $def['parameters'][$methodName][$fqName][] = !$p->isOptional();
 //        }
 //    }

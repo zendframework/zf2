@@ -920,7 +920,7 @@ class Paginator implements Countable, IteratorAggregate
         $pages->lastPageInRange  = max($pages->pagesInRange);
 
         // Item numbers
-        if (null !== $this->getCurrentItems()) {
+        if ($this->getCurrentItems() !== null) {
             $pages->currentItemCount = $this->getCurrentItemCount();
             $pages->itemCountPerPage = $this->getItemCountPerPage();
             $pages->totalItemCount   = $this->getTotalItemCount();

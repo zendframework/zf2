@@ -133,7 +133,7 @@ class ImageSize extends AbstractValidator
      */
     public function setMinWidth($minWidth)
     {
-        if ((null !== $this->getMaxWidth()) && ($minWidth > $this->getMaxWidth())) {
+        if (($this->getMaxWidth() !== null) && ($minWidth > $this->getMaxWidth())) {
             throw new Exception\InvalidArgumentException("The minimum image width must be less than or equal to the "
                 . " maximum image width, but {$minWidth} > {$this->getMaxWidth()}");
         }
@@ -161,7 +161,7 @@ class ImageSize extends AbstractValidator
      */
     public function setMaxWidth($maxWidth)
     {
-        if ((null !== $this->getMinWidth()) && ($maxWidth < $this->getMinWidth())) {
+        if (($this->getMinWidth() !== null) && ($maxWidth < $this->getMinWidth())) {
             throw new Exception\InvalidArgumentException("The maximum image width must be greater than or equal to the "
                 . "minimum image width, but {$maxWidth} < {$this->getMinWidth()}");
         }
@@ -189,7 +189,7 @@ class ImageSize extends AbstractValidator
      */
     public function setMinHeight($minHeight)
     {
-        if ((null !== $this->getMaxHeight()) && ($minHeight > $this->getMaxHeight())) {
+        if (($this->getMaxHeight() !== null) && ($minHeight > $this->getMaxHeight())) {
             throw new Exception\InvalidArgumentException("The minimum image height must be less than or equal to the "
                 . " maximum image height, but {$minHeight} > {$this->getMaxHeight()}");
         }
@@ -217,7 +217,7 @@ class ImageSize extends AbstractValidator
      */
     public function setMaxHeight($maxHeight)
     {
-        if ((null !== $this->getMinHeight()) && ($maxHeight < $this->getMinHeight())) {
+        if (($this->getMinHeight() !== null) && ($maxHeight < $this->getMinHeight())) {
             throw new Exception\InvalidArgumentException("The maximum image height must be greater than or equal to the "
                 . "minimum image height, but {$maxHeight} < {$this->getMinHeight()}");
         }
@@ -352,7 +352,7 @@ class ImageSize extends AbstractValidator
             $this->throwError($file, self::WIDTH_TOO_SMALL);
         }
 
-        if ((null !== $this->getMaxWidth()) && ($this->getMaxWidth() < $this->width)) {
+        if (($this->getMaxWidth() !== null) && ($this->getMaxWidth() < $this->width)) {
             $this->throwError($file, self::WIDTH_TOO_BIG);
         }
 
@@ -360,7 +360,7 @@ class ImageSize extends AbstractValidator
             $this->throwError($file, self::HEIGHT_TOO_SMALL);
         }
 
-        if ((null !== $this->getMaxHeight()) && ($this->getMaxHeight() < $this->height)) {
+        if (($this->getMaxHeight() !== null) && ($this->getMaxHeight() < $this->height)) {
             $this->throwError($file, self::HEIGHT_TOO_BIG);
         }
 

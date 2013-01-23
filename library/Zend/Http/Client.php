@@ -794,7 +794,7 @@ class Client implements Stdlib\DispatchableInterface
             }
             // If we have no ports, set the defaults
             if (!$uri->getPort()) {
-                $uri->setPort('https' == $uri->getScheme() ? 443 : 80);
+                $uri->setPort($uri->getScheme() == 'https' ? 443 : 80);
             }
 
             // method
@@ -806,7 +806,7 @@ class Client implements Stdlib\DispatchableInterface
             // headers
             $headers = $this->prepareHeaders($body, $uri);
 
-            $secure = 'https' == $uri->getScheme();
+            $secure = $uri->getScheme() == 'https';
 
             // cookies
             $cookie = $this->prepareCookies($uri->getHost(), $uri->getPath(), $secure);
@@ -1023,8 +1023,9 @@ class Client implements Stdlib\DispatchableInterface
         if ($this->config['httpversion'] == Request::VERSION_11) {
             $host = $uri->getHost();
             // If the port is not default, add it
-            if (!(('http' == $uri->getScheme() && $uri->getPort() == 80) ||
-                ('https' == $uri->getScheme() && $uri->getPort() == 443))) {
+            if (!(($uri->getScheme() == 'http' && $uri->getPort() == 80)
+                || ($uri->getScheme() == 'https' && $uri->getPort() == 443))
+            ) {
                 $host .= ':' . $uri->getPort();
             }
 
@@ -1047,7 +1048,6 @@ class Client implements Stdlib\DispatchableInterface
                 $headers['Accept-Encoding'] = 'identity';
             }
         }
-
 
         // Set the user agent header
         if (!$this->getRequest()->getHeaders()->has('User-Agent') && isset($this->config['useragent'])) {
