@@ -92,7 +92,7 @@ class DbAdapterManagerTest extends TestCase
         if (extension_loaded('mysqli')) {
             $adapter = $dam->getAdapter('mysqliDb');
             $this->assertInstanceOf('Zend\Db\Adapter\Driver\Mysqli\Mysqli', $adapter->driver);
-            
+
             $this->assertTrue( $dam->hasAdapter('mysqliDb') );
             unset($adapter);
         }
@@ -107,7 +107,7 @@ class DbAdapterManagerTest extends TestCase
             $adapter1 = $dam->getAdapter('sqlliteDb');
             $adapter2 = $dam->getAdapter('sqlliteDb2');
             $adapter3 = $dam->getAdapter('sqlliteDb3');
-            
+
             $this->assertSame($adapter1, $adapter2);
             $this->assertSame($adapter1, $adapter3);
             unset($adapter);

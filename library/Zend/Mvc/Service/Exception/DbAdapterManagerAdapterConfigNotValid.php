@@ -2,6 +2,6 @@
 
 namespace Zend\Mvc\Service\Exception;
 
-class DbAdapterManagerAdapterConfigNotVaild extends \RuntimeException implements ExceptionInterface
+class DbAdapterManagerAdapterConfigNotValid extends \RuntimeException implements ExceptionInterface
 {
 }

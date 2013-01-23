@@ -18,7 +18,7 @@ use Zend\Db\Sql\Platform\Platform;
 use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterAlreadyRegistered;
 use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterCoundInit;
 use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterNotExist;
-use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterConfigNotVaild;
+use Zend\Mvc\Service\Exception\DbAdapterManagerAdapterConfigNotValid;
 use Exception;
 
 class DbAdapterManager implements ServiceLocatorAwareInterface
@@ -148,7 +148,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
 
     /**
      * @param string $key
-     * @throws DbAdapterManagerAdapterConfigNotVaild
+     * @throws DbAdapterManagerAdapterConfigNotValid
      * @return Adapter
      */
     protected function initAdapter($key)
@@ -160,7 +160,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
         } elseif (!is_array($config) ||
                   !array_key_exists('driver', $config)
         ) {
-            throw new DbAdapterManagerAdapterConfigNotVaild(sprintf("adapter config on key (%s) is not an valid key or array", $key));
+            throw new DbAdapterManagerAdapterConfigNotValid(sprintf("adapter config on key (%s) is not an valid key or array", $key));
         } else {
             try {
                 $this->_dbAdapter[ $key ] = $this->adapterFactory( $config, $this->getServiceLocator() );
@@ -238,10 +238,10 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
             }
 
             if ( !is_object($driver) ) {
-                throw new DbAdapterManagerAdapterConfigNotVaild("database config['driver'] string is not a confirmed class/service name");
+                throw new DbAdapterManagerAdapterConfigNotValid("database config['driver'] string is not a confirmed class/service name");
             }
         } else {
-            throw new DbAdapterManagerAdapterConfigNotVaild("database config['driver'] must be a array or string of class/service name");
+            throw new DbAdapterManagerAdapterConfigNotValid("database config['driver'] must be a array or string of class/service name");
         }
 
         goto RETURN_OBJECT;
@@ -256,7 +256,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
     /**
      * @param array $config
      * @param ServiceLocatorInterface $serviceLocator
-     * @throws DbAdapterManagerAdapterConfigNotVaild
+     * @throws DbAdapterManagerAdapterConfigNotValid
      * @return Adapter
      */
     public function adapterFactory($config, ServiceLocatorInterface $serviceLocator=null)
@@ -292,7 +292,7 @@ class DbAdapterManager implements ServiceLocatorAwareInterface
         } catch (\Exception $exception) {
             throw new DbAdapterManagerAdapterCoundInit("adapter cound init",0,$exception);
         }
-        
+
         return $adapter;
     }
 }
