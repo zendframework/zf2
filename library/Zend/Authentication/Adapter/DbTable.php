@@ -254,7 +254,7 @@ class DbTable implements AdapterInterface
      */
     public function getDbSelect()
     {
-        if ($this->dbSelect == null) {
+        if (null === $this->dbSelect) {
             $this->dbSelect = new DbSelect();
         }
         return $this->dbSelect;
@@ -353,7 +353,7 @@ class DbTable implements AdapterInterface
             $exception = 'A credential column must be supplied for the DbTable authentication adapter.';
         } elseif ($this->identity == '') {
             $exception = 'A value for the identity was not provided prior to authentication with DbTable.';
-        } elseif ($this->credential === null) {
+        } elseif (null === $this->credential) {
             $exception = 'A credential value was not provided prior to authentication with DbTable.';
         }
 

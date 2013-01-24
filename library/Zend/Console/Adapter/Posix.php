@@ -219,7 +219,7 @@ class Posix extends AbstractAdapter
     public function colorize($string, $color = null, $bgColor = null)
     {
         // Retrieve ansi color codes
-        if ($color !== null) {
+        if (null !== $color) {
             if (!isset(static::$ansiColorMap['fg'][$color])) {
                 throw new Exception\BadMethodCallException(sprintf(
                     'Unknown color "%s". Please use one of the Zend\Console\ColorInterface constants',
@@ -229,7 +229,7 @@ class Posix extends AbstractAdapter
             $color = static::$ansiColorMap['fg'][$color];
         }
 
-        if ($bgColor !== null) {
+        if (null !== $bgColor) {
             if (!isset(static::$ansiColorMap['bg'][$bgColor])) {
                 throw new Exception\BadMethodCallException(sprintf(
                     'Unknown color "%s". Please use one of the Zend\Console\ColorInterface constants',
@@ -254,7 +254,7 @@ class Posix extends AbstractAdapter
     public function setColor($color)
     {
         // Retrieve ansi color code
-        if ($color !== null) {
+        if (null !== $color) {
             if (!isset(static::$ansiColorMap['fg'][$color])) {
                 throw new Exception\BadMethodCallException(sprintf(
                     'Unknown color "%s". Please use one of the Zend\Console\ColorInterface constants',
@@ -276,7 +276,7 @@ class Posix extends AbstractAdapter
     public function setBgColor($bgColor)
     {
         // Retrieve ansi color code
-        if ($bgColor !== null) {
+        if (null !== $bgColor) {
             if (!isset(static::$ansiColorMap['bg'][$bgColor])) {
                 throw new Exception\BadMethodCallException(sprintf(
                     'Unknown color "%s". Please use one of the Zend\Console\ColorInterface constants',
@@ -327,7 +327,7 @@ class Posix extends AbstractAdapter
      */
     public function getCharset()
     {
-        if ($this->charset === null) {
+        if (null === $this->charset) {
             $this->charset = $this->getDefaultCharset();
         }
 
@@ -381,7 +381,7 @@ class Posix extends AbstractAdapter
      */
     protected function restoreTTYMode()
     {
-        if ($this->lastTTYMode === null) {
+        if (null === $this->lastTTYMode) {
             return;
         }
 

@@ -49,7 +49,7 @@ class Select extends Char
         $allowEmpty = false,
         $echo = false
     ) {
-        if ($promptText !== null) {
+        if (null !== $promptText) {
             $this->setPromptText($promptText);
         }
 
@@ -61,11 +61,11 @@ class Select extends Char
 
         $this->setOptions($options);
 
-        if ($allowEmpty !== null) {
+        if (null !== $allowEmpty) {
             $this->setAllowEmpty($allowEmpty);
         }
 
-        if ($echo !== null) {
+        if (null !== $echo) {
             $this->setEcho($echo);
         }
 

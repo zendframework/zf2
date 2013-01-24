@@ -105,7 +105,7 @@ class CompilerDefinition implements DefinitionInterface
      */
     public function addCodeScannerFile(FileScanner $fileScanner)
     {
-        if ($this->directoryScanner == null) {
+        if (null === $this->directoryScanner) {
             $this->directoryScanner = new DirectoryScanner();
         }
 

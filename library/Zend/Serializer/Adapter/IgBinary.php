@@ -82,7 +82,7 @@ class IgBinary extends AbstractAdapter
         $ret = igbinary_unserialize($serialized);
         $err = ErrorHandler::stop();
 
-        if ($ret === null) {
+        if (null === $ret) {
             throw new Exception\RuntimeException('Unserialization failed', 0, $err);
         }
 

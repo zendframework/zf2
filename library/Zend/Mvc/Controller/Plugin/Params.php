@@ -30,7 +30,7 @@ class Params extends AbstractPlugin
      */
     public function __invoke($param = null, $default = null)
     {
-        if ($param === null) {
+        if (null === $param) {
             return $this;
         }
         return $this->fromRoute($param, $default);
@@ -45,7 +45,7 @@ class Params extends AbstractPlugin
      */
     public function fromFiles($name = null, $default = null)
     {
-        if ($name === null) {
+        if (null === $name) {
             return $this->getController()->getRequest()->getFiles($name, $default)->toArray();
         }
 
@@ -61,7 +61,7 @@ class Params extends AbstractPlugin
      */
     public function fromHeader($header = null, $default = null)
     {
-        if ($header === null) {
+        if (null === $header) {
             return $this->getController()->getRequest()->getHeaders($header, $default)->toArray();
         }
 
@@ -77,7 +77,7 @@ class Params extends AbstractPlugin
      */
     public function fromPost($param = null, $default = null)
     {
-        if ($param === null) {
+        if (null === $param) {
             return $this->getController()->getRequest()->getPost($param, $default)->toArray();
         }
 
@@ -93,7 +93,7 @@ class Params extends AbstractPlugin
      */
     public function fromQuery($param = null, $default = null)
     {
-        if ($param === null) {
+        if (null === $param) {
             return $this->getController()->getRequest()->getQuery($param, $default)->toArray();
         }
 
@@ -118,7 +118,7 @@ class Params extends AbstractPlugin
             );
         }
 
-        if ($param === null) {
+        if (null === $param) {
             return $controller->getEvent()->getRouteMatch()->getParams();
         }
 

@@ -430,7 +430,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      */
     public function getTemplateElement()
     {
-        if ($this->templateElement === null) {
+        if (null === $this->templateElement) {
             $this->templateElement = $this->createTemplateElement();
         }
 
@@ -497,7 +497,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      */
     public function prepareFieldset()
     {
-        if ($this->targetElement !== null) {
+        if (null !== $this->targetElement) {
             for ($i = 0; $i != $this->count; ++$i) {
                 $elementOrFieldset = $this->createNewTargetElementInstance();
                 $elementOrFieldset->setName($i);

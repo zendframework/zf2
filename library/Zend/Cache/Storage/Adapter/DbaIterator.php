@@ -159,7 +159,7 @@ class DbaIterator implements IteratorInterface
         $this->currentInternalKey = dba_nextkey($this->handle);
 
         // Workaround for PHP-Bug #62492
-        if ($this->currentInternalKey === null) {
+        if (null === $this->currentInternalKey) {
             $this->currentInternalKey = false;
         }
     }
@@ -189,7 +189,7 @@ class DbaIterator implements IteratorInterface
         $this->currentInternalKey = dba_firstkey($this->handle);
 
         // Workaround for PHP-Bug #62492
-        if ($this->currentInternalKey === null) {
+        if (null === $this->currentInternalKey) {
             $this->currentInternalKey = false;
         }
     }

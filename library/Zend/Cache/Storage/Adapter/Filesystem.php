@@ -383,7 +383,7 @@ class Filesystem extends AbstractAdapter implements
      */
     public function getTotalSpace()
     {
-        if ($this->totalSpace === null) {
+        if (null === $this->totalSpace) {
             $path = $this->getOptions()->getCacheDir();
 
             ErrorHandler::start();
@@ -1126,7 +1126,7 @@ class Filesystem extends AbstractAdapter implements
      */
     protected function internalGetCapabilities()
     {
-        if ($this->capabilities === null) {
+        if (null === $this->capabilities) {
             $marker  = new stdClass();
             $options = $this->getOptions();
 

@@ -67,7 +67,7 @@ class PatternFactory
      */
     public static function getPluginManager()
     {
-        if (static::$plugins === null) {
+        if (null === static::$plugins) {
             static::$plugins = new PatternPluginManager();
         }
 

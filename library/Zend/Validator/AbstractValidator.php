@@ -208,7 +208,7 @@ abstract class AbstractValidator implements
      */
     public function setMessage($messageString, $messageKey = null)
     {
-        if ($messageKey === null) {
+        if (null === $messageKey) {
             $keys = array_keys($this->abstractOptions['messageTemplates']);
             foreach ($keys as $key) {
                 $this->setMessage($messageString, $key);
@@ -340,12 +340,12 @@ abstract class AbstractValidator implements
      */
     protected function error($messageKey, $value = null)
     {
-        if ($messageKey === null) {
+        if (null === $messageKey) {
             $keys = array_keys($this->abstractOptions['messageTemplates']);
             $messageKey = current($keys);
         }
 
-        if ($value === null) {
+        if (null === $value) {
             $value = $this->value;
         }
 

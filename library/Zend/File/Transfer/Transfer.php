@@ -78,7 +78,7 @@ class Transfer
      */
     public function getAdapter($direction = null)
     {
-        if ($direction === null) {
+        if (null === $direction) {
             return $this->adapter;
         }
 

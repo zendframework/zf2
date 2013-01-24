@@ -114,7 +114,7 @@ class WindowsAnsicon extends Posix
     public function isUtf8()
     {
         // Try to read code page info from "mode" command
-        if ($this->modeResult === null) {
+        if (null === $this->modeResult) {
             $this->runModeCommand();
         }
 
@@ -175,7 +175,7 @@ class WindowsAnsicon extends Posix
      */
     public function getCharset()
     {
-        if ($this->charset === null) {
+        if (null === $this->charset) {
             $this->charset = $this->getDefaultCharset();
         }
 
@@ -224,7 +224,7 @@ class WindowsAnsicon extends Posix
         // whole keyboard buffer and picking the last key that has been pressed
         // before or after PowerShell command has started. The ASCII code for
         // that key is then converted to a character.
-        if ($mask === null) {
+        if (null === $mask) {
             exec(
                 'powershell -NonInteractive -NoProfile -NoLogo -OutputFormat Text -Command "'
                     . 'while ($Host.UI.RawUI.KeyAvailable) {$key = $Host.UI.RawUI.ReadKey(\'NoEcho,IncludeKeyDown\');}'

@@ -44,7 +44,7 @@ class WordCount extends Count
      */
     public function isValid($value, $file = null)
     {
-        if ($file === null) {
+        if (null === $file) {
             $file = array('name' => basename($value));
         }
 

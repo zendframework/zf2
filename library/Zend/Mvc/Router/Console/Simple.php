@@ -106,7 +106,7 @@ class Simple implements RouteInterface
         $this->constraints = $constraints;
         $this->aliases = $aliases;
 
-        if ($filters !== null) {
+        if (null !== $filters) {
             if ($filters instanceof FilterChain) {
                 $this->filters = $filters;
             } elseif ($filters instanceof Traversable) {
@@ -122,7 +122,7 @@ class Simple implements RouteInterface
             }
         }
 
-        if ($validators !== null) {
+        if (null !== $validators) {
             if ($validators instanceof ValidatorChain) {
                 $this->validators = $validators;
             } elseif ($validators instanceof Traversable || is_array($validators)) {

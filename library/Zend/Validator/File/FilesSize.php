@@ -116,7 +116,7 @@ class FilesSize extends Size
             $size += filesize($files);
             ErrorHandler::stop();
             $this->size = $size;
-            if (($max !== null) && ($max < $size)) {
+            if ((null !== $max) && ($max < $size)) {
                 if ($this->getByteString()) {
                     $this->options['max'] = $this->toByteString($max);
                     $this->size          = $this->toByteString($size);
@@ -130,7 +130,7 @@ class FilesSize extends Size
         }
 
         // Check that aggregate files are >= minimum size
-        if (($min !== null) && ($size < $min)) {
+        if ((null !== $min) && ($size < $min)) {
             if ($this->getByteString()) {
                 $this->options['min'] = $this->toByteString($min);
                 $this->size          = $this->toByteString($size);

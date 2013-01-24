@@ -38,7 +38,7 @@ class MultiByte
             return '';
         }
 
-        if ($breakWidth === null) {
+        if (null === $breakWidth) {
             throw new Exception\InvalidArgumentException('Break string cannot be empty');
         }
 

@@ -87,7 +87,7 @@ class Crc32 extends Hash
      */
     public function isValid($value, $file = null)
     {
-        if ($file === null) {
+        if (null === $file) {
             $file = array('name' => basename($value));
         }
 

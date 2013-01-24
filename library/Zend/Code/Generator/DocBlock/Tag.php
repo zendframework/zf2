@@ -131,7 +131,7 @@ class Tag extends AbstractGenerator
     public function generate()
     {
         $output = '@' . $this->name
-            . (($this->description != null) ? ' ' . $this->description : '');
+            . ((null !== $this->description) ? ' ' . $this->description : '');
 
         return $output;
     }

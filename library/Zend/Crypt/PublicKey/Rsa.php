@@ -111,7 +111,7 @@ class Rsa
             );
         }
 
-        if ($options === null) {
+        if (null === $options) {
             $this->options = new RsaOptions();
         } else {
             $this->options = $options;

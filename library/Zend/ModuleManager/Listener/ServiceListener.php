@@ -54,7 +54,7 @@ class ServiceListener implements ServiceListenerInterface
     {
         $this->defaultServiceManager = $serviceManager;
 
-        if ($configuration !== null) {
+        if (null !== $configuration) {
             $this->setDefaultServiceConfig($configuration);
         }
     }

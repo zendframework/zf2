@@ -191,7 +191,7 @@ class ConfigListener extends AbstractListener implements
     public function getMergedConfig($returnConfigAsObject = true)
     {
         if ($returnConfigAsObject === true) {
-            if ($this->mergedConfigObject === null) {
+            if (null === $this->mergedConfigObject) {
                 $this->mergedConfigObject = new Config($this->mergedConfig);
             }
             return $this->mergedConfigObject;

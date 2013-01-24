@@ -124,7 +124,7 @@ abstract class Glob
 
         $next = static::nextBraceSub($pattern, $begin + 1, $flags);
 
-        if ($next === null) {
+        if (null === $next) {
             return static::systemGlob($pattern, $flags);
         }
 
@@ -133,7 +133,7 @@ abstract class Glob
         while ($pattern[$rest] !== '}') {
             $rest = static::nextBraceSub($pattern, $rest + 1, $flags);
 
-            if ($rest === null) {
+            if (null === $rest) {
                 return static::systemGlob($pattern, $flags);
             }
         }

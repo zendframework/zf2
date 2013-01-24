@@ -61,7 +61,7 @@ class ValueGenerator extends AbstractGenerator
 
     public function __construct($value = null, $type = self::TYPE_AUTO, $outputMode = self::OUTPUT_MULTIPLE_LINE)
     {
-        if ($value !== null) { // strict check is important here if $type = AUTO
+        if (null !== $value) { // strict check is important here if $type = AUTO
             $this->setValue($value);
         }
         if ($type !== self::TYPE_AUTO) {

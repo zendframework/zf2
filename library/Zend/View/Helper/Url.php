@@ -85,14 +85,14 @@ class Url extends AbstractHelper
             $options = array();
         }
 
-        if ($name === null) {
-            if ($this->routeMatch === null) {
+        if (null === $name) {
+            if (null === $this->routeMatch) {
                 throw new Exception\RuntimeException('No RouteMatch instance provided');
             }
 
             $name = $this->routeMatch->getMatchedRouteName();
 
-            if ($name === null) {
+            if (null === $name) {
                 throw new Exception\RuntimeException('RouteMatch does not contain a matched route name');
             }
         }

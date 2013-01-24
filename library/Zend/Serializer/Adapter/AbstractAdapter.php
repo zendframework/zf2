@@ -29,7 +29,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function __construct($options = null)
     {
-        if ($options !== null) {
+        if (null !== $options) {
             $this->setOptions($options);
         }
     }
@@ -57,7 +57,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function getOptions()
     {
-        if ($this->options === null) {
+        if (null === $this->options) {
             $this->options = new AdapterOptions();
         }
         return $this->options;

@@ -38,7 +38,7 @@ class DateTime extends \DateTime
             $format = 'Y-m-d\TH:i:s.uO';
         }
 
-        if ($timezone !== null) {
+        if (null !== $timezone) {
             return self::createFromFormat($format, $time, $timezone);
         }
 

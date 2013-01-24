@@ -32,7 +32,7 @@ class StringToUpper extends AbstractUnicode
      */
     public function __construct($encodingOrOptions = null)
     {
-        if ($encodingOrOptions !== null) {
+        if (null !== $encodingOrOptions) {
             if (!static::isOptions($encodingOrOptions)) {
                 $this->setEncoding($encodingOrOptions);
             } else {

@@ -145,7 +145,7 @@ class Exists extends AbstractValidator
     public function isValid($value, $file = null)
     {
         $directories = $this->getDirectory(true);
-        if (($file !== null) && (!empty($file['destination']))) {
+        if ((null !== $file) && (!empty($file['destination']))) {
             $directories[] = $file['destination'];
         } elseif (!isset($file['name'])) {
             $file['name'] = $value;
@@ -179,7 +179,7 @@ class Exists extends AbstractValidator
      */
     protected function throwError($file, $errorType)
     {
-        if ($file !== null) {
+        if (null !== $file) {
             if (is_array($file)) {
                 if (array_key_exists('name', $file)) {
                     $this->value = basename($file['name']);

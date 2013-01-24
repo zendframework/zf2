@@ -134,10 +134,10 @@ class Client implements Stdlib\DispatchableInterface
      */
     public function __construct($uri = null, $options = null)
     {
-        if ($uri !== null) {
+        if (null !== $uri) {
             $this->setUri($uri);
         }
-        if ($options !== null) {
+        if (null !== $options) {
             $this->setOptions($options);
         }
     }
@@ -752,7 +752,7 @@ class Client implements Stdlib\DispatchableInterface
      */
     public function send(Request $request = null)
     {
-        if ($request !== null) {
+        if (null !== $request) {
             $this->setRequest($request);
         }
 
@@ -760,7 +760,7 @@ class Client implements Stdlib\DispatchableInterface
         $response = null;
 
         // Make sure the adapter is loaded
-        if ($this->adapter == null) {
+        if (null === $this->adapter) {
             $this->setAdapter($this->config['adapter']);
         }
 
@@ -937,7 +937,7 @@ class Client implements Stdlib\DispatchableInterface
      */
     public function setFileUpload($filename, $formname, $data = null, $ctype = null)
     {
-        if ($data === null) {
+        if (null === $data) {
             ErrorHandler::start();
             $data  = file_get_contents($filename);
             $error = ErrorHandler::stop();
@@ -1023,8 +1023,9 @@ class Client implements Stdlib\DispatchableInterface
         if ($this->config['httpversion'] == Request::VERSION_11) {
             $host = $uri->getHost();
             // If the port is not default, add it
-            if (!(($uri->getScheme() == 'http' && $uri->getPort() == 80) ||
-                ($uri->getScheme() == 'https' && $uri->getPort() == 443))) {
+            if (!(($uri->getScheme() == 'http' && $uri->getPort() == 80)
+                || ($uri->getScheme() == 'https' && $uri->getPort() == 443))
+            ) {
                 $host .= ':' . $uri->getPort();
             }
 
@@ -1047,7 +1048,6 @@ class Client implements Stdlib\DispatchableInterface
                 $headers['Accept-Encoding'] = 'identity';
             }
         }
-
 
         // Set the user agent header
         if (!$this->getRequest()->getHeaders()->has('User-Agent') && isset($this->config['useragent'])) {

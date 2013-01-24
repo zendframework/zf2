@@ -81,7 +81,7 @@ class OutputCache extends AbstractPattern
     public function end()
     {
         $key = array_pop($this->keyStack);
-        if ($key === null) {
+        if (null === $key) {
             throw new Exception\RuntimeException('Output cache not started');
         }
 

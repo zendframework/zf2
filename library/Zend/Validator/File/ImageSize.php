@@ -328,7 +328,7 @@ class ImageSize extends AbstractValidator
      */
     public function isValid($value, $file = null)
     {
-        if ($file === null) {
+        if (null === $file) {
             $file = array('name' => basename($value));
         }
 
@@ -380,7 +380,7 @@ class ImageSize extends AbstractValidator
      */
     protected function throwError($file, $errorType)
     {
-        if ($file !== null) {
+        if (null !== $file) {
             if (is_array($file)) {
                 if (array_key_exists('name', $file)) {
                     $this->value = $file['name'];

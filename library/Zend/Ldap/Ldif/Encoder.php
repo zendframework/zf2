@@ -81,7 +81,7 @@ class Encoder
                 $name  = strtolower($matches[1]);
                 $type  = trim($matches[2]);
                 $value = $matches[3];
-                if ($last !== null) {
+                if (null !== $last) {
                     $this->pushAttribute($last, $item);
                 }
                 if ($name === 'version') {
@@ -96,7 +96,7 @@ class Encoder
                 continue;
             }
         }
-        if ($last !== null) {
+        if (null !== $last) {
             $this->pushAttribute($last, $item);
         }
         $items[] = $item;

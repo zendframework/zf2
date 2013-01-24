@@ -73,7 +73,7 @@ class MessageId implements HeaderInterface
      */
     public function setId($id = null)
     {
-        if ($id === null) {
+        if (null === $id) {
             $id = $this->createMessageId();
         }
 

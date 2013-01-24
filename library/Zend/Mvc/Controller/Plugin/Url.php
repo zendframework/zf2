@@ -62,14 +62,14 @@ class Url extends AbstractPlugin
             $options = array();
         }
 
-        if ($route === null) {
+        if (null === $route) {
             if (!$matches) {
                 throw new Exception\RuntimeException('No RouteMatch instance present');
             }
 
             $route = $matches->getMatchedRouteName();
 
-            if ($route === null) {
+            if (null === $route) {
                 throw new Exception\RuntimeException('RouteMatch does not contain a matched route name');
             }
         }

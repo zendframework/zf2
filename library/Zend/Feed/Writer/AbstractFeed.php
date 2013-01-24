@@ -136,7 +136,7 @@ class AbstractFeed
      */
     public function setDateCreated($date = null)
     {
-        if ($date === null) {
+        if (null === $date) {
             $date = new DateTime();
         } elseif (is_int($date)) {
             $date = new DateTime('@' . $date);
@@ -158,7 +158,7 @@ class AbstractFeed
      */
     public function setDateModified($date = null)
     {
-        if ($date === null) {
+        if (null === $date) {
             $date = new DateTime();
         } elseif (is_int($date)) {
             $date = new DateTime('@' . $date);
@@ -180,7 +180,7 @@ class AbstractFeed
      */
     public function setLastBuildDate($date = null)
     {
-        if ($date === null) {
+        if (null === $date) {
             $date = new DateTime();
         } elseif (is_int($date)) {
             $date = new DateTime('@' . $date);

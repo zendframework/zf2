@@ -66,7 +66,7 @@ class Boolean extends AbstractFilter
      */
     public function __construct($typeOrOptions = null, $casting = true, $translations = array())
     {
-        if ($typeOrOptions !== null) {
+        if (null !== $typeOrOptions) {
             if ($typeOrOptions instanceof Traversable) {
                 $typeOrOptions = ArrayUtils::iteratorToArray($typeOrOptions);
             }
@@ -228,7 +228,7 @@ class Boolean extends AbstractFilter
         // NULL (null)
         if ($type >= self::TYPE_NULL) {
             $type -= self::TYPE_NULL;
-            if ($value === null) {
+            if (null === $value) {
                 return false;
             }
         }

@@ -88,7 +88,7 @@ class Result implements
             throw new Exception\InvalidArgumentException('Invalid resource provided.');
         }
 
-        if ($isBuffered !== null) {
+        if (null !== $isBuffered) {
             $this->isBuffered = $isBuffered;
         } else {
             if ($resource instanceof \mysqli || $resource instanceof \mysqli_result

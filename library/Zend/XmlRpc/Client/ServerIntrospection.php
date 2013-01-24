@@ -70,7 +70,7 @@ class ServerIntrospection
      */
     public function getSignatureForEachMethodByMulticall($methods = null)
     {
-        if ($methods === null) {
+        if (null === $methods) {
             $methods = $this->listMethods();
         }
 
@@ -111,7 +111,7 @@ class ServerIntrospection
      */
     public function getSignatureForEachMethodByLooping($methods = null)
     {
-        if ($methods === null) {
+        if (null === $methods) {
             $methods = $this->listMethods();
         }
 

@@ -97,7 +97,7 @@ class Json implements ReaderInterface
                 $data[$key] = $this->process($value);
             }
             if (trim($key) === '@include') {
-                if ($this->directory === null) {
+                if (null === $this->directory) {
                     throw new Exception\RuntimeException('Cannot process @include statement for a JSON string');
                 }
                 $reader = clone $this;

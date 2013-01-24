@@ -284,7 +284,7 @@ class Mime
     public function __construct($boundary = null)
     {
         // This string needs to be somewhat unique
-        if ($boundary === null) {
+        if (null === $boundary) {
             $this->boundary = '=_' . md5(microtime(1) . static::$makeUnique++);
         } else {
             $this->boundary = $boundary;

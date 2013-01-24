@@ -28,7 +28,7 @@ class CaptureCache extends AbstractPattern
      */
     public function start($pageId = null)
     {
-        if ($pageId === null) {
+        if (null === $pageId) {
             $pageId = $this->detectPageId();
         }
 
@@ -54,11 +54,11 @@ class CaptureCache extends AbstractPattern
     public function set($content, $pageId = null)
     {
         $publicDir = $this->getOptions()->getPublicDir();
-        if ($publicDir === null) {
+        if (null === $publicDir) {
             throw new Exception\LogicException("Option 'public_dir' no set");
         }
 
-        if ($pageId === null) {
+        if (null === $pageId) {
             $pageId = $this->detectPageId();
         }
 
@@ -80,11 +80,11 @@ class CaptureCache extends AbstractPattern
     public function get($pageId = null)
     {
         $publicDir = $this->getOptions()->getPublicDir();
-        if ($publicDir === null) {
+        if (null === $publicDir) {
             throw new Exception\LogicException("Option 'public_dir' no set");
         }
 
-        if ($pageId === null) {
+        if (null === $pageId) {
             $pageId = $this->detectPageId();
         }
 
@@ -115,11 +115,11 @@ class CaptureCache extends AbstractPattern
     public function has($pageId = null)
     {
         $publicDir = $this->getOptions()->getPublicDir();
-        if ($publicDir === null) {
+        if (null === $publicDir) {
             throw new Exception\LogicException("Option 'public_dir' no set");
         }
 
-        if ($pageId === null) {
+        if (null === $pageId) {
             $pageId = $this->detectPageId();
         }
 
@@ -141,11 +141,11 @@ class CaptureCache extends AbstractPattern
     public function remove($pageId = null)
     {
         $publicDir = $this->getOptions()->getPublicDir();
-        if ($publicDir === null) {
+        if (null === $publicDir) {
             throw new Exception\LogicException("Option 'public_dir' no set");
         }
 
-        if ($pageId === null) {
+        if (null === $pageId) {
             $pageId = $this->detectPageId();
         }
 
@@ -177,7 +177,7 @@ class CaptureCache extends AbstractPattern
     public function clearByGlob($pattern = '**')
     {
         $publicDir = $this->getOptions()->getPublicDir();
-        if ($publicDir === null) {
+        if (null === $publicDir) {
             throw new Exception\LogicException("Option 'public_dir' no set");
         }
 

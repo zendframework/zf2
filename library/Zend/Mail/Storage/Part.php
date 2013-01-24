@@ -146,7 +146,7 @@ class Part implements RecursiveIterator, Part\PartInterface
      */
     public function getContent()
     {
-        if ($this->content !== null) {
+        if (null !== $this->content) {
             return $this->content;
         }
 
@@ -193,7 +193,7 @@ class Part implements RecursiveIterator, Part\PartInterface
             throw new Exception\RuntimeException('no boundary found in content type to split message');
         }
         $parts = Mime\Decode::splitMessageStruct($this->content, $boundary);
-        if ($parts === null) {
+        if (null === $parts) {
             return;
         }
         $counter = 1;
@@ -425,7 +425,7 @@ class Part implements RecursiveIterator, Part\PartInterface
      */
     public function valid()
     {
-        if ($this->countParts === null) {
+        if (null === $this->countParts) {
             $this->countParts();
         }
         return $this->iterationPos && $this->iterationPos <= $this->countParts;

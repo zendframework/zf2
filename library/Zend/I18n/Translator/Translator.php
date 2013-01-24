@@ -224,7 +224,7 @@ class Translator
      */
     public function getLocale()
     {
-        if ($this->locale === null) {
+        if (null === $this->locale) {
             $this->locale = Locale::getDefault();
         }
 
@@ -558,7 +558,7 @@ class Translator
 
         // Cache the loaded text domain
         cache:
-        if ($cache !== null) {
+        if (null !== $cache) {
             $cache->setItem($cacheId, $this->messages[$textDomain][$locale]);
         }
     }

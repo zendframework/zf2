@@ -117,7 +117,7 @@ class Dba extends AbstractAdapter implements
      */
     public function getTotalSpace()
     {
-        if ($this->totalSpace === null) {
+        if (null === $this->totalSpace) {
             $pathname = $this->getOptions()->getPathname();
 
             if ($pathname === '') {
@@ -225,7 +225,7 @@ class Dba extends AbstractAdapter implements
         do { // Workaround for PHP-Bug #62491 & #62492
             $recheck     = false;
             $internalKey = dba_firstkey($this->handle);
-            while ($internalKey !== false && $internalKey !== null) {
+            while (false !== $internalKey && null !== $internalKey) {
                 if (substr($internalKey, 0, $prefixl) === $prefix) {
                     $result = dba_delete($internalKey, $this->handle) && $result;
                 }
@@ -257,7 +257,7 @@ class Dba extends AbstractAdapter implements
         do { // Workaround for PHP-Bug #62491 & #62492
             $recheck     = false;
             $internalKey = dba_firstkey($this->handle);
-            while ($internalKey !== false && $internalKey !== null) {
+            while (false !== $internalKey && null !== $internalKey) {
                 if (substr($internalKey, 0, $prefixl) === $prefix) {
                     $result = dba_delete($internalKey, $this->handle) && $result;
                     $recheck = true;
@@ -438,7 +438,7 @@ class Dba extends AbstractAdapter implements
      */
     protected function internalGetCapabilities()
     {
-        if ($this->capabilities === null) {
+        if (null === $this->capabilities) {
             $marker       = new stdClass();
             $capabilities = new Capabilities(
                 $this,

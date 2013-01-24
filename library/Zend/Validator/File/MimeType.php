@@ -351,7 +351,7 @@ class MimeType extends AbstractValidator
      */
     public function isValid($value, $file = null)
     {
-        if ($file === null) {
+        if (null === $file) {
             $file = array(
                 'type' => null,
                 'name' => $value,
@@ -423,7 +423,7 @@ class MimeType extends AbstractValidator
      */
     protected function createError($file, $errorType)
     {
-        if ($file !== null) {
+        if (null !== $file) {
             if (is_array($file)) {
                 if (array_key_exists('name', $file)) {
                     $file = $file['name'];

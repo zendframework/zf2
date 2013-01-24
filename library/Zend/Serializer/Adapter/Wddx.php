@@ -67,7 +67,7 @@ class Wddx extends AbstractAdapter
      */
     public function getOptions()
     {
-        if ($this->options === null) {
+        if (null === $this->options) {
             $this->options = new WddxOptions();
         }
         return $this->options;

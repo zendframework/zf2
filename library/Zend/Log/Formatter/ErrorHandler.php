@@ -55,11 +55,11 @@ class ErrorHandler extends Simple
         $result = array();
         foreach ($event as $index => $value) {
             $nextIndex = $key === null ? $index : $key . '[' . $index . ']';
-            if ($value === null) {
+            if (null === $value) {
                 continue;
             }
             if (! is_array($value)) {
-                if ($key === null) {
+                if (null === $key) {
                     $result[$nextIndex] = $value;
                 } else {
                     if (! is_object($value) || method_exists($value, "__toString")) {

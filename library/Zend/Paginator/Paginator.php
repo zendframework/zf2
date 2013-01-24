@@ -182,7 +182,7 @@ class Paginator implements Countable, IteratorAggregate
 
         $scrollingStyle = isset($config['scrolling_style']) ? $config['scrolling_style'] : null;
 
-        if ($scrollingStyle != null) {
+        if (null !== $scrollingStyle) {
             static::setDefaultScrollingStyle($scrollingStyle);
         }
     }
@@ -300,7 +300,7 @@ class Paginator implements Countable, IteratorAggregate
                 $key   = strtolower($setupMethod);
                 $value = isset($config[$key]) ? $config[$key] : null;
 
-                if ($value != null) {
+                if (null !== $value) {
                     $setupMethod = 'set' . $setupMethod;
                     $this->$setupMethod($value);
                 }
@@ -403,7 +403,7 @@ class Paginator implements Countable, IteratorAggregate
     {
         $relativeItemNumber = $this->normalizeItemNumber($relativeItemNumber);
 
-        if ($pageNumber == null) {
+        if (null === $pageNumber) {
             $pageNumber = $this->getCurrentPageNumber();
         }
 
@@ -429,7 +429,7 @@ class Paginator implements Countable, IteratorAggregate
      */
     public function getCurrentItemCount()
     {
-        if ($this->currentItemCount === null) {
+        if (null === $this->currentItemCount) {
             $this->currentItemCount = $this->getItemCount($this->getCurrentItems());
         }
 
@@ -443,7 +443,7 @@ class Paginator implements Countable, IteratorAggregate
      */
     public function getCurrentItems()
     {
-        if ($this->currentItems === null) {
+        if (null === $this->currentItems) {
             $this->currentItems = $this->getItemsByPage($this->getCurrentPageNumber());
         }
 
@@ -509,7 +509,7 @@ class Paginator implements Countable, IteratorAggregate
      */
     public function getItem($itemNumber, $pageNumber = null)
     {
-        if ($pageNumber == null) {
+        if (null === $pageNumber) {
             $pageNumber = $this->getCurrentPageNumber();
         } elseif ($pageNumber < 0) {
             $pageNumber = ($this->count() + 1) + $pageNumber;
@@ -611,7 +611,7 @@ class Paginator implements Countable, IteratorAggregate
 
         $filter = $this->getFilter();
 
-        if ($filter !== null) {
+        if (null !== $filter) {
             $items = $filter->filter($items);
         }
 
@@ -674,7 +674,7 @@ class Paginator implements Countable, IteratorAggregate
      */
     public function getPages($scrollingStyle = null)
     {
-        if ($this->pages === null) {
+        if (null === $this->pages) {
             $this->pages = $this->_createPages($scrollingStyle);
         }
 
@@ -735,7 +735,7 @@ class Paginator implements Countable, IteratorAggregate
      */
     public function getView()
     {
-        if ($this->view === null) {
+        if (null === $this->view) {
             $this->setView(new View\Renderer\PhpRenderer());
         }
 
@@ -854,7 +854,7 @@ class Paginator implements Countable, IteratorAggregate
      */
     protected function _getCacheId($page = null)
     {
-        if ($page === null) {
+        if (null === $page) {
             $page = $this->getCurrentPageNumber();
         }
         return self::CACHE_TAG_PREFIX . $page . '_' . $this->_getCacheInternalId();
@@ -940,7 +940,7 @@ class Paginator implements Countable, IteratorAggregate
      */
     protected function _loadScrollingStyle($scrollingStyle = null)
     {
-        if ($scrollingStyle === null) {
+        if (null === $scrollingStyle) {
             $scrollingStyle = static::$defaultScrollingStyle;
         }
 

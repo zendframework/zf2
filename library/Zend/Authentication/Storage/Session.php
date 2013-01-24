@@ -60,10 +60,10 @@ class Session implements StorageInterface
      */
     public function __construct($namespace = null, $member = null, SessionManager $manager = null)
     {
-        if ($namespace !== null) {
+        if (null !== $namespace) {
             $this->namespace = $namespace;
         }
-        if ($member !== null) {
+        if (null !== $member) {
             $this->member = $member;
         }
         $this->session   = new SessionContainer($this->namespace, $manager);

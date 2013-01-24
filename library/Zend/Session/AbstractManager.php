@@ -63,7 +63,7 @@ abstract class AbstractManager implements Manager
     public function __construct(Config $config = null, Storage $storage = null, SaveHandler $saveHandler = null)
     {
         // init config
-        if ($config === null) {
+        if (null === $config) {
             if (!class_exists($this->defaultConfigClass)) {
                 throw new Exception\RuntimeException(sprintf(
                     'Unable to locate config class "%s"; class does not exist',
@@ -85,7 +85,7 @@ abstract class AbstractManager implements Manager
         $this->config = $config;
 
         // init storage
-        if ($storage === null) {
+        if (null === $storage) {
             if (!class_exists($this->defaultStorageClass)) {
                 throw new Exception\RuntimeException(sprintf(
                     'Unable to locate storage class "%s"; class does not exist',
@@ -107,7 +107,7 @@ abstract class AbstractManager implements Manager
         $this->storage = $storage;
 
         // save handler
-        if ($saveHandler !== null) {
+        if (null !== $saveHandler) {
             $this->saveHandler = $saveHandler;
         }
     }

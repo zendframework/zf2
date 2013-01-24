@@ -59,7 +59,7 @@ class Operator implements PredicateInterface
      */
     public function __construct($left = null, $operator = self::OPERATOR_EQUAL_TO, $right = null, $leftType = self::TYPE_IDENTIFIER, $rightType = self::TYPE_VALUE)
     {
-        if ($left !== null) {
+        if (null !== $left) {
             $this->setLeft($left);
         }
 
@@ -67,7 +67,7 @@ class Operator implements PredicateInterface
             $this->setOperator($operator);
         }
 
-        if ($right !== null) {
+        if (null !== $right) {
             $this->setRight($right);
         }
 

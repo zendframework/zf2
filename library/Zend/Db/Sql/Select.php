@@ -653,7 +653,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     protected function processGroup(PlatformInterface $platform, Adapter $adapter = null, ParameterContainer $parameterContainer = null)
     {
-        if ($this->group === null) {
+        if (null === $this->group) {
             return null;
         }
         // process table columns
@@ -721,7 +721,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     protected function processLimit(PlatformInterface $platform, Adapter $adapter = null, ParameterContainer $parameterContainer = null)
     {
-        if ($this->limit === null) {
+        if (null === $this->limit) {
             return null;
         }
         if ($adapter) {
@@ -737,7 +737,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     protected function processOffset(PlatformInterface $platform, Adapter $adapter = null, ParameterContainer $parameterContainer = null)
     {
-        if ($this->offset === null) {
+        if (null === $this->offset) {
             return null;
         }
         if ($adapter) {

@@ -43,7 +43,7 @@ class NumberFormat extends AbstractLocale
         $style = NumberFormatter::DEFAULT_STYLE,
         $type = NumberFormatter::TYPE_DOUBLE)
     {
-        if ($localeOrOptions !== null) {
+        if (null !== $localeOrOptions) {
             if ($localeOrOptions instanceof Traversable) {
                 $localeOrOptions = iterator_to_array($localeOrOptions);
             }
@@ -122,7 +122,7 @@ class NumberFormat extends AbstractLocale
      */
     public function getFormatter()
     {
-        if ($this->formatter === null) {
+        if (null === $this->formatter) {
             $formatter = NumberFormatter::create($this->getLocale(), $this->getStyle());
             if (!$formatter) {
                 throw new Exception\RuntimeException(

@@ -136,7 +136,7 @@ class DocBlockScanner implements ScannerInterface
 
             case 'DOCBLOCK_WHITESPACE':
             case 'DOCBLOCK_TEXT':
-                if ($tagIndex !== null) {
+                if (null !== $tagIndex) {
                     $this->tags[$tagIndex]['value'] .= ($this->tags[$tagIndex]['value'] == '') ? $token[1] : ' ' . $token[1];
                     goto SCANNER_CONTINUE;
                 } elseif ($mode <= 2) {
@@ -194,7 +194,7 @@ class DocBlockScanner implements ScannerInterface
 
         $MACRO_STREAM_ADVANCE_CHAR       = function ($positionsForward = 1) use (&$stream, &$streamIndex, &$currentChar, &$currentWord, &$currentLine) {
             $positionsForward = ($positionsForward > 0) ? $positionsForward : 1;
-            $streamIndex      = ($streamIndex === null) ? 0 : $streamIndex + $positionsForward;
+            $streamIndex      = (null === $streamIndex) ? 0 : $streamIndex + $positionsForward;
             if (!isset($stream[$streamIndex])) {
                 $currentChar = false;
                 return false;
@@ -217,7 +217,7 @@ class DocBlockScanner implements ScannerInterface
             return $MACRO_STREAM_ADVANCE_CHAR(strlen($currentLine));
         };
         $MACRO_TOKEN_ADVANCE             = function () use (&$tokenIndex, &$tokens) {
-            $tokenIndex          = ($tokenIndex === null) ? 0 : $tokenIndex + 1;
+            $tokenIndex          = (null === $tokenIndex) ? 0 : $tokenIndex + 1;
             $tokens[$tokenIndex] = array('DOCBLOCK_UNKNOWN', '');
         };
         $MACRO_TOKEN_SET_TYPE            = function ($type) use (&$tokenIndex, &$tokens) {

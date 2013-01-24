@@ -150,7 +150,7 @@ class Uri implements UriInterface
             $this->setPath($uri->getPath());
             $this->setQuery($uri->getQuery());
             $this->setFragment($uri->getFragment());
-        } elseif ($uri !== null) {
+        } elseif (null !== $uri) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Expecting a string or a URI object, received "%s"',
                 (is_object($uri) ? get_class($uri) : gettype($uri))
@@ -253,7 +253,7 @@ class Uri implements UriInterface
      */
     public function isAbsolute()
     {
-        return ($this->scheme !== null);
+        return (null !== $this->scheme);
     }
 
     /**
@@ -351,7 +351,7 @@ class Uri implements UriInterface
             $uri .= $this->scheme . ':';
         }
 
-        if ($this->host !== null) {
+        if (null !== $this->host) {
             $uri .= '//';
             if ($this->userInfo) {
                 $uri .= $this->userInfo . '@';
@@ -676,7 +676,7 @@ class Uri implements UriInterface
      */
     public function setScheme($scheme)
     {
-        if (($scheme !== null) && (!self::validateScheme($scheme))) {
+        if ((null !== $scheme) && (!self::validateScheme($scheme))) {
             throw new Exception\InvalidUriPartException(sprintf(
                 'Scheme "%s" is not valid or is not accepted by %s',
                 $scheme,
@@ -723,7 +723,7 @@ class Uri implements UriInterface
     public function setHost($host)
     {
         if (($host !== '')
-            && ($host !== null)
+            && (null !== $host)
             && !self::validateHost($host, $this->validHostTypes)
         ) {
             throw new Exception\InvalidUriPartException(sprintf(

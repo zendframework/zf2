@@ -57,7 +57,7 @@ class TableIdentifier
      */
     public function hasSchema()
     {
-        return ($this->schema != null);
+        return (null !== $this->schema);
     }
 
     /**

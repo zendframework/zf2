@@ -73,7 +73,7 @@ class PrivateKey extends AbstractKey
      */
     public function getPublicKey()
     {
-        if ($this->publicKey === null) {
+        if (null === $this->publicKey) {
             $this->publicKey = new PublicKey($this->details['key']);
         }
 

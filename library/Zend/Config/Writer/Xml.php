@@ -64,7 +64,7 @@ class Xml extends AbstractWriter
         $branchType = null;
 
         foreach ($config as $key => $value) {
-            if ($branchType === null) {
+            if (null === $branchType) {
                 if (is_numeric($key)) {
                     $branchType = 'numeric';
                 } else {

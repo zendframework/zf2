@@ -70,10 +70,10 @@ class PropertyGenerator extends AbstractMemberGenerator
 
     public function __construct($name = null, $defaultValue = null, $flags = self::FLAG_PUBLIC)
     {
-        if ($name !== null) {
+        if (null !== $name) {
             $this->setName($name);
         }
-        if ($defaultValue !== null) {
+        if (null !== $defaultValue) {
             $this->setDefaultValue($defaultValue);
         }
         if ($flags !== self::FLAG_PUBLIC) {
@@ -166,13 +166,13 @@ class PropertyGenerator extends AbstractMemberGenerator
                                                          . 'constant but does not have a valid constant value.');
             }
             $output .= $this->indentation . 'const ' . $name . ' = '
-                . (($defaultValue !== null) ? $defaultValue->generate() : 'null;');
+                . ((null !== $defaultValue) ? $defaultValue->generate() : 'null;');
         } else {
             $output .= $this->indentation
                 . $this->getVisibility()
                 . (($this->isStatic()) ? ' static' : '')
                 . ' $' . $name . ' = '
-                . (($defaultValue !== null) ? $defaultValue->generate() : 'null;');
+                . ((null !== $defaultValue) ? $defaultValue->generate() : 'null;');
         }
 
         return $output;

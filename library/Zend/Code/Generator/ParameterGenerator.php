@@ -64,7 +64,7 @@ class ParameterGenerator extends AbstractGenerator
             $param->setType('array');
         } else {
             $typeClass = $reflectionParameter->getClass();
-            if ($typeClass !== null) {
+            if (null !== $typeClass) {
                 $param->setType($typeClass->getName());
             }
         }
@@ -82,16 +82,16 @@ class ParameterGenerator extends AbstractGenerator
     public function __construct($name = null, $type = null, $defaultValue = null, $position = null,
                                 $passByReference = false)
     {
-        if ($name !== null) {
+        if (null !== $name) {
             $this->setName($name);
         }
-        if ($type !== null) {
+        if (null !== $type) {
             $this->setType($type);
         }
-        if ($defaultValue !== null) {
+        if (null !== $defaultValue) {
             $this->setDefaultValue($defaultValue);
         }
-        if ($position !== null) {
+        if (null !== $position) {
             $this->setPosition($position);
         }
         if ($passByReference !== false) {
@@ -230,7 +230,7 @@ class ParameterGenerator extends AbstractGenerator
 
         $output .= '$' . $this->name;
 
-        if ($this->defaultValue !== null) {
+        if (null !== $this->defaultValue) {
             $output .= ' = ';
             if (is_string($this->defaultValue)) {
                 $output .= ValueGenerator::escape($this->defaultValue);

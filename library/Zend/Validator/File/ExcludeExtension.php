@@ -42,7 +42,7 @@ class ExcludeExtension extends Extension
      */
     public function isValid($value, $file = null)
     {
-        if ($file === null) {
+        if (null === $file) {
             $file = array('name' => basename($value));
         }
 
@@ -51,7 +51,7 @@ class ExcludeExtension extends Extension
             return $this->throwError($file, self::NOT_FOUND);
         }
 
-        if ($file !== null) {
+        if (null !== $file) {
             $info['extension'] = substr($file['name'], strrpos($file['name'], '.') + 1);
         } else {
             $info = pathinfo($value);

@@ -585,7 +585,7 @@ class PatternOptions extends AbstractOptions
      */
     public function setObjectKey($objectKey)
     {
-        if ($objectKey !== null) {
+        if (null !== $objectKey) {
             $this->objectKey = (string) $objectKey;
         } else {
             $this->objectKey = null;

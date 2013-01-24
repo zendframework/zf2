@@ -121,7 +121,7 @@ class Table
         }
 
         // If no decorator was given, use default unicode decorator
-        if ($this->decorator === null) {
+        if (null === $this->decorator) {
             if (static::getOutputCharset() === 'utf-8') {
                 $this->setDecorator('unicode');
             } else {

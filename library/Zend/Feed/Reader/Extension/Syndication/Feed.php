@@ -31,7 +31,7 @@ class Feed extends \Zend\Feed\Reader\Extension\AbstractFeed
         $name = 'updatePeriod';
         $period = $this->_getData($name);
 
-        if ($period === null) {
+        if (null === $period) {
             $this->data[$name] = 'daily';
             return 'daily'; //Default specified by spec
         }

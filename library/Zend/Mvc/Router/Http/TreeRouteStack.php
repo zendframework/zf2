@@ -141,11 +141,11 @@ class TreeRouteStack extends SimpleRouteStack
         $uri           = $request->getUri();
         $baseUrlLength = strlen($this->baseUrl) ?: null;
 
-        if ($this->requestUri === null) {
+        if (null === $this->requestUri) {
             $this->setRequestUri($uri);
         }
 
-        if ($baseUrlLength !== null) {
+        if (null !== $baseUrlLength) {
             $pathLength = strlen($uri->getPath()) - $baseUrlLength;
 
             foreach ($this->routes as $name => $route) {
@@ -205,7 +205,7 @@ class TreeRouteStack extends SimpleRouteStack
             $uri = new HttpUri();
 
             if (isset($options['force_canonical']) && $options['force_canonical']) {
-                if ($this->requestUri === null) {
+                if (null === $this->requestUri) {
                     throw new Exception\RuntimeException('Request URI has not been set');
                 }
 
@@ -223,7 +223,7 @@ class TreeRouteStack extends SimpleRouteStack
 
         if ((isset($options['force_canonical']) && $options['force_canonical']) || $uri->getHost() !== null) {
             if ($uri->getScheme() === null) {
-                if ($this->requestUri === null) {
+                if (null === $this->requestUri) {
                     throw new Exception\RuntimeException('Request URI has not been set');
                 }
 

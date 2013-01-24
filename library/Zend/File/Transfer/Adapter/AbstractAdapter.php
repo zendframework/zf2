@@ -440,7 +440,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      */
     public function getValidators($files = null)
     {
-        if ($files == null) {
+        if (null === $files) {
             return $this->validators;
         }
 
@@ -818,7 +818,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      */
     public function getFilters($files = null)
     {
-        if ($files === null) {
+        if (null === $files) {
             return $this->filters;
         }
 
@@ -945,7 +945,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
             throw new Exception\InvalidArgumentException('The given destination is not writeable');
         }
 
-        if ($files === null) {
+        if (null === $files) {
             foreach ($this->files as $file => $content) {
                 $this->files[$file]['destination'] = $destination;
             }
@@ -1447,7 +1447,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
             }
         }
 
-        if ($files === null) {
+        if (null === $files) {
             $check = $this->files;
             $keys  = array_keys($check);
             foreach ($keys as $key) {

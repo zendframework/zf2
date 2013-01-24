@@ -193,7 +193,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     public function getEventManager()
     {
-        if ($this->events === null) {
+        if (null === $this->events) {
             $this->events = new EventManager(array(__CLASS__, get_called_class()));
         }
         return $this->events;
@@ -1517,7 +1517,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function internalGetCapabilities()
     {
-        if ($this->capabilities === null) {
+        if (null === $this->capabilities) {
             $this->capabilityMarker = new stdClass();
             $this->capabilities     = new Capabilities($this, $this->capabilityMarker);
         }

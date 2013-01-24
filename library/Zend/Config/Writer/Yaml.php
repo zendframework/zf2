@@ -33,7 +33,7 @@ class Yaml extends AbstractWriter
      */
     public function __construct($yamlEncoder = null)
     {
-        if ($yamlEncoder !== null) {
+        if (null !== $yamlEncoder) {
             $this->setYamlEncoder($yamlEncoder);
         } else {
             if (function_exists('yaml_emit')) {

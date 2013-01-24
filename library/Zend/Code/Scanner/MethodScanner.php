@@ -235,7 +235,7 @@ class MethodScanner implements ScannerInterface
          */
         $MACRO_TOKEN_ADVANCE = function () use (&$tokens, &$tokenIndex, &$token, &$tokenType, &$tokenContent, &$tokenLine) {
             static $lastTokenArray = null;
-            $tokenIndex = ($tokenIndex === null) ? 0 : $tokenIndex + 1;
+            $tokenIndex = (null === $tokenIndex) ? 0 : $tokenIndex + 1;
             if (!isset($tokens[$tokenIndex])) {
                 $token        = false;
                 $tokenContent = false;

@@ -88,7 +88,7 @@ class ZendServerDisk extends AbstractZendServer implements
      */
     public function getTotalSpace()
     {
-        if ($this->totalSpace !== null) {
+        if (null !== $this->totalSpace) {
             $path = $this->getOptions()->getCacheDir();
 
             ErrorHandler::start();

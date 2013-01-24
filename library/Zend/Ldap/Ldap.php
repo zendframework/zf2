@@ -517,7 +517,7 @@ class Ldap
      */
     protected function isPossibleAuthority($dname)
     {
-        if ($dname === null) {
+        if (null === $dname) {
             return true;
         }
         $accountDomainName      = $this->getAccountDomainName();
@@ -666,25 +666,25 @@ class Ldap
      */
     public function connect($host = null, $port = null, $useSsl = null, $useStartTls = null, $networkTimeout = null)
     {
-        if ($host === null) {
+        if (null === $host) {
             $host = $this->getHost();
         }
-        if ($port === null) {
+        if (null === $port) {
             $port = $this->getPort();
         } else {
             $port = (int) $port;
         }
-        if ($useSsl === null) {
+        if (null === $useSsl) {
             $useSsl = $this->getUseSsl();
         } else {
             $useSsl = (bool) $useSsl;
         }
-        if ($useStartTls === null) {
+        if (null === $useStartTls) {
             $useStartTls = $this->getUseStartTls();
         } else {
             $useStartTls = (bool) $useStartTls;
         }
-        if ($networkTimeout === null) {
+        if (null === $networkTimeout) {
             $networkTimeout = $this->getNetworkTimeout();
         } else {
             $networkTimeout = (int) $networkTimeout;
@@ -763,7 +763,7 @@ class Ldap
     {
         $moreCreds = true;
 
-        if ($username === null) {
+        if (null === $username) {
             $username  = $this->getUsername();
             $password  = $this->getPassword();
             $moreCreds = false;
@@ -825,7 +825,7 @@ class Ldap
                 return $this;
             }
 
-            $message = ($username === null) ? $this->connectString : $username;
+            $message = (null === $username) ? $this->connectString : $username;
             switch ($this->getLastErrorCode()) {
                 case Exception\LdapException::LDAP_SERVER_DOWN:
                     /* If the error is related to establishing a connection rather than binding,
@@ -896,7 +896,7 @@ class Ldap
             }
         }
 
-        if ($basedn === null) {
+        if (null === $basedn) {
             $basedn = $this->getBaseDn();
         } elseif ($basedn instanceof Dn) {
                 $basedn = $basedn->toString();
@@ -949,7 +949,7 @@ class Ldap
      */
     protected function createCollection(Collection\DefaultIterator $iterator, $collectionClass)
     {
-        if ($collectionClass === null) {
+        if (null === $collectionClass) {
             return new Collection($iterator);
         } else {
             $collectionClass = (string) $collectionClass;
@@ -1103,7 +1103,7 @@ class Ldap
         foreach ($entry as $key => $value) {
             if (is_array($value)) {
                 foreach ($value as $i => $v) {
-                    if ($v === null) {
+                    if (null === $v) {
                         unset($value[$i]);
                     } elseif (!is_scalar($v)) {
                         throw new Exception\InvalidArgumentException('Only scalar values allowed in LDAP data');
@@ -1118,7 +1118,7 @@ class Ldap
                 }
                 $entry[$key] = array_values($value);
             } else {
-                if ($value === null) {
+                if (null === $value) {
                     $entry[$key] = array();
                 } elseif (!is_scalar($value)) {
                     throw new Exception\InvalidArgumentException('Only scalar values allowed in LDAP data');
@@ -1515,7 +1515,7 @@ class Ldap
      */
     public function getRootDse()
     {
-        if ($this->rootDse === null) {
+        if (null === $this->rootDse) {
             $this->rootDse = Node\RootDse::create($this);
         }
 
@@ -1530,7 +1530,7 @@ class Ldap
      */
     public function getSchema()
     {
-        if ($this->schema === null) {
+        if (null === $this->schema) {
             $this->schema = Node\Schema::create($this);
         }
 

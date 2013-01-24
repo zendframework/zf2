@@ -192,7 +192,7 @@ abstract class AbstractTableGateway implements TableGatewayInterface
 
         if ($where instanceof \Closure) {
             $where($select);
-        } elseif ($where !== null) {
+        } elseif (null !== $where) {
             $select->where($where);
         }
 
@@ -316,7 +316,7 @@ abstract class AbstractTableGateway implements TableGatewayInterface
         $sql = $this->sql;
         $update = $sql->update();
         $update->set($set);
-        if ($where !== null) {
+        if (null !== $where) {
             $update->where($where);
         }
         return $this->executeUpdate($update);

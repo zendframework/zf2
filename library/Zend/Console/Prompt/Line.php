@@ -41,15 +41,15 @@ class Line extends AbstractPrompt
      */
     public function __construct($promptText = 'Please enter value: ', $allowEmpty = false, $maxLength = 2048)
     {
-        if ($promptText !== null) {
+        if (null !== $promptText) {
             $this->setPromptText($promptText);
         }
 
-        if ($allowEmpty !== null) {
+        if (null !== $allowEmpty) {
             $this->setAllowEmpty($allowEmpty);
         }
 
-        if ($maxLength !== null) {
+        if (null !== $maxLength) {
             $this->setMaxLength($maxLength);
         }
     }

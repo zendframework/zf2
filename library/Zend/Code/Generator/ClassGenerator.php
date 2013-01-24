@@ -199,19 +199,19 @@ class ClassGenerator extends AbstractGenerator
     public function __construct($name = null, $namespaceName = null, $flags = null, $extends = null,
                                 $interfaces = array(), $properties = array(), $methods = array(), $docBlock = null)
     {
-        if ($name !== null) {
+        if (null !== $name) {
             $this->setName($name);
         }
-        if ($namespaceName !== null) {
+        if (null !== $namespaceName) {
             $this->setNamespaceName($namespaceName);
         }
-        if ($flags !== null) {
+        if (null !== $flags) {
             $this->setFlags($flags);
         }
         if ($properties !== array()) {
             $this->addProperties($properties);
         }
-        if ($extends !== null) {
+        if (null !== $extends) {
             $this->setExtendedClass($extends);
         }
         if (is_array($interfaces)) {
@@ -220,7 +220,7 @@ class ClassGenerator extends AbstractGenerator
         if ($methods !== array()) {
             $this->addMethods($methods);
         }
-        if ($docBlock !== null) {
+        if (null !== $docBlock) {
             $this->setDocBlock($docBlock);
         }
     }

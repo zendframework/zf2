@@ -284,7 +284,7 @@ class Cloud
      */
     public function getDecoratorPluginManager()
     {
-        if ($this->decorators === null) {
+        if (null === $this->decorators) {
             $this->decorators = new Cloud\DecoratorPluginManager();
         }
 

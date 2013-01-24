@@ -125,7 +125,7 @@ class IsImage extends MimeType
      */
     protected function createError($file, $errorType)
     {
-        if ($file !== null) {
+        if (null !== $file) {
             if (is_array($file)) {
                 if (array_key_exists('name', $file)) {
                     $file = $file['name'];

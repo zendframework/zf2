@@ -57,7 +57,7 @@ class Sendmail implements TransportInterface
      */
     public function __construct($parameters = null)
     {
-        if ($parameters !== null) {
+        if (null !== $parameters) {
             $this->setParameters($parameters);
         }
         $this->callable = array($this, 'mailHandler');
@@ -272,7 +272,7 @@ class Sendmail implements TransportInterface
     public function mailHandler($to, $subject, $message, $headers, $parameters)
     {
         set_error_handler(array($this, 'handleMailErrors'));
-        if ($parameters === null) {
+        if (null === $parameters) {
             $result = mail($to, $subject, $message, $headers);
         } else {
             $result = mail($to, $subject, $message, $headers, $parameters);

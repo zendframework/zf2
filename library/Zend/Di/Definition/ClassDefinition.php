@@ -80,7 +80,7 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
      */
     public function addMethod($method, $isRequired = null)
     {
-        if ($isRequired === null) {
+        if (null === $isRequired) {
             $isRequired = ($method === '__construct') ? true : false;
         }
         $this->methods[$method] = (bool) $isRequired;

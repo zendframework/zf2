@@ -62,7 +62,7 @@ class File extends Part
         $this->headers = Headers::fromString($header);
 
         $this->contentPos[0] = ftell($this->fh);
-        if ($endPos !== null) {
+        if (null !== $endPos) {
             $this->contentPos[1] = $endPos;
         } else {
             fseek($this->fh, 0, SEEK_END);
@@ -122,7 +122,7 @@ class File extends Part
     public function getContent($stream = null)
     {
         fseek($this->fh, $this->contentPos[0]);
-        if ($stream !== null) {
+        if (null !== $stream) {
             return stream_copy_to_stream($this->fh, $stream, $this->contentPos[1] - $this->contentPos[0]);
         }
         $length = $this->contentPos[1] - $this->contentPos[0];

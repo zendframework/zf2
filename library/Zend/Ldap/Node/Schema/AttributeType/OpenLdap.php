@@ -49,9 +49,9 @@ class OpenLdap extends Schema\AbstractItem implements AttributeTypeInterface
      */
     public function getSyntax()
     {
-        if ($this->syntax === null) {
+        if (null === $this->syntax) {
             $parent = $this->getParent();
-            if ($parent === null) {
+            if (null === $parent) {
                 return null;
             } else {
                 return $parent->getSyntax();
@@ -69,9 +69,9 @@ class OpenLdap extends Schema\AbstractItem implements AttributeTypeInterface
     public function getMaxLength()
     {
         $maxLength = $this->{'max-length'};
-        if ($maxLength === null) {
+        if (null === $maxLength) {
             $parent = $this->getParent();
-            if ($parent === null) {
+            if (null === $parent) {
                 return null;
             } else {
                 return $parent->getMaxLength();

@@ -440,7 +440,7 @@ class WinCache extends AbstractAdapter implements
      */
     protected function internalGetCapabilities()
     {
-        if ($this->capabilities === null) {
+        if (null === $this->capabilities) {
             $marker       = new stdClass();
             $capabilities = new Capabilities(
                 $this,

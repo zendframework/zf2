@@ -26,7 +26,7 @@ abstract class AbstractUnicode extends AbstractFilter
      */
     public function setEncoding($encoding = null)
     {
-        if ($encoding !== null) {
+        if (null !== $encoding) {
             if (!function_exists('mb_strtolower')) {
                 throw new Exception\ExtensionNotLoadedException(sprintf(
                     '%s requires mbstring extension to be loaded',

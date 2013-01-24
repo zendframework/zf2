@@ -166,7 +166,7 @@ class Xml implements FormatterInterface
             $event['timestamp'] = $event['timestamp']->format($this->getDateTimeFormat());
         }
 
-        if ($this->elementMap === null) {
+        if (null === $this->elementMap) {
             $dataToInsert = $event;
         } else {
             $dataToInsert = array();

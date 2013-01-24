@@ -53,23 +53,23 @@ class Number extends Line
         $min = null,
         $max = null
     ) {
-        if ($promptText !== null) {
+        if (null !== $promptText) {
             $this->setPromptText($promptText);
         }
 
-        if ($allowEmpty !== null) {
+        if (null !== $allowEmpty) {
             $this->setAllowEmpty($allowEmpty);
         }
 
-        if ($min !== null) {
+        if (null !== $min) {
             $this->setMin($min);
         }
 
-        if ($max !== null) {
+        if (null !== $max) {
             $this->setMax($max);
         }
 
-        if ($allowFloat !== null) {
+        if (null !== $allowFloat) {
             $this->setAllowFloat($allowFloat);
         }
     }
@@ -109,7 +109,7 @@ class Number extends Line
         /**
          * Cast proper type
          */
-        if ($number !== null) {
+        if (null !== $number) {
             $number = $this->allowFloat ? (double) $number : (int) $number;
         }
 

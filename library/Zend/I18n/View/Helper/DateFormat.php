@@ -95,7 +95,7 @@ class DateFormat extends AbstractHelper
      */
     public function getlocale()
     {
-        if ($this->locale === null) {
+        if (null === $this->locale) {
             $this->locale = Locale::getDefault();
         }
 
@@ -118,7 +118,7 @@ class DateFormat extends AbstractHelper
         $timeType = IntlDateFormatter::NONE,
         $locale   = null
     ) {
-        if ($locale === null) {
+        if (null === $locale) {
             $locale = $this->getlocale();
         }
 

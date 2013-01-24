@@ -44,7 +44,7 @@ class Request extends Message implements RequestInterface
      */
     public function __construct(array $args = null, array $env = null)
     {
-        if ($args === null) {
+        if (null === $args) {
             if (!isset($_SERVER['argv'])) {
                 $errorDescription = (ini_get('register_argc_argv') == false)
                     ? "Cannot create Console\\Request because PHP ini option 'register_argc_argv' is set Off"
@@ -54,7 +54,7 @@ class Request extends Message implements RequestInterface
             $args = $_SERVER['argv'];
         }
 
-        if ($env === null) {
+        if (null === $env) {
             $env = $_ENV;
         }
 
@@ -97,7 +97,7 @@ class Request extends Message implements RequestInterface
      */
     public function getParams()
     {
-        if ($this->params === null) {
+        if (null === $this->params) {
             $this->params = new Parameters();
         }
 
@@ -124,7 +124,7 @@ class Request extends Message implements RequestInterface
      */
     public function params()
     {
-        if ($this->params === null) {
+        if (null === $this->params) {
             $this->params = new Parameters();
         }
 
@@ -151,7 +151,7 @@ class Request extends Message implements RequestInterface
      */
     public function env()
     {
-        if ($this->envParams === null) {
+        if (null === $this->envParams) {
             $this->envParams = new Parameters();
         }
 

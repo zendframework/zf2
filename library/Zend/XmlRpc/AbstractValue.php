@@ -448,7 +448,7 @@ abstract class AbstractValue
             foreach ($namespaces as $namespaceName => $namespaceUri) {
                 $namespaceXml = $xml->children($namespaceUri);
                 list($type, $value) = each($namespaceXml);
-                if ($type !== null) {
+                if (null !== $type) {
                     $type = $namespaceName . ':' . $type;
                     break;
                 }

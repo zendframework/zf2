@@ -72,7 +72,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getTableNames($schema = null, $includeViews = false)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -101,7 +101,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getTables($schema = null, $includeViews = false)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -121,7 +121,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getTable($tableName, $schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -158,7 +158,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getViewNames($schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -181,7 +181,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getViews($schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -201,7 +201,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getView($viewName, $schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -223,7 +223,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getColumnNames($table, $schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -245,7 +245,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getColumns($table, $schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -268,7 +268,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getColumn($columnName, $table, $schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -316,7 +316,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getConstraints($table, $schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -340,7 +340,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getConstraint($constraintName, $table, $schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -382,7 +382,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getConstraintKeys($constraint, $table, $schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -423,7 +423,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getTriggerNames($schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -440,7 +440,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getTriggers($schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 
@@ -460,7 +460,7 @@ abstract class AbstractSource implements MetadataInterface
      */
     public function getTrigger($triggerName, $schema = null)
     {
-        if ($schema === null) {
+        if (null === $schema) {
             $schema = $this->defaultSchema;
         }
 

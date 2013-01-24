@@ -644,7 +644,7 @@ class Figlet
     {
         $this->_getLetter($char);
 
-        if ($this->currentChar === null) {
+        if (null === $this->currentChar) {
             return true;
         }
 
@@ -1026,12 +1026,12 @@ class Figlet
         $this->_setUsedSmush();
 
         // Get left to right value
-        if ($this->rightToLeft === null) {
+        if (null === $this->rightToLeft) {
             $this->rightToLeft = $rightToLeft;
         }
 
         // Get justification value
-        if ($this->justification === null) {
+        if (null === $this->justification) {
             $this->justification = (2 * $this->rightToLeft);
         }
 

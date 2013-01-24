@@ -316,9 +316,9 @@ class Json
         $simpleXmlElementObject = simplexml_load_string($xmlStringContents);
 
         // If it is not a valid XML content, throw an exception.
-        if ($simpleXmlElementObject == null) {
+        if (null === $simpleXmlElementObject) {
             throw new RuntimeException('Function fromXml was called with an invalid XML formatted string.');
-        } // End of if ($simpleXmlElementObject == null)
+        } // End of if (null === $simpleXmlElementObject)
 
         $resultArray = null;
 

@@ -82,7 +82,7 @@ class Pop3
             $host = 'ssl://' . $host;
         }
 
-        if ($port === null) {
+        if (null === $port) {
             $port = $ssl == 'SSL' ? 995 : 110;
         }
 
@@ -271,7 +271,7 @@ class Pop3
      */
     public function getList($msgno = null)
     {
-        if ($msgno !== null) {
+        if (null !== $msgno) {
             $result = $this->request("LIST $msgno");
 
             list(, $result) = explode(' ', $result);
@@ -299,7 +299,7 @@ class Pop3
      */
     public function uniqueid($msgno = null)
     {
-        if ($msgno !== null) {
+        if (null !== $msgno) {
             $result = $this->request("UIDL $msgno");
 
             list(, $result) = explode(' ', $result);

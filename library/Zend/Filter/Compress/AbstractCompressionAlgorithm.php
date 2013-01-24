@@ -50,7 +50,7 @@ abstract class AbstractCompressionAlgorithm implements CompressionAlgorithmInter
      */
     public function getOptions($option = null)
     {
-        if ($option === null) {
+        if (null === $option) {
             return $this->options;
         }
 

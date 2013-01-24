@@ -65,7 +65,7 @@ class RouteMatch extends BaseRouteMatch
      */
     public function setMatchedRouteName($name)
     {
-        if ($this->matchedRouteName === null) {
+        if (null === $this->matchedRouteName) {
             $this->matchedRouteName = $name;
         } else {
             $this->matchedRouteName = $name . '/' . $this->matchedRouteName;

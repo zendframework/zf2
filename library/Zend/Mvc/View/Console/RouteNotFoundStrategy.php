@@ -215,7 +215,7 @@ class RouteNotFoundStrategy implements ListenerAggregateInterface
          * Loop through all loaded modules and collect banners
          */
         $banners = array();
-        if ($moduleManager !== null) {
+        if (null !== $moduleManager) {
             foreach ($moduleManager->getLoadedModules(false) as $module) {
                 // Strict-type on ConsoleBannerProviderInterface, or duck-type
                 // on the method it defines
@@ -261,7 +261,7 @@ class RouteNotFoundStrategy implements ListenerAggregateInterface
          */
         $usageInfo = array();
 
-        if ($moduleManager !== null) {
+        if (null !== $moduleManager) {
             foreach ($moduleManager->getLoadedModules(false) as $name => $module) {
                 // Strict-type on ConsoleUsageProviderInterface, or duck-type
                 // on the method it defines

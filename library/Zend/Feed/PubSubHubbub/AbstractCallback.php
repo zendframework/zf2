@@ -55,7 +55,7 @@ abstract class AbstractCallback implements CallbackInterface
      */
     public function __construct($options = null)
     {
-        if ($options !== null) {
+        if (null !== $options) {
             $this->setOptions($options);
         }
     }
@@ -125,7 +125,7 @@ abstract class AbstractCallback implements CallbackInterface
      */
     public function getStorage()
     {
-        if ($this->storage === null) {
+        if (null === $this->storage) {
             throw new Exception\RuntimeException('No storage object has been'
                 . ' set that subclasses Zend\Feed\Pubsubhubbub\Model\SubscriptionPersistence');
         }
@@ -161,7 +161,7 @@ abstract class AbstractCallback implements CallbackInterface
      */
     public function getHttpResponse()
     {
-        if ($this->httpResponse === null) {
+        if (null === $this->httpResponse) {
             $this->httpResponse = new HttpResponse;
         }
         return $this->httpResponse;

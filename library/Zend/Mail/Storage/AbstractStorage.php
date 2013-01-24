@@ -314,7 +314,7 @@ abstract class AbstractStorage implements
       */
      public function valid()
      {
-        if ($this->iterationMax === null) {
+        if (null === $this->iterationMax) {
           $this->iterationMax = $this->countMessages();
         }
         return $this->iterationPos && $this->iterationPos <= $this->iterationMax;
@@ -329,7 +329,7 @@ abstract class AbstractStorage implements
       */
      public function seek($pos)
      {
-        if ($this->iterationMax === null) {
+        if (null === $this->iterationMax) {
           $this->iterationMax = $this->countMessages();
         }
 

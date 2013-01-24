@@ -59,7 +59,7 @@ class InjectionMethod
         $this->parameters[] = array(
             $name,
             $class,
-            ($isRequired == null) ? true : false,
+            (null === $isRequired) ? true : false,
             $default,
         );
 

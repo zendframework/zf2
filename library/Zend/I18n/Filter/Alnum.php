@@ -36,7 +36,7 @@ class Alnum extends AbstractLocale
      */
     public function __construct($allowWhiteSpaceOrOptions = null, $locale = null)
     {
-        if ($allowWhiteSpaceOrOptions !== null) {
+        if (null !== $allowWhiteSpaceOrOptions) {
             if (static::isOptions($allowWhiteSpaceOrOptions)) {
                 $this->setOptions($allowWhiteSpaceOrOptions);
             } else {

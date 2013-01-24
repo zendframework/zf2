@@ -64,7 +64,7 @@ class OpenLdap extends Schema\AbstractItem implements ObjectClassInterface
      */
     public function getMustContain()
     {
-        if ($this->inheritedMust === null) {
+        if (null === $this->inheritedMust) {
             $this->resolveInheritance();
         }
         return $this->inheritedMust;
@@ -77,7 +77,7 @@ class OpenLdap extends Schema\AbstractItem implements ObjectClassInterface
      */
     public function getMayContain()
     {
-        if ($this->inheritedMay === null) {
+        if (null === $this->inheritedMay) {
             $this->resolveInheritance();
         }
         return $this->inheritedMay;

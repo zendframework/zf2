@@ -103,7 +103,7 @@ class DbSelect implements AdapterInterface
      */
     public function count()
     {
-        if ($this->rowCount !== null) {
+        if (null !== $this->rowCount) {
             return $this->rowCount;
         }
 

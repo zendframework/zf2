@@ -131,7 +131,7 @@ class MemoryManager
      */
     public function __construct(CacheStorage $cache = null)
     {
-        if ($cache === null) {
+        if (null === $cache) {
             return;
         }
 
@@ -166,7 +166,7 @@ class MemoryManager
      */
     public function __destruct()
     {
-        if ($this->cache !== null) {
+        if (null !== $this->cache) {
             if ($this->cache instanceof ClearByNamespaceCacheStorage) {
                 $this->cache->clearByNamespace($this->cache->getOptions()->getNamespace());
             } elseif ($this->cache instanceof FlushableCacheStorage) {
@@ -254,7 +254,7 @@ class MemoryManager
     {
         $id = $this->nextId++;
 
-        if ($locked  ||  ($this->cache === null) /* Use only memory locked objects if backend is not specified */) {
+        if ($locked  ||  (null === $this->cache) /* Use only memory locked objects if backend is not specified */) {
             return new Container\Locked($value);
         }
 

@@ -60,7 +60,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
 
     protected function processLimit(PlatformInterface $platform, Adapter $adapter = null, ParameterContainer $parameterContainer = null)
     {
-        if ($this->limit === null) {
+        if (null === $this->limit) {
             return null;
         }
         if ($adapter) {
@@ -76,7 +76,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
 
     protected function processOffset(PlatformInterface $platform, Adapter $adapter = null, ParameterContainer $parameterContainer = null)
     {
-        if ($this->offset === null) {
+        if (null === $this->offset) {
             return null;
         }
         if ($adapter) {

@@ -218,7 +218,7 @@ class NotEmpty extends AbstractValidator
         // NULL (null)
         if ($type >= self::NULL) {
             $type -= self::NULL;
-            if ($value === null) {
+            if (null === $value) {
                 $this->error(self::IS_EMPTY);
                 return false;
             }
