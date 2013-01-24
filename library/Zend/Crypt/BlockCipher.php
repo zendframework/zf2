@@ -351,6 +351,8 @@ class BlockCipher
         // generate a random salt (IV) if empty
         if (empty($salt)) {
             $salt = Rand::getBytes($this->cipher->getSaltSize(), true);
+        } elseif (strlen($salt) > $this->cipher->getSaltSize()) {
+            $salt = substr($salt, 0, $this->cipher->getSaltSize());
         }
         $this->cipher->setSalt($salt);
         // generate the encryption key and the HMAC key for the authentication

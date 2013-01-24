@@ -26,6 +26,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
      * @var BlockCipher
      */
     protected $blockCipher;
+    protected $salt;
     protected $plaintext;
 
     public function setUp()
@@ -39,6 +40,9 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
             $this->blockCipher = new BlockCipher($cipher);
         } catch (Exception\RuntimeException $e) {
             $this->markTestSkipped('Mcrypt is not installed, I cannot execute the BlockCipherTest');
+        }
+        for ($i = 0; $i < 128; $i++) {
+            $this->salt .= chr(rand(0, 255));
         }
         $this->plaintext = file_get_contents(__DIR__ . '/_files/plaintext');
     }
@@ -69,6 +73,13 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
         $result = $this->blockCipher->setKey('test');
         $this->assertEquals($result, $this->blockCipher);
         $this->assertEquals('test', $this->blockCipher->getKey());
+    }
+
+    public function testSetSalt()
+    {
+        $result = $this->blockCipher->setSalt($this->salt);
+        $this->assertEquals($result, $this->blockCipher);
+        $this->assertEquals($this->salt, $this->blockCipher->getSalt());
     }
 
     public function testSetAlgorithm()
@@ -120,6 +131,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
     {
         $this->blockCipher->setKey('test');
         $this->blockCipher->setKeyIteration(1000);
+        $this->blockCipher->setSalt($this->salt);
         foreach ($this->blockCipher->getCipherSupportedAlgorithms() as $algo) {
             $this->blockCipher->setCipherAlgorithm($algo);
             $encrypted = $this->blockCipher->encrypt($this->plaintext);
