@@ -347,12 +347,13 @@ class BlockCipher
             throw new Exception\InvalidArgumentException('No symmetric cipher specified');
         }
         $keySize = $this->cipher->getKeySize();
+        $saltSize = $this->cipher->getSaltSize();
         $salt = $this->getSalt();
         // generate a random salt (IV) if empty
         if (empty($salt)) {
-            $salt = Rand::getBytes($this->cipher->getSaltSize(), true);
-        } elseif (strlen($salt) > $this->cipher->getSaltSize()) {
-            $salt = substr($salt, 0, $this->cipher->getSaltSize());
+            $salt = Rand::getBytes($saltSize, true);
+        } elseif (strlen($salt) > $saltSize) {
+            $salt = substr($salt, 0, $saltSize);
         }
         $this->cipher->setSalt($salt);
         // generate the encryption key and the HMAC key for the authentication
