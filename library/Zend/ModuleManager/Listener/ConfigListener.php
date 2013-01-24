@@ -152,7 +152,7 @@ class ConfigListener extends AbstractListener implements
         foreach ($this->configs as $config) {
             $this->mergedConfig = ArrayUtils::merge($this->mergedConfig, $config);
 
-            if (array_key_exists('config_merge_remove_keys', $this->mergedConfig)){
+            if (array_key_exists('config_merge_remove_keys', $this->mergedConfig)) {
                 $this->configMergeRemoveKeys(
                     $this->mergedConfig,
                     array_merge($this->mergedConfig['config_merge_remove_keys'], array('config_merge_remove_keys'))
@@ -172,10 +172,11 @@ class ConfigListener extends AbstractListener implements
         return $this;
     }
 
-    protected function configMergeRemoveKeys(array &$array, array $keys){
+    protected function configMergeRemoveKeys(array &$array, array $keys)
+    {
 
-        foreach ($keys as $key => $value){
-            if (array_key_exists($key, $array)){
+        foreach ($keys as $key => $value) {
+            if (array_key_exists($key, $array)) {
                 if (is_array($value)){
                     $this->configMergeRemoveKeys($array[$key], $value);
                 } else {
