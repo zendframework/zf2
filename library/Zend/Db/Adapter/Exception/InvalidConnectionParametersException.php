@@ -32,4 +32,5 @@ class InvalidConnectionParametersException extends RuntimeException implements E
         parent::__construct($message);
         $this->parameters = $parameters;
     }
+
 }

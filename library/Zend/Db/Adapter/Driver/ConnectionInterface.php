@@ -88,4 +88,5 @@ interface ConnectionInterface
      * @return integer
      */
     public function getLastGeneratedValue($name = null);
+
 }

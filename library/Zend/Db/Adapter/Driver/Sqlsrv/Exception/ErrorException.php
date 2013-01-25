@@ -36,4 +36,5 @@ class ErrorException extends Exception\ErrorException implements ExceptionInterf
     {
         $this->errors = ($errors === false) ? sqlsrv_errors() : $errors;
     }
+
 }

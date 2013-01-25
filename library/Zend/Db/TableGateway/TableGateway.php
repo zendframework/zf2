@@ -76,4 +76,5 @@ class TableGateway extends AbstractTableGateway
 
         $this->initialize();
     }
+
 }

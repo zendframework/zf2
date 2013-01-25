@@ -19,4 +19,5 @@ class Mysql extends AbstractPlatform
     {
         $this->setTypeDecorator('Zend\Db\Sql\Select', ($selectDecorator) ?: new SelectDecorator());
     }
+
 }

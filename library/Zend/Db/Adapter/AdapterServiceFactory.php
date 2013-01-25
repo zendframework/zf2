@@ -31,4 +31,5 @@ class AdapterServiceFactory implements FactoryInterface
         $config = $serviceLocator->get('Config');
         return new Adapter($config['db']);
     }
+
 }

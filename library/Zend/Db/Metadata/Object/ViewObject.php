@@ -79,4 +79,5 @@ class ViewObject extends AbstractTableObject
     {
         return $this->isUpdatable;
     }
+
 }

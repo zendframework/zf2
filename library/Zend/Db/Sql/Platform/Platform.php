@@ -36,4 +36,5 @@ class Platform extends AbstractPlatform
             default:
         }
     }
+
 }

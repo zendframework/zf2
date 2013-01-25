@@ -293,4 +293,5 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
     {
         $this->where = clone $this->where;
     }
+
 }

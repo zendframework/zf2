@@ -224,4 +224,5 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 return $this->where;
         }
     }
+
 }

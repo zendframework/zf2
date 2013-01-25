@@ -139,4 +139,5 @@ class Sqlite implements PlatformInterface
         }
         return implode('', $parts);
     }
+
 }

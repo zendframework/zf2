@@ -258,4 +258,5 @@ class EventFeature extends AbstractFeature implements EventsCapableInterface
         ));
         $this->eventManager->trigger($this->event);
     }
+
 }

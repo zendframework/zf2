@@ -45,4 +45,5 @@ class Expression extends BaseExpression implements PredicateInterface
             }
         }
     }
+
 }

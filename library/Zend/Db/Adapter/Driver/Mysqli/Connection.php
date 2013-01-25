@@ -306,4 +306,5 @@ class Connection implements ConnectionInterface
     {
         return $this->resource->insert_id;
     }
+
 }

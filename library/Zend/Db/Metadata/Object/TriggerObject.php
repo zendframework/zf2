@@ -451,4 +451,5 @@ class TriggerObject
         $this->created = $created;
         return $this;
     }
+
 }

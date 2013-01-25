@@ -165,4 +165,5 @@ abstract class AbstractSql
         }
         return $sql;
     }
+
 }
