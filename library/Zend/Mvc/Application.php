@@ -112,7 +112,7 @@ class Application implements
      */
     public function getConfig()
     {
-        return $this->serviceManager->get('Config');
+        return $this->getServiceManager()->get('Config');
     }
 
     /**
@@ -126,7 +126,7 @@ class Application implements
      */
     public function bootstrap()
     {
-        $serviceManager = $this->serviceManager;
+        $serviceManager = $this->getServiceManager();
         $events         = $this->getEventManager();
 
         $events->attach($serviceManager->get('RouteListener'));
