@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Db
  */
@@ -96,8 +96,8 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
     /**
      * Populate Data
      *
-     * @param  array $rowData
-     * @param  bool  $rowExistsInDatabase
+     * @param  array              $rowData
+     * @param  bool               $rowExistsInDatabase
      * @return AbstractRowGateway
      */
     public function populate(array $rowData, $rowExistsInDatabase = false)
@@ -115,7 +115,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
     }
 
     /**
-     * @param mixed $array
+     * @param  mixed      $array
      * @return array|void
      */
     public function exchangeArray($array)
@@ -146,9 +146,17 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
                     unset($data[$pkColumn]);
                 }
             }
+            $update = $this->sql->update()->set($data)->where($where);
 
-            $statement = $this->sql->prepareStatementForSqlObject($this->sql->update()->set($data)->where($where));
+            // apply preUpdate features
+            $this->featureSet->apply('preUpdate', array($update));
+
+            $statement = $this->sql->prepareStatementForSqlObject($update);
             $result = $statement->execute();
+
+            // apply postUpdate features
+            $this->featureSet->apply('postUpdate', array($statement, $result));
+
             $rowsAffected = $result->getAffectedRows();
             unset($statement, $result); // cleanup
 
@@ -158,9 +166,16 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
             $insert = $this->sql->insert();
             $insert->values($this->data);
 
+            // apply preInsert features
+            $this->featureSet->apply('preInsert', array($insert));
+
             $statement = $this->sql->prepareStatementForSqlObject($insert);
 
             $result = $statement->execute();
+
+            // apply postInsert features
+            $this->featureSet->apply('postInsert', array($statement, $result));
+
             if (($primaryKeyValue = $result->getGeneratedValue()) && count($this->primaryKeyColumn) == 1) {
                 $this->primaryKeyData = array($this->primaryKeyColumn[0] => $primaryKeyValue);
             } else {
@@ -208,8 +223,16 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
 
         // @todo determine if we need to do a select to ensure 1 row will be affected
 
-        $statement = $this->sql->prepareStatementForSqlObject($this->sql->delete()->where($where));
+        $delete = $this->sql->delete()->where($where);
+
+        // pre delete update
+        $this->featureSet->apply('preDelete', array($delete));
+
+        $statement = $this->sql->prepareStatementForSqlObject($delete);
         $result = $statement->execute();
+
+        // apply postDelete features
+        $this->featureSet->apply('postDelete', array($statement, $result));
 
         if ($result->getAffectedRows() == 1) {
             // detach from database
@@ -220,8 +243,8 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
     /**
      * Offset Exists
      *
-     * @param  string $offset
-     * @return bool
+     * @param  string  $offset
+     * @return boolean
      */
     public function offsetExists($offset)
     {
@@ -242,25 +265,27 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
     /**
      * Offset set
      *
-     * @param  string $offset
-     * @param  mixed $value
+     * @param  string     $offset
+     * @param  mixed      $value
      * @return RowGateway
      */
     public function offsetSet($offset, $value)
     {
         $this->data[$offset] = $value;
+
         return $this;
     }
 
     /**
      * Offset unset
      *
-     * @param  string $offset
+     * @param  string             $offset
      * @return AbstractRowGateway
      */
     public function offsetUnset($offset)
     {
         $this->data[$offset] = null;
+
         return $this;
     }
 
@@ -301,7 +326,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
      * __set
      *
      * @param  string $name
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return void
      */
     public function __set($name, $value)
@@ -312,8 +337,8 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
     /**
      * __isset
      *
-     * @param  string $name
-     * @return bool
+     * @param  string  $name
+     * @return boolean
      */
     public function __isset($name)
     {
