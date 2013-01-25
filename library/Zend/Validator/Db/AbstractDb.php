@@ -69,6 +69,11 @@ abstract class AbstractDb extends AbstractValidator
     protected $exclude = null;
 
     /**
+     * @var mixed
+     */
+    protected $include = null;
+
+    /**
      * Database adapter to use. If null isValid() will throw an exception
      *
      * @var \Zend\Db\Adapter\Adapter
@@ -79,6 +84,8 @@ abstract class AbstractDb extends AbstractValidator
      * Provides basic configuration for use with Zend\Validator\Db Validators
      * Setting $exclude allows a single record to be excluded from matching.
      * Exclude can either be a String containing a where clause, or an array with `field` and `value` keys
+     * Setting $include allows a single record to be included to matching.
+     * Include can either be a String containing a where clause, or an array with `field` and `value` keys
      * to define the where clause added to the sql.
      * A database adapter may optionally be supplied to avoid using the registered default adapter.
      *
@@ -87,6 +94,7 @@ abstract class AbstractDb extends AbstractValidator
      * 'schema'  => The schema keys
      * 'field'   => The field to check for a match
      * 'exclude' => An optional where clause or field/value pair to exclude from the query
+     * 'include' => An optional where clause or field/value pair to include in the query
      * 'adapter' => An optional database adapter to use
      *
      * @param array|Traversable|DbSelect $options Options to use for this validator
@@ -117,6 +125,10 @@ abstract class AbstractDb extends AbstractValidator
             if (!empty($options)) {
                 $temp['exclude'] = array_shift($options);
             }
+            if (!empty($options)) {
+                $temp['include'] = array_shift($options);
+            }
+            
 
             if (!empty($options)) {
                 $temp['adapter'] = array_shift($options);
@@ -139,6 +151,10 @@ abstract class AbstractDb extends AbstractValidator
 
         if (array_key_exists('exclude', $options)) {
             $this->setExclude($options['exclude']);
+        }
+
+        if (array_key_exists('include', $options)) {
+            $this->setInclude($options['include']);
         }
 
         $this->setField($options['field']);
@@ -193,6 +209,29 @@ abstract class AbstractDb extends AbstractValidator
     public function setExclude($exclude)
     {
         $this->exclude = $exclude;
+        return $this;
+    }
+
+
+    /**
+     * Returns the set include clause
+     *
+     * @return string|array
+     */
+    public function getInclude()
+    {
+        return $this->include;
+    }
+
+    /**
+     * Sets a new include clause
+     *
+     * @param string|array $include
+     * @return self Provides a fluent interface
+     */
+    public function setInclude($include)
+    {
+        $this->include = $include;
         return $this;
     }
 
@@ -322,6 +361,18 @@ abstract class AbstractDb extends AbstractValidator
                 $select->where($this->exclude);
             }
         }
+
+        if ($this->include !== null) {
+            if (is_array($this->include)) {
+                $select->where->equalTo(
+                    $this->include['field'],
+                    $this->include['value']
+                );
+            } else {
+                $select->where($this->include);
+            }
+        }
+
 
         $this->select = $select;
 
