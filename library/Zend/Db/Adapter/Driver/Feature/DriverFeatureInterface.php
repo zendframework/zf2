@@ -40,4 +40,5 @@ interface DriverFeatureInterface
      * @return mixed|false
      */
     public function getFeature($name);
+
 }

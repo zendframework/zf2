@@ -392,4 +392,5 @@ class ColumnObject
         $this->errata[$errataName] = $errataValue;
         return $this;
     }
+
 }

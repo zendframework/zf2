@@ -414,4 +414,5 @@ class ConstraintObject
     {
         return ('CHECK' == $this->type);
     }
+
 }

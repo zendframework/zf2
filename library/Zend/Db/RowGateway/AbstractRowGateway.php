@@ -352,4 +352,5 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
             $this->primaryKeyData[$column] = $this->data[$column];
         }
     }
+
 }

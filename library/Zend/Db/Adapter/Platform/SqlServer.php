@@ -138,4 +138,5 @@ class SqlServer implements PlatformInterface
         }
         return implode('', $parts);
     }
+
 }

@@ -500,4 +500,5 @@ class MysqlMetadata extends AbstractSource
 
         $this->data['triggers'][$schema] = $data;
     }
+
 }

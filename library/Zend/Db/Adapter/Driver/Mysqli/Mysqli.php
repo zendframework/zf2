@@ -230,4 +230,5 @@ class Mysqli implements DriverInterface
     {
         return $this->getConnection()->getLastGeneratedValue();
     }
+
 }

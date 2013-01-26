@@ -196,4 +196,5 @@ class Result implements ResultInterface
     {
         return pg_num_fields($this->resource);
     }
+
 }

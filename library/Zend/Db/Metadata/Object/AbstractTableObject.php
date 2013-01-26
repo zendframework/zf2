@@ -118,4 +118,5 @@ abstract class AbstractTableObject
     {
         return $this->name;
     }
+
 }

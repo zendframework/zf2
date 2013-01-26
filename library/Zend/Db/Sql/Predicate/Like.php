@@ -99,4 +99,5 @@ class Like implements PredicateInterface
             array($this->specification, array($this->identifier, $this->like), array(self::TYPE_IDENTIFIER, self::TYPE_VALUE))
         );
     }
+
 }

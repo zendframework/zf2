@@ -281,4 +281,5 @@ class Adapter
                 return new Platform\Sql92();
         }
     }
+
 }

@@ -82,4 +82,5 @@ interface DriverInterface
      * @return mixed
      */
     public function getLastGeneratedValue();
+
 }

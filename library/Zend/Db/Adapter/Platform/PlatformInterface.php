@@ -85,4 +85,5 @@ interface PlatformInterface
      * @return string
      */
     public function quoteIdentifierInFragment($identifier, array $additionalSafeWords = array());
+
 }

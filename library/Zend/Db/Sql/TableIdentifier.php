@@ -80,4 +80,5 @@ class TableIdentifier
     {
         return array($this->table, $this->schema);
     }
+
 }

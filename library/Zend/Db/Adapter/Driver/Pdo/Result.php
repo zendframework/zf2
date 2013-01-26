@@ -228,4 +228,5 @@ class Result implements Iterator, ResultInterface
     {
         return $this->generatedValue;
     }
+
 }

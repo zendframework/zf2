@@ -24,4 +24,5 @@ interface AdapterAwareInterface
      * @return AdapterAwareInterface
      */
     public function setDbAdapter(Adapter $adapter);
+
 }

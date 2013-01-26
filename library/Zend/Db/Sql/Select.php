@@ -779,4 +779,5 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
         $this->where  = clone $this->where;
         $this->having = clone $this->having;
     }
+
 }

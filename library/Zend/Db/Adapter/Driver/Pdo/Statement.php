@@ -272,6 +272,6 @@ class Statement implements StatementInterface
         if ($this->parameterContainer) {
             $this->parameterContainer = clone $this->parameterContainer;
         }
-
     }
+
 }

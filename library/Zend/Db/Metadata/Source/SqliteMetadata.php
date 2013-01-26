@@ -395,4 +395,5 @@ class SqliteMetadata extends AbstractSource
         }
         return $re;
     }
+
 }

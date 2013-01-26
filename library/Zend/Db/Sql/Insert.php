@@ -277,4 +277,5 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
         }
         return $this->values[$position];
     }
+
 }

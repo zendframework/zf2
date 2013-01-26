@@ -70,4 +70,5 @@ interface ResultInterface extends
      * @return integer
      */
     public function getFieldCount();
+
 }
