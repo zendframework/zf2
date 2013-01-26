@@ -69,7 +69,7 @@ class Feed extends Extension\AbstractFeed
                     'name' => $author->nodeValue
                 );
             }
-            $authors = new Collection\Author(
+            $authors = new Collection\Person(
                 Reader\Reader::arrayUnique($authors)
             );
         } else {

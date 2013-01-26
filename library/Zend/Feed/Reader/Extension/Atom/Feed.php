@@ -41,9 +41,26 @@ class Feed extends Extension\AbstractFeed
     }
 
     /**
+     * Get a single contributor
+     *
+     * @param  int $index
+     * @return string|null
+     */
+    public function getContributor($index = 0)
+    {
+        $contributors = $this->getContributors();
+    
+        if (isset($contributors[$index])) {
+            return $contributors[$index];
+        }
+    
+        return null;
+    }
+
+    /**
      * Get an array with feed authors
      *
-     * @return Collection\Author
+     * @return Collection\Person
      */
     public function getAuthors()
     {
@@ -57,7 +74,7 @@ class Feed extends Extension\AbstractFeed
 
         if ($list->length) {
             foreach ($list as $author) {
-                $author = $this->getAuthorFromElement($author);
+                $author = $this->getPersonFromElement($author);
                 if (!empty($author)) {
                     $authors[] = $author;
                 }
@@ -65,9 +82,9 @@ class Feed extends Extension\AbstractFeed
         }
 
         if (count($authors) == 0) {
-            $authors = new Collection\Author();
+            $authors = new Collection\Person();
         } else {
-            $authors = new Collection\Author(
+            $authors = new Collection\Person(
                 Reader\Reader::arrayUnique($authors)
             );
         }
@@ -77,6 +94,43 @@ class Feed extends Extension\AbstractFeed
         return $this->data['authors'];
     }
 
+    /**
+     * Get an array with feed contributors
+     *
+     * @return Collection\Contributor
+     */
+    public function getContributors()
+    {
+        if (array_key_exists('contributors', $this->data)) {
+            return $this->data['contributors'];
+        }
+    
+        $list = $this->xpath->query('//atom:contributor');
+    
+        $contributors = array();
+    
+        if ($list->length) {
+            foreach ($list as $contributor) {
+                $contributor = $this->getPersonFromElement($contributor);
+                if (!empty($contributor)) {
+                    $contributors[] = $contributor;
+                }
+            }
+        }
+    
+        if (count($contributors) == 0) {
+            $contributors = new Collection\Person();
+        } else {
+            $contributors = new Collection\Person(
+                    Reader\Reader::arrayUnique($contributors)
+            );
+        }
+    
+        $this->data['contributors'] = $contributors;
+    
+        return $this->data['contributors'];
+    }
+    
     /**
      * Get the copyright entry
      *
@@ -290,6 +344,30 @@ class Feed extends Extension\AbstractFeed
     }
 
     /**
+     * Get the feed icon
+     *
+     * @return array|null
+     */
+    public function getIcon()
+    {
+        if (array_key_exists('icon', $this->data)) {
+            return $this->data['icon'];
+        }
+    
+        $iconUrl= $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/atom:icon)');
+    
+        if (!$iconUrl) {
+            $icon = null;
+        } else {
+            $icon = array('uri'=>$iconUrl);
+        }
+    
+        $this->data['icon'] = $icon;
+    
+        return $this->data['icon'];
+    }
+    
+    /**
      * Get the base URI of the feed (if set).
      *
      * @return string|null
@@ -450,35 +528,35 @@ class Feed extends Extension\AbstractFeed
     }
 
     /**
-     * Get an author entry in RSS format
+     * Get an person entry in RSS format
      *
      * @param  DOMElement $element
      * @return string
      */
-    protected function getAuthorFromElement(DOMElement $element)
+    protected function getPersonFromElement(DOMElement $element)
     {
-        $author = array();
-
+        $person = array();
+    
         $emailNode = $element->getElementsByTagName('email');
         $nameNode  = $element->getElementsByTagName('name');
         $uriNode   = $element->getElementsByTagName('uri');
-
+    
         if ($emailNode->length && strlen($emailNode->item(0)->nodeValue) > 0) {
-            $author['email'] = $emailNode->item(0)->nodeValue;
+            $person['email'] = $emailNode->item(0)->nodeValue;
         }
-
+    
         if ($nameNode->length && strlen($nameNode->item(0)->nodeValue) > 0) {
-            $author['name'] = $nameNode->item(0)->nodeValue;
+            $person['name'] = $nameNode->item(0)->nodeValue;
         }
-
+    
         if ($uriNode->length && strlen($uriNode->item(0)->nodeValue) > 0) {
-            $author['uri'] = $uriNode->item(0)->nodeValue;
+            $person['uri'] = $uriNode->item(0)->nodeValue;
         }
-
-        if (empty($author)) {
+    
+        if (empty($person)) {
             return null;
         }
-        return $author;
+        return $person;
     }
 
     /**

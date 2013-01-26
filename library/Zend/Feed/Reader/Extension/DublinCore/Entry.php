@@ -69,7 +69,7 @@ class Entry extends Extension\AbstractEntry
                     'name' => $author->nodeValue
                 );
             }
-            $authors = new Collection\Author(
+            $authors = new Collection\Person(
                 Reader\Reader::arrayUnique($authors)
             );
         } else {
