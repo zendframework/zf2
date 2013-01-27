@@ -13,7 +13,6 @@ namespace Zend\Feed\Reader\Collection;
 /**
 * @category Zend
 * @package Zend_Feed_Reader
-* 
 * @deprecated Use Collection\Person instead
 */
 class Author extends AbstractCollection
@@ -21,7 +20,7 @@ class Author extends AbstractCollection
 
     /**
      * Return a simple array of the most relevant slice of
-     * the author values, i.e. all person names.
+     * the author values, i.e. all authors names.
      *
      * @return array
      */
