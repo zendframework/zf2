@@ -94,10 +94,18 @@ class DateSelect extends MonthSelect
     public function setValue($value)
     {
         if (is_string($value)) {
-            try {
-                $value = new PhpDateTime($value);
-            } catch (Exception $e) {
-                throw new InvalidArgumentException('Value should be a parsable string or an instance of DateTime');
+            if (!strlen($value) && $this->createEmptyOption) {
+                $value = array(
+                    'day' => '',
+                    'month' => '',
+                    'year' => ''
+                );
+            } else {
+                try {
+                    $value = new PhpDateTime($value);
+                } catch (Exception $e) {
+                    throw new InvalidArgumentException('Value should be a parsable string or an instance of DateTime');
+                }
             }
         }
 
