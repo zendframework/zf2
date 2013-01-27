@@ -549,11 +549,15 @@ class ServiceManager implements ServiceLocatorInterface
             $cName = $this->canonicalizeName($rName);
         }
 
+        if ($this->hasAlias($cName)) {
+            do {
+                $cName = $this->aliases[$cName];
+            } while ($this->hasAlias($cName));
+        }
+
         if (
             isset($this->invokableClasses[$cName])
             || isset($this->factories[$cName])
-            || isset($this->aliases[$cName])
-            || isset($this->instances[$cName])
         ) {
             return true;
         }
@@ -578,6 +582,13 @@ class ServiceManager implements ServiceLocatorInterface
         } else {
             $rName = $name;
             $cName = $this->canonicalizeName($rName);
+        }
+
+        if(
+           isset($this->instances[$cName])
+           || isset($this->aliases[$cName])
+        ) {
+            return true;
         }
 
         if ($this->canCreate(array($cName, $rName), $checkAbstractFactories)) {
