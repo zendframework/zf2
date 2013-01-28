@@ -903,7 +903,7 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->serviceManager->has($aFoo));
 
-        return array($this->serviceManager,$nFoo, $foo_returns);
+        return array($this->serviceManager,$aFoo, $foo_returns);
     }
 
     /**

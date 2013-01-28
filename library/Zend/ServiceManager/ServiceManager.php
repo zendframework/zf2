@@ -499,6 +499,11 @@ class ServiceManager implements ServiceLocatorInterface
             $cName = $this->canonicalizeName($rName);
         }
 
+        if ($this->hasAlias($cName)) {
+            do {
+                $cName = $this->aliases[$cName];
+            } while ($this->hasAlias($cName));
+        }
 
         if (isset($this->factories[$cName])) {
             $instance = $this->createFromFactory($cName, $rName);
