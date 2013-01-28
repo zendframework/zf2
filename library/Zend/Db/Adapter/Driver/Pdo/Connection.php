@@ -265,7 +265,7 @@ class Connection implements ConnectionInterface
             if(!is_long($code)) {
                 $code = null;
             }
-            throw new Exception\RuntimeException('Connect Error: ' . $e->getMessage(), $e->getCode(), $e);
+            throw new Exception\RuntimeException('Connect Error: ' . $e->getMessage(), $code, $e);
         }
 
         return $this;
