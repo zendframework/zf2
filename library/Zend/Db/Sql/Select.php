@@ -620,9 +620,24 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             // type
             $joinSpecArgArray[$j][] = strtoupper($join['type']);
             // table name
-            $joinSpecArgArray[$j][] = (is_array($join['name']))
-                ? $platform->quoteIdentifier(current($join['name'])) . ' AS ' . $platform->quoteIdentifier(key($join['name']))
-                : $platform->quoteIdentifier($join['name']);
+            $tableName = null;
+            $tableAlias = null;
+            if (is_array($join['name'])) {
+                $tableName = current($join['name']);
+                $tableAlias = key($join['name']);
+            } else {
+                $tableName = $join['name'];
+            }
+            
+            if ($tableName instanceof SqlInterface) {
+                $joinSpecArgArray[$j][] = null !== $tableAlias
+                    ? '(' . $tableName->getSqlString($platform) . ') AS ' . $platform->quoteIdentifier($tableAlias)
+                    : '(' . $tableName->getSqlString($platform) . ')';
+            } else {
+                $joinSpecArgArray[$j][] = (is_array($join['name']))
+                    ? $platform->quoteIdentifier($tableName) . ' AS ' . $platform->quoteIdentifier($tableAlias)
+                    : $platform->quoteIdentifier($tableName);
+            }
             // on expression
             // note: for Expression objects, pass them to processExpression with a prefix specific to each join (used for named parameters)
             $joinSpecArgArray[$j][] = ($join['on'] instanceof ExpressionInterface)
