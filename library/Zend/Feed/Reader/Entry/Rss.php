@@ -132,7 +132,7 @@ class Rss extends AbstractEntry implements EntryInterface
         if (count($authors) == 0) {
             $authors = $this->getExtension('Atom')->getAuthors();
         } else {
-            $authors = new Reader\Collection\Author(
+            $authors = new Reader\Collection\Person(
                 Reader\Reader::arrayUnique($authors)
             );
         }

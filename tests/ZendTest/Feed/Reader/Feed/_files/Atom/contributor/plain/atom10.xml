@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <entry>
+        <author>
+            <name>Joe Bloggs</name>
+            <uri>http://www.example.com</uri>
+            <email>joe@example.com</email>
+        </author>
+        <contributor>
+            <name>Jane Bloggs</name>
+            <uri>http://www.example.com</uri>
+            <email>jane@example.com</email>
+        </contributor>
+        <contributor>
+            <name>Jane Bloggs</name>
+            <uri>http://www.example.com</uri>
+            <email></email>
+        </contributor>
+        <contributor>
+            <name>Jane Bloggs</name>
+            <uri></uri>
+            <email></email>
+        </contributor>
+        <contributor>
+            <name></name>
+            <uri>http://www.example.com</uri>
+            <email>jane@example.com</email>
+        </contributor>
+        <contributor>
+            <name></name>
+            <uri>http://www.example.com</uri>
+            <email></email>
+        </contributor>
+        <contributor>
+            <name></name>
+            <uri></uri>
+            <email>jane@example.com</email>
+        </contributor>
+        <contributor>
+            <name></name>
+            <uri></uri>
+            <email></email>
+        </contributor>
+    </entry>
+</feed>

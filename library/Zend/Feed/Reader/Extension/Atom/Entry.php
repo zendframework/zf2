@@ -10,6 +10,8 @@
 
 namespace Zend\Feed\Reader\Extension\Atom;
 
+use Zend\Feed\Reader\Collection\Person;
+
 use DOMDocument;
 use DOMElement;
 use stdClass;
@@ -43,6 +45,23 @@ class Entry extends Extension\AbstractEntry
     }
 
     /**
+     * Get the specified contributor
+     *
+     * @param  int $index
+     * @return string|null
+     */
+    public function getContributor($index = 0)
+    {
+        $contributors = $this->getContributors();
+    
+        if (isset($contributors[$index])) {
+            return $contributors[$index];
+        }
+    
+        return null;
+    }
+
+    /**
      * Get an array with feed authors
      *
      * @return Collection\Author
@@ -65,7 +84,7 @@ class Entry extends Extension\AbstractEntry
 
         if ($list->length) {
             foreach ($list as $author) {
-                $author = $this->getAuthorFromElement($author);
+                $author = $this->getPersonFromElement($author);
                 if (!empty($author)) {
                     $authors[] = $author;
                 }
@@ -73,15 +92,57 @@ class Entry extends Extension\AbstractEntry
         }
 
         if (count($authors) == 0) {
-            $authors = new Collection\Author();
+            $authors = new Collection\Person();
         } else {
-            $authors = new Collection\Author(
+            $authors = new Collection\Person(
                 Reader\Reader::arrayUnique($authors)
             );
         }
 
         $this->data['authors'] = $authors;
         return $this->data['authors'];
+    }
+
+    /**
+     * Get an array with feed contributors
+     *
+     * @return Collection\Person
+     */
+    public function getContributors()
+    {
+        if (array_key_exists('contributors', $this->data)) {
+            return $this->data['contributors'];
+        }
+
+        $contributors = array();
+        $list = $this->getXpath()->query($this->getXpathPrefix() . '//atom:contributor');
+
+        if (!$list->length) {
+            /**
+             * TODO: Limit query to feed level els only!
+             */
+            $list = $this->getXpath()->query('//atom:contributor');
+        }
+
+        if ($list->length) {
+            foreach ($list as $contributor) {
+                $contributor = $this->getPersonFromElement($contributor);
+                if (!empty($contributor)) {
+                    $contributors[] = $contributor;
+                }
+            }
+        }
+
+        if (count($contributors) == 0) {
+            $contributors = new Collection\Person();
+        } else {
+            $contributors = new Collection\Person(
+                    Reader\Reader::arrayUnique($contributors)
+            );
+        }
+
+        $this->data['contributors'] = $contributors;
+        return $this->data['contributors'];
     }
 
     /**
@@ -231,6 +292,34 @@ class Entry extends Extension\AbstractEntry
         $this->data['description'] = $description;
 
         return $this->data['description'];
+    }
+
+    /**
+     * Get the copyright entry
+     *
+     * @return string|null
+     */
+    public function getCopyright()
+    {
+        if (array_key_exists('copyright', $this->data)) {
+            return $this->data['copyright'];
+        }
+    
+        $copyright = null;
+    
+        if ($this->getType() === Reader\Reader::TYPE_ATOM_03) {
+            $copyright = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/atom:copyright)');
+        } else {
+            $copyright = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/atom:rights)');
+        }
+    
+        if (!$copyright) {
+            $copyright = null;
+        }
+    
+        $this->data['copyright'] = $copyright;
+    
+        return $this->data['copyright'];
     }
 
     /**
@@ -565,35 +654,35 @@ class Entry extends Extension\AbstractEntry
     }
 
     /**
-     * Get an author entry
+     * Get a person entry
      *
      * @param DOMElement $element
      * @return string
      */
-    protected function getAuthorFromElement(DOMElement $element)
+    protected function getPersonFromElement(DOMElement $element)
     {
-        $author = array();
+        $person = array();
 
         $emailNode = $element->getElementsByTagName('email');
         $nameNode  = $element->getElementsByTagName('name');
         $uriNode   = $element->getElementsByTagName('uri');
 
         if ($emailNode->length && strlen($emailNode->item(0)->nodeValue) > 0) {
-            $author['email'] = $emailNode->item(0)->nodeValue;
+            $person['email'] = $emailNode->item(0)->nodeValue;
         }
 
         if ($nameNode->length && strlen($nameNode->item(0)->nodeValue) > 0) {
-            $author['name'] = $nameNode->item(0)->nodeValue;
+            $person['name'] = $nameNode->item(0)->nodeValue;
         }
 
         if ($uriNode->length && strlen($uriNode->item(0)->nodeValue) > 0) {
-            $author['uri'] = $uriNode->item(0)->nodeValue;
+            $person['uri'] = $uriNode->item(0)->nodeValue;
         }
 
-        if (empty($author)) {
+        if (empty($person)) {
             return null;
         }
-        return $author;
+        return $person;
     }
 
     /**

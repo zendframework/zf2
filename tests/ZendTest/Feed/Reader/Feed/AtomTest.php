@@ -107,6 +107,27 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($authors, (array) $feed->getAuthors());
     }
 
+    /**
+     * Get Contributors (Unencoded Text)
+     */
+    public function testGetsContributorArrayFromAtom03()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath.'/contributor/plain/atom03.xml')
+        );
+    
+        $contributors = array(
+            array('email'=>'jane@example.com','name'=>'Jane Bloggs','uri'=>'http://www.example.com'),
+            array('name'=>'Jane Bloggs','uri'=>'http://www.example.com'),
+            array('name'=>'Jane Bloggs'),
+            array('email'=>'jane@example.com','uri'=>'http://www.example.com'),
+            array('uri'=>'http://www.example.com'),
+            array('email'=>'jane@example.com')
+        );
+    
+        $this->assertEquals($contributors, (array)$feed->getContributors());
+    }
+
     public function testGetsAuthorArrayFromAtom10()
     {
         $feed = Reader\Reader::importString(
@@ -123,6 +144,24 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($authors, (array) $feed->getAuthors());
+    }
+
+    public function testGetsContributorArrayFromAtom10()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath.'/contributor/plain/atom10.xml')
+        );
+    
+        $contributors = array(
+            array('email'=>'jane@example.com','name'=>'Jane Bloggs','uri'=>'http://www.example.com'),
+            array('name'=>'Jane Bloggs','uri'=>'http://www.example.com'),
+            array('name'=>'Jane Bloggs'),
+            array('email'=>'jane@example.com','uri'=>'http://www.example.com'),
+            array('uri'=>'http://www.example.com'),
+            array('email'=>'jane@example.com')
+        );
+    
+        $this->assertEquals($contributors, (array)$feed->getContributors());
     }
 
     /**
@@ -489,6 +528,17 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('uri'=>'http://www.example.com/logo.gif'), $feed->getImage());
     }
 
+    /**
+     * Get Icon (Unencoded Text)
+     */
+    public function testGetsIconFromAtom03()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath.'/icon/plain/atom03.xml')
+        );
+        $this->assertEquals(array('uri'=>'http://www.example.com/icon.gif'), $feed->getIcon());
+    }
+
     public function testGetsImageFromAtom10()
     {
         $feed = Reader\Reader::importString(
@@ -497,6 +547,14 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('uri'=>'http://www.example.com/logo.gif'), $feed->getImage());
     }
 
+    public function testGetsIconFromAtom10()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath.'/icon/plain/atom10.xml')
+        );
+        $this->assertEquals(array('uri'=>'http://www.example.com/icon.gif'), $feed->getIcon());
+    }
+    
     /**
      * Get Image (Unencoded Text) When Missing
      */
@@ -508,11 +566,30 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $feed->getImage());
     }
 
+    /**
+     * Get Icon (Unencoded Text) When Missing
+     */
+    public function testGetsIconFromAtom03_None()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath.'/icon/plain/none/atom03.xml')
+        );
+        $this->assertEquals(null, $feed->getIcon());
+    }
+    
     public function testGetsImageFromAtom10_None()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath.'/image/plain/none/atom10.xml')
         );
         $this->assertEquals(null, $feed->getImage());
+    }
+    
+    public function testGetsIconFromAtom10_None()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath.'/icon/plain/none/atom10.xml')
+        );
+        $this->assertEquals(null, $feed->getIcon());
     }
 }

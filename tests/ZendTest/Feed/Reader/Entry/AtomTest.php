@@ -175,6 +175,28 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($authors, (array) $entry->getAuthors());
     }
 
+    /**
+     * Get Contributors (Unencoded Text)
+     */
+    public function testGetsContributorsFromAtom03()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath . '/contributor/plain/atom03.xml')
+        );
+    
+        $contributors = array(
+            array('email'=>'jane@example.com','name'=>'Jane Bloggs','uri'=>'http://www.example.com'),
+            array('name'=>'Jane Bloggs','uri'=>'http://www.example.com'),
+            array('name'=>'Jane Bloggs'),
+            array('email'=>'jane@example.com','uri'=>'http://www.example.com'),
+            array('uri'=>'http://www.example.com'),
+            array('email'=>'jane@example.com')
+        );
+    
+        $entry = $feed->current();
+        $this->assertEquals($contributors, (array) $entry->getContributors());
+    }
+
     public function testGetsAuthorsFromAtom10()
     {
         $feed = Reader\Reader::importString(
@@ -194,6 +216,25 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($authors, (array) $entry->getAuthors());
     }
 
+    public function testGetsContributorsFromAtom10()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath . '/contributor/plain/atom10.xml')
+        );
+        
+        $contributors = array(
+            array('email'=>'jane@example.com','name'=>'Jane Bloggs','uri'=>'http://www.example.com'),
+            array('name'=>'Jane Bloggs','uri'=>'http://www.example.com'),
+            array('name'=>'Jane Bloggs'),
+            array('email'=>'jane@example.com','uri'=>'http://www.example.com'),
+            array('uri'=>'http://www.example.com'),
+            array('email'=>'jane@example.com')
+        );
+        
+        $entry = $feed->current();
+        $this->assertEquals($contributors, (array) $entry->getContributors());
+    }
+    
     /**
      * Get Author (Unencoded Text)
      */
@@ -206,6 +247,18 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com','uri'=>'http://www.example.com'), $entry->getAuthor());
     }
 
+    /**
+     * Get Contributor (Unencoded Text)
+     */
+    public function testGetsContributorFromAtom03()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath . '/contributor/plain/atom03.xml')
+        );
+        $entry = $feed->current();
+        $this->assertEquals(array('name'=>'Jane Bloggs','email'=>'jane@example.com','uri'=>'http://www.example.com'), $entry->getContributor());
+    }
+    
     public function testGetsAuthorFromAtom10()
     {
         $feed = Reader\Reader::importString(
@@ -213,6 +266,15 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         );
         $entry = $feed->current();
         $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com','uri'=>'http://www.example.com'), $entry->getAuthor());
+    }
+    
+    public function testGetsContributorFromAtom10()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath . '/contributor/plain/atom10.xml')
+        );
+        $entry = $feed->current();
+        $this->assertEquals(array('name'=>'Jane Bloggs','email'=>'jane@example.com','uri'=>'http://www.example.com'), $entry->getContributor());
     }
 
     /**
@@ -236,6 +298,27 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Entry Description', $entry->getDescription());
     }
 
+    /**
+     * Get Copyright (Unencoded Text)
+     */
+    public function testGetsCopyrightFromAtom03()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath . '/copyright/plain/atom03.xml')
+        );
+        $entry = $feed->current();
+        $this->assertEquals('Copyright 2013', $entry->getCopyright());
+    }
+    
+    public function testGetsCopyrightFromAtom10()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath . '/copyright/plain/atom10.xml')
+        );
+        $entry = $feed->current();
+        $this->assertEquals('Copyright 2013', $entry->getCopyright());
+    }
+    
     /**
      * Get enclosure
      */

@@ -13,23 +13,22 @@ namespace Zend\Feed\Reader\Collection;
 /**
 * @category Zend
 * @package Zend_Feed_Reader
-* 
-* @deprecated Use Collection\Person instead
 */
-class Author extends AbstractCollection
+class Person extends AbstractCollection
 {
+
     /**
      * Return a simple array of the most relevant slice of
-     * the author values, i.e. all author names.
+     * the person values, i.e. all person names.
      *
      * @return array
      */
     public function getValues()
     {
-        $authors = array();
+        $persons = array();
         foreach ($this->getIterator() as $element) {
-            $authors[] = $element['name'];
+            $persons[] = $element['name'];
         }
-        return array_unique($authors);
+        return array_unique($persons);
     }
 }
