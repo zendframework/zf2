@@ -53,7 +53,7 @@ class Element implements
      * @param  array            $options Optional options for the element
      * @throws Exception\InvalidArgumentException
      */
-public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = array())
     {
         // add AbstractPluginManager options support
         if (is_array($name)) {
