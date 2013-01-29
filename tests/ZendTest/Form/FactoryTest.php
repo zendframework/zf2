@@ -601,4 +601,18 @@ class FactoryTest extends TestCase
         $this->assertAttributeInstanceOf('Zend\Form\Factory', 'factory', $fieldset);
         $this->assertSame($fieldset->getFormFactory()->getFormElementManager(), $this->factory->getFormElementManager());
     }
+    
+    public function testElementOptionsAndNameAreSetBeforeInit()
+    {
+        $element = $this->factory->create(array(
+            'type' => 'ZendTest\Form\TestAsset\ElementWithInitializer',
+            'name' => 'foo',
+            'options' => array(
+                'custom'         => 'value',
+            ),
+        ));
+        
+        $this->assertEquals($element->getAttribute('custom-init'), 'value');
+        $this->assertEquals($element->getAttribute('name-init'), 'foo');
+    }
 }
