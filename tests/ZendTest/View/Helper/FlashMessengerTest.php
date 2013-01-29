@@ -116,6 +116,16 @@ class FlashMessengerTest extends TestCase
         $this->assertEquals($displayInfoAssertion, $displayInfo);
     }
 
+    public function testCanDisplayListOfMessagesByDefaultParameters()
+    {
+        $helper = $this->helper;
+        $this->seedMessages();
+
+        $displayInfoAssertion = '<ul class="default"><li>foo</li><li>bar</li></ul>';
+        $displayInfo = $helper()->render();
+        $this->assertEquals($displayInfoAssertion, $displayInfo);
+    }
+
     public function testCanDisplayListOfMessagesByInvoke()
     {
         $helper = $this->helper;
@@ -172,5 +182,22 @@ class FlashMessengerTest extends TestCase
         $displayInfoAssertion = '<div class="info"><ul><li>bar-info</li></ul></div>';
         $displayInfo = $helper->render(PluginFlashMessenger::NAMESPACE_INFO);
         $this->assertEquals($displayInfoAssertion, $displayInfo);
+    }
+
+    public function testCanTranslateMessages()
+    {
+        $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
+        $mockTranslator->expects($this->exactly(1))
+        ->method('translate')
+        ->will($this->returnValue('translated message'));
+
+        $this->helper->setTranslator($mockTranslator);
+        $this->assertTrue($this->helper->hasTranslator());
+
+        $this->seedMessages();
+
+        $displayAssertion = '<ul class="info"><li>translated message</li></ul>';
+        $display = $this->helper->render(PluginFlashMessenger::NAMESPACE_INFO);
+        $this->assertEquals($displayAssertion, $display);
     }
 }

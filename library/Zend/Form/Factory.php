@@ -512,23 +512,6 @@ class Factory
     }
 
     /**
-     * Try to pull to element from element manager, or instantiates it from its name
-     *
-     * @param  string $elementName
-     * @return mixed
-     */
-    protected function getElementFromName($elementName)
-    {
-        $formElementManager = $this->getFormElementManager();
-
-        if ($formElementManager->has($elementName)) {
-            return $formElementManager->get($elementName);
-        }
-
-        return new $elementName();
-    }
-
-    /**
      * Try to pull hydrator from service manager, or instantiates it from its name
      *
      * @param  string $hydratorName

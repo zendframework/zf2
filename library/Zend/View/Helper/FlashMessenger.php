@@ -14,11 +14,12 @@ use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper\AbstractHelper;
 use Zend\View\Helper\EscapeHtml;
+use Zend\I18n\View\Helper\AbstractTranslatorHelper;
 
 /**
  * Helper to proxy the plugin flash messenger
  */
-class FlashMessenger extends AbstractHelper implements ServiceLocatorAwareInterface
+class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorAwareInterface
 {
     /**
      * @var ServiceLocatorInterface
@@ -82,11 +83,13 @@ class FlashMessenger extends AbstractHelper implements ServiceLocatorAwareInterf
     }
 
     /**
+     * Render Messages
      *
-     *
-     * @param type $namespace
+     * @param  string $namespace
+     * @param  array  $classes
+     * @return string
      */
-    public function render($namespace = null, array $classes = array())
+    public function render($namespace = PluginFlashMessenger::NAMESPACE_DEFAULT, array $classes = array())
     {
         $flashMessenger = $this->getPluginFlashMessenger();
         $messages = $flashMessenger->getMessagesFromNamespace($namespace);
@@ -101,7 +104,16 @@ class FlashMessenger extends AbstractHelper implements ServiceLocatorAwareInterf
         // Flatten message array
         $escapeHtml      = $this->getEscapeHtmlHelper();
         $messagesToPrint = array();
-        array_walk_recursive($messages, function($item) use (&$messagesToPrint, $escapeHtml) {
+
+        $translator = $this->getTranslator();
+        $translatorTextDomain = $this->getTranslatorTextDomain();
+
+        array_walk_recursive($messages, function($item) use (&$messagesToPrint, $escapeHtml, $translator, $translatorTextDomain) {
+            if ($translator !== null) {
+                $item = $translator->translate(
+                        $item, $translatorTextDomain
+                );
+            }
             $messagesToPrint[] = $escapeHtml($item);
         });
 
