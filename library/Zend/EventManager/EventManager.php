@@ -274,7 +274,7 @@ class EventManager implements EventManagerInterface
     {
         // Proxy ListenerAggregateInterface arguments to attachAggregate()
         if ($event instanceof ListenerAggregateInterface) {
-            return $this->attachAggregate($event, $callback);
+            return $this->attachAggregate($event, $priority);
         }
 
         // Null callback is invalid
