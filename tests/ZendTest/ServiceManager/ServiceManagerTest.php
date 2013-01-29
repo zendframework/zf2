@@ -806,4 +806,152 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
         $serviceManagerParent->setAlias($foo1, $boo2);
         $this->assertTrue($serviceManagerParent->hasAlias($foo1));
     }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::setService
+     * @covers Zend\ServiceManager\ServiceManager::canCreate
+     * @covers Zend\ServiceManager\ServiceManager::getRegisteredServices
+     * @covers Zend\ServiceManager\ServiceManager::has
+     */
+    public function testCanCreateMethodShouldNotCheckInstanceContainerForServiceCreation()
+    {
+        $nFoo   = "service1";
+        $foo    = new \stdClass();
+        $instances_container_key = 'instances';
+
+        $this->assertFalse($this->serviceManager->canCreate($nFoo));
+
+        $this->serviceManager->setService($nFoo, $foo);
+
+        $services_list = $this->serviceManager->getRegisteredServices();
+        $this->assertEquals($services_list[$instances_container_key][0], $nFoo);
+
+        $this->assertFalse($this->serviceManager->canCreate($nFoo));
+
+        $this->assertTrue($this->serviceManager->has($nFoo));
+
+        return array($this->serviceManager,$nFoo);
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::create
+     * @expectedException \Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @depends testCanCreateMethodShouldNotCheckInstanceContainerForServiceCreation
+     */
+    public function testCreateMethodWillThrowExceptionBecauseInstanceIsNotForCreation(Array $values)
+    {
+        $this->serviceManager   = $values[0];
+        $nFoo                   = $values[1];
+
+        $this->serviceManager->create($nFoo);
+    }
+
+    public function testCanCreateMethodReturnsFalseIfPassedAliasPointsToValueWithinInstanceContainer()
+    {
+        $nFoo   = "service1";
+        $aFoo   = "AliasToService1";
+        $foo    = new \stdClass();
+        $instances_container_key = 'instances';
+
+        $this->assertFalse($this->serviceManager->canCreate($nFoo));
+
+        $this->serviceManager->setService($nFoo, $foo);
+
+        $services_list = $this->serviceManager->getRegisteredServices();
+        $this->assertEquals($services_list[$instances_container_key][0], $nFoo);
+
+        $this->assertTrue($this->serviceManager->setAlias($aFoo, $nFoo)->hasAlias($aFoo));
+
+        $this->assertFalse($this->serviceManager->canCreate($aFoo));
+
+        $this->assertTrue($this->serviceManager->has($aFoo));
+
+        return array($this->serviceManager,$nFoo);
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::create
+     * @expectedException \Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @depends testCanCreateMethodReturnsFalseIfPassedAliasPointsToValueWithinInstanceContainer
+     */
+    public function testCreateMethodWillThrowExceptionBecauseAliasPointsOnInstanceWhichIsNotForCreation(Array $values)
+    {
+        $this->serviceManager   = $values[0];
+        $nFoo                   = $values[1];
+
+        $this->serviceManager->create($nFoo);
+    }
+
+    public function testCanCreateMethodReturnsTrueIfPassedAliasPointsToFactoryContainer()
+    {
+        $nFoo   = "service1";
+        $aFoo   = "AliasToService1";
+        $foo    = "ZendTest\ServiceManager\TestAsset\FooFactory";
+        $foo_returns = "ZendTest\ServiceManager\TestAsset\Foo";
+        $instances_container_key = 'factories';
+
+        $this->assertFalse($this->serviceManager->canCreate($nFoo));
+
+        $this->serviceManager->setFactory($nFoo, $foo);
+
+        $services_list = $this->serviceManager->getRegisteredServices();
+        $this->assertEquals($services_list[$instances_container_key][0], $nFoo);
+
+        $this->assertTrue($this->serviceManager->setAlias($aFoo, $nFoo)->hasAlias($aFoo));
+
+        $this->assertTrue($this->serviceManager->canCreate($aFoo));
+
+        $this->assertTrue($this->serviceManager->has($aFoo));
+
+        return array($this->serviceManager,$aFoo, $foo_returns);
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::create
+     * @depends testCanCreateMethodReturnsTrueIfPassedAliasPointsToFactoryContainer
+     */
+    public function testCreateMethodWillCreateInstanceOfFactory(Array $values)
+    {
+        $this->serviceManager   = $values[0];
+        $nFoo                   = $values[1];
+        $foo_returns            = $values[2];
+
+        $this->assertInstanceOf($foo_returns, $this->serviceManager->create($nFoo));
+    }
+
+    public function testCanCreateMethodReturnsTrueIfPassedAliasPointsToInvokableContainer()
+    {
+        $nFoo   = "service1";
+        $aFoo   = "AliasToService1";
+        $foo    = "ZendTest\ServiceManager\TestAsset\Foo";
+        $instances_container_key = 'invokableClasses';
+
+        $this->assertFalse($this->serviceManager->canCreate($nFoo));
+
+        $this->serviceManager->setInvokableClass($nFoo, $foo);
+
+        $services_list = $this->serviceManager->getRegisteredServices();
+        $this->assertEquals($services_list[$instances_container_key][0], $nFoo);
+
+        $this->assertTrue($this->serviceManager->setAlias($aFoo, $nFoo)->hasAlias($aFoo));
+
+        $this->assertTrue($this->serviceManager->canCreate($aFoo));
+
+        $this->assertTrue($this->serviceManager->has($aFoo));
+
+        return array($this->serviceManager,$nFoo, $foo);
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::create
+     * @depends testCanCreateMethodReturnsTrueIfPassedAliasPointsToInvokableContainer
+     */
+    public function testCreateMethodWillCreateInstanceOfInvokableClass(Array $values)
+    {
+        $this->serviceManager   = $values[0];
+        $nFoo                   = $values[1];
+        $foo                    = $values[2];
+
+        $this->assertInstanceOf($foo, $this->serviceManager->create($nFoo));
+    }
 }
