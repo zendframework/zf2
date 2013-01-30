@@ -11,7 +11,7 @@ namespace Zend\Serializer;
 
 use Zend\Serializer\Adapter\AdapterInterface as Adapter;
 
-abstract class Serializer
+class Serializer
 {
     /**
      * Plugin manager for loading adapters
