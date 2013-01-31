@@ -9,7 +9,6 @@
 
 namespace Zend\Mvc\Service;
 
-use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ValidatorManagerFactory extends AbstractPluginManagerFactory
@@ -20,11 +19,22 @@ class ValidatorManagerFactory extends AbstractPluginManagerFactory
      * Create and return the validator plugin manager
      *
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return ValidatorPluginManager
+     * @return \Zend\Validator\ValidatorPluginManager
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $plugins = parent::createService($serviceLocator);
-        return $plugins;
+        /** @var $serviceListener \Zend\ModuleManager\Listener\ServiceListener */
+        $serviceListener = $serviceLocator->get('ServiceListener');
+
+        // This will allow to register new validators easily, either by implementing the ValidatorProviderInterface
+        // in your Module.php file, or by adding the "validators" key in your module.config.php file
+        $serviceListener->addServiceManager(
+            'ValidatorManager',
+            'validators',
+            'Zend\ModuleManager\Feature\ValidatorProviderInterface',
+            'getValidatorConfig'
+        );
+
+        return parent::createService($serviceLocator);
     }
 }

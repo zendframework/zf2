@@ -49,48 +49,6 @@ class ModuleManagerFactory implements FactoryInterface
             'Zend\ModuleManager\Feature\ServiceProviderInterface',
             'getServiceConfig'
         );
-        $serviceListener->addServiceManager(
-            'ControllerLoader',
-            'controllers',
-            'Zend\ModuleManager\Feature\ControllerProviderInterface',
-            'getControllerConfig'
-        );
-        $serviceListener->addServiceManager(
-            'ControllerPluginManager',
-            'controller_plugins',
-            'Zend\ModuleManager\Feature\ControllerPluginProviderInterface',
-            'getControllerPluginConfig'
-        );
-        $serviceListener->addServiceManager(
-            'ViewHelperManager',
-            'view_helpers',
-            'Zend\ModuleManager\Feature\ViewHelperProviderInterface',
-            'getViewHelperConfig'
-        );
-        $serviceListener->addServiceManager(
-            'ValidatorManager',
-            'validators',
-            'Zend\ModuleManager\Feature\ValidatorProviderInterface',
-            'getValidatorConfig'
-        );
-        $serviceListener->addServiceManager(
-            'FilterManager',
-            'filters',
-            'Zend\ModuleManager\Feature\FilterProviderInterface',
-            'getFilterConfig'
-        );
-        $serviceListener->addServiceManager(
-            'FormElementManager',
-            'form_elements',
-            'Zend\ModuleManager\Feature\FormElementProviderInterface',
-            'getFormElementConfig'
-        );
-        $serviceListener->addServiceManager(
-            'RoutePluginManager',
-            'route_manager',
-            'Zend\ModuleManager\Feature\RouteProviderInterface',
-            'getRouteConfig'
-        );
 
         $events = $serviceLocator->get('EventManager');
         $events->attach($defaultListeners);

@@ -20,11 +20,22 @@ class FilterManagerFactory extends AbstractPluginManagerFactory
      * Create and return the filter plugin manager
      *
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return FilterPluginManager
+     * @return \Zend\Filter\FilterPluginManager
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $plugins = parent::createService($serviceLocator);
-        return $plugins;
+        /** @var $serviceListener \Zend\ModuleManager\Listener\ServiceListener */
+        $serviceListener = $serviceLocator->get('ServiceListener');
+
+        // This will allow to register new filters easily, either by implementing the FilterProviderInterface
+        // in your Module.php file, or by adding the "filters" key in your module.config.php file
+        $serviceListener->addServiceManager(
+            'FilterManager',
+            'filters',
+            'Zend\ModuleManager\Feature\FilterProviderInterface',
+            'getFilterConfig'
+        );
+
+        return parent::createService($serviceLocator);
     }
 }

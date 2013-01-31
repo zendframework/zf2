@@ -19,11 +19,10 @@ class PaginatorPluginManagerFactory extends AbstractPluginManagerFactory
      * Create and return the MVC controller plugin manager
      *
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return ControllerPluginManager
+     * @return \Zend\Paginator\AdapterPluginManager
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $plugins = parent::createService($serviceLocator);
-        return $plugins;
+        return parent::createService($serviceLocator);
     }
 }

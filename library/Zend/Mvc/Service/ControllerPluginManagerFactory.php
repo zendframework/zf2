@@ -24,7 +24,19 @@ class ControllerPluginManagerFactory extends AbstractPluginManagerFactory
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $plugins = parent::createService($serviceLocator);
-        return $plugins;
+        /** @var $serviceListener \Zend\ModuleManager\Listener\ServiceListener */
+        $serviceListener = $serviceLocator->get('ServiceListener');
+
+        // This will allow to register new controller plugins easily, either by implementing the
+        // ControllerPluginProviderInterface in your Module.php file, or by adding the "controller_plugins"
+        // key in your module.config.php file
+        $serviceListener->addServiceManager(
+            'ControllerPluginManager',
+            'controller_plugins',
+            'Zend\ModuleManager\Feature\ControllerPluginProviderInterface',
+            'getControllerPluginConfig'
+        );
+
+        return parent::createService($serviceLocator);
     }
 }
