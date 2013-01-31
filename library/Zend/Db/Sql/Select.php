@@ -641,6 +641,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 $joinAs = $platform->quoteIdentifier(key($join['name']));
             } else {
                 $joinName = $join['name'];
+                $joinAs = null;
             }
             if ($joinName instanceof TableIdentifier) {
                 $joinName = $joinName->getTableAndSchema();
