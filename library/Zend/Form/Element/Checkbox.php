@@ -221,7 +221,7 @@ class Checkbox extends Element implements InputProviderInterface
         if (is_bool($value)) {
             $this->value = $value;
         } else {
-            $this->value = $value === $this->getCheckedValue();
+            $this->value = $value == $this->getCheckedValue();
         }
         return $this;
     }

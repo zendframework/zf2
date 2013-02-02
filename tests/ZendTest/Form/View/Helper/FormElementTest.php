@@ -12,6 +12,7 @@ namespace ZendTest\Form\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Captcha;
+use Zend\Form\Form;
 use Zend\Form\Element;
 use Zend\Form\View\HelperConfig;
 use Zend\Form\View\Helper\FormElement as FormElementHelper;
@@ -207,5 +208,23 @@ class FormElementTest extends TestCase
     {
         $element = new Element('foo');
         $this->assertSame($this->helper, $this->helper->__invoke());
+    }
+
+    public function testRenderCheckedValue()
+    {
+        $form = new Form();
+        $form->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'product_soldout_status',
+            'options' => array(
+                'value' => '1'
+            ),
+        ));
+
+        $form->get('product_soldout_status')->setValue(1);
+        $form->prepare();
+        $markup = $this->helper->render($form->get('product_soldout_status'));
+
+        $this->assertContains('value="1" checked="checked"', $markup);
     }
 }
