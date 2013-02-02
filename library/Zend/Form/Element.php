@@ -55,6 +55,19 @@ class Element implements
      */
     public function __construct($name = null, $options = array())
     {
+        // add AbstractPluginManager options support
+        if (is_array($name)) {
+            if (array_key_exists('options', $name)) {
+                $options = $name['options'];
+            }
+
+            if (array_key_exists('name', $name)) {
+                $name = $name['name'];
+            } else {
+                $name = null;
+            }
+        }
+
         if (null !== $name) {
             $this->setName($name);
         }

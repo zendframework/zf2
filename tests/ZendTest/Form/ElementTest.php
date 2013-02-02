@@ -203,4 +203,15 @@ class ElementTest extends TestCase
         $this->setExpectedException('Zend\Form\Exception\InvalidArgumentException');
         $element->setMessages(null);
     }
+
+    public function testConstructWithOptionsArraySetNameAndOptions()
+    {
+        $element = new Element(array(
+            'name' => 'foo',
+            'options' => array('custom' => 'option')
+        ));
+
+        $this->assertEquals('foo', $element->getName());
+        $this->assertEquals('option', $element->getOption('custom'));
+    }
 }

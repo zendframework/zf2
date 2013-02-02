@@ -107,7 +107,9 @@ class Factory
         $spec = $this->validateSpecification($spec, __METHOD__);
         $type = isset($spec['type']) ? $spec['type'] : 'Zend\Form\Element';
 
-        $element = $this->getFormElementManager()->get($type);
+        // prepare basic options of the element
+        $options = array_intersect_key($spec, array_fill_keys(array('options', 'name'), null));
+        $element = $this->getFormElementManager()->get($type, $options);
 
         if ($element instanceof FormInterface) {
             return $this->configureForm($element, $spec);
@@ -195,17 +197,7 @@ class Factory
     {
         $spec = $this->validateSpecification($spec, __METHOD__);
 
-        $name       = isset($spec['name'])       ? $spec['name']       : null;
-        $options    = isset($spec['options'])    ? $spec['options']    : null;
         $attributes = isset($spec['attributes']) ? $spec['attributes'] : null;
-
-        if ($name !== null && $name !== '') {
-            $element->setName($name);
-        }
-
-        if (is_array($options) || $options instanceof Traversable || $options instanceof ArrayAccess) {
-            $element->setOptions($options);
-        }
 
         if (is_array($attributes) || $attributes instanceof Traversable || $attributes instanceof ArrayAccess) {
             $element->setAttributes($attributes);
