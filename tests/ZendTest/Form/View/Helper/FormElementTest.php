@@ -227,4 +227,40 @@ class FormElementTest extends TestCase
 
         $this->assertContains('value="1" checked="checked"', $markup);
     }
+
+    public function testRenderCheckedValueTypeJugglingIntVsString()
+    {
+        $form = new Form();
+        $form->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'product_soldout_status',
+            'options' => array(
+                'value' => 1
+            ),
+        ));
+
+        $form->get('product_soldout_status')->setValue('1A');
+        $form->prepare();
+        $markup = $this->helper->render($form->get('product_soldout_status'));
+
+        $this->assertNotContains('value="1A" checked="checked"', $markup);
+    }
+
+    public function testRenderCheckedValueTypeJugglingStringVsInt()
+    {
+        $form = new Form();
+        $form->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'product_soldout_status',
+            'options' => array(
+                'value' => '1A'
+            ),
+        ));
+
+        $form->get('product_soldout_status')->setValue(1);
+        $form->prepare();
+        $markup = $this->helper->render($form->get('product_soldout_status'));
+
+        $this->assertNotContains('value="1" checked="checked"', $markup);
+    }
 }
