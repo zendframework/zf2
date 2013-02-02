@@ -222,7 +222,7 @@ class Checkbox extends Element implements InputProviderInterface
             $this->value = $value;
         } else {
             $this->setCheckedValue((string) $value);
-            if (parent::getOption('value') === $this->getCheckedValue()) {
+            if ($this->getOption('value') === $this->getCheckedValue()) {
                 $this->value = (string) $value === $this->getCheckedValue();
             }
         }
