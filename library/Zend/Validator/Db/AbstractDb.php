@@ -336,6 +336,7 @@ abstract class AbstractDb extends AbstractValidator
         $statement = $adapter->createStatement();
         $this->getSelect()->prepareStatement($adapter, $statement);
 
-        return $statement->execute(array('value' => $value))->current();
+        $key = $statement->getParameterContainer()->key();
+        return $statement->execute(array($key => $value))->current();
     }
 }
