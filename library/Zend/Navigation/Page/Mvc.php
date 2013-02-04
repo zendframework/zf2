@@ -126,29 +126,31 @@ class Mvc extends AbstractPage
                 }
             }
 
-            $myParams = $this->params;
+            if (null === $this->getRoute()) {
+                $myParams = $this->params;
 
-            if (null !== $this->controller) {
-                $myParams['controller'] = $this->controller;
-            } else {
-                /**
-                 * @todo In ZF1, this was configurable and pulled from the front controller
-                 */
-                $myParams['controller'] = 'index';
-            }
+                if (null !== $this->controller) {
+                    $myParams['controller'] = $this->controller;
+                } else {
+                    /**
+                     * @todo In ZF1, this was configurable and pulled from the front controller
+                     */
+                    $myParams['controller'] = 'index';
+                }
 
-            if (null !== $this->action) {
-                $myParams['action'] = $this->action;
-            } else {
-                /**
-                 * @todo In ZF1, this was configurable and pulled from the front controller
-                 */
-                $myParams['action'] = 'index';
-            }
+                if (null !== $this->action) {
+                    $myParams['action'] = $this->action;
+                } else {
+                    /**
+                     * @todo In ZF1, this was configurable and pulled from the front controller
+                     */
+                    $myParams['action'] = 'index';
+                }
 
-            if (count(array_intersect_assoc($reqParams, $myParams)) == count($myParams)) {
-                $this->active = true;
-                return true;
+                if (count(array_intersect_assoc($reqParams, $myParams)) == count($myParams)) {
+                    $this->active = true;
+                    return true;
+                }
             }
         }
 
