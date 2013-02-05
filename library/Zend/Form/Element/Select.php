@@ -67,6 +67,19 @@ class Select extends Element implements InputProviderInterface
     }
 
     /**
+     * @param string $option
+     * @return NULL|mixed
+     */
+    public function getValueOption($option)
+    {
+        if (!isset($this->valueOptions[$option])) {
+            return null;
+        }
+
+        return $this->valueOptions[$option];
+    }
+
+    /**
      * @param  array $options
      * @return Select
      */
