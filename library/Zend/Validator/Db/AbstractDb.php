@@ -336,7 +336,12 @@ abstract class AbstractDb extends AbstractValidator
         $statement = $adapter->createStatement();
         $this->getSelect()->prepareStatement($adapter, $statement);
 
-        $key = $statement->getParameterContainer()->key();
+        $driver   = $adapter->getDriver();
+        if (DbDriverInterface::PARAMETERIZATION_NAMED == $driver->getPrepareType()) {
+            $key = 'value';
+        } else {
+            $key = $statement->getParameterContainer()->key();
+        }
         return $statement->execute(array($key => $value))->current();
     }
 }
