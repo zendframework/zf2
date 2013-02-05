@@ -672,6 +672,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 }
                 $joinSpecArgArray[$j][2] = $joinSpecArgArray[$j][2]->getSql();
             }
+            unset($joinAs);
         }
 
         return array($joinSpecArgArray);
