@@ -85,13 +85,13 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
                 'Failed asserting response header, header "%s" do not exists', $header
             ));
         }
-        if ($match != $responseHeader->getFieldValue()) {
+        if (!stristr($responseHeader->getFieldValue(), $match)) {
             throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
                 'Failed asserting response header "%s" exists and contains "%s", actual content is "%s"',
                 $header, $match, $responseHeader->getFieldValue()
             ));
         }
-        $this->assertEquals($match, $responseHeader->getFieldValue());
+        $this->assertContains($match, $responseHeader->getFieldValue(), '', true);
     }
 
     /**
@@ -170,17 +170,15 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (false === $responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new PHPUnit_Framework_ExpectationFailedException(
                 'Failed asserting response is a redirect'
-            ));
+            );
         }
         $this->assertNotEquals(false, $responseHeader);
     }
 
     /**
      * Assert that response is NOT a redirect
-     *
-     * @param  string $message
      */
     public function assertNotRedirect()
     {
@@ -203,9 +201,9 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (!$responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new PHPUnit_Framework_ExpectationFailedException(
                 'Failed asserting response is a redirect'
-            ));
+            );
         }
         if ($url != $responseHeader->getFieldValue()) {
             throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
@@ -225,9 +223,9 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (!$responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new PHPUnit_Framework_ExpectationFailedException(
                 'Failed asserting response is a redirect'
-            ));
+            );
         }
         if ($url == $responseHeader->getFieldValue()) {
             throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
@@ -246,9 +244,9 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (!$responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new PHPUnit_Framework_ExpectationFailedException(
                 'Failed asserting response is a redirect'
-            ));
+            );
         }
         if (!preg_match($pattern, $responseHeader->getFieldValue())) {
             throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
@@ -268,9 +266,9 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (!$responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new PHPUnit_Framework_ExpectationFailedException(
                 'Failed asserting response is a redirect'
-            ));
+            );
         }
         if (preg_match($pattern, $responseHeader->getFieldValue())) {
             throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
