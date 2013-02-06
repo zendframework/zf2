@@ -23,6 +23,9 @@
         "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
     },
     "autoload": {
+        "files": [
+            "compatibility/bootstrap.php"
+        ],
         "psr-0": {
             "Zend\\": "library/",
             "ZendTest\\": "tests/"
