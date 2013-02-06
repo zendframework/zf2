@@ -16,6 +16,7 @@
         "pecl-weakref": "Implementation of weak references for Stdlib\\CallbackHandler"
     },
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "zendframework/zend-compatibility": "self.version"
     }
 }

@@ -24,7 +24,7 @@
     },
     "autoload": {
         "files": [
-            "compatibility/bootstrap.php"
+            "library/compatibility/bootstrap.php"
         ],
         "psr-0": {
             "Zend\\": "library/",
@@ -40,6 +40,7 @@
         "zendframework/zend-cache": "self.version",
         "zendframework/zend-captcha": "self.version",
         "zendframework/zend-code": "self.version",
+        "zendframework/zend-compatibility": "self.version",
         "zendframework/zend-config": "self.version",
         "zendframework/zend-console": "self.version",
         "zendframework/zend-crypt": "self.version",
