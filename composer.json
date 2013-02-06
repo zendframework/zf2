@@ -23,6 +23,9 @@
         "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
     },
     "autoload": {
+        "files": [
+            "library/compatibility/bootstrap.php"
+        ],
         "psr-0": {
             "Zend\\": "library/",
             "ZendTest\\": "tests/"
@@ -37,6 +40,7 @@
         "zendframework/zend-cache": "self.version",
         "zendframework/zend-captcha": "self.version",
         "zendframework/zend-code": "self.version",
+        "zendframework/zend-compatibility": "self.version",
         "zendframework/zend-config": "self.version",
         "zendframework/zend-console": "self.version",
         "zendframework/zend-crypt": "self.version",
