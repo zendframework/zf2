@@ -244,7 +244,11 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             $this->profiler->profilerStart($this);
         }
 
-        $ret = @oci_execute($this->resource);
+        if ($this->driver->getConnection()->inTransaction()) {
+            $ret = @oci_execute($this->resource, OCI_NO_AUTO_COMMIT);
+        } else {
+            $ret = @oci_execute($this->resource, OCI_COMMIT_ON_SUCCESS);
+        }
 
         if ($this->profiler) {
             $this->profiler->profilerFinish();
@@ -281,6 +285,9 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
                         if (is_string($value)) {
                             $value = (int) $value;
                         }
+                        break;
+                    case ParameterContainer::TYPE_BINARY:
+                        $type = SQLT_BIN;
                         break;
                     case ParameterContainer::TYPE_STRING:
                     default:

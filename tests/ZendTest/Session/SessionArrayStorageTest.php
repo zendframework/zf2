@@ -111,8 +111,13 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testMultiDimensionalUnset()
     {
-        $_SESSION['foo']['bar'] = 'baz';
-        unset($_SESSION['foo']['bar']);
+        if (version_compare(PHP_VERSION, '5.3.3') <= 0) {
+            $this->markTestSkipped('Known issue on versions of PHP 5.3.3 or less');
+        }
+        $this->storage['foo'] = array('bar' => array('baz' => 'boo'));
+        unset($this->storage['foo']['bar']['baz']);
+        $this->assertFalse(isset($this->storage['foo']['bar']['baz']));
+        unset($this->storage['foo']['bar']);
         $this->assertFalse(isset($this->storage['foo']['bar']));
     }
 
@@ -122,7 +127,22 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
         $container->foo = 'bar';
 
         $this->assertSame($container->foo, $_SESSION['test']['foo']);
+    }
 
+    public function testToArrayWithMetaData()
+    {
+        $this->storage->foo = 'bar';
+        $this->storage->bar = 'baz';
+        $this->storage->setMetadata('foo', 'bar');
+        $expected = array(
+            '__ZF' => array(
+                '_REQUEST_ACCESS_TIME' => $this->storage->getRequestAccessTime(),
+                'foo' => 'bar',
+            ),
+            'foo' => 'bar',
+            'bar' => 'baz',
+        );
+        $this->assertSame($expected, $this->storage->toArray(true));
     }
 
 }

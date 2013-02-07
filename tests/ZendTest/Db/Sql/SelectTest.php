@@ -54,6 +54,28 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @testdox unit test: Test quantifier() returns Select object (is chainable)
+     * @covers Zend\Db\Sql\Select::quantifier
+     */
+    public function testQuantifier()
+    {
+        $select = new Select;
+        $return = $select->quantifier($select::QUANTIFIER_DISTINCT);
+        $this->assertSame($select, $return);
+        return $return;
+    }
+
+    /**
+     * @testdox unit test: Test getRawState() returns infromation populated via from()
+     * @covers Zend\Db\Sql\Select::getRawState
+     * @depends testQuantifier
+     */
+    public function testGetRawStateViaQuantifier(Select $select)
+    {
+        $this->assertEquals(Select::QUANTIFIER_DISTINCT, $select->getRawState('quantifier'));
+    }
+
+    /**
      * @testdox unit test: Test columns() returns Select object (is chainable)
      * @covers Zend\Db\Sql\Select::columns
      */
@@ -961,6 +983,41 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             'processJoins' => array(array(array('INNER', '(SELECT "bar".* FROM "bar" WHERE "y" LIKE ?) AS "z"', '"z"."foo" = "bar"."id"')))
         );
 
+        // @link https://github.com/zendframework/zf2/issues/3294
+        // Test TableIdentifier In Joins, with multiple joins
+        $select40 = new Select;
+        $select40->from('foo')
+            ->join(array('a' => new TableIdentifier('another_foo', 'another_schema')), 'a.x = foo.foo_column')
+            ->join('bar', 'foo.colx = bar.colx');
+        $sqlPrep40 = // same
+        $sqlStr40 = 'SELECT "foo".*, "a".*, "bar".* FROM "foo"'
+            . ' INNER JOIN "another_schema"."another_foo" AS "a" ON "a"."x" = "foo"."foo_column"'
+            . ' INNER JOIN "bar" ON "foo"."colx" = "bar"."colx"';
+        $internalTests40 = array(
+            'processSelect' => array(array(array('"foo".*'), array('"a".*'), array('"bar".*')), '"foo"'),
+            'processJoins'  => array(array(
+                array('INNER', '"another_schema"."another_foo" AS "a"', '"a"."x" = "foo"."foo_column"'),
+                array('INNER', '"bar"', '"foo"."colx" = "bar"."colx"')
+            ))
+        );
+
+        $select41 = new Select;
+        $select41->from('foo')->quantifier(Select::QUANTIFIER_DISTINCT);
+        $sqlPrep41 = // same
+        $sqlStr41 = 'SELECT DISTINCT "foo".* FROM "foo"';
+        $internalTests41 = array(
+            'processSelect' => array(SELECT::QUANTIFIER_DISTINCT, array(array('"foo".*')), '"foo"'),
+        );
+
+        $select42 = new Select;
+        $select42->from('foo')->quantifier(new Expression('TOP ?', array(10)));
+        $sqlPrep42 = 'SELECT TOP ? "foo".* FROM "foo"';
+        $sqlStr42 = 'SELECT TOP \'10\' "foo".* FROM "foo"';
+        $internalTests42 = array(
+            'processSelect' => array('TOP ?', array(array('"foo".*')), '"foo"'),
+        );
+
+
         /**
          * $select = the select object
          * $sqlPrep = the sql as a result of preparation
@@ -1011,6 +1068,9 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select37, $sqlPrep37, array(),    $sqlStr37, $internalTests37),
             array($select38, $sqlPrep38, array(),    $sqlStr38, $internalTests38),
             array($select39, $sqlPrep39, array(),    $sqlStr39, $internalTests39),
+            array($select40, $sqlPrep40, array(),    $sqlStr40, $internalTests40),
+            array($select41, $sqlPrep41, array(),    $sqlStr41, $internalTests41),
+            array($select42, $sqlPrep42, array(),    $sqlStr42, $internalTests42),
         );
     }
 }
