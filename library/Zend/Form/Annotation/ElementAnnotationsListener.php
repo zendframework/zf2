@@ -234,7 +234,7 @@ class ElementAnnotationsListener extends AbstractAnnotationsListener
             return;
         }
 
-        $elementSpec = $e->getParam('element');
+        $elementSpec = $e->getParam('elementSpec');
         $elementSpec['spec']['hydrator'] = $annotation->getHydrator();
     }
 
