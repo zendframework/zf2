@@ -30,4 +30,9 @@ abstract class BarClass
         $y = 'this string';
     }
 
+    protected function four(\ArrayObject $o, &$t = 2, FooBarBaz\BazBarFoo $bbf = self::BAR, $bbfa = array())
+    {
+        // four
+    }
+
 }
