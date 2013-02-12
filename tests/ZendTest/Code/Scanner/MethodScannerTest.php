@@ -75,4 +75,15 @@ class MethodScannerTest extends TestCase
         $this->assertEquals($expected, $method->getBody());
     }
 
+    public function testMethodScannerReturnsLastParamDefaultArray()
+    {
+        $fileScanner = new FileScanner(__DIR__ . '/../TestAsset/BarClass.php');
+        $classScanner = $fileScanner->getClass('ZendTest\Code\TestAsset\BarClass');
+        $methodScanner = $classScanner->getMethod('four');
+        $paramScanner = $methodScanner->getParameter('bbfa');
+        $default = $paramScanner->getDefaultValue();
+        $default = trim($default);
+        $this->assertSame('array()', $default);
+    }
+
 }

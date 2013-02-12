@@ -495,6 +495,8 @@ class MethodScanner implements ScannerInterface
                                 $MACRO_INFO_ADVANCE();
                             }
                             $context = 'body';
+                        } elseif($parentCount === 1) {
+                            goto SCANNER_CONTINUE_SIGNATURE;
                         }
                         goto SCANNER_CONTINUE_BODY;
                     case ',':
