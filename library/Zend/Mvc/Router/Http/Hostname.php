@@ -107,24 +107,53 @@ class Hostname implements RouteInterface
             return null;
         }
 
-        $uri      = $request->getUri();
-        $hostname = explode('.', $uri->getHost());
-        $params   = array();
+        $uri             = $request->getUri();
+        $hostname        = array_reverse(explode('.', $uri->getHost()));
+        $params          = array();
+        $optionalSegment = false;
 
-        if (count($hostname) !== count($this->route)) {
-            return null;
-        }
-
-        foreach ($this->route as $index => $routePart) {
-            if (preg_match('(^:(?P<name>.+)$)', $routePart, $matches)) {
-                if (isset($this->constraints[$matches['name']]) && !preg_match('(^' . $this->constraints[$matches['name']] . '$)', $hostname[$index])) {
+        // matching right-to-left
+        foreach (array_reverse($this->route) as $index => $routePart) {
+            if (preg_match('(^\[?:(?P<name>[^\]]+)\]?$)', $routePart, $matches)) {
+                if ('[' == substr($routePart, 0, 1) && ']'== substr($routePart, -1)) {
+                    // now should only see optional segments moving left
+                    $optionalSegment = true;
+                } elseif ($optionalSegment) {
+                    // Non-optional segment found left of optional
                     return null;
+                }
+                if (isset($this->constraints[$matches['name']]) && !preg_match('(^' . $this->constraints[$matches['name']] . '$)', $hostname[$index])) {
+                    // constraint violation
+                    return null;
+                }
+                if (!isset($hostname[$index])) {
+                    if (!$optionalSegment) {
+                        // not enough hostname pieces
+                        return null;
+                    }
+                    if ($optionalSegment) {
+                        // no-more host pieces, check for optional segments in route
+                        continue;
+                    }
                 }
 
                 $params[$matches['name']] = $hostname[$index];
-            } elseif ($hostname[$index] !== $routePart) {
+            } elseif ($optionalSegment) {
+                // Literal segment found left of optional
+                return null;
+            } elseif (!isset($hostname[$index]) || $hostname[$index] !== $routePart) {
+                // Not enough hostname pieces or literal mismatch
                 return null;
             }
+        }
+
+        if (!$optionalSegment && count($hostname) !== count($this->route)) {
+            // only routes w/o optional components can have host parts !== route parts
+            return null;
+        }
+        if ($optionalSegment && count($hostname) > count($this->route)) {
+            // even with optional components host parts cannot be > route parts
+            return null;
         }
 
         return new RouteMatch(array_merge($this->defaults, $params));
@@ -143,25 +172,32 @@ class Hostname implements RouteInterface
     {
         $mergedParams          = array_merge($this->defaults, $params);
         $this->assembledParams = array();
+        $optionalSegment       = false;
 
         if (isset($options['uri'])) {
             $parts = array();
 
-            foreach ($this->route as $routePart) {
-                if (preg_match('(^:(?P<name>.+)$)', $routePart, $matches)) {
-                    if (!isset($mergedParams[$matches['name']])) {
+            // assembling right-to-left
+            foreach (array_reverse($this->route) as $routePart) {
+                if (preg_match('(^\[?:(?P<name>[^\]]+)\]?$)', $routePart, $matches)) {
+                    if ('[' == substr($routePart, 0, 1) && ']'== substr($routePart, -1)) {
+                        $optionalSegment = true;
+                    } elseif ($optionalSegment) {
+                        throw new Exception\InvalidArgumentException('Non-optional segment found left of optional');
+                    } elseif (!isset($mergedParams[$matches['name']])) {
                         throw new Exception\InvalidArgumentException(sprintf('Missing parameter "%s"', $matches['name']));
                     }
 
-                    $parts[] = $mergedParams[$matches['name']];
-
-                    $this->assembledParams[] = $matches['name'];
+                    if (isset($mergedParams[$matches['name']])) {
+                        $parts[] = $mergedParams[$matches['name']];
+                        $this->assembledParams[] = $matches['name'];
+                    }
                 } else {
                     $parts[] = $routePart;
                 }
             }
 
-            $options['uri']->setHost(implode('.', $parts));
+            $options['uri']->setHost(implode('.', array_reverse($parts)));
         }
 
         // A hostname does not contribute to the path, thus nothing is returned.
