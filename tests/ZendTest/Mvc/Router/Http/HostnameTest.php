@@ -177,7 +177,7 @@ class HostnameTest extends TestCase
 
     public function testAssemblingWithInvalidOptionalSubdomain()
     {
-        $this->setExpectedException('Zend\Mvc\Router\Exception\InvalidArgumentException', 'Non-optional segment found before optional');
+        $this->setExpectedException('Zend\Mvc\Router\Exception\InvalidArgumentException', 'Non-optional segment found left of optional');
 
         $route = new Hostname(':foo.[:bar].example.com');
         $uri   = new HttpUri();
