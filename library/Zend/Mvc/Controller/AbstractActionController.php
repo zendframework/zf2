@@ -80,7 +80,7 @@ abstract class AbstractActionController extends AbstractController
             $method = 'notFoundAction';
         }
 
-        $actionResponse = $this->$method();
+        $actionResponse = $this->$method($e);
 
         $e->setResult($actionResponse);
 
