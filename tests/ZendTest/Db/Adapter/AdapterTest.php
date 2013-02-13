@@ -148,6 +148,12 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $adapter = new Adapter($driver);
         $this->assertInstanceOf('Zend\Db\Adapter\Platform\Oracle', $adapter->platform);
         unset($adapter, $driver);
+        
+        $driver = clone $this->mockDriver;
+        $driver->expects($this->any())->method('getDatabasePlatformName')->will($this->returnValue('Oci'));
+        $adapter = new Adapter($driver);
+        $this->assertInstanceOf('Zend\Db\Adapter\Platform\Oracle', $adapter->platform);
+        unset($adapter, $driver);
 
         $driver = clone $this->mockDriver;
         $driver->expects($this->any())->method('getDatabasePlatformName')->will($this->returnValue('Foo'));
