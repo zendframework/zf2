@@ -208,7 +208,7 @@ class ObjectCache extends CallbackCache
      */
     public function __set($name, $value)
     {
-        return $this->call('__set', array($name, $value));
+        $this->call('__set', array($name, $value));
     }
 
     /**
@@ -257,7 +257,7 @@ class ObjectCache extends CallbackCache
      */
     public function __unset($name)
     {
-        return $this->call('__unset', array($name));
+        $this->call('__unset', array($name));
     }
 
     /**

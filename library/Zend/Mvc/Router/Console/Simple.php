@@ -523,7 +523,7 @@ class Simple implements RouteInterface
      * @see     Route::match()
      * @param   Request             $request
      * @param   null|int            $pathOffset
-     * @return  RouteMatch
+     * @return  null|RouteMatch
      */
     public function match(Request $request, $pathOffset = null)
     {

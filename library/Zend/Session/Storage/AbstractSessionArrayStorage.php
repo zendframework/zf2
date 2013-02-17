@@ -62,7 +62,7 @@ abstract class AbstractSessionArrayStorage implements IteratorAggregate, Storage
      */
     public function __set($key, $value)
     {
-        return $this->offsetSet($key, $value);
+        $this->offsetSet($key, $value);
     }
 
     /**
@@ -84,7 +84,7 @@ abstract class AbstractSessionArrayStorage implements IteratorAggregate, Storage
      */
     public function __unset($key)
     {
-        return $this->offsetUnset($key);
+        $this->offsetUnset($key);
     }
 
     /**
