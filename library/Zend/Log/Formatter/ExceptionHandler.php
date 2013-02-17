@@ -50,7 +50,7 @@ class ExceptionHandler implements FormatterInterface
             $output .= "\n[Trace]\n" . $outputTrace;
         }
 
-        return $output;
+        return $output . PHP_EOL;
     }
 
     /**
