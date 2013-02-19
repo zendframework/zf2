@@ -29,6 +29,7 @@ class SimpleStreamResponseSender extends AbstractResponseSender
         $stream   = $response->getStream();
         fpassthru($stream);
         $event->setContentSent();
+        return $this;
     }
 
     /**

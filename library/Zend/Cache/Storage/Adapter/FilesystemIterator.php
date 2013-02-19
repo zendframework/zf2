@@ -168,6 +168,6 @@ class FilesystemIterator implements IteratorInterface
      */
     public function rewind()
     {
-        return $this->globIterator->rewind();
+        $this->globIterator->rewind();
     }
 }

@@ -76,7 +76,7 @@ class SessionConfig extends StandardConfig
         switch ($storageName) {
             case 'remember_me_seconds':
                 // do nothing; not an INI option
-                return;
+                return $this;
             case 'url_rewriter_tags':
                 $key = 'url_rewriter.tags';
                 break;

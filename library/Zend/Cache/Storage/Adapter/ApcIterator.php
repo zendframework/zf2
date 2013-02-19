@@ -153,6 +153,6 @@ class ApcIterator implements IteratorInterface
      */
     public function rewind()
     {
-        return $this->baseIterator->rewind();
+        $this->baseIterator->rewind();
     }
 }
