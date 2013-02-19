@@ -37,6 +37,11 @@ class HostnameTest extends TestCase
                 'example.com',
                 null
             ),
+            'no-match-with-different-number-of-parts-2' => array(
+                new Hostname('example.com'),
+                'foo.example.com',
+                null
+            ),
             'match-overrides-default' => array(
                 new Hostname(':foo.example.com', array(), array('foo' => 'baz')),
                 'bat.example.com',
@@ -51,6 +56,61 @@ class HostnameTest extends TestCase
                 new Hostname(':foo.example.com', array('foo' => '\d+')),
                 '123.example.com',
                 array('foo' => '123')
+            ),
+            'optional-subdomain' => array(
+                new Hostname('[:foo].example.com'),
+                'bar.example.com',
+                array('foo' => 'bar'),
+            ),
+            'two-optional-subdomain' => array(
+                new Hostname('[:foo].[:bar].example.com'),
+                'baz.bat.example.com',
+                array('foo' => 'baz', 'bar' => 'bat'),
+            ),
+            'missing-optional-subdomain' => array(
+                new Hostname('[:foo].example.com'),
+                'example.com',
+                array('foo' => null),
+            ),
+            'one-of-two-missing-optional-subdomain' => array(
+                new Hostname('[:foo].[:bar].example.com'),
+                'bat.example.com',
+                array('foo' => null, 'bar' => 'bat'),
+            ),
+            'two-missing-optional-subdomain' => array(
+                new Hostname('[:foo].[:bar].example.com'),
+                'example.com',
+                array('foo' => null, 'bar' => null),
+            ),
+            'no-match-on-different-hostname-and-optional-subdomain' => array(
+                new Hostname('[:foo].example.com'),
+                'bar.test.com',
+                null,
+            ),
+            'no-match-with-different-number-of-parts-and-optional-subdomain' => array(
+                new Hostname('[:foo].example.com'),
+                'bar.baz.example.com',
+                null,
+            ),
+            'match-overrides-default-optional-subdomain' => array(
+                new Hostname('[:foo].:bar.example.com', array(), array('bar' => 'baz')),
+                'bat.qux.example.com',
+                array('foo' => 'bat', 'bar' => 'qux'),
+            ),
+            'constraints-prevent-match-optional-subdomain' => array(
+                new Hostname('[:foo].example.com', array('foo' => '\d+')),
+                'bar.example.com',
+                null,
+            ),
+            'constraints-allow-match-optional-subdomain' => array(
+                new Hostname('[:foo].example.com', array('foo' => '\d+')),
+                '123.example.com',
+                array('foo' => '123'),
+            ),
+            'invalid-optional-subdomain' => array(
+                new Hostname(':foo.[:bar].example.com'),
+                'baz.bat.example.com',
+                null,
             ),
         );
     }
@@ -113,6 +173,15 @@ class HostnameTest extends TestCase
         $route = new Hostname(':foo.example.com');
         $uri   = new HttpUri();
         $route->assemble(array(), array('uri' => $uri));
+    }
+
+    public function testAssemblingWithInvalidOptionalSubdomain()
+    {
+        $this->setExpectedException('Zend\Mvc\Router\Exception\InvalidArgumentException', 'Non-optional segment found left of optional');
+
+        $route = new Hostname(':foo.[:bar].example.com');
+        $uri   = new HttpUri();
+        $route->assemble(array('foo' => 'baz', 'bar' => 'bat'), array('uri' => $uri));
     }
 
     public function testGetAssembledParams()
