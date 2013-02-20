@@ -63,6 +63,21 @@ class VectorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, $vector2->count());
     }
 
+    public function testDivide()
+    {
+        $vector = new Vector(array(1, -2, 3));
+
+        $this->assertEquals(1, $vector[0]);
+        $this->assertEquals(-2, $vector[1]);
+        $this->assertEquals(3, $vector[2]);
+
+        $vector->divide(2);
+
+        $this->assertEquals(0.5, $vector[0]);
+        $this->assertEquals(-1, $vector[1]);
+        $this->assertEquals(1.5, $vector[2]);
+    }
+
     public function testGetLength()
     {
         $vector = new Vector(array(1, 2, 3));
@@ -82,6 +97,21 @@ class VectorTest extends \PHPUnit_Framework_TestCase
         $vector = new Vector(array(1, 2, 3));
 
         $this->assertEquals(14, $vector->getSquaredLength());
+    }
+
+    public function testMultiply()
+    {
+        $vector = new Vector(array(1, -2, 3));
+
+        $this->assertEquals(1, $vector[0]);
+        $this->assertEquals(-2, $vector[1]);
+        $this->assertEquals(3, $vector[2]);
+
+        $vector->multiply(10);
+
+        $this->assertEquals(10, $vector[0]);
+        $this->assertEquals(-20, $vector[1]);
+        $this->assertEquals(30, $vector[2]);
     }
 
     public function testNegate()
