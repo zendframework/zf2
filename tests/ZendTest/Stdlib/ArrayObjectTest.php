@@ -122,7 +122,7 @@ class ArrayObjectTest extends TestCase
     }
 
     /**
-     * @expectedException Zend\Stdlib\Exception\InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testExchangeArrayStringArgumentFail()
     {
