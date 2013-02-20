@@ -74,6 +74,20 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $matrix->getColumnCount());
     }
 
+    public function testIsSquareFalse()
+    {
+        $matrix = new Matrix(2, 3);
+
+        $this->assertFalse($matrix->isSquare());
+    }
+
+    public function testIsSquareTrue()
+    {
+        $matrix = new Matrix(2, 2);
+
+        $this->assertTrue($matrix->isSquare());
+    }
+
     public function testToString()
     {
         $matrix = new Matrix(2, 2, array(

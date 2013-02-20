@@ -95,6 +95,16 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Checks if this matrix is a square matrix.
+     *
+     * @return bool
+     */
+    public function isSquare()
+    {
+        return $this->rows == $this->columns;
+    }
+
+    /**
      * Checks if the given offset exists.
      *
      * @param int $offset The offset to check.
