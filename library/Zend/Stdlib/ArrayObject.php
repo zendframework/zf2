@@ -181,10 +181,15 @@ class ArrayObject implements IteratorAggregate, ArrayAccess, Serializable, Count
      * @param  array $data
      * @return array
      */
-    public function exchangeArray(array $data)
+    public function exchangeArray($data)
     {
-        $storage = $this->storage;
+        if (!is_array($data)) {
+            throw new Exception\InvalidArgumentException(
+                'Invalid data type supplied. Expected array.'
+            );
+        }
 
+        $storage       = $this->storage;
         $this->storage = $data;
 
         return $storage;
