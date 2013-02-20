@@ -121,6 +121,15 @@ class ArrayObjectTest extends TestCase
         $this->assertSame(array('bar' => 'baz'), $ar->getArrayCopy());
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExchangeArrayStringArgumentFail()
+    {
+        $ar     = new ArrayObject(array('foo' => 'bar'));
+        $old    = $ar->exchangeArray('Bacon');
+    }
+
     public function testGetArrayCopy()
     {
         $ar = new ArrayObject(array('foo' => 'bar'));

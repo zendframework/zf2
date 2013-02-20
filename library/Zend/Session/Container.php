@@ -26,8 +26,14 @@ class Container extends AbstractContainer
      * @return array        Returns the old array
      * @see ArrayObject::exchangeArray()
      */
-    public function exchangeArray(array $input)
+    public function exchangeArray($input)
     {
+        if (!is_array($input) && !is_object($input)) {
+            throw new Exception\InvalidArgumentException(
+                'Invalid input type supplied. Expected array or object.'
+            );
+        }
+
         return parent::exchangeArrayCompat($input);
     }
 
@@ -40,12 +46,14 @@ class Container extends AbstractContainer
     public function &offsetGet($key)
     {
         $ret = null;
+
         if (!$this->offsetExists($key)) {
             return $ret;
         }
+
         $storage = $this->getStorage();
         $name    = $this->getName();
-        $ret =& $storage[$name][$key];
+        $ret     =& $storage[$name][$key];
 
         return $ret;
     }
