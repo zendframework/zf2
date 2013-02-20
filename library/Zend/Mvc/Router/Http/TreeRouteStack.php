@@ -62,7 +62,7 @@ class TreeRouteStack extends SimpleRouteStack
     /**
      * addRoute(): defined by RouteStackInterface interface.
      *
-     * @see    RouteStack::addRoute()
+     * @see    RouteStackInterface::addRoute()
      * @param  string  $name
      * @param  mixed   $route
      * @param  integer $priority
@@ -216,6 +216,14 @@ class TreeRouteStack extends SimpleRouteStack
         }
 
         $path = $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
+
+        if (isset($options['query'])) {
+            $uri->setQuery($options['query']);
+        }
+
+        if (isset($options['fragment'])) {
+            $uri->setFragment($options['fragment']);
+        }
 
         if ((isset($options['force_canonical']) && $options['force_canonical']) || $uri->getHost() !== null) {
             if ($uri->getScheme() === null) {
