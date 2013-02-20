@@ -12,7 +12,6 @@ namespace Zend\Math;
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
-use InvalidArgumentException;
 use IteratorAggregate;
 use LengthException;
 
