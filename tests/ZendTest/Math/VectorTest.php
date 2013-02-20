@@ -77,7 +77,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(6, $vector2[2]);
 
         $vector3 = Vector::crossProduct($vector1, $vector2);
-        
+
         $this->assertEquals(-3, $vector3[0]);
         $this->assertEquals(6, $vector3[1]);
         $this->assertEquals(-3, $vector3[2]);
