@@ -20,8 +20,18 @@ use LengthException;
  */
 class Vector implements ArrayAccess, Countable, IteratorAggregate
 {
+    /**
+     * The data of this vector.
+     *
+     * @var array
+     */
     private $data;
 
+    /**
+     * Initializes a new instance of this class.
+     *
+     * @param array $data The data to initialize with.
+     */
     public function __construct(array $data = array())
     {
         $this->data = $data;
@@ -236,9 +246,10 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Checks
-     * @param type $offset
-     * @return type
+     * Checks if the given offset exists.
+     *
+     * @param int $offset The offset to check.
+     * @return bool
      */
 	public function offsetExists($offset)
     {
