@@ -89,7 +89,7 @@ class Memcached extends AbstractAdapter implements
      *
      * @return MemcachedResource
      */
-    protected function getMemcachedResource()
+    public function getMemcachedResource()
     {
         if (!$this->initialized) {
             $options = $this->getOptions();
