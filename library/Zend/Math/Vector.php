@@ -80,7 +80,7 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
             ($v1[2] * $v2[0]) - ($v1[0] * $v2[2]),
             ($v1[0] * $v2[1]) - ($v1[1] * $v2[0]),
         );
-        
+
         return new Vector($result);
     }
 
@@ -116,6 +116,25 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
             $result += ($value * $v2[$k]);
         }
         return $result;
+    }
+
+    /**
+     * Calculates the cartesian distance between this vector and the given vector.
+     *
+     * @param Vector $vector The vector to calculate the distance to.
+     * @return float
+     */
+    public function getDistance(Vector $vector)
+    {
+        if (count($this) != count($vector)) {
+            throw new LengthException('The two given vectors must be of the same length.');
+        }
+
+        $result = 0;
+        for ($i = 0; $i < $this->count(); ++$i) {
+            $result += pow($this->data[$i] - $vector[$i], 2);
+        }
+        return sqrt($result);
     }
 
     /**

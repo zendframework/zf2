@@ -116,6 +116,22 @@ class VectorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(32, $dotProduct);
     }
 
+    public function testGetDistance()
+    {
+        $vector1 = new Vector(array(1, 2, 3));
+        $vector2 = new Vector(array(2, 4, 6));
+
+        $this->assertEquals(3.7416573867739, $vector1->getDistance($vector2));
+    }
+
+    public function testGetDistanceZero()
+    {
+        $vector1 = new Vector(array(1, 2, 3));
+        $vector2 = new Vector(array(1, 2, 3));
+
+        $this->assertEquals(0, $vector1->getDistance($vector2));
+    }
+
     public function testGetLength()
     {
         $vector = new Vector(array(1, 2, 3));
