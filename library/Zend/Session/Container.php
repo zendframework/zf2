@@ -9,8 +9,6 @@
 
 namespace Zend\Session;
 
-use Zend\Stdlib\ArrayObject;
-
 /**
  * Session storage container
  *
@@ -30,9 +28,9 @@ class Container extends AbstractContainer
      */
     public function exchangeArray($input)
     {
-        if (!is_array($input) && !$input instanceof ArrayObject) {
+        if (!is_array($input) && !is_object($input)) {
             throw new Exception\InvalidArgumentException(
-                'Name passed to container is invalid; must consist of alphanumerics, backslashes and underscores only'
+                'Invalid input type supplied. Expected array or object.'
             );
         }
 
