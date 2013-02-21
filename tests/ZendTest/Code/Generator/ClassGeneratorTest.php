@@ -397,7 +397,7 @@ CODE;
         $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ClassTwoWithProperties');
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         $generated = $classGenerator->generate();
-        $this->assertContains('public $property1OfClassTwo = null;', $generated);
-        $this->assertContains('public $property2OfClassTwo = null;', $generated);
+        $this->assertContains('public $property1OfClassTwo', $generated);
+        $this->assertContains('public $property2OfClassTwo', $generated);
     }
 }
