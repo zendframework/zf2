@@ -261,4 +261,19 @@ EOS;
         $this->assertContains('use Another\\Baz as Baz2;', $generated);
     }
 
+    public function testGetUsesWithSetUses()
+    {
+        $file = new FileGenerator();
+        $file->setUses(array(
+                           'Your\\Bar',
+                           'My\\Baz',
+                           array('use' => 'Another\\Baz', 'as' => 'Baz2')
+                       ));
+        $file->setUses($file->getUses());
+        $generated = $file->generate();
+        $this->assertContains('use My\\Baz;', $generated);
+        $this->assertContains('use Your\\Bar;', $generated);
+        $this->assertContains('use Another\\Baz as Baz2;', $generated);
+    }
+
 }
