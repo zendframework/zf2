@@ -101,9 +101,26 @@ class HelperPluginManager extends AbstractPluginManager
             $helper->setAuthenticationService($services->get('Zend\Authentication\AuthenticationService'));
             return $helper;
         });
+    }
+    
+    /**
+     * Retrieve a registered instance
+     *
+     * After the plugin is retrieved from the service locator, inject the
+     * renderer and the translator in the plugin every time it is requested.
+     *
+     * @param  string $name
+     * @param  mixed  $options
+     * @param  bool   $usePeeringServiceManagers
+     * @return mixed
+     */
+    public function get($name, $options = array(), $usePeeringServiceManagers = true)
+    {
+        $plugin = parent::get($name, $options, $usePeeringServiceManagers);
+        $this->injectRenderer($plugin);
+        $this->injectTranslator($plugin);
 
-        $this->addInitializer(array($this, 'injectRenderer'))
-             ->addInitializer(array($this, 'injectTranslator'));
+        return $plugin;
     }
 
     /**

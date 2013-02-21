@@ -66,15 +66,24 @@ class FormElementManager extends AbstractPluginManager
      * @var bool
      */
     protected $shareByDefault = false;
-
+    
     /**
-     * @param ConfigInterface $configuration
+     * Retrieve a registered instance
+     *
+     * After the plugin is retrieved from the service locator, inject the
+     * factory in the plugin every time it is requested.
+     *
+     * @param  string $name
+     * @param  mixed  $options
+     * @param  bool   $usePeeringServiceManagers
+     * @return mixed
      */
-    public function __construct(ConfigInterface $configuration = null)
+    public function get($name, $options = array(), $usePeeringServiceManagers = true)
     {
-        parent::__construct($configuration);
+        $plugin = parent::get($name, $options, $usePeeringServiceManagers);
+        $this->injectFactory($plugin);
 
-        $this->addInitializer(array($this, 'injectFactory'));
+        return $plugin;
     }
 
     /**

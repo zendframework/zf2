@@ -111,19 +111,24 @@ class ValidatorPluginManager extends AbstractPluginManager
      * @var bool
      */
     protected $shareByDefault = false;
-
+    
     /**
-     * Constructor
+     * Retrieve a registered instance
      *
-     * After invoking parent constructor, add an initializer to inject the
-     * attached translator, if any, to the currently requested helper.
+     * After the plugin is retrieved from the service locator, inject the
+     * translator in the plugin every time it is requested.
      *
-     * @param  null|ConfigInterface $configuration
+     * @param  string $name
+     * @param  mixed  $options
+     * @param  bool   $usePeeringServiceManagers
+     * @return mixed
      */
-    public function __construct(ConfigInterface $configuration = null)
+    public function get($name, $options = array(), $usePeeringServiceManagers = true)
     {
-        parent::__construct($configuration);
-        $this->addInitializer(array($this, 'injectTranslator'));
+        $plugin = parent::get($name, $options, $usePeeringServiceManagers);
+        $this->injectTranslator($plugin);
+
+        return $plugin;
     }
 
     /**

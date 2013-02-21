@@ -31,20 +31,21 @@ class ControllerManager extends AbstractPluginManager
      * @var bool
      */
     protected $autoAddInvokableClass = false;
-
+    
     /**
-     * Constructor
+     * Override: do not use peering service manager to retrieve controller
      *
-     * After invoking parent constructor, add an initializer to inject the
-     * service manager, event manager, and plugin manager
-     *
-     * @param  null|ConfigInterface $configuration
+     * @param  string $name
+     * @param  array $options
+     * @param  bool $usePeeringServiceManagers
+     * @return mixed
      */
-    public function __construct(ConfigInterface $configuration = null)
+    public function get($name, $options = array(), $usePeeringServiceManagers = false)
     {
-        parent::__construct($configuration);
-        // Pushing to bottom of stack to ensure this is done last
-        $this->addInitializer(array($this, 'injectControllerDependencies'), false);
+        $plugin = parent::get($name, $options, $usePeeringServiceManagers);
+        $this->injectControllerDependencies($plugin);
+        
+        return $plugin;
     }
 
     /**
@@ -105,18 +106,5 @@ class ControllerManager extends AbstractPluginManager
             'Controller of type %s is invalid; must implement Zend\Stdlib\DispatchableInterface',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
-    }
-
-    /**
-     * Override: do not use peering service manager to retrieve controller
-     *
-     * @param  string $name
-     * @param  array $options
-     * @param  bool $usePeeringServiceManagers
-     * @return mixed
-     */
-    public function get($name, $options = array(), $usePeeringServiceManagers = false)
-    {
-        return parent::get($name, $options, $usePeeringServiceManagers);
     }
 }
