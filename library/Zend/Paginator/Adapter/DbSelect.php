@@ -101,6 +101,8 @@ class DbSelect implements AdapterInterface
         if ($this->rowCount !== null) {
             return $this->rowCount;
         }
+        
+        $groupPart = $this->select->getRawState(Select::GROUP);
 
         $select = clone $this->select;
         $select->reset(Select::COLUMNS);
@@ -116,7 +118,12 @@ class DbSelect implements AdapterInterface
             $select->join($join['name'], $join['on'], array(), $join['type']);
         }
         
-        $select->columns(array('c' => new Expression('COUNT(1)')));
+        $countColumn = '1';
+        if(is_array($groupPart) && count($groupPart) === 1){
+            $countColumn = 'DISTINCT '.array_shift($groupPart);
+        }
+        
+        $select->columns(array('c' => new Expression('COUNT('.$countColumn.')')));
 
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result    = $statement->execute();
