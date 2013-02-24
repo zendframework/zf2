@@ -45,6 +45,7 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $matrix[2]);
         $this->assertEquals(0, $matrix[3]);
     }
+
     public function testConstructorWithData()
     {
         $matrix = new Matrix(2, 2, array(1, 2, 3, 4));
@@ -56,6 +57,57 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $matrix[1]);
         $this->assertEquals(3, $matrix[2]);
         $this->assertEquals(4, $matrix[3]);
+    }
+
+    public function testAddScalarToZeroMatrix()
+    {
+        $matrix = new Matrix(2, 2);
+
+        $this->assertEquals(0, $matrix[0]);
+        $this->assertEquals(0, $matrix[1]);
+
+        $matrix->add(5);
+
+        $this->assertEquals(5, $matrix[0]);
+        $this->assertEquals(5, $matrix[1]);
+    }
+
+    public function testAddScalarToNonZeroMatrix()
+    {
+        $matrix = new Matrix(2, 2, array(1, 2, 3, 4));
+
+        $this->assertEquals(1, $matrix[0]);
+        $this->assertEquals(2, $matrix[1]);
+        $this->assertEquals(3, $matrix[2]);
+        $this->assertEquals(4, $matrix[3]);
+
+        $matrix->add(5);
+
+        $this->assertEquals(6, $matrix[0]);
+        $this->assertEquals(7, $matrix[1]);
+        $this->assertEquals(8, $matrix[2]);
+        $this->assertEquals(9, $matrix[3]);
+    }
+
+    public function testAddValidMatrixToMatrix()
+    {
+        $matrix1 = new Matrix(2, 2, array(1, 2, 3, 4));
+        $matrix2 = new Matrix(2, 2, array(1, 2, 3, 4));
+        $matrix2->add($matrix1);
+
+        $this->assertEquals(2, $matrix2[0]);
+        $this->assertEquals(4, $matrix2[1]);
+        $this->assertEquals(6, $matrix2[2]);
+        $this->assertEquals(8, $matrix2[3]);
+    }
+
+    public function testAddInvalidMatrixToMatrix()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $matrix1 = new Matrix(2, 2, array(1, 2, 3, 4));
+        $matrix2 = new Matrix(2, 3);
+        $matrix2->add($matrix1);
     }
 
     public function testCountable()

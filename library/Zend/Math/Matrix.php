@@ -12,6 +12,7 @@ namespace Zend\Math;
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
+use InvalidArgumentException;
 use IteratorAggregate;
 
 /**
@@ -51,7 +52,35 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     {
         $this->rows = $rows;
         $this->columns = $columns;
-        $this->data = $data;
+        $this->data = array_fill(0, $rows * $columns, 0);
+
+        foreach ($data as $key => $value) {
+            $this->data[$key] = $value;
+        }
+    }
+
+    /**
+     * Adds the given scalar or Matrix to this matrix.
+     *
+     * @param scalar|Matrix $value The value to add.
+     * @return Matrix
+     */
+    public function add($value)
+    {
+        if ($value instanceof Matrix) {
+            if ($this->rows != $value->getRowCount() || $this->columns != $value->getColumnCount()) {
+                throw new InvalidArgumentException('The matrices should be of the same dimension');
+            }
+
+            foreach ($this->data as $key => $element) {
+                $this->data[$key] += $value[$key];
+            }
+        } else {
+            foreach ($this->data as $key => $element) {
+                $this->data[$key] += $value;
+            }
+        }
+        return $this;
     }
 
     /**
