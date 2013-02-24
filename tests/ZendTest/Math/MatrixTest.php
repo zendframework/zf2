@@ -126,6 +126,27 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $matrix->getColumnCount());
     }
 
+    public function testDivideByScalar()
+    {
+        $matrix = new Matrix(2, 2, array(2, 4, 6, 8));
+        $matrix->divide(2);
+
+        $this->assertEquals(1, $matrix[0]);
+        $this->assertEquals(2, $matrix[1]);
+        $this->assertEquals(3, $matrix[2]);
+        $this->assertEquals(4, $matrix[3]);
+    }
+
+    public function testDivideByMatrix()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $matrix1 = new Matrix(2, 2, array(2, 4, 6, 8));
+        
+        $matrix2 = new Matrix(2, 2, array(2, 4, 6, 8));
+        $matrix2->divide($matrix1);
+    }
+
     public function testIsSquareFalse()
     {
         $matrix = new Matrix(2, 3);

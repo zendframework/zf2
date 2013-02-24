@@ -95,6 +95,21 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Divides the matrix by the given scalar.
+     *
+     * @param float $scalar The scalar to divide by.
+     * @return Matrix
+     */
+    public function divide($scalar)
+    {
+        if (!is_scalar($scalar)) {
+            throw new InvalidArgumentException('Only divisions by scalars are supported.');
+        }
+
+        return $this->multiply(1 / $scalar);
+    }
+
+    /**
      * Gets the amount of columns that the matrix has.
      *
      * @return int
