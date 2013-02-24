@@ -85,6 +85,15 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Calculates the determinant of the matrix.
+     *
+     * @return float
+     */
+    public function getDeterminant()
+    {
+    }
+
+    /**
      * Gets an external iterator of this matrix.
      *
      * @return Iterator
@@ -102,6 +111,26 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     public function isSquare()
     {
         return $this->rows == $this->columns;
+    }
+
+    /**
+     * Makes an identity matrix out of this matrix.
+     */
+    public function makeIdentity()
+    {
+        for ($r = 0; $r < $this->rows; ++$r) {
+            for ($c = 0; $c < $this->columns; ++$c) {
+                $i = ($r * $this->columns) + $c;
+                $this->data[$i] = $r == $c ? 1.0 : 0.0;
+            }
+        }
+    }
+
+    /**
+     * Transposes the rows and columns of this matrix.
+     */
+    public function transpose()
+    {
     }
 
     /**

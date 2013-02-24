@@ -88,6 +88,26 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($matrix->isSquare());
     }
 
+    public function testMakeIdentity()
+    {
+        $matrix = new Matrix(2, 2, array(
+            0, 1,
+            2, 3,
+        ));
+
+        $this->assertEquals(0, $matrix[0]);
+        $this->assertEquals(1, $matrix[1]);
+        $this->assertEquals(2, $matrix[2]);
+        $this->assertEquals(3, $matrix[3]);
+
+        $matrix->makeIdentity();
+
+        $this->assertEquals(1, $matrix[0]);
+        $this->assertEquals(0, $matrix[1]);
+        $this->assertEquals(0, $matrix[2]);
+        $this->assertEquals(1, $matrix[3]);
+    }
+
     public function testToString()
     {
         $matrix = new Matrix(2, 2, array(
