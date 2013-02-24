@@ -210,6 +210,30 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Subtracts the given value from the matrix.
+     *
+     * @param scalar|Matrix $value The value to subtract.
+     * @return Matrix
+     */
+    public function subtract($value)
+    {
+        if ($value instanceof Matrix) {
+            if ($this->rows != $value->getRowCount() || $this->columns != $value->getColumnCount()) {
+                throw new InvalidArgumentException('The matrices should be of the same dimension');
+            }
+
+            foreach ($this->data as $key => $element) {
+                $this->data[$key] -= $value[$key];
+            }
+        } else {
+            foreach ($this->data as $key => $element) {
+                $this->data[$key] -= $value;
+            }
+        }
+        return $this;
+    }
+
+    /**
      * Transposes the rows and columns of this matrix.
      *
      * @return Matrix

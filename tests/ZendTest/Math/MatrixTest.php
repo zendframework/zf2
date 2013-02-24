@@ -142,7 +142,7 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('InvalidArgumentException');
 
         $matrix1 = new Matrix(2, 2, array(2, 4, 6, 8));
-        
+
         $matrix2 = new Matrix(2, 2, array(2, 4, 6, 8));
         $matrix2->divide($matrix1);
     }
@@ -230,6 +230,57 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(4, $matrix[3]);
         $this->assertEquals(2, $matrix[4]);
         $this->assertEquals(5, $matrix[5]);
+    }
+
+    public function testSubtractScalarFromZeroMatrix()
+    {
+        $matrix = new Matrix(2, 2);
+
+        $this->assertEquals(0, $matrix[0]);
+        $this->assertEquals(0, $matrix[1]);
+
+        $matrix->subtract(5);
+
+        $this->assertEquals(-5, $matrix[0]);
+        $this->assertEquals(-5, $matrix[1]);
+    }
+
+    public function testSubtractScalarFromNonZeroMatrix()
+    {
+        $matrix = new Matrix(2, 2, array(1, 2, 3, 4));
+
+        $this->assertEquals(1, $matrix[0]);
+        $this->assertEquals(2, $matrix[1]);
+        $this->assertEquals(3, $matrix[2]);
+        $this->assertEquals(4, $matrix[3]);
+
+        $matrix->subtract(5);
+
+        $this->assertEquals(-4, $matrix[0]);
+        $this->assertEquals(-3, $matrix[1]);
+        $this->assertEquals(-2, $matrix[2]);
+        $this->assertEquals(-1, $matrix[3]);
+    }
+
+    public function testSubtractValidMatrixFromMatrix()
+    {
+        $matrix1 = new Matrix(2, 2, array(1, 2, 3, 4));
+        $matrix2 = new Matrix(2, 2, array(1, 2, 3, 4));
+        $matrix2->subtract($matrix1);
+
+        $this->assertEquals(0, $matrix2[0]);
+        $this->assertEquals(0, $matrix2[1]);
+        $this->assertEquals(0, $matrix2[2]);
+        $this->assertEquals(0, $matrix2[3]);
+    }
+
+    public function testSubtractInvalidMatrixFromMatrix()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $matrix1 = new Matrix(2, 2, array(1, 2, 3, 4));
+        $matrix2 = new Matrix(2, 3);
+        $matrix2->subtract($matrix1);
     }
 
     public function testToString()
