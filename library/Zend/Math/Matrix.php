@@ -14,6 +14,7 @@ use ArrayIterator;
 use Countable;
 use InvalidArgumentException;
 use IteratorAggregate;
+use RuntimeException;
 
 /**
  * A mathematical Matrix.
@@ -129,6 +130,69 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
         return $this->rows;
     }
 
+    private function createSubmatrix(array $data, $dimension, $excludeRow, $excludeColumn)
+    {
+        $submatrix = array();
+
+        $newDimension = 0;
+        for ($r = 0; $r < $dimension; ++$r) {
+            if ($r == $excludeRow) {
+                continue;
+            }
+            $newDimension++;
+        }
+
+        $newR = 0;
+        $newC = 0;
+
+        for ($r = 0; $r < $dimension; ++$r) {
+            if ($r == $excludeRow) {
+                continue;
+            }
+
+            $newC = 0;
+            for ($c = 0; $c < $dimension; ++$c) {
+                if ($c == $excludeColumn) {
+                    continue;
+                }
+
+                $indexOld = ($r * $dimension) + $c;
+                $indexNew = ($newR * $newDimension) + $newC;
+
+                $submatrix[$indexNew] = $data[$indexOld];
+                ++$newC;
+
+            }
+
+            ++$newR;
+        }
+        return $submatrix;
+    }
+
+    private function calculateDeterminant(array $data, $dimension = 0)
+    {
+        $determinant = 0.0;
+
+        if ($dimension == 2) {
+            $determinant = ($data[0] * $data[3]) - ($data[2] * $data[1]);
+        } else if ($dimension == 3) {
+            $determinant = ($data[0] * $data[4] * $data[8])
+                + ($data[1] * $data[5] * $data[6])
+                + ($data[2] * $data[3] * $data[7])
+                - ($data[6] * $data[4] * $data[2])
+                - ($data[7] * $data[5] * $data[0])
+                - ($data[8] * $data[3] * $data[1]);
+        } else {
+			for ($i = 0; $i < $dimension; $i++) {
+                $submatrix = $this->createSubmatrix($data, $dimension, 0, $i);
+				$determinant += $data[$i] * ($i % 2 === 0 ? 1 : -1)
+                    * $this->calculateDeterminant($submatrix, $dimension - 1);
+			}
+        }
+
+        return $determinant;
+    }
+
     /**
      * Calculates the determinant of the matrix.
      *
@@ -136,9 +200,11 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
      */
     public function getDeterminant()
     {
-        $determinant = 0.0;
+        if (!$this->isSquare()) {
+            throw new RuntimeException('Cannot calculate the determinant of a non square matrix.');
+        }
 
-        return $determinant;
+        return $this->calculateDeterminant($this->data, $this->rows);
     }
 
     /**

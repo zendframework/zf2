@@ -126,9 +126,47 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $matrix->getColumnCount());
     }
 
+    public function testDeterminantNonSquare()
+    {
+        $this->setExpectedException('RuntimeException');
+
+        $matrix = new Matrix(3, 5);
+        $matrix->getDeterminant();
+    }
+
+    public function testDeterminant2x2()
+    {
+        $matrix = new Matrix(2, 2, array(1, 2, 3, 4));
+
+        $this->assertEquals(-2, $matrix->getDeterminant());
+    }
+
+    public function testDeterminant3x3()
+    {
+        $matrix = new Matrix(3, 3, array(
+            1,  2,  3,
+            0, -4,  1,
+            0,  3, -1
+        ));
+
+        $this->assertEquals(1, $matrix->getDeterminant());
+    }
+
+    public function testDeterminant4x4()
+    {
+        $matrix = new Matrix(4, 4, array(
+            1,   1, 1, 1,
+            29, 20, 2, 1,
+            1,  20, 2, 1,
+            1,  29, 1, 1,
+        ));
+
+        $this->assertEquals(784, $matrix->getDeterminant());
+    }
+
     public function testDivideByScalar()
     {
-        $matrix = new Matrix(2, 2, array(2, 4, 6, 8));
+        $matrix = new Matrix(3, 2, array(2, 4, 6, 8));
         $matrix->divide(2);
 
         $this->assertEquals(1, $matrix[0]);
