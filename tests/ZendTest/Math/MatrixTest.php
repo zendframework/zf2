@@ -160,6 +160,33 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $matrix[3]);
     }
 
+    public function testMultiplyByScalar()
+    {
+        $matrix = new Matrix(2, 2, array(
+            4, 6,
+            9, 1
+        ));
+        $matrix->multiply(5);
+
+        $this->assertEquals(20, $matrix[0]);
+        $this->assertEquals(30, $matrix[1]);
+        $this->assertEquals(45, $matrix[2]);
+        $this->assertEquals(5, $matrix[3]);
+    }
+
+    public function testMultiplyByMatrix()
+    {
+        $matrix1 = new Matrix(2, 2, array(4, 6, 9, 1));
+        $matrix2 = new Matrix(2, 2, array(2, 3, 4, 5));
+
+        $matrix1->multiply($matrix2);
+
+        $this->assertEquals(32, $matrix1[0]);
+        $this->assertEquals(42, $matrix1[1]);
+        $this->assertEquals(22, $matrix1[2]);
+        $this->assertEquals(32, $matrix1[3]);
+    }
+
     public function testTranspose()
     {
         $matrix = new Matrix(2, 3, array(

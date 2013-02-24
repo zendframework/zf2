@@ -20,6 +20,7 @@ use IteratorAggregate;
  */
 class Matrix implements ArrayAccess, Countable, IteratorAggregate
 {
+
     /**
      * The amount of rows that the matrix has.
      *
@@ -120,6 +121,9 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
      */
     public function getDeterminant()
     {
+        $determinant = 0.0;
+
+        return $determinant;
     }
 
     /**
@@ -153,6 +157,41 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
                 $this->data[$i] = $r == $c ? 1.0 : 0.0;
             }
         }
+    }
+
+    /**
+     * Multiplies the given scalar or Matrix with this matrix.
+     *
+     * @param scalar|Matrix $value The value to multiply with.
+     * @return Matrix
+     */
+    public function multiply($value)
+    {
+        if ($value instanceof Matrix) {
+            if ($this->rows != $value->getRowCount() || $this->columns != $value->getColumnCount()) {
+                throw new InvalidArgumentException('The matrices should be of the same dimension');
+            }
+
+            $clone = clone $this;
+            for ($r = 0; $r < $this->rows; ++$r) {
+                for ($c = 0; $c < $this->columns; ++$c) {
+                    $index = ($r * $this->columns) + $c;
+                    $this->data[$index] = 0.0;
+
+                    for ($tmp = 0; $tmp < $this->columns; ++$tmp) {
+                        $index1 = ($r * $this->columns) + $tmp;
+                        $index2 = ($tmp * $this->rows) + $c;
+
+                        $this->data[$index] += ($clone[$index1] * $value[$index2]);
+                    }
+                }
+            }
+        } else {
+            foreach ($this->data as $key => $element) {
+                $this->data[$key] *= $value;
+            }
+        }
+        return $this;
     }
 
     /**
@@ -257,4 +296,5 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     {
         return $this->toString();
     }
+
 }
