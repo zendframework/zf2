@@ -108,6 +108,30 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $matrix[3]);
     }
 
+    public function testTranspose()
+    {
+        $matrix = new Matrix(2, 3, array(
+            0, 1, 2,
+            3, 4, 5,
+        ));
+
+        $this->assertEquals(0, $matrix[0]);
+        $this->assertEquals(1, $matrix[1]);
+        $this->assertEquals(2, $matrix[2]);
+        $this->assertEquals(3, $matrix[3]);
+        $this->assertEquals(4, $matrix[4]);
+        $this->assertEquals(5, $matrix[5]);
+
+        $matrix->transpose();
+
+        $this->assertEquals(0, $matrix[0]);
+        $this->assertEquals(3, $matrix[1]);
+        $this->assertEquals(1, $matrix[2]);
+        $this->assertEquals(4, $matrix[3]);
+        $this->assertEquals(2, $matrix[4]);
+        $this->assertEquals(5, $matrix[5]);
+    }
+
     public function testToString()
     {
         $matrix = new Matrix(2, 2, array(

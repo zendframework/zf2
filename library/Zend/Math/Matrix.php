@@ -128,9 +128,30 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Transposes the rows and columns of this matrix.
+     *
+     * @return Matrix
      */
     public function transpose()
     {
+        $newData = array();
+        for ($r = 0; $r < $this->rows; ++$r) {
+            for ($c = 0; $c < $this->columns; ++$c) {
+                $ir = ($r * $this->columns) + $c;
+                $ic = ($c * $this->rows) + $r;
+                $newData[$ic] = $this->data[$ir];
+            }
+        }
+
+        ksort($newData);
+
+        // Swap the columns and rows:
+        $columns = $this->columns;
+        $this->columns = $this->rows;
+        $this->rows = $columns;
+
+        // Set the new data:
+        $this->data = $newData;
+        return $this;
     }
 
     /**
