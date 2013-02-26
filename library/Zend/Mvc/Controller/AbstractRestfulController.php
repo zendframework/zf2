@@ -377,7 +377,7 @@ abstract class AbstractRestfulController extends AbstractController
         $requestedContentType = trim($requestedContentType);
         if (array_key_exists($contentType, $this->contentTypes)) {
             foreach ($this->contentTypes[$contentType] as $contentTypeValue) {
-                if (stripos($contentTypeValue, $requestedContentType) === 0) {
+                if (stripos($contentTypeValue, $requestedContentType) !== false) {
                     return true;
                 }
             }
