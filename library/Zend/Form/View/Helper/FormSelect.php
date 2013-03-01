@@ -240,6 +240,10 @@ class FormSelect extends AbstractHelper
         if (null === $value) {
             return array();
         }
+        
+        if (is_array($value) && empty($value)) {
+            return array();
+        }
 
         if (!is_array($value)) {
             return (array) $value;
