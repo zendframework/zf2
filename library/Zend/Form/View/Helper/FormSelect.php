@@ -237,7 +237,7 @@ class FormSelect extends AbstractHelper
      */
     protected function validateMultiValue($value, array $attributes)
     {
-        if (null === $value) {
+        if (empty($value)) {
             return array();
         }
 
