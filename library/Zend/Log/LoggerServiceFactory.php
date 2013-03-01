@@ -13,27 +13,16 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Logger service factory.
- *
- * Used to configure single logger.
+ * Logger.
  */
 class LoggerServiceFactory implements FactoryInterface
 {
-    use LoggerServiceFactoryTrait;
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return \Zend\Log\Logger
-     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        // Configure the logger
         $config = $serviceLocator->get('Config');
-
-        if (isset($config['logger'])) {
-            return $this->createLogger($config['logger']);
-
-        } else {
-            return $this->getDefaultLogger();
-        }
+        $logConfig = isset($config['log']) ? $config['log'] : array();
+        $logger = new Logger($logConfig);
+        return $logger;
     }
 }
