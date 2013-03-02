@@ -321,7 +321,7 @@ class RestfulControllerTest extends TestCase
     {
         $model = $this->event->getViewModel();
         $this->controller->layout('alternate/layout');
-        $this->assertEquals('alternate/layout', $model->getTemplate());
+        $this->assertEquals('alternate/layout', $model->getOptions()->getTemplate());
     }
 
     public function testParsingDataAsJsonWillReturnAsArray()
