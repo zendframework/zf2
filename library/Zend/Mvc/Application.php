@@ -118,17 +118,23 @@ class Application implements
      * router. Attaches the ViewManager as a listener. Triggers the bootstrap
      * event.
      *
+     * @param array|Countable $listeners List of initial event listeners
      * @return Application
      */
-    public function bootstrap()
+    public function bootstrap($listeners = array())
     {
         $serviceManager = $this->serviceManager;
         $events         = $this->getEventManager();
 
-        $events->attach($serviceManager->get('RouteListener'));
-        $events->attach($serviceManager->get('DispatchListener'));
-        $events->attach($serviceManager->get('ViewManager'));
-        $events->attach($serviceManager->get('SendResponseListener'));
+        // Setup default event listeners if empty list passed
+        if (empty($listeners) || !count($listeners)) {
+            $listeners = array('RouteListener', 'DispatchListener', 'ViewManager',
+                    'SendResponseListener');
+        }
+
+        foreach ($listeners as $listener) {
+            $events->attach($serviceManager->get($listener));
+        }
 
         // Setup MVC Event
         $this->event = $event  = new MvcEvent();
@@ -233,10 +239,11 @@ class Application implements
     public static function init($configuration = array())
     {
         $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
+        $listeners = isset($configuration['listeners']) ? $configuration['listeners'] : array();
         $serviceManager = new ServiceManager(new Service\ServiceManagerConfig($smConfig));
         $serviceManager->setService('ApplicationConfig', $configuration);
         $serviceManager->get('ModuleManager')->loadModules();
-        return $serviceManager->get('Application')->bootstrap();
+        return $serviceManager->get('Application')->bootstrap($listeners);
     }
 
     /**
