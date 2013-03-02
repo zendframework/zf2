@@ -77,6 +77,7 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
     public function attach(Resolver $resolver, $priority = 1)
     {
         $this->queue->insert($resolver, $priority);
+
         return $this;
     }
 
@@ -110,6 +111,7 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
         }
 
         $this->lastLookupFailure = static::FAILURE_NOT_FOUND;
+
         return false;
     }
 

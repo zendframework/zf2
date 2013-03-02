@@ -10,23 +10,21 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\Doctype;
 use Zend\View\Helper\HtmlObject;
+use Zend\View\Renderer\PhpRenderer as View;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class HtmlObjectTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HtmlObject
+     * @var HtmlObject
      */
-    public $helper;
+    protected $helper;
+
+    /**
+     * @var View
+     */
+    protected $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -34,7 +32,7 @@ class HtmlObjectTest extends \PHPUnit_Framework_TestCase
      *
      * @access protected
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->view   = new View();
         $this->helper = new HtmlObject();

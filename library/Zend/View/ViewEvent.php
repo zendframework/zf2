@@ -60,42 +60,7 @@ class ViewEvent extends Event
     public function setModel(Model $model)
     {
         $this->model = $model;
-        return $this;
-    }
 
-    /**
-     * Set the MVC request object
-     *
-     * @param  Request $request
-     * @return ViewEvent
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
-        return $this;
-    }
-
-    /**
-     * Set the MVC response object
-     *
-     * @param  Response $response
-     * @return ViewEvent
-     */
-    public function setResponse(Response $response)
-    {
-        $this->response = $response;
-        return $this;
-    }
-
-    /**
-     * Set result of rendering
-     *
-     * @param  mixed $result
-     * @return ViewEvent
-     */
-    public function setResult($result)
-    {
-        $this->result = $result;
         return $this;
     }
 
@@ -118,6 +83,7 @@ class ViewEvent extends Event
     public function setRenderer(Renderer $renderer)
     {
         $this->renderer = $renderer;
+
         return $this;
     }
 
@@ -132,6 +98,19 @@ class ViewEvent extends Event
     }
 
     /**
+     * Set the MVC request object
+     *
+     * @param  Request $request
+     * @return ViewEvent
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
      * Retrieve the MVC request object
      *
      * @return null|Request
@@ -139,6 +118,19 @@ class ViewEvent extends Event
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * Set the MVC response object
+     *
+     * @param  Response $response
+     * @return ViewEvent
+     */
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
+
+        return $this;
     }
 
     /**
@@ -152,6 +144,19 @@ class ViewEvent extends Event
     }
 
     /**
+     * Set result of rendering
+     *
+     * @param  mixed $result
+     * @return ViewEvent
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+
+        return $this;
+    }
+
+    /**
      * Retrieve the result of rendering
      *
      * @return mixed
@@ -159,6 +164,62 @@ class ViewEvent extends Event
     public function getResult()
     {
         return $this->result;
+    }
+
+    /**
+     * Set event parameters
+     *
+     * @param  array|object|ArrayAccess $params
+     * @return ViewEvent
+     */
+    public function setParams($params)
+    {
+        parent::setParams($params);
+        if (!is_array($params) && !$params instanceof ArrayAccess) {
+            return $this;
+        }
+
+        foreach (array('model', 'renderer', 'request', 'response', 'result') as $param) {
+            if (isset($params[$param])) {
+                $method = 'set' . $param;
+                $this->$method($params[$param]);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set an individual event parameter
+     *
+     * @param  string $name
+     * @param  mixed $value
+     * @return ViewEvent
+     */
+    public function setParam($name, $value)
+    {
+        switch ($name) {
+            case 'model':
+                $this->setModel($value);
+                break;
+            case 'renderer':
+                $this->setRenderer($value);
+                break;
+            case 'request':
+                $this->setRequest($value);
+                break;
+            case 'response':
+                $this->setResponse($value);
+                break;
+            case 'result':
+                $this->setResult($value);
+                break;
+            default:
+                parent::setParam($name, $value);
+                break;
+        }
+
+        return $this;
     }
 
     /**
@@ -199,60 +260,7 @@ class ViewEvent extends Event
         $params['request']  = $this->getRequest();
         $params['response'] = $this->getResponse();
         $params['result']   = $this->getResult();
+
         return $params;
-    }
-
-    /**
-     * Set event parameters
-     *
-     * @param  array|object|ArrayAccess $params
-     * @return ViewEvent
-     */
-    public function setParams($params)
-    {
-        parent::setParams($params);
-        if (!is_array($params) && !$params instanceof ArrayAccess) {
-            return $this;
-        }
-
-        foreach (array('model', 'renderer', 'request', 'response', 'result') as $param) {
-            if (isset($params[$param])) {
-                $method = 'set' . $param;
-                $this->$method($params[$param]);
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Set an individual event parameter
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @return ViewEvent
-     */
-    public function setParam($name, $value)
-    {
-        switch ($name) {
-            case 'model':
-                $this->setModel($value);
-                break;
-            case 'renderer':
-                $this->setRenderer($value);
-                break;
-            case 'request':
-                $this->setRequest($value);
-                break;
-            case 'response':
-                $this->setResponse($value);
-                break;
-            case 'result':
-                $this->setResult($value);
-                break;
-            default:
-                parent::setParam($name, $value);
-                break;
-        }
-        return $this;
     }
 }

@@ -12,12 +12,6 @@ namespace ZendTest\View;
 
 use Zend\View\Resolver\TemplatePathStack;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- */
 class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()

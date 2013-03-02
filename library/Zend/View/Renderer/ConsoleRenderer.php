@@ -10,8 +10,11 @@
 namespace Zend\View\Renderer;
 
 use Zend\Filter\FilterChain;
+use Zend\View\Exception;
 use Zend\View\Model\ModelInterface;
-use Zend\View\Resolver\ResolverInterface;
+use Zend\View\Renderer\ConsoleRendererOptions;
+use Zend\View\Renderer\RendererInterface as Renderer;
+use Zend\View\Resolver\ResolverInterface as Resolver;
 
 /**
  * Abstract class for Zend_View to help enforce private constructs.
@@ -20,16 +23,22 @@ use Zend\View\Resolver\ResolverInterface;
  * mark them as part of the internal implementation, and thus prevent conflict
  * with variables injected into the renderer.
  */
-class ConsoleRenderer implements RendererInterface, TreeRendererInterface
+class ConsoleRenderer implements Renderer
 {
     /**
      * @var FilterChain
      */
-    protected $__filterChain;
+    protected $filterChain;
+
+    /**
+     * Renderer options
+     *
+     * @var ConsoleRendererOptions
+     */
+    protected $options;
 
     /**
      * Constructor.
-     *
      *
      * @todo handle passing helper manager, options
      * @todo handle passing filter chain, options
@@ -42,7 +51,46 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
         $this->init();
     }
 
-    public function setResolver(ResolverInterface $resolver)
+    /**
+     * Set renderer options
+     *
+     * @param  array|\Traversable|ConsoleRendererOptions $options
+     * @throws Exception\InvalidArgumentException
+     * @return ConsoleRenderer
+     */
+    public function setOptions($options)
+    {
+        if (!$options instanceof ConsoleRendererOptions) {
+            if (is_object($options) && !$options instanceof ConsoleRendererOptions) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                    'Expected instance of Zend\View\Renderer\ConsoleRendererOptions; '
+                    . 'received "%s"', get_class($options))
+                );
+            }
+
+            $options = new ConsoleRendererOptions($options);
+        }
+
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * Get renderer options
+     *
+     * @return ConsoleRendererOptions
+     */
+    public function getOptions()
+    {
+        if (!$this->options) {
+            $this->setOptions(new ConsoleRendererOptions());
+        }
+
+        return $this->options;
+    }
+
+    public function setResolver(Resolver $resolver)
     {
         return $this;
     }
@@ -52,7 +100,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
      *
      * Returns the object instance, as it is its own template engine
      *
-     * @return PhpRenderer
+     * @return ConsoleRenderer
      */
     public function getEngine()
     {
@@ -79,7 +127,8 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
      */
     public function setFilterChain(FilterChain $filters)
     {
-        $this->__filterChain = $filters;
+        $this->filterChain = $filters;
+
         return $this;
     }
 
@@ -90,19 +139,20 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
      */
     public function getFilterChain()
     {
-        if (null === $this->__filterChain) {
+        if (null === $this->filterChain) {
             $this->setFilterChain(new FilterChain());
         }
-        return $this->__filterChain;
+
+        return $this->filterChain;
     }
 
     /**
-     * Recursively processes all ViewModels and returns output.
+     * Recursively processes all models and returns output.
      *
-     * @param  string|ModelInterface   $model        A ViewModel instance.
-     * @param  null|array|\Traversable $values       Values to use when rendering. If none
-     *                                               provided, uses those in the composed
-     *                                               variables container.
+     * @param  string|ModelInterface   $model  A model instance.
+     * @param  null|array|\Traversable $values Values to use when rendering. If none
+     *                                         provided, uses those in the composed
+     *                                         variables container.
      * @return string Console output.
      */
     public function render($model, $values = null)
@@ -137,14 +187,5 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
         }
 
         return $result;
-    }
-
-    /**
-     * @see Zend\View\Renderer\TreeRendererInterface
-     * @return bool
-     */
-    public function canRenderTrees()
-    {
-        return true;
     }
 }

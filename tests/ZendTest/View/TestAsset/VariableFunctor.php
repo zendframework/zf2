@@ -10,11 +10,6 @@
 
 namespace ZendTest\View\TestAsset;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- */
 class VariableFunctor
 {
     public $value;

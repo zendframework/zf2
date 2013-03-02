@@ -11,6 +11,7 @@ namespace Zend\View\Strategy;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
+use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
 
@@ -62,6 +63,7 @@ class PhpRendererStrategy implements ListenerAggregateInterface
     public function setContentPlaceholders(array $contentPlaceholders)
     {
         $this->contentPlaceholders = $contentPlaceholders;
+
         return $this;
     }
 
@@ -112,6 +114,13 @@ class PhpRendererStrategy implements ListenerAggregateInterface
      */
     public function selectRenderer(ViewEvent $e)
     {
+        $model = $e->getModel();
+
+        // no view model; do nothing
+        if (!$model instanceof Model) {
+            return;
+        }
+
         return $this->renderer;
     }
 

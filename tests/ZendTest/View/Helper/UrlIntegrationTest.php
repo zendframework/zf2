@@ -15,15 +15,6 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Config as ServiceManagerConfig;
 use Zend\View\Helper\Url as UrlHelper;
 
-/**
- * url() helper test -- tests integration with MVC
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()

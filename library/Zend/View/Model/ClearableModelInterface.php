@@ -18,6 +18,5 @@ namespace Zend\View\Model;
 interface ClearableModelInterface
 {
     public function clearChildren();
-    public function clearOptions();
     public function clearVariables();
 }

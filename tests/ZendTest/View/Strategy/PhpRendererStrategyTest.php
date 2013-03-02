@@ -14,17 +14,33 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
 use Zend\Http\Response as HttpResponse;
 use Zend\View\Helper\Placeholder\Registry as PlaceholderRegistry;
+use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Strategy\PhpRendererStrategy;
 use Zend\View\ViewEvent;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- */
 class PhpRendererStrategyTest extends TestCase
 {
+    /**
+     * @var ViewEvent
+     */
+    protected $event;
+
+    /**
+     * @var PhpRenderer
+     */
+    protected $renderer;
+
+    /**
+     * @var HttpResponse
+     */
+    protected $response;
+
+    /**
+     * @var PhpRendererStrategy
+     */
+    protected $strategy;
+
     public function setUp()
     {
         // Necessary to ensure placeholders do not persist between individual tests
@@ -36,10 +52,18 @@ class PhpRendererStrategyTest extends TestCase
         $this->response = new HttpResponse();
     }
 
-    public function testSelectRendererAlwaysSelectsPhpRenderer()
+    public function testSelectRendererSelectsPhpRenderer()
     {
-        $result = $this->strategy->selectRenderer($this->event);
+        $event = $this->event;
+        $event->setModel(new ViewModel());
+
+        $result = $this->strategy->selectRenderer($event);
         $this->assertSame($this->renderer, $result);
+    }
+
+    public function testSelectRendererSelectsNothingPassingBadModelPhpRenderer()
+    {
+        $this->assertNull($this->strategy->selectRenderer($this->event));
     }
 
     protected function assertResponseNotInjected()

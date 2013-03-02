@@ -365,7 +365,7 @@ class ViewManager implements ListenerAggregateInterface
         }
 
         $this->viewModel = $model = $this->event->getViewModel();
-        $model->setTemplate($this->getLayoutTemplate());
+        $model->getOptions()->setTemplate($this->getLayoutTemplate());
 
         return $this->viewModel;
     }

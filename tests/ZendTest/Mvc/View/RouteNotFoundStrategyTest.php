@@ -18,13 +18,13 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\View\Http\RouteNotFoundStrategy;
 use Zend\View\Model\ViewModel;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage UnitTest
- */
 class RouteNotFoundStrategyTest extends TestCase
 {
+    /**
+     * @var RouteNotFoundStrategy
+     */
+    protected $strategy;
+
     public function setUp()
     {
         $this->strategy = new RouteNotFoundStrategy();
@@ -178,7 +178,7 @@ class RouteNotFoundStrategyTest extends TestCase
         $this->strategy->prepareNotFoundViewModel($event);
         $model = $event->getResult();
         $this->assertInstanceOf('Zend\View\Model\ModelInterface', $model);
-        $this->assertEquals($this->strategy->getNotFoundTemplate(), $model->getTemplate());
+        $this->assertEquals($this->strategy->getNotFoundTemplate(), $model->getOptions()->getTemplate());
         $variables = $model->getVariables();
         $this->assertTrue(isset($variables['message']));
     }

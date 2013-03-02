@@ -145,6 +145,7 @@ class TemplatePathStack implements ResolverInterface
         foreach ($paths as $path) {
             $this->addPath($path);
         }
+
         return $this;
     }
 
@@ -182,6 +183,7 @@ class TemplatePathStack implements ResolverInterface
         $path = rtrim($path, '/');
         $path = rtrim($path, '\\');
         $path .= DIRECTORY_SEPARATOR;
+
         return $path;
     }
 
@@ -201,6 +203,7 @@ class TemplatePathStack implements ResolverInterface
             ));
         }
         $this->paths[] = static::normalizePath($path);
+
         return $this;
     }
 
@@ -233,6 +236,7 @@ class TemplatePathStack implements ResolverInterface
     public function setLfiProtection($flag)
     {
         $this->lfiProtectionOn = (bool) $flag;
+
         return $this;
     }
 
@@ -255,6 +259,7 @@ class TemplatePathStack implements ResolverInterface
     public function setUseStreamWrapper($flag)
     {
         $this->useStreamWrapper = (bool) $flag;
+
         return $this;
     }
 
@@ -320,6 +325,7 @@ class TemplatePathStack implements ResolverInterface
         }
 
         $this->lastLookupFailure = static::FAILURE_NOT_FOUND;
+
         return false;
     }
 

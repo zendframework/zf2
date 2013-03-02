@@ -78,7 +78,7 @@ class InjectViewModelListener implements ListenerAggregateInterface
 
         $model = $e->getViewModel();
 
-        if ($result->terminate()) {
+        if ($result->getOptions()->isTerminal()) {
             $e->setViewModel($result);
             return;
         }

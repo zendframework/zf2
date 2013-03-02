@@ -12,11 +12,20 @@ namespace ZendTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
-use Zend\View\Helper\EscapeHtmlAttr as EscapeHelper;
+use Zend\Escaper\Escaper;
+use Zend\Escaper\Exception\InvalidArgumentException;
+use Zend\View\Helper\EscapeHtmlAttr;
 
 class EscapeHtmlAttrTest extends TestCase
 {
+    /**
+     * @var EscapeHtmlAttr
+     */
+    protected $helper;
 
+    /**
+     * @var array
+     */
     protected $supportedEncodings = array(
         'iso-8859-1',   'iso8859-1',    'iso-8859-5',   'iso8859-5',
         'iso-8859-15',  'iso8859-15',   'utf-8',        'cp866',
@@ -31,7 +40,7 @@ class EscapeHtmlAttrTest extends TestCase
 
     public function setUp()
     {
-        $this->helper = new EscapeHelper;
+        $this->helper = new EscapeHtmlAttr;
     }
 
     public function testUsesUtf8EncodingByDefault()
@@ -53,16 +62,16 @@ class EscapeHtmlAttrTest extends TestCase
     {
         $this->helper->setEncoding('BIG5-HKSCS');
         $escaper = $this->helper->getEscaper();
-        $this->assertTrue($escaper instanceof \Zend\Escaper\Escaper);
+        $this->assertTrue($escaper instanceof Escaper);
         $this->assertEquals('big5-hkscs', $escaper->getEncoding());
     }
 
     public function testSettingEscaperObjectAlsoSetsEncoding()
     {
-        $escaper = new \Zend\Escaper\Escaper('big5-hkscs');
+        $escaper = new Escaper('big5-hkscs');
         $this->helper->setEscaper($escaper);
         $escaper = $this->helper->getEscaper();
-        $this->assertTrue($escaper instanceof \Zend\Escaper\Escaper);
+        $this->assertTrue($escaper instanceof Escaper);
         $this->assertEquals('big5-hkscs', $escaper->getEncoding());
     }
 
@@ -94,7 +103,7 @@ class EscapeHtmlAttrTest extends TestCase
                 ),
             ),
         );
-        $test = $this->helper->__invoke($original, EscapeHelper::RECURSE_ARRAY);
+        $test = $this->helper->__invoke($original, EscapeHtmlAttr::RECURSE_ARRAY);
         $this->assertEquals($expected, $test);
     }
 
@@ -131,7 +140,7 @@ class EscapeHtmlAttrTest extends TestCase
                 ),
             ),
         );
-        $test = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
+        $test = $this->helper->__invoke($object, EscapeHtmlAttr::RECURSE_OBJECT);
         $this->assertEquals($expected, $test);
     }
 
@@ -160,7 +169,7 @@ class EscapeHtmlAttrTest extends TestCase
                 ),
             ),
         );
-        $test = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
+        $test = $this->helper->__invoke($object, EscapeHtmlAttr::RECURSE_OBJECT);
         $this->assertEquals($expected, $test);
     }
 
@@ -181,7 +190,7 @@ class EscapeHtmlAttrTest extends TestCase
     public function testSettingValidEncodingShouldNotThrowExceptions()
     {
         foreach ($this->supportedEncodings as $value) {
-            $helper = new EscapeHelper;
+            $helper = new EscapeHtmlAttr;
             $helper->setEncoding($value);
             $helper->getEscaper();
         }

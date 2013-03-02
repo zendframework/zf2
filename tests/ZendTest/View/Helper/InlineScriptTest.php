@@ -10,30 +10,20 @@
 
 namespace ZendTest\View\Helper;
 
+use Zend\View\Helper\InlineScript;
 use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper;
 
-
-/**
- * Test class for Zend_View_Helper_InlineScript.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class InlineScriptTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_InlineScript
-     */
-    public $helper;
-
-    /**
      * @var string
      */
-    public $basePath;
+    protected $basePath;
+
+    /**
+     * @var InlineScript
+     */
+    protected $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -45,7 +35,7 @@ class InlineScriptTest extends \PHPUnit_Framework_TestCase
     {
         Registry::unsetRegistry();
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new Helper\InlineScript();
+        $this->helper = new InlineScript();
     }
 
     /**
@@ -66,13 +56,13 @@ class InlineScriptTest extends \PHPUnit_Framework_TestCase
             $registry->deleteContainer('Zend_View_Helper_InlineScript');
         }
         $this->assertFalse($registry->containerExists('Zend_View_Helper_InlineScript'));
-        $helper = new Helper\InlineScript();
+        $helper = new InlineScript();
         $this->assertTrue($registry->containerExists('Zend_View_Helper_InlineScript'));
     }
 
     public function testInlineScriptReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertTrue($placeholder instanceof Helper\InlineScript);
+        $this->assertTrue($placeholder instanceof InlineScript);
     }
 }

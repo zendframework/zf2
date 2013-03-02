@@ -17,13 +17,23 @@ use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\View\Http\InjectViewModelListener;
 use Zend\View\Model\ViewModel;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage UnitTest
- */
 class InjectViewModelListenerTest extends TestCase
 {
+    /**
+     * @var MvcEvent
+     */
+    protected $event;
+
+    /**
+     * @var InjectViewModelListener
+     */
+    protected $listener;
+
+    /**
+     * @var RouteMatch
+     */
+    protected $routeMatch;
+
     public function setUp()
     {
         $this->listener   = new InjectViewModelListener();
@@ -35,7 +45,7 @@ class InjectViewModelListenerTest extends TestCase
     public function testReplacesEventModelWithChildModelIfChildIsMarkedTerminal()
     {
         $childModel  = new ViewModel();
-        $childModel->setTerminal(true);
+        $childModel->getOptions()->setTerminal(true);
         $this->event->setResult($childModel);
 
         $this->listener->injectViewModel($this->event);

@@ -12,11 +12,6 @@ namespace ZendTest\View\Renderer\TestAsset;
 
 use JsonSerializable;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- */
 class JsonModel implements JsonSerializable
 {
     public $value = false;

@@ -44,18 +44,7 @@ class View implements EventManagerAwareInterface
     public function setRequest(Request $request)
     {
         $this->request = $request;
-        return $this;
-    }
 
-    /**
-     * Set MVC response object
-     *
-     * @param  Response $response
-     * @return View
-     */
-    public function setResponse(Response $response)
-    {
-        $this->response = $response;
         return $this;
     }
 
@@ -70,6 +59,19 @@ class View implements EventManagerAwareInterface
     }
 
     /**
+     * Set MVC response object
+     *
+     * @param  Response $response
+     * @return View
+     */
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
+
+        return $this;
+    }
+
+    /**
      * Get MVC response object
      *
      * @return null|Response
@@ -77,6 +79,25 @@ class View implements EventManagerAwareInterface
     public function getResponse()
     {
         return $this->response;
+    }
+
+    /**
+     * Create and return ViewEvent used by render()
+     *
+     * @return ViewEvent
+     */
+    protected function getEvent()
+    {
+        $event = new ViewEvent();
+        $event->setTarget($this);
+        if (null !== ($request = $this->getRequest())) {
+            $event->setRequest($request);
+        }
+        if (null !== ($response = $this->getResponse())) {
+            $event->setResponse($response);
+        }
+
+        return $event;
     }
 
     /**
@@ -92,6 +113,7 @@ class View implements EventManagerAwareInterface
             get_called_class(),
         ));
         $this->events = $events;
+
         return $this;
     }
 
@@ -107,6 +129,7 @@ class View implements EventManagerAwareInterface
         if (!$this->events instanceof EventManagerInterface) {
             $this->setEventManager(new EventManager());
         }
+
         return $this->events;
     }
 
@@ -126,6 +149,7 @@ class View implements EventManagerAwareInterface
     public function addRenderingStrategy($callable, $priority = 1)
     {
         $this->getEventManager()->attach(ViewEvent::EVENT_RENDERER, $callable, $priority);
+
         return $this;
     }
 
@@ -147,6 +171,7 @@ class View implements EventManagerAwareInterface
     public function addResponseStrategy($callable, $priority = 1)
     {
         $this->getEventManager()->attach(ViewEvent::EVENT_RESPONSE, $callable, $priority);
+
         return $this;
     }
 
@@ -188,8 +213,8 @@ class View implements EventManagerAwareInterface
         // a) the renderer does not implement TreeRendererInterface, or
         // b) it does, but canRenderTrees() returns false
         if ($model->hasChildren()
-            && (!$renderer instanceof TreeRendererInterface
-                || !$renderer->canRenderTrees())
+            && (!$renderer->getOptions() instanceof TreeRendererInterface
+                || !$renderer->getOptions()->canRenderTrees())
         ) {
             $this->renderChildren($model);
         }
@@ -202,8 +227,7 @@ class View implements EventManagerAwareInterface
 
         // If this is a child model, return the rendered content; do not
         // invoke the response strategy.
-        $options = $model->getOptions();
-        if (array_key_exists('has_parent', $options) && $options['has_parent']) {
+        if ($model->getOptions()->getHasParent()) {
             return $rendered;
         }
 
@@ -222,15 +246,15 @@ class View implements EventManagerAwareInterface
     protected function renderChildren(Model $model)
     {
         foreach ($model as $child) {
-            if ($child->terminate()) {
+            if ($child->getOptions()->isTerminal()) {
                 throw new Exception\DomainException('Inconsistent state; child view model is marked as terminal');
             }
-            $child->setOption('has_parent', true);
+            $child->getOptions()->setHasParent(true);
             $result  = $this->render($child);
-            $child->setOption('has_parent', null);
-            $capture = $child->captureTo();
+            $child->getOptions()->setHasParent(false);
+            $capture = $child->getOptions()->captureTo();
             if (!empty($capture)) {
-                if ($child->isAppend()) {
+                if ($child->getOptions()->isAppend()) {
                     $oldResult=$model->{$capture};
                     $model->setVariable($capture, $oldResult . $result);
                 } else {
@@ -238,23 +262,5 @@ class View implements EventManagerAwareInterface
                 }
             }
         }
-    }
-
-    /**
-     * Create and return ViewEvent used by render()
-     *
-     * @return ViewEvent
-     */
-    protected function getEvent()
-    {
-        $event = new ViewEvent();
-        $event->setTarget($this);
-        if (null !== ($request = $this->getRequest())) {
-            $event->setRequest($request);
-        }
-        if (null !== ($response = $this->getResponse())) {
-            $event->setResponse($response);
-        }
-        return $event;
     }
 }

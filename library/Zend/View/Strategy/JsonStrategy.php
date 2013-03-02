@@ -92,6 +92,7 @@ class JsonStrategy implements ListenerAggregateInterface
     public function setCharset($charset)
     {
         $this->charset = (string) $charset;
+
         return $this;
     }
 
@@ -116,8 +117,8 @@ class JsonStrategy implements ListenerAggregateInterface
     {
         $model = $e->getModel();
 
+        // no JsonModel; do nothing
         if (!$model instanceof Model\JsonModel) {
-            // no JsonModel; do nothing
             return;
         }
 
@@ -150,7 +151,7 @@ class JsonStrategy implements ListenerAggregateInterface
         $response->setContent($result);
         $headers = $response->getHeaders();
 
-        if ($this->renderer->hasJsonpCallback()) {
+        if ($this->renderer->getOptions()->hasJsonpCallback()) {
             $contentType = 'application/javascript';
         } else {
             $contentType = 'application/json';

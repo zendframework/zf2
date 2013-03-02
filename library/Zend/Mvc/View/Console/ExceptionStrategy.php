@@ -222,7 +222,7 @@ EOT;
                 // Prepare view model
                 $model = new ConsoleModel();
                 $model->setResult($message);
-                $model->setErrorLevel(1);
+                $model->getOptions()->setErrorLevel(1);
 
                 // Inject it into MvcEvent
                 $e->setResult($model);

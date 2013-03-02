@@ -10,31 +10,33 @@
 
 namespace ZendTest\View\Helper;
 
+use Zend\View\Exception\ExceptionInterface as ViewException;
+use Zend\View\Helper\Doctype;
+use Zend\View\Helper\HeadMeta;
 use Zend\View\Helper\Placeholder\Registry as PlaceholderRegistry;
 use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper;
-use Zend\View\Exception\ExceptionInterface as ViewException;
 
-/**
- * Test class for Zend_View_Helper_HeadMeta.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class HeadMetaTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HeadMeta
-     */
-    public $helper;
-
-    /**
      * @var string
      */
-    public $basePath;
+    protected $basePath;
+
+    /**
+     * @var bool
+     */
+    protected $error;
+
+    /**
+     * @var HeadMeta
+     */
+    protected $helper;
+
+    /**
+     * @var View
+     */
+    protected $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -46,11 +48,11 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     {
         $this->error = false;
         PlaceholderRegistry::unsetRegistry();
-        Helper\Doctype::unsetDoctypeRegistry();
+        Doctype::unsetDoctypeRegistry();
         $this->basePath = __DIR__ . '/_files/modules';
         $this->view     = new View();
         $this->view->plugin('doctype')->__invoke('XHTML1_STRICT');
-        $this->helper   = new Helper\HeadMeta();
+        $this->helper   = new HeadMeta();
         $this->helper->setView($this->view);
     }
 
@@ -77,14 +79,14 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
             $registry->deleteContainer('Zend_View_Helper_HeadMeta');
         }
         $this->assertFalse($registry->containerExists('Zend_View_Helper_HeadMeta'));
-        $helper = new Helper\HeadMeta();
+        $helper = new HeadMeta();
         $this->assertTrue($registry->containerExists('Zend_View_Helper_HeadMeta'));
     }
 
     public function testHeadMetaReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertTrue($placeholder instanceof Helper\HeadMeta);
+        $this->assertTrue($placeholder instanceof HeadMeta);
     }
 
     public function testAppendPrependAndSetThrowExceptionsWhenNonMetaValueProvided()

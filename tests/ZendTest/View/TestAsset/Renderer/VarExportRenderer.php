@@ -14,13 +14,13 @@ use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Resolver\ResolverInterface as Resolver;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- */
 class VarExportRenderer implements Renderer
 {
+    /**
+     * @var VarExportRendererOptions
+     */
+    protected $options;
+
     public function getEngine()
     {
         return 'var_export';
@@ -29,6 +29,20 @@ class VarExportRenderer implements Renderer
     public function setResolver(Resolver $resolver)
     {
         // Deliberately empty
+    }
+
+    /**
+     * Get renderer options
+     *
+     * @return VarExportRendererOptions
+     */
+    public function getOptions()
+    {
+        if (!$this->options) {
+            $this->options = new VarExportRendererOptions();
+        }
+
+        return $this->options;
     }
 
     public function render($nameOrModel, $values = null)

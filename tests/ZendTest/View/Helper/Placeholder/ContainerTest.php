@@ -10,22 +10,14 @@
 
 namespace ZendTest\View\Helper\Placeholder;
 
+use Zend\View\Helper\Placeholder\Container;
 
-/**
- * Test class for Zend_View_Helper_Placeholder_Container.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_Placeholder_Container
+     * @var Container
      */
-    public $container;
+    protected $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -35,7 +27,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->container = new \Zend\View\Helper\Placeholder\Container(array());
+        $this->helper = new Container(array());
     }
 
     /**
@@ -46,7 +38,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        unset($this->container);
+        unset($this->helper);
     }
 
     /**
@@ -54,14 +46,14 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetSetsASingleValue()
     {
-        $this->container['foo'] = 'bar';
-        $this->container['bar'] = 'baz';
-        $this->assertEquals('bar', $this->container['foo']);
-        $this->assertEquals('baz', $this->container['bar']);
+        $this->helper['foo'] = 'bar';
+        $this->helper['bar'] = 'baz';
+        $this->assertEquals('bar', $this->helper['foo']);
+        $this->assertEquals('baz', $this->helper['bar']);
 
-        $this->container->set('foo');
-        $this->assertEquals(1, count($this->container));
-        $this->assertEquals('foo', $this->container[0]);
+        $this->helper->set('foo');
+        $this->assertEquals(1, count($this->helper));
+        $this->assertEquals('foo', $this->helper[0]);
     }
 
     /**
@@ -69,8 +61,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetValueReturnsScalarWhenOneElementRegistered()
     {
-        $this->container->set('foo');
-        $this->assertEquals('foo', $this->container->getValue());
+        $this->helper->set('foo');
+        $this->assertEquals('foo', $this->helper->getValue());
     }
 
     /**
@@ -78,10 +70,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetValueReturnsArrayWhenMultipleValuesPresent()
     {
-        $this->container['foo'] = 'bar';
-        $this->container['bar'] = 'baz';
+        $this->helper['foo'] = 'bar';
+        $this->helper['bar'] = 'baz';
         $expected = array('foo' => 'bar', 'bar' => 'baz');
-        $return   = $this->container->getValue();
+        $return   = $this->helper->getValue();
         $this->assertEquals($expected, $return);
     }
 
@@ -90,9 +82,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrefixAccesorsWork()
     {
-        $this->assertEquals('', $this->container->getPrefix());
-        $this->container->setPrefix('<ul><li>');
-        $this->assertEquals('<ul><li>', $this->container->getPrefix());
+        $this->assertEquals('', $this->helper->getPrefix());
+        $this->helper->setPrefix('<ul><li>');
+        $this->assertEquals('<ul><li>', $this->helper->getPrefix());
     }
 
     /**
@@ -100,8 +92,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetPrefixImplementsFluentInterface()
     {
-        $result = $this->container->setPrefix('<ul><li>');
-        $this->assertSame($this->container, $result);
+        $result = $this->helper->setPrefix('<ul><li>');
+        $this->assertSame($this->helper, $result);
     }
 
     /**
@@ -109,9 +101,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPostfixAccesorsWork()
     {
-        $this->assertEquals('', $this->container->getPostfix());
-        $this->container->setPostfix('</li></ul>');
-        $this->assertEquals('</li></ul>', $this->container->getPostfix());
+        $this->assertEquals('', $this->helper->getPostfix());
+        $this->helper->setPostfix('</li></ul>');
+        $this->assertEquals('</li></ul>', $this->helper->getPostfix());
     }
 
     /**
@@ -119,8 +111,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetPostfixImplementsFluentInterface()
     {
-        $result = $this->container->setPostfix('</li></ul>');
-        $this->assertSame($this->container, $result);
+        $result = $this->helper->setPostfix('</li></ul>');
+        $this->assertSame($this->helper, $result);
     }
 
     /**
@@ -129,8 +121,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testPrependImplementsFluentInterface()
     {
-        $result = $this->container->prepend( 'test' );
-        $this->assertSame($this->container, $result);
+        $result = $this->helper->prepend( 'test' );
+        $this->assertSame($this->helper, $result);
     }
 
     /**
@@ -138,8 +130,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetImplementsFluentInterface()
     {
-        $result = $this->container->set( 'test' );
-        $this->assertSame($this->container, $result);
+        $result = $this->helper->set( 'test' );
+        $this->assertSame($this->helper, $result);
     }
 
 
@@ -148,9 +140,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSeparatorAccesorsWork()
     {
-        $this->assertEquals('', $this->container->getSeparator());
-        $this->container->setSeparator('</li><li>');
-        $this->assertEquals('</li><li>', $this->container->getSeparator());
+        $this->assertEquals('', $this->helper->getSeparator());
+        $this->helper->setSeparator('</li><li>');
+        $this->assertEquals('</li><li>', $this->helper->getSeparator());
     }
 
     /**
@@ -158,8 +150,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetSeparatorImplementsFluentInterface()
     {
-        $result = $this->container->setSeparator('</li><li>');
-        $this->assertSame($this->container, $result);
+        $result = $this->helper->setSeparator('</li><li>');
+        $this->assertSame($this->helper, $result);
     }
 
     /**
@@ -167,11 +159,11 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testIndentAccesorsWork()
     {
-        $this->assertEquals('', $this->container->getIndent());
-        $this->container->setIndent('    ');
-        $this->assertEquals('    ', $this->container->getIndent());
-        $this->container->setIndent(5);
-        $this->assertEquals('     ', $this->container->getIndent());
+        $this->assertEquals('', $this->helper->getIndent());
+        $this->helper->setIndent('    ');
+        $this->assertEquals('    ', $this->helper->getIndent());
+        $this->helper->setIndent(5);
+        $this->assertEquals('     ', $this->helper->getIndent());
     }
 
     /**
@@ -179,8 +171,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetIndentImplementsFluentInterface()
     {
-        $result = $this->container->setIndent('    ');
-        $this->assertSame($this->container, $result);
+        $result = $this->helper->setIndent('    ');
+        $this->assertSame($this->helper, $result);
     }
 
     /**
@@ -188,11 +180,11 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCapturingToPlaceholderStoresContent()
     {
-        $this->container->captureStart();
+        $this->helper->captureStart();
         echo 'This is content intended for capture';
-        $this->container->captureEnd();
+        $this->helper->captureEnd();
 
-        $value = $this->container->getValue();
+        $value = $this->helper->getValue();
         $this->assertContains('This is content intended for capture', $value);
     }
 
@@ -201,16 +193,16 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCapturingToPlaceholderAppendsContent()
     {
-        $this->container[] = 'foo';
-        $originalCount = count($this->container);
+        $this->helper[] = 'foo';
+        $originalCount = count($this->helper);
 
-        $this->container->captureStart();
+        $this->helper->captureStart();
         echo 'This is content intended for capture';
-        $this->container->captureEnd();
+        $this->helper->captureEnd();
 
-        $this->assertEquals($originalCount + 1, count($this->container));
+        $this->assertEquals($originalCount + 1, count($this->helper));
 
-        $value     = $this->container->getValue();
+        $value     = $this->helper->getValue();
         $keys      = array_keys($value);
         $lastIndex = array_pop($keys);
         $this->assertEquals('foo', $value[$lastIndex - 1]);
@@ -222,16 +214,16 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCapturingToPlaceholderUsingPrependPrependsContent()
     {
-        $this->container[] = 'foo';
-        $originalCount = count($this->container);
+        $this->helper[] = 'foo';
+        $originalCount = count($this->helper);
 
-        $this->container->captureStart('PREPEND');
+        $this->helper->captureStart('PREPEND');
         echo 'This is content intended for capture';
-        $this->container->captureEnd();
+        $this->helper->captureEnd();
 
-        $this->assertEquals($originalCount + 1, count($this->container));
+        $this->assertEquals($originalCount + 1, count($this->helper));
 
-        $value     = $this->container->getValue();
+        $value     = $this->helper->getValue();
         $keys      = array_keys($value);
         $lastIndex = array_pop($keys);
         $this->assertEquals('foo', $value[$lastIndex]);
@@ -243,14 +235,14 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCapturingToPlaceholderUsingSetOverwritesContent()
     {
-        $this->container[] = 'foo';
-        $this->container->captureStart('SET');
+        $this->helper[] = 'foo';
+        $this->helper->captureStart('SET');
         echo 'This is content intended for capture';
-        $this->container->captureEnd();
+        $this->helper->captureEnd();
 
-        $this->assertEquals(1, count($this->container));
+        $this->assertEquals(1, count($this->helper));
 
-        $value = $this->container->getValue();
+        $value = $this->helper->getValue();
         $this->assertContains('This is content intended for capture', $value);
     }
 
@@ -259,13 +251,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCapturingToPlaceholderKeyUsingSetCapturesContent()
     {
-        $this->container->captureStart('SET', 'key');
+        $this->helper->captureStart('SET', 'key');
         echo 'This is content intended for capture';
-        $this->container->captureEnd();
+        $this->helper->captureEnd();
 
-        $this->assertEquals(1, count($this->container));
-        $this->assertTrue(isset($this->container['key']));
-        $value = $this->container['key'];
+        $this->assertEquals(1, count($this->helper));
+        $this->assertTrue(isset($this->helper['key']));
+        $value = $this->helper['key'];
         $this->assertContains('This is content intended for capture', $value);
     }
 
@@ -274,14 +266,14 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCapturingToPlaceholderKeyUsingSetReplacesContentAtKey()
     {
-        $this->container['key'] = 'Foobar';
-        $this->container->captureStart('SET', 'key');
+        $this->helper['key'] = 'Foobar';
+        $this->helper->captureStart('SET', 'key');
         echo 'This is content intended for capture';
-        $this->container->captureEnd();
+        $this->helper->captureEnd();
 
-        $this->assertEquals(1, count($this->container));
-        $this->assertTrue(isset($this->container['key']));
-        $value = $this->container['key'];
+        $this->assertEquals(1, count($this->helper));
+        $this->assertTrue(isset($this->helper['key']));
+        $value = $this->helper['key'];
         $this->assertContains('This is content intended for capture', $value);
     }
 
@@ -290,14 +282,14 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCapturingToPlaceholderKeyUsingAppendAppendsContentAtKey()
     {
-        $this->container['key'] = 'Foobar ';
-        $this->container->captureStart('APPEND', 'key');
+        $this->helper['key'] = 'Foobar ';
+        $this->helper->captureStart('APPEND', 'key');
         echo 'This is content intended for capture';
-        $this->container->captureEnd();
+        $this->helper->captureEnd();
 
-        $this->assertEquals(1, count($this->container));
-        $this->assertTrue(isset($this->container['key']));
-        $value = $this->container['key'];
+        $this->assertEquals(1, count($this->helper));
+        $this->assertTrue(isset($this->helper['key']));
+        $value = $this->helper['key'];
         $this->assertContains('Foobar This is content intended for capture', $value);
     }
 
@@ -306,15 +298,15 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNestedCapturesThrowsException()
     {
-        $this->container[] = 'foo';
+        $this->helper[] = 'foo';
         $caught = false;
         try {
-            $this->container->captureStart('SET');
-                $this->container->captureStart('SET');
-                $this->container->captureEnd();
-            $this->container->captureEnd();
+            $this->helper->captureStart('SET');
+                $this->helper->captureStart('SET');
+                $this->helper->captureEnd();
+            $this->helper->captureEnd();
         } catch (\Exception $e) {
-            $this->container->captureEnd();
+            $this->helper->captureEnd();
             $caught = true;
         }
 
@@ -326,9 +318,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testToStringWithNoModifiersAndSingleValueReturnsValue()
     {
-        $this->container->set('foo');
-        $value = $this->container->toString();
-        $this->assertEquals($this->container->getValue(), $value);
+        $this->helper->set('foo');
+        $value = $this->helper->toString();
+        $this->assertEquals($this->helper->getValue(), $value);
     }
 
     /**
@@ -336,10 +328,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testToStringWithModifiersAndSingleValueReturnsFormattedValue()
     {
-        $this->container->set('foo');
-        $this->container->setPrefix('<li>')
+        $this->helper->set('foo');
+        $this->helper->setPrefix('<li>')
                         ->setPostfix('</li>');
-        $value = $this->container->toString();
+        $value = $this->helper->toString();
         $this->assertEquals('<li>foo</li>', $value);
     }
 
@@ -348,10 +340,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testToStringWithNoModifiersAndCollectionReturnsImplodedString()
     {
-        $this->container[] = 'foo';
-        $this->container[] = 'bar';
-        $this->container[] = 'baz';
-        $value = $this->container->toString();
+        $this->helper[] = 'foo';
+        $this->helper[] = 'bar';
+        $this->helper[] = 'baz';
+        $value = $this->helper->toString();
         $this->assertEquals('foobarbaz', $value);
     }
 
@@ -360,13 +352,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testToStringWithModifiersAndCollectionReturnsFormattedString()
     {
-        $this->container[] = 'foo';
-        $this->container[] = 'bar';
-        $this->container[] = 'baz';
-        $this->container->setPrefix('<ul><li>')
+        $this->helper[] = 'foo';
+        $this->helper[] = 'bar';
+        $this->helper[] = 'baz';
+        $this->helper->setPrefix('<ul><li>')
                         ->setSeparator('</li><li>')
                         ->setPostfix('</li></ul>');
-        $value = $this->container->toString();
+        $value = $this->helper->toString();
         $this->assertEquals('<ul><li>foo</li><li>bar</li><li>baz</li></ul>', $value);
     }
 
@@ -375,14 +367,14 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testToStringWithModifiersAndCollectionReturnsFormattedStringWithIndentation()
     {
-        $this->container[] = 'foo';
-        $this->container[] = 'bar';
-        $this->container[] = 'baz';
-        $this->container->setPrefix('<ul><li>')
+        $this->helper[] = 'foo';
+        $this->helper[] = 'bar';
+        $this->helper[] = 'baz';
+        $this->helper->setPrefix('<ul><li>')
                         ->setSeparator('</li>' . PHP_EOL . '<li>')
                         ->setPostfix('</li></ul>')
                         ->setIndent('    ');
-        $value = $this->container->toString();
+        $value = $this->helper->toString();
         $expectedValue = '    <ul><li>foo</li>' . PHP_EOL . '    <li>bar</li>' . PHP_EOL . '    <li>baz</li></ul>';
         $this->assertEquals($expectedValue, $value);
     }
@@ -392,13 +384,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function test__toStringProxiesToToString()
     {
-        $this->container[] = 'foo';
-        $this->container[] = 'bar';
-        $this->container[] = 'baz';
-        $this->container->setPrefix('<ul><li>')
+        $this->helper[] = 'foo';
+        $this->helper[] = 'bar';
+        $this->helper[] = 'baz';
+        $this->helper->setPrefix('<ul><li>')
                         ->setSeparator('</li><li>')
                         ->setPostfix('</li></ul>');
-        $value = $this->container->__toString();
+        $value = $this->helper->__toString();
         $this->assertEquals('<ul><li>foo</li><li>bar</li><li>baz</li></ul>', $value);
     }
 
@@ -407,24 +399,24 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrependPushesValueToTopOfContainer()
     {
-        $this->container['foo'] = 'bar';
-        $this->container->prepend('baz');
+        $this->helper['foo'] = 'bar';
+        $this->helper->prepend('baz');
 
         $expected = array('baz', 'foo' => 'bar');
-        $array = $this->container->getArrayCopy();
+        $array = $this->helper->getArrayCopy();
         $this->assertSame($expected, $array);
     }
 
     public function testIndentationIsHonored()
     {
-        $this->container->setIndent(4)
+        $this->helper->setIndent(4)
                         ->setPrefix("<ul>\n    <li>")
                         ->setSeparator("</li>\n    <li>")
                         ->setPostfix("</li>\n</ul>");
-        $this->container->append('foo');
-        $this->container->append('bar');
-        $this->container->append('baz');
-        $string = $this->container->toString();
+        $this->helper->append('foo');
+        $this->helper->append('bar');
+        $this->helper->append('baz');
+        $string = $this->helper->toString();
 
         $lis = substr_count($string, "\n        <li>");
         $this->assertEquals(3, $lis);
