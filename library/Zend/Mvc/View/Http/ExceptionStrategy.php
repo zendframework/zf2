@@ -142,13 +142,14 @@ class ExceptionStrategy implements ListenerAggregateInterface
 
             case Application::ERROR_EXCEPTION:
             default:
-                if ($e->getRequest()->getHeaders()->get('Accept')->match('application/json')){
+                $accept = $e->getRequest()->getHeaders()->get('Accept');
+                if ($accept && $accept->match('application/json')){
                     $model = new JsonModel;
                 } else {
                     $model = new ViewModel;
                 }
 
-                $model->setVariables(array(                
+                $model->setVariables(array(
                     'message'            => 'An error occurred during execution; please try again later.',
                     'exception'          => $e->getParam('exception'),
                     'display_exceptions' => $this->displayExceptions(),
