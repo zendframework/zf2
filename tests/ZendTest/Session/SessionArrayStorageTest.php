@@ -11,6 +11,7 @@
 namespace ZendTest\Session;
 
 use Zend\Session\Storage\SessionArrayStorage;
+use Zend\Session\SessionManager;
 use Zend\Session\Container;
 
 /**
@@ -164,6 +165,17 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
             'baz' => array('foo' => 'bar'),
         );
         $this->assertSame($expected, $this->storage->toArray(true));
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testRequestTimeFalseSetsToCurrentTime()
+    {
+        $ts = $this->storage->getRequestAccessTime();
+        $manager = new SessionManager(null, $this->storage);
+        $manager->start();
+        $this->assertNotEmpty($this->storage->getRequestAccessTime());
     }
 
 }
