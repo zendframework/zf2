@@ -197,6 +197,9 @@ abstract class AbstractSessionArrayStorage implements IteratorAggregate, Storage
     {
         $ts = $this->getRequestAccessTime();
         $_SESSION = $array;
+        if (!$ts) {
+            $ts = microtime(true);
+        }
         $this->setRequestAccessTime($ts);
 
         return $this;
