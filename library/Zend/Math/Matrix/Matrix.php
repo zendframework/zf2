@@ -371,6 +371,16 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Converts the Matrix to a flat array with the data.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->data;
+    }
+
+    /**
      * Converts this matrix to a string.
      *
      * @return string
