@@ -71,7 +71,7 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     public function add($value)
     {
         if ($value instanceof Matrix) {
-            if ($this->rows != $value->getRowCount() || $this->columns != $value->getColumnCount()) {
+            if ($this->rows != $value->getNbRows() || $this->columns != $value->getNbColumns()) {
                 throw new InvalidArgumentException('The matrices should be of the same dimension');
             }
 
@@ -116,7 +116,7 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return int
      */
-    public function getColumnCount()
+    public function getNbColumns()
     {
         return $this->columns;
     }
@@ -126,7 +126,7 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return int
      */
-    public function getRowCount()
+    public function getNbRows()
     {
         return $this->rows;
     }
@@ -270,7 +270,7 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     public function multiply($value)
     {
         if ($value instanceof Matrix) {
-            if ($this->rows != $value->getRowCount() || $this->columns != $value->getColumnCount()) {
+            if ($this->rows != $value->getNbRows() || $this->columns != $value->getNbColumns()) {
                 throw new InvalidArgumentException('The matrices should be of the same dimension');
             }
 
@@ -305,7 +305,7 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     public function subtract($value)
     {
         if ($value instanceof Matrix) {
-            if ($this->rows != $value->getRowCount() || $this->columns != $value->getColumnCount()) {
+            if ($this->rows != $value->getNbRows() || $this->columns != $value->getNbColumns()) {
                 throw new InvalidArgumentException('The matrices should be of the same dimension');
             }
 

@@ -13,28 +13,28 @@ class MatrixUtils
 {
     public static function add(Matrix $left, $right)
     {
-        $result = new Matrix($left->getRowCount(), $left->getColumnCount(), $left->toArray());
+        $result = new Matrix($left->getNbRows(), $left->getNbColumns(), $left->toArray());
         $result->add($right);
         return $result;
     }
 
     public static function divide(Matrix $matrix, $scalar)
     {
-        $result = new Matrix($matrix->getRowCount(), $matrix->getColumnCount(), $matrix->toArray());
+        $result = new Matrix($matrix->getNbRows(), $matrix->getNbColumns(), $matrix->toArray());
         $result->divide($scalar);
         return $result;
     }
 
     public static function multiply(Matrix $left, $right)
     {
-        $result = new Matrix($left->getRowCount(), $left->getColumnCount(), $left->toArray());
+        $result = new Matrix($left->getNbRows(), $left->getNbColumns(), $left->toArray());
         $result->multiply($right);
         return $result;
     }
 
     public static function subtract(Matrix $left, $right)
     {
-        $result = new Matrix($left->getRowCount(), $left->getColumnCount(), $left->toArray());
+        $result = new Matrix($left->getNbRows(), $left->getNbColumns(), $left->toArray());
         $result->subtract($right);
         return $result;
     }
@@ -48,7 +48,7 @@ class MatrixUtils
 
     public static function createSubmatrix(Matrix $matrix, $excludeRow, $excludeColumn)
     {
-        $result = new Matrix($matrix->getRowCount() - 1, $matrix->getColumnCount() - 1);
+        $result = new Matrix($matrix->getNbRows() - 1, $matrix->getNbColumns() - 1);
 
         $newRow = 0;
         foreach ($matrix->getRows() as $r => $row) {
@@ -62,7 +62,7 @@ class MatrixUtils
                     continue;
                 }
 
-                $index = ($newRow * $result->getRowCount()) + $newColumn;
+                $index = ($newRow * $result->getNbRows()) + $newColumn;
                 $result[$index] = $value;
 
                 $newColumn++;

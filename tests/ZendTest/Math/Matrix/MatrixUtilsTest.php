@@ -110,8 +110,8 @@ class MatrixUtilsTest extends \PHPUnit_Framework_TestCase
         ));
         $matrix2 = MatrixUtils::createSubmatrix($matrix1, 1, 2);
 
-        $this->assertEquals(2, $matrix2->getRowCount());
-        $this->assertEquals(2, $matrix2->getColumnCount());
+        $this->assertEquals(2, $matrix2->getNbRows());
+        $this->assertEquals(2, $matrix2->getNbColumns());
 
         $this->assertEquals(1, $matrix2[0]);
         $this->assertEquals(2, $matrix2[1]);

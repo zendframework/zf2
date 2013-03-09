@@ -24,8 +24,8 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
     {
         $matrix = new Matrix(2, 2);
 
-        $this->assertEquals(2, $matrix->getRowCount());
-        $this->assertEquals(2, $matrix->getColumnCount());
+        $this->assertEquals(2, $matrix->getNbRows());
+        $this->assertEquals(2, $matrix->getNbColumns());
 
         $this->assertEquals(0, $matrix[0]);
         $this->assertEquals(0, $matrix[1]);
@@ -37,8 +37,8 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
     {
         $matrix = new Matrix(2, 2, array(1, 2));
 
-        $this->assertEquals(2, $matrix->getRowCount());
-        $this->assertEquals(2, $matrix->getColumnCount());
+        $this->assertEquals(2, $matrix->getNbRows());
+        $this->assertEquals(2, $matrix->getNbColumns());
 
         $this->assertEquals(1, $matrix[0]);
         $this->assertEquals(2, $matrix[1]);
@@ -50,8 +50,8 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
     {
         $matrix = new Matrix(2, 2, array(1, 2, 3, 4));
 
-        $this->assertEquals(2, $matrix->getRowCount());
-        $this->assertEquals(2, $matrix->getColumnCount());
+        $this->assertEquals(2, $matrix->getNbRows());
+        $this->assertEquals(2, $matrix->getNbColumns());
 
         $this->assertEquals(1, $matrix[0]);
         $this->assertEquals(2, $matrix[1]);
@@ -122,8 +122,8 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
     {
         $matrix = new Matrix(2, 2);
 
-        $this->assertEquals(2, $matrix->getRowCount());
-        $this->assertEquals(2, $matrix->getColumnCount());
+        $this->assertEquals(2, $matrix->getNbRows());
+        $this->assertEquals(2, $matrix->getNbColumns());
     }
 
     public function testDeterminantNonSquare()
