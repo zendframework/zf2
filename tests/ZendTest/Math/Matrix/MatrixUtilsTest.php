@@ -118,4 +118,25 @@ class MatrixUtilsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(7, $matrix2[2]);
         $this->assertEquals(8, $matrix2[3]);
     }
+
+    public function testTranspose()
+    {
+        $old = new Matrix(2, 2, array(
+            1, 2,
+            3, 4,
+        ));
+        $new = MatrixUtils::transpose($old);
+
+        // The old matrix should have stayed the same:
+        $this->assertEquals(1, $old[0]);
+        $this->assertEquals(2, $old[1]);
+        $this->assertEquals(3, $old[2]);
+        $this->assertEquals(4, $old[3]);
+
+        // And the new matrix should be transposed:
+        $this->assertEquals(1, $new[0]);
+        $this->assertEquals(3, $new[1]);
+        $this->assertEquals(2, $new[2]);
+        $this->assertEquals(4, $new[3]);
+    }
 }

@@ -79,4 +79,11 @@ class MatrixUtils
         $result->makeZero();
         return $result;
     }
+
+    public static function transpose(Matrix $matrix)
+    {
+        $result = new Matrix($matrix->getNbRows(), $matrix->getNbColumns(), $matrix->toArray());
+        $result->transpose();
+        return $result;
+    }
 }
