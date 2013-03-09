@@ -63,26 +63,6 @@ class VectorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, $vector2->count());
     }
 
-    public function testCrossProduct()
-    {
-        $vector1 = new Vector(array(1, 2, 3));
-        $vector2 = new Vector(array(4, 5, 6));
-
-        $this->assertEquals(1, $vector1[0]);
-        $this->assertEquals(2, $vector1[1]);
-        $this->assertEquals(3, $vector1[2]);
-
-        $this->assertEquals(4, $vector2[0]);
-        $this->assertEquals(5, $vector2[1]);
-        $this->assertEquals(6, $vector2[2]);
-
-        $vector3 = Vector::crossProduct($vector1, $vector2);
-
-        $this->assertEquals(-3, $vector3[0]);
-        $this->assertEquals(6, $vector3[1]);
-        $this->assertEquals(-3, $vector3[2]);
-    }
-
     public function testDivide()
     {
         $vector = new Vector(array(1, -2, 3));
@@ -96,24 +76,6 @@ class VectorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0.5, $vector[0]);
         $this->assertEquals(-1, $vector[1]);
         $this->assertEquals(1.5, $vector[2]);
-    }
-
-    public function testDotProduct()
-    {
-        $vector1 = new Vector(array(1, 2, 3));
-        $vector2 = new Vector(array(4, 5, 6));
-
-        $this->assertEquals(1, $vector1[0]);
-        $this->assertEquals(2, $vector1[1]);
-        $this->assertEquals(3, $vector1[2]);
-
-        $this->assertEquals(4, $vector2[0]);
-        $this->assertEquals(5, $vector2[1]);
-        $this->assertEquals(6, $vector2[2]);
-
-        $dotProduct = Vector::dotProduct($vector1, $vector2);
-
-        $this->assertEquals(32, $dotProduct);
     }
 
     public function testGetDistance()

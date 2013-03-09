@@ -46,12 +46,12 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
     public function add($value)
     {
         if ($value instanceof Vector) {
-            foreach ($this->data as $key => $element) {
-                $this->data[$key] += $value[$key];
+            for ($i = 0; $i < count($this->data); ++$i) {
+                $this->data[$i] += $value[$i];
             }
         } else {
-            foreach ($this->data as $key => $element) {
-                $this->data[$key] += $value;
+            for ($i = 0; $i < count($this->data); ++$i) {
+                $this->data[$i] += $value;
             }
         }
         return $this;
@@ -67,32 +67,6 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
         return count($this->data);
     }
 
-	/**
-     * Calculates the cross product between the two given vectors.
-     *
-     * @param Vector $v1 The first vector to use in the calculation.
-     * @param Vector $v2 The second vector to use in the calculation.
-     * @return Vector
-     */
-    public static function crossProduct(Vector $v1, Vector $v2)
-    {
-        if (count($v1) != count($v2)) {
-            throw new LengthException('The two given vectors must be of the same length.');
-        }
-
-        if (count($v1) != 3) {
-            throw new LengthException('The cross product can only be calculated from a vector with a dimension of 3.');
-        }
-
-        $result = array(
-            ($v1[1] * $v2[2]) - ($v1[2] * $v2[1]),
-            ($v1[2] * $v2[0]) - ($v1[0] * $v2[2]),
-            ($v1[0] * $v2[1]) - ($v1[1] * $v2[0]),
-        );
-
-        return new Vector($result);
-    }
-
     /**
      * Divides this vector by a scalar.
      *
@@ -101,30 +75,20 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
      */
     public function divide($value)
     {
-        foreach ($this->data as $key => $element) {
-            $this->data[$key] /= $value;
+        for ($i = 0; $i < count($this->data); ++$i) {
+            $this->data[$i] /= $value;
         }
         return $this;
     }
 
-	/**
-     * Calculates the dot product between the two given vectors.
+    /**
+     * Gets the dimension of the Vector. This is the same as calling count() on the instance.
      *
-     * @param Vector $v1 The first vector to use in the calculation.
-     * @param Vector $v2 The second vector to use in the calculation.
-     * @return float
+     * @return int
      */
-    public static function dotProduct(Vector $v1, Vector $v2)
+    public function getDimension()
     {
-        if (count($v1) != count($v2)) {
-            throw new LengthException('The two given vectors must be of the same length.');
-        }
-
-        $result = 0.0;
-        foreach ($v1 as $k => $value) {
-            $result += ($value * $v2[$k]);
-        }
-        return $result;
+        return count($this->data);
     }
 
     /**
@@ -140,7 +104,7 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
         }
 
         $result = 0;
-        for ($i = 0; $i < $this->count(); ++$i) {
+        for ($i = 0; $i < count($this->data); ++$i) {
             $result += pow($this->data[$i] - $vector[$i], 2);
         }
         return sqrt($result);
@@ -183,11 +147,11 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
      */
     public function getSquaredLength()
     {
-		$result = 0;
-		for ($i = 0; $i < $this->count(); ++$i) {
-			$result += pow($this->data[$i], 2);
+        $result = 0;
+        for ($i = 0; $i < count($this->data); ++$i) {
+            $result += pow($this->data[$i], 2);
         }
-		return $result;
+        return $result;
     }
 
     /**
@@ -198,8 +162,8 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
      */
     public function multiply($value)
     {
-        foreach ($this->data as $key => $element) {
-            $this->data[$key] *= $value;
+        for ($i = 0; $i < count($this->data); ++$i) {
+            $this->data[$i] *= $value;
         }
         return $this;
     }
@@ -209,8 +173,8 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
      */
     public function negate()
     {
-        foreach ($this->data as $key => $element) {
-            $this->data[$key] *= -1;
+        for ($i = 0; $i < count($this->data); ++$i) {
+            $this->data[$i] *= -1;
         }
     }
 
@@ -219,10 +183,10 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
      */
     public function normalize()
     {
-		$length = $this->getLength();
-		for ($i = 0; $i < $this->count(); ++$i) {
-			$this->data[$i] /= $length;
-		}
+        $length = $this->getLength();
+        for ($i = 0; $i < count($this->data); ++$i) {
+            $this->data[$i] /= $length;
+        }
     }
 
     /**
@@ -234,12 +198,12 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
     public function subtract($value)
     {
         if ($value instanceof Vector) {
-            foreach ($this->data as $key => $element) {
-                $this->data[$key] -= $value[$key];
+            for ($i = 0; $i < count($this->data); ++$i) {
+                $this->data[$i] -= $value[$i];
             }
         } else {
-            foreach ($this->data as $key => $element) {
-                $this->data[$key] -= $value;
+            for ($i = 0; $i < count($this->data); ++$i) {
+                $this->data[$i] -= $value;
             }
         }
         return $this;
@@ -251,18 +215,18 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
      * @param int $offset The offset to check.
      * @return bool
      */
-	public function offsetExists($offset)
+    public function offsetExists($offset)
     {
         return array_key_exists($offset, $this->data);
     }
 
-	/**
+    /**
      * Retrieves the value located at the given offset.
      *
      * @param int $offset The offset of the value to get.
      * @return float
-	 */
-	public function offsetGet($offset)
+     */
+    public function offsetGet($offset)
     {
         return $this->data[$offset];
     }
@@ -273,17 +237,17 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
      * @param int $offset The offset to set.
      * @param float $value The value to set.
      */
-	public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value)
     {
         $this->data[$offset] = $value;
     }
 
-	/**
+    /**
      * Unsets the given offset.
      *
      * @param int $offset The offset to unset.
      */
-	public function offsetUnset($offset)
+    public function offsetUnset($offset)
     {
         unset($this->data[$offset]);
 
@@ -291,23 +255,33 @@ class Vector implements ArrayAccess, Countable, IteratorAggregate
         $this->data = array_values($this->data);
     }
 
-	/**
-	 * Converts this vector to a string.
-	 *
-	 * @return string
-	 */
-	public function toString()
-	{
-		return '[' . implode(',', $this->data) . ']';
-	}
+    /**
+     * Converts this vector to a flat array with data.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->data;
+    }
 
-	/**
-	 * Converts this vector to a string.
-	 *
-	 * @return string
-	 */
-	public function __toString()
-	{
-		return $this->toString();
-	}
+    /**
+     * Converts this vector to a string.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return '[' . implode(',', $this->data) . ']';
+    }
+
+    /**
+     * Converts this vector to a string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
 }
