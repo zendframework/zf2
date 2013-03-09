@@ -63,6 +63,16 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Gets the amount of components that this matrix has.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return $this->rows * $this->columns;
+    }
+
+    /**
      * Adds the given scalar or Matrix to this matrix.
      *
      * @param scalar|Matrix $value The value to add.
@@ -87,13 +97,62 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Gets the amount of components that this matrix has.
+     * Multiplies the given scalar or Matrix with this matrix.
      *
-     * @return int
+     * @param scalar|Matrix $value The value to multiply with.
+     * @return Matrix
      */
-    public function count()
+    public function multiply($value)
     {
-        return $this->rows * $this->columns;
+        if ($value instanceof Matrix) {
+            if ($this->rows != $value->getNbRows() || $this->columns != $value->getNbColumns()) {
+                throw new InvalidArgumentException('The matrices should be of the same dimension');
+            }
+
+            $clone = clone $this;
+            for ($r = 0; $r < $this->rows; ++$r) {
+                for ($c = 0; $c < $this->columns; ++$c) {
+                    $index = ($r * $this->columns) + $c;
+                    $this->data[$index] = 0.0;
+
+                    for ($tmp = 0; $tmp < $this->columns; ++$tmp) {
+                        $index1 = ($r * $this->columns) + $tmp;
+                        $index2 = ($tmp * $this->rows) + $c;
+
+                        $this->data[$index] += ($clone[$index1] * $value[$index2]);
+                    }
+                }
+            }
+        } else {
+            foreach ($this->data as $key => $element) {
+                $this->data[$key] *= $value;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Subtracts the given value from the matrix.
+     *
+     * @param scalar|Matrix $value The value to subtract.
+     * @return Matrix
+     */
+    public function subtract($value)
+    {
+        if ($value instanceof Matrix) {
+            if ($this->rows != $value->getNbRows() || $this->columns != $value->getNbColumns()) {
+                throw new InvalidArgumentException('The matrices should be of the same dimension');
+            }
+
+            foreach ($this->data as $key => $element) {
+                $this->data[$key] -= $value[$key];
+            }
+        } else {
+            foreach ($this->data as $key => $element) {
+                $this->data[$key] -= $value;
+            }
+        }
+        return $this;
     }
 
     /**
@@ -259,65 +318,6 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
         for ($i = 0; $i < $this->rows * $this->columns; ++$i) {
             $this->data[$i] = 0.0;
         }
-    }
-
-    /**
-     * Multiplies the given scalar or Matrix with this matrix.
-     *
-     * @param scalar|Matrix $value The value to multiply with.
-     * @return Matrix
-     */
-    public function multiply($value)
-    {
-        if ($value instanceof Matrix) {
-            if ($this->rows != $value->getNbRows() || $this->columns != $value->getNbColumns()) {
-                throw new InvalidArgumentException('The matrices should be of the same dimension');
-            }
-
-            $clone = clone $this;
-            for ($r = 0; $r < $this->rows; ++$r) {
-                for ($c = 0; $c < $this->columns; ++$c) {
-                    $index = ($r * $this->columns) + $c;
-                    $this->data[$index] = 0.0;
-
-                    for ($tmp = 0; $tmp < $this->columns; ++$tmp) {
-                        $index1 = ($r * $this->columns) + $tmp;
-                        $index2 = ($tmp * $this->rows) + $c;
-
-                        $this->data[$index] += ($clone[$index1] * $value[$index2]);
-                    }
-                }
-            }
-        } else {
-            foreach ($this->data as $key => $element) {
-                $this->data[$key] *= $value;
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Subtracts the given value from the matrix.
-     *
-     * @param scalar|Matrix $value The value to subtract.
-     * @return Matrix
-     */
-    public function subtract($value)
-    {
-        if ($value instanceof Matrix) {
-            if ($this->rows != $value->getNbRows() || $this->columns != $value->getNbColumns()) {
-                throw new InvalidArgumentException('The matrices should be of the same dimension');
-            }
-
-            foreach ($this->data as $key => $element) {
-                $this->data[$key] -= $value[$key];
-            }
-        } else {
-            foreach ($this->data as $key => $element) {
-                $this->data[$key] -= $value;
-            }
-        }
-        return $this;
     }
 
     /**
