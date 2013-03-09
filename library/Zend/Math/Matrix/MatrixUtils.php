@@ -20,7 +20,7 @@ class MatrixUtils
 
     public static function divide(Matrix $matrix, $scalar)
     {
-        $result = new Matrix($left->getRowCount(), $left->getColumnCount(), $left->toArray());
+        $result = new Matrix($matrix->getRowCount(), $matrix->getColumnCount(), $matrix->toArray());
         $result->divide($scalar);
         return $result;
     }
@@ -36,6 +36,47 @@ class MatrixUtils
     {
         $result = new Matrix($left->getRowCount(), $left->getColumnCount(), $left->toArray());
         $result->subtract($right);
+        return $result;
+    }
+
+    public static function createIdentity($rows, $columns)
+    {
+        $result = new Matrix($rows, $columns);
+        $result->makeIdentity();
+        return $result;
+    }
+
+    public static function createSubmatrix(Matrix $matrix, $excludeRow, $excludeColumn)
+    {
+        $result = new Matrix($matrix->getRowCount() - 1, $matrix->getColumnCount() - 1);
+
+        $newRow = 0;
+        foreach ($matrix->getRows() as $r => $row) {
+            if ($r == $excludeRow) {
+                continue;
+            }
+
+            $newColumn = 0;
+            foreach ($row as $c => $value) {
+                if ($c == $excludeColumn) {
+                    continue;
+                }
+
+                $index = ($newRow * $result->getRowCount()) + $newColumn;
+                $result[$index] = $value;
+
+                $newColumn++;
+            }
+
+            $newRow++;
+        }
+        return $result;
+    }
+
+    public static function createZero($rows, $columns)
+    {
+        $result = new Matrix($rows, $columns, array());
+        $result->makeZero();
         return $result;
     }
 }

@@ -185,6 +185,62 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
         $matrix2->divide($matrix1);
     }
 
+    public function testGetColumns()
+    {
+        $matrix = new Matrix(3, 3, array(
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9,
+        ));
+
+        $columns = $matrix->getColumns();
+        $this->assertCount(3, $columns);
+
+        $this->assertCount(3, $columns[0]);
+        $this->assertCount(3, $columns[1]);
+        $this->assertCount(3, $columns[2]);
+
+        $this->assertEquals(1, $columns[0][0]);
+        $this->assertEquals(4, $columns[0][1]);
+        $this->assertEquals(7, $columns[0][2]);
+
+        $this->assertEquals(2, $columns[1][0]);
+        $this->assertEquals(5, $columns[1][1]);
+        $this->assertEquals(8, $columns[1][2]);
+
+        $this->assertEquals(3, $columns[2][0]);
+        $this->assertEquals(6, $columns[2][1]);
+        $this->assertEquals(9, $columns[2][2]);
+    }
+
+    public function testGetRows()
+    {
+        $matrix = new Matrix(3, 3, array(
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9,
+        ));
+
+        $rows = $matrix->getRows();
+        $this->assertCount(3, $rows);
+
+        $this->assertCount(3, $rows[0]);
+        $this->assertCount(3, $rows[1]);
+        $this->assertCount(3, $rows[2]);
+
+        $this->assertEquals(1, $rows[0][0]);
+        $this->assertEquals(2, $rows[0][1]);
+        $this->assertEquals(3, $rows[0][2]);
+
+        $this->assertEquals(4, $rows[1][0]);
+        $this->assertEquals(5, $rows[1][1]);
+        $this->assertEquals(6, $rows[1][2]);
+
+        $this->assertEquals(7, $rows[2][0]);
+        $this->assertEquals(8, $rows[2][1]);
+        $this->assertEquals(9, $rows[2][2]);
+    }
+
     public function testIsSquareFalse()
     {
         $matrix = new Matrix(2, 3);
@@ -201,22 +257,24 @@ class MatrixTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeIdentity()
     {
-        $matrix = new Matrix(2, 2, array(
-            0, 1,
-            2, 3,
-        ));
-
-        $this->assertEquals(0, $matrix[0]);
-        $this->assertEquals(1, $matrix[1]);
-        $this->assertEquals(2, $matrix[2]);
-        $this->assertEquals(3, $matrix[3]);
-
+        $matrix = new Matrix(2, 2, array(0, 1, 2, 3));
         $matrix->makeIdentity();
 
         $this->assertEquals(1, $matrix[0]);
         $this->assertEquals(0, $matrix[1]);
         $this->assertEquals(0, $matrix[2]);
         $this->assertEquals(1, $matrix[3]);
+    }
+
+    public function testMakeZero()
+    {
+        $matrix = new Matrix(2, 2, array(0, 1, 2, 3));
+        $matrix->makeZero();
+
+        $this->assertEquals(0, $matrix[0]);
+        $this->assertEquals(0, $matrix[1]);
+        $this->assertEquals(0, $matrix[2]);
+        $this->assertEquals(0, $matrix[3]);
     }
 
     public function testMultiplyByScalar()

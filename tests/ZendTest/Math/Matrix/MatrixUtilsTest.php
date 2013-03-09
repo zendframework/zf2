@@ -46,10 +46,36 @@ class MatrixUtilsTest extends \PHPUnit_Framework_TestCase
 
     public function testDivide()
     {
+        $matrix1 = new Matrix(2, 2, array(2, 2, 2, 2));
+        $matrix2 = MatrixUtils::divide($matrix1, 2);
+
+        $this->assertEquals(1, $matrix2[0]);
+        $this->assertEquals(1, $matrix2[1]);
+        $this->assertEquals(1, $matrix2[2]);
+        $this->assertEquals(1, $matrix2[3]);
     }
 
-    public function testMultiply()
+    public function testMultiplyByScalar()
     {
+        $matrix1 = new Matrix(2, 2, array(2, 2, 2, 2));
+        $matrix2 = MatrixUtils::multiply($matrix1, 3);
+
+        $this->assertEquals(6, $matrix2[0]);
+        $this->assertEquals(6, $matrix2[1]);
+        $this->assertEquals(6, $matrix2[2]);
+        $this->assertEquals(6, $matrix2[3]);
+    }
+
+    public function testMultiplyByMatrix()
+    {
+        $matrix1 = new Matrix(2, 2, array(2, 2, 2, 2));
+        $matrix2 = new Matrix(2, 2, array(2, 2, 2, 2));
+        $matrix3 = MatrixUtils::multiply($matrix1, $matrix2);
+
+        $this->assertEquals(8, $matrix3[0]);
+        $this->assertEquals(8, $matrix3[1]);
+        $this->assertEquals(8, $matrix3[2]);
+        $this->assertEquals(8, $matrix3[3]);
     }
 
     public function testSubtractScalarFromMatrix()
@@ -73,5 +99,23 @@ class MatrixUtilsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $matrix3[1]);
         $this->assertEquals(0, $matrix3[2]);
         $this->assertEquals(0, $matrix3[3]);
+    }
+
+    public function testCreateSubmatrix()
+    {
+        $matrix1 = new Matrix(3, 3, array(
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9,
+        ));
+        $matrix2 = MatrixUtils::createSubmatrix($matrix1, 1, 2);
+
+        $this->assertEquals(2, $matrix2->getRowCount());
+        $this->assertEquals(2, $matrix2->getColumnCount());
+
+        $this->assertEquals(1, $matrix2[0]);
+        $this->assertEquals(2, $matrix2[1]);
+        $this->assertEquals(7, $matrix2[2]);
+        $this->assertEquals(8, $matrix2[3]);
     }
 }

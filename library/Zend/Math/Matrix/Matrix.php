@@ -15,6 +15,7 @@ use Countable;
 use InvalidArgumentException;
 use IteratorAggregate;
 use RuntimeException;
+use Zend\Math\Vector\Vector;
 
 /**
  * A mathematical Matrix.
@@ -130,6 +131,48 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
         return $this->rows;
     }
 
+    /**
+     * Gets an array with the columns as Vectors.
+     *
+     * @return Vector[]
+     */
+    public function getColumns()
+    {
+        $result = array();
+
+        for ($c = 0; $c < $this->columns; ++$c) {
+            $data = array();
+            for ($r = 0; $r < $this->rows; ++$r) {
+                $i = ($r * $this->columns) + $c;
+                $data[] = $this->data[$i];
+            }
+            $result[] = new Vector($data);
+        }
+        
+        return $result;
+    }
+
+    /**
+     * Gets an array with the rows as Vectors.
+     *
+     * @return Vector[]
+     */
+    public function getRows()
+    {
+        $result = array();
+
+        for ($r = 0; $r < $this->rows; ++$r) {
+            $data = array();
+            for ($c = 0; $c < $this->columns; ++$c) {
+                $i = ($r * $this->columns) + $c;
+                $data[] = $this->data[$i];
+            }
+            $result[] = new Vector($data);
+        }
+
+        return $result;
+    }
+
     private function createSubmatrix(array $data, $dimension, $excludeRow, $excludeColumn)
     {
         $submatrix = array();
@@ -237,6 +280,16 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
                 $i = ($r * $this->columns) + $c;
                 $this->data[$i] = $r == $c ? 1.0 : 0.0;
             }
+        }
+    }
+
+    /**
+     * Resets the values of the Matrix to zero.
+     */
+    public function makeZero()
+    {
+        for ($i = 0; $i < $this->rows * $this->columns; ++$i) {
+            $this->data[$i] = 0.0;
         }
     }
 
