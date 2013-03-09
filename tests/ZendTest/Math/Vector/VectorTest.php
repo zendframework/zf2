@@ -8,9 +8,9 @@
  * @package   Zend_Math
  */
 
-namespace ZendTest\Math;
+namespace ZendTest\Math\Vector;
 
-use Zend\Math\Vector;
+use Zend\Math\Vector\Vector;
 
 /**
  * @category   Zend

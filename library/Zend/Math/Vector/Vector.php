@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Math;
+namespace Zend\Math\Vector;
 
 use ArrayAccess;
 use ArrayIterator;

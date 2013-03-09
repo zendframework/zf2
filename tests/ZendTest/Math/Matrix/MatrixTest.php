@@ -8,9 +8,9 @@
  * @package   Zend_Math
  */
 
-namespace ZendTest\Math;
+namespace ZendTest\Math\Matrix;
 
-use Zend\Math\Matrix;
+use Zend\Math\Matrix\Matrix;
 
 /**
  * @category   Zend
