@@ -315,9 +315,7 @@ class Matrix implements ArrayAccess, Countable, IteratorAggregate
      */
     public function makeZero()
     {
-        for ($i = 0; $i < $this->rows * $this->columns; ++$i) {
-            $this->data[$i] = 0.0;
-        }
+        $this->data = array_fill(0, $this->rows * $this->columns, 0.0);
     }
 
     /**
