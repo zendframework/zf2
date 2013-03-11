@@ -12,6 +12,8 @@ namespace ZendTest\Mvc\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
+use Zend\Http\Header\Accept;
+use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
@@ -56,7 +58,8 @@ class ExceptionStrategyTest extends TestCase
     {
         $event = new MvcEvent();
         foreach (array(Application::ERROR_CONTROLLER_NOT_FOUND, Application::ERROR_CONTROLLER_INVALID) as $error) {
-            $event->setError($error);
+            $event->setRequest(new Request)
+                  ->setError($error);
             $this->strategy->prepareExceptionViewModel($event);
             $response = $event->getResponse();
             if (null !== $response) {
@@ -78,7 +81,8 @@ class ExceptionStrategyTest extends TestCase
         $exception = new \Exception;
         $event     = new MvcEvent();
         $event->setParam('exception', $exception)
-              ->setError(Application::ERROR_EXCEPTION);
+              ->setError(Application::ERROR_EXCEPTION)
+              ->setRequest(new Request);
         $this->strategy->prepareExceptionViewModel($event);
 
         $response = $event->getResponse();
@@ -97,12 +101,45 @@ class ExceptionStrategyTest extends TestCase
         $this->assertEquals($this->strategy->displayExceptions(), $variables['display_exceptions']);
     }
 
+    public function testReturnsJsonModelWhenAcceptHeaderSet()
+    {
+        $exception = new \Exception;
+        $event     = new MvcEvent();
+
+        $accept = new Accept;
+        $accept->addMediaType('application/json');
+
+        $request = new Request;
+        $request->getHeaders()->addHeader($accept);
+
+        $event->setParam('exception', $exception)
+              ->setError(Application::ERROR_EXCEPTION)
+              ->setRequest($request);
+        $this->strategy->prepareExceptionViewModel($event);
+
+        $response = $event->getResponse();
+        $this->assertTrue($response->isServerError());
+
+        $model = $event->getResult();
+        $this->assertInstanceOf('Zend\View\Model\JsonModel', $model);
+        $this->assertEquals($this->strategy->getExceptionTemplate(), $model->getTemplate());
+
+        $variables = $model->getVariables();
+        $this->assertArrayHasKey('message', $variables);
+        $this->assertContains('error occurred', $variables['message']);
+        $this->assertArrayHasKey('exception', $variables);
+        $this->assertSame($exception, $variables['exception']);
+        $this->assertArrayHasKey('display_exceptions', $variables);
+        $this->assertEquals($this->strategy->displayExceptions(), $variables['display_exceptions']);
+    }
+
     public function testCatchesUnknownErrorTypes()
     {
         $exception = new \Exception;
         $event     = new MvcEvent();
         $event->setParam('exception', $exception)
-              ->setError('custom_error');
+              ->setError('custom_error')
+              ->setRequest(new Request);
         $this->strategy->prepareExceptionViewModel($event);
 
         $response = $event->getResponse();

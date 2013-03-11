@@ -16,6 +16,7 @@ use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 class ExceptionStrategy implements ListenerAggregateInterface
 {
@@ -141,7 +142,14 @@ class ExceptionStrategy implements ListenerAggregateInterface
 
             case Application::ERROR_EXCEPTION:
             default:
-                $model = new ViewModel(array(
+                $accept = $e->getRequest()->getHeaders()->get('Accept');
+                if ($accept && $accept->match('application/json')){
+                    $model = new JsonModel;
+                } else {
+                    $model = new ViewModel;
+                }
+
+                $model->setVariables(array(
                     'message'            => 'An error occurred during execution; please try again later.',
                     'exception'          => $e->getParam('exception'),
                     'display_exceptions' => $this->displayExceptions(),
