@@ -117,13 +117,14 @@ class FormCollection extends AbstractHelper
     public function renderTemplate(CollectionElement $collection)
     {
         $elementHelper          = $this->getElementHelper();
+        $fieldsetHelper         = $this->getFieldsetHelper();
         $escapeHtmlAttribHelper = $this->getEscapeHtmlAttrHelper();
         $templateMarkup         = '';
 
         $elementOrFieldset = $collection->getTemplateElement();
 
         if ($elementOrFieldset instanceof FieldsetInterface) {
-            $templateMarkup .= $this->render($elementOrFieldset);
+            $templateMarkup .= $fieldsetHelper($elementOrFieldset);
         } elseif ($elementOrFieldset instanceof ElementInterface) {
             $templateMarkup .= $elementHelper($elementOrFieldset);
         }
