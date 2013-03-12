@@ -774,7 +774,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 
         if ($resource || $privilege) {
             // determine using helper role and page resource/privilege
-            return $acl->hasResource($resource) && $acl->isAllowed($role, $resource, $privilege);
+            return $acl->isAllowed($role, $resource, $privilege);
         }
 
         return true;
