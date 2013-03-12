@@ -46,6 +46,11 @@ class ConfigOptions extends AbstractOptions
     /**
      * @var string
      */
+    protected $configCacheKeyPrefix;
+
+    /**
+     * @var string
+     */
     protected $cacheDir;
 
     /**
@@ -190,6 +195,28 @@ class ConfigOptions extends AbstractOptions
     }
 
     /**
+     * Get key prefix used to create the cache file name
+     *
+     * @return string
+     */
+    public function getConfigCacheKeyPrefix()
+    {
+        return (string) $this->configCacheKeyPrefix;
+    }
+
+    /**
+     * Set key prefix used to create the cache file name
+     *
+     * @param  string $configCacheKeyPrefix the value to be set
+     * @return ConfigOptions
+     */
+    public function setConfigCacheKeyPrefix($configCacheKeyPrefix)
+    {
+        $this->configCacheKeyPrefix = $configCacheKeyPrefix;
+        return $this;
+    }
+
+    /**
      * Get the path to the config cache
      *
      * Should this be an option, or should the dir option include the
@@ -199,7 +226,7 @@ class ConfigOptions extends AbstractOptions
      */
     public function getConfigCacheFile()
     {
-        return $this->getCacheDir() . DIRECTORY_SEPARATOR . $this->getConfigCacheKey().'.php';
+        return $this->getCacheDir() . DIRECTORY_SEPARATOR . $this->getConfigCacheKeyPrefix() . $this->getConfigCacheKey() . '.php';
     }
 
     /**
