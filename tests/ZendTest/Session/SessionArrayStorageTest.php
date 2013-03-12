@@ -12,6 +12,7 @@ namespace ZendTest\Session;
 
 use Zend\Session\Storage\SessionArrayStorage;
 use Zend\Session\Container;
+use Zend\Session\SessionManager;
 
 /**
  * @category   Zend
@@ -166,4 +167,17 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $this->storage->toArray(true));
     }
 
+    /**
+     * @runInSeparateProcess
+     */
+    public function testPreserveRequestAccessTimeAfterStart()
+    {
+        $manager = new SessionManager(null, $this->storage);
+
+        $this->assertGreaterThan(0, $this->storage->getRequestAccessTime());
+
+        $manager->start();
+
+        $this->assertGreaterThan(0, $this->storage->getRequestAccessTime());
+    }
 }
