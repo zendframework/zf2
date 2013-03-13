@@ -309,7 +309,7 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Driver\DriverInterface $driver
-     * @return Platform\PlatformInterface
+     * @return Platform\PlatformInterface 
      */
     protected function createPlatform($parameters)
     {
@@ -329,6 +329,7 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
             case 'SqlServer':
                 return new Platform\SqlServer($options);
             case 'Oracle':
+            case 'Oci':    
                 return new Platform\Oracle($options);
             case 'Sqlite':
                 return new Platform\Sqlite($options);
