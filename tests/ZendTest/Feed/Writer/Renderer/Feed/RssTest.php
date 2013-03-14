@@ -159,11 +159,11 @@ class RssTest extends \PHPUnit_Framework_TestCase
 
     public function testFeedGeneratorHasBeenSet()
     {
-        $this->validWriter->setGenerator('FooFeedBuilder', '1.00', 'http://www.example.com');
+        $this->validWriter->setGenerator('FooFeedBuilder', 'http://www.example.com');
         $rssFeed = new Renderer\Feed\Rss($this->validWriter);
         $rssFeed->render();
         $feed = Reader\Reader::importString($rssFeed->saveXml());
-        $this->assertEquals('FooFeedBuilder 1.00 (http://www.example.com)', $feed->getGenerator());
+        $this->assertEquals('FooFeedBuilder (http://www.example.com)', $feed->getGenerator());
     }
 
     public function testFeedGeneratorIfMissingThrowsNoException()
@@ -179,7 +179,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $rssFeed->render();
         $feed = Reader\Reader::importString($rssFeed->saveXml());
         $this->assertEquals(
-            'Zend_Feed_Writer ' . \Zend\Version\Version::VERSION . ' (http://framework.zend.com)', $feed->getGenerator());
+            'Zend_Feed_Writer (http://framework.zend.com)', $feed->getGenerator());
     }
 
     public function testFeedLanguageHasBeenSet()

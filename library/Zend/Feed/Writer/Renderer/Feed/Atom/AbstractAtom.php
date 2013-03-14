@@ -13,7 +13,6 @@ use Datetime;
 use DOMDocument;
 use DOMElement;
 use Zend\Feed;
-use Zend\Version\Version;
 
 class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
 {
@@ -131,7 +130,7 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
     {
         if (!$this->getDataContainer()->getGenerator()) {
             $this->getDataContainer()->setGenerator('Zend_Feed_Writer',
-                Version::VERSION, 'http://framework.zend.com');
+                'http://framework.zend.com');
         }
 
         $gdata = $this->getDataContainer()->getGenerator();
@@ -141,9 +140,6 @@ class AbstractAtom extends Feed\Writer\Renderer\AbstractRenderer
         $generator->appendChild($text);
         if (array_key_exists('uri', $gdata)) {
             $generator->setAttribute('uri', $gdata['uri']);
-        }
-        if (array_key_exists('version', $gdata)) {
-            $generator->setAttribute('version', $gdata['version']);
         }
     }
 

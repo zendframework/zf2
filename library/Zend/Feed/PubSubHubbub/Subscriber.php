@@ -15,7 +15,6 @@ use Traversable;
 use Zend\Http\Request as HttpRequest;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Uri;
-use Zend\Version\Version;
 
 class Subscriber
 {
@@ -653,8 +652,9 @@ class Subscriber
     {
         $client = PubSubHubbub::getHttpClient();
         $client->setMethod(HttpRequest::METHOD_POST);
-        $client->setOptions(array('useragent' => 'Zend_Feed_Pubsubhubbub_Subscriber/'
-            . Version::VERSION));
+        $client->setOptions(array(
+            'useragent' => 'Zend_Feed_Pubsubhubbub_Subscriber'
+        ));
         return $client;
     }
 

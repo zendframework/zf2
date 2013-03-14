@@ -209,12 +209,11 @@ class AbstractFeed
      * Set the feed generator entry
      *
      * @param array|string $name
-     * @param null|string $version
      * @param null|string $uri
      * @throws Exception\InvalidArgumentException
      * @return AbstractFeed
      */
-    public function setGenerator($name, $version = null, $uri = null)
+    public function setGenerator($name, $uri = null)
     {
         if (is_array($name)) {
             $data = $name;
@@ -222,12 +221,6 @@ class AbstractFeed
                 throw new Exception\InvalidArgumentException('Invalid parameter: "name" must be a non-empty string');
             }
             $generator = array('name' => $data['name']);
-            if (isset($data['version'])) {
-                if (empty($data['version']) || !is_string($data['version'])) {
-                    throw new Exception\InvalidArgumentException('Invalid parameter: "version" must be a non-empty string');
-                }
-                $generator['version'] = $data['version'];
-            }
             if (isset($data['uri'])) {
                 if (empty($data['uri']) || !is_string($data['uri']) || !Uri\UriFactory::factory($data['uri'])->isValid()) {
                     throw new Exception\InvalidArgumentException('Invalid parameter: "uri" must be a non-empty string and a valid URI/IRI');
@@ -239,12 +232,6 @@ class AbstractFeed
                 throw new Exception\InvalidArgumentException('Invalid parameter: "name" must be a non-empty string');
             }
             $generator = array('name' => $name);
-            if (isset($version)) {
-                if (empty($version) || !is_string($version)) {
-                    throw new Exception\InvalidArgumentException('Invalid parameter: "version" must be a non-empty string');
-                }
-                $generator['version'] = $version;
-            }
             if (isset($uri)) {
                 if (empty($uri) || !is_string($uri) || !Uri\UriFactory::factory($uri)->isValid()) {
                     throw new Exception\InvalidArgumentException('Invalid parameter: "uri" must be a non-empty string and a valid URI/IRI');
