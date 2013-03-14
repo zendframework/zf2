@@ -2,9 +2,9 @@
 
 ## 2.1.4 (13 Mar 2013):
 
-- ZF2013-01: Query route (http://framework.zend.com/security/ZF2013-01)
-- ZF2013-02: RNG support (http://framework.zend.com/security/ZF2013-02)
-- ZF2013-03: DB platform quoting (http://framework.zend.com/security/ZF2013-03)
+- ZF2013-01: Query route (http://framework.zend.com/security/advisory/ZF2013-01)
+- ZF2013-02: RNG support (http://framework.zend.com/security/advisory/ZF2013-02)
+- ZF2013-03: DB platform quoting (http://framework.zend.com/security/advisory/ZF2013-03)
 - 2752: `Zend_Json_Server` to accept null parameters
   (https://github.com/zendframework/zf2/issues/2752)
 - 3696: `Zend\Json\Server\Server` should allow parameters with NULL values
