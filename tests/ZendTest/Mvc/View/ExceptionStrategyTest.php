@@ -18,13 +18,13 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\View\Http\ExceptionStrategy;
 use Zend\View\Model\ViewModel;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage UnitTest
- */
 class ExceptionStrategyTest extends TestCase
 {
+    /**
+     * @var ExceptionStrategy
+     */
+    protected $strategy;
+
     public function setUp()
     {
         $this->strategy = new ExceptionStrategy();
@@ -86,7 +86,7 @@ class ExceptionStrategyTest extends TestCase
 
         $model = $event->getResult();
         $this->assertInstanceOf('Zend\View\Model\ViewModel', $model);
-        $this->assertEquals($this->strategy->getExceptionTemplate(), $model->getTemplate());
+        $this->assertEquals($this->strategy->getExceptionTemplate(), $model->getOptions()->getTemplate());
 
         $variables = $model->getVariables();
         $this->assertArrayHasKey('message', $variables);

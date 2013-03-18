@@ -22,11 +22,6 @@ use Zend\View\Strategy\JsonStrategy;
 use Zend\View\ViewEvent;
 use Zend\Stdlib\Parameters;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- */
 class JsonStrategyTest extends TestCase
 {
     public function setUp()
@@ -80,7 +75,7 @@ class JsonStrategyTest extends TestCase
         $this->event->setRequest($request);
         $result = $this->strategy->selectRenderer($this->event);
         $this->assertSame($this->renderer, $result);
-        $this->assertFalse($result->hasJsonpCallback());
+        $this->assertFalse($result->getOptions()->hasJsonpCallback());
     }
 
     public function testLackOfJsonModelDoesNotSelectJsonStrategy()
@@ -141,7 +136,7 @@ class JsonStrategyTest extends TestCase
     public function testMatchingRendererAndStringResultInjectsResponseJsonp()
     {
         $expected = json_encode(array('foo' => 'bar'));
-        $this->renderer->setJsonpCallback('foo');
+        $this->renderer->getOptions()->setJsonpCallback('foo');
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
         $this->event->setResult($expected);
@@ -228,7 +223,7 @@ class JsonStrategyTest extends TestCase
     public function testDefaultsToUtf8CharsetWhenCreatingJavascriptHeader()
     {
         $expected = json_encode(array('foo' => 'bar'));
-        $this->renderer->setJsonpCallback('foo');
+        $this->renderer->getOptions()->setJsonpCallback('foo');
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
         $this->event->setResult($expected);
@@ -259,7 +254,7 @@ class JsonStrategyTest extends TestCase
     public function testUsesProvidedCharsetWhenCreatingJavascriptHeader()
     {
         $expected = json_encode(array('foo' => 'bar'));
-        $this->renderer->setJsonpCallback('foo');
+        $this->renderer->getOptions()->setJsonpCallback('foo');
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
         $this->event->setResult($expected);

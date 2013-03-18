@@ -13,12 +13,6 @@ namespace ZendTest\View;
 use Zend\View\Variables;
 use Zend\Config\Config;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- */
 class VariablesTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()

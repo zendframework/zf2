@@ -37,28 +37,28 @@ class LayoutTest extends TestCase
     public function testSetTemplateAltersTemplateInEventViewModel()
     {
         $model = new ViewModel();
-        $model->setTemplate('layout');
+        $model->getOptions()->setTemplate('layout');
         $this->event->setViewModel($model);
 
         $this->plugin->setTemplate('alternate/layout');
-        $this->assertEquals('alternate/layout', $model->getTemplate());
+        $this->assertEquals('alternate/layout', $model->getOptions()->getTemplate());
     }
 
     public function testInvokeProxiesToSetTemplate()
     {
         $model = new ViewModel();
-        $model->setTemplate('layout');
+        $model->getOptions()->setTemplate('layout');
         $this->event->setViewModel($model);
 
         $plugin = $this->plugin;
         $plugin('alternate/layout');
-        $this->assertEquals('alternate/layout', $model->getTemplate());
+        $this->assertEquals('alternate/layout', $model->getOptions()->getTemplate());
     }
 
     public function testCallingInvokeWithNoArgumentsReturnsViewModel()
     {
         $model = new ViewModel();
-        $model->setTemplate('layout');
+        $model->getOptions()->setTemplate('layout');
         $this->event->setViewModel($model);
 
         $plugin = $this->plugin;

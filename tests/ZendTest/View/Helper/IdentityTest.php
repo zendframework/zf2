@@ -14,17 +14,6 @@ use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Storage\NonPersistent as NonPersistentStorage;
 use Zend\View\Helper\Identity as IdentityHelper;
 
-/**
- * Zend_View_Helper_IdentityTest
- *
- * Tests Identity helper
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class IdentityTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetIdentity()

@@ -45,7 +45,7 @@ class ActionControllerTest extends TestCase
         $response = $this->controller->getResponse();
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertInstanceOf('Zend\View\Model\ModelInterface', $result);
-        $this->assertEquals('content', $result->captureTo());
+        $this->assertEquals('content', $result->getOptions()->captureTo());
         $vars = $result->getVariables();
         $this->assertArrayHasKey('content', $vars, var_export($vars, 1));
         $this->assertContains('Page not found', $vars['content']);
@@ -58,7 +58,7 @@ class ActionControllerTest extends TestCase
         $response = $this->controller->getResponse();
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertInstanceOf('Zend\View\Model\ModelInterface', $result);
-        $this->assertEquals('content', $result->captureTo());
+        $this->assertEquals('content', $result->getOptions()->captureTo());
         $vars = $result->getVariables();
         $this->assertArrayHasKey('content', $vars, var_export($vars, 1));
         $this->assertContains('Page not found', $vars['content']);
@@ -196,7 +196,7 @@ class ActionControllerTest extends TestCase
     {
         $model = $this->event->getViewModel();
         $this->controller->layout('alternate/layout');
-        $this->assertEquals('alternate/layout', $model->getTemplate());
+        $this->assertEquals('alternate/layout', $model->getOptions()->getTemplate());
     }
 
     /**
@@ -212,6 +212,6 @@ class ActionControllerTest extends TestCase
         $vars = $result->getVariables();
         $this->assertTrue(isset($vars['result']));
         $this->assertContains('Page not found', $vars['result']);
-        $this->assertEquals(1, $result->getErrorLevel());
+        $this->assertEquals(1, $result->getOptions()->getErrorLevel());
     }
 }

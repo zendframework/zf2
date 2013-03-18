@@ -17,14 +17,15 @@ use Zend\View\HelperPluginManager;
 use Zend\View\Helper\AbstractHelper;
 use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Renderer\RendererInterface as Renderer;
+use Zend\View\Renderer\PhpRendererOptions;
 use Zend\View\Resolver\ResolverInterface as Resolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
 
 /**
- * Abstract class for Zend_View to help enforce private constructs.
+ * Abstract class for Zend_View to help enforce protected constructs.
  *
- * Note: all private variables in this class are prefixed with "__". This is to
+ * Note: all protected variables in this class are prefixed with "__". This is to
  * mark them as part of the internal implementation, and thus prevent conflict
  * with variables injected into the renderer.
  *
@@ -70,7 +71,7 @@ use Zend\View\Variables;
  * @method \Zend\View\Helper\Navigation\Menu menu($container = null)
  * @method \Zend\View\Helper\Navigation\Sitemap sitemap($container = null)
  */
-class PhpRenderer implements Renderer, TreeRendererInterface
+class PhpRenderer implements Renderer
 {
     /**
      * @var string Rendered content
@@ -78,9 +79,42 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     private $__content = '';
 
     /**
-     * @var bool Whether or not to render trees of view models
+     * Script file name to execute
+     *
+     * @var string
      */
-    private $__renderTrees = false;
+    private $__file;
+
+    /**
+     * @var FilterChain
+     */
+    private $__filterChain;
+
+    /**
+     * Helper plugin manager
+     *
+     * @var HelperPluginManager
+     */
+    private $__helpers;
+
+    /**
+     * Renderer options
+     *
+     * @var PhpRendererOptions
+     */
+    private $__options;
+
+    /**
+     * @var array Cache for the plugin call
+     */
+    private $__pluginCache = array();
+
+    /**
+     * Template resolver
+     *
+     * @var Resolver
+     */
+    private $__resolver;
 
     /**
      * Template being rendered
@@ -96,32 +130,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     private $__templates = array();
 
     /**
-     * Template resolver
-     *
-     * @var Resolver
-     */
-    private $__templateResolver;
-
-    /**
-     * Script file name to execute
-     *
-     * @var string
-     */
-    private $__file = null;
-
-    /**
-     * Helper plugin manager
-     *
-     * @var HelperPluginManager
-     */
-    private $__helpers;
-
-    /**
-     * @var FilterChain
-     */
-    private $__filterChain;
-
-    /**
      * @var ArrayAccess|array ArrayAccess or associative array representing available variables
      */
     private $__vars;
@@ -132,13 +140,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     private $__varsCache = array();
 
     /**
-     * @var array Cache for the plugin call
-     */
-    private $__pluginCache = array();
-
-    /**
      * Constructor.
-     *
      *
      * @todo handle passing helper plugin manager, options
      * @todo handle passing filter chain, options
@@ -149,18 +151,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     public function __construct($config = array())
     {
         $this->init();
-    }
-
-    /**
-     * Return the template engine object
-     *
-     * Returns the object instance, as it is its own template engine
-     *
-     * @return PhpRenderer
-     */
-    public function getEngine()
-    {
-        return $this;
     }
 
     /**
@@ -176,15 +166,67 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
+     * Return the template engine object
+     *
+     * Returns the object instance, as it is its own template engine
+     *
+     * @return PhpRenderer
+     */
+    public function getEngine()
+    {
+        return $this;
+    }
+
+    /**
+     * Set renderer options
+     *
+     * @param  array|\Traversable|PhpRendererOptions $options
+     * @throws Exception\InvalidArgumentException
+     * @return PhpRenderer
+     */
+    public function setOptions($options)
+    {
+        if (!$options instanceof PhpRendererOptions) {
+            if (is_object($options) && !$options instanceof PhpRendererOptions) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                        'Expected instance of Zend\View\Renderer\PhpRendererOptions; '
+                        . 'received "%s"', get_class($options))
+                );
+            }
+
+            $options = new PhpRendererOptions($options);
+        }
+
+        $this->__options = $options;
+
+        return $this;
+    }
+
+    /**
+     * Get renderer options
+     *
+     * @return PhpRendererOptions
+     */
+    public function getOptions()
+    {
+        if (!$this->__options) {
+            $this->setOptions(new PhpRendererOptions());
+        }
+
+        return $this->__options;
+    }
+
+    /**
      * Set script resolver
      *
      * @param  Resolver $resolver
-     * @return PhpRenderer
      * @throws Exception\InvalidArgumentException
+     * @return PhpRenderer
      */
     public function setResolver(Resolver $resolver)
     {
-        $this->__templateResolver = $resolver;
+        $this->__resolver = $resolver;
+
         return $this;
     }
 
@@ -196,79 +238,15 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      */
     public function resolver($name = null)
     {
-        if (null === $this->__templateResolver) {
+        if (null === $this->__resolver) {
             $this->setResolver(new TemplatePathStack());
         }
 
         if (null !== $name) {
-            return $this->__templateResolver->resolve($name, $this);
+            return $this->__resolver->resolve($name, $this);
         }
 
-        return $this->__templateResolver;
-    }
-
-    /**
-     * Set variable storage
-     *
-     * Expects either an array, or an object implementing ArrayAccess.
-     *
-     * @param  array|ArrayAccess $variables
-     * @return PhpRenderer
-     * @throws Exception\InvalidArgumentException
-     */
-    public function setVars($variables)
-    {
-        if (!is_array($variables) && !$variables instanceof ArrayAccess) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Expected array or ArrayAccess object; received "%s"',
-                (is_object($variables) ? get_class($variables) : gettype($variables))
-            ));
-        }
-
-        // Enforce a Variables container
-        if (!$variables instanceof Variables) {
-            $variablesAsArray = array();
-            foreach ($variables as $key => $value) {
-                $variablesAsArray[$key] = $value;
-            }
-            $variables = new Variables($variablesAsArray);
-        }
-
-        $this->__vars = $variables;
-        return $this;
-    }
-
-    /**
-     * Get a single variable, or all variables
-     *
-     * @param  mixed $key
-     * @return mixed
-     */
-    public function vars($key = null)
-    {
-        if (null === $this->__vars) {
-            $this->setVars(new Variables());
-        }
-
-        if (null === $key) {
-            return $this->__vars;
-        }
-        return $this->__vars[$key];
-    }
-
-    /**
-     * Get a single variable
-     *
-     * @param  mixed $key
-     * @return mixed
-     */
-    public function get($key)
-    {
-        if (null === $this->__vars) {
-            $this->setVars(new Variables());
-        }
-
-        return $this->__vars[$key];
+        return $this->__resolver;
     }
 
     /**
@@ -280,6 +258,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     public function __get($name)
     {
         $vars = $this->vars();
+
         return $vars[$name];
     }
 
@@ -305,6 +284,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     public function __isset($name)
     {
         $vars = $this->vars();
+
         return isset($vars[$name]);
     }
 
@@ -324,11 +304,77 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
+     * Set variable storage
+     *
+     * Expects either an array, or an object implementing ArrayAccess.
+     *
+     * @param  array|ArrayAccess $variables
+     * @throws Exception\InvalidArgumentException
+     * @return PhpRenderer
+     */
+    public function setVars($variables)
+    {
+        if (!is_array($variables) && !$variables instanceof ArrayAccess) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Expected array or ArrayAccess object; received "%s"',
+                (is_object($variables) ? get_class($variables) : gettype($variables))
+            ));
+        }
+
+        // Enforce a Variables container
+        if (!$variables instanceof Variables) {
+            $variablesAsArray = array();
+            foreach ($variables as $key => $value) {
+                $variablesAsArray[$key] = $value;
+            }
+            $variables = new Variables($variablesAsArray);
+        }
+
+        $this->__vars = $variables;
+
+        return $this;
+    }
+
+    /**
+     * Get a single variable, or all variables
+     *
+     * @param  mixed $key
+     * @return mixed
+     */
+    public function vars($key = null)
+    {
+        if (null === $this->__vars) {
+            $this->setVars(new Variables());
+        }
+
+        if (null === $key) {
+            return $this->__vars;
+        }
+
+        return $this->__vars[$key];
+    }
+
+    /**
+     * Get a single variable
+     *
+     * @param  mixed $key
+     * @return mixed
+     */
+    public function get($key)
+    {
+        if (null === $this->__vars) {
+            $this->setVars(new Variables());
+        }
+
+        return $this->__vars[$key];
+    }
+
+    /**
      * Set helper plugin manager instance
      *
      * @param  string|HelperPluginManager $helpers
-     * @return PhpRenderer
      * @throws Exception\InvalidArgumentException
+     * @return PhpRenderer
      */
     public function setHelperPluginManager($helpers)
     {
@@ -363,6 +409,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         if (null === $this->__helpers) {
             $this->setHelperPluginManager(new HelperPluginManager());
         }
+
         return $this->__helpers;
     }
 
@@ -399,6 +446,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         if (is_callable($this->__pluginCache[$method])) {
             return call_user_func_array($this->__pluginCache[$method], $argv);
         }
+
         return $this->__pluginCache[$method];
     }
 
@@ -411,6 +459,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     public function setFilterChain(FilterChain $filters)
     {
         $this->__filterChain = $filters;
+
         return $this;
     }
 
@@ -424,6 +473,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         if (null === $this->__filterChain) {
             $this->setFilterChain(new FilterChain());
         }
+
         return $this->__filterChain;
     }
 
@@ -435,20 +485,18 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      *                                   template as an option in order to be
      *                                   valid.
      * @param  null|array|Traversable $values Values to use when rendering. If none
-     *                                provided, uses those in the composed
-     *                                variables container.
+     *                                        provided, uses those in the composed
+     *                                        variables container.
+     * @throws Exception\RuntimeException
+     * @throws Exception\DomainException
+     * @throws \Exception
      * @return string The script output.
-     * @throws Exception\DomainException if a ViewModel is passed, but does not
-     *                                   contain a template option.
-     * @throws Exception\InvalidArgumentException if the values passed are not
-     *                                            an array or ArrayAccess object
-     * @throws Exception\RuntimeException if the template cannot be rendered
      */
     public function render($nameOrModel, $values = null)
     {
         if ($nameOrModel instanceof Model) {
             $model       = $nameOrModel;
-            $nameOrModel = $model->getTemplate();
+            $nameOrModel = $model->getOptions()->getTemplate();
             if (empty($nameOrModel)) {
                 throw new Exception\DomainException(sprintf(
                     '%s: received View Model argument, but template is empty',
@@ -473,7 +521,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
             unset($model);
         }
 
-        // find the script file name using the parent private method
+        // find the script file name using the parent protected method
         $this->addTemplate($nameOrModel);
         unset($nameOrModel); // remove $name from local scope
 
@@ -495,6 +543,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
 
         while ($this->__template = array_pop($this->__templates)) {
             $this->__file = $this->resolver($this->__template);
+
             if (!$this->__file) {
                 throw new Exception\RuntimeException(sprintf(
                     '%s: Unable to render template "%s"; resolver could not resolve to a file',
@@ -502,6 +551,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
                     $this->__template
                 ));
             }
+
             try {
                 ob_start();
                 include $this->__file;
@@ -518,33 +568,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Set flag indicating whether or not we should render trees of view models
-     *
-     * If set to true, the View instance will not attempt to render children
-     * separately, but instead pass the root view model directly to the PhpRenderer.
-     * It is then up to the developer to render the children from within the
-     * view script.
-     *
-     * @param  bool $renderTrees
-     * @return PhpRenderer
-     */
-    public function setCanRenderTrees($renderTrees)
-    {
-        $this->__renderTrees = (bool) $renderTrees;
-        return $this;
-    }
-
-    /**
-     * Can we render trees, or are we configured to do so?
-     *
-     * @return bool
-     */
-    public function canRenderTrees()
-    {
-        return $this->__renderTrees;
-    }
-
-    /**
      * Add a template to the stack
      *
      * @param  string $template
@@ -553,6 +576,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     public function addTemplate($template)
     {
         $this->__templates[] = $template;
+
         return $this;
     }
 

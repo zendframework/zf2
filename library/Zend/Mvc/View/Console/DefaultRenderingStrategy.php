@@ -98,7 +98,7 @@ class DefaultRenderingStrategy implements ListenerAggregateInterface
         if ($response instanceof ConsoleResponse
             && $result instanceof ConsoleViewModel
         ) {
-            $errorLevel = $result->getErrorLevel();
+            $errorLevel = $result->getOptions()->getErrorLevel();
             $response->setErrorLevel($errorLevel);
         }
 

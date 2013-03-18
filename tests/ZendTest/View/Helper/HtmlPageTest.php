@@ -10,22 +10,20 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\HtmlPage;
+use Zend\View\Renderer\PhpRenderer as View;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class HtmlPageTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HtmlPage
+     * @var HtmlPage
      */
     public $helper;
+
+    /**
+     * @var View
+     */
+    protected $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -33,7 +31,7 @@ class HtmlPageTest extends \PHPUnit_Framework_TestCase
      *
      * @access protected
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->view   = new View();
         $this->helper = new HtmlPage();

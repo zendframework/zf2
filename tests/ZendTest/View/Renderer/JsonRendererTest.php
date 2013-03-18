@@ -17,12 +17,6 @@ use Zend\View\Renderer\JsonRenderer;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- */
 class JsonRendererTest extends TestCase
 {
     /**
@@ -47,8 +41,8 @@ class JsonRendererTest extends TestCase
         $root   = new ViewModel(array('foo' => 'bar'));
         $child1 = new ViewModel(array('foo' => 'bar'));
         $child2 = new ViewModel(array('foo' => 'bar'));
-        $child1->setCaptureTo('child1');
-        $child2->setCaptureTo('child2');
+        $child1->getOptions()->setCaptureTo('child1');
+        $child2->getOptions()->setCaptureTo('child2');
         $root->addChild($child1)
              ->addChild($child2);
 
@@ -70,8 +64,8 @@ class JsonRendererTest extends TestCase
         $root   = new ViewModel(array('foo' => 'bar'));
         $child1 = new ViewModel(array('foo' => 'baz'));
         $child2 = new ViewModel(array('foo' => 'bar'));
-        $child1->setCaptureTo(false);
-        $child2->setCaptureTo('child2');
+        $child1->getOptions()->setCaptureTo(false);
+        $child2->getOptions()->setCaptureTo('child2');
         $root->addChild($child1)
              ->addChild($child2);
 
@@ -87,12 +81,13 @@ class JsonRendererTest extends TestCase
 
     public function testCanMergeChildModelsWithoutCaptureToValues()
     {
-        $this->renderer->setMergeUnnamedChildren(true);
+        $this->renderer->getOptions()->setMergeUnnamedChildren(true);
+
         $root   = new ViewModel(array('foo' => 'bar'));
         $child1 = new ViewModel(array('foo' => 'baz'));
         $child2 = new ViewModel(array('foo' => 'bar'));
-        $child1->setCaptureTo(false);
-        $child2->setCaptureTo('child2');
+        $child1->getOptions()->setCaptureTo(false);
+        $child2->getOptions()->setCaptureTo('child2');
         $root->addChild($child1)
              ->addChild($child2);
 
@@ -166,24 +161,10 @@ class JsonRendererTest extends TestCase
         $this->renderer->render('foo', array('bar' => 'baz'));
     }
 
-    public function testRendersTreesOfViewModelsByDefault()
-    {
-        $this->assertTrue($this->renderer->canRenderTrees());
-    }
-
-    public function testSetHasJsonpCallback()
-    {
-        $this->assertFalse($this->renderer->hasJsonpCallback());
-        $this->renderer->setJsonpCallback(0);
-        $this->assertFalse($this->renderer->hasJsonpCallback());
-        $this->renderer->setJsonpCallback('callback');
-        $this->assertTrue($this->renderer->hasJsonpCallback());
-    }
-
     public function testRendersViewModelsWithoutChildrenWithJsonpCallback()
     {
         $model = new ViewModel(array('foo' => 'bar'));
-        $this->renderer->setJsonpCallback('callback');
+        $this->renderer->getOptions()->setJsonpCallback('callback');
         $test = $this->renderer->render($model);
         $expected = 'callback(' . json_encode(array('foo' => 'bar')) . ');';
         $this->assertEquals($expected, $test);
@@ -195,7 +176,7 @@ class JsonRendererTest extends TestCase
     public function testRendersNonObjectModelAsJsonWithJsonpCallback($model)
     {
         $expected = 'callback(' . json_encode($model) . ');';
-        $this->renderer->setJsonpCallback('callback');
+        $this->renderer->getOptions()->setJsonpCallback('callback');
         $test = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
@@ -208,7 +189,7 @@ class JsonRendererTest extends TestCase
         $model        = new TestAsset\JsonModel;
         $model->value = array('foo' => 'bar');
         $expected     = 'callback(' . json_encode($model->value) . ');';
-        $this->renderer->setJsonpCallback('callback');
+        $this->renderer->getOptions()->setJsonpCallback('callback');
         $test         = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
@@ -220,7 +201,7 @@ class JsonRendererTest extends TestCase
             'bar' => 'baz',
         ));
         $expected     = 'callback(' . json_encode($model->getArrayCopy()) . ');';
-        $this->renderer->setJsonpCallback('callback');
+        $this->renderer->getOptions()->setJsonpCallback('callback');
         $test         = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
@@ -231,7 +212,7 @@ class JsonRendererTest extends TestCase
         $model->foo = 'bar';
         $model->bar = 'baz';
         $expected   = 'callback(' . json_encode(get_object_vars($model)) . ');';
-        $this->renderer->setJsonpCallback('callback');
+        $this->renderer->getOptions()->setJsonpCallback('callback');
         $test       = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
@@ -244,8 +225,8 @@ class JsonRendererTest extends TestCase
         $root   = new JsonModel(array('foo' => 'bar'));
         $child1 = new JsonModel(array('foo' => 'bar'));
         $child2 = new JsonModel(array('foo' => 'bar'));
-        $child1->setCaptureTo('child1');
-        $child2->setCaptureTo('child2');
+        $child1->getOptions()->setCaptureTo('child1');
+        $child2->getOptions()->setCaptureTo('child2');
         $root->addChild($child1)
              ->addChild($child2);
 
@@ -260,5 +241,26 @@ class JsonRendererTest extends TestCase
         );
         $test  = $this->renderer->render($root);
         $this->assertEquals(json_encode($expected), $test);
+    }
+
+    public function testEngineIsInstanceOfJsonRenderer()
+    {
+        $this->assertInstanceOf('Zend\View\Renderer\JsonRenderer', $this->renderer->getEngine());
+    }
+
+    public function testOptionsRaisesAnExceptionPassingInvalidArgument()
+    {
+        $this->setExpectedException(
+            'Zend\View\Exception\InvalidArgumentException',
+            'Expected instance of Zend\View\Renderer\JsonRendererOptions; received "stdClass"');
+
+        $this->renderer->setOptions(new stdClass);
+    }
+
+    public function testOptionsReturnInstanceOfJsonRendererOptions()
+    {
+        $this->assertInstanceOf(
+            'Zend\View\Renderer\JsonRendererOptions',
+            $this->renderer->getOptions());
     }
 }

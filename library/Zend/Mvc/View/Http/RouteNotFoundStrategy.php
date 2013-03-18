@@ -213,7 +213,7 @@ class RouteNotFoundStrategy implements ListenerAggregateInterface
             }
         }
 
-        $model->setTemplate($this->getNotFoundTemplate());
+        $model->getOptions()->setTemplate($this->getNotFoundTemplate());
 
         // If displaying reasons, inject the reason
         $this->injectNotFoundReason($model, $e);

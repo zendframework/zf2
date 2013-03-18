@@ -10,31 +10,28 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Helper\Placeholder\Registry as PlaceholderRegistry;
-use Zend\View\Helper;
-use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Exception\ExceptionInterface as ViewException;
+use Zend\View\Helper\Doctype;
+use Zend\View\Helper\HeadLink;
+use Zend\View\Helper\Placeholder\Registry as PlaceholderRegistry;
+use Zend\View\Renderer\PhpRenderer as View;
 
-/**
- * Test class for Zend_View_Helper_HeadLink.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class HeadLinkTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HeadLink
-     */
-    public $helper;
-
-    /**
      * @var string
      */
-    public $basePath;
+    protected $basePath;
+
+    /**
+     * @var HeadLink
+     */
+    protected $helper;
+
+    /**
+     * @var View
+     */
+    protected $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -45,10 +42,10 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         PlaceholderRegistry::unsetRegistry();
-        Helper\Doctype::unsetDoctypeRegistry();
+        Doctype::unsetDoctypeRegistry();
         $this->basePath = __DIR__ . '/_files/modules';
         $this->view     = new View();
-        $this->helper   = new Helper\HeadLink();
+        $this->helper   = new HeadLink();
         $this->helper->setView($this->view);
     }
 
@@ -70,14 +67,14 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
             $registry->deleteContainer('Zend_View_Helper_HeadLink');
         }
         $this->assertFalse($registry->containerExists('Zend_View_Helper_HeadLink'));
-        $helper = new Helper\HeadLink();
+        $helper = new HeadLink();
         $this->assertTrue($registry->containerExists('Zend_View_Helper_HeadLink'));
     }
 
     public function testHeadLinkReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertTrue($placeholder instanceof Helper\HeadLink);
+        $this->assertTrue($placeholder instanceof HeadLink);
     }
 
     public function testPrependThrowsExceptionWithoutArrayArgument()

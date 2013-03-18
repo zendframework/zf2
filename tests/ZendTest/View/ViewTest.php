@@ -25,6 +25,31 @@ use Zend\View\View;
 
 class ViewTest extends TestCase
 {
+    /**
+     * @var ViewModel
+     */
+    protected $model;
+
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @var Response
+     */
+    protected $response;
+
+    /**
+     * @var string
+     */
+    protected $result;
+
+    /**
+     * @var View
+     */
+    protected $view;
+
     public function setUp()
     {
         $this->request  = new Request;
@@ -90,10 +115,10 @@ class ViewTest extends TestCase
         $this->attachTestStrategies();
 
         $child1 = new ViewModel(array('foo' => 'bar'));
-        $child1->setCaptureTo('child1');
+        $child1->getOptions()->setCaptureTo('child1');
 
         $child2 = new ViewModel(array('bar' => 'baz'));
-        $child2->setCaptureTo('child2');
+        $child2->getOptions()->setCaptureTo('child2');
         $child1->addChild($child2);
 
         $this->model->setVariable('parent', 'node');
@@ -133,11 +158,11 @@ class ViewTest extends TestCase
         });
 
         $child1 = new ViewModel(array('foo' => 'bar'));
-        $child1->setCaptureTo('child1');
+        $child1->getOptions()->setCaptureTo('child1');
 
         $child2 = new JsonModel(array('bar' => 'baz'));
-        $child2->setCaptureTo('child2');
-        $child2->setTerminal(false);
+        $child2->getOptions()->setCaptureTo('child2');
+        $child2->getOptions()->setTerminal(false);
 
         $this->model->setVariable('parent', 'node');
         $this->model->addChild($child1);
@@ -158,8 +183,8 @@ class ViewTest extends TestCase
         $this->attachTestStrategies();
 
         $child1 = new ViewModel(array('foo' => 'bar'));
-        $child1->setCaptureTo('child1');
-        $child1->setTerminal(true);
+        $child1->getOptions()->setCaptureTo('child1');
+        $child1->getOptions()->setTerminal(true);
 
         $this->model->setVariable('parent', 'node');
         $this->model->addChild($child1);
@@ -179,11 +204,11 @@ class ViewTest extends TestCase
         $this->attachTestStrategies();
 
         $child1 = new ViewModel(array('foo' => 'bar'));
-        $child1->setCaptureTo('child1');
+        $child1->getOptions()->setCaptureTo('child1');
 
         // Deliberately disable the "capture to" declaration
         $child2 = new ViewModel(array('bar' => 'baz'));
-        $child2->setCaptureTo(null);
+        $child2->getOptions()->setCaptureTo(null);
 
         $this->model->setVariable('parent', 'node');
         $this->model->addChild($child1);
@@ -216,10 +241,10 @@ class ViewTest extends TestCase
         });
 
         $child1 = new ViewModel(array('foo' => 'bar'));
-        $child1->setCaptureTo('child1');
+        $child1->getOptions()->setCaptureTo('child1');
 
         $child2 = new ViewModel(array('bar' => 'baz'));
-        $child2->setCaptureTo('child2');
+        $child2->getOptions()->setCaptureTo('child2');
 
         $this->model->setVariable('parent', 'node');
         $this->model->addChild($child1);
@@ -237,7 +262,7 @@ class ViewTest extends TestCase
             'content' => __DIR__ . '/_templates/nested-view-model-content.phtml',
         ));
         $phpRenderer = new PhpRenderer();
-        $phpRenderer->setCanRenderTrees(true);
+        $phpRenderer->getOptions()->setCanRenderTrees(true);
         $phpRenderer->setResolver($resolver);
 
         $this->view->addRenderingStrategy(function ($e) use ($phpRenderer) {
@@ -250,10 +275,10 @@ class ViewTest extends TestCase
         });
 
         $layout = new ViewModel();
-        $layout->setTemplate('layout');
+        $layout->getOptions()->setTemplate('layout');
         $content = new ViewModel();
-        $content->setTemplate('content');
-        $content->setCaptureTo('content');
+        $content->getOptions()->setTemplate('content');
+        $content->getOptions()->setCaptureTo('content');
         $layout->addChild($content);
 
         $this->view->render($layout);
@@ -278,7 +303,7 @@ class ViewTest extends TestCase
 
         $layout  = new ViewModel(array('status' => 200));
         $content = new ViewModel(array('foo' => 'bar'));
-        $content->setCaptureTo('response');
+        $content->getOptions()->setCaptureTo('response');
         $layout->addChild($content);
 
         $this->view->render($layout);

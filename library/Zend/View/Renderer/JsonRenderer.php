@@ -16,31 +16,26 @@ use Zend\Stdlib\ArrayUtils;
 use Zend\View\Exception;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ModelInterface as Model;
+use Zend\View\Renderer\JsonRendererOptions;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Resolver\ResolverInterface as Resolver;
 
 /**
  * JSON renderer
  */
-class JsonRenderer implements Renderer, TreeRendererInterface
+class JsonRenderer implements Renderer
 {
     /**
-     * Whether or not to merge child models with no capture-to value set
-     * @var bool
+     * Renderer options
+     *
+     * @var JsonRendererOptions
      */
-    protected $mergeUnnamedChildren = false;
+    protected $options;
 
     /**
      * @var Resolver
      */
     protected $resolver;
-
-    /**
-     * JSONP callback (if set, wraps the return in a function call)
-     *
-     * @var string
-     */
-    protected $jsonpCallback = null;
 
     /**
      * Return the template engine object, if any
@@ -49,11 +44,50 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * phplib, etc, return the template engine object. Useful for calling
      * methods on these objects, such as for setting filters, modifiers, etc.
      *
-     * @return mixed
+     * @return JsonRenderer
      */
     public function getEngine()
     {
         return $this;
+    }
+
+    /**
+     * Set renderer options
+     *
+     * @param  array|\Traversable|JsonRendererOptions $options
+     * @throws Exception\InvalidArgumentException
+     * @return JsonRenderer
+     */
+    public function setOptions($options)
+    {
+        if (!$options instanceof JsonRendererOptions) {
+            if (is_object($options) && !$options instanceof Traversable) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                        'Expected instance of Zend\View\Renderer\JsonRendererOptions; '
+                        . 'received "%s"', get_class($options))
+                );
+            }
+
+            $options = new JsonRendererOptions($options);
+        }
+
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * Get renderer options
+     *
+     * @return JsonRendererOptions
+     */
+    public function getOptions()
+    {
+        if (!$this->options) {
+            $this->setOptions(new JsonRendererOptions());
+        }
+
+        return $this->options;
     }
 
     /**
@@ -66,53 +100,8 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     public function setResolver(Resolver $resolver)
     {
         $this->resolver = $resolver;
-    }
 
-    /**
-     * Set flag indicating whether or not to merge unnamed children
-     *
-     * @param  bool $mergeUnnamedChildren
-     * @return JsonRenderer
-     */
-    public function setMergeUnnamedChildren($mergeUnnamedChildren)
-    {
-        $this->mergeUnnamedChildren = (bool) $mergeUnnamedChildren;
         return $this;
-    }
-
-    /**
-     * Set the JSONP callback function name
-     *
-     * @param  string $callback
-     * @return JsonRenderer
-     */
-    public function setJsonpCallback($callback)
-    {
-        $callback = (string) $callback;
-        if (!empty($callback)) {
-            $this->jsonpCallback = $callback;
-        }
-        return $this;
-    }
-
-    /**
-     * Returns whether or not the jsonpCallback has been set
-     *
-     * @return bool
-     */
-    public function hasJsonpCallback()
-    {
-        return (null !== $this->jsonpCallback);
-    }
-
-    /**
-     * Should we merge unnamed children?
-     *
-     * @return bool
-     */
-    public function mergeUnnamedChildren()
-    {
-        return $this->mergeUnnamedChildren;
     }
 
     /**
@@ -138,8 +127,8 @@ class JsonRenderer implements Renderer, TreeRendererInterface
                 $values = Json::encode($values);
             }
 
-            if ($this->hasJsonpCallback()) {
-                $values = $this->jsonpCallback . '(' . $values . ');';
+            if ($this->getOptions()->hasJsonpCallback()) {
+                $values = $this->getOptions()->getJsonpCallback() . '(' . $values . ');';
             }
             return $values;
         }
@@ -156,8 +145,8 @@ class JsonRenderer implements Renderer, TreeRendererInterface
                 $return = Json::encode(get_object_vars($nameOrModel));
             }
 
-            if ($this->hasJsonpCallback()) {
-                $return = $this->jsonpCallback . '(' . $return . ');';
+            if ($this->getOptions()->hasJsonpCallback()) {
+                $return = $this->getOptions()->getJsonpCallback() . '(' . $return . ');';
             }
             return $return;
         }
@@ -170,23 +159,11 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Can this renderer render trees of view models?
-     *
-     * Yes.
-     *
-     * @return true
-     */
-    public function canRenderTrees()
-    {
-        return true;
-    }
-
-    /**
      * Retrieve values from a model and recurse its children to build a data structure
      *
      * @param  Model $model
      * @param  bool $mergeWithVariables Whether or not to merge children with
-     *         the variables of the $model
+     *                                  the variables of the $model
      * @return array
      */
     protected function recurseModel(Model $model, $mergeWithVariables = true)
@@ -204,9 +181,9 @@ class JsonRenderer implements Renderer, TreeRendererInterface
             return $values;
         }
 
-        $mergeChildren = $this->mergeUnnamedChildren();
+        $mergeChildren = $this->getOptions()->canMergeUnnamedChildren();
         foreach ($model as $child) {
-            $captureTo = $child->captureTo();
+            $captureTo = $child->getOptions()->captureTo();
             if (!$captureTo && !$mergeChildren) {
                 // We don't want to do anything with this child
                 continue;
@@ -223,6 +200,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
                 $values = array_replace_recursive($values, $childValues);
             }
         }
+
         return $values;
     }
 

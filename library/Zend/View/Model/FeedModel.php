@@ -9,52 +9,88 @@
 
 namespace Zend\View\Model;
 
+use Traversable;
 use Zend\Feed\Writer\Feed;
 use Zend\Feed\Writer\FeedFactory;
+use Zend\View\Exception;
+use Zend\View\Variables;
 
 /**
  * Marker view model for indicating feed data.
  */
-class FeedModel extends ViewModel
+class FeedModel extends AbstractModel
 {
     /**
+     * The feed object
+     *
      * @var Feed
      */
     protected $feed;
 
     /**
-     * @var false|string
-     */
-    protected $type = false;
-
-    /**
-     * A feed is always terminal
+     * Model options
      *
-     * @var bool
+     * @var FeedModelOptions
      */
-    protected $terminate = true;
+    protected $options;
 
     /**
-     * @return \Zend\Feed\Writer\Feed
+     * Constructor
+     *
+     * @param  null|array|Traversable $variables
+     * @param  null|array|Traversable|FeedModelOptions $options
      */
-    public function getFeed()
+    public function __construct($variables = null, $options = null)
     {
-        if ($this->feed instanceof Feed) {
-            return $this->feed;
+        if (null === $variables) {
+            $variables = new Variables();
         }
 
-        if (!$this->type) {
-            $options   = $this->getOptions();
-            if (isset($options['feed_type'])) {
-                $this->type = $options['feed_type'];
+        // Initializing the variables container
+        $this->setVariables($variables, true);
+
+        if (null !== $options) {
+            $this->setOptions($options);
+        }
+    }
+
+    /**
+     * Set model options
+     *
+     * @param  array|\Traversable|FeedModelOptions $options
+     * @throws Exception\InvalidArgumentException
+     * @return FeedModel
+     */
+    public function setOptions($options)
+    {
+        if (!$options instanceof FeedModelOptions) {
+            if (is_object($options) && !$options instanceof Traversable) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                    'Expected instance of Zend\View\Model\FeedModelOptions; '
+                    . 'received "%s"', get_class($options))
+                );
             }
+
+            $options = new FeedModelOptions($options);
         }
 
-        $variables = $this->getVariables();
-        $feed      = FeedFactory::factory($variables);
-        $this->setFeed($feed);
+        $this->options = $options;
 
-        return $this->feed;
+        return $this;
+    }
+
+    /**
+     * Get model options
+     *
+     * @return FeedModelOptions
+     */
+    public function getOptions()
+    {
+        if (!$this->options) {
+            $this->setOptions(new FeedModelOptions());
+        }
+
+        return $this->options;
     }
 
     /**
@@ -66,24 +102,22 @@ class FeedModel extends ViewModel
     public function setFeed(Feed $feed)
     {
         $this->feed = $feed;
+
         return $this;
     }
 
     /**
-     * Get the feed type
+     * Get the feed object
      *
-     * @return false|string
+     * @return Feed
      */
-    public function getFeedType()
+    public function getFeed()
     {
-        if ($this->type) {
-            return $this->type;
+        if (!$this->feed instanceof Feed) {
+            $feed = FeedFactory::factory($this->getVariables());
+            $this->setFeed($feed);
         }
 
-        $options   = $this->getOptions();
-        if (isset($options['feed_type'])) {
-            $this->type = $options['feed_type'];
-        }
-        return $this->type;
+        return $this->feed;
     }
 }

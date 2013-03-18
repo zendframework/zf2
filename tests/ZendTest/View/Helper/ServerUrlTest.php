@@ -10,19 +10,15 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Helper;
+use Zend\View\Helper\ServerUrl;
 
-/**
- * Tests Zend_View_Helper_ServerUrl
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class ServerUrlTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ServerUrl
+     */
+    protected $helper;
+
     /**
      * Back up of $_SERVER
      *
@@ -35,6 +31,8 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        $this->helper = new ServerUrl();
+
         $this->serverBackup = $_SERVER;
         unset($_SERVER['HTTPS']);
         unset($_SERVER['SERVER_PORT']);
@@ -52,16 +50,14 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
     {
         $_SERVER['HTTP_HOST'] = 'example.com';
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com', $url->__invoke());
+        $this->assertEquals('http://example.com', $this->helper->__invoke());
     }
 
     public function testConstructorWithOnlyHostIncludingPort()
     {
         $_SERVER['HTTP_HOST'] = 'example.com:8000';
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com:8000', $url->__invoke());
+        $this->assertEquals('http://example.com:8000', $this->helper->__invoke());
     }
 
     public function testConstructorWithHostAndHttpsOn()
@@ -69,8 +65,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_HOST'] = 'example.com';
         $_SERVER['HTTPS']     = 'on';
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('https://example.com', $url->__invoke());
+        $this->assertEquals('https://example.com', $this->helper->__invoke());
     }
 
     public function testConstructorWithHostAndHttpsTrue()
@@ -78,8 +73,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_HOST'] = 'example.com';
         $_SERVER['HTTPS'] = true;
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('https://example.com', $url->__invoke());
+        $this->assertEquals('https://example.com', $this->helper->__invoke());
     }
 
     public function testConstructorWithHostIncludingPortAndHttpsTrue()
@@ -87,8 +81,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_HOST'] = 'example.com:8181';
         $_SERVER['HTTPS'] = true;
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('https://example.com:8181', $url->__invoke());
+        $this->assertEquals('https://example.com:8181', $this->helper->__invoke());
     }
 
     public function testConstructorWithHttpHostIncludingPortAndPortSet()
@@ -96,8 +89,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_HOST'] = 'example.com:8181';
         $_SERVER['SERVER_PORT'] = 8181;
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com:8181', $url->__invoke());
+        $this->assertEquals('http://example.com:8181', $this->helper->__invoke());
     }
 
     public function testConstructorWithHttpHostAndServerNameAndPortSet()
@@ -106,8 +98,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['SERVER_NAME'] = 'example.org';
         $_SERVER['SERVER_PORT'] = 8080;
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com:8080', $url->__invoke());
+        $this->assertEquals('http://example.com:8080', $this->helper->__invoke());
     }
 
     public function testConstructorWithNoHttpHostButServerNameAndPortSet()
@@ -116,8 +107,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['SERVER_NAME'] = 'example.org';
         $_SERVER['SERVER_PORT'] = 8080;
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.org:8080', $url->__invoke());
+        $this->assertEquals('http://example.org:8080', $this->helper->__invoke());
     }
 
     public function testServerUrlWithTrueParam()
@@ -126,8 +116,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_HOST']   = 'example.com';
         $_SERVER['REQUEST_URI'] = '/foo.html';
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com/foo.html', $url->__invoke(true));
+        $this->assertEquals('http://example.com/foo.html', $this->helper->__invoke(true));
     }
 
     public function testServerUrlWithInteger()
@@ -136,8 +125,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_HOST'] = 'example.com';
         $_SERVER['REQUEST_URI'] = '/foo.html';
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com', $url->__invoke(1337));
+        $this->assertEquals('http://example.com', $this->helper->__invoke(1337));
     }
 
     public function testServerUrlWithObject()
@@ -146,8 +134,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_HOST'] = 'example.com';
         $_SERVER['REQUEST_URI'] = '/foo.html';
 
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com', $url->__invoke(new \stdClass()));
+        $this->assertEquals('http://example.com', $this->helper->__invoke(new \stdClass()));
     }
 
     /**
@@ -157,8 +144,8 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
     {
         $_SERVER['HTTP_SCHEME'] = 'https';
         $_SERVER['HTTP_HOST'] = 'example.com';
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('https://example.com', $url->__invoke());
+
+        $this->assertEquals('https://example.com', $this->helper->__invoke());
     }
 
     /**
@@ -168,8 +155,8 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
     {
         $_SERVER['SERVER_PORT'] = 443;
         $_SERVER['HTTP_HOST'] = 'example.com';
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('https://example.com', $url->__invoke());
+
+        $this->assertEquals('https://example.com', $this->helper->__invoke());
     }
 
     /**
@@ -179,8 +166,10 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
     {
         $_SERVER['HTTP_HOST'] = 'proxyserver.com';
         $_SERVER['HTTP_X_FORWARDED_HOST'] = 'www.firsthost.org';
-        $url = new Helper\ServerUrl();
+
+        $url = $this->helper;
         $url->setUseProxy(true);
+
         $this->assertEquals('http://www.firsthost.org', $url->__invoke());
     }
 
@@ -191,8 +180,10 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
     {
         $_SERVER['HTTP_HOST'] = 'proxyserver.com';
         $_SERVER['HTTP_X_FORWARDED_HOST'] = 'www.firsthost.org, www.secondhost.org';
-        $url = new Helper\ServerUrl();
+
+        $url = $this->helper;
         $url->setUseProxy(true);
+
         $this->assertEquals('http://www.secondhost.org', $url->__invoke());
     }
 
@@ -200,8 +191,8 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
     {
         $_SERVER['HTTP_HOST'] = 'proxyserver.com';
         $_SERVER['HTTP_X_FORWARDED_HOST'] = 'www.firsthost.org, www.secondhost.org';
-        $url = new Helper\ServerUrl();
-        $this->assertEquals('http://proxyserver.com', $url->__invoke());
+
+        $this->assertEquals('http://proxyserver.com', $this->helper->__invoke());
     }
 
     public function testCanUseXForwardedPortIfProvided()
@@ -209,8 +200,10 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_HOST'] = 'proxyserver.com';
         $_SERVER['HTTP_X_FORWARDED_HOST'] = 'www.firsthost.org, www.secondhost.org';
         $_SERVER['HTTP_X_FORWARDED_PORT'] = '8888';
-        $url = new Helper\ServerUrl();
+
+        $url = $this->helper;
         $url->setUseProxy(true);
+
         $this->assertEquals('http://www.secondhost.org:8888', $url->__invoke());
     }
 }

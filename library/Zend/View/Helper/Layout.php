@@ -29,8 +29,7 @@ class Layout extends AbstractHelper
      */
     public function getLayout()
     {
-        $model = $this->getRoot();
-        return $model->getTemplate();
+        return $this->getRoot()->getOptions()->getTemplate();
     }
 
     /**
@@ -41,8 +40,8 @@ class Layout extends AbstractHelper
      */
     public function setTemplate($template)
     {
-        $model = $this->getRoot();
-        $model->setTemplate((string) $template);
+        $this->getRoot()->getOptions()->setTemplate((string) $template);
+
         return $this;
     }
 
@@ -60,6 +59,7 @@ class Layout extends AbstractHelper
         if (null === $template) {
             return $this->getRoot();
         }
+
         return $this->setTemplate($template);
     }
 
@@ -78,6 +78,7 @@ class Layout extends AbstractHelper
                 __METHOD__
             ));
         }
+
         return $helper->getRoot();
     }
 
@@ -88,11 +89,10 @@ class Layout extends AbstractHelper
      */
     protected function getViewModelHelper()
     {
-        if ($this->viewModelHelper) {
-            return $this->viewModelHelper;
+        if (!$this->viewModelHelper) {
+            $this->viewModelHelper = $this->getView()->plugin('view_model');
         }
-        $view = $this->getView();
-        $this->viewModelHelper = $view->plugin('view_model');
+
         return $this->viewModelHelper;
     }
 }

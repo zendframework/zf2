@@ -14,12 +14,6 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\View\HelperPluginManager;
 use Zend\View\Renderer\PhpRenderer;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- */
 class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()

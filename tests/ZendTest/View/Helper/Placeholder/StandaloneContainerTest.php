@@ -10,19 +10,16 @@
 
 namespace ZendTest\View\Helper\Placeholder;
 
+use Zend\View\Helper\Placeholder\Container\AbstractStandalone;
+use Zend\View\Helper\Placeholder\Registry;
 use Zend\View\Renderer\PhpRenderer as View;
 
-/**
- * Test class for Zend_View_Helper_Placeholder_StandaloneContainer.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Foo
+     */
+    protected $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -32,7 +29,7 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        \Zend\View\Helper\Placeholder\Registry::unsetRegistry();
+        Registry::unsetRegistry();
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Foo();
     }
@@ -71,7 +68,7 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class Foo extends \Zend\View\Helper\Placeholder\Container\AbstractStandalone
+class Foo extends AbstractStandalone
 {
     protected $_regKey = 'foo';
     public function direct() {}

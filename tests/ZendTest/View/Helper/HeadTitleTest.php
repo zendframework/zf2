@@ -11,29 +11,20 @@
 namespace ZendTest\View\Helper;
 
 use Zend\I18n\Translator\Translator;
+use Zend\View\Helper\HeadTitle;
 use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper;
 
-/**
- * Test class for Zend_View_Helper_HeadTitle.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class HeadTitleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HeadTitle
-     */
-    public $helper;
-
-    /**
      * @var string
      */
-    public $basePath;
+    protected $basePath;
+
+    /**
+     * @var HeadTitle
+     */
+    protected $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -45,7 +36,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
     {
         Registry::unsetRegistry();
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new Helper\HeadTitle();
+        $this->helper = new HeadTitle();
     }
 
     /**
@@ -66,14 +57,14 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
             $registry->deleteContainer('Zend_View_Helper_HeadTitle');
         }
         $this->assertFalse($registry->containerExists('Zend_View_Helper_HeadTitle'));
-        $helper = new Helper\HeadTitle();
+        $helper = new HeadTitle();
         $this->assertTrue($registry->containerExists('Zend_View_Helper_HeadTitle'));
     }
 
     public function testHeadTitleReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertTrue($placeholder instanceof Helper\HeadTitle);
+        $this->assertTrue($placeholder instanceof HeadTitle);
     }
 
     public function testCanSetTitleViaHeadTitle()
@@ -225,7 +216,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
      */
     public function testReturnTypeDefaultAttachOrder()
     {
-        $this->assertTrue($this->helper->setDefaultAttachOrder('PREPEND') instanceof Helper\HeadTitle);
+        $this->assertTrue($this->helper->setDefaultAttachOrder('PREPEND') instanceof HeadTitle);
         $this->assertEquals('PREPEND', $this->helper->getDefaultAttachOrder());
     }
 }
