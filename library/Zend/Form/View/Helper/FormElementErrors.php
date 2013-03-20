@@ -148,11 +148,12 @@ class FormElementErrors extends AbstractHelper
         // Flatten message array
         $escapeHtml      = $this->getEscapeHtmlHelper();
         $messagesToPrint = array();
-        $translator      = $this->getTranslator();
-        $textDomain      = $this->getTranslatorTextDomain();
-        array_walk_recursive($messages, function ($item) use (&$messagesToPrint, $escapeHtml, &$translator, &$textDomain) {
-            if (null !== $translator) {
-                $item = $translator->translate($item, $textDomain);
+        $self            = $this;
+        array_walk_recursive($messages, function ($item) use (&$messagesToPrint, $escapeHtml, &$self) {
+            if (null !== ($translator = $self->getTranslator())) {
+                $item = $translator->translate(
+                    $item, $self->getTranslatorTextDomain()
+                );
             }
             $messagesToPrint[] = $escapeHtml($item);
         });
