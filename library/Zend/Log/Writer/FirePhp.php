@@ -42,7 +42,7 @@ class FirePhp extends AbstractWriter
             $instance = isset($instance['instance']) ? $instance['instance'] : null;
         }
 
-        if ($instance instanceof FirePhpInterface) {
+        if (!($instance instanceof FirePhpInterface)) {
             throw new Exception\InvalidArgumentException('You must pass a valid FirePhp\FirePhpInterface');
         }
 
