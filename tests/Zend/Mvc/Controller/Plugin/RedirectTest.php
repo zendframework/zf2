@@ -52,6 +52,26 @@ class RedirectTest extends TestCase
         $this->assertEquals('/foo', $location->getFieldValue());
     }
 
+    public function testPluginCanRedirectToUrlWhenProperlyConfiguredWithDefaultStatus()
+    {
+        $response = $this->plugin->toUrl('/foo');
+        $this->assertTrue($response->isRedirect());
+        $this->assertEquals(302, $response->getStatusCode());
+        $headers = $response->headers();
+        $location = $headers->get('Location');
+        $this->assertEquals('/foo', $location->getFieldValue());
+    }
+
+    public function testPluginCanRedirectToUrlWhenProperlyConfiguredWithCustomStatus()
+    {
+        $response = $this->plugin->toUrl('/foo', 301);
+        $this->assertTrue($response->isRedirect());
+        $this->assertEquals(301, $response->getStatusCode());
+        $headers = $response->headers();
+        $location = $headers->get('Location');
+        $this->assertEquals('/foo', $location->getFieldValue());
+    }
+
     public function testPluginWithoutControllerRaisesDomainException()
     {
         $plugin = new RedirectPlugin();

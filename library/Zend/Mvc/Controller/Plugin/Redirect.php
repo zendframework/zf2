@@ -45,11 +45,11 @@ class Redirect extends AbstractPlugin
      * @param  string $url
      * @return Response
      */
-    public function toUrl($url)
+    public function toUrl($url, $code = 302)
     {
         $response = $this->getResponse();
         $response->headers()->addHeaderLine('Location', $url);
-        $response->setStatusCode(302);
+        $response->setStatusCode($code);
         return $response;
     }
 
