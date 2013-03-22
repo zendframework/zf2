@@ -38,7 +38,24 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
         $this->profiler->profilerStart(5);
     }
     
-
+    /**
+     * @covers Zend\Db\Adapter\Profiler\Profiler::profilerStart
+     */
+    public function testProfilerExecutedSql()
+    {
+        $prepSql = "SELECT * FROM foo WHERE bar = ':where1'";
+        $prepParams = new ParameterContainer(array(':where1' => 'baz'));
+        $stmt = new StatementContainer($prepSql, $prepParams);
+        $profiler = $this->profiler->profilerStart($stmt);
+        $profiles = $profiler->getProfiles();
+        $profile = array_shift($profiles);
+        $this->assertArrayHasKey('executed_sql', $profile, 
+                                 'executed_sql key not set in a profile');
+        
+        $expectedExecedSlq = "SELECT * FROM foo WHERE bar = 'baz'";
+        $this->assertEquals($expectedExecedSlq, $profile['executed_sql'], 
+                            "Profile's executed_sql key returns unexpected result");
+    }
    
     /**
      * @covers Zend\Db\Adapter\Profiler\Profiler::profilerFinish
