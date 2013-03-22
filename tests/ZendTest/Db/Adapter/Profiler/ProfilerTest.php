@@ -3,6 +3,7 @@ namespace ZendTest\Db\Adapter\Profiler;
 
 use Zend\Db\Adapter\Profiler\Profiler;
 use Zend\Db\Adapter\StatementContainer;
+use Zend\Db\Adapter\ParameterContainer;
 
 class ProfilerTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +37,9 @@ class ProfilerTest extends \PHPUnit_Framework_TestCase
         );
         $this->profiler->profilerStart(5);
     }
+    
 
+   
     /**
      * @covers Zend\Db\Adapter\Profiler\Profiler::profilerFinish
      */
