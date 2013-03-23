@@ -800,4 +800,20 @@ class Form extends Fieldset implements FormInterface
 
         return $values;
     }
+
+    /**
+     * Rebind an object to the form.
+     *
+     * @return \Zend\Form\Form
+     * @throws \Zend\Form\Exception\DomainException
+     */
+    public function rebind()
+    {
+        if (null === $this->object) {
+            throw new Exception\DomainException('Object not binded with form.');
+        }
+
+        $this->extract();
+        return $this;
+    }
 }

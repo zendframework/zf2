@@ -12,6 +12,7 @@ namespace Zend\Form;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Form\Factory;
+use Zend\ServiceManager\Config;
 
 /**
  * Abstract form factory.
@@ -24,7 +25,17 @@ class FormAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * @var \Zend\Form\Factory
      */
-    private $formFactory;
+    protected $formFactory;
+
+    /**
+     * @var FormElementManager
+     */
+    protected $formElementManager;
+
+    /**
+     * @var FormObjectManager
+     */
+    protected $formObjectManager;
 
     /**
      * {@inheritDoc}
@@ -32,7 +43,6 @@ class FormAbstractServiceFactory implements AbstractFactoryInterface
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
         $config = $serviceLocator->get('Config');
-
         return isset($config['form'][$requestedName]);
     }
 
@@ -43,17 +53,8 @@ class FormAbstractServiceFactory implements AbstractFactoryInterface
     {
         $config = $serviceLocator->get('Config');
 
-        return $this->createForm($serviceLocator, $config['form'][$requestedName]);
-    }
-
-    /**
-     * @param array $spec
-     * @return \Zend\Form\FormInterface
-     */
-    public function createForm(ServiceLocatorInterface $serviceLocator, $spec = array())
-    {
         $factory = $this->getFormFactory($serviceLocator);
-        $form = $factory->create($spec);
+        $form = $factory->createForm($config['form'][$requestedName]);
         $form->setFormFactory($factory);
 
         return $form;
@@ -65,6 +66,7 @@ class FormAbstractServiceFactory implements AbstractFactoryInterface
     public function setFormFactory(Factory $formFactory)
     {
         $this->formFactory = $formFactory;
+        return $this;
     }
 
     /**
@@ -73,11 +75,109 @@ class FormAbstractServiceFactory implements AbstractFactoryInterface
     public function getFormFactory(ServiceLocatorInterface $serviceLocator)
     {
         if (null === $this->formFactory) {
-            $formElementManager = $serviceLocator->has('Zend\Form\FormElementManager')
-                ? $serviceLocator->get('Zend\Form\FormElementManager') : null;
-
-            $this->setFormFactory(new Factory($formElementManager));
+            $formFactory = new Factory();
+            $formFactory->setFormElementManager($this->getFormElementManager($serviceLocator));
+            $formFactory->setFormObjectManager($this->getFormObjectManager($serviceLocator));
+            $this->setFormFactory($formFactory);
         }
         return $this->formFactory;
+    }
+
+    /**
+     * @param FormElementManager $formElementManager
+     * @return \Zend\Form\FormAbstractServiceFactory
+     */
+    public function setFormElementManager(FormElementManager $formElementManager)
+    {
+        $this->formElementManager = $formElementManager;
+        return $this;
+    }
+
+    /**
+     * @return \Zend\Form\FormElementManager
+     */
+    public function getFormElementManager(ServiceLocatorInterface $serviceLocator)
+    {
+        if (null === $this->formElementManager) {
+            $this->setFormElementManager($this->createFormElementManager($serviceLocator));
+        }
+        return $this->formElementManager;
+    }
+
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return FormElementManager
+     */
+    public function createFormElementManager(ServiceLocatorInterface $serviceLocator)
+    {
+        if ($serviceLocator->has('Zend\Form\FormElementManager')) {
+            $formElementManager = $serviceLocator->get('Zend\Form\FormElementManager');
+
+        } else {
+            $config = $this->getConfig($serviceLocator);
+            $formElementManager = new FormElementManager(new Config($config['element_manager']));
+        }
+        return $formElementManager;
+    }
+
+    /**
+     * @param FormObjectManager $formObjectManager
+     * @return \Zend\Form\FormAbstractServiceFactory
+     */
+    public function setFormObjectManager(FormObjectManager $formObjectManager)
+    {
+        $this->formObjectManager = $formObjectManager;
+        return $this;
+    }
+
+    /**
+     * @return \Zend\Form\FormObjectManager
+     */
+    public function getFormObjectManager(ServiceLocatorInterface $serviceLocator)
+    {
+        if (null === $this->formObjectManager) {
+            $this->setFormObjectManager($this->createFormObjectManager($serviceLocator));
+        }
+        return $this->formObjectManager;
+    }
+
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return FormObjectManager
+     */
+    public function createFormObjectManager(ServiceLocatorInterface $serviceLocator)
+    {
+        if ($serviceLocator->has('Zend\Form\FormObjectManager')) {
+            $formObjectManager = $serviceLocator->get('Zend\Form\FormObjectManager');
+
+        } else {
+            $config = $this->getConfig($serviceLocator);
+            $formObjectManager = new FormObjectManager(new Config($config['object_manager']));
+        }
+        return $formObjectManager;
+    }
+
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return array
+     */
+    public function getConfig(ServiceLocatorInterface $serviceLocator)
+    {
+        $config = $serviceLocator->get('Config');
+
+        if (empty($config['form'])) {
+            $config = array('form' => array(
+                'element_manager' => array(),
+                'object_manager'  => array(),
+            ));
+
+        } else {
+            $config['form'] = array_merge(array(
+                'element_manager' => array(),
+                'object_manager'  => array(),
+            ), $config['form']);
+        }
+
+        return $config['form'];
     }
 }

@@ -14,7 +14,6 @@ use Zend\Mvc\Service\ServiceManagerConfig;
 
 class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      *
      * @var \Zend\ServiceManager\ServiceManager
@@ -33,8 +32,8 @@ class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
         )));
         $this->serviceManager->setService('Config', array(
             'form' => array(
-                'Frontend\Form\Authentication' => array(
-                    'type' => 'form',
+                'Frontend\Form\FooBar' => array(
+                    'object' => 'foobar',
                     'attributes' => array(
                         'action' => '/path/to/controller',
                         'method' => 'POST'
@@ -42,71 +41,37 @@ class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
                     'elements' => array(
                         array(
                             'spec' => array(
-                                'name' => 'username',
-                                'attributes' => array(
-                                    'type' => 'text'
-                                ),
-                                'options' => array(
-                                    'label' => 'Username'
-                                )
-                            )
-                        ),
-                        array(
-                            'spec' => array(
-                                'name' => 'password',
-                                'attributes' => array(
-                                    'type' => 'password'
-                                ),
-                                'options' => array(
-                                    'label' => 'Password'
-                                )
-                            )
-                        ),
-                        array(
-                            'spec' => array(
-                                'name' => 'submit',
-                                'attributes' => array(
-                                    'type' => 'submit'
-                                ),
-                                'options' => array(
-                                    'label' => 'Sign in'
-                                )
-                            )
-                        )
-                    ),
-                    'input_filter' => array(
-                        array(
-                            'name' => 'username',
-                            'required' => true,
-                            'filters' => array(
-                                array(
-                                    'name' => 'StringTrim'
-                                )
+                                'name' => 'foo',
+                                'type' => 'text',
                             ),
-                            'validators' => array(
-                                array(
-                                    'name' => 'RegEx',
-                                    'options' => array(
-                                        'pattern' => '/^[a-zA-Z][a-zA-Z0-9]+_[a-zA-Z][a-zA-Z0-9]+$/',
-                                        'messages' => array(
-                                            'regexNotMatch' => 'Username is incorrect'
-                                        )
-                                    )
-                                )
-                            )
                         ),
                         array(
-                            'name' => 'password',
-                            'required' => true,
-                            'filters' => array(
-                                array(
-                                    'name' => 'StringTrim'
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                            'spec' => array(
+                                'name' => 'bar',
+                                'type' => 'text',
+                            ),
+                        ),
+                        array(
+                            'spec' => array(
+                                'name' => 'foobar',
+                                'type' => 'foobar',
+                            ),
+                        ),
+                    ),
+                ),
+
+                'element_manager' => array(
+                    'invokables' => array(
+                        'foobar' => 'ZendTest\Form\TestAsset\ElementCustomTextfield',
+                    ),
+                ),
+
+                'object_manager' => array(
+                    'invokables' => array(
+                        'foobar' => 'ZendTest\Form\TestAsset\Model',
+                    ),
+                ),
+            ),
         ));
     }
 
@@ -118,7 +83,8 @@ class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                'Frontend\Form\Authentication'
+                'Frontend\Form\FooBar',
+                'ZendTest\Form\TestAsset\Model',
             )
         );
     }
@@ -139,7 +105,7 @@ class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @param string $service
-     *            @dataProvider providerValidService
+     * @dataProvider providerValidService
      */
     public function testValidService ($service)
     {
@@ -150,11 +116,71 @@ class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @param string $service
-     *            @dataProvider providerInvalidService
-     *            @expectedException Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @dataProvider providerInvalidService
+     * @expectedException Zend\ServiceManager\Exception\ServiceNotFoundException
      */
     public function testInvalidService ($service)
     {
+        $this->serviceManager->get($service);
+    }
+
+    /**
+     * @param string $service
+     * @dataProvider providerValidService
+     */
+    public function testObjectBinding ($service, $classname)
+    {
+        /* @var $form \Zend\Form\Form */
         $actual = $this->serviceManager->get($service);
+        $this->assertInstanceOf($classname, $actual->getObject());
+    }
+
+    /**
+     * @param string $service
+     * @dataProvider providerValidService
+     */
+    public function testValuesBindind ($service, $classname)
+    {
+        /* @var $form \Zend\Form\Form */
+        $form = $this->serviceManager->get($service);
+        $form->bindValues(array(
+            'foo' => 'foo',
+            'bar' => 'bar',
+            'foobar' => 'foobar',
+        ));
+
+        $this->assertEquals('foo', $form->getObject()->foo);
+        $this->assertEquals('bar', $form->getObject()->bar);
+        $this->assertEquals('foobar', $form->getObject()->foobar);
+    }
+
+    /**
+     * @param string $service
+     * @dataProvider providerValidService
+     */
+    public function testElementBindind ($service, $classname)
+    {
+        /* @var $form \Zend\Form\Form */
+        $form = $this->serviceManager->get($service);
+        $form->bindValues(array(
+            'foo' => 'foo',
+            'bar' => 'bar',
+            'foobar' => 'foobar',
+        ));
+
+        $this->assertEquals('foo', $form->get('foo')->getValue());
+        $this->assertEquals('bar', $form->get('bar')->getValue());
+        $this->assertEquals('foobar', $form->get('foobar')->getValue());
+    }
+
+    /**
+     *
+     * @param string $service
+     * @dataProvider providerValidService
+     */
+    public function testCustomElement ($service)
+    {
+        $form = $this->serviceManager->get($service);
+        $this->assertInstanceOf('ZendTest\Form\TestAsset\ElementCustomTextfield', $form->get('foobar'));
     }
 }
