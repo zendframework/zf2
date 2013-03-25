@@ -49,6 +49,11 @@ class ServiceManager implements ServiceLocatorInterface
     protected $abstractFactories = array();
 
     /**
+     * @var string[]
+     */
+    protected $delegates = array();
+
+    /**
      * @var array
      */
     protected $pendingAbstractFactoryRequests = array();
@@ -320,6 +325,21 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
+     * Sets the given service name as to be handled by a delegate factory
+     *
+     * @param  string $serviceName
+     * @param  string $delegateFactoryName
+     *
+     * @return ServiceManager
+     */
+    public function setDelegate($serviceName, $delegateFactoryName)
+    {
+        $this->delegates[$this->canonicalizeName($serviceName)] = $delegateFactoryName;
+
+        return $this;
+    }
+
+    /**
      * Add initializer
      *
      * @param  callable|InitializerInterface $initializer
@@ -474,14 +494,11 @@ class ServiceManager implements ServiceLocatorInterface
      * Create an instance
      *
      * @param  string|array $name
+     *
      * @return bool|object
-     * @throws Exception\ServiceNotFoundException
-     * @throws Exception\ServiceNotCreatedException
      */
     public function create($name)
     {
-        $instance = false;
-
         if (is_array($name)) {
             list($cName, $rName) = $name;
         } else {
@@ -489,6 +506,38 @@ class ServiceManager implements ServiceLocatorInterface
             $cName = $this->canonicalizeName($rName);
         }
 
+        if (isset($this->delegates[$cName])) {
+            /* @var $delegateFactory DelegateFactoryInterface */
+            $delegateFactory = $this->get($this->delegates[$cName]);
+            $serviceManager  = $this;
+
+            return $delegateFactory->createDelegateWithName(
+                $this,
+                $cName,
+                $rName,
+                function () use ($serviceManager, $rName, $cName) {
+                    return $serviceManager->doCreate($rName, $cName);
+                }
+            );
+        }
+
+        return $this->doCreate($rName, $cName);
+    }
+
+    /**
+     * Actually creates the service
+     *
+     * @param string $rName real service name
+     * @param string $cName canonicalized service name
+     *
+     * @return bool|mixed|null|object
+     * @throws Exception\ServiceNotFoundException
+     *
+     * @internal this method is internal because of PHP 5.3 compatibility - do not explicitly use it
+     */
+    public function doCreate($rName, $cName)
+    {
+        $instance = false;
 
         if (isset($this->factories[$cName])) {
             $instance = $this->createFromFactory($cName, $rName);
