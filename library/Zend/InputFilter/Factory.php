@@ -153,6 +153,9 @@ class Factory
                         $input->setRequired(!$value);
                     }
                     break;
+                case 'error_message':
+                    $input->setErrorMessage($value);
+                    break;
                 case 'fallback_value':
                     $input->setFallbackValue($value);
                     break;
@@ -231,6 +234,16 @@ class Factory
             throw new Exception\RuntimeException(sprintf(
                 'InputFilter factory expects the "type" to be a class implementing %s; received "%s"',
                 'Zend\InputFilter\InputFilterInterface', $class));
+        }
+
+        if ($inputFilter instanceof CollectionInputFilter) {
+            if (isset($inputFilterSpecification['input_filter'])) {
+                $inputFilter->setInputFilter($inputFilterSpecification['input_filter']);
+            }
+            if (isset($inputFilterSpecification['count'])) {
+                $inputFilter->setCount($inputFilterSpecification['count']);
+            }
+            return $inputFilter;
         }
 
         foreach ($inputFilterSpecification as $key => $value) {
