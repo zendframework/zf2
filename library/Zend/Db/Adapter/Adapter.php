@@ -10,6 +10,7 @@
 namespace Zend\Db\Adapter;
 
 use Zend\Db\ResultSet;
+use Zend\Db\Sql\Sql;
 
 /**
  * @property Driver\DriverInterface $driver
@@ -248,6 +249,16 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
                 throw new Exception\InvalidArgumentException('Invalid magic property on adapter');
         }
 
+    }
+
+    /**
+     * Create a new Sql object already populated with this adapter.
+     *
+     * @return Sql
+     */
+    public function createSql()
+    {
+        return new Sql($this);
     }
 
     /**
