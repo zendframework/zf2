@@ -298,4 +298,18 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('InvalidArgumentException', 'Invalid magic');
         $this->adapter->foo;
     }
+
+    /**
+     * Test that create sql returns an instance of the Sql object populated with the adapter
+     *
+     * @testdox unit test: Test that it returns an instance of a Sql object which is populated with the adapter
+     * @covers Zend\Db\Adapter\Adapter::createSql
+     */
+    public function testCreateSqlReturnsInstanceOfSqlObjectWithAdapter()
+    {
+        $sql = $this->adapter->createSql();
+
+        $this->assertInstanceOf('Zend\Db\Sql\Sql', $sql);
+        $this->assertSame($this->adapter, $sql->getAdapter());
+    }
 }
