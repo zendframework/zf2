@@ -84,12 +84,12 @@ final class Version
                 if (is_array($apiResponse)) {
                     // Simplify the API response into a simple array of version numbers
                     $tags = array_map(function ($tag) {
-                            return substr($tag['ref'], 18); // Reliable because we're filtering on 'refs/tags/release-'
-                        }, $apiResponse);
+                        return substr($tag['ref'], 18); // Reliable because we're filtering on 'refs/tags/release-'
+                    }, $apiResponse);
                     // Fetch the latest version number from the array
                     static::$latestVersion = array_reduce($tags, function ($a, $b) {
-                            return version_compare($a, $b, '>') ? $a : $b;
-                        });
+                        return version_compare($a, $b, '>') ? $a : $b;
+                    });
                 }
             } elseif ($service == self::VERSION_SERVICE_ZEND) {
                 $handle = fopen('http://framework.zend.com/api/zf-version?v=2', 'r');
