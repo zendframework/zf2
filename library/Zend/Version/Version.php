@@ -80,17 +80,17 @@ final class Version
             if ($service == self::VERSION_SERVICE_GITHUB) {
                 $url  = 'https://api.github.com/repos/zendframework/zf2/git/refs/tags/release-';
 
-                $apiResponse = Json::decode(file_get_contents($url), Json::TYPE_ARRAY);
-
-                // Simplify the API response into a simple array of version numbers
-                $tags = array_map(function ($tag) {
-                    return substr($tag['ref'], 18); // Reliable because we're filtering on 'refs/tags/release-'
-                }, $apiResponse);
-
-                // Fetch the latest version number from the array
-                static::$latestVersion = array_reduce($tags, function ($a, $b) {
-                    return version_compare($a, $b, '>') ? $a : $b;
-                });
+                $apiResponse = Json::decode(@file_get_contents($url), Json::TYPE_ARRAY);
+                if (is_array($apiResponse)) {
+                    // Simplify the API response into a simple array of version numbers
+                    $tags = array_map(function ($tag) {
+                        return substr($tag['ref'], 18); // Reliable because we're filtering on 'refs/tags/release-'
+                    }, $apiResponse);
+                    // Fetch the latest version number from the array
+                    static::$latestVersion = array_reduce($tags, function ($a, $b) {
+                        return version_compare($a, $b, '>') ? $a : $b;
+                    });
+                }
             } elseif ($service == self::VERSION_SERVICE_ZEND) {
                 $handle = fopen('http://framework.zend.com/api/zf-version?v=2', 'r');
                 if (false !== $handle) {
