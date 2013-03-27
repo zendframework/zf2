@@ -84,8 +84,5 @@ class Source extends AbstractAtom implements \Zend\Feed\Writer\Renderer\Renderer
         if (array_key_exists('uri', $gdata)) {
             $generator->setAttribute('uri', $gdata['uri']);
         }
-        if (array_key_exists('version', $gdata)) {
-            $generator->setAttribute('version', $gdata['version']);
-        }
     }
 }

@@ -15,7 +15,6 @@ use DOMElement;
 use Zend\Feed\Writer;
 use Zend\Feed\Writer\Renderer;
 use Zend\Uri;
-use Zend\Version\Version;
 
 /**
 */
@@ -196,16 +195,13 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\RendererInterfac
     {
         if (!$this->getDataContainer()->getGenerator()) {
             $this->getDataContainer()->setGenerator('Zend_Feed_Writer',
-                Version::VERSION, 'http://framework.zend.com');
+                'http://framework.zend.com');
         }
 
         $gdata = $this->getDataContainer()->getGenerator();
         $generator = $dom->createElement('generator');
         $root->appendChild($generator);
         $name = $gdata['name'];
-        if (array_key_exists('version', $gdata)) {
-            $name .= ' ' . $gdata['version'];
-        }
         if (array_key_exists('uri', $gdata)) {
             $name .= ' (' . $gdata['uri'] . ')';
         }

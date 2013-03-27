@@ -13,7 +13,6 @@ use Traversable;
 use Zend\Http\Request as HttpRequest;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Uri;
-use Zend\Version\Version;
 
 class Publisher
 {
@@ -375,7 +374,7 @@ class Publisher
         $client = PubSubHubbub::getHttpClient();
         $client->setMethod(HttpRequest::METHOD_POST);
         $client->setOptions(array(
-            'useragent' => 'Zend_Feed_Pubsubhubbub_Publisher/' . Version::VERSION,
+            'useragent' => 'Zend_Feed_Pubsubhubbub_Publisher',
         ));
         $params   = array();
         $params[] = 'hub.mode=publish';

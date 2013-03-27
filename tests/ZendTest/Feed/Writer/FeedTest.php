@@ -510,15 +510,6 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('name'=> 'ZFW'), $writer->getGenerator());
     }
 
-    public function testSetsGeneratorVersion()
-    {
-        $writer = new Writer\Feed;
-        $writer->setGenerator(array('name'    => 'ZFW',
-                                    'version' => '1.0'));
-        $this->assertEquals(array('name'    => 'ZFW',
-                                  'version' => '1.0'), $writer->getGenerator());
-    }
-
     public function testSetsGeneratorUri()
     {
         $writer = new Writer\Feed;
@@ -534,17 +525,6 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         try {
             $writer->setGenerator(array());
             $this->fail();
-        } catch (Writer\Exception\ExceptionInterface $e) {
-        }
-    }
-
-    public function testSetsGeneratorThrowsExceptionOnInvalidVersion()
-    {
-        $writer = new Writer\Feed;
-        try {
-            $writer->setGenerator(array('name'   => 'ZFW',
-                                        'version'=> ''));
-            $this->fail('Should have failed since version is empty');
         } catch (Writer\Exception\ExceptionInterface $e) {
         }
     }
@@ -574,21 +554,10 @@ class FeedTest extends \PHPUnit_Framework_TestCase
     /**
      * @deprecated
      */
-    public function testSetsGeneratorVersion_Deprecated()
-    {
-        $writer = new Writer\Feed;
-        $writer->setGenerator('ZFW', '1.0');
-        $this->assertEquals(array('name'    => 'ZFW',
-                                  'version' => '1.0'), $writer->getGenerator());
-    }
-
-    /**
-     * @deprecated
-     */
     public function testSetsGeneratorUri_Deprecated()
     {
         $writer = new Writer\Feed;
-        $writer->setGenerator('ZFW', null, 'http://www.example.com');
+        $writer->setGenerator('ZFW', 'http://www.example.com');
         $this->assertEquals(array('name'=> 'ZFW',
                                   'uri' => 'http://www.example.com'), $writer->getGenerator());
     }
@@ -601,19 +570,6 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $writer = new Writer\Feed;
         try {
             $writer->setGenerator('');
-            $this->fail();
-        } catch (Writer\Exception\ExceptionInterface $e) {
-        }
-    }
-
-    /**
-     * @deprecated
-     */
-    public function testSetsGeneratorThrowsExceptionOnInvalidVersion_Deprecated()
-    {
-        $writer = new Writer\Feed;
-        try {
-            $writer->setGenerator('ZFW', '');
             $this->fail();
         } catch (Writer\Exception\ExceptionInterface $e) {
         }
@@ -1018,13 +974,12 @@ class FeedTest extends \PHPUnit_Framework_TestCase
   <channel>
     <title>foo</title>
     <description>bar</description>
-    <generator>Zend_Feed_Writer %version% (http://framework.zend.com)</generator>
+    <generator>Zend_Feed_Writer (http://framework.zend.com)</generator>
     <link>http://www.example.org</link>
   </channel>
 </rss>
 
 EOT;
-        $feed = str_replace('%version%', Version::VERSION, $feed);
         $this->assertEquals($feed, $export);
     }
 
@@ -1040,12 +995,11 @@ EOT;
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <generator>Zend_Feed_Writer %version% (http://framework.zend.com)</generator>
+    <generator>Zend_Feed_Writer (http://framework.zend.com)</generator>
   </channel>
 </rss>
 
 EOT;
-        $feed = str_replace('%version%', Version::VERSION, $feed);
         $this->assertEquals($feed, $export);
     }
 
