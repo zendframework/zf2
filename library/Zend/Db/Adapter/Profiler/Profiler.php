@@ -26,16 +26,24 @@ class Profiler implements ProfilerInterface
     {
         $profileInformation = array(
             'sql' => '',
+            'executed_sql' => '',
             'parameters' => null,
             'start' => microtime(true),
             'end' => null,
             'elapse' => null
         );
         if ($target instanceof StatementContainerInterface) {
-            $profileInformation['sql'] = $target->getSql();
-            $profileInformation['parameters'] = clone $target->getParameterContainer();
+            $prepStmt                           = $target->getSql();
+            $profileInformation['sql']          = $prepStmt;
+            $profileInformation['executed_sql'] = $prepStmt;
+            $profileInformation['parameters']   = clone $target->getParameterContainer();
+            // Populates the prepared statement with parameters (if any)
+            foreach ($profileInformation['parameters'] as $pName => $pValue) {
+                $profileInformation['executed_sql'] = str_replace("{$pName}", "{$pValue}", $profileInformation['executed_sql']);
+            }
         } elseif (is_string($target)) {
             $profileInformation['sql'] = $target;
+            $profileInformation['executed_sql'] = $target;
         } else {
             throw new Exception\InvalidArgumentException(__FUNCTION__ . ' takes either a StatementContainer or a string');
         }
