@@ -43,7 +43,8 @@ class TreeRouteStack extends SimpleRouteStack
     protected function init()
     {
         $routes = $this->routePluginManager;
-        foreach (array(
+        foreach (
+            array(
                 'hostname' => __NAMESPACE__ . '\Hostname',
                 'literal'  => __NAMESPACE__ . '\Literal',
                 'part'     => __NAMESPACE__ . '\Part',
@@ -121,10 +122,12 @@ class TreeRouteStack extends SimpleRouteStack
      * match(): defined by \Zend\Mvc\Router\RouteInterface
      *
      * @see    \Zend\Mvc\Router\RouteInterface::match()
-     * @param  Request $request
-     * @return RouteMatch
+     * @param  Request      $request
+     * @param  integer|null $pathOffset
+     * @param  array        $options
+     * @return RouteMatch|null
      */
-    public function match(Request $request)
+    public function match(Request $request, $pathOffset = null, array $options = array())
     {
         if (!method_exists($request, 'getUri')) {
             return null;
@@ -137,6 +140,10 @@ class TreeRouteStack extends SimpleRouteStack
         $uri           = $request->getUri();
         $baseUrlLength = strlen($this->baseUrl) ?: null;
 
+        if ($pathOffset !== null) {
+            $baseUrlLength += $pathOffset;
+        }
+
         if ($this->requestUri === null) {
             $this->setRequestUri($uri);
         }
@@ -145,7 +152,7 @@ class TreeRouteStack extends SimpleRouteStack
             $pathLength = strlen($uri->getPath()) - $baseUrlLength;
 
             foreach ($this->routes as $name => $route) {
-                if (($match = $route->match($request, $baseUrlLength)) instanceof RouteMatch && $match->getLength() === $pathLength) {
+                if (($match = $route->match($request, $baseUrlLength, $options)) instanceof RouteMatch && $match->getLength() === $pathLength) {
                     $match->setMatchedRouteName($name);
 
                     foreach ($this->defaultParams as $paramName => $value) {
