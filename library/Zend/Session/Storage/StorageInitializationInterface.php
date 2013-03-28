@@ -10,8 +10,18 @@
 namespace Zend\Session\Storage;
 
 /**
- * PHP 5.3.3 variant of SessionArrayStorage
+ * Session storage interface
+ *
+ * Defines the minimum requirements for handling userland, in-script session
+ * storage (e.g., the $_SESSION superglobal array).
  */
-class SessionArrayStorage extends AbstractSessionArrayStorage
+interface StorageInitializationInterface
 {
+    /**
+     * Initialize Session Storage
+     *
+     * @param  array $input
+     * @return void
+     */
+    public function init($input = null);
 }

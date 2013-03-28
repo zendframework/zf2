@@ -131,7 +131,7 @@ abstract class AbstractWriter implements WriterInterface
 
         if (!$filter instanceof Filter\FilterInterface) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'Writer must implement %s\Filter\FilterInterface; received "%s"',
+                'Filter must implement %s\Filter\FilterInterface; received "%s"',
                 __NAMESPACE__,
                 is_object($filter) ? get_class($filter) : gettype($filter)
             ));
@@ -284,6 +284,7 @@ abstract class AbstractWriter implements WriterInterface
      * Set a new formatter for this writer
      *
      * @param  string|Formatter\FormatterInterface $formatter
+     * @param  array|null $options
      * @return self
      * @throws Exception\InvalidArgumentException
      */
@@ -308,7 +309,7 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * Set convert write errors to exception flag
      *
-     * @param bool $ignoreWriteErrors
+     * @param bool $convertErrors
      */
     public function setConvertWriteErrorsToExceptions($convertErrors)
     {

@@ -5,13 +5,13 @@ Develop: [![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?bra
 
 ## RELEASE INFORMATION
 
-*Zend Framework 2.1.4dev*
+*Zend Framework 2.1.5dev*
 
-This is the fourth maintenance release for the version 2.1 series.
+This is the fifth maintenance release for the version 2.1 series.
 
 DD MMM YYYY
 
-### UPDATES IN 2.1.4
+### UPDATES IN 2.1.5
 
 Please see [CHANGELOG.md](CHANGELOG.md).
 

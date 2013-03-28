@@ -47,6 +47,8 @@ class Stream
 
     /**
      * Opens the script file and converts markup.
+     *
+     * @return bool
      */
     public function stream_open($path, $mode, $options, &$opened_path)
     {
@@ -92,6 +94,8 @@ class Stream
 
     /**
      * Reads from the stream.
+     *
+     * @return string|false
      */
     public function stream_read($count)
     {
@@ -104,6 +108,8 @@ class Stream
 
     /**
      * Tells the current position in the stream.
+     *
+     * @return int
      */
     public function stream_tell()
     {
@@ -113,6 +119,8 @@ class Stream
 
     /**
      * Tells if we are at the end of the stream.
+     *
+     * @return bool
      */
     public function stream_eof()
     {
@@ -122,6 +130,8 @@ class Stream
 
     /**
      * Stream statistics.
+     *
+     * @return array
      */
     public function stream_stat()
     {
@@ -131,6 +141,8 @@ class Stream
 
     /**
      * Seek to a specific point in the stream.
+     *
+     * @return bool
      */
     public function stream_seek($offset, $whence)
     {
