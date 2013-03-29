@@ -121,6 +121,17 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Zend\Db\Adapter\Platform\IbmDb2::quoteTrustedValueList
+     */
+    public function testQuoteTrustedValueList()
+    {
+        $this->assertEquals("'value', 'value2'", $this->platform->quoteTrustedValueList(array('value', 'value2')));
+        $this->assertEquals("'Foo O''Bar'", $this->platform->quoteTrustedValueList(array("Foo O'Bar")));
+        $this->assertEquals("'''; DELETE FROM some_table; -- '", $this->platform->quoteTrustedValueList("'; DELETE FROM some_table; -- "));
+        $this->assertEquals("'\\''; \nDELETE FROM some_table; -- '", $this->platform->quoteTrustedValueList("\\'; \nDELETE FROM some_table; -- "));
+    }
+    
+    /**
      * @covers Zend\Db\Adapter\Platform\IbmDb2::getIdentifierSeparator
      */
     public function testGetIdentifierSeparator()

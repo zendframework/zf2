@@ -106,7 +106,20 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals("'Foo O\\'Bar'", $this->platform->quoteValueList("Foo O'Bar"));
     }
-
+    
+    /**
+     * @covers Zend\Db\Adapter\Platform\Sqlite::quoteTrustedValueList
+     */
+    public function testQuoteTrustedValueList()
+    {
+        $this->assertEquals("'value', 'value2'", $this->platform->quoteTrustedValueList(array('value', 'value2')));
+        $this->assertEquals("'Foo O\\'Bar'", $this->platform->quoteTrustedValueList(array("Foo O'Bar")));
+        $this->assertEquals('\'\\\'; DELETE FROM some_table; -- \'', $this->platform->quoteTrustedValueList('\'; DELETE FROM some_table; -- '));
+    
+        //                   '\\\'; DELETE FROM some_table; -- '  <- actual below
+        $this->assertEquals("'\\\\\\'; DELETE FROM some_table; -- '", $this->platform->quoteTrustedValueList('\\\'; DELETE FROM some_table; -- '));
+    }
+    
     /**
      * @covers Zend\Db\Adapter\Platform\Sqlite::getIdentifierSeparator
      */
