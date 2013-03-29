@@ -123,62 +123,74 @@ class BaseInputFilterTest extends TestCase
         return $filter;
     }
 
-    public function testCanValidateEntireDataset()
+    public function dataSets()
+    {
+        return array(
+            'valid-with-empty-and-null' => array(
+                array(
+                    'foo' => ' bazbat ',
+                    'bar' => '12345',
+                    'baz' => null,
+                    'qux' => '',
+                    'nest' => array(
+                        'foo' => ' bazbat ',
+                        'bar' => '12345',
+                        'baz' => null,
+                    ),
+                ),
+                true,
+            ),
+            'valid-with-empty' => array(
+                array(
+                    'foo' => ' bazbat ',
+                    'bar' => '12345',
+                    'qux' => '',
+                    'nest' => array(
+                        'foo' => ' bazbat ',
+                        'bar' => '12345',
+                    ),
+                ),
+                true,
+            ),
+            'invalid-with-empty-and-missing' => array(
+                array(
+                    'foo' => ' bazbat ',
+                    'bar' => '12345',
+                    'baz' => 'thisistoolong',
+                    'nest' => array(
+                        'foo' => ' bazbat ',
+                        'bar' => '12345',
+                        'baz' => 'thisistoolong',
+                    ),
+                ),
+                false,
+            ),
+            'invalid-with-empty' => array(
+                array(
+                    'foo' => ' baz bat ',
+                    'bar' => 'abc45',
+                    'baz' => ' ',
+                    'qux' => ' ',
+                    'nest' => array(
+                        'foo' => ' baz bat ',
+                        'bar' => '123ab',
+                        'baz' => ' ',
+                    ),
+                ),
+                false,
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider dataSets
+     * @group fmlife
+     */
+    public function testCanValidateEntireDataset($dataset, $expected)
     {
         $filter = $this->getInputFilter();
-        $validData = array(
-            'foo' => ' bazbat ',
-            'bar' => '12345',
-            'baz' => null,
-            'qux' => '',
-            'nest' => array(
-                'foo' => ' bazbat ',
-                'bar' => '12345',
-                'baz' => null,
-            ),
-        );
-        $filter->setData($validData);
-        $this->assertTrue($filter->isValid());
-
-        $filter = $this->getInputFilter();
-        $validData = array(
-            'foo' => ' bazbat ',
-            'bar' => '12345',
-            'qux' => '',
-            'nest' => array(
-                'foo' => ' bazbat ',
-                'bar' => '12345',
-            ),
-        );
-        $filter->setData($validData);
-        $this->assertTrue($filter->isValid());
-
-        $invalidData = array(
-            'foo' => ' bazbat ',
-            'bar' => '12345',
-            'baz' => '',
-            'nest' => array(
-                'foo' => ' bazbat ',
-                'bar' => '12345',
-                'baz' => '',
-            ),
-        );
-        $filter->setData($invalidData);
-        $this->assertFalse($filter->isValid());
-
-        $invalidData = array(
-            'foo' => ' baz bat ',
-            'bar' => 'abc45',
-            'baz' => ' ',
-            'qux' => ' ',
-            'nest' => array(
-                'foo' => ' baz bat ',
-                'bar' => '123ab',
-                'baz' => ' ',
-            ),
-        );
-        $filter->setData($invalidData);
-        $this->assertFalse($filter->isValid());
+        $filter->setData($dataset);
+        $this->assertSame($expected, $filter->isValid());
     }
 
     public function testCanValidatePartialDataset()
@@ -675,6 +687,22 @@ class BaseInputFilterTest extends TestCase
 
         $filter->setData($data);
         $this->assertTrue($filter->isValid());
+    }
 
+    public function testGetInputs()
+    {
+        $filter = new InputFilter();
+
+        $foo = new Input('foo');
+        $bar = new Input('bar');
+
+        $filter->add($foo);
+        $filter->add($bar);
+
+        $filters = $filter->getInputs();
+
+        $this->assertCount(2, $filters);
+        $this->assertEquals('foo', $filters['foo']->getName());
+        $this->assertEquals('bar', $filters['bar']->getName());
     }
 }

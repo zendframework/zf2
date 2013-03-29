@@ -49,6 +49,11 @@ class ServiceManager implements ServiceLocatorInterface
     protected $abstractFactories = array();
 
     /**
+     * @var array[]
+     */
+    protected $delegates = array();
+
+    /**
      * @var array
      */
     protected $pendingAbstractFactoryRequests = array();
@@ -320,6 +325,25 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
+     * Sets the given service name as to be handled by a delegate factory
+     *
+     * @param  string $serviceName
+     * @param  string $delegateFactoryName
+     *
+     * @return ServiceManager
+     */
+    public function addDelegate($serviceName, $delegateFactoryName)
+    {
+        if (!isset($this->delegates[$this->canonicalizeName($serviceName)])) {
+            $this->delegates[$this->canonicalizeName($serviceName)] = array();
+        }
+
+        $this->delegates[$this->canonicalizeName($serviceName)][] = $delegateFactoryName;
+
+        return $this;
+    }
+
+    /**
      * Add initializer
      *
      * @param  callable|InitializerInterface $initializer
@@ -471,17 +495,14 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
-     * Create an instance
+     * Create an instance of the requested service
      *
      * @param  string|array $name
+     *
      * @return bool|object
-     * @throws Exception\ServiceNotFoundException
-     * @throws Exception\ServiceNotCreatedException
      */
     public function create($name)
     {
-        $instance = false;
-
         if (is_array($name)) {
             list($cName, $rName) = $name;
         } else {
@@ -489,6 +510,67 @@ class ServiceManager implements ServiceLocatorInterface
             $cName = $this->canonicalizeName($rName);
         }
 
+        if (isset($this->delegates[$cName])) {
+            $serviceManager      = $this;
+            $additionalDelegates = count($this->delegates[$cName]) - 1;
+            $creationCallback    = function () use ($serviceManager, $rName, $cName) {
+                return $serviceManager->doCreate($rName, $cName);
+            };
+
+            for ($i = 0; $i < $additionalDelegates; $i += 1) {
+                $creationCallback = $this->createDelegateCallback(
+                    $this->delegates[$cName][$i],
+                    $rName,
+                    $cName,
+                    $creationCallback
+                );
+            }
+
+            /* @var $delegateFactory DelegateFactoryInterface */
+            $delegateFactory = $this->get($this->delegates[$cName][$i]);
+
+            return $delegateFactory->createDelegateWithName($this, $cName, $rName, $creationCallback);
+        }
+
+        return $this->doCreate($rName, $cName);
+    }
+
+    /**
+     * Creates a callback that uses a delegate to create a service
+     *
+     * @param string   $delegateFactoryName name of the delegate factory
+     * @param string   $rName               requested service name
+     * @param string   $cName               canonical service name
+     * @param callable $creationCallback    callback that is responsible for instantiating the service
+     *
+     * @return callable
+     */
+    private function createDelegateCallback($delegateFactoryName, $rName, $cName, $creationCallback)
+    {
+        $serviceManager  = $this;
+
+        return function () use ($serviceManager, $delegateFactoryName, $rName, $cName, $creationCallback) {
+            /* @var $delegateFactory DelegateFactoryInterface */
+            $delegateFactory = $serviceManager->get($delegateFactoryName);
+
+            return $delegateFactory->createDelegateWithName($serviceManager, $cName, $rName, $creationCallback);
+        };
+    }
+
+    /**
+     * Actually creates the service
+     *
+     * @param string $rName real service name
+     * @param string $cName canonicalized service name
+     *
+     * @return bool|mixed|null|object
+     * @throws Exception\ServiceNotFoundException
+     *
+     * @internal this method is internal because of PHP 5.3 compatibility - do not explicitly use it
+     */
+    public function doCreate($rName, $cName)
+    {
+        $instance = false;
 
         if (isset($this->factories[$cName])) {
             $instance = $this->createFromFactory($cName, $rName);
