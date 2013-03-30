@@ -60,10 +60,13 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         $parameterGenerator->setType('Foo');
         $parameterGenerator->setName('bar');
         $parameterGenerator->setDefaultValue(15);
-        $this->assertEquals('Foo $bar = 15', $parameterGenerator->generate());
+        $this->assertEquals('\Foo $bar = 15', $parameterGenerator->generate());
 
         $parameterGenerator->setDefaultValue('foo');
-        $this->assertEquals('Foo $bar = \'foo\'', $parameterGenerator->generate());
+        $this->assertEquals('\Foo $bar = \'foo\'', $parameterGenerator->generate());
+
+        $parameterGenerator->setType('array');
+        $this->assertEquals('array $bar = \'foo\'', $parameterGenerator->generate());
     }
 
     public function testFromReflectionGetParameterName()
