@@ -697,11 +697,16 @@ class ClassGenerator extends AbstractGenerator
         $output .= 'class ' . $this->getName();
 
         if (!empty($this->extendedClass)) {
-            $output .= ' extends ' . $this->extendedClass;
+            $output .= ' extends \\' . trim($this->extendedClass, '\\');
         }
 
         $implemented = $this->getImplementedInterfaces();
+
         if (!empty($implemented)) {
+            foreach ($implemented as & $interface) {
+                $interface = '\\' . trim($interface, '\\');
+            }
+
             $output .= ' implements ' . implode(', ', $implemented);
         }
 
