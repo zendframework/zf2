@@ -261,7 +261,13 @@ class ParameterGenerator extends AbstractGenerator
         $output = '';
 
         if ($this->type && !in_array($this->type, static::$simple)) {
-            $output .= $this->type . ' ';
+            $type = strtolower($this->type);
+
+            if ($type === 'array' || $type === 'callable') {
+                $output .= $type . ' ';
+            } else {
+                $output .= '\\' . trim($this->type, '\\') . ' ';
+            }
         }
 
         if (true === $this->passedByReference) {
