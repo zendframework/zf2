@@ -66,7 +66,7 @@ class FileGeneratorTest extends \PHPUnit_Framework_TestCase
 
 require_once 'SampleClass.php';
 
-abstract class SampleClass extends ExtendedClassName implements Iterator, Traversable
+abstract class SampleClass extends \ExtendedClassName implements \Iterator, \Traversable
 {
 
 
