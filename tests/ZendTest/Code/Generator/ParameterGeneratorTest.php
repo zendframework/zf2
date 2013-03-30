@@ -139,7 +139,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array('name', '$param'),
-            array('type', 'stdClass $bar'),
+            array('type', '\stdClass $bar'),
             array('reference', '&$baz'),
             array('defaultValue', '$value = \'foo\''),
             array('defaultNull', '$value = null'),
