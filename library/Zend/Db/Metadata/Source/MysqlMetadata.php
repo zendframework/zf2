@@ -98,6 +98,9 @@ class MysqlMetadata extends AbstractSource
         }
         $this->prepareDataHierarchy('columns', $schema, $table);
         $p = $this->adapter->getPlatform();
+        // if the platform's resource is not synchronized, try to fetch it
+        // from connection object
+        $p->setDriver($this->adapter->getDriver());
 
         $isColumns = array(
             array('C','ORDINAL_POSITION'),
