@@ -329,6 +329,7 @@ class Application implements
     {
         $events = $this->getEventManager();
         $event->setTarget($this);
+        $event->stopPropagation(false);
         $events->trigger(MvcEvent::EVENT_RENDER, $event);
         $events->trigger(MvcEvent::EVENT_FINISH, $event);
         return $this;
