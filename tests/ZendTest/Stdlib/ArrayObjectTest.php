@@ -12,6 +12,8 @@ namespace ZendTest\Stdlib;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Stdlib\ArrayObject;
+use Zend\Stdlib\ArrayObject\PhpLegacyCompatibility;
+use Zend\Stdlib\ArrayObject\PhpReferenceCompatibility;
 
 class ArrayObjectTest extends TestCase
 {
@@ -53,8 +55,8 @@ class ArrayObjectTest extends TestCase
 
     public function testStdPropListCannotAccessObjectVars()
     {
-        if (version_compare(PHP_VERSION, '5.3.4') < 0) {
-            $this->markTestSkipped('Behavior is for overwritten ArrayObject in greater than 5.3.3');
+        if (PHP_VERSION_ID <= 50303 || (PHP_VERSION_ID >= 50323 && PHP_VERSION_ID <= 50399) || PHP_VERSION_ID >= 50413) {
+            $this->markTestSkipped('Behavior is for overwritten ArrayObject in PHP 5.3.4 - 5.3.22 OR PHP 5.4.0 - 5.4.12');
         }
         $this->setExpectedException('InvalidArgumentException');
         $ar = new ArrayObject();
@@ -207,8 +209,8 @@ class ArrayObjectTest extends TestCase
 
     public function testInvalidIteratorClassThrowsInvalidArgumentException()
     {
-        if (version_compare(PHP_VERSION, '5.3.4') < 0) {
-            $this->markTestSkipped('Behavior is for overwritten ArrayObject in greater than 5.3.3');
+        if (PHP_VERSION_ID <= 50303 || (PHP_VERSION_ID >= 50323 && PHP_VERSION_ID <= 50399) || PHP_VERSION_ID >= 50413) {
+            $this->markTestSkipped('Behavior is for overwritten ArrayObject in PHP 5.3.4 - 5.3.22 OR PHP 5.4.0 - 5.4.12');
         }
         $this->setExpectedException('InvalidArgumentException');
         $ar = new ArrayObject(array(), ArrayObject::STD_PROP_LIST, 'InvalidArrayIterator');
@@ -255,8 +257,8 @@ class ArrayObjectTest extends TestCase
 
     public function testOffsetExistsThrowsExceptionOnProtectedProperty()
     {
-        if (version_compare(PHP_VERSION, '5.3.4') < 0) {
-            $this->markTestSkipped('Behavior is for overwritten ArrayObject in greater than 5.3.3');
+        if (PHP_VERSION_ID <= 50303 || (PHP_VERSION_ID >= 50323 && PHP_VERSION_ID <= 50399) || PHP_VERSION_ID >= 50413) {
+            $this->markTestSkipped('Behavior is for overwritten ArrayObject in PHP 5.3.4 - 5.3.22 OR PHP 5.4.0 - 5.4.12');
         }
         $this->setExpectedException('InvalidArgumentException');
         $ar = new ArrayObject();
@@ -277,8 +279,8 @@ class ArrayObjectTest extends TestCase
 
     public function testOffsetGetThrowsExceptionOnProtectedProperty()
     {
-        if (version_compare(PHP_VERSION, '5.3.4') < 0) {
-            $this->markTestSkipped('Behavior is for overwritten ArrayObject in greater than 5.3.3');
+        if (PHP_VERSION_ID <= 50303 || (PHP_VERSION_ID >= 50323 && PHP_VERSION_ID <= 50399) || PHP_VERSION_ID >= 50413) {
+            $this->markTestSkipped('Behavior is for overwritten ArrayObject in PHP 5.3.4 - 5.3.22 OR PHP 5.4.0 - 5.4.12');
         }
         $this->setExpectedException('InvalidArgumentException');
         $ar = new ArrayObject();
@@ -287,8 +289,8 @@ class ArrayObjectTest extends TestCase
 
     public function testOffsetSetThrowsExceptionOnProtectedProperty()
     {
-        if (version_compare(PHP_VERSION, '5.3.4') < 0) {
-            $this->markTestSkipped('Behavior is for overwritten ArrayObject in greater than 5.3.3');
+        if (PHP_VERSION_ID <= 50303 || (PHP_VERSION_ID >= 50323 && PHP_VERSION_ID <= 50399) || PHP_VERSION_ID >= 50413) {
+            $this->markTestSkipped('Behavior is for overwritten ArrayObject in PHP 5.3.4 - 5.3.22 OR PHP 5.4.0 - 5.4.12');
         }
         $this->setExpectedException('InvalidArgumentException');
         $ar = new ArrayObject();
@@ -309,8 +311,8 @@ class ArrayObjectTest extends TestCase
 
     public function testOffsetUnsetMultidimensional()
     {
-        if (version_compare(PHP_VERSION, '5.3.4') < 0) {
-            $this->markTestSkipped('Behavior is for overwritten ArrayObject in greater than 5.3.3');
+        if (PHP_VERSION_ID <= 50303) {
+            $this->markTestSkipped('Behavior can only be tested on PHP > 5.3.3');
         }
         $ar = new ArrayObject();
         $ar['foo'] = array('bar' => array('baz' => 'boo'));
@@ -319,8 +321,8 @@ class ArrayObjectTest extends TestCase
 
     public function testOffsetUnsetThrowsExceptionOnProtectedProperty()
     {
-        if (version_compare(PHP_VERSION, '5.3.4') < 0) {
-            $this->markTestSkipped('Behavior is for overwritten ArrayObject in greater than 5.3.3');
+        if (PHP_VERSION_ID <= 50303 || (PHP_VERSION_ID >= 50323 && PHP_VERSION_ID <= 50399) || PHP_VERSION_ID >= 50413) {
+            $this->markTestSkipped('Behavior is for overwritten ArrayObject in PHP 5.3.4 - 5.3.22 OR PHP 5.4.0 - 5.4.12');
         }
         $this->setExpectedException('InvalidArgumentException');
         $ar = new ArrayObject();
@@ -371,6 +373,19 @@ class ArrayObjectTest extends TestCase
         uksort($sorted, $function);
         $ar->uksort($function);
         $this->assertSame($sorted, $ar->getArrayCopy());
+    }
+
+    public function testPhpVersionProvidesProperInstance()
+    {
+        if (PHP_VERSION_ID <= 50303) {
+            $this->assertInstanceOf('\Zend\Stdlib\ArrayObject\PhpLegacyCompatibility', new ArrayObject());
+        } elseif (PHP_VERSION_ID >= 50323 && PHP_VERSION_ID <= 50399) {
+            $this->assertInstanceOf('\Zend\Stdlib\ArrayObject\PhpLegacyCompatibility', new ArrayObject());
+        } elseif (PHP_VERSION_ID >= 50413) {
+            $this->assertInstanceOf('\Zend\Stdlib\ArrayObject\PhpLegacyCompatibility', new ArrayObject());
+        } else {
+            $this->assertInstanceOf('\Zend\Stdlib\ArrayObject\PhpReferenceCompatibility', new ArrayObject());
+        }
     }
 
 }
