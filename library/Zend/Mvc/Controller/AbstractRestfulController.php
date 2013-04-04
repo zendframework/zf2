@@ -248,6 +248,12 @@ abstract class AbstractRestfulController extends AbstractController
 
         // RESTful methods
         $method = strtolower($request->getMethod());
+        
+        // Check if we're emulating REST HTTP (for servers that don't support all HTTP verbs)
+        $override = $request->getHeaders('X-HTTP-Method-Override');
+        if(!empty($override))
+            $method = strtolower($request->getHeaders()->get('X-HTTP-Method-Override')->getFieldValue());
+            
         switch ($method) {
             // Custom HTTP methods (or custom overrides for standard methods)
             case (isset($this->customHttpMethodsMap[$method])):
