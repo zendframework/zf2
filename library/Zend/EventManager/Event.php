@@ -129,18 +129,11 @@ class Event implements EventInterface
     {
         // Check in params that are arrays or implement array access
         if (is_array($this->params) || $this->params instanceof ArrayAccess) {
-            if (!isset($this->params[$name])) {
-                return $default;
-            }
-
-            return $this->params[$name];
+            return isset($this->params[$name]) ? $this->params[$name] : $default;
         }
 
         // Check in normal objects
-        if (!isset($this->params->{$name})) {
-            return $default;
-        }
-        return $this->params->{$name};
+        return isset($this->params->{$name}) ? $this->params->{$name} : $default;
     }
 
     /**
