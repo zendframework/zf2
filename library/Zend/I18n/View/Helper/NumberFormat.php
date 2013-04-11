@@ -19,116 +19,40 @@ use Zend\View\Helper\AbstractHelper;
 class NumberFormat extends AbstractHelper
 {
     /**
-     * Locale to use instead of the default.
-     *
-     * @var string
-     */
-    protected $locale;
-
-    /**
-     * NumberFormat style to use.
+     * NumberFormat style to use
      *
      * @var integer
      */
     protected $formatStyle;
 
     /**
-     * NumberFormat type to use.
+     * NumberFormat type to use
      *
      * @var integer
      */
     protected $formatType;
 
     /**
-     * Formatter instances.
+     * Formatter instances
      *
      * @var array
      */
     protected $formatters = array();
 
     /**
-     * Set format style to use instead of the default.
+     * Locale to use instead of the default
      *
-     * @param  integer $formatStyle
-     * @return NumberFormat
+     * @var string
      */
-    public function setFormatStyle($formatStyle)
-    {
-        $this->formatStyle = (int) $formatStyle;
-        return $this;
-    }
+    protected $locale;
 
     /**
-     * Get the format style to use.
+     * Format a number
      *
-     * @return integer
-     */
-    public function getFormatStyle()
-    {
-        if (null === $this->formatStyle) {
-            $this->formatStyle = NumberFormatter::DECIMAL;
-        }
-        return $this->formatStyle;
-    }
-
-    /**
-     * Set format type to use instead of the default.
-     *
-     * @param  integer $formatType
-     * @return NumberFormat
-     */
-    public function setFormatType($formatType)
-    {
-        $this->formatType = (int) $formatType;
-        return $this;
-    }
-
-    /**
-     * Get the format type to use.
-     *
-     * @return integer
-     */
-    public function getFormatType()
-    {
-        if (null === $this->formatType) {
-            $this->formatType = NumberFormatter::TYPE_DEFAULT;
-        }
-        return $this->formatType;
-    }
-
-    /**
-     * Set locale to use instead of the default.
-     *
-     * @param string $locale
-     * @return NumberFormat
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = (string) $locale;
-        return $this;
-    }
-
-    /**
-     * Get the locale to use.
-     *
-     * @return string|null
-     */
-    public function getLocale()
-    {
-        if ($this->locale === null) {
-            $this->locale = Locale::getDefault();
-        }
-
-        return $this->locale;
-    }
-
-    /**
-     * Format a number.
-     *
-     * @param  integer|float $number
-     * @param  integer       $formatStyle
-     * @param  integer       $formatType
-     * @param  string        $locale
+     * @param  int|float $number
+     * @param  int       $formatStyle
+     * @param  int       $formatType
+     * @param  string    $locale
      * @return string
      */
     public function __invoke(
@@ -157,5 +81,82 @@ class NumberFormat extends AbstractHelper
         }
 
         return $this->formatters[$formatterId]->format($number, $formatType);
+    }
+
+    /**
+     * Set format style to use instead of the default
+     *
+     * @param  int $formatStyle
+     * @return NumberFormat
+     */
+    public function setFormatStyle($formatStyle)
+    {
+        $this->formatStyle = (int) $formatStyle;
+        return $this;
+    }
+
+    /**
+     * Get the format style to use
+     *
+     * @return int
+     */
+    public function getFormatStyle()
+    {
+        if (null === $this->formatStyle) {
+            $this->formatStyle = NumberFormatter::DECIMAL;
+        }
+
+        return $this->formatStyle;
+    }
+
+    /**
+     * Set format type to use instead of the default
+     *
+     * @param  int $formatType
+     * @return NumberFormat
+     */
+    public function setFormatType($formatType)
+    {
+        $this->formatType = (int) $formatType;
+        return $this;
+    }
+
+    /**
+     * Get the format type to use
+     *
+     * @return int
+     */
+    public function getFormatType()
+    {
+        if (null === $this->formatType) {
+            $this->formatType = NumberFormatter::TYPE_DEFAULT;
+        }
+        return $this->formatType;
+    }
+
+    /**
+     * Set locale to use instead of the default
+     *
+     * @param  string $locale
+     * @return NumberFormat
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = (string) $locale;
+        return $this;
+    }
+
+    /**
+     * Get the locale to use
+     *
+     * @return string|null
+     */
+    public function getLocale()
+    {
+        if ($this->locale === null) {
+            $this->locale = Locale::getDefault();
+        }
+
+        return $this->locale;
     }
 }
