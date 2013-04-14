@@ -195,9 +195,18 @@ class TreeRouteStack extends SimpleRouteStack
         } else {
             unset($options['name']);
         }
+        
+        $prependBase = true;
+        if (isset($options['base_relative'])) {
+            if($options['base_relative']) {
+                $prependBase = false;
+            }
+            unset($options['base_relative']);
+        }
 
         if (isset($options['only_return_path']) && $options['only_return_path']) {
-            return $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
+            $path = $route->assemble(array_merge($this->defaultParams, $params), $options);
+            return $this->prependBaseUrl($path, $prependBase);
         }
 
         if (!isset($options['uri'])) {
@@ -218,8 +227,6 @@ class TreeRouteStack extends SimpleRouteStack
             $uri = $options['uri'];
         }
 
-        $path = $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
-
         if (isset($options['query'])) {
             $uri->setQuery($options['query']);
         }
@@ -227,6 +234,10 @@ class TreeRouteStack extends SimpleRouteStack
         if (isset($options['fragment'])) {
             $uri->setFragment($options['fragment']);
         }
+        
+        $path = $this->prependBaseUrl(
+            $route->assemble(array_merge($this->defaultParams, $params), $options),
+            $prependBase);
 
         if ((isset($options['force_canonical']) && $options['force_canonical']) || $uri->getHost() !== null || $uri->getScheme() !== null) {
             if (($uri->getHost() === null || $uri->getScheme() === null) && $this->requestUri === null) {
@@ -245,9 +256,19 @@ class TreeRouteStack extends SimpleRouteStack
         } elseif (!$uri->isAbsolute() && $uri->isValidRelative()) {
             return $uri->setPath($path)->normalize()->toString();
         }
-
+        
         return $path;
     }
+    
+    protected function prependBaseUrl($path, $prepend = true)
+    {
+        if(!$prepend) {
+            $path = ltrim($path, '/');
+            return $path;
+        }
+        
+        return $this->baseUrl . $path;
+    } 
 
     /**
      * Set the base URL.

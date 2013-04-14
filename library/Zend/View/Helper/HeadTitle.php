@@ -116,7 +116,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
     }
 
     /**
-     * Turn helper into string
+     * Render title (wrapped by title tag)
      *
      * @param  string|null $indent
      * @return string
@@ -127,6 +127,18 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
                 ? $this->getWhitespace($indent)
                 : $this->getIndent();
 
+        $output = $this->renderTitle();
+
+        return $indent . '<title>' . $output . '</title>';
+    }
+    
+    /**
+     * Render title string
+     *
+     * @return string
+     */
+    public function renderTitle()
+    {
         $items = array();
 
         if (null !== ($translator = $this->getTranslator())) {
@@ -158,7 +170,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
 
         $output = ($this->autoEscape) ? $this->escape($output) : $output;
 
-        return $indent . '<title>' . $output . '</title>';
+        return $output;
     }
 
     // Translator methods - Good candidate to refactor as a trait with PHP 5.4
