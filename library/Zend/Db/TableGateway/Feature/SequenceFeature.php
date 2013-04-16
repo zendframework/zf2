@@ -92,7 +92,7 @@ class SequenceFeature extends AbstractFeature
         $statement = $this->tableGateway->adapter->createStatement();
         $statement->prepare($sql);
         $result = $statement->execute();
-        $sequence = $result->getResource()->fetch(\PDO::FETCH_ASSOC);
+        $sequence = $result->current();
         unset($statement, $result);
         return $sequence['nextval'];
     }
@@ -121,7 +121,7 @@ class SequenceFeature extends AbstractFeature
         $statement = $this->tableGateway->adapter->createStatement();
         $statement->prepare($sql);
         $result = $statement->execute();
-        $sequence = $result->getResource()->fetch(\PDO::FETCH_ASSOC);
+        $sequence = $result->current();
         unset($statement, $result);
         return $sequence['currval'];
     }

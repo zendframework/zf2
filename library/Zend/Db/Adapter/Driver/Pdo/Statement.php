@@ -284,7 +284,10 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
             // parameter is named or positional, value is reference
             $parameter = is_int($name) ? ($name + 1) : $name;
-            $this->resource->bindParam($parameter, $value, $type);
+            if($type == \PDO::PARAM_STR)
+                $this->resource->bindParam($parameter, $value, $type, strlen($value));
+            else
+                $this->resource->bindParam($parameter, $value, $type);
         }
 
     }
