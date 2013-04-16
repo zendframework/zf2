@@ -136,6 +136,27 @@ class IbmDb2 implements PlatformInterface
         }
         return '\'' . str_replace("'", "''", $value) . '\'';
     }
+    
+    /**
+     * Quote Trusted value list
+     *
+     * The ability to quote values without notices
+     *
+     * @param string|string[] $valueList
+     * @return string
+     */
+    public function quoteTrustedValueList($valueList)
+    {
+        if (!is_array($valueList)) {
+            return $this->quoteTrustedValue($valueList);
+        }
+    
+        $value = reset($valueList);
+        do {
+            $valueList[key($valueList)] = $this->quoteTrustedValue($value);
+        } while ($value = next($valueList));
+        return implode(', ', $valueList);
+    }
 
     /**
      * Quote value list
