@@ -127,4 +127,45 @@ class Rbac extends AbstractIterator
 
         return false;
     }
+
+    /**
+     * flag: whether or not to create roles automatically if
+     * they do not exist.
+     *
+     * @var        bool
+     * @deprecated 2.2.0 This is needless, since hasRole(), getRole() and IsGranted()
+     *             will look for roles recursively in children's children
+     */
+    protected $createMissingRoles = false;
+
+    /**
+     * @param      boolean                     $createMissingRoles
+     * @return     \Zend\Permissions\Rbac\Rbac
+     * @deprecated 2.2.0
+     */
+    public function setCreateMissingRoles($createMissingRoles)
+    {
+        trigger_error(
+            'This method does not make any effect and will be removed in the future.',
+            E_USER_DEPRECATED
+        );
+
+        $this->createMissingRoles = $createMissingRoles;
+
+        return $this;
+    }
+
+    /**
+     * @return     boolean
+     * @deprecated 2.2.0
+     */
+    public function getCreateMissingRoles()
+    {
+        trigger_error(
+            'This method does not make any effect and will be removed in the future.',
+            E_USER_DEPRECATED
+        );
+
+        return $this->createMissingRoles;
+    }
 }
