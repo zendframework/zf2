@@ -60,12 +60,12 @@ class RbacTest extends \PHPUnit_Framework_TestCase
     public function testIsGrantedSingleRole()
     {
         $foo = new Rbac\Role('foo');
-        $foo->addPermission('can.bar');
+        $foo->addPermission('can.foo');
 
         $this->rbac->addRole($foo);
 
-        $this->assertEquals(true, $this->rbac->isGranted('foo', 'can.bar'));
-        $this->assertEquals(false, $this->rbac->isGranted('foo', 'can.baz'));
+        $this->assertTrue($this->rbac->isGranted('foo', 'can.foo'));
+        $this->assertFalse($this->rbac->isGranted('foo', 'can.bar'));
     }
 
     public function testIsGrantedChildRoles()
@@ -76,27 +76,28 @@ class RbacTest extends \PHPUnit_Framework_TestCase
         $foo->addPermission('can.foo');
         $bar->addPermission('can.bar');
 
-        $this->rbac->addRole($foo);
-        $this->rbac->addRole($bar, $foo);
+        $this->rbac->addRole($bar);
+        $this->rbac->addRole($foo, $bar);
 
-        $this->assertEquals(true, $this->rbac->isGranted('foo', 'can.bar'));
-        $this->assertEquals(true, $this->rbac->isGranted('foo', 'can.foo'));
-        $this->assertEquals(true, $this->rbac->isGranted('bar', 'can.bar'));
+        $this->assertTrue($this->rbac->isGranted('foo', 'can.foo'));
+        $this->assertTrue($this->rbac->isGranted('foo', 'can.bar'));
+        $this->assertTrue($this->rbac->isGranted('bar', 'can.bar'));
 
-        $this->assertEquals(false, $this->rbac->isGranted('foo', 'can.baz'));
-        $this->assertEquals(false, $this->rbac->isGranted('bar', 'can.baz'));
+        $this->assertFalse($this->rbac->isGranted('foo', 'can.baz'));
+        $this->assertFalse($this->rbac->isGranted('bar', 'can.baz'));
+        $this->assertFalse($this->rbac->isGranted('bar', 'can.foo'));
     }
 
     public function testHasRole()
     {
         $foo = new Rbac\Role('foo');
 
-        $this->rbac->addRole('bar');
         $this->rbac->addRole($foo);
+        $this->rbac->addRole('bar');
 
-        $this->assertEquals(true, $this->rbac->hasRole($foo));
-        $this->assertEquals(true, $this->rbac->hasRole('bar'));
-        $this->assertEquals(false, $this->rbac->hasRole('baz'));
+        $this->assertTrue($this->rbac->hasRole($foo));
+        $this->assertTrue($this->rbac->hasRole('bar'));
+        $this->assertFalse($this->rbac->hasRole('baz'));
     }
 
     public function testAddRoleFromString()
@@ -104,6 +105,7 @@ class RbacTest extends \PHPUnit_Framework_TestCase
         $this->rbac->addRole('foo');
 
         $foo = $this->rbac->getRole('foo');
+
         $this->assertInstanceOf('Zend\Permissions\Rbac\Role', $foo);
     }
 
@@ -111,44 +113,27 @@ class RbacTest extends \PHPUnit_Framework_TestCase
     {
         $foo = new Rbac\Role('foo');
 
-        $this->rbac->addRole('foo');
-        $foo2 = $this->rbac->getRole('foo');
-
-        $this->assertEquals($foo, $foo2);
-        $this->assertInstanceOf('Zend\Permissions\Rbac\Role', $foo2);
-    }
-
-    public function testAddRoleWithParentsUsingRbac()
-    {
-        $foo = new Rbac\Role('foo');
-        $bar = new Rbac\Role('bar');
-
         $this->rbac->addRole($foo);
-        $this->rbac->addRole($bar, $foo);
 
-        $this->assertEquals($bar->getParent(), $foo);
-        $this->assertEquals(1, count($foo->getChildren()));
+        $this->assertSame($foo, $this->rbac->getRole('foo'));
     }
 
-    public function testAddRoleWithAutomaticParentsUsingRbac()
+    public function testAddRoleWithChildsUsingRbac()
     {
         $foo = new Rbac\Role('foo');
         $bar = new Rbac\Role('bar');
 
-        $this->rbac->setCreateMissingRoles(true);
         $this->rbac->addRole($bar, $foo);
 
-        $this->assertEquals($bar->getParent(), $foo);
-        $this->assertEquals(1, count($foo->getChildren()));
+        $this->assertTrue($bar->hasChildren($foo));
+        $this->assertSame($bar, $foo->getParent());
     }
 
-    /**
-     * @tesdox Test adding custom child roles works
-     */
     public function testAddCustomChildRole()
     {
         $role = $this->getMockForAbstractClass('Zend\Permissions\Rbac\RoleInterface');
-        $this->rbac->setCreateMissingRoles(true)->addRole($role, array('parent'));
+
+        $this->rbac->addRole('parent', $role);
 
         $role->expects($this->any())
             ->method('getName')

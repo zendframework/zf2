@@ -14,64 +14,36 @@ use RecursiveIteratorIterator;
 class Rbac extends AbstractIterator
 {
     /**
-     * flag: whether or not to create roles automatically if
-     * they do not exist.
-     *
-     * @var bool
-     */
-    protected $createMissingRoles = false;
-
-    /**
-     * @param  bool                     $createMissingRoles
-     * @return \Zend\Permissions\Rbac\Rbac
-     */
-    public function setCreateMissingRoles($createMissingRoles)
-    {
-        $this->createMissingRoles = $createMissingRoles;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getCreateMissingRoles()
-    {
-        return $this->createMissingRoles;
-    }
-
-    /**
      * Add a child.
      *
-     * @param  string|RoleInterface               $child
-     * @param  array|RoleInterface|null           $parents
+     * @param  string|RoleInterface               $role
+     * @param  array|RoleInterface|null           $childs
      * @return self
      * @throws Exception\InvalidArgumentException
      */
-    public function addRole($child, $parents = null)
+    public function addRole($role, $childs = null)
     {
-        if (is_string($child)) {
-            $child = new Role($child);
+        if (is_string($role)) {
+            $role = new Role($role);
         }
-        if (!$child instanceof RoleInterface) {
+
+        if (!$role instanceof RoleInterface) {
             throw new Exception\InvalidArgumentException(
                 'Child must be a string or implement Zend\Permissions\Rbac\RoleInterface'
             );
         }
 
-        if ($parents) {
-            if (!is_array($parents)) {
-                $parents = array($parents);
+        if ($childs) {
+            if (!is_array($childs)) {
+                $childs = array($childs);
             }
-            foreach ($parents as $parent) {
-                if ($this->createMissingRoles && !$this->hasRole($parent)) {
-                    $this->addRole($parent);
-                }
-                $this->getRole($parent)->addChild($child);
+
+            foreach ($childs as $child) {
+                $role->addChild($child);
             }
         }
 
-        $this->children[] = $child;
+        $this->children[] = $role;
 
         return $this;
     }
@@ -115,10 +87,12 @@ class Rbac extends AbstractIterator
             }
         }
 
-        throw new Exception\InvalidArgumentException(sprintf(
-            'No child with name "%s" could be found',
-            is_object($objectOrName) ? $objectOrName->getName() : $objectOrName
-        ));
+        throw new Exception\InvalidArgumentException(
+            sprintf(
+                'No child with name "%s" could be found',
+                is_object($objectOrName) ? $objectOrName->getName() : $objectOrName
+            )
+        );
     }
 
     /**
