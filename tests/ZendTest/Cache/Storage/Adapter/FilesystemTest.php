@@ -285,4 +285,13 @@ class FilesystemTest extends CommonAdapterTest
         $expectedAtime = fileatime($meta['filespec'] . '.dat');
         $this->assertEquals($expectedAtime, $meta['atime']);
     }
+
+    public function testCustomFileExtension()
+    {
+        $this->_options->setFileExtension('.test');
+        $this->assertTrue($this->_storage->setItem('test', 'v'));
+        $meta = $this->_storage->getMetadata('test');
+        var_dump($meta);
+        $this->assertTrue(file_exists($meta['filespec'] . '.test'));
+    }
 }

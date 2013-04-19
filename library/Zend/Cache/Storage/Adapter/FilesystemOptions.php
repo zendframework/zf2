@@ -104,6 +104,13 @@ class FilesystemOptions extends AdapterOptions
     protected $umask = false;
 
     /**
+     * Allow for custom file extension of cache file
+     *
+     * @var string
+     */
+    protected $fileExtension = '.dat';
+
+    /**
      * Constructor
      *
      * @param  array|Traversable|null $options
@@ -459,5 +466,26 @@ class FilesystemOptions extends AdapterOptions
     public function getUmask()
     {
         return $this->umask;
+    }
+
+    /**
+     * Set a custom file extension for the cache files
+     *
+     * @param string $fileExtension
+     * @return FilesystemOptions
+     */
+    public function setFileExtension($fileExtension) {
+        $this->fileExtension = $fileExtension;
+        return $this;
+    }
+
+    /**
+     * Get the file extension
+     *
+     * @return string
+     */
+    public function getFileExtension()
+    {
+        return $this->fileExtension;
     }
 }
