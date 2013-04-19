@@ -291,7 +291,6 @@ class FilesystemTest extends CommonAdapterTest
         $this->_options->setFileExtension('.test');
         $this->assertTrue($this->_storage->setItem('test', 'v'));
         $meta = $this->_storage->getMetadata('test');
-        var_dump($meta);
         $this->assertTrue(file_exists($meta['filespec'] . '.test'));
     }
 }
