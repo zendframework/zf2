@@ -74,18 +74,40 @@ class FormElementManager extends AbstractPluginManager
     {
         parent::__construct($configuration);
 
-        $this->addInitializer(array($this, 'injectFactory'));
+        // Form Manager must be injected first so when calling $element->getFormManager()->getFormFactory()
+        // returns the same instance as $element->getFormFactory();
+        $this->addInitializer(array($this, 'injectFactory'), false);
+        $this->addInitializer(array($this, 'injectFormManager'));
     }
 
     /**
-     * Inject the factory to any element that implements FormFactoryAwareInterface
+     * Inject the factory to any element that implements <i>FormFactoryAwareInterface</i>
      *
-     * @param $element
+     * @deprecated As of 2.2.0 <b>Form Factory</b> should be retrieved via <b>Form Manager</b>
+     * @param ElementInterface $element
      */
     public function injectFactory($element)
     {
         if ($element instanceof FormFactoryAwareInterface) {
             $element->getFormFactory()->setFormElementManager($this);
+        }
+    }
+
+    /**
+     * Inject the <b>Form Manager</b> to any element that implements <i>FormManagerAwareInterface</i>
+     *
+     * @param ElementInterface $element
+     */
+    public function injectFormManager($element)
+    {
+        if (
+            $element instanceof FormManagerAwareInterface
+            && $this->getServiceLocator() !== null
+            && $this->getServiceLocator()->has('FormManager')
+        ) {
+            $formManager = $this->getServiceLocator()->get('FormManager');
+            $formManager->setFormElementManager($this);
+            $element->setFormManager($formManager);
         }
     }
 

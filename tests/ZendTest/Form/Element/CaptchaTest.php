@@ -15,7 +15,7 @@ use ArrayIterator;
 use ArrayObject;
 use Zend\Captcha;
 use Zend\Form\Element\Captcha as CaptchaElement;
-use Zend\Form\Factory;
+use Zend\Form\FormFactory;
 use ZendTest\Form\TestAsset;
 
 class CaptchaTest extends TestCase
@@ -77,7 +77,7 @@ class CaptchaTest extends TestCase
 
     public function testCreatingCaptchaElementViaFormFactoryWillCreateCaptcha()
     {
-        $factory = new Factory();
+        $factory = new FormFactory();
         $element = $factory->createElement(array(
             'type'       => 'Zend\Form\Element\Captcha',
             'name'       => 'foo',

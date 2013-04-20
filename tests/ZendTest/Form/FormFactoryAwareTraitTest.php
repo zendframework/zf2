@@ -10,24 +10,21 @@
 
 namespace ZendTest\Form;
 
-use \PHPUnit_Framework_TestCase as TestCase;
-use \Zend\Form\Factory;
+use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Form\Factory;
 
 /**
+ * @deprecated As of 2.2.0 <b>Form Factory</b> should be set/get via <b>Form Manager</b>
  * @requires PHP 5.4
+ *
+ * @group Zend_Form
  */
 class FormFactoryAwareTraitTest extends TestCase
 {
     public function testSetFormFactory()
     {
-        $object = $this->getObjectForTrait('\Zend\Form\FormFactoryAwareTrait');
-
-        $this->assertAttributeEquals(null, 'factory', $object);
-
-        $factory = new Factory;
-
-        $object->setFormFactory($factory);
-
-        $this->assertAttributeEquals($factory, 'factory', $object);
+        $this->markTestSkipped(
+            'Zend\Form\Factory has been deprecated in ZF as of 2.2.0, use Zend\Form\FormFactory instead'
+        );
     }
 }

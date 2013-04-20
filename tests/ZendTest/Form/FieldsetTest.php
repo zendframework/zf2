@@ -12,14 +12,13 @@ namespace ZendTest\Form;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Form\Element;
-use Zend\Form\Form;
 use Zend\Form\Fieldset;
+use Zend\Form\Form;
+use Zend\Form\FormFactory;
 use Zend\InputFilter\InputFilter;
 
 /**
- * @category   Zend
- * @package    Zend_Form
- * @subpackage UnitTest
+ * @group Zend_Form
  */
 class FieldsetTest extends TestCase
 {
@@ -459,5 +458,19 @@ class FieldsetTest extends TestCase
     {
         $this->setExpectedException('Zend\Form\Exception\InvalidArgumentException');
         $this->fieldset->setObject('foo');
+    }
+
+    public function testCallingGetFormFactoryReturnsTheInstanceFromFormManager()
+    {
+        // By Lazy Instantiation
+        $fromFormFactory = $this->fieldset->getFormFactory();
+        $fromFormManager = $this->fieldset->getFormManager()->getFormFactory();
+        $this->assertSame($fromFormFactory, $fromFormManager);
+
+        // By Setting a new FormFactory instance
+        $this->fieldset->getFormManager()->setFormFactory(new FormFactory);
+        $fromFormFactory = $this->fieldset->getFormFactory();
+        $fromFormManager = $this->fieldset->getFormManager()->getFormFactory();
+        $this->assertSame($fromFormFactory, $fromFormManager);
     }
 }

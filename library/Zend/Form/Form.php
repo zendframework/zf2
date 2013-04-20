@@ -142,7 +142,7 @@ class Form extends Fieldset implements FormInterface
         if (is_array($elementOrFieldset)
             || ($elementOrFieldset instanceof Traversable && !$elementOrFieldset instanceof ElementInterface)
         ) {
-            $factory = $this->getFormFactory();
+            $factory           = $this->getFormManager()->getFormFactory();
             $elementOrFieldset = $factory->create($elementOrFieldset);
         }
 
@@ -689,8 +689,8 @@ class Form extends Fieldset implements FormInterface
      */
     public function attachInputFilterDefaults(InputFilterInterface $inputFilter, FieldsetInterface $fieldset)
     {
-        $formFactory  = $this->getFormFactory();
-        $inputFactory = $formFactory->getInputFilterFactory();
+        $formManager  = $this->getFormManager();
+        $inputFactory = $formManager->getInputFilterFactory();
 
         if ($this instanceof InputFilterProviderInterface) {
             foreach ($this->getInputFilterSpecification() as $name => $spec) {

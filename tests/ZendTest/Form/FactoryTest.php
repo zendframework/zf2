@@ -14,14 +14,15 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Filter;
 use Zend\Form;
 use Zend\Form\FormElementManager;
-use Zend\Form\Factory as FormFactory;
+use Zend\Form\FormFactory;
+use Zend\Form\FormManager;
 use Zend\InputFilter;
 use Zend\ServiceManager\ServiceManager;
 
 /**
- * @category   Zend
- * @package    Zend_Form
- * @subpackage UnitTest
+ * Zend\Form\Factory was replaced by Zend\Form\FormFactory as of 2.2.0
+ *
+ * @group Zend_Form
  */
 class FactoryTest extends TestCase
 {
@@ -32,9 +33,15 @@ class FactoryTest extends TestCase
 
     public function setUp()
     {
-        $elementManager = new FormElementManager();
-        $elementManager->setServiceLocator(new ServiceManager());
-        $this->factory = new FormFactory($elementManager);
+        $formManager        = new FormManager;
+        $formElementManager = new FormElementManager;
+        $serviceManager     = new ServiceManager;
+
+        $formElementManager->setServiceLocator($serviceManager);
+        $formManager->setServiceLocator($serviceManager);
+        $formManager->setFormElementManager($formElementManager);
+
+        $this->factory      = new FormFactory($formManager);
     }
 
     public function testCanCreateElements()
@@ -595,10 +602,34 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf('Zend\Stdlib\Hydrator\ObjectProperty', $fieldset->getHydrator());
     }
 
-    public function testCreatedFieldsetsHaveFactoryAndFormElementManagerInjected()
+    public function testCreatedFieldsetsHaveFormManagerAndFormElementManagerInjected()
     {
         $fieldset = $this->factory->createFieldset(array('name' => 'myFieldset'));
-        $this->assertAttributeInstanceOf('Zend\Form\Factory', 'factory', $fieldset);
+        $this->assertAttributeInstanceOf('Zend\Form\FormManager', 'formManager', $fieldset);
         $this->assertSame($fieldset->getFormFactory()->getFormElementManager(), $this->factory->getFormElementManager());
+    }
+
+    /**
+     * This test should be removed when refactoring Zend\Form\FormFactory for ZF3
+     *
+     * @covers FormFactory::getFormElementManager()
+     */
+    public function testFormElementManagerFromFormFactoryIsOverwroteByTheOneFromFormManager()
+    {
+        $fromFormManager = $this->factory->getFormManager()->getFormElementManager();
+        $fromFormFactory = $this->factory->getFormElementManager();
+        $this->assertSame($fromFormManager, $fromFormFactory);
+    }
+
+    /**
+     * This test should be removed when refactoring Zend\Form\FormFactory for ZF3
+     *
+     * @covers FormFactory::getInputFilterFactory()
+     */
+    public function testInputFilterFactoryFromFormFactoryIsOverwroteByTheOneFromFormManager()
+    {
+        $fromFormManager = $this->factory->getFormManager()->getInputFilterFactory();
+        $fromFormFactory = $this->factory->getInputFilterFactory();
+        $this->assertSame($fromFormManager, $fromFormFactory);
     }
 }

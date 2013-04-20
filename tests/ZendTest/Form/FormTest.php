@@ -16,12 +16,16 @@ use Zend\Form\Element;
 use Zend\Form\Factory;
 use Zend\Form\Fieldset;
 use Zend\Form\Form;
+use Zend\Form\FormManager;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFilterFactory;
 use Zend\Stdlib\Hydrator;
 use ZendTest\Form\TestAsset\Entity;
 use ZendTest\Form\TestAsset\HydratorAwareModel;
 
+/**
+ * @group Zend_Form
+ */
 class FormTest extends TestCase
 {
     /**
@@ -682,17 +686,17 @@ class FormTest extends TestCase
         ), $model->foobar);
     }
 
-    public function testHasFactoryComposedByDefault()
+    public function testHasFormManagerComposedByDefault()
     {
-        $factory = $this->form->getFormFactory();
-        $this->assertInstanceOf('Zend\Form\Factory', $factory);
+        $formManager = $this->form->getFormManager();
+        $this->assertInstanceOf('Zend\Form\FormManager', $formManager);
     }
 
-    public function testCanComposeFactory()
+    public function testCanComposeFormManager()
     {
-        $factory = new Factory();
-        $this->form->setFormFactory($factory);
-        $this->assertSame($factory, $this->form->getFormFactory());
+        $formManager = new FormManager();
+        $this->form->setFormManager($formManager);
+        $this->assertSame($formManager, $this->form->getFormManager());
     }
 
     public function testCanAddElementsUsingSpecs()

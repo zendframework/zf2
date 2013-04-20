@@ -14,9 +14,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Form\Element;
 
 /**
- * @category   Zend
- * @package    Zend_Form
- * @subpackage UnitTest
+ * @group Zend_Form
  */
 class ElementTest extends TestCase
 {

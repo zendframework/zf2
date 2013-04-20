@@ -19,28 +19,34 @@ class Fieldset extends Element implements FieldsetInterface
 {
     /**
      * @var Factory
+     * @deprecated As of 2.2.0 Form Factory should be retrieved via the Form Manager
      */
-    protected $factory;
+    protected $factory     = null;
+
+    /**
+     * @var FormManager
+     */
+    protected $formManager = null;
 
     /**
      * @var array
      */
-    protected $byName    = array();
+    protected $byName      = array();
 
     /**
      * @var array
      */
-    protected $elements  = array();
+    protected $elements    = array();
 
     /**
      * @var array
      */
-    protected $fieldsets = array();
+    protected $fieldsets   = array();
 
     /**
      * @var array
      */
-    protected $messages  = array();
+    protected $messages    = array();
 
     /**
      * @var PriorityQueue
@@ -100,29 +106,55 @@ class Fieldset extends Element implements FieldsetInterface
     /**
      * Compose a form factory to use when calling add() with a non-element/fieldset
      *
-     * @param  Factory $factory
-     * @return Form
+     * @deprecated As of 2.2.0 <b>Form Factory</b> should be set through <b>Form Manager</b>
+     * @param      Factory $factory
+     * @return     self
      */
     public function setFormFactory(Factory $factory)
     {
-        $this->factory = $factory;
+        $this->getFormManager()->setFormFactory($factory);
         return $this;
     }
 
     /**
      * Retrieve composed form factory
      *
-     * Lazy-loads one if none present.
+     * Pulls the instance from <b>Form Manager</b> if none is set
      *
-     * @return Factory
+     * @deprecated As of 2.2.0 <b>Form Factory</b> should be retrieved via <b>Form Manager</b>
+     * @return     Factory
      */
     public function getFormFactory()
     {
-        if (null === $this->factory) {
-            $this->setFormFactory(new Factory());
+        return $this->getFormManager()->getFormFactory();
+    }
+
+    /**
+     * Set <b>Form Manager</b>
+     *
+     * @param  FormManager $formManager
+     * @return self
+     */
+    public function setFormManager(FormManager $formManager)
+    {
+        $this->formManager = $formManager;
+        return $this;
+    }
+
+    /**
+     * Get <b>Form Manager</b>
+     *
+     * Lazy load a <b>Form Manager</b> instance if none is set
+     *
+     * @return FormManager
+     */
+    public function getFormManager()
+    {
+        if ($this->formManager === null) {
+            $this->setFormManager(new FormManager);
         }
 
-        return $this->factory;
+        return $this->formManager;
     }
 
     /**
@@ -142,7 +174,7 @@ class Fieldset extends Element implements FieldsetInterface
         if (is_array($elementOrFieldset)
             || ($elementOrFieldset instanceof Traversable && !$elementOrFieldset instanceof ElementInterface)
         ) {
-            $factory = $this->getFormFactory();
+            $factory = $this->getFormManager()->getFormFactory();
             $elementOrFieldset = $factory->create($elementOrFieldset);
         }
 
