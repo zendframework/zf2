@@ -29,6 +29,11 @@ class Factory
     protected $formElementManager;
 
     /**
+     * @var FormObjectManager
+     */
+    protected $formObjectManager;
+
+    /**
      * @param FormElementManager $formElementManager
      */
     public function __construct(FormElementManager $formElementManager = null)
@@ -89,6 +94,27 @@ class Factory
         }
 
         return $this->formElementManager;
+    }
+
+    /**
+     * @param FormObjectManager $formObjectManager
+     * @return \Zend\Form\Factory
+     */
+    public function setFormObjectManager(FormObjectManager $formObjectManager)
+    {
+        $this->formObjectManager = $formObjectManager;
+        return $this;
+    }
+
+    /**
+     * @return \Zend\Form\FormObjectManager
+     */
+    public function getFormObjectManager()
+    {
+        if (null === $this->formObjectManager) {
+            $this->setFormObjectManager(new FormObjectManager());
+        }
+        return $this->formObjectManager;
     }
 
     /**
@@ -387,15 +413,7 @@ class Factory
             ));
         }
 
-        if (!class_exists($objectName)) {
-            throw new Exception\DomainException(sprintf(
-                '%s expects string class name to be a valid class name; received "%s"',
-                $method,
-                $objectName
-            ));
-        }
-
-        $fieldset->setObject(new $objectName);
+        $fieldset->setObject($this->getFormObjectManager()->get($objectName));
     }
 
     /**
