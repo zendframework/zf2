@@ -500,6 +500,10 @@ class Curl implements HttpAdapter, StreamInterface
      */
     public function readHeader($curl, $header)
     {
+    	if (isset($this->config['curloptions'][CURLOPT_ENCODING]) && strtolower(substr($header, 0, 18)) === 'content-encoding: ') {
+			return strlen($header);
+		}
+        
         $this->response .= $header;
         return strlen($header);
     }
