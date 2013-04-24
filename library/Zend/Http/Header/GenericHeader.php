@@ -47,11 +47,11 @@ class GenericHeader implements HeaderInterface
      */
     public function __construct($fieldName = null, $fieldValue = null)
     {
-        if ($fieldName) {
+        if ($fieldName !== null) {
             $this->setFieldName($fieldName);
         }
 
-        if ($fieldValue) {
+        if ($fieldValue !== null) {
             $this->setFieldValue($fieldValue);
         }
     }
