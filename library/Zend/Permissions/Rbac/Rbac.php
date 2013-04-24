@@ -10,18 +10,40 @@
 namespace Zend\Permissions\Rbac;
 
 use RecursiveIteratorIterator;
+use Traversable;
 
 class Rbac extends AbstractIterator
 {
     /**
-     * Add a child.
+     * Add a child role.
      *
-     * @param  string|RoleInterface               $role
-     * @param  array|RoleInterface|null           $childs
+     * @deprecated 2.2.0
+     * @param string|RoleInterface $role
+     * @param array|RoleInterface|null $parents
      * @return self
      * @throws Exception\InvalidArgumentException
      */
-    public function addRole($role, $childs = null)
+    public function addRole($role, $parents = null)
+    {
+        trigger_error(
+            'This method will be removed in the future. Please use addRoleWithParents() instead',
+            E_USER_DEPRECATED
+        );
+
+        $this->addRoleWithParents($role, $parents);
+        return $this;
+    }
+
+    /**
+     * Add a child with children.
+     *
+     * @param string|RoleInterface $role
+     * @param array|RoleInterface|null $children
+     * @return self
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\RoleNotFoundException
+     */
+    public function addRoleWithChildren($role, $children = null)
     {
         if (is_string($role)) {
             $role = new Role($role);
@@ -33,18 +55,79 @@ class Rbac extends AbstractIterator
             );
         }
 
-        if ($childs) {
-            if (!is_array($childs)) {
-                $childs = array($childs);
+        if ($children) {
+            if (!is_array($children) && !($children instanceof Traversable)) {
+                $children = array($children);
             }
 
-            foreach ($childs as $child) {
-                $role->addChild($child);
+            foreach ($children as $child) {
+                // Ensure the role is defined
+                if (!$this->hasRole($child)) {
+                    if (!$this->createMissingRoles) {
+                        throw new Exception\RoleNotFoundException(sprintf(
+                            'Could not find parent role "%s"',
+                            ($child instanceof RoleInterface)? $child->getName() : $child
+                        ));
+                    }
+
+                    $this->addRoleWithChildren($child);
+                }
+
+                // use the defined roles or it'll break permission inheritance
+                $role->addChild($this->getRole($child));
             }
         }
 
         $this->children[] = $role;
+        return $this;
+    }
 
+    /**
+     * Add a child role and its parents
+     *
+     * @todo clearify if createMissingRoles still makes sense
+     * @param string|RoleInterface $role
+     * @param array|RoleInterface|null $parents
+     * @return self
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\RoleNotFoundException
+     */
+    public function addRoleWithParents($role, $parents = null)
+    {
+        if (is_string($role)) {
+            $role = new Role($role);
+        }
+
+        if (!$role instanceof RoleInterface) {
+            throw new Exception\InvalidArgumentException(
+                'Child must be a string or implement Zend\Permissions\Rbac\RoleInterface'
+            );
+        }
+
+        if ($parents) {
+            if (!is_array($parents) && !($parents instanceof Traversable)) {
+                $parents = array($parents);
+            }
+
+            foreach ($parents as $parent) {
+                if ($this->hasRole($parent)) {
+                    // prefer already defined roles
+                    $this->getRole($parent)->addChild($role);
+                    continue;
+                }
+
+                if (!$this->createMissingRoles) {
+                    throw new Exception\RoleNotFoundException(sprintf(
+                        'Could not find parent role "%s"',
+                        ($parent instanceof RoleInterface)? $parent->getName() : $parent
+                    ));
+                }
+
+                $this->addRoleWithChildren($parent, $role);
+            }
+        }
+
+        $this->children[] = $role;
         return $this;
     }
 
@@ -58,9 +141,8 @@ class Rbac extends AbstractIterator
     {
         try {
             $this->getRole($objectOrName);
-
             return true;
-        } catch (Exception\InvalidArgumentException $e) {
+        } catch (Exception\RoleNotFoundException $e) {
             return false;
         }
     }
@@ -87,7 +169,7 @@ class Rbac extends AbstractIterator
             }
         }
 
-        throw new Exception\InvalidArgumentException(
+        throw new Exception\RoleNotFoundException(
             sprintf(
                 'No child with name "%s" could be found',
                 is_object($objectOrName) ? $objectOrName->getName() : $objectOrName
