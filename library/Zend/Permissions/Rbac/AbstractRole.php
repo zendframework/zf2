@@ -151,7 +151,7 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
         return $this;
     }
 
-	/**
+    /**
      * @see \Zend\Permissions\Rbac\RoleInterface::getParents()
      * @return array|\Traversable
      */
@@ -160,7 +160,7 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
         return $this->parents;
     }
 
-	/**
+    /**
      * @see \Zend\Permissions\Rbac\RoleInterface::hasParent()
      * @param string|RoleInterface $name
      * @return bool
