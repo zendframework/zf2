@@ -15,6 +15,16 @@ use Traversable;
 class Rbac extends AbstractIterator
 {
     /**
+     * flag: whether or not to create roles automatically if
+     * they do not exist.
+     *
+     * @var        bool
+     * @deprecated 2.2.0 This is needless, since hasRole(), getRole() and IsGranted()
+     *             will look for roles recursively in children's children
+     */
+    protected $createMissingRoles = false;
+
+    /**
      * Add a child role.
      *
      * @deprecated 2.2.0
@@ -209,16 +219,6 @@ class Rbac extends AbstractIterator
 
         return false;
     }
-
-    /**
-     * flag: whether or not to create roles automatically if
-     * they do not exist.
-     *
-     * @var        bool
-     * @deprecated 2.2.0 This is needless, since hasRole(), getRole() and IsGranted()
-     *             will look for roles recursively in children's children
-     */
-    protected $createMissingRoles = false;
 
     /**
      * @param      boolean                     $createMissingRoles
