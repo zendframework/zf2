@@ -57,7 +57,7 @@ interface RoleInterface
     /**
      * @return null|RoleInterface
      */
-    public function getParent($name);
+    public function getParent($name = null);
 
     /**
      * Return all parent roles
