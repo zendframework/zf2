@@ -33,11 +33,7 @@ class DateTime extends \DateTime
     {
         // Workaround not required for PHP 5.3.7 or newer
         if (version_compare(PHP_VERSION, '5.3.7', '>=')) {
-            if ($timezone) {
-                return parent::__construct($time, $timezone);
-            } else {
-                return parent::__construct($time);
-            }
+            return parent::__construct($time, $timezone);
         }
 
         // Check if using relative constructs
