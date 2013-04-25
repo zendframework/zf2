@@ -45,8 +45,8 @@ class RbacTest extends \PHPUnit_Framework_TestCase
         $foo->addPermission('can.foo');
         $bar->addPermission('can.bar');
 
-        $this->rbac->addRole($foo);
-        $this->rbac->addRole($bar);
+        $this->rbac->addRoleWithChildren($foo);
+        $this->rbac->addRoleWithChildren($bar);
 
         $this->assertEquals(true, $this->rbac->isGranted($foo, 'can.foo', $true));
         $this->assertEquals(false, $this->rbac->isGranted($bar, 'can.bar', $false));
@@ -62,7 +62,7 @@ class RbacTest extends \PHPUnit_Framework_TestCase
         $foo = new Rbac\Role('foo');
         $foo->addPermission('can.foo');
 
-        $this->rbac->addRole($foo);
+        $this->rbac->addRoleWithChildren($foo);
 
         $this->assertTrue($this->rbac->isGranted('foo', 'can.foo'));
         $this->assertFalse($this->rbac->isGranted('foo', 'can.bar'));
@@ -76,8 +76,8 @@ class RbacTest extends \PHPUnit_Framework_TestCase
         $foo->addPermission('can.foo');
         $bar->addPermission('can.bar');
 
-        $this->rbac->addRole($bar);
-        $this->rbac->addRole($foo, $bar);
+        $this->rbac->addRoleWithChildren($bar);
+        $this->rbac->addRoleWithChildren($foo, $bar);
 
         $this->assertTrue($this->rbac->isGranted('foo', 'can.foo'));
         $this->assertTrue($this->rbac->isGranted('foo', 'can.bar'));
@@ -92,8 +92,8 @@ class RbacTest extends \PHPUnit_Framework_TestCase
     {
         $foo = new Rbac\Role('foo');
 
-        $this->rbac->addRole($foo);
-        $this->rbac->addRole('bar');
+        $this->rbac->addRoleWithChildren($foo);
+        $this->rbac->addRoleWithChildren('bar');
 
         $this->assertTrue($this->rbac->hasRole($foo));
         $this->assertTrue($this->rbac->hasRole('bar'));
@@ -102,7 +102,7 @@ class RbacTest extends \PHPUnit_Framework_TestCase
 
     public function testAddRoleFromString()
     {
-        $this->rbac->addRole('foo');
+        $this->rbac->addRoleWithChildren('foo');
 
         $foo = $this->rbac->getRole('foo');
 
@@ -113,7 +113,7 @@ class RbacTest extends \PHPUnit_Framework_TestCase
     {
         $foo = new Rbac\Role('foo');
 
-        $this->rbac->addRole($foo);
+        $this->rbac->addRoleWithChildren($foo);
 
         $this->assertSame($foo, $this->rbac->getRole('foo'));
     }
@@ -123,7 +123,7 @@ class RbacTest extends \PHPUnit_Framework_TestCase
         $foo = new Rbac\Role('foo');
         $bar = new Rbac\Role('bar');
 
-        $this->rbac->addRole($bar, $foo);
+        $this->rbac->addRoleWithChildren($bar, $foo);
 
         $this->assertTrue($bar->hasChildren($foo));
         $this->assertSame($bar, $foo->getParent());
@@ -133,7 +133,7 @@ class RbacTest extends \PHPUnit_Framework_TestCase
     {
         $role = $this->getMockForAbstractClass('Zend\Permissions\Rbac\RoleInterface');
 
-        $this->rbac->addRole('parent', $role);
+        $this->rbac->addRoleWithChildren('parent', $role);
 
         $role->expects($this->any())
             ->method('getName')
