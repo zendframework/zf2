@@ -10,7 +10,6 @@
 namespace Zend\Permissions\Rbac;
 
 use RecursiveIteratorIterator;
-use Traversable;
 
 class Rbac extends AbstractIterator
 {
@@ -66,25 +65,17 @@ class Rbac extends AbstractIterator
         }
 
         if ($children) {
-            if (!is_array($children) && !($children instanceof Traversable)) {
+            if (!is_array($children)) {
                 $children = array($children);
             }
 
             foreach ($children as $child) {
-                // Ensure the role is defined
-                if (!$this->hasRole($child)) {
-                    if (!$this->createMissingRoles) {
-                        throw new Exception\RoleNotFoundException(sprintf(
-                            'Could not find parent role "%s"',
-                            ($child instanceof RoleInterface)? $child->getName() : $child
-                        ));
-                    }
-
-                    $this->addRoleWithChildren($child);
+                if (is_string($child) && $this->hasRole($child)) {
+                    // prefer defined roles to ensure defined permissions are used
+                    $child = $this->getRole($child);
                 }
 
-                // use the defined roles or it'll break permission inheritance
-                $role->addChild($this->getRole($child));
+                $role->addChild($child);
             }
         }
 
@@ -114,8 +105,10 @@ class Rbac extends AbstractIterator
             );
         }
 
+        $this->children[] = $role;
+
         if ($parents) {
-            if (!is_array($parents) && !($parents instanceof Traversable)) {
+            if (!is_array($parents)) {
                 $parents = array($parents);
             }
 
@@ -137,7 +130,6 @@ class Rbac extends AbstractIterator
             }
         }
 
-        $this->children[] = $role;
         return $this;
     }
 
