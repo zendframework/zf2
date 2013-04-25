@@ -21,6 +21,8 @@ class PhpArray extends AbstractWriter
     {
         $arrayString = "<?php\n"
                      . "return " . var_export($config, true) . ";\n";
+        $arrayString = preg_replace("/=> \n + array/", '=> array', $arrayString);
+        $arrayString = str_replace("  ", '    ', $arrayString);
 
         return $arrayString;
     }
