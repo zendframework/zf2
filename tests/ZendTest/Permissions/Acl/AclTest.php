@@ -1383,4 +1383,14 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $this->_acl->allow('admin');
         $this->assertTrue($this->_acl->isAllowed('admin'));
     }
+    
+    public function testMultipleAssertionRulesWithMatchingRoleResourceAndPrivilege()
+    {
+        $this->_acl->addRole('admin');
+        $this->_acl->addResource('newsletter');
+        $this->_acl->allow('admin', 'newsletter', 'view', new TestAsset\MockAssertion(true));
+        $this->_acl->allow('admin', 'newsletter', 'view', new TestAsset\MockAssertion(false));
+
+        $this->assertTrue($this->_acl->isAllowed('admin', 'newsletter', 'view'));
+    }
 }
