@@ -529,7 +529,7 @@ class Translator
      *
      * @param  string $textDomain
      * @param  string $locale
-     * @return boolean
+     * @return bool
      * @throws Exception\RuntimeException When specified loader is not a remote loader
      */
     protected function loadMessagesFromRemote($textDomain, $locale)
@@ -562,7 +562,7 @@ class Translator
      *
      * @param  string $textDomain
      * @param  string $locale
-     * @return boolean
+     * @return bool
      * @throws Exception\RuntimeException When specified loader is not a file loader
      */
     protected function loadMessagesFromPatterns($textDomain, $locale)
@@ -599,7 +599,7 @@ class Translator
      *
      * @param  string $textDomain
      * @param  string $locale
-     * @return boolean
+     * @return bool
      * @throws Exception\RuntimeException When specified loader is not a file loader
      */
     protected function loadMessagesFromFiles($textDomain, $locale)
