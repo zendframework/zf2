@@ -38,7 +38,7 @@ trait FormManagerAwareTrait
     public function getFormManager()
     {
         if ($this->formManager === null) {
-            $this->formManager = new FormManager;
+            $this->formManager = new FormManager(new Service\FormManagerConfig);
         }
         return $this->formManager;
     }
