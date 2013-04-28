@@ -9,10 +9,11 @@
  */
 namespace ZendTest\Form;
 
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
 
-class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
+class FormAbstractFactoryTest extends TestCase
 {
 
     /**
@@ -28,7 +29,7 @@ class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager = new ServiceManager(new ServiceManagerConfig(array(
             'abstract_factories' => array(
-                'Zend\Form\FormAbstractServiceFactory'
+                'Zend\Form\Service\FormAbstractFactory'
             )
         )));
         $this->serviceManager->setService('Config', array(
