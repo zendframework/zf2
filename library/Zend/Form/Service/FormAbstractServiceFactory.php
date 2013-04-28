@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Form;
+namespace Zend\Form\Service;
 
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -19,7 +19,7 @@ use Zend\Form\Factory;
  * Allow create forms via specification defined in config file.
  * Reserved <b>form</b> section.
  */
-class FormAbstractServiceFactory implements AbstractFactoryInterface
+class FormAbstractFactory implements AbstractFactoryInterface
 {
     /**
      * @var \Zend\Form\Factory
