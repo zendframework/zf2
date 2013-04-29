@@ -44,7 +44,7 @@ class Callback extends PubSubHubbub\AbstractCallback
      * Required if usePathParameter is enabled for the Subscriber.
      *
      * @param  string $key
-     * @return \Zend\Feed\PubSubHubbub\Subscriber\Callback
+     * @return Callback
      */
     public function setSubscriptionKey($key)
     {
@@ -180,7 +180,7 @@ class Callback extends PubSubHubbub\AbstractCallback
      * Topic we've subscribed to.
      *
      * @param  string $feed
-     * @return \Zend\Feed\PubSubHubbub\Subscriber\Callback
+     * @return Callback
      */
     public function setFeedUpdate($feed)
     {

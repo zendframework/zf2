@@ -61,7 +61,7 @@ abstract class AbstractRestfulController extends AbstractController
      * Set the route match/query parameter name containing the identifier
      *
      * @param  string $name
-     * @return self
+     * @return AbstractRestfulController
      */
     public function setIdentifierName($name)
     {

@@ -84,7 +84,7 @@ class Exists extends AbstractValidator
      * Sets the file directory which will be checked
      *
      * @param  string|array $directory The directories to validate
-     * @return Extension Provides a fluent interface
+     * @return Exists Provides a fluent interface
      */
     public function setDirectory($directory)
     {
@@ -97,7 +97,7 @@ class Exists extends AbstractValidator
      * Adds the file directory which will be checked
      *
      * @param  string|array $directory The directory to add for validation
-     * @return Extension Provides a fluent interface
+     * @return Exists Provides a fluent interface
      * @throws Exception\InvalidArgumentException
      */
     public function addDirectory($directory)

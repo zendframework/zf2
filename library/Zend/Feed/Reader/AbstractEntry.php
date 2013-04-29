@@ -151,7 +151,7 @@ abstract class AbstractEntry
      * Set the XPath query
      *
      * @param  DOMXPath $xpath
-     * @return \Zend\Feed\Reader\AbstractEntry
+     * @return AbstractEntry
      */
     public function setXpath(DOMXPath $xpath)
     {

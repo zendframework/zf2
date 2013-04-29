@@ -97,7 +97,7 @@ class Input implements InputInterface, EmptyContextInterface
 
     /**
      * @param bool $continueIfEmpty
-     * @return \Zend\InputFilter\Input
+     * @return Input
      */
     public function setContinueIfEmpty($continueIfEmpty)
     {

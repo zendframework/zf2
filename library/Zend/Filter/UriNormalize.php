@@ -51,7 +51,7 @@ class UriNormalize extends AbstractFilter
      * normalize the URI and thus may affect the resulting normalize URI.
      *
      * @param  string $defaultScheme
-     * @return \Zend\Filter\UriNormalize
+     * @return UriNormalize
      */
     public function setDefaultScheme($defaultScheme)
     {
@@ -71,7 +71,7 @@ class UriNormalize extends AbstractFilter
      * real-world user mishaps, it may yield unexpected results at times.
      *
      * @param  string $enforcedScheme
-     * @return \Zend\Filter\UriNormalize
+     * @return UriNormalize
      */
     public function setEnforcedScheme($enforcedScheme)
     {

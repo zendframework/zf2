@@ -104,7 +104,7 @@ class FingersCrossed extends AbstractWriter
      *
      * @param  string|WriterInterface $writer
      * @param  array|null $options
-     * @return self
+     * @return FingersCrossed
      * @throws Exception\InvalidArgumentException
      */
     public function setWriter($writer, array $options = null)

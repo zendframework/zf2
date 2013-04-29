@@ -127,7 +127,7 @@ class Request extends Message implements RequestInterface
      * primary API for value setting, for that see env())
      *
      * @param \Zend\Stdlib\Parameters $env
-     * @return \Zend\Console\Request
+     * @return Request
      */
     public function setEnv(Parameters $env)
     {

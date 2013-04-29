@@ -93,7 +93,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set sql
      *
      * @param $sql
-     * @return mixed
+     * @return Statement
      */
     public function setSql($sql)
     {
@@ -115,7 +115,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set parameter container
      *
      * @param ParameterContainer $parameterContainer
-     * @return mixed
+     * @return Statement
      */
     public function setParameterContainer(ParameterContainer $parameterContainer)
     {
@@ -135,6 +135,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param $resource
+     * @return Statement
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
      */
     public function setResource($resource)
@@ -143,6 +144,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             throw new Exception\InvalidArgumentException('Resource must be of type DB2 Statement');
         }
         $this->resource = $resource;
+        return $this;
     }
 
     /**

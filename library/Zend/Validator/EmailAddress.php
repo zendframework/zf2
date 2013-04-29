@@ -108,7 +108,7 @@ class EmailAddress extends AbstractValidator
      *
      * @param  string $messageString
      * @param  string $messageKey     OPTIONAL
-     * @return AbstractValidator Provides a fluent interface
+     * @return EmailAddress Provides a fluent interface
      */
     public function setMessage($messageString, $messageKey = null)
     {

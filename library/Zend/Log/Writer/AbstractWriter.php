@@ -158,7 +158,7 @@ abstract class AbstractWriter implements WriterInterface
      * Set filter plugin manager
      *
      * @param  string|FilterPluginManager $plugins
-     * @return self
+     * @return AbstractWriter
      * @throws Exception\InvalidArgumentException
      */
     public function setFilterPluginManager($plugins)
@@ -207,7 +207,7 @@ abstract class AbstractWriter implements WriterInterface
      * Set formatter plugin manager
      *
      * @param  string|FormatterPluginManager $plugins
-     * @return self
+     * @return AbstractWriter
      * @throws Exception\InvalidArgumentException
      */
     public function setFormatterPluginManager($plugins)
@@ -285,7 +285,7 @@ abstract class AbstractWriter implements WriterInterface
      *
      * @param  string|Formatter\FormatterInterface $formatter
      * @param  array|null $options
-     * @return self
+     * @return AbstractWriter
      * @throws Exception\InvalidArgumentException
      */
     public function setFormatter($formatter, array $options = null)

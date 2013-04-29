@@ -30,7 +30,7 @@ interface HeaderInterface
      * Factory to generate a header object from a string
      *
      * @param string $headerLine
-     * @return self
+     * @return HeaderInterface
      */
     public static function fromString($headerLine);
 
@@ -53,7 +53,7 @@ interface HeaderInterface
      * Set header encoding
      *
      * @param  string $encoding
-     * @return self
+     * @return HeaderInterface
      */
     public function setEncoding($encoding);
 

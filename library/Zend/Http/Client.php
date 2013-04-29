@@ -633,7 +633,7 @@ class Client implements Stdlib\DispatchableInterface
      * Set streaming for received data
      *
      * @param string|bool $streamfile Stream file, true for temp file, false/null for no streaming
-     * @return \Zend\Http\Client
+     * @return Client
      */
     public function setStream($streamfile = true)
     {

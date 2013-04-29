@@ -105,7 +105,7 @@ class Select extends Element implements InputProviderInterface
      * _ empty_option: should an empty option be prepended to the options ?
      *
      * @param  array|Traversable $options
-     * @return Select|ElementInterface
+     * @return Select
      * @throws InvalidArgumentException
      */
     public function setOptions($options)
@@ -136,7 +136,7 @@ class Select extends Element implements InputProviderInterface
      *
      * @param  string $key
      * @param  mixed  $value
-     * @return Select|ElementInterface
+     * @return Select
      */
     public function setAttribute($key, $value)
     {

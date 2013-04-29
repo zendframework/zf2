@@ -37,7 +37,6 @@ class Deleted
      *
      * @param  $encoding
      * @throws Exception\InvalidArgumentException
-     * @return string|null
      * @return Deleted
      */
     public function setEncoding($encoding)

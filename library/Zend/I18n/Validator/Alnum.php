@@ -74,7 +74,7 @@ class Alnum extends AbstractValidator
      * Sets the allowWhiteSpace option
      *
      * @param  bool $allowWhiteSpace
-     * @return AlnumFilter Provides a fluent interface
+     * @return Alnum Provides a fluent interface
      */
     public function setAllowWhiteSpace($allowWhiteSpace)
     {

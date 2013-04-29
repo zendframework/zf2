@@ -94,7 +94,7 @@ class Size extends AbstractValidator
      * Should messages return bytes as integer or as string in SI notation
      *
      * @param  bool $byteString Use bytestring ?
-     * @return integer
+     * @return Size
      */
     public function useByteString($byteString = true)
     {

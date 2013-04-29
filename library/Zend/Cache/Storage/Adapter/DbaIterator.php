@@ -89,7 +89,7 @@ class DbaIterator implements IteratorInterface
      * Set iterator mode
      *
      * @param int $mode
-     * @return ApcIterator Fluent interface
+     * @return DbaIterator Fluent interface
      */
     public function setMode($mode)
     {

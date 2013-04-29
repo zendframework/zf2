@@ -558,7 +558,6 @@ class Socket implements HttpAdapter, StreamInterface
 
     /**
      * Close the connection to the server
-     *
      */
     public function close()
     {
@@ -596,7 +595,7 @@ class Socket implements HttpAdapter, StreamInterface
      * Set output stream for the response
      *
      * @param resource $stream
-     * @return \Zend\Http\Client\Adapter\Socket
+     * @return Socket
      */
     public function setOutputStream($stream)
     {
@@ -608,7 +607,6 @@ class Socket implements HttpAdapter, StreamInterface
      * Destructor: make sure the socket is disconnected
      *
      * If we are in persistent TCP mode, will not close the connection
-     *
      */
     public function __destruct()
     {

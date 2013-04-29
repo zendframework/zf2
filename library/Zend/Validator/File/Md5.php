@@ -56,7 +56,7 @@ class Md5 extends Hash
      * Sets the md5 hash for one or multiple files
      *
      * @param  string|array $options
-     * @return Hash Provides a fluent interface
+     * @return Md5 Provides a fluent interface
      */
     public function setMd5($options)
     {
@@ -68,7 +68,7 @@ class Md5 extends Hash
      * Adds the md5 hash for one or multiple files
      *
      * @param  string|array $options
-     * @return Hash Provides a fluent interface
+     * @return Md5 Provides a fluent interface
      */
     public function addMd5($options)
     {

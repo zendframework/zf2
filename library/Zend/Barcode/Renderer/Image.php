@@ -109,7 +109,7 @@ class Image extends AbstractRenderer
      *
      * @param mixed $value
      * @throws Exception\OutOfRangeException
-     * @return self
+     * @return Image
      */
     public function setWidth($value)
     {

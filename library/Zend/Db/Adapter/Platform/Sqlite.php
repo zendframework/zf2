@@ -29,7 +29,7 @@ class Sqlite implements PlatformInterface
     /**
      * @param \Zend\Db\Adapter\Driver\Pdo\Pdo||\PDO $driver
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
-     * @return $this
+     * @return Sqlite
      */
     public function setDriver($driver)
     {

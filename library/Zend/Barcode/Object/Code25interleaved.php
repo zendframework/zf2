@@ -32,7 +32,7 @@ class Code25interleaved extends Code25
     /**
      * Activate/deactivate drawing of bearer bars
      * @param  bool $value
-     * @return Code25
+     * @return Code25interleaved
      */
     public function setWithBearerBars($value)
     {

@@ -324,7 +324,7 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      * @param  array|string|null $query    URL query part
-     * @return self   fluent interface, returns self
+     * @return Mvc Fluent interface
      */
     public function setQuery($query)
     {

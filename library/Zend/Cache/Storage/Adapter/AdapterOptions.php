@@ -150,7 +150,7 @@ class AdapterOptions extends AbstractOptions
      * Enable/Disable reading data from cache.
      *
      * @param  bool $readable
-     * @return AbstractAdapter
+     * @return AdapterOptions
      */
     public function setReadable($readable)
     {

@@ -95,7 +95,7 @@ class DbaOptions extends AdapterOptions
      *
      *
      * @param string $mode
-     * @return \Zend\Cache\Storage\Adapter\DbaOptions
+     * @return DbaOptions
      */
     public function setMode($mode)
     {
@@ -109,6 +109,11 @@ class DbaOptions extends AdapterOptions
         return $this->mode;
     }
 
+    /**
+     * @param string $handler
+     * @return DbaOptions
+     * @throws Exception\ExtensionNotLoadedException
+     */
     public function setHandler($handler)
     {
         $handler = (string) $handler;

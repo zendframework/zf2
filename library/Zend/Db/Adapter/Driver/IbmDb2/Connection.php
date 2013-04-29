@@ -141,7 +141,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Connect
      *
-     * @return ConnectionInterface
+     * @return Connection
      */
     public function connect()
     {
@@ -197,7 +197,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Disconnect
      *
-     * @return ConnectionInterface
+     * @return Connection
      */
     public function disconnect()
     {
