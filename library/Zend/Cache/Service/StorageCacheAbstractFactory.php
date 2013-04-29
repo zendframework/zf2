@@ -7,17 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Log;
+namespace Zend\Cache\Service;
 
+use Zend\Cache\StorageFactory;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Logger abstract service factory.
- *
- * Allow to configure multiple loggers for application.
+ * Storage cache factory for multiple caches.
  */
-class LoggerAbstractServiceFactory implements AbstractFactoryInterface
+class StorageCacheAbstractFactory implements AbstractFactoryInterface
 {
     /**
      * @param ServiceLocatorInterface $serviceLocator
@@ -27,31 +26,32 @@ class LoggerAbstractServiceFactory implements AbstractFactoryInterface
      */
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        if ('logger\\' != substr(strtolower($requestedName), 0, 7)) {
+        if ('cache\\' !== substr(strtolower($requestedName), 0, 6)) {
             return false;
         }
 
         $config  = $serviceLocator->get('Config');
-        if (!isset($config['log'])) {
+        if (!isset($config['caches'])) {
             return false;
         }
 
-        $config  = array_change_key_case($config['log']);
-        $service = substr(strtolower($requestedName), 7);
-        return isset($config[$service]);
+        $config  = array_change_key_case($config['caches']);
+        $service = substr(strtolower($requestedName), 6);
+        return isset($config[$service]) && is_array($config[$service]);
     }
 
     /**
      * @param ServiceLocatorInterface $serviceLocator
      * @param string $name
      * @param string $requestedName
-     * @return \Zend\Log\Logger
+     * @return \Zend\Cache\Storage\StorageInterface
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        $config  = $serviceLocator->get('Config');
-        $config  = array_change_key_case($config['log']);
-        $service = substr(strtolower($requestedName), 7);
-        return new Logger($config[$service]);
+        $config      = $serviceLocator->get('Config');
+        $config      = array_change_key_case($config['caches']);
+        $service     = substr(strtolower($requestedName), 6);
+        $cacheConfig = $config[$service];
+        return StorageFactory::factory($cacheConfig);
     }
 }
