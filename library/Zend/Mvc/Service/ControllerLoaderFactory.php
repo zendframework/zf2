@@ -44,6 +44,18 @@ class ControllerLoaderFactory implements FactoryInterface
             $controllerLoader->addAbstractFactory($serviceLocator->get('DiStrictAbstractServiceFactory'));
         }
 
+        /** @var $serviceListener \Zend\ModuleManager\Listener\ServiceListener */
+        $serviceListener = $serviceLocator->get('ServiceListener');
+
+        // This will allow to register new controllers easily, either by implementing the ControllerProviderInterface
+        // in your Module.php file, or by adding the "controllers" key in your module.config.php file
+        $serviceListener->addServiceManager(
+            'ControllerLoader',
+            'controllers',
+            'Zend\ModuleManager\Feature\ControllerProviderInterface',
+            'getControllerConfig'
+        );
+
         return $controllerLoader;
     }
 }

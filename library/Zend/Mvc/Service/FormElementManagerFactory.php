@@ -9,7 +9,6 @@
 
 namespace Zend\Mvc\Service;
 
-use Zend\Form\FormElementManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class FormElementManagerFactory extends AbstractPluginManagerFactory
@@ -20,11 +19,22 @@ class FormElementManagerFactory extends AbstractPluginManagerFactory
      * Create and return the MVC controller plugin manager
      *
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return FormElementManager
+     * @return \Zend\Form\FormElementManager
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $plugins = parent::createService($serviceLocator);
-        return $plugins;
+        /** @var $serviceListener \Zend\ModuleManager\Listener\ServiceListener */
+        $serviceListener = $serviceLocator->get('ServiceListener');
+
+        // This will allow to register new form elements easily, either by implementing the FormElementProviderInterface
+        // in your Module.php file, or by adding the "form_elements" key in your module.config.php file
+        $serviceListener->addServiceManager(
+            'FormElementManager',
+            'form_elements',
+            'Zend\ModuleManager\Feature\FormElementProviderInterface',
+            'getFormElementConfig'
+        );
+
+        return parent::createService($serviceLocator);
     }
 }

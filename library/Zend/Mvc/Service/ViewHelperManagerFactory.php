@@ -105,6 +105,19 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
             return $doctypeHelper;
         });
 
+        /** @var $serviceListener \Zend\ModuleManager\Listener\ServiceListener */
+        $serviceListener = $serviceLocator->get('ServiceListener');
+
+        // This will allow to register new view helpers easily, either by implementing the
+        // ViewHelperProviderInterface in your Module.php file, or by adding the "view_helpers"
+        // key in your module.config.php file
+        $serviceListener->addServiceManager(
+            'ViewHelperManager',
+            'view_helpers',
+            'Zend\ModuleManager\Feature\ViewHelperProviderInterface',
+            'getViewHelperConfig'
+        );
+
         return $plugins;
     }
 }

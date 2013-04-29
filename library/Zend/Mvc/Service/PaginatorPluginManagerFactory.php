@@ -23,7 +23,6 @@ class PaginatorPluginManagerFactory extends AbstractPluginManagerFactory
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $plugins = parent::createService($serviceLocator);
-        return $plugins;
+        return parent::createService($serviceLocator);
     }
 }
