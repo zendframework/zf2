@@ -9,16 +9,19 @@
 
 namespace Zend\Form;
 
-/**
- * @deprecated As of 2.2.0 <b>Form Factory</b> should be retrieved via <b>Form Manager</b> by implementing
- *             <i>FormManagerAwareInterface</i>
- */
-interface FormFactoryAwareInterface
+interface FormManagerAwareInterface
 {
     /**
-     * Compose a form factory into the object
+     * Set <b>Form Manager</b>
      *
-     * @param Factory $factory
+     * @param FormManager $formManager
      */
-    public function setFormFactory(Factory $factory);
+    public function setFormManager(FormManager $formManager);
+
+    /**
+     * Get <b>Form Manager</b>
+     *
+     * @return FormManager
+     */
+    public function getFormManager();
 }

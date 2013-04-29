@@ -16,6 +16,9 @@ use Zend\InputFilter\InputFilterInterface;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\Hydrator;
 
+/**
+ * @deprecated <i>Zend\Form\Factory</i> has been replaced by <i>Zend\Form\FormFactory</i> as of 2.2.0
+ */
 class Factory
 {
     /**
@@ -33,7 +36,12 @@ class Factory
      */
     public function __construct(FormElementManager $formElementManager = null)
     {
-        if ($formElementManager) {
+        trigger_error(
+            'Zend\Form\Factory has been deprecated in ZF as of 2.2.0, use Zend\Form\FormFactory instead',
+            E_USER_DEPRECATED
+        );
+
+        if ($formElementManager !== null) {
             $this->setFormElementManager($formElementManager);
         }
     }

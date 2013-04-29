@@ -9,8 +9,10 @@
 
 namespace Zend\Form;
 
-use \Zend\Form\Factory;
-
+/**
+ * @deprecated As of 2.2.0 <b>Form Factory</b> should be retrieved via <b>Form Manager</b> by implementing
+ *             <i>FormManagerAwareInterface</i>
+ */
 trait FormFactoryAwareTrait
 {
     /**

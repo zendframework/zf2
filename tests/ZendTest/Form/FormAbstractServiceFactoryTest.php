@@ -5,26 +5,27 @@
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
  * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Form
  */
 namespace ZendTest\Form;
 
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
 
-class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
+/**
+ * @group Zend_Form
+ */
+class FormAbstractServiceFactoryTest extends TestCase
 {
-
     /**
-     *
-     * @var \Zend\ServiceManager\ServiceManager
+     * @var ServiceManager
      */
     private $serviceManager;
 
     /**
      * Set up service manager and form specification.
      */
-    protected function setUp ()
+    protected function setUp()
     {
         $this->serviceManager = new ServiceManager(new ServiceManagerConfig(array(
             'abstract_factories' => array(
@@ -111,10 +112,9 @@ class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *
      * @return array
      */
-    public function providerValidService ()
+    public function providerValidService()
     {
         return array(
             array(
@@ -124,10 +124,9 @@ class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *
      * @return array
      */
-    public function providerInvalidService ()
+    public function providerInvalidService()
     {
         return array(
             array(
@@ -137,23 +136,21 @@ class FormAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *
      * @param string $service
-     *            @dataProvider providerValidService
+     * @dataProvider providerValidService
      */
-    public function testValidService ($service)
+    public function testValidService($service)
     {
         $actual = $this->serviceManager->get($service);
         $this->assertInstanceOf('Zend\Form\Form', $actual);
     }
 
     /**
-     *
      * @param string $service
-     *            @dataProvider providerInvalidService
-     *            @expectedException Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @dataProvider providerInvalidService
+     * @expectedException Zend\ServiceManager\Exception\ServiceNotFoundException
      */
-    public function testInvalidService ($service)
+    public function testInvalidService($service)
     {
         $actual = $this->serviceManager->get($service);
     }

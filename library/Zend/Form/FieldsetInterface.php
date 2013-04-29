@@ -18,7 +18,10 @@ interface FieldsetInterface extends
     IteratorAggregate,
     ElementInterface,
     ElementPrepareAwareInterface,
-    FormFactoryAwareInterface
+    // @deprecated As of 2.2.0 Form Factory should be retrieved via Form Manager by implementing
+    // FormManagerAwareInterface
+    FormFactoryAwareInterface,
+    FormManagerAwareInterface
 {
     /**
      * Add an element or fieldset

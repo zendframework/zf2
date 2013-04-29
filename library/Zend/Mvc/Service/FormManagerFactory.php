@@ -9,22 +9,25 @@
 
 namespace Zend\Mvc\Service;
 
-use Zend\Form\FormElementManager;
+use Zend\Form\FormManager;
+use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class FormElementManagerFactory extends AbstractPluginManagerFactory
+class FormManagerFactory implements FactoryInterface
 {
-    const PLUGIN_MANAGER_CLASS = 'Zend\Form\FormElementManager';
 
     /**
-     * Create and return the <b>Form Element Manager</b>
+     * Create and return the <b>Form Manager</b>
      *
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return FormElementManager
+     * @return FormManager
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $plugins = parent::createService($serviceLocator);
-        return $plugins;
+        $formManager = new FormManager;
+
+        $formManager->setFormElementManager($serviceLocator->get('FormElementManager'));
+
+        return $formManager;
     }
 }
