@@ -75,7 +75,7 @@ class Svg extends AbstractRenderer
      *
      * @param mixed $value
      * @throws Exception\OutOfRangeException
-     * @return self
+     * @return Svg
      */
     public function setWidth($value)
     {

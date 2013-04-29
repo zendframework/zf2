@@ -434,7 +434,7 @@ class RedisResourceManager
      *
      * @param string $id
      * @param string $password
-     * @return RedisResource
+     * @return RedisResourceManager
      */
     public function setPassword($id, $password)
     {
@@ -471,7 +471,7 @@ class RedisResourceManager
      *
      * @param string $id
      * @param int $database
-     * @return RedisResource
+     * @return RedisResourceManager
      */
     public function setDatabase($id, $database)
     {

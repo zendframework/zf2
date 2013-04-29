@@ -54,7 +54,7 @@ class BaseInputFilter implements InputFilterInterface, UnknownInputsCapableInter
      * @param  InputInterface|InputFilterInterface $input
      * @param  null|string                         $name Name used to retrieve this input
      * @throws Exception\InvalidArgumentException
-     * @return InputFilterInterface
+     * @return BaseInputFilter
      */
     public function add($input, $name = null)
     {
@@ -116,7 +116,7 @@ class BaseInputFilter implements InputFilterInterface, UnknownInputsCapableInter
      * Remove a named input
      *
      * @param  string $name
-     * @return InputFilterInterface
+     * @return BaseInputFilter
      */
     public function remove($name)
     {
@@ -129,7 +129,7 @@ class BaseInputFilter implements InputFilterInterface, UnknownInputsCapableInter
      *
      * @param  array|Traversable $data
      * @throws Exception\InvalidArgumentException
-     * @return InputFilterInterface
+     * @return BaseInputFilter
      */
     public function setData($data)
     {
@@ -318,7 +318,7 @@ class BaseInputFilter implements InputFilterInterface, UnknownInputsCapableInter
      * each specifying a single input.
      *
      * @param  mixed $name
-     * @return InputFilterInterface
+     * @return BaseInputFilter
      */
     public function setValidationGroup($name)
     {

@@ -163,7 +163,7 @@ abstract class AbstractDb extends AbstractValidator
      * Sets a new database adapter
      *
      * @param  DbAdapter $adapter
-     * @return self Provides a fluent interface
+     * @return AbstractDb Provides a fluent interface
      */
     public function setAdapter(DbAdapter $adapter)
     {
@@ -185,7 +185,7 @@ abstract class AbstractDb extends AbstractValidator
      * Sets a new exclude clause
      *
      * @param string|array $exclude
-     * @return self Provides a fluent interface
+     * @return AbstractDb Provides a fluent interface
      */
     public function setExclude($exclude)
     {
@@ -229,7 +229,7 @@ abstract class AbstractDb extends AbstractValidator
      * Sets a new table
      *
      * @param string $table
-     * @return self Provides a fluent interface
+     * @return AbstractDb Provides a fluent interface
      */
     public function setTable($table)
     {
@@ -251,7 +251,7 @@ abstract class AbstractDb extends AbstractValidator
      * Sets a new schema
      *
      * @param string $schema
-     * @return self Provides a fluent interface
+     * @return AbstractDb Provides a fluent interface
      */
     public function setSchema($schema)
     {
@@ -263,7 +263,7 @@ abstract class AbstractDb extends AbstractValidator
      * Sets the select object to be used by the validator
      *
      * @param  Select $select
-     * @return self Provides a fluent interface
+     * @return AbstractDb Provides a fluent interface
      */
     public function setSelect(Select $select)
     {

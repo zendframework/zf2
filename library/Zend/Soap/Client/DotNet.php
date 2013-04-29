@@ -118,7 +118,7 @@ class DotNet extends SOAPClient
      * Sets the cURL client to use.
      *
      * @param  CurlClient $curlClient The cURL client.
-     * @return self Fluent interface.
+     * @return DotNet Fluent interface.
      */
     public function setCurlClient(CurlClient $curlClient)
     {
@@ -133,7 +133,7 @@ class DotNet extends SOAPClient
      *
      * @param  array|\Traversable $options Options.
      * @throws \InvalidArgumentException If an unsupported option is passed.
-     * @return self Fluent interface.
+     * @return DotNet Fluent interface.
      */
     public function setOptions($options)
     {

@@ -239,7 +239,7 @@ abstract class AbstractAccept implements HeaderInterface
      * @param  int|float $priority
      * @param  array (optional) $params
      * @throws Exception\InvalidArgumentException
-     * @return Accept
+     * @return AbstractAccept
      */
     protected function addType($type, $priority = 1, array $params = array())
     {

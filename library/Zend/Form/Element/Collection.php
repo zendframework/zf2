@@ -145,7 +145,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * In this case the "object" is a collection of objects
      *
      * @param  array|Traversable $object
-     * @return Fieldset|FieldsetInterface
+     * @return Collection
      * @throws Exception\InvalidArgumentException
      */
     public function setObject($object)
@@ -285,7 +285,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
     /**
      * Set the initial count of target element
      *
-     * @param $count
+     * @param int $count
      * @return Collection
      */
     public function setCount($count)

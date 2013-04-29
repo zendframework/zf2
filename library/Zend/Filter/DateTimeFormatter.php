@@ -36,7 +36,7 @@ class DateTimeFormatter extends AbstractFilter
      * Set the format string accepted by date() to use when formatting a string
      *
      * @param  string $format
-     * @return \Zend\Filter\DateTimeFormatter
+     * @return DateTimeFormatter
      */
     public function setFormat($format)
     {

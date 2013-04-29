@@ -57,7 +57,7 @@ class Http extends AbstractAdapter
      * Remove an individual validator
      *
      * @param  string $name
-     * @return AbstractAdapter
+     * @return Http
      */
     public function removeValidator($name)
     {
@@ -71,7 +71,7 @@ class Http extends AbstractAdapter
     /**
      * Clear the validators
      *
-     * @return AbstractAdapter
+     * @return Http
      */
     public function clearValidators()
     {

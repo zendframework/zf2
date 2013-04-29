@@ -76,7 +76,7 @@ class Di implements DependencyInjectionInterface
 
     /**
      * @param  DefinitionList $definitions
-     * @return self
+     * @return Di
      */
     public function setDefinitionList(DefinitionList $definitions)
     {

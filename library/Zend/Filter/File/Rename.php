@@ -69,7 +69,7 @@ class Rename extends Filter\AbstractFilter
      * 'randomize' => Shall target files have a random postfix attached?
      *
      * @param  string|array $options Old file or directory to be rewritten
-     * @return \Zend\Filter\File\Rename
+     * @return Rename
      */
     public function setFile($options)
     {
@@ -200,7 +200,7 @@ class Rename extends Filter\AbstractFilter
      * Supports single and nested arrays
      *
      * @param  array $options
-     * @return array
+     * @return Rename
      */
     protected function _convertOptions($options)
     {

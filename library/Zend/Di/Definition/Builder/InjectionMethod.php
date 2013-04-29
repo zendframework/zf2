@@ -26,7 +26,7 @@ class InjectionMethod
 
     /**
      * @param  string|null $name
-     * @return self
+     * @return InjectionMethod
      */
     public function setName($name)
     {

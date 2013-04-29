@@ -109,7 +109,7 @@ class Smd
      *
      * @param  string $transport
      * @throws Exception\InvalidArgumentException
-     * @return \Zend\Json\Server\Smd
+     * @return Smd
      */
     public function setTransport($transport)
     {
@@ -162,7 +162,7 @@ class Smd
      *
      * @param  string $type
      * @throws Exception\InvalidArgumentException
-     * @return \Zend\Json\Server\Smd
+     * @return Smd
      */
     public function setContentType($type)
     {

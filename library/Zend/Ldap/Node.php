@@ -1041,7 +1041,7 @@ class Node extends Node\AbstractNode implements \Iterator, \RecursiveIterator
      * Return the current attribute.
      * Implements Iterator
      *
-     * @return array
+     * @return Node
      */
     public function current()
     {

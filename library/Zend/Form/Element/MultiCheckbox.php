@@ -73,7 +73,7 @@ class MultiCheckbox extends Checkbox
      * - value_options: list of values and labels for the select options
      *
      * @param  array|\Traversable $options
-     * @return MultiCheckbox|ElementInterface
+     * @return MultiCheckbox
      * @throws InvalidArgumentException
      */
     public function setOptions($options)
@@ -96,7 +96,7 @@ class MultiCheckbox extends Checkbox
      *
      * @param  string $key
      * @param  mixed  $value
-     * @return MultiCheckbox|ElementInterface
+     * @return MultiCheckbox
      */
     public function setAttribute($key, $value)
     {

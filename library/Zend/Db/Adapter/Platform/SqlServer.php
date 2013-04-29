@@ -29,7 +29,7 @@ class SqlServer implements PlatformInterface
     /**
      * @param \Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv|\Zend\Db\Adapter\Driver\Pdo\Pdo||resource|\PDO $driver
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
-     * @return $this
+     * @return SqlServer
      */
     public function setDriver($driver)
     {

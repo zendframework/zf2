@@ -88,7 +88,7 @@ class MongoDB extends AbstractWriter
      * This writer does not support formatting.
      *
      * @param string|FormatterInterface $formatter
-     * @return WriterInterface
+     * @return MongoDB
      */
     public function setFormatter($formatter)
     {

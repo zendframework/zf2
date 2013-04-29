@@ -49,7 +49,7 @@ class BasePath extends AbstractHelper
      * Set the base path.
      *
      * @param  string $basePath
-     * @return self
+     * @return BasePath
      */
     public function setBasePath($basePath)
     {

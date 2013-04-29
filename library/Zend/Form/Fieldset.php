@@ -83,7 +83,7 @@ class Fieldset extends Element implements FieldsetInterface
      * - use_as_base_fieldset: is this fieldset use as the base fieldset?
      *
      * @param  array|Traversable $options
-     * @return Element|ElementInterface
+     * @return Fieldset
      * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
@@ -101,7 +101,7 @@ class Fieldset extends Element implements FieldsetInterface
      * Compose a form factory to use when calling add() with a non-element/fieldset
      *
      * @param  Factory $factory
-     * @return Form
+     * @return Fieldset
      */
     public function setFormFactory(Factory $factory)
     {
@@ -134,7 +134,7 @@ class Fieldset extends Element implements FieldsetInterface
      * @todo   Should we detect if the element/fieldset name conflicts?
      * @param  array|Traversable|ElementInterface $elementOrFieldset
      * @param  array                              $flags
-     * @return Fieldset|FieldsetInterface
+     * @return Fieldset
      * @throws Exception\InvalidArgumentException
      */
     public function add($elementOrFieldset, array $flags = array())
@@ -222,7 +222,7 @@ class Fieldset extends Element implements FieldsetInterface
      * Remove a named element or fieldset
      *
      * @param  string $elementOrFieldset
-     * @return FieldsetInterface
+     * @return Fieldset
      */
     public function remove($elementOrFieldset)
     {
@@ -249,7 +249,7 @@ class Fieldset extends Element implements FieldsetInterface
      *
      * @param string $elementOrFieldset
      * @param int $priority
-     * @return FieldsetInterface
+     * @return Fieldset
      */
     public function setPriority($elementOrFieldset, $priority)
     {
@@ -287,7 +287,7 @@ class Fieldset extends Element implements FieldsetInterface
      * Set a hash of element names/messages to use when validation fails
      *
      * @param  array|Traversable $messages
-     * @return Element|ElementInterface|FieldsetInterface
+     * @return Fieldset
      * @throws Exception\InvalidArgumentException
      */
     public function setMessages($messages)
@@ -428,7 +428,7 @@ class Fieldset extends Element implements FieldsetInterface
      * Set the object used by the hydrator
      *
      * @param  object $object
-     * @return Fieldset|FieldsetInterface
+     * @return Fieldset
      * @throws Exception\InvalidArgumentException
      */
     public function setObject($object)
@@ -470,7 +470,7 @@ class Fieldset extends Element implements FieldsetInterface
      * Set the hydrator to use when binding an object to the element
      *
      * @param  HydratorInterface $hydrator
-     * @return FieldsetInterface
+     * @return Fieldset
      */
     public function setHydrator(HydratorInterface $hydrator)
     {

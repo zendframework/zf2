@@ -32,7 +32,7 @@ class AtomSource extends AbstractAtom implements Renderer\RendererInterface
     /**
      * Render Atom Feed Metadata (Source element)
      *
-     * @return \Zend\Feed\Writer\Renderer\Feed\Atom
+     * @return AtomSource
      */
     public function render()
     {

@@ -28,7 +28,7 @@ class Source extends AbstractAtom implements \Zend\Feed\Writer\Renderer\Renderer
     /**
      * Render Atom Feed Metadata (Source element)
      *
-     * @return \Zend\Feed\Writer\Renderer\Feed\Atom
+     * @return Source
      */
     public function render()
     {

@@ -78,7 +78,7 @@ class Element implements
      * Set value for name
      *
      * @param  string $name
-     * @return Element|ElementInterface
+     * @return Element
      */
     public function setName($name)
     {
@@ -102,7 +102,7 @@ class Element implements
      * - label_attributes: attributes to use when the label is rendered
      *
      * @param  array|Traversable $options
-     * @return Element|ElementInterface
+     * @return Element
      * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
@@ -158,7 +158,7 @@ class Element implements
      *
      * @param  string $key
      * @param  mixed  $value
-     * @return Element|ElementInterface
+     * @return Element
      */
     public function setAttribute($key, $value)
     {
@@ -189,7 +189,7 @@ class Element implements
      * Remove a single attribute
      *
      * @param string $key
-     * @return ElementInterface
+     * @return Element
      */
     public function removeAttribute($key)
     {
@@ -214,7 +214,7 @@ class Element implements
      * Implementation will decide if this will overwrite or merge.
      *
      * @param  array|Traversable $arrayOrTraversable
-     * @return Element|ElementInterface
+     * @return Element
      * @throws Exception\InvalidArgumentException
      */
     public function setAttributes($arrayOrTraversable)
@@ -246,7 +246,7 @@ class Element implements
      * Remove many attributes at once
      *
      * @param array $keys
-     * @return ElementInterface
+     * @return Element
      */
     public function removeAttributes(array $keys)
     {
@@ -260,7 +260,7 @@ class Element implements
     /**
      * Clear all attributes
      *
-     * @return Element|ElementInterface
+     * @return Element
      */
     public function clearAttributes()
     {
@@ -293,8 +293,8 @@ class Element implements
     /**
      * Set the label used for this element
      *
-     * @param $label
-     * @return Element|ElementInterface
+     * @param string $label
+     * @return Element
      */
     public function setLabel($label)
     {
@@ -319,7 +319,7 @@ class Element implements
      * Set the attributes to use with the label
      *
      * @param array $labelAttributes
-     * @return Element|ElementInterface
+     * @return Element
      */
     public function setLabelAttributes(array $labelAttributes)
     {
@@ -341,7 +341,7 @@ class Element implements
      * Set a list of messages to report when validation fails
      *
      * @param  array|Traversable $messages
-     * @return Element|ElementInterface
+     * @return Element
      * @throws Exception\InvalidArgumentException
      */
     public function setMessages($messages)

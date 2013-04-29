@@ -56,7 +56,7 @@ class RouteMatch extends BaseRouteMatch
      *
      * @see    BaseRouteMatch::setMatchedRouteName()
      * @param  string $name
-     * @return self
+     * @return RouteMatch
      */
     public function setMatchedRouteName($name)
     {

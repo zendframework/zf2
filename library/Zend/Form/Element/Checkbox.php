@@ -214,7 +214,7 @@ class Checkbox extends Element implements InputProviderInterface
      * Checks or unchecks the checkbox.
      *
      * @param mixed $value A boolean flag or string that is checked against the "checked value".
-     * @return Element
+     * @return Checkbox
      */
     public function setValue($value)
     {

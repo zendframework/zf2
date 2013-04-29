@@ -438,7 +438,7 @@ class InstanceManager /* implements InstanceManagerInterface */
      *
      * @param  string $interfaceOrAbstract
      * @param  string $preferredImplementation
-     * @return self
+     * @return InstanceManager
      */
     public function addTypePreference($interfaceOrAbstract, $preferredImplementation)
     {
@@ -456,7 +456,7 @@ class InstanceManager /* implements InstanceManagerInterface */
      *
      * @param  string    $interfaceOrAbstract
      * @param  string    $preferredType
-     * @return bool|self
+     * @return bool|InstanceManager
      */
     public function removeTypePreference($interfaceOrAbstract, $preferredType)
     {

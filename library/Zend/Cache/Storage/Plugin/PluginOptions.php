@@ -183,7 +183,7 @@ class PluginOptions extends AbstractOptions
      *
      * @param  string|SerializerAdapter $serializer
      * @throws Exception\InvalidArgumentException
-     * @return Serializer
+     * @return PluginOptions
      */
     public function setSerializer($serializer)
     {
