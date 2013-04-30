@@ -117,8 +117,8 @@ class PhoneNumber extends AbstractValidator
     /**
      * Allow Possible
      *
-     * @param  boolean|null $possible
-     * @return PhoneNumber|boolean
+     * @param  bool|null $possible
+     * @return PhoneNumber|bool
      */
     public function allowPossible($possible = null)
     {

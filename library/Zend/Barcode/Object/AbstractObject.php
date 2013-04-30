@@ -272,7 +272,7 @@ abstract class AbstractObject implements ObjectInterface
 
     /**
      * Set height of the barcode bar
-     * @param integer $value
+     * @param int $value
      * @return AbstractObject
      * @throw \Zend\Barcode\Object\Exception\ExceptionInterface
      */
@@ -298,7 +298,7 @@ abstract class AbstractObject implements ObjectInterface
 
     /**
      * Set thickness of thin bar
-     * @param integer $value
+     * @param int $value
      * @return AbstractObject
      * @throw \Zend\Barcode\Object\Exception\ExceptionInterface
      */
@@ -324,7 +324,7 @@ abstract class AbstractObject implements ObjectInterface
 
     /**
      * Set thickness of thick bar
-     * @param integer $value
+     * @param int $value
      * @return AbstractObject
      * @throw \Zend\Barcode\Object\Exception\ExceptionInterface
      */
@@ -407,7 +407,7 @@ abstract class AbstractObject implements ObjectInterface
 
     /**
      * Set the color of the background
-     * @param integer $value
+     * @param int $value
      * @return AbstractObject
      * @throw \Zend\Barcode\Object\Exception\ExceptionInterface
      */
@@ -675,7 +675,7 @@ abstract class AbstractObject implements ObjectInterface
      * Set the font:
      *  - if integer between 1 and 5, use gd built-in fonts
      *  - if string, $value is assumed to be the path to a TTF font
-     * @param integer|string $value
+     * @param int|string $value
      * @return AbstractObject
      * @throw \Zend\Barcode\Object\Exception\ExceptionInterface
      */
