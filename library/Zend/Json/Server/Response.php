@@ -231,7 +231,7 @@ class Response
      * Set args
      *
      * @param mixed $args
-     * @return self
+     * @return Response
      */
     public function setArgs($args)
     {

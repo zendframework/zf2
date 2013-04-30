@@ -49,7 +49,7 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
 
     /**
      * @param  null|\Callable|array|string $instantiator
-     * @return self
+     * @return ClassDefinition
      */
     public function setInstantiator($instantiator)
     {
@@ -60,7 +60,7 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
 
     /**
      * @param  string[] $supertypes
-     * @return self
+     * @return ClassDefinition
      */
     public function setSupertypes(array $supertypes)
     {
@@ -72,7 +72,7 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
     /**
      * @param  string    $method
      * @param  bool|null $isRequired
-     * @return self
+     * @return ClassDefinition
      */
     public function addMethod($method, $isRequired = null)
     {

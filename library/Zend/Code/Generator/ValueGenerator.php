@@ -114,8 +114,7 @@ class ValueGenerator extends AbstractGenerator
      * Add constant to list
      *
      * @param string $constant
-     *
-     * @return $this
+     * @return ValueGenerator
      */
     public function addConstant($constant)
     {
@@ -128,7 +127,6 @@ class ValueGenerator extends AbstractGenerator
      * Delete constant from constant list
      *
      * @param string $constant
-     *
      * @return bool
      */
     public function deleteConstant($constant)

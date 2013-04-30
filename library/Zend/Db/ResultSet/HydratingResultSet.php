@@ -42,7 +42,7 @@ class HydratingResultSet extends AbstractResultSet
      *
      * @param  object $objectPrototype
      * @throws Exception\InvalidArgumentException
-     * @return ResultSet
+     * @return HydratingResultSet
      */
     public function setObjectPrototype($objectPrototype)
     {

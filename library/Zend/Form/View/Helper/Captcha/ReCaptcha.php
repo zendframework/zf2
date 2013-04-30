@@ -22,7 +22,7 @@ class ReCaptcha extends FormInput
      * Proxies to {@link render()}.
      *
      * @param  ElementInterface $element
-     * @return string
+     * @return string|ReCaptcha
      */
     public function __invoke(ElementInterface $element = null)
     {

@@ -116,7 +116,7 @@ class Request extends HttpRequest
      * Set the request URI.
      *
      * @param  string $requestUri
-     * @return self
+     * @return Request
      */
     public function setRequestUri($requestUri)
     {
@@ -141,7 +141,7 @@ class Request extends HttpRequest
      * Set the base URL.
      *
      * @param  string $baseUrl
-     * @return self
+     * @return Request
      */
     public function setBaseUrl($baseUrl)
     {
@@ -166,7 +166,7 @@ class Request extends HttpRequest
      * Set the base path.
      *
      * @param  string $basePath
-     * @return self
+     * @return Request
      */
     public function setBasePath($basePath)
     {

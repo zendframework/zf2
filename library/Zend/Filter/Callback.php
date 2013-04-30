@@ -40,7 +40,7 @@ class Callback extends AbstractFilter
      *
      * @param  callable $callback
      * @throws Exception\InvalidArgumentException
-     * @return self
+     * @return Callback
      */
     public function setCallback($callback)
     {

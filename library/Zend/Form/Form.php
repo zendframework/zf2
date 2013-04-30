@@ -133,7 +133,7 @@ class Form extends Fieldset implements FormInterface
      *
      * @param  array|Traversable|ElementInterface $elementOrFieldset
      * @param  array                              $flags
-     * @return \Zend\Form\Fieldset|\Zend\Form\FieldsetInterface|\Zend\Form\FormInterface
+     * @return Form
      */
     public function add($elementOrFieldset, array $flags = array())
     {
@@ -193,7 +193,7 @@ class Form extends Fieldset implements FormInterface
      * Typically, also passes data on to the composed input filter.
      *
      * @param  array|\ArrayAccess|Traversable $data
-     * @return Form|FormInterface
+     * @return Form
      * @throws Exception\InvalidArgumentException
      */
     public function setData($data)
@@ -223,7 +223,7 @@ class Form extends Fieldset implements FormInterface
      *
      * @param  object $object
      * @param  int $flags
-     * @return mixed|void
+     * @return Form
      * @throws Exception\InvalidArgumentException
      */
     public function bind($object, $flags = FormInterface::VALUES_NORMALIZED)
@@ -253,7 +253,7 @@ class Form extends Fieldset implements FormInterface
      * Set the hydrator to use when binding an object to the element
      *
      * @param  HydratorInterface $hydrator
-     * @return FieldsetInterface
+     * @return Form
      */
     public function setHydrator(HydratorInterface $hydrator)
     {
@@ -337,7 +337,7 @@ class Form extends Fieldset implements FormInterface
      * Set flag indicating whether or not to bind values on successful validation
      *
      * @param  int $bindOnValidateFlag
-     * @return void|Form
+     * @return Form
      * @throws Exception\InvalidArgumentException
      */
     public function setBindOnValidate($bindOnValidateFlag)
@@ -502,7 +502,7 @@ class Form extends Fieldset implements FormInterface
      * Typically, proxies to the composed input filter
      *
      * @throws Exception\InvalidArgumentException
-     * @return Form|FormInterface
+     * @return Form
      */
     public function setValidationGroup()
     {
@@ -591,7 +591,7 @@ class Form extends Fieldset implements FormInterface
      * Set the input filter used by this form
      *
      * @param  InputFilterInterface $inputFilter
-     * @return FormInterface
+     * @return Form
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {

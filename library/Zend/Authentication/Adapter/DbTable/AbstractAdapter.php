@@ -106,7 +106,7 @@ abstract class AbstractAdapter extends BaseAdapter
      * setTableName() - set the table name to be used in the select query
      *
      * @param  string $tableName
-     * @return DbTable Provides a fluent interface
+     * @return AbstractAdapter Provides a fluent interface
      */
     public function setTableName($tableName)
     {
@@ -118,7 +118,7 @@ abstract class AbstractAdapter extends BaseAdapter
      * setIdentityColumn() - set the column name to be used as the identity column
      *
      * @param  string $identityColumn
-     * @return DbTable Provides a fluent interface
+     * @return AbstractAdapter Provides a fluent interface
      */
     public function setIdentityColumn($identityColumn)
     {
@@ -130,7 +130,7 @@ abstract class AbstractAdapter extends BaseAdapter
      * setCredentialColumn() - set the column name to be used as the credential column
      *
      * @param  string $credentialColumn
-     * @return DbTable Provides a fluent interface
+     * @return AbstractAdapter Provides a fluent interface
      */
     public function setCredentialColumn($credentialColumn)
     {
@@ -144,7 +144,7 @@ abstract class AbstractAdapter extends BaseAdapter
      * false) parameters. Default is false.
      *
      * @param  int|bool $flag
-     * @return DbTable Provides a fluent interface
+     * @return AbstractAdapter Provides a fluent interface
      */
     public function setAmbiguityIdentity($flag)
     {

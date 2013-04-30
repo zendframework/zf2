@@ -194,7 +194,7 @@ class DocBlockGenerator extends AbstractGenerator
      * Set the word wrap
      *
      * @param bool $value
-     * @return \Zend\Code\Generator\DocBlockGenerator
+     * @return DocBlockGenerator
      */
     public function setWordWrap($value)
     {

@@ -379,7 +379,7 @@ class TreeRouteStack extends SimpleRouteStack
      * Set the base URL.
      *
      * @param  string $baseUrl
-     * @return self
+     * @return TreeRouteStack
      */
     public function setBaseUrl($baseUrl)
     {

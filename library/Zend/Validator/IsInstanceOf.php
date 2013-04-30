@@ -82,7 +82,7 @@ class IsInstanceOf extends AbstractValidator
      * Set class name
      *
      * @param  string $className
-     * @return self
+     * @return IsInstanceOf
      */
     public function setClassName($className)
     {

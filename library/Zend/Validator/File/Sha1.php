@@ -56,7 +56,7 @@ class Sha1 extends Hash
      * Sets the sha1 hash for one or multiple files
      *
      * @param  string|array $options
-     * @return Hash Provides a fluent interface
+     * @return Sha1 Provides a fluent interface
      */
     public function setSha1($options)
     {
@@ -68,7 +68,7 @@ class Sha1 extends Hash
      * Adds the sha1 hash for one or multiple files
      *
      * @param  string|array $options
-     * @return Hash Provides a fluent interface
+     * @return Sha1 Provides a fluent interface
      */
     public function addSha1($options)
     {

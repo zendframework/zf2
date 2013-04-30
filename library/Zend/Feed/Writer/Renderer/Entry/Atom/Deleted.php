@@ -30,7 +30,7 @@ class Deleted
     /**
      * Render atom entry
      *
-     * @return \Zend\Feed\Writer\Renderer\Entry\Atom
+     * @return Deleted
      */
     public function render()
     {

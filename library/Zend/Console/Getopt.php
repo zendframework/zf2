@@ -308,7 +308,7 @@ class Getopt
      *
      * @param  array $argv
      * @throws \Zend\Console\Exception\InvalidArgumentException When not given an array as parameter
-     * @return \Zend\Console\Getopt Provides a fluent interface
+     * @return Getopt Provides a fluent interface
      */
     public function addArguments($argv)
     {
@@ -326,7 +326,7 @@ class Getopt
      *
      * @param  array $argv
      * @throws \Zend\Console\Exception\InvalidArgumentException When not given an array as parameter
-     * @return \Zend\Console\Getopt Provides a fluent interface
+     * @return Getopt Provides a fluent interface
      */
     public function setArguments($argv)
     {
@@ -344,7 +344,7 @@ class Getopt
      * the behavior of Zend_Console_Getopt.
      *
      * @param  array $getoptConfig
-     * @return \Zend\Console\Getopt Provides a fluent interface
+     * @return Getopt Provides a fluent interface
      */
     public function setOptions($getoptConfig)
     {
@@ -363,7 +363,7 @@ class Getopt
      *
      * @param  string $configKey
      * @param  string $configValue
-     * @return \Zend\Console\Getopt Provides a fluent interface
+     * @return Getopt Provides a fluent interface
      */
     public function setOption($configKey, $configValue)
     {
@@ -378,7 +378,7 @@ class Getopt
      * These are appended to the rules defined when the constructor was called.
      *
      * @param  array $rules
-     * @return \Zend\Console\Getopt Provides a fluent interface
+     * @return Getopt Provides a fluent interface
      */
     public function addRules($rules)
     {
@@ -605,7 +605,7 @@ class Getopt
      *
      * @param  array $aliasMap
      * @throws \Zend\Console\Exception\ExceptionInterface
-     * @return \Zend\Console\Getopt Provides a fluent interface
+     * @return Getopt Provides a fluent interface
      */
     public function setAliases($aliasMap)
     {
@@ -635,7 +635,7 @@ class Getopt
      * mapping option name (short or long) to the help string.
      *
      * @param  array $helpMap
-     * @return \Zend\Console\Getopt Provides a fluent interface
+     * @return Getopt Provides a fluent interface
      */
     public function setHelp($helpMap)
     {
@@ -656,7 +656,7 @@ class Getopt
      * Also find option parameters, and remaining arguments after
      * all options have been parsed.
      *
-     * @return \Zend\Console\Getopt|null Provides a fluent interface
+     * @return Getopt|null Provides a fluent interface
      */
     public function parse()
     {

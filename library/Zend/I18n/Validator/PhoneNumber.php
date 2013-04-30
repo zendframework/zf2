@@ -101,7 +101,7 @@ class PhoneNumber extends AbstractValidator
      * Allowed Types
      *
      * @param  array|null $types
-     * @return self|array
+     * @return PhoneNumber|array
      */
     public function allowedTypes(array $types = null)
     {
@@ -118,7 +118,7 @@ class PhoneNumber extends AbstractValidator
      * Allow Possible
      *
      * @param  bool|null $possible
-     * @return self|bool
+     * @return PhoneNumber|bool
      */
     public function allowPossible($possible = null)
     {
@@ -145,7 +145,7 @@ class PhoneNumber extends AbstractValidator
      * Set Country
      *
      * @param  string $country
-     * @return self
+     * @return PhoneNumber
      */
     public function setCountry($country)
     {

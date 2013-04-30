@@ -81,7 +81,7 @@ class HttpResponse
      * @param  string $name
      * @param  string $value
      * @param  bool $replace
-     * @return \Zend\Feed\PubSubHubbub\HttpResponse
+     * @return HttpResponse
      */
     public function setHeader($name, $value, $replace = false)
     {
@@ -176,7 +176,7 @@ class HttpResponse
      * Set body content
      *
      * @param  string $content
-     * @return \Zend\Feed\PubSubHubbub\HttpResponse
+     * @return HttpResponse
      */
     public function setContent($content)
     {

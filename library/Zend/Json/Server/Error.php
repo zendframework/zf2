@@ -67,7 +67,7 @@ class Error
      * Set error code
      *
      * @param  int $code
-     * @return \Zend\Json\Server\Error
+     * @return Error
      */
     public function setCode($code)
     {
@@ -99,7 +99,7 @@ class Error
      * Set error message
      *
      * @param  string $message
-     * @return \Zend\Json\Server\Error
+     * @return Error
      */
     public function setMessage($message)
     {
@@ -125,7 +125,7 @@ class Error
      * Set error data
      *
      * @param  mixed $data
-     * @return \Zend\Json\Server\Error
+     * @return Error
      */
     public function setData($data)
     {

@@ -241,7 +241,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
      *
      * @param  string $offset
      * @param  mixed $value
-     * @return RowGateway
+     * @return AbstractRowGateway
      */
     public function offsetSet($offset, $value)
     {
