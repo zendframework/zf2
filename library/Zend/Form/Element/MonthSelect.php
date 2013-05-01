@@ -11,13 +11,13 @@ namespace Zend\Form\Element;
 
 use DateTime;
 use Zend\Form\Element;
-use Zend\Form\ElementPrepareAwareInterface;
+use Zend\Form\ElementPrepareInterface;
 use Zend\Form\FormInterface;
 use Zend\InputFilter\InputProviderInterface;
 use Zend\Validator\ValidatorInterface;
 use Zend\Validator\Regex as RegexValidator;
 
-class MonthSelect extends Element implements InputProviderInterface, ElementPrepareAwareInterface
+class MonthSelect extends Element implements InputProviderInterface, ElementPrepareInterface
 {
     /**
      * Select form element that contains values for month

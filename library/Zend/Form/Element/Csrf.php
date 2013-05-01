@@ -10,12 +10,12 @@
 namespace Zend\Form\Element;
 
 use Zend\Form\Element;
-use Zend\Form\ElementPrepareAwareInterface;
+use Zend\Form\ElementPrepareInterface;
 use Zend\Form\FormInterface;
 use Zend\InputFilter\InputProviderInterface;
 use Zend\Validator\Csrf as CsrfValidator;
 
-class Csrf extends Element implements InputProviderInterface, ElementPrepareAwareInterface
+class Csrf extends Element implements InputProviderInterface, ElementPrepareInterface
 {
     /**
      * Seed attributes

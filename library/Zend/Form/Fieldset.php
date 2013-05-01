@@ -179,7 +179,7 @@ class Fieldset extends Element implements FieldsetInterface
         $this->byName[$name] = $elementOrFieldset;
 
         if ($elementOrFieldset instanceof FieldsetInterface) {
-            if ($elementOrFieldset instanceof FieldsetPrepareAwareInterface) {
+            if ($elementOrFieldset instanceof FieldsetPrepareInterface) {
                 $elementOrFieldset->prepareFieldset();
             }
 
@@ -364,7 +364,7 @@ class Fieldset extends Element implements FieldsetInterface
             $elementOrFieldset->setName($name . '[' . $elementOrFieldset->getName() . ']');
 
             // Recursively prepare elements
-            if ($elementOrFieldset instanceof ElementPrepareAwareInterface) {
+            if ($elementOrFieldset instanceof ElementPrepareInterface) {
                 $elementOrFieldset->prepareElement($form);
             }
         }
