@@ -92,14 +92,10 @@ class FormLabel extends AbstractHelper
      * @param  null|string      $labelContent
      * @param  string           $position
      * @throws Exception\DomainException
-     * @return string|FormLabel
+     * @return string
      */
     public function render(ElementInterface $element = null, $labelContent = null, $position = null)
     {
-        if (!$element) {
-            return $this;
-        }
-
         $openTag = $this->openTag($element);
         $label   = '';
         if ($labelContent === null || $position !== null) {
