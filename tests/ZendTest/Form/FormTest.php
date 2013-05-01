@@ -1471,4 +1471,11 @@ class FormTest extends TestCase
         $this->form->remove('file_resource');
         $this->assertEquals($form, $this->form);
     }
+
+    public function testRetrieveFromDi()
+    {
+        $di = new \Zend\Di\Di;
+        $element = $di->get('Zend\Form\Form');
+        $this->assertInstanceof('Zend\Form\Form', $element);
+    }
 }
