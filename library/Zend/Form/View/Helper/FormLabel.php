@@ -73,6 +73,26 @@ class FormLabel extends AbstractHelper
     }
 
     /**
+     * Set element
+     * @param \Zend\Form\ElementInterface $element
+     * @return \Zend\Form\View\Helper\FormLabel
+     */
+    public function setElement(ElementInterface $element)
+    {
+        $this->element = $element;
+        return $this;
+    }
+
+    /**
+     * Get element
+     * @return ElementInterface
+     */
+    public function getElement()
+    {
+        return $this->element;
+    }
+
+    /**
      * Convenient method to cast label to string
      *
      * @return string
