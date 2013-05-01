@@ -15,11 +15,11 @@ use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 use Zend\Form\Fieldset;
 use Zend\Form\FieldsetInterface;
-use Zend\Form\FieldsetPrepareAwareInterface;
+use Zend\Form\FieldsetPrepareInterface;
 use Zend\Form\FormInterface;
 use Zend\Stdlib\ArrayUtils;
 
-class Collection extends Fieldset implements FieldsetPrepareAwareInterface
+class Collection extends Fieldset implements FieldsetPrepareInterface
 {
     /**
      * Default template placeholder

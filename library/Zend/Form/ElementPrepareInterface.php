@@ -9,12 +9,13 @@
 
 namespace Zend\Form;
 
-interface FieldsetPrepareAwareInterface
+interface ElementPrepareInterface
 {
     /**
-     * Prepare the fieldset element (called while this fieldset is added to another one)
+     * Prepare the form element (mostly used for rendering purposes)
      *
+     * @param FormInterface $form
      * @return mixed
      */
-    public function prepareFieldset();
+    public function prepareElement(FormInterface $form);
 }
