@@ -54,14 +54,21 @@ class FormLabel extends AbstractHelper
      * @param  ElementInterface $element
      * @param  null|string      $labelContent
      * @param  string           $position
+     * @param  string           $translatorTextDomain
      * @throws Exception\DomainException
-     * @return FormLabel
+     * @return string|FormLabel
      */
-    public function __invoke(ElementInterface $element = null, $labelContent = null, $position = null)
+    public function __invoke(ElementInterface $element = null, $labelContent = null, $position = null, $translatorTextDomain = null)
     {
         $this->element = $element;
         $this->labelContent = $labelContent;
         $this->position = $position;
+        if ($translatorTextDomain) {
+            $this->setTranslatorTextDomain($translatorTextDomain);
+        }
+        if ($this->element) {
+            return $this->render($this->element, $this->labelContent, $this->position);
+        }
         return $this;
     }
 
