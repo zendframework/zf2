@@ -28,7 +28,55 @@ class FormLabel extends AbstractHelper
     );
 
     /**
+     * Form element
+     * @var ElementInterface
+     */
+    protected $element;
+
+    /**
+     * Label overide
+     * @var string
+     */
+    protected $labelContent;
+
+    /**
+     * Label position
+     * @var string
+     */
+    protected $position;
+
+    /**
      * Generate a form label, optionally with content
+     *
+     * Always generates a "for" statement, as we cannot assume the form input
+     * will be provided in the $labelContent.
+     *
+     * @param  ElementInterface $element
+     * @param  null|string      $labelContent
+     * @param  string           $position
+     * @throws Exception\DomainException
+     * @return FormLabel
+     */
+    public function __invoke(ElementInterface $element = null, $labelContent = null, $position = null)
+    {
+        $this->element = $element;
+        $this->labelContent = $labelContent;
+        $this->position = $position;
+        return $this;
+    }
+
+    /**
+     * Convenient method to cast label to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $this->render($this->element, $this->labelContent, $this->position);
+    }
+
+    /**
+     * Render a form label, optionally with content
      *
      * Always generates a "for" statement, as we cannot assume the form input
      * will be provided in the $labelContent.
@@ -39,7 +87,7 @@ class FormLabel extends AbstractHelper
      * @throws Exception\DomainException
      * @return string|FormLabel
      */
-    public function __invoke(ElementInterface $element = null, $labelContent = null, $position = null)
+    public function render(ElementInterface $element = null, $labelContent = null, $position = null)
     {
         if (!$element) {
             return $this;
@@ -50,16 +98,19 @@ class FormLabel extends AbstractHelper
         if ($labelContent === null || $position !== null) {
             $label = $element->getLabel();
             if (empty($label)) {
-                throw new Exception\DomainException(sprintf(
-                    '%s expects either label content as the second argument, ' .
+                throw new Exception\DomainException(
+                    sprintf(
+                        '%s expects either label content as the second argument, ' .
                         'or that the element provided has a label attribute; neither found',
-                    __METHOD__
-                ));
+                        __METHOD__
+                    )
+                );
             }
 
             if (null !== ($translator = $this->getTranslator())) {
                 $label = $translator->translate(
-                    $label, $this->getTranslatorTextDomain()
+                    $label,
+                    $this->getTranslatorTextDomain()
                 );
             }
         }
@@ -103,19 +154,23 @@ class FormLabel extends AbstractHelper
         }
 
         if (!$attributesOrElement instanceof ElementInterface) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects an array or Zend\Form\ElementInterface instance; received "%s"',
-                __METHOD__,
-                (is_object($attributesOrElement) ? get_class($attributesOrElement) : gettype($attributesOrElement))
-            ));
+            throw new Exception\InvalidArgumentException(
+                sprintf(
+                    '%s expects an array or Zend\Form\ElementInterface instance; received "%s"',
+                    __METHOD__,
+                    (is_object($attributesOrElement) ? get_class($attributesOrElement) : gettype($attributesOrElement))
+                )
+            );
         }
 
         $id = $this->getId($attributesOrElement);
         if (null === $id) {
-            throw new Exception\DomainException(sprintf(
-                '%s expects the Element provided to have either a name or an id present; neither found',
-                __METHOD__
-            ));
+            throw new Exception\DomainException(
+                sprintf(
+                    '%s expects the Element provided to have either a name or an id present; neither found',
+                    __METHOD__
+                )
+            );
         }
 
         $labelAttributes = $attributesOrElement->getLabelAttributes();
