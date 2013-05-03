@@ -176,45 +176,38 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
     }
 
     /**
-     * Attempt to create an instance via a factory class
+     * Create service via callback
      *
-     * Overrides parent implementation by passing $creationOptions to the
-     * constructor, if non-null.
-     *
-     * @param  string $canonicalName
-     * @param  string $requestedName
-     * @return mixed
-     * @throws Exception\ServiceNotCreatedException If factory is not callable
+     * @param  callable $callable
+     * @param  string   $cName
+     * @param  string   $rName
+     * @throws Exception\ServiceNotCreatedException
+     * @throws Exception\ServiceNotFoundException
+     * @throws Exception\CircularDependencyFoundException
+     * @return object
      */
-    protected function createFromFactory($canonicalName, $requestedName)
+    protected function createServiceViaCallback($callable, $cName, $rName)
     {
-        $factory            = $this->factories[$canonicalName];
-        $hasCreationOptions = !(null === $this->creationOptions || (is_array($this->creationOptions) && empty($this->creationOptions)));
-
-        if (is_string($factory) && class_exists($factory, true)) {
-            if (!$hasCreationOptions) {
-                $factory = new $factory();
-            } else {
-                $factory = new $factory($this->creationOptions);
+        do {
+            if (!is_array($callable)) {
+                break;
             }
-
-            $this->factories[$canonicalName] = $factory;
-        }
-
-        if ($factory instanceof FactoryInterface) {
-            if ($hasCreationOptions && $factory instanceof MutableCreationOptionsInterface) {
-                $factory->setCreationOptions($this->creationOptions);
+            $factory = reset($callable);
+            if (!is_object($factory)) {
+                break;
             }
+            if (!$factory instanceof MutableCreationOptionsInterface) {
+                break;
+            }
+            if (null === $this->creationOptions) {
+                break;
+            }
+            if (is_array($this->creationOptions) && empty($this->creationOptions)) {
+                break;
+            }
+            $factory->setCreationOptions($this->creationOptions);
+        } while(false);
 
-            $instance = $this->createServiceViaCallback(array($factory, 'createService'), $canonicalName, $requestedName);
-        } elseif (is_callable($factory)) {
-            $instance = $this->createServiceViaCallback($factory, $canonicalName, $requestedName);
-        } else {
-            throw new Exception\ServiceNotCreatedException(sprintf(
-                'While attempting to create %s%s an invalid factory was registered for this instance type.', $canonicalName, ($requestedName ? '(alias: ' . $requestedName . ')' : '')
-            ));
-        }
-
-        return $instance;
+        return parent::createServiceViaCallback($callable, $cName, $rName);
     }
 }
