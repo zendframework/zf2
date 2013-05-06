@@ -125,7 +125,7 @@ class Http extends Uri
      * @param  int $allowed
      * @return bool
      */
-    public static function validateHost($host, $allowed = self::HOST_DNS_OR_IPV4_OR_IPV6)
+    public static function validateHost($host, $allowed = self::HOST_DNS_OR_IPV4_OR_IPV6_OR_REGNAME)
     {
         return parent::validateHost($host, $allowed);
     }
