@@ -295,7 +295,7 @@ class Http implements AdapterInterface
      * Setter for the Response object
      *
      * @param  HTTPResponse $response
-     * @return Http Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setResponse(HTTPResponse $response)
     {
