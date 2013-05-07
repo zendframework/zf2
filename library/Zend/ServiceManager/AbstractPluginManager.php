@@ -115,7 +115,7 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
      * @param  string $name
      * @param  mixed $service
      * @param  bool $shared
-     * @return AbstractPluginManager
+     * @return self
      * @throws Exception\InvalidServiceNameException
      */
     public function setService($name, $service, $shared = true)
@@ -131,7 +131,7 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
      * Set the main service locator so factories can have access to it to pull deps
      *
      * @param ServiceLocatorInterface $serviceLocator
-     * @return AbstractPluginManager
+     * @return self
      */
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {

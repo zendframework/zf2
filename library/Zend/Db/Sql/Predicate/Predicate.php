@@ -220,7 +220,7 @@ class Predicate extends PredicateSet
      *
      * @param $expression
      * @param $parameters
-     * @return $this
+     * @return self
      */
     public function expression($expression, $parameters)
     {

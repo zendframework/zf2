@@ -457,7 +457,7 @@ abstract class AbstractObject implements ObjectInterface
     /**
      * Activate/deactivate drawing of the quiet zones
      * @param  bool $value
-     * @return AbstractObject
+     * @return self
      */
     public function setWithQuietZones($value)
     {

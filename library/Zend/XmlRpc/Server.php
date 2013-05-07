@@ -353,7 +353,7 @@ class Server extends AbstractServer
      * Set encoding
      *
      * @param  string $encoding
-     * @return Server
+     * @return self
      */
     public function setEncoding($encoding)
     {
@@ -386,7 +386,7 @@ class Server extends AbstractServer
      * Set the request object
      *
      * @param  string|Request $request
-     * @return Server
+     * @return self
      * @throws Server\Exception\InvalidArgumentException on invalid request class or object
      */
     public function setRequest($request)

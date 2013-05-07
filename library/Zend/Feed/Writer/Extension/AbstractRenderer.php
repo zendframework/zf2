@@ -57,7 +57,7 @@ abstract class AbstractRenderer implements RendererInterface
      * Set the data container
      *
      * @param  mixed $container
-     * @return AbstractRenderer
+     * @return self
      */
     public function setDataContainer($container)
     {
@@ -69,7 +69,7 @@ abstract class AbstractRenderer implements RendererInterface
      * Set feed encoding
      *
      * @param  string $enc
-     * @return AbstractRenderer
+     * @return self
      */
     public function setEncoding($enc)
     {
@@ -92,7 +92,7 @@ abstract class AbstractRenderer implements RendererInterface
      *
      * @param  DOMDocument $dom
      * @param  DOMElement $base
-     * @return AbstractRenderer
+     * @return self
      */
     public function setDomDocument(DOMDocument $dom, DOMElement $base)
     {
@@ -115,7 +115,7 @@ abstract class AbstractRenderer implements RendererInterface
      * Set feed type
      *
      * @param  string $type
-     * @return AbstractRenderer
+     * @return self
      */
     public function setType($type)
     {
@@ -137,7 +137,7 @@ abstract class AbstractRenderer implements RendererInterface
      * Set root element of document
      *
      * @param  DOMElement $root
-     * @return AbstractRenderer
+     * @return self
      */
     public function setRootElement(DOMElement $root)
     {

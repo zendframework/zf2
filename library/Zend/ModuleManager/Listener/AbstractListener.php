@@ -47,7 +47,7 @@ abstract class AbstractListener
      * Set options.
      *
      * @param ListenerOptions $options the value to be set
-     * @return AbstractListener
+     * @return self
      */
     public function setOptions(ListenerOptions $options)
     {
@@ -60,7 +60,7 @@ abstract class AbstractListener
      *
      * @param  string $filePath
      * @param  array $array
-     * @return AbstractListener
+     * @return self
      */
     protected function writeArrayToFile($filePath, $array)
     {

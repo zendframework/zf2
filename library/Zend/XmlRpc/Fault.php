@@ -100,7 +100,7 @@ class Fault
      * Set the fault code
      *
      * @param int $code
-     * @return Fault
+     * @return self
      */
     public function setCode($code)
     {
@@ -122,7 +122,7 @@ class Fault
      * Retrieve fault message
      *
      * @param string
-     * @return Fault
+     * @return self
      */
     public function setMessage($message)
     {

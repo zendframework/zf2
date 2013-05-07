@@ -179,7 +179,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * Set script resolver
      *
      * @param  Resolver $resolver
-     * @return PhpRenderer
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setResolver(Resolver $resolver)
@@ -213,7 +213,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * Expects either an array, or an object implementing ArrayAccess.
      *
      * @param  array|ArrayAccess $variables
-     * @return PhpRenderer
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setVars($variables)

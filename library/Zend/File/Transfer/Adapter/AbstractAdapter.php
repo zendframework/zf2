@@ -190,7 +190,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * @param  string|array $file      File to add
      * @param  string|array $validator Validators to use for this file, must be set before
      * @param  string|array $filter    Filters to use for this file, must be set before
-     * @return AbstractAdapter
+     * @return self
      * @throws Exception Not implemented
      */
     //abstract public function addFile($file, $validator = null, $filter = null);
@@ -209,7 +209,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * @param  string|array $type Type of files to add
      * @param  string|array $validator Validators to use for this file, must be set before
      * @param  string|array $filter    Filters to use for this file, must be set before
-     * @return AbstractAdapter
+     * @return self
      * @throws Exception Not implemented
      */
     //abstract public function addType($type, $validator = null, $filter = null);
@@ -225,7 +225,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * Set the filter plugin manager instance
      *
      * @param  FilterPluginManager $filterManager
-     * @return AbstractAdapter
+     * @return self
      */
     public function setFilterManager(FilterPluginManager $filterManager)
     {
@@ -250,7 +250,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * Set the validator plugin manager instance
      *
      * @param  ValidatorPluginManager $validatorManager
-     * @return AbstractAdapter
+     * @return self
      */
     public function setValidatorManager(ValidatorPluginManager $validatorManager)
     {
@@ -278,7 +278,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * @param  bool                    $breakChainOnFailure If the validation chain should stop an failure
      * @param  string|array               $options             Options to set for the validator
      * @param  string|array               $files               Files to limit this validator to
-     * @return AbstractAdapter
+     * @return self
      * @throws Exception\InvalidArgumentException for invalid type
      */
     public function addValidator($validator, $breakChainOnFailure = false, $options = null, $files = null)
@@ -328,7 +328,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      *
      * @param  array        $validators
      * @param  string|array $files
-     * @return AbstractAdapter
+     * @return self
      * @throws Exception\InvalidArgumentException for invalid type
      */
     public function addValidators(array $validators, $files = null)
@@ -396,7 +396,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      *
      * @param  array        $validators Validators to set
      * @param  string|array $files      Files to limit this validator to
-     * @return AbstractAdapter
+     * @return self
      */
     public function setValidators(array $validators, $files = null)
     {
@@ -462,7 +462,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * Remove an individual validator
      *
      * @param  string $name
-     * @return AbstractAdapter
+     * @return self
      */
     public function removeValidator($name)
     {
@@ -491,7 +491,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
     /**
      * Remove all validators
      *
-     * @return AbstractAdapter
+     * @return self
      */
     public function clearValidators()
     {
@@ -509,7 +509,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      *
      * @param array $options Options to set
      * @param array $files   (Optional) Files to set the options for
-     * @return AbstractAdapter
+     * @return self
      */
     public function setOptions($options = array(), $files = null)
     {
@@ -700,7 +700,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * @param  string|Filter\FilterInterface $filter Type of filter to add
      * @param  string|array         $options   Options to set for the filter
      * @param  string|array         $files     Files to limit this filter to
-     * @return AbstractAdapter
+     * @return self
      * @throws Exception\InvalidArgumentException for invalid type
      */
     public function addFilter($filter, $options = null, $files = null)
@@ -728,7 +728,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      *
      * @param  array $filters
      * @param  string|array $files
-     * @return AbstractAdapter
+     * @return self
      */
     public function addFilters(array $filters, $files = null)
     {
@@ -840,7 +840,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * Remove an individual filter
      *
      * @param  string $name
-     * @return AbstractAdapter
+     * @return self
      */
     public function removeFilter($name)
     {
@@ -867,7 +867,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
     /**
      * Remove all filters
      *
-     * @return AbstractAdapter
+     * @return self
      */
     public function clearFilters()
     {
@@ -927,7 +927,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * @deprecated Will be changed to be a filter!!!
      * @param  string       $destination New destination directory
      * @param  string|array $files       Files to set the new destination for
-     * @return AbstractAdapter
+     * @return self
      * @throws Exception\InvalidArgumentException when the given destination is not a directory or does not exist
      */
     public function setDestination($destination, $files = null)
@@ -1008,7 +1008,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      *                                 Default is null, which sets no translator.
      * @param  string     $textDomain  [optional] text domain
      *                                 Default is null, which skips setTranslatorTextDomain
-     * @return AbstractAdapter
+     * @return self
      */
     public function setTranslator(Translator $translator = null, $textDomain = null)
     {
@@ -1047,7 +1047,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * Indicate whether or not translation should be enabled
      *
      * @param  bool $flag
-     * @return AbstractAdapter
+     * @return self
      */
     public function setTranslatorEnabled($flag = true)
     {
@@ -1069,7 +1069,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
      * Set translation text domain
      *
      * @param  string $textDomain
-     * @return AbstractAdapter
+     * @return self
      */
     public function setTranslatorTextDomain($textDomain = 'default')
     {

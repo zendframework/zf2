@@ -89,7 +89,7 @@ class Code39 extends AbstractObject
     /**
      * Set text to encode
      * @param string $value
-     * @return Code39
+     * @return self
      */
     public function setText($value)
     {

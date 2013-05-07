@@ -37,7 +37,7 @@ abstract class AbstractAdapter implements ValidatableAdapterInterface
      * Sets the credential for binding
      *
      * @param  mixed           $credential
-     * @return AbstractAdapter
+     * @return self
      */
     public function setCredential($credential)
     {
@@ -61,7 +61,7 @@ abstract class AbstractAdapter implements ValidatableAdapterInterface
      * Sets the identity for binding
      *
      * @param  mixed          $identity
-     * @return AbstractAdapter
+     * @return self
      */
     public function setIdentity($identity)
     {

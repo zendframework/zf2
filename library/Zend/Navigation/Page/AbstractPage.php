@@ -162,7 +162,7 @@ abstract class AbstractPage extends AbstractContainer
      *   will be created.
      *
      * @param  array|Traversable $options  options used for creating page
-     * @return AbstractPage  a page instance
+     * @return self  a page instance
      * @throws Exception\InvalidArgumentException if $options is not
      *                                            array/Traversable
      * @throws Exception\InvalidArgumentException if 'type' is specified
@@ -273,7 +273,7 @@ abstract class AbstractPage extends AbstractContainer
      * the method setResetParams().
      *
      * @param  array $options associative array of options to set
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      * @throws Exception\InvalidArgumentException  if invalid options are given
      */
     public function setOptions(array $options)
@@ -291,7 +291,7 @@ abstract class AbstractPage extends AbstractContainer
      * Sets page label
      *
      * @param  string $label new page label
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      * @throws Exception\InvalidArgumentException if empty/no string is given
      */
     public function setLabel($label)
@@ -320,7 +320,7 @@ abstract class AbstractPage extends AbstractContainer
      * Sets a fragment identifier
      *
      * @param  string $fragment new fragment identifier
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      * @throws Exception\InvalidArgumentException if empty/no string is given
      */
     public function setFragment($fragment)
@@ -350,7 +350,7 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @param  string|null $id [optional] id to set. Default is null,
      *                         which sets no id.
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      * @throws Exception\InvalidArgumentException  if not given string or null
      */
     public function setId($id = null)
@@ -381,7 +381,7 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @param  string|null $class [optional] CSS class to set. Default
      *                            is null, which sets no CSS class.
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      * @throws Exception\InvalidArgumentException  if not given string or null
      */
     public function setClass($class = null)
@@ -411,7 +411,7 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @param  string $title [optional] page title. Default is
      *                       null, which sets no title.
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      * @throws Exception\InvalidArgumentException if not given string or null
      */
     public function setTitle($title = null)
@@ -442,7 +442,7 @@ abstract class AbstractPage extends AbstractContainer
      * @param  string|null $target [optional] target to set. Default is
      *                             null, which sets no target.
      *
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      * @throws Exception\InvalidArgumentException if target is not string or null
      */
     public function setTarget($target = null)
@@ -479,7 +479,7 @@ abstract class AbstractPage extends AbstractContainer
      *                           forward links to other pages
      * @throws Exception\InvalidArgumentException if $relations is not an array
      *                                            or Traversable object
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      */
     public function setRel($relations = null)
     {
@@ -545,7 +545,7 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @throws Exception\InvalidArgumentException if $relations it not an array
      *                                            or Traversable object
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      */
     public function setRev($relations = null)
     {
@@ -607,7 +607,7 @@ abstract class AbstractPage extends AbstractContainer
      * @param  int $order [optional] page order in container.
      *                    Default is null, which sets no
      *                    specific order.
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      * @throws Exception\InvalidArgumentException if order is not integer or null
      */
     public function setOrder($order = null)
@@ -652,7 +652,7 @@ abstract class AbstractPage extends AbstractContainer
      * @param  string|AclResource $resource [optional] resource to associate
      *                                      with page. Default is null, which
      *                                      sets no resource.
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      * @throws Exception\InvalidArgumentException if $resource is invalid
      */
     public function setResource($resource = null)
@@ -689,7 +689,7 @@ abstract class AbstractPage extends AbstractContainer
      *                                 with this page. Default is null, which
      *                                 sets no privilege.
      *
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      */
     public function setPrivilege($privilege = null)
     {
@@ -714,7 +714,7 @@ abstract class AbstractPage extends AbstractContainer
      *                                  with this page. Default is null, which
      *                                  sets no permission.
      *
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      */
     public function setPermission($permission = null)
     {
@@ -738,7 +738,7 @@ abstract class AbstractPage extends AbstractContainer
      * @param  bool $active [optional] whether page should be
      *                      considered active or not. Default is true.
      *
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      */
     public function setActive($active = true)
     {
@@ -787,7 +787,7 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @param  bool $visible [optional] whether page should be
      *                       considered visible or not. Default is true.
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      */
     public function setVisible($visible = true)
     {
@@ -843,7 +843,7 @@ abstract class AbstractPage extends AbstractContainer
      * @param  AbstractContainer $parent [optional] new parent to set.
      *                           Default is null which will set no parent.
      * @throws Exception\InvalidArgumentException
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      */
     public function setParent(AbstractContainer $parent = null)
     {
@@ -892,7 +892,7 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @param  string $property property name
      * @param  mixed  $value    value to set
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      * @throws Exception\InvalidArgumentException if property name is invalid
      */
     public function set($property, $value)
@@ -1044,7 +1044,7 @@ abstract class AbstractPage extends AbstractContainer
      * @param  string $relation relation name (e.g. alternate, glossary,
      *                          canonical, etc)
      * @param  mixed  $value    value to set for relation
-     * @return AbstractPage  fluent interface, returns self
+     * @return self  fluent interface, returns self
      */
     public function addRel($relation, $value)
     {
@@ -1060,7 +1060,7 @@ abstract class AbstractPage extends AbstractContainer
      * @param  string $relation relation name (e.g. alternate, glossary,
      *                          canonical, etc)
      * @param  mixed  $value    value to set for relation
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      */
     public function addRev($relation, $value)
     {
@@ -1074,7 +1074,7 @@ abstract class AbstractPage extends AbstractContainer
      * Removes a forward relation from the page
      *
      * @param  string $relation name of relation to remove
-     * @return AbstractPage fluent interface, returns self
+     * @return self fluent interface, returns self
      */
     public function removeRel($relation)
     {
@@ -1089,7 +1089,7 @@ abstract class AbstractPage extends AbstractContainer
      * Removes a reverse relation from the page
      *
      * @param  string $relation name of relation to remove
-     * @return AbstractPage  fluent interface, returns self
+     * @return self  fluent interface, returns self
      */
     public function removeRev($relation)
     {

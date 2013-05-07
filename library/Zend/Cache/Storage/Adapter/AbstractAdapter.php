@@ -108,7 +108,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * Set options.
      *
      * @param  array|Traversable|AdapterOptions $options
-     * @return AbstractAdapter
+     * @return self
      * @see    getOptions()
      */
     public function setOptions($options)
@@ -152,7 +152,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @see    setWritable()
      * @see    setReadable()
      * @param  bool $flag
-     * @return AbstractAdapter
+     * @return self
      */
     public function setCaching($flag)
     {

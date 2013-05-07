@@ -23,7 +23,7 @@ interface ObjectInterface
     /**
      * Set barcode state from options array
      * @param  array $options
-     * @return ObjectInterface
+     * @return self
      */
     public function setOptions($options);
 
@@ -31,7 +31,7 @@ interface ObjectInterface
      * Set barcode namespace for autoloading
      *
      * @param string $namespace
-     * @return ObjectInterface
+     * @return self
      */
     public function setBarcodeNamespace($namespace);
 
@@ -51,7 +51,7 @@ interface ObjectInterface
     /**
      * Set height of the barcode bar
      * @param int $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setBarHeight($value);
 
@@ -64,7 +64,7 @@ interface ObjectInterface
     /**
      * Set thickness of thin bar
      * @param int $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setBarThinWidth($value);
 
@@ -77,7 +77,7 @@ interface ObjectInterface
     /**
      * Set thickness of thick bar
      * @param int $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setBarThickWidth($value);
 
@@ -91,7 +91,7 @@ interface ObjectInterface
      * Set factor applying to
      * thinBarWidth - thickBarWidth - barHeight - fontSize
      * @param int $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setFactor($value);
 
@@ -105,7 +105,7 @@ interface ObjectInterface
     /**
      * Set color of the barcode and text
      * @param string $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setForeColor($value);
 
@@ -118,7 +118,7 @@ interface ObjectInterface
     /**
      * Set the color of the background
      * @param int $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setBackgroundColor($value);
 
@@ -131,7 +131,7 @@ interface ObjectInterface
     /**
      * Activate/deactivate drawing of the bar
      * @param  bool $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setWithBorder($value);
 
@@ -143,14 +143,14 @@ interface ObjectInterface
 
     /**
      * Allow fast inversion of font/bars color and background color
-     * @return ObjectInterface
+     * @return self
      */
     public function setReverseColor();
 
     /**
      * Set orientation of barcode and text
      * @param float $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setOrientation($value);
 
@@ -163,7 +163,7 @@ interface ObjectInterface
     /**
      * Set text to encode
      * @param string $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setText($value);
 
@@ -188,7 +188,7 @@ interface ObjectInterface
     /**
      * Activate/deactivate drawing of text to encode
      * @param  bool $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setDrawText($value);
 
@@ -202,7 +202,7 @@ interface ObjectInterface
      * Activate/deactivate the adjustment of the position
      * of the characters to the position of the bars
      * @param  bool $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setStretchText($value);
 
@@ -218,7 +218,7 @@ interface ObjectInterface
      * of the checksum character
      * added to the barcode text
      * @param  bool $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setWithChecksum($value);
 
@@ -234,7 +234,7 @@ interface ObjectInterface
      * of the checksum character
      * added to the barcode text
      * @param  bool $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setWithChecksumInText($value);
 
@@ -250,7 +250,7 @@ interface ObjectInterface
      *  - if integer between 1 and 5, use gd built-in fonts
      *  - if string, $value is assumed to be the path to a TTF font
      * @param int|string $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setFont($value);
 
@@ -263,7 +263,7 @@ interface ObjectInterface
     /**
      * Set the size of the font in case of TTF
      * @param float $value
-     * @return ObjectInterface
+     * @return self
      */
     public function setFontSize($value);
 

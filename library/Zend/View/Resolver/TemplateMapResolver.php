@@ -52,7 +52,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
      *
      * @param  array|Traversable $map
      * @throws Exception\InvalidArgumentException
-     * @return TemplateMapResolver
+     * @return self
      */
     public function setMap($map)
     {
@@ -78,7 +78,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
      * @param  string|array|Traversable $nameOrMap
      * @param  null|string $path
      * @throws Exception\InvalidArgumentException
-     * @return TemplateMapResolver
+     * @return self
      */
     public function add($nameOrMap, $path = null)
     {

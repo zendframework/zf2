@@ -143,7 +143,7 @@ class Client implements Stdlib\DispatchableInterface
      * Set configuration parameters for this HTTP client
      *
      * @param  array|Traversable $options
-     * @return Client
+     * @return self
      * @throws Client\Exception\InvalidArgumentException
      */
     public function setOptions($options = array())
@@ -175,7 +175,7 @@ class Client implements Stdlib\DispatchableInterface
      * separated from ->request() to preserve logic and readability
      *
      * @param  Client\Adapter\AdapterInterface|string $adapter
-     * @return Client
+     * @return self
      * @throws Client\Exception\InvalidArgumentException
      */
     public function setAdapter($adapter)
@@ -201,7 +201,7 @@ class Client implements Stdlib\DispatchableInterface
     /**
      * Load the connection adapter
      *
-     * @return Client\Adapter\AdapterInterface $adapter
+     * @return self\Adapter\AdapterInterface $adapter
      */
     public function getAdapter()
     {
@@ -212,7 +212,7 @@ class Client implements Stdlib\DispatchableInterface
      * Set request
      *
      * @param Request $request
-     * @return Client
+     * @return self
      */
     public function setRequest(Request $request)
     {
@@ -237,7 +237,7 @@ class Client implements Stdlib\DispatchableInterface
      * Set response
      *
      * @param Response $response
-     * @return Client
+     * @return self
      */
     public function setResponse(Response $response)
     {
@@ -293,7 +293,7 @@ class Client implements Stdlib\DispatchableInterface
      * Set Uri (to the request)
      *
      * @param string|Http $uri
-     * @return Client
+     * @return self
      */
     public function setUri($uri)
     {
@@ -337,7 +337,7 @@ class Client implements Stdlib\DispatchableInterface
      * Set the HTTP method (to the request)
      *
      * @param string $method
-     * @return Client
+     * @return self
      */
     public function setMethod($method)
     {
@@ -366,7 +366,7 @@ class Client implements Stdlib\DispatchableInterface
      * Set the query string argument separator
      *
      * @param string $argSeparator
-     * @return Client
+     * @return self
      */
     public function setArgSeparator($argSeparator)
     {
@@ -394,7 +394,7 @@ class Client implements Stdlib\DispatchableInterface
      *
      * @param string $encType
      * @param string $boundary
-     * @return Client
+     * @return self
      */
     public function setEncType($encType, $boundary = null)
     {
@@ -422,7 +422,7 @@ class Client implements Stdlib\DispatchableInterface
      * Set raw body (for advanced use cases)
      *
      * @param string $body
-     * @return Client
+     * @return self
      */
     public function setRawBody($body)
     {
@@ -434,7 +434,7 @@ class Client implements Stdlib\DispatchableInterface
      * Set the POST parameters
      *
      * @param array $post
-     * @return Client
+     * @return self
      */
     public function setParameterPost(array $post)
     {
@@ -446,7 +446,7 @@ class Client implements Stdlib\DispatchableInterface
      * Set the GET parameters
      *
      * @param array $query
-     * @return Client
+     * @return self
      */
     public function setParameterGet(array $query)
     {
@@ -459,7 +459,7 @@ class Client implements Stdlib\DispatchableInterface
      *
      * @param  bool   $clearCookies  Also clear all valid cookies? (defaults to false)
      * @param  bool   $clearAuth     Also clear http authentication? (defaults to true)
-     * @return Client
+     * @return self
      */
     public function resetParameters($clearCookies = false /*, $clearAuth = true */)
     {
@@ -527,7 +527,7 @@ class Client implements Stdlib\DispatchableInterface
      * @param string  $maxAge
      * @param string  $version
      * @throws Exception\InvalidArgumentException
-     * @return Client
+     * @return self
      */
     public function addCookie($cookie, $value = null, $expire = null, $path = null, $domain = null, $secure = false, $httponly = true, $maxAge = null, $version = null)
     {
@@ -555,7 +555,7 @@ class Client implements Stdlib\DispatchableInterface
      *
      * @param  array $cookies
      * @throws Exception\InvalidArgumentException
-     * @return Client
+     * @return self
      */
     public function setCookies($cookies)
     {
@@ -583,7 +583,7 @@ class Client implements Stdlib\DispatchableInterface
      *
      * @param  Headers|array $headers
      * @throws Exception\InvalidArgumentException
-     * @return Client
+     * @return self
      */
     public function setHeaders($headers)
     {
@@ -698,7 +698,7 @@ class Client implements Stdlib\DispatchableInterface
      * @param string $password
      * @param string $type
      * @throws Exception\InvalidArgumentException
-     * @return Client
+     * @return self
      */
     public function setAuth($user, $password, $type = self::AUTH_BASIC)
     {
@@ -973,7 +973,7 @@ class Client implements Stdlib\DispatchableInterface
     /**
      * Fully reset the HTTP client (auth, cookies, request, response, etc.)
      *
-     * @return Client
+     * @return self
      */
     public function reset()
     {
@@ -1001,7 +1001,7 @@ class Client implements Stdlib\DispatchableInterface
      * @param  string $data Data to send (if null, $filename is read and sent)
      * @param  string $ctype Content type to use (if $data is set and $ctype is
      *                null, will be application/octet-stream)
-     * @return Client
+     * @return self
      * @throws Exception\RuntimeException
      */
     public function setFileUpload($filename, $formname, $data = null, $ctype = null)

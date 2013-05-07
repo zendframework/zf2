@@ -38,7 +38,7 @@ abstract class AbstractSeparator extends AbstractFilter
      * Sets a new separator
      *
      * @param  string  $separator  Separator
-     * @return AbstractSeparator
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setSeparator($separator)

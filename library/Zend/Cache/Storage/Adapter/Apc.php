@@ -68,7 +68,7 @@ class Apc extends AbstractAdapter implements
      * Set options.
      *
      * @param  array|Traversable|ApcOptions $options
-     * @return Apc
+     * @return self
      * @see    getOptions()
      */
     public function setOptions($options)

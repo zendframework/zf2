@@ -110,7 +110,7 @@ class Authentication extends AbstractValidator
      * Set Adapter
      *
      * @param  ValidatableAdapterInterface $adapter
-     * @return Authentication
+     * @return self
      */
     public function setAdapter(ValidatableAdapterInterface $adapter)
     {
@@ -133,7 +133,7 @@ class Authentication extends AbstractValidator
      * Set Identity
      *
      * @param  mixed          $identity
-     * @return Authentication
+     * @return self
      */
     public function setIdentity($identity)
     {
@@ -156,7 +156,7 @@ class Authentication extends AbstractValidator
      * Set Credential
      *
      * @param  mixed          $credential
-     * @return Authentication
+     * @return self
      */
     public function setCredential($credential)
     {
@@ -179,7 +179,7 @@ class Authentication extends AbstractValidator
      * Set Service
      *
      * @param  AuthenticationService $service
-     * @return Authentication
+     * @return self
      */
     public function setService(AuthenticationService $service)
     {

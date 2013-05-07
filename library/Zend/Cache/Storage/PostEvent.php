@@ -40,7 +40,7 @@ class PostEvent extends Event
      * Set the result/return value
      *
      * @param  mixed $value
-     * @return PostEvent
+     * @return self
      */
     public function setResult(& $value)
     {

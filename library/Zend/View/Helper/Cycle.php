@@ -46,7 +46,7 @@ class Cycle extends AbstractHelper implements \Iterator
      *
      * @param  array $data
      * @param  string $name
-     * @return Cycle
+     * @return self
      */
     public function __invoke(array $data = array(), $name = self::DEFAULT_NAME)
     {
@@ -83,7 +83,7 @@ class Cycle extends AbstractHelper implements \Iterator
      *
      * @param  array $data
      * @param  string $name
-     * @return Cycle
+     * @return self
      */
     public function assign(Array $data , $name = self::DEFAULT_NAME)
     {
@@ -97,7 +97,7 @@ class Cycle extends AbstractHelper implements \Iterator
      * Sets actual name of cycle
      *
      * @param  $name
-     * @return Cycle
+     * @return self
      */
     public function setName($name = self::DEFAULT_NAME)
     {
@@ -138,7 +138,7 @@ class Cycle extends AbstractHelper implements \Iterator
     /**
      * Move to next value
      *
-     * @return Cycle
+     * @return self
      */
     public function next()
     {
@@ -156,7 +156,7 @@ class Cycle extends AbstractHelper implements \Iterator
     /**
      * Move to previous value
      *
-     * @return Cycle
+     * @return self
      */
     public function prev()
     {
@@ -188,7 +188,7 @@ class Cycle extends AbstractHelper implements \Iterator
     /**
      * Rewind pointer
      *
-     * @return Cycle
+     * @return self
      */
     public function rewind()
     {

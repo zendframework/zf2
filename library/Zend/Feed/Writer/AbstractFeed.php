@@ -56,7 +56,7 @@ class AbstractFeed
      *
      * @param array $author
      * @throws Exception\InvalidArgumentException If any value of $author not follow the format.
-     * @return AbstractFeed
+     * @return self
      */
     public function addAuthor(array $author)
     {
@@ -94,7 +94,7 @@ class AbstractFeed
      *
      * @see addAuthor
      * @param array $authors
-     * @return AbstractFeed
+     * @return self
      */
     public function addAuthors(array $authors)
     {
@@ -110,7 +110,7 @@ class AbstractFeed
      *
      * @param  string      $copyright
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setCopyright($copyright)
     {
@@ -127,7 +127,7 @@ class AbstractFeed
      *
      * @param null|int|DateTime
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setDateCreated($date = null)
     {
@@ -149,7 +149,7 @@ class AbstractFeed
      *
      * @param null|int|DateTime
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setDateModified($date = null)
     {
@@ -171,7 +171,7 @@ class AbstractFeed
      *
      * @param null|int|DateTime
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setLastBuildDate($date = null)
     {
@@ -193,7 +193,7 @@ class AbstractFeed
      *
      * @param string $description
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setDescription($description)
     {
@@ -212,7 +212,7 @@ class AbstractFeed
      * @param null|string $version
      * @param null|string $uri
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setGenerator($name, $version = null, $uri = null)
     {
@@ -262,7 +262,7 @@ class AbstractFeed
      *
      * @param string $id
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setId($id)
     {
@@ -317,7 +317,7 @@ class AbstractFeed
      *
      * @param array $data
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setImage(array $data)
     {
@@ -337,7 +337,7 @@ class AbstractFeed
      *
      * @param string $language
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setLanguage($language)
     {
@@ -354,7 +354,7 @@ class AbstractFeed
      *
      * @param string $link
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setLink($link)
     {
@@ -372,7 +372,7 @@ class AbstractFeed
      * @param string $link
      * @param string $type
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setFeedLink($link, $type)
     {
@@ -392,7 +392,7 @@ class AbstractFeed
      *
      * @param string $title
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setTitle($title)
     {
@@ -409,7 +409,7 @@ class AbstractFeed
      *
      * @param string $encoding
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setEncoding($encoding)
     {
@@ -426,7 +426,7 @@ class AbstractFeed
      *
      * @param string $url
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function setBaseUrl($url)
     {
@@ -444,7 +444,7 @@ class AbstractFeed
      *
      * @param string $url
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function addHub($url)
     {
@@ -464,7 +464,7 @@ class AbstractFeed
      * Add Pubsubhubbub hub endpoint URLs
      *
      * @param array $urls
-     * @return AbstractFeed
+     * @return self
      */
     public function addHubs(array $urls)
     {
@@ -480,7 +480,7 @@ class AbstractFeed
      *
      * @param array $category
      * @throws Exception\InvalidArgumentException
-     * @return AbstractFeed
+     * @return self
      */
     public function addCategory(array $category)
     {
@@ -510,7 +510,7 @@ class AbstractFeed
      * Set an array of feed categories
      *
      * @param array $categories
-     * @return AbstractFeed
+     * @return self
      */
     public function addCategories(array $categories)
     {
@@ -773,7 +773,7 @@ class AbstractFeed
      * on their appropriateness for the current type, e.g. renderers.
      *
      * @param string $type
-     * @return AbstractFeed
+     * @return self
      */
     public function setType($type)
     {
@@ -795,7 +795,7 @@ class AbstractFeed
      * Unset a specific data point
      *
      * @param string $name
-     * @return AbstractFeed
+     * @return self
      */
     public function remove($name)
     {

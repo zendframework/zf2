@@ -49,7 +49,7 @@ abstract class AbstractAdapter
      * Set options via an array
      *
      * @param  array $options
-     * @return AbstractAdapter
+     * @return self
      */
     public function setOptions(array $options)
     {

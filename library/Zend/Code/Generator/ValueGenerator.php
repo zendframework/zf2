@@ -115,7 +115,7 @@ class ValueGenerator extends AbstractGenerator
      *
      * @param string $constant
      *
-     * @return $this
+     * @return self
      */
     public function addConstant($constant)
     {

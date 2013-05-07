@@ -37,7 +37,7 @@ class AnnotationManager implements EventManagerAwareInterface
      * Set the event manager instance
      *
      * @param  EventManagerInterface $events
-     * @return AnnotationManager
+     * @return self
      */
     public function setEventManager(EventManagerInterface $events)
     {
@@ -70,7 +70,7 @@ class AnnotationManager implements EventManagerAwareInterface
      * Attach a parser to listen to the createAnnotation event
      *
      * @param  ParserInterface $parser
-     * @return AnnotationManager
+     * @return self
      */
     public function attach(ParserInterface $parser)
     {

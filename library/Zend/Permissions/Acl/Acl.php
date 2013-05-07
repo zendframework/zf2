@@ -96,7 +96,7 @@ class Acl implements AclInterface
      * @param  Role\RoleInterface              $role
      * @param  Role\RoleInterface|string|array $parents
      * @throws Exception\InvalidArgumentException
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function addRole($role, $parents = null)
     {
@@ -165,7 +165,7 @@ class Acl implements AclInterface
      * The $role parameter can either be a Role or a Role identifier.
      *
      * @param  Role\RoleInterface|string $role
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function removeRole($role)
     {
@@ -198,7 +198,7 @@ class Acl implements AclInterface
     /**
      * Removes all Roles from the registry
      *
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function removeRoleAll()
     {
@@ -225,7 +225,7 @@ class Acl implements AclInterface
      * @param  Resource\ResourceInterface|string $resource
      * @param  Resource\ResourceInterface|string $parent
      * @throws Exception\InvalidArgumentException
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function addResource($resource, $parent = null)
     {
@@ -366,7 +366,7 @@ class Acl implements AclInterface
      *
      * @param  Resource\ResourceInterface|string $resource
      * @throws Exception\InvalidArgumentException
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function removeResource($resource)
     {
@@ -401,7 +401,7 @@ class Acl implements AclInterface
     /**
      * Removes all Resources
      *
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function removeResourceAll()
     {
@@ -425,7 +425,7 @@ class Acl implements AclInterface
      * @param  Resource\ResourceInterface|string|array  $resources
      * @param  string|array                             $privileges
      * @param  Assertion\AssertionInterface             $assert
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function allow($roles = null, $resources = null, $privileges = null, Assertion\AssertionInterface $assert = null)
     {
@@ -439,7 +439,7 @@ class Acl implements AclInterface
      * @param  Resource\ResourceInterface|string|array  $resources
      * @param  string|array                             $privileges
      * @param  Assertion\AssertionInterface             $assert
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function deny($roles = null, $resources = null, $privileges = null, Assertion\AssertionInterface $assert = null)
     {
@@ -452,7 +452,7 @@ class Acl implements AclInterface
      * @param  Role\RoleInterface|string|array          $roles
      * @param  Resource\ResourceInterface|string|array  $resources
      * @param  string|array                             $privileges
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function removeAllow($roles = null, $resources = null, $privileges = null)
     {
@@ -465,7 +465,7 @@ class Acl implements AclInterface
      * @param  Role\RoleInterface|string|array         $roles
      * @param  Resource\ResourceInterface|string|array $resources
      * @param  string|array                            $privileges
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function removeDeny($roles = null, $resources = null, $privileges = null)
     {
@@ -520,7 +520,7 @@ class Acl implements AclInterface
      * @param  string|array                             $privileges
      * @param  Assertion\AssertionInterface             $assert
      * @throws Exception\InvalidArgumentException
-     * @return Acl Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setRule($operation, $type, $roles = null, $resources = null,
                             $privileges = null, Assertion\AssertionInterface $assert = null

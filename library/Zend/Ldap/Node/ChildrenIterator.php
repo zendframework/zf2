@@ -115,7 +115,7 @@ class ChildrenIterator implements \Iterator, \Countable, \RecursiveIterator, \Ar
     /**
      * Returns the children for the current node.
      *
-     * @return ChildrenIterator
+     * @return self
      */
     public function getChildren()
     {
