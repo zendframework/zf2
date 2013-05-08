@@ -49,7 +49,7 @@ class ExceptionEvent extends PostEvent
      * Set the exception to be thrown
      *
      * @param  Exception $exception
-     * @return ExceptionEvent
+     * @return self
      */
     public function setException(Exception $exception)
     {
@@ -71,7 +71,7 @@ class ExceptionEvent extends PostEvent
      * Throw the exception or use the result
      *
      * @param  bool $flag
-     * @return ExceptionEvent
+     * @return self
      */
     public function setThrowException($flag)
     {

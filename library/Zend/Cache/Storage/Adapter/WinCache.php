@@ -55,7 +55,7 @@ class WinCache extends AbstractAdapter implements
      * Set options.
      *
      * @param  array|Traversable|WinCacheOptions $options
-     * @return WinCache
+     * @return self
      * @see    getOptions()
      */
     public function setOptions($options)

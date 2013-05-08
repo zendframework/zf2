@@ -22,7 +22,7 @@ abstract class AbstractPlugin extends AbstractListenerAggregate implements Plugi
      * Set pattern options
      *
      * @param  PluginOptions $options
-     * @return AbstractPlugin
+     * @return self
      */
     public function setOptions(PluginOptions $options)
     {

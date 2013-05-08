@@ -146,7 +146,7 @@ class PatternOptions extends AbstractOptions
      * Constructor
      *
      * @param  array|Traversable|null $options
-     * @return PatternOptions
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function __construct($options = null)
@@ -168,7 +168,7 @@ class PatternOptions extends AbstractOptions
      * - ObjectCache
      *
      * @param  bool $cacheByDefault
-     * @return PatternOptions
+     * @return self
      */
     public function setCacheByDefault($cacheByDefault)
     {
@@ -199,7 +199,7 @@ class PatternOptions extends AbstractOptions
      * - ObjectCache
      *
      * @param  bool $cacheOutput
-     * @return PatternOptions
+     * @return self
      */
     public function setCacheOutput($cacheOutput)
     {
@@ -230,7 +230,7 @@ class PatternOptions extends AbstractOptions
      *
      * @param  string $class
      * @throws Exception\InvalidArgumentException
-     * @return PatternOptions
+     * @return self
      */
     public function setClass($class)
     {
@@ -261,7 +261,7 @@ class PatternOptions extends AbstractOptions
      * - ClassCache
      *
      * @param  array $classCacheMethods
-     * @return PatternOptions
+     * @return self
      */
     public function setClassCacheMethods(array $classCacheMethods)
     {
@@ -289,7 +289,7 @@ class PatternOptions extends AbstractOptions
      * - ClassCache
      *
      * @param  array $classNonCacheMethods
-     * @return PatternOptions
+     * @return self
      */
     public function setClassNonCacheMethods(array $classNonCacheMethods)
     {
@@ -315,7 +315,7 @@ class PatternOptions extends AbstractOptions
      *
      * @param  false|int $dirPermission
      * @throws Exception\InvalidArgumentException
-     * @return PatternOptions
+     * @return self
      */
     public function setDirPermission($dirPermission)
     {
@@ -356,7 +356,7 @@ class PatternOptions extends AbstractOptions
      *
      * @param  false|int $umask
      * @throws Exception\InvalidArgumentException
-     * @return PatternOptions
+     * @return self
      */
     public function setUmask($umask)
     {
@@ -402,7 +402,7 @@ class PatternOptions extends AbstractOptions
      * - CaptureCache
      *
      * @param  bool $fileLocking
-     * @return PatternOptions
+     * @return self
      */
     public function setFileLocking($fileLocking)
     {
@@ -428,7 +428,7 @@ class PatternOptions extends AbstractOptions
      *
      * @param  false|int $filePermission
      * @throws Exception\InvalidArgumentException
-     * @return PatternOptions
+     * @return self
      */
     public function setFilePermission($filePermission)
     {
@@ -469,7 +469,7 @@ class PatternOptions extends AbstractOptions
      * Set value for index filename
      *
      * @param  string $indexFilename
-     * @return PatternOptions
+     * @return self
      */
     public function setIndexFilename($indexFilename)
     {
@@ -492,7 +492,7 @@ class PatternOptions extends AbstractOptions
      *
      * @param  mixed $object
      * @throws Exception\InvalidArgumentException
-     * @return PatternOptions
+     * @return self
      */
     public function setObject($object)
     {
@@ -522,7 +522,7 @@ class PatternOptions extends AbstractOptions
      * - ObjectCache
      *
      * @param  bool $objectCacheMagicProperties
-     * @return PatternOptions
+     * @return self
      */
     public function setObjectCacheMagicProperties($objectCacheMagicProperties)
     {
@@ -547,7 +547,7 @@ class PatternOptions extends AbstractOptions
      * Set list of object methods for which to cache return values
      *
      * @param  array $objectCacheMethods
-     * @return PatternOptions
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setObjectCacheMethods(array $objectCacheMethods)
@@ -575,7 +575,7 @@ class PatternOptions extends AbstractOptions
      * - ObjectCache
      *
      * @param  mixed $objectKey
-     * @return PatternOptions
+     * @return self
      */
     public function setObjectKey($objectKey)
     {
@@ -607,7 +607,7 @@ class PatternOptions extends AbstractOptions
      * Set list of object methods for which NOT to cache return values
      *
      * @param  array $objectNonCacheMethods
-     * @return PatternOptions
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setObjectNonCacheMethods(array $objectNonCacheMethods)
@@ -634,7 +634,7 @@ class PatternOptions extends AbstractOptions
      *
      * @param  string $publicDir
      * @throws Exception\InvalidArgumentException
-     * @return PatternOptions
+     * @return self
      */
     public function setPublicDir($publicDir)
     {
@@ -681,7 +681,7 @@ class PatternOptions extends AbstractOptions
      * - OutputCache
      *
      * @param  string|array|Storage $storage
-     * @return PatternOptions
+     * @return self
      */
     public function setStorage($storage)
     {

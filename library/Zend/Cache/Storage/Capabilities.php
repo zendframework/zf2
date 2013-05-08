@@ -205,7 +205,7 @@ class Capabilities
      * @param  stdClass $marker
      * @param  array $datatypes
      * @throws Exception\InvalidArgumentException
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setSupportedDatatypes(stdClass $marker, array $datatypes)
     {
@@ -261,7 +261,7 @@ class Capabilities
      * @param  stdClass $marker
      * @param  string[] $metadata
      * @throws Exception\InvalidArgumentException
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setSupportedMetadata(stdClass $marker, array $metadata)
     {
@@ -289,7 +289,7 @@ class Capabilities
      * @param  stdClass $marker
      * @param  int $minTtl
      * @throws Exception\InvalidArgumentException
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setMinTtl(stdClass $marker, $minTtl)
     {
@@ -316,7 +316,7 @@ class Capabilities
      * @param  stdClass $marker
      * @param  int $maxTtl
      * @throws Exception\InvalidArgumentException
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setMaxTtl(stdClass $marker, $maxTtl)
     {
@@ -343,7 +343,7 @@ class Capabilities
      *
      * @param  stdClass $marker
      * @param  bool $flag
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setStaticTtl(stdClass $marker, $flag)
     {
@@ -366,7 +366,7 @@ class Capabilities
      * @param  stdClass $marker
      * @param  float $ttlPrecision
      * @throws Exception\InvalidArgumentException
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setTtlPrecision(stdClass $marker, $ttlPrecision)
     {
@@ -392,7 +392,7 @@ class Capabilities
      *
      * @param  stdClass $marker
      * @param  bool $flag
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setUseRequestTime(stdClass $marker, $flag)
     {
@@ -414,7 +414,7 @@ class Capabilities
      *
      * @param  stdClass $marker
      * @param  bool $flag
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setExpiredRead(stdClass $marker, $flag)
     {
@@ -437,7 +437,7 @@ class Capabilities
      * @param  stdClass $marker
      * @param  int $maxKeyLength
      * @throws Exception\InvalidArgumentException
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setMaxKeyLength(stdClass $marker, $maxKeyLength)
     {
@@ -463,7 +463,7 @@ class Capabilities
      *
      * @param  stdClass $marker
      * @param  bool $flag
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setNamespaceIsPrefix(stdClass $marker, $flag)
     {
@@ -485,7 +485,7 @@ class Capabilities
      *
      * @param  stdClass $marker
      * @param  string $separator
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      */
     public function setNamespaceSeparator(stdClass $marker, $separator)
     {
@@ -516,7 +516,7 @@ class Capabilities
      * @param  stdClass $marker
      * @param  string $property
      * @param  mixed $value
-     * @return Capabilities Fluent interface
+     * @return self Fluent interface
      * @throws Exception\InvalidArgumentException
      */
     protected function setCapability(stdClass $marker, $property, $value)

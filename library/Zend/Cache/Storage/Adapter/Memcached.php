@@ -119,7 +119,7 @@ class Memcached extends AbstractAdapter implements
      * Set options.
      *
      * @param  array|Traversable|MemcachedOptions $options
-     * @return Memcached
+     * @return self
      * @see    getOptions()
      */
     public function setOptions($options)
