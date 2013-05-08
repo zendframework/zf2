@@ -67,7 +67,7 @@ class FileGenerator extends AbstractGenerator
      * @param  string $filePath
      * @param  bool $includeIfNotAlreadyIncluded
      * @throws Exception\InvalidArgumentException
-     * @return FileGenerator
+     * @return self
      */
     public static function fromReflectedFileName($filePath, $includeIfNotAlreadyIncluded = true)
     {
@@ -95,7 +95,7 @@ class FileGenerator extends AbstractGenerator
 
     /**
      * @param  FileReflection $fileReflection
-     * @return FileGenerator
+     * @return self
      */
     public static function fromReflection(FileReflection $fileReflection)
     {
@@ -174,7 +174,7 @@ class FileGenerator extends AbstractGenerator
 
     /**
      * @param  array $values
-     * @return FileGenerator
+     * @return self
      */
     public static function fromArray(array $values)
     {
@@ -205,7 +205,7 @@ class FileGenerator extends AbstractGenerator
     /**
      * @param  DocBlockGenerator|string $docBlock
      * @throws Exception\InvalidArgumentException
-     * @return FileGenerator
+     * @return self
      */
     public function setDocBlock($docBlock)
     {
@@ -237,7 +237,7 @@ class FileGenerator extends AbstractGenerator
 
     /**
      * @param  array $requiredFiles
-     * @return FileGenerator
+     * @return self
      */
     public function setRequiredFiles(array $requiredFiles)
     {
@@ -255,7 +255,7 @@ class FileGenerator extends AbstractGenerator
 
     /**
      * @param  array $classes
-     * @return FileGenerator
+     * @return self
      */
     public function setClasses(array $classes)
     {
@@ -276,7 +276,7 @@ class FileGenerator extends AbstractGenerator
 
     /**
      * @param  string $namespace
-     * @return FileGenerator
+     * @return self
      */
     public function setNamespace($namespace)
     {
@@ -314,7 +314,7 @@ class FileGenerator extends AbstractGenerator
 
     /**
      * @param  array $uses
-     * @return FileGenerator
+     * @return self
      */
     public function setUses(array $uses)
     {
@@ -337,7 +337,7 @@ class FileGenerator extends AbstractGenerator
     /**
      * @param  string $use
      * @param  null|string $as
-     * @return FileGenerator
+     * @return self
      */
     public function setUse($use, $as = null)
     {
@@ -365,7 +365,7 @@ class FileGenerator extends AbstractGenerator
     /**
      * @param  array|string|ClassGenerator $class
      * @throws Exception\InvalidArgumentException
-     * @return FileGenerator
+     * @return self
      */
     public function setClass($class)
     {
@@ -390,7 +390,7 @@ class FileGenerator extends AbstractGenerator
 
     /**
      * @param  string $filename
-     * @return FileGenerator
+     * @return self
      */
     public function setFilename($filename)
     {
@@ -416,7 +416,7 @@ class FileGenerator extends AbstractGenerator
 
     /**
      * @param  string $body
-     * @return FileGenerator
+     * @return self
      */
     public function setBody($body)
     {
@@ -557,7 +557,7 @@ class FileGenerator extends AbstractGenerator
     }
 
     /**
-     * @return FileGenerator
+     * @return self
      * @throws Exception\RuntimeException
      */
     public function write()

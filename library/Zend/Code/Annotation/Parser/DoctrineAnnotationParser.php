@@ -48,7 +48,7 @@ class DoctrineAnnotationParser implements ParserInterface
      * Set the DocParser instance
      *
      * @param  DocParser $docParser
-     * @return DoctrineAnnotationParser
+     * @return self
      */
     public function setDocParser(DocParser $docParser)
     {
@@ -118,7 +118,7 @@ class DoctrineAnnotationParser implements ParserInterface
      * Specify an allowed annotation class
      *
      * @param  string $annotation
-     * @return DoctrineAnnotationParser
+     * @return self
      */
     public function registerAnnotation($annotation)
     {
@@ -132,7 +132,7 @@ class DoctrineAnnotationParser implements ParserInterface
      * @param  array|Traversable $annotations Array or traversable object of
      *         annotation class names
      * @throws Exception\InvalidArgumentException
-     * @return DoctrineAnnotationParser
+     * @return self
      */
     public function registerAnnotations($annotations)
     {

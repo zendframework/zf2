@@ -112,7 +112,7 @@ class MethodScanner implements ScannerInterface
 
     /**
      * @param  string $class
-     * @return MethodScanner
+     * @return self
      */
     public function setClass($class)
     {
@@ -122,7 +122,7 @@ class MethodScanner implements ScannerInterface
 
     /**
      * @param  ClassScanner  $scannerClass
-     * @return MethodScanner
+     * @return self
      */
     public function setScannerClass(ClassScanner $scannerClass)
     {
@@ -131,7 +131,7 @@ class MethodScanner implements ScannerInterface
     }
 
     /**
-     * @return MethodScanner
+     * @return self
      */
     public function getClassScanner()
     {
