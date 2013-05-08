@@ -25,7 +25,7 @@ interface RendererInterface
     /**
      * Set renderer state from options array
      * @param  array $options
-     * @return RendererInterface
+     * @return self
      */
     public function setOptions($options);
 
@@ -33,7 +33,7 @@ interface RendererInterface
      * Set renderer namespace for autoloading
      *
      * @param string $namespace
-     * @return RendererInterface
+     * @return self
      */
     public function setRendererNamespace($namespace);
 
@@ -53,7 +53,7 @@ interface RendererInterface
     /**
      * Manually adjust top position
      * @param int $value
-     * @return RendererInterface
+     * @return self
      */
     public function setTopOffset($value);
 
@@ -66,7 +66,7 @@ interface RendererInterface
     /**
      * Manually adjust left position
      * @param int $value
-     * @return RendererInterface
+     * @return self
      */
     public function setLeftOffset($value);
 
@@ -85,7 +85,7 @@ interface RendererInterface
     /**
      * Horizontal position of the barcode in the rendering resource
      * @param string $value
-     * @return RendererInterface
+     * @return self
      */
     public function setHorizontalPosition($value);
 
@@ -98,7 +98,7 @@ interface RendererInterface
     /**
      * Vertical position of the barcode in the rendering resource
      * @param string $value
-     * @return RendererInterface
+     * @return self
      */
     public function setVerticalPosition($value);
 
@@ -111,7 +111,7 @@ interface RendererInterface
     /**
      * Set the size of a module
      * @param float $value
-     * @return RendererInterface
+     * @return self
      */
     public function setModuleSize($value);
 
@@ -130,7 +130,7 @@ interface RendererInterface
     /**
      * Set the barcode object
      * @param  ObjectInterface $barcode
-     * @return RendererInterface
+     * @return self
      */
     public function setBarcode(ObjectInterface $barcode);
 

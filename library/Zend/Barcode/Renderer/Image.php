@@ -81,7 +81,7 @@ class Image extends AbstractRenderer
      *
      * @param null|int $value
      * @throws Exception\OutOfRangeException
-     * @return Image
+     * @return self
      */
     public function setHeight($value)
     {
@@ -136,7 +136,7 @@ class Image extends AbstractRenderer
      * Set an image resource to draw the barcode inside
      *
      * @param resource $image
-     * @return Image
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setResource($image)
@@ -155,7 +155,7 @@ class Image extends AbstractRenderer
      *
      * @param string $value
      * @throws Exception\InvalidArgumentException
-     * @return Image
+     * @return self
      */
     public function setImageType($value)
     {
