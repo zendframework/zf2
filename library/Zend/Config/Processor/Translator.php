@@ -47,7 +47,7 @@ class Translator implements ProcessorInterface
 
     /**
      * @param  ZendTranslator $translator
-     * @return Translator
+     * @return self
      */
     public function setTranslator(ZendTranslator $translator)
     {
