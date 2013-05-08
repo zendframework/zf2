@@ -29,7 +29,7 @@ interface AdapterInterface extends ValidatorInterface
      * Set captcha name
      *
      * @param  string $name
-     * @return AdapterInterface
+     * @return self
      */
     public function setName($name);
 
