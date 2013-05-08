@@ -118,7 +118,7 @@ class TemplatePathStack implements ResolverInterface
      * Set default file suffix
      *
      * @param  string $defaultSuffix
-     * @return TemplatePathStack
+     * @return self
      */
     public function setDefaultSuffix($defaultSuffix)
     {
@@ -141,7 +141,7 @@ class TemplatePathStack implements ResolverInterface
      * Add many paths to the stack at once
      *
      * @param  array $paths
-     * @return TemplatePathStack
+     * @return self
      */
     public function addPaths(array $paths)
     {
@@ -155,7 +155,7 @@ class TemplatePathStack implements ResolverInterface
      * Rest the path stack to the paths provided
      *
      * @param  SplStack|array $paths
-     * @return TemplatePathStack
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setPaths($paths)
@@ -192,7 +192,7 @@ class TemplatePathStack implements ResolverInterface
      * Add a single path to the stack
      *
      * @param  string $path
-     * @return TemplatePathStack
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function addPath($path)
@@ -231,7 +231,7 @@ class TemplatePathStack implements ResolverInterface
      * Set LFI protection flag
      *
      * @param  bool $flag
-     * @return TemplatePathStack
+     * @return self
      */
     public function setLfiProtection($flag)
     {
@@ -253,7 +253,7 @@ class TemplatePathStack implements ResolverInterface
      * Set flag indicating if stream wrapper should be used if short_open_tag is off
      *
      * @param  bool $flag
-     * @return TemplatePathStack
+     * @return self
      */
     public function setUseStreamWrapper($flag)
     {

@@ -71,7 +71,7 @@ class Navigation extends AbstractNavigationHelper
      * Helper entry point
      *
      * @param  string|AbstractContainer $container container to operate on
-     * @return Navigation
+     * @return self
      */
     public function __invoke($container = null)
     {
@@ -209,7 +209,7 @@ class Navigation extends AbstractNavigationHelper
      * Sets the default proxy to use in {@link render()}
      *
      * @param  string $proxy default proxy
-     * @return Navigation
+     * @return self
      */
     public function setDefaultProxy($proxy)
     {
@@ -231,7 +231,7 @@ class Navigation extends AbstractNavigationHelper
      * Sets whether container should be injected when proxying
      *
      * @param  bool $injectContainer
-     * @return Navigation
+     * @return self
      */
     public function setInjectContainer($injectContainer = true)
     {
@@ -253,7 +253,7 @@ class Navigation extends AbstractNavigationHelper
      * Sets whether ACL should be injected when proxying
      *
      * @param  bool $injectAcl
-     * @return Navigation
+     * @return self
      */
     public function setInjectAcl($injectAcl = true)
     {
@@ -275,7 +275,7 @@ class Navigation extends AbstractNavigationHelper
      * Sets whether translator should be injected when proxying
      *
      * @param  bool $injectTranslator
-     * @return Navigation
+     * @return self
      */
     public function setInjectTranslator($injectTranslator = true)
     {
@@ -297,7 +297,7 @@ class Navigation extends AbstractNavigationHelper
      * Set manager for retrieving navigation helpers
      *
      * @param  Navigation\PluginManager $plugins
-     * @return Navigation
+     * @return self
      */
     public function setPluginManager(Navigation\PluginManager $plugins)
     {

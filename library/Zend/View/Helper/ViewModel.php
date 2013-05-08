@@ -30,7 +30,7 @@ class ViewModel extends AbstractHelper
      * Set the current view model
      *
      * @param  Model $model
-     * @return ViewModel
+     * @return self
      */
     public function setCurrent(Model $model)
     {
@@ -62,7 +62,7 @@ class ViewModel extends AbstractHelper
      * Set the root view model
      *
      * @param  Model $model
-     * @return ViewModel
+     * @return self
      */
     public function setRoot(Model $model)
     {

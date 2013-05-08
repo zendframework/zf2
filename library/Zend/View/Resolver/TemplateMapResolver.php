@@ -111,7 +111,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
      *
      * @param  array|Traversable $map
      * @throws Exception\InvalidArgumentException
-     * @return TemplateMapResolver
+     * @return self
      */
     public function merge($map)
     {

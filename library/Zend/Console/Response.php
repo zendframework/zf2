@@ -56,7 +56,7 @@ class Response extends Message implements ResponseInterface
     /**
      * Send content
      *
-     * @return Response
+     * @return self
      * @deprecated
      */
     public function sendContent()

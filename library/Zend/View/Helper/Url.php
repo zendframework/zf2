@@ -106,7 +106,7 @@ class Url extends AbstractHelper
      * Set the router to use for assembling.
      *
      * @param RouteStackInterface $router
-     * @return Url
+     * @return self
      */
     public function setRouter(RouteStackInterface $router)
     {
@@ -118,7 +118,7 @@ class Url extends AbstractHelper
      * Set route match returned by the router.
      *
      * @param  RouteMatch $routeMatch
-     * @return Url
+     * @return self
      */
     public function setRouteMatch(RouteMatch $routeMatch)
     {

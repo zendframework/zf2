@@ -146,7 +146,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
      *
      * @param  string $name
      * @param  mixed $value
-     * @return ViewModel
+     * @return self
      */
     public function setOption($name, $value)
     {
@@ -172,7 +172,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
      *
      * @param array|Traversable $options
      * @throws \Zend\View\Exception\InvalidArgumentException
-     * @return ViewModel
+     * @return self
      */
     public function setOptions($options)
     {
@@ -207,7 +207,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
     /**
      * Clear any existing renderer options/hints
      *
-     * @return ViewModel
+     * @return self
      */
     public function clearOptions()
     {
@@ -237,7 +237,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
      *
      * @param  string $name
      * @param  mixed $value
-     * @return ViewModel
+     * @return self
      */
     public function setVariable($name, $value)
     {
@@ -253,7 +253,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
      * @param  array|ArrayAccess|Traversable $variables
      * @param  bool $overwrite Whether or not to overwrite the internal container with $variables
      * @throws Exception\InvalidArgumentException
-     * @return ViewModel
+     * @return self
      */
     public function setVariables($variables, $overwrite = false)
     {
@@ -296,7 +296,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
      *
      * Resets the internal variable container to an empty container.
      *
-     * @return ViewModel
+     * @return self
      */
     public function clearVariables()
     {
@@ -308,7 +308,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
      * Set the template to be used by this model
      *
      * @param  string $template
-     * @return ViewModel
+     * @return self
      */
     public function setTemplate($template)
     {
@@ -332,7 +332,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
      * @param  ModelInterface $child
      * @param  null|string $captureTo Optional; if specified, the "capture to" value to set on the child
      * @param  null|bool $append Optional; if specified, append to child  with the same capture
-     * @return ViewModel
+     * @return self
      */
     public function addChild(ModelInterface $child, $captureTo = null, $append = null)
     {
@@ -372,7 +372,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
     /**
      * Clears out all child models
      *
-     * @return ViewModel
+     * @return self
      */
     public function clearChildren()
     {
@@ -384,7 +384,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
      * Set the name of the variable to capture this model to, if it is a child model
      *
      * @param  string $capture
-     * @return ViewModel
+     * @return self
      */
     public function setCaptureTo($capture)
     {
@@ -406,7 +406,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
      * Set flag indicating whether or not this is considered a terminal or standalone model
      *
      * @param  bool $terminate
-     * @return ViewModel
+     * @return self
      */
     public function setTerminal($terminate)
     {
@@ -428,7 +428,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface
      * Set flag indicating whether or not append to child  with the same capture
      *
      * @param  bool $append
-     * @return ViewModel
+     * @return self
      */
     public function setAppend($append)
     {

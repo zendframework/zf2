@@ -181,7 +181,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      * Set whether or not auto escaping should be used
      *
      * @param  bool $autoEscape whether or not to auto escape output
-     * @return AbstractStandalone
+     * @return self
      */
     public function setAutoEscape($autoEscape = true)
     {
@@ -203,7 +203,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      * Set container on which to operate
      *
      * @param  AbstractContainer $container
-     * @return AbstractStandalone
+     * @return self
      */
     public function setContainer(AbstractContainer $container)
     {
@@ -279,7 +279,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      * Set Escaper instance
      *
      * @param  Escaper $escaper
-     * @return AbstractStandalone
+     * @return self
      */
     public function setEscaper(Escaper $escaper)
     {

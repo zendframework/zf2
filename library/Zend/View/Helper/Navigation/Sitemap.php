@@ -85,7 +85,7 @@ class Sitemap extends AbstractHelper
      * Helper entry point
      *
      * @param  string|AbstractContainer $container container to operate on
-     * @return Sitemap
+     * @return self
      */
     public function __invoke($container = null)
     {
@@ -314,7 +314,7 @@ class Sitemap extends AbstractHelper
      * Sets whether XML output should be formatted
      *
      * @param  bool $formatOutput
-     * @return Sitemap
+     * @return self
      */
     public function setFormatOutput($formatOutput = true)
     {
@@ -338,7 +338,7 @@ class Sitemap extends AbstractHelper
      * E.g. http://www.example.com
      *
      * @param  string $serverUrl
-     * @return Sitemap
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setServerUrl($serverUrl)
@@ -379,7 +379,7 @@ class Sitemap extends AbstractHelper
      * Sets whether sitemap should be validated using Zend\Validate\Sitemap_*
      *
      * @param  bool $useSitemapValidators
-     * @return Sitemap
+     * @return self
      */
     public function setUseSitemapValidators($useSitemapValidators)
     {
@@ -401,7 +401,7 @@ class Sitemap extends AbstractHelper
      * Sets whether sitemap should be schema validated when generated
      *
      * @param  bool $schemaValidation
-     * @return Sitemap
+     * @return self
      */
     public function setUseSchemaValidation($schemaValidation)
     {
@@ -423,7 +423,7 @@ class Sitemap extends AbstractHelper
      * Sets whether the XML declaration should be used in output
      *
      * @param  bool $useXmlDecl
-     * @return Sitemap
+     * @return self
      */
     public function setUseXmlDeclaration($useXmlDecl)
     {

@@ -72,7 +72,7 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
      *
      * @param  Resolver $resolver
      * @param  int $priority
-     * @return AggregateResolver
+     * @return self
      */
     public function attach(Resolver $resolver, $priority = 1)
     {

@@ -49,7 +49,7 @@ class Identity extends AbstractHelper
      * Set AuthenticationService instance
      *
      * @param AuthenticationService $authenticationService
-     * @return Identity
+     * @return self
      */
     public function setAuthenticationService(AuthenticationService $authenticationService)
     {

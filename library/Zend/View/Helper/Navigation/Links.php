@@ -93,7 +93,7 @@ class Links extends AbstractHelper
      * Helper entry point
      *
      * @param  string|AbstractContainer $container container to operate on
-     * @return Links
+     * @return self
      */
     public function __invoke($container = null)
     {
@@ -743,7 +743,7 @@ class Links extends AbstractHelper
      * {@link renderLink()} method.
      *
      * @param  int $renderFlag
-     * @return Links
+     * @return self
      */
     public function setRenderFlag($renderFlag)
     {

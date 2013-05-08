@@ -86,7 +86,7 @@ class BlockCipher
      *
      * @param  string      $adapter
      * @param  array       $options
-     * @return BlockCipher
+     * @return self
      */
     public static function factory($adapter, $options = array())
     {
@@ -141,7 +141,7 @@ class BlockCipher
      * Set the symmetric cipher
      *
      * @param  SymmetricInterface $cipher
-     * @return BlockCipher
+     * @return self
      */
     public function setCipher(SymmetricInterface $cipher)
     {
@@ -163,7 +163,7 @@ class BlockCipher
      * Set the number of iterations for Pbkdf2
      *
      * @param  int     $num
-     * @return BlockCipher
+     * @return self
      */
     public function setKeyIteration($num)
     {
@@ -186,7 +186,7 @@ class BlockCipher
      * Set the salt (IV)
      *
      * @param  string                             $salt
-     * @return BlockCipher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setSalt($salt)
@@ -225,7 +225,7 @@ class BlockCipher
      * Enable/disable the binary output
      *
      * @param  bool        $value
-     * @return BlockCipher
+     * @return self
      */
     public function setBinaryOutput($value)
     {
@@ -248,7 +248,7 @@ class BlockCipher
      * Set the encryption/decryption key
      *
      * @param  string                             $key
-     * @return BlockCipher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setKey($key)
@@ -275,7 +275,7 @@ class BlockCipher
      * Set algorithm of the symmetric cipher
      *
      * @param  string                             $algo
-     * @return BlockCipher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setCipherAlgorithm($algo)
@@ -324,7 +324,7 @@ class BlockCipher
      * Set the hash algorithm for HMAC authentication
      *
      * @param  string                             $hash
-     * @return BlockCipher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setHashAlgorithm($hash)

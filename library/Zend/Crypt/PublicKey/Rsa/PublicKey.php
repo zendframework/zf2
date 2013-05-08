@@ -26,7 +26,7 @@ class PublicKey extends AbstractKey
      * or X.509 certificate file
      *
      * @param  string      $pemOrCertificateFile
-     * @return PublicKey
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public static function fromFile($pemOrCertificateFile)

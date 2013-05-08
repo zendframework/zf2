@@ -76,7 +76,7 @@ class Request extends Message implements RequestInterface
      * Exchange parameters object
      *
      * @param \Zend\Stdlib\Parameters $params
-     * @return Request
+     * @return self
      */
     public function setParams(Parameters $params)
     {

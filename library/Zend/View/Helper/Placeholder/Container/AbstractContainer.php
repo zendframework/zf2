@@ -312,7 +312,7 @@ abstract class AbstractContainer extends \ArrayObject
      * Set postfix for __toString() serialization
      *
      * @param  string $postfix
-     * @return AbstractContainer
+     * @return self
      */
     public function setPostfix($postfix)
     {

@@ -48,7 +48,7 @@ class FeedRenderer implements RendererInterface
      *
      * @todo   Determine use case for resolvers for feeds
      * @param  Resolver $resolver
-     * @return FeedRenderer
+     * @return self
      */
     public function setResolver(Resolver $resolver)
     {
@@ -110,7 +110,7 @@ class FeedRenderer implements RendererInterface
      *
      * @param  string $feedType
      * @throws Exception\InvalidArgumentException
-     * @return FeedRenderer
+     * @return self
      */
     public function setFeedType($feedType)
     {

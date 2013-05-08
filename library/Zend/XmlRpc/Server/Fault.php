@@ -45,7 +45,7 @@ class Fault extends \Zend\XmlRpc\Fault
      * Constructor
      *
      * @param  \Exception $e
-     * @return Fault
+     * @return self
      */
     public function __construct(\Exception $e)
     {
@@ -75,7 +75,7 @@ class Fault extends \Zend\XmlRpc\Fault
      * Return Zend\XmlRpc\Server\Fault instance
      *
      * @param \Exception $e
-     * @return Fault
+     * @return self
      */
     public static function getInstance(\Exception $e)
     {

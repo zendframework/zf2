@@ -61,7 +61,7 @@ class FeedModel extends ViewModel
      * Set the feed object
      *
      * @param  Feed $feed
-     * @return FeedModel
+     * @return self
      */
     public function setFeed(Feed $feed)
     {

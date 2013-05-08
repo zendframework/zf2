@@ -55,7 +55,7 @@ class RsaOptions extends AbstractOptions
      * Set private key
      *
      * @param  Rsa\PrivateKey $key
-     * @return RsaOptions
+     * @return self
      */
     public function setPrivateKey(Rsa\PrivateKey $key)
     {
@@ -78,7 +78,7 @@ class RsaOptions extends AbstractOptions
      * Set public key
      *
      * @param  Rsa\PublicKey $key
-     * @return RsaOptions
+     * @return self
      */
     public function setPublicKey(Rsa\PublicKey $key)
     {
@@ -100,7 +100,7 @@ class RsaOptions extends AbstractOptions
      * Set pass phrase
      *
      * @param string $phrase
-     * @return RsaOptions
+     * @return self
      */
     public function setPassPhrase($phrase)
     {
@@ -122,7 +122,7 @@ class RsaOptions extends AbstractOptions
      * Set hash algorithm
      *
      * @param  string $hash
-     * @return RsaOptions
+     * @return self
      * @throws Rsa\Exception\RuntimeException
      * @throws Rsa\Exception\InvalidArgumentException
      */
@@ -162,7 +162,7 @@ class RsaOptions extends AbstractOptions
      * Enable/disable the binary output
      *
      * @param  bool $value
-     * @return RsaOptions
+     * @return self
      */
     public function setBinaryOutput($value)
     {
@@ -184,7 +184,7 @@ class RsaOptions extends AbstractOptions
      * Generate new private/public key pair
      *
      * @param  array $opensslConfig
-     * @return RsaOptions
+     * @return self
      * @throws Rsa\Exception\RuntimeException
      */
     public function generateKeys(array $opensslConfig = array())

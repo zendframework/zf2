@@ -120,7 +120,7 @@ class Bcrypt implements PasswordInterface
      *
      * @param  int|string $cost
      * @throws Exception\InvalidArgumentException
-     * @return Bcrypt
+     * @return self
      */
     public function setCost($cost)
     {
@@ -151,7 +151,7 @@ class Bcrypt implements PasswordInterface
      *
      * @param  string $salt
      * @throws Exception\InvalidArgumentException
-     * @return Bcrypt
+     * @return self
      */
     public function setSalt($salt)
     {
@@ -178,7 +178,7 @@ class Bcrypt implements PasswordInterface
      * Set the backward compatibility $2a$ instead of $2y$ for PHP 5.3.7+
      *
      * @param bool $value
-     * @return Bcrypt
+     * @return self
      */
     public function setBackwardCompatibility($value)
     {
