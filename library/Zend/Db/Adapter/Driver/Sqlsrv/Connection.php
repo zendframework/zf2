@@ -62,7 +62,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set driver
      *
      * @param  Sqlsrv $driver
-     * @return Connection
+     * @return self
      */
     public function setDriver(Sqlsrv $driver)
     {
@@ -72,7 +72,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -92,7 +92,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set connection parameters
      *
      * @param  array $connectionParameters
-     * @return Connection
+     * @return self
      */
     public function setConnectionParameters(array $connectionParameters)
     {
@@ -131,7 +131,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      *
      * @param  resource $resource
      * @throws Exception\InvalidArgumentException
-     * @return Connection
+     * @return self
      */
     public function setResource($resource)
     {
@@ -157,7 +157,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Connect
      *
      * @throws Exception\RuntimeException
-     * @return Connection
+     * @return self
      */
     public function connect()
     {

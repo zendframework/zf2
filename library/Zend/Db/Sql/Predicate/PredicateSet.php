@@ -43,7 +43,7 @@ class PredicateSet implements PredicateInterface, Countable
      *
      * @param  PredicateInterface $predicate
      * @param  string $combination
-     * @return PredicateSet
+     * @return self
      */
     public function addPredicate(PredicateInterface $predicate, $combination = null)
     {
@@ -74,7 +74,7 @@ class PredicateSet implements PredicateInterface, Countable
      * Add predicate using OR operator
      *
      * @param  PredicateInterface $predicate
-     * @return PredicateSet
+     * @return self
      */
     public function orPredicate(PredicateInterface $predicate)
     {
@@ -86,7 +86,7 @@ class PredicateSet implements PredicateInterface, Countable
      * Add predicate using AND operator
      *
      * @param  PredicateInterface $predicate
-     * @return PredicateSet
+     * @return self
      */
     public function andPredicate(PredicateInterface $predicate)
     {

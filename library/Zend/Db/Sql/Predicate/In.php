@@ -40,7 +40,7 @@ class In implements PredicateInterface
      * Set identifier for comparison
      *
      * @param  string $identifier
-     * @return In
+     * @return self
      */
     public function setIdentifier($identifier)
     {
@@ -63,7 +63,7 @@ class In implements PredicateInterface
      *
      * @param  array $valueSet
      * @throws Exception\InvalidArgumentException
-     * @return In
+     * @return self
      */
     public function setValueSet($valueSet)
     {

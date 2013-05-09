@@ -62,7 +62,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set connection parameters
      *
      * @param  array $connectionParameters
-     * @return Connection
+     * @return self
      */
     public function setConnectionParameters(array $connectionParameters)
     {
@@ -74,7 +74,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set driver
      *
      * @param  Pgsql $driver
-     * @return Connection
+     * @return self
      */
     public function setDriver(Pgsql $driver)
     {
@@ -84,7 +84,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -104,7 +104,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set resource
      *
      * @param  resource $resource
-     * @return Connection
+     * @return self
      */
     public function setResource($resource)
     {
@@ -146,7 +146,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Connect to the database
      *
-     * @return Connection
+     * @return self
      * @throws Exception\RuntimeException on failure
      */
     public function connect()

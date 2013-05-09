@@ -61,7 +61,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Crete INTO clause
      *
      * @param  string|TableIdentifier $table
-     * @return Insert
+     * @return self
      */
     public function into($table)
     {
@@ -73,7 +73,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Specify columns
      *
      * @param  array $columns
-     * @return Insert
+     * @return self
      */
     public function columns(array $columns)
     {
@@ -87,7 +87,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  array $values
      * @param  string $flag one of VALUES_MERGE or VALUES_SET; defaults to VALUES_SET
      * @throws Exception\InvalidArgumentException
-     * @return Insert
+     * @return self
      */
     public function values(array $values, $flag = self::VALUES_SET)
     {
@@ -242,7 +242,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param  string $name
      * @param  mixed $value
-     * @return Insert
+     * @return self
      */
     public function __set($name, $value)
     {

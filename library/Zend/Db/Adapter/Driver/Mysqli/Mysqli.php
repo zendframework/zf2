@@ -67,7 +67,7 @@ class Mysqli implements DriverInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Mysqli
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -93,7 +93,7 @@ class Mysqli implements DriverInterface, Profiler\ProfilerAwareInterface
      * Register connection
      *
      * @param  Connection $connection
-     * @return Mysqli
+     * @return self
      */
     public function registerConnection(Connection $connection)
     {

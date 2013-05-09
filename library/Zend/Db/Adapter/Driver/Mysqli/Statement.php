@@ -73,7 +73,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set driver
      *
      * @param  Mysqli $driver
-     * @return Statement
+     * @return self
      */
     public function setDriver(Mysqli $driver)
     {
@@ -83,7 +83,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Statement
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -103,7 +103,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Initialize
      *
      * @param  \mysqli $mysqli
-     * @return Statement
+     * @return self
      */
     public function initialize(\mysqli $mysqli)
     {
@@ -115,7 +115,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set sql
      *
      * @param  string $sql
-     * @return Statement
+     * @return self
      */
     public function setSql($sql)
     {
@@ -127,7 +127,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set Parameter container
      *
      * @param ParameterContainer $parameterContainer
-     * @return Statement
+     * @return self
      */
     public function setParameterContainer(ParameterContainer $parameterContainer)
     {
@@ -149,7 +149,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set resource
      *
      * @param  \mysqli_stmt $mysqliStatement
-     * @return Statement
+     * @return self
      */
     public function setResource(\mysqli_stmt $mysqliStatement)
     {
@@ -194,7 +194,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * @param string $sql
      * @throws Exception\InvalidQueryException
      * @throws Exception\RuntimeException
-     * @return Statement
+     * @return self
      */
     public function prepare($sql = null)
     {

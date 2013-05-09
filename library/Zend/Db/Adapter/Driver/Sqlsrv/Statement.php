@@ -67,7 +67,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set driver
      *
      * @param  Sqlsrv $driver
-     * @return Statement
+     * @return self
      */
     public function setDriver(Sqlsrv $driver)
     {
@@ -77,7 +77,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Statement
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -102,7 +102,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      *
      * @param resource $resource
      * @throws Exception\InvalidArgumentException
-     * @return Statement
+     * @return self
      */
     public function initialize($resource)
     {
@@ -124,7 +124,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set parameter container
      *
      * @param ParameterContainer $parameterContainer
-     * @return Statement
+     * @return self
      */
     public function setParameterContainer(ParameterContainer $parameterContainer)
     {
@@ -142,7 +142,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param $resource
-     * @return Statement
+     * @return self
      */
     public function setResource($resource)
     {
@@ -162,7 +162,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param string $sql
-     * @return Statement
+     * @return self
      */
     public function setSql($sql)
     {
@@ -183,7 +183,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
     /**
      * @param string $sql
      * @throws Exception\RuntimeException
-     * @return Statement
+     * @return self
      */
     public function prepare($sql = null)
     {

@@ -56,7 +56,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set driver
      *
      * @param IbmDb2 $driver
-     * @return Connection
+     * @return self
      */
     public function setDriver(IbmDb2 $driver)
     {
@@ -66,7 +66,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -84,7 +84,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param array $connectionParameters
-     * @return Connection
+     * @return self
      */
     public function setConnectionParameters(array $connectionParameters)
     {
@@ -102,7 +102,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param  resource $resource DB2 resource
-     * @return Connection
+     * @return self
      */
     public function setResource($resource)
     {
@@ -141,7 +141,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Connect
      *
-     * @return ConnectionInterface
+     * @return selfInterface
      */
     public function connect()
     {
@@ -197,7 +197,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Disconnect
      *
-     * @return ConnectionInterface
+     * @return selfInterface
      */
     public function disconnect()
     {
@@ -211,7 +211,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Begin transaction
      *
-     * @return ConnectionInterface
+     * @return selfInterface
      */
     public function beginTransaction()
     {
@@ -221,7 +221,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Commit
      *
-     * @return ConnectionInterface
+     * @return selfInterface
      */
     public function commit()
     {
@@ -231,7 +231,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Rollback
      *
-     * @return ConnectionInterface
+     * @return selfInterface
      */
     public function rollback()
     {

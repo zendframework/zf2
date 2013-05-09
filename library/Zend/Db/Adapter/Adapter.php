@@ -101,7 +101,7 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Adapter
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {

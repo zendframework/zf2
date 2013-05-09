@@ -66,7 +66,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set driver
      *
      * @param Pdo $driver
-     * @return Connection
+     * @return self
      */
     public function setDriver(Pdo $driver)
     {
@@ -76,7 +76,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -170,7 +170,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set resource
      *
      * @param  \PDO $resource
-     * @return Connection
+     * @return self
      */
     public function setResource(\PDO $resource)
     {
@@ -195,7 +195,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Connect
      *
-     * @return Connection
+     * @return self
      * @throws Exception\InvalidConnectionParametersException
      * @throws Exception\RuntimeException
      */
@@ -305,7 +305,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Disconnect
      *
-     * @return Connection
+     * @return self
      */
     public function disconnect()
     {
@@ -318,7 +318,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Begin transaction
      *
-     * @return Connection
+     * @return self
      */
     public function beginTransaction()
     {
@@ -333,7 +333,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Commit
      *
-     * @return Connection
+     * @return self
      */
     public function commit()
     {
@@ -349,7 +349,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Rollback
      *
-     * @return Connection
+     * @return self
      * @throws Exception\RuntimeException
      */
     public function rollback()

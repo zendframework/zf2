@@ -40,7 +40,7 @@ class Between implements PredicateInterface
      * Set identifier for comparison
      *
      * @param  string $identifier
-     * @return Between
+     * @return self
      */
     public function setIdentifier($identifier)
     {
@@ -62,7 +62,7 @@ class Between implements PredicateInterface
      * Set minimum boundary for comparison
      *
      * @param  int|float|string $minValue
-     * @return Between
+     * @return self
      */
     public function setMinValue($minValue)
     {
@@ -84,7 +84,7 @@ class Between implements PredicateInterface
      * Set maximum boundary for comparison
      *
      * @param  int|float|string $maxValue
-     * @return Between
+     * @return self
      */
     public function setMaxValue($maxValue)
     {
@@ -106,7 +106,7 @@ class Between implements PredicateInterface
      * Set specification string to use in forming SQL predicate
      *
      * @param  string $specification
-     * @return Between
+     * @return self
      */
     public function setSpecification($specification)
     {

@@ -70,7 +70,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set driver
      *
      * @param  Pdo $driver
-     * @return Statement
+     * @return self
      */
     public function setDriver(Pdo $driver)
     {
@@ -80,7 +80,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Statement
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -100,7 +100,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Initialize
      *
      * @param  \PDO $connectionResource
-     * @return Statement
+     * @return self
      */
     public function initialize(\PDO $connectionResource)
     {
@@ -112,7 +112,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set resource
      *
      * @param  \PDOStatement $pdoStatement
-     * @return Statement
+     * @return self
      */
     public function setResource(\PDOStatement $pdoStatement)
     {
@@ -134,7 +134,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set sql
      *
      * @param string $sql
-     * @return Statement
+     * @return self
      */
     public function setSql($sql)
     {
@@ -154,7 +154,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param ParameterContainer $parameterContainer
-     * @return Statement
+     * @return self
      */
     public function setParameterContainer(ParameterContainer $parameterContainer)
     {
@@ -291,7 +291,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * Perform a deep clone
-     * @return Statement A cloned statement
+     * @return self A cloned statement
      */
     public function __clone()
     {

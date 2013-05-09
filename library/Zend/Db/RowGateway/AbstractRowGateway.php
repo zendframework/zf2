@@ -92,7 +92,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
      *
      * @param  array $rowData
      * @param  bool  $rowExistsInDatabase
-     * @return AbstractRowGateway
+     * @return self
      */
     public function populate(array $rowData, $rowExistsInDatabase = false)
     {
@@ -253,7 +253,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
      * Offset unset
      *
      * @param  string $offset
-     * @return AbstractRowGateway
+     * @return self
      */
     public function offsetUnset($offset)
     {

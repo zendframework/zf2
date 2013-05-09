@@ -63,7 +63,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Oci8 $driver
-     * @return Connection
+     * @return self
      */
     public function setDriver(Oci8 $driver)
     {
@@ -73,7 +73,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -93,7 +93,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set connection parameters
      *
      * @param  array $connectionParameters
-     * @return Connection
+     * @return self
      */
     public function setConnectionParameters(array $connectionParameters)
     {
@@ -133,7 +133,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set resource
      *
      * @param  resource $resource
-     * @return Connection
+     * @return self
      */
     public function setResource($resource)
     {
@@ -158,7 +158,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Connect
      *
-     * @return Connection
+     * @return self
      */
     public function connect()
     {
@@ -273,7 +273,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Rollback
      *
-     * @return Connection
+     * @return self
      */
     public function rollback()
     {

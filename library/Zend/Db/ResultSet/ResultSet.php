@@ -57,7 +57,7 @@ class ResultSet extends AbstractResultSet
      *
      * @param  ArrayObject $arrayObjectPrototype
      * @throws Exception\InvalidArgumentException
-     * @return ResultSet
+     * @return self
      */
     public function setArrayObjectPrototype($arrayObjectPrototype)
     {

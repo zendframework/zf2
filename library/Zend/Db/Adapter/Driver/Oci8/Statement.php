@@ -65,7 +65,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set driver
      *
      * @param  Oci8 $driver
-     * @return Statement
+     * @return self
      */
     public function setDriver($driver)
     {
@@ -75,7 +75,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Statement
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -95,7 +95,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Initialize
      *
      * @param  resource $oci8
-     * @return Statement
+     * @return self
      */
     public function initialize($oci8)
     {
@@ -107,7 +107,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set sql
      *
      * @param  string $sql
-     * @return Statement
+     * @return self
      */
     public function setSql($sql)
     {
@@ -119,7 +119,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set Parameter container
      *
      * @param ParameterContainer $parameterContainer
-     * @return Statement
+     * @return self
      */
     public function setParameterContainer(ParameterContainer $parameterContainer)
     {
@@ -141,7 +141,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set resource
      *
      * @param  resource $oci8Statement
-     * @return Statement
+     * @return self
      */
     public function setResource($oci8Statement)
     {
@@ -185,7 +185,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param string $sql
-     * @return Statement
+     * @return self
      */
     public function prepare($sql = null)
     {

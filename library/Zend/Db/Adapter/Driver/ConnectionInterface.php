@@ -28,7 +28,7 @@ interface ConnectionInterface
     /**
      * Connect
      *
-     * @return ConnectionInterface
+     * @return self
      */
     public function connect();
 
@@ -42,28 +42,28 @@ interface ConnectionInterface
     /**
      * Disconnect
      *
-     * @return ConnectionInterface
+     * @return self
      */
     public function disconnect();
 
     /**
      * Begin transaction
      *
-     * @return ConnectionInterface
+     * @return self
      */
     public function beginTransaction();
 
     /**
      * Commit
      *
-     * @return ConnectionInterface
+     * @return self
      */
     public function commit();
 
     /**
      * Rollback
      *
-     * @return ConnectionInterface
+     * @return self
      */
     public function rollback();
 

@@ -51,7 +51,7 @@ class Expression implements ExpressionInterface
 
     /**
      * @param $expression
-     * @return Expression
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setExpression($expression)
@@ -73,7 +73,7 @@ class Expression implements ExpressionInterface
 
     /**
      * @param $parameters
-     * @return Expression
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setParameters($parameters)
@@ -95,7 +95,7 @@ class Expression implements ExpressionInterface
 
     /**
      * @param array $types
-     * @return Expression
+     * @return self
      */
     public function setTypes(array $types)
     {
