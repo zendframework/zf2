@@ -63,7 +63,7 @@ class EventManager implements EventManagerInterface
      * Set the event class to utilize
      *
      * @param  string $class
-     * @return EventManager
+     * @return self
      */
     public function setEventClass($class)
     {
@@ -75,7 +75,7 @@ class EventManager implements EventManagerInterface
      * Set shared event manager
      *
      * @param SharedEventManagerInterface $sharedEventManager
-     * @return EventManager
+     * @return self
      */
     public function setSharedManager(SharedEventManagerInterface $sharedEventManager)
     {
@@ -136,7 +136,7 @@ class EventManager implements EventManagerInterface
      * Set the identifiers (overrides any currently set identifiers)
      *
      * @param string|int|array|Traversable $identifiers
-     * @return EventManager Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setIdentifiers($identifiers)
     {
@@ -152,7 +152,7 @@ class EventManager implements EventManagerInterface
      * Add some identifier(s) (appends to any currently set identifiers)
      *
      * @param string|int|array|Traversable $identifiers
-     * @return EventManager Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function addIdentifiers($identifiers)
     {
