@@ -61,7 +61,7 @@ class Entry
      *
      * @param array $author
      * @throws Exception\InvalidArgumentException If any value of $author not follow the format.
-     * @return Entry
+     * @return self
      */
     public function addAuthor(array $author)
     {
@@ -99,7 +99,7 @@ class Entry
      *
      * @see addAuthor
      * @param array $authors
-     * @return Entry
+     * @return self
      */
     public function addAuthors(array $authors)
     {
@@ -115,7 +115,7 @@ class Entry
      *
      * @param string $encoding
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setEncoding($encoding)
     {
@@ -145,7 +145,7 @@ class Entry
      *
      * @param string $copyright
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setCopyright($copyright)
     {
@@ -162,7 +162,7 @@ class Entry
      *
      * @param string $content
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setContent($content)
     {
@@ -179,7 +179,7 @@ class Entry
      *
      * @param null|int|DateTime $date
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setDateCreated($date = null)
     {
@@ -200,7 +200,7 @@ class Entry
      *
      * @param null|int|DateTime $date
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setDateModified($date = null)
     {
@@ -221,7 +221,7 @@ class Entry
      *
      * @param string $description
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setDescription($description)
     {
@@ -238,7 +238,7 @@ class Entry
      *
      * @param string $id
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setId($id)
     {
@@ -255,7 +255,7 @@ class Entry
      *
      * @param string $link
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setLink($link)
     {
@@ -272,7 +272,7 @@ class Entry
      *
      * @param int $count
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setCommentCount($count)
     {
@@ -289,7 +289,7 @@ class Entry
      *
      * @param string $link
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setCommentLink($link)
     {
@@ -306,7 +306,7 @@ class Entry
      *
      * @param array $link
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setCommentFeedLink(array $link)
     {
@@ -331,7 +331,7 @@ class Entry
      * "atom", "rss" or "rdf".
      *
      * @param array $links
-     * @return Entry
+     * @return self
      */
     public function setCommentFeedLinks(array $links)
     {
@@ -347,7 +347,7 @@ class Entry
      *
      * @param string $title
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setTitle($title)
     {
@@ -535,7 +535,7 @@ class Entry
      *
      * @param array $category
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function addCategory(array $category)
     {
@@ -565,7 +565,7 @@ class Entry
      * Set an array of entry categories
      *
      * @param array $categories
-     * @return Entry
+     * @return self
      */
     public function addCategories(array $categories)
     {
@@ -597,7 +597,7 @@ class Entry
      *
      * @param array $enclosure
      * @throws Exception\InvalidArgumentException
-     * @return Entry
+     * @return self
      */
     public function setEnclosure(array $enclosure)
     {
@@ -629,7 +629,7 @@ class Entry
      * Unset a specific data point
      *
      * @param string $name
-     * @return Entry
+     * @return self
      */
     public function remove($name)
     {
@@ -670,7 +670,7 @@ class Entry
      * on their appropriateness for the current type, e.g. renderers.
      *
      * @param string $type
-     * @return Entry
+     * @return self
      */
     public function setType($type)
     {
@@ -730,7 +730,7 @@ class Entry
      * the feed data container's internal group of entries.
      *
      * @param Source $source
-     * @return Entry
+     * @return self
      */
     public function setSource(Source $source)
     {

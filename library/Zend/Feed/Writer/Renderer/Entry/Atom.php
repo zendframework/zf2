@@ -32,7 +32,7 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\RendererInterfa
     /**
      * Render atom entry
      *
-     * @return Atom
+     * @return self
      */
     public function render()
     {

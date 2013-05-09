@@ -119,7 +119,7 @@ class AbstractRenderer
      * Set feed encoding
      *
      * @param  string $enc
-     * @return AbstractRenderer
+     * @return self
      */
     public function setEncoding($enc)
     {
@@ -141,7 +141,7 @@ class AbstractRenderer
      * Indicate whether or not to ignore exceptions
      *
      * @param  bool $bool
-     * @return AbstractRenderer
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function ignoreExceptions($bool = true)

@@ -48,7 +48,7 @@ class Entry
      * Set feed encoding
      *
      * @param  string $enc
-     * @return Entry
+     * @return self
      */
     public function setEncoding($enc)
     {
@@ -71,7 +71,7 @@ class Entry
      * Set a block value of "yes" or "no". You may also set an empty string.
      *
      * @param  string
-     * @return Entry
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesBlock($value)
@@ -92,7 +92,7 @@ class Entry
      * Add authors to itunes entry
      *
      * @param  array $values
-     * @return Entry
+     * @return self
      */
     public function addItunesAuthors(array $values)
     {
@@ -106,7 +106,7 @@ class Entry
      * Add author to itunes entry
      *
      * @param  string $value
-     * @return Entry
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function addItunesAuthor($value)
@@ -126,7 +126,7 @@ class Entry
      * Set duration
      *
      * @param  int $value
-     * @return Entry
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesDuration($value)
@@ -147,7 +147,7 @@ class Entry
      * Set "explicit" flag
      *
      * @param  bool $value
-     * @return Entry
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesExplicit($value)
@@ -164,7 +164,7 @@ class Entry
      * Set keywords
      *
      * @param  array $value
-     * @return Entry
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesKeywords(array $value)
@@ -188,7 +188,7 @@ class Entry
      * Set subtitle
      *
      * @param  string $value
-     * @return Entry
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesSubtitle($value)
@@ -205,7 +205,7 @@ class Entry
      * Set summary
      *
      * @param  string $value
-     * @return Entry
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesSummary($value)

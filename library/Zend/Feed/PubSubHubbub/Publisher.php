@@ -66,7 +66,7 @@ class Publisher
      * Process any injected configuration options
      *
      * @param  array|Traversable $options Options array or Traversable object
-     * @return Publisher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
@@ -95,7 +95,7 @@ class Publisher
      * Add a Hub Server URL supported by Publisher
      *
      * @param  string $url
-     * @return Publisher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function addHubUrl($url)
@@ -113,7 +113,7 @@ class Publisher
      * Add an array of Hub Server URLs supported by Publisher
      *
      * @param  array $urls
-     * @return Publisher
+     * @return self
      */
     public function addHubUrls(array $urls)
     {
@@ -127,7 +127,7 @@ class Publisher
      * Remove a Hub Server URL
      *
      * @param  string $url
-     * @return Publisher
+     * @return self
      */
     public function removeHubUrl($url)
     {
@@ -154,7 +154,7 @@ class Publisher
      * Add a URL to a topic (Atom or RSS feed) which has been updated
      *
      * @param  string $url
-     * @return Publisher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function addUpdatedTopicUrl($url)
@@ -172,7 +172,7 @@ class Publisher
      * Add an array of Topic URLs which have been updated
      *
      * @param  array $urls
-     * @return Publisher
+     * @return self
      */
     public function addUpdatedTopicUrls(array $urls)
     {
@@ -186,7 +186,7 @@ class Publisher
      * Remove an updated topic URL
      *
      * @param  string $url
-     * @return Publisher
+     * @return self
      */
     public function removeUpdatedTopicUrl($url)
     {
@@ -272,7 +272,7 @@ class Publisher
      *
      * @param  string $name
      * @param  string|null $value
-     * @return Publisher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setParameter($name, $value = null)
@@ -301,7 +301,7 @@ class Publisher
      * Add an optional parameter to the update notification requests
      *
      * @param  array $parameters
-     * @return Publisher
+     * @return self
      */
     public function setParameters(array $parameters)
     {
@@ -315,7 +315,7 @@ class Publisher
      * Remove an optional parameter for the notification requests
      *
      * @param  string $name
-     * @return Publisher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function removeParameter($name)

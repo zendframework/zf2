@@ -30,7 +30,7 @@ class Atom extends AbstractAtom implements Renderer\RendererInterface
     /**
      * Render Atom feed
      *
-     * @return Atom
+     * @return self
      */
     public function render()
     {
