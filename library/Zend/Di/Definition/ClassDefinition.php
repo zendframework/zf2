@@ -88,7 +88,7 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
      * @param $method
      * @param $parameterName
      * @param  array           $parameterInfo (keys: required, type)
-     * @return ClassDefinition
+     * @return self
      */
     public function addMethodParameter($method, $parameterName, array $parameterInfo)
     {

@@ -392,7 +392,7 @@ class InstanceManager /* implements InstanceManagerInterface */
      *
      * @param  string          $interfaceOrAbstract
      * @param  array           $preferredImplementations
-     * @return InstanceManager
+     * @return self
      */
     public function setTypePreference($interfaceOrAbstract, array $preferredImplementations)
     {

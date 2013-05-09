@@ -70,7 +70,7 @@ class BuilderDefinition implements DefinitionInterface
      * Add class
      *
      * @param  Builder\PhpClass  $phpClass
-     * @return BuilderDefinition
+     * @return self
      */
     public function addClass(Builder\PhpClass $phpClass)
     {
@@ -106,7 +106,7 @@ class BuilderDefinition implements DefinitionInterface
      * Set the class to use with {@link createClass()}
      *
      * @param  string            $class
-     * @return BuilderDefinition
+     * @return self
      */
     public function setClassBuilder($class)
     {
