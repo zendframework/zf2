@@ -42,7 +42,7 @@ interface HelperInterface extends BaseHelperInterface
      * Sets ACL to use when iterating pages
      *
      * @param  Acl\AclInterface $acl [optional] ACL instance
-     * @return HelperInterface
+     * @return self
      */
     public function setAcl(Acl\AclInterface $acl = null);
 
@@ -68,7 +68,7 @@ interface HelperInterface extends BaseHelperInterface
      *                                         on. Default is null, which
      *                                         indicates that the container
      *                                         should be reset.
-     * @return HelperInterface
+     * @return self
      */
     public function setContainer($container = null);
 
@@ -90,7 +90,7 @@ interface HelperInterface extends BaseHelperInterface
      * Render invisible items?
      *
      * @param  bool $renderInvisible [optional] boolean flag
-     * @return HelperInterface
+     * @return self
      */
     public function setRenderInvisible($renderInvisible = true);
 
@@ -108,7 +108,7 @@ interface HelperInterface extends BaseHelperInterface
      *                     instance of type {@link Acl\Role}, or null. Default
      *                     is null.
      * @throws \Zend\View\Exception\ExceptionInterface if $role is invalid
-     * @return HelperInterface
+     * @return self
      */
     public function setRole($role = null);
 
@@ -130,7 +130,7 @@ interface HelperInterface extends BaseHelperInterface
      * Sets whether ACL should be used
      *
      * @param  bool $useAcl [optional] whether ACL should be used. Default is true.
-     * @return HelperInterface
+     * @return self
      */
     public function setUseAcl($useAcl = true);
 

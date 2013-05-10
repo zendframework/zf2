@@ -49,7 +49,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
      * Set the request access time
      *
      * @param  float        $time
-     * @return ArrayStorage
+     * @return self
      */
     protected function setRequestAccessTime($time)
     {
@@ -104,7 +104,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
      * Lock this storage instance, or a key within it
      *
      * @param  null|int|string $key
-     * @return ArrayStorage
+     * @return self
      */
     public function lock($key = null)
     {
@@ -160,7 +160,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
      * Unlock an object or key marked as locked
      *
      * @param  null|int|string $key
-     * @return ArrayStorage
+     * @return self
      */
     public function unlock($key = null)
     {
@@ -194,7 +194,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
     /**
      * Mark the storage container as isImmutable
      *
-     * @return ArrayStorage
+     * @return self
      */
     public function markImmutable()
     {
@@ -226,7 +226,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
      * @param  string                     $key
      * @param  mixed                      $value
      * @param  bool                       $overwriteArray Whether to overwrite or merge array values; by default, merges
-     * @return ArrayStorage
+     * @return self
      * @throws Exception\RuntimeException
      */
     public function setMetadata($key, $value, $overwriteArray = false)
@@ -294,7 +294,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
      * Clear the storage object or a subkey of the object
      *
      * @param  null|int|string            $key
-     * @return ArrayStorage
+     * @return self
      * @throws Exception\RuntimeException
      */
     public function clear($key = null)
@@ -328,7 +328,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
      * Overwrites any data that was previously set.
      *
      * @param  array        $array
-     * @return ArrayStorage
+     * @return self
      */
     public function fromArray(array $array)
     {

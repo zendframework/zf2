@@ -26,7 +26,7 @@ class WinCacheOptions extends AdapterOptions
      * Set namespace separator
      *
      * @param  string $namespaceSeparator
-     * @return WinCacheOptions
+     * @return self
      */
     public function setNamespaceSeparator($namespaceSeparator)
     {

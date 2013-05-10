@@ -40,7 +40,7 @@ class Registry
     /**
      * Retrieve or create registry instance
      *
-     * @return Registry
+     * @return self
      */
     public static function getRegistry()
     {
@@ -70,7 +70,7 @@ class Registry
      *
      * @param  string                      $key
      * @param  Container\AbstractContainer $container
-     * @return Registry
+     * @return self
      */
     public function setContainer($key, Container\AbstractContainer $container)
     {
@@ -150,7 +150,7 @@ class Registry
      * @param  string $name
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
-     * @return Registry
+     * @return self
      */
     public function setContainerClass($name)
     {

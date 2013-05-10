@@ -48,7 +48,7 @@ class DbaOptions extends AdapterOptions
      * Set namespace separator
      *
      * @param  string $namespaceSeparator
-     * @return DbaOptions
+     * @return self
      */
     public function setNamespaceSeparator($namespaceSeparator)
     {
@@ -72,7 +72,7 @@ class DbaOptions extends AdapterOptions
      * Set pathname to database file
      *
      * @param string $pathname
-     * @return DbaOptions
+     * @return self
      */
     public function setPathname($pathname)
     {

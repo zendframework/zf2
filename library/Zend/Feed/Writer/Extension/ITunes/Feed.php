@@ -51,7 +51,7 @@ class Feed
      * Set feed encoding
      *
      * @param  string $enc
-     * @return Feed
+     * @return self
      */
     public function setEncoding($enc)
     {
@@ -74,7 +74,7 @@ class Feed
      * Set a block value of "yes" or "no". You may also set an empty string.
      *
      * @param  string
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesBlock($value)
@@ -95,7 +95,7 @@ class Feed
      * Add feed authors
      *
      * @param  array $values
-     * @return Feed
+     * @return self
      */
     public function addItunesAuthors(array $values)
     {
@@ -109,7 +109,7 @@ class Feed
      * Add feed author
      *
      * @param  string $value
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function addItunesAuthor($value)
@@ -129,7 +129,7 @@ class Feed
      * Set feed categories
      *
      * @param  array $values
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesCategories(array $values)
@@ -166,7 +166,7 @@ class Feed
      * Set feed image (icon)
      *
      * @param  string $value
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesImage($value)
@@ -188,7 +188,7 @@ class Feed
      * Set feed cumulative duration
      *
      * @param  string $value
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesDuration($value)
@@ -209,7 +209,7 @@ class Feed
      * Set "explicit" flag
      *
      * @param  bool $value
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesExplicit($value)
@@ -226,7 +226,7 @@ class Feed
      * Set feed keywords
      *
      * @param  array $value
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesKeywords(array $value)
@@ -249,7 +249,7 @@ class Feed
      * Set new feed URL
      *
      * @param  string $value
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesNewFeedUrl($value)
@@ -266,7 +266,7 @@ class Feed
      * Add feed owners
      *
      * @param  array $values
-     * @return Feed
+     * @return self
      */
     public function addItunesOwners(array $values)
     {
@@ -280,7 +280,7 @@ class Feed
      * Add feed owner
      *
      * @param  array $value
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function addItunesOwner(array $value)
@@ -306,7 +306,7 @@ class Feed
      * Set feed subtitle
      *
      * @param  string $value
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesSubtitle($value)
@@ -323,7 +323,7 @@ class Feed
      * Set feed summary
      *
      * @param  string $value
-     * @return Feed
+     * @return self
      * @throws Writer\Exception\InvalidArgumentException
      */
     public function setItunesSummary($value)

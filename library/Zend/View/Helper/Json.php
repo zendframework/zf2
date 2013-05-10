@@ -45,7 +45,7 @@ class Json extends AbstractHelper
      * Set the response object
      *
      * @param  Response $response
-     * @return Json
+     * @return self
      */
     public function setResponse(Response $response)
     {

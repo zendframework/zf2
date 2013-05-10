@@ -408,7 +408,7 @@ class Http extends AbstractAdapter
     /**
      * Prepare the $_FILES array to match the internal syntax of one file per entry
      *
-     * @return Http
+     * @return self
      */
     protected function prepareFiles()
     {

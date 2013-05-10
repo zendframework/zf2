@@ -119,7 +119,7 @@ class RedisResourceManager
      *
      * @param string $id
      * @param array|Traversable|RedisResource $resource
-     * @return RedisResourceManager Fluent interface
+     * @return self Fluent interface
      */
     public function setResource($id, $resource)
     {
@@ -169,7 +169,7 @@ class RedisResourceManager
      * Remove a resource
      *
      * @param string $id
-     * @return RedisResourceManager Fluent interface
+     * @return self Fluent interface
      */
     public function removeResource($id)
     {
@@ -182,7 +182,7 @@ class RedisResourceManager
      *
      * @param string $id
      * @param string $persistentId
-     * @return RedisResourceManager Fluent interface
+     * @return self Fluent interface
      * @throws Exception\RuntimeException
      */
     public function setPersistentId($id, $persistentId)
@@ -245,7 +245,7 @@ class RedisResourceManager
      *
      * @param string $id
      * @param array  $libOptions
-     * @return RedisResourceManager Fluent interface
+     * @return self Fluent interface
      */
     public function setLibOptions($id, array $libOptions)
     {
@@ -308,7 +308,7 @@ class RedisResourceManager
      * @param string     $id
      * @param string|int $key
      * @param mixed      $value
-     * @return RedisResourceManager Fluent interface
+     * @return self Fluent interface
      */
     public function setLibOption($id, $key, $value)
     {
@@ -392,7 +392,7 @@ class RedisResourceManager
      *
      * @param string       $id
      * @param string|array $server
-     * @return RedisResourceManager
+     * @return self
      */
     public function setServer($id, $server)
     {

@@ -72,7 +72,7 @@ class PluginOptions extends AbstractOptions
      * - ClearExpiredByFactor
      *
      * @param  int $clearingFactor
-     * @return PluginOptions
+     * @return self
      */
     public function setClearingFactor($clearingFactor)
     {
@@ -101,7 +101,7 @@ class PluginOptions extends AbstractOptions
      *
      * @param  callable $exceptionCallback
      * @throws Exception\InvalidArgumentException
-     * @return PluginOptions
+     * @return self
      */
     public function setExceptionCallback($exceptionCallback)
     {
@@ -129,7 +129,7 @@ class PluginOptions extends AbstractOptions
      * Exit if connection aborted and ignore_user_abort is disabled.
      *
      * @param  bool $exitOnAbort
-     * @return PluginOptions
+     * @return self
      */
     public function setExitOnAbort($exitOnAbort)
     {
@@ -154,7 +154,7 @@ class PluginOptions extends AbstractOptions
      * - OptimizeByFactor
      *
      * @param  int $optimizingFactor
-     * @return PluginOptions
+     * @return self
      */
     public function setOptimizingFactor($optimizingFactor)
     {
@@ -229,7 +229,7 @@ class PluginOptions extends AbstractOptions
      * - Serializer
      *
      * @param  mixed $serializerOptions
-     * @return PluginOptions
+     * @return self
      */
     public function setSerializerOptions($serializerOptions)
     {
@@ -257,7 +257,7 @@ class PluginOptions extends AbstractOptions
      * - ExceptionHandler
      *
      * @param  bool $throwExceptions
-     * @return PluginOptions
+     * @return self
      */
     public function setThrowExceptions($throwExceptions)
     {

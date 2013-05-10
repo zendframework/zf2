@@ -58,7 +58,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param  Pgsql $driver
-     * @return Statement
+     * @return self
      */
     public function setDriver(Pgsql $driver)
     {
@@ -68,7 +68,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Statement
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -117,7 +117,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set sql
      *
      * @param string $sql
-     * @return Statement
+     * @return self
      */
     public function setSql($sql)
     {
@@ -139,7 +139,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      * Set parameter container
      *
      * @param ParameterContainer $parameterContainer
-     * @return Statement
+     * @return self
      */
     public function setParameterContainer(ParameterContainer $parameterContainer)
     {

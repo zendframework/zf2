@@ -126,7 +126,7 @@ class ParameterContainer implements \Iterator, \ArrayAccess, \Countable
      * Offset unset
      *
      * @param  string $name
-     * @return ParameterContainer
+     * @return self
      */
     public function offsetUnset($name)
     {
@@ -141,7 +141,7 @@ class ParameterContainer implements \Iterator, \ArrayAccess, \Countable
      * Set from array
      *
      * @param  array $data
-     * @return ParameterContainer
+     * @return self
      */
     public function setFromArray(Array $data)
     {
@@ -305,7 +305,7 @@ class ParameterContainer implements \Iterator, \ArrayAccess, \Countable
     /**
      * @param array|ParameterContainer $parameters
      * @throws Exception\InvalidArgumentException
-     * @return ParameterContainer
+     * @return self
      */
     public function merge($parameters)
     {

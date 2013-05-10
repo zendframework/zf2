@@ -18,7 +18,7 @@ class BodyGenerator extends AbstractGenerator
 
     /**
      * @param  string $content
-     * @return BodyGenerator
+     * @return self
      */
     public function setContent($content)
     {

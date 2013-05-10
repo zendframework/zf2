@@ -228,7 +228,7 @@ class ServerUrl extends AbstractHelper
      * Sets host
      *
      * @param  string $host
-     * @return ServerUrl
+     * @return self
      */
     public function setHost($host)
     {
@@ -265,7 +265,7 @@ class ServerUrl extends AbstractHelper
      * Set server port
      *
      * @param  int $port
-     * @return ServerUrl
+     * @return self
      */
     public function setPort($port)
     {
@@ -292,7 +292,7 @@ class ServerUrl extends AbstractHelper
      * Sets scheme (typically http or https)
      *
      * @param  string $scheme
-     * @return ServerUrl
+     * @return self
      */
     public function setScheme($scheme)
     {
@@ -319,7 +319,7 @@ class ServerUrl extends AbstractHelper
      * Set flag indicating whether or not to query proxy servers
      *
      * @param  bool $useProxy
-     * @return ServerUrl
+     * @return self
      */
     public function setUseProxy($useProxy = false)
     {

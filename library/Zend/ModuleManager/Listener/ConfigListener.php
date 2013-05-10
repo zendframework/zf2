@@ -98,7 +98,7 @@ class ConfigListener extends AbstractListener implements
      * Pass self to the ModuleEvent object early so everyone has access.
      *
      * @param  ModuleEvent $e
-     * @return ConfigListener
+     * @return self
      */
     public function onloadModulesPre(ModuleEvent $e)
     {
@@ -111,7 +111,7 @@ class ConfigListener extends AbstractListener implements
      * Merge the config for each module
      *
      * @param  ModuleEvent $e
-     * @return ConfigListener
+     * @return self
      */
     public function onLoadModule(ModuleEvent $e)
     {
@@ -135,7 +135,7 @@ class ConfigListener extends AbstractListener implements
      * This is only attached if config is not cached.
      *
      * @param  ModuleEvent $e
-     * @return ConfigListener
+     * @return self
      */
     public function onLoadModulesPost(ModuleEvent $e)
     {
@@ -196,7 +196,7 @@ class ConfigListener extends AbstractListener implements
      * setMergedConfig
      *
      * @param  array $config
-     * @return ConfigListener
+     * @return self
      */
     public function setMergedConfig(array $config)
     {
@@ -209,7 +209,7 @@ class ConfigListener extends AbstractListener implements
      * Add an array of glob paths of config files to merge after loading modules
      *
      * @param  array|Traversable $globPaths
-     * @return ConfigListener
+     * @return self
      */
     public function addConfigGlobPaths($globPaths)
     {
@@ -221,7 +221,7 @@ class ConfigListener extends AbstractListener implements
      * Add a glob path of config files to merge after loading modules
      *
      * @param  string $globPath
-     * @return ConfigListener
+     * @return self
      */
     public function addConfigGlobPath($globPath)
     {
@@ -233,7 +233,7 @@ class ConfigListener extends AbstractListener implements
      * Add an array of static paths of config files to merge after loading modules
      *
      * @param  array|Traversable $staticPaths
-     * @return ConfigListener
+     * @return self
      */
     public function addConfigStaticPaths($staticPaths)
     {
@@ -245,7 +245,7 @@ class ConfigListener extends AbstractListener implements
      * Add a static path of config files to merge after loading modules
      *
      * @param  string $staticPath
-     * @return ConfigListener
+     * @return self
      */
     public function addConfigStaticPath($staticPath)
     {
@@ -259,7 +259,7 @@ class ConfigListener extends AbstractListener implements
      * @param  Traversable|array $paths
      * @param string $type
      * @throws Exception\InvalidArgumentException
-     * @return ConfigListener
+     * @return self
      */
     protected function addConfigPaths($paths, $type)
     {
@@ -287,7 +287,7 @@ class ConfigListener extends AbstractListener implements
      * @param  string $path
      * @param  string $type
      * @throws Exception\InvalidArgumentException
-     * @return ConfigListener
+     * @return self
      */
     protected function addConfigPath($path, $type)
     {
@@ -305,7 +305,7 @@ class ConfigListener extends AbstractListener implements
      * @param string $key
      * @param array|Traversable $config
      * @throws Exception\InvalidArgumentException
-     * @return ConfigListener
+     * @return self
      */
     protected function addConfig($key, $config)
     {
@@ -332,7 +332,7 @@ class ConfigListener extends AbstractListener implements
      *
      * @param string $path
      * @param string $type
-     * @return ConfigListener
+     * @return self
      */
     protected function addConfigByPath($path, $type)
     {

@@ -471,7 +471,7 @@ abstract class AbstractRestfulController extends AbstractController
      *
      * @param  string $method
      * @param  Callable $handler
-     * @return AbstractRestfulController
+     * @return self
      */
     public function addHttpMethodHandler($method, /* Callable */ $handler)
     {

@@ -166,7 +166,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param  string|array|TableIdentifier $table
      * @throws Exception\InvalidArgumentException
-     * @return Select
+     * @return self
      */
     public function from($table)
     {
@@ -188,7 +188,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * @param string|Expression $quantifier DISTINCT|ALL
-     * @return Select
+     * @return self
      */
     public function quantifier($quantifier)
     {
@@ -217,7 +217,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param  array $columns
      * @param  bool  $prefixColumnsWithTable
-     * @return Select
+     * @return self
      */
     public function columns(array $columns, $prefixColumnsWithTable = true)
     {
@@ -234,7 +234,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  string|array $columns
      * @param  string $type one of the JOIN_* constants
      * @throws Exception\InvalidArgumentException
-     * @return Select
+     * @return self
      */
     public function join($name, $on, $columns = self::SQL_STAR, $type = self::JOIN_INNER)
     {
@@ -261,7 +261,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  Where|\Closure|string|array|Predicate\PredicateInterface $predicate
      * @param  string $combination One of the OP_* constants from Predicate\PredicateSet
      * @throws Exception\InvalidArgumentException
-     * @return Select
+     * @return self
      */
     public function where($predicate, $combination = Predicate\PredicateSet::OP_AND)
     {
@@ -337,7 +337,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param  Where|\Closure|string|array $predicate
      * @param  string $combination One of the OP_* constants from Predicate\PredicateSet
-     * @return Select
+     * @return self
      */
     public function having($predicate, $combination = Predicate\PredicateSet::OP_AND)
     {
@@ -367,7 +367,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * @param string|array $order
-     * @return Select
+     * @return self
      */
     public function order($order)
     {
@@ -392,7 +392,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * @param int $limit
-     * @return Select
+     * @return self
      */
     public function limit($limit)
     {
@@ -402,7 +402,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * @param int $offset
-     * @return Select
+     * @return self
      */
     public function offset($offset)
     {
@@ -412,7 +412,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
     /**
      * @param string $part
-     * @return Select
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function reset($part)

@@ -95,7 +95,7 @@ class GeneratorInstance
      * class name after creating the generator instance.
      *
      * @param  string            $class
-     * @return GeneratorInstance
+     * @return self
      */
     public function setClass($class)
     {
@@ -108,7 +108,7 @@ class GeneratorInstance
      * Set instance alias
      *
      * @param  string            $alias
-     * @return GeneratorInstance
+     * @return self
      */
     public function setAlias($alias)
     {
@@ -142,7 +142,7 @@ class GeneratorInstance
      * Set methods
      *
      * @param  array             $methods
-     * @return GeneratorInstance
+     * @return self
      */
     public function setMethods(array $methods)
     {
@@ -155,7 +155,7 @@ class GeneratorInstance
      * Add a method called on the instance
      *
      * @param $method
-     * @return GeneratorInstance
+     * @return self
      */
     public function addMethod($method)
     {

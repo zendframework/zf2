@@ -39,7 +39,7 @@ class View implements EventManagerAwareInterface
      * Set MVC request object
      *
      * @param  Request $request
-     * @return View
+     * @return self
      */
     public function setRequest(Request $request)
     {
@@ -51,7 +51,7 @@ class View implements EventManagerAwareInterface
      * Set MVC response object
      *
      * @param  Response $response
-     * @return View
+     * @return self
      */
     public function setResponse(Response $response)
     {
@@ -83,7 +83,7 @@ class View implements EventManagerAwareInterface
      * Set the event manager instance
      *
      * @param  EventManagerInterface $events
-     * @return View
+     * @return self
      */
     public function setEventManager(EventManagerInterface $events)
     {
@@ -121,7 +121,7 @@ class View implements EventManagerAwareInterface
      *
      * @param  callable $callable
      * @param  int $priority
-     * @return View
+     * @return self
      */
     public function addRenderingStrategy($callable, $priority = 1)
     {
@@ -142,7 +142,7 @@ class View implements EventManagerAwareInterface
      *
      * @param  callable $callable
      * @param  int $priority
-     * @return View
+     * @return self
      */
     public function addResponseStrategy($callable, $priority = 1)
     {
@@ -247,7 +247,7 @@ class View implements EventManagerAwareInterface
     /**
      * Create and return ViewEvent used by render()
      *
-     * @return ViewEvent
+     * @return self
      */
     protected function getEvent()
     {

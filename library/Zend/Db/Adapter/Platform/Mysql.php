@@ -29,7 +29,7 @@ class Mysql implements PlatformInterface
     /**
      * @param \Zend\Db\Adapter\Driver\Mysqli\Mysqli|\Zend\Db\Adapter\Driver\Pdo\Pdo||\mysqli|\PDO $driver
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
-     * @return $this
+     * @return self
      */
     public function setDriver($driver)
     {

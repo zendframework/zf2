@@ -43,7 +43,7 @@ class PhpClass
      * Set name
      *
      * @param  string   $name
-     * @return PhpClass
+     * @return self
      */
     public function setName($name)
     {
@@ -64,7 +64,7 @@ class PhpClass
 
     /**
      * @param  string|\Callable|array $instantiator
-     * @return PhpClass
+     * @return self
      */
     public function setInstantiator($instantiator)
     {
@@ -83,7 +83,7 @@ class PhpClass
 
     /**
      * @param  string   $superType
-     * @return PhpClass
+     * @return self
      */
     public function addSuperType($superType)
     {
@@ -106,7 +106,7 @@ class PhpClass
      * Add injection method
      *
      * @param  InjectionMethod $injectionMethod
-     * @return PhpClass
+     * @return self
      */
     public function addInjectionMethod(InjectionMethod $injectionMethod)
     {
@@ -144,7 +144,7 @@ class PhpClass
      * Override which class will be used by {@link createInjectionMethod()}
      *
      * @param  string   $class
-     * @return PhpClass
+     * @return self
      */
     public function setMethodBuilder($class)
     {

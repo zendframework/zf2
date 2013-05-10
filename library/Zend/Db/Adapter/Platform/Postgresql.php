@@ -29,7 +29,7 @@ class Postgresql implements PlatformInterface
     /**
      * @param \Zend\Db\Adapter\Driver\Pgsql\Pgsql|\Zend\Db\Adapter\Driver\Pdo\Pdo|resource|\PDO $driver
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
-     * @return $this
+     * @return self
      */
     public function setDriver($driver)
     {

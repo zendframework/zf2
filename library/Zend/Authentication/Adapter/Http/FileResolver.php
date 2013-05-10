@@ -39,7 +39,7 @@ class FileResolver implements ResolverInterface
      * Set the path to the credentials file
      *
      * @param  string $path
-     * @return FileResolver Provides a fluent interface
+     * @return self Provides a fluent interface
      * @throws Exception\InvalidArgumentException if path is not readable
      */
     public function setFile($path)

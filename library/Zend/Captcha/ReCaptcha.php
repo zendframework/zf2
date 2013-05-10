@@ -92,7 +92,7 @@ class ReCaptcha extends AbstractAdapter
      * Set ReCaptcha Private key
      *
      * @param  string $privkey
-     * @return ReCaptcha
+     * @return self
      */
     public function setPrivkey($privkey)
     {
@@ -104,7 +104,7 @@ class ReCaptcha extends AbstractAdapter
      * Set ReCaptcha public key
      *
      * @param  string $pubkey
-     * @return ReCaptcha
+     * @return self
      */
     public function setPubkey($pubkey)
     {
@@ -134,7 +134,7 @@ class ReCaptcha extends AbstractAdapter
      * Set service object
      *
      * @param  ReCaptchaService $service
-     * @return ReCaptcha
+     * @return self
      */
     public function setService(ReCaptchaService $service)
     {
@@ -145,7 +145,7 @@ class ReCaptcha extends AbstractAdapter
     /**
      * Retrieve ReCaptcha service object
      *
-     * @return ReCaptchaService
+     * @return selfService
      */
     public function getService()
     {
@@ -160,7 +160,7 @@ class ReCaptcha extends AbstractAdapter
      *
      * @param  string $key
      * @param  mixed $value
-     * @return ReCaptcha
+     * @return self
      */
     public function setOption($key, $value)
     {

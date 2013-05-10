@@ -112,7 +112,7 @@ abstract class AbstractManager implements Manager
      * Set configuration object
      *
      * @param  Config $config
-     * @return AbstractManager
+     * @return self
      */
     public function setConfig(Config $config)
     {
@@ -134,7 +134,7 @@ abstract class AbstractManager implements Manager
      * Set session storage object
      *
      * @param  Storage $storage
-     * @return AbstractManager
+     * @return self
      */
     public function setStorage(Storage $storage)
     {
@@ -156,7 +156,7 @@ abstract class AbstractManager implements Manager
      * Set session save handler object
      *
      * @param  SaveHandler $saveHandler
-     * @return AbstractManager
+     * @return self
      */
     public function setSaveHandler(SaveHandler $saveHandler)
     {

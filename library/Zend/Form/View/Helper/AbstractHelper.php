@@ -152,7 +152,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
      * Set value for doctype
      *
      * @param  string $doctype
-     * @return AbstractHelper
+     * @return self
      */
     public function setDoctype($doctype)
     {
@@ -174,7 +174,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
      * Set value for character encoding
      *
      * @param  string $encoding
-     * @return AbstractHelper
+     * @return self
      */
     public function setEncoding($encoding)
     {

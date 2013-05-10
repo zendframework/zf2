@@ -90,7 +90,7 @@ class Request
      * Set encoding to use in request
      *
      * @param string $encoding
-     * @return \Zend\XmlRpc\Request
+     * @return self
      */
     public function setEncoding($encoding)
     {

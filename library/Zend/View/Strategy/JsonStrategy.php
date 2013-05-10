@@ -63,7 +63,7 @@ class JsonStrategy extends AbstractListenerAggregate
      * Set the content-type character set
      *
      * @param  string $charset
-     * @return JsonStrategy
+     * @return self
      */
     public function setCharset($charset)
     {

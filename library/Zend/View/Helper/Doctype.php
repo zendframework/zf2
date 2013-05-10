@@ -74,7 +74,7 @@ class Doctype extends AbstractHelper
      *
      * @param  string $doctype
      * @throws Exception\DomainException
-     * @return Doctype
+     * @return self
      */
     public function __invoke($doctype = null)
     {
@@ -166,7 +166,7 @@ class Doctype extends AbstractHelper
      * Set doctype
      *
      * @param  string $doctype
-     * @return Doctype
+     * @return self
      */
     public function setDoctype($doctype)
     {

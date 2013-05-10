@@ -62,7 +62,7 @@ class Result implements \Iterator, ResultInterface
     /**
      * Initialize
      * @param resource $resource
-     * @return Result
+     * @return self
      */
     public function initialize($resource /*, $generatedValue, $isBuffered = null*/)
     {

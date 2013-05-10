@@ -71,7 +71,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Pdo
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -97,7 +97,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
      * Register connection
      *
      * @param  Connection $connection
-     * @return Pdo
+     * @return self
      */
     public function registerConnection(Connection $connection)
     {
@@ -132,7 +132,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
      *
      * @param string $name
      * @param AbstractFeature $feature
-     * @return Pdo
+     * @return self
      */
     public function addFeature($name, $feature)
     {
@@ -147,7 +147,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
     /**
      * Setup the default features for Pdo
      *
-     * @return Pdo
+     * @return self
      */
     public function setupDefaultFeatures()
     {

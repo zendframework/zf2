@@ -113,7 +113,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * @param  string $placement Append, prepend, or set
      * @param  array  $attrs     Array of script attributes
      * @param  string $type      Script type and/or array of script attributes
-     * @return HeadScript
+     * @return self
      */
     public function __invoke($mode = HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
     {
@@ -152,7 +152,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * @param  string $method Method to call
      * @param  array  $args   Arguments of method
      * @throws Exception\BadMethodCallException if too few arguments or invalid method
-     * @return HeadScript
+     * @return self
      */
     public function __call($method, $args)
     {
@@ -493,7 +493,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * Set flag indicating if arbitrary attributes are allowed
      *
      * @param  bool $flag Set flag
-     * @return HeadScript
+     * @return self
      */
     public function setAllowArbitraryAttributes($flag)
     {

@@ -27,7 +27,7 @@ interface ModelInterface extends Countable, IteratorAggregate
      *
      * @param  string $name
      * @param  mixed $value
-     * @return ModelInterface
+     * @return self
      */
     public function setOption($name, $value);
 
@@ -35,7 +35,7 @@ interface ModelInterface extends Countable, IteratorAggregate
      * Set renderer options/hints en masse
      *
      * @param  array|\Traversable $options
-     * @return ModelInterface
+     * @return self
      */
     public function setOptions($options);
 
@@ -60,7 +60,7 @@ interface ModelInterface extends Countable, IteratorAggregate
      *
      * @param  string $name
      * @param  mixed $value
-     * @return ModelInterface
+     * @return self
      */
     public function setVariable($name, $value);
 
@@ -68,7 +68,7 @@ interface ModelInterface extends Countable, IteratorAggregate
      * Set view variables en masse
      *
      * @param  array|\ArrayAccess $variables
-     * @return ModelInterface
+     * @return self
      */
     public function setVariables($variables);
 
@@ -83,7 +83,7 @@ interface ModelInterface extends Countable, IteratorAggregate
      * Set the template to be used by this model
      *
      * @param  string $template
-     * @return ModelInterface
+     * @return self
      */
     public function setTemplate($template);
 
@@ -100,7 +100,7 @@ interface ModelInterface extends Countable, IteratorAggregate
      * @param  ModelInterface $child
      * @param  null|string $captureTo Optional; if specified, the "capture to" value to set on the child
      * @param  null|bool $append Optional; if specified, append to child  with the same capture
-     * @return ModelInterface
+     * @return self
      */
     public function addChild(ModelInterface $child, $captureTo = null, $append = false);
 
@@ -124,7 +124,7 @@ interface ModelInterface extends Countable, IteratorAggregate
      * Set the name of the variable to capture this model to, if it is a child model
      *
      * @param  string $capture
-     * @return ModelInterface
+     * @return self
      */
     public function setCaptureTo($capture);
 
@@ -139,7 +139,7 @@ interface ModelInterface extends Countable, IteratorAggregate
      * Set flag indicating whether or not this is considered a terminal or standalone model
      *
      * @param  bool $terminate
-     * @return ModelInterface
+     * @return self
      */
     public function setTerminal($terminate);
 
@@ -155,7 +155,7 @@ interface ModelInterface extends Countable, IteratorAggregate
      * Set flag indicating whether or not append to child  with the same capture
      *
      * @param  bool $append
-     * @return ModelInterface
+     * @return self
      */
     public function setAppend($append);
 

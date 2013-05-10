@@ -82,7 +82,7 @@ class Gravatar extends AbstractHtmlElement
      * @param  string|null $email   Email address.
      * @param  null|array  $options Options
      * @param  array       $attribs Attributes for image tag (title, alt etc.)
-     * @return Gravatar
+     * @return self
      */
     public function __invoke($email = "", $options = array(), $attribs = array())
     {
@@ -113,7 +113,7 @@ class Gravatar extends AbstractHtmlElement
      * Configure state
      *
      * @param  array $options
-     * @return Gravatar
+     * @return self
      */
     public function setOptions(array $options)
     {
@@ -175,7 +175,7 @@ class Gravatar extends AbstractHtmlElement
      * This method(_setSrcAttribForImg) is called in public method getImgTag().
      *
      * @param  array $attribs
-     * @return Gravatar
+     * @return self
      */
     public function setAttribs(array $attribs)
     {
@@ -205,7 +205,7 @@ class Gravatar extends AbstractHtmlElement
      *
      * @link   http://pl.gravatar.com/site/implement/url More information about default image.
      * @param  string $defaultImg
-     * @return Gravatar
+     * @return self
      */
     public function setDefaultImg($defaultImg)
     {
@@ -227,7 +227,7 @@ class Gravatar extends AbstractHtmlElement
      * Set email address
      *
      * @param  string $email
-     * @return Gravatar
+     * @return self
      */
     public function setEmail($email)
     {
@@ -249,7 +249,7 @@ class Gravatar extends AbstractHtmlElement
      * Set img size in pixels
      *
      * @param  int $imgSize Size of img must be between 1 and 512
-     * @return Gravatar
+     * @return self
      */
     public function setImgSize($imgSize)
     {
@@ -274,7 +274,7 @@ class Gravatar extends AbstractHtmlElement
      *
      * @link   http://pl.gravatar.com/site/implement/url More information about rating.
      * @param  string $rating Value for rating. Allowed values are: g, px, r,x
-     * @return Gravatar
+     * @return self
      * @throws Exception\DomainException
      */
     public function setRating($rating)
@@ -310,7 +310,7 @@ class Gravatar extends AbstractHtmlElement
      * Load from an SSL or No-SSL location?
      *
      * @param  bool $flag
-     * @return Gravatar
+     * @return self
      */
     public function setSecure($flag)
     {

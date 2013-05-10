@@ -32,7 +32,7 @@ class Rsa
      * RSA instance factory
      *
      * @param  array|Traversable $options
-     * @return Rsa
+     * @return self
      * @throws Rsa\Exception\RuntimeException
      * @throws Rsa\Exception\InvalidArgumentException
      */
@@ -117,7 +117,7 @@ class Rsa
      * Set options
      *
      * @param RsaOptions $options
-     * @return Rsa
+     * @return self
      */
     public function setOptions(RsaOptions $options)
     {
@@ -323,7 +323,7 @@ class Rsa
      * @see RsaOptions::generateKeys()
      *
      * @param  array $opensslConfig
-     * @return Rsa
+     * @return self
      * @throws Rsa\Exception\RuntimeException
      */
     public function generateKeys(array $opensslConfig = array())

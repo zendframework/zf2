@@ -59,7 +59,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
      *
      * @param  string $title
      * @param  string $setType
-     * @return HeadTitle
+     * @return self
      */
     public function __invoke($title = null, $setType = null)
     {
@@ -146,7 +146,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
      *
      * @param  string $setType
      * @throws Exception\DomainException
-     * @return HeadTitle
+     * @return self
      */
     public function setDefaultAttachOrder($setType)
     {
@@ -183,7 +183,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
      *                                 Default is null, which sets no translator.
      * @param  string     $textDomain  [optional] text domain
      *                                 Default is null, which skips setTranslatorTextDomain
-     * @return HeadTitle
+     * @return self
      */
     public function setTranslator(Translator $translator = null, $textDomain = null)
     {
@@ -223,7 +223,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
      *
      * @param  bool $enabled [optional] whether translator should be used.
      *                       Default is true.
-     * @return HeadTitle
+     * @return self
      */
     public function setTranslatorEnabled($enabled = true)
     {
@@ -245,7 +245,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
      * Set translation text domain
      *
      * @param  string $textDomain
-     * @return HeadTitle
+     * @return self
      */
     public function setTranslatorTextDomain($textDomain = 'default')
     {

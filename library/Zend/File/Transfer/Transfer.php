@@ -41,7 +41,7 @@ class Transfer
      * @param  string  $adapter   Adapter to use
      * @param  bool $direction OPTIONAL False means Download, true means upload
      * @param  array   $options   OPTIONAL Options to set for this adapter
-     * @return Transfer
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setAdapter($adapter, $direction = false, $options = array())

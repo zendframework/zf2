@@ -93,7 +93,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
      *
      * @param  string $encoding
      * @throws Exception\InvalidArgumentException
-     * @return AbstractHelper
+     * @return self
      */
     public function setEncoding($encoding)
     {
@@ -123,7 +123,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
      * Set instance of Escaper
      *
      * @param  Escaper\Escaper $escaper
-     * @return AbstractHelper
+     * @return self
      */
     public function setEscaper(Escaper\Escaper $escaper)
     {

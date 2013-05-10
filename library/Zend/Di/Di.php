@@ -149,7 +149,7 @@ class Di implements DependencyInjectionInterface
      * Set the instance manager
      *
      * @param  InstanceManager $instanceManager
-     * @return Di
+     * @return self
      */
     public function setInstanceManager(InstanceManager $instanceManager)
     {

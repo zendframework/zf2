@@ -119,7 +119,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Get all reflection objects of implemented interfaces
      *
-     * @return ClassReflection[]
+     * @return self[]
      */
     public function getInterfaces()
     {
@@ -168,7 +168,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     /**
      * Get parent reflection class of reflected class
      *
-     * @return ClassReflection|bool
+     * @return self|bool
      */
     public function getParentClass()
     {

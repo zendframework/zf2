@@ -77,7 +77,7 @@ class Query
      * Set document encoding
      *
      * @param  string $encoding
-     * @return Query
+     * @return self
      */
     public function setEncoding($encoding)
     {
@@ -100,7 +100,7 @@ class Query
      *
      * @param  string $document
      * @param  null|string $encoding Document encoding
-     * @return Query
+     * @return self
      */
     public function setDocument($document, $encoding = null)
     {
@@ -126,7 +126,7 @@ class Query
      *
      * @param  string $document
      * @param  null|string $encoding Document encoding
-     * @return Query
+     * @return self
      */
     public function setDocumentHtml($document, $encoding = null)
     {
@@ -143,7 +143,7 @@ class Query
      *
      * @param  string $document
      * @param  null|string $encoding Document encoding
-     * @return Query
+     * @return self
      */
     public function setDocumentXhtml($document, $encoding = null)
     {
@@ -160,7 +160,7 @@ class Query
      *
      * @param  string $document
      * @param  null|string $encoding Document encoding
-     * @return Query
+     * @return self
      */
     public function setDocumentXml($document, $encoding = null)
     {

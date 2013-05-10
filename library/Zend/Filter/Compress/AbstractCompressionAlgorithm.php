@@ -61,7 +61,7 @@ abstract class AbstractCompressionAlgorithm implements CompressionAlgorithmInter
      * Sets all or one option
      *
      * @param  array $options
-     * @return AbstractCompressionAlgorithm
+     * @return selfbstractCompressionAlgorithm
      */
     public function setOptions(array $options)
     {

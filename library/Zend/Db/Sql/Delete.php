@@ -73,7 +73,7 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Create from statement
      *
      * @param  string|TableIdentifier $table
-     * @return Delete
+     * @return self
      */
     public function from($table)
     {
@@ -97,7 +97,7 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param  Where|\Closure|string|array $predicate
      * @param  string $combination One of the OP_* constants from Predicate\PredicateSet
-     * @return Delete
+     * @return self
      */
     public function where($predicate, $combination = Predicate\PredicateSet::OP_AND)
     {

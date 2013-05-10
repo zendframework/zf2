@@ -156,7 +156,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      *
      * Returns the object instance, as it is its own template engine
      *
-     * @return PhpRenderer
+     * @return self
      */
     public function getEngine()
     {
@@ -179,7 +179,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * Set script resolver
      *
      * @param  Resolver $resolver
-     * @return PhpRenderer
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setResolver(Resolver $resolver)
@@ -213,7 +213,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * Expects either an array, or an object implementing ArrayAccess.
      *
      * @param  array|ArrayAccess $variables
-     * @return PhpRenderer
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setVars($variables)
@@ -327,7 +327,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * Set helper plugin manager instance
      *
      * @param  string|HelperPluginManager $helpers
-     * @return PhpRenderer
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setHelperPluginManager($helpers)
@@ -406,7 +406,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * Set filter chain
      *
      * @param  FilterChain $filters
-     * @return PhpRenderer
+     * @return self
      */
     public function setFilterChain(FilterChain $filters)
     {
@@ -526,7 +526,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * view script.
      *
      * @param  bool $renderTrees
-     * @return PhpRenderer
+     * @return self
      */
     public function setCanRenderTrees($renderTrees)
     {
@@ -548,7 +548,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * Add a template to the stack
      *
      * @param  string $template
-     * @return PhpRenderer
+     * @return self
      */
     public function addTemplate($template)
     {
@@ -559,7 +559,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Make sure View variables are cloned when the view is cloned.
      *
-     * @return PhpRenderer
+     * @return self
      */
     public function __clone()
     {

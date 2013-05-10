@@ -91,7 +91,7 @@ class Event implements EventInterface
      * Overwrites parameters
      *
      * @param  array|ArrayAccess|object $params
-     * @return Event
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setParams($params)
@@ -147,7 +147,7 @@ class Event implements EventInterface
      * Set the event name
      *
      * @param  string $name
-     * @return Event
+     * @return self
      */
     public function setName($name)
     {
@@ -159,7 +159,7 @@ class Event implements EventInterface
      * Set the event target/context
      *
      * @param  null|string|object $target
-     * @return Event
+     * @return self
      */
     public function setTarget($target)
     {
@@ -172,7 +172,7 @@ class Event implements EventInterface
      *
      * @param  string|int $name
      * @param  mixed $value
-     * @return Event
+     * @return self
      */
     public function setParam($name, $value)
     {

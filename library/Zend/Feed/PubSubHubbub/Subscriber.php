@@ -138,7 +138,7 @@ class Subscriber
      * Process any injected configuration options
      *
      * @param  array|Traversable $options
-     * @return Subscriber
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
@@ -188,7 +188,7 @@ class Subscriber
      * event will relate
      *
      * @param  string $url
-     * @return Subscriber
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setTopicUrl($url)
@@ -222,7 +222,7 @@ class Subscriber
      * Set the number of seconds for which any subscription will remain valid
      *
      * @param  int $seconds
-     * @return Subscriber
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setLeaseSeconds($seconds)
@@ -251,7 +251,7 @@ class Subscriber
      * this Subscriber
      *
      * @param  string $url
-     * @return Subscriber
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setCallbackUrl($url)
@@ -290,7 +290,7 @@ class Subscriber
      * order of occurrence in the parameter list determines this preference.
      *
      * @param  string $mode Should be 'sync' or 'async'
-     * @return Subscriber
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setPreferredVerificationMode($mode)
@@ -321,7 +321,7 @@ class Subscriber
      * Add a Hub Server URL supported by Publisher
      *
      * @param  string $url
-     * @return Subscriber
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function addHubUrl($url)
@@ -339,7 +339,7 @@ class Subscriber
      * Add an array of Hub Server URLs supported by Publisher
      *
      * @param  array $urls
-     * @return Subscriber
+     * @return self
      */
     public function addHubUrls(array $urls)
     {
@@ -353,7 +353,7 @@ class Subscriber
      * Remove a Hub Server URL
      *
      * @param  string $url
-     * @return Subscriber
+     * @return self
      */
     public function removeHubUrl($url)
     {
@@ -381,7 +381,7 @@ class Subscriber
      *
      * @param  string $url
      * @param  array $authentication
-     * @return Subscriber
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function addAuthentication($url, array $authentication)
@@ -399,7 +399,7 @@ class Subscriber
      * Add authentication credentials for hub URLs
      *
      * @param  array $authentications
-     * @return Subscriber
+     * @return self
      */
     public function addAuthentications(array $authentications)
     {
@@ -423,7 +423,7 @@ class Subscriber
      * Set flag indicating whether or not to use a path parameter
      *
      * @param  bool $bool
-     * @return Subscriber
+     * @return self
      */
     public function usePathParameter($bool = true)
     {
@@ -436,7 +436,7 @@ class Subscriber
      *
      * @param  string $name
      * @param  string|null $value
-     * @return Subscriber
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setParameter($name, $value = null)
@@ -465,7 +465,7 @@ class Subscriber
      * Add an optional parameter to the (un)subscribe requests
      *
      * @param  array $parameters
-     * @return Subscriber
+     * @return self
      */
     public function setParameters(array $parameters)
     {
@@ -479,7 +479,7 @@ class Subscriber
      * Remove an optional parameter for the (un)subscribe requests
      *
      * @param  string $name
-     * @return Subscriber
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function removeParameter($name)
@@ -509,7 +509,7 @@ class Subscriber
      * save any verification tokens associated with a subscription or other.
      *
      * @param  Model\SubscriptionPersistenceInterface $storage
-     * @return Subscriber
+     * @return self
      */
     public function setStorage(Model\SubscriptionPersistenceInterface $storage)
     {

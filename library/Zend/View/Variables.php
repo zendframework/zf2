@@ -49,7 +49,7 @@ class Variables extends ArrayObject
      * Configure object
      *
      * @param  array $options
-     * @return Variables
+     * @return self
      */
     public function setOptions(array $options)
     {
@@ -71,7 +71,7 @@ class Variables extends ArrayObject
      * Set status of "strict vars" flag
      *
      * @param  bool $flag
-     * @return Variables
+     * @return self
      */
     public function setStrictVars($flag)
     {
@@ -93,7 +93,7 @@ class Variables extends ArrayObject
      * Assign many values at once
      *
      * @param  array|object $spec
-     * @return Variables
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function assign($spec)

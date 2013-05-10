@@ -32,7 +32,7 @@ class Event extends BaseEvent
      * Set the event target/context
      *
      * @param  StorageInterface $target
-     * @return Event
+     * @return self
      * @see    Zend\EventManager\Event::setTarget()
      */
     public function setTarget($target)
@@ -44,7 +44,7 @@ class Event extends BaseEvent
      * Alias of setTarget
      *
      * @param  StorageInterface $storage
-     * @return Event
+     * @return self
      * @see    Zend\EventManager\Event::setTarget()
      */
     public function setStorage(StorageInterface $storage)

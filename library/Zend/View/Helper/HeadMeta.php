@@ -69,7 +69,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * @param  string $keyType
      * @param  array  $modifiers
      * @param  string $placement
-     * @return HeadMeta
+     * @return self
      */
     public function __invoke($content = null, $keyValue = null, $keyType = 'name', $modifiers = array(), $placement = Placeholder\Container\AbstractContainer::APPEND)
     {
@@ -111,7 +111,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * @param  string $method
      * @param  array  $args
      * @throws Exception\BadMethodCallException
-     * @return HeadMeta
+     * @return self
      */
     public function __call($method, $args)
     {
@@ -440,7 +440,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * Not valid in a non-HTML5 doctype
      *
      * @param  string $charset
-     * @return HeadMeta Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setCharset($charset)
     {

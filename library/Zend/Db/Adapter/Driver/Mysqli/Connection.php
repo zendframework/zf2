@@ -64,7 +64,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Mysqli $driver
-     * @return Connection
+     * @return self
      */
     public function setDriver(Mysqli $driver)
     {
@@ -74,7 +74,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
+     * @return self
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
@@ -94,7 +94,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set connection parameters
      *
      * @param  array $connectionParameters
-     * @return Connection
+     * @return self
      */
     public function setConnectionParameters(array $connectionParameters)
     {
@@ -133,7 +133,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set resource
      *
      * @param  \mysqli $resource
-     * @return Connection
+     * @return self
      */
     public function setResource(\mysqli $resource)
     {
@@ -156,7 +156,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Connect
      *
      * @throws Exception\RuntimeException
-     * @return Connection
+     * @return self
      */
     public function connect()
     {
@@ -275,7 +275,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Rollback
      *
      * @throws Exception\RuntimeException
-     * @return Connection
+     * @return self
      */
     public function rollback()
     {

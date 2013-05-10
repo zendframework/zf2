@@ -83,7 +83,7 @@ class Feed extends AbstractFeed implements Iterator, Countable
      * the feed data container's internal group of entries.
      *
      * @param Entry $entry
-     * @return Feed
+     * @return self
      */
     public function addEntry(Entry $entry)
     {
@@ -97,7 +97,7 @@ class Feed extends AbstractFeed implements Iterator, Countable
      *
      * @param int $index
      * @throws Exception\InvalidArgumentException
-     * @return Feed
+     * @return self
      */
     public function removeEntry($index)
     {
@@ -131,7 +131,7 @@ class Feed extends AbstractFeed implements Iterator, Countable
      *
      * Using this method will alter the original indexation.
      *
-     * @return Feed
+     * @return self
      */
     public function orderByDate()
     {

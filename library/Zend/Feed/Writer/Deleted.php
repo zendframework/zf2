@@ -38,7 +38,7 @@ class Deleted
      * @param  $encoding
      * @throws Exception\InvalidArgumentException
      * @return string|null
-     * @return Deleted
+     * @return self
      */
     public function setEncoding($encoding)
     {
@@ -67,7 +67,7 @@ class Deleted
      * Unset a specific data point
      *
      * @param string $name
-     * @return Deleted
+     * @return self
      */
     public function remove($name)
     {
@@ -84,7 +84,7 @@ class Deleted
      * on their appropriateness for the current type, e.g. renderers.
      *
      * @param string $type
-     * @return Deleted
+     * @return self
      */
     public function setType($type)
     {
@@ -107,7 +107,7 @@ class Deleted
      *
      * @param $reference
      * @throws Exception\InvalidArgumentException
-     * @return Deleted
+     * @return self
      */
     public function setReference($reference)
     {
@@ -135,7 +135,7 @@ class Deleted
      *
      * @param null|string|DateTime $date
      * @throws Exception\InvalidArgumentException
-     * @return Deleted
+     * @return self
      */
     public function setWhen($date = null)
     {
@@ -168,7 +168,7 @@ class Deleted
      *
      * @param array $by
      * @throws Exception\InvalidArgumentException
-     * @return Deleted
+     * @return self
      */
     public function setBy(array $by)
     {
@@ -216,7 +216,7 @@ class Deleted
 
     /**
      * @param string $comment
-     * @return Deleted
+     * @return self
      */
     public function setComment($comment)
     {

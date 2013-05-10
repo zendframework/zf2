@@ -37,7 +37,7 @@ class NameInformation
 
     /**
      * @param  string $namespace
-     * @return NameInformation
+     * @return self
      */
     public function setNamespace($namespace)
     {
@@ -63,7 +63,7 @@ class NameInformation
 
     /**
      * @param  array $uses
-     * @return NameInformation
+     * @return self
      */
     public function setUses(array $uses)
     {
@@ -75,7 +75,7 @@ class NameInformation
 
     /**
      * @param  array $uses
-     * @return NameInformation
+     * @return self
      */
     public function addUses(array $uses)
     {

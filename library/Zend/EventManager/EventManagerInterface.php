@@ -98,7 +98,7 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * Set the event class to utilize
      *
      * @param  string $class
-     * @return EventManagerInterface
+     * @return self
      */
     public function setEventClass($class);
 
@@ -113,7 +113,7 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * Set the identifiers (overrides any currently set identifiers)
      *
      * @param string|int|array|Traversable $identifiers
-     * @return EventManagerInterface
+     * @return self
      */
     public function setIdentifiers($identifiers);
 
@@ -121,7 +121,7 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * Add some identifier(s) (appends to any currently set identifiers)
      *
      * @param string|int|array|Traversable $identifiers
-     * @return EventManagerInterface
+     * @return self
      */
     public function addIdentifiers($identifiers);
 

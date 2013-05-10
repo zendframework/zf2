@@ -132,7 +132,7 @@ class Subscription extends AbstractModel implements SubscriptionPersistenceInter
      * Set a DateTime instance for assisting with unit testing
      *
      * @param DateTime $now
-     * @return Subscription
+     * @return self
      */
     public function setNow(DateTime $now)
     {

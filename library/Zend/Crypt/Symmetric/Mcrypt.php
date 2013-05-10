@@ -222,7 +222,7 @@ class Mcrypt implements SymmetricInterface
      *
      * @param  string                             $key
      * @throws Exception\InvalidArgumentException
-     * @return Mcrypt
+     * @return self
      */
     public function setKey($key)
     {
@@ -257,7 +257,7 @@ class Mcrypt implements SymmetricInterface
      *
      * @param  string                             $algo
      * @throws Exception\InvalidArgumentException
-     * @return Mcrypt
+     * @return self
      */
     public function setAlgorithm($algo)
     {
@@ -285,7 +285,7 @@ class Mcrypt implements SymmetricInterface
      * Set the padding object
      *
      * @param  Padding\PaddingInterface $padding
-     * @return Mcrypt
+     * @return self
      */
     public function setPadding(Padding\PaddingInterface $padding)
     {
@@ -397,7 +397,7 @@ class Mcrypt implements SymmetricInterface
      *
      * @param  string                             $salt
      * @throws Exception\InvalidArgumentException
-     * @return Mcrypt
+     * @return self
      */
     public function setSalt($salt)
     {
@@ -448,7 +448,7 @@ class Mcrypt implements SymmetricInterface
      *
      * @param  string                             $mode
      * @throws Exception\InvalidArgumentException
-     * @return Mcrypt
+     * @return self
      */
     public function setMode($mode)
     {

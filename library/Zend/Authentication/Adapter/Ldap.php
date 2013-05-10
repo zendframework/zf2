@@ -71,7 +71,7 @@ class Ldap extends AbstractAdapter
      * this adapter.
      *
      * @param  array $options The array of arrays of Zend\Ldap\Ldap options
-     * @return Ldap Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setOptions($options)
     {
@@ -100,7 +100,7 @@ class Ldap extends AbstractAdapter
      * Sets the username for binding
      *
      * @param  string $username The username for binding
-     * @return Ldap Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setUsername($username)
     {
@@ -122,7 +122,7 @@ class Ldap extends AbstractAdapter
      * Sets the password for the account
      *
      * @param  string $password The password of the account being authenticated
-     * @return Ldap Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setPassword($password)
     {
@@ -147,7 +147,7 @@ class Ldap extends AbstractAdapter
      * Set an Ldap connection
      *
      * @param  ZendLdap\Ldap $ldap An existing Ldap object
-     * @return Ldap Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setLdap(ZendLdap\Ldap $ldap)
     {

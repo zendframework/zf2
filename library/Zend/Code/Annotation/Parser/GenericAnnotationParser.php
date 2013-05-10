@@ -80,7 +80,7 @@ class GenericAnnotationParser implements ParserInterface
      *
      * @param  string|AnnotationInterface $annotation String class name of an
      *         AnnotationInterface implementation, or actual instance
-     * @return GenericAnnotationParser
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function registerAnnotation($annotation)
@@ -118,7 +118,7 @@ class GenericAnnotationParser implements ParserInterface
      *
      * @param  array|Traversable $annotations
      * @throws Exception\InvalidArgumentException
-     * @return GenericAnnotationParser
+     * @return self
      */
     public function registerAnnotations($annotations)
     {
@@ -162,7 +162,7 @@ class GenericAnnotationParser implements ParserInterface
      * @param  string $alias
      * @param  string $class May be either a registered annotation name or another alias
      * @throws Exception\InvalidArgumentException
-     * @return GenericAnnotationParser
+     * @return self
      */
     public function setAlias($alias, $class)
     {

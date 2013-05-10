@@ -65,7 +65,7 @@ class Checkbox extends Element implements InputProviderInterface
      * - checked_value: value for checkbox when checked
      *
      * @param  array|Traversable $options
-     * @return Checkbox
+     * @return self
      */
     public function setOptions($options)
     {
@@ -90,7 +90,7 @@ class Checkbox extends Element implements InputProviderInterface
      * Do we render hidden element?
      *
      * @param  bool $useHiddenElement
-     * @return Checkbox
+     * @return self
      */
     public function setUseHiddenElement($useHiddenElement)
     {
@@ -112,7 +112,7 @@ class Checkbox extends Element implements InputProviderInterface
      * Set the value to use when checkbox is unchecked
      *
      * @param $uncheckedValue
-     * @return Checkbox
+     * @return self
      */
     public function setUncheckedValue($uncheckedValue)
     {
@@ -134,7 +134,7 @@ class Checkbox extends Element implements InputProviderInterface
      * Set the value to use when checkbox is checked
      *
      * @param $checkedValue
-     * @return Checkbox
+     * @return self
      */
     public function setCheckedValue($checkedValue)
     {
@@ -202,7 +202,7 @@ class Checkbox extends Element implements InputProviderInterface
      * Checks or unchecks the checkbox.
      *
      * @param bool $value The flag to set.
-     * @return Checkbox
+     * @return self
      */
     public function setChecked($value)
     {

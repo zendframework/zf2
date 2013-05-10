@@ -30,7 +30,7 @@ class MethodGenerator extends AbstractMemberGenerator
 
     /**
      * @param  MethodReflection $reflectionMethod
-     * @return MethodGenerator
+     * @return self
      */
     public static function fromReflection(MethodReflection $reflectionMethod)
     {
@@ -81,7 +81,7 @@ class MethodGenerator extends AbstractMemberGenerator
      *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
-     * @return MethodGenerator
+     * @return self
      */
     public static function fromArray(array $array)
     {
@@ -155,7 +155,7 @@ class MethodGenerator extends AbstractMemberGenerator
 
     /**
      * @param  array $parameters
-     * @return MethodGenerator
+     * @return self
      */
     public function setParameters(array $parameters)
     {
@@ -169,7 +169,7 @@ class MethodGenerator extends AbstractMemberGenerator
     /**
      * @param  ParameterGenerator|string $parameter
      * @throws Exception\InvalidArgumentException
-     * @return MethodGenerator
+     * @return self
      */
     public function setParameter($parameter)
     {
@@ -200,7 +200,7 @@ class MethodGenerator extends AbstractMemberGenerator
 
     /**
      * @param  string $body
-     * @return MethodGenerator
+     * @return self
      */
     public function setBody($body)
     {

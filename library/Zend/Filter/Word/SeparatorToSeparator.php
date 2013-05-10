@@ -33,7 +33,7 @@ class SeparatorToSeparator extends AbstractFilter
      * Sets a new seperator to search for
      *
      * @param  string  $separator  Seperator to search for
-     * @return SeparatorToSeparator
+     * @return self
      */
     public function setSearchSeparator($separator)
     {
@@ -55,7 +55,7 @@ class SeparatorToSeparator extends AbstractFilter
      * Sets a new separator which replaces the searched one
      *
      * @param  string  $separator  Separator which replaces the searched one
-     * @return SeparatorToSeparator
+     * @return self
      */
     public function setReplacementSeparator($separator)
     {

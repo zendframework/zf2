@@ -58,7 +58,7 @@ abstract class AbstractCallback implements CallbackInterface
      * Process any injected configuration options
      *
      * @param  array|Traversable $options Options array or Traversable object
-     * @return AbstractCallback
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
@@ -101,7 +101,7 @@ abstract class AbstractCallback implements CallbackInterface
      * or other.
      *
      * @param  Model\SubscriptionPersistenceInterface $storage
-     * @return AbstractCallback
+     * @return self
      */
     public function setStorage(Model\SubscriptionPersistenceInterface $storage)
     {
@@ -132,7 +132,7 @@ abstract class AbstractCallback implements CallbackInterface
      * (i.e. not inherited from) Zend\Controller\Response\Http.
      *
      * @param  HttpResponse|PhpResponse $httpResponse
-     * @return AbstractCallback
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setHttpResponse($httpResponse)
@@ -167,7 +167,7 @@ abstract class AbstractCallback implements CallbackInterface
      * Defaults to 1 if left unchanged.
      *
      * @param  string|int $count
-     * @return AbstractCallback
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setSubscriberCount($count)

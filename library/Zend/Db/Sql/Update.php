@@ -73,7 +73,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Specify table for statement
      *
      * @param  string|TableIdentifier $table
-     * @return Update
+     * @return self
      */
     public function table($table)
     {
@@ -87,7 +87,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  array $values Associative array of key values
      * @param  string $flag One of the VALUES_* constants
      * @throws Exception\InvalidArgumentException
-     * @return Update
+     * @return self
      */
     public function set(array $values, $flag = self::VALUES_SET)
     {

@@ -54,7 +54,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      *
      * @param  array  $attributes
      * @param  string $placement
-     * @return HeadLink
+     * @return self
      */
     public function __invoke(array $attributes = null, $placement = Placeholder\Container\AbstractContainer::APPEND)
     {
@@ -220,7 +220,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      *
      * @param  array $value
      * @throws Exception\InvalidArgumentException
-     * @return HeadLink
+     * @return self
      */
     public function prepend($value)
     {
@@ -238,7 +238,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      *
      * @param  array $value
      * @throws Exception\InvalidArgumentException
-     * @return HeadLink
+     * @return self
      */
     public function set($value)
     {

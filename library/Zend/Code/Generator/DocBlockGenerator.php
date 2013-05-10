@@ -43,7 +43,7 @@ class DocBlockGenerator extends AbstractGenerator
      * Build a DocBlock generator object from a reflection object
      *
      * @param  DocBlockReflection $reflectionDocBlock
-     * @return DocBlockGenerator
+     * @return self
      */
     public static function fromReflection(DocBlockReflection $reflectionDocBlock)
     {
@@ -71,7 +71,7 @@ class DocBlockGenerator extends AbstractGenerator
      *
      * @throws Exception\InvalidArgumentException
      * @param  array $array
-     * @return DocBlockGenerator
+     * @return self
      */
     public static function fromArray(array $array)
     {
@@ -114,7 +114,7 @@ class DocBlockGenerator extends AbstractGenerator
 
     /**
      * @param  string $shortDescription
-     * @return DocBlockGenerator
+     * @return self
      */
     public function setShortDescription($shortDescription)
     {
@@ -132,7 +132,7 @@ class DocBlockGenerator extends AbstractGenerator
 
     /**
      * @param  string $longDescription
-     * @return DocBlockGenerator
+     * @return self
      */
     public function setLongDescription($longDescription)
     {
@@ -150,7 +150,7 @@ class DocBlockGenerator extends AbstractGenerator
 
     /**
      * @param  array $tags
-     * @return DocBlockGenerator
+     * @return self
      */
     public function setTags(array $tags)
     {
@@ -164,7 +164,7 @@ class DocBlockGenerator extends AbstractGenerator
     /**
      * @param  array|DockBlockTag $tag
      * @throws Exception\InvalidArgumentException
-     * @return DocBlockGenerator
+     * @return self
      */
     public function setTag($tag)
     {

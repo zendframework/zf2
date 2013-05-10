@@ -92,7 +92,7 @@ abstract class Barcode
      * @param  mixed $barcodeConfig   OPTIONAL; an array or Traversable object with barcode parameters.
      * @param  mixed $rendererConfig  OPTIONAL; an array or Traversable object with renderer parameters.
      * @param  bool $automaticRenderError  OPTIONAL; set the automatic rendering of exception
-     * @return Barcode
+     * @return self
      * @throws Exception\ExceptionInterface
      */
     public static function factory($barcode,

@@ -88,7 +88,7 @@ class Login extends Smtp
      * Set value for username
      *
      * @param  string $username
-     * @return Login
+     * @return self
      */
     public function setUsername($username)
     {
@@ -110,7 +110,7 @@ class Login extends Smtp
      * Set value for password
      *
      * @param  string $password
-     * @return Login
+     * @return self
      */
     public function setPassword($password)
     {

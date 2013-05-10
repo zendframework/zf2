@@ -41,7 +41,7 @@ class JsonModel extends ViewModel
      * Set the JSONP callback function name
      *
      * @param  string $callback
-     * @return JsonModel
+     * @return self
      */
     public function setJsonpCallback($callback)
     {

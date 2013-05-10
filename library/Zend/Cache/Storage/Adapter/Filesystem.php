@@ -64,7 +64,7 @@ class Filesystem extends AbstractAdapter implements
      * Set options.
      *
      * @param  array|\Traversable|FilesystemOptions $options
-     * @return Filesystem
+     * @return self
      * @see    getOptions()
      */
     public function setOptions($options)

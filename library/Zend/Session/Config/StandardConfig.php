@@ -98,7 +98,7 @@ class StandardConfig implements ConfigInterface
      * {@link setOption()}.
      *
      * @param  array|Traversable $options
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
@@ -140,7 +140,7 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $option
      * @param  mixed $value
-     * @return StandardConfig
+     * @return self
      */
     public function setOption($option, $value)
     {
@@ -198,7 +198,7 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $storageName
      * @param  mixed $storageValue
-     * @return StandardConfig
+     * @return self
      */
     public function setStorageOption($storageName, $storageValue)
     {
@@ -222,7 +222,7 @@ class StandardConfig implements ConfigInterface
      * Set session.save_path
      *
      * @param  string $savePath
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException on invalid path
      */
     public function setSavePath($savePath)
@@ -258,7 +258,7 @@ class StandardConfig implements ConfigInterface
      * Set session.name
      *
      * @param  string $name
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setName($name)
@@ -288,7 +288,7 @@ class StandardConfig implements ConfigInterface
      * Set session.gc_probability
      *
      * @param  int $gcProbability
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setGcProbability($gcProbability)
@@ -323,7 +323,7 @@ class StandardConfig implements ConfigInterface
      * Set session.gc_divisor
      *
      * @param  int $gcDivisor
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setGcDivisor($gcDivisor)
@@ -358,7 +358,7 @@ class StandardConfig implements ConfigInterface
      * Set gc_maxlifetime
      *
      * @param  int $gcMaxlifetime
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setGcMaxlifetime($gcMaxlifetime)
@@ -395,7 +395,7 @@ class StandardConfig implements ConfigInterface
      * Set session.cookie_lifetime
      *
      * @param  int $cookieLifetime
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setCookieLifetime($cookieLifetime)
@@ -431,7 +431,7 @@ class StandardConfig implements ConfigInterface
      * Set session.cookie_path
      *
      * @param  string $cookiePath
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setCookiePath($cookiePath)
@@ -465,7 +465,7 @@ class StandardConfig implements ConfigInterface
      * Set session.cookie_domain
      *
      * @param  string $cookieDomain
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setCookieDomain($cookieDomain)
@@ -504,7 +504,7 @@ class StandardConfig implements ConfigInterface
      * Set session.cookie_secure
      *
      * @param  bool $cookieSecure
-     * @return StandardConfig
+     * @return self
      */
     public function setCookieSecure($cookieSecure)
     {
@@ -533,7 +533,7 @@ class StandardConfig implements ConfigInterface
      * unusual casing
      *
      * @param  bool $cookieHttpOnly
-     * @return StandardConfig
+     * @return self
      */
     public function setCookieHttpOnly($cookieHttpOnly)
     {
@@ -559,7 +559,7 @@ class StandardConfig implements ConfigInterface
      * Set session.use_cookies
      *
      * @param  bool $useCookies
-     * @return StandardConfig
+     * @return self
      */
     public function setUseCookies($useCookies)
     {
@@ -585,7 +585,7 @@ class StandardConfig implements ConfigInterface
      * Set session.entropy_file
      *
      * @param  string $entropyFile
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setEntropyFile($entropyFile)
@@ -620,7 +620,7 @@ class StandardConfig implements ConfigInterface
      * set session.entropy_length
      *
      * @param  int $entropyLength
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setEntropyLength($entropyLength)
@@ -655,7 +655,7 @@ class StandardConfig implements ConfigInterface
      * Set session.cache_expire
      *
      * @param  int $cacheExpire
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setCacheExpire($cacheExpire)
@@ -692,7 +692,7 @@ class StandardConfig implements ConfigInterface
      * Set session.hash_bits_per_character
      *
      * @param  int $hashBitsPerCharacter
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setHashBitsPerCharacter($hashBitsPerCharacter)
@@ -724,7 +724,7 @@ class StandardConfig implements ConfigInterface
      * Set remember_me_seconds
      *
      * @param  int $rememberMeSeconds
-     * @return StandardConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setRememberMeSeconds($rememberMeSeconds)

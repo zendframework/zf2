@@ -133,7 +133,7 @@ class HttpResponse
      * Can we send headers?
      *
      * @param  bool $throw Whether or not to throw an exception if headers have been sent; defaults to false
-     * @return HttpResponse
+     * @return self
      * @throws Exception\RuntimeException
      */
     public function canSendHeaders($throw = false)
@@ -149,7 +149,7 @@ class HttpResponse
      * Set HTTP response code to use with headers
      *
      * @param  int $code
-     * @return HttpResponse
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setStatusCode($code)

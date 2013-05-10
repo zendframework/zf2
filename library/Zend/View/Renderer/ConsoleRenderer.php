@@ -75,7 +75,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
      * Set filter chain
      *
      * @param  FilterChain $filters
-     * @return ConsoleRenderer
+     * @return self
      */
     public function setFilterChain(FilterChain $filters)
     {

@@ -176,7 +176,7 @@ class AdapterOptions extends AbstractOptions
      * Set time to live.
      *
      * @param  int|float $ttl
-     * @return AdapterOptions
+     * @return self
      */
     public function setTtl($ttl)
     {

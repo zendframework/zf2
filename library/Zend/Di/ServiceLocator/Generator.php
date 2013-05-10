@@ -48,7 +48,7 @@ class Generator
      * Set the class name for the generated service locator container
      *
      * @param  string    $name
-     * @return Generator
+     * @return self
      */
     public function setContainerClass($name)
     {
@@ -61,7 +61,7 @@ class Generator
      * Set the namespace to use for the generated class file
      *
      * @param  string    $namespace
-     * @return Generator
+     * @return self
      */
     public function setNamespace($namespace)
     {

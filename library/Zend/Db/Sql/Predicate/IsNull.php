@@ -38,7 +38,7 @@ class IsNull implements PredicateInterface
      * Set identifier for comparison
      *
      * @param  string $identifier
-     * @return IsNull
+     * @return self
      */
     public function setIdentifier($identifier)
     {
@@ -60,7 +60,7 @@ class IsNull implements PredicateInterface
      * Set specification string to use in forming SQL predicate
      *
      * @param  string $specification
-     * @return IsNull
+     * @return self
      */
     public function setSpecification($specification)
     {

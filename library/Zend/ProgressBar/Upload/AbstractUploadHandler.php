@@ -47,7 +47,7 @@ abstract class AbstractUploadHandler implements UploadHandlerInterface
      * - progress_adapter: progressbar adapter to use for updating progress
      *
      * @param  array|Traversable $options
-     * @return AbstractUploadHandler
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
@@ -72,7 +72,7 @@ abstract class AbstractUploadHandler implements UploadHandlerInterface
 
     /**
      * @param  string $sessionNamespace
-     * @return AbstractUploadHandler|UploadHandlerInterface
+     * @return self|UploadHandlerInterface
      */
     public function setSessionNamespace($sessionNamespace)
     {
@@ -90,7 +90,7 @@ abstract class AbstractUploadHandler implements UploadHandlerInterface
 
     /**
      * @param  AbstractProgressAdapter|ProgressBar $progressAdapter
-     * @return AbstractUploadHandler|UploadHandlerInterface
+     * @return self|UploadHandlerInterface
      */
     public function setProgressAdapter($progressAdapter)
     {

@@ -52,7 +52,7 @@ class PhpRendererStrategy extends AbstractListenerAggregate
      * Set list of possible content placeholders
      *
      * @param  array $contentPlaceholders
-     * @return PhpRendererStrategy
+     * @return self
      */
     public function setContentPlaceholders(array $contentPlaceholders)
     {

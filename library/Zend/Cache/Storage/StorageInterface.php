@@ -17,7 +17,7 @@ interface StorageInterface
      * Set options.
      *
      * @param array|Traversable|Adapter\AdapterOptions $options
-     * @return StorageInterface Fluent interface
+     * @return self Fluent interface
      */
     public function setOptions($options);
 

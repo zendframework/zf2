@@ -110,7 +110,7 @@ class FilterChain extends AbstractFilter implements Countable
      * Set plugin manager instance
      *
      * @param  FilterPluginManager $plugins
-     * @return FilterChain
+     * @return self
      */
     public function setPluginManager(FilterPluginManager $plugins)
     {
@@ -137,7 +137,7 @@ class FilterChain extends AbstractFilter implements Countable
      * @param  callable|FilterInterface $callback A Filter implementation or valid PHP callback
      * @param  int $priority Priority at which to enqueue filter; defaults to 1000 (higher executes earlier)
      * @throws Exception\InvalidArgumentException
-     * @return FilterChain
+     * @return self
      */
     public function attach($callback, $priority = self::DEFAULT_PRIORITY)
     {
@@ -163,7 +163,7 @@ class FilterChain extends AbstractFilter implements Countable
      * @param  string $name
      * @param  mixed $options
      * @param  int $priority Priority at which to enqueue filter; defaults to 1000 (higher executes earlier)
-     * @return FilterChain
+     * @return self
      */
     public function attachByName($name, $options = array(), $priority = self::DEFAULT_PRIORITY)
     {
@@ -180,7 +180,7 @@ class FilterChain extends AbstractFilter implements Countable
      * Merge the filter chain with the one given in parameter
      *
      * @param FilterChain $filterChain
-     * @return FilterChain
+     * @return self
      */
     public function merge(FilterChain $filterChain)
     {

@@ -154,7 +154,7 @@ abstract class AbstractWord extends FormInput
      *
      * @param  mixed $captchaPosition
      * @throws Exception\InvalidArgumentException
-     * @return AbstractWord
+     * @return self
      */
     public function setCaptchaPosition($captchaPosition)
     {
@@ -187,7 +187,7 @@ abstract class AbstractWord extends FormInput
      * Set separator string for captcha and inputs
      *
      * @param  string $separator
-     * @return AbstractWord
+     * @return self
      */
     public function setSeparator($separator)
     {

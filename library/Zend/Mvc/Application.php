@@ -242,7 +242,7 @@ class Application implements
      * overridden by modules.
      *
      * @param array $configuration
-     * @return Application
+     * @return self
      */
     public static function init($configuration = array())
     {

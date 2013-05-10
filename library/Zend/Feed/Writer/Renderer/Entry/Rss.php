@@ -33,7 +33,7 @@ class Rss extends Renderer\AbstractRenderer implements Renderer\RendererInterfac
     /**
      * Render RSS entry
      *
-     * @return Rss
+     * @return self
      */
     public function render()
     {

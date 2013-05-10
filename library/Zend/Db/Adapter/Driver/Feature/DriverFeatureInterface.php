@@ -14,7 +14,7 @@ interface DriverFeatureInterface
     /**
      * Setup the default features for Pdo
      *
-     * @return DriverFeatureInterface
+     * @return self
      */
     public function setupDefaultFeatures();
 
@@ -23,7 +23,7 @@ interface DriverFeatureInterface
      *
      * @param string $name
      * @param mixed $feature
-     * @return DriverFeatureInterface
+     * @return self
      */
     public function addFeature($name, $feature);
 

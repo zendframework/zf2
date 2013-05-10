@@ -77,7 +77,7 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
      * Set form factory to use when building form from annotations
      *
      * @param  Factory $formFactory
-     * @return AnnotationBuilder
+     * @return self
      */
     public function setFormFactory(Factory $formFactory)
     {
@@ -89,7 +89,7 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
      * Set annotation manager to use when building form from annotations
      *
      * @param  AnnotationManager $annotationManager
-     * @return AnnotationBuilder
+     * @return self
      */
     public function setAnnotationManager(AnnotationManager $annotationManager)
     {
@@ -107,7 +107,7 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
      * Set event manager instance
      *
      * @param  EventManagerInterface $events
-     * @return AnnotationBuilder
+     * @return self
      */
     public function setEventManager(EventManagerInterface $events)
     {

@@ -27,7 +27,7 @@ class AddressList implements Countable, Iterator
      * @param  string|Address\AddressInterface $emailOrAddress
      * @param  null|string $name
      * @throws Exception\InvalidArgumentException
-     * @return AddressList
+     * @return self
      */
     public function add($emailOrAddress, $name = null)
     {
@@ -60,7 +60,7 @@ class AddressList implements Countable, Iterator
      *
      * @param  array $addresses
      * @throws Exception\RuntimeException
-     * @return AddressList
+     * @return self
      */
     public function addMany(array $addresses)
     {
@@ -83,7 +83,7 @@ class AddressList implements Countable, Iterator
      * Merge another address list into this one
      *
      * @param  AddressList $addressList
-     * @return AddressList
+     * @return self
      */
     public function merge(AddressList $addressList)
     {

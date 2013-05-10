@@ -72,7 +72,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * Set flag indicating whether or not to merge unnamed children
      *
      * @param  bool $mergeUnnamedChildren
-     * @return JsonRenderer
+     * @return self
      */
     public function setMergeUnnamedChildren($mergeUnnamedChildren)
     {
@@ -84,7 +84,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * Set the JSONP callback function name
      *
      * @param  string $callback
-     * @return JsonRenderer
+     * @return self
      */
     public function setJsonpCallback($callback)
     {

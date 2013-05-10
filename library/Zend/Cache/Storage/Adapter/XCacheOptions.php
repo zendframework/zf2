@@ -46,7 +46,7 @@ class XCacheOptions extends AdapterOptions
      * Set namespace separator
      *
      * @param  string $namespaceSeparator
-     * @return XCacheOptions
+     * @return self
      */
     public function setNamespaceSeparator($namespaceSeparator)
     {
@@ -70,7 +70,7 @@ class XCacheOptions extends AdapterOptions
      * Set username to call admin functions
      *
      * @param  null|string $adminUser
-     * @return XCacheOptions
+     * @return self
      */
     public function setAdminUser($adminUser)
     {
@@ -96,7 +96,7 @@ class XCacheOptions extends AdapterOptions
      * Enable/Disable admin authentication handling
      *
      * @param  bool $adminAuth
-     * @return XCacheOptions
+     * @return self
      */
     public function setAdminAuth($adminAuth)
     {
@@ -122,7 +122,7 @@ class XCacheOptions extends AdapterOptions
      * Set password to call admin functions
      *
      * @param  null|string $adminPass
-     * @return XCacheOptions
+     * @return self
      */
     public function setAdminPass($adminPass)
     {

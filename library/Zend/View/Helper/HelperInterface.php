@@ -17,7 +17,7 @@ interface HelperInterface
      * Set the View object
      *
      * @param  Renderer $view
-     * @return HelperInterface
+     * @return self
      */
     public function setView(Renderer $view);
 

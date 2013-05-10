@@ -66,7 +66,7 @@ class Digest extends AbstractAdapter
      * Sets the filename option value
      *
      * @param  mixed $filename
-     * @return Digest Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setFilename($filename)
     {
@@ -88,7 +88,7 @@ class Digest extends AbstractAdapter
      * Sets the realm option value
      *
      * @param  mixed $realm
-     * @return Digest Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setRealm($realm)
     {
@@ -110,7 +110,7 @@ class Digest extends AbstractAdapter
      * Sets the username option value
      *
      * @param  mixed $username
-     * @return Digest Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setUsername($username)
     {
@@ -131,7 +131,7 @@ class Digest extends AbstractAdapter
      * Sets the password option value
      *
      * @param  mixed $password
-     * @return Digest Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setPassword($password)
     {

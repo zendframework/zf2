@@ -39,7 +39,7 @@ abstract class AbstractLocation implements HeaderInterface
      * Create location-based header from string
      *
      * @param string $headerLine
-     * @return AbstractLocation
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public static function fromString($headerLine)
@@ -65,7 +65,7 @@ abstract class AbstractLocation implements HeaderInterface
      * Set the URI/URL for this header, this can be a string or an instance of Zend\Uri\Http
      *
      * @param string|UriInterface $uri
-     * @return AbstractLocation
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setUri($uri)

@@ -172,7 +172,7 @@ abstract class AbstractValue
      * @param  mixed $value
      * @param  Zend\XmlRpc\Value::constant $type
      * @throws Exception\ValueException
-     * @return AbstractValue
+     * @return self
      */
     public static function getXmlRpcValue($value, $type = self::AUTO_DETECT_TYPE)
     {
@@ -271,7 +271,7 @@ abstract class AbstractValue
      * @param mixed $value The PHP variable for conversion
      *
      * @throws Exception\InvalidArgumentException
-     * @return AbstractValue
+     * @return self
      * @static
      */
     protected static function _phpVarToNativeXmlRpc($value)

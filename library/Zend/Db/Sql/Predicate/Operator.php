@@ -78,7 +78,7 @@ class Operator implements PredicateInterface
      * Set left side of operator
      *
      * @param  int|float|bool|string $left
-     * @return Operator
+     * @return self
      */
     public function setLeft($left)
     {
@@ -101,7 +101,7 @@ class Operator implements PredicateInterface
      *
      * @param  string $type TYPE_IDENTIFIER or TYPE_VALUE {@see allowedTypes}
      * @throws Exception\InvalidArgumentException
-     * @return Operator
+     * @return self
      */
     public function setLeftType($type)
     {
@@ -131,7 +131,7 @@ class Operator implements PredicateInterface
      * Set operator string
      *
      * @param  string $operator
-     * @return Operator
+     * @return self
      */
     public function setOperator($operator)
     {
@@ -153,7 +153,7 @@ class Operator implements PredicateInterface
      * Set right side of operator
      *
      * @param  int|float|bool|string $value
-     * @return Operator
+     * @return self
      */
     public function setRight($value)
     {
@@ -176,7 +176,7 @@ class Operator implements PredicateInterface
      *
      * @param  string $type TYPE_IDENTIFIER or TYPE_VALUE {@see allowedTypes}
      * @throws Exception\InvalidArgumentException
-     * @return Operator
+     * @return self
      */
     public function setRightType($type)
     {

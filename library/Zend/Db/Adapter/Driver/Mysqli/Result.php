@@ -74,7 +74,7 @@ class Result implements
      * @param mixed $generatedValue
      * @param bool|null $isBuffered
      * @throws Exception\InvalidArgumentException
-     * @return Result
+     * @return self
      */
     public function initialize($resource, $generatedValue, $isBuffered = null)
     {
