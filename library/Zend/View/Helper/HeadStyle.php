@@ -83,7 +83,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * @param  string       $content    Stylesheet contents
      * @param  string       $placement  Append, prepend, or set
      * @param  string|array $attributes Optional attributes to utilize
-     * @return HeadStyle
+     * @return self
      */
     public function __invoke($content = null, $placement = 'APPEND', $attributes = array())
     {

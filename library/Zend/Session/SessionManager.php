@@ -176,7 +176,7 @@ class SessionManager extends AbstractManager
      * validation, an exception will be raised.
      *
      * @param  string $name
-     * @return SessionManager
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setName($name)
@@ -223,7 +223,7 @@ class SessionManager extends AbstractManager
      * Can safely be called in the middle of a session.
      *
      * @param  string $id
-     * @return SessionManager
+     * @return self
      */
     public function setId($id)
     {
@@ -253,7 +253,7 @@ class SessionManager extends AbstractManager
      * native ID generation Can safely be called in the middle of a session.
      *
      * @param  bool $deleteOldSession
-     * @return SessionManager
+     * @return self
      */
     public function regenerateId($deleteOldSession = true)
     {
@@ -267,7 +267,7 @@ class SessionManager extends AbstractManager
      * Can safely be called in the middle of a session.
      *
      * @param  null|int $ttl
-     * @return SessionManager
+     * @return self
      */
     public function rememberMe($ttl = null)
     {
@@ -283,7 +283,7 @@ class SessionManager extends AbstractManager
      *
      * Can safely be called in the middle of a session.
      *
-     * @return SessionManager
+     * @return self
      */
     public function forgetMe()
     {
@@ -297,7 +297,7 @@ class SessionManager extends AbstractManager
      * In most cases, you should use an instance of {@link ValidatorChain}.
      *
      * @param  EventManagerInterface $chain
-     * @return SessionManager
+     * @return self
      */
     public function setValidatorChain(EventManagerInterface $chain)
     {

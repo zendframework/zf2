@@ -67,7 +67,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
      * Returns the flash messenger plugin controller
      *
      * @param  string|null $namespace
-     * @return FlashMessenger|PluginFlashMessenger
+     * @return self|PluginFlashMessenger
      */
     public function __invoke($namespace = null)
     {
@@ -143,7 +143,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
      * Set the string used to close message representation
      *
      * @param  string $messageCloseString
-     * @return FlashMessenger
+     * @return self
      */
     public function setMessageCloseString($messageCloseString)
     {
@@ -165,7 +165,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
      * Set the formatted string used to open message representation
      *
      * @param  string $messageOpenFormat
-     * @return FlashMessenger
+     * @return self
      */
     public function setMessageOpenFormat($messageOpenFormat)
     {
@@ -187,7 +187,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
      * Set the string used to separate messages
      *
      * @param  string $messageSeparatorString
-     * @return FlashMessenger
+     * @return self
      */
     public function setMessageSeparatorString($messageSeparatorString)
     {
@@ -209,7 +209,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
      * Set the flash messenger plugin
      *
      * @param  PluginFlashMessenger $pluginFlashMessenger
-     * @return FlashMessenger
+     * @return self
      */
     public function setPluginFlashMessenger(PluginFlashMessenger $pluginFlashMessenger)
     {

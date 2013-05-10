@@ -324,7 +324,7 @@ class Paginator implements Countable, IteratorAggregate
      * Enables/Disables the cache for this instance
      *
      * @param bool $enable
-     * @return Paginator
+     * @return self
      */
     public function setCacheEnabled($enable)
     {
@@ -360,7 +360,7 @@ class Paginator implements Countable, IteratorAggregate
      * Clear the page item cache.
      *
      * @param int $pageNumber
-     * @return Paginator
+     * @return self
      */
     public function clearPageItemCache($pageNumber = null)
     {
@@ -459,7 +459,7 @@ class Paginator implements Countable, IteratorAggregate
      * Sets the current page number.
      *
      * @param  int $pageNumber Page number
-     * @return Paginator $this
+     * @return self $this
      */
     public function setCurrentPageNumber($pageNumber)
     {
@@ -484,7 +484,7 @@ class Paginator implements Countable, IteratorAggregate
      * Set a filter chain
      *
      * @param  FilterInterface $filter
-     * @return Paginator
+     * @return self
      */
     public function setFilter(FilterInterface $filter)
     {
@@ -549,7 +549,7 @@ class Paginator implements Countable, IteratorAggregate
      * Sets the number of items per page.
      *
      * @param  int $itemCountPerPage
-     * @return Paginator $this
+     * @return self $this
      */
     public function setItemCountPerPage($itemCountPerPage = -1)
     {
@@ -652,7 +652,7 @@ class Paginator implements Countable, IteratorAggregate
      * Sets the page range (see property declaration above).
      *
      * @param  int $pageRange
-     * @return Paginator $this
+     * @return self $this
      */
     public function setPageRange($pageRange)
     {
@@ -741,7 +741,7 @@ class Paginator implements Countable, IteratorAggregate
      * Sets the view object.
      *
      * @param  \Zend\View\Renderer\RendererInterface $view
-     * @return Paginator
+     * @return self
      */
     public function setView(View\Renderer\RendererInterface $view = null)
     {

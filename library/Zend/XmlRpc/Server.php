@@ -255,7 +255,7 @@ class Server extends AbstractServer
      * The response is always available via {@link getResponse()}.
      *
      * @param  bool $flag
-     * @return Server
+     * @return self
      */
     public function setReturnResponse($flag = true)
     {

@@ -57,7 +57,7 @@ class SmtpOptions extends AbstractOptions
      * @todo   hostname/IP validation
      * @param  string $name
      * @throws \Zend\Mail\Exception\InvalidArgumentException
-     * @return SmtpOptions
+     * @return self
      */
     public function setName($name)
     {
@@ -90,7 +90,7 @@ class SmtpOptions extends AbstractOptions
      *
      * @param  string $connectionClass the value to be set
      * @throws \Zend\Mail\Exception\InvalidArgumentException
-     * @return SmtpOptions
+     * @return self
      */
     public function setConnectionClass($connectionClass)
     {
@@ -118,7 +118,7 @@ class SmtpOptions extends AbstractOptions
      * Set connection configuration array
      *
      * @param  array $connectionConfig
-     * @return SmtpOptions
+     * @return self
      */
     public function setConnectionConfig(array $connectionConfig)
     {
@@ -141,7 +141,7 @@ class SmtpOptions extends AbstractOptions
      *
      * @todo   hostname/IP validation
      * @param  string $host
-     * @return SmtpOptions
+     * @return self
      */
     public function setHost($host)
     {
@@ -164,7 +164,7 @@ class SmtpOptions extends AbstractOptions
      *
      * @param  int $port
      * @throws \Zend\Mail\Exception\InvalidArgumentException
-     * @return SmtpOptions
+     * @return self
      */
     public function setPort($port)
     {

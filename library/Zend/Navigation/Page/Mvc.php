@@ -257,7 +257,7 @@ class Mvc extends AbstractPage
      * @see getHref()
      *
      * @param  string $action             action name
-     * @return Mvc   fluent interface, returns self
+     * @return self   fluent interface, returns self
      * @throws Exception\InvalidArgumentException  if invalid $action is given
      */
     public function setAction($action)
@@ -291,7 +291,7 @@ class Mvc extends AbstractPage
      * @see getHref()
      *
      * @param  string|null $controller    controller name
-     * @return Mvc   fluent interface, returns self
+     * @return self   fluent interface, returns self
      * @throws Exception\InvalidArgumentException  if invalid controller name is given
      */
     public function setController($controller)
@@ -351,7 +351,7 @@ class Mvc extends AbstractPage
      * @see getHref()
      * @param  array|null $params [optional] page params. Default is null
      *                            which sets no params.
-     * @return Mvc  fluent interface, returns self
+     * @return self  fluent interface, returns self
      */
     public function setParams(array $params = null)
     {
@@ -384,7 +384,7 @@ class Mvc extends AbstractPage
      * @see getHref()
      *
      * @param  string $route              route name to use when assembling URL
-     * @return Mvc   fluent interface, returns self
+     * @return self   fluent interface, returns self
      * @throws Exception\InvalidArgumentException  if invalid $route is given
      */
     public function setRoute($route)
@@ -426,7 +426,7 @@ class Mvc extends AbstractPage
      * Set route match object from which parameters will be retrieved
      *
      * @param  RouteMatch $matches
-     * @return Mvc fluent interface, returns self
+     * @return self fluent interface, returns self
      */
     public function setRouteMatch(RouteMatch $matches)
     {
@@ -449,7 +449,7 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      * @param bool $useRouteMatch [optional]
-     * @return Mvc
+     * @return self
      */
     public function setUseRouteMatch($useRouteMatch = true)
     {
@@ -474,7 +474,7 @@ class Mvc extends AbstractPage
      * @see getHref()
      *
      * @param  RouteStackInterface $router Router
-     * @return Mvc    fluent interface, returns self
+     * @return self    fluent interface, returns self
      */
     public function setRouter(RouteStackInterface $router)
     {

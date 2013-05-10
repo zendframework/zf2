@@ -144,7 +144,7 @@ class Fault
      * Set encoding to use in fault response
      *
      * @param string $encoding
-     * @return Fault
+     * @return self
      */
     public function setEncoding($encoding)
     {

@@ -133,7 +133,7 @@ class ServiceManager implements ServiceLocatorInterface
      * Set allow override
      *
      * @param $allowOverride
-     * @return ServiceManager
+     * @return self
      */
     public function setAllowOverride($allowOverride)
     {
@@ -155,7 +155,7 @@ class ServiceManager implements ServiceLocatorInterface
      * Set flag indicating whether services are shared by default
      *
      * @param  bool $shareByDefault
-     * @return ServiceManager
+     * @return self
      * @throws Exception\RuntimeException if allowOverride is false
      */
     public function setShareByDefault($shareByDefault)
@@ -184,7 +184,7 @@ class ServiceManager implements ServiceLocatorInterface
      * Set throw exceptions in create
      *
      * @param  bool $throwExceptionInCreate
-     * @return ServiceManager
+     * @return self
      */
     public function setThrowExceptionInCreate($throwExceptionInCreate)
     {
@@ -206,7 +206,7 @@ class ServiceManager implements ServiceLocatorInterface
      * Set flag indicating whether to pull from peering manager before attempting creation
      *
      * @param  bool $retrieveFromPeeringManagerFirst
-     * @return ServiceManager
+     * @return self
      */
     public function setRetrieveFromPeeringManagerFirst($retrieveFromPeeringManagerFirst = true)
     {
@@ -230,7 +230,7 @@ class ServiceManager implements ServiceLocatorInterface
      * @param  string  $name
      * @param  string  $invokableClass
      * @param  bool $shared
-     * @return ServiceManager
+     * @return self
      * @throws Exception\InvalidServiceNameException
      */
     public function setInvokableClass($name, $invokableClass, $shared = null)
@@ -263,7 +263,7 @@ class ServiceManager implements ServiceLocatorInterface
      * @param  string                           $name
      * @param  string|FactoryInterface|callable $factory
      * @param  bool                             $shared
-     * @return ServiceManager
+     * @return self
      * @throws Exception\InvalidArgumentException
      * @throws Exception\InvalidServiceNameException
      */
@@ -302,7 +302,7 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  AbstractFactoryInterface|string $factory
      * @param  bool                            $topOfStack
-     * @return ServiceManager
+     * @return self
      * @throws Exception\InvalidArgumentException if the abstract factory is invalid
      */
     public function addAbstractFactory($factory, $topOfStack = true)
@@ -332,7 +332,7 @@ class ServiceManager implements ServiceLocatorInterface
      * @param  string $serviceName          name of the service being the delegate
      * @param  string $delegatorFactoryName name of the service being the delegator factory
      *
-     * @return ServiceManager
+     * @return self
      */
     public function addDelegator($serviceName, $delegatorFactoryName)
     {
@@ -352,7 +352,7 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  callable|InitializerInterface $initializer
      * @param  bool                          $topOfStack
-     * @return ServiceManager
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function addInitializer($initializer, $topOfStack = true)
@@ -380,7 +380,7 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  string  $name
      * @param  mixed   $service
-     * @return ServiceManager
+     * @return self
      * @throws Exception\InvalidServiceNameException
      */
     public function setService($name, $service)
@@ -406,7 +406,7 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * @param  string $name
      * @param  bool   $isShared
-     * @return ServiceManager
+     * @return self
      * @throws Exception\ServiceNotFoundException
      */
     public function setShared($name, $isShared)
@@ -735,7 +735,7 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * @param  string $alias
      * @param  string $nameOrAlias
-     * @return ServiceManager
+     * @return self
      * @throws Exception\ServiceNotFoundException
      * @throws Exception\InvalidServiceNameException
      */
@@ -779,7 +779,7 @@ class ServiceManager implements ServiceLocatorInterface
      * Create scoped service manager
      *
      * @param  string $peering
-     * @return ServiceManager
+     * @return self
      */
     public function createScopedServiceManager($peering = self::SCOPE_PARENT)
     {
@@ -798,7 +798,7 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  ServiceManager $manager
      * @param  string         $peering
-     * @return ServiceManager
+     * @return self
      */
     public function addPeeringServiceManager(ServiceManager $manager, $peering = self::SCOPE_PARENT)
     {
@@ -900,7 +900,7 @@ class ServiceManager implements ServiceLocatorInterface
      * values.
      *
      * @param array $canonicalNames
-     * @return ServiceManager
+     * @return self
      */
     public function setCanonicalNames($canonicalNames)
     {

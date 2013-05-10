@@ -65,7 +65,7 @@ class MvcEvent extends Event
      * Set application instance
      *
      * @param  ApplicationInterface $application
-     * @return MvcEvent
+     * @return self
      */
     public function setApplication(ApplicationInterface $application)
     {
@@ -98,7 +98,7 @@ class MvcEvent extends Event
      * Set router
      *
      * @param Router\RouteStackInterface $router
-     * @return MvcEvent
+     * @return self
      */
     public function setRouter(Router\RouteStackInterface $router)
     {
@@ -121,7 +121,7 @@ class MvcEvent extends Event
      * Set route match
      *
      * @param Router\RouteMatch $matches
-     * @return MvcEvent
+     * @return self
      */
     public function setRouteMatch(Router\RouteMatch $matches)
     {
@@ -144,7 +144,7 @@ class MvcEvent extends Event
      * Set request
      *
      * @param Request $request
-     * @return MvcEvent
+     * @return self
      */
     public function setRequest(Request $request)
     {
@@ -167,7 +167,7 @@ class MvcEvent extends Event
      * Set response
      *
      * @param Response $response
-     * @return MvcEvent
+     * @return self
      */
     public function setResponse(Response $response)
     {
@@ -180,7 +180,7 @@ class MvcEvent extends Event
      * Set the view model
      *
      * @param  Model $viewModel
-     * @return MvcEvent
+     * @return self
      */
     public function setViewModel(Model $viewModel)
     {
@@ -215,7 +215,7 @@ class MvcEvent extends Event
      * Set result
      *
      * @param mixed $result
-     * @return MvcEvent
+     * @return self
      */
     public function setResult($result)
     {
@@ -238,7 +238,7 @@ class MvcEvent extends Event
      * Set the error message (indicating error in handling request)
      *
      * @param  string $message
-     * @return MvcEvent
+     * @return self
      */
     public function setError($message)
     {
@@ -270,7 +270,7 @@ class MvcEvent extends Event
      * Set controller name
      *
      * @param  string $name
-     * @return MvcEvent
+     * @return self
      */
     public function setController($name)
     {
@@ -292,7 +292,7 @@ class MvcEvent extends Event
      * Set controller class
      *
      * @param string $class
-     * @return MvcEvent
+     * @return self
      */
     public function setControllerClass($class)
     {

@@ -67,7 +67,7 @@ class SessionConfig extends StandardConfig
      *
      * @param  string $storageName
      * @param  mixed $storageValue
-     * @return SessionConfig
+     * @return self
      * @throws \InvalidArgumentException
      */
     public function setStorageOption($storageName, $storageValue)
@@ -125,7 +125,7 @@ class SessionConfig extends StandardConfig
      * Set session.save_handler
      *
      * @param  string $phpSaveHandler
-     * @return SessionConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setPhpSaveHandler($phpSaveHandler)
@@ -148,7 +148,7 @@ class SessionConfig extends StandardConfig
      * Set session.save_path
      *
      * @param  string $savePath
-     * @return SessionConfig
+     * @return self
      * @throws Exception\InvalidArgumentException on invalid path
      */
     public function setSavePath($savePath)
@@ -166,7 +166,7 @@ class SessionConfig extends StandardConfig
      * Set session.serialize_handler
      *
      * @param  string $serializeHandler
-     * @return SessionConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setSerializeHandler($serializeHandler)
@@ -190,7 +190,7 @@ class SessionConfig extends StandardConfig
      * Set cache limiter
      *
      * @param $cacheLimiter
-     * @return SessionConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setCacheLimiter($cacheLimiter)
@@ -208,7 +208,7 @@ class SessionConfig extends StandardConfig
      * Set session.hash_function
      *
      * @param  string|int $hashFunction
-     * @return SessionConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setHashFunction($hashFunction)
@@ -228,7 +228,7 @@ class SessionConfig extends StandardConfig
      * Set session.hash_bits_per_character
      *
      * @param  int $hashBitsPerCharacter
-     * @return SessionConfig
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setHashBitsPerCharacter($hashBitsPerCharacter)

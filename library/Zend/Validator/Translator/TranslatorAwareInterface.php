@@ -56,7 +56,7 @@ interface TranslatorAwareInterface
      * Set translation text domain
      *
      * @param  string $textDomain
-     * @return TranslatorAwareInterface
+     * @return self
      */
     public function setTranslatorTextDomain($textDomain = 'default');
 

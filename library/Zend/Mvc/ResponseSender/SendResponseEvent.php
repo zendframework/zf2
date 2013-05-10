@@ -42,7 +42,7 @@ class SendResponseEvent extends Event
 
     /**
      * @param ResponseInterface $response
-     * @return SendResponseEvent
+     * @return self
      */
     public function setResponse(ResponseInterface $response)
     {
@@ -62,7 +62,7 @@ class SendResponseEvent extends Event
     /**
      * Set content sent for current response
      *
-     * @return SendResponseEvent
+     * @return self
      */
     public function setContentSent()
     {
@@ -89,7 +89,7 @@ class SendResponseEvent extends Event
     /**
      * Set headers sent for current response object
      *
-     * @return SendResponseEvent
+     * @return self
      */
     public function setHeadersSent()
     {

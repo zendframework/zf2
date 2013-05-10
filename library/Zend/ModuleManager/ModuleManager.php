@@ -225,7 +225,7 @@ class ModuleManager implements ModuleManagerInterface
      *
      * @param  mixed $modules array or Traversable of module names
      * @throws Exception\InvalidArgumentException
-     * @return ModuleManager
+     * @return self
      */
     public function setModules($modules)
     {
@@ -257,7 +257,7 @@ class ModuleManager implements ModuleManagerInterface
      * Set the module event
      *
      * @param  ModuleEvent $event
-     * @return ModuleManager
+     * @return self
      */
     public function setEvent(ModuleEvent $event)
     {
@@ -269,7 +269,7 @@ class ModuleManager implements ModuleManagerInterface
      * Set the event manager instance used by this module manager.
      *
      * @param  EventManagerInterface $events
-     * @return ModuleManager
+     * @return self
      */
     public function setEventManager(EventManagerInterface $events)
     {
@@ -301,7 +301,7 @@ class ModuleManager implements ModuleManagerInterface
     /**
      * Register the default event listeners
      *
-     * @return ModuleManager
+     * @return self
      */
     protected function attachDefaultListeners()
     {

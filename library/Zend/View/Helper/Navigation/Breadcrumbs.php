@@ -51,7 +51,7 @@ class Breadcrumbs extends AbstractHelper
      * Helper entry point
      *
      * @param  string|AbstractContainer $container container to operate on
-     * @return Breadcrumbs
+     * @return self
      */
     public function __invoke($container = null)
     {
@@ -215,7 +215,7 @@ class Breadcrumbs extends AbstractHelper
      * Sets whether last page in breadcrumbs should be hyperlinked
      *
      * @param  bool $linkLast whether last page should be hyperlinked
-     * @return Breadcrumbs
+     * @return self
      */
     public function setLinkLast($linkLast)
     {
@@ -241,7 +241,7 @@ class Breadcrumbs extends AbstractHelper
      *                               values; the partial view script to use,
      *                               and the module where the script can be
      *                               found.
-     * @return Breadcrumbs
+     * @return self
      */
     public function setPartial($partial)
     {
@@ -266,7 +266,7 @@ class Breadcrumbs extends AbstractHelper
      * Sets breadcrumb separator
      *
      * @param  string $separator separator string
-     * @return Breadcrumbs
+     * @return self
      */
     public function setSeparator($separator)
     {

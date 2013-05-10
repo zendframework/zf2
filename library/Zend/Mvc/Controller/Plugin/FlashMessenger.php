@@ -75,7 +75,7 @@ class FlashMessenger extends AbstractPlugin implements IteratorAggregate, Counta
      * Set the session manager
      *
      * @param  Manager        $manager
-     * @return FlashMessenger
+     * @return self
      */
     public function setSessionManager(Manager $manager)
     {
@@ -123,7 +123,7 @@ class FlashMessenger extends AbstractPlugin implements IteratorAggregate, Counta
      * Useful for per action controller messaging between requests
      *
      * @param  string         $namespace
-     * @return FlashMessenger Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setNamespace($namespace = 'default')
     {
@@ -146,7 +146,7 @@ class FlashMessenger extends AbstractPlugin implements IteratorAggregate, Counta
      * Add a message
      *
      * @param  string         $message
-     * @return FlashMessenger Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function addMessage($message)
     {
@@ -175,7 +175,7 @@ class FlashMessenger extends AbstractPlugin implements IteratorAggregate, Counta
      * Add a message with "info" type
      *
      * @param  string         $message
-     * @return FlashMessenger
+     * @return self
      */
     public function addInfoMessage($message)
     {
@@ -192,7 +192,7 @@ class FlashMessenger extends AbstractPlugin implements IteratorAggregate, Counta
      * Add a message with "success" type
      *
      * @param  string         $message
-     * @return FlashMessenger
+     * @return self
      */
     public function addSuccessMessage($message)
     {
@@ -208,7 +208,7 @@ class FlashMessenger extends AbstractPlugin implements IteratorAggregate, Counta
      * Add a message with "error" type
      *
      * @param  string         $message
-     * @return FlashMessenger
+     * @return self
      */
     public function addErrorMessage($message)
     {

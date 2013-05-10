@@ -161,7 +161,7 @@ class AcceptableViewModelSelector extends AbstractPlugin
     /**
      * Set the default View Model (name) to return if no match could be made
      * @param string $defaultViewModelName The default View Model name
-     * @return AcceptableViewModelSelector provides fluent interface
+     * @return self provides fluent interface
      */
     public function setDefaultViewModelName($defaultViewModelName)
     {
@@ -182,7 +182,7 @@ class AcceptableViewModelSelector extends AbstractPlugin
      * Set the default Accept Types and View Model combinations to match against if none are specified.
      *
      * @param array $matchAgainst (optional) The Array to match against
-     * @return AcceptableViewModelSelector provides fluent interface
+     * @return self provides fluent interface
      */
     public function setDefaultMatchAgainst(array $matchAgainst = null)
     {
