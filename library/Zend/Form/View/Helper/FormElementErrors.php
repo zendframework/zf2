@@ -76,11 +76,24 @@ class FormElementErrors extends AbstractHelper
         }
 
         // Flatten message array
-        $escapeHtml      = $this->getEscapeHtmlHelper();
+        $escapeHtml             = $this->getEscapeHtmlHelper();
+        $translator             = null;
+        $textDomain   = null;
+        
+        if ($this->hasTranslator()) {
+            $translator             = $this->getTranslator();
+            $textDomain   = $this->getTranslatorTextDomain();
+
+        }
+
         $messagesToPrint = array();
-        array_walk_recursive($messages, function ($item) use (&$messagesToPrint, $escapeHtml) {
-                $messagesToPrint[] = $escapeHtml($item);
-            });
+        array_walk_recursive($messages, function ($item) use (&$messagesToPrint, $escapeHtml, $translator, $textDomain) {
+            $message = $escapeHtml($item);
+            if ($translator !== null) {
+                $message = $translator->translate($message, $textDomain);
+            }
+            $messagesToPrint[] = $message;
+        });
 
         if (empty($messagesToPrint)) {
             return '';
