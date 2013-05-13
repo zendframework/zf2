@@ -231,6 +231,13 @@ class FormCollection extends AbstractHelper
             throw new RuntimeException('Invalid element helper set in FormCollection. The helper must be an instance of AbstractHelper.');
         }
 
+        if ($this->hasTranslator()) {
+            $this->elementHelper->setTranslator(
+                $this->getTranslator(),
+                $this->getTranslatorTextDomain()
+            );
+        }
+
         return $this->elementHelper;
     }
 
