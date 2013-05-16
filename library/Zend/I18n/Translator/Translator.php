@@ -19,11 +19,12 @@ use Zend\I18n\Exception;
 use Zend\I18n\Translator\Loader\FileLoaderInterface;
 use Zend\I18n\Translator\Loader\RemoteLoaderInterface;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Validator\Translator\TranslatorInterface;
 
 /**
  * Translator.
  */
-class Translator
+class Translator implements TranslatorInterface
 {
     /**
      * Event fired when the translation for a message is missing.
