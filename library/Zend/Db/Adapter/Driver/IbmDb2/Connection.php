@@ -219,6 +219,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
+     * In transaction
+     *
+     * @return bool
+     */
+    public function inTransaction()
+    {
+        // TODO: Implement inTransaction() method.
+    }
+
+    /**
      * Commit
      *
      * @return ConnectionInterface
