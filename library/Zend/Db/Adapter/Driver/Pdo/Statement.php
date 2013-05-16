@@ -245,11 +245,12 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             throw new Exception\InvalidQueryException('Statement could not be executed', null, $e);
         }
 
+        $result = $this->driver->createResult($this->resource, $this);
+
         if ($this->profiler) {
-            $this->profiler->profilerFinish();
+            $this->profiler->profilerFinish($result);
         }
 
-        $result = $this->driver->createResult($this->resource, $this);
         return $result;
     }
 

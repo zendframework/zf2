@@ -385,18 +385,18 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $resultResource = $this->resource->query($sql);
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish($sql);
-        }
-
         if ($resultResource === false) {
             $errorInfo = $this->resource->errorInfo();
             throw new Exception\InvalidQueryException($errorInfo[2]);
         }
 
         $result = $this->driver->createResult($resultResource, $sql);
-        return $result;
 
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($result);
+        }
+
+        return $result;
     }
 
     /**

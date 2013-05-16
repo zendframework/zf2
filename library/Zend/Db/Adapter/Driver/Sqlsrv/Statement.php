@@ -249,10 +249,6 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
         $resultValue = sqlsrv_execute($this->resource);
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish();
-        }
-
         if ($resultValue === false) {
             $errors = sqlsrv_errors();
             // ignore general warnings
@@ -262,6 +258,11 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
         }
 
         $result = $this->driver->createResult($this->resource);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($result);
+        }
+
         return $result;
     }
 

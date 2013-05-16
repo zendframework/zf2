@@ -255,10 +255,6 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
         $return = $this->resource->execute();
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish();
-        }
-
         if ($return === false) {
             throw new Exception\RuntimeException($this->resource->error);
         }
@@ -272,6 +268,11 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
         }
 
         $result = $this->driver->createResult($this->resource, $buffered);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($result);
+        }
+
         return $result;
     }
 

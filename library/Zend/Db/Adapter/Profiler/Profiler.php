@@ -2,6 +2,7 @@
 
 namespace Zend\Db\Adapter\Profiler;
 
+use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\Adapter\StatementContainerInterface;
 use Zend\Db\Adapter\Exception;
 
@@ -29,7 +30,8 @@ class Profiler implements ProfilerInterface
             'parameters' => null,
             'start' => microtime(true),
             'end' => null,
-            'elapse' => null
+            'elapse' => null,
+            'affected' => null
         );
         if ($target instanceof StatementContainerInterface) {
             $profileInformation['sql'] = $target->getSql();
@@ -48,7 +50,7 @@ class Profiler implements ProfilerInterface
     /**
      * @return Profiler
      */
-    public function profilerFinish()
+    public function profilerFinish($result = null)
     {
         if (!isset($this->profiles[$this->currentIndex])) {
             throw new Exception\RuntimeException('A profile must be started before ' . __FUNCTION__ . ' can be called.');
@@ -56,6 +58,11 @@ class Profiler implements ProfilerInterface
         $current = &$this->profiles[$this->currentIndex];
         $current['end'] = microtime(true);
         $current['elapse'] = $current['end'] - $current['start'];
+
+        if ($result instanceof ResultInterface) {
+            $current['affected'] = $result->getAffectedRows();
+        }
+
         $this->currentIndex++;
         return $this;
     }

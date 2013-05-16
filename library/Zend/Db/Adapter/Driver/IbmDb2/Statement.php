@@ -226,15 +226,16 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
         $response = db2_execute($this->resource, $this->parameterContainer->getPositionalArray());
         restore_error_handler();
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish();
-        }
-
         if ($response === false) {
             throw new Exception\RuntimeException(db2_stmt_errormsg($this->resource));
         }
 
         $result = $this->driver->createResult($this->resource);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($result);
+        }
+
         return $result;
     }
 }

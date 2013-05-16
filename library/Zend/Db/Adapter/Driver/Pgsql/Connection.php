@@ -273,10 +273,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $resultResource = pg_query($this->resource, $sql);
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish($sql);
-        }
-
         //var_dump(pg_result_status($resultResource));
 
         // if the returnValue is something other than a pg result resource, bypass wrapping it
@@ -285,6 +281,11 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         $resultPrototype = $this->driver->createResult(($resultResource === true) ? $this->resource : $resultResource);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($resultPrototype);
+        }
+
         return $resultPrototype;
     }
 

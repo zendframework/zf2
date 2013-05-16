@@ -227,15 +227,16 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
         $resultResource = pg_execute($this->pgsql, $this->statementName, (array) $parameters);
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish();
-        }
-
         if ($resultResource === false) {
             throw new Exception\InvalidQueryException(pg_last_error());
         }
 
         $result = $this->driver->createResult($resultResource);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($result);
+        }
+
         return $result;
     }
 }

@@ -318,16 +318,17 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             $valid = @oci_execute($ociStmt, OCI_COMMIT_ON_SUCCESS);
         }
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish($sql);
-        }
-
         if ($valid === false) {
             $e = oci_error($ociStmt);
             throw new Exception\InvalidQueryException($e['message'], $e['code']);
         }
 
         $resultPrototype = $this->driver->createResult($ociStmt);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($resultPrototype);
+        }
+
         return $resultPrototype;
     }
 
