@@ -47,7 +47,7 @@ class NumberFormatTest extends TestCase
     public function testNumberToFormatted($locale, $style, $type, $value, $expected)
     {
         $filter = new NumberFormatFilter($locale, $style, $type);
-        $this->assertEquals($expected, $filter->filter($value));
+        $this->assertSame($expected, $filter->filter($value));
     }
 
     /**
@@ -61,7 +61,7 @@ class NumberFormatTest extends TestCase
     public function testFormattedToNumber($locale, $style, $type, $value, $expected)
     {
         $filter = new NumberFormatFilter($locale, $style, $type);
-        $this->assertEquals($expected, $filter->filter($value));
+        $this->assertSame($expected, $filter->filter($value));
     }
 
     public static function numberToFormattedProvider()
