@@ -14,9 +14,6 @@ use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
 
-/**
- * @todo       allow specifying status code as a default, or as an option to methods
- */
 class Redirect extends AbstractPlugin
 {
     protected $event;
@@ -48,20 +45,25 @@ class Redirect extends AbstractPlugin
             $url = $urlPlugin->fromRoute($route, $params, $options, $reuseMatchedParams);
         }
 
-        return $this->toUrl($url);
+        if (is_array($options) && isset($options['status-code'])) {
+            return $this->toUrl($url, $options['status-code']);
+        } else {
+            return $this->toUrl($url);
+        }
     }
 
     /**
      * Redirect to the given URL
      *
      * @param  string $url
+     * @param  int $statusCode
      * @return Response
      */
-    public function toUrl($url)
+    public function toUrl($url, $statusCode = 302)
     {
         $response = $this->getResponse();
         $response->getHeaders()->addHeaderLine('Location', $url);
-        $response->setStatusCode(302);
+        $response->setStatusCode($statusCode);
         return $response;
     }
 
