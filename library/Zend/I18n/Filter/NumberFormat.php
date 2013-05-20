@@ -149,6 +149,7 @@ class NumberFormat extends AbstractLocale
             ErrorHandler::stop();
             $result = str_replace("\xC2\xA0", ' ', $result);
         } else {
+            $value = str_replace(array("\xC2\xA0", ' '), '', $value);
             ErrorHandler::start();
             $result = $formatter->parse($value, $type);
             ErrorHandler::stop();
