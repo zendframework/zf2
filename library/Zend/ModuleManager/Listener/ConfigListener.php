@@ -37,11 +37,6 @@ class ConfigListener extends AbstractListener implements
     /**
      * @var array
      */
-    protected $configs = array();
-
-    /**
-     * @var array
-     */
     protected $mergedConfig = array();
 
     /**
@@ -126,6 +121,11 @@ class ConfigListener extends AbstractListener implements
         $config = $module->getConfig();
         $this->addConfig($e->getModuleName(), $config);
 
+        if ($module instanceof ConfigPostMergeModifierInterface
+            || is_callable(array($module, 'modifyConfigPostMerge'))
+        ) {
+            $this->setMergedConfig($module->modifyConfigPostMerge($this->getMergedConfig(false)));
+        }
         return $this;
     }
 
@@ -144,11 +144,8 @@ class ConfigListener extends AbstractListener implements
             $this->addConfigByPath($path['path'], $path['type']);
         }
 
-        // Merge all of the collected configs
-        $this->mergedConfig = $this->getOptions()->getExtraConfig() ?: array();
-        foreach ($this->configs as $config) {
-            $this->mergedConfig = ArrayUtils::merge($this->mergedConfig, $config);
-        }
+        // Add any extra config
+        $this->mergedConfig = ArrayUtils::merge($this->getOptions()->getExtraConfig(), $this->mergedConfig);
 
         // If enabled, update the config cache
         if (
@@ -321,7 +318,7 @@ class ConfigListener extends AbstractListener implements
             );
         }
 
-        $this->configs[$key] = $config;
+        $this->mergedConfig = ArrayUtils::merge($this->mergedConfig, $config);
 
         return $this;
     }
