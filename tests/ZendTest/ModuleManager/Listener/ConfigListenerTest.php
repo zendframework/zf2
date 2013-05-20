@@ -383,4 +383,19 @@ class ConfigListenerTest extends TestCase
         $configListener->detach($moduleManager->getEventManager());
         $this->assertEquals(2, count($moduleManager->getEventManager()->getEvents()));
     }
+
+    public function testCallModifyConfigPostMerge()
+    {
+        $configListener = new ConfigListener;
+
+        $moduleManager = $this->moduleManager;
+        $configListener->attach($moduleManager->getEventManager());
+        $moduleManager->setModules(array('SomeModule', 'ConfigPostMergeModifierModule'));
+        $moduleManager->loadModules();
+
+        $config = $configListener->getMergedConfig(false);
+        $this->assertCount(1, $config);
+        $this->assertSame('thing two', $config['other']);
+        $this->assertFalse(isset($config['some']));
+    }
 }
