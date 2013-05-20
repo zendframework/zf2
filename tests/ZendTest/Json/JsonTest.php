@@ -1054,4 +1054,3 @@ class JsonSerializableImpl implements \JsonSerializable
         return array(__FUNCTION__);
     }
 }
-
