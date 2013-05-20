@@ -12,6 +12,7 @@ namespace Zend\Json;
 use Iterator;
 use IteratorAggregate;
 use ReflectionClass;
+use JsonSerializable;
 use Zend\Json\Exception\InvalidArgumentException;
 use Zend\Json\Exception\RecursionException;
 
