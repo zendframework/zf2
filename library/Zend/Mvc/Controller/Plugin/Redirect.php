@@ -45,8 +45,8 @@ class Redirect extends AbstractPlugin
             $url = $urlPlugin->fromRoute($route, $params, $options, $reuseMatchedParams);
         }
 
-        if (is_array($options) && isset($options['status-code'])) {
-            return $this->toUrl($url, $options['status-code']);
+        if (is_array($options) && isset($options['status_code'])) {
+            return $this->toUrl($url, $options['status_code']);
         } else {
             return $this->toUrl($url);
         }
