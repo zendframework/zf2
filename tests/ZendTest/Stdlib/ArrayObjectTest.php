@@ -317,6 +317,15 @@ class ArrayObjectTest extends TestCase
         unset($ar['foo']['bar']['baz']);
     }
 
+    public function testOffsetUnsetWithNullValue()
+    {
+        $ar = new ArrayObject();
+        $ar->offsetSet('foo', null);
+        $this->assertTrue($ar->offsetExists('foo'));
+        $ar->offsetUnset('foo');
+        $this->assertFalse($ar->offsetExists('foo'));
+    }
+
     public function testOffsetUnsetThrowsExceptionOnProtectedProperty()
     {
         if (version_compare(PHP_VERSION, '5.3.4') < 0) {
@@ -372,5 +381,4 @@ class ArrayObjectTest extends TestCase
         $ar->uksort($function);
         $this->assertSame($sorted, $ar->getArrayCopy());
     }
-
 }
