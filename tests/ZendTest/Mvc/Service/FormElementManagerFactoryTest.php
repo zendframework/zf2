@@ -70,4 +70,11 @@ class FormElementManagerFactoryTest extends TestCase
         $form = $formElementManager->get('ZendTest\Mvc\Service\TestAsset\CustomForm');
         $this->assertInstanceof('ZendTest\Mvc\Service\TestAsset\CustomForm', $form);
     }
+
+    public function testAccordingToServiceLocatorAwareInterface()
+    {
+        $formElementManager = $this->services->get('FormElementManager');
+        $serviceLocator = $formElementManager->getServiceLocator();
+        $this->assertInstanceof('Zend\ServiceManager\ServiceLocatorInterface', $serviceLocator);
+    }
 }
