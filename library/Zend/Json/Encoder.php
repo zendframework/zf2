@@ -66,6 +66,10 @@ class Encoder
     {
         $encoder = new static(($cycleCheck) ? true : false, $options);
 
+        if ($value instanceof \JsonSerializable) {
+            $value = $value->JsonSerialize();
+        }
+
         return $encoder->_encodeValue($value);
     }
 

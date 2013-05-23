@@ -12,6 +12,10 @@ namespace ZendTest\Json;
 
 use Zend\Json;
 
+if (!version_compare(PHP_VERSION, '5.4.0', 'gt')) {
+    class_alias('Zend\Json\JsonSerializable', 'JsonSerializable');
+}
+
 /**
  * @category   Zend
  * @package    Zend_JSON
@@ -921,6 +925,17 @@ EOB;
         $this->assertEquals('test', $object->_empty_);
     }
 
+    /**
+     * Test JsonSerializable implements (PHP's json support it since 5.4.0)
+     *
+     * @see http://php.net/jsonserializable.jsonserialize.php
+     */
+    public function testJsonSerializable()
+    {
+        $encoded = Json\Encoder::encode(new JsonSerializableImpl);
+        $this->assertEquals('["jsonSerialize"]', $encoded);
+    }
+
 }
 
 /**
@@ -1029,5 +1044,13 @@ class ToJSONWithExpr
         );
 
         return Json\Json::encode($data, false, array('enableJsonExprFinder' => true));
+    }
+}
+
+class JsonSerializableImpl implements \JsonSerializable
+{
+    public function jsonSerialize()
+    {
+        return array(__FUNCTION__);
     }
 }
