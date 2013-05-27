@@ -417,6 +417,14 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $test);
     }
 
+    public function testSetLess()
+    {
+        $this->helper->appendLess('/foo/bar');
+        $test = $this->helper->toString();
+        $this->assertContains('href="/foo/bar"', $test);
+        $this->assertContains('rel="stylesheet/less"', $test);
+    }
+
     /**
      * @issue ZF-10345
      */
