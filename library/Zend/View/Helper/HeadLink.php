@@ -112,7 +112,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     public function __call($method, $args)
     {
-        if (preg_match('/^(?P<action>set|(ap|pre)pend|offsetSet)(?P<type>Stylesheet|Alternate|Prev|Next)$/', $method, $matches)) {
+        if (preg_match('/^(?P<action>set|(ap|pre)pend|offsetSet)(?P<type>Stylesheet|Alternate|Prev|Next|Less)$/', $method, $matches)) {
             $argc   = count($args);
             $action = $matches['action'];
             $type   = $matches['type'];
@@ -333,7 +333,29 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     public function createDataStylesheet(array $args)
     {
-        $rel                   = 'stylesheet';
+        return $this->createDataForStylesheet('stylesheet', $args);
+    }
+
+    /**
+     * Create item for LESS stylesheet link item
+     *
+     * @param  array $args
+     * @return stdClass|false Returns false if stylesheet is a duplicate
+     */
+    public function createDataLess(array $args)
+    {
+        return $this->createDataForStylesheet('stylesheet/less', $args);
+    }
+
+    /**
+     * Create item for stylesheet link item with a given rel.
+     *
+     * @param  string $rel
+     * @param  array $args
+     * @return stdClass|false Returns false if stylesheet is a duplicate
+     */
+    protected function createDataForStylesheet($rel, array $args)
+    {
         $type                  = 'text/css';
         $media                 = 'screen';
         $conditionalStylesheet = false;
