@@ -37,6 +37,16 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
     {
         return $this->name;
     }
+    
+    /**
+     * Get permissions.
+     * 
+     * @return array
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
 
     /**
      * Add permission to the role.
