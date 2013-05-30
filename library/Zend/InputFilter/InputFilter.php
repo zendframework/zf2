@@ -162,6 +162,12 @@ class InputFilter implements InputFilterInterface
     public function setValidationGroup(array $validationGroup)
     {
         $this->validationGroup = $validationGroup;
+
+        foreach ($this->inputs as $name => $inputOrInputFilter) {
+            if ($inputOrInputFilter instanceof InputFilterInterface) {
+                $inputOrInputFilter->setValidationGroup($validationGroup[$name]);
+            }
+        }
     }
 
     /**
@@ -185,11 +191,19 @@ class InputFilter implements InputFilterInterface
         $recursiveIterator     = new RecursiveArrayIterator($this->inputs);
         $validationGroupFilter = new ValidationGroupFilter($recursiveIterator, $this->getValidationGroup());
 
+        $valid = true;
+
         foreach ($validationGroupFilter as $name => $inputOrInputFilter) {
             if (!$inputOrInputFilter->isValid()) {
+                $valid = false;
 
+                if ($inputOrInputFilter instanceof InputInterface && $inputOrInputFilter->breakOnFailure()) {
+                    return $valid;
+                }
             }
         }
+
+        return $valid;
     }
 
     /**
