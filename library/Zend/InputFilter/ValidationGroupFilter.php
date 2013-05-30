@@ -9,13 +9,13 @@
 
 namespace Zend\InputFilter;
 
-use RecursiveFilterIterator;
+use FilterIterator;
 use RecursiveIterator;
 
 /**
  * Validation group filter
  */
-class ValidationGroupFilter extends RecursiveFilterIterator
+class ValidationGroupFilter extends FilterIterator
 {
     /**
      * @var array
@@ -29,7 +29,10 @@ class ValidationGroupFilter extends RecursiveFilterIterator
     public function __construct(RecursiveIterator $iterator, array $validationGroup)
     {
         parent::__construct($iterator);
-        $this->validationGroup = $validationGroup;
+
+        // This is an optimization so that we can use isset instead of in_array when filtering (which
+        // is much more efficient, especially if the array is large)
+        $this->validationGroup = array_flip($validationGroup);
     }
 
     /**
@@ -37,6 +40,6 @@ class ValidationGroupFilter extends RecursiveFilterIterator
      */
     public function accept()
     {
-        return in_array($this->key(), $this->validationGroup);
+        return isset($this->validationGroup[$this->key()]);
     }
 }
