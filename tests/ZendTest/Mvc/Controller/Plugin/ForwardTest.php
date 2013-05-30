@@ -20,6 +20,7 @@ use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\Controller\Plugin\Forward as ForwardPlugin;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\ModuleRouteListener;
 use ZendTest\Mvc\Controller\TestAsset\ForwardController;
 use ZendTest\Mvc\Controller\TestAsset\SampleController;
 use ZendTest\Mvc\Controller\TestAsset\UneventfulController;
@@ -58,6 +59,8 @@ class ForwardTest extends TestCase
             $controller->setPluginManager($plugins);
             return $controller;
         });
+        $controllers->setInvokableClass('ZendTest\Mvc\Controller\TestAsset\ForwardFq', 'ZendTest\Mvc\Controller\TestAsset\ForwardFqController');
+
         $controllers->setServiceLocator($services);
         $services->add('ControllerLoader', function () use ($controllers) {
             return $controllers;
@@ -168,5 +171,28 @@ class ForwardTest extends TestCase
         $this->assertEquals('not-found', $result['status']);
         $this->assertTrue(isset($result['params']));
         $this->assertEquals(array(), $result['params']);
+    }
+
+    /**
+     * compatibility with ModuleRouteListener
+     *
+     * @see Zend\Mvc\ModuleRouteListener
+     */
+    public function testShorNamedController()
+    {
+        $shortNamedController = 'forward-fq';
+        $origCtlKey = ModuleRouteListener::ORIGINAL_CONTROLLER;
+        $params = array(
+            ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
+            'action' => 'test',
+            'param1' => 'foo',
+        );
+        $result = $this->plugin->dispatch($shortNamedController, $params);
+        $this->assertInternalType('array', $result);
+        $this->assertArrayHasKey('content', $result);
+        $this->assertEquals('ZendTest\Mvc\Controller\TestAsset\ForwardFqController::testAction', $result['content']);
+        $this->assertArrayHasKey('params', $result);
+        $this->assertArrayHasKey($origCtlKey, $result['params']);
+        $this->assertEquals($shortNamedController, $result['params'][$origCtlKey]);
     }
 }
