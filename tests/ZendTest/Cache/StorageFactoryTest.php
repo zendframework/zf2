@@ -89,6 +89,22 @@ class StorageFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Zend\Cache\Storage\Adapter\Memory', $cache);
     }
 
+    /**
+     * @group 4445
+     */
+    public function testFactoryWithAdapterAsStringAndOptions()
+    {
+        $cache = Cache\StorageFactory::factory(array(
+            'adapter' => 'Memory',
+            'options' => array(
+                'namespace' => 'test'
+            ),
+        ));
+
+        $this->assertInstanceOf('Zend\Cache\Storage\Adapter\Memory', $cache);
+        $this->assertSame('test', $cache->getOptions()->getNamespace());
+    }
+
     public function testFactoryAdapterAsArray()
     {
         $cache = Cache\StorageFactory::factory(array(
@@ -117,6 +133,16 @@ class StorageFactoryTest extends \PHPUnit_Framework_TestCase
         foreach ($cache->getPluginRegistry() as $plugin) {
             $this->assertInstanceOf('Zend\Cache\Storage\Plugin\\' . $plugins[$i++], $plugin);
         }
+    }
+
+    public function testFactoryInstantiateAdapterWithPluginsWithoutEventsCapableInterfaceThrowsException()
+    {
+        // The BlackHole adapter doesn't implement EventsCapableInterface
+        $this->setExpectedException('Zend\Cache\Exception\RuntimeException');
+        Cache\StorageFactory::factory(array(
+            'adapter' => 'blackhole',
+            'plugins' => array('Serializer'),
+        ));
     }
 
     public function testFactoryWithPluginsAndOptionsArray()

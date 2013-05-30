@@ -10,6 +10,7 @@
 namespace Zend\Cache;
 
 use Traversable;
+use Zend\EventManager\EventsCapableInterface;
 use Zend\Stdlib\ArrayUtils;
 
 abstract class StorageFactory
@@ -54,16 +55,16 @@ abstract class StorageFactory
             throw new Exception\InvalidArgumentException('Missing "adapter"');
         }
         $adapterName    = $cfg['adapter'];
-        $adapterOptions = null;
+        $adapterOptions = array();
         if (is_array($cfg['adapter'])) {
             if (!isset($cfg['adapter']['name'])) {
                 throw new Exception\InvalidArgumentException('Missing "adapter.name"');
             }
 
             $adapterName    = $cfg['adapter']['name'];
-            $adapterOptions = isset($cfg['adapter']['options']) ? $cfg['adapter']['options'] : null;
+            $adapterOptions = isset($cfg['adapter']['options']) ? $cfg['adapter']['options'] : array();
         }
-        if ($adapterOptions && isset($cfg['options'])) {
+        if (isset($cfg['options'])) {
             $adapterOptions = array_merge($adapterOptions, $cfg['options']);
         }
 
@@ -71,6 +72,14 @@ abstract class StorageFactory
 
         // add plugins
         if (isset($cfg['plugins'])) {
+            if (!$adapter instanceof EventsCapableInterface) {
+                throw new Exception\RuntimeException(sprintf(
+                    "The adapter '%s' doesn't implement '%s' and therefore can't handle plugins",
+                    get_class($adapter),
+                    'Zend\EventManager\EventsCapableInterface'
+                ));
+            }
+
             if (!is_array($cfg['plugins'])) {
                 throw new Exception\InvalidArgumentException(
                     'Plugins needs to be an array'

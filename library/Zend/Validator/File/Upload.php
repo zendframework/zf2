@@ -55,7 +55,7 @@ class Upload extends AbstractValidator
     /**
      * Sets validator options
      *
-     * The array $files must be given in syntax of Zend_File_Transfer to be checked
+     * The array $files must be given in syntax of Zend\File\Transfer\Transfer to be checked
      * If no files are given the $_FILES array will be used automatically.
      * NOTE: This validator will only work with HTTP POST uploads!
      *
@@ -163,40 +163,40 @@ class Upload extends AbstractValidator
             switch ($content['error']) {
                 case 0:
                     if (!is_uploaded_file($content['tmp_name'])) {
-                        $this->throwError($file, self::ATTACK);
+                        $this->throwError($content, self::ATTACK);
                     }
                     break;
 
                 case 1:
-                    $this->throwError($file, self::INI_SIZE);
+                    $this->throwError($content, self::INI_SIZE);
                     break;
 
                 case 2:
-                    $this->throwError($file, self::FORM_SIZE);
+                    $this->throwError($content, self::FORM_SIZE);
                     break;
 
                 case 3:
-                    $this->throwError($file, self::PARTIAL);
+                    $this->throwError($content, self::PARTIAL);
                     break;
 
                 case 4:
-                    $this->throwError($file, self::NO_FILE);
+                    $this->throwError($content, self::NO_FILE);
                     break;
 
                 case 6:
-                    $this->throwError($file, self::NO_TMP_DIR);
+                    $this->throwError($content, self::NO_TMP_DIR);
                     break;
 
                 case 7:
-                    $this->throwError($file, self::CANT_WRITE);
+                    $this->throwError($content, self::CANT_WRITE);
                     break;
 
                 case 8:
-                    $this->throwError($file, self::EXTENSION);
+                    $this->throwError($content, self::EXTENSION);
                     break;
 
                 default:
-                    $this->throwError($file, self::UNKNOWN);
+                    $this->throwError($content, self::UNKNOWN);
                     break;
             }
         }
