@@ -9,31 +9,30 @@
 
 namespace Zend\InputFilter;
 
-use Zend\Filter\FilterChain;
-use Zend\Validator\ValidatorChain;
-
+/**
+ * Input interface
+ */
 interface InputInterface
 {
-    public function setAllowEmpty($allowEmpty);
-    public function setBreakOnFailure($breakOnFailure);
-    public function setErrorMessage($errorMessage);
-    public function setFilterChain(FilterChain $filterChain);
+    /**
+     * Set the name of the input filter
+     *
+     * @param  string $name
+     * @return void
+     */
     public function setName($name);
-    public function setRequired($required);
-    public function setValidatorChain(ValidatorChain $validatorChain);
-    public function setValue($value);
-    public function merge(InputInterface $input);
 
-    public function allowEmpty();
-    public function breakOnFailure();
-    public function getErrorMessage();
-    public function getFilterChain();
+    /**
+     * Get the name of the input filter
+     *
+     * @return string
+     */
     public function getName();
-    public function getRawValue();
-    public function isRequired();
-    public function getValidatorChain();
-    public function getValue();
 
+    /**
+     * Check if the input filter is valid
+     *
+     * @return bool
+     */
     public function isValid();
-    public function getMessages();
 }

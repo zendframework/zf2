@@ -9,14 +9,11 @@
 
 namespace Zend\InputFilter;
 
-use Zend\InputFilter\Exception;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\ConfigInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Stdlib\InitializableInterface;
+use Zend\ServiceManager\Exception;
 
 /**
- * Plugin manager implementation for input filters.
+ * Input filter plugin manager
  */
 class InputFilterPluginManager extends AbstractPluginManager
 {
@@ -26,8 +23,7 @@ class InputFilterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
-        'inputfilter' => 'Zend\InputFilter\InputFilter',
-        'collection'  => 'Zend\InputFilter\CollectionInputFilter',
+        'inputfilter' => 'Zend\InputFilter\InputFilter'
     );
 
     /**
@@ -38,45 +34,11 @@ class InputFilterPluginManager extends AbstractPluginManager
     protected $shareByDefault = false;
 
     /**
-     * @param ConfigInterface $configuration
-     */
-    public function __construct(ConfigInterface $configuration = null)
-    {
-        parent::__construct($configuration);
-
-        $this->addInitializer(array($this, 'populateFactory'));
-    }
-
-    /**
-     * Inject this and populate the factory with filter chain and validator chain
-     *
-     * @param $inputfilter
-     */
-    public function populateFactory($inputfilter)
-    {
-        if ($inputfilter instanceof InputFilter) {
-            $factory = $inputfilter->getFactory();
-
-            $factory->setInputFilterManager($this);
-
-            if ($this->serviceLocator instanceof ServiceLocatorInterface) {
-                $factory->getDefaultFilterChain()->setPluginManager($this->serviceLocator->get('FilterManager'));
-                $factory->getDefaultValidatorChain()->setPluginManager($this->serviceLocator->get('ValidatorManager'));
-            }
-        }
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function validatePlugin($plugin)
     {
         if ($plugin instanceof InputFilterInterface) {
-            // Hook to perform various initialization, when the inputfilter is not created through the factory
-            if ($plugin instanceof InitializableInterface) {
-                $plugin->init();
-            }
-
             // we're okay
             return;
         }

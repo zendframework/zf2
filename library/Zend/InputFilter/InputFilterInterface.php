@@ -9,24 +9,23 @@
 
 namespace Zend\InputFilter;
 
-use Countable;
-use Traversable;
-
-interface InputFilterInterface extends Countable
+/**
+ * Input filter interface
+ */
+interface InputFilterInterface
 {
-    const VALIDATE_ALL = 'INPUT_FILTER_ALL';
-
     /**
-     * Add an input to the input filter
+     * Add an input or another input filter (if no name was set, it will extract the one set in
+     * the input or input filter)
      *
-     * @param  InputInterface|InputFilterInterface|array $input
-     * @param  null|string $name Name used to retrieve this input
-     * @return InputFilterInterface
+     * @param  InputInterface|InputFilterInterface $inputOrInputFilter
+     * @param  string|null                         $name
+     * @return void
      */
-    public function add($input, $name = null);
+    public function add($inputOrInputFilter, $name = null);
 
     /**
-     * Retrieve a named input
+     * Get an input or an input filter by name
      *
      * @param  string $name
      * @return InputInterface|InputFilterInterface
@@ -34,7 +33,7 @@ interface InputFilterInterface extends Countable
     public function get($name);
 
     /**
-     * Test if an input or input filter by the given name is attached
+     * Check if the input filter contains an input or another input filter with the name given
      *
      * @param  string $name
      * @return bool
@@ -42,66 +41,38 @@ interface InputFilterInterface extends Countable
     public function has($name);
 
     /**
-     * Remove a named input
+     * Remove the input or input filter from the given name
      *
      * @param  string $name
-     * @return InputFilterInterface
+     * @return void
      */
     public function remove($name);
 
     /**
-     * Set data to use when validating and filtering
+     * Set the name of the input filter
      *
-     * @param  array|Traversable $data
-     * @return InputFilterInterface
+     * @param  string $name
+     * @return void
      */
-    public function setData($data);
+    public function setName($name);
 
     /**
-     * Is the data set valid?
+     * Get the name of the input filter
      *
-     * @return bool
+     * @return string
      */
-    public function isValid();
+    public function getName();
 
     /**
-     * Provide a list of one or more elements indicating the complete set to validate
+     * Set the data that need to be validated
      *
-     * When provided, calls to {@link isValid()} will only validate the provided set.
-     *
-     * If the initial value is {@link VALIDATE_ALL}, the current validation group, if
-     * any, should be cleared.
-     *
-     * Implementations should allow passing a single array value, or multiple arguments,
-     * each specifying a single input.
-     *
-     * @param  mixed $name
-     * @return InputFilterInterface
+     * @param  array $data
+     * @return void
      */
-    public function setValidationGroup($name);
+    public function setData(array $data);
 
     /**
-     * Return a list of inputs that were invalid.
-     *
-     * Implementations should return an associative array of name/input pairs
-     * that failed validation.
-     *
-     * @return InputInterface[]
-     */
-    public function getInvalidInput();
-
-    /**
-     * Return a list of inputs that were valid.
-     *
-     * Implementations should return an associative array of name/input pairs
-     * that passed validation.
-     *
-     * @return InputInterface[]
-     */
-    public function getValidInput();
-
-    /**
-     * Retrieve a value from a named input
+     * Get the filtered value
      *
      * @param  string $name
      * @return mixed
@@ -109,17 +80,7 @@ interface InputFilterInterface extends Countable
     public function getValue($name);
 
     /**
-     * Return a list of filtered values
-     *
-     * List should be an associative array, with the values filtered. If
-     * validation failed, this should raise an exception.
-     *
-     * @return array
-     */
-    public function getValues();
-
-    /**
-     * Retrieve a raw (unfiltered) value from a named input
+     * Get the unfiltered value
      *
      * @param  string $name
      * @return mixed
@@ -127,22 +88,45 @@ interface InputFilterInterface extends Countable
     public function getRawValue($name);
 
     /**
-     * Return a list of unfiltered values
+     * Get the filtered values
      *
-     * List should be an associative array of named input/value pairs,
-     * with the values unfiltered.
+     * @return array
+     */
+    public function getValues();
+
+    /**
+     * Get the unfiltered values
      *
      * @return array
      */
     public function getRawValues();
 
     /**
-     * Return a list of validation failure messages
+     * Set the validation group
      *
-     * Should return an associative array of named input/message list pairs.
-     * Pairs should only be returned for inputs that failed validation.
+     * @param  array $validationGroup
+     * @return void
+     */
+    public function setValidationGroup(array $validationGroup);
+
+    /**
+     * Get the validation group
      *
      * @return array
      */
-    public function getMessages();
+    public function getValidationGroup();
+
+    /**
+     * Check if the input filter is valid
+     *
+     * @return bool
+     */
+    public function isValid();
+
+    /**
+     * Get the error messages that may have occurred during validation (if any)
+     *
+     * @return array
+     */
+    public function getErrorMessages();
 }
