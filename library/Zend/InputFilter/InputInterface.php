@@ -9,6 +9,9 @@
 
 namespace Zend\InputFilter;
 
+use Zend\Filter\FilterChain;
+use Zend\Validator\ValidatorChain;
+
 /**
  * Input interface
  */
@@ -30,9 +33,59 @@ interface InputInterface
     public function getName();
 
     /**
+     * Set the data of the input
+     *
+     * @param  $data
+     * @return void
+     */
+    public function setData($data);
+
+    /**
+     * Get the filtered value
+     *
+     * @return mixed
+     */
+    public function getValue();
+
+    /**
+     * Get the unfiltered value
+     *
+     * @return mixed
+     */
+    public function getRawValue();
+
+    /**
+     * If set to true, then no other inputs are validated
+     *
+     * @return bool
+     */
+    public function breakOnFailure();
+
+    /**
+     * Get the filter chain
+     *
+     * @return FilterChain
+     */
+    public function getFilterChain();
+
+    /**
+     * Get the validator chain
+     *
+     * @return ValidatorChain
+     */
+    public function getValidatorChain();
+
+    /**
      * Check if the input filter is valid
      *
      * @return bool
      */
     public function isValid();
+
+    /**
+     * Get the error messages that may have occurred during validation (if any)
+     *
+     * @return array
+     */
+    public function getErrorMessages();
 }

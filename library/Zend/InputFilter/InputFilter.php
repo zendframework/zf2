@@ -9,7 +9,7 @@
 
 namespace Zend\InputFilter;
 
-use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
 
 /**
  * Input filter
@@ -110,7 +110,9 @@ class InputFilter implements InputFilterInterface
      */
     public function getValue($name)
     {
-        // TODO: Implement getValue() method.
+        if (isset($this->inputs[$name]) && $this->inputs[$name] instanceof InputInterface) {
+            return $this->inputs[$name]->getValue();
+        }
     }
 
     /**
@@ -118,6 +120,9 @@ class InputFilter implements InputFilterInterface
      */
     public function getRawValue($name)
     {
+        if (isset($this->inputs[$name]) && $this->inputs[$name] instanceof InputInterface) {
+            return $this->inputs[$name]->getRawValue();
+        }
     }
 
     /**
@@ -180,30 +185,26 @@ class InputFilter implements InputFilterInterface
             $this->validationGroup = array_keys($this->inputs);
         }
 
+        // If a given key refers to another input filter, we give it the validation group
+
+        /*foreach ($this->validationGroup as $key => $value) {
+            if (isset($this->inputs[$key]) && $this->inputs[$key] instanceof InputFilterInterface) {
+                $this->inputs[$key]->setValidationGroup($value);
+
+                unset($this->validationGroup[$key]);
+                $this->validationGroup[] = $key;
+            }
+        }*/
+
         return $this->validationGroup;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isValid()
+    public function setErrorMessages($name, array $errorMessages)
     {
-        $recursiveIterator     = new RecursiveArrayIterator($this->inputs);
-        $validationGroupFilter = new ValidationGroupFilter($recursiveIterator, $this->getValidationGroup());
-
-        $valid = true;
-
-        foreach ($validationGroupFilter as $name => $inputOrInputFilter) {
-            if (!$inputOrInputFilter->isValid()) {
-                $valid = false;
-
-                if ($inputOrInputFilter instanceof InputInterface && $inputOrInputFilter->breakOnFailure()) {
-                    return $valid;
-                }
-            }
-        }
-
-        return $valid;
+        $this->errorMessages[$name] = $errorMessages;
     }
 
     /**
@@ -212,5 +213,95 @@ class InputFilter implements InputFilterInterface
     public function getErrorMessages()
     {
         return $this->errorMessages;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isValid()
+    {
+        $validationGroupFilter = new ValidationGroupFilter($this, $this->getValidationGroup());
+        $recursiveIterator     = new RecursiveIteratorIterator($validationGroupFilter, RecursiveIteratorIterator::LEAVES_ONLY);
+        $valid                 = true;
+
+        /** @var InputInterface $input */
+        foreach ($recursiveIterator as $name => $input) {
+            $inputFilter = $recursiveIterator->getSubIterator()->getInnerIterator();
+
+            if ($input->isValid()) {
+                continue;
+            }
+
+            $valid = false;
+            $inputFilter->setErrorMessages($name, $input->getErrorMessages());
+
+            if ($input->breakOnFailure()) {
+                return false;
+            }
+        }
+
+        return $valid;
+    }
+
+    /**
+     * --------------------------------------------------------------------------------
+     * Implementation of RecursiveIterator interface
+     * --------------------------------------------------------------------------------
+     */
+
+    /**
+     * {@inheritDoc}
+     */
+    public function current()
+    {
+        return current($this->inputs);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function next()
+    {
+        next($this->inputs);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function key()
+    {
+        return key($this->inputs);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function valid()
+    {
+        return current($this->inputs);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function rewind()
+    {
+        reset($this->inputs);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasChildren()
+    {
+        return current($this->inputs) instanceof InputFilterInterface;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getChildren()
+    {
+        return current($this->inputs);
     }
 }

@@ -9,13 +9,13 @@
 
 namespace Zend\InputFilter;
 
-use FilterIterator;
+use RecursiveFilterIterator;
 use RecursiveIterator;
 
 /**
  * Validation group filter
  */
-class ValidationGroupFilter extends FilterIterator
+class ValidationGroupFilter extends RecursiveFilterIterator
 {
     /**
      * @var array
@@ -23,16 +23,23 @@ class ValidationGroupFilter extends FilterIterator
     protected $validationGroup;
 
     /**
-     * @param RecursiveIterator $iterator
-     * @param array $validationGroup
+     * @param  RecursiveIterator $iterator
+     * @throws Exception\RuntimeException
      */
-    public function __construct(RecursiveIterator $iterator, array $validationGroup)
+    public function __construct(RecursiveIterator $iterator)
     {
+        if (!$iterator instanceof InputFilterInterface) {
+            throw new Exception\RuntimeException(sprintf(
+               'Expected a "Zend\InputFilter\InputFilterInterface" class, but "%s" was given',
+                get_class($iterator)
+            ));
+        }
+
         parent::__construct($iterator);
 
-        // This is an optimization so that we can use isset instead of in_array when filtering (which
-        // is much more efficient, especially if the array is large)
-        $this->validationGroup = array_flip($validationGroup);
+        // This is an optimization, this way we can check using isset, which is way faster than in_array (especially
+        // with very large arrays)
+        $this->validationGroup = array_flip($iterator->getValidationGroup());
     }
 
     /**

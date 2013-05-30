@@ -9,10 +9,12 @@
 
 namespace Zend\InputFilter;
 
+use RecursiveIterator;
+
 /**
  * Input filter interface
  */
-interface InputFilterInterface
+interface InputFilterInterface extends RecursiveIterator
 {
     /**
      * Add an input or another input filter (if no name was set, it will extract the one set in
@@ -117,11 +119,13 @@ interface InputFilterInterface
     public function getValidationGroup();
 
     /**
-     * Check if the input filter is valid
+     * Set error messages for a given input
      *
-     * @return bool
+     * @param  string $name
+     * @param  array $errorMessages
+     * @return void
      */
-    public function isValid();
+    public function setErrorMessages($name, array $errorMessages);
 
     /**
      * Get the error messages that may have occurred during validation (if any)
@@ -129,4 +133,11 @@ interface InputFilterInterface
      * @return array
      */
     public function getErrorMessages();
+
+    /**
+     * Check if the input filter is valid
+     *
+     * @return bool
+     */
+    public function isValid();
 }

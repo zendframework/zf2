@@ -9,6 +9,9 @@
 
 namespace Zend\InputFilter;
 
+use Zend\Validator\ValidatorChain;
+use Zend\Filter\FilterChain;
+
 /**
  * Input
  */
@@ -18,6 +21,26 @@ class Input implements InputInterface
      * @var string
      */
     protected $name;
+
+    /**
+     * @var bool
+     */
+    protected $breakOnFailure = false;
+
+    /**
+     * @var ValidatorChain
+     */
+    protected $validatorChain;
+
+    /**
+     * @var FilterChain
+     */
+    protected $filterChain;
+
+    /**
+     * @var mixed
+     */
+    protected $data;
 
     /**
      * {@inheritDoc}
@@ -38,8 +61,64 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValue()
+    {
+        return $this->filterChain->filter($this->data);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRawValue()
+    {
+        return $this->data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function breakOnFailure()
+    {
+        return $this->breakOnFailure;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFilterChain()
+    {
+        return $this->filterChain;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatorChain()
+    {
+        return $this->validatorChain;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function isValid()
     {
-        return true;
+        // TODO: Implement isValid() method.
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getErrorMessages()
+    {
+        // TODO: Implement getErrorMessages() method.
     }
 }
