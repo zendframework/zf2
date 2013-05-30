@@ -226,13 +226,13 @@ class InputFilter implements InputFilterInterface
 
         /** @var InputInterface $input */
         foreach ($recursiveIterator as $name => $input) {
-            $inputFilter = $recursiveIterator->getSubIterator()->getInnerIterator();
-
             if ($input->isValid()) {
                 continue;
             }
 
-            $valid = false;
+            $valid       = false;
+            $inputFilter = $recursiveIterator->getSubIterator()->getInnerIterator();
+
             $inputFilter->setErrorMessages($name, $input->getErrorMessages());
 
             if ($input->breakOnFailure()) {
