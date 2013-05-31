@@ -111,7 +111,7 @@ class Input implements InputInterface
      */
     public function isValid()
     {
-        // TODO: Implement isValid() method.
+        return true;// TODO: Implement isValid() method.
     }
 
     /**

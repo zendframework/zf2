@@ -233,7 +233,7 @@ class InputFilter implements InputFilterInterface
             $valid       = false;
             $inputFilter = $recursiveIterator->getSubIterator()->getInnerIterator();
 
-            $inputFilter->setErrorMessages($name, $input->getErrorMessages());
+            //$inputFilter->setErrorMessages($name, $input->getErrorMessages());
 
             if ($input->breakOnFailure()) {
                 return false;
