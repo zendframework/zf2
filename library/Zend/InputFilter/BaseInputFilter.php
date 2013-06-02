@@ -251,13 +251,13 @@ class BaseInputFilter implements InputFilterInterface
         // different set of data
         $this->validInputs = $this->invalidInputs = $this->errorMessages = array();
 
-        $validationGroupFilter = new ValidationGroupFilter($this, $this->getValidationGroup());
+        $validationGroupFilter = new ValidationGroupFilter($this);
         $recursiveIterator     = new RecursiveIteratorIterator($validationGroupFilter, RecursiveIteratorIterator::LEAVES_ONLY);
         $valid                 = true;
 
         /** @var InputInterface $input */
         foreach ($recursiveIterator as $name => $input) {
-            /** @var InputFilterInterface $inputFilter */
+            /** @var InputFilter $inputFilter */
             $inputFilter = $recursiveIterator->getSubIterator()->getInnerIterator();
 
             if ($input->isValid()) {
@@ -268,7 +268,7 @@ class BaseInputFilter implements InputFilterInterface
             $inputFilter->invalidInputs[$name] = $input;
             $valid = false;
 
-            //$inputFilter->setErrorMessages($name, $input->getErrorMessages());
+            $inputFilter->setErrorMessages($name, $input->getErrorMessages());
 
             if ($input->breakOnFailure()) {
                 return false;
