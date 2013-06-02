@@ -14,13 +14,7 @@ use Zend\Stdlib\AbstractOptions;
 abstract class AbstractFilter extends AbstractOptions implements FilterInterface
 {
     /**
-     * Invoke filter as a command
-     *
-     * Proxies to {@link filter()}
-     *
-     * @param  mixed $value
-     * @throws Exception\ExceptionInterface If filtering $value is impossible
-     * @return mixed
+     * {@inheritDoc}
      */
     public function __invoke($value)
     {
