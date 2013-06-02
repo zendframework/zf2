@@ -66,12 +66,12 @@ class RedisResourceManager
 
         $redis = new RedisResource();
 
+        $resource['resource'] = $redis;
+        $this->connect($resource);
+
         foreach ($resource['lib_options'] as $k => $v) {
             $redis->setOption($k, $v);
         }
-
-        $resource['resource'] = $redis;
-        $this->connect($resource);
 
         $info = $redis->info();
         $resource['version'] = $info['redis_version'];
