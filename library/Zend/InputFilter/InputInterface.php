@@ -18,6 +18,11 @@ use Zend\Validator\ValidatorChain;
 interface InputInterface
 {
     /**
+     * Constants
+     */
+    const REQUIRED_VALIDATOR_PRIORITY = 1000;
+
+    /**
      * Set the name of the input filter
      *
      * @param  string $name
@@ -55,6 +60,30 @@ interface InputInterface
     public function getRawValue();
 
     /**
+     * Set if the validation should break if one validator fails
+     *
+     * @param  bool $breakOnFailure
+     * @return void
+     */
+    public function setBreakOnFailure($breakOnFailure);
+
+    /**
+     * Set if the input is required. This is a shortcut of manually adding a NotEmpty validator with
+     * a very high priority into the validator chain
+     *
+     * @param  bool $required
+     * @return void
+     */
+    public function setRequired($required);
+
+    /**
+     * Get if the input is required
+     *
+     * @return bool
+     */
+    public function isRequired();
+
+    /**
      * If set to true, then no other inputs are validated
      *
      * @return bool
@@ -78,9 +107,10 @@ interface InputInterface
     /**
      * Check if the input filter is valid
      *
+     * @param  mixed|null $context An optional context used for validation
      * @return bool
      */
-    public function isValid();
+    public function isValid($context = null);
 
     /**
      * Get the error messages that may have occurred during validation (if any)

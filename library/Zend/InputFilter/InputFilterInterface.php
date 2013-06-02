@@ -104,6 +104,20 @@ interface InputFilterInterface extends RecursiveIterator
     public function getRawValues();
 
     /**
+     * Get the valid inputs
+     *
+     * @return InputInterface[]
+     */
+    public function getValidInputs();
+
+    /**
+     * Get the invalid inputs
+     *
+     * @return InputInterface[]
+     */
+    public function getInvalidInputs();
+
+    /**
      * Set the validation group
      *
      * @param  array $validationGroup

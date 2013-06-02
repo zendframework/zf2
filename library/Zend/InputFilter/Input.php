@@ -25,12 +25,12 @@ class Input implements InputInterface
     /**
      * @var bool
      */
-    protected $breakOnFailure = false;
+    protected $required = false;
 
     /**
-     * @var ValidatorChain
+     * @var bool
      */
-    protected $validatorChain;
+    protected $breakOnFailure = false;
 
     /**
      * @var FilterChain
@@ -38,9 +38,29 @@ class Input implements InputInterface
     protected $filterChain;
 
     /**
+     * @var ValidatorChain
+     */
+    protected $validatorChain;
+
+    /**
      * @var mixed
      */
     protected $data;
+
+    /**
+     * @var array
+     */
+    protected $errorMessages;
+
+    /**
+     * @param FilterChain    $filterChain
+     * @param ValidatorChain $validatorChain
+     */
+    public function __construct(FilterChain $filterChain, ValidatorChain $validatorChain)
+    {
+        $this->filterChain    = $filterChain;
+        $this->validatorChain = $validatorChain;
+    }
 
     /**
      * {@inheritDoc}
@@ -85,6 +105,32 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
+    public function setRequired($required)
+    {
+        if ($required) {
+            // @TODO: add validator with high priority
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isRequired()
+    {
+        return $this->required;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setBreakOnFailure($breakOnFailure)
+    {
+        $this->breakOnFailure = (bool) $breakOnFailure;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function breakOnFailure()
     {
         return $this->breakOnFailure;
@@ -109,9 +155,15 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
-    public function isValid()
+    public function isValid($context = null)
     {
-        return true;// TODO: Implement isValid() method.
+        if ($this->validatorChain->isValid($this->data, $context)) {
+            return true;
+        }
+
+        $this->errorMessages = $this->validatorChain->getMessages();
+
+        return false;
     }
 
     /**
@@ -119,6 +171,6 @@ class Input implements InputInterface
      */
     public function getErrorMessages()
     {
-        // TODO: Implement getErrorMessages() method.
+        return $this->errorMessages;
     }
 }
