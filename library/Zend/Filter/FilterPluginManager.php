@@ -31,13 +31,9 @@ class FilterPluginManager extends AbstractPluginManager
         'basename'                  => 'Zend\Filter\BaseName',
         'boolean'                   => 'Zend\Filter\Boolean',
         'callback'                  => 'Zend\Filter\Callback',
-        'compress'                  => 'Zend\Filter\Compress',
         'datetimeformatter'         => 'Zend\Filter\DateTimeFormatter',
-        'decompress'                => 'Zend\Filter\Decompress',
-        'decrypt'                   => 'Zend\Filter\Decrypt',
         'digits'                    => 'Zend\Filter\Digits',
         'dir'                       => 'Zend\Filter\Dir',
-        'encrypt'                   => 'Zend\Filter\Encrypt',
         'filedecrypt'               => 'Zend\Filter\File\Decrypt',
         'fileencrypt'               => 'Zend\Filter\File\Encrypt',
         'filelowercase'             => 'Zend\Filter\File\LowerCase',
@@ -69,6 +65,16 @@ class FilterPluginManager extends AbstractPluginManager
         'wordunderscoretocamelcase' => 'Zend\Filter\Word\UnderscoreToCamelCase',
         'wordunderscoretodash'      => 'Zend\Filter\Word\UnderscoreToDash',
         'wordunderscoretoseparator' => 'Zend\Filter\Word\UnderscoreToSeparator',
+    );
+
+    /**
+     * @var array
+     */
+    protected $factories = array(
+        'compress'                  => 'Zend\Filter\Factory\CompressFilterFactory',
+        'decompress'                => 'Zend\Filter\Factory\DecompressFilterFactory',
+        'decrypt'                   => 'Zend\Filter\Factory\DecryptFilterFactory',
+        'encrypt'                   => 'Zend\Filter\Factory\EncryptFilterFactory',
     );
 
     /**

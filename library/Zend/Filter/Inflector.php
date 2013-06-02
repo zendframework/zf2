@@ -282,7 +282,7 @@ class Inflector extends AbstractFilter
     public function getRules($spec = null)
     {
         if (null !== $spec) {
-            $spec = $this->_normalizeSpec($spec);
+            $spec = $this->normalizeSpec($spec);
             if (isset($this->rules[$spec])) {
                 return $this->rules[$spec];
             }
@@ -301,7 +301,7 @@ class Inflector extends AbstractFilter
      */
     public function getRule($spec, $index)
     {
-        $spec = $this->_normalizeSpec($spec);
+        $spec = $this->normalizeSpec($spec);
         if (isset($this->rules[$spec]) && is_array($this->rules[$spec])) {
             if (isset($this->rules[$spec][$index])) {
                 return $this->rules[$spec][$index];
@@ -331,7 +331,7 @@ class Inflector extends AbstractFilter
      */
     public function setFilterRule($spec, $ruleSet)
     {
-        $spec = $this->_normalizeSpec($spec);
+        $spec = $this->normalizeSpec($spec);
         $this->rules[$spec] = array();
         return $this->addFilterRule($spec, $ruleSet);
     }
@@ -345,7 +345,7 @@ class Inflector extends AbstractFilter
      */
     public function addFilterRule($spec, $ruleSet)
     {
-        $spec = $this->_normalizeSpec($spec);
+        $spec = $this->normalizeSpec($spec);
         if (!isset($this->rules[$spec])) {
             $this->rules[$spec] = array();
         }
@@ -376,7 +376,7 @@ class Inflector extends AbstractFilter
      */
     public function setStaticRule($name, $value)
     {
-        $name = $this->_normalizeSpec($name);
+        $name = $this->normalizeSpec($name);
         $this->rules[$name] = (string) $value;
         return $this;
     }
@@ -394,7 +394,7 @@ class Inflector extends AbstractFilter
      */
     public function setStaticRuleReference($name, &$reference)
     {
-        $name = $this->_normalizeSpec($name);
+        $name = $this->normalizeSpec($name);
         $this->rules[$name] =& $reference;
         return $this;
     }
@@ -449,7 +449,7 @@ class Inflector extends AbstractFilter
      * @param  string $spec
      * @return string
      */
-    protected function _normalizeSpec($spec)
+    protected function normalizeSpec($spec)
     {
         return ltrim((string) $spec, ':&');
     }

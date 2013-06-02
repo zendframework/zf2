@@ -15,13 +15,11 @@ use Zend\ServiceManager\AbstractPluginManager;
 class EncryptionAdapterPluginManager extends AbstractPluginManager
 {
     /**
-     * Default set of compression adapters
-     *
      * @var array
      */
-    protected $invokableClasses = array(
-        'blockcipher' => 'Zend\Filter\Encrypt\BlockCipher',
-        'openssl'     => 'Zend\Filter\Encrypt\Openssl',
+    protected $factories = array(
+        'blockcipher' => 'Zend\Filter\Factory\BlockCipherAdapterFactory',
+        'openssl'     => 'Zend\Filter\Factory\OpensslAdapterFactory',
     );
 
     /**
@@ -36,12 +34,12 @@ class EncryptionAdapterPluginManager extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        if ($plugin instanceof EncryptionAlgorithmInterface) {
+        if ($plugin instanceof EncryptionAdapterInterface) {
             return; // we're okay
         }
 
         throw new Exception\RuntimeException(sprintf(
-            'Plugin of type %s is invalid; must implement Zend\Filter\Encrypt\EncryptionAlgorithmInterface',
+            'Plugin of type %s is invalid; must implement Zend\Filter\Encrypt\EncryptionAdapterInterface',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
     }
