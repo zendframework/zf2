@@ -15,12 +15,8 @@ namespace Zend\Filter;
 class Decrypt extends Encrypt
 {
     /**
-     * Defined by Zend\Filter\Filter
-     *
      * Decrypts the content $value with the defined settings
-     *
-     * @param  string $value Content to decrypt
-     * @return string The decrypted content
+     * {@inheritDoc}
      */
     public function filter($value)
     {

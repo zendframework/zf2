@@ -9,13 +9,11 @@
 
 namespace Zend\Filter\Compress;
 
-use Traversable;
 use Zend\Stdlib\AbstractOptions;
-use Zend\Stdlib\ArrayUtils;
 
 /**
  * Abstract compression adapter
  */
-abstract class AbstractCompressionAlgorithm extends AbstractOptions implements CompressionAlgorithmInterface
+abstract class AbstractCompressionAdapter extends AbstractOptions implements CompressionAdapterInterface
 {
 }

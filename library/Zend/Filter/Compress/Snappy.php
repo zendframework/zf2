@@ -14,7 +14,7 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for php snappy (http://code.google.com/p/php-snappy/)
  */
-class Snappy implements CompressionAlgorithmInterface
+class Snappy implements CompressionAdapterInterface
 {
     /**
      * Class constructor

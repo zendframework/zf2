@@ -12,12 +12,8 @@ namespace Zend\Filter;
 class Dir extends AbstractFilter
 {
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns dirname($value)
-     *
-     * @param  string $value
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {

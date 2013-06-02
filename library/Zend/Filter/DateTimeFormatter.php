@@ -21,35 +21,19 @@ class DateTimeFormatter extends AbstractFilter
     protected $format = DateTime::ISO8601;
 
     /**
-     * Sets filter options
-     *
-     * @param array|Traversable $options
-     */
-    public function __construct($options = null)
-    {
-        if ($options) {
-            $this->setOptions($options);
-        }
-    }
-
-    /**
      * Set the format string accepted by date() to use when formatting a string
      *
      * @param  string $format
-     * @return \Zend\Filter\DateTimeFormatter
+     * @return void
      */
     public function setFormat($format)
     {
         $this->format = $format;
-        return $this;
     }
 
     /**
      * Filter a datetime string by normalizing it to the filters specified format
-     *
-     * @param  string $value
-     * @throws Exception\InvalidArgumentException
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {
@@ -66,8 +50,8 @@ class DateTimeFormatter extends AbstractFilter
     /**
      * Normalize the provided value to a formatted string
      *
-     * @param string|int|DateTime $value
-     * @returns string
+     * @param  string|int|DateTime $value
+     * @return string
      */
     protected function normalizeDateTime($value)
     {

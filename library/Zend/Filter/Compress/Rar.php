@@ -14,7 +14,7 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for Rar
  */
-class Rar extends AbstractCompressionAlgorithm
+class Rar extends AbstractCompressionAdapter
 {
     /**
      * @var Callable

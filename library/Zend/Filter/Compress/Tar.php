@@ -17,7 +17,7 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for Tar
  */
-class Tar extends AbstractCompressionAlgorithm
+class Tar extends AbstractCompressionAdapter
 {
     /**
      * Compression mode constants

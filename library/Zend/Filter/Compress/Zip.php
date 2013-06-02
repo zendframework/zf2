@@ -15,7 +15,7 @@ use ZipArchive;
 /**
  * Compression adapter for zip
  */
-class Zip extends AbstractCompressionAlgorithm
+class Zip extends AbstractCompressionAdapter
 {
     /**
      * @var string

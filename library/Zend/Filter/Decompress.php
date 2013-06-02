@@ -9,34 +9,24 @@
 
 namespace Zend\Filter;
 
+use Zend\Stdlib\AbstractOptions;
+
 /**
  * Decompresses a given string
  */
 class Decompress extends Compress
 {
     /**
-     * Use filter as functor
-     *
      * Decompresses the content $value with the defined settings
-     *
-     * @param  string $value Content to decompress
-     * @return string The decompressed content
-     */
-    public function __invoke($value)
-    {
-        return $this->getAdapter()->decompress($value);
-    }
-
-    /**
-     * Defined by FilterInterface
-     *
-     * Decompresses the content $value with the defined settings
-     *
-     * @param  string $value Content to decompress
-     * @return string The decompressed content
+     * {@inheritDoc}
      */
     public function filter($value)
     {
+        $adapter = $this->getAdapter();
+        if (($adapterOptions = $this->getAdapterOptions()) && $adapter instanceof AbstractOptions) {
+            $adapter->setFromArray($adapterOptions);
+        }
+
         return $this->getAdapter()->decompress($value);
     }
 }
