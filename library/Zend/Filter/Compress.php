@@ -20,6 +20,11 @@ use Zend\Stdlib\AbstractOptions;
 class Compress extends AbstractFilter
 {
     /**
+     * @var CompressionAdapterPluginManager
+     */
+    protected $adapterPluginManager;
+
+    /**
      * Compression adapter
      *
      * @var CompressionAdapterInterface
@@ -42,7 +47,7 @@ class Compress extends AbstractFilter
     }
 
     /**
-     * Set the adapter (if a string, it is pulled from a compression adapter plugin manager
+     * Set the adapter (if a string, it is pulled from a compression adapter plugin manager)
      *
      * @param string|CompressionAdapterInterface $adapter
      * @return void
@@ -70,7 +75,7 @@ class Compress extends AbstractFilter
      * Set adapter options
      *
      * @param  array $options
-     * @return Compress
+     * @return void
      */
     public function setAdapterOptions(array $options)
     {

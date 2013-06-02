@@ -12,12 +12,8 @@ namespace Zend\Filter;
 class Int extends AbstractFilter
 {
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns (int) $value
-     *
-     * @param  string $value
-     * @return int
+     * {@inheritDoc}
      */
     public function filter($value)
     {

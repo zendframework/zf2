@@ -9,67 +9,39 @@
 
 namespace Zend\Filter;
 
-use Traversable;
-
 class StringTrim extends AbstractFilter
 {
     /**
-     * @var array
+     * @var string
      */
-    protected $options = array(
-        'charlist' => null,
-    );
+    protected $charlist;
 
     /**
-     * Sets filter options
+     * Sets the charlist option
      *
-     * @param  string|array|Traversable $charlistOrOptions
+     * @param  string $charlist
+     * @return void
      */
-    public function __construct($charlistOrOptions = null)
+    public function setCharlist($charlist)
     {
-        if ($charlistOrOptions !== null) {
-            if (!is_array($charlistOrOptions)
-                && !$charlistOrOptions  instanceof Traversable)
-            {
-                $this->setCharList($charlistOrOptions);
-            } else {
-                $this->setOptions($charlistOrOptions);
-            }
+        if (!empty($charList)) {
+            $this->charlist = $charlist;
         }
     }
 
     /**
-     * Sets the charList option
-     *
-     * @param  string $charList
-     * @return StringTrim Provides a fluent interface
-     */
-    public function setCharList($charList)
-    {
-        if (empty($charList)) {
-            $charList = null;
-        }
-        $this->options['charlist'] = $charList;
-        return $this;
-    }
-
-    /**
-     * Returns the charList option
+     * Returns the charlist option
      *
      * @return string|null
      */
-    public function getCharList()
+    public function getCharlist()
     {
-        return $this->options['charlist'];
+        return $this->charlist;
     }
 
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns the string $value with characters stripped from the beginning and end
-     *
-     * @param  string $value
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {
@@ -78,22 +50,21 @@ class StringTrim extends AbstractFilter
             return $value;
         }
 
-        if (null === $this->options['charlist']) {
+        if (null === $this->charlist) {
             return $this->unicodeTrim((string) $value);
         }
 
-        return $this->unicodeTrim((string) $value, $this->options['charlist']);
+        return $this->unicodeTrim((string) $value, $this->charlist);
     }
 
     /**
      * Unicode aware trim method
-     * Fixes a PHP problem
      *
-     * @param string $value
-     * @param string $charlist
+     * @param  string $value
+     * @param  string $charlist
      * @return string
      */
-    protected function unicodeTrim($value, $charlist = '\\\\s')
+    private function unicodeTrim($value, $charlist = '\\\\s')
     {
         $chars = preg_replace(
             array('/[\^\-\]\\\]/S', '/\\\{4}/S', '/\//'),

@@ -9,45 +9,16 @@
 
 namespace Zend\Filter;
 
-use Traversable;
-
 class StringToLower extends AbstractUnicode
 {
     /**
-     * @var array
-     */
-    protected $options = array(
-        'encoding' => null,
-    );
-
-    /**
-     * Constructor
-     *
-     * @param string|array|Traversable $encodingOrOptions OPTIONAL
-     */
-    public function __construct($encodingOrOptions = null)
-    {
-        if ($encodingOrOptions !== null) {
-            if (!static::isOptions($encodingOrOptions)) {
-                $this->setEncoding($encodingOrOptions);
-            } else {
-                $this->setOptions($encodingOrOptions);
-            }
-        }
-    }
-
-    /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns the string $value, converting characters to lowercase as necessary
-     *
-     * @param  string $value
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {
-        if ($this->options['encoding'] !== null) {
-            return mb_strtolower((string) $value,  $this->options['encoding']);
+        if (null !== $this->encoding) {
+            return mb_strtolower((string) $value,  $this->encoding);
         }
 
         return strtolower((string) $value);

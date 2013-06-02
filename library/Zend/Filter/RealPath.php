@@ -15,40 +15,19 @@ use Zend\Stdlib\ErrorHandler;
 class RealPath extends AbstractFilter
 {
     /**
-     * @var array $options
+     * @var bool
      */
-    protected $options = array(
-        'exists' => true
-    );
+    protected $exists = true;
 
     /**
-     * Class constructor
+     * Sets if the path has to exist (false when not existing paths can be given)
      *
-     * @param  bool|Traversable $existsOrOptions Options to set
-     */
-    public function __construct($existsOrOptions = true)
-    {
-        if ($existsOrOptions !== null) {
-            if (!static::isOptions($existsOrOptions)) {
-                $this->setExists($existsOrOptions);
-            } else {
-                $this->setOptions($existsOrOptions);
-            }
-        }
-    }
-
-    /**
-     * Sets if the path has to exist
-     * TRUE when the path must exist
-     * FALSE when not existing paths can be given
-     *
-     * @param  bool $flag Path must exist
+     * @param  bool $exists True if path must exist, false otherwise
      * @return RealPath
      */
-    public function setExists($flag = true)
+    public function setExists($exists)
     {
-        $this->options['exists'] = (bool) $flag;
-        return $this;
+        $this->exists = (bool) $exists;
     }
 
     /**
@@ -58,27 +37,25 @@ class RealPath extends AbstractFilter
      */
     public function getExists()
     {
-        return $this->options['exists'];
+        return $this->exists;
     }
 
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns realpath($value)
-     *
-     * @param  string $value
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {
         $path = (string) $value;
-        if ($this->options['exists']) {
+
+        if ($this->exists) {
             return realpath($path);
         }
 
         ErrorHandler::start();
         $realpath = realpath($path);
         ErrorHandler::stop();
+
         if ($realpath) {
             return $realpath;
         }

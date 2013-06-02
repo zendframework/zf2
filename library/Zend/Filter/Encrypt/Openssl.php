@@ -11,6 +11,7 @@ namespace Zend\Filter\Encrypt;
 
 use Traversable;
 use Zend\Filter\Compress;
+use Zend\Filter\Compress\CompressionAdapterPluginManager;
 use Zend\Filter\Decompress;
 use Zend\Filter\Exception;
 use Zend\Stdlib\ArrayUtils;
@@ -18,7 +19,7 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Encryption adapter for openssl
  */
-class Openssl implements EncryptionAlgorithmInterface
+class Openssl extends AbstractEncryptionAdapter
 {
     /**
      * Definitions for encryption
@@ -42,13 +43,6 @@ class Openssl implements EncryptionAlgorithmInterface
     protected $passphrase;
 
     /**
-     * Internal compression
-     *
-     * @var array
-     */
-    protected $compression;
-
-    /**
      * Internal create package
      *
      * @var bool
@@ -65,54 +59,28 @@ class Openssl implements EncryptionAlgorithmInterface
      *   'compression' => compress value with this compression adapter
      *   'package'     => pack envelope keys into encrypted string, simplifies decryption
      *
-     * @param string|array|Traversable $options Options for this adapter
+     * @param CompressionAdapterPluginManager $compressionAdapterPluginManager
+     * @param string|array|Traversable        $options Options for this adapter
      * @throws Exception\ExtensionNotLoadedException
      */
-    public function __construct($options = array())
+    public function __construct(CompressionAdapterPluginManager $compressionAdapterPluginManager, $options = array())
     {
         if (!extension_loaded('openssl')) {
             throw new Exception\ExtensionNotLoadedException('This filter needs the openssl extension');
         }
 
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
-
-        if (!is_array($options)) {
-            $options = array('public' => $options);
-        }
-
-        if (array_key_exists('passphrase', $options)) {
-            $this->setPassphrase($options['passphrase']);
-            unset($options['passphrase']);
-        }
-
-        if (array_key_exists('compression', $options)) {
-            $this->setCompression($options['compression']);
-            unset($options['compress']);
-        }
-
-        if (array_key_exists('package', $options)) {
-            $this->setPackage($options['package']);
-            unset($options['package']);
-        }
-
-        $this->_setKeys($options);
+        parent::__construct($compressionAdapterPluginManager, $options);
     }
 
     /**
      * Sets the encryption keys
      *
-     * @param  string|array $keys Key with type association
-     * @return Openssl
+     * @param  array $keys Key with type association
+     * @return void
      * @throws Exception\InvalidArgumentException
      */
-    protected function _setKeys($keys)
+    public function setKeys(array $keys)
     {
-        if (!is_array($keys)) {
-            throw new Exception\InvalidArgumentException('Invalid options argument provided to filter');
-        }
-
         foreach ($keys as $type => $key) {
             if (is_file($key) and is_readable($key)) {
                 $file = fopen($key, 'r');
@@ -149,26 +117,23 @@ class Openssl implements EncryptionAlgorithmInterface
                     break;
             }
         }
-
-        return $this;
     }
 
     /**
-     * Returns all public keys
+     * Get all the keys
      *
      * @return array
      */
-    public function getPublicKey()
+    public function getKeys()
     {
-        $key = $this->keys['public'];
-        return $key;
+        return $this->keys;
     }
 
     /**
      * Sets public keys
      *
      * @param  string|array $key Public keys
-     * @return \Zend\Filter\Encrypt\Openssl
+     * @return void
      */
     public function setPublicKey($key)
     {
@@ -183,18 +148,17 @@ class Openssl implements EncryptionAlgorithmInterface
             $key = array('public' => $key);
         }
 
-        return $this->_setKeys($key);
+        $this->setKeys($key);
     }
 
     /**
-     * Returns all private keys
+     * Returns all public keys
      *
      * @return array
      */
-    public function getPrivateKey()
+    public function getPublicKey()
     {
-        $key = $this->keys['private'];
-        return $key;
+        return $this->keys['public'];
     }
 
     /**
@@ -202,7 +166,7 @@ class Openssl implements EncryptionAlgorithmInterface
      *
      * @param  string $key Private key
      * @param  string $passphrase
-     * @return Openssl
+     * @return void
      */
     public function setPrivateKey($key, $passphrase = null)
     {
@@ -221,25 +185,24 @@ class Openssl implements EncryptionAlgorithmInterface
             $this->setPassphrase($passphrase);
         }
 
-        return $this->_setKeys($key);
+        $this->setKeys($key);
     }
 
     /**
-     * Returns all envelope keys
+     * Returns all private keys
      *
      * @return array
      */
-    public function getEnvelopeKey()
+    public function getPrivateKey()
     {
-        $key = $this->keys['envelope'];
-        return $key;
+        return $this->keys['private'];
     }
 
     /**
      * Sets envelope keys
      *
      * @param  string|array $key Envelope keys
-     * @return \Zend\Filter\Encrypt\Openssl
+     * @return void
      */
     public function setEnvelopeKey($key)
     {
@@ -254,7 +217,28 @@ class Openssl implements EncryptionAlgorithmInterface
             $key = array('envelope' => $key);
         }
 
-        return $this->_setKeys($key);
+        $this->setKeys($key);
+    }
+
+    /**
+     * Returns all envelope keys
+     *
+     * @return array
+     */
+    public function getEnvelopeKey()
+    {
+        return $this->keys['envelope'];
+    }
+
+    /**
+     * Sets a new passphrase
+     *
+     * @param string $passphrase
+     * @return void
+     */
+    public function setPassphrase($passphrase)
+    {
+        $this->passphrase = $passphrase;
     }
 
     /**
@@ -268,41 +252,14 @@ class Openssl implements EncryptionAlgorithmInterface
     }
 
     /**
-     * Sets a new passphrase
+     * Sets if the envelope keys should be included in the encrypted value
      *
-     * @param string $passphrase
-     * @return Openssl
+     * @param  bool $package
+     * @return void
      */
-    public function setPassphrase($passphrase)
+    public function setPackage($package)
     {
-        $this->passphrase = $passphrase;
-        return $this;
-    }
-
-    /**
-     * Returns the compression
-     *
-     * @return array
-     */
-    public function getCompression()
-    {
-        return $this->compression;
-    }
-
-    /**
-     * Sets a internal compression for values to encrypt
-     *
-     * @param string|array $compression
-     * @return Openssl
-     */
-    public function setCompression($compression)
-    {
-        if (is_string($this->compression)) {
-            $compression = array('adapter' => $compression);
-        }
-
-        $this->compression = $compression;
-        return $this;
+        $this->package = (bool) $package;
     }
 
     /**
@@ -316,24 +273,9 @@ class Openssl implements EncryptionAlgorithmInterface
     }
 
     /**
-     * Sets if the envelope keys should be included in the encrypted value
-     *
-     * @param  bool $package
-     * @return Openssl
-     */
-    public function setPackage($package)
-    {
-        $this->package = (bool) $package;
-        return $this;
-    }
-
-    /**
      * Encrypts $value with the defined settings
      * Note that you also need the "encrypted" keys to be able to decrypt
-     *
-     * @param  string $value Content to encrypt
-     * @return string The encrypted content
-     * @throws Exception\RuntimeException
+     * {@inheritDoc}
      */
     public function encrypt($value)
     {
@@ -361,9 +303,8 @@ class Openssl implements EncryptionAlgorithmInterface
         }
 
         // compress prior to encryption
-        if (!empty($this->compression)) {
-            $compress = new Compress($this->compression);
-            $value    = $compress($value);
+        if (null !== $this->compression) {
+            $value    = $this->compression->compress($value);
         }
 
         $crypt  = openssl_seal($value, $encrypted, $encryptedkeys, $keys);
@@ -391,17 +332,12 @@ class Openssl implements EncryptionAlgorithmInterface
     }
 
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Decrypts $value with the defined settings
-     *
-     * @param  string $value Content to decrypt
-     * @return string The decrypted content
-     * @throws Exception\RuntimeException
+     * {@inheritDoc}
      */
     public function decrypt($value)
     {
-        $decrypted = "";
+        $decrypted = '';
         $envelope  = current($this->getEnvelopeKey());
 
         if (count($this->keys['private']) !== 1) {
@@ -449,18 +385,15 @@ class Openssl implements EncryptionAlgorithmInterface
         }
 
         // decompress after decryption
-        if (!empty($this->compression)) {
-            $decompress = new Decompress($this->compression);
-            $decrypted  = $decompress($decrypted);
+        if (null !== $this->compression) {
+            $decrypted  = $this->compression->decompress($decrypted);
         }
 
         return $decrypted;
     }
 
     /**
-     * Returns the adapter name
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function toString()
     {

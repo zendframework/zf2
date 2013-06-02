@@ -13,42 +13,19 @@ use Traversable;
 
 class PregReplace extends AbstractFilter
 {
-    protected $options = array(
-        'pattern'     => null,
-        'replacement' => '',
-    );
+    /**
+     * @var string
+     */
+    protected $pattern;
 
     /**
-     * Constructor
-     * Supported options are
-     *     'pattern'     => matching pattern
-     *     'replacement' => replace with this
-     *
-     * @param  array|Traversable|string|null $options
+     * @var string
      */
-    public function __construct($options = null)
-    {
-        if ($options instanceof Traversable) {
-            $options = iterator_to_array($options);
-        }
-
-        if (!is_array($options)
-            || (!isset($options['pattern']) && !isset($options['replacement'])))
-        {
-            $args = func_get_args();
-            if (isset($args[0])) {
-                $this->setPattern($args[0]);
-            }
-            if (isset($args[1])) {
-                $this->setReplacement($args[1]);
-            }
-        } else {
-            $this->setOptions($options);
-        }
-    }
+    protected $replacement = '';
 
     /**
      * Set the regex pattern to search for
+     *
      * @see preg_replace()
      *
      * @param  string|array $pattern - same as the first argument of preg_replace
@@ -65,18 +42,13 @@ class PregReplace extends AbstractFilter
             ));
         }
 
-        if (is_array($pattern)) {
-            foreach ($pattern as $p) {
-                $this->validatePattern($p);
-            }
+        $pattern = (array) $pattern;
+
+        foreach ($pattern as $p) {
+            $this->validatePattern($p);
         }
 
-        if (is_string($pattern)) {
-            $this->validatePattern($pattern);
-        }
-
-        $this->options['pattern'] = $pattern;
-        return $this;
+        $this->pattern = $pattern;
     }
 
     /**
@@ -86,15 +58,15 @@ class PregReplace extends AbstractFilter
      */
     public function getPattern()
     {
-        return $this->options['pattern'];
+        return $this->pattern;
     }
 
     /**
      * Set the replacement array/string
-     * @see preg_replace()
      *
+     * @see preg_replace()
      * @param  array|string $replacement - same as the second argument of preg_replace
-     * @return PregReplace
+     * @return void
      * @throws Exception\InvalidArgumentException
      */
     public function setReplacement($replacement)
@@ -106,8 +78,8 @@ class PregReplace extends AbstractFilter
                 (is_object($replacement) ? get_class($replacement) : gettype($replacement))
             ));
         }
-        $this->options['replacement'] = $replacement;
-        return $this;
+
+        $this->replacement = $replacement;
     }
 
     /**
@@ -117,26 +89,23 @@ class PregReplace extends AbstractFilter
      */
     public function getReplacement()
     {
-        return $this->options['replacement'];
+        return $this->replacement;
     }
 
     /**
      * Perform regexp replacement as filter
-     *
-     * @param  mixed $value
-     * @return mixed
-     * @throws Exception\RuntimeException
+     * {@inheritDoc}
      */
     public function filter($value)
     {
-        if ($this->options['pattern'] === null) {
+        if (null === $this->pattern) {
             throw new Exception\RuntimeException(sprintf(
                 'Filter %s does not have a valid pattern set',
                 get_class($this)
             ));
         }
 
-        return preg_replace($this->options['pattern'], $this->options['replacement'], $value);
+        return preg_replace($this->pattern, $this->replacement, $value);
     }
 
     /**
@@ -146,7 +115,7 @@ class PregReplace extends AbstractFilter
      * @return bool
      * @throws Exception\InvalidArgumentException
      */
-    protected function validatePattern($pattern)
+    private function validatePattern($pattern)
     {
         if (!preg_match('/(?<modifier>[imsxeADSUXJu]+)$/', $pattern, $matches)) {
             return true;

@@ -22,73 +22,19 @@ class Null extends AbstractFilter
     const TYPE_ALL          = 63;
 
     /**
-     * @var array
+     * @var int
      */
-    protected $constants = array(
-        self::TYPE_BOOLEAN     => 'boolean',
-        self::TYPE_INTEGER     => 'integer',
-        self::TYPE_EMPTY_ARRAY => 'array',
-        self::TYPE_STRING      => 'string',
-        self::TYPE_ZERO_STRING => 'zero',
-        self::TYPE_FLOAT       => 'float',
-        self::TYPE_ALL         => 'all',
-    );
-
-    /**
-     * @var array
-     */
-    protected $options = array(
-        'type' => self::TYPE_ALL,
-    );
-
-    /**
-     * Constructor
-     *
-     * @param string|array|Traversable $typeOrOptions OPTIONAL
-     */
-    public function __construct($typeOrOptions = null)
-    {
-        if ($typeOrOptions !== null) {
-            if ($typeOrOptions instanceof Traversable) {
-                $typeOrOptions = iterator_to_array($typeOrOptions);
-            }
-
-            if (is_array($typeOrOptions)) {
-                if (isset($typeOrOptions['type'])) {
-                    $this->setOptions($typeOrOptions);
-                } else {
-                    $this->setType($typeOrOptions);
-                }
-            } else {
-                $this->setType($typeOrOptions);
-            }
-        }
-    }
+    protected $type = self::TYPE_ALL;
 
     /**
      * Set boolean types
      *
      * @param  int|array $type
      * @throws Exception\InvalidArgumentException
-     * @return bool
+     * @return void
      */
-    public function setType($type = null)
+    public function setType($type)
     {
-        if (is_array($type)) {
-            $detected = 0;
-            foreach ($type as $value) {
-                if (is_int($value)) {
-                    $detected += $value;
-                } elseif (in_array($value, $this->constants)) {
-                    $detected += array_search($value, $this->constants);
-                }
-            }
-
-            $type = $detected;
-        } elseif (is_string($type) && in_array($type, $this->constants)) {
-            $type = array_search($type, $this->constants);
-        }
-
         if (!is_int($type) || ($type < 0) || ($type > self::TYPE_ALL)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Unknown type value "%s" (%s)',
@@ -97,8 +43,7 @@ class Null extends AbstractFilter
             ));
         }
 
-        $this->options['type'] = $type;
-        return $this;
+        $this->type = $type;
     }
 
     /**
@@ -108,17 +53,13 @@ class Null extends AbstractFilter
      */
     public function getType()
     {
-        return $this->options['type'];
+        return $this->type;
     }
 
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns null representation of $value, if value is empty and matches
      * types that should be considered null.
-     *
-     * @param  string $value
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {

@@ -9,6 +9,8 @@
 
 namespace Zend\Filter;
 
+use Zend\Stdlib\AbstractOptions;
+
 /**
  * Decrypts a given string
  */
@@ -20,6 +22,11 @@ class Decrypt extends Encrypt
      */
     public function filter($value)
     {
+        $adapter = $this->getAdapter();
+        if (($adapterOptions = $this->getAdapterOptions()) && $adapter instanceof AbstractOptions) {
+            $adapter->setFromArray($adapterOptions);
+        }
+
         return $this->adapter->decrypt($value);
     }
 }
