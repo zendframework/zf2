@@ -17,6 +17,8 @@ class CamelCaseToUnderscore extends CamelCaseToSeparator
      */
     public function __construct()
     {
-        parent::__construct('_');
+        parent::__construct(array(
+            'separator' => '_'
+        ));
     }
 }

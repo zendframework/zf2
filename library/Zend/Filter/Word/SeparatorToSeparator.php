@@ -14,31 +14,25 @@ use Zend\Filter\Exception;
 
 class SeparatorToSeparator extends AbstractFilter
 {
-    protected $searchSeparator = null;
-    protected $replacementSeparator = null;
+    /**
+     * @var string
+     */
+    protected $searchSeparator = ' ';
 
     /**
-     * Constructor
-     *
-     * @param  string  $searchSeparator      Separator to search for
-     * @param  string  $replacementSeparator Separator to replace with
+     * @var string
      */
-    public function __construct($searchSeparator = ' ', $replacementSeparator = '-')
-    {
-        $this->setSearchSeparator($searchSeparator);
-        $this->setReplacementSeparator($replacementSeparator);
-    }
+    protected $replacementSeparator = '-';
 
     /**
      * Sets a new seperator to search for
      *
-     * @param  string  $separator  Seperator to search for
-     * @return SeparatorToSeparator
+     * @param  string $separator
+     * @return void
      */
     public function setSearchSeparator($separator)
     {
-        $this->searchSeparator = $separator;
-        return $this;
+        $this->searchSeparator = (string) $separator;
     }
 
     /**
@@ -55,12 +49,11 @@ class SeparatorToSeparator extends AbstractFilter
      * Sets a new separator which replaces the searched one
      *
      * @param  string  $separator  Separator which replaces the searched one
-     * @return SeparatorToSeparator
+     * @return void
      */
     public function setReplacementSeparator($separator)
     {
-        $this->replacementSeparator = $separator;
-        return $this;
+        $this->replacementSeparator = (string) $separator;
     }
 
     /**
@@ -74,19 +67,11 @@ class SeparatorToSeparator extends AbstractFilter
     }
 
     /**
-     * Defined by Zend\Filter\Filter
-     *
      * Returns the string $value, replacing the searched separators with the defined ones
-     *
-     * @param  string $value
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {
-        if ($this->searchSeparator == null) {
-            throw new Exception\RuntimeException('You must provide a search separator for this filter to work.');
-        }
-
         $pattern = '#' . preg_quote($this->searchSeparator, '#') . '#';
         return preg_replace($pattern, $this->replacementSeparator, $value);
     }

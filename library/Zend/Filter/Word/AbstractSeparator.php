@@ -14,31 +14,16 @@ use Zend\Filter\Exception;
 
 abstract class AbstractSeparator extends AbstractFilter
 {
-
-    protected $separator = ' ';
-
     /**
-     * Constructor
-     *
-     * @param  string $separator Space by default
+     * @var string
      */
-    public function __construct($separator = ' ')
-    {
-        if (is_array($separator)) {
-            $temp = ' ';
-            if (isset($separator['separator']) && is_string($separator['separator'])) {
-                $temp = $separator['separator'];
-            }
-            $separator = $temp;
-        }
-        $this->setSeparator($separator);
-    }
+    protected $separator = ' ';
 
     /**
      * Sets a new separator
      *
-     * @param  string  $separator  Separator
-     * @return AbstractSeparator
+     * @param  string            $separator
+     * @return void
      * @throws Exception\InvalidArgumentException
      */
     public function setSeparator($separator)
@@ -46,14 +31,14 @@ abstract class AbstractSeparator extends AbstractFilter
         if (!is_string($separator)) {
             throw new Exception\InvalidArgumentException('"' . $separator . '" is not a valid separator.');
         }
+
         $this->separator = $separator;
-        return $this;
     }
 
     /**
      * Returns the actual set separator
      *
-     * @return  string
+     * @return string
      */
     public function getSeparator()
     {

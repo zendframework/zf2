@@ -17,6 +17,9 @@ class UnderscoreToDash extends SeparatorToSeparator
      */
     public function __construct()
     {
-        parent::__construct('_', '-');
+        parent::__construct(array(
+            'search_separator'      => '_',
+            'replacement_separator' => '-'
+        ));
     }
 }

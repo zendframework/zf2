@@ -12,12 +12,16 @@ namespace Zend\Filter\Word;
 class UnderscoreToSeparator extends SeparatorToSeparator
 {
     /**
-     * Constructor
-     *
-     * @param  string $replacementSeparator Space by default
+     * @param array|\Traversable $options
      */
-    public function __construct($replacementSeparator = ' ')
+    public function __construct(array $options = array())
     {
-        parent::__construct('_', $replacementSeparator);
+        if (!isset($options['replacement_separator'])) {
+            $options['replacement_separator'] = ' ';
+        }
+
+        $options['search_operator'] = '_';
+
+        parent::__construct($options);
     }
 }
