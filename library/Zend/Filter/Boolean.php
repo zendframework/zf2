@@ -27,88 +27,29 @@ class Boolean extends AbstractFilter
     const TYPE_ALL            = 511;
 
     /**
-     * @var array
+     * @var string
      */
-    protected $constants = array(
-        self::TYPE_BOOLEAN       => 'boolean',
-        self::TYPE_INTEGER       => 'integer',
-        self::TYPE_FLOAT         => 'float',
-        self::TYPE_STRING        => 'string',
-        self::TYPE_ZERO_STRING   => 'zero',
-        self::TYPE_EMPTY_ARRAY   => 'array',
-        self::TYPE_NULL          => 'null',
-        self::TYPE_PHP           => 'php',
-        self::TYPE_FALSE_STRING  => 'false',
-        self::TYPE_LOCALIZED     => 'localized',
-        self::TYPE_ALL           => 'all',
-    );
+    protected $type = self::TYPE_PHP;
+
+    /**
+     * @var bool
+     */
+    protected $casting = true;
 
     /**
      * @var array
      */
-    protected $options = array(
-        'type'         => self::TYPE_PHP,
-        'casting'      => true,
-        'translations' => array(),
-    );
+    protected $translations = array();
 
     /**
-     * Constructor
+     * Set boolean types. You can use bit operators to combine multiple types (eg TYPE_PHP | TYPE_LOCALIZED)
      *
-     * @param array|Traversable|int|null  $typeOrOptions
-     * @param bool  $casting
-     * @param array $translations
-     */
-    public function __construct($typeOrOptions = null, $casting = true, $translations = array())
-    {
-        if ($typeOrOptions !== null) {
-            if ($typeOrOptions instanceof Traversable) {
-                $typeOrOptions = ArrayUtils::iteratorToArray($typeOrOptions);
-            }
-
-            if (is_array($typeOrOptions)) {
-                if (isset($typeOrOptions['type'])
-                    || isset($typeOrOptions['casting'])
-                    || isset($typeOrOptions['translations']))
-                {
-                    $this->setOptions($typeOrOptions);
-                } else {
-                    $this->setType($typeOrOptions);
-                    $this->setCasting($casting);
-                    $this->setTranslations($translations);
-                }
-            } else {
-                $this->setType($typeOrOptions);
-                $this->setCasting($casting);
-                $this->setTranslations($translations);
-            }
-        }
-    }
-
-    /**
-     * Set boolean types
-     *
-     * @param  int|array $type
+     * @param  int $type
      * @throws Exception\InvalidArgumentException
-     * @return bool
+     * @return void
      */
-    public function setType($type = null)
+    public function setType($type)
     {
-        if (is_array($type)) {
-            $detected = 0;
-            foreach ($type as $value) {
-                if (is_int($value)) {
-                    $detected += $value;
-                } elseif (in_array($value, $this->constants)) {
-                    $detected += array_search($value, $this->constants);
-                }
-            }
-
-            $type = $detected;
-        } elseif (is_string($type) && in_array($type, $this->constants)) {
-            $type = array_search($type, $this->constants);
-        }
-
         if (!is_int($type) || ($type < 0) || ($type > self::TYPE_ALL)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Unknown type value "%s" (%s)',
@@ -117,8 +58,7 @@ class Boolean extends AbstractFilter
             ));
         }
 
-        $this->options['type'] = $type;
-        return $this;
+        $this->type = $type;
     }
 
     /**
@@ -128,21 +68,19 @@ class Boolean extends AbstractFilter
      */
     public function getType()
     {
-        return $this->options['type'];
+        return $this->type;
     }
 
     /**
      * Set the working mode
      *
-     * @param  bool $flag When true this filter works like cast
-     *                       When false it recognises only true and false
-     *                       and all other values are returned as is
-     * @return bool
+     * @param  bool $casting When true this filter works like cast, when false it recognises only true
+     *                       and false and all other values are returned as is
+     * @return void
      */
-    public function setCasting($flag = true)
+    public function setCasting($casting)
     {
-        $this->options['casting'] = (bool) $flag;
-        return $this;
+        $this->casting = (bool) $casting;
     }
 
     /**
@@ -152,7 +90,7 @@ class Boolean extends AbstractFilter
      */
     public function getCasting()
     {
-        return $this->options['casting'];
+        return $this->casting;
     }
 
     /**
@@ -171,7 +109,7 @@ class Boolean extends AbstractFilter
         }
 
         foreach ($translations as $message => $flag) {
-            $this->options['translations'][$message] = (bool) $flag;
+            $this->translations[$message] = (bool) $flag;
         }
 
         return $this;
@@ -182,16 +120,12 @@ class Boolean extends AbstractFilter
      */
     public function getTranslations()
     {
-        return $this->options['translations'];
+        return $this->translations;
     }
 
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns a boolean representation of $value
-     *
-     * @param  string $value
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {
@@ -202,8 +136,8 @@ class Boolean extends AbstractFilter
         if ($type >= self::TYPE_LOCALIZED) {
             $type -= self::TYPE_LOCALIZED;
             if (is_string($value)) {
-                if (isset($this->options['translations'][$value])) {
-                    return (bool) $this->options['translations'][$value];
+                if (isset($this->translations[$value])) {
+                    return (bool) $this->translations[$value];
                 }
             }
         }

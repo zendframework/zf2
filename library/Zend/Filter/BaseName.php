@@ -12,12 +12,8 @@ namespace Zend\Filter;
 class BaseName extends AbstractFilter
 {
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
-     * Returns basename($value)
-     *
-     * @param  string $value
-     * @return string
+     * Returns the basename of the value
+     * {@inheritDoc}
      */
     public function filter($value)
     {

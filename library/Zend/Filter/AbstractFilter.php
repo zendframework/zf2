@@ -9,68 +9,10 @@
 
 namespace Zend\Filter;
 
-use Traversable;
-use Zend\Stdlib\StringUtils;
+use Zend\Stdlib\AbstractOptions;
 
-abstract class AbstractFilter implements FilterInterface
+abstract class AbstractFilter extends AbstractOptions implements FilterInterface
 {
-    /**
-     * Filter options
-     *
-     * @var array
-     */
-    protected $options = array();
-
-    /**
-     * @return bool
-     * @deprecated Since 2.1.0
-     */
-    public static function hasPcreUnicodeSupport()
-    {
-        return StringUtils::hasPcreUnicodeSupport();
-    }
-
-    /**
-     * @param  array|Traversable $options
-     * @return AbstractFilter
-     * @throws Exception\InvalidArgumentException
-     */
-    public function setOptions($options)
-    {
-        if (!is_array($options) && !$options instanceof Traversable) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '"%s" expects an array or Traversable; received "%s"',
-                __METHOD__,
-                (is_object($options) ? get_class($options) : gettype($options))
-            ));
-        }
-
-        foreach ($options as $key => $value) {
-            $setter = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
-            if (method_exists($this, $setter)) {
-                $this->{$setter}($value);
-            } elseif (array_key_exists($key, $this->options)) {
-                $this->options[$key] = $value;
-            } else {
-                throw new Exception\InvalidArgumentException(sprintf(
-                    'The option "%s" does not have a matching %s setter method or options[%s] array key',
-                    $key, $setter, $key
-                ));
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Retrieve options representing object state
-     *
-     * @return array
-     */
-    public function getOptions()
-    {
-        return $this->options;
-    }
-
     /**
      * Invoke filter as a command
      *
@@ -83,15 +25,5 @@ abstract class AbstractFilter implements FilterInterface
     public function __invoke($value)
     {
         return $this->filter($value);
-    }
-
-    /**
-     *
-     * @param  mixed $options
-     * @return bool
-     */
-    protected static function isOptions($options)
-    {
-        return (is_array($options) || $options instanceof Traversable);
     }
 }
