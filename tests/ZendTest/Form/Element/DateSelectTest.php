@@ -70,4 +70,13 @@ class DateSelectTest extends TestCase
         $element  = new DateSelectElement();
         $element->setValue('hello world');
     }
+
+    public function testConstructAcceptsDayAttributesOptions()
+    {
+        $dayAttributes = array('day_attributes' => array('class', 'someClassName'));
+        $element = new DateSelectElement('dateSelect', $dayAttributes);
+        $dayAttributesFromElement = $element->getDayAttributes();
+        $this->assertEquals('class', $dayAttributesFromElement[0]);
+        $this->assertEquals('someClassName', $dayAttributesFromElement[1]);
+    }
 }
