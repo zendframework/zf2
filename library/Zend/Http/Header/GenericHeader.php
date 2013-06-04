@@ -51,7 +51,7 @@ class GenericHeader implements HeaderInterface
             $this->setFieldName($fieldName);
         }
 
-        if ($fieldValue) {
+        if ($fieldValue !== null && $fieldValue !== false) {
             $this->setFieldValue($fieldValue);
         }
     }
