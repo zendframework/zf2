@@ -34,7 +34,7 @@ abstract class AbstractUnicode extends AbstractFilter
         }
 
         $encoding    = strtolower($encoding);
-        $mbEncodings = array_change_key_case(mb_list_encodings(), CASE_LOWER);
+        $mbEncodings = array_map('strtolower', mb_list_encodings());
         if (!in_array($encoding, $mbEncodings)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Encoding "%s" is not supported by mbstring extension',

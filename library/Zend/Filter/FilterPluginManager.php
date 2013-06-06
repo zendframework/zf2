@@ -96,12 +96,8 @@ class FilterPluginManager extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        if ($plugin instanceof FilterInterface) {
+        if ($plugin instanceof FilterInterface || is_callable($plugin)) {
             // we're okay
-            return;
-        }
-        if (is_callable($plugin)) {
-            // also okay
             return;
         }
 
