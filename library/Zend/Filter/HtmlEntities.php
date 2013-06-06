@@ -112,9 +112,9 @@ class HtmlEntities extends AbstractFilter
                 throw new Exception\DomainException('Encoding mismatch has resulted in htmlentities errors');
             }
 
-            $enc      = $this->getEncoding();
+            // Ignored characters that cannot be represented in the target encoding
             $value    = iconv('', $this->encoding . '//IGNORE', (string) $value);
-            $filtered = htmlentities($value, $this->quoteStyle, $enc, $this->doubleQuote);
+            $filtered = htmlentities($value, $this->quoteStyle, $this->encoding, $this->doubleQuote);
 
             if (!strlen($filtered)) {
                 throw new Exception\DomainException('Encoding mismatch has resulted in htmlentities errors');
