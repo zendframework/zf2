@@ -17,6 +17,24 @@ abstract class AbstractUnicode extends AbstractFilter
     protected $encoding;
 
     /**
+     * Class constructor
+     *
+     * @param  array|null $options
+     * @throws Exception\ExtensionNotLoadedException
+     */
+    public function __construct($options = null)
+    {
+        if (!extension_loaded('mbstring')) {
+            throw new Exception\ExtensionNotLoadedException(sprintf(
+                'This filter ("%s") needs the mbstring extension',
+                get_class($this)
+            ));
+        }
+
+        parent::__construct($options);
+    }
+
+    /**
      * Set the input encoding for the given string
      *
      * @param  string $encoding
@@ -26,13 +44,6 @@ abstract class AbstractUnicode extends AbstractFilter
      */
     public function setEncoding($encoding)
     {
-        if (!function_exists('mb_strtolower')) {
-            throw new Exception\ExtensionNotLoadedException(sprintf(
-                '%s requires mbstring extension to be loaded',
-                get_class($this)
-            ));
-        }
-
         $encoding    = strtolower($encoding);
         $mbEncodings = array_map('strtolower', mb_list_encodings());
         if (!in_array($encoding, $mbEncodings)) {
