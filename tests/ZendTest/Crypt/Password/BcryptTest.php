@@ -155,4 +155,26 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('$2a$', substr($password, 0, 4));
         $this->assertEquals(substr($password, 4), substr($this->bcryptPassword, 4));
     }
+
+    public function testBackwardCompatibilityVerify()
+    {
+        $this->bcrypt->setSalt($this->salt);
+        $hash = str_replace ('$2a$', '$2y$', $this->bcryptPassword);
+        $this->bcrypt->setBackwardCompatibility(true);
+        if (version_compare(PHP_VERSION, '5.3.7', '<')) {
+            $this->setExpectedException('PHPUnit_Framework_Error');
+        }
+        $this->assertTrue($this->bcrypt->verify($this->password, $hash));
+    }
+
+    public function testBackwardCompatibiltyVerifyFail()
+    {
+        $this->bcrypt->setSalt($this->salt);
+        $hash = str_replace ('$2a$', '$2y$', $this->bcryptPassword);
+        if (version_compare(PHP_VERSION, '5.3.7', '<')) {
+            $this->setExpectedException('Zend\Crypt\Password\Exception\RuntimeException');
+        }
+        $this->assertTrue($this->bcrypt->verify($this->password, $hash));
+    }
+
 }
