@@ -78,7 +78,7 @@ final class Version
         if (null === static::$latestVersion) {
             static::$latestVersion = 'not available';
             if ($service == self::VERSION_SERVICE_GITHUB) {
-                $url  = 'https://api.github.com/repos/zendframework/zf2/git/refs/tags/release-';
+                $url = 'https://api.github.com/repos/zendframework/zf2/git/refs/tags/release-';
 
                 $apiResponse = Json::decode(file_get_contents($url), Json::TYPE_ARRAY);
 
@@ -92,10 +92,12 @@ final class Version
                     return version_compare($a, $b, '>') ? $a : $b;
                 });
             } elseif ($service == self::VERSION_SERVICE_ZEND) {
-                $handle = fopen('http://framework.zend.com/api/zf-version?v=2', 'r');
-                if (false !== $handle) {
-                    static::$latestVersion = stream_get_contents($handle);
-                    fclose($handle);
+                $url = 'http://framework.zend.com/api/zf-version?v=2';
+
+                $apiResponse = file_get_contents($url);
+
+                if (false !== $apiResponse) {
+                    static::$latestVersion = $apiResponse;
                 }
             }
         }
