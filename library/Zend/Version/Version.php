@@ -92,10 +92,12 @@ final class Version
                     return version_compare($a, $b, '>') ? $a : $b;
                 });
             } elseif ($service == self::VERSION_SERVICE_ZEND) {
-                $handle = fopen('http://framework.zend.com/api/zf-version?v=2', 'r');
-                if (false !== $handle) {
-                    static::$latestVersion = stream_get_contents($handle);
-                    fclose($handle);
+                $url = 'http://framework.zend.com/api/zf-version?v=2';
+
+                $apiResponse = file_get_contents($url);
+
+                if (false !== $apiResponse) {
+                    static::$latestVersion = $apiResponse;
                 }
             }
         }
