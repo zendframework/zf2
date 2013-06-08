@@ -78,7 +78,7 @@ final class Version
         if (null === static::$latestVersion) {
             static::$latestVersion = 'not available';
             if ($service == self::VERSION_SERVICE_GITHUB) {
-                $url  = 'https://api.github.com/repos/zendframework/zf2/git/refs/tags/release-';
+                $url = 'https://api.github.com/repos/zendframework/zf2/git/refs/tags/release-';
 
                 $apiResponse = Json::decode(file_get_contents($url), Json::TYPE_ARRAY);
 
