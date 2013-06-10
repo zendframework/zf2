@@ -112,7 +112,21 @@ class Bcrypt implements PasswordInterface
      */
     public function verify($password, $hash)
     {
-        return ($hash === crypt($password, $hash));
+        if ($hash === crypt($password, $hash)) {
+            return true;
+        }
+        if (substr($hash, 0, 3) === '$2y' && version_compare(PHP_VERSION, '5.3.7', '<')) {
+            if (!$this->backwardCompatibility) {
+                throw new Exception\RuntimeException(
+                    'I cannot verify an hash generated with PHP 5.3.7+ using PHP ' . PHP_VERSION .
+                    '. Please, upgrade to PHP 5.3.7 or above'
+                );                
+            }
+            $hash = str_replace('$2y$', '$2a$', $hash);                                                                              
+            trigger_error("Please upgrade to PHP 5.3.7+ to be sure to use a secure version of crypt()", E_USER_WARNING);
+            return ($hash === crypt($password, $hash)); 
+        }
+        return false;   
     }
 
     /**
