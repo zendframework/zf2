@@ -15,6 +15,7 @@ use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\ModuleRouteListener;
 
 class Forward extends AbstractPlugin
 {
@@ -113,6 +114,16 @@ class Forward extends AbstractPlugin
     public function dispatch($name, array $params = null)
     {
         $event   = clone($this->getEvent());
+
+        if (is_array($params) && isset($params[ModuleRouteListener::MODULE_NAMESPACE])) {
+            $module = $params[ModuleRouteListener::MODULE_NAMESPACE];
+            if (strpos($name, $module) !== 0) {
+                if (!isset($params[ModuleRouteListener::ORIGINAL_CONTROLLER])) {
+                    $params[ModuleRouteListener::ORIGINAL_CONTROLLER] = $name;
+                }
+                $name = $module . '\\' . str_replace(' ', '', ucwords(str_replace('-', ' ', $name)));
+            }
+        }
 
         $controller = $this->controllers->get($name);
         if ($controller instanceof InjectApplicationEventInterface) {
