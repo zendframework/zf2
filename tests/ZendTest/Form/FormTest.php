@@ -1542,4 +1542,28 @@ class FormTest extends TestCase
         $rootForm->prepare();
         $this->assertEquals('form[element]', $element->getName());
     }
+
+    public function testPopulateValuesDoesNotPopulateSubmitElement()
+    {
+        $this->form->add(array(
+            'name' => 'submit',
+            'type' => 'Submit',
+            'options' => array(
+                'value' => 'Click me',
+            ),
+        ));
+
+        $expected = $this->form->get('submit')->getValue();
+
+        $this->form->populateValues(array(
+            'submit' => 'Go away',
+        ));
+
+        $actual = $this->form->get('submit')->getValue();
+
+        $this->assertSame(
+            $actual,
+            $expected
+        );
+    }
 }

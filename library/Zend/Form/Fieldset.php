@@ -10,6 +10,7 @@
 namespace Zend\Form;
 
 use Traversable;
+use Zend\Form\Element\Submit;
 use Zend\Stdlib\Hydrator;
 use Zend\Stdlib\Hydrator\HydratorAwareInterface;
 use Zend\Stdlib\Hydrator\HydratorInterface;
@@ -399,6 +400,10 @@ class Fieldset extends Element implements FieldsetInterface
 
             if ($element instanceof FieldsetInterface && is_array($value)) {
                 $element->populateValues($value);
+                continue;
+            }
+
+            if ($element instanceof Submit) {
                 continue;
             }
 
