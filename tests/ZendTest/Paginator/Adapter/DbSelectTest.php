@@ -64,7 +64,9 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
         $this->mockResult->expects($this->any())->method('current')->will($this->returnValue(array('c' => 5)));
 
         $this->mockSelect->expects($this->exactly(6))->method('reset'); // called for columns, limit, offset, order
-        $this->mockSelect->expects($this->once())->method('getRawState')->with($this->equalTo(Select::JOINS))
+        $this->mockSelect->expects($this->at(4))->method('getRawState')->with($this->equalTo(Select::GROUP))
+            ->will($this->returnValue(NULL));
+        $this->mockSelect->expects($this->at(6))->method('getRawState')->with($this->equalTo(Select::JOINS))
             ->will($this->returnValue(array(array('name' => 'Foo', 'on' => 'On Stuff', 'columns' => array('foo', 'bar'), 'type' => Select::JOIN_INNER))));
         $this->mockSelect->expects($this->once())->method('join')->with(
             'Foo',

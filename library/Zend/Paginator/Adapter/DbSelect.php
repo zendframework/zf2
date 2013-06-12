@@ -107,16 +107,27 @@ class DbSelect implements AdapterInterface
         $select->reset(Select::LIMIT);
         $select->reset(Select::OFFSET);
         $select->reset(Select::ORDER);
-        $select->reset(Select::GROUP);
 
+        //get join info, clear, and use for DISTINCT count
+        $groups = $select->getRawState(Select::GROUP);
+        $select->reset(Select::GROUP);
+        $expr = '1';
+        if ($groups) {
+            $platform = $this->sql->getAdapter()->getPlatform();
+            array_walk($groups, function(&$group) use ($platform) {
+                $group =  $platform->quoteIdentifierInFragment($group);
+            });
+            $expr = 'DISTINCT ' . implode(', ', $groups);
+        }
+        
         // get join information, clear, and repopulate without columns
         $joins = $select->getRawState(Select::JOINS);
         $select->reset(Select::JOINS);
         foreach ($joins as $join) {
             $select->join($join['name'], $join['on'], array(), $join['type']);
         }
-
-        $select->columns(array('c' => new Expression('COUNT(1)')));
+        
+        $select->columns(array('c' => new Expression(sprintf('COUNT(%s)', $expr))));
 
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result    = $statement->execute();
