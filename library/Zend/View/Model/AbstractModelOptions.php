@@ -35,7 +35,7 @@ abstract class AbstractModelOptions extends AbstractOptions
      *
      * @var bool
      */
-    protected $has_parent = false;
+    protected $hasParent = false;
 
     /**
      * Template to use when rendering model
@@ -106,7 +106,7 @@ abstract class AbstractModelOptions extends AbstractOptions
      */
     public function setHasParent($flag)
     {
-        $this->has_parent = (bool) $flag;
+        $this->hasParent = (bool) $flag;
 
         return $this;
     }
@@ -118,7 +118,7 @@ abstract class AbstractModelOptions extends AbstractOptions
      */
     public function getHasParent()
     {
-        return $this->has_parent;
+        return $this->hasParent;
     }
 
     /**
